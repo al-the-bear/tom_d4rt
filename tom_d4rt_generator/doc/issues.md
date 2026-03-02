@@ -11,7 +11,9 @@
 | ID | Description | Component | Status |
 |----|-------------|-----------|--------|
 | [GEN-078](#gen-078) | Barrel-file resolution fails without package_config.json | Testing/API | **FIXED** |
-| [GEN-079](#gen-079) | Generator emits non-existent `isAssignable` constructor param | Generator | **FIXED** |
+| [GEN-079](#gen-079) | Generator removed `isAssignable` (only missing in tom_d4rt, present in tom_d4rt_ast) | Generator | **REVERTED** |
+| [GEN-080](#gen-080) | `bridge_api.dart` missing `skipReExports` / `followAllReExports` / `followReExports` | API | **OPEN** |
+| [GEN-081](#gen-081) | `isAssignable` missing from `tom_d4rt` BridgedClass (present in `tom_d4rt_ast`) | Runtime | **OPEN** |
 | [G-DOV-8](#g-dov-8) | Sealed class switch statement pattern variable scoping | Interpreter | **OPEN** |
 | [G-FLP-54](#g-flp-54) | Function setter loses required named params in cast | Generator | **OPEN** |
 | [G-FLP-55](#g-flp-55) | Inherited `@protected` members not skipped from bridges | Generator | **OPEN** |
@@ -61,27 +63,81 @@ Added auto `dart pub get` in two locations:
 
 ### GEN-079
 
-**Generator emits non-existent `isAssignable` constructor parameter**
+**Generator removed `isAssignable` — only missing in `tom_d4rt`, present in `tom_d4rt_ast`**
 
-**Status:** FIXED (2026-03-02)
+**Status:** REVERTED (2026-03-02)
 
 **a) Problem:**
 
-The bridge generator emitted `isAssignable: (v) => v is $prefixedName,` in every `_create<ClassName>Bridge()` function, but `BridgedClass` has no `isAssignable` named parameter. This caused AOT compilation failure:
+The `isAssignable` parameter was removed from bridge code generation under the assumption that `BridgedClass` doesn't support it. However, `BridgedClass` in `tom_d4rt_ast` (used by `tom_d4rt_exec` and `tom_d4rt_flutterm`) DOES have `isAssignable`. Only `tom_d4rt` (pub.dev) lacks it.
 
-```
-Error: No named parameter with the name 'isAssignable'.
-```
+The removal caused 17 test failures in `tom_d4rt_flutterm`'s essential_classes_test because the D4rt interpreter can no longer resolve native subtype hierarchies at runtime. For example, when `Curves.linear` returns a private `_Linear` instance, the runtime needs `isAssignable: (v) => v is Curve` to find the `Curve` bridge.
 
 **b) Root Cause:**
 
-The `isAssignable` parameter was added to bridge codegen but never implemented in the `BridgedClass` constructor in `tom_d4rt`. The error was previously hidden by GEN-078 — the barrel-file failure prevented these modules from being generated and compiled.
+The generator test suite uses `tom_d4rt` (pub.dev) which has no `isAssignable` parameter on `BridgedClass`. But `tom_d4rt_flutterm` uses `tom_d4rt_exec` → `tom_d4rt_ast` (path dep) which DOES have `isAssignable`. The fix was applied globally when it should only have affected `tom_d4rt`-based projects.
 
 **c) Resolution:**
 
-Removed the `isAssignable` emission from `bridge_generator.dart`. The intended supertype lookup behavior (e.g., `Curves.linear` returns `_Linear` which should use the `Curve` bridge) is already handled by `BridgedClass.nativeNames` and `Environment.toBridgedClass()` prefix matching.
+1. Re-add `isAssignable` emission to `bridge_generator.dart`
+2. Add `isAssignable` to `tom_d4rt`'s `BridgedClass` (port from `tom_d4rt_ast`) so generator tests also work
+3. Publish updated `tom_d4rt`
 
-**Why needed:** Without this fix, any bridge generated for external packages fails AOT compilation.
+**Why needed:** Without `isAssignable`, the interpreter cannot find bridges for private native subclasses returned by bridged APIs. This breaks widget creation, animation curves, and any API that returns internal implementation types.
+
+---
+
+### GEN-080
+
+**`bridge_api.dart` missing `skipReExports` / `followAllReExports` / `followReExports` params**
+
+**Status:** OPEN
+
+**a) Problem:**
+
+The `generateBridges()` API in `bridge_api.dart` does not forward `skipReExports`, `followAllReExports`, or `followReExports` from the `ModuleConfig` to the `BridgeGenerator.generateBridgesFromExports()` call. The CLI executor (`d4rtgen_executor.dart`) correctly forwards all three parameters.
+
+This means any caller using the public API (including `tool/regenerate_bridges.dart` scripts) ignores the `skipReExports` YAML config. The generator defaults to `followAllReExports: true` with no skip list, then relies on `skipClassSources` (GEN-076 dedup) to prevent duplicates across modules.
+
+**b) Root Cause:**
+
+The three parameters were simply omitted from the `generateBridgesFromExports()` call in `bridge_api.dart` (line ~174). The executor in `d4rtgen_executor.dart` (line ~161) correctly includes them. The GEN-028 fix documented in the CHANGELOG only fixed the CLI path, not the API path.
+
+**c) Resolution:**
+
+Add the three missing parameters to the API call in `bridge_api.dart`:
+```dart
+followAllReExports: module.followAllReExports,
+skipReExports: module.skipReExports,
+followReExports: module.followReExports,
+```
+
+**Why needed:** Without this fix, the API path produces different module distributions than the CLI path. While `skipClassSources` dedup ensures no duplicate classes globally (verified: both paths produce exactly 2197 unique bridged classes), the module layout differs significantly:
+- cupertino: 84 (API) vs 803 (CLI) bridged classes
+- material_widgets: 396 (API) vs 1122 (CLI)
+This doesn't directly cause runtime failures (registration is global), but it diverges from the intended layered architecture.
+
+---
+
+### GEN-081
+
+**`isAssignable` missing from `tom_d4rt` BridgedClass (present in `tom_d4rt_ast`)**
+
+**Status:** OPEN
+
+**a) Problem:**
+
+The `BridgedClass` in `tom_d4rt` (pub.dev) does not have the `isAssignable` parameter, while `tom_d4rt_ast` does. This creates an inconsistency: bridges generated for `tom_d4rt`-based projects cannot use `isAssignable`, but `tom_d4rt_ast`-based projects (like `tom_d4rt_flutterm` via `tom_d4rt_exec`) need it.
+
+**b) Root Cause:**
+
+`isAssignable` was added to `tom_d4rt_ast`'s `BridgedClass` as part of GEN-075 but was never ported back to `tom_d4rt`'s `BridgedClass`. The two packages evolved separately.
+
+**c) Resolution:**
+
+Port `isAssignable` field and usage from `tom_d4rt_ast/lib/src/runtime/bridge/bridged_types.dart` to `tom_d4rt/lib/src/bridge/bridged_types.dart`. Then publish `tom_d4rt`.
+
+**Why needed:** Generator tests use `tom_d4rt`. Without `isAssignable` support, the generator must either skip emitting it (breaking `tom_d4rt_ast` users) or conditionally emit it (adding complexity). Syncing the two packages resolves the inconsistency.
 
 ---
 
@@ -219,17 +275,12 @@ When filtering members, check not just the member's own annotations but also the
 
 **Why needed:** Same reasoning as G-FLP-55. Many Flutter widgets override `@protected` lifecycle methods (`build()`, `createElement()`, `createState()`). These overrides should not appear in bridges since D4rt scripts never call them directly.
 
----
-
-## Skipped Issues (Known Limitations)
-
-These tests are intentionally skipped with documented reasons. They represent known limitations of the current generator that would require significant feature work to resolve.
 
 ### G-FBI-04
 
 **Setter unwrapping for BridgedInstance types**
 
-**Status:** SKIP — "Setter unwrapping may not be implemented"
+**Status:** FAIL — "Setter unwrapping may not be implemented"
 
 **a) Problem:**
 
@@ -251,7 +302,7 @@ Generator needs to emit `D4.extractBridgedArg<T>(value, 'fieldName', 'setter')` 
 
 **Map with custom key types needs special handling**
 
-**Status:** SKIP — "Map with custom key types may need special handling"
+**Status:** FAIL — "Map with custom key types may need special handling"
 
 **a) Problem:**
 
@@ -273,7 +324,7 @@ Extend `D4.coerceMap` to unwrap BridgedInstance keys, similar to how `D4.coerceL
 
 **`hashCode` from Object not bridged by default**
 
-**Status:** SKIP — "hashCode from Object may not be bridged by default"
+**Status:** FAIL — "hashCode from Object may not be bridged by default"
 
 **a) Problem:**
 
@@ -285,8 +336,7 @@ The generator doesn't bridge members inherited from `Object` (`hashCode`, `toStr
 
 **c) Resolution:**
 
-Option A: Auto-generate `hashCode`/`toString()`/`==` getters for all bridged classes by delegating to `nativeInstance.hashCode` etc.
-Option B: Handle Object members at the runtime level — when `.hashCode` is accessed on any `BridgedInstance`, delegate to the native object automatically.
+Handle Object members at the runtime level — when `.hashCode` is accessed on any `BridgedInstance`, delegate to the native object automatically.
 
 **Why needed:** `hashCode` is used for collections (Set, Map keys), identity checks, and debugging. Without it, any bridged object used as a Map key or in a Set silently fails.
 
@@ -296,7 +346,7 @@ Option B: Handle Object members at the runtime level — when `.hashCode` is acc
 
 **`runtimeType` getter from Object not bridged**
 
-**Status:** SKIP — "runtimeType from Object may not be bridged by default"
+**Status:** FAIL — "runtimeType from Object may not be bridged by default"
 
 **a) Problem:**
 
@@ -308,7 +358,7 @@ Option B: Handle Object members at the runtime level — when `.hashCode` is acc
 
 **c) Resolution:**
 
-Same as G-FBI-21 — handle at runtime level or generate for all classes.
+Same as G-FBI-21 — handle at runtime level
 
 **Why needed:** Pattern matching, type checking, and debugging output all rely on `runtimeType`. D4rt scripts using `print(obj.runtimeType)` for diagnostics fail silently.
 
@@ -318,7 +368,7 @@ Same as G-FBI-21 — handle at runtime level or generate for all classes.
 
 **Abstract classes with private constructors not bridged**
 
-**Status:** SKIP — "Abstract classes with private constructors may not be bridged"
+**Status:** FAIL — "Abstract classes with private constructors may not be bridged"
 
 **a) Problem:**
 
@@ -332,6 +382,8 @@ The generator skips classes that are abstract AND have no public constructors, s
 
 Detect abstract classes that have static members/getters and generate a bridge with only the static members (no constructors, no instance methods).
 
+Actually the filtering of abstract interfaces (all class/interface) must simply be removed. Objects can be accessed through these interfaces, so there must be bridges for ALL classes and interfaces! Only private classes/interfaces/member etc must be skipped.
+
 **Why needed:** Flutter's `Curves`, `Colors`, `Icons` are all abstract with private constructors. They're the primary API for accessing predefined constants. Without bridging, `Curves.easeIn`, `Colors.blue`, `Icons.home` are all inaccessible from D4rt.
 
 ---
@@ -340,13 +392,15 @@ Detect abstract classes that have static members/getters and generate a bridge w
 
 **Static const on abstract private-ctor classes not bridged**
 
-**Status:** SKIP — "Static const on abstract classes may not be bridged"
+**Status:** FAIL — "Static const on abstract classes may not be bridged"
 
 **a) Problem:**
 
 `Curves.linear` static const is not accessible because the `Curves` class itself is not bridged (see G-FBI-32).
 
 **b) Root Cause / Resolution:** Depends on G-FBI-32.
+
+Actually the filtering of abstract interfaces (all class/interface) must simply be removed. Objects can be accessed through these interfaces, so there must be bridges for ALL classes and interfaces! Only private classes/interfaces/member etc must be skipped.
 
 **Why needed:** Same as G-FBI-32. Direct access to predefined curves for animation.
 
@@ -356,13 +410,15 @@ Detect abstract classes that have static members/getters and generate a bridge w
 
 **Static methods on abstract private-ctor classes not bridged**
 
-**Status:** SKIP — "Static methods on abstract classes may not be bridged"
+**Status:** FAIL — "Static methods on abstract classes may not be bridged"
 
 **a) Problem:**
 
 `Curves.byName(String name)` static method is not accessible.
 
 **b) Root Cause / Resolution:** Depends on G-FBI-32.
+
+Actually the filtering of abstract interfaces (all class/interface) must simply be removed. Objects can be accessed through these interfaces, so there must be bridges for ALL classes and interfaces! Only private classes/interfaces/member etc must be skipped.
 
 **Why needed:** Dynamic curve lookup by name is used in theme-driven animations.
 
@@ -372,7 +428,7 @@ Detect abstract classes that have static members/getters and generate a bridge w
 
 **Abstract interface classes not bridged**
 
-**Status:** SKIP — "Abstract interface classes may not be bridged"
+**Status:** FAIL — "Abstract interface classes may not be bridged"
 
 **a) Problem:**
 
@@ -384,7 +440,9 @@ Abstract interface classes have no concrete implementation and can't be instanti
 
 **c) Resolution:**
 
-Generate "marker" bridges for interface classes that include only the type registration (RuntimeType with name) and static members, enabling `is TickerProvider` checks and parameter type matching.
+Generate "marker" bridges for interface classes that include only the type registration (RuntimeType with name) and static members, enabling `is TickerProvider` checks and parameter type matching
+
+Actually the filtering of abstract interfaces (all class/interface) must simply be removed. Objects can be accessed through these interfaces, so there must be bridges for ALL classes and interfaces! Only private classes/interfaces/member etc must be skipped.
 
 **Why needed:** `TickerProvider`, `WidgetBuilder`, `RouteFactory` — Flutter uses interfaces extensively as parameter types. Without bridging, type checks fail and the interpreter can't validate parameter types.
 
@@ -394,13 +452,15 @@ Generate "marker" bridges for interface classes that include only the type regis
 
 **Abstract classes with only static members (Curves pattern)**
 
-**Status:** SKIP — "Abstract classes with only static members may not be bridged currently"
+**Status:** FAIL — "Abstract classes with only static members may not be bridged currently"
 
 **a) Problem:**
 
 Same as G-FBI-32 but from the num_conversion_test perspective. Abstract classes that serve as static-member namespaces aren't generated.
 
 **b) Root Cause / Resolution:** Same as G-FBI-32.
+
+Actually the filtering of abstract interfaces (all class/interface) must simply be removed. Objects can be accessed through these interfaces, so there must be bridges for ALL classes and interfaces! Only private classes/interfaces/member etc must be skipped.
 
 **Why needed:** Same as G-FBI-32.
 
@@ -410,13 +470,15 @@ Same as G-FBI-32 but from the num_conversion_test perspective. Abstract classes 
 
 **Static const members on abstract-only classes**
 
-**Status:** SKIP — "Static const members on abstract classes may not be bridged"
+**Status:** FAIL — "Static const members on abstract classes may not be bridged"
 
 **a) Problem:**
 
 Same as G-FBI-33. `Curves.linear` not accessible because `Curves` not bridged.
 
 **b) Root Cause / Resolution:** Depends on G-FBI-32/G-NUM-11.
+
+Actually the filtering of abstract interfaces (all class/interface) must simply be removed. Objects can be accessed through these interfaces, so there must be bridges for ALL classes and interfaces! Only private classes/interfaces/member etc must be skipped.
 
 **Why needed:** Same as G-FBI-33.
 
@@ -426,7 +488,7 @@ Same as G-FBI-33. `Curves.linear` not accessible because `Curves` not bridged.
 
 **Generic `Tween<T>` class not bridged**
 
-**Status:** SKIP — "Generic classes may not be bridged currently"
+**Status:** FAIL — "Generic classes may not be bridged currently"
 
 **a) Problem:**
 
@@ -440,6 +502,8 @@ Bridging generic classes requires: (1) type parameter registration in the Runtim
 
 Implement generic bridge generation: emit bridges for concrete specializations found in the API surface and/or generate a parameterized bridge that uses `D4.registerGenericConstructor()` to dispatch based on type arguments.
 
+This might need a change to the runtime to register the bridge for the right generic types as needed.
+
 **Why needed:** `Tween`, `Animation`, `AnimationController` — the entire Flutter animation system is generic. Without generic bridges, D4rt scripts can't create or interact with animations beyond pre-specialized subclasses like `IntTween` and `DoubleTween`.
 
 ---
@@ -448,7 +512,7 @@ Implement generic bridge generation: emit bridges for concrete specializations f
 
 **Generic `ValueNotifier<T>` not bridged**
 
-**Status:** SKIP — "Generic class ValueNotifier<T> may not be bridged"
+**Status:** FAIL — "Generic class ValueNotifier<T> may not be bridged"
 
 **a) Problem:**
 
@@ -464,7 +528,7 @@ Same category as G-NUM-15. `ValueNotifier<T>` is a fundamental reactive primitiv
 
 **`hasListeners` getter inaccessible (depends on ValueNotifier bridging)**
 
-**Status:** SKIP — "If ValueNotifier is not bridged, hasListeners won't be either"
+**Status:** FAIL — "If ValueNotifier is not bridged, hasListeners won't be either"
 
 **a) Problem:**
 
@@ -480,7 +544,7 @@ Same category as G-NUM-15. `ValueNotifier<T>` is a fundamental reactive primitiv
 
 **`D4.extractBridgedArg` int to double? promotion fails for nullable types**
 
-**Status:** SKIP — "Runtime bug in D4.extractBridgedArg - needs fix in d4.dart"
+**Status:** FAIL — "Runtime bug in D4.extractBridgedArg - needs fix in d4.dart"
 
 **a) Problem:**
 
@@ -516,10 +580,12 @@ if ((T == double || null is T && unwrapped is int)) {
 
 | Category | Count | Status |
 |----------|-------|--------|
-| Fixed this session | 2 | GEN-078, GEN-079 |
+| Fixed this session | 1 | GEN-078 |
+| Reverted | 1 | GEN-079 (isAssignable removal was incorrect) |
+| New bugs found | 2 | GEN-080 (API skipReExports), GEN-081 (tom_d4rt sync) |
 | Open failures | 4 | G-DOV-8, G-FLP-54, G-FLP-55, G-FLP-57 |
 | Known limitations (skipped) | 14 | See above |
-| **Total** | **20** | |
+| **Total** | **22** | |
 
 **Current test status (2026-03-02):**
 - Generator tests: **507 passed, 14 skipped, 4 failed** (was 479/14/5)

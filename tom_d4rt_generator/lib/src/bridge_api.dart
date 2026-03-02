@@ -177,6 +177,12 @@ Future<GenerationResult> generateBridges({
         excludeFunctions: module.excludeFunctions,
         excludeVariables: module.excludeVariables,
         excludeSourcePatterns: module.excludeSourcePatterns,
+        // GEN-080: Forward re-export filtering params from config (matching executor)
+        followAllReExports: module.followAllReExports,
+        skipReExports:
+            module.skipReExports.isNotEmpty ? module.skipReExports : null,
+        followReExports:
+            module.followReExports.isNotEmpty ? module.followReExports : null,
         importShowClause: module.importShowClause,
         importHideClause: module.importHideClause,
         // GEN-076: Pass already-generated class sources for cross-module dedup

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Source: /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_generator/example/d4/lib/test_callback_types.dart
-// Generated: 2026-03-02T09:38:57.134564
+// Generated: 2026-03-02T11:11:08.307159
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -135,6 +135,7 @@ BridgedClass _createGenericCallbackServiceBridge() {
   return BridgedClass(
     nativeType: $d4_example_1.GenericCallbackService,
     name: 'GenericCallbackService',
+    isAssignable: (v) => v is $d4_example_1.GenericCallbackService,
     constructors: {
       '': (visitor, positional, named) {
         return $d4_example_1.GenericCallbackService();
@@ -188,6 +189,7 @@ BridgedClass _createCallbackTypeServiceBridge() {
   return BridgedClass(
     nativeType: $d4_example_1.CallbackTypeService,
     name: 'CallbackTypeService',
+    isAssignable: (v) => v is $d4_example_1.CallbackTypeService,
     constructors: {
       '': (visitor, positional, named) {
         return $d4_example_1.CallbackTypeService();

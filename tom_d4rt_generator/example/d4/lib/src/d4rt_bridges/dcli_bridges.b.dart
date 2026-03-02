@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
-// Sources: 73 files
-// Generated: 2026-03-02T09:38:55.960743
+// Sources: 72 files
+// Generated: 2026-03-02T11:11:07.219851
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -97,7 +97,6 @@ class DcliBridge {
   /// Returns all bridge class definitions.
   static List<BridgedClass> bridgeClasses() {
     return [
-      _createDigestBridge(),
       _createRestoreFileExceptionBridge(),
       _createBackupFileExceptionBridge(),
       _createCatExceptionBridge(),
@@ -173,7 +172,6 @@ class DcliBridge {
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> classSourceUris() {
     return {
-      'Digest': 'package:crypto/src/digest.dart',
       'RestoreFileException': 'package:dcli_core/src/functions/backup.dart',
       'BackupFileException': 'package:dcli_core/src/functions/backup.dart',
       'CatException': 'package:dcli_core/src/functions/cat.dart',
@@ -309,16 +307,6 @@ class DcliBridge {
         },
       ),
       BridgedExtensionDefinition(
-        name: 'DigestHelper',
-        onTypeName: 'Digest',
-        methods: {
-          'hexEncode': (visitor, target, positional, named, typeArgs) {
-            final t = target as $crypto_1.Digest;
-            return Function.apply(t.hexEncode, positional, named.map((k, v) => MapEntry(Symbol(k), v)));
-          },
-        },
-      ),
-      BridgedExtensionDefinition(
         name: 'StringAsProcess',
         onTypeName: 'String',
         getters: {
@@ -389,7 +377,6 @@ class DcliBridge {
   static Map<String, String> extensionSourceUris() {
     return {
       'PlatformEx': 'package:dcli_core/src/util/platform.dart',
-      'DigestHelper': 'package:dcli/src/util/digest_helper.dart',
       'StringAsProcess': 'package:dcli/src/util/string_as_process.dart',
     };
   }
@@ -1214,7 +1201,6 @@ class DcliBridge {
   /// multiple barrels.
   static List<String> sourceLibraries() {
     return [
-      'package:crypto/src/digest.dart',
       'package:dcli/src/functions/ask.dart',
       'package:dcli/src/functions/backup.dart',
       'package:dcli/src/functions/confirm.dart',
@@ -1294,7 +1280,6 @@ class DcliBridge {
   static String getImportBlock() {
     final imports = StringBuffer();
     imports.writeln("import 'package:dcli/dcli.dart';");
-    imports.writeln("import 'package:crypto/crypto.dart';");
     imports.writeln("import 'package:dcli_core/dcli_core.dart';");
     imports.writeln("import 'package:dcli_terminal/dcli_terminal.dart';");
     return imports.toString();
@@ -1308,7 +1293,6 @@ class DcliBridge {
   /// so that module resolution finds content for those URIs.
   static List<String> subPackageBarrels() {
     return [
-      'package:crypto/crypto.dart',
       'package:dcli_core/dcli_core.dart',
       'package:dcli_terminal/dcli_terminal.dart',
     ];
@@ -1327,52 +1311,6 @@ class DcliBridge {
 }
 
 // =============================================================================
-// Digest Bridge
-// =============================================================================
-
-BridgedClass _createDigestBridge() {
-  return BridgedClass(
-    nativeType: $crypto_1.Digest,
-    name: 'Digest',
-    constructors: {
-      '': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'Digest');
-        if (positional.isEmpty) {
-          throw ArgumentError('Digest: Missing required argument "bytes" at position 0');
-        }
-        final bytes = D4.coerceList<int>(positional[0], 'bytes');
-        return $crypto_1.Digest(bytes);
-      },
-    },
-    getters: {
-      'bytes': (visitor, target) => D4.validateTarget<$crypto_1.Digest>(target, 'Digest').bytes,
-      'hashCode': (visitor, target) => D4.validateTarget<$crypto_1.Digest>(target, 'Digest').hashCode,
-    },
-    methods: {
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$crypto_1.Digest>(target, 'Digest');
-        return t.toString();
-      },
-      '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$crypto_1.Digest>(target, 'Digest');
-        final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
-        return t == other;
-      },
-    },
-    constructorSignatures: {
-      '': 'Digest(List<int> bytes)',
-    },
-    methodSignatures: {
-      'toString': 'String toString()',
-    },
-    getterSignatures: {
-      'bytes': 'List<int> get bytes',
-      'hashCode': 'int get hashCode',
-    },
-  );
-}
-
-// =============================================================================
 // RestoreFileException Bridge
 // =============================================================================
 
@@ -1380,6 +1318,7 @@ BridgedClass _createRestoreFileExceptionBridge() {
   return BridgedClass(
     nativeType: $dcli_core_1.RestoreFileException,
     name: 'RestoreFileException',
+    isAssignable: (v) => v is $dcli_core_1.RestoreFileException,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'RestoreFileException');
@@ -1443,6 +1382,7 @@ BridgedClass _createBackupFileExceptionBridge() {
   return BridgedClass(
     nativeType: $dcli_core_1.BackupFileException,
     name: 'BackupFileException',
+    isAssignable: (v) => v is $dcli_core_1.BackupFileException,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'BackupFileException');
@@ -1506,6 +1446,7 @@ BridgedClass _createCatExceptionBridge() {
   return BridgedClass(
     nativeType: $dcli_core_2.CatException,
     name: 'CatException',
+    isAssignable: (v) => v is $dcli_core_2.CatException,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'CatException');
@@ -1570,6 +1511,7 @@ BridgedClass _createCopyExceptionBridge() {
   return BridgedClass(
     nativeType: $dcli_core_3.CopyException,
     name: 'CopyException',
+    isAssignable: (v) => v is $dcli_core_3.CopyException,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'CopyException');
@@ -1633,6 +1575,7 @@ BridgedClass _createCreateDirExceptionBridge() {
   return BridgedClass(
     nativeType: $dcli_core_5.CreateDirException,
     name: 'CreateDirException',
+    isAssignable: (v) => v is $dcli_core_5.CreateDirException,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'CreateDirException');
@@ -1696,6 +1639,7 @@ BridgedClass _createDCliFunctionBridge() {
   return BridgedClass(
     nativeType: $dcli_core_6.DCliFunction,
     name: 'DCliFunction',
+    isAssignable: (v) => v is $dcli_core_6.DCliFunction,
     constructors: {
       '': (visitor, positional, named) {
         return $dcli_core_6.DCliFunction();
@@ -1715,6 +1659,7 @@ BridgedClass _createDCliFunctionExceptionBridge() {
   return BridgedClass(
     nativeType: $dcli_core_6.DCliFunctionException,
     name: 'DCliFunctionException',
+    isAssignable: (v) => v is $dcli_core_6.DCliFunctionException,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'DCliFunctionException');
@@ -1779,6 +1724,7 @@ BridgedClass _createDeleteExceptionBridge() {
   return BridgedClass(
     nativeType: $dcli_core_7.DeleteException,
     name: 'DeleteException',
+    isAssignable: (v) => v is $dcli_core_7.DeleteException,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'DeleteException');
@@ -1842,6 +1788,7 @@ BridgedClass _createDeleteDirExceptionBridge() {
   return BridgedClass(
     nativeType: $dcli_core_8.DeleteDirException,
     name: 'DeleteDirException',
+    isAssignable: (v) => v is $dcli_core_8.DeleteDirException,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'DeleteDirException');
@@ -1905,6 +1852,7 @@ BridgedClass _createEnvBridge() {
   return BridgedClass(
     nativeType: $dcli_core_9.Env,
     name: 'Env',
+    isAssignable: (v) => v is $dcli_core_9.Env,
     constructors: {
       '': (visitor, positional, named) {
         return $dcli_core_9.Env();
@@ -2044,6 +1992,7 @@ BridgedClass _createFindBridge() {
   return BridgedClass(
     nativeType: $dcli_core_10.Find,
     name: 'Find',
+    isAssignable: (v) => v is $dcli_core_10.Find,
     constructors: {
       '': (visitor, positional, named) {
         return $dcli_core_10.Find();
@@ -2073,6 +2022,7 @@ BridgedClass _createFindItemBridge() {
   return BridgedClass(
     nativeType: $dcli_core_10.FindItem,
     name: 'FindItem',
+    isAssignable: (v) => v is $dcli_core_10.FindItem,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'FindItem');
@@ -2122,6 +2072,7 @@ BridgedClass _createMoveExceptionBridge() {
   return BridgedClass(
     nativeType: $dcli_core_12.MoveException,
     name: 'MoveException',
+    isAssignable: (v) => v is $dcli_core_12.MoveException,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'MoveException');
@@ -2185,6 +2136,7 @@ BridgedClass _createMoveDirExceptionBridge() {
   return BridgedClass(
     nativeType: $dcli_core_13.MoveDirException,
     name: 'MoveDirException',
+    isAssignable: (v) => v is $dcli_core_13.MoveDirException,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'MoveDirException');
@@ -2248,6 +2200,7 @@ BridgedClass _createMoveTreeExceptionBridge() {
   return BridgedClass(
     nativeType: $dcli_core_14.MoveTreeException,
     name: 'MoveTreeException',
+    isAssignable: (v) => v is $dcli_core_14.MoveTreeException,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'MoveTreeException');
@@ -2311,6 +2264,7 @@ BridgedClass _createDCliExceptionBridge() {
   return BridgedClass(
     nativeType: $dcli_core_19.DCliException,
     name: 'DCliException',
+    isAssignable: (v) => v is $dcli_core_19.DCliException,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'DCliException');
@@ -2394,6 +2348,7 @@ BridgedClass _createRunExceptionBridge() {
   return BridgedClass(
     nativeType: $dcli_core_24.RunException,
     name: 'RunException',
+    isAssignable: (v) => v is $dcli_core_24.RunException,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'RunException');
@@ -2520,6 +2475,7 @@ BridgedClass _createStackListBridge() {
   return BridgedClass(
     nativeType: $dcli_core_25.StackList,
     name: 'StackList',
+    isAssignable: (v) => v is $dcli_core_25.StackList,
     constructors: {
       '': (visitor, positional, named) {
         return $dcli_core_25.StackList();
@@ -2581,6 +2537,7 @@ BridgedClass _createAnsiBridge() {
   return BridgedClass(
     nativeType: $dcli_terminal_1.Ansi,
     name: 'Ansi',
+    isAssignable: (v) => v is $dcli_terminal_1.Ansi,
     constructors: {
       '': (visitor, positional, named) {
         return $dcli_terminal_1.Ansi();
@@ -2627,6 +2584,7 @@ BridgedClass _createAnsiColorBridge() {
   return BridgedClass(
     nativeType: $dcli_terminal_2.AnsiColor,
     name: 'AnsiColor',
+    isAssignable: (v) => v is $dcli_terminal_2.AnsiColor,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'AnsiColor');
@@ -2735,6 +2693,7 @@ BridgedClass _createFormatBridge() {
   return BridgedClass(
     nativeType: $dcli_terminal_3.Format,
     name: 'Format',
+    isAssignable: (v) => v is $dcli_terminal_3.Format,
     constructors: {
       '': (visitor, positional, named) {
         return $dcli_terminal_3.Format();
@@ -2795,6 +2754,7 @@ BridgedClass _createTerminalBridge() {
   return BridgedClass(
     nativeType: $dcli_terminal_4.Terminal,
     name: 'Terminal',
+    isAssignable: (v) => v is $dcli_terminal_4.Terminal,
     constructors: {
       '': (visitor, positional, named) {
         return $dcli_terminal_4.Terminal();
@@ -2936,6 +2896,7 @@ BridgedClass _createAskBridge() {
   return BridgedClass(
     nativeType: $dcli_1.Ask,
     name: 'Ask',
+    isAssignable: (v) => v is $dcli_1.Ask,
     constructors: {
       '': (visitor, positional, named) {
         return $dcli_1.Ask();
@@ -3062,6 +3023,7 @@ BridgedClass _createAskValidatorExceptionBridge() {
   return BridgedClass(
     nativeType: $dcli_1.AskValidatorException,
     name: 'AskValidatorException',
+    isAssignable: (v) => v is $dcli_1.AskValidatorException,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'AskValidatorException');
@@ -3125,6 +3087,7 @@ BridgedClass _createAskValidatorBridge() {
   return BridgedClass(
     nativeType: $dcli_1.AskValidator,
     name: 'AskValidator',
+    isAssignable: (v) => v is $dcli_1.AskValidator,
     constructors: {
     },
   );
@@ -3138,6 +3101,7 @@ BridgedClass _createAskValidatorIPAddressBridge() {
   return BridgedClass(
     nativeType: $dcli_1.AskValidatorIPAddress,
     name: 'AskValidatorIPAddress',
+    isAssignable: (v) => v is $dcli_1.AskValidatorIPAddress,
     constructors: {
       '': (visitor, positional, named) {
         if (!named.containsKey('version')) {
@@ -3180,6 +3144,7 @@ BridgedClass _createConfirmBridge() {
   return BridgedClass(
     nativeType: $dcli_3.Confirm,
     name: 'Confirm',
+    isAssignable: (v) => v is $dcli_3.Confirm,
     constructors: {
       '': (visitor, positional, named) {
         return $dcli_3.Confirm();
@@ -3210,6 +3175,7 @@ BridgedClass _createFetchDataBridge() {
   return BridgedClass(
     nativeType: $dcli_6.FetchData,
     name: 'FetchData',
+    isAssignable: (v) => v is $dcli_6.FetchData,
     constructors: {
       'fromString': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FetchData');
@@ -3262,6 +3228,7 @@ BridgedClass _createFetchUrlBridge() {
   return BridgedClass(
     nativeType: $dcli_6.FetchUrl,
     name: 'FetchUrl',
+    isAssignable: (v) => v is $dcli_6.FetchUrl,
     constructors: {
       '': (visitor, positional, named) {
         final url = D4.getRequiredNamedArg<String>(named, 'url', 'FetchUrl');
@@ -3320,6 +3287,7 @@ BridgedClass _createFetchProgressBridge() {
   return BridgedClass(
     nativeType: $dcli_6.FetchProgress,
     name: 'FetchProgress',
+    isAssignable: (v) => v is $dcli_6.FetchProgress,
     constructors: {
     },
     getters: {
@@ -3387,6 +3355,7 @@ BridgedClass _createFetchExceptionBridge() {
   return BridgedClass(
     nativeType: $dcli_6.FetchException,
     name: 'FetchException',
+    isAssignable: (v) => v is $dcli_6.FetchException,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FetchException');
@@ -3468,6 +3437,7 @@ BridgedClass _createReadExceptionBridge() {
   return BridgedClass(
     nativeType: $dcli_12.ReadException,
     name: 'ReadException',
+    isAssignable: (v) => v is $dcli_12.ReadException,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ReadException');
@@ -3532,6 +3502,7 @@ BridgedClass _createProgressBridge() {
   return BridgedClass(
     nativeType: $dcli_18.Progress,
     name: 'Progress',
+    isAssignable: (v) => v is $dcli_18.Progress,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Progress');
@@ -3701,6 +3672,7 @@ BridgedClass _createPackedResourceBridge() {
   return BridgedClass(
     nativeType: $dcli_19.PackedResource,
     name: 'PackedResource',
+    isAssignable: (v) => v is $dcli_19.PackedResource,
     constructors: {
     },
     getters: {
@@ -3736,6 +3708,7 @@ BridgedClass _createResourcesBridge() {
   return BridgedClass(
     nativeType: $dcli_20.Resources,
     name: 'Resources',
+    isAssignable: (v) => v is $dcli_20.Resources,
     constructors: {
       '': (visitor, positional, named) {
         return $dcli_20.Resources();
@@ -3805,6 +3778,7 @@ BridgedClass _createResourceExceptionBridge() {
   return BridgedClass(
     nativeType: $dcli_20.ResourceException,
     name: 'ResourceException',
+    isAssignable: (v) => v is $dcli_20.ResourceException,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ResourceException');
@@ -3868,6 +3842,7 @@ BridgedClass _createDartProjectBridge() {
   return BridgedClass(
     nativeType: $dcli_21.DartProject,
     name: 'DartProject',
+    isAssignable: (v) => v is $dcli_21.DartProject,
     constructors: {
       'create': (visitor, positional, named) {
         final pathTo = D4.getRequiredNamedArg<String>(named, 'pathTo', 'DartProject');
@@ -3989,6 +3964,7 @@ BridgedClass _createDartProjectExceptionBridge() {
   return BridgedClass(
     nativeType: $dcli_21.DartProjectException,
     name: 'DartProjectException',
+    isAssignable: (v) => v is $dcli_21.DartProjectException,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'DartProjectException');
@@ -4052,6 +4028,7 @@ BridgedClass _createTemplateNotFoundExceptionBridge() {
   return BridgedClass(
     nativeType: $dcli_21.TemplateNotFoundException,
     name: 'TemplateNotFoundException',
+    isAssignable: (v) => v is $dcli_21.TemplateNotFoundException,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'TemplateNotFoundException');
@@ -4115,6 +4092,7 @@ BridgedClass _createInvalidProjectTemplateExceptionBridge() {
   return BridgedClass(
     nativeType: $dcli_21.InvalidProjectTemplateException,
     name: 'InvalidProjectTemplateException',
+    isAssignable: (v) => v is $dcli_21.InvalidProjectTemplateException,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'InvalidProjectTemplateException');
@@ -4178,6 +4156,7 @@ BridgedClass _createDartScriptBridge() {
   return BridgedClass(
     nativeType: $dcli_22.DartScript,
     name: 'DartScript',
+    isAssignable: (v) => v is $dcli_22.DartScript,
     constructors: {
       'createScript': (visitor, positional, named) {
         final project = D4.getRequiredNamedArg<$dcli_21.DartProject>(named, 'project', 'DartScript');
@@ -4306,6 +4285,7 @@ BridgedClass _createDartSdkBridge() {
   return BridgedClass(
     nativeType: $dcli_23.DartSdk,
     name: 'DartSdk',
+    isAssignable: (v) => v is $dcli_23.DartSdk,
     constructors: {
       '': (visitor, positional, named) {
         return $dcli_23.DartSdk();
@@ -4498,6 +4478,7 @@ BridgedClass _createSettingsBridge() {
   return BridgedClass(
     nativeType: $dcli_24.Settings,
     name: 'Settings',
+    isAssignable: (v) => v is $dcli_24.Settings,
     constructors: {
       '': (visitor, positional, named) {
         return $dcli_24.Settings();
@@ -4610,6 +4591,7 @@ BridgedClass _createShellBridge() {
   return BridgedClass(
     nativeType: $dcli_25.Shell,
     name: 'Shell',
+    isAssignable: (v) => v is $dcli_25.Shell,
     constructors: {
     },
     getters: {
@@ -4761,6 +4743,7 @@ BridgedClass _createShellExceptionBridge() {
   return BridgedClass(
     nativeType: $dcli_25.ShellException,
     name: 'ShellException',
+    isAssignable: (v) => v is $dcli_25.ShellException,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ShellException');
@@ -4824,6 +4807,7 @@ BridgedClass _createShellDetectionBridge() {
   return BridgedClass(
     nativeType: $dcli_26.ShellDetection,
     name: 'ShellDetection',
+    isAssignable: (v) => v is $dcli_26.ShellDetection,
     constructors: {
       '': (visitor, positional, named) {
         return $dcli_26.ShellDetection();
@@ -4852,6 +4836,7 @@ BridgedClass _createUnknownShellBridge() {
   return BridgedClass(
     nativeType: $dcli_27.UnknownShell,
     name: 'UnknownShell',
+    isAssignable: (v) => v is $dcli_27.UnknownShell,
     constructors: {
       'withPid': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'UnknownShell');
@@ -5029,6 +5014,7 @@ BridgedClass _createDCliPathsBridge() {
   return BridgedClass(
     nativeType: $dcli_29.DCliPaths,
     name: 'DCliPaths',
+    isAssignable: (v) => v is $dcli_29.DCliPaths,
     constructors: {
       '': (visitor, positional, named) {
         return $dcli_29.DCliPaths();
@@ -5073,6 +5059,7 @@ BridgedClass _createInvalidArgumentExceptionBridge() {
   return BridgedClass(
     nativeType: $dcli_32.InvalidArgumentException,
     name: 'InvalidArgumentException',
+    isAssignable: (v) => v is $dcli_32.InvalidArgumentException,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'InvalidArgumentException');
@@ -5136,6 +5123,7 @@ BridgedClass _createInvalidTemplateExceptionBridge() {
   return BridgedClass(
     nativeType: $dcli_32.InvalidTemplateException,
     name: 'InvalidTemplateException',
+    isAssignable: (v) => v is $dcli_32.InvalidTemplateException,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'InvalidTemplateException');
@@ -5199,6 +5187,7 @@ BridgedClass _createInstallExceptionBridge() {
   return BridgedClass(
     nativeType: $dcli_32.InstallException,
     name: 'InstallException',
+    isAssignable: (v) => v is $dcli_32.InstallException,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'InstallException');
@@ -5262,6 +5251,7 @@ BridgedClass _createProcessSyncExceptionBridge() {
   return BridgedClass(
     nativeType: $dcli_32.ProcessSyncException,
     name: 'ProcessSyncException',
+    isAssignable: (v) => v is $dcli_32.ProcessSyncException,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ProcessSyncException');
@@ -5325,6 +5315,7 @@ BridgedClass _createFileSortBridge() {
   return BridgedClass(
     nativeType: $dcli_33.FileSort,
     name: 'FileSort',
+    isAssignable: (v) => v is $dcli_33.FileSort,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 5, 'FileSort');
@@ -5383,6 +5374,7 @@ BridgedClass _createColumnBridge() {
   return BridgedClass(
     nativeType: $dcli_33.Column,
     name: 'Column',
+    isAssignable: (v) => v is $dcli_33.Column,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'Column');
@@ -5435,6 +5427,7 @@ BridgedClass _createFileSyncBridge() {
   return BridgedClass(
     nativeType: $dcli_34.FileSync,
     name: 'FileSync',
+    isAssignable: (v) => v is $dcli_34.FileSync,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FileSync');
@@ -5561,6 +5554,7 @@ BridgedClass _createFileNotFoundExceptionBridge() {
   return BridgedClass(
     nativeType: $dcli_35.FileNotFoundException,
     name: 'FileNotFoundException',
+    isAssignable: (v) => v is $dcli_35.FileNotFoundException,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FileNotFoundException');
@@ -5624,6 +5618,7 @@ BridgedClass _createNotAFileExceptionBridge() {
   return BridgedClass(
     nativeType: $dcli_35.NotAFileException,
     name: 'NotAFileException',
+    isAssignable: (v) => v is $dcli_35.NotAFileException,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'NotAFileException');
@@ -5687,6 +5682,7 @@ BridgedClass _createNamedLockBridge() {
   return BridgedClass(
     nativeType: $dcli_36.NamedLock,
     name: 'NamedLock',
+    isAssignable: (v) => v is $dcli_36.NamedLock,
     constructors: {
       '': (visitor, positional, named) {
         final name = D4.getRequiredNamedArg<String>(named, 'name', 'NamedLock');
@@ -5748,6 +5744,7 @@ BridgedClass _createLockExceptionBridge() {
   return BridgedClass(
     nativeType: $dcli_36.LockException,
     name: 'LockException',
+    isAssignable: (v) => v is $dcli_36.LockException,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'LockException');
@@ -5811,6 +5808,7 @@ BridgedClass _createProcessDetailsBridge() {
   return BridgedClass(
     nativeType: $dcli_37.ProcessDetails,
     name: 'ProcessDetails',
+    isAssignable: (v) => v is $dcli_37.ProcessDetails,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'ProcessDetails');
@@ -5871,6 +5869,7 @@ BridgedClass _createPubCacheBridge() {
   return BridgedClass(
     nativeType: $dcli_38.PubCache,
     name: 'PubCache',
+    isAssignable: (v) => v is $dcli_38.PubCache,
     constructors: {
       '': (visitor, positional, named) {
         return $dcli_38.PubCache();
@@ -6012,6 +6011,7 @@ BridgedClass _createRemoteBridge() {
   return BridgedClass(
     nativeType: $dcli_39.Remote,
     name: 'Remote',
+    isAssignable: (v) => v is $dcli_39.Remote,
     constructors: {
       '': (visitor, positional, named) {
         return $dcli_39.Remote();
@@ -6103,6 +6103,7 @@ BridgedClass _createFindProgressBridge() {
   return BridgedClass(
     nativeType: $dcli_8.FindProgress,
     name: 'FindProgress',
+    isAssignable: (v) => v is $dcli_8.FindProgress,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FindProgress');
@@ -6192,6 +6193,7 @@ BridgedClass _createHeadProgressBridge() {
   return BridgedClass(
     nativeType: $dcli_9.HeadProgress,
     name: 'HeadProgress',
+    isAssignable: (v) => v is $dcli_9.HeadProgress,
     constructors: {
     },
     methods: {
@@ -6225,6 +6227,7 @@ BridgedClass _createTailProgressBridge() {
   return BridgedClass(
     nativeType: $dcli_16.TailProgress,
     name: 'TailProgress',
+    isAssignable: (v) => v is $dcli_16.TailProgress,
     constructors: {
     },
     getters: {
@@ -6276,6 +6279,7 @@ BridgedClass _createWhichBridge() {
   return BridgedClass(
     nativeType: $dcli_core_17.Which,
     name: 'Which',
+    isAssignable: (v) => v is $dcli_core_17.Which,
     constructors: {
       '': (visitor, positional, named) {
         return $dcli_core_17.Which();

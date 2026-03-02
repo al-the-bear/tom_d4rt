@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 2 files
-// Generated: 2026-03-02T09:38:27.047375
+// Generated: 2026-03-02T11:10:39.477577
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -145,6 +145,7 @@ BridgedClass _createUserBridge() {
   return BridgedClass(
     nativeType: $d4_example_1.User,
     name: 'User',
+    isAssignable: (v) => v is $d4_example_1.User,
     constructors: {
       '': (visitor, positional, named) {
         final id = D4.getRequiredNamedArg<int>(named, 'id', 'User');
@@ -210,6 +211,7 @@ BridgedClass _createProductBridge() {
   return BridgedClass(
     nativeType: $d4_example_1.Product,
     name: 'Product',
+    isAssignable: (v) => v is $d4_example_1.Product,
     constructors: {
       '': (visitor, positional, named) {
         final sku = D4.getRequiredNamedArg<String>(named, 'sku', 'Product');
@@ -276,6 +278,7 @@ BridgedClass _createOrderBridge() {
   return BridgedClass(
     nativeType: $d4_example_1.Order,
     name: 'Order',
+    isAssignable: (v) => v is $d4_example_1.Order,
     constructors: {
       '': (visitor, positional, named) {
         final orderId = D4.getRequiredNamedArg<String>(named, 'orderId', 'Order');
@@ -334,6 +337,7 @@ BridgedClass _createUserServiceBridge() {
   return BridgedClass(
     nativeType: $d4_example_2.UserService,
     name: 'UserService',
+    isAssignable: (v) => v is $d4_example_2.UserService,
     constructors: {
       '': (visitor, positional, named) {
         return $d4_example_2.UserService();
@@ -402,6 +406,7 @@ BridgedClass _createProductServiceBridge() {
   return BridgedClass(
     nativeType: $d4_example_2.ProductService,
     name: 'ProductService',
+    isAssignable: (v) => v is $d4_example_2.ProductService,
     constructors: {
       '': (visitor, positional, named) {
         return $d4_example_2.ProductService();
@@ -463,6 +468,7 @@ BridgedClass _createEventEmitterBridge() {
   return BridgedClass(
     nativeType: $d4_example_2.EventEmitter,
     name: 'EventEmitter',
+    isAssignable: (v) => v is $d4_example_2.EventEmitter,
     constructors: {
       '': (visitor, positional, named) {
         return $d4_example_2.EventEmitter();

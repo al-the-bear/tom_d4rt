@@ -7325,6 +7325,9 @@ class BridgeGenerator {
     buffer.writeln('  return BridgedClass(');
     buffer.writeln('    nativeType: $prefixedName,');
     buffer.writeln("    name: '${cls.name}',");
+    // GEN-079 reverted: isAssignable enables supertype bridge lookup for private subclasses
+    // e.g., Curves.linear returns _Linear which should use Curve bridge
+    buffer.writeln('    isAssignable: (v) => v is $prefixedName,');
 
     // Use nativeNames from UserBridge if available
     if (userBridge != null && userBridge.hasNativeNames) {

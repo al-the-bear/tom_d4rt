@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 6 files
-// Generated: 2026-03-02T09:38:43.101990
+// Generated: 2026-03-02T11:10:55.229767
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -400,6 +400,7 @@ BridgedClass _createContextBridge() {
   return BridgedClass(
     nativeType: $path_2.Context,
     name: 'Context',
+    isAssignable: (v) => v is $path_2.Context,
     constructors: {
       '': (visitor, positional, named) {
         final style = D4.getOptionalNamedArg<$path_7.Style?>(named, 'style');
@@ -633,6 +634,7 @@ BridgedClass _createPathExceptionBridge() {
   return BridgedClass(
     nativeType: $path_4.PathException,
     name: 'PathException',
+    isAssignable: (v) => v is $path_4.PathException,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'PathException');
@@ -676,6 +678,7 @@ BridgedClass _createPathMapBridge() {
   return BridgedClass(
     nativeType: $path_5.PathMap,
     name: 'PathMap',
+    isAssignable: (v) => v is $path_5.PathMap,
     constructors: {
       '': (visitor, positional, named) {
         final context = D4.getOptionalNamedArg<$path_2.Context?>(named, 'context');
@@ -863,6 +866,7 @@ BridgedClass _createPathSetBridge() {
   return BridgedClass(
     nativeType: $path_6.PathSet,
     name: 'PathSet',
+    isAssignable: (v) => v is $path_6.PathSet,
     constructors: {
       '': (visitor, positional, named) {
         final context = D4.getOptionalNamedArg<$path_2.Context?>(named, 'context');
@@ -1233,6 +1237,7 @@ BridgedClass _createStyleBridge() {
   return BridgedClass(
     nativeType: $path_7.Style,
     name: 'Style',
+    isAssignable: (v) => v is $path_7.Style,
     constructors: {
     },
     getters: {

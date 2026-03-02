@@ -66,6 +66,30 @@ class BridgedClass implements RuntimeType {
   /// The function can be null if subtype checking is not supported or not needed
   /// for this particular runtime type.
   final bool Function(BridgedClass other, {Object? value})? isSubtypeOfFunc;
+
+  /// A function that determines if a native value can be assigned to this bridged type.
+  ///
+  /// This is used when bridging native values back to the interpreter. When a native
+  /// method returns an instance of a private subclass (e.g., `_Linear extends Curve`),
+  /// the bridge lookup by exact type will fail. This function allows the runtime to
+  /// find an appropriate supertype bridge by checking `isAssignable(nativeValue)`.
+  ///
+  /// Example for Curve bridge:
+  /// ```dart
+  /// BridgedClass(
+  ///   nativeType: Curve,
+  ///   isAssignable: (v) => v is Curve,
+  ///   ...
+  /// )
+  /// ```
+  ///
+  /// When `Curves.linear` returns a `_Linear` instance, the runtime will:
+  /// 1. Try exact type lookup for `_Linear` - fails (not registered)
+  /// 2. Iterate through registered bridges, checking `isAssignable`
+  /// 3. Find the `Curve` bridge where `_Linear() is Curve` returns true
+  /// 4. Wrap the `_Linear` instance using the `Curve` bridge
+  final bool Function(Object?)? isAssignable;
+
   // Number of expected type parameters
   final int typeParameterCount;
 
@@ -98,6 +122,7 @@ class BridgedClass implements RuntimeType {
       this.nativeNames,
       this.typeParameterCount = 0,
       this.canBeUsedAsMixin = false,
+      this.isAssignable,
       this.constructors = const {},
       this.staticMethods = const {},
       this.staticGetters = const {},
@@ -130,7 +155,30 @@ class BridgedClass implements RuntimeType {
         return isSubtype;
       }
 
-      return nativeType == other.nativeType;
+      if (nativeType == other.nativeType) return true;
+
+      // Common Dart type hierarchy relationships
+      // Object is a supertype of everything
+      if (other.name == 'Object') return true;
+      // List, Set implement Iterable
+      if (other.name == 'Iterable' && (name == 'List' || name == 'Set')) {
+        return true;
+      }
+      // int, double are subtypes of num
+      if (other.name == 'num' && (name == 'int' || name == 'double')) {
+        return true;
+      }
+
+      // GEN-075: Check native type hierarchy via isAssignable
+      // When the value's native object satisfies the target class's isAssignable,
+      // the native type IS a subtype (e.g., Row is a subtype of Widget).
+      if (value != null && other.isAssignable != null) {
+        final nativeValue =
+            value is BridgedInstance ? value.nativeObject : value;
+        if (other.isAssignable!(nativeValue)) return true;
+      }
+
+      return false;
     }
 
     return false;
