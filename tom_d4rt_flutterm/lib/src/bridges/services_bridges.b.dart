@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
-// Sources: 50 files
-// Generated: 2026-03-01T17:07:58.049434
+// Sources: 51 files
+// Generated: 2026-03-02T10:24:11.373665
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -79,13 +79,11 @@ class FlutterServicesBridge {
       _createPlatformAssetBundleBridge(),
       _createAssetManifestBridge(),
       _createAssetMetadataBridge(),
-      _createMatrix4Bridge(),
       _createAutofillHintsBridge(),
       _createAutofillConfigurationBridge(),
       _createAutofillClientBridge(),
       _createAutofillScopeBridge(),
       _createAutofillScopeMixinBridge(),
-      _createTextSelectionBridge(),
       _createTextInputTypeBridge(),
       _createTextInputConfigurationBridge(),
       _createRawFloatingCursorPointBridge(),
@@ -216,13 +214,11 @@ class FlutterServicesBridge {
       'PlatformAssetBundle': 'package:flutter/src/services/asset_bundle.dart',
       'AssetManifest': 'package:flutter/src/services/asset_manifest.dart',
       'AssetMetadata': 'package:flutter/src/services/asset_manifest.dart',
-      'Matrix4': 'package:vector_math/vector_math_64.dart',
       'AutofillHints': 'package:flutter/src/services/autofill.dart',
       'AutofillConfiguration': 'package:flutter/src/services/autofill.dart',
       'AutofillClient': 'package:flutter/src/services/autofill.dart',
       'AutofillScope': 'package:flutter/src/services/autofill.dart',
       'AutofillScopeMixin': 'package:flutter/src/services/autofill.dart',
-      'TextSelection': 'package:flutter/src/services/text_editing.dart',
       'TextInputType': 'package:flutter/src/services/text_input.dart',
       'TextInputConfiguration': 'package:flutter/src/services/text_input.dart',
       'RawFloatingCursorPoint': 'package:flutter/src/services/text_input.dart',
@@ -348,6 +344,7 @@ class FlutterServicesBridge {
   /// bridged class under its canonical name.
   static Map<String, String> classAliases() {
     return {
+      'MemoryAllocations': 'FlutterMemoryAllocations',
     };
   }
 
@@ -377,6 +374,14 @@ class FlutterServicesBridge {
       BridgedEnumDefinition<$flutter_50.SelectionChangedCause>(
         name: 'SelectionChangedCause',
         values: $flutter_50.SelectionChangedCause.values,
+      ),
+      BridgedEnumDefinition<$flutter_4.DiagnosticLevel>(
+        name: 'DiagnosticLevel',
+        values: $flutter_4.DiagnosticLevel.values,
+      ),
+      BridgedEnumDefinition<$flutter_5.TargetPlatform>(
+        name: 'TargetPlatform',
+        values: $flutter_5.TargetPlatform.values,
       ),
       BridgedEnumDefinition<$flutter_23.KeyboardLockMode>(
         name: 'KeyboardLockMode',
@@ -436,6 +441,8 @@ class FlutterServicesBridge {
       'TextCapitalization': 'package:flutter/src/services/text_input.dart',
       'FloatingCursorDragState': 'package:flutter/src/services/text_input.dart',
       'SelectionChangedCause': 'package:flutter/src/services/text_input.dart',
+      'DiagnosticLevel': 'package:flutter/src/foundation/diagnostics.dart',
+      'TargetPlatform': 'package:flutter/src/foundation/platform.dart',
       'KeyboardLockMode': 'package:flutter/src/services/hardware_keyboard.dart',
       'SwipeEdge': 'package:flutter/src/services/predictive_back_event.dart',
       'ContentSensitivity': 'package:flutter/src/services/sensitive_content.dart',
@@ -489,6 +496,12 @@ class FlutterServicesBridge {
     final funcSigs = globalFunctionSignatures();
     for (final entry in funcs.entries) {
       interpreter.registertopLevelFunction(entry.key, entry.value, importPath, sourceUri: funcSources[entry.key], signature: funcSigs[entry.key]);
+    }
+
+    // Register class aliases (typedef type aliases)
+    final aliases = classAliases();
+    for (final entry in aliases.entries) {
+      interpreter.registerClassAlias(entry.key, entry.value, importPath);
     }
   }
 
@@ -1016,6 +1029,8 @@ class FlutterServicesBridge {
   /// multiple barrels.
   static List<String> sourceLibraries() {
     return [
+      'package:flutter/src/foundation/diagnostics.dart',
+      'package:flutter/src/foundation/platform.dart',
       'package:flutter/src/gestures/events.dart',
       'package:flutter/src/services/asset_bundle.dart',
       'package:flutter/src/services/asset_manifest.dart',
@@ -1054,7 +1069,6 @@ class FlutterServicesBridge {
       'package:flutter/src/services/system_navigator.dart',
       'package:flutter/src/services/system_sound.dart',
       'package:flutter/src/services/text_boundary.dart',
-      'package:flutter/src/services/text_editing.dart',
       'package:flutter/src/services/text_editing_delta.dart',
       'package:flutter/src/services/text_formatter.dart',
       'package:flutter/src/services/text_input.dart',
@@ -1100,6 +1114,8 @@ class FlutterServicesBridge {
     'TextCapitalization',
     'FloatingCursorDragState',
     'SelectionChangedCause',
+    'DiagnosticLevel',
+    'TargetPlatform',
     'KeyboardLockMode',
     'SwipeEdge',
     'ContentSensitivity',
@@ -1122,7 +1138,6 @@ BridgedClass _createAssetBundleBridge() {
   return BridgedClass(
     nativeType: $flutter_10.AssetBundle,
     name: 'AssetBundle',
-    isAssignable: (v) => v is $flutter_10.AssetBundle,
     constructors: {
     },
     methods: {
@@ -1203,7 +1218,6 @@ BridgedClass _createNetworkAssetBundleBridge() {
   return BridgedClass(
     nativeType: $flutter_10.NetworkAssetBundle,
     name: 'NetworkAssetBundle',
-    isAssignable: (v) => v is $flutter_10.NetworkAssetBundle,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'NetworkAssetBundle');
@@ -1292,7 +1306,6 @@ BridgedClass _createCachingAssetBundleBridge() {
   return BridgedClass(
     nativeType: $flutter_10.CachingAssetBundle,
     name: 'CachingAssetBundle',
-    isAssignable: (v) => v is $flutter_10.CachingAssetBundle,
     constructors: {
     },
     methods: {
@@ -1373,7 +1386,6 @@ BridgedClass _createPlatformAssetBundleBridge() {
   return BridgedClass(
     nativeType: $flutter_10.PlatformAssetBundle,
     name: 'PlatformAssetBundle',
-    isAssignable: (v) => v is $flutter_10.PlatformAssetBundle,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_10.PlatformAssetBundle();
@@ -1460,7 +1472,6 @@ BridgedClass _createAssetManifestBridge() {
   return BridgedClass(
     nativeType: $flutter_11.AssetManifest,
     name: 'AssetManifest',
-    isAssignable: (v) => v is $flutter_11.AssetManifest,
     constructors: {
     },
     methods: {
@@ -1500,7 +1511,6 @@ BridgedClass _createAssetMetadataBridge() {
   return BridgedClass(
     nativeType: $flutter_11.AssetMetadata,
     name: 'AssetMetadata',
-    isAssignable: (v) => v is $flutter_11.AssetMetadata,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getRequiredNamedArg<String>(named, 'key', 'AssetMetadata');
@@ -1526,985 +1536,6 @@ BridgedClass _createAssetMetadataBridge() {
 }
 
 // =============================================================================
-// Matrix4 Bridge
-// =============================================================================
-
-BridgedClass _createMatrix4Bridge() {
-  return BridgedClass(
-    nativeType: $vector_math_1.Matrix4,
-    name: 'Matrix4',
-    isAssignable: (v) => v is $vector_math_1.Matrix4,
-    constructors: {
-      '': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 16, 'Matrix4');
-        final arg0 = D4.getRequiredArg<double>(positional, 0, 'arg0', 'Matrix4');
-        final arg1 = D4.getRequiredArg<double>(positional, 1, 'arg1', 'Matrix4');
-        final arg2 = D4.getRequiredArg<double>(positional, 2, 'arg2', 'Matrix4');
-        final arg3 = D4.getRequiredArg<double>(positional, 3, 'arg3', 'Matrix4');
-        final arg4 = D4.getRequiredArg<double>(positional, 4, 'arg4', 'Matrix4');
-        final arg5 = D4.getRequiredArg<double>(positional, 5, 'arg5', 'Matrix4');
-        final arg6 = D4.getRequiredArg<double>(positional, 6, 'arg6', 'Matrix4');
-        final arg7 = D4.getRequiredArg<double>(positional, 7, 'arg7', 'Matrix4');
-        final arg8 = D4.getRequiredArg<double>(positional, 8, 'arg8', 'Matrix4');
-        final arg9 = D4.getRequiredArg<double>(positional, 9, 'arg9', 'Matrix4');
-        final arg10 = D4.getRequiredArg<double>(positional, 10, 'arg10', 'Matrix4');
-        final arg11 = D4.getRequiredArg<double>(positional, 11, 'arg11', 'Matrix4');
-        final arg12 = D4.getRequiredArg<double>(positional, 12, 'arg12', 'Matrix4');
-        final arg13 = D4.getRequiredArg<double>(positional, 13, 'arg13', 'Matrix4');
-        final arg14 = D4.getRequiredArg<double>(positional, 14, 'arg14', 'Matrix4');
-        final arg15 = D4.getRequiredArg<double>(positional, 15, 'arg15', 'Matrix4');
-        return $vector_math_1.Matrix4(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15);
-      },
-      'fromList': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'Matrix4');
-        if (positional.isEmpty) {
-          throw ArgumentError('Matrix4: Missing required argument "values" at position 0');
-        }
-        final values = D4.coerceList<double>(positional[0], 'values');
-        return $vector_math_1.Matrix4.fromList(values);
-      },
-      'zero': (visitor, positional, named) {
-        return $vector_math_1.Matrix4.zero();
-      },
-      'identity': (visitor, positional, named) {
-        return $vector_math_1.Matrix4.identity();
-      },
-      'copy': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'Matrix4');
-        final other = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'other', 'Matrix4');
-        return $vector_math_1.Matrix4.copy(other);
-      },
-      'inverted': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'Matrix4');
-        final other = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'other', 'Matrix4');
-        return $vector_math_1.Matrix4.inverted(other);
-      },
-      'columns': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 4, 'Matrix4');
-        final arg0 = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 0, 'arg0', 'Matrix4');
-        final arg1 = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 1, 'arg1', 'Matrix4');
-        final arg2 = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 2, 'arg2', 'Matrix4');
-        final arg3 = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 3, 'arg3', 'Matrix4');
-        return $vector_math_1.Matrix4.columns(arg0, arg1, arg2, arg3);
-      },
-      'outer': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 2, 'Matrix4');
-        final u = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 0, 'u', 'Matrix4');
-        final v = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 1, 'v', 'Matrix4');
-        return $vector_math_1.Matrix4.outer(u, v);
-      },
-      'rotationX': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'Matrix4');
-        final radians = D4.getRequiredArg<double>(positional, 0, 'radians', 'Matrix4');
-        return $vector_math_1.Matrix4.rotationX(radians);
-      },
-      'rotationY': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'Matrix4');
-        final radians = D4.getRequiredArg<double>(positional, 0, 'radians', 'Matrix4');
-        return $vector_math_1.Matrix4.rotationY(radians);
-      },
-      'rotationZ': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'Matrix4');
-        final radians = D4.getRequiredArg<double>(positional, 0, 'radians', 'Matrix4');
-        return $vector_math_1.Matrix4.rotationZ(radians);
-      },
-      'translation': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'Matrix4');
-        final translation = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'translation', 'Matrix4');
-        return $vector_math_1.Matrix4.translation(translation);
-      },
-      'translationValues': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 3, 'Matrix4');
-        final x = D4.getRequiredArg<double>(positional, 0, 'x', 'Matrix4');
-        final y = D4.getRequiredArg<double>(positional, 1, 'y', 'Matrix4');
-        final z = D4.getRequiredArg<double>(positional, 2, 'z', 'Matrix4');
-        return $vector_math_1.Matrix4.translationValues(x, y, z);
-      },
-      'diagonal3': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'Matrix4');
-        final scale = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'scale', 'Matrix4');
-        return $vector_math_1.Matrix4.diagonal3(scale);
-      },
-      'diagonal3Values': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 3, 'Matrix4');
-        final x = D4.getRequiredArg<double>(positional, 0, 'x', 'Matrix4');
-        final y = D4.getRequiredArg<double>(positional, 1, 'y', 'Matrix4');
-        final z = D4.getRequiredArg<double>(positional, 2, 'z', 'Matrix4');
-        return $vector_math_1.Matrix4.diagonal3Values(x, y, z);
-      },
-      'skewX': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'Matrix4');
-        final alpha = D4.getRequiredArg<double>(positional, 0, 'alpha', 'Matrix4');
-        return $vector_math_1.Matrix4.skewX(alpha);
-      },
-      'skewY': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'Matrix4');
-        final beta = D4.getRequiredArg<double>(positional, 0, 'beta', 'Matrix4');
-        return $vector_math_1.Matrix4.skewY(beta);
-      },
-      'skew': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 2, 'Matrix4');
-        final alpha = D4.getRequiredArg<double>(positional, 0, 'alpha', 'Matrix4');
-        final beta = D4.getRequiredArg<double>(positional, 1, 'beta', 'Matrix4');
-        return $vector_math_1.Matrix4.skew(alpha, beta);
-      },
-      'fromFloat64List': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'Matrix4');
-        final m4storage = D4.getRequiredArg<Float64List>(positional, 0, '_m4storage', 'Matrix4');
-        return $vector_math_1.Matrix4.fromFloat64List(m4storage);
-      },
-      'fromBuffer': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 2, 'Matrix4');
-        final buffer = D4.getRequiredArg<ByteBuffer>(positional, 0, 'buffer', 'Matrix4');
-        final offset = D4.getRequiredArg<int>(positional, 1, 'offset', 'Matrix4');
-        return $vector_math_1.Matrix4.fromBuffer(buffer, offset);
-      },
-      'compose': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 3, 'Matrix4');
-        final translation = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'translation', 'Matrix4');
-        final rotation = D4.getRequiredArg<$vector_math_1.Quaternion>(positional, 1, 'rotation', 'Matrix4');
-        final scale = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 2, 'scale', 'Matrix4');
-        return $vector_math_1.Matrix4.compose(translation, rotation, scale);
-      },
-    },
-    getters: {
-      'storage': (visitor, target) => D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4').storage,
-      'dimension': (visitor, target) => D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4').dimension,
-      'hashCode': (visitor, target) => D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4').hashCode,
-      'row0': (visitor, target) => D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4').row0,
-      'row1': (visitor, target) => D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4').row1,
-      'row2': (visitor, target) => D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4').row2,
-      'row3': (visitor, target) => D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4').row3,
-      'right': (visitor, target) => D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4').right,
-      'up': (visitor, target) => D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4').up,
-      'forward': (visitor, target) => D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4').forward,
-    },
-    setters: {
-      'row0': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4').row0 = value as dynamic,
-      'row1': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4').row1 = value as dynamic,
-      'row2': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4').row2 = value as dynamic,
-      'row3': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4').row3 = value as dynamic,
-    },
-    methods: {
-      'index': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 2, 'index');
-        final row = D4.getRequiredArg<int>(positional, 0, 'row', 'index');
-        final col = D4.getRequiredArg<int>(positional, 1, 'col', 'index');
-        return t.index(row, col);
-      },
-      'entry': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 2, 'entry');
-        final row = D4.getRequiredArg<int>(positional, 0, 'row', 'entry');
-        final col = D4.getRequiredArg<int>(positional, 1, 'col', 'entry');
-        return t.entry(row, col);
-      },
-      'setEntry': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 3, 'setEntry');
-        final row = D4.getRequiredArg<int>(positional, 0, 'row', 'setEntry');
-        final col = D4.getRequiredArg<int>(positional, 1, 'col', 'setEntry');
-        final v = D4.getRequiredArg<double>(positional, 2, 'v', 'setEntry');
-        t.setEntry(row, col, v);
-        return null;
-      },
-      'splatDiagonal': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'splatDiagonal');
-        final arg = D4.getRequiredArg<double>(positional, 0, 'arg', 'splatDiagonal');
-        t.splatDiagonal(arg);
-        return null;
-      },
-      'setValues': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 16, 'setValues');
-        final arg0 = D4.getRequiredArg<double>(positional, 0, 'arg0', 'setValues');
-        final arg1 = D4.getRequiredArg<double>(positional, 1, 'arg1', 'setValues');
-        final arg2 = D4.getRequiredArg<double>(positional, 2, 'arg2', 'setValues');
-        final arg3 = D4.getRequiredArg<double>(positional, 3, 'arg3', 'setValues');
-        final arg4 = D4.getRequiredArg<double>(positional, 4, 'arg4', 'setValues');
-        final arg5 = D4.getRequiredArg<double>(positional, 5, 'arg5', 'setValues');
-        final arg6 = D4.getRequiredArg<double>(positional, 6, 'arg6', 'setValues');
-        final arg7 = D4.getRequiredArg<double>(positional, 7, 'arg7', 'setValues');
-        final arg8 = D4.getRequiredArg<double>(positional, 8, 'arg8', 'setValues');
-        final arg9 = D4.getRequiredArg<double>(positional, 9, 'arg9', 'setValues');
-        final arg10 = D4.getRequiredArg<double>(positional, 10, 'arg10', 'setValues');
-        final arg11 = D4.getRequiredArg<double>(positional, 11, 'arg11', 'setValues');
-        final arg12 = D4.getRequiredArg<double>(positional, 12, 'arg12', 'setValues');
-        final arg13 = D4.getRequiredArg<double>(positional, 13, 'arg13', 'setValues');
-        final arg14 = D4.getRequiredArg<double>(positional, 14, 'arg14', 'setValues');
-        final arg15 = D4.getRequiredArg<double>(positional, 15, 'arg15', 'setValues');
-        t.setValues(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15);
-        return null;
-      },
-      'setColumns': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 4, 'setColumns');
-        final arg0 = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 0, 'arg0', 'setColumns');
-        final arg1 = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 1, 'arg1', 'setColumns');
-        final arg2 = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 2, 'arg2', 'setColumns');
-        final arg3 = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 3, 'arg3', 'setColumns');
-        t.setColumns(arg0, arg1, arg2, arg3);
-        return null;
-      },
-      'setFrom': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'setFrom');
-        final arg = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'arg', 'setFrom');
-        t.setFrom(arg);
-        return null;
-      },
-      'setFromTranslationRotation': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 2, 'setFromTranslationRotation');
-        final arg0 = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'arg0', 'setFromTranslationRotation');
-        final arg1 = D4.getRequiredArg<$vector_math_1.Quaternion>(positional, 1, 'arg1', 'setFromTranslationRotation');
-        t.setFromTranslationRotation(arg0, arg1);
-        return null;
-      },
-      'setFromTranslationRotationScale': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 3, 'setFromTranslationRotationScale');
-        final translation = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'translation', 'setFromTranslationRotationScale');
-        final rotation = D4.getRequiredArg<$vector_math_1.Quaternion>(positional, 1, 'rotation', 'setFromTranslationRotationScale');
-        final scale = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 2, 'scale', 'setFromTranslationRotationScale');
-        t.setFromTranslationRotationScale(translation, rotation, scale);
-        return null;
-      },
-      'setUpper2x2': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'setUpper2x2');
-        final arg = D4.getRequiredArg<$vector_math_1.Matrix2>(positional, 0, 'arg', 'setUpper2x2');
-        t.setUpper2x2(arg);
-        return null;
-      },
-      'setDiagonal': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'setDiagonal');
-        final arg = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 0, 'arg', 'setDiagonal');
-        t.setDiagonal(arg);
-        return null;
-      },
-      'setOuter': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 2, 'setOuter');
-        final u = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 0, 'u', 'setOuter');
-        final v = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 1, 'v', 'setOuter');
-        t.setOuter(u, v);
-        return null;
-      },
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        return t.toString();
-      },
-      'setRow': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 2, 'setRow');
-        final row = D4.getRequiredArg<int>(positional, 0, 'row', 'setRow');
-        final arg = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 1, 'arg', 'setRow');
-        t.setRow(row, arg);
-        return null;
-      },
-      'getRow': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'getRow');
-        final row = D4.getRequiredArg<int>(positional, 0, 'row', 'getRow');
-        return t.getRow(row);
-      },
-      'setColumn': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 2, 'setColumn');
-        final column = D4.getRequiredArg<int>(positional, 0, 'column', 'setColumn');
-        final arg = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 1, 'arg', 'setColumn');
-        t.setColumn(column, arg);
-        return null;
-      },
-      'getColumn': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'getColumn');
-        final column = D4.getRequiredArg<int>(positional, 0, 'column', 'getColumn');
-        return t.getColumn(column);
-      },
-      'clone': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        return t.clone();
-      },
-      'copyInto': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'copyInto');
-        final arg = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'arg', 'copyInto');
-        return t.copyInto(arg);
-      },
-      'translate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'translate');
-        final x = D4.getRequiredArg<dynamic>(positional, 0, 'x', 'translate');
-        final y = D4.getOptionalArgWithDefault<double>(positional, 1, 'y', 0.0);
-        final z = D4.getOptionalArgWithDefault<double>(positional, 2, 'z', 0.0);
-        t.translate(x, y, z);
-        return null;
-      },
-      'translateByDouble': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 4, 'translateByDouble');
-        final tx = D4.getRequiredArg<double>(positional, 0, 'tx', 'translateByDouble');
-        final ty = D4.getRequiredArg<double>(positional, 1, 'ty', 'translateByDouble');
-        final tz = D4.getRequiredArg<double>(positional, 2, 'tz', 'translateByDouble');
-        final tw = D4.getRequiredArg<double>(positional, 3, 'tw', 'translateByDouble');
-        t.translateByDouble(tx, ty, tz, tw);
-        return null;
-      },
-      'translateByVector3': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'translateByVector3');
-        final v3 = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'v3', 'translateByVector3');
-        t.translateByVector3(v3);
-        return null;
-      },
-      'translateByVector4': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'translateByVector4');
-        final v4 = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 0, 'v4', 'translateByVector4');
-        t.translateByVector4(v4);
-        return null;
-      },
-      'leftTranslate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'leftTranslate');
-        final x = D4.getRequiredArg<dynamic>(positional, 0, 'x', 'leftTranslate');
-        final y = D4.getOptionalArgWithDefault<double>(positional, 1, 'y', 0.0);
-        final z = D4.getOptionalArgWithDefault<double>(positional, 2, 'z', 0.0);
-        t.leftTranslate(x, y, z);
-        return null;
-      },
-      'leftTranslateByDouble': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 4, 'leftTranslateByDouble');
-        final tx = D4.getRequiredArg<double>(positional, 0, 'tx', 'leftTranslateByDouble');
-        final ty = D4.getRequiredArg<double>(positional, 1, 'ty', 'leftTranslateByDouble');
-        final tz = D4.getRequiredArg<double>(positional, 2, 'tz', 'leftTranslateByDouble');
-        final tw = D4.getRequiredArg<double>(positional, 3, 'tw', 'leftTranslateByDouble');
-        t.leftTranslateByDouble(tx, ty, tz, tw);
-        return null;
-      },
-      'leftTranslateByVector3': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'leftTranslateByVector3');
-        final v3 = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'v3', 'leftTranslateByVector3');
-        t.leftTranslateByVector3(v3);
-        return null;
-      },
-      'leftTranslateByVector4': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'leftTranslateByVector4');
-        final v4 = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 0, 'v4', 'leftTranslateByVector4');
-        t.leftTranslateByVector4(v4);
-        return null;
-      },
-      'rotate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 2, 'rotate');
-        final axis = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'axis', 'rotate');
-        final angle = D4.getRequiredArg<double>(positional, 1, 'angle', 'rotate');
-        t.rotate(axis, angle);
-        return null;
-      },
-      'rotateX': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'rotateX');
-        final angle = D4.getRequiredArg<double>(positional, 0, 'angle', 'rotateX');
-        t.rotateX(angle);
-        return null;
-      },
-      'rotateY': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'rotateY');
-        final angle = D4.getRequiredArg<double>(positional, 0, 'angle', 'rotateY');
-        t.rotateY(angle);
-        return null;
-      },
-      'rotateZ': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'rotateZ');
-        final angle = D4.getRequiredArg<double>(positional, 0, 'angle', 'rotateZ');
-        t.rotateZ(angle);
-        return null;
-      },
-      'scale': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'scale');
-        final x = D4.getRequiredArg<dynamic>(positional, 0, 'x', 'scale');
-        final y = D4.getOptionalArg<double?>(positional, 1, 'y');
-        final z = D4.getOptionalArg<double?>(positional, 2, 'z');
-        t.scale(x, y, z);
-        return null;
-      },
-      'scaleByDouble': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 4, 'scaleByDouble');
-        final sx = D4.getRequiredArg<double>(positional, 0, 'sx', 'scaleByDouble');
-        final sy = D4.getRequiredArg<double>(positional, 1, 'sy', 'scaleByDouble');
-        final sz = D4.getRequiredArg<double>(positional, 2, 'sz', 'scaleByDouble');
-        final sw = D4.getRequiredArg<double>(positional, 3, 'sw', 'scaleByDouble');
-        t.scaleByDouble(sx, sy, sz, sw);
-        return null;
-      },
-      'scaleByVector3': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'scaleByVector3');
-        final v3 = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'v3', 'scaleByVector3');
-        t.scaleByVector3(v3);
-        return null;
-      },
-      'scaleByVector4': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'scaleByVector4');
-        final v4 = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 0, 'v4', 'scaleByVector4');
-        t.scaleByVector4(v4);
-        return null;
-      },
-      'scaled': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'scaled');
-        final x = D4.getRequiredArg<dynamic>(positional, 0, 'x', 'scaled');
-        final y = D4.getOptionalArg<double?>(positional, 1, 'y');
-        final z = D4.getOptionalArg<double?>(positional, 2, 'z');
-        return t.scaled(x, y, z);
-      },
-      'scaledByDouble': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 4, 'scaledByDouble');
-        final x = D4.getRequiredArg<double>(positional, 0, 'x', 'scaledByDouble');
-        final y = D4.getRequiredArg<double>(positional, 1, 'y', 'scaledByDouble');
-        final z = D4.getRequiredArg<double>(positional, 2, 'z', 'scaledByDouble');
-        final t_ = D4.getRequiredArg<double>(positional, 3, 't', 'scaledByDouble');
-        return t.scaledByDouble(x, y, z, t_);
-      },
-      'scaledByVector3': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'scaledByVector3');
-        final v3 = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'v3', 'scaledByVector3');
-        return t.scaledByVector3(v3);
-      },
-      'scaledByVector4': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'scaledByVector4');
-        final v4 = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 0, 'v4', 'scaledByVector4');
-        return t.scaledByVector4(v4);
-      },
-      'setZero': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        t.setZero();
-        return null;
-      },
-      'setIdentity': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        t.setIdentity();
-        return null;
-      },
-      'transposed': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        return t.transposed();
-      },
-      'transpose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        t.transpose();
-        return null;
-      },
-      'absolute': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        return t.absolute();
-      },
-      'determinant': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        return t.determinant();
-      },
-      'dotRow': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 2, 'dotRow');
-        final i = D4.getRequiredArg<int>(positional, 0, 'i', 'dotRow');
-        final v = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 1, 'v', 'dotRow');
-        return t.dotRow(i, v);
-      },
-      'dotColumn': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 2, 'dotColumn');
-        final j = D4.getRequiredArg<int>(positional, 0, 'j', 'dotColumn');
-        final v = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 1, 'v', 'dotColumn');
-        return t.dotColumn(j, v);
-      },
-      'trace': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        return t.trace();
-      },
-      'infinityNorm': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        return t.infinityNorm();
-      },
-      'relativeError': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'relativeError');
-        final correct = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'correct', 'relativeError');
-        return t.relativeError(correct);
-      },
-      'absoluteError': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'absoluteError');
-        final correct = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'correct', 'absoluteError');
-        return t.absoluteError(correct);
-      },
-      'getTranslation': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        return t.getTranslation();
-      },
-      'setTranslation': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'setTranslation');
-        final t_ = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 't', 'setTranslation');
-        t.setTranslation(t_);
-        return null;
-      },
-      'setTranslationRaw': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 3, 'setTranslationRaw');
-        final x = D4.getRequiredArg<double>(positional, 0, 'x', 'setTranslationRaw');
-        final y = D4.getRequiredArg<double>(positional, 1, 'y', 'setTranslationRaw');
-        final z = D4.getRequiredArg<double>(positional, 2, 'z', 'setTranslationRaw');
-        t.setTranslationRaw(x, y, z);
-        return null;
-      },
-      'getRotation': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        return t.getRotation();
-      },
-      'copyRotation': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'copyRotation');
-        final rotation = D4.getRequiredArg<$vector_math_1.Matrix3>(positional, 0, 'rotation', 'copyRotation');
-        t.copyRotation(rotation);
-        return null;
-      },
-      'setRotation': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'setRotation');
-        final r = D4.getRequiredArg<$vector_math_1.Matrix3>(positional, 0, 'r', 'setRotation');
-        t.setRotation(r);
-        return null;
-      },
-      'getNormalMatrix': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        return t.getNormalMatrix();
-      },
-      'getMaxScaleOnAxis': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        return t.getMaxScaleOnAxis();
-      },
-      'transposeRotation': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        t.transposeRotation();
-        return null;
-      },
-      'invert': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        return t.invert();
-      },
-      'copyInverse': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'copyInverse');
-        final arg = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'arg', 'copyInverse');
-        return t.copyInverse(arg);
-      },
-      'invertRotation': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        return t.invertRotation();
-      },
-      'setRotationX': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'setRotationX');
-        final radians = D4.getRequiredArg<double>(positional, 0, 'radians', 'setRotationX');
-        t.setRotationX(radians);
-        return null;
-      },
-      'setRotationY': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'setRotationY');
-        final radians = D4.getRequiredArg<double>(positional, 0, 'radians', 'setRotationY');
-        t.setRotationY(radians);
-        return null;
-      },
-      'setRotationZ': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'setRotationZ');
-        final radians = D4.getRequiredArg<double>(positional, 0, 'radians', 'setRotationZ');
-        t.setRotationZ(radians);
-        return null;
-      },
-      'scaleAdjoint': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'scaleAdjoint');
-        final scale = D4.getRequiredArg<double>(positional, 0, 'scale', 'scaleAdjoint');
-        t.scaleAdjoint(scale);
-        return null;
-      },
-      'absoluteRotate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'absoluteRotate');
-        final arg = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'arg', 'absoluteRotate');
-        return t.absoluteRotate(arg);
-      },
-      'add': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'add');
-        final o = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'o', 'add');
-        t.add(o);
-        return null;
-      },
-      'sub': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'sub');
-        final o = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'o', 'sub');
-        t.sub(o);
-        return null;
-      },
-      'negate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        t.negate();
-        return null;
-      },
-      'multiply': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'multiply');
-        final arg = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'arg', 'multiply');
-        t.multiply(arg);
-        return null;
-      },
-      'multiplied': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'multiplied');
-        final arg = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'arg', 'multiplied');
-        return t.multiplied(arg);
-      },
-      'transposeMultiply': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'transposeMultiply');
-        final arg = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'arg', 'transposeMultiply');
-        t.transposeMultiply(arg);
-        return null;
-      },
-      'multiplyTranspose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'multiplyTranspose');
-        final arg = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'arg', 'multiplyTranspose');
-        t.multiplyTranspose(arg);
-        return null;
-      },
-      'decompose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 3, 'decompose');
-        final translation = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'translation', 'decompose');
-        final rotation = D4.getRequiredArg<$vector_math_1.Quaternion>(positional, 1, 'rotation', 'decompose');
-        final scale = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 2, 'scale', 'decompose');
-        t.decompose(translation, rotation, scale);
-        return null;
-      },
-      'rotate3': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'rotate3');
-        final arg = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'arg', 'rotate3');
-        return t.rotate3(arg);
-      },
-      'rotated3': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'rotated3');
-        final arg = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'arg', 'rotated3');
-        final out = D4.getOptionalArg<$vector_math_1.Vector3?>(positional, 1, 'out');
-        return t.rotated3(arg, out);
-      },
-      'transform3': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'transform3');
-        final arg = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'arg', 'transform3');
-        return t.transform3(arg);
-      },
-      'transformed3': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'transformed3');
-        final arg = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'arg', 'transformed3');
-        final out = D4.getOptionalArg<$vector_math_1.Vector3?>(positional, 1, 'out');
-        return t.transformed3(arg, out);
-      },
-      'transform': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'transform');
-        final arg = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 0, 'arg', 'transform');
-        return t.transform(arg);
-      },
-      'perspectiveTransform': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'perspectiveTransform');
-        final arg = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'arg', 'perspectiveTransform');
-        return t.perspectiveTransform(arg);
-      },
-      'transformed': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'transformed');
-        final arg = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 0, 'arg', 'transformed');
-        final out = D4.getOptionalArg<$vector_math_1.Vector4?>(positional, 1, 'out');
-        return t.transformed(arg, out);
-      },
-      'copyIntoArray': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'copyIntoArray');
-        if (positional.isEmpty) {
-          throw ArgumentError('copyIntoArray: Missing required argument "array" at position 0');
-        }
-        final array = D4.coerceList<num>(positional[0], 'array');
-        final offset = D4.getOptionalArgWithDefault<int>(positional, 1, 'offset', 0);
-        t.copyIntoArray(array, offset);
-        return null;
-      },
-      'copyFromArray': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'copyFromArray');
-        if (positional.isEmpty) {
-          throw ArgumentError('copyFromArray: Missing required argument "array" at position 0');
-        }
-        final array = D4.coerceList<double>(positional[0], 'array');
-        final offset = D4.getOptionalArgWithDefault<int>(positional, 1, 'offset', 0);
-        t.copyFromArray(array, offset);
-        return null;
-      },
-      'applyToVector3Array': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'applyToVector3Array');
-        if (positional.isEmpty) {
-          throw ArgumentError('applyToVector3Array: Missing required argument "array" at position 0');
-        }
-        final array = D4.coerceList<double>(positional[0], 'array');
-        final offset = D4.getOptionalArgWithDefault<int>(positional, 1, 'offset', 0);
-        return t.applyToVector3Array(array, offset);
-      },
-      'isIdentity': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        return t.isIdentity();
-      },
-      'isZero': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        return t.isZero();
-      },
-      '[]': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        final index = D4.getRequiredArg<int>(positional, 0, 'index', 'operator[]');
-        return t[index];
-      },
-      '[]=': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        final index = D4.getRequiredArg<int>(positional, 0, 'index', 'operator[]=');
-        final value = D4.getRequiredArg<double>(positional, 1, 'value', 'operator[]=');
-        t[index] = value;
-        return null;
-      },
-      '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
-        return t == other;
-      },
-      '-': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        if (positional.isEmpty) {
-          // Unary operator
-          return -t;
-        } else {
-          // Binary operator
-          final other = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'other', 'operator-');
-          return t - other;
-        }
-      },
-      '*': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        final other = D4.getRequiredArg<dynamic>(positional, 0, 'other', 'operator*');
-        return t * other;
-      },
-      '+': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        final other = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'other', 'operator+');
-        return t + other;
-      },
-    },
-    staticMethods: {
-      'solve2': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 3, 'solve2');
-        final A = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'A', 'solve2');
-        final x = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 1, 'x', 'solve2');
-        final b = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 2, 'b', 'solve2');
-        return $vector_math_1.Matrix4.solve2(A, x, b);
-      },
-      'solve3': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 3, 'solve3');
-        final A = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'A', 'solve3');
-        final x = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 1, 'x', 'solve3');
-        final b = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 2, 'b', 'solve3');
-        return $vector_math_1.Matrix4.solve3(A, x, b);
-      },
-      'solve': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 3, 'solve');
-        final A = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'A', 'solve');
-        final x = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 1, 'x', 'solve');
-        final b = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 2, 'b', 'solve');
-        return $vector_math_1.Matrix4.solve(A, x, b);
-      },
-      'tryInvert': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'tryInvert');
-        final other = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'other', 'tryInvert');
-        return $vector_math_1.Matrix4.tryInvert(other);
-      },
-    },
-    constructorSignatures: {
-      '': 'factory Matrix4(double arg0, double arg1, double arg2, double arg3, double arg4, double arg5, double arg6, double arg7, double arg8, double arg9, double arg10, double arg11, double arg12, double arg13, double arg14, double arg15)',
-      'fromList': 'factory Matrix4.fromList(List<double> values)',
-      'zero': 'Matrix4.zero()',
-      'identity': 'factory Matrix4.identity()',
-      'copy': 'factory Matrix4.copy(Matrix4 other)',
-      'inverted': 'factory Matrix4.inverted(Matrix4 other)',
-      'columns': 'factory Matrix4.columns(Vector4 arg0, Vector4 arg1, Vector4 arg2, Vector4 arg3)',
-      'outer': 'factory Matrix4.outer(Vector4 u, Vector4 v)',
-      'rotationX': 'factory Matrix4.rotationX(double radians)',
-      'rotationY': 'factory Matrix4.rotationY(double radians)',
-      'rotationZ': 'factory Matrix4.rotationZ(double radians)',
-      'translation': 'factory Matrix4.translation(Vector3 translation)',
-      'translationValues': 'factory Matrix4.translationValues(double x, double y, double z)',
-      'diagonal3': 'factory Matrix4.diagonal3(Vector3 scale)',
-      'diagonal3Values': 'factory Matrix4.diagonal3Values(double x, double y, double z)',
-      'skewX': 'factory Matrix4.skewX(double alpha)',
-      'skewY': 'factory Matrix4.skewY(double beta)',
-      'skew': 'factory Matrix4.skew(double alpha, double beta)',
-      'fromFloat64List': 'Matrix4.fromFloat64List(Float64List _m4storage)',
-      'fromBuffer': 'Matrix4.fromBuffer(ByteBuffer buffer, int offset)',
-      'compose': 'factory Matrix4.compose(Vector3 translation, Quaternion rotation, Vector3 scale)',
-    },
-    methodSignatures: {
-      'index': 'int index(int row, int col)',
-      'entry': 'double entry(int row, int col)',
-      'setEntry': 'void setEntry(int row, int col, double v)',
-      'splatDiagonal': 'void splatDiagonal(double arg)',
-      'setValues': 'void setValues(double arg0, double arg1, double arg2, double arg3, double arg4, double arg5, double arg6, double arg7, double arg8, double arg9, double arg10, double arg11, double arg12, double arg13, double arg14, double arg15)',
-      'setColumns': 'void setColumns(Vector4 arg0, Vector4 arg1, Vector4 arg2, Vector4 arg3)',
-      'setFrom': 'void setFrom(Matrix4 arg)',
-      'setFromTranslationRotation': 'void setFromTranslationRotation(Vector3 arg0, Quaternion arg1)',
-      'setFromTranslationRotationScale': 'void setFromTranslationRotationScale(Vector3 translation, Quaternion rotation, Vector3 scale)',
-      'setUpper2x2': 'void setUpper2x2(Matrix2 arg)',
-      'setDiagonal': 'void setDiagonal(Vector4 arg)',
-      'setOuter': 'void setOuter(Vector4 u, Vector4 v)',
-      'toString': 'String toString()',
-      'setRow': 'void setRow(int row, Vector4 arg)',
-      'getRow': 'Vector4 getRow(int row)',
-      'setColumn': 'void setColumn(int column, Vector4 arg)',
-      'getColumn': 'Vector4 getColumn(int column)',
-      'clone': 'Matrix4 clone()',
-      'copyInto': 'Matrix4 copyInto(Matrix4 arg)',
-      'translate': 'void translate(dynamic x, [double y = 0.0, double z = 0.0])',
-      'translateByDouble': 'void translateByDouble(double tx, double ty, double tz, double tw)',
-      'translateByVector3': 'void translateByVector3(Vector3 v3)',
-      'translateByVector4': 'void translateByVector4(Vector4 v4)',
-      'leftTranslate': 'void leftTranslate(dynamic x, [double y = 0.0, double z = 0.0])',
-      'leftTranslateByDouble': 'void leftTranslateByDouble(double tx, double ty, double tz, double tw)',
-      'leftTranslateByVector3': 'void leftTranslateByVector3(Vector3 v3)',
-      'leftTranslateByVector4': 'void leftTranslateByVector4(Vector4 v4)',
-      'rotate': 'void rotate(Vector3 axis, double angle)',
-      'rotateX': 'void rotateX(double angle)',
-      'rotateY': 'void rotateY(double angle)',
-      'rotateZ': 'void rotateZ(double angle)',
-      'scale': 'void scale(dynamic x, [double? y, double? z])',
-      'scaleByDouble': 'void scaleByDouble(double sx, double sy, double sz, double sw)',
-      'scaleByVector3': 'void scaleByVector3(Vector3 v3)',
-      'scaleByVector4': 'void scaleByVector4(Vector4 v4)',
-      'scaled': 'Matrix4 scaled(dynamic x, [double? y, double? z])',
-      'scaledByDouble': 'Matrix4 scaledByDouble(double x, double y, double z, double t)',
-      'scaledByVector3': 'Matrix4 scaledByVector3(Vector3 v3)',
-      'scaledByVector4': 'Matrix4 scaledByVector4(Vector4 v4)',
-      'setZero': 'void setZero()',
-      'setIdentity': 'void setIdentity()',
-      'transposed': 'Matrix4 transposed()',
-      'transpose': 'void transpose()',
-      'absolute': 'Matrix4 absolute()',
-      'determinant': 'double determinant()',
-      'dotRow': 'double dotRow(int i, Vector4 v)',
-      'dotColumn': 'double dotColumn(int j, Vector4 v)',
-      'trace': 'double trace()',
-      'infinityNorm': 'double infinityNorm()',
-      'relativeError': 'double relativeError(Matrix4 correct)',
-      'absoluteError': 'double absoluteError(Matrix4 correct)',
-      'getTranslation': 'Vector3 getTranslation()',
-      'setTranslation': 'void setTranslation(Vector3 t)',
-      'setTranslationRaw': 'void setTranslationRaw(double x, double y, double z)',
-      'getRotation': 'Matrix3 getRotation()',
-      'copyRotation': 'void copyRotation(Matrix3 rotation)',
-      'setRotation': 'void setRotation(Matrix3 r)',
-      'getNormalMatrix': 'Matrix3 getNormalMatrix()',
-      'getMaxScaleOnAxis': 'double getMaxScaleOnAxis()',
-      'transposeRotation': 'void transposeRotation()',
-      'invert': 'double invert()',
-      'copyInverse': 'double copyInverse(Matrix4 arg)',
-      'invertRotation': 'double invertRotation()',
-      'setRotationX': 'void setRotationX(double radians)',
-      'setRotationY': 'void setRotationY(double radians)',
-      'setRotationZ': 'void setRotationZ(double radians)',
-      'scaleAdjoint': 'void scaleAdjoint(double scale)',
-      'absoluteRotate': 'Vector3 absoluteRotate(Vector3 arg)',
-      'add': 'void add(Matrix4 o)',
-      'sub': 'void sub(Matrix4 o)',
-      'negate': 'void negate()',
-      'multiply': 'void multiply(Matrix4 arg)',
-      'multiplied': 'Matrix4 multiplied(Matrix4 arg)',
-      'transposeMultiply': 'void transposeMultiply(Matrix4 arg)',
-      'multiplyTranspose': 'void multiplyTranspose(Matrix4 arg)',
-      'decompose': 'void decompose(Vector3 translation, Quaternion rotation, Vector3 scale)',
-      'rotate3': 'Vector3 rotate3(Vector3 arg)',
-      'rotated3': 'Vector3 rotated3(Vector3 arg, [Vector3? out])',
-      'transform3': 'Vector3 transform3(Vector3 arg)',
-      'transformed3': 'Vector3 transformed3(Vector3 arg, [Vector3? out])',
-      'transform': 'Vector4 transform(Vector4 arg)',
-      'perspectiveTransform': 'Vector3 perspectiveTransform(Vector3 arg)',
-      'transformed': 'Vector4 transformed(Vector4 arg, [Vector4? out])',
-      'copyIntoArray': 'void copyIntoArray(List<num> array, [int offset = 0])',
-      'copyFromArray': 'void copyFromArray(List<double> array, [int offset = 0])',
-      'applyToVector3Array': 'List<double> applyToVector3Array(List<double> array, [int offset = 0])',
-      'isIdentity': 'bool isIdentity()',
-      'isZero': 'bool isZero()',
-    },
-    getterSignatures: {
-      'storage': 'Float64List get storage',
-      'dimension': 'int get dimension',
-      'hashCode': 'int get hashCode',
-      'row0': 'Vector4 get row0',
-      'row1': 'Vector4 get row1',
-      'row2': 'Vector4 get row2',
-      'row3': 'Vector4 get row3',
-      'right': 'Vector3 get right',
-      'up': 'Vector3 get up',
-      'forward': 'Vector3 get forward',
-    },
-    setterSignatures: {
-      'row0': 'set row0(Vector4 value)',
-      'row1': 'set row1(Vector4 value)',
-      'row2': 'set row2(Vector4 value)',
-      'row3': 'set row3(Vector4 value)',
-    },
-    staticMethodSignatures: {
-      'solve2': 'void solve2(Matrix4 A, Vector2 x, Vector2 b)',
-      'solve3': 'void solve3(Matrix4 A, Vector3 x, Vector3 b)',
-      'solve': 'void solve(Matrix4 A, Vector4 x, Vector4 b)',
-      'tryInvert': 'Matrix4? tryInvert(Matrix4 other)',
-    },
-  );
-}
-
-// =============================================================================
 // AutofillHints Bridge
 // =============================================================================
 
@@ -2512,7 +1543,6 @@ BridgedClass _createAutofillHintsBridge() {
   return BridgedClass(
     nativeType: $flutter_12.AutofillHints,
     name: 'AutofillHints',
-    isAssignable: (v) => v is $flutter_12.AutofillHints,
     constructors: {
     },
     staticGetters: {
@@ -2662,7 +1692,6 @@ BridgedClass _createAutofillConfigurationBridge() {
   return BridgedClass(
     nativeType: $flutter_12.AutofillConfiguration,
     name: 'AutofillConfiguration',
-    isAssignable: (v) => v is $flutter_12.AutofillConfiguration,
     constructors: {
       '': (visitor, positional, named) {
         final uniqueIdentifier = D4.getRequiredNamedArg<String>(named, 'uniqueIdentifier', 'AutofillConfiguration');
@@ -2730,7 +1759,6 @@ BridgedClass _createAutofillClientBridge() {
   return BridgedClass(
     nativeType: $flutter_12.AutofillClient,
     name: 'AutofillClient',
-    isAssignable: (v) => v is $flutter_12.AutofillClient,
     constructors: {
     },
     getters: {
@@ -2764,7 +1792,6 @@ BridgedClass _createAutofillScopeBridge() {
   return BridgedClass(
     nativeType: $flutter_12.AutofillScope,
     name: 'AutofillScope',
-    isAssignable: (v) => v is $flutter_12.AutofillScope,
     constructors: {
     },
     getters: {
@@ -2803,7 +1830,6 @@ BridgedClass _createAutofillScopeMixinBridge() {
   return BridgedClass(
     nativeType: $flutter_12.AutofillScopeMixin,
     name: 'AutofillScopeMixin',
-    isAssignable: (v) => v is $flutter_12.AutofillScopeMixin,
     constructors: {
     },
     getters: {
@@ -2835,129 +1861,6 @@ BridgedClass _createAutofillScopeMixinBridge() {
 }
 
 // =============================================================================
-// TextSelection Bridge
-// =============================================================================
-
-BridgedClass _createTextSelectionBridge() {
-  return BridgedClass(
-    nativeType: $flutter_47.TextSelection,
-    name: 'TextSelection',
-    isAssignable: (v) => v is $flutter_47.TextSelection,
-    constructors: {
-      '': (visitor, positional, named) {
-        final baseOffset = D4.getRequiredNamedArg<int>(named, 'baseOffset', 'TextSelection');
-        final extentOffset = D4.getRequiredNamedArg<int>(named, 'extentOffset', 'TextSelection');
-        final affinity = D4.getNamedArgWithDefault<TextAffinity>(named, 'affinity', $dart_ui.TextAffinity.downstream);
-        final isDirectional = D4.getNamedArgWithDefault<bool>(named, 'isDirectional', false);
-        return $flutter_47.TextSelection(baseOffset: baseOffset, extentOffset: extentOffset, affinity: affinity, isDirectional: isDirectional);
-      },
-      'collapsed': (visitor, positional, named) {
-        final offset = D4.getRequiredNamedArg<int>(named, 'offset', 'TextSelection');
-        final affinity = D4.getNamedArgWithDefault<TextAffinity>(named, 'affinity', $dart_ui.TextAffinity.downstream);
-        return $flutter_47.TextSelection.collapsed(offset: offset, affinity: affinity);
-      },
-      'fromPosition': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'TextSelection');
-        final position = D4.getRequiredArg<TextPosition>(positional, 0, 'position', 'TextSelection');
-        return $flutter_47.TextSelection.fromPosition(position);
-      },
-    },
-    getters: {
-      'baseOffset': (visitor, target) => D4.validateTarget<$flutter_47.TextSelection>(target, 'TextSelection').baseOffset,
-      'extentOffset': (visitor, target) => D4.validateTarget<$flutter_47.TextSelection>(target, 'TextSelection').extentOffset,
-      'affinity': (visitor, target) => D4.validateTarget<$flutter_47.TextSelection>(target, 'TextSelection').affinity,
-      'isDirectional': (visitor, target) => D4.validateTarget<$flutter_47.TextSelection>(target, 'TextSelection').isDirectional,
-      'base': (visitor, target) => D4.validateTarget<$flutter_47.TextSelection>(target, 'TextSelection').base,
-      'extent': (visitor, target) => D4.validateTarget<$flutter_47.TextSelection>(target, 'TextSelection').extent,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_47.TextSelection>(target, 'TextSelection').hashCode,
-      'start': (visitor, target) => D4.validateTarget<$flutter_47.TextSelection>(target, 'TextSelection').start,
-      'end': (visitor, target) => D4.validateTarget<$flutter_47.TextSelection>(target, 'TextSelection').end,
-      'isValid': (visitor, target) => D4.validateTarget<$flutter_47.TextSelection>(target, 'TextSelection').isValid,
-      'isCollapsed': (visitor, target) => D4.validateTarget<$flutter_47.TextSelection>(target, 'TextSelection').isCollapsed,
-      'isNormalized': (visitor, target) => D4.validateTarget<$flutter_47.TextSelection>(target, 'TextSelection').isNormalized,
-    },
-    methods: {
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_47.TextSelection>(target, 'TextSelection');
-        return t.toString();
-      },
-      'copyWith': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_47.TextSelection>(target, 'TextSelection');
-        final baseOffset = D4.getOptionalNamedArg<int?>(named, 'baseOffset');
-        final extentOffset = D4.getOptionalNamedArg<int?>(named, 'extentOffset');
-        final affinity = D4.getOptionalNamedArg<TextAffinity?>(named, 'affinity');
-        final isDirectional = D4.getOptionalNamedArg<bool?>(named, 'isDirectional');
-        return t.copyWith(baseOffset: baseOffset, extentOffset: extentOffset, affinity: affinity, isDirectional: isDirectional);
-      },
-      'expandTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_47.TextSelection>(target, 'TextSelection');
-        D4.requireMinArgs(positional, 1, 'expandTo');
-        final position = D4.getRequiredArg<TextPosition>(positional, 0, 'position', 'expandTo');
-        final extentAtIndex = D4.getOptionalArgWithDefault<bool>(positional, 1, 'extentAtIndex', false);
-        return t.expandTo(position, extentAtIndex);
-      },
-      'extendTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_47.TextSelection>(target, 'TextSelection');
-        D4.requireMinArgs(positional, 1, 'extendTo');
-        final position = D4.getRequiredArg<TextPosition>(positional, 0, 'position', 'extendTo');
-        return t.extendTo(position);
-      },
-      'textBefore': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_47.TextSelection>(target, 'TextSelection');
-        D4.requireMinArgs(positional, 1, 'textBefore');
-        final text = D4.getRequiredArg<String>(positional, 0, 'text', 'textBefore');
-        return t.textBefore(text);
-      },
-      'textAfter': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_47.TextSelection>(target, 'TextSelection');
-        D4.requireMinArgs(positional, 1, 'textAfter');
-        final text = D4.getRequiredArg<String>(positional, 0, 'text', 'textAfter');
-        return t.textAfter(text);
-      },
-      'textInside': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_47.TextSelection>(target, 'TextSelection');
-        D4.requireMinArgs(positional, 1, 'textInside');
-        final text = D4.getRequiredArg<String>(positional, 0, 'text', 'textInside');
-        return t.textInside(text);
-      },
-      '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_47.TextSelection>(target, 'TextSelection');
-        final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
-        return t == other;
-      },
-    },
-    constructorSignatures: {
-      '': 'const TextSelection({required int baseOffset, required int extentOffset, TextAffinity affinity = TextAffinity.downstream, bool isDirectional = false})',
-      'collapsed': 'const TextSelection.collapsed({required int offset, TextAffinity affinity = TextAffinity.downstream})',
-      'fromPosition': 'TextSelection.fromPosition(TextPosition position)',
-    },
-    methodSignatures: {
-      'toString': 'String toString()',
-      'copyWith': 'TextSelection copyWith({int? baseOffset, int? extentOffset, TextAffinity? affinity, bool? isDirectional})',
-      'expandTo': 'TextSelection expandTo(TextPosition position, [bool extentAtIndex = false])',
-      'extendTo': 'TextSelection extendTo(TextPosition position)',
-      'textBefore': 'String textBefore(String text)',
-      'textAfter': 'String textAfter(String text)',
-      'textInside': 'String textInside(String text)',
-    },
-    getterSignatures: {
-      'baseOffset': 'int get baseOffset',
-      'extentOffset': 'int get extentOffset',
-      'affinity': 'TextAffinity get affinity',
-      'isDirectional': 'bool get isDirectional',
-      'base': 'TextPosition get base',
-      'extent': 'TextPosition get extent',
-      'hashCode': 'int get hashCode',
-      'start': 'int get start',
-      'end': 'int get end',
-      'isValid': 'bool get isValid',
-      'isCollapsed': 'bool get isCollapsed',
-      'isNormalized': 'bool get isNormalized',
-    },
-  );
-}
-
-// =============================================================================
 // TextInputType Bridge
 // =============================================================================
 
@@ -2965,7 +1868,6 @@ BridgedClass _createTextInputTypeBridge() {
   return BridgedClass(
     nativeType: $flutter_50.TextInputType,
     name: 'TextInputType',
-    isAssignable: (v) => v is $flutter_50.TextInputType,
     constructors: {
       'numberWithOptions': (visitor, positional, named) {
         final signed = D4.getNamedArgWithDefault<bool?>(named, 'signed', false);
@@ -3050,7 +1952,6 @@ BridgedClass _createTextInputConfigurationBridge() {
   return BridgedClass(
     nativeType: $flutter_50.TextInputConfiguration,
     name: 'TextInputConfiguration',
-    isAssignable: (v) => v is $flutter_50.TextInputConfiguration,
     constructors: {
       '': (visitor, positional, named) {
         final viewId = D4.getOptionalNamedArg<int?>(named, 'viewId');
@@ -3176,7 +2077,6 @@ BridgedClass _createRawFloatingCursorPointBridge() {
   return BridgedClass(
     nativeType: $flutter_50.RawFloatingCursorPoint,
     name: 'RawFloatingCursorPoint',
-    isAssignable: (v) => v is $flutter_50.RawFloatingCursorPoint,
     constructors: {
       '': (visitor, positional, named) {
         final offset = D4.getOptionalNamedArg<Offset?>(named, 'offset');
@@ -3209,7 +2109,6 @@ BridgedClass _createTextEditingValueBridge() {
   return BridgedClass(
     nativeType: $flutter_50.TextEditingValue,
     name: 'TextEditingValue',
-    isAssignable: (v) => v is $flutter_50.TextEditingValue,
     constructors: {
       '': (visitor, positional, named) {
         final text = D4.getNamedArgWithDefault<String>(named, 'text', '');
@@ -3296,7 +2195,6 @@ BridgedClass _createTextSelectionDelegateBridge() {
   return BridgedClass(
     nativeType: $flutter_50.TextSelectionDelegate,
     name: 'TextSelectionDelegate',
-    isAssignable: (v) => v is $flutter_50.TextSelectionDelegate,
     constructors: {
     },
     getters: {
@@ -3391,7 +2289,6 @@ BridgedClass _createTextInputClientBridge() {
   return BridgedClass(
     nativeType: $flutter_50.TextInputClient,
     name: 'TextInputClient',
-    isAssignable: (v) => v is $flutter_50.TextInputClient,
     constructors: {
     },
     getters: {
@@ -3513,7 +2410,6 @@ BridgedClass _createScribbleClientBridge() {
   return BridgedClass(
     nativeType: $flutter_50.ScribbleClient,
     name: 'ScribbleClient',
-    isAssignable: (v) => v is $flutter_50.ScribbleClient,
     constructors: {
     },
     getters: {
@@ -3554,7 +2450,6 @@ BridgedClass _createSelectionRectBridge() {
   return BridgedClass(
     nativeType: $flutter_50.SelectionRect,
     name: 'SelectionRect',
-    isAssignable: (v) => v is $flutter_50.SelectionRect,
     constructors: {
       '': (visitor, positional, named) {
         final position = D4.getRequiredNamedArg<int>(named, 'position', 'SelectionRect');
@@ -3603,7 +2498,6 @@ BridgedClass _createDeltaTextInputClientBridge() {
   return BridgedClass(
     nativeType: $flutter_50.DeltaTextInputClient,
     name: 'DeltaTextInputClient',
-    isAssignable: (v) => v is $flutter_50.DeltaTextInputClient,
     constructors: {
     },
     getters: {
@@ -3736,7 +2630,6 @@ BridgedClass _createTextInputConnectionBridge() {
   return BridgedClass(
     nativeType: $flutter_50.TextInputConnection,
     name: 'TextInputConnection',
-    isAssignable: (v) => v is $flutter_50.TextInputConnection,
     constructors: {
     },
     getters: {
@@ -3849,7 +2742,6 @@ BridgedClass _createTextInputBridge() {
   return BridgedClass(
     nativeType: $flutter_50.TextInput,
     name: 'TextInput',
-    isAssignable: (v) => v is $flutter_50.TextInput,
     constructors: {
     },
     getters: {
@@ -3918,7 +2810,6 @@ BridgedClass _createTextInputControlBridge() {
   return BridgedClass(
     nativeType: $flutter_50.TextInputControl,
     name: 'TextInputControl',
-    isAssignable: (v) => v is $flutter_50.TextInputControl,
     constructors: {
     },
     methods: {
@@ -4041,7 +2932,6 @@ BridgedClass _createSystemContextMenuControllerBridge() {
   return BridgedClass(
     nativeType: $flutter_50.SystemContextMenuController,
     name: 'SystemContextMenuController',
-    isAssignable: (v) => v is $flutter_50.SystemContextMenuController,
     constructors: {
       '': (visitor, positional, named) {
         final onSystemHideRaw = named['onSystemHide'];
@@ -4141,7 +3031,6 @@ BridgedClass _createIOSSystemContextMenuItemDataBridge() {
   return BridgedClass(
     nativeType: $flutter_50.IOSSystemContextMenuItemData,
     name: 'IOSSystemContextMenuItemData',
-    isAssignable: (v) => v is $flutter_50.IOSSystemContextMenuItemData,
     constructors: {
     },
     getters: {
@@ -4173,7 +3062,6 @@ BridgedClass _createIOSSystemContextMenuItemDataCopyBridge() {
   return BridgedClass(
     nativeType: $flutter_50.IOSSystemContextMenuItemDataCopy,
     name: 'IOSSystemContextMenuItemDataCopy',
-    isAssignable: (v) => v is $flutter_50.IOSSystemContextMenuItemDataCopy,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_50.IOSSystemContextMenuItemDataCopy();
@@ -4208,7 +3096,6 @@ BridgedClass _createIOSSystemContextMenuItemDataCutBridge() {
   return BridgedClass(
     nativeType: $flutter_50.IOSSystemContextMenuItemDataCut,
     name: 'IOSSystemContextMenuItemDataCut',
-    isAssignable: (v) => v is $flutter_50.IOSSystemContextMenuItemDataCut,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_50.IOSSystemContextMenuItemDataCut();
@@ -4243,7 +3130,6 @@ BridgedClass _createIOSSystemContextMenuItemDataPasteBridge() {
   return BridgedClass(
     nativeType: $flutter_50.IOSSystemContextMenuItemDataPaste,
     name: 'IOSSystemContextMenuItemDataPaste',
-    isAssignable: (v) => v is $flutter_50.IOSSystemContextMenuItemDataPaste,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_50.IOSSystemContextMenuItemDataPaste();
@@ -4278,7 +3164,6 @@ BridgedClass _createIOSSystemContextMenuItemDataSelectAllBridge() {
   return BridgedClass(
     nativeType: $flutter_50.IOSSystemContextMenuItemDataSelectAll,
     name: 'IOSSystemContextMenuItemDataSelectAll',
-    isAssignable: (v) => v is $flutter_50.IOSSystemContextMenuItemDataSelectAll,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_50.IOSSystemContextMenuItemDataSelectAll();
@@ -4313,7 +3198,6 @@ BridgedClass _createIOSSystemContextMenuItemDataLookUpBridge() {
   return BridgedClass(
     nativeType: $flutter_50.IOSSystemContextMenuItemDataLookUp,
     name: 'IOSSystemContextMenuItemDataLookUp',
-    isAssignable: (v) => v is $flutter_50.IOSSystemContextMenuItemDataLookUp,
     constructors: {
       '': (visitor, positional, named) {
         final title = D4.getRequiredNamedArg<String>(named, 'title', 'IOSSystemContextMenuItemDataLookUp');
@@ -4377,7 +3261,6 @@ BridgedClass _createIOSSystemContextMenuItemDataSearchWebBridge() {
   return BridgedClass(
     nativeType: $flutter_50.IOSSystemContextMenuItemDataSearchWeb,
     name: 'IOSSystemContextMenuItemDataSearchWeb',
-    isAssignable: (v) => v is $flutter_50.IOSSystemContextMenuItemDataSearchWeb,
     constructors: {
       '': (visitor, positional, named) {
         final title = D4.getRequiredNamedArg<String>(named, 'title', 'IOSSystemContextMenuItemDataSearchWeb');
@@ -4441,7 +3324,6 @@ BridgedClass _createIOSSystemContextMenuItemDataShareBridge() {
   return BridgedClass(
     nativeType: $flutter_50.IOSSystemContextMenuItemDataShare,
     name: 'IOSSystemContextMenuItemDataShare',
-    isAssignable: (v) => v is $flutter_50.IOSSystemContextMenuItemDataShare,
     constructors: {
       '': (visitor, positional, named) {
         final title = D4.getRequiredNamedArg<String>(named, 'title', 'IOSSystemContextMenuItemDataShare');
@@ -4505,7 +3387,6 @@ BridgedClass _createIOSSystemContextMenuItemDataLiveTextBridge() {
   return BridgedClass(
     nativeType: $flutter_50.IOSSystemContextMenuItemDataLiveText,
     name: 'IOSSystemContextMenuItemDataLiveText',
-    isAssignable: (v) => v is $flutter_50.IOSSystemContextMenuItemDataLiveText,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_50.IOSSystemContextMenuItemDataLiveText();
@@ -4540,7 +3421,6 @@ BridgedClass _createIOSSystemContextMenuItemDataCustomBridge() {
   return BridgedClass(
     nativeType: $flutter_50.IOSSystemContextMenuItemDataCustom,
     name: 'IOSSystemContextMenuItemDataCustom',
-    isAssignable: (v) => v is $flutter_50.IOSSystemContextMenuItemDataCustom,
     constructors: {
       '': (visitor, positional, named) {
         final title = D4.getRequiredNamedArg<String>(named, 'title', 'IOSSystemContextMenuItemDataCustom');
@@ -4612,7 +3492,6 @@ BridgedClass _createTextEditingDeltaBridge() {
   return BridgedClass(
     nativeType: $flutter_48.TextEditingDelta,
     name: 'TextEditingDelta',
-    isAssignable: (v) => v is $flutter_48.TextEditingDelta,
     constructors: {
       'fromJSON': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'TextEditingDelta');
@@ -4684,7 +3563,6 @@ BridgedClass _createTextEditingDeltaInsertionBridge() {
   return BridgedClass(
     nativeType: $flutter_48.TextEditingDeltaInsertion,
     name: 'TextEditingDeltaInsertion',
-    isAssignable: (v) => v is $flutter_48.TextEditingDeltaInsertion,
     constructors: {
       '': (visitor, positional, named) {
         final oldText = D4.getRequiredNamedArg<String>(named, 'oldText', 'TextEditingDeltaInsertion');
@@ -4760,7 +3638,6 @@ BridgedClass _createTextEditingDeltaDeletionBridge() {
   return BridgedClass(
     nativeType: $flutter_48.TextEditingDeltaDeletion,
     name: 'TextEditingDeltaDeletion',
-    isAssignable: (v) => v is $flutter_48.TextEditingDeltaDeletion,
     constructors: {
       '': (visitor, positional, named) {
         final oldText = D4.getRequiredNamedArg<String>(named, 'oldText', 'TextEditingDeltaDeletion');
@@ -4835,7 +3712,6 @@ BridgedClass _createTextEditingDeltaReplacementBridge() {
   return BridgedClass(
     nativeType: $flutter_48.TextEditingDeltaReplacement,
     name: 'TextEditingDeltaReplacement',
-    isAssignable: (v) => v is $flutter_48.TextEditingDeltaReplacement,
     constructors: {
       '': (visitor, positional, named) {
         final oldText = D4.getRequiredNamedArg<String>(named, 'oldText', 'TextEditingDeltaReplacement');
@@ -4913,7 +3789,6 @@ BridgedClass _createTextEditingDeltaNonTextUpdateBridge() {
   return BridgedClass(
     nativeType: $flutter_48.TextEditingDeltaNonTextUpdate,
     name: 'TextEditingDeltaNonTextUpdate',
-    isAssignable: (v) => v is $flutter_48.TextEditingDeltaNonTextUpdate,
     constructors: {
       '': (visitor, positional, named) {
         final oldText = D4.getRequiredNamedArg<String>(named, 'oldText', 'TextEditingDeltaNonTextUpdate');
@@ -4983,7 +3858,6 @@ BridgedClass _createBinaryMessengerBridge() {
   return BridgedClass(
     nativeType: $flutter_13.BinaryMessenger,
     name: 'BinaryMessenger',
-    isAssignable: (v) => v is $flutter_13.BinaryMessenger,
     constructors: {
     },
     methods: {
@@ -5033,7 +3907,6 @@ BridgedClass _createKeyboardKeyBridge() {
   return BridgedClass(
     nativeType: $flutter_25.KeyboardKey,
     name: 'KeyboardKey',
-    isAssignable: (v) => v is $flutter_25.KeyboardKey,
     constructors: {
     },
     methods: {
@@ -5077,7 +3950,6 @@ BridgedClass _createLogicalKeyboardKeyBridge() {
   return BridgedClass(
     nativeType: $flutter_25.LogicalKeyboardKey,
     name: 'LogicalKeyboardKey',
-    isAssignable: (v) => v is $flutter_25.LogicalKeyboardKey,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'LogicalKeyboardKey');
@@ -6100,7 +4972,6 @@ BridgedClass _createPhysicalKeyboardKeyBridge() {
   return BridgedClass(
     nativeType: $flutter_25.PhysicalKeyboardKey,
     name: 'PhysicalKeyboardKey',
-    isAssignable: (v) => v is $flutter_25.PhysicalKeyboardKey,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'PhysicalKeyboardKey');
@@ -6721,7 +5592,6 @@ BridgedClass _createKeyEventBridge() {
   return BridgedClass(
     nativeType: $flutter_23.KeyEvent,
     name: 'KeyEvent',
-    isAssignable: (v) => v is $flutter_23.KeyEvent,
     constructors: {
     },
     getters: {
@@ -6781,7 +5651,6 @@ BridgedClass _createKeyDownEventBridge() {
   return BridgedClass(
     nativeType: $flutter_23.KeyDownEvent,
     name: 'KeyDownEvent',
-    isAssignable: (v) => v is $flutter_23.KeyDownEvent,
     constructors: {
       '': (visitor, positional, named) {
         final physicalKey = D4.getRequiredNamedArg<$flutter_25.PhysicalKeyboardKey>(named, 'physicalKey', 'KeyDownEvent');
@@ -6859,7 +5728,6 @@ BridgedClass _createKeyUpEventBridge() {
   return BridgedClass(
     nativeType: $flutter_23.KeyUpEvent,
     name: 'KeyUpEvent',
-    isAssignable: (v) => v is $flutter_23.KeyUpEvent,
     constructors: {
       '': (visitor, positional, named) {
         final physicalKey = D4.getRequiredNamedArg<$flutter_25.PhysicalKeyboardKey>(named, 'physicalKey', 'KeyUpEvent');
@@ -6936,7 +5804,6 @@ BridgedClass _createKeyRepeatEventBridge() {
   return BridgedClass(
     nativeType: $flutter_23.KeyRepeatEvent,
     name: 'KeyRepeatEvent',
-    isAssignable: (v) => v is $flutter_23.KeyRepeatEvent,
     constructors: {
       '': (visitor, positional, named) {
         final physicalKey = D4.getRequiredNamedArg<$flutter_25.PhysicalKeyboardKey>(named, 'physicalKey', 'KeyRepeatEvent');
@@ -7013,7 +5880,6 @@ BridgedClass _createHardwareKeyboardBridge() {
   return BridgedClass(
     nativeType: $flutter_23.HardwareKeyboard,
     name: 'HardwareKeyboard',
-    isAssignable: (v) => v is $flutter_23.HardwareKeyboard,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_23.HardwareKeyboard();
@@ -7116,7 +5982,6 @@ BridgedClass _createRestorationManagerBridge() {
   return BridgedClass(
     nativeType: $flutter_37.RestorationManager,
     name: 'RestorationManager',
-    isAssignable: (v) => v is $flutter_37.RestorationManager,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_37.RestorationManager();
@@ -7205,7 +6070,6 @@ BridgedClass _createRestorationBucketBridge() {
   return BridgedClass(
     nativeType: $flutter_37.RestorationBucket,
     name: 'RestorationBucket',
-    isAssignable: (v) => v is $flutter_37.RestorationBucket,
     constructors: {
       'empty': (visitor, positional, named) {
         final restorationId = D4.getRequiredNamedArg<String>(named, 'restorationId', 'RestorationBucket');
@@ -7322,7 +6186,6 @@ BridgedClass _createServicesBindingBridge() {
   return BridgedClass(
     nativeType: $flutter_14.ServicesBinding,
     name: 'ServicesBinding',
-    isAssignable: (v) => v is $flutter_14.ServicesBinding,
     constructors: {
     },
     getters: {
@@ -7778,7 +6641,6 @@ BridgedClass _createSystemContextMenuClientBridge() {
   return BridgedClass(
     nativeType: $flutter_14.SystemContextMenuClient,
     name: 'SystemContextMenuClient',
-    isAssignable: (v) => v is $flutter_14.SystemContextMenuClient,
     constructors: {
     },
     methods: {
@@ -7810,7 +6672,6 @@ BridgedClass _createBrowserContextMenuBridge() {
   return BridgedClass(
     nativeType: $flutter_15.BrowserContextMenu,
     name: 'BrowserContextMenu',
-    isAssignable: (v) => v is $flutter_15.BrowserContextMenu,
     constructors: {
     },
     staticGetters: {
@@ -7842,7 +6703,6 @@ BridgedClass _createClipboardDataBridge() {
   return BridgedClass(
     nativeType: $flutter_16.ClipboardData,
     name: 'ClipboardData',
-    isAssignable: (v) => v is $flutter_16.ClipboardData,
     constructors: {
       '': (visitor, positional, named) {
         final text = D4.getRequiredNamedArg<String>(named, 'text', 'ClipboardData');
@@ -7869,7 +6729,6 @@ BridgedClass _createClipboardBridge() {
   return BridgedClass(
     nativeType: $flutter_16.Clipboard,
     name: 'Clipboard',
-    isAssignable: (v) => v is $flutter_16.Clipboard,
     constructors: {
     },
     staticGetters: {
@@ -7909,7 +6768,6 @@ BridgedClass _createDeferredComponentBridge() {
   return BridgedClass(
     nativeType: $flutter_18.DeferredComponent,
     name: 'DeferredComponent',
-    isAssignable: (v) => v is $flutter_18.DeferredComponent,
     constructors: {
     },
     staticMethods: {
@@ -7937,7 +6795,6 @@ BridgedClass _createFlutterVersionBridge() {
   return BridgedClass(
     nativeType: $flutter_20.FlutterVersion,
     name: 'FlutterVersion',
-    isAssignable: (v) => v is $flutter_20.FlutterVersion,
     constructors: {
     },
     staticGetters: {
@@ -7967,7 +6824,6 @@ BridgedClass _createFontLoaderBridge() {
   return BridgedClass(
     nativeType: $flutter_21.FontLoader,
     name: 'FontLoader',
-    isAssignable: (v) => v is $flutter_21.FontLoader,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FontLoader');
@@ -8012,7 +6868,6 @@ BridgedClass _createHapticFeedbackBridge() {
   return BridgedClass(
     nativeType: $flutter_22.HapticFeedback,
     name: 'HapticFeedback',
-    isAssignable: (v) => v is $flutter_22.HapticFeedback,
     constructors: {
     },
     staticMethods: {
@@ -8062,7 +6917,6 @@ BridgedClass _createKeyboardInsertedContentBridge() {
   return BridgedClass(
     nativeType: $flutter_24.KeyboardInsertedContent,
     name: 'KeyboardInsertedContent',
-    isAssignable: (v) => v is $flutter_24.KeyboardInsertedContent,
     constructors: {
       '': (visitor, positional, named) {
         final mimeType = D4.getRequiredNamedArg<String>(named, 'mimeType', 'KeyboardInsertedContent');
@@ -8122,7 +6976,6 @@ BridgedClass _createLiveTextBridge() {
   return BridgedClass(
     nativeType: $flutter_27.LiveText,
     name: 'LiveText',
-    isAssignable: (v) => v is $flutter_27.LiveText,
     constructors: {
     },
     staticMethods: {
@@ -8148,7 +7001,6 @@ BridgedClass _createMessageCodecBridge() {
   return BridgedClass(
     nativeType: $flutter_28.MessageCodec,
     name: 'MessageCodec',
-    isAssignable: (v) => v is $flutter_28.MessageCodec,
     constructors: {
     },
     methods: {
@@ -8180,7 +7032,6 @@ BridgedClass _createMethodCallBridge() {
   return BridgedClass(
     nativeType: $flutter_28.MethodCall,
     name: 'MethodCall',
-    isAssignable: (v) => v is $flutter_28.MethodCall,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'MethodCall');
@@ -8220,7 +7071,6 @@ BridgedClass _createMethodCodecBridge() {
   return BridgedClass(
     nativeType: $flutter_28.MethodCodec,
     name: 'MethodCodec',
-    isAssignable: (v) => v is $flutter_28.MethodCodec,
     constructors: {
     },
     methods: {
@@ -8274,7 +7124,6 @@ BridgedClass _createPlatformExceptionBridge() {
   return BridgedClass(
     nativeType: $flutter_28.PlatformException,
     name: 'PlatformException',
-    isAssignable: (v) => v is $flutter_28.PlatformException,
     constructors: {
       '': (visitor, positional, named) {
         final code = D4.getRequiredNamedArg<String>(named, 'code', 'PlatformException');
@@ -8319,7 +7168,6 @@ BridgedClass _createMissingPluginExceptionBridge() {
   return BridgedClass(
     nativeType: $flutter_28.MissingPluginException,
     name: 'MissingPluginException',
-    isAssignable: (v) => v is $flutter_28.MissingPluginException,
     constructors: {
       '': (visitor, positional, named) {
         final message = D4.getOptionalArg<String?>(positional, 0, 'message');
@@ -8355,7 +7203,6 @@ BridgedClass _createBinaryCodecBridge() {
   return BridgedClass(
     nativeType: $flutter_29.BinaryCodec,
     name: 'BinaryCodec',
-    isAssignable: (v) => v is $flutter_29.BinaryCodec,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_29.BinaryCodec();
@@ -8393,7 +7240,6 @@ BridgedClass _createStringCodecBridge() {
   return BridgedClass(
     nativeType: $flutter_29.StringCodec,
     name: 'StringCodec',
-    isAssignable: (v) => v is $flutter_29.StringCodec,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_29.StringCodec();
@@ -8431,7 +7277,6 @@ BridgedClass _createJSONMessageCodecBridge() {
   return BridgedClass(
     nativeType: $flutter_29.JSONMessageCodec,
     name: 'JSONMessageCodec',
-    isAssignable: (v) => v is $flutter_29.JSONMessageCodec,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_29.JSONMessageCodec();
@@ -8469,7 +7314,6 @@ BridgedClass _createJSONMethodCodecBridge() {
   return BridgedClass(
     nativeType: $flutter_29.JSONMethodCodec,
     name: 'JSONMethodCodec',
-    isAssignable: (v) => v is $flutter_29.JSONMethodCodec,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_29.JSONMethodCodec();
@@ -8529,7 +7373,6 @@ BridgedClass _createStandardMessageCodecBridge() {
   return BridgedClass(
     nativeType: $flutter_29.StandardMessageCodec,
     name: 'StandardMessageCodec',
-    isAssignable: (v) => v is $flutter_29.StandardMessageCodec,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_29.StandardMessageCodec();
@@ -8607,7 +7450,6 @@ BridgedClass _createStandardMethodCodecBridge() {
   return BridgedClass(
     nativeType: $flutter_29.StandardMethodCodec,
     name: 'StandardMethodCodec',
-    isAssignable: (v) => v is $flutter_29.StandardMethodCodec,
     constructors: {
       '': (visitor, positional, named) {
         final messageCodec = D4.getOptionalArgWithDefault<$flutter_29.StandardMessageCodec>(positional, 0, 'messageCodec', const $flutter_29.StandardMessageCodec());
@@ -8674,7 +7516,6 @@ BridgedClass _createPointerEventBridge() {
   return BridgedClass(
     nativeType: $flutter_7.PointerEvent,
     name: 'PointerEvent',
-    isAssignable: (v) => v is $flutter_7.PointerEvent,
     constructors: {
     },
     getters: {
@@ -8842,7 +7683,6 @@ BridgedClass _createMouseCursorManagerBridge() {
   return BridgedClass(
     nativeType: $flutter_30.MouseCursorManager,
     name: 'MouseCursorManager',
-    isAssignable: (v) => v is $flutter_30.MouseCursorManager,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'MouseCursorManager');
@@ -8894,7 +7734,6 @@ BridgedClass _createMouseCursorSessionBridge() {
   return BridgedClass(
     nativeType: $flutter_30.MouseCursorSession,
     name: 'MouseCursorSession',
-    isAssignable: (v) => v is $flutter_30.MouseCursorSession,
     constructors: {
     },
     getters: {
@@ -8931,7 +7770,6 @@ BridgedClass _createMouseCursorBridge() {
   return BridgedClass(
     nativeType: $flutter_30.MouseCursor,
     name: 'MouseCursor',
-    isAssignable: (v) => v is $flutter_30.MouseCursor,
     constructors: {
     },
     getters: {
@@ -8996,7 +7834,6 @@ BridgedClass _createSystemMouseCursorBridge() {
   return BridgedClass(
     nativeType: $flutter_30.SystemMouseCursor,
     name: 'SystemMouseCursor',
-    isAssignable: (v) => v is $flutter_30.SystemMouseCursor,
     constructors: {
     },
     getters: {
@@ -9062,7 +7899,6 @@ BridgedClass _createSystemMouseCursorsBridge() {
   return BridgedClass(
     nativeType: $flutter_30.SystemMouseCursors,
     name: 'SystemMouseCursors',
-    isAssignable: (v) => v is $flutter_30.SystemMouseCursors,
     constructors: {
     },
     staticGetters: {
@@ -9152,7 +7988,6 @@ BridgedClass _createMouseTrackerAnnotationBridge() {
   return BridgedClass(
     nativeType: $flutter_31.MouseTrackerAnnotation,
     name: 'MouseTrackerAnnotation',
-    isAssignable: (v) => v is $flutter_31.MouseTrackerAnnotation,
     constructors: {
       '': (visitor, positional, named) {
         final onEnterRaw = named['onEnter'];
@@ -9218,7 +8053,6 @@ BridgedClass _createBasicMessageChannelBridge() {
   return BridgedClass(
     nativeType: $flutter_32.BasicMessageChannel,
     name: 'BasicMessageChannel',
-    isAssignable: (v) => v is $flutter_32.BasicMessageChannel,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'BasicMessageChannel');
@@ -9274,7 +8108,6 @@ BridgedClass _createMethodChannelBridge() {
   return BridgedClass(
     nativeType: $flutter_32.MethodChannel,
     name: 'MethodChannel',
-    isAssignable: (v) => v is $flutter_32.MethodChannel,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'MethodChannel');
@@ -9347,7 +8180,6 @@ BridgedClass _createOptionalMethodChannelBridge() {
   return BridgedClass(
     nativeType: $flutter_32.OptionalMethodChannel,
     name: 'OptionalMethodChannel',
-    isAssignable: (v) => v is $flutter_32.OptionalMethodChannel,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'OptionalMethodChannel');
@@ -9420,7 +8252,6 @@ BridgedClass _createEventChannelBridge() {
   return BridgedClass(
     nativeType: $flutter_32.EventChannel,
     name: 'EventChannel',
-    isAssignable: (v) => v is $flutter_32.EventChannel,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'EventChannel');
@@ -9464,7 +8295,6 @@ BridgedClass _createPlatformViewsRegistryBridge() {
   return BridgedClass(
     nativeType: $flutter_33.PlatformViewsRegistry,
     name: 'PlatformViewsRegistry',
-    isAssignable: (v) => v is $flutter_33.PlatformViewsRegistry,
     constructors: {
     },
     methods: {
@@ -9487,7 +8317,6 @@ BridgedClass _createPlatformViewsServiceBridge() {
   return BridgedClass(
     nativeType: $flutter_33.PlatformViewsService,
     name: 'PlatformViewsService',
-    isAssignable: (v) => v is $flutter_33.PlatformViewsService,
     constructors: {
     },
     staticMethods: {
@@ -9571,7 +8400,6 @@ BridgedClass _createAndroidPointerPropertiesBridge() {
   return BridgedClass(
     nativeType: $flutter_33.AndroidPointerProperties,
     name: 'AndroidPointerProperties',
-    isAssignable: (v) => v is $flutter_33.AndroidPointerProperties,
     constructors: {
       '': (visitor, positional, named) {
         final id = D4.getRequiredNamedArg<int>(named, 'id', 'AndroidPointerProperties');
@@ -9624,7 +8452,6 @@ BridgedClass _createAndroidPointerCoordsBridge() {
   return BridgedClass(
     nativeType: $flutter_33.AndroidPointerCoords,
     name: 'AndroidPointerCoords',
-    isAssignable: (v) => v is $flutter_33.AndroidPointerCoords,
     constructors: {
       '': (visitor, positional, named) {
         final orientation = D4.getRequiredNamedArg<double>(named, 'orientation', 'AndroidPointerCoords');
@@ -9684,7 +8511,6 @@ BridgedClass _createAndroidMotionEventBridge() {
   return BridgedClass(
     nativeType: $flutter_33.AndroidMotionEvent,
     name: 'AndroidMotionEvent',
-    isAssignable: (v) => v is $flutter_33.AndroidMotionEvent,
     constructors: {
       '': (visitor, positional, named) {
         final downTime = D4.getRequiredNamedArg<int>(named, 'downTime', 'AndroidMotionEvent');
@@ -9768,7 +8594,6 @@ BridgedClass _createAndroidViewControllerBridge() {
   return BridgedClass(
     nativeType: $flutter_33.AndroidViewController,
     name: 'AndroidViewController',
-    isAssignable: (v) => v is $flutter_33.AndroidViewController,
     constructors: {
     },
     getters: {
@@ -9924,7 +8749,6 @@ BridgedClass _createSurfaceAndroidViewControllerBridge() {
   return BridgedClass(
     nativeType: $flutter_33.SurfaceAndroidViewController,
     name: 'SurfaceAndroidViewController',
-    isAssignable: (v) => v is $flutter_33.SurfaceAndroidViewController,
     constructors: {
     },
     getters: {
@@ -10039,7 +8863,6 @@ BridgedClass _createExpensiveAndroidViewControllerBridge() {
   return BridgedClass(
     nativeType: $flutter_33.ExpensiveAndroidViewController,
     name: 'ExpensiveAndroidViewController',
-    isAssignable: (v) => v is $flutter_33.ExpensiveAndroidViewController,
     constructors: {
     },
     getters: {
@@ -10154,7 +8977,6 @@ BridgedClass _createHybridAndroidViewControllerBridge() {
   return BridgedClass(
     nativeType: $flutter_33.HybridAndroidViewController,
     name: 'HybridAndroidViewController',
-    isAssignable: (v) => v is $flutter_33.HybridAndroidViewController,
     constructors: {
     },
     getters: {
@@ -10277,7 +9099,6 @@ BridgedClass _createTextureAndroidViewControllerBridge() {
   return BridgedClass(
     nativeType: $flutter_33.TextureAndroidViewController,
     name: 'TextureAndroidViewController',
-    isAssignable: (v) => v is $flutter_33.TextureAndroidViewController,
     constructors: {
     },
     getters: {
@@ -10392,7 +9213,6 @@ BridgedClass _createDarwinPlatformViewControllerBridge() {
   return BridgedClass(
     nativeType: $flutter_33.DarwinPlatformViewController,
     name: 'DarwinPlatformViewController',
-    isAssignable: (v) => v is $flutter_33.DarwinPlatformViewController,
     constructors: {
     },
     getters: {
@@ -10438,7 +9258,6 @@ BridgedClass _createUiKitViewControllerBridge() {
   return BridgedClass(
     nativeType: $flutter_33.UiKitViewController,
     name: 'UiKitViewController',
-    isAssignable: (v) => v is $flutter_33.UiKitViewController,
     constructors: {
     },
     getters: {
@@ -10484,7 +9303,6 @@ BridgedClass _createAppKitViewControllerBridge() {
   return BridgedClass(
     nativeType: $flutter_33.AppKitViewController,
     name: 'AppKitViewController',
-    isAssignable: (v) => v is $flutter_33.AppKitViewController,
     constructors: {
     },
     getters: {
@@ -10530,7 +9348,6 @@ BridgedClass _createPlatformViewControllerBridge() {
   return BridgedClass(
     nativeType: $flutter_33.PlatformViewController,
     name: 'PlatformViewController',
-    isAssignable: (v) => v is $flutter_33.PlatformViewController,
     constructors: {
     },
     getters: {
@@ -10580,7 +9397,6 @@ BridgedClass _createPredictiveBackEventBridge() {
   return BridgedClass(
     nativeType: $flutter_34.PredictiveBackEvent,
     name: 'PredictiveBackEvent',
-    isAssignable: (v) => v is $flutter_34.PredictiveBackEvent,
     constructors: {
       'fromMap': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'PredictiveBackEvent');
@@ -10633,7 +9449,6 @@ BridgedClass _createProcessTextActionBridge() {
   return BridgedClass(
     nativeType: $flutter_35.ProcessTextAction,
     name: 'ProcessTextAction',
-    isAssignable: (v) => v is $flutter_35.ProcessTextAction,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'ProcessTextAction');
@@ -10673,7 +9488,6 @@ BridgedClass _createProcessTextServiceBridge() {
   return BridgedClass(
     nativeType: $flutter_35.ProcessTextService,
     name: 'ProcessTextService',
-    isAssignable: (v) => v is $flutter_35.ProcessTextService,
     constructors: {
     },
     methods: {
@@ -10705,7 +9519,6 @@ BridgedClass _createDefaultProcessTextServiceBridge() {
   return BridgedClass(
     nativeType: $flutter_35.DefaultProcessTextService,
     name: 'DefaultProcessTextService',
-    isAssignable: (v) => v is $flutter_35.DefaultProcessTextService,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_35.DefaultProcessTextService();
@@ -10743,7 +9556,6 @@ BridgedClass _createScribeBridge() {
   return BridgedClass(
     nativeType: $flutter_38.Scribe,
     name: 'Scribe',
-    isAssignable: (v) => v is $flutter_38.Scribe,
     constructors: {
     },
     staticMethods: {
@@ -10773,7 +9585,6 @@ BridgedClass _createSensitiveContentServiceBridge() {
   return BridgedClass(
     nativeType: $flutter_39.SensitiveContentService,
     name: 'SensitiveContentService',
-    isAssignable: (v) => v is $flutter_39.SensitiveContentService,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_39.SensitiveContentService();
@@ -10827,7 +9638,6 @@ BridgedClass _createSuggestionSpanBridge() {
   return BridgedClass(
     nativeType: $flutter_41.SuggestionSpan,
     name: 'SuggestionSpan',
-    isAssignable: (v) => v is $flutter_41.SuggestionSpan,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'SuggestionSpan');
@@ -10877,7 +9687,6 @@ BridgedClass _createSpellCheckResultsBridge() {
   return BridgedClass(
     nativeType: $flutter_41.SpellCheckResults,
     name: 'SpellCheckResults',
-    isAssignable: (v) => v is $flutter_41.SpellCheckResults,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'SpellCheckResults');
@@ -10927,7 +9736,6 @@ BridgedClass _createSpellCheckServiceBridge() {
   return BridgedClass(
     nativeType: $flutter_41.SpellCheckService,
     name: 'SpellCheckService',
-    isAssignable: (v) => v is $flutter_41.SpellCheckService,
     constructors: {
     },
     methods: {
@@ -10953,7 +9761,6 @@ BridgedClass _createDefaultSpellCheckServiceBridge() {
   return BridgedClass(
     nativeType: $flutter_41.DefaultSpellCheckService,
     name: 'DefaultSpellCheckService',
-    isAssignable: (v) => v is $flutter_41.DefaultSpellCheckService,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_41.DefaultSpellCheckService();
@@ -11020,7 +9827,6 @@ BridgedClass _createSystemChannelsBridge() {
   return BridgedClass(
     nativeType: $flutter_42.SystemChannels,
     name: 'SystemChannels',
-    isAssignable: (v) => v is $flutter_42.SystemChannels,
     constructors: {
     },
     staticGetters: {
@@ -11086,7 +9892,6 @@ BridgedClass _createApplicationSwitcherDescriptionBridge() {
   return BridgedClass(
     nativeType: $flutter_43.ApplicationSwitcherDescription,
     name: 'ApplicationSwitcherDescription',
-    isAssignable: (v) => v is $flutter_43.ApplicationSwitcherDescription,
     constructors: {
       '': (visitor, positional, named) {
         final label = D4.getOptionalNamedArg<String?>(named, 'label');
@@ -11116,7 +9921,6 @@ BridgedClass _createSystemUiOverlayStyleBridge() {
   return BridgedClass(
     nativeType: $flutter_43.SystemUiOverlayStyle,
     name: 'SystemUiOverlayStyle',
-    isAssignable: (v) => v is $flutter_43.SystemUiOverlayStyle,
     constructors: {
       '': (visitor, positional, named) {
         final systemNavigationBarColor = D4.getOptionalNamedArg<Color?>(named, 'systemNavigationBarColor');
@@ -11222,7 +10026,6 @@ BridgedClass _createSystemChromeBridge() {
   return BridgedClass(
     nativeType: $flutter_43.SystemChrome,
     name: 'SystemChrome',
-    isAssignable: (v) => v is $flutter_43.SystemChrome,
     constructors: {
     },
     staticMethods: {
@@ -11288,7 +10091,6 @@ BridgedClass _createSystemNavigatorBridge() {
   return BridgedClass(
     nativeType: $flutter_44.SystemNavigator,
     name: 'SystemNavigator',
-    isAssignable: (v) => v is $flutter_44.SystemNavigator,
     constructors: {
     },
     staticMethods: {
@@ -11333,7 +10135,6 @@ BridgedClass _createSystemSoundBridge() {
   return BridgedClass(
     nativeType: $flutter_45.SystemSound,
     name: 'SystemSound',
-    isAssignable: (v) => v is $flutter_45.SystemSound,
     constructors: {
     },
     staticMethods: {
@@ -11357,7 +10158,6 @@ BridgedClass _createTextBoundaryBridge() {
   return BridgedClass(
     nativeType: $flutter_46.TextBoundary,
     name: 'TextBoundary',
-    isAssignable: (v) => v is $flutter_46.TextBoundary,
     constructors: {
     },
     methods: {
@@ -11396,7 +10196,6 @@ BridgedClass _createCharacterBoundaryBridge() {
   return BridgedClass(
     nativeType: $flutter_46.CharacterBoundary,
     name: 'CharacterBoundary',
-    isAssignable: (v) => v is $flutter_46.CharacterBoundary,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'CharacterBoundary');
@@ -11443,7 +10242,6 @@ BridgedClass _createLineBoundaryBridge() {
   return BridgedClass(
     nativeType: $flutter_46.LineBoundary,
     name: 'LineBoundary',
-    isAssignable: (v) => v is $flutter_46.LineBoundary,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'LineBoundary');
@@ -11490,7 +10288,6 @@ BridgedClass _createParagraphBoundaryBridge() {
   return BridgedClass(
     nativeType: $flutter_46.ParagraphBoundary,
     name: 'ParagraphBoundary',
-    isAssignable: (v) => v is $flutter_46.ParagraphBoundary,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ParagraphBoundary');
@@ -11537,7 +10334,6 @@ BridgedClass _createDocumentBoundaryBridge() {
   return BridgedClass(
     nativeType: $flutter_46.DocumentBoundary,
     name: 'DocumentBoundary',
-    isAssignable: (v) => v is $flutter_46.DocumentBoundary,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'DocumentBoundary');
@@ -11584,7 +10380,6 @@ BridgedClass _createTextInputFormatterBridge() {
   return BridgedClass(
     nativeType: $flutter_49.TextInputFormatter,
     name: 'TextInputFormatter',
-    isAssignable: (v) => v is $flutter_49.TextInputFormatter,
     constructors: {
       'withFunction': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'TextInputFormatter');
@@ -11621,7 +10416,6 @@ BridgedClass _createFilteringTextInputFormatterBridge() {
   return BridgedClass(
     nativeType: $flutter_49.FilteringTextInputFormatter,
     name: 'FilteringTextInputFormatter',
-    isAssignable: (v) => v is $flutter_49.FilteringTextInputFormatter,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FilteringTextInputFormatter');
@@ -11689,7 +10483,6 @@ BridgedClass _createLengthLimitingTextInputFormatterBridge() {
   return BridgedClass(
     nativeType: $flutter_49.LengthLimitingTextInputFormatter,
     name: 'LengthLimitingTextInputFormatter',
-    isAssignable: (v) => v is $flutter_49.LengthLimitingTextInputFormatter,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'LengthLimitingTextInputFormatter');
@@ -11741,7 +10534,6 @@ BridgedClass _createTextLayoutMetricsBridge() {
   return BridgedClass(
     nativeType: $flutter_51.TextLayoutMetrics,
     name: 'TextLayoutMetrics',
-    isAssignable: (v) => v is $flutter_51.TextLayoutMetrics,
     constructors: {
     },
     methods: {
@@ -11803,7 +10595,6 @@ BridgedClass _createUndoManagerBridge() {
   return BridgedClass(
     nativeType: $flutter_52.UndoManager,
     name: 'UndoManager',
-    isAssignable: (v) => v is $flutter_52.UndoManager,
     constructors: {
     },
     staticGetters: {
@@ -11840,7 +10631,6 @@ BridgedClass _createUndoManagerClientBridge() {
   return BridgedClass(
     nativeType: $flutter_52.UndoManagerClient,
     name: 'UndoManagerClient',
-    isAssignable: (v) => v is $flutter_52.UndoManagerClient,
     constructors: {
     },
     getters: {
@@ -11886,7 +10676,6 @@ BridgedClass _createVector3Bridge() {
   return BridgedClass(
     nativeType: $vector_math_1.Vector3,
     name: 'Vector3',
-    isAssignable: (v) => v is $vector_math_1.Vector3,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'Vector3');
@@ -13242,7 +12031,6 @@ BridgedClass _createVector2Bridge() {
   return BridgedClass(
     nativeType: $vector_math_1.Vector2,
     name: 'Vector2',
-    isAssignable: (v) => v is $vector_math_1.Vector2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Vector2');

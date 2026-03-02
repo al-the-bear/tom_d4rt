@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 13 files
-// Generated: 2026-03-01T17:06:52.039516
+// Generated: 2026-03-02T10:22:57.584868
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -839,7 +839,6 @@ BridgedClass _createChannelBuffersBridge() {
   return BridgedClass(
     nativeType: $dart_ui.ChannelBuffers,
     name: 'ChannelBuffers',
-    isAssignable: (v) => v is $dart_ui.ChannelBuffers,
     constructors: {
       '': (visitor, positional, named) {
         return $dart_ui.ChannelBuffers();
@@ -950,7 +949,6 @@ BridgedClass _createSceneBridge() {
   return BridgedClass(
     nativeType: $dart_ui.Scene,
     name: 'Scene',
-    isAssignable: (v) => v is $dart_ui.Scene,
     constructors: {
     },
     methods: {
@@ -990,7 +988,6 @@ BridgedClass _createTransformEngineLayerBridge() {
   return BridgedClass(
     nativeType: $dart_ui.TransformEngineLayer,
     name: 'TransformEngineLayer',
-    isAssignable: (v) => v is $dart_ui.TransformEngineLayer,
     constructors: {
     },
     methods: {
@@ -1014,7 +1011,6 @@ BridgedClass _createOffsetEngineLayerBridge() {
   return BridgedClass(
     nativeType: $dart_ui.OffsetEngineLayer,
     name: 'OffsetEngineLayer',
-    isAssignable: (v) => v is $dart_ui.OffsetEngineLayer,
     constructors: {
     },
     methods: {
@@ -1038,7 +1034,6 @@ BridgedClass _createClipRectEngineLayerBridge() {
   return BridgedClass(
     nativeType: $dart_ui.ClipRectEngineLayer,
     name: 'ClipRectEngineLayer',
-    isAssignable: (v) => v is $dart_ui.ClipRectEngineLayer,
     constructors: {
     },
     methods: {
@@ -1062,7 +1057,6 @@ BridgedClass _createClipRRectEngineLayerBridge() {
   return BridgedClass(
     nativeType: $dart_ui.ClipRRectEngineLayer,
     name: 'ClipRRectEngineLayer',
-    isAssignable: (v) => v is $dart_ui.ClipRRectEngineLayer,
     constructors: {
     },
     methods: {
@@ -1086,7 +1080,6 @@ BridgedClass _createClipRSuperellipseEngineLayerBridge() {
   return BridgedClass(
     nativeType: $dart_ui.ClipRSuperellipseEngineLayer,
     name: 'ClipRSuperellipseEngineLayer',
-    isAssignable: (v) => v is $dart_ui.ClipRSuperellipseEngineLayer,
     constructors: {
     },
     methods: {
@@ -1110,7 +1103,6 @@ BridgedClass _createClipPathEngineLayerBridge() {
   return BridgedClass(
     nativeType: $dart_ui.ClipPathEngineLayer,
     name: 'ClipPathEngineLayer',
-    isAssignable: (v) => v is $dart_ui.ClipPathEngineLayer,
     constructors: {
     },
     methods: {
@@ -1134,7 +1126,6 @@ BridgedClass _createOpacityEngineLayerBridge() {
   return BridgedClass(
     nativeType: $dart_ui.OpacityEngineLayer,
     name: 'OpacityEngineLayer',
-    isAssignable: (v) => v is $dart_ui.OpacityEngineLayer,
     constructors: {
     },
     methods: {
@@ -1158,7 +1149,6 @@ BridgedClass _createColorFilterEngineLayerBridge() {
   return BridgedClass(
     nativeType: $dart_ui.ColorFilterEngineLayer,
     name: 'ColorFilterEngineLayer',
-    isAssignable: (v) => v is $dart_ui.ColorFilterEngineLayer,
     constructors: {
     },
     methods: {
@@ -1182,7 +1172,6 @@ BridgedClass _createImageFilterEngineLayerBridge() {
   return BridgedClass(
     nativeType: $dart_ui.ImageFilterEngineLayer,
     name: 'ImageFilterEngineLayer',
-    isAssignable: (v) => v is $dart_ui.ImageFilterEngineLayer,
     constructors: {
     },
     methods: {
@@ -1206,7 +1195,6 @@ BridgedClass _createBackdropFilterEngineLayerBridge() {
   return BridgedClass(
     nativeType: $dart_ui.BackdropFilterEngineLayer,
     name: 'BackdropFilterEngineLayer',
-    isAssignable: (v) => v is $dart_ui.BackdropFilterEngineLayer,
     constructors: {
     },
     methods: {
@@ -1230,7 +1218,6 @@ BridgedClass _createShaderMaskEngineLayerBridge() {
   return BridgedClass(
     nativeType: $dart_ui.ShaderMaskEngineLayer,
     name: 'ShaderMaskEngineLayer',
-    isAssignable: (v) => v is $dart_ui.ShaderMaskEngineLayer,
     constructors: {
     },
     methods: {
@@ -1254,7 +1241,6 @@ BridgedClass _createSceneBuilderBridge() {
   return BridgedClass(
     nativeType: SceneBuilder,
     name: 'SceneBuilder',
-    isAssignable: (v) => v is SceneBuilder,
     constructors: {
       '': (visitor, positional, named) {
         return SceneBuilder();
@@ -1441,7 +1427,6 @@ BridgedClass _createOffsetBaseBridge() {
   return BridgedClass(
     nativeType: $dart_ui.OffsetBase,
     name: 'OffsetBase',
-    isAssignable: (v) => v is $dart_ui.OffsetBase,
     constructors: {
     },
     getters: {
@@ -1499,7 +1484,6 @@ BridgedClass _createOffsetBridge() {
   return BridgedClass(
     nativeType: $dart_ui.Offset,
     name: 'Offset',
-    isAssignable: (v) => v is $dart_ui.Offset,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Offset');
@@ -1660,7 +1644,6 @@ BridgedClass _createSizeBridge() {
   return BridgedClass(
     nativeType: $dart_ui.Size,
     name: 'Size',
-    isAssignable: (v) => v is $dart_ui.Size,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Size');
@@ -1891,7 +1874,6 @@ BridgedClass _createRectBridge() {
   return BridgedClass(
     nativeType: $dart_ui.Rect,
     name: 'Rect',
-    isAssignable: (v) => v is $dart_ui.Rect,
     constructors: {
       'fromLTRB': (visitor, positional, named) {
         D4.requireMinArgs(positional, 4, 'Rect');
@@ -2086,7 +2068,6 @@ BridgedClass _createRadiusBridge() {
   return BridgedClass(
     nativeType: $dart_ui.Radius,
     name: 'Radius',
-    isAssignable: (v) => v is $dart_ui.Radius,
     constructors: {
       'circular': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Radius');
@@ -2209,7 +2190,6 @@ BridgedClass _createRRectBridge() {
   return BridgedClass(
     nativeType: $dart_ui.RRect,
     name: 'RRect',
-    isAssignable: (v) => v is $dart_ui.RRect,
     constructors: {
       'fromLTRBXY': (visitor, positional, named) {
         D4.requireMinArgs(positional, 6, 'RRect');
@@ -2421,7 +2401,6 @@ BridgedClass _createRSuperellipseBridge() {
   return BridgedClass(
     nativeType: $dart_ui.RSuperellipse,
     name: 'RSuperellipse',
-    isAssignable: (v) => v is $dart_ui.RSuperellipse,
     constructors: {
       'fromLTRBXY': (visitor, positional, named) {
         D4.requireMinArgs(positional, 6, 'RSuperellipse');
@@ -2633,7 +2612,6 @@ BridgedClass _createRSTransformBridge() {
   return BridgedClass(
     nativeType: $dart_ui.RSTransform,
     name: 'RSTransform',
-    isAssignable: (v) => v is $dart_ui.RSTransform,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 4, 'RSTransform');
@@ -2680,7 +2658,6 @@ BridgedClass _createIsolateNameServerBridge() {
   return BridgedClass(
     nativeType: IsolateNameServer,
     name: 'IsolateNameServer',
-    isAssignable: (v) => v is IsolateNameServer,
     constructors: {
     },
     staticMethods: {
@@ -2717,7 +2694,6 @@ BridgedClass _createKeyDataBridge() {
   return BridgedClass(
     nativeType: $dart_ui.KeyData,
     name: 'KeyData',
-    isAssignable: (v) => v is $dart_ui.KeyData,
     constructors: {
       '': (visitor, positional, named) {
         final timeStamp = D4.getRequiredNamedArg<Duration>(named, 'timeStamp', 'KeyData');
@@ -2776,7 +2752,6 @@ BridgedClass _createDartPluginRegistrantBridge() {
   return BridgedClass(
     nativeType: DartPluginRegistrant,
     name: 'DartPluginRegistrant',
-    isAssignable: (v) => v is DartPluginRegistrant,
     constructors: {
     },
     staticMethods: {
@@ -2798,7 +2773,6 @@ BridgedClass _createColorBridge() {
   return BridgedClass(
     nativeType: $dart_ui.Color,
     name: 'Color',
-    isAssignable: (v) => v is $dart_ui.Color,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Color');
@@ -2969,7 +2943,6 @@ BridgedClass _createPaintBridge() {
   return BridgedClass(
     nativeType: $dart_ui.Paint,
     name: 'Paint',
-    isAssignable: (v) => v is $dart_ui.Paint,
     constructors: {
       '': (visitor, positional, named) {
         return $dart_ui.Paint();
@@ -3082,7 +3055,6 @@ BridgedClass _createImageBridge() {
   return BridgedClass(
     nativeType: $dart_ui.Image,
     name: 'Image',
-    isAssignable: (v) => v is $dart_ui.Image,
     constructors: {
     },
     getters: {
@@ -3164,7 +3136,6 @@ BridgedClass _createFrameInfoBridge() {
   return BridgedClass(
     nativeType: $dart_ui.FrameInfo,
     name: 'FrameInfo',
-    isAssignable: (v) => v is $dart_ui.FrameInfo,
     constructors: {
     },
     getters: {
@@ -3186,7 +3157,6 @@ BridgedClass _createCodecBridge() {
   return BridgedClass(
     nativeType: $dart_ui.Codec,
     name: 'Codec',
-    isAssignable: (v) => v is $dart_ui.Codec,
     constructors: {
     },
     getters: {
@@ -3223,7 +3193,6 @@ BridgedClass _createTargetImageSizeBridge() {
   return BridgedClass(
     nativeType: $dart_ui.TargetImageSize,
     name: 'TargetImageSize',
-    isAssignable: (v) => v is $dart_ui.TargetImageSize,
     constructors: {
       '': (visitor, positional, named) {
         final width = D4.getOptionalNamedArg<int?>(named, 'width');
@@ -3262,7 +3231,6 @@ BridgedClass _createEngineLayerBridge() {
   return BridgedClass(
     nativeType: $dart_ui.EngineLayer,
     name: 'EngineLayer',
-    isAssignable: (v) => v is $dart_ui.EngineLayer,
     constructors: {
     },
     methods: {
@@ -3286,7 +3254,6 @@ BridgedClass _createPathBridge() {
   return BridgedClass(
     nativeType: $dart_ui.Path,
     name: 'Path',
-    isAssignable: (v) => v is $dart_ui.Path,
     constructors: {
       '': (visitor, positional, named) {
         return $dart_ui.Path();
@@ -3602,7 +3569,6 @@ BridgedClass _createTangentBridge() {
   return BridgedClass(
     nativeType: $dart_ui.Tangent,
     name: 'Tangent',
-    isAssignable: (v) => v is $dart_ui.Tangent,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Tangent');
@@ -3642,7 +3608,6 @@ BridgedClass _createPathMetricsBridge() {
   return BridgedClass(
     nativeType: $dart_ui.PathMetrics,
     name: 'PathMetrics',
-    isAssignable: (v) => v is $dart_ui.PathMetrics,
     constructors: {
     },
     getters: {
@@ -3883,7 +3848,6 @@ BridgedClass _createPathMetricIteratorBridge() {
   return BridgedClass(
     nativeType: PathMetricIterator,
     name: 'PathMetricIterator',
-    isAssignable: (v) => v is PathMetricIterator,
     constructors: {
     },
     getters: {
@@ -3912,7 +3876,6 @@ BridgedClass _createPathMetricBridge() {
   return BridgedClass(
     nativeType: $dart_ui.PathMetric,
     name: 'PathMetric',
-    isAssignable: (v) => v is $dart_ui.PathMetric,
     constructors: {
     },
     getters: {
@@ -3961,7 +3924,6 @@ BridgedClass _createMaskFilterBridge() {
   return BridgedClass(
     nativeType: $dart_ui.MaskFilter,
     name: 'MaskFilter',
-    isAssignable: (v) => v is $dart_ui.MaskFilter,
     constructors: {
       'blur': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'MaskFilter');
@@ -4004,7 +3966,6 @@ BridgedClass _createColorFilterBridge() {
   return BridgedClass(
     nativeType: $dart_ui.ColorFilter,
     name: 'ColorFilter',
-    isAssignable: (v) => v is $dart_ui.ColorFilter,
     constructors: {
       'mode': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'ColorFilter');
@@ -4072,7 +4033,6 @@ BridgedClass _createImageFilterBridge() {
   return BridgedClass(
     nativeType: $dart_ui.ImageFilter,
     name: 'ImageFilter',
-    isAssignable: (v) => v is $dart_ui.ImageFilter,
     constructors: {
       'blur': (visitor, positional, named) {
         final sigmaX = D4.getNamedArgWithDefault<double>(named, 'sigmaX', 0.0);
@@ -4139,7 +4099,6 @@ BridgedClass _createShaderBridge() {
   return BridgedClass(
     nativeType: $dart_ui.Shader,
     name: 'Shader',
-    isAssignable: (v) => v is $dart_ui.Shader,
     constructors: {
     },
     getters: {
@@ -4169,7 +4128,6 @@ BridgedClass _createGradientBridge() {
   return BridgedClass(
     nativeType: Gradient,
     name: 'Gradient',
-    isAssignable: (v) => v is Gradient,
     constructors: {
       'linear': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'Gradient');
@@ -4253,7 +4211,6 @@ BridgedClass _createImageShaderBridge() {
   return BridgedClass(
     nativeType: ImageShader,
     name: 'ImageShader',
-    isAssignable: (v) => v is ImageShader,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 4, 'ImageShader');
@@ -4295,7 +4252,6 @@ BridgedClass _createFragmentProgramBridge() {
   return BridgedClass(
     nativeType: $dart_ui.FragmentProgram,
     name: 'FragmentProgram',
-    isAssignable: (v) => v is $dart_ui.FragmentProgram,
     constructors: {
     },
     methods: {
@@ -4328,7 +4284,6 @@ BridgedClass _createUniformFloatSlotBridge() {
   return BridgedClass(
     nativeType: $dart_ui.UniformFloatSlot,
     name: 'UniformFloatSlot',
-    isAssignable: (v) => v is $dart_ui.UniformFloatSlot,
     constructors: {
     },
     getters: {
@@ -4364,7 +4319,6 @@ BridgedClass _createUniformVec2SlotBridge() {
   return BridgedClass(
     nativeType: $dart_ui.UniformVec2Slot,
     name: 'UniformVec2Slot',
-    isAssignable: (v) => v is $dart_ui.UniformVec2Slot,
     constructors: {
     },
     methods: {
@@ -4391,7 +4345,6 @@ BridgedClass _createUniformVec3SlotBridge() {
   return BridgedClass(
     nativeType: $dart_ui.UniformVec3Slot,
     name: 'UniformVec3Slot',
-    isAssignable: (v) => v is $dart_ui.UniformVec3Slot,
     constructors: {
     },
     methods: {
@@ -4419,7 +4372,6 @@ BridgedClass _createUniformVec4SlotBridge() {
   return BridgedClass(
     nativeType: $dart_ui.UniformVec4Slot,
     name: 'UniformVec4Slot',
-    isAssignable: (v) => v is $dart_ui.UniformVec4Slot,
     constructors: {
     },
     methods: {
@@ -4448,7 +4400,6 @@ BridgedClass _createImageSamplerSlotBridge() {
   return BridgedClass(
     nativeType: $dart_ui.ImageSamplerSlot,
     name: 'ImageSamplerSlot',
-    isAssignable: (v) => v is $dart_ui.ImageSamplerSlot,
     constructors: {
     },
     getters: {
@@ -4482,7 +4433,6 @@ BridgedClass _createFragmentShaderBridge() {
   return BridgedClass(
     nativeType: $dart_ui.FragmentShader,
     name: 'FragmentShader',
-    isAssignable: (v) => v is $dart_ui.FragmentShader,
     constructors: {
     },
     getters: {
@@ -4567,7 +4517,6 @@ BridgedClass _createVerticesBridge() {
   return BridgedClass(
     nativeType: $dart_ui.Vertices,
     name: 'Vertices',
-    isAssignable: (v) => v is $dart_ui.Vertices,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Vertices');
@@ -4622,7 +4571,6 @@ BridgedClass _createCanvasBridge() {
   return BridgedClass(
     nativeType: Canvas,
     name: 'Canvas',
-    isAssignable: (v) => v is Canvas,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Canvas');
@@ -5012,7 +4960,6 @@ BridgedClass _createPictureBridge() {
   return BridgedClass(
     nativeType: $dart_ui.Picture,
     name: 'Picture',
-    isAssignable: (v) => v is $dart_ui.Picture,
     constructors: {
     },
     getters: {
@@ -5079,7 +5026,6 @@ BridgedClass _createPictureRecorderBridge() {
   return BridgedClass(
     nativeType: $dart_ui.PictureRecorder,
     name: 'PictureRecorder',
-    isAssignable: (v) => v is $dart_ui.PictureRecorder,
     constructors: {
       '': (visitor, positional, named) {
         return $dart_ui.PictureRecorder();
@@ -5114,7 +5060,6 @@ BridgedClass _createShadowBridge() {
   return BridgedClass(
     nativeType: $dart_ui.Shadow,
     name: 'Shadow',
-    isAssignable: (v) => v is $dart_ui.Shadow,
     constructors: {
       '': (visitor, positional, named) {
         final offset = D4.getNamedArgWithDefault<$dart_ui.Offset>(named, 'offset', $dart_ui.Offset.zero);
@@ -5215,7 +5160,6 @@ BridgedClass _createImmutableBufferBridge() {
   return BridgedClass(
     nativeType: $dart_ui.ImmutableBuffer,
     name: 'ImmutableBuffer',
-    isAssignable: (v) => v is $dart_ui.ImmutableBuffer,
     constructors: {
     },
     getters: {
@@ -5269,7 +5213,6 @@ BridgedClass _createImageDescriptorBridge() {
   return BridgedClass(
     nativeType: $dart_ui.ImageDescriptor,
     name: 'ImageDescriptor',
-    isAssignable: (v) => v is $dart_ui.ImageDescriptor,
     constructors: {
       'raw': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ImageDescriptor');
@@ -5333,7 +5276,6 @@ BridgedClass _createPictureRasterizationExceptionBridge() {
   return BridgedClass(
     nativeType: PictureRasterizationException,
     name: 'PictureRasterizationException',
-    isAssignable: (v) => v is PictureRasterizationException,
     constructors: {
     },
     getters: {
@@ -5364,7 +5306,6 @@ BridgedClass _createRootIsolateTokenBridge() {
   return BridgedClass(
     nativeType: $dart_ui.RootIsolateToken,
     name: 'RootIsolateToken',
-    isAssignable: (v) => v is $dart_ui.RootIsolateToken,
     constructors: {
     },
     staticGetters: {
@@ -5384,7 +5325,6 @@ BridgedClass _createPlatformDispatcherBridge() {
   return BridgedClass(
     nativeType: $dart_ui.PlatformDispatcher,
     name: 'PlatformDispatcher',
-    isAssignable: (v) => v is $dart_ui.PlatformDispatcher,
     constructors: {
     },
     getters: {
@@ -5679,7 +5619,6 @@ BridgedClass _createSystemColorBridge() {
   return BridgedClass(
     nativeType: $dart_ui.SystemColor,
     name: 'SystemColor',
-    isAssignable: (v) => v is $dart_ui.SystemColor,
     constructors: {
       '': (visitor, positional, named) {
         final name = D4.getRequiredNamedArg<String>(named, 'name', 'SystemColor');
@@ -5721,7 +5660,6 @@ BridgedClass _createSystemColorPaletteBridge() {
   return BridgedClass(
     nativeType: $dart_ui.SystemColorPalette,
     name: 'SystemColorPalette',
-    isAssignable: (v) => v is $dart_ui.SystemColorPalette,
     constructors: {
     },
     getters: {
@@ -5779,7 +5717,6 @@ BridgedClass _createFrameTimingBridge() {
   return BridgedClass(
     nativeType: $dart_ui.FrameTiming,
     name: 'FrameTiming',
-    isAssignable: (v) => v is $dart_ui.FrameTiming,
     constructors: {
       '': (visitor, positional, named) {
         final vsyncStart = D4.getRequiredNamedArg<int>(named, 'vsyncStart', 'FrameTiming');
@@ -5852,7 +5789,6 @@ BridgedClass _createViewPaddingBridge() {
   return BridgedClass(
     nativeType: $dart_ui.ViewPadding,
     name: 'ViewPadding',
-    isAssignable: (v) => v is $dart_ui.ViewPadding,
     constructors: {
     },
     getters: {
@@ -5893,7 +5829,6 @@ BridgedClass _createViewConstraintsBridge() {
   return BridgedClass(
     nativeType: $dart_ui.ViewConstraints,
     name: 'ViewConstraints',
-    isAssignable: (v) => v is $dart_ui.ViewConstraints,
     constructors: {
       '': (visitor, positional, named) {
         final minWidth = D4.getNamedArgWithDefault<double>(named, 'minWidth', 0.0);
@@ -5979,7 +5914,6 @@ BridgedClass _createDisplayFeatureBridge() {
   return BridgedClass(
     nativeType: $dart_ui.DisplayFeature,
     name: 'DisplayFeature',
-    isAssignable: (v) => v is $dart_ui.DisplayFeature,
     constructors: {
       '': (visitor, positional, named) {
         final bounds = D4.getRequiredNamedArg<$dart_ui.Rect>(named, 'bounds', 'DisplayFeature');
@@ -6028,7 +5962,6 @@ BridgedClass _createLocaleBridge() {
   return BridgedClass(
     nativeType: $dart_ui.Locale,
     name: 'Locale',
-    isAssignable: (v) => v is $dart_ui.Locale,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Locale');
@@ -6089,7 +6022,6 @@ BridgedClass _createSemanticsActionEventBridge() {
   return BridgedClass(
     nativeType: $dart_ui.SemanticsActionEvent,
     name: 'SemanticsActionEvent',
-    isAssignable: (v) => v is $dart_ui.SemanticsActionEvent,
     constructors: {
       '': (visitor, positional, named) {
         final type = D4.getRequiredNamedArg<$dart_ui.SemanticsAction>(named, 'type', 'SemanticsActionEvent');
@@ -6144,7 +6076,6 @@ BridgedClass _createViewFocusEventBridge() {
   return BridgedClass(
     nativeType: $dart_ui.ViewFocusEvent,
     name: 'ViewFocusEvent',
-    isAssignable: (v) => v is $dart_ui.ViewFocusEvent,
     constructors: {
       '': (visitor, positional, named) {
         final viewId = D4.getRequiredNamedArg<int>(named, 'viewId', 'ViewFocusEvent');
@@ -6186,7 +6117,6 @@ BridgedClass _createCallbackHandleBridge() {
   return BridgedClass(
     nativeType: $dart_ui.CallbackHandle,
     name: 'CallbackHandle',
-    isAssignable: (v) => v is $dart_ui.CallbackHandle,
     constructors: {
       'fromRawHandle': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'CallbackHandle');
@@ -6228,7 +6158,6 @@ BridgedClass _createPluginUtilitiesBridge() {
   return BridgedClass(
     nativeType: PluginUtilities,
     name: 'PluginUtilities',
-    isAssignable: (v) => v is PluginUtilities,
     constructors: {
     },
     staticMethods: {
@@ -6258,7 +6187,6 @@ BridgedClass _createPointerDataBridge() {
   return BridgedClass(
     nativeType: $dart_ui.PointerData,
     name: 'PointerData',
-    isAssignable: (v) => v is $dart_ui.PointerData,
     constructors: {
       '': (visitor, positional, named) {
         final viewId = D4.getNamedArgWithDefault<int>(named, 'viewId', 0);
@@ -6412,7 +6340,6 @@ BridgedClass _createPointerDataPacketBridge() {
   return BridgedClass(
     nativeType: $dart_ui.PointerDataPacket,
     name: 'PointerDataPacket',
-    isAssignable: (v) => v is $dart_ui.PointerDataPacket,
     constructors: {
       '': (visitor, positional, named) {
         final data = named.containsKey('data') && named['data'] != null
@@ -6441,7 +6368,6 @@ BridgedClass _createSemanticsActionBridge() {
   return BridgedClass(
     nativeType: $dart_ui.SemanticsAction,
     name: 'SemanticsAction',
-    isAssignable: (v) => v is $dart_ui.SemanticsAction,
     constructors: {
     },
     getters: {
@@ -6540,7 +6466,6 @@ BridgedClass _createSemanticsFlagBridge() {
   return BridgedClass(
     nativeType: $dart_ui.SemanticsFlag,
     name: 'SemanticsFlag',
-    isAssignable: (v) => v is $dart_ui.SemanticsFlag,
     constructors: {
     },
     getters: {
@@ -6649,7 +6574,6 @@ BridgedClass _createSemanticsFlagsBridge() {
   return BridgedClass(
     nativeType: $dart_ui.SemanticsFlags,
     name: 'SemanticsFlags',
-    isAssignable: (v) => v is $dart_ui.SemanticsFlags,
     constructors: {
       '': (visitor, positional, named) {
         final isChecked = D4.getNamedArgWithDefault<$dart_ui.CheckedState>(named, 'isChecked', $dart_ui.CheckedState.none);
@@ -6824,7 +6748,6 @@ BridgedClass _createStringAttributeBridge() {
   return BridgedClass(
     nativeType: $dart_ui.StringAttribute,
     name: 'StringAttribute',
-    isAssignable: (v) => v is $dart_ui.StringAttribute,
     constructors: {
     },
     getters: {
@@ -6854,7 +6777,6 @@ BridgedClass _createSpellOutStringAttributeBridge() {
   return BridgedClass(
     nativeType: SpellOutStringAttribute,
     name: 'SpellOutStringAttribute',
-    isAssignable: (v) => v is SpellOutStringAttribute,
     constructors: {
       '': (visitor, positional, named) {
         final range = D4.getRequiredNamedArg<$dart_ui.TextRange>(named, 'range', 'SpellOutStringAttribute');
@@ -6896,7 +6818,6 @@ BridgedClass _createLocaleStringAttributeBridge() {
   return BridgedClass(
     nativeType: LocaleStringAttribute,
     name: 'LocaleStringAttribute',
-    isAssignable: (v) => v is LocaleStringAttribute,
     constructors: {
       '': (visitor, positional, named) {
         final range = D4.getRequiredNamedArg<$dart_ui.TextRange>(named, 'range', 'LocaleStringAttribute');
@@ -6941,7 +6862,6 @@ BridgedClass _createSemanticsUpdateBuilderBridge() {
   return BridgedClass(
     nativeType: SemanticsUpdateBuilder,
     name: 'SemanticsUpdateBuilder',
-    isAssignable: (v) => v is SemanticsUpdateBuilder,
     constructors: {
       '': (visitor, positional, named) {
         return SemanticsUpdateBuilder();
@@ -7047,7 +6967,6 @@ BridgedClass _createSemanticsUpdateBridge() {
   return BridgedClass(
     nativeType: $dart_ui.SemanticsUpdate,
     name: 'SemanticsUpdate',
-    isAssignable: (v) => v is $dart_ui.SemanticsUpdate,
     constructors: {
     },
     methods: {
@@ -7071,7 +6990,6 @@ BridgedClass _createFontWeightBridge() {
   return BridgedClass(
     nativeType: $dart_ui.FontWeight,
     name: 'FontWeight',
-    isAssignable: (v) => v is $dart_ui.FontWeight,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FontWeight');
@@ -7157,7 +7075,6 @@ BridgedClass _createFontFeatureBridge() {
   return BridgedClass(
     nativeType: $dart_ui.FontFeature,
     name: 'FontFeature',
-    isAssignable: (v) => v is $dart_ui.FontFeature,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FontFeature');
@@ -7325,7 +7242,6 @@ BridgedClass _createFontVariationBridge() {
   return BridgedClass(
     nativeType: $dart_ui.FontVariation,
     name: 'FontVariation',
-    isAssignable: (v) => v is $dart_ui.FontVariation,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'FontVariation');
@@ -7414,7 +7330,6 @@ BridgedClass _createGlyphInfoBridge() {
   return BridgedClass(
     nativeType: $dart_ui.GlyphInfo,
     name: 'GlyphInfo',
-    isAssignable: (v) => v is $dart_ui.GlyphInfo,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'GlyphInfo');
@@ -7464,7 +7379,6 @@ BridgedClass _createTextDecorationBridge() {
   return BridgedClass(
     nativeType: $dart_ui.TextDecoration,
     name: 'TextDecoration',
-    isAssignable: (v) => v is $dart_ui.TextDecoration,
     constructors: {
       'combine': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'TextDecoration');
@@ -7528,7 +7442,6 @@ BridgedClass _createTextHeightBehaviorBridge() {
   return BridgedClass(
     nativeType: $dart_ui.TextHeightBehavior,
     name: 'TextHeightBehavior',
-    isAssignable: (v) => v is $dart_ui.TextHeightBehavior,
     constructors: {
       '': (visitor, positional, named) {
         final applyHeightToFirstAscent = D4.getNamedArgWithDefault<bool>(named, 'applyHeightToFirstAscent', true);
@@ -7577,7 +7490,6 @@ BridgedClass _createTextStyleBridge() {
   return BridgedClass(
     nativeType: $dart_ui.TextStyle,
     name: 'TextStyle',
-    isAssignable: (v) => v is $dart_ui.TextStyle,
     constructors: {
       '': (visitor, positional, named) {
         final color = D4.getOptionalNamedArg<$dart_ui.Color?>(named, 'color');
@@ -7638,7 +7550,6 @@ BridgedClass _createParagraphStyleBridge() {
   return BridgedClass(
     nativeType: $dart_ui.ParagraphStyle,
     name: 'ParagraphStyle',
-    isAssignable: (v) => v is $dart_ui.ParagraphStyle,
     constructors: {
       '': (visitor, positional, named) {
         final textAlign = D4.getOptionalNamedArg<$dart_ui.TextAlign?>(named, 'textAlign');
@@ -7690,7 +7601,6 @@ BridgedClass _createStrutStyleBridge() {
   return BridgedClass(
     nativeType: $dart_ui.StrutStyle,
     name: 'StrutStyle',
-    isAssignable: (v) => v is $dart_ui.StrutStyle,
     constructors: {
       '': (visitor, positional, named) {
         final fontFamily = D4.getOptionalNamedArg<String?>(named, 'fontFamily');
@@ -7732,7 +7642,6 @@ BridgedClass _createTextBoxBridge() {
   return BridgedClass(
     nativeType: $dart_ui.TextBox,
     name: 'TextBox',
-    isAssignable: (v) => v is $dart_ui.TextBox,
     constructors: {
       'fromLTRBD': (visitor, positional, named) {
         D4.requireMinArgs(positional, 5, 'TextBox');
@@ -7797,7 +7706,6 @@ BridgedClass _createTextPositionBridge() {
   return BridgedClass(
     nativeType: $dart_ui.TextPosition,
     name: 'TextPosition',
-    isAssignable: (v) => v is $dart_ui.TextPosition,
     constructors: {
       '': (visitor, positional, named) {
         final offset = D4.getRequiredNamedArg<int>(named, 'offset', 'TextPosition');
@@ -7843,7 +7751,6 @@ BridgedClass _createTextRangeBridge() {
   return BridgedClass(
     nativeType: $dart_ui.TextRange,
     name: 'TextRange',
-    isAssignable: (v) => v is $dart_ui.TextRange,
     constructors: {
       '': (visitor, positional, named) {
         final start = D4.getRequiredNamedArg<int>(named, 'start', 'TextRange');
@@ -7928,7 +7835,6 @@ BridgedClass _createParagraphConstraintsBridge() {
   return BridgedClass(
     nativeType: $dart_ui.ParagraphConstraints,
     name: 'ParagraphConstraints',
-    isAssignable: (v) => v is $dart_ui.ParagraphConstraints,
     constructors: {
       '': (visitor, positional, named) {
         final width = D4.getRequiredNamedArg<double>(named, 'width', 'ParagraphConstraints');
@@ -7971,7 +7877,6 @@ BridgedClass _createLineMetricsBridge() {
   return BridgedClass(
     nativeType: $dart_ui.LineMetrics,
     name: 'LineMetrics',
-    isAssignable: (v) => v is $dart_ui.LineMetrics,
     constructors: {
       '': (visitor, positional, named) {
         final hardBreak = D4.getRequiredNamedArg<bool>(named, 'hardBreak', 'LineMetrics');
@@ -8038,7 +7943,6 @@ BridgedClass _createParagraphBridge() {
   return BridgedClass(
     nativeType: $dart_ui.Paragraph,
     name: 'Paragraph',
-    isAssignable: (v) => v is $dart_ui.Paragraph,
     constructors: {
     },
     getters: {
@@ -8163,7 +8067,6 @@ BridgedClass _createParagraphBuilderBridge() {
   return BridgedClass(
     nativeType: ParagraphBuilder,
     name: 'ParagraphBuilder',
-    isAssignable: (v) => v is ParagraphBuilder,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ParagraphBuilder');
@@ -8237,7 +8140,6 @@ BridgedClass _createDisplayBridge() {
   return BridgedClass(
     nativeType: $dart_ui.Display,
     name: 'Display',
-    isAssignable: (v) => v is $dart_ui.Display,
     constructors: {
     },
     getters: {
@@ -8272,7 +8174,6 @@ BridgedClass _createFlutterViewBridge() {
   return BridgedClass(
     nativeType: $dart_ui.FlutterView,
     name: 'FlutterView',
-    isAssignable: (v) => v is $dart_ui.FlutterView,
     constructors: {
     },
     getters: {
@@ -8340,7 +8241,6 @@ BridgedClass _createAccessibilityFeaturesBridge() {
   return BridgedClass(
     nativeType: $dart_ui.AccessibilityFeatures,
     name: 'AccessibilityFeatures',
-    isAssignable: (v) => v is $dart_ui.AccessibilityFeatures,
     constructors: {
     },
     getters: {
@@ -8390,7 +8290,6 @@ BridgedClass _createFrameDataBridge() {
   return BridgedClass(
     nativeType: $dart_ui.FrameData,
     name: 'FrameData',
-    isAssignable: (v) => v is $dart_ui.FrameData,
     constructors: {
     },
     getters: {
@@ -8410,7 +8309,6 @@ BridgedClass _createGestureSettingsBridge() {
   return BridgedClass(
     nativeType: $dart_ui.GestureSettings,
     name: 'GestureSettings',
-    isAssignable: (v) => v is $dart_ui.GestureSettings,
     constructors: {
       '': (visitor, positional, named) {
         final physicalTouchSlop = D4.getOptionalNamedArg<double?>(named, 'physicalTouchSlop');

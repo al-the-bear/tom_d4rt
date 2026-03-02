@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 28 files
-// Generated: 2026-03-01T17:07:17.081088
+// Generated: 2026-03-02T10:23:23.463136
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -761,7 +761,6 @@ BridgedClass _createCategoryBridge() {
   return BridgedClass(
     nativeType: $flutter_1.Category,
     name: 'Category',
-    isAssignable: (v) => v is $flutter_1.Category,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Category');
@@ -792,7 +791,6 @@ BridgedClass _createDocumentationIconBridge() {
   return BridgedClass(
     nativeType: $flutter_1.DocumentationIcon,
     name: 'DocumentationIcon',
-    isAssignable: (v) => v is $flutter_1.DocumentationIcon,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'DocumentationIcon');
@@ -820,7 +818,6 @@ BridgedClass _createSummaryBridge() {
   return BridgedClass(
     nativeType: $flutter_1.Summary,
     name: 'Summary',
-    isAssignable: (v) => v is $flutter_1.Summary,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Summary');
@@ -848,7 +845,6 @@ BridgedClass _createCachingIterableBridge() {
   return BridgedClass(
     nativeType: $flutter_3.CachingIterable,
     name: 'CachingIterable',
-    isAssignable: (v) => v is $flutter_3.CachingIterable,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'CachingIterable');
@@ -1097,7 +1093,6 @@ BridgedClass _createFactoryBridge() {
   return BridgedClass(
     nativeType: $flutter_3.Factory,
     name: 'Factory',
-    isAssignable: (v) => v is $flutter_3.Factory,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Factory');
@@ -1139,7 +1134,6 @@ BridgedClass _createTextTreeConfigurationBridge() {
   return BridgedClass(
     nativeType: $flutter_12.TextTreeConfiguration,
     name: 'TextTreeConfiguration',
-    isAssignable: (v) => v is $flutter_12.TextTreeConfiguration,
     constructors: {
       '': (visitor, positional, named) {
         final prefixLineOne = D4.getRequiredNamedArg<String>(named, 'prefixLineOne', 'TextTreeConfiguration');
@@ -1240,7 +1234,6 @@ BridgedClass _createTextTreeRendererBridge() {
   return BridgedClass(
     nativeType: $flutter_12.TextTreeRenderer,
     name: 'TextTreeRenderer',
-    isAssignable: (v) => v is $flutter_12.TextTreeRenderer,
     constructors: {
       '': (visitor, positional, named) {
         final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
@@ -1278,7 +1271,6 @@ BridgedClass _createDiagnosticsNodeBridge() {
   return BridgedClass(
     nativeType: $flutter_12.DiagnosticsNode,
     name: 'DiagnosticsNode',
-    isAssignable: (v) => v is $flutter_12.DiagnosticsNode,
     constructors: {
       'message': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'DiagnosticsNode');
@@ -1409,7 +1401,6 @@ BridgedClass _createMessagePropertyBridge() {
   return BridgedClass(
     nativeType: $flutter_12.MessageProperty,
     name: 'MessageProperty',
-    isAssignable: (v) => v is $flutter_12.MessageProperty,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'MessageProperty');
@@ -1549,7 +1540,6 @@ BridgedClass _createStringPropertyBridge() {
   return BridgedClass(
     nativeType: $flutter_12.StringProperty,
     name: 'StringProperty',
-    isAssignable: (v) => v is $flutter_12.StringProperty,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'StringProperty');
@@ -1703,7 +1693,6 @@ BridgedClass _createDoublePropertyBridge() {
   return BridgedClass(
     nativeType: $flutter_12.DoubleProperty,
     name: 'DoubleProperty',
-    isAssignable: (v) => v is $flutter_12.DoubleProperty,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'DoubleProperty');
@@ -1883,7 +1872,6 @@ BridgedClass _createIntPropertyBridge() {
   return BridgedClass(
     nativeType: $flutter_12.IntProperty,
     name: 'IntProperty',
-    isAssignable: (v) => v is $flutter_12.IntProperty,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'IntProperty');
@@ -2040,7 +2028,6 @@ BridgedClass _createPercentPropertyBridge() {
   return BridgedClass(
     nativeType: $flutter_12.PercentProperty,
     name: 'PercentProperty',
-    isAssignable: (v) => v is $flutter_12.PercentProperty,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'PercentProperty');
@@ -2190,7 +2177,6 @@ BridgedClass _createFlagPropertyBridge() {
   return BridgedClass(
     nativeType: $flutter_12.FlagProperty,
     name: 'FlagProperty',
-    isAssignable: (v) => v is $flutter_12.FlagProperty,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FlagProperty');
@@ -2337,7 +2323,6 @@ BridgedClass _createIterablePropertyBridge() {
   return BridgedClass(
     nativeType: $flutter_12.IterableProperty,
     name: 'IterableProperty',
-    isAssignable: (v) => v is $flutter_12.IterableProperty,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'IterableProperty');
@@ -2491,7 +2476,6 @@ BridgedClass _createEnumPropertyBridge() {
   return BridgedClass(
     nativeType: $flutter_12.EnumProperty,
     name: 'EnumProperty',
-    isAssignable: (v) => v is $flutter_12.EnumProperty,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'EnumProperty');
@@ -2637,7 +2621,6 @@ BridgedClass _createObjectFlagPropertyBridge() {
   return BridgedClass(
     nativeType: $flutter_12.ObjectFlagProperty,
     name: 'ObjectFlagProperty',
-    isAssignable: (v) => v is $flutter_12.ObjectFlagProperty,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'ObjectFlagProperty');
@@ -2803,7 +2786,6 @@ BridgedClass _createFlagsSummaryBridge() {
   return BridgedClass(
     nativeType: $flutter_12.FlagsSummary,
     name: 'FlagsSummary',
-    isAssignable: (v) => v is $flutter_12.FlagsSummary,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'FlagsSummary');
@@ -2948,7 +2930,6 @@ BridgedClass _createDiagnosticsPropertyBridge() {
   return BridgedClass(
     nativeType: $flutter_12.DiagnosticsProperty,
     name: 'DiagnosticsProperty',
-    isAssignable: (v) => v is $flutter_12.DiagnosticsProperty,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'DiagnosticsProperty');
@@ -3135,7 +3116,6 @@ BridgedClass _createDiagnosticableNodeBridge() {
   return BridgedClass(
     nativeType: $flutter_12.DiagnosticableNode,
     name: 'DiagnosticableNode',
-    isAssignable: (v) => v is $flutter_12.DiagnosticableNode,
     constructors: {
       '': (visitor, positional, named) {
         final name = D4.getOptionalNamedArg<String?>(named, 'name');
@@ -3251,7 +3231,6 @@ BridgedClass _createDiagnosticableTreeNodeBridge() {
   return BridgedClass(
     nativeType: $flutter_12.DiagnosticableTreeNode,
     name: 'DiagnosticableTreeNode',
-    isAssignable: (v) => v is $flutter_12.DiagnosticableTreeNode,
     constructors: {
       '': (visitor, positional, named) {
         final name = D4.getOptionalNamedArg<String?>(named, 'name');
@@ -3367,7 +3346,6 @@ BridgedClass _createDiagnosticPropertiesBuilderBridge() {
   return BridgedClass(
     nativeType: $flutter_12.DiagnosticPropertiesBuilder,
     name: 'DiagnosticPropertiesBuilder',
-    isAssignable: (v) => v is $flutter_12.DiagnosticPropertiesBuilder,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_12.DiagnosticPropertiesBuilder();
@@ -3428,7 +3406,6 @@ BridgedClass _createDiagnosticableBridge() {
   return BridgedClass(
     nativeType: $flutter_12.Diagnosticable,
     name: 'Diagnosticable',
-    isAssignable: (v) => v is $flutter_12.Diagnosticable,
     constructors: {
     },
     methods: {
@@ -3472,7 +3449,6 @@ BridgedClass _createDiagnosticableTreeBridge() {
   return BridgedClass(
     nativeType: $flutter_12.DiagnosticableTree,
     name: 'DiagnosticableTree',
-    isAssignable: (v) => v is $flutter_12.DiagnosticableTree,
     constructors: {
     },
     methods: {
@@ -3537,7 +3513,6 @@ BridgedClass _createDiagnosticableTreeMixinBridge() {
   return BridgedClass(
     nativeType: $flutter_12.DiagnosticableTreeMixin,
     name: 'DiagnosticableTreeMixin',
-    isAssignable: (v) => v is $flutter_12.DiagnosticableTreeMixin,
     constructors: {
     },
     methods: {
@@ -3602,7 +3577,6 @@ BridgedClass _createDiagnosticsBlockBridge() {
   return BridgedClass(
     nativeType: $flutter_12.DiagnosticsBlock,
     name: 'DiagnosticsBlock',
-    isAssignable: (v) => v is $flutter_12.DiagnosticsBlock,
     constructors: {
       '': (visitor, positional, named) {
         final name = D4.getOptionalNamedArg<String?>(named, 'name');
@@ -3728,7 +3702,6 @@ BridgedClass _createDiagnosticsSerializationDelegateBridge() {
   return BridgedClass(
     nativeType: $flutter_12.DiagnosticsSerializationDelegate,
     name: 'DiagnosticsSerializationDelegate',
-    isAssignable: (v) => v is $flutter_12.DiagnosticsSerializationDelegate,
     constructors: {
       '': (visitor, positional, named) {
         final subtreeDepth = D4.getRequiredNamedArgTodoDefault<int>(named, 'subtreeDepth', 'DiagnosticsSerializationDelegate', '<default unavailable>');
@@ -3819,7 +3792,6 @@ BridgedClass _createStackFrameBridge() {
   return BridgedClass(
     nativeType: $flutter_24.StackFrame,
     name: 'StackFrame',
-    isAssignable: (v) => v is $flutter_24.StackFrame,
     constructors: {
       '': (visitor, positional, named) {
         final number = D4.getRequiredNamedArg<int>(named, 'number', 'StackFrame');
@@ -3919,7 +3891,6 @@ BridgedClass _createPartialStackFrameBridge() {
   return BridgedClass(
     nativeType: $flutter_2.PartialStackFrame,
     name: 'PartialStackFrame',
-    isAssignable: (v) => v is $flutter_2.PartialStackFrame,
     constructors: {
       '': (visitor, positional, named) {
         final package = D4.getRequiredNamedArg<Pattern>(named, 'package', 'PartialStackFrame');
@@ -3969,7 +3940,6 @@ BridgedClass _createStackFilterBridge() {
   return BridgedClass(
     nativeType: $flutter_2.StackFilter,
     name: 'StackFilter',
-    isAssignable: (v) => v is $flutter_2.StackFilter,
     constructors: {
     },
     methods: {
@@ -4002,7 +3972,6 @@ BridgedClass _createRepetitiveStackFrameFilterBridge() {
   return BridgedClass(
     nativeType: $flutter_2.RepetitiveStackFrameFilter,
     name: 'RepetitiveStackFrameFilter',
-    isAssignable: (v) => v is $flutter_2.RepetitiveStackFrameFilter,
     constructors: {
       '': (visitor, positional, named) {
         if (!named.containsKey('frames') || named['frames'] == null) {
@@ -4056,7 +4025,6 @@ BridgedClass _createErrorDescriptionBridge() {
   return BridgedClass(
     nativeType: $flutter_2.ErrorDescription,
     name: 'ErrorDescription',
-    isAssignable: (v) => v is $flutter_2.ErrorDescription,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ErrorDescription');
@@ -4193,7 +4161,6 @@ BridgedClass _createErrorSummaryBridge() {
   return BridgedClass(
     nativeType: $flutter_2.ErrorSummary,
     name: 'ErrorSummary',
-    isAssignable: (v) => v is $flutter_2.ErrorSummary,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ErrorSummary');
@@ -4330,7 +4297,6 @@ BridgedClass _createErrorHintBridge() {
   return BridgedClass(
     nativeType: $flutter_2.ErrorHint,
     name: 'ErrorHint',
-    isAssignable: (v) => v is $flutter_2.ErrorHint,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ErrorHint');
@@ -4467,7 +4433,6 @@ BridgedClass _createErrorSpacerBridge() {
   return BridgedClass(
     nativeType: $flutter_2.ErrorSpacer,
     name: 'ErrorSpacer',
-    isAssignable: (v) => v is $flutter_2.ErrorSpacer,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_2.ErrorSpacer();
@@ -4602,7 +4567,6 @@ BridgedClass _createFlutterErrorDetailsBridge() {
   return BridgedClass(
     nativeType: $flutter_2.FlutterErrorDetails,
     name: 'FlutterErrorDetails',
-    isAssignable: (v) => v is $flutter_2.FlutterErrorDetails,
     constructors: {
       '': (visitor, positional, named) {
         final exception = D4.getRequiredNamedArg<Object>(named, 'exception', 'FlutterErrorDetails');
@@ -4702,7 +4666,6 @@ BridgedClass _createFlutterErrorBridge() {
   return BridgedClass(
     nativeType: $flutter_2.FlutterError,
     name: 'FlutterError',
-    isAssignable: (v) => v is $flutter_2.FlutterError,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FlutterError');
@@ -4855,7 +4818,6 @@ BridgedClass _createDiagnosticsStackTraceBridge() {
   return BridgedClass(
     nativeType: $flutter_2.DiagnosticsStackTrace,
     name: 'DiagnosticsStackTrace',
-    isAssignable: (v) => v is $flutter_2.DiagnosticsStackTrace,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'DiagnosticsStackTrace');
@@ -4979,7 +4941,6 @@ BridgedClass _createBindingBaseBridge() {
   return BridgedClass(
     nativeType: $flutter_4.BindingBase,
     name: 'BindingBase',
-    isAssignable: (v) => v is $flutter_4.BindingBase,
     constructors: {
     },
     getters: {
@@ -5163,7 +5124,6 @@ BridgedClass _createBitFieldBridge() {
   return BridgedClass(
     nativeType: $flutter_5.BitField,
     name: 'BitField',
-    isAssignable: (v) => v is $flutter_5.BitField,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'BitField');
@@ -5215,7 +5175,6 @@ BridgedClass _createListenableBridge() {
   return BridgedClass(
     nativeType: $flutter_7.Listenable,
     name: 'Listenable',
-    isAssignable: (v) => v is $flutter_7.Listenable,
     constructors: {
       'merge': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Listenable');
@@ -5266,7 +5225,6 @@ BridgedClass _createValueListenableBridge() {
   return BridgedClass(
     nativeType: $flutter_7.ValueListenable,
     name: 'ValueListenable',
-    isAssignable: (v) => v is $flutter_7.ValueListenable,
     constructors: {
     },
     getters: {
@@ -5312,7 +5270,6 @@ BridgedClass _createChangeNotifierBridge() {
   return BridgedClass(
     nativeType: $flutter_7.ChangeNotifier,
     name: 'ChangeNotifier',
-    isAssignable: (v) => v is $flutter_7.ChangeNotifier,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_7.ChangeNotifier();
@@ -5386,7 +5343,6 @@ BridgedClass _createValueNotifierBridge() {
   return BridgedClass(
     nativeType: $flutter_7.ValueNotifier,
     name: 'ValueNotifier',
-    isAssignable: (v) => v is $flutter_7.ValueNotifier,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ValueNotifier');
@@ -5467,7 +5423,6 @@ BridgedClass _createKeyBridge() {
   return BridgedClass(
     nativeType: $flutter_14.Key,
     name: 'Key',
-    isAssignable: (v) => v is $flutter_14.Key,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Key');
@@ -5489,7 +5444,6 @@ BridgedClass _createLocalKeyBridge() {
   return BridgedClass(
     nativeType: $flutter_14.LocalKey,
     name: 'LocalKey',
-    isAssignable: (v) => v is $flutter_14.LocalKey,
     constructors: {
     },
   );
@@ -5503,7 +5457,6 @@ BridgedClass _createUniqueKeyBridge() {
   return BridgedClass(
     nativeType: $flutter_14.UniqueKey,
     name: 'UniqueKey',
-    isAssignable: (v) => v is $flutter_14.UniqueKey,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_14.UniqueKey();
@@ -5532,7 +5485,6 @@ BridgedClass _createValueKeyBridge() {
   return BridgedClass(
     nativeType: $flutter_14.ValueKey,
     name: 'ValueKey',
-    isAssignable: (v) => v is $flutter_14.ValueKey,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ValueKey');
@@ -5583,7 +5535,6 @@ BridgedClass _createLicenseParagraphBridge() {
   return BridgedClass(
     nativeType: $flutter_15.LicenseParagraph,
     name: 'LicenseParagraph',
-    isAssignable: (v) => v is $flutter_15.LicenseParagraph,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'LicenseParagraph');
@@ -5620,7 +5571,6 @@ BridgedClass _createLicenseEntryBridge() {
   return BridgedClass(
     nativeType: $flutter_15.LicenseEntry,
     name: 'LicenseEntry',
-    isAssignable: (v) => v is $flutter_15.LicenseEntry,
     constructors: {
     },
     getters: {
@@ -5642,7 +5592,6 @@ BridgedClass _createLicenseEntryWithLineBreaksBridge() {
   return BridgedClass(
     nativeType: $flutter_15.LicenseEntryWithLineBreaks,
     name: 'LicenseEntryWithLineBreaks',
-    isAssignable: (v) => v is $flutter_15.LicenseEntryWithLineBreaks,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'LicenseEntryWithLineBreaks');
@@ -5678,7 +5627,6 @@ BridgedClass _createLicenseRegistryBridge() {
   return BridgedClass(
     nativeType: $flutter_15.LicenseRegistry,
     name: 'LicenseRegistry',
-    isAssignable: (v) => v is $flutter_15.LicenseRegistry,
     constructors: {
     },
     staticGetters: {
@@ -5712,7 +5660,6 @@ BridgedClass _createObjectEventBridge() {
   return BridgedClass(
     nativeType: $flutter_16.ObjectEvent,
     name: 'ObjectEvent',
-    isAssignable: (v) => v is $flutter_16.ObjectEvent,
     constructors: {
     },
     getters: {
@@ -5741,7 +5688,6 @@ BridgedClass _createObjectCreatedBridge() {
   return BridgedClass(
     nativeType: $flutter_16.ObjectCreated,
     name: 'ObjectCreated',
-    isAssignable: (v) => v is $flutter_16.ObjectCreated,
     constructors: {
       '': (visitor, positional, named) {
         final library = D4.getRequiredNamedArg<String>(named, 'library', 'ObjectCreated');
@@ -5783,7 +5729,6 @@ BridgedClass _createObjectDisposedBridge() {
   return BridgedClass(
     nativeType: $flutter_16.ObjectDisposed,
     name: 'ObjectDisposed',
-    isAssignable: (v) => v is $flutter_16.ObjectDisposed,
     constructors: {
       '': (visitor, positional, named) {
         final object = D4.getRequiredNamedArg<Object>(named, 'object', 'ObjectDisposed');
@@ -5819,7 +5764,6 @@ BridgedClass _createFlutterMemoryAllocationsBridge() {
   return BridgedClass(
     nativeType: $flutter_16.FlutterMemoryAllocations,
     name: 'FlutterMemoryAllocations',
-    isAssignable: (v) => v is $flutter_16.FlutterMemoryAllocations,
     constructors: {
     },
     getters: {
@@ -5895,7 +5839,6 @@ BridgedClass _createObserverListBridge() {
   return BridgedClass(
     nativeType: $flutter_18.ObserverList,
     name: 'ObserverList',
-    isAssignable: (v) => v is $flutter_18.ObserverList,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_18.ObserverList();
@@ -6163,7 +6106,6 @@ BridgedClass _createHashedObserverListBridge() {
   return BridgedClass(
     nativeType: $flutter_18.HashedObserverList,
     name: 'HashedObserverList',
-    isAssignable: (v) => v is $flutter_18.HashedObserverList,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_18.HashedObserverList();
@@ -6431,7 +6373,6 @@ BridgedClass _createPersistentHashMapBridge() {
   return BridgedClass(
     nativeType: $flutter_19.PersistentHashMap,
     name: 'PersistentHashMap',
-    isAssignable: (v) => v is $flutter_19.PersistentHashMap,
     constructors: {
       'empty': (visitor, positional, named) {
         return $flutter_19.PersistentHashMap.empty();
@@ -6468,7 +6409,6 @@ BridgedClass _createWriteBufferBridge() {
   return BridgedClass(
     nativeType: $flutter_22.WriteBuffer,
     name: 'WriteBuffer',
-    isAssignable: (v) => v is $flutter_22.WriteBuffer,
     constructors: {
       '': (visitor, positional, named) {
         final startCapacity = D4.getNamedArgWithDefault<int>(named, 'startCapacity', 8);
@@ -6591,7 +6531,6 @@ BridgedClass _createReadBufferBridge() {
   return BridgedClass(
     nativeType: $flutter_22.ReadBuffer,
     name: 'ReadBuffer',
-    isAssignable: (v) => v is $flutter_22.ReadBuffer,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ReadBuffer');
@@ -6695,7 +6634,6 @@ BridgedClass _createSynchronousFutureBridge() {
   return BridgedClass(
     nativeType: $flutter_25.SynchronousFuture,
     name: 'SynchronousFuture',
-    isAssignable: (v) => v is $flutter_25.SynchronousFuture,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'SynchronousFuture');
@@ -6770,7 +6708,6 @@ BridgedClass _createFlutterTimelineBridge() {
   return BridgedClass(
     nativeType: $flutter_26.FlutterTimeline,
     name: 'FlutterTimeline',
-    isAssignable: (v) => v is $flutter_26.FlutterTimeline,
     constructors: {
     },
     staticGetters: {
@@ -6843,7 +6780,6 @@ BridgedClass _createTimedBlockBridge() {
   return BridgedClass(
     nativeType: $flutter_26.TimedBlock,
     name: 'TimedBlock',
-    isAssignable: (v) => v is $flutter_26.TimedBlock,
     constructors: {
       '': (visitor, positional, named) {
         final name = D4.getRequiredNamedArg<String>(named, 'name', 'TimedBlock');
@@ -6887,7 +6823,6 @@ BridgedClass _createAggregatedTimingsBridge() {
   return BridgedClass(
     nativeType: $flutter_26.AggregatedTimings,
     name: 'AggregatedTimings',
-    isAssignable: (v) => v is $flutter_26.AggregatedTimings,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'AggregatedTimings');
@@ -6931,7 +6866,6 @@ BridgedClass _createAggregatedTimedBlockBridge() {
   return BridgedClass(
     nativeType: $flutter_26.AggregatedTimedBlock,
     name: 'AggregatedTimedBlock',
-    isAssignable: (v) => v is $flutter_26.AggregatedTimedBlock,
     constructors: {
       '': (visitor, positional, named) {
         final name = D4.getRequiredNamedArg<String>(named, 'name', 'AggregatedTimedBlock');
@@ -6973,7 +6907,6 @@ BridgedClass _createUnicodeBridge() {
   return BridgedClass(
     nativeType: $flutter_27.Unicode,
     name: 'Unicode',
-    isAssignable: (v) => v is $flutter_27.Unicode,
     constructors: {
     },
     staticGetters: {
@@ -7015,7 +6948,6 @@ BridgedClass _createImmutableBridge() {
   return BridgedClass(
     nativeType: $meta_1.Immutable,
     name: 'Immutable',
-    isAssignable: (v) => v is $meta_1.Immutable,
     constructors: {
       '': (visitor, positional, named) {
         final reason = D4.getOptionalArgWithDefault<String>(positional, 0, 'reason', '');
