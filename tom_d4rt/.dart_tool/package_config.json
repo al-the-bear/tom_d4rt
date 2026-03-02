@@ -111,7 +111,7 @@
     },
     {
       "name": "matcher",
-      "rootUri": "file:///home/alexis/.pub-cache/hosted/pub.dev/matcher-0.12.18",
+      "rootUri": "file:///home/alexis/.pub-cache/hosted/pub.dev/matcher-0.12.19",
       "packageUri": "lib/",
       "languageVersion": "3.7"
     },
@@ -225,19 +225,19 @@
     },
     {
       "name": "test",
-      "rootUri": "file:///home/alexis/.pub-cache/hosted/pub.dev/test-1.29.0",
+      "rootUri": "file:///home/alexis/.pub-cache/hosted/pub.dev/test-1.30.0",
       "packageUri": "lib/",
       "languageVersion": "3.7"
     },
     {
       "name": "test_api",
-      "rootUri": "file:///home/alexis/.pub-cache/hosted/pub.dev/test_api-0.7.9",
+      "rootUri": "file:///home/alexis/.pub-cache/hosted/pub.dev/test_api-0.7.10",
       "packageUri": "lib/",
       "languageVersion": "3.7"
     },
     {
       "name": "test_core",
-      "rootUri": "file:///home/alexis/.pub-cache/hosted/pub.dev/test_core-0.6.15",
+      "rootUri": "file:///home/alexis/.pub-cache/hosted/pub.dev/test_core-0.6.16",
       "packageUri": "lib/",
       "languageVersion": "3.7"
     },

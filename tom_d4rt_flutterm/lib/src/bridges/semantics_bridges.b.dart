@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 12 files
-// Generated: 2026-03-01T15:08:22.002234
+// Generated: 2026-03-01T17:07:47.935770
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -3051,7 +3051,7 @@ BridgedClass _createSemanticsPropertiesBridge() {
           final customSemanticsActionsRaw = named['customSemanticsActions'] as Map?;
           if (customSemanticsActionsRaw != null) {
             for (final entry in customSemanticsActionsRaw.entries) {
-              final k = entry.key as $flutter_7.CustomSemanticsAction;
+              final k = D4.extractBridgedArg<$flutter_7.CustomSemanticsAction>(entry.key, 'customSemanticsActions[key]');
               final v = entry.value;
               if (v == null) {
                 // Skip null values for non-nullable function type
