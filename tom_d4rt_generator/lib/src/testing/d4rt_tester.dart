@@ -151,11 +151,10 @@ class D4rtTester {
       p.join(projectPath, '.dart_tool', 'package_config.json'),
     );
     if (!packageConfig.existsSync()) {
-      final pubGetResult = await Process.run(
-        'dart',
-        ['pub', 'get'],
-        workingDirectory: projectPath,
-      );
+      final pubGetResult = await Process.run('dart', [
+        'pub',
+        'get',
+      ], workingDirectory: projectPath);
       if (pubGetResult.exitCode != 0) {
         _lastGenerationErrors = [
           'dart pub get failed in $projectPath:',
@@ -180,11 +179,13 @@ class D4rtTester {
 
     // Step 3: Compile the test runner to a native binary
     final runnerPath = _resolveRunnerPath(config);
-    final compileResult = await Process.run(
-      'dart',
-      ['compile', 'exe', runnerPath, '-o', _binaryPath],
-      workingDirectory: projectPath,
-    );
+    final compileResult = await Process.run('dart', [
+      'compile',
+      'exe',
+      runnerPath,
+      '-o',
+      _binaryPath,
+    ], workingDirectory: projectPath);
 
     if (compileResult.exitCode != 0) {
       _lastGenerationErrors = [
@@ -224,15 +225,12 @@ class D4rtTester {
       );
     }
 
-    return _runBinary(
-      ['--test', scriptFile],
-      timeout ?? defaultTimeout,
-    );
+    return _runBinary(['--test', scriptFile], timeout ?? defaultTimeout);
   }
 
   /// Errors from the last [prepareBridges] call, or `null` if successful.
   List<String>? _lastGenerationErrors;
-  
+
   /// Public accessor for errors from the last [prepareBridges] call.
   /// Returns `null` if generation was successful.
   List<String>? get lastGenerationErrors => _lastGenerationErrors;
@@ -277,10 +275,7 @@ class D4rtTester {
     }
 
     // Run using compiled binary
-    return _runBinary(
-      ['--test', scriptFile],
-      timeout ?? defaultTimeout,
-    );
+    return _runBinary(['--test', scriptFile], timeout ?? defaultTimeout);
   }
 
   /// Generate bridges and evaluate an expression file, capturing results.
@@ -319,10 +314,11 @@ class D4rtTester {
     }
 
     // Run using compiled binary
-    return _runBinary(
-      ['--test-eval', initScriptFile, expressionFile],
-      timeout ?? defaultTimeout,
-    );
+    return _runBinary([
+      '--test-eval',
+      initScriptFile,
+      expressionFile,
+    ], timeout ?? defaultTimeout);
   }
 
   /// Run bridge generation in-memory using the generator API.
@@ -339,10 +335,7 @@ class D4rtTester {
       testRunnerPath: runnerPath,
     );
 
-    return generateBridges(
-      config: effectiveConfig,
-      projectPath: projectPath,
-    );
+    return generateBridges(config: effectiveConfig, projectPath: projectPath);
   }
 
   /// Resolve the test runner path for subprocess invocation.
@@ -362,10 +355,7 @@ class D4rtTester {
   /// stdout/stderr, and enforces [timeout]. If the process exceeds the
   /// timeout, it is killed with SIGKILL and [D4rtTestResult.timedOut]
   /// is set to `true`.
-  Future<D4rtTestResult> _runBinary(
-    List<String> args,
-    Duration timeout,
-  ) async {
+  Future<D4rtTestResult> _runBinary(List<String> args, Duration timeout) async {
     final process = await Process.start(
       _binaryPath,
       args,
