@@ -782,7 +782,7 @@ packages:
       path: "../tom_d4rt_ast"
       relative: true
     source: path
-    version: "0.1.2"
+    version: "0.1.4"
   tom_d4rt_exec:
     dependency: "direct main"
     description:
@@ -796,7 +796,7 @@ packages:
       path: "../tom_d4rt_generator"
       relative: true
     source: path
-    version: "1.8.15"
+    version: "1.8.16"
   tom_vscode_scripting_api:
     dependency: "direct main"
     description:

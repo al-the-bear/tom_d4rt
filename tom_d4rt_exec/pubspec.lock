@@ -621,14 +621,14 @@ packages:
       path: "../tom_d4rt_ast"
       relative: true
     source: path
-    version: "0.1.0"
+    version: "0.1.4"
   tom_d4rt_generator:
     dependency: "direct dev"
     description:
       path: "../tom_d4rt_generator"
       relative: true
     source: path
-    version: "1.8.8"
+    version: "1.8.16"
   typed_data:
     dependency: transitive
     description:

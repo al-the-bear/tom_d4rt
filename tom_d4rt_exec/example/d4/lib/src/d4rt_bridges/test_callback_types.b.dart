@@ -1,8 +1,8 @@
 // D4rt Bridge - Generated file, do not edit
-// Source: /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom/xternal/tom_module_d4rt/tom_d4rt_exec/example/d4/lib/test_callback_types.dart
-// Generated: 2026-02-22T08:01:43.312234
+// Source: /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_exec/example/d4/lib/test_callback_types.dart
+// Generated: 2026-03-02T17:28:46.076193
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
 import 'package:tom_d4rt_exec/d4rt.dart';
 import 'package:tom_d4rt_exec/tom_d4rt.dart';
@@ -28,6 +28,16 @@ class TestCallbackTypesBridge {
     return {
       'GenericCallbackService': 'package:d4_example/test_callback_types.dart',
       'CallbackTypeService': 'package:d4_example/test_callback_types.dart',
+    };
+  }
+
+  /// Returns a map of type alias names to their target class names.
+  ///
+  /// Type aliases like `typedef MaterialStateProperty<T> = WidgetStateProperty<T>`
+  /// are registered so that code using the alias name can resolve to the
+  /// bridged class under its canonical name.
+  static Map<String, String> classAliases() {
+    return {
     };
   }
 
@@ -125,6 +135,7 @@ BridgedClass _createGenericCallbackServiceBridge() {
   return BridgedClass(
     nativeType: $d4_example_1.GenericCallbackService,
     name: 'GenericCallbackService',
+    isAssignable: (v) => v is $d4_example_1.GenericCallbackService,
     constructors: {
       '': (visitor, positional, named) {
         return $d4_example_1.GenericCallbackService();
@@ -178,6 +189,7 @@ BridgedClass _createCallbackTypeServiceBridge() {
   return BridgedClass(
     nativeType: $d4_example_1.CallbackTypeService,
     name: 'CallbackTypeService',
+    isAssignable: (v) => v is $d4_example_1.CallbackTypeService,
     constructors: {
       '': (visitor, positional, named) {
         return $d4_example_1.CallbackTypeService();

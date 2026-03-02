@@ -110,6 +110,18 @@
       ]
     },
     {
+      "name": "tom_build_base",
+      "version": "2.6.0",
+      "dependencies": [
+        "args",
+        "console_markdown",
+        "dcli",
+        "glob",
+        "path",
+        "yaml"
+      ]
+    },
+    {
       "name": "yaml",
       "version": "3.1.3",
       "dependencies": [
@@ -512,6 +524,54 @@
       ]
     },
     {
+      "name": "dcli",
+      "version": "8.4.2",
+      "dependencies": [
+        "archive",
+        "args",
+        "async",
+        "chunked_stream",
+        "collection",
+        "convert",
+        "crypto",
+        "csv",
+        "dart_console",
+        "dcli_common",
+        "dcli_core",
+        "dcli_terminal",
+        "equatable",
+        "ffi",
+        "file",
+        "glob",
+        "ini",
+        "logging",
+        "meta",
+        "mime",
+        "native_synchronization_temp",
+        "path",
+        "posix",
+        "pub_semver",
+        "pubspec_lock",
+        "pubspec_manager",
+        "scope",
+        "settings_yaml",
+        "stack_trace",
+        "system_info2",
+        "uuid",
+        "validators2",
+        "win32",
+        "yaml"
+      ]
+    },
+    {
+      "name": "console_markdown",
+      "version": "0.0.3",
+      "dependencies": [
+        "chalkdart",
+        "marked"
+      ]
+    },
+    {
       "name": "string_scanner",
       "version": "1.4.1",
       "dependencies": [
@@ -620,66 +680,6 @@
         "json_annotation",
         "source_span",
         "yaml"
-      ]
-    },
-    {
-      "name": "tom_build_base",
-      "version": "2.6.0",
-      "dependencies": [
-        "args",
-        "console_markdown",
-        "dcli",
-        "glob",
-        "path",
-        "yaml"
-      ]
-    },
-    {
-      "name": "dcli",
-      "version": "8.4.2",
-      "dependencies": [
-        "archive",
-        "args",
-        "async",
-        "chunked_stream",
-        "collection",
-        "convert",
-        "crypto",
-        "csv",
-        "dart_console",
-        "dcli_common",
-        "dcli_core",
-        "dcli_terminal",
-        "equatable",
-        "ffi",
-        "file",
-        "glob",
-        "ini",
-        "logging",
-        "meta",
-        "mime",
-        "native_synchronization_temp",
-        "path",
-        "posix",
-        "pub_semver",
-        "pubspec_lock",
-        "pubspec_manager",
-        "scope",
-        "settings_yaml",
-        "stack_trace",
-        "system_info2",
-        "uuid",
-        "validators2",
-        "win32",
-        "yaml"
-      ]
-    },
-    {
-      "name": "console_markdown",
-      "version": "0.0.3",
-      "dependencies": [
-        "chalkdart",
-        "marked"
       ]
     },
     {
