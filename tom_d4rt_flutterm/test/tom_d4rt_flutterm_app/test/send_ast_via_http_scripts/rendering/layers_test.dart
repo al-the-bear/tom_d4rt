@@ -115,28 +115,25 @@ dynamic build(BuildContext context) {
   );
   print('TransformLayer created with rotation transform');
 
-  // ========== OPACITY LAYER (ADDITIONAL) ==========
-  print('--- OpacityLayer Tests ---');
+  // ========== LEADER LAYER & FOLLOWER LAYER ==========
+  print('--- LeaderLayer / FollowerLayer Tests ---');
 
-  final opacityLayer2 = OpacityLayer(
-    alpha: 200,
+  final layerLink = LayerLink();
+  print('LayerLink created');
+
+  final leaderLayer = LeaderLayer(
+    link: layerLink,
     offset: Offset(10.0, 20.0),
   );
-  print('OpacityLayer alpha: ${opacityLayer2.alpha}');
-  print('OpacityLayer offset: ${opacityLayer2.offset}');
+  print('LeaderLayer created with offset: ${leaderLayer.offset}');
 
-  // Test different alpha values
-  final opaqueLayer = OpacityLayer(
-    alpha: 255,
-    offset: Offset.zero,
+  final followerLayer = FollowerLayer(
+    link: layerLink,
+    unlinkedOffset: Offset(5.0, 5.0),
+    showWhenUnlinked: false,
   );
-  print('Opaque layer alpha: ${opaqueLayer.alpha}');
-
-  final semiTransparentLayer = OpacityLayer(
-    alpha: 128,
-    offset: Offset(5.0, 5.0),
-  );
-  print('Semi-transparent alpha: ${semiTransparentLayer.alpha}');
+  print('FollowerLayer created, showWhenUnlinked: ${followerLayer.showWhenUnlinked}');
+  print('FollowerLayer unlinkedOffset: ${followerLayer.unlinkedOffset}');
 
   // ========== BACKDROP FILTER LAYER ==========
   print('--- BackdropFilterLayer Tests ---');

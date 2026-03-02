@@ -239,9 +239,12 @@ dynamic build(BuildContext context) {
     'OffsetPair.zero: local=${zeroOffsetPair.local}, global=${zeroOffsetPair.global}',
   );
 
-  // Test from event globals (fromEventPosition requires a PointerEvent, skip)
-  // final fromGlobals = OffsetPair.fromEventPosition(PointerEvent(...));
-  print('OffsetPair.fromEventPosition skipped (requires PointerEvent)');
+  // Test from event globals using PointerDownEvent
+  final pointerEvent = PointerDownEvent(
+    position: Offset(100.0, 200.0),
+  );
+  final fromGlobals = OffsetPair.fromEventPosition(pointerEvent);
+  print('OffsetPair.fromEventPosition: local=${fromGlobals.local}, global=${fromGlobals.global}');
 
   // Test operations
   final addedPair =
