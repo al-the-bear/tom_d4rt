@@ -95,20 +95,17 @@ Future<GenerationResult> generateBridges({
     p.join(projectDir, '.dart_tool', 'package_config.json'),
   );
   if (!packageConfig.existsSync()) {
-    final pubGetResult = await Process.run(
-      'dart',
-      ['pub', 'get'],
-      workingDirectory: projectDir,
-    );
+    final pubGetResult = await Process.run('dart', [
+      'pub',
+      'get',
+    ], workingDirectory: projectDir);
     if (pubGetResult.exitCode != 0) {
       return GenerationResult(
         totalClasses: 0,
         totalModules: 0,
         outputFiles: [],
         config: bridgeConfig,
-        errors: [
-          'dart pub get failed in $projectDir: ${pubGetResult.stderr}',
-        ],
+        errors: ['dart pub get failed in $projectDir: ${pubGetResult.stderr}'],
       );
     }
   }
@@ -152,6 +149,8 @@ Future<GenerationResult> generateBridges({
         sourceImports: sourceImports,
         helpersImport:
             bridgeConfig.helpersImport ?? 'package:tom_d4rt/tom_d4rt.dart',
+        d4rtImport:
+            bridgeConfig.d4rtImport ?? 'package:tom_d4rt/d4rt.dart',
         recursiveBoundTypes: bridgeConfig.recursiveBoundTypes.isNotEmpty
             ? bridgeConfig.recursiveBoundTypes
                   .map(RecursiveBoundType.fromString)
