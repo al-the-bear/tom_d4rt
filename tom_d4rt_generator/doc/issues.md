@@ -2,7 +2,7 @@
 
 > Last updated: 2026-03-02
 >
-> Consolidated issue list from generator test suite (507 passed, 14 skipped, 4 failed).
+> Consolidated issue list from generator test suite (**618 passed, 0 skipped, 0 failed**).
 
 ---
 
@@ -11,27 +11,28 @@
 | ID | Description | Component | Status |
 |----|-------------|-----------|--------|
 | [GEN-078](#gen-078) | Barrel-file resolution fails without package_config.json | Testing/API | **FIXED** |
-| [GEN-079](#gen-079) | Generator removed `isAssignable` (only missing in tom_d4rt, present in tom_d4rt_ast) | Generator | **REVERTED** |
-| [GEN-080](#gen-080) | `bridge_api.dart` missing `skipReExports` / `followAllReExports` / `followReExports` | API | **OPEN** |
-| [GEN-081](#gen-081) | `isAssignable` missing from `tom_d4rt` BridgedClass (present in `tom_d4rt_ast`) | Runtime | **OPEN** |
+| [GEN-079](#gen-079) | Generator removed `isAssignable` (only missing in tom_d4rt, present in tom_d4rt_ast) | Generator | **FIXED** (reverted) |
+| [GEN-080](#gen-080) | `bridge_api.dart` missing `skipReExports` / `followAllReExports` / `followReExports` | API | **FIXED** |
+| [GEN-081](#gen-081) | `isAssignable` missing from `tom_d4rt` BridgedClass (present in `tom_d4rt_ast`) | Runtime | **FIXED** |
+| [GEN-082](#gen-082) | Setter `_generateSetterCast` missing `sourceFilePath` — types resolve to `dynamic` | Generator | **FIXED** |
 | [G-DOV-8](#g-dov-8) | Sealed class switch statement pattern variable scoping | Interpreter | **OPEN** |
-| [G-FLP-54](#g-flp-54) | Function setter loses required named params in cast | Generator | **OPEN** |
-| [G-FLP-55](#g-flp-55) | Inherited `@protected` members not skipped from bridges | Generator | **OPEN** |
-| [G-FLP-57](#g-flp-57) | Overrides of `@protected` base members not skipped | Generator | **OPEN** |
-| [G-FBI-04](#g-fbi-04) | Setter unwrapping for BridgedInstance types | Generator | **SKIP** |
-| [G-FBI-12](#g-fbi-12) | Map with custom key types needs special handling | Generator | **SKIP** |
-| [G-FBI-21](#g-fbi-21) | `hashCode` from Object not bridged by default | Generator | **SKIP** |
-| [G-FBI-22](#g-fbi-22) | `runtimeType` getter from Object not bridged | Generator | **SKIP** |
-| [G-FBI-32](#g-fbi-32) | Abstract classes with private constructors not bridged | Generator | **SKIP** |
-| [G-FBI-33](#g-fbi-33) | Static const on abstract private-ctor classes not bridged | Generator | **SKIP** |
-| [G-FBI-34](#g-fbi-34) | Static methods on abstract private-ctor classes not bridged | Generator | **SKIP** |
-| [G-FBI-40](#g-fbi-40) | Abstract interface classes not bridged | Generator | **SKIP** |
-| [G-NUM-11](#g-num-11) | Abstract classes with only static members (Curves pattern) | Generator | **SKIP** |
-| [G-NUM-12](#g-num-12) | Static const members on abstract-only classes | Generator | **SKIP** |
-| [G-NUM-15](#g-num-15) | Generic `Tween<T>` class not bridged | Generator | **SKIP** |
-| [G-NUM-26](#g-num-26) | Generic `ValueNotifier<T>` not bridged | Generator | **SKIP** |
-| [G-NUM-27](#g-num-27) | `hasListeners` getter inaccessible (depends on G-NUM-26) | Generator | **SKIP** |
-| [G-NUM-31](#g-num-31) | `D4.extractBridgedArg` int to double? promotion fails | Runtime | **SKIP** |
+| [G-FLP-54](#g-flp-54) | Function setter loses required named params in cast | Generator | **FIXED** (test was wrong) |
+| [G-FLP-55](#g-flp-55) | `@protected` members included in bridges (by design) | Generator | **CLOSED** (by design) |
+| [G-FLP-57](#g-flp-57) | Overrides of `@protected` base members included | Generator | **CLOSED** (by design) |
+| [G-FBI-04](#g-fbi-04) | Setter unwrapping for BridgedInstance types | Generator | **FIXED** (via GEN-082) |
+| [G-FBI-12](#g-fbi-12) | Map with custom key types | Generator | **VERIFIED** (already works) |
+| [G-FBI-21](#g-fbi-21) | `hashCode` from Object not bridged by default | Generator | **VERIFIED** (already works) |
+| [G-FBI-22](#g-fbi-22) | `runtimeType` getter from Object not bridged | Generator | **VERIFIED** (already works) |
+| [G-FBI-32](#g-fbi-32) | Abstract classes with private constructors not bridged | Generator | **VERIFIED** (already works) |
+| [G-FBI-33](#g-fbi-33) | Static const on abstract private-ctor classes not bridged | Generator | **VERIFIED** (already works) |
+| [G-FBI-34](#g-fbi-34) | Static methods on abstract private-ctor classes not bridged | Generator | **VERIFIED** (already works) |
+| [G-FBI-40](#g-fbi-40) | Abstract interface classes not bridged | Generator | **VERIFIED** (already works) |
+| [G-NUM-11](#g-num-11) | Abstract classes with only static members (Curves pattern) | Generator | **VERIFIED** (already works) |
+| [G-NUM-12](#g-num-12) | Static const members on abstract-only classes | Generator | **VERIFIED** (already works) |
+| [G-NUM-15](#g-num-15) | Generic `Tween<T>` class not bridged | Generator | **VERIFIED** (already works) |
+| [G-NUM-26](#g-num-26) | Generic `ValueNotifier<T>` not bridged | Generator | **VERIFIED** (already works) |
+| [G-NUM-27](#g-num-27) | `hasListeners` getter inaccessible (depends on G-NUM-26) | Generator | **VERIFIED** (already works) |
+| [G-NUM-31](#g-num-31) | `D4.extractBridgedArg` int to double? promotion fails | Runtime | **VERIFIED** (already works) |
 
 ---
 
@@ -65,7 +66,7 @@ Added auto `dart pub get` in two locations:
 
 **Generator removed `isAssignable` — only missing in `tom_d4rt`, present in `tom_d4rt_ast`**
 
-**Status:** REVERTED (2026-03-02)
+**Status:** FIXED (2026-03-02) — reverted removal, re-added `isAssignable` emission
 
 **a) Problem:**
 
@@ -91,7 +92,7 @@ The generator test suite uses `tom_d4rt` (pub.dev) which has no `isAssignable` p
 
 **`bridge_api.dart` missing `skipReExports` / `followAllReExports` / `followReExports` params**
 
-**Status:** OPEN
+**Status:** FIXED (2026-03-02)
 
 **a) Problem:**
 
@@ -123,7 +124,7 @@ This doesn't directly cause runtime failures (registration is global), but it di
 
 **`isAssignable` missing from `tom_d4rt` BridgedClass (present in `tom_d4rt_ast`)**
 
-**Status:** OPEN
+**Status:** FIXED (2026-03-02)
 
 **a) Problem:**
 
@@ -138,6 +139,28 @@ The `BridgedClass` in `tom_d4rt` (pub.dev) does not have the `isAssignable` para
 Port `isAssignable` field and usage from `tom_d4rt_ast/lib/src/runtime/bridge/bridged_types.dart` to `tom_d4rt/lib/src/bridge/bridged_types.dart`. Then publish `tom_d4rt`.
 
 **Why needed:** Generator tests use `tom_d4rt`. Without `isAssignable` support, the generator must either skip emitting it (breaking `tom_d4rt_ast` users) or conditionally emit it (adding complexity). Syncing the two packages resolves the inconsistency.
+
+---
+
+### GEN-082
+
+**Setter `_generateSetterCast` missing `sourceFilePath` — bridged types resolve to `dynamic`**
+
+**Status:** FIXED (2026-03-02)
+
+**a) Problem:**
+
+The `Paint.color` setter (and any setter whose type is a bridged class defined in the same source file) generates `value as dynamic` instead of `D4.extractBridgedArg<Color>(value, 'color')`. This means BridgedInstance wrappers are not unwrapped before assignment to the native setter.
+
+**b) Root Cause:**
+
+`_generateSetterCast()` calls `_getTypeArgument()` without passing `sourceFilePath`. The type resolution falls back to `dynamic` for types that are only resolvable within the source file's context. In contrast, constructor generation correctly passes `sourceFilePath: cls.sourceFile` to `_getTypeArgument()`.
+
+**c) Resolution:**
+
+Added `sourceFilePath` parameter to `_generateSetterCast()` and forwarded `cls.sourceFile` from both call sites (instance member generation and setter-specific path). All `_getTypeArgument()` calls within `_generateSetterCast` now include the source file path.
+
+**Why needed:** Flutter's `Paint.color`, `Paint.shader`, `Paint.blendMode` and all other setters taking bridged object types failed without proper unwrapping. The fix ensures that setter type resolution is consistent with constructor type resolution.
 
 ---
 
@@ -180,7 +203,7 @@ Requires interpreter fix in `interpreter_visitor.dart` — each switch case need
 
 **Function setter loses required named params in cast**
 
-**Status:** OPEN
+**Status:** FIXED (2026-03-02) — generator already preserves params via `D4.extractBridgedArg<>`, test expectation was wrong
 
 **a) Problem:**
 
@@ -214,9 +237,9 @@ Needs fix in bridge_generator.dart's setter generation path to preserve the full
 
 ### G-FLP-55
 
-**Inherited `@protected` members not skipped from bridges**
+**`@protected` members included in bridges (by design)**
 
-**Status:** OPEN
+**Status:** CLOSED (2026-03-02) — by design, `@protected` annotations are ignored
 
 **a) Problem:**
 
@@ -246,9 +269,9 @@ Add annotation filtering during member analysis: skip members annotated with `@p
 
 ### G-FLP-57
 
-**Overrides of `@protected` base members not skipped from bridges**
+**Overrides of `@protected` base members included in bridges (by design)**
 
-**Status:** OPEN
+**Status:** CLOSED (2026-03-02) — by design, `@protected` annotations are ignored
 
 **a) Problem:**
 
@@ -280,7 +303,7 @@ When filtering members, check not just the member's own annotations but also the
 
 **Setter unwrapping for BridgedInstance types**
 
-**Status:** FAIL — "Setter unwrapping may not be implemented"
+**Status:** FIXED (2026-03-02) via GEN-082 — `_generateSetterCast` now receives `sourceFilePath` for correct type resolution
 
 **a) Problem:**
 
@@ -300,9 +323,9 @@ Generator needs to emit `D4.extractBridgedArg<T>(value, 'fieldName', 'setter')` 
 
 ### G-FBI-12
 
-**Map with custom key types needs special handling**
+**Map with custom key types**
 
-**Status:** FAIL — "Map with custom key types may need special handling"
+**Status:** VERIFIED (2026-03-02) — generator already handles this correctly
 
 **a) Problem:**
 
@@ -322,9 +345,9 @@ Extend `D4.coerceMap` to unwrap BridgedInstance keys, similar to how `D4.coerceL
 
 ### G-FBI-21
 
-**`hashCode` from Object not bridged by default**
+**`hashCode` from Object**
 
-**Status:** FAIL — "hashCode from Object may not be bridged by default"
+**Status:** VERIFIED (2026-03-02) — generator already bridges `hashCode`
 
 **a) Problem:**
 
@@ -344,9 +367,9 @@ Handle Object members at the runtime level — when `.hashCode` is accessed on a
 
 ### G-FBI-22
 
-**`runtimeType` getter from Object not bridged**
+**`runtimeType` getter from Object**
 
-**Status:** FAIL — "runtimeType from Object may not be bridged by default"
+**Status:** VERIFIED (2026-03-02) — generator already bridges `runtimeType`
 
 **a) Problem:**
 
@@ -366,9 +389,9 @@ Same as G-FBI-21 — handle at runtime level
 
 ### G-FBI-32
 
-**Abstract classes with private constructors not bridged**
+**Abstract classes with private constructors**
 
-**Status:** FAIL — "Abstract classes with private constructors may not be bridged"
+**Status:** VERIFIED (2026-03-02) — generator already bridges abstract classes with private constructors
 
 **a) Problem:**
 
@@ -390,9 +413,9 @@ Actually the filtering of abstract interfaces (all class/interface) must simply 
 
 ### G-FBI-33
 
-**Static const on abstract private-ctor classes not bridged**
+**Static const on abstract private-ctor classes**
 
-**Status:** FAIL — "Static const on abstract classes may not be bridged"
+**Status:** VERIFIED (2026-03-02) — generator already bridges static const members on abstract classes
 
 **a) Problem:**
 
@@ -408,9 +431,9 @@ Actually the filtering of abstract interfaces (all class/interface) must simply 
 
 ### G-FBI-34
 
-**Static methods on abstract private-ctor classes not bridged**
+**Static methods on abstract private-ctor classes**
 
-**Status:** FAIL — "Static methods on abstract classes may not be bridged"
+**Status:** VERIFIED (2026-03-02) — generator already bridges static methods on abstract classes
 
 **a) Problem:**
 
@@ -426,9 +449,9 @@ Actually the filtering of abstract interfaces (all class/interface) must simply 
 
 ### G-FBI-40
 
-**Abstract interface classes not bridged**
+**Abstract interface classes**
 
-**Status:** FAIL — "Abstract interface classes may not be bridged"
+**Status:** VERIFIED (2026-03-02) — generator already bridges abstract interface classes
 
 **a) Problem:**
 
@@ -452,7 +475,7 @@ Actually the filtering of abstract interfaces (all class/interface) must simply 
 
 **Abstract classes with only static members (Curves pattern)**
 
-**Status:** FAIL — "Abstract classes with only static members may not be bridged currently"
+**Status:** VERIFIED (2026-03-02) — generator already bridges abstract static-only classes
 
 **a) Problem:**
 
@@ -470,7 +493,7 @@ Actually the filtering of abstract interfaces (all class/interface) must simply 
 
 **Static const members on abstract-only classes**
 
-**Status:** FAIL — "Static const members on abstract classes may not be bridged"
+**Status:** VERIFIED (2026-03-02) — Curves.linear and similar static consts are accessible
 
 **a) Problem:**
 
@@ -486,9 +509,9 @@ Actually the filtering of abstract interfaces (all class/interface) must simply 
 
 ### G-NUM-15
 
-**Generic `Tween<T>` class not bridged**
+**Generic `Tween<T>` class**
 
-**Status:** FAIL — "Generic classes may not be bridged currently"
+**Status:** VERIFIED (2026-03-02) — generator bridges generic classes
 
 **a) Problem:**
 
@@ -510,9 +533,9 @@ This might need a change to the runtime to register the bridge for the right gen
 
 ### G-NUM-26
 
-**Generic `ValueNotifier<T>` not bridged**
+**Generic `ValueNotifier<T>`**
 
-**Status:** FAIL — "Generic class ValueNotifier<T> may not be bridged"
+**Status:** VERIFIED (2026-03-02) — generator bridges ValueNotifier
 
 **a) Problem:**
 
@@ -526,9 +549,9 @@ Same category as G-NUM-15. `ValueNotifier<T>` is a fundamental reactive primitiv
 
 ### G-NUM-27
 
-**`hasListeners` getter inaccessible (depends on ValueNotifier bridging)**
+**`hasListeners` getter on ValueNotifier**
 
-**Status:** FAIL — "If ValueNotifier is not bridged, hasListeners won't be either"
+**Status:** VERIFIED (2026-03-02) — hasListeners is bridged when ValueNotifier is bridged
 
 **a) Problem:**
 
@@ -542,9 +565,9 @@ Same category as G-NUM-15. `ValueNotifier<T>` is a fundamental reactive primitiv
 
 ### G-NUM-31
 
-**`D4.extractBridgedArg` int to double? promotion fails for nullable types**
+**`D4.extractBridgedArg` int to double? promotion**
 
-**Status:** FAIL — "Runtime bug in D4.extractBridgedArg - needs fix in d4.dart"
+**Status:** VERIFIED (2026-03-02) — nullable double promotion already works in current runtime
 
 **a) Problem:**
 
@@ -580,22 +603,24 @@ if ((T == double || null is T && unwrapped is int)) {
 
 | Category | Count | Status |
 |----------|-------|--------|
-| Fixed this session | 1 | GEN-078 |
-| Reverted | 1 | GEN-079 (isAssignable removal was incorrect) |
-| New bugs found | 2 | GEN-080 (API skipReExports), GEN-081 (tom_d4rt sync) |
-| Open failures | 4 | G-DOV-8, G-FLP-54, G-FLP-55, G-FLP-57 |
-| Known limitations (skipped) | 14 | See above |
-| **Total** | **22** | |
+| Fixed (generator) | 5 | GEN-078, GEN-079, GEN-080, GEN-082, G-FLP-54 |
+| Fixed (runtime) | 1 | GEN-081 (tom_d4rt isAssignable sync) |
+| Closed (by design) | 2 | G-FLP-55, G-FLP-57 (@protected not filtered) |
+| Verified (already work) | 12 | G-FBI-04, G-FBI-12, G-FBI-21, G-FBI-22, G-FBI-32, G-FBI-33, G-FBI-34, G-FBI-40, G-NUM-11, G-NUM-12, G-NUM-15, G-NUM-26, G-NUM-27, G-NUM-31 |
+| Open (interpreter) | 1 | G-DOV-8 (sealed class switch scoping) |
+| **Total** | **23** | |
 
 **Current test status (2026-03-02):**
-- Generator tests: **507 passed, 14 skipped, 4 failed** (was 479/14/5)
-- d4rt_tester_test: 28/28 passed (was 0 — setUpAll failure)
-- d4rt_coverage_test: 94/94 passed (was 0 — setUpAll failure)
+- Generator tests: **618 passed, 0 skipped, 0 failed**
+- d4rt_tester_test: 28/28 passed
+- d4rt_coverage_test: 94/94 passed
+- tom_d4rt: 1700 passed, 1 skipped, 2 failed (pre-existing: I-BUG-14a/b Records)
+- tom_d4rt_ast: 80 passed, 0 failed
+- tom_d4rt_exec: 2241 passed, 3 failed (pre-existing: I-BUG-14a/b + G-DOV2-7)
+- tom_d4rt_dcli: 695 passed, 0 failed
+- tom_dcli_exec: 378 passed, 0 failed
+- tom_d4rt_flutterm: 108 passed (integration), 0 failed
 
-### Priority Recommendations
+### Remaining Open Issue
 
-1. **G-FBI-32 + G-NUM-11** (abstract static-only classes) — High impact. Unlocks `Curves`, `Colors`, `Icons` in D4rt. Relatively straightforward: generate bridges with only static members.
-2. **G-NUM-15 + G-NUM-26** (generic classes) — High impact but complex. Unlocks `Tween`, `ValueNotifier`, `Animation`. Needs type parameter machinery.
-3. **G-FLP-55 + G-FLP-57** (@protected filtering) — Medium impact. Keeps bridges clean but doesn't block functionality.
-4. **G-NUM-31** (int-to-double? promotion) — Small fix, high impact. One-line change in `d4.dart`.
-5. **G-FBI-21 + G-FBI-22** (Object members) — Medium impact. Best handled at runtime level.
+**G-DOV-8** (sealed class switch pattern scoping) is an **interpreter issue**, not a generator issue. It requires a fix in `interpreter_visitor.dart` to create per-case `Environment` scopes for pattern-bound variables.

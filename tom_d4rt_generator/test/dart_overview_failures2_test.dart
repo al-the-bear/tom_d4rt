@@ -269,7 +269,7 @@ void main() {
     // The interpreter does not properly resolve extension methods/getters
     // defined on enum types.
     test(
-        'G-DOV2-7: Extension on enum type resolution [2026-02-10 21:30] (FAIL)',
+        'G-DOV2-7: Extension on enum type resolution [2026-02-10 21:30] (OK)',
         () {
       const source = '''
 enum Status { active, inactive, pending }

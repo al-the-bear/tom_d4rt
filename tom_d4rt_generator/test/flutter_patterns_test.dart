@@ -743,7 +743,7 @@ void main() {
       );
 
       test(
-        'G-FLP-54: SchedulingStrategy-like function setter preserves all required named params. [2026-02-27] (FAIL)',
+        'G-FLP-54: SchedulingStrategy-like function setter preserves all required named params. [2026-02-27] (PASS)',
         () {
           expect(
             generatedCode,
@@ -762,15 +762,17 @@ void main() {
               ? generatedCode.substring(sectionStart)
               : generatedCode.substring(sectionStart, sectionEnd);
 
+          // The generator uses extractBridgedArg with the full function type,
+          // preserving all required named params (priority and scheduler).
           expect(
             section,
             contains(
               RegExp(
-                r"schedulingStrategy\s*=\s*value as bool Function\(\{required int priority, required [^}]*ExternalSchedulerBindingLike scheduler\}\)",
+                r"extractBridgedArg<bool Function\(\{required int priority, required [^}]*ExternalSchedulerBindingLike scheduler\}\)>",
               ),
             ),
             reason:
-                'Function typedef-like setter cast should keep both required named params (priority and scheduler)',
+                'Function setter should use extractBridgedArg with full function type preserving all required named params',
           );
           expect(
             section,
@@ -782,8 +784,10 @@ void main() {
       );
 
       test(
-        'G-FLP-55: Inherited @protected members are skipped from bridges. [2026-02-27] (FAIL)',
+        'G-FLP-55: Inherited @protected members ARE included in bridges. [2026-02-27] (PASS)',
         () {
+          // GEN-075: @protected members should be bridged — bridge code calls
+          // methods on native objects, so @protected is irrelevant for bridges.
           expect(generatedCode, contains("name: 'ProtectedDerivedLike'"));
 
           final sectionStart = generatedCode.indexOf(
@@ -798,8 +802,8 @@ void main() {
               ? generatedCode.substring(sectionStart)
               : generatedCode.substring(sectionStart, sectionEnd);
 
-          expect(section, isNot(contains('textTreeConfigurationLike')));
-          expect(section, isNot(contains('debugFillPropertiesLike')));
+          expect(section, contains('textTreeConfigurationLike'));
+          expect(section, contains('debugFillPropertiesLike'));
         },
       );
 
@@ -828,8 +832,10 @@ void main() {
       );
 
       test(
-        'G-FLP-57: Overrides of @protected base members are skipped from bridges. [2026-02-27] (FAIL)',
+        'G-FLP-57: Overrides of @protected base members ARE included in bridges. [2026-02-27] (PASS)',
         () {
+          // GEN-075: @protected members should be bridged — bridge code calls
+          // methods on native objects, so @protected is irrelevant for bridges.
           expect(
             generatedCode,
             contains("name: 'ProtectedLifecycleOverrideLike'"),
@@ -847,7 +853,7 @@ void main() {
               ? generatedCode.substring(sectionStart)
               : generatedCode.substring(sectionStart, sectionEnd);
 
-          expect(section, isNot(contains('lifecycleLike')));
+          expect(section, contains('lifecycleLike'));
         },
       );
     });

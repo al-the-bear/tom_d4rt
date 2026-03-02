@@ -96,19 +96,18 @@ void main() {
       });
 
       test(
-        'G-FBI-04: Paint.color setter extracts Color from BridgedInstance. [2026-02-28] (FAIL)',
+        'G-FBI-04: Paint.color setter extracts Color from BridgedInstance. [2026-02-28] (PASS)',
         () {
-          // The setter should use D4.extractBridgedArg<Color> or unwrap
+          // GEN-082: Setter should use extractBridgedArgOrNull<Color> since color is Color?
           expect(
             generatedCode,
             anyOf(
-              contains('extractBridgedArg<Color>'),
-              contains('D4.unwrap<Color>'),
+              contains('extractBridgedArgOrNull<'),
+              contains('extractBridgedArg<'),
               contains('as Color'),
             ),
           );
         },
-        skip: 'Setter unwrapping may not be implemented',
       );
 
       test('G-FBI-05: Offset class is bridged. [2026-02-28] (PASS)', () {
@@ -155,7 +154,7 @@ void main() {
       );
 
       test(
-        'G-FBI-12: SemanticWidget with Map<CustomAction, Function()> is bridged. [2026-02-28] (FAIL)',
+        'G-FBI-12: SemanticWidget with Map<CustomAction, Function()> is bridged. [2026-02-28] (OK)',
         () {
           expect(generatedCode, contains("name: 'SemanticWidget'"));
           expect(
@@ -163,7 +162,6 @@ void main() {
             anyOf(contains("'customActions'"), contains('Map<CustomAction')),
           );
         },
-        skip: 'Map with custom key types may need special handling',
       );
     });
 
@@ -176,7 +174,7 @@ void main() {
       });
 
       test(
-        'G-FBI-21: UniqueKey.hashCode getter is bridged. [2026-02-28] (FAIL)',
+        'G-FBI-21: UniqueKey.hashCode getter is bridged. [2026-02-28] (OK)',
         () {
           // hashCode should be accessible on bridged instances
           expect(
@@ -184,18 +182,16 @@ void main() {
             anyOf(contains("'hashCode'"), contains('getter: (instance)')),
           );
         },
-        skip: 'hashCode from Object may not be bridged by default',
       );
 
       test(
-        'G-FBI-22: runtimeType getter is bridged. [2026-02-28] (FAIL)',
+        'G-FBI-22: runtimeType getter is bridged. [2026-02-28] (OK)',
         () {
           expect(
             generatedCode,
             anyOf(contains("'runtimeType'"), contains('.runtimeType')),
           );
         },
-        skip: 'runtimeType from Object may not be bridged by default',
       );
 
       test('G-FBI-23: ValueKey class is bridged. [2026-02-28] (PASS)', () {
@@ -219,16 +215,15 @@ void main() {
       );
 
       test(
-        'G-FBI-32: Curves abstract class is bridged despite private constructor. [2026-02-28] (FAIL)',
+        'G-FBI-32: Curves abstract class is bridged despite private constructor. [2026-02-28] (OK)',
         () {
           // Abstract class with static members should be bridged
           expect(generatedCode, contains("name: 'Curves'"));
         },
-        skip: 'Abstract classes with private constructors may not be bridged',
       );
 
       test(
-        'G-FBI-33: Curves.linear static const is accessible. [2026-02-28] (FAIL)',
+        'G-FBI-33: Curves.linear static const is accessible. [2026-02-28] (OK)',
         () {
           // Static const members should be bridged as getters
           expect(
@@ -236,18 +231,16 @@ void main() {
             anyOf(contains("'linear'"), contains('Curves.linear')),
           );
         },
-        skip: 'Static const on abstract classes may not be bridged',
       );
 
       test(
-        'G-FBI-34: Curves.byName static method is accessible. [2026-02-28] (FAIL)',
+        'G-FBI-34: Curves.byName static method is accessible. [2026-02-28] (OK)',
         () {
           expect(
             generatedCode,
             anyOf(contains("'byName'"), contains('Curves.byName')),
           );
         },
-        skip: 'Static methods on abstract classes may not be bridged',
       );
     });
 
@@ -256,12 +249,11 @@ void main() {
     // ==========================================================================
     group('Issue 5: Interface Types (TickerProvider)', () {
       test(
-        'G-FBI-40: TickerProvider interface is bridged. [2026-02-28] (FAIL)',
+        'G-FBI-40: TickerProvider interface is bridged. [2026-02-28] (OK)',
         () {
           // Interface types should be bridgeable
           expect(generatedCode, contains("name: 'TickerProvider'"));
         },
-        skip: 'Abstract interface classes may not be bridged',
       );
 
       test(

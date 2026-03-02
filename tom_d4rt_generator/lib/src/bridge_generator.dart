@@ -7417,11 +7417,13 @@ class BridgeGenerator {
           } else {
             // GEN-057: Use _generateSetterCast for proper collection type handling
             // GEN-075: Pass paramName for extractBridgedArg error messages
+            // GEN-082: Pass sourceFilePath for local type resolution (e.g., Color in same file)
             final castExpression = _generateSetterCast(
               setter.returnType,
               paramName: setter.name,
               typeToUri: setter.returnTypeToUri,
               classTypeParams: cls.typeParameters,
+              sourceFilePath: cls.sourceFile,
             );
             buffer.writeln(
               "      '${setter.name}': (visitor, target, value) => ",
@@ -7567,11 +7569,13 @@ class BridgeGenerator {
       for (final setter in staticSetters) {
         // GEN-057: Use _generateSetterCast for proper collection type handling
         // GEN-075: Pass paramName for extractBridgedArg error messages
+        // GEN-082: Pass sourceFilePath for local type resolution
         final castExpression = _generateSetterCast(
           setter.returnType,
           paramName: setter.name,
           typeToUri: setter.returnTypeToUri,
           classTypeParams: cls.typeParameters,
+          sourceFilePath: cls.sourceFile,
         );
         buffer.writeln("      '${setter.name}': (visitor, value) => ");
         buffer.writeln(
@@ -10147,6 +10151,7 @@ class BridgeGenerator {
     String paramName = 'value',
     Map<String, String> typeToUri = const {},
     Map<String, String?> classTypeParams = const {},
+    String? sourceFilePath,
   }) {
     // Handle nullable types first
     var baseType = type;
@@ -10162,6 +10167,7 @@ class BridgeGenerator {
         elementType,
         typeToUri: typeToUri,
         classTypeParams: classTypeParams,
+        sourceFilePath: sourceFilePath,
       );
 
       if (isNullable) {
@@ -10178,6 +10184,7 @@ class BridgeGenerator {
         elementType,
         typeToUri: typeToUri,
         classTypeParams: classTypeParams,
+        sourceFilePath: sourceFilePath,
       );
 
       if (isNullable) {
@@ -10197,11 +10204,13 @@ class BridgeGenerator {
           types[0].trim(),
           typeToUri: typeToUri,
           classTypeParams: classTypeParams,
+          sourceFilePath: sourceFilePath,
         );
         final prefixedValueType = _getTypeArgument(
           types[1].trim(),
           typeToUri: typeToUri,
           classTypeParams: classTypeParams,
+          sourceFilePath: sourceFilePath,
         );
 
         if (isNullable) {
@@ -10219,12 +10228,14 @@ class BridgeGenerator {
       type,
       typeToUri: typeToUri,
       classTypeParams: classTypeParams,
+      sourceFilePath: sourceFilePath,
     );
     if (isNullable) {
       final nonNullablePrefixedType = _getTypeArgument(
         baseType,
         typeToUri: typeToUri,
         classTypeParams: classTypeParams,
+        sourceFilePath: sourceFilePath,
       );
       return "D4.extractBridgedArgOrNull<$nonNullablePrefixedType>(value, '$paramName')";
     }

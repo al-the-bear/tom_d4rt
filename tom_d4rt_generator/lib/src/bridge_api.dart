@@ -149,8 +149,7 @@ Future<GenerationResult> generateBridges({
         sourceImports: sourceImports,
         helpersImport:
             bridgeConfig.helpersImport ?? 'package:tom_d4rt/tom_d4rt.dart',
-        d4rtImport:
-            bridgeConfig.d4rtImport ?? 'package:tom_d4rt/d4rt.dart',
+        d4rtImport: bridgeConfig.d4rtImport ?? 'package:tom_d4rt/d4rt.dart',
         recursiveBoundTypes: bridgeConfig.recursiveBoundTypes.isNotEmpty
             ? bridgeConfig.recursiveBoundTypes
                   .map(RecursiveBoundType.fromString)
@@ -179,10 +178,12 @@ Future<GenerationResult> generateBridges({
         excludeSourcePatterns: module.excludeSourcePatterns,
         // GEN-080: Forward re-export filtering params from config (matching executor)
         followAllReExports: module.followAllReExports,
-        skipReExports:
-            module.skipReExports.isNotEmpty ? module.skipReExports : null,
-        followReExports:
-            module.followReExports.isNotEmpty ? module.followReExports : null,
+        skipReExports: module.skipReExports.isNotEmpty
+            ? module.skipReExports
+            : null,
+        followReExports: module.followReExports.isNotEmpty
+            ? module.followReExports
+            : null,
         importShowClause: module.importShowClause,
         importHideClause: module.importHideClause,
         // GEN-076: Pass already-generated class sources for cross-module dedup
