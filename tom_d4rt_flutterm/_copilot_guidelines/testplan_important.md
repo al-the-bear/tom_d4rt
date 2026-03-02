@@ -16,17 +16,17 @@ Commonly used classes for intermediate Flutter development - test after essentia
 | ListBody | List body | test_widgets_listbody.dart | - | - |
 | Flow | Flow layout | test_widgets_flow.dart | - | - |
 | CustomScrollView | Custom scrolling | widgets/customscrollview_test.dart | created | - |
-| NestedScrollView | Nested scrolling | test_widgets_nestedscrollview.dart | - | - |
-| ScrollController | Scroll control | test_widgets_scrollcontroller.dart | - | - |
+| NestedScrollView | Nested scrolling | widgets/nestedscrollview_test.dart | created | - |
+| ScrollController | Scroll control | widgets/textcontroller_test.dart | created | - |
 | PageController | Page control | test_widgets_pagecontroller.dart | - | - |
 | TabController | Tab control | test_widgets_tabcontroller.dart | - | - |
 | AnimatedContainer | Animated container | widgets/animatedcontainer_test.dart | created | - |
 | AnimatedOpacity | Animated opacity | widgets/animatedopacity_test.dart | created | - |
-| AnimatedPadding | Animated padding | test_widgets_animatedpadding.dart | - | - |
-| AnimatedPositioned | Animated position | test_widgets_animatedpositioned.dart | - | - |
-| AnimatedSize | Animated size | test_widgets_animatedsize.dart | - | - |
-| AnimatedBuilder | Generic animation | test_widgets_animatedbuilder.dart | - | - |
-| AnimatedWidget | Animated widget base | test_widgets_animatedwidget.dart | - | - |
+| AnimatedPadding | Animated padding | widgets/animatedpadding_test.dart | created | - |
+| AnimatedPositioned | Animated position | widgets/animatedpositioned_test.dart | created | - |
+| AnimatedSize | Animated size | widgets/animatedsize_test.dart | created | - |
+| AnimatedBuilder | Generic animation | widgets/animatedbuilder_test.dart | created | - |
+| AnimatedWidget | Animated widget base | widgets/animatedbuilder_test.dart | created | - |
 | FadeTransition | Fade animation | widgets/fadetransition_test.dart | created | - |
 | ScaleTransition | Scale animation | widgets/scaletransition_test.dart | created | - |
 | RotationTransition | Rotation animation | widgets/rotationtransition_test.dart | created | - |
@@ -35,59 +35,59 @@ Commonly used classes for intermediate Flutter development - test after essentia
 | PositionedTransition | Position animation | widgets/rotationtransition_test.dart | created | - |
 | DecoratedBoxTransition | Decoration animation | widgets/rotationtransition_test.dart | created | - |
 | Hero | Hero animation | widgets/hero_test.dart | created | - |
-| HeroMode | Hero enabling | test_widgets_heromode.dart | - | - |
+| HeroMode | Hero enabling | widgets/heromode_test.dart | created | - |
 | SafeArea | Safe area insets | widgets/safearea_test.dart | created | - |
 | MediaQuery | Device info | widgets/mediaquery_test.dart | created | - |
 | MediaQueryData | Device info data | widgets/mediaquery_test.dart | created | - |
 | Visibility | Visibility control | widgets/visibility_test.dart | created | - |
 | Offstage | Offstage positioning | widgets/offstage_test.dart | created | - |
-| Opacity | Opacity control | test_widgets_opacity.dart | - | - |
-| ClipRect | Rectangle clipping | test_widgets_cliprect.dart | - | - |
-| ClipRRect | Rounded clipping | test_widgets_cliprrect.dart | - | - |
-| ClipOval | Oval clipping | test_widgets_clipoval.dart | - | - |
-| ClipPath | Path clipping | test_widgets_clippath.dart | - | - |
+| Opacity | Opacity control | widgets/opacity_full_test.dart | created | - |
+| ClipRect | Rectangle clipping | widgets/clipping_test.dart | created | - |
+| ClipRRect | Rounded clipping | widgets/clipping_test.dart | created | - |
+| ClipOval | Oval clipping | widgets/clipping_test.dart | created | - |
+| ClipPath | Path clipping | widgets/clipping_test.dart | created | - |
 | DecoratedBox | Decoration box | widgets/decoratedbox_test.dart | created | - |
 | ColoredBox | Colored box | widgets/decoratedbox_test.dart | created | - |
-| Transform | Transformations | test_widgets_transform.dart | - | - |
+| Transform | Transformations | widgets/transform_full_test.dart | created | - |
 | RotatedBox | Rotated box | widgets/decoratedbox_test.dart | created | - |
-| FractionallySizedBox | Fractional sizing | test_widgets_fractionallysizedbox.dart | - | - |
+| FractionallySizedBox | Fractional sizing | widgets/transform_full_test.dart | created | - |
 | FittedBox | Fitted content | widgets/constrainedbox_test.dart | created | - |
 | AspectRatio | Aspect ratio | widgets/constrainedbox_test.dart | created | - |
 | ConstrainedBox | Constraints | widgets/constrainedbox_test.dart | created | - |
-| UnconstrainedBox | No constraints | test_widgets_unconstrainedbox.dart | - | - |
-| LimitedBox | Limited size | test_widgets_limitedbox.dart | - | - |
+| UnconstrainedBox | No constraints | widgets/sizing_test.dart | created | - |
+| LimitedBox | Limited size | widgets/sizing_test.dart | created | - |
 | IntrinsicWidth | Intrinsic width | widgets/constrainedbox_test.dart | created | - |
 | IntrinsicHeight | Intrinsic height | widgets/constrainedbox_test.dart | created | - |
-| Baseline | Baseline alignment | test_widgets_baseline.dart | - | - |
+| Baseline | Baseline alignment | widgets/sizing_test.dart | created | - |
 | CustomPaint | Custom painting | widgets/custompaint_test.dart | created | - |
 | CustomMultiChildLayout | Multi layout | test_widgets_custommultichildlayout.dart | - | - |
 | CustomSingleChildLayout | Single layout | test_widgets_customsinglechildlayout.dart | - | - |
 | LayoutBuilder | Layout building | widgets/layoutbuilder_test.dart | created | - |
 | Builder | Widget building | widgets/builder_test.dart | created | - |
 | StatefulBuilder | Stateful building | widgets/builder_test.dart | created | - |
-| FutureBuilder | Future building | test_widgets_futurebuilder.dart | - | - |
-| StreamBuilder | Stream building | test_widgets_streambuilder.dart | - | - |
-| ValueListenableBuilder | Value listenable | test_widgets_valuelistenablebuilder.dart | - | - |
-| ListenableBuilder | Listenable building | test_widgets_listenablebuilder.dart | - | - |
+| FutureBuilder | Future building | widgets/futurebuilder_test.dart | created | - |
+| StreamBuilder | Stream building | widgets/streambuilder_test.dart | created | - |
+| ValueListenableBuilder | Value listenable | widgets/valuelistenablebuilder_test.dart | created | - |
+| ListenableBuilder | Listenable building | widgets/valuelistenablebuilder_test.dart | created | - |
 | AnimatedList | Animated list | widgets/animatedlist_test.dart | created | - |
 | AnimatedGrid | Animated grid | test_widgets_animatedgrid.dart | - | - |
-| ReorderableListView | Reorderable list | test_widgets_reorderablelistview.dart | - | - |
+| ReorderableListView | Reorderable list | widgets/reorderablelistview_test.dart | created | - |
 | Draggable | Draggable widget | widgets/draggable_test.dart | created | - |
 | DragTarget | Drop target | widgets/draggable_test.dart | created | - |
 | LongPressDraggable | Long press drag | widgets/draggable_test.dart | created | - |
-| DraggableScrollableSheet | Draggable sheet | test_widgets_draggablescrollablesheet.dart | - | - |
+| DraggableScrollableSheet | Draggable sheet | widgets/draggablescrollablesheet_test.dart | created | - |
 | InteractiveViewer | Pan/zoom viewer | widgets/interactiveviewer_test.dart | created | - |
 | IgnorePointer | Ignore touches | widgets/absorbpointer_test.dart | created | - |
 | AbsorbPointer | Absorb touches | widgets/absorbpointer_test.dart | created | - |
 | Listener | Pointer events | test_widgets_listener.dart | - | - |
 | MouseRegion | Mouse events | widgets/absorbpointer_test.dart | created | - |
 | RepaintBoundary | Repaint boundary | widgets/absorbpointer_test.dart | created | - |
-| Semantics | Accessibility | test_widgets_semantics.dart | - | - |
-| MergeSemantics | Merge semantics | test_widgets_mergesemantics.dart | - | - |
-| ExcludeSemantics | Exclude semantics | test_widgets_excludesemantics.dart | - | - |
+| Semantics | Accessibility | widgets/semantics_test.dart | created | - |
+| MergeSemantics | Merge semantics | widgets/semantics_test.dart | created | - |
+| ExcludeSemantics | Exclude semantics | widgets/semantics_test.dart | created | - |
 | BlockSemantics | Block semantics | test_widgets_blocksemantics.dart | - | - |
 | IndexedSemantics | Indexed semantics | test_widgets_indexedsemantics.dart | - | - |
-| Tooltip | Tooltips | test_widgets_tooltip.dart | - | - |
+| Tooltip | Tooltips | widgets/tooltip_test.dart | created | - |
 | Overlay | Overlay layer | test_widgets_overlay.dart | - | - |
 | OverlayEntry | Overlay entry | test_widgets_overlayentry.dart | - | - |
 | ModalRoute | Modal routing | test_widgets_modalroute.dart | - | - |
@@ -115,13 +115,13 @@ Commonly used classes for intermediate Flutter development - test after essentia
 | FocusTraversalGroup | Focus traversal | test_widgets_focustraversalgroup.dart | - | - |
 | FocusTraversalPolicy | Traversal policy | test_widgets_focustraversalpolicy.dart | - | - |
 | FocusManager | Focus manager | test_widgets_focusmanager.dart | - | - |
-| Focus | Focus widget | test_widgets_focus.dart | - | - |
-| FocusScope | Focus scope widget | test_widgets_focusscope.dart | - | - |
+| Focus | Focus widget | widgets/focus_test.dart | created | - |
+| FocusScope | Focus scope widget | widgets/focus_test.dart | created | - |
 | FormState | Form state | test_widgets_formstate.dart | - | - |
 | FormFieldState | Field state | test_widgets_formfieldstate.dart | - | - |
-| TextEditingController | Text controller | test_widgets_texteditingcontroller.dart | - | - |
+| TextEditingController | Text controller | widgets/textcontroller_test.dart | created | - |
 | ScrollNotification | Scroll notification | test_widgets_scrollnotification.dart | - | - |
-| NotificationListener | Notification listener | test_widgets_notificationlistener.dart | - | - |
+| NotificationListener | Notification listener | widgets/notificationlistener_test.dart | created | - |
 | LayoutChangedNotification | Layout notification | test_widgets_layoutchangednotification.dart | - | - |
 | KeepAlive | Keep alive | test_widgets_keepalive.dart | - | - |
 | AutomaticKeepAlive | Auto keep alive | test_widgets_automatickeepalive.dart | - | - |
@@ -129,16 +129,16 @@ Commonly used classes for intermediate Flutter development - test after essentia
 | SliverGrid | Sliver grid | widgets/sliverlist_test.dart | created | - |
 | SliverFixedExtentList | Fixed extent | test_widgets_sliverfixedextentlist.dart | - | - |
 | SliverVariedExtentList | Varied extent | test_widgets_slivervariedextentlist.dart | - | - |
-| SliverFillRemaining | Fill remaining | test_widgets_sliverfillremaining.dart | - | - |
+| SliverFillRemaining | Fill remaining | widgets/sliverfillremaining_test.dart | created | - |
 | SliverFillViewport | Fill viewport | test_widgets_sliverfillviewport.dart | - | - |
 | SliverToBoxAdapter | Box adapter | widgets/customscrollview_test.dart | created | - |
 | SliverPadding | Sliver padding | widgets/sliverlist_test.dart | created | - |
-| SliverOpacity | Sliver opacity | test_widgets_sliveropacity.dart | - | - |
+| SliverOpacity | Sliver opacity | widgets/sliverfillremaining_test.dart | created | - |
 | SliverPersistentHeader | Persistent header | test_widgets_sliverpersistentheader.dart | - | - |
 | SliverAppBar | Sliver app bar | test_widgets_sliverappbar.dart | - | - |
-| SnackBar | Snackbar message | test_widgets_snackbar.dart | - | - |
-| Banner | Debug banner | test_widgets_banner.dart | - | - |
-| ErrorWidget | Error display | test_widgets_errorwidget.dart | - | - |
+| SnackBar | Snackbar message | material/snackbar_test.dart | created | - |
+| Banner | Debug banner | widgets/banner_test.dart | created | - |
+| ErrorWidget | Error display | widgets/banner_test.dart | created | - |
 
 ---
 
@@ -197,7 +197,7 @@ Commonly used classes for intermediate Flutter development - test after essentia
 | DrawerHeader | Drawer header | test_material_drawerheader.dart | - | - |
 | UserAccountsDrawerHeader | User header | test_material_useraccountsdrawerheader.dart | - | - |
 | AboutListTile | About tile | test_material_aboutlisttile.dart | - | - |
-| AboutDialog | About dialog | test_material_aboutdialog.dart | - | - |
+| AboutDialog | About dialog | material/aboutdialog_test.dart | created | - |
 | LicensePage | License page | test_material_licensepage.dart | - | - |
 | showDialog | Show dialog | test_material_showdialog.dart | - | - |
 | showModalBottomSheet | Modal sheet | test_material_showmodalbottomsheet.dart | - | - |
@@ -212,20 +212,20 @@ Commonly used classes for intermediate Flutter development - test after essentia
 | YearPicker | Year picker | test_material_yearpicker.dart | - | - |
 | MonthPicker | Month picker | test_material_monthpicker.dart | - | - |
 | CupertinoDatePicker | iOS date picker | test_material_cupertinodatepicker.dart | - | - |
-| MenuAnchor | Menu anchor | test_material_menuanchor.dart | - | - |
+| MenuAnchor | Menu anchor | material/menuanchor_test.dart | created | - |
 | MenuBar | Menu bar | test_material_menubar.dart | - | - |
-| MenuItemButton | Menu item | test_material_menuitembutton.dart | - | - |
-| SubmenuButton | Submenu | test_material_submenubutton.dart | - | - |
+| MenuItemButton | Menu item | material/menuanchor_test.dart | created | - |
+| SubmenuButton | Submenu | material/menuanchor_test.dart | created | - |
 | CheckboxMenuButton | Checkbox menu | test_material_checkboxmenubutton.dart | - | - |
 | RadioMenuButton | Radio menu | test_material_radiomenubutton.dart | - | - |
 | DropdownButtonFormField | Dropdown form | test_material_dropdownbuttonformfield.dart | - | - |
 | ExpansionTile | Expansion tile | test_material_expansiontile.dart | - | - |
-| ExpansionPanelList | Panel list | test_material_expansionpanellist.dart | - | - |
-| ExpansionPanel | Expansion panel | test_material_expansionpanel.dart | - | - |
+| ExpansionPanelList | Panel list | material/expansionpanel_test.dart | created | - |
+| ExpansionPanel | Expansion panel | material/expansionpanel_test.dart | created | - |
 | DataTable | Data table | test_material_datatable.dart | - | - |
-| DataRow | Data row | test_material_datarow.dart | - | - |
-| DataColumn | Data column | test_material_datacolumn.dart | - | - |
-| DataCell | Data cell | test_material_datacell.dart | - | - |
+| DataRow | Data row | material/datarow_test.dart | created | - |
+| DataColumn | Data column | material/datarow_test.dart | created | - |
+| DataCell | Data cell | material/datarow_test.dart | created | - |
 | PaginatedDataTable | Paginated table | test_material_paginateddatatable.dart | - | - |
 | Stepper | Stepper widget | test_material_stepper.dart | - | - |
 | Step | Step item | test_material_step.dart | - | - |
@@ -241,9 +241,9 @@ Commonly used classes for intermediate Flutter development - test after essentia
 | SelectableText | Selectable text | material/selectabletext_test.dart | created | - |
 | ReorderableListView | Reorderable list | test_material_reorderablelistview.dart | - | - |
 | ToggleButtons | Toggle buttons | material/togglebuttons_test.dart | created | - |
-| AnimatedIcon | Animated icon | test_material_animatedicon.dart | - | - |
-| AnimatedIcons | Icon animations | test_material_animatedicons.dart | - | - |
-| RefreshIndicator | Pull to refresh | test_material_refreshindicator.dart | - | - |
+| AnimatedIcon | Animated icon | material/animatedicon_test.dart | created | - |
+| AnimatedIcons | Icon animations | material/animatedicon_test.dart | created | - |
+| RefreshIndicator | Pull to refresh | material/refreshindicator_test.dart | created | - |
 | Scrollbar | Scrollbar | material/scrollbar_test.dart | created | - |
 | RawScrollbar | Raw scrollbar | test_material_rawscrollbar.dart | - | - |
 | InteractiveInkFeature | Ink feature | test_material_interactiveinkfeature.dart | - | - |
@@ -259,7 +259,7 @@ Commonly used classes for intermediate Flutter development - test after essentia
 | MaterialGap | Material gap | test_material_materialgap.dart | - | - |
 | MaterialSlice | Material slice | test_material_materialslice.dart | - | - |
 | TextSelectionTheme | Selection theme | test_material_textselectiontheme.dart | - | - |
-| TimeOfDay | Time of day | test_material_timeofday.dart | - | - |
+| TimeOfDay | Time of day | material/timeofday_test.dart | created | - |
 | MaterialPageRoute | Page route | test_material_materialpageroute.dart | - | - |
 | MaterialPage | Material page | test_material_materialpage.dart | - | - |
 | MaterialRouteTransitionMixin | Route transition | test_material_materialroutetransitionmixin.dart | - | - |
