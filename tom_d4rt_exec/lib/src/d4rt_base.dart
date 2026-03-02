@@ -1832,19 +1832,117 @@ class D4rt {
               pos[8]
             );
           case 10:
-            return (pos[0], pos[1], pos[2], pos[3], pos[4], pos[5], pos[6], pos[7], pos[8], pos[9]);
+            return (
+              pos[0],
+              pos[1],
+              pos[2],
+              pos[3],
+              pos[4],
+              pos[5],
+              pos[6],
+              pos[7],
+              pos[8],
+              pos[9]
+            );
           case 11:
-            return (pos[0], pos[1], pos[2], pos[3], pos[4], pos[5], pos[6], pos[7], pos[8], pos[9], pos[10]);
+            return (
+              pos[0],
+              pos[1],
+              pos[2],
+              pos[3],
+              pos[4],
+              pos[5],
+              pos[6],
+              pos[7],
+              pos[8],
+              pos[9],
+              pos[10]
+            );
           case 12:
-            return (pos[0], pos[1], pos[2], pos[3], pos[4], pos[5], pos[6], pos[7], pos[8], pos[9], pos[10], pos[11]);
+            return (
+              pos[0],
+              pos[1],
+              pos[2],
+              pos[3],
+              pos[4],
+              pos[5],
+              pos[6],
+              pos[7],
+              pos[8],
+              pos[9],
+              pos[10],
+              pos[11]
+            );
           case 13:
-            return (pos[0], pos[1], pos[2], pos[3], pos[4], pos[5], pos[6], pos[7], pos[8], pos[9], pos[10], pos[11], pos[12]);
+            return (
+              pos[0],
+              pos[1],
+              pos[2],
+              pos[3],
+              pos[4],
+              pos[5],
+              pos[6],
+              pos[7],
+              pos[8],
+              pos[9],
+              pos[10],
+              pos[11],
+              pos[12]
+            );
           case 14:
-            return (pos[0], pos[1], pos[2], pos[3], pos[4], pos[5], pos[6], pos[7], pos[8], pos[9], pos[10], pos[11], pos[12], pos[13]);
+            return (
+              pos[0],
+              pos[1],
+              pos[2],
+              pos[3],
+              pos[4],
+              pos[5],
+              pos[6],
+              pos[7],
+              pos[8],
+              pos[9],
+              pos[10],
+              pos[11],
+              pos[12],
+              pos[13]
+            );
           case 15:
-            return (pos[0], pos[1], pos[2], pos[3], pos[4], pos[5], pos[6], pos[7], pos[8], pos[9], pos[10], pos[11], pos[12], pos[13], pos[14]);
+            return (
+              pos[0],
+              pos[1],
+              pos[2],
+              pos[3],
+              pos[4],
+              pos[5],
+              pos[6],
+              pos[7],
+              pos[8],
+              pos[9],
+              pos[10],
+              pos[11],
+              pos[12],
+              pos[13],
+              pos[14]
+            );
           case 16:
-            return (pos[0], pos[1], pos[2], pos[3], pos[4], pos[5], pos[6], pos[7], pos[8], pos[9], pos[10], pos[11], pos[12], pos[13], pos[14], pos[15]);
+            return (
+              pos[0],
+              pos[1],
+              pos[2],
+              pos[3],
+              pos[4],
+              pos[5],
+              pos[6],
+              pos[7],
+              pos[8],
+              pos[9],
+              pos[10],
+              pos[11],
+              pos[12],
+              pos[13],
+              pos[14],
+              pos[15]
+            );
           default:
             // More than 16 positional fields - return InterpretedRecord with unwrapped values
             return InterpretedRecord(pos, {});
