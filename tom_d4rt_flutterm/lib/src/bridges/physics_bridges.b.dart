@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 6 files
-// Generated: 2026-03-02T10:23:37.547553
+// Generated: 2026-03-02T11:16:05.674668
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -205,6 +205,7 @@ BridgedClass _createToleranceBridge() {
   return BridgedClass(
     nativeType: $flutter_6.Tolerance,
     name: 'Tolerance',
+    isAssignable: (v) => v is $flutter_6.Tolerance,
     constructors: {
       '': (visitor, positional, named) {
         if (!named.containsKey('distance') && !named.containsKey('time') && !named.containsKey('velocity')) {
@@ -285,6 +286,7 @@ BridgedClass _createClampedSimulationBridge() {
   return BridgedClass(
     nativeType: $flutter_1.ClampedSimulation,
     name: 'ClampedSimulation',
+    isAssignable: (v) => v is $flutter_1.ClampedSimulation,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ClampedSimulation');
@@ -439,6 +441,7 @@ BridgedClass _createFrictionSimulationBridge() {
   return BridgedClass(
     nativeType: $flutter_2.FrictionSimulation,
     name: 'FrictionSimulation',
+    isAssignable: (v) => v is $flutter_2.FrictionSimulation,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'FrictionSimulation');
@@ -525,6 +528,7 @@ BridgedClass _createBoundedFrictionSimulationBridge() {
   return BridgedClass(
     nativeType: $flutter_2.BoundedFrictionSimulation,
     name: 'BoundedFrictionSimulation',
+    isAssignable: (v) => v is $flutter_2.BoundedFrictionSimulation,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 5, 'BoundedFrictionSimulation');
@@ -602,6 +606,7 @@ BridgedClass _createGravitySimulationBridge() {
   return BridgedClass(
     nativeType: $flutter_3.GravitySimulation,
     name: 'GravitySimulation',
+    isAssignable: (v) => v is $flutter_3.GravitySimulation,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 4, 'GravitySimulation');
@@ -669,6 +674,7 @@ BridgedClass _createSpringSimulationBridge() {
   return BridgedClass(
     nativeType: $flutter_5.SpringSimulation,
     name: 'SpringSimulation',
+    isAssignable: (v) => v is $flutter_5.SpringSimulation,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 4, 'SpringSimulation');
@@ -740,6 +746,7 @@ BridgedClass _createScrollSpringSimulationBridge() {
   return BridgedClass(
     nativeType: $flutter_5.ScrollSpringSimulation,
     name: 'ScrollSpringSimulation',
+    isAssignable: (v) => v is $flutter_5.ScrollSpringSimulation,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 4, 'ScrollSpringSimulation');

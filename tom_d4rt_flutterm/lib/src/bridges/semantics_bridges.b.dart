@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
-// Sources: 12 files
-// Generated: 2026-03-02T10:23:59.259169
+// Sources: 11 files
+// Generated: 2026-03-02T11:16:23.460449
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -102,21 +102,12 @@ class FlutterSemanticsBridge {
   /// bridged class under its canonical name.
   static Map<String, String> classAliases() {
     return {
-      'MemoryAllocations': 'FlutterMemoryAllocations',
     };
   }
 
   /// Returns all bridged enum definitions.
   static List<BridgedEnumDefinition> bridgedEnums() {
     return [
-      BridgedEnumDefinition<$flutter_3.DiagnosticLevel>(
-        name: 'DiagnosticLevel',
-        values: $flutter_3.DiagnosticLevel.values,
-      ),
-      BridgedEnumDefinition<$flutter_3.DiagnosticsTreeStyle>(
-        name: 'DiagnosticsTreeStyle',
-        values: $flutter_3.DiagnosticsTreeStyle.values,
-      ),
       BridgedEnumDefinition<$flutter_8.Assertiveness>(
         name: 'Assertiveness',
         values: $flutter_8.Assertiveness.values,
@@ -138,8 +129,6 @@ class FlutterSemanticsBridge {
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> enumSourceUris() {
     return {
-      'DiagnosticLevel': 'package:flutter/src/foundation/diagnostics.dart',
-      'DiagnosticsTreeStyle': 'package:flutter/src/foundation/diagnostics.dart',
       'Assertiveness': 'package:flutter/src/semantics/semantics_event.dart',
       'AccessibilityFocusBlockType': 'package:flutter/src/semantics/semantics.dart',
       'DebugSemanticsDumpOrder': 'package:flutter/src/semantics/semantics.dart',
@@ -186,12 +175,6 @@ class FlutterSemanticsBridge {
     final funcSigs = globalFunctionSignatures();
     for (final entry in funcs.entries) {
       interpreter.registertopLevelFunction(entry.key, entry.value, importPath, sourceUri: funcSources[entry.key], signature: funcSigs[entry.key]);
-    }
-
-    // Register class aliases (typedef type aliases)
-    final aliases = classAliases();
-    for (final entry in aliases.entries) {
-      interpreter.registerClassAlias(entry.key, entry.value, importPath);
     }
   }
 
@@ -552,7 +535,6 @@ class FlutterSemanticsBridge {
   /// multiple barrels.
   static List<String> sourceLibraries() {
     return [
-      'package:flutter/src/foundation/diagnostics.dart',
       'package:flutter/src/semantics/binding.dart',
       'package:flutter/src/semantics/debug.dart',
       'package:flutter/src/semantics/semantics.dart',
@@ -592,8 +574,6 @@ class FlutterSemanticsBridge {
 
   /// Returns a list of bridged enum names.
   static List<String> get enumNames => [
-    'DiagnosticLevel',
-    'DiagnosticsTreeStyle',
     'Assertiveness',
     'AccessibilityFocusBlockType',
     'DebugSemanticsDumpOrder',
@@ -609,6 +589,7 @@ BridgedClass _createSemanticsBindingBridge() {
   return BridgedClass(
     nativeType: $flutter_5.SemanticsBinding,
     name: 'SemanticsBinding',
+    isAssignable: (v) => v is $flutter_5.SemanticsBinding,
     constructors: {
     },
     getters: {
@@ -847,6 +828,7 @@ BridgedClass _createSemanticsHandleBridge() {
   return BridgedClass(
     nativeType: $flutter_5.SemanticsHandle,
     name: 'SemanticsHandle',
+    isAssignable: (v) => v is $flutter_5.SemanticsHandle,
     constructors: {
     },
     methods: {
@@ -870,6 +852,7 @@ BridgedClass _createSemanticsEventBridge() {
   return BridgedClass(
     nativeType: $flutter_8.SemanticsEvent,
     name: 'SemanticsEvent',
+    isAssignable: (v) => v is $flutter_8.SemanticsEvent,
     constructors: {
     },
     getters: {
@@ -909,6 +892,7 @@ BridgedClass _createAnnounceSemanticsEventBridge() {
   return BridgedClass(
     nativeType: $flutter_8.AnnounceSemanticsEvent,
     name: 'AnnounceSemanticsEvent',
+    isAssignable: (v) => v is $flutter_8.AnnounceSemanticsEvent,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'AnnounceSemanticsEvent');
@@ -967,6 +951,7 @@ BridgedClass _createTooltipSemanticsEventBridge() {
   return BridgedClass(
     nativeType: $flutter_8.TooltipSemanticsEvent,
     name: 'TooltipSemanticsEvent',
+    isAssignable: (v) => v is $flutter_8.TooltipSemanticsEvent,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'TooltipSemanticsEvent');
@@ -1016,6 +1001,7 @@ BridgedClass _createLongPressSemanticsEventBridge() {
   return BridgedClass(
     nativeType: $flutter_8.LongPressSemanticsEvent,
     name: 'LongPressSemanticsEvent',
+    isAssignable: (v) => v is $flutter_8.LongPressSemanticsEvent,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_8.LongPressSemanticsEvent();
@@ -1061,6 +1047,7 @@ BridgedClass _createTapSemanticEventBridge() {
   return BridgedClass(
     nativeType: $flutter_8.TapSemanticEvent,
     name: 'TapSemanticEvent',
+    isAssignable: (v) => v is $flutter_8.TapSemanticEvent,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_8.TapSemanticEvent();
@@ -1106,6 +1093,7 @@ BridgedClass _createFocusSemanticEventBridge() {
   return BridgedClass(
     nativeType: $flutter_8.FocusSemanticEvent,
     name: 'FocusSemanticEvent',
+    isAssignable: (v) => v is $flutter_8.FocusSemanticEvent,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_8.FocusSemanticEvent();
@@ -1151,6 +1139,7 @@ BridgedClass _createSemanticsTagBridge() {
   return BridgedClass(
     nativeType: $flutter_7.SemanticsTag,
     name: 'SemanticsTag',
+    isAssignable: (v) => v is $flutter_7.SemanticsTag,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'SemanticsTag');
@@ -1187,6 +1176,7 @@ BridgedClass _createChildSemanticsConfigurationsResultBridge() {
   return BridgedClass(
     nativeType: $flutter_7.ChildSemanticsConfigurationsResult,
     name: 'ChildSemanticsConfigurationsResult',
+    isAssignable: (v) => v is $flutter_7.ChildSemanticsConfigurationsResult,
     constructors: {
     },
     getters: {
@@ -1208,6 +1198,7 @@ BridgedClass _createChildSemanticsConfigurationsResultBuilderBridge() {
   return BridgedClass(
     nativeType: $flutter_7.ChildSemanticsConfigurationsResultBuilder,
     name: 'ChildSemanticsConfigurationsResultBuilder',
+    isAssignable: (v) => v is $flutter_7.ChildSemanticsConfigurationsResultBuilder,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_7.ChildSemanticsConfigurationsResultBuilder();
@@ -1255,6 +1246,7 @@ BridgedClass _createCustomSemanticsActionBridge() {
   return BridgedClass(
     nativeType: $flutter_7.CustomSemanticsAction,
     name: 'CustomSemanticsAction',
+    isAssignable: (v) => v is $flutter_7.CustomSemanticsAction,
     constructors: {
       '': (visitor, positional, named) {
         final label = D4.getRequiredNamedArg<String>(named, 'label', 'CustomSemanticsAction');
@@ -1323,6 +1315,7 @@ BridgedClass _createAttributedStringBridge() {
   return BridgedClass(
     nativeType: $flutter_7.AttributedString,
     name: 'AttributedString',
+    isAssignable: (v) => v is $flutter_7.AttributedString,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'AttributedString');
@@ -1376,6 +1369,7 @@ BridgedClass _createAttributedStringPropertyBridge() {
   return BridgedClass(
     nativeType: $flutter_7.AttributedStringProperty,
     name: 'AttributedStringProperty',
+    isAssignable: (v) => v is $flutter_7.AttributedStringProperty,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'AttributedStringProperty');
@@ -1526,6 +1520,7 @@ BridgedClass _createSemanticsLabelBuilderBridge() {
   return BridgedClass(
     nativeType: $flutter_7.SemanticsLabelBuilder,
     name: 'SemanticsLabelBuilder',
+    isAssignable: (v) => v is $flutter_7.SemanticsLabelBuilder,
     constructors: {
       '': (visitor, positional, named) {
         final separator = D4.getNamedArgWithDefault<String>(named, 'separator', ' ');
@@ -1583,6 +1578,7 @@ BridgedClass _createSemanticsDataBridge() {
   return BridgedClass(
     nativeType: $flutter_7.SemanticsData,
     name: 'SemanticsData',
+    isAssignable: (v) => v is $flutter_7.SemanticsData,
     constructors: {
       '': (visitor, positional, named) {
         final flagsCollection = D4.getRequiredNamedArg<SemanticsFlags>(named, 'flagsCollection', 'SemanticsData');
@@ -1774,6 +1770,7 @@ BridgedClass _createSemanticsHintOverridesBridge() {
   return BridgedClass(
     nativeType: $flutter_7.SemanticsHintOverrides,
     name: 'SemanticsHintOverrides',
+    isAssignable: (v) => v is $flutter_7.SemanticsHintOverrides,
     constructors: {
       '': (visitor, positional, named) {
         final onTapHint = D4.getOptionalNamedArg<String?>(named, 'onTapHint');
@@ -1863,6 +1860,7 @@ BridgedClass _createSemanticsPropertiesBridge() {
   return BridgedClass(
     nativeType: $flutter_7.SemanticsProperties,
     name: 'SemanticsProperties',
+    isAssignable: (v) => v is $flutter_7.SemanticsProperties,
     constructors: {
       '': (visitor, positional, named) {
         final enabled = D4.getOptionalNamedArg<bool?>(named, 'enabled');
@@ -2192,6 +2190,7 @@ BridgedClass _createSemanticsNodeBridge() {
   return BridgedClass(
     nativeType: $flutter_7.SemanticsNode,
     name: 'SemanticsNode',
+    isAssignable: (v) => v is $flutter_7.SemanticsNode,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_4.Key?>(named, 'key');
@@ -2478,6 +2477,7 @@ BridgedClass _createSemanticsOwnerBridge() {
   return BridgedClass(
     nativeType: $flutter_7.SemanticsOwner,
     name: 'SemanticsOwner',
+    isAssignable: (v) => v is $flutter_7.SemanticsOwner,
     constructors: {
       '': (visitor, positional, named) {
         if (!named.containsKey('onSemanticsUpdate') || named['onSemanticsUpdate'] == null) {
@@ -2574,6 +2574,7 @@ BridgedClass _createSemanticsConfigurationBridge() {
   return BridgedClass(
     nativeType: $flutter_7.SemanticsConfiguration,
     name: 'SemanticsConfiguration',
+    isAssignable: (v) => v is $flutter_7.SemanticsConfiguration,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_7.SemanticsConfiguration();
@@ -3131,6 +3132,7 @@ BridgedClass _createSemanticsSortKeyBridge() {
   return BridgedClass(
     nativeType: $flutter_7.SemanticsSortKey,
     name: 'SemanticsSortKey',
+    isAssignable: (v) => v is $flutter_7.SemanticsSortKey,
     constructors: {
     },
     getters: {
@@ -3194,6 +3196,7 @@ BridgedClass _createOrdinalSortKeyBridge() {
   return BridgedClass(
     nativeType: $flutter_7.OrdinalSortKey,
     name: 'OrdinalSortKey',
+    isAssignable: (v) => v is $flutter_7.OrdinalSortKey,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'OrdinalSortKey');
@@ -3268,6 +3271,7 @@ BridgedClass _createSemanticsServiceBridge() {
   return BridgedClass(
     nativeType: $flutter_9.SemanticsService,
     name: 'SemanticsService',
+    isAssignable: (v) => v is $flutter_9.SemanticsService,
     constructors: {
     },
     staticMethods: {
@@ -3308,6 +3312,7 @@ BridgedClass _createVector3Bridge() {
   return BridgedClass(
     nativeType: $vector_math_1.Vector3,
     name: 'Vector3',
+    isAssignable: (v) => v is $vector_math_1.Vector3,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'Vector3');
@@ -4663,6 +4668,7 @@ BridgedClass _createVector2Bridge() {
   return BridgedClass(
     nativeType: $vector_math_1.Vector2,
     name: 'Vector2',
+    isAssignable: (v) => v is $vector_math_1.Vector2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Vector2');
