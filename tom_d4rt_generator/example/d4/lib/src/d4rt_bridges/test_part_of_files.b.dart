@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
-// Source: /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_generator/example/d4/lib/test_part_of_files.dart
-// Generated: 2026-02-27T13:55:32.975301
+// Source: /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_generator/example/d4/lib/test_part_of_files.dart
+// Generated: 2026-03-02T09:38:56.533192
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -29,6 +29,16 @@ class TestPartOfFilesBridge {
       'PartOfTestService': 'package:d4_example/test_part_of_files.dart',
       'PartCallback': 'package:d4_example/test_part_of_files.dart',
       'PartData': 'package:d4_example/test_part_of_files.dart',
+    };
+  }
+
+  /// Returns a map of type alias names to their target class names.
+  ///
+  /// Type aliases like `typedef MaterialStateProperty<T> = WidgetStateProperty<T>`
+  /// are registered so that code using the alias name can resolve to the
+  /// bridged class under its canonical name.
+  static Map<String, String> classAliases() {
+    return {
     };
   }
 

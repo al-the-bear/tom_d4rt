@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 2 files
-// Generated: 2026-03-02T08:54:45.574750
+// Generated: 2026-03-02T09:38:40.729385
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -138,7 +138,6 @@ BridgedClass _createVector2DBridge() {
   return BridgedClass(
     nativeType: $d4_example_3.Vector2D,
     name: 'Vector2D',
-    isAssignable: (v) => v is $d4_example_3.Vector2D,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Vector2D');
@@ -205,7 +204,6 @@ BridgedClass _createMatrix2x2Bridge() {
   return BridgedClass(
     nativeType: $d4_example_1.Matrix2x2,
     name: 'Matrix2x2',
-    isAssignable: (v) => v is $d4_example_1.Matrix2x2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 4, 'Matrix2x2');

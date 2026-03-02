@@ -145,6 +145,26 @@ class D4rtTester {
   /// });
   /// ```
   Future<bool> prepareBridges(BridgeConfig config) async {
+    // Step 0: Ensure dependencies are resolved (package_config.json must exist
+    // for the generator to resolve package: URIs in barrel files)
+    final packageConfig = File(
+      p.join(projectPath, '.dart_tool', 'package_config.json'),
+    );
+    if (!packageConfig.existsSync()) {
+      final pubGetResult = await Process.run(
+        'dart',
+        ['pub', 'get'],
+        workingDirectory: projectPath,
+      );
+      if (pubGetResult.exitCode != 0) {
+        _lastGenerationErrors = [
+          'dart pub get failed in $projectPath:',
+          pubGetResult.stderr.toString(),
+        ];
+        return false;
+      }
+    }
+
     // Step 1: Delete existing binary to verify it gets regenerated
     final binaryFile = File(_binaryPath);
     if (binaryFile.existsSync()) {

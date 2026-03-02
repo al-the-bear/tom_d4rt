@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 2 files
-// Generated: 2026-03-02T08:54:32.534970
+// Generated: 2026-03-02T09:38:26.214997
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -136,7 +136,6 @@ BridgedClass _createCalculatorBridge() {
   return BridgedClass(
     nativeType: $d4_example_1.Calculator,
     name: 'Calculator',
-    isAssignable: (v) => v is $d4_example_1.Calculator,
     constructors: {
       '': (visitor, positional, named) {
         return $d4_example_1.Calculator();
@@ -204,7 +203,6 @@ BridgedClass _createGreeterBridge() {
   return BridgedClass(
     nativeType: $d4_example_2.Greeter,
     name: 'Greeter',
-    isAssignable: (v) => v is $d4_example_2.Greeter,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Greeter');

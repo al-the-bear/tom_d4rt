@@ -89,6 +89,30 @@ Future<GenerationResult> generateBridges({
     throw ArgumentError('No d4rtgen configuration found in $projectDir');
   }
 
+  // Ensure package_config.json exists — required for resolving package: URIs
+  // in barrel files. Run `dart pub get` if missing.
+  final packageConfig = File(
+    p.join(projectDir, '.dart_tool', 'package_config.json'),
+  );
+  if (!packageConfig.existsSync()) {
+    final pubGetResult = await Process.run(
+      'dart',
+      ['pub', 'get'],
+      workingDirectory: projectDir,
+    );
+    if (pubGetResult.exitCode != 0) {
+      return GenerationResult(
+        totalClasses: 0,
+        totalModules: 0,
+        outputFiles: [],
+        config: bridgeConfig,
+        errors: [
+          'dart pub get failed in $projectDir: ${pubGetResult.stderr}',
+        ],
+      );
+    }
+  }
+
   // Log invocation at project level (once per generateBridges call)
   logD4rtgenInvocation(
     source: 'API',

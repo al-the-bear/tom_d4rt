@@ -1,425 +1,535 @@
 # D4rt Bridge Generator — Known Issues & Limitations
 
-> Last updated: 2026-02-14
-> 
-> Identified from DCli scripting guide e2e test failures.
+> Last updated: 2026-03-02
+>
+> Consolidated issue list from generator test suite (507 passed, 14 skipped, 4 failed).
 
 ---
 
 ## Issue Index
 
-| ID | Description | Complexity | Component | Status |
-|----|-------------|------------|-----------|--------|
-| [G-DCLI-05](#g-dcli-05) | ProgressBothImpl.lines not accessible via bridge | Medium | Interpreter | **FIXED** |
-| [G-DCLI-07](#g-dcli-07) | forEach callback cast fails for NativeFunction | Medium | Generator | **FIXED** |
-| [G-DCLI-08](#g-dcli-08) | RunException not caught in try/catch blocks | Medium | Interpreter | **FIXED** |
-| [G-DCLI-11](#g-dcli-11) | find() types parameter list coercion fails | Medium | Generator | **FIXED** |
-| [G-DCLI-12](#g-dcli-12) | CopyException not caught in try/catch blocks | Medium | Interpreter | **FIXED** |
-| [G-DCLI-13](#g-dcli-13) | Which class not bridged (which().path fails) | Medium | Generator | **FIXED** |
-| [G-DCLI-14](#g-dcli-14) | Test expectations wrong for runInShell behavior | Low | Test | **FIXED** |
-| [GEN-055](#gen-055) | Return types not collected from API surface | Medium | Generator | **FIXED** |
-| [GEN-056](#gen-056) | Extension on-type not resolvable at runtime | Medium | Interpreter | **FIXED** |
-| [GEN-065](#gen-065) | Super/field formals resolve to literal "InvalidType" | Medium | Generator | **OPEN** |
-| [GEN-066](#gen-066) | Transitive dep types not replaced with dynamic | Medium | Generator | **OPEN** |
-| [GEN-067](#gen-067) | Type erasure tests expect wrong import prefix | Low | Tests | **OPEN** |
+| ID | Description | Component | Status |
+|----|-------------|-----------|--------|
+| [GEN-078](#gen-078) | Barrel-file resolution fails without package_config.json | Testing/API | **FIXED** |
+| [GEN-079](#gen-079) | Generator emits non-existent `isAssignable` constructor param | Generator | **FIXED** |
+| [G-DOV-8](#g-dov-8) | Sealed class switch statement pattern variable scoping | Interpreter | **OPEN** |
+| [G-FLP-54](#g-flp-54) | Function setter loses required named params in cast | Generator | **OPEN** |
+| [G-FLP-55](#g-flp-55) | Inherited `@protected` members not skipped from bridges | Generator | **OPEN** |
+| [G-FLP-57](#g-flp-57) | Overrides of `@protected` base members not skipped | Generator | **OPEN** |
+| [G-FBI-04](#g-fbi-04) | Setter unwrapping for BridgedInstance types | Generator | **SKIP** |
+| [G-FBI-12](#g-fbi-12) | Map with custom key types needs special handling | Generator | **SKIP** |
+| [G-FBI-21](#g-fbi-21) | `hashCode` from Object not bridged by default | Generator | **SKIP** |
+| [G-FBI-22](#g-fbi-22) | `runtimeType` getter from Object not bridged | Generator | **SKIP** |
+| [G-FBI-32](#g-fbi-32) | Abstract classes with private constructors not bridged | Generator | **SKIP** |
+| [G-FBI-33](#g-fbi-33) | Static const on abstract private-ctor classes not bridged | Generator | **SKIP** |
+| [G-FBI-34](#g-fbi-34) | Static methods on abstract private-ctor classes not bridged | Generator | **SKIP** |
+| [G-FBI-40](#g-fbi-40) | Abstract interface classes not bridged | Generator | **SKIP** |
+| [G-NUM-11](#g-num-11) | Abstract classes with only static members (Curves pattern) | Generator | **SKIP** |
+| [G-NUM-12](#g-num-12) | Static const members on abstract-only classes | Generator | **SKIP** |
+| [G-NUM-15](#g-num-15) | Generic `Tween<T>` class not bridged | Generator | **SKIP** |
+| [G-NUM-26](#g-num-26) | Generic `ValueNotifier<T>` not bridged | Generator | **SKIP** |
+| [G-NUM-27](#g-num-27) | `hasListeners` getter inaccessible (depends on G-NUM-26) | Generator | **SKIP** |
+| [G-NUM-31](#g-num-31) | `D4.extractBridgedArg` int to double? promotion fails | Runtime | **SKIP** |
 
 ---
 
-## Resolved Issues
+## Fixed Issues
 
-### GEN-055
+### GEN-078
 
-**Return types not collected from API surface**
+**Barrel-file resolution fails when `.dart_tool/package_config.json` missing**
 
-**Status:** FIXED (2026-02-13)
+**Status:** FIXED (2026-03-02)
 
 **a) Problem:**
 
-Types returned by bridged functions (e.g., `FindProgress` from `find()`) were not being collected and bridged because they weren't in the barrel's show clause.
+When the d4 example project's `.dart_tool/` directory is missing (gitignored, clean checkout, or CI), the bridge generator cannot resolve `package:` URIs in barrel files. This causes 4 modules (path, dcli, test_part_of_files, test_callback_types) to generate 0 classes, and `D4rtTester.prepareBridges()` reports "No exports found in barrel files".
 
 **b) Root Cause:**
 
-`_collectAuxiliaryImportsFromTypes()` only processed parameter types, not return types.
+`_resolvePackagePath()` reads `.dart_tool/package_config.json` to resolve package names to file paths. Without this file, all `package:` URI resolution fails silently. The generator returns an empty exports map, producing the "No exports found" error. Flutter module tests were unaffected because they use relative barrel paths (e.g., `lib/example_project.dart`), not `package:` URIs.
 
 **c) Resolution:**
 
-Added `_collectApiSurfaceTypeDependencies()` helper to collect return types and parameter types from kept functions. Also added `_forceCreateAuxiliaryPrefix()` to create direct imports bypassing barrel prefix.
+Added auto `dart pub get` in two locations:
+1. `D4rtTester.prepareBridges()` — checks for `package_config.json` before generating bridges
+2. `generateBridges()` in bridge_api.dart — same defensive check for CLI and API usage
+
+**Why needed:** Without this, any clean checkout or CI environment fails to resolve external package barrel files, making the generator non-functional for cross-package bridging.
 
 ---
 
-### GEN-056
+### GEN-079
 
-**Extension on-type not resolvable at runtime**
+**Generator emits non-existent `isAssignable` constructor parameter**
 
-**Status:** FIXED (2026-02-14)
+**Status:** FIXED (2026-03-02)
 
 **a) Problem:**
 
-Extensions on types from external libraries (e.g., `extension PlatformEx on Platform`) cannot be used because the interpreter cannot resolve the on-type at runtime. When a bridged package (e.g., DCli) defines an extension on a type from a different module (e.g., `Platform` from `dart:io`), and the user script doesn't explicitly import that module, the on-type resolution fails.
+The bridge generator emitted `isAssignable: (v) => v is $prefixedName,` in every `_create<ClassName>Bridge()` function, but `BridgedClass` has no `isAssignable` named parameter. This caused AOT compilation failure:
 
-**Error:**
 ```
-Could not resolve type 'Platform' for extension 'PlatformEx'.
+Error: No named parameter with the name 'isAssignable'.
 ```
 
 **b) Root Cause:**
 
-The module_loader's extension registration code tried `globalEnvironment.get(onTypeName)` to find the RuntimeType for the extension's on-type. But stdlib types (like `Platform` from `dart:io`) are only loaded when their module is explicitly imported. Bridge packages that depend on stdlib types transitively (as DCli depends on dart:io) couldn't resolve their extension on-types.
+The `isAssignable` parameter was added to bridge codegen but never implemented in the `BridgedClass` constructor in `tom_d4rt`. The error was previously hidden by GEN-078 — the barrel-file failure prevented these modules from being generated and compiled.
 
 **c) Resolution:**
 
-Added `_resolveTypeForExtension()` fallback method to ModuleLoader that:
-1. Searches all registered BridgedClass definitions from `bridgedClases` list
-2. Auto-loads known stdlib modules (dart:io, dart:math, dart:convert, dart:collection, dart:typed_data) until the type is found
+Removed the `isAssignable` emission from `bridge_generator.dart`. The intended supertype lookup behavior (e.g., `Curves.linear` returns `_Linear` which should use the `Curve` bridge) is already handled by `BridgedClass.nativeNames` and `Environment.toBridgedClass()` prefix matching.
 
-This mirrors real Dart behavior where transitive dependencies are automatically available.
-
-**d) Tests:**
-- `tom_d4rt/test/bridge/extension_on_stdlib_type_test.dart` — 5 test cases covering stdlib types, bridge-to-bridge types, and unknown types
+**Why needed:** Without this fix, any bridge generated for external packages fails AOT compilation.
 
 ---
 
 ## Open Issues
 
-None — all issues resolved.
+### G-DOV-8
 
----
+**Sealed class switch statement pattern variable scoping**
 
-## Issue Details
-
-### DCli Scripting Guide E2E Tests
-
-These tests exercise DCli package functionality through the D4rt bridge. Test scripts are located in `example/d4_test_scripts/bin/dcli_scripting_guide/`.
-
----
-
-#### G-DCLI-05
-
-**ProgressBothImpl.lines not accessible via bridge**
-
-**Status:** FIXED (2026-02-14)
+**Status:** OPEN
 
 **a) Problem:**
 
-When calling `run()` to execute a shell command that returns `Progress`, accessing `.lines` fails because DCli returns a `ProgressBothImpl` internal class which is a subclass of `ProgressImpl`. The interpreter cannot find the `lines` property because no bridge is registered for `ProgressBothImpl`.
+When a D4rt script uses a sealed class in a switch statement with pattern matching, the interpreter throws "Undefined variable: m" when a second switch case binds a new pattern variable not present in the first case.
 
-**b) Root Cause:**
+```dart
+sealed class Shape {}
+class Circle extends Shape { final double radius; Circle(this.radius); }
+class Square extends Shape { final double side; Square(this.side); }
 
-`environment.dart`'s `toBridgedClass()` couldn't match `ProgressBothImpl` to the `Progress` bridge. The type doesn't start with `_` so the underscore-stripping logic was skipped.
-
-**c) Resolution:**
-
-Added prefix-matching fallback to `toBridgedClass()` in `environment.dart`. When all existing lookups fail, it tries to find a registered bridge whose name (>= 3 chars) is a prefix of the native type name. E.g., `ProgressBothImpl` matches bridge `Progress`.
-
----
-
-#### G-DCLI-07
-
-**forEach callback cast fails for NativeFunction**
-
-**Status:** FIXED (2026-02-14)
-
-**a) Problem:**
-
-The `forEach()` bridge for StringAsProcess, Progress, FindProgress, HeadProgress, and TailProgress casts callbacks as `InterpretedFunction`. But built-in functions like `print` are `NativeFunction`, causing cast failures.
-
-**Error:**
-```
-type 'NativeFunction' is not a subtype of type 'InterpretedFunction' in type cast
+String describe(Shape s) => switch (s) {
+  Circle(radius: var r) => 'Circle r=$r',
+  Square(side: var m) => 'Square s=$m',  // "Undefined variable: m"
+};
 ```
 
 **b) Root Cause:**
 
-Generated bridge code used `(callbackRaw as InterpretedFunction).call(visitor, args)` which fails for any non-interpreted callback (NativeFunction, or any Callable).
+The interpreter's `visitSwitchExpression` / `visitSwitchStatement` doesn't properly scope pattern variables per-case. Variables bound in one case leak into subsequent case evaluation, and variables introduced only in later cases aren't declared in the correct scope.
 
 **c) Resolution:**
 
-1. Added `D4.callInterpreterCallback(visitor, callback, args)` helper to `d4.dart` that handles `InterpretedFunction`, `NativeFunction`, and any `Callable`
-2. Updated all forEach bridges in `dcli_bridges.b.dart` to use `D4.callInterpreterCallback()` instead of direct casts
-3. **Note:** This is a manual patch to generated code. The generator should be updated to produce `D4.callInterpreterCallback()` for callback parameters.
+Requires interpreter fix in `interpreter_visitor.dart` — each switch case needs its own child `Environment` to contain pattern-bound variables. Not a generator issue.
+
+**Why needed:** Sealed classes with exhaustive switch patterns are idiomatic modern Dart (3.0+). Without this, D4rt scripts can't use pattern matching on sealed hierarchies.
 
 ---
 
-#### G-DCLI-08
+### G-FLP-54
 
-**RunException not caught in try/catch blocks**
+**Function setter loses required named params in cast**
 
-**Status:** FIXED (2026-02-14)
+**Status:** OPEN
 
 **a) Problem:**
 
-When a command fails via `run()`, DCli throws `RunException`. The interpreter's try/catch block doesn't catch this exception.
+When a class has a setter whose type is a function with required named parameters (like Flutter's `SchedulingStrategy`), the generated bridge code doesn't preserve all the required named parameters in the cast expression.
+
+```dart
+class InlineSchedulingStrategyHostLike {
+  bool Function({required int priority, required ExternalSchedulerBindingLike scheduler})
+    schedulingStrategy = (...) => true;
+}
+```
+
+The test expects the setter cast to be:
+```dart
+schedulingStrategy = value as bool Function({required int priority, required ExternalSchedulerBindingLike scheduler})
+```
+
+But the generator produces a different structure that drops parameters.
 
 **b) Root Cause:**
 
-`visitTryStatement` in `interpreter_visitor.dart` only handled `InterpretedClass` in the default case of catch clause type matching. Native exceptions like `RunException` have `BridgedClass` registrations, not `InterpretedClass`.
+The setter code generation path doesn't fully reconstruct function typedef signatures when the type includes required named parameters. The function type decomposition loses parameter metadata during code emission.
 
 **c) Resolution:**
 
-Added `else if (targetType is BridgedClass)` branch in `visitTryStatement` that uses `globalEnvironment.toBridgedClass(originalThrownValue.runtimeType)` to match native exceptions against bridged types. Also added special cases for common exception types (`Exception`, `Error`, `FormatException`, `StateError`, `ArgumentError`, `RangeError`, `TypeError`, `UnsupportedError`).
+Needs fix in bridge_generator.dart's setter generation path to preserve the full function signature including all required named parameter types and names.
 
-**Related:** G-DCLI-12 (same fix)
-
----
-
-#### G-DCLI-11
-
-**find() types parameter list coercion fails**
-
-**Status:** FIXED (2026-02-14)
-
-**a) Problem:**
-
-The `find()` function bridge uses `D4.getRequiredNamedArg<List<FileSystemEntityType>>()` for the `types` parameter, which fails because the interpreter creates `List<Object?>` with `BridgedEnumValue` elements.
-
-**Error:**
-```
-Invalid parameter "types": expected List<FileSystemEntityType>, got List<Object?>
-```
-
-**b) Root Cause:**
-
-Two issues: (1) `getRequiredNamedArg` does a direct type cast which fails for `List<Object?>`→`List<FileSystemEntityType>`, and (2) enum values come through as `BridgedEnumValue` wrappers, not native enum values.
-
-**c) Resolution:**
-
-1. Used `D4.coerceList<FileSystemEntityType>()` instead of `getRequiredNamedArg<List<...>>()` for both the `find()` function and `FindProgress` constructor bridges
-2. Added `BridgedEnumValue` unwrapping (via `.nativeValue`) to `D4.extractBridgedArg()` and `D4.coerceList()`
+**Why needed:** Flutter's `SchedulerBinding.schedulingStrategy` is a function-typed setter with required named params. Without correct casts, D4rt scripts can't override scheduling behavior.
 
 ---
 
-#### G-DCLI-12
+### G-FLP-55
 
-**CopyException not caught in try/catch blocks**
+**Inherited `@protected` members not skipped from bridges**
 
-**Status:** FIXED (2026-02-14)
-
-**a) Problem:**
-
-Same root cause as G-DCLI-08. When `copy()` fails with invalid path, DCli throws `CopyException` which isn't caught.
-
-**b) Resolution:**
-
-Same fix as G-DCLI-08. Also updated test script to work around DCli `nothrow` behavior (which only suppresses non-zero exit codes, not "command not found" errors).
-
----
-
-#### G-DCLI-13
-
-**Which class not bridged (which().path fails)**
-
-**Status:** FIXED (2026-02-14)
+**Status:** OPEN
 
 **a) Problem:**
 
-The `which()` function returns a native `Which` object, but no `BridgedClass` was generated for `Which`. Accessing `.path`, `.found`, `.paths`, or `.notfound` on the result failed.
+When a class inherits members annotated with `@protected` from a base class, those members appear in the generated bridge code. The test expects `ProtectedDerivedLike` to NOT contain `textTreeConfigurationLike` or `debugFillPropertiesLike`, but both are present.
 
-**Error:**
-```
-Undefined property or method 'path' on Which.
+```dart
+class ProtectedBaseLike {
+  @protected
+  int get textTreeConfigurationLike => 1;
+  @protected
+  void debugFillPropertiesLike(String properties) {}
+}
+class ProtectedDerivedLike extends ProtectedBaseLike {}
 ```
 
 **b) Root Cause:**
 
-The `Which` class is exported from `dcli_core` but not from `dcli`'s barrel (it's commented out in the show clause). The generator didn't generate a bridge for it.
+The generator's member collection (which walks inherited members) doesn't check for `@protected` or `@visibleForOverriding` annotations. All public members are included regardless of their annotation metadata.
 
 **c) Resolution:**
 
-Manually added `_createWhichBridge()` to `dcli_bridges.b.dart` with getters for `path`, `paths`, `found`, and `notfound`. Added import for `package:dcli_core/src/functions/which.dart`.
+Add annotation filtering during member analysis: skip members annotated with `@protected`, `@visibleForOverriding`, or `@visibleForTesting` from the bridge API surface.
 
-**Note:** The generator should be updated to detect return types of bridged functions and automatically bridge them even when not in the barrel's show clause.
+**Why needed:** `@protected` members are framework internals meant only for subclass overrides (e.g., `debugFillProperties`, `createRenderObject`). Including them creates noise in generated bridges and exposes implementation details. In the D4rt interpreter, user scripts are always "external" to the bridged package — they can't be subclasses in the Dart sense. Calling `@protected` methods from D4rt would violate the API contract, even though it would work at runtime. Filtering them keeps bridges clean and focused on the public API surface.
 
 ---
 
-#### G-DCLI-14
+### G-FLP-57
 
-**Test expectations wrong for runInShell behavior**
+**Overrides of `@protected` base members not skipped from bridges**
 
-**Status:** FIXED (2026-02-14)
+**Status:** OPEN
 
 **a) Problem:**
 
-Test script expected DCli's `runInShell: true` to enable shell features (pipes, variable expansion, redirects), but DCli's `runInShell` doesn't actually route through a shell. This was verified by testing natively — same behavior.
+When a class overrides a `@protected` method from its base class, the override still appears in the generated bridge even though the original declaration was `@protected`.
+
+```dart
+class ProtectedLifecycleBaseLike {
+  @protected
+  void lifecycleLike() {}
+}
+class ProtectedLifecycleOverrideLike extends ProtectedLifecycleBaseLike {
+  @override
+  void lifecycleLike() {}  // Still @protected by inheritance
+}
+```
 
 **b) Root Cause:**
 
-Test script had incorrect expectations about DCli's API behavior. The `runInShell` parameter in DCli doesn't correspond to `Process.start(runInShell: true)` — it's a DCli-level concept.
+Same as G-FLP-55. The generator doesn't walk the override chain to check if the original declaration was `@protected`. In Dart, `@protected` applies transitively through overrides.
 
 **c) Resolution:**
 
-Rewrote test script to demonstrate what DCli actually supports: `.run` extension, `run()` with `nothrow`, `start()` with `Progress.capture()`, and `run()` with `workingDirectory`.
+When filtering members, check not just the member's own annotations but also the annotations on the member it overrides (if any). In the Dart analyzer API, `MethodElement.declaration` or `overriddenMembers` can be used to trace back to the original `@protected` annotation.
+
+**Why needed:** Same reasoning as G-FLP-55. Many Flutter widgets override `@protected` lifecycle methods (`build()`, `createElement()`, `createState()`). These overrides should not appear in bridges since D4rt scripts never call them directly.
 
 ---
 
-## Open Issues
+## Skipped Issues (Known Limitations)
 
-### GEN-065
+These tests are intentionally skipped with documented reasons. They represent known limitations of the current generator that would require significant feature work to resolve.
 
-**Super/field formal parameters resolve to literal "InvalidType"**
+### G-FBI-04
 
-**Status:** FIXED (2026-02-15)
+**Setter unwrapping for BridgedInstance types**
+
+**Status:** SKIP — "Setter unwrapping may not be implemented"
 
 **a) Problem:**
 
-When a constructor uses `super.paramName` or `this.paramName` syntax without an explicit type annotation, the Dart analyzer may return `InvalidType` for the resolved type. The generator then calls `getDisplayString()` on this, producing the literal string `"InvalidType"` in the generated code.
+The `Paint.color` setter receives a `BridgedInstance<Color>` wrapper from the interpreter, but the native `Paint.color=` expects a `Color` object. The generated setter doesn't call `D4.extractBridgedArg<Color>()` or `D4.unwrap<Color>()` to extract the native value before assignment.
 
-**b) Observed In:**
+**b) Root Cause:**
 
-- `CatException(super.message, [super.stacktrace])` → generates `D4.getOptionalArg<$dcli_core_1.InvalidType>(...)`
-- `DCliFunctionException(super.message, [super.stackTrace])` → same issue
-- `DCliException.from(this.cause, this.stackTrace)` → `InvalidType` for `this.stackTrace` field formal
-- Callback parameter types (shelf's `hijack`, mysql_client's connection params)
+Setter code generation uses a simple `instance.field = value` pattern without type-aware unwrapping. For primitive types this works, but for bridged class types the value arrives as a `BridgedInstance` wrapper.
 
-**c) Root Cause:**
+**c) Resolution:**
 
-Multiple code paths could produce `InvalidType`:
-1. `SuperFormalParameter` and `FieldFormalParameter` handlers without `InvalidType` guard
-2. Callback parameter types from `funcInfo.positionalParamTypes` used directly without resolution
-3. Any code path through `_resolveTypeArgument` that receives `InvalidType`
+Generator needs to emit `D4.extractBridgedArg<T>(value, 'fieldName', 'setter')` for setter parameters whose type is a bridged class.
 
-**d) Fix Applied:**
-
-- Added comprehensive `InvalidType` guard at TOP of `_resolveTypeArgument`: `if (baseType == 'InvalidType' || baseType.contains('InvalidType')) return 'dynamic'`
-- Added defense-in-depth `InvalidType` checks in callback `typedParams` generation (2 locations)
-- This catches ALL code paths: constructors, callbacks, type arguments, parameter types
+**Why needed:** Flutter's `Paint.color`, `Paint.shader`, `Paint.blendMode` — any setter taking a bridged object type fails without unwrapping. Affects all property assignment in D4rt scripts on bridged objects.
 
 ---
 
-### GEN-066
+### G-FBI-12
 
-**Transitive dependency types not replaced with dynamic**
+**Map with custom key types needs special handling**
 
-**Status:** FIXED (2026-02-15)
+**Status:** SKIP — "Map with custom key types may need special handling"
 
 **a) Problem:**
 
-Types from transitive dependencies (e.g., `Trace` from `package:stack_trace`, `SettingsYaml` from `package:settings_yaml`, `RSAPublicKey` from `package:pointycastle`) that are used as parameter or return types but not exported from the barrel file are emitted with import prefixes that don't actually export those types.
+`SemanticWidget` has a `Map<CustomAction, Function()>` parameter. The generator doesn't handle maps where the key type is a bridged class (as opposed to `String` or `int`).
 
-**b) Observed In:**
+**b) Root Cause:**
 
-- `DCliException(this.message, [Trace? stackTrace])` → generates `$dcli_core_17.Trace?` but that import doesn't export `Trace`
-- `RSAPublicKey`, `RSAPrivateKey`, `SecureRandom` from pointycastle used in tom_crypto
+Map coercion logic (`D4.coerceMap`) handles `Map<String, T>` but not `Map<BridgedClass, T>`. Custom key types arrive as `BridgedInstance` wrappers.
 
-**c) Root Cause:**
+**c) Resolution:**
 
-Multiple sub-issues:
-1. Import regex only matched single-quoted imports; `rsa_encryption.dart` uses double quotes
-2. `_barrelExportsType` only followed 1 level of exports; pointycastle has 2-level chain
-3. `SecureRandom` defined via `part` directives not scanned
+Extend `D4.coerceMap` to unwrap BridgedInstance keys, similar to how `D4.coerceList` unwraps BridgedInstance elements.
 
-**d) Fixes Applied:**
-
-- Updated import regex in `_resolveTypeByImportTextScan` to match both `'` and `"` quotes
-- Updated export regex in `_barrelExportsType` similarly
-- Made `_barrelExportsType` recursive with `maxDepth=3`
-- Added `part` file scanning in `_barrelExportsType`
+**Why needed:** Flutter's `SemanticsAction` maps and custom action handlers use non-primitive map keys. Affects accessibility and custom gesture handling in D4rt.
 
 ---
 
-### GEN-067
+### G-FBI-21
 
-**Type erasure tests expect wrong import prefix for bounded generics**
+**`hashCode` from Object not bridged by default**
 
-**Status:** FIXED (2026-02-15)
+**Status:** SKIP — "hashCode from Object may not be bridged by default"
 
 **a) Problem:**
 
-Three type_erasure_test.dart tests failed because bounded generic type parameters resolved through auxiliary imports instead of existing direct imports.
+`UniqueKey.hashCode` is not accessible on bridged instances because `hashCode` is inherited from `Object` and not explicitly declared on `UniqueKey`.
 
-**c) Root Cause:**
+**b) Root Cause:**
 
-`_globalTypeToUri` returned `file://` URIs but `_importPrefixes` keys used `package:` URIs. The mismatch caused `_getOrCreateAuxiliaryPrefix` to create unnecessary auxiliary prefixes.
+The generator doesn't bridge members inherited from `Object` (`hashCode`, `toString()`, `==`, `runtimeType`, `noSuchMethod`). This is a deliberate choice to avoid generating boilerplate for every class, but it means these fundamental members aren't available.
 
-**d) Fix Applied (GEN-068):**
+**c) Resolution:**
 
-Normalized `file://` URIs to `package:` URIs in the `_globalTypeToUri` code path before checking `_importPrefixes`. Types now correctly resolve to existing import prefixes.
+Option A: Auto-generate `hashCode`/`toString()`/`==` getters for all bridged classes by delegating to `nativeInstance.hashCode` etc.
+Option B: Handle Object members at the runtime level — when `.hashCode` is accessed on any `BridgedInstance`, delegate to the native object automatically.
+
+**Why needed:** `hashCode` is used for collections (Set, Map keys), identity checks, and debugging. Without it, any bridged object used as a Map key or in a Set silently fails.
 
 ---
 
-### GEN-068
+### G-FBI-22
 
-**Global URI normalization: file:// vs package:// mismatch creates unnecessary auxiliary imports**
+**`runtimeType` getter from Object not bridged**
 
-**Status:** FIXED (2026-02-15)
+**Status:** SKIP — "runtimeType from Object may not be bridged by default"
 
 **a) Problem:**
 
-When the generator resolved types through `_globalTypeToUri`, the returned URIs were `file://` format from the analyzer, but `_importPrefixes` keys used `package:` format. The mismatch caused unnecessary `$aux_*` prefixes (e.g., `$aux_tom_core_kernel`) even when the type's file was already imported with a numbered prefix (e.g., `$tom_core_kernel_28`).
+`runtimeType` is not accessible on bridged instances. Same root cause as G-FBI-21.
 
-**b) Sub-issue (GEN-068b):**
+**b) Root Cause:**
 
-`_resolveTypeFromSourceImports` sometimes returned barrel URIs (e.g., `package:tom_core_kernel/tom_core_kernel.dart`) which had no prefix in `_importPrefixes`. Before creating an auxiliary prefix, the code now checks `_globalTypeToUri` for the actual source file URI that may already be imported.
+`runtimeType` is an Object member not included in generated bridges.
 
-**c) Fix Applied:**
+**c) Resolution:**
 
-- Normalize `file://` → `package:` URI via `Uri.parse(globalUri).toFilePath()` → `_getPackageUri(localPath)` before checking `_importPrefixes`
-- When `_resolveTypeFromSourceImports` returns a URI not in `_importPrefixes`, check `_globalTypeToUri` for a more specific URI that's already imported
-- Check `_importPrefixes[resolvedGlobalUri]` BEFORE creating auxiliary imports
+Same as G-FBI-21 — handle at runtime level or generate for all classes.
+
+**Why needed:** Pattern matching, type checking, and debugging output all rely on `runtimeType`. D4rt scripts using `print(obj.runtimeType)` for diagnostics fail silently.
 
 ---
 
-### GEN-069
+### G-FBI-32
 
-**Exported types in record types with empty typeToUri resolve to dynamic**
+**Abstract classes with private constructors not bridged**
 
-**Status:** FIXED (2026-02-15)
+**Status:** SKIP — "Abstract classes with private constructors may not be bridged"
 
 **a) Problem:**
 
-Types used inside record type fields (e.g., `ParsedHeadline` in `List<(ParsedHeadline, int, int)>`) resolved to `dynamic` when:
-- `typeToUri` was empty (analyzer didn't provide type→URI mappings for the method)
-- The type was defined in the same file as `sourceFilePath`
-- `_isTypeExported()` returned true, causing the sourceFilePath prefix block to be skipped
+The `Curves` class (abstract, with `Curves._()` private constructor) is not bridged. It exposes static const members like `Curves.linear`, `Curves.easeIn` etc.
 
-**b) Observed In:**
+**b) Root Cause:**
 
-`MarkdownParser.calculateMaxDepth(List<(ParsedHeadline, int, int)> headlines)` → generated `D4.coerceList<(dynamic, int startLine, int endLine)>` instead of `D4.coerceList<($tom_build_4.ParsedHeadline, int startLine, int endLine)>`
+The generator skips classes that are abstract AND have no public constructors, since they can't be instantiated. But some abstract classes exist solely as namespaces for static members.
 
-**c) Root Cause:**
+**c) Resolution:**
 
-For exported types, the code skipped the sourceFilePath prefix (assuming sourceFilePath points to the using class, not the type's file). But when the type is defined in the SAME file as the using class, sourceFilePath IS correct. The secondary fallback `sourceFilePath.startsWith(workspacePath)` also failed because `workspacePath` was relative (`.`) while `sourceFilePath` was absolute.
+Detect abstract classes that have static members/getters and generate a bridge with only the static members (no constructors, no instance methods).
 
-**d) Fix Applied:**
+**Why needed:** Flutter's `Curves`, `Colors`, `Icons` are all abstract with private constructors. They're the primary API for accessing predefined constants. Without bridging, `Curves.easeIn`, `Colors.blue`, `Icons.home` are all inaccessible from D4rt.
 
-Added unconditional last-resort check of `_importPrefixes[_getPackageUri(sourceFilePath)]` before falling through to `dynamic`. This catches types defined in the same file as the method being bridged.
+---
+
+### G-FBI-33
+
+**Static const on abstract private-ctor classes not bridged**
+
+**Status:** SKIP — "Static const on abstract classes may not be bridged"
+
+**a) Problem:**
+
+`Curves.linear` static const is not accessible because the `Curves` class itself is not bridged (see G-FBI-32).
+
+**b) Root Cause / Resolution:** Depends on G-FBI-32.
+
+**Why needed:** Same as G-FBI-32. Direct access to predefined curves for animation.
+
+---
+
+### G-FBI-34
+
+**Static methods on abstract private-ctor classes not bridged**
+
+**Status:** SKIP — "Static methods on abstract classes may not be bridged"
+
+**a) Problem:**
+
+`Curves.byName(String name)` static method is not accessible.
+
+**b) Root Cause / Resolution:** Depends on G-FBI-32.
+
+**Why needed:** Dynamic curve lookup by name is used in theme-driven animations.
+
+---
+
+### G-FBI-40
+
+**Abstract interface classes not bridged**
+
+**Status:** SKIP — "Abstract interface classes may not be bridged"
+
+**a) Problem:**
+
+`TickerProvider` (an abstract interface class) is not bridged, so `AnimationController(vsync: tickerProvider)` can't accept a D4rt-created TickerProvider implementation.
+
+**b) Root Cause:**
+
+Abstract interface classes have no concrete implementation and can't be instantiated. The generator skips them. But they're needed as type markers for parameter type checking and for D4rt classes that implement the interface.
+
+**c) Resolution:**
+
+Generate "marker" bridges for interface classes that include only the type registration (RuntimeType with name) and static members, enabling `is TickerProvider` checks and parameter type matching.
+
+**Why needed:** `TickerProvider`, `WidgetBuilder`, `RouteFactory` — Flutter uses interfaces extensively as parameter types. Without bridging, type checks fail and the interpreter can't validate parameter types.
+
+---
+
+### G-NUM-11
+
+**Abstract classes with only static members (Curves pattern)**
+
+**Status:** SKIP — "Abstract classes with only static members may not be bridged currently"
+
+**a) Problem:**
+
+Same as G-FBI-32 but from the num_conversion_test perspective. Abstract classes that serve as static-member namespaces aren't generated.
+
+**b) Root Cause / Resolution:** Same as G-FBI-32.
+
+**Why needed:** Same as G-FBI-32.
+
+---
+
+### G-NUM-12
+
+**Static const members on abstract-only classes**
+
+**Status:** SKIP — "Static const members on abstract classes may not be bridged"
+
+**a) Problem:**
+
+Same as G-FBI-33. `Curves.linear` not accessible because `Curves` not bridged.
+
+**b) Root Cause / Resolution:** Depends on G-FBI-32/G-NUM-11.
+
+**Why needed:** Same as G-FBI-33.
+
+---
+
+### G-NUM-15
+
+**Generic `Tween<T>` class not bridged**
+
+**Status:** SKIP — "Generic classes may not be bridged currently"
+
+**a) Problem:**
+
+`Tween<T extends num>` is a generic class. The generator doesn't produce bridges for generic classes because the type parameter needs to be resolved at bridge registration time.
+
+**b) Root Cause:**
+
+Bridging generic classes requires: (1) type parameter registration in the RuntimeType system, (2) constructor dispatch that creates `Tween<double>` vs `Tween<int>` based on runtime type args, (3) method return types that vary with T. The generator has no mechanism for any of this.
+
+**c) Resolution:**
+
+Implement generic bridge generation: emit bridges for concrete specializations found in the API surface and/or generate a parameterized bridge that uses `D4.registerGenericConstructor()` to dispatch based on type arguments.
+
+**Why needed:** `Tween`, `Animation`, `AnimationController` — the entire Flutter animation system is generic. Without generic bridges, D4rt scripts can't create or interact with animations beyond pre-specialized subclasses like `IntTween` and `DoubleTween`.
+
+---
+
+### G-NUM-26
+
+**Generic `ValueNotifier<T>` not bridged**
+
+**Status:** SKIP — "Generic class ValueNotifier<T> may not be bridged"
+
+**a) Problem:**
+
+Same category as G-NUM-15. `ValueNotifier<T>` is a fundamental reactive primitive in Flutter but is generic.
+
+**b) Root Cause / Resolution:** Same as G-NUM-15.
+
+**Why needed:** `ValueNotifier` is the simplest reactive state holder in Flutter. Used in `ValueListenableBuilder`, provider patterns, and state management. Without it, D4rt scripts have no lightweight reactive state mechanism.
+
+---
+
+### G-NUM-27
+
+**`hasListeners` getter inaccessible (depends on ValueNotifier bridging)**
+
+**Status:** SKIP — "If ValueNotifier is not bridged, hasListeners won't be either"
+
+**a) Problem:**
+
+`hasListeners` is a getter on `ChangeNotifier` (parent of `ValueNotifier`). Since `ValueNotifier` isn't bridged, this getter is also inaccessible in the `ValueNotifier` context.
+
+**b) Root Cause / Resolution:** Depends on G-NUM-26.
+
+**Why needed:** `hasListeners` is used to check if a notifier has active listeners before disposing. Important for memory leak prevention in Flutter apps.
+
+---
+
+### G-NUM-31
+
+**`D4.extractBridgedArg` int to double? promotion fails for nullable types**
+
+**Status:** SKIP — "Runtime bug in D4.extractBridgedArg - needs fix in d4.dart"
+
+**a) Problem:**
+
+`D4.extractBridgedArg<double?>(4, 'elevation')` throws "Invalid parameter elevation: expected double?, got int" instead of promoting `4` to `4.0`.
+
+```dart
+// Current code in d4.dart:
+if (T == double && unwrapped is int) {
+  return unwrapped.toDouble() as T;
+}
+// This fails for T == double? because double? != double
+```
+
+**b) Root Cause:**
+
+The int-to-double promotion check uses `T == double` which is a strict type equality check. When T is `double?` (nullable), the check fails because `double? != double`.
+
+**c) Resolution:**
+
+Change the check to handle nullable types:
+```dart
+if ((T == double || null is T && unwrapped is int)) {
+  // Or use a helper: _isDoubleType<T>()
+  return unwrapped.toDouble() as T;
+}
+```
+
+**Why needed:** Nearly all Flutter widget elevation/opacity/size parameters are `double?`. `Container(height: 100)` passes an `int` that must be promoted to `double?`. Without this fix, every nullable double parameter requires explicit `.toDouble()` in D4rt scripts.
 
 ---
 
 ## Summary
 
-**Total open issues:** 0
+| Category | Count | Status |
+|----------|-------|--------|
+| Fixed this session | 2 | GEN-078, GEN-079 |
+| Open failures | 4 | G-DOV-8, G-FLP-54, G-FLP-55, G-FLP-57 |
+| Known limitations (skipped) | 14 | See above |
+| **Total** | **20** | |
 
-**Total fixed issues:** 15 (GEN-055 through GEN-069, G-DCLI-05/07/08/11/12/13/14)
+**Current test status (2026-03-02):**
+- Generator tests: **507 passed, 14 skipped, 4 failed** (was 479/14/5)
+- d4rt_tester_test: 28/28 passed (was 0 — setUpAll failure)
+- d4rt_coverage_test: 94/94 passed (was 0 — setUpAll failure)
 
-**Current test status (2026-02-15):**
-- D4rt generator tests: 461 passed, 0 failed
-- DCli scripting guide tests: 13 passed, 0 failed
-- All bridge files compile clean (0 errors in dcli, tom_core_kernel, tom_core_server, tom_build bridges)
-- All 9 issues resolved (GEN-055, GEN-056, G-DCLI-05/07/08/11/12/13/14)
+### Priority Recommendations
 
-### Fix Locations
-
-| Fix | File | Description |
-|-----|------|-------------|
-| G-DCLI-05 | `tom_d4rt/lib/src/environment.dart` | Prefix-matching fallback in `toBridgedClass()` |
-| G-DCLI-07 | `dcli_bridges.b.dart` + `d4.dart` | `D4.callInterpreterCallback()` for forEach |
-| G-DCLI-08/12 | `tom_d4rt/lib/src/interpreter_visitor.dart` | BridgedClass handling in `visitTryStatement` catch |
-| G-DCLI-11 | `dcli_bridges.b.dart` + `d4.dart` | `D4.coerceList()` + BridgedEnumValue unwrapping |
-| G-DCLI-13 | `dcli_bridges.b.dart` | Added `_createWhichBridge()` |
-| G-DCLI-14 | `14_shell_execution.dart` | Fixed test expectations |
-| GEN-055 | `bridge_generator.dart` | Return type collection |
-| GEN-056 | `module_loader.dart` | `_resolveTypeForExtension()` |
-| GEN-065 | `bridge_generator.dart` | Comprehensive `InvalidType` guard in `_resolveTypeArgument` + callback typedParams |
-| GEN-066 | `bridge_generator.dart` | Double-quote import regex, recursive `_barrelExportsType` with part scanning |
-| GEN-067 | `bridge_generator.dart` + `type_erasure_test.dart` | Fixed by GEN-068 URI normalization |
-| GEN-068 | `bridge_generator.dart` | `file://` → `package:` URI normalization in `_globalTypeToUri` path |
-| GEN-068b | `bridge_generator.dart` | Barrel URI fallback through `_globalTypeToUri` in `_resolveTypeFromSourceImports` path |
-| GEN-069 | `bridge_generator.dart` | Last-resort sourceFilePath prefix for exported types in record types |
-
-### Generator Improvements Needed
-
-The following manual bridge patches should be addressed in the generator long-term:
-
-1. **Callback parameters**: Generator should emit `D4.callInterpreterCallback()` instead of `(x as InterpretedFunction).call()` for function-typed parameters
-2. **Typed list parameters**: Generator should use `D4.coerceList<T>()` for `List<T>` parameters where T is a bridged type
-3. **Return type bridging**: Generator should detect and bridge return types even when not in barrel show clauses (partially fixed by GEN-055)
+1. **G-FBI-32 + G-NUM-11** (abstract static-only classes) — High impact. Unlocks `Curves`, `Colors`, `Icons` in D4rt. Relatively straightforward: generate bridges with only static members.
+2. **G-NUM-15 + G-NUM-26** (generic classes) — High impact but complex. Unlocks `Tween`, `ValueNotifier`, `Animation`. Needs type parameter machinery.
+3. **G-FLP-55 + G-FLP-57** (@protected filtering) — Medium impact. Keeps bridges clean but doesn't block functionality.
+4. **G-NUM-31** (int-to-double? promotion) — Small fix, high impact. One-line change in `d4.dart`.
+5. **G-FBI-21 + G-FBI-22** (Object members) — Medium impact. Best handled at runtime level.

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Source: /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_generator/example/d4/lib/test_extensions.dart
-// Generated: 2026-03-02T08:54:29.598911
+// Generated: 2026-03-02T09:38:22.855931
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -221,7 +221,6 @@ BridgedClass _createItemProcessorBridge() {
   return BridgedClass(
     nativeType: $d4_example_1.ItemProcessor,
     name: 'ItemProcessor',
-    isAssignable: (v) => v is $d4_example_1.ItemProcessor,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ItemProcessor');
@@ -277,7 +276,6 @@ BridgedClass _createTestPointBridge() {
   return BridgedClass(
     nativeType: $d4_example_1.TestPoint,
     name: 'TestPoint',
-    isAssignable: (v) => v is $d4_example_1.TestPoint,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'TestPoint');
