@@ -546,7 +546,7 @@ class D4 {
       // Return a wrapper with 1 required positional argument (untyped = dynamic)
       return (arg) {
         if (callable is Callable) {
-          return callable.call(visitor, [arg], {});
+          return unwrapInterpreterValue(callable.call(visitor, [arg], {}));
         }
         throw ArgumentD4rtException(
           'Cannot call non-callable in Map value: ${callable.runtimeType}',
@@ -558,7 +558,7 @@ class D4 {
     if (_isNoArgFunction(vType)) {
       return () {
         if (callable is Callable) {
-          return callable.call(visitor, [], {});
+          return unwrapInterpreterValue(callable.call(visitor, [], {}));
         }
         throw ArgumentD4rtException(
           'Cannot call non-callable in Map value: ${callable.runtimeType}',
@@ -570,7 +570,7 @@ class D4 {
     if (_isTwoArgFunction(vType)) {
       return (arg1, arg2) {
         if (callable is Callable) {
-          return callable.call(visitor, [arg1, arg2], {});
+          return unwrapInterpreterValue(callable.call(visitor, [arg1, arg2], {}));
         }
         throw ArgumentD4rtException(
           'Cannot call non-callable in Map value: ${callable.runtimeType}',
@@ -594,7 +594,7 @@ class D4 {
       if (p9 != null) args.add(p9);
 
       if (callable is Callable) {
-        return callable.call(visitor, args, {});
+        return unwrapInterpreterValue(callable.call(visitor, args, {}));
       }
       throw ArgumentD4rtException(
         'Cannot call non-callable object in Map value: ${callable.runtimeType}',
@@ -1055,24 +1055,55 @@ class D4 {
   /// (e.g., `forEach(print)`), the callback may be a NativeFunction (like `print`)
   /// or an InterpretedFunction (user-defined lambda). This method handles both.
   ///
-  /// Returns the result of calling the callback.
+  /// The result is automatically unwrapped: [BridgedInstance] returns its
+  /// [BridgedInstance.nativeObject], [BridgedEnumValue] returns its
+  /// [BridgedEnumValue.nativeValue], and all other values pass through.
+  /// This ensures generated bridge code casts (e.g., `as Widget`) succeed
+  /// when the interpreter returns wrapped bridge values.
+  ///
+  /// Returns the unwrapped native result of calling the callback.
   static Object? callInterpreterCallback(
     InterpreterVisitor visitor,
     Object? callback,
     List<Object?> args, [
     Map<String, Object?> namedArgs = const {},
   ]) {
+    final Object? result;
     if (callback is InterpretedFunction) {
-      return callback.call(visitor, args, namedArgs);
+      result = callback.call(visitor, args, namedArgs);
     } else if (callback is NativeFunction) {
-      return callback.call(visitor, args, namedArgs);
+      result = callback.call(visitor, args, namedArgs);
     } else if (callback is Callable) {
-      return callback.call(visitor, args, namedArgs);
+      result = callback.call(visitor, args, namedArgs);
     } else {
       throw ArgumentD4rtException(
         'Expected a callable function, got ${callback?.runtimeType}',
       );
     }
+    return unwrapInterpreterValue(result);
+  }
+
+  /// Unwrap an interpreter value to its native representation.
+  ///
+  /// - [BridgedInstance] → [BridgedInstance.nativeObject]
+  /// - [BridgedEnumValue] → [BridgedEnumValue.nativeValue]
+  /// - All other values (null, String, num, bool, List, Map, etc.)
+  ///   pass through unchanged.
+  ///
+  /// Note: Lists and Maps are NOT recursively unwrapped because doing so
+  /// destroys Dart's reified generic type information. For example,
+  /// `Map<String, String>` would become `Map<Object?, Object?>` after
+  /// `.map()`. If a callback returns a List/Map containing BridgedInstance
+  /// values, the generated bridge code must handle the element-level
+  /// unwrapping explicitly.
+  static Object? unwrapInterpreterValue(Object? value) {
+    if (value is BridgedInstance) {
+      return value.nativeObject;
+    }
+    if (value is BridgedEnumValue) {
+      return value.nativeValue;
+    }
+    return value;
   }
 
   // ==========================================================================
