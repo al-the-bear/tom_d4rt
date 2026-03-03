@@ -89,9 +89,7 @@ dynamic build(BuildContext context) {
   print('--- MultiChildLayoutParentData Tests ---');
 
   final multiChildData = MultiChildLayoutParentData();
-  print(
-    'MultiChildLayoutParentData created: ${multiChildData.runtimeType}',
-  );
+  print('MultiChildLayoutParentData created: ${multiChildData.runtimeType}');
   print('  id: ${multiChildData.id}');
   print('  offset: ${multiChildData.offset}');
 
@@ -105,9 +103,7 @@ dynamic build(BuildContext context) {
   print('--- SliverPhysicalParentData Tests ---');
 
   final sliverPhysData = SliverPhysicalParentData();
-  print(
-    'SliverPhysicalParentData created: ${sliverPhysData.runtimeType}',
-  );
+  print('SliverPhysicalParentData created: ${sliverPhysData.runtimeType}');
   print('  paintOffset: ${sliverPhysData.paintOffset}');
 
   sliverPhysData.paintOffset = Offset(0.0, 100.0);
@@ -117,9 +113,7 @@ dynamic build(BuildContext context) {
   print('--- SliverLogicalParentData Tests ---');
 
   final sliverLogData = SliverLogicalParentData();
-  print(
-    'SliverLogicalParentData created: ${sliverLogData.runtimeType}',
-  );
+  print('SliverLogicalParentData created: ${sliverLogData.runtimeType}');
   print('  layoutOffset: ${sliverLogData.layoutOffset}');
 
   sliverLogData.layoutOffset = 200.0;
@@ -165,14 +159,10 @@ dynamic build(BuildContext context) {
   print('RelativeRect.shift(5,5): left=${shifted.left}, top=${shifted.top}');
 
   final inflated = relRect.inflate(2.0);
-  print(
-    'RelativeRect.inflate(2): left=${inflated.left}, top=${inflated.top}',
-  );
+  print('RelativeRect.inflate(2): left=${inflated.left}, top=${inflated.top}');
 
   final deflated = relRect.deflate(1.0);
-  print(
-    'RelativeRect.deflate(1): left=${deflated.left}, top=${deflated.top}',
-  );
+  print('RelativeRect.deflate(1): left=${deflated.left}, top=${deflated.top}');
 
   final rect = relRect.toRect(Rect.fromLTWH(0, 0, 200, 150));
   print('RelativeRect.toRect: $rect');

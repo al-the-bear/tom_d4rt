@@ -98,7 +98,9 @@ dynamic build(BuildContext context) {
   final arrowDown = LogicalKeyboardKey.arrowDown;
   final arrowLeft = LogicalKeyboardKey.arrowLeft;
   final arrowRight = LogicalKeyboardKey.arrowRight;
-  print('Arrow keys: up=${arrowUp.debugName}, down=${arrowDown.debugName}, left=${arrowLeft.debugName}, right=${arrowRight.debugName}');
+  print(
+    'Arrow keys: up=${arrowUp.debugName}, down=${arrowDown.debugName}, left=${arrowLeft.debugName}, right=${arrowRight.debugName}',
+  );
 
   // ========== PHYSICALKEYBOARDKEY ==========
   print('--- PhysicalKeyboardKey Tests ---');
@@ -149,7 +151,10 @@ dynamic build(BuildContext context) {
           ),
           SizedBox(height: 16.0),
 
-          Text('Classes Tested:', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            'Classes Tested:',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('• LogicalKeyboardKey - logical key identifiers'),
           Text('• PhysicalKeyboardKey - physical key codes'),

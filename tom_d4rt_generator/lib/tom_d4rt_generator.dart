@@ -1,7 +1,7 @@
 /// Tom D4rt Bridge Generator
 ///
 /// D4rt bridge generator for creating BridgedClass implementations from Dart source.
-/// 
+///
 /// This package provides the [BridgeGenerator] class that analyzes Dart source
 /// files and generates corresponding BridgedClass registrations for use with
 /// the D4rt interpreter.

@@ -15,7 +15,9 @@ dynamic build(BuildContext context) {
     onShouldRelayout: (SingleChildLayoutDelegate oldDelegate) => false,
   );
   print('D4rtSingleChildLayoutDelegate created: ${basicDelegate.runtimeType}');
-  print('  is SingleChildLayoutDelegate: ${basicDelegate is SingleChildLayoutDelegate}');
+  print(
+    '  is SingleChildLayoutDelegate: ${basicDelegate is SingleChildLayoutDelegate}',
+  );
 
   // Use in CustomSingleChildLayout widget
   final widget1 = CustomSingleChildLayout(
@@ -147,9 +149,7 @@ dynamic build(BuildContext context) {
       width: 150.0,
       height: 80.0,
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Colors.blue, Colors.purple],
-        ),
+        gradient: LinearGradient(colors: [Colors.blue, Colors.purple]),
         borderRadius: BorderRadius.circular(16.0),
         boxShadow: [
           BoxShadow(
@@ -175,41 +175,17 @@ dynamic build(BuildContext context) {
     children: [
       Text('D4rtSingleChildLayoutDelegate Proxy Tests'),
       SizedBox(height: 8.0),
-      SizedBox(
-        width: 200.0,
-        height: 120.0,
-        child: widget1,
-      ),
+      SizedBox(width: 200.0, height: 120.0, child: widget1),
       SizedBox(height: 8.0),
-      SizedBox(
-        width: 200.0,
-        height: 100.0,
-        child: widget2,
-      ),
+      SizedBox(width: 200.0, height: 100.0, child: widget2),
       SizedBox(height: 8.0),
-      SizedBox(
-        width: 200.0,
-        height: 80.0,
-        child: widget3,
-      ),
+      SizedBox(width: 200.0, height: 80.0, child: widget3),
       SizedBox(height: 8.0),
-      SizedBox(
-        width: 200.0,
-        height: 70.0,
-        child: widget4,
-      ),
+      SizedBox(width: 200.0, height: 70.0, child: widget4),
       SizedBox(height: 8.0),
-      SizedBox(
-        width: 180.0,
-        height: 100.0,
-        child: widget6,
-      ),
+      SizedBox(width: 180.0, height: 100.0, child: widget6),
       SizedBox(height: 8.0),
-      SizedBox(
-        width: 200.0,
-        height: 100.0,
-        child: widget7,
-      ),
+      SizedBox(width: 200.0, height: 100.0, child: widget7),
     ],
   );
 }

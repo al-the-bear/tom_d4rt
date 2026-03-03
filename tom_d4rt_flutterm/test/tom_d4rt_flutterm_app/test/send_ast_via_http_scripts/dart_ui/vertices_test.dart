@@ -9,10 +9,11 @@ dynamic build(BuildContext context) {
   print('--- Vertices Tests ---');
 
   // Basic triangle
-  final triangle = Vertices(
-    VertexMode.triangles,
-    [Offset(0.0, 0.0), Offset(100.0, 0.0), Offset(50.0, 100.0)],
-  );
+  final triangle = Vertices(VertexMode.triangles, [
+    Offset(0.0, 0.0),
+    Offset(100.0, 0.0),
+    Offset(50.0, 100.0),
+  ]);
   print('Vertices triangle created');
   print('  runtimeType: ${triangle.runtimeType}');
 
@@ -26,29 +27,23 @@ dynamic build(BuildContext context) {
   print('  runtimeType: ${coloredTriangle.runtimeType}');
 
   // Triangle strip
-  final strip = Vertices(
-    VertexMode.triangleStrip,
-    [
-      Offset(0.0, 0.0),
-      Offset(50.0, 100.0),
-      Offset(100.0, 0.0),
-      Offset(150.0, 100.0),
-    ],
-  );
+  final strip = Vertices(VertexMode.triangleStrip, [
+    Offset(0.0, 0.0),
+    Offset(50.0, 100.0),
+    Offset(100.0, 0.0),
+    Offset(150.0, 100.0),
+  ]);
   print('Vertices triangleStrip created');
   print('  runtimeType: ${strip.runtimeType}');
 
   // Triangle fan
-  final fan = Vertices(
-    VertexMode.triangleFan,
-    [
-      Offset(100.0, 100.0), // center
-      Offset(100.0, 0.0),
-      Offset(200.0, 100.0),
-      Offset(100.0, 200.0),
-      Offset(0.0, 100.0),
-    ],
-  );
+  final fan = Vertices(VertexMode.triangleFan, [
+    Offset(100.0, 100.0), // center
+    Offset(100.0, 0.0),
+    Offset(200.0, 100.0),
+    Offset(100.0, 200.0),
+    Offset(0.0, 100.0),
+  ]);
   print('Vertices triangleFan created');
   print('  runtimeType: ${fan.runtimeType}');
 
@@ -56,11 +51,7 @@ dynamic build(BuildContext context) {
   final textured = Vertices(
     VertexMode.triangles,
     [Offset(0.0, 0.0), Offset(100.0, 0.0), Offset(50.0, 100.0)],
-    textureCoordinates: [
-      Offset(0.0, 0.0),
-      Offset(1.0, 0.0),
-      Offset(0.5, 1.0),
-    ],
+    textureCoordinates: [Offset(0.0, 0.0), Offset(1.0, 0.0), Offset(0.5, 1.0)],
   );
   print('Textured vertices created');
   print('  runtimeType: ${textured.runtimeType}');
@@ -69,10 +60,10 @@ dynamic build(BuildContext context) {
   final indexed = Vertices(
     VertexMode.triangles,
     [
-      Offset(0.0, 0.0),    // 0
-      Offset(100.0, 0.0),  // 1
-      Offset(100.0, 100.0),// 2
-      Offset(0.0, 100.0),  // 3
+      Offset(0.0, 0.0), // 0
+      Offset(100.0, 0.0), // 1
+      Offset(100.0, 100.0), // 2
+      Offset(0.0, 100.0), // 3
     ],
     indices: [0, 1, 2, 0, 2, 3], // Two triangles forming a quad
   );
@@ -112,7 +103,10 @@ dynamic build(BuildContext context) {
           ),
           SizedBox(height: 16.0),
 
-          Text('Classes Tested:', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            'Classes Tested:',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('• Vertices - vertex mesh for drawing'),
           Text('• VertexMode - triangle/strip/fan'),

@@ -20,7 +20,9 @@ dynamic build(BuildContext context) {
   final paragraphs1 = license1.paragraphs.toList();
   print('  paragraphs count: ${paragraphs1.length}');
   for (int i = 0; i < paragraphs1.length; i++) {
-    print('  paragraph[$i]: indent=${paragraphs1[i].indent}, text="${paragraphs1[i].text}"');
+    print(
+      '  paragraph[$i]: indent=${paragraphs1[i].indent}, text="${paragraphs1[i].text}"',
+    );
   }
 
   // Multiple packages
@@ -43,7 +45,9 @@ dynamic build(BuildContext context) {
   final paragraphs3 = license3.paragraphs.toList();
   print('  paragraphs count: ${paragraphs3.length}');
   for (int i = 0; i < paragraphs3.length; i++) {
-    print('  paragraph[$i]: indent=${paragraphs3[i].indent}, text="${paragraphs3[i].text}"');
+    print(
+      '  paragraph[$i]: indent=${paragraphs3[i].indent}, text="${paragraphs3[i].text}"',
+    );
   }
 
   // Empty license text
@@ -79,10 +83,9 @@ dynamic build(BuildContext context) {
 
   // Register a test license
   LicenseRegistry.addLicense(() async* {
-    yield LicenseEntryWithLineBreaks(
-      ['d4rt_test_package'],
-      'Test license registered via LicenseRegistry',
-    );
+    yield LicenseEntryWithLineBreaks([
+      'd4rt_test_package',
+    ], 'Test license registered via LicenseRegistry');
   });
   print('Test license registered with LicenseRegistry.addLicense()');
 
@@ -110,7 +113,10 @@ dynamic build(BuildContext context) {
           ),
           SizedBox(height: 16.0),
 
-          Text('Classes Tested:', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            'Classes Tested:',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('• LicenseEntryWithLineBreaks - license with text'),
           Text('• LicenseParagraph - license text paragraph'),

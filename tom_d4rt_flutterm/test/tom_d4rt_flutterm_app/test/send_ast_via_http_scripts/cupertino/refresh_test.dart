@@ -22,7 +22,9 @@ dynamic build(BuildContext context) {
       print('Custom trigger refresh');
     },
   );
-  print('CupertinoSliverRefreshControl with refreshTriggerPullDistance created');
+  print(
+    'CupertinoSliverRefreshControl with refreshTriggerPullDistance created',
+  );
 
   // Test CupertinoSliverRefreshControl with refreshIndicatorExtent
   final extentRefreshControl = CupertinoSliverRefreshControl(
@@ -48,17 +50,16 @@ dynamic build(BuildContext context) {
     onRefresh: () async {
       print('Builder refresh');
     },
-    builder: (
-      BuildContext context,
-      RefreshIndicatorMode refreshState,
-      double pulledExtent,
-      double refreshTriggerPullDistance,
-      double refreshIndicatorExtent,
-    ) {
-      return Center(
-        child: CupertinoActivityIndicator(),
-      );
-    },
+    builder:
+        (
+          BuildContext context,
+          RefreshIndicatorMode refreshState,
+          double pulledExtent,
+          double refreshTriggerPullDistance,
+          double refreshIndicatorExtent,
+        ) {
+          return Center(child: CupertinoActivityIndicator());
+        },
   );
   print('CupertinoSliverRefreshControl with custom builder created');
 
@@ -95,47 +96,80 @@ dynamic build(BuildContext context) {
             SliverList(
               delegate: SliverChildListDelegate([
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 8.0,
+                  ),
                   child: Text('Pull down to refresh'),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 8.0,
+                  ),
                   child: Text('Item 1'),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 8.0,
+                  ),
                   child: Text('Item 2'),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 8.0,
+                  ),
                   child: Text('Item 3'),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 8.0,
+                  ),
                   child: Text('Item 4'),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 8.0,
+                  ),
                   child: Text('Item 5'),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 8.0,
+                  ),
                   child: Text('Item 6'),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 8.0,
+                  ),
                   child: Text('Item 7'),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 8.0,
+                  ),
                   child: Text('Item 8'),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 8.0,
+                  ),
                   child: Text('Item 9'),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 8.0,
+                  ),
                   child: Text('Item 10'),
                 ),
                 Padding(
@@ -146,13 +180,22 @@ dynamic build(BuildContext context) {
                       SizedBox(height: 16.0),
                       Text(
                         'Tests Completed:',
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16.0,
+                        ),
                       ),
                       SizedBox(height: 8.0),
                       Text('• CupertinoSliverRefreshControl default'),
-                      Text('• CupertinoSliverRefreshControl with refreshTriggerPullDistance'),
-                      Text('• CupertinoSliverRefreshControl with refreshIndicatorExtent'),
-                      Text('• CupertinoSliverRefreshControl with custom builder'),
+                      Text(
+                        '• CupertinoSliverRefreshControl with refreshTriggerPullDistance',
+                      ),
+                      Text(
+                        '• CupertinoSliverRefreshControl with refreshIndicatorExtent',
+                      ),
+                      Text(
+                        '• CupertinoSliverRefreshControl with custom builder',
+                      ),
                       Text('• CupertinoSliverRefreshControl display only'),
                     ],
                   ),

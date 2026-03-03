@@ -24,7 +24,9 @@ dynamic build(BuildContext context) {
   print('ProxyAnimation(1.0): value=${proxy1.value}, status=${proxy1.status}');
 
   final proxyHalf = ProxyAnimation(AlwaysStoppedAnimation<double>(0.5));
-  print('ProxyAnimation(0.5): value=${proxyHalf.value}, status=${proxyHalf.status}');
+  print(
+    'ProxyAnimation(0.5): value=${proxyHalf.value}, status=${proxyHalf.status}',
+  );
 
   // ProxyAnimation without parent (defaults)
   final proxyEmpty = ProxyAnimation();
@@ -75,7 +77,9 @@ dynamic build(BuildContext context) {
   print('  status: ${proxied.status}');
 
   // Double reverse (should be identity)
-  final doubleReverse = ReverseAnimation(ReverseAnimation(AlwaysStoppedAnimation<double>(0.6)));
+  final doubleReverse = ReverseAnimation(
+    ReverseAnimation(AlwaysStoppedAnimation<double>(0.6)),
+  );
   print('ReverseAnimation(ReverseAnimation(0.6)):');
   print('  value: ${doubleReverse.value}');
 
@@ -85,10 +89,7 @@ dynamic build(BuildContext context) {
   // CurvedAnimation requires AnimationController normally,
   // but we can use it with ProxyAnimation
   final curveParent = AlwaysStoppedAnimation<double>(0.5);
-  final curved = CurvedAnimation(
-    parent: curveParent,
-    curve: Curves.easeInOut,
-  );
+  final curved = CurvedAnimation(parent: curveParent, curve: Curves.easeInOut);
   print('CurvedAnimation(parent=0.5, curve=easeInOut):');
   print('  value: ${curved.value}');
 
@@ -96,13 +97,17 @@ dynamic build(BuildContext context) {
     parent: AlwaysStoppedAnimation<double>(0.5),
     curve: Curves.linear,
   );
-  print('CurvedAnimation(parent=0.5, curve=linear): value=${curvedLinear.value}');
+  print(
+    'CurvedAnimation(parent=0.5, curve=linear): value=${curvedLinear.value}',
+  );
 
   final curvedBounce = CurvedAnimation(
     parent: AlwaysStoppedAnimation<double>(0.5),
     curve: Curves.bounceOut,
   );
-  print('CurvedAnimation(parent=0.5, curve=bounceOut): value=${curvedBounce.value}');
+  print(
+    'CurvedAnimation(parent=0.5, curve=bounceOut): value=${curvedBounce.value}',
+  );
 
   // Multiple animation values through CurvedAnimation
   print('CurvedAnimation easeInOut at various parent values:');
@@ -159,8 +164,10 @@ dynamic build(BuildContext context) {
           SizedBox(height: 16.0),
 
           // Visualize ProxyAnimation
-          Text('ProxyAnimation (value=0.7):',
-              style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold)),
+          Text(
+            'ProxyAnimation (value=0.7):',
+            style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 4.0),
           FadeTransition(
             opacity: proxy,
@@ -169,16 +176,20 @@ dynamic build(BuildContext context) {
               height: 30.0,
               color: Color(0xFF2196F3),
               child: Center(
-                child: Text('ProxyAnimation',
-                    style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 11.0)),
+                child: Text(
+                  'ProxyAnimation',
+                  style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 11.0),
+                ),
               ),
             ),
           ),
           SizedBox(height: 12.0),
 
           // Visualize ReverseAnimation
-          Text('ReverseAnimation of 0.3 (shows as 0.7):',
-              style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold)),
+          Text(
+            'ReverseAnimation of 0.3 (shows as 0.7):',
+            style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 4.0),
           FadeTransition(
             opacity: reverse,
@@ -187,16 +198,20 @@ dynamic build(BuildContext context) {
               height: 30.0,
               color: Color(0xFF4CAF50),
               child: Center(
-                child: Text('ReverseAnimation',
-                    style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 11.0)),
+                child: Text(
+                  'ReverseAnimation',
+                  style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 11.0),
+                ),
               ),
             ),
           ),
           SizedBox(height: 12.0),
 
           // Visualize CurvedAnimation
-          Text('CurvedAnimation (easeInOut at 0.5):',
-              style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold)),
+          Text(
+            'CurvedAnimation (easeInOut at 0.5):',
+            style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 4.0),
           FadeTransition(
             opacity: curved,
@@ -205,16 +220,20 @@ dynamic build(BuildContext context) {
               height: 30.0,
               color: Color(0xFFFF9800),
               child: Center(
-                child: Text('CurvedAnimation',
-                    style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 11.0)),
+                child: Text(
+                  'CurvedAnimation',
+                  style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 11.0),
+                ),
               ),
             ),
           ),
           SizedBox(height: 12.0),
 
           // Visualize TrainHoppingAnimation
-          Text('TrainHoppingAnimation (0.4 -> 0.6):',
-              style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold)),
+          Text(
+            'TrainHoppingAnimation (0.4 -> 0.6):',
+            style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 4.0),
           FadeTransition(
             opacity: trainHop,
@@ -223,16 +242,20 @@ dynamic build(BuildContext context) {
               height: 30.0,
               color: Color(0xFF9C27B0),
               child: Center(
-                child: Text('TrainHopping',
-                    style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 11.0)),
+                child: Text(
+                  'TrainHopping',
+                  style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 11.0),
+                ),
               ),
             ),
           ),
           SizedBox(height: 16.0),
 
           // Bar chart showing values
-          Text('Value Comparison:',
-              style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold)),
+          Text(
+            'Value Comparison:',
+            style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           _valueBar('Proxy(0.7)', proxy.value, Color(0xFF2196F3)),
           SizedBox(height: 4.0),
@@ -254,14 +277,22 @@ dynamic build(BuildContext context) {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0),
                 ),
                 SizedBox(height: 4.0),
-                Text('• ProxyAnimation: wraps and delegates to another animation',
-                    style: TextStyle(fontSize: 11.0)),
-                Text('• ReverseAnimation: inverts animation value (1 - value)',
-                    style: TextStyle(fontSize: 11.0)),
-                Text('• CurvedAnimation: applies curve to parent animation',
-                    style: TextStyle(fontSize: 11.0)),
-                Text('• TrainHoppingAnimation: switches between two animations',
-                    style: TextStyle(fontSize: 11.0)),
+                Text(
+                  '• ProxyAnimation: wraps and delegates to another animation',
+                  style: TextStyle(fontSize: 11.0),
+                ),
+                Text(
+                  '• ReverseAnimation: inverts animation value (1 - value)',
+                  style: TextStyle(fontSize: 11.0),
+                ),
+                Text(
+                  '• CurvedAnimation: applies curve to parent animation',
+                  style: TextStyle(fontSize: 11.0),
+                ),
+                Text(
+                  '• TrainHoppingAnimation: switches between two animations',
+                  style: TextStyle(fontSize: 11.0),
+                ),
               ],
             ),
           ),

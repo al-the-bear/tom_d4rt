@@ -40,18 +40,9 @@ dynamic build(BuildContext context) {
     anchorAbove: Offset(100.0, 50.0),
     anchorBelow: Offset(100.0, 80.0),
     children: [
-      CupertinoTextSelectionToolbarButton.text(
-        text: 'Cut',
-        onPressed: () {},
-      ),
-      CupertinoTextSelectionToolbarButton.text(
-        text: 'Copy',
-        onPressed: () {},
-      ),
-      CupertinoTextSelectionToolbarButton.text(
-        text: 'Paste',
-        onPressed: () {},
-      ),
+      CupertinoTextSelectionToolbarButton.text(text: 'Cut', onPressed: () {}),
+      CupertinoTextSelectionToolbarButton.text(text: 'Copy', onPressed: () {}),
+      CupertinoTextSelectionToolbarButton.text(text: 'Paste', onPressed: () {}),
       CupertinoTextSelectionToolbarButton.text(
         text: 'Select All',
         onPressed: () {},
@@ -65,22 +56,11 @@ dynamic build(BuildContext context) {
 
   // Test CupertinoAdaptiveTextSelectionToolbar
   final adaptiveToolbar = CupertinoAdaptiveTextSelectionToolbar(
-    anchors: TextSelectionToolbarAnchors(
-      primaryAnchor: Offset(150.0, 100.0),
-    ),
+    anchors: TextSelectionToolbarAnchors(primaryAnchor: Offset(150.0, 100.0)),
     children: [
-      CupertinoTextSelectionToolbarButton.text(
-        text: 'Cut',
-        onPressed: () {},
-      ),
-      CupertinoTextSelectionToolbarButton.text(
-        text: 'Copy',
-        onPressed: () {},
-      ),
-      CupertinoTextSelectionToolbarButton.text(
-        text: 'Paste',
-        onPressed: () {},
-      ),
+      CupertinoTextSelectionToolbarButton.text(text: 'Cut', onPressed: () {}),
+      CupertinoTextSelectionToolbarButton.text(text: 'Copy', onPressed: () {}),
+      CupertinoTextSelectionToolbarButton.text(text: 'Paste', onPressed: () {}),
     ],
   );
   print('CupertinoAdaptiveTextSelectionToolbar created');
@@ -176,21 +156,11 @@ dynamic build(BuildContext context) {
               SizedBox(height: 16.0),
               Text('Toolbar buttons:'),
               SizedBox(height: 8.0),
-              Row(
-                children: [
-                  basicToolbarButton,
-                  textToolbarButton,
-                ],
-              ),
+              Row(children: [basicToolbarButton, textToolbarButton]),
               SizedBox(height: 16.0),
               Text('Desktop toolbar buttons:'),
               SizedBox(height: 8.0),
-              Row(
-                children: [
-                  desktopButton,
-                  desktopTextButton,
-                ],
-              ),
+              Row(children: [desktopButton, desktopTextButton]),
               SizedBox(height: 24.0),
               Text(
                 'Tests Completed:',

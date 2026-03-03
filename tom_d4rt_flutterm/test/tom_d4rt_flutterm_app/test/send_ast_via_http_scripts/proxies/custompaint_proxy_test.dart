@@ -14,11 +14,7 @@ dynamic build(BuildContext context) {
   final painter = D4rtCustomPainter(
     onPaint: (Canvas canvas, Size size) {
       final paint = Paint()..color = Color(0xFFFF0000);
-      canvas.drawCircle(
-        Offset(size.width / 2, size.height / 2),
-        40.0,
-        paint,
-      );
+      canvas.drawCircle(Offset(size.width / 2, size.height / 2), 40.0, paint);
     },
     onShouldRepaint: (CustomPainter oldDelegate) => false,
   );
@@ -69,10 +65,7 @@ dynamic build(BuildContext context) {
       final paint = Paint()
         ..color = Color(0x8800FF00)
         ..style = PaintingStyle.fill;
-      canvas.drawOval(
-        Rect.fromLTWH(0, 0, size.width, size.height),
-        paint,
-      );
+      canvas.drawOval(Rect.fromLTWH(0, 0, size.width, size.height), paint);
     },
     onShouldRepaint: (CustomPainter oldDelegate) => false,
   );

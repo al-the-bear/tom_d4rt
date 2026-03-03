@@ -37,11 +37,7 @@ dynamic build(BuildContext context) {
   // Test MaterialApp with locale setting
   final localizedApp = MaterialApp(
     locale: Locale('en', 'US'),
-    supportedLocales: [
-      Locale('en', 'US'),
-      Locale('de', 'DE'),
-      Locale('ja'),
-    ],
+    supportedLocales: [Locale('en', 'US'), Locale('de', 'DE'), Locale('ja')],
     home: Builder(
       builder: (innerContext) {
         final innerLocale = Localizations.localeOf(innerContext);

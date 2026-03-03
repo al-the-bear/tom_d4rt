@@ -246,8 +246,7 @@ Future<GenerationResult> generateBridges({
     }
 
     // Generate proxy classes if requested (GEN-083)
-    if (bridgeConfig.generateProxies &&
-        bridgeConfig.proxyClasses.isNotEmpty) {
+    if (bridgeConfig.generateProxies && bridgeConfig.proxyClasses.isNotEmpty) {
       final proxyResult = await generateProxies(
         config: bridgeConfig,
         projectPath: projectDir,

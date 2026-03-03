@@ -136,7 +136,10 @@ dynamic build(BuildContext context) {
           ),
           SizedBox(height: 16.0),
 
-          Text('Classes Tested:', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            'Classes Tested:',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('• MethodCall - method invocation data'),
           Text('• MethodChannel - bidirectional method calls'),

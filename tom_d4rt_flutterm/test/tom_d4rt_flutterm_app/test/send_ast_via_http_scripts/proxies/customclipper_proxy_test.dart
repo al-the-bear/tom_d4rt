@@ -14,7 +14,12 @@ dynamic build(BuildContext context) {
   final rectClipper = D4rtCustomClipper(
     onGetClip: (Size size) {
       final inset = 20.0;
-      return Rect.fromLTWH(inset, inset, size.width - inset * 2, size.height - inset * 2);
+      return Rect.fromLTWH(
+        inset,
+        inset,
+        size.width - inset * 2,
+        size.height - inset * 2,
+      );
     },
     onShouldReclip: (CustomClipper oldClipper) => false,
   );
@@ -116,7 +121,9 @@ dynamic build(BuildContext context) {
       width: 100.0,
       height: 100.0,
       color: Colors.purple,
-      child: Center(child: Text('Reclip', style: TextStyle(color: Colors.white))),
+      child: Center(
+        child: Text('Reclip', style: TextStyle(color: Colors.white)),
+      ),
     ),
   );
   print('ClipRect with dynamic clipper created');

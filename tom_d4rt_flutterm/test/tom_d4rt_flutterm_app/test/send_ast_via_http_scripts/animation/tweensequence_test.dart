@@ -66,13 +66,17 @@ dynamic build(BuildContext context) {
 
   final curvedSequence = TweenSequence<double>([
     TweenSequenceItem<double>(
-      tween: Tween<double>(begin: 0.0, end: 100.0)
-          .chain(CurveTween(curve: Curves.easeIn)),
+      tween: Tween<double>(
+        begin: 0.0,
+        end: 100.0,
+      ).chain(CurveTween(curve: Curves.easeIn)),
       weight: 50,
     ),
     TweenSequenceItem<double>(
-      tween: Tween<double>(begin: 100.0, end: 0.0)
-          .chain(CurveTween(curve: Curves.easeOut)),
+      tween: Tween<double>(
+        begin: 100.0,
+        end: 0.0,
+      ).chain(CurveTween(curve: Curves.easeOut)),
       weight: 50,
     ),
   ]);
@@ -105,15 +109,21 @@ dynamic build(BuildContext context) {
   // Evaluate using an AlwaysStoppedAnimation
   final evalAnim = AlwaysStoppedAnimation<double>(0.5);
   final evalResult = sequence1.evaluate(evalAnim);
-  print('sequence1.evaluate(AlwaysStoppedAnimation(0.5)): ${evalResult.toStringAsFixed(2)}');
+  print(
+    'sequence1.evaluate(AlwaysStoppedAnimation(0.5)): ${evalResult.toStringAsFixed(2)}',
+  );
 
   final evalAnim25 = AlwaysStoppedAnimation<double>(0.25);
   final evalResult25 = sequence1.evaluate(evalAnim25);
-  print('sequence1.evaluate(AlwaysStoppedAnimation(0.25)): ${evalResult25.toStringAsFixed(2)}');
+  print(
+    'sequence1.evaluate(AlwaysStoppedAnimation(0.25)): ${evalResult25.toStringAsFixed(2)}',
+  );
 
   final evalAnim75 = AlwaysStoppedAnimation<double>(0.75);
   final evalResult75 = sequence1.evaluate(evalAnim75);
-  print('sequence1.evaluate(AlwaysStoppedAnimation(0.75)): ${evalResult75.toStringAsFixed(2)}');
+  print(
+    'sequence1.evaluate(AlwaysStoppedAnimation(0.75)): ${evalResult75.toStringAsFixed(2)}',
+  );
 
   // ========== SINGLE ITEM SEQUENCE ==========
   print('--- Single Item TweenSequence ---');
@@ -182,8 +192,27 @@ dynamic build(BuildContext context) {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               for (final t in [
-                0.0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45,
-                0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0,
+                0.0,
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.25,
+                0.3,
+                0.35,
+                0.4,
+                0.45,
+                0.5,
+                0.55,
+                0.6,
+                0.65,
+                0.7,
+                0.75,
+                0.8,
+                0.85,
+                0.9,
+                0.95,
+                1.0,
               ])
                 Expanded(
                   child: Container(
@@ -206,8 +235,27 @@ dynamic build(BuildContext context) {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               for (final t in [
-                0.0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45,
-                0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0,
+                0.0,
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.25,
+                0.3,
+                0.35,
+                0.4,
+                0.45,
+                0.5,
+                0.55,
+                0.6,
+                0.65,
+                0.7,
+                0.75,
+                0.8,
+                0.85,
+                0.9,
+                0.95,
+                1.0,
               ])
                 Expanded(
                   child: Container(
@@ -230,8 +278,27 @@ dynamic build(BuildContext context) {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               for (final t in [
-                0.0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45,
-                0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0,
+                0.0,
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.25,
+                0.3,
+                0.35,
+                0.4,
+                0.45,
+                0.5,
+                0.55,
+                0.6,
+                0.65,
+                0.7,
+                0.75,
+                0.8,
+                0.85,
+                0.9,
+                0.95,
+                1.0,
               ])
                 Expanded(
                   child: Container(
@@ -253,7 +320,17 @@ dynamic build(BuildContext context) {
           Row(
             children: [
               for (final t in [
-                0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0,
+                0.0,
+                0.1,
+                0.2,
+                0.3,
+                0.4,
+                0.5,
+                0.6,
+                0.7,
+                0.8,
+                0.9,
+                1.0,
               ])
                 Expanded(
                   child: Container(
@@ -276,14 +353,22 @@ dynamic build(BuildContext context) {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0),
                 ),
                 SizedBox(height: 4.0),
-                Text('• Composes multiple Tweens into one animation',
-                    style: TextStyle(fontSize: 11.0)),
-                Text('• Each item has a weight controlling its time share',
-                    style: TextStyle(fontSize: 11.0)),
-                Text('• Can chain with CurveTween for per-segment curves',
-                    style: TextStyle(fontSize: 11.0)),
-                Text('• Works with any type: double, Color, etc.',
-                    style: TextStyle(fontSize: 11.0)),
+                Text(
+                  '• Composes multiple Tweens into one animation',
+                  style: TextStyle(fontSize: 11.0),
+                ),
+                Text(
+                  '• Each item has a weight controlling its time share',
+                  style: TextStyle(fontSize: 11.0),
+                ),
+                Text(
+                  '• Can chain with CurveTween for per-segment curves',
+                  style: TextStyle(fontSize: 11.0),
+                ),
+                Text(
+                  '• Works with any type: double, Color, etc.',
+                  style: TextStyle(fontSize: 11.0),
+                ),
               ],
             ),
           ),

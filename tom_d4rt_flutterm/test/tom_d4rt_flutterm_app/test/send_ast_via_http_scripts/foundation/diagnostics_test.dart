@@ -54,7 +54,11 @@ dynamic build(BuildContext context) {
   final quotedProp = StringProperty('text', 'Hello World', quoted: true);
   print('Quoted StringProperty: $quotedProp');
 
-  final nullStringProp = StringProperty('nullable', null, defaultValue: 'default');
+  final nullStringProp = StringProperty(
+    'nullable',
+    null,
+    defaultValue: 'default',
+  );
   print('Null StringProperty: $nullStringProp');
 
   // ========== INTPROPERTY ==========
@@ -83,10 +87,20 @@ dynamic build(BuildContext context) {
   // ========== FLAGPROPERTY ==========
   print('--- FlagProperty Tests ---');
 
-  final trueFlag = FlagProperty('visible', value: true, ifTrue: 'visible', ifFalse: 'hidden');
+  final trueFlag = FlagProperty(
+    'visible',
+    value: true,
+    ifTrue: 'visible',
+    ifFalse: 'hidden',
+  );
   print('FlagProperty (true): $trueFlag');
 
-  final falseFlag = FlagProperty('visible', value: false, ifTrue: 'visible', ifFalse: 'hidden');
+  final falseFlag = FlagProperty(
+    'visible',
+    value: false,
+    ifTrue: 'visible',
+    ifFalse: 'hidden',
+  );
   print('FlagProperty (false): $falseFlag');
 
   // ========== ENUMPROPERTY ==========
@@ -139,7 +153,10 @@ dynamic build(BuildContext context) {
           ),
           SizedBox(height: 16.0),
 
-          Text('Classes Tested:', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            'Classes Tested:',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('• DiagnosticPropertiesBuilder - collects properties'),
           Text('• DiagnosticsNode - base diagnostic node'),
@@ -151,7 +168,10 @@ dynamic build(BuildContext context) {
           Text('• DiagnosticsProperty<T> - generic diagnostic'),
           SizedBox(height: 16.0),
 
-          Text('Property Summary:', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            'Property Summary:',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Container(
             padding: EdgeInsets.all(8.0),

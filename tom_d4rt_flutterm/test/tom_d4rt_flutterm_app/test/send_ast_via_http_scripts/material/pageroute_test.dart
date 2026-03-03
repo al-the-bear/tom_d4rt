@@ -93,9 +93,7 @@ dynamic build(BuildContext context) {
 
   // Variation 10: Basic MaterialPage
   final page1 = MaterialPage(
-    child: Scaffold(
-      body: Center(child: Text('Material Page')),
-    ),
+    child: Scaffold(body: Center(child: Text('Material Page'))),
   );
   print('MaterialPage(child: Scaffold) created');
   print('  runtimeType: ${page1.runtimeType}');
@@ -142,15 +140,19 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('MaterialPageRoute tests completed',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        Text(
+          'MaterialPageRoute tests completed',
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 8),
         Text('RouteSettings: 4 variations tested'),
         Text('MaterialPageRoute: 5 variations tested'),
         Text('MaterialPage: 5 variations tested'),
         SizedBox(height: 16),
-        Text('Note: Routes constructed and inspected without navigation.',
-            style: TextStyle(fontStyle: FontStyle.italic)),
+        Text(
+          'Note: Routes constructed and inspected without navigation.',
+          style: TextStyle(fontStyle: FontStyle.italic),
+        ),
       ],
     ),
   );

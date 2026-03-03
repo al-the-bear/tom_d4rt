@@ -78,10 +78,7 @@ dynamic build(BuildContext context) {
   print('  maxWidth: ${limitedBox.maxWidth}');
   print('  maxHeight: ${limitedBox.maxHeight}');
 
-  final limitedBoxCustom = RenderLimitedBox(
-    maxWidth: 200.0,
-    maxHeight: 150.0,
-  );
+  final limitedBoxCustom = RenderLimitedBox(maxWidth: 200.0, maxHeight: 150.0);
   print('RenderLimitedBox(200x150):');
   print('  maxWidth: ${limitedBoxCustom.maxWidth}');
   print('  maxHeight: ${limitedBoxCustom.maxHeight}');

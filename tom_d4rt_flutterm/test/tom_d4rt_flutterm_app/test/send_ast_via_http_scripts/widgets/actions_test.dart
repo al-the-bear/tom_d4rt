@@ -77,10 +77,7 @@ dynamic build(BuildContext context) {
           height: 80.0,
           color: Colors.blue,
           child: Center(
-            child: Text(
-              'Press Ctrl+A',
-              style: TextStyle(color: Colors.white),
-            ),
+            child: Text('Press Ctrl+A', style: TextStyle(color: Colors.white)),
           ),
         ),
       ),

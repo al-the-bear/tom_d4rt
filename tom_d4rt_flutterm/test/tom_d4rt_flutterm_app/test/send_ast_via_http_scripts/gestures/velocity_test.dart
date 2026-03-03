@@ -138,14 +138,20 @@ dynamic build(BuildContext context) {
           ),
           SizedBox(height: 16.0),
 
-          Text('Classes Tested:', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            'Classes Tested:',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('• Velocity - speed and direction'),
           Text('• VelocityEstimate - estimated velocity'),
           Text('• ForcePressDetails - 3D touch details'),
           SizedBox(height: 16.0),
 
-          Text('Velocity Operations:', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            'Velocity Operations:',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Container(
             padding: EdgeInsets.all(8.0),

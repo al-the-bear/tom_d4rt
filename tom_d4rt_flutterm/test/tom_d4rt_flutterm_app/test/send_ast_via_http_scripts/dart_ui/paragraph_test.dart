@@ -8,10 +8,7 @@ dynamic build(BuildContext context) {
   // ========== PARAGRAPHSTYLE ==========
   print('--- ParagraphStyle Tests ---');
 
-  final style1 = ParagraphStyle(
-    textAlign: TextAlign.center,
-    fontSize: 16.0,
-  );
+  final style1 = ParagraphStyle(textAlign: TextAlign.center, fontSize: 16.0);
   print('ParagraphStyle(textAlign: center, fontSize: 16) created');
   print('  runtimeType: ${style1.runtimeType}');
   print('  toString: $style1');
@@ -68,9 +65,7 @@ dynamic build(BuildContext context) {
   // ========== STRUTSTYLE ==========
   print('--- StrutStyle Tests ---');
 
-  final strut1 = StrutStyle(
-    fontSize: 16.0,
-  );
+  final strut1 = StrutStyle(fontSize: 16.0);
   print('StrutStyle(fontSize: 16) created');
   print('  runtimeType: ${strut1.runtimeType}');
   print('  toString: $strut1');
@@ -106,11 +101,13 @@ dynamic build(BuildContext context) {
   print('ParagraphBuilder created');
   print('  runtimeType: ${paragraphBuilder.runtimeType}');
 
-  paragraphBuilder.pushStyle(TextStyle(
-    color: Color(0xFF000000),
-    fontSize: 20.0,
-    fontWeight: FontWeight.bold,
-  ));
+  paragraphBuilder.pushStyle(
+    TextStyle(
+      color: Color(0xFF000000),
+      fontSize: 20.0,
+      fontWeight: FontWeight.bold,
+    ),
+  );
   paragraphBuilder.addText('Hello from ParagraphBuilder!');
   paragraphBuilder.pop();
 
@@ -142,7 +139,10 @@ dynamic build(BuildContext context) {
           ),
           SizedBox(height: 16.0),
 
-          Text('Classes Tested:', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            'Classes Tested:',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('• ParagraphStyle - text paragraph styling'),
           Text('• ParagraphConstraints - layout width constraint'),

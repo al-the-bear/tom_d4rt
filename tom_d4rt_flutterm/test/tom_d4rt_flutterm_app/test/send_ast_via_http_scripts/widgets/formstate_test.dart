@@ -14,36 +14,38 @@ dynamic build(BuildContext context) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Use Builder to get a context that is a descendant of the Form
-        Builder(builder: (formContext) {
-          final formState = Form.of(formContext);
-          print('Form.of(formContext): ${formState?.runtimeType}');
+        Builder(
+          builder: (formContext) {
+            final formState = Form.of(formContext);
+            print('Form.of(formContext): ${formState?.runtimeType}');
 
-          // Also access via GlobalKey
-          // Note: formKey.currentState may be null during first build
-          final keyState = formKey.currentState;
-          print('formKey.currentState: ${keyState?.runtimeType}');
+            // Also access via GlobalKey
+            // Note: formKey.currentState may be null during first build
+            final keyState = formKey.currentState;
+            print('formKey.currentState: ${keyState?.runtimeType}');
 
-          return TextFormField(
-            initialValue: 'test value',
-            decoration: InputDecoration(
-              labelText: 'Test Field',
-              hintText: 'Enter text',
-            ),
-            validator: (value) {
-              print('Validator called with: $value');
-              if (value == null || value.isEmpty) {
-                return 'Field is required';
-              }
-              return null;
-            },
-            onSaved: (value) {
-              print('onSaved called with: $value');
-            },
-            onChanged: (value) {
-              print('onChanged: $value');
-            },
-          );
-        }),
+            return TextFormField(
+              initialValue: 'test value',
+              decoration: InputDecoration(
+                labelText: 'Test Field',
+                hintText: 'Enter text',
+              ),
+              validator: (value) {
+                print('Validator called with: $value');
+                if (value == null || value.isEmpty) {
+                  return 'Field is required';
+                }
+                return null;
+              },
+              onSaved: (value) {
+                print('onSaved called with: $value');
+              },
+              onChanged: (value) {
+                print('onChanged: $value');
+              },
+            );
+          },
+        ),
         SizedBox(height: 16.0),
         // Second field to test multiple form fields
         TextFormField(
@@ -56,34 +58,38 @@ dynamic build(BuildContext context) {
         ),
         SizedBox(height: 16.0),
         // Button to trigger validation
-        Builder(builder: (btnContext) {
-          return ElevatedButton(
-            onPressed: () {
-              final state = Form.of(btnContext);
-              if (state != null) {
-                final isValid = state.validate();
-                print('Form.validate() result: $isValid');
-                if (isValid) {
-                  state.save();
-                  print('Form.save() called');
+        Builder(
+          builder: (btnContext) {
+            return ElevatedButton(
+              onPressed: () {
+                final state = Form.of(btnContext);
+                if (state != null) {
+                  final isValid = state.validate();
+                  print('Form.validate() result: $isValid');
+                  if (isValid) {
+                    state.save();
+                    print('Form.save() called');
+                  }
                 }
-              }
-            },
-            child: Text('Validate Form'),
-          );
-        }),
+              },
+              child: Text('Validate Form'),
+            );
+          },
+        ),
         SizedBox(height: 8.0),
         // Reset button
-        Builder(builder: (btnContext) {
-          return ElevatedButton(
-            onPressed: () {
-              final state = Form.of(btnContext);
-              state?.reset();
-              print('Form.reset() called');
-            },
-            child: Text('Reset Form'),
-          );
-        }),
+        Builder(
+          builder: (btnContext) {
+            return ElevatedButton(
+              onPressed: () {
+                final state = Form.of(btnContext);
+                state?.reset();
+                print('Form.reset() called');
+              },
+              child: Text('Reset Form'),
+            );
+          },
+        ),
         SizedBox(height: 16.0),
         Text('FormState test rendered'),
       ],

@@ -8,7 +8,9 @@ dynamic build(BuildContext context) {
   // ScrollStartNotification, ScrollUpdateNotification, ScrollEndNotification,
   // OverscrollNotification, UserScrollNotification
   print('ScrollNotification is abstract');
-  print('Concrete: ScrollStartNotification, ScrollUpdateNotification, ScrollEndNotification');
+  print(
+    'Concrete: ScrollStartNotification, ScrollUpdateNotification, ScrollEndNotification',
+  );
   print('Also: OverscrollNotification, UserScrollNotification');
 
   // Test NotificationListener<ScrollNotification> wrapping ListView
@@ -22,11 +24,31 @@ dynamic build(BuildContext context) {
       height: 120.0,
       child: ListView(
         children: [
-          Container(height: 50.0, color: Colors.blue, child: Center(child: Text('Item 1'))),
-          Container(height: 50.0, color: Colors.green, child: Center(child: Text('Item 2'))),
-          Container(height: 50.0, color: Colors.orange, child: Center(child: Text('Item 3'))),
-          Container(height: 50.0, color: Colors.red, child: Center(child: Text('Item 4'))),
-          Container(height: 50.0, color: Colors.purple, child: Center(child: Text('Item 5'))),
+          Container(
+            height: 50.0,
+            color: Colors.blue,
+            child: Center(child: Text('Item 1')),
+          ),
+          Container(
+            height: 50.0,
+            color: Colors.green,
+            child: Center(child: Text('Item 2')),
+          ),
+          Container(
+            height: 50.0,
+            color: Colors.orange,
+            child: Center(child: Text('Item 3')),
+          ),
+          Container(
+            height: 50.0,
+            color: Colors.red,
+            child: Center(child: Text('Item 4')),
+          ),
+          Container(
+            height: 50.0,
+            color: Colors.purple,
+            child: Center(child: Text('Item 5')),
+          ),
         ],
       ),
     ),
@@ -43,7 +65,8 @@ dynamic build(BuildContext context) {
       height: 100.0,
       child: ListView.builder(
         itemCount: 20,
-        itemBuilder: (context, index) => ListTile(title: Text('Builder item $index')),
+        itemBuilder: (context, index) =>
+            ListTile(title: Text('Builder item $index')),
       ),
     ),
   );

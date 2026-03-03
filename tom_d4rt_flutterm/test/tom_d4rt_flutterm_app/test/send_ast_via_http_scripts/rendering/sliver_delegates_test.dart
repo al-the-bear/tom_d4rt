@@ -86,9 +86,7 @@ dynamic build(BuildContext context) {
     ),
     children: [Text('A'), Text('B'), Text('C')],
   );
-  print(
-    'GridView with MaxCrossAxisExtent created: ${gridView2.runtimeType}',
-  );
+  print('GridView with MaxCrossAxisExtent created: ${gridView2.runtimeType}');
 
   // ========== FIXED COLUMN WIDTH ==========
   print('--- FixedColumnWidth Tests ---');
@@ -142,16 +140,10 @@ dynamic build(BuildContext context) {
   // ========== MAX COLUMN WIDTH / MIN COLUMN WIDTH ==========
   print('--- MaxColumnWidth / MinColumnWidth ---');
 
-  final maxCol = MaxColumnWidth(
-    FixedColumnWidth(100.0),
-    FlexColumnWidth(1.0),
-  );
+  final maxCol = MaxColumnWidth(FixedColumnWidth(100.0), FlexColumnWidth(1.0));
   print('MaxColumnWidth created: ${maxCol.runtimeType}');
 
-  final minCol = MinColumnWidth(
-    FixedColumnWidth(200.0),
-    FlexColumnWidth(1.0),
-  );
+  final minCol = MinColumnWidth(FixedColumnWidth(200.0), FlexColumnWidth(1.0));
   print('MinColumnWidth created: ${minCol.runtimeType}');
 
   // ========== FRACTION COLUMN WIDTH ==========

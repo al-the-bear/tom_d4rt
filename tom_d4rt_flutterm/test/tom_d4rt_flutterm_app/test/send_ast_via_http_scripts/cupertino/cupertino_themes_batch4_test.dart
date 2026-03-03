@@ -53,7 +53,10 @@ dynamic build(BuildContext context) {
   final textOnlyNoDefault = NoDefaultCupertinoThemeData(
     textTheme: CupertinoTextThemeData(
       textStyle: TextStyle(fontSize: 20.0),
-      navLargeTitleTextStyle: TextStyle(fontSize: 36.0, fontWeight: FontWeight.bold),
+      navLargeTitleTextStyle: TextStyle(
+        fontSize: 36.0,
+        fontWeight: FontWeight.bold,
+      ),
     ),
   );
   print('NoDefaultCupertinoThemeData with only textTheme created');
@@ -90,7 +93,9 @@ dynamic build(BuildContext context) {
   print('MaterialBasedCupertinoThemeData from light theme created');
   print('  primaryColor: ${materialBasedLight.primaryColor}');
   print('  brightness: ${materialBasedLight.brightness}');
-  print('  scaffoldBackgroundColor: ${materialBasedLight.scaffoldBackgroundColor}');
+  print(
+    '  scaffoldBackgroundColor: ${materialBasedLight.scaffoldBackgroundColor}',
+  );
 
   // Test MaterialBasedCupertinoThemeData with dark MaterialTheme
   final darkMaterialTheme = ThemeData.dark();
@@ -100,7 +105,9 @@ dynamic build(BuildContext context) {
   print('MaterialBasedCupertinoThemeData from dark theme created');
   print('  primaryColor: ${materialBasedDark.primaryColor}');
   print('  brightness: ${materialBasedDark.brightness}');
-  print('  scaffoldBackgroundColor: ${materialBasedDark.scaffoldBackgroundColor}');
+  print(
+    '  scaffoldBackgroundColor: ${materialBasedDark.scaffoldBackgroundColor}',
+  );
 
   // Test MaterialBasedCupertinoThemeData with custom MaterialTheme
   final customMaterialTheme = ThemeData(
@@ -136,7 +143,9 @@ dynamic build(BuildContext context) {
   // Test MaterialBasedCupertinoThemeData textTheme access
   print('MaterialBased textTheme access:');
   print('  textStyle: ${materialBasedLight.textTheme.textStyle}');
-  print('  navTitleTextStyle: ${materialBasedLight.textTheme.navTitleTextStyle}');
+  print(
+    '  navTitleTextStyle: ${materialBasedLight.textTheme.navTitleTextStyle}',
+  );
   print('  actionTextStyle: ${materialBasedLight.textTheme.actionTextStyle}');
 
   // Test MaterialBasedCupertinoThemeData.copyWith
@@ -226,7 +235,9 @@ dynamic build(BuildContext context) {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('MaterialBased(light) primary: ${theme.primaryColor}'),
+                        Text(
+                          'MaterialBased(light) primary: ${theme.primaryColor}',
+                        ),
                         SizedBox(height: 4.0),
                         CupertinoButton.filled(
                           child: Text('Light Material'),
@@ -248,7 +259,9 @@ dynamic build(BuildContext context) {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('MaterialBased(custom) primary: ${theme.primaryColor}'),
+                        Text(
+                          'MaterialBased(custom) primary: ${theme.primaryColor}',
+                        ),
                         SizedBox(height: 4.0),
                         CupertinoButton.filled(
                           child: Text('Custom Material'),

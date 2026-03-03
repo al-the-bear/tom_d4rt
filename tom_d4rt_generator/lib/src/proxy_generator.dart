@@ -44,21 +44,23 @@ class _AbstractMethodInfo {
     if (isGetter) {
       return '$returnType Function()';
     }
-    final paramTypes = params.map((p) {
-      if (p.isNamed) {
-        return '${p.isRequired ? 'required ' : ''}${p.type} ${p.name}';
-      }
-      return p.type;
-    }).join(', ');
+    final paramTypes = params
+        .map((p) {
+          if (p.isNamed) {
+            return '${p.isRequired ? 'required ' : ''}${p.type} ${p.name}';
+          }
+          return p.type;
+        })
+        .join(', ');
 
     final hasNamed = params.any((p) => p.isNamed);
     final hasPositional = params.any((p) => !p.isNamed);
 
     if (hasNamed && hasPositional) {
       final positional = params.where((p) => !p.isNamed).map((p) => p.type);
-      final named = params.where((p) => p.isNamed).map(
-        (p) => '${p.isRequired ? 'required ' : ''}${p.type} ${p.name}',
-      );
+      final named = params
+          .where((p) => p.isNamed)
+          .map((p) => '${p.isRequired ? 'required ' : ''}${p.type} ${p.name}');
       return '$returnType Function(${positional.join(', ')}, {${named.join(', ')}})';
     } else if (hasNamed) {
       return '$returnType Function({$paramTypes})';
@@ -211,9 +213,7 @@ Future<ProxyGenerationResult> generateProxies({
 
   // Generate the proxy file content
   final buffer = StringBuffer();
-  buffer.writeln(
-    '/// D4rt Proxy Classes for ${config.name}',
-  );
+  buffer.writeln('/// D4rt Proxy Classes for ${config.name}');
   buffer.writeln('///');
   buffer.writeln(
     '/// Generated proxy/adapter subclasses that delegate abstract methods',
@@ -289,9 +289,7 @@ Future<ProxyGenerationResult> generateProxies({
     final typeParamDecl = typeParams.isNotEmpty
         ? '<${typeParams.map((tp) {
             final bound = tp.bound;
-            return bound != null
-                ? '${tp.name} extends ${bound.getDisplayString()}'
-                : tp.name;
+            return bound != null ? '${tp.name} extends ${bound.getDisplayString()}' : tp.name;
           }).join(', ')}>'
         : '';
     final typeParamUse = typeParams.isNotEmpty
@@ -318,7 +316,9 @@ Future<ProxyGenerationResult> generateProxies({
     }
 
     // Constructor
-    buffer.writeln('  /// Creates a [$proxyName] with callback implementations.');
+    buffer.writeln(
+      '  /// Creates a [$proxyName] with callback implementations.',
+    );
     buffer.write('  $proxyName({');
     buffer.writeln();
     for (final method in abstractMethods) {
@@ -337,8 +337,7 @@ Future<ProxyGenerationResult> generateProxies({
       } else {
         // Method signature
         final paramSig = _buildParamSignature(method.params);
-        buffer
-            .writeln('  ${method.returnType} ${method.name}($paramSig) =>');
+        buffer.writeln('  ${method.returnType} ${method.name}($paramSig) =>');
 
         // Method delegation — pass args to callback
         final callArgs = _buildCallArgs(method.params);
@@ -350,12 +349,14 @@ Future<ProxyGenerationResult> generateProxies({
     buffer.writeln('}');
     buffer.writeln();
 
-    proxies.add(ProxyGenerationInfo(
-      className: className,
-      proxyName: proxyName,
-      methodCount: abstractMethods.length,
-      importUri: classImportMap[className] ?? barrelUri,
-    ));
+    proxies.add(
+      ProxyGenerationInfo(
+        className: className,
+        proxyName: proxyName,
+        methodCount: abstractMethods.length,
+        importUri: classImportMap[className] ?? barrelUri,
+      ),
+    );
 
     print(
       '  PROXY: Generated $proxyName for $className '
@@ -444,9 +445,7 @@ List<_AbstractMethodInfo> _getAbstractMethods(ClassElement element) {
 
   // Also check abstract getters
   for (final getter in element.getters) {
-    if (getter.isAbstract &&
-        !getter.isPrivate &&
-        !getter.isStatic) {
+    if (getter.isAbstract && !getter.isPrivate && !getter.isStatic) {
       final getterName = getter.displayName;
       if (!processedNames.contains(getterName)) {
         processedNames.add(getterName);

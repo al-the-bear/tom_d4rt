@@ -15,20 +15,26 @@ dynamic build(BuildContext context) {
     stiffness: 100.0,
     damping: 10.0,
   );
-  print('SpringDescription: mass=${springDesc.mass}, stiffness=${springDesc.stiffness}, damping=${springDesc.damping}');
+  print(
+    'SpringDescription: mass=${springDesc.mass}, stiffness=${springDesc.stiffness}, damping=${springDesc.damping}',
+  );
 
   // SpringSimulation: start at position 0, target 1, initial velocity 0
   final springSim = SpringSimulation(springDesc, 0.0, 1.0, 0.0);
   print('SpringSimulation(spring, start=0, end=1, velocity=0):');
   for (final t in [0.0, 0.1, 0.2, 0.5, 1.0, 2.0, 3.0, 5.0]) {
-    print('  t=$t: x=${springSim.x(t).toStringAsFixed(4)}, dx=${springSim.dx(t).toStringAsFixed(4)}, isDone=${springSim.isDone(t)}');
+    print(
+      '  t=$t: x=${springSim.x(t).toStringAsFixed(4)}, dx=${springSim.dx(t).toStringAsFixed(4)}, isDone=${springSim.isDone(t)}',
+    );
   }
 
   // SpringSimulation with initial velocity
   final springSimVelocity = SpringSimulation(springDesc, 0.0, 1.0, 5.0);
   print('SpringSimulation(spring, start=0, end=1, velocity=5):');
   for (final t in [0.0, 0.1, 0.2, 0.5, 1.0, 2.0]) {
-    print('  t=$t: x=${springSimVelocity.x(t).toStringAsFixed(4)}, dx=${springSimVelocity.dx(t).toStringAsFixed(4)}');
+    print(
+      '  t=$t: x=${springSimVelocity.x(t).toStringAsFixed(4)}, dx=${springSimVelocity.dx(t).toStringAsFixed(4)}',
+    );
   }
 
   // SpringSimulation with critically damped spring
@@ -40,7 +46,9 @@ dynamic build(BuildContext context) {
   final criticalSim = SpringSimulation(criticalSpring, 0.0, 1.0, 0.0);
   print('Critically damped SpringSimulation:');
   for (final t in [0.0, 0.1, 0.2, 0.5, 1.0, 2.0]) {
-    print('  t=$t: x=${criticalSim.x(t).toStringAsFixed(4)}, isDone=${criticalSim.isDone(t)}');
+    print(
+      '  t=$t: x=${criticalSim.x(t).toStringAsFixed(4)}, isDone=${criticalSim.isDone(t)}',
+    );
   }
 
   // SpringSimulation with underdamped spring
@@ -80,11 +88,18 @@ dynamic build(BuildContext context) {
   final scrollSim = ScrollSpringSimulation(scrollSpring, 0.0, 1.0, 0.0);
   print('ScrollSpringSimulation(spring, start=0, end=1, velocity=0):');
   for (final t in [0.0, 0.1, 0.2, 0.5, 1.0, 2.0, 3.0]) {
-    print('  t=$t: x=${scrollSim.x(t).toStringAsFixed(4)}, dx=${scrollSim.dx(t).toStringAsFixed(4)}, isDone=${scrollSim.isDone(t)}');
+    print(
+      '  t=$t: x=${scrollSim.x(t).toStringAsFixed(4)}, dx=${scrollSim.dx(t).toStringAsFixed(4)}, isDone=${scrollSim.isDone(t)}',
+    );
   }
 
   // ScrollSpringSimulation with initial velocity
-  final scrollSimVelocity = ScrollSpringSimulation(scrollSpring, 0.0, 1.0, 10.0);
+  final scrollSimVelocity = ScrollSpringSimulation(
+    scrollSpring,
+    0.0,
+    1.0,
+    10.0,
+  );
   print('ScrollSpringSimulation(spring, start=0, end=1, velocity=10):');
   for (final t in [0.0, 0.1, 0.2, 0.5, 1.0]) {
     print('  t=$t: x=${scrollSimVelocity.x(t).toStringAsFixed(4)}');
@@ -104,14 +119,18 @@ dynamic build(BuildContext context) {
   final frictionSim = FrictionSimulation(0.135, 0.0, 100.0);
   print('FrictionSimulation(drag=0.135, position=0, velocity=100):');
   for (final t in [0.0, 0.1, 0.5, 1.0, 2.0, 5.0, 10.0]) {
-    print('  t=$t: x=${frictionSim.x(t).toStringAsFixed(4)}, dx=${frictionSim.dx(t).toStringAsFixed(4)}, isDone=${frictionSim.isDone(t)}');
+    print(
+      '  t=$t: x=${frictionSim.x(t).toStringAsFixed(4)}, dx=${frictionSim.dx(t).toStringAsFixed(4)}, isDone=${frictionSim.isDone(t)}',
+    );
   }
 
   // FrictionSimulation with stronger drag
   final strongFriction = FrictionSimulation(0.5, 0.0, 100.0);
   print('FrictionSimulation(drag=0.5, position=0, velocity=100):');
   for (final t in [0.0, 0.1, 0.5, 1.0, 2.0, 5.0]) {
-    print('  t=$t: x=${strongFriction.x(t).toStringAsFixed(4)}, dx=${strongFriction.dx(t).toStringAsFixed(4)}');
+    print(
+      '  t=$t: x=${strongFriction.x(t).toStringAsFixed(4)}, dx=${strongFriction.dx(t).toStringAsFixed(4)}',
+    );
   }
 
   // FrictionSimulation with weak drag
@@ -125,7 +144,9 @@ dynamic build(BuildContext context) {
   final negFriction = FrictionSimulation(0.135, 100.0, -50.0);
   print('FrictionSimulation(drag=0.135, position=100, velocity=-50):');
   for (final t in [0.0, 0.1, 0.5, 1.0, 2.0]) {
-    print('  t=$t: x=${negFriction.x(t).toStringAsFixed(4)}, dx=${negFriction.dx(t).toStringAsFixed(4)}');
+    print(
+      '  t=$t: x=${negFriction.x(t).toStringAsFixed(4)}, dx=${negFriction.dx(t).toStringAsFixed(4)}',
+    );
   }
 
   // FrictionSimulation.through - creates simulation that reaches a specific point
@@ -142,7 +163,9 @@ dynamic build(BuildContext context) {
   final gravitySim = GravitySimulation(9.8, 0.0, 0.0, 100.0);
   print('GravitySimulation(accel=9.8, distance=0, velocity=0, end=100):');
   for (final t in [0.0, 0.5, 1.0, 2.0, 3.0, 4.0]) {
-    print('  t=$t: x=${gravitySim.x(t).toStringAsFixed(4)}, dx=${gravitySim.dx(t).toStringAsFixed(4)}, isDone=${gravitySim.isDone(t)}');
+    print(
+      '  t=$t: x=${gravitySim.x(t).toStringAsFixed(4)}, dx=${gravitySim.dx(t).toStringAsFixed(4)}, isDone=${gravitySim.isDone(t)}',
+    );
   }
 
   // GravitySimulation with initial velocity upward
@@ -155,19 +178,24 @@ dynamic build(BuildContext context) {
   // ========== TOLERANCE ==========
   print('--- Tolerance in Simulations ---');
 
-  final customTolerance = Tolerance(
-    distance: 0.01,
-    time: 0.01,
-    velocity: 0.01,
+  final customTolerance = Tolerance(distance: 0.01, time: 0.01, velocity: 0.01);
+  print(
+    'Custom Tolerance: distance=${customTolerance.distance}, time=${customTolerance.time}, velocity=${customTolerance.velocity}',
   );
-  print('Custom Tolerance: distance=${customTolerance.distance}, time=${customTolerance.time}, velocity=${customTolerance.velocity}');
 
   // SpringSimulation with custom tolerance
-  final tolerantSim = SpringSimulation(springDesc, 0.0, 1.0, 0.0,
-      tolerance: customTolerance);
+  final tolerantSim = SpringSimulation(
+    springDesc,
+    0.0,
+    1.0,
+    0.0,
+    tolerance: customTolerance,
+  );
   print('SpringSimulation with tight tolerance:');
   for (final t in [0.0, 0.5, 1.0, 2.0, 3.0]) {
-    print('  t=$t: x=${tolerantSim.x(t).toStringAsFixed(4)}, isDone=${tolerantSim.isDone(t)}');
+    print(
+      '  t=$t: x=${tolerantSim.x(t).toStringAsFixed(4)}, isDone=${tolerantSim.isDone(t)}',
+    );
   }
 
   // ========== WIDGET TREE ==========
@@ -244,17 +272,42 @@ dynamic build(BuildContext context) {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0),
                 ),
                 SizedBox(height: 4.0),
-                _simulationRow('Spring', 'Oscillates toward target (F = -kx - cv)', Color(0xFF2196F3)),
+                _simulationRow(
+                  'Spring',
+                  'Oscillates toward target (F = -kx - cv)',
+                  Color(0xFF2196F3),
+                ),
                 SizedBox(height: 2.0),
-                _simulationRow('ScrollSpring', 'Spring with scroll clamping behavior', Color(0xFF9C27B0)),
+                _simulationRow(
+                  'ScrollSpring',
+                  'Spring with scroll clamping behavior',
+                  Color(0xFF9C27B0),
+                ),
                 SizedBox(height: 2.0),
-                _simulationRow('Friction', 'Decelerates with drag coefficient', Color(0xFFE91E63)),
+                _simulationRow(
+                  'Friction',
+                  'Decelerates with drag coefficient',
+                  Color(0xFFE91E63),
+                ),
                 SizedBox(height: 2.0),
-                _simulationRow('Gravity', 'Constant acceleration (free fall)', Color(0xFFFF9800)),
+                _simulationRow(
+                  'Gravity',
+                  'Constant acceleration (free fall)',
+                  Color(0xFFFF9800),
+                ),
                 SizedBox(height: 8.0),
-                Text('• x(t) = position at time t', style: TextStyle(fontSize: 11.0)),
-                Text('• dx(t) = velocity at time t', style: TextStyle(fontSize: 11.0)),
-                Text('• isDone(t) = within tolerance of target', style: TextStyle(fontSize: 11.0)),
+                Text(
+                  '• x(t) = position at time t',
+                  style: TextStyle(fontSize: 11.0),
+                ),
+                Text(
+                  '• dx(t) = velocity at time t',
+                  style: TextStyle(fontSize: 11.0),
+                ),
+                Text(
+                  '• isDone(t) = within tolerance of target',
+                  style: TextStyle(fontSize: 11.0),
+                ),
               ],
             ),
           ),
@@ -264,7 +317,13 @@ dynamic build(BuildContext context) {
   );
 }
 
-Widget _simulationChart(Simulation sim, double tStart, double tEnd, int steps, Color color) {
+Widget _simulationChart(
+  Simulation sim,
+  double tStart,
+  double tEnd,
+  int steps,
+  Color color,
+) {
   final stepSize = (tEnd - tStart) / (steps - 1);
   return Row(
     crossAxisAlignment: CrossAxisAlignment.end,
@@ -282,7 +341,13 @@ Widget _simulationChart(Simulation sim, double tStart, double tEnd, int steps, C
   );
 }
 
-Widget _frictionChart(Simulation sim, double tStart, double tEnd, int steps, Color color) {
+Widget _frictionChart(
+  Simulation sim,
+  double tStart,
+  double tEnd,
+  int steps,
+  Color color,
+) {
   final stepSize = (tEnd - tStart) / (steps - 1);
   // Friction sim can have large x values, normalize
   final maxX = sim.x(tEnd);

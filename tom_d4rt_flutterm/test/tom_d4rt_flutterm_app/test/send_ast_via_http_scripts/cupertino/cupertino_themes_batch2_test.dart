@@ -8,9 +8,7 @@ dynamic build(BuildContext context) {
   print('--- Theme-Aware Widget Styling Tests ---');
 
   // Test CupertinoThemeData with different primaryColors applied to widgets
-  final redTheme = CupertinoThemeData(
-    primaryColor: CupertinoColors.systemRed,
-  );
+  final redTheme = CupertinoThemeData(primaryColor: CupertinoColors.systemRed);
   print('Red theme created');
   print('  primaryColor: ${redTheme.primaryColor}');
 
@@ -49,12 +47,17 @@ dynamic build(BuildContext context) {
   final largeTextTheme = CupertinoTextThemeData(
     textStyle: TextStyle(fontSize: 20.0),
     navTitleTextStyle: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-    navLargeTitleTextStyle: TextStyle(fontSize: 40.0, fontWeight: FontWeight.w900),
+    navLargeTitleTextStyle: TextStyle(
+      fontSize: 40.0,
+      fontWeight: FontWeight.w900,
+    ),
     tabLabelTextStyle: TextStyle(fontSize: 12.0),
   );
   print('Large text theme created');
   print('  textStyle fontSize: ${largeTextTheme.textStyle.fontSize}');
-  print('  navTitleTextStyle fontSize: ${largeTextTheme.navTitleTextStyle.fontSize}');
+  print(
+    '  navTitleTextStyle fontSize: ${largeTextTheme.navTitleTextStyle.fontSize}',
+  );
 
   // Test compact text theme
   final compactTextTheme = CupertinoTextThemeData(

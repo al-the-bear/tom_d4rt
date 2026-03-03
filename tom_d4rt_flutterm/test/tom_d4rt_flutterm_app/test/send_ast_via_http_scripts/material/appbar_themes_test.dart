@@ -18,7 +18,11 @@ dynamic build(BuildContext context) {
     titleSpacing: 16.0,
     toolbarHeight: 56.0,
     toolbarTextStyle: TextStyle(fontSize: 16.0, color: Colors.white),
-    titleTextStyle: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.white),
+    titleTextStyle: TextStyle(
+      fontSize: 20.0,
+      fontWeight: FontWeight.bold,
+      color: Colors.white,
+    ),
     iconTheme: IconThemeData(color: Colors.white, size: 24.0),
     actionsIconTheme: IconThemeData(color: Colors.white70, size: 22.0),
     shape: RoundedRectangleBorder(
@@ -90,27 +94,37 @@ dynamic build(BuildContext context) {
 
   return Theme(
     data: themeData,
-    child: Builder(builder: (ctx) {
-      final resolvedTheme = Theme.of(ctx);
-      print('Theme.of resolved');
-      print('  appBarTheme.backgroundColor: ${resolvedTheme.appBarTheme.backgroundColor}');
-      print('  appBarTheme.elevation: ${resolvedTheme.appBarTheme.elevation}');
-      print('  bottomAppBarTheme.color: ${resolvedTheme.bottomAppBarTheme.color}');
-      print('  bottomAppBarTheme.elevation: ${resolvedTheme.bottomAppBarTheme.elevation}');
+    child: Builder(
+      builder: (ctx) {
+        final resolvedTheme = Theme.of(ctx);
+        print('Theme.of resolved');
+        print(
+          '  appBarTheme.backgroundColor: ${resolvedTheme.appBarTheme.backgroundColor}',
+        );
+        print(
+          '  appBarTheme.elevation: ${resolvedTheme.appBarTheme.elevation}',
+        );
+        print(
+          '  bottomAppBarTheme.color: ${resolvedTheme.bottomAppBarTheme.color}',
+        );
+        print(
+          '  bottomAppBarTheme.elevation: ${resolvedTheme.bottomAppBarTheme.elevation}',
+        );
 
-      return Scaffold(
-        appBar: AppBar(title: Text('AppBar Theme Test')),
-        bottomNavigationBar: BottomAppBar(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              IconButton(icon: Icon(Icons.home), onPressed: () {}),
-              IconButton(icon: Icon(Icons.search), onPressed: () {}),
-            ],
+        return Scaffold(
+          appBar: AppBar(title: Text('AppBar Theme Test')),
+          bottomNavigationBar: BottomAppBar(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                IconButton(icon: Icon(Icons.home), onPressed: () {}),
+                IconButton(icon: Icon(Icons.search), onPressed: () {}),
+              ],
+            ),
           ),
-        ),
-        body: Center(child: Text('AppBar themes test passed')),
-      );
-    }),
+          body: Center(child: Text('AppBar themes test passed')),
+        );
+      },
+    ),
   );
 }

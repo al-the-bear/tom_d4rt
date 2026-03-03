@@ -55,7 +55,10 @@ dynamic build(BuildContext context) {
     ..color = Color(0xFFFF8800)
     ..style = PaintingStyle.fill;
   canvas.drawRRect(
-    RRect.fromRectAndRadius(Rect.fromLTWH(5.0, 5.0, 90.0, 70.0), Radius.circular(10.0)),
+    RRect.fromRectAndRadius(
+      Rect.fromLTWH(5.0, 5.0, 90.0, 70.0),
+      Radius.circular(10.0),
+    ),
     rrectPaint,
   );
   print('Drew orange rounded rectangle');
@@ -104,11 +107,11 @@ dynamic build(BuildContext context) {
     ..color = Color(0xFFFFFF00)
     ..strokeWidth = 5.0
     ..strokeCap = StrokeCap.round;
-  canvas.drawPoints(
-    PointMode.points,
-    [Offset(20.0, 20.0), Offset(40.0, 40.0), Offset(60.0, 60.0)],
-    pointPaint,
-  );
+  canvas.drawPoints(PointMode.points, [
+    Offset(20.0, 20.0),
+    Offset(40.0, 40.0),
+    Offset(60.0, 60.0),
+  ], pointPaint);
   print('Drew 3 points');
 
   // ClipRect
@@ -146,7 +149,10 @@ dynamic build(BuildContext context) {
           ),
           SizedBox(height: 16.0),
 
-          Text('Classes Tested:', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            'Classes Tested:',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('• PictureRecorder - records canvas ops'),
           Text('• Canvas - drawing surface'),
@@ -154,7 +160,10 @@ dynamic build(BuildContext context) {
           Text('• PointMode - point rendering mode'),
           SizedBox(height: 16.0),
 
-          Text('Canvas Operations:', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            'Canvas Operations:',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Container(
             padding: EdgeInsets.all(8.0),

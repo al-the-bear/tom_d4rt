@@ -758,9 +758,7 @@ void main() {
     });
 
     test('pulldown_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'cupertino/pulldown_test.dart',
-      );
+      final result = await SendTestRunner.send('cupertino/pulldown_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -770,9 +768,7 @@ void main() {
     });
 
     test('magnifier_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'cupertino/magnifier_test.dart',
-      );
+      final result = await SendTestRunner.send('cupertino/magnifier_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -918,9 +914,7 @@ void main() {
   // ============================================================
   group('physics/', () {
     test('simulations_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'physics/simulations_test.dart',
-      );
+      final result = await SendTestRunner.send('physics/simulations_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
   });

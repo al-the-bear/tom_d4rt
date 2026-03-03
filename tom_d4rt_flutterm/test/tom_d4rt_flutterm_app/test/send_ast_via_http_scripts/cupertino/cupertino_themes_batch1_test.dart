@@ -35,18 +35,16 @@ dynamic build(BuildContext context) {
     scaffoldBackgroundColor: CupertinoColors.systemBackground,
   );
   print('CupertinoThemeData with scaffoldBackgroundColor created');
-  print('  scaffoldBackgroundColor: ${scaffoldBgTheme.scaffoldBackgroundColor}');
+  print(
+    '  scaffoldBackgroundColor: ${scaffoldBgTheme.scaffoldBackgroundColor}',
+  );
 
   // Test CupertinoThemeData with brightness
-  final lightTheme = CupertinoThemeData(
-    brightness: Brightness.light,
-  );
+  final lightTheme = CupertinoThemeData(brightness: Brightness.light);
   print('CupertinoThemeData with brightness=light created');
   print('  brightness: ${lightTheme.brightness}');
 
-  final darkTheme = CupertinoThemeData(
-    brightness: Brightness.dark,
-  );
+  final darkTheme = CupertinoThemeData(brightness: Brightness.dark);
   print('CupertinoThemeData with brightness=dark created');
   print('  brightness: ${darkTheme.brightness}');
 
@@ -89,10 +87,7 @@ dynamic build(BuildContext context) {
 
   // Test CupertinoTextThemeData with custom text styles
   final customTextTheme = CupertinoTextThemeData(
-    textStyle: TextStyle(
-      fontSize: 16.0,
-      color: CupertinoColors.label,
-    ),
+    textStyle: TextStyle(fontSize: 16.0, color: CupertinoColors.label),
     actionTextStyle: TextStyle(
       fontSize: 16.0,
       color: CupertinoColors.activeBlue,
@@ -115,10 +110,7 @@ dynamic build(BuildContext context) {
       fontSize: 16.0,
       color: CupertinoColors.activeBlue,
     ),
-    pickerTextStyle: TextStyle(
-      fontSize: 22.0,
-      color: CupertinoColors.label,
-    ),
+    pickerTextStyle: TextStyle(fontSize: 22.0, color: CupertinoColors.label),
     dateTimePickerTextStyle: TextStyle(
       fontSize: 20.0,
       color: CupertinoColors.label,
@@ -132,7 +124,9 @@ dynamic build(BuildContext context) {
   print('  navLargeTitleTextStyle: ${customTextTheme.navLargeTitleTextStyle}');
   print('  navActionTextStyle: ${customTextTheme.navActionTextStyle}');
   print('  pickerTextStyle: ${customTextTheme.pickerTextStyle}');
-  print('  dateTimePickerTextStyle: ${customTextTheme.dateTimePickerTextStyle}');
+  print(
+    '  dateTimePickerTextStyle: ${customTextTheme.dateTimePickerTextStyle}',
+  );
 
   // Test CupertinoThemeData with textTheme
   final themedWithText = CupertinoThemeData(
@@ -195,7 +189,10 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     'CupertinoThemeData Properties:',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16.0,
+                    ),
                   ),
                   SizedBox(height: 8.0),
                   Text('Primary: ${resolvedTheme.primaryColor}'),
@@ -205,11 +202,16 @@ dynamic build(BuildContext context) {
                   SizedBox(height: 16.0),
                   Text(
                     'CupertinoTextThemeData:',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16.0,
+                    ),
                   ),
                   SizedBox(height: 8.0),
                   Text('Text style: ${resolvedTheme.textTheme.textStyle}'),
-                  Text('Nav title: ${resolvedTheme.textTheme.navTitleTextStyle}'),
+                  Text(
+                    'Nav title: ${resolvedTheme.textTheme.navTitleTextStyle}',
+                  ),
                   SizedBox(height: 16.0),
                   CupertinoTheme(
                     data: CupertinoThemeData(
@@ -218,7 +220,9 @@ dynamic build(BuildContext context) {
                     child: Builder(
                       builder: (BuildContext nestedContext) {
                         final nested = CupertinoTheme.of(nestedContext);
-                        return Text('Nested theme primary: ${nested.primaryColor}');
+                        return Text(
+                          'Nested theme primary: ${nested.primaryColor}',
+                        );
                       },
                     ),
                   ),
@@ -248,7 +252,10 @@ dynamic build(BuildContext context) {
                   SizedBox(height: 24.0),
                   Text(
                     'Tests Completed:',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16.0,
+                    ),
                   ),
                   SizedBox(height: 8.0),
                   Text('• CupertinoThemeData properties'),

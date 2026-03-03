@@ -53,7 +53,11 @@ dynamic build(BuildContext context) {
       borderRadius: BorderRadius.circular(12.0),
     ),
     unselectedLabelTextStyle: TextStyle(fontSize: 12.0, color: Colors.grey),
-    selectedLabelTextStyle: TextStyle(fontSize: 12.0, color: Colors.purple, fontWeight: FontWeight.bold),
+    selectedLabelTextStyle: TextStyle(
+      fontSize: 12.0,
+      color: Colors.purple,
+      fontWeight: FontWeight.bold,
+    ),
     unselectedIconTheme: IconThemeData(size: 22.0, color: Colors.grey),
     selectedIconTheme: IconThemeData(size: 24.0, color: Colors.purple),
     groupAlignment: -1.0,
@@ -123,23 +127,29 @@ dynamic build(BuildContext context) {
 
   return Theme(
     data: themeData,
-    child: Builder(builder: (ctx) {
-      final resolvedTheme = Theme.of(ctx);
-      print('Theme.of resolved');
-      print('  navigationBarTheme.height: ${resolvedTheme.navigationBarTheme.height}');
-      print('  navigationRailTheme.labelType: ${resolvedTheme.navigationRailTheme.labelType}');
-      print('  drawerTheme.width: ${resolvedTheme.drawerTheme.width}');
+    child: Builder(
+      builder: (ctx) {
+        final resolvedTheme = Theme.of(ctx);
+        print('Theme.of resolved');
+        print(
+          '  navigationBarTheme.height: ${resolvedTheme.navigationBarTheme.height}',
+        );
+        print(
+          '  navigationRailTheme.labelType: ${resolvedTheme.navigationRailTheme.labelType}',
+        );
+        print('  drawerTheme.width: ${resolvedTheme.drawerTheme.width}');
 
-      return NavigationBarTheme(
-        data: navBarThemeData,
-        child: NavigationRailTheme(
-          data: navRailThemeData,
-          child: DrawerTheme(
-            data: drawerThemeData,
-            child: Card(child: Text('Navigation themes test passed')),
+        return NavigationBarTheme(
+          data: navBarThemeData,
+          child: NavigationRailTheme(
+            data: navRailThemeData,
+            child: DrawerTheme(
+              data: drawerThemeData,
+              child: Card(child: Text('Navigation themes test passed')),
+            ),
           ),
-        ),
-      );
-    }),
+        );
+      },
+    ),
   );
 }

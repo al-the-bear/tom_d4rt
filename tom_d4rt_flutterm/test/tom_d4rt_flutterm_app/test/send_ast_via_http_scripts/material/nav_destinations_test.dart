@@ -15,10 +15,7 @@ dynamic build(BuildContext context) {
         selectedIcon: Icon(Icons.home),
         label: 'Home',
       ),
-      NavigationDestination(
-        icon: Icon(Icons.search),
-        label: 'Search',
-      ),
+      NavigationDestination(icon: Icon(Icons.search), label: 'Search'),
       NavigationDestination(
         icon: Icon(Icons.person_outline),
         selectedIcon: Icon(Icons.person),
@@ -149,7 +146,10 @@ dynamic build(BuildContext context) {
     children: [
       Padding(
         padding: EdgeInsets.fromLTRB(28, 16, 16, 10),
-        child: Text('Mail', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+        child: Text(
+          'Mail',
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+        ),
       ),
       NavigationDrawerDestination(
         icon: Icon(Icons.inbox_outlined),
@@ -169,7 +169,10 @@ dynamic build(BuildContext context) {
       Divider(),
       Padding(
         padding: EdgeInsets.fromLTRB(28, 16, 16, 10),
-        child: Text('Labels', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+        child: Text(
+          'Labels',
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+        ),
       ),
       NavigationDrawerDestination(
         icon: Icon(Icons.label_outline),
@@ -203,7 +206,10 @@ dynamic build(BuildContext context) {
 
   // Variation 9: Basic DrawerHeader
   final widget9 = DrawerHeader(
-    child: Text('App Name', style: TextStyle(fontSize: 24, color: Colors.white)),
+    child: Text(
+      'App Name',
+      style: TextStyle(fontSize: 24, color: Colors.white),
+    ),
     decoration: BoxDecoration(color: Colors.blue),
   );
   print('DrawerHeader(decoration: blue) created');
@@ -259,7 +265,9 @@ dynamic build(BuildContext context) {
       CircleAvatar(child: Text('B')),
     ],
   );
-  print('UserAccountsDrawerHeader(currentAccountPicture, otherAccountsPictures) created');
+  print(
+    'UserAccountsDrawerHeader(currentAccountPicture, otherAccountsPictures) created',
+  );
 
   // Variation 14: UserAccountsDrawerHeader with decoration
   final widget14 = UserAccountsDrawerHeader(
@@ -268,9 +276,7 @@ dynamic build(BuildContext context) {
     currentAccountPicture: CircleAvatar(
       backgroundImage: NetworkImage('https://via.placeholder.com/70'),
     ),
-    decoration: BoxDecoration(
-      color: Colors.indigo,
-    ),
+    decoration: BoxDecoration(color: Colors.indigo),
     onDetailsPressed: () {
       print('Details pressed');
     },

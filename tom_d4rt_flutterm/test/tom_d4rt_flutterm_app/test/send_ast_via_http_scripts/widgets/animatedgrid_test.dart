@@ -52,10 +52,7 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(8.0),
             ),
             child: Center(
-              child: Text(
-                'Grid $index',
-                style: TextStyle(color: Colors.white),
-              ),
+              child: Text('Grid $index', style: TextStyle(color: Colors.white)),
             ),
           ),
         );
@@ -66,7 +63,9 @@ dynamic build(BuildContext context) {
     // Test AnimatedGrid with zero initial items
     final grid3 = AnimatedGrid(
       initialItemCount: 0,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+      ),
       itemBuilder: (context, index, animation) {
         return SizeTransition(
           sizeFactor: animation,

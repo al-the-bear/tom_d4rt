@@ -108,9 +108,7 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(16.0),
         child: DropdownButtonFormField<String>(
           value: 'saved',
-          decoration: InputDecoration(
-            labelText: 'Save on Submit',
-          ),
+          decoration: InputDecoration(labelText: 'Save on Submit'),
           items: [
             DropdownMenuItem(value: 'saved', child: Text('Saved')),
             DropdownMenuItem(value: 'draft', child: Text('Draft')),
@@ -187,9 +185,7 @@ dynamic build(BuildContext context) {
             labelText: 'Disabled Dropdown',
             enabled: false,
           ),
-          items: [
-            DropdownMenuItem(value: 'locked', child: Text('Locked')),
-          ],
+          items: [DropdownMenuItem(value: 'locked', child: Text('Locked'))],
           onChanged: null,
         ),
       ),
@@ -229,21 +225,9 @@ dynamic build(BuildContext context) {
   // Variation 10: ButtonSegment with tooltip
   final widget10 = SegmentedButton<int>(
     segments: [
-      ButtonSegment<int>(
-        value: 1,
-        label: Text('S'),
-        tooltip: 'Small',
-      ),
-      ButtonSegment<int>(
-        value: 2,
-        label: Text('M'),
-        tooltip: 'Medium',
-      ),
-      ButtonSegment<int>(
-        value: 3,
-        label: Text('L'),
-        tooltip: 'Large',
-      ),
+      ButtonSegment<int>(value: 1, label: Text('S'), tooltip: 'Small'),
+      ButtonSegment<int>(value: 2, label: Text('M'), tooltip: 'Medium'),
+      ButtonSegment<int>(value: 3, label: Text('L'), tooltip: 'Large'),
     ],
     selected: {2},
     onSelectionChanged: (selected) {},
@@ -253,15 +237,8 @@ dynamic build(BuildContext context) {
   // Variation 11: ButtonSegment with enabled false
   final widget11 = SegmentedButton<String>(
     segments: [
-      ButtonSegment<String>(
-        value: 'on',
-        label: Text('On'),
-      ),
-      ButtonSegment<String>(
-        value: 'off',
-        label: Text('Off'),
-        enabled: false,
-      ),
+      ButtonSegment<String>(value: 'on', label: Text('On')),
+      ButtonSegment<String>(value: 'off', label: Text('Off'), enabled: false),
     ],
     selected: {'on'},
     onSelectionChanged: (selected) {},
@@ -271,18 +248,9 @@ dynamic build(BuildContext context) {
   // Variation 12: ButtonSegment icon-only
   final widget12 = SegmentedButton<String>(
     segments: [
-      ButtonSegment<String>(
-        value: 'list',
-        icon: Icon(Icons.list),
-      ),
-      ButtonSegment<String>(
-        value: 'grid',
-        icon: Icon(Icons.grid_view),
-      ),
-      ButtonSegment<String>(
-        value: 'table',
-        icon: Icon(Icons.table_chart),
-      ),
+      ButtonSegment<String>(value: 'list', icon: Icon(Icons.list)),
+      ButtonSegment<String>(value: 'grid', icon: Icon(Icons.grid_view)),
+      ButtonSegment<String>(value: 'table', icon: Icon(Icons.table_chart)),
     ],
     selected: {'grid'},
     onSelectionChanged: (selected) {},
@@ -303,22 +271,10 @@ dynamic build(BuildContext context) {
         widget7,
         widget8,
         SizedBox(height: 16),
-        Padding(
-          padding: EdgeInsets.all(16.0),
-          child: widget9,
-        ),
-        Padding(
-          padding: EdgeInsets.all(16.0),
-          child: widget10,
-        ),
-        Padding(
-          padding: EdgeInsets.all(16.0),
-          child: widget11,
-        ),
-        Padding(
-          padding: EdgeInsets.all(16.0),
-          child: widget12,
-        ),
+        Padding(padding: EdgeInsets.all(16.0), child: widget9),
+        Padding(padding: EdgeInsets.all(16.0), child: widget10),
+        Padding(padding: EdgeInsets.all(16.0), child: widget11),
+        Padding(padding: EdgeInsets.all(16.0), child: widget12),
       ],
     ),
   );

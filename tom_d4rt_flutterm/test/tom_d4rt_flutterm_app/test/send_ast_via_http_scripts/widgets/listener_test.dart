@@ -136,11 +136,7 @@ dynamic build(BuildContext context) {
         children: [listener1, listener2, listener3],
       ),
       SizedBox(height: 8.0),
-      Wrap(
-        spacing: 8.0,
-        runSpacing: 8.0,
-        children: [listener4, listener5],
-      ),
+      Wrap(spacing: 8.0, runSpacing: 8.0, children: [listener4, listener5]),
       SizedBox(height: 8.0),
       Wrap(
         spacing: 8.0,

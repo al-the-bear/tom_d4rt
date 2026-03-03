@@ -31,8 +31,12 @@ dynamic build(BuildContext context) {
   print('  statusBarBrightness: ${style2.statusBarBrightness}');
   print('  statusBarIconBrightness: ${style2.statusBarIconBrightness}');
   print('  systemNavigationBarColor: ${style2.systemNavigationBarColor}');
-  print('  systemNavigationBarDividerColor: ${style2.systemNavigationBarDividerColor}');
-  print('  systemNavigationBarIconBrightness: ${style2.systemNavigationBarIconBrightness}');
+  print(
+    '  systemNavigationBarDividerColor: ${style2.systemNavigationBarDividerColor}',
+  );
+  print(
+    '  systemNavigationBarIconBrightness: ${style2.systemNavigationBarIconBrightness}',
+  );
 
   // Predefined styles
   final light = SystemUiOverlayStyle.light;
@@ -46,9 +50,7 @@ dynamic build(BuildContext context) {
   print('  statusBarIconBrightness: ${dark.statusBarIconBrightness}');
 
   // copyWith
-  final modified = light.copyWith(
-    statusBarColor: Color(0xFF4CAF50),
-  );
+  final modified = light.copyWith(statusBarColor: Color(0xFF4CAF50));
   print('light.copyWith(statusBarColor: green):');
   print('  statusBarColor: ${modified.statusBarColor}');
   print('  statusBarBrightness: ${modified.statusBarBrightness}');
@@ -139,7 +141,10 @@ dynamic build(BuildContext context) {
           ),
           SizedBox(height: 16.0),
 
-          Text('Classes Tested:', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            'Classes Tested:',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('• SystemUiOverlayStyle - status/nav bar style'),
           Text('• TextEditingDeltaInsertion - text insert delta'),

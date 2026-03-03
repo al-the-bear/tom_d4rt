@@ -67,9 +67,7 @@ dynamic build(BuildContext context) {
   // ========== RENDER SLIVER PADDING ==========
   print('--- RenderSliverPadding Tests ---');
 
-  final sliverPadding = RenderSliverPadding(
-    padding: EdgeInsets.all(16.0),
-  );
+  final sliverPadding = RenderSliverPadding(padding: EdgeInsets.all(16.0));
   print('RenderSliverPadding created: ${sliverPadding.runtimeType}');
   print('  padding: ${sliverPadding.padding}');
 
@@ -94,9 +92,7 @@ dynamic build(BuildContext context) {
   final sliverOpacity = RenderSliverOpacity(opacity: 0.5);
   print('RenderSliverOpacity(0.5) created: ${sliverOpacity.runtimeType}');
   print('  opacity: ${sliverOpacity.opacity}');
-  print(
-    '  alwaysIncludeSemantics: ${sliverOpacity.alwaysIncludeSemantics}',
-  );
+  print('  alwaysIncludeSemantics: ${sliverOpacity.alwaysIncludeSemantics}');
 
   final sliverOpacityZero = RenderSliverOpacity(opacity: 0.0);
   print('RenderSliverOpacity(0.0) opacity: ${sliverOpacityZero.opacity}');
@@ -121,12 +117,8 @@ dynamic build(BuildContext context) {
 
   // RenderSliverList and RenderSliverGrid require a RenderSliverBoxChildManager
   // which is an abstract class. They cannot be constructed standalone.
-  print(
-    'RenderSliverList requires RenderSliverBoxChildManager (abstract)',
-  );
-  print(
-    'RenderSliverGrid requires RenderSliverBoxChildManager + gridDelegate',
-  );
+  print('RenderSliverList requires RenderSliverBoxChildManager (abstract)');
+  print('RenderSliverGrid requires RenderSliverBoxChildManager + gridDelegate');
   print(
     'Limitation: Cannot construct without concrete child manager implementation',
   );

@@ -66,9 +66,7 @@ dynamic build(BuildContext context) {
     crossAxisDirection: AxisDirection.right,
     offset: ViewportOffset.zero(),
   );
-  print(
-    'RenderShrinkWrappingViewport created: ${shrinkViewport.runtimeType}',
-  );
+  print('RenderShrinkWrappingViewport created: ${shrinkViewport.runtimeType}');
   print('  axisDirection: ${shrinkViewport.axisDirection}');
   print('  crossAxisDirection: ${shrinkViewport.crossAxisDirection}');
 

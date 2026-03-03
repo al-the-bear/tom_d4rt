@@ -47,7 +47,10 @@ dynamic build(BuildContext context) {
   print('Number round-trip: $jsonNumDecoded');
 
   // Encode/decode map
-  final jsonMapEncoded = jsonMsgCodec.encodeMessage({'key': 'value', 'count': 5});
+  final jsonMapEncoded = jsonMsgCodec.encodeMessage({
+    'key': 'value',
+    'count': 5,
+  });
   final jsonMapDecoded = jsonMsgCodec.decodeMessage(jsonMapEncoded);
   print('Map round-trip: $jsonMapDecoded');
 
@@ -140,7 +143,9 @@ dynamic build(BuildContext context) {
   print('Decoded: method=${stdDecoded.method}, args=${stdDecoded.arguments}');
 
   // Success envelope
-  final stdSuccess = stdMethodCodec.encodeSuccessEnvelope({'data': [1, 2, 3]});
+  final stdSuccess = stdMethodCodec.encodeSuccessEnvelope({
+    'data': [1, 2, 3],
+  });
   final stdSuccessDec = stdMethodCodec.decodeEnvelope(stdSuccess);
   print('Success envelope result: $stdSuccessDec');
 
@@ -174,7 +179,10 @@ dynamic build(BuildContext context) {
           ),
           SizedBox(height: 16.0),
 
-          Text('Classes Tested:', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            'Classes Tested:',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('• StringCodec - string encoding'),
           Text('• JSONMessageCodec - JSON message encoding'),

@@ -16,7 +16,9 @@ dynamic build(BuildContext context) {
   // Test ChildBackButtonDispatcher
   final childDispatcher = ChildBackButtonDispatcher(dispatcher);
   print('ChildBackButtonDispatcher created');
-  print('ChildBackButtonDispatcher runtimeType: ${childDispatcher.runtimeType}');
+  print(
+    'ChildBackButtonDispatcher runtimeType: ${childDispatcher.runtimeType}',
+  );
   print('ChildBackButtonDispatcher hashCode: ${childDispatcher.hashCode}');
 
   // Test callback registration concept
@@ -58,7 +60,10 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('BackButtonDispatcher Info:', style: TextStyle(fontWeight: FontWeight.bold)),
+            Text(
+              'BackButtonDispatcher Info:',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             SizedBox(height: 8.0),
             Text('- Used with Navigator 2.0 / Router API'),
             Text('- RootBackButtonDispatcher: system back button'),

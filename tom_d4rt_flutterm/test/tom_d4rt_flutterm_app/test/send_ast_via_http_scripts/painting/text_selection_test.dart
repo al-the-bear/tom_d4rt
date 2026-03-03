@@ -49,7 +49,9 @@ dynamic build(BuildContext context) {
   // TextSelection.collapsed
   final collapsedSel = TextSelection.collapsed(offset: 7);
   print('TextSelection.collapsed(7) baseOffset: ${collapsedSel.baseOffset}');
-  print('TextSelection.collapsed(7) extentOffset: ${collapsedSel.extentOffset}');
+  print(
+    'TextSelection.collapsed(7) extentOffset: ${collapsedSel.extentOffset}',
+  );
   print('TextSelection.collapsed(7) isCollapsed: ${collapsedSel.isCollapsed}');
 
   // TextSelection with affinity

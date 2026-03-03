@@ -12,19 +12,14 @@ dynamic build(BuildContext context) {
     elevation: 24.0,
     shadowColor: Colors.black54,
     surfaceTintColor: Colors.blue.shade50,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(28.0),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28.0)),
     alignment: Alignment.center,
     titleTextStyle: TextStyle(
       fontSize: 24.0,
       fontWeight: FontWeight.bold,
       color: Colors.black87,
     ),
-    contentTextStyle: TextStyle(
-      fontSize: 16.0,
-      color: Colors.black54,
-    ),
+    contentTextStyle: TextStyle(fontSize: 16.0, color: Colors.black54),
     actionsPadding: EdgeInsets.only(left: 24.0, right: 24.0, bottom: 20.0),
     iconColor: Colors.blue,
   );
@@ -95,9 +90,7 @@ dynamic build(BuildContext context) {
     disabledActionTextColor: Colors.grey,
     contentTextStyle: TextStyle(fontSize: 14.0, color: Colors.white),
     elevation: 6.0,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(8.0),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
     behavior: SnackBarBehavior.floating,
     width: 400.0,
     insetPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -139,37 +132,47 @@ dynamic build(BuildContext context) {
 
   return Theme(
     data: themeData,
-    child: Builder(builder: (ctx) {
-      final resolvedTheme = Theme.of(ctx);
-      print('Theme.of resolved');
-      print('  dialogTheme.elevation: ${resolvedTheme.dialogTheme.elevation}');
-      print('  bottomSheetTheme.elevation: ${resolvedTheme.bottomSheetTheme.elevation}');
-      print('  snackBarTheme.behavior: ${resolvedTheme.snackBarTheme.behavior}');
+    child: Builder(
+      builder: (ctx) {
+        final resolvedTheme = Theme.of(ctx);
+        print('Theme.of resolved');
+        print(
+          '  dialogTheme.elevation: ${resolvedTheme.dialogTheme.elevation}',
+        );
+        print(
+          '  bottomSheetTheme.elevation: ${resolvedTheme.bottomSheetTheme.elevation}',
+        );
+        print(
+          '  snackBarTheme.behavior: ${resolvedTheme.snackBarTheme.behavior}',
+        );
 
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Card(
-            child: Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text('Dialog: elevation=${dialogTheme.elevation}'),
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Card(
+              child: Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Text('Dialog: elevation=${dialogTheme.elevation}'),
+              ),
             ),
-          ),
-          Card(
-            child: Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text('BottomSheet: showDragHandle=${bottomSheetThemeData.showDragHandle}'),
+            Card(
+              child: Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Text(
+                  'BottomSheet: showDragHandle=${bottomSheetThemeData.showDragHandle}',
+                ),
+              ),
             ),
-          ),
-          Card(
-            child: Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text('SnackBar: behavior=${snackBarThemeData.behavior}'),
+            Card(
+              child: Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Text('SnackBar: behavior=${snackBarThemeData.behavior}'),
+              ),
             ),
-          ),
-          Text('Dialog themes test passed'),
-        ],
-      );
-    }),
+            Text('Dialog themes test passed'),
+          ],
+        );
+      },
+    ),
   );
 }

@@ -9,44 +9,36 @@ dynamic build(BuildContext context) {
   // ========== SUGGESTIONSPAN ==========
   print('--- SuggestionSpan Tests ---');
 
-  final span1 = SuggestionSpan(
-    TextRange(start: 0, end: 5),
-    ['hello', 'hallo', 'hullo'],
-  );
+  final span1 = SuggestionSpan(TextRange(start: 0, end: 5), [
+    'hello',
+    'hallo',
+    'hullo',
+  ]);
   print('SuggestionSpan created');
   print('  range: ${span1.range}');
   print('  suggestions: ${span1.suggestions}');
   print('  runtimeType: ${span1.runtimeType}');
 
-  final span2 = SuggestionSpan(
-    TextRange(start: 10, end: 15),
-    ['world', 'would'],
-  );
+  final span2 = SuggestionSpan(TextRange(start: 10, end: 15), [
+    'world',
+    'would',
+  ]);
   print('SuggestionSpan 2:');
   print('  range: ${span2.range}');
   print('  suggestions: ${span2.suggestions}');
 
   // Empty suggestions
-  final emptySpan = SuggestionSpan(
-    TextRange(start: 0, end: 3),
-    [],
-  );
+  final emptySpan = SuggestionSpan(TextRange(start: 0, end: 3), []);
   print('Empty SuggestionSpan: suggestions=${emptySpan.suggestions}');
 
   // Single suggestion
-  final singleSpan = SuggestionSpan(
-    TextRange(start: 5, end: 10),
-    ['correct'],
-  );
+  final singleSpan = SuggestionSpan(TextRange(start: 5, end: 10), ['correct']);
   print('Single SuggestionSpan: suggestions=${singleSpan.suggestions}');
 
   // ========== SPELLCHECKRESULTS ==========
   print('--- SpellCheckResults Tests ---');
 
-  final results = SpellCheckResults(
-    'helo wrold',
-    [span1, span2],
-  );
+  final results = SpellCheckResults('helo wrold', [span1, span2]);
   print('SpellCheckResults created');
   print('  spellCheckedText: "${results.spellCheckedText}"');
   print('  suggestionSpans count: ${results.suggestionSpans.length}');
@@ -95,13 +87,19 @@ dynamic build(BuildContext context) {
           ),
           SizedBox(height: 16.0),
 
-          Text('Classes Tested:', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            'Classes Tested:',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('• SuggestionSpan - spell check suggestion'),
           Text('• SpellCheckResults - spell check result set'),
           SizedBox(height: 16.0),
 
-          Text('Bridge Availability:', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            'Bridge Availability:',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Container(
             padding: EdgeInsets.all(8.0),

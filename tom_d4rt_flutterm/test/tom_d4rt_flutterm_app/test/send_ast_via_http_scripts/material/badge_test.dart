@@ -94,31 +94,19 @@ dynamic build(BuildContext context) {
   print('FlutterLogo(size: 80) created');
 
   // Variation 13: FlutterLogo with textColor
-  final widget13 = FlutterLogo(
-    size: 60,
-    textColor: Colors.blue,
-  );
+  final widget13 = FlutterLogo(size: 60, textColor: Colors.blue);
   print('FlutterLogo(textColor: blue) created');
 
   // Variation 14: FlutterLogo with style markOnly
-  final widget14 = FlutterLogo(
-    size: 100,
-    style: FlutterLogoStyle.markOnly,
-  );
+  final widget14 = FlutterLogo(size: 100, style: FlutterLogoStyle.markOnly);
   print('FlutterLogo(style: markOnly) created');
 
   // Variation 15: FlutterLogo with style horizontal
-  final widget15 = FlutterLogo(
-    size: 120,
-    style: FlutterLogoStyle.horizontal,
-  );
+  final widget15 = FlutterLogo(size: 120, style: FlutterLogoStyle.horizontal);
   print('FlutterLogo(style: horizontal) created');
 
   // Variation 16: FlutterLogo with style stacked
-  final widget16 = FlutterLogo(
-    size: 100,
-    style: FlutterLogoStyle.stacked,
-  );
+  final widget16 = FlutterLogo(size: 100, style: FlutterLogoStyle.stacked);
   print('FlutterLogo(style: stacked) created');
 
   // Variation 17: FlutterLogo with duration and curve

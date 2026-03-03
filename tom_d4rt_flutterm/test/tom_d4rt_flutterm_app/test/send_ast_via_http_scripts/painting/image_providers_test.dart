@@ -5,10 +5,7 @@ dynamic build(BuildContext context) {
   print('ImageProvidersTest test executing');
 
   // ExactAssetImage
-  final exactAsset = ExactAssetImage(
-    'assets/placeholder.png',
-    scale: 2.0,
-  );
+  final exactAsset = ExactAssetImage('assets/placeholder.png', scale: 2.0);
   print('ExactAssetImage assetName: ${exactAsset.assetName}');
   print('ExactAssetImage scale: ${exactAsset.scale}');
 

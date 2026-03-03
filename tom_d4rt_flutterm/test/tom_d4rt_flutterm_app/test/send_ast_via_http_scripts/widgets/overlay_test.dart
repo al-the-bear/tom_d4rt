@@ -91,7 +91,10 @@ dynamic build(BuildContext context) {
           height: 50.0,
           color: Colors.blue,
           child: Center(
-            child: Text('Entry 1', style: TextStyle(color: Colors.white, fontSize: 12.0)),
+            child: Text(
+              'Entry 1',
+              style: TextStyle(color: Colors.white, fontSize: 12.0),
+            ),
           ),
         ),
       ),
@@ -103,7 +106,10 @@ dynamic build(BuildContext context) {
           height: 50.0,
           color: Colors.green,
           child: Center(
-            child: Text('Entry 2', style: TextStyle(color: Colors.white, fontSize: 12.0)),
+            child: Text(
+              'Entry 2',
+              style: TextStyle(color: Colors.white, fontSize: 12.0),
+            ),
           ),
         ),
       ),

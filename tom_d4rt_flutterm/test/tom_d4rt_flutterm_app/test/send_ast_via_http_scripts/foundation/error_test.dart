@@ -122,7 +122,9 @@ dynamic build(BuildContext context) {
   print('  message: ${fullError.message}');
   print('  diagnostics count: ${fullError.diagnostics.length}');
   for (int i = 0; i < fullError.diagnostics.length; i++) {
-    print('  [$i] ${fullError.diagnostics[i].runtimeType}: ${fullError.diagnostics[i]}');
+    print(
+      '  [$i] ${fullError.diagnostics[i].runtimeType}: ${fullError.diagnostics[i]}',
+    );
   }
 
   // Test FlutterError.defaultStackFilter behavior
@@ -143,7 +145,10 @@ dynamic build(BuildContext context) {
           ),
           SizedBox(height: 16.0),
 
-          Text('Classes Tested:', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            'Classes Tested:',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('• FlutterError - error with diagnostics'),
           Text('• FlutterErrorDetails - detailed error info'),
@@ -152,7 +157,10 @@ dynamic build(BuildContext context) {
           Text('• ErrorSummary - one-line error summary'),
           SizedBox(height: 16.0),
 
-          Text('Error Construction:', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            'Error Construction:',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('• FlutterError("message") - simple'),
           Text('• FlutterError.fromParts([...]) - complex'),
@@ -167,7 +175,10 @@ dynamic build(BuildContext context) {
               children: [
                 Text(
                   'Sample Error:',
-                  style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFD32F2F)),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFFD32F2F),
+                  ),
                 ),
                 Text('Summary: ${summary.toString()}'),
                 Text('Description: ${desc.toString()}'),

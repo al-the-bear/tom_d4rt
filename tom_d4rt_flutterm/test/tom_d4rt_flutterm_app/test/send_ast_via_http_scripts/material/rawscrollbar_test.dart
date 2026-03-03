@@ -20,12 +20,36 @@ dynamic build(BuildContext context) {
     thumbVisibility: true,
     child: ListView(
       children: [
-        Container(height: 80, color: Colors.red.shade100, child: Center(child: Text('Red'))),
-        Container(height: 80, color: Colors.blue.shade100, child: Center(child: Text('Blue'))),
-        Container(height: 80, color: Colors.green.shade100, child: Center(child: Text('Green'))),
-        Container(height: 80, color: Colors.orange.shade100, child: Center(child: Text('Orange'))),
-        Container(height: 80, color: Colors.purple.shade100, child: Center(child: Text('Purple'))),
-        Container(height: 80, color: Colors.teal.shade100, child: Center(child: Text('Teal'))),
+        Container(
+          height: 80,
+          color: Colors.red.shade100,
+          child: Center(child: Text('Red')),
+        ),
+        Container(
+          height: 80,
+          color: Colors.blue.shade100,
+          child: Center(child: Text('Blue')),
+        ),
+        Container(
+          height: 80,
+          color: Colors.green.shade100,
+          child: Center(child: Text('Green')),
+        ),
+        Container(
+          height: 80,
+          color: Colors.orange.shade100,
+          child: Center(child: Text('Orange')),
+        ),
+        Container(
+          height: 80,
+          color: Colors.purple.shade100,
+          child: Center(child: Text('Purple')),
+        ),
+        Container(
+          height: 80,
+          color: Colors.teal.shade100,
+          child: Center(child: Text('Teal')),
+        ),
       ],
     ),
   );
@@ -131,7 +155,9 @@ dynamic build(BuildContext context) {
       itemBuilder: (ctx, i) => ListTile(title: Text('Track visible $i')),
     ),
   );
-  print('RawScrollbar(trackVisibility, trackColor, trackBorderColor, interactive) created');
+  print(
+    'RawScrollbar(trackVisibility, trackColor, trackBorderColor, interactive) created',
+  );
 
   print('RawScrollbar test completed');
   return Column(

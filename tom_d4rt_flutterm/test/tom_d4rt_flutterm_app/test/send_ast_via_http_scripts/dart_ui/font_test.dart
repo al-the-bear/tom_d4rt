@@ -144,7 +144,9 @@ dynamic build(BuildContext context) {
   // LineMetrics cannot be directly constructed - it's returned by Paragraph.computeLineMetrics()
   print('LineMetrics: Not directly constructable');
   print('  Returned by Paragraph.computeLineMetrics()');
-  print('  Properties: hardBreak, ascent, descent, unscaledAscent, height, width, left, baseline, lineNumber');
+  print(
+    '  Properties: hardBreak, ascent, descent, unscaledAscent, height, width, left, baseline, lineNumber',
+  );
 
   // ViewPadding is not directly constructable
   print('ViewPadding: Not directly constructable');
@@ -170,7 +172,10 @@ dynamic build(BuildContext context) {
           ),
           SizedBox(height: 16.0),
 
-          Text('Classes Tested:', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            'Classes Tested:',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('• FontFeature - OpenType font features'),
           Text('• FontVariation - variable font axes'),
@@ -178,7 +183,10 @@ dynamic build(BuildContext context) {
           Text('• Tangent - path tangent vector'),
           SizedBox(height: 16.0),
 
-          Text('Not Constructable:', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            'Not Constructable:',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('• LineMetrics - from Paragraph'),
           Text('• ViewPadding - from FlutterView'),

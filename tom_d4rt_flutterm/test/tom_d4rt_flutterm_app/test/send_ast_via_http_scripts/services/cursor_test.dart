@@ -127,9 +127,15 @@ dynamic build(BuildContext context) {
   // ========== SYSTEMMOUSECURSOR ==========
   print('--- SystemMouseCursor Type Check ---');
 
-  print('SystemMouseCursors.click is SystemMouseCursor: ${click is SystemMouseCursor}');
-  print('SystemMouseCursors.text is SystemMouseCursor: ${text is SystemMouseCursor}');
-  print('SystemMouseCursors.forbidden is MouseCursor: ${forbidden is MouseCursor}');
+  print(
+    'SystemMouseCursors.click is SystemMouseCursor: ${click is SystemMouseCursor}',
+  );
+  print(
+    'SystemMouseCursors.text is SystemMouseCursor: ${text is SystemMouseCursor}',
+  );
+  print(
+    'SystemMouseCursors.forbidden is MouseCursor: ${forbidden is MouseCursor}',
+  );
 
   // ========== RETURN WIDGET ==========
   print('Services cursor test completed');
@@ -146,14 +152,20 @@ dynamic build(BuildContext context) {
           ),
           SizedBox(height: 16.0),
 
-          Text('Classes Tested:', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            'Classes Tested:',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('• MouseCursor - abstract cursor base'),
           Text('• SystemMouseCursor - system cursor type'),
           Text('• SystemMouseCursors - predefined cursors'),
           SizedBox(height: 16.0),
 
-          Text('Cursor Categories:', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            'Cursor Categories:',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Container(
             padding: EdgeInsets.all(8.0),

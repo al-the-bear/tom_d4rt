@@ -31,7 +31,9 @@ dynamic build(BuildContext context) {
     initialRouteInformation: RouteInformation(uri: Uri.parse('/initial')),
   );
   print('PlatformRouteInformationProvider created');
-  print('PlatformRouteInformationProvider runtimeType: ${platformProvider.runtimeType}');
+  print(
+    'PlatformRouteInformationProvider runtimeType: ${platformProvider.runtimeType}',
+  );
 
   // Since we can't create a full Router, demonstrate MaterialApp.router concept
   // MaterialApp.router is the typical way to use Router
@@ -56,7 +58,10 @@ dynamic build(BuildContext context) {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text('Router API (Navigator 2.0):', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Router API (Navigator 2.0):',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 8.0),
         Text('Required components:'),
         Text('  - RouterDelegate (abstract)'),

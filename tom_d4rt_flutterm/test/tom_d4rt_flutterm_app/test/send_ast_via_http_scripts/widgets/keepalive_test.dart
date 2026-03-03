@@ -21,7 +21,10 @@ dynamic build(BuildContext context) {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text('Page 0', style: TextStyle(color: Colors.white, fontSize: 20.0)),
+                Text(
+                  'Page 0',
+                  style: TextStyle(color: Colors.white, fontSize: 20.0),
+                ),
                 Text('(kept alive)', style: TextStyle(color: Colors.white70)),
               ],
             ),
@@ -33,7 +36,10 @@ dynamic build(BuildContext context) {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text('Page 1', style: TextStyle(color: Colors.white, fontSize: 20.0)),
+                Text(
+                  'Page 1',
+                  style: TextStyle(color: Colors.white, fontSize: 20.0),
+                ),
                 Text('(kept alive)', style: TextStyle(color: Colors.white70)),
               ],
             ),
@@ -45,7 +51,10 @@ dynamic build(BuildContext context) {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text('Page 2', style: TextStyle(color: Colors.white, fontSize: 20.0)),
+                Text(
+                  'Page 2',
+                  style: TextStyle(color: Colors.white, fontSize: 20.0),
+                ),
                 Text('(kept alive)', style: TextStyle(color: Colors.white70)),
               ],
             ),
@@ -63,21 +72,18 @@ dynamic build(BuildContext context) {
     physics: NeverScrollableScrollPhysics(),
     slivers: [
       SliverList(
-        delegate: SliverChildBuilderDelegate(
-          (context, index) {
-            return Container(
-              height: 50.0,
-              color: Colors.primaries[index % Colors.primaries.length],
-              child: Center(
-                child: Text(
-                  'Sliver item $index (keep alive concept)',
-                  style: TextStyle(color: Colors.white),
-                ),
+        delegate: SliverChildBuilderDelegate((context, index) {
+          return Container(
+            height: 50.0,
+            color: Colors.primaries[index % Colors.primaries.length],
+            child: Center(
+              child: Text(
+                'Sliver item $index (keep alive concept)',
+                style: TextStyle(color: Colors.white),
               ),
-            );
-          },
-          childCount: 5,
-        ),
+            ),
+          );
+        }, childCount: 5),
       ),
     ],
   );

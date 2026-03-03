@@ -79,10 +79,7 @@ dynamic build(BuildContext context) {
   // ========== RENDER TABLE ==========
   print('--- RenderTable Tests ---');
 
-  final table = RenderTable(
-    columns: 3,
-    textDirection: TextDirection.ltr,
-  );
+  final table = RenderTable(columns: 3, textDirection: TextDirection.ltr);
   print('RenderTable(3 columns) created: ${table.runtimeType}');
   print('  columns: ${table.columns}');
   print('  rows: ${table.rows}');
@@ -111,21 +108,19 @@ dynamic build(BuildContext context) {
   // This is a known limitation for bridge testing.
   print('RenderFlow requires a FlowDelegate (abstract class)');
   print('Cannot construct RenderFlow without a concrete FlowDelegate subclass');
-  print('Limitation: FlowDelegate has abstract methods that must be overridden');
+  print(
+    'Limitation: FlowDelegate has abstract methods that must be overridden',
+  );
 
   // ========== RENDER LIST BODY ==========
   print('--- RenderListBody Tests ---');
 
-  final listBody = RenderListBody(
-    axisDirection: AxisDirection.down,
-  );
+  final listBody = RenderListBody(axisDirection: AxisDirection.down);
   print('RenderListBody(down) created: ${listBody.runtimeType}');
   print('  axisDirection: ${listBody.axisDirection}');
   print('  mainAxis: ${listBody.mainAxis}');
 
-  final listBodyRight = RenderListBody(
-    axisDirection: AxisDirection.right,
-  );
+  final listBodyRight = RenderListBody(axisDirection: AxisDirection.right);
   print('RenderListBody(right) axisDirection: ${listBodyRight.axisDirection}');
   print('  mainAxis: ${listBodyRight.mainAxis}');
 
@@ -135,7 +130,9 @@ dynamic build(BuildContext context) {
   print('AxisDirection.down: ${AxisDirection.down}');
   print('AxisDirection.left: ${AxisDirection.left}');
   print('AxisDirection.right: ${AxisDirection.right}');
-  print('axisDirectionToAxis(down): ${axisDirectionToAxis(AxisDirection.down)}');
+  print(
+    'axisDirectionToAxis(down): ${axisDirectionToAxis(AxisDirection.down)}',
+  );
   print(
     'axisDirectionToAxis(right): ${axisDirectionToAxis(AxisDirection.right)}',
   );

@@ -53,7 +53,9 @@ dynamic build(BuildContext context) {
   // Test with translation
   final translationMatrix = Matrix4.translationValues(10.0, 20.0, 0.0);
   final translateTransform = RenderTransform(transform: translationMatrix);
-  print('RenderTransform(translate) created: ${translateTransform.runtimeType}');
+  print(
+    'RenderTransform(translate) created: ${translateTransform.runtimeType}',
+  );
 
   // Test with rotation
   final rotationMatrix = Matrix4.rotationZ(0.5);

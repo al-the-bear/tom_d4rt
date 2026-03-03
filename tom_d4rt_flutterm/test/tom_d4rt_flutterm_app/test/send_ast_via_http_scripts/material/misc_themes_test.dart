@@ -17,9 +17,7 @@ dynamic build(BuildContext context) {
     collapsedIconColor: Colors.grey,
     textColor: Colors.blue,
     collapsedTextColor: Colors.black87,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(8.0),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
     collapsedShape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(8.0),
     ),
@@ -27,7 +25,9 @@ dynamic build(BuildContext context) {
   );
   print('ExpansionTileThemeData created');
   print('  backgroundColor: ${expansionTileThemeData.backgroundColor}');
-  print('  collapsedBackgroundColor: ${expansionTileThemeData.collapsedBackgroundColor}');
+  print(
+    '  collapsedBackgroundColor: ${expansionTileThemeData.collapsedBackgroundColor}',
+  );
   print('  iconColor: ${expansionTileThemeData.iconColor}');
   print('  collapsedIconColor: ${expansionTileThemeData.collapsedIconColor}');
   print('  textColor: ${expansionTileThemeData.textColor}');
@@ -116,17 +116,27 @@ dynamic build(BuildContext context) {
     endDrawerButtonIconBuilder: (context) => Icon(Icons.menu_open, size: 24.0),
   );
   print('ActionIconThemeData created');
-  print('  backButtonIconBuilder: ${actionIconThemeData.backButtonIconBuilder}');
-  print('  closeButtonIconBuilder: ${actionIconThemeData.closeButtonIconBuilder}');
-  print('  drawerButtonIconBuilder: ${actionIconThemeData.drawerButtonIconBuilder}');
-  print('  endDrawerButtonIconBuilder: ${actionIconThemeData.endDrawerButtonIconBuilder}');
+  print(
+    '  backButtonIconBuilder: ${actionIconThemeData.backButtonIconBuilder}',
+  );
+  print(
+    '  closeButtonIconBuilder: ${actionIconThemeData.closeButtonIconBuilder}',
+  );
+  print(
+    '  drawerButtonIconBuilder: ${actionIconThemeData.drawerButtonIconBuilder}',
+  );
+  print(
+    '  endDrawerButtonIconBuilder: ${actionIconThemeData.endDrawerButtonIconBuilder}',
+  );
 
   // Test copyWith
   final copiedActionIconTheme = actionIconThemeData.copyWith(
     backButtonIconBuilder: (context) => Icon(Icons.arrow_back, size: 24.0),
   );
   print('ActionIconThemeData.copyWith created');
-  print('  new backButtonIconBuilder: ${copiedActionIconTheme.backButtonIconBuilder}');
+  print(
+    '  new backButtonIconBuilder: ${copiedActionIconTheme.backButtonIconBuilder}',
+  );
 
   // ========== TEXT SELECTION THEME DATA ==========
   print('--- TextSelectionThemeData Tests ---');
@@ -139,7 +149,9 @@ dynamic build(BuildContext context) {
   print('TextSelectionThemeData created');
   print('  cursorColor: ${textSelectionThemeData.cursorColor}');
   print('  selectionColor: ${textSelectionThemeData.selectionColor}');
-  print('  selectionHandleColor: ${textSelectionThemeData.selectionHandleColor}');
+  print(
+    '  selectionHandleColor: ${textSelectionThemeData.selectionHandleColor}',
+  );
 
   // Test copyWith
   final copiedTextSelectionTheme = textSelectionThemeData.copyWith(
@@ -147,7 +159,9 @@ dynamic build(BuildContext context) {
   );
   print('TextSelectionThemeData.copyWith created');
   print('  new cursorColor: ${copiedTextSelectionTheme.cursorColor}');
-  print('  selectionColor preserved: ${copiedTextSelectionTheme.selectionColor}');
+  print(
+    '  selectionColor preserved: ${copiedTextSelectionTheme.selectionColor}',
+  );
 
   // ========== SCROLLBAR THEME DATA ==========
   print('--- ScrollbarThemeData Tests ---');
@@ -237,7 +251,9 @@ dynamic build(BuildContext context) {
   );
   print('PageTransitionsTheme created');
   print('  builders count: ${pageTransitionsTheme.builders.length}');
-  print('  android builder: ${pageTransitionsTheme.builders[TargetPlatform.android]}');
+  print(
+    '  android builder: ${pageTransitionsTheme.builders[TargetPlatform.android]}',
+  );
   print('  iOS builder: ${pageTransitionsTheme.builders[TargetPlatform.iOS]}');
 
   // ========== WRAP IN THEME WIDGET ==========
@@ -257,41 +273,50 @@ dynamic build(BuildContext context) {
 
   return Theme(
     data: themeData,
-    child: Builder(builder: (ctx) {
-      final resolvedTheme = Theme.of(ctx);
-      print('Theme.of resolved');
-      print('  expansionTileTheme.iconColor: ${resolvedTheme.expansionTileTheme.iconColor}');
-      print('  badgeTheme.backgroundColor: ${resolvedTheme.badgeTheme.backgroundColor}');
-      print('  textSelectionTheme.cursorColor: ${resolvedTheme.textSelectionTheme.cursorColor}');
-      print('  scrollbarTheme.interactive: ${resolvedTheme.scrollbarTheme.interactive}');
-      print('  bannerTheme.backgroundColor: ${resolvedTheme.bannerTheme.backgroundColor}');
+    child: Builder(
+      builder: (ctx) {
+        final resolvedTheme = Theme.of(ctx);
+        print('Theme.of resolved');
+        print(
+          '  expansionTileTheme.iconColor: ${resolvedTheme.expansionTileTheme.iconColor}',
+        );
+        print(
+          '  badgeTheme.backgroundColor: ${resolvedTheme.badgeTheme.backgroundColor}',
+        );
+        print(
+          '  textSelectionTheme.cursorColor: ${resolvedTheme.textSelectionTheme.cursorColor}',
+        );
+        print(
+          '  scrollbarTheme.interactive: ${resolvedTheme.scrollbarTheme.interactive}',
+        );
+        print(
+          '  bannerTheme.backgroundColor: ${resolvedTheme.bannerTheme.backgroundColor}',
+        );
 
-      return ExpansionTileTheme(
-        data: expansionTileThemeData,
-        child: SegmentedButtonTheme(
-          data: segmentedButtonThemeData,
-          child: BadgeTheme(
-            data: badgeThemeData,
-            child: TextSelectionTheme(
-              data: textSelectionThemeData,
-              child: ScrollbarTheme(
-                data: scrollbarThemeData,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Badge(
-                      label: Text('3'),
-                      child: Icon(Icons.mail),
-                    ),
-                    SizedBox(height: 8.0),
-                    Text('Misc themes test passed'),
-                  ],
+        return ExpansionTileTheme(
+          data: expansionTileThemeData,
+          child: SegmentedButtonTheme(
+            data: segmentedButtonThemeData,
+            child: BadgeTheme(
+              data: badgeThemeData,
+              child: TextSelectionTheme(
+                data: textSelectionThemeData,
+                child: ScrollbarTheme(
+                  data: scrollbarThemeData,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Badge(label: Text('3'), child: Icon(Icons.mail)),
+                      SizedBox(height: 8.0),
+                      Text('Misc themes test passed'),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-      );
-    }),
+        );
+      },
+    ),
   );
 }

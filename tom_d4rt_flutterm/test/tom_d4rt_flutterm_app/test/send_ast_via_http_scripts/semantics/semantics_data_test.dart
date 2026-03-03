@@ -100,11 +100,7 @@ dynamic build(BuildContext context) {
   // With spell out attribute
   final attrStr4 = AttributedString(
     'ABC123',
-    attributes: [
-      SpellOutStringAttribute(
-        range: TextRange(start: 0, end: 6),
-      ),
-    ],
+    attributes: [SpellOutStringAttribute(range: TextRange(start: 0, end: 6))],
   );
   print('AttributedString with spell-out:');
   print('  string: ${attrStr4.string}');
@@ -140,7 +136,10 @@ dynamic build(BuildContext context) {
           ),
           SizedBox(height: 16.0),
 
-          Text('Classes Tested:', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            'Classes Tested:',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('• SemanticsTag - semantic annotation tag'),
           Text('• OrdinalSortKey - ordering for accessibility'),
@@ -148,7 +147,10 @@ dynamic build(BuildContext context) {
           Text('• AttributedString - string with attributes'),
           SizedBox(height: 16.0),
 
-          Text('Framework-Only:', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            'Framework-Only:',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('• SemanticsData - full node data (framework-created)'),
           SizedBox(height: 16.0),

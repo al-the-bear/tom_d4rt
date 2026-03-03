@@ -180,7 +180,9 @@ dynamic build(BuildContext context) {
   // ========== RETURN WIDGET ==========
   return CupertinoApp(
     home: CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(middle: Text('DatePicker Modes Test')),
+      navigationBar: CupertinoNavigationBar(
+        middle: Text('DatePicker Modes Test'),
+      ),
       child: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -229,7 +231,10 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     'Tests Completed:',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16.0,
+                    ),
                   ),
                   SizedBox(height: 8.0),
                   Text('• CupertinoDatePickerMode.date'),

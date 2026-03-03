@@ -113,9 +113,7 @@ dynamic build(BuildContext context) {
         Container(
           width: 100,
           height: 100,
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.grey),
-          ),
+          decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
           child: Image(
             image: networkImage,
             errorBuilder: (ctx, error, stack) {

@@ -21,20 +21,52 @@ dynamic build(BuildContext context) {
 
   // ColorFilter.matrix
   final identityMatrix = <double>[
-    1, 0, 0, 0, 0,
-    0, 1, 0, 0, 0,
-    0, 0, 1, 0, 0,
-    0, 0, 0, 1, 0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
   ];
   final matrixFilter = ColorFilter.matrix(identityMatrix);
   print('ColorFilter.matrix(identity): $matrixFilter');
 
   // Greyscale matrix
   final greyscaleMatrix = <double>[
-    0.2126, 0.7152, 0.0722, 0, 0,
-    0.2126, 0.7152, 0.0722, 0, 0,
-    0.2126, 0.7152, 0.0722, 0, 0,
-    0,      0,      0,      1, 0,
+    0.2126,
+    0.7152,
+    0.0722,
+    0,
+    0,
+    0.2126,
+    0.7152,
+    0.0722,
+    0,
+    0,
+    0.2126,
+    0.7152,
+    0.0722,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
   ];
   final greyscaleFilter = ColorFilter.matrix(greyscaleMatrix);
   print('ColorFilter.matrix(greyscale): $greyscaleFilter');
@@ -49,10 +81,20 @@ dynamic build(BuildContext context) {
 
   // Test various BlendModes with ColorFilter
   final blendModes = [
-    BlendMode.src, BlendMode.dst, BlendMode.srcOver, BlendMode.dstOver,
-    BlendMode.srcIn, BlendMode.dstIn, BlendMode.srcOut, BlendMode.dstOut,
-    BlendMode.srcATop, BlendMode.dstATop, BlendMode.xor, BlendMode.multiply,
-    BlendMode.screen, BlendMode.overlay,
+    BlendMode.src,
+    BlendMode.dst,
+    BlendMode.srcOver,
+    BlendMode.dstOver,
+    BlendMode.srcIn,
+    BlendMode.dstIn,
+    BlendMode.srcOut,
+    BlendMode.dstOut,
+    BlendMode.srcATop,
+    BlendMode.dstATop,
+    BlendMode.xor,
+    BlendMode.multiply,
+    BlendMode.screen,
+    BlendMode.overlay,
   ];
   for (final mode in blendModes) {
     final f = ColorFilter.mode(Color(0xFF00FF00), mode);
@@ -140,7 +182,10 @@ dynamic build(BuildContext context) {
           ),
           SizedBox(height: 16.0),
 
-          Text('Classes Tested:', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            'Classes Tested:',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('• ColorFilter - color transformation filters'),
           Text('• MaskFilter - blur mask effects'),

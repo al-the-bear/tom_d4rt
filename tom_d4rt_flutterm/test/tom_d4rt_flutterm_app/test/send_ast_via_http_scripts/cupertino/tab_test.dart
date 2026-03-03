@@ -31,10 +31,7 @@ dynamic build(BuildContext context) {
   // Test basic CupertinoTabBar
   final basicTabBar = CupertinoTabBar(
     items: [
-      BottomNavigationBarItem(
-        icon: Icon(CupertinoIcons.home),
-        label: 'Home',
-      ),
+      BottomNavigationBarItem(icon: Icon(CupertinoIcons.home), label: 'Home'),
       BottomNavigationBarItem(
         icon: Icon(CupertinoIcons.search),
         label: 'Search',
@@ -51,10 +48,7 @@ dynamic build(BuildContext context) {
   final indexedTabBar = CupertinoTabBar(
     currentIndex: 1,
     items: [
-      BottomNavigationBarItem(
-        icon: Icon(CupertinoIcons.home),
-        label: 'Home',
-      ),
+      BottomNavigationBarItem(icon: Icon(CupertinoIcons.home), label: 'Home'),
       BottomNavigationBarItem(
         icon: Icon(CupertinoIcons.heart),
         label: 'Favorites',
@@ -71,10 +65,7 @@ dynamic build(BuildContext context) {
   final bgTabBar = CupertinoTabBar(
     backgroundColor: CupertinoColors.systemGroupedBackground,
     items: [
-      BottomNavigationBarItem(
-        icon: Icon(CupertinoIcons.home),
-        label: 'Home',
-      ),
+      BottomNavigationBarItem(icon: Icon(CupertinoIcons.home), label: 'Home'),
       BottomNavigationBarItem(
         icon: Icon(CupertinoIcons.search),
         label: 'Search',
@@ -88,18 +79,12 @@ dynamic build(BuildContext context) {
     activeColor: CupertinoColors.systemRed,
     inactiveColor: CupertinoColors.systemGrey,
     items: [
-      BottomNavigationBarItem(
-        icon: Icon(CupertinoIcons.doc),
-        label: 'Docs',
-      ),
+      BottomNavigationBarItem(icon: Icon(CupertinoIcons.doc), label: 'Docs'),
       BottomNavigationBarItem(
         icon: Icon(CupertinoIcons.folder),
         label: 'Files',
       ),
-      BottomNavigationBarItem(
-        icon: Icon(CupertinoIcons.cloud),
-        label: 'Cloud',
-      ),
+      BottomNavigationBarItem(icon: Icon(CupertinoIcons.cloud), label: 'Cloud'),
     ],
   );
   print('CupertinoTabBar with activeColor/inactiveColor created');
@@ -108,14 +93,8 @@ dynamic build(BuildContext context) {
   final iconSizeTabBar = CupertinoTabBar(
     iconSize: 32.0,
     items: [
-      BottomNavigationBarItem(
-        icon: Icon(CupertinoIcons.bell),
-        label: 'Alerts',
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(CupertinoIcons.mail),
-        label: 'Mail',
-      ),
+      BottomNavigationBarItem(icon: Icon(CupertinoIcons.bell), label: 'Alerts'),
+      BottomNavigationBarItem(icon: Icon(CupertinoIcons.mail), label: 'Mail'),
     ],
   );
   print('CupertinoTabBar with iconSize created');
@@ -126,10 +105,7 @@ dynamic build(BuildContext context) {
       print('Tab tapped: $index');
     },
     items: [
-      BottomNavigationBarItem(
-        icon: Icon(CupertinoIcons.home),
-        label: 'Home',
-      ),
+      BottomNavigationBarItem(icon: Icon(CupertinoIcons.home), label: 'Home'),
       BottomNavigationBarItem(
         icon: Icon(CupertinoIcons.gear),
         label: 'Settings',
@@ -145,10 +121,7 @@ dynamic build(BuildContext context) {
   final basicTabScaffold = CupertinoTabScaffold(
     tabBar: CupertinoTabBar(
       items: [
-        BottomNavigationBarItem(
-          icon: Icon(CupertinoIcons.home),
-          label: 'Home',
-        ),
+        BottomNavigationBarItem(icon: Icon(CupertinoIcons.home), label: 'Home'),
         BottomNavigationBarItem(
           icon: Icon(CupertinoIcons.search),
           label: 'Search',
@@ -163,9 +136,7 @@ dynamic build(BuildContext context) {
       return CupertinoTabView(
         builder: (BuildContext context) {
           return CupertinoPageScaffold(
-            navigationBar: CupertinoNavigationBar(
-              middle: Text('Tab $index'),
-            ),
+            navigationBar: CupertinoNavigationBar(middle: Text('Tab $index')),
             child: Center(child: Text('Content for tab $index')),
           );
         },
@@ -202,9 +173,7 @@ dynamic build(BuildContext context) {
       return CupertinoTabView(
         builder: (BuildContext context) {
           return CupertinoPageScaffold(
-            navigationBar: CupertinoNavigationBar(
-              middle: Text(titles[index]),
-            ),
+            navigationBar: CupertinoNavigationBar(middle: Text(titles[index])),
             child: Center(child: Text('Content: ${titles[index]}')),
           );
         },
@@ -218,10 +187,7 @@ dynamic build(BuildContext context) {
     backgroundColor: CupertinoColors.systemBackground,
     tabBar: CupertinoTabBar(
       items: [
-        BottomNavigationBarItem(
-          icon: Icon(CupertinoIcons.home),
-          label: 'Home',
-        ),
+        BottomNavigationBarItem(icon: Icon(CupertinoIcons.home), label: 'Home'),
         BottomNavigationBarItem(
           icon: Icon(CupertinoIcons.person),
           label: 'Profile',
@@ -282,7 +248,5 @@ dynamic build(BuildContext context) {
   print('All Cupertino tab tests passed');
 
   // ========== RETURN WIDGET ==========
-  return CupertinoApp(
-    home: basicTabScaffold,
-  );
+  return CupertinoApp(home: basicTabScaffold);
 }

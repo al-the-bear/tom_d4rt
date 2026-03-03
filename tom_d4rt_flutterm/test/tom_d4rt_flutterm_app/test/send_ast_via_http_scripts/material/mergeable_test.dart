@@ -112,7 +112,10 @@ dynamic build(BuildContext context) {
           child: Container(
             padding: EdgeInsets.all(16.0),
             color: Colors.indigo.shade50,
-            child: Text('Header', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            child: Text(
+              'Header',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
           ),
         ),
         MaterialGap(key: ValueKey('g1')),
@@ -134,7 +137,10 @@ dynamic build(BuildContext context) {
           child: Container(
             padding: EdgeInsets.all(16.0),
             color: Colors.grey.shade100,
-            child: Text('Footer', style: TextStyle(fontStyle: FontStyle.italic)),
+            child: Text(
+              'Footer',
+              style: TextStyle(fontStyle: FontStyle.italic),
+            ),
           ),
         ),
       ],
@@ -215,8 +221,14 @@ dynamic build(BuildContext context) {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Alice', style: TextStyle(fontWeight: FontWeight.bold)),
-                      Text('alice@example.com', style: TextStyle(color: Colors.grey)),
+                      Text(
+                        'Alice',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        'alice@example.com',
+                        style: TextStyle(color: Colors.grey),
+                      ),
                     ],
                   ),
                 ),
@@ -238,8 +250,14 @@ dynamic build(BuildContext context) {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Bob', style: TextStyle(fontWeight: FontWeight.bold)),
-                      Text('bob@example.com', style: TextStyle(color: Colors.grey)),
+                      Text(
+                        'Bob',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        'bob@example.com',
+                        style: TextStyle(color: Colors.grey),
+                      ),
                     ],
                   ),
                 ),

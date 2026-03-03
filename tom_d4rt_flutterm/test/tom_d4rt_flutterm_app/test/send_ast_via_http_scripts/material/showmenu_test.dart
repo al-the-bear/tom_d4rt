@@ -63,7 +63,10 @@ dynamic build(BuildContext context) {
             PopupMenuItem<String>(value: 'copy', child: Text('Copy')),
             PopupMenuItem<String>(value: 'paste', child: Text('Paste')),
             PopupMenuDivider(),
-            PopupMenuItem<String>(value: 'select_all', child: Text('Select All')),
+            PopupMenuItem<String>(
+              value: 'select_all',
+              child: Text('Select All'),
+            ),
           ],
           child: Padding(
             padding: EdgeInsets.all(8.0),

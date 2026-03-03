@@ -52,9 +52,7 @@ dynamic build(BuildContext context) {
     surfaceTintColor: Colors.blue.shade50,
     elevation: 2.0,
     margin: EdgeInsets.all(8.0),
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(12.0),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
     clipBehavior: Clip.antiAlias,
   );
   print('CardTheme created');
@@ -193,37 +191,40 @@ dynamic build(BuildContext context) {
 
   return Theme(
     data: themeData,
-    child: Builder(builder: (ctx) {
-      final resolvedTheme = Theme.of(ctx);
-      print('Theme.of resolved');
-      print('  listTileTheme.dense: ${resolvedTheme.listTileTheme.dense}');
-      print('  cardTheme.elevation: ${resolvedTheme.cardTheme.elevation}');
-      print('  chipTheme.backgroundColor: ${resolvedTheme.chipTheme.backgroundColor}');
-      print('  tooltipTheme.height: ${resolvedTheme.tooltipTheme.height}');
-      print('  dividerTheme.thickness: ${resolvedTheme.dividerTheme.thickness}');
+    child: Builder(
+      builder: (ctx) {
+        final resolvedTheme = Theme.of(ctx);
+        print('Theme.of resolved');
+        print('  listTileTheme.dense: ${resolvedTheme.listTileTheme.dense}');
+        print('  cardTheme.elevation: ${resolvedTheme.cardTheme.elevation}');
+        print(
+          '  chipTheme.backgroundColor: ${resolvedTheme.chipTheme.backgroundColor}',
+        );
+        print('  tooltipTheme.height: ${resolvedTheme.tooltipTheme.height}');
+        print(
+          '  dividerTheme.thickness: ${resolvedTheme.dividerTheme.thickness}',
+        );
 
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          ListTileTheme(
-            data: listTileThemeData,
-            child: ListTile(title: Text('ListTile themed')),
-          ),
-          ChipTheme(
-            data: chipThemeData,
-            child: Chip(label: Text('Chip themed')),
-          ),
-          TooltipTheme(
-            data: tooltipThemeData,
-            child: Tooltip(message: 'Test', child: Text('Tooltip themed')),
-          ),
-          DividerTheme(
-            data: dividerThemeData,
-            child: Divider(),
-          ),
-          Card(child: Text('Component themes test passed')),
-        ],
-      );
-    }),
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTileTheme(
+              data: listTileThemeData,
+              child: ListTile(title: Text('ListTile themed')),
+            ),
+            ChipTheme(
+              data: chipThemeData,
+              child: Chip(label: Text('Chip themed')),
+            ),
+            TooltipTheme(
+              data: tooltipThemeData,
+              child: Tooltip(message: 'Test', child: Text('Tooltip themed')),
+            ),
+            DividerTheme(data: dividerThemeData, child: Divider()),
+            Card(child: Text('Component themes test passed')),
+          ],
+        );
+      },
+    ),
   );
 }

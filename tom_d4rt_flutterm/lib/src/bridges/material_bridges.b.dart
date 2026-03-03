@@ -27,10 +27,7 @@ class FlutterMaterialBridges {
   static void register([D4rt? interpreter]) {
     final d4rt = interpreter ?? D4rt();
 
-    dart_ui_bridges.DartUiBridge.registerBridges(
-      d4rt,
-      'dart:ui',
-    );
+    dart_ui_bridges.DartUiBridge.registerBridges(d4rt, 'dart:ui');
     // Register under sub-package barrels for direct imports
     for (final barrel in dart_ui_bridges.DartUiBridge.subPackageBarrels()) {
       dart_ui_bridges.DartUiBridge.registerBridges(d4rt, barrel);
@@ -40,104 +37,162 @@ class FlutterMaterialBridges {
       'package:flutter/painting.dart',
     );
     // Register under sub-package barrels for direct imports
-    for (final barrel in flutter_painting_bridges.FlutterPaintingBridge.subPackageBarrels()) {
-      flutter_painting_bridges.FlutterPaintingBridge.registerBridges(d4rt, barrel);
+    for (final barrel
+        in flutter_painting_bridges.FlutterPaintingBridge.subPackageBarrels()) {
+      flutter_painting_bridges.FlutterPaintingBridge.registerBridges(
+        d4rt,
+        barrel,
+      );
     }
     flutter_foundation_bridges.FlutterFoundationBridge.registerBridges(
       d4rt,
       'package:flutter/foundation.dart',
     );
     // Register under sub-package barrels for direct imports
-    for (final barrel in flutter_foundation_bridges.FlutterFoundationBridge.subPackageBarrels()) {
-      flutter_foundation_bridges.FlutterFoundationBridge.registerBridges(d4rt, barrel);
+    for (final barrel
+        in flutter_foundation_bridges
+            .FlutterFoundationBridge.subPackageBarrels()) {
+      flutter_foundation_bridges.FlutterFoundationBridge.registerBridges(
+        d4rt,
+        barrel,
+      );
     }
     flutter_animation_bridges.FlutterAnimationBridge.registerBridges(
       d4rt,
       'package:flutter/animation.dart',
     );
     // Register under sub-package barrels for direct imports
-    for (final barrel in flutter_animation_bridges.FlutterAnimationBridge.subPackageBarrels()) {
-      flutter_animation_bridges.FlutterAnimationBridge.registerBridges(d4rt, barrel);
+    for (final barrel
+        in flutter_animation_bridges
+            .FlutterAnimationBridge.subPackageBarrels()) {
+      flutter_animation_bridges.FlutterAnimationBridge.registerBridges(
+        d4rt,
+        barrel,
+      );
     }
     flutter_physics_bridges.FlutterPhysicsBridge.registerBridges(
       d4rt,
       'package:flutter/physics.dart',
     );
     // Register under sub-package barrels for direct imports
-    for (final barrel in flutter_physics_bridges.FlutterPhysicsBridge.subPackageBarrels()) {
-      flutter_physics_bridges.FlutterPhysicsBridge.registerBridges(d4rt, barrel);
+    for (final barrel
+        in flutter_physics_bridges.FlutterPhysicsBridge.subPackageBarrels()) {
+      flutter_physics_bridges.FlutterPhysicsBridge.registerBridges(
+        d4rt,
+        barrel,
+      );
     }
     flutter_scheduler_bridges.FlutterSchedulerBridge.registerBridges(
       d4rt,
       'package:flutter/scheduler.dart',
     );
     // Register under sub-package barrels for direct imports
-    for (final barrel in flutter_scheduler_bridges.FlutterSchedulerBridge.subPackageBarrels()) {
-      flutter_scheduler_bridges.FlutterSchedulerBridge.registerBridges(d4rt, barrel);
+    for (final barrel
+        in flutter_scheduler_bridges
+            .FlutterSchedulerBridge.subPackageBarrels()) {
+      flutter_scheduler_bridges.FlutterSchedulerBridge.registerBridges(
+        d4rt,
+        barrel,
+      );
     }
     flutter_semantics_bridges.FlutterSemanticsBridge.registerBridges(
       d4rt,
       'package:flutter/semantics.dart',
     );
     // Register under sub-package barrels for direct imports
-    for (final barrel in flutter_semantics_bridges.FlutterSemanticsBridge.subPackageBarrels()) {
-      flutter_semantics_bridges.FlutterSemanticsBridge.registerBridges(d4rt, barrel);
+    for (final barrel
+        in flutter_semantics_bridges
+            .FlutterSemanticsBridge.subPackageBarrels()) {
+      flutter_semantics_bridges.FlutterSemanticsBridge.registerBridges(
+        d4rt,
+        barrel,
+      );
     }
     flutter_services_bridges.FlutterServicesBridge.registerBridges(
       d4rt,
       'package:flutter/services.dart',
     );
     // Register under sub-package barrels for direct imports
-    for (final barrel in flutter_services_bridges.FlutterServicesBridge.subPackageBarrels()) {
-      flutter_services_bridges.FlutterServicesBridge.registerBridges(d4rt, barrel);
+    for (final barrel
+        in flutter_services_bridges.FlutterServicesBridge.subPackageBarrels()) {
+      flutter_services_bridges.FlutterServicesBridge.registerBridges(
+        d4rt,
+        barrel,
+      );
     }
     flutter_gestures_bridges.FlutterGesturesBridge.registerBridges(
       d4rt,
       'package:flutter/gestures.dart',
     );
     // Register under sub-package barrels for direct imports
-    for (final barrel in flutter_gestures_bridges.FlutterGesturesBridge.subPackageBarrels()) {
-      flutter_gestures_bridges.FlutterGesturesBridge.registerBridges(d4rt, barrel);
+    for (final barrel
+        in flutter_gestures_bridges.FlutterGesturesBridge.subPackageBarrels()) {
+      flutter_gestures_bridges.FlutterGesturesBridge.registerBridges(
+        d4rt,
+        barrel,
+      );
     }
     flutter_rendering_bridges.FlutterRenderingBridge.registerBridges(
       d4rt,
       'package:flutter/rendering.dart',
     );
     // Register under sub-package barrels for direct imports
-    for (final barrel in flutter_rendering_bridges.FlutterRenderingBridge.subPackageBarrels()) {
-      flutter_rendering_bridges.FlutterRenderingBridge.registerBridges(d4rt, barrel);
+    for (final barrel
+        in flutter_rendering_bridges
+            .FlutterRenderingBridge.subPackageBarrels()) {
+      flutter_rendering_bridges.FlutterRenderingBridge.registerBridges(
+        d4rt,
+        barrel,
+      );
     }
     flutter_widgets_bridges.FlutterWidgetsBridge.registerBridges(
       d4rt,
       'package:flutter/widgets.dart',
     );
     // Register under sub-package barrels for direct imports
-    for (final barrel in flutter_widgets_bridges.FlutterWidgetsBridge.subPackageBarrels()) {
-      flutter_widgets_bridges.FlutterWidgetsBridge.registerBridges(d4rt, barrel);
+    for (final barrel
+        in flutter_widgets_bridges.FlutterWidgetsBridge.subPackageBarrels()) {
+      flutter_widgets_bridges.FlutterWidgetsBridge.registerBridges(
+        d4rt,
+        barrel,
+      );
     }
     flutter_material_bridges.FlutterMaterialBridge.registerBridges(
       d4rt,
       'package:flutter/material.dart',
     );
     // Register under sub-package barrels for direct imports
-    for (final barrel in flutter_material_bridges.FlutterMaterialBridge.subPackageBarrels()) {
-      flutter_material_bridges.FlutterMaterialBridge.registerBridges(d4rt, barrel);
+    for (final barrel
+        in flutter_material_bridges.FlutterMaterialBridge.subPackageBarrels()) {
+      flutter_material_bridges.FlutterMaterialBridge.registerBridges(
+        d4rt,
+        barrel,
+      );
     }
     flutter_cupertino_bridges.FlutterCupertinoBridge.registerBridges(
       d4rt,
       'package:flutter/cupertino.dart',
     );
     // Register under sub-package barrels for direct imports
-    for (final barrel in flutter_cupertino_bridges.FlutterCupertinoBridge.subPackageBarrels()) {
-      flutter_cupertino_bridges.FlutterCupertinoBridge.registerBridges(d4rt, barrel);
+    for (final barrel
+        in flutter_cupertino_bridges
+            .FlutterCupertinoBridge.subPackageBarrels()) {
+      flutter_cupertino_bridges.FlutterCupertinoBridge.registerBridges(
+        d4rt,
+        barrel,
+      );
     }
     // Register proxy/adapter bridges for abstract delegates (GEN-083)
     flutter_proxies_bridges.FlutterProxiesBridge.registerBridges(
       d4rt,
       'package:flutter/rendering.dart',
     );
-    for (final barrel in flutter_proxies_bridges.FlutterProxiesBridge.subPackageBarrels()) {
-      flutter_proxies_bridges.FlutterProxiesBridge.registerBridges(d4rt, barrel);
+    for (final barrel
+        in flutter_proxies_bridges.FlutterProxiesBridge.subPackageBarrels()) {
+      flutter_proxies_bridges.FlutterProxiesBridge.registerBridges(
+        d4rt,
+        barrel,
+      );
     }
   }
 
@@ -145,19 +200,45 @@ class FlutterMaterialBridges {
   static String getImportBlock() {
     final buffer = StringBuffer();
     buffer.writeln(dart_ui_bridges.DartUiBridge.getImportBlock());
-    buffer.writeln(flutter_painting_bridges.FlutterPaintingBridge.getImportBlock());
-    buffer.writeln(flutter_foundation_bridges.FlutterFoundationBridge.getImportBlock());
-    buffer.writeln(flutter_animation_bridges.FlutterAnimationBridge.getImportBlock());
-    buffer.writeln(flutter_physics_bridges.FlutterPhysicsBridge.getImportBlock());
-    buffer.writeln(flutter_scheduler_bridges.FlutterSchedulerBridge.getImportBlock());
-    buffer.writeln(flutter_semantics_bridges.FlutterSemanticsBridge.getImportBlock());
-    buffer.writeln(flutter_services_bridges.FlutterServicesBridge.getImportBlock());
-    buffer.writeln(flutter_gestures_bridges.FlutterGesturesBridge.getImportBlock());
-    buffer.writeln(flutter_rendering_bridges.FlutterRenderingBridge.getImportBlock());
-    buffer.writeln(flutter_widgets_bridges.FlutterWidgetsBridge.getImportBlock());
-    buffer.writeln(flutter_material_bridges.FlutterMaterialBridge.getImportBlock());
-    buffer.writeln(flutter_cupertino_bridges.FlutterCupertinoBridge.getImportBlock());
-    buffer.writeln(flutter_proxies_bridges.FlutterProxiesBridge.getImportBlock());
+    buffer.writeln(
+      flutter_painting_bridges.FlutterPaintingBridge.getImportBlock(),
+    );
+    buffer.writeln(
+      flutter_foundation_bridges.FlutterFoundationBridge.getImportBlock(),
+    );
+    buffer.writeln(
+      flutter_animation_bridges.FlutterAnimationBridge.getImportBlock(),
+    );
+    buffer.writeln(
+      flutter_physics_bridges.FlutterPhysicsBridge.getImportBlock(),
+    );
+    buffer.writeln(
+      flutter_scheduler_bridges.FlutterSchedulerBridge.getImportBlock(),
+    );
+    buffer.writeln(
+      flutter_semantics_bridges.FlutterSemanticsBridge.getImportBlock(),
+    );
+    buffer.writeln(
+      flutter_services_bridges.FlutterServicesBridge.getImportBlock(),
+    );
+    buffer.writeln(
+      flutter_gestures_bridges.FlutterGesturesBridge.getImportBlock(),
+    );
+    buffer.writeln(
+      flutter_rendering_bridges.FlutterRenderingBridge.getImportBlock(),
+    );
+    buffer.writeln(
+      flutter_widgets_bridges.FlutterWidgetsBridge.getImportBlock(),
+    );
+    buffer.writeln(
+      flutter_material_bridges.FlutterMaterialBridge.getImportBlock(),
+    );
+    buffer.writeln(
+      flutter_cupertino_bridges.FlutterCupertinoBridge.getImportBlock(),
+    );
+    buffer.writeln(
+      flutter_proxies_bridges.FlutterProxiesBridge.getImportBlock(),
+    );
     return buffer.toString();
   }
 }

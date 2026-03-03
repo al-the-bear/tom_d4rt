@@ -27,7 +27,9 @@ dynamic build(BuildContext context) {
     viewportFraction: 0.85,
     keepPage: false,
   );
-  print('PageController(initialPage: 1, viewportFraction: 0.85, keepPage: false) created');
+  print(
+    'PageController(initialPage: 1, viewportFraction: 0.85, keepPage: false) created',
+  );
   print('PageController initialPage: ${controller4.initialPage}');
   print('PageController viewportFraction: ${controller4.viewportFraction}');
   print('PageController keepPage: ${controller4.keepPage}');
@@ -42,21 +44,30 @@ dynamic build(BuildContext context) {
           margin: EdgeInsets.symmetric(horizontal: 8.0),
           color: Colors.blue,
           child: Center(
-            child: Text('Page 0', style: TextStyle(color: Colors.white, fontSize: 20.0)),
+            child: Text(
+              'Page 0',
+              style: TextStyle(color: Colors.white, fontSize: 20.0),
+            ),
           ),
         ),
         Container(
           margin: EdgeInsets.symmetric(horizontal: 8.0),
           color: Colors.green,
           child: Center(
-            child: Text('Page 1', style: TextStyle(color: Colors.white, fontSize: 20.0)),
+            child: Text(
+              'Page 1',
+              style: TextStyle(color: Colors.white, fontSize: 20.0),
+            ),
           ),
         ),
         Container(
           margin: EdgeInsets.symmetric(horizontal: 8.0),
           color: Colors.orange,
           child: Center(
-            child: Text('Page 2', style: TextStyle(color: Colors.white, fontSize: 20.0)),
+            child: Text(
+              'Page 2',
+              style: TextStyle(color: Colors.white, fontSize: 20.0),
+            ),
           ),
         ),
       ],

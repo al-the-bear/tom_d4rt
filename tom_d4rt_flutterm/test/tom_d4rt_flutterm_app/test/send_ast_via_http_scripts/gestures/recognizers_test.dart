@@ -78,7 +78,9 @@ dynamic build(BuildContext context) {
     print('  scale.onStart: focalPoint=${details.focalPoint}');
   };
   scale.onUpdate = (ScaleUpdateDetails details) {
-    print('  scale.onUpdate: scale=${details.scale}, rotation=${details.rotation}');
+    print(
+      '  scale.onUpdate: scale=${details.scale}, rotation=${details.rotation}',
+    );
   };
   scale.onEnd = (ScaleEndDetails details) {
     print('  scale.onEnd: velocity=${details.velocity}');
@@ -141,7 +143,9 @@ dynamic build(BuildContext context) {
   print('  debugDescription: ${forcePress.debugDescription}');
 
   forcePress.onStart = (ForcePressDetails details) {
-    print('  forcePress.onStart: ${details.globalPosition}, pressure=${details.pressure}');
+    print(
+      '  forcePress.onStart: ${details.globalPosition}, pressure=${details.pressure}',
+    );
   };
   forcePress.onPeak = (ForcePressDetails details) {
     print('  forcePress.onPeak: pressure=${details.pressure}');
@@ -187,7 +191,10 @@ dynamic build(BuildContext context) {
           ),
           SizedBox(height: 16.0),
 
-          Text('Classes Tested:', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            'Classes Tested:',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('• HorizontalDragGestureRecognizer'),
           Text('• VerticalDragGestureRecognizer'),
@@ -208,8 +215,12 @@ dynamic build(BuildContext context) {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('• Recognizers are typically created by GestureDetector'),
-                Text('• Each recognizer must be disposed when no longer needed'),
-                Text('• Callbacks receive detail objects with position/velocity'),
+                Text(
+                  '• Each recognizer must be disposed when no longer needed',
+                ),
+                Text(
+                  '• Callbacks receive detail objects with position/velocity',
+                ),
                 Text('• ForcePressGestureRecognizer requires 3D touch support'),
               ],
             ),

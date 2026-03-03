@@ -109,8 +109,10 @@ dynamic build(BuildContext context) {
           SizedBox(height: 16.0),
 
           // FadeTransition with AlwaysStoppedAnimation
-          Text('FadeTransition (opacity=0.5):',
-              style: TextStyle(fontSize: 12.0)),
+          Text(
+            'FadeTransition (opacity=0.5):',
+            style: TextStyle(fontSize: 12.0),
+          ),
           SizedBox(height: 4.0),
           FadeTransition(
             opacity: AlwaysStoppedAnimation<double>(0.5),
@@ -119,16 +121,20 @@ dynamic build(BuildContext context) {
               height: 40.0,
               color: Color(0xFF2196F3),
               child: Center(
-                child: Text('50% Opacity',
-                    style: TextStyle(color: Color(0xFFFFFFFF))),
+                child: Text(
+                  '50% Opacity',
+                  style: TextStyle(color: Color(0xFFFFFFFF)),
+                ),
               ),
             ),
           ),
           SizedBox(height: 12.0),
 
           // FadeTransition fully visible
-          Text('FadeTransition (opacity=1.0):',
-              style: TextStyle(fontSize: 12.0)),
+          Text(
+            'FadeTransition (opacity=1.0):',
+            style: TextStyle(fontSize: 12.0),
+          ),
           SizedBox(height: 4.0),
           FadeTransition(
             opacity: AlwaysStoppedAnimation<double>(1.0),
@@ -137,16 +143,20 @@ dynamic build(BuildContext context) {
               height: 40.0,
               color: Color(0xFF4CAF50),
               child: Center(
-                child: Text('100% Opacity',
-                    style: TextStyle(color: Color(0xFFFFFFFF))),
+                child: Text(
+                  '100% Opacity',
+                  style: TextStyle(color: Color(0xFFFFFFFF)),
+                ),
               ),
             ),
           ),
           SizedBox(height: 12.0),
 
           // FadeTransition low opacity
-          Text('FadeTransition (opacity=0.2):',
-              style: TextStyle(fontSize: 12.0)),
+          Text(
+            'FadeTransition (opacity=0.2):',
+            style: TextStyle(fontSize: 12.0),
+          ),
           SizedBox(height: 4.0),
           FadeTransition(
             opacity: AlwaysStoppedAnimation<double>(0.2),
@@ -155,16 +165,20 @@ dynamic build(BuildContext context) {
               height: 40.0,
               color: Color(0xFFFF9800),
               child: Center(
-                child: Text('20% Opacity',
-                    style: TextStyle(color: Color(0xFFFFFFFF))),
+                child: Text(
+                  '20% Opacity',
+                  style: TextStyle(color: Color(0xFFFFFFFF)),
+                ),
               ),
             ),
           ),
           SizedBox(height: 12.0),
 
           // SlideTransition
-          Text('SlideTransition (offset=0,0):',
-              style: TextStyle(fontSize: 12.0)),
+          Text(
+            'SlideTransition (offset=0,0):',
+            style: TextStyle(fontSize: 12.0),
+          ),
           SizedBox(height: 4.0),
           SlideTransition(
             position: AlwaysStoppedAnimation<Offset>(Offset(0.0, 0.0)),
@@ -173,16 +187,20 @@ dynamic build(BuildContext context) {
               height: 40.0,
               color: Color(0xFF9C27B0),
               child: Center(
-                child: Text('No Slide',
-                    style: TextStyle(color: Color(0xFFFFFFFF))),
+                child: Text(
+                  'No Slide',
+                  style: TextStyle(color: Color(0xFFFFFFFF)),
+                ),
               ),
             ),
           ),
           SizedBox(height: 12.0),
 
           // RotationTransition
-          Text('RotationTransition (turns=0.25):',
-              style: TextStyle(fontSize: 12.0)),
+          Text(
+            'RotationTransition (turns=0.25):',
+            style: TextStyle(fontSize: 12.0),
+          ),
           SizedBox(height: 4.0),
           SizedBox(
             width: 60.0,
@@ -192,9 +210,10 @@ dynamic build(BuildContext context) {
               child: Container(
                 color: Color(0xFFE91E63),
                 child: Center(
-                  child: Text('R',
-                      style: TextStyle(
-                          color: Color(0xFFFFFFFF), fontSize: 16.0)),
+                  child: Text(
+                    'R',
+                    style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 16.0),
+                  ),
                 ),
               ),
             ),
@@ -202,8 +221,10 @@ dynamic build(BuildContext context) {
           SizedBox(height: 12.0),
 
           // ScaleTransition
-          Text('ScaleTransition (scale=0.8):',
-              style: TextStyle(fontSize: 12.0)),
+          Text(
+            'ScaleTransition (scale=0.8):',
+            style: TextStyle(fontSize: 12.0),
+          ),
           SizedBox(height: 4.0),
           ScaleTransition(
             scale: AlwaysStoppedAnimation<double>(0.8),
@@ -212,8 +233,10 @@ dynamic build(BuildContext context) {
               height: 40.0,
               color: Color(0xFF009688),
               child: Center(
-                child: Text('80% Scale',
-                    style: TextStyle(color: Color(0xFFFFFFFF))),
+                child: Text(
+                  '80% Scale',
+                  style: TextStyle(color: Color(0xFFFFFFFF)),
+                ),
               ),
             ),
           ),
@@ -228,18 +251,25 @@ dynamic build(BuildContext context) {
               children: [
                 Text(
                   'AlwaysStoppedAnimation Summary:',
-                  style:
-                      TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0),
                 ),
                 SizedBox(height: 4.0),
-                Text('• Provides a constant animation value',
-                    style: TextStyle(fontSize: 11.0)),
-                Text('• Status is always AnimationStatus.forward',
-                    style: TextStyle(fontSize: 11.0)),
-                Text('• Useful for static transition widgets',
-                    style: TextStyle(fontSize: 11.0)),
-                Text('• Supports any type: double, Color, Offset, etc.',
-                    style: TextStyle(fontSize: 11.0)),
+                Text(
+                  '• Provides a constant animation value',
+                  style: TextStyle(fontSize: 11.0),
+                ),
+                Text(
+                  '• Status is always AnimationStatus.forward',
+                  style: TextStyle(fontSize: 11.0),
+                ),
+                Text(
+                  '• Useful for static transition widgets',
+                  style: TextStyle(fontSize: 11.0),
+                ),
+                Text(
+                  '• Supports any type: double, Color, Offset, etc.',
+                  style: TextStyle(fontSize: 11.0),
+                ),
               ],
             ),
           ),

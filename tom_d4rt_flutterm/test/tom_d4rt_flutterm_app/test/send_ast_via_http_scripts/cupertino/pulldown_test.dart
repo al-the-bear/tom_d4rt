@@ -61,9 +61,7 @@ dynamic build(BuildContext context) {
   // ========== CUPERTINOPULLDOWNMENUTITLE ==========
   print('--- CupertinoPulldownMenuTitle Tests ---');
 
-  final pulldownTitle = CupertinoPulldownMenuTitle(
-    title: Text('Category'),
-  );
+  final pulldownTitle = CupertinoPulldownMenuTitle(title: Text('Category'));
   print('CupertinoPulldownMenuTitle created');
 
   // ========== FULL PULLDOWN MENU ==========
@@ -110,18 +108,9 @@ dynamic build(BuildContext context) {
   // Test pulldown without icon
   final simplePulldown = CupertinoPulldownButton(
     itemBuilder: (BuildContext context) => [
-      CupertinoPulldownMenuItem(
-        title: Text('Small'),
-        onTap: () {},
-      ),
-      CupertinoPulldownMenuItem(
-        title: Text('Medium'),
-        onTap: () {},
-      ),
-      CupertinoPulldownMenuItem(
-        title: Text('Large'),
-        onTap: () {},
-      ),
+      CupertinoPulldownMenuItem(title: Text('Small'), onTap: () {}),
+      CupertinoPulldownMenuItem(title: Text('Medium'), onTap: () {}),
+      CupertinoPulldownMenuItem(title: Text('Large'), onTap: () {}),
     ],
     child: Text('Size'),
   );

@@ -15,7 +15,10 @@ dynamic build(BuildContext context) {
     onPaintChildren: (FlowPaintingContext context) {
       var xOffset = 0.0;
       for (var i = 0; i < context.childCount; i = i + 1) {
-        context.paintChild(i, transform: Matrix4.translationValues(xOffset, 0, 0));
+        context.paintChild(
+          i,
+          transform: Matrix4.translationValues(xOffset, 0, 0),
+        );
         xOffset = xOffset + 70.0;
       }
     },
@@ -42,7 +45,10 @@ dynamic build(BuildContext context) {
     onPaintChildren: (FlowPaintingContext context) {
       var yOffset = 0.0;
       for (var i = 0; i < context.childCount; i = i + 1) {
-        context.paintChild(i, transform: Matrix4.translationValues(0, yOffset, 0));
+        context.paintChild(
+          i,
+          transform: Matrix4.translationValues(0, yOffset, 0),
+        );
         yOffset = yOffset + 50.0;
       }
     },
@@ -87,9 +93,15 @@ dynamic build(BuildContext context) {
 
   final gridChildren = <Widget>[];
   final gridColors = [
-    Colors.red, Colors.green, Colors.blue,
-    Colors.orange, Colors.purple, Colors.teal,
-    Colors.amber, Colors.indigo, Colors.pink,
+    Colors.red,
+    Colors.green,
+    Colors.blue,
+    Colors.orange,
+    Colors.purple,
+    Colors.teal,
+    Colors.amber,
+    Colors.indigo,
+    Colors.pink,
   ];
   for (var i = 0; i < gridColors.length; i = i + 1) {
     gridChildren.add(
@@ -97,10 +109,7 @@ dynamic build(BuildContext context) {
     );
   }
 
-  final widget3 = Flow(
-    delegate: gridDelegate,
-    children: gridChildren,
-  );
+  final widget3 = Flow(delegate: gridDelegate, children: gridChildren);
   print('Flow with grid delegate and ${gridColors.length} children created');
 
   // ========== DYNAMIC REPAINT ==========
@@ -147,7 +156,9 @@ dynamic build(BuildContext context) {
   final emptyDelegate = D4rtFlowDelegate(
     onPaintChildren: (FlowPaintingContext context) {
       // No children to paint
-      print('Empty delegate paintChildren called, childCount: ${context.childCount}');
+      print(
+        'Empty delegate paintChildren called, childCount: ${context.childCount}',
+      );
     },
     onShouldRepaint: (FlowDelegate oldDelegate) => false,
   );
@@ -160,29 +171,13 @@ dynamic build(BuildContext context) {
     children: [
       Text('D4rtFlowDelegate Proxy Tests'),
       SizedBox(height: 8.0),
-      SizedBox(
-        width: 250.0,
-        height: 70.0,
-        child: widget1,
-      ),
+      SizedBox(width: 250.0, height: 70.0, child: widget1),
       SizedBox(height: 8.0),
-      SizedBox(
-        width: 250.0,
-        height: 210.0,
-        child: widget2,
-      ),
+      SizedBox(width: 250.0, height: 210.0, child: widget2),
       SizedBox(height: 8.0),
-      SizedBox(
-        width: 180.0,
-        height: 180.0,
-        child: widget3,
-      ),
+      SizedBox(width: 180.0, height: 180.0, child: widget3),
       SizedBox(height: 8.0),
-      SizedBox(
-        width: 200.0,
-        height: 70.0,
-        child: widget4,
-      ),
+      SizedBox(width: 200.0, height: 70.0, child: widget4),
     ],
   );
 }

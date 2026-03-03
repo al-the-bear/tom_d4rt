@@ -95,7 +95,8 @@ dynamic build(BuildContext context) {
     overlayColor: WidgetStateProperty.all(Colors.blue.withValues(alpha: 0.1)),
     splashRadius: 20.0,
     thumbIcon: WidgetStateProperty.resolveWith((states) {
-      if (states.contains(WidgetState.selected)) return Icon(Icons.check, size: 14.0);
+      if (states.contains(WidgetState.selected))
+        return Icon(Icons.check, size: 14.0);
       return null;
     }),
   );
@@ -105,9 +106,7 @@ dynamic build(BuildContext context) {
   print('  trackColor: ${switchThemeData.trackColor}');
 
   // Test copyWith
-  final copiedSwitchTheme = switchThemeData.copyWith(
-    splashRadius: 24.0,
-  );
+  final copiedSwitchTheme = switchThemeData.copyWith(splashRadius: 24.0);
   print('SwitchThemeData.copyWith created');
   print('  new splashRadius: ${copiedSwitchTheme.splashRadius}');
 
@@ -133,9 +132,7 @@ dynamic build(BuildContext context) {
   print('  visualDensity: ${checkboxThemeData.visualDensity}');
 
   // Test copyWith
-  final copiedCheckboxTheme = checkboxThemeData.copyWith(
-    splashRadius: 24.0,
-  );
+  final copiedCheckboxTheme = checkboxThemeData.copyWith(splashRadius: 24.0);
   print('CheckboxThemeData.copyWith created');
   print('  new splashRadius: ${copiedCheckboxTheme.splashRadius}');
 
@@ -157,9 +154,7 @@ dynamic build(BuildContext context) {
   print('  visualDensity: ${radioThemeData.visualDensity}');
 
   // Test copyWith
-  final copiedRadioTheme = radioThemeData.copyWith(
-    splashRadius: 24.0,
-  );
+  final copiedRadioTheme = radioThemeData.copyWith(splashRadius: 24.0);
   print('RadioThemeData.copyWith created');
   print('  new splashRadius: ${copiedRadioTheme.splashRadius}');
 
@@ -178,7 +173,9 @@ dynamic build(BuildContext context) {
   print('  linearTrackColor: ${progressThemeData.linearTrackColor}');
   print('  circularTrackColor: ${progressThemeData.circularTrackColor}');
   print('  linearMinHeight: ${progressThemeData.linearMinHeight}');
-  print('  refreshBackgroundColor: ${progressThemeData.refreshBackgroundColor}');
+  print(
+    '  refreshBackgroundColor: ${progressThemeData.refreshBackgroundColor}',
+  );
 
   // Test copyWith
   final copiedProgressTheme = progressThemeData.copyWith(
@@ -204,37 +201,47 @@ dynamic build(BuildContext context) {
 
   return Theme(
     data: themeData,
-    child: Builder(builder: (ctx) {
-      final resolvedTheme = Theme.of(ctx);
-      print('Theme.of resolved');
-      print('  tabBarTheme.labelColor: ${resolvedTheme.tabBarTheme.labelColor}');
-      print('  sliderTheme.thumbColor: ${resolvedTheme.sliderTheme.thumbColor}');
-      print('  checkboxTheme.splashRadius: ${resolvedTheme.checkboxTheme.splashRadius}');
-      print('  progressIndicatorTheme.color: ${resolvedTheme.progressIndicatorTheme.color}');
+    child: Builder(
+      builder: (ctx) {
+        final resolvedTheme = Theme.of(ctx);
+        print('Theme.of resolved');
+        print(
+          '  tabBarTheme.labelColor: ${resolvedTheme.tabBarTheme.labelColor}',
+        );
+        print(
+          '  sliderTheme.thumbColor: ${resolvedTheme.sliderTheme.thumbColor}',
+        );
+        print(
+          '  checkboxTheme.splashRadius: ${resolvedTheme.checkboxTheme.splashRadius}',
+        );
+        print(
+          '  progressIndicatorTheme.color: ${resolvedTheme.progressIndicatorTheme.color}',
+        );
 
-      return SliderTheme(
-        data: sliderThemeData,
-        child: SwitchTheme(
-          data: switchThemeData,
-          child: CheckboxTheme(
-            data: checkboxThemeData,
-            child: RadioTheme(
-              data: radioThemeData,
-              child: ProgressIndicatorTheme(
-                data: progressThemeData,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    LinearProgressIndicator(value: 0.6),
-                    SizedBox(height: 8.0),
-                    Text('Input themes test passed'),
-                  ],
+        return SliderTheme(
+          data: sliderThemeData,
+          child: SwitchTheme(
+            data: switchThemeData,
+            child: CheckboxTheme(
+              data: checkboxThemeData,
+              child: RadioTheme(
+                data: radioThemeData,
+                child: ProgressIndicatorTheme(
+                  data: progressThemeData,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      LinearProgressIndicator(value: 0.6),
+                      SizedBox(height: 8.0),
+                      Text('Input themes test passed'),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-      );
-    }),
+        );
+      },
+    ),
   );
 }

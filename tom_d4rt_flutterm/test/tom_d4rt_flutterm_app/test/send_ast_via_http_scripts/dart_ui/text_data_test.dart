@@ -28,9 +28,15 @@ dynamic build(BuildContext context) {
   print('All three combined: $allThree');
 
   // Test contains
-  print('Combined contains underline: ${combined.contains(TextDecoration.underline)}');
-  print('Combined contains overline: ${combined.contains(TextDecoration.overline)}');
-  print('Combined contains lineThrough: ${combined.contains(TextDecoration.lineThrough)}');
+  print(
+    'Combined contains underline: ${combined.contains(TextDecoration.underline)}',
+  );
+  print(
+    'Combined contains overline: ${combined.contains(TextDecoration.overline)}',
+  );
+  print(
+    'Combined contains lineThrough: ${combined.contains(TextDecoration.lineThrough)}',
+  );
 
   // ========== TEXTPOSITION ==========
   print('--- TextPosition Tests ---');
@@ -147,7 +153,10 @@ dynamic build(BuildContext context) {
           ),
           SizedBox(height: 16.0),
 
-          Text('Classes Tested:', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            'Classes Tested:',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('• TextDecoration - underline, overline, lineThrough'),
           Text('• TextPosition - cursor position with affinity'),

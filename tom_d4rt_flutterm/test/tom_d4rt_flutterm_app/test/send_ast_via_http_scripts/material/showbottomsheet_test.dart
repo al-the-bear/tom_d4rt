@@ -103,32 +103,36 @@ dynamic build(BuildContext context) {
         ),
         SizedBox(height: 8.0),
         // Button to test showBottomSheet (persistent, via Scaffold)
-        Builder(builder: (scaffoldCtx) {
-          return ElevatedButton(
-            onPressed: () {
-              try {
-                Scaffold.of(scaffoldCtx).showBottomSheet(
-                  (ctx) => Container(
-                    height: 150,
-                    color: Colors.blue.shade100,
-                    padding: EdgeInsets.all(16.0),
-                    child: Column(
-                      children: [
-                        Text('Persistent Bottom Sheet'),
-                        SizedBox(height: 8.0),
-                        Text('Shown via Scaffold.of(context).showBottomSheet'),
-                      ],
+        Builder(
+          builder: (scaffoldCtx) {
+            return ElevatedButton(
+              onPressed: () {
+                try {
+                  Scaffold.of(scaffoldCtx).showBottomSheet(
+                    (ctx) => Container(
+                      height: 150,
+                      color: Colors.blue.shade100,
+                      padding: EdgeInsets.all(16.0),
+                      child: Column(
+                        children: [
+                          Text('Persistent Bottom Sheet'),
+                          SizedBox(height: 8.0),
+                          Text(
+                            'Shown via Scaffold.of(context).showBottomSheet',
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                );
-                print('showBottomSheet (persistent) called');
-              } catch (e) {
-                print('showBottomSheet failed: $e');
-              }
-            },
-            child: Text('Show Persistent Sheet'),
-          );
-        }),
+                  );
+                  print('showBottomSheet (persistent) called');
+                } catch (e) {
+                  print('showBottomSheet failed: $e');
+                }
+              },
+              child: Text('Show Persistent Sheet'),
+            );
+          },
+        ),
       ],
     ),
   );

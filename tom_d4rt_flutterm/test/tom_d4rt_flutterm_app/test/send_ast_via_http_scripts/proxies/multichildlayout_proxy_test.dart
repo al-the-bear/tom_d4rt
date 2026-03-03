@@ -20,7 +20,9 @@ dynamic build(BuildContext context) {
     onShouldRelayout: (MultiChildLayoutDelegate oldDelegate) => false,
   );
   print('D4rtMultiChildLayoutDelegate created: ${basicDelegate.runtimeType}');
-  print('  is MultiChildLayoutDelegate: ${basicDelegate is MultiChildLayoutDelegate}');
+  print(
+    '  is MultiChildLayoutDelegate: ${basicDelegate is MultiChildLayoutDelegate}',
+  );
 
   // Use in CustomMultiChildLayout widget
   final widget1 = CustomMultiChildLayout(
@@ -102,11 +104,7 @@ dynamic build(BuildContext context) {
     children: [
       LayoutId(
         id: 'background',
-        child: Container(
-          width: 200.0,
-          height: 200.0,
-          color: Colors.amber,
-        ),
+        child: Container(width: 200.0, height: 200.0, color: Colors.amber),
       ),
       LayoutId(
         id: 'foreground',
@@ -179,29 +177,13 @@ dynamic build(BuildContext context) {
     children: [
       Text('D4rtMultiChildLayoutDelegate Proxy Tests'),
       SizedBox(height: 8.0),
-      SizedBox(
-        width: 250.0,
-        height: 160.0,
-        child: widget1,
-      ),
+      SizedBox(width: 250.0, height: 160.0, child: widget1),
       SizedBox(height: 8.0),
-      SizedBox(
-        width: 250.0,
-        height: 180.0,
-        child: widget2,
-      ),
+      SizedBox(width: 250.0, height: 180.0, child: widget2),
       SizedBox(height: 8.0),
-      SizedBox(
-        width: 220.0,
-        height: 210.0,
-        child: widget3,
-      ),
+      SizedBox(width: 220.0, height: 210.0, child: widget3),
       SizedBox(height: 8.0),
-      SizedBox(
-        width: 200.0,
-        height: 60.0,
-        child: widget4,
-      ),
+      SizedBox(width: 200.0, height: 60.0, child: widget4),
     ],
   );
 }

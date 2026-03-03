@@ -92,9 +92,13 @@ dynamic build(BuildContext context) {
     final name = entry.$1;
     final curve = entry.$2;
     final ct = CurveTween(curve: curve);
-    final values = [0.0, 0.25, 0.5, 0.75, 1.0]
-        .map((t) => ct.transform(t).toStringAsFixed(3))
-        .join(', ');
+    final values = [
+      0.0,
+      0.25,
+      0.5,
+      0.75,
+      1.0,
+    ].map((t) => ct.transform(t).toStringAsFixed(3)).join(', ');
     print('CurveTween($name): [$values]');
   }
 
@@ -203,14 +207,36 @@ dynamic build(BuildContext context) {
           Row(
             children: [
               for (final t in [
-                0.0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45,
-                0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0,
+                0.0,
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.25,
+                0.3,
+                0.35,
+                0.4,
+                0.45,
+                0.5,
+                0.55,
+                0.6,
+                0.65,
+                0.7,
+                0.75,
+                0.8,
+                0.85,
+                0.9,
+                0.95,
+                1.0,
               ])
                 Expanded(
                   child: Container(
                     height: 24.0,
-                    color: colorChained.evaluate(AlwaysStoppedAnimation<double>(t))
-                        ?? Color(0xFF000000),
+                    color:
+                        colorChained.evaluate(
+                          AlwaysStoppedAnimation<double>(t),
+                        ) ??
+                        Color(0xFF000000),
                   ),
                 ),
             ],
@@ -228,16 +254,26 @@ dynamic build(BuildContext context) {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0),
                 ),
                 SizedBox(height: 4.0),
-                Text('• Animatable is the base class for Tween',
-                    style: TextStyle(fontSize: 11.0)),
-                Text('• evaluate() maps Animation<double> to a value',
-                    style: TextStyle(fontSize: 11.0)),
-                Text('• transform() maps a raw double (0..1) to a value',
-                    style: TextStyle(fontSize: 11.0)),
-                Text('• chain() composes Animatables (e.g., CurveTween)',
-                    style: TextStyle(fontSize: 11.0)),
-                Text('• CurveTween wraps a Curve as an Animatable',
-                    style: TextStyle(fontSize: 11.0)),
+                Text(
+                  '• Animatable is the base class for Tween',
+                  style: TextStyle(fontSize: 11.0),
+                ),
+                Text(
+                  '• evaluate() maps Animation<double> to a value',
+                  style: TextStyle(fontSize: 11.0),
+                ),
+                Text(
+                  '• transform() maps a raw double (0..1) to a value',
+                  style: TextStyle(fontSize: 11.0),
+                ),
+                Text(
+                  '• chain() composes Animatables (e.g., CurveTween)',
+                  style: TextStyle(fontSize: 11.0),
+                ),
+                Text(
+                  '• CurveTween wraps a Curve as an Animatable',
+                  style: TextStyle(fontSize: 11.0),
+                ),
               ],
             ),
           ),
@@ -252,8 +288,27 @@ Widget _tweenBarChart(Animatable<double> animatable, Color color) {
     crossAxisAlignment: CrossAxisAlignment.end,
     children: [
       for (final t in [
-        0.0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45,
-        0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0,
+        0.0,
+        0.05,
+        0.1,
+        0.15,
+        0.2,
+        0.25,
+        0.3,
+        0.35,
+        0.4,
+        0.45,
+        0.5,
+        0.55,
+        0.6,
+        0.65,
+        0.7,
+        0.75,
+        0.8,
+        0.85,
+        0.9,
+        0.95,
+        1.0,
       ])
         Expanded(
           child: Container(

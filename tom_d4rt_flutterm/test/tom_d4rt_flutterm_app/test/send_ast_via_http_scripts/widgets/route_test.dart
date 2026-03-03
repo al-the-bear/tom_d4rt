@@ -21,7 +21,9 @@ dynamic build(BuildContext context) {
     name: '/detail',
     arguments: {'id': 42, 'title': 'Hello'},
   );
-  print('RouteSettings(name: /detail, arguments: {id: 42, title: Hello}) created');
+  print(
+    'RouteSettings(name: /detail, arguments: {id: 42, title: Hello}) created',
+  );
   print('RouteSettings name: ${settings2.name}');
   print('RouteSettings arguments: ${settings2.arguments}');
 
@@ -69,7 +71,9 @@ dynamic build(BuildContext context) {
             Text('Route/RouteSettings/NavigatorObserver tests'),
             SizedBox(height: 8.0),
             Text('RouteSettings: ${settings1.name}'),
-            Text('RouteSettings: ${settings2.name} args=${settings2.arguments}'),
+            Text(
+              'RouteSettings: ${settings2.name} args=${settings2.arguments}',
+            ),
             SizedBox(height: 8.0),
             ElevatedButton(
               child: Text('Push MaterialPageRoute'),

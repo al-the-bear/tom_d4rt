@@ -9,9 +9,7 @@ dynamic build(BuildContext context) {
   // ========== LINEAR GRADIENT ==========
   print('--- LinearGradient Tests ---');
 
-  final linearGrad = LinearGradient(
-    colors: [Colors.red, Colors.blue],
-  );
+  final linearGrad = LinearGradient(colors: [Colors.red, Colors.blue]);
   print('LinearGradient created: ${linearGrad.runtimeType}');
   print('  begin: ${linearGrad.begin}');
   print('  end: ${linearGrad.end}');
@@ -40,14 +38,14 @@ dynamic build(BuildContext context) {
   final linearShaderCustom = linearGradCustom.createShader(
     Rect.fromLTWH(0, 0, 100, 300),
   );
-  print('LinearGradient(custom).createShader: ${linearShaderCustom.runtimeType}');
+  print(
+    'LinearGradient(custom).createShader: ${linearShaderCustom.runtimeType}',
+  );
 
   // ========== RADIAL GRADIENT ==========
   print('--- RadialGradient Tests ---');
 
-  final radialGrad = RadialGradient(
-    colors: [Colors.white, Colors.black],
-  );
+  final radialGrad = RadialGradient(colors: [Colors.white, Colors.black]);
   print('RadialGradient created: ${radialGrad.runtimeType}');
   print('  center: ${radialGrad.center}');
   print('  radius: ${radialGrad.radius}');
@@ -131,27 +129,24 @@ dynamic build(BuildContext context) {
   print('--- Gradient in BoxDecoration ---');
 
   final decoration = BoxDecoration(
-    gradient: LinearGradient(
-      colors: [Colors.blue, Colors.purple],
-    ),
+    gradient: LinearGradient(colors: [Colors.blue, Colors.purple]),
   );
   print('BoxDecoration with gradient: ${decoration.runtimeType}');
   print('  gradient: ${decoration.gradient.runtimeType}');
 
   final radialDecoration = BoxDecoration(
-    gradient: RadialGradient(
-      colors: [Colors.white, Colors.grey],
-      radius: 1.0,
-    ),
+    gradient: RadialGradient(colors: [Colors.white, Colors.grey], radius: 1.0),
   );
-  print('BoxDecoration with radial gradient: ${radialDecoration.gradient.runtimeType}');
+  print(
+    'BoxDecoration with radial gradient: ${radialDecoration.gradient.runtimeType}',
+  );
 
   final sweepDecoration = BoxDecoration(
-    gradient: SweepGradient(
-      colors: [Colors.red, Colors.blue, Colors.red],
-    ),
+    gradient: SweepGradient(colors: [Colors.red, Colors.blue, Colors.red]),
   );
-  print('BoxDecoration with sweep gradient: ${sweepDecoration.gradient.runtimeType}');
+  print(
+    'BoxDecoration with sweep gradient: ${sweepDecoration.gradient.runtimeType}',
+  );
 
   // ========== GRADIENT SCALE ==========
   print('--- Gradient scale ---');

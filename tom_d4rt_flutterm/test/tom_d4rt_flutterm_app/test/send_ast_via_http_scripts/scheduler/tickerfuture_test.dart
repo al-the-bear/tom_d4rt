@@ -96,14 +96,20 @@ dynamic build(BuildContext context) {
           ),
           SizedBox(height: 16.0),
 
-          Text('Classes Tested:', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            'Classes Tested:',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('• TickerFuture - animation completion future'),
           Text('• TickerCanceled - cancellation exception'),
           Text('• Priority - scheduling priority'),
           SizedBox(height: 16.0),
 
-          Text('Bridge Availability:', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            'Bridge Availability:',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Container(
             padding: EdgeInsets.all(8.0),

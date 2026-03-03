@@ -41,15 +41,11 @@ dynamic build(BuildContext context) {
   final defaultIconTheme = IconThemeData();
   print('Default IconThemeData created');
 
-  final coloredIconTheme = IconThemeData(
-    color: CupertinoColors.systemBlue,
-  );
+  final coloredIconTheme = IconThemeData(color: CupertinoColors.systemBlue);
   print('IconThemeData with color created');
   print('  color: ${coloredIconTheme.color}');
 
-  final sizedIconTheme = IconThemeData(
-    size: 32.0,
-  );
+  final sizedIconTheme = IconThemeData(size: 32.0);
   print('IconThemeData with size created');
   print('  size: ${sizedIconTheme.size}');
 

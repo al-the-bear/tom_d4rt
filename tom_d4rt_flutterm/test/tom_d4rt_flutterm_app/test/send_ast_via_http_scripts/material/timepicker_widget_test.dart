@@ -60,7 +60,9 @@ dynamic build(BuildContext context) {
     hourLabelText: 'Hour',
     minuteLabelText: 'Minute',
   );
-  print('TimePickerDialog(errorInvalidText, hourLabelText, minuteLabelText) created');
+  print(
+    'TimePickerDialog(errorInvalidText, hourLabelText, minuteLabelText) created',
+  );
 
   print('TimePickerDialog test completed');
   return Column(

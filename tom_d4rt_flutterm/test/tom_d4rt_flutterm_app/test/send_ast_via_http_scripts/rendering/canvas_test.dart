@@ -72,13 +72,7 @@ dynamic build(BuildContext context) {
   print('Drew blue rounded rect at (100,10) 80x60 r=10');
 
   // Draw arc
-  canvas.drawArc(
-    Rect.fromLTWH(10, 50, 100, 100),
-    0.0,
-    3.14,
-    false,
-    redPaint,
-  );
+  canvas.drawArc(Rect.fromLTWH(10, 50, 100, 100), 0.0, 3.14, false, redPaint);
   print('Drew red arc');
 
   // Draw points

@@ -110,10 +110,7 @@ dynamic build(BuildContext context) {
         height: 50.0,
         color: Colors.indigo,
         child: Center(
-          child: Text(
-            'Block+Index=10',
-            style: TextStyle(color: Colors.white),
-          ),
+          child: Text('Block+Index=10', style: TextStyle(color: Colors.white)),
         ),
       ),
     ),

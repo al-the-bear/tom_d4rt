@@ -12,9 +12,7 @@ dynamic build(BuildContext context) {
     elevation: 6.0,
     shadowColor: Colors.black26,
     surfaceTintColor: Colors.blue.shade50,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(28.0),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28.0)),
     headerBackgroundColor: Colors.blue,
     headerForegroundColor: Colors.white,
     headerHeadlineStyle: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold),
@@ -29,14 +27,18 @@ dynamic build(BuildContext context) {
       if (states.contains(WidgetState.selected)) return Colors.blue;
       return Colors.transparent;
     }),
-    dayOverlayColor: WidgetStateProperty.all(Colors.blue.withValues(alpha: 0.1)),
+    dayOverlayColor: WidgetStateProperty.all(
+      Colors.blue.withValues(alpha: 0.1),
+    ),
     todayForegroundColor: WidgetStateProperty.all(Colors.blue),
     todayBackgroundColor: WidgetStateProperty.all(Colors.transparent),
     todayBorder: BorderSide(color: Colors.blue, width: 1.0),
     yearStyle: TextStyle(fontSize: 16.0),
     yearForegroundColor: WidgetStateProperty.all(Colors.black87),
     yearBackgroundColor: WidgetStateProperty.all(Colors.transparent),
-    yearOverlayColor: WidgetStateProperty.all(Colors.blue.withValues(alpha: 0.1)),
+    yearOverlayColor: WidgetStateProperty.all(
+      Colors.blue.withValues(alpha: 0.1),
+    ),
     weekdayStyle: TextStyle(fontSize: 12.0, color: Colors.grey.shade600),
     rangePickerBackgroundColor: Colors.white,
     rangePickerElevation: 0.0,
@@ -44,19 +46,30 @@ dynamic build(BuildContext context) {
     rangePickerSurfaceTintColor: Colors.transparent,
     rangePickerHeaderBackgroundColor: Colors.blue,
     rangePickerHeaderForegroundColor: Colors.white,
-    rangePickerHeaderHeadlineStyle: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+    rangePickerHeaderHeadlineStyle: TextStyle(
+      fontSize: 24.0,
+      fontWeight: FontWeight.bold,
+    ),
     rangePickerHeaderHelpStyle: TextStyle(fontSize: 14.0),
     rangeSelectionBackgroundColor: Colors.blue.shade50,
-    rangeSelectionOverlayColor: WidgetStateProperty.all(Colors.blue.withValues(alpha: 0.1)),
+    rangeSelectionOverlayColor: WidgetStateProperty.all(
+      Colors.blue.withValues(alpha: 0.1),
+    ),
     dividerColor: Colors.grey.shade300,
   );
   print('DatePickerThemeData created');
   print('  backgroundColor: ${datePickerThemeData.backgroundColor}');
   print('  elevation: ${datePickerThemeData.elevation}');
-  print('  headerBackgroundColor: ${datePickerThemeData.headerBackgroundColor}');
-  print('  headerForegroundColor: ${datePickerThemeData.headerForegroundColor}');
+  print(
+    '  headerBackgroundColor: ${datePickerThemeData.headerBackgroundColor}',
+  );
+  print(
+    '  headerForegroundColor: ${datePickerThemeData.headerForegroundColor}',
+  );
   print('  todayBorder: ${datePickerThemeData.todayBorder}');
-  print('  rangeSelectionBackgroundColor: ${datePickerThemeData.rangeSelectionBackgroundColor}');
+  print(
+    '  rangeSelectionBackgroundColor: ${datePickerThemeData.rangeSelectionBackgroundColor}',
+  );
   print('  dividerColor: ${datePickerThemeData.dividerColor}');
   print('  shape: ${datePickerThemeData.shape}');
 
@@ -68,7 +81,9 @@ dynamic build(BuildContext context) {
   print('DatePickerThemeData.copyWith created');
   print('  new backgroundColor: ${copiedDatePickerTheme.backgroundColor}');
   print('  new elevation: ${copiedDatePickerTheme.elevation}');
-  print('  headerBackgroundColor preserved: ${copiedDatePickerTheme.headerBackgroundColor}');
+  print(
+    '  headerBackgroundColor preserved: ${copiedDatePickerTheme.headerBackgroundColor}',
+  );
 
   // ========== TIME PICKER THEME DATA ==========
   print('--- TimePickerThemeData Tests ---');
@@ -76,9 +91,7 @@ dynamic build(BuildContext context) {
   final timePickerThemeData = TimePickerThemeData(
     backgroundColor: Colors.white,
     elevation: 6.0,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(28.0),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28.0)),
     hourMinuteShape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(12.0),
     ),
@@ -132,9 +145,7 @@ dynamic build(BuildContext context) {
     elevation: 8.0,
     shadowColor: Colors.black26,
     surfaceTintColor: Colors.grey.shade50,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(12.0),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
     textStyle: TextStyle(fontSize: 14.0, color: Colors.black87),
     labelTextStyle: WidgetStateProperty.all(
       TextStyle(fontSize: 14.0, color: Colors.black87),
@@ -175,23 +186,31 @@ dynamic build(BuildContext context) {
 
   return Theme(
     data: themeData,
-    child: Builder(builder: (ctx) {
-      final resolvedTheme = Theme.of(ctx);
-      print('Theme.of resolved');
-      print('  datePickerTheme.elevation: ${resolvedTheme.datePickerTheme.elevation}');
-      print('  timePickerTheme.dialHandColor: ${resolvedTheme.timePickerTheme.dialHandColor}');
-      print('  popupMenuTheme.elevation: ${resolvedTheme.popupMenuTheme.elevation}');
+    child: Builder(
+      builder: (ctx) {
+        final resolvedTheme = Theme.of(ctx);
+        print('Theme.of resolved');
+        print(
+          '  datePickerTheme.elevation: ${resolvedTheme.datePickerTheme.elevation}',
+        );
+        print(
+          '  timePickerTheme.dialHandColor: ${resolvedTheme.timePickerTheme.dialHandColor}',
+        );
+        print(
+          '  popupMenuTheme.elevation: ${resolvedTheme.popupMenuTheme.elevation}',
+        );
 
-      return DatePickerTheme(
-        data: datePickerThemeData,
-        child: TimePickerTheme(
-          data: timePickerThemeData,
-          child: PopupMenuTheme(
-            data: popupMenuThemeData,
-            child: Card(child: Text('Picker themes test passed')),
+        return DatePickerTheme(
+          data: datePickerThemeData,
+          child: TimePickerTheme(
+            data: timePickerThemeData,
+            child: PopupMenuTheme(
+              data: popupMenuThemeData,
+              child: Card(child: Text('Picker themes test passed')),
+            ),
           ),
-        ),
-      );
-    }),
+        );
+      },
+    ),
   );
 }

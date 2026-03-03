@@ -34,9 +34,7 @@ dynamic build(BuildContext context) {
 
   // ShapeDecoration with color (no gradient)
   final shapeDecorationColor = ShapeDecoration(
-    shape: CircleBorder(
-      side: BorderSide(color: Colors.green, width: 1.5),
-    ),
+    shape: CircleBorder(side: BorderSide(color: Colors.green, width: 1.5)),
     color: Colors.green.shade50,
   );
   print('ShapeDecoration (color) shape: ${shapeDecorationColor.shape}');

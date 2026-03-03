@@ -41,9 +41,7 @@ dynamic build(BuildContext context) {
   final transformLayer = TransformLayer();
   print('TransformLayer() created: ${transformLayer.runtimeType}');
 
-  final transformLayerIdentity = TransformLayer(
-    transform: Matrix4.identity(),
-  );
+  final transformLayerIdentity = TransformLayer(transform: Matrix4.identity());
   print(
     'TransformLayer(identity) created: ${transformLayerIdentity.runtimeType}',
   );
@@ -72,9 +70,7 @@ dynamic build(BuildContext context) {
   // ========== CLIP RECT LAYER ==========
   print('--- ClipRectLayer Tests ---');
 
-  final clipRectLayer = ClipRectLayer(
-    clipRect: Rect.fromLTWH(0, 0, 100, 80),
-  );
+  final clipRectLayer = ClipRectLayer(clipRect: Rect.fromLTWH(0, 0, 100, 80));
   print('ClipRectLayer created: ${clipRectLayer.runtimeType}');
   print('  clipRect: ${clipRectLayer.clipRect}');
   print('  clipBehavior: ${clipRectLayer.clipBehavior}');

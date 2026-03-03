@@ -10,31 +10,31 @@ import 'dart:io';
 class ModuleConfig {
   /// The name of the module.
   final String name;
-  
+
   /// List of barrel files to process for this module.
   final List<String> barrelFiles;
-  
+
   /// Output path for the generated bridge file.
   final String outputPath;
-  
+
   /// Optional import path for the barrel file.
   final String? barrelImport;
-  
+
   /// Patterns to exclude from processing.
   final List<String> excludePatterns;
-  
+
   /// Specific class names to exclude from processing.
   final List<String> excludeClasses;
-  
+
   /// Specific enum names to exclude from processing.
   final List<String> excludeEnums;
-  
+
   /// Specific global function names to exclude from processing.
   final List<String> excludeFunctions;
-  
+
   /// Specific global variable names to exclude from processing.
   final List<String> excludeVariables;
-  
+
   /// Glob patterns for source URIs to exclude.
   ///
   /// These patterns are matched against the source URI of classes, enums,
@@ -50,61 +50,61 @@ class ModuleConfig {
   /// - `package:*/src/internal/*` - exclude internal folders from any package
   /// - `package:some_pkg/**` - exclude entire package
   final List<String> excludeSourcePatterns;
-  
+
   /// Whether to follow all re-exports from external packages by default.
-  /// 
+  ///
   /// When true (default), the generator will follow `export 'package:...'`
   /// directives and generate bridges for classes in those packages.
   /// Use [skipReExports] to exclude specific packages from being followed.
-  /// 
+  ///
   /// When false, only packages listed in [followReExports] will be followed.
   final bool followAllReExports;
-  
+
   /// List of external packages to skip when following re-exports.
-  /// 
+  ///
   /// Only used when [followAllReExports] is true. Package names in this list
   /// will not be followed even if they appear in export directives.
-  /// 
+  ///
   /// Example: `['some_large_package', 'internal_only']`
   final List<String> skipReExports;
-  
+
   /// List of external packages to follow re-exports from.
-  /// 
+  ///
   /// Only used when [followAllReExports] is false.
   /// When a barrel file re-exports from an external package (e.g.,
   /// `export 'package:tom_basics/tom_basics.dart';`), only packages
   /// in this list will be followed for generating bridges.
-  /// 
+  ///
   /// Example: `['tom_basics', 'tom_crypto']`
   final List<String> followReExports;
-  
+
   /// Optional show clause for the generated import statement.
-  /// 
+  ///
   /// When specified, the generated import in getImportBlock() will include
   /// `show ClassName1, ClassName2, ...` to limit what symbols are visible
   /// to D4rt scripts from this module.
-  /// 
+  ///
   /// Example: `['TomService', 'TomEnvironment']`
   final List<String> importShowClause;
-  
+
   /// Optional hide clause for the generated import statement.
-  /// 
+  ///
   /// When specified, the generated import in getImportBlock() will include
   /// `hide functionName, ClassName, ...` to exclude specific symbols
   /// from being visible to D4rt scripts from this module.
-  /// 
+  ///
   /// This is useful for resolving duplicate global function/variable names
   /// when multiple modules export the same symbol.
-  /// 
+  ///
   /// Example: `['prettyJson', 'mergeMapsOneSided']`
   final List<String> importHideClause;
-  
+
   /// Whether to generate bridges for deprecated elements.
-  /// 
+  ///
   /// When false (default), classes, methods, functions, and variables
   /// marked with @deprecated or @Deprecated() are skipped during generation.
   /// A summary of skipped elements is printed at the end of generation.
-  /// 
+  ///
   /// When true, deprecated elements are included in the generated bridges.
   /// The generated file will include `deprecated_member_use` in ignore_for_file.
   final bool generateDeprecatedElements;
@@ -132,9 +132,10 @@ class ModuleConfig {
     final barrelImport = json['barrelImport'] as String?;
     final barrelFilesList = json['barrelFiles'] as List?;
     // Default barrelFiles to [barrelImport] if not provided
-    final barrelFiles = barrelFilesList?.cast<String>() ?? 
+    final barrelFiles =
+        barrelFilesList?.cast<String>() ??
         (barrelImport != null ? [barrelImport] : <String>[]);
-    
+
     return ModuleConfig(
       name: json['name'] as String,
       barrelFiles: barrelFiles,
@@ -143,15 +144,21 @@ class ModuleConfig {
       excludePatterns: (json['excludePatterns'] as List?)?.cast<String>() ?? [],
       excludeClasses: (json['excludeClasses'] as List?)?.cast<String>() ?? [],
       excludeEnums: (json['excludeEnums'] as List?)?.cast<String>() ?? [],
-      excludeFunctions: (json['excludeFunctions'] as List?)?.cast<String>() ?? [],
-      excludeVariables: (json['excludeVariables'] as List?)?.cast<String>() ?? [],
-      excludeSourcePatterns: (json['excludeSourcePatterns'] as List?)?.cast<String>() ?? [],
+      excludeFunctions:
+          (json['excludeFunctions'] as List?)?.cast<String>() ?? [],
+      excludeVariables:
+          (json['excludeVariables'] as List?)?.cast<String>() ?? [],
+      excludeSourcePatterns:
+          (json['excludeSourcePatterns'] as List?)?.cast<String>() ?? [],
       followAllReExports: json['followAllReExports'] as bool? ?? true,
       skipReExports: (json['skipReExports'] as List?)?.cast<String>() ?? [],
       followReExports: (json['followReExports'] as List?)?.cast<String>() ?? [],
-      importShowClause: (json['importShowClause'] as List?)?.cast<String>() ?? [],
-      importHideClause: (json['importHideClause'] as List?)?.cast<String>() ?? [],
-      generateDeprecatedElements: json['generateDeprecatedElements'] as bool? ?? false,
+      importShowClause:
+          (json['importShowClause'] as List?)?.cast<String>() ?? [],
+      importHideClause:
+          (json['importHideClause'] as List?)?.cast<String>() ?? [],
+      generateDeprecatedElements:
+          json['generateDeprecatedElements'] as bool? ?? false,
     );
   }
 
@@ -166,50 +173,46 @@ class ModuleConfig {
       if (excludeEnums.isNotEmpty) 'excludeEnums': excludeEnums,
       if (excludeFunctions.isNotEmpty) 'excludeFunctions': excludeFunctions,
       if (excludeVariables.isNotEmpty) 'excludeVariables': excludeVariables,
-      if (excludeSourcePatterns.isNotEmpty) 'excludeSourcePatterns': excludeSourcePatterns,
+      if (excludeSourcePatterns.isNotEmpty)
+        'excludeSourcePatterns': excludeSourcePatterns,
       if (!followAllReExports) 'followAllReExports': followAllReExports,
       if (skipReExports.isNotEmpty) 'skipReExports': skipReExports,
       if (followReExports.isNotEmpty) 'followReExports': followReExports,
       if (importShowClause.isNotEmpty) 'importShowClause': importShowClause,
       if (importHideClause.isNotEmpty) 'importHideClause': importHideClause,
-      if (generateDeprecatedElements) 'generateDeprecatedElements': generateDeprecatedElements,
+      if (generateDeprecatedElements)
+        'generateDeprecatedElements': generateDeprecatedElements,
     };
   }
 }
 
 /// Configuration for an imported bridge package.
-/// 
+///
 /// This allows the generated dartscript.dart to import and call registration
 /// methods from external bridge packages.
 class ImportedBridgeConfig {
   /// The import path for the bridge package (e.g., 'package:tom_d4rt_dcli/dartscript.b.dart').
   final String import;
-  
+
   /// The registration class name (e.g., 'TomD4rtDcliBridge').
   final String className;
-  
-  const ImportedBridgeConfig({
-    required this.import,
-    required this.className,
-  });
-  
+
+  const ImportedBridgeConfig({required this.import, required this.className});
+
   factory ImportedBridgeConfig.fromJson(Map<String, dynamic> json) {
     return ImportedBridgeConfig(
       import: json['import'] as String,
       className: json['class'] as String,
     );
   }
-  
+
   Map<String, dynamic> toJson() {
-    return {
-      'import': import,
-      'class': className,
-    };
+    return {'import': import, 'class': className};
   }
 }
 
 /// Configuration for a proxy class to be generated.
-/// 
+///
 /// Proxy classes are adapter subclasses of abstract classes that delegate
 /// abstract methods to callback `Function` parameters. This enables D4rt
 /// scripts to provide implementations of abstract delegates like
@@ -217,15 +220,12 @@ class ImportedBridgeConfig {
 class ProxyClassConfig {
   /// The fully qualified class name to generate a proxy for (e.g., 'CustomPainter').
   final String className;
-  
+
   /// Optional custom name for the generated proxy class.
   /// Defaults to 'D4rt{className}' (e.g., 'D4rtCustomPainter').
   final String? proxyName;
 
-  const ProxyClassConfig({
-    required this.className,
-    this.proxyName,
-  });
+  const ProxyClassConfig({required this.className, this.proxyName});
 
   factory ProxyClassConfig.fromJson(Map<String, dynamic> json) {
     if (json case {'className': final String name}) {
@@ -282,33 +282,33 @@ class BridgeConfig {
   final bool generateDartscript;
   final String? dartscriptPath;
   final String? registrationClass;
-  
+
   /// Central directory path for per-package bridge files.
-  /// 
+  ///
   /// When specified, the generator will create one file per source package
   /// in this directory (e.g., `lib/src/d4rt_bridges/package_tom_basics_bridges.b.dart`).
   /// The per-barrel bridge files will then delegate to these per-package files,
   /// eliminating duplicate code when the same package is re-exported by multiple barrels.
   final String? libraryPath;
-  
+
   /// Whether to generate a test runner script (d4rtrun.b.dart).
   ///
   /// When true, generates an executable Dart script that can run D4rt scripts
   /// or expressions with all generated bridges pre-registered. Supports
   /// running files, evaluating expressions, and validating bridge registrations.
   final bool generateTestRunner;
-  
+
   /// Output path for the generated test runner script.
   ///
   /// Example: `bin/d4rtrun.b.dart`
   final String? testRunnerPath;
-  
+
   /// List of external bridge packages to import and register.
-  /// 
+  ///
   /// When specified, the generated dartscript.dart will import these packages
   /// and call their register() method before registering the local modules.
   /// This allows inheriting bridges from dependency packages.
-  /// 
+  ///
   /// Example in build.yaml:
   /// ```yaml
   /// importedBridges:
@@ -316,19 +316,19 @@ class BridgeConfig {
   ///     class: TomD4rtDcliBridge
   /// ```
   final List<ImportedBridgeConfig> importedBridges;
-  
+
   /// Additional types to include in recursive bound dispatch.
-  /// 
+  ///
   /// When a function has a type parameter with a recursive bound like
   /// `T extends Comparable<T>`, the generator creates runtime dispatch
   /// for known types. By default, this includes `num`, `String`, `DateTime`,
   /// `Duration`, and `BigInt`.
-  /// 
+  ///
   /// Use this to add custom types that implement recursive bounds (like
   /// `Comparable<T>`). Each entry can be:
   /// - A simple type name for dart:core types: `'CustomNum'`
   /// - A package import with type: `'package:my_pkg/types.dart:MyComparable'`
-  /// 
+  ///
   /// Example in buildkit.yaml:
   /// ```yaml
   /// d4rtgen:
@@ -337,26 +337,26 @@ class BridgeConfig {
   ///     - package:my_pkg/types.dart:MyComparable
   /// ```
   final List<String> recursiveBoundTypes;
-  
+
   /// Whether to generate proxy/adapter classes for abstract delegates.
-  /// 
+  ///
   /// When true and [proxyClasses] is non-empty, the generator will
   /// create proxy subclasses that delegate abstract methods to callbacks.
   /// The output goes to [proxiesOutputPath].
   final bool generateProxies;
-  
+
   /// Output path for the generated proxies file.
-  /// 
+  ///
   /// The file will contain all proxy classes for this project.
   /// Example: `lib/src/bridges/flutter_proxies.b.dart`
   final String? proxiesOutputPath;
-  
+
   /// List of abstract classes to generate proxy/adapter subclasses for.
-  /// 
+  ///
   /// Each entry specifies a class name (and optionally a custom proxy name).
   /// The generator will analyze the class's abstract methods and create
   /// a proxy that accepts `Function` callbacks for each.
-  /// 
+  ///
   /// Example in buildkit.yaml:
   /// ```yaml
   /// d4rtgen:
@@ -405,15 +405,19 @@ class BridgeConfig {
       libraryPath: json['libraryPath'] as String?,
       generateTestRunner: json['generateTestRunner'] as bool? ?? false,
       testRunnerPath: json['testRunnerPath'] as String?,
-      importedBridges: (json['importedBridges'] as List?)
-              ?.map((m) => ImportedBridgeConfig.fromJson(m as Map<String, dynamic>))
+      importedBridges:
+          (json['importedBridges'] as List?)
+              ?.map(
+                (m) => ImportedBridgeConfig.fromJson(m as Map<String, dynamic>),
+              )
               .toList() ??
           const [],
       recursiveBoundTypes:
           (json['recursiveBoundTypes'] as List?)?.cast<String>() ?? const [],
       generateProxies: json['generateProxies'] as bool? ?? false,
       proxiesOutputPath: json['proxiesOutputPath'] as String?,
-      proxyClasses: (json['proxyClasses'] as List?)
+      proxyClasses:
+          (json['proxyClasses'] as List?)
               ?.map((e) => ProxyClassConfig.fromYaml(e))
               .toList() ??
           const [],
@@ -424,8 +428,10 @@ class BridgeConfig {
   ///
   /// Use [BuildConfigLoader.loadFromTomBuildYaml] instead to load from
   /// buildkit.yaml d4rtgen: section.
-  @Deprecated('Use BuildConfigLoader.loadFromTomBuildYaml() instead. '
-      'JSON config files (d4rt_bridging.json) are no longer supported.')
+  @Deprecated(
+    'Use BuildConfigLoader.loadFromTomBuildYaml() instead. '
+    'JSON config files (d4rt_bridging.json) are no longer supported.',
+  )
   static BridgeConfig fromFile(String filePath) {
     final file = File(filePath);
     if (!file.existsSync()) {
@@ -441,17 +447,25 @@ class BridgeConfig {
   ///
   /// Use [hasTomBuildConfig] from tom_build_base instead to check for
   /// buildkit.yaml with d4rtgen: section.
-  @Deprecated('Use hasTomBuildConfig() from tom_build_base instead. '
-      'JSON config files (d4rt_bridging.json) are no longer supported.')
-  static List<String> findConfigFiles(String directory, {bool recursive = false}) {
+  @Deprecated(
+    'Use hasTomBuildConfig() from tom_build_base instead. '
+    'JSON config files (d4rt_bridging.json) are no longer supported.',
+  )
+  static List<String> findConfigFiles(
+    String directory, {
+    bool recursive = false,
+  }) {
     final dir = Directory(directory);
     if (!dir.existsSync()) {
       return [];
     }
 
     final results = <String>[];
-    
-    for (final entity in dir.listSync(recursive: recursive, followLinks: false)) {
+
+    for (final entity in dir.listSync(
+      recursive: recursive,
+      followLinks: false,
+    )) {
       if (entity is File && entity.path.endsWith('d4rt_bridging.json')) {
         results.add(entity.path);
       }

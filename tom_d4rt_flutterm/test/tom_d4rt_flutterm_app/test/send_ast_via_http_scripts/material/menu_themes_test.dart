@@ -64,7 +64,9 @@ dynamic build(BuildContext context) {
     ),
   );
   print('DropdownMenuThemeData created');
-  print('  inputDecorationTheme: ${dropdownMenuThemeData.inputDecorationTheme}');
+  print(
+    '  inputDecorationTheme: ${dropdownMenuThemeData.inputDecorationTheme}',
+  );
   print('  textStyle: ${dropdownMenuThemeData.textStyle}');
   print('  menuStyle: ${dropdownMenuThemeData.menuStyle}');
 
@@ -116,9 +118,7 @@ dynamic build(BuildContext context) {
     backgroundColor: Colors.white,
     elevation: 6.0,
     surfaceTintColor: Colors.grey.shade50,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(28.0),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28.0)),
     headerTextStyle: TextStyle(fontSize: 16.0, color: Colors.black87),
     headerHintStyle: TextStyle(fontSize: 16.0, color: Colors.grey),
     dividerColor: Colors.grey.shade300,
@@ -155,31 +155,39 @@ dynamic build(BuildContext context) {
 
   return Theme(
     data: themeData,
-    child: Builder(builder: (ctx) {
-      final resolvedTheme = Theme.of(ctx);
-      print('Theme.of resolved');
-      print('  menuTheme.style: ${resolvedTheme.menuTheme.style}');
-      print('  menuBarTheme.style: ${resolvedTheme.menuBarTheme.style}');
-      print('  dropdownMenuTheme.textStyle: ${resolvedTheme.dropdownMenuTheme.textStyle}');
-      print('  searchBarTheme.constraints: ${resolvedTheme.searchBarTheme.constraints}');
-      print('  searchViewTheme.elevation: ${resolvedTheme.searchViewTheme.elevation}');
+    child: Builder(
+      builder: (ctx) {
+        final resolvedTheme = Theme.of(ctx);
+        print('Theme.of resolved');
+        print('  menuTheme.style: ${resolvedTheme.menuTheme.style}');
+        print('  menuBarTheme.style: ${resolvedTheme.menuBarTheme.style}');
+        print(
+          '  dropdownMenuTheme.textStyle: ${resolvedTheme.dropdownMenuTheme.textStyle}',
+        );
+        print(
+          '  searchBarTheme.constraints: ${resolvedTheme.searchBarTheme.constraints}',
+        );
+        print(
+          '  searchViewTheme.elevation: ${resolvedTheme.searchViewTheme.elevation}',
+        );
 
-      return MenuTheme(
-        data: menuThemeData,
-        child: MenuBarTheme(
-          data: menuBarThemeData,
-          child: DropdownMenuTheme(
-            data: dropdownMenuThemeData,
-            child: SearchBarTheme(
-              data: searchBarThemeData,
-              child: SearchViewTheme(
-                data: searchViewThemeData,
-                child: Card(child: Text('Menu themes test passed')),
+        return MenuTheme(
+          data: menuThemeData,
+          child: MenuBarTheme(
+            data: menuBarThemeData,
+            child: DropdownMenuTheme(
+              data: dropdownMenuThemeData,
+              child: SearchBarTheme(
+                data: searchBarThemeData,
+                child: SearchViewTheme(
+                  data: searchViewThemeData,
+                  child: Card(child: Text('Menu themes test passed')),
+                ),
               ),
             ),
           ),
-        ),
-      );
-    }),
+        );
+      },
+    ),
   );
 }

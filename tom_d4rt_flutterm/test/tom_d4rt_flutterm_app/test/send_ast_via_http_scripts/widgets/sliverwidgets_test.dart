@@ -11,20 +11,17 @@ dynamic build(BuildContext context) {
     slivers: [
       SliverFixedExtentList(
         itemExtent: 50.0,
-        delegate: SliverChildBuilderDelegate(
-          (context, index) {
-            return Container(
-              color: Colors.primaries[index % Colors.primaries.length],
-              child: Center(
-                child: Text(
-                  'Fixed extent item $index',
-                  style: TextStyle(color: Colors.white),
-                ),
+        delegate: SliverChildBuilderDelegate((context, index) {
+          return Container(
+            color: Colors.primaries[index % Colors.primaries.length],
+            child: Center(
+              child: Text(
+                'Fixed extent item $index',
+                style: TextStyle(color: Colors.white),
               ),
-            );
-          },
-          childCount: 5,
-        ),
+            ),
+          );
+        }, childCount: 5),
       ),
     ],
   );
@@ -38,9 +35,24 @@ dynamic build(BuildContext context) {
       SliverFixedExtentList(
         itemExtent: 80.0,
         delegate: SliverChildListDelegate([
-          Container(color: Colors.blue, child: Center(child: Text('A', style: TextStyle(color: Colors.white)))),
-          Container(color: Colors.green, child: Center(child: Text('B', style: TextStyle(color: Colors.white)))),
-          Container(color: Colors.orange, child: Center(child: Text('C', style: TextStyle(color: Colors.white)))),
+          Container(
+            color: Colors.blue,
+            child: Center(
+              child: Text('A', style: TextStyle(color: Colors.white)),
+            ),
+          ),
+          Container(
+            color: Colors.green,
+            child: Center(
+              child: Text('B', style: TextStyle(color: Colors.white)),
+            ),
+          ),
+          Container(
+            color: Colors.orange,
+            child: Center(
+              child: Text('C', style: TextStyle(color: Colors.white)),
+            ),
+          ),
         ]),
       ),
     ],
@@ -58,13 +70,19 @@ dynamic build(BuildContext context) {
           Container(
             color: Colors.red,
             child: Center(
-              child: Text('Fill Viewport 1', style: TextStyle(color: Colors.white, fontSize: 20.0)),
+              child: Text(
+                'Fill Viewport 1',
+                style: TextStyle(color: Colors.white, fontSize: 20.0),
+              ),
             ),
           ),
           Container(
             color: Colors.purple,
             child: Center(
-              child: Text('Fill Viewport 2', style: TextStyle(color: Colors.white, fontSize: 20.0)),
+              child: Text(
+                'Fill Viewport 2',
+                style: TextStyle(color: Colors.white, fontSize: 20.0),
+              ),
             ),
           ),
         ]),
@@ -80,16 +98,13 @@ dynamic build(BuildContext context) {
     slivers: [
       SliverFillViewport(
         viewportFraction: 0.5,
-        delegate: SliverChildBuilderDelegate(
-          (context, index) {
-            return Container(
-              margin: EdgeInsets.all(4.0),
-              color: Colors.teal,
-              child: Center(child: Text('Half $index')),
-            );
-          },
-          childCount: 4,
-        ),
+        delegate: SliverChildBuilderDelegate((context, index) {
+          return Container(
+            margin: EdgeInsets.all(4.0),
+            color: Colors.teal,
+            child: Center(child: Text('Half $index')),
+          );
+        }, childCount: 4),
       ),
     ],
   );
@@ -97,8 +112,12 @@ dynamic build(BuildContext context) {
 
   // SliverPersistentHeader requires a SliverPersistentHeaderDelegate
   // which is abstract and cannot be subclassed in D4rt
-  print('SliverPersistentHeader requires SliverPersistentHeaderDelegate (abstract)');
-  print('Cannot subclass delegate in D4rt - showing SliverAppBar as alternative');
+  print(
+    'SliverPersistentHeader requires SliverPersistentHeaderDelegate (abstract)',
+  );
+  print(
+    'Cannot subclass delegate in D4rt - showing SliverAppBar as alternative',
+  );
 
   // SliverAppBar internally uses SliverPersistentHeader
   final persistentConcept = CustomScrollView(
@@ -113,15 +132,12 @@ dynamic build(BuildContext context) {
         pinned: true,
       ),
       SliverList(
-        delegate: SliverChildBuilderDelegate(
-          (context, index) {
-            return ListTile(
-              leading: Icon(Icons.label),
-              title: Text('Item below header $index'),
-            );
-          },
-          childCount: 5,
-        ),
+        delegate: SliverChildBuilderDelegate((context, index) {
+          return ListTile(
+            leading: Icon(Icons.label),
+            title: Text('Item below header $index'),
+          );
+        }, childCount: 5),
       ),
     ],
   );

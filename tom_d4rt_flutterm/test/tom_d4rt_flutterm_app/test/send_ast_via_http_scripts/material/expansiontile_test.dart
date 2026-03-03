@@ -19,10 +19,7 @@ dynamic build(BuildContext context) {
     title: Text('Titled Tile'),
     subtitle: Text('Subtitle text'),
     children: [
-      Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Text('Expandable content'),
-      ),
+      Padding(padding: EdgeInsets.all(16.0), child: Text('Expandable content')),
     ],
   );
   print('ExpansionTile(subtitle) created');
@@ -42,9 +39,7 @@ dynamic build(BuildContext context) {
   final widget4 = ExpansionTile(
     title: Text('Custom Trailing'),
     trailing: Icon(Icons.arrow_downward, color: Colors.blue),
-    children: [
-      ListTile(title: Text('Content')),
-    ],
+    children: [ListTile(title: Text('Content'))],
   );
   print('ExpansionTile(trailing: custom Icon) created');
 
@@ -83,11 +78,11 @@ dynamic build(BuildContext context) {
     collapsedTextColor: Colors.grey,
     iconColor: Colors.blue,
     collapsedIconColor: Colors.grey,
-    children: [
-      ListTile(title: Text('Styled child')),
-    ],
+    children: [ListTile(title: Text('Styled child'))],
   );
-  print('ExpansionTile(textColor, collapsedTextColor, iconColor, collapsedIconColor) created');
+  print(
+    'ExpansionTile(textColor, collapsedTextColor, iconColor, collapsedIconColor) created',
+  );
 
   // Variation 8: ExpansionTile with tilePadding and childrenPadding
   final widget8 = ExpansionTile(
@@ -101,15 +96,15 @@ dynamic build(BuildContext context) {
       Text('Another child'),
     ],
   );
-  print('ExpansionTile(tilePadding, childrenPadding, expandedCrossAxisAlignment) created');
+  print(
+    'ExpansionTile(tilePadding, childrenPadding, expandedCrossAxisAlignment) created',
+  );
 
   // Variation 9: ExpansionTile with controlAffinity
   final widget9 = ExpansionTile(
     title: Text('Leading Control'),
     controlAffinity: ListTileControlAffinity.leading,
-    children: [
-      ListTile(title: Text('Expansion arrow on the left')),
-    ],
+    children: [ListTile(title: Text('Expansion arrow on the left'))],
   );
   print('ExpansionTile(controlAffinity: leading) created');
 
@@ -124,9 +119,7 @@ dynamic build(BuildContext context) {
       borderRadius: BorderRadius.circular(12.0),
       side: BorderSide(color: Colors.grey),
     ),
-    children: [
-      ListTile(title: Text('Shaped content')),
-    ],
+    children: [ListTile(title: Text('Shaped content'))],
   );
   print('ExpansionTile(shape, collapsedShape) created');
 
@@ -136,9 +129,7 @@ dynamic build(BuildContext context) {
     onExpansionChanged: (bool expanded) {
       print('Expansion changed: $expanded');
     },
-    children: [
-      ListTile(title: Text('Tracked expansion')),
-    ],
+    children: [ListTile(title: Text('Tracked expansion'))],
   );
   print('ExpansionTile(onExpansionChanged) created');
 
