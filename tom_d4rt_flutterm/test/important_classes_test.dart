@@ -11,7 +11,7 @@
 /// Tests are organized by Flutter package (widgets, material)
 /// and test the bridged classes listed in testplan_important.md.
 ///
-/// Total: 164 test scripts (batch 1 + batch 2 + batch 3)
+/// Total: 169 test scripts (batch 1 + batch 2 + batch 3 + proxies)
 @TestOn('vm')
 library;
 
@@ -1138,6 +1138,46 @@ void main() {
     test('parentdata_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/parentdata_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+  });
+
+  // ============================================================
+  // PROXY CLASS TESTS (5 files) — Phase 4: GEN-083
+  // ============================================================
+  group('proxies/', () {
+    test('custompaint_proxy_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'proxies/custompaint_proxy_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('customclipper_proxy_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'proxies/customclipper_proxy_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('flowdelegate_proxy_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'proxies/flowdelegate_proxy_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('multichildlayout_proxy_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'proxies/multichildlayout_proxy_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('singlechildlayout_proxy_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'proxies/singlechildlayout_proxy_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });

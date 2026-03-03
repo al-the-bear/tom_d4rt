@@ -625,6 +625,18 @@ Commonly used classes for intermediate Flutter development - test after essentia
 
 ---
 
+## proxies (5 classes)
+
+| Class | Description | Test File | Status | Result |
+|-------|-------------|-----------|--------|--------|
+| D4rtCustomPainter | Proxy for CustomPainter delegate | proxies/custompaint_proxy_test.dart | created | - |
+| D4rtCustomClipper | Proxy for CustomClipper delegate | proxies/customclipper_proxy_test.dart | created | - |
+| D4rtFlowDelegate | Proxy for FlowDelegate | proxies/flowdelegate_proxy_test.dart | created | - |
+| D4rtMultiChildLayoutDelegate | Proxy for MultiChildLayoutDelegate | proxies/multichildlayout_proxy_test.dart | created | - |
+| D4rtSingleChildLayoutDelegate | Proxy for SingleChildLayoutDelegate | proxies/singlechildlayout_proxy_test.dart | created | - |
+
+---
+
 ## Summary
 
 | Package | Count |
@@ -642,4 +654,5 @@ Commonly used classes for intermediate Flutter development - test after essentia
 | semantics | 8 |
 | scheduler | 3 |
 | physics | 4 |
-| **Total** | **607** |
+| proxies | 5 |
+| **Total** | **612** |
