@@ -46,20 +46,34 @@ class SendResult {
   /// HTTP status code.
   final int statusCode;
 
+  /// Flutter framework errors captured after layout/paint (e.g. RenderBox
+  /// overflow, constraint violations).  Non-empty means a red error screen
+  /// was rendered even though the D4rt build itself may have succeeded.
+  final List<String> frameworkErrors;
+
   const SendResult({
     required this.success,
     this.widgetType,
     this.error,
     required this.output,
     required this.statusCode,
+    this.frameworkErrors = const [],
   });
+
+  /// Whether a Flutter red error screen was detected after layout/paint.
+  bool get hasFrameworkErrors => frameworkErrors.isNotEmpty;
 
   @override
   String toString() {
+    final fwErrors =
+        frameworkErrors.isNotEmpty
+            ? ', frameworkErrors: ${frameworkErrors.length}'
+            : '';
     if (success) {
-      return 'SendResult(success, widgetType: $widgetType, output: $output)';
+      return 'SendResult(success, widgetType: $widgetType, '
+          'output: $output$fwErrors)';
     }
-    return 'SendResult(failed, error: $error, output: $output)';
+    return 'SendResult(failed, error: $error, output: $output$fwErrors)';
   }
 }
 
@@ -301,6 +315,24 @@ class SendTestRunner {
     final status = response['status'] as String;
     final output = (response['output'] as List?)?.cast<String>() ?? [];
     final httpStatus = response['_httpStatus'] as int? ?? 200;
+    final frameworkErrors =
+        (response['frameworkErrors'] as List?)?.cast<String>() ?? [];
+
+    // Log framework errors (red error screens) prominently so they are
+    // visible in test output even when the D4rt build itself succeeded.
+    if (frameworkErrors.isNotEmpty) {
+      // ignore: avoid_print
+      print(
+        '\n  ⚠️  FRAMEWORK ERROR in $scriptPath '
+        '(${frameworkErrors.length} error(s)):',
+      );
+      for (final err in frameworkErrors) {
+        // Truncate very long messages for readability
+        final short = err.length > 200 ? '${err.substring(0, 200)}…' : err;
+        // ignore: avoid_print
+        print('       $short');
+      }
+    }
 
     if (status == 'success') {
       return SendResult(
@@ -308,6 +340,7 @@ class SendTestRunner {
         widgetType: response['widgetType'] as String?,
         output: output,
         statusCode: httpStatus,
+        frameworkErrors: frameworkErrors,
       );
     } else {
       return SendResult(
@@ -315,6 +348,7 @@ class SendTestRunner {
         error: response['error'] as String?,
         output: output,
         statusCode: httpStatus,
+        frameworkErrors: frameworkErrors,
       );
     }
   }

@@ -39,11 +39,16 @@ class _BuildResult {
   final String? error;
   final List<String> output;
 
+  /// Flutter framework errors captured after layout/paint (e.g. red error
+  /// screens caused by RenderBox overflow, missing parents, etc.).
+  final List<String> frameworkErrors;
+
   _BuildResult({
     required this.success,
     this.widgetType,
     this.error,
     required this.output,
+    this.frameworkErrors = const [],
   });
 
   Map<String, dynamic> toJson() => {
@@ -51,6 +56,7 @@ class _BuildResult {
     if (widgetType != null) 'widgetType': widgetType,
     if (error != null) 'error': error,
     'output': output,
+    'frameworkErrors': frameworkErrors,
   };
 }
 
@@ -66,16 +72,45 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
   Completer<_BuildResult>? _buildCompleter;
   List<String> _capturedOutput = [];
 
+  /// Framework errors captured by [FlutterError.onError] during a build cycle.
+  /// These indicate red error screens (ErrorWidget) rendered by Flutter.
+  List<String> _frameworkErrors = [];
+
+  /// Whether we are currently inside a D4rt build cycle and should capture
+  /// framework errors.
+  bool _capturingFrameworkErrors = false;
+
+  /// The original [FlutterError.onError] handler, restored when not capturing.
+  void Function(FlutterErrorDetails)? _originalFlutterErrorHandler;
+
   static const int _serverPort = 4247;
 
   @override
   void initState() {
     super.initState();
+    // Store the original handler so we can still call it for logging.
+    _originalFlutterErrorHandler = FlutterError.onError;
+    // Install our custom handler that captures framework errors during builds.
+    FlutterError.onError = _handleFlutterError;
     _startServer();
+  }
+
+  /// Custom handler for [FlutterError.onError].  When a D4rt build is in
+  /// progress we capture the error message; otherwise we delegate to the
+  /// original handler.
+  void _handleFlutterError(FlutterErrorDetails details) {
+    if (_capturingFrameworkErrors) {
+      final message = details.exceptionAsString();
+      _frameworkErrors.add(message);
+      _addLogEntry('[framework error] $message');
+    }
+    // Always forward to the original handler for logging/debug output.
+    _originalFlutterErrorHandler?.call(details);
   }
 
   @override
   void dispose() {
+    FlutterError.onError = _originalFlutterErrorHandler;
     _server?.close(force: true);
     super.dispose();
   }
@@ -200,6 +235,7 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
   /// - widgetType: the runtime type of the built widget (on success)
   /// - error: error message (on error)
   /// - output: captured print() statements from the script
+  /// - frameworkErrors: Flutter framework errors captured after layout/paint
   Future<void> _handleBuild(HttpRequest request) async {
     if (request.method != 'POST') {
       _respond(request, 405, {'error': 'Method not allowed. Use POST.'});
@@ -214,10 +250,12 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
         jsonDecode(body) as Map<String, dynamic>,
       );
 
-      // Set up completer to wait for build result
+      // Set up completer to wait for build result (completed after frame).
       final completer = Completer<_BuildResult>();
       _buildCompleter = completer;
       _capturedOutput = [];
+      _frameworkErrors = [];
+      _capturingFrameworkErrors = true;
 
       // Trigger a rebuild — the actual build happens inside the Flutter
       // build method where we have a valid BuildContext.
@@ -232,30 +270,43 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
       // Wait for the build to complete (with timeout)
       final result = await completer.future.timeout(
         const Duration(seconds: 10),
-        onTimeout: () => _BuildResult(
-          success: false,
-          error: 'Build timed out after 10 seconds',
-          output: _capturedOutput,
-        ),
+        onTimeout: () {
+          _capturingFrameworkErrors = false;
+          return _BuildResult(
+            success: false,
+            error: 'Build timed out after 10 seconds',
+            output: _capturedOutput,
+          );
+        },
       );
 
       _addLogEntry(
         result.success
             ? 'Build completed: ${result.widgetType}'
+                '${result.frameworkErrors.isNotEmpty ? ' (${result.frameworkErrors.length} framework error(s))' : ''}'
             : 'Build failed: ${result.error}',
       );
       _scheduleLogRefresh();
 
       _respond(request, result.success ? 200 : 400, result.toJson());
     } on FormatException catch (e) {
+      _capturingFrameworkErrors = false;
       _log('JSON parse error: $e');
-      _respond(request, 400, {'error': 'Invalid JSON: $e', 'output': []});
+      _respond(request, 400, {
+        'error': 'Invalid JSON: $e',
+        'output': [],
+        'frameworkErrors': <String>[],
+      });
     }
   }
 
   /// Build the D4rt widget from a pending bundle using the current BuildContext.
   /// Captures print() output and completes the build completer.
   /// Uses runZonedGuarded to protect against uncaught errors crashing the app.
+  ///
+  /// The completer is completed in a post-frame callback so that Flutter
+  /// framework errors from layout/paint are captured before the HTTP response
+  /// is sent.
   Widget _buildD4rtWidget(BuildContext context) {
     if (_pendingBundle != null) {
       final bundle = _pendingBundle!;
@@ -272,30 +323,40 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
             _d4rtWidget = widget;
             _lastError = null;
 
-            // Complete with success
+            // Defer completion until after the frame (layout + paint) so that
+            // framework errors (red error screens) are captured.
             if (!buildCompleted) {
               buildCompleted = true;
-              _buildCompleter?.complete(
-                _BuildResult(
-                  success: true,
-                  widgetType: widget.runtimeType.toString(),
-                  output: output,
-                ),
-              );
+              final completer = _buildCompleter;
+              _buildCompleter = null;
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                _capturingFrameworkErrors = false;
+                completer?.complete(
+                  _BuildResult(
+                    success: true,
+                    widgetType: widget.runtimeType.toString(),
+                    output: output,
+                    frameworkErrors: List<String>.from(_frameworkErrors),
+                  ),
+                );
+              });
             }
           } on FlutterD4rtException catch (e) {
             _lastError = e.message;
             if (!buildCompleted) {
               buildCompleted = true;
+              _capturingFrameworkErrors = false;
               _buildCompleter?.complete(
                 _BuildResult(success: false, error: e.message, output: output),
               );
+              _buildCompleter = null;
             }
           } catch (e, stackTrace) {
             _lastError = e.toString();
             debugPrint('[D4rtApp] Build error: $e\n$stackTrace');
             if (!buildCompleted) {
               buildCompleted = true;
+              _capturingFrameworkErrors = false;
               _buildCompleter?.complete(
                 _BuildResult(
                   success: false,
@@ -303,6 +364,7 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
                   output: output,
                 ),
               );
+              _buildCompleter = null;
             }
           }
         },
@@ -313,6 +375,7 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
           _lastError = 'Uncaught error: $error';
           if (!buildCompleted) {
             buildCompleted = true;
+            _capturingFrameworkErrors = false;
             _buildCompleter?.complete(
               _BuildResult(
                 success: false,
@@ -320,6 +383,7 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
                 output: output,
               ),
             );
+            _buildCompleter = null;
           }
         },
         zoneSpecification: ZoneSpecification(
@@ -337,7 +401,6 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
           },
         ),
       );
-      _buildCompleter = null;
       // Schedule UI refresh to show captured logs
       _scheduleLogRefresh();
     }
