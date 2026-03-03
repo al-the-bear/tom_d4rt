@@ -351,6 +351,76 @@ class D4 {
   }
 
   // ==========================================================================
+  // Set Coercion
+  // ==========================================================================
+
+  /// Coerce a Set from D4rt to a typed Set.
+  ///
+  /// D4rt creates `Set<Object?>` when evaluating set literals. This
+  /// function coerces the set to the expected element type by unwrapping
+  /// BridgedInstance, BridgedEnumValue, and InterpretedInstance elements.
+  static Set<T> coerceSet<T>(Object? arg, String paramName) {
+    if (arg == null) {
+      throw ArgumentD4rtException(
+        'Invalid parameter "$paramName": expected Set<$T>, got null',
+      );
+    }
+
+    // Handle BridgedInstance wrapping
+    final value = arg is BridgedInstance ? arg.nativeObject : arg;
+
+    // D4rt may produce Maps for set literals (e.g. `{}` defaults to Map,
+    // or `{a, b}` can be misidentified). Coerce Map keys → Set elements.
+    final Iterable<Object?> elements;
+    if (value is Set) {
+      if (value is Set<T>) return value;
+      elements = value;
+    } else if (value is Map) {
+      elements = value.keys;
+    } else if (value is List) {
+      elements = value;
+    } else {
+      throw ArgumentD4rtException(
+        'Invalid parameter "$paramName": expected Set<$T>, got ${value.runtimeType}',
+      );
+    }
+
+    // Coerce each element to the expected type
+    try {
+      return elements.map<T>((e) {
+        if (e is BridgedInstance) {
+          return e.nativeObject as T;
+        }
+        if (e is BridgedEnumValue) {
+          return e.nativeValue as T;
+        }
+        if (e is InterpretedInstance) {
+          if (e.bridgedSuperObject is T) {
+            return e.bridgedSuperObject as T;
+          }
+          final effectiveVisitor = _activeVisitor;
+          if (_interfaceProxies.isNotEmpty && effectiveVisitor != null) {
+            final proxy =
+                tryCreateInterfaceProxyWithVisitor<T>(e, effectiveVisitor);
+            if (proxy != null) return proxy;
+          }
+        }
+        return e as T;
+      }).toSet();
+    } catch (e) {
+      throw ArgumentD4rtException(
+        'Invalid parameter "$paramName": cannot convert to Set<$T> - $e',
+      );
+    }
+  }
+
+  /// Coerce a Set from D4rt, returning null if arg is null.
+  static Set<T>? coerceSetOrNull<T>(Object? arg, String paramName) {
+    if (arg == null) return null;
+    return coerceSet<T>(arg, paramName);
+  }
+
+  // ==========================================================================
   // Map Coercion
   // ==========================================================================
 
@@ -393,7 +463,9 @@ class D4 {
             ? k.nativeObject as K
             : k is BridgedEnumValue
                 ? k.nativeValue as K
-                : k as K;
+                : k is BridgedClass
+                    ? k.nativeType as K // ENG-002: class name → Type
+                    : k as K;
         final val = _coerceMapValue<V>(v, paramName, visitor);
         return MapEntry(key, val);
       });
@@ -600,6 +672,14 @@ class D4 {
       return unwrapped;
     }
 
+    // ENG-002: BridgedClass → Type conversion.
+    // When a class name appears in expression position (e.g., as a map key
+    // like `{ActivateIntent: ...}`), the interpreter resolves it to a
+    // BridgedClass object. Convert to the native Type for bridges expecting Type.
+    if (arg is BridgedClass && arg.nativeType is T) {
+      return arg.nativeType as T;
+    }
+
     // GEN-079: Generic type wrapper resolution.
     // When T is a complex generic (e.g., WidgetStateProperty<Color?>?),
     // the `is T` check fails if the value was created with `<dynamic>`
@@ -670,9 +750,14 @@ class D4 {
     }
 
     // Set<Object?> → Set<T>
-    if (unwrapped is Set && tStr.startsWith('Set<')) {
+    if ((unwrapped is Set || (unwrapped is Map && tStr.startsWith('Set<'))) &&
+        tStr.startsWith('Set<')) {
       try {
-        final unwrappedSet = unwrapped.map(_unwrapElement).toSet();
+        // D4rt may produce Maps for set literals (e.g., `{}` defaults to Map).
+        // Coerce Map keys → Set elements.
+        final source =
+            unwrapped is Map ? unwrapped.keys : (unwrapped as Set);
+        final unwrappedSet = source.map(_unwrapElement).toSet();
         final elementType = tStr.substring(4, tStr.length - 1);
         return switch (elementType) {
               'int' => unwrappedSet.cast<int>().toSet(),

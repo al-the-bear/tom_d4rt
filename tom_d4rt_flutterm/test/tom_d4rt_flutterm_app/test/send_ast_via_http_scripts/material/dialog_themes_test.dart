@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 dynamic build(BuildContext context) {
   print('Dialog themes test executing');
 
-  // ========== DIALOG THEME ==========
-  print('--- DialogTheme Tests ---');
+  // ========== DIALOG THEME DATA ==========
+  print('--- DialogThemeData Tests ---');
 
-  final dialogTheme = DialogTheme(
+  final dialogTheme = DialogThemeData(
     backgroundColor: Colors.white,
     elevation: 24.0,
     shadowColor: Colors.black54,
@@ -23,7 +23,7 @@ dynamic build(BuildContext context) {
     actionsPadding: EdgeInsets.only(left: 24.0, right: 24.0, bottom: 20.0),
     iconColor: Colors.blue,
   );
-  print('DialogTheme created');
+  print('DialogThemeData created');
   print('  backgroundColor: ${dialogTheme.backgroundColor}');
   print('  elevation: ${dialogTheme.elevation}');
   print('  shadowColor: ${dialogTheme.shadowColor}');
@@ -38,7 +38,7 @@ dynamic build(BuildContext context) {
     backgroundColor: Colors.grey.shade50,
     elevation: 16.0,
   );
-  print('DialogTheme.copyWith created');
+  print('DialogThemeData.copyWith created');
   print('  new backgroundColor: ${copiedDialogTheme.backgroundColor}');
   print('  new elevation: ${copiedDialogTheme.elevation}');
   print('  shape preserved: ${copiedDialogTheme.shape}');

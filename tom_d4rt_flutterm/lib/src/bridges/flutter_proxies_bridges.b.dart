@@ -491,6 +491,12 @@ BridgedClass _createD4rtSingleChildLayoutDelegateBridge() {
           'onShouldRelayout',
           'D4rtSingleChildLayoutDelegate',
         );
+        final onGetConstraintsForChildRaw =
+            D4.extractBridgedArgOrNull<Object>(named['onGetConstraintsForChild'], 'onGetConstraintsForChild');
+        final onGetPositionForChildRaw =
+            D4.extractBridgedArgOrNull<Object>(named['onGetPositionForChild'], 'onGetPositionForChild');
+        final onGetSizeRaw =
+            D4.extractBridgedArgOrNull<Object>(named['onGetSize'], 'onGetSize');
         return D4rtSingleChildLayoutDelegate(
           onShouldRelayout: (SingleChildLayoutDelegate oldDelegate) {
             return D4.callInterpreterCallback(visitor, onShouldRelayoutRaw, [
@@ -498,6 +504,27 @@ BridgedClass _createD4rtSingleChildLayoutDelegateBridge() {
                 ])
                 as bool;
           },
+          onGetConstraintsForChild: onGetConstraintsForChildRaw == null
+              ? null
+              : (BoxConstraints constraints) {
+                  return D4.callInterpreterCallback(
+                      visitor, onGetConstraintsForChildRaw, [constraints])
+                      as BoxConstraints;
+                },
+          onGetPositionForChild: onGetPositionForChildRaw == null
+              ? null
+              : (Size size, Size childSize) {
+                  return D4.callInterpreterCallback(
+                      visitor, onGetPositionForChildRaw, [size, childSize])
+                      as Offset;
+                },
+          onGetSize: onGetSizeRaw == null
+              ? null
+              : (BoxConstraints constraints) {
+                  return D4.callInterpreterCallback(
+                      visitor, onGetSizeRaw, [constraints])
+                      as Size;
+                },
         );
       },
     },
@@ -508,6 +535,24 @@ BridgedClass _createD4rtSingleChildLayoutDelegateBridge() {
             'D4rtSingleChildLayoutDelegate',
           )
           .onShouldRelayout,
+      'onGetConstraintsForChild': (visitor, target) => D4
+          .validateTarget<D4rtSingleChildLayoutDelegate>(
+            target,
+            'D4rtSingleChildLayoutDelegate',
+          )
+          .onGetConstraintsForChild,
+      'onGetPositionForChild': (visitor, target) => D4
+          .validateTarget<D4rtSingleChildLayoutDelegate>(
+            target,
+            'D4rtSingleChildLayoutDelegate',
+          )
+          .onGetPositionForChild,
+      'onGetSize': (visitor, target) => D4
+          .validateTarget<D4rtSingleChildLayoutDelegate>(
+            target,
+            'D4rtSingleChildLayoutDelegate',
+          )
+          .onGetSize,
     },
     methods: {
       'shouldRelayout': (visitor, target, positional, named, typeArgs) {
@@ -524,17 +569,77 @@ BridgedClass _createD4rtSingleChildLayoutDelegateBridge() {
         );
         return t.shouldRelayout(oldDelegate);
       },
+      'getConstraintsForChild': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<D4rtSingleChildLayoutDelegate>(
+          target,
+          'D4rtSingleChildLayoutDelegate',
+        );
+        D4.requireMinArgs(positional, 1, 'getConstraintsForChild');
+        final constraints = D4.getRequiredArg<BoxConstraints>(
+          positional,
+          0,
+          'constraints',
+          'getConstraintsForChild',
+        );
+        return t.getConstraintsForChild(constraints);
+      },
+      'getPositionForChild': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<D4rtSingleChildLayoutDelegate>(
+          target,
+          'D4rtSingleChildLayoutDelegate',
+        );
+        D4.requireMinArgs(positional, 2, 'getPositionForChild');
+        final size = D4.getRequiredArg<Size>(
+          positional,
+          0,
+          'size',
+          'getPositionForChild',
+        );
+        final childSize = D4.getRequiredArg<Size>(
+          positional,
+          1,
+          'childSize',
+          'getPositionForChild',
+        );
+        return t.getPositionForChild(size, childSize);
+      },
+      'getSize': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<D4rtSingleChildLayoutDelegate>(
+          target,
+          'D4rtSingleChildLayoutDelegate',
+        );
+        D4.requireMinArgs(positional, 1, 'getSize');
+        final constraints = D4.getRequiredArg<BoxConstraints>(
+          positional,
+          0,
+          'constraints',
+          'getSize',
+        );
+        return t.getSize(constraints);
+      },
     },
     constructorSignatures: {
-      '': 'D4rtSingleChildLayoutDelegate({required bool Function(SingleChildLayoutDelegate) onShouldRelayout})',
+      '': 'D4rtSingleChildLayoutDelegate({required bool Function(SingleChildLayoutDelegate) onShouldRelayout, BoxConstraints Function(BoxConstraints)? onGetConstraintsForChild, Offset Function(Size, Size)? onGetPositionForChild, Size Function(BoxConstraints)? onGetSize})',
     },
     methodSignatures: {
       'shouldRelayout':
           'bool shouldRelayout(SingleChildLayoutDelegate oldDelegate)',
+      'getConstraintsForChild':
+          'BoxConstraints getConstraintsForChild(BoxConstraints constraints)',
+      'getPositionForChild':
+          'Offset getPositionForChild(Size size, Size childSize)',
+      'getSize':
+          'Size getSize(BoxConstraints constraints)',
     },
     getterSignatures: {
       'onShouldRelayout':
           'bool Function(SingleChildLayoutDelegate) get onShouldRelayout',
+      'onGetConstraintsForChild':
+          'BoxConstraints Function(BoxConstraints)? get onGetConstraintsForChild',
+      'onGetPositionForChild':
+          'Offset Function(Size, Size)? get onGetPositionForChild',
+      'onGetSize':
+          'Size Function(BoxConstraints)? get onGetSize',
     },
   );
 }

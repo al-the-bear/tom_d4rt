@@ -56,6 +56,61 @@ class ByteBufferTypedData {
             }
             throw RuntimeD4rtException("Target is not a ByteBuffer for asByteData");
           },
+          // ENG-004: Additional asXxxList methods for full typed_data support
+          'asInt8List': (visitor, target, positionalArgs, namedArgs, _) {
+            final t = target as ByteBuffer;
+            final offset = positionalArgs.isNotEmpty ? positionalArgs[0] as int : 0;
+            final length = positionalArgs.length > 1 ? positionalArgs[1] as int? : null;
+            return t.asInt8List(offset, length);
+          },
+          'asInt16List': (visitor, target, positionalArgs, namedArgs, _) {
+            final t = target as ByteBuffer;
+            final offset = positionalArgs.isNotEmpty ? positionalArgs[0] as int : 0;
+            final length = positionalArgs.length > 1 ? positionalArgs[1] as int? : null;
+            return t.asInt16List(offset, length);
+          },
+          'asInt32List': (visitor, target, positionalArgs, namedArgs, _) {
+            final t = target as ByteBuffer;
+            final offset = positionalArgs.isNotEmpty ? positionalArgs[0] as int : 0;
+            final length = positionalArgs.length > 1 ? positionalArgs[1] as int? : null;
+            return t.asInt32List(offset, length);
+          },
+          'asInt64List': (visitor, target, positionalArgs, namedArgs, _) {
+            final t = target as ByteBuffer;
+            final offset = positionalArgs.isNotEmpty ? positionalArgs[0] as int : 0;
+            final length = positionalArgs.length > 1 ? positionalArgs[1] as int? : null;
+            return t.asInt64List(offset, length);
+          },
+          'asUint16List': (visitor, target, positionalArgs, namedArgs, _) {
+            final t = target as ByteBuffer;
+            final offset = positionalArgs.isNotEmpty ? positionalArgs[0] as int : 0;
+            final length = positionalArgs.length > 1 ? positionalArgs[1] as int? : null;
+            return t.asUint16List(offset, length);
+          },
+          'asUint32List': (visitor, target, positionalArgs, namedArgs, _) {
+            final t = target as ByteBuffer;
+            final offset = positionalArgs.isNotEmpty ? positionalArgs[0] as int : 0;
+            final length = positionalArgs.length > 1 ? positionalArgs[1] as int? : null;
+            return t.asUint32List(offset, length);
+          },
+          'asUint64List': (visitor, target, positionalArgs, namedArgs, _) {
+            final t = target as ByteBuffer;
+            final offset = positionalArgs.isNotEmpty ? positionalArgs[0] as int : 0;
+            final length = positionalArgs.length > 1 ? positionalArgs[1] as int? : null;
+            return t.asUint64List(offset, length);
+          },
+          'asFloat32List': (visitor, target, positionalArgs, namedArgs, _) {
+            final t = target as ByteBuffer;
+            final offset = positionalArgs.isNotEmpty ? positionalArgs[0] as int : 0;
+            final length = positionalArgs.length > 1 ? positionalArgs[1] as int? : null;
+            return t.asFloat32List(offset, length);
+          },
+          'asFloat64List': (visitor, target, positionalArgs, namedArgs, _) {
+            final t = target as ByteBuffer;
+            final offset = positionalArgs.isNotEmpty ? positionalArgs[0] as int : 0;
+            final length = positionalArgs.length > 1 ? positionalArgs[1] as int? : null;
+            return t.asFloat64List(offset, length);
+          },
         },
         getters: {
           'lengthInBytes': (visitor, target) {

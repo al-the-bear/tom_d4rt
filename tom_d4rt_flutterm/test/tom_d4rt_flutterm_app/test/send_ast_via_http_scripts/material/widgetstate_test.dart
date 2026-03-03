@@ -1,4 +1,4 @@
-// D4rt test script: Tests MaterialState, MaterialStateProperty, WidgetStateProperty, WidgetStatesController from material
+// D4rt test script: Tests WidgetState, MaterialStateProperty, WidgetStateProperty, WidgetStatesController from material
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
@@ -96,14 +96,14 @@ dynamic build(BuildContext context) {
   print('  resolve empty: ${materialColorProp.resolve({})}');
 
   final materialResolvedProp = MaterialStateProperty.resolveWith<Color>((states) {
-    if (states.contains(MaterialState.disabled)) return Colors.grey;
-    if (states.contains(MaterialState.pressed)) return Colors.green.shade900;
+    if (states.contains(WidgetState.disabled)) return Colors.grey;
+    if (states.contains(WidgetState.pressed)) return Colors.green.shade900;
     return Colors.green;
   });
   print('MaterialStateProperty.resolveWith created');
   print('  resolve empty: ${materialResolvedProp.resolve({})}');
-  print('  resolve disabled: ${materialResolvedProp.resolve({MaterialState.disabled})}');
-  print('  resolve pressed: ${materialResolvedProp.resolve({MaterialState.pressed})}');
+  print('  resolve disabled: ${materialResolvedProp.resolve({WidgetState.disabled})}');
+  print('  resolve pressed: ${materialResolvedProp.resolve({WidgetState.pressed})}');
 
   // ========== WIDGET STATES CONTROLLER ==========
   print('--- WidgetStatesController Tests ---');

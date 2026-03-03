@@ -2998,33 +2998,33 @@ BridgedClass _createPaintBridge() {
     },
     setters: {
       'isAntiAlias': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').isAntiAlias = value as dynamic,
+        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').isAntiAlias = D4.extractBridgedArg<bool>(value, 'isAntiAlias'),
       'color': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').color = value as dynamic,
+        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').color = D4.extractBridgedArg<$dart_ui.Color>(value, 'color'),
       'blendMode': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').blendMode = value as dynamic,
+        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').blendMode = D4.extractBridgedArg<$dart_ui.BlendMode>(value, 'blendMode'),
       'style': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').style = value as dynamic,
+        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').style = D4.extractBridgedArg<$dart_ui.PaintingStyle>(value, 'style'),
       'strokeWidth': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').strokeWidth = value as dynamic,
+        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').strokeWidth = D4.extractBridgedArg<double>(value, 'strokeWidth'),
       'strokeCap': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').strokeCap = value as dynamic,
+        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').strokeCap = D4.extractBridgedArg<$dart_ui.StrokeCap>(value, 'strokeCap'),
       'strokeJoin': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').strokeJoin = value as dynamic,
+        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').strokeJoin = D4.extractBridgedArg<$dart_ui.StrokeJoin>(value, 'strokeJoin'),
       'strokeMiterLimit': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').strokeMiterLimit = value as dynamic,
+        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').strokeMiterLimit = D4.extractBridgedArg<double>(value, 'strokeMiterLimit'),
       'maskFilter': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').maskFilter = value as dynamic,
+        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').maskFilter = D4.extractBridgedArgOrNull<$dart_ui.MaskFilter>(value, 'maskFilter'),
       'filterQuality': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').filterQuality = value as dynamic,
+        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').filterQuality = D4.extractBridgedArg<$dart_ui.FilterQuality>(value, 'filterQuality'),
       'shader': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').shader = value as dynamic,
+        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').shader = D4.extractBridgedArgOrNull<$dart_ui.Shader>(value, 'shader'),
       'colorFilter': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').colorFilter = value as dynamic,
+        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').colorFilter = D4.extractBridgedArgOrNull<$dart_ui.ColorFilter>(value, 'colorFilter'),
       'imageFilter': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').imageFilter = value as dynamic,
+        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').imageFilter = D4.extractBridgedArgOrNull<$dart_ui.ImageFilter>(value, 'imageFilter'),
       'invertColors': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').invertColors = value as dynamic,
+        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').invertColors = D4.extractBridgedArg<bool>(value, 'invertColors'),
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -3302,7 +3302,7 @@ BridgedClass _createPathBridge() {
     },
     setters: {
       'fillType': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.Path>(target, 'Path').fillType = value as dynamic,
+        D4.validateTarget<$dart_ui.Path>(target, 'Path').fillType = D4.extractBridgedArg<$dart_ui.PathFillType>(value, 'fillType'),
     },
     methods: {
       'moveTo': (visitor, target, positional, named, typeArgs) {

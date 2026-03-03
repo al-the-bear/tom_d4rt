@@ -64,16 +64,12 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'segmentedbutton_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'material/segmentedbutton_test.dart',
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      skip: 'Engine limit: D4rt interprets Set literals as Map',
-    );
+    test('segmentedbutton_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/segmentedbutton_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('selectabletext_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -447,16 +443,12 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'appbar_themes_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'material/appbar_themes_test.dart',
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      skip: 'Bridge fix: BottomAppBarTheme renamed from BottomAppBarThemeData',
-    );
+    test('appbar_themes_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/appbar_themes_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('navigation_themes_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -465,38 +457,26 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'component_themes_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'material/component_themes_test.dart',
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      skip: 'Bridge fix: CardTheme renamed from CardThemeData',
-    );
+    test('component_themes_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/component_themes_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
-    test(
-      'dialog_themes_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'material/dialog_themes_test.dart',
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      skip: 'Bridge fix: DialogTheme renamed from DialogThemeData',
-    );
+    test('dialog_themes_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/dialog_themes_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
-    test(
-      'input_themes_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'material/input_themes_test.dart',
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      skip: 'Bridge fix: TabBarTheme renamed from TabBarThemeData',
-    );
+    test('input_themes_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/input_themes_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('picker_themes_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -512,27 +492,19 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'misc_themes_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'material/misc_themes_test.dart',
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      skip: 'Engine limit: D4rt cannot infer typed Map generics from context',
-    );
+    test('misc_themes_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/misc_themes_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
-    test(
-      'widgetstate_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'material/widgetstate_test.dart',
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      skip: 'Engine limit: D4rt interprets Set literals as Map',
-    );
+    test('widgetstate_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/widgetstate_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('licensepage_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -705,14 +677,10 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'actions_test.dart',
-      () async {
-        final result = await SendTestRunner.send('widgets/actions_test.dart');
-        expect(result.success, isTrue, reason: result.error);
-      },
-      skip: 'Engine limit: D4rt cannot use class refs as Type map keys',
-    );
+    test('actions_test.dart', () async {
+      final result = await SendTestRunner.send('widgets/actions_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('focustraversal_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -812,7 +780,7 @@ void main() {
         );
         expect(result.success, isTrue, reason: result.error);
       },
-      skip: 'Bridge fix: CupertinoMenuAnchor not bridged',
+      skip: 'GEN-088: CupertinoMenuAnchor not in Flutter 3.41.2 stable',
     );
 
     test(
@@ -823,7 +791,7 @@ void main() {
         );
         expect(result.success, isTrue, reason: result.error);
       },
-      skip: 'Bridge fix: CupertinoPulldownButton not bridged',
+      skip: 'GEN-088: CupertinoPulldownButton not in Flutter 3.41.2 stable',
     );
 
     test('toolbar_test.dart', () async {
@@ -882,7 +850,7 @@ void main() {
         );
         expect(result.success, isTrue, reason: result.error);
       },
-      skip: 'Bridge fix: NoDefaultCupertinoThemeData type mismatch',
+      skip: 'GEN-089: NoDefaultCupertinoThemeData runtime type mismatch — needs investigation',
     );
   });
 
@@ -989,7 +957,6 @@ void main() {
         );
         expect(result.success, isTrue, reason: result.error);
       },
-      skip: 'Bridge fix: GravitySimulation parameter ordering issue',
     );
   });
 
@@ -1044,31 +1011,22 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'picture_test.dart',
-      () async {
-        final result = await SendTestRunner.send('dart_ui/picture_test.dart');
-        expect(result.success, isTrue, reason: result.error);
-      },
-      skip:
-          'Bridge fix: Paint.color setter does not unwrap BridgedInstance<Color>',
-    );
+    test('picture_test.dart', () async {
+      final result = await SendTestRunner.send('dart_ui/picture_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
   });
 
   // ============================================================
   // GESTURES PACKAGE TESTS (2 files)
   // ============================================================
   group('gestures/', () {
-    test(
-      'recognizers_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'gestures/recognizers_test.dart',
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      skip: 'Engine limit: D4rt callback cannot be assigned to typed setters',
-    );
+    test('recognizers_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/recognizers_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('velocity_test.dart', () async {
       final result = await SendTestRunner.send('gestures/velocity_test.dart');
@@ -1117,15 +1075,10 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'asset_test.dart',
-      () async {
-        final result = await SendTestRunner.send('services/asset_test.dart');
-        expect(result.success, isTrue, reason: result.error);
-      },
-      skip:
-          'Bridge fix: NetworkImage webHtmlElementStrategy non-wrappable default',
-    );
+    test('asset_test.dart', () async {
+      final result = await SendTestRunner.send('services/asset_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
   });
 
   // ============================================================
@@ -1198,15 +1151,10 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'canvas_test.dart',
-      () async {
-        final result = await SendTestRunner.send('rendering/canvas_test.dart');
-        expect(result.success, isTrue, reason: result.error);
-      },
-      skip:
-          'Bridge fix: Paint.color setter does not unwrap BridgedInstance<Color>',
-    );
+    test('canvas_test.dart', () async {
+      final result = await SendTestRunner.send('rendering/canvas_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('layers_data_test.dart', () async {
       final result = await SendTestRunner.send(

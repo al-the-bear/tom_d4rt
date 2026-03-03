@@ -145,6 +145,12 @@ class MemberInfo {
   /// it's replaced with its bound (or 'dynamic' if no bound).
   final Map<String, String?> methodTypeParameters;
 
+  /// ENG-003: Function type info for setters with callback parameters.
+  /// When a setter accepts a function type (e.g., `void Function(TapDownDetails)?`),
+  /// this holds the function signature so the emitter can generate proper
+  /// InterpretedFunction → native closure wrappers.
+  final FunctionTypeInfo? functionTypeInfo;
+
   const MemberInfo({
     required this.name,
     required this.returnType,
@@ -158,6 +164,7 @@ class MemberInfo {
     this.parameters = const [],
     this.hasTypeParameters = false,
     this.methodTypeParameters = const {},
+    this.functionTypeInfo,
   });
 }
 
@@ -7414,6 +7421,31 @@ class BridgeGenerator {
             buffer.writeln(
               "        (D4.validateTarget<$prefixedName>(target, '${cls.name}') as dynamic).${setter.name} = value,",
             );
+          } else if (setter.functionTypeInfo != null) {
+            // ENG-003: Function-typed setters need callback wrapping.
+            // InterpretedFunction must be wrapped to a native closure matching
+            // the setter's expected function signature.
+            final funcInfo = setter.functionTypeInfo!;
+            final isNullable = setter.returnType.endsWith('?');
+            final rawVarName = '${setter.name}Raw';
+            final wrapperExpr = _generateFunctionWrapper(
+              callbackVarName: rawVarName,
+              funcInfo: funcInfo,
+              isNullable: isNullable,
+              typeToUri: setter.returnTypeToUri,
+              classTypeParams: cls.typeParameters,
+              sourceFilePath: cls.sourceFile,
+            );
+            buffer.writeln(
+              "      '${setter.name}': (visitor, target, value) {",
+            );
+            buffer.writeln(
+              "        final $rawVarName = D4.extractBridgedArgOrNull<dynamic>(value, '${setter.name}');",
+            );
+            buffer.writeln(
+              "        D4.validateTarget<$prefixedName>(target, '${cls.name}').${setter.name} = $wrapperExpr;",
+            );
+            buffer.writeln("      },");
           } else {
             // GEN-057: Use _generateSetterCast for proper collection type handling
             // GEN-075: Pass paramName for extractBridgedArg error messages
@@ -14272,6 +14304,14 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
       _collectInfoFromDartType(rawParamType, typeImportUris, typeToUri);
     }
 
+    // ENG-003: Extract function type info for callback setter wrapping.
+    // When a setter accepts a function type (e.g., GestureTapDownCallback?),
+    // we need FunctionTypeInfo so the emitter can generate proper
+    // InterpretedFunction → native closure wrappers.
+    final functionTypeInfo = rawParamType != null
+        ? BridgeGenerator.extractFunctionTypeInfoFromDartType(rawParamType)
+        : null;
+
     return MemberInfo(
       name: name,
       returnType: paramType,
@@ -14279,6 +14319,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
       returnTypeToUri: typeToUri,
       isSetter: true,
       isStatic: setter.isStatic,
+      functionTypeInfo: functionTypeInfo,
       parameters: params.map((p) {
         final pType = typeSubstitution != null && typeSubstitution.isNotEmpty
             ? _substituteTypeParameters(p.type, typeSubstitution)
@@ -14418,8 +14459,6 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
       }
     }
 
-    final returnType = node.returnType?.toSource() ?? 'dynamic';
-    final typeInfo = _collectTypeInfo(node.returnType);
     final isStatic = node.isStatic;
     final isGetter = node.isGetter;
     final isSetter = node.isSetter;
@@ -14428,6 +14467,37 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     List<ParameterInfo> parameters = [];
     if (node.parameters != null) {
       parameters = _parseParameters(node.parameters!);
+    }
+
+    // GEN-086: For setters, use the first parameter's type as the "return type"
+    // since setter declarations have no return type annotation (node.returnType is null).
+    // This ensures _generateSetterCast gets the correct type (e.g., Color instead of dynamic).
+    final String returnType;
+    final ({
+      Set<String> uris,
+      Map<String, String> typeToUri,
+      bool isFunctionTypeAlias,
+      FunctionTypeInfo? functionTypeInfo,
+    }) typeInfo;
+    if (isSetter &&
+        node.parameters != null &&
+        node.parameters!.parameters.isNotEmpty) {
+      final firstParam = node.parameters!.parameters.first;
+      final TypeAnnotation? paramTypeAnnotation;
+      if (firstParam is SimpleFormalParameter) {
+        paramTypeAnnotation = firstParam.type;
+      } else if (firstParam is DefaultFormalParameter &&
+          firstParam.parameter is SimpleFormalParameter) {
+        paramTypeAnnotation =
+            (firstParam.parameter as SimpleFormalParameter).type;
+      } else {
+        paramTypeAnnotation = null;
+      }
+      returnType = paramTypeAnnotation?.toSource() ?? 'dynamic';
+      typeInfo = _collectTypeInfo(paramTypeAnnotation);
+    } else {
+      returnType = node.returnType?.toSource() ?? 'dynamic';
+      typeInfo = _collectTypeInfo(node.returnType);
     }
 
     return MemberInfo(
@@ -15025,7 +15095,6 @@ class _ClassVisitor extends RecursiveAstVisitor<void> {
         node.typeParameters != null &&
         node.typeParameters!.typeParameters.isNotEmpty;
 
-    final returnType = node.returnType?.toSource() ?? 'dynamic';
     final isStatic = node.isStatic;
     final isGetter = node.isGetter;
     final isSetter = node.isSetter;
@@ -15034,6 +15103,27 @@ class _ClassVisitor extends RecursiveAstVisitor<void> {
     List<ParameterInfo> parameters = [];
     if (node.parameters != null) {
       parameters = _parseParameters(node.parameters!);
+    }
+
+    // GEN-086: For setters, use the first parameter's type as the "return type"
+    // since setter declarations have no return type annotation.
+    final String returnType;
+    if (isSetter &&
+        node.parameters != null &&
+        node.parameters!.parameters.isNotEmpty) {
+      final firstParam = node.parameters!.parameters.first;
+      if (firstParam is SimpleFormalParameter) {
+        returnType = firstParam.type?.toSource() ?? 'dynamic';
+      } else if (firstParam is DefaultFormalParameter &&
+          firstParam.parameter is SimpleFormalParameter) {
+        returnType =
+            (firstParam.parameter as SimpleFormalParameter).type?.toSource() ??
+            'dynamic';
+      } else {
+        returnType = 'dynamic';
+      }
+    } else {
+      returnType = node.returnType?.toSource() ?? 'dynamic';
     }
 
     return MemberInfo(

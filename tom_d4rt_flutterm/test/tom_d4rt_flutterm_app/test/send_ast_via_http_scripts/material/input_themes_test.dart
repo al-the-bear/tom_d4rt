@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 dynamic build(BuildContext context) {
   print('Input themes test executing');
 
-  // ========== TAB BAR THEME ==========
-  print('--- TabBarTheme Tests ---');
+  // ========== TAB BAR THEME DATA ==========
+  print('--- TabBarThemeData Tests ---');
 
-  final tabBarTheme = TabBarTheme(
+  final tabBarTheme = TabBarThemeData(
     indicator: UnderlineTabIndicator(
       borderSide: BorderSide(color: Colors.blue, width: 3.0),
     ),
@@ -23,7 +23,7 @@ dynamic build(BuildContext context) {
     overlayColor: WidgetStateProperty.all(Colors.blue.withValues(alpha: 0.1)),
     tabAlignment: TabAlignment.fill,
   );
-  print('TabBarTheme created');
+  print('TabBarThemeData created');
   print('  indicatorColor: ${tabBarTheme.indicatorColor}');
   print('  indicatorSize: ${tabBarTheme.indicatorSize}');
   print('  labelColor: ${tabBarTheme.labelColor}');
@@ -37,7 +37,7 @@ dynamic build(BuildContext context) {
     labelColor: Colors.indigo,
     indicatorColor: Colors.indigo,
   );
-  print('TabBarTheme.copyWith created');
+  print('TabBarThemeData.copyWith created');
   print('  new labelColor: ${copiedTabBarTheme.labelColor}');
   print('  new indicatorColor: ${copiedTabBarTheme.indicatorColor}');
 

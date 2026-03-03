@@ -53,10 +53,10 @@ dynamic build(BuildContext context) {
   print('  new centerTitle: ${copiedAppBarTheme.centerTitle}');
   print('  foregroundColor preserved: ${copiedAppBarTheme.foregroundColor}');
 
-  // ========== BOTTOM APP BAR THEME ==========
-  print('--- BottomAppBarTheme Tests ---');
+  // ========== BOTTOM APP BAR THEME DATA ==========
+  print('--- BottomAppBarThemeData Tests ---');
 
-  final bottomAppBarTheme = BottomAppBarTheme(
+  final bottomAppBarTheme = BottomAppBarThemeData(
     color: Colors.blue.shade50,
     elevation: 8.0,
     shadowColor: Colors.black26,
@@ -65,7 +65,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
     shape: CircularNotchedRectangle(),
   );
-  print('BottomAppBarTheme created');
+  print('BottomAppBarThemeData created');
   print('  color: ${bottomAppBarTheme.color}');
   print('  elevation: ${bottomAppBarTheme.elevation}');
   print('  shadowColor: ${bottomAppBarTheme.shadowColor}');
@@ -73,12 +73,12 @@ dynamic build(BuildContext context) {
   print('  height: ${bottomAppBarTheme.height}');
   print('  shape: ${bottomAppBarTheme.shape}');
 
-  // Test BottomAppBarTheme copyWith
+  // Test BottomAppBarThemeData copyWith
   final copiedBottomAppBarTheme = bottomAppBarTheme.copyWith(
     color: Colors.grey.shade100,
     elevation: 4.0,
   );
-  print('BottomAppBarTheme.copyWith created');
+  print('BottomAppBarThemeData.copyWith created');
   print('  new color: ${copiedBottomAppBarTheme.color}');
   print('  new elevation: ${copiedBottomAppBarTheme.elevation}');
   print('  height preserved: ${copiedBottomAppBarTheme.height}');

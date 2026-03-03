@@ -7054,9 +7054,13 @@ BridgedClass _createNetworkImageBridge() {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'NetworkImage');
         final url = D4.getRequiredArg<String>(positional, 0, 'url', 'NetworkImage');
-        final scale = D4.getRequiredNamedArgTodoDefault<double>(named, 'scale', 'NetworkImage', '<default unavailable>');
+        final scale = D4.getNamedArgWithDefault<double>(named, 'scale', 1.0);
         final headers = D4.coerceMapOrNull<String, String>(named['headers'], 'headers');
-        final webHtmlElementStrategy = D4.getRequiredNamedArgTodoDefault<$flutter_34.WebHtmlElementStrategy>(named, 'webHtmlElementStrategy', 'NetworkImage', '<default unavailable>');
+        // GEN-087: webHtmlElementStrategy has platform-specific default, use conditional inclusion
+        if (!named.containsKey('webHtmlElementStrategy')) {
+          return $flutter_34.NetworkImage(url, scale: scale, headers: headers);
+        }
+        final webHtmlElementStrategy = D4.extractBridgedArg<$flutter_34.WebHtmlElementStrategy>(named['webHtmlElementStrategy'], 'webHtmlElementStrategy');
         return $flutter_34.NetworkImage(url, scale: scale, headers: headers, webHtmlElementStrategy: webHtmlElementStrategy);
       },
     },

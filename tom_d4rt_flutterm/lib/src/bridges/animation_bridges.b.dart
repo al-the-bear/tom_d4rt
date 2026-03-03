@@ -2896,12 +2896,16 @@ BridgedClass _createAlwaysStoppedAnimationBridge() {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'AlwaysStoppedAnimation');
         final value = D4.getRequiredArg<dynamic>(positional, 0, 'value', 'AlwaysStoppedAnimation');
-        // GEN-075: Preserve generic type parameter from runtime value
+        // GEN-075/GEN-091: Preserve generic type parameter from runtime value
         switch (value) {
           case double _: return $flutter_4.AlwaysStoppedAnimation<double>(value);
           case int _: return $flutter_4.AlwaysStoppedAnimation<int>(value);
           case String _: return $flutter_4.AlwaysStoppedAnimation<String>(value);
           case bool _: return $flutter_4.AlwaysStoppedAnimation<bool>(value);
+          case Color _: return $flutter_4.AlwaysStoppedAnimation<Color>(value);
+          case Offset _: return $flutter_4.AlwaysStoppedAnimation<Offset>(value);
+          case Size _: return $flutter_4.AlwaysStoppedAnimation<Size>(value);
+          case Rect _: return $flutter_4.AlwaysStoppedAnimation<Rect>(value);
           default: return $flutter_4.AlwaysStoppedAnimation(value);
         }
       },

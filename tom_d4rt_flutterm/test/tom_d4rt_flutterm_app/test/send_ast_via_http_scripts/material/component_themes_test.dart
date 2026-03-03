@@ -43,10 +43,10 @@ dynamic build(BuildContext context) {
   print('  new dense: ${copiedListTileTheme.dense}');
   print('  new tileColor: ${copiedListTileTheme.tileColor}');
 
-  // ========== CARD THEME ==========
-  print('--- CardTheme Tests ---');
+  // ========== CARD THEME DATA ==========
+  print('--- CardThemeData Tests ---');
 
-  final cardTheme = CardTheme(
+  final cardTheme = CardThemeData(
     color: Colors.white,
     shadowColor: Colors.black26,
     surfaceTintColor: Colors.blue.shade50,
@@ -55,7 +55,7 @@ dynamic build(BuildContext context) {
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
     clipBehavior: Clip.antiAlias,
   );
-  print('CardTheme created');
+  print('CardThemeData created');
   print('  color: ${cardTheme.color}');
   print('  shadowColor: ${cardTheme.shadowColor}');
   print('  elevation: ${cardTheme.elevation}');
@@ -68,7 +68,7 @@ dynamic build(BuildContext context) {
     elevation: 4.0,
     color: Colors.grey.shade50,
   );
-  print('CardTheme.copyWith created');
+  print('CardThemeData.copyWith created');
   print('  new elevation: ${copiedCardTheme.elevation}');
   print('  new color: ${copiedCardTheme.color}');
 
