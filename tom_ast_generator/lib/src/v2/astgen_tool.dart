@@ -26,6 +26,7 @@ final astgenTool = ToolDefinition(
   name: 'astgen',
   description: 'Converts Dart source files to serialized AST YAML files',
   version: AstgenVersionInfo.version,
+  versionString: 'AST Generator ${AstgenVersionInfo.versionLong}',
   mode: ToolMode.singleCommand,
   worksWithNatures: {DartProjectFolder},
   features: const NavigationFeatures(
