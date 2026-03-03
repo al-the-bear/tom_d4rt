@@ -2,36 +2,46 @@
 
 This document catalogs all problematic test cases discovered during the essential and important test tiers, explains why they are problematic, and proposes test strategies grouped by solution approach.
 
+> **Note:** This document also serves as the foundation for a future **D4rt Flutter Developer Guide** that will document known limitations (e.g., D4rt scripts cannot subclass abstract Flutter classes) and recommended workarounds for each pattern. The test strategies here directly map to the patterns developers will need to follow.
+
 ## Table of Contents
 
-- [1. Background](#1-background)
-- [2. Problem Categories](#2-problem-categories)
-- [3. Catalog of Problematic Cases](#3-catalog-of-problematic-cases)
-  - [3.1 Abstract Classes (No Constructor Bridge)](#31-abstract-classes-no-constructor-bridge)
-  - [3.2 Render Objects](#32-render-objects)
-  - [3.3 dart:ui Drawing Primitives](#33-dartui-drawing-primitives)
-  - [3.4 Platform Services (Static-Only)](#34-platform-services-static-only)
-  - [3.5 Semantics Internals](#35-semantics-internals)
-  - [3.6 Abstract Delegates (User-Implementable)](#36-abstract-delegates-user-implementable)
-  - [3.7 Global Functions (show*)](#37-global-functions-show)
-  - [3.8 Framework-Created State Objects](#38-framework-created-state-objects)
-  - [3.9 Controllers Requiring TickerProvider](#39-controllers-requiring-tickerprovider)
-  - [3.10 Image Providers Requiring I/O](#310-image-providers-requiring-io)
-  - [3.11 Soft Gaps (Marked Created But Incomplete)](#311-soft-gaps-marked-created-but-incomplete)
-  - [3.12 Callback Signature Patterns](#312-callback-signature-patterns)
-- [4. Test Strategy Groups](#4-test-strategy-groups)
-  - [Strategy A: Test App Canvas/Render Endpoint](#strategy-a-test-app-canvasrender-endpoint)
-  - [Strategy B: Test Indirectly via Concrete Subclass](#strategy-b-test-indirectly-via-concrete-subclass)
-  - [Strategy C: Test via Framework Accessors (.of/.state)](#strategy-c-test-via-framework-accessors-ofstate)
-  - [Strategy D: Test App Provides Pre-Built Instances](#strategy-d-test-app-provides-pre-built-instances)
-  - [Strategy E: Test via Widget Wrapping (Theme/Data)](#strategy-e-test-via-widget-wrapping-themedata)
-  - [Strategy F: Test via Global Function Calls](#strategy-f-test-via-global-function-calls)
-  - [Strategy G: Test App TickerProvider Endpoint](#strategy-g-test-app-tickerprovider-endpoint)
-  - [Strategy H: Standard Script (Already Testable)](#strategy-h-standard-script-already-testable)
-  - [Strategy I: Bridge Generator Enhancement](#strategy-i-bridge-generator-enhancement)
-  - [Strategy J: Test via /execute Endpoint (Non-Widget)](#strategy-j-test-via-execute-endpoint-non-widget)
-  - [Strategy K: Not Testable in D4rt Sandbox](#strategy-k-not-testable-in-d4rt-sandbox)
-- [5. Implementation Priority](#5-implementation-priority)
+- [D4rt Flutter Testing — Extended Strategies](#d4rt-flutter-testing--extended-strategies)
+  - [Table of Contents](#table-of-contents)
+  - [1. Background](#1-background)
+  - [2. Problem Categories](#2-problem-categories)
+  - [3. Catalog of Problematic Cases](#3-catalog-of-problematic-cases)
+    - [3.1 Abstract Classes (No Constructor Bridge)](#31-abstract-classes-no-constructor-bridge)
+    - [3.2 Render Objects](#32-render-objects)
+    - [3.3 dart:ui Drawing Primitives](#33-dartui-drawing-primitives)
+    - [3.4 Platform Services (Static-Only)](#34-platform-services-static-only)
+    - [3.5 Semantics Internals](#35-semantics-internals)
+    - [3.6 Abstract Delegates (User-Implementable)](#36-abstract-delegates-user-implementable)
+    - [3.7 Global Functions (show\*)](#37-global-functions-show)
+    - [3.8 Framework-Created State Objects](#38-framework-created-state-objects)
+    - [3.9 Controllers Requiring TickerProvider](#39-controllers-requiring-tickerprovider)
+    - [3.10 Image Providers Requiring I/O](#310-image-providers-requiring-io)
+    - [3.11 Soft Gaps (Marked Created But Incomplete)](#311-soft-gaps-marked-created-but-incomplete)
+    - [3.12 Callback Signature Patterns](#312-callback-signature-patterns)
+  - [4. Test Strategy Groups](#4-test-strategy-groups)
+    - [Strategy A: Test App Canvas/Render Endpoint](#strategy-a-test-app-canvasrender-endpoint)
+    - [Strategy B: Test Indirectly via Concrete Subclass](#strategy-b-test-indirectly-via-concrete-subclass)
+    - [Strategy C: Test via Framework Accessors (.of/.state)](#strategy-c-test-via-framework-accessors-ofstate)
+    - [Strategy D: Test App Provides Pre-Built Instances](#strategy-d-test-app-provides-pre-built-instances)
+    - [Strategy E: Test via Widget Wrapping (Theme/Data)](#strategy-e-test-via-widget-wrapping-themedata)
+    - [Strategy F: Test via Global Function Calls](#strategy-f-test-via-global-function-calls)
+    - [Strategy G: Test App TickerProvider Endpoint](#strategy-g-test-app-tickerprovider-endpoint)
+    - [Strategy H: Standard Script (Already Testable)](#strategy-h-standard-script-already-testable)
+    - [Strategy I: Bridge Generator Enhancement](#strategy-i-bridge-generator-enhancement)
+    - [Strategy J: Test via /execute Endpoint (Non-Widget)](#strategy-j-test-via-execute-endpoint-non-widget)
+    - [Strategy K: No User-Facing Need (Framework Internals)](#strategy-k-no-user-facing-need-framework-internals)
+  - [5. Implementation Priority](#5-implementation-priority)
+    - [Phase 1: No Test App Changes (Highest Priority)](#phase-1-no-test-app-changes-highest-priority)
+    - [Phase 2: Minor Test App Extensions](#phase-2-minor-test-app-extensions)
+    - [Phase 3: Test App Canvas/Render Endpoint](#phase-3-test-app-canvasrender-endpoint)
+    - [Phase 4: Bridge Generator Enhancement (Lowest Priority)](#phase-4-bridge-generator-enhancement-lowest-priority)
+    - [Skipped — Framework Internals (Strategy K)](#skipped--framework-internals-strategy-k)
+    - [Total Coverage Estimate](#total-coverage-estimate)
 
 ---
 
@@ -698,26 +708,30 @@ dynamic main() {
 }
 ```
 
-### Strategy K: Not Testable in D4rt Sandbox
+### Strategy K: No User-Facing Need (Framework Internals)
 
-**Target:** Classes that genuinely cannot be tested even with test app enhancements
+**Target:** Classes that D4rt Flutter developers would never interact with directly
 
-| Class | Reason |
-|-------|--------|
-| `BindingBase` | Framework singleton, cannot be instantiated |
-| `SchedulerBinding` | Framework singleton |
-| `ServicesBinding` | Framework singleton |
-| `GestureBinding` | Framework singleton |
-| `GestureArenaManager` | Internal gesture system |
-| `GestureArenaEntry` | Internal gesture system |
-| `GestureArenaMember` | Abstract internal interface |
-| `GestureArenaTeam` | Internal gesture system |
-| `PointerRouter` | Internal pointer routing |
-| `HitTestEntry` | Internal hit testing |
-| `HitTestResult` | Internal hit testing |
-| `HitTestTarget` | Abstract internal interface |
+These are **not technically impossible** to expose — singletons like `SchedulerBinding.instance` could be registered in the D4rt scope, and internal classes could be accessed through their parent objects. The point is that Flutter app developers (and therefore D4rt script authors) never use these directly. They are implementation details of the Flutter framework.
 
-These are framework-internal classes that users never interact with directly. They are correct candidates for `not-testable`.
+| Class | Why No User Need | Could Be Exposed Via |
+|-------|-----------------|---------------------|
+| `BindingBase` | Abstract base — users interact with concrete bindings | N/A (abstract) |
+| `SchedulerBinding` | Frame scheduling — handled by framework | `SchedulerBinding.instance` (singleton) |
+| `ServicesBinding` | Platform service initialization | `ServicesBinding.instance` (singleton) |
+| `GestureBinding` | Gesture system initialization | `GestureBinding.instance` (singleton) |
+| `GestureArenaManager` | Gesture disambiguation — internal to `GestureDetector` | `GestureBinding.instance.gestureArena` |
+| `GestureArenaEntry` | Arena membership tracking | Created internally by arena |
+| `GestureArenaMember` | Abstract interface for arena participants | N/A (abstract) |
+| `GestureArenaTeam` | Groups recognizers — internal to gesture system | Could construct directly |
+| `PointerRouter` | Routes pointer events — internal to `GestureBinding` | `GestureBinding.instance.pointerRouter` |
+| `HitTestEntry` | Hit test result entries | Created by framework during hit testing |
+| `HitTestResult` | Hit test result container | Created by framework during hit testing |
+| `HitTestTarget` | Abstract interface for hit-testable objects | N/A (abstract) |
+
+**Decision:** Skip these in the testplan. If a future D4rt use case needs access to framework singletons (e.g., `SchedulerBinding.instance.addPostFrameCallback`), the bridge already supports accessing them — it's just a matter of registering them in the D4rt scope. This could be done on-demand without bridge generator changes.
+
+**For the developer guide:** Document that these classes exist in the bridge but are framework internals. If advanced scripts need them (e.g., manual frame scheduling), they can be accessed through singleton accessors.
 
 ---
 
@@ -772,9 +786,9 @@ These are framework-internal classes that users never interact with directly. Th
 | FlowDelegate, Layout delegates | 4 | I |
 | **Subtotal** | **~6** | |
 
-### Not-Testable (Strategy K)
+### Skipped — Framework Internals (Strategy K)
 
-~12 classes to be marked `not-testable` with documented reason.
+~12 classes skipped — not because they can't be exposed (singletons are trivially accessible via `.instance`), but because D4rt Flutter developers have no user-facing need for them. If a future use case arises, they can be registered in the D4rt scope without bridge generator changes.
 
 ### Total Coverage Estimate
 
@@ -786,4 +800,7 @@ These are framework-internal classes that users never interact with directly. Th
 | Phase 3 | ~30 | 353/527 (67%) |
 | Phase 4 | ~6 | 359/527 (68%) |
 | Already essential tier | 229 | 588/756 (78%) |
-| Not-testable (mark) | ~12+25 | 625/756 (83%) |
+| Skipped — no user need (K) | ~12 | — |
+| Essential not-testable (re-evaluate) | ~25 | See note below |
+
+> **Re-evaluation note:** Many classes marked `not-testable` in the essential tier (render objects, Canvas, platform services, images) are actually testable with Strategies A, D, E, H, or J. The essential tier `not-testable` count of 25 should drop significantly after implementing the extended strategies.
