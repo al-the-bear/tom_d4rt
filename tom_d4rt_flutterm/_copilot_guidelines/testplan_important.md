@@ -629,11 +629,11 @@ Commonly used classes for intermediate Flutter development - test after essentia
 
 | Class | Description | Test File | Status | Result |
 |-------|-------------|-----------|--------|--------|
-| D4rtCustomPainter | Proxy for CustomPainter delegate | proxies/custompaint_proxy_test.dart | created | - |
-| D4rtCustomClipper | Proxy for CustomClipper delegate | proxies/customclipper_proxy_test.dart | created | - |
-| D4rtFlowDelegate | Proxy for FlowDelegate | proxies/flowdelegate_proxy_test.dart | created | - |
-| D4rtMultiChildLayoutDelegate | Proxy for MultiChildLayoutDelegate | proxies/multichildlayout_proxy_test.dart | created | - |
-| D4rtSingleChildLayoutDelegate | Proxy for SingleChildLayoutDelegate | proxies/singlechildlayout_proxy_test.dart | created | - |
+| D4rtCustomPainter | Proxy for CustomPainter delegate | proxies/custompaint_proxy_test.dart | pass | - |
+| D4rtCustomClipper | Proxy for CustomClipper delegate | proxies/customclipper_proxy_test.dart | pass | - |
+| D4rtFlowDelegate | Proxy for FlowDelegate | proxies/flowdelegate_proxy_test.dart | pass | - |
+| D4rtMultiChildLayoutDelegate | Proxy for MultiChildLayoutDelegate | proxies/multichildlayout_proxy_test.dart | pass | - |
+| D4rtSingleChildLayoutDelegate | Proxy for SingleChildLayoutDelegate | proxies/singlechildlayout_proxy_test.dart | pass | - |
 
 ---
 
