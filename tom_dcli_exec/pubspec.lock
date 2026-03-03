@@ -261,18 +261,18 @@ packages:
     dependency: transitive
     description:
       name: dio
-      sha256: b9d46faecab38fc8cc286f80bc4d61a3bb5d4ac49e51ed877b4d6706efe57b25
+      sha256: aff32c08f92787a557dd5c0145ac91536481831a01b4648136373cddb0e64f8c
       url: "https://pub.dev"
     source: hosted
-    version: "5.9.1"
+    version: "5.9.2"
   dio_web_adapter:
     dependency: transitive
     description:
       name: dio_web_adapter
-      sha256: "7586e476d70caecaf1686d21eee7247ea43ef5c345eab9e0cc3583ff13378d78"
+      sha256: "2f9e64323a7c3c7ef69567d5c800424a11f8337b8b228bad02524c9fb3c1f340"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.1"
+    version: "2.1.2"
   equatable:
     dependency: transitive
     description:
@@ -756,10 +756,10 @@ packages:
     dependency: transitive
     description:
       name: tom_build_base
-      sha256: c8e3eb9fe845a33f60e02d9c22b9b7903b5200850489a675393f58d7fd051268
+      sha256: ede0c4ad8e02fc24407cff2766f2158ed6e9d7851a08888f2609e1d720ac28e2
       url: "https://pub.dev"
     source: hosted
-    version: "2.5.16"
+    version: "2.6.6"
   tom_chattools:
     dependency: "direct main"
     description:
@@ -772,10 +772,10 @@ packages:
     dependency: transitive
     description:
       name: tom_d4rt
-      sha256: "46bc5a7d08dd3f478839b59a5f75abe2d674cc8e67509fa3bd3893ea754da147"
+      sha256: "09613a76dce5004aa7b2c5603c324411a6772e3f16dfe20365ff360270a2f718"
       url: "https://pub.dev"
     source: hosted
-    version: "1.8.8"
+    version: "1.8.10"
   tom_d4rt_ast:
     dependency: transitive
     description:

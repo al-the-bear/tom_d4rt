@@ -513,13 +513,13 @@
     },
     {
       "name": "tom_build_base",
-      "rootUri": "file:///home/alexis/.pub-cache/hosted/pub.dev/tom_build_base-2.6.3",
+      "rootUri": "file:///home/alexis/.pub-cache/hosted/pub.dev/tom_build_base-2.6.6",
       "packageUri": "lib/",
       "languageVersion": "3.10"
     },
     {
       "name": "tom_d4rt",
-      "rootUri": "file:///home/alexis/.pub-cache/hosted/pub.dev/tom_d4rt-1.8.8",
+      "rootUri": "file:///home/alexis/.pub-cache/hosted/pub.dev/tom_d4rt-1.8.10",
       "packageUri": "lib/",
       "languageVersion": "3.5"
     },
