@@ -274,7 +274,8 @@ dynamic build(BuildContext context) {
     accountName: Text('Alice'),
     accountEmail: Text('alice@test.com'),
     currentAccountPicture: CircleAvatar(
-      backgroundImage: NetworkImage('https://via.placeholder.com/70'),
+      backgroundColor: Colors.indigo,
+      child: Text('A', style: TextStyle(color: Colors.white)),
     ),
     decoration: BoxDecoration(color: Colors.indigo),
     onDetailsPressed: () {

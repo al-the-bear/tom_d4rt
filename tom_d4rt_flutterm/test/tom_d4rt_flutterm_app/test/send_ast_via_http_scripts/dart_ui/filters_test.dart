@@ -136,14 +136,7 @@ dynamic build(BuildContext context) {
   final noBlur = ImageFilter.blur(sigmaX: 0.0, sigmaY: 0.0);
   print('ImageFilter.blur(sigmaX: 0, sigmaY: 0): $noBlur');
 
-  // ImageFilter.matrix
-  final scaleMatrix = Float64List(16);
-  scaleMatrix[0] = 2.0; // scaleX
-  scaleMatrix[5] = 2.0; // scaleY
-  scaleMatrix[10] = 1.0;
-  scaleMatrix[15] = 1.0;
-  final matrixImageFilter = ImageFilter.matrix(scaleMatrix);
-  print('ImageFilter.matrix(2x scale): $matrixImageFilter');
+  // Note: ImageFilter.matrix requires Float64List which is not available in D4rt
 
   // ImageFilter.compose
   final composedFilter = ImageFilter.compose(

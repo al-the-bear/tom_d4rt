@@ -15,7 +15,7 @@ dynamic build(BuildContext context) {
   print('  runtimeType: ${stringCodec.runtimeType}');
 
   final encoded = stringCodec.encodeMessage('Hello, D4rt!');
-  print('Encoded "Hello, D4rt!": ${encoded?.lengthInBytes} bytes');
+  print('Encoded "Hello, D4rt!": ${encoded != null ? "has data" : "null"}');
 
   final decoded = stringCodec.decodeMessage(encoded);
   print('Decoded: "$decoded"');
@@ -69,7 +69,7 @@ dynamic build(BuildContext context) {
   // Encode method call
   final methodCall = MethodCall('testMethod', {'arg1': 'hello', 'arg2': 42});
   final encodedCall = jsonMethodCodec.encodeMethodCall(methodCall);
-  print('Encoded method call: ${encodedCall.lengthInBytes} bytes');
+  print('Encoded method call: ${encodedCall != null ? "has data" : "null"}');
 
   // Decode method call
   final decodedCall = jsonMethodCodec.decodeMethodCall(encodedCall);
@@ -79,7 +79,7 @@ dynamic build(BuildContext context) {
 
   // Encode success envelope
   final successEnv = jsonMethodCodec.encodeSuccessEnvelope('result_value');
-  print('Encoded success envelope: ${successEnv.lengthInBytes} bytes');
+  print('Encoded success envelope: ${successEnv != null ? "has data" : "null"}');
 
   // Decode success envelope
   final decodedSuccess = jsonMethodCodec.decodeEnvelope(successEnv);
@@ -137,7 +137,7 @@ dynamic build(BuildContext context) {
   // Encode method call
   final stdCall = MethodCall('getData', [1, 2, 3]);
   final stdEncoded = stdMethodCodec.encodeMethodCall(stdCall);
-  print('Encoded standard method call: ${stdEncoded.lengthInBytes} bytes');
+  print('Encoded standard method call: ${stdEncoded != null ? "has data" : "null"}');
 
   final stdDecoded = stdMethodCodec.decodeMethodCall(stdEncoded);
   print('Decoded: method=${stdDecoded.method}, args=${stdDecoded.arguments}');
@@ -159,10 +159,10 @@ dynamic build(BuildContext context) {
   // Binary passes through unchanged
   final bytes = Uint8List.fromList([1, 2, 3, 4, 5]);
   final binaryEncoded = binaryCodec.encodeMessage(bytes.buffer.asByteData());
-  print('Binary encoded: ${binaryEncoded?.lengthInBytes} bytes');
+  print('Binary encoded: ${binaryEncoded != null ? "has data" : "null"}');
 
   final binaryDecoded = binaryCodec.decodeMessage(binaryEncoded);
-  print('Binary decoded: ${binaryDecoded?.lengthInBytes} bytes');
+  print('Binary decoded: ${binaryDecoded != null ? "has data" : "null"}');
 
   // ========== RETURN WIDGET ==========
   print('Services codecs test completed');

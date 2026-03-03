@@ -29,6 +29,7 @@ dynamic build(BuildContext context) {
 
   final networkImage = NetworkImage(
     'https://flutter.dev/assets/images/shared/brand/flutter/logo/flutter-lockup.png',
+    scale: 1.0,
   );
   print('NetworkImage: ${networkImage.runtimeType}');
   print('NetworkImage url: ${networkImage.url}');
@@ -59,19 +60,19 @@ dynamic build(BuildContext context) {
   print('AssetImage equality: ${asset1 == asset2}');
   print('AssetImage hashCode match: ${asset1.hashCode == asset2.hashCode}');
 
-  final net1 = NetworkImage('https://example.com/a.png');
-  final net2 = NetworkImage('https://example.com/a.png');
+  final net1 = NetworkImage('https://example.com/a.png', scale: 1.0);
+  final net2 = NetworkImage('https://example.com/a.png', scale: 1.0);
   print('NetworkImage equality: ${net1 == net2}');
   print('NetworkImage hashCode match: ${net1.hashCode == net2.hashCode}');
 
-  final net3 = NetworkImage('https://example.com/b.png');
+  final net3 = NetworkImage('https://example.com/b.png', scale: 1.0);
   print('Different NetworkImage equality: ${net1 == net3}');
 
   // ========== DECORATIONIMAGE ==========
   print('--- DecorationImage Tests ---');
 
   final decoImage = DecorationImage(
-    image: NetworkImage('https://example.com/bg.png'),
+    image: NetworkImage('https://example.com/bg.png', scale: 1.0),
     fit: BoxFit.cover,
     alignment: Alignment.center,
     repeat: ImageRepeat.noRepeat,

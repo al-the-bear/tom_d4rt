@@ -100,8 +100,8 @@ dynamic build(BuildContext context) {
   print('timerPickerSecondLabel(45): $secLabel45');
 
   // Test tabSemanticsLabel
-  final tabLabel = localizations.tabSemanticsLabel(tab: 2, tabCount: 5);
-  print('tabSemanticsLabel(tab:2, tabCount:5): $tabLabel');
+  final tabLabel = localizations.tabSemanticsLabel(tabIndex: 2, tabCount: 5);
+  print('tabSemanticsLabel(tabIndex:2, tabCount:5): $tabLabel');
 
   // Test copyButtonLabel, cutButtonLabel, pasteButtonLabel, selectAllButtonLabel
   final copyLabel = localizations.copyButtonLabel;

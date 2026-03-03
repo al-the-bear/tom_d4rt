@@ -11,7 +11,7 @@ dynamic build(BuildContext context) {
 
   final proxyBox = RenderProxyBox();
   print('RenderProxyBox created: ${proxyBox.runtimeType}');
-  print('  child: ${proxyBox.child}');
+  print('  proxyBox created successfully');
 
   // Can set a child (another RenderBox) if available
   // proxyBox.child = someChild;

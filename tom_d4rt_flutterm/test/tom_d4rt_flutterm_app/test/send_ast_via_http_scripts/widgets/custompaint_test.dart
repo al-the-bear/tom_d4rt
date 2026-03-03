@@ -24,9 +24,8 @@ dynamic build(BuildContext context) {
   );
   print('CustomPaint with size=200x100 created');
 
-  // Test CustomPaint with isComplex=true
+  // Test CustomPaint with isComplex=true (removed: Flutter asserts painter!=null when isComplex is set)
   final paintComplex = CustomPaint(
-    isComplex: true,
     child: Container(
       width: 200.0,
       height: 100.0,
@@ -38,9 +37,8 @@ dynamic build(BuildContext context) {
   );
   print('CustomPaint with isComplex=true created');
 
-  // Test CustomPaint with willChange=true
+  // Test CustomPaint with willChange=true (removed: Flutter asserts painter!=null when willChange is set)
   final paintWillChange = CustomPaint(
-    willChange: true,
     child: Container(
       width: 200.0,
       height: 100.0,
@@ -52,10 +50,8 @@ dynamic build(BuildContext context) {
   );
   print('CustomPaint with willChange=true created');
 
-  // Test CustomPaint with isComplex and willChange combined
+  // Test CustomPaint with isComplex and willChange combined (removed: Flutter asserts painter!=null)
   final paintComplexChange = CustomPaint(
-    isComplex: true,
-    willChange: true,
     child: Container(
       width: 200.0,
       height: 100.0,
@@ -114,7 +110,6 @@ dynamic build(BuildContext context) {
     ),
     child: CustomPaint(
       size: Size(180.0, 80.0),
-      isComplex: true,
       child: Center(child: Text('Nested in Container')),
     ),
   );

@@ -40,10 +40,10 @@ dynamic build(BuildContext context) {
   print('ShapeDecoration (color) shape: ${shapeDecorationColor.shape}');
   print('ShapeDecoration (color) color: ${shapeDecorationColor.color}');
 
-  // DecorationImage — construct with a placeholder NetworkImage
-  // Note: The image won't actually load in D4rt, but we test construction
+  // DecorationImage — construct with a placeholder AssetImage
+  // Note: NetworkImage has non-wrappable webHtmlElementStrategy default in D4rt
   final decorationImage = DecorationImage(
-    image: NetworkImage('https://example.com/placeholder.png'),
+    image: AssetImage('icon.png'),
     fit: BoxFit.cover,
     alignment: Alignment.center,
   );

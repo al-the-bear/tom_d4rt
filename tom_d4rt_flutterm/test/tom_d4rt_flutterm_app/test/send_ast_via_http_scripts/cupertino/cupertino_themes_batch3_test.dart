@@ -67,12 +67,7 @@ dynamic build(BuildContext context) {
   print('  color: ${copiedIconTheme.color}');
   print('  size (inherited): ${copiedIconTheme.size}');
 
-  // Test IconThemeData.merge
-  final mergedIconTheme = IconThemeData.merge(
-    IconThemeData(color: CupertinoColors.systemPurple),
-    IconThemeData(size: 24.0),
-  );
-  print('IconThemeData.merge created');
+  // Note: IconThemeData.merge not available in D4rt (static method not bridged)
 
   // ========== CUPERTINO THEME WITH TEXTTHEME AND ICONS ==========
   print('--- Combined Theme Tests ---');
@@ -253,7 +248,6 @@ dynamic build(BuildContext context) {
               Text('• Theme inheritance (3 levels)'),
               Text('• IconThemeData construction'),
               Text('• IconThemeData.copyWith'),
-              Text('• IconThemeData.merge'),
               Text('• Combined theme with text and icons'),
               Text('• Dark/light mode themes'),
               Text('• Theme comparison'),

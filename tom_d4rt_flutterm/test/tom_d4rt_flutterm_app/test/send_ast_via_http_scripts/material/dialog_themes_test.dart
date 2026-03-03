@@ -110,15 +110,15 @@ dynamic build(BuildContext context) {
   print('  dismissDirection: ${snackBarThemeData.dismissDirection}');
   print('  shape: ${snackBarThemeData.shape}');
 
-  // Test copyWith
+  // Test copyWith (keep behavior floating since original has width=400)
   final copiedSnackBarTheme = snackBarThemeData.copyWith(
     backgroundColor: Colors.black87,
-    behavior: SnackBarBehavior.fixed,
+    elevation: 8.0,
   );
   print('SnackBarThemeData.copyWith created');
   print('  new backgroundColor: ${copiedSnackBarTheme.backgroundColor}');
-  print('  new behavior: ${copiedSnackBarTheme.behavior}');
-  print('  elevation preserved: ${copiedSnackBarTheme.elevation}');
+  print('  new elevation: ${copiedSnackBarTheme.elevation}');
+  print('  behavior preserved: ${copiedSnackBarTheme.behavior}');
 
   // ========== WRAP IN THEME WIDGET ==========
   print('--- Theme Integration ---');
