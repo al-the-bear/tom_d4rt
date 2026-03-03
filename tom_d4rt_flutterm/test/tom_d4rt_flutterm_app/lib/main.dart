@@ -101,8 +101,21 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
   void _handleFlutterError(FlutterErrorDetails details) {
     if (_capturingFrameworkErrors) {
       final message = details.exceptionAsString();
-      _frameworkErrors.add(message);
-      _addLogEntry('[framework error] $message');
+
+      // Filter out internal Flutter framework assertions that are not visible
+      // red error screens (e.g. semantics parent-data bookkeeping).
+      const ignoredPatterns = [
+        'parentDataDirty',
+        'parentData is set up correctly',
+      ];
+      final isIgnored = ignoredPatterns.any(
+        (p) => message.contains(p),
+      );
+
+      if (!isIgnored) {
+        _frameworkErrors.add(message);
+        _addLogEntry('[framework error] $message');
+      }
     }
     // Always forward to the original handler for logging/debug output.
     _originalFlutterErrorHandler?.call(details);
