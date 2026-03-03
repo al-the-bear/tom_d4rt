@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Dartscript registration for flutter_material_bridges
-// Generated: 2026-03-02T18:56:30.558006
+// Generated: 2026-03-03T11:58:15.683850
 
 /// D4rt Bridge Registration for flutter_material_bridges
 library;
@@ -19,6 +19,7 @@ import 'rendering_bridges.b.dart' as flutter_rendering_bridges;
 import 'widgets_bridges.b.dart' as flutter_widgets_bridges;
 import 'material_widgets_bridges.b.dart' as flutter_material_bridges;
 import 'cupertino_bridges.b.dart' as flutter_cupertino_bridges;
+import 'flutter_proxies_bridges.b.dart' as flutter_proxies_bridges;
 
 /// Combined bridge registration for flutter_material_bridges.
 class FlutterMaterialBridges {
@@ -130,6 +131,14 @@ class FlutterMaterialBridges {
     for (final barrel in flutter_cupertino_bridges.FlutterCupertinoBridge.subPackageBarrels()) {
       flutter_cupertino_bridges.FlutterCupertinoBridge.registerBridges(d4rt, barrel);
     }
+    // Register proxy/adapter bridges for abstract delegates (GEN-083)
+    flutter_proxies_bridges.FlutterProxiesBridge.registerBridges(
+      d4rt,
+      'package:flutter/rendering.dart',
+    );
+    for (final barrel in flutter_proxies_bridges.FlutterProxiesBridge.subPackageBarrels()) {
+      flutter_proxies_bridges.FlutterProxiesBridge.registerBridges(d4rt, barrel);
+    }
   }
 
   /// Get import block for all modules.
@@ -148,6 +157,7 @@ class FlutterMaterialBridges {
     buffer.writeln(flutter_widgets_bridges.FlutterWidgetsBridge.getImportBlock());
     buffer.writeln(flutter_material_bridges.FlutterMaterialBridge.getImportBlock());
     buffer.writeln(flutter_cupertino_bridges.FlutterCupertinoBridge.getImportBlock());
+    buffer.writeln(flutter_proxies_bridges.FlutterProxiesBridge.getImportBlock());
     return buffer.toString();
   }
 }
