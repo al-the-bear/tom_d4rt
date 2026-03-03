@@ -772,27 +772,10 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'menu_widgets_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'cupertino/menu_widgets_test.dart',
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      skip: 'GEN-088: CupertinoMenuAnchor not in Flutter 3.41.2 stable',
-    );
-
-    test(
-      'pulldown_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'cupertino/pulldown_test.dart',
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      skip: 'GEN-088: CupertinoPulldownButton not in Flutter 3.41.2 stable',
-    );
+    // GEN-088: menu_widgets_test.dart and pulldown_test.dart removed —
+    // CupertinoMenuAnchor and CupertinoPulldownButton don't exist in
+    // Flutter 3.41.2 stable. Re-add when upgrading to a Flutter version
+    // that includes these APIs.
 
     test('toolbar_test.dart', () async {
       final result = await SendTestRunner.send('cupertino/toolbar_test.dart');
