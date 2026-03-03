@@ -13,13 +13,13 @@ Commonly used classes for intermediate Flutter development - test after essentia
 |-------|-------------|-----------|--------|--------|
 | Wrap | Wrapping layout | widgets/wrap_test.dart | created | - |
 | Table | Table layout | widgets/table_test.dart | created | - |
-| ListBody | List body | test_widgets_listbody.dart | - | - |
-| Flow | Flow layout | test_widgets_flow.dart | - | - |
+| ListBody | List body | widgets/listbody_test.dart | created | - |
+| Flow | Flow layout | widgets/flow_test.dart | created | - |
 | CustomScrollView | Custom scrolling | widgets/customscrollview_test.dart | created | - |
 | NestedScrollView | Nested scrolling | widgets/nestedscrollview_test.dart | created | - |
 | ScrollController | Scroll control | widgets/textcontroller_test.dart | created | - |
-| PageController | Page control | test_widgets_pagecontroller.dart | - | - |
-| TabController | Tab control | test_widgets_tabcontroller.dart | - | - |
+| PageController | Page control | widgets/pagecontroller_test.dart | created | - |
+| TabController | Tab control | widgets/tabcontroller_test.dart | created | - |
 | AnimatedContainer | Animated container | widgets/animatedcontainer_test.dart | created | - |
 | AnimatedOpacity | Animated opacity | widgets/animatedopacity_test.dart | created | - |
 | AnimatedPadding | Animated padding | widgets/animatedpadding_test.dart | created | - |
@@ -60,8 +60,8 @@ Commonly used classes for intermediate Flutter development - test after essentia
 | IntrinsicHeight | Intrinsic height | widgets/constrainedbox_test.dart | created | - |
 | Baseline | Baseline alignment | widgets/sizing_test.dart | created | - |
 | CustomPaint | Custom painting | widgets/custompaint_test.dart | created | - |
-| CustomMultiChildLayout | Multi layout | test_widgets_custommultichildlayout.dart | - | - |
-| CustomSingleChildLayout | Single layout | test_widgets_customsinglechildlayout.dart | - | - |
+| CustomMultiChildLayout | Multi layout | widgets/flow_test.dart | created | - |
+| CustomSingleChildLayout | Single layout | widgets/flow_test.dart | created | - |
 | LayoutBuilder | Layout building | widgets/layoutbuilder_test.dart | created | - |
 | Builder | Widget building | widgets/builder_test.dart | created | - |
 | StatefulBuilder | Stateful building | widgets/builder_test.dart | created | - |
@@ -70,7 +70,7 @@ Commonly used classes for intermediate Flutter development - test after essentia
 | ValueListenableBuilder | Value listenable | widgets/valuelistenablebuilder_test.dart | created | - |
 | ListenableBuilder | Listenable building | widgets/valuelistenablebuilder_test.dart | created | - |
 | AnimatedList | Animated list | widgets/animatedlist_test.dart | created | - |
-| AnimatedGrid | Animated grid | test_widgets_animatedgrid.dart | - | - |
+| AnimatedGrid | Animated grid | widgets/animatedgrid_test.dart | created | - |
 | ReorderableListView | Reorderable list | widgets/reorderablelistview_test.dart | created | - |
 | Draggable | Draggable widget | widgets/draggable_test.dart | created | - |
 | DragTarget | Drop target | widgets/draggable_test.dart | created | - |
@@ -79,63 +79,63 @@ Commonly used classes for intermediate Flutter development - test after essentia
 | InteractiveViewer | Pan/zoom viewer | widgets/interactiveviewer_test.dart | created | - |
 | IgnorePointer | Ignore touches | widgets/absorbpointer_test.dart | created | - |
 | AbsorbPointer | Absorb touches | widgets/absorbpointer_test.dart | created | - |
-| Listener | Pointer events | test_widgets_listener.dart | - | - |
+| Listener | Pointer events | widgets/listener_test.dart | created | - |
 | MouseRegion | Mouse events | widgets/absorbpointer_test.dart | created | - |
 | RepaintBoundary | Repaint boundary | widgets/absorbpointer_test.dart | created | - |
 | Semantics | Accessibility | widgets/semantics_test.dart | created | - |
 | MergeSemantics | Merge semantics | widgets/semantics_test.dart | created | - |
 | ExcludeSemantics | Exclude semantics | widgets/semantics_test.dart | created | - |
-| BlockSemantics | Block semantics | test_widgets_blocksemantics.dart | - | - |
-| IndexedSemantics | Indexed semantics | test_widgets_indexedsemantics.dart | - | - |
+| BlockSemantics | Block semantics | widgets/blocksemantics_test.dart | created | - |
+| IndexedSemantics | Indexed semantics | widgets/blocksemantics_test.dart | created | - |
 | Tooltip | Tooltips | widgets/tooltip_test.dart | created | - |
-| Overlay | Overlay layer | test_widgets_overlay.dart | - | - |
-| OverlayEntry | Overlay entry | test_widgets_overlayentry.dart | - | - |
-| ModalRoute | Modal routing | test_widgets_modalroute.dart | - | - |
-| PageRoute | Page routing | test_widgets_pageroute.dart | - | - |
-| PopupRoute | Popup routing | test_widgets_popuproute.dart | - | - |
-| Route | Base route | test_widgets_route.dart | - | - |
-| RouteSettings | Route settings | test_widgets_routesettings.dart | - | - |
-| NavigatorState | Navigator state | test_widgets_navigatorstate.dart | - | - |
-| NavigatorObserver | Navigation observer | test_widgets_navigatorobserver.dart | - | - |
-| BackButtonDispatcher | Back button | test_widgets_backbuttondispatcher.dart | - | - |
-| Router | Declarative routing | test_widgets_router.dart | - | - |
-| RouterDelegate | Router delegate | test_widgets_routerdelegate.dart | - | - |
-| RouteInformationParser | Route parsing | test_widgets_routeinformationparser.dart | - | - |
-| RouteInformationProvider | Route provider | test_widgets_routeinformationprovider.dart | - | - |
-| LocalHistoryRoute | Local history | test_widgets_localhistoryroute.dart | - | - |
-| Localizations | Localization | test_widgets_localizations.dart | - | - |
-| LocalizationsDelegate | Locale delegate | test_widgets_localizationsdelegate.dart | - | - |
-| DefaultWidgetsLocalizations | Default locale | test_widgets_defaultwidgetslocalizations.dart | - | - |
-| Actions | Action handling | test_widgets_actions.dart | - | - |
-| Shortcuts | Keyboard shortcuts | test_widgets_shortcuts.dart | - | - |
-| Intent | User intent | test_widgets_intent.dart | - | - |
-| Action | Action handler | test_widgets_action.dart | - | - |
-| CallbackAction | Callback action | test_widgets_callbackaction.dart | - | - |
-| FocusableActionDetector | Focus action | test_widgets_focusableactiondetector.dart | - | - |
-| FocusTraversalGroup | Focus traversal | test_widgets_focustraversalgroup.dart | - | - |
-| FocusTraversalPolicy | Traversal policy | test_widgets_focustraversalpolicy.dart | - | - |
-| FocusManager | Focus manager | test_widgets_focusmanager.dart | - | - |
+| Overlay | Overlay layer | widgets/overlay_test.dart | created | - |
+| OverlayEntry | Overlay entry | widgets/overlay_test.dart | created | - |
+| ModalRoute | Modal routing | widgets/route_test.dart | created | - |
+| PageRoute | Page routing | material/pageroute_test.dart | created | - |
+| PopupRoute | Popup routing | widgets/route_test.dart | created | - |
+| Route | Base route | widgets/route_test.dart | created | - |
+| RouteSettings | Route settings | widgets/route_test.dart | created | - |
+| NavigatorState | Navigator state | widgets/navigatorstate_test.dart | created | - |
+| NavigatorObserver | Navigation observer | widgets/navigatorstate_test.dart | created | - |
+| BackButtonDispatcher | Back button | widgets/backbutton_test.dart | created | - |
+| Router | Declarative routing | widgets/router_test.dart | created | - |
+| RouterDelegate | Router delegate | widgets/router_test.dart | created | - |
+| RouteInformationParser | Route parsing | widgets/router_test.dart | created | - |
+| RouteInformationProvider | Route provider | widgets/router_test.dart | created | - |
+| LocalHistoryRoute | Local history | widgets/route_test.dart | created | - |
+| Localizations | Localization | widgets/localizations_test.dart | created | - |
+| LocalizationsDelegate | Locale delegate | widgets/localizations_test.dart | created | - |
+| DefaultWidgetsLocalizations | Default locale | widgets/localizations_test.dart | created | - |
+| Actions | Action handling | widgets/actions_test.dart | created | - |
+| Shortcuts | Keyboard shortcuts | widgets/actions_test.dart | created | - |
+| Intent | User intent | widgets/actions_test.dart | created | - |
+| Action | Action handler | widgets/actions_test.dart | created | - |
+| CallbackAction | Callback action | widgets/actions_test.dart | created | - |
+| FocusableActionDetector | Focus action | widgets/actions_test.dart | created | - |
+| FocusTraversalGroup | Focus traversal | widgets/focustraversal_test.dart | created | - |
+| FocusTraversalPolicy | Traversal policy | widgets/focustraversal_test.dart | created | - |
+| FocusManager | Focus manager | widgets/focustraversal_test.dart | created | - |
 | Focus | Focus widget | widgets/focus_test.dart | created | - |
 | FocusScope | Focus scope widget | widgets/focus_test.dart | created | - |
-| FormState | Form state | test_widgets_formstate.dart | - | - |
-| FormFieldState | Field state | test_widgets_formfieldstate.dart | - | - |
+| FormState | Form state | widgets/formstate_test.dart | created | - |
+| FormFieldState | Field state | widgets/formstate_test.dart | created | - |
 | TextEditingController | Text controller | widgets/textcontroller_test.dart | created | - |
-| ScrollNotification | Scroll notification | test_widgets_scrollnotification.dart | - | - |
+| ScrollNotification | Scroll notification | widgets/scrollnotification_test.dart | created | - |
 | NotificationListener | Notification listener | widgets/notificationlistener_test.dart | created | - |
-| LayoutChangedNotification | Layout notification | test_widgets_layoutchangednotification.dart | - | - |
-| KeepAlive | Keep alive | test_widgets_keepalive.dart | - | - |
-| AutomaticKeepAlive | Auto keep alive | test_widgets_automatickeepalive.dart | - | - |
+| LayoutChangedNotification | Layout notification | widgets/scrollnotification_test.dart | created | - |
+| KeepAlive | Keep alive | widgets/keepalive_test.dart | created | - |
+| AutomaticKeepAlive | Auto keep alive | widgets/keepalive_test.dart | created | - |
 | SliverList | Sliver list | widgets/sliverlist_test.dart | created | - |
 | SliverGrid | Sliver grid | widgets/sliverlist_test.dart | created | - |
-| SliverFixedExtentList | Fixed extent | test_widgets_sliverfixedextentlist.dart | - | - |
-| SliverVariedExtentList | Varied extent | test_widgets_slivervariedextentlist.dart | - | - |
+| SliverFixedExtentList | Fixed extent | widgets/sliverwidgets_test.dart | created | - |
+| SliverVariedExtentList | Varied extent | widgets/sliverwidgets_test.dart | created | - |
 | SliverFillRemaining | Fill remaining | widgets/sliverfillremaining_test.dart | created | - |
-| SliverFillViewport | Fill viewport | test_widgets_sliverfillviewport.dart | - | - |
+| SliverFillViewport | Fill viewport | widgets/sliverwidgets_test.dart | created | - |
 | SliverToBoxAdapter | Box adapter | widgets/customscrollview_test.dart | created | - |
 | SliverPadding | Sliver padding | widgets/sliverlist_test.dart | created | - |
 | SliverOpacity | Sliver opacity | widgets/sliverfillremaining_test.dart | created | - |
-| SliverPersistentHeader | Persistent header | test_widgets_sliverpersistentheader.dart | - | - |
-| SliverAppBar | Sliver app bar | test_widgets_sliverappbar.dart | - | - |
+| SliverPersistentHeader | Persistent header | widgets/sliverwidgets_test.dart | created | - |
+| SliverAppBar | Sliver app bar | widgets/sliverwidgets_test.dart | created | - |
 | SnackBar | Snackbar message | material/snackbar_test.dart | created | - |
 | Banner | Debug banner | widgets/banner_test.dart | created | - |
 | ErrorWidget | Error display | widgets/banner_test.dart | created | - |
@@ -146,134 +146,134 @@ Commonly used classes for intermediate Flutter development - test after essentia
 
 | Class | Description | Test File | Status | Result |
 |-------|-------------|-----------|--------|--------|
-| MaterialState | Widget state | test_material_materialstate.dart | - | - |
-| MaterialStateProperty | State property | test_material_materialstateproperty.dart | - | - |
-| WidgetStateProperty | Widget state | test_material_widgetstateproperty.dart | - | - |
-| WidgetStatesController | States controller | test_material_widgetstatescontroller.dart | - | - |
-| ButtonTheme | Button theming | test_material_buttontheme.dart | - | - |
-| ButtonThemeData | Button theme data | test_material_buttonthemedata.dart | - | - |
-| ElevatedButtonTheme | Elevated theme | test_material_elevatedbuttontheme.dart | - | - |
-| ElevatedButtonThemeData | Elevated data | test_material_elevatedbuttonthemedata.dart | - | - |
-| TextButtonTheme | Text button theme | test_material_textbuttontheme.dart | - | - |
-| OutlinedButtonTheme | Outlined theme | test_material_outlinedbuttontheme.dart | - | - |
-| FilledButtonTheme | Filled theme | test_material_filledbuttontheme.dart | - | - |
-| IconButtonTheme | Icon button theme | test_material_iconbuttontheme.dart | - | - |
-| FloatingActionButtonTheme | FAB theme | test_material_floatingactionbuttontheme.dart | - | - |
-| AppBarTheme | App bar theme | test_material_appbartheme.dart | - | - |
-| BottomAppBarTheme | Bottom bar theme | test_material_bottomappbartheme.dart | - | - |
-| NavigationBarTheme | Nav bar theme | test_material_navigationbartheme.dart | - | - |
-| NavigationRailTheme | Nav rail theme | test_material_navigationrailtheme.dart | - | - |
-| DrawerTheme | Drawer theme | test_material_drawertheme.dart | - | - |
-| ListTileTheme | Tile theme | test_material_listtiletheme.dart | - | - |
-| CardTheme | Card theme | test_material_cardtheme.dart | - | - |
-| ChipTheme | Chip theme | test_material_chiptheme.dart | - | - |
-| TooltipTheme | Tooltip theme | test_material_tooltiptheme.dart | - | - |
-| DividerTheme | Divider theme | test_material_dividertheme.dart | - | - |
-| DialogTheme | Dialog theme | test_material_dialogtheme.dart | - | - |
-| BottomSheetTheme | Sheet theme | test_material_bottomsheettheme.dart | - | - |
-| SnackBarTheme | Snackbar theme | test_material_snackbartheme.dart | - | - |
-| TabBarTheme | Tab theme | test_material_tabbartheme.dart | - | - |
-| SliderTheme | Slider theme | test_material_slidertheme.dart | - | - |
-| SwitchTheme | Switch theme | test_material_switchtheme.dart | - | - |
-| CheckboxTheme | Checkbox theme | test_material_checkboxtheme.dart | - | - |
-| RadioTheme | Radio theme | test_material_radiotheme.dart | - | - |
-| ProgressIndicatorTheme | Progress theme | test_material_progressindicatortheme.dart | - | - |
-| DatePickerTheme | Date picker theme | test_material_datepickertheme.dart | - | - |
-| TimePickerTheme | Time picker theme | test_material_timepickertheme.dart | - | - |
-| PopupMenuTheme | Popup theme | test_material_popupmenutheme.dart | - | - |
-| MenuTheme | Menu theme | test_material_menutheme.dart | - | - |
-| MenuBarTheme | Menu bar theme | test_material_menubartheme.dart | - | - |
-| DropdownMenuTheme | Dropdown theme | test_material_dropdownmenutheme.dart | - | - |
-| SearchBarTheme | Search theme | test_material_searchbartheme.dart | - | - |
-| SearchViewTheme | Search view theme | test_material_searchviewtheme.dart | - | - |
-| ExpansionTileTheme | Expansion theme | test_material_expansiontiletheme.dart | - | - |
-| SegmentedButtonTheme | Segment theme | test_material_segmentedbuttontheme.dart | - | - |
-| BadgeTheme | Badge theme | test_material_badgetheme.dart | - | - |
-| ActionIconTheme | Action icon theme | test_material_actionicontheme.dart | - | - |
+| MaterialState | Widget state | material/widgetstate_test.dart | created | - |
+| MaterialStateProperty | State property | material/widgetstate_test.dart | created | - |
+| WidgetStateProperty | Widget state | material/widgetstate_test.dart | created | - |
+| WidgetStatesController | States controller | material/widgetstate_test.dart | created | - |
+| ButtonTheme | Button theming | material/themadata_test.dart | created | - |
+| ButtonThemeData | Button theme data | material/themadata_test.dart | created | - |
+| ElevatedButtonTheme | Elevated theme | material/themadata_test.dart | created | - |
+| ElevatedButtonThemeData | Elevated data | material/themadata_test.dart | created | - |
+| TextButtonTheme | Text button theme | material/themadata_test.dart | created | - |
+| OutlinedButtonTheme | Outlined theme | material/themadata_test.dart | created | - |
+| FilledButtonTheme | Filled theme | material/themadata_test.dart | created | - |
+| IconButtonTheme | Icon button theme | material/themadata_test.dart | created | - |
+| FloatingActionButtonTheme | FAB theme | material/themadata_test.dart | created | - |
+| AppBarTheme | App bar theme | material/appbar_themes_test.dart | created | - |
+| BottomAppBarTheme | Bottom bar theme | material/appbar_themes_test.dart | created | - |
+| NavigationBarTheme | Nav bar theme | material/navigation_themes_test.dart | created | - |
+| NavigationRailTheme | Nav rail theme | material/navigation_themes_test.dart | created | - |
+| DrawerTheme | Drawer theme | material/navigation_themes_test.dart | created | - |
+| ListTileTheme | Tile theme | material/component_themes_test.dart | created | - |
+| CardTheme | Card theme | material/component_themes_test.dart | created | - |
+| ChipTheme | Chip theme | material/component_themes_test.dart | created | - |
+| TooltipTheme | Tooltip theme | material/component_themes_test.dart | created | - |
+| DividerTheme | Divider theme | material/component_themes_test.dart | created | - |
+| DialogTheme | Dialog theme | material/dialog_themes_test.dart | created | - |
+| BottomSheetTheme | Sheet theme | material/dialog_themes_test.dart | created | - |
+| SnackBarTheme | Snackbar theme | material/dialog_themes_test.dart | created | - |
+| TabBarTheme | Tab theme | material/component_themes_test.dart | created | - |
+| SliderTheme | Slider theme | material/input_themes_test.dart | created | - |
+| SwitchTheme | Switch theme | material/input_themes_test.dart | created | - |
+| CheckboxTheme | Checkbox theme | material/input_themes_test.dart | created | - |
+| RadioTheme | Radio theme | material/input_themes_test.dart | created | - |
+| ProgressIndicatorTheme | Progress theme | material/input_themes_test.dart | created | - |
+| DatePickerTheme | Date picker theme | material/picker_themes_test.dart | created | - |
+| TimePickerTheme | Time picker theme | material/picker_themes_test.dart | created | - |
+| PopupMenuTheme | Popup theme | material/menu_themes_test.dart | created | - |
+| MenuTheme | Menu theme | material/menu_themes_test.dart | created | - |
+| MenuBarTheme | Menu bar theme | material/menu_themes_test.dart | created | - |
+| DropdownMenuTheme | Dropdown theme | material/menu_themes_test.dart | created | - |
+| SearchBarTheme | Search theme | material/misc_themes_test.dart | created | - |
+| SearchViewTheme | Search view theme | material/misc_themes_test.dart | created | - |
+| ExpansionTileTheme | Expansion theme | material/misc_themes_test.dart | created | - |
+| SegmentedButtonTheme | Segment theme | material/misc_themes_test.dart | created | - |
+| BadgeTheme | Badge theme | material/misc_themes_test.dart | created | - |
+| ActionIconTheme | Action icon theme | material/misc_themes_test.dart | created | - |
 | BottomAppBar | Bottom app bar | material/bottomappbar_test.dart | created | - |
-| NavigationDestination | Nav destination | test_material_navigationdestination.dart | - | - |
-| NavigationRailDestination | Rail destination | test_material_navigationraildestination.dart | - | - |
-| NavigationDrawerDestination | Drawer destination | test_material_navigationdrawerdestination.dart | - | - |
-| DrawerHeader | Drawer header | test_material_drawerheader.dart | - | - |
-| UserAccountsDrawerHeader | User header | test_material_useraccountsdrawerheader.dart | - | - |
-| AboutListTile | About tile | test_material_aboutlisttile.dart | - | - |
+| NavigationDestination | Nav destination | material/nav_destinations_test.dart | created | - |
+| NavigationRailDestination | Rail destination | material/nav_destinations_test.dart | created | - |
+| NavigationDrawerDestination | Drawer destination | material/nav_destinations_test.dart | created | - |
+| DrawerHeader | Drawer header | material/nav_destinations_test.dart | created | - |
+| UserAccountsDrawerHeader | User header | material/nav_destinations_test.dart | created | - |
+| AboutListTile | About tile | material/licensepage_test.dart | created | - |
 | AboutDialog | About dialog | material/aboutdialog_test.dart | created | - |
-| LicensePage | License page | test_material_licensepage.dart | - | - |
-| showDialog | Show dialog | test_material_showdialog.dart | - | - |
-| showModalBottomSheet | Modal sheet | test_material_showmodalbottomsheet.dart | - | - |
-| showBottomSheet | Bottom sheet | test_material_showbottomsheet.dart | - | - |
-| showMenu | Show menu | test_material_showmenu.dart | - | - |
-| showDatePicker | Date picker | test_material_showdatepicker.dart | - | - |
-| showTimePicker | Time picker | test_material_showtimepicker.dart | - | - |
-| showSearch | Show search | test_material_showsearch.dart | - | - |
-| DatePickerDialog | Date dialog | test_material_datepickerdialog.dart | - | - |
-| TimePickerDialog | Time dialog | test_material_timepickerdialog.dart | - | - |
-| CalendarDatePicker | Calendar picker | test_material_calendardatepicker.dart | - | - |
-| YearPicker | Year picker | test_material_yearpicker.dart | - | - |
-| MonthPicker | Month picker | test_material_monthpicker.dart | - | - |
-| CupertinoDatePicker | iOS date picker | test_material_cupertinodatepicker.dart | - | - |
+| LicensePage | License page | material/licensepage_test.dart | created | - |
+| showDialog | Show dialog | material/showdialog_test.dart | created | - |
+| showModalBottomSheet | Modal sheet | material/showbottomsheet_test.dart | created | - |
+| showBottomSheet | Bottom sheet | material/showbottomsheet_test.dart | created | - |
+| showMenu | Show menu | material/showmenu_test.dart | created | - |
+| showDatePicker | Date picker | material/showdatepicker_test.dart | created | - |
+| showTimePicker | Time picker | material/showtimepicker_test.dart | created | - |
+| showSearch | Show search | material/search_test.dart | created | - |
+| DatePickerDialog | Date dialog | material/datepicker_widgets_test.dart | created | - |
+| TimePickerDialog | Time dialog | material/timepicker_widget_test.dart | created | - |
+| CalendarDatePicker | Calendar picker | material/datepicker_widgets_test.dart | created | - |
+| YearPicker | Year picker | material/datepicker_widgets_test.dart | created | - |
+| MonthPicker | Month picker | material/datepicker_widgets_test.dart | created | - |
+| CupertinoDatePicker | iOS date picker | material/datepicker_widgets_test.dart | created | - |
 | MenuAnchor | Menu anchor | material/menuanchor_test.dart | created | - |
-| MenuBar | Menu bar | test_material_menubar.dart | - | - |
+| MenuBar | Menu bar | material/menubar_test.dart | created | - |
 | MenuItemButton | Menu item | material/menuanchor_test.dart | created | - |
 | SubmenuButton | Submenu | material/menuanchor_test.dart | created | - |
-| CheckboxMenuButton | Checkbox menu | test_material_checkboxmenubutton.dart | - | - |
-| RadioMenuButton | Radio menu | test_material_radiomenubutton.dart | - | - |
-| DropdownButtonFormField | Dropdown form | test_material_dropdownbuttonformfield.dart | - | - |
-| ExpansionTile | Expansion tile | test_material_expansiontile.dart | - | - |
+| CheckboxMenuButton | Checkbox menu | material/menubar_test.dart | created | - |
+| RadioMenuButton | Radio menu | material/menubar_test.dart | created | - |
+| DropdownButtonFormField | Dropdown form | material/dropdownform_test.dart | created | - |
+| ExpansionTile | Expansion tile | material/expansiontile_test.dart | created | - |
 | ExpansionPanelList | Panel list | material/expansionpanel_test.dart | created | - |
 | ExpansionPanel | Expansion panel | material/expansionpanel_test.dart | created | - |
-| DataTable | Data table | test_material_datatable.dart | - | - |
+| DataTable | Data table | material/datarow_test.dart | created | - |
 | DataRow | Data row | material/datarow_test.dart | created | - |
 | DataColumn | Data column | material/datarow_test.dart | created | - |
 | DataCell | Data cell | material/datarow_test.dart | created | - |
-| PaginatedDataTable | Paginated table | test_material_paginateddatatable.dart | - | - |
-| Stepper | Stepper widget | test_material_stepper.dart | - | - |
-| Step | Step item | test_material_step.dart | - | - |
+| PaginatedDataTable | Paginated table | material/datarow_test.dart | created | - |
+| Stepper | Stepper widget | material/stepper_test.dart | created | - |
+| Step | Step item | material/stepper_test.dart | created | - |
 | SegmentedButton | Segmented button | material/segmentedbutton_test.dart | created | - |
-| ButtonSegment | Button segment | test_material_buttonsegment.dart | - | - |
-| Badge | Badge widget | test_material_badge.dart | - | - |
-| FlutterLogo | Flutter logo | test_material_flutterlogo.dart | - | - |
+| ButtonSegment | Button segment | material/segmentedbutton_test.dart | created | - |
+| Badge | Badge widget | material/badge_test.dart | created | - |
+| FlutterLogo | Flutter logo | material/badge_test.dart | created | - |
 | CircleAvatar | Circle avatar | material/circleavatar_test.dart | created | - |
-| Material | Material widget | test_material_material.dart | - | - |
-| InkWell | Ink ripple | test_material_inkwell.dart | - | - |
-| InkResponse | Ink response | test_material_inkresponse.dart | - | - |
-| Ink | Ink widget | test_material_ink.dart | - | - |
+| Material | Material widget | material/material_widget_test.dart | created | - |
+| InkWell | Ink ripple | material/material_widget_test.dart | created | - |
+| InkResponse | Ink response | material/material_widget_test.dart | created | - |
+| Ink | Ink widget | material/material_widget_test.dart | created | - |
 | SelectableText | Selectable text | material/selectabletext_test.dart | created | - |
-| ReorderableListView | Reorderable list | test_material_reorderablelistview.dart | - | - |
+| ReorderableListView | Reorderable list | material/rawscrollbar_test.dart | created | - |
 | ToggleButtons | Toggle buttons | material/togglebuttons_test.dart | created | - |
 | AnimatedIcon | Animated icon | material/animatedicon_test.dart | created | - |
 | AnimatedIcons | Icon animations | material/animatedicon_test.dart | created | - |
 | RefreshIndicator | Pull to refresh | material/refreshindicator_test.dart | created | - |
 | Scrollbar | Scrollbar | material/scrollbar_test.dart | created | - |
-| RawScrollbar | Raw scrollbar | test_material_rawscrollbar.dart | - | - |
-| InteractiveInkFeature | Ink feature | test_material_interactiveinkfeature.dart | - | - |
-| InkHighlight | Ink highlight | test_material_inkhighlight.dart | - | - |
-| InkSplash | Ink splash | test_material_inksplash.dart | - | - |
-| InkRipple | Ink ripple | test_material_inkripple.dart | - | - |
-| InkFeature | Ink feature base | test_material_inkfeature.dart | - | - |
-| MaterialInkController | Ink controller | test_material_materialinkcontroller.dart | - | - |
+| RawScrollbar | Raw scrollbar | material/rawscrollbar_test.dart | created | - |
+| InteractiveInkFeature | Ink feature | material/material_widget_test.dart | created | - |
+| InkHighlight | Ink highlight | material/material_widget_test.dart | created | - |
+| InkSplash | Ink splash | material/material_widget_test.dart | created | - |
+| InkRipple | Ink ripple | material/material_widget_test.dart | created | - |
+| InkFeature | Ink feature base | material/material_widget_test.dart | created | - |
+| MaterialInkController | Ink controller | material/material_widget_test.dart | created | - |
 | SliverAppBar | Sliver app bar | material/sliverappbar_test.dart | created | - |
 | FlexibleSpaceBar | Flexible space | material/sliverappbar_test.dart | created | - |
-| StretchyHeaderBar | Stretchy header | test_material_stretchyheaderbar.dart | - | - |
-| MergeableMaterial | Mergeable | test_material_mergeablematerial.dart | - | - |
-| MaterialGap | Material gap | test_material_materialgap.dart | - | - |
-| MaterialSlice | Material slice | test_material_materialslice.dart | - | - |
-| TextSelectionTheme | Selection theme | test_material_textselectiontheme.dart | - | - |
+| StretchyHeaderBar | Stretchy header | material/sliverappbar_test.dart | created | - |
+| MergeableMaterial | Mergeable | material/mergeable_test.dart | created | - |
+| MaterialGap | Material gap | material/mergeable_test.dart | created | - |
+| MaterialSlice | Material slice | material/mergeable_test.dart | created | - |
+| TextSelectionTheme | Selection theme | material/misc_themes_test.dart | created | - |
 | TimeOfDay | Time of day | material/timeofday_test.dart | created | - |
-| MaterialPageRoute | Page route | test_material_materialpageroute.dart | - | - |
-| MaterialPage | Material page | test_material_materialpage.dart | - | - |
-| MaterialRouteTransitionMixin | Route transition | test_material_materialroutetransitionmixin.dart | - | - |
-| PageTransitionsTheme | Page transitions | test_material_pagetransitionstheme.dart | - | - |
-| PageTransitionsBuilder | Transition builder | test_material_pagetransitionsbuilder.dart | - | - |
-| FadeUpwardsPageTransitionsBuilder | Fade upwards | test_material_fadeupwardspagetransitionsbuilder.dart | - | - |
-| OpenUpwardsPageTransitionsBuilder | Open upwards | test_material_openupwardspagetransitionsbuilder.dart | - | - |
-| ZoomPageTransitionsBuilder | Zoom transition | test_material_zoompagetransitionsbuilder.dart | - | - |
-| CupertinoPageTransitionsBuilder | iOS transition | test_material_cupertinopagetransitionsbuilder.dart | - | - |
-| PredictiveBackPageTransitionsBuilder | Predictive back | test_material_predictivebackpagetransitionsbuilder.dart | - | - |
-| ScrollbarTheme | Scrollbar theme | test_material_scrollbartheme.dart | - | - |
-| MaterialBannerTheme | Banner theme | test_material_materialbannertheme.dart | - | - |
-| progressIndicatorTheme | Progress theme | test_material_progressindicatortheme2.dart | - | - |
-| TextFieldTheme | Text field theme | test_material_textfieldtheme.dart | - | - |
+| MaterialPageRoute | Page route | material/pageroute_test.dart | created | - |
+| MaterialPage | Material page | material/pageroute_test.dart | created | - |
+| MaterialRouteTransitionMixin | Route transition | material/pageroute_test.dart | created | - |
+| PageTransitionsTheme | Page transitions | material/pageroute_test.dart | created | - |
+| PageTransitionsBuilder | Transition builder | material/pageroute_test.dart | created | - |
+| FadeUpwardsPageTransitionsBuilder | Fade upwards | material/pageroute_test.dart | created | - |
+| OpenUpwardsPageTransitionsBuilder | Open upwards | material/pageroute_test.dart | created | - |
+| ZoomPageTransitionsBuilder | Zoom transition | material/pageroute_test.dart | created | - |
+| CupertinoPageTransitionsBuilder | iOS transition | material/pageroute_test.dart | created | - |
+| PredictiveBackPageTransitionsBuilder | Predictive back | material/pageroute_test.dart | created | - |
+| ScrollbarTheme | Scrollbar theme | material/misc_themes_test.dart | created | - |
+| MaterialBannerTheme | Banner theme | material/misc_themes_test.dart | created | - |
+| progressIndicatorTheme | Progress theme | material/input_themes_test.dart | created | - |
+| TextFieldTheme | Text field theme | material/input_themes_test.dart | created | - |
 
 ---
 
@@ -281,90 +281,90 @@ Commonly used classes for intermediate Flutter development - test after essentia
 
 | Class | Description | Test File | Status | Result |
 |-------|-------------|-----------|--------|--------|
-| DefaultCupertinoLocalizations | Default locale | test_cupertino_defaultcupertinolocalizations.dart | - | - |
-| GlobalCupertinoLocalizations | Global locale | test_cupertino_globalcupertinolocalizations.dart | - | - |
-| CupertinoApp.router | Router app | test_cupertino_cupertinoapp_router.dart | - | - |
-| CupertinoModalPopupRoute | Modal route | test_cupertino_cupertinomodalpopuproute.dart | - | - |
-| CupertinoDialogRoute | Dialog route | test_cupertino_cupertinodialogr oute.dart | - | - |
-| CupertinoNavigationBarBackButton | Back button | test_cupertino_cupertinonavigationbarbackbutton.dart | - | - |
-| CupertinoSliverRefreshControl | Refresh control | test_cupertino_cupertinosliverrefreshcontrol.dart | - | - |
-| CupertinoRefreshSliver | Refresh sliver | test_cupertino_cupertinorefreshsliver.dart | - | - |
-| RefreshCallback | Refresh callback | test_cupertino_refreshcallback.dart | - | - |
-| RefreshIndicatorMode | Indicator mode | test_cupertino_refreshindicatormode.dart | - | - |
-| CupertinoMagnifier | Magnifier | test_cupertino_cupertinomagnifier.dart | - | - |
-| CupertinoAdaptiveTextSelectionToolbar | Text toolbar | test_cupertino_cupertinoadaptivetextselectiontoolbar.dart | - | - |
-| CupertinoTextSelectionToolbar | Selection toolbar | test_cupertino_cupertinotextselectiontoolbar.dart | - | - |
-| CupertinoTextSelectionToolbarButton | Toolbar button | test_cupertino_cupertinotextselectiontoolbarbutton.dart | - | - |
-| CupertinoDesktopTextSelectionToolbar | Desktop toolbar | test_cupertino_cupertinodesktoptextselectiontoolbar.dart | - | - |
-| CupertinoDesktopTextSelectionToolbarButton | Desktop button | test_cupertino_cupertinodesktoptextselectiontoolbarbutton.dart | - | - |
-| CupertinoSpellCheckSuggestionsToolbarButton | Spell button | test_cupertino_cupertinospellchecksuggestionstoolbarbutton.dart | - | - |
-| CupertinoDatePickerMode | Picker mode | test_cupertino_cupertinodatepickermode.dart | - | - |
-| CupertinoTimerPickerMode | Timer mode | test_cupertino_cupertinotimerpickermode.dart | - | - |
-| DatePickerDateOrder | Date order | test_cupertino_datepickerdateorder.dart | - | - |
-| DatePickerDateTimeOrder | DateTime order | test_cupertino_datepickerdatetimeorder.dart | - | - |
-| CupertinoMenuDivider | Menu divider | test_cupertino_cupertinomenudivider.dart | - | - |
-| CupertinoMenuItem | Menu item | test_cupertino_cupertinomenuitem.dart | - | - |
-| CupertinoMenuLargeDivider | Large divider | test_cupertino_cupertinomenulargedivider.dart | - | - |
-| CupertinoMenuTitle | Menu title | test_cupertino_cupertinomenutitle.dart | - | - |
-| CupertinoPulldownMenuItem | Pulldown item | test_cupertino_cupertinopulldownmenuitem.dart | - | - |
-| CupertinoPulldownMenuDivider | Pulldown divider | test_cupertino_cupertinopulldownmenudivider.dart | - | - |
-| CupertinoPulldownMenuTitle | Pulldown title | test_cupertino_cupertinopulldownmenutitle.dart | - | - |
-| CupertinoPulldownButton | Pulldown button | test_cupertino_cupertinopulldownbutton.dart | - | - |
-| CupertinoMenuAnchor | Menu anchor | test_cupertino_cupertinomenuanchor.dart | - | - |
-| CupertinoMenuTheme | Menu theme | test_cupertino_cupertinomenutheme.dart | - | - |
-| CupertinoMenuThemeData | Menu theme data | test_cupertino_cupertinomenuthemedata.dart | - | - |
-| CupertinoInheritedTheme | Inherited theme | test_cupertino_cupertinoinheritedtheme.dart | - | - |
-| CupertinoUserInterfaceLevel | UI level | test_cupertino_cupertinouserinterfacelevel.dart | - | - |
-| CupertinoUserInterfaceLevelData | UI level data | test_cupertino_cupertinouserinterfaceleveldata.dart | - | - |
-| CupertinoOverrideTheme | Override theme | test_cupertino_cupertinooverridetheme.dart | - | - |
-| CupertinoTextFieldConfiguration | Field config | test_cupertino_cupertinotextfieldconfiguration.dart | - | - |
-| CupertinoTextFieldDecorator | Field decorator | test_cupertino_cupertinotextfielddecorator.dart | - | - |
-| CupertinoTextFieldTheme | Field theme | test_cupertino_cupertinotextfieldtheme.dart | - | - |
-| CupertinoTextFieldThemeData | Field theme data | test_cupertino_cupertinotextfieldthemedata.dart | - | - |
-| CupertinoSwitchTheme | Switch theme | test_cupertino_cupertinoswitchtheme.dart | - | - |
-| CupertinoSwitchThemeData | Switch theme data | test_cupertino_cupertinoswitchthemedata.dart | - | - |
-| CupertinoCheckboxTheme | Checkbox theme | test_cupertino_cupertinocheckboxtheme.dart | - | - |
-| CupertinoCheckboxThemeData | Checkbox data | test_cupertino_cupertinocheckboxthemedata.dart | - | - |
-| CupertinoRadioTheme | Radio theme | test_cupertino_cupertinoradiotheme.dart | - | - |
-| CupertinoRadioThemeData | Radio data | test_cupertino_cupertinoradiothemedata.dart | - | - |
-| CupertinoSliderTheme | Slider theme | test_cupertino_cupertinoslidertheme.dart | - | - |
-| CupertinoSliderThemeData | Slider data | test_cupertino_cupertinosliderthemedata.dart | - | - |
-| CupertinoActivityIndicatorTheme | Indicator theme | test_cupertino_cupertinoactivityindicatortheme.dart | - | - |
-| CupertinoActivityIndicatorThemeData | Indicator data | test_cupertino_cupertinoactivityindicatorthemedata.dart | - | - |
-| CupertinoButtonTheme | Button theme | test_cupertino_cupertinobuttontheme.dart | - | - |
-| CupertinoButtonThemeData | Button data | test_cupertino_cupertinobuttonthemedata.dart | - | - |
-| CupertinoButtonConfig | Button config | test_cupertino_cupertinobuttonconfig.dart | - | - |
-| CupertinoButtonColor | Button color | test_cupertino_cupertinobuttoncolor.dart | - | - |
-| CupertinoTabBarTheme | Tab theme | test_cupertino_cupertinotabbartheme.dart | - | - |
-| CupertinoTabBarThemeData | Tab data | test_cupertino_cupertinotabbarthemedata.dart | - | - |
-| CupertinoNavigationBarTheme | Nav theme | test_cupertino_cupertinonavigationbartheme.dart | - | - |
-| CupertinoNavigationBarThemeData | Nav data | test_cupertino_cupertinonavigationbarthemedata.dart | - | - |
-| CupertinoListSectionTheme | List theme | test_cupertino_cupertinolistsectiontheme.dart | - | - |
-| CupertinoListSectionThemeData | List data | test_cupertino_cupertinolistsectionthemedata.dart | - | - |
-| CupertinoListTileTheme | Tile theme | test_cupertino_cupertinolisttiletheme.dart | - | - |
-| CupertinoListTileThemeData | Tile data | test_cupertino_cupertinolisttilethemedata.dart | - | - |
-| CupertinoFormSectionTheme | Form theme | test_cupertino_cupertinoformsectiontheme.dart | - | - |
-| CupertinoFormSectionThemeData | Form data | test_cupertino_cupertinoformsectionthemedata.dart | - | - |
-| CupertinoContextMenuTheme | Context theme | test_cupertino_cupertinocontextmenutheme.dart | - | - |
-| CupertinoContextMenuThemeData | Context data | test_cupertino_cupertinocontextmenuthemedata.dart | - | - |
-| CupertinoPickerTheme | Picker theme | test_cupertino_cupertinopickertheme.dart | - | - |
-| CupertinoPickerThemeData | Picker data | test_cupertino_cupertinopickerthemedata.dart | - | - |
-| CupertinoDatePickerTheme | Date theme | test_cupertino_cupertinodatepickertheme.dart | - | - |
-| CupertinoDatePickerThemeData | Date data | test_cupertino_cupertinodatepickerthemedata.dart | - | - |
-| CupertinoActionSheetTheme | Action theme | test_cupertino_cupertinoactionsheettheme.dart | - | - |
-| CupertinoActionSheetThemeData | Action data | test_cupertino_cupertinoactionsheetthemedata.dart | - | - |
-| CupertinoAlertDialogTheme | Alert theme | test_cupertino_cupertinoalertdialogtheme.dart | - | - |
-| CupertinoAlertDialogThemeData | Alert data | test_cupertino_cupertinoalertdialogthemedata.dart | - | - |
-| CupertinoScrollbarTheme | Scroll theme | test_cupertino_cupertinoscrollbartheme.dart | - | - |
-| CupertinoScrollbarThemeData | Scroll data | test_cupertino_cupertinoscrollbarthemedata.dart | - | - |
-| CupertinoIconTheme | Icon theme | test_cupertino_cupertinoicontheme.dart | - | - |
-| CupertinoIconThemeData | Icon data | test_cupertino_cupertinoiconthemedata.dart | - | - |
-| NoDefaultCupertinoThemeData | No default | test_cupertino_nodefaultcupertinothemedata.dart | - | - |
-| MaterialBasedCupertinoThemeData | Material based | test_cupertino_materialbasedcupertinothemedata.dart | - | - |
-| BottomTabBarVisibility | Tab visibility | test_cupertino_bottomtabbarvisibility.dart | - | - |
-| CupertinoTabController | Tab controller | test_cupertino_cupertinotabcontroller.dart | - | - |
-| CupertinoRouteTransitionMixin | Route mixin | test_cupertino_cupertinoroutetransitionmixin.dart | - | - |
-| CupertinoPageScaffoldBackgroundColor | BG color | test_cupertino_cupertinopagescaffoldbackgroundcolor.dart | - | - |
+| DefaultCupertinoLocalizations | Default locale | cupertino/localization_test.dart | created | - |
+| GlobalCupertinoLocalizations | Global locale | cupertino/localization_test.dart | created | - |
+| CupertinoApp.router | Router app | cupertino/cupertinoapp_test.dart | created | - |
+| CupertinoModalPopupRoute | Modal route | cupertino/route_test.dart | created | - |
+| CupertinoDialogRoute | Dialog route | cupertino/dialog_test.dart | created | - |
+| CupertinoNavigationBarBackButton | Back button | cupertino/toolbar_test.dart | created | - |
+| CupertinoSliverRefreshControl | Refresh control | cupertino/refresh_test.dart | created | - |
+| CupertinoRefreshSliver | Refresh sliver | cupertino/refresh_test.dart | created | - |
+| RefreshCallback | Refresh callback | cupertino/refresh_test.dart | created | - |
+| RefreshIndicatorMode | Indicator mode | cupertino/refresh_test.dart | created | - |
+| CupertinoMagnifier | Magnifier | cupertino/magnifier_test.dart | created | - |
+| CupertinoAdaptiveTextSelectionToolbar | Text toolbar | cupertino/toolbar_test.dart | created | - |
+| CupertinoTextSelectionToolbar | Selection toolbar | cupertino/toolbar_test.dart | created | - |
+| CupertinoTextSelectionToolbarButton | Toolbar button | cupertino/toolbar_test.dart | created | - |
+| CupertinoDesktopTextSelectionToolbar | Desktop toolbar | cupertino/toolbar_test.dart | created | - |
+| CupertinoDesktopTextSelectionToolbarButton | Desktop button | cupertino/toolbar_test.dart | created | - |
+| CupertinoSpellCheckSuggestionsToolbarButton | Spell button | cupertino/toolbar_test.dart | created | - |
+| CupertinoDatePickerMode | Picker mode | cupertino/datepicker_modes_test.dart | created | - |
+| CupertinoTimerPickerMode | Timer mode | cupertino/datepicker_modes_test.dart | created | - |
+| DatePickerDateOrder | Date order | cupertino/datepicker_modes_test.dart | created | - |
+| DatePickerDateTimeOrder | DateTime order | cupertino/datepicker_modes_test.dart | created | - |
+| CupertinoMenuDivider | Menu divider | cupertino/menu_widgets_test.dart | created | - |
+| CupertinoMenuItem | Menu item | cupertino/menu_widgets_test.dart | created | - |
+| CupertinoMenuLargeDivider | Large divider | cupertino/menu_widgets_test.dart | created | - |
+| CupertinoMenuTitle | Menu title | cupertino/menu_widgets_test.dart | created | - |
+| CupertinoPulldownMenuItem | Pulldown item | cupertino/pulldown_test.dart | created | - |
+| CupertinoPulldownMenuDivider | Pulldown divider | cupertino/pulldown_test.dart | created | - |
+| CupertinoPulldownMenuTitle | Pulldown title | cupertino/pulldown_test.dart | created | - |
+| CupertinoPulldownButton | Pulldown button | cupertino/pulldown_test.dart | created | - |
+| CupertinoMenuAnchor | Menu anchor | cupertino/menu_widgets_test.dart | created | - |
+| CupertinoMenuTheme | Menu theme | cupertino/menu_widgets_test.dart | created | - |
+| CupertinoMenuThemeData | Menu theme data | cupertino/menu_widgets_test.dart | created | - |
+| CupertinoInheritedTheme | Inherited theme | cupertino/cupertino_themes_batch1_test.dart | created | - |
+| CupertinoUserInterfaceLevel | UI level | cupertino/cupertino_themes_batch1_test.dart | created | - |
+| CupertinoUserInterfaceLevelData | UI level data | cupertino/cupertino_themes_batch1_test.dart | created | - |
+| CupertinoOverrideTheme | Override theme | cupertino/cupertino_themes_batch1_test.dart | created | - |
+| CupertinoTextFieldConfiguration | Field config | cupertino/cupertino_themes_batch1_test.dart | created | - |
+| CupertinoTextFieldDecorator | Field decorator | cupertino/cupertino_themes_batch1_test.dart | created | - |
+| CupertinoTextFieldTheme | Field theme | cupertino/cupertino_themes_batch1_test.dart | created | - |
+| CupertinoTextFieldThemeData | Field theme data | cupertino/cupertino_themes_batch1_test.dart | created | - |
+| CupertinoSwitchTheme | Switch theme | cupertino/cupertino_themes_batch2_test.dart | created | - |
+| CupertinoSwitchThemeData | Switch theme data | cupertino/cupertino_themes_batch2_test.dart | created | - |
+| CupertinoCheckboxTheme | Checkbox theme | cupertino/cupertino_themes_batch2_test.dart | created | - |
+| CupertinoCheckboxThemeData | Checkbox data | cupertino/cupertino_themes_batch2_test.dart | created | - |
+| CupertinoRadioTheme | Radio theme | cupertino/cupertino_themes_batch2_test.dart | created | - |
+| CupertinoRadioThemeData | Radio data | cupertino/cupertino_themes_batch2_test.dart | created | - |
+| CupertinoSliderTheme | Slider theme | cupertino/cupertino_themes_batch2_test.dart | created | - |
+| CupertinoSliderThemeData | Slider data | cupertino/cupertino_themes_batch2_test.dart | created | - |
+| CupertinoActivityIndicatorTheme | Indicator theme | cupertino/cupertino_themes_batch2_test.dart | created | - |
+| CupertinoActivityIndicatorThemeData | Indicator data | cupertino/cupertino_themes_batch2_test.dart | created | - |
+| CupertinoButtonTheme | Button theme | cupertino/cupertino_themes_batch3_test.dart | created | - |
+| CupertinoButtonThemeData | Button data | cupertino/cupertino_themes_batch3_test.dart | created | - |
+| CupertinoButtonConfig | Button config | cupertino/cupertino_themes_batch3_test.dart | created | - |
+| CupertinoButtonColor | Button color | cupertino/cupertino_themes_batch3_test.dart | created | - |
+| CupertinoTabBarTheme | Tab theme | cupertino/cupertino_themes_batch3_test.dart | created | - |
+| CupertinoTabBarThemeData | Tab data | cupertino/cupertino_themes_batch3_test.dart | created | - |
+| CupertinoNavigationBarTheme | Nav theme | cupertino/cupertino_themes_batch3_test.dart | created | - |
+| CupertinoNavigationBarThemeData | Nav data | cupertino/cupertino_themes_batch3_test.dart | created | - |
+| CupertinoListSectionTheme | List theme | cupertino/cupertino_themes_batch3_test.dart | created | - |
+| CupertinoListSectionThemeData | List data | cupertino/cupertino_themes_batch3_test.dart | created | - |
+| CupertinoListTileTheme | Tile theme | cupertino/cupertino_themes_batch3_test.dart | created | - |
+| CupertinoListTileThemeData | Tile data | cupertino/cupertino_themes_batch3_test.dart | created | - |
+| CupertinoFormSectionTheme | Form theme | cupertino/cupertino_themes_batch4_test.dart | created | - |
+| CupertinoFormSectionThemeData | Form data | cupertino/cupertino_themes_batch4_test.dart | created | - |
+| CupertinoContextMenuTheme | Context theme | cupertino/cupertino_themes_batch4_test.dart | created | - |
+| CupertinoContextMenuThemeData | Context data | cupertino/cupertino_themes_batch4_test.dart | created | - |
+| CupertinoPickerTheme | Picker theme | cupertino/cupertino_themes_batch4_test.dart | created | - |
+| CupertinoPickerThemeData | Picker data | cupertino/cupertino_themes_batch4_test.dart | created | - |
+| CupertinoDatePickerTheme | Date theme | cupertino/cupertino_themes_batch4_test.dart | created | - |
+| CupertinoDatePickerThemeData | Date data | cupertino/cupertino_themes_batch4_test.dart | created | - |
+| CupertinoActionSheetTheme | Action theme | cupertino/cupertino_themes_batch4_test.dart | created | - |
+| CupertinoActionSheetThemeData | Action data | cupertino/cupertino_themes_batch4_test.dart | created | - |
+| CupertinoAlertDialogTheme | Alert theme | cupertino/cupertino_themes_batch4_test.dart | created | - |
+| CupertinoAlertDialogThemeData | Alert data | cupertino/cupertino_themes_batch4_test.dart | created | - |
+| CupertinoScrollbarTheme | Scroll theme | cupertino/cupertino_themes_batch4_test.dart | created | - |
+| CupertinoScrollbarThemeData | Scroll data | cupertino/cupertino_themes_batch4_test.dart | created | - |
+| CupertinoIconTheme | Icon theme | cupertino/cupertino_themes_batch4_test.dart | created | - |
+| CupertinoIconThemeData | Icon data | cupertino/cupertino_themes_batch4_test.dart | created | - |
+| NoDefaultCupertinoThemeData | No default | cupertino/theme_test.dart | created | - |
+| MaterialBasedCupertinoThemeData | Material based | cupertino/theme_test.dart | created | - |
+| BottomTabBarVisibility | Tab visibility | cupertino/tab_test.dart | created | - |
+| CupertinoTabController | Tab controller | cupertino/tab_test.dart | created | - |
+| CupertinoRouteTransitionMixin | Route mixin | cupertino/route_test.dart | created | - |
+| CupertinoPageScaffoldBackgroundColor | BG color | cupertino/scaffold_test.dart | created | - |
 
 ---
 
@@ -372,18 +372,18 @@ Commonly used classes for intermediate Flutter development - test after essentia
 
 | Class | Description | Test File | Status | Result |
 |-------|-------------|-----------|--------|--------|
-| FlutterError | Error handling | test_foundation_fluttererror.dart | - | - |
-| FlutterErrorDetails | Error details | test_foundation_fluttererrordetails.dart | - | - |
-| ErrorDescription | Error description | test_foundation_errordescription.dart | - | - |
-| ErrorHint | Error hints | test_foundation_errorhint.dart | - | - |
-| ErrorSummary | Error summary | test_foundation_errorsummary.dart | - | - |
-| DiagnosticsNode | Debug diagnostics | test_foundation_diagnosticsnode.dart | - | - |
-| DiagnosticPropertiesBuilder | Building diagnostics | test_foundation_diagnosticpropertiesbuilder.dart | - | - |
+| FlutterError | Error handling | foundation/error_test.dart | created | - |
+| FlutterErrorDetails | Error details | foundation/error_test.dart | created | - |
+| ErrorDescription | Error description | foundation/error_test.dart | created | - |
+| ErrorHint | Error hints | foundation/error_test.dart | created | - |
+| ErrorSummary | Error summary | foundation/error_test.dart | created | - |
+| DiagnosticsNode | Debug diagnostics | foundation/diagnostics_test.dart | created | - |
+| DiagnosticPropertiesBuilder | Building diagnostics | foundation/diagnostics_test.dart | created | - |
 | BindingBase | Binding base class | test_foundation_bindingbase.dart | - | - |
-| LicenseEntry | License information | test_foundation_licenseentry.dart | - | - |
-| LicenseEntryWithLineBreaks | License with formatting | test_foundation_licenseentrywithlinebreaks.dart | - | - |
-| LicenseRegistry | License registry | test_foundation_licenseregistry.dart | - | - |
-| LicenseParagraph | License paragraph | test_foundation_licenseparagraph.dart | - | - |
+| LicenseEntry | License information | foundation/license_test.dart | created | - |
+| LicenseEntryWithLineBreaks | License with formatting | foundation/license_test.dart | created | - |
+| LicenseRegistry | License registry | foundation/license_test.dart | created | - |
+| LicenseParagraph | License paragraph | foundation/license_test.dart | created | - |
 
 ---
 
@@ -391,30 +391,30 @@ Commonly used classes for intermediate Flutter development - test after essentia
 
 | Class | Description | Test File | Status | Result |
 |-------|-------------|-----------|--------|--------|
-| TextPainter | Low-level text rendering | test_painting_textpainter.dart | - | - |
-| TextSelection | Text selection range | test_painting_textselection.dart | - | - |
-| TextScaler | Text scaling | test_painting_textscaler.dart | - | - |
-| TextAlignVertical | Vertical text alignment | test_painting_textalignvertical.dart | - | - |
-| StrutStyle | Line height control | test_painting_strutstyle.dart | - | - |
-| RoundedRectangleBorder | Rounded rectangle shape | test_painting_roundedrectangleborder.dart | - | - |
-| CircleBorder | Circular shape | test_painting_circleborder.dart | - | - |
-| StadiumBorder | Stadium/pill shape | test_painting_stadiumborder.dart | - | - |
-| BeveledRectangleBorder | Beveled corners | test_painting_beveledrectangleborder.dart | - | - |
-| ContinuousRectangleBorder | Smooth corners | test_painting_continuousrectangleborder.dart | - | - |
-| OvalBorder | Oval shape | test_painting_ovalborder.dart | - | - |
-| RadialGradient | Radial color gradients | test_painting_radialgradient.dart | - | - |
-| SweepGradient | Angular gradients | test_painting_sweepgradient.dart | - | - |
-| DecorationImage | Image in decoration | test_painting_decorationimage.dart | - | - |
-| ShapeDecoration | Shape-based decoration | test_painting_shapedecoration.dart | - | - |
-| ImageProvider | Base image provider | test_painting_imageprovider.dart | - | - |
-| MemoryImage | In-memory images | test_painting_memoryimage.dart | - | - |
-| FileImage | File-based images | test_painting_fileimage.dart | - | - |
-| ExactAssetImage | Exact resolution assets | test_painting_exactassetimage.dart | - | - |
-| FractionalOffset | Fractional positioning | test_painting_fractionaloffset.dart | - | - |
-| HSLColor | HSL color representation | test_painting_hslcolor.dart | - | - |
-| HSVColor | HSV color representation | test_painting_hsvcolor.dart | - | - |
-| ColorSwatch | Color palette | test_painting_colorswatch.dart | - | - |
-| Matrix4 | 4x4 transformation matrix | test_painting_matrix4.dart | - | - |
+| TextPainter | Low-level text rendering | painting/text_painting_test.dart | created | - |
+| TextSelection | Text selection range | painting/text_selection_test.dart | created | - |
+| TextScaler | Text scaling | painting/text_painting_test.dart | created | - |
+| TextAlignVertical | Vertical text alignment | painting/text_painting_test.dart | created | - |
+| StrutStyle | Line height control | painting/text_painting_test.dart | created | - |
+| RoundedRectangleBorder | Rounded rectangle shape | painting/shapes_test.dart | created | - |
+| CircleBorder | Circular shape | painting/shapes_test.dart | created | - |
+| StadiumBorder | Stadium/pill shape | painting/shapes_test.dart | created | - |
+| BeveledRectangleBorder | Beveled corners | painting/shapes_test.dart | created | - |
+| ContinuousRectangleBorder | Smooth corners | painting/shapes_test.dart | created | - |
+| OvalBorder | Oval shape | painting/shapes_test.dart | created | - |
+| RadialGradient | Radial color gradients | painting/gradients_test.dart | created | - |
+| SweepGradient | Angular gradients | painting/gradients_test.dart | created | - |
+| DecorationImage | Image in decoration | painting/decoration_test.dart | created | - |
+| ShapeDecoration | Shape-based decoration | painting/decoration_test.dart | created | - |
+| ImageProvider | Base image provider | painting/image_providers_test.dart | created | - |
+| MemoryImage | In-memory images | painting/image_providers_test.dart | created | - |
+| FileImage | File-based images | painting/image_providers_test.dart | created | - |
+| ExactAssetImage | Exact resolution assets | painting/image_providers_test.dart | created | - |
+| FractionalOffset | Fractional positioning | painting/colors_test.dart | created | - |
+| HSLColor | HSL color representation | painting/colors_test.dart | created | - |
+| HSVColor | HSV color representation | painting/colors_test.dart | created | - |
+| ColorSwatch | Color palette | painting/colors_test.dart | created | - |
+| Matrix4 | 4x4 transformation matrix | painting/matrix_test.dart | created | - |
 
 ---
 
@@ -422,66 +422,66 @@ Commonly used classes for intermediate Flutter development - test after essentia
 
 | Class | Description | Test File | Status | Result |
 |-------|-------------|-----------|--------|--------|
-| RenderProxyBox | Proxy render box | test_rendering_renderproxybox.dart | - | - |
-| RenderOpacity | Opacity render | test_rendering_renderopacity.dart | - | - |
-| RenderTransform | Transform render | test_rendering_rendertransform.dart | - | - |
-| RenderClipRect | Clip rect | test_rendering_rendercliprect.dart | - | - |
-| RenderClipRRect | Clip rounded rect | test_rendering_rendercliprrect.dart | - | - |
-| RenderClipOval | Clip oval | test_rendering_renderclipoval.dart | - | - |
-| RenderClipPath | Clip path | test_rendering_renderclippath.dart | - | - |
-| RenderImage | Image render | test_rendering_renderimage.dart | - | - |
-| RenderParagraph | Text render | test_rendering_renderparagraph.dart | - | - |
-| RenderShiftedBox | Shifted box | test_rendering_rendershiftedbox.dart | - | - |
-| RenderAspectRatio | Aspect ratio | test_rendering_renderaspectratio.dart | - | - |
-| RenderFittedBox | Fitted box | test_rendering_renderfittedbox.dart | - | - |
-| RenderLimitedBox | Limited box | test_rendering_renderlimitedbox.dart | - | - |
-| RenderIntrinsicWidth | Intrinsic width | test_rendering_renderintrinsicwidth.dart | - | - |
-| RenderIntrinsicHeight | Intrinsic height | test_rendering_renderintrinsicheight.dart | - | - |
-| RenderWrap | Wrap layout | test_rendering_renderwrap.dart | - | - |
-| RenderTable | Table layout | test_rendering_rendertable.dart | - | - |
-| RenderFlow | Flow layout | test_rendering_renderflow.dart | - | - |
-| RenderListBody | List body | test_rendering_renderlistbody.dart | - | - |
-| RenderView | Root view | test_rendering_renderview.dart | - | - |
-| RenderViewport | Scroll viewport | test_rendering_renderviewport.dart | - | - |
-| RenderSliver | Base sliver | test_rendering_rendersliver.dart | - | - |
-| RenderSliverList | Sliver list | test_rendering_rendersliverlist.dart | - | - |
-| RenderSliverGrid | Sliver grid | test_rendering_renderslivergrid.dart | - | - |
-| RenderSliverPadding | Sliver padding | test_rendering_rendersliverpadding.dart | - | - |
-| RenderSliverOpacity | Sliver opacity | test_rendering_rendersliveriopacity.dart | - | - |
-| SliverConstraints | Sliver constraints | test_rendering_sliverconstraints.dart | - | - |
-| SliverGeometry | Sliver geometry | test_rendering_slivergeometry.dart | - | - |
-| SliverGridDelegate | Grid delegate | test_rendering_slivergriddelegate.dart | - | - |
-| SliverGridDelegateWithFixedCrossAxisCount | Fixed count grid | test_rendering_slivergriddelegatewithfixedcrossaxiscount.dart | - | - |
-| SliverGridDelegateWithMaxCrossAxisExtent | Max extent grid | test_rendering_slivergriddelegatewithmaxcrossaxisextent.dart | - | - |
-| OpacityLayer | Opacity layer | test_rendering_opacitylayer.dart | - | - |
-| TransformLayer | Transform layer | test_rendering_transformlayer.dart | - | - |
-| ClipRectLayer | Clip rect layer | test_rendering_cliprectlayer.dart | - | - |
-| ClipRRectLayer | Clip rounded layer | test_rendering_cliprrectlayer.dart | - | - |
-| ImageFilterLayer | Image filter layer | test_rendering_imagefilterlayer.dart | - | - |
-| BackdropFilterLayer | Backdrop filter | test_rendering_backdropfilterlayer.dart | - | - |
-| RelativeRect | Relative positioning | test_rendering_relativerect.dart | - | - |
-| BoxShadow | Box shadows | test_rendering_boxshadow.dart | - | - |
-| Border | Border styling | test_rendering_border.dart | - | - |
-| BorderSide | Border side | test_rendering_borderside.dart | - | - |
-| LinearGradient | Linear gradient | test_rendering_lineargradient.dart | - | - |
-| RadialGradient | Radial gradient | test_rendering_radialgradient.dart | - | - |
-| Gradient | Base gradient | test_rendering_gradient.dart | - | - |
-| ImageProvider | Image provider | test_rendering_imageprovider.dart | - | - |
-| AssetImage | Asset images | test_rendering_assetimage.dart | - | - |
-| NetworkImage | Network images | test_rendering_networkimage.dart | - | - |
-| DecorationImage | Decoration image | test_rendering_decorationimage.dart | - | - |
-| CustomPainter | Custom painting | test_rendering_custompainter.dart | - | - |
-| CustomClipper | Custom clipping | test_rendering_customclipper.dart | - | - |
-| SingleChildLayoutDelegate | Single layout | test_rendering_singlechildlayoutdelegate.dart | - | - |
-| MultiChildLayoutDelegate | Multi layout | test_rendering_multichildlayoutdelegate.dart | - | - |
-| FlowDelegate | Flow layout delegate | test_rendering_flowdelegate.dart | - | - |
-| StackParentData | Stack parent data | test_rendering_stackparentdata.dart | - | - |
-| FlexParentData | Flex parent data | test_rendering_flexparentdata.dart | - | - |
-| SliverGridParentData | Grid parent data | test_rendering_slivergridparentdata.dart | - | - |
-| TableColumnWidth | Table column width | test_rendering_tablecolumnwidth.dart | - | - |
-| FixedColumnWidth | Fixed column | test_rendering_fixedcolumnwidth.dart | - | - |
-| FlexColumnWidth | Flex column | test_rendering_flexcolumnwidth.dart | - | - |
-| IntrinsicColumnWidth | Intrinsic column | test_rendering_intrinsiccolumnwidth.dart | - | - |
+| RenderProxyBox | Proxy render box | rendering/renderobjects_basic_test.dart | created | - |
+| RenderOpacity | Opacity render | rendering/renderobjects_basic_test.dart | created | - |
+| RenderTransform | Transform render | rendering/renderobjects_basic_test.dart | created | - |
+| RenderClipRect | Clip rect | rendering/renderobjects_clip_test.dart | created | - |
+| RenderClipRRect | Clip rounded rect | rendering/renderobjects_clip_test.dart | created | - |
+| RenderClipOval | Clip oval | rendering/renderobjects_clip_test.dart | created | - |
+| RenderClipPath | Clip path | rendering/renderobjects_clip_test.dart | created | - |
+| RenderImage | Image render | rendering/renderobjects_basic_test.dart | created | - |
+| RenderParagraph | Text render | rendering/renderobjects_basic_test.dart | created | - |
+| RenderShiftedBox | Shifted box | rendering/renderobjects_sizing_test.dart | created | - |
+| RenderAspectRatio | Aspect ratio | rendering/renderobjects_sizing_test.dart | created | - |
+| RenderFittedBox | Fitted box | rendering/renderobjects_sizing_test.dart | created | - |
+| RenderLimitedBox | Limited box | rendering/renderobjects_sizing_test.dart | created | - |
+| RenderIntrinsicWidth | Intrinsic width | rendering/renderobjects_sizing_test.dart | created | - |
+| RenderIntrinsicHeight | Intrinsic height | rendering/renderobjects_sizing_test.dart | created | - |
+| RenderWrap | Wrap layout | rendering/renderobjects_layout_test.dart | created | - |
+| RenderTable | Table layout | rendering/renderobjects_layout_test.dart | created | - |
+| RenderFlow | Flow layout | rendering/renderobjects_layout_test.dart | created | - |
+| RenderListBody | List body | rendering/renderobjects_layout_test.dart | created | - |
+| RenderView | Root view | rendering/renderobjects_view_test.dart | created | - |
+| RenderViewport | Scroll viewport | rendering/renderobjects_view_test.dart | created | - |
+| RenderSliver | Base sliver | rendering/renderobjects_sliver_test.dart | created | - |
+| RenderSliverList | Sliver list | rendering/renderobjects_sliver_test.dart | created | - |
+| RenderSliverGrid | Sliver grid | rendering/renderobjects_sliver_test.dart | created | - |
+| RenderSliverPadding | Sliver padding | rendering/renderobjects_sliver_test.dart | created | - |
+| RenderSliverOpacity | Sliver opacity | rendering/renderobjects_sliver_test.dart | created | - |
+| SliverConstraints | Sliver constraints | rendering/renderobjects_sliver_test.dart | created | - |
+| SliverGeometry | Sliver geometry | rendering/renderobjects_sliver_test.dart | created | - |
+| SliverGridDelegate | Grid delegate | rendering/sliver_delegates_test.dart | created | - |
+| SliverGridDelegateWithFixedCrossAxisCount | Fixed count grid | rendering/sliver_delegates_test.dart | created | - |
+| SliverGridDelegateWithMaxCrossAxisExtent | Max extent grid | rendering/sliver_delegates_test.dart | created | - |
+| OpacityLayer | Opacity layer | rendering/layers_data_test.dart | created | - |
+| TransformLayer | Transform layer | rendering/layers_data_test.dart | created | - |
+| ClipRectLayer | Clip rect layer | rendering/layers_data_test.dart | created | - |
+| ClipRRectLayer | Clip rounded layer | rendering/layers_data_test.dart | created | - |
+| ImageFilterLayer | Image filter layer | rendering/layers_data_test.dart | created | - |
+| BackdropFilterLayer | Backdrop filter | rendering/layers_data_test.dart | created | - |
+| RelativeRect | Relative positioning | rendering/parentdata_test.dart | created | - |
+| BoxShadow | Box shadows | rendering/gradient_rendering_test.dart | created | - |
+| Border | Border styling | rendering/gradient_rendering_test.dart | created | - |
+| BorderSide | Border side | rendering/gradient_rendering_test.dart | created | - |
+| LinearGradient | Linear gradient | rendering/gradient_rendering_test.dart | created | - |
+| RadialGradient | Radial gradient | rendering/gradient_rendering_test.dart | created | - |
+| Gradient | Base gradient | rendering/gradient_rendering_test.dart | created | - |
+| ImageProvider | Image provider | services/asset_test.dart | created | - |
+| AssetImage | Asset images | services/asset_test.dart | created | - |
+| NetworkImage | Network images | services/asset_test.dart | created | - |
+| DecorationImage | Decoration image | painting/decoration_test.dart | created | - |
+| CustomPainter | Custom painting | rendering/canvas_test.dart | created | - |
+| CustomClipper | Custom clipping | rendering/renderobjects_clip_test.dart | created | - |
+| SingleChildLayoutDelegate | Single layout | rendering/renderobjects_layout_test.dart | created | - |
+| MultiChildLayoutDelegate | Multi layout | rendering/renderobjects_layout_test.dart | created | - |
+| FlowDelegate | Flow layout delegate | rendering/renderobjects_layout_test.dart | created | - |
+| StackParentData | Stack parent data | rendering/parentdata_test.dart | created | - |
+| FlexParentData | Flex parent data | rendering/parentdata_test.dart | created | - |
+| SliverGridParentData | Grid parent data | rendering/parentdata_test.dart | created | - |
+| TableColumnWidth | Table column width | rendering/sliver_delegates_test.dart | created | - |
+| FixedColumnWidth | Fixed column | rendering/sliver_delegates_test.dart | created | - |
+| FlexColumnWidth | Flex column | rendering/sliver_delegates_test.dart | created | - |
+| IntrinsicColumnWidth | Intrinsic column | rendering/sliver_delegates_test.dart | created | - |
 
 ---
 
@@ -489,16 +489,16 @@ Commonly used classes for intermediate Flutter development - test after essentia
 
 | Class | Description | Test File | Status | Result |
 |-------|-------------|-----------|--------|--------|
-| AnimationStyle | Animation styling | test_animation_animationstyle.dart | - | - |
-| AlwaysStoppedAnimation | Static animation value | test_animation_alwaysstoppedanimation.dart | - | - |
-| Animatable | Base animatable | test_animation_animatable.dart | - | - |
-| CompoundAnimation | Combined animations | test_animation_compoundanimation.dart | - | - |
-| ProxyAnimation | Animation proxy | test_animation_proxyanimation.dart | - | - |
-| ReverseAnimation | Reversed animation | test_animation_reverseanimation.dart | - | - |
-| TrainHoppingAnimation | Animation switching | test_animation_trainhoppinganimation.dart | - | - |
-| TweenSequence | Sequenced tweens | test_animation_tweensequence.dart | - | - |
-| TweenSequenceItem | Sequence item | test_animation_tweensequenceitem.dart | - | - |
-| FlippedTweenSequence | Reversed sequence | test_animation_flippedtweensequence.dart | - | - |
+| AnimationStyle | Animation styling | animation/animationstyle_test.dart | created | - |
+| AlwaysStoppedAnimation | Static animation value | animation/alwaysstoppedanimation_test.dart | created | - |
+| Animatable | Base animatable | animation/animatable_test.dart | created | - |
+| CompoundAnimation | Combined animations | animation/compoundanimation_test.dart | created | - |
+| ProxyAnimation | Animation proxy | animation/compoundanimation_test.dart | created | - |
+| ReverseAnimation | Reversed animation | animation/compoundanimation_test.dart | created | - |
+| TrainHoppingAnimation | Animation switching | animation/compoundanimation_test.dart | created | - |
+| TweenSequence | Sequenced tweens | animation/tweensequence_test.dart | created | - |
+| TweenSequenceItem | Sequence item | animation/tweensequence_test.dart | created | - |
+| FlippedTweenSequence | Reversed sequence | animation/tweensequence_test.dart | created | - |
 
 ---
 
@@ -506,15 +506,15 @@ Commonly used classes for intermediate Flutter development - test after essentia
 
 | Class | Description | Test File | Status | Result |
 |-------|-------------|-----------|--------|--------|
-| HorizontalDragGestureRecognizer | Horizontal drag | test_gestures_horizontaldraggesturerecognizer.dart | - | - |
-| VerticalDragGestureRecognizer | Vertical drag | test_gestures_verticaldraggesturerecognizer.dart | - | - |
-| PanGestureRecognizer | Pan gesture | test_gestures_pangesturerecognizer.dart | - | - |
-| ScaleGestureRecognizer | Scale/pinch gesture | test_gestures_scalegesturerecognizer.dart | - | - |
-| LongPressGestureRecognizer | Long press | test_gestures_longpressgesturerecognizer.dart | - | - |
-| DoubleTapGestureRecognizer | Double tap | test_gestures_doubletapgesturerecognizer.dart | - | - |
-| ForcePressGestureRecognizer | Force press (3D Touch) | test_gestures_forcepressgesturerecognizer.dart | - | - |
-| ForcePressDetails | Force press info | test_gestures_forcepressdetails.dart | - | - |
-| Velocity | Movement velocity | test_gestures_velocity.dart | - | - |
+| HorizontalDragGestureRecognizer | Horizontal drag | gestures/recognizers_test.dart | created | - |
+| VerticalDragGestureRecognizer | Vertical drag | gestures/recognizers_test.dart | created | - |
+| PanGestureRecognizer | Pan gesture | gestures/recognizers_test.dart | created | - |
+| ScaleGestureRecognizer | Scale/pinch gesture | gestures/recognizers_test.dart | created | - |
+| LongPressGestureRecognizer | Long press | gestures/recognizers_test.dart | created | - |
+| DoubleTapGestureRecognizer | Double tap | gestures/recognizers_test.dart | created | - |
+| ForcePressGestureRecognizer | Force press (3D Touch) | gestures/recognizers_test.dart | created | - |
+| ForcePressDetails | Force press info | gestures/recognizers_test.dart | created | - |
+| Velocity | Movement velocity | gestures/velocity_test.dart | created | - |
 | GestureBinding | Gesture binding | test_gestures_gesturebinding.dart | - | - |
 | PointerRouter | Event routing | test_gestures_pointerrouter.dart | - | - |
 | HitTestResult | Hit testing result | test_gestures_hittestresult.dart | - | - |
@@ -532,30 +532,30 @@ Commonly used classes for intermediate Flutter development - test after essentia
 | Class | Description | Test File | Status | Result |
 |-------|-------------|-----------|--------|--------|
 | ServicesBinding | Services binding | test_services_servicesbinding.dart | - | - |
-| SystemUiOverlayStyle | Status bar styling | test_services_systemuioverlaystyle.dart | - | - |
-| BasicMessageChannel | Basic messaging | test_services_basicmessagechannel.dart | - | - |
-| EventChannel | Stream events | test_services_eventchannel.dart | - | - |
-| OptionalMethodChannel | Optional methods | test_services_optionalmethodchannel.dart | - | - |
-| StandardMethodCodec | Standard codec | test_services_standardmethodcodec.dart | - | - |
-| StandardMessageCodec | Standard messages | test_services_standardmessagecodec.dart | - | - |
-| JSONMethodCodec | JSON codec | test_services_jsonmethodcodec.dart | - | - |
-| JSONMessageCodec | JSON messages | test_services_jsonmessagecodec.dart | - | - |
-| BinaryCodec | Binary codec | test_services_binarycodec.dart | - | - |
-| StringCodec | String codec | test_services_stringcodec.dart | - | - |
-| KeyboardInsertedContent | Keyboard content | test_services_keyboardinsertedcontent.dart | - | - |
-| HardwareKeyboard | Keyboard events | test_services_hardwarekeyboard.dart | - | - |
-| LogicalKeyboardKey | Logical keys | test_services_logicalkeyboardkey.dart | - | - |
-| PhysicalKeyboardKey | Physical keys | test_services_physicalkeyboardkey.dart | - | - |
-| MouseCursor | Mouse cursor | test_services_mousecursor.dart | - | - |
-| SystemMouseCursor | System cursors | test_services_systemmousecursor.dart | - | - |
-| SystemMouseCursors | Cursor constants | test_services_systemmousecursors.dart | - | - |
-| TextBoundary | Text boundaries | test_services_textboundary.dart | - | - |
-| CharacterBoundary | Character bounds | test_services_characterboundary.dart | - | - |
-| LineBoundary | Line bounds | test_services_lineboundary.dart | - | - |
-| ParagraphBoundary | Paragraph bounds | test_services_paragraphboundary.dart | - | - |
-| DocumentBoundary | Document bounds | test_services_documentboundary.dart | - | - |
-| TextEditingDelta | Editing changes | test_services_texteditingdelta.dart | - | - |
-| SpellCheckResults | Spell check | test_services_spellcheckresults.dart | - | - |
+| SystemUiOverlayStyle | Status bar styling | services/platform_test.dart | created | - |
+| BasicMessageChannel | Basic messaging | services/channels_test.dart | created | - |
+| EventChannel | Stream events | services/channels_test.dart | created | - |
+| OptionalMethodChannel | Optional methods | services/channels_test.dart | created | - |
+| StandardMethodCodec | Standard codec | services/codecs_test.dart | created | - |
+| StandardMessageCodec | Standard messages | services/codecs_test.dart | created | - |
+| JSONMethodCodec | JSON codec | services/codecs_test.dart | created | - |
+| JSONMessageCodec | JSON messages | services/codecs_test.dart | created | - |
+| BinaryCodec | Binary codec | services/codecs_test.dart | created | - |
+| StringCodec | String codec | services/codecs_test.dart | created | - |
+| KeyboardInsertedContent | Keyboard content | services/keyboard_test.dart | created | - |
+| HardwareKeyboard | Keyboard events | services/keyboard_test.dart | created | - |
+| LogicalKeyboardKey | Logical keys | services/keyboard_test.dart | created | - |
+| PhysicalKeyboardKey | Physical keys | services/keyboard_test.dart | created | - |
+| MouseCursor | Mouse cursor | services/cursor_test.dart | created | - |
+| SystemMouseCursor | System cursors | services/cursor_test.dart | created | - |
+| SystemMouseCursors | Cursor constants | services/cursor_test.dart | created | - |
+| TextBoundary | Text boundaries | services/textboundary_test.dart | created | - |
+| CharacterBoundary | Character bounds | services/textboundary_test.dart | created | - |
+| LineBoundary | Line bounds | services/textboundary_test.dart | created | - |
+| ParagraphBoundary | Paragraph bounds | services/textboundary_test.dart | created | - |
+| DocumentBoundary | Document bounds | services/textboundary_test.dart | created | - |
+| TextEditingDelta | Editing changes | services/textboundary_test.dart | created | - |
+| SpellCheckResults | Spell check | services/spellcheck_test.dart | created | - |
 
 ---
 
@@ -563,29 +563,29 @@ Commonly used classes for intermediate Flutter development - test after essentia
 
 | Class | Description | Test File | Status | Result |
 |-------|-------------|-----------|--------|--------|
-| ParagraphStyle | Paragraph formatting | test_dart_ui_paragraphstyle.dart | - | - |
-| ParagraphConstraints | Text layout constraints | test_dart_ui_paragraphconstraints.dart | - | - |
-| StrutStyle | Line height control | test_dart_ui_strutstyle.dart | - | - |
-| TextBox | Text measurement | test_dart_ui_textbox.dart | - | - |
-| TextDecoration | Underline/strikethrough | test_dart_ui_textdecoration.dart | - | - |
-| TextHeightBehavior | Line height behavior | test_dart_ui_textheightbehavior.dart | - | - |
-| TextPosition | Cursor position in text | test_dart_ui_textposition.dart | - | - |
-| TextRange | Text selection range | test_dart_ui_textrange.dart | - | - |
-| ColorFilter | Color transformations | test_dart_ui_colorfilter.dart | - | - |
-| ImageFilter | Blur and matrix effects | test_dart_ui_imagefilter.dart | - | - |
-| MaskFilter | Blur effects | test_dart_ui_maskfilter.dart | - | - |
-| Shader | Custom shaders | test_dart_ui_shader.dart | - | - |
-| ImageShader | Image-based shaders | test_dart_ui_imageshader.dart | - | - |
-| Picture | Recorded drawing commands | test_dart_ui_picture.dart | - | - |
-| PictureRecorder | Recording canvas operations | test_dart_ui_picturerecorder.dart | - | - |
-| Vertices | Custom vertex drawing | test_dart_ui_vertices.dart | - | - |
-| FontFeature | OpenType font features | test_dart_ui_fontfeature.dart | - | - |
-| FontVariation | Variable font axes | test_dart_ui_fontvariation.dart | - | - |
-| LineMetrics | Text line measurements | test_dart_ui_linemetrics.dart | - | - |
-| GlyphInfo | Individual glyph data | test_dart_ui_glyphinfo.dart | - | - |
-| RSTransform | Rotation/scale transform | test_dart_ui_rstransform.dart | - | - |
-| Tangent | Path tangent info | test_dart_ui_tangent.dart | - | - |
-| ViewPadding | Safe area insets | test_dart_ui_viewpadding.dart | - | - |
+| ParagraphStyle | Paragraph formatting | dart_ui/paragraph_test.dart | created | - |
+| ParagraphConstraints | Text layout constraints | dart_ui/paragraph_test.dart | created | - |
+| StrutStyle | Line height control | dart_ui/text_data_test.dart | created | - |
+| TextBox | Text measurement | dart_ui/text_data_test.dart | created | - |
+| TextDecoration | Underline/strikethrough | dart_ui/text_data_test.dart | created | - |
+| TextHeightBehavior | Line height behavior | dart_ui/text_data_test.dart | created | - |
+| TextPosition | Cursor position in text | dart_ui/text_data_test.dart | created | - |
+| TextRange | Text selection range | dart_ui/text_data_test.dart | created | - |
+| ColorFilter | Color transformations | dart_ui/filters_test.dart | created | - |
+| ImageFilter | Blur and matrix effects | dart_ui/filters_test.dart | created | - |
+| MaskFilter | Blur effects | dart_ui/filters_test.dart | created | - |
+| Shader | Custom shaders | dart_ui/filters_test.dart | created | - |
+| ImageShader | Image-based shaders | dart_ui/filters_test.dart | created | - |
+| Picture | Recorded drawing commands | dart_ui/picture_test.dart | created | - |
+| PictureRecorder | Recording canvas operations | dart_ui/picture_test.dart | created | - |
+| Vertices | Custom vertex drawing | dart_ui/vertices_test.dart | created | - |
+| FontFeature | OpenType font features | dart_ui/font_test.dart | created | - |
+| FontVariation | Variable font axes | dart_ui/font_test.dart | created | - |
+| LineMetrics | Text line measurements | dart_ui/text_data_test.dart | created | - |
+| GlyphInfo | Individual glyph data | dart_ui/text_data_test.dart | created | - |
+| RSTransform | Rotation/scale transform | dart_ui/text_data_test.dart | created | - |
+| Tangent | Path tangent info | dart_ui/text_data_test.dart | created | - |
+| ViewPadding | Safe area insets | dart_ui/text_data_test.dart | created | - |
 
 ---
 
@@ -595,12 +595,12 @@ Commonly used classes for intermediate Flutter development - test after essentia
 |-------|-------------|-----------|--------|--------|
 | SemanticsService | Accessibility services | test_semantics_semanticsservice.dart | - | - |
 | SemanticsOwner | Semantics tree owner | test_semantics_semanticsowner.dart | - | - |
-| SemanticsData | Accessibility data | test_semantics_semanticsdata.dart | - | - |
-| SemanticsHintOverrides | Hint overrides | test_semantics_semanticshintoverrides.dart | - | - |
-| SemanticsTag | Tagging for semantics | test_semantics_semanticstag.dart | - | - |
-| SemanticsSortKey | Sort ordering | test_semantics_semanticssortkey.dart | - | - |
-| OrdinalSortKey | Numeric sort key | test_semantics_ordinalsortkey.dart | - | - |
-| AttributedString | Attributed text | test_semantics_attributedstring.dart | - | - |
+| SemanticsData | Accessibility data | semantics/semantics_data_test.dart | created | - |
+| SemanticsHintOverrides | Hint overrides | semantics/semantics_data_test.dart | created | - |
+| SemanticsTag | Tagging for semantics | semantics/semantics_data_test.dart | created | - |
+| SemanticsSortKey | Sort ordering | semantics/semantics_data_test.dart | created | - |
+| OrdinalSortKey | Numeric sort key | semantics/semantics_data_test.dart | created | - |
+| AttributedString | Attributed text | semantics/semantics_data_test.dart | created | - |
 
 ---
 
@@ -609,8 +609,8 @@ Commonly used classes for intermediate Flutter development - test after essentia
 | Class | Description | Test File | Status | Result |
 |-------|-------------|-----------|--------|--------|
 | SchedulerBinding | Scheduler binding | test_scheduler_schedulerbinding.dart | - | - |
-| TickerFuture | Ticker completion future | test_scheduler_tickerfuture.dart | - | - |
-| TickerCanceled | Ticker cancellation | test_scheduler_tickercanceled.dart | - | - |
+| TickerFuture | Ticker completion future | scheduler/tickerfuture_test.dart | created | - |
+| TickerCanceled | Ticker cancellation | scheduler/tickerfuture_test.dart | created | - |
 
 ---
 
@@ -618,10 +618,10 @@ Commonly used classes for intermediate Flutter development - test after essentia
 
 | Class | Description | Test File | Status | Result |
 |-------|-------------|-----------|--------|--------|
-| SpringSimulation | Spring physics simulation | test_physics_springsimulation.dart | - | - |
-| ScrollSpringSimulation | Scroll spring physics | test_physics_scrollspringsimulation.dart | - | - |
-| FrictionSimulation | Friction deceleration | test_physics_frictionsimulation.dart | - | - |
-| Simulation | Base simulation class | test_physics_simulation.dart | - | - |
+| SpringSimulation | Spring physics simulation | physics/simulations_test.dart | created | - |
+| ScrollSpringSimulation | Scroll spring physics | physics/simulations_test.dart | created | - |
+| FrictionSimulation | Friction deceleration | physics/simulations_test.dart | created | - |
+| Simulation | Base simulation class | physics/simulations_test.dart | created | - |
 
 ---
 
