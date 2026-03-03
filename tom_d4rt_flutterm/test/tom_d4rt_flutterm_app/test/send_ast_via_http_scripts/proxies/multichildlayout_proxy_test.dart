@@ -150,18 +150,20 @@ dynamic build(BuildContext context) {
   print('Container with ValueKey created (proxy delegate tested above)');
 
   print('D4rtMultiChildLayoutDelegate proxy test completed');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('D4rtMultiChildLayoutDelegate Proxy Tests'),
-      SizedBox(height: 8.0),
-      SizedBox(width: 250.0, height: 160.0, child: widget1),
-      SizedBox(height: 8.0),
-      SizedBox(width: 250.0, height: 180.0, child: widget2),
-      SizedBox(height: 8.0),
-      SizedBox(width: 220.0, height: 210.0, child: widget3),
-      SizedBox(height: 8.0),
-      SizedBox(width: 200.0, height: 60.0, child: widget4),
-    ],
+  return SingleChildScrollView(
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text('D4rtMultiChildLayoutDelegate Proxy Tests'),
+        SizedBox(height: 8.0),
+        SizedBox(width: 250.0, height: 160.0, child: widget1),
+        SizedBox(height: 8.0),
+        SizedBox(width: 250.0, height: 180.0, child: widget2),
+        SizedBox(height: 8.0),
+        SizedBox(width: 220.0, height: 210.0, child: widget3),
+        SizedBox(height: 8.0),
+        SizedBox(width: 200.0, height: 60.0, child: widget4),
+      ],
+    ),
   );
 }

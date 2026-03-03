@@ -166,18 +166,20 @@ dynamic build(BuildContext context) {
   print('Flow with empty delegate and no children created');
 
   print('D4rtFlowDelegate proxy test completed');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('D4rtFlowDelegate Proxy Tests'),
-      SizedBox(height: 8.0),
-      SizedBox(width: 250.0, height: 70.0, child: widget1),
-      SizedBox(height: 8.0),
-      SizedBox(width: 250.0, height: 210.0, child: widget2),
-      SizedBox(height: 8.0),
-      SizedBox(width: 180.0, height: 180.0, child: widget3),
-      SizedBox(height: 8.0),
-      SizedBox(width: 200.0, height: 70.0, child: widget4),
-    ],
+  return SingleChildScrollView(
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text('D4rtFlowDelegate Proxy Tests'),
+        SizedBox(height: 8.0),
+        SizedBox(width: 250.0, height: 70.0, child: widget1),
+        SizedBox(height: 8.0),
+        SizedBox(width: 250.0, height: 210.0, child: widget2),
+        SizedBox(height: 8.0),
+        SizedBox(width: 180.0, height: 180.0, child: widget3),
+        SizedBox(height: 8.0),
+        SizedBox(width: 200.0, height: 70.0, child: widget4),
+      ],
+    ),
   );
 }

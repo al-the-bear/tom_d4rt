@@ -51,12 +51,13 @@ dynamic build(BuildContext context) {
   print('LicensePage test completed');
   return SingleChildScrollView(
     child: Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
-        SizedBox(height: 400.0, child: widget1),
-        SizedBox(height: 400.0, child: widget2),
-        SizedBox(height: 400.0, child: widget3),
-        SizedBox(height: 400.0, child: widget4),
-        SizedBox(height: 400.0, child: widget5),
+        SizedBox(height: 600.0, child: widget1),
+        SizedBox(height: 600.0, child: widget2),
+        SizedBox(height: 600.0, child: widget3),
+        SizedBox(height: 600.0, child: widget4),
+        SizedBox(height: 600.0, child: widget5),
       ],
     ),
   );
