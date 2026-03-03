@@ -11,14 +11,14 @@ dynamic build(BuildContext context) {
   print('--- D4rtCustomClipper<Rect> ---');
 
   // Create a custom clipper that clips to a centered rectangle
-  final rectClipper = D4rtCustomClipper<Rect>(
+  final rectClipper = D4rtCustomClipper(
     onGetClip: (Size size) {
       final inset = 20.0;
       return Rect.fromLTWH(inset, inset, size.width - inset * 2, size.height - inset * 2);
     },
-    onShouldReclip: (CustomClipper<Rect> oldClipper) => false,
+    onShouldReclip: (CustomClipper oldClipper) => false,
   );
-  print('D4rtCustomClipper<Rect> created: ${rectClipper.runtimeType}');
+  print('D4rtCustomClipper (Rect) created: ${rectClipper.runtimeType}');
   print('  is CustomClipper: ${rectClipper is CustomClipper}');
 
   // Use in ClipRect widget
@@ -39,7 +39,7 @@ dynamic build(BuildContext context) {
   print('--- D4rtCustomClipper<Path> ---');
 
   // Create a custom clipper that clips to a diamond path
-  final pathClipper = D4rtCustomClipper<Path>(
+  final pathClipper = D4rtCustomClipper.path(
     onGetClip: (Size size) {
       final path = Path();
       path.moveTo(size.width / 2, 0);
@@ -49,9 +49,9 @@ dynamic build(BuildContext context) {
       path.close();
       return path;
     },
-    onShouldReclip: (CustomClipper<Path> oldClipper) => false,
+    onShouldReclip: (CustomClipper oldClipper) => false,
   );
-  print('D4rtCustomClipper<Path> created for diamond shape');
+  print('D4rtCustomClipper.path created for diamond shape');
 
   // Use in ClipPath widget
   final widget2 = ClipPath(
@@ -70,7 +70,7 @@ dynamic build(BuildContext context) {
   // ========== CIRCULAR CLIPPER ==========
   print('--- Circular Clip ---');
 
-  final circleClipper = D4rtCustomClipper<Path>(
+  final circleClipper = D4rtCustomClipper.path(
     onGetClip: (Size size) {
       final path = Path();
       path.addOval(
@@ -82,7 +82,7 @@ dynamic build(BuildContext context) {
       );
       return path;
     },
-    onShouldReclip: (CustomClipper<Path> oldClipper) => false,
+    onShouldReclip: (CustomClipper oldClipper) => false,
   );
   print('Circular clipper created');
 
@@ -102,11 +102,11 @@ dynamic build(BuildContext context) {
   // ========== DYNAMIC RECLIP ==========
   print('--- shouldReclip Logic ---');
 
-  final dynamicClipper = D4rtCustomClipper<Rect>(
+  final dynamicClipper = D4rtCustomClipper(
     onGetClip: (Size size) {
       return Rect.fromLTWH(10, 10, size.width - 20, size.height - 20);
     },
-    onShouldReclip: (CustomClipper<Rect> oldClipper) => true,
+    onShouldReclip: (CustomClipper oldClipper) => true,
   );
   print('Dynamic clipper (always reclips) created');
 

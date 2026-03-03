@@ -133,11 +133,35 @@ BridgedClass _createD4rtCustomClipperBridge() {
       '': (visitor, positional, named) {
         final onGetClipRaw = D4.getRequiredNamedArg<Object>(named, 'onGetClip', 'D4rtCustomClipper');
         final onShouldReclipRaw = D4.getRequiredNamedArg<Object>(named, 'onShouldReclip', 'D4rtCustomClipper');
-        return D4rtCustomClipper(
+        return D4rtCustomClipper<Rect>(
           onGetClip: (Size size) {
-            return D4.callInterpreterCallback(visitor, onGetClipRaw, [size]);
+            return D4.callInterpreterCallback(visitor, onGetClipRaw, [size]) as Rect;
           },
-          onShouldReclip: (CustomClipper oldClipper) {
+          onShouldReclip: (CustomClipper<Rect> oldClipper) {
+            return D4.callInterpreterCallback(visitor, onShouldReclipRaw, [oldClipper]) as bool;
+          },
+        );
+      },
+      'rect': (visitor, positional, named) {
+        final onGetClipRaw = D4.getRequiredNamedArg<Object>(named, 'onGetClip', 'D4rtCustomClipper.rect');
+        final onShouldReclipRaw = D4.getRequiredNamedArg<Object>(named, 'onShouldReclip', 'D4rtCustomClipper.rect');
+        return D4rtCustomClipper<Rect>(
+          onGetClip: (Size size) {
+            return D4.callInterpreterCallback(visitor, onGetClipRaw, [size]) as Rect;
+          },
+          onShouldReclip: (CustomClipper<Rect> oldClipper) {
+            return D4.callInterpreterCallback(visitor, onShouldReclipRaw, [oldClipper]) as bool;
+          },
+        );
+      },
+      'path': (visitor, positional, named) {
+        final onGetClipRaw = D4.getRequiredNamedArg<Object>(named, 'onGetClip', 'D4rtCustomClipper.path');
+        final onShouldReclipRaw = D4.getRequiredNamedArg<Object>(named, 'onShouldReclip', 'D4rtCustomClipper.path');
+        return D4rtCustomClipper<Path>(
+          onGetClip: (Size size) {
+            return D4.callInterpreterCallback(visitor, onGetClipRaw, [size]) as Path;
+          },
+          onShouldReclip: (CustomClipper<Path> oldClipper) {
             return D4.callInterpreterCallback(visitor, onShouldReclipRaw, [oldClipper]) as bool;
           },
         );
@@ -162,7 +186,9 @@ BridgedClass _createD4rtCustomClipperBridge() {
       },
     },
     constructorSignatures: {
-      '': 'D4rtCustomClipper({required T Function(Size) onGetClip, required bool Function(CustomClipper<T>) onShouldReclip})',
+      '': 'D4rtCustomClipper({required Rect Function(Size) onGetClip, required bool Function(CustomClipper<Rect>) onShouldReclip})',
+      'rect': 'D4rtCustomClipper.rect({required Rect Function(Size) onGetClip, required bool Function(CustomClipper<Rect>) onShouldReclip})',
+      'path': 'D4rtCustomClipper.path({required Path Function(Size) onGetClip, required bool Function(CustomClipper<Path>) onShouldReclip})',
     },
     methodSignatures: {
       'getClip': 'T getClip(Size size)',
