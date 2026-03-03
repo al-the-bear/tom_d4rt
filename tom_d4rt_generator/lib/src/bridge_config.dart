@@ -208,6 +208,57 @@ class ImportedBridgeConfig {
   }
 }
 
+/// Configuration for a proxy class to be generated.
+/// 
+/// Proxy classes are adapter subclasses of abstract classes that delegate
+/// abstract methods to callback `Function` parameters. This enables D4rt
+/// scripts to provide implementations of abstract delegates like
+/// `CustomPainter`, `CustomClipper`, etc.
+class ProxyClassConfig {
+  /// The fully qualified class name to generate a proxy for (e.g., 'CustomPainter').
+  final String className;
+  
+  /// Optional custom name for the generated proxy class.
+  /// Defaults to 'D4rt{className}' (e.g., 'D4rtCustomPainter').
+  final String? proxyName;
+
+  const ProxyClassConfig({
+    required this.className,
+    this.proxyName,
+  });
+
+  factory ProxyClassConfig.fromJson(Map<String, dynamic> json) {
+    if (json case {'className': final String name}) {
+      return ProxyClassConfig(
+        className: name,
+        proxyName: json['proxyName'] as String?,
+      );
+    }
+    throw ArgumentError('ProxyClassConfig requires className: $json');
+  }
+
+  /// Parse from a simple string (just the class name) or a map.
+  factory ProxyClassConfig.fromYaml(Object value) {
+    if (value is String) {
+      return ProxyClassConfig(className: value);
+    }
+    if (value is Map<String, dynamic>) {
+      return ProxyClassConfig.fromJson(value);
+    }
+    throw ArgumentError('ProxyClassConfig expects String or Map, got: $value');
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'className': className,
+      if (proxyName != null) 'proxyName': proxyName,
+    };
+  }
+
+  /// The name of the generated proxy class.
+  String get effectiveProxyName => proxyName ?? 'D4rt$className';
+}
+
 /// Complete bridge configuration for a project.
 class BridgeConfig {
   final String name;
@@ -286,6 +337,37 @@ class BridgeConfig {
   ///     - package:my_pkg/types.dart:MyComparable
   /// ```
   final List<String> recursiveBoundTypes;
+  
+  /// Whether to generate proxy/adapter classes for abstract delegates.
+  /// 
+  /// When true and [proxyClasses] is non-empty, the generator will
+  /// create proxy subclasses that delegate abstract methods to callbacks.
+  /// The output goes to [proxiesOutputPath].
+  final bool generateProxies;
+  
+  /// Output path for the generated proxies file.
+  /// 
+  /// The file will contain all proxy classes for this project.
+  /// Example: `lib/src/bridges/flutter_proxies.b.dart`
+  final String? proxiesOutputPath;
+  
+  /// List of abstract classes to generate proxy/adapter subclasses for.
+  /// 
+  /// Each entry specifies a class name (and optionally a custom proxy name).
+  /// The generator will analyze the class's abstract methods and create
+  /// a proxy that accepts `Function` callbacks for each.
+  /// 
+  /// Example in buildkit.yaml:
+  /// ```yaml
+  /// d4rtgen:
+  ///   generateProxies: true
+  ///   proxiesOutputPath: lib/src/bridges/flutter_proxies.b.dart
+  ///   proxyClasses:
+  ///     - CustomPainter
+  ///     - className: CustomClipper
+  ///       proxyName: D4rtCustomClipper
+  /// ```
+  final List<ProxyClassConfig> proxyClasses;
 
   const BridgeConfig({
     required this.name,
@@ -302,6 +384,9 @@ class BridgeConfig {
     this.testRunnerPath,
     this.importedBridges = const [],
     this.recursiveBoundTypes = const [],
+    this.generateProxies = false,
+    this.proxiesOutputPath,
+    this.proxyClasses = const [],
   });
 
   factory BridgeConfig.fromJson(Map<String, dynamic> json) {
@@ -326,6 +411,12 @@ class BridgeConfig {
           const [],
       recursiveBoundTypes:
           (json['recursiveBoundTypes'] as List?)?.cast<String>() ?? const [],
+      generateProxies: json['generateProxies'] as bool? ?? false,
+      proxiesOutputPath: json['proxiesOutputPath'] as String?,
+      proxyClasses: (json['proxyClasses'] as List?)
+              ?.map((e) => ProxyClassConfig.fromYaml(e))
+              .toList() ??
+          const [],
     );
   }
 
@@ -387,6 +478,10 @@ class BridgeConfig {
         'importedBridges': importedBridges.map((b) => b.toJson()).toList(),
       if (recursiveBoundTypes.isNotEmpty)
         'recursiveBoundTypes': recursiveBoundTypes,
+      if (generateProxies) 'generateProxies': generateProxies,
+      if (proxiesOutputPath != null) 'proxiesOutputPath': proxiesOutputPath,
+      if (proxyClasses.isNotEmpty)
+        'proxyClasses': proxyClasses.map((p) => p.toJson()).toList(),
     };
   }
 
@@ -406,6 +501,9 @@ class BridgeConfig {
     String? testRunnerPath,
     List<ImportedBridgeConfig>? importedBridges,
     List<String>? recursiveBoundTypes,
+    bool? generateProxies,
+    String? proxiesOutputPath,
+    List<ProxyClassConfig>? proxyClasses,
   }) {
     return BridgeConfig(
       name: name ?? this.name,
@@ -422,6 +520,9 @@ class BridgeConfig {
       testRunnerPath: testRunnerPath ?? this.testRunnerPath,
       importedBridges: importedBridges ?? this.importedBridges,
       recursiveBoundTypes: recursiveBoundTypes ?? this.recursiveBoundTypes,
+      generateProxies: generateProxies ?? this.generateProxies,
+      proxiesOutputPath: proxiesOutputPath ?? this.proxiesOutputPath,
+      proxyClasses: proxyClasses ?? this.proxyClasses,
     );
   }
 }

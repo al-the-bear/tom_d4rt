@@ -11,6 +11,15 @@ d4rtgen:
   registrationClass: FlutterMaterialBridges
   generateTestRunner: true
   testRunnerPath: test/bridge_test_runner.b.dart
+  # GEN-083: Proxy class generation for abstract delegates
+  generateProxies: true
+  proxiesOutputPath: lib/src/bridges/flutter_proxies.b.dart
+  proxyClasses:
+    - CustomPainter
+    - CustomClipper
+    - FlowDelegate
+    - MultiChildLayoutDelegate
+    - SingleChildLayoutDelegate
   modules:
     # --- Layer 0: dart:ui (most fundamental) ---
     - name: dart_ui

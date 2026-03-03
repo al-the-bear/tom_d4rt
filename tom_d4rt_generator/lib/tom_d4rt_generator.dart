@@ -29,6 +29,7 @@ export 'src/bridge_api.dart';
 export 'src/bridge_config.dart';
 export 'src/bridge_generator.dart';
 export 'src/file_generators.dart';
+export 'src/proxy_generator.dart';
 
 // Export builder for build_runner integration
 export 'builder.dart' show d4rtBridgeBuilder;

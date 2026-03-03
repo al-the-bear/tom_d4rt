@@ -12,6 +12,7 @@ import 'bridge_generator.dart';
 import 'build_config_loader.dart';
 import 'd4rtgen_logging.dart';
 import 'file_generators.dart';
+import 'proxy_generator.dart';
 
 /// Result of a bridge generation operation.
 class GenerationResult {
@@ -242,6 +243,25 @@ Future<GenerationResult> generateBridges({
         packageName: effectivePackageName,
       );
       outputFiles.add(testRunnerPath);
+    }
+
+    // Generate proxy classes if requested (GEN-083)
+    if (bridgeConfig.generateProxies &&
+        bridgeConfig.proxyClasses.isNotEmpty) {
+      final proxyResult = await generateProxies(
+        config: bridgeConfig,
+        projectPath: projectDir,
+      );
+      if (proxyResult.outputFile != null) {
+        outputFiles.add(proxyResult.outputFile!);
+      }
+      errors.addAll(proxyResult.errors);
+      if (proxyResult.proxies.isNotEmpty) {
+        print(
+          '  GEN-083: Generated ${proxyResult.proxies.length} proxy classes'
+          ' → ${proxyResult.outputFile}',
+        );
+      }
     }
   } catch (e) {
     errors.add(e.toString());
