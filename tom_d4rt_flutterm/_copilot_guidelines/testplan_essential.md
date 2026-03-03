@@ -367,6 +367,18 @@ Scripts hardened after GEN-076 audit:
 
 ---
 
+## proxies (5 classes)
+
+| Class | Description | Test File | Status | Result |
+|-------|-------------|-----------|--------|--------|
+| D4rtCustomPainter | Proxy for CustomPainter delegate | proxies/custompaint_proxy_test.dart | created | - |
+| D4rtCustomClipper | Proxy for CustomClipper delegate | proxies/customclipper_proxy_test.dart | created | - |
+| D4rtFlowDelegate | Proxy for FlowDelegate | proxies/flowdelegate_proxy_test.dart | created | - |
+| D4rtMultiChildLayoutDelegate | Proxy for MultiChildLayoutDelegate | proxies/multichildlayout_proxy_test.dart | created | - |
+| D4rtSingleChildLayoutDelegate | Proxy for SingleChildLayoutDelegate | proxies/singlechildlayout_proxy_test.dart | created | - |
+
+---
+
 ## Summary
 
 | Package | Count | Testable | Pass | Not-testable |
@@ -384,4 +396,5 @@ Scripts hardened after GEN-076 audit:
 | semantics | 4 | 3 | 3 | 1 |
 | scheduler | 2 | 2 | 2 | 0 |
 | physics | 2 | 2 | 2 | 0 |
-| **Total** | **254** | **229** | **229** | **25** |
+| proxies | 5 | 5 | 0 | 0 |
+| **Total** | **259** | **234** | **229** | **25** |
