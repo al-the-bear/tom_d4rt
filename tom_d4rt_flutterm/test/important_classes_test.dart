@@ -1159,6 +1159,13 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
+
+    test('gradient_rendering_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/gradient_rendering_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
   });
 
   // ============================================================
