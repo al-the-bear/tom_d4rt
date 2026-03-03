@@ -16,14 +16,18 @@ dynamic build(BuildContext context) {
         width: 100.0,
         height: 50.0,
         color: Colors.blue,
-        child: Center(child: Text('Dragging', style: TextStyle(color: Colors.white))),
+        child: Center(
+          child: Text('Dragging', style: TextStyle(color: Colors.white)),
+        ),
       ),
     ),
     child: Container(
       width: 100.0,
       height: 50.0,
       color: Colors.blue,
-      child: Center(child: Text('Drag me', style: TextStyle(color: Colors.white))),
+      child: Center(
+        child: Text('Drag me', style: TextStyle(color: Colors.white)),
+      ),
     ),
   );
   print('Draggable basic with String data created');
@@ -37,20 +41,26 @@ dynamic build(BuildContext context) {
         width: 120.0,
         height: 50.0,
         color: Colors.green,
-        child: Center(child: Text('Moving...', style: TextStyle(color: Colors.white))),
+        child: Center(
+          child: Text('Moving...', style: TextStyle(color: Colors.white)),
+        ),
       ),
     ),
     childWhenDragging: Container(
       width: 120.0,
       height: 50.0,
       color: Colors.grey,
-      child: Center(child: Text('Gone', style: TextStyle(color: Colors.white))),
+      child: Center(
+        child: Text('Gone', style: TextStyle(color: Colors.white)),
+      ),
     ),
     child: Container(
       width: 120.0,
       height: 50.0,
       color: Colors.green,
-      child: Center(child: Text('With placeholder', style: TextStyle(color: Colors.white))),
+      child: Center(
+        child: Text('With placeholder', style: TextStyle(color: Colors.white)),
+      ),
     ),
   );
   print('Draggable with childWhenDragging created');
@@ -72,14 +82,18 @@ dynamic build(BuildContext context) {
         width: 100.0,
         height: 50.0,
         color: Colors.orange,
-        child: Center(child: Text('42', style: TextStyle(color: Colors.white))),
+        child: Center(
+          child: Text('42', style: TextStyle(color: Colors.white)),
+        ),
       ),
     ),
     child: Container(
       width: 100.0,
       height: 50.0,
       color: Colors.orange,
-      child: Center(child: Text('Callbacks', style: TextStyle(color: Colors.white))),
+      child: Center(
+        child: Text('Callbacks', style: TextStyle(color: Colors.white)),
+      ),
     ),
   );
   print('Draggable with callbacks created');
@@ -93,14 +107,18 @@ dynamic build(BuildContext context) {
         width: 100.0,
         height: 50.0,
         color: Colors.purple,
-        child: Center(child: Text('H-only', style: TextStyle(color: Colors.white))),
+        child: Center(
+          child: Text('H-only', style: TextStyle(color: Colors.white)),
+        ),
       ),
     ),
     child: Container(
       width: 100.0,
       height: 50.0,
       color: Colors.purple,
-      child: Center(child: Text('Horizontal', style: TextStyle(color: Colors.white))),
+      child: Center(
+        child: Text('Horizontal', style: TextStyle(color: Colors.white)),
+      ),
     ),
   );
   print('Draggable with axis=horizontal created');
@@ -114,14 +132,18 @@ dynamic build(BuildContext context) {
         width: 100.0,
         height: 50.0,
         color: Colors.teal,
-        child: Center(child: Text('V-only', style: TextStyle(color: Colors.white))),
+        child: Center(
+          child: Text('V-only', style: TextStyle(color: Colors.white)),
+        ),
       ),
     ),
     child: Container(
       width: 100.0,
       height: 50.0,
       color: Colors.teal,
-      child: Center(child: Text('Vertical', style: TextStyle(color: Colors.white))),
+      child: Center(
+        child: Text('Vertical', style: TextStyle(color: Colors.white)),
+      ),
     ),
   );
   print('Draggable with axis=vertical created');
@@ -135,14 +157,18 @@ dynamic build(BuildContext context) {
         width: 100.0,
         height: 50.0,
         color: Colors.indigo,
-        child: Center(child: Text('Max 1', style: TextStyle(color: Colors.white))),
+        child: Center(
+          child: Text('Max 1', style: TextStyle(color: Colors.white)),
+        ),
       ),
     ),
     child: Container(
       width: 100.0,
       height: 50.0,
       color: Colors.indigo,
-      child: Center(child: Text('Max drags=1', style: TextStyle(color: Colors.white))),
+      child: Center(
+        child: Text('Max drags=1', style: TextStyle(color: Colors.white)),
+      ),
     ),
   );
   print('Draggable with maxSimultaneousDrags=1 created');
@@ -157,7 +183,9 @@ dynamic build(BuildContext context) {
         width: 200.0,
         height: 80.0,
         color: Colors.grey,
-        child: Center(child: Text('Drop here', style: TextStyle(color: Colors.white))),
+        child: Center(
+          child: Text('Drop here', style: TextStyle(color: Colors.white)),
+        ),
       );
     },
     onAcceptWithDetails: (details) {
@@ -173,7 +201,9 @@ dynamic build(BuildContext context) {
         width: 200.0,
         height: 80.0,
         color: Colors.blueGrey,
-        child: Center(child: Text('Filtered target', style: TextStyle(color: Colors.white))),
+        child: Center(
+          child: Text('Filtered target', style: TextStyle(color: Colors.white)),
+        ),
       );
     },
     onWillAcceptWithDetails: (details) {
@@ -201,14 +231,18 @@ dynamic build(BuildContext context) {
         width: 120.0,
         height: 50.0,
         color: Colors.red,
-        child: Center(child: Text('Long drag', style: TextStyle(color: Colors.white))),
+        child: Center(
+          child: Text('Long drag', style: TextStyle(color: Colors.white)),
+        ),
       ),
     ),
     child: Container(
       width: 120.0,
       height: 50.0,
       color: Colors.red,
-      child: Center(child: Text('Long press me', style: TextStyle(color: Colors.white))),
+      child: Center(
+        child: Text('Long press me', style: TextStyle(color: Colors.white)),
+      ),
     ),
   );
   print('LongPressDraggable basic created');
@@ -223,20 +257,26 @@ dynamic build(BuildContext context) {
         width: 120.0,
         height: 50.0,
         color: Colors.deepOrange,
-        child: Center(child: Text('Haptic', style: TextStyle(color: Colors.white))),
+        child: Center(
+          child: Text('Haptic', style: TextStyle(color: Colors.white)),
+        ),
       ),
     ),
     childWhenDragging: Container(
       width: 120.0,
       height: 50.0,
       color: Colors.grey,
-      child: Center(child: Text('Dragging...', style: TextStyle(color: Colors.white))),
+      child: Center(
+        child: Text('Dragging...', style: TextStyle(color: Colors.white)),
+      ),
     ),
     child: Container(
       width: 120.0,
       height: 50.0,
       color: Colors.deepOrange,
-      child: Center(child: Text('Haptic drag', style: TextStyle(color: Colors.white))),
+      child: Center(
+        child: Text('Haptic drag', style: TextStyle(color: Colors.white)),
+      ),
     ),
   );
   print('LongPressDraggable with hapticFeedbackOnStart created');
@@ -258,14 +298,21 @@ dynamic build(BuildContext context) {
         width: 120.0,
         height: 50.0,
         color: Colors.brown,
-        child: Center(child: Text('99', style: TextStyle(color: Colors.white, fontSize: 20.0))),
+        child: Center(
+          child: Text(
+            '99',
+            style: TextStyle(color: Colors.white, fontSize: 20.0),
+          ),
+        ),
       ),
     ),
     child: Container(
       width: 120.0,
       height: 50.0,
       color: Colors.brown,
-      child: Center(child: Text('Callbacks LP', style: TextStyle(color: Colors.white))),
+      child: Center(
+        child: Text('Callbacks LP', style: TextStyle(color: Colors.white)),
+      ),
     ),
   );
   print('LongPressDraggable with callbacks created');
@@ -276,12 +323,18 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('=== Draggable Tests ===', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
+        Text(
+          '=== Draggable Tests ===',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+        ),
         SizedBox(height: 8.0),
         Text('Basic:', style: TextStyle(fontWeight: FontWeight.bold)),
         draggableBasic,
         SizedBox(height: 8.0),
-        Text('With placeholder:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'With placeholder:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         draggableWithPlaceholder,
         SizedBox(height: 8.0),
         Text('With callbacks:', style: TextStyle(fontWeight: FontWeight.bold)),
@@ -296,7 +349,10 @@ dynamic build(BuildContext context) {
         Text('Max drags=1:', style: TextStyle(fontWeight: FontWeight.bold)),
         draggableMaxDrags,
         SizedBox(height: 16.0),
-        Text('=== DragTarget Tests ===', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
+        Text(
+          '=== DragTarget Tests ===',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+        ),
         SizedBox(height: 8.0),
         Text('Basic target:', style: TextStyle(fontWeight: FontWeight.bold)),
         dragTargetBasic,
@@ -304,7 +360,10 @@ dynamic build(BuildContext context) {
         Text('Filtered target:', style: TextStyle(fontWeight: FontWeight.bold)),
         dragTargetFiltered,
         SizedBox(height: 16.0),
-        Text('=== LongPressDraggable Tests ===', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
+        Text(
+          '=== LongPressDraggable Tests ===',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+        ),
         SizedBox(height: 8.0),
         Text('Basic:', style: TextStyle(fontWeight: FontWeight.bold)),
         longPressBasic,

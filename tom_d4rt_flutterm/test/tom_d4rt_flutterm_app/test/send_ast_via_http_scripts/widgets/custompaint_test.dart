@@ -20,9 +20,7 @@ dynamic build(BuildContext context) {
   // Test CustomPaint with size
   final paintSized = CustomPaint(
     size: Size(200.0, 100.0),
-    child: Center(
-      child: Text('Sized 200x100'),
-    ),
+    child: Center(child: Text('Sized 200x100')),
   );
   print('CustomPaint with size=200x100 created');
 
@@ -63,7 +61,10 @@ dynamic build(BuildContext context) {
       height: 100.0,
       color: Colors.purple,
       child: Center(
-        child: Text('Complex + WillChange', style: TextStyle(color: Colors.white)),
+        child: Text(
+          'Complex + WillChange',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
     ),
   );
@@ -114,9 +115,7 @@ dynamic build(BuildContext context) {
     child: CustomPaint(
       size: Size(180.0, 80.0),
       isComplex: true,
-      child: Center(
-        child: Text('Nested in Container'),
-      ),
+      child: Center(child: Text('Nested in Container')),
     ),
   );
   print('CustomPaint nested inside Container created');
@@ -141,9 +140,15 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('=== CustomPaint Tests ===', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
+        Text(
+          '=== CustomPaint Tests ===',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+        ),
         SizedBox(height: 8.0),
-        Text('Basic (null painter):', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Basic (null painter):',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         paintBasic,
         SizedBox(height: 8.0),
         Text('Sized 200x100:', style: TextStyle(fontWeight: FontWeight.bold)),
@@ -155,19 +160,28 @@ dynamic build(BuildContext context) {
         Text('willChange=true:', style: TextStyle(fontWeight: FontWeight.bold)),
         paintWillChange,
         SizedBox(height: 8.0),
-        Text('Complex + WillChange:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Complex + WillChange:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         paintComplexChange,
         SizedBox(height: 8.0),
         Text('Foreground null:', style: TextStyle(fontWeight: FontWeight.bold)),
         paintForeground,
         SizedBox(height: 8.0),
-        Text('Size only (no child):', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Size only (no child):',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SizedBox(width: 180.0, height: 80.0, child: paintSizeOnly),
         SizedBox(height: 8.0),
         Text('Keyed:', style: TextStyle(fontWeight: FontWeight.bold)),
         SizedBox(width: 200.0, height: 100.0, child: paintKeyed),
         SizedBox(height: 8.0),
-        Text('Nested in Container:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Nested in Container:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         paintNested,
         SizedBox(height: 8.0),
         Text('Zero size:', style: TextStyle(fontWeight: FontWeight.bold)),

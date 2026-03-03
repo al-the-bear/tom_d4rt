@@ -11,7 +11,10 @@ dynamic build(BuildContext context) {
       height: 200.0,
       color: Colors.blue,
       child: Center(
-        child: Text('Default InteractiveViewer', style: TextStyle(color: Colors.white, fontSize: 18.0)),
+        child: Text(
+          'Default InteractiveViewer',
+          style: TextStyle(color: Colors.white, fontSize: 18.0),
+        ),
       ),
     ),
   );
@@ -25,7 +28,10 @@ dynamic build(BuildContext context) {
       height: 200.0,
       color: Colors.green,
       child: Center(
-        child: Text('No panning', style: TextStyle(color: Colors.white, fontSize: 18.0)),
+        child: Text(
+          'No panning',
+          style: TextStyle(color: Colors.white, fontSize: 18.0),
+        ),
       ),
     ),
   );
@@ -39,7 +45,10 @@ dynamic build(BuildContext context) {
       height: 200.0,
       color: Colors.orange,
       child: Center(
-        child: Text('No scaling', style: TextStyle(color: Colors.white, fontSize: 18.0)),
+        child: Text(
+          'No scaling',
+          style: TextStyle(color: Colors.white, fontSize: 18.0),
+        ),
       ),
     ),
   );
@@ -54,7 +63,10 @@ dynamic build(BuildContext context) {
       height: 200.0,
       color: Colors.purple,
       child: Center(
-        child: Text('Scale 0.5-4.0', style: TextStyle(color: Colors.white, fontSize: 18.0)),
+        child: Text(
+          'Scale 0.5-4.0',
+          style: TextStyle(color: Colors.white, fontSize: 18.0),
+        ),
       ),
     ),
   );
@@ -68,7 +80,10 @@ dynamic build(BuildContext context) {
       height: 200.0,
       color: Colors.red,
       child: Center(
-        child: Text('Boundary 20px', style: TextStyle(color: Colors.white, fontSize: 18.0)),
+        child: Text(
+          'Boundary 20px',
+          style: TextStyle(color: Colors.white, fontSize: 18.0),
+        ),
       ),
     ),
   );
@@ -88,7 +103,10 @@ dynamic build(BuildContext context) {
         border: Border.all(color: Colors.white, width: 2.0),
       ),
       child: Center(
-        child: Text('Unconstrained 600x400', style: TextStyle(color: Colors.white, fontSize: 20.0)),
+        child: Text(
+          'Unconstrained 600x400',
+          style: TextStyle(color: Colors.white, fontSize: 20.0),
+        ),
       ),
     ),
   );
@@ -103,7 +121,10 @@ dynamic build(BuildContext context) {
       height: 200.0,
       color: Colors.brown,
       child: Center(
-        child: Text('Locked (no pan/scale)', style: TextStyle(color: Colors.white, fontSize: 18.0)),
+        child: Text(
+          'Locked (no pan/scale)',
+          style: TextStyle(color: Colors.white, fontSize: 18.0),
+        ),
       ),
     ),
   );
@@ -119,7 +140,10 @@ dynamic build(BuildContext context) {
       height: 200.0,
       color: Colors.indigo,
       child: Center(
-        child: Text('Large boundary', style: TextStyle(color: Colors.white, fontSize: 18.0)),
+        child: Text(
+          'Large boundary',
+          style: TextStyle(color: Colors.white, fontSize: 18.0),
+        ),
       ),
     ),
   );
@@ -141,7 +165,10 @@ dynamic build(BuildContext context) {
       height: 200.0,
       color: Colors.amber,
       child: Center(
-        child: Text('With callbacks', style: TextStyle(color: Colors.black, fontSize: 18.0)),
+        child: Text(
+          'With callbacks',
+          style: TextStyle(color: Colors.black, fontSize: 18.0),
+        ),
       ),
     ),
   );
@@ -158,19 +185,25 @@ dynamic build(BuildContext context) {
           width: 300.0,
           height: 60.0,
           color: Colors.blue,
-          child: Center(child: Text('Row 1', style: TextStyle(color: Colors.white))),
+          child: Center(
+            child: Text('Row 1', style: TextStyle(color: Colors.white)),
+          ),
         ),
         Container(
           width: 300.0,
           height: 60.0,
           color: Colors.green,
-          child: Center(child: Text('Row 2', style: TextStyle(color: Colors.white))),
+          child: Center(
+            child: Text('Row 2', style: TextStyle(color: Colors.white)),
+          ),
         ),
         Container(
           width: 300.0,
           height: 60.0,
           color: Colors.red,
-          child: Center(child: Text('Row 3', style: TextStyle(color: Colors.white))),
+          child: Center(
+            child: Text('Row 3', style: TextStyle(color: Colors.white)),
+          ),
         ),
       ],
     ),
@@ -183,7 +216,10 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('=== InteractiveViewer Tests ===', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
+        Text(
+          '=== InteractiveViewer Tests ===',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+        ),
         SizedBox(height: 8.0),
         Text('Default:', style: TextStyle(fontWeight: FontWeight.bold)),
         SizedBox(height: 150.0, child: viewerDefault),

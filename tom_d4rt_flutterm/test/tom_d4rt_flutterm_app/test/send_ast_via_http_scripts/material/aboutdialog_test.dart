@@ -44,10 +44,7 @@ dynamic build(BuildContext context) {
     applicationVersion: '4.0.0',
     applicationIcon: FlutterLogo(size: 48),
     applicationLegalese: 'Copyright 2025 Test Corp',
-    children: [
-      SizedBox(height: 16),
-      Text('Built with Flutter and D4rt'),
-    ],
+    children: [SizedBox(height: 16), Text('Built with Flutter and D4rt')],
   );
   print('AboutDialog(all properties) created');
 

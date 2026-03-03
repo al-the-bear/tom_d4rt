@@ -32,7 +32,9 @@ dynamic build(BuildContext context) {
     size: 48.0,
     color: Colors.blue,
   );
-  print('AnimatedIcon(play_pause, progress: 0.5, size: 48, color: blue) created');
+  print(
+    'AnimatedIcon(play_pause, progress: 0.5, size: 48, color: blue) created',
+  );
 
   // Variation 5: menu_close at progress 0.0
   final widget5 = AnimatedIcon(
@@ -54,45 +56,27 @@ dynamic build(BuildContext context) {
     children: [
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text('menu_arrow 0.0: '),
-          widget1,
-        ],
+        children: [Text('menu_arrow 0.0: '), widget1],
       ),
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text('menu_arrow 0.5: '),
-          widget2,
-        ],
+        children: [Text('menu_arrow 0.5: '), widget2],
       ),
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text('menu_arrow 1.0: '),
-          widget3,
-        ],
+        children: [Text('menu_arrow 1.0: '), widget3],
       ),
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text('play_pause 0.5: '),
-          widget4,
-        ],
+        children: [Text('play_pause 0.5: '), widget4],
       ),
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text('menu_close 0.0: '),
-          widget5,
-        ],
+        children: [Text('menu_close 0.0: '), widget5],
       ),
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text('home_menu 1.0: '),
-          widget6,
-        ],
+        children: [Text('home_menu 1.0: '), widget6],
       ),
     ],
   );

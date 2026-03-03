@@ -70,12 +70,6 @@ dynamic build(BuildContext context) {
   print('Opacity test completed');
   return Column(
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    children: [
-      widget1,
-      widget2,
-      widget3,
-      widget4,
-      widget5,
-    ],
+    children: [widget1, widget2, widget3, widget4, widget5],
   );
 }

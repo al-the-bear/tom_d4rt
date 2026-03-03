@@ -41,7 +41,9 @@ dynamic build(BuildContext context) {
     duration: Duration(milliseconds: 300),
     child: Container(color: Colors.orange),
   );
-  print('AnimatedPositioned(width: 100, height: 60, left: 20, top: 20) created');
+  print(
+    'AnimatedPositioned(width: 100, height: 60, left: 20, top: 20) created',
+  );
 
   // Test AnimatedPositioned with curve
   final pos5 = AnimatedPositioned(
@@ -57,12 +59,6 @@ dynamic build(BuildContext context) {
   return SizedBox(
     width: 300,
     height: 300,
-    child: Stack(children: [
-      pos1,
-      pos2,
-      pos3,
-      pos4,
-      pos5,
-    ]),
+    child: Stack(children: [pos1, pos2, pos3, pos4, pos5]),
   );
 }

@@ -20,11 +20,7 @@ dynamic build(BuildContext context) {
   print('Semantics(label: Image, image: true) created');
 
   // Test Semantics with header flag
-  final sem3 = Semantics(
-    header: true,
-    label: 'Header',
-    child: Text('Title'),
-  );
+  final sem3 = Semantics(header: true, label: 'Header', child: Text('Title'));
   print('Semantics(header: true, label: Header) created');
 
   // Test Semantics with button flag
@@ -51,39 +47,23 @@ dynamic build(BuildContext context) {
 
   // Test MergeSemantics
   final merge = MergeSemantics(
-    child: Column(children: [
-      Text('Merged'),
-      Icon(Icons.star),
-    ]),
+    child: Column(children: [Text('Merged'), Icon(Icons.star)]),
   );
   print('MergeSemantics with Column created');
 
   // Test ExcludeSemantics excluding true
-  final exclude1 = ExcludeSemantics(
-    child: Container(
-      child: Text('Excluded'),
-    ),
-  );
+  final exclude1 = ExcludeSemantics(child: Container(child: Text('Excluded')));
   print('ExcludeSemantics(excluding: true) created');
 
   // Test ExcludeSemantics excluding false
   final exclude2 = ExcludeSemantics(
     excluding: false,
-    child: Container(
-      child: Text('Not excluded'),
-    ),
+    child: Container(child: Text('Not excluded')),
   );
   print('ExcludeSemantics(excluding: false) created');
 
   print('Semantics widgets test completed');
-  return Column(children: [
-    sem1,
-    sem2,
-    sem3,
-    sem4,
-    sem5,
-    merge,
-    exclude1,
-    exclude2,
-  ]);
+  return Column(
+    children: [sem1, sem2, sem3, sem4, sem5, merge, exclude1, exclude2],
+  );
 }

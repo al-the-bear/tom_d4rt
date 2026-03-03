@@ -2,7 +2,9 @@
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  print('AbsorbPointer/IgnorePointer/MouseRegion/RepaintBoundary test executing');
+  print(
+    'AbsorbPointer/IgnorePointer/MouseRegion/RepaintBoundary test executing',
+  );
 
   // ========== ABSORBPOINTER ==========
   print('--- AbsorbPointer Tests ---');
@@ -48,9 +50,7 @@ dynamic build(BuildContext context) {
           },
           child: Text('Button 2'),
         ),
-        TextField(
-          decoration: InputDecoration(labelText: 'Absorbed TextField'),
-        ),
+        TextField(decoration: InputDecoration(labelText: 'Absorbed TextField')),
       ],
     ),
   );
@@ -92,7 +92,9 @@ dynamic build(BuildContext context) {
           width: 200.0,
           height: 80.0,
           color: Colors.blue,
-          child: Center(child: Text('Background', style: TextStyle(color: Colors.white))),
+          child: Center(
+            child: Text('Background', style: TextStyle(color: Colors.white)),
+          ),
         ),
         Positioned(
           top: 10.0,
@@ -198,9 +200,24 @@ dynamic build(BuildContext context) {
   final repaintComplex = RepaintBoundary(
     child: Column(
       children: [
-        Container(color: Colors.blue, height: 30.0, width: 200.0, child: Text('Row 1', style: TextStyle(color: Colors.white))),
-        Container(color: Colors.green, height: 30.0, width: 200.0, child: Text('Row 2', style: TextStyle(color: Colors.white))),
-        Container(color: Colors.orange, height: 30.0, width: 200.0, child: Text('Row 3', style: TextStyle(color: Colors.white))),
+        Container(
+          color: Colors.blue,
+          height: 30.0,
+          width: 200.0,
+          child: Text('Row 1', style: TextStyle(color: Colors.white)),
+        ),
+        Container(
+          color: Colors.green,
+          height: 30.0,
+          width: 200.0,
+          child: Text('Row 2', style: TextStyle(color: Colors.white)),
+        ),
+        Container(
+          color: Colors.orange,
+          height: 30.0,
+          width: 200.0,
+          child: Text('Row 3', style: TextStyle(color: Colors.white)),
+        ),
       ],
     ),
   );
@@ -220,13 +237,18 @@ dynamic build(BuildContext context) {
   );
   print('RepaintBoundary with key created');
 
-  print('All AbsorbPointer/IgnorePointer/MouseRegion/RepaintBoundary tests completed');
+  print(
+    'All AbsorbPointer/IgnorePointer/MouseRegion/RepaintBoundary tests completed',
+  );
 
   return SingleChildScrollView(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('=== AbsorbPointer Tests ===', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
+        Text(
+          '=== AbsorbPointer Tests ===',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+        ),
         SizedBox(height: 8.0),
         Text('Absorbing=true:', style: TextStyle(fontWeight: FontWeight.bold)),
         absorbTrue,
@@ -237,7 +259,10 @@ dynamic build(BuildContext context) {
         Text('Absorbing group:', style: TextStyle(fontWeight: FontWeight.bold)),
         absorbGroup,
         SizedBox(height: 16.0),
-        Text('=== IgnorePointer Tests ===', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
+        Text(
+          '=== IgnorePointer Tests ===',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+        ),
         SizedBox(height: 8.0),
         Text('Ignoring=true:', style: TextStyle(fontWeight: FontWeight.bold)),
         ignoreTrue,
@@ -248,9 +273,15 @@ dynamic build(BuildContext context) {
         Text('Ignoring stack:', style: TextStyle(fontWeight: FontWeight.bold)),
         ignoreStack,
         SizedBox(height: 16.0),
-        Text('=== MouseRegion Tests ===', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
+        Text(
+          '=== MouseRegion Tests ===',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+        ),
         SizedBox(height: 8.0),
-        Text('Basic (enter/exit):', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Basic (enter/exit):',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         mouseBasic,
         SizedBox(height: 8.0),
         Text('Hover tracking:', style: TextStyle(fontWeight: FontWeight.bold)),
@@ -262,7 +293,10 @@ dynamic build(BuildContext context) {
         Text('Non-opaque:', style: TextStyle(fontWeight: FontWeight.bold)),
         mouseOpaque,
         SizedBox(height: 16.0),
-        Text('=== RepaintBoundary Tests ===', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
+        Text(
+          '=== RepaintBoundary Tests ===',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+        ),
         SizedBox(height: 8.0),
         Text('Basic:', style: TextStyle(fontWeight: FontWeight.bold)),
         repaintBasic,
@@ -274,8 +308,12 @@ dynamic build(BuildContext context) {
         repaintKeyed,
         SizedBox(height: 16.0),
         Text('Key Points:', style: TextStyle(fontWeight: FontWeight.bold)),
-        Text('• AbsorbPointer absorbs hits, preventing children from receiving them'),
-        Text('• IgnorePointer ignores hits, passing them through to widgets behind'),
+        Text(
+          '• AbsorbPointer absorbs hits, preventing children from receiving them',
+        ),
+        Text(
+          '• IgnorePointer ignores hits, passing them through to widgets behind',
+        ),
         Text('• MouseRegion tracks mouse enter/exit/hover events'),
         Text('• RepaintBoundary isolates repaint regions for performance'),
       ],

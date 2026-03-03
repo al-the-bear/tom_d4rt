@@ -78,7 +78,9 @@ dynamic build(BuildContext context) {
       ),
       Padding(
         padding: EdgeInsets.all(8),
-        child: Text('time6 (replaced minute): ${time6.format(context)} (10:45)'),
+        child: Text(
+          'time6 (replaced minute): ${time6.format(context)} (10:45)',
+        ),
       ),
     ],
   );

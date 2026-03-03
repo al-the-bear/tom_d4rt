@@ -39,7 +39,10 @@ dynamic build(BuildContext context) {
                 color: Colors.green,
                 height: 80.0,
                 child: Center(
-                  child: Text('Left Panel', style: TextStyle(color: Colors.white)),
+                  child: Text(
+                    'Left Panel',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ),
             ),
@@ -49,7 +52,10 @@ dynamic build(BuildContext context) {
                 color: Colors.teal,
                 height: 80.0,
                 child: Center(
-                  child: Text('Right Panel', style: TextStyle(color: Colors.white)),
+                  child: Text(
+                    'Right Panel',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ),
             ),
@@ -71,7 +77,10 @@ dynamic build(BuildContext context) {
               color: Colors.teal,
               height: 60.0,
               child: Center(
-                child: Text('Bottom Panel', style: TextStyle(color: Colors.white)),
+                child: Text(
+                  'Bottom Panel',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ),
           ],
@@ -176,22 +185,37 @@ dynamic build(BuildContext context) {
           style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 16.0),
-        Text('Constraint Check:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Constraint Check:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         constraintCheck,
         SizedBox(height: 8.0),
-        Text('Responsive Layout:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Responsive Layout:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         responsiveLayout,
         SizedBox(height: 8.0),
-        Text('Percentage Sizing:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Percentage Sizing:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         percentSizing,
         SizedBox(height: 8.0),
-        Text('Constrained Parent (200x100):', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Constrained Parent (200x100):',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         constrainedParent,
         SizedBox(height: 8.0),
         Text('Bounded Check:', style: TextStyle(fontWeight: FontWeight.bold)),
         infiniteCheck,
         SizedBox(height: 8.0),
-        Text('Dynamic Children:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Dynamic Children:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         dynamicChildren,
         SizedBox(height: 16.0),
         Text('Key Points:', style: TextStyle(fontWeight: FontWeight.bold)),

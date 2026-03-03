@@ -2,17 +2,16 @@
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  print('ConstrainedBox/FittedBox/AspectRatio/IntrinsicWidth/IntrinsicHeight test executing');
+  print(
+    'ConstrainedBox/FittedBox/AspectRatio/IntrinsicWidth/IntrinsicHeight test executing',
+  );
 
   // ========== CONSTRAINEDBOX ==========
   print('--- ConstrainedBox Tests ---');
 
   // Test ConstrainedBox with minWidth and minHeight
   final constrainedMin = ConstrainedBox(
-    constraints: BoxConstraints(
-      minWidth: 100.0,
-      minHeight: 50.0,
-    ),
+    constraints: BoxConstraints(minWidth: 100.0, minHeight: 50.0),
     child: Container(
       color: Colors.blue,
       child: Text('Min 100x50', style: TextStyle(color: Colors.white)),
@@ -22,10 +21,7 @@ dynamic build(BuildContext context) {
 
   // Test ConstrainedBox with maxWidth and maxHeight
   final constrainedMax = ConstrainedBox(
-    constraints: BoxConstraints(
-      maxWidth: 200.0,
-      maxHeight: 80.0,
-    ),
+    constraints: BoxConstraints(maxWidth: 200.0, maxHeight: 80.0),
     child: Container(
       color: Colors.green,
       width: 300.0,
@@ -172,7 +168,11 @@ dynamic build(BuildContext context) {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Container(color: Colors.blue, height: 30.0, child: Text('Short')),
-        Container(color: Colors.green, height: 30.0, child: Text('A longer text here')),
+        Container(
+          color: Colors.green,
+          height: 30.0,
+          child: Text('A longer text here'),
+        ),
         Container(color: Colors.red, height: 30.0, child: Text('Med')),
       ],
     ),
@@ -203,11 +203,7 @@ dynamic build(BuildContext context) {
           color: Colors.green,
           width: 60.0,
           child: Column(
-            children: [
-              Text('Line 1'),
-              Text('Line 2'),
-              Text('Line 3'),
-            ],
+            children: [Text('Line 1'), Text('Line 2'), Text('Line 3')],
           ),
         ),
         Container(color: Colors.red, width: 60.0, child: Text('C')),
@@ -216,13 +212,18 @@ dynamic build(BuildContext context) {
   );
   print('IntrinsicHeight basic created');
 
-  print('All ConstrainedBox/FittedBox/AspectRatio/IntrinsicWidth/IntrinsicHeight tests completed');
+  print(
+    'All ConstrainedBox/FittedBox/AspectRatio/IntrinsicWidth/IntrinsicHeight tests completed',
+  );
 
   return SingleChildScrollView(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('=== ConstrainedBox Tests ===', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
+        Text(
+          '=== ConstrainedBox Tests ===',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+        ),
         SizedBox(height: 8.0),
         Text('Min constraints:', style: TextStyle(fontWeight: FontWeight.bold)),
         constrainedMin,
@@ -230,16 +231,25 @@ dynamic build(BuildContext context) {
         Text('Max constraints:', style: TextStyle(fontWeight: FontWeight.bold)),
         constrainedMax,
         SizedBox(height: 8.0),
-        Text('Tight constraints:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Tight constraints:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         constrainedTight,
         SizedBox(height: 8.0),
-        Text('Loose constraints:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Loose constraints:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         constrainedLoose,
         SizedBox(height: 8.0),
         Text('Expand:', style: TextStyle(fontWeight: FontWeight.bold)),
         SizedBox(height: 40.0, child: constrainedExpand),
         SizedBox(height: 16.0),
-        Text('=== FittedBox Tests ===', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
+        Text(
+          '=== FittedBox Tests ===',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+        ),
         SizedBox(height: 8.0),
         Text('Contain:', style: TextStyle(fontWeight: FontWeight.bold)),
         SizedBox(width: 200.0, height: 40.0, child: fittedContain),
@@ -256,7 +266,10 @@ dynamic build(BuildContext context) {
         Text('Aligned:', style: TextStyle(fontWeight: FontWeight.bold)),
         fittedAligned,
         SizedBox(height: 16.0),
-        Text('=== AspectRatio Tests ===', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
+        Text(
+          '=== AspectRatio Tests ===',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+        ),
         SizedBox(height: 8.0),
         Text('16:9:', style: TextStyle(fontWeight: FontWeight.bold)),
         SizedBox(width: 200.0, child: aspect16x9),
@@ -267,7 +280,10 @@ dynamic build(BuildContext context) {
         Text('4:3:', style: TextStyle(fontWeight: FontWeight.bold)),
         SizedBox(width: 200.0, child: aspect4x3),
         SizedBox(height: 16.0),
-        Text('=== IntrinsicWidth Tests ===', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
+        Text(
+          '=== IntrinsicWidth Tests ===',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+        ),
         SizedBox(height: 8.0),
         Text('Basic:', style: TextStyle(fontWeight: FontWeight.bold)),
         intrinsicWidthBasic,
@@ -275,7 +291,10 @@ dynamic build(BuildContext context) {
         Text('Step width:', style: TextStyle(fontWeight: FontWeight.bold)),
         intrinsicWidthStep,
         SizedBox(height: 16.0),
-        Text('=== IntrinsicHeight Tests ===', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
+        Text(
+          '=== IntrinsicHeight Tests ===',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+        ),
         SizedBox(height: 8.0),
         Text('Basic:', style: TextStyle(fontWeight: FontWeight.bold)),
         intrinsicHeightBasic,

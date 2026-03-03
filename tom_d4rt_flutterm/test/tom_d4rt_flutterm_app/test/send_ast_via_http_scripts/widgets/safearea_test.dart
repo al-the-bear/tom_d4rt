@@ -10,7 +10,10 @@ dynamic build(BuildContext context) {
       color: Colors.blue,
       height: 100.0,
       child: Center(
-        child: Text('SafeArea all edges', style: TextStyle(color: Colors.white)),
+        child: Text(
+          'SafeArea all edges',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
     ),
   );
@@ -36,7 +39,10 @@ dynamic build(BuildContext context) {
       color: Colors.orange,
       height: 100.0,
       child: Center(
-        child: Text('SafeArea no bottom', style: TextStyle(color: Colors.white)),
+        child: Text(
+          'SafeArea no bottom',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
     ),
   );
@@ -79,7 +85,10 @@ dynamic build(BuildContext context) {
       color: Colors.teal,
       height: 100.0,
       child: Center(
-        child: Text('SafeArea min padding 16', style: TextStyle(color: Colors.white)),
+        child: Text(
+          'SafeArea min padding 16',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
     ),
   );
@@ -92,7 +101,10 @@ dynamic build(BuildContext context) {
       color: Colors.indigo,
       height: 100.0,
       child: Center(
-        child: Text('SafeArea asymmetric min', style: TextStyle(color: Colors.white)),
+        child: Text(
+          'SafeArea asymmetric min',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
     ),
   );
@@ -105,7 +117,10 @@ dynamic build(BuildContext context) {
       color: Colors.brown,
       height: 100.0,
       child: Center(
-        child: Text('SafeArea maintainBottom', style: TextStyle(color: Colors.white)),
+        child: Text(
+          'SafeArea maintainBottom',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
     ),
   );
@@ -123,7 +138,10 @@ dynamic build(BuildContext context) {
           style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 16.0),
-        Text('All edges (default):', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'All edges (default):',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         safeAreaAll,
         SizedBox(height: 8.0),
         Text('No top:', style: TextStyle(fontWeight: FontWeight.bold)),
@@ -135,16 +153,28 @@ dynamic build(BuildContext context) {
         Text('No sides:', style: TextStyle(fontWeight: FontWeight.bold)),
         safeAreaNoSides,
         SizedBox(height: 8.0),
-        Text('All edges disabled:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'All edges disabled:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         safeAreaNone,
         SizedBox(height: 8.0),
-        Text('Minimum padding 16:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Minimum padding 16:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         safeAreaMinPadding,
         SizedBox(height: 8.0),
-        Text('Asymmetric min padding:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Asymmetric min padding:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         safeAreaAsymmetric,
         SizedBox(height: 8.0),
-        Text('Maintain bottom view padding:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Maintain bottom view padding:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         safeAreaMaintainBottom,
         SizedBox(height: 16.0),
         Text('Key Points:', style: TextStyle(fontWeight: FontWeight.bold)),

@@ -50,10 +50,5 @@ dynamic build(BuildContext context) {
   print('HeroMode(enabled: true, tag: test4) with Icon child created');
 
   print('HeroMode test completed');
-  return Column(children: [
-    heroMode1,
-    heroMode2,
-    heroMode3,
-    heroMode4,
-  ]);
+  return Column(children: [heroMode1, heroMode2, heroMode3, heroMode4]);
 }

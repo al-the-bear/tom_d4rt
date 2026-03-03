@@ -7,11 +7,15 @@ dynamic build(BuildContext context) {
   // Test MediaQuery.of(context) to get data
   final mediaData = MediaQuery.of(context);
   print('MediaQuery.of(context) size: ${mediaData.size}');
-  print('MediaQuery.of(context) devicePixelRatio: ${mediaData.devicePixelRatio}');
+  print(
+    'MediaQuery.of(context) devicePixelRatio: ${mediaData.devicePixelRatio}',
+  );
   print('MediaQuery.of(context) padding: ${mediaData.padding}');
   print('MediaQuery.of(context) viewInsets: ${mediaData.viewInsets}');
   print('MediaQuery.of(context) textScaleFactor: ${mediaData.textScaleFactor}');
-  print('MediaQuery.of(context) platformBrightness: ${mediaData.platformBrightness}');
+  print(
+    'MediaQuery.of(context) platformBrightness: ${mediaData.platformBrightness}',
+  );
 
   // Test MediaQuery.sizeOf shortcut
   final size = MediaQuery.sizeOf(context);
@@ -86,10 +90,10 @@ dynamic build(BuildContext context) {
   print('MediaQuery.removeViewInsets created (bottom removed)');
 
   // Test MediaQueryData.copyWith
-  final modifiedData = mediaData.copyWith(
-    textScaleFactor: 2.0,
+  final modifiedData = mediaData.copyWith(textScaleFactor: 2.0);
+  print(
+    'MediaQueryData.copyWith textScaleFactor=2.0: ${modifiedData.textScaleFactor}',
   );
-  print('MediaQueryData.copyWith textScaleFactor=2.0: ${modifiedData.textScaleFactor}');
 
   final scaledWidget = MediaQuery(
     data: modifiedData,
@@ -124,7 +128,10 @@ dynamic build(BuildContext context) {
         Text('DPR: ${mediaData.devicePixelRatio}'),
         Text('Padding: ${mediaData.padding}'),
         SizedBox(height: 16.0),
-        Text('Custom MediaQuery:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Custom MediaQuery:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         mediaQueryWidget,
         SizedBox(height: 8.0),
         Text('Remove padding:', style: TextStyle(fontWeight: FontWeight.bold)),
@@ -132,7 +139,10 @@ dynamic build(BuildContext context) {
         SizedBox(height: 8.0),
         noTopPadding,
         SizedBox(height: 8.0),
-        Text('Remove view insets:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Remove view insets:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         noViewInsets,
         SizedBox(height: 8.0),
         Text('Scaled text:', style: TextStyle(fontWeight: FontWeight.bold)),

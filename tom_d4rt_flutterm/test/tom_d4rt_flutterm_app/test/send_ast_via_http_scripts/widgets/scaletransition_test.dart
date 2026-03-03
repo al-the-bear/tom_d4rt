@@ -26,7 +26,10 @@ dynamic build(BuildContext context) {
       height: 60.0,
       color: Colors.green,
       child: Center(
-        child: Text('Scale 0.5', style: TextStyle(color: Colors.white, fontSize: 10.0)),
+        child: Text(
+          'Scale 0.5',
+          style: TextStyle(color: Colors.white, fontSize: 10.0),
+        ),
       ),
     ),
   );
@@ -54,7 +57,10 @@ dynamic build(BuildContext context) {
       height: 30.0,
       color: Colors.orange,
       child: Center(
-        child: Text('2x', style: TextStyle(color: Colors.white, fontSize: 10.0)),
+        child: Text(
+          '2x',
+          style: TextStyle(color: Colors.white, fontSize: 10.0),
+        ),
       ),
     ),
   );
@@ -83,7 +89,10 @@ dynamic build(BuildContext context) {
       height: 60.0,
       color: Colors.teal,
       child: Center(
-        child: Text('TopLeft', style: TextStyle(color: Colors.white, fontSize: 10.0)),
+        child: Text(
+          'TopLeft',
+          style: TextStyle(color: Colors.white, fontSize: 10.0),
+        ),
       ),
     ),
   );
@@ -98,7 +107,10 @@ dynamic build(BuildContext context) {
       height: 60.0,
       color: Colors.indigo,
       child: Center(
-        child: Text('BtmRight', style: TextStyle(color: Colors.white, fontSize: 10.0)),
+        child: Text(
+          'BtmRight',
+          style: TextStyle(color: Colors.white, fontSize: 10.0),
+        ),
       ),
     ),
   );
@@ -113,7 +125,10 @@ dynamic build(BuildContext context) {
       height: 60.0,
       color: Colors.brown,
       child: Center(
-        child: Text('Center', style: TextStyle(color: Colors.white, fontSize: 10.0)),
+        child: Text(
+          'Center',
+          style: TextStyle(color: Colors.white, fontSize: 10.0),
+        ),
       ),
     ),
   );
@@ -161,7 +176,10 @@ dynamic build(BuildContext context) {
           style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 16.0),
-        Text('Scale 1.0 (normal):', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Scale 1.0 (normal):',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         Center(child: scaleFull),
         SizedBox(height: 8.0),
         Text('Scale 0.75:', style: TextStyle(fontWeight: FontWeight.bold)),
@@ -170,7 +188,10 @@ dynamic build(BuildContext context) {
         Text('Scale 0.5:', style: TextStyle(fontWeight: FontWeight.bold)),
         Center(child: scaleHalf),
         SizedBox(height: 8.0),
-        Text('Scale 0.0 (invisible):', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Scale 0.0 (invisible):',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         Container(
           height: 60.0,
           decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
@@ -180,28 +201,43 @@ dynamic build(BuildContext context) {
         Text('Scale 2.0:', style: TextStyle(fontWeight: FontWeight.bold)),
         Center(child: scaleDouble),
         SizedBox(height: 16.0),
-        Text('Alignment TopLeft:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Alignment TopLeft:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         Container(
           decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
           child: scaleTopLeft,
         ),
         SizedBox(height: 8.0),
-        Text('Alignment BottomRight:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Alignment BottomRight:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         Container(
           decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
           child: scaleBottomRight,
         ),
         SizedBox(height: 8.0),
-        Text('Alignment Center:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Alignment Center:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         Container(
           decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
           child: scaleCenter,
         ),
         SizedBox(height: 8.0),
-        Text('High filter quality:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'High filter quality:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         Center(child: scaleFiltered),
         SizedBox(height: 8.0),
-        Text('Low filter quality:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Low filter quality:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         Center(child: scaleLowFilter),
         SizedBox(height: 16.0),
         Text('Key Points:', style: TextStyle(fontWeight: FontWeight.bold)),

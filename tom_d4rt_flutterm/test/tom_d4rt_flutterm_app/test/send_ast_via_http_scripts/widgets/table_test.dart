@@ -7,27 +7,9 @@ dynamic build(BuildContext context) {
   // Test basic Table with TableRow children
   final tableBasic = Table(
     children: [
-      TableRow(
-        children: [
-          Text('A1'),
-          Text('B1'),
-          Text('C1'),
-        ],
-      ),
-      TableRow(
-        children: [
-          Text('A2'),
-          Text('B2'),
-          Text('C2'),
-        ],
-      ),
-      TableRow(
-        children: [
-          Text('A3'),
-          Text('B3'),
-          Text('C3'),
-        ],
-      ),
+      TableRow(children: [Text('A1'), Text('B1'), Text('C1')]),
+      TableRow(children: [Text('A2'), Text('B2'), Text('C2')]),
+      TableRow(children: [Text('A3'), Text('B3'), Text('C3')]),
     ],
   );
   print('Basic Table with 3x3 cells created');
@@ -122,8 +104,26 @@ dynamic build(BuildContext context) {
       TableRow(
         decoration: BoxDecoration(color: Colors.blue),
         children: [
-          Padding(padding: EdgeInsets.all(8.0), child: Text('Header 1', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
-          Padding(padding: EdgeInsets.all(8.0), child: Text('Header 2', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              'Header 1',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              'Header 2',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
         ],
       ),
       TableRow(
@@ -147,21 +147,27 @@ dynamic build(BuildContext context) {
   // Test Table with IntrinsicColumnWidth
   final tableIntrinsic = Table(
     border: TableBorder.all(color: Colors.green, width: 1.0),
-    columnWidths: {
-      0: IntrinsicColumnWidth(),
-      1: FlexColumnWidth(1.0),
-    },
+    columnWidths: {0: IntrinsicColumnWidth(), 1: FlexColumnWidth(1.0)},
     children: [
       TableRow(
         children: [
           Padding(padding: EdgeInsets.all(8.0), child: Text('Short')),
-          Padding(padding: EdgeInsets.all(8.0), child: Text('Flexible column fills remaining space')),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text('Flexible column fills remaining space'),
+          ),
         ],
       ),
       TableRow(
         children: [
-          Padding(padding: EdgeInsets.all(8.0), child: Text('Longer label here')),
-          Padding(padding: EdgeInsets.all(8.0), child: Text('Adapts to content')),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text('Longer label here'),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text('Adapts to content'),
+          ),
         ],
       ),
     ],
@@ -224,7 +230,10 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('=== Table Tests ===', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
+        Text(
+          '=== Table Tests ===',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+        ),
         SizedBox(height: 8.0),
         Text('Basic 3x3:', style: TextStyle(fontWeight: FontWeight.bold)),
         tableBasic,
@@ -232,28 +241,45 @@ dynamic build(BuildContext context) {
         Text('With border:', style: TextStyle(fontWeight: FontWeight.bold)),
         tableBorder,
         SizedBox(height: 12.0),
-        Text('Column widths (Flex/Fixed):', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Column widths (Flex/Fixed):',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         tableColumnWidths,
         SizedBox(height: 12.0),
-        Text('Vertical alignment (middle):', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Vertical alignment (middle):',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         tableVerticalAlign,
         SizedBox(height: 12.0),
         Text('Row decorations:', style: TextStyle(fontWeight: FontWeight.bold)),
         tableDecorated,
         SizedBox(height: 12.0),
-        Text('Intrinsic column width:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Intrinsic column width:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         tableIntrinsic,
         SizedBox(height: 12.0),
-        Text('Symmetric border:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Symmetric border:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         tableSymmetricBorder,
         SizedBox(height: 12.0),
-        Text('Default column width:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Default column width:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         tableDefaultCol,
         SizedBox(height: 16.0),
         Text('Key Points:', style: TextStyle(fontWeight: FontWeight.bold)),
         Text('• Table uses TableRow children for rows'),
         Text('• columnWidths map overrides per-column sizing'),
-        Text('• FlexColumnWidth, FixedColumnWidth, IntrinsicColumnWidth available'),
+        Text(
+          '• FlexColumnWidth, FixedColumnWidth, IntrinsicColumnWidth available',
+        ),
         Text('• TableBorder.all, TableBorder.symmetric for borders'),
         Text('• defaultVerticalAlignment controls cell alignment'),
         Text('• TableRow decoration styles individual rows'),

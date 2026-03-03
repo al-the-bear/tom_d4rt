@@ -22,8 +22,16 @@ dynamic build(BuildContext context) {
   final segIcons = SegmentedButton<String>(
     segments: [
       ButtonSegment(value: 'list', label: Text('List'), icon: Icon(Icons.list)),
-      ButtonSegment(value: 'grid', label: Text('Grid'), icon: Icon(Icons.grid_view)),
-      ButtonSegment(value: 'table', label: Text('Table'), icon: Icon(Icons.table_chart)),
+      ButtonSegment(
+        value: 'grid',
+        label: Text('Grid'),
+        icon: Icon(Icons.grid_view),
+      ),
+      ButtonSegment(
+        value: 'table',
+        label: Text('Table'),
+        icon: Icon(Icons.table_chart),
+      ),
     ],
     selected: {'grid'},
     onSelectionChanged: (value) {
@@ -131,9 +139,7 @@ dynamic build(BuildContext context) {
     onSelectionChanged: (value) {
       print('Color: $value');
     },
-    style: ButtonStyle(
-      backgroundColor: WidgetStateProperty.all(Colors.grey),
-    ),
+    style: ButtonStyle(backgroundColor: WidgetStateProperty.all(Colors.grey)),
   );
   print('SegmentedButton with style created');
 
@@ -141,9 +147,15 @@ dynamic build(BuildContext context) {
   final segIconOnly = SegmentedButton<String>(
     segments: [
       ButtonSegment(value: 'align_left', icon: Icon(Icons.format_align_left)),
-      ButtonSegment(value: 'align_center', icon: Icon(Icons.format_align_center)),
+      ButtonSegment(
+        value: 'align_center',
+        icon: Icon(Icons.format_align_center),
+      ),
       ButtonSegment(value: 'align_right', icon: Icon(Icons.format_align_right)),
-      ButtonSegment(value: 'align_justify', icon: Icon(Icons.format_align_justify)),
+      ButtonSegment(
+        value: 'align_justify',
+        icon: Icon(Icons.format_align_justify),
+      ),
     ],
     selected: {'align_left'},
     showSelectedIcon: false,
@@ -159,9 +171,15 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('=== SegmentedButton Tests ===', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
+        Text(
+          '=== SegmentedButton Tests ===',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+        ),
         SizedBox(height: 8.0),
-        Text('Basic single selection:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Basic single selection:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         segBasic,
         SizedBox(height: 12.0),
         Text('With icons:', style: TextStyle(fontWeight: FontWeight.bold)),
@@ -170,25 +188,40 @@ dynamic build(BuildContext context) {
         Text('Multi selection:', style: TextStyle(fontWeight: FontWeight.bold)),
         segMulti,
         SizedBox(height: 12.0),
-        Text('No selected icon:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'No selected icon:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         segNoIcon,
         SizedBox(height: 12.0),
-        Text('Show selected icon:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Show selected icon:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         segShowIcon,
         SizedBox(height: 12.0),
         Text('Two segments:', style: TextStyle(fontWeight: FontWeight.bold)),
         segTwo,
         SizedBox(height: 12.0),
-        Text('Disabled segment:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Disabled segment:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         segDisabled,
         SizedBox(height: 12.0),
-        Text('Multi empty selection:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Multi empty selection:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         segMultiEmpty,
         SizedBox(height: 12.0),
         Text('Styled:', style: TextStyle(fontWeight: FontWeight.bold)),
         segStyled,
         SizedBox(height: 12.0),
-        Text('Icon-only segments:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Icon-only segments:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         segIconOnly,
         SizedBox(height: 16.0),
         Text('Key Points:', style: TextStyle(fontWeight: FontWeight.bold)),

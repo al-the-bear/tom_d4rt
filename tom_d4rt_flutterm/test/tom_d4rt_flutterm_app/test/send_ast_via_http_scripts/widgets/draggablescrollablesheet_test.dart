@@ -31,7 +31,9 @@ dynamic build(BuildContext context) {
       ),
     ),
   );
-  print('DraggableScrollableSheet(initialChildSize: 0.5, minChildSize: 0.25, maxChildSize: 1.0) created');
+  print(
+    'DraggableScrollableSheet(initialChildSize: 0.5, minChildSize: 0.25, maxChildSize: 1.0) created',
+  );
 
   // Variation 3: DraggableScrollableSheet with snap enabled
   final widget3 = DraggableScrollableSheet(
@@ -66,9 +68,21 @@ dynamic build(BuildContext context) {
       child: ListView(
         controller: scrollController,
         children: [
-          Container(height: 60, color: Colors.red, child: Center(child: Text('Row 1'))),
-          Container(height: 60, color: Colors.blue, child: Center(child: Text('Row 2'))),
-          Container(height: 60, color: Colors.green, child: Center(child: Text('Row 3'))),
+          Container(
+            height: 60,
+            color: Colors.red,
+            child: Center(child: Text('Row 1')),
+          ),
+          Container(
+            height: 60,
+            color: Colors.blue,
+            child: Center(child: Text('Row 2')),
+          ),
+          Container(
+            height: 60,
+            color: Colors.green,
+            child: Center(child: Text('Row 3')),
+          ),
         ],
       ),
     ),
@@ -76,10 +90,40 @@ dynamic build(BuildContext context) {
   print('DraggableScrollableSheet(small range 0.1-0.5) created');
 
   print('DraggableScrollableSheet test completed');
-  return Column(children: [
-    Expanded(child: Stack(children: [Container(color: Colors.grey.shade200), widget1])),
-    Expanded(child: Stack(children: [Container(color: Colors.grey.shade300), widget2])),
-    Expanded(child: Stack(children: [Container(color: Colors.grey.shade200), widget3])),
-    Expanded(child: Stack(children: [Container(color: Colors.grey.shade300), widget4])),
-  ]);
+  return Column(
+    children: [
+      Expanded(
+        child: Stack(
+          children: [
+            Container(color: Colors.grey.shade200),
+            widget1,
+          ],
+        ),
+      ),
+      Expanded(
+        child: Stack(
+          children: [
+            Container(color: Colors.grey.shade300),
+            widget2,
+          ],
+        ),
+      ),
+      Expanded(
+        child: Stack(
+          children: [
+            Container(color: Colors.grey.shade200),
+            widget3,
+          ],
+        ),
+      ),
+      Expanded(
+        child: Stack(
+          children: [
+            Container(color: Colors.grey.shade300),
+            widget4,
+          ],
+        ),
+      ),
+    ],
+  );
 }

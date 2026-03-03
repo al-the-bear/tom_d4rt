@@ -70,7 +70,10 @@ dynamic build(BuildContext context) {
       child: Container(
         color: Colors.purple,
         child: Center(
-          child: Text('Visible SizedBox', style: TextStyle(color: Colors.white)),
+          child: Text(
+            'Visible SizedBox',
+            style: TextStyle(color: Colors.white),
+          ),
         ),
       ),
     ),
@@ -96,7 +99,9 @@ dynamic build(BuildContext context) {
       ),
     ),
   );
-  print('Offstage toggle concept: showWidget=$showWidget, offstage=${showWidget == false}');
+  print(
+    'Offstage toggle concept: showWidget=$showWidget, offstage=${showWidget == false}',
+  );
 
   print('Offstage test completed');
 
@@ -110,31 +115,50 @@ dynamic build(BuildContext context) {
           style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 16.0),
-        Text('Offstage=true (hidden):', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Offstage=true (hidden):',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         Container(
           height: 30.0,
           decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
           child: Stack(children: [Text('(widget is offstage)'), offstageTrue]),
         ),
         SizedBox(height: 8.0),
-        Text('Offstage=false (visible):', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Offstage=false (visible):',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         offstageFalse,
         SizedBox(height: 8.0),
-        Text('Default offstage:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Default offstage:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         Container(
           height: 30.0,
           decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
-          child: Stack(children: [Text('(default is offstage)'), offstageDefault]),
+          child: Stack(
+            children: [Text('(default is offstage)'), offstageDefault],
+          ),
         ),
         SizedBox(height: 8.0),
-        Text('Visible SizedBox child:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Visible SizedBox child:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         visibleSizedBox,
         SizedBox(height: 8.0),
-        Text('Hidden SizedBox child:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Hidden SizedBox child:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         Container(
           height: 30.0,
           decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
-          child: Stack(children: [Text('(SizedBox is offstage)'), offstageSizedBox]),
+          child: Stack(
+            children: [Text('(SizedBox is offstage)'), offstageSizedBox],
+          ),
         ),
         SizedBox(height: 16.0),
         Text('Key Points:', style: TextStyle(fontWeight: FontWeight.bold)),

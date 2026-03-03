@@ -6,11 +6,7 @@ dynamic build(BuildContext context) {
 
   // Variation 1: Basic SliverFillRemaining
   final widget1 = CustomScrollView(
-    slivers: [
-      SliverFillRemaining(
-        child: Center(child: Text('Fill')),
-      ),
-    ],
+    slivers: [SliverFillRemaining(child: Center(child: Text('Fill')))],
   );
   print('SliverFillRemaining(basic) created');
 
@@ -35,7 +31,11 @@ dynamic build(BuildContext context) {
       SliverOpacity(
         opacity: 0.5,
         sliver: SliverToBoxAdapter(
-          child: Container(height: 100, color: Colors.blue, child: Center(child: Text('50% opacity'))),
+          child: Container(
+            height: 100,
+            color: Colors.blue,
+            child: Center(child: Text('50% opacity')),
+          ),
         ),
       ),
     ],
@@ -48,7 +48,11 @@ dynamic build(BuildContext context) {
       SliverOpacity(
         opacity: 1.0,
         sliver: SliverToBoxAdapter(
-          child: Container(height: 100, color: Colors.green, child: Center(child: Text('100% opacity'))),
+          child: Container(
+            height: 100,
+            color: Colors.green,
+            child: Center(child: Text('100% opacity')),
+          ),
         ),
       ),
     ],
@@ -61,7 +65,11 @@ dynamic build(BuildContext context) {
       SliverOpacity(
         opacity: 0.0,
         sliver: SliverToBoxAdapter(
-          child: Container(height: 100, color: Colors.red, child: Center(child: Text('0% opacity'))),
+          child: Container(
+            height: 100,
+            color: Colors.red,
+            child: Center(child: Text('0% opacity')),
+          ),
         ),
       ),
     ],
@@ -74,7 +82,11 @@ dynamic build(BuildContext context) {
       SliverOpacity(
         opacity: 0.7,
         sliver: SliverToBoxAdapter(
-          child: Container(height: 80, color: Colors.orange, child: Center(child: Text('Header at 70%'))),
+          child: Container(
+            height: 80,
+            color: Colors.orange,
+            child: Center(child: Text('Header at 70%')),
+          ),
         ),
       ),
       SliverFillRemaining(
@@ -89,12 +101,14 @@ dynamic build(BuildContext context) {
   print('Combined SliverOpacity + SliverFillRemaining created');
 
   print('SliverFillRemaining/SliverOpacity test completed');
-  return Column(children: [
-    Expanded(child: widget1),
-    Expanded(child: widget2),
-    Expanded(child: widget3),
-    Expanded(child: widget4),
-    Expanded(child: widget5),
-    Expanded(child: widget6),
-  ]);
+  return Column(
+    children: [
+      Expanded(child: widget1),
+      Expanded(child: widget2),
+      Expanded(child: widget3),
+      Expanded(child: widget4),
+      Expanded(child: widget5),
+      Expanded(child: widget6),
+    ],
+  );
 }

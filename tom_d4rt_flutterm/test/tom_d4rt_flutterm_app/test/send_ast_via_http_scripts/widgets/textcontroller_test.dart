@@ -22,17 +22,23 @@ dynamic build(BuildContext context) {
   // Test ScrollController with initialScrollOffset
   final scrollController1 = ScrollController(initialScrollOffset: 100.0);
   print('ScrollController(initialScrollOffset: 100.0) created');
-  print('ScrollController.initialScrollOffset = ${scrollController1.initialScrollOffset}');
+  print(
+    'ScrollController.initialScrollOffset = ${scrollController1.initialScrollOffset}',
+  );
 
   // Test ScrollController default
   final scrollController2 = ScrollController();
   print('ScrollController() default created');
-  print('ScrollController.initialScrollOffset = ${scrollController2.initialScrollOffset}');
+  print(
+    'ScrollController.initialScrollOffset = ${scrollController2.initialScrollOffset}',
+  );
 
   // Test ScrollController with keepScrollOffset false
   final scrollController3 = ScrollController(keepScrollOffset: false);
   print('ScrollController(keepScrollOffset: false) created');
-  print('ScrollController.keepScrollOffset = ${scrollController3.keepScrollOffset}');
+  print(
+    'ScrollController.keepScrollOffset = ${scrollController3.keepScrollOffset}',
+  );
 
   // Build widgets using the controllers
   final textField1 = TextField(controller: textController1);
@@ -45,23 +51,25 @@ dynamic build(BuildContext context) {
   print('TextField with textController3 created');
 
   print('TextEditingController and ScrollController test completed');
-  return Column(children: [
-    textField1,
-    textField2,
-    textField3,
-    SizedBox(
-      height: 100,
-      child: SingleChildScrollView(
-        controller: scrollController1,
-        child: Container(height: 300, color: Colors.blue),
+  return Column(
+    children: [
+      textField1,
+      textField2,
+      textField3,
+      SizedBox(
+        height: 100,
+        child: SingleChildScrollView(
+          controller: scrollController1,
+          child: Container(height: 300, color: Colors.blue),
+        ),
       ),
-    ),
-    SizedBox(
-      height: 100,
-      child: SingleChildScrollView(
-        controller: scrollController2,
-        child: Container(height: 300, color: Colors.green),
+      SizedBox(
+        height: 100,
+        child: SingleChildScrollView(
+          controller: scrollController2,
+          child: Container(height: 300, color: Colors.green),
+        ),
       ),
-    ),
-  ]);
+    ],
+  );
 }

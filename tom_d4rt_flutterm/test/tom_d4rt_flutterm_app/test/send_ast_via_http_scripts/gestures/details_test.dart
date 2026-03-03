@@ -240,11 +240,11 @@ dynamic build(BuildContext context) {
   );
 
   // Test from event globals using PointerDownEvent
-  final pointerEvent = PointerDownEvent(
-    position: Offset(100.0, 200.0),
-  );
+  final pointerEvent = PointerDownEvent(position: Offset(100.0, 200.0));
   final fromGlobals = OffsetPair.fromEventPosition(pointerEvent);
-  print('OffsetPair.fromEventPosition: local=${fromGlobals.local}, global=${fromGlobals.global}');
+  print(
+    'OffsetPair.fromEventPosition: local=${fromGlobals.local}, global=${fromGlobals.global}',
+  );
 
   // Test operations
   final addedPair =

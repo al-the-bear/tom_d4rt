@@ -53,29 +53,24 @@ dynamic build(BuildContext context) {
 
   // Test FocusScope with children
   final focusScope1 = FocusScope(
-    child: Column(children: [
-      Focus(child: TextField()),
-      Focus(child: TextField()),
-    ]),
+    child: Column(
+      children: [
+        Focus(child: TextField()),
+        Focus(child: TextField()),
+      ],
+    ),
   );
   print('FocusScope with two Focus+TextField children created');
 
   // Test FocusScope with autofocus
   final focusScope2 = FocusScope(
     autofocus: true,
-    child: Column(children: [
-      Focus(child: TextField()),
-    ]),
+    child: Column(children: [Focus(child: TextField())]),
   );
   print('FocusScope(autofocus: true) created');
 
   print('Focus and FocusScope test completed');
-  return Column(children: [
-    focus1,
-    focus2,
-    focus3,
-    focus4,
-    focusScope1,
-    focusScope2,
-  ]);
+  return Column(
+    children: [focus1, focus2, focus3, focus4, focusScope1, focusScope2],
+  );
 }

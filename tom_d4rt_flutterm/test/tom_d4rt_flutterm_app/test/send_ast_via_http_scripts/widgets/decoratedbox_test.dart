@@ -6,14 +6,15 @@ dynamic build(BuildContext context) {
 
   // Test DecoratedBox with BoxDecoration color
   final decoratedColor = DecoratedBox(
-    decoration: BoxDecoration(
-      color: Colors.blue,
-    ),
+    decoration: BoxDecoration(color: Colors.blue),
     child: SizedBox(
       width: 200.0,
       height: 60.0,
       child: Center(
-        child: Text('DecoratedBox color', style: TextStyle(color: Colors.white)),
+        child: Text(
+          'DecoratedBox color',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
     ),
   );
@@ -68,9 +69,7 @@ dynamic build(BuildContext context) {
     child: SizedBox(
       width: 200.0,
       height: 60.0,
-      child: Center(
-        child: Text('With shadow'),
-      ),
+      child: Center(child: Text('With shadow')),
     ),
   );
   print('DecoratedBox with boxShadow created');
@@ -97,10 +96,7 @@ dynamic build(BuildContext context) {
 
   // Test DecoratedBox with circle shape
   final decoratedCircle = DecoratedBox(
-    decoration: BoxDecoration(
-      color: Colors.red,
-      shape: BoxShape.circle,
-    ),
+    decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
     child: SizedBox(
       width: 80.0,
       height: 80.0,
@@ -157,9 +153,7 @@ dynamic build(BuildContext context) {
     child: SizedBox(
       width: 200.0,
       height: 60.0,
-      child: Center(
-        child: Text('Semi-transparent'),
-      ),
+      child: Center(child: Text('Semi-transparent')),
     ),
   );
   print('ColoredBox with semi-transparent color created');
@@ -172,7 +166,10 @@ dynamic build(BuildContext context) {
       height: 40.0,
       color: Colors.indigo,
       child: Center(
-        child: Text('Turn 1', style: TextStyle(color: Colors.white, fontSize: 12.0)),
+        child: Text(
+          'Turn 1',
+          style: TextStyle(color: Colors.white, fontSize: 12.0),
+        ),
       ),
     ),
   );
@@ -186,7 +183,10 @@ dynamic build(BuildContext context) {
       height: 40.0,
       color: Colors.brown,
       child: Center(
-        child: Text('Turn 2', style: TextStyle(color: Colors.white, fontSize: 12.0)),
+        child: Text(
+          'Turn 2',
+          style: TextStyle(color: Colors.white, fontSize: 12.0),
+        ),
       ),
     ),
   );
@@ -200,7 +200,10 @@ dynamic build(BuildContext context) {
       height: 40.0,
       color: Colors.pink,
       child: Center(
-        child: Text('Turn 3', style: TextStyle(color: Colors.white, fontSize: 12.0)),
+        child: Text(
+          'Turn 3',
+          style: TextStyle(color: Colors.white, fontSize: 12.0),
+        ),
       ),
     ),
   );
@@ -214,7 +217,10 @@ dynamic build(BuildContext context) {
       height: 40.0,
       color: Colors.amber,
       child: Center(
-        child: Text('Turn 0', style: TextStyle(color: Colors.black, fontSize: 12.0)),
+        child: Text(
+          'Turn 0',
+          style: TextStyle(color: Colors.black, fontSize: 12.0),
+        ),
       ),
     ),
   );
@@ -232,31 +238,58 @@ dynamic build(BuildContext context) {
           style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 16.0),
-        Text('DecoratedBox - Color:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'DecoratedBox - Color:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         Center(child: decoratedColor),
         SizedBox(height: 8.0),
-        Text('DecoratedBox - Rounded:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'DecoratedBox - Rounded:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         Center(child: decoratedRounded),
         SizedBox(height: 8.0),
-        Text('DecoratedBox - Border:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'DecoratedBox - Border:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         Center(child: decoratedBorder),
         SizedBox(height: 8.0),
-        Text('DecoratedBox - Shadow:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'DecoratedBox - Shadow:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         Center(child: decoratedShadow),
         SizedBox(height: 8.0),
-        Text('DecoratedBox - Gradient:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'DecoratedBox - Gradient:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         Center(child: decoratedGradient),
         SizedBox(height: 8.0),
-        Text('DecoratedBox - Circle:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'DecoratedBox - Circle:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         Center(child: decoratedCircle),
         SizedBox(height: 16.0),
-        Text('ColoredBox - Teal:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'ColoredBox - Teal:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         Center(child: coloredBoxBasic),
         SizedBox(height: 8.0),
-        Text('ColoredBox - Red:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'ColoredBox - Red:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         Center(child: coloredBoxRed),
         SizedBox(height: 8.0),
-        Text('ColoredBox - Semi-transparent:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'ColoredBox - Semi-transparent:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         Center(child: coloredBoxOpacity),
         SizedBox(height: 16.0),
         Text('RotatedBox:', style: TextStyle(fontWeight: FontWeight.bold)),
@@ -264,10 +297,16 @@ dynamic build(BuildContext context) {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Column(children: [Text('0 turns'), SizedBox(height: 4.0), rotated0]),
+            Column(
+              children: [Text('0 turns'), SizedBox(height: 4.0), rotated0],
+            ),
             Column(children: [Text('1 turn'), SizedBox(height: 4.0), rotated1]),
-            Column(children: [Text('2 turns'), SizedBox(height: 4.0), rotated2]),
-            Column(children: [Text('3 turns'), SizedBox(height: 4.0), rotated3]),
+            Column(
+              children: [Text('2 turns'), SizedBox(height: 4.0), rotated2],
+            ),
+            Column(
+              children: [Text('3 turns'), SizedBox(height: 4.0), rotated3],
+            ),
           ],
         ),
         SizedBox(height: 16.0),

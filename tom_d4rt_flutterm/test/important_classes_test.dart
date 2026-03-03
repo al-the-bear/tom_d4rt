@@ -60,9 +60,7 @@ void main() {
     });
 
     test('scrollbar_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/scrollbar_test.dart',
-      );
+      final result = await SendTestRunner.send('material/scrollbar_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -140,9 +138,7 @@ void main() {
     });
 
     test('custompaint_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/custompaint_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/custompaint_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -192,9 +188,7 @@ void main() {
     });
 
     test('mediaquery_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/mediaquery_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/mediaquery_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -230,9 +224,7 @@ void main() {
     });
 
     test('sliverlist_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/sliverlist_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/sliverlist_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -242,9 +234,7 @@ void main() {
     });
 
     test('visibility_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/visibility_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/visibility_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -408,9 +398,7 @@ void main() {
     });
 
     test('menuanchor_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/menuanchor_test.dart',
-      );
+      final result = await SendTestRunner.send('material/menuanchor_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -441,9 +429,7 @@ void main() {
     });
 
     test('timeofday_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/timeofday_test.dart',
-      );
+      final result = await SendTestRunner.send('material/timeofday_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
   });

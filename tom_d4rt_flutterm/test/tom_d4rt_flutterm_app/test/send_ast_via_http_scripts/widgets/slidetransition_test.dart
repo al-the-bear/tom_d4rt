@@ -111,7 +111,10 @@ dynamic build(BuildContext context) {
       height: 60.0,
       color: Colors.brown,
       child: Center(
-        child: Text('RTL + Offset(0.5, 0)', style: TextStyle(color: Colors.white)),
+        child: Text(
+          'RTL + Offset(0.5, 0)',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
     ),
   );
@@ -126,7 +129,10 @@ dynamic build(BuildContext context) {
       height: 60.0,
       color: Colors.cyan,
       child: Center(
-        child: Text('LTR + Offset(0.5, 0)', style: TextStyle(color: Colors.white)),
+        child: Text(
+          'LTR + Offset(0.5, 0)',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
     ),
   );
@@ -159,10 +165,16 @@ dynamic build(BuildContext context) {
         Text('Up (0, -0.5):', style: TextStyle(fontWeight: FontWeight.bold)),
         slideUp,
         SizedBox(height: 8.0),
-        Text('Diagonal (0.3, 0.3):', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Diagonal (0.3, 0.3):',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         slideDiagonal,
         SizedBox(height: 8.0),
-        Text('Full right (1.0, 0):', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Full right (1.0, 0):',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         slideFullRight,
         SizedBox(height: 8.0),
         Text('RTL direction:', style: TextStyle(fontWeight: FontWeight.bold)),

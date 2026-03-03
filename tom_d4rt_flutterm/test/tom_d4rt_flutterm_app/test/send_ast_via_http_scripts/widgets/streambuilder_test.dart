@@ -51,11 +51,5 @@ dynamic build(BuildContext context) {
   print('StreamBuilder<String>(Stream.empty()) created');
 
   print('StreamBuilder test completed');
-  return Column(children: [
-    sb1,
-    sb2,
-    sb3,
-    sb4,
-    sb5,
-  ]);
+  return Column(children: [sb1, sb2, sb3, sb4, sb5]);
 }

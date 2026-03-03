@@ -12,11 +12,41 @@ dynamic build(BuildContext context) {
     child: SingleChildScrollView(
       child: Column(
         children: [
-          Container(height: 60.0, color: Colors.red, child: Center(child: Text('Item 1', style: TextStyle(color: Colors.white)))),
-          Container(height: 60.0, color: Colors.blue, child: Center(child: Text('Item 2', style: TextStyle(color: Colors.white)))),
-          Container(height: 60.0, color: Colors.green, child: Center(child: Text('Item 3', style: TextStyle(color: Colors.white)))),
-          Container(height: 60.0, color: Colors.orange, child: Center(child: Text('Item 4', style: TextStyle(color: Colors.white)))),
-          Container(height: 60.0, color: Colors.purple, child: Center(child: Text('Item 5', style: TextStyle(color: Colors.white)))),
+          Container(
+            height: 60.0,
+            color: Colors.red,
+            child: Center(
+              child: Text('Item 1', style: TextStyle(color: Colors.white)),
+            ),
+          ),
+          Container(
+            height: 60.0,
+            color: Colors.blue,
+            child: Center(
+              child: Text('Item 2', style: TextStyle(color: Colors.white)),
+            ),
+          ),
+          Container(
+            height: 60.0,
+            color: Colors.green,
+            child: Center(
+              child: Text('Item 3', style: TextStyle(color: Colors.white)),
+            ),
+          ),
+          Container(
+            height: 60.0,
+            color: Colors.orange,
+            child: Center(
+              child: Text('Item 4', style: TextStyle(color: Colors.white)),
+            ),
+          ),
+          Container(
+            height: 60.0,
+            color: Colors.purple,
+            child: Center(
+              child: Text('Item 5', style: TextStyle(color: Colors.white)),
+            ),
+          ),
         ],
       ),
     ),
@@ -29,12 +59,66 @@ dynamic build(BuildContext context) {
     child: SingleChildScrollView(
       child: Column(
         children: [
-          Container(height: 50.0, color: Colors.blue, child: Center(child: Text('Always visible 1', style: TextStyle(color: Colors.white)))),
-          Container(height: 50.0, color: Colors.green, child: Center(child: Text('Always visible 2', style: TextStyle(color: Colors.white)))),
-          Container(height: 50.0, color: Colors.red, child: Center(child: Text('Always visible 3', style: TextStyle(color: Colors.white)))),
-          Container(height: 50.0, color: Colors.teal, child: Center(child: Text('Always visible 4', style: TextStyle(color: Colors.white)))),
-          Container(height: 50.0, color: Colors.orange, child: Center(child: Text('Always visible 5', style: TextStyle(color: Colors.white)))),
-          Container(height: 50.0, color: Colors.purple, child: Center(child: Text('Always visible 6', style: TextStyle(color: Colors.white)))),
+          Container(
+            height: 50.0,
+            color: Colors.blue,
+            child: Center(
+              child: Text(
+                'Always visible 1',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ),
+          Container(
+            height: 50.0,
+            color: Colors.green,
+            child: Center(
+              child: Text(
+                'Always visible 2',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ),
+          Container(
+            height: 50.0,
+            color: Colors.red,
+            child: Center(
+              child: Text(
+                'Always visible 3',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ),
+          Container(
+            height: 50.0,
+            color: Colors.teal,
+            child: Center(
+              child: Text(
+                'Always visible 4',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ),
+          Container(
+            height: 50.0,
+            color: Colors.orange,
+            child: Center(
+              child: Text(
+                'Always visible 5',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ),
+          Container(
+            height: 50.0,
+            color: Colors.purple,
+            child: Center(
+              child: Text(
+                'Always visible 6',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ),
         ],
       ),
     ),
@@ -48,11 +132,41 @@ dynamic build(BuildContext context) {
     child: SingleChildScrollView(
       child: Column(
         children: [
-          Container(height: 60.0, color: Colors.indigo, child: Center(child: Text('Thick 1', style: TextStyle(color: Colors.white)))),
-          Container(height: 60.0, color: Colors.amber, child: Center(child: Text('Thick 2', style: TextStyle(color: Colors.white)))),
-          Container(height: 60.0, color: Colors.cyan, child: Center(child: Text('Thick 3', style: TextStyle(color: Colors.white)))),
-          Container(height: 60.0, color: Colors.brown, child: Center(child: Text('Thick 4', style: TextStyle(color: Colors.white)))),
-          Container(height: 60.0, color: Colors.pink, child: Center(child: Text('Thick 5', style: TextStyle(color: Colors.white)))),
+          Container(
+            height: 60.0,
+            color: Colors.indigo,
+            child: Center(
+              child: Text('Thick 1', style: TextStyle(color: Colors.white)),
+            ),
+          ),
+          Container(
+            height: 60.0,
+            color: Colors.amber,
+            child: Center(
+              child: Text('Thick 2', style: TextStyle(color: Colors.white)),
+            ),
+          ),
+          Container(
+            height: 60.0,
+            color: Colors.cyan,
+            child: Center(
+              child: Text('Thick 3', style: TextStyle(color: Colors.white)),
+            ),
+          ),
+          Container(
+            height: 60.0,
+            color: Colors.brown,
+            child: Center(
+              child: Text('Thick 4', style: TextStyle(color: Colors.white)),
+            ),
+          ),
+          Container(
+            height: 60.0,
+            color: Colors.pink,
+            child: Center(
+              child: Text('Thick 5', style: TextStyle(color: Colors.white)),
+            ),
+          ),
         ],
       ),
     ),
@@ -67,11 +181,41 @@ dynamic build(BuildContext context) {
     child: SingleChildScrollView(
       child: Column(
         children: [
-          Container(height: 60.0, color: Colors.deepOrange, child: Center(child: Text('Radius 1', style: TextStyle(color: Colors.white)))),
-          Container(height: 60.0, color: Colors.deepPurple, child: Center(child: Text('Radius 2', style: TextStyle(color: Colors.white)))),
-          Container(height: 60.0, color: Colors.lightBlue, child: Center(child: Text('Radius 3', style: TextStyle(color: Colors.white)))),
-          Container(height: 60.0, color: Colors.lightGreen, child: Center(child: Text('Radius 4', style: TextStyle(color: Colors.white)))),
-          Container(height: 60.0, color: Colors.lime, child: Center(child: Text('Radius 5', style: TextStyle(color: Colors.white)))),
+          Container(
+            height: 60.0,
+            color: Colors.deepOrange,
+            child: Center(
+              child: Text('Radius 1', style: TextStyle(color: Colors.white)),
+            ),
+          ),
+          Container(
+            height: 60.0,
+            color: Colors.deepPurple,
+            child: Center(
+              child: Text('Radius 2', style: TextStyle(color: Colors.white)),
+            ),
+          ),
+          Container(
+            height: 60.0,
+            color: Colors.lightBlue,
+            child: Center(
+              child: Text('Radius 3', style: TextStyle(color: Colors.white)),
+            ),
+          ),
+          Container(
+            height: 60.0,
+            color: Colors.lightGreen,
+            child: Center(
+              child: Text('Radius 4', style: TextStyle(color: Colors.white)),
+            ),
+          ),
+          Container(
+            height: 60.0,
+            color: Colors.lime,
+            child: Center(
+              child: Text('Radius 5', style: TextStyle(color: Colors.white)),
+            ),
+          ),
         ],
       ),
     ),
@@ -85,11 +229,56 @@ dynamic build(BuildContext context) {
     child: SingleChildScrollView(
       child: Column(
         children: [
-          Container(height: 60.0, color: Colors.red, child: Center(child: Text('Interactive 1', style: TextStyle(color: Colors.white)))),
-          Container(height: 60.0, color: Colors.blue, child: Center(child: Text('Interactive 2', style: TextStyle(color: Colors.white)))),
-          Container(height: 60.0, color: Colors.green, child: Center(child: Text('Interactive 3', style: TextStyle(color: Colors.white)))),
-          Container(height: 60.0, color: Colors.orange, child: Center(child: Text('Interactive 4', style: TextStyle(color: Colors.white)))),
-          Container(height: 60.0, color: Colors.purple, child: Center(child: Text('Interactive 5', style: TextStyle(color: Colors.white)))),
+          Container(
+            height: 60.0,
+            color: Colors.red,
+            child: Center(
+              child: Text(
+                'Interactive 1',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ),
+          Container(
+            height: 60.0,
+            color: Colors.blue,
+            child: Center(
+              child: Text(
+                'Interactive 2',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ),
+          Container(
+            height: 60.0,
+            color: Colors.green,
+            child: Center(
+              child: Text(
+                'Interactive 3',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ),
+          Container(
+            height: 60.0,
+            color: Colors.orange,
+            child: Center(
+              child: Text(
+                'Interactive 4',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ),
+          Container(
+            height: 60.0,
+            color: Colors.purple,
+            child: Center(
+              child: Text(
+                'Interactive 5',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ),
         ],
       ),
     ),
@@ -125,9 +314,18 @@ dynamic build(BuildContext context) {
     },
     child: ListView(
       children: [
-        ListTile(leading: Icon(Icons.circle, color: Colors.red), title: Text('Red indicator 1')),
-        ListTile(leading: Icon(Icons.circle, color: Colors.red), title: Text('Red indicator 2')),
-        ListTile(leading: Icon(Icons.circle, color: Colors.red), title: Text('Red indicator 3')),
+        ListTile(
+          leading: Icon(Icons.circle, color: Colors.red),
+          title: Text('Red indicator 1'),
+        ),
+        ListTile(
+          leading: Icon(Icons.circle, color: Colors.red),
+          title: Text('Red indicator 2'),
+        ),
+        ListTile(
+          leading: Icon(Icons.circle, color: Colors.red),
+          title: Text('Red indicator 3'),
+        ),
       ],
     ),
   );
@@ -209,12 +407,18 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('=== Scrollbar Tests ===', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
+        Text(
+          '=== Scrollbar Tests ===',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+        ),
         SizedBox(height: 8.0),
         Text('Basic:', style: TextStyle(fontWeight: FontWeight.bold)),
         SizedBox(height: 180.0, child: scrollBasic),
         SizedBox(height: 8.0),
-        Text('Thumb always visible:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Thumb always visible:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 180.0, child: scrollThumbVisible),
         SizedBox(height: 8.0),
         Text('Thickness=12:', style: TextStyle(fontWeight: FontWeight.bold)),
@@ -226,7 +430,10 @@ dynamic build(BuildContext context) {
         Text('Interactive:', style: TextStyle(fontWeight: FontWeight.bold)),
         SizedBox(height: 180.0, child: scrollInteractive),
         SizedBox(height: 16.0),
-        Text('=== RefreshIndicator Tests ===', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
+        Text(
+          '=== RefreshIndicator Tests ===',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+        ),
         SizedBox(height: 8.0),
         Text('Basic:', style: TextStyle(fontWeight: FontWeight.bold)),
         SizedBox(height: 180.0, child: refreshBasic),

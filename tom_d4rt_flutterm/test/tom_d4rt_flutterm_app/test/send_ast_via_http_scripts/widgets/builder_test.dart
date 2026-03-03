@@ -37,11 +37,7 @@ dynamic build(BuildContext context) {
       print('Builder callback invoked - returning Column');
       return Column(
         mainAxisSize: MainAxisSize.min,
-        children: [
-          Text('Item 1'),
-          Text('Item 2'),
-          Text('Item 3'),
-        ],
+        children: [Text('Item 1'), Text('Item 2'), Text('Item 3')],
       );
     },
   );
@@ -111,7 +107,10 @@ dynamic build(BuildContext context) {
               color: Colors.indigo,
               height: 40.0,
               child: Center(
-                child: Text('Nested Builder', style: TextStyle(color: Colors.white)),
+                child: Text(
+                  'Nested Builder',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             );
           },
@@ -145,7 +144,10 @@ dynamic build(BuildContext context) {
         Text('Theme Builder:', style: TextStyle(fontWeight: FontWeight.bold)),
         themeBuilder,
         SizedBox(height: 8.0),
-        Text('MediaQuery Builder:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'MediaQuery Builder:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         mediaBuilder,
         SizedBox(height: 8.0),
         Text('Card Builder:', style: TextStyle(fontWeight: FontWeight.bold)),

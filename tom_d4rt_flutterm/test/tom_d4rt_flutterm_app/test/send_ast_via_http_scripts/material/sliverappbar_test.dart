@@ -10,10 +10,7 @@ dynamic build(BuildContext context) {
   // Test basic SliverAppBar
   final sliverBasic = CustomScrollView(
     slivers: [
-      SliverAppBar(
-        title: Text('Basic SliverAppBar'),
-        expandedHeight: 150.0,
-      ),
+      SliverAppBar(title: Text('Basic SliverAppBar'), expandedHeight: 150.0),
       SliverList(
         delegate: SliverChildListDelegate([
           ListTile(title: Text('Basic item 1')),
@@ -49,11 +46,7 @@ dynamic build(BuildContext context) {
   // Test SliverAppBar with pinned
   final sliverPinned = CustomScrollView(
     slivers: [
-      SliverAppBar(
-        title: Text('Pinned'),
-        pinned: true,
-        expandedHeight: 150.0,
-      ),
+      SliverAppBar(title: Text('Pinned'), pinned: true, expandedHeight: 150.0),
       SliverList(
         delegate: SliverChildListDelegate([
           ListTile(title: Text('Pinned item 1')),
@@ -95,9 +88,7 @@ dynamic build(BuildContext context) {
       SliverAppBar(
         expandedHeight: 200.0,
         pinned: true,
-        flexibleSpace: FlexibleSpaceBar(
-          title: Text('Flexible Title'),
-        ),
+        flexibleSpace: FlexibleSpaceBar(title: Text('Flexible Title')),
       ),
       SliverList(
         delegate: SliverChildListDelegate([
@@ -325,7 +316,10 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('=== SliverAppBar Tests ===', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
+        Text(
+          '=== SliverAppBar Tests ===',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+        ),
         SizedBox(height: 8.0),
         Text('Basic:', style: TextStyle(fontWeight: FontWeight.bold)),
         SizedBox(height: 250.0, child: sliverBasic),
@@ -354,12 +348,18 @@ dynamic build(BuildContext context) {
         Text('Colored:', style: TextStyle(fontWeight: FontWeight.bold)),
         SizedBox(height: 250.0, child: sliverColored),
         SizedBox(height: 16.0),
-        Text('=== FlexibleSpaceBar Tests ===', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
+        Text(
+          '=== FlexibleSpaceBar Tests ===',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+        ),
         SizedBox(height: 8.0),
         Text('Center title:', style: TextStyle(fontWeight: FontWeight.bold)),
         SizedBox(height: 250.0, child: flexCenter),
         SizedBox(height: 8.0),
-        Text('Parallax collapse:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Parallax collapse:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 280.0, child: flexParallax),
         SizedBox(height: 8.0),
         Text('Pin collapse:', style: TextStyle(fontWeight: FontWeight.bold)),

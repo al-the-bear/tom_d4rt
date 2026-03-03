@@ -33,10 +33,7 @@ dynamic build(BuildContext context) {
   print('MenuItemButton(leadingIcon: edit) created');
 
   // Variation 3: MenuItemButton disabled
-  final widget3 = MenuItemButton(
-    onPressed: null,
-    child: Text('Disabled'),
-  );
+  final widget3 = MenuItemButton(onPressed: null, child: Text('Disabled'));
   print('MenuItemButton(onPressed: null, disabled) created');
 
   // Variation 4: SubmenuButton with children
@@ -92,13 +89,6 @@ dynamic build(BuildContext context) {
   print('MenuAnchor/MenuItemButton/SubmenuButton test completed');
   return Column(
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    children: [
-      widget1,
-      widget2,
-      widget3,
-      widget4,
-      widget5,
-      widget6,
-    ],
+    children: [widget1, widget2, widget3, widget4, widget5, widget6],
   );
 }

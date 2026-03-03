@@ -41,12 +41,12 @@ dynamic build(BuildContext context) {
     child: Container(
       width: 80.0,
       height: 80.0,
-      decoration: BoxDecoration(
-        color: Colors.orange,
-        shape: BoxShape.circle,
-      ),
+      decoration: BoxDecoration(color: Colors.orange, shape: BoxShape.circle),
       child: Center(
-        child: Text('42', style: TextStyle(color: Colors.white, fontSize: 20.0)),
+        child: Text(
+          '42',
+          style: TextStyle(color: Colors.white, fontSize: 20.0),
+        ),
       ),
     ),
   );
@@ -70,9 +70,7 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8.0),
         border: Border.all(color: Colors.white, width: 2.0),
       ),
-      child: Center(
-        child: Icon(Icons.image, size: 40.0, color: Colors.white),
-      ),
+      child: Center(child: Icon(Icons.image, size: 40.0, color: Colors.white)),
     ),
   );
   print('Hero with image-like child created');
@@ -98,21 +96,20 @@ dynamic build(BuildContext context) {
   // Test Hero with flightShuttleBuilder
   final heroShuttle = Hero(
     tag: 'hero-shuttle',
-    flightShuttleBuilder: (
-      BuildContext flightContext,
-      Animation animation,
-      HeroFlightDirection flightDirection,
-      BuildContext fromHeroContext,
-      BuildContext toHeroContext,
-    ) {
-      print('flightShuttleBuilder called, direction=$flightDirection');
-      return Container(
-        color: Colors.yellow,
-        child: Center(
-          child: Text('In flight!'),
-        ),
-      );
-    },
+    flightShuttleBuilder:
+        (
+          BuildContext flightContext,
+          Animation animation,
+          HeroFlightDirection flightDirection,
+          BuildContext fromHeroContext,
+          BuildContext toHeroContext,
+        ) {
+          print('flightShuttleBuilder called, direction=$flightDirection');
+          return Container(
+            color: Colors.yellow,
+            child: Center(child: Text('In flight!')),
+          );
+        },
     child: Container(
       width: 100.0,
       height: 60.0,
@@ -129,10 +126,7 @@ dynamic build(BuildContext context) {
     tag: 'hero-placeholder',
     placeholderBuilder: (BuildContext ctx, Size heroSize, Widget child) {
       print('placeholderBuilder called: size=$heroSize');
-      return SizedBox(
-        width: heroSize.width,
-        height: heroSize.height,
-      );
+      return SizedBox(width: heroSize.width, height: heroSize.height);
     },
     child: Container(
       width: 100.0,
@@ -192,13 +186,22 @@ dynamic build(BuildContext context) {
         Text('Image-like Hero:', style: TextStyle(fontWeight: FontWeight.bold)),
         Center(child: heroImage),
         SizedBox(height: 8.0),
-        Text('With createRectTween:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'With createRectTween:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         Center(child: heroRectTween),
         SizedBox(height: 8.0),
-        Text('With flightShuttleBuilder:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'With flightShuttleBuilder:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         Center(child: heroShuttle),
         SizedBox(height: 8.0),
-        Text('With placeholderBuilder:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'With placeholderBuilder:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         Center(child: heroPlaceholder),
         SizedBox(height: 8.0),
         Text('Hero Card:', style: TextStyle(fontWeight: FontWeight.bold)),

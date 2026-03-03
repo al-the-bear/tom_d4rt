@@ -47,11 +47,5 @@ dynamic build(BuildContext context) {
   print('AnimatedPadding with Curves.bounceOut created');
 
   print('AnimatedPadding test completed');
-  return Column(children: [
-    padAll,
-    padSymH,
-    padOnly,
-    padCurve,
-    padBounce,
-  ]);
+  return Column(children: [padAll, padSymH, padOnly, padCurve, padBounce]);
 }

@@ -45,11 +45,5 @@ dynamic build(BuildContext context) {
   print('AnimatedSize with Curves.easeInOut and Alignment.center created');
 
   print('AnimatedSize test completed');
-  return Column(children: [
-    size1,
-    size2,
-    size3,
-    size4,
-    size5,
-  ]);
+  return Column(children: [size1, size2, size3, size4, size5]);
 }

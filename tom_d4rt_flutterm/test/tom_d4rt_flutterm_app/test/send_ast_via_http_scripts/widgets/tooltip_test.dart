@@ -5,10 +5,7 @@ dynamic build(BuildContext context) {
   print('Tooltip test executing');
 
   // Test Tooltip with message and Icon child
-  final tooltip1 = Tooltip(
-    message: 'Hello',
-    child: Icon(Icons.info),
-  );
+  final tooltip1 = Tooltip(message: 'Hello', child: Icon(Icons.info));
   print('Tooltip(message: Hello, child: Icon) created');
 
   // Test Tooltip with height
@@ -57,12 +54,7 @@ dynamic build(BuildContext context) {
   print('Tooltip with waitDuration and showDuration created');
 
   print('Tooltip test completed');
-  return Column(children: [
-    tooltip1,
-    tooltip2,
-    tooltip3,
-    tooltip4,
-    tooltip5,
-    tooltip6,
-  ]);
+  return Column(
+    children: [tooltip1, tooltip2, tooltip3, tooltip4, tooltip5, tooltip6],
+  );
 }

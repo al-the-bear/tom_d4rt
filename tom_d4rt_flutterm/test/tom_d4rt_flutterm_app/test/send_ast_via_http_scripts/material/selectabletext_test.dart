@@ -144,7 +144,10 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('=== SelectableText Tests ===', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
+        Text(
+          '=== SelectableText Tests ===',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+        ),
         SizedBox(height: 8.0),
         Text('Basic:', style: TextStyle(fontWeight: FontWeight.bold)),
         selectBasic,
@@ -164,7 +167,10 @@ dynamic build(BuildContext context) {
         Text('Single line:', style: TextStyle(fontWeight: FontWeight.bold)),
         SizedBox(width: 200.0, child: selectSingleLine),
         SizedBox(height: 8.0),
-        Text('Cursor color=red:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Cursor color=red:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         selectCursor,
         SizedBox(height: 8.0),
         Text('Cursor width=4:', style: TextStyle(fontWeight: FontWeight.bold)),

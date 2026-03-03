@@ -23,12 +23,14 @@ dynamic build(BuildContext context) {
   print('DataColumn(label: Action) created');
 
   // Test DataRow variations
-  final row1 = DataRow(cells: [
-    DataCell(Text('John')),
-    DataCell(Text('25')),
-    DataCell(Text('A')),
-    DataCell(Text('View')),
-  ]);
+  final row1 = DataRow(
+    cells: [
+      DataCell(Text('John')),
+      DataCell(Text('25')),
+      DataCell(Text('A')),
+      DataCell(Text('View')),
+    ],
+  );
   print('DataRow(cells: 4 basic cells) created');
 
   final row2 = DataRow(
@@ -74,12 +76,9 @@ dynamic build(BuildContext context) {
   print('DataCell(onTap) created');
 
   // Row using the special cells
-  final row4 = DataRow(cells: [
-    cellSimple,
-    cellEditable,
-    cellPlaceholder,
-    cellOnTap,
-  ]);
+  final row4 = DataRow(
+    cells: [cellSimple, cellEditable, cellPlaceholder, cellOnTap],
+  );
   print('DataRow(mixed cell types) created');
 
   // Row with color
@@ -110,7 +109,9 @@ dynamic build(BuildContext context) {
         children: [
           Padding(
             padding: EdgeInsets.all(16),
-            child: Text('DataTable with various DataRow/DataColumn/DataCell variations'),
+            child: Text(
+              'DataTable with various DataRow/DataColumn/DataCell variations',
+            ),
           ),
           dataTable,
         ],

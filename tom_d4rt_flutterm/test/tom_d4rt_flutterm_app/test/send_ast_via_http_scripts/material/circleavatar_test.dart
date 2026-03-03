@@ -5,9 +5,7 @@ dynamic build(BuildContext context) {
   print('CircleAvatar test executing');
 
   // Test basic CircleAvatar with child text
-  final avatarBasic = CircleAvatar(
-    child: Text('AB'),
-  );
+  final avatarBasic = CircleAvatar(child: Text('AB'));
   print('CircleAvatar basic with child text created');
 
   // Test CircleAvatar with backgroundColor
@@ -93,7 +91,14 @@ dynamic build(BuildContext context) {
   final avatarNumber = CircleAvatar(
     radius: 20.0,
     backgroundColor: Colors.cyan,
-    child: Text('7', style: TextStyle(color: Colors.white, fontSize: 18.0, fontWeight: FontWeight.bold)),
+    child: Text(
+      '7',
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 18.0,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
   );
   print('CircleAvatar with number child created');
 
@@ -102,7 +107,10 @@ dynamic build(BuildContext context) {
     backgroundColor: Colors.black,
     foregroundColor: Colors.amber,
     radius: 30.0,
-    child: Text('AB', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+    child: Text(
+      'AB',
+      style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+    ),
   );
   print('CircleAvatar with both colors created');
 
@@ -123,24 +131,39 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('=== CircleAvatar Tests ===', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
+        Text(
+          '=== CircleAvatar Tests ===',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+        ),
         SizedBox(height: 8.0),
         Text('Basic:', style: TextStyle(fontWeight: FontWeight.bold)),
         Center(child: avatarBasic),
         SizedBox(height: 8.0),
-        Text('Background color:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Background color:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         Center(child: avatarBgColor),
         SizedBox(height: 8.0),
-        Text('Foreground color:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Foreground color:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         Center(child: avatarFgColor),
         SizedBox(height: 8.0),
         Text('Radius=40:', style: TextStyle(fontWeight: FontWeight.bold)),
         Center(child: avatarRadius),
         SizedBox(height: 8.0),
-        Text('Small (radius=16):', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Small (radius=16):',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         Center(child: avatarSmall),
         SizedBox(height: 8.0),
-        Text('Large (radius=60):', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Large (radius=60):',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         Center(child: avatarLarge),
         SizedBox(height: 8.0),
         Text('MinRadius=20:', style: TextStyle(fontWeight: FontWeight.bold)),

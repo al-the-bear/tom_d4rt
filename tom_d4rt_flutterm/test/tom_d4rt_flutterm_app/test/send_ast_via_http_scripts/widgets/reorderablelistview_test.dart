@@ -24,10 +24,26 @@ dynamic build(BuildContext context) {
       print('reorder with padding $old -> $newIdx');
     },
     children: [
-      ListTile(key: ValueKey(10), title: Text('Padded 0'), leading: Icon(Icons.drag_handle)),
-      ListTile(key: ValueKey(11), title: Text('Padded 1'), leading: Icon(Icons.drag_handle)),
-      ListTile(key: ValueKey(12), title: Text('Padded 2'), leading: Icon(Icons.drag_handle)),
-      ListTile(key: ValueKey(13), title: Text('Padded 3'), leading: Icon(Icons.drag_handle)),
+      ListTile(
+        key: ValueKey(10),
+        title: Text('Padded 0'),
+        leading: Icon(Icons.drag_handle),
+      ),
+      ListTile(
+        key: ValueKey(11),
+        title: Text('Padded 1'),
+        leading: Icon(Icons.drag_handle),
+      ),
+      ListTile(
+        key: ValueKey(12),
+        title: Text('Padded 2'),
+        leading: Icon(Icons.drag_handle),
+      ),
+      ListTile(
+        key: ValueKey(13),
+        title: Text('Padded 3'),
+        leading: Icon(Icons.drag_handle),
+      ),
     ],
   );
   print('ReorderableListView(with padding) created');
@@ -74,10 +90,12 @@ dynamic build(BuildContext context) {
   print('ReorderableListView(with header) created');
 
   print('ReorderableListView test completed');
-  return Column(children: [
-    Expanded(child: widget1),
-    Expanded(child: widget2),
-    Expanded(child: widget3),
-    Expanded(child: widget4),
-  ]);
+  return Column(
+    children: [
+      Expanded(child: widget1),
+      Expanded(child: widget2),
+      Expanded(child: widget3),
+      Expanded(child: widget4),
+    ],
+  );
 }

@@ -44,9 +44,7 @@ dynamic build(BuildContext context) {
   // Variation 6: SnackBar with custom shape
   final widget6 = SnackBar(
     content: Text('Shape'),
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(8),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
   );
   print('SnackBar(shape: RoundedRectangleBorder) created');
 
@@ -59,25 +57,41 @@ dynamic build(BuildContext context) {
       Container(
         padding: EdgeInsets.all(8),
         color: Colors.grey.shade800,
-        child: Text('SnackBar 1: Hello snackbar', style: TextStyle(color: Colors.white)),
+        child: Text(
+          'SnackBar 1: Hello snackbar',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       Container(
         padding: EdgeInsets.all(8),
         color: Colors.grey.shade800,
-        child: Row(children: [
-          Expanded(child: Text('SnackBar 2: With action', style: TextStyle(color: Colors.white))),
-          TextButton(onPressed: () {}, child: Text('Undo')),
-        ]),
+        child: Row(
+          children: [
+            Expanded(
+              child: Text(
+                'SnackBar 2: With action',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            TextButton(onPressed: () {}, child: Text('Undo')),
+          ],
+        ),
       ),
       Container(
         padding: EdgeInsets.all(8),
         color: Colors.green,
-        child: Text('SnackBar 3: Colored', style: TextStyle(color: Colors.white)),
+        child: Text(
+          'SnackBar 3: Colored',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       Container(
         padding: EdgeInsets.all(8),
         color: Colors.grey.shade800,
-        child: Text('SnackBar 4: Duration 5s', style: TextStyle(color: Colors.white)),
+        child: Text(
+          'SnackBar 4: Duration 5s',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       Container(
         padding: EdgeInsets.all(8),
@@ -86,7 +100,10 @@ dynamic build(BuildContext context) {
           color: Colors.grey.shade800,
           borderRadius: BorderRadius.circular(4),
         ),
-        child: Text('SnackBar 5: Floating', style: TextStyle(color: Colors.white)),
+        child: Text(
+          'SnackBar 5: Floating',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       Container(
         padding: EdgeInsets.all(8),
@@ -94,7 +111,10 @@ dynamic build(BuildContext context) {
           color: Colors.grey.shade800,
           borderRadius: BorderRadius.circular(8),
         ),
-        child: Text('SnackBar 6: Shaped', style: TextStyle(color: Colors.white)),
+        child: Text(
+          'SnackBar 6: Shaped',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
     ],
   );

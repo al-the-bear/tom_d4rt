@@ -174,14 +174,20 @@ dynamic build(BuildContext context) {
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(Icons.search, color: Colors.white),
-            Text('Search', style: TextStyle(color: Colors.white, fontSize: 10.0)),
+            Text(
+              'Search',
+              style: TextStyle(color: Colors.white, fontSize: 10.0),
+            ),
           ],
         ),
         Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(Icons.person, color: Colors.white),
-            Text('Profile', style: TextStyle(color: Colors.white, fontSize: 10.0)),
+            Text(
+              'Profile',
+              style: TextStyle(color: Colors.white, fontSize: 10.0),
+            ),
           ],
         ),
       ],
@@ -224,7 +230,10 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('=== BottomAppBar Tests ===', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
+        Text(
+          '=== BottomAppBar Tests ===',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+        ),
         SizedBox(height: 8.0),
         Text('Basic:', style: TextStyle(fontWeight: FontWeight.bold)),
         barBasic,
@@ -247,7 +256,10 @@ dynamic build(BuildContext context) {
         Text('Wide notch:', style: TextStyle(fontWeight: FontWeight.bold)),
         barWideNotch,
         SizedBox(height: 8.0),
-        Text('Padded with height:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Padded with height:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         barPadded,
         SizedBox(height: 8.0),
         Text('Full properties:', style: TextStyle(fontWeight: FontWeight.bold)),

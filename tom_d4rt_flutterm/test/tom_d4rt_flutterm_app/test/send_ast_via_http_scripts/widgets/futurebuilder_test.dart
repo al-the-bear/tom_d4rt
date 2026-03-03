@@ -59,11 +59,5 @@ dynamic build(BuildContext context) {
   print('FutureBuilder<bool>(Future.value(true)) created');
 
   print('FutureBuilder test completed');
-  return Column(children: [
-    fb1,
-    fb2,
-    fb3,
-    fb4,
-    fb5,
-  ]);
+  return Column(children: [fb1, fb2, fb3, fb4, fb5]);
 }

@@ -53,7 +53,10 @@ dynamic build(BuildContext context) {
       color: Colors.grey,
       height: 60.0,
       child: Center(
-        child: Text('Replacement widget', style: TextStyle(color: Colors.black)),
+        child: Text(
+          'Replacement widget',
+          style: TextStyle(color: Colors.black),
+        ),
       ),
     ),
     child: Container(
@@ -75,7 +78,10 @@ dynamic build(BuildContext context) {
       color: Colors.purple,
       height: 60.0,
       child: Center(
-        child: Text('Maintain animation', style: TextStyle(color: Colors.white)),
+        child: Text(
+          'Maintain animation',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
     ),
   );
@@ -106,7 +112,10 @@ dynamic build(BuildContext context) {
       color: Colors.indigo,
       height: 60.0,
       child: Center(
-        child: Text('Maintain interactivity', style: TextStyle(color: Colors.white)),
+        child: Text(
+          'Maintain interactivity',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
     ),
   );
@@ -123,7 +132,10 @@ dynamic build(BuildContext context) {
       color: Colors.brown,
       height: 60.0,
       child: Center(
-        child: Text('Maintain semantics', style: TextStyle(color: Colors.white)),
+        child: Text(
+          'Maintain semantics',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
     ),
   );
@@ -144,22 +156,34 @@ dynamic build(BuildContext context) {
         Text('Visible:', style: TextStyle(fontWeight: FontWeight.bold)),
         visibleWidget,
         SizedBox(height: 8.0),
-        Text('Invisible (collapses):', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Invisible (collapses):',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         Container(
           decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
           child: invisibleWidget,
         ),
         SizedBox(height: 8.0),
-        Text('Invisible (maintainSize):', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Invisible (maintainSize):',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         Container(
           decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
           child: maintainSizeWidget,
         ),
         SizedBox(height: 8.0),
-        Text('Invisible with replacement:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Invisible with replacement:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         replacementWidget,
         SizedBox(height: 8.0),
-        Text('MaintainAnimation:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'MaintainAnimation:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         Container(
           decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
           child: maintainAnimWidget,
@@ -171,7 +195,10 @@ dynamic build(BuildContext context) {
           child: maintainStateWidget,
         ),
         SizedBox(height: 8.0),
-        Text('MaintainInteractivity:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'MaintainInteractivity:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         Container(
           decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
           child: maintainInteractWidget,

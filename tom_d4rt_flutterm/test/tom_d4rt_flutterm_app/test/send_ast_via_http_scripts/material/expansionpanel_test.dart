@@ -8,10 +8,7 @@ dynamic build(BuildContext context) {
   final panels1 = [
     ExpansionPanel(
       headerBuilder: (context, isExpanded) => ListTile(title: Text('Panel 1')),
-      body: Container(
-        padding: EdgeInsets.all(16),
-        child: Text('Content 1'),
-      ),
+      body: Container(padding: EdgeInsets.all(16), child: Text('Content 1')),
     ),
     ExpansionPanel(
       headerBuilder: (context, isExpanded) => ListTile(title: Text('Panel 2')),
@@ -29,7 +26,8 @@ dynamic build(BuildContext context) {
   // Variation 2: ExpansionPanelList with initially expanded panel
   final panels2 = [
     ExpansionPanel(
-      headerBuilder: (context, isExpanded) => ListTile(title: Text('Initially Expanded')),
+      headerBuilder: (context, isExpanded) =>
+          ListTile(title: Text('Initially Expanded')),
       body: Container(
         padding: EdgeInsets.all(16),
         child: Text('This panel starts expanded'),
@@ -37,7 +35,8 @@ dynamic build(BuildContext context) {
       isExpanded: true,
     ),
     ExpansionPanel(
-      headerBuilder: (context, isExpanded) => ListTile(title: Text('Collapsed')),
+      headerBuilder: (context, isExpanded) =>
+          ListTile(title: Text('Collapsed')),
       body: Text('Hidden content'),
     ),
   ];
@@ -64,7 +63,8 @@ dynamic build(BuildContext context) {
       canTapOnHeader: true,
     ),
     ExpansionPanel(
-      headerBuilder: (context, isExpanded) => ListTile(title: Text('Also Tappable')),
+      headerBuilder: (context, isExpanded) =>
+          ListTile(title: Text('Also Tappable')),
       body: Text('More content'),
       canTapOnHeader: true,
     ),
@@ -85,7 +85,8 @@ dynamic build(BuildContext context) {
     children: [
       ExpansionPanelRadio(
         value: 'radio1',
-        headerBuilder: (context, isExpanded) => ListTile(title: Text('Radio Panel 1')),
+        headerBuilder: (context, isExpanded) =>
+            ListTile(title: Text('Radio Panel 1')),
         body: Container(
           padding: EdgeInsets.all(16),
           child: Text('Radio content 1'),
@@ -93,7 +94,8 @@ dynamic build(BuildContext context) {
       ),
       ExpansionPanelRadio(
         value: 'radio2',
-        headerBuilder: (context, isExpanded) => ListTile(title: Text('Radio Panel 2')),
+        headerBuilder: (context, isExpanded) =>
+            ListTile(title: Text('Radio Panel 2')),
         body: Container(
           padding: EdgeInsets.all(16),
           child: Text('Radio content 2'),
@@ -101,7 +103,8 @@ dynamic build(BuildContext context) {
       ),
       ExpansionPanelRadio(
         value: 'radio3',
-        headerBuilder: (context, isExpanded) => ListTile(title: Text('Radio Panel 3')),
+        headerBuilder: (context, isExpanded) =>
+            ListTile(title: Text('Radio Panel 3')),
         body: Container(
           padding: EdgeInsets.all(16),
           child: Text('Radio content 3'),

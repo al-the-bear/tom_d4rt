@@ -59,11 +59,5 @@ dynamic build(BuildContext context) {
   print('AnimatedBuilder without child created');
 
   print('AnimatedBuilder test completed');
-  return Column(children: [
-    builder1,
-    builder2,
-    builder3,
-    builder4,
-    builder5,
-  ]);
+  return Column(children: [builder1, builder2, builder3, builder4, builder5]);
 }

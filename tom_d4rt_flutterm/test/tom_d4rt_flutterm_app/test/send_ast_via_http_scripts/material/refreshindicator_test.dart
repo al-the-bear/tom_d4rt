@@ -11,8 +11,16 @@ dynamic build(BuildContext context) {
     },
     child: ListView(
       children: [
-        Container(height: 100, color: Colors.blue, child: Center(child: Text('Item 1'))),
-        Container(height: 100, color: Colors.red, child: Center(child: Text('Item 2'))),
+        Container(
+          height: 100,
+          color: Colors.blue,
+          child: Center(child: Text('Item 1')),
+        ),
+        Container(
+          height: 100,
+          color: Colors.red,
+          child: Center(child: Text('Item 2')),
+        ),
       ],
     ),
   );
@@ -26,9 +34,21 @@ dynamic build(BuildContext context) {
     color: Colors.green,
     child: ListView(
       children: [
-        Container(height: 80, color: Colors.green.shade100, child: Center(child: Text('Green 1'))),
-        Container(height: 80, color: Colors.green.shade200, child: Center(child: Text('Green 2'))),
-        Container(height: 80, color: Colors.green.shade300, child: Center(child: Text('Green 3'))),
+        Container(
+          height: 80,
+          color: Colors.green.shade100,
+          child: Center(child: Text('Green 1')),
+        ),
+        Container(
+          height: 80,
+          color: Colors.green.shade200,
+          child: Center(child: Text('Green 2')),
+        ),
+        Container(
+          height: 80,
+          color: Colors.green.shade300,
+          child: Center(child: Text('Green 3')),
+        ),
       ],
     ),
   );
@@ -43,8 +63,16 @@ dynamic build(BuildContext context) {
     displacement: 60.0,
     child: ListView(
       children: [
-        Container(height: 90, color: Colors.orange.shade100, child: Center(child: Text('Displaced 1'))),
-        Container(height: 90, color: Colors.orange.shade200, child: Center(child: Text('Displaced 2'))),
+        Container(
+          height: 90,
+          color: Colors.orange.shade100,
+          child: Center(child: Text('Displaced 1')),
+        ),
+        Container(
+          height: 90,
+          color: Colors.orange.shade200,
+          child: Center(child: Text('Displaced 2')),
+        ),
       ],
     ),
   );
@@ -58,8 +86,16 @@ dynamic build(BuildContext context) {
     strokeWidth: 3.0,
     child: ListView(
       children: [
-        Container(height: 100, color: Colors.purple.shade100, child: Center(child: Text('Thick 1'))),
-        Container(height: 100, color: Colors.purple.shade200, child: Center(child: Text('Thick 2'))),
+        Container(
+          height: 100,
+          color: Colors.purple.shade100,
+          child: Center(child: Text('Thick 1')),
+        ),
+        Container(
+          height: 100,
+          color: Colors.purple.shade200,
+          child: Center(child: Text('Thick 2')),
+        ),
       ],
     ),
   );
@@ -76,20 +112,34 @@ dynamic build(BuildContext context) {
     strokeWidth: 2.5,
     child: ListView(
       children: [
-        Container(height: 70, color: Colors.cyan.shade100, child: Center(child: Text('Custom 1'))),
-        Container(height: 70, color: Colors.cyan.shade200, child: Center(child: Text('Custom 2'))),
-        Container(height: 70, color: Colors.cyan.shade300, child: Center(child: Text('Custom 3'))),
+        Container(
+          height: 70,
+          color: Colors.cyan.shade100,
+          child: Center(child: Text('Custom 1')),
+        ),
+        Container(
+          height: 70,
+          color: Colors.cyan.shade200,
+          child: Center(child: Text('Custom 2')),
+        ),
+        Container(
+          height: 70,
+          color: Colors.cyan.shade300,
+          child: Center(child: Text('Custom 3')),
+        ),
       ],
     ),
   );
   print('RefreshIndicator(all custom properties) created');
 
   print('RefreshIndicator test completed');
-  return Column(children: [
-    Expanded(child: widget1),
-    Expanded(child: widget2),
-    Expanded(child: widget3),
-    Expanded(child: widget4),
-    Expanded(child: widget5),
-  ]);
+  return Column(
+    children: [
+      Expanded(child: widget1),
+      Expanded(child: widget2),
+      Expanded(child: widget3),
+      Expanded(child: widget4),
+      Expanded(child: widget5),
+    ],
+  );
 }

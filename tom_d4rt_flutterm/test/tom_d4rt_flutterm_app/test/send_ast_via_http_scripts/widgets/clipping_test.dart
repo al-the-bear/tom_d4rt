@@ -59,14 +59,16 @@ dynamic build(BuildContext context) {
   print('ClipOval with Clip.antiAlias created');
 
   print('Clipping widgets test completed');
-  return Column(children: [
-    clipRect,
-    clipOval,
-    clipPath,
-    clipRRect,
-    clipRectHard,
-    clipRectAA,
-    clipRectAASL,
-    clipOvalAA,
-  ]);
+  return Column(
+    children: [
+      clipRect,
+      clipOval,
+      clipPath,
+      clipRRect,
+      clipRectHard,
+      clipRectAA,
+      clipRectAASL,
+      clipOvalAA,
+    ],
+  );
 }

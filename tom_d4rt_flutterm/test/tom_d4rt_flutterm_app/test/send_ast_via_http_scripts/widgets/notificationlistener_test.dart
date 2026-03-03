@@ -41,10 +41,26 @@ dynamic build(BuildContext context) {
     },
     child: ListView(
       children: [
-        Container(height: 80, color: Colors.orange, child: Center(child: Text('Orange'))),
-        Container(height: 80, color: Colors.purple, child: Center(child: Text('Purple'))),
-        Container(height: 80, color: Colors.teal, child: Center(child: Text('Teal'))),
-        Container(height: 80, color: Colors.amber, child: Center(child: Text('Amber'))),
+        Container(
+          height: 80,
+          color: Colors.orange,
+          child: Center(child: Text('Orange')),
+        ),
+        Container(
+          height: 80,
+          color: Colors.purple,
+          child: Center(child: Text('Purple')),
+        ),
+        Container(
+          height: 80,
+          color: Colors.teal,
+          child: Center(child: Text('Teal')),
+        ),
+        Container(
+          height: 80,
+          color: Colors.amber,
+          child: Center(child: Text('Amber')),
+        ),
       ],
     ),
   );
@@ -63,9 +79,21 @@ dynamic build(BuildContext context) {
       },
       child: ListView(
         children: [
-          Container(height: 120, color: Colors.cyan, child: Center(child: Text('Nested Listener 1'))),
-          Container(height: 120, color: Colors.lime, child: Center(child: Text('Nested Listener 2'))),
-          Container(height: 120, color: Colors.pink, child: Center(child: Text('Nested Listener 3'))),
+          Container(
+            height: 120,
+            color: Colors.cyan,
+            child: Center(child: Text('Nested Listener 1')),
+          ),
+          Container(
+            height: 120,
+            color: Colors.lime,
+            child: Center(child: Text('Nested Listener 2')),
+          ),
+          Container(
+            height: 120,
+            color: Colors.pink,
+            child: Center(child: Text('Nested Listener 3')),
+          ),
         ],
       ),
     ),
@@ -73,10 +101,12 @@ dynamic build(BuildContext context) {
   print('NotificationListener(nested inner+outer) created');
 
   print('NotificationListener test completed');
-  return Column(children: [
-    Expanded(child: widget1),
-    Expanded(child: widget2),
-    Expanded(child: widget3),
-    Expanded(child: widget4),
-  ]);
+  return Column(
+    children: [
+      Expanded(child: widget1),
+      Expanded(child: widget2),
+      Expanded(child: widget3),
+      Expanded(child: widget4),
+    ],
+  );
 }

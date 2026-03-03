@@ -10,9 +10,7 @@ dynamic build(BuildContext context) {
     itemBuilder: (context, index, animation) {
       return SizeTransition(
         sizeFactor: animation,
-        child: ListTile(
-          title: Text('Item $index'),
-        ),
+        child: ListTile(title: Text('Item $index')),
       );
     },
   );
@@ -24,9 +22,7 @@ dynamic build(BuildContext context) {
     itemBuilder: (context, index, animation) {
       return FadeTransition(
         opacity: animation,
-        child: ListTile(
-          title: Text('Item $index'),
-        ),
+        child: ListTile(title: Text('Item $index')),
       );
     },
   );
@@ -116,9 +112,7 @@ dynamic build(BuildContext context) {
     itemBuilder: (context, index, animation) {
       return SizeTransition(
         sizeFactor: animation,
-        child: ListTile(
-          title: Text('Reverse item $index'),
-        ),
+        child: ListTile(title: Text('Reverse item $index')),
       );
     },
   );
@@ -168,7 +162,10 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('=== AnimatedList Tests ===', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
+        Text(
+          '=== AnimatedList Tests ===',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+        ),
         SizedBox(height: 8.0),
         Text('Basic (3 items):', style: TextStyle(fontWeight: FontWeight.bold)),
         SizedBox(height: 180.0, child: listBasic),
@@ -176,7 +173,10 @@ dynamic build(BuildContext context) {
         Text('Empty (0 items):', style: TextStyle(fontWeight: FontWeight.bold)),
         SizedBox(height: 60.0, child: listEmpty),
         SizedBox(height: 8.0),
-        Text('Five items with cards:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Five items with cards:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 300.0, child: listFive),
         SizedBox(height: 8.0),
         Text('Horizontal:', style: TextStyle(fontWeight: FontWeight.bold)),
@@ -185,7 +185,10 @@ dynamic build(BuildContext context) {
         Text('NeverScrollable:', style: TextStyle(fontWeight: FontWeight.bold)),
         SizedBox(height: 180.0, child: listNeverScroll),
         SizedBox(height: 8.0),
-        Text('Bouncing physics:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Bouncing physics:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 220.0, child: listBouncing),
         SizedBox(height: 8.0),
         Text('Reverse:', style: TextStyle(fontWeight: FontWeight.bold)),

@@ -25,10 +25,22 @@ dynamic build(BuildContext context) {
       print('Multi toggled: $index');
     },
     children: [
-      Padding(padding: EdgeInsets.symmetric(horizontal: 12.0), child: Text('A')),
-      Padding(padding: EdgeInsets.symmetric(horizontal: 12.0), child: Text('B')),
-      Padding(padding: EdgeInsets.symmetric(horizontal: 12.0), child: Text('C')),
-      Padding(padding: EdgeInsets.symmetric(horizontal: 12.0), child: Text('D')),
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: 12.0),
+        child: Text('A'),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: 12.0),
+        child: Text('B'),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: 12.0),
+        child: Text('C'),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: 12.0),
+        child: Text('D'),
+      ),
     ],
   );
   print('ToggleButtons with multiple selected created');
@@ -59,9 +71,18 @@ dynamic build(BuildContext context) {
       print('Filled toggle: $index');
     },
     children: [
-      Padding(padding: EdgeInsets.symmetric(horizontal: 16.0), child: Text('Option 1')),
-      Padding(padding: EdgeInsets.symmetric(horizontal: 16.0), child: Text('Option 2')),
-      Padding(padding: EdgeInsets.symmetric(horizontal: 16.0), child: Text('Option 3')),
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.0),
+        child: Text('Option 1'),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.0),
+        child: Text('Option 2'),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.0),
+        child: Text('Option 3'),
+      ),
     ],
   );
   print('ToggleButtons with fillColor created');
@@ -91,9 +112,18 @@ dynamic build(BuildContext context) {
       print('Rounded toggle: $index');
     },
     children: [
-      Padding(padding: EdgeInsets.symmetric(horizontal: 16.0), child: Text('Round 1')),
-      Padding(padding: EdgeInsets.symmetric(horizontal: 16.0), child: Text('Round 2')),
-      Padding(padding: EdgeInsets.symmetric(horizontal: 16.0), child: Text('Round 3')),
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.0),
+        child: Text('Round 1'),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.0),
+        child: Text('Round 2'),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.0),
+        child: Text('Round 3'),
+      ),
     ],
   );
   print('ToggleButtons with borderRadius=12 created');
@@ -118,9 +148,18 @@ dynamic build(BuildContext context) {
   final toggleDisabled = ToggleButtons(
     isSelected: [true, false, false],
     children: [
-      Padding(padding: EdgeInsets.symmetric(horizontal: 12.0), child: Text('Disabled 1')),
-      Padding(padding: EdgeInsets.symmetric(horizontal: 12.0), child: Text('Disabled 2')),
-      Padding(padding: EdgeInsets.symmetric(horizontal: 12.0), child: Text('Disabled 3')),
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: 12.0),
+        child: Text('Disabled 1'),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: 12.0),
+        child: Text('Disabled 2'),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: 12.0),
+        child: Text('Disabled 3'),
+      ),
     ],
   );
   print('ToggleButtons disabled (no onPressed) created');
@@ -145,10 +184,7 @@ dynamic build(BuildContext context) {
     onPressed: (index) {
       print('Constrained toggle: $index');
     },
-    children: [
-      Text('Wide A'),
-      Text('Wide B'),
-    ],
+    children: [Text('Wide A'), Text('Wide B')],
   );
   print('ToggleButtons with constraints created');
 
@@ -166,9 +202,32 @@ dynamic build(BuildContext context) {
       print('Full toggle: $index');
     },
     children: [
-      Padding(padding: EdgeInsets.symmetric(horizontal: 12.0), child: Row(children: [Icon(Icons.wb_sunny), SizedBox(width: 4.0), Text('Day')])),
-      Padding(padding: EdgeInsets.symmetric(horizontal: 12.0), child: Row(children: [Icon(Icons.nights_stay), SizedBox(width: 4.0), Text('Night')])),
-      Padding(padding: EdgeInsets.symmetric(horizontal: 12.0), child: Row(children: [Icon(Icons.auto_awesome), SizedBox(width: 4.0), Text('Auto')])),
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: 12.0),
+        child: Row(
+          children: [Icon(Icons.wb_sunny), SizedBox(width: 4.0), Text('Day')],
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: 12.0),
+        child: Row(
+          children: [
+            Icon(Icons.nights_stay),
+            SizedBox(width: 4.0),
+            Text('Night'),
+          ],
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: 12.0),
+        child: Row(
+          children: [
+            Icon(Icons.auto_awesome),
+            SizedBox(width: 4.0),
+            Text('Auto'),
+          ],
+        ),
+      ),
     ],
   );
   print('ToggleButtons with all properties created');
@@ -179,21 +238,33 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('=== ToggleButtons Tests ===', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
+        Text(
+          '=== ToggleButtons Tests ===',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+        ),
         SizedBox(height: 8.0),
         Text('Basic:', style: TextStyle(fontWeight: FontWeight.bold)),
         toggleBasic,
         SizedBox(height: 12.0),
-        Text('Multiple selected:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Multiple selected:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         toggleMulti,
         SizedBox(height: 12.0),
-        Text('Color + selectedColor:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Color + selectedColor:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         toggleColored,
         SizedBox(height: 12.0),
         Text('Fill color:', style: TextStyle(fontWeight: FontWeight.bold)),
         toggleFilled,
         SizedBox(height: 12.0),
-        Text('Border color + width:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Border color + width:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         toggleBordered,
         SizedBox(height: 12.0),
         Text('Border radius:', style: TextStyle(fontWeight: FontWeight.bold)),

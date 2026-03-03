@@ -15,28 +15,40 @@ dynamic build(BuildContext context) {
             height: 50.0,
             color: Colors.blue,
             child: Center(
-              child: Text('SliverList item 1', style: TextStyle(color: Colors.white)),
+              child: Text(
+                'SliverList item 1',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ),
           Container(
             height: 50.0,
             color: Colors.lightBlue,
             child: Center(
-              child: Text('SliverList item 2', style: TextStyle(color: Colors.white)),
+              child: Text(
+                'SliverList item 2',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ),
           Container(
             height: 50.0,
             color: Colors.blue,
             child: Center(
-              child: Text('SliverList item 3', style: TextStyle(color: Colors.white)),
+              child: Text(
+                'SliverList item 3',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ),
           Container(
             height: 50.0,
             color: Colors.lightBlue,
             child: Center(
-              child: Text('SliverList item 4', style: TextStyle(color: Colors.white)),
+              child: Text(
+                'SliverList item 4',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ),
         ]),
@@ -51,19 +63,19 @@ dynamic build(BuildContext context) {
     physics: NeverScrollableScrollPhysics(),
     slivers: [
       SliverList(
-        delegate: SliverChildBuilderDelegate(
-          (BuildContext ctx, int index) {
-            print('SliverChildBuilderDelegate building index $index');
-            return Container(
-              height: 40.0,
-              color: index % 2 == 0 ? Colors.green : Colors.lightGreen,
-              child: Center(
-                child: Text('Builder item $index', style: TextStyle(color: Colors.white)),
+        delegate: SliverChildBuilderDelegate((BuildContext ctx, int index) {
+          print('SliverChildBuilderDelegate building index $index');
+          return Container(
+            height: 40.0,
+            color: index % 2 == 0 ? Colors.green : Colors.lightGreen,
+            child: Center(
+              child: Text(
+                'Builder item $index',
+                style: TextStyle(color: Colors.white),
               ),
-            );
-          },
-          childCount: 5,
-        ),
+            ),
+          );
+        }, childCount: 5),
       ),
     ],
   );
@@ -82,12 +94,42 @@ dynamic build(BuildContext context) {
           childAspectRatio: 1.0,
         ),
         delegate: SliverChildListDelegate([
-          Container(color: Colors.red, child: Center(child: Text('1', style: TextStyle(color: Colors.white)))),
-          Container(color: Colors.orange, child: Center(child: Text('2', style: TextStyle(color: Colors.white)))),
-          Container(color: Colors.yellow, child: Center(child: Text('3', style: TextStyle(color: Colors.black)))),
-          Container(color: Colors.green, child: Center(child: Text('4', style: TextStyle(color: Colors.white)))),
-          Container(color: Colors.blue, child: Center(child: Text('5', style: TextStyle(color: Colors.white)))),
-          Container(color: Colors.purple, child: Center(child: Text('6', style: TextStyle(color: Colors.white)))),
+          Container(
+            color: Colors.red,
+            child: Center(
+              child: Text('1', style: TextStyle(color: Colors.white)),
+            ),
+          ),
+          Container(
+            color: Colors.orange,
+            child: Center(
+              child: Text('2', style: TextStyle(color: Colors.white)),
+            ),
+          ),
+          Container(
+            color: Colors.yellow,
+            child: Center(
+              child: Text('3', style: TextStyle(color: Colors.black)),
+            ),
+          ),
+          Container(
+            color: Colors.green,
+            child: Center(
+              child: Text('4', style: TextStyle(color: Colors.white)),
+            ),
+          ),
+          Container(
+            color: Colors.blue,
+            child: Center(
+              child: Text('5', style: TextStyle(color: Colors.white)),
+            ),
+          ),
+          Container(
+            color: Colors.purple,
+            child: Center(
+              child: Text('6', style: TextStyle(color: Colors.white)),
+            ),
+          ),
         ]),
       ),
     ],
@@ -106,17 +148,14 @@ dynamic build(BuildContext context) {
           crossAxisSpacing: 4.0,
           childAspectRatio: 1.5,
         ),
-        delegate: SliverChildBuilderDelegate(
-          (BuildContext ctx, int index) {
-            return Container(
-              color: Colors.primaries[index % Colors.primaries.length],
-              child: Center(
-                child: Text('$index', style: TextStyle(color: Colors.white)),
-              ),
-            );
-          },
-          childCount: 8,
-        ),
+        delegate: SliverChildBuilderDelegate((BuildContext ctx, int index) {
+          return Container(
+            color: Colors.primaries[index % Colors.primaries.length],
+            child: Center(
+              child: Text('$index', style: TextStyle(color: Colors.white)),
+            ),
+          );
+        }, childCount: 8),
       ),
     ],
   );
@@ -132,7 +171,10 @@ dynamic build(BuildContext context) {
           height: 60.0,
           color: Colors.teal,
           child: Center(
-            child: Text('SliverToBoxAdapter', style: TextStyle(color: Colors.white)),
+            child: Text(
+              'SliverToBoxAdapter',
+              style: TextStyle(color: Colors.white),
+            ),
           ),
         ),
       ),
@@ -164,7 +206,10 @@ dynamic build(BuildContext context) {
               height: 40.0,
               color: Colors.indigo,
               child: Center(
-                child: Text('Padded item 1', style: TextStyle(color: Colors.white)),
+                child: Text(
+                  'Padded item 1',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ),
             SizedBox(height: 4.0),
@@ -172,7 +217,10 @@ dynamic build(BuildContext context) {
               height: 40.0,
               color: Colors.indigo,
               child: Center(
-                child: Text('Padded item 2', style: TextStyle(color: Colors.white)),
+                child: Text(
+                  'Padded item 2',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ),
           ]),
@@ -194,7 +242,10 @@ dynamic build(BuildContext context) {
             height: 50.0,
             color: Colors.brown,
             child: Center(
-              child: Text('Symmetric padding', style: TextStyle(color: Colors.white)),
+              child: Text(
+                'Symmetric padding',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ),
         ),
@@ -213,7 +264,10 @@ dynamic build(BuildContext context) {
           height: 40.0,
           color: Colors.grey,
           child: Center(
-            child: Text('Header', style: TextStyle(fontWeight: FontWeight.bold)),
+            child: Text(
+              'Header',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
           ),
         ),
       ),
@@ -227,10 +281,22 @@ dynamic build(BuildContext context) {
             childAspectRatio: 2.0,
           ),
           delegate: SliverChildListDelegate([
-            Container(color: Colors.cyan, child: Center(child: Text('A'))),
-            Container(color: Colors.amber, child: Center(child: Text('B'))),
-            Container(color: Colors.cyan, child: Center(child: Text('C'))),
-            Container(color: Colors.amber, child: Center(child: Text('D'))),
+            Container(
+              color: Colors.cyan,
+              child: Center(child: Text('A')),
+            ),
+            Container(
+              color: Colors.amber,
+              child: Center(child: Text('B')),
+            ),
+            Container(
+              color: Colors.cyan,
+              child: Center(child: Text('C')),
+            ),
+            Container(
+              color: Colors.amber,
+              child: Center(child: Text('D')),
+            ),
           ]),
         ),
       ),
@@ -239,7 +305,10 @@ dynamic build(BuildContext context) {
           height: 40.0,
           color: Colors.grey,
           child: Center(
-            child: Text('Footer', style: TextStyle(fontWeight: FontWeight.bold)),
+            child: Text(
+              'Footer',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
           ),
         ),
       ),
@@ -259,25 +328,43 @@ dynamic build(BuildContext context) {
           style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 16.0),
-        Text('SliverList (ListDelegate):', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'SliverList (ListDelegate):',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 220.0, child: sliverListWidget),
         SizedBox(height: 16.0),
-        Text('SliverList (BuilderDelegate):', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'SliverList (BuilderDelegate):',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 220.0, child: sliverListBuilder),
         SizedBox(height: 16.0),
-        Text('SliverGrid (fixedCrossAxisCount):', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'SliverGrid (fixedCrossAxisCount):',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 250.0, child: sliverGridFixed),
         SizedBox(height: 16.0),
-        Text('SliverGrid (maxCrossAxisExtent):', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'SliverGrid (maxCrossAxisExtent):',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 200.0, child: sliverGridExtent),
         SizedBox(height: 16.0),
-        Text('SliverToBoxAdapter:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'SliverToBoxAdapter:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 150.0, child: sliverToBoxWidget),
         SizedBox(height: 16.0),
         Text('SliverPadding:', style: TextStyle(fontWeight: FontWeight.bold)),
         SizedBox(height: 130.0, child: sliverPaddingWidget),
         SizedBox(height: 16.0),
-        Text('SliverPadding symmetric:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'SliverPadding symmetric:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 80.0, child: sliverPaddingSymmetric),
         SizedBox(height: 16.0),
         Text('Combined:', style: TextStyle(fontWeight: FontWeight.bold)),

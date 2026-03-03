@@ -56,7 +56,10 @@ dynamic build(BuildContext context) {
           height: 60.0,
           color: Colors.purple,
           child: Center(
-            child: Text('Content below AppBar', style: TextStyle(color: Colors.white)),
+            child: Text(
+              'Content below AppBar',
+              style: TextStyle(color: Colors.white),
+            ),
           ),
         ),
       ),
@@ -76,7 +79,10 @@ dynamic build(BuildContext context) {
             height: 60.0,
             color: Colors.teal,
             child: Center(
-              child: Text('Padded sliver', style: TextStyle(color: Colors.white)),
+              child: Text(
+                'Padded sliver',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ),
         ),
@@ -216,7 +222,10 @@ dynamic build(BuildContext context) {
           height: 50.0,
           color: Colors.brown,
           child: Center(
-            child: Text('First (at bottom)', style: TextStyle(color: Colors.white)),
+            child: Text(
+              'First (at bottom)',
+              style: TextStyle(color: Colors.white),
+            ),
           ),
         ),
       ),
@@ -225,7 +234,10 @@ dynamic build(BuildContext context) {
           height: 50.0,
           color: Colors.grey,
           child: Center(
-            child: Text('Second (above)', style: TextStyle(color: Colors.white)),
+            child: Text(
+              'Second (above)',
+              style: TextStyle(color: Colors.white),
+            ),
           ),
         ),
       ),
@@ -245,13 +257,22 @@ dynamic build(BuildContext context) {
           style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 16.0),
-        Text('Basic with SliverToBoxAdapter:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Basic with SliverToBoxAdapter:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 300.0, child: basicScrollView),
         SizedBox(height: 16.0),
-        Text('With SliverAppBar:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'With SliverAppBar:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 200.0, child: withAppBar),
         SizedBox(height: 16.0),
-        Text('With SliverPadding:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'With SliverPadding:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 120.0, child: withPadding),
         SizedBox(height: 16.0),
         Text('With SliverList:', style: TextStyle(fontWeight: FontWeight.bold)),
@@ -260,7 +281,10 @@ dynamic build(BuildContext context) {
         Text('Mixed slivers:', style: TextStyle(fontWeight: FontWeight.bold)),
         SizedBox(height: 250.0, child: mixedSlivers),
         SizedBox(height: 16.0),
-        Text('Horizontal scroll:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Horizontal scroll:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         horizontalScroll,
         SizedBox(height: 16.0),
         Text('Reverse:', style: TextStyle(fontWeight: FontWeight.bold)),

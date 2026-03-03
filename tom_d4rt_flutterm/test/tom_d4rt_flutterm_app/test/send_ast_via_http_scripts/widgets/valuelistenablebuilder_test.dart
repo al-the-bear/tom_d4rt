@@ -32,10 +32,12 @@ dynamic build(BuildContext context) {
   final vlb3 = ValueListenableBuilder<bool>(
     valueListenable: boolNotifier,
     builder: (BuildContext context, bool value, Widget? child) {
-      return Row(children: [
-        Icon(value ? Icons.check : Icons.close),
-        child ?? SizedBox.shrink(),
-      ]);
+      return Row(
+        children: [
+          Icon(value ? Icons.check : Icons.close),
+          child ?? SizedBox.shrink(),
+        ],
+      );
     },
     child: Text('Static child'),
   );
@@ -47,7 +49,10 @@ dynamic build(BuildContext context) {
   final vlb4 = ValueListenableBuilder<double>(
     valueListenable: doubleNotifier,
     builder: (BuildContext context, double value, Widget? child) {
-      return Opacity(opacity: value, child: Container(width: 80, height: 40, color: Colors.blue));
+      return Opacity(
+        opacity: value,
+        child: Container(width: 80, height: 40, color: Colors.blue),
+      );
     },
   );
   print('ValueListenableBuilder<double> created');
@@ -78,12 +83,5 @@ dynamic build(BuildContext context) {
   print('ListenableBuilder with child created');
 
   print('ValueListenableBuilder and ListenableBuilder test completed');
-  return Column(children: [
-    vlb1,
-    vlb2,
-    vlb3,
-    vlb4,
-    lb1,
-    lb2,
-  ]);
+  return Column(children: [vlb1, vlb2, vlb3, vlb4, lb1, lb2]);
 }

@@ -121,10 +121,7 @@ dynamic build(BuildContext context) {
   final layerLink = LayerLink();
   print('LayerLink created');
 
-  final leaderLayer = LeaderLayer(
-    link: layerLink,
-    offset: Offset(10.0, 20.0),
-  );
+  final leaderLayer = LeaderLayer(link: layerLink, offset: Offset(10.0, 20.0));
   print('LeaderLayer created with offset: ${leaderLayer.offset}');
 
   final followerLayer = FollowerLayer(
@@ -132,7 +129,9 @@ dynamic build(BuildContext context) {
     unlinkedOffset: Offset(5.0, 5.0),
     showWhenUnlinked: false,
   );
-  print('FollowerLayer created, showWhenUnlinked: ${followerLayer.showWhenUnlinked}');
+  print(
+    'FollowerLayer created, showWhenUnlinked: ${followerLayer.showWhenUnlinked}',
+  );
   print('FollowerLayer unlinkedOffset: ${followerLayer.unlinkedOffset}');
 
   // ========== BACKDROP FILTER LAYER ==========

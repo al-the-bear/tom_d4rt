@@ -7,10 +7,7 @@ dynamic build(BuildContext context) {
   // Variation 1: Basic NestedScrollView with SliverAppBar and ListView body
   final widget1 = NestedScrollView(
     headerSliverBuilder: (context, innerBoxScrolled) => [
-      SliverAppBar(
-        title: Text('Nested'),
-        floating: true,
-      ),
+      SliverAppBar(title: Text('Nested'), floating: true),
     ],
     body: ListView(
       children: [
@@ -63,11 +60,7 @@ dynamic build(BuildContext context) {
   // Variation 4: NestedScrollView with multiple sliver headers
   final widget4 = NestedScrollView(
     headerSliverBuilder: (context, innerBoxScrolled) => [
-      SliverAppBar(
-        title: Text('Multi Header'),
-        floating: true,
-        snap: true,
-      ),
+      SliverAppBar(title: Text('Multi Header'), floating: true, snap: true),
       SliverToBoxAdapter(
         child: Container(
           height: 60,
@@ -86,10 +79,12 @@ dynamic build(BuildContext context) {
   print('NestedScrollView(multiple sliver headers) created');
 
   print('NestedScrollView test completed');
-  return Column(children: [
-    Expanded(child: widget1),
-    Expanded(child: widget2),
-    Expanded(child: widget3),
-    Expanded(child: widget4),
-  ]);
+  return Column(
+    children: [
+      Expanded(child: widget1),
+      Expanded(child: widget2),
+      Expanded(child: widget3),
+      Expanded(child: widget4),
+    ],
+  );
 }

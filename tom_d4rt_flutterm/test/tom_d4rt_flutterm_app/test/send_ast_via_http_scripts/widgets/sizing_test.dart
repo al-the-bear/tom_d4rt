@@ -56,13 +56,15 @@ dynamic build(BuildContext context) {
   print('Baseline(baseline: 40.0, TextBaseline.ideographic) created');
 
   print('Sizing widgets test completed');
-  return Column(children: [
-    unconstrained1,
-    unconstrained2,
-    unconstrained3,
-    SizedBox(height: 60, child: limited1),
-    SizedBox(height: 60, child: limited2),
-    baseline1,
-    baseline2,
-  ]);
+  return Column(
+    children: [
+      unconstrained1,
+      unconstrained2,
+      unconstrained3,
+      SizedBox(height: 60, child: limited1),
+      SizedBox(height: 60, child: limited2),
+      baseline1,
+      baseline2,
+    ],
+  );
 }
