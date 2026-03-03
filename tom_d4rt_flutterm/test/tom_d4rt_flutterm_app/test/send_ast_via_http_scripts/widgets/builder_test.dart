@@ -120,6 +120,53 @@ dynamic build(BuildContext context) {
   );
   print('Nested Builder created');
 
+  // --- StatefulBuilder tests ---
+  
+  // Test StatefulBuilder with basic state
+  final statefulBasic = StatefulBuilder(
+    builder: (BuildContext ctx, void Function(void Function()) setState) {
+      print('StatefulBuilder basic builder invoked');
+      return Container(
+        color: Colors.teal,
+        height: 60.0,
+        child: Center(
+          child: Text('StatefulBuilder Basic', style: TextStyle(color: Colors.white)),
+        ),
+      );
+    },
+  );
+  print('StatefulBuilder basic created');
+
+  // Test StatefulBuilder with counter-like state
+  final statefulCounter = StatefulBuilder(
+    builder: (BuildContext ctx, void Function(void Function()) setState) {
+      print('StatefulBuilder counter builder invoked');
+      return Container(
+        color: Colors.deepPurple,
+        height: 60.0,
+        child: Center(
+          child: Text('Counter: 0', style: TextStyle(color: Colors.white, fontSize: 18.0)),
+        ),
+      );
+    },
+  );
+  print('StatefulBuilder counter created');
+
+  // Test StatefulBuilder with toggle pattern
+  final statefulToggle = StatefulBuilder(
+    builder: (BuildContext ctx, void Function(void Function()) setState) {
+      print('StatefulBuilder toggle builder invoked');
+      return Container(
+        color: Colors.amber,
+        height: 60.0,
+        child: Center(
+          child: Text('Toggle: OFF', style: TextStyle(fontWeight: FontWeight.bold)),
+        ),
+      );
+    },
+  );
+  print('StatefulBuilder toggle created');
+
   print('Builder test completed');
 
   return SingleChildScrollView(
@@ -156,11 +203,21 @@ dynamic build(BuildContext context) {
         Text('Nested Builder:', style: TextStyle(fontWeight: FontWeight.bold)),
         nestedBuilder,
         SizedBox(height: 16.0),
+        Text('StatefulBuilder Tests:', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+        SizedBox(height: 8.0),
+        statefulBasic,
+        SizedBox(height: 8.0),
+        statefulCounter,
+        SizedBox(height: 8.0),
+        statefulToggle,
+        SizedBox(height: 16.0),
         Text('Key Points:', style: TextStyle(fontWeight: FontWeight.bold)),
         Text('• Builder provides a new BuildContext'),
         Text('• Useful for accessing inherited widgets'),
         Text('• Builder function runs during build phase'),
         Text('• Can return any widget type'),
+        Text('• StatefulBuilder provides a setState callback'),
+        Text('• StatefulBuilder enables local state in build()'),
       ],
     ),
   );
