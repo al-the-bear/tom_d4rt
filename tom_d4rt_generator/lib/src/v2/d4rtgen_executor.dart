@@ -207,6 +207,27 @@ Future<void> _generateBridges(
     );
   }
 
+  // Generate proxy classes if requested (GEN-083)
+  if (config.generateProxies && config.proxyClasses.isNotEmpty) {
+    final proxyResult = await generateProxies(
+      config: config,
+      projectPath: projectDir,
+    );
+
+    if (proxyResult.errors.isNotEmpty) {
+      for (final error in proxyResult.errors) {
+        print('  PROXY ERROR: $error');
+      }
+    }
+
+    if (proxyResult.proxies.isNotEmpty) {
+      print(
+        '  GEN-083: Generated ${proxyResult.proxies.length} proxy classes'
+        ' → ${proxyResult.outputFile}',
+      );
+    }
+  }
+
   if (verbose) {
     print('  Complete');
     print('');
