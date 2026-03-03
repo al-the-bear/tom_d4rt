@@ -64,12 +64,16 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('segmentedbutton_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/segmentedbutton_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    }, skip: 'Engine limit: D4rt interprets Set literals as Map');
+    test(
+      'segmentedbutton_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'material/segmentedbutton_test.dart',
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      skip: 'Engine limit: D4rt interprets Set literals as Map',
+    );
 
     test('selectabletext_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -443,12 +447,16 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('appbar_themes_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/appbar_themes_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    }, skip: 'Bridge fix: BottomAppBarTheme renamed from BottomAppBarThemeData');
+    test(
+      'appbar_themes_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'material/appbar_themes_test.dart',
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      skip: 'Bridge fix: BottomAppBarTheme renamed from BottomAppBarThemeData',
+    );
 
     test('navigation_themes_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -457,26 +465,38 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('component_themes_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/component_themes_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    }, skip: 'Bridge fix: CardTheme renamed from CardThemeData');
+    test(
+      'component_themes_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'material/component_themes_test.dart',
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      skip: 'Bridge fix: CardTheme renamed from CardThemeData',
+    );
 
-    test('dialog_themes_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/dialog_themes_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    }, skip: 'Bridge fix: DialogTheme renamed from DialogThemeData');
+    test(
+      'dialog_themes_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'material/dialog_themes_test.dart',
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      skip: 'Bridge fix: DialogTheme renamed from DialogThemeData',
+    );
 
-    test('input_themes_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/input_themes_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    }, skip: 'Bridge fix: TabBarTheme renamed from TabBarThemeData');
+    test(
+      'input_themes_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'material/input_themes_test.dart',
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      skip: 'Bridge fix: TabBarTheme renamed from TabBarThemeData',
+    );
 
     test('picker_themes_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -492,19 +512,27 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('misc_themes_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/misc_themes_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    }, skip: 'Engine limit: D4rt cannot infer typed Map generics from context');
+    test(
+      'misc_themes_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'material/misc_themes_test.dart',
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      skip: 'Engine limit: D4rt cannot infer typed Map generics from context',
+    );
 
-    test('widgetstate_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/widgetstate_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    }, skip: 'Engine limit: D4rt interprets Set literals as Map');
+    test(
+      'widgetstate_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'material/widgetstate_test.dart',
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      skip: 'Engine limit: D4rt interprets Set literals as Map',
+    );
 
     test('licensepage_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -582,36 +610,54 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('showdialog_test.dart', () async {
-      final result = await SendTestRunner.send('material/showdialog_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    }, skip: 'Shows popup dialog requiring user interaction');
+    test(
+      'showdialog_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'material/showdialog_test.dart',
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      skip: 'Shows popup dialog requiring user interaction',
+    );
 
-    test('showbottomsheet_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/showbottomsheet_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    }, skip: 'Shows bottom sheet requiring user interaction');
+    test(
+      'showbottomsheet_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'material/showbottomsheet_test.dart',
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      skip: 'Shows bottom sheet requiring user interaction',
+    );
 
     test('showmenu_test.dart', () async {
       final result = await SendTestRunner.send('material/showmenu_test.dart');
       expect(result.success, isTrue, reason: result.error);
     }, skip: 'Shows popup menu requiring user interaction');
 
-    test('showdatepicker_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/showdatepicker_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    }, skip: 'Shows date picker requiring user interaction');
+    test(
+      'showdatepicker_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'material/showdatepicker_test.dart',
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      skip: 'Shows date picker requiring user interaction',
+    );
 
-    test('showtimepicker_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/showtimepicker_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    }, skip: 'Shows time picker requiring user interaction');
+    test(
+      'showtimepicker_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'material/showtimepicker_test.dart',
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      skip: 'Shows time picker requiring user interaction',
+    );
   });
 
   // ============================================================
@@ -659,10 +705,14 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('actions_test.dart', () async {
-      final result = await SendTestRunner.send('widgets/actions_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    }, skip: 'Engine limit: D4rt cannot use class refs as Type map keys');
+    test(
+      'actions_test.dart',
+      () async {
+        final result = await SendTestRunner.send('widgets/actions_test.dart');
+        expect(result.success, isTrue, reason: result.error);
+      },
+      skip: 'Engine limit: D4rt cannot use class refs as Type map keys',
+    );
 
     test('focustraversal_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -731,12 +781,16 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('scaffoldstate_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/scaffoldstate_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    }, skip: 'Shows snackbar/bottomsheet requiring user interaction');
+    test(
+      'scaffoldstate_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'widgets/scaffoldstate_test.dart',
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      skip: 'Shows snackbar/bottomsheet requiring user interaction',
+    );
   });
 
   // ============================================================
@@ -750,17 +804,27 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('menu_widgets_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'cupertino/menu_widgets_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    }, skip: 'Bridge fix: CupertinoMenuAnchor not bridged');
+    test(
+      'menu_widgets_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'cupertino/menu_widgets_test.dart',
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      skip: 'Bridge fix: CupertinoMenuAnchor not bridged',
+    );
 
-    test('pulldown_test.dart', () async {
-      final result = await SendTestRunner.send('cupertino/pulldown_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    }, skip: 'Bridge fix: CupertinoPulldownButton not bridged');
+    test(
+      'pulldown_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'cupertino/pulldown_test.dart',
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      skip: 'Bridge fix: CupertinoPulldownButton not bridged',
+    );
 
     test('toolbar_test.dart', () async {
       final result = await SendTestRunner.send('cupertino/toolbar_test.dart');
@@ -810,12 +874,16 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('cupertino_themes_batch4_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'cupertino/cupertino_themes_batch4_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    }, skip: 'Bridge fix: NoDefaultCupertinoThemeData type mismatch');
+    test(
+      'cupertino_themes_batch4_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'cupertino/cupertino_themes_batch4_test.dart',
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      skip: 'Bridge fix: NoDefaultCupertinoThemeData type mismatch',
+    );
   });
 
   // ============================================================
@@ -913,10 +981,16 @@ void main() {
   // PHYSICS PACKAGE TESTS (1 file)
   // ============================================================
   group('physics/', () {
-    test('simulations_test.dart', () async {
-      final result = await SendTestRunner.send('physics/simulations_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    }, skip: 'Bridge fix: GravitySimulation parameter ordering issue');
+    test(
+      'simulations_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'physics/simulations_test.dart',
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      skip: 'Bridge fix: GravitySimulation parameter ordering issue',
+    );
   });
 
   // ============================================================
@@ -970,22 +1044,31 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('picture_test.dart', () async {
-      final result = await SendTestRunner.send('dart_ui/picture_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    }, skip: 'Bridge fix: Paint.color setter does not unwrap BridgedInstance<Color>');
+    test(
+      'picture_test.dart',
+      () async {
+        final result = await SendTestRunner.send('dart_ui/picture_test.dart');
+        expect(result.success, isTrue, reason: result.error);
+      },
+      skip:
+          'Bridge fix: Paint.color setter does not unwrap BridgedInstance<Color>',
+    );
   });
 
   // ============================================================
   // GESTURES PACKAGE TESTS (2 files)
   // ============================================================
   group('gestures/', () {
-    test('recognizers_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'gestures/recognizers_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    }, skip: 'Engine limit: D4rt callback cannot be assigned to typed setters');
+    test(
+      'recognizers_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'gestures/recognizers_test.dart',
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      skip: 'Engine limit: D4rt callback cannot be assigned to typed setters',
+    );
 
     test('velocity_test.dart', () async {
       final result = await SendTestRunner.send('gestures/velocity_test.dart');
@@ -1034,10 +1117,15 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('asset_test.dart', () async {
-      final result = await SendTestRunner.send('services/asset_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    }, skip: 'Bridge fix: NetworkImage webHtmlElementStrategy non-wrappable default');
+    test(
+      'asset_test.dart',
+      () async {
+        final result = await SendTestRunner.send('services/asset_test.dart');
+        expect(result.success, isTrue, reason: result.error);
+      },
+      skip:
+          'Bridge fix: NetworkImage webHtmlElementStrategy non-wrappable default',
+    );
   });
 
   // ============================================================
@@ -1110,10 +1198,15 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('canvas_test.dart', () async {
-      final result = await SendTestRunner.send('rendering/canvas_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    }, skip: 'Bridge fix: Paint.color setter does not unwrap BridgedInstance<Color>');
+    test(
+      'canvas_test.dart',
+      () async {
+        final result = await SendTestRunner.send('rendering/canvas_test.dart');
+        expect(result.success, isTrue, reason: result.error);
+      },
+      skip:
+          'Bridge fix: Paint.color setter does not unwrap BridgedInstance<Color>',
+    );
 
     test('layers_data_test.dart', () async {
       final result = await SendTestRunner.send(

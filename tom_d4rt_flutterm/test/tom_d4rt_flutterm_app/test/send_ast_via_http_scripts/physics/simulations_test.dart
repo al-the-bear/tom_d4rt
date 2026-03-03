@@ -151,7 +151,9 @@ dynamic build(BuildContext context) {
 
   // FrictionSimulation.through - creates simulation that reaches a specific point
   final throughSim = FrictionSimulation.through(0.0, 500.0, 100.0, 10.0);
-  print('FrictionSimulation.through(start=0, end=500, startVel=100, endVel=10):');
+  print(
+    'FrictionSimulation.through(start=0, end=500, startVel=100, endVel=10):',
+  );
   for (final t in [0.0, 0.25, 0.5, 0.75, 1.0]) {
     print('  t=$t: x=${throughSim.x(t).toStringAsFixed(4)}');
   }

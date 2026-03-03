@@ -173,9 +173,7 @@ dynamic build(BuildContext context) {
   // Note: DecoratedBoxTransition removed - AlwaysStoppedAnimation<dynamic> can't be
   // assigned to Animation<Decoration> in D4rt
 
-  print(
-    'All RotationTransition/SizeTransition tests completed',
-  );
+  print('All RotationTransition/SizeTransition tests completed');
 
   return SingleChildScrollView(
     child: Column(

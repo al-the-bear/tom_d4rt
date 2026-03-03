@@ -79,7 +79,9 @@ dynamic build(BuildContext context) {
 
   // Encode success envelope
   final successEnv = jsonMethodCodec.encodeSuccessEnvelope('result_value');
-  print('Encoded success envelope: ${successEnv != null ? "has data" : "null"}');
+  print(
+    'Encoded success envelope: ${successEnv != null ? "has data" : "null"}',
+  );
 
   // Decode success envelope
   final decodedSuccess = jsonMethodCodec.decodeEnvelope(successEnv);
@@ -137,7 +139,9 @@ dynamic build(BuildContext context) {
   // Encode method call
   final stdCall = MethodCall('getData', [1, 2, 3]);
   final stdEncoded = stdMethodCodec.encodeMethodCall(stdCall);
-  print('Encoded standard method call: ${stdEncoded != null ? "has data" : "null"}');
+  print(
+    'Encoded standard method call: ${stdEncoded != null ? "has data" : "null"}',
+  );
 
   final stdDecoded = stdMethodCodec.decodeMethodCall(stdEncoded);
   print('Decoded: method=${stdDecoded.method}, args=${stdDecoded.arguments}');
