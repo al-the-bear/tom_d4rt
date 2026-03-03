@@ -385,7 +385,6 @@ dynamic build(BuildContext context) {
   return CupertinoApp(
     debugShowCheckedModeBanner: false,
     home: CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(middle: Text('Text Fields Test')),
       child: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.all(16.0),

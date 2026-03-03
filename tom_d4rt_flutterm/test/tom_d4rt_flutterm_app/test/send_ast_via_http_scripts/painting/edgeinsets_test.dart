@@ -214,9 +214,10 @@ dynamic build(BuildContext context) {
     textDirection: TextDirection.ltr,
     child: Container(
       padding: EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
           Text(
             'EdgeInsets Tests',
             style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
@@ -307,6 +308,7 @@ dynamic build(BuildContext context) {
             ),
           ),
         ],
+        ),
       ),
     ),
   );

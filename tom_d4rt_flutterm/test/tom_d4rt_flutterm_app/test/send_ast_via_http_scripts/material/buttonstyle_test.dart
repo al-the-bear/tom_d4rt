@@ -13,7 +13,7 @@ dynamic build(BuildContext context) {
 
   // Test ButtonStyle with textStyle
   final textStyleButton = ButtonStyle(
-    textStyle: MaterialStateProperty.all(
+    textStyle: WidgetStateProperty.all(
       TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
     ),
   );
@@ -21,45 +21,45 @@ dynamic build(BuildContext context) {
 
   // Test ButtonStyle with backgroundColor
   final backgroundStyle = ButtonStyle(
-    backgroundColor: MaterialStateProperty.all(Colors.blue),
+    backgroundColor: WidgetStateProperty.all(Colors.blue),
   );
   print('ButtonStyle with backgroundColor created');
 
   // Test ButtonStyle with foregroundColor
   final foregroundStyle = ButtonStyle(
-    foregroundColor: MaterialStateProperty.all(Colors.white),
-    backgroundColor: MaterialStateProperty.all(Colors.purple),
+    foregroundColor: WidgetStateProperty.all(Colors.white),
+    backgroundColor: WidgetStateProperty.all(Colors.purple),
   );
   print('ButtonStyle with foregroundColor created');
 
   // Test ButtonStyle with overlayColor
   final overlayStyle = ButtonStyle(
-    overlayColor: MaterialStateProperty.all(Colors.yellow.withOpacity(0.3)),
+    overlayColor: WidgetStateProperty.all(Colors.yellow.withOpacity(0.3)),
   );
   print('ButtonStyle with overlayColor created');
 
   // Test ButtonStyle with shadowColor
   final shadowStyle = ButtonStyle(
-    shadowColor: MaterialStateProperty.all(Colors.black),
-    elevation: MaterialStateProperty.all(8.0),
+    shadowColor: WidgetStateProperty.all(Colors.black),
+    elevation: WidgetStateProperty.all(8.0),
   );
   print('ButtonStyle with shadowColor created');
 
   // Test ButtonStyle with surfaceTintColor
   final surfaceTintStyle = ButtonStyle(
-    surfaceTintColor: MaterialStateProperty.all(Colors.blue.shade100),
+    surfaceTintColor: WidgetStateProperty.all(Colors.blue.shade100),
   );
   print('ButtonStyle with surfaceTintColor created');
 
   // Test ButtonStyle with elevation
   final elevationStyle = ButtonStyle(
-    elevation: MaterialStateProperty.all(12.0),
+    elevation: WidgetStateProperty.all(12.0),
   );
   print('ButtonStyle with elevation created');
 
   // Test ButtonStyle with padding
   final paddingStyle = ButtonStyle(
-    padding: MaterialStateProperty.all(
+    padding: WidgetStateProperty.all(
       EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
     ),
   );
@@ -67,35 +67,35 @@ dynamic build(BuildContext context) {
 
   // Test ButtonStyle with minimumSize
   final minimumSizeStyle = ButtonStyle(
-    minimumSize: MaterialStateProperty.all(Size(200.0, 60.0)),
+    minimumSize: WidgetStateProperty.all(Size(200.0, 60.0)),
   );
   print('ButtonStyle with minimumSize created');
 
   // Test ButtonStyle with fixedSize
   final fixedSizeStyle = ButtonStyle(
-    fixedSize: MaterialStateProperty.all(Size(150.0, 50.0)),
+    fixedSize: WidgetStateProperty.all(Size(150.0, 50.0)),
   );
   print('ButtonStyle with fixedSize created');
 
   // Test ButtonStyle with maximumSize
   final maximumSizeStyle = ButtonStyle(
-    maximumSize: MaterialStateProperty.all(Size(300.0, 80.0)),
+    maximumSize: WidgetStateProperty.all(Size(300.0, 80.0)),
   );
   print('ButtonStyle with maximumSize created');
 
   // Test ButtonStyle with iconColor
   final iconColorStyle = ButtonStyle(
-    iconColor: MaterialStateProperty.all(Colors.orange),
+    iconColor: WidgetStateProperty.all(Colors.orange),
   );
   print('ButtonStyle with iconColor created');
 
   // Test ButtonStyle with iconSize
-  final iconSizeStyle = ButtonStyle(iconSize: MaterialStateProperty.all(28.0));
+  final iconSizeStyle = ButtonStyle(iconSize: WidgetStateProperty.all(28.0));
   print('ButtonStyle with iconSize created');
 
   // Test ButtonStyle with side (border)
   final sideStyle = ButtonStyle(
-    side: MaterialStateProperty.all(
+    side: WidgetStateProperty.all(
       BorderSide(color: Colors.green, width: 2.0),
     ),
   );
@@ -103,7 +103,7 @@ dynamic build(BuildContext context) {
 
   // Test ButtonStyle with shape
   final shapeStyle = ButtonStyle(
-    shape: MaterialStateProperty.all(
+    shape: WidgetStateProperty.all(
       RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
     ),
   );
@@ -111,13 +111,13 @@ dynamic build(BuildContext context) {
 
   // Test ButtonStyle with stadium shape
   final stadiumStyle = ButtonStyle(
-    shape: MaterialStateProperty.all(StadiumBorder()),
+    shape: WidgetStateProperty.all(StadiumBorder()),
   );
   print('ButtonStyle with StadiumBorder shape created');
 
   // Test ButtonStyle with mouseCursor
   final cursorStyle = ButtonStyle(
-    mouseCursor: MaterialStateProperty.all(SystemMouseCursors.click),
+    mouseCursor: WidgetStateProperty.all(SystemMouseCursors.click),
   );
   print('ButtonStyle with mouseCursor created');
 
@@ -151,24 +151,24 @@ dynamic build(BuildContext context) {
 
   // Test ButtonStyle with state-dependent properties
   final statefulStyle = ButtonStyle(
-    backgroundColor: MaterialStateProperty.resolveWith<Color?>((
-      Set<MaterialState> states,
+    backgroundColor: WidgetStateProperty.resolveWith<Color?>((
+      Set<WidgetState> states,
     ) {
-      if (states.contains(MaterialState.pressed)) {
+      if (states.contains(WidgetState.pressed)) {
         return Colors.green.shade700;
       }
-      if (states.contains(MaterialState.hovered)) {
+      if (states.contains(WidgetState.hovered)) {
         return Colors.green.shade400;
       }
-      if (states.contains(MaterialState.disabled)) {
+      if (states.contains(WidgetState.disabled)) {
         return Colors.grey;
       }
       return Colors.green;
     }),
-    foregroundColor: MaterialStateProperty.resolveWith<Color?>((
-      Set<MaterialState> states,
+    foregroundColor: WidgetStateProperty.resolveWith<Color?>((
+      Set<WidgetState> states,
     ) {
-      if (states.contains(MaterialState.disabled)) {
+      if (states.contains(WidgetState.disabled)) {
         return Colors.grey.shade400;
       }
       return Colors.white;
@@ -178,41 +178,41 @@ dynamic build(BuildContext context) {
 
   // Test ButtonStyle copyWith
   final baseStyle = ButtonStyle(
-    backgroundColor: MaterialStateProperty.all(Colors.blue),
-    foregroundColor: MaterialStateProperty.all(Colors.white),
+    backgroundColor: WidgetStateProperty.all(Colors.blue),
+    foregroundColor: WidgetStateProperty.all(Colors.white),
   );
   final copiedStyle = baseStyle.copyWith(
-    backgroundColor: MaterialStateProperty.all(Colors.red),
+    backgroundColor: WidgetStateProperty.all(Colors.red),
   );
   print('ButtonStyle copyWith created');
 
   // Test ButtonStyle merge
   final style1 = ButtonStyle(
-    backgroundColor: MaterialStateProperty.all(Colors.blue),
-    padding: MaterialStateProperty.all(EdgeInsets.all(16.0)),
+    backgroundColor: WidgetStateProperty.all(Colors.blue),
+    padding: WidgetStateProperty.all(EdgeInsets.all(16.0)),
   );
   final style2 = ButtonStyle(
-    foregroundColor: MaterialStateProperty.all(Colors.white),
-    elevation: MaterialStateProperty.all(4.0),
+    foregroundColor: WidgetStateProperty.all(Colors.white),
+    elevation: WidgetStateProperty.all(4.0),
   );
   final mergedStyle = style1.merge(style2);
   print('ButtonStyle merge created');
 
   // Test ButtonStyle with all properties
   final fullStyle = ButtonStyle(
-    textStyle: MaterialStateProperty.all(TextStyle(fontSize: 16.0)),
-    backgroundColor: MaterialStateProperty.all(Colors.indigo),
-    foregroundColor: MaterialStateProperty.all(Colors.white),
-    overlayColor: MaterialStateProperty.all(Colors.white.withOpacity(0.1)),
-    shadowColor: MaterialStateProperty.all(Colors.indigo.shade900),
-    surfaceTintColor: MaterialStateProperty.all(Colors.indigo.shade100),
-    elevation: MaterialStateProperty.all(6.0),
-    padding: MaterialStateProperty.all(
+    textStyle: WidgetStateProperty.all(TextStyle(fontSize: 16.0)),
+    backgroundColor: WidgetStateProperty.all(Colors.indigo),
+    foregroundColor: WidgetStateProperty.all(Colors.white),
+    overlayColor: WidgetStateProperty.all(Colors.white.withOpacity(0.1)),
+    shadowColor: WidgetStateProperty.all(Colors.indigo.shade900),
+    surfaceTintColor: WidgetStateProperty.all(Colors.indigo.shade100),
+    elevation: WidgetStateProperty.all(6.0),
+    padding: WidgetStateProperty.all(
       EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
     ),
-    minimumSize: MaterialStateProperty.all(Size(120.0, 48.0)),
-    side: MaterialStateProperty.all(BorderSide.none),
-    shape: MaterialStateProperty.all(
+    minimumSize: WidgetStateProperty.all(Size(120.0, 48.0)),
+    side: WidgetStateProperty.all(BorderSide.none),
+    shape: WidgetStateProperty.all(
       RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
     ),
     visualDensity: VisualDensity.standard,
@@ -304,7 +304,7 @@ dynamic build(BuildContext context) {
         SizedBox(height: 8.0),
         ElevatedButton(
           style: stadiumStyle.copyWith(
-            padding: MaterialStateProperty.all(
+            padding: WidgetStateProperty.all(
               EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
             ),
           ),
@@ -373,14 +373,14 @@ dynamic build(BuildContext context) {
           children: [
             TextButton(
               style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all(Colors.orange),
+                foregroundColor: WidgetStateProperty.all(Colors.orange),
               ),
               onPressed: () {},
               child: Text('TextButton'),
             ),
             OutlinedButton(
               style: ButtonStyle(
-                side: MaterialStateProperty.all(
+                side: WidgetStateProperty.all(
                   BorderSide(color: Colors.teal, width: 2.0),
                 ),
               ),
@@ -389,7 +389,7 @@ dynamic build(BuildContext context) {
             ),
             FilledButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.deepPurple),
+                backgroundColor: WidgetStateProperty.all(Colors.deepPurple),
               ),
               onPressed: () {},
               child: Text('FilledButton'),

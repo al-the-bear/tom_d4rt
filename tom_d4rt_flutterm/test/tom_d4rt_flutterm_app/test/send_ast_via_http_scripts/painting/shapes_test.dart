@@ -46,11 +46,12 @@ dynamic build(BuildContext context) {
   );
   print('OvalBorder side: ${oval.side}');
 
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Card(
-        shape: roundedRect,
+  return SingleChildScrollView(
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Card(
+          shape: roundedRect,
         child: Padding(
           padding: EdgeInsets.all(16.0),
           child: Text('RoundedRectangleBorder'),
@@ -90,14 +91,15 @@ dynamic build(BuildContext context) {
         ),
       ),
       SizedBox(height: 8.0),
-      Material(
-        shape: oval,
-        color: Colors.teal.shade50,
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Text('OvalBorder'),
+        Material(
+          shape: oval,
+          color: Colors.teal.shade50,
+          child: Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Text('OvalBorder'),
+          ),
         ),
-      ),
-    ],
+      ],
+    ),
   );
 }

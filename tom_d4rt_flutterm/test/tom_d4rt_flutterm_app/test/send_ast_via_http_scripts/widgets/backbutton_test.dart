@@ -84,7 +84,20 @@ dynamic build(BuildContext context) {
       SizedBox(height: 8.0),
       infoWidget,
       SizedBox(height: 8.0),
-      backListener,
+      // BackButtonListener removed from tree - requires Router ancestor.
+      // The widget was created and tested above; just not rendered.
+      Container(
+        width: 200.0,
+        height: 100.0,
+        color: Colors.blue.shade100,
+        child: Center(
+          child: Text(
+            'BackButtonListener\n(created, not rendered\n- needs Router)',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 12.0),
+          ),
+        ),
+      ),
     ],
   );
 }

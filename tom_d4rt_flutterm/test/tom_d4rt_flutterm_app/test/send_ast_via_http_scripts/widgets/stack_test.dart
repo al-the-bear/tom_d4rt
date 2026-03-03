@@ -98,20 +98,22 @@ dynamic build(BuildContext context) {
 
   print('Stack test completed');
 
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      basicStack,
-      SizedBox(height: 16.0),
-      alignedStack,
-      SizedBox(height: 16.0),
-      fitStack,
-      SizedBox(height: 16.0),
-      clippedStack,
-      SizedBox(height: 16.0),
-      directedStack,
-      SizedBox(height: 16.0),
-      indexedStack,
-    ],
+  return SingleChildScrollView(
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        basicStack,
+        SizedBox(height: 16.0),
+        alignedStack,
+        SizedBox(height: 16.0),
+        fitStack,
+        SizedBox(height: 16.0),
+        clippedStack,
+        SizedBox(height: 16.0),
+        directedStack,
+        SizedBox(height: 16.0),
+        indexedStack,
+      ],
+    ),
   );
 }

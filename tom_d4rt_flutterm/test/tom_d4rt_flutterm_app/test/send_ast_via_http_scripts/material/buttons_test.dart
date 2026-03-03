@@ -185,23 +185,23 @@ dynamic build(BuildContext context) {
 
   // Test button styling with ButtonStyle
   final customStyle = ButtonStyle(
-    backgroundColor: MaterialStateProperty.resolveWith<Color>((states) {
-      if (states.contains(MaterialState.pressed)) {
+    backgroundColor: WidgetStateProperty.resolveWith<Color>((states) {
+      if (states.contains(WidgetState.pressed)) {
         return Colors.blue.shade700;
       }
-      if (states.contains(MaterialState.hovered)) {
+      if (states.contains(WidgetState.hovered)) {
         return Colors.blue.shade600;
       }
-      if (states.contains(MaterialState.disabled)) {
+      if (states.contains(WidgetState.disabled)) {
         return Colors.grey;
       }
       return Colors.blue;
     }),
-    foregroundColor: MaterialStateProperty.all(Colors.white),
-    padding: MaterialStateProperty.all(
+    foregroundColor: WidgetStateProperty.all(Colors.white),
+    padding: WidgetStateProperty.all(
       EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
     ),
-    shape: MaterialStateProperty.all(
+    shape: WidgetStateProperty.all(
       RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
     ),
   );

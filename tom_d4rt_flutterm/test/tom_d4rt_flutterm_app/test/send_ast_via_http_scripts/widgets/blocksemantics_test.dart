@@ -118,10 +118,11 @@ dynamic build(BuildContext context) {
   print('BlockSemantics containing IndexedSemantics(index: 10) created');
 
   print('BlockSemantics test completed');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('BlockSemantics / IndexedSemantics Tests'),
+  return SingleChildScrollView(
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text('BlockSemantics / IndexedSemantics Tests'),
       SizedBox(height: 8.0),
       block1,
       block2,
@@ -132,8 +133,9 @@ dynamic build(BuildContext context) {
       indexed3,
       SizedBox(height: 8.0),
       indexedList,
-      SizedBox(height: 8.0),
-      combined,
-    ],
+        SizedBox(height: 8.0),
+        combined,
+      ],
+    ),
   );
 }

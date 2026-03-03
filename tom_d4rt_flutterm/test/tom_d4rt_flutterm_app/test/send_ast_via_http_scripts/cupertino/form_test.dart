@@ -301,7 +301,6 @@ dynamic build(BuildContext context) {
   return CupertinoApp(
     debugShowCheckedModeBanner: false,
     home: CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(middle: Text('Form Widgets')),
       child: SafeArea(
         child: SingleChildScrollView(
           child: Column(

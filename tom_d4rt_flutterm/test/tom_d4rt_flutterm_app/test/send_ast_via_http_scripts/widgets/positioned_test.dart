@@ -127,22 +127,24 @@ dynamic build(BuildContext context) {
 
   print('Positioned test completed');
 
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      leftTop,
-      SizedBox(height: 8.0),
-      rightBottom,
-      SizedBox(height: 8.0),
-      allPositions,
-      SizedBox(height: 8.0),
-      sized,
-      SizedBox(height: 8.0),
-      fill,
-      SizedBox(height: 8.0),
-      fromRect,
-      SizedBox(height: 8.0),
-      multiple,
-    ],
+  return SingleChildScrollView(
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        leftTop,
+        SizedBox(height: 8.0),
+        rightBottom,
+        SizedBox(height: 8.0),
+        allPositions,
+        SizedBox(height: 8.0),
+        sized,
+        SizedBox(height: 8.0),
+        fill,
+        SizedBox(height: 8.0),
+        fromRect,
+        SizedBox(height: 8.0),
+        multiple,
+      ],
+    ),
   );
 }

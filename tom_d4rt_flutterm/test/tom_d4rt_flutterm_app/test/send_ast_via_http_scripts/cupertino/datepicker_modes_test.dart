@@ -184,40 +184,42 @@ dynamic build(BuildContext context) {
         middle: Text('DatePicker Modes Test'),
       ),
       child: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text(
-                'Cupertino Date/Timer Pickers:',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Text(
+                  'Cupertino Date/Timer Pickers:',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+                ),
               ),
-            ),
-            Expanded(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      children: [
-                        Text('Date Mode'),
-                        SizedBox(height: 4.0),
-                        Expanded(child: datePicker),
-                      ],
+              SizedBox(
+                height: 250.0,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        children: [
+                          Text('Date Mode'),
+                          SizedBox(height: 4.0),
+                          Expanded(child: datePicker),
+                        ],
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        Text('Time Mode'),
-                        SizedBox(height: 4.0),
-                        Expanded(child: timePicker),
-                      ],
+                    Expanded(
+                      child: Column(
+                        children: [
+                          Text('Time Mode'),
+                          SizedBox(height: 4.0),
+                          Expanded(child: timePicker),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
             SizedBox(height: 8.0),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -248,6 +250,7 @@ dynamic build(BuildContext context) {
               ),
             ),
           ],
+          ),
         ),
       ),
     ),

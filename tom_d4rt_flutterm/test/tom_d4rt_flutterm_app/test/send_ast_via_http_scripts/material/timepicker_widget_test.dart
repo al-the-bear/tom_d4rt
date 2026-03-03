@@ -65,11 +65,13 @@ dynamic build(BuildContext context) {
   );
 
   print('TimePickerDialog test completed');
-  return Column(
-    children: [
-      Expanded(child: widget1),
-      Expanded(child: widget4),
-      Expanded(child: widget6),
-    ],
+  return SingleChildScrollView(
+    child: Column(
+      children: [
+        SizedBox(height: 500.0, child: widget1),
+        SizedBox(height: 500.0, child: widget4),
+        SizedBox(height: 500.0, child: widget6),
+      ],
+    ),
   );
 }

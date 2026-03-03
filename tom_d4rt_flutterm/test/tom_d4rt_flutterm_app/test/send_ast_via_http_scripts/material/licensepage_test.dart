@@ -49,13 +49,15 @@ dynamic build(BuildContext context) {
   print('LicensePage(all properties) created');
 
   print('LicensePage test completed');
-  return Column(
-    children: [
-      Expanded(child: widget1),
-      Expanded(child: widget2),
-      Expanded(child: widget3),
-      Expanded(child: widget4),
-      Expanded(child: widget5),
-    ],
+  return SingleChildScrollView(
+    child: Column(
+      children: [
+        SizedBox(height: 400.0, child: widget1),
+        SizedBox(height: 400.0, child: widget2),
+        SizedBox(height: 400.0, child: widget3),
+        SizedBox(height: 400.0, child: widget4),
+        SizedBox(height: 400.0, child: widget5),
+      ],
+    ),
   );
 }
