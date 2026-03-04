@@ -7,6 +7,54 @@ Specialized classes for advanced use cases - test after essential and important 
 
 ---
 
+## Batch 1 Progress (38 scripts created)
+
+| Package | Script | Classes Covered | Status |
+|---------|--------|-----------------|--------|
+| animation | animation_status_test.dart | AnimationStatus, AnimationMax, AnimationMin, AnimationMean | CREATED |
+| cupertino | cupertino_secondary_test.dart | CupertinoColors, CupertinoDynamicColor, CupertinoDialogAction, CupertinoActionSheetAction, CupertinoFormRow | CREATED |
+| dart_ui | enums_ui_test.dart | Clip, PathFillType, PathOperation, StrokeCap, StrokeJoin, PaintingStyle, BlendMode, TileMode, VertexMode, PointMode, ImageByteFormat, PixelFormat, Brightness, AppLifecycleState, PointerDeviceKind, PointerSignalKind, Locale | CREATED |
+| foundation | targetplatform_test.dart | TargetPlatform, defaultTargetPlatform | CREATED |
+| foundation | synchronousfuture_test.dart | SynchronousFuture, Factory | CREATED |
+| foundation | observer_list_test.dart | ObserverList, HashedObserverList | CREATED |
+| foundation | buffers_misc_test.dart | BitField, WriteBuffer, ReadBuffer, Category | CREATED |
+| gestures | scale_details_test.dart | ScaleStartDetails, ScaleUpdateDetails, ScaleEndDetails, LongPressStartDetails, LongPressMoveUpdateDetails, LongPressEndDetails | CREATED |
+| material | texttheme_test.dart | TextTheme, Typography, VisualDensity, MaterialTapTargetSize | CREATED |
+| material | buttonstyle_popup_test.dart | ButtonStyle, WidgetStateProperty, WidgetState, PopupMenuButton, PopupMenuItem, PopupMenuDivider | CREATED |
+| material | chip_variants_test.dart | ActionChip, FilterChip, ChoiceChip, InputChip, ChipThemeData | CREATED |
+| material | fablocation_messenger_test.dart | FloatingActionButtonLocation, SnackBarBehavior, SnackBarClosedReason, SnackBarAction, MaterialBannerClosedReason, TabBarIndicatorSize | CREATED |
+| material | datetime_utils_test.dart | DateUtils, DateTimeRange, TimeOfDay, DatePickerEntryMode, TimePickerEntryMode, DayPeriod, TimeOfDayFormat, HourFormat | CREATED |
+| painting | enums_painting_test.dart | TextOverflow, BoxFit, ImageRepeat, FilterQuality, TextWidthBasis, Clip, AxisDirection, GrowthDirection, ScrollDirection | CREATED |
+| painting | gradient_transform_test.dart | GradientRotation, GradientTransform, LinearGradient, RadialGradient, SweepGradient | CREATED |
+| painting | matrixutils_test.dart | MatrixUtils (transformPoint, transformRect, getAsTranslation, getAsScale, isIdentity, forceToPoint) | CREATED |
+| painting | notched_shapes_test.dart | CircularNotchedRectangle | CREATED |
+| painting | image_cache_test.dart | ImageCache, ImageConfiguration | CREATED |
+| painting | imagestream_misc_test.dart | PlaceholderDimensions, PlaceholderAlignment, Accumulator, InlineSpanSemanticsInformation, ImageChunkEvent, ImageConfiguration | CREATED |
+| physics | springdescription_test.dart | SpringDescription, SpringDescription.withDampingRatio, BoundedFrictionSimulation | CREATED |
+| rendering | hittest_pipeline_test.dart | BoxConstraints (advanced), LayerLink, LayerHandle, OffsetLayer | CREATED |
+| scheduler | scheduler_misc_test.dart | SchedulerPhase, Priority | CREATED |
+| semantics | semantics_properties_test.dart | SemanticsProperties, CustomSemanticsAction, OrdinalSortKey, SemanticsTag, SemanticsHintOverrides | CREATED |
+| services | system_chrome_test.dart | DeviceOrientation, SystemUiMode, SystemUiOverlay, SystemSoundType, MaxLengthEnforcement, SmartDashesType, SmartQuotesType, TextInputType, TextInputAction, ApplicationSwitcherDescription | CREATED |
+| services | text_editing_value_test.dart | TextEditingValue, TextSelection, TextRange, ClipboardData, FilteringTextInputFormatter, LengthLimitingTextInputFormatter | CREATED |
+| widgets | placeholder_test.dart | Placeholder | CREATED |
+| widgets | defaulttextstyle_test.dart | DefaultTextStyle, AnimatedDefaultTextStyle | CREATED |
+| widgets | textspan_test.dart | TextSpan, WidgetSpan, RichText | CREATED |
+| widgets | keyedsubtree_test.dart | KeyedSubtree, AnnotatedRegion | CREATED |
+| widgets | scrollphysics_test.dart | ScrollPhysics, BouncingScrollPhysics, ClampingScrollPhysics, NeverScrollableScrollPhysics, AlwaysScrollableScrollPhysics, PageScrollPhysics, RangeMaintainingScrollPhysics | CREATED |
+| widgets | preferredsize_test.dart | PreferredSize, GridPaper, PopScope | CREATED |
+| widgets | physicalmodel_test.dart | PhysicalModel, PhysicalShape, ColorFiltered | CREATED |
+| widgets | focus_properties_test.dart | FocusScopeNode, FocusHighlightMode, FocusHighlightStrategy, FocusNode (advanced) | CREATED |
+| widgets | shaderfilter_test.dart | ShaderMask, BackdropFilter, ImageFiltered, ColorFiltered, CheckedModeBanner | CREATED |
+| widgets | shortcuts_actions_test.dart | SingleActivator, CharacterActivator, LogicalKeySet, ActivateIntent, DismissIntent, ScrollIntent, DoNothingAction, VoidCallbackIntent, CallbackShortcuts | CREATED |
+| widgets | sliver_delegates_test.dart | SliverChildBuilderDelegate, SliverChildListDelegate, SliverSafeArea, SliverVisibility, SliverIgnorePointer | CREATED |
+| widgets | restorable_values_test.dart | RestorableInt, RestorableIntN, RestorableDouble, RestorableDoubleN, RestorableBool, RestorableBoolN, RestorableString, RestorableStringN, RestorableDateTime, RestorableDateTimeN, RestorableTextEditingController | CREATED |
+| widgets | scrollbar_layout_misc_test.dart | PageStorageKey, TraversalDirection, NumericFocusOrder, LexicalFocusOrder, SizeChangedLayoutNotification, OrientationBuilder, FocusTraversalGroup, OrderedTraversalPolicy | CREATED |
+
+**Test harness:** `test/secondary_classes_test.dart` (38 tests)
+**Requires:** Test app running on port 4247
+
+---
+
 ## widgets (380 classes)
 
 | Class | Description | Test File | Status | Result |
