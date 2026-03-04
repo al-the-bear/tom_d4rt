@@ -2,7 +2,8 @@
 
 **Priority: SECONDARY**
 **Total classes: 590**
-**Covered so far: ~950 classes in 145 scripts (Batches 1-9)**
+**Coverage: 559/590 classes (517 scripted + 42 batch-covered), 31 tp-only skipped**
+**Scripts: 654 test entries (145 batch + 509 individual)**
 
 Specialized classes for advanced use cases - test after essential and important classes.
 
@@ -210,189 +211,189 @@ Specialized classes for advanced use cases - test after essential and important 
 
 | Class | Description | Test File | Status | Result |
 |-------|-------------|-----------|--------|--------|
-| AlwaysScrollableScrollPhysics | Always scroll | test_widgets_alwaysscrollablescrollphysics.dart | - | - |
-| AndroidView | Android view | test_widgets_android_view.dart | - | - |
-| AnimatedAlign | Animated align | test_widgets_animated_align.dart | - | - |
-| AnimatedCrossFade | Cross fade | test_widgets_animated_cross_fade.dart | - | - |
-| AnimatedDefaultTextStyle | Animated text style | test_widgets_animateddefaulttextstyle.dart | - | - |
-| AnimatedFractionallySizedBox | Animated fraction | test_widgets_animated_fractionally_sized_box.dart | - | - |
-| AnimatedModalBarrier | Modal barrier | test_widgets_animated_modal_barrier.dart | - | - |
-| AnimatedPhysicalModel | Animated physical | test_widgets_animated_physical_model.dart | - | - |
-| AnimatedRotation | Animated rotation | test_widgets_animated_rotation.dart | - | - |
-| AnimatedScale | Animated scale | test_widgets_animated_scale.dart | - | - |
-| AnimatedSlide | Animated slide | test_widgets_animated_slide.dart | - | - |
-| AnimatedSwitcher | Switcher | test_widgets_animated_switcher.dart | - | - |
-| AutofillGroup | Autofill group | test_widgets_autofillgroup.dart | - | - |
-| BackdropFilter | Backdrop filter | test_widgets_backdropfilter.dart | - | - |
-| BouncingScrollPhysics | iOS scroll physics | test_widgets_bouncingscrollphysics.dart | - | - |
-| BuildOwner | Build owner | test_widgets_build_owner.dart | - | - |
-| BuildScope | Build scope | test_widgets_build_scope.dart | - | - |
-| CheckedModeBanner | Debug banner | test_widgets_checkedmodebanner.dart | - | - |
-| ClampingScrollPhysics | Android scroll physics | test_widgets_clampingscrollphysics.dart | - | - |
-| ColorFiltered | Color filtered | test_widgets_colorfiltered.dart | - | - |
-| ComponentElement | Component element | test_widgets_componentelement.dart | - | - |
-| CompositedTransformFollower | Transform follower | test_widgets_composited_transform_follower.dart | - | - |
-| CompositedTransformTarget | Transform target | test_widgets_composited_transform_target.dart | - | - |
-| ContentInsertionConfiguration | Content insertion | test_widgets_content_insertion_configuration.dart | - | - |
-| ContextMenuButtonItem | Context button | test_widgets_contextmenubuttonitem.dart | - | - |
-| ContextMenuController | Context controller | test_widgets_contextmenucontroller.dart | - | - |
-| DefaultAssetBundle | Default asset bundle | test_widgets_defaultassetbundle.dart | - | - |
-| DefaultTextHeightBehavior | Text height | test_widgets_default_text_height_behavior.dart | - | - |
-| DefaultTextStyle | Default text style | test_widgets_defaulttextstyle.dart | - | - |
-| Directionality | Text direction | test_widgets_directionality.dart | - | - |
-| DisplayFeatureSubScreen | Feature subscreen | test_widgets_displayfeaturesubscreen.dart | - | - |
-| DualTransitionBuilder | Dual transition | test_widgets_dual_transition_builder.dart | - | - |
-| EditableTextState | Editable state | test_widgets_editabletextstate.dart | - | - |
-| Element | Widget element | test_widgets_element.dart | - | - |
-| FadeInImage | Fade-in images | test_widgets_fade_in_image.dart | - | - |
-| FixedExtentMetrics | Extent metrics | test_widgets_fixed_extent_metrics.dart | - | - |
-| FixedExtentScrollController | Extent controller | test_widgets_fixed_extent_scroll_controller.dart | - | - |
-| FixedExtentScrollPhysics | Fixed extent | test_widgets_fixed_extent_scroll_physics.dart | - | - |
-| GlowingOverscrollIndicator | Glow overscroll | test_widgets_glowing_overscroll_indicator.dart | - | - |
-| GridPaper | Grid paper | test_widgets_gridpaper.dart | - | - |
-| HtmlElementView | Web view | test_widgets_html_element_view.dart | - | - |
-| ImageFiltered | Image filtered | test_widgets_imagefiltered.dart | - | - |
-| ImplicitlyAnimatedWidget | Implicit animation | test_widgets_implicitly_animated_widget.dart | - | - |
-| ImplicitlyAnimatedWidgetState | Implicit state | test_widgets_implicitly_animated_widget_state.dart | - | - |
-| IndexedStack | Indexed stack | test_widgets_indexed_stack.dart | - | - |
-| InheritedElement | Inherited element | test_widgets_inheritedelement.dart | - | - |
-| InheritedModel | Inherited model | test_widgets_inherited_model.dart | - | - |
-| InheritedNotifier | Inherited notifier | test_widgets_inheritednotifier.dart | - | - |
-| InheritedTheme | Inherited theme | test_widgets_inherited_theme.dart | - | - |
-| InheritedWidget | Inherited widget | test_widgets_inherited_widget.dart | - | - |
-| KeyedSubtree | Keyed subtree | test_widgets_keyedsubtree.dart | - | - |
-| LeafRenderObjectElement | Leaf element | test_widgets_leaf_render_object_element.dart | - | - |
-| LeafRenderObjectWidget | Leaf render widget | test_widgets_leafrenderobjectwidget.dart | - | - |
-| ListWheelChildBuilderDelegate | Builder delegate | test_widgets_list_wheel_child_builder_delegate.dart | - | - |
-| ListWheelChildDelegate | Child delegate | test_widgets_list_wheel_child_delegate.dart | - | - |
-| ListWheelChildListDelegate | List delegate | test_widgets_list_wheel_child_list_delegate.dart | - | - |
-| ListWheelChildLoopingListDelegate | Looping delegate | test_widgets_list_wheel_child_looping_list_delegate.dart | - | - |
-| ListWheelElement | Wheel element | test_widgets_list_wheel_element.dart | - | - |
-| ListWheelScrollView | Wheel scroll | test_widgets_list_wheel_scroll_view.dart | - | - |
-| ListWheelViewport | Wheel viewport | test_widgets_list_wheel_viewport.dart | - | - |
-| MagnifierController | Magnifier controller | test_widgets_magnifiercontroller.dart | - | - |
-| MagnifierDecoration | Magnifier decoration | test_widgets_magnifierdecoration.dart | - | - |
-| MagnifierInfo | Magnifier info | test_widgets_magnifier_info.dart | - | - |
-| MultiChildRenderObjectElement | Multi element | test_widgets_multi_child_render_object_element.dart | - | - |
-| MultiChildRenderObjectWidget | Multi child render | test_widgets_multichildrenderobjectwidget.dart | - | - |
-| NavigationToolbar | Nav toolbar | test_widgets_navigation_toolbar.dart | - | - |
-| NeverScrollableScrollPhysics | Never scroll | test_widgets_neverscrollablescrollphysics.dart | - | - |
-| OverflowBar | Overflow bar | test_widgets_overflow_bar.dart | - | - |
-| OverflowBox | Overflow box | test_widgets_overflow_box.dart | - | - |
-| PageScrollPhysics | Page scroll | test_widgets_pagescrollphysics.dart | - | - |
-| PageStorage | Page storage | test_widgets_pagestorage.dart | - | - |
-| PageStorageBucket | Page bucket | test_widgets_pagestoragebucket.dart | - | - |
-| PageStorageKey | Page storage key | test_widgets_pagestoragekey.dart | - | - |
-| ParentDataElement | Parent data element | test_widgets_parentdataelement.dart | - | - |
-| ParentDataWidget | Parent data | test_widgets_parent_data_widget.dart | - | - |
-| PerformanceOverlay | Perf overlay | test_widgets_performance_overlay.dart | - | - |
-| PhysicalModel | Physical model | test_widgets_physicalmodel.dart | - | - |
-| PhysicalShape | Physical shape | test_widgets_physicalshape.dart | - | - |
-| PinnedHeaderSliver | Pinned header | test_widgets_pinned_header_sliver.dart | - | - |
-| Placeholder | Placeholder widget | test_widgets_placeholder.dart | - | - |
-| PlatformMenu | Platform menu | test_services_platformmenu.dart | - | - |
-| PlatformMenuBar | Platform menu bar | test_widgets_platformmenubar.dart | - | - |
-| PlatformMenuItem | Platform menu item | test_widgets_platformmenuitem.dart | - | - |
-| PlatformMenuItemGroup | Menu group | test_services_platformmenuitemgroup.dart | - | - |
-| PlatformProvidedMenuItem | Provided item | test_services_platformprovidedmenuitem.dart | - | - |
-| PlatformViewLink | View link | test_widgets_platform_view_link.dart | - | - |
-| PlatformViewSurface | View surface | test_widgets_platform_view_surface.dart | - | - |
-| PopScope | Pop scope | test_widgets_popscope.dart | - | - |
-| PositionedDirectional | RTL positioned | test_widgets_positioned_directional.dart | - | - |
-| PrimaryScrollController | Primary scroll | test_widgets_primaryscrollcontroller.dart | - | - |
-| ProxyElement | Proxy element | test_widgets_proxyelement.dart | - | - |
-| ProxyWidget | Proxy widget | test_widgets_proxy_widget.dart | - | - |
-| RadioGroup | Radio group | test_widgets_radio_group.dart | - | - |
-| RangeMaintainingScrollPhysics | Range maintaining | test_widgets_rangemaintainingscrollphysics.dart | - | - |
-| RawMagnifier | Low-level magnifier | test_widgets_rawmagnifier.dart | - | - |
-| RawView | Raw view | test_widgets_raw_view.dart | - | - |
-| RenderObjectElement | Render object element | test_widgets_renderobjectelement.dart | - | - |
-| RenderObjectWidget | Render object widget | test_widgets_renderobjectwidget.dart | - | - |
-| RestorableBool | Restorable bool | test_widgets_restorable_bool.dart | - | - |
-| RestorableDateTime | Restorable datetime | test_widgets_restorabledatetime.dart | - | - |
-| RestorableDouble | Restorable double | test_widgets_restorable_double.dart | - | - |
-| RestorableEnum | Restorable enum | test_widgets_restorableenum.dart | - | - |
-| RestorableInt | Restorable int | test_widgets_restorable_int.dart | - | - |
-| RestorableProperty | Restorable property | test_widgets_restorableproperty.dart | - | - |
-| RestorableString | Restorable string | test_widgets_restorablestring.dart | - | - |
-| RestorableTextEditingController | Restorable controller | test_widgets_restorabletexteditingcontroller.dart | - | - |
-| RestorableValue | Restorable value | test_widgets_restorablevalue.dart | - | - |
-| RestorationMixin | Restoration mixin | test_widgets_restorationmixin.dart | - | - |
-| RestorationScope | Restoration scope | test_widgets_restorationscope.dart | - | - |
-| RootElement | Root element | test_widgets_root_element.dart | - | - |
-| RootRestorationScope | Root restoration | test_widgets_rootrestorationscope.dart | - | - |
-| RootWidget | Root widget | test_widgets_root_widget.dart | - | - |
-| ScrollAction | Scroll action | test_widgets_scrollaction.dart | - | - |
-| ScrollBehavior | Scroll behavior | test_widgets_scrollbehavior.dart | - | - |
-| ScrollConfiguration | Scroll configuration | test_widgets_scrollconfiguration.dart | - | - |
-| ScrollIntent | Scroll intent | test_widgets_scrollintent.dart | - | - |
-| ScrollMetrics | Scroll metrics | test_widgets_scrollmetrics.dart | - | - |
-| ScrollPhysics | Scroll physics | test_widgets_scrollphysics.dart | - | - |
-| ScrollPosition | Scroll position | test_widgets_scrollposition.dart | - | - |
-| Scrollable | Scrollable widget | test_widgets_scrollable.dart | - | - |
-| ScrollableState | Scrollable state | test_widgets_scrollable_state.dart | - | - |
-| SelectableRegion | Selectable region | test_widgets_selectableregion.dart | - | - |
-| SelectionContainer | Selection container | test_widgets_selectioncontainer.dart | - | - |
-| SelectionListener | Selection listener | test_widgets_selection_listener.dart | - | - |
-| SelectionOverlay | Selection overlay | test_widgets_selectionoverlay.dart | - | - |
-| ShaderMask | Shader mask | test_widgets_shadermask.dart | - | - |
-| SharedAppData | Shared app data | test_widgets_shared_app_data.dart | - | - |
-| ShrinkWrappingViewport | Shrink viewport | test_widgets_shrink_wrapping_viewport.dart | - | - |
-| SingleChildRenderObjectElement | Single element | test_widgets_single_child_render_object_element.dart | - | - |
-| SingleChildRenderObjectWidget | Single child render | test_widgets_singlechildrenderobjectwidget.dart | - | - |
-| SingleTickerProviderStateMixin | Single ticker | test_widgets_single_ticker_provider_state_mixin.dart | - | - |
-| SliverAnimatedGrid | Animated sliver grid | test_widgets_sliveranimatedgrid.dart | - | - |
-| SliverAnimatedList | Animated sliver list | test_widgets_sliveranimatedlist.dart | - | - |
-| SliverAnimatedOpacity | Animated opacity | test_widgets_sliveranimatedopacity.dart | - | - |
-| SliverConstrainedCrossAxis | Constrained cross | test_widgets_sliver_constrained_cross_axis.dart | - | - |
-| SliverCrossAxisExpanded | Cross expanded | test_widgets_sliver_cross_axis_expanded.dart | - | - |
-| SliverCrossAxisGroup | Cross axis group | test_widgets_slivercrossaxisgroup.dart | - | - |
-| SliverFloatingHeader | Floating header | test_widgets_sliver_floating_header.dart | - | - |
-| SliverIgnorePointer | Sliver ignore pointer | test_widgets_sliverignorepointer.dart | - | - |
-| SliverLayoutBuilder | Layout builder | test_widgets_sliverlayoutbuilder.dart | - | - |
-| SliverMainAxisGroup | Main axis group | test_widgets_slivermainaxisgroup.dart | - | - |
-| SliverOffstage | Sliver offstage | test_widgets_sliver_offstage.dart | - | - |
-| SliverPrototypeExtentList | Prototype list | test_widgets_sliverprototypeextentlist.dart | - | - |
-| SliverReorderableList | Reorderable sliver | test_widgets_sliverreorderablelist.dart | - | - |
-| SliverResizingHeader | Resizing header | test_widgets_sliver_resizing_header.dart | - | - |
-| SliverSafeArea | Sliver safe area | test_widgets_sliversafearea.dart | - | - |
-| SliverSemantics | Sliver semantics | test_widgets_sliver_semantics.dart | - | - |
-| SliverVisibility | Sliver visibility | test_widgets_slivervisibility.dart | - | - |
-| Spacer | Spacer widget | test_widgets_spacer.dart | - | - |
-| SpellCheckConfiguration | Spell config | test_widgets_spellcheckconfiguration.dart | - | - |
-| StatefulElement | Stateful element | test_widgets_statefulelement.dart | - | - |
-| StatelessElement | Stateless element | test_widgets_statelesselement.dart | - | - |
-| StretchingOverscrollIndicator | Stretch overscroll | test_widgets_stretching_overscroll_indicator.dart | - | - |
-| TableCell | Table cell | test_widgets_table_cell.dart | - | - |
-| TableRow | Table row | test_widgets_table_row.dart | - | - |
-| TapRegion | Tap region | test_widgets_tap_region.dart | - | - |
-| TapRegionSurface | Tap surface | test_widgets_tap_region_surface.dart | - | - |
-| TextFieldTapRegion | Text tap region | test_widgets_text_field_tap_region.dart | - | - |
-| TextMagnifierConfiguration | Magnifier config | test_widgets_textmagnifierconfiguration.dart | - | - |
-| TextSelectionControls | Text controls | test_widgets_textselectioncontrols.dart | - | - |
-| TextSelectionGestureDetector | Selection gesture | test_widgets_textselectiongesturedetector.dart | - | - |
-| TextSelectionOverlay | Selection overlay | test_widgets_text_selection_overlay.dart | - | - |
-| TextSelectionToolbarAnchors | Toolbar anchors | test_widgets_text_selection_toolbar_anchors.dart | - | - |
-| TickerMode | Ticker mode | test_widgets_ticker_mode.dart | - | - |
-| TickerProviderStateMixin | Ticker mixin | test_widgets_ticker_provider_state_mixin.dart | - | - |
-| Title | App title | test_widgets_title.dart | - | - |
-| TooltipTriggerMode | Trigger mode | test_widgets_tooltip_trigger_mode.dart | - | - |
-| TweenAnimationBuilder | Tween builder | test_widgets_tween_animation_builder.dart | - | - |
-| UiKitView | iOS view | test_widgets_ui_kit_view.dart | - | - |
-| UndoHistory | Undo history widget | test_widgets_undohistory.dart | - | - |
-| UndoHistoryController | Undo history | test_widgets_undohistorycontroller.dart | - | - |
-| View | View widget | test_widgets_view.dart | - | - |
-| ViewAnchor | View anchor | test_widgets_view_anchor.dart | - | - |
-| ViewCollection | View collection | test_widgets_view_collection.dart | - | - |
-| Viewport | Viewport widget | test_widgets_viewport.dart | - | - |
-| Widget | Widget base | test_widgets_widget.dart | - | - |
-| WidgetInspector | Widget inspector | test_widgets_widget_inspector.dart | - | - |
-| WidgetSpan | Widget in text | test_widgets_widgetspan.dart | - | - |
-| WidgetsApp | Widgets app | test_widgets_widgets_app.dart | - | - |
-| WidgetsBinding | Widgets binding | test_widgets_widgets_binding.dart | - | - |
-| WidgetsBindingObserver | Binding observer | test_widgets_widgets_binding_observer.dart | - | - |
-| WidgetsFlutterBinding | Flutter binding | test_widgets_widgets_flutter_binding.dart | - | - |
-| WillPopScope | Will pop scope | test_widgets_willpopscope.dart | - | - |
+| AlwaysScrollableScrollPhysics | Always scroll | test_widgets_alwaysscrollablescrollphysics.dart | scripted | - |
+| AndroidView | Android view | test_widgets_android_view.dart | scripted | - |
+| AnimatedAlign | Animated align | test_widgets_animated_align.dart | scripted | - |
+| AnimatedCrossFade | Cross fade | test_widgets_animated_cross_fade.dart | scripted | - |
+| AnimatedDefaultTextStyle | Animated text style | test_widgets_animateddefaulttextstyle.dart | batch | - |
+| AnimatedFractionallySizedBox | Animated fraction | test_widgets_animated_fractionally_sized_box.dart | scripted | - |
+| AnimatedModalBarrier | Modal barrier | test_widgets_animated_modal_barrier.dart | scripted | - |
+| AnimatedPhysicalModel | Animated physical | test_widgets_animated_physical_model.dart | scripted | - |
+| AnimatedRotation | Animated rotation | test_widgets_animated_rotation.dart | scripted | - |
+| AnimatedScale | Animated scale | test_widgets_animated_scale.dart | scripted | - |
+| AnimatedSlide | Animated slide | test_widgets_animated_slide.dart | scripted | - |
+| AnimatedSwitcher | Switcher | test_widgets_animated_switcher.dart | scripted | - |
+| AutofillGroup | Autofill group | test_widgets_autofillgroup.dart | scripted | - |
+| BackdropFilter | Backdrop filter | test_widgets_backdropfilter.dart | scripted | - |
+| BouncingScrollPhysics | iOS scroll physics | test_widgets_bouncingscrollphysics.dart | scripted | - |
+| BuildOwner | Build owner | test_widgets_build_owner.dart | scripted | - |
+| BuildScope | Build scope | test_widgets_build_scope.dart | scripted | - |
+| CheckedModeBanner | Debug banner | test_widgets_checkedmodebanner.dart | scripted | - |
+| ClampingScrollPhysics | Android scroll physics | test_widgets_clampingscrollphysics.dart | scripted | - |
+| ColorFiltered | Color filtered | test_widgets_colorfiltered.dart | scripted | - |
+| ComponentElement | Component element | test_widgets_componentelement.dart | scripted | - |
+| CompositedTransformFollower | Transform follower | test_widgets_composited_transform_follower.dart | scripted | - |
+| CompositedTransformTarget | Transform target | test_widgets_composited_transform_target.dart | scripted | - |
+| ContentInsertionConfiguration | Content insertion | test_widgets_content_insertion_configuration.dart | scripted | - |
+| ContextMenuButtonItem | Context button | test_widgets_contextmenubuttonitem.dart | scripted | - |
+| ContextMenuController | Context controller | test_widgets_contextmenucontroller.dart | scripted | - |
+| DefaultAssetBundle | Default asset bundle | test_widgets_defaultassetbundle.dart | scripted | - |
+| DefaultTextHeightBehavior | Text height | test_widgets_default_text_height_behavior.dart | scripted | - |
+| DefaultTextStyle | Default text style | test_widgets_defaulttextstyle.dart | batch | - |
+| Directionality | Text direction | test_widgets_directionality.dart | scripted | - |
+| DisplayFeatureSubScreen | Feature subscreen | test_widgets_displayfeaturesubscreen.dart | scripted | - |
+| DualTransitionBuilder | Dual transition | test_widgets_dual_transition_builder.dart | scripted | - |
+| EditableTextState | Editable state | test_widgets_editabletextstate.dart | scripted | - |
+| Element | Widget element | test_widgets_element.dart | scripted | - |
+| FadeInImage | Fade-in images | test_widgets_fade_in_image.dart | scripted | - |
+| FixedExtentMetrics | Extent metrics | test_widgets_fixed_extent_metrics.dart | scripted | - |
+| FixedExtentScrollController | Extent controller | test_widgets_fixed_extent_scroll_controller.dart | scripted | - |
+| FixedExtentScrollPhysics | Fixed extent | test_widgets_fixed_extent_scroll_physics.dart | scripted | - |
+| GlowingOverscrollIndicator | Glow overscroll | test_widgets_glowing_overscroll_indicator.dart | scripted | - |
+| GridPaper | Grid paper | test_widgets_gridpaper.dart | batch | - |
+| HtmlElementView | Web view | test_widgets_html_element_view.dart | scripted | - |
+| ImageFiltered | Image filtered | test_widgets_imagefiltered.dart | scripted | - |
+| ImplicitlyAnimatedWidget | Implicit animation | test_widgets_implicitly_animated_widget.dart | scripted | - |
+| ImplicitlyAnimatedWidgetState | Implicit state | test_widgets_implicitly_animated_widget_state.dart | scripted | - |
+| IndexedStack | Indexed stack | test_widgets_indexed_stack.dart | scripted | - |
+| InheritedElement | Inherited element | test_widgets_inheritedelement.dart | scripted | - |
+| InheritedModel | Inherited model | test_widgets_inherited_model.dart | scripted | - |
+| InheritedNotifier | Inherited notifier | test_widgets_inheritednotifier.dart | scripted | - |
+| InheritedTheme | Inherited theme | test_widgets_inherited_theme.dart | scripted | - |
+| InheritedWidget | Inherited widget | test_widgets_inherited_widget.dart | scripted | - |
+| KeyedSubtree | Keyed subtree | test_widgets_keyedsubtree.dart | batch | - |
+| LeafRenderObjectElement | Leaf element | test_widgets_leaf_render_object_element.dart | scripted | - |
+| LeafRenderObjectWidget | Leaf render widget | test_widgets_leafrenderobjectwidget.dart | scripted | - |
+| ListWheelChildBuilderDelegate | Builder delegate | test_widgets_list_wheel_child_builder_delegate.dart | scripted | - |
+| ListWheelChildDelegate | Child delegate | test_widgets_list_wheel_child_delegate.dart | scripted | - |
+| ListWheelChildListDelegate | List delegate | test_widgets_list_wheel_child_list_delegate.dart | scripted | - |
+| ListWheelChildLoopingListDelegate | Looping delegate | test_widgets_list_wheel_child_looping_list_delegate.dart | scripted | - |
+| ListWheelElement | Wheel element | test_widgets_list_wheel_element.dart | scripted | - |
+| ListWheelScrollView | Wheel scroll | test_widgets_list_wheel_scroll_view.dart | scripted | - |
+| ListWheelViewport | Wheel viewport | test_widgets_list_wheel_viewport.dart | scripted | - |
+| MagnifierController | Magnifier controller | test_widgets_magnifiercontroller.dart | scripted | - |
+| MagnifierDecoration | Magnifier decoration | test_widgets_magnifierdecoration.dart | scripted | - |
+| MagnifierInfo | Magnifier info | test_widgets_magnifier_info.dart | scripted | - |
+| MultiChildRenderObjectElement | Multi element | test_widgets_multi_child_render_object_element.dart | scripted | - |
+| MultiChildRenderObjectWidget | Multi child render | test_widgets_multichildrenderobjectwidget.dart | scripted | - |
+| NavigationToolbar | Nav toolbar | test_widgets_navigation_toolbar.dart | scripted | - |
+| NeverScrollableScrollPhysics | Never scroll | test_widgets_neverscrollablescrollphysics.dart | scripted | - |
+| OverflowBar | Overflow bar | test_widgets_overflow_bar.dart | scripted | - |
+| OverflowBox | Overflow box | test_widgets_overflow_box.dart | scripted | - |
+| PageScrollPhysics | Page scroll | test_widgets_pagescrollphysics.dart | scripted | - |
+| PageStorage | Page storage | test_widgets_pagestorage.dart | scripted | - |
+| PageStorageBucket | Page bucket | test_widgets_pagestoragebucket.dart | scripted | - |
+| PageStorageKey | Page storage key | test_widgets_pagestoragekey.dart | scripted | - |
+| ParentDataElement | Parent data element | test_widgets_parentdataelement.dart | scripted | - |
+| ParentDataWidget | Parent data | test_widgets_parent_data_widget.dart | scripted | - |
+| PerformanceOverlay | Perf overlay | test_widgets_performance_overlay.dart | scripted | - |
+| PhysicalModel | Physical model | test_widgets_physicalmodel.dart | scripted | - |
+| PhysicalShape | Physical shape | test_widgets_physicalshape.dart | scripted | - |
+| PinnedHeaderSliver | Pinned header | test_widgets_pinned_header_sliver.dart | scripted | - |
+| Placeholder | Placeholder widget | test_widgets_placeholder.dart | scripted | - |
+| PlatformMenu | Platform menu | test_services_platformmenu.dart | scripted | - |
+| PlatformMenuBar | Platform menu bar | test_widgets_platformmenubar.dart | scripted | - |
+| PlatformMenuItem | Platform menu item | test_widgets_platformmenuitem.dart | scripted | - |
+| PlatformMenuItemGroup | Menu group | test_services_platformmenuitemgroup.dart | scripted | - |
+| PlatformProvidedMenuItem | Provided item | test_services_platformprovidedmenuitem.dart | scripted | - |
+| PlatformViewLink | View link | test_widgets_platform_view_link.dart | scripted | - |
+| PlatformViewSurface | View surface | test_widgets_platform_view_surface.dart | scripted | - |
+| PopScope | Pop scope | test_widgets_popscope.dart | scripted | - |
+| PositionedDirectional | RTL positioned | test_widgets_positioned_directional.dart | scripted | - |
+| PrimaryScrollController | Primary scroll | test_widgets_primaryscrollcontroller.dart | scripted | - |
+| ProxyElement | Proxy element | test_widgets_proxyelement.dart | scripted | - |
+| ProxyWidget | Proxy widget | test_widgets_proxy_widget.dart | scripted | - |
+| RadioGroup | Radio group | test_widgets_radio_group.dart | scripted | - |
+| RangeMaintainingScrollPhysics | Range maintaining | test_widgets_rangemaintainingscrollphysics.dart | scripted | - |
+| RawMagnifier | Low-level magnifier | test_widgets_rawmagnifier.dart | scripted | - |
+| RawView | Raw view | test_widgets_raw_view.dart | scripted | - |
+| RenderObjectElement | Render object element | test_widgets_renderobjectelement.dart | scripted | - |
+| RenderObjectWidget | Render object widget | test_widgets_renderobjectwidget.dart | scripted | - |
+| RestorableBool | Restorable bool | test_widgets_restorable_bool.dart | scripted | - |
+| RestorableDateTime | Restorable datetime | test_widgets_restorabledatetime.dart | scripted | - |
+| RestorableDouble | Restorable double | test_widgets_restorable_double.dart | scripted | - |
+| RestorableEnum | Restorable enum | test_widgets_restorableenum.dart | scripted | - |
+| RestorableInt | Restorable int | test_widgets_restorable_int.dart | scripted | - |
+| RestorableProperty | Restorable property | test_widgets_restorableproperty.dart | scripted | - |
+| RestorableString | Restorable string | test_widgets_restorablestring.dart | scripted | - |
+| RestorableTextEditingController | Restorable controller | test_widgets_restorabletexteditingcontroller.dart | scripted | - |
+| RestorableValue | Restorable value | test_widgets_restorablevalue.dart | scripted | - |
+| RestorationMixin | Restoration mixin | test_widgets_restorationmixin.dart | scripted | - |
+| RestorationScope | Restoration scope | test_widgets_restorationscope.dart | scripted | - |
+| RootElement | Root element | test_widgets_root_element.dart | scripted | - |
+| RootRestorationScope | Root restoration | test_widgets_rootrestorationscope.dart | scripted | - |
+| RootWidget | Root widget | test_widgets_root_widget.dart | scripted | - |
+| ScrollAction | Scroll action | test_widgets_scrollaction.dart | scripted | - |
+| ScrollBehavior | Scroll behavior | test_widgets_scrollbehavior.dart | scripted | - |
+| ScrollConfiguration | Scroll configuration | test_widgets_scrollconfiguration.dart | scripted | - |
+| ScrollIntent | Scroll intent | test_widgets_scrollintent.dart | scripted | - |
+| ScrollMetrics | Scroll metrics | test_widgets_scrollmetrics.dart | scripted | - |
+| ScrollPhysics | Scroll physics | test_widgets_scrollphysics.dart | scripted | - |
+| ScrollPosition | Scroll position | test_widgets_scrollposition.dart | scripted | - |
+| Scrollable | Scrollable widget | test_widgets_scrollable.dart | scripted | - |
+| ScrollableState | Scrollable state | test_widgets_scrollable_state.dart | scripted | - |
+| SelectableRegion | Selectable region | test_widgets_selectableregion.dart | scripted | - |
+| SelectionContainer | Selection container | test_widgets_selectioncontainer.dart | scripted | - |
+| SelectionListener | Selection listener | test_widgets_selection_listener.dart | scripted | - |
+| SelectionOverlay | Selection overlay | test_widgets_selectionoverlay.dart | scripted | - |
+| ShaderMask | Shader mask | test_widgets_shadermask.dart | scripted | - |
+| SharedAppData | Shared app data | test_widgets_shared_app_data.dart | scripted | - |
+| ShrinkWrappingViewport | Shrink viewport | test_widgets_shrink_wrapping_viewport.dart | scripted | - |
+| SingleChildRenderObjectElement | Single element | test_widgets_single_child_render_object_element.dart | scripted | - |
+| SingleChildRenderObjectWidget | Single child render | test_widgets_singlechildrenderobjectwidget.dart | scripted | - |
+| SingleTickerProviderStateMixin | Single ticker | test_widgets_single_ticker_provider_state_mixin.dart | scripted | - |
+| SliverAnimatedGrid | Animated sliver grid | test_widgets_sliveranimatedgrid.dart | scripted | - |
+| SliverAnimatedList | Animated sliver list | test_widgets_sliveranimatedlist.dart | scripted | - |
+| SliverAnimatedOpacity | Animated opacity | test_widgets_sliveranimatedopacity.dart | scripted | - |
+| SliverConstrainedCrossAxis | Constrained cross | test_widgets_sliver_constrained_cross_axis.dart | scripted | - |
+| SliverCrossAxisExpanded | Cross expanded | test_widgets_sliver_cross_axis_expanded.dart | scripted | - |
+| SliverCrossAxisGroup | Cross axis group | test_widgets_slivercrossaxisgroup.dart | scripted | - |
+| SliverFloatingHeader | Floating header | test_widgets_sliver_floating_header.dart | scripted | - |
+| SliverIgnorePointer | Sliver ignore pointer | test_widgets_sliverignorepointer.dart | scripted | - |
+| SliverLayoutBuilder | Layout builder | test_widgets_sliverlayoutbuilder.dart | scripted | - |
+| SliverMainAxisGroup | Main axis group | test_widgets_slivermainaxisgroup.dart | scripted | - |
+| SliverOffstage | Sliver offstage | test_widgets_sliver_offstage.dart | scripted | - |
+| SliverPrototypeExtentList | Prototype list | test_widgets_sliverprototypeextentlist.dart | scripted | - |
+| SliverReorderableList | Reorderable sliver | test_widgets_sliverreorderablelist.dart | scripted | - |
+| SliverResizingHeader | Resizing header | test_widgets_sliver_resizing_header.dart | scripted | - |
+| SliverSafeArea | Sliver safe area | test_widgets_sliversafearea.dart | scripted | - |
+| SliverSemantics | Sliver semantics | test_widgets_sliver_semantics.dart | scripted | - |
+| SliverVisibility | Sliver visibility | test_widgets_slivervisibility.dart | scripted | - |
+| Spacer | Spacer widget | test_widgets_spacer.dart | scripted | - |
+| SpellCheckConfiguration | Spell config | test_widgets_spellcheckconfiguration.dart | scripted | - |
+| StatefulElement | Stateful element | test_widgets_statefulelement.dart | scripted | - |
+| StatelessElement | Stateless element | test_widgets_statelesselement.dart | scripted | - |
+| StretchingOverscrollIndicator | Stretch overscroll | test_widgets_stretching_overscroll_indicator.dart | scripted | - |
+| TableCell | Table cell | test_widgets_table_cell.dart | scripted | - |
+| TableRow | Table row | test_widgets_table_row.dart | scripted | - |
+| TapRegion | Tap region | test_widgets_tap_region.dart | scripted | - |
+| TapRegionSurface | Tap surface | test_widgets_tap_region_surface.dart | scripted | - |
+| TextFieldTapRegion | Text tap region | test_widgets_text_field_tap_region.dart | scripted | - |
+| TextMagnifierConfiguration | Magnifier config | test_widgets_textmagnifierconfiguration.dart | scripted | - |
+| TextSelectionControls | Text controls | test_widgets_textselectioncontrols.dart | scripted | - |
+| TextSelectionGestureDetector | Selection gesture | test_widgets_textselectiongesturedetector.dart | scripted | - |
+| TextSelectionOverlay | Selection overlay | test_widgets_text_selection_overlay.dart | scripted | - |
+| TextSelectionToolbarAnchors | Toolbar anchors | test_widgets_text_selection_toolbar_anchors.dart | scripted | - |
+| TickerMode | Ticker mode | test_widgets_ticker_mode.dart | scripted | - |
+| TickerProviderStateMixin | Ticker mixin | test_widgets_ticker_provider_state_mixin.dart | scripted | - |
+| Title | App title | test_widgets_title.dart | scripted | - |
+| TooltipTriggerMode | Trigger mode | test_widgets_tooltip_trigger_mode.dart | scripted | - |
+| TweenAnimationBuilder | Tween builder | test_widgets_tween_animation_builder.dart | scripted | - |
+| UiKitView | iOS view | test_widgets_ui_kit_view.dart | scripted | - |
+| UndoHistory | Undo history widget | test_widgets_undohistory.dart | scripted | - |
+| UndoHistoryController | Undo history | test_widgets_undohistorycontroller.dart | scripted | - |
+| View | View widget | test_widgets_view.dart | scripted | - |
+| ViewAnchor | View anchor | test_widgets_view_anchor.dart | scripted | - |
+| ViewCollection | View collection | test_widgets_view_collection.dart | scripted | - |
+| Viewport | Viewport widget | test_widgets_viewport.dart | scripted | - |
+| Widget | Widget base | test_widgets_widget.dart | scripted | - |
+| WidgetInspector | Widget inspector | test_widgets_widget_inspector.dart | scripted | - |
+| WidgetSpan | Widget in text | test_widgets_widgetspan.dart | batch | - |
+| WidgetsApp | Widgets app | test_widgets_widgets_app.dart | scripted | - |
+| WidgetsBinding | Widgets binding | test_widgets_widgets_binding.dart | scripted | - |
+| WidgetsBindingObserver | Binding observer | test_widgets_widgets_binding_observer.dart | scripted | - |
+| WidgetsFlutterBinding | Flutter binding | test_widgets_widgets_flutter_binding.dart | scripted | - |
+| WillPopScope | Will pop scope | test_widgets_willpopscope.dart | scripted | - |
 
 ---
 
@@ -400,116 +401,116 @@ Specialized classes for advanced use cases - test after essential and important 
 
 | Class | Description | Test File | Status | Result |
 |-------|-------------|-----------|--------|--------|
-| ActionIconThemeData | Action icon data | test_material_action_icon_theme_data.dart | - | - |
-| AdaptiveTextSelectionToolbar | Adaptive toolbar | test_widgets_adaptivetextselectiontoolbar.dart | - | - |
-| AppBarThemeData | App bar data | test_material_app_bar_theme_data.dart | - | - |
-| BadgeThemeData | Badge data | test_material_badge_theme_data.dart | - | - |
-| BaseRangeSliderTrackShape | Base range track | test_material_base_range_slider_track_shape.dart | - | - |
-| BaseSliderTrackShape | Base track | test_material_base_slider_track_shape.dart | - | - |
-| BottomAppBarThemeData | Bottom data | test_material_bottom_app_bar_theme_data.dart | - | - |
-| BottomSheetThemeData | Sheet data | test_material_bottom_sheet_theme_data.dart | - | - |
-| ButtonState | Button state | test_material_button_state.dart | - | - |
-| ButtonStyleButton | Style button | test_material_buttonstylebutton.dart | - | - |
-| CalendarDelegate | Calendar delegate | test_material_calendar_delegate.dart | - | - |
-| CardThemeData | Card data | test_material_card_theme_data.dart | - | - |
-| CheckboxListTile | Checkbox tile | test_material_checkbox_list_tile.dart | - | - |
-| CheckboxThemeData | Checkbox data | test_material_checkbox_theme_data.dart | - | - |
-| CheckmarkableChipAttributes | Checkmarkable | test_material_checkmarkable_chip_attributes.dart | - | - |
-| ChipAnimationStyle | Chip animation | test_material_chip_animation_style.dart | - | - |
-| ChipAttributes | Chip attributes | test_material_chipattributes.dart | - | - |
-| ChipThemeData | Chip theme data | test_material_chipthemedata.dart | - | - |
-| Colors | Color constants | test_material_colors.dart | - | - |
-| ControlsDetails | Controls details | test_material_controls_details.dart | - | - |
-| DataTableSource | Data source | test_material_data_table_source.dart | - | - |
-| DataTableTheme | Table theme | test_material_data_table_theme.dart | - | - |
-| DataTableThemeData | Table data | test_material_data_table_theme_data.dart | - | - |
-| DatePickerThemeData | Date data | test_material_date_picker_theme_data.dart | - | - |
-| DateRangePickerDialog | Range dialog | test_material_daterangepickerdialog.dart | - | - |
-| DateTimeRange | Date range | test_material_datetimerange.dart | - | - |
-| DateUtils | Date utilities | test_material_dateutils.dart | - | - |
-| DefaultMaterialLocalizations | Default locale | test_material_default_material_localizations.dart | - | - |
-| DeletableChipAttributes | Deletable chip | test_material_deletablechipattributes.dart | - | - |
-| DesktopTextSelectionControls | Desktop controls | test_material_desktop_text_selection_controls.dart | - | - |
-| DesktopTextSelectionToolbar | Desktop toolbar | test_material_desktop_text_selection_toolbar.dart | - | - |
-| DesktopTextSelectionToolbarButton | Desktop button | test_material_desktop_text_selection_toolbar_button.dart | - | - |
-| DialogThemeData | Dialog data | test_material_dialog_theme_data.dart | - | - |
-| DisabledChipAttributes | Disabled chip | test_material_disabledchipattributes.dart | - | - |
-| DividerThemeData | Divider data | test_material_divider_theme_data.dart | - | - |
-| DrawerThemeData | Drawer data | test_material_drawer_theme_data.dart | - | - |
-| DropdownMenuThemeData | Dropdown data | test_material_dropdown_menu_theme_data.dart | - | - |
-| ExpansionTileThemeData | Expansion data | test_material_expansion_tile_theme_data.dart | - | - |
-| FilledButtonThemeData | Filled data | test_material_filled_button_theme_data.dart | - | - |
-| FloatingActionButtonAnimator | FAB animator | test_material_floatingactionbuttonanimator.dart | - | - |
-| FloatingActionButtonLocation | FAB location | test_material_floatingactionbuttonlocation.dart | - | - |
-| FloatingActionButtonThemeData | FAB data | test_material_floating_action_button_theme_data.dart | - | - |
-| GlobalMaterialLocalizations | Global locale | test_material_global_material_localizations.dart | - | - |
-| IconButtonThemeData | Icon data | test_material_icon_button_theme_data.dart | - | - |
-| InputDecorationTheme | Input theme | test_material_inputdecorationtheme.dart | - | - |
-| InputDecoratorState | Decorator state | test_material_input_decorator_state.dart | - | - |
-| ListTileThemeData | Tile data | test_material_list_tile_theme_data.dart | - | - |
-| MaterialApp.router | Router app | test_material_material_app.router.dart | - | - |
-| MaterialBannerThemeData | Banner data | test_material_material_banner_theme_data.dart | - | - |
-| MaterialButton | Material button | test_material_materialbutton.dart | - | - |
-| MaterialLocalizations | Localization | test_material_material_localizations.dart | - | - |
-| MaterialTextSelectionControls | Material controls | test_material_material_text_selection_controls.dart | - | - |
-| MaterialType | Material type | test_material_materialtype.dart | - | - |
-| MenuBarThemeData | Menu bar data | test_material_menu_bar_theme_data.dart | - | - |
-| MenuStyle | Menu style | test_material_menu_style.dart | - | - |
-| MenuThemeData | Menu data | test_material_menu_theme_data.dart | - | - |
-| MonthPickerSelector | Month selector | test_material_month_picker_selector.dart | - | - |
-| NavigationBarThemeData | Nav data | test_material_navigation_bar_theme_data.dart | - | - |
-| NavigationDrawerThemeData | Nav drawer data | test_material_navigation_drawer_theme_data.dart | - | - |
-| NavigationRailThemeData | Rail data | test_material_navigation_rail_theme_data.dart | - | - |
-| OutlinedButtonThemeData | Outlined data | test_material_outlined_button_theme_data.dart | - | - |
-| PopupMenuThemeData | Popup data | test_material_popup_menu_theme_data.dart | - | - |
-| ProgressIndicatorThemeData | Progress data | test_material_progress_indicator_theme_data.dart | - | - |
-| RadioListTile | Radio tile | test_material_radio_list_tile.dart | - | - |
-| RadioThemeData | Radio data | test_material_radio_theme_data.dart | - | - |
-| RangeLabels | Range labels | test_material_range_labels.dart | - | - |
-| RangeSlider | Range slider | test_material_range_slider.dart | - | - |
-| RangeSliderThumbShape | Range thumb | test_material_range_slider_thumb_shape.dart | - | - |
-| RangeSliderTickMarkShape | Range tick | test_material_range_slider_tick_mark_shape.dart | - | - |
-| RangeSliderTrackShape | Range track | test_material_range_slider_track_shape.dart | - | - |
-| RangeSliderValueIndicatorShape | Range indicator | test_material_range_slider_value_indicator_shape.dart | - | - |
-| RangeValues | Range values | test_material_range_values.dart | - | - |
-| RawMaterialButton | Raw material button | test_material_rawmaterialbutton.dart | - | - |
-| RectangularSliderTrackShape | Rect track | test_material_rectangular_slider_track_shape.dart | - | - |
-| RoundSliderOverlayShape | Round overlay | test_material_round_slider_overlay_shape.dart | - | - |
-| RoundSliderThumbShape | Round thumb | test_material_round_slider_thumb_shape.dart | - | - |
-| RoundSliderTickMarkShape | Round tick | test_material_round_slider_tick_mark_shape.dart | - | - |
-| RoundedRectSliderTrackShape | Rounded track | test_material_rounded_rect_slider_track_shape.dart | - | - |
-| ScaffoldFeatureController | Feature controller | test_material_scaffoldfeaturecontroller.dart | - | - |
-| ScaffoldMessenger | Messenger | test_material_scaffoldmessenger.dart | - | - |
-| ScaffoldMessengerState | Messenger state | test_material_scaffoldmessengerstate.dart | - | - |
-| ScaffoldState | Scaffold state | test_material_scaffoldstate.dart | - | - |
-| SearchBarThemeData | Search data | test_material_search_bar_theme_data.dart | - | - |
-| SearchViewThemeData | Search view data | test_material_search_view_theme_data.dart | - | - |
-| SegmentedButtonThemeData | Segment data | test_material_segmented_button_theme_data.dart | - | - |
-| SelectableChipAttributes | Selectable chip | test_material_selectablechipattributes.dart | - | - |
-| SliderComponentShape | Component shape | test_material_slider_component_shape.dart | - | - |
-| SliderThemeData | Slider data | test_material_slider_theme_data.dart | - | - |
-| SliderTickMarkShape | Tick shape | test_material_slider_tick_mark_shape.dart | - | - |
-| SliderTrackShape | Track shape | test_material_slider_track_shape.dart | - | - |
-| SnackBarAction | Snackbar action | test_material_snackbaraction.dart | - | - |
-| SnackBarBehavior | Snackbar behavior | test_material_snackbarbehavior.dart | - | - |
-| SnackBarClosedReason | Snackbar reason | test_material_snackbarclosedeason.dart | - | - |
-| SpellCheckSuggestionsToolbar | Spell suggestions | test_material_spell_check_suggestions_toolbar.dart | - | - |
-| StepState | Step state | test_material_step_state.dart | - | - |
-| StepperType | Stepper type | test_material_stepper_type.dart | - | - |
-| SwitchListTile | Switch tile | test_material_switch_list_tile.dart | - | - |
-| SwitchThemeData | Switch data | test_material_switch_theme_data.dart | - | - |
-| TabBarIndicatorSize | Indicator size | test_material_tabbarindicatorsize.dart | - | - |
-| TabBarThemeData | Tab data | test_material_tab_bar_theme_data.dart | - | - |
-| TextButtonThemeData | Text data | test_material_text_button_theme_data.dart | - | - |
-| TextSelectionThemeData | Selection data | test_widgets_textselectionthemedata.dart | - | - |
-| TextSelectionToolbar | Selection toolbar | test_material_text_selection_toolbar.dart | - | - |
-| TextSelectionToolbarTextButton | Toolbar button | test_material_text_selection_toolbar_text_button.dart | - | - |
-| TimePickerThemeData | Time data | test_material_time_picker_theme_data.dart | - | - |
-| TooltipThemeData | Tooltip data | test_material_tooltip_theme_data.dart | - | - |
-| TooltipVisibility | Visibility | test_material_tooltip_visibility.dart | - | - |
-| Typography | Typography styles | test_material_typography.dart | - | - |
-| VisualDensity | Visual density | test_material_visualdensity.dart | - | - |
-| YearPickerSelector | Year selector | test_material_year_picker_selector.dart | - | - |
+| ActionIconThemeData | Action icon data | test_material_action_icon_theme_data.dart | batch | - |
+| AdaptiveTextSelectionToolbar | Adaptive toolbar | test_widgets_adaptivetextselectiontoolbar.dart | scripted | - |
+| AppBarThemeData | App bar data | test_material_app_bar_theme_data.dart | scripted | - |
+| BadgeThemeData | Badge data | test_material_badge_theme_data.dart | batch | - |
+| BaseRangeSliderTrackShape | Base range track | test_material_base_range_slider_track_shape.dart | scripted | - |
+| BaseSliderTrackShape | Base track | test_material_base_slider_track_shape.dart | scripted | - |
+| BottomAppBarThemeData | Bottom data | test_material_bottom_app_bar_theme_data.dart | scripted | - |
+| BottomSheetThemeData | Sheet data | test_material_bottom_sheet_theme_data.dart | batch | - |
+| ButtonState | Button state | test_material_button_state.dart | tp-only | - |
+| ButtonStyleButton | Style button | test_material_buttonstylebutton.dart | scripted | - |
+| CalendarDelegate | Calendar delegate | test_material_calendar_delegate.dart | scripted | - |
+| CardThemeData | Card data | test_material_card_theme_data.dart | scripted | - |
+| CheckboxListTile | Checkbox tile | test_material_checkbox_list_tile.dart | scripted | - |
+| CheckboxThemeData | Checkbox data | test_material_checkbox_theme_data.dart | batch | - |
+| CheckmarkableChipAttributes | Checkmarkable | test_material_checkmarkable_chip_attributes.dart | scripted | - |
+| ChipAnimationStyle | Chip animation | test_material_chip_animation_style.dart | scripted | - |
+| ChipAttributes | Chip attributes | test_material_chipattributes.dart | scripted | - |
+| ChipThemeData | Chip theme data | test_material_chipthemedata.dart | batch | - |
+| Colors | Color constants | test_material_colors.dart | scripted | - |
+| ControlsDetails | Controls details | test_material_controls_details.dart | scripted | - |
+| DataTableSource | Data source | test_material_data_table_source.dart | scripted | - |
+| DataTableTheme | Table theme | test_material_data_table_theme.dart | scripted | - |
+| DataTableThemeData | Table data | test_material_data_table_theme_data.dart | scripted | - |
+| DatePickerThemeData | Date data | test_material_date_picker_theme_data.dart | batch | - |
+| DateRangePickerDialog | Range dialog | test_material_daterangepickerdialog.dart | scripted | - |
+| DateTimeRange | Date range | test_material_datetimerange.dart | scripted | - |
+| DateUtils | Date utilities | test_material_dateutils.dart | scripted | - |
+| DefaultMaterialLocalizations | Default locale | test_material_default_material_localizations.dart | scripted | - |
+| DeletableChipAttributes | Deletable chip | test_material_deletablechipattributes.dart | scripted | - |
+| DesktopTextSelectionControls | Desktop controls | test_material_desktop_text_selection_controls.dart | scripted | - |
+| DesktopTextSelectionToolbar | Desktop toolbar | test_material_desktop_text_selection_toolbar.dart | scripted | - |
+| DesktopTextSelectionToolbarButton | Desktop button | test_material_desktop_text_selection_toolbar_button.dart | scripted | - |
+| DialogThemeData | Dialog data | test_material_dialog_theme_data.dart | scripted | - |
+| DisabledChipAttributes | Disabled chip | test_material_disabledchipattributes.dart | scripted | - |
+| DividerThemeData | Divider data | test_material_divider_theme_data.dart | batch | - |
+| DrawerThemeData | Drawer data | test_material_drawer_theme_data.dart | batch | - |
+| DropdownMenuThemeData | Dropdown data | test_material_dropdown_menu_theme_data.dart | batch | - |
+| ExpansionTileThemeData | Expansion data | test_material_expansion_tile_theme_data.dart | batch | - |
+| FilledButtonThemeData | Filled data | test_material_filled_button_theme_data.dart | scripted | - |
+| FloatingActionButtonAnimator | FAB animator | test_material_floatingactionbuttonanimator.dart | scripted | - |
+| FloatingActionButtonLocation | FAB location | test_material_floatingactionbuttonlocation.dart | scripted | - |
+| FloatingActionButtonThemeData | FAB data | test_material_floating_action_button_theme_data.dart | batch | - |
+| GlobalMaterialLocalizations | Global locale | test_material_global_material_localizations.dart | tp-only | - |
+| IconButtonThemeData | Icon data | test_material_icon_button_theme_data.dart | scripted | - |
+| InputDecorationTheme | Input theme | test_material_inputdecorationtheme.dart | scripted | - |
+| InputDecoratorState | Decorator state | test_material_input_decorator_state.dart | tp-only | - |
+| ListTileThemeData | Tile data | test_material_list_tile_theme_data.dart | batch | - |
+| MaterialApp.router | Router app | test_material_material_app.router.dart | tp-only | - |
+| MaterialBannerThemeData | Banner data | test_material_material_banner_theme_data.dart | batch | - |
+| MaterialButton | Material button | test_material_materialbutton.dart | scripted | - |
+| MaterialLocalizations | Localization | test_material_material_localizations.dart | scripted | - |
+| MaterialTextSelectionControls | Material controls | test_material_material_text_selection_controls.dart | scripted | - |
+| MaterialType | Material type | test_material_materialtype.dart | scripted | - |
+| MenuBarThemeData | Menu bar data | test_material_menu_bar_theme_data.dart | batch | - |
+| MenuStyle | Menu style | test_material_menu_style.dart | scripted | - |
+| MenuThemeData | Menu data | test_material_menu_theme_data.dart | batch | - |
+| MonthPickerSelector | Month selector | test_material_month_picker_selector.dart | tp-only | - |
+| NavigationBarThemeData | Nav data | test_material_navigation_bar_theme_data.dart | batch | - |
+| NavigationDrawerThemeData | Nav drawer data | test_material_navigation_drawer_theme_data.dart | scripted | - |
+| NavigationRailThemeData | Rail data | test_material_navigation_rail_theme_data.dart | batch | - |
+| OutlinedButtonThemeData | Outlined data | test_material_outlined_button_theme_data.dart | scripted | - |
+| PopupMenuThemeData | Popup data | test_material_popup_menu_theme_data.dart | batch | - |
+| ProgressIndicatorThemeData | Progress data | test_material_progress_indicator_theme_data.dart | batch | - |
+| RadioListTile | Radio tile | test_material_radio_list_tile.dart | scripted | - |
+| RadioThemeData | Radio data | test_material_radio_theme_data.dart | batch | - |
+| RangeLabels | Range labels | test_material_range_labels.dart | scripted | - |
+| RangeSlider | Range slider | test_material_range_slider.dart | scripted | - |
+| RangeSliderThumbShape | Range thumb | test_material_range_slider_thumb_shape.dart | scripted | - |
+| RangeSliderTickMarkShape | Range tick | test_material_range_slider_tick_mark_shape.dart | scripted | - |
+| RangeSliderTrackShape | Range track | test_material_range_slider_track_shape.dart | scripted | - |
+| RangeSliderValueIndicatorShape | Range indicator | test_material_range_slider_value_indicator_shape.dart | scripted | - |
+| RangeValues | Range values | test_material_range_values.dart | scripted | - |
+| RawMaterialButton | Raw material button | test_material_rawmaterialbutton.dart | scripted | - |
+| RectangularSliderTrackShape | Rect track | test_material_rectangular_slider_track_shape.dart | scripted | - |
+| RoundSliderOverlayShape | Round overlay | test_material_round_slider_overlay_shape.dart | scripted | - |
+| RoundSliderThumbShape | Round thumb | test_material_round_slider_thumb_shape.dart | scripted | - |
+| RoundSliderTickMarkShape | Round tick | test_material_round_slider_tick_mark_shape.dart | scripted | - |
+| RoundedRectSliderTrackShape | Rounded track | test_material_rounded_rect_slider_track_shape.dart | scripted | - |
+| ScaffoldFeatureController | Feature controller | test_material_scaffoldfeaturecontroller.dart | scripted | - |
+| ScaffoldMessenger | Messenger | test_material_scaffoldmessenger.dart | scripted | - |
+| ScaffoldMessengerState | Messenger state | test_material_scaffoldmessengerstate.dart | scripted | - |
+| ScaffoldState | Scaffold state | test_material_scaffoldstate.dart | scripted | - |
+| SearchBarThemeData | Search data | test_material_search_bar_theme_data.dart | batch | - |
+| SearchViewThemeData | Search view data | test_material_search_view_theme_data.dart | batch | - |
+| SegmentedButtonThemeData | Segment data | test_material_segmented_button_theme_data.dart | batch | - |
+| SelectableChipAttributes | Selectable chip | test_material_selectablechipattributes.dart | scripted | - |
+| SliderComponentShape | Component shape | test_material_slider_component_shape.dart | scripted | - |
+| SliderThemeData | Slider data | test_material_slider_theme_data.dart | batch | - |
+| SliderTickMarkShape | Tick shape | test_material_slider_tick_mark_shape.dart | scripted | - |
+| SliderTrackShape | Track shape | test_material_slider_track_shape.dart | scripted | - |
+| SnackBarAction | Snackbar action | test_material_snackbaraction.dart | scripted | - |
+| SnackBarBehavior | Snackbar behavior | test_material_snackbarbehavior.dart | scripted | - |
+| SnackBarClosedReason | Snackbar reason | test_material_snackbarclosedeason.dart | scripted | - |
+| SpellCheckSuggestionsToolbar | Spell suggestions | test_material_spell_check_suggestions_toolbar.dart | scripted | - |
+| StepState | Step state | test_material_step_state.dart | batch | - |
+| StepperType | Stepper type | test_material_stepper_type.dart | scripted | - |
+| SwitchListTile | Switch tile | test_material_switch_list_tile.dart | scripted | - |
+| SwitchThemeData | Switch data | test_material_switch_theme_data.dart | batch | - |
+| TabBarIndicatorSize | Indicator size | test_material_tabbarindicatorsize.dart | scripted | - |
+| TabBarThemeData | Tab data | test_material_tab_bar_theme_data.dart | scripted | - |
+| TextButtonThemeData | Text data | test_material_text_button_theme_data.dart | scripted | - |
+| TextSelectionThemeData | Selection data | test_widgets_textselectionthemedata.dart | batch | - |
+| TextSelectionToolbar | Selection toolbar | test_material_text_selection_toolbar.dart | scripted | - |
+| TextSelectionToolbarTextButton | Toolbar button | test_material_text_selection_toolbar_text_button.dart | scripted | - |
+| TimePickerThemeData | Time data | test_material_time_picker_theme_data.dart | batch | - |
+| TooltipThemeData | Tooltip data | test_material_tooltip_theme_data.dart | batch | - |
+| TooltipVisibility | Visibility | test_material_tooltip_visibility.dart | scripted | - |
+| Typography | Typography styles | test_material_typography.dart | scripted | - |
+| VisualDensity | Visual density | test_material_visualdensity.dart | scripted | - |
+| YearPickerSelector | Year selector | test_material_year_picker_selector.dart | tp-only | - |
 
 ---
 
@@ -517,39 +518,39 @@ Specialized classes for advanced use cases - test after essential and important 
 
 | Class | Description | Test File | Status | Result |
 |-------|-------------|-----------|--------|--------|
-| CupertinoAnimatedBuilder | Builder | test_cupertino_cupertino_animated_builder.dart | - | - |
-| CupertinoAnimatedCrossFade | Cross fade | test_cupertino_cupertino_animated_cross_fade.dart | - | - |
-| CupertinoBottomTabScaffold | Tab scaffold | test_cupertino_cupertino_bottom_tab_scaffold.dart | - | - |
-| CupertinoDebugPaint | Debug paint | test_cupertino_cupertino_debug_paint.dart | - | - |
-| CupertinoDynamicType | Dynamic type | test_cupertino_cupertino_dynamic_type.dart | - | - |
-| CupertinoErrorWidget | Error widget | test_cupertino_cupertino_error_widget.dart | - | - |
-| CupertinoFullscreenDialog | Dialog | test_cupertino_cupertino_fullscreen_dialog.dart | - | - |
-| CupertinoHeroRect | Hero rect | test_cupertino_cupertino_hero_rect.dart | - | - |
-| CupertinoMagnifierController | Magnifier controller | test_cupertino_cupertino_magnifier_controller.dart | - | - |
-| CupertinoPage | Page widget | test_cupertino_cupertino_page.dart | - | - |
-| CupertinoPickerConfiguration | Picker config | test_cupertino_cupertino_picker_configuration.dart | - | - |
-| CupertinoPickerDefaultSelectionOverlay | Selection overlay | test_cupertino_cupertino_picker_default_selection_overlay.dart | - | - |
-| CupertinoPickerDialogMode | Dialog mode | test_cupertino_cupertino_picker_dialog_mode.dart | - | - |
-| CupertinoPickerScrollController | Scroll controller | test_cupertino_cupertino_picker_scroll_controller.dart | - | - |
-| CupertinoResizeImage | Resize image | test_cupertino_cupertino_resize_image.dart | - | - |
-| CupertinoScaffoldBackgroundColor | BG color | test_cupertino_cupertino_scaffold_background_color.dart | - | - |
-| CupertinoScrollBehavior | Cupertino scroll | test_widgets_cupertinoscrollbehavior.dart | - | - |
-| CupertinoSegmentedControlStyle | Segmented style | test_cupertino_cupertinosegmentedcontrolstyle.dart | - | - |
-| CupertinoSegmentedControlTheme | Control theme | test_cupertino_cupertino_segmented_control_theme.dart | - | - |
-| CupertinoSheetAnimation | Sheet animation | test_cupertino_cupertino_sheet_animation.dart | - | - |
-| CupertinoSheetConfiguration | Sheet config | test_cupertino_cupertino_sheet_configuration.dart | - | - |
-| CupertinoSheetDragDetails | Drag details | test_cupertino_cupertino_sheet_drag_details.dart | - | - |
-| CupertinoSheetRoute | Sheet route | test_cupertino_cupertino_sheet_route.dart | - | - |
-| CupertinoSheetTransition | Sheet transition | test_cupertino_cupertino_sheet_transition.dart | - | - |
-| CupertinoSlidingSegmentedControlTheme | Sliding theme | test_cupertino_cupertino_sliding_segmented_control_theme.dart | - | - |
-| CupertinoSpellCheckSuggestionsToolbar | Spell toolbar | test_cupertino_cupertino_spell_check_suggestions_toolbar.dart | - | - |
-| CupertinoStatusBar | Status bar | test_cupertino_cupertino_status_bar.dart | - | - |
-| CupertinoTargetPlatform | Target platform | test_cupertino_cupertino_target_platform.dart | - | - |
-| CupertinoTextMagnifier | Text magnifier | test_cupertino_cupertino_text_magnifier.dart | - | - |
-| CupertinoTextMagnifierConfiguration | Magnifier config | test_cupertino_cupertino_text_magnifier_configuration.dart | - | - |
-| CupertinoTextSelectionControls | iOS controls | test_cupertino_cupertino_text_selection_controls.dart | - | - |
-| CupertinoTransitions | Transitions | test_cupertino_cupertino_transitions.dart | - | - |
-| ObstructingPreferredSizeWidget | Obstructing widget | test_cupertino_obstructing_preferred_size_widget.dart | - | - |
+| CupertinoAnimatedBuilder | Builder | test_cupertino_cupertino_animated_builder.dart | tp-only | - |
+| CupertinoAnimatedCrossFade | Cross fade | test_cupertino_cupertino_animated_cross_fade.dart | tp-only | - |
+| CupertinoBottomTabScaffold | Tab scaffold | test_cupertino_cupertino_bottom_tab_scaffold.dart | tp-only | - |
+| CupertinoDebugPaint | Debug paint | test_cupertino_cupertino_debug_paint.dart | tp-only | - |
+| CupertinoDynamicType | Dynamic type | test_cupertino_cupertino_dynamic_type.dart | tp-only | - |
+| CupertinoErrorWidget | Error widget | test_cupertino_cupertino_error_widget.dart | tp-only | - |
+| CupertinoFullscreenDialog | Dialog | test_cupertino_cupertino_fullscreen_dialog.dart | tp-only | - |
+| CupertinoHeroRect | Hero rect | test_cupertino_cupertino_hero_rect.dart | tp-only | - |
+| CupertinoMagnifierController | Magnifier controller | test_cupertino_cupertino_magnifier_controller.dart | tp-only | - |
+| CupertinoPage | Page widget | test_cupertino_cupertino_page.dart | scripted | - |
+| CupertinoPickerConfiguration | Picker config | test_cupertino_cupertino_picker_configuration.dart | tp-only | - |
+| CupertinoPickerDefaultSelectionOverlay | Selection overlay | test_cupertino_cupertino_picker_default_selection_overlay.dart | scripted | - |
+| CupertinoPickerDialogMode | Dialog mode | test_cupertino_cupertino_picker_dialog_mode.dart | tp-only | - |
+| CupertinoPickerScrollController | Scroll controller | test_cupertino_cupertino_picker_scroll_controller.dart | tp-only | - |
+| CupertinoResizeImage | Resize image | test_cupertino_cupertino_resize_image.dart | tp-only | - |
+| CupertinoScaffoldBackgroundColor | BG color | test_cupertino_cupertino_scaffold_background_color.dart | tp-only | - |
+| CupertinoScrollBehavior | Cupertino scroll | test_widgets_cupertinoscrollbehavior.dart | scripted | - |
+| CupertinoSegmentedControlStyle | Segmented style | test_cupertino_cupertinosegmentedcontrolstyle.dart | tp-only | - |
+| CupertinoSegmentedControlTheme | Control theme | test_cupertino_cupertino_segmented_control_theme.dart | tp-only | - |
+| CupertinoSheetAnimation | Sheet animation | test_cupertino_cupertino_sheet_animation.dart | tp-only | - |
+| CupertinoSheetConfiguration | Sheet config | test_cupertino_cupertino_sheet_configuration.dart | tp-only | - |
+| CupertinoSheetDragDetails | Drag details | test_cupertino_cupertino_sheet_drag_details.dart | tp-only | - |
+| CupertinoSheetRoute | Sheet route | test_cupertino_cupertino_sheet_route.dart | scripted | - |
+| CupertinoSheetTransition | Sheet transition | test_cupertino_cupertino_sheet_transition.dart | scripted | - |
+| CupertinoSlidingSegmentedControlTheme | Sliding theme | test_cupertino_cupertino_sliding_segmented_control_theme.dart | tp-only | - |
+| CupertinoSpellCheckSuggestionsToolbar | Spell toolbar | test_cupertino_cupertino_spell_check_suggestions_toolbar.dart | scripted | - |
+| CupertinoStatusBar | Status bar | test_cupertino_cupertino_status_bar.dart | tp-only | - |
+| CupertinoTargetPlatform | Target platform | test_cupertino_cupertino_target_platform.dart | tp-only | - |
+| CupertinoTextMagnifier | Text magnifier | test_cupertino_cupertino_text_magnifier.dart | scripted | - |
+| CupertinoTextMagnifierConfiguration | Magnifier config | test_cupertino_cupertino_text_magnifier_configuration.dart | tp-only | - |
+| CupertinoTextSelectionControls | iOS controls | test_cupertino_cupertino_text_selection_controls.dart | scripted | - |
+| CupertinoTransitions | Transitions | test_cupertino_cupertino_transitions.dart | tp-only | - |
+| ObstructingPreferredSizeWidget | Obstructing widget | test_cupertino_obstructing_preferred_size_widget.dart | scripted | - |
 
 ---
 
@@ -557,22 +558,22 @@ Specialized classes for advanced use cases - test after essential and important 
 
 | Class | Description | Test File | Status | Result |
 |-------|-------------|-----------|--------|--------|
-| AggregatedTimedBlock | Aggregated timing | test_foundation_aggregated_timed_block.dart | - | - |
-| AggregatedTimings | Timing aggregation | test_foundation_aggregated_timings.dart | - | - |
-| BitField | Bit manipulation | test_foundation_bitfield.dart | - | - |
-| FlutterTimeline | Timeline events | test_foundation_flutter_timeline.dart | - | - |
-| HashedObserverList | Hashed observers | test_foundation_hashedobserverlist.dart | - | - |
-| ObserverList | Observer list | test_foundation_observerlist.dart | - | - |
-| PartialStackFrame | Partial frame info | test_foundation_partial_stack_frame.dart | - | - |
-| PersistentHashMap | Immutable hash map | test_foundation_persistent_hash_map.dart | - | - |
-| ReadBuffer | Read buffer | test_foundation_readbuffer.dart | - | - |
-| RepetitiveStackFrameFilter | Repetitive frame filter | test_foundation_repetitive_stack_frame_filter.dart | - | - |
-| StackFilter | Stack filtering | test_foundation_stack_filter.dart | - | - |
-| StackFrame | Stack frame info | test_foundation_stack_frame.dart | - | - |
-| SynchronousFuture | Sync future | test_foundation_synchronousfuture.dart | - | - |
-| TimedBlock | Timed code block | test_foundation_timed_block.dart | - | - |
-| Unicode | Unicode utilities | test_foundation_unicode.dart | - | - |
-| WriteBuffer | Write buffer | test_foundation_writebuffer.dart | - | - |
+| AggregatedTimedBlock | Aggregated timing | test_foundation_aggregated_timed_block.dart | scripted | - |
+| AggregatedTimings | Timing aggregation | test_foundation_aggregated_timings.dart | scripted | - |
+| BitField | Bit manipulation | test_foundation_bitfield.dart | scripted | - |
+| FlutterTimeline | Timeline events | test_foundation_flutter_timeline.dart | scripted | - |
+| HashedObserverList | Hashed observers | test_foundation_hashedobserverlist.dart | batch | - |
+| ObserverList | Observer list | test_foundation_observerlist.dart | batch | - |
+| PartialStackFrame | Partial frame info | test_foundation_partial_stack_frame.dart | scripted | - |
+| PersistentHashMap | Immutable hash map | test_foundation_persistent_hash_map.dart | scripted | - |
+| ReadBuffer | Read buffer | test_foundation_readbuffer.dart | scripted | - |
+| RepetitiveStackFrameFilter | Repetitive frame filter | test_foundation_repetitive_stack_frame_filter.dart | scripted | - |
+| StackFilter | Stack filtering | test_foundation_stack_filter.dart | scripted | - |
+| StackFrame | Stack frame info | test_foundation_stack_frame.dart | scripted | - |
+| SynchronousFuture | Sync future | test_foundation_synchronousfuture.dart | batch | - |
+| TimedBlock | Timed code block | test_foundation_timed_block.dart | scripted | - |
+| Unicode | Unicode utilities | test_foundation_unicode.dart | scripted | - |
+| WriteBuffer | Write buffer | test_foundation_writebuffer.dart | scripted | - |
 
 ---
 
@@ -580,38 +581,38 @@ Specialized classes for advanced use cases - test after essential and important 
 
 | Class | Description | Test File | Status | Result |
 |-------|-------------|-----------|--------|--------|
-| AutomaticNotchedShape | Auto-notched shape | test_painting_automatic_notched_shape.dart | - | - |
-| BorderDirectional | RTL-aware border | test_painting_border_directional.dart | - | - |
-| BoxBorder | Base box border | test_painting_box_border.dart | - | - |
-| BoxPainter | Decoration painter | test_painting_box_painter.dart | - | - |
-| CircularNotchedRectangle | FAB notch | test_painting_circularnotchedrectangle.dart | - | - |
-| Decoration | Base decoration | test_painting_decoration.dart | - | - |
-| DecorationImagePainter | Image painter | test_painting_decoration_image_painter.dart | - | - |
-| FlutterLogoDecoration | Flutter logo | test_painting_flutter_logo_decoration.dart | - | - |
-| Gradient | Base gradient | test_painting_gradient.dart | - | - |
-| GradientRotation | Gradient rotation | test_painting_gradientrotation.dart | - | - |
-| GradientTransform | Gradient transform | test_painting_gradienttransform.dart | - | - |
-| ImageCache | Image cache | test_painting_imagecache.dart | - | - |
-| ImageCacheStatus | Cache status | test_painting_imagecachestatus.dart | - | - |
-| ImageChunkEvent | Chunk event | test_painting_imagechunkevent.dart | - | - |
-| ImageConfiguration | Image config | test_painting_imageconfiguration.dart | - | - |
-| ImageInfo | Image info | test_painting_imageinfo.dart | - | - |
-| ImageStream | Image stream | test_painting_imagestream.dart | - | - |
-| ImageStreamCompleter | Image completer | test_painting_imagestreamcompleter.dart | - | - |
-| ImageStreamListener | Image listener | test_painting_imagestreamlistener.dart | - | - |
-| LinearBorder | Linear border | test_painting_linear_border.dart | - | - |
-| LinearBorderEdge | Linear border edge | test_painting_linear_border_edge.dart | - | - |
-| NotchedShape | Shape with notch | test_painting_notched_shape.dart | - | - |
-| OutlinedBorder | Shape with outline | test_painting_outlined_border.dart | - | - |
-| PlaceholderDimensions | Placeholder dimensions | test_painting_placeholderdimensions.dart | - | - |
-| PlaceholderSpan | Placeholder span | test_widgets_placeholderspan.dart | - | - |
-| ResizeImage | Resize image | test_painting_resizeimage.dart | - | - |
-| ResizeImageKey | Resize key | test_painting_resizeimagekey.dart | - | - |
-| RoundedSuperellipseBorder | Superellipse border | test_painting_rounded_superellipse_border.dart | - | - |
-| ShapeBorder | Base shape border | test_painting_shape_border.dart | - | - |
-| StarBorder | Star shape | test_painting_star_border.dart | - | - |
-| Vector2 | 2D vector | test_painting_vector2.dart | - | - |
-| WordBoundary | Word boundary detection | test_painting_word_boundary.dart | - | - |
+| AutomaticNotchedShape | Auto-notched shape | test_painting_automatic_notched_shape.dart | scripted | - |
+| BorderDirectional | RTL-aware border | test_painting_border_directional.dart | scripted | - |
+| BoxBorder | Base box border | test_painting_box_border.dart | scripted | - |
+| BoxPainter | Decoration painter | test_painting_box_painter.dart | scripted | - |
+| CircularNotchedRectangle | FAB notch | test_painting_circularnotchedrectangle.dart | batch | - |
+| Decoration | Base decoration | test_painting_decoration.dart | scripted | - |
+| DecorationImagePainter | Image painter | test_painting_decoration_image_painter.dart | scripted | - |
+| FlutterLogoDecoration | Flutter logo | test_painting_flutter_logo_decoration.dart | scripted | - |
+| Gradient | Base gradient | test_painting_gradient.dart | scripted | - |
+| GradientRotation | Gradient rotation | test_painting_gradientrotation.dart | batch | - |
+| GradientTransform | Gradient transform | test_painting_gradienttransform.dart | batch | - |
+| ImageCache | Image cache | test_painting_imagecache.dart | batch | - |
+| ImageCacheStatus | Cache status | test_painting_imagecachestatus.dart | scripted | - |
+| ImageChunkEvent | Chunk event | test_painting_imagechunkevent.dart | scripted | - |
+| ImageConfiguration | Image config | test_painting_imageconfiguration.dart | batch | - |
+| ImageInfo | Image info | test_painting_imageinfo.dart | scripted | - |
+| ImageStream | Image stream | test_painting_imagestream.dart | scripted | - |
+| ImageStreamCompleter | Image completer | test_painting_imagestreamcompleter.dart | scripted | - |
+| ImageStreamListener | Image listener | test_painting_imagestreamlistener.dart | scripted | - |
+| LinearBorder | Linear border | test_painting_linear_border.dart | scripted | - |
+| LinearBorderEdge | Linear border edge | test_painting_linear_border_edge.dart | scripted | - |
+| NotchedShape | Shape with notch | test_painting_notched_shape.dart | scripted | - |
+| OutlinedBorder | Shape with outline | test_painting_outlined_border.dart | scripted | - |
+| PlaceholderDimensions | Placeholder dimensions | test_painting_placeholderdimensions.dart | scripted | - |
+| PlaceholderSpan | Placeholder span | test_widgets_placeholderspan.dart | scripted | - |
+| ResizeImage | Resize image | test_painting_resizeimage.dart | scripted | - |
+| ResizeImageKey | Resize key | test_painting_resizeimagekey.dart | scripted | - |
+| RoundedSuperellipseBorder | Superellipse border | test_painting_rounded_superellipse_border.dart | scripted | - |
+| ShapeBorder | Base shape border | test_painting_shape_border.dart | scripted | - |
+| StarBorder | Star shape | test_painting_star_border.dart | scripted | - |
+| Vector2 | 2D vector | test_painting_vector2.dart | tp-only | - |
+| WordBoundary | Word boundary detection | test_painting_word_boundary.dart | scripted | - |
 
 ---
 
@@ -619,113 +620,113 @@ Specialized classes for advanced use cases - test after essential and important 
 
 | Class | Description | Test File | Status | Result |
 |-------|-------------|-----------|--------|--------|
-| BoxHitTestEntry | Hit entry | test_rendering_boxhittestentry.dart | - | - |
-| BoxHitTestResult | Hit test | test_rendering_boxhittestresult.dart | - | - |
-| ClipPathLayer | Clip path layer | test_rendering_clip_path_layer.dart | - | - |
-| ClipRSuperellipseLayer | Superellipse clip | test_rendering_clip_r_superellipse_layer.dart | - | - |
-| ColorFilterLayer | Color filter layer | test_rendering_color_filter_layer.dart | - | - |
-| Constraints | Base constraints | test_rendering_constraints.dart | - | - |
-| ContainerBoxParentData | Container parent | test_rendering_containerboxparentdata.dart | - | - |
-| ContainerRenderObjectMixin | Container mixin | test_rendering_containerrenderobjectmixin.dart | - | - |
-| CustomPainterSemantics | Painter semantics | test_rendering_custom_painter_semantics.dart | - | - |
-| DebugOverflowIndicatorMixin | Overflow debug | test_rendering_debug_overflow_indicator_mixin.dart | - | - |
-| FollowerLayer | Follower layer | test_rendering_followerlayer.dart | - | - |
-| KeepAliveParentDataMixin | Keep alive data | test_rendering_keep_alive_parent_data_mixin.dart | - | - |
-| LayerHandle | Layer handle | test_rendering_layerhandle.dart | - | - |
-| LayerLink | Layer link | test_rendering_layerlink.dart | - | - |
-| LeaderLayer | Leader layer | test_rendering_leaderlayer.dart | - | - |
-| ListBodyParentData | List body data | test_rendering_list_body_parent_data.dart | - | - |
-| ListWheelParentData | Wheel parent data | test_rendering_list_wheel_parent_data.dart | - | - |
-| MouseTracker | Mouse tracking | test_rendering_mouse_tracker.dart | - | - |
-| ParentData | Base parent data | test_rendering_parent_data.dart | - | - |
-| PerformanceOverlayLayer | Perf layer | test_rendering_performanceoverlaylayer.dart | - | - |
-| PictureLayer | Picture layer | test_rendering_picturelayer.dart | - | - |
-| PlatformViewLayer | Platform view | test_rendering_platformviewlayer.dart | - | - |
-| RelayoutWhenSystemFontsChangeMixin | Font relayout | test_rendering_relayout_when_system_fonts_change_mixin.dart | - | - |
-| RenderAbsorbPointer | Absorb pointer | test_rendering_renderabsorbpointer.dart | - | - |
-| RenderAligningShiftedBox | Aligning shifted | test_rendering_render_aligning_shifted_box.dart | - | - |
-| RenderAnimatedOpacity | Animated opacity | test_rendering_renderanimatedopacity.dart | - | - |
-| RenderAnimatedSize | Animated size | test_rendering_render_animated_size.dart | - | - |
-| RenderAnnotatedRegion | Annotated region | test_rendering_renderannotatedregion.dart | - | - |
-| RenderBackdropFilter | Backdrop filter | test_rendering_render_backdrop_filter.dart | - | - |
-| RenderBaseline | Baseline | test_rendering_render_baseline.dart | - | - |
-| RenderBlockSemantics | Block semantics | test_rendering_renderblocksemantics.dart | - | - |
-| RenderBoxContainerDefaultsMixin | Container defaults | test_rendering_render_box_container_defaults_mixin.dart | - | - |
-| RenderConstrainedOverflowBox | Overflow box | test_rendering_renderconstrainedoverflowbox.dart | - | - |
-| RenderConstraintsTransformBox | Constraints transform | test_rendering_render_constraints_transform_box.dart | - | - |
-| RenderCustomMultiChildLayoutBox | Custom multi layout | test_rendering_render_custom_multi_child_layout_box.dart | - | - |
-| RenderCustomPaint | Custom paint | test_rendering_rendercustompaint.dart | - | - |
-| RenderCustomSingleChildLayoutBox | Custom single layout | test_rendering_render_custom_single_child_layout_box.dart | - | - |
-| RenderEditable | Editable text | test_rendering_rendereditable.dart | - | - |
-| RenderErrorBox | Error display | test_rendering_render_error_box.dart | - | - |
-| RenderExcludeSemantics | Exclude semantics | test_rendering_renderexcludesemantics.dart | - | - |
-| RenderFollowerLayer | Follower layer | test_rendering_renderfollowerlayer.dart | - | - |
-| RenderFractionalTranslation | Fractional translation | test_rendering_render_fractional_translation.dart | - | - |
-| RenderFractionallySizedOverflowBox | Fractional overflow | test_rendering_render_fractionally_sized_overflow_box.dart | - | - |
-| RenderIgnoreBaseline | Ignore baseline | test_rendering_render_ignore_baseline.dart | - | - |
-| RenderIgnorePointer | Ignore pointer | test_rendering_renderignorepointer.dart | - | - |
-| RenderIndexedSemantics | Indexed semantics | test_rendering_render_indexed_semantics.dart | - | - |
-| RenderIndexedStack | Indexed stack | test_rendering_renderindexedstack.dart | - | - |
-| RenderLeaderLayer | Leader layer | test_rendering_renderleaderlayer.dart | - | - |
-| RenderListWheelViewport | Wheel viewport | test_rendering_render_list_wheel_viewport.dart | - | - |
-| RenderMergeSemantics | Merge semantics | test_rendering_rendermergesemantics.dart | - | - |
-| RenderMetaData | Meta data | test_rendering_render_meta_data.dart | - | - |
-| RenderMouseRegion | Mouse region | test_rendering_rendermouseregion.dart | - | - |
-| RenderObjectWithChildMixin | Child mixin | test_rendering_renderobjectwithchildmixin.dart | - | - |
-| RenderOffstage | Offstage render | test_rendering_renderoffstage.dart | - | - |
-| RenderPhysicalModel | Physical model | test_rendering_renderphysicalmodel.dart | - | - |
-| RenderPhysicalShape | Physical shape | test_rendering_renderphysicalshape.dart | - | - |
-| RenderPointerListener | Pointer listener | test_rendering_renderpointerlistener.dart | - | - |
-| RenderProxyBoxMixin | Proxy mixin | test_rendering_render_proxy_box_mixin.dart | - | - |
-| RenderProxyBoxWithHitTestBehavior | Proxy with behavior | test_rendering_render_proxy_box_with_hit_test_behavior.dart | - | - |
-| RenderRepaintBoundary | Repaint boundary | test_rendering_renderrepaintboundary.dart | - | - |
-| RenderRotatedBox | Rotated box | test_rendering_render_rotated_box.dart | - | - |
-| RenderSemanticsAnnotations | Semantics | test_rendering_rendersemanticsannotation.dart | - | - |
-| RenderSemanticsGestureHandler | Gesture semantics | test_rendering_render_semantics_gesture_handler.dart | - | - |
-| RenderShaderMask | Shader mask | test_rendering_render_shader_mask.dart | - | - |
-| RenderShrinkWrappingViewport | Shrink viewport | test_rendering_render_shrink_wrapping_viewport.dart | - | - |
-| RenderSizedOverflowBox | Sized overflow | test_rendering_render_sized_overflow_box.dart | - | - |
-| RenderSliverAnimatedOpacity | Animated opacity | test_rendering_render_sliver_animated_opacity.dart | - | - |
-| RenderSliverFillRemaining | Fill remaining | test_rendering_render_sliver_fill_remaining.dart | - | - |
-| RenderSliverFillViewport | Fill viewport | test_rendering_render_sliver_fill_viewport.dart | - | - |
-| RenderSliverFixedExtentList | Fixed extent list | test_rendering_render_sliver_fixed_extent_list.dart | - | - |
-| RenderSliverFloatingPersistentHeader | Floating header | test_rendering_render_sliver_floating_persistent_header.dart | - | - |
-| RenderSliverHelpers | Sliver helpers | test_rendering_render_sliver_helpers.dart | - | - |
-| RenderSliverIgnorePointer | Sliver ignore | test_rendering_render_sliver_ignore_pointer.dart | - | - |
-| RenderSliverMultiBoxAdaptor | Multi box adaptor | test_rendering_render_sliver_multi_box_adaptor.dart | - | - |
-| RenderSliverOffstage | Sliver offstage | test_rendering_render_sliver_offstage.dart | - | - |
-| RenderSliverPersistentHeader | Persistent header | test_rendering_render_sliver_persistent_header.dart | - | - |
-| RenderSliverPinnedPersistentHeader | Pinned header | test_rendering_render_sliver_pinned_persistent_header.dart | - | - |
-| RenderSliverScrollingPersistentHeader | Scrolling header | test_rendering_render_sliver_scrolling_persistent_header.dart | - | - |
-| RenderSliverToBoxAdapter | Box adapter | test_rendering_render_sliver_to_box_adapter.dart | - | - |
-| RenderSliverVariedExtentList | Varied extent list | test_rendering_render_sliver_varied_extent_list.dart | - | - |
-| RenderSliverWithKeepAliveMixin | Keep alive sliver | test_rendering_render_sliver_with_keep_alive_mixin.dart | - | - |
-| RenderTreeSliver | Tree sliver | test_rendering_render_tree_sliver.dart | - | - |
-| RenderViewportBase | Viewport base | test_rendering_render_viewport_base.dart | - | - |
-| RendererBinding | Renderer binding | test_rendering_renderer_binding.dart | - | - |
-| RenderingFlutterBinding | Flutter binding | test_rendering_rendering_flutter_binding.dart | - | - |
-| Selectable | Selectable mixin | test_widgets_selectable.dart | - | - |
-| SelectedContent | Selected content | test_rendering_selected_content.dart | - | - |
-| SelectionGeometry | Selection geometry | test_rendering_selection_geometry.dart | - | - |
-| SelectionPoint | Selection point | test_rendering_selection_point.dart | - | - |
-| SelectionRegistrar | Selection registrar | test_widgets_selectionregistrar.dart | - | - |
-| SemanticsAnnotationsMixin | Semantics mixin | test_rendering_semantics_annotations_mixin.dart | - | - |
-| ShaderMaskLayer | Shader mask | test_rendering_shadermasklayer.dart | - | - |
-| ShapeBorderClipper | Shape clipper | test_rendering_shape_border_clipper.dart | - | - |
-| SliverGridGeometry | Grid geometry | test_rendering_sliver_grid_geometry.dart | - | - |
-| SliverGridLayout | Grid layout | test_rendering_sliver_grid_layout.dart | - | - |
-| SliverGridRegularTileLayout | Regular tile layout | test_rendering_sliver_grid_regular_tile_layout.dart | - | - |
-| SliverHitTestEntry | Sliver hit entry | test_rendering_sliver_hit_test_entry.dart | - | - |
-| SliverHitTestResult | Sliver hit test | test_rendering_sliver_hit_test_result.dart | - | - |
-| SliverLayoutDimensions | Layout dimensions | test_rendering_sliver_layout_dimensions.dart | - | - |
-| SliverLogicalParentData | Logical sliver data | test_rendering_sliver_logical_parent_data.dart | - | - |
-| SliverMultiBoxAdaptorParentData | Multi box data | test_rendering_sliver_multi_box_adaptor_parent_data.dart | - | - |
-| SliverPhysicalParentData | Physical sliver data | test_rendering_sliver_physical_parent_data.dart | - | - |
-| TableCellParentData | Table cell data | test_rendering_table_cell_parent_data.dart | - | - |
-| TextParentData | Text parent data | test_rendering_text_parent_data.dart | - | - |
-| TextSelectionPoint | Selection point | test_rendering_text_selection_point.dart | - | - |
-| TextureLayer | Texture layer | test_rendering_texturelayer.dart | - | - |
-| WrapParentData | Wrap parent data | test_rendering_wrap_parent_data.dart | - | - |
+| BoxHitTestEntry | Hit entry | test_rendering_boxhittestentry.dart | scripted | - |
+| BoxHitTestResult | Hit test | test_rendering_boxhittestresult.dart | scripted | - |
+| ClipPathLayer | Clip path layer | test_rendering_clip_path_layer.dart | scripted | - |
+| ClipRSuperellipseLayer | Superellipse clip | test_rendering_clip_r_superellipse_layer.dart | scripted | - |
+| ColorFilterLayer | Color filter layer | test_rendering_color_filter_layer.dart | scripted | - |
+| Constraints | Base constraints | test_rendering_constraints.dart | scripted | - |
+| ContainerBoxParentData | Container parent | test_rendering_containerboxparentdata.dart | scripted | - |
+| ContainerRenderObjectMixin | Container mixin | test_rendering_containerrenderobjectmixin.dart | scripted | - |
+| CustomPainterSemantics | Painter semantics | test_rendering_custom_painter_semantics.dart | scripted | - |
+| DebugOverflowIndicatorMixin | Overflow debug | test_rendering_debug_overflow_indicator_mixin.dart | scripted | - |
+| FollowerLayer | Follower layer | test_rendering_followerlayer.dart | scripted | - |
+| KeepAliveParentDataMixin | Keep alive data | test_rendering_keep_alive_parent_data_mixin.dart | scripted | - |
+| LayerHandle | Layer handle | test_rendering_layerhandle.dart | scripted | - |
+| LayerLink | Layer link | test_rendering_layerlink.dart | scripted | - |
+| LeaderLayer | Leader layer | test_rendering_leaderlayer.dart | scripted | - |
+| ListBodyParentData | List body data | test_rendering_list_body_parent_data.dart | scripted | - |
+| ListWheelParentData | Wheel parent data | test_rendering_list_wheel_parent_data.dart | scripted | - |
+| MouseTracker | Mouse tracking | test_rendering_mouse_tracker.dart | scripted | - |
+| ParentData | Base parent data | test_rendering_parent_data.dart | scripted | - |
+| PerformanceOverlayLayer | Perf layer | test_rendering_performanceoverlaylayer.dart | scripted | - |
+| PictureLayer | Picture layer | test_rendering_picturelayer.dart | scripted | - |
+| PlatformViewLayer | Platform view | test_rendering_platformviewlayer.dart | scripted | - |
+| RelayoutWhenSystemFontsChangeMixin | Font relayout | test_rendering_relayout_when_system_fonts_change_mixin.dart | scripted | - |
+| RenderAbsorbPointer | Absorb pointer | test_rendering_renderabsorbpointer.dart | scripted | - |
+| RenderAligningShiftedBox | Aligning shifted | test_rendering_render_aligning_shifted_box.dart | scripted | - |
+| RenderAnimatedOpacity | Animated opacity | test_rendering_renderanimatedopacity.dart | scripted | - |
+| RenderAnimatedSize | Animated size | test_rendering_render_animated_size.dart | scripted | - |
+| RenderAnnotatedRegion | Annotated region | test_rendering_renderannotatedregion.dart | scripted | - |
+| RenderBackdropFilter | Backdrop filter | test_rendering_render_backdrop_filter.dart | scripted | - |
+| RenderBaseline | Baseline | test_rendering_render_baseline.dart | scripted | - |
+| RenderBlockSemantics | Block semantics | test_rendering_renderblocksemantics.dart | scripted | - |
+| RenderBoxContainerDefaultsMixin | Container defaults | test_rendering_render_box_container_defaults_mixin.dart | scripted | - |
+| RenderConstrainedOverflowBox | Overflow box | test_rendering_renderconstrainedoverflowbox.dart | scripted | - |
+| RenderConstraintsTransformBox | Constraints transform | test_rendering_render_constraints_transform_box.dart | scripted | - |
+| RenderCustomMultiChildLayoutBox | Custom multi layout | test_rendering_render_custom_multi_child_layout_box.dart | scripted | - |
+| RenderCustomPaint | Custom paint | test_rendering_rendercustompaint.dart | scripted | - |
+| RenderCustomSingleChildLayoutBox | Custom single layout | test_rendering_render_custom_single_child_layout_box.dart | scripted | - |
+| RenderEditable | Editable text | test_rendering_rendereditable.dart | scripted | - |
+| RenderErrorBox | Error display | test_rendering_render_error_box.dart | scripted | - |
+| RenderExcludeSemantics | Exclude semantics | test_rendering_renderexcludesemantics.dart | scripted | - |
+| RenderFollowerLayer | Follower layer | test_rendering_renderfollowerlayer.dart | scripted | - |
+| RenderFractionalTranslation | Fractional translation | test_rendering_render_fractional_translation.dart | scripted | - |
+| RenderFractionallySizedOverflowBox | Fractional overflow | test_rendering_render_fractionally_sized_overflow_box.dart | scripted | - |
+| RenderIgnoreBaseline | Ignore baseline | test_rendering_render_ignore_baseline.dart | scripted | - |
+| RenderIgnorePointer | Ignore pointer | test_rendering_renderignorepointer.dart | scripted | - |
+| RenderIndexedSemantics | Indexed semantics | test_rendering_render_indexed_semantics.dart | scripted | - |
+| RenderIndexedStack | Indexed stack | test_rendering_renderindexedstack.dart | scripted | - |
+| RenderLeaderLayer | Leader layer | test_rendering_renderleaderlayer.dart | scripted | - |
+| RenderListWheelViewport | Wheel viewport | test_rendering_render_list_wheel_viewport.dart | scripted | - |
+| RenderMergeSemantics | Merge semantics | test_rendering_rendermergesemantics.dart | scripted | - |
+| RenderMetaData | Meta data | test_rendering_render_meta_data.dart | scripted | - |
+| RenderMouseRegion | Mouse region | test_rendering_rendermouseregion.dart | scripted | - |
+| RenderObjectWithChildMixin | Child mixin | test_rendering_renderobjectwithchildmixin.dart | scripted | - |
+| RenderOffstage | Offstage render | test_rendering_renderoffstage.dart | scripted | - |
+| RenderPhysicalModel | Physical model | test_rendering_renderphysicalmodel.dart | scripted | - |
+| RenderPhysicalShape | Physical shape | test_rendering_renderphysicalshape.dart | scripted | - |
+| RenderPointerListener | Pointer listener | test_rendering_renderpointerlistener.dart | scripted | - |
+| RenderProxyBoxMixin | Proxy mixin | test_rendering_render_proxy_box_mixin.dart | scripted | - |
+| RenderProxyBoxWithHitTestBehavior | Proxy with behavior | test_rendering_render_proxy_box_with_hit_test_behavior.dart | scripted | - |
+| RenderRepaintBoundary | Repaint boundary | test_rendering_renderrepaintboundary.dart | scripted | - |
+| RenderRotatedBox | Rotated box | test_rendering_render_rotated_box.dart | scripted | - |
+| RenderSemanticsAnnotations | Semantics | test_rendering_rendersemanticsannotation.dart | scripted | - |
+| RenderSemanticsGestureHandler | Gesture semantics | test_rendering_render_semantics_gesture_handler.dart | scripted | - |
+| RenderShaderMask | Shader mask | test_rendering_render_shader_mask.dart | scripted | - |
+| RenderShrinkWrappingViewport | Shrink viewport | test_rendering_render_shrink_wrapping_viewport.dart | scripted | - |
+| RenderSizedOverflowBox | Sized overflow | test_rendering_render_sized_overflow_box.dart | scripted | - |
+| RenderSliverAnimatedOpacity | Animated opacity | test_rendering_render_sliver_animated_opacity.dart | scripted | - |
+| RenderSliverFillRemaining | Fill remaining | test_rendering_render_sliver_fill_remaining.dart | scripted | - |
+| RenderSliverFillViewport | Fill viewport | test_rendering_render_sliver_fill_viewport.dart | scripted | - |
+| RenderSliverFixedExtentList | Fixed extent list | test_rendering_render_sliver_fixed_extent_list.dart | scripted | - |
+| RenderSliverFloatingPersistentHeader | Floating header | test_rendering_render_sliver_floating_persistent_header.dart | scripted | - |
+| RenderSliverHelpers | Sliver helpers | test_rendering_render_sliver_helpers.dart | scripted | - |
+| RenderSliverIgnorePointer | Sliver ignore | test_rendering_render_sliver_ignore_pointer.dart | scripted | - |
+| RenderSliverMultiBoxAdaptor | Multi box adaptor | test_rendering_render_sliver_multi_box_adaptor.dart | scripted | - |
+| RenderSliverOffstage | Sliver offstage | test_rendering_render_sliver_offstage.dart | scripted | - |
+| RenderSliverPersistentHeader | Persistent header | test_rendering_render_sliver_persistent_header.dart | scripted | - |
+| RenderSliverPinnedPersistentHeader | Pinned header | test_rendering_render_sliver_pinned_persistent_header.dart | scripted | - |
+| RenderSliverScrollingPersistentHeader | Scrolling header | test_rendering_render_sliver_scrolling_persistent_header.dart | scripted | - |
+| RenderSliverToBoxAdapter | Box adapter | test_rendering_render_sliver_to_box_adapter.dart | scripted | - |
+| RenderSliverVariedExtentList | Varied extent list | test_rendering_render_sliver_varied_extent_list.dart | scripted | - |
+| RenderSliverWithKeepAliveMixin | Keep alive sliver | test_rendering_render_sliver_with_keep_alive_mixin.dart | scripted | - |
+| RenderTreeSliver | Tree sliver | test_rendering_render_tree_sliver.dart | scripted | - |
+| RenderViewportBase | Viewport base | test_rendering_render_viewport_base.dart | scripted | - |
+| RendererBinding | Renderer binding | test_rendering_renderer_binding.dart | scripted | - |
+| RenderingFlutterBinding | Flutter binding | test_rendering_rendering_flutter_binding.dart | scripted | - |
+| Selectable | Selectable mixin | test_widgets_selectable.dart | scripted | - |
+| SelectedContent | Selected content | test_rendering_selected_content.dart | scripted | - |
+| SelectionGeometry | Selection geometry | test_rendering_selection_geometry.dart | scripted | - |
+| SelectionPoint | Selection point | test_rendering_selection_point.dart | scripted | - |
+| SelectionRegistrar | Selection registrar | test_widgets_selectionregistrar.dart | scripted | - |
+| SemanticsAnnotationsMixin | Semantics mixin | test_rendering_semantics_annotations_mixin.dart | scripted | - |
+| ShaderMaskLayer | Shader mask | test_rendering_shadermasklayer.dart | scripted | - |
+| ShapeBorderClipper | Shape clipper | test_rendering_shape_border_clipper.dart | scripted | - |
+| SliverGridGeometry | Grid geometry | test_rendering_sliver_grid_geometry.dart | scripted | - |
+| SliverGridLayout | Grid layout | test_rendering_sliver_grid_layout.dart | scripted | - |
+| SliverGridRegularTileLayout | Regular tile layout | test_rendering_sliver_grid_regular_tile_layout.dart | scripted | - |
+| SliverHitTestEntry | Sliver hit entry | test_rendering_sliver_hit_test_entry.dart | scripted | - |
+| SliverHitTestResult | Sliver hit test | test_rendering_sliver_hit_test_result.dart | scripted | - |
+| SliverLayoutDimensions | Layout dimensions | test_rendering_sliver_layout_dimensions.dart | scripted | - |
+| SliverLogicalParentData | Logical sliver data | test_rendering_sliver_logical_parent_data.dart | scripted | - |
+| SliverMultiBoxAdaptorParentData | Multi box data | test_rendering_sliver_multi_box_adaptor_parent_data.dart | scripted | - |
+| SliverPhysicalParentData | Physical sliver data | test_rendering_sliver_physical_parent_data.dart | scripted | - |
+| TableCellParentData | Table cell data | test_rendering_table_cell_parent_data.dart | scripted | - |
+| TextParentData | Text parent data | test_rendering_text_parent_data.dart | scripted | - |
+| TextSelectionPoint | Selection point | test_rendering_text_selection_point.dart | scripted | - |
+| TextureLayer | Texture layer | test_rendering_texturelayer.dart | scripted | - |
+| WrapParentData | Wrap parent data | test_rendering_wrap_parent_data.dart | scripted | - |
 
 ---
 
@@ -733,10 +734,10 @@ Specialized classes for advanced use cases - test after essential and important 
 
 | Class | Description | Test File | Status | Result |
 |-------|-------------|-----------|--------|--------|
-| AnimationMax | Maximum animation | test_animation_animationmax.dart | - | - |
-| AnimationMean | Mean animation | test_animation_animationmean.dart | - | - |
-| AnimationMin | Minimum animation | test_animation_animationmin.dart | - | - |
-| AnimationWithParentMixin | Parent animation mixin | test_animation_animation_with_parent_mixin.dart | - | - |
+| AnimationMax | Maximum animation | test_animation_animationmax.dart | scripted | - |
+| AnimationMean | Mean animation | test_animation_animationmean.dart | scripted | - |
+| AnimationMin | Minimum animation | test_animation_animationmin.dart | scripted | - |
+| AnimationWithParentMixin | Parent animation mixin | test_animation_animation_with_parent_mixin.dart | scripted | - |
 
 ---
 
@@ -744,31 +745,31 @@ Specialized classes for advanced use cases - test after essential and important 
 
 | Class | Description | Test File | Status | Result |
 |-------|-------------|-----------|--------|--------|
-| BaseTapAndDragGestureRecognizer | Base tap+drag | test_gestures_base_tap_and_drag_gesture_recognizer.dart | - | - |
-| DelayedMultiDragGestureRecognizer | Delayed multi-drag | test_gestures_delayed_multi_drag_gesture_recognizer.dart | - | - |
-| DeviceGestureSettings | Device settings | test_gestures_device_gesture_settings.dart | - | - |
-| Drag | Drag callback | test_gestures_drag.dart | - | - |
-| DragGestureRecognizer | Base drag recognizer | test_gestures_drag_gesture_recognizer.dart | - | - |
-| EagerGestureRecognizer | Eager recognizer | test_gestures_eager_gesture_recognizer.dart | - | - |
-| HorizontalMultiDragGestureRecognizer | Horizontal multi-drag | test_gestures_horizontal_multi_drag_gesture_recognizer.dart | - | - |
-| ImmediateMultiDragGestureRecognizer | Immediate multi-drag | test_gestures_immediate_multi_drag_gesture_recognizer.dart | - | - |
-| LongPressDownDetails | Long press down | test_gestures_long_press_down_details.dart | - | - |
-| MultiDragGestureRecognizer | Multi-pointer drag | test_gestures_multi_drag_gesture_recognizer.dart | - | - |
-| MultiDragPointerState | Multi-drag state | test_gestures_multi_drag_pointer_state.dart | - | - |
-| MultiTapGestureRecognizer | Multi-tap | test_gestures_multi_tap_gesture_recognizer.dart | - | - |
-| PositionedGestureDetails | Positioned details | test_gestures_positioned_gesture_details.dart | - | - |
-| SerialTapCancelDetails | Serial tap cancel | test_gestures_serial_tap_cancel_details.dart | - | - |
-| SerialTapDownDetails | Serial tap down | test_gestures_serial_tap_down_details.dart | - | - |
-| SerialTapGestureRecognizer | Serial taps | test_gestures_serial_tap_gesture_recognizer.dart | - | - |
-| SerialTapUpDetails | Serial tap up | test_gestures_serial_tap_up_details.dart | - | - |
-| TapAndHorizontalDragGestureRecognizer | Tap and horizontal | test_gestures_tap_and_horizontal_drag_gesture_recognizer.dart | - | - |
-| TapAndPanGestureRecognizer | Tap and pan | test_gestures_tap_and_pan_gesture_recognizer.dart | - | - |
-| TapDragDownDetails | Tap drag down | test_gestures_tap_drag_down_details.dart | - | - |
-| TapDragEndDetails | Tap drag end | test_gestures_tap_drag_end_details.dart | - | - |
-| TapDragStartDetails | Tap drag start | test_gestures_tap_drag_start_details.dart | - | - |
-| TapDragUpDetails | Tap drag up | test_gestures_tap_drag_up_details.dart | - | - |
-| TapDragUpdateDetails | Tap drag update | test_gestures_tap_drag_update_details.dart | - | - |
-| VerticalMultiDragGestureRecognizer | Vertical multi-drag | test_gestures_vertical_multi_drag_gesture_recognizer.dart | - | - |
+| BaseTapAndDragGestureRecognizer | Base tap+drag | test_gestures_base_tap_and_drag_gesture_recognizer.dart | scripted | - |
+| DelayedMultiDragGestureRecognizer | Delayed multi-drag | test_gestures_delayed_multi_drag_gesture_recognizer.dart | scripted | - |
+| DeviceGestureSettings | Device settings | test_gestures_device_gesture_settings.dart | scripted | - |
+| Drag | Drag callback | test_gestures_drag.dart | scripted | - |
+| DragGestureRecognizer | Base drag recognizer | test_gestures_drag_gesture_recognizer.dart | scripted | - |
+| EagerGestureRecognizer | Eager recognizer | test_gestures_eager_gesture_recognizer.dart | scripted | - |
+| HorizontalMultiDragGestureRecognizer | Horizontal multi-drag | test_gestures_horizontal_multi_drag_gesture_recognizer.dart | scripted | - |
+| ImmediateMultiDragGestureRecognizer | Immediate multi-drag | test_gestures_immediate_multi_drag_gesture_recognizer.dart | scripted | - |
+| LongPressDownDetails | Long press down | test_gestures_long_press_down_details.dart | scripted | - |
+| MultiDragGestureRecognizer | Multi-pointer drag | test_gestures_multi_drag_gesture_recognizer.dart | scripted | - |
+| MultiDragPointerState | Multi-drag state | test_gestures_multi_drag_pointer_state.dart | scripted | - |
+| MultiTapGestureRecognizer | Multi-tap | test_gestures_multi_tap_gesture_recognizer.dart | scripted | - |
+| PositionedGestureDetails | Positioned details | test_gestures_positioned_gesture_details.dart | scripted | - |
+| SerialTapCancelDetails | Serial tap cancel | test_gestures_serial_tap_cancel_details.dart | scripted | - |
+| SerialTapDownDetails | Serial tap down | test_gestures_serial_tap_down_details.dart | scripted | - |
+| SerialTapGestureRecognizer | Serial taps | test_gestures_serial_tap_gesture_recognizer.dart | scripted | - |
+| SerialTapUpDetails | Serial tap up | test_gestures_serial_tap_up_details.dart | scripted | - |
+| TapAndHorizontalDragGestureRecognizer | Tap and horizontal | test_gestures_tap_and_horizontal_drag_gesture_recognizer.dart | scripted | - |
+| TapAndPanGestureRecognizer | Tap and pan | test_gestures_tap_and_pan_gesture_recognizer.dart | scripted | - |
+| TapDragDownDetails | Tap drag down | test_gestures_tap_drag_down_details.dart | scripted | - |
+| TapDragEndDetails | Tap drag end | test_gestures_tap_drag_end_details.dart | scripted | - |
+| TapDragStartDetails | Tap drag start | test_gestures_tap_drag_start_details.dart | scripted | - |
+| TapDragUpDetails | Tap drag up | test_gestures_tap_drag_up_details.dart | scripted | - |
+| TapDragUpdateDetails | Tap drag update | test_gestures_tap_drag_update_details.dart | scripted | - |
+| VerticalMultiDragGestureRecognizer | Vertical multi-drag | test_gestures_vertical_multi_drag_gesture_recognizer.dart | scripted | - |
 
 ---
 
@@ -776,41 +777,41 @@ Specialized classes for advanced use cases - test after essential and important 
 
 | Class | Description | Test File | Status | Result |
 |-------|-------------|-----------|--------|--------|
-| AndroidViewController | Android views | test_services_android_view_controller.dart | - | - |
-| AppKitViewController | macOS views | test_services_app_kit_view_controller.dart | - | - |
-| AssetManifest | Asset manifest | test_services_asset_manifest.dart | - | - |
-| AssetMetadata | Asset metadata | test_services_asset_metadata.dart | - | - |
-| AutofillConfiguration | Autofill config | test_widgets_autofillconfiguration.dart | - | - |
-| AutofillScope | Autofill scope | test_widgets_autofillscope.dart | - | - |
-| BrowserContextMenu | Browser menu | test_services_browsercontextmenu.dart | - | - |
-| CachingAssetBundle | Cached assets | test_services_caching_asset_bundle.dart | - | - |
-| DarwinPlatformViewController | Darwin views | test_services_darwin_platform_view_controller.dart | - | - |
-| DefaultProcessTextService | Default processing | test_services_default_process_text_service.dart | - | - |
-| DefaultSpellCheckService | Default spell check | test_services_default_spell_check_service.dart | - | - |
-| ExpensiveAndroidViewController | Expensive Android | test_services_expensive_android_view_controller.dart | - | - |
-| FlutterVersion | Flutter version | test_services_flutter_version.dart | - | - |
-| FontLoader | Font loading | test_services_font_loader.dart | - | - |
-| HybridAndroidViewController | Hybrid Android | test_services_hybrid_android_view_controller.dart | - | - |
-| LiveText | Live text | test_services_livetext.dart | - | - |
-| NetworkAssetBundle | Network assets | test_services_network_asset_bundle.dart | - | - |
-| PlatformAssetBundle | Platform assets | test_services_platform_asset_bundle.dart | - | - |
-| PlatformViewController | View controller | test_services_platform_view_controller.dart | - | - |
-| PlatformViewsRegistry | View registry | test_services_platform_views_registry.dart | - | - |
-| PlatformViewsService | Platform views | test_services_platform_views_service.dart | - | - |
-| PredictiveBackEvent | Predictive back | test_services_predictive_back_event.dart | - | - |
-| ProcessTextAction | Process action | test_services_process_text_action.dart | - | - |
-| ProcessTextService | Text processing | test_services_process_text_service.dart | - | - |
-| RestorationManager | Restoration manager | test_widgets_restorationmanager.dart | - | - |
-| Scribe | Text scribe | test_services_scribe.dart | - | - |
-| SpellCheckService | Spell checking | test_services_spell_check_service.dart | - | - |
-| SuggestionSpan | Suggestion span | test_services_suggestion_span.dart | - | - |
-| SurfaceAndroidViewController | Surface Android | test_services_surface_android_view_controller.dart | - | - |
-| SystemChannels | System channels | test_services_systemchannels.dart | - | - |
-| TextLayoutMetrics | Text metrics | test_services_text_layout_metrics.dart | - | - |
-| TextureAndroidViewController | Texture Android | test_services_texture_android_view_controller.dart | - | - |
-| UiKitViewController | iOS views | test_services_ui_kit_view_controller.dart | - | - |
-| UndoManager | Undo system | test_services_undo_manager.dart | - | - |
-| UndoManagerClient | Undo client | test_services_undo_manager_client.dart | - | - |
+| AndroidViewController | Android views | test_services_android_view_controller.dart | scripted | - |
+| AppKitViewController | macOS views | test_services_app_kit_view_controller.dart | scripted | - |
+| AssetManifest | Asset manifest | test_services_asset_manifest.dart | scripted | - |
+| AssetMetadata | Asset metadata | test_services_asset_metadata.dart | scripted | - |
+| AutofillConfiguration | Autofill config | test_widgets_autofillconfiguration.dart | scripted | - |
+| AutofillScope | Autofill scope | test_widgets_autofillscope.dart | scripted | - |
+| BrowserContextMenu | Browser menu | test_services_browsercontextmenu.dart | scripted | - |
+| CachingAssetBundle | Cached assets | test_services_caching_asset_bundle.dart | scripted | - |
+| DarwinPlatformViewController | Darwin views | test_services_darwin_platform_view_controller.dart | scripted | - |
+| DefaultProcessTextService | Default processing | test_services_default_process_text_service.dart | scripted | - |
+| DefaultSpellCheckService | Default spell check | test_services_default_spell_check_service.dart | scripted | - |
+| ExpensiveAndroidViewController | Expensive Android | test_services_expensive_android_view_controller.dart | scripted | - |
+| FlutterVersion | Flutter version | test_services_flutter_version.dart | scripted | - |
+| FontLoader | Font loading | test_services_font_loader.dart | scripted | - |
+| HybridAndroidViewController | Hybrid Android | test_services_hybrid_android_view_controller.dart | scripted | - |
+| LiveText | Live text | test_services_livetext.dart | scripted | - |
+| NetworkAssetBundle | Network assets | test_services_network_asset_bundle.dart | scripted | - |
+| PlatformAssetBundle | Platform assets | test_services_platform_asset_bundle.dart | scripted | - |
+| PlatformViewController | View controller | test_services_platform_view_controller.dart | scripted | - |
+| PlatformViewsRegistry | View registry | test_services_platform_views_registry.dart | scripted | - |
+| PlatformViewsService | Platform views | test_services_platform_views_service.dart | scripted | - |
+| PredictiveBackEvent | Predictive back | test_services_predictive_back_event.dart | scripted | - |
+| ProcessTextAction | Process action | test_services_process_text_action.dart | scripted | - |
+| ProcessTextService | Text processing | test_services_process_text_service.dart | scripted | - |
+| RestorationManager | Restoration manager | test_widgets_restorationmanager.dart | scripted | - |
+| Scribe | Text scribe | test_services_scribe.dart | scripted | - |
+| SpellCheckService | Spell checking | test_services_spell_check_service.dart | scripted | - |
+| SuggestionSpan | Suggestion span | test_services_suggestion_span.dart | scripted | - |
+| SurfaceAndroidViewController | Surface Android | test_services_surface_android_view_controller.dart | scripted | - |
+| SystemChannels | System channels | test_services_systemchannels.dart | scripted | - |
+| TextLayoutMetrics | Text metrics | test_services_text_layout_metrics.dart | scripted | - |
+| TextureAndroidViewController | Texture Android | test_services_texture_android_view_controller.dart | scripted | - |
+| UiKitViewController | iOS views | test_services_ui_kit_view_controller.dart | scripted | - |
+| UndoManager | Undo system | test_services_undo_manager.dart | scripted | - |
+| UndoManagerClient | Undo client | test_services_undo_manager_client.dart | scripted | - |
 
 ---
 
@@ -818,42 +819,42 @@ Specialized classes for advanced use cases - test after essential and important 
 
 | Class | Description | Test File | Status | Result |
 |-------|-------------|-----------|--------|--------|
-| AccessibilityFeatures | Accessibility settings | test_dart_ui_accessibility_features.dart | - | - |
-| Brightness | Light/dark mode | test_dart_ui_brightness.dart | - | - |
-| Codec | Image codec | test_dart_ui_codec.dart | - | - |
-| Display | Display information | test_dart_ui_display.dart | - | - |
-| DisplayFeature | Display feature | test_dart_ui_displayfeature.dart | - | - |
-| FlutterView | Native view | test_dart_ui_flutterview.dart | - | - |
-| FrameData | Frame data | test_dart_ui_frame_data.dart | - | - |
-| FrameInfo | Animation frame | test_dart_ui_frameinfo.dart | - | - |
-| FrameTiming | Frame performance | test_dart_ui_frame_timing.dart | - | - |
-| GestureSettings | Gesture configuration | test_dart_ui_gesture_settings.dart | - | - |
-| ImageDescriptor | Image metadata | test_dart_ui_imagedescriptor.dart | - | - |
-| ImmutableBuffer | Immutable buffer | test_dart_ui_immutablebuffer.dart | - | - |
-| KeyData | Key data | test_services_keydata.dart | - | - |
-| LocaleStringAttribute | Locale attribute | test_dart_ui_localestringattribute.dart | - | - |
-| OffsetBase | Base class for Offset | test_dart_ui_offset_base.dart | - | - |
-| PathMetric | Individual path segment | test_dart_ui_path_metric.dart | - | - |
-| PathMetricIterator | Path iteration | test_dart_ui_path_metric_iterator.dart | - | - |
-| PathMetrics | Path measurement | test_dart_ui_path_metrics.dart | - | - |
-| PlatformDispatcher | Platform events | test_dart_ui_platformdispatcher.dart | - | - |
-| PointerData | Touch/mouse events | test_dart_ui_pointer_data.dart | - | - |
-| PointerDataPacket | Batched pointer events | test_dart_ui_pointer_data_packet.dart | - | - |
-| RSuperellipse | Superellipse shapes | test_dart_ui_r_superellipse.dart | - | - |
-| Scene | Rendered scene | test_dart_ui_scene.dart | - | - |
-| SceneBuilder | Scene graph construction | test_dart_ui_scene_builder.dart | - | - |
-| SemanticsAction | A11y action | test_dart_ui_semanticsaction.dart | - | - |
-| SemanticsActionEvent | Accessibility events | test_dart_ui_semantics_action_event.dart | - | - |
-| SemanticsFlag | A11y flag | test_dart_ui_semanticsflag.dart | - | - |
-| SemanticsFlags | Accessibility flag set | test_dart_ui_semantics_flags.dart | - | - |
-| SemanticsUpdate | Semantics update | test_dart_ui_semanticsupdate.dart | - | - |
-| SemanticsUpdateBuilder | Update builder | test_dart_ui_semanticsupdatebuilder.dart | - | - |
-| SpellOutStringAttribute | Spell out | test_dart_ui_spelloutstringattribute.dart | - | - |
-| StringAttribute | Text attributes | test_dart_ui_string_attribute.dart | - | - |
-| SystemColor | System color access | test_dart_ui_system_color.dart | - | - |
-| TargetImageSize | Image sizing | test_dart_ui_target_image_size.dart | - | - |
-| ViewConstraints | View size constraints | test_dart_ui_view_constraints.dart | - | - |
-| ViewFocusEvent | Focus events | test_dart_ui_view_focus_event.dart | - | - |
+| AccessibilityFeatures | Accessibility settings | test_dart_ui_accessibility_features.dart | scripted | - |
+| Brightness | Light/dark mode | test_dart_ui_brightness.dart | scripted | - |
+| Codec | Image codec | test_dart_ui_codec.dart | scripted | - |
+| Display | Display information | test_dart_ui_display.dart | scripted | - |
+| DisplayFeature | Display feature | test_dart_ui_displayfeature.dart | scripted | - |
+| FlutterView | Native view | test_dart_ui_flutterview.dart | scripted | - |
+| FrameData | Frame data | test_dart_ui_frame_data.dart | scripted | - |
+| FrameInfo | Animation frame | test_dart_ui_frameinfo.dart | scripted | - |
+| FrameTiming | Frame performance | test_dart_ui_frame_timing.dart | scripted | - |
+| GestureSettings | Gesture configuration | test_dart_ui_gesture_settings.dart | scripted | - |
+| ImageDescriptor | Image metadata | test_dart_ui_imagedescriptor.dart | scripted | - |
+| ImmutableBuffer | Immutable buffer | test_dart_ui_immutablebuffer.dart | scripted | - |
+| KeyData | Key data | test_services_keydata.dart | scripted | - |
+| LocaleStringAttribute | Locale attribute | test_dart_ui_localestringattribute.dart | scripted | - |
+| OffsetBase | Base class for Offset | test_dart_ui_offset_base.dart | scripted | - |
+| PathMetric | Individual path segment | test_dart_ui_path_metric.dart | scripted | - |
+| PathMetricIterator | Path iteration | test_dart_ui_path_metric_iterator.dart | scripted | - |
+| PathMetrics | Path measurement | test_dart_ui_path_metrics.dart | scripted | - |
+| PlatformDispatcher | Platform events | test_dart_ui_platformdispatcher.dart | scripted | - |
+| PointerData | Touch/mouse events | test_dart_ui_pointer_data.dart | scripted | - |
+| PointerDataPacket | Batched pointer events | test_dart_ui_pointer_data_packet.dart | scripted | - |
+| RSuperellipse | Superellipse shapes | test_dart_ui_r_superellipse.dart | scripted | - |
+| Scene | Rendered scene | test_dart_ui_scene.dart | scripted | - |
+| SceneBuilder | Scene graph construction | test_dart_ui_scene_builder.dart | scripted | - |
+| SemanticsAction | A11y action | test_dart_ui_semanticsaction.dart | scripted | - |
+| SemanticsActionEvent | Accessibility events | test_dart_ui_semantics_action_event.dart | scripted | - |
+| SemanticsFlag | A11y flag | test_dart_ui_semanticsflag.dart | scripted | - |
+| SemanticsFlags | Accessibility flag set | test_dart_ui_semantics_flags.dart | scripted | - |
+| SemanticsUpdate | Semantics update | test_dart_ui_semanticsupdate.dart | scripted | - |
+| SemanticsUpdateBuilder | Update builder | test_dart_ui_semanticsupdatebuilder.dart | scripted | - |
+| SpellOutStringAttribute | Spell out | test_dart_ui_spelloutstringattribute.dart | scripted | - |
+| StringAttribute | Text attributes | test_dart_ui_string_attribute.dart | scripted | - |
+| SystemColor | System color access | test_dart_ui_system_color.dart | scripted | - |
+| TargetImageSize | Image sizing | test_dart_ui_target_image_size.dart | scripted | - |
+| ViewConstraints | View size constraints | test_dart_ui_view_constraints.dart | scripted | - |
+| ViewFocusEvent | Focus events | test_dart_ui_view_focus_event.dart | scripted | - |
 
 ---
 
@@ -861,12 +862,12 @@ Specialized classes for advanced use cases - test after essential and important 
 
 | Class | Description | Test File | Status | Result |
 |-------|-------------|-----------|--------|--------|
-| ChildSemanticsConfigurationsResult | Child configs | test_semantics_child_semantics_configurations_result.dart | - | - |
-| ChildSemanticsConfigurationsResultBuilder | Config builder | test_semantics_child_semantics_configurations_result_builder.dart | - | - |
-| SemanticsBinding | Semantics binding | test_semantics_semantics_binding.dart | - | - |
-| SemanticsEvent | Base event | test_semantics_semanticsevent.dart | - | - |
-| SemanticsHandle | Semantics handle | test_semantics_semantics_handle.dart | - | - |
-| SemanticsLabelBuilder | Label building | test_semantics_semantics_label_builder.dart | - | - |
+| ChildSemanticsConfigurationsResult | Child configs | test_semantics_child_semantics_configurations_result.dart | scripted | - |
+| ChildSemanticsConfigurationsResultBuilder | Config builder | test_semantics_child_semantics_configurations_result_builder.dart | scripted | - |
+| SemanticsBinding | Semantics binding | test_semantics_semantics_binding.dart | scripted | - |
+| SemanticsEvent | Base event | test_semantics_semanticsevent.dart | scripted | - |
+| SemanticsHandle | Semantics handle | test_semantics_semantics_handle.dart | scripted | - |
+| SemanticsLabelBuilder | Label building | test_semantics_semantics_label_builder.dart | scripted | - |
 
 ---
 
@@ -874,7 +875,7 @@ Specialized classes for advanced use cases - test after essential and important 
 
 | Class | Description | Test File | Status | Result |
 |-------|-------------|-----------|--------|--------|
-| PerformanceModeRequestHandle | Performance mode | test_scheduler_performance_mode_request_handle.dart | - | - |
+| PerformanceModeRequestHandle | Performance mode | test_scheduler_performance_mode_request_handle.dart | scripted | - |
 
 ---
 
@@ -882,8 +883,8 @@ Specialized classes for advanced use cases - test after essential and important 
 
 | Class | Description | Test File | Status | Result |
 |-------|-------------|-----------|--------|--------|
-| ClampedSimulation | Clamped simulation | test_physics_clamped_simulation.dart | - | - |
-| GravitySimulation | Gravity physics | test_physics_gravity_simulation.dart | - | - |
+| ClampedSimulation | Clamped simulation | test_physics_clamped_simulation.dart | scripted | - |
+| GravitySimulation | Gravity physics | test_physics_gravity_simulation.dart | scripted | - |
 
 ---
 
