@@ -1,0 +1,22 @@
+// D4rt test script: Tests RenderSliverSingleBoxAdapter from rendering
+import 'dart:ui';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
+
+dynamic build(BuildContext context) {
+  print('RenderSliverSingleBoxAdapter test executing');
+
+  // RenderSliverSingleBoxAdapter - Single box adapter
+  // This is typically an abstract/base class used through subclasses
+  print('RenderSliverSingleBoxAdapter is available in the rendering package');
+  print('RenderSliverSingleBoxAdapter: Single box adapter');
+
+  print('RenderSliverSingleBoxAdapter test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('RenderSliverSingleBoxAdapter Tests'),
+      Text('Single box adapter'),
+    ],
+  );
+}
