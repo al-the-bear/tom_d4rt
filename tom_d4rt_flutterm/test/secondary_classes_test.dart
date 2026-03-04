@@ -193,9 +193,7 @@ void main() {
     });
 
     test('tap_force_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'gestures/tap_force_test.dart',
-      );
+      final result = await SendTestRunner.send('gestures/tap_force_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
   });
@@ -730,9 +728,7 @@ void main() {
     });
 
     test('raw_widgets_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/raw_widgets_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/raw_widgets_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 

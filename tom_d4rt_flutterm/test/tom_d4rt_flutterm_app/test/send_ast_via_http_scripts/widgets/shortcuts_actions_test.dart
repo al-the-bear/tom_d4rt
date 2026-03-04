@@ -32,10 +32,16 @@ dynamic build(BuildContext context) {
   // ========== LogicalKeySet ==========
   print('--- LogicalKeySet Tests ---');
 
-  final keySet1 = LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyA);
+  final keySet1 = LogicalKeySet(
+    LogicalKeyboardKey.control,
+    LogicalKeyboardKey.keyA,
+  );
   print('LogicalKeySet: $keySet1');
 
-  final keySet2 = LogicalKeySet.fromSet({LogicalKeyboardKey.shift, LogicalKeyboardKey.keyB});
+  final keySet2 = LogicalKeySet.fromSet({
+    LogicalKeyboardKey.shift,
+    LogicalKeyboardKey.keyB,
+  });
   print('LogicalKeySet.fromSet: $keySet2');
 
   // ========== Intents ==========
@@ -57,7 +63,9 @@ dynamic build(BuildContext context) {
   print('DoNothingAction: consumesKey=${doNothing.consumesKey}');
 
   final doNothingNoConsume = DoNothingAction(consumesKey: false);
-  print('DoNothingAction(consumesKey: false): consumesKey=${doNothingNoConsume.consumesKey}');
+  print(
+    'DoNothingAction(consumesKey: false): consumesKey=${doNothingNoConsume.consumesKey}',
+  );
 
   // ========== VoidCallbackIntent ==========
   print('--- VoidCallbackIntent Tests ---');
@@ -89,8 +97,10 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Shortcuts & Actions Tests',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+                Text(
+                  'Shortcuts & Actions Tests',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+                ),
                 SizedBox(height: 8.0),
                 Text('SingleActivator ctrl+C: ${ctrlC.trigger}'),
                 Text('LogicalKeySet: $keySet1'),

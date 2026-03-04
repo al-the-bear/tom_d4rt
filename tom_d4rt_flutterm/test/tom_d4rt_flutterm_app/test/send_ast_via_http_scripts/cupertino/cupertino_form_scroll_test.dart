@@ -92,9 +92,7 @@ dynamic build(BuildContext context) {
   // ========== RETURN WIDGET ==========
   return CupertinoApp(
     home: CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        middle: Text('Form/Scroll Test'),
-      ),
+      navigationBar: CupertinoNavigationBar(middle: Text('Form/Scroll Test')),
       child: SafeArea(
         child: CupertinoListSection.insetGrouped(
           header: Text('Form Fields'),

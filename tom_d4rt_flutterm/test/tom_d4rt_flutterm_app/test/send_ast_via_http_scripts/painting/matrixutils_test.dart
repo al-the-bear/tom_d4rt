@@ -68,7 +68,10 @@ dynamic build(BuildContext context) {
   final combined = Matrix4.identity()
     ..translate(50.0, 50.0)
     ..scale(2.0, 2.0);
-  final combinedPoint = MatrixUtils.transformPoint(combined, Offset(10.0, 10.0));
+  final combinedPoint = MatrixUtils.transformPoint(
+    combined,
+    Offset(10.0, 10.0),
+  );
   print('Combined translate+scale on (10,10): $combinedPoint');
 
   print('All MatrixUtils tests passed');
@@ -81,8 +84,10 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('MatrixUtils Test',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+            Text(
+              'MatrixUtils Test',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
             SizedBox(height: 8.0),
             Text('Identity point: $transformedPoint'),
             Text('Translated point: $translatedPoint'),
@@ -94,7 +99,9 @@ dynamic build(BuildContext context) {
                 color: Colors.blue,
                 width: 100.0,
                 height: 50.0,
-                child: Center(child: Text('Rotated', style: TextStyle(color: Colors.white))),
+                child: Center(
+                  child: Text('Rotated', style: TextStyle(color: Colors.white)),
+                ),
               ),
             ),
           ],

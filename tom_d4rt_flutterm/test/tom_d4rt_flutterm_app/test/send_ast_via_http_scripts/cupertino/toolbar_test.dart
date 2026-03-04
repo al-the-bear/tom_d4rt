@@ -156,17 +156,21 @@ dynamic build(BuildContext context) {
               SizedBox(height: 16.0),
               Text('Toolbar buttons:'),
               SizedBox(height: 8.0),
-              Row(children: [
-                SizedBox(width: 120.0, child: basicToolbarButton),
-                SizedBox(width: 120.0, child: textToolbarButton),
-              ]),
+              Row(
+                children: [
+                  SizedBox(width: 120.0, child: basicToolbarButton),
+                  SizedBox(width: 120.0, child: textToolbarButton),
+                ],
+              ),
               SizedBox(height: 16.0),
               Text('Desktop toolbar buttons:'),
               SizedBox(height: 8.0),
-              Row(children: [
-                SizedBox(width: 120.0, child: desktopButton),
-                SizedBox(width: 120.0, child: desktopTextButton),
-              ]),
+              Row(
+                children: [
+                  SizedBox(width: 120.0, child: desktopButton),
+                  SizedBox(width: 120.0, child: desktopTextButton),
+                ],
+              ),
               SizedBox(height: 24.0),
               Text(
                 'Tests Completed:',

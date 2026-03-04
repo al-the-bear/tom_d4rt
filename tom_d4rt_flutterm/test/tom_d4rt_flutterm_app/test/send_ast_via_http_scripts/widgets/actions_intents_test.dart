@@ -40,13 +40,11 @@ dynamic build(BuildContext context) {
   // ========== PrioritizedIntents ==========
   print('--- PrioritizedIntents Tests ---');
   final prioritized = PrioritizedIntents(
-    orderedIntents: [
-      ActivateIntent(),
-      SelectIntent(),
-      DismissIntent(),
-    ],
+    orderedIntents: [ActivateIntent(), SelectIntent(), DismissIntent()],
   );
-  print('PrioritizedIntents created with ${prioritized.orderedIntents.length} intents');
+  print(
+    'PrioritizedIntents created with ${prioritized.orderedIntents.length} intents',
+  );
 
   // ========== ActionDispatcher ==========
   print('--- ActionDispatcher Tests ---');
@@ -67,7 +65,10 @@ dynamic build(BuildContext context) {
   print('--- ScrollIntent (more variants) Tests ---');
   final scrollLineDown = ScrollIntent(direction: AxisDirection.down);
   print('ScrollIntent down created');
-  final scrollLineUp = ScrollIntent(direction: AxisDirection.up, type: ScrollIncrementType.page);
+  final scrollLineUp = ScrollIntent(
+    direction: AxisDirection.up,
+    type: ScrollIncrementType.page,
+  );
   print('ScrollIntent up/page created');
 
   // ========== RequestFocusIntent ==========

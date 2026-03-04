@@ -24,7 +24,9 @@ dynamic build(BuildContext context) {
   print('  type: ${bouncing.runtimeType}');
 
   // BouncingScrollPhysics with parent
-  final bouncingParented = BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics());
+  final bouncingParented = BouncingScrollPhysics(
+    parent: AlwaysScrollableScrollPhysics(),
+  );
   print('BouncingScrollPhysics with parent created');
 
   // ========== CLAMPINGSCROLLPHYSICS ==========
@@ -65,7 +67,9 @@ dynamic build(BuildContext context) {
   print('  type: ${rangePhysics.runtimeType}');
 
   // Test applyTo chain
-  final combined = BouncingScrollPhysics().applyTo(AlwaysScrollableScrollPhysics());
+  final combined = BouncingScrollPhysics().applyTo(
+    AlwaysScrollableScrollPhysics(),
+  );
   print('BouncingScrollPhysics.applyTo(AlwaysScrollable) created');
   print('  type: ${combined.runtimeType}');
 
@@ -79,20 +83,29 @@ dynamic build(BuildContext context) {
         children: [
           Padding(
             padding: EdgeInsets.all(16.0),
-            child: Text('ScrollPhysics Test',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+            child: Text(
+              'ScrollPhysics Test',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
           ),
           // Bouncing physics list
           Expanded(
             child: ListView.builder(
-              physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+              physics: BouncingScrollPhysics(
+                parent: AlwaysScrollableScrollPhysics(),
+              ),
               itemCount: 20,
               itemBuilder: (context, index) {
                 return Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 4.0,
+                  ),
                   child: Container(
                     height: 40.0,
-                    color: Colors.blue.withValues(alpha: 0.3 + (index % 5) * 0.14),
+                    color: Colors.blue.withValues(
+                      alpha: 0.3 + (index % 5) * 0.14,
+                    ),
                     child: Center(child: Text('Bouncing item $index')),
                   ),
                 );

@@ -24,19 +24,13 @@ class D4rtCustomPainter extends CustomPainter {
   final bool Function(CustomPainter) onShouldRepaint;
 
   /// Creates a [D4rtCustomPainter] with callback implementations.
-  D4rtCustomPainter({
-    required this.onPaint,
-    required this.onShouldRepaint,
-  });
+  D4rtCustomPainter({required this.onPaint, required this.onShouldRepaint});
 
   @override
-  void paint(Canvas canvas, Size size) =>
-      onPaint(canvas, size);
+  void paint(Canvas canvas, Size size) => onPaint(canvas, size);
 
   @override
-  bool shouldRepaint(CustomPainter oldDelegate) =>
-      onShouldRepaint(oldDelegate);
-
+  bool shouldRepaint(CustomPainter oldDelegate) => onShouldRepaint(oldDelegate);
 }
 
 /// D4rt proxy for [CustomClipper].
@@ -52,19 +46,13 @@ class D4rtCustomClipper<T> extends CustomClipper<T> {
   final bool Function(CustomClipper<T>) onShouldReclip;
 
   /// Creates a [D4rtCustomClipper] with callback implementations.
-  D4rtCustomClipper({
-    required this.onGetClip,
-    required this.onShouldReclip,
-  });
+  D4rtCustomClipper({required this.onGetClip, required this.onShouldReclip});
 
   @override
-  T getClip(Size size) =>
-      onGetClip(size);
+  T getClip(Size size) => onGetClip(size);
 
   @override
-  bool shouldReclip(CustomClipper<T> oldClipper) =>
-      onShouldReclip(oldClipper);
-
+  bool shouldReclip(CustomClipper<T> oldClipper) => onShouldReclip(oldClipper);
 }
 
 /// D4rt proxy for [FlowDelegate].
@@ -86,13 +74,10 @@ class D4rtFlowDelegate extends FlowDelegate {
   });
 
   @override
-  void paintChildren(FlowPaintingContext context) =>
-      onPaintChildren(context);
+  void paintChildren(FlowPaintingContext context) => onPaintChildren(context);
 
   @override
-  bool shouldRepaint(FlowDelegate oldDelegate) =>
-      onShouldRepaint(oldDelegate);
-
+  bool shouldRepaint(FlowDelegate oldDelegate) => onShouldRepaint(oldDelegate);
 }
 
 /// D4rt proxy for [MultiChildLayoutDelegate].
@@ -114,13 +99,11 @@ class D4rtMultiChildLayoutDelegate extends MultiChildLayoutDelegate {
   });
 
   @override
-  void performLayout(Size size) =>
-      onPerformLayout(size);
+  void performLayout(Size size) => onPerformLayout(size);
 
   @override
   bool shouldRelayout(MultiChildLayoutDelegate oldDelegate) =>
       onShouldRelayout(oldDelegate);
-
 }
 
 /// D4rt proxy for [SingleChildLayoutDelegate].
@@ -163,20 +146,16 @@ class D4rtSingleChildLayoutDelegate extends SingleChildLayoutDelegate {
   @override
   BoxConstraints getConstraintsForChild(BoxConstraints constraints) =>
       onGetConstraintsForChild != null
-          ? onGetConstraintsForChild!(constraints)
-          : super.getConstraintsForChild(constraints);
+      ? onGetConstraintsForChild!(constraints)
+      : super.getConstraintsForChild(constraints);
 
   @override
   Offset getPositionForChild(Size size, Size childSize) =>
       onGetPositionForChild != null
-          ? onGetPositionForChild!(size, childSize)
-          : super.getPositionForChild(size, childSize);
+      ? onGetPositionForChild!(size, childSize)
+      : super.getPositionForChild(size, childSize);
 
   @override
   Size getSize(BoxConstraints constraints) =>
-      onGetSize != null
-          ? onGetSize!(constraints)
-          : super.getSize(constraints);
-
+      onGetSize != null ? onGetSize!(constraints) : super.getSize(constraints);
 }
-

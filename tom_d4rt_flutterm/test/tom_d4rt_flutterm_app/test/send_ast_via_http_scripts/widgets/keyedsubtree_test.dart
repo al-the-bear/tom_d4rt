@@ -14,7 +14,9 @@ dynamic build(BuildContext context) {
       color: Colors.blue,
       width: 100.0,
       height: 50.0,
-      child: Center(child: Text('Keyed 1', style: TextStyle(color: Colors.white))),
+      child: Center(
+        child: Text('Keyed 1', style: TextStyle(color: Colors.white)),
+      ),
     ),
   );
   print('KeyedSubtree with ValueKey("item-1") created');
@@ -27,7 +29,9 @@ dynamic build(BuildContext context) {
       color: Colors.green,
       width: 100.0,
       height: 50.0,
-      child: Center(child: Text('Keyed 2', style: TextStyle(color: Colors.white))),
+      child: Center(
+        child: Text('Keyed 2', style: TextStyle(color: Colors.white)),
+      ),
     ),
   );
   print('KeyedSubtree with UniqueKey created');
@@ -39,7 +43,9 @@ dynamic build(BuildContext context) {
       color: Colors.orange,
       width: 100.0,
       height: 50.0,
-      child: Center(child: Text('No key', style: TextStyle(color: Colors.white))),
+      child: Center(
+        child: Text('No key', style: TextStyle(color: Colors.white)),
+      ),
     ),
   );
   print('KeyedSubtree without key created');
@@ -52,7 +58,9 @@ dynamic build(BuildContext context) {
     Container(color: Colors.green, width: 80.0, height: 30.0),
   ];
   final wrappedList = KeyedSubtree.ensureUniqueKeysForList(widgets);
-  print('KeyedSubtree.ensureUniqueKeysForList created ${wrappedList.length} items');
+  print(
+    'KeyedSubtree.ensureUniqueKeysForList created ${wrappedList.length} items',
+  );
   for (var i = 0; i < wrappedList.length; i++) {
     print('  wrapped[$i] key: ${wrappedList[i].key}');
   }
@@ -68,7 +76,9 @@ dynamic build(BuildContext context) {
       color: Colors.purple,
       width: 100.0,
       height: 50.0,
-      child: Center(child: Text('Annotated', style: TextStyle(color: Colors.white))),
+      child: Center(
+        child: Text('Annotated', style: TextStyle(color: Colors.white)),
+      ),
     ),
   );
   print('AnnotatedRegion<int>(42) created');
@@ -83,7 +93,9 @@ dynamic build(BuildContext context) {
       color: Colors.teal,
       width: 100.0,
       height: 50.0,
-      child: Center(child: Text('Unsized', style: TextStyle(color: Colors.white))),
+      child: Center(
+        child: Text('Unsized', style: TextStyle(color: Colors.white)),
+      ),
     ),
   );
   print('AnnotatedRegion with sized=false created');
@@ -100,8 +112,10 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('KeyedSubtree / AnnotatedRegion Test',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+            Text(
+              'KeyedSubtree / AnnotatedRegion Test',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
             SizedBox(height: 8.0),
             keyed1,
             SizedBox(height: 4.0),

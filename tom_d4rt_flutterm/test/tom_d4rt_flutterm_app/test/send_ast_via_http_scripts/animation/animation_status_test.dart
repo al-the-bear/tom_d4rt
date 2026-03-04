@@ -105,8 +105,10 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Animation Status Test',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+            Text(
+              'Animation Status Test',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
             SizedBox(height: 8.0),
             Text('AnimationStatus values: ${AnimationStatus.values.length}'),
             SizedBox(height: 4.0),

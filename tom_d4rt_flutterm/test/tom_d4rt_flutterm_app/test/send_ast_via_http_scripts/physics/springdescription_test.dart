@@ -9,22 +9,14 @@ dynamic build(BuildContext context) {
   print('--- SpringDescription Tests ---');
 
   // Test SpringDescription with mass, stiffness, damping
-  final spring1 = SpringDescription(
-    mass: 1.0,
-    stiffness: 100.0,
-    damping: 10.0,
-  );
+  final spring1 = SpringDescription(mass: 1.0, stiffness: 100.0, damping: 10.0);
   print('SpringDescription created');
   print('  mass: ${spring1.mass}');
   print('  stiffness: ${spring1.stiffness}');
   print('  damping: ${spring1.damping}');
 
   // Test with different parameters
-  final spring2 = SpringDescription(
-    mass: 2.0,
-    stiffness: 200.0,
-    damping: 20.0,
-  );
+  final spring2 = SpringDescription(mass: 2.0, stiffness: 200.0, damping: 20.0);
   print('SpringDescription(2, 200, 20) created');
   print('  mass: ${spring2.mass}');
   print('  stiffness: ${spring2.stiffness}');
@@ -67,11 +59,11 @@ dynamic build(BuildContext context) {
 
   // BoundedFrictionSimulation combines friction with position bounds
   final boundedFriction = BoundedFrictionSimulation(
-    0.3,      // drag coefficient
-    100.0,    // initial position
-    200.0,    // initial velocity
-    0.0,      // min position
-    500.0,    // max position
+    0.3, // drag coefficient
+    100.0, // initial position
+    200.0, // initial velocity
+    0.0, // min position
+    500.0, // max position
   );
   print('BoundedFrictionSimulation created');
 
@@ -118,10 +110,14 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Physics Test',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+            Text(
+              'Physics Test',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
             SizedBox(height: 8.0),
-            Text('Spring: mass=${spring1.mass}, stiffness=${spring1.stiffness}'),
+            Text(
+              'Spring: mass=${spring1.mass}, stiffness=${spring1.stiffness}',
+            ),
             Text('Spring damping: ${spring1.damping}'),
             SizedBox(height: 8.0),
             Text('BoundedFriction pos@0: $pos0'),

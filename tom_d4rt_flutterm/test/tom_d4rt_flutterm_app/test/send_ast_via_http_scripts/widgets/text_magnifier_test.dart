@@ -8,15 +8,9 @@ dynamic build(BuildContext context) {
   // ========== MagnifierDecoration ==========
   print('--- MagnifierDecoration Tests ---');
   final decoration = MagnifierDecoration(
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(40.0),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.0)),
     shadows: [
-      BoxShadow(
-        color: Colors.black26,
-        blurRadius: 4.0,
-        offset: Offset(0, 2),
-      ),
+      BoxShadow(color: Colors.black26, blurRadius: 4.0, offset: Offset(0, 2)),
     ],
   );
   print('MagnifierDecoration created');

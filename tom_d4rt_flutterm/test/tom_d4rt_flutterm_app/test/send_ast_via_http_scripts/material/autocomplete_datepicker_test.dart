@@ -17,9 +17,9 @@ dynamic build(BuildContext context) {
   final autocomplete = Autocomplete<String>(
     optionsBuilder: (TextEditingValue textEditingValue) {
       if (textEditingValue.text.isEmpty) return const Iterable<String>.empty();
-      return options.where((o) => o.toLowerCase().contains(
-        textEditingValue.text.toLowerCase(),
-      ));
+      return options.where(
+        (o) => o.toLowerCase().contains(textEditingValue.text.toLowerCase()),
+      );
     },
     onSelected: (String selection) {
       print('Selected: $selection');
@@ -31,9 +31,9 @@ dynamic build(BuildContext context) {
   print('--- RawAutocomplete Tests ---');
   final rawAutocomplete = RawAutocomplete<String>(
     optionsBuilder: (TextEditingValue value) {
-      return options.where((o) => o.toLowerCase().startsWith(
-        value.text.toLowerCase(),
-      ));
+      return options.where(
+        (o) => o.toLowerCase().startsWith(value.text.toLowerCase()),
+      );
     },
     fieldViewBuilder: (context, controller, focusNode, onFieldSubmitted) {
       return TextField(
@@ -45,10 +45,9 @@ dynamic build(BuildContext context) {
     optionsViewBuilder: (context, onSelected, options) {
       return Material(
         child: ListView(
-          children: options.map((o) => ListTile(
-            title: Text(o),
-            onTap: () => onSelected(o),
-          )).toList(),
+          children: options
+              .map((o) => ListTile(title: Text(o), onTap: () => onSelected(o)))
+              .toList(),
         ),
       );
     },

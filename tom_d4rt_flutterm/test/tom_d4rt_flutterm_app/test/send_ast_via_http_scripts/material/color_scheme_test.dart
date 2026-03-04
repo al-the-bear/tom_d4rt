@@ -99,11 +99,7 @@ dynamic build(BuildContext context) {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 for (final shade in [100, 300, 500, 700, 900])
-                  Container(
-                    width: 40,
-                    height: 40,
-                    color: Colors.blue[shade],
-                  ),
+                  Container(width: 40, height: 40, color: Colors.blue[shade]),
               ],
             ),
           ],

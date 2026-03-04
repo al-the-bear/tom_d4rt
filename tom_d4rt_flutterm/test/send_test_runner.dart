@@ -65,10 +65,9 @@ class SendResult {
 
   @override
   String toString() {
-    final fwErrors =
-        frameworkErrors.isNotEmpty
-            ? ', frameworkErrors: ${frameworkErrors.length}'
-            : '';
+    final fwErrors = frameworkErrors.isNotEmpty
+        ? ', frameworkErrors: ${frameworkErrors.length}'
+        : '';
     if (success) {
       return 'SendResult(success, widgetType: $widgetType, '
           'output: $output$fwErrors)';

@@ -55,7 +55,9 @@ dynamic build(BuildContext context) {
     annotation: 42,
     localPosition: Offset(10.0, 20.0),
   );
-  print('AnnotationEntry created: ${annotation.annotation} at ${annotation.localPosition}');
+  print(
+    'AnnotationEntry created: ${annotation.annotation} at ${annotation.localPosition}',
+  );
 
   // ========== AnnotationResult ==========
   print('--- AnnotationResult Tests ---');

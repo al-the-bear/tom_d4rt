@@ -35,10 +35,10 @@ dynamic build(BuildContext context) {
   print('--- SliverLayoutBuilder Tests ---');
   final sliverLayoutBuilder = SliverLayoutBuilder(
     builder: (context, constraints) {
-      print('  SliverLayoutBuilder constraints: ${constraints.crossAxisExtent}');
-      return SliverToBoxAdapter(
-        child: Text('Layout built'),
+      print(
+        '  SliverLayoutBuilder constraints: ${constraints.crossAxisExtent}',
       );
+      return SliverToBoxAdapter(child: Text('Layout built'));
     },
   );
   print('SliverLayoutBuilder created');

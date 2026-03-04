@@ -31,14 +31,20 @@ dynamic build(BuildContext context) {
   final widget1 = Stack(
     children: [
       Positioned(
-        left: 0, right: 0, top: 0, height: 50.0,
+        left: 0,
+        right: 0,
+        top: 0,
+        height: 50.0,
         child: Container(
           color: Colors.blue,
           child: Center(child: Text('Header')),
         ),
       ),
       Positioned(
-        left: 0, right: 0, top: 50.0, bottom: 0,
+        left: 0,
+        right: 0,
+        top: 50.0,
+        bottom: 0,
         child: Container(
           color: Colors.grey,
           child: Center(child: Text('Body Content')),
@@ -46,7 +52,9 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('Stack layout with header/body children created (proxy delegate tested above)');
+  print(
+    'Stack layout with header/body children created (proxy delegate tested above)',
+  );
 
   // ========== THREE-PANEL LAYOUT ==========
   print('--- Three-Panel Layout ---');
@@ -62,21 +70,30 @@ dynamic build(BuildContext context) {
   final widget2 = Stack(
     children: [
       Positioned(
-        left: 0, right: 0, top: 0, height: 40.0,
+        left: 0,
+        right: 0,
+        top: 0,
+        height: 40.0,
         child: Container(
           color: Colors.red,
           child: Center(child: Text('Top')),
         ),
       ),
       Positioned(
-        left: 0, right: 0, top: 40.0, height: 80.0,
+        left: 0,
+        right: 0,
+        top: 40.0,
+        height: 80.0,
         child: Container(
           color: Colors.green,
           child: Center(child: Text('Middle')),
         ),
       ),
       Positioned(
-        left: 0, right: 0, top: 120.0, height: 40.0,
+        left: 0,
+        right: 0,
+        top: 120.0,
+        height: 40.0,
         child: Container(
           color: Colors.blue,
           child: Center(child: Text('Bottom')),
@@ -116,7 +133,9 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('Stack layout with overlay pattern created (proxy delegate tested above)');
+  print(
+    'Stack layout with overlay pattern created (proxy delegate tested above)',
+  );
 
   // ========== DYNAMIC RELAYOUT ==========
   print('--- shouldRelayout Logic ---');

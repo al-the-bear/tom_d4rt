@@ -220,36 +220,36 @@ dynamic build(BuildContext context) {
                   ],
                 ),
               ),
-            SizedBox(height: 8.0),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text('Timer Picker (HM):'),
-            ),
-            SizedBox(height: 150.0, child: hmTimer),
-            Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Tests Completed:',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16.0,
-                    ),
-                  ),
-                  SizedBox(height: 8.0),
-                  Text('• CupertinoDatePickerMode.date'),
-                  Text('• CupertinoDatePickerMode.time'),
-                  Text('• CupertinoDatePickerMode.dateAndTime'),
-                  Text('• CupertinoDatePickerMode.monthYear'),
-                  Text('• CupertinoTimerPickerMode.hms'),
-                  Text('• CupertinoTimerPickerMode.hm'),
-                  Text('• CupertinoTimerPickerMode.ms'),
-                ],
+              SizedBox(height: 8.0),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.0),
+                child: Text('Timer Picker (HM):'),
               ),
-            ),
-          ],
+              SizedBox(height: 150.0, child: hmTimer),
+              Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Tests Completed:',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16.0,
+                      ),
+                    ),
+                    SizedBox(height: 8.0),
+                    Text('• CupertinoDatePickerMode.date'),
+                    Text('• CupertinoDatePickerMode.time'),
+                    Text('• CupertinoDatePickerMode.dateAndTime'),
+                    Text('• CupertinoDatePickerMode.monthYear'),
+                    Text('• CupertinoTimerPickerMode.hms'),
+                    Text('• CupertinoTimerPickerMode.hm'),
+                    Text('• CupertinoTimerPickerMode.ms'),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ),

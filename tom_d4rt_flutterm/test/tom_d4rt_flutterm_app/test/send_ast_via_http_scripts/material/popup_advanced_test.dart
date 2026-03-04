@@ -59,7 +59,11 @@ dynamic build(BuildContext context) {
     itemBuilder: (context) => [
       PopupMenuItem<String>(value: 'a', child: Text('Option A')),
       PopupMenuDivider(),
-      CheckedPopupMenuItem<String>(value: 'b', checked: true, child: Text('Option B')),
+      CheckedPopupMenuItem<String>(
+        value: 'b',
+        checked: true,
+        child: Text('Option B'),
+      ),
     ],
   );
   print('Advanced PopupMenuButton created');
@@ -77,10 +81,7 @@ dynamic build(BuildContext context) {
   // ========== RETURN WIDGET ==========
   return MaterialApp(
     home: Scaffold(
-      appBar: AppBar(
-        title: Text('Popup Advanced Test'),
-        actions: [menuButton],
-      ),
+      appBar: AppBar(title: Text('Popup Advanced Test'), actions: [menuButton]),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -93,7 +94,9 @@ dynamic build(BuildContext context) {
             Text('CheckedPopupMenuItem variants'),
             Text('PopupMenuDivider heights'),
             Text('PopupMenuThemeData configured'),
-            Text('PopupMenuPosition: ${PopupMenuPosition.values.length} values'),
+            Text(
+              'PopupMenuPosition: ${PopupMenuPosition.values.length} values',
+            ),
           ],
         ),
       ),

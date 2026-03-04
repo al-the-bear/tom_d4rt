@@ -111,11 +111,7 @@ dynamic build(BuildContext context) {
           ListTile(title: Text('Item 3'), leading: Icon(Icons.star)),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('Left'),
-              vDivider,
-              Text('Right'),
-            ],
+            children: [Text('Left'), vDivider, Text('Right')],
           ),
         ],
       ),

@@ -109,7 +109,9 @@ dynamic build(BuildContext context) {
   print('PointerDeviceKind.touch: ${PointerDeviceKind.touch}');
   print('PointerDeviceKind.mouse: ${PointerDeviceKind.mouse}');
   print('PointerDeviceKind.stylus: ${PointerDeviceKind.stylus}');
-  print('PointerDeviceKind.invertedStylus: ${PointerDeviceKind.invertedStylus}');
+  print(
+    'PointerDeviceKind.invertedStylus: ${PointerDeviceKind.invertedStylus}',
+  );
   print('PointerDeviceKind.trackpad: ${PointerDeviceKind.trackpad}');
   print('PointerDeviceKind.unknown: ${PointerDeviceKind.unknown}');
 
@@ -117,7 +119,9 @@ dynamic build(BuildContext context) {
   print('--- PointerSignalKind Tests ---');
   print('PointerSignalKind.none: ${PointerSignalKind.none}');
   print('PointerSignalKind.scroll: ${PointerSignalKind.scroll}');
-  print('PointerSignalKind.scrollInertiaCancel: ${PointerSignalKind.scrollInertiaCancel}');
+  print(
+    'PointerSignalKind.scrollInertiaCancel: ${PointerSignalKind.scrollInertiaCancel}',
+  );
   print('PointerSignalKind.scale: ${PointerSignalKind.scale}');
   print('PointerSignalKind.unknown: ${PointerSignalKind.unknown}');
 
@@ -127,7 +131,11 @@ dynamic build(BuildContext context) {
   print('Locale: ${locale1.languageCode}_${locale1.countryCode}');
   final locale2 = Locale('de');
   print('Locale de: ${locale2.languageCode}');
-  final locale3 = Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans', countryCode: 'CN');
+  final locale3 = Locale.fromSubtags(
+    languageCode: 'zh',
+    scriptCode: 'Hans',
+    countryCode: 'CN',
+  );
   print('Locale zh_Hans_CN: ${locale3}');
 
   print('All dart:ui enum tests passed');
@@ -139,8 +147,10 @@ dynamic build(BuildContext context) {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text('dart:ui Enums Test',
-                style: TextStyle(fontWeight: FontWeight.bold)),
+            Text(
+              'dart:ui Enums Test',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             Text('BlendMode values: ${BlendMode.values.length}'),
             Text('Brightness: ${Brightness.light}'),
             Text('Locale: ${locale1}'),

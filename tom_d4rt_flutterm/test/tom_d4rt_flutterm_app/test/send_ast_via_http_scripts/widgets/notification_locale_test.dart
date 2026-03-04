@@ -29,18 +29,13 @@ dynamic build(BuildContext context) {
       print('  Size changed notification received');
       return true;
     },
-    child: SizeChangedLayoutNotifier(
-      child: Text('Monitored widget'),
-    ),
+    child: SizeChangedLayoutNotifier(child: Text('Monitored widget')),
   );
   print('NotificationListener created');
 
   // ========== KeepAlive ==========
   print('--- KeepAlive Tests ---');
-  final keepAlive = KeepAlive(
-    keepAlive: true,
-    child: Text('Kept alive'),
-  );
+  final keepAlive = KeepAlive(keepAlive: true, child: Text('Kept alive'));
   print('KeepAlive created: keepAlive=${keepAlive.keepAlive}');
 
   // ========== WidgetsApp ==========

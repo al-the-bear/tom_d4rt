@@ -75,9 +75,7 @@ dynamic build(BuildContext context) {
       labelStyle: TextStyle(fontSize: 14.0, color: Colors.black),
       padding: EdgeInsets.all(4.0),
     ),
-    child: Wrap(
-      children: [rawChip, selectedRaw],
-    ),
+    child: Wrap(children: [rawChip, selectedRaw]),
   );
   print('ChipTheme wrapping chips');
 

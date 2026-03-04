@@ -71,12 +71,7 @@ dynamic build(BuildContext context) {
   // ========== MergeSemantics ==========
   print('--- MergeSemantics Tests ---');
   final mergeSemantics = MergeSemantics(
-    child: Row(
-      children: [
-        Icon(Icons.star),
-        Text('Favorite'),
-      ],
-    ),
+    child: Row(children: [Icon(Icons.star), Text('Favorite')]),
   );
   print('MergeSemantics created');
 

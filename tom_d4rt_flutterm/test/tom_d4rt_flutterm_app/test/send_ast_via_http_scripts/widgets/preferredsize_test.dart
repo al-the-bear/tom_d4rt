@@ -13,7 +13,10 @@ dynamic build(BuildContext context) {
     child: Container(
       color: Colors.blue,
       child: Center(
-        child: Text('Custom AppBar', style: TextStyle(color: Colors.white, fontSize: 18.0)),
+        child: Text(
+          'Custom AppBar',
+          style: TextStyle(color: Colors.white, fontSize: 18.0),
+        ),
       ),
     ),
   );
@@ -95,17 +98,17 @@ dynamic build(BuildContext context) {
     home: Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(60.0),
-        child: AppBar(
-          title: Text('PreferredSize Test'),
-        ),
+        child: AppBar(title: Text('PreferredSize Test')),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Widget Misc Test',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+            Text(
+              'Widget Misc Test',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
             SizedBox(height: 8.0),
             SizedBox(
               width: 200.0,

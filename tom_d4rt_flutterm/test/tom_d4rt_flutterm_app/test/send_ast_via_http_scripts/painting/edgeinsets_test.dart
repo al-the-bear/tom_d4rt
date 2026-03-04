@@ -218,96 +218,96 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-          Text(
-            'EdgeInsets Tests',
-            style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 16.0),
-
-          // EdgeInsets.all example
-          Text(
-            'EdgeInsets.all(16):',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          Container(
-            color: Color(0xFFE3F2FD),
-            child: Container(
-              margin: EdgeInsets.all(16.0),
-              color: Color(0xFF2196F3),
-              width: 50.0,
-              height: 50.0,
+            Text(
+              'EdgeInsets Tests',
+              style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
             ),
-          ),
-          SizedBox(height: 16.0),
+            SizedBox(height: 16.0),
 
-          // EdgeInsets.symmetric example
-          Text(
-            'EdgeInsets.symmetric(h: 32, v: 8):',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          Container(
-            color: Color(0xFFE8F5E9),
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 32.0, vertical: 8.0),
-              color: Color(0xFF4CAF50),
-              width: 50.0,
-              height: 50.0,
+            // EdgeInsets.all example
+            Text(
+              'EdgeInsets.all(16):',
+              style: TextStyle(fontWeight: FontWeight.bold),
             ),
-          ),
-          SizedBox(height: 16.0),
-
-          // EdgeInsets.only example
-          Text(
-            'EdgeInsets.only(left: 48):',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          Container(
-            color: Color(0xFFFFF3E0),
-            child: Container(
-              margin: EdgeInsets.only(left: 48.0),
-              color: Color(0xFFFF9800),
-              width: 50.0,
-              height: 50.0,
+            Container(
+              color: Color(0xFFE3F2FD),
+              child: Container(
+                margin: EdgeInsets.all(16.0),
+                color: Color(0xFF2196F3),
+                width: 50.0,
+                height: 50.0,
+              ),
             ),
-          ),
-          SizedBox(height: 16.0),
+            SizedBox(height: 16.0),
 
-          // EdgeInsets.fromLTRB example
-          Text(
-            'EdgeInsets.fromLTRB(8, 16, 24, 32):',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          Container(
-            color: Color(0xFFF3E5F5),
-            child: Container(
-              margin: EdgeInsets.fromLTRB(8.0, 16.0, 24.0, 32.0),
-              color: Color(0xFF9C27B0),
-              width: 50.0,
-              height: 50.0,
+            // EdgeInsets.symmetric example
+            Text(
+              'EdgeInsets.symmetric(h: 32, v: 8):',
+              style: TextStyle(fontWeight: FontWeight.bold),
             ),
-          ),
-          SizedBox(height: 16.0),
+            Container(
+              color: Color(0xFFE8F5E9),
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 32.0, vertical: 8.0),
+                color: Color(0xFF4CAF50),
+                width: 50.0,
+                height: 50.0,
+              ),
+            ),
+            SizedBox(height: 16.0),
 
-          // RTL example
-          Text(
-            'EdgeInsetsDirectional (RTL-aware):',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          Directionality(
-            textDirection: TextDirection.rtl,
-            child: Container(
-              color: Color(0xFFFFEBEE),
-              child: Padding(
-                padding: EdgeInsetsDirectional.only(start: 48.0),
-                child: Container(
-                  color: Color(0xFFE53935),
-                  width: 50.0,
-                  height: 50.0,
+            // EdgeInsets.only example
+            Text(
+              'EdgeInsets.only(left: 48):',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            Container(
+              color: Color(0xFFFFF3E0),
+              child: Container(
+                margin: EdgeInsets.only(left: 48.0),
+                color: Color(0xFFFF9800),
+                width: 50.0,
+                height: 50.0,
+              ),
+            ),
+            SizedBox(height: 16.0),
+
+            // EdgeInsets.fromLTRB example
+            Text(
+              'EdgeInsets.fromLTRB(8, 16, 24, 32):',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            Container(
+              color: Color(0xFFF3E5F5),
+              child: Container(
+                margin: EdgeInsets.fromLTRB(8.0, 16.0, 24.0, 32.0),
+                color: Color(0xFF9C27B0),
+                width: 50.0,
+                height: 50.0,
+              ),
+            ),
+            SizedBox(height: 16.0),
+
+            // RTL example
+            Text(
+              'EdgeInsetsDirectional (RTL-aware):',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            Directionality(
+              textDirection: TextDirection.rtl,
+              child: Container(
+                color: Color(0xFFFFEBEE),
+                child: Padding(
+                  padding: EdgeInsetsDirectional.only(start: 48.0),
+                  child: Container(
+                    color: Color(0xFFE53935),
+                    width: 50.0,
+                    height: 50.0,
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
         ),
       ),
     ),

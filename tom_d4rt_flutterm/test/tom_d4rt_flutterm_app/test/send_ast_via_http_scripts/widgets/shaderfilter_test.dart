@@ -18,11 +18,7 @@ dynamic build(BuildContext context) {
       ).createShader(bounds);
     },
     blendMode: BlendMode.dstIn,
-    child: Container(
-      width: 100.0,
-      height: 100.0,
-      color: Colors.blue,
-    ),
+    child: Container(width: 100.0, height: 100.0, color: Colors.blue),
   );
   print('ShaderMask created with blendMode: ${shaderMask.blendMode}');
 
@@ -45,11 +41,7 @@ dynamic build(BuildContext context) {
 
   final imageFiltered = ImageFiltered(
     imageFilter: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
-    child: Container(
-      width: 80.0,
-      height: 80.0,
-      color: Colors.green,
-    ),
+    child: Container(width: 80.0, height: 80.0, color: Colors.green),
   );
   print('ImageFiltered created');
 
@@ -58,20 +50,32 @@ dynamic build(BuildContext context) {
 
   final colorFiltered = ColorFiltered(
     colorFilter: ColorFilter.mode(Colors.red, BlendMode.colorBurn),
-    child: Container(
-      width: 80.0,
-      height: 80.0,
-      color: Colors.blue,
-    ),
+    child: Container(width: 80.0, height: 80.0, color: Colors.blue),
   );
   print('ColorFiltered created');
 
   final colorFilteredMatrix = ColorFiltered(
     colorFilter: ColorFilter.matrix([
-      0.2126, 0.7152, 0.0722, 0.0, 0.0,
-      0.2126, 0.7152, 0.0722, 0.0, 0.0,
-      0.2126, 0.7152, 0.0722, 0.0, 0.0,
-      0.0, 0.0, 0.0, 1.0, 0.0,
+      0.2126,
+      0.7152,
+      0.0722,
+      0.0,
+      0.0,
+      0.2126,
+      0.7152,
+      0.0722,
+      0.0,
+      0.0,
+      0.2126,
+      0.7152,
+      0.0722,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
     ]),
     child: Text('Grayscale'),
   );
@@ -80,9 +84,7 @@ dynamic build(BuildContext context) {
   // ========== CheckedModeBanner ==========
   print('--- CheckedModeBanner Tests ---');
 
-  final banner = CheckedModeBanner(
-    child: Text('Banner child'),
-  );
+  final banner = CheckedModeBanner(child: Text('Banner child'));
   print('CheckedModeBanner created');
 
   print('All shader/filter widget tests passed');
@@ -95,8 +97,10 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Shader/Filter Widget Tests',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+            Text(
+              'Shader/Filter Widget Tests',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
             SizedBox(height: 8.0),
             shaderMask,
             SizedBox(height: 8.0),

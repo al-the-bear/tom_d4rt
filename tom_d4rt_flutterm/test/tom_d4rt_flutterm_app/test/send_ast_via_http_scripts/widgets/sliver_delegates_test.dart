@@ -8,17 +8,19 @@ dynamic build(BuildContext context) {
   // ========== SliverChildBuilderDelegate ==========
   print('--- SliverChildBuilderDelegate Tests ---');
 
-  final builderDelegate = SliverChildBuilderDelegate(
-    (BuildContext ctx, int index) {
-      return ListTile(
-        title: Text('Item $index'),
-        leading: CircleAvatar(child: Text('$index')),
-      );
-    },
-    childCount: 20,
-  );
+  final builderDelegate = SliverChildBuilderDelegate((
+    BuildContext ctx,
+    int index,
+  ) {
+    return ListTile(
+      title: Text('Item $index'),
+      leading: CircleAvatar(child: Text('$index')),
+    );
+  }, childCount: 20);
   print('SliverChildBuilderDelegate childCount: ${builderDelegate.childCount}');
-  print('SliverChildBuilderDelegate estimatedChildCount: ${builderDelegate.estimatedChildCount}');
+  print(
+    'SliverChildBuilderDelegate estimatedChildCount: ${builderDelegate.estimatedChildCount}',
+  );
 
   // ========== SliverChildListDelegate ==========
   print('--- SliverChildListDelegate Tests ---');
@@ -29,10 +31,14 @@ dynamic build(BuildContext context) {
     ListTile(title: Text('C')),
   ];
   final listDelegate = SliverChildListDelegate(children);
-  print('SliverChildListDelegate estimatedChildCount: ${listDelegate.estimatedChildCount}');
+  print(
+    'SliverChildListDelegate estimatedChildCount: ${listDelegate.estimatedChildCount}',
+  );
 
   final listDelegateFixed = SliverChildListDelegate.fixed(children);
-  print('SliverChildListDelegate.fixed estimatedChildCount: ${listDelegateFixed.estimatedChildCount}');
+  print(
+    'SliverChildListDelegate.fixed estimatedChildCount: ${listDelegateFixed.estimatedChildCount}',
+  );
 
   // ========== SliverSafeArea ==========
   print('--- SliverSafeArea Tests ---');
@@ -77,20 +83,18 @@ dynamic build(BuildContext context) {
           SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.all(16.0),
-              child: Text('Sliver Delegates Test',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+              child: Text(
+                'Sliver Delegates Test',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+              ),
             ),
           ),
-          SliverList(
-            delegate: builderDelegate,
-          ),
+          SliverList(delegate: builderDelegate),
           sliverSafeArea,
           sliverVisible,
           sliverHidden,
           sliverIgnore,
-          SliverList(
-            delegate: listDelegate,
-          ),
+          SliverList(delegate: listDelegate),
         ],
       ),
     ),

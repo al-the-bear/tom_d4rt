@@ -79,7 +79,9 @@ dynamic build(BuildContext context) {
     onLongPressHint: 'Long press to show options',
   );
   print('SemanticsHintOverrides onTapHint: ${hintOverrides.onTapHint}');
-  print('SemanticsHintOverrides onLongPressHint: ${hintOverrides.onLongPressHint}');
+  print(
+    'SemanticsHintOverrides onLongPressHint: ${hintOverrides.onLongPressHint}',
+  );
 
   print('All semantics properties tests passed');
 
@@ -97,8 +99,10 @@ dynamic build(BuildContext context) {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('Semantics Properties Test',
-                  style: TextStyle(fontWeight: FontWeight.bold)),
+              Text(
+                'Semantics Properties Test',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
               Text('Label: ${props.label}'),
               Text('SortKey order: ${sortKey1.order}'),
               Semantics(

@@ -32,7 +32,10 @@ dynamic build(BuildContext context) {
     onPressed: () => print('Menu item 1'),
     shortcut: SingleActivator(LogicalKeyboardKey.keyN, control: true),
     leadingIcon: Icon(Icons.add),
-    trailingIcon: Text('Ctrl+N', style: TextStyle(fontSize: 12.0, color: Colors.grey)),
+    trailingIcon: Text(
+      'Ctrl+N',
+      style: TextStyle(fontSize: 12.0, color: Colors.grey),
+    ),
     child: Text('New File'),
   );
   print('MenuItemButton created: New File');
@@ -63,11 +66,7 @@ dynamic build(BuildContext context) {
   // ========== MenuAnchor ==========
   print('--- MenuAnchor Tests ---');
   final anchor = MenuAnchor(
-    menuChildren: [
-      menuItem1,
-      menuItem2,
-      menuItem3,
-    ],
+    menuChildren: [menuItem1, menuItem2, menuItem3],
     builder: (context, controller, child) {
       return IconButton(
         icon: Icon(Icons.more_vert),

@@ -56,8 +56,10 @@ dynamic build(BuildContext context) {
   final normalized = BoxConstraints(minWidth: 200, maxWidth: 100).normalize();
   print('Normalized: $normalized');
 
-  final constrained = BoxConstraints(minWidth: 100, maxWidth: 300)
-      .constrain(Size(250, 150));
+  final constrained = BoxConstraints(
+    minWidth: 100,
+    maxWidth: 300,
+  ).constrain(Size(250, 150));
   print('Constrained size: $constrained');
 
   // ========== RenderFlex ==========

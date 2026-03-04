@@ -17,10 +17,7 @@ dynamic build(BuildContext context) {
   );
   print('CupertinoSwitch created: value=true');
 
-  final offSwitch = CupertinoSwitch(
-    value: false,
-    onChanged: (v) {},
-  );
+  final offSwitch = CupertinoSwitch(value: false, onChanged: (v) {});
   print('CupertinoSwitch off created');
 
   // ========== CupertinoSlider ==========
@@ -81,9 +78,7 @@ dynamic build(BuildContext context) {
   // ========== RETURN WIDGET ==========
   return CupertinoApp(
     home: CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        middle: Text('Controls Test'),
-      ),
+      navigationBar: CupertinoNavigationBar(middle: Text('Controls Test')),
       child: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(16.0),
@@ -93,10 +88,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 16.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Switch:'),
-                  cupertinoSwitch,
-                ],
+                children: [Text('Switch:'), cupertinoSwitch],
               ),
               SizedBox(height: 16.0),
               slider,

@@ -35,7 +35,8 @@ dynamic build(BuildContext context) {
     borderRadius: BorderRadius.circular(8.0),
     clipBehavior: Clip.antiAlias,
     child: Container(
-      width: 100, height: 100,
+      width: 100,
+      height: 100,
       child: Center(child: Text('Physical')),
     ),
   );
@@ -67,11 +68,13 @@ dynamic build(BuildContext context) {
     children: [
       Container(width: 200, height: 200, color: Colors.blue.shade100),
       Positioned(
-        top: 10, left: 10,
+        top: 10,
+        left: 10,
         child: Container(width: 100, height: 100, color: Colors.red.shade200),
       ),
       Positioned(
-        bottom: 10, right: 10,
+        bottom: 10,
+        right: 10,
         child: Container(width: 80, height: 80, color: Colors.green.shade200),
       ),
     ],
@@ -84,11 +87,7 @@ dynamic build(BuildContext context) {
     index: 1,
     alignment: Alignment.center,
     sizing: StackFit.loose,
-    children: [
-      Text('Page 0'),
-      Text('Page 1 (visible)'),
-      Text('Page 2'),
-    ],
+    children: [Text('Page 0'), Text('Page 1 (visible)'), Text('Page 2')],
   );
   print('IndexedStack index=1');
 

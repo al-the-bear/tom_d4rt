@@ -91,10 +91,16 @@ dynamic build(BuildContext context) {
     Locale('ja', 'JP'),
     Locale('zh', 'CN'),
     Locale('ar', 'SA'),
-    Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant', countryCode: 'TW'),
+    Locale.fromSubtags(
+      languageCode: 'zh',
+      scriptCode: 'Hant',
+      countryCode: 'TW',
+    ),
   ];
   for (final loc in locales) {
-    print('Locale: ${loc.toLanguageTag()} (lang=${loc.languageCode}, country=${loc.countryCode})');
+    print(
+      'Locale: ${loc.toLanguageTag()} (lang=${loc.languageCode}, country=${loc.countryCode})',
+    );
   }
 
   // ========== TextDecoration advanced ==========
@@ -108,7 +114,10 @@ dynamic build(BuildContext context) {
   for (final entry in decorations.entries) {
     print('TextDecoration.${entry.key}');
   }
-  final combined = TextDecoration.combine([TextDecoration.underline, TextDecoration.overline]);
+  final combined = TextDecoration.combine([
+    TextDecoration.underline,
+    TextDecoration.overline,
+  ]);
   print('Combined decoration: $combined');
 
   print('All dart:ui advanced tests passed');

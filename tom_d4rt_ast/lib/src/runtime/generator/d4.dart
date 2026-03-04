@@ -33,8 +33,8 @@ typedef GenericTypeWrapperFactory =
 ///
 /// The [visitor] is the current interpreter for dispatching callbacks.
 /// The [instance] is the D4rt interpreted instance that provides the implementation.
-typedef InterfaceProxyFactory = Object? Function(
-    InterpreterVisitor visitor, InterpretedInstance instance);
+typedef InterfaceProxyFactory =
+    Object? Function(InterpreterVisitor visitor, InterpretedInstance instance);
 
 /// RC-3: Factory for converting one type to another when they represent
 /// the same concept but live in different packages.
@@ -53,11 +53,13 @@ typedef TypeCoercionFactory = Object? Function(Object value);
 /// [positionalArgs] and [namedArgs] are the converted arguments.
 /// [typeArguments] are the evaluated type arguments from the script,
 /// or null when called without type arguments (constructor override).
-typedef GenericConstructorFactory = Object? Function(
-    InterpreterVisitor visitor,
-    List<Object?> positionalArgs,
-    Map<String, Object?> namedArgs,
-    List<RuntimeType>? typeArguments);
+typedef GenericConstructorFactory =
+    Object? Function(
+      InterpreterVisitor visitor,
+      List<Object?> positionalArgs,
+      Map<String, Object?> namedArgs,
+      List<RuntimeType>? typeArguments,
+    );
 
 /// D4 - Static helper class for D4rt bridge code generation.
 ///
@@ -230,7 +232,7 @@ class D4 {
   /// methods like ChangeNotifier.notifyListeners). Checked as a fallback
   /// after the main bridge method lookup in InterpretedInstance.get().
   static final Map<String, Map<String, BridgedMethodAdapter>>
-      _supplementaryMethods = {};
+  _supplementaryMethods = {};
 
   /// Register a supplementary method adapter for a bridged class.
   ///
@@ -242,8 +244,8 @@ class D4 {
     String methodName,
     BridgedMethodAdapter adapter,
   ) {
-    _supplementaryMethods
-        .putIfAbsent(bridgedClassName, () => {})[methodName] = adapter;
+    _supplementaryMethods.putIfAbsent(bridgedClassName, () => {})[methodName] =
+        adapter;
   }
 
   /// Look up a supplementary method adapter.
@@ -303,8 +305,10 @@ class D4 {
           // RC-1: Try interface proxy for elements that implement a bridged interface
           final effectiveVisitor = _activeVisitor;
           if (_interfaceProxies.isNotEmpty && effectiveVisitor != null) {
-            final proxy =
-                tryCreateInterfaceProxyWithVisitor<T>(e, effectiveVisitor);
+            final proxy = tryCreateInterfaceProxyWithVisitor<T>(
+              e,
+              effectiveVisitor,
+            );
             if (proxy != null) return proxy;
           }
         }
@@ -400,8 +404,10 @@ class D4 {
           }
           final effectiveVisitor = _activeVisitor;
           if (_interfaceProxies.isNotEmpty && effectiveVisitor != null) {
-            final proxy =
-                tryCreateInterfaceProxyWithVisitor<T>(e, effectiveVisitor);
+            final proxy = tryCreateInterfaceProxyWithVisitor<T>(
+              e,
+              effectiveVisitor,
+            );
             if (proxy != null) return proxy;
           }
         }
@@ -462,10 +468,11 @@ class D4 {
         final key = k is BridgedInstance
             ? k.nativeObject as K
             : k is BridgedEnumValue
-                ? k.nativeValue as K
-                : k is BridgedClass
-                    ? k.nativeType as K // ENG-002: class name → Type
-                    : k as K;
+            ? k.nativeValue as K
+            : k is BridgedClass
+            ? k.nativeType
+                  as K // ENG-002: class name → Type
+            : k as K;
         final val = _coerceMapValue<V>(v, paramName, visitor);
         return MapEntry(key, val);
       });
@@ -570,7 +577,9 @@ class D4 {
     if (_isTwoArgFunction(vType)) {
       return (arg1, arg2) {
         if (callable is Callable) {
-          return unwrapInterpreterValue(callable.call(visitor, [arg1, arg2], {}));
+          return unwrapInterpreterValue(
+            callable.call(visitor, [arg1, arg2], {}),
+          );
         }
         throw ArgumentD4rtException(
           'Cannot call non-callable in Map value: ${callable.runtimeType}',
@@ -659,8 +668,11 @@ class D4 {
   ///
   /// INTER-003: Supports int→double promotion
   /// INTER-004: Supports collection type casting (List, Set, Map)
-  static T extractBridgedArg<T>(Object? arg, String paramName,
-      [InterpreterVisitor? visitor]) {
+  static T extractBridgedArg<T>(
+    Object? arg,
+    String paramName, [
+    InterpreterVisitor? visitor,
+  ]) {
     // Unwrap BridgedInstance or BridgedEnumValue if needed
     final unwrapped = arg is BridgedInstance
         ? arg.nativeObject
@@ -755,8 +767,7 @@ class D4 {
       try {
         // D4rt may produce Maps for set literals (e.g., `{}` defaults to Map).
         // Coerce Map keys → Set elements.
-        final source =
-            unwrapped is Map ? unwrapped.keys : (unwrapped as Set);
+        final source = unwrapped is Map ? unwrapped.keys : (unwrapped as Set);
         final unwrappedSet = source.map(_unwrapElement).toSet();
         final elementType = tStr.substring(4, tStr.length - 1);
         return switch (elementType) {
@@ -802,8 +813,10 @@ class D4 {
       // native delegate that calls back into the interpreter.
       final effectiveVisitor = visitor ?? _activeVisitor;
       if (_interfaceProxies.isNotEmpty && effectiveVisitor != null) {
-        final proxyResult =
-            tryCreateInterfaceProxyWithVisitor<T>(arg, effectiveVisitor);
+        final proxyResult = tryCreateInterfaceProxyWithVisitor<T>(
+          arg,
+          effectiveVisitor,
+        );
         if (proxyResult != null) return proxyResult;
       }
     }
@@ -825,8 +838,8 @@ class D4 {
     final actualType = arg is BridgedInstance
         ? arg.nativeObject.runtimeType
         : arg is InterpretedInstance
-            ? 'InterpretedInstance(${arg.klass.name})'
-            : arg.runtimeType;
+        ? 'InterpretedInstance(${arg.klass.name})'
+        : arg.runtimeType;
     throw ArgumentD4rtException(
       'Invalid parameter "$paramName": expected $T, got $actualType',
     );
@@ -837,8 +850,11 @@ class D4 {
   ///
   /// Handles both wrapped (BridgedInstance) and unwrapped (native) objects.
   /// Throws ArgumentError if the type doesn't match (and is non-null).
-  static T? extractBridgedArgOrNull<T>(Object? arg, String paramName,
-      [InterpreterVisitor? visitor]) {
+  static T? extractBridgedArgOrNull<T>(
+    Object? arg,
+    String paramName, [
+    InterpreterVisitor? visitor,
+  ]) {
     if (arg == null) return null;
     return extractBridgedArg<T>(arg, paramName, visitor);
   }

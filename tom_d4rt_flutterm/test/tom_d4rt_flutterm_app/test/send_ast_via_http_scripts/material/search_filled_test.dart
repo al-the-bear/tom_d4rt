@@ -17,12 +17,10 @@ dynamic build(BuildContext context) {
   final searchBarTheme = SearchBarThemeData(
     elevation: WidgetStateProperty.all(2.0),
     backgroundColor: WidgetStateProperty.all(Colors.white),
-    padding: WidgetStateProperty.all(
-        EdgeInsets.symmetric(horizontal: 16.0)),
+    padding: WidgetStateProperty.all(EdgeInsets.symmetric(horizontal: 16.0)),
     textStyle: WidgetStateProperty.all(TextStyle(fontSize: 16.0)),
     hintStyle: WidgetStateProperty.all(TextStyle(color: Colors.grey)),
-    shape: WidgetStateProperty.all(
-        StadiumBorder()),
+    shape: WidgetStateProperty.all(StadiumBorder()),
     constraints: BoxConstraints(minHeight: 56.0, maxWidth: 600.0),
   );
   print('SearchBarThemeData created');

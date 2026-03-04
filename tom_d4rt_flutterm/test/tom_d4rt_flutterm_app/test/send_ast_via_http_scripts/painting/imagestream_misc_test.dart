@@ -24,15 +24,21 @@ dynamic build(BuildContext context) {
     baselineOffset: 20.0,
     baseline: TextBaseline.alphabetic,
   );
-  print('PlaceholderDimensions baselineOffset: ${placeholderWithBaseline.baselineOffset}');
+  print(
+    'PlaceholderDimensions baselineOffset: ${placeholderWithBaseline.baselineOffset}',
+  );
   print('PlaceholderDimensions baseline: ${placeholderWithBaseline.baseline}');
 
   // ========== PlaceholderAlignment ==========
   print('--- PlaceholderAlignment Tests ---');
 
   print('PlaceholderAlignment.baseline: ${PlaceholderAlignment.baseline}');
-  print('PlaceholderAlignment.aboveBaseline: ${PlaceholderAlignment.aboveBaseline}');
-  print('PlaceholderAlignment.belowBaseline: ${PlaceholderAlignment.belowBaseline}');
+  print(
+    'PlaceholderAlignment.aboveBaseline: ${PlaceholderAlignment.aboveBaseline}',
+  );
+  print(
+    'PlaceholderAlignment.belowBaseline: ${PlaceholderAlignment.belowBaseline}',
+  );
   print('PlaceholderAlignment.top: ${PlaceholderAlignment.top}');
   print('PlaceholderAlignment.bottom: ${PlaceholderAlignment.bottom}');
   print('PlaceholderAlignment.middle: ${PlaceholderAlignment.middle}');
@@ -55,11 +61,17 @@ dynamic build(BuildContext context) {
     isPlaceholder: false,
   );
   print('InlineSpanSemanticsInformation text: ${spanInfo.text}');
-  print('InlineSpanSemanticsInformation isPlaceholder: ${spanInfo.isPlaceholder}');
-  print('InlineSpanSemanticsInformation requiresOwnNode: ${spanInfo.requiresOwnNode}');
+  print(
+    'InlineSpanSemanticsInformation isPlaceholder: ${spanInfo.isPlaceholder}',
+  );
+  print(
+    'InlineSpanSemanticsInformation requiresOwnNode: ${spanInfo.requiresOwnNode}',
+  );
 
   final placeholderInfo = InlineSpanSemanticsInformation.placeholder;
-  print('InlineSpanSemanticsInformation.placeholder isPlaceholder: ${placeholderInfo.isPlaceholder}');
+  print(
+    'InlineSpanSemanticsInformation.placeholder isPlaceholder: ${placeholderInfo.isPlaceholder}',
+  );
 
   // ========== ImageChunkEvent ==========
   print('--- ImageChunkEvent Tests ---');
@@ -68,20 +80,26 @@ dynamic build(BuildContext context) {
     cumulativeBytesLoaded: 5000,
     expectedTotalBytes: 10000,
   );
-  print('ImageChunkEvent cumulativeBytesLoaded: ${chunkEvent.cumulativeBytesLoaded}');
+  print(
+    'ImageChunkEvent cumulativeBytesLoaded: ${chunkEvent.cumulativeBytesLoaded}',
+  );
   print('ImageChunkEvent expectedTotalBytes: ${chunkEvent.expectedTotalBytes}');
 
   final chunkEventNoTotal = ImageChunkEvent(
     cumulativeBytesLoaded: 3000,
     expectedTotalBytes: null,
   );
-  print('ImageChunkEvent without total: ${chunkEventNoTotal.expectedTotalBytes}');
+  print(
+    'ImageChunkEvent without total: ${chunkEventNoTotal.expectedTotalBytes}',
+  );
 
   // ========== ImageConfiguration ==========
   print('--- ImageConfiguration Tests ---');
 
   final icEmpty = ImageConfiguration.empty;
-  print('ImageConfiguration.empty devicePixelRatio: ${icEmpty.devicePixelRatio}');
+  print(
+    'ImageConfiguration.empty devicePixelRatio: ${icEmpty.devicePixelRatio}',
+  );
   print('ImageConfiguration.empty locale: ${icEmpty.locale}');
   print('ImageConfiguration.empty textDirection: ${icEmpty.textDirection}');
   print('ImageConfiguration.empty size: ${icEmpty.size}');
@@ -96,8 +114,10 @@ dynamic build(BuildContext context) {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text('Painting Image Stream & Misc Test',
-                style: TextStyle(fontWeight: FontWeight.bold)),
+            Text(
+              'Painting Image Stream & Misc Test',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             Text('PlaceholderDimensions: ${placeholder.size}'),
             Text('Accumulator: ${acc.value}'),
             Text('ImageChunkEvent loaded: ${chunkEvent.cumulativeBytesLoaded}'),

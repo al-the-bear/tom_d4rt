@@ -13,9 +13,17 @@ dynamic build(BuildContext context) {
   print('ObserverList created, isEmpty: ${observers.isEmpty}');
 
   int callCount = 0;
-  void callback1() { callCount += 1; }
-  void callback2() { callCount += 10; }
-  void callback3() { callCount += 100; }
+  void callback1() {
+    callCount += 1;
+  }
+
+  void callback2() {
+    callCount += 10;
+  }
+
+  void callback3() {
+    callCount += 100;
+  }
 
   // Add observers
   observers.add(callback1);
@@ -50,8 +58,13 @@ dynamic build(BuildContext context) {
   print('HashedObserverList created, isEmpty: ${hashedObservers.isEmpty}');
 
   int hashedCount = 0;
-  void hCallback1() { hashedCount += 1; }
-  void hCallback2() { hashedCount += 10; }
+  void hCallback1() {
+    hashedCount += 1;
+  }
+
+  void hCallback2() {
+    hashedCount += 10;
+  }
 
   hashedObservers.add(hCallback1);
   hashedObservers.add(hCallback2);
@@ -74,7 +87,9 @@ dynamic build(BuildContext context) {
   // Remove
   final hashedRemoved = hashedObservers.remove(hCallback1);
   print('Hashed remove hCallback1: $hashedRemoved');
-  print('Hashed contains hCallback1 after remove: ${hashedObservers.contains(hCallback1)}');
+  print(
+    'Hashed contains hCallback1 after remove: ${hashedObservers.contains(hCallback1)}',
+  );
 
   print('All ObserverList tests passed');
 
@@ -86,8 +101,10 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('ObserverList Test',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+            Text(
+              'ObserverList Test',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
             SizedBox(height: 8.0),
             Text('ObserverList callCount: $callCount'),
             SizedBox(height: 4.0),

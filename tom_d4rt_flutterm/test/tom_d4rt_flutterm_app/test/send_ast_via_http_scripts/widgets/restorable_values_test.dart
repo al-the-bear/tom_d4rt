@@ -90,7 +90,9 @@ dynamic build(BuildContext context) {
   print('--- RestorableTextEditingController Tests ---');
 
   final restController = RestorableTextEditingController(text: 'initial');
-  print('RestorableTextEditingController value text: ${restController.value.text}');
+  print(
+    'RestorableTextEditingController value text: ${restController.value.text}',
+  );
 
   print('All restorable values tests passed');
 
@@ -102,8 +104,10 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Restorable Values Test',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+            Text(
+              'Restorable Values Test',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
             SizedBox(height: 8.0),
             Text('Int: ${restInt.value}'),
             Text('Double: ${restDouble.value}'),

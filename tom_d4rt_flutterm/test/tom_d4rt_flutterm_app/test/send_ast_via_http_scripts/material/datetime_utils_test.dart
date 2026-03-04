@@ -33,7 +33,10 @@ dynamic build(BuildContext context) {
   final isSameMonth = DateUtils.isSameMonth(today, DateTime(2025, 6, 1));
   print('DateUtils.isSameMonth: $isSameMonth');
 
-  final monthDelta = DateUtils.monthDelta(DateTime(2025, 1, 1), DateTime(2025, 6, 1));
+  final monthDelta = DateUtils.monthDelta(
+    DateTime(2025, 1, 1),
+    DateTime(2025, 6, 1),
+  );
   print('DateUtils.monthDelta(Jan to Jun): $monthDelta');
 
   // ========== DateTimeRange ==========
@@ -65,7 +68,9 @@ dynamic build(BuildContext context) {
   print('TimeOfDay noon period: ${time3.period}');
 
   final timeReplacing = time1.replacing(hour: 9);
-  print('TimeOfDay replacing hour: ${timeReplacing.hour}:${timeReplacing.minute}');
+  print(
+    'TimeOfDay replacing hour: ${timeReplacing.hour}:${timeReplacing.minute}',
+  );
 
   // ========== DayPeriod ==========
   print('--- DayPeriod Tests ---');
@@ -78,7 +83,9 @@ dynamic build(BuildContext context) {
 
   print('DatePickerEntryMode.calendar: ${DatePickerEntryMode.calendar}');
   print('DatePickerEntryMode.input: ${DatePickerEntryMode.input}');
-  print('DatePickerEntryMode.calendarOnly: ${DatePickerEntryMode.calendarOnly}');
+  print(
+    'DatePickerEntryMode.calendarOnly: ${DatePickerEntryMode.calendarOnly}',
+  );
   print('DatePickerEntryMode.inputOnly: ${DatePickerEntryMode.inputOnly}');
 
   // ========== TimePickerEntryMode ==========
@@ -94,8 +101,12 @@ dynamic build(BuildContext context) {
 
   print('TimeOfDayFormat.HH_colon_mm: ${TimeOfDayFormat.HH_colon_mm}');
   print('TimeOfDayFormat.H_colon_mm: ${TimeOfDayFormat.H_colon_mm}');
-  print('TimeOfDayFormat.h_colon_mm_space_a: ${TimeOfDayFormat.h_colon_mm_space_a}');
-  print('TimeOfDayFormat.a_space_h_colon_mm: ${TimeOfDayFormat.a_space_h_colon_mm}');
+  print(
+    'TimeOfDayFormat.h_colon_mm_space_a: ${TimeOfDayFormat.h_colon_mm_space_a}',
+  );
+  print(
+    'TimeOfDayFormat.a_space_h_colon_mm: ${TimeOfDayFormat.a_space_h_colon_mm}',
+  );
 
   // ========== HourFormat ==========
   print('--- HourFormat Tests ---');
@@ -114,15 +125,21 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Date Time Utilities Test',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+            Text(
+              'Date Time Utilities Test',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
             SizedBox(height: 8.0),
             Text('Today: $today'),
             Text('Days in Feb 2025: $lastDay'),
             Text('DateTimeRange duration: ${range.duration.inDays} days'),
             Text('TimeOfDay: ${time1.format(context)}'),
-            Text('DatePickerEntryMode values: ${DatePickerEntryMode.values.length}'),
-            Text('TimePickerEntryMode values: ${TimePickerEntryMode.values.length}'),
+            Text(
+              'DatePickerEntryMode values: ${DatePickerEntryMode.values.length}',
+            ),
+            Text(
+              'TimePickerEntryMode values: ${TimePickerEntryMode.values.length}',
+            ),
           ],
         ),
       ),

@@ -11,7 +11,9 @@ dynamic build(BuildContext context) {
   final style1 = ButtonStyle(
     backgroundColor: WidgetStateProperty.all(Colors.blue),
     foregroundColor: WidgetStateProperty.all(Colors.white),
-    padding: WidgetStateProperty.all(EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0)),
+    padding: WidgetStateProperty.all(
+      EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+    ),
     elevation: WidgetStateProperty.all(4.0),
     shape: WidgetStateProperty.all(
       RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
@@ -29,9 +31,9 @@ dynamic build(BuildContext context) {
   print('ButtonStyle copyWith created');
 
   // ButtonStyle.merge
-  final style3 = style1.merge(ButtonStyle(
-    elevation: WidgetStateProperty.all(8.0),
-  ));
+  final style3 = style1.merge(
+    ButtonStyle(elevation: WidgetStateProperty.all(8.0)),
+  );
   print('ButtonStyle merge created');
 
   // ========== WidgetStateProperty ==========
@@ -76,8 +78,10 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Button Style & Popup Menu Test',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+            Text(
+              'Button Style & Popup Menu Test',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
             SizedBox(height: 16.0),
             ElevatedButton(
               style: style1,

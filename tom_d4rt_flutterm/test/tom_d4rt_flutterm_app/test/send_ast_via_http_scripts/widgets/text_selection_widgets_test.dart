@@ -34,10 +34,7 @@ dynamic build(BuildContext context) {
 
   // ========== TextSelectionTheme ==========
   print('--- TextSelectionTheme Tests ---');
-  final theme = TextSelectionTheme(
-    data: themeData,
-    child: Text('Themed text'),
-  );
+  final theme = TextSelectionTheme(data: themeData, child: Text('Themed text'));
   print('TextSelectionTheme created');
 
   // lerp
@@ -64,7 +61,9 @@ dynamic build(BuildContext context) {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
               ),
               SizedBox(height: 16.0),
-              Text('TextSelectionHandleType: ${TextSelectionHandleType.values.length} values'),
+              Text(
+                'TextSelectionHandleType: ${TextSelectionHandleType.values.length} values',
+              ),
               Text('TextSelectionThemeData created'),
               Text('TextSelectionTheme wrapping'),
             ],

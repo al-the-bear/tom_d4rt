@@ -25,16 +25,14 @@ dynamic build(BuildContext context) {
     textColor: Colors.blue,
     collapsedTextColor: Colors.black,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-    collapsedShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+    collapsedShape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(8.0),
+    ),
     clipBehavior: Clip.antiAlias,
     controlAffinity: ListTileControlAffinity.leading,
     dense: false,
     enableFeedback: true,
-    children: [
-      Text('Child 1'),
-      Text('Child 2'),
-      Text('Child 3'),
-    ],
+    children: [Text('Child 1'), Text('Child 2'), Text('Child 3')],
   );
   print('ExpansionTile created with 3 children');
 

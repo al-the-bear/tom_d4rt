@@ -163,7 +163,9 @@ dynamic build(BuildContext context) {
 
   // GravitySimulation(acceleration, distance, endDistance, velocity)
   final gravitySim = GravitySimulation(9.8, 0.0, 100.0, 0.0);
-  print('GravitySimulation(accel=9.8, distance=0, endDistance=100, velocity=0):');
+  print(
+    'GravitySimulation(accel=9.8, distance=0, endDistance=100, velocity=0):',
+  );
   for (final t in [0.0, 0.5, 1.0, 2.0, 3.0, 4.0]) {
     print(
       '  t=$t: x=${gravitySim.x(t).toStringAsFixed(4)}, dx=${gravitySim.dx(t).toStringAsFixed(4)}, isDone=${gravitySim.isDone(t)}',
@@ -172,7 +174,9 @@ dynamic build(BuildContext context) {
 
   // GravitySimulation with initial velocity upward
   final gravityUp = GravitySimulation(9.8, 0.0, 100.0, -20.0);
-  print('GravitySimulation(accel=9.8, distance=0, endDistance=100, velocity=-20):');
+  print(
+    'GravitySimulation(accel=9.8, distance=0, endDistance=100, velocity=-20):',
+  );
   for (final t in [0.0, 1.0, 2.0, 3.0, 4.0]) {
     print('  t=$t: x=${gravityUp.x(t).toStringAsFixed(4)}');
   }

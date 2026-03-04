@@ -40,7 +40,9 @@ dynamic build(BuildContext context) {
     'space': PhysicalKeyboardKey.space,
   };
   for (final entry in physKeys.entries) {
-    print('PhysicalKeyboardKey.${entry.key}: usbHidUsage=${entry.value.usbHidUsage}');
+    print(
+      'PhysicalKeyboardKey.${entry.key}: usbHidUsage=${entry.value.usbHidUsage}',
+    );
   }
 
   // ========== HapticFeedback ==========

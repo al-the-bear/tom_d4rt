@@ -90,12 +90,17 @@ dynamic build(BuildContext context) {
     title: Text('Notched Style'),
     subtitle: Text('With notched leading'),
     leading: Container(
-      width: 30, height: 30,
+      width: 30,
+      height: 30,
       decoration: BoxDecoration(
         color: CupertinoColors.systemBlue,
         borderRadius: BorderRadius.circular(6.0),
       ),
-      child: Icon(CupertinoIcons.person, color: CupertinoColors.white, size: 18.0),
+      child: Icon(
+        CupertinoIcons.person,
+        color: CupertinoColors.white,
+        size: 18.0,
+      ),
     ),
     trailing: CupertinoListTileChevron(),
   );
@@ -106,9 +111,7 @@ dynamic build(BuildContext context) {
   // ========== RETURN WIDGET ==========
   return CupertinoApp(
     home: CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        middle: Text('Sections Test'),
-      ),
+      navigationBar: CupertinoNavigationBar(middle: Text('Sections Test')),
       child: SafeArea(
         child: ListView(
           children: [

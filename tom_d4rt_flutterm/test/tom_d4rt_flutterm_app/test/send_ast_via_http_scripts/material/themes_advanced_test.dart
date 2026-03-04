@@ -55,7 +55,11 @@ dynamic build(BuildContext context) {
     ),
     iconTheme: IconThemeData(color: Colors.white, size: 24.0),
     actionsIconTheme: IconThemeData(color: Colors.white, size: 24.0),
-    titleTextStyle: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500, color: Colors.white),
+    titleTextStyle: TextStyle(
+      fontSize: 20.0,
+      fontWeight: FontWeight.w500,
+      color: Colors.white,
+    ),
     toolbarTextStyle: TextStyle(fontSize: 14.0, color: Colors.white70),
     centerTitle: true,
     toolbarHeight: 56.0,
@@ -141,13 +145,17 @@ dynamic build(BuildContext context) {
     ),
     home: Scaffold(
       appBar: AppBar(title: Text('Themes Advanced')),
-      drawer: Drawer(child: ListView(children: [DrawerHeader(child: Text('Menu'))])),
+      drawer: Drawer(
+        child: ListView(children: [DrawerHeader(child: Text('Menu'))]),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Material Themes Advanced Test',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+            Text(
+              'Material Themes Advanced Test',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
             SizedBox(height: 16.0),
             Text('AppBarTheme, DrawerTheme'),
             Text('IconButtonTheme, FABTheme'),

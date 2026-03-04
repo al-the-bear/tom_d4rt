@@ -90,7 +90,9 @@ dynamic build(BuildContext context) {
     50,
     maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
   );
-  print('LengthLimitingTextInputFormatter with enforcement: ${lengthLimitTruncate.maxLength}');
+  print(
+    'LengthLimitingTextInputFormatter with enforcement: ${lengthLimitTruncate.maxLength}',
+  );
 
   print('All text editing value tests passed');
 
@@ -102,8 +104,10 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Text Editing Value Tests',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+            Text(
+              'Text Editing Value Tests',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
             SizedBox(height: 8.0),
             Text('TEV text: ${tev1.text}'),
             Text('Selection: ${sel1.baseOffset}-${sel1.extentOffset}'),

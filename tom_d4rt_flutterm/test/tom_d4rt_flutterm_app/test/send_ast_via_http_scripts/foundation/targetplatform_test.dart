@@ -77,16 +77,16 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('TargetPlatform Test',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+            Text(
+              'TargetPlatform Test',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
             SizedBox(height: 8.0),
             Text('Current platform: $currentPlatform'),
             SizedBox(height: 4.0),
             Text('Total enum values: ${allValues.length}'),
             SizedBox(height: 4.0),
-            ...allValues.map(
-              (p) => Text('  ${p.name}: index=${p.index}'),
-            ),
+            ...allValues.map((p) => Text('  ${p.name}: index=${p.index}')),
           ],
         ),
       ),

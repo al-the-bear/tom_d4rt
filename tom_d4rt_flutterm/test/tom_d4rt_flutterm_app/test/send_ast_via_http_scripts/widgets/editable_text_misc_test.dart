@@ -79,7 +79,9 @@ dynamic build(BuildContext context) {
             Text('SpellCheckConfiguration.disabled'),
             Text('EditableText with controller'),
             Text('TextInputType: ${types.length} types'),
-            Text('TextCapitalization: ${TextCapitalization.values.length} values'),
+            Text(
+              'TextCapitalization: ${TextCapitalization.values.length} values',
+            ),
           ],
         ),
       ),

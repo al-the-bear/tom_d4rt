@@ -15,9 +15,15 @@ dynamic build(BuildContext context) {
   print('CupertinoColors.activeOrange: ${CupertinoColors.activeOrange}');
   print('CupertinoColors.white: ${CupertinoColors.white}');
   print('CupertinoColors.black: ${CupertinoColors.black}');
-  print('CupertinoColors.lightBackgroundGray: ${CupertinoColors.lightBackgroundGray}');
-  print('CupertinoColors.extraLightBackgroundGray: ${CupertinoColors.extraLightBackgroundGray}');
-  print('CupertinoColors.darkBackgroundGray: ${CupertinoColors.darkBackgroundGray}');
+  print(
+    'CupertinoColors.lightBackgroundGray: ${CupertinoColors.lightBackgroundGray}',
+  );
+  print(
+    'CupertinoColors.extraLightBackgroundGray: ${CupertinoColors.extraLightBackgroundGray}',
+  );
+  print(
+    'CupertinoColors.darkBackgroundGray: ${CupertinoColors.darkBackgroundGray}',
+  );
   print('CupertinoColors.inactiveGray: ${CupertinoColors.inactiveGray}');
   print('CupertinoColors.destructiveRed: ${CupertinoColors.destructiveRed}');
 
@@ -64,8 +70,12 @@ dynamic build(BuildContext context) {
     isDestructiveAction: false,
     onPressed: () => print('OK pressed'),
   );
-  print('CupertinoDialogAction isDefaultAction: ${dialogAction.isDefaultAction}');
-  print('CupertinoDialogAction isDestructiveAction: ${dialogAction.isDestructiveAction}');
+  print(
+    'CupertinoDialogAction isDefaultAction: ${dialogAction.isDefaultAction}',
+  );
+  print(
+    'CupertinoDialogAction isDestructiveAction: ${dialogAction.isDestructiveAction}',
+  );
 
   final destructiveAction = CupertinoDialogAction(
     child: Text('Delete'),
@@ -73,7 +83,9 @@ dynamic build(BuildContext context) {
     isDestructiveAction: true,
     onPressed: () => print('Delete pressed'),
   );
-  print('CupertinoDialogAction destructive: ${destructiveAction.isDestructiveAction}');
+  print(
+    'CupertinoDialogAction destructive: ${destructiveAction.isDestructiveAction}',
+  );
 
   // ========== CupertinoActionSheetAction ==========
   print('--- CupertinoActionSheetAction Tests ---');
@@ -84,7 +96,9 @@ dynamic build(BuildContext context) {
     isDestructiveAction: false,
     onPressed: () => print('Share pressed'),
   );
-  print('CupertinoActionSheetAction isDefaultAction: ${actionSheetAction.isDefaultAction}');
+  print(
+    'CupertinoActionSheetAction isDefaultAction: ${actionSheetAction.isDefaultAction}',
+  );
 
   // ========== CupertinoFormRow ==========
   print('--- CupertinoFormRow Tests ---');

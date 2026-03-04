@@ -61,7 +61,9 @@ dynamic build(BuildContext context) {
     offsetFromOrigin: Offset(10.0, 10.0),
     localOffsetFromOrigin: Offset(10.0, 10.0),
   );
-  print('LongPressMoveUpdateDetails offset: ${longMoveUpdate.offsetFromOrigin}');
+  print(
+    'LongPressMoveUpdateDetails offset: ${longMoveUpdate.offsetFromOrigin}',
+  );
 
   final longEnd = LongPressEndDetails(
     globalPosition: Offset(210.0, 310.0),
@@ -79,8 +81,10 @@ dynamic build(BuildContext context) {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text('Scale Gesture Details Tests',
-                style: TextStyle(fontWeight: FontWeight.bold)),
+            Text(
+              'Scale Gesture Details Tests',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             Text('Scale: ${scaleUpdate.scale}'),
             Text('Rotation: ${scaleUpdate.rotation}'),
             Text('LongPress globalPos: ${longStart.globalPosition}'),

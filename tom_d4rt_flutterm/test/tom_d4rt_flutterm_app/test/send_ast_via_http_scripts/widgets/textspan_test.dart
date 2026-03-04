@@ -24,9 +24,18 @@ dynamic build(BuildContext context) {
     text: 'Parent ',
     style: TextStyle(fontSize: 16.0),
     children: [
-      TextSpan(text: 'child1 ', style: TextStyle(color: Colors.blue)),
-      TextSpan(text: 'child2 ', style: TextStyle(color: Colors.green)),
-      TextSpan(text: 'child3', style: TextStyle(color: Colors.red)),
+      TextSpan(
+        text: 'child1 ',
+        style: TextStyle(color: Colors.blue),
+      ),
+      TextSpan(
+        text: 'child2 ',
+        style: TextStyle(color: Colors.green),
+      ),
+      TextSpan(
+        text: 'child3',
+        style: TextStyle(color: Colors.red),
+      ),
     ],
   );
   print('Parent TextSpan with 3 children created');
@@ -40,10 +49,7 @@ dynamic build(BuildContext context) {
   print('TextSpan for tapping created');
 
   // TextSpan with semanticsLabel
-  final semanticSpan = TextSpan(
-    text: '🎉',
-    semanticsLabel: 'party popper',
-  );
+  final semanticSpan = TextSpan(text: '🎉', semanticsLabel: 'party popper');
   print('TextSpan with semanticsLabel created');
   print('  semanticsLabel: ${semanticSpan.semanticsLabel}');
 
@@ -68,11 +74,7 @@ dynamic build(BuildContext context) {
   // WidgetSpan with alignment
   final alignedWidgetSpan = WidgetSpan(
     alignment: PlaceholderAlignment.middle,
-    child: Container(
-      width: 20.0,
-      height: 20.0,
-      color: Colors.blue,
-    ),
+    child: Container(width: 20.0, height: 20.0, color: Colors.blue),
   );
   print('WidgetSpan with middle alignment created');
 
@@ -83,10 +85,7 @@ dynamic build(BuildContext context) {
     child: Container(
       width: 16.0,
       height: 16.0,
-      decoration: BoxDecoration(
-        color: Colors.red,
-        shape: BoxShape.circle,
-      ),
+      decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
     ),
   );
   print('WidgetSpan with baseline alignment created');
@@ -99,9 +98,7 @@ dynamic build(BuildContext context) {
       style: TextStyle(fontSize: 16.0, color: Colors.black),
       children: [
         TextSpan(text: 'Hello '),
-        WidgetSpan(
-          child: Icon(Icons.favorite, size: 16.0, color: Colors.red),
-        ),
+        WidgetSpan(child: Icon(Icons.favorite, size: 16.0, color: Colors.red)),
         TextSpan(text: ' World '),
         WidgetSpan(
           alignment: PlaceholderAlignment.middle,
@@ -110,7 +107,10 @@ dynamic build(BuildContext context) {
             height: 20.0,
             color: Colors.blue,
             child: Center(
-              child: Text('inline', style: TextStyle(color: Colors.white, fontSize: 10.0)),
+              child: Text(
+                'inline',
+                style: TextStyle(color: Colors.white, fontSize: 10.0),
+              ),
             ),
           ),
         ),
@@ -130,8 +130,10 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('TextSpan / WidgetSpan Test',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+            Text(
+              'TextSpan / WidgetSpan Test',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
             SizedBox(height: 8.0),
             Text.rich(parentSpan),
             SizedBox(height: 8.0),
@@ -141,11 +143,29 @@ dynamic build(BuildContext context) {
               TextSpan(
                 children: [
                   TextSpan(text: 'Rating: ', style: TextStyle(fontSize: 16.0)),
-                  WidgetSpan(child: Icon(Icons.star, size: 16.0, color: Colors.amber)),
-                  WidgetSpan(child: Icon(Icons.star, size: 16.0, color: Colors.amber)),
-                  WidgetSpan(child: Icon(Icons.star, size: 16.0, color: Colors.amber)),
-                  WidgetSpan(child: Icon(Icons.star_half, size: 16.0, color: Colors.amber)),
-                  WidgetSpan(child: Icon(Icons.star_border, size: 16.0, color: Colors.grey)),
+                  WidgetSpan(
+                    child: Icon(Icons.star, size: 16.0, color: Colors.amber),
+                  ),
+                  WidgetSpan(
+                    child: Icon(Icons.star, size: 16.0, color: Colors.amber),
+                  ),
+                  WidgetSpan(
+                    child: Icon(Icons.star, size: 16.0, color: Colors.amber),
+                  ),
+                  WidgetSpan(
+                    child: Icon(
+                      Icons.star_half,
+                      size: 16.0,
+                      color: Colors.amber,
+                    ),
+                  ),
+                  WidgetSpan(
+                    child: Icon(
+                      Icons.star_border,
+                      size: 16.0,
+                      color: Colors.grey,
+                    ),
+                  ),
                 ],
               ),
             ),

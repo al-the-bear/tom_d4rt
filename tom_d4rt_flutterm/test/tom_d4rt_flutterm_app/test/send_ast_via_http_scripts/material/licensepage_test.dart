@@ -5,9 +5,7 @@ dynamic build(BuildContext context) {
   print('LicensePage test executing');
 
   // Variation 1: Basic LicensePage with applicationName
-  final widget1 = LicensePage(
-    applicationName: 'Test App',
-  );
+  final widget1 = LicensePage(applicationName: 'Test App');
   print('LicensePage(applicationName) created');
 
   // Variation 2: LicensePage with applicationVersion
@@ -44,7 +42,8 @@ dynamic build(BuildContext context) {
       padding: EdgeInsets.all(12.0),
       child: FlutterLogo(size: 64),
     ),
-    applicationLegalese: 'Copyright 2025 Full Corp.\nBuilt with Flutter and D4rt.',
+    applicationLegalese:
+        'Copyright 2025 Full Corp.\nBuilt with Flutter and D4rt.',
   );
   print('LicensePage(all properties) created');
 

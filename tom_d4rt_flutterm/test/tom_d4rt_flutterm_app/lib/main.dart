@@ -108,9 +108,7 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
         'parentDataDirty',
         'parentData is set up correctly',
       ];
-      final isIgnored = ignoredPatterns.any(
-        (p) => message.contains(p),
-      );
+      final isIgnored = ignoredPatterns.any((p) => message.contains(p));
 
       if (!isIgnored) {
         _frameworkErrors.add(message);
@@ -296,7 +294,7 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
       _addLogEntry(
         result.success
             ? 'Build completed: ${result.widgetType}'
-                '${result.frameworkErrors.isNotEmpty ? ' (${result.frameworkErrors.length} framework error(s))' : ''}'
+                  '${result.frameworkErrors.isNotEmpty ? ' (${result.frameworkErrors.length} framework error(s))' : ''}'
             : 'Build failed: ${result.error}',
       );
       _scheduleLogRefresh();

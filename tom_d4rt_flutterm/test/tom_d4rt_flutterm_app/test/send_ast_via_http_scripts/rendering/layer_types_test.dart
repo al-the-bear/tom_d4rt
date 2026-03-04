@@ -81,7 +81,8 @@ dynamic build(BuildContext context) {
             CompositedTransformTarget(
               link: LayerLink(),
               child: Container(
-                width: 50, height: 50,
+                width: 50,
+                height: 50,
                 color: Colors.blue.shade200,
                 child: Center(child: Text('Target')),
               ),

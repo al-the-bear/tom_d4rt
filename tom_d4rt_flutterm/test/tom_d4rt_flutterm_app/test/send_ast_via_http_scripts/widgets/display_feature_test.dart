@@ -63,8 +63,12 @@ dynamic build(BuildContext context) {
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
             ),
             SizedBox(height: 16.0),
-            Text('DisplayFeatureType values: ${ui.DisplayFeatureType.values.length}'),
-            Text('DisplayFeatureState values: ${ui.DisplayFeatureState.values.length}'),
+            Text(
+              'DisplayFeatureType values: ${ui.DisplayFeatureType.values.length}',
+            ),
+            Text(
+              'DisplayFeatureState values: ${ui.DisplayFeatureState.values.length}',
+            ),
             DisplayFeatureSubScreen(
               anchorPoint: Offset.zero,
               child: Text('SubScreen content'),

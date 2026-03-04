@@ -38,7 +38,11 @@ dynamic build(BuildContext context) {
   final tab3 = Tab(
     child: Row(
       mainAxisSize: MainAxisSize.min,
-      children: [Icon(Icons.star, size: 16), SizedBox(width: 4), Text('Custom')],
+      children: [
+        Icon(Icons.star, size: 16),
+        SizedBox(width: 4),
+        Text('Custom'),
+      ],
     ),
   );
   print('Tab with custom child created');
@@ -62,7 +66,11 @@ dynamic build(BuildContext context) {
             indicator: UnderlineTabIndicator(
               borderSide: BorderSide(color: Colors.white, width: 3.0),
             ),
-            tabs: [tab1, tab2, Tab(text: 'Tab 3')],
+            tabs: [
+              tab1,
+              tab2,
+              Tab(text: 'Tab 3'),
+            ],
           ),
         ),
         body: TabBarView(

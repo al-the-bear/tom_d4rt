@@ -80,22 +80,14 @@ dynamic build(BuildContext context) {
   // ========== RETURN WIDGET ==========
   return CupertinoApp(
     home: CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        middle: Text('Picker Test'),
-      ),
+      navigationBar: CupertinoNavigationBar(middle: Text('Picker Test')),
       child: SafeArea(
         child: Column(
           children: [
             SizedBox(height: 16.0),
-            SizedBox(
-              height: 200,
-              child: picker,
-            ),
+            SizedBox(height: 200, child: picker),
             SizedBox(height: 16.0),
-            SizedBox(
-              height: 200,
-              child: timerPicker,
-            ),
+            SizedBox(height: 200, child: timerPicker),
           ],
         ),
       ),

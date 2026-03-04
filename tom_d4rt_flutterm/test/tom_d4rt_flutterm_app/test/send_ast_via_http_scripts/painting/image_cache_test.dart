@@ -101,15 +101,19 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('ImageCache Test',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+            Text(
+              'ImageCache Test',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
             SizedBox(height: 8.0),
             Text('Cache max size: ${cache.maximumSize}'),
             Text('Cache max bytes: ${cache.maximumSizeBytes}'),
             Text('Cache current size: ${cache.currentSize}'),
             SizedBox(height: 8.0),
-            Text('ImageConfiguration Test',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
+            Text(
+              'ImageConfiguration Test',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+            ),
             Text('Custom config dpr: ${customConfig.devicePixelRatio}'),
             Text('Custom config locale: ${customConfig.locale}'),
             Text('Custom config size: ${customConfig.size}'),

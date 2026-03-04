@@ -69,7 +69,9 @@ dynamic build(BuildContext context) {
     hint: 'Swipe to dismiss',
     action: SemanticsAction.dismiss,
   );
-  print('CustomSemanticsAction.overridingAction: hint="${overrideAction.hint}"');
+  print(
+    'CustomSemanticsAction.overridingAction: hint="${overrideAction.hint}"',
+  );
 
   // ========== OrdinalSortKey ==========
   print('--- OrdinalSortKey Tests ---');

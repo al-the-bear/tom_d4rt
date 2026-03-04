@@ -12,15 +12,11 @@ dynamic build(BuildContext context) {
   print('Default Placeholder created');
 
   // Placeholder with custom color
-  final colorPlaceholder = Placeholder(
-    color: Colors.red,
-  );
+  final colorPlaceholder = Placeholder(color: Colors.red);
   print('Placeholder with red color created');
 
   // Placeholder with custom stroke width
-  final strokePlaceholder = Placeholder(
-    strokeWidth: 4.0,
-  );
+  final strokePlaceholder = Placeholder(strokeWidth: 4.0);
   print('Placeholder with strokeWidth=4.0 created');
 
   // Placeholder with fallback dimensions
@@ -62,26 +58,16 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Placeholder Test',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
-            SizedBox(height: 8.0),
-            SizedBox(
-              width: 200.0,
-              height: 100.0,
-              child: defaultPlaceholder,
+            Text(
+              'Placeholder Test',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
             ),
             SizedBox(height: 8.0),
-            SizedBox(
-              width: 200.0,
-              height: 100.0,
-              child: colorPlaceholder,
-            ),
+            SizedBox(width: 200.0, height: 100.0, child: defaultPlaceholder),
             SizedBox(height: 8.0),
-            SizedBox(
-              width: 200.0,
-              height: 100.0,
-              child: strokePlaceholder,
-            ),
+            SizedBox(width: 200.0, height: 100.0, child: colorPlaceholder),
+            SizedBox(height: 8.0),
+            SizedBox(width: 200.0, height: 100.0, child: strokePlaceholder),
             SizedBox(height: 8.0),
             fullPlaceholder,
           ],

@@ -11,19 +11,39 @@ dynamic build(BuildContext context) {
   print('FABLocation.endFloat: ${FloatingActionButtonLocation.endFloat}');
   print('FABLocation.centerFloat: ${FloatingActionButtonLocation.centerFloat}');
   print('FABLocation.endDocked: ${FloatingActionButtonLocation.endDocked}');
-  print('FABLocation.centerDocked: ${FloatingActionButtonLocation.centerDocked}');
+  print(
+    'FABLocation.centerDocked: ${FloatingActionButtonLocation.centerDocked}',
+  );
   print('FABLocation.endTop: ${FloatingActionButtonLocation.endTop}');
   print('FABLocation.startTop: ${FloatingActionButtonLocation.startTop}');
-  print('FABLocation.endContained: ${FloatingActionButtonLocation.endContained}');
-  print('FABLocation.miniStartTop: ${FloatingActionButtonLocation.miniStartTop}');
+  print(
+    'FABLocation.endContained: ${FloatingActionButtonLocation.endContained}',
+  );
+  print(
+    'FABLocation.miniStartTop: ${FloatingActionButtonLocation.miniStartTop}',
+  );
   print('FABLocation.miniEndTop: ${FloatingActionButtonLocation.miniEndTop}');
-  print('FABLocation.miniCenterTop: ${FloatingActionButtonLocation.miniCenterTop}');
-  print('FABLocation.miniStartFloat: ${FloatingActionButtonLocation.miniStartFloat}');
-  print('FABLocation.miniEndFloat: ${FloatingActionButtonLocation.miniEndFloat}');
-  print('FABLocation.miniCenterFloat: ${FloatingActionButtonLocation.miniCenterFloat}');
-  print('FABLocation.miniStartDocked: ${FloatingActionButtonLocation.miniStartDocked}');
-  print('FABLocation.miniEndDocked: ${FloatingActionButtonLocation.miniEndDocked}');
-  print('FABLocation.miniCenterDocked: ${FloatingActionButtonLocation.miniCenterDocked}');
+  print(
+    'FABLocation.miniCenterTop: ${FloatingActionButtonLocation.miniCenterTop}',
+  );
+  print(
+    'FABLocation.miniStartFloat: ${FloatingActionButtonLocation.miniStartFloat}',
+  );
+  print(
+    'FABLocation.miniEndFloat: ${FloatingActionButtonLocation.miniEndFloat}',
+  );
+  print(
+    'FABLocation.miniCenterFloat: ${FloatingActionButtonLocation.miniCenterFloat}',
+  );
+  print(
+    'FABLocation.miniStartDocked: ${FloatingActionButtonLocation.miniStartDocked}',
+  );
+  print(
+    'FABLocation.miniEndDocked: ${FloatingActionButtonLocation.miniEndDocked}',
+  );
+  print(
+    'FABLocation.miniCenterDocked: ${FloatingActionButtonLocation.miniCenterDocked}',
+  );
 
   // ========== SnackBarBehavior ==========
   print('--- SnackBarBehavior Tests ---');
@@ -55,10 +75,16 @@ dynamic build(BuildContext context) {
   // ========== MaterialBannerClosedReason ==========
   print('--- MaterialBannerClosedReason Tests ---');
 
-  print('MaterialBannerClosedReason.dismiss: ${MaterialBannerClosedReason.dismiss}');
-  print('MaterialBannerClosedReason.swipe: ${MaterialBannerClosedReason.swipe}');
+  print(
+    'MaterialBannerClosedReason.dismiss: ${MaterialBannerClosedReason.dismiss}',
+  );
+  print(
+    'MaterialBannerClosedReason.swipe: ${MaterialBannerClosedReason.swipe}',
+  );
   print('MaterialBannerClosedReason.hide: ${MaterialBannerClosedReason.hide}');
-  print('MaterialBannerClosedReason.remove: ${MaterialBannerClosedReason.remove}');
+  print(
+    'MaterialBannerClosedReason.remove: ${MaterialBannerClosedReason.remove}',
+  );
 
   // ========== TabBarIndicatorSize ==========
   print('--- TabBarIndicatorSize Tests ---');
@@ -76,8 +102,10 @@ dynamic build(BuildContext context) {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text('FAB Location Test',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+            Text(
+              'FAB Location Test',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
             Text('SnackBarBehavior: floating'),
             Text('FAB location: endFloat'),
           ],

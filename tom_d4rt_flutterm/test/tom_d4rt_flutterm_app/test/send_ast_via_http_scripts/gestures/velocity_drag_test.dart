@@ -56,7 +56,9 @@ dynamic build(BuildContext context) {
     globalPosition: Offset(150.0, 300.0),
     localPosition: Offset(50.0, 100.0),
   );
-  print('DragDownDetails: global=${dragDown.globalPosition}, local=${dragDown.localPosition}');
+  print(
+    'DragDownDetails: global=${dragDown.globalPosition}, local=${dragDown.localPosition}',
+  );
 
   // ========== DragStartDetails ==========
   print('--- DragStartDetails Tests ---');
@@ -139,7 +141,8 @@ dynamic build(BuildContext context) {
               onLongPressMoveUpdate: (details) {},
               onLongPressEnd: (details) {},
               child: Container(
-                width: 200, height: 200,
+                width: 200,
+                height: 200,
                 color: Colors.blue.shade100,
                 child: Center(child: Text('Drag here')),
               ),

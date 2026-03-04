@@ -28,7 +28,9 @@ dynamic build(BuildContext context) {
       onPressed: () {},
     ),
     previousPageTitle: 'Back',
-    border: Border(bottom: BorderSide(color: CupertinoColors.separator, width: 0.0)),
+    border: Border(
+      bottom: BorderSide(color: CupertinoColors.separator, width: 0.0),
+    ),
     backgroundColor: CupertinoColors.systemBackground,
     brightness: Brightness.light,
     padding: EdgeInsetsDirectional.only(start: 16.0, end: 16.0),
@@ -43,11 +45,7 @@ dynamic build(BuildContext context) {
     onValueChanged: (int? value) {
       print('Sliding segment changed: $value');
     },
-    children: {
-      0: Text('First'),
-      1: Text('Second'),
-      2: Text('Third'),
-    },
+    children: {0: Text('First'), 1: Text('Second'), 2: Text('Third')},
     thumbColor: CupertinoColors.white,
     backgroundColor: CupertinoColors.systemGrey5,
     padding: EdgeInsets.all(4.0),
@@ -62,9 +60,18 @@ dynamic build(BuildContext context) {
       print('Segment changed: $value');
     },
     children: {
-      0: Padding(padding: EdgeInsets.symmetric(horizontal: 16.0), child: Text('One')),
-      1: Padding(padding: EdgeInsets.symmetric(horizontal: 16.0), child: Text('Two')),
-      2: Padding(padding: EdgeInsets.symmetric(horizontal: 16.0), child: Text('Three')),
+      0: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.0),
+        child: Text('One'),
+      ),
+      1: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.0),
+        child: Text('Two'),
+      ),
+      2: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.0),
+        child: Text('Three'),
+      ),
     },
     selectedColor: CupertinoColors.activeBlue,
     unselectedColor: CupertinoColors.white,
@@ -86,11 +93,7 @@ dynamic build(BuildContext context) {
             child: Padding(
               padding: EdgeInsets.all(16.0),
               child: Column(
-                children: [
-                  slidingSegmented,
-                  SizedBox(height: 16.0),
-                  segmented,
-                ],
+                children: [slidingSegmented, SizedBox(height: 16.0), segmented],
               ),
             ),
           ),

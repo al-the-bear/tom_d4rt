@@ -72,9 +72,8 @@ dynamic build(BuildContext context) {
         },
         child: ListView.builder(
           itemCount: 50,
-          itemBuilder: (context, index) => ListTile(
-            title: Text('ScrollMetrics Item $index'),
-          ),
+          itemBuilder: (context, index) =>
+              ListTile(title: Text('ScrollMetrics Item $index')),
         ),
       ),
     ),

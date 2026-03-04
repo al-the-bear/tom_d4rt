@@ -12,7 +12,9 @@ dynamic build(BuildContext context) {
   print('DeviceOrientation.portraitUp: ${DeviceOrientation.portraitUp}');
   print('DeviceOrientation.portraitDown: ${DeviceOrientation.portraitDown}');
   print('DeviceOrientation.landscapeLeft: ${DeviceOrientation.landscapeLeft}');
-  print('DeviceOrientation.landscapeRight: ${DeviceOrientation.landscapeRight}');
+  print(
+    'DeviceOrientation.landscapeRight: ${DeviceOrientation.landscapeRight}',
+  );
   print('DeviceOrientation.values: ${DeviceOrientation.values}');
 
   // ========== SystemUiMode ==========
@@ -44,7 +46,9 @@ dynamic build(BuildContext context) {
 
   print('MaxLengthEnforcement.none: ${MaxLengthEnforcement.none}');
   print('MaxLengthEnforcement.enforced: ${MaxLengthEnforcement.enforced}');
-  print('MaxLengthEnforcement.truncateAfterCompositionEnds: ${MaxLengthEnforcement.truncateAfterCompositionEnds}');
+  print(
+    'MaxLengthEnforcement.truncateAfterCompositionEnds: ${MaxLengthEnforcement.truncateAfterCompositionEnds}',
+  );
   print('MaxLengthEnforcement.values: ${MaxLengthEnforcement.values}');
 
   // ========== SmartDashesType / SmartQuotesType ==========
@@ -101,9 +105,13 @@ dynamic build(BuildContext context) {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text('Services System Chrome Tests',
-                style: TextStyle(fontWeight: FontWeight.bold)),
-            Text('DeviceOrientation values: ${DeviceOrientation.values.length}'),
+            Text(
+              'Services System Chrome Tests',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            Text(
+              'DeviceOrientation values: ${DeviceOrientation.values.length}',
+            ),
             Text('SystemUiMode values: ${SystemUiMode.values.length}'),
             Text('TextInputType: ${TextInputType.text}'),
             Text('TextInputAction values: ${TextInputAction.values.length}'),

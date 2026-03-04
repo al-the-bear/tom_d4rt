@@ -80,8 +80,12 @@ dynamic build(BuildContext context) {
     filled: true,
     fillColor: Colors.grey.shade50,
     border: OutlineInputBorder(),
-    enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-    focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue, width: 2.0)),
+    enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.grey),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.blue, width: 2.0),
+    ),
     errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
     floatingLabelBehavior: FloatingLabelBehavior.auto,
     floatingLabelAlignment: FloatingLabelAlignment.start,
@@ -104,15 +108,19 @@ dynamic build(BuildContext context) {
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
             ),
             SizedBox(height: 16.0),
-            TextField(decoration: InputDecoration(
-              labelText: 'Outline',
-              border: OutlineInputBorder(),
-            )),
+            TextField(
+              decoration: InputDecoration(
+                labelText: 'Outline',
+                border: OutlineInputBorder(),
+              ),
+            ),
             SizedBox(height: 8.0),
-            TextField(decoration: InputDecoration(
-              labelText: 'Underline',
-              border: UnderlineInputBorder(),
-            )),
+            TextField(
+              decoration: InputDecoration(
+                labelText: 'Underline',
+                border: UnderlineInputBorder(),
+              ),
+            ),
           ],
         ),
       ),

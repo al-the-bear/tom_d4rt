@@ -81,7 +81,6 @@ class Environment {
       []; // Store unnamed extensions
   final Map<String, Environment> _prefixedImports = {}; // For prefixed imports
 
-
   /// Creates a new environment, optionally with an enclosing (parent) environment.
   ///
   /// [enclosing] The parent environment for lexical scoping. If null, this becomes a root environment.

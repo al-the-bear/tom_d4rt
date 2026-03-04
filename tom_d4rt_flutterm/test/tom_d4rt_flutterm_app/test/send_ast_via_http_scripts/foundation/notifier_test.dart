@@ -202,132 +202,132 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-          Text(
-            'Foundation Notifiers',
-            style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 16.0),
+            Text(
+              'Foundation Notifiers',
+              style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 16.0),
 
-          // ChangeNotifier info
-          Text(
-            'ChangeNotifier:',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 8.0),
-          Text('• Abstract class for observable objects'),
-          Text('• Call notifyListeners() to notify observers'),
-          Text('• Use addListener/removeListener'),
-          Text('• Call dispose() when done'),
-          SizedBox(height: 16.0),
+            // ChangeNotifier info
+            Text(
+              'ChangeNotifier:',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 8.0),
+            Text('• Abstract class for observable objects'),
+            Text('• Call notifyListeners() to notify observers'),
+            Text('• Use addListener/removeListener'),
+            Text('• Call dispose() when done'),
+            SizedBox(height: 16.0),
 
-          // ValueNotifier info
-          Text(
-            'ValueNotifier<T>:',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 8.0),
-          Text('• ChangeNotifier that holds a single value'),
-          Text('• Notifies on value change'),
-          Text('• Does not notify if same value assigned'),
-          SizedBox(height: 16.0),
+            // ValueNotifier info
+            Text(
+              'ValueNotifier<T>:',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 8.0),
+            Text('• ChangeNotifier that holds a single value'),
+            Text('• Notifies on value change'),
+            Text('• Does not notify if same value assigned'),
+            SizedBox(height: 16.0),
 
-          // ValueListenableBuilder example
-          Text(
-            'ValueListenableBuilder Demo:',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 8.0),
-          ValueListenableBuilder<int>(
-            valueListenable: demoCounter,
-            builder: (context, value, child) {
-              return Container(
-                padding: EdgeInsets.all(16.0),
-                decoration: BoxDecoration(
-                  color: Color(0xFFF5F5F5),
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: () => demoCounter.value--,
-                      child: Container(
-                        width: 40.0,
-                        height: 40.0,
-                        decoration: BoxDecoration(
-                          color: Color(0xFFE53935),
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                        child: Center(
-                          child: Text(
-                            '-',
-                            style: TextStyle(
-                              color: Color(0xFFFFFFFF),
-                              fontSize: 24.0,
+            // ValueListenableBuilder example
+            Text(
+              'ValueListenableBuilder Demo:',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 8.0),
+            ValueListenableBuilder<int>(
+              valueListenable: demoCounter,
+              builder: (context, value, child) {
+                return Container(
+                  padding: EdgeInsets.all(16.0),
+                  decoration: BoxDecoration(
+                    color: Color(0xFFF5F5F5),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        onTap: () => demoCounter.value--,
+                        child: Container(
+                          width: 40.0,
+                          height: 40.0,
+                          decoration: BoxDecoration(
+                            color: Color(0xFFE53935),
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          child: Center(
+                            child: Text(
+                              '-',
+                              style: TextStyle(
+                                color: Color(0xFFFFFFFF),
+                                fontSize: 24.0,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(width: 24.0),
-                    Text(
-                      '$value',
-                      style: TextStyle(
-                        fontSize: 32.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(width: 24.0),
-                    GestureDetector(
-                      onTap: () => demoCounter.value++,
-                      child: Container(
-                        width: 40.0,
-                        height: 40.0,
-                        decoration: BoxDecoration(
-                          color: Color(0xFF43A047),
-                          borderRadius: BorderRadius.circular(20.0),
+                      SizedBox(width: 24.0),
+                      Text(
+                        '$value',
+                        style: TextStyle(
+                          fontSize: 32.0,
+                          fontWeight: FontWeight.bold,
                         ),
-                        child: Center(
-                          child: Text(
-                            '+',
-                            style: TextStyle(
-                              color: Color(0xFFFFFFFF),
-                              fontSize: 24.0,
+                      ),
+                      SizedBox(width: 24.0),
+                      GestureDetector(
+                        onTap: () => demoCounter.value++,
+                        child: Container(
+                          width: 40.0,
+                          height: 40.0,
+                          decoration: BoxDecoration(
+                            color: Color(0xFF43A047),
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          child: Center(
+                            child: Text(
+                              '+',
+                              style: TextStyle(
+                                color: Color(0xFFFFFFFF),
+                                fontSize: 24.0,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
-          SizedBox(height: 16.0),
+                    ],
+                  ),
+                );
+              },
+            ),
+            SizedBox(height: 16.0),
 
-          // Listenable info
-          Text(
-            'Listenable Interface:',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 8.0),
-          Text('• Base interface for observable objects'),
-          Text('• Defines addListener/removeListener'),
-          Text('• Implemented by ChangeNotifier, Animation'),
-          SizedBox(height: 16.0),
+            // Listenable info
+            Text(
+              'Listenable Interface:',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 8.0),
+            Text('• Base interface for observable objects'),
+            Text('• Defines addListener/removeListener'),
+            Text('• Implemented by ChangeNotifier, Animation'),
+            SizedBox(height: 16.0),
 
-          // ValueListenable info
-          Text(
-            'ValueListenable<T> Interface:',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 8.0),
-          Text('• Listenable that exposes a value'),
-          Text('• Defines value getter'),
-          Text('• Implemented by ValueNotifier'),
-        ],
+            // ValueListenable info
+            Text(
+              'ValueListenable<T> Interface:',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 8.0),
+            Text('• Listenable that exposes a value'),
+            Text('• Defines value getter'),
+            Text('• Implemented by ValueNotifier'),
+          ],
+        ),
       ),
-    ),
     ),
   );
 }

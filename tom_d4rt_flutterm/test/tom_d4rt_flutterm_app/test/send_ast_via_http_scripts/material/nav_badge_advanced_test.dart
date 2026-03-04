@@ -57,7 +57,10 @@ dynamic build(BuildContext context) {
     children: [
       Padding(
         padding: EdgeInsets.fromLTRB(28, 16, 16, 10),
-        child: Text('Mail', style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w500)),
+        child: Text(
+          'Mail',
+          style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w500),
+        ),
       ),
       NavigationDrawerDestination(
         icon: Icon(Icons.inbox_outlined),
@@ -154,7 +157,10 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     'Nav/Badge Advanced Test',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.0,
+                    ),
                   ),
                   SizedBox(height: 16.0),
                   Row(

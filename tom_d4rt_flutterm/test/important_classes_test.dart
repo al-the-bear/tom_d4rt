@@ -924,15 +924,10 @@ void main() {
   // PHYSICS PACKAGE TESTS (1 file)
   // ============================================================
   group('physics/', () {
-    test(
-      'simulations_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'physics/simulations_test.dart',
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-    );
+    test('simulations_test.dart', () async {
+      final result = await SendTestRunner.send('physics/simulations_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
   });
 
   // ============================================================

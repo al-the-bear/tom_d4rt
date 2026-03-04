@@ -53,8 +53,10 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('CircularNotchedRectangle Test',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+            Text(
+              'CircularNotchedRectangle Test',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
             SizedBox(height: 16.0),
             // Demonstrate with actual BottomAppBar
             SizedBox(
@@ -65,7 +67,8 @@ dynamic build(BuildContext context) {
                   child: Icon(Icons.add),
                   mini: true,
                 ),
-                floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+                floatingActionButtonLocation:
+                    FloatingActionButtonLocation.centerDocked,
                 bottomNavigationBar: BottomAppBar(
                   shape: CircularNotchedRectangle(),
                   notchMargin: 4.0,

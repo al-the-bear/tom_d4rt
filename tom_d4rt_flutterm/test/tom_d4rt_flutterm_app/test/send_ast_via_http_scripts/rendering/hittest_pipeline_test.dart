@@ -88,8 +88,10 @@ dynamic build(BuildContext context) {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text('Rendering Hit Test & Pipeline',
-                style: TextStyle(fontWeight: FontWeight.bold)),
+            Text(
+              'Rendering Hit Test & Pipeline',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             Text('BoxConstraints biggest: ${bc1.biggest}'),
             Text('BoxConstraints.tight isTight: ${bcTight.isTight}'),
             Text('LayerLink: $link'),

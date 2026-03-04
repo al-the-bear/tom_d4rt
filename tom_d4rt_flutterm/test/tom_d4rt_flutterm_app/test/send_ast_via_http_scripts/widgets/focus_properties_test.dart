@@ -31,9 +31,15 @@ dynamic build(BuildContext context) {
   // ========== FOCUSHIGHLIGHTSTRATEGY ==========
   print('--- FocusHighlightStrategy Tests ---');
 
-  print('FocusHighlightStrategy.automatic: ${FocusHighlightStrategy.automatic}');
-  print('FocusHighlightStrategy.alwaysTouch: ${FocusHighlightStrategy.alwaysTouch}');
-  print('FocusHighlightStrategy.alwaysTraditional: ${FocusHighlightStrategy.alwaysTraditional}');
+  print(
+    'FocusHighlightStrategy.automatic: ${FocusHighlightStrategy.automatic}',
+  );
+  print(
+    'FocusHighlightStrategy.alwaysTouch: ${FocusHighlightStrategy.alwaysTouch}',
+  );
+  print(
+    'FocusHighlightStrategy.alwaysTraditional: ${FocusHighlightStrategy.alwaysTraditional}',
+  );
   print('FocusHighlightStrategy.values: ${FocusHighlightStrategy.values}');
 
   // ========== FOCUSNODE ADVANCED ==========
@@ -47,10 +53,14 @@ dynamic build(BuildContext context) {
   print('FocusNode canRequestFocus=false: ${node2.canRequestFocus}');
 
   final node3 = FocusNode(descendantsAreFocusable: false);
-  print('FocusNode descendantsAreFocusable=false: ${node3.descendantsAreFocusable}');
+  print(
+    'FocusNode descendantsAreFocusable=false: ${node3.descendantsAreFocusable}',
+  );
 
   final node4 = FocusNode(descendantsAreTraversable: false);
-  print('FocusNode descendantsAreTraversable=false: ${node4.descendantsAreTraversable}');
+  print(
+    'FocusNode descendantsAreTraversable=false: ${node4.descendantsAreTraversable}',
+  );
 
   print('All focus properties tests passed');
 
@@ -62,20 +72,32 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Focus Properties Test',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+            Text(
+              'Focus Properties Test',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
             SizedBox(height: 8.0),
-            Text('FocusScopeNode canRequestFocus: ${scopeNode.canRequestFocus}'),
-            Text('FocusHighlightMode values: ${FocusHighlightMode.values.length}'),
-            Text('FocusHighlightStrategy values: ${FocusHighlightStrategy.values.length}'),
+            Text(
+              'FocusScopeNode canRequestFocus: ${scopeNode.canRequestFocus}',
+            ),
+            Text(
+              'FocusHighlightMode values: ${FocusHighlightMode.values.length}',
+            ),
+            Text(
+              'FocusHighlightStrategy values: ${FocusHighlightStrategy.values.length}',
+            ),
             SizedBox(height: 12.0),
             FocusScope(
               node: FocusScopeNode(debugLabel: 'testScope'),
               child: Column(
                 children: [
-                  TextField(decoration: InputDecoration(labelText: 'Scoped field 1')),
+                  TextField(
+                    decoration: InputDecoration(labelText: 'Scoped field 1'),
+                  ),
                   SizedBox(height: 8.0),
-                  TextField(decoration: InputDecoration(labelText: 'Scoped field 2')),
+                  TextField(
+                    decoration: InputDecoration(labelText: 'Scoped field 2'),
+                  ),
                 ],
               ),
             ),

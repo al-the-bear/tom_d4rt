@@ -44,7 +44,9 @@ dynamic build(BuildContext context) {
     },
   );
   print('Offset delegate created (with onGetPositionForChild)');
-  print('  has onGetPositionForChild: ${offsetDelegate.onGetPositionForChild != null}');
+  print(
+    '  has onGetPositionForChild: ${offsetDelegate.onGetPositionForChild != null}',
+  );
 
   final widget2 = CustomSingleChildLayout(
     delegate: offsetDelegate,
@@ -67,18 +69,19 @@ dynamic build(BuildContext context) {
     onShouldRelayout: (SingleChildLayoutDelegate oldDelegate) => false,
     onGetConstraintsForChild: (BoxConstraints constraints) {
       // Constrain child to max 150x100
-      return BoxConstraints(
-        maxWidth: 150.0,
-        maxHeight: 100.0,
-      );
+      return BoxConstraints(maxWidth: 150.0, maxHeight: 100.0);
     },
     onGetSize: (BoxConstraints constraints) {
       // Use a fixed size
       return Size(200.0, 120.0);
     },
   );
-  print('Constrained delegate created (with onGetConstraintsForChild + onGetSize)');
-  print('  has onGetConstraintsForChild: ${constrainedDelegate.onGetConstraintsForChild != null}');
+  print(
+    'Constrained delegate created (with onGetConstraintsForChild + onGetSize)',
+  );
+  print(
+    '  has onGetConstraintsForChild: ${constrainedDelegate.onGetConstraintsForChild != null}',
+  );
   print('  has onGetSize: ${constrainedDelegate.onGetSize != null}');
 
   final widget3 = CustomSingleChildLayout(

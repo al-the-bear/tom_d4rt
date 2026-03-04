@@ -30,10 +30,26 @@ dynamic build(BuildContext context) {
   print('ColorFilter.mode: red srcATop');
 
   final matrixFilter = ColorFilter.matrix(<double>[
-    1, 0, 0, 0, 0,
-    0, 1, 0, 0, 0,
-    0, 0, 1, 0, 0,
-    0, 0, 0, 1, 0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
   ]);
   print('ColorFilter.matrix: identity');
 
@@ -140,23 +156,21 @@ dynamic build(BuildContext context) {
             ),
             SizedBox(height: 16.0),
             Container(
-              width: 100, height: 100,
+              width: 100,
+              height: 100,
               decoration: BoxDecoration(gradient: sweep),
             ),
             SizedBox(height: 16.0),
             Container(
-              width: 100, height: 100,
+              width: 100,
+              height: 100,
               decoration: BoxDecoration(
                 gradient: radial,
                 shape: BoxShape.circle,
               ),
             ),
             SizedBox(height: 16.0),
-            Text.rich(
-              textSpan,
-              strutStyle: strut,
-              textHeightBehavior: thb,
-            ),
+            Text.rich(textSpan, strutStyle: strut, textHeightBehavior: thb),
           ],
         ),
       ),

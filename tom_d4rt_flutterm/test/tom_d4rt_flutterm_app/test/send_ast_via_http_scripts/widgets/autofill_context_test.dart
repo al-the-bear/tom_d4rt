@@ -41,9 +41,7 @@ dynamic build(BuildContext context) {
   // AutofillGroup with onDisposeAction
   final autofillCommit = AutofillGroup(
     onDisposeAction: AutofillContextAction.commit,
-    child: TextField(
-      autofillHints: [AutofillHints.username],
-    ),
+    child: TextField(autofillHints: [AutofillHints.username]),
   );
   print('AutofillGroup with commit action');
 

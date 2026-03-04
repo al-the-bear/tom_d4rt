@@ -25,14 +25,8 @@ dynamic build(BuildContext context) {
     backgroundColor: Colors.white,
     children: [
       option1,
-      SimpleDialogOption(
-        onPressed: () {},
-        child: Text('Account 2'),
-      ),
-      SimpleDialogOption(
-        onPressed: () {},
-        child: Text('Add Account'),
-      ),
+      SimpleDialogOption(onPressed: () {}, child: Text('Account 2')),
+      SimpleDialogOption(onPressed: () {}, child: Text('Add Account')),
     ],
   );
   print('SimpleDialog created with 3 options');
@@ -43,7 +37,11 @@ dynamic build(BuildContext context) {
     backgroundColor: Colors.white,
     elevation: 24.0,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
-    titleTextStyle: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.black),
+    titleTextStyle: TextStyle(
+      fontSize: 20.0,
+      fontWeight: FontWeight.bold,
+      color: Colors.black,
+    ),
     contentTextStyle: TextStyle(fontSize: 16.0, color: Colors.black87),
     alignment: Alignment.center,
     actionsPadding: EdgeInsets.all(8.0),

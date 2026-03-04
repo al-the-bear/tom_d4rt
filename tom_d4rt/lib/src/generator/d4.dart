@@ -19,8 +19,8 @@ import '../runtime_types.dart';
 /// Takes the raw unwrapped value and the inner type argument string
 /// (e.g., 'Color?' for `WidgetStateProperty<Color?>`).
 /// Returns a properly typed wrapper, or null if the type arg is not supported.
-typedef GenericTypeWrapperFactory =
-    Object? Function(Object value, String innerTypeArg);
+typedef GenericTypeWrapperFactory = Object? Function(
+    Object value, String innerTypeArg);
 
 /// RC-1: Factory for creating native proxy objects that delegate method calls
 /// back to an [InterpretedInstance].
@@ -242,8 +242,8 @@ class D4 {
     String methodName,
     BridgedMethodAdapter adapter,
   ) {
-    _supplementaryMethods
-        .putIfAbsent(bridgedClassName, () => {})[methodName] = adapter;
+    _supplementaryMethods.putIfAbsent(bridgedClassName, () => {})[methodName] =
+        adapter;
   }
 
   /// Look up a supplementary method adapter.
@@ -570,7 +570,8 @@ class D4 {
     if (_isTwoArgFunction(vType)) {
       return (arg1, arg2) {
         if (callable is Callable) {
-          return unwrapInterpreterValue(callable.call(visitor, [arg1, arg2], {}));
+          return unwrapInterpreterValue(
+              callable.call(visitor, [arg1, arg2], {}));
         }
         throw ArgumentD4rtException(
           'Cannot call non-callable in Map value: ${callable.runtimeType}',
@@ -665,8 +666,8 @@ class D4 {
     final unwrapped = arg is BridgedInstance
         ? arg.nativeObject
         : arg is BridgedEnumValue
-        ? arg.nativeValue
-        : arg;
+            ? arg.nativeValue
+            : arg;
 
     if (unwrapped is T) {
       return unwrapped;
@@ -731,19 +732,17 @@ class D4 {
         final prefixLen = tStr.startsWith('List<') ? 5 : 9;
         final elementType = tStr.substring(prefixLen, tStr.length - 1);
         return switch (elementType) {
-              'int' => unwrappedList.cast<int>().toList(),
-              'double' =>
-                unwrappedList
-                    .map((e) => e is int ? e.toDouble() : e)
-                    .cast<double>()
-                    .toList(),
-              'String' => unwrappedList.cast<String>().toList(),
-              'num' => unwrappedList.cast<num>().toList(),
-              'bool' => unwrappedList.cast<bool>().toList(),
-              'Object' || 'dynamic' => unwrappedList.cast<Object>().toList(),
-              _ => unwrappedList,
-            }
-            as T;
+          'int' => unwrappedList.cast<int>().toList(),
+          'double' => unwrappedList
+              .map((e) => e is int ? e.toDouble() : e)
+              .cast<double>()
+              .toList(),
+          'String' => unwrappedList.cast<String>().toList(),
+          'num' => unwrappedList.cast<num>().toList(),
+          'bool' => unwrappedList.cast<bool>().toList(),
+          'Object' || 'dynamic' => unwrappedList.cast<Object>().toList(),
+          _ => unwrappedList,
+        } as T;
       } catch (_) {
         // Fall through to error
       }
@@ -755,24 +754,21 @@ class D4 {
       try {
         // D4rt may produce Maps for set literals (e.g., `{}` defaults to Map).
         // Coerce Map keys → Set elements.
-        final source =
-            unwrapped is Map ? unwrapped.keys : (unwrapped as Set);
+        final source = unwrapped is Map ? unwrapped.keys : (unwrapped as Set);
         final unwrappedSet = source.map(_unwrapElement).toSet();
         final elementType = tStr.substring(4, tStr.length - 1);
         return switch (elementType) {
-              'int' => unwrappedSet.cast<int>().toSet(),
-              'double' =>
-                unwrappedSet
-                    .map((e) => e is int ? e.toDouble() : e)
-                    .cast<double>()
-                    .toSet(),
-              'String' => unwrappedSet.cast<String>().toSet(),
-              'num' => unwrappedSet.cast<num>().toSet(),
-              'bool' => unwrappedSet.cast<bool>().toSet(),
-              'Object' || 'dynamic' => unwrappedSet.cast<Object>().toSet(),
-              _ => unwrappedSet,
-            }
-            as T;
+          'int' => unwrappedSet.cast<int>().toSet(),
+          'double' => unwrappedSet
+              .map((e) => e is int ? e.toDouble() : e)
+              .cast<double>()
+              .toSet(),
+          'String' => unwrappedSet.cast<String>().toSet(),
+          'num' => unwrappedSet.cast<num>().toSet(),
+          'bool' => unwrappedSet.cast<bool>().toSet(),
+          'Object' || 'dynamic' => unwrappedSet.cast<Object>().toSet(),
+          _ => unwrappedSet,
+        } as T;
       } catch (_) {
         // Fall through to error
       }

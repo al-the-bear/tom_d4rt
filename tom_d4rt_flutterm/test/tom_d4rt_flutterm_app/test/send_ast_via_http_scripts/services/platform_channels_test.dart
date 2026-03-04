@@ -79,7 +79,9 @@ dynamic build(BuildContext context) {
 
   // ========== MissingPluginException ==========
   print('--- MissingPluginException Tests ---');
-  final missingEx = MissingPluginException('No implementation found for method test');
+  final missingEx = MissingPluginException(
+    'No implementation found for method test',
+  );
   print('MissingPluginException: ${missingEx.message}');
 
   // ========== BinaryCodec ==========

@@ -52,9 +52,7 @@ dynamic build(BuildContext context) {
   print('ButtonStyle with surfaceTintColor created');
 
   // Test ButtonStyle with elevation
-  final elevationStyle = ButtonStyle(
-    elevation: WidgetStateProperty.all(12.0),
-  );
+  final elevationStyle = ButtonStyle(elevation: WidgetStateProperty.all(12.0));
   print('ButtonStyle with elevation created');
 
   // Test ButtonStyle with padding
@@ -95,9 +93,7 @@ dynamic build(BuildContext context) {
 
   // Test ButtonStyle with side (border)
   final sideStyle = ButtonStyle(
-    side: WidgetStateProperty.all(
-      BorderSide(color: Colors.green, width: 2.0),
-    ),
+    side: WidgetStateProperty.all(BorderSide(color: Colors.green, width: 2.0)),
   );
   print('ButtonStyle with side created');
 

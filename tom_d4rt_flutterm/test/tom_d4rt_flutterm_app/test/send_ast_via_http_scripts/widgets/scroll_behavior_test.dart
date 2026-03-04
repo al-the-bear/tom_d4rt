@@ -39,10 +39,7 @@ dynamic build(BuildContext context) {
   final bucket = PageStorageBucket();
   print('PageStorageBucket created');
 
-  final pageStorage = PageStorage(
-    bucket: bucket,
-    child: Text('Stored'),
-  );
+  final pageStorage = PageStorage(bucket: bucket, child: Text('Stored'));
   print('PageStorage created');
 
   // Write and read from bucket

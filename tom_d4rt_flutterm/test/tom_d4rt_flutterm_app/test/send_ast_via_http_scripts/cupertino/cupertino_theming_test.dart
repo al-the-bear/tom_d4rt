@@ -47,9 +47,15 @@ dynamic build(BuildContext context) {
       primaryColor: CupertinoColors.activeBlue,
       textStyle: TextStyle(fontSize: 16.0, color: CupertinoColors.label),
       navTitleTextStyle: TextStyle(fontSize: 17.0, fontWeight: FontWeight.w600),
-      navLargeTitleTextStyle: TextStyle(fontSize: 34.0, fontWeight: FontWeight.bold),
+      navLargeTitleTextStyle: TextStyle(
+        fontSize: 34.0,
+        fontWeight: FontWeight.bold,
+      ),
       tabLabelTextStyle: TextStyle(fontSize: 10.0),
-      actionTextStyle: TextStyle(fontSize: 17.0, color: CupertinoColors.activeBlue),
+      actionTextStyle: TextStyle(
+        fontSize: 17.0,
+        color: CupertinoColors.activeBlue,
+      ),
     ),
   );
   print('CupertinoThemeData created');
@@ -65,10 +71,7 @@ dynamic build(BuildContext context) {
 
   // ========== CupertinoTheme widget ==========
   print('--- CupertinoTheme widget Tests ---');
-  final themeWidget = CupertinoTheme(
-    data: themeData,
-    child: Text('Themed'),
-  );
+  final themeWidget = CupertinoTheme(data: themeData, child: Text('Themed'));
   print('CupertinoTheme widget created');
 
   // ========== CupertinoIconThemeData ==========
@@ -86,17 +89,17 @@ dynamic build(BuildContext context) {
   return CupertinoApp(
     theme: themeData,
     home: CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        middle: Text('Theme Test'),
-      ),
+      navigationBar: CupertinoNavigationBar(middle: Text('Theme Test')),
       child: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('System Colors:',
-                  style: TextStyle(fontWeight: FontWeight.bold)),
+              Text(
+                'System Colors:',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
               SizedBox(height: 8.0),
               Wrap(
                 spacing: 8.0,
@@ -106,8 +109,10 @@ dynamic build(BuildContext context) {
                 ],
               ),
               SizedBox(height: 16.0),
-              Text('Grey Scale:',
-                  style: TextStyle(fontWeight: FontWeight.bold)),
+              Text(
+                'Grey Scale:',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
               SizedBox(height: 8.0),
               Wrap(
                 spacing: 8.0,

@@ -127,7 +127,8 @@ dynamic build(BuildContext context) {
               onScaleStart: (ScaleStartDetails d) {},
               onScaleUpdate: (ScaleUpdateDetails d) {},
               child: Container(
-                width: 200, height: 200,
+                width: 200,
+                height: 200,
                 color: Colors.green.shade100,
                 child: Center(child: Text('Tap / Force / Scale')),
               ),

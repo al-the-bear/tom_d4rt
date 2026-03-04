@@ -49,9 +49,7 @@ dynamic build(BuildContext context) {
   print('--- AdaptiveTextSelectionToolbar Tests ---');
   // AdaptiveTextSelectionToolbar.buttonItems
   final toolbar = AdaptiveTextSelectionToolbar.buttonItems(
-    anchors: TextSelectionToolbarAnchors(
-      primaryAnchor: Offset(100.0, 100.0),
-    ),
+    anchors: TextSelectionToolbarAnchors(primaryAnchor: Offset(100.0, 100.0)),
     buttonItems: [copyItem, pasteItem, cutItem, selectAllItem],
   );
   print('AdaptiveTextSelectionToolbar created with 4 items');
@@ -79,7 +77,9 @@ dynamic build(BuildContext context) {
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
             ),
             SizedBox(height: 16.0),
-            Text('ContextMenuButtonType: ${ContextMenuButtonType.values.length} types'),
+            Text(
+              'ContextMenuButtonType: ${ContextMenuButtonType.values.length} types',
+            ),
             Text('Created items: copy, paste, cut, selectAll, custom'),
             Text('AdaptiveTextSelectionToolbar created'),
           ],

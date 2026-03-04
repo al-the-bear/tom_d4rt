@@ -13,9 +13,7 @@ dynamic build(BuildContext context) {
   print('RoundedRectangleBorder side: ${roundedRect.side}');
 
   // CircleBorder
-  final circle = CircleBorder(
-    side: BorderSide(color: Colors.red, width: 1.5),
-  );
+  final circle = CircleBorder(side: BorderSide(color: Colors.red, width: 1.5));
   print('CircleBorder side: ${circle.side}');
 
   // StadiumBorder
@@ -41,9 +39,7 @@ dynamic build(BuildContext context) {
   print('ContinuousRectangleBorder side: ${continuous.side}');
 
   // OvalBorder
-  final oval = OvalBorder(
-    side: BorderSide(color: Colors.teal, width: 2.0),
-  );
+  final oval = OvalBorder(side: BorderSide(color: Colors.teal, width: 2.0));
   print('OvalBorder side: ${oval.side}');
 
   return SingleChildScrollView(
@@ -52,45 +48,45 @@ dynamic build(BuildContext context) {
       children: [
         Card(
           shape: roundedRect,
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Text('RoundedRectangleBorder'),
+          child: Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Text('RoundedRectangleBorder'),
+          ),
         ),
-      ),
-      SizedBox(height: 8.0),
-      Material(
-        shape: circle,
-        color: Colors.blue.shade50,
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Text('CircleBorder'),
+        SizedBox(height: 8.0),
+        Material(
+          shape: circle,
+          color: Colors.blue.shade50,
+          child: Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Text('CircleBorder'),
+          ),
         ),
-      ),
-      SizedBox(height: 8.0),
-      Card(
-        shape: stadium,
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Text('StadiumBorder'),
+        SizedBox(height: 8.0),
+        Card(
+          shape: stadium,
+          child: Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Text('StadiumBorder'),
+          ),
         ),
-      ),
-      SizedBox(height: 8.0),
-      Card(
-        shape: beveled,
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Text('BeveledRectangleBorder'),
+        SizedBox(height: 8.0),
+        Card(
+          shape: beveled,
+          child: Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Text('BeveledRectangleBorder'),
+          ),
         ),
-      ),
-      SizedBox(height: 8.0),
-      Card(
-        shape: continuous,
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Text('ContinuousRectangleBorder'),
+        SizedBox(height: 8.0),
+        Card(
+          shape: continuous,
+          child: Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Text('ContinuousRectangleBorder'),
+          ),
         ),
-      ),
-      SizedBox(height: 8.0),
+        SizedBox(height: 8.0),
         Material(
           shape: oval,
           color: Colors.teal.shade50,

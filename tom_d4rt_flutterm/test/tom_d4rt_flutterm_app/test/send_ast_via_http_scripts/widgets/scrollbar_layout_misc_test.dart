@@ -61,8 +61,10 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Scrollbar & Layout Misc Test',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+              Text(
+                'Scrollbar & Layout Misc Test',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+              ),
               SizedBox(height: 8.0),
               SizeChangedLayoutNotifier(
                 child: Container(

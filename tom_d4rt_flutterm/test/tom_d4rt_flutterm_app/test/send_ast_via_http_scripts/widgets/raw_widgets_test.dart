@@ -34,10 +34,7 @@ dynamic build(BuildContext context) {
 
   // ========== WillPopScope (deprecated but tests bridge) ==========
   print('--- PopScope Tests ---');
-  final popScope = PopScope(
-    canPop: true,
-    child: Text('Pop scope'),
-  );
+  final popScope = PopScope(canPop: true, child: Text('Pop scope'));
   print('PopScope canPop: true');
 
   final noPop = PopScope(

@@ -36,7 +36,9 @@ dynamic build(BuildContext context) {
       width: 100.0,
       height: 100.0,
       color: Colors.blue,
-      child: Center(child: Text('Clipped', style: TextStyle(color: Colors.white))),
+      child: Center(
+        child: Text('Clipped', style: TextStyle(color: Colors.white)),
+      ),
     ),
   );
   print('PhysicalModel with Clip.antiAlias created');
@@ -54,7 +56,9 @@ dynamic build(BuildContext context) {
     child: Container(
       width: 150.0,
       height: 80.0,
-      child: Center(child: Text('Shape', style: TextStyle(color: Colors.white))),
+      child: Center(
+        child: Text('Shape', style: TextStyle(color: Colors.white)),
+      ),
     ),
   );
   print('PhysicalShape created');
@@ -69,7 +73,9 @@ dynamic build(BuildContext context) {
     child: Container(
       width: 80.0,
       height: 80.0,
-      child: Center(child: Text('O', style: TextStyle(color: Colors.white, fontSize: 24.0))),
+      child: Center(
+        child: Text('O', style: TextStyle(color: Colors.white, fontSize: 24.0)),
+      ),
     ),
   );
   print('PhysicalShape with CircleBorder created');
@@ -96,7 +102,9 @@ dynamic build(BuildContext context) {
       width: 100.0,
       height: 50.0,
       color: Colors.green,
-      child: Center(child: Text('Gray', style: TextStyle(color: Colors.white))),
+      child: Center(
+        child: Text('Gray', style: TextStyle(color: Colors.white)),
+      ),
     ),
   );
   print('ColorFiltered grayscale created');
@@ -111,8 +119,10 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('PhysicalModel Test',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+            Text(
+              'PhysicalModel Test',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
             SizedBox(height: 12.0),
             physicalBox,
             SizedBox(height: 12.0),

@@ -9,17 +9,27 @@ dynamic build(BuildContext context) {
   print('--- SchedulerPhase Tests ---');
 
   print('SchedulerPhase.idle: ${SchedulerPhase.idle}');
-  print('SchedulerPhase.transientCallbacks: ${SchedulerPhase.transientCallbacks}');
-  print('SchedulerPhase.midFrameMicrotasks: ${SchedulerPhase.midFrameMicrotasks}');
-  print('SchedulerPhase.persistentCallbacks: ${SchedulerPhase.persistentCallbacks}');
-  print('SchedulerPhase.postFrameCallbacks: ${SchedulerPhase.postFrameCallbacks}');
+  print(
+    'SchedulerPhase.transientCallbacks: ${SchedulerPhase.transientCallbacks}',
+  );
+  print(
+    'SchedulerPhase.midFrameMicrotasks: ${SchedulerPhase.midFrameMicrotasks}',
+  );
+  print(
+    'SchedulerPhase.persistentCallbacks: ${SchedulerPhase.persistentCallbacks}',
+  );
+  print(
+    'SchedulerPhase.postFrameCallbacks: ${SchedulerPhase.postFrameCallbacks}',
+  );
   print('SchedulerPhase.values count: ${SchedulerPhase.values.length}');
 
   // Test enum names and indices
   print('idle.name: ${SchedulerPhase.idle.name}');
   print('idle.index: ${SchedulerPhase.idle.index}');
   print('transientCallbacks.index: ${SchedulerPhase.transientCallbacks.index}');
-  print('persistentCallbacks.index: ${SchedulerPhase.persistentCallbacks.index}');
+  print(
+    'persistentCallbacks.index: ${SchedulerPhase.persistentCallbacks.index}',
+  );
 
   // Get current scheduler phase
   final binding = SchedulerBinding.instance;
@@ -65,8 +75,10 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Scheduler Misc Test',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+            Text(
+              'Scheduler Misc Test',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
             SizedBox(height: 8.0),
             Text('SchedulerPhase values: ${SchedulerPhase.values.length}'),
             Text('Current phase: ${binding.schedulerPhase}'),

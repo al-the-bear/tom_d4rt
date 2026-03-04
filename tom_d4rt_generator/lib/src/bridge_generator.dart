@@ -14478,7 +14478,8 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
       Map<String, String> typeToUri,
       bool isFunctionTypeAlias,
       FunctionTypeInfo? functionTypeInfo,
-    }) typeInfo;
+    })
+    typeInfo;
     if (isSetter &&
         node.parameters != null &&
         node.parameters!.parameters.isNotEmpty) {

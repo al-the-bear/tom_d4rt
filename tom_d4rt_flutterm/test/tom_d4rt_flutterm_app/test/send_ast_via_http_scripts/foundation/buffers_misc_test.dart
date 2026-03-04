@@ -11,7 +11,7 @@ dynamic build(BuildContext context) {
 
   // Note: BitField is used with integer-indexed enum-like values
   // It's a compact boolean array
-  final bits = BitField<int>(4);  // 4 bits
+  final bits = BitField<int>(4); // 4 bits
   print('BitField created with 4 bits');
   bits[0] = true;
   bits[2] = true;
@@ -71,8 +71,10 @@ dynamic build(BuildContext context) {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text('Foundation Buffers & Misc Test',
-                style: TextStyle(fontWeight: FontWeight.bold)),
+            Text(
+              'Foundation Buffers & Misc Test',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             Text('WriteBuffer bytes: ${data.lengthInBytes}'),
             Text('ReadBuffer uint8: $byte1'),
             Text('ReadBuffer int32: $int32'),
