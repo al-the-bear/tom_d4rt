@@ -673,7 +673,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           "[PrefixedIdentifier] Static access on BridgedClass: ${bridgedClass.name}.$memberName");
       final staticGetter = bridgedClass.findStaticGetterAdapter(memberName);
       if (staticGetter != null) {
-        return staticGetter(this);
+        return wrapNativeReturnValue(staticGetter(this));
       }
       final staticMethod = bridgedClass.findStaticMethodAdapter(memberName);
       if (staticMethod != null) {
@@ -3579,7 +3579,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       final staticGetter = bridgedClass.findStaticGetterAdapter(propertyName);
       if (staticGetter != null) {
         Logger.debug("[PropertyAccess]   Found static getter adapter.");
-        return staticGetter(this); // Call static getter adapter
+        return wrapNativeReturnValue(staticGetter(this));
       }
 
       final staticMethod = bridgedClass.findStaticMethodAdapter(propertyName);
@@ -8398,6 +8398,41 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     }
 
     return interpreterValue;
+  }
+
+  /// Wraps a native return value from a bridged call in a [BridgedInstance]
+  /// if a bridge exists, otherwise returns the value as-is.
+  ///
+  /// This is needed when bridged static getters or methods return instances
+  /// of private subclasses (e.g., `Curves.linear` returns `_Linear` which
+  /// extends `Curve`). The private class instance needs to be wrapped using
+  /// the public superclass bridge.
+  Object? wrapNativeReturnValue(Object? nativeValue) {
+    if (nativeValue == null ||
+        nativeValue is String ||
+        nativeValue is num ||
+        nativeValue is bool) {
+      return nativeValue;
+    }
+    if (nativeValue is BridgedInstance) {
+      return nativeValue;
+    }
+    if (nativeValue is List) {
+      return nativeValue.map(wrapNativeReturnValue).toList();
+    }
+    if (nativeValue is Map) {
+      return nativeValue.map(
+        (key, value) =>
+            MapEntry(wrapNativeReturnValue(key), wrapNativeReturnValue(value)),
+      );
+    }
+    // Try to find a bridge for this native value
+    final result = toBridgedInstance(nativeValue);
+    if (result.$2) {
+      return result.$1;
+    }
+    // No bridge found, return the value as-is
+    return nativeValue;
   }
 
   /// Evaluates arguments for async function calls, handling await expressions.

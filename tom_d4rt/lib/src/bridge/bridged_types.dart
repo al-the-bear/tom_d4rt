@@ -141,6 +141,9 @@ class BridgedClass implements RuntimeType {
 
   @override
   bool isSubtypeOf(RuntimeType other, {Object? value}) {
+    // Any concrete type is a subtype of a type parameter (T)
+    if (other is TypeParameter) return true;
+
     if (other is BridgedClass) {
       if (isSubtypeOfFunc != null) {
         return isSubtypeOfFunc!.call(other, value: value);
