@@ -13,25 +13,41 @@ dynamic build(BuildContext context) {
     decoration: BoxDecoration(color: Colors.blue),
     child: SizedBox(width: 50.0, height: 50.0),
   );
-  print('RenderObjectWithChildMixin: referenced via DecoratedBox (single-child render objects)');
+  print(
+    'RenderObjectWithChildMixin: referenced via DecoratedBox (single-child render objects)',
+  );
   print('Type: RenderObjectWithChildMixin is a mixin on RenderObject');
 
   // ========== ContainerRenderObjectMixin ==========
   print('--- ContainerRenderObjectMixin Tests ---');
   // ContainerRenderObjectMixin is used by render objects with multiple children.
   // RenderStack uses ContainerRenderObjectMixin.
-  final stack = Stack(children: [
-    Positioned(left: 0.0, top: 0.0, child: SizedBox(width: 10.0, height: 10.0)),
-    Positioned(left: 5.0, top: 5.0, child: SizedBox(width: 10.0, height: 10.0)),
-  ]);
-  print('ContainerRenderObjectMixin: referenced via Stack/RenderStack (multi-child render objects)');
+  final stack = Stack(
+    children: [
+      Positioned(
+        left: 0.0,
+        top: 0.0,
+        child: SizedBox(width: 10.0, height: 10.0),
+      ),
+      Positioned(
+        left: 5.0,
+        top: 5.0,
+        child: SizedBox(width: 10.0, height: 10.0),
+      ),
+    ],
+  );
+  print(
+    'ContainerRenderObjectMixin: referenced via Stack/RenderStack (multi-child render objects)',
+  );
   print('Type: ContainerRenderObjectMixin is a mixin on RenderObject');
 
   // ========== ContainerParentDataMixin ==========
   print('--- ContainerParentDataMixin Tests ---');
   // ContainerParentDataMixin is used for parent data in multi-child layouts.
   // StackParentData uses ContainerParentDataMixin.
-  print('ContainerParentDataMixin: referenced via StackParentData (multi-child parent data)');
+  print(
+    'ContainerParentDataMixin: referenced via StackParentData (multi-child parent data)',
+  );
   print('Type: ContainerParentDataMixin is a mixin on ParentData');
 
   // ========== RenderIndexedStack ==========
@@ -103,7 +119,10 @@ dynamic build(BuildContext context) {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Render Mixins Test', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+            Text(
+              'Render Mixins Test',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
             SizedBox(height: 16.0),
             Text('RenderObjectWithChildMixin: OK'),
             Text('ContainerRenderObjectMixin: OK'),

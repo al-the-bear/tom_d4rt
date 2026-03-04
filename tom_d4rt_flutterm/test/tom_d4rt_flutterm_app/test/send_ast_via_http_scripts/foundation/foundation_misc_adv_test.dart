@@ -12,7 +12,9 @@ dynamic build(BuildContext context) {
     print('  TargetPlatform.${platform.name} (index: ${platform.index})');
   }
   print('defaultTargetPlatform: $defaultTargetPlatform');
-  print('debugDefaultTargetPlatformOverride: $debugDefaultTargetPlatformOverride');
+  print(
+    'debugDefaultTargetPlatformOverride: $debugDefaultTargetPlatformOverride',
+  );
   print('TargetPlatform tests passed');
 
   // ========== TargetPlatformVariant ==========
@@ -20,7 +22,9 @@ dynamic build(BuildContext context) {
   print('TargetPlatformVariant is a flutter_test utility class');
   print('It is NOT available via foundation.dart imports');
   print('It requires: import package:flutter_test/flutter_test.dart');
-  print('Usage: TargetPlatformVariant.all() or TargetPlatformVariant({TargetPlatform.iOS})');
+  print(
+    'Usage: TargetPlatformVariant.all() or TargetPlatformVariant({TargetPlatform.iOS})',
+  );
   print('It extends TestVariant<TargetPlatform> for parameterized testing');
   print('Since we cannot import flutter_test in a D4rt script,');
   print('we reference TargetPlatform enum values instead');
@@ -53,11 +57,19 @@ dynamic build(BuildContext context) {
   print('DoubleProperty type: ${doubleProp.runtimeType}');
   print('DoubleProperty value: ${doubleProp.value}');
 
-  final flagProp = FlagProperty('visible', value: true, ifTrue: 'VISIBLE', ifFalse: 'HIDDEN');
+  final flagProp = FlagProperty(
+    'visible',
+    value: true,
+    ifTrue: 'VISIBLE',
+    ifFalse: 'HIDDEN',
+  );
   print('FlagProperty type: ${flagProp.runtimeType}');
   print('FlagProperty toString: ${flagProp.toString()}');
 
-  final enumProp = EnumProperty<TargetPlatform>('platform', TargetPlatform.android);
+  final enumProp = EnumProperty<TargetPlatform>(
+    'platform',
+    TargetPlatform.android,
+  );
   print('EnumProperty type: ${enumProp.runtimeType}');
   print('EnumProperty value: ${enumProp.value}');
 
@@ -90,7 +102,10 @@ dynamic build(BuildContext context) {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Foundation Misc Advanced Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+            Text(
+              'Foundation Misc Advanced Tests',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
             SizedBox(height: 16.0),
             Text('TargetPlatform: OK (${TargetPlatform.values.length} values)'),
             Text('TargetPlatformVariant: test-only reference'),

@@ -72,13 +72,7 @@ dynamic build(BuildContext context) {
 
   // ========== BoundedFrictionSimulation ==========
   print('--- BoundedFrictionSimulation Tests ---');
-  final friction = BoundedFrictionSimulation(
-    0.135,
-    100.0,
-    200.0,
-    0.0,
-    500.0,
-  );
+  final friction = BoundedFrictionSimulation(0.135, 100.0, 200.0, 0.0, 500.0);
   print('BoundedFrictionSimulation type: ${friction.runtimeType}');
   print('x(0.0): ${friction.x(0.0)}');
   print('dx(0.0): ${friction.dx(0.0)}');
@@ -111,7 +105,10 @@ dynamic build(BuildContext context) {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Animation Misc Advanced Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+            Text(
+              'Animation Misc Advanced Tests',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
             SizedBox(height: 16.0),
             Text('AnimationStatusListener: OK'),
             Text('AnimatedValue (Tween): OK'),

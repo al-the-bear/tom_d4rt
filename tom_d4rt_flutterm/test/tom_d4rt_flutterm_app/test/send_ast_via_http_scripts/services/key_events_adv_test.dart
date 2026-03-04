@@ -24,7 +24,9 @@ dynamic build(BuildContext context) {
   // Deprecated in favor of KeyEvent system, but still available.
   print('RawKeyEventData: abstract base class for raw key event data');
   print('Type: RawKeyEventData (abstract)');
-  print('Subclasses: RawKeyEventDataAndroid, RawKeyEventDataIos, RawKeyEventDataWeb, etc.');
+  print(
+    'Subclasses: RawKeyEventDataAndroid, RawKeyEventDataIos, RawKeyEventDataWeb, etc.',
+  );
 
   // ========== KeyData ==========
   print('--- KeyData Tests ---');
@@ -64,7 +66,10 @@ dynamic build(BuildContext context) {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Key Events Advanced Test', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+            Text(
+              'Key Events Advanced Test',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
             SizedBox(height: 16.0),
             Text('TextInputConnection: OK'),
             Text('TextInput: OK'),

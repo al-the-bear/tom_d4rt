@@ -55,7 +55,9 @@ dynamic build(BuildContext context) {
   // ========== MultiFrameImageStreamCompleter ==========
   print('--- MultiFrameImageStreamCompleter Tests ---');
   // MultiFrameImageStreamCompleter manages multi-frame (animated) image loading.
-  print('MultiFrameImageStreamCompleter: multi-frame animated image stream completer');
+  print(
+    'MultiFrameImageStreamCompleter: multi-frame animated image stream completer',
+  );
   print('Type: MultiFrameImageStreamCompleter');
   print('Used for: animated GIF, APNG, and other multi-frame formats');
 
@@ -65,6 +67,7 @@ dynamic build(BuildContext context) {
   void imageErrorListener(dynamic exception, StackTrace? stackTrace) {
     print('ImageErrorListener caught: $exception');
   }
+
   imageErrorListener('test error', null);
   print('ImageErrorListener: defined function matching typedef signature');
   print('Type: void Function(dynamic, StackTrace?)');
@@ -97,7 +100,10 @@ dynamic build(BuildContext context) {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Image Stream Advanced Test', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+            Text(
+              'Image Stream Advanced Test',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
             SizedBox(height: 16.0),
             Text('BeveledRectangleBorder: OK'),
             Text('ResizeImage: OK'),

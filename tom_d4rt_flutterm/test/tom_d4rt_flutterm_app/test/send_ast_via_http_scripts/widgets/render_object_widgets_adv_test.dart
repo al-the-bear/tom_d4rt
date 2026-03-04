@@ -23,7 +23,9 @@ dynamic build(BuildContext context) {
 
   // --- SlottedContainerRenderObjectMixin Tests ---
   print('--- SlottedContainerRenderObjectMixin Tests ---');
-  print('SlottedContainerRenderObjectMixin provides named slot child management');
+  print(
+    'SlottedContainerRenderObjectMixin provides named slot child management',
+  );
   print('Type: SlottedContainerRenderObjectMixin (internal framework mixin)');
   print('Used by render objects that have a fixed set of named children');
 
@@ -35,7 +37,9 @@ dynamic build(BuildContext context) {
 
   // --- SlottedMultiChildRenderObjectWidget Tests ---
   print('--- SlottedMultiChildRenderObjectWidget Tests ---');
-  print('SlottedMultiChildRenderObjectWidget extends SlottedRenderObjectWidget');
+  print(
+    'SlottedMultiChildRenderObjectWidget extends SlottedRenderObjectWidget',
+  );
   print('Type: SlottedMultiChildRenderObjectWidget (internal framework class)');
   print('Provides multi-child support with named slots');
 

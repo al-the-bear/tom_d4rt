@@ -10,12 +10,16 @@ dynamic build(BuildContext context) {
   print('Type: $ScrollPosition');
   var scrollController = ScrollController(initialScrollOffset: 100.0);
   print('ScrollController: $scrollController');
-  print('ScrollController initialScrollOffset: ${scrollController.initialScrollOffset}');
+  print(
+    'ScrollController initialScrollOffset: ${scrollController.initialScrollOffset}',
+  );
   print('ScrollPosition is managed by ScrollController');
 
   // --- ScrollPositionWithSingleContext Tests ---
   print('--- ScrollPositionWithSingleContext Tests ---');
-  print('ScrollPositionWithSingleContext is the default ScrollPosition implementation');
+  print(
+    'ScrollPositionWithSingleContext is the default ScrollPosition implementation',
+  );
   print('Type: $ScrollPositionWithSingleContext');
   print('Used when a scroll position is attached to a single ScrollContext');
   print('Manages physics, activity, and user interaction for scrolling');
@@ -52,7 +56,9 @@ dynamic build(BuildContext context) {
   print('--- HoldScrollActivity Tests ---');
   print('HoldScrollActivity represents holding a scroll position');
   print('Type: $HoldScrollActivity');
-  print('Created when the user touches the scrollable but has not started dragging');
+  print(
+    'Created when the user touches the scrollable but has not started dragging',
+  );
   print('Prevents ballistic animations from continuing');
 
   // --- DragScrollActivity Tests ---
@@ -65,7 +71,9 @@ dynamic build(BuildContext context) {
   // Test ScrollController with FixedExtentScrollController
   var fixedExtentController = FixedExtentScrollController(initialItem: 5);
   print('FixedExtentScrollController: $fixedExtentController');
-  print('FixedExtentScrollController initialItem: ${fixedExtentController.initialItem}');
+  print(
+    'FixedExtentScrollController initialItem: ${fixedExtentController.initialItem}',
+  );
 
   print('All scroll position types tests passed');
 

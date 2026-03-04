@@ -22,8 +22,10 @@ dynamic build(BuildContext context) {
   print('--- ShortcutManager Tests ---');
   var shortcutManager = ShortcutManager(
     shortcuts: {
-      SingleActivator(LogicalKeyboardKey.keyS, control: true): const ActivateIntent(),
-      SingleActivator(LogicalKeyboardKey.keyZ, control: true): const UndoTextIntent(SelectionChangedCause.keyboard),
+      SingleActivator(LogicalKeyboardKey.keyS, control: true):
+          const ActivateIntent(),
+      SingleActivator(LogicalKeyboardKey.keyZ, control: true):
+          const UndoTextIntent(SelectionChangedCause.keyboard),
     },
   );
   print('ShortcutManager: $shortcutManager');
@@ -54,8 +56,12 @@ dynamic build(BuildContext context) {
   // --- DoNothingAndStopPropagationAction Tests ---
   print('--- DoNothingAndStopPropagationAction Tests ---');
   var doNothingStopAction = DoNothingAction(consumesKey: false);
-  print('DoNothingAndStopPropagationAction (now DoNothingAction): $doNothingStopAction');
-  print('consumesKey: ${doNothingStopAction.consumesKey(DoNothingAndStopPropagationIntent())}');
+  print(
+    'DoNothingAndStopPropagationAction (now DoNothingAction): $doNothingStopAction',
+  );
+  print(
+    'consumesKey: ${doNothingStopAction.consumesKey(DoNothingAndStopPropagationIntent())}',
+  );
   print('Handles DoNothingAndStopPropagationIntent');
 
   // --- PrioritizedAction Tests ---
@@ -63,13 +69,12 @@ dynamic build(BuildContext context) {
   print('PrioritizedAction wraps an action with priority ordering');
   print('Type: $PrioritizedAction');
   var prioritizedIntents = PrioritizedIntents(
-    orderedIntents: [
-      const ActivateIntent(),
-      const DismissIntent(),
-    ],
+    orderedIntents: [const ActivateIntent(), const DismissIntent()],
   );
   print('PrioritizedIntents: $prioritizedIntents');
-  print('PrioritizedIntents orderedIntents: ${prioritizedIntents.orderedIntents}');
+  print(
+    'PrioritizedIntents orderedIntents: ${prioritizedIntents.orderedIntents}',
+  );
   print('PrioritizedAction tries intents in order until one is handled');
 
   // --- ContextAction Tests ---
@@ -86,14 +91,14 @@ dynamic build(BuildContext context) {
       body: Shortcuts(
         shortcuts: shortcutManager.shortcuts,
         child: Actions(
-          actions: {
-            DoNothingAndStopPropagationIntent: doNothingStopAction,
-          },
+          actions: {DoNothingAndStopPropagationIntent: doNothingStopAction},
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('ShortcutManager shortcuts: ${shortcutManager.shortcuts.length}'),
+                Text(
+                  'ShortcutManager shortcuts: ${shortcutManager.shortcuts.length}',
+                ),
                 Text('SingleActivator: $singleActivator'),
                 Text('CharacterActivator: $charActivator'),
                 const Text('Shortcuts Actions Adv Test'),

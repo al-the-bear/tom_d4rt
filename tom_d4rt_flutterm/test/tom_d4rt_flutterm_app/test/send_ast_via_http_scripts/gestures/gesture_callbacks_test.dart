@@ -8,17 +8,19 @@ dynamic build(BuildContext context) {
   // ========== GestureDragStartCallback ==========
   print('--- GestureDragStartCallback Tests ---');
   // GestureDragStartCallback = void Function(DragStartDetails)
-  final GestureDragStartCallback dragStartCallback = (DragStartDetails details) {
-    print('Drag started at: ${details.globalPosition}');
-  };
+  final GestureDragStartCallback dragStartCallback =
+      (DragStartDetails details) {
+        print('Drag started at: ${details.globalPosition}');
+      };
   print('GestureDragStartCallback type: ${dragStartCallback.runtimeType}');
 
   // ========== GestureDragUpdateCallback ==========
   print('--- GestureDragUpdateCallback Tests ---');
   // GestureDragUpdateCallback = void Function(DragUpdateDetails)
-  final GestureDragUpdateCallback dragUpdateCallback = (DragUpdateDetails details) {
-    print('Drag update delta: ${details.delta}');
-  };
+  final GestureDragUpdateCallback dragUpdateCallback =
+      (DragUpdateDetails details) {
+        print('Drag update delta: ${details.delta}');
+      };
   print('GestureDragUpdateCallback type: ${dragUpdateCallback.runtimeType}');
 
   // ========== GestureDragEndCallback ==========
@@ -48,17 +50,19 @@ dynamic build(BuildContext context) {
   // ========== GestureScaleStartCallback ==========
   print('--- GestureScaleStartCallback Tests ---');
   // GestureScaleStartCallback = void Function(ScaleStartDetails)
-  final GestureScaleStartCallback scaleStartCallback = (ScaleStartDetails details) {
-    print('Scale started, pointers: ${details.pointerCount}');
-  };
+  final GestureScaleStartCallback scaleStartCallback =
+      (ScaleStartDetails details) {
+        print('Scale started, pointers: ${details.pointerCount}');
+      };
   print('GestureScaleStartCallback type: ${scaleStartCallback.runtimeType}');
 
   // ========== GestureScaleUpdateCallback ==========
   print('--- GestureScaleUpdateCallback Tests ---');
   // GestureScaleUpdateCallback = void Function(ScaleUpdateDetails)
-  final GestureScaleUpdateCallback scaleUpdateCallback = (ScaleUpdateDetails details) {
-    print('Scale update, scale: ${details.scale}');
-  };
+  final GestureScaleUpdateCallback scaleUpdateCallback =
+      (ScaleUpdateDetails details) {
+        print('Scale update, scale: ${details.scale}');
+      };
   print('GestureScaleUpdateCallback type: ${scaleUpdateCallback.runtimeType}');
 
   // ========== GestureRecognizerCallback ==========
@@ -100,7 +104,9 @@ dynamic build(BuildContext context) {
     onScaleUpdate: scaleUpdateCallback,
     child: Container(),
   );
-  print('GestureDetector configured with all callbacks: ${gestureDetector.runtimeType}');
+  print(
+    'GestureDetector configured with all callbacks: ${gestureDetector.runtimeType}',
+  );
 
   print('All gesture callback tests passed');
 
@@ -111,7 +117,10 @@ dynamic build(BuildContext context) {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Gesture Callbacks Test', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+            Text(
+              'Gesture Callbacks Test',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
             SizedBox(height: 16.0),
             Text('GestureDragStartCallback: defined'),
             Text('GestureDragUpdateCallback: defined'),

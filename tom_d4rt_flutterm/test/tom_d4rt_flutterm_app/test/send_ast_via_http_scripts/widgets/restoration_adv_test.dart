@@ -46,7 +46,9 @@ dynamic build(BuildContext context) {
   // --- RestorationManager Tests ---
   print('--- RestorationManager Tests ---');
   print('RestorationManager manages the restoration data for the app');
-  print('Type: RestorationManager (accessed via WidgetsBinding.instance.restorationManager)');
+  print(
+    'Type: RestorationManager (accessed via WidgetsBinding.instance.restorationManager)',
+  );
   print('Provides the root RestorationBucket');
   print('Communicates with the engine to save/restore state');
 
@@ -63,10 +65,7 @@ dynamic build(BuildContext context) {
   print('--- RawGestureDetectorState Tests ---');
   print('RawGestureDetectorState manages gesture recognizers');
   print('Type: $RawGestureDetectorState');
-  var rawGestureDetector = RawGestureDetector(
-    child: Container(),
-    gestures: {},
-  );
+  var rawGestureDetector = RawGestureDetector(child: Container(), gestures: {});
   print('RawGestureDetector: $rawGestureDetector');
   print('RawGestureDetector manages low-level gesture recognition');
   print('RawGestureDetectorState provides replaceGestureRecognizers()');

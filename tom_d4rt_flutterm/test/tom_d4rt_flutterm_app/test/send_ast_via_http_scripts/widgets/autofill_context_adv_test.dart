@@ -57,7 +57,9 @@ dynamic build(BuildContext context) {
 
   // --- EditableTextContextMenuBuilder Tests ---
   print('--- EditableTextContextMenuBuilder Tests ---');
-  print('EditableTextContextMenuBuilder is a typedef for context menu builders');
+  print(
+    'EditableTextContextMenuBuilder is a typedef for context menu builders',
+  );
   print('Signature: Widget Function(BuildContext, EditableTextState)');
   print('Used in TextField.contextMenuBuilder and EditableText');
   print('Allows customizing the text selection context menu');

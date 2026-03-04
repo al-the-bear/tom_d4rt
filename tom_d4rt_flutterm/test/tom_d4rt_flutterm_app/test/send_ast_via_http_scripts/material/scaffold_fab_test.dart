@@ -16,37 +16,44 @@ dynamic build(BuildContext context) {
   print('--- FAB Location Tests ---');
 
   // EndFloatFabLocation
-  final FloatingActionButtonLocation endFloat = FloatingActionButtonLocation.endFloat;
+  final FloatingActionButtonLocation endFloat =
+      FloatingActionButtonLocation.endFloat;
   print('endFloat type: ${endFloat.runtimeType}');
   print('endFloat toString: ${endFloat}');
 
   // CenterFloatFabLocation
-  final FloatingActionButtonLocation centerFloat = FloatingActionButtonLocation.centerFloat;
+  final FloatingActionButtonLocation centerFloat =
+      FloatingActionButtonLocation.centerFloat;
   print('centerFloat type: ${centerFloat.runtimeType}');
   print('centerFloat toString: ${centerFloat}');
 
   // EndDockedFabLocation
-  final FloatingActionButtonLocation endDocked = FloatingActionButtonLocation.endDocked;
+  final FloatingActionButtonLocation endDocked =
+      FloatingActionButtonLocation.endDocked;
   print('endDocked type: ${endDocked.runtimeType}');
   print('endDocked toString: ${endDocked}');
 
   // CenterDockedFabLocation
-  final FloatingActionButtonLocation centerDocked = FloatingActionButtonLocation.centerDocked;
+  final FloatingActionButtonLocation centerDocked =
+      FloatingActionButtonLocation.centerDocked;
   print('centerDocked type: ${centerDocked.runtimeType}');
   print('centerDocked toString: ${centerDocked}');
 
   // EndTopFabLocation
-  final FloatingActionButtonLocation endTop = FloatingActionButtonLocation.endTop;
+  final FloatingActionButtonLocation endTop =
+      FloatingActionButtonLocation.endTop;
   print('endTop type: ${endTop.runtimeType}');
   print('endTop toString: ${endTop}');
 
   // StartTopFabLocation
-  final FloatingActionButtonLocation startTop = FloatingActionButtonLocation.startTop;
+  final FloatingActionButtonLocation startTop =
+      FloatingActionButtonLocation.startTop;
   print('startTop type: ${startTop.runtimeType}');
   print('startTop toString: ${startTop}');
 
   // EndContainedFabLocation
-  final FloatingActionButtonLocation endContained = FloatingActionButtonLocation.endContained;
+  final FloatingActionButtonLocation endContained =
+      FloatingActionButtonLocation.endContained;
   print('endContained type: ${endContained.runtimeType}');
   print('endContained toString: ${endContained}');
 
@@ -88,7 +95,10 @@ dynamic build(BuildContext context) {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Scaffold FAB Test', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+            Text(
+              'Scaffold FAB Test',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
             SizedBox(height: 16.0),
             Text('ScaffoldFeatureController: referenced'),
             Text('FAB Locations: ${allLocations.length} tested'),

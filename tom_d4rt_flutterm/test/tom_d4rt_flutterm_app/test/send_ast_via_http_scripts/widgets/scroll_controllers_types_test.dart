@@ -82,7 +82,8 @@ dynamic build(BuildContext context) {
           children: [
             Expanded(
               child: ListView(
-                keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+                keyboardDismissBehavior:
+                    ScrollViewKeyboardDismissBehavior.onDrag,
                 children: const [
                   ListTile(title: Text('ScrollAction test')),
                   ListTile(title: Text('KeyboardDismissBehavior test')),

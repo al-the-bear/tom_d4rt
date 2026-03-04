@@ -34,7 +34,9 @@ dynamic build(BuildContext context) {
   // BlacklistingTextInputFormatter was removed from Flutter.
   // Use FilteringTextInputFormatter.deny instead (shown below).
   var blacklistFormatter = FilteringTextInputFormatter.deny(RegExp(r'[0-9]'));
-  print('BlacklistingTextInputFormatter (now FilteringTextInputFormatter.deny): $blacklistFormatter');
+  print(
+    'BlacklistingTextInputFormatter (now FilteringTextInputFormatter.deny): $blacklistFormatter',
+  );
   print('Blocks input matching the pattern (digits in this case)');
   var denyFormatter = FilteringTextInputFormatter.deny(RegExp(r'[0-9]'));
   print('Replacement - FilteringTextInputFormatter.deny: $denyFormatter');
@@ -45,8 +47,12 @@ dynamic build(BuildContext context) {
   print('Use FilteringTextInputFormatter.allow instead');
   // WhitelistingTextInputFormatter was removed from Flutter.
   // Use FilteringTextInputFormatter.allow instead (shown below).
-  var whitelistFormatter = FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]'));
-  print('WhitelistingTextInputFormatter (now FilteringTextInputFormatter.allow): $whitelistFormatter');
+  var whitelistFormatter = FilteringTextInputFormatter.allow(
+    RegExp(r'[a-zA-Z]'),
+  );
+  print(
+    'WhitelistingTextInputFormatter (now FilteringTextInputFormatter.allow): $whitelistFormatter',
+  );
   print('Only allows input matching the pattern (letters in this case)');
   var allowFormatter = FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]'));
   print('Replacement - FilteringTextInputFormatter.allow: $allowFormatter');

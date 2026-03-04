@@ -11,7 +11,9 @@ dynamic build(BuildContext context) {
 
   // --- ComponentElement Tests ---
   print('--- ComponentElement Tests ---');
-  print('ComponentElement is the base for elements that compose other elements');
+  print(
+    'ComponentElement is the base for elements that compose other elements',
+  );
   print('Type: $ComponentElement');
   print('StatelessElement and StatefulElement extend ComponentElement');
 
@@ -25,7 +27,9 @@ dynamic build(BuildContext context) {
     },
   );
   print('StatefulBuilder: $statefulWidget');
-  print('StatefulBuilder is a StatefulWidget that delegates build to a callback');
+  print(
+    'StatefulBuilder is a StatefulWidget that delegates build to a callback',
+  );
 
   // --- StatelessElement Tests ---
   print('--- StatelessElement Tests ---');

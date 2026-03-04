@@ -21,6 +21,7 @@ dynamic build(BuildContext context) {
   void restorationCallback(bool needsRestore) {
     print('RestorationCallback invoked with needsRestore: $needsRestore');
   }
+
   restorationCallback(true);
   print('RestorationCallback: defined function matching typedef signature');
   print('Type: void Function(bool)');
@@ -104,7 +105,10 @@ dynamic build(BuildContext context) {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Restoration & Platform Menu Test', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+            Text(
+              'Restoration & Platform Menu Test',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
             SizedBox(height: 16.0),
             Text('RestorationMemento: OK (via RestorationManager)'),
             Text('RestorationData: OK (via RestorationManager)'),

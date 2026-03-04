@@ -23,7 +23,9 @@ dynamic build(BuildContext context) {
     link: layerLink,
     child: SizedBox(width: 50.0, height: 50.0),
   );
-  print('RenderFollowerLayer: referenced via CompositedTransformFollower widget');
+  print(
+    'RenderFollowerLayer: referenced via CompositedTransformFollower widget',
+  );
   print('LayerLink: ${layerLink.runtimeType}');
   print('Type: RenderFollowerLayer');
 
@@ -41,7 +43,9 @@ dynamic build(BuildContext context) {
   // PipelineManifold is part of the rendering pipeline infrastructure.
   // Referenced through PipelineOwner.
   print('PipelineManifold: referenced via PipelineOwner rendering pipeline');
-  print('Type: PipelineManifold (abstract interface for pipeline coordination)');
+  print(
+    'Type: PipelineManifold (abstract interface for pipeline coordination)',
+  );
 
   // ========== PerformanceOverlayLayer ==========
   print('--- PerformanceOverlayLayer Tests ---');
@@ -94,7 +98,10 @@ dynamic build(BuildContext context) {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Render Layers Pipeline Test', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+            Text(
+              'Render Layers Pipeline Test',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
             SizedBox(height: 16.0),
             Text('RenderAnnotatedRegion: OK'),
             Text('RenderFollowerLayer: OK'),

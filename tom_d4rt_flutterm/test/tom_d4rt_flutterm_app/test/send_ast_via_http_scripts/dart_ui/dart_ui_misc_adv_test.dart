@@ -13,7 +13,9 @@ dynamic build(BuildContext context) {
   final bufferFuture = ui.ImmutableBuffer.fromUint8List(emptyData);
   print('type: Future<ImmutableBuffer>');
   print('ImmutableBuffer: created future from empty Uint8List');
-  final dataBufferFuture = ui.ImmutableBuffer.fromUint8List(Uint8List.fromList([1, 2, 3, 4]));
+  final dataBufferFuture = ui.ImmutableBuffer.fromUint8List(
+    Uint8List.fromList([1, 2, 3, 4]),
+  );
   print('dataBuffer type: Future<ImmutableBuffer>');
   print('ImmutableBuffer: created future from Uint8List([1, 2, 3, 4])');
   print('ImmutableBuffer tests passed');
@@ -77,7 +79,10 @@ dynamic build(BuildContext context) {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('dart:ui Misc Advanced Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+            Text(
+              'dart:ui Misc Advanced Tests',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
             SizedBox(height: 16.0),
             Text('ImmutableBuffer: OK'),
             Text('ImageDescriptor: type reference'),

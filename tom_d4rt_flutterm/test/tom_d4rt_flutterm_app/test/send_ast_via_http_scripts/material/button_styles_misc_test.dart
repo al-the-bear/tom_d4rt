@@ -12,8 +12,12 @@ dynamic build(BuildContext context) {
     layoutBehavior: ButtonBarLayoutBehavior.padded,
   );
   print('ButtonBarThemeData alignment: ${buttonBarThemeData.alignment}');
-  print('ButtonBarThemeData buttonPadding: ${buttonBarThemeData.buttonPadding}');
-  print('ButtonBarThemeData layoutBehavior: ${buttonBarThemeData.layoutBehavior}');
+  print(
+    'ButtonBarThemeData buttonPadding: ${buttonBarThemeData.buttonPadding}',
+  );
+  print(
+    'ButtonBarThemeData layoutBehavior: ${buttonBarThemeData.layoutBehavior}',
+  );
   // ButtonBarTheme is an InheritedWidget wrapping ButtonBarThemeData
   print('ButtonBarTheme type: ${ButtonBarTheme}');
   print('ButtonBarThemeData type: ${buttonBarThemeData.runtimeType}');
@@ -23,21 +27,35 @@ dynamic build(BuildContext context) {
   // ButtonStyleButton is the abstract base class for ElevatedButton, TextButton, OutlinedButton etc.
   // We reference it through its concrete subclasses.
   print('ButtonStyleButton type: ${ButtonStyleButton}');
-  final elevatedButton = ElevatedButton(onPressed: () {}, child: Text('Elevated'));
-  print('ElevatedButton is ButtonStyleButton: ${elevatedButton is ButtonStyleButton}');
+  final elevatedButton = ElevatedButton(
+    onPressed: () {},
+    child: Text('Elevated'),
+  );
+  print(
+    'ElevatedButton is ButtonStyleButton: ${elevatedButton is ButtonStyleButton}',
+  );
   final textButton = TextButton(onPressed: () {}, child: Text('Text'));
   print('TextButton is ButtonStyleButton: ${textButton is ButtonStyleButton}');
-  final outlinedButton = OutlinedButton(onPressed: () {}, child: Text('Outlined'));
-  print('OutlinedButton is ButtonStyleButton: ${outlinedButton is ButtonStyleButton}');
+  final outlinedButton = OutlinedButton(
+    onPressed: () {},
+    child: Text('Outlined'),
+  );
+  print(
+    'OutlinedButton is ButtonStyleButton: ${outlinedButton is ButtonStyleButton}',
+  );
 
   // ========== Deprecated Buttons ==========
   print('--- Deprecated Button Tests ---');
   // RaisedButton was deprecated and removed in Flutter 3.x → replaced by ElevatedButton
-  print('RaisedButton (deprecated) → use ElevatedButton: ${elevatedButton.runtimeType}');
+  print(
+    'RaisedButton (deprecated) → use ElevatedButton: ${elevatedButton.runtimeType}',
+  );
   // FlatButton was deprecated and removed in Flutter 3.x → replaced by TextButton
   print('FlatButton (deprecated) → use TextButton: ${textButton.runtimeType}');
   // OutlineButton was deprecated and removed in Flutter 3.x → replaced by OutlinedButton
-  print('OutlineButton (deprecated) → use OutlinedButton: ${outlinedButton.runtimeType}');
+  print(
+    'OutlineButton (deprecated) → use OutlinedButton: ${outlinedButton.runtimeType}',
+  );
 
   // ========== MaterialBannerAction ==========
   print('--- MaterialBannerAction Tests ---');
@@ -57,7 +75,9 @@ dynamic build(BuildContext context) {
   print('NavigationIndicatorTransition referenced via NavigationBar theming');
   final navBarTheme = NavigationBarThemeData(
     indicatorColor: Colors.blue,
-    indicatorShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+    indicatorShape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(8.0),
+    ),
   );
   print('NavigationBarThemeData indicatorColor: ${navBarTheme.indicatorColor}');
   print('NavigationBarThemeData indicatorShape: ${navBarTheme.indicatorShape}');
@@ -90,11 +110,16 @@ dynamic build(BuildContext context) {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Button Styles Misc Test', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+            Text(
+              'Button Styles Misc Test',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
             SizedBox(height: 16.0),
             Text('ButtonBarTheme: configured'),
             Text('ButtonStyleButton: abstract, 3 subclasses tested'),
-            Text('Deprecated: RaisedButton→Elevated, FlatButton→Text, OutlineButton→Outlined'),
+            Text(
+              'Deprecated: RaisedButton→Elevated, FlatButton→Text, OutlineButton→Outlined',
+            ),
             Text('MaterialBannerAction: TextButton in banner'),
             Text('NavigationIndicatorTransition: themed'),
             Text('PopupMenuItemState/Selected: callback referenced'),

@@ -12,20 +12,14 @@ dynamic build(BuildContext context) {
 
   // --- PlatformMenuBar Tests ---
   print('--- PlatformMenuBar Tests ---');
-  var menuBar = PlatformMenuBar(
-    menus: [],
-    child: Container(),
-  );
+  var menuBar = PlatformMenuBar(menus: [], child: Container());
   print('PlatformMenuBar: $menuBar');
   print('PlatformMenuBar menus: ${menuBar.menus}');
   print('PlatformMenuBar defines a platform-native menu bar');
 
   // --- PlatformMenu Tests ---
   print('--- PlatformMenu Tests ---');
-  var platformMenu = PlatformMenu(
-    label: 'File',
-    menus: [],
-  );
+  var platformMenu = PlatformMenu(label: 'File', menus: []);
   print('PlatformMenu: $platformMenu');
   print('PlatformMenu label: ${platformMenu.label}');
   print('PlatformMenu menus: ${platformMenu.menus}');

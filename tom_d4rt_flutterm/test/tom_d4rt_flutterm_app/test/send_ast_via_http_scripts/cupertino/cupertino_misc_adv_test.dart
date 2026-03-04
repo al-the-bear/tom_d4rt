@@ -41,9 +41,7 @@ dynamic build(BuildContext context) {
 
   // ========== CupertinoSliverNavigationBar ==========
   print('--- CupertinoSliverNavigationBar Tests ---');
-  final sliverNavBar = CupertinoSliverNavigationBar(
-    largeTitle: Text('Test'),
-  );
+  final sliverNavBar = CupertinoSliverNavigationBar(largeTitle: Text('Test'));
   print('type: ${sliverNavBar.runtimeType}');
   print('CupertinoSliverNavigationBar is a StatefulWidget');
   print('Its State class (CupertinoSliverNavigationBarState) is internal');
@@ -52,11 +50,7 @@ dynamic build(BuildContext context) {
   // ========== CupertinoSegmentedControl ==========
   print('--- CupertinoSegmentedControl Tests ---');
   final segmented = CupertinoSegmentedControl<int>(
-    children: const {
-      0: Text('One'),
-      1: Text('Two'),
-      2: Text('Three'),
-    },
+    children: const {0: Text('One'), 1: Text('Two'), 2: Text('Three')},
     onValueChanged: (int val) {
       print('selected: $val');
     },
@@ -69,10 +63,7 @@ dynamic build(BuildContext context) {
   // ========== CupertinoSlidingSegmentedControl ==========
   print('--- CupertinoSlidingSegmentedControl Tests ---');
   final sliding = CupertinoSlidingSegmentedControl<int>(
-    children: const {
-      0: Text('A'),
-      1: Text('B'),
-    },
+    children: const {0: Text('A'), 1: Text('B')},
     onValueChanged: (int? val) {
       print('sliding selected: $val');
     },
@@ -111,7 +102,10 @@ dynamic build(BuildContext context) {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Cupertino Misc Advanced Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+            Text(
+              'Cupertino Misc Advanced Tests',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
             SizedBox(height: 16.0),
             Text('CupertinoLocalizations: OK'),
             Text('CupertinoPageRoute: OK'),

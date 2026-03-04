@@ -24,26 +24,35 @@ dynamic build(BuildContext context) {
   // ========== GestureLongPressStartCallback ==========
   print('--- GestureLongPressStartCallback Tests ---');
   // GestureLongPressStartCallback = void Function(LongPressStartDetails)
-  final GestureLongPressStartCallback longPressStartCallback = (LongPressStartDetails details) {
-    print('Long press started at: ${details.globalPosition}');
-  };
-  print('GestureLongPressStartCallback type: ${longPressStartCallback.runtimeType}');
+  final GestureLongPressStartCallback longPressStartCallback =
+      (LongPressStartDetails details) {
+        print('Long press started at: ${details.globalPosition}');
+      };
+  print(
+    'GestureLongPressStartCallback type: ${longPressStartCallback.runtimeType}',
+  );
 
   // ========== GestureLongPressMoveUpdateCallback ==========
   print('--- GestureLongPressMoveUpdateCallback Tests ---');
   // GestureLongPressMoveUpdateCallback = void Function(LongPressMoveUpdateDetails)
-  final GestureLongPressMoveUpdateCallback longPressMoveCallback = (LongPressMoveUpdateDetails details) {
-    print('Long press move to: ${details.globalPosition}');
-  };
-  print('GestureLongPressMoveUpdateCallback type: ${longPressMoveCallback.runtimeType}');
+  final GestureLongPressMoveUpdateCallback longPressMoveCallback =
+      (LongPressMoveUpdateDetails details) {
+        print('Long press move to: ${details.globalPosition}');
+      };
+  print(
+    'GestureLongPressMoveUpdateCallback type: ${longPressMoveCallback.runtimeType}',
+  );
 
   // ========== GestureLongPressEndCallback ==========
   print('--- GestureLongPressEndCallback Tests ---');
   // GestureLongPressEndCallback = void Function(LongPressEndDetails)
-  final GestureLongPressEndCallback longPressEndCallback = (LongPressEndDetails details) {
-    print('Long press ended at: ${details.globalPosition}');
-  };
-  print('GestureLongPressEndCallback type: ${longPressEndCallback.runtimeType}');
+  final GestureLongPressEndCallback longPressEndCallback =
+      (LongPressEndDetails details) {
+        print('Long press ended at: ${details.globalPosition}');
+      };
+  print(
+    'GestureLongPressEndCallback type: ${longPressEndCallback.runtimeType}',
+  );
 
   // Verify long press callbacks with GestureDetector
   final longPressDetector = GestureDetector(
@@ -53,14 +62,18 @@ dynamic build(BuildContext context) {
     onLongPressEnd: longPressEndCallback,
     child: Container(),
   );
-  print('GestureDetector with long press callbacks: ${longPressDetector.runtimeType}');
+  print(
+    'GestureDetector with long press callbacks: ${longPressDetector.runtimeType}',
+  );
 
   // Verify scale end callback with GestureDetector
   final scaleDetector = GestureDetector(
     onScaleEnd: scaleEndCallback,
     child: Container(),
   );
-  print('GestureDetector with scale end callback: ${scaleDetector.runtimeType}');
+  print(
+    'GestureDetector with scale end callback: ${scaleDetector.runtimeType}',
+  );
 
   // ========== VelocityEstimator / IOSScrollViewFlingVelocityTracker ==========
   print('--- VelocityEstimator / IOSScrollViewFlingVelocityTracker Tests ---');
@@ -71,8 +84,12 @@ dynamic build(BuildContext context) {
 
   // ========== MacOSScrollViewFlingVelocityTracker ==========
   print('--- MacOSScrollViewFlingVelocityTracker Tests ---');
-  final macosTracker = MacOSScrollViewFlingVelocityTracker(PointerDeviceKind.touch);
-  print('MacOSScrollViewFlingVelocityTracker type: ${macosTracker.runtimeType}');
+  final macosTracker = MacOSScrollViewFlingVelocityTracker(
+    PointerDeviceKind.touch,
+  );
+  print(
+    'MacOSScrollViewFlingVelocityTracker type: ${macosTracker.runtimeType}',
+  );
   print('MacOSScrollViewFlingVelocityTracker kind: touch');
 
   // Both are VelocityTracker subclasses
@@ -88,8 +105,12 @@ dynamic build(BuildContext context) {
   for (final strategy in MultitouchDragStrategy.values) {
     print('MultitouchDragStrategy.${strategy.name}: ${strategy.index}');
   }
-  print('MultitouchDragStrategy.latestPointer: ${MultitouchDragStrategy.latestPointer}');
-  print('MultitouchDragStrategy.averageBoundaryPointers: ${MultitouchDragStrategy.averageBoundaryPointers}');
+  print(
+    'MultitouchDragStrategy.latestPointer: ${MultitouchDragStrategy.latestPointer}',
+  );
+  print(
+    'MultitouchDragStrategy.averageBoundaryPointers: ${MultitouchDragStrategy.averageBoundaryPointers}',
+  );
 
   print('All advanced gesture callback tests passed');
 
@@ -100,16 +121,25 @@ dynamic build(BuildContext context) {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Gesture Callbacks Adv Test', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+            Text(
+              'Gesture Callbacks Adv Test',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
             SizedBox(height: 16.0),
             Text('GestureScaleEndCallback: defined'),
             Text('GestureLongPressCallback: defined'),
             Text('GestureLongPressStartCallback: defined'),
             Text('GestureLongPressMoveUpdateCallback: defined'),
             Text('GestureLongPressEndCallback: defined'),
-            Text('IOSScrollViewFlingVelocityTracker: ${iosTracker.runtimeType}'),
-            Text('MacOSScrollViewFlingVelocityTracker: ${macosTracker.runtimeType}'),
-            Text('MultitouchDragStrategy: ${MultitouchDragStrategy.values.length} values'),
+            Text(
+              'IOSScrollViewFlingVelocityTracker: ${iosTracker.runtimeType}',
+            ),
+            Text(
+              'MacOSScrollViewFlingVelocityTracker: ${macosTracker.runtimeType}',
+            ),
+            Text(
+              'MultitouchDragStrategy: ${MultitouchDragStrategy.values.length} values',
+            ),
           ],
         ),
       ),
