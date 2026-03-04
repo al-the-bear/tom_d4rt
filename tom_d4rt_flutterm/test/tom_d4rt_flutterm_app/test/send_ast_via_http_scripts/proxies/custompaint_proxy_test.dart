@@ -150,20 +150,22 @@ dynamic build(BuildContext context) {
   print('CustomPaint with ValueKey created');
 
   print('D4rtCustomPainter proxy test completed');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('D4rtCustomPainter Proxy Tests'),
-      SizedBox(height: 8.0),
-      widget1,
-      SizedBox(height: 8.0),
-      widget2,
-      SizedBox(height: 8.0),
-      widget3,
-      SizedBox(height: 8.0),
-      widget4,
-      SizedBox(height: 8.0),
-      widget5,
-    ],
+  return SingleChildScrollView(
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text('D4rtCustomPainter Proxy Tests'),
+        SizedBox(height: 8.0),
+        widget1,
+        SizedBox(height: 8.0),
+        widget2,
+        SizedBox(height: 8.0),
+        widget3,
+        SizedBox(height: 8.0),
+        widget4,
+        SizedBox(height: 8.0),
+        widget5,
+      ],
+    ),
   );
 }

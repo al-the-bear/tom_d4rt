@@ -190,22 +190,24 @@ dynamic build(BuildContext context) {
   print('CustomSingleChildLayout with decorated child created');
 
   print('D4rtSingleChildLayoutDelegate proxy test completed');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('D4rtSingleChildLayoutDelegate Proxy Tests'),
-      SizedBox(height: 8.0),
-      SizedBox(width: 200.0, height: 120.0, child: widget1),
-      SizedBox(height: 8.0),
-      SizedBox(width: 200.0, height: 100.0, child: widget2),
-      SizedBox(height: 8.0),
-      SizedBox(width: 200.0, height: 80.0, child: widget3),
-      SizedBox(height: 8.0),
-      SizedBox(width: 200.0, height: 70.0, child: widget4),
-      SizedBox(height: 8.0),
-      SizedBox(width: 180.0, height: 100.0, child: widget6),
-      SizedBox(height: 8.0),
-      SizedBox(width: 200.0, height: 100.0, child: widget7),
-    ],
+  return SingleChildScrollView(
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text('D4rtSingleChildLayoutDelegate Proxy Tests'),
+        SizedBox(height: 8.0),
+        SizedBox(width: 200.0, height: 120.0, child: widget1),
+        SizedBox(height: 8.0),
+        SizedBox(width: 200.0, height: 100.0, child: widget2),
+        SizedBox(height: 8.0),
+        SizedBox(width: 200.0, height: 80.0, child: widget3),
+        SizedBox(height: 8.0),
+        SizedBox(width: 200.0, height: 70.0, child: widget4),
+        SizedBox(height: 8.0),
+        SizedBox(width: 180.0, height: 100.0, child: widget6),
+        SizedBox(height: 8.0),
+        SizedBox(width: 200.0, height: 100.0, child: widget7),
+      ],
+    ),
   );
 }

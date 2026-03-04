@@ -225,7 +225,7 @@ dynamic build(BuildContext context) {
           Text('• PageRouteBuilder - custom transitions'),
           Text('• RouteSettings - route configuration'),
           SizedBox(height: 16.0),
-          Container(height: 200.0, child: navigatorTest),
+          Container(height: 400.0, child: navigatorTest),
         ],
       ),
     ),

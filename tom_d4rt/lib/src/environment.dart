@@ -185,16 +185,27 @@ class Environment {
       // toBridgedClass failed - try using isAssignable
       // This handles cases like Curves.linear returning a _Linear (private class)
       // that should be bridged using the Curve (public supertype) bridge.
+      //
+      // We iterate through ALL registered bridges and keep the LAST match.
+      // Since bridges are registered from general to specific (foundation →
+      // widgets → material → cupertino), the last matching bridge is the most
+      // specific one. For example, if both Diagnosticable and
+      // CupertinoTextThemeData match, CupertinoTextThemeData (registered later)
+      // is preferred because it has the relevant getters/methods.
+      BridgedClass? bestMatch;
       Environment? current = this;
       while (current != null) {
         for (final entry in current._bridgedClassesLookupByType.entries) {
           final bridge = entry.value;
           if (bridge.isAssignable != null &&
               bridge.isAssignable!(nativeObject)) {
-            return BridgedInstance(bridge, nativeObject);
+            bestMatch = bridge;
           }
         }
         current = current._enclosing;
+      }
+      if (bestMatch != null) {
+        return BridgedInstance(bestMatch, nativeObject);
       }
       // No bridge found via isAssignable either, rethrow
       rethrow;

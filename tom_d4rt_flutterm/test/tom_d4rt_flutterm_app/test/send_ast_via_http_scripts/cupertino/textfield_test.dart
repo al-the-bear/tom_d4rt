@@ -382,10 +382,12 @@ dynamic build(BuildContext context) {
   print('Cupertino text field test completed');
 
   // Return a visual representation
-  return CupertinoApp(
-    debugShowCheckedModeBanner: false,
-    home: CupertinoPageScaffold(
-      child: SafeArea(
+  return CupertinoTheme(
+    data: CupertinoThemeData(),
+    child: Directionality(
+      textDirection: TextDirection.ltr,
+      child: MediaQuery(
+        data: MediaQueryData(),
         child: SingleChildScrollView(
           padding: EdgeInsets.all(16.0),
           child: Column(

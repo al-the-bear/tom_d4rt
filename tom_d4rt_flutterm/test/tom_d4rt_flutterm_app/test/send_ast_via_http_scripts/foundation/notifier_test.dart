@@ -196,11 +196,12 @@ dynamic build(BuildContext context) {
 
   return Directionality(
     textDirection: TextDirection.ltr,
-    child: Container(
-      padding: EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+    child: SingleChildScrollView(
+      child: Container(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
           Text(
             'Foundation Notifiers',
             style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
@@ -326,6 +327,7 @@ dynamic build(BuildContext context) {
           Text('• Implemented by ValueNotifier'),
         ],
       ),
+    ),
     ),
   );
 }

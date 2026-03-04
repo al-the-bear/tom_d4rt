@@ -166,22 +166,24 @@ dynamic build(BuildContext context) {
   print('CustomScrollView with SliverFillRemaining created');
 
   print('SliverWidgets test completed');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('Sliver Widgets Tests'),
-      SizedBox(height: 4.0),
-      SizedBox(height: 260.0, child: fixedExtentSliver),
-      SizedBox(height: 4.0),
-      SizedBox(height: 250.0, child: fixedExtent2),
-      SizedBox(height: 4.0),
-      SizedBox(height: 200.0, child: fillViewport),
-      SizedBox(height: 4.0),
-      SizedBox(height: 200.0, child: fillViewportPartial),
-      SizedBox(height: 4.0),
-      SizedBox(height: 200.0, child: persistentConcept),
-      SizedBox(height: 4.0),
-      SizedBox(height: 150.0, child: fillRemaining),
-    ],
+  return SingleChildScrollView(
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text('Sliver Widgets Tests'),
+        SizedBox(height: 4.0),
+        SizedBox(height: 260.0, child: fixedExtentSliver),
+        SizedBox(height: 4.0),
+        SizedBox(height: 250.0, child: fixedExtent2),
+        SizedBox(height: 4.0),
+        SizedBox(height: 200.0, child: fillViewport),
+        SizedBox(height: 4.0),
+        SizedBox(height: 200.0, child: fillViewportPartial),
+        SizedBox(height: 4.0),
+        SizedBox(height: 200.0, child: persistentConcept),
+        SizedBox(height: 4.0),
+        SizedBox(height: 150.0, child: fillRemaining),
+      ],
+    ),
   );
 }

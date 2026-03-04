@@ -165,23 +165,25 @@ dynamic build(BuildContext context) {
   print('Nested ClipRect + ClipPath created');
 
   print('D4rtCustomClipper proxy test completed');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('D4rtCustomClipper Proxy Tests'),
-      SizedBox(height: 8.0),
-      widget1,
-      SizedBox(height: 8.0),
-      widget2,
-      SizedBox(height: 8.0),
-      Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [widget3, SizedBox(width: 8.0), widget4],
-      ),
-      SizedBox(height: 8.0),
-      widget5,
-      SizedBox(height: 8.0),
-      widget6,
-    ],
+  return SingleChildScrollView(
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text('D4rtCustomClipper Proxy Tests'),
+        SizedBox(height: 8.0),
+        widget1,
+        SizedBox(height: 8.0),
+        widget2,
+        SizedBox(height: 8.0),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [widget3, SizedBox(width: 8.0), widget4],
+        ),
+        SizedBox(height: 8.0),
+        widget5,
+        SizedBox(height: 8.0),
+        widget6,
+      ],
+    ),
   );
 }
