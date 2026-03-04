@@ -2,6 +2,7 @@
 
 **Priority: SECONDARY**
 **Total classes: ~1,573**
+**Covered so far: ~512 classes in 89 scripts (Batches 1-3)**
 
 Specialized classes for advanced use cases - test after essential and important classes.
 
@@ -50,7 +51,75 @@ Specialized classes for advanced use cases - test after essential and important 
 | widgets | restorable_values_test.dart | RestorableInt, RestorableIntN, RestorableDouble, RestorableDoubleN, RestorableBool, RestorableBoolN, RestorableString, RestorableStringN, RestorableDateTime, RestorableDateTimeN, RestorableTextEditingController | CREATED |
 | widgets | scrollbar_layout_misc_test.dart | PageStorageKey, TraversalDirection, NumericFocusOrder, LexicalFocusOrder, SizeChangedLayoutNotification, OrientationBuilder, FocusTraversalGroup, OrderedTraversalPolicy | CREATED |
 
-**Test harness:** `test/secondary_classes_test.dart` (38 tests)
+---
+
+## Batch 2 Progress (29 scripts created — widgets + material)
+
+| Package | Script | Classes Covered | Status |
+|---------|--------|-----------------|--------|
+| widgets | scroll_behavior_test.dart | ScrollConfiguration, ScrollBehavior, MaterialScrollBehavior, PrimaryScrollController, PageStorage, PageStorageBucket, ScrollViewKeyboardDismissBehavior (7) | CREATED |
+| widgets | scroll_metrics_test.dart | FixedScrollMetrics, ScrollDirection, ScrollIncrementDetails, ScrollIncrementType, ScrollNotification types (9) | CREATED |
+| widgets | sliver_advanced_test.dart | SliverAnimatedList, SliverAnimatedOpacity, SliverLayoutBuilder, SliverPrototypeExtentList, SliverReorderableList, ReorderableDragStartListener (6) | CREATED |
+| widgets | display_feature_test.dart | DisplayFeature types (4) | CREATED |
+| widgets | restoration_scope_test.dart | RestorationScope, RootRestorationScope, RestorableNum, RestorableNumN (8) | CREATED |
+| widgets | undo_history_test.dart | UndoHistoryController, UndoHistoryValue (2) | CREATED |
+| widgets | actions_intents_test.dart | SelectIntent, NextFocusIntent, PreviousFocusIntent, DirectionalFocusIntent, PrioritizedIntents, ActionDispatcher, actions (11) | CREATED |
+| widgets | text_selection_widgets_test.dart | TextSelectionTheme, TextSelectionThemeData, TextSelectionHandleType (3) | CREATED |
+| widgets | autofill_context_test.dart | AutofillGroup, AutofillHints, AutofillContextAction (3) | CREATED |
+| widgets | context_menu_test.dart | AdaptiveTextSelectionToolbar, ContextMenuButtonItem, ContextMenuButtonType, TextSelectionToolbarAnchors (5) | CREATED |
+| widgets | text_magnifier_test.dart | MagnifierDecoration, MagnifierController, TextMagnifierConfiguration (3) | CREATED |
+| widgets | notification_locale_test.dart | SizeChangedLayoutNotifier, DefaultWidgetsLocalizations, NotificationListener, KeepAlive (4) | CREATED |
+| widgets | focus_traversal_advanced_test.dart | traversal policies, focus orders, TraversalDirection (7) | CREATED |
+| widgets | raw_widgets_test.dart | RawScrollbar, DefaultAssetBundle, PopScope, ValueNotifier/InheritedNotifier (5) | CREATED |
+| widgets | editable_text_misc_test.dart | EditableText, SpellCheckConfiguration, TextInputType, TextCapitalization (4) | CREATED |
+| material | input_borders_test.dart | InputDecorationTheme, OutlineInputBorder, UnderlineInputBorder, FloatingLabelBehavior, FloatingLabelAlignment (6) | CREATED |
+| material | button_types_test.dart | MaterialType, ButtonBar, ButtonBarThemeData, ButtonTextTheme, ButtonBarLayoutBehavior, ThemeDataTween (6) | CREATED |
+| material | scaffold_advanced_test.dart | FloatingActionButtonAnimator, MaterialBanner, SnackBar, DismissDirection (4) | CREATED |
+| material | tab_indicator_test.dart | UnderlineTabIndicator, TabBarIndicatorSize, TabAlignment (4) | CREATED |
+| material | popup_advanced_test.dart | CheckedPopupMenuItem, PopupMenuDivider, PopupMenuThemeData, PopupMenuPosition (5) | CREATED |
+| material | autocomplete_datepicker_test.dart | Autocomplete, RawAutocomplete, DatePickerMode, RestorableTimeOfDay (4) | CREATED |
+| material | chip_attributes_test.dart | RawChip, Chip advanced, ChipTheme (3) | CREATED |
+| material | color_scheme_test.dart | ColorScheme, MaterialColor, MaterialAccentColor (3) | CREATED |
+| material | dialog_advanced_test.dart | SimpleDialog, SimpleDialogOption, DialogThemeData, AlertDialog (4) | CREATED |
+| material | divider_listtile_test.dart | Divider, VerticalDivider, DividerThemeData, ListTileStyle, ListTileThemeData (7) | CREATED |
+| material | menu_advanced_test.dart | MenuStyle, MenuThemeData, MenuItemButton, SubmenuButton, MenuAnchor (5) | CREATED |
+| material | progress_sheet_test.dart | LinearProgressIndicator, CircularProgressIndicator, ProgressIndicatorThemeData, BottomSheetThemeData (5) | CREATED |
+| material | tooltip_feedback_test.dart | Tooltip, TooltipThemeData, TooltipTriggerMode, InkResponse, Feedback (5) | CREATED |
+| material | expansion_stepper_test.dart | ExpansionTile, StepState, StepperType, Step, Stepper (6) | CREATED |
+
+---
+
+## Batch 3 Progress (22 scripts created — cupertino, rendering, gestures, services, dart:ui, semantics, painting, material)
+
+| Package | Script | Classes Covered | Status |
+|---------|--------|-----------------|--------|
+| cupertino | cupertino_nav_segmented_test.dart | CupertinoSliverNavigationBar, CupertinoNavigationBarBackButtonMode, CupertinoSlidingSegmentedControl, CupertinoSegmentedControl (4) | CREATED |
+| cupertino | cupertino_form_scroll_test.dart | CupertinoTextFormFieldRow, CupertinoListTile, CupertinoListTileChevron, CupertinoScrollbar, CupertinoPopupSurface, CupertinoContextMenuAction (6) | CREATED |
+| cupertino | cupertino_controls_advanced_test.dart | CupertinoSwitch, CupertinoSlider, CupertinoActivityIndicator, CupertinoSearchTextField, OverlayVisibilityMode (5) | CREATED |
+| cupertino | cupertino_picker_advanced_test.dart | CupertinoPicker, CupertinoTimerPicker, CupertinoTimerPickerMode, CupertinoDatePickerMode, CupertinoDatePicker, CupertinoPickerDefaultSelectionOverlay (6) | CREATED |
+| cupertino | cupertino_theming_test.dart | CupertinoDynamicColor (15 colors), CupertinoThemeData, CupertinoTextThemeData, CupertinoTheme (~19) | CREATED |
+| cupertino | cupertino_sections_test.dart | CupertinoFormSection, CupertinoListSection, CupertinoListTile.notched (5) | CREATED |
+| rendering | render_box_types_test.dart | RenderPadding, RenderPositionedBox, RenderConstrainedBox, BoxConstraints, RenderFlex, BoxParentData (6) | CREATED |
+| rendering | render_pointer_test.dart | RenderAbsorbPointer, RenderIgnorePointer, RenderRepaintBoundary, RenderOffstage, BoxHitTestResult, AnnotationEntry, AnnotationResult (7) | CREATED |
+| rendering | layer_types_test.dart | ContainerLayer, OffsetLayer, LeaderLayer, FollowerLayer, LayerLink, LayerHandle (6) | CREATED |
+| rendering | render_composite_test.dart | StackFit, Clip, PhysicalModel, AnimatedOpacity, Stack, IndexedStack (6) | CREATED |
+| gestures | velocity_drag_test.dart | VelocityEstimate, VelocityTracker, IOSScrollViewFlingVelocityTracker, DragStartBehavior, DragDown/Start/Update/EndDetails, LongPressStart/MoveUpdate/EndDetails (11) | CREATED |
+| gestures | tap_force_test.dart | TapDownDetails, TapUpDetails, ForcePressDetails, PointerDeviceKind, GestureDisposition, Velocity, ScaleStartDetails, ScaleUpdateDetails (8) | CREATED |
+| services | services_advanced_test.dart | LogicalKeyboardKey extended, PhysicalKeyboardKey, HapticFeedback, SystemChrome, SystemUiOverlayStyle, SystemUiMode, DeviceOrientation, SystemNavigator, LengthLimitingTextInputFormatter, FilteringTextInputFormatter, MaxLengthEnforcement (11) | CREATED |
+| services | platform_channels_test.dart | MethodChannel, OptionalMethodChannel, BasicMessageChannel, EventChannel, StringCodec, JSONMessageCodec, StandardMessageCodec, StandardMethodCodec, MethodCall, PlatformException, MissingPluginException, BinaryCodec (12) | CREATED |
+| dart_ui | dart_ui_advanced_test.dart | SemanticsAction, SemanticsFlag, FontFeature, FontVariation, Locale, TextDecoration (6+) | CREATED |
+| dart_ui | dart_ui_paint_canvas_test.dart | BlendMode, FilterQuality, StrokeCap, StrokeJoin, PathFillType, BlurStyle, TileMode, Clip, PointMode, PaintingStyle, Paint, MaskFilter, Path (13) | CREATED |
+| semantics | semantics_events_test.dart | AnnounceSemanticsEvent, TooltipSemanticsEvent, LongPressSemanticsEvent, TapSemanticEvent, Assertiveness, SemanticsService, CustomSemanticsAction, OrdinalSortKey (8) | CREATED |
+| semantics | semantics_config_test.dart | SemanticsConfiguration, Semantics, MergeSemantics, ExcludeSemantics, BlockSemantics, SemanticsDebugger (6) | CREATED |
+| painting | advanced_decorations_test.dart | ImageFilter, ColorFilter, SweepGradient, RadialGradient, TextHeightBehavior, TextLeadingDistribution, StrutStyle, TextSpan, WidgetSpan, PlaceholderAlignment (10) | CREATED |
+| material | nav_badge_advanced_test.dart | Badge, BadgeThemeData, NavigationDrawer, NavigationDrawerDestination, NavigationDrawerThemeData, NavigationRailLabelType, NavigationRailThemeData (7) | CREATED |
+| material | search_filled_test.dart | SearchController, SearchBarThemeData, SearchViewThemeData, FilledButton variants, FilledButtonThemeData, OutlinedButton.icon, TextButton.icon (9) | CREATED |
+| material | themes_advanced_test.dart | BottomNavigationBarType, BottomNavigationBarThemeData, BottomNavigationBarLandscapeLayout, AppBarTheme, DrawerThemeData, IconButtonThemeData, FloatingActionButtonThemeData (7) | CREATED |
+
+---
+
+**Test harness:** `test/secondary_classes_test.dart` (89 tests total: 38 batch 1 + 29 batch 2 + 22 batch 3)
+**Total classes covered:** ~512 (target: 500 ✅)
 **Requires:** Test app running on port 4247
 
 ---
