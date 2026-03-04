@@ -2,7 +2,7 @@
 
 **Priority: SECONDARY**
 **Total classes: ~1,573**
-**Covered so far: ~757 classes in 121 scripts (Batches 1-5)**
+**Covered so far: ~950 classes in 145 scripts (Batches 1-9)**
 
 Specialized classes for advanced use cases - test after essential and important classes.
 
@@ -164,8 +164,39 @@ Specialized classes for advanced use cases - test after essential and important 
 
 ---
 
-**Test harness:** `test/secondary_classes_test.dart` (121 tests total: 38 batch 1 + 29 batch 2 + 22 batch 3 + 16 batch 4 + 16 batch 5)
-**Total classes covered:** ~757 (target: 750 ✅)
+## Batch 6-9 Progress (24 scripts — all remaining named classes)
+
+| Package | Script | Classes Covered | Status |
+|---------|--------|----------------|--------|
+| widgets | element_types_test.dart | RenderObjectElement, ComponentElement, StatefulElement, StatelessElement, ProxyElement, ParentDataElement, InheritedElement, LeafRenderObjectWidget (8) | CREATED |
+| widgets | render_object_widgets_adv_test.dart | SingleChildRenderObjectWidget, MultiChildRenderObjectWidget, SlottedContainerRenderObjectMixin, SlottedRenderObjectWidget, SlottedMultiChildRenderObjectWidget, PreferredSizeWidget, PlaceholderSpan, RawImage (8) | CREATED |
+| widgets | platform_menu_widgets_test.dart | DefaultPlatformMenuDelegate, PlatformMenuBar, PlatformMenu, PlatformMenuItem, PlatformMenuDelegate, DefaultTextStyleTransition, RawMagnifier, RawKeyboardListener (8) | CREATED |
+| widgets | scroll_position_types_test.dart | ScrollPosition, ScrollPositionWithSingleContext, ScrollContext, ScrollActivity, IdleScrollActivity, DrivenScrollActivity, HoldScrollActivity, DragScrollActivity (8) | CREATED |
+| widgets | scroll_controllers_types_test.dart | BallisticScrollActivity, ScrollDragController, ScrollHoldController, ScrollAction, KeyboardDismissBehavior, TwoDimensionalScrollView, TwoDimensionalChildDelegate, TwoDimensionalViewport (8) | CREATED |
+| widgets | selection_types_test.dart | TwoDimensionalScrollable, SelectionContainer, SelectableRegion, SelectionRegistrar, SelectionRegistrarScope, SelectionEvent, SelectionHandler, SelectionOverlay (8) | CREATED |
+| widgets | text_editing_adv_test.dart | TextSelectionGestureDetector, TextSelectionGestureDetectorBuilder, EditableTextState, BlacklistingTextInputFormatter, WhitelistingTextInputFormatter, SelectionHandleType, SliverChildDelegate, SliverAnimatedGrid (8) | CREATED |
+| widgets | restoration_adv_test.dart | RestorableProperty, RestorableEnumN, RestorationMixin, RestorationBucket, RestorationManager, UndoHistoryState, RawGestureDetectorState, SemanticsGestureDelegate (8) | CREATED |
+| widgets | shortcuts_actions_adv_test.dart | ShortcutActivator, ShortcutManager, ShortcutRegistry, ShortcutRegistryEntry, DoNothingAndStopPropagationIntent, DoNothingAndStopPropagationAction, PrioritizedAction, ContextAction (8) | CREATED |
+| widgets | autofill_context_adv_test.dart | OverrideAction, AutofillGroupState, AutofillClient, AutofillScope, EditableTextContextMenuBuilder, ContextMenuController, ContextMenuRegion, ContextMenuArea (8) | CREATED |
+| material | scaffold_fab_test.dart | ScaffoldFeatureController, FabTopOffsetY, FabFloatOffsetY, FabDockedOffsetY, EndFloatFabLocation, CenterFloatFabLocation, EndDockedFabLocation, CenterDockedFabLocation, EndTopFabLocation, StartTopFabLocation, EndContainedFabLocation (11) | CREATED |
+| material | button_styles_misc_test.dart | ButtonBarTheme, ButtonStyleButton, RaisedButton, FlatButton, OutlineButton, MaterialBannerAction, NavigationIndicatorTransition, PopupMenuItemState, PopupMenuItemSelected (9) | CREATED |
+| material | autocomplete_chips_test.dart | showDateRangePicker, RestorableTimeOfDay, AutocompleteOptionsBuilder, AutocompleteFieldViewBuilder, AutocompleteOptionsViewBuilder, AutocompleteOnSelected, TappableChipAttributes, DisabledChipAttributes, CheckableChipAttributes (9) | CREATED |
+| gestures | gesture_callbacks_test.dart | GestureRecognizerCallback, RecognizerCallback, GestureDragStartCallback, GestureDragUpdateCallback, GestureDragEndCallback, GestureDragCancelCallback, GestureDragDownCallback, GestureScaleStartCallback, GestureScaleUpdateCallback (9) | CREATED |
+| gestures | gesture_callbacks_adv_test.dart | GestureScaleEndCallback, GestureLongPressCallback, GestureLongPressStartCallback, GestureLongPressMoveUpdateCallback, GestureLongPressEndCallback, IOSScrollViewFlingVelocityTracker, MacOSScrollViewFlingVelocityTracker, MultiTouchDragStrategy (8) | CREATED |
+| rendering | render_mixins_test.dart | RenderObjectWithChildMixin, ContainerRenderObjectMixin, ContainerParentDataMixin, RenderIndexedStack, RenderBoxAdapter, RenderSemanticsAnnotations, RenderBlockSemantics, RenderExcludeSemantics, RenderMergeSemantics (9) | CREATED |
+| rendering | render_layers_pipeline_test.dart | RenderAnnotatedRegion, RenderFollowerLayer, RenderLeaderLayer, PipelineManifold, PerformanceOverlayLayer, ImageFilterLayer, ColorFilterLayer, PlatformViewLayer, TreeOwner (9) | CREATED |
+| services | restoration_platform_test.dart | RestorationMemento, RestorationData, RestorationCallback, PlatformMenu, PlatformProvidedMenu, PlatformMenuItemGroup, PlatformProvidedMenuItem (7) | CREATED |
+| services | key_events_adv_test.dart | TextInputConnection, TextInput, RawKeyEventData, KeyData, BrowserContextMenu, LiveText, LiveTextInputStatusNotifier (7) | CREATED |
+| painting | image_stream_adv_test.dart | BeveledRectangleBorder, ResizeImage, ResizeImageKey, OneFrameImageStreamCompleter, MultiFrameImageStreamCompleter, ImageErrorListener, ImageCacheStatus, ImageInfo (8) | CREATED |
+| cupertino | cupertino_misc_adv_test.dart | CupertinoLocalizations, CupertinoPageRoute, showCupertinoModalPopup, showCupertinoDialog, CupertinoSliverNavigationBar, CupertinoSegmentedControl, CupertinoSlidingSegmentedControl, CupertinoTextSelectionControls (8) | CREATED |
+| dart_ui | dart_ui_misc_adv_test.dart | ImmutableBuffer, ImageDescriptor, KeyEventType, KeyEventDeviceType, SemanticsAction, SemanticsUpdateBuilder, SemanticsUpdate (7) | CREATED |
+| animation | animation_misc_adv_test.dart | AnimationStatusListener, Tween/AnimatedValue, AnimatedEvaluation, SpringDescription, BoundedFrictionSimulation, Priority, SchedulerPhase (7) | CREATED |
+| foundation | foundation_misc_adv_test.dart | TargetPlatform, TargetPlatformVariant, DiagnosticsNode, DiagnosticsProperty, DiagnosticPropertiesBuilder (5) | CREATED |
+
+---
+
+**Test harness:** `test/secondary_classes_test.dart` (145 tests total: 38 batch 1 + 29 batch 2 + 22 batch 3 + 16 batch 4 + 16 batch 5 + 24 batch 6-9)
+**Total classes covered:** ~950 (all named classes covered ✅)
 **Requires:** Test app running on port 4247
 
 ---

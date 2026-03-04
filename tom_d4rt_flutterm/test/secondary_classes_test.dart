@@ -11,7 +11,7 @@
 /// Tests are organized by Flutter package and test the bridged classes
 /// listed in testplan_secondary.md.
 ///
-/// Total: 121 test scripts (~757 classes)
+/// Total: 145 test scripts (~950 classes)
 ///   Batch 1: 38 scripts (~186 classes)
 ///   Batch 2: 29 scripts (~148 classes) — widgets + material
 ///   Batch 3: 22 scripts (~178 classes) — cupertino, rendering, gestures,
@@ -19,6 +19,7 @@
 ///   Batch 4: 16 scripts (~120 classes) — widgets, material, cupertino, rendering
 ///   Batch 5: 16 scripts (~125 classes) — widgets, material, cupertino, rendering,
 ///            services, dart:ui
+///   Batch 6-9: 24 scripts (~193 classes) — all remaining named classes
 @TestOn('vm')
 library;
 
@@ -55,6 +56,14 @@ void main() {
     test('animation_status_test.dart', () async {
       final result = await SendTestRunner.send(
         'animation/animation_status_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    // --- Batch 6-9 ---
+    test('animation_misc_adv_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'animation/animation_misc_adv_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -144,6 +153,14 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
+
+    // --- Batch 6-9 ---
+    test('cupertino_misc_adv_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'cupertino/cupertino_misc_adv_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
   });
 
   // ============================================================
@@ -175,6 +192,14 @@ void main() {
     test('dart_ui_image_codec_test.dart', () async {
       final result = await SendTestRunner.send(
         'dart_ui/dart_ui_image_codec_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    // --- Batch 6-9 ---
+    test('dart_ui_misc_adv_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'dart_ui/dart_ui_misc_adv_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -211,6 +236,14 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
+
+    // --- Batch 6-9 ---
+    test('foundation_misc_adv_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'foundation/foundation_misc_adv_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
   });
 
   // ============================================================
@@ -235,6 +268,21 @@ void main() {
 
     test('tap_force_test.dart', () async {
       final result = await SendTestRunner.send('gestures/tap_force_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    // --- Batch 6-9 ---
+    test('gesture_callbacks_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/gesture_callbacks_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('gesture_callbacks_adv_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/gesture_callbacks_adv_test.dart',
+      );
       expect(result.success, isTrue, reason: result.error);
     });
   });
@@ -474,6 +522,28 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
+
+    // --- Batch 6-9 ---
+    test('scaffold_fab_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/scaffold_fab_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('button_styles_misc_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/button_styles_misc_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('autocomplete_chips_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/autocomplete_chips_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
   });
 
   // ============================================================
@@ -527,6 +597,14 @@ void main() {
     test('advanced_decorations_test.dart', () async {
       final result = await SendTestRunner.send(
         'painting/advanced_decorations_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    // --- Batch 6-9 ---
+    test('image_stream_adv_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'painting/image_stream_adv_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -597,6 +675,21 @@ void main() {
     test('render_sliver_types_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_sliver_types_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    // --- Batch 6-9 ---
+    test('render_mixins_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/render_mixins_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('render_layers_pipeline_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/render_layers_pipeline_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -679,6 +772,21 @@ void main() {
     // --- Batch 5 ---
     test('key_events_test.dart', () async {
       final result = await SendTestRunner.send('services/key_events_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    // --- Batch 6-9 ---
+    test('restoration_platform_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/restoration_platform_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('key_events_adv_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/key_events_adv_test.dart',
+      );
       expect(result.success, isTrue, reason: result.error);
     });
   });
@@ -966,6 +1074,77 @@ void main() {
     test('draggable_sheet_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/draggable_sheet_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    // --- Batch 6-9 ---
+    test('element_types_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/element_types_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('render_object_widgets_adv_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/render_object_widgets_adv_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('platform_menu_widgets_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/platform_menu_widgets_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('scroll_position_types_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/scroll_position_types_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('scroll_controllers_types_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/scroll_controllers_types_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('selection_types_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/selection_types_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('text_editing_adv_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/text_editing_adv_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('restoration_adv_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/restoration_adv_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('shortcuts_actions_adv_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/shortcuts_actions_adv_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('autofill_context_adv_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/autofill_context_adv_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
