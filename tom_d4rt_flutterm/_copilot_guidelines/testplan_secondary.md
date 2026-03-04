@@ -2,7 +2,7 @@
 
 **Priority: SECONDARY**
 **Total classes: ~1,573**
-**Covered so far: ~512 classes in 89 scripts (Batches 1-3)**
+**Covered so far: ~757 classes in 121 scripts (Batches 1-5)**
 
 Specialized classes for advanced use cases - test after essential and important classes.
 
@@ -118,8 +118,54 @@ Specialized classes for advanced use cases - test after essential and important 
 
 ---
 
-**Test harness:** `test/secondary_classes_test.dart` (89 tests total: 38 batch 1 + 29 batch 2 + 22 batch 3)
-**Total classes covered:** ~512 (target: 500 ✅)
+## Batch 4 Progress (16 scripts created — widgets, material, cupertino, rendering)
+
+| Package | Script | Classes Covered | Status |
+|---------|--------|-----------------|--------|
+| widgets | scroll_notifications_adv_test.dart | ScrollStartNotification, ScrollUpdateNotification, ScrollEndNotification, OverscrollNotification, UserScrollNotification, OverscrollIndicatorNotification, ScrollMetricsNotification (7) | CREATED |
+| widgets | inherited_model_test.dart | InheritedModel, InheritedWidget, InheritedNotifier, ValueListenableBuilder, ValueNotifier, ListenableBuilder, AnimatedBuilder (7) | CREATED |
+| widgets | table_wrap_flow_test.dart | Table, TableRow, TableCell, Wrap, Flow, FlowDelegate, TableBorder (7+) | CREATED |
+| widgets | overlay_portal_test.dart | OverlayPortal, OverlayPortalController, Overlay, OverlayEntry, CompositedTransformTarget, CompositedTransformFollower (6) | CREATED |
+| widgets | gesture_detector_adv_test.dart | GestureDetector advanced, DragTarget, LongPressDraggable, Draggable, DragAnchorStrategy, RawGestureDetector, GestureRecognizerFactory (7) | CREATED |
+| widgets | media_query_adv_test.dart | MediaQueryData, MediaQuery, DeviceGestureSettings, FlexibleSpaceBarSettings, Orientation, NavigatorState, NavigationMode (7) | CREATED |
+| widgets | route_observer_test.dart | RouteObserver, NavigatorObserver, RouteSettings, MaterialPageRoute advanced, RouteAware, ModalRoute, TransitionRoute (7) | CREATED |
+| widgets | interactive_viewer_test.dart | InteractiveViewer, TransformationController, Matrix4 usage, GestureRecognizer types, PointerScrollEvent, ScaleGestureRecognizer, PanGestureRecognizer, DoubleTapGestureRecognizer (8) | CREATED |
+| material | scaffold_internals_test.dart | ScaffoldMessenger, ScaffoldMessengerState, ScaffoldFeatureController, PersistentBottomSheetController, FloatingActionButtonAnimator, EndDockedFabLocation, EndFloatFabLocation (7) | CREATED |
+| material | fab_location_types_test.dart | FloatingActionButtonLocation types (startTop, miniStartTop, centerTop, endTop, startFloat, miniStartFloat, centerFloat, endFloat) (8) | CREATED |
+| material | data_table_test.dart | DataTable, DataRow, DataCell, DataColumn, PaginatedDataTable, DataTableSource, DataTableThemeData (8) | CREATED |
+| material | toggle_segmented_test.dart | ToggleButtons, SegmentedButton, ButtonSegment, ToggleButtonsThemeData, MaterialStateBorderSide, MaterialStateTextStyle, ButtonBar (7) | CREATED |
+| material | reorderable_material_test.dart | ReorderableListView, ReorderableDragStartListener, ReorderableDelayedDragStartListener, InkWell advanced, InkResponse, Material widget, MaterialType (7) | CREATED |
+| material | search_anchor_test.dart | SearchAnchor, SearchBar, SearchController, SearchBarThemeData, SearchViewThemeData, SearchAnchor.bar, DropdownMenuEntry (7) | CREATED |
+| cupertino | cupertino_refresh_mag_test.dart | CupertinoSliverRefreshControl, CupertinoMagnifier, CupertinoPageTransition, CupertinoFullscreenDialogTransition, CupertinoTabController, CupertinoTabScaffold, CupertinoTabView (7) | CREATED |
+| rendering | render_objects_misc_test.dart | CustomPaint, CustomPainter, CustomClipper<Rect>, CustomClipper<Path>, MouseRegion advanced, Listener advanced, DecoratedBox (7) | CREATED |
+
+---
+
+## Batch 5 Progress (16 scripts created — widgets, material, cupertino, rendering, services, dart_ui)
+
+| Package | Script | Classes Covered | Status |
+|---------|--------|-----------------|--------|
+| widgets | animated_widgets_adv_test.dart | AnimatedSwitcher, AnimatedCrossFade, AnimatedSize, AnimatedSlide, AnimatedRotation, AnimatedFractionallySizedBox, AnimatedPositionedDirectional, AnimatedModalBarrier (8) | CREATED |
+| widgets | form_field_test.dart | Form, TextFormField, InputDecoration advanced, OutlineInputBorder, UnderlineInputBorder, FloatingLabelBehavior, FloatingLabelAlignment, AutovalidateMode (8) | CREATED |
+| widgets | layout_builder_adv_test.dart | LayoutBuilder, OrientationBuilder, CustomMultiChildLayout, CustomSingleChildLayout, OverflowBox, SizedOverflowBox, BoxConstraints advanced (8) | CREATED |
+| widgets | page_view_tabview_test.dart | PageView, PageController, TabBarView, TabBar advanced, DefaultTabController, Tab, UnderlineTabIndicator, TabAlignment, PageScrollPhysics, PageStorageKey (8) | CREATED |
+| widgets | draggable_sheet_test.dart | DraggableScrollableSheet, DraggableScrollableController, DraggableScrollableNotification, BottomSheet, NotificationListener, BottomSheetThemeData (8) | CREATED |
+| material | bottom_app_bar_test.dart | BottomAppBar, CircularNotchedRectangle, BottomAppBarTheme, NavigationBar, NavigationDestination, NavigationBarThemeData, Badge, BadgeThemeData, NavigationDrawer, NavigationDrawerDestination (9) | CREATED |
+| material | dropdown_menu_test.dart | DropdownMenu, DropdownMenuEntry, MenuAnchor, MenuItemButton, SubmenuButton, MenuStyle, DropdownMenuThemeData (8) | CREATED |
+| material | text_field_theme_test.dart | InputDecorationTheme, TextSelectionThemeData, TextEditingController advanced, TextField advanced, MaxLengthEnforcement, SmartDashesType, SmartQuotesType, TextInputType (8) | CREATED |
+| material | card_ink_splash_test.dart | Card advanced (+.filled, .outlined), CardThemeData, Ink, InkWell with InkSplash, InkRipple, NoSplash (8) | CREATED |
+| material | dialog_bottom_sheet_test.dart | AlertDialog advanced, SimpleDialog, SimpleDialogOption, DialogThemeData, AboutDialog, LicensePage, DatePickerDialog, OverflowBarAlignment (8) | CREATED |
+| cupertino | cupertino_tabbar_scaffold_test.dart | CupertinoTabBar advanced, CupertinoScrollbar, CupertinoListSection (+.insetGrouped), CupertinoListTile (+.notched), CupertinoListTileChevron, CupertinoFormSection (+.insetGrouped), CupertinoFormRow, CupertinoTextFormFieldRow (8) | CREATED |
+| cupertino | cupertino_page_route_test.dart | CupertinoPageRoute, CupertinoPageTransitionsBuilder, CupertinoPopupSurface, CupertinoAlertDialog, CupertinoDialogAction, CupertinoActionSheet, CupertinoActionSheetAction, CupertinoContextMenu, CupertinoContextMenuAction (8) | CREATED |
+| cupertino | cupertino_colors_system_test.dart | CupertinoColors (system/semantic colors), CupertinoDynamicColor, CupertinoThemeData advanced, CupertinoTextThemeData, CupertinoSlidingSegmentedControl, CupertinoSegmentedControl (8) | CREATED |
+| rendering | render_sliver_types_test.dart | SliverPersistentHeader, SliverPersistentHeaderDelegate, SliverAppBar advanced (+.medium, .large), FlexibleSpaceBar, CollapseMode, StretchMode, SliverLayoutBuilder, SliverAnimatedList, SliverFixedExtentList (8) | CREATED |
+| services | key_events_test.dart | LogicalKeyboardKey, PhysicalKeyboardKey, HardwareKeyboard, LogicalKeySet, SingleActivator, CharacterActivator, KeyboardListener, Shortcuts + Actions + Intent types (8) | CREATED |
+| dart_ui | dart_ui_image_codec_test.dart | PictureRecorder, Canvas operations, Picture, ParagraphBuilder, ParagraphStyle, Paragraph, Paint advanced, BlendMode, StrokeCap, StrokeJoin (8) | CREATED |
+
+---
+
+**Test harness:** `test/secondary_classes_test.dart` (121 tests total: 38 batch 1 + 29 batch 2 + 22 batch 3 + 16 batch 4 + 16 batch 5)
+**Total classes covered:** ~757 (target: 750 ✅)
 **Requires:** Test app running on port 4247
 
 ---
