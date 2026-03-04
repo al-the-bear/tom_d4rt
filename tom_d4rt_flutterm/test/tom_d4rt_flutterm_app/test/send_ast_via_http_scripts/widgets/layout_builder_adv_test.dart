@@ -128,7 +128,12 @@ dynamic build(BuildContext context) {
 
   // ========== BoxConstraints advanced ==========
   print('--- BoxConstraints Tests ---');
-  final c1 = BoxConstraints(minWidth: 0, maxWidth: 300, minHeight: 0, maxHeight: 500);
+  final c1 = BoxConstraints(
+    minWidth: 0,
+    maxWidth: 300,
+    minHeight: 0,
+    maxHeight: 500,
+  );
   print('BoxConstraints: $c1');
   final c2 = BoxConstraints.tight(Size(100, 200));
   print('BoxConstraints.tight: $c2');
@@ -171,18 +176,25 @@ dynamic build(BuildContext context) {
 class TestMultiChildLayoutDelegate extends MultiChildLayoutDelegate {
   @override
   void performLayout(Size size) {
-    final headerSize = layoutChild('header',
-        BoxConstraints.tightFor(width: size.width, height: 50));
+    final headerSize = layoutChild(
+      'header',
+      BoxConstraints.tightFor(width: size.width, height: 50),
+    );
     positionChild('header', Offset.zero);
 
-    final footerSize = layoutChild('footer',
-        BoxConstraints.tightFor(width: size.width, height: 50));
+    final footerSize = layoutChild(
+      'footer',
+      BoxConstraints.tightFor(width: size.width, height: 50),
+    );
     positionChild('footer', Offset(0, size.height - footerSize.height));
 
-    layoutChild('body', BoxConstraints.tightFor(
-      width: size.width,
-      height: size.height - headerSize.height - footerSize.height,
-    ));
+    layoutChild(
+      'body',
+      BoxConstraints.tightFor(
+        width: size.width,
+        height: size.height - headerSize.height - footerSize.height,
+      ),
+    );
     positionChild('body', Offset(0, headerSize.height));
   }
 

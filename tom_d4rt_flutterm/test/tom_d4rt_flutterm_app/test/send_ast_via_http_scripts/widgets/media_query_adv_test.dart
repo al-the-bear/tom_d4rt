@@ -54,7 +54,9 @@ dynamic build(BuildContext context) {
   // ========== DeviceGestureSettings ==========
   print('--- DeviceGestureSettings Tests ---');
   final gestureSettings = DeviceGestureSettings(touchSlop: 18.0);
-  print('DeviceGestureSettings created: touchSlop=${gestureSettings.touchSlop}');
+  print(
+    'DeviceGestureSettings created: touchSlop=${gestureSettings.touchSlop}',
+  );
 
   final gestureSettingsPan = DeviceGestureSettings(touchSlop: 36.0);
   print('DeviceGestureSettings pan: touchSlop=${gestureSettingsPan.touchSlop}');
@@ -67,10 +69,7 @@ dynamic build(BuildContext context) {
 
   // ========== MediaQuery widget ==========
   print('--- MediaQuery Widget Tests ---');
-  final mediaQuery = MediaQuery(
-    data: mqData,
-    child: Text('Media Query'),
-  );
+  final mediaQuery = MediaQuery(data: mqData, child: Text('Media Query'));
   print('MediaQuery widget created');
 
   final removeViewPaddingQuery = MediaQuery.removePadding(
@@ -105,9 +104,5 @@ dynamic build(BuildContext context) {
   print('All media query tests passed');
 
   // ========== RETURN WIDGET ==========
-  return MaterialApp(
-    home: Scaffold(
-      body: mediaQuery,
-    ),
-  );
+  return MaterialApp(home: Scaffold(body: mediaQuery));
 }

@@ -30,9 +30,18 @@ dynamic build(BuildContext context) {
     clipBehavior: Clip.hardEdge,
     allowImplicitScrolling: false,
     children: [
-      Container(color: Colors.red, child: Center(child: Text('Page 1'))),
-      Container(color: Colors.green, child: Center(child: Text('Page 2'))),
-      Container(color: Colors.blue, child: Center(child: Text('Page 3'))),
+      Container(
+        color: Colors.red,
+        child: Center(child: Text('Page 1')),
+      ),
+      Container(
+        color: Colors.green,
+        child: Center(child: Text('Page 2')),
+      ),
+      Container(
+        color: Colors.blue,
+        child: Center(child: Text('Page 3')),
+      ),
     ],
   );
   print('PageView created');
@@ -129,8 +138,16 @@ dynamic build(BuildContext context) {
   print('--- Tab Tests ---');
   final tab1 = Tab(text: 'Text Tab');
   final tab2 = Tab(icon: Icon(Icons.star));
-  final tab3 = Tab(text: 'Both', icon: Icon(Icons.favorite), iconMargin: EdgeInsets.only(bottom: 4));
-  final tab4 = Tab(child: Row(children: [Icon(Icons.info), SizedBox(width: 4), Text('Custom')]));
+  final tab3 = Tab(
+    text: 'Both',
+    icon: Icon(Icons.favorite),
+    iconMargin: EdgeInsets.only(bottom: 4),
+  );
+  final tab4 = Tab(
+    child: Row(
+      children: [Icon(Icons.info), SizedBox(width: 4), Text('Custom')],
+    ),
+  );
   print('Tab widgets created: 4 variants');
 
   // ========== UnderlineTabIndicator ==========
@@ -156,7 +173,5 @@ dynamic build(BuildContext context) {
   print('All page view / tab view tests passed');
 
   // ========== RETURN WIDGET ==========
-  return MaterialApp(
-    home: tabScaffold,
-  );
+  return MaterialApp(home: tabScaffold);
 }

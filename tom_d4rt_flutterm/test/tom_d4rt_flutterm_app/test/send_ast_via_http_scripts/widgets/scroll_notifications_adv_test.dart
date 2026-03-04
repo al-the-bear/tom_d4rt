@@ -41,10 +41,7 @@ dynamic build(BuildContext context) {
 
   // ========== ScrollEndNotification ==========
   print('--- ScrollEndNotification Tests ---');
-  final endNotif = ScrollEndNotification(
-    metrics: metrics,
-    context: context,
-  );
+  final endNotif = ScrollEndNotification(metrics: metrics, context: context);
   print('ScrollEndNotification created');
   print('  depth: ${endNotif.depth}');
 
@@ -97,9 +94,7 @@ dynamic build(BuildContext context) {
         },
         child: ListView.builder(
           itemCount: 50,
-          itemBuilder: (context, index) => ListTile(
-            title: Text('Item $index'),
-          ),
+          itemBuilder: (context, index) => ListTile(title: Text('Item $index')),
         ),
       ),
     ),

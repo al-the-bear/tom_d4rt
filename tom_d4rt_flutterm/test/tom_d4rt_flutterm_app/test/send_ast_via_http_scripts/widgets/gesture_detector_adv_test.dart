@@ -40,9 +40,12 @@ dynamic build(BuildContext context) {
   );
   print('LongPressGestureRecognizer created');
   longPress.onLongPress = () => print('  long press triggered');
-  longPress.onLongPressStart = (details) => print('  start: ${details.globalPosition}');
-  longPress.onLongPressMoveUpdate = (details) => print('  move: ${details.globalPosition}');
-  longPress.onLongPressEnd = (details) => print('  end: ${details.globalPosition}');
+  longPress.onLongPressStart = (details) =>
+      print('  start: ${details.globalPosition}');
+  longPress.onLongPressMoveUpdate = (details) =>
+      print('  move: ${details.globalPosition}');
+  longPress.onLongPressEnd = (details) =>
+      print('  end: ${details.globalPosition}');
   longPress.onLongPressUp = () => print('  long press up');
   longPress.dispose();
   print('LongPressGestureRecognizer disposed');
@@ -67,12 +70,13 @@ dynamic build(BuildContext context) {
   print('--- RawGestureDetector Tests ---');
   final rawGestureDetector = RawGestureDetector(
     gestures: <Type, GestureRecognizerFactory>{
-      TapGestureRecognizer: GestureRecognizerFactoryWithHandlers<TapGestureRecognizer>(
-        () => TapGestureRecognizer(),
-        (TapGestureRecognizer instance) {
-          instance.onTap = () => print('  raw tap');
-        },
-      ),
+      TapGestureRecognizer:
+          GestureRecognizerFactoryWithHandlers<TapGestureRecognizer>(
+            () => TapGestureRecognizer(),
+            (TapGestureRecognizer instance) {
+              instance.onTap = () => print('  raw tap');
+            },
+          ),
     },
     behavior: HitTestBehavior.translucent,
     child: Container(
@@ -88,7 +92,9 @@ dynamic build(BuildContext context) {
   print('--- GestureRecognizerFactoryWithHandlers Tests ---');
   final factory = GestureRecognizerFactoryWithHandlers<TapGestureRecognizer>(
     () => TapGestureRecognizer(),
-    (instance) { instance.onTap = () {}; },
+    (instance) {
+      instance.onTap = () {};
+    },
   );
   print('GestureRecognizerFactoryWithHandlers created');
 

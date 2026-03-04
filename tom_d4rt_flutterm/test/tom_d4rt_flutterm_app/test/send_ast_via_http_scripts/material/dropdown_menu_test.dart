@@ -47,7 +47,10 @@ dynamic build(BuildContext context) {
         style: ButtonStyle(
           foregroundColor: WidgetStateProperty.all(Colors.black),
         ),
-        labelWidget: Text('Custom Option 1', style: TextStyle(fontWeight: FontWeight.bold)),
+        labelWidget: Text(
+          'Custom Option 1',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
       DropdownMenuEntry<String>(
         value: 'opt2',
@@ -71,7 +74,9 @@ dynamic build(BuildContext context) {
     leadingIcon: Icon(Icons.star),
     enabled: true,
   );
-  print('DropdownMenuEntry created: value=${entry.value}, label=${entry.label}');
+  print(
+    'DropdownMenuEntry created: value=${entry.value}, label=${entry.label}',
+  );
 
   // ========== MenuAnchor ==========
   print('--- MenuAnchor Tests ---');
@@ -92,7 +97,10 @@ dynamic build(BuildContext context) {
       MenuItemButton(
         onPressed: () => print('  Cut'),
         leadingIcon: Icon(Icons.content_cut),
-        trailingIcon: Text('Ctrl+X', style: TextStyle(color: Colors.grey, fontSize: 12)),
+        trailingIcon: Text(
+          'Ctrl+X',
+          style: TextStyle(color: Colors.grey, fontSize: 12),
+        ),
         child: Text('Cut'),
       ),
       MenuItemButton(
@@ -137,7 +145,9 @@ dynamic build(BuildContext context) {
     closeOnActivate: true,
     style: ButtonStyle(
       foregroundColor: WidgetStateProperty.all(Colors.black87),
-      padding: WidgetStateProperty.all(EdgeInsets.symmetric(horizontal: 16, vertical: 8)),
+      padding: WidgetStateProperty.all(
+        EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      ),
     ),
     child: Text('Edit'),
   );
@@ -157,9 +167,7 @@ dynamic build(BuildContext context) {
       foregroundColor: WidgetStateProperty.all(Colors.black87),
     ),
     alignmentOffset: Offset(0, 4),
-    menuStyle: MenuStyle(
-      elevation: WidgetStateProperty.all(4.0),
-    ),
+    menuStyle: MenuStyle(elevation: WidgetStateProperty.all(4.0)),
     child: Text('More Options'),
   );
   print('SubmenuButton created');
@@ -200,10 +208,7 @@ dynamic build(BuildContext context) {
   // ========== RETURN WIDGET ==========
   return MaterialApp(
     home: Scaffold(
-      appBar: AppBar(
-        title: Text('Menus'),
-        actions: [menuAnchor],
-      ),
+      appBar: AppBar(title: Text('Menus'), actions: [menuAnchor]),
       body: Padding(
         padding: EdgeInsets.all(16),
         child: Column(

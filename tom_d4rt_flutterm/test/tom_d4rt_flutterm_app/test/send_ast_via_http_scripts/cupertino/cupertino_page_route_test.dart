@@ -135,7 +135,9 @@ dynamic build(BuildContext context) {
       width: 200,
       height: 200,
       color: CupertinoColors.activeBlue,
-      child: Center(child: Text('Hold me', style: TextStyle(color: CupertinoColors.white))),
+      child: Center(
+        child: Text('Hold me', style: TextStyle(color: CupertinoColors.white)),
+      ),
     ),
   );
   print('CupertinoContextMenu created');
@@ -158,11 +160,7 @@ dynamic build(BuildContext context) {
     home: Scaffold(
       body: SingleChildScrollView(
         child: Column(
-          children: [
-            popupSurface,
-            SizedBox(height: 16),
-            contextMenu,
-          ],
+          children: [popupSurface, SizedBox(height: 16), contextMenu],
         ),
       ),
     ),

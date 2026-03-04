@@ -31,11 +31,7 @@ dynamic build(BuildContext context) {
   print('--- TableRow Tests ---');
   final tableRow = TableRow(
     decoration: BoxDecoration(color: Colors.grey[200]),
-    children: [
-      Text('Cell 1'),
-      Text('Cell 2'),
-      Text('Cell 3'),
-    ],
+    children: [Text('Cell 1'), Text('Cell 2'), Text('Cell 3')],
   );
   print('TableRow created with ${tableRow.children.length} cells');
 
@@ -76,8 +72,12 @@ dynamic build(BuildContext context) {
   print('FlexColumnWidth: ${FlexColumnWidth(1.0)}');
   print('IntrinsicColumnWidth: ${IntrinsicColumnWidth()}');
   print('FractionColumnWidth: ${FractionColumnWidth(0.3)}');
-  print('MaxColumnWidth: ${MaxColumnWidth(FixedColumnWidth(50), FlexColumnWidth())}');
-  print('MinColumnWidth: ${MinColumnWidth(FixedColumnWidth(50), FlexColumnWidth())}');
+  print(
+    'MaxColumnWidth: ${MaxColumnWidth(FixedColumnWidth(50), FlexColumnWidth())}',
+  );
+  print(
+    'MinColumnWidth: ${MinColumnWidth(FixedColumnWidth(50), FlexColumnWidth())}',
+  );
 
   // ========== Wrap ==========
   print('--- Wrap Tests ---');

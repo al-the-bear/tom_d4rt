@@ -94,9 +94,8 @@ dynamic build(BuildContext context) {
     selectedIcon: Icon(Icons.check),
     style: ButtonStyle(
       backgroundColor: WidgetStateProperty.resolveWith<Color?>(
-        (states) => states.contains(WidgetState.selected)
-            ? Colors.blue[100]
-            : null,
+        (states) =>
+            states.contains(WidgetState.selected) ? Colors.blue[100] : null,
       ),
     ),
   );
@@ -117,26 +116,22 @@ dynamic build(BuildContext context) {
 
   // ========== MaterialStateBorderSide ==========
   print('--- MaterialStateBorderSide Tests ---');
-  final stateBorderSide = MaterialStateBorderSide.resolveWith(
-    (states) {
-      if (states.contains(WidgetState.focused)) {
-        return BorderSide(color: Colors.blue, width: 2.0);
-      }
-      return BorderSide(color: Colors.grey, width: 1.0);
-    },
-  );
+  final stateBorderSide = MaterialStateBorderSide.resolveWith((states) {
+    if (states.contains(WidgetState.focused)) {
+      return BorderSide(color: Colors.blue, width: 2.0);
+    }
+    return BorderSide(color: Colors.grey, width: 1.0);
+  });
   print('MaterialStateBorderSide created');
 
   // ========== MaterialStateTextStyle ==========
   print('--- MaterialStateTextStyle Tests ---');
-  final stateTextStyle = MaterialStateTextStyle.resolveWith(
-    (states) {
-      if (states.contains(WidgetState.disabled)) {
-        return TextStyle(color: Colors.grey);
-      }
-      return TextStyle(color: Colors.black);
-    },
-  );
+  final stateTextStyle = MaterialStateTextStyle.resolveWith((states) {
+    if (states.contains(WidgetState.disabled)) {
+      return TextStyle(color: Colors.grey);
+    }
+    return TextStyle(color: Colors.black);
+  });
   print('MaterialStateTextStyle created');
 
   // ========== ButtonBar ==========

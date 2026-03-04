@@ -38,11 +38,8 @@ dynamic build(BuildContext context) {
   print('--- OverlayPortal Tests ---');
   final overlayPortal = OverlayPortal(
     controller: portalController,
-    overlayChildBuilder: (context) => Positioned(
-      top: 0,
-      left: 0,
-      child: Text('Portal overlay'),
-    ),
+    overlayChildBuilder: (context) =>
+        Positioned(top: 0, left: 0, child: Text('Portal overlay')),
     child: Text('Portal child'),
   );
   print('OverlayPortal created');
@@ -90,9 +87,7 @@ dynamic build(BuildContext context) {
   // ========== Overlay widget ==========
   print('--- Overlay Tests ---');
   final overlayWidget = Overlay(
-    initialEntries: [
-      OverlayEntry(builder: (context) => Text('Initial entry')),
-    ],
+    initialEntries: [OverlayEntry(builder: (context) => Text('Initial entry'))],
   );
   print('Overlay created with initial entries');
 
@@ -103,12 +98,7 @@ dynamic build(BuildContext context) {
     home: Scaffold(
       body: Stack(
         children: [
-          Column(
-            children: [
-              target,
-              follower,
-            ],
-          ),
+          Column(children: [target, follower]),
           overlayPortal,
         ],
       ),

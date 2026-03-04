@@ -51,9 +51,7 @@ dynamic build(BuildContext context) {
       borderSide: BorderSide(color: Colors.grey),
       borderRadius: BorderRadius.circular(8),
     ),
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(8),
-    ),
+    border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
     prefixIcon: Icon(Icons.person),
     prefixIconConstraints: BoxConstraints(minWidth: 40, minHeight: 40),
     suffixIcon: Icon(Icons.clear),
@@ -178,10 +176,7 @@ dynamic build(BuildContext context) {
   // ========== RETURN WIDGET ==========
   return MaterialApp(
     home: Scaffold(
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
-        child: form,
-      ),
+      body: SingleChildScrollView(padding: EdgeInsets.all(16), child: form),
     ),
   );
 }

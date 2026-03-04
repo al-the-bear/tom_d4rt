@@ -16,10 +16,7 @@ dynamic build(BuildContext context) {
     proxyDecorator: (child, index, animation) {
       return AnimatedBuilder(
         animation: animation,
-        builder: (context, child) => Material(
-          elevation: 4,
-          child: child,
-        ),
+        builder: (context, child) => Material(elevation: 4, child: child),
         child: child,
       );
     },
@@ -34,11 +31,15 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(8),
     scrollDirection: Axis.vertical,
     reverse: false,
-    children: items.map((item) => ListTile(
-      key: ValueKey(item),
-      title: Text(item),
-      leading: Icon(Icons.drag_handle),
-    )).toList(),
+    children: items
+        .map(
+          (item) => ListTile(
+            key: ValueKey(item),
+            title: Text(item),
+            leading: Icon(Icons.drag_handle),
+          ),
+        )
+        .toList(),
   );
   print('ReorderableListView created');
 
@@ -46,10 +47,8 @@ dynamic build(BuildContext context) {
   print('--- ReorderableListView.builder Tests ---');
   final reorderableBuilder = ReorderableListView.builder(
     itemCount: items.length,
-    itemBuilder: (context, index) => ListTile(
-      key: ValueKey(items[index]),
-      title: Text(items[index]),
-    ),
+    itemBuilder: (context, index) =>
+        ListTile(key: ValueKey(items[index]), title: Text(items[index])),
     onReorder: (oldIndex, newIndex) {
       print('  Builder reorder: $oldIndex -> $newIndex');
     },
@@ -98,10 +97,7 @@ dynamic build(BuildContext context) {
     excludeFromSemantics: false,
     canRequestFocus: true,
     autofocus: false,
-    child: Container(
-      padding: EdgeInsets.all(16),
-      child: Text('Ink Well'),
-    ),
+    child: Container(padding: EdgeInsets.all(16), child: Text('Ink Well')),
   );
   print('InkWell advanced created');
 
@@ -116,11 +112,7 @@ dynamic build(BuildContext context) {
     highlightShape: BoxShape.circle,
     radius: 24.0,
     containedInkWell: false,
-    child: Container(
-      width: 48,
-      height: 48,
-      child: Icon(Icons.circle),
-    ),
+    child: Container(width: 48, height: 48, child: Icon(Icons.circle)),
   );
   print('InkResponse created');
 

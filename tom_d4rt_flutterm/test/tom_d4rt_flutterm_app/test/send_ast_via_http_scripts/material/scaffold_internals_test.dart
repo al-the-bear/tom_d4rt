@@ -10,9 +10,7 @@ dynamic build(BuildContext context) {
   print('--- ScaffoldMessenger Tests ---');
   // ScaffoldMessenger is an InheritedWidget — test via MaterialApp
   final messengerWidget = ScaffoldMessenger(
-    child: Scaffold(
-      body: Text('Messenger child'),
-    ),
+    child: Scaffold(body: Text('Messenger child')),
   );
   print('ScaffoldMessenger widget created');
 

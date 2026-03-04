@@ -36,9 +36,7 @@ dynamic build(BuildContext context) {
     hoverColor: Colors.blue[25],
     activeIndicatorBorder: BorderSide(color: Colors.blue, width: 2),
     outlineBorder: BorderSide(color: Colors.grey),
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(8),
-    ),
+    border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
     enabledBorder: OutlineInputBorder(
       borderSide: BorderSide(color: Colors.grey),
       borderRadius: BorderRadius.circular(8),
@@ -197,9 +195,7 @@ dynamic build(BuildContext context) {
     home: Scaffold(
       body: Padding(
         padding: EdgeInsets.all(16),
-        child: Column(
-          children: [textField],
-        ),
+        child: Column(children: [textField]),
       ),
     ),
   );

@@ -57,18 +57,21 @@ dynamic build(BuildContext context) {
 
   // ========== DraggableScrollableNotification ==========
   print('--- DraggableScrollableNotification Tests ---');
-  final notificationListener = NotificationListener<DraggableScrollableNotification>(
-    onNotification: (notification) {
-      print('  DraggableScrollableNotification:');
-      print('    extent: ${notification.extent}');
-      print('    minExtent: ${notification.minExtent}');
-      print('    maxExtent: ${notification.maxExtent}');
-      print('    initialExtent: ${notification.initialExtent}');
-      print('    shouldCloseOnMinExtent: ${notification.shouldCloseOnMinExtent}');
-      return false;
-    },
-    child: draggableSheet,
-  );
+  final notificationListener =
+      NotificationListener<DraggableScrollableNotification>(
+        onNotification: (notification) {
+          print('  DraggableScrollableNotification:');
+          print('    extent: ${notification.extent}');
+          print('    minExtent: ${notification.minExtent}');
+          print('    maxExtent: ${notification.maxExtent}');
+          print('    initialExtent: ${notification.initialExtent}');
+          print(
+            '    shouldCloseOnMinExtent: ${notification.shouldCloseOnMinExtent}',
+          );
+          return false;
+        },
+        child: draggableSheet,
+      );
   print('NotificationListener<DraggableScrollableNotification> created');
 
   // ========== BottomSheet ==========
@@ -96,10 +99,7 @@ dynamic build(BuildContext context) {
             ),
             Text('Bottom Sheet Content', style: TextStyle(fontSize: 18)),
             SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text('Action'),
-            ),
+            ElevatedButton(onPressed: () {}, child: Text('Action')),
           ],
         ),
       );
@@ -133,9 +133,7 @@ dynamic build(BuildContext context) {
       }
       return false;
     },
-    child: ListView(
-      children: [Text('Item 1'), Text('Item 2')],
-    ),
+    child: ListView(children: [Text('Item 1'), Text('Item 2')]),
   );
   print('NotificationListener<ScrollNotification> created');
 

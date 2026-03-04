@@ -29,9 +29,15 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Card Title', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              Text(
+                'Card Title',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
               SizedBox(height: 8),
-              Text('Card description text', style: TextStyle(color: Colors.grey[600])),
+              Text(
+                'Card description text',
+                style: TextStyle(color: Colors.grey[600]),
+              ),
             ],
           ),
         ),
@@ -47,10 +53,7 @@ dynamic build(BuildContext context) {
     shadowColor: Colors.transparent,
     elevation: 0,
     margin: EdgeInsets.all(8),
-    child: ListTile(
-      title: Text('Filled Card'),
-      subtitle: Text('No elevation'),
-    ),
+    child: ListTile(title: Text('Filled Card'), subtitle: Text('No elevation')),
   );
   print('Card.filled created');
 
@@ -145,10 +148,7 @@ dynamic build(BuildContext context) {
   final noSplashInkWell = InkWell(
     onTap: () => print('  No splash tap'),
     splashFactory: NoSplash.splashFactory,
-    child: Padding(
-      padding: EdgeInsets.all(16),
-      child: Text('No Splash'),
-    ),
+    child: Padding(padding: EdgeInsets.all(16), child: Text('No Splash')),
   );
   print('InkWell with NoSplash.splashFactory created');
 

@@ -81,12 +81,18 @@ dynamic build(BuildContext context) {
       CupertinoListTile(
         title: Text('Bluetooth'),
         subtitle: Text('On'),
-        leading: Icon(CupertinoIcons.bluetooth, color: CupertinoColors.activeBlue),
+        leading: Icon(
+          CupertinoIcons.bluetooth,
+          color: CupertinoColors.activeBlue,
+        ),
         trailing: CupertinoSwitch(value: true, onChanged: (v) {}),
       ),
       CupertinoListTile(
         title: Text('Cellular'),
-        leading: Icon(CupertinoIcons.antenna_radiowaves_left_right, color: CupertinoColors.activeGreen),
+        leading: Icon(
+          CupertinoIcons.antenna_radiowaves_left_right,
+          color: CupertinoColors.activeGreen,
+        ),
         trailing: CupertinoListTileChevron(),
         onTap: () => print('  Cellular tapped'),
       ),
@@ -119,7 +125,8 @@ dynamic build(BuildContext context) {
     title: Text('List Tile'),
     subtitle: Text('Subtitle text'),
     leading: Container(
-      width: 40, height: 40,
+      width: 40,
+      height: 40,
       decoration: BoxDecoration(
         color: CupertinoColors.activeBlue,
         borderRadius: BorderRadius.circular(8),
@@ -155,9 +162,7 @@ dynamic build(BuildContext context) {
     children: [
       CupertinoFormRow(
         prefix: Text('Name'),
-        child: CupertinoTextFormFieldRow(
-          placeholder: 'Enter name',
-        ),
+        child: CupertinoTextFormFieldRow(placeholder: 'Enter name'),
       ),
       CupertinoFormRow(
         prefix: Text('Email'),

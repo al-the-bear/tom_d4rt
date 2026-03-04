@@ -65,8 +65,10 @@ dynamic build(BuildContext context) {
     'secondarySystemBackground': CupertinoColors.secondarySystemBackground,
     'tertiarySystemBackground': CupertinoColors.tertiarySystemBackground,
     'systemGroupedBackground': CupertinoColors.systemGroupedBackground,
-    'secondarySystemGroupedBackground': CupertinoColors.secondarySystemGroupedBackground,
-    'tertiarySystemGroupedBackground': CupertinoColors.tertiarySystemGroupedBackground,
+    'secondarySystemGroupedBackground':
+        CupertinoColors.secondarySystemGroupedBackground,
+    'tertiarySystemGroupedBackground':
+        CupertinoColors.tertiarySystemGroupedBackground,
     'separator': CupertinoColors.separator,
     'opaqueSeparator': CupertinoColors.opaqueSeparator,
     'link': CupertinoColors.link,
@@ -107,11 +109,20 @@ dynamic build(BuildContext context) {
     textTheme: CupertinoTextThemeData(
       primaryColor: CupertinoColors.activeBlue,
       textStyle: TextStyle(fontSize: 17, color: CupertinoColors.label),
-      actionTextStyle: TextStyle(fontSize: 17, color: CupertinoColors.activeBlue),
+      actionTextStyle: TextStyle(
+        fontSize: 17,
+        color: CupertinoColors.activeBlue,
+      ),
       tabLabelTextStyle: TextStyle(fontSize: 10),
       navTitleTextStyle: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
-      navLargeTitleTextStyle: TextStyle(fontSize: 34, fontWeight: FontWeight.bold),
-      navActionTextStyle: TextStyle(fontSize: 17, color: CupertinoColors.activeBlue),
+      navLargeTitleTextStyle: TextStyle(
+        fontSize: 34,
+        fontWeight: FontWeight.bold,
+      ),
+      navActionTextStyle: TextStyle(
+        fontSize: 17,
+        color: CupertinoColors.activeBlue,
+      ),
       pickerTextStyle: TextStyle(fontSize: 21),
       dateTimePickerTextStyle: TextStyle(fontSize: 21),
     ),
@@ -158,11 +169,7 @@ dynamic build(BuildContext context) {
   final segmentedControl = CupertinoSegmentedControl<int>(
     groupValue: 0,
     onValueChanged: (value) => print('  Segment: $value'),
-    children: {
-      0: Text('One'),
-      1: Text('Two'),
-      2: Text('Three'),
-    },
+    children: {0: Text('One'), 1: Text('Two'), 2: Text('Three')},
     selectedColor: CupertinoColors.activeBlue,
     unselectedColor: CupertinoColors.white,
     borderColor: CupertinoColors.activeBlue,

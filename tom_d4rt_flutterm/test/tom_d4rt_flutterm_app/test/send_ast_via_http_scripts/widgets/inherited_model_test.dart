@@ -55,10 +55,7 @@ dynamic build(BuildContext context) {
 
   // ========== InheritedWidget (via Theme which is an InheritedWidget) ==========
   print('--- InheritedWidget Tests ---');
-  final inherited = Theme(
-    data: ThemeData.light(),
-    child: Text('Themed'),
-  );
+  final inherited = Theme(data: ThemeData.light(), child: Text('Themed'));
   print('InheritedWidget (Theme) created');
 
   // ========== InheritedNotifier ==========

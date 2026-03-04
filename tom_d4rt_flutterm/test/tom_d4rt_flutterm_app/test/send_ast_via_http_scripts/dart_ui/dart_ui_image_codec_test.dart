@@ -27,14 +27,18 @@ dynamic build(BuildContext context) {
   canvas.drawCircle(
     Offset(50, 50),
     30,
-    Paint()..color = Color(0xFF00FF00)..style = PaintingStyle.fill,
+    Paint()
+      ..color = Color(0xFF00FF00)
+      ..style = PaintingStyle.fill,
   );
   print('  drawCircle done');
 
   canvas.drawLine(
     Offset(0, 0),
     Offset(100, 100),
-    Paint()..color = Color(0xFF0000FF)..strokeWidth = 2.0,
+    Paint()
+      ..color = Color(0xFF0000FF)
+      ..strokeWidth = 2.0,
   );
   print('  drawLine done');
 
@@ -68,7 +72,9 @@ dynamic build(BuildContext context) {
   canvas.clipRect(Rect.fromLTWH(0, 0, 80, 80));
   print('  clipRect done');
 
-  canvas.clipRRect(RRect.fromRectAndRadius(Rect.fromLTWH(0, 0, 80, 80), Radius.circular(8)));
+  canvas.clipRRect(
+    RRect.fromRectAndRadius(Rect.fromLTWH(0, 0, 80, 80), Radius.circular(8)),
+  );
   print('  clipRRect done');
 
   canvas.clipPath(path);
@@ -103,30 +109,34 @@ dynamic build(BuildContext context) {
   print('ParagraphStyle created');
 
   final builder = ui.ParagraphBuilder(paragraphStyle);
-  builder.pushStyle(ui.TextStyle(
-    color: Color(0xFF000000),
-    fontSize: 16.0,
-    fontWeight: FontWeight.normal,
-    fontStyle: FontStyle.normal,
-    letterSpacing: 0.5,
-    wordSpacing: 1.0,
-    height: 1.5,
-    decoration: TextDecoration.none,
-    decorationColor: Color(0xFFFF0000),
-    decorationStyle: TextDecorationStyle.solid,
-    fontFamily: 'Roboto',
-    locale: Locale('en'),
-  ));
+  builder.pushStyle(
+    ui.TextStyle(
+      color: Color(0xFF000000),
+      fontSize: 16.0,
+      fontWeight: FontWeight.normal,
+      fontStyle: FontStyle.normal,
+      letterSpacing: 0.5,
+      wordSpacing: 1.0,
+      height: 1.5,
+      decoration: TextDecoration.none,
+      decorationColor: Color(0xFFFF0000),
+      decorationStyle: TextDecorationStyle.solid,
+      fontFamily: 'Roboto',
+      locale: Locale('en'),
+    ),
+  );
   builder.addText('Hello World from ParagraphBuilder. ');
   builder.pop();
 
-  builder.pushStyle(ui.TextStyle(
-    color: Color(0xFFFF0000),
-    fontSize: 20.0,
-    fontWeight: FontWeight.bold,
-    fontStyle: FontStyle.italic,
-    decoration: TextDecoration.underline,
-  ));
+  builder.pushStyle(
+    ui.TextStyle(
+      color: Color(0xFFFF0000),
+      fontSize: 20.0,
+      fontWeight: FontWeight.bold,
+      fontStyle: FontStyle.italic,
+      decoration: TextDecoration.underline,
+    ),
+  );
   builder.addText('Bold red text.');
   builder.pop();
 
@@ -171,12 +181,24 @@ dynamic build(BuildContext context) {
   // ========== BlendMode values ==========
   print('--- BlendMode Tests ---');
   final blendModes = [
-    BlendMode.clear, BlendMode.src, BlendMode.dst,
-    BlendMode.srcOver, BlendMode.dstOver, BlendMode.srcIn,
-    BlendMode.dstIn, BlendMode.srcOut, BlendMode.dstOut,
-    BlendMode.srcATop, BlendMode.dstATop, BlendMode.xor,
-    BlendMode.plus, BlendMode.multiply, BlendMode.screen,
-    BlendMode.overlay, BlendMode.darken, BlendMode.lighten,
+    BlendMode.clear,
+    BlendMode.src,
+    BlendMode.dst,
+    BlendMode.srcOver,
+    BlendMode.dstOver,
+    BlendMode.srcIn,
+    BlendMode.dstIn,
+    BlendMode.srcOut,
+    BlendMode.dstOut,
+    BlendMode.srcATop,
+    BlendMode.dstATop,
+    BlendMode.xor,
+    BlendMode.plus,
+    BlendMode.multiply,
+    BlendMode.screen,
+    BlendMode.overlay,
+    BlendMode.darken,
+    BlendMode.lighten,
   ];
   for (final mode in blendModes) {
     print('  BlendMode.$mode');

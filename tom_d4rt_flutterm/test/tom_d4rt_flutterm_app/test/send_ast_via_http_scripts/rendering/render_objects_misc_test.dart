@@ -31,11 +31,7 @@ dynamic build(BuildContext context) {
   final clippedRect = ClipRect(
     clipper: TestRectClipper(),
     clipBehavior: Clip.antiAlias,
-    child: Container(
-      width: 200,
-      height: 200,
-      color: Colors.blue,
-    ),
+    child: Container(width: 200, height: 200, color: Colors.blue),
   );
   print('ClipRect with CustomClipper created');
 
@@ -44,11 +40,7 @@ dynamic build(BuildContext context) {
   final clippedPath = ClipPath(
     clipper: TestPathClipper(),
     clipBehavior: Clip.antiAliasWithSaveLayer,
-    child: Container(
-      width: 200,
-      height: 200,
-      color: Colors.red,
-    ),
+    child: Container(width: 200, height: 200, color: Colors.red),
   );
   print('ClipPath with CustomClipper created');
 
@@ -89,11 +81,7 @@ dynamic build(BuildContext context) {
     onPointerPanZoomUpdate: (event) => print('  PanZoom update'),
     onPointerPanZoomEnd: (event) => print('  PanZoom end'),
     behavior: HitTestBehavior.translucent,
-    child: Container(
-      width: 100,
-      height: 100,
-      color: Colors.orange,
-    ),
+    child: Container(width: 100, height: 100, color: Colors.orange),
   );
   print('Listener advanced created');
 
@@ -162,12 +150,16 @@ class TestPainter extends CustomPainter {
     canvas.drawCircle(
       Offset(size.width / 2, size.height / 2),
       30,
-      paint..style = PaintingStyle.fill..color = Colors.red,
+      paint
+        ..style = PaintingStyle.fill
+        ..color = Colors.red,
     );
     canvas.drawLine(
       Offset(0, 0),
       Offset(size.width, size.height),
-      paint..color = Colors.green..style = PaintingStyle.stroke,
+      paint
+        ..color = Colors.green
+        ..style = PaintingStyle.stroke,
     );
   }
 

@@ -14,10 +14,7 @@ dynamic build(BuildContext context) {
   );
   print('DataColumn created: numeric=${col1.numeric}');
 
-  final col2 = DataColumn(
-    label: Text('Age'),
-    numeric: true,
-  );
+  final col2 = DataColumn(label: Text('Age'), numeric: true);
   print('DataColumn numeric created');
 
   final col3 = DataColumn(
@@ -53,9 +50,8 @@ dynamic build(BuildContext context) {
       ),
     ],
     color: WidgetStateProperty.resolveWith<Color?>(
-      (states) => states.contains(WidgetState.selected)
-          ? Colors.blue[100]
-          : null,
+      (states) =>
+          states.contains(WidgetState.selected) ? Colors.blue[100] : null,
     ),
   );
   print('DataRow with DataCell options created');
@@ -87,7 +83,10 @@ dynamic build(BuildContext context) {
     columnSpacing: 56.0,
     dividerThickness: 1.0,
     headingRowColor: WidgetStateProperty.all(Colors.grey[200]),
-    headingTextStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+    headingTextStyle: TextStyle(
+      fontWeight: FontWeight.bold,
+      color: Colors.black,
+    ),
     dataTextStyle: TextStyle(color: Colors.black87),
     decoration: BoxDecoration(
       border: Border.all(color: Colors.grey),
@@ -138,11 +137,7 @@ dynamic build(BuildContext context) {
     home: Scaffold(
       body: SingleChildScrollView(
         child: Column(
-          children: [
-            dataTable,
-            SizedBox(height: 16),
-            paginatedTable,
-          ],
+          children: [dataTable, SizedBox(height: 16), paginatedTable],
         ),
       ),
     ),
@@ -156,11 +151,13 @@ class TestDataSource extends DataTableSource {
   DataRow? getRow(int index) {
     if (index >= _data.length) return null;
     final row = _data[index];
-    return DataRow(cells: [
-      DataCell(Text(row[0])),
-      DataCell(Text(row[1])),
-      DataCell(Text(row[2])),
-    ]);
+    return DataRow(
+      cells: [
+        DataCell(Text(row[0])),
+        DataCell(Text(row[1])),
+        DataCell(Text(row[2])),
+      ],
+    );
   }
 
   @override

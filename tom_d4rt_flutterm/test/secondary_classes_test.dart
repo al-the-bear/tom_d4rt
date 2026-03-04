@@ -400,9 +400,7 @@ void main() {
 
     // --- Batch 4 ---
     test('data_table_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/data_table_test.dart',
-      );
+      final result = await SendTestRunner.send('material/data_table_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -680,9 +678,7 @@ void main() {
 
     // --- Batch 5 ---
     test('key_events_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'services/key_events_test.dart',
-      );
+      final result = await SendTestRunner.send('services/key_events_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
   });
@@ -949,9 +945,7 @@ void main() {
     });
 
     test('form_field_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/form_field_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/form_field_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 

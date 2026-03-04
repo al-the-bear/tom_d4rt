@@ -55,21 +55,22 @@ dynamic build(BuildContext context) {
       );
     },
     suggestionsBuilder: (context, controller) {
-      return List.generate(5, (index) => ListTile(
-        title: Text('Suggestion $index'),
-        onTap: () {
-          controller.closeView('Suggestion $index');
-        },
-      ));
+      return List.generate(
+        5,
+        (index) => ListTile(
+          title: Text('Suggestion $index'),
+          onTap: () {
+            controller.closeView('Suggestion $index');
+          },
+        ),
+      );
     },
     viewHintText: 'Search items...',
     viewBackgroundColor: Colors.white,
     viewElevation: 8.0,
     viewSurfaceTintColor: Colors.blue[50],
     viewSide: BorderSide(color: Colors.grey[300]!),
-    viewShape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(12),
-    ),
+    viewShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
     headerHintStyle: TextStyle(color: Colors.grey),
     headerTextStyle: TextStyle(fontSize: 16),
     isFullScreen: false,

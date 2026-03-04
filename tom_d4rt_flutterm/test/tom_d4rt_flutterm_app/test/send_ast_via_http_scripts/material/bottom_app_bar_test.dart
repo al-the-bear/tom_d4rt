@@ -21,11 +21,23 @@ dynamic build(BuildContext context) {
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        IconButton(icon: Icon(Icons.home, color: Colors.white), onPressed: () {}),
-        IconButton(icon: Icon(Icons.search, color: Colors.white), onPressed: () {}),
+        IconButton(
+          icon: Icon(Icons.home, color: Colors.white),
+          onPressed: () {},
+        ),
+        IconButton(
+          icon: Icon(Icons.search, color: Colors.white),
+          onPressed: () {},
+        ),
         SizedBox(width: 48), // Space for FAB
-        IconButton(icon: Icon(Icons.favorite, color: Colors.white), onPressed: () {}),
-        IconButton(icon: Icon(Icons.person, color: Colors.white), onPressed: () {}),
+        IconButton(
+          icon: Icon(Icons.favorite, color: Colors.white),
+          onPressed: () {},
+        ),
+        IconButton(
+          icon: Icon(Icons.person, color: Colors.white),
+          onPressed: () {},
+        ),
       ],
     ),
   );
@@ -74,10 +86,7 @@ dynamic build(BuildContext context) {
           label: Text('3'),
           child: Icon(Icons.notifications_outlined),
         ),
-        selectedIcon: Badge(
-          label: Text('3'),
-          child: Icon(Icons.notifications),
-        ),
+        selectedIcon: Badge(label: Text('3'), child: Icon(Icons.notifications)),
         label: 'Notifications',
       ),
       NavigationDestination(
@@ -143,9 +152,7 @@ dynamic build(BuildContext context) {
   );
   print('Badge with label created');
 
-  final badge2 = Badge(
-    child: Icon(Icons.notifications),
-  );
+  final badge2 = Badge(child: Icon(Icons.notifications));
   print('Badge dot created');
 
   // ========== BadgeThemeData ==========
@@ -179,7 +186,10 @@ dynamic build(BuildContext context) {
     children: [
       Padding(
         padding: EdgeInsets.all(16),
-        child: Text('Navigation', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+        child: Text(
+          'Navigation',
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
       ),
       NavigationDrawerDestination(
         icon: Icon(Icons.home_outlined),

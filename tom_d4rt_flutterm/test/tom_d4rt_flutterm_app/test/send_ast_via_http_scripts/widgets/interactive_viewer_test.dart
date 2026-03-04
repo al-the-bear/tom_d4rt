@@ -34,7 +34,9 @@ dynamic build(BuildContext context) {
       width: 300,
       height: 300,
       color: Colors.blue,
-      child: Center(child: Text('Zoomable', style: TextStyle(color: Colors.white))),
+      child: Center(
+        child: Text('Zoomable', style: TextStyle(color: Colors.white)),
+      ),
     ),
   );
   print('InteractiveViewer created');
@@ -55,10 +57,7 @@ dynamic build(BuildContext context) {
 
   // ========== RotatedBox ==========
   print('--- RotatedBox Tests ---');
-  final rotated = RotatedBox(
-    quarterTurns: 1,
-    child: Text('Rotated'),
-  );
+  final rotated = RotatedBox(quarterTurns: 1, child: Text('Rotated'));
   print('RotatedBox created: quarterTurns=1');
 
   // ========== ClipRect ==========

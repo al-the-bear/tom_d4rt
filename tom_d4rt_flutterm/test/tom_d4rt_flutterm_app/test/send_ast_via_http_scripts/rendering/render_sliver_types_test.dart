@@ -15,8 +15,12 @@ dynamic build(BuildContext context) {
       maxHeight: 200,
       child: Container(
         color: Colors.blue,
-        child: Center(child: Text('Persistent Header',
-          style: TextStyle(color: Colors.white, fontSize: 20))),
+        child: Center(
+          child: Text(
+            'Persistent Header',
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+        ),
       ),
     ),
     pinned: true,
@@ -30,8 +34,9 @@ dynamic build(BuildContext context) {
       maxHeight: 150,
       child: Container(
         color: Colors.green,
-        child: Center(child: Text('Floating Header',
-          style: TextStyle(color: Colors.white))),
+        child: Center(
+          child: Text('Floating Header', style: TextStyle(color: Colors.white)),
+        ),
       ),
     ),
     pinned: false,
@@ -94,7 +99,9 @@ dynamic build(BuildContext context) {
       child: Container(
         color: Colors.blue[700],
         height: 48,
-        child: Center(child: Text('Bottom', style: TextStyle(color: Colors.white))),
+        child: Center(
+          child: Text('Bottom', style: TextStyle(color: Colors.white)),
+        ),
       ),
     ),
     shape: ContinuousRectangleBorder(
@@ -136,7 +143,9 @@ dynamic build(BuildContext context) {
   print('--- SliverLayoutBuilder Tests ---');
   final sliverLayoutBuilder = SliverLayoutBuilder(
     builder: (context, constraints) {
-      print('  SliverConstraints: crossAxisExtent=${constraints.crossAxisExtent}');
+      print(
+        '  SliverConstraints: crossAxisExtent=${constraints.crossAxisExtent}',
+      );
       return SliverList(
         delegate: SliverChildBuilderDelegate(
           (context, index) => ListTile(title: Text('Layout Item $index')),
@@ -212,7 +221,11 @@ class TestPersistentHeaderDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => math.max(maxHeight, minHeight);
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
     return SizedBox.expand(child: child);
   }
 

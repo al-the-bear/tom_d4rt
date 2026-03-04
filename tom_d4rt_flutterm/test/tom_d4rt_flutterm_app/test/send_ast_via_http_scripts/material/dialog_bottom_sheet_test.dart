@@ -11,7 +11,11 @@ dynamic build(BuildContext context) {
   final alertDialog = AlertDialog(
     title: Text('Alert Title'),
     titlePadding: EdgeInsets.fromLTRB(24, 24, 24, 0),
-    titleTextStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+    titleTextStyle: TextStyle(
+      fontSize: 20,
+      fontWeight: FontWeight.bold,
+      color: Colors.black,
+    ),
     content: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -51,7 +55,11 @@ dynamic build(BuildContext context) {
   final simpleDialog = SimpleDialog(
     title: Text('Select an option'),
     titlePadding: EdgeInsets.fromLTRB(24, 24, 24, 0),
-    titleTextStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+    titleTextStyle: TextStyle(
+      fontSize: 18,
+      fontWeight: FontWeight.bold,
+      color: Colors.black,
+    ),
     children: [
       SimpleDialogOption(
         onPressed: () => print('  Option 1 selected'),
@@ -157,7 +165,8 @@ dynamic build(BuildContext context) {
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
-          width: 40, height: 4,
+          width: 40,
+          height: 4,
           margin: EdgeInsets.only(bottom: 16),
           decoration: BoxDecoration(
             color: Colors.grey[300],
@@ -165,15 +174,18 @@ dynamic build(BuildContext context) {
           ),
         ),
         ListTile(
-          leading: Icon(Icons.share), title: Text('Share'),
+          leading: Icon(Icons.share),
+          title: Text('Share'),
           onTap: () => print('  Share tapped'),
         ),
         ListTile(
-          leading: Icon(Icons.link), title: Text('Get Link'),
+          leading: Icon(Icons.link),
+          title: Text('Get Link'),
           onTap: () => print('  Get link tapped'),
         ),
         ListTile(
-          leading: Icon(Icons.edit), title: Text('Edit'),
+          leading: Icon(Icons.edit),
+          title: Text('Edit'),
           onTap: () => print('  Edit tapped'),
         ),
         ListTile(

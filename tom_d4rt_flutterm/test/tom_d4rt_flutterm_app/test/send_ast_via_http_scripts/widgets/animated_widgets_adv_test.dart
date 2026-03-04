@@ -17,19 +17,13 @@ dynamic build(BuildContext context) {
     transitionBuilder: (child, animation) {
       return FadeTransition(
         opacity: animation,
-        child: ScaleTransition(
-          scale: animation,
-          child: child,
-        ),
+        child: ScaleTransition(scale: animation, child: child),
       );
     },
     layoutBuilder: (currentChild, previousChildren) {
       return Stack(
         alignment: Alignment.center,
-        children: [
-          ...previousChildren,
-          if (currentChild != null) currentChild,
-        ],
+        children: [...previousChildren, if (currentChild != null) currentChild],
       );
     },
     child: Text('Content', key: ValueKey('key1')),
@@ -72,11 +66,7 @@ dynamic build(BuildContext context) {
     curve: Curves.easeInOut,
     alignment: Alignment.center,
     clipBehavior: Clip.hardEdge,
-    child: Container(
-      width: 100,
-      height: 100,
-      color: Colors.green,
-    ),
+    child: Container(width: 100, height: 100, color: Colors.green),
   );
   print('AnimatedSize created');
 
@@ -142,10 +132,7 @@ dynamic build(BuildContext context) {
 
   // ========== AnimatedModalBarrier ==========
   print('--- AnimatedModalBarrier Tests ---');
-  final animController = AnimationController(
-    vsync: TestVSync(),
-    value: 0.5,
-  );
+  final animController = AnimationController(vsync: TestVSync(), value: 0.5);
   final animatedBarrier = AnimatedModalBarrier(
     color: animController.drive(
       ColorTween(begin: Colors.transparent, end: Colors.black54),
@@ -169,10 +156,7 @@ dynamic build(BuildContext context) {
             animatedSlide,
             animatedRotation,
             Container(height: 200, child: animatedFractional),
-            SizedBox(
-              height: 200,
-              child: Stack(children: [animatedPosDir]),
-            ),
+            SizedBox(height: 200, child: Stack(children: [animatedPosDir])),
           ],
         ),
       ),

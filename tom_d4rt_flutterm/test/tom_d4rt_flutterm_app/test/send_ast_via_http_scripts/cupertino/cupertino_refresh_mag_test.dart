@@ -78,10 +78,7 @@ dynamic build(BuildContext context) {
   final tabScaffold = CupertinoTabScaffold(
     tabBar: CupertinoTabBar(
       items: [
-        BottomNavigationBarItem(
-          icon: Icon(CupertinoIcons.home),
-          label: 'Home',
-        ),
+        BottomNavigationBarItem(icon: Icon(CupertinoIcons.home), label: 'Home'),
         BottomNavigationBarItem(
           icon: Icon(CupertinoIcons.search),
           label: 'Search',
@@ -113,9 +110,7 @@ dynamic build(BuildContext context) {
   print('--- CupertinoTabView Tests ---');
   final tabView = CupertinoTabView(
     builder: (context) => Center(child: Text('Tab View')),
-    routes: {
-      '/detail': (context) => Center(child: Text('Detail')),
-    },
+    routes: {'/detail': (context) => Center(child: Text('Detail'))},
     defaultTitle: 'Tab',
   );
   print('CupertinoTabView created');

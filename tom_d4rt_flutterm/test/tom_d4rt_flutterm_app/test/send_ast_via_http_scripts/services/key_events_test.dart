@@ -36,7 +36,9 @@ dynamic build(BuildContext context) {
     'f12': LogicalKeyboardKey.f12,
   };
   for (final entry in keys.entries) {
-    print('  LogicalKeyboardKey.${entry.key}: keyId=${entry.value.keyId}, keyLabel=${entry.value.keyLabel}');
+    print(
+      '  LogicalKeyboardKey.${entry.key}: keyId=${entry.value.keyId}, keyLabel=${entry.value.keyLabel}',
+    );
   }
 
   // ========== PhysicalKeyboardKey ==========
@@ -52,7 +54,9 @@ dynamic build(BuildContext context) {
     'controlLeft': PhysicalKeyboardKey.controlLeft,
   };
   for (final entry in physKeys.entries) {
-    print('  PhysicalKeyboardKey.${entry.key}: usbHidUsage=${entry.value.usbHidUsage}');
+    print(
+      '  PhysicalKeyboardKey.${entry.key}: usbHidUsage=${entry.value.usbHidUsage}',
+    );
   }
 
   // ========== HardwareKeyboard ==========
@@ -65,7 +69,10 @@ dynamic build(BuildContext context) {
 
   // ========== KeySet ==========
   print('--- KeySet Tests ---');
-  final keySet1 = LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyC);
+  final keySet1 = LogicalKeySet(
+    LogicalKeyboardKey.control,
+    LogicalKeyboardKey.keyC,
+  );
   print('LogicalKeySet (Ctrl+C): $keySet1');
 
   final keySet2 = LogicalKeySet(
@@ -77,10 +84,7 @@ dynamic build(BuildContext context) {
 
   // ========== SingleActivator ==========
   print('--- SingleActivator Tests ---');
-  final activator1 = SingleActivator(
-    LogicalKeyboardKey.keyC,
-    control: true,
-  );
+  final activator1 = SingleActivator(LogicalKeyboardKey.keyC, control: true);
   print('SingleActivator (Ctrl+C) created');
   print('  trigger: ${activator1.trigger}');
   print('  control: ${activator1.control}');
@@ -125,8 +129,10 @@ dynamic build(BuildContext context) {
   print('--- Shortcuts Tests ---');
   final shortcuts = Shortcuts(
     shortcuts: {
-      LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyC): CopyIntent(),
-      LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyV): PasteIntent(),
+      LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyC):
+          CopyIntent(),
+      LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyV):
+          PasteIntent(),
       SingleActivator(LogicalKeyboardKey.escape): DismissIntent(),
     },
     child: Actions(
@@ -172,16 +178,10 @@ dynamic build(BuildContext context) {
 
   // ========== RETURN WIDGET ==========
   return MaterialApp(
-    home: Scaffold(
-      body: Column(
-        children: [
-          keyboardListener,
-          shortcuts,
-        ],
-      ),
-    ),
+    home: Scaffold(body: Column(children: [keyboardListener, shortcuts])),
   );
 }
 
 class CopyIntent extends Intent {}
+
 class PasteIntent extends Intent {}
