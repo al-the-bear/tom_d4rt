@@ -749,16 +749,12 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'scaffoldstate_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'widgets/scaffoldstate_test.dart',
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      skip: 'Shows snackbar/bottomsheet requiring user interaction',
-    );
+    test('scaffoldstate_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/scaffoldstate_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
   });
 
   // ============================================================
@@ -825,16 +821,12 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'cupertino_themes_batch4_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'cupertino/cupertino_themes_batch4_test.dart',
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      skip: 'GEN-089: NoDefaultCupertinoThemeData runtime type mismatch — needs investigation',
-    );
+    test('cupertino_themes_batch4_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'cupertino/cupertino_themes_batch4_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
   });
 
   // ============================================================

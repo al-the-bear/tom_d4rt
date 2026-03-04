@@ -535,7 +535,7 @@
     },
     {
       "name": "tom_build_base",
-      "version": "2.6.6",
+      "version": "2.6.9",
       "dependencies": [
         "args",
         "console_markdown",
