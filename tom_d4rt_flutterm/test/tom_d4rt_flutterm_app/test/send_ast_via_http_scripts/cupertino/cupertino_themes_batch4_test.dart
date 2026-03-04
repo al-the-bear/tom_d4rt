@@ -68,19 +68,29 @@ dynamic build(BuildContext context) {
   print('NoDefaultCupertinoThemeData.copyWith created');
   print('  primaryColor: ${copiedNoDefault.primaryColor}');
 
-  // Test NoDefaultCupertinoThemeData applied via CupertinoTheme
+  // Test NoDefaultCupertinoThemeData properties applied via CupertinoThemeData
+  // Note: NoDefaultCupertinoThemeData is the SUPERCLASS of CupertinoThemeData,
+  // so it cannot be passed directly to CupertinoTheme(data:). We use
+  // CupertinoThemeData with the same properties instead.
   final noDefaultThemeWidget = CupertinoTheme(
-    data: fullNoDefault,
+    data: CupertinoThemeData(
+      brightness: fullNoDefault.brightness,
+      primaryColor: fullNoDefault.primaryColor,
+      primaryContrastingColor: fullNoDefault.primaryContrastingColor,
+      barBackgroundColor: fullNoDefault.barBackgroundColor,
+      scaffoldBackgroundColor: fullNoDefault.scaffoldBackgroundColor,
+      textTheme: fullNoDefault.textTheme,
+    ),
     child: Builder(
       builder: (BuildContext ctx) {
         final theme = CupertinoTheme.of(ctx);
-        print('NoDefault via CupertinoTheme.of:');
+        print('NoDefault properties via CupertinoTheme.of:');
         print('  primaryColor: ${theme.primaryColor}');
         return Text('NoDefault themed text');
       },
     ),
   );
-  print('NoDefaultCupertinoThemeData applied via CupertinoTheme');
+  print('NoDefaultCupertinoThemeData properties applied via CupertinoTheme');
 
   // ========== MATERIALBASEDCUPERTINOTHEMEDATA ==========
   print('--- MaterialBasedCupertinoThemeData Tests ---');
@@ -184,9 +194,9 @@ dynamic build(BuildContext context) {
               ),
               SizedBox(height: 8.0),
 
-              // NoDefault themed section
+              // NoDefault themed section — use CupertinoThemeData (supertype fix)
               CupertinoTheme(
-                data: NoDefaultCupertinoThemeData(
+                data: CupertinoThemeData(
                   primaryColor: CupertinoColors.systemOrange,
                 ),
                 child: Builder(
@@ -209,7 +219,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 8.0),
 
               CupertinoTheme(
-                data: NoDefaultCupertinoThemeData(
+                data: CupertinoThemeData(
                   primaryColor: CupertinoColors.systemPurple,
                   brightness: Brightness.light,
                 ),
