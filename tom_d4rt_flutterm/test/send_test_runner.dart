@@ -97,12 +97,13 @@ class SendTestRunner {
   static FlutterD4rt? _d4rt;
   static HttpClient? _client;
   static Process? _testAppProcess;
+  static bool _startedByRunner = false;
 
   /// Initialize the test runner (call in setUpAll).
   ///
   /// This will:
-  /// 1. Kill any existing test app process on the port
-  /// 2. Start a new test app process
+  /// 1. Reuse a running test app when available
+  /// 2. Otherwise, start a new test app process
   /// 3. Wait for it to be ready
   static Future<void> setUp({
     bool startApp = true,
@@ -110,28 +111,43 @@ class SendTestRunner {
   }) async {
     _d4rt = FlutterD4rt();
     _client = HttpClient();
+    _startedByRunner = false;
 
     if (startApp) {
-      await _startTestApp(timeout: timeout);
+      final alreadyRunning = await isAppRunning();
+      if (!alreadyRunning) {
+        try {
+          await _startTestApp(timeout: timeout);
+        } catch (_) {
+          await _killExistingProcess();
+          await _startTestApp(timeout: timeout);
+        }
+        _startedByRunner = true;
+      }
     }
   }
 
   /// Tear down the test runner (call in tearDownAll).
   ///
-  /// This will kill the test app process if it was started by setUp.
+  /// This will kill the test app process only if it was started by setUp.
   ///
   /// Note: You may see a "Shell subprocess crashed with SIGTERM" error from
   /// Flutter's test framework. This is expected when killing external processes
   /// spawned during flutter test and does not indicate an actual problem.
   static Future<void> tearDown() async {
+    final shouldStopApp = _startedByRunner;
+
     _client?.close();
     _client = null;
     _d4rt = null;
+    _startedByRunner = false;
 
-    try {
-      await _killTestApp();
-    } catch (_) {
-      // Ignore errors during shutdown - the port cleanup will be attempted anyway
+    if (shouldStopApp) {
+      try {
+        await _killTestApp();
+      } catch (_) {
+        // Ignore errors during shutdown - process may already be gone.
+      }
     }
   }
 
@@ -164,15 +180,13 @@ class SendTestRunner {
 
   /// Start the test app process.
   static Future<void> _startTestApp({required Duration timeout}) async {
-    // Kill any existing process first
-    await _killExistingProcess();
-
     // Start the test app
     final packageRoot = Directory.current.path;
     final appDir = p.join(packageRoot, testAppPath);
+    final flutterExecutable = await _resolveFlutterExecutable();
 
     _testAppProcess = await Process.start(
-      'flutter',
+      flutterExecutable,
       ['run', '-d', 'linux'],
       workingDirectory: appDir,
       // Don't inherit stdio to avoid crash when killing process
@@ -218,6 +232,35 @@ class SendTestRunner {
         'Test app failed to start within ${timeout.inSeconds} seconds',
       );
     }
+  }
+
+  static Future<String> _resolveFlutterExecutable() async {
+    final fromEnv = Platform.environment['FLUTTER_BIN'];
+    if (fromEnv != null && fromEnv.isNotEmpty && File(fromEnv).existsSync()) {
+      return fromEnv;
+    }
+
+    try {
+      final which = await Process.run('which', ['flutter']);
+      if (which.exitCode == 0) {
+        final resolved = (which.stdout as String).trim();
+        if (resolved.isNotEmpty) {
+          return resolved;
+        }
+      }
+    } catch (_) {
+      // Fall through to known workspace default path.
+    }
+
+    const fallback = '/srv/flutter/flutter/bin/flutter';
+    if (File(fallback).existsSync()) {
+      return fallback;
+    }
+
+    throw StateError(
+      'Flutter executable not found. Set FLUTTER_BIN or ensure "flutter" '
+      'is available in PATH.',
+    );
   }
 
   /// Kill the test app process.

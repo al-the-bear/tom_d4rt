@@ -5,8 +5,10 @@
 /// in the send_ast_via_http_scripts directory.
 ///
 /// Prerequisites:
-/// 1. Start the test app: cd test/tom_d4rt_flutterm_app && flutter run
-/// 2. Run tests: flutter test test/secondary_classes_test.dart
+/// 1. Run tests: flutter test test/secondary_classes_test.dart
+///
+/// The test app is started automatically in setUpAll and stopped in tearDownAll
+/// when needed.
 ///
 /// Tests are organized by Flutter package and test the bridged classes
 /// listed in testplan_secondary.md.
@@ -36,9 +38,7 @@ void main() {
       expect(
         isRunning,
         isTrue,
-        reason:
-            'Test app must be running. '
-            'Start it with: cd test/tom_d4rt_flutterm_app && flutter run',
+        reason: 'Test app should be running (managed by setUpAll).',
       );
     });
   });

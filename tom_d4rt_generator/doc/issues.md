@@ -89,7 +89,7 @@ The interpreter's `visitSetOrMapLiteral` (`interpreter_visitor.dart` L7928) corr
 
 Three complementary approaches:
 
-**Approach 1 — Bridge-side collection casting (recommended first fix):**
+**Approach 1 — Bridge-side collection casting (do this):**
 
 Modify bridge argument extraction to cast collections to the expected generic type. When the bridge knows it needs a `Set<String>`, it can do `(arg as Set).cast<String>()`. This could be added to `D4.extractBridgedArg` or as a new `D4.extractTypedCollection` helper.
 
@@ -101,7 +101,7 @@ Set<T> extractTypedSet<T>(dynamic arg) {
 }
 ```
 
-**Approach 2 — Interpreter type annotation support:**
+**Approach 2 — Interpreter type annotation support: (do this, too)**
 
 Support explicit type annotations on collection literals: `<String>{'day'}`, `<WidgetState>{}`, `<TargetPlatform, PageTransitionsBuilder>{...}`. This is a substantial interpreter enhancement but the most correct solution.
 
@@ -130,7 +130,7 @@ D4rt script usage: `WidgetStateSet.of([WidgetState.hovered])` or `WidgetStateSet
 | Approach | Effort | Impact | Recommendation |
 |----------|--------|--------|----------------|
 | Bridge-side casting | Low | Fixes all tests using bridges | **Do first** |
-| Type annotation support | High | Fixes all collection typing globally | Future interpreter enhancement |
+| Type annotation support | High | Fixes all collection typing globally | **Do as well** |
 | UserBridge helpers | Medium | Script-friendly API | Supplement for complex cases |
 
 **Why needed:** `WidgetStateProperty.resolve()`, `SegmentedButton(selected:)`, and `PageTransitionsTheme(builders:)` are fundamental Flutter APIs. Without typed collections, D4rt scripts cannot use state-dependent properties, segmented buttons, or configure page transitions.
@@ -168,7 +168,7 @@ The D4rt interpreter resolves identifiers through scope lookup. When it encounte
 
 **c) Proposed Solution:**
 
-**Approach 1 — UserBridge helper in tom_d4rt_flutterm (recommended):**
+**Approach 1 — UserBridge helper in tom_d4rt_flutterm:**
 
 Provide an `ActionMapHelper` that accepts string-based action registration:
 
@@ -197,6 +197,8 @@ class ActionMapHelper extends D4UserBridge {
 ```
 
 **Approach 2 — Interpreter `Type` expression support:**
+
+** USER'S CHOICE: this should be easier than it looks like, we simply extend the API for BridgedClass to include a Type getType() method that is implemented in the generated bridges. Then this is not so complicated in the interpreter **
 
 Add a resolution path that, when an identifier appears in an expression context (not a call), evaluates it to a `Type` object if it matches a registered bridge class name. This is a complex interpreter change.
 
@@ -301,8 +303,8 @@ The D4rt interpreter does not bridge `dart:typed_data` classes. `Float64List`, `
 
 **c) Proposed Solution:**
 
-- **Bridge approach:** Add `dart:typed_data` bridges for common typed list classes (`Float64List`, `Int32List`, `Uint8List`)
-- **UserBridge approach:** Provide a `TypedListHelper` in tom_d4rt_flutterm that creates typed lists from regular Dart lists
+- **Bridge approach:** Add full support for `dart:typed_data` bridges in the interpreter, including all typed list classes (`Float64List`, `Int32List`, `Uint8List` etc.)
+
 
 **d) Why needed:** Low priority — most Flutter APIs accept regular `List<double>`. Only needed for APIs with explicit typed_data requirements.
 
@@ -326,7 +328,7 @@ The D4rt interpreter does not bridge `dart:typed_data` classes. `Float64List`, `
 
 **c) Proposed Solution:**
 
-Same as ENG-004 — bridge `dart:typed_data` types or provide UserBridge helpers.
+Same as ENG-004 — bridge `dart:typed_data` types
 
 **d) Why needed:** Low priority — only needed for raw byte data manipulation in codec/image processing scripts.
 
@@ -388,7 +390,7 @@ class D4rtCustomPainter extends CustomPainter {
 **d) Implementation Scope:**
 
 1. **Detection** — Identify abstract classes with abstract methods during analysis
-2. **Configuration** — Add `proxyClasses` list to `d4rtgen.yaml` module config (opt-in per class)
+2. **Configuration** — Add `proxyClasses` list to d4rtgen module config (opt-in per class)
 3. **Code emission** — Generate `D4rt{ClassName}` proxy class in the module's bridge file
 4. **Bridge registration** — Register the proxy class alongside the original class bridge
 5. **Callback unwrapping** — Ensure D4rt `Function` values are correctly unwrapped as native callbacks
