@@ -1,5 +1,4 @@
 // D4rt test script: Tests FlutterErrorDetailsForPointerEventDispatcher from gestures
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {

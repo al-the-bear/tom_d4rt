@@ -1,5 +1,4 @@
 // D4rt test script: Tests TimedBlock from foundation
-import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {

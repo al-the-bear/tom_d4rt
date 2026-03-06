@@ -1,5 +1,4 @@
 // D4rt test script: Tests ReverseTween from animation
-import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {

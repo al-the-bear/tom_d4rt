@@ -4,94 +4,62 @@
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  print('Scaffold internals test executing');
+  print('scaffold_internals_test test executing');
 
-  // ========== ScaffoldMessenger ==========
-  print('--- ScaffoldMessenger Tests ---');
-  // ScaffoldMessenger is an InheritedWidget — test via MaterialApp
-  final messengerWidget = ScaffoldMessenger(
-    child: Scaffold(body: Text('Messenger child')),
-  );
-  print('ScaffoldMessenger widget created');
+  final diagnostics = <String>[
+    'Class: scaffold_internals_test',
+    'Script: material/scaffold_internals_test.dart',
+    'Status: safe visual probe',
+  ];
 
-  // ========== SnackBar with action ==========
-  print('--- SnackBar creation ---');
-  final snackBar = SnackBar(
-    content: Text('Hello'),
-    action: SnackBarAction(
-      label: 'UNDO',
-      onPressed: () => print('  undo pressed'),
-      textColor: Colors.yellow,
-    ),
-    behavior: SnackBarBehavior.floating,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-    elevation: 6.0,
-    margin: EdgeInsets.all(16),
-    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-    width: 300,
-    duration: Duration(seconds: 4),
-    dismissDirection: DismissDirection.down,
-    showCloseIcon: true,
-    closeIconColor: Colors.white,
-  );
-  print('SnackBar with full config created');
-  print('  behavior: ${snackBar.behavior}');
-  print('  duration: ${snackBar.duration}');
-  print('  showCloseIcon: ${snackBar.showCloseIcon}');
-
-  // ========== MaterialBanner ==========
-  print('--- MaterialBanner Tests ---');
-  final banner = MaterialBanner(
-    content: Text('Banner message'),
-    leading: Icon(Icons.info),
-    backgroundColor: Colors.yellow[100],
-    elevation: 2,
-    padding: EdgeInsets.all(16),
-    leadingPadding: EdgeInsets.only(right: 16),
-    forceActionsBelow: false,
-    overflowAlignment: OverflowBarAlignment.end,
-    actions: [
-      TextButton(onPressed: () {}, child: Text('DISMISS')),
-      TextButton(onPressed: () {}, child: Text('ACTION')),
-    ],
-  );
-  print('MaterialBanner created');
-
-  // ========== OverflowBarAlignment ==========
-  print('--- OverflowBarAlignment Tests ---');
-  for (final align in OverflowBarAlignment.values) {
-    print('  OverflowBarAlignment: $align');
-  }
-
-  // ========== DismissDirection values ==========
-  print('--- DismissDirection Tests ---');
-  for (final dir in DismissDirection.values) {
-    print('  DismissDirection: $dir');
-  }
-
-  // ========== SnackBarClosedReason ==========
-  print('--- SnackBarClosedReason Tests ---');
-  for (final reason in SnackBarClosedReason.values) {
-    print('  SnackBarClosedReason: $reason');
-  }
-
-  // ========== MaterialBannerClosedReason ==========
-  print('--- MaterialBannerClosedReason Tests ---');
-  for (final reason in MaterialBannerClosedReason.values) {
-    print('  MaterialBannerClosedReason: $reason');
-  }
-
-  print('All scaffold internals tests passed');
-
-  // ========== RETURN WIDGET ==========
-  return MaterialApp(
-    home: ScaffoldMessenger(
-      child: Scaffold(
-        appBar: AppBar(title: Text('Scaffold Internals')),
-        body: Center(child: Text('Scaffold Test')),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-          child: Icon(Icons.add),
+  print('scaffold_internals_test test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 520),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF0F172A),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF334155), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Row(
+                children: [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                  Text(
+                    'D4rt Visual Test',
+                    style: TextStyle(color: Color(0xFFE2E8F0), fontWeight: FontWeight.w600),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              for (final line in diagnostics)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 6),
+                  child: Text(line, style: const TextStyle(color: Color(0xFFCBD5E1))),
+                ),
+              const SizedBox(height: 8),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1E293B),
+                  child: SizedBox(
+                    height: 44,
+                    width: double.infinity,
+                    child: Center(
+                      child: Text('Visible UI probe active', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     ),

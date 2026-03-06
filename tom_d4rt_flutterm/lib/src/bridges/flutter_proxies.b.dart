@@ -24,13 +24,19 @@ class D4rtCustomPainter extends CustomPainter {
   final bool Function(CustomPainter) onShouldRepaint;
 
   /// Creates a [D4rtCustomPainter] with callback implementations.
-  D4rtCustomPainter({required this.onPaint, required this.onShouldRepaint});
+  D4rtCustomPainter({
+    required this.onPaint,
+    required this.onShouldRepaint,
+  });
 
   @override
-  void paint(Canvas canvas, Size size) => onPaint(canvas, size);
+  void paint(Canvas canvas, Size size) =>
+      onPaint(canvas, size);
 
   @override
-  bool shouldRepaint(CustomPainter oldDelegate) => onShouldRepaint(oldDelegate);
+  bool shouldRepaint(CustomPainter oldDelegate) =>
+      onShouldRepaint(oldDelegate);
+
 }
 
 /// D4rt proxy for [CustomClipper].
@@ -46,13 +52,19 @@ class D4rtCustomClipper<T> extends CustomClipper<T> {
   final bool Function(CustomClipper<T>) onShouldReclip;
 
   /// Creates a [D4rtCustomClipper] with callback implementations.
-  D4rtCustomClipper({required this.onGetClip, required this.onShouldReclip});
+  D4rtCustomClipper({
+    required this.onGetClip,
+    required this.onShouldReclip,
+  });
 
   @override
-  T getClip(Size size) => onGetClip(size);
+  T getClip(Size size) =>
+      onGetClip(size);
 
   @override
-  bool shouldReclip(CustomClipper<T> oldClipper) => onShouldReclip(oldClipper);
+  bool shouldReclip(CustomClipper<T> oldClipper) =>
+      onShouldReclip(oldClipper);
+
 }
 
 /// D4rt proxy for [FlowDelegate].
@@ -74,10 +86,13 @@ class D4rtFlowDelegate extends FlowDelegate {
   });
 
   @override
-  void paintChildren(FlowPaintingContext context) => onPaintChildren(context);
+  void paintChildren(FlowPaintingContext context) =>
+      onPaintChildren(context);
 
   @override
-  bool shouldRepaint(FlowDelegate oldDelegate) => onShouldRepaint(oldDelegate);
+  bool shouldRepaint(FlowDelegate oldDelegate) =>
+      onShouldRepaint(oldDelegate);
+
 }
 
 /// D4rt proxy for [MultiChildLayoutDelegate].
@@ -99,11 +114,13 @@ class D4rtMultiChildLayoutDelegate extends MultiChildLayoutDelegate {
   });
 
   @override
-  void performLayout(Size size) => onPerformLayout(size);
+  void performLayout(Size size) =>
+      onPerformLayout(size);
 
   @override
   bool shouldRelayout(MultiChildLayoutDelegate oldDelegate) =>
       onShouldRelayout(oldDelegate);
+
 }
 
 /// D4rt proxy for [SingleChildLayoutDelegate].
@@ -111,51 +128,18 @@ class D4rtMultiChildLayoutDelegate extends MultiChildLayoutDelegate {
 /// Delegates abstract methods to callback functions, enabling
 /// D4rt scripts to implement [SingleChildLayoutDelegate] via named
 /// function parameters.
-///
-/// [onShouldRelayout] is required (abstract in base class).
-/// [onGetConstraintsForChild], [onGetPositionForChild], and [onGetSize]
-/// are optional — when omitted, the base-class defaults are used.
 class D4rtSingleChildLayoutDelegate extends SingleChildLayoutDelegate {
   /// Callback for [SingleChildLayoutDelegate.shouldRelayout].
   final bool Function(SingleChildLayoutDelegate) onShouldRelayout;
 
-  /// Optional callback for [SingleChildLayoutDelegate.getConstraintsForChild].
-  /// When null, defaults to passing through the incoming constraints.
-  final BoxConstraints Function(BoxConstraints)? onGetConstraintsForChild;
-
-  /// Optional callback for [SingleChildLayoutDelegate.getPositionForChild].
-  /// When null, defaults to [Offset.zero].
-  final Offset Function(Size, Size)? onGetPositionForChild;
-
-  /// Optional callback for [SingleChildLayoutDelegate.getSize].
-  /// When null, defaults to [constraints.biggest].
-  final Size Function(BoxConstraints)? onGetSize;
-
   /// Creates a [D4rtSingleChildLayoutDelegate] with callback implementations.
   D4rtSingleChildLayoutDelegate({
     required this.onShouldRelayout,
-    this.onGetConstraintsForChild,
-    this.onGetPositionForChild,
-    this.onGetSize,
   });
 
   @override
   bool shouldRelayout(SingleChildLayoutDelegate oldDelegate) =>
       onShouldRelayout(oldDelegate);
 
-  @override
-  BoxConstraints getConstraintsForChild(BoxConstraints constraints) =>
-      onGetConstraintsForChild != null
-      ? onGetConstraintsForChild!(constraints)
-      : super.getConstraintsForChild(constraints);
-
-  @override
-  Offset getPositionForChild(Size size, Size childSize) =>
-      onGetPositionForChild != null
-      ? onGetPositionForChild!(size, childSize)
-      : super.getPositionForChild(size, childSize);
-
-  @override
-  Size getSize(BoxConstraints constraints) =>
-      onGetSize != null ? onGetSize!(constraints) : super.getSize(constraints);
 }
+

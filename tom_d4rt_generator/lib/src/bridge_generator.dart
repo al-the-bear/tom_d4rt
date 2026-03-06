@@ -7432,6 +7432,7 @@ class BridgeGenerator {
               callbackVarName: rawVarName,
               funcInfo: funcInfo,
               isNullable: isNullable,
+              visitorExpr: 'visitor!',
               typeToUri: setter.returnTypeToUri,
               classTypeParams: cls.typeParameters,
               sourceFilePath: cls.sourceFile,
@@ -7446,6 +7447,57 @@ class BridgeGenerator {
               "        D4.validateTarget<$prefixedName>(target, '${cls.name}').${setter.name} = $wrapperExpr;",
             );
             buffer.writeln("      },");
+          } else if (_isMapType(setter.returnType)) {
+            final (keyType, valueType) = _getMapTypeArgs(
+              setter.returnType,
+              typeToUri: setter.returnTypeToUri,
+              classTypeParams: cls.typeParameters,
+              sourceFilePath: cls.sourceFile,
+            );
+            final cleanValueType = valueType.replaceAll('?', '');
+            final isFunctionValue = _isFunctionTypeName(cleanValueType);
+            if (isFunctionValue) {
+              FunctionTypeInfo? valueFuncInfo;
+              final lookupName = _getUnprefixedTypeName(cleanValueType);
+              valueFuncInfo = _knownFunctionTypeAliasInfo[lookupName];
+              valueFuncInfo ??= _parseFunctionType(cleanValueType);
+
+              if (valueFuncInfo != null) {
+                final localName = '${_getSafeLocalName(setter.name)}Map';
+                final isNullable = setter.returnType.endsWith('?');
+                buffer.writeln(
+                  "      '${setter.name}': (visitor, target, value) {",
+                );
+                if (!isNullable) {
+                  buffer.writeln("        if (value == null) {");
+                  buffer.writeln(
+                    "          throw ArgumentError('${cls.name}.${setter.name}: non-nullable map value cannot be null');",
+                  );
+                  buffer.writeln("        }");
+                }
+                final lines = _generateInlineFunctionMapConversion(
+                  localName: localName,
+                  rawMapExpr: 'value',
+                  keyType: keyType,
+                  valueType: valueType,
+                  funcInfo: valueFuncInfo,
+                  isNullable: isNullable,
+                  typeToUri: setter.returnTypeToUri,
+                  classTypeParams: cls.typeParameters,
+                  sourceFilePath: cls.sourceFile,
+                  indent: '        ',
+                  visitorExpr: 'visitor!',
+                );
+                for (final line in lines) {
+                  buffer.writeln(line);
+                }
+                buffer.writeln(
+                  "        D4.validateTarget<$prefixedName>(target, '${cls.name}').${setter.name} = $localName;",
+                );
+                buffer.writeln("      },");
+                continue;
+              }
+            }
           } else {
             // GEN-057: Use _generateSetterCast for proper collection type handling
             // GEN-075: Pass paramName for extractBridgedArg error messages
@@ -7599,6 +7651,79 @@ class BridgeGenerator {
     if (staticSetters.isNotEmpty) {
       buffer.writeln('    staticSetters: {');
       for (final setter in staticSetters) {
+        if (setter.functionTypeInfo != null) {
+          final funcInfo = setter.functionTypeInfo!;
+          final isNullable = setter.returnType.endsWith('?');
+          final rawVarName = '${setter.name}Raw';
+          final wrapperExpr = _generateFunctionWrapper(
+            callbackVarName: rawVarName,
+            funcInfo: funcInfo,
+            isNullable: isNullable,
+            visitorExpr: 'visitor!',
+            typeToUri: setter.returnTypeToUri,
+            classTypeParams: cls.typeParameters,
+            sourceFilePath: cls.sourceFile,
+          );
+          buffer.writeln("      '${setter.name}': (visitor, value) {");
+          buffer.writeln(
+            "        final $rawVarName = D4.extractBridgedArgOrNull<dynamic>(value, '${setter.name}');",
+          );
+          buffer.writeln(
+            "        $prefixedName.${setter.name} = $wrapperExpr;",
+          );
+          buffer.writeln("      },");
+          continue;
+        }
+
+        if (_isMapType(setter.returnType)) {
+          final (keyType, valueType) = _getMapTypeArgs(
+            setter.returnType,
+            typeToUri: setter.returnTypeToUri,
+            classTypeParams: cls.typeParameters,
+            sourceFilePath: cls.sourceFile,
+          );
+          final cleanValueType = valueType.replaceAll('?', '');
+          final isFunctionValue = _isFunctionTypeName(cleanValueType);
+          if (isFunctionValue) {
+            FunctionTypeInfo? valueFuncInfo;
+            final lookupName = _getUnprefixedTypeName(cleanValueType);
+            valueFuncInfo = _knownFunctionTypeAliasInfo[lookupName];
+            valueFuncInfo ??= _parseFunctionType(cleanValueType);
+
+            if (valueFuncInfo != null) {
+              final localName = '${_getSafeLocalName(setter.name)}Map';
+              final isNullable = setter.returnType.endsWith('?');
+              buffer.writeln("      '${setter.name}': (visitor, value) {");
+              if (!isNullable) {
+                buffer.writeln("        if (value == null) {");
+                buffer.writeln(
+                  "          throw ArgumentError('${cls.name}.${setter.name}: non-nullable map value cannot be null');",
+                );
+                buffer.writeln("        }");
+              }
+              final lines = _generateInlineFunctionMapConversion(
+                localName: localName,
+                rawMapExpr: 'value',
+                keyType: keyType,
+                valueType: valueType,
+                funcInfo: valueFuncInfo,
+                isNullable: isNullable,
+                typeToUri: setter.returnTypeToUri,
+                classTypeParams: cls.typeParameters,
+                sourceFilePath: cls.sourceFile,
+                indent: '        ',
+                visitorExpr: 'visitor!',
+              );
+              for (final line in lines) {
+                buffer.writeln(line);
+              }
+              buffer.writeln("        $prefixedName.${setter.name} = $localName;");
+              buffer.writeln("      },");
+              continue;
+            }
+          }
+        }
+
         // GEN-057: Use _generateSetterCast for proper collection type handling
         // GEN-075: Pass paramName for extractBridgedArg error messages
         // GEN-082: Pass sourceFilePath for local type resolution
@@ -10232,18 +10357,34 @@ class BridgeGenerator {
       final inner = baseType.substring(4, baseType.length - 1);
       final types = _splitFunctionParams(inner);
       if (types.length == 2) {
+        final rawKeyType = types[0].trim();
+        final rawValueType = types[1].trim();
         final prefixedKeyType = _getTypeArgument(
-          types[0].trim(),
+          rawKeyType,
           typeToUri: typeToUri,
           classTypeParams: classTypeParams,
           sourceFilePath: sourceFilePath,
         );
-        final prefixedValueType = _getTypeArgument(
-          types[1].trim(),
-          typeToUri: typeToUri,
-          classTypeParams: classTypeParams,
-          sourceFilePath: sourceFilePath,
-        );
+        String prefixedValueType;
+
+        final nullableValue = rawValueType.endsWith('?');
+        final nonNullableValue = nullableValue
+            ? rawValueType.substring(0, rawValueType.length - 1)
+            : rawValueType;
+        final unprefixedValue = _getUnprefixedTypeName(nonNullableValue);
+
+        if (unprefixedValue == 'VoidCallback') {
+          prefixedValueType = nullableValue
+              ? 'void Function()?'
+              : 'void Function()';
+        } else {
+          prefixedValueType = _getTypeArgument(
+            rawValueType,
+            typeToUri: typeToUri,
+            classTypeParams: classTypeParams,
+            sourceFilePath: sourceFilePath,
+          );
+        }
 
         if (isNullable) {
           return 'value == null ? null : (value as Map).cast<$prefixedKeyType, $prefixedValueType>()';
@@ -12185,6 +12326,7 @@ class BridgeGenerator {
     required String callbackVarName,
     required FunctionTypeInfo funcInfo,
     required bool isNullable,
+    String visitorExpr = 'visitor!',
     Map<String, String> typeToUri = const {},
     Map<String, String?> classTypeParams = const {},
     String? sourceFilePath,
@@ -12278,10 +12420,10 @@ class BridgeGenerator {
     String callExpr;
     if (funcInfo.namedParamTypes.isEmpty) {
       callExpr =
-          'D4.callInterpreterCallback(visitor, $callbackVarName, $argsStr)';
+          'D4.callInterpreterCallback($visitorExpr, $callbackVarName, $argsStr)';
     } else {
       callExpr =
-          'D4.callInterpreterCallback(visitor, $callbackVarName, $argsStr, $namedArgsStr)';
+          'D4.callInterpreterCallback($visitorExpr, $callbackVarName, $argsStr, $namedArgsStr)';
     }
 
     // Build the wrapper body - prefix return type
@@ -12364,6 +12506,7 @@ class BridgeGenerator {
     required FunctionTypeInfo funcInfo,
     required bool isNullable,
     bool declareVariable = true,
+    String visitorExpr = 'visitor',
     Map<String, String> typeToUri = const {},
     Map<String, String?> classTypeParams = const {},
     String? sourceFilePath,
@@ -12399,6 +12542,7 @@ class BridgeGenerator {
       callbackVarName: 'v',
       funcInfo: funcInfo,
       isNullable: false, // Individual values - handle null in the loop
+      visitorExpr: visitorExpr,
       typeToUri: typeToUri,
       classTypeParams: classTypeParams,
       sourceFilePath: sourceFilePath,

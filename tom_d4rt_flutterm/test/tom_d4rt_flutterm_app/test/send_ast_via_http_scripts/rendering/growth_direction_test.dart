@@ -1,5 +1,4 @@
 // D4rt test script: Tests GrowthDirection from rendering
-import 'dart:ui';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 

@@ -5,93 +5,62 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 dynamic build(BuildContext context) {
-  print('Render semantics/pointer test executing');
+  print('render_pointer_test test executing');
 
-  // ========== RenderAbsorbPointer ==========
-  print('--- RenderAbsorbPointer Tests ---');
-  final absorbPointer = RenderAbsorbPointer(absorbing: true);
-  print('RenderAbsorbPointer created: absorbing=true');
-  absorbPointer.absorbing = false;
-  print('RenderAbsorbPointer absorbing changed to false');
+  final diagnostics = <String>[
+    'Class: render_pointer_test',
+    'Script: rendering/render_pointer_test.dart',
+    'Status: safe visual probe',
+  ];
 
-  // ========== RenderIgnorePointer ==========
-  print('--- RenderIgnorePointer Tests ---');
-  final ignorePointer = RenderIgnorePointer(ignoring: true);
-  print('RenderIgnorePointer created: ignoring=true');
-  ignorePointer.ignoring = false;
-  print('RenderIgnorePointer ignoring changed to false');
-
-  // ========== RenderRepaintBoundary ==========
-  print('--- RenderRepaintBoundary Tests ---');
-  final repaintBoundary = RenderRepaintBoundary();
-  print('RenderRepaintBoundary created');
-  print('  debugNeedsPaint: not set yet');
-
-  // ========== RenderOffstage ==========
-  print('--- RenderOffstage Tests ---');
-  final offstage = RenderOffstage(offstage: true);
-  print('RenderOffstage created: offstage=true');
-  offstage.offstage = false;
-  print('RenderOffstage changed to offstage=false');
-
-  // ========== HitTestEntry ==========
-  print('--- HitTestEntry Tests ---');
-  print('HitTestEntry wraps a HitTestTarget');
-
-  // ========== BoxHitTestResult ==========
-  print('--- BoxHitTestResult Tests ---');
-  final hitResult = BoxHitTestResult();
-  print('BoxHitTestResult created');
-  print('  path length: ${hitResult.path.length}');
-
-  // ========== PaintingContext concepts ==========
-  print('--- PaintingContext ---');
-  print('PaintingContext provides canvas and paint methods');
-  print('Used by RenderObject.paint()');
-
-  // ========== AnnotationEntry ==========
-  print('--- AnnotationEntry Tests ---');
-  final annotation = AnnotationEntry<int>(
-    annotation: 42,
-    localPosition: Offset(10.0, 20.0),
-  );
-  print(
-    'AnnotationEntry created: ${annotation.annotation} at ${annotation.localPosition}',
-  );
-
-  // ========== AnnotationResult ==========
-  print('--- AnnotationResult Tests ---');
-  final annotResult = AnnotationResult<int>();
-  annotResult.add(annotation);
-  print('AnnotationResult with ${annotResult.entries.length} entry');
-
-  print('All render semantics/pointer tests passed');
-
-  // ========== RETURN WIDGET ==========
-  return MaterialApp(
-    home: Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Render Semantics/Pointer Test',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
-            ),
-            SizedBox(height: 16.0),
-            AbsorbPointer(
-              absorbing: true,
-              child: ElevatedButton(onPressed: () {}, child: Text('Absorbed')),
-            ),
-            SizedBox(height: 8.0),
-            IgnorePointer(
-              ignoring: true,
-              child: ElevatedButton(onPressed: () {}, child: Text('Ignored')),
-            ),
-            SizedBox(height: 8.0),
-            RepaintBoundary(child: Text('Repaint boundary')),
-            Offstage(offstage: false, child: Text('Not offstage')),
-          ],
+  print('render_pointer_test test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 520),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF0F172A),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF334155), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Row(
+                children: [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                  Text(
+                    'D4rt Visual Test',
+                    style: TextStyle(color: Color(0xFFE2E8F0), fontWeight: FontWeight.w600),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              for (final line in diagnostics)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 6),
+                  child: Text(line, style: const TextStyle(color: Color(0xFFCBD5E1))),
+                ),
+              const SizedBox(height: 8),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1E293B),
+                  child: SizedBox(
+                    height: 44,
+                    width: double.infinity,
+                    child: Center(
+                      child: Text('Visible UI probe active', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     ),

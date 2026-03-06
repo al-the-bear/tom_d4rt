@@ -1,5 +1,4 @@
 // D4rt test script: Tests Class from scheduler
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {

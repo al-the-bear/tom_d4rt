@@ -1,5 +1,4 @@
 // D4rt test script: Tests DiagnosticableTree from foundation
-import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {

@@ -1,5 +1,4 @@
 // D4rt test script: Tests SemanticsBinding from semantics
-import 'package:flutter/semantics.dart';
 import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {

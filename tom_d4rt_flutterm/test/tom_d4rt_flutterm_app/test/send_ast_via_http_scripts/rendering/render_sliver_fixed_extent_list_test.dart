@@ -1,5 +1,4 @@
 // D4rt test script: Tests RenderSliverFixedExtentList from rendering
-import 'dart:ui';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 

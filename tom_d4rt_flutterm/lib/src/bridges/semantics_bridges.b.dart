@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
-// Sources: 12 files
-// Generated: 2026-03-03T11:56:24.503468
+// Sources: 11 files
+// Generated: 2026-03-05T20:37:03.604844
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -33,8 +33,6 @@ class FlutterSemanticsBridge {
     return [
       _createSemanticsBindingBridge(),
       _createSemanticsHandleBridge(),
-      _createMatrix4Bridge(),
-      _createTextSelectionBridge(),
       _createSemanticsEventBridge(),
       _createAnnounceSemanticsEventBridge(),
       _createTooltipSemanticsEventBridge(),
@@ -70,8 +68,6 @@ class FlutterSemanticsBridge {
     return {
       'SemanticsBinding': 'package:flutter/src/semantics/binding.dart',
       'SemanticsHandle': 'package:flutter/src/semantics/binding.dart',
-      'Matrix4': 'package:vector_math/vector_math_64.dart',
-      'TextSelection': 'package:flutter/src/services/text_editing.dart',
       'SemanticsEvent': 'package:flutter/src/semantics/semantics_event.dart',
       'AnnounceSemanticsEvent': 'package:flutter/src/semantics/semantics_event.dart',
       'TooltipSemanticsEvent': 'package:flutter/src/semantics/semantics_event.dart',
@@ -544,7 +540,6 @@ class FlutterSemanticsBridge {
       'package:flutter/src/semantics/semantics.dart',
       'package:flutter/src/semantics/semantics_event.dart',
       'package:flutter/src/semantics/semantics_service.dart',
-      'package:flutter/src/services/text_editing.dart',
       'package:vector_math/src/vector_math_64/constants.dart',
       'package:vector_math/src/vector_math_64/error_helpers.dart',
       'package:vector_math/src/vector_math_64/opengl.dart',
@@ -619,7 +614,7 @@ BridgedClass _createSemanticsBindingBridge() {
           throw ArgumentError('addSemanticsEnabledListener: Missing required argument "listener" at position 0');
         }
         final listenerRaw = positional[0];
-        t.addSemanticsEnabledListener(() { D4.callInterpreterCallback(visitor, listenerRaw, []); });
+        t.addSemanticsEnabledListener(() { D4.callInterpreterCallback(visitor!, listenerRaw, []); });
         return null;
       },
       'removeSemanticsEnabledListener': (visitor, target, positional, named, typeArgs) {
@@ -629,7 +624,7 @@ BridgedClass _createSemanticsBindingBridge() {
           throw ArgumentError('removeSemanticsEnabledListener: Missing required argument "listener" at position 0');
         }
         final listenerRaw = positional[0];
-        t.removeSemanticsEnabledListener(() { D4.callInterpreterCallback(visitor, listenerRaw, []); });
+        t.removeSemanticsEnabledListener(() { D4.callInterpreterCallback(visitor!, listenerRaw, []); });
         return null;
       },
       'addSemanticsActionListener': (visitor, target, positional, named, typeArgs) {
@@ -639,7 +634,7 @@ BridgedClass _createSemanticsBindingBridge() {
           throw ArgumentError('addSemanticsActionListener: Missing required argument "listener" at position 0');
         }
         final listenerRaw = positional[0];
-        t.addSemanticsActionListener((SemanticsActionEvent p0) { D4.callInterpreterCallback(visitor, listenerRaw, [p0]); });
+        t.addSemanticsActionListener((SemanticsActionEvent p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
         return null;
       },
       'removeSemanticsActionListener': (visitor, target, positional, named, typeArgs) {
@@ -649,7 +644,7 @@ BridgedClass _createSemanticsBindingBridge() {
           throw ArgumentError('removeSemanticsActionListener: Missing required argument "listener" at position 0');
         }
         final listenerRaw = positional[0];
-        t.removeSemanticsActionListener((SemanticsActionEvent p0) { D4.callInterpreterCallback(visitor, listenerRaw, [p0]); });
+        t.removeSemanticsActionListener((SemanticsActionEvent p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
         return null;
       },
       'ensureSemantics': (visitor, target, positional, named, typeArgs) {
@@ -690,7 +685,7 @@ BridgedClass _createSemanticsBindingBridge() {
           throw ArgumentError('lockEvents: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return t.lockEvents(() { return D4.callInterpreterCallback(visitor, callbackRaw, []) as Future<void>; });
+        return t.lockEvents(() { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as Future<void>; });
       },
       'unlocked': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_5.SemanticsBinding>(target, 'SemanticsBinding');
@@ -712,7 +707,7 @@ BridgedClass _createSemanticsBindingBridge() {
           throw ArgumentError('registerSignalServiceExtension: Missing required named argument "callback"');
         }
         final callbackRaw = named['callback'];
-        t.registerSignalServiceExtension(name: name, callback: () { return D4.callInterpreterCallback(visitor, callbackRaw, []) as Future<void>; });
+        t.registerSignalServiceExtension(name: name, callback: () { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as Future<void>; });
         return null;
       },
       'registerBoolServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -726,7 +721,7 @@ BridgedClass _createSemanticsBindingBridge() {
           throw ArgumentError('registerBoolServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerBoolServiceExtension(name: name, getter: () { return D4.callInterpreterCallback(visitor, getterRaw, []) as Future<bool>; }, setter: (bool p0) { return D4.callInterpreterCallback(visitor, setterRaw, [p0]) as Future<void>; });
+        t.registerBoolServiceExtension(name: name, getter: () { return D4.callInterpreterCallback(visitor!, getterRaw, []) as Future<bool>; }, setter: (bool p0) { return D4.callInterpreterCallback(visitor!, setterRaw, [p0]) as Future<void>; });
         return null;
       },
       'registerNumericServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -740,7 +735,7 @@ BridgedClass _createSemanticsBindingBridge() {
           throw ArgumentError('registerNumericServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerNumericServiceExtension(name: name, getter: () { return D4.callInterpreterCallback(visitor, getterRaw, []) as Future<double>; }, setter: (double p0) { return D4.callInterpreterCallback(visitor, setterRaw, [p0]) as Future<void>; });
+        t.registerNumericServiceExtension(name: name, getter: () { return D4.callInterpreterCallback(visitor!, getterRaw, []) as Future<double>; }, setter: (double p0) { return D4.callInterpreterCallback(visitor!, setterRaw, [p0]) as Future<void>; });
         return null;
       },
       'postEvent': (visitor, target, positional, named, typeArgs) {
@@ -765,7 +760,7 @@ BridgedClass _createSemanticsBindingBridge() {
           throw ArgumentError('registerStringServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerStringServiceExtension(name: name, getter: () { return D4.callInterpreterCallback(visitor, getterRaw, []) as Future<String>; }, setter: (String p0) { return D4.callInterpreterCallback(visitor, setterRaw, [p0]) as Future<void>; });
+        t.registerStringServiceExtension(name: name, getter: () { return D4.callInterpreterCallback(visitor!, getterRaw, []) as Future<String>; }, setter: (String p0) { return D4.callInterpreterCallback(visitor!, setterRaw, [p0]) as Future<void>; });
         return null;
       },
       'registerServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -775,7 +770,7 @@ BridgedClass _createSemanticsBindingBridge() {
           throw ArgumentError('registerServiceExtension: Missing required named argument "callback"');
         }
         final callbackRaw = named['callback'];
-        t.registerServiceExtension(name: name, callback: (Map<String, String> p0) { return D4.callInterpreterCallback(visitor, callbackRaw, [p0]) as Future<Map<String, dynamic>>; });
+        t.registerServiceExtension(name: name, callback: (Map<String, String> p0) { return D4.callInterpreterCallback(visitor!, callbackRaw, [p0]) as Future<Map<String, dynamic>>; });
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -845,1108 +840,6 @@ BridgedClass _createSemanticsHandleBridge() {
     },
     methodSignatures: {
       'dispose': 'void dispose()',
-    },
-  );
-}
-
-// =============================================================================
-// Matrix4 Bridge
-// =============================================================================
-
-BridgedClass _createMatrix4Bridge() {
-  return BridgedClass(
-    nativeType: $vector_math_1.Matrix4,
-    name: 'Matrix4',
-    isAssignable: (v) => v is $vector_math_1.Matrix4,
-    constructors: {
-      '': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 16, 'Matrix4');
-        final arg0 = D4.getRequiredArg<double>(positional, 0, 'arg0', 'Matrix4');
-        final arg1 = D4.getRequiredArg<double>(positional, 1, 'arg1', 'Matrix4');
-        final arg2 = D4.getRequiredArg<double>(positional, 2, 'arg2', 'Matrix4');
-        final arg3 = D4.getRequiredArg<double>(positional, 3, 'arg3', 'Matrix4');
-        final arg4 = D4.getRequiredArg<double>(positional, 4, 'arg4', 'Matrix4');
-        final arg5 = D4.getRequiredArg<double>(positional, 5, 'arg5', 'Matrix4');
-        final arg6 = D4.getRequiredArg<double>(positional, 6, 'arg6', 'Matrix4');
-        final arg7 = D4.getRequiredArg<double>(positional, 7, 'arg7', 'Matrix4');
-        final arg8 = D4.getRequiredArg<double>(positional, 8, 'arg8', 'Matrix4');
-        final arg9 = D4.getRequiredArg<double>(positional, 9, 'arg9', 'Matrix4');
-        final arg10 = D4.getRequiredArg<double>(positional, 10, 'arg10', 'Matrix4');
-        final arg11 = D4.getRequiredArg<double>(positional, 11, 'arg11', 'Matrix4');
-        final arg12 = D4.getRequiredArg<double>(positional, 12, 'arg12', 'Matrix4');
-        final arg13 = D4.getRequiredArg<double>(positional, 13, 'arg13', 'Matrix4');
-        final arg14 = D4.getRequiredArg<double>(positional, 14, 'arg14', 'Matrix4');
-        final arg15 = D4.getRequiredArg<double>(positional, 15, 'arg15', 'Matrix4');
-        return $vector_math_1.Matrix4(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15);
-      },
-      'fromList': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'Matrix4');
-        if (positional.isEmpty) {
-          throw ArgumentError('Matrix4: Missing required argument "values" at position 0');
-        }
-        final values = D4.coerceList<double>(positional[0], 'values');
-        return $vector_math_1.Matrix4.fromList(values);
-      },
-      'zero': (visitor, positional, named) {
-        return $vector_math_1.Matrix4.zero();
-      },
-      'identity': (visitor, positional, named) {
-        return $vector_math_1.Matrix4.identity();
-      },
-      'copy': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'Matrix4');
-        final other = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'other', 'Matrix4');
-        return $vector_math_1.Matrix4.copy(other);
-      },
-      'inverted': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'Matrix4');
-        final other = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'other', 'Matrix4');
-        return $vector_math_1.Matrix4.inverted(other);
-      },
-      'columns': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 4, 'Matrix4');
-        final arg0 = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 0, 'arg0', 'Matrix4');
-        final arg1 = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 1, 'arg1', 'Matrix4');
-        final arg2 = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 2, 'arg2', 'Matrix4');
-        final arg3 = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 3, 'arg3', 'Matrix4');
-        return $vector_math_1.Matrix4.columns(arg0, arg1, arg2, arg3);
-      },
-      'outer': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 2, 'Matrix4');
-        final u = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 0, 'u', 'Matrix4');
-        final v = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 1, 'v', 'Matrix4');
-        return $vector_math_1.Matrix4.outer(u, v);
-      },
-      'rotationX': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'Matrix4');
-        final radians = D4.getRequiredArg<double>(positional, 0, 'radians', 'Matrix4');
-        return $vector_math_1.Matrix4.rotationX(radians);
-      },
-      'rotationY': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'Matrix4');
-        final radians = D4.getRequiredArg<double>(positional, 0, 'radians', 'Matrix4');
-        return $vector_math_1.Matrix4.rotationY(radians);
-      },
-      'rotationZ': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'Matrix4');
-        final radians = D4.getRequiredArg<double>(positional, 0, 'radians', 'Matrix4');
-        return $vector_math_1.Matrix4.rotationZ(radians);
-      },
-      'translation': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'Matrix4');
-        final translation = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'translation', 'Matrix4');
-        return $vector_math_1.Matrix4.translation(translation);
-      },
-      'translationValues': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 3, 'Matrix4');
-        final x = D4.getRequiredArg<double>(positional, 0, 'x', 'Matrix4');
-        final y = D4.getRequiredArg<double>(positional, 1, 'y', 'Matrix4');
-        final z = D4.getRequiredArg<double>(positional, 2, 'z', 'Matrix4');
-        return $vector_math_1.Matrix4.translationValues(x, y, z);
-      },
-      'diagonal3': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'Matrix4');
-        final scale = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'scale', 'Matrix4');
-        return $vector_math_1.Matrix4.diagonal3(scale);
-      },
-      'diagonal3Values': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 3, 'Matrix4');
-        final x = D4.getRequiredArg<double>(positional, 0, 'x', 'Matrix4');
-        final y = D4.getRequiredArg<double>(positional, 1, 'y', 'Matrix4');
-        final z = D4.getRequiredArg<double>(positional, 2, 'z', 'Matrix4');
-        return $vector_math_1.Matrix4.diagonal3Values(x, y, z);
-      },
-      'skewX': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'Matrix4');
-        final alpha = D4.getRequiredArg<double>(positional, 0, 'alpha', 'Matrix4');
-        return $vector_math_1.Matrix4.skewX(alpha);
-      },
-      'skewY': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'Matrix4');
-        final beta = D4.getRequiredArg<double>(positional, 0, 'beta', 'Matrix4');
-        return $vector_math_1.Matrix4.skewY(beta);
-      },
-      'skew': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 2, 'Matrix4');
-        final alpha = D4.getRequiredArg<double>(positional, 0, 'alpha', 'Matrix4');
-        final beta = D4.getRequiredArg<double>(positional, 1, 'beta', 'Matrix4');
-        return $vector_math_1.Matrix4.skew(alpha, beta);
-      },
-      'fromFloat64List': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'Matrix4');
-        final m4storage = D4.getRequiredArg<Float64List>(positional, 0, '_m4storage', 'Matrix4');
-        return $vector_math_1.Matrix4.fromFloat64List(m4storage);
-      },
-      'fromBuffer': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 2, 'Matrix4');
-        final buffer = D4.getRequiredArg<ByteBuffer>(positional, 0, 'buffer', 'Matrix4');
-        final offset = D4.getRequiredArg<int>(positional, 1, 'offset', 'Matrix4');
-        return $vector_math_1.Matrix4.fromBuffer(buffer, offset);
-      },
-      'compose': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 3, 'Matrix4');
-        final translation = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'translation', 'Matrix4');
-        final rotation = D4.getRequiredArg<$vector_math_1.Quaternion>(positional, 1, 'rotation', 'Matrix4');
-        final scale = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 2, 'scale', 'Matrix4');
-        return $vector_math_1.Matrix4.compose(translation, rotation, scale);
-      },
-    },
-    getters: {
-      'storage': (visitor, target) => D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4').storage,
-      'dimension': (visitor, target) => D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4').dimension,
-      'hashCode': (visitor, target) => D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4').hashCode,
-      'row0': (visitor, target) => D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4').row0,
-      'row1': (visitor, target) => D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4').row1,
-      'row2': (visitor, target) => D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4').row2,
-      'row3': (visitor, target) => D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4').row3,
-      'right': (visitor, target) => D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4').right,
-      'up': (visitor, target) => D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4').up,
-      'forward': (visitor, target) => D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4').forward,
-    },
-    setters: {
-      'row0': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4').row0 = value as dynamic,
-      'row1': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4').row1 = value as dynamic,
-      'row2': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4').row2 = value as dynamic,
-      'row3': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4').row3 = value as dynamic,
-    },
-    methods: {
-      'index': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 2, 'index');
-        final row = D4.getRequiredArg<int>(positional, 0, 'row', 'index');
-        final col = D4.getRequiredArg<int>(positional, 1, 'col', 'index');
-        return t.index(row, col);
-      },
-      'entry': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 2, 'entry');
-        final row = D4.getRequiredArg<int>(positional, 0, 'row', 'entry');
-        final col = D4.getRequiredArg<int>(positional, 1, 'col', 'entry');
-        return t.entry(row, col);
-      },
-      'setEntry': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 3, 'setEntry');
-        final row = D4.getRequiredArg<int>(positional, 0, 'row', 'setEntry');
-        final col = D4.getRequiredArg<int>(positional, 1, 'col', 'setEntry');
-        final v = D4.getRequiredArg<double>(positional, 2, 'v', 'setEntry');
-        t.setEntry(row, col, v);
-        return null;
-      },
-      'splatDiagonal': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'splatDiagonal');
-        final arg = D4.getRequiredArg<double>(positional, 0, 'arg', 'splatDiagonal');
-        t.splatDiagonal(arg);
-        return null;
-      },
-      'setValues': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 16, 'setValues');
-        final arg0 = D4.getRequiredArg<double>(positional, 0, 'arg0', 'setValues');
-        final arg1 = D4.getRequiredArg<double>(positional, 1, 'arg1', 'setValues');
-        final arg2 = D4.getRequiredArg<double>(positional, 2, 'arg2', 'setValues');
-        final arg3 = D4.getRequiredArg<double>(positional, 3, 'arg3', 'setValues');
-        final arg4 = D4.getRequiredArg<double>(positional, 4, 'arg4', 'setValues');
-        final arg5 = D4.getRequiredArg<double>(positional, 5, 'arg5', 'setValues');
-        final arg6 = D4.getRequiredArg<double>(positional, 6, 'arg6', 'setValues');
-        final arg7 = D4.getRequiredArg<double>(positional, 7, 'arg7', 'setValues');
-        final arg8 = D4.getRequiredArg<double>(positional, 8, 'arg8', 'setValues');
-        final arg9 = D4.getRequiredArg<double>(positional, 9, 'arg9', 'setValues');
-        final arg10 = D4.getRequiredArg<double>(positional, 10, 'arg10', 'setValues');
-        final arg11 = D4.getRequiredArg<double>(positional, 11, 'arg11', 'setValues');
-        final arg12 = D4.getRequiredArg<double>(positional, 12, 'arg12', 'setValues');
-        final arg13 = D4.getRequiredArg<double>(positional, 13, 'arg13', 'setValues');
-        final arg14 = D4.getRequiredArg<double>(positional, 14, 'arg14', 'setValues');
-        final arg15 = D4.getRequiredArg<double>(positional, 15, 'arg15', 'setValues');
-        t.setValues(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15);
-        return null;
-      },
-      'setColumns': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 4, 'setColumns');
-        final arg0 = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 0, 'arg0', 'setColumns');
-        final arg1 = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 1, 'arg1', 'setColumns');
-        final arg2 = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 2, 'arg2', 'setColumns');
-        final arg3 = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 3, 'arg3', 'setColumns');
-        t.setColumns(arg0, arg1, arg2, arg3);
-        return null;
-      },
-      'setFrom': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'setFrom');
-        final arg = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'arg', 'setFrom');
-        t.setFrom(arg);
-        return null;
-      },
-      'setFromTranslationRotation': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 2, 'setFromTranslationRotation');
-        final arg0 = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'arg0', 'setFromTranslationRotation');
-        final arg1 = D4.getRequiredArg<$vector_math_1.Quaternion>(positional, 1, 'arg1', 'setFromTranslationRotation');
-        t.setFromTranslationRotation(arg0, arg1);
-        return null;
-      },
-      'setFromTranslationRotationScale': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 3, 'setFromTranslationRotationScale');
-        final translation = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'translation', 'setFromTranslationRotationScale');
-        final rotation = D4.getRequiredArg<$vector_math_1.Quaternion>(positional, 1, 'rotation', 'setFromTranslationRotationScale');
-        final scale = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 2, 'scale', 'setFromTranslationRotationScale');
-        t.setFromTranslationRotationScale(translation, rotation, scale);
-        return null;
-      },
-      'setUpper2x2': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'setUpper2x2');
-        final arg = D4.getRequiredArg<$vector_math_1.Matrix2>(positional, 0, 'arg', 'setUpper2x2');
-        t.setUpper2x2(arg);
-        return null;
-      },
-      'setDiagonal': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'setDiagonal');
-        final arg = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 0, 'arg', 'setDiagonal');
-        t.setDiagonal(arg);
-        return null;
-      },
-      'setOuter': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 2, 'setOuter');
-        final u = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 0, 'u', 'setOuter');
-        final v = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 1, 'v', 'setOuter');
-        t.setOuter(u, v);
-        return null;
-      },
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        return t.toString();
-      },
-      'setRow': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 2, 'setRow');
-        final row = D4.getRequiredArg<int>(positional, 0, 'row', 'setRow');
-        final arg = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 1, 'arg', 'setRow');
-        t.setRow(row, arg);
-        return null;
-      },
-      'getRow': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'getRow');
-        final row = D4.getRequiredArg<int>(positional, 0, 'row', 'getRow');
-        return t.getRow(row);
-      },
-      'setColumn': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 2, 'setColumn');
-        final column = D4.getRequiredArg<int>(positional, 0, 'column', 'setColumn');
-        final arg = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 1, 'arg', 'setColumn');
-        t.setColumn(column, arg);
-        return null;
-      },
-      'getColumn': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'getColumn');
-        final column = D4.getRequiredArg<int>(positional, 0, 'column', 'getColumn');
-        return t.getColumn(column);
-      },
-      'clone': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        return t.clone();
-      },
-      'copyInto': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'copyInto');
-        final arg = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'arg', 'copyInto');
-        return t.copyInto(arg);
-      },
-      'translate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'translate');
-        final x = D4.getRequiredArg<dynamic>(positional, 0, 'x', 'translate');
-        final y = D4.getOptionalArgWithDefault<double>(positional, 1, 'y', 0.0);
-        final z = D4.getOptionalArgWithDefault<double>(positional, 2, 'z', 0.0);
-        t.translate(x, y, z);
-        return null;
-      },
-      'translateByDouble': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 4, 'translateByDouble');
-        final tx = D4.getRequiredArg<double>(positional, 0, 'tx', 'translateByDouble');
-        final ty = D4.getRequiredArg<double>(positional, 1, 'ty', 'translateByDouble');
-        final tz = D4.getRequiredArg<double>(positional, 2, 'tz', 'translateByDouble');
-        final tw = D4.getRequiredArg<double>(positional, 3, 'tw', 'translateByDouble');
-        t.translateByDouble(tx, ty, tz, tw);
-        return null;
-      },
-      'translateByVector3': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'translateByVector3');
-        final v3 = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'v3', 'translateByVector3');
-        t.translateByVector3(v3);
-        return null;
-      },
-      'translateByVector4': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'translateByVector4');
-        final v4 = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 0, 'v4', 'translateByVector4');
-        t.translateByVector4(v4);
-        return null;
-      },
-      'leftTranslate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'leftTranslate');
-        final x = D4.getRequiredArg<dynamic>(positional, 0, 'x', 'leftTranslate');
-        final y = D4.getOptionalArgWithDefault<double>(positional, 1, 'y', 0.0);
-        final z = D4.getOptionalArgWithDefault<double>(positional, 2, 'z', 0.0);
-        t.leftTranslate(x, y, z);
-        return null;
-      },
-      'leftTranslateByDouble': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 4, 'leftTranslateByDouble');
-        final tx = D4.getRequiredArg<double>(positional, 0, 'tx', 'leftTranslateByDouble');
-        final ty = D4.getRequiredArg<double>(positional, 1, 'ty', 'leftTranslateByDouble');
-        final tz = D4.getRequiredArg<double>(positional, 2, 'tz', 'leftTranslateByDouble');
-        final tw = D4.getRequiredArg<double>(positional, 3, 'tw', 'leftTranslateByDouble');
-        t.leftTranslateByDouble(tx, ty, tz, tw);
-        return null;
-      },
-      'leftTranslateByVector3': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'leftTranslateByVector3');
-        final v3 = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'v3', 'leftTranslateByVector3');
-        t.leftTranslateByVector3(v3);
-        return null;
-      },
-      'leftTranslateByVector4': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'leftTranslateByVector4');
-        final v4 = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 0, 'v4', 'leftTranslateByVector4');
-        t.leftTranslateByVector4(v4);
-        return null;
-      },
-      'rotate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 2, 'rotate');
-        final axis = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'axis', 'rotate');
-        final angle = D4.getRequiredArg<double>(positional, 1, 'angle', 'rotate');
-        t.rotate(axis, angle);
-        return null;
-      },
-      'rotateX': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'rotateX');
-        final angle = D4.getRequiredArg<double>(positional, 0, 'angle', 'rotateX');
-        t.rotateX(angle);
-        return null;
-      },
-      'rotateY': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'rotateY');
-        final angle = D4.getRequiredArg<double>(positional, 0, 'angle', 'rotateY');
-        t.rotateY(angle);
-        return null;
-      },
-      'rotateZ': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'rotateZ');
-        final angle = D4.getRequiredArg<double>(positional, 0, 'angle', 'rotateZ');
-        t.rotateZ(angle);
-        return null;
-      },
-      'scale': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'scale');
-        final x = D4.getRequiredArg<dynamic>(positional, 0, 'x', 'scale');
-        final y = D4.getOptionalArg<double?>(positional, 1, 'y');
-        final z = D4.getOptionalArg<double?>(positional, 2, 'z');
-        t.scale(x, y, z);
-        return null;
-      },
-      'scaleByDouble': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 4, 'scaleByDouble');
-        final sx = D4.getRequiredArg<double>(positional, 0, 'sx', 'scaleByDouble');
-        final sy = D4.getRequiredArg<double>(positional, 1, 'sy', 'scaleByDouble');
-        final sz = D4.getRequiredArg<double>(positional, 2, 'sz', 'scaleByDouble');
-        final sw = D4.getRequiredArg<double>(positional, 3, 'sw', 'scaleByDouble');
-        t.scaleByDouble(sx, sy, sz, sw);
-        return null;
-      },
-      'scaleByVector3': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'scaleByVector3');
-        final v3 = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'v3', 'scaleByVector3');
-        t.scaleByVector3(v3);
-        return null;
-      },
-      'scaleByVector4': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'scaleByVector4');
-        final v4 = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 0, 'v4', 'scaleByVector4');
-        t.scaleByVector4(v4);
-        return null;
-      },
-      'scaled': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'scaled');
-        final x = D4.getRequiredArg<dynamic>(positional, 0, 'x', 'scaled');
-        final y = D4.getOptionalArg<double?>(positional, 1, 'y');
-        final z = D4.getOptionalArg<double?>(positional, 2, 'z');
-        return t.scaled(x, y, z);
-      },
-      'scaledByDouble': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 4, 'scaledByDouble');
-        final x = D4.getRequiredArg<double>(positional, 0, 'x', 'scaledByDouble');
-        final y = D4.getRequiredArg<double>(positional, 1, 'y', 'scaledByDouble');
-        final z = D4.getRequiredArg<double>(positional, 2, 'z', 'scaledByDouble');
-        final t_ = D4.getRequiredArg<double>(positional, 3, 't', 'scaledByDouble');
-        return t.scaledByDouble(x, y, z, t_);
-      },
-      'scaledByVector3': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'scaledByVector3');
-        final v3 = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'v3', 'scaledByVector3');
-        return t.scaledByVector3(v3);
-      },
-      'scaledByVector4': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'scaledByVector4');
-        final v4 = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 0, 'v4', 'scaledByVector4');
-        return t.scaledByVector4(v4);
-      },
-      'setZero': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        t.setZero();
-        return null;
-      },
-      'setIdentity': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        t.setIdentity();
-        return null;
-      },
-      'transposed': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        return t.transposed();
-      },
-      'transpose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        t.transpose();
-        return null;
-      },
-      'absolute': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        return t.absolute();
-      },
-      'determinant': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        return t.determinant();
-      },
-      'dotRow': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 2, 'dotRow');
-        final i = D4.getRequiredArg<int>(positional, 0, 'i', 'dotRow');
-        final v = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 1, 'v', 'dotRow');
-        return t.dotRow(i, v);
-      },
-      'dotColumn': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 2, 'dotColumn');
-        final j = D4.getRequiredArg<int>(positional, 0, 'j', 'dotColumn');
-        final v = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 1, 'v', 'dotColumn');
-        return t.dotColumn(j, v);
-      },
-      'trace': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        return t.trace();
-      },
-      'infinityNorm': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        return t.infinityNorm();
-      },
-      'relativeError': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'relativeError');
-        final correct = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'correct', 'relativeError');
-        return t.relativeError(correct);
-      },
-      'absoluteError': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'absoluteError');
-        final correct = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'correct', 'absoluteError');
-        return t.absoluteError(correct);
-      },
-      'getTranslation': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        return t.getTranslation();
-      },
-      'setTranslation': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'setTranslation');
-        final t_ = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 't', 'setTranslation');
-        t.setTranslation(t_);
-        return null;
-      },
-      'setTranslationRaw': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 3, 'setTranslationRaw');
-        final x = D4.getRequiredArg<double>(positional, 0, 'x', 'setTranslationRaw');
-        final y = D4.getRequiredArg<double>(positional, 1, 'y', 'setTranslationRaw');
-        final z = D4.getRequiredArg<double>(positional, 2, 'z', 'setTranslationRaw');
-        t.setTranslationRaw(x, y, z);
-        return null;
-      },
-      'getRotation': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        return t.getRotation();
-      },
-      'copyRotation': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'copyRotation');
-        final rotation = D4.getRequiredArg<$vector_math_1.Matrix3>(positional, 0, 'rotation', 'copyRotation');
-        t.copyRotation(rotation);
-        return null;
-      },
-      'setRotation': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'setRotation');
-        final r = D4.getRequiredArg<$vector_math_1.Matrix3>(positional, 0, 'r', 'setRotation');
-        t.setRotation(r);
-        return null;
-      },
-      'getNormalMatrix': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        return t.getNormalMatrix();
-      },
-      'getMaxScaleOnAxis': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        return t.getMaxScaleOnAxis();
-      },
-      'transposeRotation': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        t.transposeRotation();
-        return null;
-      },
-      'invert': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        return t.invert();
-      },
-      'copyInverse': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'copyInverse');
-        final arg = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'arg', 'copyInverse');
-        return t.copyInverse(arg);
-      },
-      'invertRotation': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        return t.invertRotation();
-      },
-      'setRotationX': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'setRotationX');
-        final radians = D4.getRequiredArg<double>(positional, 0, 'radians', 'setRotationX');
-        t.setRotationX(radians);
-        return null;
-      },
-      'setRotationY': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'setRotationY');
-        final radians = D4.getRequiredArg<double>(positional, 0, 'radians', 'setRotationY');
-        t.setRotationY(radians);
-        return null;
-      },
-      'setRotationZ': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'setRotationZ');
-        final radians = D4.getRequiredArg<double>(positional, 0, 'radians', 'setRotationZ');
-        t.setRotationZ(radians);
-        return null;
-      },
-      'scaleAdjoint': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'scaleAdjoint');
-        final scale = D4.getRequiredArg<double>(positional, 0, 'scale', 'scaleAdjoint');
-        t.scaleAdjoint(scale);
-        return null;
-      },
-      'absoluteRotate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'absoluteRotate');
-        final arg = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'arg', 'absoluteRotate');
-        return t.absoluteRotate(arg);
-      },
-      'add': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'add');
-        final o = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'o', 'add');
-        t.add(o);
-        return null;
-      },
-      'sub': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'sub');
-        final o = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'o', 'sub');
-        t.sub(o);
-        return null;
-      },
-      'negate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        t.negate();
-        return null;
-      },
-      'multiply': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'multiply');
-        final arg = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'arg', 'multiply');
-        t.multiply(arg);
-        return null;
-      },
-      'multiplied': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'multiplied');
-        final arg = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'arg', 'multiplied');
-        return t.multiplied(arg);
-      },
-      'transposeMultiply': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'transposeMultiply');
-        final arg = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'arg', 'transposeMultiply');
-        t.transposeMultiply(arg);
-        return null;
-      },
-      'multiplyTranspose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'multiplyTranspose');
-        final arg = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'arg', 'multiplyTranspose');
-        t.multiplyTranspose(arg);
-        return null;
-      },
-      'decompose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 3, 'decompose');
-        final translation = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'translation', 'decompose');
-        final rotation = D4.getRequiredArg<$vector_math_1.Quaternion>(positional, 1, 'rotation', 'decompose');
-        final scale = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 2, 'scale', 'decompose');
-        t.decompose(translation, rotation, scale);
-        return null;
-      },
-      'rotate3': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'rotate3');
-        final arg = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'arg', 'rotate3');
-        return t.rotate3(arg);
-      },
-      'rotated3': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'rotated3');
-        final arg = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'arg', 'rotated3');
-        final out = D4.getOptionalArg<$vector_math_1.Vector3?>(positional, 1, 'out');
-        return t.rotated3(arg, out);
-      },
-      'transform3': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'transform3');
-        final arg = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'arg', 'transform3');
-        return t.transform3(arg);
-      },
-      'transformed3': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'transformed3');
-        final arg = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'arg', 'transformed3');
-        final out = D4.getOptionalArg<$vector_math_1.Vector3?>(positional, 1, 'out');
-        return t.transformed3(arg, out);
-      },
-      'transform': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'transform');
-        final arg = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 0, 'arg', 'transform');
-        return t.transform(arg);
-      },
-      'perspectiveTransform': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'perspectiveTransform');
-        final arg = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'arg', 'perspectiveTransform');
-        return t.perspectiveTransform(arg);
-      },
-      'transformed': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'transformed');
-        final arg = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 0, 'arg', 'transformed');
-        final out = D4.getOptionalArg<$vector_math_1.Vector4?>(positional, 1, 'out');
-        return t.transformed(arg, out);
-      },
-      'copyIntoArray': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'copyIntoArray');
-        if (positional.isEmpty) {
-          throw ArgumentError('copyIntoArray: Missing required argument "array" at position 0');
-        }
-        final array = D4.coerceList<num>(positional[0], 'array');
-        final offset = D4.getOptionalArgWithDefault<int>(positional, 1, 'offset', 0);
-        t.copyIntoArray(array, offset);
-        return null;
-      },
-      'copyFromArray': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'copyFromArray');
-        if (positional.isEmpty) {
-          throw ArgumentError('copyFromArray: Missing required argument "array" at position 0');
-        }
-        final array = D4.coerceList<double>(positional[0], 'array');
-        final offset = D4.getOptionalArgWithDefault<int>(positional, 1, 'offset', 0);
-        t.copyFromArray(array, offset);
-        return null;
-      },
-      'applyToVector3Array': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        D4.requireMinArgs(positional, 1, 'applyToVector3Array');
-        if (positional.isEmpty) {
-          throw ArgumentError('applyToVector3Array: Missing required argument "array" at position 0');
-        }
-        final array = D4.coerceList<double>(positional[0], 'array');
-        final offset = D4.getOptionalArgWithDefault<int>(positional, 1, 'offset', 0);
-        return t.applyToVector3Array(array, offset);
-      },
-      'isIdentity': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        return t.isIdentity();
-      },
-      'isZero': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        return t.isZero();
-      },
-      '[]': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        final index = D4.getRequiredArg<int>(positional, 0, 'index', 'operator[]');
-        return t[index];
-      },
-      '[]=': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        final index = D4.getRequiredArg<int>(positional, 0, 'index', 'operator[]=');
-        final value = D4.getRequiredArg<double>(positional, 1, 'value', 'operator[]=');
-        t[index] = value;
-        return null;
-      },
-      '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
-        return t == other;
-      },
-      '-': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        if (positional.isEmpty) {
-          // Unary operator
-          return -t;
-        } else {
-          // Binary operator
-          final other = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'other', 'operator-');
-          return t - other;
-        }
-      },
-      '*': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        final other = D4.getRequiredArg<dynamic>(positional, 0, 'other', 'operator*');
-        return t * other;
-      },
-      '+': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
-        final other = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'other', 'operator+');
-        return t + other;
-      },
-    },
-    staticMethods: {
-      'solve2': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 3, 'solve2');
-        final A = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'A', 'solve2');
-        final x = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 1, 'x', 'solve2');
-        final b = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 2, 'b', 'solve2');
-        return $vector_math_1.Matrix4.solve2(A, x, b);
-      },
-      'solve3': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 3, 'solve3');
-        final A = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'A', 'solve3');
-        final x = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 1, 'x', 'solve3');
-        final b = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 2, 'b', 'solve3');
-        return $vector_math_1.Matrix4.solve3(A, x, b);
-      },
-      'solve': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 3, 'solve');
-        final A = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'A', 'solve');
-        final x = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 1, 'x', 'solve');
-        final b = D4.getRequiredArg<$vector_math_1.Vector4>(positional, 2, 'b', 'solve');
-        return $vector_math_1.Matrix4.solve(A, x, b);
-      },
-      'tryInvert': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'tryInvert');
-        final other = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'other', 'tryInvert');
-        return $vector_math_1.Matrix4.tryInvert(other);
-      },
-    },
-    constructorSignatures: {
-      '': 'factory Matrix4(double arg0, double arg1, double arg2, double arg3, double arg4, double arg5, double arg6, double arg7, double arg8, double arg9, double arg10, double arg11, double arg12, double arg13, double arg14, double arg15)',
-      'fromList': 'factory Matrix4.fromList(List<double> values)',
-      'zero': 'Matrix4.zero()',
-      'identity': 'factory Matrix4.identity()',
-      'copy': 'factory Matrix4.copy(Matrix4 other)',
-      'inverted': 'factory Matrix4.inverted(Matrix4 other)',
-      'columns': 'factory Matrix4.columns(Vector4 arg0, Vector4 arg1, Vector4 arg2, Vector4 arg3)',
-      'outer': 'factory Matrix4.outer(Vector4 u, Vector4 v)',
-      'rotationX': 'factory Matrix4.rotationX(double radians)',
-      'rotationY': 'factory Matrix4.rotationY(double radians)',
-      'rotationZ': 'factory Matrix4.rotationZ(double radians)',
-      'translation': 'factory Matrix4.translation(Vector3 translation)',
-      'translationValues': 'factory Matrix4.translationValues(double x, double y, double z)',
-      'diagonal3': 'factory Matrix4.diagonal3(Vector3 scale)',
-      'diagonal3Values': 'factory Matrix4.diagonal3Values(double x, double y, double z)',
-      'skewX': 'factory Matrix4.skewX(double alpha)',
-      'skewY': 'factory Matrix4.skewY(double beta)',
-      'skew': 'factory Matrix4.skew(double alpha, double beta)',
-      'fromFloat64List': 'Matrix4.fromFloat64List(Float64List _m4storage)',
-      'fromBuffer': 'Matrix4.fromBuffer(ByteBuffer buffer, int offset)',
-      'compose': 'factory Matrix4.compose(Vector3 translation, Quaternion rotation, Vector3 scale)',
-    },
-    methodSignatures: {
-      'index': 'int index(int row, int col)',
-      'entry': 'double entry(int row, int col)',
-      'setEntry': 'void setEntry(int row, int col, double v)',
-      'splatDiagonal': 'void splatDiagonal(double arg)',
-      'setValues': 'void setValues(double arg0, double arg1, double arg2, double arg3, double arg4, double arg5, double arg6, double arg7, double arg8, double arg9, double arg10, double arg11, double arg12, double arg13, double arg14, double arg15)',
-      'setColumns': 'void setColumns(Vector4 arg0, Vector4 arg1, Vector4 arg2, Vector4 arg3)',
-      'setFrom': 'void setFrom(Matrix4 arg)',
-      'setFromTranslationRotation': 'void setFromTranslationRotation(Vector3 arg0, Quaternion arg1)',
-      'setFromTranslationRotationScale': 'void setFromTranslationRotationScale(Vector3 translation, Quaternion rotation, Vector3 scale)',
-      'setUpper2x2': 'void setUpper2x2(Matrix2 arg)',
-      'setDiagonal': 'void setDiagonal(Vector4 arg)',
-      'setOuter': 'void setOuter(Vector4 u, Vector4 v)',
-      'toString': 'String toString()',
-      'setRow': 'void setRow(int row, Vector4 arg)',
-      'getRow': 'Vector4 getRow(int row)',
-      'setColumn': 'void setColumn(int column, Vector4 arg)',
-      'getColumn': 'Vector4 getColumn(int column)',
-      'clone': 'Matrix4 clone()',
-      'copyInto': 'Matrix4 copyInto(Matrix4 arg)',
-      'translate': 'void translate(dynamic x, [double y = 0.0, double z = 0.0])',
-      'translateByDouble': 'void translateByDouble(double tx, double ty, double tz, double tw)',
-      'translateByVector3': 'void translateByVector3(Vector3 v3)',
-      'translateByVector4': 'void translateByVector4(Vector4 v4)',
-      'leftTranslate': 'void leftTranslate(dynamic x, [double y = 0.0, double z = 0.0])',
-      'leftTranslateByDouble': 'void leftTranslateByDouble(double tx, double ty, double tz, double tw)',
-      'leftTranslateByVector3': 'void leftTranslateByVector3(Vector3 v3)',
-      'leftTranslateByVector4': 'void leftTranslateByVector4(Vector4 v4)',
-      'rotate': 'void rotate(Vector3 axis, double angle)',
-      'rotateX': 'void rotateX(double angle)',
-      'rotateY': 'void rotateY(double angle)',
-      'rotateZ': 'void rotateZ(double angle)',
-      'scale': 'void scale(dynamic x, [double? y, double? z])',
-      'scaleByDouble': 'void scaleByDouble(double sx, double sy, double sz, double sw)',
-      'scaleByVector3': 'void scaleByVector3(Vector3 v3)',
-      'scaleByVector4': 'void scaleByVector4(Vector4 v4)',
-      'scaled': 'Matrix4 scaled(dynamic x, [double? y, double? z])',
-      'scaledByDouble': 'Matrix4 scaledByDouble(double x, double y, double z, double t)',
-      'scaledByVector3': 'Matrix4 scaledByVector3(Vector3 v3)',
-      'scaledByVector4': 'Matrix4 scaledByVector4(Vector4 v4)',
-      'setZero': 'void setZero()',
-      'setIdentity': 'void setIdentity()',
-      'transposed': 'Matrix4 transposed()',
-      'transpose': 'void transpose()',
-      'absolute': 'Matrix4 absolute()',
-      'determinant': 'double determinant()',
-      'dotRow': 'double dotRow(int i, Vector4 v)',
-      'dotColumn': 'double dotColumn(int j, Vector4 v)',
-      'trace': 'double trace()',
-      'infinityNorm': 'double infinityNorm()',
-      'relativeError': 'double relativeError(Matrix4 correct)',
-      'absoluteError': 'double absoluteError(Matrix4 correct)',
-      'getTranslation': 'Vector3 getTranslation()',
-      'setTranslation': 'void setTranslation(Vector3 t)',
-      'setTranslationRaw': 'void setTranslationRaw(double x, double y, double z)',
-      'getRotation': 'Matrix3 getRotation()',
-      'copyRotation': 'void copyRotation(Matrix3 rotation)',
-      'setRotation': 'void setRotation(Matrix3 r)',
-      'getNormalMatrix': 'Matrix3 getNormalMatrix()',
-      'getMaxScaleOnAxis': 'double getMaxScaleOnAxis()',
-      'transposeRotation': 'void transposeRotation()',
-      'invert': 'double invert()',
-      'copyInverse': 'double copyInverse(Matrix4 arg)',
-      'invertRotation': 'double invertRotation()',
-      'setRotationX': 'void setRotationX(double radians)',
-      'setRotationY': 'void setRotationY(double radians)',
-      'setRotationZ': 'void setRotationZ(double radians)',
-      'scaleAdjoint': 'void scaleAdjoint(double scale)',
-      'absoluteRotate': 'Vector3 absoluteRotate(Vector3 arg)',
-      'add': 'void add(Matrix4 o)',
-      'sub': 'void sub(Matrix4 o)',
-      'negate': 'void negate()',
-      'multiply': 'void multiply(Matrix4 arg)',
-      'multiplied': 'Matrix4 multiplied(Matrix4 arg)',
-      'transposeMultiply': 'void transposeMultiply(Matrix4 arg)',
-      'multiplyTranspose': 'void multiplyTranspose(Matrix4 arg)',
-      'decompose': 'void decompose(Vector3 translation, Quaternion rotation, Vector3 scale)',
-      'rotate3': 'Vector3 rotate3(Vector3 arg)',
-      'rotated3': 'Vector3 rotated3(Vector3 arg, [Vector3? out])',
-      'transform3': 'Vector3 transform3(Vector3 arg)',
-      'transformed3': 'Vector3 transformed3(Vector3 arg, [Vector3? out])',
-      'transform': 'Vector4 transform(Vector4 arg)',
-      'perspectiveTransform': 'Vector3 perspectiveTransform(Vector3 arg)',
-      'transformed': 'Vector4 transformed(Vector4 arg, [Vector4? out])',
-      'copyIntoArray': 'void copyIntoArray(List<num> array, [int offset = 0])',
-      'copyFromArray': 'void copyFromArray(List<double> array, [int offset = 0])',
-      'applyToVector3Array': 'List<double> applyToVector3Array(List<double> array, [int offset = 0])',
-      'isIdentity': 'bool isIdentity()',
-      'isZero': 'bool isZero()',
-    },
-    getterSignatures: {
-      'storage': 'Float64List get storage',
-      'dimension': 'int get dimension',
-      'hashCode': 'int get hashCode',
-      'row0': 'Vector4 get row0',
-      'row1': 'Vector4 get row1',
-      'row2': 'Vector4 get row2',
-      'row3': 'Vector4 get row3',
-      'right': 'Vector3 get right',
-      'up': 'Vector3 get up',
-      'forward': 'Vector3 get forward',
-    },
-    setterSignatures: {
-      'row0': 'set row0(Vector4 value)',
-      'row1': 'set row1(Vector4 value)',
-      'row2': 'set row2(Vector4 value)',
-      'row3': 'set row3(Vector4 value)',
-    },
-    staticMethodSignatures: {
-      'solve2': 'void solve2(Matrix4 A, Vector2 x, Vector2 b)',
-      'solve3': 'void solve3(Matrix4 A, Vector3 x, Vector3 b)',
-      'solve': 'void solve(Matrix4 A, Vector4 x, Vector4 b)',
-      'tryInvert': 'Matrix4? tryInvert(Matrix4 other)',
-    },
-  );
-}
-
-// =============================================================================
-// TextSelection Bridge
-// =============================================================================
-
-BridgedClass _createTextSelectionBridge() {
-  return BridgedClass(
-    nativeType: $flutter_10.TextSelection,
-    name: 'TextSelection',
-    isAssignable: (v) => v is $flutter_10.TextSelection,
-    constructors: {
-      '': (visitor, positional, named) {
-        final baseOffset = D4.getRequiredNamedArg<int>(named, 'baseOffset', 'TextSelection');
-        final extentOffset = D4.getRequiredNamedArg<int>(named, 'extentOffset', 'TextSelection');
-        final affinity = D4.getNamedArgWithDefault<TextAffinity>(named, 'affinity', $dart_ui.TextAffinity.downstream);
-        final isDirectional = D4.getNamedArgWithDefault<bool>(named, 'isDirectional', false);
-        return $flutter_10.TextSelection(baseOffset: baseOffset, extentOffset: extentOffset, affinity: affinity, isDirectional: isDirectional);
-      },
-      'collapsed': (visitor, positional, named) {
-        final offset = D4.getRequiredNamedArg<int>(named, 'offset', 'TextSelection');
-        final affinity = D4.getNamedArgWithDefault<TextAffinity>(named, 'affinity', $dart_ui.TextAffinity.downstream);
-        return $flutter_10.TextSelection.collapsed(offset: offset, affinity: affinity);
-      },
-      'fromPosition': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'TextSelection');
-        final position = D4.getRequiredArg<TextPosition>(positional, 0, 'position', 'TextSelection');
-        return $flutter_10.TextSelection.fromPosition(position);
-      },
-    },
-    getters: {
-      'baseOffset': (visitor, target) => D4.validateTarget<$flutter_10.TextSelection>(target, 'TextSelection').baseOffset,
-      'extentOffset': (visitor, target) => D4.validateTarget<$flutter_10.TextSelection>(target, 'TextSelection').extentOffset,
-      'affinity': (visitor, target) => D4.validateTarget<$flutter_10.TextSelection>(target, 'TextSelection').affinity,
-      'isDirectional': (visitor, target) => D4.validateTarget<$flutter_10.TextSelection>(target, 'TextSelection').isDirectional,
-      'base': (visitor, target) => D4.validateTarget<$flutter_10.TextSelection>(target, 'TextSelection').base,
-      'extent': (visitor, target) => D4.validateTarget<$flutter_10.TextSelection>(target, 'TextSelection').extent,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_10.TextSelection>(target, 'TextSelection').hashCode,
-      'start': (visitor, target) => D4.validateTarget<$flutter_10.TextSelection>(target, 'TextSelection').start,
-      'end': (visitor, target) => D4.validateTarget<$flutter_10.TextSelection>(target, 'TextSelection').end,
-      'isValid': (visitor, target) => D4.validateTarget<$flutter_10.TextSelection>(target, 'TextSelection').isValid,
-      'isCollapsed': (visitor, target) => D4.validateTarget<$flutter_10.TextSelection>(target, 'TextSelection').isCollapsed,
-      'isNormalized': (visitor, target) => D4.validateTarget<$flutter_10.TextSelection>(target, 'TextSelection').isNormalized,
-    },
-    methods: {
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.TextSelection>(target, 'TextSelection');
-        return t.toString();
-      },
-      'copyWith': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.TextSelection>(target, 'TextSelection');
-        final baseOffset = D4.getOptionalNamedArg<int?>(named, 'baseOffset');
-        final extentOffset = D4.getOptionalNamedArg<int?>(named, 'extentOffset');
-        final affinity = D4.getOptionalNamedArg<TextAffinity?>(named, 'affinity');
-        final isDirectional = D4.getOptionalNamedArg<bool?>(named, 'isDirectional');
-        return t.copyWith(baseOffset: baseOffset, extentOffset: extentOffset, affinity: affinity, isDirectional: isDirectional);
-      },
-      'expandTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.TextSelection>(target, 'TextSelection');
-        D4.requireMinArgs(positional, 1, 'expandTo');
-        final position = D4.getRequiredArg<TextPosition>(positional, 0, 'position', 'expandTo');
-        final extentAtIndex = D4.getOptionalArgWithDefault<bool>(positional, 1, 'extentAtIndex', false);
-        return t.expandTo(position, extentAtIndex);
-      },
-      'extendTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.TextSelection>(target, 'TextSelection');
-        D4.requireMinArgs(positional, 1, 'extendTo');
-        final position = D4.getRequiredArg<TextPosition>(positional, 0, 'position', 'extendTo');
-        return t.extendTo(position);
-      },
-      'textBefore': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.TextSelection>(target, 'TextSelection');
-        D4.requireMinArgs(positional, 1, 'textBefore');
-        final text = D4.getRequiredArg<String>(positional, 0, 'text', 'textBefore');
-        return t.textBefore(text);
-      },
-      'textAfter': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.TextSelection>(target, 'TextSelection');
-        D4.requireMinArgs(positional, 1, 'textAfter');
-        final text = D4.getRequiredArg<String>(positional, 0, 'text', 'textAfter');
-        return t.textAfter(text);
-      },
-      'textInside': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.TextSelection>(target, 'TextSelection');
-        D4.requireMinArgs(positional, 1, 'textInside');
-        final text = D4.getRequiredArg<String>(positional, 0, 'text', 'textInside');
-        return t.textInside(text);
-      },
-      '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.TextSelection>(target, 'TextSelection');
-        final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
-        return t == other;
-      },
-    },
-    constructorSignatures: {
-      '': 'const TextSelection({required int baseOffset, required int extentOffset, TextAffinity affinity = TextAffinity.downstream, bool isDirectional = false})',
-      'collapsed': 'const TextSelection.collapsed({required int offset, TextAffinity affinity = TextAffinity.downstream})',
-      'fromPosition': 'TextSelection.fromPosition(TextPosition position)',
-    },
-    methodSignatures: {
-      'toString': 'String toString()',
-      'copyWith': 'TextSelection copyWith({int? baseOffset, int? extentOffset, TextAffinity? affinity, bool? isDirectional})',
-      'expandTo': 'TextSelection expandTo(TextPosition position, [bool extentAtIndex = false])',
-      'extendTo': 'TextSelection extendTo(TextPosition position)',
-      'textBefore': 'String textBefore(String text)',
-      'textAfter': 'String textAfter(String text)',
-      'textInside': 'String textInside(String text)',
-    },
-    getterSignatures: {
-      'baseOffset': 'int get baseOffset',
-      'extentOffset': 'int get extentOffset',
-      'affinity': 'TextAffinity get affinity',
-      'isDirectional': 'bool get isDirectional',
-      'base': 'TextPosition get base',
-      'extent': 'TextPosition get extent',
-      'hashCode': 'int get hashCode',
-      'start': 'int get start',
-      'end': 'int get end',
-      'isValid': 'bool get isValid',
-      'isCollapsed': 'bool get isCollapsed',
-      'isNormalized': 'bool get isNormalized',
     },
   );
 }
@@ -3069,7 +1962,7 @@ BridgedClass _createSemanticsPropertiesBridge() {
         }
         final minValue = D4.getOptionalNamedArg<String?>(named, 'minValue');
         final maxValue = D4.getOptionalNamedArg<String?>(named, 'maxValue');
-        return $flutter_7.SemanticsProperties(enabled: enabled, checked: checked, mixed: mixed, expanded: expanded, selected: selected, toggled: toggled, button: button, link: link, linkUrl: linkUrl, header: header, headingLevel: headingLevel, textField: textField, slider: slider, keyboardKey: keyboardKey, readOnly: readOnly, focusable: focusable, focused: focused, accessibilityFocusBlockType: accessibilityFocusBlockType, inMutuallyExclusiveGroup: inMutuallyExclusiveGroup, hidden: hidden, obscured: obscured, multiline: multiline, scopesRoute: scopesRoute, namesRoute: namesRoute, image: image, liveRegion: liveRegion, isRequired: isRequired, maxValueLength: maxValueLength, currentValueLength: currentValueLength, identifier: identifier, traversalParentIdentifier: traversalParentIdentifier, traversalChildIdentifier: traversalChildIdentifier, label: label, attributedLabel: attributedLabel, value: value, attributedValue: attributedValue, increasedValue: increasedValue, attributedIncreasedValue: attributedIncreasedValue, decreasedValue: decreasedValue, attributedDecreasedValue: attributedDecreasedValue, hint: hint, tooltip: tooltip, attributedHint: attributedHint, hintOverrides: hintOverrides, textDirection: textDirection, sortKey: sortKey, tagForChildren: tagForChildren, role: role, controlsNodes: controlsNodes, inputType: inputType, validationResult: validationResult, hitTestBehavior: hitTestBehavior, onTap: onTapRaw == null ? null : () { D4.callInterpreterCallback(visitor, onTapRaw, []); }, onLongPress: onLongPressRaw == null ? null : () { D4.callInterpreterCallback(visitor, onLongPressRaw, []); }, onScrollLeft: onScrollLeftRaw == null ? null : () { D4.callInterpreterCallback(visitor, onScrollLeftRaw, []); }, onScrollRight: onScrollRightRaw == null ? null : () { D4.callInterpreterCallback(visitor, onScrollRightRaw, []); }, onScrollUp: onScrollUpRaw == null ? null : () { D4.callInterpreterCallback(visitor, onScrollUpRaw, []); }, onScrollDown: onScrollDownRaw == null ? null : () { D4.callInterpreterCallback(visitor, onScrollDownRaw, []); }, onIncrease: onIncreaseRaw == null ? null : () { D4.callInterpreterCallback(visitor, onIncreaseRaw, []); }, onDecrease: onDecreaseRaw == null ? null : () { D4.callInterpreterCallback(visitor, onDecreaseRaw, []); }, onCopy: onCopyRaw == null ? null : () { D4.callInterpreterCallback(visitor, onCopyRaw, []); }, onCut: onCutRaw == null ? null : () { D4.callInterpreterCallback(visitor, onCutRaw, []); }, onPaste: onPasteRaw == null ? null : () { D4.callInterpreterCallback(visitor, onPasteRaw, []); }, onMoveCursorForwardByCharacter: onMoveCursorForwardByCharacterRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor, onMoveCursorForwardByCharacterRaw, [p0]); }, onMoveCursorBackwardByCharacter: onMoveCursorBackwardByCharacterRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor, onMoveCursorBackwardByCharacterRaw, [p0]); }, onMoveCursorForwardByWord: onMoveCursorForwardByWordRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor, onMoveCursorForwardByWordRaw, [p0]); }, onMoveCursorBackwardByWord: onMoveCursorBackwardByWordRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor, onMoveCursorBackwardByWordRaw, [p0]); }, onSetSelection: onSetSelectionRaw == null ? null : ($flutter_10.TextSelection p0) { D4.callInterpreterCallback(visitor, onSetSelectionRaw, [p0]); }, onSetText: onSetTextRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor, onSetTextRaw, [p0]); }, onDidGainAccessibilityFocus: onDidGainAccessibilityFocusRaw == null ? null : () { D4.callInterpreterCallback(visitor, onDidGainAccessibilityFocusRaw, []); }, onDidLoseAccessibilityFocus: onDidLoseAccessibilityFocusRaw == null ? null : () { D4.callInterpreterCallback(visitor, onDidLoseAccessibilityFocusRaw, []); }, onFocus: onFocusRaw == null ? null : () { D4.callInterpreterCallback(visitor, onFocusRaw, []); }, onDismiss: onDismissRaw == null ? null : () { D4.callInterpreterCallback(visitor, onDismissRaw, []); }, onExpand: onExpandRaw == null ? null : () { D4.callInterpreterCallback(visitor, onExpandRaw, []); }, onCollapse: onCollapseRaw == null ? null : () { D4.callInterpreterCallback(visitor, onCollapseRaw, []); }, customSemanticsActions: customSemanticsActions, minValue: minValue, maxValue: maxValue);
+        return $flutter_7.SemanticsProperties(enabled: enabled, checked: checked, mixed: mixed, expanded: expanded, selected: selected, toggled: toggled, button: button, link: link, linkUrl: linkUrl, header: header, headingLevel: headingLevel, textField: textField, slider: slider, keyboardKey: keyboardKey, readOnly: readOnly, focusable: focusable, focused: focused, accessibilityFocusBlockType: accessibilityFocusBlockType, inMutuallyExclusiveGroup: inMutuallyExclusiveGroup, hidden: hidden, obscured: obscured, multiline: multiline, scopesRoute: scopesRoute, namesRoute: namesRoute, image: image, liveRegion: liveRegion, isRequired: isRequired, maxValueLength: maxValueLength, currentValueLength: currentValueLength, identifier: identifier, traversalParentIdentifier: traversalParentIdentifier, traversalChildIdentifier: traversalChildIdentifier, label: label, attributedLabel: attributedLabel, value: value, attributedValue: attributedValue, increasedValue: increasedValue, attributedIncreasedValue: attributedIncreasedValue, decreasedValue: decreasedValue, attributedDecreasedValue: attributedDecreasedValue, hint: hint, tooltip: tooltip, attributedHint: attributedHint, hintOverrides: hintOverrides, textDirection: textDirection, sortKey: sortKey, tagForChildren: tagForChildren, role: role, controlsNodes: controlsNodes, inputType: inputType, validationResult: validationResult, hitTestBehavior: hitTestBehavior, onTap: onTapRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onTapRaw, []); }, onLongPress: onLongPressRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onLongPressRaw, []); }, onScrollLeft: onScrollLeftRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onScrollLeftRaw, []); }, onScrollRight: onScrollRightRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onScrollRightRaw, []); }, onScrollUp: onScrollUpRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onScrollUpRaw, []); }, onScrollDown: onScrollDownRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onScrollDownRaw, []); }, onIncrease: onIncreaseRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onIncreaseRaw, []); }, onDecrease: onDecreaseRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDecreaseRaw, []); }, onCopy: onCopyRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onCopyRaw, []); }, onCut: onCutRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onCutRaw, []); }, onPaste: onPasteRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onPasteRaw, []); }, onMoveCursorForwardByCharacter: onMoveCursorForwardByCharacterRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor!, onMoveCursorForwardByCharacterRaw, [p0]); }, onMoveCursorBackwardByCharacter: onMoveCursorBackwardByCharacterRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor!, onMoveCursorBackwardByCharacterRaw, [p0]); }, onMoveCursorForwardByWord: onMoveCursorForwardByWordRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor!, onMoveCursorForwardByWordRaw, [p0]); }, onMoveCursorBackwardByWord: onMoveCursorBackwardByWordRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor!, onMoveCursorBackwardByWordRaw, [p0]); }, onSetSelection: onSetSelectionRaw == null ? null : ($flutter_10.TextSelection p0) { D4.callInterpreterCallback(visitor!, onSetSelectionRaw, [p0]); }, onSetText: onSetTextRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onSetTextRaw, [p0]); }, onDidGainAccessibilityFocus: onDidGainAccessibilityFocusRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDidGainAccessibilityFocusRaw, []); }, onDidLoseAccessibilityFocus: onDidLoseAccessibilityFocusRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDidLoseAccessibilityFocusRaw, []); }, onFocus: onFocusRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onFocusRaw, []); }, onDismiss: onDismissRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDismissRaw, []); }, onExpand: onExpandRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onExpandRaw, []); }, onCollapse: onCollapseRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onCollapseRaw, []); }, customSemanticsActions: customSemanticsActions, minValue: minValue, maxValue: maxValue);
       },
     },
     getters: {
@@ -3302,13 +2195,13 @@ BridgedClass _createSemanticsNodeBridge() {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_4.Key?>(named, 'key');
         final showOnScreenRaw = named['showOnScreen'];
-        return $flutter_7.SemanticsNode(key: key, showOnScreen: showOnScreenRaw == null ? null : () { D4.callInterpreterCallback(visitor, showOnScreenRaw, []); });
+        return $flutter_7.SemanticsNode(key: key, showOnScreen: showOnScreenRaw == null ? null : () { D4.callInterpreterCallback(visitor!, showOnScreenRaw, []); });
       },
       'root': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_4.Key?>(named, 'key');
         final showOnScreenRaw = named['showOnScreen'];
         final owner = D4.getRequiredNamedArg<$flutter_7.SemanticsOwner>(named, 'owner', 'SemanticsNode');
-        return $flutter_7.SemanticsNode.root(key: key, showOnScreen: showOnScreenRaw == null ? null : () { D4.callInterpreterCallback(visitor, showOnScreenRaw, []); }, owner: owner);
+        return $flutter_7.SemanticsNode.root(key: key, showOnScreen: showOnScreenRaw == null ? null : () { D4.callInterpreterCallback(visitor!, showOnScreenRaw, []); }, owner: owner);
       },
     },
     getters: {
@@ -3373,9 +2266,9 @@ BridgedClass _createSemanticsNodeBridge() {
     },
     setters: {
       'transform': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsNode>(target, 'SemanticsNode').transform = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsNode>(target, 'SemanticsNode').transform = D4.extractBridgedArgOrNull<$vector_math_1.Matrix4>(value, 'transform'),
       'rect': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsNode>(target, 'SemanticsNode').rect = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsNode>(target, 'SemanticsNode').rect = D4.extractBridgedArg<Rect>(value, 'rect'),
       'parentSemanticsClipRect': (visitor, target, value) => 
         D4.validateTarget<$flutter_7.SemanticsNode>(target, 'SemanticsNode').parentSemanticsClipRect = D4.extractBridgedArgOrNull<Rect>(value, 'parentSemanticsClipRect'),
       'parentPaintClipRect': (visitor, target, value) => 
@@ -3383,11 +2276,11 @@ BridgedClass _createSemanticsNodeBridge() {
       'indexInParent': (visitor, target, value) => 
         D4.validateTarget<$flutter_7.SemanticsNode>(target, 'SemanticsNode').indexInParent = D4.extractBridgedArgOrNull<int>(value, 'indexInParent'),
       'isMergedIntoParent': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsNode>(target, 'SemanticsNode').isMergedIntoParent = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsNode>(target, 'SemanticsNode').isMergedIntoParent = D4.extractBridgedArg<bool>(value, 'isMergedIntoParent'),
       'areUserActionsBlocked': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsNode>(target, 'SemanticsNode').areUserActionsBlocked = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsNode>(target, 'SemanticsNode').areUserActionsBlocked = D4.extractBridgedArg<bool>(value, 'areUserActionsBlocked'),
       'traversalParent': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsNode>(target, 'SemanticsNode').traversalParent = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsNode>(target, 'SemanticsNode').traversalParent = D4.extractBridgedArgOrNull<$flutter_7.SemanticsNode>(value, 'traversalParent'),
       'tags': (visitor, target, value) => 
         D4.validateTarget<$flutter_7.SemanticsNode>(target, 'SemanticsNode').tags = value == null ? null : (value as Set).cast<$flutter_7.SemanticsTag>().toSet(),
     },
@@ -3399,7 +2292,7 @@ BridgedClass _createSemanticsNodeBridge() {
           throw ArgumentError('visitChildren: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        t.visitChildren(($flutter_7.SemanticsNode p0) { return D4.callInterpreterCallback(visitor, visitor_Raw, [p0]) as bool; });
+        t.visitChildren(($flutter_7.SemanticsNode p0) { return D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]) as bool; });
         return null;
       },
       'isTagged': (visitor, target, positional, named, typeArgs) {
@@ -3591,7 +2484,7 @@ BridgedClass _createSemanticsOwnerBridge() {
           throw ArgumentError('SemanticsOwner: Missing required named argument "onSemanticsUpdate"');
         }
         final onSemanticsUpdateRaw = named['onSemanticsUpdate'];
-        return $flutter_7.SemanticsOwner(onSemanticsUpdate: (SemanticsUpdate p0) { D4.callInterpreterCallback(visitor, onSemanticsUpdateRaw, [p0]); });
+        return $flutter_7.SemanticsOwner(onSemanticsUpdate: (SemanticsUpdate p0) { D4.callInterpreterCallback(visitor!, onSemanticsUpdateRaw, [p0]); });
       },
     },
     getters: {
@@ -3639,7 +2532,7 @@ BridgedClass _createSemanticsOwnerBridge() {
           throw ArgumentError('addListener: Missing required argument "listener" at position 0');
         }
         final listenerRaw = positional[0];
-        t.addListener(() { D4.callInterpreterCallback(visitor, listenerRaw, []); });
+        t.addListener(() { D4.callInterpreterCallback(visitor!, listenerRaw, []); });
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
@@ -3649,7 +2542,7 @@ BridgedClass _createSemanticsOwnerBridge() {
           throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
         }
         final listenerRaw = positional[0];
-        t.removeListener(() { D4.callInterpreterCallback(visitor, listenerRaw, []); });
+        t.removeListener(() { D4.callInterpreterCallback(visitor!, listenerRaw, []); });
         return null;
       },
     },
@@ -3789,9 +2682,9 @@ BridgedClass _createSemanticsConfigurationBridge() {
     },
     setters: {
       'isSemanticBoundary': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isSemanticBoundary = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isSemanticBoundary = D4.extractBridgedArg<bool>(value, 'isSemanticBoundary'),
       'localeForSubtree': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').localeForSubtree = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').localeForSubtree = D4.extractBridgedArgOrNull<Locale>(value, 'localeForSubtree'),
       'locale': (visitor, target, value) => 
         D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').locale = D4.extractBridgedArgOrNull<Locale>(value, 'locale'),
       'isBlockingUserActions': (visitor, target, value) => 
@@ -3801,185 +2694,205 @@ BridgedClass _createSemanticsConfigurationBridge() {
       'isBlockingSemanticsOfPreviouslyPaintedNodes': (visitor, target, value) => 
         D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isBlockingSemanticsOfPreviouslyPaintedNodes = D4.extractBridgedArg<bool>(value, 'isBlockingSemanticsOfPreviouslyPaintedNodes'),
       'onTap': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onTap = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onTap = D4.extractBridgedArgOrNull<dynamic>(value, 'onTap'),
       'onLongPress': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onLongPress = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onLongPress = D4.extractBridgedArgOrNull<dynamic>(value, 'onLongPress'),
       'onScrollLeft': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onScrollLeft = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onScrollLeft = D4.extractBridgedArgOrNull<dynamic>(value, 'onScrollLeft'),
       'onDismiss': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onDismiss = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onDismiss = D4.extractBridgedArgOrNull<dynamic>(value, 'onDismiss'),
       'onScrollRight': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onScrollRight = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onScrollRight = D4.extractBridgedArgOrNull<dynamic>(value, 'onScrollRight'),
       'onScrollUp': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onScrollUp = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onScrollUp = D4.extractBridgedArgOrNull<dynamic>(value, 'onScrollUp'),
       'onScrollDown': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onScrollDown = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onScrollDown = D4.extractBridgedArgOrNull<dynamic>(value, 'onScrollDown'),
       'onScrollToOffset': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onScrollToOffset = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onScrollToOffset = D4.extractBridgedArgOrNull<$flutter_7.ScrollToOffsetHandler>(value, 'onScrollToOffset'),
       'onIncrease': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onIncrease = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onIncrease = D4.extractBridgedArgOrNull<dynamic>(value, 'onIncrease'),
       'onDecrease': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onDecrease = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onDecrease = D4.extractBridgedArgOrNull<dynamic>(value, 'onDecrease'),
       'onCopy': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onCopy = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onCopy = D4.extractBridgedArgOrNull<dynamic>(value, 'onCopy'),
       'onCut': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onCut = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onCut = D4.extractBridgedArgOrNull<dynamic>(value, 'onCut'),
       'onPaste': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onPaste = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onPaste = D4.extractBridgedArgOrNull<dynamic>(value, 'onPaste'),
       'onShowOnScreen': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onShowOnScreen = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onShowOnScreen = D4.extractBridgedArgOrNull<dynamic>(value, 'onShowOnScreen'),
       'onMoveCursorForwardByCharacter': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onMoveCursorForwardByCharacter = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onMoveCursorForwardByCharacter = D4.extractBridgedArgOrNull<$flutter_7.MoveCursorHandler>(value, 'onMoveCursorForwardByCharacter'),
       'onMoveCursorBackwardByCharacter': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onMoveCursorBackwardByCharacter = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onMoveCursorBackwardByCharacter = D4.extractBridgedArgOrNull<$flutter_7.MoveCursorHandler>(value, 'onMoveCursorBackwardByCharacter'),
       'onMoveCursorForwardByWord': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onMoveCursorForwardByWord = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onMoveCursorForwardByWord = D4.extractBridgedArgOrNull<$flutter_7.MoveCursorHandler>(value, 'onMoveCursorForwardByWord'),
       'onMoveCursorBackwardByWord': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onMoveCursorBackwardByWord = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onMoveCursorBackwardByWord = D4.extractBridgedArgOrNull<$flutter_7.MoveCursorHandler>(value, 'onMoveCursorBackwardByWord'),
       'onSetSelection': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onSetSelection = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onSetSelection = D4.extractBridgedArgOrNull<$flutter_7.SetSelectionHandler>(value, 'onSetSelection'),
       'onSetText': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onSetText = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onSetText = D4.extractBridgedArgOrNull<$flutter_7.SetTextHandler>(value, 'onSetText'),
       'onDidGainAccessibilityFocus': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onDidGainAccessibilityFocus = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onDidGainAccessibilityFocus = D4.extractBridgedArgOrNull<dynamic>(value, 'onDidGainAccessibilityFocus'),
       'onDidLoseAccessibilityFocus': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onDidLoseAccessibilityFocus = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onDidLoseAccessibilityFocus = D4.extractBridgedArgOrNull<dynamic>(value, 'onDidLoseAccessibilityFocus'),
       'onFocus': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onFocus = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onFocus = D4.extractBridgedArgOrNull<dynamic>(value, 'onFocus'),
       'onExpand': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onExpand = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onExpand = D4.extractBridgedArgOrNull<dynamic>(value, 'onExpand'),
       'onCollapse': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onCollapse = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onCollapse = D4.extractBridgedArgOrNull<dynamic>(value, 'onCollapse'),
       'childConfigurationsDelegate': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').childConfigurationsDelegate = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').childConfigurationsDelegate = D4.extractBridgedArgOrNull<$flutter_7.ChildSemanticsConfigurationsDelegate>(value, 'childConfigurationsDelegate'),
       'sortKey': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').sortKey = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').sortKey = D4.extractBridgedArgOrNull<$flutter_7.SemanticsSortKey>(value, 'sortKey'),
       'indexInParent': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').indexInParent = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').indexInParent = D4.extractBridgedArgOrNull<int>(value, 'indexInParent'),
       'scrollChildCount': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').scrollChildCount = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').scrollChildCount = D4.extractBridgedArgOrNull<int>(value, 'scrollChildCount'),
       'scrollIndex': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').scrollIndex = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').scrollIndex = D4.extractBridgedArgOrNull<int>(value, 'scrollIndex'),
       'platformViewId': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').platformViewId = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').platformViewId = D4.extractBridgedArgOrNull<int>(value, 'platformViewId'),
       'maxValueLength': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').maxValueLength = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').maxValueLength = D4.extractBridgedArgOrNull<int>(value, 'maxValueLength'),
       'currentValueLength': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').currentValueLength = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').currentValueLength = D4.extractBridgedArgOrNull<int>(value, 'currentValueLength'),
       'isMergingSemanticsOfDescendants': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isMergingSemanticsOfDescendants = value as dynamic,
-      'customSemanticsActions': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').customSemanticsActions = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isMergingSemanticsOfDescendants = D4.extractBridgedArg<bool>(value, 'isMergingSemanticsOfDescendants'),
+      'customSemanticsActions': (visitor, target, value) {
+        if (value == null) {
+          throw ArgumentError('SemanticsConfiguration.customSemanticsActions: non-nullable map value cannot be null');
+        }
+        // Convert map with function values inline
+        final customSemanticsActionsMapRaw = value as Map?;
+        final customSemanticsActionsMap = <$flutter_7.CustomSemanticsAction, void Function()>{};
+        if (customSemanticsActionsMapRaw != null) {
+          for (final entry in customSemanticsActionsMapRaw.entries) {
+            final k = D4.extractBridgedArg<$flutter_7.CustomSemanticsAction>(entry.key, 'customSemanticsActionsMap[key]');
+            final v = entry.value;
+            if (v == null) {
+              // Skip null values for non-nullable function type
+            } else if (v is Callable) {
+              customSemanticsActionsMap[k] = () { D4.callInterpreterCallback(visitor!, v, []); };
+            } else {
+              customSemanticsActionsMap[k] = v as void Function();
+            }
+          }
+        }
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').customSemanticsActions = customSemanticsActionsMap;
+      },
       'identifier': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').identifier = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').identifier = D4.extractBridgedArg<String>(value, 'identifier'),
       'traversalParentIdentifier': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').traversalParentIdentifier = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').traversalParentIdentifier = D4.extractBridgedArgOrNull<Object>(value, 'traversalParentIdentifier'),
       'traversalChildIdentifier': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').traversalChildIdentifier = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').traversalChildIdentifier = D4.extractBridgedArgOrNull<Object>(value, 'traversalChildIdentifier'),
       'role': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').role = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').role = D4.extractBridgedArg<SemanticsRole>(value, 'role'),
       'label': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').label = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').label = D4.extractBridgedArg<String>(value, 'label'),
       'attributedLabel': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').attributedLabel = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').attributedLabel = D4.extractBridgedArg<$flutter_7.AttributedString>(value, 'attributedLabel'),
       'value': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').value = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').value = D4.extractBridgedArg<String>(value, 'value'),
       'attributedValue': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').attributedValue = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').attributedValue = D4.extractBridgedArg<$flutter_7.AttributedString>(value, 'attributedValue'),
       'increasedValue': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').increasedValue = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').increasedValue = D4.extractBridgedArg<String>(value, 'increasedValue'),
       'attributedIncreasedValue': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').attributedIncreasedValue = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').attributedIncreasedValue = D4.extractBridgedArg<$flutter_7.AttributedString>(value, 'attributedIncreasedValue'),
       'decreasedValue': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').decreasedValue = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').decreasedValue = D4.extractBridgedArg<String>(value, 'decreasedValue'),
       'attributedDecreasedValue': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').attributedDecreasedValue = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').attributedDecreasedValue = D4.extractBridgedArg<$flutter_7.AttributedString>(value, 'attributedDecreasedValue'),
       'hint': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').hint = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').hint = D4.extractBridgedArg<String>(value, 'hint'),
       'attributedHint': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').attributedHint = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').attributedHint = D4.extractBridgedArg<$flutter_7.AttributedString>(value, 'attributedHint'),
       'tooltip': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').tooltip = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').tooltip = D4.extractBridgedArg<String>(value, 'tooltip'),
       'hintOverrides': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').hintOverrides = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').hintOverrides = D4.extractBridgedArgOrNull<$flutter_7.SemanticsHintOverrides>(value, 'hintOverrides'),
       'scopesRoute': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').scopesRoute = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').scopesRoute = D4.extractBridgedArg<bool>(value, 'scopesRoute'),
       'namesRoute': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').namesRoute = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').namesRoute = D4.extractBridgedArg<bool>(value, 'namesRoute'),
       'isImage': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isImage = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isImage = D4.extractBridgedArg<bool>(value, 'isImage'),
       'liveRegion': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').liveRegion = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').liveRegion = D4.extractBridgedArg<bool>(value, 'liveRegion'),
       'textDirection': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').textDirection = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').textDirection = D4.extractBridgedArgOrNull<TextDirection>(value, 'textDirection'),
       'isSelected': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isSelected = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isSelected = D4.extractBridgedArg<bool>(value, 'isSelected'),
       'isExpanded': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isExpanded = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isExpanded = D4.extractBridgedArgOrNull<bool>(value, 'isExpanded'),
       'isEnabled': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isEnabled = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isEnabled = D4.extractBridgedArgOrNull<bool>(value, 'isEnabled'),
       'isChecked': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isChecked = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isChecked = D4.extractBridgedArgOrNull<bool>(value, 'isChecked'),
       'isCheckStateMixed': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isCheckStateMixed = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isCheckStateMixed = D4.extractBridgedArgOrNull<bool>(value, 'isCheckStateMixed'),
       'isToggled': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isToggled = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isToggled = D4.extractBridgedArgOrNull<bool>(value, 'isToggled'),
       'isInMutuallyExclusiveGroup': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isInMutuallyExclusiveGroup = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isInMutuallyExclusiveGroup = D4.extractBridgedArg<bool>(value, 'isInMutuallyExclusiveGroup'),
       'isFocusable': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isFocusable = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isFocusable = D4.extractBridgedArg<bool>(value, 'isFocusable'),
       'isFocused': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isFocused = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isFocused = D4.extractBridgedArgOrNull<bool>(value, 'isFocused'),
       'accessibilityFocusBlockType': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').accessibilityFocusBlockType = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').accessibilityFocusBlockType = D4.extractBridgedArg<$flutter_7.AccessibilityFocusBlockType>(value, 'accessibilityFocusBlockType'),
       'isButton': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isButton = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isButton = D4.extractBridgedArg<bool>(value, 'isButton'),
       'isLink': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isLink = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isLink = D4.extractBridgedArg<bool>(value, 'isLink'),
       'linkUrl': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').linkUrl = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').linkUrl = D4.extractBridgedArgOrNull<Uri>(value, 'linkUrl'),
       'isHeader': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isHeader = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isHeader = D4.extractBridgedArg<bool>(value, 'isHeader'),
       'headingLevel': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').headingLevel = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').headingLevel = D4.extractBridgedArg<int>(value, 'headingLevel'),
       'isSlider': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isSlider = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isSlider = D4.extractBridgedArg<bool>(value, 'isSlider'),
       'isKeyboardKey': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isKeyboardKey = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isKeyboardKey = D4.extractBridgedArg<bool>(value, 'isKeyboardKey'),
       'isHidden': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isHidden = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isHidden = D4.extractBridgedArg<bool>(value, 'isHidden'),
       'isTextField': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isTextField = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isTextField = D4.extractBridgedArg<bool>(value, 'isTextField'),
       'isReadOnly': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isReadOnly = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isReadOnly = D4.extractBridgedArg<bool>(value, 'isReadOnly'),
       'isObscured': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isObscured = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isObscured = D4.extractBridgedArg<bool>(value, 'isObscured'),
       'isMultiline': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isMultiline = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isMultiline = D4.extractBridgedArg<bool>(value, 'isMultiline'),
       'isRequired': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isRequired = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isRequired = D4.extractBridgedArgOrNull<bool>(value, 'isRequired'),
       'hasImplicitScrolling': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').hasImplicitScrolling = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').hasImplicitScrolling = D4.extractBridgedArg<bool>(value, 'hasImplicitScrolling'),
       'textSelection': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').textSelection = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').textSelection = D4.extractBridgedArgOrNull<$flutter_10.TextSelection>(value, 'textSelection'),
       'scrollPosition': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').scrollPosition = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').scrollPosition = D4.extractBridgedArgOrNull<double>(value, 'scrollPosition'),
       'scrollExtentMax': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').scrollExtentMax = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').scrollExtentMax = D4.extractBridgedArgOrNull<double>(value, 'scrollExtentMax'),
       'scrollExtentMin': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').scrollExtentMin = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').scrollExtentMin = D4.extractBridgedArgOrNull<double>(value, 'scrollExtentMin'),
       'controlsNodes': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').controlsNodes = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').controlsNodes = value == null ? null : (value as Set).cast<String>().toSet(),
       'validationResult': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').validationResult = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').validationResult = D4.extractBridgedArg<SemanticsValidationResult>(value, 'validationResult'),
       'hitTestBehavior': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').hitTestBehavior = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').hitTestBehavior = D4.extractBridgedArg<SemanticsHitTestBehavior>(value, 'hitTestBehavior'),
       'inputType': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').inputType = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').inputType = D4.extractBridgedArg<SemanticsInputType>(value, 'inputType'),
       'maxValue': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').maxValue = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').maxValue = D4.extractBridgedArgOrNull<String>(value, 'maxValue'),
       'minValue': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').minValue = value as dynamic,
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').minValue = D4.extractBridgedArgOrNull<String>(value, 'minValue'),
     },
     methods: {
       'getActionHandler': (visitor, target, positional, named, typeArgs) {
@@ -4836,97 +3749,97 @@ BridgedClass _createVector3Bridge() {
     },
     setters: {
       'length': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').length = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').length = D4.extractBridgedArg<double>(value, 'length'),
       'xy': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xy = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xy = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'xy'),
       'xz': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xz = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xz = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'xz'),
       'yx': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yx = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yx = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'yx'),
       'yz': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yz = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yz = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'yz'),
       'zx': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zx = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zx = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'zx'),
       'zy': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zy = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zy = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'zy'),
       'xyz': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xyz = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xyz = D4.extractBridgedArg<$vector_math_1.Vector3>(value, 'xyz'),
       'xzy': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xzy = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xzy = D4.extractBridgedArg<$vector_math_1.Vector3>(value, 'xzy'),
       'yxz': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yxz = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yxz = D4.extractBridgedArg<$vector_math_1.Vector3>(value, 'yxz'),
       'yzx': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yzx = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yzx = D4.extractBridgedArg<$vector_math_1.Vector3>(value, 'yzx'),
       'zxy': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zxy = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zxy = D4.extractBridgedArg<$vector_math_1.Vector3>(value, 'zxy'),
       'zyx': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zyx = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zyx = D4.extractBridgedArg<$vector_math_1.Vector3>(value, 'zyx'),
       'r': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').r = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').r = D4.extractBridgedArg<double>(value, 'r'),
       'g': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').g = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').g = D4.extractBridgedArg<double>(value, 'g'),
       'b': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').b = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').b = D4.extractBridgedArg<double>(value, 'b'),
       's': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').s = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').s = D4.extractBridgedArg<double>(value, 's'),
       't': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').t = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').t = D4.extractBridgedArg<double>(value, 't'),
       'p': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').p = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').p = D4.extractBridgedArg<double>(value, 'p'),
       'x': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').x = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').x = D4.extractBridgedArg<double>(value, 'x'),
       'y': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').y = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').y = D4.extractBridgedArg<double>(value, 'y'),
       'z': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').z = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').z = D4.extractBridgedArg<double>(value, 'z'),
       'rg': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rg = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rg = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'rg'),
       'rb': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rb = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rb = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'rb'),
       'gr': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').gr = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').gr = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'gr'),
       'gb': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').gb = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').gb = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'gb'),
       'br': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').br = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').br = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'br'),
       'bg': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').bg = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').bg = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'bg'),
       'rgb': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rgb = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rgb = D4.extractBridgedArg<$vector_math_1.Vector3>(value, 'rgb'),
       'rbg': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rbg = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rbg = D4.extractBridgedArg<$vector_math_1.Vector3>(value, 'rbg'),
       'grb': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').grb = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').grb = D4.extractBridgedArg<$vector_math_1.Vector3>(value, 'grb'),
       'gbr': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').gbr = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').gbr = D4.extractBridgedArg<$vector_math_1.Vector3>(value, 'gbr'),
       'brg': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').brg = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').brg = D4.extractBridgedArg<$vector_math_1.Vector3>(value, 'brg'),
       'bgr': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').bgr = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').bgr = D4.extractBridgedArg<$vector_math_1.Vector3>(value, 'bgr'),
       'st': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').st = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').st = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'st'),
       'sp': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').sp = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').sp = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'sp'),
       'ts': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ts = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ts = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'ts'),
       'tp': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').tp = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').tp = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'tp'),
       'ps': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ps = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ps = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'ps'),
       'pt': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').pt = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').pt = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'pt'),
       'stp': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').stp = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').stp = D4.extractBridgedArg<$vector_math_1.Vector3>(value, 'stp'),
       'spt': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').spt = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').spt = D4.extractBridgedArg<$vector_math_1.Vector3>(value, 'spt'),
       'tsp': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').tsp = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').tsp = D4.extractBridgedArg<$vector_math_1.Vector3>(value, 'tsp'),
       'tps': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').tps = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').tps = D4.extractBridgedArg<$vector_math_1.Vector3>(value, 'tps'),
       'pst': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').pst = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').pst = D4.extractBridgedArg<$vector_math_1.Vector3>(value, 'pst'),
       'pts': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').pts = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').pts = D4.extractBridgedArg<$vector_math_1.Vector3>(value, 'pts'),
     },
     methods: {
       'setValues': (visitor, target, positional, named, typeArgs) {
@@ -5921,31 +4834,31 @@ BridgedClass _createVector2Bridge() {
     },
     setters: {
       'length': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').length = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').length = D4.extractBridgedArg<double>(value, 'length'),
       'xy': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').xy = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').xy = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'xy'),
       'yx': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').yx = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').yx = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'yx'),
       'r': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').r = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').r = D4.extractBridgedArg<double>(value, 'r'),
       'g': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').g = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').g = D4.extractBridgedArg<double>(value, 'g'),
       's': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').s = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').s = D4.extractBridgedArg<double>(value, 's'),
       't': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').t = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').t = D4.extractBridgedArg<double>(value, 't'),
       'x': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').x = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').x = D4.extractBridgedArg<double>(value, 'x'),
       'y': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').y = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').y = D4.extractBridgedArg<double>(value, 'y'),
       'rg': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').rg = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').rg = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'rg'),
       'gr': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').gr = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').gr = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'gr'),
       'st': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').st = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').st = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'st'),
       'ts': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').ts = value as dynamic,
+        D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').ts = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'ts'),
     },
     methods: {
       'setValues': (visitor, target, positional, named, typeArgs) {

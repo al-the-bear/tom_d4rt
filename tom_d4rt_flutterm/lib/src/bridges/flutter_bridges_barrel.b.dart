@@ -14,5 +14,3 @@ export 'rendering_bridges.b.dart';
 export 'widgets_bridges.b.dart';
 export 'material_widgets_bridges.b.dart';
 export 'cupertino_bridges.b.dart';
-export 'flutter_proxies_bridges.b.dart';
-export 'flutter_proxies.b.dart';

@@ -102,9 +102,7 @@ void main() {
     });
 
     test('class_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'animation/class_test.dart',
-      );
+      final result = await SendTestRunner.send('animation/class_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -123,9 +121,7 @@ void main() {
     });
 
     test('cubic_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'animation/cubic_test.dart',
-      );
+      final result = await SendTestRunner.send('animation/cubic_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -137,9 +133,7 @@ void main() {
     });
 
     test('curve2_d_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'animation/curve2_d_test.dart',
-      );
+      final result = await SendTestRunner.send('animation/curve2_d_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -151,9 +145,7 @@ void main() {
     });
 
     test('curves_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'animation/curves_test.dart',
-      );
+      final result = await SendTestRunner.send('animation/curves_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -186,16 +178,12 @@ void main() {
     });
 
     test('int_tween_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'animation/int_tween_test.dart',
-      );
+      final result = await SendTestRunner.send('animation/int_tween_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
     test('interval_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'animation/interval_test.dart',
-      );
+      final result = await SendTestRunner.send('animation/interval_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -221,9 +209,7 @@ void main() {
     });
 
     test('saw_tooth_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'animation/saw_tooth_test.dart',
-      );
+      final result = await SendTestRunner.send('animation/saw_tooth_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -235,9 +221,7 @@ void main() {
     });
 
     test('split_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'animation/split_test.dart',
-      );
+      final result = await SendTestRunner.send('animation/split_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -256,12 +240,9 @@ void main() {
     });
 
     test('threshold_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'animation/threshold_test.dart',
-      );
+      final result = await SendTestRunner.send('animation/threshold_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
-
   });
 
   // ============================================================
@@ -269,9 +250,7 @@ void main() {
   // ============================================================
   group('cupertino/', () {
     test('class_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'cupertino/class_test.dart',
-      );
+      final result = await SendTestRunner.send('cupertino/class_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -372,7 +351,6 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
-
   });
 
   // ============================================================
@@ -408,16 +386,12 @@ void main() {
     });
 
     test('blend_mode_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'dart_ui/blend_mode_test.dart',
-      );
+      final result = await SendTestRunner.send('dart_ui/blend_mode_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
     test('blur_style_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'dart_ui/blur_style_test.dart',
-      );
+      final result = await SendTestRunner.send('dart_ui/blur_style_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -457,16 +431,12 @@ void main() {
     });
 
     test('class_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'dart_ui/class_test.dart',
-      );
+      final result = await SendTestRunner.send('dart_ui/class_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
     test('clip_op_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'dart_ui/clip_op_test.dart',
-      );
+      final result = await SendTestRunner.send('dart_ui/clip_op_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -499,9 +469,7 @@ void main() {
     });
 
     test('clip_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'dart_ui/clip_test.dart',
-      );
+      final result = await SendTestRunner.send('dart_ui/clip_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -513,9 +481,7 @@ void main() {
     });
 
     test('color_space_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'dart_ui/color_space_test.dart',
-      );
+      final result = await SendTestRunner.send('dart_ui/color_space_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -562,9 +528,7 @@ void main() {
     });
 
     test('font_style_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'dart_ui/font_style_test.dart',
-      );
+      final result = await SendTestRunner.send('dart_ui/font_style_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -583,9 +547,7 @@ void main() {
     });
 
     test('frame_phase_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'dart_ui/frame_phase_test.dart',
-      );
+      final result = await SendTestRunner.send('dart_ui/frame_phase_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -695,9 +657,7 @@ void main() {
     });
 
     test('point_mode_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'dart_ui/point_mode_test.dart',
-      );
+      final result = await SendTestRunner.send('dart_ui/point_mode_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -772,16 +732,12 @@ void main() {
     });
 
     test('stroke_cap_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'dart_ui/stroke_cap_test.dart',
-      );
+      final result = await SendTestRunner.send('dart_ui/stroke_cap_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
     test('stroke_join_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'dart_ui/stroke_join_test.dart',
-      );
+      final result = await SendTestRunner.send('dart_ui/stroke_join_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -807,9 +763,7 @@ void main() {
     });
 
     test('text_align_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'dart_ui/text_align_test.dart',
-      );
+      final result = await SendTestRunner.send('dart_ui/text_align_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -842,9 +796,7 @@ void main() {
     });
 
     test('tile_mode_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'dart_ui/tile_mode_test.dart',
-      );
+      final result = await SendTestRunner.send('dart_ui/tile_mode_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -856,9 +808,7 @@ void main() {
     });
 
     test('tristate_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'dart_ui/tristate_test.dart',
-      );
+      final result = await SendTestRunner.send('dart_ui/tristate_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -891,9 +841,7 @@ void main() {
     });
 
     test('vertex_mode_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'dart_ui/vertex_mode_test.dart',
-      );
+      final result = await SendTestRunner.send('dart_ui/vertex_mode_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -910,7 +858,6 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
-
   });
 
   // ============================================================
@@ -932,16 +879,12 @@ void main() {
     });
 
     test('category_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'foundation/category_test.dart',
-      );
+      final result = await SendTestRunner.send('foundation/category_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
     test('class_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'foundation/class_test.dart',
-      );
+      final result = await SendTestRunner.send('foundation/class_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -1051,9 +994,7 @@ void main() {
     });
 
     test('factory_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'foundation/factory_test.dart',
-      );
+      final result = await SendTestRunner.send('foundation/factory_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -1149,9 +1090,7 @@ void main() {
     });
 
     test('summary_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'foundation/summary_test.dart',
-      );
+      final result = await SendTestRunner.send('foundation/summary_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -1175,7 +1114,6 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
-
   });
 
   // ============================================================
@@ -1190,9 +1128,7 @@ void main() {
     });
 
     test('class_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'gestures/class_test.dart',
-      );
+      final result = await SendTestRunner.send('gestures/class_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -1217,12 +1153,15 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('flutter_error_details_for_pointer_event_dispatcher_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'gestures/flutter_error_details_for_pointer_event_dispatcher_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'flutter_error_details_for_pointer_event_dispatcher_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'gestures/flutter_error_details_for_pointer_event_dispatcher_test.dart',
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+    );
 
     test('gesture_disposition_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -1496,7 +1435,6 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
-
   });
 
   // ============================================================
@@ -1504,9 +1442,7 @@ void main() {
   // ============================================================
   group('material/', () {
     test('adaptation_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/adaptation_test.dart',
-      );
+      final result = await SendTestRunner.send('material/adaptation_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -1581,9 +1517,7 @@ void main() {
     });
 
     test('button_bar_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/button_bar_test.dart',
-      );
+      final result = await SendTestRunner.send('material/button_bar_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -1651,9 +1585,7 @@ void main() {
     });
 
     test('class_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/class_test.dart',
-      );
+      final result = await SendTestRunner.send('material/class_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -1700,9 +1632,7 @@ void main() {
     });
 
     test('day_period_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/day_period_test.dart',
-      );
+      final result = await SendTestRunner.send('material/day_period_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -1798,9 +1728,7 @@ void main() {
     });
 
     test('durations_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/durations_test.dart',
-      );
+      final result = await SendTestRunner.send('material/durations_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -1812,9 +1740,7 @@ void main() {
     });
 
     test('easing_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/easing_test.dart',
-      );
+      final result = await SendTestRunner.send('material/easing_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -1966,9 +1892,7 @@ void main() {
     });
 
     test('grid_tile_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/grid_tile_test.dart',
-      );
+      final result = await SendTestRunner.send('material/grid_tile_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -2001,9 +1925,7 @@ void main() {
     });
 
     test('icons_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/icons_test.dart',
-      );
+      final result = await SendTestRunner.send('material/icons_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -2071,9 +1993,7 @@ void main() {
     });
 
     test('magnifier_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/magnifier_test.dart',
-      );
+      final result = await SendTestRunner.send('material/magnifier_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -2218,9 +2138,7 @@ void main() {
     });
 
     test('no_splash_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/no_splash_test.dart',
-      );
+      final result = await SendTestRunner.send('material/no_splash_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -2301,12 +2219,15 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('predictive_back_fullscreen_page_transitions_builder_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/predictive_back_fullscreen_page_transitions_builder_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'predictive_back_fullscreen_page_transitions_builder_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'material/predictive_back_fullscreen_page_transitions_builder_test.dart',
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+    );
 
     test('progress_indicator_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -2316,9 +2237,7 @@ void main() {
     });
 
     test('raw_chip_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/raw_chip_test.dart',
-      );
+      final result = await SendTestRunner.send('material/raw_chip_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -2526,9 +2445,7 @@ void main() {
     });
 
     test('step_style_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/step_style_test.dart',
-      );
+      final result = await SendTestRunner.send('material/step_style_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -2603,16 +2520,12 @@ void main() {
     });
 
     test('theme_mode_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/theme_mode_test.dart',
-      );
+      final result = await SendTestRunner.send('material/theme_mode_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
     test('thumb_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/thumb_test.dart',
-      );
+      final result = await SendTestRunner.send('material/thumb_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -2671,7 +2584,6 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
-
   });
 
   // ============================================================
@@ -2707,9 +2619,7 @@ void main() {
     });
 
     test('axis_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'painting/axis_test.dart',
-      );
+      final result = await SendTestRunner.send('painting/axis_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -2721,23 +2631,17 @@ void main() {
     });
 
     test('box_fit_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'painting/box_fit_test.dart',
-      );
+      final result = await SendTestRunner.send('painting/box_fit_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
     test('box_shape_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'painting/box_shape_test.dart',
-      );
+      final result = await SendTestRunner.send('painting/box_shape_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
     test('class_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'painting/class_test.dart',
-      );
+      final result = await SendTestRunner.send('painting/class_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -2901,7 +2805,6 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
-
   });
 
   // ============================================================
@@ -2916,19 +2819,14 @@ void main() {
     });
 
     test('class_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'physics/class_test.dart',
-      );
+      final result = await SendTestRunner.send('physics/class_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
     test('spring_type_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'physics/spring_type_test.dart',
-      );
+      final result = await SendTestRunner.send('physics/spring_type_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
-
   });
 
   // ============================================================
@@ -2992,9 +2890,7 @@ void main() {
     });
 
     test('class_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'rendering/class_test.dart',
-      );
+      final result = await SendTestRunner.send('rendering/class_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -3006,9 +2902,7 @@ void main() {
     });
 
     test('const_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'rendering/const_test.dart',
-      );
+      final result = await SendTestRunner.send('rendering/const_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -3048,9 +2942,7 @@ void main() {
     });
 
     test('flex_fit_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'rendering/flex_fit_test.dart',
-      );
+      final result = await SendTestRunner.send('rendering/flex_fit_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -3531,9 +3423,7 @@ void main() {
     });
 
     test('stack_fit_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'rendering/stack_fit_test.dart',
-      );
+      final result = await SendTestRunner.send('rendering/stack_fit_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -3606,7 +3496,6 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
-
   });
 
   // ============================================================
@@ -3614,16 +3503,12 @@ void main() {
   // ============================================================
   group('scheduler/', () {
     test('class_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'scheduler/class_test.dart',
-      );
+      final result = await SendTestRunner.send('scheduler/class_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
     test('priority_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'scheduler/priority_test.dart',
-      );
+      final result = await SendTestRunner.send('scheduler/priority_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -3640,7 +3525,6 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
-
   });
 
   // ============================================================
@@ -3676,9 +3560,7 @@ void main() {
     });
 
     test('class_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'semantics/class_test.dart',
-      );
+      final result = await SendTestRunner.send('semantics/class_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -3716,7 +3598,6 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
-
   });
 
   // ============================================================
@@ -3787,9 +3668,7 @@ void main() {
     });
 
     test('class_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'services/class_test.dart',
-      );
+      final result = await SendTestRunner.send('services/class_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -3934,16 +3813,12 @@ void main() {
     });
 
     test('key_event_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'services/key_event_test.dart',
-      );
+      final result = await SendTestRunner.send('services/key_event_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
     test('key_helper_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'services/key_helper_test.dart',
-      );
+      final result = await SendTestRunner.send('services/key_helper_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -4200,9 +4075,7 @@ void main() {
     });
 
     test('swipe_edge_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'services/swipe_edge_test.dart',
-      );
+      final result = await SendTestRunner.send('services/swipe_edge_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -4319,9 +4192,7 @@ void main() {
     });
 
     test('text_input_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'services/text_input_test.dart',
-      );
+      final result = await SendTestRunner.send('services/text_input_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -4352,7 +4223,6 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
-
   });
 
   // ============================================================
@@ -4689,9 +4559,7 @@ void main() {
     });
 
     test('class_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/class_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/class_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -4990,9 +4858,7 @@ void main() {
     });
 
     test('dismissible_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/dismissible_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/dismissible_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -5179,9 +5045,7 @@ void main() {
     });
 
     test('expansible_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/expansible_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/expansible_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -5213,19 +5077,25 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('extend_selection_to_next_paragraph_boundary_intent_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/extend_selection_to_next_paragraph_boundary_intent_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'extend_selection_to_next_paragraph_boundary_intent_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'widgets/extend_selection_to_next_paragraph_boundary_intent_test.dart',
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+    );
 
-    test('extend_selection_to_next_paragraph_boundary_or_caret_location_intent_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/extend_selection_to_next_paragraph_boundary_or_caret_location_intent_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'extend_selection_to_next_paragraph_boundary_or_caret_location_intent_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'widgets/extend_selection_to_next_paragraph_boundary_or_caret_location_intent_test.dart',
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+    );
 
     test('extend_selection_to_next_word_boundary_intent_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -5234,31 +5104,38 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('extend_selection_to_next_word_boundary_or_caret_location_intent_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/extend_selection_to_next_word_boundary_or_caret_location_intent_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'extend_selection_to_next_word_boundary_or_caret_location_intent_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'widgets/extend_selection_to_next_word_boundary_or_caret_location_intent_test.dart',
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+    );
 
-    test('extend_selection_vertically_to_adjacent_line_intent_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/extend_selection_vertically_to_adjacent_line_intent_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'extend_selection_vertically_to_adjacent_line_intent_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'widgets/extend_selection_vertically_to_adjacent_line_intent_test.dart',
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+    );
 
-    test('extend_selection_vertically_to_adjacent_page_intent_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/extend_selection_vertically_to_adjacent_page_intent_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'extend_selection_vertically_to_adjacent_page_intent_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'widgets/extend_selection_vertically_to_adjacent_page_intent_test.dart',
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+    );
 
     test('feedback_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/feedback_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/feedback_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -5270,9 +5147,7 @@ void main() {
     });
 
     test('flex_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/flex_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/flex_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -5305,9 +5180,7 @@ void main() {
     });
 
     test('focus_order_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/focus_order_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/focus_order_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -5459,9 +5332,7 @@ void main() {
     });
 
     test('icon_data_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/icon_data_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/icon_data_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -5487,9 +5358,7 @@ void main() {
     });
 
     test('image_icon_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/image_icon_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/image_icon_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -5571,9 +5440,7 @@ void main() {
     });
 
     test('key_set_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/key_set_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/key_set_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -5592,9 +5459,7 @@ void main() {
     });
 
     test('layout_id_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/layout_id_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/layout_id_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -5634,9 +5499,7 @@ void main() {
     });
 
     test('lock_state_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/lock_state_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/lock_state_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -5683,9 +5546,7 @@ void main() {
     });
 
     test('meta_data_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/meta_data_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/meta_data_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -5774,9 +5635,7 @@ void main() {
     });
 
     test('object_key_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/object_key_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/object_key_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -5802,9 +5661,7 @@ void main() {
     });
 
     test('orientation_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/orientation_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/orientation_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -5886,16 +5743,12 @@ void main() {
     });
 
     test('page_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/page_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/page_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
     test('pan_axis_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/pan_axis_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/pan_axis_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -5942,9 +5795,7 @@ void main() {
     });
 
     test('pop_entry_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/pop_entry_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/pop_entry_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -6068,9 +5919,7 @@ void main() {
     });
 
     test('raw_image_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/raw_image_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/raw_image_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -6103,9 +5952,7 @@ void main() {
     });
 
     test('raw_radio_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/raw_radio_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/raw_radio_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -6124,9 +5971,7 @@ void main() {
     });
 
     test('raw_tooltip_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/raw_tooltip_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/raw_tooltip_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -6313,9 +6158,7 @@ void main() {
     });
 
     test('repeat_mode_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/repeat_mode_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/repeat_mode_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -6446,9 +6289,7 @@ void main() {
     });
 
     test('route_aware_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/route_aware_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/route_aware_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -6628,9 +6469,7 @@ void main() {
     });
 
     test('scroll_view_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/scroll_view_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/scroll_view_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -7047,12 +6886,15 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('text_selection_gesture_detector_builder_delegate_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/text_selection_gesture_detector_builder_delegate_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'text_selection_gesture_detector_builder_delegate_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'widgets/text_selection_gesture_detector_builder_delegate_test.dart',
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+    );
 
     test('text_selection_gesture_detector_builder_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -7083,9 +6925,7 @@ void main() {
     });
 
     test('texture_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/texture_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/texture_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -7223,9 +7063,7 @@ void main() {
     });
 
     test('tree_sliver_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/tree_sliver_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/tree_sliver_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -7377,9 +7215,7 @@ void main() {
     });
 
     test('weak_map_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/weak_map_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/weak_map_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -7550,6 +7386,5 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
-
   });
 }

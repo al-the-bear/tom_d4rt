@@ -3,7 +3,6 @@
 // PlatformException, MissingPluginException
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'dart:typed_data';
 
 dynamic build(BuildContext context) {
   print('Platform channels test executing');

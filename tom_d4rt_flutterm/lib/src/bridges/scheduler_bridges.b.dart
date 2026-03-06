@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 5 files
-// Generated: 2026-03-03T11:56:13.673291
+// Generated: 2026-03-05T20:36:53.141776
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -28,10 +28,7 @@ class FlutterSchedulerBridge {
       _createPriorityBridge(),
       _createPerformanceModeRequestHandleBridge(),
       _createSchedulerBindingBridge(),
-      _createTickerProviderBridge(),
       _createTickerBridge(),
-      _createTickerFutureBridge(),
-      _createTickerCanceledBridge(),
     ];
   }
 
@@ -44,10 +41,7 @@ class FlutterSchedulerBridge {
       'Priority': 'package:flutter/src/scheduler/priority.dart',
       'PerformanceModeRequestHandle': 'package:flutter/src/scheduler/binding.dart',
       'SchedulerBinding': 'package:flutter/src/scheduler/binding.dart',
-      'TickerProvider': 'package:flutter/src/scheduler/ticker.dart',
       'Ticker': 'package:flutter/src/scheduler/ticker.dart',
-      'TickerFuture': 'package:flutter/src/scheduler/ticker.dart',
-      'TickerCanceled': 'package:flutter/src/scheduler/ticker.dart',
     };
   }
 
@@ -351,7 +345,7 @@ BridgedClass _createSchedulerBindingBridge() {
           throw ArgumentError('addTimingsCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.addTimingsCallback((List<FrameTiming> p0) { D4.callInterpreterCallback(visitor, callbackRaw, [p0]); });
+        t.addTimingsCallback((List<FrameTiming> p0) { D4.callInterpreterCallback(visitor!, callbackRaw, [p0]); });
         return null;
       },
       'removeTimingsCallback': (visitor, target, positional, named, typeArgs) {
@@ -361,7 +355,7 @@ BridgedClass _createSchedulerBindingBridge() {
           throw ArgumentError('removeTimingsCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.removeTimingsCallback((List<FrameTiming> p0) { D4.callInterpreterCallback(visitor, callbackRaw, [p0]); });
+        t.removeTimingsCallback((List<FrameTiming> p0) { D4.callInterpreterCallback(visitor!, callbackRaw, [p0]); });
         return null;
       },
       'initServiceExtensions': (visitor, target, positional, named, typeArgs) {
@@ -386,7 +380,7 @@ BridgedClass _createSchedulerBindingBridge() {
         final priority = D4.getRequiredArg<$flutter_6.Priority>(positional, 1, 'priority', 'scheduleTask');
         final debugLabel = D4.getOptionalNamedArg<String?>(named, 'debugLabel');
         final flow = D4.getOptionalNamedArg<Flow?>(named, 'flow');
-        return t.scheduleTask(() { return D4.callInterpreterCallback(visitor, taskRaw, []) as FutureOr<Object>; }, priority, debugLabel: debugLabel, flow: flow);
+        return t.scheduleTask(() { return D4.callInterpreterCallback(visitor!, taskRaw, []) as FutureOr<Object>; }, priority, debugLabel: debugLabel, flow: flow);
       },
       'unlocked': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_4.SchedulerBinding>(target, 'SchedulerBinding');
@@ -402,7 +396,7 @@ BridgedClass _createSchedulerBindingBridge() {
         final callbackRaw = positional[0];
         final rescheduling = D4.getNamedArgWithDefault<bool>(named, 'rescheduling', false);
         final scheduleNewFrame = D4.getNamedArgWithDefault<bool>(named, 'scheduleNewFrame', true);
-        return t.scheduleFrameCallback((Duration p0) { D4.callInterpreterCallback(visitor, callbackRaw, [p0]); }, rescheduling: rescheduling, scheduleNewFrame: scheduleNewFrame);
+        return t.scheduleFrameCallback((Duration p0) { D4.callInterpreterCallback(visitor!, callbackRaw, [p0]); }, rescheduling: rescheduling, scheduleNewFrame: scheduleNewFrame);
       },
       'cancelFrameCallbackWithId': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_4.SchedulerBinding>(target, 'SchedulerBinding');
@@ -436,7 +430,7 @@ BridgedClass _createSchedulerBindingBridge() {
           throw ArgumentError('addPersistentFrameCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.addPersistentFrameCallback((Duration p0) { D4.callInterpreterCallback(visitor, callbackRaw, [p0]); });
+        t.addPersistentFrameCallback((Duration p0) { D4.callInterpreterCallback(visitor!, callbackRaw, [p0]); });
         return null;
       },
       'addPostFrameCallback': (visitor, target, positional, named, typeArgs) {
@@ -447,7 +441,7 @@ BridgedClass _createSchedulerBindingBridge() {
         }
         final callbackRaw = positional[0];
         final debugLabel = D4.getNamedArgWithDefault<String>(named, 'debugLabel', 'callback');
-        t.addPostFrameCallback((Duration p0) { D4.callInterpreterCallback(visitor, callbackRaw, [p0]); }, debugLabel: debugLabel);
+        t.addPostFrameCallback((Duration p0) { D4.callInterpreterCallback(visitor!, callbackRaw, [p0]); }, debugLabel: debugLabel);
         return null;
       },
       'ensureFrameCallbacksRegistered': (visitor, target, positional, named, typeArgs) {
@@ -515,7 +509,7 @@ BridgedClass _createSchedulerBindingBridge() {
           throw ArgumentError('lockEvents: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return t.lockEvents(() { return D4.callInterpreterCallback(visitor, callbackRaw, []) as Future<void>; });
+        return t.lockEvents(() { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as Future<void>; });
       },
       'reassembleApplication': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_4.SchedulerBinding>(target, 'SchedulerBinding');
@@ -532,7 +526,7 @@ BridgedClass _createSchedulerBindingBridge() {
           throw ArgumentError('registerSignalServiceExtension: Missing required named argument "callback"');
         }
         final callbackRaw = named['callback'];
-        t.registerSignalServiceExtension(name: name, callback: () { return D4.callInterpreterCallback(visitor, callbackRaw, []) as Future<void>; });
+        t.registerSignalServiceExtension(name: name, callback: () { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as Future<void>; });
         return null;
       },
       'registerBoolServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -546,7 +540,7 @@ BridgedClass _createSchedulerBindingBridge() {
           throw ArgumentError('registerBoolServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerBoolServiceExtension(name: name, getter: () { return D4.callInterpreterCallback(visitor, getterRaw, []) as Future<bool>; }, setter: (bool p0) { return D4.callInterpreterCallback(visitor, setterRaw, [p0]) as Future<void>; });
+        t.registerBoolServiceExtension(name: name, getter: () { return D4.callInterpreterCallback(visitor!, getterRaw, []) as Future<bool>; }, setter: (bool p0) { return D4.callInterpreterCallback(visitor!, setterRaw, [p0]) as Future<void>; });
         return null;
       },
       'registerNumericServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -560,7 +554,7 @@ BridgedClass _createSchedulerBindingBridge() {
           throw ArgumentError('registerNumericServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerNumericServiceExtension(name: name, getter: () { return D4.callInterpreterCallback(visitor, getterRaw, []) as Future<double>; }, setter: (double p0) { return D4.callInterpreterCallback(visitor, setterRaw, [p0]) as Future<void>; });
+        t.registerNumericServiceExtension(name: name, getter: () { return D4.callInterpreterCallback(visitor!, getterRaw, []) as Future<double>; }, setter: (double p0) { return D4.callInterpreterCallback(visitor!, setterRaw, [p0]) as Future<void>; });
         return null;
       },
       'postEvent': (visitor, target, positional, named, typeArgs) {
@@ -585,7 +579,7 @@ BridgedClass _createSchedulerBindingBridge() {
           throw ArgumentError('registerStringServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerStringServiceExtension(name: name, getter: () { return D4.callInterpreterCallback(visitor, getterRaw, []) as Future<String>; }, setter: (String p0) { return D4.callInterpreterCallback(visitor, setterRaw, [p0]) as Future<void>; });
+        t.registerStringServiceExtension(name: name, getter: () { return D4.callInterpreterCallback(visitor!, getterRaw, []) as Future<String>; }, setter: (String p0) { return D4.callInterpreterCallback(visitor!, setterRaw, [p0]) as Future<void>; });
         return null;
       },
       'registerServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -595,7 +589,7 @@ BridgedClass _createSchedulerBindingBridge() {
           throw ArgumentError('registerServiceExtension: Missing required named argument "callback"');
         }
         final callbackRaw = named['callback'];
-        t.registerServiceExtension(name: name, callback: (Map<String, String> p0) { return D4.callInterpreterCallback(visitor, callbackRaw, [p0]) as Future<Map<String, dynamic>>; });
+        t.registerServiceExtension(name: name, callback: (Map<String, String> p0) { return D4.callInterpreterCallback(visitor!, callbackRaw, [p0]) as Future<Map<String, dynamic>>; });
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -675,34 +669,6 @@ BridgedClass _createSchedulerBindingBridge() {
 }
 
 // =============================================================================
-// TickerProvider Bridge
-// =============================================================================
-
-BridgedClass _createTickerProviderBridge() {
-  return BridgedClass(
-    nativeType: $flutter_8.TickerProvider,
-    name: 'TickerProvider',
-    isAssignable: (v) => v is $flutter_8.TickerProvider,
-    constructors: {
-    },
-    methods: {
-      'createTicker': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.TickerProvider>(target, 'TickerProvider');
-        D4.requireMinArgs(positional, 1, 'createTicker');
-        if (positional.isEmpty) {
-          throw ArgumentError('createTicker: Missing required argument "onTick" at position 0');
-        }
-        final onTickRaw = positional[0];
-        return t.createTicker((Duration p0) { D4.callInterpreterCallback(visitor, onTickRaw, [p0]); });
-      },
-    },
-    methodSignatures: {
-      'createTicker': 'Ticker createTicker(TickerCallback onTick)',
-    },
-  );
-}
-
-// =============================================================================
 // Ticker Bridge
 // =============================================================================
 
@@ -719,7 +685,7 @@ BridgedClass _createTickerBridge() {
         }
         final onTickRaw = positional[0];
         final debugLabel = D4.getOptionalNamedArg<String?>(named, 'debugLabel');
-        return $flutter_8.Ticker((Duration p0) { D4.callInterpreterCallback(visitor, onTickRaw, [p0]); }, debugLabel: debugLabel);
+        return $flutter_8.Ticker((Duration p0) { D4.callInterpreterCallback(visitor!, onTickRaw, [p0]); }, debugLabel: debugLabel);
       },
     },
     getters: {
@@ -735,7 +701,7 @@ BridgedClass _createTickerBridge() {
       'forceFrames': (visitor, target, value) => 
         D4.validateTarget<$flutter_8.Ticker>(target, 'Ticker').forceFrames = D4.extractBridgedArg<bool>(value, 'forceFrames'),
       'muted': (visitor, target, value) => 
-        D4.validateTarget<$flutter_8.Ticker>(target, 'Ticker').muted = value as dynamic,
+        D4.validateTarget<$flutter_8.Ticker>(target, 'Ticker').muted = D4.extractBridgedArg<bool>(value, 'muted'),
     },
     methods: {
       'start': (visitor, target, positional, named, typeArgs) {
@@ -808,130 +774,6 @@ BridgedClass _createTickerBridge() {
     setterSignatures: {
       'forceFrames': 'set forceFrames(dynamic value)',
       'muted': 'set muted(bool value)',
-    },
-  );
-}
-
-// =============================================================================
-// TickerFuture Bridge
-// =============================================================================
-
-BridgedClass _createTickerFutureBridge() {
-  return BridgedClass(
-    nativeType: $flutter_8.TickerFuture,
-    name: 'TickerFuture',
-    isAssignable: (v) => v is $flutter_8.TickerFuture,
-    constructors: {
-      'complete': (visitor, positional, named) {
-        return $flutter_8.TickerFuture.complete();
-      },
-    },
-    getters: {
-      'orCancel': (visitor, target) => D4.validateTarget<$flutter_8.TickerFuture>(target, 'TickerFuture').orCancel,
-    },
-    methods: {
-      'whenCompleteOrCancel': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.TickerFuture>(target, 'TickerFuture');
-        D4.requireMinArgs(positional, 1, 'whenCompleteOrCancel');
-        if (positional.isEmpty) {
-          throw ArgumentError('whenCompleteOrCancel: Missing required argument "callback" at position 0');
-        }
-        final callbackRaw = positional[0];
-        t.whenCompleteOrCancel(() { D4.callInterpreterCallback(visitor, callbackRaw, []); });
-        return null;
-      },
-      'asStream': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.TickerFuture>(target, 'TickerFuture');
-        return t.asStream();
-      },
-      'catchError': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.TickerFuture>(target, 'TickerFuture');
-        D4.requireMinArgs(positional, 1, 'catchError');
-        final onError = D4.getRequiredArg<Function>(positional, 0, 'onError', 'catchError');
-        final testRaw = named['test'];
-        return t.catchError(onError, test: testRaw == null ? null : (Object p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; });
-      },
-      'then': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.TickerFuture>(target, 'TickerFuture');
-        D4.requireMinArgs(positional, 1, 'then');
-        if (positional.isEmpty) {
-          throw ArgumentError('then: Missing required argument "onValue" at position 0');
-        }
-        final onValueRaw = positional[0];
-        final onError = D4.getOptionalNamedArg<Function?>(named, 'onError');
-        return t.then((void p0) { return D4.callInterpreterCallback(visitor, onValueRaw, [null]) as FutureOr<Object>; }, onError: onError);
-      },
-      'timeout': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.TickerFuture>(target, 'TickerFuture');
-        D4.requireMinArgs(positional, 1, 'timeout');
-        final timeLimit = D4.getRequiredArg<Duration>(positional, 0, 'timeLimit', 'timeout');
-        final onTimeoutRaw = named['onTimeout'];
-        return t.timeout(timeLimit, onTimeout: onTimeoutRaw == null ? null : () { return D4.callInterpreterCallback(visitor, onTimeoutRaw, []) as FutureOr<void>; });
-      },
-      'whenComplete': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.TickerFuture>(target, 'TickerFuture');
-        D4.requireMinArgs(positional, 1, 'whenComplete');
-        if (positional.isEmpty) {
-          throw ArgumentError('whenComplete: Missing required argument "action" at position 0');
-        }
-        final actionRaw = positional[0];
-        return t.whenComplete(() { return D4.callInterpreterCallback(visitor, actionRaw, []) as dynamic; });
-      },
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.TickerFuture>(target, 'TickerFuture');
-        return t.toString();
-      },
-    },
-    constructorSignatures: {
-      'complete': 'TickerFuture.complete()',
-    },
-    methodSignatures: {
-      'whenCompleteOrCancel': 'void whenCompleteOrCancel(VoidCallback callback)',
-      'asStream': 'Stream<void> asStream()',
-      'catchError': 'Future<void> catchError(Function onError, {bool Function(Object)? test})',
-      'then': 'Future<R> then(FutureOr<R> Function(void value) onValue, {Function? onError})',
-      'timeout': 'Future<void> timeout(Duration timeLimit, {FutureOr<void> Function()? onTimeout})',
-      'whenComplete': 'Future<void> whenComplete(dynamic Function() action)',
-      'toString': 'String toString()',
-    },
-    getterSignatures: {
-      'orCancel': 'Future<void> get orCancel',
-    },
-  );
-}
-
-// =============================================================================
-// TickerCanceled Bridge
-// =============================================================================
-
-BridgedClass _createTickerCanceledBridge() {
-  return BridgedClass(
-    nativeType: $flutter_8.TickerCanceled,
-    name: 'TickerCanceled',
-    isAssignable: (v) => v is $flutter_8.TickerCanceled,
-    constructors: {
-      '': (visitor, positional, named) {
-        final ticker = D4.getOptionalArg<$flutter_8.Ticker?>(positional, 0, 'ticker');
-        return $flutter_8.TickerCanceled(ticker);
-      },
-    },
-    getters: {
-      'ticker': (visitor, target) => D4.validateTarget<$flutter_8.TickerCanceled>(target, 'TickerCanceled').ticker,
-    },
-    methods: {
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.TickerCanceled>(target, 'TickerCanceled');
-        return t.toString();
-      },
-    },
-    constructorSignatures: {
-      '': 'const TickerCanceled([Ticker? ticker])',
-    },
-    methodSignatures: {
-      'toString': 'String toString()',
-    },
-    getterSignatures: {
-      'ticker': 'Ticker? get ticker',
     },
   );
 }

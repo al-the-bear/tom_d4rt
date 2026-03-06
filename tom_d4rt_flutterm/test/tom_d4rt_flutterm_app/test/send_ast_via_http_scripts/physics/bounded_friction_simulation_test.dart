@@ -1,5 +1,4 @@
 // D4rt test script: Tests BoundedFrictionSimulation from physics
-import 'package:flutter/physics.dart';
 import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {

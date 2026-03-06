@@ -1177,7 +1177,6 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
-
   });
 
   // --- CUPERTINO INDIVIDUAL SCRIPTS (9 files) ---
@@ -1244,7 +1243,6 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
-
   });
 
   // --- DART:UI INDIVIDUAL SCRIPTS (35 files) ---
@@ -1257,23 +1255,17 @@ void main() {
     });
 
     test('brightness_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'dart_ui/brightness_test.dart',
-      );
+      final result = await SendTestRunner.send('dart_ui/brightness_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
     test('codec_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'dart_ui/codec_test.dart',
-      );
+      final result = await SendTestRunner.send('dart_ui/codec_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
     test('display_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'dart_ui/display_test.dart',
-      );
+      final result = await SendTestRunner.send('dart_ui/display_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -1285,16 +1277,12 @@ void main() {
     });
 
     test('frame_data_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'dart_ui/frame_data_test.dart',
-      );
+      final result = await SendTestRunner.send('dart_ui/frame_data_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
     test('frame_info_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'dart_ui/frame_info_test.dart',
-      );
+      final result = await SendTestRunner.send('dart_ui/frame_info_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -1327,9 +1315,7 @@ void main() {
     });
 
     test('key_data_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'dart_ui/key_data_test.dart',
-      );
+      final result = await SendTestRunner.send('dart_ui/key_data_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -1341,9 +1327,7 @@ void main() {
     });
 
     test('offset_base_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'dart_ui/offset_base_test.dart',
-      );
+      final result = await SendTestRunner.send('dart_ui/offset_base_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -1355,9 +1339,7 @@ void main() {
     });
 
     test('path_metric_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'dart_ui/path_metric_test.dart',
-      );
+      final result = await SendTestRunner.send('dart_ui/path_metric_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -1404,9 +1386,7 @@ void main() {
     });
 
     test('scene_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'dart_ui/scene_test.dart',
-      );
+      final result = await SendTestRunner.send('dart_ui/scene_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -1493,7 +1473,6 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
-
   });
 
   // --- FOUNDATION INDIVIDUAL SCRIPTS (13 files) ---
@@ -1576,9 +1555,7 @@ void main() {
     });
 
     test('unicode_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'foundation/unicode_test.dart',
-      );
+      final result = await SendTestRunner.send('foundation/unicode_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -1588,7 +1565,6 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
-
   });
 
   // --- GESTURES INDIVIDUAL SCRIPTS (25 files) ---
@@ -1622,9 +1598,7 @@ void main() {
     });
 
     test('drag_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'gestures/drag_test.dart',
-      );
+      final result = await SendTestRunner.send('gestures/drag_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -1767,7 +1741,6 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
-
   });
 
   // --- MATERIAL INDIVIDUAL SCRIPTS (74 files) ---
@@ -1850,9 +1823,7 @@ void main() {
     });
 
     test('colors_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/colors_test.dart',
-      );
+      final result = await SendTestRunner.send('material/colors_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -1899,9 +1870,7 @@ void main() {
     });
 
     test('date_utils_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/date_utils_test.dart',
-      );
+      final result = await SendTestRunner.send('material/date_utils_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -2018,9 +1987,7 @@ void main() {
     });
 
     test('menu_style_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/menu_style_test.dart',
-      );
+      final result = await SendTestRunner.send('material/menu_style_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -2277,9 +2244,7 @@ void main() {
     });
 
     test('typography_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/typography_test.dart',
-      );
+      final result = await SendTestRunner.send('material/typography_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -2289,7 +2254,6 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
-
   });
 
   // --- PAINTING INDIVIDUAL SCRIPTS (26 files) ---
@@ -2309,9 +2273,7 @@ void main() {
     });
 
     test('box_border_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'painting/box_border_test.dart',
-      );
+      final result = await SendTestRunner.send('painting/box_border_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -2330,9 +2292,7 @@ void main() {
     });
 
     test('decoration_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'painting/decoration_test.dart',
-      );
+      final result = await SendTestRunner.send('painting/decoration_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -2344,9 +2304,7 @@ void main() {
     });
 
     test('gradient_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'painting/gradient_test.dart',
-      );
+      final result = await SendTestRunner.send('painting/gradient_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -2365,9 +2323,7 @@ void main() {
     });
 
     test('image_info_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'painting/image_info_test.dart',
-      );
+      final result = await SendTestRunner.send('painting/image_info_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -2475,7 +2431,6 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
-
   });
 
   // --- PHYSICS INDIVIDUAL SCRIPTS (2 files) ---
@@ -2493,7 +2448,6 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
-
   });
 
   // --- RENDERING INDIVIDUAL SCRIPTS (107 files) ---
@@ -3246,7 +3200,6 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
-
   });
 
   // --- SCHEDULER INDIVIDUAL SCRIPTS (1 files) ---
@@ -3257,7 +3210,6 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
-
   });
 
   // --- SEMANTICS INDIVIDUAL SCRIPTS (6 files) ---
@@ -3303,7 +3255,6 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
-
   });
 
   // --- SERVICES INDIVIDUAL SCRIPTS (35 files) ---
@@ -3414,9 +3365,7 @@ void main() {
     });
 
     test('live_text_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'services/live_text_test.dart',
-      );
+      final result = await SendTestRunner.send('services/live_text_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -3484,9 +3433,7 @@ void main() {
     });
 
     test('scribe_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'services/scribe_test.dart',
-      );
+      final result = await SendTestRunner.send('services/scribe_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -3552,7 +3499,6 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
-
   });
 
   // --- WIDGETS INDIVIDUAL SCRIPTS (172 files) ---
@@ -3656,16 +3602,12 @@ void main() {
     });
 
     test('build_owner_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/build_owner_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/build_owner_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
     test('build_scope_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/build_scope_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/build_scope_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -3775,9 +3717,7 @@ void main() {
     });
 
     test('element_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/element_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/element_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -4125,9 +4065,7 @@ void main() {
     });
 
     test('pop_scope_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/pop_scope_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/pop_scope_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -4160,9 +4098,7 @@ void main() {
     });
 
     test('radio_group_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/radio_group_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/radio_group_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -4181,9 +4117,7 @@ void main() {
     });
 
     test('raw_view_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/raw_view_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/raw_view_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -4286,9 +4220,7 @@ void main() {
     });
 
     test('root_widget_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/root_widget_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/root_widget_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -4335,9 +4267,7 @@ void main() {
     });
 
     test('scrollable_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/scrollable_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/scrollable_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -4370,9 +4300,7 @@ void main() {
     });
 
     test('shader_mask_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/shader_mask_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/shader_mask_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -4531,9 +4459,7 @@ void main() {
     });
 
     test('spacer_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/spacer_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/spacer_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -4566,16 +4492,12 @@ void main() {
     });
 
     test('table_cell_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/table_cell_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/table_cell_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
     test('table_row_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/table_row_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/table_row_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -4587,9 +4509,7 @@ void main() {
     });
 
     test('tap_region_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/tap_region_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/tap_region_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -4636,9 +4556,7 @@ void main() {
     });
 
     test('ticker_mode_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/ticker_mode_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/ticker_mode_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -4650,9 +4568,7 @@ void main() {
     });
 
     test('title_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/title_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/title_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -4671,9 +4587,7 @@ void main() {
     });
 
     test('ui_kit_view_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/ui_kit_view_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/ui_kit_view_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -4685,9 +4599,7 @@ void main() {
     });
 
     test('view_anchor_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/view_anchor_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/view_anchor_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -4699,16 +4611,12 @@ void main() {
     });
 
     test('view_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/view_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/view_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
     test('viewport_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/viewport_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/viewport_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -4720,16 +4628,12 @@ void main() {
     });
 
     test('widget_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/widget_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/widget_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
     test('widgets_app_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/widgets_app_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/widgets_app_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -4760,7 +4664,5 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
-
   });
-
 }

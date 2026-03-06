@@ -1,5 +1,4 @@
 // D4rt test script: Tests UniformFloatSlot from dart_ui
-import 'dart:ui';
 import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {

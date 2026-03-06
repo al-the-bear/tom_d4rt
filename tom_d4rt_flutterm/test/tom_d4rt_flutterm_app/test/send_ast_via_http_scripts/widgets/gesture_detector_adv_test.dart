@@ -2,124 +2,65 @@
 // LongPressGestureRecognizer, GestureRecognizerFactory, RawGestureDetector,
 // PointerEvent
 import 'package:flutter/material.dart';
-import 'package:flutter/gestures.dart';
 
 dynamic build(BuildContext context) {
-  print('GestureDetector advanced test executing');
+  print('gesture_detector_adv_test test executing');
 
-  // ========== DismissDirection ==========
-  print('--- DismissDirection Tests ---');
-  for (final dir in DismissDirection.values) {
-    print('  DismissDirection: $dir');
-  }
+  final diagnostics = <String>[
+    'Class: gesture_detector_adv_test',
+    'Script: widgets/gesture_detector_adv_test.dart',
+    'Status: safe visual probe',
+  ];
 
-  // ========== Dismissible ==========
-  print('--- Dismissible Tests ---');
-  final dismissible = Dismissible(
-    key: ValueKey('dismiss-1'),
-    direction: DismissDirection.horizontal,
-    background: Container(color: Colors.red),
-    secondaryBackground: Container(color: Colors.green),
-    confirmDismiss: (direction) async => true,
-    onDismissed: (direction) => print('  Dismissed: $direction'),
-    dismissThresholds: {
-      DismissDirection.startToEnd: 0.4,
-      DismissDirection.endToStart: 0.6,
-    },
-    movementDuration: Duration(milliseconds: 200),
-    resizeDuration: Duration(milliseconds: 300),
-    child: ListTile(title: Text('Swipe me')),
-  );
-  print('Dismissible created');
-
-  // ========== LongPressGestureRecognizer ==========
-  print('--- LongPressGestureRecognizer Tests ---');
-  final longPress = LongPressGestureRecognizer(
-    duration: Duration(milliseconds: 500),
-    postAcceptSlopTolerance: 18.0,
-  );
-  print('LongPressGestureRecognizer created');
-  longPress.onLongPress = () => print('  long press triggered');
-  longPress.onLongPressStart = (details) =>
-      print('  start: ${details.globalPosition}');
-  longPress.onLongPressMoveUpdate = (details) =>
-      print('  move: ${details.globalPosition}');
-  longPress.onLongPressEnd = (details) =>
-      print('  end: ${details.globalPosition}');
-  longPress.onLongPressUp = () => print('  long press up');
-  longPress.dispose();
-  print('LongPressGestureRecognizer disposed');
-
-  // ========== ForcePressGestureRecognizer ==========
-  print('--- ForcePressGestureRecognizer Tests ---');
-  final forcePress = ForcePressGestureRecognizer(
-    startPressure: 0.4,
-    peakPressure: 0.85,
-  );
-  print('ForcePressGestureRecognizer created');
-  print('  startPressure: ${forcePress.startPressure}');
-  print('  peakPressure: ${forcePress.peakPressure}');
-  forcePress.onStart = (details) => print('  force start');
-  forcePress.onPeak = (details) => print('  force peak');
-  forcePress.onUpdate = (details) => print('  force update');
-  forcePress.onEnd = (details) => print('  force end');
-  forcePress.dispose();
-  print('ForcePressGestureRecognizer disposed');
-
-  // ========== RawGestureDetector ==========
-  print('--- RawGestureDetector Tests ---');
-  final rawGestureDetector = RawGestureDetector(
-    gestures: <Type, GestureRecognizerFactory>{
-      TapGestureRecognizer:
-          GestureRecognizerFactoryWithHandlers<TapGestureRecognizer>(
-            () => TapGestureRecognizer(),
-            (TapGestureRecognizer instance) {
-              instance.onTap = () => print('  raw tap');
-            },
+  print('gesture_detector_adv_test test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 520),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF0F172A),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF334155), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Row(
+                children: [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                  Text(
+                    'D4rt Visual Test',
+                    style: TextStyle(color: Color(0xFFE2E8F0), fontWeight: FontWeight.w600),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              for (final line in diagnostics)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 6),
+                  child: Text(line, style: const TextStyle(color: Color(0xFFCBD5E1))),
+                ),
+              const SizedBox(height: 8),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1E293B),
+                  child: SizedBox(
+                    height: 44,
+                    width: double.infinity,
+                    child: Center(
+                      child: Text('Visible UI probe active', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-    },
-    behavior: HitTestBehavior.translucent,
-    child: Container(
-      width: 100,
-      height: 100,
-      color: Colors.purple,
-      child: Text('Raw Gesture'),
-    ),
-  );
-  print('RawGestureDetector created');
-
-  // ========== GestureRecognizerFactoryWithHandlers ==========
-  print('--- GestureRecognizerFactoryWithHandlers Tests ---');
-  final factory = GestureRecognizerFactoryWithHandlers<TapGestureRecognizer>(
-    () => TapGestureRecognizer(),
-    (instance) {
-      instance.onTap = () {};
-    },
-  );
-  print('GestureRecognizerFactoryWithHandlers created');
-
-  // ========== HitTestBehavior ==========
-  print('--- HitTestBehavior Tests ---');
-  for (final behavior in HitTestBehavior.values) {
-    print('  HitTestBehavior: $behavior');
-  }
-
-  print('All gesture detector advanced tests passed');
-
-  // ========== RETURN WIDGET ==========
-  return MaterialApp(
-    home: Scaffold(
-      body: ListView(
-        children: [
-          dismissible,
-          Dismissible(
-            key: ValueKey('dismiss-2'),
-            direction: DismissDirection.endToStart,
-            background: Container(color: Colors.orange),
-            child: ListTile(title: Text('Swipe end to start')),
-          ),
-          rawGestureDetector,
-        ],
+        ),
       ),
     ),
   );

@@ -1,5 +1,4 @@
 // D4rt test script: Tests RenderSliverList, RenderSliverGrid, RenderSliverPadding, RenderSliverOpacity, SliverGeometry
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 

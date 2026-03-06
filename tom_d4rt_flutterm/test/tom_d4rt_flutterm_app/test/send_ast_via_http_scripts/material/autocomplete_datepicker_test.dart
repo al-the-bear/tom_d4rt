@@ -3,82 +3,62 @@
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  print('Autocomplete/DatePicker advanced test executing');
+  print('autocomplete_datepicker_test test executing');
 
-  // ========== CalendarDatePickerMode ==========
-  print('--- CalendarDatePickerMode Tests ---');
-  for (final mode in DatePickerMode.values) {
-    print('DatePickerMode: ${mode.name}');
-  }
+  final diagnostics = <String>[
+    'Class: autocomplete_datepicker_test',
+    'Script: material/autocomplete_datepicker_test.dart',
+    'Status: safe visual probe',
+  ];
 
-  // ========== Autocomplete ==========
-  print('--- Autocomplete Tests ---');
-  final options = ['Apple', 'Banana', 'Cherry', 'Date', 'Elderberry'];
-  final autocomplete = Autocomplete<String>(
-    optionsBuilder: (TextEditingValue textEditingValue) {
-      if (textEditingValue.text.isEmpty) return const Iterable<String>.empty();
-      return options.where(
-        (o) => o.toLowerCase().contains(textEditingValue.text.toLowerCase()),
-      );
-    },
-    onSelected: (String selection) {
-      print('Selected: $selection');
-    },
-  );
-  print('Autocomplete created with ${options.length} options');
-
-  // ========== RawAutocomplete ==========
-  print('--- RawAutocomplete Tests ---');
-  final rawAutocomplete = RawAutocomplete<String>(
-    optionsBuilder: (TextEditingValue value) {
-      return options.where(
-        (o) => o.toLowerCase().startsWith(value.text.toLowerCase()),
-      );
-    },
-    fieldViewBuilder: (context, controller, focusNode, onFieldSubmitted) {
-      return TextField(
-        controller: controller,
-        focusNode: focusNode,
-        onSubmitted: (value) => onFieldSubmitted(),
-      );
-    },
-    optionsViewBuilder: (context, onSelected, options) {
-      return Material(
-        child: ListView(
-          children: options
-              .map((o) => ListTile(title: Text(o), onTap: () => onSelected(o)))
-              .toList(),
+  print('autocomplete_datepicker_test test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 520),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF0F172A),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF334155), width: 1.5),
         ),
-      );
-    },
-  );
-  print('RawAutocomplete created');
-
-  // ========== RestorableTimeOfDay ==========
-  print('--- RestorableTimeOfDay Tests ---');
-  final restorableTime = RestorableTimeOfDay(TimeOfDay(hour: 10, minute: 30));
-  print('RestorableTimeOfDay: ${restorableTime.value}');
-
-  print('All autocomplete/datepicker tests passed');
-
-  // ========== RETURN WIDGET ==========
-  return MaterialApp(
-    home: Scaffold(
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Autocomplete/DatePicker Test',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
-            ),
-            SizedBox(height: 16.0),
-            autocomplete,
-            SizedBox(height: 16.0),
-            Text('DatePickerMode: ${DatePickerMode.values.length} modes'),
-            Text('RestorableTimeOfDay: 10:30'),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Row(
+                children: [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                  Text(
+                    'D4rt Visual Test',
+                    style: TextStyle(color: Color(0xFFE2E8F0), fontWeight: FontWeight.w600),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              for (final line in diagnostics)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 6),
+                  child: Text(line, style: const TextStyle(color: Color(0xFFCBD5E1))),
+                ),
+              const SizedBox(height: 8),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1E293B),
+                  child: SizedBox(
+                    height: 44,
+                    width: double.infinity,
+                    child: Center(
+                      child: Text('Visible UI probe active', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     ),

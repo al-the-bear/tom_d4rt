@@ -98,6 +98,9 @@ class SendTestRunner {
   static HttpClient? _client;
   static Process? _testAppProcess;
   static bool _startedByRunner = false;
+  static bool _bridgesRegenerated = false;
+  static const String _forceBridgeRegenEnv = 'D4RT_FORCE_BRIDGE_REGEN';
+  static const String _skipBridgeRegenEnv = 'D4RT_SKIP_BRIDGE_REGEN';
 
   /// Initialize the test runner (call in setUpAll).
   ///
@@ -107,11 +110,16 @@ class SendTestRunner {
   /// 3. Wait for it to be ready
   static Future<void> setUp({
     bool startApp = true,
+    bool regenerateBridges = true,
     Duration timeout = const Duration(seconds: 60),
   }) async {
     _d4rt = FlutterD4rt();
     _client = HttpClient();
     _startedByRunner = false;
+
+    if (regenerateBridges) {
+      await _ensureBridgesRegenerated();
+    }
 
     if (startApp) {
       final alreadyRunning = await isAppRunning();
@@ -125,6 +133,272 @@ class SendTestRunner {
         _startedByRunner = true;
       }
     }
+  }
+
+  static Future<void> _ensureBridgesRegenerated() async {
+    if (_bridgesRegenerated) {
+      return;
+    }
+
+    if (_isEnvEnabled(_skipBridgeRegenEnv)) {
+      print('Bridge regeneration skipped via $_skipBridgeRegenEnv.');
+      _bridgesRegenerated = true;
+      return;
+    }
+
+    final staleness = _isEnvEnabled(_forceBridgeRegenEnv)
+        ? (stale: true, reason: 'forced via $_forceBridgeRegenEnv')
+        : await _evaluateBridgeStaleness();
+    if (!staleness.stale) {
+      print('Bridge regeneration skipped: ${staleness.reason}');
+      _bridgesRegenerated = true;
+      return;
+    }
+
+    print('Bridge regeneration triggered: ${staleness.reason}');
+
+    final packageRoot = Directory.current.path;
+    final dartExecutable = await _resolveDartExecutable();
+    final result = await Process.run(dartExecutable, [
+      'run',
+      'tool/regenerate_bridges.dart',
+    ], workingDirectory: packageRoot);
+
+    if (result.exitCode != 0) {
+      final output = [
+        if ((result.stdout as String).trim().isNotEmpty)
+          'stdout:\n${result.stdout}',
+        if ((result.stderr as String).trim().isNotEmpty)
+          'stderr:\n${result.stderr}',
+      ].join('\n');
+      throw StateError('Bridge regeneration failed before tests.\n$output');
+    }
+
+    print('Bridge regeneration completed successfully.');
+    _bridgesRegenerated = true;
+  }
+
+  static bool _isEnvEnabled(String key) {
+    final value = Platform.environment[key];
+    if (value == null) {
+      return false;
+    }
+    final normalized = value.trim().toLowerCase();
+    return normalized == '1' ||
+        normalized == 'true' ||
+        normalized == 'yes' ||
+        normalized == 'on';
+  }
+
+  static Future<({bool stale, String reason})>
+  _evaluateBridgeStaleness() async {
+    final packageRoot = Directory.current.path;
+    final bridgesDir = Directory(p.join(packageRoot, 'lib', 'src', 'bridges'));
+    if (!bridgesDir.existsSync()) {
+      return (
+        stale: true,
+        reason: 'bridges directory missing: ${bridgesDir.path}',
+      );
+    }
+
+    final outputs = bridgesDir
+        .listSync()
+        .whereType<File>()
+        .where((file) => file.path.endsWith('.b.dart'))
+        .toList();
+    if (outputs.isEmpty) {
+      return (
+        stale: true,
+        reason: 'no generated bridge outputs found in ${bridgesDir.path}',
+      );
+    }
+
+    File oldestOutputFile = outputs.first;
+    DateTime oldestOutput = oldestOutputFile.lastModifiedSync();
+    for (final output in outputs.skip(1)) {
+      final modified = output.lastModifiedSync();
+      if (modified.isBefore(oldestOutput)) {
+        oldestOutput = modified;
+        oldestOutputFile = output;
+      }
+    }
+
+    final inputCandidates = <({File file, String label})>[
+      (
+        file: File(p.join(packageRoot, 'buildkit.yaml')),
+        label: 'buildkit.yaml',
+      ),
+      (
+        file: File(p.join(packageRoot, 'tool', 'regenerate_bridges.dart')),
+        label: 'tool/regenerate_bridges.dart',
+      ),
+    ].where((candidate) => candidate.file.existsSync());
+
+    if (inputCandidates.isEmpty) {
+      return (
+        stale: true,
+        reason:
+            'bridge freshness inputs missing (buildkit.yaml + regenerate script)',
+      );
+    }
+
+    DateTime newestInput = DateTime.fromMillisecondsSinceEpoch(0);
+    String newestInputLabel = 'none';
+    for (final input in inputCandidates) {
+      final modified = input.file.lastModifiedSync();
+      if (modified.isAfter(newestInput)) {
+        newestInput = modified;
+        newestInputLabel = input.label;
+      }
+    }
+
+    final generatorRoot = await _resolveLocalPackageRoot(
+      packageName: 'tom_d4rt_generator',
+    );
+    if (generatorRoot != null && generatorRoot.existsSync()) {
+      final generatorNewest = _newestGeneratorInput(generatorRoot);
+      if (generatorNewest != null &&
+          generatorNewest.modified.isAfter(newestInput)) {
+        newestInput = generatorNewest.modified;
+        newestInputLabel = p.relative(
+          generatorNewest.file.path,
+          from: packageRoot,
+        );
+      }
+    }
+
+    if (oldestOutput.isBefore(newestInput)) {
+      return (
+        stale: true,
+        reason:
+            'newer input $newestInputLabel (${_fmtTimestamp(newestInput)}) '
+            'than oldest output '
+            '${p.relative(oldestOutputFile.path, from: packageRoot)} '
+            '(${_fmtTimestamp(oldestOutput)})',
+      );
+    }
+
+    return (
+      stale: false,
+      reason:
+          'all bridge outputs are up-to-date; newest input $newestInputLabel '
+          '(${_fmtTimestamp(newestInput)}), oldest output '
+          '${p.relative(oldestOutputFile.path, from: packageRoot)} '
+          '(${_fmtTimestamp(oldestOutput)})',
+    );
+  }
+
+  static Future<Directory?> _resolveLocalPackageRoot({
+    required String packageName,
+  }) async {
+    final packageRoot = Directory.current.path;
+    final packageConfig = File(
+      p.join(packageRoot, '.dart_tool', 'package_config.json'),
+    );
+    if (!packageConfig.existsSync()) {
+      return null;
+    }
+
+    try {
+      final decoded =
+          jsonDecode(await packageConfig.readAsString())
+              as Map<String, dynamic>;
+      final packages = decoded['packages'];
+      if (packages is! List) {
+        return null;
+      }
+
+      for (final entry in packages.whereType<Map<String, dynamic>>()) {
+        if (entry['name'] != packageName) {
+          continue;
+        }
+        final rootUriRaw = entry['rootUri'];
+        if (rootUriRaw is! String || rootUriRaw.isEmpty) {
+          return null;
+        }
+
+        final uri = Uri.parse(rootUriRaw);
+        if (uri.scheme == 'file') {
+          return Directory(uri.toFilePath());
+        }
+
+        final resolvedPath = p.normalize(p.join(packageRoot, uri.toFilePath()));
+        return Directory(resolvedPath);
+      }
+    } catch (_) {
+      return null;
+    }
+
+    return null;
+  }
+
+  static ({DateTime modified, File file})? _newestGeneratorInput(
+    Directory generatorRoot,
+  ) {
+    ({DateTime modified, File file})? newest;
+
+    void considerFile(File file) {
+      if (!file.existsSync()) {
+        return;
+      }
+      final modified = file.lastModifiedSync();
+      if (newest == null || modified.isAfter(newest!.modified)) {
+        newest = (modified: modified, file: file);
+      }
+    }
+
+    considerFile(File(p.join(generatorRoot.path, 'pubspec.yaml')));
+    considerFile(File(p.join(generatorRoot.path, 'buildkit.yaml')));
+
+    for (final subDirName in ['lib', 'tool']) {
+      final subDir = Directory(p.join(generatorRoot.path, subDirName));
+      if (!subDir.existsSync()) {
+        continue;
+      }
+      for (final entity in subDir.listSync(
+        recursive: true,
+        followLinks: false,
+      )) {
+        if (entity is File && entity.path.endsWith('.dart')) {
+          considerFile(entity);
+        }
+      }
+    }
+
+    return newest;
+  }
+
+  static String _fmtTimestamp(DateTime value) => value.toIso8601String();
+
+  static Future<String> _resolveDartExecutable() async {
+    final fromEnv = Platform.environment['DART_BIN'];
+    if (fromEnv != null && fromEnv.isNotEmpty && File(fromEnv).existsSync()) {
+      return fromEnv;
+    }
+
+    try {
+      final which = await Process.run('which', ['dart']);
+      if (which.exitCode == 0) {
+        final resolved = (which.stdout as String).trim();
+        if (resolved.isNotEmpty) {
+          return resolved;
+        }
+      }
+    } catch (_) {
+      // Fall through to Flutter-adjacent dart resolution.
+    }
+
+    final flutterExecutable = await _resolveFlutterExecutable();
+    final flutterBinDir = p.dirname(flutterExecutable);
+    final dartSibling = p.join(flutterBinDir, 'dart');
+    if (File(dartSibling).existsSync()) {
+      return dartSibling;
+    }
+
+    throw StateError(
+      'Dart executable not found. Set DART_BIN or ensure "dart" '
+      'is available in PATH.',
+    );
   }
 
   /// Tear down the test runner (call in tearDownAll).

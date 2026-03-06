@@ -1,5 +1,4 @@
 // D4rt test script: Tests PlaceholderDimensions from painting
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {

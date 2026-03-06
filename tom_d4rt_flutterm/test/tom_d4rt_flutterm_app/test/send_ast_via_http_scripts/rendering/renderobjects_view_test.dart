@@ -1,5 +1,4 @@
 // D4rt test script: Tests RenderView, RenderViewport, and root render object concepts
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 

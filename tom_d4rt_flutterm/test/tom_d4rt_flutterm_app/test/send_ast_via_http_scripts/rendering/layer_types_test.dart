@@ -3,7 +3,6 @@
 // TextureLayer
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'dart:ui' as ui;
 
 dynamic build(BuildContext context) {
   print('Layer types test executing');

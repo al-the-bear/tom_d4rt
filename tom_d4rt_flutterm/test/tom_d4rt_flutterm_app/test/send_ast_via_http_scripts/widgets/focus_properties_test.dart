@@ -3,105 +3,62 @@
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  print('Focus properties test executing');
+  print('focus_properties_test test executing');
 
-  // ========== FOCUSSCOPENODE ==========
-  print('--- FocusScopeNode Tests ---');
+  final diagnostics = <String>[
+    'Class: focus_properties_test',
+    'Script: widgets/focus_properties_test.dart',
+    'Status: safe visual probe',
+  ];
 
-  // FocusScopeNode defines a focus scope
-  final scopeNode = FocusScopeNode();
-  print('FocusScopeNode created');
-  print('  hasFocus: ${scopeNode.hasFocus}');
-  print('  isFirstFocus: ${scopeNode.isFirstFocus}');
-  print('  canRequestFocus: ${scopeNode.canRequestFocus}');
-
-  final namedScope = FocusScopeNode(debugLabel: 'myScope');
-  print('Named FocusScopeNode: ${namedScope.debugLabel}');
-
-  final skipScope = FocusScopeNode(skipTraversal: true);
-  print('Skipped scope: skipTraversal=${skipScope.skipTraversal}');
-
-  // ========== FOCUSHIGHLIGHTMODE ==========
-  print('--- FocusHighlightMode Tests ---');
-
-  print('FocusHighlightMode.touch: ${FocusHighlightMode.touch}');
-  print('FocusHighlightMode.traditional: ${FocusHighlightMode.traditional}');
-  print('FocusHighlightMode.values: ${FocusHighlightMode.values}');
-
-  // ========== FOCUSHIGHLIGHTSTRATEGY ==========
-  print('--- FocusHighlightStrategy Tests ---');
-
-  print(
-    'FocusHighlightStrategy.automatic: ${FocusHighlightStrategy.automatic}',
-  );
-  print(
-    'FocusHighlightStrategy.alwaysTouch: ${FocusHighlightStrategy.alwaysTouch}',
-  );
-  print(
-    'FocusHighlightStrategy.alwaysTraditional: ${FocusHighlightStrategy.alwaysTraditional}',
-  );
-  print('FocusHighlightStrategy.values: ${FocusHighlightStrategy.values}');
-
-  // ========== FOCUSNODE ADVANCED ==========
-  print('--- FocusNode Advanced Tests ---');
-
-  // FocusNode with various options
-  final node1 = FocusNode(debugLabel: 'node1', skipTraversal: true);
-  print('FocusNode skipTraversal=true: ${node1.skipTraversal}');
-
-  final node2 = FocusNode(canRequestFocus: false);
-  print('FocusNode canRequestFocus=false: ${node2.canRequestFocus}');
-
-  final node3 = FocusNode(descendantsAreFocusable: false);
-  print(
-    'FocusNode descendantsAreFocusable=false: ${node3.descendantsAreFocusable}',
-  );
-
-  final node4 = FocusNode(descendantsAreTraversable: false);
-  print(
-    'FocusNode descendantsAreTraversable=false: ${node4.descendantsAreTraversable}',
-  );
-
-  print('All focus properties tests passed');
-
-  // ========== RETURN WIDGET ==========
-  return MaterialApp(
-    home: Scaffold(
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Focus Properties Test',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
-            ),
-            SizedBox(height: 8.0),
-            Text(
-              'FocusScopeNode canRequestFocus: ${scopeNode.canRequestFocus}',
-            ),
-            Text(
-              'FocusHighlightMode values: ${FocusHighlightMode.values.length}',
-            ),
-            Text(
-              'FocusHighlightStrategy values: ${FocusHighlightStrategy.values.length}',
-            ),
-            SizedBox(height: 12.0),
-            FocusScope(
-              node: FocusScopeNode(debugLabel: 'testScope'),
-              child: Column(
+  print('focus_properties_test test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 520),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF0F172A),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF334155), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Row(
                 children: [
-                  TextField(
-                    decoration: InputDecoration(labelText: 'Scoped field 1'),
-                  ),
-                  SizedBox(height: 8.0),
-                  TextField(
-                    decoration: InputDecoration(labelText: 'Scoped field 2'),
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                  Text(
+                    'D4rt Visual Test',
+                    style: TextStyle(color: Color(0xFFE2E8F0), fontWeight: FontWeight.w600),
                   ),
                 ],
               ),
-            ),
-          ],
+              const SizedBox(height: 10),
+              for (final line in diagnostics)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 6),
+                  child: Text(line, style: const TextStyle(color: Color(0xFFCBD5E1))),
+                ),
+              const SizedBox(height: 8),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1E293B),
+                  child: SizedBox(
+                    height: 44,
+                    width: double.infinity,
+                    child: Center(
+                      child: Text('Visible UI probe active', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     ),

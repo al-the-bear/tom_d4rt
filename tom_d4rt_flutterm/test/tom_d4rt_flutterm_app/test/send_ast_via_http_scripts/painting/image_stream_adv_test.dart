@@ -1,7 +1,6 @@
 // D4rt test script: Tests BeveledRectangleBorder, ResizeImage, ResizeImageKey, OneFrameImageStreamCompleter, MultiFrameImageStreamCompleter, ImageErrorListener, ImageCacheStatus, ImageInfo
 import 'package:flutter/painting.dart';
 import 'package:flutter/material.dart';
-import 'dart:ui' as ui;
 
 dynamic build(BuildContext context) {
   print('Image stream and painting advanced test executing');
