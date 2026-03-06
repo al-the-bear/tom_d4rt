@@ -7717,7 +7717,9 @@ class BridgeGenerator {
               for (final line in lines) {
                 buffer.writeln(line);
               }
-              buffer.writeln("        $prefixedName.${setter.name} = $localName;");
+              buffer.writeln(
+                "        $prefixedName.${setter.name} = $localName;",
+              );
               buffer.writeln("      },");
               continue;
             }
