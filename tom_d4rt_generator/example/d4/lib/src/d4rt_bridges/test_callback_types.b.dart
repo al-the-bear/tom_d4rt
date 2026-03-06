@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
-// Source: /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_generator/example/d4/lib/test_callback_types.dart
-// Generated: 2026-03-02T19:19:26.784589
+// Source: lib/test_callback_types.dart
+// Generated: 2026-03-06T18:40:37.864380
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -149,7 +149,7 @@ BridgedClass _createGenericCallbackServiceBridge() {
           throw ArgumentError('withConnection: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return t.withConnection((dynamic p0) { return D4.callInterpreterCallback(visitor, callbackRaw, [p0]) as FutureOr<Object>; });
+        return t.withConnection((dynamic p0) { return D4.callInterpreterCallback(visitor!, callbackRaw, [p0]) as FutureOr<Object>; });
       },
       'transactional': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$d4_example_1.GenericCallbackService>(target, 'GenericCallbackService');
@@ -158,7 +158,7 @@ BridgedClass _createGenericCallbackServiceBridge() {
           throw ArgumentError('transactional: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return t.transactional((String p0) { return D4.callInterpreterCallback(visitor, callbackRaw, [p0]) as FutureOr<Object>; });
+        return t.transactional((String p0) { return D4.callInterpreterCallback(visitor!, callbackRaw, [p0]) as FutureOr<Object>; });
       },
       'withBoundedType': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$d4_example_1.GenericCallbackService>(target, 'GenericCallbackService');
@@ -167,7 +167,7 @@ BridgedClass _createGenericCallbackServiceBridge() {
           throw ArgumentError('withBoundedType: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return t.withBoundedType((dynamic p0) { return D4.callInterpreterCallback(visitor, callbackRaw, [p0]) as FutureOr<Object>; });
+        return t.withBoundedType((dynamic p0) { return D4.callInterpreterCallback(visitor!, callbackRaw, [p0]) as FutureOr<Object>; });
       },
     },
     constructorSignatures: {
@@ -203,7 +203,7 @@ BridgedClass _createCallbackTypeServiceBridge() {
           throw ArgumentError('withConnection: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return t.withConnection((dynamic p0) { return D4.callInterpreterCallback(visitor, callbackRaw, [p0]) as FutureOr<Object>; });
+        return t.withConnection((dynamic p0) { return D4.callInterpreterCallback(visitor!, callbackRaw, [p0]) as FutureOr<Object>; });
       },
     },
     constructorSignatures: {

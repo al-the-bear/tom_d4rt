@@ -1,8 +1,8 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 2 files
-// Generated: 2026-02-21T15:07:43.937586
+// Generated: 2026-03-06T18:39:59.055317
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
 import 'package:tom_d4rt_exec/d4rt.dart';
 import 'package:tom_d4rt_exec/tom_d4rt.dart';
@@ -28,6 +28,16 @@ class UserbridgeOverrideBridge {
   static Map<String, String> classSourceUris() {
     return {
       'MyList': 'package:d4_example/src/userbridge_override/my_list.dart',
+    };
+  }
+
+  /// Returns a map of type alias names to their target class names.
+  ///
+  /// Type aliases like `typedef MaterialStateProperty<T> = WidgetStateProperty<T>`
+  /// are registered so that code using the alias name can resolve to the
+  /// bridged class under its canonical name.
+  static Map<String, String> classAliases() {
+    return {
     };
   }
 
@@ -179,6 +189,7 @@ BridgedClass _createMyListBridge() {
   return BridgedClass(
     nativeType: $d4_example_3.MyList,
     name: 'MyList',
+    isAssignable: (v) => v is $d4_example_3.MyList,
     constructors: {
       '': (visitor, positional, named) {
         return $d4_example_3.MyList();

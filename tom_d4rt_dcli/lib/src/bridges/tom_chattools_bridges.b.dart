@@ -1,8 +1,8 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 7 files
-// Generated: 2026-02-27T00:28:50.906226
+// Generated: 2026-03-06T18:38:23.719276
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
@@ -52,6 +52,16 @@ class TomChattoolsBridge {
       'ChatApi': 'package:tom_chattools/src/api/chat/chat_api.dart',
       'ChatMessageFilter': 'package:tom_chattools/src/api/chat/chat_api.dart',
       'TelegramChatConfig': 'package:tom_chattools/src/telegram/telegram_config.dart',
+    };
+  }
+
+  /// Returns a map of type alias names to their target class names.
+  ///
+  /// Type aliases like `typedef MaterialStateProperty<T> = WidgetStateProperty<T>`
+  /// are registered so that code using the alias name can resolve to the
+  /// bridged class under its canonical name.
+  static Map<String, String> classAliases() {
+    return {
     };
   }
 
@@ -190,6 +200,7 @@ BridgedClass _createChatConfigBridge() {
   return BridgedClass(
     nativeType: $tom_chattools_2.ChatConfig,
     name: 'ChatConfig',
+    isAssignable: (v) => v is $tom_chattools_2.ChatConfig,
     constructors: {
     },
     getters: {
@@ -220,6 +231,7 @@ BridgedClass _createChatMessageBridge() {
   return BridgedClass(
     nativeType: $tom_chattools_3.ChatMessage,
     name: 'ChatMessage',
+    isAssignable: (v) => v is $tom_chattools_3.ChatMessage,
     constructors: {
       '': (visitor, positional, named) {
         final id = D4.getRequiredNamedArg<String>(named, 'id', 'ChatMessage');
@@ -287,6 +299,7 @@ BridgedClass _createChatSenderBridge() {
   return BridgedClass(
     nativeType: $tom_chattools_3.ChatSender,
     name: 'ChatSender',
+    isAssignable: (v) => v is $tom_chattools_3.ChatSender,
     constructors: {
       '': (visitor, positional, named) {
         final id = D4.getRequiredNamedArg<String>(named, 'id', 'ChatSender');
@@ -335,6 +348,7 @@ BridgedClass _createChatAttachmentBridge() {
   return BridgedClass(
     nativeType: $tom_chattools_3.ChatAttachment,
     name: 'ChatAttachment',
+    isAssignable: (v) => v is $tom_chattools_3.ChatAttachment,
     constructors: {
       '': (visitor, positional, named) {
         final type = D4.getRequiredNamedArg<$tom_chattools_3.ChatAttachmentType>(named, 'type', 'ChatAttachment');
@@ -376,6 +390,7 @@ BridgedClass _createChatResponseBridge() {
   return BridgedClass(
     nativeType: $tom_chattools_5.ChatResponse,
     name: 'ChatResponse',
+    isAssignable: (v) => v is $tom_chattools_5.ChatResponse,
     constructors: {
       '': (visitor, positional, named) {
         if (!named.containsKey('messages') || named['messages'] == null) {
@@ -473,6 +488,7 @@ BridgedClass _createChatReceiverBridge() {
   return BridgedClass(
     nativeType: $tom_chattools_4.ChatReceiver,
     name: 'ChatReceiver',
+    isAssignable: (v) => v is $tom_chattools_4.ChatReceiver,
     constructors: {
       'id': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ChatReceiver');
@@ -536,6 +552,7 @@ BridgedClass _createChatReceiverInfoBridge() {
   return BridgedClass(
     nativeType: $tom_chattools_4.ChatReceiverInfo,
     name: 'ChatReceiverInfo',
+    isAssignable: (v) => v is $tom_chattools_4.ChatReceiverInfo,
     constructors: {
       '': (visitor, positional, named) {
         final id = D4.getRequiredNamedArg<String>(named, 'id', 'ChatReceiverInfo');
@@ -595,6 +612,7 @@ BridgedClass _createChatSettingsBridge() {
   return BridgedClass(
     nativeType: $tom_chattools_6.ChatSettings,
     name: 'ChatSettings',
+    isAssignable: (v) => v is $tom_chattools_6.ChatSettings,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ChatSettings');
@@ -667,6 +685,7 @@ BridgedClass _createChatApiBridge() {
   return BridgedClass(
     nativeType: $tom_chattools_1.ChatApi,
     name: 'ChatApi',
+    isAssignable: (v) => v is $tom_chattools_1.ChatApi,
     constructors: {
     },
     getters: {
@@ -677,7 +696,7 @@ BridgedClass _createChatApiBridge() {
     },
     setters: {
       'settings': (visitor, target, value) => 
-        D4.validateTarget<$tom_chattools_1.ChatApi>(target, 'ChatApi').settings = value as $tom_chattools_6.ChatSettings,
+        D4.validateTarget<$tom_chattools_1.ChatApi>(target, 'ChatApi').settings = D4.extractBridgedArg<$tom_chattools_6.ChatSettings>(value, 'settings'),
     },
     methods: {
       'initialize': (visitor, target, positional, named, typeArgs) {
@@ -765,6 +784,7 @@ BridgedClass _createChatMessageFilterBridge() {
   return BridgedClass(
     nativeType: $tom_chattools_1.ChatMessageFilter,
     name: 'ChatMessageFilter',
+    isAssignable: (v) => v is $tom_chattools_1.ChatMessageFilter,
     constructors: {
       '': (visitor, positional, named) {
         final from = D4.coerceListOrNull<$tom_chattools_4.ChatReceiver>(named['from'], 'from');
@@ -797,6 +817,7 @@ BridgedClass _createTelegramChatConfigBridge() {
   return BridgedClass(
     nativeType: $tom_chattools_7.TelegramChatConfig,
     name: 'TelegramChatConfig',
+    isAssignable: (v) => v is $tom_chattools_7.TelegramChatConfig,
     constructors: {
       '': (visitor, positional, named) {
         final token = D4.getRequiredNamedArg<String>(named, 'token', 'TelegramChatConfig');

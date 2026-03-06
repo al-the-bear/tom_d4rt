@@ -25,18 +25,23 @@ import 'package:path/path.dart' as p;
 import 'bridge_config.dart';
 import 'file_generators.dart' show ensureBDartExtension;
 
-/// Information about an abstract method that needs proxying.
+/// Information about a method that needs proxying.
 class _AbstractMethodInfo {
   final String name;
   final String returnType;
   final List<_MethodParam> params;
   final bool isGetter;
 
+  /// Whether this method is abstract (required callback) or overridable
+  /// (optional callback with super fallback).
+  final bool isAbstract;
+
   _AbstractMethodInfo({
     required this.name,
     required this.returnType,
     required this.params,
     this.isGetter = false,
+    this.isAbstract = true,
   });
 
   /// The Function type signature for the callback parameter.
@@ -241,9 +246,11 @@ Future<ProxyGenerationResult> generateProxies({
     importUris.add(importUri);
     classImportMap[proxyConfig.className] = importUri;
 
-    // Also collect imports for parameter types used in abstract methods
+    // Also collect imports for parameter types used in abstract and
+    // overridable methods
     final abstractMethods = _getAbstractMethods(element);
-    for (final method in abstractMethods) {
+    final overridableMethods = _getOverridableMethods(element);
+    for (final method in [...abstractMethods, ...overridableMethods]) {
       for (final param in method.params) {
         final paramTypeImport = _getTypeImportUri(param.type, element);
         if (paramTypeImport != null) importUris.add(paramTypeImport);
@@ -273,10 +280,12 @@ Future<ProxyGenerationResult> generateProxies({
   // Generate each proxy class
   for (final (proxyConfig, element, barrelUri) in proxyEntries) {
     final abstractMethods = _getAbstractMethods(element);
+    final overridableMethods = _getOverridableMethods(element);
+    final allMethods = [...abstractMethods, ...overridableMethods];
 
-    if (abstractMethods.isEmpty) {
+    if (abstractMethods.isEmpty && overridableMethods.isEmpty) {
       errors.add(
-        'Class "${proxyConfig.className}" has no abstract methods to proxy',
+        'Class "${proxyConfig.className}" has no abstract or overridable methods to proxy',
       );
       continue;
     }
@@ -308,10 +317,18 @@ Future<ProxyGenerationResult> generateProxies({
       'class $proxyName$typeParamDecl extends $className$typeParamUse {',
     );
 
-    // Fields for each callback
-    for (final method in abstractMethods) {
+    // Fields for each callback — abstract are required, overridable are nullable
+    for (final method in allMethods) {
       buffer.writeln('  /// Callback for [$className.${method.name}].');
-      buffer.writeln('  final ${method.callbackType} ${method.callbackName};');
+      if (method.isAbstract) {
+        buffer.writeln(
+          '  final ${method.callbackType} ${method.callbackName};',
+        );
+      } else {
+        buffer.writeln(
+          '  final ${method.callbackType}? ${method.callbackName};',
+        );
+      }
       buffer.writeln();
     }
 
@@ -321,27 +338,50 @@ Future<ProxyGenerationResult> generateProxies({
     );
     buffer.write('  $proxyName({');
     buffer.writeln();
-    for (final method in abstractMethods) {
-      buffer.writeln('    required this.${method.callbackName},');
+    for (final method in allMethods) {
+      if (method.isAbstract) {
+        buffer.writeln('    required this.${method.callbackName},');
+      } else {
+        buffer.writeln('    this.${method.callbackName},');
+      }
     }
     buffer.writeln('  });');
     buffer.writeln();
 
     // Override methods
-    for (final method in abstractMethods) {
+    for (final method in allMethods) {
       buffer.writeln('  @override');
       if (method.isGetter) {
-        buffer.writeln(
-          '  ${method.returnType} get ${method.name} => ${method.callbackName}();',
-        );
+        if (method.isAbstract) {
+          buffer.writeln(
+            '  ${method.returnType} get ${method.name} => ${method.callbackName}();',
+          );
+        } else {
+          buffer.writeln(
+            '  ${method.returnType} get ${method.name} => '
+            '${method.callbackName} != null '
+            '? ${method.callbackName}!() '
+            ': super.${method.name};',
+          );
+        }
       } else {
-        // Method signature
         final paramSig = _buildParamSignature(method.params);
-        buffer.writeln('  ${method.returnType} ${method.name}($paramSig) =>');
-
-        // Method delegation — pass args to callback
         final callArgs = _buildCallArgs(method.params);
-        buffer.writeln('      ${method.callbackName}($callArgs);');
+        if (method.isAbstract) {
+          buffer.writeln(
+            '  ${method.returnType} ${method.name}($paramSig) =>',
+          );
+          buffer.writeln('      ${method.callbackName}($callArgs);');
+        } else {
+          buffer.writeln(
+            '  ${method.returnType} ${method.name}($paramSig) =>',
+          );
+          buffer.writeln(
+            '      ${method.callbackName} != null '
+            '? ${method.callbackName}!($callArgs) '
+            ': super.${method.name}($callArgs);',
+          );
+        }
       }
       buffer.writeln();
     }
@@ -353,14 +393,15 @@ Future<ProxyGenerationResult> generateProxies({
       ProxyGenerationInfo(
         className: className,
         proxyName: proxyName,
-        methodCount: abstractMethods.length,
+        methodCount: allMethods.length,
         importUri: classImportMap[className] ?? barrelUri,
       ),
     );
 
     print(
       '  PROXY: Generated $proxyName for $className '
-      '(${abstractMethods.length} abstract methods)',
+      '(${abstractMethods.length} abstract + '
+      '${overridableMethods.length} overridable methods)',
     );
   }
 
@@ -457,20 +498,99 @@ List<_AbstractMethodInfo> _getAbstractMethods(ClassElement element) {
   return methods;
 }
 
-_AbstractMethodInfo _methodElementToInfo(MethodElement method) {
+/// Gets non-abstract overridable methods from the class and its supertypes.
+///
+/// These are concrete methods that D4rt scripts may want to optionally
+/// override. The proxy will fall back to `super.method()` when no callback
+/// is provided.
+List<_AbstractMethodInfo> _getOverridableMethods(ClassElement element) {
+  final methods = <_AbstractMethodInfo>[];
+  final processedNames = <String>{};
+
+  // Collect names of abstract methods first — we skip those
+  for (final method in element.methods) {
+    if (method.isAbstract && !method.isPrivate && !method.isStatic) {
+      final methodName = method.name;
+      if (methodName != null) processedNames.add(methodName);
+    }
+  }
+  for (final getter in element.getters) {
+    if (getter.isAbstract && !getter.isPrivate && !getter.isStatic) {
+      processedNames.add(getter.displayName);
+    }
+  }
+
+  // Also skip Object methods and common framework internals
+  const skipMethods = {
+    'toString',
+    'noSuchMethod',
+    'hashCode',
+    'runtimeType',
+    '==',
+  };
+  processedNames.addAll(skipMethods);
+
+  // Collect non-abstract overridable methods from the class hierarchy
+  void collectFrom(ClassElement cls) {
+    for (final method in cls.methods) {
+      final methodName = method.name;
+      if (methodName != null &&
+          !method.isAbstract &&
+          !method.isPrivate &&
+          !method.isStatic &&
+          !processedNames.contains(methodName)) {
+        processedNames.add(methodName);
+        methods.add(_methodElementToInfo(method, isAbstract: false));
+      }
+    }
+    for (final getter in cls.getters) {
+      final getterName = getter.displayName;
+      if (!getter.isAbstract &&
+          !getter.isPrivate &&
+          !getter.isStatic &&
+          !getter.isSynthetic &&
+          !processedNames.contains(getterName)) {
+        processedNames.add(getterName);
+        methods.add(_accessorElementToInfo(getter, isAbstract: false));
+      }
+    }
+  }
+
+  // Start from the target class itself, then walk supertypes
+  collectFrom(element);
+  for (final superType in element.allSupertypes) {
+    final superElement = superType.element;
+    if (superElement is ClassElement &&
+        superElement.name != 'Object') {
+      collectFrom(superElement);
+    }
+  }
+
+  return methods;
+}
+
+_AbstractMethodInfo _methodElementToInfo(
+  MethodElement method, {
+  bool isAbstract = true,
+}) {
   return _AbstractMethodInfo(
     name: method.displayName,
     returnType: method.returnType.getDisplayString(),
     params: method.formalParameters.map(_paramElementToInfo).toList(),
+    isAbstract: isAbstract,
   );
 }
 
-_AbstractMethodInfo _accessorElementToInfo(PropertyAccessorElement accessor) {
+_AbstractMethodInfo _accessorElementToInfo(
+  PropertyAccessorElement accessor, {
+  bool isAbstract = true,
+}) {
   return _AbstractMethodInfo(
     name: accessor.displayName,
     returnType: accessor.returnType.getDisplayString(),
     params: [],
     isGetter: true,
+    isAbstract: isAbstract,
   );
 }
 

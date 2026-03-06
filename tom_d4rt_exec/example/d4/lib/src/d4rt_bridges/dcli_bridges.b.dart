@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 72 files
-// Generated: 2026-03-02T19:12:19.744968
+// Generated: 2026-03-06T18:40:22.037955
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -454,7 +454,7 @@ class DcliBridge {
         }
         if (named.containsKey('stdout')) {
           final stdoutRaw = named['stdout'];
-          final stdout = (String p0) { D4.callInterpreterCallback(visitor, stdoutRaw, [p0]); };
+          final stdout = (String p0) { D4.callInterpreterCallback(visitor!, stdoutRaw, [p0]); };
           $dcli_core_2.cat(path, stdout: stdout);
           return null;
         }
@@ -482,7 +482,7 @@ class DcliBridge {
         }
         if (named.containsKey('filter')) {
           final filterRaw = named['filter'];
-          final filter = (String p0) { return D4.callInterpreterCallback(visitor, filterRaw, [p0]) as bool; };
+          final filter = (String p0) { return D4.callInterpreterCallback(visitor!, filterRaw, [p0]) as bool; };
           $dcli_core_4.copyTree(from, to, overwrite: overwrite, includeHidden: includeHidden, includeEmpty: includeEmpty, includeLinks: includeLinks, recursive: recursive, filter: filter);
           return null;
         }
@@ -500,7 +500,7 @@ class DcliBridge {
           throw ArgumentError('withTempDirAsync: Missing required argument "action" at position 0');
         }
         final actionRaw = positional[0];
-        final action = (String p0) { return D4.callInterpreterCallback(visitor, actionRaw, [p0]) as Future<dynamic>; };
+        final action = (String p0) { return D4.callInterpreterCallback(visitor!, actionRaw, [p0]) as Future<dynamic>; };
         final keep = D4.getNamedArgWithDefault<bool>(named, 'keep', false);
         final pathToTempDir = D4.getOptionalNamedArg<String?>(named, 'pathToTempDir');
         return $dcli_core_5.withTempDirAsync<dynamic>(action, keep: keep, pathToTempDir: pathToTempDir);
@@ -525,7 +525,7 @@ class DcliBridge {
           throw ArgumentError('withEnvironmentAsync: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        final callback = () { return D4.callInterpreterCallback(visitor, callbackRaw, []) as Future<dynamic>; };
+        final callback = () { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as Future<dynamic>; };
         final environment = D4.getRequiredNamedArg<Map<String, String>>(named, 'environment', 'withEnvironmentAsync');
         return $dcli_core_9.withEnvironmentAsync<dynamic>(callback, environment: environment);
       },
@@ -580,7 +580,7 @@ class DcliBridge {
         }
         if (named.containsKey('filter')) {
           final filterRaw = named['filter'];
-          final filter = (String p0) { return D4.callInterpreterCallback(visitor, filterRaw, [p0]) as bool; };
+          final filter = (String p0) { return D4.callInterpreterCallback(visitor!, filterRaw, [p0]) as bool; };
           $dcli_core_14.moveTree(from, to, overwrite: overwrite, includeHidden: includeHidden, filter: filter);
           return null;
         }
@@ -598,7 +598,7 @@ class DcliBridge {
           throw ArgumentError('verbose: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        final callback = () { return D4.callInterpreterCallback(visitor, callbackRaw, []) as String; };
+        final callback = () { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as String; };
         return $dcli_core_18.verbose(callback);
       },
       'devNull': (visitor, positional, named, typeArgs) {
@@ -722,7 +722,7 @@ class DcliBridge {
         }
         if (named.containsKey('customPrompt')) {
           final customPromptRaw = named['customPrompt'];
-          final customPrompt = (String p0, String? p1, bool p2) { return D4.callInterpreterCallback(visitor, customPromptRaw, [p0, p1, p2]) as String; };
+          final customPrompt = (String p0, String? p1, bool p2) { return D4.callInterpreterCallback(visitor!, customPromptRaw, [p0, p1, p2]) as String; };
           return $dcli_1.ask(prompt, toLower: toLower, hidden: hidden, required: required, defaultValue: defaultValue, validator: validator, customErrorMessage: customErrorMessage, customPrompt: customPrompt);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -746,7 +746,7 @@ class DcliBridge {
           throw ArgumentError('withFileProtectionAsync: Missing required argument "action" at position 1');
         }
         final actionRaw = positional[1];
-        final action = () { return D4.callInterpreterCallback(visitor, actionRaw, []) as Future<dynamic>; };
+        final action = () { return D4.callInterpreterCallback(visitor!, actionRaw, []) as Future<dynamic>; };
         final workingDirectory = D4.getOptionalNamedArg<String?>(named, 'workingDirectory');
         return $dcli_2.withFileProtectionAsync<dynamic>(protected, action, workingDirectory: workingDirectory);
       },
@@ -759,7 +759,7 @@ class DcliBridge {
         }
         if (named.containsKey('customPrompt')) {
           final customPromptRaw = named['customPrompt'];
-          final customPrompt = (String p0, bool? p1) { return D4.callInterpreterCallback(visitor, customPromptRaw, [p0, p1]) as String; };
+          final customPrompt = (String p0, bool? p1) { return D4.callInterpreterCallback(visitor!, customPromptRaw, [p0, p1]) as String; };
           return $dcli_3.confirm(prompt, defaultValue: defaultValue, customPrompt: customPrompt);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -787,7 +787,7 @@ class DcliBridge {
         }
         if (named.containsKey('fetchProgress')) {
           final fetchProgressRaw = named['fetchProgress'];
-          final fetchProgress = ($dcli_6.FetchProgress p0) { D4.callInterpreterCallback(visitor, fetchProgressRaw, [p0]); };
+          final fetchProgress = ($dcli_6.FetchProgress p0) { D4.callInterpreterCallback(visitor!, fetchProgressRaw, [p0]); };
           return $dcli_6.fetch(url: url, saveToPath: saveToPath, method: method, headers: headers, data: data, fetchProgress: fetchProgress);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -852,14 +852,14 @@ class DcliBridge {
         final defaultOption = D4.getOptionalNamedArg<dynamic>(named, 'defaultOption');
         final limit = D4.getOptionalNamedArg<int?>(named, 'limit');
         final formatRaw = named['format'];
-        final format = formatRaw == null ? null : (dynamic p0) { return D4.callInterpreterCallback(visitor, formatRaw, [p0]) as String; };
+        final format = formatRaw == null ? null : (dynamic p0) { return D4.callInterpreterCallback(visitor!, formatRaw, [p0]) as String; };
         final fromStart = D4.getNamedArgWithDefault<bool>(named, 'fromStart', true);
         if (!named.containsKey('customPrompt')) {
           return $dcli_11.menu(prompt, options: options, defaultOption: defaultOption, limit: limit, format: format, fromStart: fromStart);
         }
         if (named.containsKey('customPrompt')) {
           final customPromptRaw = named['customPrompt'];
-          final customPrompt = (String p0, String? p1) { return D4.callInterpreterCallback(visitor, customPromptRaw, [p0, p1]) as String; };
+          final customPrompt = (String p0, String? p1) { return D4.callInterpreterCallback(visitor!, customPromptRaw, [p0, p1]) as String; };
           return $dcli_11.menu(prompt, options: options, defaultOption: defaultOption, limit: limit, format: format, fromStart: fromStart, customPrompt: customPrompt);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -979,7 +979,7 @@ class DcliBridge {
           throw ArgumentError('capture: Missing required argument "action" at position 0');
         }
         final actionRaw = positional[0];
-        final action = () { return D4.callInterpreterCallback(visitor, actionRaw, []) as Future<dynamic>; };
+        final action = () { return D4.callInterpreterCallback(visitor!, actionRaw, []) as Future<dynamic>; };
         final progress = D4.getOptionalNamedArg<$dcli_18.Progress?>(named, 'progress');
         return $dcli_28.capture<dynamic>(action, progress: progress);
       },
@@ -995,7 +995,7 @@ class DcliBridge {
           throw ArgumentError('withOpenFile: Missing required argument "action" at position 1');
         }
         final actionRaw = positional[1];
-        final action = ($dcli_34.FileSync p0) { return D4.callInterpreterCallback(visitor, actionRaw, [p0]) as dynamic; };
+        final action = ($dcli_34.FileSync p0) { return D4.callInterpreterCallback(visitor!, actionRaw, [p0]) as dynamic; };
         final fileMode = D4.getNamedArgWithDefault<FileMode>(named, 'fileMode', FileMode.writeOnlyAppend);
         return $dcli_34.withOpenFile<dynamic>(pathToFile, action, fileMode: fileMode);
       },
@@ -2557,7 +2557,7 @@ BridgedClass _createAnsiBridge() {
     },
     staticSetters: {
       'isSupported': (visitor, value) => 
-        $dcli_terminal_1.Ansi.isSupported = value as dynamic,
+        $dcli_terminal_1.Ansi.isSupported = D4.extractBridgedArg<bool>(value, 'isSupported'),
     },
     constructorSignatures: {
       '': 'factory Ansi()',
@@ -2771,9 +2771,9 @@ BridgedClass _createTerminalBridge() {
     },
     setters: {
       'column': (visitor, target, value) => 
-        D4.validateTarget<$dcli_terminal_4.Terminal>(target, 'Terminal').column = value as dynamic,
+        D4.validateTarget<$dcli_terminal_4.Terminal>(target, 'Terminal').column = D4.extractBridgedArg<int>(value, 'column'),
       'row': (visitor, target, value) => 
-        D4.validateTarget<$dcli_terminal_4.Terminal>(target, 'Terminal').row = value as dynamic,
+        D4.validateTarget<$dcli_terminal_4.Terminal>(target, 'Terminal').row = D4.extractBridgedArg<int>(value, 'row'),
     },
     methods: {
       'clearScreen': (visitor, target, positional, named, typeArgs) {
@@ -3241,7 +3241,7 @@ BridgedClass _createFetchUrlBridge() {
         }
         if (named.containsKey('progress')) {
           final progressRaw = named['progress'];
-          final progress = ($dcli_6.FetchProgress p0) { D4.callInterpreterCallback(visitor, progressRaw, [p0]); };
+          final progress = ($dcli_6.FetchProgress p0) { D4.callInterpreterCallback(visitor!, progressRaw, [p0]); };
           return $dcli_6.FetchUrl(url: url, saveToPath: saveToPath, headers: headers, method: method, data: data, progress: progress);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -3256,8 +3256,6 @@ BridgedClass _createFetchUrlBridge() {
       'data': (visitor, target) => D4.validateTarget<$dcli_6.FetchUrl>(target, 'FetchUrl').data,
     },
     setters: {
-      'headers': (visitor, target, value) => 
-        D4.validateTarget<$dcli_6.FetchUrl>(target, 'FetchUrl').headers = (value as Map).cast<String, String>(),
       'data': (visitor, target, value) => 
         D4.validateTarget<$dcli_6.FetchUrl>(target, 'FetchUrl').data = D4.extractBridgedArgOrNull<$dcli_6.FetchData>(value, 'data'),
     },
@@ -3320,7 +3318,7 @@ BridgedClass _createFetchProgressBridge() {
         D4.requireMinArgs(positional, 1, 'show');
         final progress = D4.getRequiredArg<$dcli_6.FetchProgress>(positional, 0, 'progress', 'show');
         final formatRaw = named['format'];
-        final format = formatRaw == null ? null : ($dcli_6.FetchProgress p0) { return D4.callInterpreterCallback(visitor, formatRaw, [p0]) as String; };
+        final format = formatRaw == null ? null : ($dcli_6.FetchProgress p0) { return D4.callInterpreterCallback(visitor!, formatRaw, [p0]) as String; };
         return $dcli_6.FetchProgress.show(progress, format: format);
       },
     },
@@ -3513,22 +3511,22 @@ BridgedClass _createProgressBridge() {
         final captureStdout = D4.getNamedArgWithDefault<bool>(named, 'captureStdout', false);
         final captureStderr = D4.getNamedArgWithDefault<bool>(named, 'captureStderr', false);
         if (!named.containsKey('stderr') && !named.containsKey('encoding')) {
-          return $dcli_18.Progress((String p0) { D4.callInterpreterCallback(visitor, stdoutRaw, [p0]); }, captureStdout: captureStdout, captureStderr: captureStderr);
+          return $dcli_18.Progress((String p0) { D4.callInterpreterCallback(visitor!, stdoutRaw, [p0]); }, captureStdout: captureStdout, captureStderr: captureStderr);
         }
         if (named.containsKey('stderr') && !named.containsKey('encoding')) {
           final stderrRaw = named['stderr'];
-          final stderr = (String p0) { D4.callInterpreterCallback(visitor, stderrRaw, [p0]); };
-          return $dcli_18.Progress((String p0) { D4.callInterpreterCallback(visitor, stdoutRaw, [p0]); }, captureStdout: captureStdout, captureStderr: captureStderr, stderr: stderr);
+          final stderr = (String p0) { D4.callInterpreterCallback(visitor!, stderrRaw, [p0]); };
+          return $dcli_18.Progress((String p0) { D4.callInterpreterCallback(visitor!, stdoutRaw, [p0]); }, captureStdout: captureStdout, captureStderr: captureStderr, stderr: stderr);
         }
         if (!named.containsKey('stderr') && named.containsKey('encoding')) {
           final encoding = D4.getRequiredNamedArg<Encoding>(named, 'encoding', 'Progress');
-          return $dcli_18.Progress((String p0) { D4.callInterpreterCallback(visitor, stdoutRaw, [p0]); }, captureStdout: captureStdout, captureStderr: captureStderr, encoding: encoding);
+          return $dcli_18.Progress((String p0) { D4.callInterpreterCallback(visitor!, stdoutRaw, [p0]); }, captureStdout: captureStdout, captureStderr: captureStderr, encoding: encoding);
         }
         if (named.containsKey('stderr') && named.containsKey('encoding')) {
           final stderrRaw = named['stderr'];
-          final stderr = (String p0) { D4.callInterpreterCallback(visitor, stderrRaw, [p0]); };
+          final stderr = (String p0) { D4.callInterpreterCallback(visitor!, stderrRaw, [p0]); };
           final encoding = D4.getRequiredNamedArg<Encoding>(named, 'encoding', 'Progress');
-          return $dcli_18.Progress((String p0) { D4.callInterpreterCallback(visitor, stdoutRaw, [p0]); }, captureStdout: captureStdout, captureStderr: captureStderr, stderr: stderr, encoding: encoding);
+          return $dcli_18.Progress((String p0) { D4.callInterpreterCallback(visitor!, stdoutRaw, [p0]); }, captureStdout: captureStdout, captureStderr: captureStderr, stderr: stderr, encoding: encoding);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -3550,11 +3548,11 @@ BridgedClass _createProgressBridge() {
         }
         final bothRaw = positional[0];
         if (!named.containsKey('encoding')) {
-          return $dcli_18.Progress.both((String p0) { D4.callInterpreterCallback(visitor, bothRaw, [p0]); });
+          return $dcli_18.Progress.both((String p0) { D4.callInterpreterCallback(visitor!, bothRaw, [p0]); });
         }
         if (named.containsKey('encoding')) {
           final encoding = D4.getRequiredNamedArg<Encoding>(named, 'encoding', 'Progress');
-          return $dcli_18.Progress.both((String p0) { D4.callInterpreterCallback(visitor, bothRaw, [p0]); }, encoding: encoding);
+          return $dcli_18.Progress.both((String p0) { D4.callInterpreterCallback(visitor!, bothRaw, [p0]); }, encoding: encoding);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -3632,7 +3630,7 @@ BridgedClass _createProgressBridge() {
           throw ArgumentError('forEach: Missing required argument "print" at position 0');
         }
         final printRaw = positional[0];
-        t.forEach((String p0) { D4.callInterpreterCallback(visitor, printRaw, [p0]); });
+        t.forEach((String p0) { D4.callInterpreterCallback(visitor!, printRaw, [p0]); });
         return null;
       },
       'toParagraph': (visitor, target, positional, named, typeArgs) {
@@ -4537,7 +4535,7 @@ BridgedClass _createSettingsBridge() {
       'scopeKey': (visitor, value) => 
         $dcli_24.Settings.scopeKey = value as dynamic,
       'mock': (visitor, value) => 
-        $dcli_24.Settings.mock = value as dynamic,
+        $dcli_24.Settings.mock = D4.extractBridgedArg<$dcli_24.Settings>(value, 'mock'),
     },
     constructorSignatures: {
       '': 'factory Settings()',
@@ -4666,7 +4664,7 @@ BridgedClass _createShellBridge() {
         }
         final actionRaw = positional[0];
         final allowUnprivileged = D4.getNamedArgWithDefault<bool>(named, 'allowUnprivileged', false);
-        t.withPrivileges(() { D4.callInterpreterCallback(visitor, actionRaw, []); }, allowUnprivileged: allowUnprivileged);
+        t.withPrivileges(() { D4.callInterpreterCallback(visitor!, actionRaw, []); }, allowUnprivileged: allowUnprivileged);
         return null;
       },
       'withPrivilegesAsync': (visitor, target, positional, named, typeArgs) {
@@ -4677,7 +4675,7 @@ BridgedClass _createShellBridge() {
         }
         final actionRaw = positional[0];
         final allowUnprivileged = D4.getNamedArgWithDefault<bool>(named, 'allowUnprivileged', false);
-        return t.withPrivilegesAsync(() { return D4.callInterpreterCallback(visitor, actionRaw, []) as Future<void>; }, allowUnprivileged: allowUnprivileged);
+        return t.withPrivilegesAsync(() { return D4.callInterpreterCallback(visitor!, actionRaw, []) as Future<void>; }, allowUnprivileged: allowUnprivileged);
       },
       'privilegesRequiredMessage': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dcli_25.Shell>(target, 'Shell');
@@ -4928,7 +4926,7 @@ BridgedClass _createUnknownShellBridge() {
         }
         final actionRaw = positional[0];
         final allowUnprivileged = D4.getNamedArgWithDefault<bool>(named, 'allowUnprivileged', false);
-        t.withPrivileges(() { D4.callInterpreterCallback(visitor, actionRaw, []); }, allowUnprivileged: allowUnprivileged);
+        t.withPrivileges(() { D4.callInterpreterCallback(visitor!, actionRaw, []); }, allowUnprivileged: allowUnprivileged);
         return null;
       },
       'withPrivilegesAsync': (visitor, target, positional, named, typeArgs) {
@@ -4939,7 +4937,7 @@ BridgedClass _createUnknownShellBridge() {
         }
         final actionRaw = positional[0];
         final allowUnprivileged = D4.getNamedArgWithDefault<bool>(named, 'allowUnprivileged', false);
-        return t.withPrivilegesAsync(() { return D4.callInterpreterCallback(visitor, actionRaw, []) as Future<void>; }, allowUnprivileged: allowUnprivileged);
+        return t.withPrivilegesAsync(() { return D4.callInterpreterCallback(visitor!, actionRaw, []) as Future<void>; }, allowUnprivileged: allowUnprivileged);
       },
       'addFileAssocation': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dcli_27.UnknownShell>(target, 'UnknownShell');
@@ -5463,7 +5461,7 @@ BridgedClass _createFileSyncBridge() {
           throw ArgumentError('read: Missing required argument "lineAction" at position 0');
         }
         final lineActionRaw = positional[0];
-        t.read((String p0) { return D4.callInterpreterCallback(visitor, lineActionRaw, [p0]) as bool; });
+        t.read((String p0) { return D4.callInterpreterCallback(visitor!, lineActionRaw, [p0]) as bool; });
         return null;
       },
       'resolveSymLink': (visitor, target, positional, named, typeArgs) {
@@ -5707,7 +5705,7 @@ BridgedClass _createNamedLockBridge() {
         }
         final fnRaw = positional[0];
         final waiting = D4.getOptionalNamedArg<String?>(named, 'waiting');
-        return t.withLock(() { D4.callInterpreterCallback(visitor, fnRaw, []); }, waiting: waiting);
+        return t.withLock(() { D4.callInterpreterCallback(visitor!, fnRaw, []); }, waiting: waiting);
       },
       'withLockAsync': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dcli_36.NamedLock>(target, 'NamedLock');
@@ -5717,7 +5715,7 @@ BridgedClass _createNamedLockBridge() {
         }
         final fnRaw = positional[0];
         final waiting = D4.getOptionalNamedArg<String?>(named, 'waiting');
-        return t.withLockAsync(() { return D4.callInterpreterCallback(visitor, fnRaw, []) as Future<void>; }, waiting: waiting);
+        return t.withLockAsync(() { return D4.callInterpreterCallback(visitor!, fnRaw, []) as Future<void>; }, waiting: waiting);
       },
     },
     constructorSignatures: {
@@ -5887,7 +5885,7 @@ BridgedClass _createPubCacheBridge() {
     },
     setters: {
       'pathTo': (visitor, target, value) => 
-        D4.validateTarget<$dcli_38.PubCache>(target, 'PubCache').pathTo = value as dynamic,
+        D4.validateTarget<$dcli_38.PubCache>(target, 'PubCache').pathTo = D4.extractBridgedArg<String>(value, 'pathTo'),
     },
     methods: {
       'pathToPackage': (visitor, target, positional, named, typeArgs) {
@@ -6150,7 +6148,7 @@ BridgedClass _createFindProgressBridge() {
           throw ArgumentError('forEach: Missing required argument "action" at position 0');
         }
         final actionRaw = positional[0];
-        t.forEach((String p0) { D4.callInterpreterCallback(visitor, actionRaw, [p0]); });
+        t.forEach((String p0) { D4.callInterpreterCallback(visitor!, actionRaw, [p0]); });
         return null;
       },
       'toList': (visitor, target, positional, named, typeArgs) {
@@ -6204,7 +6202,7 @@ BridgedClass _createHeadProgressBridge() {
           throw ArgumentError('forEach: Missing required argument "action" at position 0');
         }
         final actionRaw = positional[0];
-        t.forEach((String p0) { D4.callInterpreterCallback(visitor, actionRaw, [p0]); });
+        t.forEach((String p0) { D4.callInterpreterCallback(visitor!, actionRaw, [p0]); });
         return null;
       },
       'toList': (visitor, target, positional, named, typeArgs) {
@@ -6248,7 +6246,7 @@ BridgedClass _createTailProgressBridge() {
           throw ArgumentError('forEach: Missing required argument "action" at position 0');
         }
         final actionRaw = positional[0];
-        t.forEach((String p0) { D4.callInterpreterCallback(visitor, actionRaw, [p0]); });
+        t.forEach((String p0) { D4.callInterpreterCallback(visitor!, actionRaw, [p0]); });
         return null;
       },
       'toList': (visitor, target, positional, named, typeArgs) {

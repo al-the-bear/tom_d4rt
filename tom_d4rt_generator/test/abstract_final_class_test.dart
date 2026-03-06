@@ -64,9 +64,11 @@ void main() {
       generatedCode = await File(result.outputFiles.first).readAsString();
 
       // Debug: Save to workspace for inspection
-      final debugPath =
-          '/home/alexis/repos/al_the_bear/inhouse/second_wind/'
-          'enterprise_flutter/tom_agent_container/ztmp/abstract_final_bridges.dart';
+      final debugPath = p.join(
+        Platform.environment['HOME']!,
+        'repos/al_the_bear/inhouse/second_wind/'
+        'enterprise_flutter/tom_agent_container/ztmp/abstract_final_bridges.dart',
+      );
       await File(debugPath).create(recursive: true);
       await File(debugPath).writeAsString(generatedCode);
     });

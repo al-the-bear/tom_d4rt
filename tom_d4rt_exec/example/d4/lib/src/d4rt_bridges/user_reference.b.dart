@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 2 files
-// Generated: 2026-03-02T19:11:51.177965
+// Generated: 2026-03-06T18:40:13.143319
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -373,7 +373,7 @@ BridgedClass _createUserServiceBridge() {
           throw ArgumentError('findUsers: Missing required argument "predicate" at position 0');
         }
         final predicateRaw = positional[0];
-        return t.findUsers(($d4_example_1.User p0) { return D4.callInterpreterCallback(visitor, predicateRaw, [p0]) as bool; });
+        return t.findUsers(($d4_example_1.User p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; });
       },
       'fetchUser': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$d4_example_2.UserService>(target, 'UserService');
@@ -482,7 +482,7 @@ BridgedClass _createEventEmitterBridge() {
           throw ArgumentError('addListener: Missing required argument "listener" at position 0');
         }
         final listenerRaw = positional[0];
-        t.addListener((dynamic p0) { D4.callInterpreterCallback(visitor, listenerRaw, [p0]); });
+        t.addListener((dynamic p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
@@ -492,7 +492,7 @@ BridgedClass _createEventEmitterBridge() {
           throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
         }
         final listenerRaw = positional[0];
-        t.removeListener((dynamic p0) { D4.callInterpreterCallback(visitor, listenerRaw, [p0]); });
+        t.removeListener((dynamic p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
         return null;
       },
       'emit': (visitor, target, positional, named, typeArgs) {

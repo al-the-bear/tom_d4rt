@@ -1,8 +1,8 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 13 files
-// Generated: 2026-02-27T00:31:18.747781
+// Generated: 2026-03-06T18:38:28.475912
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
 import 'package:tom_d4rt_exec/d4rt.dart';
 import 'package:tom_d4rt_exec/tom_d4rt_exec.dart';
@@ -120,6 +120,16 @@ class TomVscodeScriptingApiBridge {
       'MessageOptions': 'package:tom_vscode_scripting_api/src/vscode_types.dart',
       'TerminalOptions': 'package:tom_vscode_scripting_api/src/vscode_types.dart',
       'FileSystemWatcherOptions': 'package:tom_vscode_scripting_api/src/vscode_types.dart',
+    };
+  }
+
+  /// Returns a map of type alias names to their target class names.
+  ///
+  /// Type aliases like `typedef MaterialStateProperty<T> = WidgetStateProperty<T>`
+  /// are registered so that code using the alias name can resolve to the
+  /// bridged class under its canonical name.
+  static Map<String, String> classAliases() {
+    return {
     };
   }
 
@@ -278,6 +288,7 @@ BridgedClass _createVSCodeAdapterBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_3.VSCodeAdapter,
     name: 'VSCodeAdapter',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_3.VSCodeAdapter,
     constructors: {
     },
     methods: {
@@ -308,10 +319,11 @@ BridgedClass _createVSCodeBridgeResultBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_5.VSCodeBridgeResult,
     name: 'VSCodeBridgeResult',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_5.VSCodeBridgeResult,
     constructors: {
       '': (visitor, positional, named) {
         final success = D4.getRequiredNamedArg<bool>(named, 'success', 'VSCodeBridgeResult');
-        final value = D4.getOptionalNamedArg<dynamic>(named, 'value');
+        final value = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'value', 'VSCodeBridgeResult', '<default unavailable>');
         final output = D4.getNamedArgWithDefault<String>(named, 'output', '');
         final error = D4.getOptionalNamedArg<String?>(named, 'error');
         final stackTrace = D4.getOptionalNamedArg<String?>(named, 'stackTrace');
@@ -321,7 +333,7 @@ BridgedClass _createVSCodeBridgeResultBridge() {
         return $tom_vscode_scripting_api_5.VSCodeBridgeResult(success: success, value: value, output: output, error: error, stackTrace: stackTrace, exception: exception, exceptionStackTrace: exceptionStackTrace, duration: duration);
       },
       'success': (visitor, positional, named) {
-        final value = D4.getOptionalNamedArg<dynamic>(named, 'value');
+        final value = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'value', 'VSCodeBridgeResult', '<default unavailable>');
         final output = D4.getNamedArgWithDefault<String>(named, 'output', '');
         final exception = D4.getOptionalNamedArg<String?>(named, 'exception');
         final exceptionStackTrace = D4.getOptionalNamedArg<String?>(named, 'exceptionStackTrace');
@@ -374,6 +386,7 @@ BridgedClass _createVSCodeBridgeClientBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_5.VSCodeBridgeClient,
     name: 'VSCodeBridgeClient',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_5.VSCodeBridgeClient,
     constructors: {
       '': (visitor, positional, named) {
         final host = D4.getNamedArgWithDefault<String>(named, 'host', '127.0.0.1');
@@ -479,6 +492,7 @@ BridgedClass _createVSCodeBridgeAdapterBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_4.VSCodeBridgeAdapter,
     name: 'VSCodeBridgeAdapter',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_4.VSCodeBridgeAdapter,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'VSCodeBridgeAdapter');
@@ -530,17 +544,18 @@ BridgedClass _createLazyVSCodeBridgeAdapterBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_4.LazyVSCodeBridgeAdapter,
     name: 'LazyVSCodeBridgeAdapter',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_4.LazyVSCodeBridgeAdapter,
     constructors: {
       '': (visitor, positional, named) {
         final host = D4.getNamedArgWithDefault<String>(named, 'host', '127.0.0.1');
         final onStatusMessageRaw = named['onStatusMessage'];
         final onErrorMessageRaw = named['onErrorMessage'];
         if (!named.containsKey('port')) {
-          return $tom_vscode_scripting_api_4.LazyVSCodeBridgeAdapter(host: host, onStatusMessage: onStatusMessageRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor, onStatusMessageRaw, [p0]); }, onErrorMessage: onErrorMessageRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor, onErrorMessageRaw, [p0]); });
+          return $tom_vscode_scripting_api_4.LazyVSCodeBridgeAdapter(host: host, onStatusMessage: onStatusMessageRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onStatusMessageRaw, [p0]); }, onErrorMessage: onErrorMessageRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onErrorMessageRaw, [p0]); });
         }
         if (named.containsKey('port')) {
           final port = D4.getRequiredNamedArg<int>(named, 'port', 'LazyVSCodeBridgeAdapter');
-          return $tom_vscode_scripting_api_4.LazyVSCodeBridgeAdapter(host: host, onStatusMessage: onStatusMessageRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor, onStatusMessageRaw, [p0]); }, onErrorMessage: onErrorMessageRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor, onErrorMessageRaw, [p0]); }, port: port);
+          return $tom_vscode_scripting_api_4.LazyVSCodeBridgeAdapter(host: host, onStatusMessage: onStatusMessageRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onStatusMessageRaw, [p0]); }, onErrorMessage: onErrorMessageRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onErrorMessageRaw, [p0]); }, port: port);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -615,6 +630,7 @@ BridgedClass _createVSCodeBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_2.VSCode,
     name: 'VSCode',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_2.VSCode,
     constructors: {
     },
     getters: {
@@ -628,17 +644,17 @@ BridgedClass _createVSCodeBridge() {
     },
     setters: {
       'workspace': (visitor, target, value) => 
-        D4.validateTarget<$tom_vscode_scripting_api_2.VSCode>(target, 'VSCode').workspace = value as $tom_vscode_scripting_api_13.VSCodeWorkspace,
+        D4.validateTarget<$tom_vscode_scripting_api_2.VSCode>(target, 'VSCode').workspace = D4.extractBridgedArg<$tom_vscode_scripting_api_13.VSCodeWorkspace>(value, 'workspace'),
       'window': (visitor, target, value) => 
-        D4.validateTarget<$tom_vscode_scripting_api_2.VSCode>(target, 'VSCode').window = value as $tom_vscode_scripting_api_12.VSCodeWindow,
+        D4.validateTarget<$tom_vscode_scripting_api_2.VSCode>(target, 'VSCode').window = D4.extractBridgedArg<$tom_vscode_scripting_api_12.VSCodeWindow>(value, 'window'),
       'commands': (visitor, target, value) => 
-        D4.validateTarget<$tom_vscode_scripting_api_2.VSCode>(target, 'VSCode').commands = value as $tom_vscode_scripting_api_7.VSCodeCommands,
+        D4.validateTarget<$tom_vscode_scripting_api_2.VSCode>(target, 'VSCode').commands = D4.extractBridgedArg<$tom_vscode_scripting_api_7.VSCodeCommands>(value, 'commands'),
       'extensions': (visitor, target, value) => 
-        D4.validateTarget<$tom_vscode_scripting_api_2.VSCode>(target, 'VSCode').extensions = value as $tom_vscode_scripting_api_8.VSCodeExtensions,
+        D4.validateTarget<$tom_vscode_scripting_api_2.VSCode>(target, 'VSCode').extensions = D4.extractBridgedArg<$tom_vscode_scripting_api_8.VSCodeExtensions>(value, 'extensions'),
       'lm': (visitor, target, value) => 
-        D4.validateTarget<$tom_vscode_scripting_api_2.VSCode>(target, 'VSCode').lm = value as $tom_vscode_scripting_api_10.VSCodeLanguageModel,
+        D4.validateTarget<$tom_vscode_scripting_api_2.VSCode>(target, 'VSCode').lm = D4.extractBridgedArg<$tom_vscode_scripting_api_10.VSCodeLanguageModel>(value, 'lm'),
       'chat': (visitor, target, value) => 
-        D4.validateTarget<$tom_vscode_scripting_api_2.VSCode>(target, 'VSCode').chat = value as $tom_vscode_scripting_api_6.VSCodeChat,
+        D4.validateTarget<$tom_vscode_scripting_api_2.VSCode>(target, 'VSCode').chat = D4.extractBridgedArg<$tom_vscode_scripting_api_6.VSCodeChat>(value, 'chat'),
     },
     methods: {
       'getVersion': (visitor, target, positional, named, typeArgs) {
@@ -724,6 +740,7 @@ BridgedClass _createVSCodeCommandsBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_7.VSCodeCommands,
     name: 'VSCodeCommands',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_7.VSCodeCommands,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'VSCodeCommands');
@@ -774,6 +791,7 @@ BridgedClass _createVSCodeCommonCommandsBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_7.VSCodeCommonCommands,
     name: 'VSCodeCommonCommands',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_7.VSCodeCommonCommands,
     constructors: {
       '': (visitor, positional, named) {
         return $tom_vscode_scripting_api_7.VSCodeCommonCommands();
@@ -857,6 +875,7 @@ BridgedClass _createExtensionBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_8.Extension,
     name: 'Extension',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_8.Extension,
     constructors: {
       '': (visitor, positional, named) {
         final id = D4.getRequiredNamedArg<String>(named, 'id', 'Extension');
@@ -919,6 +938,7 @@ BridgedClass _createVSCodeExtensionsBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_8.VSCodeExtensions,
     name: 'VSCodeExtensions',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_8.VSCodeExtensions,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'VSCodeExtensions');
@@ -1006,6 +1026,7 @@ BridgedClass _createVSCodeLanguageModelBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_10.VSCodeLanguageModel,
     name: 'VSCodeLanguageModel',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_10.VSCodeLanguageModel,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'VSCodeLanguageModel');
@@ -1071,6 +1092,7 @@ BridgedClass _createLanguageModelChatBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_10.LanguageModelChat,
     name: 'LanguageModelChat',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_10.LanguageModelChat,
     constructors: {
       '': (visitor, positional, named) {
         final id = D4.getRequiredNamedArg<String>(named, 'id', 'LanguageModelChat');
@@ -1152,6 +1174,7 @@ BridgedClass _createLanguageModelChatMessageBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_10.LanguageModelChatMessage,
     name: 'LanguageModelChatMessage',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_10.LanguageModelChatMessage,
     constructors: {
       '': (visitor, positional, named) {
         final role = D4.getRequiredNamedArg<String>(named, 'role', 'LanguageModelChatMessage');
@@ -1216,6 +1239,7 @@ BridgedClass _createLanguageModelChatResponseBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_10.LanguageModelChatResponse,
     name: 'LanguageModelChatResponse',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_10.LanguageModelChatResponse,
     constructors: {
       '': (visitor, positional, named) {
         final text = D4.getRequiredNamedArg<String>(named, 'text', 'LanguageModelChatResponse');
@@ -1266,6 +1290,7 @@ BridgedClass _createLanguageModelToolResultBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_10.LanguageModelToolResult,
     name: 'LanguageModelToolResult',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_10.LanguageModelToolResult,
     constructors: {
       '': (visitor, positional, named) {
         if (!named.containsKey('content') || named['content'] == null) {
@@ -1313,6 +1338,7 @@ BridgedClass _createLanguageModelToolInformationBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_10.LanguageModelToolInformation,
     name: 'LanguageModelToolInformation',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_10.LanguageModelToolInformation,
     constructors: {
       '': (visitor, positional, named) {
         final name = D4.getRequiredNamedArg<String>(named, 'name', 'LanguageModelToolInformation');
@@ -1366,6 +1392,7 @@ BridgedClass _createVSCodeWindowBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_12.VSCodeWindow,
     name: 'VSCodeWindow',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_12.VSCodeWindow,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'VSCodeWindow');
@@ -1542,6 +1569,7 @@ BridgedClass _createVSCodeWorkspaceBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_13.VSCodeWorkspace,
     name: 'VSCodeWorkspace',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_13.VSCodeWorkspace,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'VSCodeWorkspace');
@@ -1675,6 +1703,7 @@ BridgedClass _createVSCodeChatBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_6.VSCodeChat,
     name: 'VSCodeChat',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_6.VSCodeChat,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'VSCodeChat');
@@ -1694,7 +1723,7 @@ BridgedClass _createVSCodeChatBridge() {
         final description = D4.getOptionalNamedArg<String?>(named, 'description');
         final fullName = D4.getOptionalNamedArg<String?>(named, 'fullName');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 300);
-        return t.createChatParticipant(id, handler: ($tom_vscode_scripting_api_6.ChatRequest p0, $tom_vscode_scripting_api_6.ChatContext p1, $tom_vscode_scripting_api_6.ChatResponseStream p2) { return D4.callInterpreterCallback(visitor, handlerRaw, [p0, p1, p2]) as Future<$tom_vscode_scripting_api_6.ChatResult>; }, description: description, fullName: fullName, timeoutSeconds: timeoutSeconds);
+        return t.createChatParticipant(id, handler: ($tom_vscode_scripting_api_6.ChatRequest p0, $tom_vscode_scripting_api_6.ChatContext p1, $tom_vscode_scripting_api_6.ChatResponseStream p2) { return D4.callInterpreterCallback(visitor!, handlerRaw, [p0, p1, p2]) as Future<$tom_vscode_scripting_api_6.ChatResult>; }, description: description, fullName: fullName, timeoutSeconds: timeoutSeconds);
       },
     },
     staticMethods: {
@@ -1727,6 +1756,7 @@ BridgedClass _createChatParticipantBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_6.ChatParticipant,
     name: 'ChatParticipant',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_6.ChatParticipant,
     constructors: {
       '': (visitor, positional, named) {
         final id = D4.getRequiredNamedArg<String>(named, 'id', 'ChatParticipant');
@@ -1777,6 +1807,7 @@ BridgedClass _createChatRequestBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_6.ChatRequest,
     name: 'ChatRequest',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_6.ChatRequest,
     constructors: {
       '': (visitor, positional, named) {
         final prompt = D4.getRequiredNamedArg<String>(named, 'prompt', 'ChatRequest');
@@ -1830,6 +1861,7 @@ BridgedClass _createChatPromptReferenceBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_6.ChatPromptReference,
     name: 'ChatPromptReference',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_6.ChatPromptReference,
     constructors: {
       '': (visitor, positional, named) {
         final id = D4.getRequiredNamedArg<String>(named, 'id', 'ChatPromptReference');
@@ -1880,6 +1912,7 @@ BridgedClass _createChatContextBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_6.ChatContext,
     name: 'ChatContext',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_6.ChatContext,
     constructors: {
       '': (visitor, positional, named) {
         if (!named.containsKey('history') || named['history'] == null) {
@@ -1927,6 +1960,7 @@ BridgedClass _createChatResultBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_6.ChatResult,
     name: 'ChatResult',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_6.ChatResult,
     constructors: {
       '': (visitor, positional, named) {
         final metadata = D4.coerceMapOrNull<String, dynamic>(named['metadata'], 'metadata');
@@ -1965,6 +1999,7 @@ BridgedClass _createChatErrorDetailsBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_6.ChatErrorDetails,
     name: 'ChatErrorDetails',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_6.ChatErrorDetails,
     constructors: {
       '': (visitor, positional, named) {
         final message = D4.getRequiredNamedArg<String>(named, 'message', 'ChatErrorDetails');
@@ -2003,6 +2038,7 @@ BridgedClass _createChatResponseStreamBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_6.ChatResponseStream,
     name: 'ChatResponseStream',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_6.ChatResponseStream,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'ChatResponseStream');
@@ -2086,6 +2122,7 @@ BridgedClass _createHelperLoggingBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_9.HelperLogging,
     name: 'HelperLogging',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_9.HelperLogging,
     constructors: {
       '': (visitor, positional, named) {
         return $tom_vscode_scripting_api_9.HelperLogging();
@@ -2096,7 +2133,7 @@ BridgedClass _createHelperLoggingBridge() {
     },
     staticSetters: {
       'debugLogging': (visitor, value) => 
-        $tom_vscode_scripting_api_9.HelperLogging.debugLogging = value as bool,
+        $tom_vscode_scripting_api_9.HelperLogging.debugLogging = D4.extractBridgedArg<bool>(value, 'debugLogging'),
     },
     constructorSignatures: {
       '': 'HelperLogging()',
@@ -2118,6 +2155,7 @@ BridgedClass _createVsCodeHelperBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_9.VsCodeHelper,
     name: 'VsCodeHelper',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_9.VsCodeHelper,
     constructors: {
     },
     staticMethods: {
@@ -2619,6 +2657,7 @@ BridgedClass _createVsProgressBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_9.VsProgress,
     name: 'VsProgress',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_9.VsProgress,
     constructors: {
     },
     getters: {
@@ -2671,6 +2710,7 @@ BridgedClass _createFileBatchBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_9.FileBatch,
     name: 'FileBatch',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_9.FileBatch,
     constructors: {
     },
     getters: {
@@ -2685,7 +2725,7 @@ BridgedClass _createFileBatchBridge() {
           throw ArgumentError('process: Missing required argument "processor" at position 0');
         }
         final processorRaw = positional[0];
-        return t.process((String p0, String p1) { return D4.callInterpreterCallback(visitor, processorRaw, [p0, p1]) as Future<dynamic>; });
+        return t.process((String p0, String p1) { return D4.callInterpreterCallback(visitor!, processorRaw, [p0, p1]) as Future<dynamic>; });
       },
       'filter': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_vscode_scripting_api_9.FileBatch>(target, 'FileBatch');
@@ -2694,7 +2734,7 @@ BridgedClass _createFileBatchBridge() {
           throw ArgumentError('filter: Missing required argument "predicate" at position 0');
         }
         final predicateRaw = positional[0];
-        return t.filter((String p0) { return D4.callInterpreterCallback(visitor, predicateRaw, [p0]) as bool; });
+        return t.filter((String p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; });
       },
     },
     staticMethods: {
@@ -2727,6 +2767,7 @@ BridgedClass _createVSCodeUriBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_11.VSCodeUri,
     name: 'VSCodeUri',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_11.VSCodeUri,
     constructors: {
       '': (visitor, positional, named) {
         final scheme = D4.getRequiredNamedArg<String>(named, 'scheme', 'VSCodeUri');
@@ -2797,6 +2838,7 @@ BridgedClass _createWorkspaceFolderBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_11.WorkspaceFolder,
     name: 'WorkspaceFolder',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_11.WorkspaceFolder,
     constructors: {
       '': (visitor, positional, named) {
         final uri = D4.getRequiredNamedArg<$tom_vscode_scripting_api_11.VSCodeUri>(named, 'uri', 'WorkspaceFolder');
@@ -2847,6 +2889,7 @@ BridgedClass _createTextDocumentBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_11.TextDocument,
     name: 'TextDocument',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_11.TextDocument,
     constructors: {
       '': (visitor, positional, named) {
         final uri = D4.getRequiredNamedArg<$tom_vscode_scripting_api_11.VSCodeUri>(named, 'uri', 'TextDocument');
@@ -2912,6 +2955,7 @@ BridgedClass _createPositionBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_11.Position,
     name: 'Position',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_11.Position,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Position');
@@ -2960,6 +3004,7 @@ BridgedClass _createRangeBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_11.Range,
     name: 'Range',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_11.Range,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Range');
@@ -3008,6 +3053,7 @@ BridgedClass _createSelectionBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_11.Selection,
     name: 'Selection',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_11.Selection,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'Selection');
@@ -3063,6 +3109,7 @@ BridgedClass _createTextEditorBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_11.TextEditor,
     name: 'TextEditor',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_11.TextEditor,
     constructors: {
       '': (visitor, positional, named) {
         final document = D4.getRequiredNamedArg<$tom_vscode_scripting_api_11.TextDocument>(named, 'document', 'TextEditor');
@@ -3119,6 +3166,7 @@ BridgedClass _createQuickPickItemBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_11.QuickPickItem,
     name: 'QuickPickItem',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_11.QuickPickItem,
     constructors: {
       '': (visitor, positional, named) {
         final label = D4.getRequiredNamedArg<String>(named, 'label', 'QuickPickItem');
@@ -3172,6 +3220,7 @@ BridgedClass _createInputBoxOptionsBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_11.InputBoxOptions,
     name: 'InputBoxOptions',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_11.InputBoxOptions,
     constructors: {
       '': (visitor, positional, named) {
         final prompt = D4.getOptionalNamedArg<String?>(named, 'prompt');
@@ -3216,6 +3265,7 @@ BridgedClass _createMessageOptionsBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_11.MessageOptions,
     name: 'MessageOptions',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_11.MessageOptions,
     constructors: {
       '': (visitor, positional, named) {
         final modal = D4.getNamedArgWithDefault<bool>(named, 'modal', false);
@@ -3254,6 +3304,7 @@ BridgedClass _createTerminalOptionsBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_11.TerminalOptions,
     name: 'TerminalOptions',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_11.TerminalOptions,
     constructors: {
       '': (visitor, positional, named) {
         final name = D4.getOptionalNamedArg<String?>(named, 'name');
@@ -3301,6 +3352,7 @@ BridgedClass _createFileSystemWatcherOptionsBridge() {
   return BridgedClass(
     nativeType: $tom_vscode_scripting_api_11.FileSystemWatcherOptions,
     name: 'FileSystemWatcherOptions',
+    isAssignable: (v) => v is $tom_vscode_scripting_api_11.FileSystemWatcherOptions,
     constructors: {
       '': (visitor, positional, named) {
         final ignoreCreateEvents = D4.getNamedArgWithDefault<bool>(named, 'ignoreCreateEvents', false);

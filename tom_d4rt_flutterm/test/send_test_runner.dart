@@ -459,9 +459,16 @@ class SendTestRunner {
     final appDir = p.join(packageRoot, testAppPath);
     final flutterExecutable = await _resolveFlutterExecutable();
 
+    // Use the current platform's desktop device
+    final device = Platform.isMacOS
+        ? 'macos'
+        : Platform.isWindows
+            ? 'windows'
+            : 'linux';
+
     _testAppProcess = await Process.start(
       flutterExecutable,
-      ['run', '-d', 'linux'],
+      ['run', '-d', device],
       workingDirectory: appDir,
       // Don't inherit stdio to avoid crash when killing process
     );

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 7 files
-// Generated: 2026-03-02T19:19:00.725613
+// Generated: 2026-03-06T18:40:28.023463
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -311,7 +311,7 @@ class ExampleProjectBridge {
           throw ArgumentError('findWhere: Missing required argument "predicate" at position 1');
         }
         final predicateRaw = positional[1];
-        final predicate = (dynamic p0) { return D4.callInterpreterCallback(visitor, predicateRaw, [p0]) as bool; };
+        final predicate = (dynamic p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; };
         return $d4_example_5.findWhere<dynamic>(items, predicate);
       },
       'mapList': (visitor, positional, named, typeArgs) {
@@ -321,7 +321,7 @@ class ExampleProjectBridge {
           throw ArgumentError('mapList: Missing required argument "mapper" at position 1');
         }
         final mapperRaw = positional[1];
-        final mapper = (dynamic p0) { return D4.callInterpreterCallback(visitor, mapperRaw, [p0]) as dynamic; };
+        final mapper = (dynamic p0) { return D4.callInterpreterCallback(visitor!, mapperRaw, [p0]) as dynamic; };
         return $d4_example_5.mapList<dynamic, dynamic>(items, mapper);
       },
       'filterList': (visitor, positional, named, typeArgs) {
@@ -331,7 +331,7 @@ class ExampleProjectBridge {
           throw ArgumentError('filterList: Missing required argument "predicate" at position 1');
         }
         final predicateRaw = positional[1];
-        final predicate = (dynamic p0) { return D4.callInterpreterCallback(visitor, predicateRaw, [p0]) as bool; };
+        final predicate = (dynamic p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; };
         return $d4_example_5.filterList<dynamic>(items, predicate);
       },
       'reduceList': (visitor, positional, named, typeArgs) {
@@ -341,7 +341,7 @@ class ExampleProjectBridge {
           throw ArgumentError('reduceList: Missing required argument "combiner" at position 1');
         }
         final combinerRaw = positional[1];
-        final combiner = (dynamic p0, dynamic p1) { return D4.callInterpreterCallback(visitor, combinerRaw, [p0, p1]) as dynamic; };
+        final combiner = (dynamic p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, combinerRaw, [p0, p1]) as dynamic; };
         return $d4_example_5.reduceList<dynamic>(items, combiner);
       },
       'sortItems': (visitor, positional, named, typeArgs) {
@@ -424,7 +424,7 @@ class ExampleProjectBridge {
           throw ArgumentError('processAsync: Missing required argument "processor" at position 1');
         }
         final processorRaw = positional[1];
-        final processor = (dynamic p0) { return D4.callInterpreterCallback(visitor, processorRaw, [p0]) as Future<dynamic>; };
+        final processor = (dynamic p0) { return D4.callInterpreterCallback(visitor!, processorRaw, [p0]) as Future<dynamic>; };
         return $d4_example_5.processAsync<dynamic, dynamic>(items, processor);
       },
       'incrementCounter': (visitor, positional, named, typeArgs) {
@@ -832,7 +832,7 @@ BridgedClass _createTaskSchedulerBridge() {
           throw ArgumentError('addTask: Missing required argument "task" at position 0');
         }
         final taskRaw = positional[0];
-        t.addTask(() { D4.callInterpreterCallback(visitor, taskRaw, []); });
+        t.addTask(() { D4.callInterpreterCallback(visitor!, taskRaw, []); });
         return null;
       },
       'runAll': (visitor, target, positional, named, typeArgs) {
@@ -855,7 +855,7 @@ BridgedClass _createTaskSchedulerBridge() {
           throw ArgumentError('runWithHandler: Missing required argument "onError" at position 2');
         }
         final onErrorRaw = positional[2];
-        t.runWithHandler(() { return D4.callInterpreterCallback(visitor, taskRaw, []) as dynamic; }, (dynamic p0) { D4.callInterpreterCallback(visitor, onSuccessRaw, [p0]); }, (Object p0) { D4.callInterpreterCallback(visitor, onErrorRaw, [p0]); });
+        t.runWithHandler(() { return D4.callInterpreterCallback(visitor!, taskRaw, []) as dynamic; }, (dynamic p0) { D4.callInterpreterCallback(visitor!, onSuccessRaw, [p0]); }, (Object p0) { D4.callInterpreterCallback(visitor!, onErrorRaw, [p0]); });
         return null;
       },
       'mapValues': (visitor, target, positional, named, typeArgs) {
@@ -869,7 +869,7 @@ BridgedClass _createTaskSchedulerBridge() {
           throw ArgumentError('mapValues: Missing required argument "mapper" at position 1');
         }
         final mapperRaw = positional[1];
-        return t.mapValues(values, (dynamic p0) { return D4.callInterpreterCallback(visitor, mapperRaw, [p0]) as dynamic; });
+        return t.mapValues(values, (dynamic p0) { return D4.callInterpreterCallback(visitor!, mapperRaw, [p0]) as dynamic; });
       },
       'filterValues': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$d4_example_2.TaskScheduler>(target, 'TaskScheduler');
@@ -882,7 +882,7 @@ BridgedClass _createTaskSchedulerBridge() {
           throw ArgumentError('filterValues: Missing required argument "predicate" at position 1');
         }
         final predicateRaw = positional[1];
-        return t.filterValues(values, (dynamic p0) { return D4.callInterpreterCallback(visitor, predicateRaw, [p0]) as bool; });
+        return t.filterValues(values, (dynamic p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; });
       },
       'reduceValues': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$d4_example_2.TaskScheduler>(target, 'TaskScheduler');
@@ -895,7 +895,7 @@ BridgedClass _createTaskSchedulerBridge() {
           throw ArgumentError('reduceValues: Missing required argument "combiner" at position 1');
         }
         final combinerRaw = positional[1];
-        return t.reduceValues(values, (dynamic p0, dynamic p1) { return D4.callInterpreterCallback(visitor, combinerRaw, [p0, p1]) as dynamic; });
+        return t.reduceValues(values, (dynamic p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, combinerRaw, [p0, p1]) as dynamic; });
       },
     },
     staticMethods: {
@@ -906,7 +906,7 @@ BridgedClass _createTaskSchedulerBridge() {
           throw ArgumentError('generate: Missing required argument "generator" at position 1');
         }
         final generatorRaw = positional[1];
-        final generator = (int p0) { return D4.callInterpreterCallback(visitor, generatorRaw, [p0]) as dynamic; };
+        final generator = (int p0) { return D4.callInterpreterCallback(visitor!, generatorRaw, [p0]) as dynamic; };
         return $d4_example_2.TaskScheduler.generate(count, generator);
       },
     },
@@ -965,7 +965,7 @@ BridgedClass _createAsyncServiceBridge() {
           throw ArgumentError('fetchWithProgress: Missing required argument "onProgress" at position 0');
         }
         final onProgressRaw = positional[0];
-        return t.fetchWithProgress((int p0) { D4.callInterpreterCallback(visitor, onProgressRaw, [p0]); });
+        return t.fetchWithProgress((int p0) { D4.callInterpreterCallback(visitor!, onProgressRaw, [p0]); });
       },
       'tryFetch': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$d4_example_2.AsyncService>(target, 'AsyncService');
@@ -1022,7 +1022,7 @@ BridgedClass _createEventEmitterBridge() {
           throw ArgumentError('on: Missing required argument "callback" at position 1');
         }
         final callbackRaw = positional[1];
-        t.on(event, (String p0) { D4.callInterpreterCallback(visitor, callbackRaw, [p0]); });
+        t.on(event, (String p0) { D4.callInterpreterCallback(visitor!, callbackRaw, [p0]); });
         return null;
       },
       'emit': (visitor, target, positional, named, typeArgs) {
@@ -1040,7 +1040,7 @@ BridgedClass _createEventEmitterBridge() {
           throw ArgumentError('off: Missing required argument "callback" at position 1');
         }
         final callbackRaw = positional[1];
-        t.off(event, (String p0) { D4.callInterpreterCallback(visitor, callbackRaw, [p0]); });
+        t.off(event, (String p0) { D4.callInterpreterCallback(visitor!, callbackRaw, [p0]); });
         return null;
       },
       'once': (visitor, target, positional, named, typeArgs) {
@@ -1051,7 +1051,7 @@ BridgedClass _createEventEmitterBridge() {
           throw ArgumentError('once: Missing required argument "callback" at position 1');
         }
         final callbackRaw = positional[1];
-        t.once(event, (String p0) { D4.callInterpreterCallback(visitor, callbackRaw, [p0]); });
+        t.once(event, (String p0) { D4.callInterpreterCallback(visitor!, callbackRaw, [p0]); });
         return null;
       },
       'listenerCount': (visitor, target, positional, named, typeArgs) {
@@ -1177,7 +1177,7 @@ BridgedClass _createBoxBridge() {
           throw ArgumentError('transform: Missing required argument "transformer" at position 0');
         }
         final transformerRaw = positional[0];
-        return t.transform((dynamic p0) { return D4.callInterpreterCallback(visitor, transformerRaw, [p0]) as dynamic; });
+        return t.transform((dynamic p0) { return D4.callInterpreterCallback(visitor!, transformerRaw, [p0]) as dynamic; });
       },
     },
     staticMethods: {
@@ -1255,7 +1255,7 @@ BridgedClass _createRepositoryBridge() {
           throw ArgumentError('findWhere: Missing required argument "predicate" at position 0');
         }
         final predicateRaw = positional[0];
-        return t.findWhere(($d4_example_4.Identifiable p0) { return D4.callInterpreterCallback(visitor, predicateRaw, [p0]) as bool; });
+        return t.findWhere(($d4_example_4.Identifiable p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; });
       },
       'mapAll': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$d4_example_4.Repository>(target, 'Repository');
@@ -1264,7 +1264,7 @@ BridgedClass _createRepositoryBridge() {
           throw ArgumentError('mapAll: Missing required argument "mapper" at position 0');
         }
         final mapperRaw = positional[0];
-        return t.mapAll(($d4_example_4.Identifiable p0) { return D4.callInterpreterCallback(visitor, mapperRaw, [p0]) as dynamic; });
+        return t.mapAll(($d4_example_4.Identifiable p0) { return D4.callInterpreterCallback(visitor!, mapperRaw, [p0]) as dynamic; });
       },
     },
     staticMethods: {
@@ -1333,7 +1333,7 @@ BridgedClass _createPairBridge() {
           throw ArgumentError('mapBoth: Missing required argument "mapSecond" at position 1');
         }
         final mapSecondRaw = positional[1];
-        return t.mapBoth((dynamic p0) { return D4.callInterpreterCallback(visitor, mapFirstRaw, [p0]) as dynamic; }, (dynamic p0) { return D4.callInterpreterCallback(visitor, mapSecondRaw, [p0]) as dynamic; });
+        return t.mapBoth((dynamic p0) { return D4.callInterpreterCallback(visitor!, mapFirstRaw, [p0]) as dynamic; }, (dynamic p0) { return D4.callInterpreterCallback(visitor!, mapSecondRaw, [p0]) as dynamic; });
       },
       'withFirst': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$d4_example_4.Pair>(target, 'Pair');

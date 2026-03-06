@@ -1,8 +1,8 @@
 // D4rt Bridge - Generated file, do not edit
-// Source: /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom/xternal/tom_module_d4rt/tom_ast_generator/example/d4/lib/test_extensions.dart
-// Generated: 2026-02-21T15:07:38.158040
+// Source: lib/test_extensions.dart
+// Generated: 2026-03-06T18:39:55.193378
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
 import 'package:tom_d4rt_exec/d4rt.dart';
 import 'package:tom_d4rt_exec/tom_d4rt.dart';
@@ -27,6 +27,16 @@ class CoreExtensionsBridge {
     return {
       'ItemProcessor': 'package:d4_example/test_extensions.dart',
       'TestPoint': 'package:d4_example/test_extensions.dart',
+    };
+  }
+
+  /// Returns a map of type alias names to their target class names.
+  ///
+  /// Type aliases like `typedef MaterialStateProperty<T> = WidgetStateProperty<T>`
+  /// are registered so that code using the alias name can resolve to the
+  /// bridged class under its canonical name.
+  static Map<String, String> classAliases() {
+    return {
     };
   }
 
@@ -129,21 +139,21 @@ class CoreExtensionsBridge {
           throw ArgumentError('processItems: Missing required argument "transform" at position 1');
         }
         final transformRaw = positional[1];
-        final transform = (dynamic p0) { return D4.callInterpreterCallback(visitor, transformRaw, [p0]) as dynamic; };
+        final transform = (dynamic p0) { return D4.callInterpreterCallback(visitor!, transformRaw, [p0]) as dynamic; };
         return $d4_example_1.processItems<dynamic, dynamic>(items, transform);
       },
       'filterItems': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'filterItems');
         final items = D4.getRequiredArg<List<dynamic>>(positional, 0, 'items', 'filterItems');
         final predicateRaw = named['predicate'];
-        final predicate = predicateRaw == null ? null : (dynamic p0) { return D4.callInterpreterCallback(visitor, predicateRaw, [p0]) as bool; };
+        final predicate = predicateRaw == null ? null : (dynamic p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; };
         return $d4_example_1.filterItems<dynamic>(items, predicate: predicate);
       },
       'promptUser': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'promptUser');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'promptUser');
         final customPromptRaw = named['customPrompt'];
-        final customPrompt = customPromptRaw == null ? null : (String p0, String? p1, bool p2) { return D4.callInterpreterCallback(visitor, customPromptRaw, [p0, p1, p2]) as String; };
+        final customPrompt = customPromptRaw == null ? null : (String p0, String? p1, bool p2) { return D4.callInterpreterCallback(visitor!, customPromptRaw, [p0, p1, p2]) as String; };
         final defaultValue = D4.getOptionalNamedArg<String?>(named, 'defaultValue');
         final required = D4.getNamedArgWithDefault<bool>(named, 'required', true);
         return $d4_example_1.promptUser(message, customPrompt: customPrompt, defaultValue: defaultValue, required: required);
@@ -211,6 +221,7 @@ BridgedClass _createItemProcessorBridge() {
   return BridgedClass(
     nativeType: $d4_example_1.ItemProcessor,
     name: 'ItemProcessor',
+    isAssignable: (v) => v is $d4_example_1.ItemProcessor,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ItemProcessor');
@@ -218,7 +229,7 @@ BridgedClass _createItemProcessorBridge() {
           throw ArgumentError('ItemProcessor: Missing required argument "transform" at position 0');
         }
         final transformRaw = positional[0];
-        return $d4_example_1.ItemProcessor((dynamic p0) { return D4.callInterpreterCallback(visitor, transformRaw, [p0]) as dynamic; });
+        return $d4_example_1.ItemProcessor((dynamic p0) { return D4.callInterpreterCallback(visitor!, transformRaw, [p0]) as dynamic; });
       },
       'identity': (visitor, positional, named) {
         return $d4_example_1.ItemProcessor.identity();
@@ -266,6 +277,7 @@ BridgedClass _createTestPointBridge() {
   return BridgedClass(
     nativeType: $d4_example_1.TestPoint,
     name: 'TestPoint',
+    isAssignable: (v) => v is $d4_example_1.TestPoint,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'TestPoint');

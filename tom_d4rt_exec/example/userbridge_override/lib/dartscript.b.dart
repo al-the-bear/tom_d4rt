@@ -1,11 +1,11 @@
 // D4rt Bridge - Generated file, do not edit
 // Dartscript registration for userbridge_override_example
-// Generated: 2026-02-14T00:51:12.764624
+// Generated: 2026-03-06T18:40:25.403686
 
 /// D4rt Bridge Registration for userbridge_override_example
 library;
 
-import 'package:tom_d4rt_exec/d4rt.dart';
+import 'package:tom_d4rt/d4rt.dart';
 import 'src/d4rt_bridges/userbridge_bridges.b.dart' as all_bridges;
 
 /// Combined bridge registration for userbridge_override_example.
@@ -22,6 +22,10 @@ class UserbridgeOverrideExampleBridges {
       d4rt,
       'lib/userbridge_override_example.dart',
     );
+    // Register under sub-package barrels for direct imports
+    for (final barrel in all_bridges.AllBridge.subPackageBarrels()) {
+      all_bridges.AllBridge.registerBridges(d4rt, barrel);
+    }
   }
 
   /// Get import block for all modules.

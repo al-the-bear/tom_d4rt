@@ -1,13 +1,14 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 2 files
-// Generated: 2026-02-14T00:51:09.533954
+// Generated: 2026-03-06T18:40:07.643096
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
-import 'package:tom_d4rt_exec/d4rt.dart';
-import 'package:tom_d4rt_exec/tom_d4rt.dart';
+import 'package:tom_d4rt/d4rt.dart';
+import 'package:tom_d4rt/tom_d4rt.dart';
 
-import 'package:user_guide_example/user_guide_example.dart' as $pkg;
+import 'package:user_guide_example/src/calculator.dart' as $user_guide_example_1;
+import 'package:user_guide_example/src/greeter.dart' as $user_guide_example_2;
 
 /// Bridge class for all module.
 class AllBridge {
@@ -27,6 +28,16 @@ class AllBridge {
     return {
       'Greeter': 'package:user_guide_example/src/greeter.dart',
       'Calculator': 'package:user_guide_example/src/calculator.dart',
+    };
+  }
+
+  /// Returns a map of type alias names to their target class names.
+  ///
+  /// Type aliases like `typedef MaterialStateProperty<T> = WidgetStateProperty<T>`
+  /// are registered so that code using the alias name can resolve to the
+  /// bridged class under its canonical name.
+  static Map<String, String> classAliases() {
+    return {
     };
   }
 
@@ -105,6 +116,16 @@ class AllBridge {
     return "import 'package:user_guide_example/user_guide_example.dart';";
   }
 
+  /// Returns barrel import URIs for sub-packages discovered through re-exports.
+  ///
+  /// When a module follows re-exports into sub-packages (e.g., dcli re-exports
+  /// dcli_core), D4rt scripts may import those sub-packages directly.
+  /// These barrels need to be registered with the interpreter separately
+  /// so that module resolution finds content for those URIs.
+  static List<String> subPackageBarrels() {
+    return [];
+  }
+
 }
 
 // =============================================================================
@@ -113,30 +134,31 @@ class AllBridge {
 
 BridgedClass _createGreeterBridge() {
   return BridgedClass(
-    nativeType: $pkg.Greeter,
+    nativeType: $user_guide_example_2.Greeter,
     name: 'Greeter',
+    isAssignable: (v) => v is $user_guide_example_2.Greeter,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Greeter');
         final greeting = D4.getRequiredArg<String>(positional, 0, 'greeting', 'Greeter');
-        return $pkg.Greeter(greeting);
+        return $user_guide_example_2.Greeter(greeting);
       },
       'defaultGreeting': (visitor, positional, named) {
-        return $pkg.Greeter.defaultGreeting();
+        return $user_guide_example_2.Greeter.defaultGreeting();
       },
     },
     getters: {
-      'greeting': (visitor, target) => D4.validateTarget<$pkg.Greeter>(target, 'Greeter').greeting,
+      'greeting': (visitor, target) => D4.validateTarget<$user_guide_example_2.Greeter>(target, 'Greeter').greeting,
     },
     methods: {
       'greet': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Greeter>(target, 'Greeter');
+        final t = D4.validateTarget<$user_guide_example_2.Greeter>(target, 'Greeter');
         D4.requireMinArgs(positional, 1, 'greet');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'greet');
         return t.greet(name);
       },
       'greetAll': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Greeter>(target, 'Greeter');
+        final t = D4.validateTarget<$user_guide_example_2.Greeter>(target, 'Greeter');
         D4.requireMinArgs(positional, 1, 'greetAll');
         if (positional.isEmpty) {
           throw ArgumentError('greetAll: Missing required argument "names" at position 0');
@@ -165,37 +187,38 @@ BridgedClass _createGreeterBridge() {
 
 BridgedClass _createCalculatorBridge() {
   return BridgedClass(
-    nativeType: $pkg.Calculator,
+    nativeType: $user_guide_example_1.Calculator,
     name: 'Calculator',
+    isAssignable: (v) => v is $user_guide_example_1.Calculator,
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.Calculator();
+        return $user_guide_example_1.Calculator();
       },
     },
     methods: {
       'add': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Calculator>(target, 'Calculator');
+        final t = D4.validateTarget<$user_guide_example_1.Calculator>(target, 'Calculator');
         D4.requireMinArgs(positional, 2, 'add');
         final a = D4.getRequiredArg<int>(positional, 0, 'a', 'add');
         final b = D4.getRequiredArg<int>(positional, 1, 'b', 'add');
         return t.add(a, b);
       },
       'subtract': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Calculator>(target, 'Calculator');
+        final t = D4.validateTarget<$user_guide_example_1.Calculator>(target, 'Calculator');
         D4.requireMinArgs(positional, 2, 'subtract');
         final a = D4.getRequiredArg<int>(positional, 0, 'a', 'subtract');
         final b = D4.getRequiredArg<int>(positional, 1, 'b', 'subtract');
         return t.subtract(a, b);
       },
       'multiply': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Calculator>(target, 'Calculator');
+        final t = D4.validateTarget<$user_guide_example_1.Calculator>(target, 'Calculator');
         D4.requireMinArgs(positional, 2, 'multiply');
         final a = D4.getRequiredArg<int>(positional, 0, 'a', 'multiply');
         final b = D4.getRequiredArg<int>(positional, 1, 'b', 'multiply');
         return t.multiply(a, b);
       },
       'divide': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Calculator>(target, 'Calculator');
+        final t = D4.validateTarget<$user_guide_example_1.Calculator>(target, 'Calculator');
         D4.requireMinArgs(positional, 2, 'divide');
         final a = D4.getRequiredArg<double>(positional, 0, 'a', 'divide');
         final b = D4.getRequiredArg<double>(positional, 1, 'b', 'divide');
@@ -208,7 +231,7 @@ BridgedClass _createCalculatorBridge() {
         D4.requireMinArgs(positional, 2, 'quickAdd');
         final a = D4.getRequiredArg<int>(positional, 0, 'a', 'quickAdd');
         final b = D4.getRequiredArg<int>(positional, 1, 'b', 'quickAdd');
-        return $pkg.Calculator.quickAdd(a, b);
+        return $user_guide_example_1.Calculator.quickAdd(a, b);
       },
     },
     constructorSignatures: {

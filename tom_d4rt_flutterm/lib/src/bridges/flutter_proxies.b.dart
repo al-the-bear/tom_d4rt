@@ -23,10 +23,30 @@ class D4rtCustomPainter extends CustomPainter {
   /// Callback for [CustomPainter.shouldRepaint].
   final bool Function(CustomPainter) onShouldRepaint;
 
+  /// Callback for [CustomPainter.addListener].
+  final void Function(void Function())? onAddListener;
+
+  /// Callback for [CustomPainter.removeListener].
+  final void Function(void Function())? onRemoveListener;
+
+  /// Callback for [CustomPainter.shouldRebuildSemantics].
+  final bool Function(CustomPainter)? onShouldRebuildSemantics;
+
+  /// Callback for [CustomPainter.hitTest].
+  final bool? Function(Offset)? onHitTest;
+
+  /// Callback for [CustomPainter.semanticsBuilder].
+  final List<CustomPainterSemantics> Function(Size)? Function()? onSemanticsBuilder;
+
   /// Creates a [D4rtCustomPainter] with callback implementations.
   D4rtCustomPainter({
     required this.onPaint,
     required this.onShouldRepaint,
+    this.onAddListener,
+    this.onRemoveListener,
+    this.onShouldRebuildSemantics,
+    this.onHitTest,
+    this.onSemanticsBuilder,
   });
 
   @override
@@ -36,6 +56,25 @@ class D4rtCustomPainter extends CustomPainter {
   @override
   bool shouldRepaint(CustomPainter oldDelegate) =>
       onShouldRepaint(oldDelegate);
+
+  @override
+  void addListener(void Function() listener) =>
+      onAddListener != null ? onAddListener!(listener) : super.addListener(listener);
+
+  @override
+  void removeListener(void Function() listener) =>
+      onRemoveListener != null ? onRemoveListener!(listener) : super.removeListener(listener);
+
+  @override
+  bool shouldRebuildSemantics(CustomPainter oldDelegate) =>
+      onShouldRebuildSemantics != null ? onShouldRebuildSemantics!(oldDelegate) : super.shouldRebuildSemantics(oldDelegate);
+
+  @override
+  bool? hitTest(Offset position) =>
+      onHitTest != null ? onHitTest!(position) : super.hitTest(position);
+
+  @override
+  List<CustomPainterSemantics> Function(Size)? get semanticsBuilder => onSemanticsBuilder != null ? onSemanticsBuilder!() : super.semanticsBuilder;
 
 }
 
@@ -51,10 +90,22 @@ class D4rtCustomClipper<T> extends CustomClipper<T> {
   /// Callback for [CustomClipper.shouldReclip].
   final bool Function(CustomClipper<T>) onShouldReclip;
 
+  /// Callback for [CustomClipper.addListener].
+  final void Function(void Function())? onAddListener;
+
+  /// Callback for [CustomClipper.removeListener].
+  final void Function(void Function())? onRemoveListener;
+
+  /// Callback for [CustomClipper.getApproximateClipRect].
+  final Rect Function(Size)? onGetApproximateClipRect;
+
   /// Creates a [D4rtCustomClipper] with callback implementations.
   D4rtCustomClipper({
     required this.onGetClip,
     required this.onShouldReclip,
+    this.onAddListener,
+    this.onRemoveListener,
+    this.onGetApproximateClipRect,
   });
 
   @override
@@ -64,6 +115,18 @@ class D4rtCustomClipper<T> extends CustomClipper<T> {
   @override
   bool shouldReclip(CustomClipper<T> oldClipper) =>
       onShouldReclip(oldClipper);
+
+  @override
+  void addListener(void Function() listener) =>
+      onAddListener != null ? onAddListener!(listener) : super.addListener(listener);
+
+  @override
+  void removeListener(void Function() listener) =>
+      onRemoveListener != null ? onRemoveListener!(listener) : super.removeListener(listener);
+
+  @override
+  Rect getApproximateClipRect(Size size) =>
+      onGetApproximateClipRect != null ? onGetApproximateClipRect!(size) : super.getApproximateClipRect(size);
 
 }
 
@@ -79,10 +142,22 @@ class D4rtFlowDelegate extends FlowDelegate {
   /// Callback for [FlowDelegate.shouldRepaint].
   final bool Function(FlowDelegate) onShouldRepaint;
 
+  /// Callback for [FlowDelegate.getSize].
+  final Size Function(BoxConstraints)? onGetSize;
+
+  /// Callback for [FlowDelegate.getConstraintsForChild].
+  final BoxConstraints Function(int, BoxConstraints)? onGetConstraintsForChild;
+
+  /// Callback for [FlowDelegate.shouldRelayout].
+  final bool Function(FlowDelegate)? onShouldRelayout;
+
   /// Creates a [D4rtFlowDelegate] with callback implementations.
   D4rtFlowDelegate({
     required this.onPaintChildren,
     required this.onShouldRepaint,
+    this.onGetSize,
+    this.onGetConstraintsForChild,
+    this.onShouldRelayout,
   });
 
   @override
@@ -92,6 +167,18 @@ class D4rtFlowDelegate extends FlowDelegate {
   @override
   bool shouldRepaint(FlowDelegate oldDelegate) =>
       onShouldRepaint(oldDelegate);
+
+  @override
+  Size getSize(BoxConstraints constraints) =>
+      onGetSize != null ? onGetSize!(constraints) : super.getSize(constraints);
+
+  @override
+  BoxConstraints getConstraintsForChild(int i, BoxConstraints constraints) =>
+      onGetConstraintsForChild != null ? onGetConstraintsForChild!(i, constraints) : super.getConstraintsForChild(i, constraints);
+
+  @override
+  bool shouldRelayout(FlowDelegate oldDelegate) =>
+      onShouldRelayout != null ? onShouldRelayout!(oldDelegate) : super.shouldRelayout(oldDelegate);
 
 }
 
@@ -107,10 +194,26 @@ class D4rtMultiChildLayoutDelegate extends MultiChildLayoutDelegate {
   /// Callback for [MultiChildLayoutDelegate.shouldRelayout].
   final bool Function(MultiChildLayoutDelegate) onShouldRelayout;
 
+  /// Callback for [MultiChildLayoutDelegate.hasChild].
+  final bool Function(Object)? onHasChild;
+
+  /// Callback for [MultiChildLayoutDelegate.layoutChild].
+  final Size Function(Object, BoxConstraints)? onLayoutChild;
+
+  /// Callback for [MultiChildLayoutDelegate.positionChild].
+  final void Function(Object, Offset)? onPositionChild;
+
+  /// Callback for [MultiChildLayoutDelegate.getSize].
+  final Size Function(BoxConstraints)? onGetSize;
+
   /// Creates a [D4rtMultiChildLayoutDelegate] with callback implementations.
   D4rtMultiChildLayoutDelegate({
     required this.onPerformLayout,
     required this.onShouldRelayout,
+    this.onHasChild,
+    this.onLayoutChild,
+    this.onPositionChild,
+    this.onGetSize,
   });
 
   @override
@@ -120,6 +223,22 @@ class D4rtMultiChildLayoutDelegate extends MultiChildLayoutDelegate {
   @override
   bool shouldRelayout(MultiChildLayoutDelegate oldDelegate) =>
       onShouldRelayout(oldDelegate);
+
+  @override
+  bool hasChild(Object childId) =>
+      onHasChild != null ? onHasChild!(childId) : super.hasChild(childId);
+
+  @override
+  Size layoutChild(Object childId, BoxConstraints constraints) =>
+      onLayoutChild != null ? onLayoutChild!(childId, constraints) : super.layoutChild(childId, constraints);
+
+  @override
+  void positionChild(Object childId, Offset offset) =>
+      onPositionChild != null ? onPositionChild!(childId, offset) : super.positionChild(childId, offset);
+
+  @override
+  Size getSize(BoxConstraints constraints) =>
+      onGetSize != null ? onGetSize!(constraints) : super.getSize(constraints);
 
 }
 
@@ -132,14 +251,38 @@ class D4rtSingleChildLayoutDelegate extends SingleChildLayoutDelegate {
   /// Callback for [SingleChildLayoutDelegate.shouldRelayout].
   final bool Function(SingleChildLayoutDelegate) onShouldRelayout;
 
+  /// Callback for [SingleChildLayoutDelegate.getSize].
+  final Size Function(BoxConstraints)? onGetSize;
+
+  /// Callback for [SingleChildLayoutDelegate.getConstraintsForChild].
+  final BoxConstraints Function(BoxConstraints)? onGetConstraintsForChild;
+
+  /// Callback for [SingleChildLayoutDelegate.getPositionForChild].
+  final Offset Function(Size, Size)? onGetPositionForChild;
+
   /// Creates a [D4rtSingleChildLayoutDelegate] with callback implementations.
   D4rtSingleChildLayoutDelegate({
     required this.onShouldRelayout,
+    this.onGetSize,
+    this.onGetConstraintsForChild,
+    this.onGetPositionForChild,
   });
 
   @override
   bool shouldRelayout(SingleChildLayoutDelegate oldDelegate) =>
       onShouldRelayout(oldDelegate);
+
+  @override
+  Size getSize(BoxConstraints constraints) =>
+      onGetSize != null ? onGetSize!(constraints) : super.getSize(constraints);
+
+  @override
+  BoxConstraints getConstraintsForChild(BoxConstraints constraints) =>
+      onGetConstraintsForChild != null ? onGetConstraintsForChild!(constraints) : super.getConstraintsForChild(constraints);
+
+  @override
+  Offset getPositionForChild(Size size, Size childSize) =>
+      onGetPositionForChild != null ? onGetPositionForChild!(size, childSize) : super.getPositionForChild(size, childSize);
 
 }
 

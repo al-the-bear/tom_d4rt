@@ -1,8 +1,8 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 2 files
-// Generated: 2026-02-21T15:07:41.562989
+// Generated: 2026-03-06T18:39:56.217399
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
 import 'package:tom_d4rt_exec/d4rt.dart';
 import 'package:tom_d4rt_exec/tom_d4rt.dart';
@@ -37,6 +37,16 @@ class UserReferenceBridge {
       'UserService': 'package:d4_example/src/user_reference/services.dart',
       'ProductService': 'package:d4_example/src/user_reference/services.dart',
       'EventEmitter': 'package:d4_example/src/user_reference/services.dart',
+    };
+  }
+
+  /// Returns a map of type alias names to their target class names.
+  ///
+  /// Type aliases like `typedef MaterialStateProperty<T> = WidgetStateProperty<T>`
+  /// are registered so that code using the alias name can resolve to the
+  /// bridged class under its canonical name.
+  static Map<String, String> classAliases() {
+    return {
     };
   }
 
@@ -135,6 +145,7 @@ BridgedClass _createUserBridge() {
   return BridgedClass(
     nativeType: $d4_example_1.User,
     name: 'User',
+    isAssignable: (v) => v is $d4_example_1.User,
     constructors: {
       '': (visitor, positional, named) {
         final id = D4.getRequiredNamedArg<int>(named, 'id', 'User');
@@ -158,9 +169,9 @@ BridgedClass _createUserBridge() {
     },
     setters: {
       'name': (visitor, target, value) => 
-        D4.validateTarget<$d4_example_1.User>(target, 'User').name = value as String,
+        D4.validateTarget<$d4_example_1.User>(target, 'User').name = D4.extractBridgedArg<String>(value, 'name'),
       'email': (visitor, target, value) => 
-        D4.validateTarget<$d4_example_1.User>(target, 'User').email = value as String?,
+        D4.validateTarget<$d4_example_1.User>(target, 'User').email = D4.extractBridgedArgOrNull<String>(value, 'email'),
     },
     methods: {
       'toMap': (visitor, target, positional, named, typeArgs) {
@@ -200,6 +211,7 @@ BridgedClass _createProductBridge() {
   return BridgedClass(
     nativeType: $d4_example_1.Product,
     name: 'Product',
+    isAssignable: (v) => v is $d4_example_1.Product,
     constructors: {
       '': (visitor, positional, named) {
         final sku = D4.getRequiredNamedArg<String>(named, 'sku', 'Product');
@@ -219,9 +231,9 @@ BridgedClass _createProductBridge() {
     },
     setters: {
       'priceInCents': (visitor, target, value) => 
-        D4.validateTarget<$d4_example_1.Product>(target, 'Product').priceInCents = value as int,
+        D4.validateTarget<$d4_example_1.Product>(target, 'Product').priceInCents = D4.extractBridgedArg<int>(value, 'priceInCents'),
       'quantity': (visitor, target, value) => 
-        D4.validateTarget<$d4_example_1.Product>(target, 'Product').quantity = value as int,
+        D4.validateTarget<$d4_example_1.Product>(target, 'Product').quantity = D4.extractBridgedArg<int>(value, 'quantity'),
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -266,6 +278,7 @@ BridgedClass _createOrderBridge() {
   return BridgedClass(
     nativeType: $d4_example_1.Order,
     name: 'Order',
+    isAssignable: (v) => v is $d4_example_1.Order,
     constructors: {
       '': (visitor, positional, named) {
         final orderId = D4.getRequiredNamedArg<String>(named, 'orderId', 'Order');
@@ -324,6 +337,7 @@ BridgedClass _createUserServiceBridge() {
   return BridgedClass(
     nativeType: $d4_example_2.UserService,
     name: 'UserService',
+    isAssignable: (v) => v is $d4_example_2.UserService,
     constructors: {
       '': (visitor, positional, named) {
         return $d4_example_2.UserService();
@@ -359,7 +373,7 @@ BridgedClass _createUserServiceBridge() {
           throw ArgumentError('findUsers: Missing required argument "predicate" at position 0');
         }
         final predicateRaw = positional[0];
-        return t.findUsers(($d4_example_1.User p0) { return D4.callInterpreterCallback(visitor, predicateRaw, [p0]) as bool; });
+        return t.findUsers(($d4_example_1.User p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; });
       },
       'fetchUser': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$d4_example_2.UserService>(target, 'UserService');
@@ -392,6 +406,7 @@ BridgedClass _createProductServiceBridge() {
   return BridgedClass(
     nativeType: $d4_example_2.ProductService,
     name: 'ProductService',
+    isAssignable: (v) => v is $d4_example_2.ProductService,
     constructors: {
       '': (visitor, positional, named) {
         return $d4_example_2.ProductService();
@@ -453,6 +468,7 @@ BridgedClass _createEventEmitterBridge() {
   return BridgedClass(
     nativeType: $d4_example_2.EventEmitter,
     name: 'EventEmitter',
+    isAssignable: (v) => v is $d4_example_2.EventEmitter,
     constructors: {
       '': (visitor, positional, named) {
         return $d4_example_2.EventEmitter();
@@ -466,7 +482,7 @@ BridgedClass _createEventEmitterBridge() {
           throw ArgumentError('addListener: Missing required argument "listener" at position 0');
         }
         final listenerRaw = positional[0];
-        t.addListener((dynamic p0) { D4.callInterpreterCallback(visitor, listenerRaw, [p0]); });
+        t.addListener((dynamic p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
@@ -476,7 +492,7 @@ BridgedClass _createEventEmitterBridge() {
           throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
         }
         final listenerRaw = positional[0];
-        t.removeListener((dynamic p0) { D4.callInterpreterCallback(visitor, listenerRaw, [p0]); });
+        t.removeListener((dynamic p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
         return null;
       },
       'emit': (visitor, target, positional, named, typeArgs) {

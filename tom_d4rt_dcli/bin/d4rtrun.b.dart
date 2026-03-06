@@ -1,6 +1,9 @@
 // D4rt Bridge - Generated file, do not edit
 // Test runner for tom_d4rt_dcli
-// Generated: 2026-02-27T00:28:50.913253
+// Generated: 2026-03-06T18:38:23.728869
+
+// ignore_for_file: avoid_print
+
 //
 // Usage:
 //   dart run bin/d4rtrun.b.dart <script.dart|.d4rt>  Run a D4rt script file

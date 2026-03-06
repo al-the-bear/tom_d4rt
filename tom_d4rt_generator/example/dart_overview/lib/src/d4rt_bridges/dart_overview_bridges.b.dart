@@ -1,8 +1,8 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 16 files
-// Generated: 2026-02-14T12:48:56.935549
+// Generated: 2026-03-06T18:40:38.280554
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
@@ -74,6 +74,7 @@ class AllBridge {
       _createVectorBridge(),
       _createColorBridge(),
       _createLoggerBridge(),
+      _createShapeBridge(),
       _createCircleShapeBridge(),
       _createSquareShapeBridge(),
       _createDatabaseBridge(),
@@ -82,6 +83,7 @@ class AllBridge {
       _createManagerBridge(),
       _createAnimalBridge(),
       _createCatBridge(),
+      _createElectricCarBridge(),
       _createNotificationServiceBridge(),
       _createEmailNotificationServiceBridge(),
       _createSmsNotificationServiceBridge(),
@@ -109,12 +111,23 @@ class AllBridge {
       _createTrackedItemBridge(),
       _createDataProcessorBridge(),
       _createStatisticsBridge(),
+      _createSortedListBridge(),
+      _createPriorityQueueBridge(),
+      _createRangeBridge(),
+      _createBinarySearchTreeBridge(),
+      _createCacheBridge(),
+      _createTreeNodeBridge(),
       _createMusicalBridge(),
       _createDancingBridge(),
       _createMusicianBridge(),
       _createProfessionalDancerBridge(),
       _createEntertainerBridge(),
       _createCountableItemBridge(),
+      _createFlyingBridge(),
+      _createWalkingBridge(),
+      _createBirdBridge(),
+      _createEagleBridge(),
+      _createPenguinBridge(),
       _createLoggingBridge(),
       _createConsoleLoggerBridge(),
       _createGreeter1Bridge(),
@@ -180,6 +193,7 @@ class AllBridge {
       'Vector': 'package:dart_overview/classes/constructors/run_constructors.dart',
       'Color': 'package:dart_overview/classes/constructors/run_constructors.dart',
       'Logger': 'package:dart_overview/classes/constructors/run_constructors.dart',
+      'Shape': 'package:dart_overview/classes/constructors/run_constructors.dart',
       'CircleShape': 'package:dart_overview/classes/constructors/run_constructors.dart',
       'SquareShape': 'package:dart_overview/classes/constructors/run_constructors.dart',
       'Database': 'package:dart_overview/classes/constructors/run_constructors.dart',
@@ -188,6 +202,7 @@ class AllBridge {
       'Manager': 'package:dart_overview/classes/constructors/run_constructors.dart',
       'Animal': 'package:dart_overview/classes/inheritance/run_inheritance.dart',
       'Cat': 'package:dart_overview/classes/inheritance/run_inheritance.dart',
+      'ElectricCar': 'package:dart_overview/classes/inheritance/run_inheritance.dart',
       'NotificationService': 'package:dart_overview/classes/inheritance/run_inheritance.dart',
       'EmailNotificationService': 'package:dart_overview/classes/inheritance/run_inheritance.dart',
       'SmsNotificationService': 'package:dart_overview/classes/inheritance/run_inheritance.dart',
@@ -215,12 +230,23 @@ class AllBridge {
       'TrackedItem': 'package:dart_overview/classes/test_support/run_test_support.dart',
       'DataProcessor': 'package:dart_overview/classes/test_support/run_test_support.dart',
       'Statistics': 'package:dart_overview/generics/type_bounds/run_type_bounds.dart',
+      'SortedList': 'package:dart_overview/generics/type_bounds/run_type_bounds.dart',
+      'PriorityQueue': 'package:dart_overview/generics/type_bounds/run_type_bounds.dart',
+      'Range': 'package:dart_overview/generics/type_bounds/run_type_bounds.dart',
+      'BinarySearchTree': 'package:dart_overview/generics/type_bounds/run_type_bounds.dart',
+      'Cache': 'package:dart_overview/generics/type_bounds/run_type_bounds.dart',
+      'TreeNode': 'package:dart_overview/functions/generators/run_generators.dart',
       'Musical': 'package:dart_overview/mixins/basics/run_basics.dart',
       'Dancing': 'package:dart_overview/mixins/basics/run_basics.dart',
       'Musician': 'package:dart_overview/mixins/basics/run_basics.dart',
       'ProfessionalDancer': 'package:dart_overview/mixins/basics/run_basics.dart',
       'Entertainer': 'package:dart_overview/mixins/basics/run_basics.dart',
       'CountableItem': 'package:dart_overview/mixins/basics/run_basics.dart',
+      'Flying': 'package:dart_overview/mixins/basics/run_basics.dart',
+      'Walking': 'package:dart_overview/mixins/basics/run_basics.dart',
+      'Bird': 'package:dart_overview/mixins/basics/run_basics.dart',
+      'Eagle': 'package:dart_overview/mixins/basics/run_basics.dart',
+      'Penguin': 'package:dart_overview/mixins/basics/run_basics.dart',
       'Logging': 'package:dart_overview/mixins/basics/run_basics.dart',
       'ConsoleLogger': 'package:dart_overview/mixins/basics/run_basics.dart',
       'Greeter1': 'package:dart_overview/mixins/basics/run_basics.dart',
@@ -233,6 +259,17 @@ class AllBridge {
       'ComparableMixin': 'package:dart_overview/mixins/basics/run_basics.dart',
       'SortableItem': 'package:dart_overview/mixins/basics/run_basics.dart',
       'JsonSerializable': 'package:dart_overview/mixins/basics/run_basics.dart',
+    };
+  }
+
+  /// Returns a map of type alias names to their target class names.
+  ///
+  /// Type aliases like `typedef MaterialStateProperty<T> = WidgetStateProperty<T>`
+  /// are registered so that code using the alias name can resolve to the
+  /// bridged class under its canonical name.
+  static Map<String, String> classAliases() {
+    return {
+      'JsonMap': 'Map',
     };
   }
 
@@ -360,6 +397,12 @@ class AllBridge {
     for (final entry in funcs.entries) {
       interpreter.registertopLevelFunction(entry.key, entry.value, importPath, sourceUri: funcSources[entry.key], signature: funcSigs[entry.key]);
     }
+
+    // Register class aliases (typedef type aliases)
+    final aliases = classAliases();
+    for (final entry in aliases.entries) {
+      interpreter.registerClassAlias(entry.key, entry.value, importPath);
+    }
   }
 
   /// Registers all global variables with the interpreter.
@@ -404,6 +447,11 @@ class AllBridge {
       interpreter.registerGlobalVariable('sessionId', $dart_overview_13.sessionId, importPath, sourceUri: 'package:dart_overview/globals/basics/run_basics.dart');
     } catch (e) {
       errors.add('Failed to register variable "sessionId": $e');
+    }
+    try {
+      interpreter.registerGlobalVariable('pi', $dart_overview_13.pi, importPath, sourceUri: 'package:dart_overview/globals/basics/run_basics.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "pi": $e');
     }
     try {
       interpreter.registerGlobalVariable('apiUrl', $dart_overview_13.apiUrl, importPath, sourceUri: 'package:dart_overview/globals/basics/run_basics.dart');
@@ -457,11 +505,33 @@ class AllBridge {
       'main': (visitor, positional, named, typeArgs) {
         return $dart_overview_16.main();
       },
+      'printShape': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'printShape');
+        final shape = D4.getRequiredArg<$dart_overview_1.SealedShape>(positional, 0, 'shape', 'printShape');
+        return $dart_overview_1.printShape(shape);
+      },
+      'sendNotification': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 2, 'sendNotification');
+        final service = D4.getRequiredArg<$dart_overview_4.NotificationService>(positional, 0, 'service', 'sendNotification');
+        final message = D4.getRequiredArg<String>(positional, 1, 'message', 'sendNotification');
+        return $dart_overview_4.sendNotification(service, message);
+      },
+      'add': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 2, 'add');
+        final a = D4.getRequiredArg<int>(positional, 0, 'a', 'add');
+        final b = D4.getRequiredArg<int>(positional, 1, 'b', 'add');
+        return $dart_overview_8.add(a, b);
+      },
       'multiply': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'multiply');
         final a = D4.getRequiredArg<int>(positional, 0, 'a', 'multiply');
         final b = D4.getRequiredArg<int>(positional, 1, 'b', 'multiply');
         return $dart_overview_8.multiply(a, b);
+      },
+      'greet': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'greet');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'greet');
+        return $dart_overview_8.greet(name);
       },
       'printSeparator': (visitor, positional, named, typeArgs) {
         return $dart_overview_8.printSeparator();
@@ -497,6 +567,15 @@ class AllBridge {
         D4.requireMinArgs(positional, 1, 'dynamicReturn');
         final choice = D4.getRequiredArg<int>(positional, 0, 'choice', 'dynamicReturn');
         return $dart_overview_8.dynamicReturn(choice);
+      },
+      'alwaysThrows': (visitor, positional, named, typeArgs) {
+        return $dart_overview_8.alwaysThrows();
+      },
+      'fullName': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 2, 'fullName');
+        final first = D4.getRequiredArg<String>(positional, 0, 'first', 'fullName');
+        final last = D4.getRequiredArg<String>(positional, 1, 'last', 'fullName');
+        return $dart_overview_10.fullName(first, last);
       },
       'describe': (visitor, positional, named, typeArgs) {
         final name = D4.getRequiredNamedArg<String>(named, 'name', 'describe');
@@ -538,7 +617,7 @@ class AllBridge {
           throw ArgumentError('transform: Missing required argument "transformer" at position 1');
         }
         final transformerRaw = positional[1];
-        final transformer = (int p0) { return D4.callInterpreterCallback(visitor, transformerRaw, [p0]) as int; };
+        final transformer = (int p0) { return D4.callInterpreterCallback(visitor!, transformerRaw, [p0]) as int; };
         return $dart_overview_10.transform(numbers, transformer);
       },
       'fetchData': (visitor, positional, named, typeArgs) {
@@ -547,12 +626,12 @@ class AllBridge {
         if (onSuccessRaw == null) {
           throw ArgumentError('fetchData: Missing required named argument "onSuccess"');
         }
-        final onSuccess = (String p0) { D4.callInterpreterCallback(visitor, onSuccessRaw, [p0]); };
+        final onSuccess = (String p0) { D4.callInterpreterCallback(visitor!, onSuccessRaw, [p0]); };
         final onErrorRaw = named['onError'];
         if (onErrorRaw == null) {
           throw ArgumentError('fetchData: Missing required named argument "onError"');
         }
-        final onError = (String p0) { D4.callInterpreterCallback(visitor, onErrorRaw, [p0]); };
+        final onError = (String p0) { D4.callInterpreterCallback(visitor!, onErrorRaw, [p0]); };
         return $dart_overview_10.fetchData(url: url, onSuccess: onSuccess, onError: onError);
       },
       'log': (visitor, positional, named, typeArgs) {
@@ -574,6 +653,70 @@ class AllBridge {
         D4.requireMinArgs(positional, 1, 'computeSum');
         final numbers = D4.getRequiredArg<List<int>>(positional, 0, 'numbers', 'computeSum');
         return $dart_overview_6.computeSum(numbers);
+      },
+      'findMin': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'findMin');
+        final sample = positional[0] as List;
+        if (sample.isEmpty) return <dynamic>[];
+        final firstElem = sample.first;
+        if (firstElem is num) {
+          return $dart_overview_12.findMin<num>((positional[0] as List).cast<num>());
+        }
+        if (firstElem is String) {
+          return $dart_overview_12.findMin<String>((positional[0] as List).cast<String>());
+        }
+        if (firstElem is DateTime) {
+          return $dart_overview_12.findMin<DateTime>((positional[0] as List).cast<DateTime>());
+        }
+        if (firstElem is Duration) {
+          return $dart_overview_12.findMin<Duration>((positional[0] as List).cast<Duration>());
+        }
+        if (firstElem is BigInt) {
+          return $dart_overview_12.findMin<BigInt>((positional[0] as List).cast<BigInt>());
+        }
+        throw ArgumentError('findMin: Unsupported type for recursive bound. Supported types: num, String, DateTime, Duration, BigInt. Got: ${sample.runtimeType}');
+      },
+      'findMax': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'findMax');
+        final sample = positional[0] as List;
+        if (sample.isEmpty) return <dynamic>[];
+        final firstElem = sample.first;
+        if (firstElem is num) {
+          return $dart_overview_12.findMax<num>((positional[0] as List).cast<num>());
+        }
+        if (firstElem is String) {
+          return $dart_overview_12.findMax<String>((positional[0] as List).cast<String>());
+        }
+        if (firstElem is DateTime) {
+          return $dart_overview_12.findMax<DateTime>((positional[0] as List).cast<DateTime>());
+        }
+        if (firstElem is Duration) {
+          return $dart_overview_12.findMax<Duration>((positional[0] as List).cast<Duration>());
+        }
+        if (firstElem is BigInt) {
+          return $dart_overview_12.findMax<BigInt>((positional[0] as List).cast<BigInt>());
+        }
+        throw ArgumentError('findMax: Unsupported type for recursive bound. Supported types: num, String, DateTime, Duration, BigInt. Got: ${sample.runtimeType}');
+      },
+      'clamp': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 3, 'clamp');
+        final sample = positional[0];
+        if (sample is num) {
+          return $dart_overview_12.clamp<num>(positional[0] as num, positional[1] as num, positional[2] as num);
+        }
+        if (sample is String) {
+          return $dart_overview_12.clamp<String>(positional[0] as String, positional[1] as String, positional[2] as String);
+        }
+        if (sample is DateTime) {
+          return $dart_overview_12.clamp<DateTime>(positional[0] as DateTime, positional[1] as DateTime, positional[2] as DateTime);
+        }
+        if (sample is Duration) {
+          return $dart_overview_12.clamp<Duration>(positional[0] as Duration, positional[1] as Duration, positional[2] as Duration);
+        }
+        if (sample is BigInt) {
+          return $dart_overview_12.clamp<BigInt>(positional[0] as BigInt, positional[1] as BigInt, positional[2] as BigInt);
+        }
+        throw ArgumentError('clamp: Unsupported type for recursive bound. Supported types: num, String, DateTime, Duration, BigInt. Got: ${sample.runtimeType}');
       },
       'findMinMax': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'findMinMax');
@@ -603,6 +746,12 @@ class AllBridge {
         final $result = $dart_overview_15.divideWithRemainder(dividend, divisor);
         return InterpretedRecord([], {'quotient': $result.quotient, 'remainder': $result.remainder});
       },
+      'calculateStats': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'calculateStats');
+        final numbers = D4.getRequiredArg<List<int>>(positional, 0, 'numbers', 'calculateStats');
+        final $result = $dart_overview_15.calculateStats(numbers);
+        return InterpretedRecord([], {'sum': $result.sum, 'average': $result.average, 'count': $result.count});
+      },
       'countTo': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'countTo');
         final max = D4.getRequiredArg<int>(positional, 0, 'max', 'countTo');
@@ -621,10 +770,37 @@ class AllBridge {
       'fibonacci': (visitor, positional, named, typeArgs) {
         return $dart_overview_9.fibonacci();
       },
+      'nestedRanges': (visitor, positional, named, typeArgs) {
+        return $dart_overview_9.nestedRanges();
+      },
+      'flatten': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'flatten');
+        final nested = D4.getRequiredArg<Iterable<Iterable<dynamic>>>(positional, 0, 'nested', 'flatten');
+        return $dart_overview_9.flatten<dynamic>(nested);
+      },
+      'traverseTree': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'traverseTree');
+        final node = D4.getRequiredArg<$dart_overview_9.TreeNode<dynamic>>(positional, 0, 'node', 'traverseTree');
+        return $dart_overview_9.traverseTree<dynamic>(node);
+      },
       'countAsyncTo': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'countAsyncTo');
         final max = D4.getRequiredArg<int>(positional, 0, 'max', 'countAsyncTo');
         return $dart_overview_9.countAsyncTo(max);
+      },
+      'timedEvents': (visitor, positional, named, typeArgs) {
+        return $dart_overview_9.timedEvents();
+      },
+      'combinedAsyncStreams': (visitor, positional, named, typeArgs) {
+        return $dart_overview_9.combinedAsyncStreams();
+      },
+      'fetchAllPages': (visitor, positional, named, typeArgs) {
+        return $dart_overview_9.fetchAllPages();
+      },
+      'primesUpTo': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'primesUpTo');
+        final max = D4.getRequiredArg<int>(positional, 0, 'max', 'primesUpTo');
+        return $dart_overview_9.primesUpTo(max);
       },
     };
   }
@@ -636,7 +812,11 @@ class AllBridge {
   static Map<String, String> globalFunctionSourceUris() {
     return {
       'main': 'package:dart_overview/run_dart_overview.dart',
+      'printShape': 'package:dart_overview/class_modifiers/modifiers/run_modifiers.dart',
+      'sendNotification': 'package:dart_overview/classes/inheritance/run_inheritance.dart',
+      'add': 'package:dart_overview/functions/declarations/run_declarations.dart',
       'multiply': 'package:dart_overview/functions/declarations/run_declarations.dart',
+      'greet': 'package:dart_overview/functions/declarations/run_declarations.dart',
       'printSeparator': 'package:dart_overview/functions/declarations/run_declarations.dart',
       'square': 'package:dart_overview/functions/declarations/run_declarations.dart',
       'cube': 'package:dart_overview/functions/declarations/run_declarations.dart',
@@ -645,6 +825,8 @@ class AllBridge {
       'createUser': 'package:dart_overview/functions/declarations/run_declarations.dart',
       'inferredReturn': 'package:dart_overview/functions/declarations/run_declarations.dart',
       'dynamicReturn': 'package:dart_overview/functions/declarations/run_declarations.dart',
+      'alwaysThrows': 'package:dart_overview/functions/declarations/run_declarations.dart',
+      'fullName': 'package:dart_overview/functions/parameters/run_parameters.dart',
       'describe': 'package:dart_overview/functions/parameters/run_parameters.dart',
       'sayHello': 'package:dart_overview/functions/parameters/run_parameters.dart',
       'power': 'package:dart_overview/functions/parameters/run_parameters.dart',
@@ -656,15 +838,26 @@ class AllBridge {
       'firstOrNull': 'package:dart_overview/globals/basics/run_basics.dart',
       'fetchGreeting': 'package:dart_overview/classes/test_support/run_test_support.dart',
       'computeSum': 'package:dart_overview/classes/test_support/run_test_support.dart',
+      'findMin': 'package:dart_overview/generics/type_bounds/run_type_bounds.dart',
+      'findMax': 'package:dart_overview/generics/type_bounds/run_type_bounds.dart',
+      'clamp': 'package:dart_overview/generics/type_bounds/run_type_bounds.dart',
       'findMinMax': 'package:dart_overview/records/basics/run_basics.dart',
       'swap': 'package:dart_overview/records/basics/run_basics.dart',
       'parseUserString': 'package:dart_overview/records/basics/run_basics.dart',
       'divideWithRemainder': 'package:dart_overview/records/basics/run_basics.dart',
+      'calculateStats': 'package:dart_overview/records/basics/run_basics.dart',
       'countTo': 'package:dart_overview/functions/generators/run_generators.dart',
       'range': 'package:dart_overview/functions/generators/run_generators.dart',
       'naturalNumbers': 'package:dart_overview/functions/generators/run_generators.dart',
       'fibonacci': 'package:dart_overview/functions/generators/run_generators.dart',
+      'nestedRanges': 'package:dart_overview/functions/generators/run_generators.dart',
+      'flatten': 'package:dart_overview/functions/generators/run_generators.dart',
+      'traverseTree': 'package:dart_overview/functions/generators/run_generators.dart',
       'countAsyncTo': 'package:dart_overview/functions/generators/run_generators.dart',
+      'timedEvents': 'package:dart_overview/functions/generators/run_generators.dart',
+      'combinedAsyncStreams': 'package:dart_overview/functions/generators/run_generators.dart',
+      'fetchAllPages': 'package:dart_overview/functions/generators/run_generators.dart',
+      'primesUpTo': 'package:dart_overview/functions/generators/run_generators.dart',
     };
   }
 
@@ -672,7 +865,11 @@ class AllBridge {
   static Map<String, String> globalFunctionSignatures() {
     return {
       'main': 'Future<void> main()',
+      'printShape': 'void printShape(SealedShape shape)',
+      'sendNotification': 'void sendNotification(NotificationService service, String message)',
+      'add': 'int add(int a, int b)',
       'multiply': 'int multiply(int a, int b)',
+      'greet': 'void greet(String name)',
       'printSeparator': 'void printSeparator()',
       'square': 'int square(int n)',
       'cube': 'int cube(int n)',
@@ -681,6 +878,8 @@ class AllBridge {
       'createUser': 'Map<String, dynamic> createUser(String name, int age)',
       'inferredReturn': 'dynamic inferredReturn()',
       'dynamicReturn': 'dynamic dynamicReturn(int choice)',
+      'alwaysThrows': 'Never alwaysThrows()',
+      'fullName': 'String fullName(String first, String last)',
       'describe': 'void describe({required String name, int? age, String? city})',
       'sayHello': 'String sayHello([String name = \'World\', String greeting = \'Hello\'])',
       'power': 'int power(int base, [int exponent = 2])',
@@ -692,15 +891,26 @@ class AllBridge {
       'firstOrNull': 'T? firstOrNull(List<T> items)',
       'fetchGreeting': 'Future<String> fetchGreeting(String name)',
       'computeSum': 'Future<int> computeSum(List<int> numbers)',
+      'findMin': 'T findMin(List<T> items)',
+      'findMax': 'T findMax(List<T> items)',
+      'clamp': 'T clamp(T value, T min, T max)',
       'findMinMax': '({int min, int max}) findMinMax(List<int> numbers)',
       'swap': '(int, int) swap((int, int) pair)',
       'parseUserString': '(String, int) parseUserString(String input)',
       'divideWithRemainder': '({int quotient, int remainder}) divideWithRemainder(int dividend, int divisor)',
+      'calculateStats': '({int sum, double average, int count}) calculateStats(List<int> numbers)',
       'countTo': 'Iterable<int> countTo(int max)',
       'range': 'Iterable<int> range(int start, int end, [int step = 1])',
       'naturalNumbers': 'Iterable<int> naturalNumbers()',
       'fibonacci': 'Iterable<int> fibonacci()',
+      'nestedRanges': 'Iterable<int> nestedRanges()',
+      'flatten': 'Iterable<T> flatten(Iterable<Iterable<T>> nested)',
+      'traverseTree': 'Iterable<T> traverseTree(TreeNode<T> node)',
       'countAsyncTo': 'Stream<int> countAsyncTo(int max)',
+      'timedEvents': 'Stream<String> timedEvents()',
+      'combinedAsyncStreams': 'Stream<String> combinedAsyncStreams()',
+      'fetchAllPages': 'Stream<String> fetchAllPages()',
+      'primesUpTo': 'Iterable<int> primesUpTo(int max)',
     };
   }
 
@@ -770,6 +980,7 @@ BridgedClass _createPersonBridge() {
   return BridgedClass(
     nativeType: $dart_overview_3.Person,
     name: 'Person',
+    isAssignable: (v) => v is $dart_overview_3.Person,
     constructors: {
       '': (visitor, positional, named) {
         return $dart_overview_3.Person();
@@ -781,9 +992,9 @@ BridgedClass _createPersonBridge() {
     },
     setters: {
       'name': (visitor, target, value) => 
-        D4.validateTarget<$dart_overview_3.Person>(target, 'Person').name = value as String,
+        D4.validateTarget<$dart_overview_3.Person>(target, 'Person').name = D4.extractBridgedArg<String>(value, 'name'),
       'age': (visitor, target, value) => 
-        D4.validateTarget<$dart_overview_3.Person>(target, 'Person').age = value as int,
+        D4.validateTarget<$dart_overview_3.Person>(target, 'Person').age = D4.extractBridgedArg<int>(value, 'age'),
     },
     methods: {
       'greet': (visitor, target, positional, named, typeArgs) {
@@ -817,6 +1028,7 @@ BridgedClass _createDogBridge() {
   return BridgedClass(
     nativeType: $dart_overview_3.Dog,
     name: 'Dog',
+    isAssignable: (v) => v is $dart_overview_3.Dog,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Dog');
@@ -831,9 +1043,9 @@ BridgedClass _createDogBridge() {
     },
     setters: {
       'name': (visitor, target, value) => 
-        D4.validateTarget<$dart_overview_3.Dog>(target, 'Dog').name = value as String,
+        D4.validateTarget<$dart_overview_3.Dog>(target, 'Dog').name = D4.extractBridgedArg<String>(value, 'name'),
       'age': (visitor, target, value) => 
-        D4.validateTarget<$dart_overview_3.Dog>(target, 'Dog').age = value as int,
+        D4.validateTarget<$dart_overview_3.Dog>(target, 'Dog').age = D4.extractBridgedArg<int>(value, 'age'),
     },
     methods: {
       'bark': (visitor, target, positional, named, typeArgs) {
@@ -867,6 +1079,7 @@ BridgedClass _createUserBridge() {
   return BridgedClass(
     nativeType: $dart_overview_3.User,
     name: 'User',
+    isAssignable: (v) => v is $dart_overview_3.User,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'User');
@@ -892,9 +1105,9 @@ BridgedClass _createUserBridge() {
     },
     setters: {
       'name': (visitor, target, value) => 
-        D4.validateTarget<$dart_overview_3.User>(target, 'User').name = value as String,
+        D4.validateTarget<$dart_overview_3.User>(target, 'User').name = D4.extractBridgedArg<String>(value, 'name'),
       'email': (visitor, target, value) => 
-        D4.validateTarget<$dart_overview_3.User>(target, 'User').email = value as String,
+        D4.validateTarget<$dart_overview_3.User>(target, 'User').email = D4.extractBridgedArg<String>(value, 'email'),
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -929,6 +1142,7 @@ BridgedClass _createCalculatorBridge() {
   return BridgedClass(
     nativeType: $dart_overview_3.Calculator,
     name: 'Calculator',
+    isAssignable: (v) => v is $dart_overview_3.Calculator,
     constructors: {
       '': (visitor, positional, named) {
         return $dart_overview_3.Calculator();
@@ -984,6 +1198,7 @@ BridgedClass _createRectangleBridge() {
   return BridgedClass(
     nativeType: $dart_overview_3.Rectangle,
     name: 'Rectangle',
+    isAssignable: (v) => v is $dart_overview_3.Rectangle,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Rectangle');
@@ -1000,11 +1215,11 @@ BridgedClass _createRectangleBridge() {
     },
     setters: {
       'width': (visitor, target, value) => 
-        D4.validateTarget<$dart_overview_3.Rectangle>(target, 'Rectangle').width = value as double,
+        D4.validateTarget<$dart_overview_3.Rectangle>(target, 'Rectangle').width = D4.extractBridgedArg<double>(value, 'width'),
       'height': (visitor, target, value) => 
-        D4.validateTarget<$dart_overview_3.Rectangle>(target, 'Rectangle').height = value as double,
+        D4.validateTarget<$dart_overview_3.Rectangle>(target, 'Rectangle').height = D4.extractBridgedArg<double>(value, 'height'),
       'scale': (visitor, target, value) => 
-        D4.validateTarget<$dart_overview_3.Rectangle>(target, 'Rectangle').scale = value as dynamic,
+        D4.validateTarget<$dart_overview_3.Rectangle>(target, 'Rectangle').scale = D4.extractBridgedArg<double>(value, 'scale'),
     },
     constructorSignatures: {
       '': 'Rectangle(double width, double height)',
@@ -1031,6 +1246,7 @@ BridgedClass _createBankAccountBridge() {
   return BridgedClass(
     nativeType: $dart_overview_3.BankAccount,
     name: 'BankAccount',
+    isAssignable: (v) => v is $dart_overview_3.BankAccount,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'BankAccount');
@@ -1080,6 +1296,7 @@ BridgedClass _createCircleBridge() {
   return BridgedClass(
     nativeType: $dart_overview_3.Circle,
     name: 'Circle',
+    isAssignable: (v) => v is $dart_overview_3.Circle,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Circle');
@@ -1113,11 +1330,19 @@ BridgedClass _createBoxBridge() {
   return BridgedClass(
     nativeType: $dart_overview_11.Box,
     name: 'Box',
+    isAssignable: (v) => v is $dart_overview_11.Box,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Box');
         final value = D4.getRequiredArg<dynamic>(positional, 0, 'value', 'Box');
-        return $dart_overview_11.Box(value);
+        // GEN-075: Preserve generic type parameter from runtime value
+        switch (value) {
+          case double _: return $dart_overview_11.Box<double>(value);
+          case int _: return $dart_overview_11.Box<int>(value);
+          case String _: return $dart_overview_11.Box<String>(value);
+          case bool _: return $dart_overview_11.Box<bool>(value);
+          default: return $dart_overview_11.Box(value);
+        }
       },
     },
     getters: {
@@ -1140,11 +1365,19 @@ BridgedClass _createWrapperBridge() {
   return BridgedClass(
     nativeType: $dart_overview_11.Wrapper,
     name: 'Wrapper',
+    isAssignable: (v) => v is $dart_overview_11.Wrapper,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Wrapper');
         final value = D4.getRequiredArg<dynamic>(positional, 0, 'value', 'Wrapper');
-        return $dart_overview_11.Wrapper(value);
+        // GEN-075: Preserve generic type parameter from runtime value
+        switch (value) {
+          case double _: return $dart_overview_11.Wrapper<double>(value);
+          case int _: return $dart_overview_11.Wrapper<int>(value);
+          case String _: return $dart_overview_11.Wrapper<String>(value);
+          case bool _: return $dart_overview_11.Wrapper<bool>(value);
+          default: return $dart_overview_11.Wrapper(value);
+        }
       },
     },
     getters: {
@@ -1162,7 +1395,7 @@ BridgedClass _createWrapperBridge() {
           throw ArgumentError('transform: Missing required argument "f" at position 0');
         }
         final fRaw = positional[0];
-        return t.transform((dynamic p0) { return D4.callInterpreterCallback(visitor, fRaw, [p0]) as dynamic; });
+        return t.transform((dynamic p0) { return D4.callInterpreterCallback(visitor!, fRaw, [p0]) as dynamic; });
       },
     },
     constructorSignatures: {
@@ -1188,6 +1421,7 @@ BridgedClass _createPairBridge() {
   return BridgedClass(
     nativeType: $dart_overview_11.Pair,
     name: 'Pair',
+    isAssignable: (v) => v is $dart_overview_11.Pair,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Pair');
@@ -1232,6 +1466,7 @@ BridgedClass _createStackBridge() {
   return BridgedClass(
     nativeType: $dart_overview_11.Stack,
     name: 'Stack',
+    isAssignable: (v) => v is $dart_overview_11.Stack,
     constructors: {
       '': (visitor, positional, named) {
         return $dart_overview_11.Stack();
@@ -1286,6 +1521,7 @@ BridgedClass _createQueueBridge() {
   return BridgedClass(
     nativeType: $dart_overview_11.Queue,
     name: 'Queue',
+    isAssignable: (v) => v is $dart_overview_11.Queue,
     constructors: {
       '': (visitor, positional, named) {
         return $dart_overview_11.Queue();
@@ -1337,11 +1573,19 @@ BridgedClass _createMaybeBridge() {
   return BridgedClass(
     nativeType: $dart_overview_11.Maybe,
     name: 'Maybe',
+    isAssignable: (v) => v is $dart_overview_11.Maybe,
     constructors: {
       'some': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Maybe');
         final value = D4.getRequiredArg<dynamic>(positional, 0, 'value', 'Maybe');
-        return $dart_overview_11.Maybe.some(value);
+        // GEN-075: Preserve generic type parameter from runtime value
+        switch (value) {
+          case double _: return $dart_overview_11.Maybe<double>.some(value);
+          case int _: return $dart_overview_11.Maybe<int>.some(value);
+          case String _: return $dart_overview_11.Maybe<String>.some(value);
+          case bool _: return $dart_overview_11.Maybe<bool>.some(value);
+          default: return $dart_overview_11.Maybe.some(value);
+        }
       },
       'none': (visitor, positional, named) {
         return $dart_overview_11.Maybe.none();
@@ -1365,7 +1609,7 @@ BridgedClass _createMaybeBridge() {
           throw ArgumentError('map: Missing required argument "f" at position 0');
         }
         final fRaw = positional[0];
-        return t.map((dynamic p0) { return D4.callInterpreterCallback(visitor, fRaw, [p0]) as dynamic; });
+        return t.map((dynamic p0) { return D4.callInterpreterCallback(visitor!, fRaw, [p0]) as dynamic; });
       },
     },
     constructorSignatures: {
@@ -1391,6 +1635,7 @@ BridgedClass _createResultBridge() {
   return BridgedClass(
     nativeType: $dart_overview_11.Result,
     name: 'Result',
+    isAssignable: (v) => v is $dart_overview_11.Result,
     constructors: {
       'success': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Result');
@@ -1418,7 +1663,7 @@ BridgedClass _createResultBridge() {
           throw ArgumentError('fold: Missing required argument "onFailure" at position 1');
         }
         final onFailureRaw = positional[1];
-        return t.fold((dynamic p0) { return D4.callInterpreterCallback(visitor, onSuccessRaw, [p0]) as dynamic; }, (dynamic p0) { return D4.callInterpreterCallback(visitor, onFailureRaw, [p0]) as dynamic; });
+        return t.fold((dynamic p0) { return D4.callInterpreterCallback(visitor!, onSuccessRaw, [p0]) as dynamic; }, (dynamic p0) { return D4.callInterpreterCallback(visitor!, onFailureRaw, [p0]) as dynamic; });
       },
     },
     constructorSignatures: {
@@ -1442,6 +1687,7 @@ BridgedClass _createLoggableMixinBridge() {
   return BridgedClass(
     nativeType: $dart_overview_7.LoggableMixin,
     name: 'LoggableMixin',
+    isAssignable: (v) => v is $dart_overview_7.LoggableMixin,
     constructors: {
     },
     getters: {
@@ -1472,6 +1718,7 @@ BridgedClass _createVehicleBridge() {
   return BridgedClass(
     nativeType: $dart_overview_1.Vehicle,
     name: 'Vehicle',
+    isAssignable: (v) => v is $dart_overview_1.Vehicle,
     constructors: {
     },
     methods: {
@@ -1494,6 +1741,7 @@ BridgedClass _createCarBridge() {
   return BridgedClass(
     nativeType: $dart_overview_1.Car,
     name: 'Car',
+    isAssignable: (v) => v is $dart_overview_1.Car,
     constructors: {
       '': (visitor, positional, named) {
         return $dart_overview_1.Car();
@@ -1522,6 +1770,7 @@ BridgedClass _createMotorcycleBridge() {
   return BridgedClass(
     nativeType: $dart_overview_1.Motorcycle,
     name: 'Motorcycle',
+    isAssignable: (v) => v is $dart_overview_1.Motorcycle,
     constructors: {
       '': (visitor, positional, named) {
         return $dart_overview_1.Motorcycle();
@@ -1550,6 +1799,7 @@ BridgedClass _createBaseAnimalBridge() {
   return BridgedClass(
     nativeType: $dart_overview_1.BaseAnimal,
     name: 'BaseAnimal',
+    isAssignable: (v) => v is $dart_overview_1.BaseAnimal,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'BaseAnimal');
@@ -1587,6 +1837,7 @@ BridgedClass _createDogAnimalBridge() {
   return BridgedClass(
     nativeType: $dart_overview_1.DogAnimal,
     name: 'DogAnimal',
+    isAssignable: (v) => v is $dart_overview_1.DogAnimal,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'DogAnimal');
@@ -1624,6 +1875,7 @@ BridgedClass _createDataSourceBridge() {
   return BridgedClass(
     nativeType: $dart_overview_1.DataSource,
     name: 'DataSource',
+    isAssignable: (v) => v is $dart_overview_1.DataSource,
     constructors: {
       '': (visitor, positional, named) {
         return $dart_overview_1.DataSource();
@@ -1652,6 +1904,7 @@ BridgedClass _createJsonDataSourceBridge() {
   return BridgedClass(
     nativeType: $dart_overview_1.JsonDataSource,
     name: 'JsonDataSource',
+    isAssignable: (v) => v is $dart_overview_1.JsonDataSource,
     constructors: {
       '': (visitor, positional, named) {
         return $dart_overview_1.JsonDataSource();
@@ -1680,6 +1933,7 @@ BridgedClass _createXmlDataSourceBridge() {
   return BridgedClass(
     nativeType: $dart_overview_1.XmlDataSource,
     name: 'XmlDataSource',
+    isAssignable: (v) => v is $dart_overview_1.XmlDataSource,
     constructors: {
       '': (visitor, positional, named) {
         return $dart_overview_1.XmlDataSource();
@@ -1708,6 +1962,7 @@ BridgedClass _createAppConfigBridge() {
   return BridgedClass(
     nativeType: $dart_overview_1.AppConfig,
     name: 'AppConfig',
+    isAssignable: (v) => v is $dart_overview_1.AppConfig,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'AppConfig');
@@ -1747,6 +2002,7 @@ BridgedClass _createSealedShapeBridge() {
   return BridgedClass(
     nativeType: $dart_overview_1.SealedShape,
     name: 'SealedShape',
+    isAssignable: (v) => v is $dart_overview_1.SealedShape,
     constructors: {
     },
     constructorSignatures: {
@@ -1763,6 +2019,7 @@ BridgedClass _createSealedCircleBridge() {
   return BridgedClass(
     nativeType: $dart_overview_1.SealedCircle,
     name: 'SealedCircle',
+    isAssignable: (v) => v is $dart_overview_1.SealedCircle,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'SealedCircle');
@@ -1790,6 +2047,7 @@ BridgedClass _createSealedSquareBridge() {
   return BridgedClass(
     nativeType: $dart_overview_1.SealedSquare,
     name: 'SealedSquare',
+    isAssignable: (v) => v is $dart_overview_1.SealedSquare,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'SealedSquare');
@@ -1817,6 +2075,7 @@ BridgedClass _createSealedTriangleBridge() {
   return BridgedClass(
     nativeType: $dart_overview_1.SealedTriangle,
     name: 'SealedTriangle',
+    isAssignable: (v) => v is $dart_overview_1.SealedTriangle,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'SealedTriangle');
@@ -1847,6 +2106,7 @@ BridgedClass _createLoggerMixinBridge() {
   return BridgedClass(
     nativeType: $dart_overview_1.LoggerMixin,
     name: 'LoggerMixin',
+    isAssignable: (v) => v is $dart_overview_1.LoggerMixin,
     constructors: {
       '': (visitor, positional, named) {
         return $dart_overview_1.LoggerMixin();
@@ -1878,6 +2138,7 @@ BridgedClass _createLoggingServiceBridge() {
   return BridgedClass(
     nativeType: $dart_overview_1.LoggingService,
     name: 'LoggingService',
+    isAssignable: (v) => v is $dart_overview_1.LoggingService,
     constructors: {
       '': (visitor, positional, named) {
         return $dart_overview_1.LoggingService();
@@ -1915,6 +2176,7 @@ BridgedClass _createAbstractBaseClassBridge() {
   return BridgedClass(
     nativeType: $dart_overview_1.AbstractBaseClass,
     name: 'AbstractBaseClass',
+    isAssignable: (v) => v is $dart_overview_1.AbstractBaseClass,
     constructors: {
     },
     methods: {
@@ -1938,6 +2200,7 @@ BridgedClass _createDerivedFromAbstractBaseBridge() {
   return BridgedClass(
     nativeType: $dart_overview_1.DerivedFromAbstractBase,
     name: 'DerivedFromAbstractBase',
+    isAssignable: (v) => v is $dart_overview_1.DerivedFromAbstractBase,
     constructors: {
       '': (visitor, positional, named) {
         return $dart_overview_1.DerivedFromAbstractBase();
@@ -1967,6 +2230,7 @@ BridgedClass _createApiClientBridge() {
   return BridgedClass(
     nativeType: $dart_overview_1.ApiClient,
     name: 'ApiClient',
+    isAssignable: (v) => v is $dart_overview_1.ApiClient,
     constructors: {
     },
     methods: {
@@ -1991,6 +2255,7 @@ BridgedClass _createRestApiClientBridge() {
   return BridgedClass(
     nativeType: $dart_overview_1.RestApiClient,
     name: 'RestApiClient',
+    isAssignable: (v) => v is $dart_overview_1.RestApiClient,
     constructors: {
       '': (visitor, positional, named) {
         return $dart_overview_1.RestApiClient();
@@ -2021,6 +2286,7 @@ BridgedClass _createGraphqlApiClientBridge() {
   return BridgedClass(
     nativeType: $dart_overview_1.GraphqlApiClient,
     name: 'GraphqlApiClient',
+    isAssignable: (v) => v is $dart_overview_1.GraphqlApiClient,
     constructors: {
       '': (visitor, positional, named) {
         return $dart_overview_1.GraphqlApiClient();
@@ -2051,6 +2317,7 @@ BridgedClass _createAbstractFinalClassBridge() {
   return BridgedClass(
     nativeType: $dart_overview_1.AbstractFinalClass,
     name: 'AbstractFinalClass',
+    isAssignable: (v) => v is $dart_overview_1.AbstractFinalClass,
     constructors: {
     },
     getters: {
@@ -2070,6 +2337,7 @@ BridgedClass _createSingletonHolderBridge() {
   return BridgedClass(
     nativeType: $dart_overview_1.SingletonHolder,
     name: 'SingletonHolder',
+    isAssignable: (v) => v is $dart_overview_1.SingletonHolder,
     constructors: {
     },
     getters: {
@@ -2095,6 +2363,7 @@ BridgedClass _createSimplePointBridge() {
   return BridgedClass(
     nativeType: $dart_overview_2.SimplePoint,
     name: 'SimplePoint',
+    isAssignable: (v) => v is $dart_overview_2.SimplePoint,
     constructors: {
       '': (visitor, positional, named) {
         return $dart_overview_2.SimplePoint();
@@ -2106,9 +2375,9 @@ BridgedClass _createSimplePointBridge() {
     },
     setters: {
       'x': (visitor, target, value) => 
-        D4.validateTarget<$dart_overview_2.SimplePoint>(target, 'SimplePoint').x = value as int,
+        D4.validateTarget<$dart_overview_2.SimplePoint>(target, 'SimplePoint').x = D4.extractBridgedArg<int>(value, 'x'),
       'y': (visitor, target, value) => 
-        D4.validateTarget<$dart_overview_2.SimplePoint>(target, 'SimplePoint').y = value as int,
+        D4.validateTarget<$dart_overview_2.SimplePoint>(target, 'SimplePoint').y = D4.extractBridgedArg<int>(value, 'y'),
     },
     constructorSignatures: {
       '': 'SimplePoint()',
@@ -2132,6 +2401,7 @@ BridgedClass _createPointBridge() {
   return BridgedClass(
     nativeType: $dart_overview_2.Point,
     name: 'Point',
+    isAssignable: (v) => v is $dart_overview_2.Point,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Point');
@@ -2175,6 +2445,7 @@ BridgedClass _createRectangleAreaBridge() {
   return BridgedClass(
     nativeType: $dart_overview_2.RectangleArea,
     name: 'RectangleArea',
+    isAssignable: (v) => v is $dart_overview_2.RectangleArea,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'RectangleArea');
@@ -2207,6 +2478,7 @@ BridgedClass _createPositiveNumberBridge() {
   return BridgedClass(
     nativeType: $dart_overview_2.PositiveNumber,
     name: 'PositiveNumber',
+    isAssignable: (v) => v is $dart_overview_2.PositiveNumber,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'PositiveNumber');
@@ -2234,6 +2506,7 @@ BridgedClass _createVectorBridge() {
   return BridgedClass(
     nativeType: $dart_overview_2.Vector,
     name: 'Vector',
+    isAssignable: (v) => v is $dart_overview_2.Vector,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Vector');
@@ -2272,6 +2545,7 @@ BridgedClass _createColorBridge() {
   return BridgedClass(
     nativeType: $dart_overview_2.Color,
     name: 'Color',
+    isAssignable: (v) => v is $dart_overview_2.Color,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'Color');
@@ -2315,6 +2589,7 @@ BridgedClass _createLoggerBridge() {
   return BridgedClass(
     nativeType: $dart_overview_2.Logger,
     name: 'Logger',
+    isAssignable: (v) => v is $dart_overview_2.Logger,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Logger');
@@ -2335,6 +2610,35 @@ BridgedClass _createLoggerBridge() {
 }
 
 // =============================================================================
+// Shape Bridge
+// =============================================================================
+
+BridgedClass _createShapeBridge() {
+  return BridgedClass(
+    nativeType: $dart_overview_2.Shape,
+    name: 'Shape',
+    isAssignable: (v) => v is $dart_overview_2.Shape,
+    constructors: {
+      'create': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'Shape');
+        final type = D4.getRequiredArg<String>(positional, 0, 'type', 'Shape');
+        final dimension = D4.getRequiredArg<double>(positional, 1, 'dimension', 'Shape');
+        return $dart_overview_2.Shape.create(type, dimension);
+      },
+    },
+    getters: {
+      'area': (visitor, target) => D4.validateTarget<$dart_overview_2.Shape>(target, 'Shape').area,
+    },
+    constructorSignatures: {
+      'create': 'factory Shape.create(String type, double dimension)',
+    },
+    getterSignatures: {
+      'area': 'double get area',
+    },
+  );
+}
+
+// =============================================================================
 // CircleShape Bridge
 // =============================================================================
 
@@ -2342,6 +2646,7 @@ BridgedClass _createCircleShapeBridge() {
   return BridgedClass(
     nativeType: $dart_overview_2.CircleShape,
     name: 'CircleShape',
+    isAssignable: (v) => v is $dart_overview_2.CircleShape,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'CircleShape');
@@ -2371,6 +2676,7 @@ BridgedClass _createSquareShapeBridge() {
   return BridgedClass(
     nativeType: $dart_overview_2.SquareShape,
     name: 'SquareShape',
+    isAssignable: (v) => v is $dart_overview_2.SquareShape,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'SquareShape');
@@ -2400,6 +2706,7 @@ BridgedClass _createDatabaseBridge() {
   return BridgedClass(
     nativeType: $dart_overview_2.Database,
     name: 'Database',
+    isAssignable: (v) => v is $dart_overview_2.Database,
     constructors: {
     },
     getters: {
@@ -2425,6 +2732,7 @@ BridgedClass _createPersonBaseBridge() {
   return BridgedClass(
     nativeType: $dart_overview_2.PersonBase,
     name: 'PersonBase',
+    isAssignable: (v) => v is $dart_overview_2.PersonBase,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'PersonBase');
@@ -2455,6 +2763,7 @@ BridgedClass _createEmployeeBridge() {
   return BridgedClass(
     nativeType: $dart_overview_2.Employee,
     name: 'Employee',
+    isAssignable: (v) => v is $dart_overview_2.Employee,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'Employee');
@@ -2488,6 +2797,7 @@ BridgedClass _createManagerBridge() {
   return BridgedClass(
     nativeType: $dart_overview_2.Manager,
     name: 'Manager',
+    isAssignable: (v) => v is $dart_overview_2.Manager,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 4, 'Manager');
@@ -2522,6 +2832,7 @@ BridgedClass _createAnimalBridge() {
   return BridgedClass(
     nativeType: $dart_overview_4.Animal,
     name: 'Animal',
+    isAssignable: (v) => v is $dart_overview_4.Animal,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Animal');
@@ -2564,6 +2875,7 @@ BridgedClass _createCatBridge() {
   return BridgedClass(
     nativeType: $dart_overview_4.Cat,
     name: 'Cat',
+    isAssignable: (v) => v is $dart_overview_4.Cat,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Cat');
@@ -2575,9 +2887,9 @@ BridgedClass _createCatBridge() {
       'name': (visitor, target) => D4.validateTarget<$dart_overview_4.Cat>(target, 'Cat').name,
     },
     methods: {
-      'eat': (visitor, target, positional, named, typeArgs) {
+      'move': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_overview_4.Cat>(target, 'Cat');
-        t.eat();
+        t.move();
         return null;
       },
       'speak': (visitor, target, positional, named, typeArgs) {
@@ -2589,17 +2901,73 @@ BridgedClass _createCatBridge() {
         t.meow();
         return null;
       },
+      'eat': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dart_overview_4.Cat>(target, 'Cat');
+        t.eat();
+        return null;
+      },
     },
     constructorSignatures: {
       '': 'Cat(String name)',
     },
     methodSignatures: {
-      'eat': 'void eat()',
+      'move': 'void move()',
       'speak': 'String speak()',
       'meow': 'void meow()',
+      'eat': 'void eat()',
     },
     getterSignatures: {
       'name': 'String get name',
+    },
+  );
+}
+
+// =============================================================================
+// ElectricCar Bridge
+// =============================================================================
+
+BridgedClass _createElectricCarBridge() {
+  return BridgedClass(
+    nativeType: $dart_overview_4.ElectricCar,
+    name: 'ElectricCar',
+    isAssignable: (v) => v is $dart_overview_4.ElectricCar,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 3, 'ElectricCar');
+        final brand = D4.getRequiredArg<String>(positional, 0, 'brand', 'ElectricCar');
+        final model = D4.getRequiredArg<String>(positional, 1, 'model', 'ElectricCar');
+        final batteryCapacity = D4.getRequiredArg<int>(positional, 2, 'batteryCapacity', 'ElectricCar');
+        return $dart_overview_4.ElectricCar(brand, model, batteryCapacity);
+      },
+    },
+    getters: {
+      'brand': (visitor, target) => D4.validateTarget<$dart_overview_4.ElectricCar>(target, 'ElectricCar').brand,
+      'model': (visitor, target) => D4.validateTarget<$dart_overview_4.ElectricCar>(target, 'ElectricCar').model,
+      'batteryCapacity': (visitor, target) => D4.validateTarget<$dart_overview_4.ElectricCar>(target, 'ElectricCar').batteryCapacity,
+    },
+    methods: {
+      'displayInfo': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dart_overview_4.ElectricCar>(target, 'ElectricCar');
+        t.displayInfo();
+        return null;
+      },
+      'charge': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dart_overview_4.ElectricCar>(target, 'ElectricCar');
+        t.charge();
+        return null;
+      },
+    },
+    constructorSignatures: {
+      '': 'ElectricCar(String brand, String model, int batteryCapacity)',
+    },
+    methodSignatures: {
+      'displayInfo': 'void displayInfo()',
+      'charge': 'void charge()',
+    },
+    getterSignatures: {
+      'brand': 'String get brand',
+      'model': 'String get model',
+      'batteryCapacity': 'int get batteryCapacity',
     },
   );
 }
@@ -2612,6 +2980,7 @@ BridgedClass _createNotificationServiceBridge() {
   return BridgedClass(
     nativeType: $dart_overview_4.NotificationService,
     name: 'NotificationService',
+    isAssignable: (v) => v is $dart_overview_4.NotificationService,
     constructors: {
     },
     methods: {
@@ -2637,6 +3006,7 @@ BridgedClass _createEmailNotificationServiceBridge() {
   return BridgedClass(
     nativeType: $dart_overview_4.EmailNotificationService,
     name: 'EmailNotificationService',
+    isAssignable: (v) => v is $dart_overview_4.EmailNotificationService,
     constructors: {
       '': (visitor, positional, named) {
         return $dart_overview_4.EmailNotificationService();
@@ -2668,6 +3038,7 @@ BridgedClass _createSmsNotificationServiceBridge() {
   return BridgedClass(
     nativeType: $dart_overview_4.SmsNotificationService,
     name: 'SmsNotificationService',
+    isAssignable: (v) => v is $dart_overview_4.SmsNotificationService,
     constructors: {
       '': (visitor, positional, named) {
         return $dart_overview_4.SmsNotificationService();
@@ -2699,6 +3070,7 @@ BridgedClass _createSwitchableBridge() {
   return BridgedClass(
     nativeType: $dart_overview_4.Switchable,
     name: 'Switchable',
+    isAssignable: (v) => v is $dart_overview_4.Switchable,
     constructors: {
     },
     methods: {
@@ -2728,6 +3100,7 @@ BridgedClass _createTemperatureControlBridge() {
   return BridgedClass(
     nativeType: $dart_overview_4.TemperatureControl,
     name: 'TemperatureControl',
+    isAssignable: (v) => v is $dart_overview_4.TemperatureControl,
     constructors: {
     },
     methods: {
@@ -2753,6 +3126,7 @@ BridgedClass _createConnectableBridge() {
   return BridgedClass(
     nativeType: $dart_overview_4.Connectable,
     name: 'Connectable',
+    isAssignable: (v) => v is $dart_overview_4.Connectable,
     constructors: {
     },
     methods: {
@@ -2776,6 +3150,7 @@ BridgedClass _createSmartThermostatBridge() {
   return BridgedClass(
     nativeType: $dart_overview_4.SmartThermostat,
     name: 'SmartThermostat',
+    isAssignable: (v) => v is $dart_overview_4.SmartThermostat,
     constructors: {
       '': (visitor, positional, named) {
         return $dart_overview_4.SmartThermostat();
@@ -2825,6 +3200,7 @@ BridgedClass _createMachineBridge() {
   return BridgedClass(
     nativeType: $dart_overview_4.Machine,
     name: 'Machine',
+    isAssignable: (v) => v is $dart_overview_4.Machine,
     constructors: {
     },
     methods: {
@@ -2848,6 +3224,7 @@ BridgedClass _createSpeakableBridge() {
   return BridgedClass(
     nativeType: $dart_overview_4.Speakable,
     name: 'Speakable',
+    isAssignable: (v) => v is $dart_overview_4.Speakable,
     constructors: {
     },
     methods: {
@@ -2871,6 +3248,7 @@ BridgedClass _createRobotBridge() {
   return BridgedClass(
     nativeType: $dart_overview_4.Robot,
     name: 'Robot',
+    isAssignable: (v) => v is $dart_overview_4.Robot,
     constructors: {
       '': (visitor, positional, named) {
         return $dart_overview_4.Robot();
@@ -2900,6 +3278,7 @@ BridgedClass _createAdvancedRobotBridge() {
   return BridgedClass(
     nativeType: $dart_overview_4.AdvancedRobot,
     name: 'AdvancedRobot',
+    isAssignable: (v) => v is $dart_overview_4.AdvancedRobot,
     constructors: {
       '': (visitor, positional, named) {
         return $dart_overview_4.AdvancedRobot();
@@ -2941,6 +3320,7 @@ BridgedClass _createMathUtilsBridge() {
   return BridgedClass(
     nativeType: $dart_overview_5.MathUtils,
     name: 'MathUtils',
+    isAssignable: (v) => v is $dart_overview_5.MathUtils,
     constructors: {
     },
     staticGetters: {
@@ -2984,6 +3364,7 @@ BridgedClass _createCounterBridge() {
   return BridgedClass(
     nativeType: $dart_overview_5.Counter,
     name: 'Counter',
+    isAssignable: (v) => v is $dart_overview_5.Counter,
     constructors: {
       '': (visitor, positional, named) {
         return $dart_overview_5.Counter();
@@ -2995,9 +3376,9 @@ BridgedClass _createCounterBridge() {
     },
     staticSetters: {
       'instanceCount': (visitor, value) => 
-        $dart_overview_5.Counter.instanceCount = value as int,
+        $dart_overview_5.Counter.instanceCount = D4.extractBridgedArg<int>(value, 'instanceCount'),
       'label': (visitor, value) => 
-        $dart_overview_5.Counter.label = value as dynamic,
+        $dart_overview_5.Counter.label = D4.extractBridgedArg<String>(value, 'label'),
     },
     constructorSignatures: {
       '': 'Counter()',
@@ -3021,6 +3402,7 @@ BridgedClass _createFlexibleObjectBridge() {
   return BridgedClass(
     nativeType: $dart_overview_5.FlexibleObject,
     name: 'FlexibleObject',
+    isAssignable: (v) => v is $dart_overview_5.FlexibleObject,
     constructors: {
       '': (visitor, positional, named) {
         return $dart_overview_5.FlexibleObject();
@@ -3051,6 +3433,7 @@ BridgedClass _createSortablePersonBridge() {
   return BridgedClass(
     nativeType: $dart_overview_5.SortablePerson,
     name: 'SortablePerson',
+    isAssignable: (v) => v is $dart_overview_5.SortablePerson,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'SortablePerson');
@@ -3097,6 +3480,7 @@ BridgedClass _createNumberWrapperBridge() {
   return BridgedClass(
     nativeType: $dart_overview_6.NumberWrapper,
     name: 'NumberWrapper',
+    isAssignable: (v) => v is $dart_overview_6.NumberWrapper,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'NumberWrapper');
@@ -3176,6 +3560,7 @@ BridgedClass _createBitFlagsBridge() {
   return BridgedClass(
     nativeType: $dart_overview_6.BitFlags,
     name: 'BitFlags',
+    isAssignable: (v) => v is $dart_overview_6.BitFlags,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'BitFlags');
@@ -3255,6 +3640,7 @@ BridgedClass _createNullableFieldsBridge() {
   return BridgedClass(
     nativeType: $dart_overview_6.NullableFields,
     name: 'NullableFields',
+    isAssignable: (v) => v is $dart_overview_6.NullableFields,
     constructors: {
       '': (visitor, positional, named) {
         final name = D4.getOptionalNamedArg<String?>(named, 'name');
@@ -3270,9 +3656,9 @@ BridgedClass _createNullableFieldsBridge() {
     },
     setters: {
       'name': (visitor, target, value) => 
-        D4.validateTarget<$dart_overview_6.NullableFields>(target, 'NullableFields').name = value as String?,
+        D4.validateTarget<$dart_overview_6.NullableFields>(target, 'NullableFields').name = D4.extractBridgedArgOrNull<String>(value, 'name'),
       'age': (visitor, target, value) => 
-        D4.validateTarget<$dart_overview_6.NullableFields>(target, 'NullableFields').age = value as int?,
+        D4.validateTarget<$dart_overview_6.NullableFields>(target, 'NullableFields').age = D4.extractBridgedArgOrNull<int>(value, 'age'),
       'tags': (visitor, target, value) => 
         D4.validateTarget<$dart_overview_6.NullableFields>(target, 'NullableFields').tags = value == null ? null : (value as List).cast<String>().toList(),
     },
@@ -3309,6 +3695,7 @@ BridgedClass _createLateFieldDemoBridge() {
   return BridgedClass(
     nativeType: $dart_overview_6.LateFieldDemo,
     name: 'LateFieldDemo',
+    isAssignable: (v) => v is $dart_overview_6.LateFieldDemo,
     constructors: {
       '': (visitor, positional, named) {
         return $dart_overview_6.LateFieldDemo();
@@ -3326,9 +3713,9 @@ BridgedClass _createLateFieldDemoBridge() {
     },
     setters: {
       'config': (visitor, target, value) => 
-        D4.validateTarget<$dart_overview_6.LateFieldDemo>(target, 'LateFieldDemo').config = value as String,
+        D4.validateTarget<$dart_overview_6.LateFieldDemo>(target, 'LateFieldDemo').config = D4.extractBridgedArg<String>(value, 'config'),
       'id': (visitor, target, value) => 
-        D4.validateTarget<$dart_overview_6.LateFieldDemo>(target, 'LateFieldDemo').id = value as int,
+        D4.validateTarget<$dart_overview_6.LateFieldDemo>(target, 'LateFieldDemo').id = D4.extractBridgedArg<int>(value, 'id'),
     },
     constructorSignatures: {
       '': 'LateFieldDemo()',
@@ -3353,6 +3740,7 @@ BridgedClass _createMultiplierBridge() {
   return BridgedClass(
     nativeType: $dart_overview_6.Multiplier,
     name: 'Multiplier',
+    isAssignable: (v) => v is $dart_overview_6.Multiplier,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Multiplier');
@@ -3396,6 +3784,7 @@ BridgedClass _createPrintableBridge() {
   return BridgedClass(
     nativeType: $dart_overview_6.Printable,
     name: 'Printable',
+    isAssignable: (v) => v is $dart_overview_6.Printable,
     constructors: {
       '': (visitor, positional, named) {
         return $dart_overview_6.Printable();
@@ -3425,6 +3814,7 @@ BridgedClass _createSerializableBridge() {
   return BridgedClass(
     nativeType: $dart_overview_6.Serializable,
     name: 'Serializable',
+    isAssignable: (v) => v is $dart_overview_6.Serializable,
     constructors: {
     },
     methods: {
@@ -3447,6 +3837,7 @@ BridgedClass _createSerializablePrintableBridge() {
   return BridgedClass(
     nativeType: $dart_overview_6.SerializablePrintable,
     name: 'SerializablePrintable',
+    isAssignable: (v) => v is $dart_overview_6.SerializablePrintable,
     constructors: {
       '': (visitor, positional, named) {
         return $dart_overview_6.SerializablePrintable();
@@ -3481,6 +3872,7 @@ BridgedClass _createTrackableBridge() {
   return BridgedClass(
     nativeType: $dart_overview_6.Trackable,
     name: 'Trackable',
+    isAssignable: (v) => v is $dart_overview_6.Trackable,
     constructors: {
     },
     getters: {
@@ -3510,6 +3902,7 @@ BridgedClass _createTrackedItemBridge() {
   return BridgedClass(
     nativeType: $dart_overview_6.TrackedItem,
     name: 'TrackedItem',
+    isAssignable: (v) => v is $dart_overview_6.TrackedItem,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'TrackedItem');
@@ -3554,6 +3947,7 @@ BridgedClass _createDataProcessorBridge() {
   return BridgedClass(
     nativeType: $dart_overview_6.DataProcessor,
     name: 'DataProcessor',
+    isAssignable: (v) => v is $dart_overview_6.DataProcessor,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'DataProcessor');
@@ -3626,6 +4020,7 @@ BridgedClass _createStatisticsBridge() {
   return BridgedClass(
     nativeType: $dart_overview_12.Statistics,
     name: 'Statistics',
+    isAssignable: (v) => v is $dart_overview_12.Statistics,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Statistics');
@@ -3655,6 +4050,264 @@ BridgedClass _createStatisticsBridge() {
 }
 
 // =============================================================================
+// SortedList Bridge
+// =============================================================================
+
+BridgedClass _createSortedListBridge() {
+  return BridgedClass(
+    nativeType: $dart_overview_12.SortedList,
+    name: 'SortedList',
+    isAssignable: (v) => v is $dart_overview_12.SortedList,
+    constructors: {
+      '': (visitor, positional, named) {
+        return $dart_overview_12.SortedList();
+      },
+    },
+    getters: {
+      'items': (visitor, target) => D4.validateTarget<$dart_overview_12.SortedList>(target, 'SortedList').items,
+    },
+    methods: {
+      'add': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dart_overview_12.SortedList>(target, 'SortedList');
+        D4.requireMinArgs(positional, 1, 'add');
+        final item = D4.getRequiredArg<Comparable<dynamic>>(positional, 0, 'item', 'add');
+        t.add(item);
+        return null;
+      },
+      'addAll': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dart_overview_12.SortedList>(target, 'SortedList');
+        D4.requireMinArgs(positional, 1, 'addAll');
+        if (positional.isEmpty) {
+          throw ArgumentError('addAll: Missing required argument "items" at position 0');
+        }
+        final items = D4.coerceList<Comparable<dynamic>>(positional[0], 'items');
+        t.addAll(items);
+        return null;
+      },
+    },
+    constructorSignatures: {
+      '': 'SortedList()',
+    },
+    methodSignatures: {
+      'add': 'void add(T item)',
+      'addAll': 'void addAll(Iterable<T> items)',
+    },
+    getterSignatures: {
+      'items': 'List<T> get items',
+    },
+  );
+}
+
+// =============================================================================
+// PriorityQueue Bridge
+// =============================================================================
+
+BridgedClass _createPriorityQueueBridge() {
+  return BridgedClass(
+    nativeType: $dart_overview_12.PriorityQueue,
+    name: 'PriorityQueue',
+    isAssignable: (v) => v is $dart_overview_12.PriorityQueue,
+    constructors: {
+      '': (visitor, positional, named) {
+        return $dart_overview_12.PriorityQueue();
+      },
+    },
+    getters: {
+      'isEmpty': (visitor, target) => D4.validateTarget<$dart_overview_12.PriorityQueue>(target, 'PriorityQueue').isEmpty,
+    },
+    methods: {
+      'add': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dart_overview_12.PriorityQueue>(target, 'PriorityQueue');
+        D4.requireMinArgs(positional, 1, 'add');
+        final item = D4.getRequiredArg<Comparable<dynamic>>(positional, 0, 'item', 'add');
+        t.add(item);
+        return null;
+      },
+      'removeMin': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dart_overview_12.PriorityQueue>(target, 'PriorityQueue');
+        return t.removeMin();
+      },
+    },
+    constructorSignatures: {
+      '': 'PriorityQueue()',
+    },
+    methodSignatures: {
+      'add': 'void add(T item)',
+      'removeMin': 'T removeMin()',
+    },
+    getterSignatures: {
+      'isEmpty': 'bool get isEmpty',
+    },
+  );
+}
+
+// =============================================================================
+// Range Bridge
+// =============================================================================
+
+BridgedClass _createRangeBridge() {
+  return BridgedClass(
+    nativeType: $dart_overview_12.Range,
+    name: 'Range',
+    isAssignable: (v) => v is $dart_overview_12.Range,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'Range');
+        final start = D4.getRequiredArg<Comparable<dynamic>>(positional, 0, 'start', 'Range');
+        final end = D4.getRequiredArg<Comparable<dynamic>>(positional, 1, 'end', 'Range');
+        return $dart_overview_12.Range(start, end);
+      },
+    },
+    getters: {
+      'start': (visitor, target) => D4.validateTarget<$dart_overview_12.Range>(target, 'Range').start,
+      'end': (visitor, target) => D4.validateTarget<$dart_overview_12.Range>(target, 'Range').end,
+    },
+    methods: {
+      'contains': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dart_overview_12.Range>(target, 'Range');
+        D4.requireMinArgs(positional, 1, 'contains');
+        final value = D4.getRequiredArg<Comparable<dynamic>>(positional, 0, 'value', 'contains');
+        return t.contains(value);
+      },
+    },
+    constructorSignatures: {
+      '': 'Range(T start, T end)',
+    },
+    methodSignatures: {
+      'contains': 'bool contains(T value)',
+    },
+    getterSignatures: {
+      'start': 'T get start',
+      'end': 'T get end',
+    },
+  );
+}
+
+// =============================================================================
+// BinarySearchTree Bridge
+// =============================================================================
+
+BridgedClass _createBinarySearchTreeBridge() {
+  return BridgedClass(
+    nativeType: $dart_overview_12.BinarySearchTree,
+    name: 'BinarySearchTree',
+    isAssignable: (v) => v is $dart_overview_12.BinarySearchTree,
+    constructors: {
+      '': (visitor, positional, named) {
+        return $dart_overview_12.BinarySearchTree();
+      },
+    },
+    methods: {
+      'insert': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dart_overview_12.BinarySearchTree>(target, 'BinarySearchTree');
+        D4.requireMinArgs(positional, 1, 'insert');
+        final value = D4.getRequiredArg<Comparable<dynamic>>(positional, 0, 'value', 'insert');
+        t.insert(value);
+        return null;
+      },
+      'contains': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dart_overview_12.BinarySearchTree>(target, 'BinarySearchTree');
+        D4.requireMinArgs(positional, 1, 'contains');
+        final value = D4.getRequiredArg<Comparable<dynamic>>(positional, 0, 'value', 'contains');
+        return t.contains(value);
+      },
+      'inOrder': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dart_overview_12.BinarySearchTree>(target, 'BinarySearchTree');
+        return t.inOrder();
+      },
+    },
+    constructorSignatures: {
+      '': 'BinarySearchTree()',
+    },
+    methodSignatures: {
+      'insert': 'void insert(T value)',
+      'contains': 'bool contains(T value)',
+      'inOrder': 'List<T> inOrder()',
+    },
+  );
+}
+
+// =============================================================================
+// Cache Bridge
+// =============================================================================
+
+BridgedClass _createCacheBridge() {
+  return BridgedClass(
+    nativeType: $dart_overview_12.Cache,
+    name: 'Cache',
+    isAssignable: (v) => v is $dart_overview_12.Cache,
+    constructors: {
+      '': (visitor, positional, named) {
+        return $dart_overview_12.Cache();
+      },
+    },
+    methods: {
+      'put': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dart_overview_12.Cache>(target, 'Cache');
+        D4.requireMinArgs(positional, 2, 'put');
+        final key = D4.getRequiredArg<dynamic>(positional, 0, 'key', 'put');
+        final value = D4.getRequiredArg<dynamic>(positional, 1, 'value', 'put');
+        t.put(key, value);
+        return null;
+      },
+      'get': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dart_overview_12.Cache>(target, 'Cache');
+        D4.requireMinArgs(positional, 1, 'get');
+        final key = D4.getRequiredArg<dynamic>(positional, 0, 'key', 'get');
+        return t.get(key);
+      },
+      'contains': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dart_overview_12.Cache>(target, 'Cache');
+        D4.requireMinArgs(positional, 1, 'contains');
+        final key = D4.getRequiredArg<dynamic>(positional, 0, 'key', 'contains');
+        return t.contains(key);
+      },
+    },
+    constructorSignatures: {
+      '': 'Cache()',
+    },
+    methodSignatures: {
+      'put': 'void put(K key, V value)',
+      'get': 'V? get(K key)',
+      'contains': 'bool contains(K key)',
+    },
+  );
+}
+
+// =============================================================================
+// TreeNode Bridge
+// =============================================================================
+
+BridgedClass _createTreeNodeBridge() {
+  return BridgedClass(
+    nativeType: $dart_overview_9.TreeNode,
+    name: 'TreeNode',
+    isAssignable: (v) => v is $dart_overview_9.TreeNode,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'TreeNode');
+        final value = D4.getRequiredArg<dynamic>(positional, 0, 'value', 'TreeNode');
+        final children = positional.length > 1 && positional[1] != null
+            ? D4.coerceList<$dart_overview_9.TreeNode<dynamic>>(positional[1], 'children')
+            : const <$dart_overview_9.TreeNode<dynamic>>[];
+        return $dart_overview_9.TreeNode(value, children);
+      },
+    },
+    getters: {
+      'value': (visitor, target) => D4.validateTarget<$dart_overview_9.TreeNode>(target, 'TreeNode').value,
+      'children': (visitor, target) => D4.validateTarget<$dart_overview_9.TreeNode>(target, 'TreeNode').children,
+    },
+    constructorSignatures: {
+      '': 'TreeNode(T value, [List<TreeNode<T>> children = const []])',
+    },
+    getterSignatures: {
+      'value': 'T get value',
+      'children': 'List<TreeNode<T>> get children',
+    },
+  );
+}
+
+// =============================================================================
 // Musical Bridge
 // =============================================================================
 
@@ -3662,6 +4315,7 @@ BridgedClass _createMusicalBridge() {
   return BridgedClass(
     nativeType: $dart_overview_14.Musical,
     name: 'Musical',
+    isAssignable: (v) => v is $dart_overview_14.Musical,
     constructors: {
     },
     methods: {
@@ -3685,6 +4339,7 @@ BridgedClass _createDancingBridge() {
   return BridgedClass(
     nativeType: $dart_overview_14.Dancing,
     name: 'Dancing',
+    isAssignable: (v) => v is $dart_overview_14.Dancing,
     constructors: {
     },
     methods: {
@@ -3708,6 +4363,7 @@ BridgedClass _createMusicianBridge() {
   return BridgedClass(
     nativeType: $dart_overview_14.Musician,
     name: 'Musician',
+    isAssignable: (v) => v is $dart_overview_14.Musician,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Musician');
@@ -3745,6 +4401,7 @@ BridgedClass _createProfessionalDancerBridge() {
   return BridgedClass(
     nativeType: $dart_overview_14.ProfessionalDancer,
     name: 'ProfessionalDancer',
+    isAssignable: (v) => v is $dart_overview_14.ProfessionalDancer,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ProfessionalDancer');
@@ -3782,6 +4439,7 @@ BridgedClass _createEntertainerBridge() {
   return BridgedClass(
     nativeType: $dart_overview_14.Entertainer,
     name: 'Entertainer',
+    isAssignable: (v) => v is $dart_overview_14.Entertainer,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Entertainer');
@@ -3831,6 +4489,7 @@ BridgedClass _createCountableItemBridge() {
   return BridgedClass(
     nativeType: $dart_overview_14.CountableItem,
     name: 'CountableItem',
+    isAssignable: (v) => v is $dart_overview_14.CountableItem,
     constructors: {
       '': (visitor, positional, named) {
         return $dart_overview_14.CountableItem();
@@ -3871,6 +4530,204 @@ BridgedClass _createCountableItemBridge() {
 }
 
 // =============================================================================
+// Flying Bridge
+// =============================================================================
+
+BridgedClass _createFlyingBridge() {
+  return BridgedClass(
+    nativeType: $dart_overview_14.Flying,
+    name: 'Flying',
+    isAssignable: (v) => v is $dart_overview_14.Flying,
+    constructors: {
+    },
+    getters: {
+      'name': (visitor, target) => D4.validateTarget<$dart_overview_14.Flying>(target, 'Flying').name,
+    },
+    methods: {
+      'move': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dart_overview_14.Flying>(target, 'Flying');
+        t.move();
+        return null;
+      },
+      'fly': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dart_overview_14.Flying>(target, 'Flying');
+        t.fly();
+        return null;
+      },
+    },
+    methodSignatures: {
+      'move': 'void move()',
+      'fly': 'void fly()',
+    },
+    getterSignatures: {
+      'name': 'String get name',
+    },
+  );
+}
+
+// =============================================================================
+// Walking Bridge
+// =============================================================================
+
+BridgedClass _createWalkingBridge() {
+  return BridgedClass(
+    nativeType: $dart_overview_14.Walking,
+    name: 'Walking',
+    isAssignable: (v) => v is $dart_overview_14.Walking,
+    constructors: {
+    },
+    getters: {
+      'name': (visitor, target) => D4.validateTarget<$dart_overview_14.Walking>(target, 'Walking').name,
+    },
+    methods: {
+      'move': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dart_overview_14.Walking>(target, 'Walking');
+        t.move();
+        return null;
+      },
+      'walk': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dart_overview_14.Walking>(target, 'Walking');
+        t.walk();
+        return null;
+      },
+    },
+    methodSignatures: {
+      'move': 'void move()',
+      'walk': 'void walk()',
+    },
+    getterSignatures: {
+      'name': 'String get name',
+    },
+  );
+}
+
+// =============================================================================
+// Bird Bridge
+// =============================================================================
+
+BridgedClass _createBirdBridge() {
+  return BridgedClass(
+    nativeType: $dart_overview_14.Bird,
+    name: 'Bird',
+    isAssignable: (v) => v is $dart_overview_14.Bird,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'Bird');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'Bird');
+        return $dart_overview_14.Bird(name);
+      },
+    },
+    getters: {
+      'name': (visitor, target) => D4.validateTarget<$dart_overview_14.Bird>(target, 'Bird').name,
+    },
+    methods: {
+      'move': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dart_overview_14.Bird>(target, 'Bird');
+        t.move();
+        return null;
+      },
+    },
+    constructorSignatures: {
+      '': 'Bird(String name)',
+    },
+    methodSignatures: {
+      'move': 'void move()',
+    },
+    getterSignatures: {
+      'name': 'String get name',
+    },
+  );
+}
+
+// =============================================================================
+// Eagle Bridge
+// =============================================================================
+
+BridgedClass _createEagleBridge() {
+  return BridgedClass(
+    nativeType: $dart_overview_14.Eagle,
+    name: 'Eagle',
+    isAssignable: (v) => v is $dart_overview_14.Eagle,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'Eagle');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'Eagle');
+        return $dart_overview_14.Eagle(name);
+      },
+    },
+    getters: {
+      'name': (visitor, target) => D4.validateTarget<$dart_overview_14.Eagle>(target, 'Eagle').name,
+    },
+    methods: {
+      'move': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dart_overview_14.Eagle>(target, 'Eagle');
+        t.move();
+        return null;
+      },
+      'fly': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dart_overview_14.Eagle>(target, 'Eagle');
+        t.fly();
+        return null;
+      },
+    },
+    constructorSignatures: {
+      '': 'Eagle(String name)',
+    },
+    methodSignatures: {
+      'move': 'void move()',
+      'fly': 'void fly()',
+    },
+    getterSignatures: {
+      'name': 'String get name',
+    },
+  );
+}
+
+// =============================================================================
+// Penguin Bridge
+// =============================================================================
+
+BridgedClass _createPenguinBridge() {
+  return BridgedClass(
+    nativeType: $dart_overview_14.Penguin,
+    name: 'Penguin',
+    isAssignable: (v) => v is $dart_overview_14.Penguin,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'Penguin');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'Penguin');
+        return $dart_overview_14.Penguin(name);
+      },
+    },
+    getters: {
+      'name': (visitor, target) => D4.validateTarget<$dart_overview_14.Penguin>(target, 'Penguin').name,
+    },
+    methods: {
+      'move': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dart_overview_14.Penguin>(target, 'Penguin');
+        t.move();
+        return null;
+      },
+      'walk': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dart_overview_14.Penguin>(target, 'Penguin');
+        t.walk();
+        return null;
+      },
+    },
+    constructorSignatures: {
+      '': 'Penguin(String name)',
+    },
+    methodSignatures: {
+      'move': 'void move()',
+      'walk': 'void walk()',
+    },
+    getterSignatures: {
+      'name': 'String get name',
+    },
+  );
+}
+
+// =============================================================================
 // Logging Bridge
 // =============================================================================
 
@@ -3878,6 +4735,7 @@ BridgedClass _createLoggingBridge() {
   return BridgedClass(
     nativeType: $dart_overview_14.Logging,
     name: 'Logging',
+    isAssignable: (v) => v is $dart_overview_14.Logging,
     constructors: {
     },
     methods: {
@@ -3928,6 +4786,7 @@ BridgedClass _createConsoleLoggerBridge() {
   return BridgedClass(
     nativeType: $dart_overview_14.ConsoleLogger,
     name: 'ConsoleLogger',
+    isAssignable: (v) => v is $dart_overview_14.ConsoleLogger,
     constructors: {
       '': (visitor, positional, named) {
         return $dart_overview_14.ConsoleLogger();
@@ -3984,6 +4843,7 @@ BridgedClass _createGreeter1Bridge() {
   return BridgedClass(
     nativeType: $dart_overview_14.Greeter1,
     name: 'Greeter1',
+    isAssignable: (v) => v is $dart_overview_14.Greeter1,
     constructors: {
     },
     methods: {
@@ -4007,6 +4867,7 @@ BridgedClass _createGreeter2Bridge() {
   return BridgedClass(
     nativeType: $dart_overview_14.Greeter2,
     name: 'Greeter2',
+    isAssignable: (v) => v is $dart_overview_14.Greeter2,
     constructors: {
     },
     methods: {
@@ -4030,6 +4891,7 @@ BridgedClass _createMultiMixedBridge() {
   return BridgedClass(
     nativeType: $dart_overview_14.MultiMixed,
     name: 'MultiMixed',
+    isAssignable: (v) => v is $dart_overview_14.MultiMixed,
     constructors: {
       '': (visitor, positional, named) {
         return $dart_overview_14.MultiMixed();
@@ -4059,6 +4921,7 @@ BridgedClass _createHelperBridge() {
   return BridgedClass(
     nativeType: $dart_overview_14.Helper,
     name: 'Helper',
+    isAssignable: (v) => v is $dart_overview_14.Helper,
     constructors: {
       '': (visitor, positional, named) {
         return $dart_overview_14.Helper();
@@ -4088,6 +4951,7 @@ BridgedClass _createHelpfulServiceBridge() {
   return BridgedClass(
     nativeType: $dart_overview_14.HelpfulService,
     name: 'HelpfulService',
+    isAssignable: (v) => v is $dart_overview_14.HelpfulService,
     constructors: {
       '': (visitor, positional, named) {
         return $dart_overview_14.HelpfulService();
@@ -4123,6 +4987,7 @@ BridgedClass _createEventEmitterBridge() {
   return BridgedClass(
     nativeType: $dart_overview_14.EventEmitter,
     name: 'EventEmitter',
+    isAssignable: (v) => v is $dart_overview_14.EventEmitter,
     constructors: {
     },
     methods: {
@@ -4133,7 +4998,7 @@ BridgedClass _createEventEmitterBridge() {
           throw ArgumentError('addListener: Missing required argument "listener" at position 0');
         }
         final listenerRaw = positional[0];
-        t.addListener((String p0) { D4.callInterpreterCallback(visitor, listenerRaw, [p0]); });
+        t.addListener((String p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
@@ -4143,7 +5008,7 @@ BridgedClass _createEventEmitterBridge() {
           throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
         }
         final listenerRaw = positional[0];
-        t.removeListener((String p0) { D4.callInterpreterCallback(visitor, listenerRaw, [p0]); });
+        t.removeListener((String p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
         return null;
       },
       'emit': (visitor, target, positional, named, typeArgs) {
@@ -4170,6 +5035,7 @@ BridgedClass _createButtonBridge() {
   return BridgedClass(
     nativeType: $dart_overview_14.Button,
     name: 'Button',
+    isAssignable: (v) => v is $dart_overview_14.Button,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Button');
@@ -4193,7 +5059,7 @@ BridgedClass _createButtonBridge() {
           throw ArgumentError('addListener: Missing required argument "listener" at position 0');
         }
         final listenerRaw = positional[0];
-        t.addListener((String p0) { D4.callInterpreterCallback(visitor, listenerRaw, [p0]); });
+        t.addListener((String p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
@@ -4203,7 +5069,7 @@ BridgedClass _createButtonBridge() {
           throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
         }
         final listenerRaw = positional[0];
-        t.removeListener((String p0) { D4.callInterpreterCallback(visitor, listenerRaw, [p0]); });
+        t.removeListener((String p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
         return null;
       },
       'emit': (visitor, target, positional, named, typeArgs) {
@@ -4237,6 +5103,7 @@ BridgedClass _createComparableMixinBridge() {
   return BridgedClass(
     nativeType: $dart_overview_14.ComparableMixin,
     name: 'ComparableMixin',
+    isAssignable: (v) => v is $dart_overview_14.ComparableMixin,
     constructors: {
     },
     getters: {
@@ -4267,6 +5134,7 @@ BridgedClass _createSortableItemBridge() {
   return BridgedClass(
     nativeType: $dart_overview_14.SortableItem,
     name: 'SortableItem',
+    isAssignable: (v) => v is $dart_overview_14.SortableItem,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'SortableItem');
@@ -4305,6 +5173,7 @@ BridgedClass _createJsonSerializableBridge() {
   return BridgedClass(
     nativeType: $dart_overview_14.JsonSerializable,
     name: 'JsonSerializable',
+    isAssignable: (v) => v is $dart_overview_14.JsonSerializable,
     constructors: {
     },
     methods: {

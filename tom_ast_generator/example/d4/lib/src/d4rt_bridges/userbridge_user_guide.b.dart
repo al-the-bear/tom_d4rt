@@ -1,8 +1,8 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 2 files
-// Generated: 2026-02-21T15:07:45.723594
+// Generated: 2026-03-06T18:40:01.156318
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
 import 'package:tom_d4rt_exec/d4rt.dart';
 import 'package:tom_d4rt_exec/tom_d4rt.dart';
@@ -30,6 +30,16 @@ class UserbridgeUserGuideBridge {
     return {
       'Vector2D': 'package:d4_example/src/userbridge_user_guide/vector2d.dart',
       'Matrix2x2': 'package:d4_example/src/userbridge_user_guide/matrix2x2.dart',
+    };
+  }
+
+  /// Returns a map of type alias names to their target class names.
+  ///
+  /// Type aliases like `typedef MaterialStateProperty<T> = WidgetStateProperty<T>`
+  /// are registered so that code using the alias name can resolve to the
+  /// bridged class under its canonical name.
+  static Map<String, String> classAliases() {
+    return {
     };
   }
 
@@ -128,6 +138,7 @@ BridgedClass _createVector2DBridge() {
   return BridgedClass(
     nativeType: $d4_example_3.Vector2D,
     name: 'Vector2D',
+    isAssignable: (v) => v is $d4_example_3.Vector2D,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Vector2D');
@@ -194,6 +205,7 @@ BridgedClass _createMatrix2x2Bridge() {
   return BridgedClass(
     nativeType: $d4_example_1.Matrix2x2,
     name: 'Matrix2x2',
+    isAssignable: (v) => v is $d4_example_1.Matrix2x2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 4, 'Matrix2x2');

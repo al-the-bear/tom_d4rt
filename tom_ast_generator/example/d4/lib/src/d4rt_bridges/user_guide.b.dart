@@ -1,8 +1,8 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 2 files
-// Generated: 2026-02-21T15:07:40.560806
+// Generated: 2026-03-06T18:39:55.908181
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
 import 'package:tom_d4rt_exec/d4rt.dart';
 import 'package:tom_d4rt_exec/tom_d4rt.dart';
@@ -28,6 +28,16 @@ class UserGuideBridge {
     return {
       'Calculator': 'package:d4_example/src/user_guide/calculator.dart',
       'Greeter': 'package:d4_example/src/user_guide/greeter.dart',
+    };
+  }
+
+  /// Returns a map of type alias names to their target class names.
+  ///
+  /// Type aliases like `typedef MaterialStateProperty<T> = WidgetStateProperty<T>`
+  /// are registered so that code using the alias name can resolve to the
+  /// bridged class under its canonical name.
+  static Map<String, String> classAliases() {
+    return {
     };
   }
 
@@ -126,6 +136,7 @@ BridgedClass _createCalculatorBridge() {
   return BridgedClass(
     nativeType: $d4_example_1.Calculator,
     name: 'Calculator',
+    isAssignable: (v) => v is $d4_example_1.Calculator,
     constructors: {
       '': (visitor, positional, named) {
         return $d4_example_1.Calculator();
@@ -193,6 +204,7 @@ BridgedClass _createGreeterBridge() {
   return BridgedClass(
     nativeType: $d4_example_2.Greeter,
     name: 'Greeter',
+    isAssignable: (v) => v is $d4_example_2.Greeter,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Greeter');

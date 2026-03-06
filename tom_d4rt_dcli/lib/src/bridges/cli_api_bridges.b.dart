@@ -1,16 +1,22 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 10 files
-// Generated: 2026-02-27T00:28:48.403304
+// Generated: 2026-03-06T18:38:17.481405
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
 import 'dart:async';
 import 'dart:io';
 
-import 'package:tom_d4rt/src/d4rt_base.dart' as $tom_d4rt_1;
-import 'package:tom_d4rt/src/introspection.dart' as $tom_d4rt_2;
+import 'package:tom_d4rt/src/bridge/bridged_types.dart' as $tom_d4rt_1;
+import 'package:tom_d4rt/src/bridge/registration.dart' as $tom_d4rt_2;
+import 'package:tom_d4rt/src/callable.dart' as $tom_d4rt_3;
+import 'package:tom_d4rt/src/d4rt_base.dart' as $tom_d4rt_4;
+import 'package:tom_d4rt/src/interpreter_visitor.dart' as $tom_d4rt_5;
+import 'package:tom_d4rt/src/introspection.dart' as $tom_d4rt_6;
+import 'package:tom_d4rt/src/runtime_interfaces.dart' as $tom_d4rt_7;
+import 'package:tom_d4rt/src/security/permissions.dart' as $tom_d4rt_8;
 import 'package:tom_d4rt_dcli/src/api/cli_api.dart' as $tom_d4rt_dcli_1;
 import 'package:tom_d4rt_dcli/src/api/cli_bridge.dart' as $tom_d4rt_dcli_2;
 import 'package:tom_d4rt_dcli/src/api/cli_controller.dart' as $tom_d4rt_dcli_3;
@@ -78,6 +84,16 @@ class CliApiBridge {
       'ExecutionContext': 'package:tom_d4rt_dcli/src/api/execution_context.dart',
       'ContextStack': 'package:tom_d4rt_dcli/src/api/execution_context.dart',
       'D4rt': 'package:tom_d4rt/src/d4rt_base.dart',
+    };
+  }
+
+  /// Returns a map of type alias names to their target class names.
+  ///
+  /// Type aliases like `typedef MaterialStateProperty<T> = WidgetStateProperty<T>`
+  /// are registered so that code using the alias name can resolve to the
+  /// bridged class under its canonical name.
+  static Map<String, String> classAliases() {
+    return {
     };
   }
 
@@ -179,12 +195,12 @@ class CliApiBridge {
     return {
       'registerCliBridge': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'registerCliBridge');
-        final d4rt = D4.getRequiredArg<$tom_d4rt_1.D4rt>(positional, 0, 'd4rt', 'registerCliBridge');
+        final d4rt = D4.getRequiredArg<$tom_d4rt_4.D4rt>(positional, 0, 'd4rt', 'registerCliBridge');
         return $tom_d4rt_dcli_2.registerCliBridge(d4rt);
       },
       'registerCliShortcuts': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'registerCliShortcuts');
-        final d4rt = D4.getRequiredArg<$tom_d4rt_1.D4rt>(positional, 0, 'd4rt', 'registerCliShortcuts');
+        final d4rt = D4.getRequiredArg<$tom_d4rt_4.D4rt>(positional, 0, 'd4rt', 'registerCliShortcuts');
         return $tom_d4rt_dcli_2.registerCliShortcuts(d4rt);
       },
       'clearVerificationFailures': (visitor, positional, named, typeArgs) {
@@ -248,7 +264,7 @@ class CliApiBridge {
           throw ArgumentError('verifyThrows: Missing required argument "fn" at position 0');
         }
         final fnRaw = positional[0];
-        final fn = () { D4.callInterpreterCallback(visitor, fnRaw, []); };
+        final fn = () { D4.callInterpreterCallback(visitor!, fnRaw, []); };
         final message = positional.length > 1 ? positional[1] as String? : null;
         return $tom_d4rt_dcli_8.verifyThrows(fn, message);
       },
@@ -358,6 +374,7 @@ BridgedClass _createD4rtCliApiBridge() {
   return BridgedClass(
     nativeType: $tom_d4rt_dcli_1.D4rtCliApi,
     name: 'D4rtCliApi',
+    isAssignable: (v) => v is $tom_d4rt_dcli_1.D4rtCliApi,
     constructors: {
     },
     getters: {
@@ -715,9 +732,10 @@ BridgedClass _createD4rtCliControllerBridge() {
   return BridgedClass(
     nativeType: $tom_d4rt_dcli_3.D4rtCliController,
     name: 'D4rtCliController',
+    isAssignable: (v) => v is $tom_d4rt_dcli_3.D4rtCliController,
     constructors: {
       '': (visitor, positional, named) {
-        final d4rt = D4.getRequiredNamedArg<$tom_d4rt_1.D4rt>(named, 'd4rt', 'D4rtCliController');
+        final d4rt = D4.getRequiredNamedArg<$tom_d4rt_4.D4rt>(named, 'd4rt', 'D4rtCliController');
         final state = D4.getRequiredNamedArg<$tom_d4rt_dcli_7.CliState>(named, 'state', 'D4rtCliController');
         final toolName = D4.getRequiredNamedArg<String>(named, 'toolName', 'D4rtCliController');
         final runtime = D4.getOptionalNamedArg<$tom_d4rt_dcli_6.CliRuntime?>(named, 'runtime');
@@ -1082,13 +1100,14 @@ BridgedClass _createCliGlobalHolderBridge() {
   return BridgedClass(
     nativeType: $tom_d4rt_dcli_3.CliGlobalHolder,
     name: 'CliGlobalHolder',
+    isAssignable: (v) => v is $tom_d4rt_dcli_3.CliGlobalHolder,
     constructors: {
       '': (visitor, positional, named) {
         return $tom_d4rt_dcli_3.CliGlobalHolder();
       },
     },
     getters: {
-      'controller': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_3.CliGlobalHolder>(target, 'CliGlobalHolder').controller,
+      'controller': (visitor, target) => (D4.validateTarget<$tom_d4rt_dcli_3.CliGlobalHolder>(target, 'CliGlobalHolder') as dynamic).controller,
       'isInitialized': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_3.CliGlobalHolder>(target, 'CliGlobalHolder').isInitialized,
     },
     methods: {
@@ -1127,6 +1146,7 @@ BridgedClass _createCliExceptionBridge() {
   return BridgedClass(
     nativeType: $tom_d4rt_dcli_4.CliException,
     name: 'CliException',
+    isAssignable: (v) => v is $tom_d4rt_dcli_4.CliException,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'CliException');
@@ -1174,6 +1194,7 @@ BridgedClass _createCliFileNotFoundExceptionBridge() {
   return BridgedClass(
     nativeType: $tom_d4rt_dcli_4.CliFileNotFoundException,
     name: 'CliFileNotFoundException',
+    isAssignable: (v) => v is $tom_d4rt_dcli_4.CliFileNotFoundException,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'CliFileNotFoundException');
@@ -1221,6 +1242,7 @@ BridgedClass _createDirectoryNotFoundExceptionBridge() {
   return BridgedClass(
     nativeType: $tom_d4rt_dcli_4.DirectoryNotFoundException,
     name: 'DirectoryNotFoundException',
+    isAssignable: (v) => v is $tom_d4rt_dcli_4.DirectoryNotFoundException,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'DirectoryNotFoundException');
@@ -1268,6 +1290,7 @@ BridgedClass _createExecutionExceptionBridge() {
   return BridgedClass(
     nativeType: $tom_d4rt_dcli_4.ExecutionException,
     name: 'ExecutionException',
+    isAssignable: (v) => v is $tom_d4rt_dcli_4.ExecutionException,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ExecutionException');
@@ -1315,6 +1338,7 @@ BridgedClass _createReplayExceptionBridge() {
   return BridgedClass(
     nativeType: $tom_d4rt_dcli_4.ReplayException,
     name: 'ReplayException',
+    isAssignable: (v) => v is $tom_d4rt_dcli_4.ReplayException,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'ReplayException');
@@ -1368,6 +1392,7 @@ BridgedClass _createInvalidMultilineModeExceptionBridge() {
   return BridgedClass(
     nativeType: $tom_d4rt_dcli_4.InvalidMultilineModeException,
     name: 'InvalidMultilineModeException',
+    isAssignable: (v) => v is $tom_d4rt_dcli_4.InvalidMultilineModeException,
     constructors: {
       '': (visitor, positional, named) {
         final currentMode = D4.getRequiredNamedArg<String>(named, 'currentMode', 'InvalidMultilineModeException');
@@ -1417,6 +1442,7 @@ BridgedClass _createMaxNestingDepthExceptionBridge() {
   return BridgedClass(
     nativeType: $tom_d4rt_dcli_4.MaxNestingDepthException,
     name: 'MaxNestingDepthException',
+    isAssignable: (v) => v is $tom_d4rt_dcli_4.MaxNestingDepthException,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'MaxNestingDepthException');
@@ -1464,6 +1490,7 @@ BridgedClass _createCliNotInitializedExceptionBridge() {
   return BridgedClass(
     nativeType: $tom_d4rt_dcli_4.CliNotInitializedException,
     name: 'CliNotInitializedException',
+    isAssignable: (v) => v is $tom_d4rt_dcli_4.CliNotInitializedException,
     constructors: {
       '': (visitor, positional, named) {
         return $tom_d4rt_dcli_4.CliNotInitializedException();
@@ -1507,10 +1534,11 @@ BridgedClass _createExecuteResultBridge() {
   return BridgedClass(
     nativeType: $tom_d4rt_dcli_5.ExecuteResult,
     name: 'ExecuteResult',
+    isAssignable: (v) => v is $tom_d4rt_dcli_5.ExecuteResult,
     constructors: {
       '': (visitor, positional, named) {
         final success = D4.getRequiredNamedArg<bool>(named, 'success', 'ExecuteResult');
-        final result = D4.getOptionalNamedArg<dynamic>(named, 'result');
+        final result = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'result', 'ExecuteResult', '<default unavailable>');
         final error = D4.getOptionalNamedArg<String?>(named, 'error');
         final stackTrace = D4.getOptionalNamedArg<StackTrace?>(named, 'stackTrace');
         final sourcesLoaded = D4.getNamedArgWithDefault<int>(named, 'sourcesLoaded', 1);
@@ -1558,6 +1586,7 @@ BridgedClass _createImportInfoBridge() {
   return BridgedClass(
     nativeType: $tom_d4rt_dcli_5.ImportInfo,
     name: 'ImportInfo',
+    isAssignable: (v) => v is $tom_d4rt_dcli_5.ImportInfo,
     constructors: {
       '': (visitor, positional, named) {
         final path = D4.getRequiredNamedArg<String>(named, 'path', 'ImportInfo');
@@ -1613,6 +1642,7 @@ BridgedClass _createSymbolInfoBridge() {
   return BridgedClass(
     nativeType: $tom_d4rt_dcli_5.SymbolInfo,
     name: 'SymbolInfo',
+    isAssignable: (v) => v is $tom_d4rt_dcli_5.SymbolInfo,
     constructors: {
       '': (visitor, positional, named) {
         final name = D4.getRequiredNamedArg<String>(named, 'name', 'SymbolInfo');
@@ -1659,6 +1689,7 @@ BridgedClass _createCliRuntimeBridge() {
   return BridgedClass(
     nativeType: $tom_d4rt_dcli_6.CliRuntime,
     name: 'CliRuntime',
+    isAssignable: (v) => v is $tom_d4rt_dcli_6.CliRuntime,
     constructors: {
     },
     getters: {
@@ -1684,7 +1715,7 @@ BridgedClass _createCliRuntimeBridge() {
     },
     setters: {
       'processDirectory': (visitor, target, value) => 
-        D4.validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime').processDirectory = value as dynamic,
+        D4.validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime').processDirectory = D4.extractBridgedArg<String>(value, 'processDirectory'),
     },
     getterSignatures: {
       'processDirectory': 'String get processDirectory',
@@ -1721,6 +1752,7 @@ BridgedClass _createCliRuntimeImplBridge() {
   return BridgedClass(
     nativeType: $tom_d4rt_dcli_6.CliRuntimeImpl,
     name: 'CliRuntimeImpl',
+    isAssignable: (v) => v is $tom_d4rt_dcli_6.CliRuntimeImpl,
     constructors: {
       '': (visitor, positional, named) {
         return $tom_d4rt_dcli_6.CliRuntimeImpl();
@@ -1749,7 +1781,7 @@ BridgedClass _createCliRuntimeImplBridge() {
     },
     setters: {
       'processDirectory': (visitor, target, value) => 
-        D4.validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(target, 'CliRuntimeImpl').processDirectory = value as dynamic,
+        D4.validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(target, 'CliRuntimeImpl').processDirectory = D4.extractBridgedArg<String>(value, 'processDirectory'),
     },
     constructorSignatures: {
       '': 'CliRuntimeImpl()',
@@ -1789,6 +1821,7 @@ BridgedClass _createCliStateBridge() {
   return BridgedClass(
     nativeType: $tom_d4rt_dcli_7.CliState,
     name: 'CliState',
+    isAssignable: (v) => v is $tom_d4rt_dcli_7.CliState,
     constructors: {
       '': (visitor, positional, named) {
         final dataDirectory = D4.getRequiredNamedArg<String>(named, 'dataDirectory', 'CliState');
@@ -1810,9 +1843,9 @@ BridgedClass _createCliStateBridge() {
     },
     setters: {
       'sessionFile': (visitor, target, value) => 
-        D4.validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState').sessionFile = value as RandomAccessFile?,
+        D4.validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState').sessionFile = D4.extractBridgedArgOrNull<RandomAccessFile>(value, 'sessionFile'),
       'currentSessionId': (visitor, target, value) => 
-        D4.validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState').currentSessionId = value as String?,
+        D4.validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState').currentSessionId = D4.extractBridgedArgOrNull<String>(value, 'currentSessionId'),
     },
     methods: {
       'cd': (visitor, target, positional, named, typeArgs) {
@@ -1888,7 +1921,7 @@ BridgedClass _createCliStateBridge() {
       },
       'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState');
-        t.dispose();
+        (t as dynamic).dispose();
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -1942,6 +1975,7 @@ BridgedClass _createVerificationFailureBridge() {
   return BridgedClass(
     nativeType: $tom_d4rt_dcli_8.VerificationFailure,
     name: 'VerificationFailure',
+    isAssignable: (v) => v is $tom_d4rt_dcli_8.VerificationFailure,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'VerificationFailure');
@@ -1978,6 +2012,7 @@ BridgedClass _createExecutionContextBridge() {
   return BridgedClass(
     nativeType: $tom_d4rt_dcli_9.ExecutionContext,
     name: 'ExecutionContext',
+    isAssignable: (v) => v is $tom_d4rt_dcli_9.ExecutionContext,
     constructors: {
       '': (visitor, positional, named) {
         final workingDirectory = D4.getRequiredNamedArg<String>(named, 'workingDirectory', 'ExecutionContext');
@@ -2002,7 +2037,7 @@ BridgedClass _createExecutionContextBridge() {
     },
     setters: {
       'multilineMode': (visitor, target, value) => 
-        D4.validateTarget<$tom_d4rt_dcli_9.ExecutionContext>(target, 'ExecutionContext').multilineMode = value as $tom_d4rt_dcli_9.MultilineMode,
+        D4.validateTarget<$tom_d4rt_dcli_9.ExecutionContext>(target, 'ExecutionContext').multilineMode = D4.extractBridgedArg<$tom_d4rt_dcli_9.MultilineMode>(value, 'multilineMode'),
     },
     methods: {
       'clearMultilineBuffer': (visitor, target, positional, named, typeArgs) {
@@ -2069,6 +2104,7 @@ BridgedClass _createContextStackBridge() {
   return BridgedClass(
     nativeType: $tom_d4rt_dcli_9.ContextStack,
     name: 'ContextStack',
+    isAssignable: (v) => v is $tom_d4rt_dcli_9.ContextStack,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ContextStack');
@@ -2156,57 +2192,70 @@ BridgedClass _createContextStackBridge() {
 
 BridgedClass _createD4rtBridge() {
   return BridgedClass(
-    nativeType: $tom_d4rt_1.D4rt,
+    nativeType: $tom_d4rt_4.D4rt,
     name: 'D4rt',
+    isAssignable: (v) => v is $tom_d4rt_4.D4rt,
     constructors: {
       '': (visitor, positional, named) {
-        return $tom_d4rt_1.D4rt();
+        return $tom_d4rt_4.D4rt();
       },
     },
     getters: {
-      'visitor': (visitor, target) => D4.validateTarget<$tom_d4rt_1.D4rt>(target, 'D4rt').visitor,
+      'visitor': (visitor, target) => D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt').visitor,
     },
     methods: {
       'registerBridgedEnum': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_1.D4rt>(target, 'D4rt');
+        final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 2, 'registerBridgedEnum');
-        final definition = D4.getRequiredArg<dynamic>(positional, 0, 'definition', 'registerBridgedEnum');
+        final definition = D4.getRequiredArg<$tom_d4rt_2.BridgedEnumDefinition>(positional, 0, 'definition', 'registerBridgedEnum');
         final library = D4.getRequiredArg<String>(positional, 1, 'library', 'registerBridgedEnum');
         final sourceUri = D4.getOptionalNamedArg<String?>(named, 'sourceUri');
         t.registerBridgedEnum(definition, library, sourceUri: sourceUri);
         return null;
       },
       'registerBridgedClass': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_1.D4rt>(target, 'D4rt');
+        final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 2, 'registerBridgedClass');
-        final definition = D4.getRequiredArg<dynamic>(positional, 0, 'definition', 'registerBridgedClass');
+        final definition = D4.getRequiredArg<$tom_d4rt_1.BridgedClass>(positional, 0, 'definition', 'registerBridgedClass');
         final library = D4.getRequiredArg<String>(positional, 1, 'library', 'registerBridgedClass');
         final sourceUri = D4.getOptionalNamedArg<String?>(named, 'sourceUri');
         t.registerBridgedClass(definition, library, sourceUri: sourceUri);
         return null;
       },
+      'registerClassAlias': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
+        D4.requireMinArgs(positional, 3, 'registerClassAlias');
+        final aliasName = D4.getRequiredArg<String>(positional, 0, 'aliasName', 'registerClassAlias');
+        final targetName = D4.getRequiredArg<String>(positional, 1, 'targetName', 'registerClassAlias');
+        final library = D4.getRequiredArg<String>(positional, 2, 'library', 'registerClassAlias');
+        t.registerClassAlias(aliasName, targetName, library);
+        return null;
+      },
       'registerBridgedExtension': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_1.D4rt>(target, 'D4rt');
+        final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 2, 'registerBridgedExtension');
-        final definition = D4.getRequiredArg<dynamic>(positional, 0, 'definition', 'registerBridgedExtension');
+        final definition = D4.getRequiredArg<$tom_d4rt_2.BridgedExtensionDefinition>(positional, 0, 'definition', 'registerBridgedExtension');
         final library = D4.getRequiredArg<String>(positional, 1, 'library', 'registerBridgedExtension');
         final sourceUri = D4.getOptionalNamedArg<String?>(named, 'sourceUri');
         t.registerBridgedExtension(definition, library, sourceUri: sourceUri);
         return null;
       },
       'registertopLevelFunction': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_1.D4rt>(target, 'D4rt');
+        final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 3, 'registertopLevelFunction');
         final name = D4.getRequiredArg<String?>(positional, 0, 'name', 'registertopLevelFunction');
-        final function = D4.getRequiredArg<dynamic>(positional, 1, 'function', 'registertopLevelFunction');
+        if (positional.length <= 1) {
+          throw ArgumentError('registertopLevelFunction: Missing required argument "function" at position 1');
+        }
+        final functionRaw = positional[1];
         final library = D4.getRequiredArg<String>(positional, 2, 'library', 'registertopLevelFunction');
         final sourceUri = D4.getOptionalNamedArg<String?>(named, 'sourceUri');
         final signature = D4.getOptionalNamedArg<String?>(named, 'signature');
-        t.registertopLevelFunction(name, function, library, sourceUri: sourceUri, signature: signature);
+        t.registertopLevelFunction(name, ($tom_d4rt_5.InterpreterVisitor p0, List<Object?> p1, Map<String, Object?> p2, List<$tom_d4rt_7.RuntimeType>? p3) { return D4.callInterpreterCallback(visitor!, functionRaw, [p0, p1, p2, p3]); }, library, sourceUri: sourceUri, signature: signature);
         return null;
       },
       'registerGlobalVariable': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_1.D4rt>(target, 'D4rt');
+        final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 3, 'registerGlobalVariable');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'registerGlobalVariable');
         final value = D4.getRequiredArg<Object?>(positional, 1, 'value', 'registerGlobalVariable');
@@ -2216,7 +2265,7 @@ BridgedClass _createD4rtBridge() {
         return null;
       },
       'registerGlobalGetter': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_1.D4rt>(target, 'D4rt');
+        final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 3, 'registerGlobalGetter');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'registerGlobalGetter');
         if (positional.length <= 1) {
@@ -2225,11 +2274,11 @@ BridgedClass _createD4rtBridge() {
         final getterRaw = positional[1];
         final library = D4.getRequiredArg<String>(positional, 2, 'library', 'registerGlobalGetter');
         final sourceUri = D4.getOptionalNamedArg<String?>(named, 'sourceUri');
-        t.registerGlobalGetter(name, () { return D4.callInterpreterCallback(visitor, getterRaw, []) as Object?; }, library, sourceUri: sourceUri);
+        t.registerGlobalGetter(name, () { return D4.callInterpreterCallback(visitor!, getterRaw, []); }, library, sourceUri: sourceUri);
         return null;
       },
       'registerGlobalSetter': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_1.D4rt>(target, 'D4rt');
+        final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 3, 'registerGlobalSetter');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'registerGlobalSetter');
         if (positional.length <= 1) {
@@ -2238,11 +2287,11 @@ BridgedClass _createD4rtBridge() {
         final setterRaw = positional[1];
         final library = D4.getRequiredArg<String>(positional, 2, 'library', 'registerGlobalSetter');
         final sourceUri = D4.getOptionalNamedArg<String?>(named, 'sourceUri');
-        t.registerGlobalSetter(name, (Object? p0) { D4.callInterpreterCallback(visitor, setterRaw, [p0]); }, library, sourceUri: sourceUri);
+        t.registerGlobalSetter(name, (Object? p0) { D4.callInterpreterCallback(visitor!, setterRaw, [p0]); }, library, sourceUri: sourceUri);
         return null;
       },
       'validateRegistrations': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_1.D4rt>(target, 'D4rt');
+        final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         final source = D4.getRequiredNamedArg<String>(named, 'source', 'validateRegistrations');
         final sources = D4.coerceMapOrNull<String, String>(named['sources'], 'sources');
         final basePath = D4.getOptionalNamedArg<String?>(named, 'basePath');
@@ -2250,48 +2299,48 @@ BridgedClass _createD4rtBridge() {
         return t.validateRegistrations(source: source, sources: sources, basePath: basePath, allowFileSystemImports: allowFileSystemImports);
       },
       'setDebug': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_1.D4rt>(target, 'D4rt');
+        final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 1, 'setDebug');
         final enabled = D4.getRequiredArg<bool>(positional, 0, 'enabled', 'setDebug');
         t.setDebug(enabled);
         return null;
       },
       'grant': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_1.D4rt>(target, 'D4rt');
+        final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 1, 'grant');
-        final permission = D4.getRequiredArg<dynamic>(positional, 0, 'permission', 'grant');
+        final permission = D4.getRequiredArg<$tom_d4rt_8.Permission>(positional, 0, 'permission', 'grant');
         t.grant(permission);
         return null;
       },
       'revoke': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_1.D4rt>(target, 'D4rt');
+        final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 1, 'revoke');
-        final permission = D4.getRequiredArg<dynamic>(positional, 0, 'permission', 'revoke');
+        final permission = D4.getRequiredArg<$tom_d4rt_8.Permission>(positional, 0, 'permission', 'revoke');
         t.revoke(permission);
         return null;
       },
       'hasPermission': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_1.D4rt>(target, 'D4rt');
+        final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 1, 'hasPermission');
-        final permission = D4.getRequiredArg<dynamic>(positional, 0, 'permission', 'hasPermission');
+        final permission = D4.getRequiredArg<$tom_d4rt_8.Permission>(positional, 0, 'permission', 'hasPermission');
         return t.hasPermission(permission);
       },
       'checkPermission': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_1.D4rt>(target, 'D4rt');
+        final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 1, 'checkPermission');
         final operation = D4.getRequiredArg<dynamic>(positional, 0, 'operation', 'checkPermission');
         return t.checkPermission(operation);
       },
       'getConfiguration': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_1.D4rt>(target, 'D4rt');
+        final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         return t.getConfiguration();
       },
       'getEnvironmentState': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_1.D4rt>(target, 'D4rt');
+        final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         return t.getEnvironmentState();
       },
       'execute': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_1.D4rt>(target, 'D4rt');
+        final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         final source = D4.getOptionalNamedArg<String?>(named, 'source');
         final name = D4.getNamedArgWithDefault<String>(named, 'name', 'main');
         final positionalArgs = D4.coerceListOrNull<Object?>(named['positionalArgs'], 'positionalArgs');
@@ -2304,7 +2353,7 @@ BridgedClass _createD4rtBridge() {
         return t.execute(source: source, name: name, positionalArgs: positionalArgs, namedArgs: namedArgs, args: args, library: library, sources: sources, basePath: basePath, allowFileSystemImports: allowFileSystemImports);
       },
       'continuedExecute': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_1.D4rt>(target, 'D4rt');
+        final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         final source = D4.getOptionalNamedArg<String?>(named, 'source');
         final name = D4.getNamedArgWithDefault<String>(named, 'name', 'main');
         final positionalArgs = D4.coerceListOrNull<Object?>(named['positionalArgs'], 'positionalArgs');
@@ -2313,20 +2362,20 @@ BridgedClass _createD4rtBridge() {
         return t.continuedExecute(source: source, name: name, positionalArgs: positionalArgs, namedArgs: namedArgs, library: library);
       },
       'analyze': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_1.D4rt>(target, 'D4rt');
+        final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         final source = D4.getRequiredNamedArg<String>(named, 'source', 'analyze');
         final sources = D4.coerceMapOrNull<String, String>(named['sources'], 'sources');
         final includeBuiltins = D4.getNamedArgWithDefault<bool>(named, 'includeBuiltins', false);
         return t.analyze(source: source, sources: sources, includeBuiltins: includeBuiltins);
       },
       'eval': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_1.D4rt>(target, 'D4rt');
+        final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 1, 'eval');
         final expression = D4.getRequiredArg<String>(positional, 0, 'expression', 'eval');
         return t.eval(expression);
       },
       'invoke': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_1.D4rt>(target, 'D4rt');
+        final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 2, 'invoke');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'invoke');
         if (positional.length <= 1) {
@@ -2348,6 +2397,7 @@ BridgedClass _createD4rtBridge() {
     methodSignatures: {
       'registerBridgedEnum': 'void registerBridgedEnum(BridgedEnumDefinition definition, String library, {String? sourceUri})',
       'registerBridgedClass': 'void registerBridgedClass(BridgedClass definition, String library, {String? sourceUri})',
+      'registerClassAlias': 'void registerClassAlias(String aliasName, String targetName, String library)',
       'registerBridgedExtension': 'void registerBridgedExtension(BridgedExtensionDefinition definition, String library, {String? sourceUri})',
       'registertopLevelFunction': 'void registertopLevelFunction(String? name, NativeFunctionImpl function, String library, {String? sourceUri, String? signature})',
       'registerGlobalVariable': 'void registerGlobalVariable(String name, Object? value, String library, {String? sourceUri})',
