@@ -96,9 +96,9 @@ The interpreter's `visitSetOrMapLiteral` (`interpreter_visitor.dart` L7928) corr
 
 **c) Proposed Solution:**
 
-Three complementary approaches:
+Two complementary fixes:
 
-**Approach 1 — Bridge-side collection casting (do this):**
+**Fix 1 — Bridge-side collection casting (do first):**
 
 Modify bridge argument extraction to cast collections to the expected generic type. When the bridge knows it needs a `Set<String>`, it can do `(arg as Set).cast<String>()`. This could be added to `D4.extractBridgedArg` or as a new `D4.extractTypedCollection` helper.
 
@@ -110,37 +110,16 @@ Set<T> extractTypedSet<T>(dynamic arg) {
 }
 ```
 
-**Approach 2 — Interpreter type annotation support: (do this, too)**
+**Fix 2 — Interpreter type annotation support (do as well):**
 
-Support explicit type annotations on collection literals: `<String>{'day'}`, `<WidgetState>{}`, `<TargetPlatform, PageTransitionsBuilder>{...}`. This is a substantial interpreter enhancement but the most correct solution.
-
-**Approach 3 — Helper classes in tom_d4rt_flutterm (UserBridge workaround):**
-
-Provide typed collection factory helpers via UserBridge:
-
-```dart
-// In tom_d4rt_flutterm as a UserBridge:
-class WidgetStateSetHelper extends D4UserBridge {
-  static List<String> get nativeNames => ['WidgetStateSet'];
-
-  @override
-  dynamic overrideConstructor(String name, List args, Map<String, dynamic> namedArgs) {
-    if (name == 'of') return Set<WidgetState>.from(args[0] as Iterable);
-    if (name == 'empty') return <WidgetState>{};
-    return null;
-  }
-}
-```
-
-D4rt script usage: `WidgetStateSet.of([WidgetState.hovered])` or `WidgetStateSet.empty()`
+Support explicit type annotations on collection literals: `<String>{'day'}`, `<WidgetState>{}`, `<TargetPlatform, PageTransitionsBuilder>{...}`. This is a substantial interpreter enhancement but the most correct solution — it makes D4rt scripts behave like native Dart for typed collections.
 
 **d) Implementation Scope:**
 
-| Approach | Effort | Impact | Recommendation |
-|----------|--------|--------|----------------|
+| Fix | Effort | Impact | Recommendation |
+|-----|--------|--------|----------------|
 | Bridge-side casting | Low | Fixes all tests using bridges | **Do first** |
 | Type annotation support | High | Fixes all collection typing globally | **Do as well** |
-| UserBridge helpers | Medium | Script-friendly API | Supplement for complex cases |
 
 **Why needed:** `WidgetStateProperty.resolve()`, `SegmentedButton(selected:)`, and `PageTransitionsTheme(builders:)` are fundamental Flutter APIs. Without typed collections, D4rt scripts cannot use state-dependent properties, segmented buttons, or configure page transitions.
 
@@ -177,43 +156,39 @@ The D4rt interpreter resolves identifiers through scope lookup. When it encounte
 
 **c) Proposed Solution:**
 
-**Approach 1 — UserBridge helper in tom_d4rt_flutterm:**
+**Interpreter `Type` expression support via BridgedClass.getType():**
 
-Provide an `ActionMapHelper` that accepts string-based action registration:
+Extend the `BridgedClass` API to include a `Type getType()` method that returns the native Dart `Type` object. The generated bridges implement this method. Then in the interpreter, when an identifier appears in an expression context (not a call), resolve it to its `Type` object via the registered bridge class's `getType()`.
+
+This is simpler than it looks — the bridge already knows its native type. The interpreter just needs a resolution path:
+
+1. Add `Type getType()` to `BridgedClass` API
+2. Implement in all generated bridges: `Type getType() => MyClass;`
+3. In interpreter identifier resolution, when in expression context (not invocation), check if identifier maps to a registered bridge class and call `getType()`
+4. The returned `Type` object works as a native Dart map key
 
 ```dart
-class ActionMapHelper extends D4UserBridge {
-  static List<String> get nativeNames => ['ActionMap'];
-
+// In generated bridge:
+class MyClassBridge extends BridgedClass {
   @override
-  dynamic overrideConstructor(String name, List args, Map<String, dynamic> namedArgs) {
-    if (name == 'of') {
-      // Accept a list of [intentType, action] pairs
-      // Use bridge-registered type lookup to resolve Type objects
-      final entries = args[0] as List;
-      final map = <Type, Action<Intent>>{};
-      for (final entry in entries) {
-        final pair = entry as List;
-        final typeName = pair[0] as String;
-        final action = pair[1] as Action<Intent>;
-        map[_resolveType(typeName)] = action;
-      }
-      return map;
-    }
-    return null;
-  }
+  Type getType() => MyClass;
+  // ... existing bridge code
 }
 ```
 
-**Approach 2 — Interpreter `Type` expression support:**
-
-** USER'S CHOICE: this should be easier than it looks like, we simply extend the API for BridgedClass to include a Type getType() method that is implemented in the generated bridges. Then this is not so complicated in the interpreter **
-
-Add a resolution path that, when an identifier appears in an expression context (not a call), evaluates it to a `Type` object if it matches a registered bridge class name. This is a complex interpreter change.
+```dart
+// In interpreter (expression context, not call):
+final bridgeClass = environment.lookupBridgeClass(identifier);
+if (bridgeClass != null) return bridgeClass.getType();
+```
 
 **d) Implementation Scope:**
 
-UserBridge approach is practical and can be implemented immediately. Interpreter-level `Type` support is a deeper language feature.
+| Step | Effort | Component |
+|------|--------|-----------|
+| Add `getType()` to BridgedClass | Low | tom_d4rt_ast |
+| Generate `getType()` in bridges | Low | tom_d4rt_generator |
+| Interpreter expression resolution | Medium | tom_d4rt interpreter |
 
 **Why needed:** The `Actions` / `Shortcuts` system is how Flutter applications handle keyboard shortcuts and accessibility actions. Without `Type`-keyed maps, D4rt scripts cannot define action dispatchers.
 
@@ -248,9 +223,9 @@ This is different from constructor callback parameters where the bridge can wrap
 
 **c) Proposed Solution:**
 
-**Approach 1 — Generator setter callback wrapping (recommended):**
+**Generator setter callback wrapping:**
 
-When the generator detects a setter whose type is a `Function` type (callback), emit a wrapper that converts `InterpretedFunction` to the expected native callback:
+When the generator detects a setter whose type is a `Function` type (callback), emit a wrapper that converts `InterpretedFunction` to the expected native callback. This extends the existing callback wrapping logic already used for constructor parameters to also cover setters:
 
 ```dart
 // Generated setter adapter:
@@ -263,32 +238,15 @@ if (setterName == 'onStart') {
 }
 ```
 
-**Approach 2 — UserBridge for recognizers:**
-
-Create a `GestureRecognizerHelper` UserBridge that provides a `configure` method:
-
-```dart
-class GestureHelper extends D4UserBridge {
-  static List<String> get nativeNames => ['GestureHelper'];
-
-  @override
-  dynamic overrideMethodDoWork(String name, dynamic instance, List args, Map<String, dynamic> namedArgs) {
-    if (name == 'configureHDrag') {
-      final recognizer = args[0] as HorizontalDragGestureRecognizer;
-      final onStart = namedArgs['onStart'] as InterpretedFunction?;
-      if (onStart != null) {
-        recognizer.onStart = (details) => onStart.call([D4.wrapBridged(details)]);
-      }
-      // ... same for onUpdate, onEnd
-    }
-    return null;
-  }
-}
-```
+The generator already knows the setter's parameter type from analysis, so it can detect `Function` types and emit the appropriate wrapping lambda.
 
 **d) Implementation Scope:**
 
-The generator fix (Approach 1) is the proper solution — it extends the existing callback wrapping logic from constructor parameters to setters. The UserBridge approach is a stopgap.
+Moderate change in the generator's setter emission code. The pattern already exists for constructor callback parameters — it needs to be applied to setter adapters as well. Specifically:
+
+1. During setter analysis, detect if the setter type is a `Function` type
+2. If so, emit a setter adapter that wraps `InterpretedFunction` in a native closure
+3. The closure bridges arguments using `D4.wrapBridged()` for each parameter
 
 **Why needed:** Direct gesture recognizer configuration is common in custom gesture handling code. Without setter callbacks, D4rt scripts cannot configure drag, tap, scale, or other recognizers.
 
@@ -625,12 +583,12 @@ The proxy classes (e.g., `D4rtCustomPainter`, `D4rtFlowDelegate`) exist in `flut
 
 **c) Proposed Solution:**
 
-**Approach 1 — Add registerInterfaceProxy calls in bridge registration (recommended):**
+**Generator auto-registers proxy factories:**
 
-In `flutter_proxies_bridges.b.dart`, register proxy factories for each proxy class:
+Enhance the proxy generator to emit both the proxy class AND the corresponding `D4.registerInterfaceProxy()` call, so proxy compilation and factory registration are always in sync. The generator already knows the proxy's abstract methods and their signatures — it should also emit the factory that bridges `InterpretedInstance` method calls to native proxy callbacks:
 
 ```dart
-// During bridge initialization:
+// Generated alongside proxy class:
 D4.registerInterfaceProxy<CustomPainter>('CustomPainter', (InterpretedInstance instance) {
   return D4rtCustomPainter(
     onPaint: (canvas, size) {
@@ -643,13 +601,9 @@ D4.registerInterfaceProxy<CustomPainter>('CustomPainter', (InterpretedInstance i
 });
 ```
 
-**Approach 2 — Generator auto-registers proxy factories:**
-
-Enhance the proxy generator to emit both the proxy class AND the corresponding `D4.registerInterfaceProxy()` call, so proxy compilation and factory registration are always in sync.
-
 **d) Implementation Scope:**
 
-Approach 2 is the right long-term fix — the proxy generator should own the full lifecycle. For immediate unblocking, Approach 1 can be added manually.
+Extend the proxy generator (`proxy_generator.dart`) to emit a `registerProxyFactories()` function alongside the proxy classes. This function is called during bridge initialization and registers each proxy factory with `D4.registerInterfaceProxy()`. The generator already has all the method signature information needed.
 
 **Why needed:** High priority — 7 test failures. These are fundamental Flutter delegate patterns. Without proxy factory registration, D4rt scripts cannot use `CustomPaint`, `Flow`, `PaginatedDataTable`, `SliverPersistentHeader`, or `CustomMultiChildLayout`.
 
@@ -693,7 +647,7 @@ For example, `RestorableValue<T>.value` has type `T`, which is `int` for `Restor
 
 **c) Proposed Solution:**
 
-**Approach 1 — Generator type parameter substitution (recommended):**
+**Generator type parameter substitution:**
 
 When analyzing class members, walk the full superclass hierarchy including generic superclasses. For each generic superclass, substitute the type parameters based on the subclass's `extends` clause:
 
@@ -705,20 +659,7 @@ When analyzing class members, walk the full superclass hierarchy including gener
 // 4. Emit: 'value': (instance) => instance.value  // type: int
 ```
 
-**Approach 2 — Manual member additions via d4rtgen.yaml (workaround):**
-
-Allow specifying additional inherited members in the generator config:
-
-```yaml
-classes:
-  RestorableInt:
-    include_members:
-      - value  # from RestorableValue<int>
-```
-
-**Approach 3 — UserBridge override for inherited members:**
-
-Create UserBridge classes that explicitly expose inherited members. This is the most immediate workaround but scales poorly.
+This requires tracking type parameter bindings through the class hierarchy and substituting them in member signatures when generating bridge code.
 
 **d) Implementation Scope:**
 
@@ -807,29 +748,16 @@ The generator scans Flutter SDK source files and finds the actual class declarat
 
 **c) Proposed Solution:**
 
-**Approach 1 — Generator typedef detection (recommended):**
+**Generator typedef detection:**
 
-During class scanning, also scan for `typedef X = Y` declarations and register the alias name alongside the real class name. The bridge should respond to both names.
+During class scanning, also scan for `typedef X = Y` declarations and register the alias name alongside the real class name. The bridge should respond to both names. This is a one-time generator enhancement that handles all future typedef aliases automatically, including:
 
-**Approach 2 — UserBridge nativeNames (immediate workaround):**
+- Class typedef aliases (e.g., `typedef BottomAppBarTheme = BottomAppBarThemeData`)
+- Function typedefs (e.g., `typedef VoidCallback = void Function()`)
 
-Use the `nativeNames` mechanism on a UserBridge to register the alias:
+For function typedefs like `VoidCallback`, the generator should register the typedef name in the bridge type system so it resolves to the underlying function type.
 
-```dart
-class BottomAppBarThemeAlias extends D4UserBridge {
-  static List<String> get nativeNames => ['BottomAppBarTheme'];
-
-  @override
-  dynamic overrideConstructor(String name, List args, Map<String, dynamic> namedArgs) {
-    // Delegate to the existing BottomAppBarThemeData bridge
-    return BottomAppBarThemeData(/* forward namedArgs */);
-  }
-}
-```
-
-**Approach 3 — d4rtgen.yaml alias config:**
-
-Add an `aliases` field to the module config:
+Additionally, the generator config could support an explicit `aliases` field for cases where the typedef is not easily auto-detected:
 
 ```yaml
 classes:
@@ -839,7 +767,7 @@ classes:
 
 **d) Implementation Scope:**
 
-Generator-level typedef scanning is the cleanest fix — it's a one-time enhancement that handles all future typedef aliases automatically.
+Generator-level typedef scanning is the cleanest fix. The scan happens during the existing class analysis phase — extend it to also collect `typedef` declarations from the same source files.
 
 **Why needed:** These are commonly used Material theme classes. Every app using `ThemeData(bottomAppBarTheme: BottomAppBarTheme(...))` will hit this.
 
@@ -1005,7 +933,6 @@ Investigate the exact constructor signature of `NoDefaultCupertinoThemeData` and
 
 - Adjusting the generator's parameter type detection for this class
 - Adding it to the special-case handling in the generator
-- Or using a UserBridge override
 
 **d) Implementation Scope:**
 
@@ -1088,97 +1015,76 @@ The GEN-075 fix was designed for the common case (Animation of primitives). Flut
 
 **c) Proposed Solution:**
 
-**Approach 1 — Extended type switch (practical):**
+**Generator-based type exploration:**
 
-Add the most common Flutter types to the switch:
-
-```dart
-if (value is Color) return AlwaysStoppedAnimation<Color>(value);
-if (value is Offset) return AlwaysStoppedAnimation<Offset>(value);
-if (value is Size) return AlwaysStoppedAnimation<Size>(value);
-if (value is RelativeRect) return AlwaysStoppedAnimation<RelativeRect>(value);
-if (value is Decoration) return AlwaysStoppedAnimation<Decoration>(value);
-if (value is BorderRadius) return AlwaysStoppedAnimation<BorderRadius>(value);
-if (value is TextStyle) return AlwaysStoppedAnimation<TextStyle>(value);
-```
-
-But this needs BridgedInstance unwrapping first — the `value` comes in as `BridgedInstance<Color>`, not `Color`.
-
-**Approach 2 — Generator-based type exploration (recommended):**
-
-During generation, scan which concrete types are used with `AlwaysStoppedAnimation<T>` across the Flutter API (by finding constructor parameters typed as `Animation<X>`) and emit switch cases for all discovered types.
-
-**Approach 3 — UserBridge specialization:**
-
-Create type-specific constructors via UserBridge:
+During generation, scan which concrete types are used with `AlwaysStoppedAnimation<T>` across the Flutter API (by finding constructor parameters typed as `Animation<X>`) and emit switch cases for all discovered types. The generator already analyzes Flutter source — it can identify all parameters with `Animation<SpecificType>` annotations and build the complete type switch:
 
 ```dart
-class AnimationHelper extends D4UserBridge {
-  static List<String> get nativeNames => ['StoppedAnimation'];
-
-  @override
-  dynamic overrideConstructor(String name, List args, Map<String, dynamic> namedArgs) {
-    final value = D4.extractBridgedArgDynamic(args[0]);
-    if (name == 'ofRelativeRect') return AlwaysStoppedAnimation<RelativeRect>(value as RelativeRect);
-    if (name == 'ofDecoration') return AlwaysStoppedAnimation<Decoration>(value as Decoration);
-    if (name == 'ofColor') return AlwaysStoppedAnimation<Color>(value as Color);
-    return null;
-  }
-}
+// Generated type switch based on API scan:
+final unwrapped = D4.extractBridgedArgDynamic(value);
+if (unwrapped is double) return AlwaysStoppedAnimation<double>(unwrapped);
+if (unwrapped is int) return AlwaysStoppedAnimation<int>(unwrapped);
+if (unwrapped is Color) return AlwaysStoppedAnimation<Color>(unwrapped);
+if (unwrapped is Offset) return AlwaysStoppedAnimation<Offset>(unwrapped);
+if (unwrapped is Size) return AlwaysStoppedAnimation<Size>(unwrapped);
+if (unwrapped is RelativeRect) return AlwaysStoppedAnimation<RelativeRect>(unwrapped);
+if (unwrapped is Decoration) return AlwaysStoppedAnimation<Decoration>(unwrapped);
+if (unwrapped is BorderRadius) return AlwaysStoppedAnimation<BorderRadius>(unwrapped);
+if (unwrapped is TextStyle) return AlwaysStoppedAnimation<TextStyle>(unwrapped);
+// ... all types discovered from Animation<X> parameter scan
+return AlwaysStoppedAnimation(unwrapped);
 ```
 
-D4rt script usage: `StoppedAnimation.ofRelativeRect(myRect)` instead of `AlwaysStoppedAnimation(myRect)`
+Note: The value must be unwrapped from `BridgedInstance<T>` first using `D4.extractBridgedArgDynamic()` before the `is` checks.
 
 **d) Implementation Scope:**
 
-The generator approach (Approach 2) is the best long-term fix. The UserBridge approach (Approach 3) can be implemented immediately as a workaround.
+1. Add an API scan pass to the generator that finds all `Animation<X>` parameter types across the bridged API surface
+2. Collect the set of concrete types used as `X`
+3. Emit a type switch in the `AlwaysStoppedAnimation` constructor bridge that covers all discovered types
+4. Include `BridgedInstance` unwrapping before the switch
 
 **Why needed:** `PositionedTransition`, `DecoratedBoxTransition`, and color/style animations are important for Flutter UI. Without proper generics, these animation widgets cannot be used from D4rt scripts.
 
 ---
 
-## Workaround Strategy Summary
+## Fix Strategy Summary
 
-### UserBridge Approach
+All issues should be resolved with proper generator or interpreter fixes. No UserBridge workarounds.
 
-The `D4UserBridge` mechanism (in `tom_d4rt_ast`) allows custom bridge implementations that override constructor, method, getter, setter, and operator behaviors without modifying the generator. Key points:
+### Fix Categories
 
-- **Annotation:** `@D4rtUserBridge(libraryPath: 'package:my_package/my_bridge.dart')`
-- **Base class:** `D4UserBridge` with override methods
-- **Name mapping:** `static List<String> get nativeNames` for registering alternative type names
-- **Currently unused** in `tom_d4rt_flutterm` — all bridges are fully generated
-- **Integration:** `orchestrator.scanUserBridges()` in the generator's builder.dart
-
-### Proposed UserBridge Helpers for tom_d4rt_flutterm
-
-| Helper Class | Issue | Purpose |
-|-------------|-------|---------|
-| `WidgetStateSet` | ENG-001 | Create typed `Set<WidgetState>` from list |
-| `TypedMapHelper` | ENG-001 | Create typed `Map<K,V>` from untyped map |
-| `ActionMap` | ENG-002 | Create `Map<Type, Action<Intent>>` by string name |
-| `GestureHelper` | ENG-003 | Configure recognizer callbacks with proper typing |
-| `StoppedAnimation` | GEN-091 | Type-specific `AlwaysStoppedAnimation<T>` constructors |
-| `ThemeAliases` | GEN-085 | Register public typedef names (if generator fix deferred) |
-| `ProxyFactories` | GEN-092 | Register interface proxy factories for abstract delegate classes |
+| Category | Issues | Fix Location |
+|----------|--------|--------------|
+| Generator — proxy lifecycle | GEN-092 | proxy_generator.dart (emit registerInterfaceProxy calls) |
+| Generator — type resolution | GEN-085, GEN-091, GEN-093 | class analyzer + emitter (typedef scanning, generic superclass walk, animation type scan) |
+| Generator — setter emission | GEN-086, ENG-003 | setter adapter template (extractBridgedArg unwrapping, callback wrapping) |
+| Generator — parameter handling | GEN-087, GEN-094, ENG-009 | constructor emitter (conditional defaults, SDK signature update, enum coercion) |
+| Generator — config | GEN-088, ENG-008 | d4rtgen.yaml (add missing classes, remove deprecated/unexported) |
+| Interpreter — type system | ENG-001, ENG-002, ENG-007 | interpreter + d4.dart (collection casting, Type expressions via BridgedClass.getType(), nullable handling) |
+| Interpreter — function model | ENG-006 | interpreter property resolution (Object member fallback for functions) |
+| Interpreter — runtime | ENG-004, ENG-005 | typed_data bridges (lower priority) |
+| Investigation | GEN-089, GEN-090 | Need further analysis |
 
 ### Priority Order
 
-| Priority | Issues | Approach | Impact |
-|----------|--------|----------|--------|
-| **High** | GEN-092 | Proxy factory registration | Unblocks 7 tests (delegate classes) |
-| **High** | GEN-085, GEN-086 | Generator fix | Unblocks 6+ tests |
-| **High** | GEN-093 | Generator type parameter substitution | Unblocks 5 tests (RestorableValue, ValueNotifier) |
-| **High** | ENG-001 | Bridge-side collection casting | Unblocks 3 tests |
-| **Medium** | ENG-006 | Interpreter function property fix | Fixes 5 failures |
-| **Medium** | ENG-007 | Nullable type extraction | Fixes 3 failures |
-| **Medium** | GEN-087, GEN-088 | Generator fix + config | Unblocks 3 tests |
-| **Medium** | ENG-002, ENG-003 | UserBridge helpers | Unblocks 2 tests |
-| **Medium** | ENG-008 | Bridge config cleanup | Fixes 6 false failures |
-| **Medium** | GEN-091 | Extended switch or UserBridge | Restores workaround sections |
+| Priority | Issues | Proper Fix | Impact |
+|----------|--------|------------|--------|
+| **High** | GEN-092 | Generator emits proxy factory registration | Unblocks 7 tests (delegate classes) |
+| **High** | GEN-085, GEN-086 | Generator typedef scanning + setter unwrapping | Unblocks 6+ tests |
+| **High** | GEN-093 | Generator generic superclass type parameter substitution | Unblocks 5 tests (RestorableValue, ValueNotifier) |
+| **High** | ENG-001 | Bridge-side collection casting in D4.extractBridgedArg + interpreter type annotations | Unblocks 3 tests |
+| **Medium** | ENG-006 | Interpreter Object member fallback for function types | Fixes 5 failures |
+| **Medium** | ENG-007 | Nullable-aware type extraction in D4.extractBridgedArg | Fixes 3 failures |
+| **Medium** | GEN-087, GEN-088 | Generator conditional parameter emission + config update | Unblocks 3 tests |
+| **Medium** | ENG-002 | BridgedClass.getType() API + interpreter Type expression resolution | Unblocks 1 test |
+| **Medium** | ENG-003 | Generator setter callback wrapping (extend constructor pattern) | Unblocks 1 test |
+| **Medium** | ENG-008 | Remove deprecated/unexported types from d4rtgen.yaml | Fixes 6 false failures |
+| **Medium** | GEN-091 | Generator API scan for Animation<X> types | Restores workaround sections |
 | **Low** | GEN-089, GEN-090 | Investigation needed | Unblocks 2 tests |
 | **Low** | GEN-094 | Regenerate bridges for current SDK | Fixes 1 failure |
-| **Low** | ENG-009 | Generator enum coercion | Fixes 1 failure |
-| **Low** | ENG-004, ENG-005 | typed_data bridges | Workaround already applied |
+| **Low** | ENG-009 | Generator enum-aware operator argument extraction | Fixes 1 failure |
+| **Low** | ENG-004, ENG-005 | Bridge dart:typed_data types | Test workarounds already applied |
 
 ---
 
