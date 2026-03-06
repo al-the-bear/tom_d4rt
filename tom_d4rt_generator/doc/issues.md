@@ -1,9 +1,9 @@
 # D4rt Bridge Generator — Known Issues & Limitations
 
-> Last updated: 2026-03-08
+> Last updated: 2026-03-06
 >
 > Generator test suite: **618 passed, 0 skipped, 0 failed**
-> Flutterm integration: **148 passed, 22 skipped, 0 failed**
+> Flutterm integration: **1953 passed, 42 failed** (essential: 108/0, important: 160/2, hardly_relevant: 1059/4, secondary: 620/36)
 
 ---
 
@@ -13,14 +13,16 @@
 
 | ID | Description | Component | Affected Tests | Status |
 |----|-------------|-----------|----------------|--------|
-| [GEN-083](#gen-083) | Proxy/adapter class generation | Generator | custompaint, flow, etc. | **OPEN** |
-| [GEN-085](#gen-085) | Theme typedef alias registration | Generator | appbar_themes, component_themes, dialog_themes, input_themes | **OPEN** |
+| [GEN-085](#gen-085) | Theme/function typedef alias registration | Generator | appbar_themes, component_themes, dialog_themes, input_themes + VoidCallback | **OPEN** |
 | [GEN-086](#gen-086) | Setter adapter BridgedInstance unwrapping | Generator | picture, canvas | **OPEN** |
-| [GEN-087](#gen-087) | Non-wrappable constructor parameter defaults | Generator | asset | **OPEN** |
+| [GEN-087](#gen-087) | Non-wrappable constructor parameter defaults | Generator | asset, NetworkImage | **OPEN** |
 | [GEN-088](#gen-088) | Missing Cupertino widget bridges | Generator | menu_widgets, pulldown | **OPEN** |
 | [GEN-089](#gen-089) | NoDefaultCupertinoThemeData constructor | Generator | cupertino_themes_batch4 | **OPEN** |
 | [GEN-090](#gen-090) | GravitySimulation endDistance assertion | Generator | simulations | **OPEN** |
 | [GEN-091](#gen-091) | AlwaysStoppedAnimation generic type | Generator | rotationtransition (workaround) | **OPEN** |
+| [GEN-092](#gen-092) | Interface proxy factory registration | Generator | DataTableSource, FlowDelegate, SliverPersistentHeaderDelegate, MultiChildLayoutDelegate | **NEW** |
+| [GEN-093](#gen-093) | Inherited members from generic superclasses | Generator | RestorableInt, RestorableNum, TextEditingController, TransformationController, ByteData | **NEW** |
+| [GEN-094](#gen-094) | Flutter API method signature changes | Generator | shouldAcceptUserOffset | **NEW** |
 
 ### Engine Issues (Interpreter Limitations)
 
@@ -31,11 +33,15 @@
 | [ENG-003](#eng-003) | Typed callback setter assignment | Interpreter | recognizers | **OPEN** |
 | [ENG-004](#eng-004) | Float64List type unavailable | Interpreter | filters (workaround) | **OPEN** |
 | [ENG-005](#eng-005) | ByteData.lengthInBytes not bridged | Interpreter | codecs (workaround) | **OPEN** |
+| [ENG-006](#eng-006) | runtimeType on InterpretedFunction/NativeFunction | Interpreter | 5 failures across test suites | **NEW** |
+| [ENG-007](#eng-007) | Nullable type extraction mismatch | Interpreter/Bridge | TextStyle? vs TextStyle, 3 failures | **NEW** |
+| [ENG-008](#eng-008) | Unexported/deprecated type variable references | Bridge Config | ButtonBar, RawKeyboardListener, unexported enums | **NEW** |
+| [ENG-009](#eng-009) | Enum coercion for bitfield operator parameters | Interpreter | BitField operator `[]=` | **NEW** |
 
 ### Test Impact Matrix
 
-| Test Script | Skip Reason | Issue IDs |
-|-------------|-------------|-----------|
+| Test Script | Skip/Failure Reason | Issue IDs |
+|-------------|---------------------|-----------|
 | segmentedbutton_test | Set/collection type inference | ENG-001 |
 | widgetstate_test | Set/collection type inference | ENG-001 |
 | misc_themes_test | Map generic type inference | ENG-001 |
@@ -55,6 +61,9 @@
 | rotationtransition_test | Workaround applied (sections removed) | GEN-091 |
 | filters_test | Workaround applied (Float64List removed) | ENG-004 |
 | codecs_test | Workaround applied (ByteData replaced) | ENG-005 |
+| important_classes_test | InterpretedFunction callback type mismatch (1), non-wrappable default (1) | ENG-003, GEN-087 |
+| hardly_relevant_classes_test | Undefined variables for unexported enums (4) | ENG-008 |
+| secondary_classes_test | Proxy factory not registered (7), nullable type mismatch (3), runtimeType on functions (5), undefined variables (6), inherited members not bridged (5), collection type mismatch (2), method signature change (1), enum coercion (1), VoidCallback not found (1), other (5) | GEN-092, ENG-007, ENG-006, ENG-008, GEN-093, ENG-001, GEN-094, ENG-009, GEN-085 |
 
 ---
 
@@ -334,82 +343,450 @@ Same as ENG-004 — bridge `dart:typed_data` types
 
 ---
 
-## Open Issues — Generator (Bridge Code)
+### ENG-006
 
-### GEN-083
+**runtimeType property on InterpretedFunction / NativeFunction**
 
-**Proxy/adapter class generation for abstract delegate classes**
-
-**Status:** OPEN (2026-03-03) — Feature request from flutterm testing Strategy I
+**Status:** NEW (2026-03-06) — Identified during flutterm secondary_classes integration testing
 
 **a) Problem:**
 
-D4rt scripts cannot create instances of abstract delegate classes like `CustomPainter`, `CustomClipper<T>`, `FlowDelegate`, etc. These classes require subclassing with overridden abstract methods, but D4rt scripts cannot define native Dart subclasses. This means `CustomPaint(painter: myPainter)` is not possible from D4rt — the interpreter has no way to provide a `CustomPainter` subclass with `paint()` and `shouldRepaint()` implementations.
+D4rt scripts that access `.runtimeType` on function values fail with:
 
-Existing test scripts (e.g., `custompaint_test.dart`, `flow_test.dart`) document this limitation — they can only test the delegate classes as types/constructors but cannot provide callback-driven implementations.
+```
+Cannot access property 'runtimeType' on target of type InterpretedFunction
+Cannot access property 'runtimeType' on target of type NativeFunction
+```
+
+This occurs in test scripts that check callback types or log function metadata. `runtimeType` is a property of `Object` and should be accessible on all values, including functions.
+
+**Affected tests:** 5 failures across secondary_classes_test.dart
 
 **b) Root Cause:**
 
-The bridge generator only generates wrapper bridges for existing classes (bridging their constructors, methods, getters, setters). It has no mechanism to emit **proxy subclasses** that extend an abstract class and delegate abstract methods to D4rt callback functions.
+`InterpretedFunction` and `NativeFunction` are D4rt's internal representations of user-defined and native callback functions. While they implement `Function`, the interpreter's property resolution for these types does not include `Object` members like `runtimeType`, `hashCode`, or `toString`. The interpreter special-cases function types in its property access logic, and the `Object` member fallback path is not reached for functions.
 
 **c) Proposed Solution:**
 
-Enhance the generator to detect abstract classes with abstract methods and emit proxy/adapter subclasses that accept callback `Function` parameters. For each abstract method, generate a corresponding named callback parameter.
+**Approach 1 — Add Object member fallback for function types (recommended):**
 
-**Target classes (6 identified):**
-
-| Class | Abstract Methods to Proxy | Priority |
-|-------|--------------------------|----------|
-| `CustomPainter` | `paint(Canvas, Size)`, `shouldRepaint(CustomPainter)` | **High** — CustomPaint is the primary custom drawing widget |
-| `CustomClipper<T>` | `getClip(Size)`, `shouldReclip(CustomClipper)` | Medium |
-| `FlowDelegate` | `paintChildren(FlowPaintingContext)`, `shouldRelayout()`, `shouldRepaint()` | Low |
-| `MultiChildLayoutDelegate` | `performLayout(Size)` | Low |
-| `SingleChildLayoutDelegate` | `getConstraintsForChild(BoxConstraints)`, `getPositionForChild(Size, Size)` | Low |
-| `SearchDelegate` | `buildSuggestions(BuildContext)`, `buildResults(BuildContext)`, `buildLeading(BuildContext)`, `buildActions(BuildContext)` | Low |
-
-**Generated code pattern:**
+In the interpreter's property access handler (`visitPrefixedIdentifier` or `visitPropertyAccess`), when the target is an `InterpretedFunction` or `NativeFunction`, check for `Object` member names before throwing:
 
 ```dart
-class D4rtCustomPainter extends CustomPainter {
-  final Function(Canvas, Size) _onPaint;
-  final Function(CustomPainter) _onShouldRepaint;
-
-  D4rtCustomPainter({
-    required Function(Canvas, Size) onPaint,
-    required Function(CustomPainter) onShouldRepaint,
-  }) : _onPaint = onPaint, _onShouldRepaint = onShouldRepaint;
-
-  @override
-  void paint(Canvas canvas, Size size) => _onPaint(canvas, size);
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) => _onShouldRepaint(oldDelegate);
+if (target is InterpretedFunction || target is NativeFunction) {
+  switch (propertyName) {
+    case 'runtimeType': return target.runtimeType;
+    case 'hashCode': return target.hashCode;
+    case 'toString': return () => target.toString();
+  }
 }
 ```
 
+**Approach 2 — Make function types extend a bridged base:**
+
+Register `Function` as a bridged type with standard `Object` member accessors. This is more involved but handles all Object members uniformly.
+
 **d) Implementation Scope:**
 
-1. **Detection** — Identify abstract classes with abstract methods during analysis
-2. **Configuration** — Add `proxyClasses` list to d4rtgen module config (opt-in per class)
-3. **Code emission** — Generate `D4rt{ClassName}` proxy class in the module's bridge file
-4. **Bridge registration** — Register the proxy class alongside the original class bridge
-5. **Callback unwrapping** — Ensure D4rt `Function` values are correctly unwrapped as native callbacks
+Small change in the interpreter's property resolution for function types. Approach 1 is a 10-line fix.
 
-**Why needed:** Custom drawing is a fundamental Flutter capability. Without proxy generation, D4rt scripts cannot create custom painters/clippers/delegates, limiting them to pre-built widgets only.
+**Why needed:** `runtimeType` access is common in debug output, type checking, and logging patterns. Without this, any D4rt script that inspects function metadata will fail.
 
-**Reference:** Strategy I in `tom_d4rt_flutterm/_copilot_guidelines/d4rt_flutter_testing_extended.md`
+---
+
+### ENG-007
+
+**Nullable type extraction mismatch**
+
+**Status:** NEW (2026-03-06) — Identified during flutterm secondary_classes integration testing
+
+**a) Problem:**
+
+Bridge argument extraction fails when the expected type is nullable but the provided value is non-nullable:
+
+```
+expected TextStyle?, got TextStyle
+```
+
+This occurs when a constructor parameter expects `TextStyle?` but the bridge unwraps the `BridgedInstance<TextStyle>` to a `TextStyle` value, which then fails the `is TextStyle?` type check in some code paths.
+
+**Affected tests:** 3 failures across secondary_classes_test.dart (TextStyle-related widgets)
+
+**b) Root Cause:**
+
+In `D4.extractBridgedArg<T>()` (d4.dart L663+), when `T` is `TextStyle?`, the method attempts to match the value against type `T`. A non-null `TextStyle` should satisfy `is TextStyle?` — in Dart's type system, `TextStyle` is a subtype of `TextStyle?`. However, the bridge may be:
+
+1. Using a different code path that compares `runtimeType` strings rather than `is T` checks
+2. The `BridgedInstance` wrapping is confusing the type check — the value is still wrapped when the nullable check occurs
+3. Cross-package type identity issues — the `TextStyle` from one bridge registration doesn't match `TextStyle?` from another
+
+**c) Proposed Solution:**
+
+**Approach 1 — Add nullable-aware type coercion in extractBridgedArg:**
+
+When `extractBridgedArg<T>()` fails the `is T` check but `T` is nullable and the value matches the non-nullable base type, accept the conversion:
+
+```dart
+static T extractBridgedArg<T>(dynamic value, String argName) {
+  // ... existing unwrapping logic ...
+  final unwrapped = _unwrap(value);
+  if (unwrapped is T) return unwrapped;
+  
+  // Nullable fallback: if T is nullable and value matches base type
+  if (null is T && unwrapped != null) {
+    // T is nullable — try direct cast
+    return unwrapped as T;
+  }
+  throw ArgumentError('Expected $T, got ${unwrapped.runtimeType} for $argName');
+}
+```
+
+**Approach 2 — Use extractBridgedArgOrNull for nullable parameters:**
+
+The generator should detect nullable parameter types and emit `D4.extractBridgedArgOrNull<TextStyle>(...)` instead of `D4.extractBridgedArg<TextStyle?>(...)`, handling the nullability at the call site.
+
+**d) Implementation Scope:**
+
+Approach 1 is a small change in `d4.dart`. Approach 2 requires generator awareness of nullable parameters (may already partially exist).
+
+**Why needed:** Many Flutter widget constructors have nullable style parameters (`TextStyle?`, `Color?`, `EdgeInsets?`). Without proper nullable handling, D4rt scripts cannot pass styles to widgets like `Text`, `TextField`, `AppBar`.
+
+---
+
+### ENG-008
+
+**Unexported/deprecated type variable references**
+
+**Status:** NEW (2026-03-06) — Identified during flutterm hardly_relevant and secondary_classes testing
+
+**a) Problem:**
+
+D4rt test scripts reference types that are either deprecated in the current Flutter SDK or not publicly exported:
+
+**Deprecated types (removed from Flutter 3.32+):**
+- `ButtonBar` — deprecated, replaced by `OverflowBar`
+- `ButtonBarThemeData` — deprecated along with `ButtonBar`
+- `RawKeyboardListener` — deprecated, replaced by `KeyboardListener`
+
+**Unexported types (internal to Flutter SDK):**
+- `RenderAnimatedSizeState` — enum from `rendering/animated_size.dart`, not in public barrel exports
+- `KeyDataTransitMode` — enum from `services/hardware_keyboard.dart`, not publicly exported
+- `KeyboardSide` — enum from `services/raw_keyboard.dart`, not publicly exported
+- `ModifierKey` — enum from `services/raw_keyboard.dart`, not publicly exported
+
+**Affected tests:** 6 failures across hardly_relevant_classes_test.dart and secondary_classes_test.dart
+
+**b) Root Cause:**
+
+The bridge classes and test scripts were generated against an earlier Flutter SDK version. Flutter regularly deprecates and removes APIs, and some types that existed in prior versions are no longer available. Additionally, some types are defined in internal files that are not part of Flutter's public API barrel exports.
+
+The generator includes these types because it scans the SDK source files directly rather than going through the public API surface. Types defined in internal files get bridged even though they can't be accessed by D4rt scripts through normal import paths.
+
+**c) Proposed Solution:**
+
+**Approach 1 — Update bridge configuration (immediate):**
+
+Remove deprecated and unexported types from `d4rtgen.yaml` module configurations, or add them to an exclusion list:
+
+```yaml
+# In d4rtgen.yaml module config:
+exclude_classes:
+  - ButtonBar
+  - ButtonBarThemeData
+  - RawKeyboardListener
+  - RenderAnimatedSizeState
+  - KeyDataTransitMode
+  - KeyboardSide
+  - ModifierKey
+```
+
+**Approach 2 — Generator public API filter (recommended long-term):**
+
+Enhance the generator to verify that scanned classes are actually reachable through the package's public barrel file (`package:flutter/material.dart`, etc.) before generating bridges. Classes only reachable via `src/` imports should be flagged or excluded automatically.
+
+**Approach 3 — Deprecation awareness:**
+
+Add a `@Deprecated` annotation scanner to the generator. Classes or members marked `@Deprecated` get either skipped or annotated in the generated bridge as deprecated.
+
+**d) Implementation Scope:**
+
+Approach 1 is immediate — configuration change only. Approach 2 is a generator enhancement that prevents this problem class from recurring with future SDK updates.
+
+**Why needed:** Medium priority — test suites should only test types that are actually available in the current Flutter SDK. False failures from deprecated types make it harder to track real regressions.
+
+---
+
+### ENG-009
+
+**Enum coercion for bitfield operator parameters**
+
+**Status:** NEW (2026-03-06) — Identified during flutterm secondary_classes integration testing
+
+**a) Problem:**
+
+The `[]=` operator on bitfield-like classes expects an enum value as the index, but receives an `int` from the D4rt interpreter:
+
+```
+Class 'int' has no instance getter 'index'
+```
+
+This occurs when D4rt scripts use bracket assignment on types like `BitField` where the key type is an enum and the operator implementation accesses `.index` on the key parameter.
+
+**Affected tests:** 1 failure in secondary_classes_test.dart
+
+**b) Root Cause:**
+
+The bridge-generated operator adapter passes the key argument as its raw D4rt value (an `int`). The native operator implementation expects an enum value and accesses `.index` on it. Since D4rt doesn't have native enum instances for all bridge-registered enums, the raw int value is passed through, and calling `.index` on an `int` fails.
+
+The bridge operator adapter code looks like:
+
+```dart
+'[]=': (instance, args) => instance[args[0]] = args[1],
+```
+
+When `args[0]` should be an enum value but is an `int`, the operator body fails.
+
+**c) Proposed Solution:**
+
+**Approach 1 — Type-aware operator argument extraction (recommended):**
+
+The generator should detect when an operator parameter type is an enum and emit coercion code:
+
+```dart
+'[]=': (instance, args) {
+  final key = MyEnum.values[D4.extractBridgedArg<int>(args[0], 'key')];
+  instance[key] = D4.extractBridgedArg<bool>(args[1], 'value');
+},
+```
+
+This requires the generator to analyze operator parameter types during code generation.
+
+**Approach 2 — Runtime enum coercion in D4.extractBridgedArg:**
+
+When the expected type is an enum and the provided value is an `int`, look up the enum type's `.values` list and convert:
+
+```dart
+if (T is Enum && value is int) {
+  // Use reflection or registered enum values to convert
+  return _registeredEnumValues[T]![value] as T;
+}
+```
+
+This would require registering enum `.values` lists for all bridged enums.
+
+**d) Implementation Scope:**
+
+Generator-side fix (Approach 1) is more targeted and doesn't require runtime enum registration. The generator already knows the parameter types.
+
+**Why needed:** Low priority — bitfield operations are uncommon. But the pattern of enum-typed operator parameters may appear in other classes.
+
+---
+
+## Open Issues — Generator (Bridge Code)
+
+### GEN-092
+
+**Interface proxy factory registration**
+
+**Status:** NEW (2026-03-06) — Identified during flutterm secondary_classes integration testing
+
+**a) Problem:**
+
+Proxy subclasses for abstract delegate classes were generated in this session (GEN-083, now resolved), but the proxy **factories** are not registered with `D4.registerInterfaceProxy()`. When D4rt scripts create interpreted subclasses of abstract classes, `extractBridgedArg<T>()` cannot convert the `InterpretedInstance` to the native type:
+
+```
+expected DataTableSource, got InterpretedInstance(TestDataSource)
+expected FlowDelegate, got InterpretedInstance(TestFlowDelegate)
+expected SliverPersistentHeaderDelegate, got InterpretedInstance(TestPersistentHeaderDelegate)
+expected MultiChildLayoutDelegate, got InterpretedInstance(TestMultiChildLayoutDelegate)
+```
+
+**Affected tests:** 7 failures in secondary_classes_test.dart
+
+**Affected classes:**
+- `DataTableSource` — required for `PaginatedDataTable(source:)`
+- `FlowDelegate` — required for `Flow(delegate:)`
+- `SliverPersistentHeaderDelegate` — required for `SliverPersistentHeader(delegate:)`
+- `MultiChildLayoutDelegate` — required for `CustomMultiChildLayout(delegate:)`
+- `SingleChildLayoutDelegate` — required for `CustomSingleChildLayout(delegate:)` (proxy exists via GEN-083 fix)
+- `CustomPainter` — proxy exists, factory may or may not be registered
+- `CustomClipper` — proxy exists, factory may or may not be registered
+
+**b) Root Cause:**
+
+In `D4.extractBridgedArg<T>()` (d4.dart L663+), the conversion path for `InterpretedInstance` is:
+
+1. Check `bridgedSuperObject` → null for abstract classes (no native super instance)
+2. Check `_interfaceProxies[className]` → not found because no factory was registered
+3. Check type coercions → no match
+4. Throw: `expected T, got InterpretedInstance(...)`
+
+The proxy classes (e.g., `D4rtCustomPainter`, `D4rtFlowDelegate`) exist in `flutter_proxies.b.dart` but the bridge registration code in `flutter_proxies_bridges.b.dart` does not call `D4.registerInterfaceProxy()` to register the factory function that converts D4rt callback functions into native proxy instances.
+
+**c) Proposed Solution:**
+
+**Approach 1 — Add registerInterfaceProxy calls in bridge registration (recommended):**
+
+In `flutter_proxies_bridges.b.dart`, register proxy factories for each proxy class:
+
+```dart
+// During bridge initialization:
+D4.registerInterfaceProxy<CustomPainter>('CustomPainter', (InterpretedInstance instance) {
+  return D4rtCustomPainter(
+    onPaint: (canvas, size) {
+      instance.callMethod('paint', [D4.wrapBridged(canvas), D4.wrapBridged(size)]);
+    },
+    onShouldRepaint: (oldDelegate) {
+      return instance.callMethod('shouldRepaint', [D4.wrapBridged(oldDelegate)]) as bool;
+    },
+  );
+});
+```
+
+**Approach 2 — Generator auto-registers proxy factories:**
+
+Enhance the proxy generator to emit both the proxy class AND the corresponding `D4.registerInterfaceProxy()` call, so proxy compilation and factory registration are always in sync.
+
+**d) Implementation Scope:**
+
+Approach 2 is the right long-term fix — the proxy generator should own the full lifecycle. For immediate unblocking, Approach 1 can be added manually.
+
+**Why needed:** High priority — 7 test failures. These are fundamental Flutter delegate patterns. Without proxy factory registration, D4rt scripts cannot use `CustomPaint`, `Flow`, `PaginatedDataTable`, `SliverPersistentHeader`, or `CustomMultiChildLayout`.
+
+---
+
+### GEN-093
+
+**Inherited members from generic superclasses not bridged**
+
+**Status:** NEW (2026-03-06) — Identified during flutterm secondary_classes integration testing
+
+**a) Problem:**
+
+Bridge-generated classes that inherit from generic superclasses are missing inherited members (getters, setters, methods). The inherited properties are not generated in the bridge because the generator does not walk up the generic superclass hierarchy:
+
+```
+Undefined property: 'value' on RestorableInt
+Undefined property: 'value' on RestorableNum  
+Undefined property: 'value' on TextEditingController
+Cannot assign to 'value' on TransformationController
+Undefined property: 'lengthInBytes' on _ByteDataView
+```
+
+**Affected tests:** 5 failures in secondary_classes_test.dart (4 undefined property + 1 no setter adapter)
+
+**Inheritance chains affected:**
+- `RestorableInt` → `RestorableNum<int>` → `RestorableValue<int>` — `.value` getter/setter defined on `RestorableValue<T>`
+- `RestorableNum<num>` → `RestorableValue<num>` — `.value` getter/setter defined on `RestorableValue<T>`
+- `TextEditingController` → `ValueNotifier<TextEditingValue>` → `ChangeNotifier` — `.value` from `ValueNotifier<T>`
+- `TransformationController` → `ValueNotifier<Matrix4>` — `.value` setter from `ValueNotifier<T>`
+- `ByteData` (internal `_ByteDataView`) → `TypedData` — `.lengthInBytes` from `TypedData`
+
+**b) Root Cause:**
+
+The bridge generator's class analyzer collects members declared directly on the target class and its concrete superclasses. When a superclass is generic (e.g., `RestorableValue<T>`, `ValueNotifier<T>`), the analyzer either:
+
+1. Stops walking at the generic superclass boundary because it cannot resolve the generic type parameter
+2. Skips members from generic superclasses because the type parameter `T` in the member signature can't be concretized for the bridge
+
+For example, `RestorableValue<T>.value` has type `T`, which is `int` for `RestorableInt`. The generator would need to substitute `T → int` when generating the bridge for `RestorableInt`, which it currently doesn't do.
+
+**c) Proposed Solution:**
+
+**Approach 1 — Generator type parameter substitution (recommended):**
+
+When analyzing class members, walk the full superclass hierarchy including generic superclasses. For each generic superclass, substitute the type parameters based on the subclass's `extends` clause:
+
+```dart
+// During bridge analysis for RestorableInt:
+// 1. See: class RestorableInt extends RestorableNum<int>
+// 2. See: class RestorableNum<T extends num> extends RestorableValue<T>
+// 3. Substitute: T = int in all member signatures from RestorableValue
+// 4. Emit: 'value': (instance) => instance.value  // type: int
+```
+
+**Approach 2 — Manual member additions via d4rtgen.yaml (workaround):**
+
+Allow specifying additional inherited members in the generator config:
+
+```yaml
+classes:
+  RestorableInt:
+    include_members:
+      - value  # from RestorableValue<int>
+```
+
+**Approach 3 — UserBridge override for inherited members:**
+
+Create UserBridge classes that explicitly expose inherited members. This is the most immediate workaround but scales poorly.
+
+**d) Implementation Scope:**
+
+Generator type parameter substitution (Approach 1) is a significant enhancement — the analyzer needs to:
+1. Track type parameter bindings through the class hierarchy
+2. Substitute type parameters in member signatures
+3. Handle multi-level generic chains (e.g., `A<T>` → `B<T>` → `C<T>`)
+
+This is a fundamental improvement to the generator's type resolution.
+
+**Why needed:** High priority — `ValueNotifier`, `RestorableValue`, and `TextEditingController` are core Flutter state management primitives. Without inherited member bridging, D4rt scripts cannot read/write reactive values.
+
+---
+
+### GEN-094
+
+**Flutter API method signature changes**
+
+**Status:** NEW (2026-03-06) — Identified during flutterm secondary_classes integration testing
+
+**a) Problem:**
+
+A bridge-generated method adapter has an outdated parameter count that doesn't match the current Flutter SDK method signature:
+
+```
+shouldAcceptUserOffset expects at least 1 argument(s), got 0
+```
+
+The generated bridge calls `instance.shouldAcceptUserOffset()` with no arguments, but the current Flutter SDK version of this method requires a parameter.
+
+**Affected tests:** 1 failure in secondary_classes_test.dart
+
+**b) Root Cause:**
+
+The bridge was generated against a Flutter SDK version where `shouldAcceptUserOffset` took no parameters (or was a getter). A subsequent Flutter SDK update added a required parameter to this method. The generated bridge code is now stale.
+
+This is a general category — any Flutter SDK API change that modifies method signatures will cause similar bridge mismatches.
+
+**c) Proposed Solution:**
+
+**Approach 1 — Regenerate bridges for current SDK (immediate):**
+
+Run `d4rtgen build` against the current Flutter SDK to regenerate all bridge classes with current method signatures.
+
+**Approach 2 — Version-aware bridge generation (long-term):**
+
+Add a mechanism to detect SDK version changes and flag potentially stale bridges:
+- Store the Flutter SDK version used during generation in a metadata comment
+- During build, compare against current SDK version and warn if different
+- Provide a `d4rtgen check` command that reports signature mismatches without regenerating
+
+**d) Implementation Scope:**
+
+Immediate fix: regenerate bridges. Long-term: SDK version tracking in the generator.
+
+**Why needed:** Low priority individually, but represents a recurring maintenance pattern — any Flutter SDK update may introduce similar mismatches. The version-tracking solution prevents silent staleness.
 
 ---
 
 ### GEN-085
 
-**Theme class typedef alias registration**
+**Theme/function typedef alias registration**
 
-**Status:** OPEN (2026-03-08) — Identified during flutterm important classes testing
+**Status:** OPEN (2026-03-08, updated 2026-03-06) — Identified during flutterm important classes testing + secondary_classes testing
 
 **a) Problem:**
 
-Four Material theme classes are registered in the bridge with their internal Dart SDK class names, but Flutter's public API uses typedef aliases. D4rt scripts use the public names, causing bridge lookup failures:
+**Theme typedefs:** Four Material theme classes are registered in the bridge with their internal Dart SDK class names, but Flutter's public API uses typedef aliases. D4rt scripts use the public names, causing bridge lookup failures:
 
 | Public API Name (used in scripts) | Internal SDK Name (registered in bridge) |
 |-----------------------------------|------------------------------------------|
@@ -418,9 +795,11 @@ Four Material theme classes are registered in the bridge with their internal Dar
 | `DialogTheme` | `DialogThemeData` |
 | `TabBarTheme` | `TabBarThemeData` |
 
+**Function typedefs:** `VoidCallback` (`typedef VoidCallback = void Function()`) is not registered in the bridge type system. Scripts using `VoidCallback` as a type annotation fail with `Type 'VoidCallback' not found`.
+
 Scripts using `BottomAppBarTheme(...)` fail because the bridge only knows `BottomAppBarThemeData`.
 
-**Affected tests:** `appbar_themes_test.dart`, `component_themes_test.dart`, `dialog_themes_test.dart`, `input_themes_test.dart`
+**Affected tests:** `appbar_themes_test.dart`, `component_themes_test.dart`, `dialog_themes_test.dart`, `input_themes_test.dart`, + 1 failure in secondary_classes_test.dart (VoidCallback)
 
 **b) Root Cause:**
 
@@ -780,17 +1159,25 @@ The `D4UserBridge` mechanism (in `tom_d4rt_ast`) allows custom bridge implementa
 | `GestureHelper` | ENG-003 | Configure recognizer callbacks with proper typing |
 | `StoppedAnimation` | GEN-091 | Type-specific `AlwaysStoppedAnimation<T>` constructors |
 | `ThemeAliases` | GEN-085 | Register public typedef names (if generator fix deferred) |
+| `ProxyFactories` | GEN-092 | Register interface proxy factories for abstract delegate classes |
 
 ### Priority Order
 
 | Priority | Issues | Approach | Impact |
 |----------|--------|----------|--------|
-| **High** | GEN-085, GEN-086 | Generator fix | Unblocks 6 tests |
+| **High** | GEN-092 | Proxy factory registration | Unblocks 7 tests (delegate classes) |
+| **High** | GEN-085, GEN-086 | Generator fix | Unblocks 6+ tests |
+| **High** | GEN-093 | Generator type parameter substitution | Unblocks 5 tests (RestorableValue, ValueNotifier) |
 | **High** | ENG-001 | Bridge-side collection casting | Unblocks 3 tests |
+| **Medium** | ENG-006 | Interpreter function property fix | Fixes 5 failures |
+| **Medium** | ENG-007 | Nullable type extraction | Fixes 3 failures |
 | **Medium** | GEN-087, GEN-088 | Generator fix + config | Unblocks 3 tests |
 | **Medium** | ENG-002, ENG-003 | UserBridge helpers | Unblocks 2 tests |
+| **Medium** | ENG-008 | Bridge config cleanup | Fixes 6 false failures |
 | **Medium** | GEN-091 | Extended switch or UserBridge | Restores workaround sections |
 | **Low** | GEN-089, GEN-090 | Investigation needed | Unblocks 2 tests |
+| **Low** | GEN-094 | Regenerate bridges for current SDK | Fixes 1 failure |
+| **Low** | ENG-009 | Generator enum coercion | Fixes 1 failure |
 | **Low** | ENG-004, ENG-005 | typed_data bridges | Workaround already applied |
 
 ---
@@ -799,9 +1186,11 @@ The `D4UserBridge` mechanism (in `tom_d4rt_ast`) allows custom bridge implementa
 
 All previously tracked issues (GEN-078 through GEN-082, G-DOV-8, G-FLP-54/55/57, G-FBI-04/12/21/22/32/33/34/40, G-NUM-11/12/15/26/27/31) have been resolved as of 2026-03-02. See git history for details.
 
+GEN-083 (Proxy/adapter class generation) was resolved on 2026-03-06 — proxy_generator.dart enhanced to support both abstract (required) and overridable (optional nullable with super fallback) method callbacks. All 5 proxy classes (D4rtCustomPainter, D4rtCustomClipper, D4rtFlowDelegate, D4rtMultiChildLayoutDelegate, D4rtSingleChildLayoutDelegate) now compile correctly. Note: proxy factory registration is tracked separately as GEN-092.
+
 | Category | Count | IDs |
 |----------|-------|-----|
-| Fixed (generator) | 5 | GEN-078, GEN-079, GEN-080, GEN-082, G-FLP-54 |
+| Fixed (generator) | 6 | GEN-078, GEN-079, GEN-080, GEN-082, GEN-083, G-FLP-54 |
 | Fixed (runtime) | 2 | GEN-081, I-BUG-14b |
 | Fixed (interpreter) | 1 | G-DOV-8 |
 | Closed (by design) | 2 | G-FLP-55, G-FLP-57 |
