@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 72 files
-// Generated: 2026-03-06T18:40:37.304269
+// Generated: 2026-03-07T11:13:23.475795
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -995,7 +995,7 @@ class DcliBridge {
           throw ArgumentError('withOpenFile: Missing required argument "action" at position 1');
         }
         final actionRaw = positional[1];
-        final action = ($dcli_34.FileSync p0) { return D4.callInterpreterCallback(visitor!, actionRaw, [p0]) as dynamic; };
+        final action = ($dcli_34.FileSync p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, actionRaw, [p0])); };
         final fileMode = D4.getNamedArgWithDefault<FileMode>(named, 'fileMode', FileMode.writeOnlyAppend);
         return $dcli_34.withOpenFile<dynamic>(pathToFile, action, fileMode: fileMode);
       },
@@ -1369,7 +1369,7 @@ BridgedClass _createRestoreFileExceptionBridge() {
       'stackTrace': 'Trace get stackTrace',
     },
     setterSignatures: {
-      'stackTrace': 'set stackTrace(dynamic value)',
+      'stackTrace': 'set stackTrace(Trace value)',
     },
   );
 }
@@ -1433,7 +1433,7 @@ BridgedClass _createBackupFileExceptionBridge() {
       'stackTrace': 'Trace get stackTrace',
     },
     setterSignatures: {
-      'stackTrace': 'set stackTrace(dynamic value)',
+      'stackTrace': 'set stackTrace(Trace value)',
     },
   );
 }
@@ -1498,7 +1498,7 @@ BridgedClass _createCatExceptionBridge() {
       'stackTrace': 'Trace get stackTrace',
     },
     setterSignatures: {
-      'stackTrace': 'set stackTrace(dynamic value)',
+      'stackTrace': 'set stackTrace(Trace value)',
     },
   );
 }
@@ -1562,7 +1562,7 @@ BridgedClass _createCopyExceptionBridge() {
       'stackTrace': 'Trace get stackTrace',
     },
     setterSignatures: {
-      'stackTrace': 'set stackTrace(dynamic value)',
+      'stackTrace': 'set stackTrace(Trace value)',
     },
   );
 }
@@ -1626,7 +1626,7 @@ BridgedClass _createCreateDirExceptionBridge() {
       'stackTrace': 'Trace get stackTrace',
     },
     setterSignatures: {
-      'stackTrace': 'set stackTrace(dynamic value)',
+      'stackTrace': 'set stackTrace(Trace value)',
     },
   );
 }
@@ -1711,7 +1711,7 @@ BridgedClass _createDCliFunctionExceptionBridge() {
       'stackTrace': 'Trace get stackTrace',
     },
     setterSignatures: {
-      'stackTrace': 'set stackTrace(dynamic value)',
+      'stackTrace': 'set stackTrace(Trace value)',
     },
   );
 }
@@ -1775,7 +1775,7 @@ BridgedClass _createDeleteExceptionBridge() {
       'stackTrace': 'Trace get stackTrace',
     },
     setterSignatures: {
-      'stackTrace': 'set stackTrace(dynamic value)',
+      'stackTrace': 'set stackTrace(Trace value)',
     },
   );
 }
@@ -1839,7 +1839,7 @@ BridgedClass _createDeleteDirExceptionBridge() {
       'stackTrace': 'Trace get stackTrace',
     },
     setterSignatures: {
-      'stackTrace': 'set stackTrace(dynamic value)',
+      'stackTrace': 'set stackTrace(Trace value)',
     },
   );
 }
@@ -2123,7 +2123,7 @@ BridgedClass _createMoveExceptionBridge() {
       'stackTrace': 'Trace get stackTrace',
     },
     setterSignatures: {
-      'stackTrace': 'set stackTrace(dynamic value)',
+      'stackTrace': 'set stackTrace(Trace value)',
     },
   );
 }
@@ -2187,7 +2187,7 @@ BridgedClass _createMoveDirExceptionBridge() {
       'stackTrace': 'Trace get stackTrace',
     },
     setterSignatures: {
-      'stackTrace': 'set stackTrace(dynamic value)',
+      'stackTrace': 'set stackTrace(Trace value)',
     },
   );
 }
@@ -2251,7 +2251,7 @@ BridgedClass _createMoveTreeExceptionBridge() {
       'stackTrace': 'Trace get stackTrace',
     },
     setterSignatures: {
-      'stackTrace': 'set stackTrace(dynamic value)',
+      'stackTrace': 'set stackTrace(Trace value)',
     },
   );
 }
@@ -2459,7 +2459,7 @@ BridgedClass _createRunExceptionBridge() {
       'reason': 'String get reason',
     },
     setterSignatures: {
-      'stackTrace': 'set stackTrace(dynamic value)',
+      'stackTrace': 'set stackTrace(Trace value)',
       'cmdLine': 'set cmdLine(dynamic value)',
       'exitCode': 'set exitCode(dynamic value)',
       'reason': 'set reason(dynamic value)',
@@ -3074,7 +3074,7 @@ BridgedClass _createAskValidatorExceptionBridge() {
       'stackTrace': 'Trace get stackTrace',
     },
     setterSignatures: {
-      'stackTrace': 'set stackTrace(dynamic value)',
+      'stackTrace': 'set stackTrace(Trace value)',
     },
   );
 }
@@ -3421,7 +3421,7 @@ BridgedClass _createFetchExceptionBridge() {
       'errorCode': 'int? get errorCode',
     },
     setterSignatures: {
-      'stackTrace': 'set stackTrace(dynamic value)',
+      'stackTrace': 'set stackTrace(Trace value)',
       'errorCode': 'set errorCode(dynamic value)',
     },
   );
@@ -3487,7 +3487,7 @@ BridgedClass _createReadExceptionBridge() {
       'stackTrace': 'Trace get stackTrace',
     },
     setterSignatures: {
-      'stackTrace': 'set stackTrace(dynamic value)',
+      'stackTrace': 'set stackTrace(Trace value)',
     },
   );
 }
@@ -3827,7 +3827,7 @@ BridgedClass _createResourceExceptionBridge() {
       'stackTrace': 'Trace get stackTrace',
     },
     setterSignatures: {
-      'stackTrace': 'set stackTrace(dynamic value)',
+      'stackTrace': 'set stackTrace(Trace value)',
     },
   );
 }
@@ -4013,7 +4013,7 @@ BridgedClass _createDartProjectExceptionBridge() {
       'stackTrace': 'Trace get stackTrace',
     },
     setterSignatures: {
-      'stackTrace': 'set stackTrace(dynamic value)',
+      'stackTrace': 'set stackTrace(Trace value)',
     },
   );
 }
@@ -4077,7 +4077,7 @@ BridgedClass _createTemplateNotFoundExceptionBridge() {
       'stackTrace': 'Trace get stackTrace',
     },
     setterSignatures: {
-      'stackTrace': 'set stackTrace(dynamic value)',
+      'stackTrace': 'set stackTrace(Trace value)',
     },
   );
 }
@@ -4141,7 +4141,7 @@ BridgedClass _createInvalidProjectTemplateExceptionBridge() {
       'stackTrace': 'Trace get stackTrace',
     },
     setterSignatures: {
-      'stackTrace': 'set stackTrace(dynamic value)',
+      'stackTrace': 'set stackTrace(Trace value)',
     },
   );
 }
@@ -4792,7 +4792,7 @@ BridgedClass _createShellExceptionBridge() {
       'stackTrace': 'Trace get stackTrace',
     },
     setterSignatures: {
-      'stackTrace': 'set stackTrace(dynamic value)',
+      'stackTrace': 'set stackTrace(Trace value)',
     },
   );
 }
@@ -5108,7 +5108,7 @@ BridgedClass _createInvalidArgumentExceptionBridge() {
       'stackTrace': 'Trace get stackTrace',
     },
     setterSignatures: {
-      'stackTrace': 'set stackTrace(dynamic value)',
+      'stackTrace': 'set stackTrace(Trace value)',
     },
   );
 }
@@ -5172,7 +5172,7 @@ BridgedClass _createInvalidTemplateExceptionBridge() {
       'stackTrace': 'Trace get stackTrace',
     },
     setterSignatures: {
-      'stackTrace': 'set stackTrace(dynamic value)',
+      'stackTrace': 'set stackTrace(Trace value)',
     },
   );
 }
@@ -5236,7 +5236,7 @@ BridgedClass _createInstallExceptionBridge() {
       'stackTrace': 'Trace get stackTrace',
     },
     setterSignatures: {
-      'stackTrace': 'set stackTrace(dynamic value)',
+      'stackTrace': 'set stackTrace(Trace value)',
     },
   );
 }
@@ -5300,7 +5300,7 @@ BridgedClass _createProcessSyncExceptionBridge() {
       'stackTrace': 'Trace get stackTrace',
     },
     setterSignatures: {
-      'stackTrace': 'set stackTrace(dynamic value)',
+      'stackTrace': 'set stackTrace(Trace value)',
     },
   );
 }
@@ -5603,7 +5603,7 @@ BridgedClass _createFileNotFoundExceptionBridge() {
       'stackTrace': 'Trace get stackTrace',
     },
     setterSignatures: {
-      'stackTrace': 'set stackTrace(dynamic value)',
+      'stackTrace': 'set stackTrace(Trace value)',
     },
   );
 }
@@ -5667,7 +5667,7 @@ BridgedClass _createNotAFileExceptionBridge() {
       'stackTrace': 'Trace get stackTrace',
     },
     setterSignatures: {
-      'stackTrace': 'set stackTrace(dynamic value)',
+      'stackTrace': 'set stackTrace(Trace value)',
     },
   );
 }
@@ -5793,7 +5793,7 @@ BridgedClass _createLockExceptionBridge() {
       'stackTrace': 'Trace get stackTrace',
     },
     setterSignatures: {
-      'stackTrace': 'set stackTrace(dynamic value)',
+      'stackTrace': 'set stackTrace(Trace value)',
     },
   );
 }

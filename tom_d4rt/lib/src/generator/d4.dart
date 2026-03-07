@@ -673,6 +673,34 @@ class D4 {
       return unwrapped;
     }
 
+    // ENG-007: Nullable type fallback.
+    // When T is nullable (e.g., TextStyle?) and unwrapped is the non-nullable
+    // base type (TextStyle), the `is T` check should succeed in Dart.
+    // However, cross-package or reified generics edge cases may cause `is T`
+    // to fail. This fallback uses a dynamic cast as a safety net.
+    if (null is T && unwrapped != null) {
+      try {
+        return unwrapped as T;
+      } catch (_) {
+        // Fall through to subsequent checks
+      }
+    }
+
+    // GEN-100: String-based nullable type check fallback.
+    // In some Flutter test environments, `v is T?` can incorrectly return
+    // false even when v's runtimeType matches the non-nullable base of T.
+    // This check compares type names as strings as a last resort.
+    if (null is T && unwrapped != null) {
+      final tStr = T.toString();
+      final unwrappedTypeStr = unwrapped.runtimeType.toString();
+      // Check if T is "SomeType?" and unwrapped is "SomeType"
+      if (tStr.endsWith('?') && tStr.substring(0, tStr.length - 1) == unwrappedTypeStr) {
+        // The types match semantically, force the return through dynamic
+        final dynamic temp = unwrapped;
+        return temp as T;
+      }
+    }
+
     // ENG-002: BridgedClass → Type conversion.
     // When a class name appears in expression position (e.g., as a map key
     // like `{ActivateIntent: ...}`), the interpreter resolves it to a
@@ -1077,6 +1105,46 @@ class D4 {
       );
     }
     return unwrapInterpreterValue(result);
+  }
+
+  /// ENG-011: Safely cast a callback result to the expected type [R].
+  ///
+  /// This handles the case where a generic method callback may return null
+  /// but the expected type [R] may or may not be nullable. For example,
+  /// `SynchronousFuture.then<R>()` where `R` could be `String` (non-nullable)
+  /// or `String?` (nullable).
+  ///
+  /// Usage in generated bridge code:
+  /// ```dart
+  /// return t.then((p0) {
+  ///   final result = D4.callInterpreterCallback(visitor!, fn, [p0]);
+  ///   return D4.castCallbackResult<R>(result);
+  /// });
+  /// ```
+  static R castCallbackResult<R>(Object? result) {
+    if (result == null) {
+      // Check if R accepts null (i.e., R is nullable like `String?`)
+      // The `null is R` test returns true for nullable types.
+      if (null is R) {
+        return null as R;
+      }
+      throw ArgumentD4rtException(
+        'Callback returned null but expected non-nullable type',
+      );
+    }
+    // Attempt to cast to R - explicit cast needed for AOT
+    if (result is R) {
+      return result as R;
+    }
+    // If direct cast fails, try unwrapping bridge values
+    final unwrapped = unwrapInterpreterValue(result);
+    if (unwrapped is R) {
+      // ignore: unnecessary_cast
+      return unwrapped as R; // Explicit cast for AOT
+    }
+    throw ArgumentD4rtException(
+      'Callback returned ${result.runtimeType}, expected $R',
+    );
   }
 
   /// Unwrap an interpreter value to its native representation.

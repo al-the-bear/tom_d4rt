@@ -109,11 +109,27 @@ class ProxyGenerationInfo {
   /// The import URI needed for the target class.
   final String importUri;
 
+  /// Abstract methods (required callbacks).
+  // ignore: library_private_types_in_public_api
+  final List<_AbstractMethodInfo> abstractMethods;
+
+  /// Overridable methods (optional callbacks with super fallback).
+  // ignore: library_private_types_in_public_api
+  final List<_AbstractMethodInfo> overridableMethods;
+
+  /// Type parameter names from the class (e.g., `['T']` for `CustomClipper&lt;T&gt;`).
+  /// Used to replace with `dynamic` in factory callback code where the type
+  /// parameter is not in scope.
+  final List<String> typeParameterNames;
+
   const ProxyGenerationInfo({
     required this.className,
     required this.proxyName,
     required this.methodCount,
     required this.importUri,
+    this.abstractMethods = const [],
+    this.overridableMethods = const [],
+    this.typeParameterNames = const [],
   });
 }
 
@@ -239,6 +255,9 @@ Future<ProxyGenerationResult> generateProxies({
   // Collect all unique import URIs needed
   final importUris = <String>{};
   final classImportMap = <String, String>{};
+
+  // Always add D4rt runtime import for proxy factory registration (GEN-092)
+  importUris.add('package:tom_d4rt_ast/runtime.dart');
 
   for (final (proxyConfig, element, barrelUri) in proxyEntries) {
     // Determine the best import for this class
@@ -395,6 +414,12 @@ Future<ProxyGenerationResult> generateProxies({
         proxyName: proxyName,
         methodCount: allMethods.length,
         importUri: classImportMap[className] ?? barrelUri,
+        abstractMethods: abstractMethods,
+        overridableMethods: overridableMethods,
+        typeParameterNames: typeParams
+            .map((tp) => tp.name)
+            .whereType<String>()
+            .toList(),
       ),
     );
 
@@ -403,6 +428,13 @@ Future<ProxyGenerationResult> generateProxies({
       '(${abstractMethods.length} abstract + '
       '${overridableMethods.length} overridable methods)',
     );
+  }
+
+  // =========================================================================
+  // GEN-092: Generate registerProxyFactories() function
+  // =========================================================================
+  if (proxies.isNotEmpty) {
+    _generateProxyFactoryRegistration(buffer, proxies);
   }
 
   // Write the output file
@@ -726,4 +758,299 @@ String? _getSdkPath() {
   }
 
   return null;
+}
+
+// =============================================================================
+// GEN-092: Proxy factory registration generation
+// =============================================================================
+
+/// Generates the `registerProxyFactories()` function that registers
+/// interface proxy factories with `D4.registerInterfaceProxy()`.
+///
+/// Each factory creates a proxy instance with callbacks that delegate
+/// to the `InterpretedInstance`'s methods via `findInstanceMethod` / `findInstanceGetter`.
+void _generateProxyFactoryRegistration(
+  StringBuffer buffer,
+  List<ProxyGenerationInfo> proxies,
+) {
+  buffer.writeln(
+    '// =========================================================================',
+  );
+  buffer.writeln(
+    '// Proxy Factory Registration (GEN-092)',
+  );
+  buffer.writeln(
+    '// =========================================================================',
+  );
+  buffer.writeln();
+  buffer.writeln(
+    '/// Registers interface proxy factories for all generated proxy classes.',
+  );
+  buffer.writeln('///');
+  buffer.writeln(
+    '/// Call this during bridge initialization to enable D4rt scripts to',
+  );
+  buffer.writeln(
+    '/// create interpreted subclasses of these abstract classes.',
+  );
+  buffer.writeln(
+    '/// Each factory bridges InterpretedInstance method calls to native',
+  );
+  buffer.writeln('/// proxy callbacks.');
+  buffer.writeln('void registerProxyFactories() {');
+
+  for (final proxy in proxies) {
+    buffer.writeln(
+      "  // Register factory for ${proxy.className}",
+    );
+    buffer.writeln(
+      "  D4.registerInterfaceProxy('${proxy.className}', "
+      '(visitor, instance) {',
+    );
+    buffer.writeln('    return ${proxy.proxyName}(');
+
+    // Abstract methods — always provide a callback
+    for (final method in proxy.abstractMethods) {
+      _generateFactoryCallback(
+        buffer,
+        method,
+        isRequired: true,
+        typeParameterNames: proxy.typeParameterNames,
+      );
+    }
+
+    // Overridable methods — provide callback only if interpreted class overrides
+    for (final method in proxy.overridableMethods) {
+      _generateFactoryCallback(
+        buffer,
+        method,
+        isRequired: false,
+        typeParameterNames: proxy.typeParameterNames,
+      );
+    }
+
+    buffer.writeln('    );');
+    buffer.writeln('  });');
+    buffer.writeln();
+  }
+
+  buffer.writeln('}');
+  buffer.writeln();
+}
+
+/// Generates a single callback argument for a proxy factory.
+///
+/// For [isRequired] (abstract) methods, the callback always delegates to the
+/// interpreted instance via `findInstanceMethod`/`findInstanceGetter`.
+/// For optional (overridable) methods, the callback is only provided if the
+/// interpreted class explicitly overrides the method.
+void _generateFactoryCallback(
+  StringBuffer buffer,
+  _AbstractMethodInfo method, {
+  required bool isRequired,
+  List<String> typeParameterNames = const [],
+}) {
+  final callbackName = method.callbackName;
+  final methodName = method.name;
+  final isVoid = method.returnType == 'void';
+
+  // Erase class type parameters (e.g. T → dynamic) since the factory
+  // closure is not inside the generic class scope.
+  final erasedReturnType = _eraseTypeParams(method.returnType, typeParameterNames);
+
+  if (method.isGetter) {
+    // Getter callback
+    if (isRequired) {
+      buffer.writeln('      $callbackName: () {');
+      _generateGetterDelegation(buffer, methodName, erasedReturnType);
+      buffer.writeln('      },');
+    } else {
+      // Overridable getter — only wire if interpreted class has it
+      buffer.writeln(
+        "      $callbackName: instance.klass.findInstanceGetter('$methodName') != null",
+      );
+      buffer.writeln('          ? () {');
+      _generateGetterDelegation(buffer, methodName, erasedReturnType);
+      buffer.writeln('          }');
+      buffer.writeln('          : null,');
+    }
+  } else {
+    // Regular method callback
+    final paramDecl = _buildFactoryParamDecl(method.params, typeParameterNames);
+    final argList = _buildFactoryArgList(method.params);
+    final namedArgMap = _buildFactoryNamedArgMap(method.params);
+
+    if (isRequired) {
+      buffer.writeln('      $callbackName: ($paramDecl) {');
+      _generateMethodDelegation(
+        buffer,
+        methodName,
+        erasedReturnType,
+        argList,
+        namedArgMap,
+        isVoid: isVoid,
+      );
+      buffer.writeln('      },');
+    } else {
+      // Overridable method — only wire if interpreted class has it
+      buffer.writeln(
+        "      $callbackName: instance.klass.findInstanceMethod('$methodName') != null",
+      );
+      buffer.writeln('          ? ($paramDecl) {');
+      _generateMethodDelegation(
+        buffer,
+        methodName,
+        erasedReturnType,
+        argList,
+        namedArgMap,
+        isVoid: isVoid,
+      );
+      buffer.writeln('          }');
+      buffer.writeln('          : null,');
+    }
+  }
+}
+
+/// Generates code to delegate a getter access to the interpreted instance.
+void _generateGetterDelegation(
+  StringBuffer buffer,
+  String getterName,
+  String returnType,
+) {
+  final isVoid = returnType == 'void';
+  buffer.writeln(
+    "        final getter = instance.klass.findInstanceGetter('$getterName');",
+  );
+  buffer.writeln('        if (getter != null) {');
+  buffer.writeln(
+    '          final result = getter.bind(instance).call(visitor, [], {});',
+  );
+  if (isVoid) {
+    buffer.writeln('          return;');
+  } else {
+    buffer.writeln(
+      "          return D4.extractBridgedArg<$returnType>(result, '$getterName');",
+    );
+  }
+  buffer.writeln('        }');
+  // Try field access as fallback
+  buffer.writeln('        try {');
+  buffer.writeln(
+    "          final field = instance.getField('$getterName');",
+  );
+  if (isVoid) {
+    buffer.writeln('          return;');
+  } else {
+    buffer.writeln(
+      "          return D4.extractBridgedArg<$returnType>(field, '$getterName');",
+    );
+  }
+  buffer.writeln('        } catch (_) {}');
+  buffer.writeln(
+    "        throw StateError("
+    "'Interpreted class \${instance.klass.name} does not implement $getterName');",
+  );
+}
+
+/// Generates code to delegate a method call to the interpreted instance.
+void _generateMethodDelegation(
+  StringBuffer buffer,
+  String methodName,
+  String returnType,
+  String argList,
+  String namedArgMap, {
+  required bool isVoid,
+}) {
+  buffer.writeln(
+    "        final method = instance.klass.findInstanceMethod('$methodName');",
+  );
+  buffer.writeln('        if (method != null) {');
+  buffer.writeln(
+    '          final result = method.bind(instance).call(visitor, [$argList], {$namedArgMap});',
+  );
+  if (isVoid) {
+    buffer.writeln('          return;');
+  } else {
+    buffer.writeln(
+      "          return D4.extractBridgedArg<$returnType>(result, '$methodName');",
+    );
+  }
+  buffer.writeln('        }');
+  buffer.writeln(
+    "        throw StateError("
+    "'Interpreted class \${instance.klass.name} does not implement $methodName');",
+  );
+}
+
+/// Builds the parameter declaration for a factory callback function.
+/// Unlike the proxy class which uses typed params, the callback just uses
+/// the variable names since types are inferred from the Function typedef.
+String _buildFactoryParamDecl(
+  List<_MethodParam> params, [
+  List<String> typeParameterNames = const [],
+]) {
+  if (params.isEmpty) return '';
+
+  final parts = <String>[];
+  final positional =
+      params.where((p) => !p.isNamed && !p.isOptionalPositional);
+  final optionalPositional = params.where((p) => p.isOptionalPositional);
+  final named = params.where((p) => p.isNamed);
+
+  for (final p in positional) {
+    parts.add('${_eraseTypeParams(p.type, typeParameterNames)} ${p.name}');
+  }
+  if (optionalPositional.isNotEmpty) {
+    final optParts = optionalPositional
+        .map((p) => '${_eraseTypeParams(p.type, typeParameterNames)} ${p.name}');
+    parts.add('[${optParts.join(', ')}]');
+  }
+  if (named.isNotEmpty) {
+    final namedParts = named.map((p) {
+      final req = p.isRequired ? 'required ' : '';
+      return '$req${_eraseTypeParams(p.type, typeParameterNames)} ${p.name}';
+    });
+    parts.add('{${namedParts.join(', ')}}');
+  }
+  return parts.join(', ');
+}
+
+/// Builds the positional argument list for delegating to the interpreter.
+String _buildFactoryArgList(List<_MethodParam> params) {
+  final positional = params.where((p) => !p.isNamed);
+  return positional.map((p) => p.name).join(', ');
+}
+
+/// Builds the named argument map for delegating to the interpreter.
+String _buildFactoryNamedArgMap(List<_MethodParam> params) {
+  final named = params.where((p) => p.isNamed);
+  if (named.isEmpty) return '';
+  return named.map((p) => "'${p.name}': ${p.name}").join(', ');
+}
+
+/// Replaces class type parameter names with `dynamic` in a type string.
+///
+/// Used in factory callback code generation where the class type parameter
+/// (e.g., `T` in `CustomClipper&lt;T&gt;`) is not in scope since the factory
+/// closure lives outside the generic class.
+///
+/// Examples with typeParamNames = `['T']`:
+///   `T` → `dynamic`
+///   `CustomClipper&lt;T&gt;` → `CustomClipper&lt;dynamic&gt;`
+///   `Map&lt;String, T&gt;` → `Map&lt;String, dynamic&gt;`
+///   `Path` → `Path` (unchanged)
+String _eraseTypeParams(String type, List<String> typeParamNames) {
+  if (typeParamNames.isEmpty) return type;
+
+  var result = type;
+  for (final tp in typeParamNames) {
+    // Use word-boundary matching to only replace standalone type param names,
+    // not substrings of other identifiers (e.g., 'Type' should not become
+    // 'dynamicype').
+    result = result.replaceAllMapped(
+      RegExp('\\b${RegExp.escape(tp)}\\b'),
+      (_) => 'dynamic',
+    );
+  }
+  return result;
 }

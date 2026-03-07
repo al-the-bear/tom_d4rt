@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 12 files
-// Generated: 2026-03-06T19:16:30.749659
+// Generated: 2026-03-07T11:46:28.596470
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -2713,14 +2713,17 @@ BridgedClass _createSemanticsDataBridge() {
         final headingLevel = D4.getRequiredNamedArg<int>(named, 'headingLevel', 'SemanticsData');
         final linkUrl = D4.getRequiredNamedArg<Uri?>(named, 'linkUrl', 'SemanticsData');
         final role = D4.getRequiredNamedArg<SemanticsRole>(named, 'role', 'SemanticsData');
-        final controlsNodes = D4.getRequiredNamedArg<Set<String>?>(named, 'controlsNodes', 'SemanticsData');
+        if (!named.containsKey('controlsNodes')) {
+          throw ArgumentError('SemanticsData: Missing required named argument "controlsNodes"');
+        }
+        final controlsNodes = D4.coerceSetOrNull<String>(named['controlsNodes'], 'controlsNodes');
         final validationResult = D4.getRequiredNamedArg<SemanticsValidationResult>(named, 'validationResult', 'SemanticsData');
         final hitTestBehavior = D4.getRequiredNamedArg<SemanticsHitTestBehavior>(named, 'hitTestBehavior', 'SemanticsData');
         final inputType = D4.getRequiredNamedArg<SemanticsInputType>(named, 'inputType', 'SemanticsData');
         final locale = D4.getRequiredNamedArg<Locale?>(named, 'locale', 'SemanticsData');
         final minValue = D4.getRequiredNamedArg<String?>(named, 'minValue', 'SemanticsData');
         final maxValue = D4.getRequiredNamedArg<String?>(named, 'maxValue', 'SemanticsData');
-        final tags = D4.getOptionalNamedArg<Set<$flutter_7.SemanticsTag>?>(named, 'tags');
+        final tags = D4.coerceSetOrNull<$flutter_7.SemanticsTag>(named['tags'], 'tags');
         final transform = D4.getOptionalNamedArg<$vector_math_1.Matrix4?>(named, 'transform');
         final customSemanticsActionIds = D4.coerceListOrNull<int>(named['customSemanticsActionIds'], 'customSemanticsActionIds');
         return $flutter_7.SemanticsData(flagsCollection: flagsCollection, actions: actions, identifier: identifier, traversalParentIdentifier: traversalParentIdentifier, traversalChildIdentifier: traversalChildIdentifier, attributedLabel: attributedLabel, attributedValue: attributedValue, attributedIncreasedValue: attributedIncreasedValue, attributedDecreasedValue: attributedDecreasedValue, attributedHint: attributedHint, tooltip: tooltip, textDirection: textDirection, rect: rect, textSelection: textSelection, scrollIndex: scrollIndex, scrollChildCount: scrollChildCount, scrollPosition: scrollPosition, scrollExtentMax: scrollExtentMax, scrollExtentMin: scrollExtentMin, platformViewId: platformViewId, maxValueLength: maxValueLength, currentValueLength: currentValueLength, headingLevel: headingLevel, linkUrl: linkUrl, role: role, controlsNodes: controlsNodes, validationResult: validationResult, hitTestBehavior: hitTestBehavior, inputType: inputType, locale: locale, minValue: minValue, maxValue: maxValue, tags: tags, transform: transform, customSemanticsActionIds: customSemanticsActionIds);
@@ -3018,7 +3021,7 @@ BridgedClass _createSemanticsPropertiesBridge() {
         final sortKey = D4.getOptionalNamedArg<$flutter_7.SemanticsSortKey?>(named, 'sortKey');
         final tagForChildren = D4.getOptionalNamedArg<$flutter_7.SemanticsTag?>(named, 'tagForChildren');
         final role = D4.getOptionalNamedArg<SemanticsRole?>(named, 'role');
-        final controlsNodes = D4.getOptionalNamedArg<Set<String>?>(named, 'controlsNodes');
+        final controlsNodes = D4.coerceSetOrNull<String>(named['controlsNodes'], 'controlsNodes');
         final inputType = D4.getOptionalNamedArg<SemanticsInputType?>(named, 'inputType');
         final validationResult = D4.getNamedArgWithDefault<SemanticsValidationResult>(named, 'validationResult', $dart_ui.SemanticsValidationResult.none);
         final hitTestBehavior = D4.getOptionalNamedArg<SemanticsHitTestBehavior?>(named, 'hitTestBehavior');

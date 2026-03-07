@@ -3,6 +3,16 @@
 **Project:** `tom_d4rt`  
 **Type:** Dart Package
 
+---
+
+## 🚨 CRITICAL SYNCHRONIZATION WARNING 🚨
+
+**Changes to the D4 class (`lib/src/generator/d4.dart`) MUST also be made in `tom_d4rt_ast`!**
+
+See [sync_with_tom_d4rt_ast.md](sync_with_tom_d4rt_ast.md) for details. Both packages must be published together.
+
+---
+
 ## Global Guidelines
 
 | Document | Purpose |
@@ -25,6 +35,7 @@ This package is published to pub.dev. See [Project Republishing](/_copilot_guide
 
 | File | Description |
 |------|-------------|
+| [sync_with_tom_d4rt_ast.md](sync_with_tom_d4rt_ast.md) | 🚨 **CRITICAL** D4 class synchronization with tom_d4rt_ast |
 | [testing.md](testing.md) | Testing strategy, test IDs, and testkit baseline tracking |
 | [example.md](example.md) | Guidelines for creating and maintaining example files |
 | [documentation.md](documentation.md) | Documentation standards for this package |

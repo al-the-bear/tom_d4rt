@@ -5,7 +5,4 @@ include: package:flutter_lints/flutter.yaml
 
 analyzer:
   exclude:
-    # Nested Flutter app - has its own analysis_options.yaml
-    - test/tom_d4rt_flutterm_app/**
-    # D4rt script files - pure Flutter/Dart code for AST bundling
-    - test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/**
+

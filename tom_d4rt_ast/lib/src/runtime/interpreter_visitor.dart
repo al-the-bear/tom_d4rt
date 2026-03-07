@@ -1056,6 +1056,32 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           "Native error during bridged enum property get '$memberName' on $bridgedEnumValue: $e",
         );
       }
+    } else if (prefixValue is Callable) {
+      // Handle property access on function types (InterpretedFunction, NativeFunction, etc.)
+      Logger.debug(
+        "[SPrefixedIdentifier] Access on Callable: .$memberName",
+      );
+      switch (memberName) {
+        case 'hashCode':
+          return prefixValue.hashCode;
+        case 'runtimeType':
+          // Return Function as the runtimeType for all callable types
+          return Function;
+        case 'toString':
+          return NativeFunction(
+            (_, args, __, ___) {
+              if (args.isNotEmpty) {
+                throw RuntimeD4rtException("toString() takes no arguments.");
+              }
+              return prefixValue.toString();
+            },
+            arity: 0,
+            name: 'toString',
+          );
+      }
+      throw RuntimeD4rtException(
+        "Cannot access property '$memberName' on function. Functions only support 'hashCode', 'runtimeType', and 'toString'.",
+      );
     } else {
       try {
         final extensionMember = environment.findExtensionMember(
@@ -3654,8 +3680,12 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         return e.value;
       }
       // Catch other potential runtime errors from the call itself
-    } else if (calleeValue is BridgedClass && node.target == null) {
-      // Call of a bridged default constructor (ex: StringBuffer())
+    } else if (calleeValue is BridgedClass &&
+        (node.target == null || targetValue is Environment)) {
+      // GEN-101: Call of a bridged default constructor (ex: StringBuffer())
+      // Also handles prefixed imports (ex: ui.PictureRecorder()) where targetValue
+      // is the Environment. Previously the `node.target == null` check excluded
+      // prefixed imports, causing the BridgedClass to be returned instead of an instance.
       final bridgedClass = calleeValue;
 
       // RC-2: Evaluate type arguments (e.g., GlobalKey<NavigatorState>())

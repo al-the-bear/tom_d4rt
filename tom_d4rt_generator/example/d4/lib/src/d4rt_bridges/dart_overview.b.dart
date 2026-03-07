@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 16 files
-// Generated: 2026-03-06T18:40:32.951540
+// Generated: 2026-03-07T11:13:13.013376
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -68,13 +68,11 @@ class DartOverviewBridge {
       _createAbstractFinalClassBridge(),
       _createSingletonHolderBridge(),
       _createSimplePointBridge(),
-      _createPointBridge(),
       _createRectangleAreaBridge(),
       _createPositiveNumberBridge(),
       _createVectorBridge(),
       _createColorBridge(),
       _createLoggerBridge(),
-      _createShapeBridge(),
       _createCircleShapeBridge(),
       _createSquareShapeBridge(),
       _createDatabaseBridge(),
@@ -83,7 +81,6 @@ class DartOverviewBridge {
       _createManagerBridge(),
       _createAnimalBridge(),
       _createCatBridge(),
-      _createElectricCarBridge(),
       _createNotificationServiceBridge(),
       _createEmailNotificationServiceBridge(),
       _createSmsNotificationServiceBridge(),
@@ -97,6 +94,7 @@ class DartOverviewBridge {
       _createAdvancedRobotBridge(),
       _createMathUtilsBridge(),
       _createCounterBridge(),
+      _createPointBridge(),
       _createFlexibleObjectBridge(),
       _createSortablePersonBridge(),
       _createNumberWrapperBridge(),
@@ -111,23 +109,12 @@ class DartOverviewBridge {
       _createTrackedItemBridge(),
       _createDataProcessorBridge(),
       _createStatisticsBridge(),
-      _createSortedListBridge(),
-      _createPriorityQueueBridge(),
-      _createRangeBridge(),
-      _createBinarySearchTreeBridge(),
-      _createCacheBridge(),
-      _createTreeNodeBridge(),
       _createMusicalBridge(),
       _createDancingBridge(),
       _createMusicianBridge(),
       _createProfessionalDancerBridge(),
       _createEntertainerBridge(),
       _createCountableItemBridge(),
-      _createFlyingBridge(),
-      _createWalkingBridge(),
-      _createBirdBridge(),
-      _createEagleBridge(),
-      _createPenguinBridge(),
       _createLoggingBridge(),
       _createConsoleLoggerBridge(),
       _createGreeter1Bridge(),
@@ -187,13 +174,11 @@ class DartOverviewBridge {
       'AbstractFinalClass': 'package:d4_example/src/dart_overview/class_modifiers/modifiers/run_modifiers.dart',
       'SingletonHolder': 'package:d4_example/src/dart_overview/class_modifiers/modifiers/run_modifiers.dart',
       'SimplePoint': 'package:d4_example/src/dart_overview/classes/constructors/run_constructors.dart',
-      'Point': 'package:d4_example/src/dart_overview/classes/constructors/run_constructors.dart',
       'RectangleArea': 'package:d4_example/src/dart_overview/classes/constructors/run_constructors.dart',
       'PositiveNumber': 'package:d4_example/src/dart_overview/classes/constructors/run_constructors.dart',
       'Vector': 'package:d4_example/src/dart_overview/classes/constructors/run_constructors.dart',
       'Color': 'package:d4_example/src/dart_overview/classes/constructors/run_constructors.dart',
       'Logger': 'package:d4_example/src/dart_overview/classes/constructors/run_constructors.dart',
-      'Shape': 'package:d4_example/src/dart_overview/classes/constructors/run_constructors.dart',
       'CircleShape': 'package:d4_example/src/dart_overview/classes/constructors/run_constructors.dart',
       'SquareShape': 'package:d4_example/src/dart_overview/classes/constructors/run_constructors.dart',
       'Database': 'package:d4_example/src/dart_overview/classes/constructors/run_constructors.dart',
@@ -202,7 +187,6 @@ class DartOverviewBridge {
       'Manager': 'package:d4_example/src/dart_overview/classes/constructors/run_constructors.dart',
       'Animal': 'package:d4_example/src/dart_overview/classes/inheritance/run_inheritance.dart',
       'Cat': 'package:d4_example/src/dart_overview/classes/inheritance/run_inheritance.dart',
-      'ElectricCar': 'package:d4_example/src/dart_overview/classes/inheritance/run_inheritance.dart',
       'NotificationService': 'package:d4_example/src/dart_overview/classes/inheritance/run_inheritance.dart',
       'EmailNotificationService': 'package:d4_example/src/dart_overview/classes/inheritance/run_inheritance.dart',
       'SmsNotificationService': 'package:d4_example/src/dart_overview/classes/inheritance/run_inheritance.dart',
@@ -216,6 +200,7 @@ class DartOverviewBridge {
       'AdvancedRobot': 'package:d4_example/src/dart_overview/classes/inheritance/run_inheritance.dart',
       'MathUtils': 'package:d4_example/src/dart_overview/classes/static_object_methods/run_static_object_methods.dart',
       'Counter': 'package:d4_example/src/dart_overview/classes/static_object_methods/run_static_object_methods.dart',
+      'Point': 'package:d4_example/src/dart_overview/classes/static_object_methods/run_static_object_methods.dart',
       'FlexibleObject': 'package:d4_example/src/dart_overview/classes/static_object_methods/run_static_object_methods.dart',
       'SortablePerson': 'package:d4_example/src/dart_overview/classes/static_object_methods/run_static_object_methods.dart',
       'NumberWrapper': 'package:d4_example/src/dart_overview/classes/test_support/run_test_support.dart',
@@ -230,23 +215,12 @@ class DartOverviewBridge {
       'TrackedItem': 'package:d4_example/src/dart_overview/classes/test_support/run_test_support.dart',
       'DataProcessor': 'package:d4_example/src/dart_overview/classes/test_support/run_test_support.dart',
       'Statistics': 'package:d4_example/src/dart_overview/generics/type_bounds/run_type_bounds.dart',
-      'SortedList': 'package:d4_example/src/dart_overview/generics/type_bounds/run_type_bounds.dart',
-      'PriorityQueue': 'package:d4_example/src/dart_overview/generics/type_bounds/run_type_bounds.dart',
-      'Range': 'package:d4_example/src/dart_overview/generics/type_bounds/run_type_bounds.dart',
-      'BinarySearchTree': 'package:d4_example/src/dart_overview/generics/type_bounds/run_type_bounds.dart',
-      'Cache': 'package:d4_example/src/dart_overview/generics/type_bounds/run_type_bounds.dart',
-      'TreeNode': 'package:d4_example/src/dart_overview/functions/generators/run_generators.dart',
       'Musical': 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart',
       'Dancing': 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart',
       'Musician': 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart',
       'ProfessionalDancer': 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart',
       'Entertainer': 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart',
       'CountableItem': 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart',
-      'Flying': 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart',
-      'Walking': 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart',
-      'Bird': 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart',
-      'Eagle': 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart',
-      'Penguin': 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart',
       'Logging': 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart',
       'ConsoleLogger': 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart',
       'Greeter1': 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart',
@@ -449,11 +423,6 @@ class DartOverviewBridge {
       errors.add('Failed to register variable "sessionId": $e');
     }
     try {
-      interpreter.registerGlobalVariable('pi', $d4_example_13.pi, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
-    } catch (e) {
-      errors.add('Failed to register variable "pi": $e');
-    }
-    try {
       interpreter.registerGlobalVariable('apiUrl', $d4_example_13.apiUrl, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
     } catch (e) {
       errors.add('Failed to register variable "apiUrl": $e');
@@ -505,33 +474,11 @@ class DartOverviewBridge {
       'main': (visitor, positional, named, typeArgs) {
         return $d4_example_16.main();
       },
-      'printShape': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'printShape');
-        final shape = D4.getRequiredArg<$d4_example_1.SealedShape>(positional, 0, 'shape', 'printShape');
-        return $d4_example_1.printShape(shape);
-      },
-      'sendNotification': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 2, 'sendNotification');
-        final service = D4.getRequiredArg<$d4_example_4.NotificationService>(positional, 0, 'service', 'sendNotification');
-        final message = D4.getRequiredArg<String>(positional, 1, 'message', 'sendNotification');
-        return $d4_example_4.sendNotification(service, message);
-      },
-      'add': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 2, 'add');
-        final a = D4.getRequiredArg<int>(positional, 0, 'a', 'add');
-        final b = D4.getRequiredArg<int>(positional, 1, 'b', 'add');
-        return $d4_example_8.add(a, b);
-      },
       'multiply': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'multiply');
         final a = D4.getRequiredArg<int>(positional, 0, 'a', 'multiply');
         final b = D4.getRequiredArg<int>(positional, 1, 'b', 'multiply');
         return $d4_example_8.multiply(a, b);
-      },
-      'greet': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'greet');
-        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'greet');
-        return $d4_example_8.greet(name);
       },
       'printSeparator': (visitor, positional, named, typeArgs) {
         return $d4_example_8.printSeparator();
@@ -567,15 +514,6 @@ class DartOverviewBridge {
         D4.requireMinArgs(positional, 1, 'dynamicReturn');
         final choice = D4.getRequiredArg<int>(positional, 0, 'choice', 'dynamicReturn');
         return $d4_example_8.dynamicReturn(choice);
-      },
-      'alwaysThrows': (visitor, positional, named, typeArgs) {
-        return $d4_example_8.alwaysThrows();
-      },
-      'fullName': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 2, 'fullName');
-        final first = D4.getRequiredArg<String>(positional, 0, 'first', 'fullName');
-        final last = D4.getRequiredArg<String>(positional, 1, 'last', 'fullName');
-        return $d4_example_10.fullName(first, last);
       },
       'describe': (visitor, positional, named, typeArgs) {
         final name = D4.getRequiredNamedArg<String>(named, 'name', 'describe');
@@ -654,70 +592,6 @@ class DartOverviewBridge {
         final numbers = D4.getRequiredArg<List<int>>(positional, 0, 'numbers', 'computeSum');
         return $d4_example_6.computeSum(numbers);
       },
-      'findMin': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'findMin');
-        final sample = positional[0] as List;
-        if (sample.isEmpty) return <dynamic>[];
-        final firstElem = sample.first;
-        if (firstElem is num) {
-          return $d4_example_12.findMin<num>((positional[0] as List).cast<num>());
-        }
-        if (firstElem is String) {
-          return $d4_example_12.findMin<String>((positional[0] as List).cast<String>());
-        }
-        if (firstElem is DateTime) {
-          return $d4_example_12.findMin<DateTime>((positional[0] as List).cast<DateTime>());
-        }
-        if (firstElem is Duration) {
-          return $d4_example_12.findMin<Duration>((positional[0] as List).cast<Duration>());
-        }
-        if (firstElem is BigInt) {
-          return $d4_example_12.findMin<BigInt>((positional[0] as List).cast<BigInt>());
-        }
-        throw ArgumentError('findMin: Unsupported type for recursive bound. Supported types: num, String, DateTime, Duration, BigInt. Got: ${sample.runtimeType}');
-      },
-      'findMax': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'findMax');
-        final sample = positional[0] as List;
-        if (sample.isEmpty) return <dynamic>[];
-        final firstElem = sample.first;
-        if (firstElem is num) {
-          return $d4_example_12.findMax<num>((positional[0] as List).cast<num>());
-        }
-        if (firstElem is String) {
-          return $d4_example_12.findMax<String>((positional[0] as List).cast<String>());
-        }
-        if (firstElem is DateTime) {
-          return $d4_example_12.findMax<DateTime>((positional[0] as List).cast<DateTime>());
-        }
-        if (firstElem is Duration) {
-          return $d4_example_12.findMax<Duration>((positional[0] as List).cast<Duration>());
-        }
-        if (firstElem is BigInt) {
-          return $d4_example_12.findMax<BigInt>((positional[0] as List).cast<BigInt>());
-        }
-        throw ArgumentError('findMax: Unsupported type for recursive bound. Supported types: num, String, DateTime, Duration, BigInt. Got: ${sample.runtimeType}');
-      },
-      'clamp': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 3, 'clamp');
-        final sample = positional[0];
-        if (sample is num) {
-          return $d4_example_12.clamp<num>(positional[0] as num, positional[1] as num, positional[2] as num);
-        }
-        if (sample is String) {
-          return $d4_example_12.clamp<String>(positional[0] as String, positional[1] as String, positional[2] as String);
-        }
-        if (sample is DateTime) {
-          return $d4_example_12.clamp<DateTime>(positional[0] as DateTime, positional[1] as DateTime, positional[2] as DateTime);
-        }
-        if (sample is Duration) {
-          return $d4_example_12.clamp<Duration>(positional[0] as Duration, positional[1] as Duration, positional[2] as Duration);
-        }
-        if (sample is BigInt) {
-          return $d4_example_12.clamp<BigInt>(positional[0] as BigInt, positional[1] as BigInt, positional[2] as BigInt);
-        }
-        throw ArgumentError('clamp: Unsupported type for recursive bound. Supported types: num, String, DateTime, Duration, BigInt. Got: ${sample.runtimeType}');
-      },
       'findMinMax': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'findMinMax');
         final numbers = D4.getRequiredArg<List<int>>(positional, 0, 'numbers', 'findMinMax');
@@ -746,12 +620,6 @@ class DartOverviewBridge {
         final $result = $d4_example_15.divideWithRemainder(dividend, divisor);
         return InterpretedRecord([], {'quotient': $result.quotient, 'remainder': $result.remainder});
       },
-      'calculateStats': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'calculateStats');
-        final numbers = D4.getRequiredArg<List<int>>(positional, 0, 'numbers', 'calculateStats');
-        final $result = $d4_example_15.calculateStats(numbers);
-        return InterpretedRecord([], {'sum': $result.sum, 'average': $result.average, 'count': $result.count});
-      },
       'countTo': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'countTo');
         final max = D4.getRequiredArg<int>(positional, 0, 'max', 'countTo');
@@ -770,37 +638,10 @@ class DartOverviewBridge {
       'fibonacci': (visitor, positional, named, typeArgs) {
         return $d4_example_9.fibonacci();
       },
-      'nestedRanges': (visitor, positional, named, typeArgs) {
-        return $d4_example_9.nestedRanges();
-      },
-      'flatten': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'flatten');
-        final nested = D4.getRequiredArg<Iterable<Iterable<dynamic>>>(positional, 0, 'nested', 'flatten');
-        return $d4_example_9.flatten<dynamic>(nested);
-      },
-      'traverseTree': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'traverseTree');
-        final node = D4.getRequiredArg<$d4_example_9.TreeNode<dynamic>>(positional, 0, 'node', 'traverseTree');
-        return $d4_example_9.traverseTree<dynamic>(node);
-      },
       'countAsyncTo': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'countAsyncTo');
         final max = D4.getRequiredArg<int>(positional, 0, 'max', 'countAsyncTo');
         return $d4_example_9.countAsyncTo(max);
-      },
-      'timedEvents': (visitor, positional, named, typeArgs) {
-        return $d4_example_9.timedEvents();
-      },
-      'combinedAsyncStreams': (visitor, positional, named, typeArgs) {
-        return $d4_example_9.combinedAsyncStreams();
-      },
-      'fetchAllPages': (visitor, positional, named, typeArgs) {
-        return $d4_example_9.fetchAllPages();
-      },
-      'primesUpTo': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'primesUpTo');
-        final max = D4.getRequiredArg<int>(positional, 0, 'max', 'primesUpTo');
-        return $d4_example_9.primesUpTo(max);
       },
     };
   }
@@ -812,11 +653,7 @@ class DartOverviewBridge {
   static Map<String, String> globalFunctionSourceUris() {
     return {
       'main': 'package:d4_example/src/dart_overview/run_dart_overview.dart',
-      'printShape': 'package:d4_example/src/dart_overview/class_modifiers/modifiers/run_modifiers.dart',
-      'sendNotification': 'package:d4_example/src/dart_overview/classes/inheritance/run_inheritance.dart',
-      'add': 'package:d4_example/src/dart_overview/functions/declarations/run_declarations.dart',
       'multiply': 'package:d4_example/src/dart_overview/functions/declarations/run_declarations.dart',
-      'greet': 'package:d4_example/src/dart_overview/functions/declarations/run_declarations.dart',
       'printSeparator': 'package:d4_example/src/dart_overview/functions/declarations/run_declarations.dart',
       'square': 'package:d4_example/src/dart_overview/functions/declarations/run_declarations.dart',
       'cube': 'package:d4_example/src/dart_overview/functions/declarations/run_declarations.dart',
@@ -825,8 +662,6 @@ class DartOverviewBridge {
       'createUser': 'package:d4_example/src/dart_overview/functions/declarations/run_declarations.dart',
       'inferredReturn': 'package:d4_example/src/dart_overview/functions/declarations/run_declarations.dart',
       'dynamicReturn': 'package:d4_example/src/dart_overview/functions/declarations/run_declarations.dart',
-      'alwaysThrows': 'package:d4_example/src/dart_overview/functions/declarations/run_declarations.dart',
-      'fullName': 'package:d4_example/src/dart_overview/functions/parameters/run_parameters.dart',
       'describe': 'package:d4_example/src/dart_overview/functions/parameters/run_parameters.dart',
       'sayHello': 'package:d4_example/src/dart_overview/functions/parameters/run_parameters.dart',
       'power': 'package:d4_example/src/dart_overview/functions/parameters/run_parameters.dart',
@@ -838,26 +673,15 @@ class DartOverviewBridge {
       'firstOrNull': 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart',
       'fetchGreeting': 'package:d4_example/src/dart_overview/classes/test_support/run_test_support.dart',
       'computeSum': 'package:d4_example/src/dart_overview/classes/test_support/run_test_support.dart',
-      'findMin': 'package:d4_example/src/dart_overview/generics/type_bounds/run_type_bounds.dart',
-      'findMax': 'package:d4_example/src/dart_overview/generics/type_bounds/run_type_bounds.dart',
-      'clamp': 'package:d4_example/src/dart_overview/generics/type_bounds/run_type_bounds.dart',
       'findMinMax': 'package:d4_example/src/dart_overview/records/basics/run_basics.dart',
       'swap': 'package:d4_example/src/dart_overview/records/basics/run_basics.dart',
       'parseUserString': 'package:d4_example/src/dart_overview/records/basics/run_basics.dart',
       'divideWithRemainder': 'package:d4_example/src/dart_overview/records/basics/run_basics.dart',
-      'calculateStats': 'package:d4_example/src/dart_overview/records/basics/run_basics.dart',
       'countTo': 'package:d4_example/src/dart_overview/functions/generators/run_generators.dart',
       'range': 'package:d4_example/src/dart_overview/functions/generators/run_generators.dart',
       'naturalNumbers': 'package:d4_example/src/dart_overview/functions/generators/run_generators.dart',
       'fibonacci': 'package:d4_example/src/dart_overview/functions/generators/run_generators.dart',
-      'nestedRanges': 'package:d4_example/src/dart_overview/functions/generators/run_generators.dart',
-      'flatten': 'package:d4_example/src/dart_overview/functions/generators/run_generators.dart',
-      'traverseTree': 'package:d4_example/src/dart_overview/functions/generators/run_generators.dart',
       'countAsyncTo': 'package:d4_example/src/dart_overview/functions/generators/run_generators.dart',
-      'timedEvents': 'package:d4_example/src/dart_overview/functions/generators/run_generators.dart',
-      'combinedAsyncStreams': 'package:d4_example/src/dart_overview/functions/generators/run_generators.dart',
-      'fetchAllPages': 'package:d4_example/src/dart_overview/functions/generators/run_generators.dart',
-      'primesUpTo': 'package:d4_example/src/dart_overview/functions/generators/run_generators.dart',
     };
   }
 
@@ -865,11 +689,7 @@ class DartOverviewBridge {
   static Map<String, String> globalFunctionSignatures() {
     return {
       'main': 'Future<void> main()',
-      'printShape': 'void printShape(SealedShape shape)',
-      'sendNotification': 'void sendNotification(NotificationService service, String message)',
-      'add': 'int add(int a, int b)',
       'multiply': 'int multiply(int a, int b)',
-      'greet': 'void greet(String name)',
       'printSeparator': 'void printSeparator()',
       'square': 'int square(int n)',
       'cube': 'int cube(int n)',
@@ -878,8 +698,6 @@ class DartOverviewBridge {
       'createUser': 'Map<String, dynamic> createUser(String name, int age)',
       'inferredReturn': 'dynamic inferredReturn()',
       'dynamicReturn': 'dynamic dynamicReturn(int choice)',
-      'alwaysThrows': 'Never alwaysThrows()',
-      'fullName': 'String fullName(String first, String last)',
       'describe': 'void describe({required String name, int? age, String? city})',
       'sayHello': 'String sayHello([String name = \'World\', String greeting = \'Hello\'])',
       'power': 'int power(int base, [int exponent = 2])',
@@ -891,26 +709,15 @@ class DartOverviewBridge {
       'firstOrNull': 'T? firstOrNull(List<T> items)',
       'fetchGreeting': 'Future<String> fetchGreeting(String name)',
       'computeSum': 'Future<int> computeSum(List<int> numbers)',
-      'findMin': 'T findMin(List<T> items)',
-      'findMax': 'T findMax(List<T> items)',
-      'clamp': 'T clamp(T value, T min, T max)',
       'findMinMax': '({int min, int max}) findMinMax(List<int> numbers)',
       'swap': '(int, int) swap((int, int) pair)',
       'parseUserString': '(String, int) parseUserString(String input)',
       'divideWithRemainder': '({int quotient, int remainder}) divideWithRemainder(int dividend, int divisor)',
-      'calculateStats': '({int sum, double average, int count}) calculateStats(List<int> numbers)',
       'countTo': 'Iterable<int> countTo(int max)',
       'range': 'Iterable<int> range(int start, int end, [int step = 1])',
       'naturalNumbers': 'Iterable<int> naturalNumbers()',
       'fibonacci': 'Iterable<int> fibonacci()',
-      'nestedRanges': 'Iterable<int> nestedRanges()',
-      'flatten': 'Iterable<T> flatten(Iterable<Iterable<T>> nested)',
-      'traverseTree': 'Iterable<T> traverseTree(TreeNode<T> node)',
       'countAsyncTo': 'Stream<int> countAsyncTo(int max)',
-      'timedEvents': 'Stream<String> timedEvents()',
-      'combinedAsyncStreams': 'Stream<String> combinedAsyncStreams()',
-      'fetchAllPages': 'Stream<String> fetchAllPages()',
-      'primesUpTo': 'Iterable<int> primesUpTo(int max)',
     };
   }
 
@@ -1341,6 +1148,102 @@ BridgedClass _createBoxBridge() {
           case int _: return $d4_example_11.Box<int>(value);
           case String _: return $d4_example_11.Box<String>(value);
           case bool _: return $d4_example_11.Box<bool>(value);
+          case $d4_example_3.Person _: return $d4_example_11.Box<$d4_example_3.Person>(value);
+          case $d4_example_3.Dog _: return $d4_example_11.Box<$d4_example_3.Dog>(value);
+          case $d4_example_3.User _: return $d4_example_11.Box<$d4_example_3.User>(value);
+          case $d4_example_3.Calculator _: return $d4_example_11.Box<$d4_example_3.Calculator>(value);
+          case $d4_example_3.Rectangle _: return $d4_example_11.Box<$d4_example_3.Rectangle>(value);
+          case $d4_example_3.BankAccount _: return $d4_example_11.Box<$d4_example_3.BankAccount>(value);
+          case $d4_example_3.Circle _: return $d4_example_11.Box<$d4_example_3.Circle>(value);
+          case $d4_example_11.Wrapper _: return $d4_example_11.Box<$d4_example_11.Wrapper>(value);
+          case $d4_example_11.Pair _: return $d4_example_11.Box<$d4_example_11.Pair>(value);
+          case $d4_example_11.Stack _: return $d4_example_11.Box<$d4_example_11.Stack>(value);
+          case $d4_example_11.Queue _: return $d4_example_11.Box<$d4_example_11.Queue>(value);
+          case $d4_example_11.Maybe _: return $d4_example_11.Box<$d4_example_11.Maybe>(value);
+          case $d4_example_11.Result _: return $d4_example_11.Box<$d4_example_11.Result>(value);
+          case $d4_example_7.LoggableMixin _: return $d4_example_11.Box<$d4_example_7.LoggableMixin>(value);
+          case $d4_example_1.Vehicle _: return $d4_example_11.Box<$d4_example_1.Vehicle>(value);
+          case $d4_example_1.Car _: return $d4_example_11.Box<$d4_example_1.Car>(value);
+          case $d4_example_1.Motorcycle _: return $d4_example_11.Box<$d4_example_1.Motorcycle>(value);
+          case $d4_example_1.BaseAnimal _: return $d4_example_11.Box<$d4_example_1.BaseAnimal>(value);
+          case $d4_example_1.DogAnimal _: return $d4_example_11.Box<$d4_example_1.DogAnimal>(value);
+          case $d4_example_1.DataSource _: return $d4_example_11.Box<$d4_example_1.DataSource>(value);
+          case $d4_example_1.JsonDataSource _: return $d4_example_11.Box<$d4_example_1.JsonDataSource>(value);
+          case $d4_example_1.XmlDataSource _: return $d4_example_11.Box<$d4_example_1.XmlDataSource>(value);
+          case $d4_example_1.AppConfig _: return $d4_example_11.Box<$d4_example_1.AppConfig>(value);
+          case $d4_example_1.SealedShape _: return $d4_example_11.Box<$d4_example_1.SealedShape>(value);
+          case $d4_example_1.SealedCircle _: return $d4_example_11.Box<$d4_example_1.SealedCircle>(value);
+          case $d4_example_1.SealedSquare _: return $d4_example_11.Box<$d4_example_1.SealedSquare>(value);
+          case $d4_example_1.SealedTriangle _: return $d4_example_11.Box<$d4_example_1.SealedTriangle>(value);
+          case $d4_example_1.LoggerMixin _: return $d4_example_11.Box<$d4_example_1.LoggerMixin>(value);
+          case $d4_example_1.LoggingService _: return $d4_example_11.Box<$d4_example_1.LoggingService>(value);
+          case $d4_example_1.AbstractBaseClass _: return $d4_example_11.Box<$d4_example_1.AbstractBaseClass>(value);
+          case $d4_example_1.DerivedFromAbstractBase _: return $d4_example_11.Box<$d4_example_1.DerivedFromAbstractBase>(value);
+          case $d4_example_1.ApiClient _: return $d4_example_11.Box<$d4_example_1.ApiClient>(value);
+          case $d4_example_1.RestApiClient _: return $d4_example_11.Box<$d4_example_1.RestApiClient>(value);
+          case $d4_example_1.GraphqlApiClient _: return $d4_example_11.Box<$d4_example_1.GraphqlApiClient>(value);
+          case $d4_example_1.AbstractFinalClass _: return $d4_example_11.Box<$d4_example_1.AbstractFinalClass>(value);
+          case $d4_example_1.SingletonHolder _: return $d4_example_11.Box<$d4_example_1.SingletonHolder>(value);
+          case $d4_example_2.SimplePoint _: return $d4_example_11.Box<$d4_example_2.SimplePoint>(value);
+          case $d4_example_2.RectangleArea _: return $d4_example_11.Box<$d4_example_2.RectangleArea>(value);
+          case $d4_example_2.PositiveNumber _: return $d4_example_11.Box<$d4_example_2.PositiveNumber>(value);
+          case $d4_example_2.Vector _: return $d4_example_11.Box<$d4_example_2.Vector>(value);
+          case $d4_example_2.Color _: return $d4_example_11.Box<$d4_example_2.Color>(value);
+          case $d4_example_2.Logger _: return $d4_example_11.Box<$d4_example_2.Logger>(value);
+          case $d4_example_2.CircleShape _: return $d4_example_11.Box<$d4_example_2.CircleShape>(value);
+          case $d4_example_2.SquareShape _: return $d4_example_11.Box<$d4_example_2.SquareShape>(value);
+          case $d4_example_2.Database _: return $d4_example_11.Box<$d4_example_2.Database>(value);
+          case $d4_example_2.PersonBase _: return $d4_example_11.Box<$d4_example_2.PersonBase>(value);
+          case $d4_example_2.Employee _: return $d4_example_11.Box<$d4_example_2.Employee>(value);
+          case $d4_example_2.Manager _: return $d4_example_11.Box<$d4_example_2.Manager>(value);
+          case $d4_example_4.Animal _: return $d4_example_11.Box<$d4_example_4.Animal>(value);
+          case $d4_example_4.Cat _: return $d4_example_11.Box<$d4_example_4.Cat>(value);
+          case $d4_example_4.NotificationService _: return $d4_example_11.Box<$d4_example_4.NotificationService>(value);
+          case $d4_example_4.EmailNotificationService _: return $d4_example_11.Box<$d4_example_4.EmailNotificationService>(value);
+          case $d4_example_4.SmsNotificationService _: return $d4_example_11.Box<$d4_example_4.SmsNotificationService>(value);
+          case $d4_example_4.Switchable _: return $d4_example_11.Box<$d4_example_4.Switchable>(value);
+          case $d4_example_4.TemperatureControl _: return $d4_example_11.Box<$d4_example_4.TemperatureControl>(value);
+          case $d4_example_4.Connectable _: return $d4_example_11.Box<$d4_example_4.Connectable>(value);
+          case $d4_example_4.SmartThermostat _: return $d4_example_11.Box<$d4_example_4.SmartThermostat>(value);
+          case $d4_example_4.Machine _: return $d4_example_11.Box<$d4_example_4.Machine>(value);
+          case $d4_example_4.Speakable _: return $d4_example_11.Box<$d4_example_4.Speakable>(value);
+          case $d4_example_4.Robot _: return $d4_example_11.Box<$d4_example_4.Robot>(value);
+          case $d4_example_4.AdvancedRobot _: return $d4_example_11.Box<$d4_example_4.AdvancedRobot>(value);
+          case $d4_example_5.MathUtils _: return $d4_example_11.Box<$d4_example_5.MathUtils>(value);
+          case $d4_example_5.Counter _: return $d4_example_11.Box<$d4_example_5.Counter>(value);
+          case $d4_example_5.Point _: return $d4_example_11.Box<$d4_example_5.Point>(value);
+          case $d4_example_5.FlexibleObject _: return $d4_example_11.Box<$d4_example_5.FlexibleObject>(value);
+          case $d4_example_5.SortablePerson _: return $d4_example_11.Box<$d4_example_5.SortablePerson>(value);
+          case $d4_example_6.NumberWrapper _: return $d4_example_11.Box<$d4_example_6.NumberWrapper>(value);
+          case $d4_example_6.BitFlags _: return $d4_example_11.Box<$d4_example_6.BitFlags>(value);
+          case $d4_example_6.NullableFields _: return $d4_example_11.Box<$d4_example_6.NullableFields>(value);
+          case $d4_example_6.LateFieldDemo _: return $d4_example_11.Box<$d4_example_6.LateFieldDemo>(value);
+          case $d4_example_6.Multiplier _: return $d4_example_11.Box<$d4_example_6.Multiplier>(value);
+          case $d4_example_6.Printable _: return $d4_example_11.Box<$d4_example_6.Printable>(value);
+          case $d4_example_6.Serializable _: return $d4_example_11.Box<$d4_example_6.Serializable>(value);
+          case $d4_example_6.SerializablePrintable _: return $d4_example_11.Box<$d4_example_6.SerializablePrintable>(value);
+          case $d4_example_6.Trackable _: return $d4_example_11.Box<$d4_example_6.Trackable>(value);
+          case $d4_example_6.TrackedItem _: return $d4_example_11.Box<$d4_example_6.TrackedItem>(value);
+          case $d4_example_6.DataProcessor _: return $d4_example_11.Box<$d4_example_6.DataProcessor>(value);
+          case $d4_example_12.Statistics _: return $d4_example_11.Box<$d4_example_12.Statistics>(value);
+          case $d4_example_14.Musical _: return $d4_example_11.Box<$d4_example_14.Musical>(value);
+          case $d4_example_14.Dancing _: return $d4_example_11.Box<$d4_example_14.Dancing>(value);
+          case $d4_example_14.Musician _: return $d4_example_11.Box<$d4_example_14.Musician>(value);
+          case $d4_example_14.ProfessionalDancer _: return $d4_example_11.Box<$d4_example_14.ProfessionalDancer>(value);
+          case $d4_example_14.Entertainer _: return $d4_example_11.Box<$d4_example_14.Entertainer>(value);
+          case $d4_example_14.CountableItem _: return $d4_example_11.Box<$d4_example_14.CountableItem>(value);
+          case $d4_example_14.Logging _: return $d4_example_11.Box<$d4_example_14.Logging>(value);
+          case $d4_example_14.ConsoleLogger _: return $d4_example_11.Box<$d4_example_14.ConsoleLogger>(value);
+          case $d4_example_14.Greeter1 _: return $d4_example_11.Box<$d4_example_14.Greeter1>(value);
+          case $d4_example_14.Greeter2 _: return $d4_example_11.Box<$d4_example_14.Greeter2>(value);
+          case $d4_example_14.MultiMixed _: return $d4_example_11.Box<$d4_example_14.MultiMixed>(value);
+          case $d4_example_14.Helper _: return $d4_example_11.Box<$d4_example_14.Helper>(value);
+          case $d4_example_14.HelpfulService _: return $d4_example_11.Box<$d4_example_14.HelpfulService>(value);
+          case $d4_example_14.EventEmitter _: return $d4_example_11.Box<$d4_example_14.EventEmitter>(value);
+          case $d4_example_14.Button _: return $d4_example_11.Box<$d4_example_14.Button>(value);
+          case $d4_example_14.ComparableMixin _: return $d4_example_11.Box<$d4_example_14.ComparableMixin>(value);
+          case $d4_example_14.SortableItem _: return $d4_example_11.Box<$d4_example_14.SortableItem>(value);
+          case $d4_example_14.JsonSerializable _: return $d4_example_11.Box<$d4_example_14.JsonSerializable>(value);
           default: return $d4_example_11.Box(value);
         }
       },
@@ -1376,6 +1279,102 @@ BridgedClass _createWrapperBridge() {
           case int _: return $d4_example_11.Wrapper<int>(value);
           case String _: return $d4_example_11.Wrapper<String>(value);
           case bool _: return $d4_example_11.Wrapper<bool>(value);
+          case $d4_example_3.Person _: return $d4_example_11.Wrapper<$d4_example_3.Person>(value);
+          case $d4_example_3.Dog _: return $d4_example_11.Wrapper<$d4_example_3.Dog>(value);
+          case $d4_example_3.User _: return $d4_example_11.Wrapper<$d4_example_3.User>(value);
+          case $d4_example_3.Calculator _: return $d4_example_11.Wrapper<$d4_example_3.Calculator>(value);
+          case $d4_example_3.Rectangle _: return $d4_example_11.Wrapper<$d4_example_3.Rectangle>(value);
+          case $d4_example_3.BankAccount _: return $d4_example_11.Wrapper<$d4_example_3.BankAccount>(value);
+          case $d4_example_3.Circle _: return $d4_example_11.Wrapper<$d4_example_3.Circle>(value);
+          case $d4_example_11.Box _: return $d4_example_11.Wrapper<$d4_example_11.Box>(value);
+          case $d4_example_11.Pair _: return $d4_example_11.Wrapper<$d4_example_11.Pair>(value);
+          case $d4_example_11.Stack _: return $d4_example_11.Wrapper<$d4_example_11.Stack>(value);
+          case $d4_example_11.Queue _: return $d4_example_11.Wrapper<$d4_example_11.Queue>(value);
+          case $d4_example_11.Maybe _: return $d4_example_11.Wrapper<$d4_example_11.Maybe>(value);
+          case $d4_example_11.Result _: return $d4_example_11.Wrapper<$d4_example_11.Result>(value);
+          case $d4_example_7.LoggableMixin _: return $d4_example_11.Wrapper<$d4_example_7.LoggableMixin>(value);
+          case $d4_example_1.Vehicle _: return $d4_example_11.Wrapper<$d4_example_1.Vehicle>(value);
+          case $d4_example_1.Car _: return $d4_example_11.Wrapper<$d4_example_1.Car>(value);
+          case $d4_example_1.Motorcycle _: return $d4_example_11.Wrapper<$d4_example_1.Motorcycle>(value);
+          case $d4_example_1.BaseAnimal _: return $d4_example_11.Wrapper<$d4_example_1.BaseAnimal>(value);
+          case $d4_example_1.DogAnimal _: return $d4_example_11.Wrapper<$d4_example_1.DogAnimal>(value);
+          case $d4_example_1.DataSource _: return $d4_example_11.Wrapper<$d4_example_1.DataSource>(value);
+          case $d4_example_1.JsonDataSource _: return $d4_example_11.Wrapper<$d4_example_1.JsonDataSource>(value);
+          case $d4_example_1.XmlDataSource _: return $d4_example_11.Wrapper<$d4_example_1.XmlDataSource>(value);
+          case $d4_example_1.AppConfig _: return $d4_example_11.Wrapper<$d4_example_1.AppConfig>(value);
+          case $d4_example_1.SealedShape _: return $d4_example_11.Wrapper<$d4_example_1.SealedShape>(value);
+          case $d4_example_1.SealedCircle _: return $d4_example_11.Wrapper<$d4_example_1.SealedCircle>(value);
+          case $d4_example_1.SealedSquare _: return $d4_example_11.Wrapper<$d4_example_1.SealedSquare>(value);
+          case $d4_example_1.SealedTriangle _: return $d4_example_11.Wrapper<$d4_example_1.SealedTriangle>(value);
+          case $d4_example_1.LoggerMixin _: return $d4_example_11.Wrapper<$d4_example_1.LoggerMixin>(value);
+          case $d4_example_1.LoggingService _: return $d4_example_11.Wrapper<$d4_example_1.LoggingService>(value);
+          case $d4_example_1.AbstractBaseClass _: return $d4_example_11.Wrapper<$d4_example_1.AbstractBaseClass>(value);
+          case $d4_example_1.DerivedFromAbstractBase _: return $d4_example_11.Wrapper<$d4_example_1.DerivedFromAbstractBase>(value);
+          case $d4_example_1.ApiClient _: return $d4_example_11.Wrapper<$d4_example_1.ApiClient>(value);
+          case $d4_example_1.RestApiClient _: return $d4_example_11.Wrapper<$d4_example_1.RestApiClient>(value);
+          case $d4_example_1.GraphqlApiClient _: return $d4_example_11.Wrapper<$d4_example_1.GraphqlApiClient>(value);
+          case $d4_example_1.AbstractFinalClass _: return $d4_example_11.Wrapper<$d4_example_1.AbstractFinalClass>(value);
+          case $d4_example_1.SingletonHolder _: return $d4_example_11.Wrapper<$d4_example_1.SingletonHolder>(value);
+          case $d4_example_2.SimplePoint _: return $d4_example_11.Wrapper<$d4_example_2.SimplePoint>(value);
+          case $d4_example_2.RectangleArea _: return $d4_example_11.Wrapper<$d4_example_2.RectangleArea>(value);
+          case $d4_example_2.PositiveNumber _: return $d4_example_11.Wrapper<$d4_example_2.PositiveNumber>(value);
+          case $d4_example_2.Vector _: return $d4_example_11.Wrapper<$d4_example_2.Vector>(value);
+          case $d4_example_2.Color _: return $d4_example_11.Wrapper<$d4_example_2.Color>(value);
+          case $d4_example_2.Logger _: return $d4_example_11.Wrapper<$d4_example_2.Logger>(value);
+          case $d4_example_2.CircleShape _: return $d4_example_11.Wrapper<$d4_example_2.CircleShape>(value);
+          case $d4_example_2.SquareShape _: return $d4_example_11.Wrapper<$d4_example_2.SquareShape>(value);
+          case $d4_example_2.Database _: return $d4_example_11.Wrapper<$d4_example_2.Database>(value);
+          case $d4_example_2.PersonBase _: return $d4_example_11.Wrapper<$d4_example_2.PersonBase>(value);
+          case $d4_example_2.Employee _: return $d4_example_11.Wrapper<$d4_example_2.Employee>(value);
+          case $d4_example_2.Manager _: return $d4_example_11.Wrapper<$d4_example_2.Manager>(value);
+          case $d4_example_4.Animal _: return $d4_example_11.Wrapper<$d4_example_4.Animal>(value);
+          case $d4_example_4.Cat _: return $d4_example_11.Wrapper<$d4_example_4.Cat>(value);
+          case $d4_example_4.NotificationService _: return $d4_example_11.Wrapper<$d4_example_4.NotificationService>(value);
+          case $d4_example_4.EmailNotificationService _: return $d4_example_11.Wrapper<$d4_example_4.EmailNotificationService>(value);
+          case $d4_example_4.SmsNotificationService _: return $d4_example_11.Wrapper<$d4_example_4.SmsNotificationService>(value);
+          case $d4_example_4.Switchable _: return $d4_example_11.Wrapper<$d4_example_4.Switchable>(value);
+          case $d4_example_4.TemperatureControl _: return $d4_example_11.Wrapper<$d4_example_4.TemperatureControl>(value);
+          case $d4_example_4.Connectable _: return $d4_example_11.Wrapper<$d4_example_4.Connectable>(value);
+          case $d4_example_4.SmartThermostat _: return $d4_example_11.Wrapper<$d4_example_4.SmartThermostat>(value);
+          case $d4_example_4.Machine _: return $d4_example_11.Wrapper<$d4_example_4.Machine>(value);
+          case $d4_example_4.Speakable _: return $d4_example_11.Wrapper<$d4_example_4.Speakable>(value);
+          case $d4_example_4.Robot _: return $d4_example_11.Wrapper<$d4_example_4.Robot>(value);
+          case $d4_example_4.AdvancedRobot _: return $d4_example_11.Wrapper<$d4_example_4.AdvancedRobot>(value);
+          case $d4_example_5.MathUtils _: return $d4_example_11.Wrapper<$d4_example_5.MathUtils>(value);
+          case $d4_example_5.Counter _: return $d4_example_11.Wrapper<$d4_example_5.Counter>(value);
+          case $d4_example_5.Point _: return $d4_example_11.Wrapper<$d4_example_5.Point>(value);
+          case $d4_example_5.FlexibleObject _: return $d4_example_11.Wrapper<$d4_example_5.FlexibleObject>(value);
+          case $d4_example_5.SortablePerson _: return $d4_example_11.Wrapper<$d4_example_5.SortablePerson>(value);
+          case $d4_example_6.NumberWrapper _: return $d4_example_11.Wrapper<$d4_example_6.NumberWrapper>(value);
+          case $d4_example_6.BitFlags _: return $d4_example_11.Wrapper<$d4_example_6.BitFlags>(value);
+          case $d4_example_6.NullableFields _: return $d4_example_11.Wrapper<$d4_example_6.NullableFields>(value);
+          case $d4_example_6.LateFieldDemo _: return $d4_example_11.Wrapper<$d4_example_6.LateFieldDemo>(value);
+          case $d4_example_6.Multiplier _: return $d4_example_11.Wrapper<$d4_example_6.Multiplier>(value);
+          case $d4_example_6.Printable _: return $d4_example_11.Wrapper<$d4_example_6.Printable>(value);
+          case $d4_example_6.Serializable _: return $d4_example_11.Wrapper<$d4_example_6.Serializable>(value);
+          case $d4_example_6.SerializablePrintable _: return $d4_example_11.Wrapper<$d4_example_6.SerializablePrintable>(value);
+          case $d4_example_6.Trackable _: return $d4_example_11.Wrapper<$d4_example_6.Trackable>(value);
+          case $d4_example_6.TrackedItem _: return $d4_example_11.Wrapper<$d4_example_6.TrackedItem>(value);
+          case $d4_example_6.DataProcessor _: return $d4_example_11.Wrapper<$d4_example_6.DataProcessor>(value);
+          case $d4_example_12.Statistics _: return $d4_example_11.Wrapper<$d4_example_12.Statistics>(value);
+          case $d4_example_14.Musical _: return $d4_example_11.Wrapper<$d4_example_14.Musical>(value);
+          case $d4_example_14.Dancing _: return $d4_example_11.Wrapper<$d4_example_14.Dancing>(value);
+          case $d4_example_14.Musician _: return $d4_example_11.Wrapper<$d4_example_14.Musician>(value);
+          case $d4_example_14.ProfessionalDancer _: return $d4_example_11.Wrapper<$d4_example_14.ProfessionalDancer>(value);
+          case $d4_example_14.Entertainer _: return $d4_example_11.Wrapper<$d4_example_14.Entertainer>(value);
+          case $d4_example_14.CountableItem _: return $d4_example_11.Wrapper<$d4_example_14.CountableItem>(value);
+          case $d4_example_14.Logging _: return $d4_example_11.Wrapper<$d4_example_14.Logging>(value);
+          case $d4_example_14.ConsoleLogger _: return $d4_example_11.Wrapper<$d4_example_14.ConsoleLogger>(value);
+          case $d4_example_14.Greeter1 _: return $d4_example_11.Wrapper<$d4_example_14.Greeter1>(value);
+          case $d4_example_14.Greeter2 _: return $d4_example_11.Wrapper<$d4_example_14.Greeter2>(value);
+          case $d4_example_14.MultiMixed _: return $d4_example_11.Wrapper<$d4_example_14.MultiMixed>(value);
+          case $d4_example_14.Helper _: return $d4_example_11.Wrapper<$d4_example_14.Helper>(value);
+          case $d4_example_14.HelpfulService _: return $d4_example_11.Wrapper<$d4_example_14.HelpfulService>(value);
+          case $d4_example_14.EventEmitter _: return $d4_example_11.Wrapper<$d4_example_14.EventEmitter>(value);
+          case $d4_example_14.Button _: return $d4_example_11.Wrapper<$d4_example_14.Button>(value);
+          case $d4_example_14.ComparableMixin _: return $d4_example_11.Wrapper<$d4_example_14.ComparableMixin>(value);
+          case $d4_example_14.SortableItem _: return $d4_example_11.Wrapper<$d4_example_14.SortableItem>(value);
+          case $d4_example_14.JsonSerializable _: return $d4_example_11.Wrapper<$d4_example_14.JsonSerializable>(value);
           default: return $d4_example_11.Wrapper(value);
         }
       },
@@ -1395,7 +1394,7 @@ BridgedClass _createWrapperBridge() {
           throw ArgumentError('transform: Missing required argument "f" at position 0');
         }
         final fRaw = positional[0];
-        return t.transform((dynamic p0) { return D4.callInterpreterCallback(visitor!, fRaw, [p0]) as dynamic; });
+        return t.transform((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, fRaw, [p0])); });
       },
     },
     constructorSignatures: {
@@ -1584,6 +1583,102 @@ BridgedClass _createMaybeBridge() {
           case int _: return $d4_example_11.Maybe<int>.some(value);
           case String _: return $d4_example_11.Maybe<String>.some(value);
           case bool _: return $d4_example_11.Maybe<bool>.some(value);
+          case $d4_example_3.Person _: return $d4_example_11.Maybe<$d4_example_3.Person>.some(value);
+          case $d4_example_3.Dog _: return $d4_example_11.Maybe<$d4_example_3.Dog>.some(value);
+          case $d4_example_3.User _: return $d4_example_11.Maybe<$d4_example_3.User>.some(value);
+          case $d4_example_3.Calculator _: return $d4_example_11.Maybe<$d4_example_3.Calculator>.some(value);
+          case $d4_example_3.Rectangle _: return $d4_example_11.Maybe<$d4_example_3.Rectangle>.some(value);
+          case $d4_example_3.BankAccount _: return $d4_example_11.Maybe<$d4_example_3.BankAccount>.some(value);
+          case $d4_example_3.Circle _: return $d4_example_11.Maybe<$d4_example_3.Circle>.some(value);
+          case $d4_example_11.Box _: return $d4_example_11.Maybe<$d4_example_11.Box>.some(value);
+          case $d4_example_11.Wrapper _: return $d4_example_11.Maybe<$d4_example_11.Wrapper>.some(value);
+          case $d4_example_11.Pair _: return $d4_example_11.Maybe<$d4_example_11.Pair>.some(value);
+          case $d4_example_11.Stack _: return $d4_example_11.Maybe<$d4_example_11.Stack>.some(value);
+          case $d4_example_11.Queue _: return $d4_example_11.Maybe<$d4_example_11.Queue>.some(value);
+          case $d4_example_11.Result _: return $d4_example_11.Maybe<$d4_example_11.Result>.some(value);
+          case $d4_example_7.LoggableMixin _: return $d4_example_11.Maybe<$d4_example_7.LoggableMixin>.some(value);
+          case $d4_example_1.Vehicle _: return $d4_example_11.Maybe<$d4_example_1.Vehicle>.some(value);
+          case $d4_example_1.Car _: return $d4_example_11.Maybe<$d4_example_1.Car>.some(value);
+          case $d4_example_1.Motorcycle _: return $d4_example_11.Maybe<$d4_example_1.Motorcycle>.some(value);
+          case $d4_example_1.BaseAnimal _: return $d4_example_11.Maybe<$d4_example_1.BaseAnimal>.some(value);
+          case $d4_example_1.DogAnimal _: return $d4_example_11.Maybe<$d4_example_1.DogAnimal>.some(value);
+          case $d4_example_1.DataSource _: return $d4_example_11.Maybe<$d4_example_1.DataSource>.some(value);
+          case $d4_example_1.JsonDataSource _: return $d4_example_11.Maybe<$d4_example_1.JsonDataSource>.some(value);
+          case $d4_example_1.XmlDataSource _: return $d4_example_11.Maybe<$d4_example_1.XmlDataSource>.some(value);
+          case $d4_example_1.AppConfig _: return $d4_example_11.Maybe<$d4_example_1.AppConfig>.some(value);
+          case $d4_example_1.SealedShape _: return $d4_example_11.Maybe<$d4_example_1.SealedShape>.some(value);
+          case $d4_example_1.SealedCircle _: return $d4_example_11.Maybe<$d4_example_1.SealedCircle>.some(value);
+          case $d4_example_1.SealedSquare _: return $d4_example_11.Maybe<$d4_example_1.SealedSquare>.some(value);
+          case $d4_example_1.SealedTriangle _: return $d4_example_11.Maybe<$d4_example_1.SealedTriangle>.some(value);
+          case $d4_example_1.LoggerMixin _: return $d4_example_11.Maybe<$d4_example_1.LoggerMixin>.some(value);
+          case $d4_example_1.LoggingService _: return $d4_example_11.Maybe<$d4_example_1.LoggingService>.some(value);
+          case $d4_example_1.AbstractBaseClass _: return $d4_example_11.Maybe<$d4_example_1.AbstractBaseClass>.some(value);
+          case $d4_example_1.DerivedFromAbstractBase _: return $d4_example_11.Maybe<$d4_example_1.DerivedFromAbstractBase>.some(value);
+          case $d4_example_1.ApiClient _: return $d4_example_11.Maybe<$d4_example_1.ApiClient>.some(value);
+          case $d4_example_1.RestApiClient _: return $d4_example_11.Maybe<$d4_example_1.RestApiClient>.some(value);
+          case $d4_example_1.GraphqlApiClient _: return $d4_example_11.Maybe<$d4_example_1.GraphqlApiClient>.some(value);
+          case $d4_example_1.AbstractFinalClass _: return $d4_example_11.Maybe<$d4_example_1.AbstractFinalClass>.some(value);
+          case $d4_example_1.SingletonHolder _: return $d4_example_11.Maybe<$d4_example_1.SingletonHolder>.some(value);
+          case $d4_example_2.SimplePoint _: return $d4_example_11.Maybe<$d4_example_2.SimplePoint>.some(value);
+          case $d4_example_2.RectangleArea _: return $d4_example_11.Maybe<$d4_example_2.RectangleArea>.some(value);
+          case $d4_example_2.PositiveNumber _: return $d4_example_11.Maybe<$d4_example_2.PositiveNumber>.some(value);
+          case $d4_example_2.Vector _: return $d4_example_11.Maybe<$d4_example_2.Vector>.some(value);
+          case $d4_example_2.Color _: return $d4_example_11.Maybe<$d4_example_2.Color>.some(value);
+          case $d4_example_2.Logger _: return $d4_example_11.Maybe<$d4_example_2.Logger>.some(value);
+          case $d4_example_2.CircleShape _: return $d4_example_11.Maybe<$d4_example_2.CircleShape>.some(value);
+          case $d4_example_2.SquareShape _: return $d4_example_11.Maybe<$d4_example_2.SquareShape>.some(value);
+          case $d4_example_2.Database _: return $d4_example_11.Maybe<$d4_example_2.Database>.some(value);
+          case $d4_example_2.PersonBase _: return $d4_example_11.Maybe<$d4_example_2.PersonBase>.some(value);
+          case $d4_example_2.Employee _: return $d4_example_11.Maybe<$d4_example_2.Employee>.some(value);
+          case $d4_example_2.Manager _: return $d4_example_11.Maybe<$d4_example_2.Manager>.some(value);
+          case $d4_example_4.Animal _: return $d4_example_11.Maybe<$d4_example_4.Animal>.some(value);
+          case $d4_example_4.Cat _: return $d4_example_11.Maybe<$d4_example_4.Cat>.some(value);
+          case $d4_example_4.NotificationService _: return $d4_example_11.Maybe<$d4_example_4.NotificationService>.some(value);
+          case $d4_example_4.EmailNotificationService _: return $d4_example_11.Maybe<$d4_example_4.EmailNotificationService>.some(value);
+          case $d4_example_4.SmsNotificationService _: return $d4_example_11.Maybe<$d4_example_4.SmsNotificationService>.some(value);
+          case $d4_example_4.Switchable _: return $d4_example_11.Maybe<$d4_example_4.Switchable>.some(value);
+          case $d4_example_4.TemperatureControl _: return $d4_example_11.Maybe<$d4_example_4.TemperatureControl>.some(value);
+          case $d4_example_4.Connectable _: return $d4_example_11.Maybe<$d4_example_4.Connectable>.some(value);
+          case $d4_example_4.SmartThermostat _: return $d4_example_11.Maybe<$d4_example_4.SmartThermostat>.some(value);
+          case $d4_example_4.Machine _: return $d4_example_11.Maybe<$d4_example_4.Machine>.some(value);
+          case $d4_example_4.Speakable _: return $d4_example_11.Maybe<$d4_example_4.Speakable>.some(value);
+          case $d4_example_4.Robot _: return $d4_example_11.Maybe<$d4_example_4.Robot>.some(value);
+          case $d4_example_4.AdvancedRobot _: return $d4_example_11.Maybe<$d4_example_4.AdvancedRobot>.some(value);
+          case $d4_example_5.MathUtils _: return $d4_example_11.Maybe<$d4_example_5.MathUtils>.some(value);
+          case $d4_example_5.Counter _: return $d4_example_11.Maybe<$d4_example_5.Counter>.some(value);
+          case $d4_example_5.Point _: return $d4_example_11.Maybe<$d4_example_5.Point>.some(value);
+          case $d4_example_5.FlexibleObject _: return $d4_example_11.Maybe<$d4_example_5.FlexibleObject>.some(value);
+          case $d4_example_5.SortablePerson _: return $d4_example_11.Maybe<$d4_example_5.SortablePerson>.some(value);
+          case $d4_example_6.NumberWrapper _: return $d4_example_11.Maybe<$d4_example_6.NumberWrapper>.some(value);
+          case $d4_example_6.BitFlags _: return $d4_example_11.Maybe<$d4_example_6.BitFlags>.some(value);
+          case $d4_example_6.NullableFields _: return $d4_example_11.Maybe<$d4_example_6.NullableFields>.some(value);
+          case $d4_example_6.LateFieldDemo _: return $d4_example_11.Maybe<$d4_example_6.LateFieldDemo>.some(value);
+          case $d4_example_6.Multiplier _: return $d4_example_11.Maybe<$d4_example_6.Multiplier>.some(value);
+          case $d4_example_6.Printable _: return $d4_example_11.Maybe<$d4_example_6.Printable>.some(value);
+          case $d4_example_6.Serializable _: return $d4_example_11.Maybe<$d4_example_6.Serializable>.some(value);
+          case $d4_example_6.SerializablePrintable _: return $d4_example_11.Maybe<$d4_example_6.SerializablePrintable>.some(value);
+          case $d4_example_6.Trackable _: return $d4_example_11.Maybe<$d4_example_6.Trackable>.some(value);
+          case $d4_example_6.TrackedItem _: return $d4_example_11.Maybe<$d4_example_6.TrackedItem>.some(value);
+          case $d4_example_6.DataProcessor _: return $d4_example_11.Maybe<$d4_example_6.DataProcessor>.some(value);
+          case $d4_example_12.Statistics _: return $d4_example_11.Maybe<$d4_example_12.Statistics>.some(value);
+          case $d4_example_14.Musical _: return $d4_example_11.Maybe<$d4_example_14.Musical>.some(value);
+          case $d4_example_14.Dancing _: return $d4_example_11.Maybe<$d4_example_14.Dancing>.some(value);
+          case $d4_example_14.Musician _: return $d4_example_11.Maybe<$d4_example_14.Musician>.some(value);
+          case $d4_example_14.ProfessionalDancer _: return $d4_example_11.Maybe<$d4_example_14.ProfessionalDancer>.some(value);
+          case $d4_example_14.Entertainer _: return $d4_example_11.Maybe<$d4_example_14.Entertainer>.some(value);
+          case $d4_example_14.CountableItem _: return $d4_example_11.Maybe<$d4_example_14.CountableItem>.some(value);
+          case $d4_example_14.Logging _: return $d4_example_11.Maybe<$d4_example_14.Logging>.some(value);
+          case $d4_example_14.ConsoleLogger _: return $d4_example_11.Maybe<$d4_example_14.ConsoleLogger>.some(value);
+          case $d4_example_14.Greeter1 _: return $d4_example_11.Maybe<$d4_example_14.Greeter1>.some(value);
+          case $d4_example_14.Greeter2 _: return $d4_example_11.Maybe<$d4_example_14.Greeter2>.some(value);
+          case $d4_example_14.MultiMixed _: return $d4_example_11.Maybe<$d4_example_14.MultiMixed>.some(value);
+          case $d4_example_14.Helper _: return $d4_example_11.Maybe<$d4_example_14.Helper>.some(value);
+          case $d4_example_14.HelpfulService _: return $d4_example_11.Maybe<$d4_example_14.HelpfulService>.some(value);
+          case $d4_example_14.EventEmitter _: return $d4_example_11.Maybe<$d4_example_14.EventEmitter>.some(value);
+          case $d4_example_14.Button _: return $d4_example_11.Maybe<$d4_example_14.Button>.some(value);
+          case $d4_example_14.ComparableMixin _: return $d4_example_11.Maybe<$d4_example_14.ComparableMixin>.some(value);
+          case $d4_example_14.SortableItem _: return $d4_example_11.Maybe<$d4_example_14.SortableItem>.some(value);
+          case $d4_example_14.JsonSerializable _: return $d4_example_11.Maybe<$d4_example_14.JsonSerializable>.some(value);
           default: return $d4_example_11.Maybe.some(value);
         }
       },
@@ -1609,7 +1704,7 @@ BridgedClass _createMaybeBridge() {
           throw ArgumentError('map: Missing required argument "f" at position 0');
         }
         final fRaw = positional[0];
-        return t.map((dynamic p0) { return D4.callInterpreterCallback(visitor!, fRaw, [p0]) as dynamic; });
+        return t.map((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, fRaw, [p0])); });
       },
     },
     constructorSignatures: {
@@ -1663,7 +1758,7 @@ BridgedClass _createResultBridge() {
           throw ArgumentError('fold: Missing required argument "onFailure" at position 1');
         }
         final onFailureRaw = positional[1];
-        return t.fold((dynamic p0) { return D4.callInterpreterCallback(visitor!, onSuccessRaw, [p0]) as dynamic; }, (dynamic p0) { return D4.callInterpreterCallback(visitor!, onFailureRaw, [p0]) as dynamic; });
+        return t.fold((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, onSuccessRaw, [p0])); }, (dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, onFailureRaw, [p0])); });
       },
     },
     constructorSignatures: {
@@ -2394,50 +2489,6 @@ BridgedClass _createSimplePointBridge() {
 }
 
 // =============================================================================
-// Point Bridge
-// =============================================================================
-
-BridgedClass _createPointBridge() {
-  return BridgedClass(
-    nativeType: $d4_example_2.Point,
-    name: 'Point',
-    isAssignable: (v) => v is $d4_example_2.Point,
-    constructors: {
-      '': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 2, 'Point');
-        final x = D4.getRequiredArg<int>(positional, 0, 'x', 'Point');
-        final y = D4.getRequiredArg<int>(positional, 1, 'y', 'Point');
-        return $d4_example_2.Point(x, y);
-      },
-      'origin': (visitor, positional, named) {
-        return $d4_example_2.Point.origin();
-      },
-      'fromJson': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'Point');
-        if (positional.isEmpty) {
-          throw ArgumentError('Point: Missing required argument "json" at position 0');
-        }
-        final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $d4_example_2.Point.fromJson(json);
-      },
-    },
-    getters: {
-      'x': (visitor, target) => D4.validateTarget<$d4_example_2.Point>(target, 'Point').x,
-      'y': (visitor, target) => D4.validateTarget<$d4_example_2.Point>(target, 'Point').y,
-    },
-    constructorSignatures: {
-      '': 'Point(int x, int y)',
-      'origin': 'Point.origin()',
-      'fromJson': 'Point.fromJson(Map<String, dynamic> json)',
-    },
-    getterSignatures: {
-      'x': 'int get x',
-      'y': 'int get y',
-    },
-  );
-}
-
-// =============================================================================
 // RectangleArea Bridge
 // =============================================================================
 
@@ -2605,35 +2656,6 @@ BridgedClass _createLoggerBridge() {
     },
     getterSignatures: {
       'name': 'String get name',
-    },
-  );
-}
-
-// =============================================================================
-// Shape Bridge
-// =============================================================================
-
-BridgedClass _createShapeBridge() {
-  return BridgedClass(
-    nativeType: $d4_example_2.Shape,
-    name: 'Shape',
-    isAssignable: (v) => v is $d4_example_2.Shape,
-    constructors: {
-      'create': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 2, 'Shape');
-        final type = D4.getRequiredArg<String>(positional, 0, 'type', 'Shape');
-        final dimension = D4.getRequiredArg<double>(positional, 1, 'dimension', 'Shape');
-        return $d4_example_2.Shape.create(type, dimension);
-      },
-    },
-    getters: {
-      'area': (visitor, target) => D4.validateTarget<$d4_example_2.Shape>(target, 'Shape').area,
-    },
-    constructorSignatures: {
-      'create': 'factory Shape.create(String type, double dimension)',
-    },
-    getterSignatures: {
-      'area': 'double get area',
     },
   );
 }
@@ -2887,9 +2909,9 @@ BridgedClass _createCatBridge() {
       'name': (visitor, target) => D4.validateTarget<$d4_example_4.Cat>(target, 'Cat').name,
     },
     methods: {
-      'move': (visitor, target, positional, named, typeArgs) {
+      'eat': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$d4_example_4.Cat>(target, 'Cat');
-        t.move();
+        t.eat();
         return null;
       },
       'speak': (visitor, target, positional, named, typeArgs) {
@@ -2901,73 +2923,17 @@ BridgedClass _createCatBridge() {
         t.meow();
         return null;
       },
-      'eat': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_4.Cat>(target, 'Cat');
-        t.eat();
-        return null;
-      },
     },
     constructorSignatures: {
       '': 'Cat(String name)',
     },
     methodSignatures: {
-      'move': 'void move()',
+      'eat': 'void eat()',
       'speak': 'String speak()',
       'meow': 'void meow()',
-      'eat': 'void eat()',
     },
     getterSignatures: {
       'name': 'String get name',
-    },
-  );
-}
-
-// =============================================================================
-// ElectricCar Bridge
-// =============================================================================
-
-BridgedClass _createElectricCarBridge() {
-  return BridgedClass(
-    nativeType: $d4_example_4.ElectricCar,
-    name: 'ElectricCar',
-    isAssignable: (v) => v is $d4_example_4.ElectricCar,
-    constructors: {
-      '': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 3, 'ElectricCar');
-        final brand = D4.getRequiredArg<String>(positional, 0, 'brand', 'ElectricCar');
-        final model = D4.getRequiredArg<String>(positional, 1, 'model', 'ElectricCar');
-        final batteryCapacity = D4.getRequiredArg<int>(positional, 2, 'batteryCapacity', 'ElectricCar');
-        return $d4_example_4.ElectricCar(brand, model, batteryCapacity);
-      },
-    },
-    getters: {
-      'brand': (visitor, target) => D4.validateTarget<$d4_example_4.ElectricCar>(target, 'ElectricCar').brand,
-      'model': (visitor, target) => D4.validateTarget<$d4_example_4.ElectricCar>(target, 'ElectricCar').model,
-      'batteryCapacity': (visitor, target) => D4.validateTarget<$d4_example_4.ElectricCar>(target, 'ElectricCar').batteryCapacity,
-    },
-    methods: {
-      'displayInfo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_4.ElectricCar>(target, 'ElectricCar');
-        t.displayInfo();
-        return null;
-      },
-      'charge': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_4.ElectricCar>(target, 'ElectricCar');
-        t.charge();
-        return null;
-      },
-    },
-    constructorSignatures: {
-      '': 'ElectricCar(String brand, String model, int batteryCapacity)',
-    },
-    methodSignatures: {
-      'displayInfo': 'void displayInfo()',
-      'charge': 'void charge()',
-    },
-    getterSignatures: {
-      'brand': 'String get brand',
-      'model': 'String get model',
-      'batteryCapacity': 'int get batteryCapacity',
     },
   );
 }
@@ -3390,6 +3356,53 @@ BridgedClass _createCounterBridge() {
     staticSetterSignatures: {
       'instanceCount': 'set instanceCount(dynamic value)',
       'label': 'set label(String value)',
+    },
+  );
+}
+
+// =============================================================================
+// Point Bridge
+// =============================================================================
+
+BridgedClass _createPointBridge() {
+  return BridgedClass(
+    nativeType: $d4_example_5.Point,
+    name: 'Point',
+    isAssignable: (v) => v is $d4_example_5.Point,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'Point');
+        final x = D4.getRequiredArg<int>(positional, 0, 'x', 'Point');
+        final y = D4.getRequiredArg<int>(positional, 1, 'y', 'Point');
+        return $d4_example_5.Point(x, y);
+      },
+    },
+    getters: {
+      'x': (visitor, target) => D4.validateTarget<$d4_example_5.Point>(target, 'Point').x,
+      'y': (visitor, target) => D4.validateTarget<$d4_example_5.Point>(target, 'Point').y,
+      'hashCode': (visitor, target) => D4.validateTarget<$d4_example_5.Point>(target, 'Point').hashCode,
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_5.Point>(target, 'Point');
+        return t.toString();
+      },
+      '==': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_5.Point>(target, 'Point');
+        final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
+        return t == other;
+      },
+    },
+    constructorSignatures: {
+      '': 'Point(int x, int y)',
+    },
+    methodSignatures: {
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'x': 'int get x',
+      'y': 'int get y',
+      'hashCode': 'int get hashCode',
     },
   );
 }
@@ -4050,264 +4063,6 @@ BridgedClass _createStatisticsBridge() {
 }
 
 // =============================================================================
-// SortedList Bridge
-// =============================================================================
-
-BridgedClass _createSortedListBridge() {
-  return BridgedClass(
-    nativeType: $d4_example_12.SortedList,
-    name: 'SortedList',
-    isAssignable: (v) => v is $d4_example_12.SortedList,
-    constructors: {
-      '': (visitor, positional, named) {
-        return $d4_example_12.SortedList();
-      },
-    },
-    getters: {
-      'items': (visitor, target) => D4.validateTarget<$d4_example_12.SortedList>(target, 'SortedList').items,
-    },
-    methods: {
-      'add': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_12.SortedList>(target, 'SortedList');
-        D4.requireMinArgs(positional, 1, 'add');
-        final item = D4.getRequiredArg<Comparable<dynamic>>(positional, 0, 'item', 'add');
-        t.add(item);
-        return null;
-      },
-      'addAll': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_12.SortedList>(target, 'SortedList');
-        D4.requireMinArgs(positional, 1, 'addAll');
-        if (positional.isEmpty) {
-          throw ArgumentError('addAll: Missing required argument "items" at position 0');
-        }
-        final items = D4.coerceList<Comparable<dynamic>>(positional[0], 'items');
-        t.addAll(items);
-        return null;
-      },
-    },
-    constructorSignatures: {
-      '': 'SortedList()',
-    },
-    methodSignatures: {
-      'add': 'void add(T item)',
-      'addAll': 'void addAll(Iterable<T> items)',
-    },
-    getterSignatures: {
-      'items': 'List<T> get items',
-    },
-  );
-}
-
-// =============================================================================
-// PriorityQueue Bridge
-// =============================================================================
-
-BridgedClass _createPriorityQueueBridge() {
-  return BridgedClass(
-    nativeType: $d4_example_12.PriorityQueue,
-    name: 'PriorityQueue',
-    isAssignable: (v) => v is $d4_example_12.PriorityQueue,
-    constructors: {
-      '': (visitor, positional, named) {
-        return $d4_example_12.PriorityQueue();
-      },
-    },
-    getters: {
-      'isEmpty': (visitor, target) => D4.validateTarget<$d4_example_12.PriorityQueue>(target, 'PriorityQueue').isEmpty,
-    },
-    methods: {
-      'add': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_12.PriorityQueue>(target, 'PriorityQueue');
-        D4.requireMinArgs(positional, 1, 'add');
-        final item = D4.getRequiredArg<Comparable<dynamic>>(positional, 0, 'item', 'add');
-        t.add(item);
-        return null;
-      },
-      'removeMin': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_12.PriorityQueue>(target, 'PriorityQueue');
-        return t.removeMin();
-      },
-    },
-    constructorSignatures: {
-      '': 'PriorityQueue()',
-    },
-    methodSignatures: {
-      'add': 'void add(T item)',
-      'removeMin': 'T removeMin()',
-    },
-    getterSignatures: {
-      'isEmpty': 'bool get isEmpty',
-    },
-  );
-}
-
-// =============================================================================
-// Range Bridge
-// =============================================================================
-
-BridgedClass _createRangeBridge() {
-  return BridgedClass(
-    nativeType: $d4_example_12.Range,
-    name: 'Range',
-    isAssignable: (v) => v is $d4_example_12.Range,
-    constructors: {
-      '': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 2, 'Range');
-        final start = D4.getRequiredArg<Comparable<dynamic>>(positional, 0, 'start', 'Range');
-        final end = D4.getRequiredArg<Comparable<dynamic>>(positional, 1, 'end', 'Range');
-        return $d4_example_12.Range(start, end);
-      },
-    },
-    getters: {
-      'start': (visitor, target) => D4.validateTarget<$d4_example_12.Range>(target, 'Range').start,
-      'end': (visitor, target) => D4.validateTarget<$d4_example_12.Range>(target, 'Range').end,
-    },
-    methods: {
-      'contains': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_12.Range>(target, 'Range');
-        D4.requireMinArgs(positional, 1, 'contains');
-        final value = D4.getRequiredArg<Comparable<dynamic>>(positional, 0, 'value', 'contains');
-        return t.contains(value);
-      },
-    },
-    constructorSignatures: {
-      '': 'Range(T start, T end)',
-    },
-    methodSignatures: {
-      'contains': 'bool contains(T value)',
-    },
-    getterSignatures: {
-      'start': 'T get start',
-      'end': 'T get end',
-    },
-  );
-}
-
-// =============================================================================
-// BinarySearchTree Bridge
-// =============================================================================
-
-BridgedClass _createBinarySearchTreeBridge() {
-  return BridgedClass(
-    nativeType: $d4_example_12.BinarySearchTree,
-    name: 'BinarySearchTree',
-    isAssignable: (v) => v is $d4_example_12.BinarySearchTree,
-    constructors: {
-      '': (visitor, positional, named) {
-        return $d4_example_12.BinarySearchTree();
-      },
-    },
-    methods: {
-      'insert': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_12.BinarySearchTree>(target, 'BinarySearchTree');
-        D4.requireMinArgs(positional, 1, 'insert');
-        final value = D4.getRequiredArg<Comparable<dynamic>>(positional, 0, 'value', 'insert');
-        t.insert(value);
-        return null;
-      },
-      'contains': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_12.BinarySearchTree>(target, 'BinarySearchTree');
-        D4.requireMinArgs(positional, 1, 'contains');
-        final value = D4.getRequiredArg<Comparable<dynamic>>(positional, 0, 'value', 'contains');
-        return t.contains(value);
-      },
-      'inOrder': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_12.BinarySearchTree>(target, 'BinarySearchTree');
-        return t.inOrder();
-      },
-    },
-    constructorSignatures: {
-      '': 'BinarySearchTree()',
-    },
-    methodSignatures: {
-      'insert': 'void insert(T value)',
-      'contains': 'bool contains(T value)',
-      'inOrder': 'List<T> inOrder()',
-    },
-  );
-}
-
-// =============================================================================
-// Cache Bridge
-// =============================================================================
-
-BridgedClass _createCacheBridge() {
-  return BridgedClass(
-    nativeType: $d4_example_12.Cache,
-    name: 'Cache',
-    isAssignable: (v) => v is $d4_example_12.Cache,
-    constructors: {
-      '': (visitor, positional, named) {
-        return $d4_example_12.Cache();
-      },
-    },
-    methods: {
-      'put': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_12.Cache>(target, 'Cache');
-        D4.requireMinArgs(positional, 2, 'put');
-        final key = D4.getRequiredArg<dynamic>(positional, 0, 'key', 'put');
-        final value = D4.getRequiredArg<dynamic>(positional, 1, 'value', 'put');
-        t.put(key, value);
-        return null;
-      },
-      'get': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_12.Cache>(target, 'Cache');
-        D4.requireMinArgs(positional, 1, 'get');
-        final key = D4.getRequiredArg<dynamic>(positional, 0, 'key', 'get');
-        return t.get(key);
-      },
-      'contains': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_12.Cache>(target, 'Cache');
-        D4.requireMinArgs(positional, 1, 'contains');
-        final key = D4.getRequiredArg<dynamic>(positional, 0, 'key', 'contains');
-        return t.contains(key);
-      },
-    },
-    constructorSignatures: {
-      '': 'Cache()',
-    },
-    methodSignatures: {
-      'put': 'void put(K key, V value)',
-      'get': 'V? get(K key)',
-      'contains': 'bool contains(K key)',
-    },
-  );
-}
-
-// =============================================================================
-// TreeNode Bridge
-// =============================================================================
-
-BridgedClass _createTreeNodeBridge() {
-  return BridgedClass(
-    nativeType: $d4_example_9.TreeNode,
-    name: 'TreeNode',
-    isAssignable: (v) => v is $d4_example_9.TreeNode,
-    constructors: {
-      '': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'TreeNode');
-        final value = D4.getRequiredArg<dynamic>(positional, 0, 'value', 'TreeNode');
-        final children = positional.length > 1 && positional[1] != null
-            ? D4.coerceList<$d4_example_9.TreeNode<dynamic>>(positional[1], 'children')
-            : const <$d4_example_9.TreeNode<dynamic>>[];
-        return $d4_example_9.TreeNode(value, children);
-      },
-    },
-    getters: {
-      'value': (visitor, target) => D4.validateTarget<$d4_example_9.TreeNode>(target, 'TreeNode').value,
-      'children': (visitor, target) => D4.validateTarget<$d4_example_9.TreeNode>(target, 'TreeNode').children,
-    },
-    constructorSignatures: {
-      '': 'TreeNode(T value, [List<TreeNode<T>> children = const []])',
-    },
-    getterSignatures: {
-      'value': 'T get value',
-      'children': 'List<TreeNode<T>> get children',
-    },
-  );
-}
-
-// =============================================================================
 // Musical Bridge
 // =============================================================================
 
@@ -4525,204 +4280,6 @@ BridgedClass _createCountableItemBridge() {
     },
     getterSignatures: {
       'count': 'int get count',
-    },
-  );
-}
-
-// =============================================================================
-// Flying Bridge
-// =============================================================================
-
-BridgedClass _createFlyingBridge() {
-  return BridgedClass(
-    nativeType: $d4_example_14.Flying,
-    name: 'Flying',
-    isAssignable: (v) => v is $d4_example_14.Flying,
-    constructors: {
-    },
-    getters: {
-      'name': (visitor, target) => D4.validateTarget<$d4_example_14.Flying>(target, 'Flying').name,
-    },
-    methods: {
-      'move': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_14.Flying>(target, 'Flying');
-        t.move();
-        return null;
-      },
-      'fly': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_14.Flying>(target, 'Flying');
-        t.fly();
-        return null;
-      },
-    },
-    methodSignatures: {
-      'move': 'void move()',
-      'fly': 'void fly()',
-    },
-    getterSignatures: {
-      'name': 'String get name',
-    },
-  );
-}
-
-// =============================================================================
-// Walking Bridge
-// =============================================================================
-
-BridgedClass _createWalkingBridge() {
-  return BridgedClass(
-    nativeType: $d4_example_14.Walking,
-    name: 'Walking',
-    isAssignable: (v) => v is $d4_example_14.Walking,
-    constructors: {
-    },
-    getters: {
-      'name': (visitor, target) => D4.validateTarget<$d4_example_14.Walking>(target, 'Walking').name,
-    },
-    methods: {
-      'move': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_14.Walking>(target, 'Walking');
-        t.move();
-        return null;
-      },
-      'walk': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_14.Walking>(target, 'Walking');
-        t.walk();
-        return null;
-      },
-    },
-    methodSignatures: {
-      'move': 'void move()',
-      'walk': 'void walk()',
-    },
-    getterSignatures: {
-      'name': 'String get name',
-    },
-  );
-}
-
-// =============================================================================
-// Bird Bridge
-// =============================================================================
-
-BridgedClass _createBirdBridge() {
-  return BridgedClass(
-    nativeType: $d4_example_14.Bird,
-    name: 'Bird',
-    isAssignable: (v) => v is $d4_example_14.Bird,
-    constructors: {
-      '': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'Bird');
-        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'Bird');
-        return $d4_example_14.Bird(name);
-      },
-    },
-    getters: {
-      'name': (visitor, target) => D4.validateTarget<$d4_example_14.Bird>(target, 'Bird').name,
-    },
-    methods: {
-      'move': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_14.Bird>(target, 'Bird');
-        t.move();
-        return null;
-      },
-    },
-    constructorSignatures: {
-      '': 'Bird(String name)',
-    },
-    methodSignatures: {
-      'move': 'void move()',
-    },
-    getterSignatures: {
-      'name': 'String get name',
-    },
-  );
-}
-
-// =============================================================================
-// Eagle Bridge
-// =============================================================================
-
-BridgedClass _createEagleBridge() {
-  return BridgedClass(
-    nativeType: $d4_example_14.Eagle,
-    name: 'Eagle',
-    isAssignable: (v) => v is $d4_example_14.Eagle,
-    constructors: {
-      '': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'Eagle');
-        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'Eagle');
-        return $d4_example_14.Eagle(name);
-      },
-    },
-    getters: {
-      'name': (visitor, target) => D4.validateTarget<$d4_example_14.Eagle>(target, 'Eagle').name,
-    },
-    methods: {
-      'move': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_14.Eagle>(target, 'Eagle');
-        t.move();
-        return null;
-      },
-      'fly': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_14.Eagle>(target, 'Eagle');
-        t.fly();
-        return null;
-      },
-    },
-    constructorSignatures: {
-      '': 'Eagle(String name)',
-    },
-    methodSignatures: {
-      'move': 'void move()',
-      'fly': 'void fly()',
-    },
-    getterSignatures: {
-      'name': 'String get name',
-    },
-  );
-}
-
-// =============================================================================
-// Penguin Bridge
-// =============================================================================
-
-BridgedClass _createPenguinBridge() {
-  return BridgedClass(
-    nativeType: $d4_example_14.Penguin,
-    name: 'Penguin',
-    isAssignable: (v) => v is $d4_example_14.Penguin,
-    constructors: {
-      '': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'Penguin');
-        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'Penguin');
-        return $d4_example_14.Penguin(name);
-      },
-    },
-    getters: {
-      'name': (visitor, target) => D4.validateTarget<$d4_example_14.Penguin>(target, 'Penguin').name,
-    },
-    methods: {
-      'move': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_14.Penguin>(target, 'Penguin');
-        t.move();
-        return null;
-      },
-      'walk': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_14.Penguin>(target, 'Penguin');
-        t.walk();
-        return null;
-      },
-    },
-    constructorSignatures: {
-      '': 'Penguin(String name)',
-    },
-    methodSignatures: {
-      'move': 'void move()',
-      'walk': 'void walk()',
-    },
-    getterSignatures: {
-      'name': 'String get name',
     },
   );
 }

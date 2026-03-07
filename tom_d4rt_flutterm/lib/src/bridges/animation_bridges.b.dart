@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 11 files
-// Generated: 2026-03-06T19:16:14.315041
+// Generated: 2026-03-07T11:46:09.301498
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -400,7 +400,7 @@ BridgedClass _createTickerFutureBridge() {
           throw ArgumentError('whenComplete: Missing required argument "action" at position 0');
         }
         final actionRaw = positional[0];
-        return t.whenComplete(() { return D4.callInterpreterCallback(visitor!, actionRaw, []) as dynamic; });
+        return t.whenComplete(() { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, actionRaw, [])); });
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_14.TickerFuture>(target, 'TickerFuture');
@@ -475,7 +475,7 @@ BridgedClass _createAnimationBridge() {
         D4.requireMinArgs(positional, 1, 'Animation');
         final listenable = D4.getRequiredArg<$flutter_9.ValueListenable<dynamic>>(positional, 0, 'listenable', 'Animation');
         final transformerRaw = named['transformer'];
-        return $flutter_1.Animation.fromValueListenable(listenable, transformer: transformerRaw == null ? null : (dynamic p0) { return D4.callInterpreterCallback(visitor!, transformerRaw, [p0]) as dynamic; });
+        return $flutter_1.Animation.fromValueListenable(listenable, transformer: transformerRaw == null ? null : (dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, transformerRaw, [p0])); });
       },
     },
     getters: {
@@ -1591,7 +1591,7 @@ BridgedClass _createAnimatableBridge() {
           throw ArgumentError('Animatable: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return $flutter_7.Animatable.fromCallback((double p0) { return D4.callInterpreterCallback(visitor!, callbackRaw, [p0]) as dynamic; });
+        return $flutter_7.Animatable.fromCallback((double p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0])); });
       },
     },
     methods: {
@@ -1739,9 +1739,9 @@ BridgedClass _createReverseTweenBridge() {
     },
     setters: {
       'begin': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.ReverseTween>(target, 'ReverseTween').begin = D4.extractBridgedArgOrNull<Object?>(value, 'begin'),
+        D4.validateTarget<$flutter_7.ReverseTween>(target, 'ReverseTween').begin = D4.extractBridgedArg<Object?>(value, 'begin'),
       'end': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.ReverseTween>(target, 'ReverseTween').end = D4.extractBridgedArgOrNull<Object?>(value, 'end'),
+        D4.validateTarget<$flutter_7.ReverseTween>(target, 'ReverseTween').end = D4.extractBridgedArg<Object?>(value, 'end'),
     },
     methods: {
       'transform': (visitor, target, positional, named, typeArgs) {
@@ -1796,8 +1796,8 @@ BridgedClass _createReverseTweenBridge() {
       'parent': 'Tween<T> get parent',
     },
     setterSignatures: {
-      'begin': 'set begin(dynamic value)',
-      'end': 'set end(dynamic value)',
+      'begin': 'set begin(T value)',
+      'end': 'set end(T value)',
     },
   );
 }
@@ -1824,9 +1824,9 @@ BridgedClass _createColorTweenBridge() {
     },
     setters: {
       'begin': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.ColorTween>(target, 'ColorTween').begin = D4.extractBridgedArgOrNull<dynamic>(value, 'begin'),
+        D4.validateTarget<$flutter_7.ColorTween>(target, 'ColorTween').begin = D4.extractBridgedArgOrNull<Color>(value, 'begin'),
       'end': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.ColorTween>(target, 'ColorTween').end = D4.extractBridgedArgOrNull<dynamic>(value, 'end'),
+        D4.validateTarget<$flutter_7.ColorTween>(target, 'ColorTween').end = D4.extractBridgedArgOrNull<Color>(value, 'end'),
     },
     methods: {
       'transform': (visitor, target, positional, named, typeArgs) {
@@ -1880,8 +1880,8 @@ BridgedClass _createColorTweenBridge() {
       'end': 'Color? get end',
     },
     setterSignatures: {
-      'begin': 'set begin(dynamic value)',
-      'end': 'set end(dynamic value)',
+      'begin': 'set begin(Color? value)',
+      'end': 'set end(Color? value)',
     },
   );
 }
@@ -1908,9 +1908,9 @@ BridgedClass _createSizeTweenBridge() {
     },
     setters: {
       'begin': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SizeTween>(target, 'SizeTween').begin = D4.extractBridgedArgOrNull<dynamic>(value, 'begin'),
+        D4.validateTarget<$flutter_7.SizeTween>(target, 'SizeTween').begin = D4.extractBridgedArgOrNull<Size>(value, 'begin'),
       'end': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SizeTween>(target, 'SizeTween').end = D4.extractBridgedArgOrNull<dynamic>(value, 'end'),
+        D4.validateTarget<$flutter_7.SizeTween>(target, 'SizeTween').end = D4.extractBridgedArgOrNull<Size>(value, 'end'),
     },
     methods: {
       'transform': (visitor, target, positional, named, typeArgs) {
@@ -1964,8 +1964,8 @@ BridgedClass _createSizeTweenBridge() {
       'end': 'Size? get end',
     },
     setterSignatures: {
-      'begin': 'set begin(dynamic value)',
-      'end': 'set end(dynamic value)',
+      'begin': 'set begin(Size? value)',
+      'end': 'set end(Size? value)',
     },
   );
 }
@@ -1992,9 +1992,9 @@ BridgedClass _createRectTweenBridge() {
     },
     setters: {
       'begin': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.RectTween>(target, 'RectTween').begin = D4.extractBridgedArgOrNull<dynamic>(value, 'begin'),
+        D4.validateTarget<$flutter_7.RectTween>(target, 'RectTween').begin = D4.extractBridgedArgOrNull<Rect>(value, 'begin'),
       'end': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.RectTween>(target, 'RectTween').end = D4.extractBridgedArgOrNull<dynamic>(value, 'end'),
+        D4.validateTarget<$flutter_7.RectTween>(target, 'RectTween').end = D4.extractBridgedArgOrNull<Rect>(value, 'end'),
     },
     methods: {
       'transform': (visitor, target, positional, named, typeArgs) {
@@ -2048,8 +2048,8 @@ BridgedClass _createRectTweenBridge() {
       'end': 'Rect? get end',
     },
     setterSignatures: {
-      'begin': 'set begin(dynamic value)',
-      'end': 'set end(dynamic value)',
+      'begin': 'set begin(Rect? value)',
+      'end': 'set end(Rect? value)',
     },
   );
 }
@@ -2076,9 +2076,9 @@ BridgedClass _createIntTweenBridge() {
     },
     setters: {
       'begin': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.IntTween>(target, 'IntTween').begin = D4.extractBridgedArgOrNull<dynamic>(value, 'begin'),
+        D4.validateTarget<$flutter_7.IntTween>(target, 'IntTween').begin = D4.extractBridgedArg<int>(value, 'begin'),
       'end': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.IntTween>(target, 'IntTween').end = D4.extractBridgedArgOrNull<dynamic>(value, 'end'),
+        D4.validateTarget<$flutter_7.IntTween>(target, 'IntTween').end = D4.extractBridgedArg<int>(value, 'end'),
     },
     methods: {
       'transform': (visitor, target, positional, named, typeArgs) {
@@ -2132,8 +2132,8 @@ BridgedClass _createIntTweenBridge() {
       'end': 'int get end',
     },
     setterSignatures: {
-      'begin': 'set begin(dynamic value)',
-      'end': 'set end(dynamic value)',
+      'begin': 'set begin(int value)',
+      'end': 'set end(int value)',
     },
   );
 }
@@ -2160,9 +2160,9 @@ BridgedClass _createStepTweenBridge() {
     },
     setters: {
       'begin': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.StepTween>(target, 'StepTween').begin = D4.extractBridgedArgOrNull<dynamic>(value, 'begin'),
+        D4.validateTarget<$flutter_7.StepTween>(target, 'StepTween').begin = D4.extractBridgedArg<int>(value, 'begin'),
       'end': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.StepTween>(target, 'StepTween').end = D4.extractBridgedArgOrNull<dynamic>(value, 'end'),
+        D4.validateTarget<$flutter_7.StepTween>(target, 'StepTween').end = D4.extractBridgedArg<int>(value, 'end'),
     },
     methods: {
       'transform': (visitor, target, positional, named, typeArgs) {
@@ -2216,8 +2216,8 @@ BridgedClass _createStepTweenBridge() {
       'end': 'int get end',
     },
     setterSignatures: {
-      'begin': 'set begin(dynamic value)',
-      'end': 'set end(dynamic value)',
+      'begin': 'set begin(int value)',
+      'end': 'set end(int value)',
     },
   );
 }
@@ -2241,6 +2241,57 @@ BridgedClass _createConstantTweenBridge() {
           case int _: return $flutter_7.ConstantTween<int>(value);
           case String _: return $flutter_7.ConstantTween<String>(value);
           case bool _: return $flutter_7.ConstantTween<bool>(value);
+          case $flutter_14.TickerProvider _: return $flutter_7.ConstantTween<$flutter_14.TickerProvider>(value);
+          case $flutter_14.TickerFuture _: return $flutter_7.ConstantTween<$flutter_14.TickerFuture>(value);
+          case $flutter_14.TickerCanceled _: return $flutter_7.ConstantTween<$flutter_14.TickerCanceled>(value);
+          case $flutter_1.Animation _: return $flutter_7.ConstantTween<$flutter_1.Animation>(value);
+          case $flutter_5.ParametricCurve _: return $flutter_7.ConstantTween<$flutter_5.ParametricCurve>(value);
+          case $flutter_5.Curve _: return $flutter_7.ConstantTween<$flutter_5.Curve>(value);
+          case $flutter_5.SawTooth _: return $flutter_7.ConstantTween<$flutter_5.SawTooth>(value);
+          case $flutter_5.Interval _: return $flutter_7.ConstantTween<$flutter_5.Interval>(value);
+          case $flutter_5.Split _: return $flutter_7.ConstantTween<$flutter_5.Split>(value);
+          case $flutter_5.Threshold _: return $flutter_7.ConstantTween<$flutter_5.Threshold>(value);
+          case $flutter_5.Cubic _: return $flutter_7.ConstantTween<$flutter_5.Cubic>(value);
+          case $flutter_5.ThreePointCubic _: return $flutter_7.ConstantTween<$flutter_5.ThreePointCubic>(value);
+          case $flutter_5.Curve2D _: return $flutter_7.ConstantTween<$flutter_5.Curve2D>(value);
+          case $flutter_5.Curve2DSample _: return $flutter_7.ConstantTween<$flutter_5.Curve2DSample>(value);
+          case $flutter_5.CatmullRomSpline _: return $flutter_7.ConstantTween<$flutter_5.CatmullRomSpline>(value);
+          case $flutter_5.CatmullRomCurve _: return $flutter_7.ConstantTween<$flutter_5.CatmullRomCurve>(value);
+          case $flutter_5.FlippedCurve _: return $flutter_7.ConstantTween<$flutter_5.FlippedCurve>(value);
+          case $flutter_5.ElasticInCurve _: return $flutter_7.ConstantTween<$flutter_5.ElasticInCurve>(value);
+          case $flutter_5.ElasticOutCurve _: return $flutter_7.ConstantTween<$flutter_5.ElasticOutCurve>(value);
+          case $flutter_5.ElasticInOutCurve _: return $flutter_7.ConstantTween<$flutter_5.ElasticInOutCurve>(value);
+          case $flutter_5.Curves _: return $flutter_7.ConstantTween<$flutter_5.Curves>(value);
+          case $flutter_7.Animatable _: return $flutter_7.ConstantTween<$flutter_7.Animatable>(value);
+          case $flutter_7.Tween _: return $flutter_7.ConstantTween<$flutter_7.Tween>(value);
+          case $flutter_7.ReverseTween _: return $flutter_7.ConstantTween<$flutter_7.ReverseTween>(value);
+          case $flutter_7.ColorTween _: return $flutter_7.ConstantTween<$flutter_7.ColorTween>(value);
+          case $flutter_7.SizeTween _: return $flutter_7.ConstantTween<$flutter_7.SizeTween>(value);
+          case $flutter_7.RectTween _: return $flutter_7.ConstantTween<$flutter_7.RectTween>(value);
+          case $flutter_7.IntTween _: return $flutter_7.ConstantTween<$flutter_7.IntTween>(value);
+          case $flutter_7.StepTween _: return $flutter_7.ConstantTween<$flutter_7.StepTween>(value);
+          case $flutter_7.CurveTween _: return $flutter_7.ConstantTween<$flutter_7.CurveTween>(value);
+          case $flutter_11.Simulation _: return $flutter_7.ConstantTween<$flutter_11.Simulation>(value);
+          case $flutter_12.SpringDescription _: return $flutter_7.ConstantTween<$flutter_12.SpringDescription>(value);
+          case $flutter_2.AnimationController _: return $flutter_7.ConstantTween<$flutter_2.AnimationController>(value);
+          case $flutter_3.AnimationStyle _: return $flutter_7.ConstantTween<$flutter_3.AnimationStyle>(value);
+          case $flutter_4.AlwaysStoppedAnimation _: return $flutter_7.ConstantTween<$flutter_4.AlwaysStoppedAnimation>(value);
+          case $flutter_4.AnimationWithParentMixin _: return $flutter_7.ConstantTween<$flutter_4.AnimationWithParentMixin>(value);
+          case $flutter_4.ProxyAnimation _: return $flutter_7.ConstantTween<$flutter_4.ProxyAnimation>(value);
+          case $flutter_4.ReverseAnimation _: return $flutter_7.ConstantTween<$flutter_4.ReverseAnimation>(value);
+          case $flutter_4.CurvedAnimation _: return $flutter_7.ConstantTween<$flutter_4.CurvedAnimation>(value);
+          case $flutter_4.TrainHoppingAnimation _: return $flutter_7.ConstantTween<$flutter_4.TrainHoppingAnimation>(value);
+          case $flutter_4.CompoundAnimation _: return $flutter_7.ConstantTween<$flutter_4.CompoundAnimation>(value);
+          case $flutter_4.AnimationMean _: return $flutter_7.ConstantTween<$flutter_4.AnimationMean>(value);
+          case $flutter_4.AnimationMax _: return $flutter_7.ConstantTween<$flutter_4.AnimationMax>(value);
+          case $flutter_4.AnimationMin _: return $flutter_7.ConstantTween<$flutter_4.AnimationMin>(value);
+          case $flutter_6.AnimationLazyListenerMixin _: return $flutter_7.ConstantTween<$flutter_6.AnimationLazyListenerMixin>(value);
+          case $flutter_6.AnimationEagerListenerMixin _: return $flutter_7.ConstantTween<$flutter_6.AnimationEagerListenerMixin>(value);
+          case $flutter_6.AnimationLocalListenersMixin _: return $flutter_7.ConstantTween<$flutter_6.AnimationLocalListenersMixin>(value);
+          case $flutter_6.AnimationLocalStatusListenersMixin _: return $flutter_7.ConstantTween<$flutter_6.AnimationLocalStatusListenersMixin>(value);
+          case $flutter_8.TweenSequence _: return $flutter_7.ConstantTween<$flutter_8.TweenSequence>(value);
+          case $flutter_8.FlippedTweenSequence _: return $flutter_7.ConstantTween<$flutter_8.FlippedTweenSequence>(value);
+          case $flutter_8.TweenSequenceItem _: return $flutter_7.ConstantTween<$flutter_8.TweenSequenceItem>(value);
           default: return $flutter_7.ConstantTween(value);
         }
       },
@@ -2251,9 +2302,9 @@ BridgedClass _createConstantTweenBridge() {
     },
     setters: {
       'begin': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.ConstantTween>(target, 'ConstantTween').begin = D4.extractBridgedArgOrNull<dynamic>(value, 'begin'),
+        D4.validateTarget<$flutter_7.ConstantTween>(target, 'ConstantTween').begin = value as dynamic,
       'end': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.ConstantTween>(target, 'ConstantTween').end = D4.extractBridgedArgOrNull<dynamic>(value, 'end'),
+        D4.validateTarget<$flutter_7.ConstantTween>(target, 'ConstantTween').end = value as dynamic,
     },
     methods: {
       'transform': (visitor, target, positional, named, typeArgs) {
@@ -2307,8 +2358,8 @@ BridgedClass _createConstantTweenBridge() {
       'end': 'T get end',
     },
     setterSignatures: {
-      'begin': 'set begin(dynamic value)',
-      'end': 'set end(dynamic value)',
+      'begin': 'set begin(T value)',
+      'end': 'set end(T value)',
     },
   );
 }
@@ -2902,6 +2953,57 @@ BridgedClass _createAlwaysStoppedAnimationBridge() {
           case int _: return $flutter_4.AlwaysStoppedAnimation<int>(value);
           case String _: return $flutter_4.AlwaysStoppedAnimation<String>(value);
           case bool _: return $flutter_4.AlwaysStoppedAnimation<bool>(value);
+          case $flutter_14.TickerProvider _: return $flutter_4.AlwaysStoppedAnimation<$flutter_14.TickerProvider>(value);
+          case $flutter_14.TickerFuture _: return $flutter_4.AlwaysStoppedAnimation<$flutter_14.TickerFuture>(value);
+          case $flutter_14.TickerCanceled _: return $flutter_4.AlwaysStoppedAnimation<$flutter_14.TickerCanceled>(value);
+          case $flutter_1.Animation _: return $flutter_4.AlwaysStoppedAnimation<$flutter_1.Animation>(value);
+          case $flutter_5.ParametricCurve _: return $flutter_4.AlwaysStoppedAnimation<$flutter_5.ParametricCurve>(value);
+          case $flutter_5.Curve _: return $flutter_4.AlwaysStoppedAnimation<$flutter_5.Curve>(value);
+          case $flutter_5.SawTooth _: return $flutter_4.AlwaysStoppedAnimation<$flutter_5.SawTooth>(value);
+          case $flutter_5.Interval _: return $flutter_4.AlwaysStoppedAnimation<$flutter_5.Interval>(value);
+          case $flutter_5.Split _: return $flutter_4.AlwaysStoppedAnimation<$flutter_5.Split>(value);
+          case $flutter_5.Threshold _: return $flutter_4.AlwaysStoppedAnimation<$flutter_5.Threshold>(value);
+          case $flutter_5.Cubic _: return $flutter_4.AlwaysStoppedAnimation<$flutter_5.Cubic>(value);
+          case $flutter_5.ThreePointCubic _: return $flutter_4.AlwaysStoppedAnimation<$flutter_5.ThreePointCubic>(value);
+          case $flutter_5.Curve2D _: return $flutter_4.AlwaysStoppedAnimation<$flutter_5.Curve2D>(value);
+          case $flutter_5.Curve2DSample _: return $flutter_4.AlwaysStoppedAnimation<$flutter_5.Curve2DSample>(value);
+          case $flutter_5.CatmullRomSpline _: return $flutter_4.AlwaysStoppedAnimation<$flutter_5.CatmullRomSpline>(value);
+          case $flutter_5.CatmullRomCurve _: return $flutter_4.AlwaysStoppedAnimation<$flutter_5.CatmullRomCurve>(value);
+          case $flutter_5.FlippedCurve _: return $flutter_4.AlwaysStoppedAnimation<$flutter_5.FlippedCurve>(value);
+          case $flutter_5.ElasticInCurve _: return $flutter_4.AlwaysStoppedAnimation<$flutter_5.ElasticInCurve>(value);
+          case $flutter_5.ElasticOutCurve _: return $flutter_4.AlwaysStoppedAnimation<$flutter_5.ElasticOutCurve>(value);
+          case $flutter_5.ElasticInOutCurve _: return $flutter_4.AlwaysStoppedAnimation<$flutter_5.ElasticInOutCurve>(value);
+          case $flutter_5.Curves _: return $flutter_4.AlwaysStoppedAnimation<$flutter_5.Curves>(value);
+          case $flutter_7.Animatable _: return $flutter_4.AlwaysStoppedAnimation<$flutter_7.Animatable>(value);
+          case $flutter_7.Tween _: return $flutter_4.AlwaysStoppedAnimation<$flutter_7.Tween>(value);
+          case $flutter_7.ReverseTween _: return $flutter_4.AlwaysStoppedAnimation<$flutter_7.ReverseTween>(value);
+          case $flutter_7.ColorTween _: return $flutter_4.AlwaysStoppedAnimation<$flutter_7.ColorTween>(value);
+          case $flutter_7.SizeTween _: return $flutter_4.AlwaysStoppedAnimation<$flutter_7.SizeTween>(value);
+          case $flutter_7.RectTween _: return $flutter_4.AlwaysStoppedAnimation<$flutter_7.RectTween>(value);
+          case $flutter_7.IntTween _: return $flutter_4.AlwaysStoppedAnimation<$flutter_7.IntTween>(value);
+          case $flutter_7.StepTween _: return $flutter_4.AlwaysStoppedAnimation<$flutter_7.StepTween>(value);
+          case $flutter_7.ConstantTween _: return $flutter_4.AlwaysStoppedAnimation<$flutter_7.ConstantTween>(value);
+          case $flutter_7.CurveTween _: return $flutter_4.AlwaysStoppedAnimation<$flutter_7.CurveTween>(value);
+          case $flutter_11.Simulation _: return $flutter_4.AlwaysStoppedAnimation<$flutter_11.Simulation>(value);
+          case $flutter_12.SpringDescription _: return $flutter_4.AlwaysStoppedAnimation<$flutter_12.SpringDescription>(value);
+          case $flutter_2.AnimationController _: return $flutter_4.AlwaysStoppedAnimation<$flutter_2.AnimationController>(value);
+          case $flutter_3.AnimationStyle _: return $flutter_4.AlwaysStoppedAnimation<$flutter_3.AnimationStyle>(value);
+          case $flutter_4.AnimationWithParentMixin _: return $flutter_4.AlwaysStoppedAnimation<$flutter_4.AnimationWithParentMixin>(value);
+          case $flutter_4.ProxyAnimation _: return $flutter_4.AlwaysStoppedAnimation<$flutter_4.ProxyAnimation>(value);
+          case $flutter_4.ReverseAnimation _: return $flutter_4.AlwaysStoppedAnimation<$flutter_4.ReverseAnimation>(value);
+          case $flutter_4.CurvedAnimation _: return $flutter_4.AlwaysStoppedAnimation<$flutter_4.CurvedAnimation>(value);
+          case $flutter_4.TrainHoppingAnimation _: return $flutter_4.AlwaysStoppedAnimation<$flutter_4.TrainHoppingAnimation>(value);
+          case $flutter_4.CompoundAnimation _: return $flutter_4.AlwaysStoppedAnimation<$flutter_4.CompoundAnimation>(value);
+          case $flutter_4.AnimationMean _: return $flutter_4.AlwaysStoppedAnimation<$flutter_4.AnimationMean>(value);
+          case $flutter_4.AnimationMax _: return $flutter_4.AlwaysStoppedAnimation<$flutter_4.AnimationMax>(value);
+          case $flutter_4.AnimationMin _: return $flutter_4.AlwaysStoppedAnimation<$flutter_4.AnimationMin>(value);
+          case $flutter_6.AnimationLazyListenerMixin _: return $flutter_4.AlwaysStoppedAnimation<$flutter_6.AnimationLazyListenerMixin>(value);
+          case $flutter_6.AnimationEagerListenerMixin _: return $flutter_4.AlwaysStoppedAnimation<$flutter_6.AnimationEagerListenerMixin>(value);
+          case $flutter_6.AnimationLocalListenersMixin _: return $flutter_4.AlwaysStoppedAnimation<$flutter_6.AnimationLocalListenersMixin>(value);
+          case $flutter_6.AnimationLocalStatusListenersMixin _: return $flutter_4.AlwaysStoppedAnimation<$flutter_6.AnimationLocalStatusListenersMixin>(value);
+          case $flutter_8.TweenSequence _: return $flutter_4.AlwaysStoppedAnimation<$flutter_8.TweenSequence>(value);
+          case $flutter_8.FlippedTweenSequence _: return $flutter_4.AlwaysStoppedAnimation<$flutter_8.FlippedTweenSequence>(value);
+          case $flutter_8.TweenSequenceItem _: return $flutter_4.AlwaysStoppedAnimation<$flutter_8.TweenSequenceItem>(value);
           default: return $flutter_4.AlwaysStoppedAnimation(value);
         }
       },
@@ -3531,8 +3633,10 @@ BridgedClass _createTrainHoppingAnimationBridge() {
       'onSwitchedTrain': (visitor, target) => D4.validateTarget<$flutter_4.TrainHoppingAnimation>(target, 'TrainHoppingAnimation').onSwitchedTrain,
     },
     setters: {
-      'onSwitchedTrain': (visitor, target, value) => 
-        D4.validateTarget<$flutter_4.TrainHoppingAnimation>(target, 'TrainHoppingAnimation').onSwitchedTrain = D4.extractBridgedArgOrNull<dynamic>(value, 'onSwitchedTrain'),
+      'onSwitchedTrain': (visitor, target, value) {
+        final onSwitchedTrainRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onSwitchedTrain');
+        D4.validateTarget<$flutter_4.TrainHoppingAnimation>(target, 'TrainHoppingAnimation').onSwitchedTrain = onSwitchedTrainRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onSwitchedTrainRaw, []); };
+      },
     },
     methods: {
       'addListener': (visitor, target, positional, named, typeArgs) {

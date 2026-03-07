@@ -24,6 +24,7 @@ import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/dart/element/nullability_suffix.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:path/path.dart' as p;
 
@@ -6390,6 +6391,11 @@ class BridgeGenerator {
             )) {
               nonWrappableDefaults.add(p);
             }
+          } else if (p.isNamed && p.defaultValue == null && !p.isRequired && !p.type.endsWith('?')) {
+            // GEN-087: Named non-required non-nullable param with unavailable default
+            // (e.g., const factory redirects where analyzer can't read the default).
+            // Must use combinatorial dispatch to omit when not provided.
+            nonWrappableDefaults.add(p);
           }
         }
         // Use combinatorial dispatch for up to 6 non-wrappable defaults
@@ -8090,6 +8096,11 @@ class BridgeGenerator {
         )) {
           nonWrappableDefaults.add(p);
         }
+      } else if (!p.isRequired && !p.type.endsWith('?')) {
+        // GEN-087: Named non-required non-nullable param with unavailable default
+        // (e.g., const factory redirects where analyzer can't read the default).
+        // Must use combinatorial dispatch to omit when not provided.
+        nonWrappableDefaults.add(p);
       }
     }
     // Use combinatorial dispatch for up to 6 non-wrappable defaults
@@ -8184,6 +8195,25 @@ class BridgeGenerator {
         buffer.writeln(
           '          case bool _: return ${typedCtorCall('bool')};',
         );
+        // GEN-091: Also dispatch on all bridged class types from the module
+        // so that non-primitive type arguments (Color, RelativeRect, etc.)
+        // are correctly preserved in the generic type parameter.
+        for (final entry in _classLookup.entries) {
+          final otherClassName = entry.key;
+          final otherClassInfo = entry.value;
+          // Skip the class being generated to avoid self-reference
+          if (otherClassName == cls.name) continue;
+          // Skip primitive-like types already handled above
+          if (const {'int', 'double', 'String', 'bool', 'num'}
+              .contains(otherClassName)) continue;
+          final prefixedOther = _getPrefixedClassName(
+            otherClassName,
+            otherClassInfo.sourceFile,
+          );
+          buffer.writeln(
+            '          case $prefixedOther _: return ${typedCtorCall(prefixedOther)};',
+          );
+        }
         buffer.writeln('          default: return $ctorCall($argsStr);');
         buffer.writeln('        }');
       } else {
@@ -8815,6 +8845,11 @@ class BridgeGenerator {
         )) {
           nonWrappableDefaults.add(p);
         }
+      } else if (!p.isRequired && !p.type.endsWith('?')) {
+        // GEN-087: Named non-required non-nullable param with unavailable default
+        // (e.g., const factory redirects where analyzer can't read the default).
+        // Must use combinatorial dispatch to omit when not provided.
+        nonWrappableDefaults.add(p);
       }
     }
     // Use combinatorial dispatch for up to 6 non-wrappable defaults
@@ -9318,6 +9353,89 @@ class BridgeGenerator {
             "            ? D4.coerceList<$elementType>(positional[$index], '${param.name}')",
           );
           buffer.writeln("            : <$elementType>[];");
+        }
+      }
+      return true;
+    }
+
+    // ENG-001: Check for Set types - need coercion
+    if (_isSetType(param.type)) {
+      final elementType = _getSetElementType(
+        param.type,
+        typeToUri: param.typeToUri,
+        classTypeParams: classTypeParams,
+        sourceFilePath: sourceFilePath,
+      );
+
+      final coerceMethod = isNullable ? 'D4.coerceSetOrNull' : 'D4.coerceSet';
+      if (param.isRequired) {
+        buffer.writeln(
+          "        if (${_lengthCheckLessThanOrEqual('positional', index)}) {",
+        );
+        buffer.writeln(
+          "          throw ArgumentError('$contextName: Missing required argument \"${param.name}\" at position $index');",
+        );
+        buffer.writeln("        }");
+        buffer.writeln(
+          "        final $localName = $coerceMethod<$elementType>(positional[$index], '${param.name}');",
+        );
+      } else if (param.defaultValue != null) {
+        if (_isWrappableDefault(
+          param.defaultValue!,
+          typeToUri: param.typeToUri,
+          sourceFilePath: sourceFilePath,
+        )) {
+          final typedDefault = _getTypedDefaultValue(
+            param.defaultValue!,
+            param.type,
+            typeToUri: param.typeToUri,
+            classTypeParams: classTypeParams,
+            sourceFilePath: sourceFilePath,
+          );
+          buffer.writeln(
+            "        final $localName = ${_lengthCheckGreaterThan('positional', index)} && positional[$index] != null",
+          );
+          buffer.writeln(
+            "            ? $coerceMethod<$elementType>(positional[$index], '${param.name}')",
+          );
+          buffer.writeln("            : $typedDefault;");
+        } else {
+          _recordNonWrappableDefault(
+            contextName,
+            param.name,
+            param.defaultValue!,
+          );
+          buffer.writeln(
+            "        // TODO: Non-wrappable default: ${param.defaultValue}",
+          );
+          buffer.writeln(
+            "        if (${_lengthCheckLessThanOrEqual('positional', index)} || positional[$index] == null) {",
+          );
+          buffer.writeln(
+            "          throw ArgumentError('$contextName: Parameter \"${param.name}\" has non-wrappable default (${_escapeString(param.defaultValue!)}). Value must be specified but was null.');",
+          );
+          buffer.writeln("        }");
+          buffer.writeln(
+            "        final $localName = $coerceMethod<$elementType>(positional[$index], '${param.name}');",
+          );
+        }
+      } else {
+        if (isNullable) {
+          buffer.writeln(
+            "        final $localName = ${_lengthCheckGreaterThan('positional', index)}",
+          );
+          buffer.writeln(
+            "            ? D4.coerceSetOrNull<$elementType>(positional[$index], '${param.name}')",
+          );
+          buffer.writeln("            : null;");
+        } else {
+          buffer.writeln(
+            "        final $localName = ${_lengthCheckGreaterThan('positional', index)}",
+          );
+          buffer.writeln(
+            "            ? D4.coerceSet<$elementType>(positional[$index], '${param.name}')",
+          );
+          buffer.writeln("            : <$elementType>{};");
         }
       }
       return true;
@@ -9868,6 +9986,76 @@ class BridgeGenerator {
       } else {
         buffer.writeln(
           "        final $localName = D4.coerceListOrNull<$elementType>(named['${param.name}'], '${param.name}');",
+        );
+      }
+      return true;
+    }
+
+    // ENG-001: Check for Set types - need coercion
+    if (_isSetType(param.type)) {
+      final elementType = _getSetElementType(
+        param.type,
+        typeToUri: param.typeToUri,
+        classTypeParams: classTypeParams,
+        sourceFilePath: sourceFilePath,
+      );
+      final coerceMethod = isNullable ? 'D4.coerceSetOrNull' : 'D4.coerceSet';
+      if (param.isRequired) {
+        final requiredCheck = isNullable
+            ? "!named.containsKey('${param.name}')"
+            : "!named.containsKey('${param.name}') || named['${param.name}'] == null";
+        buffer.writeln("        if ($requiredCheck) {");
+        buffer.writeln(
+          "          throw ArgumentError('$contextName: Missing required named argument \"${param.name}\"');",
+        );
+        buffer.writeln("        }");
+        buffer.writeln(
+          "        final $localName = $coerceMethod<$elementType>(named['${param.name}'], '${param.name}');",
+        );
+      } else if (param.defaultValue != null) {
+        if (_isWrappableDefault(
+          param.defaultValue!,
+          typeToUri: param.typeToUri,
+          sourceFilePath: sourceFilePath,
+        )) {
+          final typedDefault = _getTypedDefaultValue(
+            param.defaultValue!,
+            param.type,
+            typeToUri: param.typeToUri,
+            classTypeParams: classTypeParams,
+            sourceFilePath: sourceFilePath,
+          );
+          buffer.writeln(
+            "        final $localName = named.containsKey('${param.name}') && named['${param.name}'] != null",
+          );
+          buffer.writeln(
+            "            ? $coerceMethod<$elementType>(named['${param.name}'], '${param.name}')",
+          );
+          buffer.writeln("            : $typedDefault;");
+        } else {
+          _recordNonWrappableDefault(
+            contextName,
+            param.name,
+            param.defaultValue!,
+          );
+          buffer.writeln(
+            "        // TODO: Non-wrappable default: ${param.defaultValue}",
+          );
+          final requiredCheck = isNullable
+              ? "!named.containsKey('${param.name}')"
+              : "!named.containsKey('${param.name}') || named['${param.name}'] == null";
+          buffer.writeln("        if ($requiredCheck) {");
+          buffer.writeln(
+            "          throw ArgumentError('$contextName: Parameter \"${param.name}\" has non-wrappable default (${_escapeString(param.defaultValue!)}). Value must be specified but was null.');",
+          );
+          buffer.writeln("        }");
+          buffer.writeln(
+            "        final $localName = $coerceMethod<$elementType>(named['${param.name}'], '${param.name}');",
+          );
+        }
+      } else {
+        buffer.writeln(
+          "        final $localName = D4.coerceSetOrNull<$elementType>(named['${param.name}'], '${param.name}');",
         );
       }
       return true;
@@ -11816,6 +12004,39 @@ class BridgeGenerator {
     return baseType.startsWith('Map<') && baseType.endsWith('>');
   }
 
+  /// ENG-001: Checks if a type is a Set type (e.g., Set<String>, Set<WidgetState>).
+  bool _isSetType(String type) {
+    final baseType = type.endsWith('?')
+        ? type.substring(0, type.length - 1)
+        : type;
+    return baseType.startsWith('Set<') && baseType.endsWith('>');
+  }
+
+  /// ENG-001: Extracts the element type from a Set type (e.g., Set<String> -> String).
+  String _getSetElementType(
+    String setType, {
+    Map<String, String> typeToUri = const {},
+    Map<String, String?> classTypeParams = const {},
+    String? sourceFilePath,
+  }) {
+    var baseType = setType.endsWith('?')
+        ? setType.substring(0, setType.length - 1)
+        : setType;
+    final elementType = baseType.substring(4, baseType.length - 1);
+
+    // Check if element type is a known function type alias
+    if (_isFunctionTypeName(elementType.replaceAll('?', ''))) {
+      return 'dynamic';
+    }
+
+    return _getTypeArgument(
+      elementType,
+      typeToUri: typeToUri,
+      classTypeParams: classTypeParams,
+      sourceFilePath: sourceFilePath,
+    );
+  }
+
   /// Extracts the element type from a List type (e.g., List<String> -> String).
   /// If the element type is a function type alias, returns 'dynamic'.
   String _getListElementType(
@@ -12230,12 +12451,42 @@ class BridgeGenerator {
 
   /// Extracts FunctionTypeInfo from a resolved DartType.
   /// Returns null if the type is not a function type.
+  ///
+  /// ENG-010: Now handles typedef aliases that resolve to function types
+  /// (e.g., `GestureCallback` → `void Function(GestureDetails)`).
   static FunctionTypeInfo? extractFunctionTypeInfoFromDartType(
     DartType dartType,
   ) {
+    // ENG-010: Unwrap nullable types to check the base type.
+    // E.g., `GestureCallback?` → `GestureCallback` → `void Function(GestureDetails)`
+    var effectiveType = dartType;
+    if (effectiveType.nullabilitySuffix == NullabilitySuffix.question) {
+      // Get the non-nullable version by stripping '?'
+      // For TypeAliasType, we need to check the aliased type
+      final element = effectiveType.element;
+      if (element is TypeAliasElement) {
+        final aliasedType = element.aliasedType;
+        if (aliasedType is FunctionType) {
+          effectiveType = aliasedType;
+        }
+      }
+    }
+
+    // ENG-010: Handle typedef aliases that resolve to function types.
+    // E.g., `typedef GestureCallback = void Function(GestureDetails details);`
+    if (effectiveType is! FunctionType) {
+      final element = effectiveType.element;
+      if (element is TypeAliasElement) {
+        final aliasedType = element.aliasedType;
+        if (aliasedType is FunctionType) {
+          effectiveType = aliasedType;
+        }
+      }
+    }
+
     // Handle type aliases that resolve to function types
-    if (dartType is FunctionType) {
-      final returnTypeStr = dartType.returnType.getDisplayString();
+    if (effectiveType is FunctionType) {
+      final returnTypeStr = effectiveType.returnType.getDisplayString();
       final returnTypeNullable = returnTypeStr.endsWith('?');
       final returnType = returnTypeNullable
           ? returnTypeStr.substring(0, returnTypeStr.length - 1)
@@ -12245,7 +12496,7 @@ class BridgeGenerator {
       final namedParamTypes = <String, String>{};
       final namedParamRequired = <String, bool>{};
       final genericTypeParameters = <String, String?>{};
-      final functionDisplay = dartType.getDisplayString();
+      final functionDisplay = effectiveType.getDisplayString();
       final genericMatch = RegExp(
         r'Function<([^>]+)>\(',
       ).firstMatch(functionDisplay);
@@ -12267,7 +12518,7 @@ class BridgeGenerator {
         }
       }
 
-      for (final param in dartType.formalParameters) {
+      for (final param in effectiveType.formalParameters) {
         final paramType = param.type.getDisplayString();
         final paramName = param.name;
         if (param.isNamed && paramName != null) {
@@ -12471,13 +12722,27 @@ class BridgeGenerator {
           ? nullableReturnType
           : effectiveReturnType;
       final normalizedReturnType = funcInfo.returnType.replaceAll(' ', '');
-      final skipCast =
-          castType == 'Object?' &&
-          (normalizedReturnType == 'dynamic' ||
-              normalizedReturnType == 'Object' ||
-              normalizedReturnType == 'Object?');
-      final returnCast = skipCast ? '' : ' as $castType';
-      wrapperBody = '{ return $callExpr$returnCast; }';
+
+      // ENG-011: Use castCallbackResult for generic returns (when type is dynamic or Object).
+      // This handles null safely when the callback's return type is a type parameter
+      // that could be nullable or non-nullable depending on how it's instantiated.
+      final isDynamicReturn =
+          normalizedReturnType == 'dynamic' ||
+          castType == 'dynamic' ||
+          castType == 'Object?';
+
+      if (isDynamicReturn) {
+        // Use castCallbackResult to handle null safely for generic returns
+        wrapperBody = '{ return D4.castCallbackResult<$castType>($callExpr); }';
+      } else {
+        final skipCast =
+            castType == 'Object?' &&
+            (normalizedReturnType == 'dynamic' ||
+                normalizedReturnType == 'Object' ||
+                normalizedReturnType == 'Object?');
+        final returnCast = skipCast ? '' : ' as $castType';
+        wrapperBody = '{ return $callExpr$returnCast; }';
+      }
     }
 
     // Build complete wrapper
@@ -13612,7 +13877,9 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     }
 
     // Collect inherited members from supertypes (superclasses, mixins, interfaces)
-    final declaredMemberNames = members.map((m) => m.name).toSet();
+    // GEN-093: Use member-type-qualified names so that a declared setter
+    // does not suppress the inherited getter (and vice versa).
+    final declaredMemberNames = _buildQualifiedMemberNames(members);
     final classElement = node.declaredFragment?.element;
     if (classElement != null) {
       final inheritedMembers = _collectInheritedMembersFromElement(
@@ -13734,7 +14001,8 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     }
 
     // Collect inherited members from supertype constraints
-    final declaredMemberNames = members.map((m) => m.name).toSet();
+    // GEN-093: Use member-type-qualified names for getter/setter distinction.
+    final declaredMemberNames = _buildQualifiedMemberNames(members);
     final mixinElement = node.declaredFragment?.element;
     if (mixinElement != null) {
       final inheritedMembers = _collectInheritedMembersFromElement(
@@ -14074,6 +14342,27 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     }
   }
 
+  /// GEN-093: Builds a set of member-type-qualified names from a list of
+  /// [MemberInfo] objects. Getters are prefixed with `get:`, setters with
+  /// `set:`, and methods/operators use their bare name.
+  ///
+  /// This ensures a declared setter (e.g., `set value(T)`) does not
+  /// suppress the inherited getter (`T get value`) and vice versa.
+  static Set<String> _buildQualifiedMemberNames(List<MemberInfo> members) {
+    final result = <String>{};
+    for (final m in members) {
+      if (m.isGetter) {
+        result.add('get:${m.name}');
+      } else if (m.isSetter) {
+        result.add('set:${m.name}');
+      } else {
+        // Methods and operators use bare name
+        result.add(m.name);
+      }
+    }
+    return result;
+  }
+
   /// Collects inherited members from all supertypes of a class element.
   ///
   /// This includes members from:
@@ -14082,8 +14371,9 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
   /// - Interfaces (implements) - but only concrete implementations
   ///
   /// [classElement] - The class to collect inherited members from.
-  /// [declaredMemberNames] - Names of members already declared in the class,
-  ///   which should be excluded from the result (overrides take precedence).
+  /// [declaredMemberNames] - Qualified names of members already declared in
+  ///   the class, which should be excluded from the result (overrides take
+  ///   precedence). Use [_buildQualifiedMemberNames] to build this set.
   ///
   /// Returns a list of MemberInfo for all inherited members not already declared.
   ///
@@ -14094,6 +14384,10 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     Set<String> declaredMemberNames,
   ) {
     final result = <MemberInfo>[];
+    // GEN-093: Use qualified names (get:name, set:name, name) to track
+    // getters, setters, and methods independently. This prevents a declared
+    // setter from suppressing an inherited getter (e.g., RestorableNum.value
+    // setter should not suppress RestorableValue.value getter).
     final processedNames = Set<String>.from(declaredMemberNames);
     final memberIndexByName = <String, int>{};
 
@@ -14139,9 +14433,11 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         if (_hasTestOnlyElementAnnotation(getter)) continue;
 
         // Skip if already processed (declared or inherited from a more specific type)
-        if (processedNames.contains(getterName)) {
+        // GEN-093: Use qualified name to avoid getter/setter collisions
+        final qualifiedGetterName = 'get:$getterName';
+        if (processedNames.contains(qualifiedGetterName)) {
           if (!isMixinSupertype) continue;
-          final existingIndex = memberIndexByName[getterName];
+          final existingIndex = memberIndexByName[qualifiedGetterName];
           if (existingIndex == null) continue;
           final memberInfo = _parseMemberFromGetterElement(
             getter,
@@ -14162,8 +14458,8 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         );
         if (memberInfo != null) {
           result.add(memberInfo);
-          memberIndexByName[getterName] = result.length - 1;
-          processedNames.add(getterName);
+          memberIndexByName[qualifiedGetterName] = result.length - 1;
+          processedNames.add(qualifiedGetterName);
         }
       }
 
@@ -14183,9 +14479,11 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         if (_hasTestOnlyElementAnnotation(setter)) continue;
 
         // Skip if already processed
-        if (processedNames.contains(setterName)) {
+        // GEN-093: Use qualified name to avoid getter/setter collisions
+        final qualifiedSetterName = 'set:$setterName';
+        if (processedNames.contains(qualifiedSetterName)) {
           if (!isMixinSupertype) continue;
-          final existingIndex = memberIndexByName[setterName];
+          final existingIndex = memberIndexByName[qualifiedSetterName];
           if (existingIndex == null) continue;
           final memberInfo = _parseMemberFromSetterElement(
             setter,
@@ -14203,8 +14501,8 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         );
         if (memberInfo != null) {
           result.add(memberInfo);
-          memberIndexByName[setterName] = result.length - 1;
-          processedNames.add(setterName);
+          memberIndexByName[qualifiedSetterName] = result.length - 1;
+          processedNames.add(qualifiedSetterName);
         }
       }
 
@@ -14709,6 +15007,11 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
             returnTypeToUri: typeInfo.typeToUri,
             isSetter: true,
             isStatic: isStatic,
+            // ENG-010: Pass function type info for callback setter wrapping.
+            // When field type is a function type (e.g., GestureCallback?),
+            // the emitter needs this to generate proper InterpretedFunction
+            // → native closure wrappers.
+            functionTypeInfo: typeInfo.functionTypeInfo,
           ),
         );
       }

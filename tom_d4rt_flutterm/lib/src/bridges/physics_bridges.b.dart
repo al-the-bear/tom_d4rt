@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 7 files
-// Generated: 2026-03-06T19:16:17.606184
+// Generated: 2026-03-07T11:46:13.243726
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -490,7 +490,7 @@ BridgedClass _createClampedSimulationBridge() {
       'dxMax': 'double get dxMax',
     },
     setterSignatures: {
-      'tolerance': 'set tolerance(dynamic value)',
+      'tolerance': 'set tolerance(Tolerance value)',
     },
   );
 }
@@ -577,7 +577,7 @@ BridgedClass _createFrictionSimulationBridge() {
       'finalX': 'double get finalX',
     },
     setterSignatures: {
-      'tolerance': 'set tolerance(dynamic value)',
+      'tolerance': 'set tolerance(Tolerance value)',
     },
   );
 }
@@ -655,7 +655,7 @@ BridgedClass _createBoundedFrictionSimulationBridge() {
       'finalX': 'double get finalX',
     },
     setterSignatures: {
-      'tolerance': 'set tolerance(dynamic value)',
+      'tolerance': 'set tolerance(Tolerance value)',
     },
   );
 }
@@ -723,7 +723,7 @@ BridgedClass _createGravitySimulationBridge() {
       'tolerance': 'Tolerance get tolerance',
     },
     setterSignatures: {
-      'tolerance': 'set tolerance(dynamic value)',
+      'tolerance': 'set tolerance(Tolerance value)',
     },
   );
 }
@@ -854,7 +854,7 @@ BridgedClass _createSpringSimulationBridge() {
       'type': 'SpringType get type',
     },
     setterSignatures: {
-      'tolerance': 'set tolerance(dynamic value)',
+      'tolerance': 'set tolerance(Tolerance value)',
     },
   );
 }
@@ -925,7 +925,7 @@ BridgedClass _createScrollSpringSimulationBridge() {
       'type': 'SpringType get type',
     },
     setterSignatures: {
-      'tolerance': 'set tolerance(dynamic value)',
+      'tolerance': 'set tolerance(Tolerance value)',
     },
   );
 }

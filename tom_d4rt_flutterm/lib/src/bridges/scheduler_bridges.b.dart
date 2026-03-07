@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 5 files
-// Generated: 2026-03-06T19:16:23.002953
+// Generated: 2026-03-07T11:46:19.599075
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -335,8 +335,10 @@ BridgedClass _createSchedulerBindingBridge() {
       'locked': (visitor, target) => D4.validateTarget<$flutter_4.SchedulerBinding>(target, 'SchedulerBinding').locked,
     },
     setters: {
-      'schedulingStrategy': (visitor, target, value) => 
-        D4.validateTarget<$flutter_4.SchedulerBinding>(target, 'SchedulerBinding').schedulingStrategy = D4.extractBridgedArg<$flutter_4.SchedulingStrategy>(value, 'schedulingStrategy'),
+      'schedulingStrategy': (visitor, target, value) {
+        final schedulingStrategyRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'schedulingStrategy');
+        D4.validateTarget<$flutter_4.SchedulerBinding>(target, 'SchedulerBinding').schedulingStrategy = ({required int priority, required $flutter_4.SchedulerBinding scheduler}) { return D4.callInterpreterCallback(visitor!, schedulingStrategyRaw, [], {'priority': priority, 'scheduler': scheduler}) as bool; };
+      },
     },
     methods: {
       'initInstances': (visitor, target, positional, named, typeArgs) {
@@ -875,7 +877,7 @@ BridgedClass _createTickerFutureBridge() {
           throw ArgumentError('whenComplete: Missing required argument "action" at position 0');
         }
         final actionRaw = positional[0];
-        return t.whenComplete(() { return D4.callInterpreterCallback(visitor!, actionRaw, []) as dynamic; });
+        return t.whenComplete(() { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, actionRaw, [])); });
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_8.TickerFuture>(target, 'TickerFuture');

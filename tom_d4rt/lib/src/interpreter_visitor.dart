@@ -919,6 +919,30 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         throw RuntimeD4rtException(
             "Native error during bridged enum property get '$memberName' on $bridgedEnumValue: $e");
       }
+    } else if (prefixValue is Callable) {
+      // Handle property access on function types (InterpretedFunction, NativeFunction, etc.)
+      Logger.debug(
+          "[PrefixedIdentifier] Access on Callable: .$memberName");
+      switch (memberName) {
+        case 'hashCode':
+          return prefixValue.hashCode;
+        case 'runtimeType':
+          // Return Function as the runtimeType for all callable types
+          return Function;
+        case 'toString':
+          return NativeFunction(
+            (_, args, __, ___) {
+              if (args.isNotEmpty) {
+                throw RuntimeD4rtException("toString() takes no arguments.");
+              }
+              return prefixValue.toString();
+            },
+            arity: 0,
+            name: 'toString',
+          );
+      }
+      throw RuntimeD4rtException(
+          "Cannot access property '$memberName' on function. Functions only support 'hashCode', 'runtimeType', and 'toString'.");
     } else {
       try {
         final extensionMember =
@@ -3128,8 +3152,12 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         return e.value;
       }
       // Catch other potential runtime errors from the call itself
-    } else if (calleeValue is BridgedClass && node.target == null) {
-      // Call of a bridged default constructor (ex: StringBuffer())
+    } else if (calleeValue is BridgedClass &&
+        (node.target == null || targetValue is Environment)) {
+      // GEN-101: Call of a bridged default constructor (ex: StringBuffer())
+      // Also handles prefixed imports (ex: ui.PictureRecorder()) where targetValue
+      // is the Environment. Previously the `node.target == null` check excluded
+      // prefixed imports, causing the BridgedClass to be returned instead of an instance.
       final bridgedClass = calleeValue;
 
       // RC-2: Evaluate type arguments (e.g., GlobalKey<NavigatorState>())
@@ -3736,6 +3764,30 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       // Not found
       throw RuntimeD4rtException(
           "Undefined property or method '$propertyName' accessed via 'super' on bridged superclass '${bridgedSuper.name}'.");
+    } else if (target is Callable) {
+      // ENG-006: Handle property access on function objects (InterpretedFunction, NativeFunction, etc.)
+      // Functions support runtimeType, hashCode, toString, and call tear-off.
+      Logger.debug(
+          "[PropertyAccess] Access on Callable: ${target.runtimeType}.$propertyName");
+      switch (propertyName) {
+        case 'runtimeType':
+          return target.runtimeType;
+        case 'hashCode':
+          return target.hashCode;
+        case 'toString':
+          // Return a bound toString method
+          return NativeFunction(
+            (visitor, args, namedArgs, typeArgs) => target.toString(),
+            arity: 0,
+            name: 'toString',
+          );
+        case 'call':
+          // Tear-off: return the callable itself
+          return target;
+        default:
+          throw RuntimeD4rtException(
+              "Undefined property '$propertyName' on function object (${target.runtimeType}).");
+      }
     } else {
       // Check if target is a native enum that has been bridged
       final bridgedEnumValue = environment.getBridgedEnumValue(target);

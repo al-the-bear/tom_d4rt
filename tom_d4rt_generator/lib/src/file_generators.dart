@@ -132,6 +132,18 @@ String generateDartscriptFileContent(
     buffer.writeln("import '$importPath' as ${module.name}_bridges;");
   }
 
+  // GEN-092: Import proxy file for factory registration
+  if (config.generateProxies &&
+      config.proxyClasses.isNotEmpty &&
+      config.proxiesOutputPath != null) {
+    final proxyImportPath = _moduleImportPath(
+      config.proxiesOutputPath!,
+      dartscriptDir,
+      effectivePackageName,
+    );
+    buffer.writeln("import '$proxyImportPath' as proxy_factories;");
+  }
+
   buffer.writeln();
   buffer.writeln('/// Combined bridge registration for ${config.name}.');
   buffer.writeln('class $registrationClass {');
@@ -192,6 +204,15 @@ String generateDartscriptFileContent(
     );
     buffer.writeln('      $prefix.$bridgeClass.registerBridges(d4rt, barrel);');
     buffer.writeln('    }');
+  }
+
+  // GEN-092: Register proxy factories
+  if (config.generateProxies &&
+      config.proxyClasses.isNotEmpty &&
+      config.proxiesOutputPath != null) {
+    buffer.writeln();
+    buffer.writeln('    // GEN-092: Register proxy factories for interface proxies');
+    buffer.writeln('    proxy_factories.registerProxyFactories();');
   }
 
   buffer.writeln('  }');

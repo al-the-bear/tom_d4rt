@@ -189,11 +189,11 @@ void main() {
           reason: 'Should use D4.callInterpreterCallback for callbacks',
         );
         
-        // Should have the wrapper pattern
+        // Should have the wrapper pattern (visitor! because callInterpreterCallback requires non-null)
         expect(
           generatedCode,
-          contains('D4.callInterpreterCallback(visitor,'),
-          reason: 'Should call D4.callInterpreterCallback with visitor',
+          contains('D4.callInterpreterCallback(visitor!,'),
+          reason: 'Should call D4.callInterpreterCallback with visitor!',
         );
       });
     });

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 28 files
-// Generated: 2026-03-06T19:16:08.373662
+// Generated: 2026-03-07T11:46:01.462243
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -873,7 +873,7 @@ BridgedClass _createCachingIterableBridge() {
           throw ArgumentError('map: Missing required argument "toElement" at position 0');
         }
         final toElementRaw = positional[0];
-        return t.map((dynamic p0) { return D4.callInterpreterCallback(visitor!, toElementRaw, [p0]) as dynamic; });
+        return t.map((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, toElementRaw, [p0])); });
       },
       'where': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
@@ -974,7 +974,7 @@ BridgedClass _createCachingIterableBridge() {
           throw ArgumentError('reduce: Missing required argument "combine" at position 0');
         }
         final combineRaw = positional[0];
-        return t.reduce((dynamic p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1]) as dynamic; });
+        return t.reduce((dynamic p0, dynamic p1) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1])); });
       },
       'fold': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
@@ -984,7 +984,7 @@ BridgedClass _createCachingIterableBridge() {
           throw ArgumentError('fold: Missing required argument "combine" at position 1');
         }
         final combineRaw = positional[1];
-        return t.fold(initialValue, (dynamic p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1]) as dynamic; });
+        return t.fold(initialValue, (dynamic p0, dynamic p1) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1])); });
       },
       'every': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
@@ -1021,7 +1021,7 @@ BridgedClass _createCachingIterableBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.firstWhere((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, orElseRaw, []) as dynamic; });
+        return t.firstWhere((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, orElseRaw, [])); });
       },
       'lastWhere': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
@@ -1031,7 +1031,7 @@ BridgedClass _createCachingIterableBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.lastWhere((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, orElseRaw, []) as dynamic; });
+        return t.lastWhere((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, orElseRaw, [])); });
       },
       'singleWhere': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
@@ -1041,7 +1041,7 @@ BridgedClass _createCachingIterableBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.singleWhere((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, orElseRaw, []) as dynamic; });
+        return t.singleWhere((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, orElseRaw, [])); });
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
@@ -1105,7 +1105,7 @@ BridgedClass _createFactoryBridge() {
           throw ArgumentError('Factory: Missing required argument "constructor" at position 0');
         }
         final constructorRaw = positional[0];
-        return $flutter_3.Factory(() { return D4.callInterpreterCallback(visitor!, constructorRaw, []) as dynamic; });
+        return $flutter_3.Factory(() { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, constructorRaw, [])); });
       },
     },
     getters: {
@@ -2653,6 +2653,73 @@ BridgedClass _createObjectFlagPropertyBridge() {
           case int _: return $flutter_12.ObjectFlagProperty<int>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
           case String _: return $flutter_12.ObjectFlagProperty<String>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
           case bool _: return $flutter_12.ObjectFlagProperty<bool>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_1.Category _: return $flutter_12.ObjectFlagProperty<$flutter_1.Category>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_1.DocumentationIcon _: return $flutter_12.ObjectFlagProperty<$flutter_1.DocumentationIcon>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_1.Summary _: return $flutter_12.ObjectFlagProperty<$flutter_1.Summary>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_3.CachingIterable _: return $flutter_12.ObjectFlagProperty<$flutter_3.CachingIterable>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_3.Factory _: return $flutter_12.ObjectFlagProperty<$flutter_3.Factory>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_12.TextTreeConfiguration _: return $flutter_12.ObjectFlagProperty<$flutter_12.TextTreeConfiguration>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_12.TextTreeRenderer _: return $flutter_12.ObjectFlagProperty<$flutter_12.TextTreeRenderer>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_12.DiagnosticsNode _: return $flutter_12.ObjectFlagProperty<$flutter_12.DiagnosticsNode>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_12.MessageProperty _: return $flutter_12.ObjectFlagProperty<$flutter_12.MessageProperty>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_12.StringProperty _: return $flutter_12.ObjectFlagProperty<$flutter_12.StringProperty>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_12.DoubleProperty _: return $flutter_12.ObjectFlagProperty<$flutter_12.DoubleProperty>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_12.IntProperty _: return $flutter_12.ObjectFlagProperty<$flutter_12.IntProperty>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_12.PercentProperty _: return $flutter_12.ObjectFlagProperty<$flutter_12.PercentProperty>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_12.FlagProperty _: return $flutter_12.ObjectFlagProperty<$flutter_12.FlagProperty>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_12.IterableProperty _: return $flutter_12.ObjectFlagProperty<$flutter_12.IterableProperty>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_12.EnumProperty _: return $flutter_12.ObjectFlagProperty<$flutter_12.EnumProperty>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_12.FlagsSummary _: return $flutter_12.ObjectFlagProperty<$flutter_12.FlagsSummary>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_12.DiagnosticsProperty _: return $flutter_12.ObjectFlagProperty<$flutter_12.DiagnosticsProperty>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_12.DiagnosticableNode _: return $flutter_12.ObjectFlagProperty<$flutter_12.DiagnosticableNode>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_12.DiagnosticableTreeNode _: return $flutter_12.ObjectFlagProperty<$flutter_12.DiagnosticableTreeNode>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_12.DiagnosticPropertiesBuilder _: return $flutter_12.ObjectFlagProperty<$flutter_12.DiagnosticPropertiesBuilder>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_12.Diagnosticable _: return $flutter_12.ObjectFlagProperty<$flutter_12.Diagnosticable>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_12.DiagnosticableTree _: return $flutter_12.ObjectFlagProperty<$flutter_12.DiagnosticableTree>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_12.DiagnosticableTreeMixin _: return $flutter_12.ObjectFlagProperty<$flutter_12.DiagnosticableTreeMixin>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_12.DiagnosticsBlock _: return $flutter_12.ObjectFlagProperty<$flutter_12.DiagnosticsBlock>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_12.DiagnosticsSerializationDelegate _: return $flutter_12.ObjectFlagProperty<$flutter_12.DiagnosticsSerializationDelegate>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_24.StackFrame _: return $flutter_12.ObjectFlagProperty<$flutter_24.StackFrame>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_2.PartialStackFrame _: return $flutter_12.ObjectFlagProperty<$flutter_2.PartialStackFrame>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_2.StackFilter _: return $flutter_12.ObjectFlagProperty<$flutter_2.StackFilter>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_2.RepetitiveStackFrameFilter _: return $flutter_12.ObjectFlagProperty<$flutter_2.RepetitiveStackFrameFilter>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_2.ErrorDescription _: return $flutter_12.ObjectFlagProperty<$flutter_2.ErrorDescription>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_2.ErrorSummary _: return $flutter_12.ObjectFlagProperty<$flutter_2.ErrorSummary>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_2.ErrorHint _: return $flutter_12.ObjectFlagProperty<$flutter_2.ErrorHint>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_2.ErrorSpacer _: return $flutter_12.ObjectFlagProperty<$flutter_2.ErrorSpacer>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_2.FlutterErrorDetails _: return $flutter_12.ObjectFlagProperty<$flutter_2.FlutterErrorDetails>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_2.FlutterError _: return $flutter_12.ObjectFlagProperty<$flutter_2.FlutterError>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_2.DiagnosticsStackTrace _: return $flutter_12.ObjectFlagProperty<$flutter_2.DiagnosticsStackTrace>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_4.BindingBase _: return $flutter_12.ObjectFlagProperty<$flutter_4.BindingBase>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_5.BitField _: return $flutter_12.ObjectFlagProperty<$flutter_5.BitField>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_7.Listenable _: return $flutter_12.ObjectFlagProperty<$flutter_7.Listenable>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_7.ValueListenable _: return $flutter_12.ObjectFlagProperty<$flutter_7.ValueListenable>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_7.ChangeNotifier _: return $flutter_12.ObjectFlagProperty<$flutter_7.ChangeNotifier>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_7.ValueNotifier _: return $flutter_12.ObjectFlagProperty<$flutter_7.ValueNotifier>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_14.Key _: return $flutter_12.ObjectFlagProperty<$flutter_14.Key>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_14.LocalKey _: return $flutter_12.ObjectFlagProperty<$flutter_14.LocalKey>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_14.UniqueKey _: return $flutter_12.ObjectFlagProperty<$flutter_14.UniqueKey>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_14.ValueKey _: return $flutter_12.ObjectFlagProperty<$flutter_14.ValueKey>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_15.LicenseParagraph _: return $flutter_12.ObjectFlagProperty<$flutter_15.LicenseParagraph>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_15.LicenseEntry _: return $flutter_12.ObjectFlagProperty<$flutter_15.LicenseEntry>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_15.LicenseEntryWithLineBreaks _: return $flutter_12.ObjectFlagProperty<$flutter_15.LicenseEntryWithLineBreaks>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_15.LicenseRegistry _: return $flutter_12.ObjectFlagProperty<$flutter_15.LicenseRegistry>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_16.ObjectEvent _: return $flutter_12.ObjectFlagProperty<$flutter_16.ObjectEvent>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_16.ObjectCreated _: return $flutter_12.ObjectFlagProperty<$flutter_16.ObjectCreated>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_16.ObjectDisposed _: return $flutter_12.ObjectFlagProperty<$flutter_16.ObjectDisposed>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_16.FlutterMemoryAllocations _: return $flutter_12.ObjectFlagProperty<$flutter_16.FlutterMemoryAllocations>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_18.ObserverList _: return $flutter_12.ObjectFlagProperty<$flutter_18.ObserverList>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_18.HashedObserverList _: return $flutter_12.ObjectFlagProperty<$flutter_18.HashedObserverList>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_19.PersistentHashMap _: return $flutter_12.ObjectFlagProperty<$flutter_19.PersistentHashMap>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_22.WriteBuffer _: return $flutter_12.ObjectFlagProperty<$flutter_22.WriteBuffer>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_22.ReadBuffer _: return $flutter_12.ObjectFlagProperty<$flutter_22.ReadBuffer>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_25.SynchronousFuture _: return $flutter_12.ObjectFlagProperty<$flutter_25.SynchronousFuture>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_26.FlutterTimeline _: return $flutter_12.ObjectFlagProperty<$flutter_26.FlutterTimeline>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_26.TimedBlock _: return $flutter_12.ObjectFlagProperty<$flutter_26.TimedBlock>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_26.AggregatedTimings _: return $flutter_12.ObjectFlagProperty<$flutter_26.AggregatedTimings>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_26.AggregatedTimedBlock _: return $flutter_12.ObjectFlagProperty<$flutter_26.AggregatedTimedBlock>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_27.Unicode _: return $flutter_12.ObjectFlagProperty<$flutter_27.Unicode>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $meta_1.Immutable _: return $flutter_12.ObjectFlagProperty<$meta_1.Immutable>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
           default: return $flutter_12.ObjectFlagProperty(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
         }
       },
@@ -2667,6 +2734,73 @@ BridgedClass _createObjectFlagPropertyBridge() {
           case int _: return $flutter_12.ObjectFlagProperty<int>.has(name, value, level: level);
           case String _: return $flutter_12.ObjectFlagProperty<String>.has(name, value, level: level);
           case bool _: return $flutter_12.ObjectFlagProperty<bool>.has(name, value, level: level);
+          case $flutter_1.Category _: return $flutter_12.ObjectFlagProperty<$flutter_1.Category>.has(name, value, level: level);
+          case $flutter_1.DocumentationIcon _: return $flutter_12.ObjectFlagProperty<$flutter_1.DocumentationIcon>.has(name, value, level: level);
+          case $flutter_1.Summary _: return $flutter_12.ObjectFlagProperty<$flutter_1.Summary>.has(name, value, level: level);
+          case $flutter_3.CachingIterable _: return $flutter_12.ObjectFlagProperty<$flutter_3.CachingIterable>.has(name, value, level: level);
+          case $flutter_3.Factory _: return $flutter_12.ObjectFlagProperty<$flutter_3.Factory>.has(name, value, level: level);
+          case $flutter_12.TextTreeConfiguration _: return $flutter_12.ObjectFlagProperty<$flutter_12.TextTreeConfiguration>.has(name, value, level: level);
+          case $flutter_12.TextTreeRenderer _: return $flutter_12.ObjectFlagProperty<$flutter_12.TextTreeRenderer>.has(name, value, level: level);
+          case $flutter_12.DiagnosticsNode _: return $flutter_12.ObjectFlagProperty<$flutter_12.DiagnosticsNode>.has(name, value, level: level);
+          case $flutter_12.MessageProperty _: return $flutter_12.ObjectFlagProperty<$flutter_12.MessageProperty>.has(name, value, level: level);
+          case $flutter_12.StringProperty _: return $flutter_12.ObjectFlagProperty<$flutter_12.StringProperty>.has(name, value, level: level);
+          case $flutter_12.DoubleProperty _: return $flutter_12.ObjectFlagProperty<$flutter_12.DoubleProperty>.has(name, value, level: level);
+          case $flutter_12.IntProperty _: return $flutter_12.ObjectFlagProperty<$flutter_12.IntProperty>.has(name, value, level: level);
+          case $flutter_12.PercentProperty _: return $flutter_12.ObjectFlagProperty<$flutter_12.PercentProperty>.has(name, value, level: level);
+          case $flutter_12.FlagProperty _: return $flutter_12.ObjectFlagProperty<$flutter_12.FlagProperty>.has(name, value, level: level);
+          case $flutter_12.IterableProperty _: return $flutter_12.ObjectFlagProperty<$flutter_12.IterableProperty>.has(name, value, level: level);
+          case $flutter_12.EnumProperty _: return $flutter_12.ObjectFlagProperty<$flutter_12.EnumProperty>.has(name, value, level: level);
+          case $flutter_12.FlagsSummary _: return $flutter_12.ObjectFlagProperty<$flutter_12.FlagsSummary>.has(name, value, level: level);
+          case $flutter_12.DiagnosticsProperty _: return $flutter_12.ObjectFlagProperty<$flutter_12.DiagnosticsProperty>.has(name, value, level: level);
+          case $flutter_12.DiagnosticableNode _: return $flutter_12.ObjectFlagProperty<$flutter_12.DiagnosticableNode>.has(name, value, level: level);
+          case $flutter_12.DiagnosticableTreeNode _: return $flutter_12.ObjectFlagProperty<$flutter_12.DiagnosticableTreeNode>.has(name, value, level: level);
+          case $flutter_12.DiagnosticPropertiesBuilder _: return $flutter_12.ObjectFlagProperty<$flutter_12.DiagnosticPropertiesBuilder>.has(name, value, level: level);
+          case $flutter_12.Diagnosticable _: return $flutter_12.ObjectFlagProperty<$flutter_12.Diagnosticable>.has(name, value, level: level);
+          case $flutter_12.DiagnosticableTree _: return $flutter_12.ObjectFlagProperty<$flutter_12.DiagnosticableTree>.has(name, value, level: level);
+          case $flutter_12.DiagnosticableTreeMixin _: return $flutter_12.ObjectFlagProperty<$flutter_12.DiagnosticableTreeMixin>.has(name, value, level: level);
+          case $flutter_12.DiagnosticsBlock _: return $flutter_12.ObjectFlagProperty<$flutter_12.DiagnosticsBlock>.has(name, value, level: level);
+          case $flutter_12.DiagnosticsSerializationDelegate _: return $flutter_12.ObjectFlagProperty<$flutter_12.DiagnosticsSerializationDelegate>.has(name, value, level: level);
+          case $flutter_24.StackFrame _: return $flutter_12.ObjectFlagProperty<$flutter_24.StackFrame>.has(name, value, level: level);
+          case $flutter_2.PartialStackFrame _: return $flutter_12.ObjectFlagProperty<$flutter_2.PartialStackFrame>.has(name, value, level: level);
+          case $flutter_2.StackFilter _: return $flutter_12.ObjectFlagProperty<$flutter_2.StackFilter>.has(name, value, level: level);
+          case $flutter_2.RepetitiveStackFrameFilter _: return $flutter_12.ObjectFlagProperty<$flutter_2.RepetitiveStackFrameFilter>.has(name, value, level: level);
+          case $flutter_2.ErrorDescription _: return $flutter_12.ObjectFlagProperty<$flutter_2.ErrorDescription>.has(name, value, level: level);
+          case $flutter_2.ErrorSummary _: return $flutter_12.ObjectFlagProperty<$flutter_2.ErrorSummary>.has(name, value, level: level);
+          case $flutter_2.ErrorHint _: return $flutter_12.ObjectFlagProperty<$flutter_2.ErrorHint>.has(name, value, level: level);
+          case $flutter_2.ErrorSpacer _: return $flutter_12.ObjectFlagProperty<$flutter_2.ErrorSpacer>.has(name, value, level: level);
+          case $flutter_2.FlutterErrorDetails _: return $flutter_12.ObjectFlagProperty<$flutter_2.FlutterErrorDetails>.has(name, value, level: level);
+          case $flutter_2.FlutterError _: return $flutter_12.ObjectFlagProperty<$flutter_2.FlutterError>.has(name, value, level: level);
+          case $flutter_2.DiagnosticsStackTrace _: return $flutter_12.ObjectFlagProperty<$flutter_2.DiagnosticsStackTrace>.has(name, value, level: level);
+          case $flutter_4.BindingBase _: return $flutter_12.ObjectFlagProperty<$flutter_4.BindingBase>.has(name, value, level: level);
+          case $flutter_5.BitField _: return $flutter_12.ObjectFlagProperty<$flutter_5.BitField>.has(name, value, level: level);
+          case $flutter_7.Listenable _: return $flutter_12.ObjectFlagProperty<$flutter_7.Listenable>.has(name, value, level: level);
+          case $flutter_7.ValueListenable _: return $flutter_12.ObjectFlagProperty<$flutter_7.ValueListenable>.has(name, value, level: level);
+          case $flutter_7.ChangeNotifier _: return $flutter_12.ObjectFlagProperty<$flutter_7.ChangeNotifier>.has(name, value, level: level);
+          case $flutter_7.ValueNotifier _: return $flutter_12.ObjectFlagProperty<$flutter_7.ValueNotifier>.has(name, value, level: level);
+          case $flutter_14.Key _: return $flutter_12.ObjectFlagProperty<$flutter_14.Key>.has(name, value, level: level);
+          case $flutter_14.LocalKey _: return $flutter_12.ObjectFlagProperty<$flutter_14.LocalKey>.has(name, value, level: level);
+          case $flutter_14.UniqueKey _: return $flutter_12.ObjectFlagProperty<$flutter_14.UniqueKey>.has(name, value, level: level);
+          case $flutter_14.ValueKey _: return $flutter_12.ObjectFlagProperty<$flutter_14.ValueKey>.has(name, value, level: level);
+          case $flutter_15.LicenseParagraph _: return $flutter_12.ObjectFlagProperty<$flutter_15.LicenseParagraph>.has(name, value, level: level);
+          case $flutter_15.LicenseEntry _: return $flutter_12.ObjectFlagProperty<$flutter_15.LicenseEntry>.has(name, value, level: level);
+          case $flutter_15.LicenseEntryWithLineBreaks _: return $flutter_12.ObjectFlagProperty<$flutter_15.LicenseEntryWithLineBreaks>.has(name, value, level: level);
+          case $flutter_15.LicenseRegistry _: return $flutter_12.ObjectFlagProperty<$flutter_15.LicenseRegistry>.has(name, value, level: level);
+          case $flutter_16.ObjectEvent _: return $flutter_12.ObjectFlagProperty<$flutter_16.ObjectEvent>.has(name, value, level: level);
+          case $flutter_16.ObjectCreated _: return $flutter_12.ObjectFlagProperty<$flutter_16.ObjectCreated>.has(name, value, level: level);
+          case $flutter_16.ObjectDisposed _: return $flutter_12.ObjectFlagProperty<$flutter_16.ObjectDisposed>.has(name, value, level: level);
+          case $flutter_16.FlutterMemoryAllocations _: return $flutter_12.ObjectFlagProperty<$flutter_16.FlutterMemoryAllocations>.has(name, value, level: level);
+          case $flutter_18.ObserverList _: return $flutter_12.ObjectFlagProperty<$flutter_18.ObserverList>.has(name, value, level: level);
+          case $flutter_18.HashedObserverList _: return $flutter_12.ObjectFlagProperty<$flutter_18.HashedObserverList>.has(name, value, level: level);
+          case $flutter_19.PersistentHashMap _: return $flutter_12.ObjectFlagProperty<$flutter_19.PersistentHashMap>.has(name, value, level: level);
+          case $flutter_22.WriteBuffer _: return $flutter_12.ObjectFlagProperty<$flutter_22.WriteBuffer>.has(name, value, level: level);
+          case $flutter_22.ReadBuffer _: return $flutter_12.ObjectFlagProperty<$flutter_22.ReadBuffer>.has(name, value, level: level);
+          case $flutter_25.SynchronousFuture _: return $flutter_12.ObjectFlagProperty<$flutter_25.SynchronousFuture>.has(name, value, level: level);
+          case $flutter_26.FlutterTimeline _: return $flutter_12.ObjectFlagProperty<$flutter_26.FlutterTimeline>.has(name, value, level: level);
+          case $flutter_26.TimedBlock _: return $flutter_12.ObjectFlagProperty<$flutter_26.TimedBlock>.has(name, value, level: level);
+          case $flutter_26.AggregatedTimings _: return $flutter_12.ObjectFlagProperty<$flutter_26.AggregatedTimings>.has(name, value, level: level);
+          case $flutter_26.AggregatedTimedBlock _: return $flutter_12.ObjectFlagProperty<$flutter_26.AggregatedTimedBlock>.has(name, value, level: level);
+          case $flutter_27.Unicode _: return $flutter_12.ObjectFlagProperty<$flutter_27.Unicode>.has(name, value, level: level);
+          case $meta_1.Immutable _: return $flutter_12.ObjectFlagProperty<$meta_1.Immutable>.has(name, value, level: level);
           default: return $flutter_12.ObjectFlagProperty.has(name, value, level: level);
         }
       },
@@ -2996,11 +3130,11 @@ BridgedClass _createDiagnosticsPropertyBridge() {
         final style = D4.getNamedArgWithDefault<$flutter_12.DiagnosticsTreeStyle>(named, 'style', $flutter_12.DiagnosticsTreeStyle.singleLine);
         final level = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'level', $flutter_12.DiagnosticLevel.info);
         if (!named.containsKey('defaultValue')) {
-          return $flutter_12.DiagnosticsProperty.lazy(name, () { return D4.callInterpreterCallback(visitor!, computeValueRaw, []) as dynamic; }, description: description, ifNull: ifNull, ifEmpty: ifEmpty, showName: showName, showSeparator: showSeparator, tooltip: tooltip, missingIfNull: missingIfNull, expandableValue: expandableValue, allowWrap: allowWrap, allowNameWrap: allowNameWrap, style: style, level: level);
+          return $flutter_12.DiagnosticsProperty.lazy(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, computeValueRaw, [])); }, description: description, ifNull: ifNull, ifEmpty: ifEmpty, showName: showName, showSeparator: showSeparator, tooltip: tooltip, missingIfNull: missingIfNull, expandableValue: expandableValue, allowWrap: allowWrap, allowNameWrap: allowNameWrap, style: style, level: level);
         }
         if (named.containsKey('defaultValue')) {
           final defaultValue = D4.getRequiredNamedArg<Object?>(named, 'defaultValue', 'DiagnosticsProperty');
-          return $flutter_12.DiagnosticsProperty.lazy(name, () { return D4.callInterpreterCallback(visitor!, computeValueRaw, []) as dynamic; }, description: description, ifNull: ifNull, ifEmpty: ifEmpty, showName: showName, showSeparator: showSeparator, tooltip: tooltip, missingIfNull: missingIfNull, expandableValue: expandableValue, allowWrap: allowWrap, allowNameWrap: allowNameWrap, style: style, level: level, defaultValue: defaultValue);
+          return $flutter_12.DiagnosticsProperty.lazy(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, computeValueRaw, [])); }, description: description, ifNull: ifNull, ifEmpty: ifEmpty, showName: showName, showSeparator: showSeparator, tooltip: tooltip, missingIfNull: missingIfNull, expandableValue: expandableValue, allowWrap: allowWrap, allowNameWrap: allowNameWrap, style: style, level: level, defaultValue: defaultValue);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -3731,9 +3865,23 @@ BridgedClass _createDiagnosticsSerializationDelegateBridge() {
     isAssignable: (v) => v is $flutter_12.DiagnosticsSerializationDelegate,
     constructors: {
       '': (visitor, positional, named) {
-        final subtreeDepth = D4.getRequiredNamedArgTodoDefault<int>(named, 'subtreeDepth', 'DiagnosticsSerializationDelegate', '<default unavailable>');
-        final includeProperties = D4.getRequiredNamedArgTodoDefault<bool>(named, 'includeProperties', 'DiagnosticsSerializationDelegate', '<default unavailable>');
-        return $flutter_12.DiagnosticsSerializationDelegate(subtreeDepth: subtreeDepth, includeProperties: includeProperties);
+        if (!named.containsKey('subtreeDepth') && !named.containsKey('includeProperties')) {
+          return $flutter_12.DiagnosticsSerializationDelegate();
+        }
+        if (named.containsKey('subtreeDepth') && !named.containsKey('includeProperties')) {
+          final subtreeDepth = D4.getRequiredNamedArg<int>(named, 'subtreeDepth', 'DiagnosticsSerializationDelegate');
+          return $flutter_12.DiagnosticsSerializationDelegate(subtreeDepth: subtreeDepth);
+        }
+        if (!named.containsKey('subtreeDepth') && named.containsKey('includeProperties')) {
+          final includeProperties = D4.getRequiredNamedArg<bool>(named, 'includeProperties', 'DiagnosticsSerializationDelegate');
+          return $flutter_12.DiagnosticsSerializationDelegate(includeProperties: includeProperties);
+        }
+        if (named.containsKey('subtreeDepth') && named.containsKey('includeProperties')) {
+          final subtreeDepth = D4.getRequiredNamedArg<int>(named, 'subtreeDepth', 'DiagnosticsSerializationDelegate');
+          final includeProperties = D4.getRequiredNamedArg<bool>(named, 'includeProperties', 'DiagnosticsSerializationDelegate');
+          return $flutter_12.DiagnosticsSerializationDelegate(subtreeDepth: subtreeDepth, includeProperties: includeProperties);
+        }
+        throw StateError('Unreachable: all named parameter combinations should be covered');
       },
     },
     getters: {
@@ -3787,9 +3935,23 @@ BridgedClass _createDiagnosticsSerializationDelegateBridge() {
       },
       'copyWith': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_12.DiagnosticsSerializationDelegate>(target, 'DiagnosticsSerializationDelegate');
-        final subtreeDepth = D4.getRequiredNamedArgTodoDefault<int>(named, 'subtreeDepth', 'copyWith', '<default unavailable>');
-        final includeProperties = D4.getRequiredNamedArgTodoDefault<bool>(named, 'includeProperties', 'copyWith', '<default unavailable>');
-        return t.copyWith(subtreeDepth: subtreeDepth, includeProperties: includeProperties);
+        if (!named.containsKey('subtreeDepth') && !named.containsKey('includeProperties')) {
+          return t.copyWith();
+        }
+        if (named.containsKey('subtreeDepth') && !named.containsKey('includeProperties')) {
+          final subtreeDepth = D4.getRequiredNamedArg<int>(named, 'subtreeDepth', 'copyWith');
+          return t.copyWith(subtreeDepth: subtreeDepth);
+        }
+        if (!named.containsKey('subtreeDepth') && named.containsKey('includeProperties')) {
+          final includeProperties = D4.getRequiredNamedArg<bool>(named, 'includeProperties', 'copyWith');
+          return t.copyWith(includeProperties: includeProperties);
+        }
+        if (named.containsKey('subtreeDepth') && named.containsKey('includeProperties')) {
+          final subtreeDepth = D4.getRequiredNamedArg<int>(named, 'subtreeDepth', 'copyWith');
+          final includeProperties = D4.getRequiredNamedArg<bool>(named, 'includeProperties', 'copyWith');
+          return t.copyWith(subtreeDepth: subtreeDepth, includeProperties: includeProperties);
+        }
+        throw StateError('Unreachable: all named parameter combinations should be covered');
       },
     },
     constructorSignatures: {
@@ -4801,12 +4963,18 @@ BridgedClass _createFlutterErrorBridge() {
       },
     },
     staticSetters: {
-      'onError': (visitor, value) => 
-        $flutter_2.FlutterError.onError = D4.extractBridgedArgOrNull<$flutter_2.FlutterExceptionHandler>(value, 'onError'),
-      'demangleStackTrace': (visitor, value) => 
-        $flutter_2.FlutterError.demangleStackTrace = D4.extractBridgedArg<$flutter_2.StackTraceDemangler>(value, 'demangleStackTrace'),
-      'presentError': (visitor, value) => 
-        $flutter_2.FlutterError.presentError = D4.extractBridgedArg<$flutter_2.FlutterExceptionHandler>(value, 'presentError'),
+      'onError': (visitor, value) {
+        final onErrorRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onError');
+        $flutter_2.FlutterError.onError = onErrorRaw == null ? null : ($flutter_2.FlutterErrorDetails p0) { D4.callInterpreterCallback(visitor!, onErrorRaw, [p0]); };
+      },
+      'demangleStackTrace': (visitor, value) {
+        final demangleStackTraceRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'demangleStackTrace');
+        $flutter_2.FlutterError.demangleStackTrace = (StackTrace p0) { return D4.callInterpreterCallback(visitor!, demangleStackTraceRaw, [p0]) as StackTrace; };
+      },
+      'presentError': (visitor, value) {
+        final presentErrorRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'presentError');
+        $flutter_2.FlutterError.presentError = ($flutter_2.FlutterErrorDetails p0) { D4.callInterpreterCallback(visitor!, presentErrorRaw, [p0]); };
+      },
     },
     constructorSignatures: {
       '': 'factory FlutterError(String message)',
@@ -5397,6 +5565,73 @@ BridgedClass _createValueNotifierBridge() {
           case int _: return $flutter_7.ValueNotifier<int>(value);
           case String _: return $flutter_7.ValueNotifier<String>(value);
           case bool _: return $flutter_7.ValueNotifier<bool>(value);
+          case $flutter_1.Category _: return $flutter_7.ValueNotifier<$flutter_1.Category>(value);
+          case $flutter_1.DocumentationIcon _: return $flutter_7.ValueNotifier<$flutter_1.DocumentationIcon>(value);
+          case $flutter_1.Summary _: return $flutter_7.ValueNotifier<$flutter_1.Summary>(value);
+          case $flutter_3.CachingIterable _: return $flutter_7.ValueNotifier<$flutter_3.CachingIterable>(value);
+          case $flutter_3.Factory _: return $flutter_7.ValueNotifier<$flutter_3.Factory>(value);
+          case $flutter_12.TextTreeConfiguration _: return $flutter_7.ValueNotifier<$flutter_12.TextTreeConfiguration>(value);
+          case $flutter_12.TextTreeRenderer _: return $flutter_7.ValueNotifier<$flutter_12.TextTreeRenderer>(value);
+          case $flutter_12.DiagnosticsNode _: return $flutter_7.ValueNotifier<$flutter_12.DiagnosticsNode>(value);
+          case $flutter_12.MessageProperty _: return $flutter_7.ValueNotifier<$flutter_12.MessageProperty>(value);
+          case $flutter_12.StringProperty _: return $flutter_7.ValueNotifier<$flutter_12.StringProperty>(value);
+          case $flutter_12.DoubleProperty _: return $flutter_7.ValueNotifier<$flutter_12.DoubleProperty>(value);
+          case $flutter_12.IntProperty _: return $flutter_7.ValueNotifier<$flutter_12.IntProperty>(value);
+          case $flutter_12.PercentProperty _: return $flutter_7.ValueNotifier<$flutter_12.PercentProperty>(value);
+          case $flutter_12.FlagProperty _: return $flutter_7.ValueNotifier<$flutter_12.FlagProperty>(value);
+          case $flutter_12.IterableProperty _: return $flutter_7.ValueNotifier<$flutter_12.IterableProperty>(value);
+          case $flutter_12.EnumProperty _: return $flutter_7.ValueNotifier<$flutter_12.EnumProperty>(value);
+          case $flutter_12.ObjectFlagProperty _: return $flutter_7.ValueNotifier<$flutter_12.ObjectFlagProperty>(value);
+          case $flutter_12.FlagsSummary _: return $flutter_7.ValueNotifier<$flutter_12.FlagsSummary>(value);
+          case $flutter_12.DiagnosticsProperty _: return $flutter_7.ValueNotifier<$flutter_12.DiagnosticsProperty>(value);
+          case $flutter_12.DiagnosticableNode _: return $flutter_7.ValueNotifier<$flutter_12.DiagnosticableNode>(value);
+          case $flutter_12.DiagnosticableTreeNode _: return $flutter_7.ValueNotifier<$flutter_12.DiagnosticableTreeNode>(value);
+          case $flutter_12.DiagnosticPropertiesBuilder _: return $flutter_7.ValueNotifier<$flutter_12.DiagnosticPropertiesBuilder>(value);
+          case $flutter_12.Diagnosticable _: return $flutter_7.ValueNotifier<$flutter_12.Diagnosticable>(value);
+          case $flutter_12.DiagnosticableTree _: return $flutter_7.ValueNotifier<$flutter_12.DiagnosticableTree>(value);
+          case $flutter_12.DiagnosticableTreeMixin _: return $flutter_7.ValueNotifier<$flutter_12.DiagnosticableTreeMixin>(value);
+          case $flutter_12.DiagnosticsBlock _: return $flutter_7.ValueNotifier<$flutter_12.DiagnosticsBlock>(value);
+          case $flutter_12.DiagnosticsSerializationDelegate _: return $flutter_7.ValueNotifier<$flutter_12.DiagnosticsSerializationDelegate>(value);
+          case $flutter_24.StackFrame _: return $flutter_7.ValueNotifier<$flutter_24.StackFrame>(value);
+          case $flutter_2.PartialStackFrame _: return $flutter_7.ValueNotifier<$flutter_2.PartialStackFrame>(value);
+          case $flutter_2.StackFilter _: return $flutter_7.ValueNotifier<$flutter_2.StackFilter>(value);
+          case $flutter_2.RepetitiveStackFrameFilter _: return $flutter_7.ValueNotifier<$flutter_2.RepetitiveStackFrameFilter>(value);
+          case $flutter_2.ErrorDescription _: return $flutter_7.ValueNotifier<$flutter_2.ErrorDescription>(value);
+          case $flutter_2.ErrorSummary _: return $flutter_7.ValueNotifier<$flutter_2.ErrorSummary>(value);
+          case $flutter_2.ErrorHint _: return $flutter_7.ValueNotifier<$flutter_2.ErrorHint>(value);
+          case $flutter_2.ErrorSpacer _: return $flutter_7.ValueNotifier<$flutter_2.ErrorSpacer>(value);
+          case $flutter_2.FlutterErrorDetails _: return $flutter_7.ValueNotifier<$flutter_2.FlutterErrorDetails>(value);
+          case $flutter_2.FlutterError _: return $flutter_7.ValueNotifier<$flutter_2.FlutterError>(value);
+          case $flutter_2.DiagnosticsStackTrace _: return $flutter_7.ValueNotifier<$flutter_2.DiagnosticsStackTrace>(value);
+          case $flutter_4.BindingBase _: return $flutter_7.ValueNotifier<$flutter_4.BindingBase>(value);
+          case $flutter_5.BitField _: return $flutter_7.ValueNotifier<$flutter_5.BitField>(value);
+          case $flutter_7.Listenable _: return $flutter_7.ValueNotifier<$flutter_7.Listenable>(value);
+          case $flutter_7.ValueListenable _: return $flutter_7.ValueNotifier<$flutter_7.ValueListenable>(value);
+          case $flutter_7.ChangeNotifier _: return $flutter_7.ValueNotifier<$flutter_7.ChangeNotifier>(value);
+          case $flutter_14.Key _: return $flutter_7.ValueNotifier<$flutter_14.Key>(value);
+          case $flutter_14.LocalKey _: return $flutter_7.ValueNotifier<$flutter_14.LocalKey>(value);
+          case $flutter_14.UniqueKey _: return $flutter_7.ValueNotifier<$flutter_14.UniqueKey>(value);
+          case $flutter_14.ValueKey _: return $flutter_7.ValueNotifier<$flutter_14.ValueKey>(value);
+          case $flutter_15.LicenseParagraph _: return $flutter_7.ValueNotifier<$flutter_15.LicenseParagraph>(value);
+          case $flutter_15.LicenseEntry _: return $flutter_7.ValueNotifier<$flutter_15.LicenseEntry>(value);
+          case $flutter_15.LicenseEntryWithLineBreaks _: return $flutter_7.ValueNotifier<$flutter_15.LicenseEntryWithLineBreaks>(value);
+          case $flutter_15.LicenseRegistry _: return $flutter_7.ValueNotifier<$flutter_15.LicenseRegistry>(value);
+          case $flutter_16.ObjectEvent _: return $flutter_7.ValueNotifier<$flutter_16.ObjectEvent>(value);
+          case $flutter_16.ObjectCreated _: return $flutter_7.ValueNotifier<$flutter_16.ObjectCreated>(value);
+          case $flutter_16.ObjectDisposed _: return $flutter_7.ValueNotifier<$flutter_16.ObjectDisposed>(value);
+          case $flutter_16.FlutterMemoryAllocations _: return $flutter_7.ValueNotifier<$flutter_16.FlutterMemoryAllocations>(value);
+          case $flutter_18.ObserverList _: return $flutter_7.ValueNotifier<$flutter_18.ObserverList>(value);
+          case $flutter_18.HashedObserverList _: return $flutter_7.ValueNotifier<$flutter_18.HashedObserverList>(value);
+          case $flutter_19.PersistentHashMap _: return $flutter_7.ValueNotifier<$flutter_19.PersistentHashMap>(value);
+          case $flutter_22.WriteBuffer _: return $flutter_7.ValueNotifier<$flutter_22.WriteBuffer>(value);
+          case $flutter_22.ReadBuffer _: return $flutter_7.ValueNotifier<$flutter_22.ReadBuffer>(value);
+          case $flutter_25.SynchronousFuture _: return $flutter_7.ValueNotifier<$flutter_25.SynchronousFuture>(value);
+          case $flutter_26.FlutterTimeline _: return $flutter_7.ValueNotifier<$flutter_26.FlutterTimeline>(value);
+          case $flutter_26.TimedBlock _: return $flutter_7.ValueNotifier<$flutter_26.TimedBlock>(value);
+          case $flutter_26.AggregatedTimings _: return $flutter_7.ValueNotifier<$flutter_26.AggregatedTimings>(value);
+          case $flutter_26.AggregatedTimedBlock _: return $flutter_7.ValueNotifier<$flutter_26.AggregatedTimedBlock>(value);
+          case $flutter_27.Unicode _: return $flutter_7.ValueNotifier<$flutter_27.Unicode>(value);
+          case $meta_1.Immutable _: return $flutter_7.ValueNotifier<$meta_1.Immutable>(value);
           default: return $flutter_7.ValueNotifier(value);
         }
       },
@@ -5543,6 +5778,73 @@ BridgedClass _createValueKeyBridge() {
           case int _: return $flutter_14.ValueKey<int>(value);
           case String _: return $flutter_14.ValueKey<String>(value);
           case bool _: return $flutter_14.ValueKey<bool>(value);
+          case $flutter_1.Category _: return $flutter_14.ValueKey<$flutter_1.Category>(value);
+          case $flutter_1.DocumentationIcon _: return $flutter_14.ValueKey<$flutter_1.DocumentationIcon>(value);
+          case $flutter_1.Summary _: return $flutter_14.ValueKey<$flutter_1.Summary>(value);
+          case $flutter_3.CachingIterable _: return $flutter_14.ValueKey<$flutter_3.CachingIterable>(value);
+          case $flutter_3.Factory _: return $flutter_14.ValueKey<$flutter_3.Factory>(value);
+          case $flutter_12.TextTreeConfiguration _: return $flutter_14.ValueKey<$flutter_12.TextTreeConfiguration>(value);
+          case $flutter_12.TextTreeRenderer _: return $flutter_14.ValueKey<$flutter_12.TextTreeRenderer>(value);
+          case $flutter_12.DiagnosticsNode _: return $flutter_14.ValueKey<$flutter_12.DiagnosticsNode>(value);
+          case $flutter_12.MessageProperty _: return $flutter_14.ValueKey<$flutter_12.MessageProperty>(value);
+          case $flutter_12.StringProperty _: return $flutter_14.ValueKey<$flutter_12.StringProperty>(value);
+          case $flutter_12.DoubleProperty _: return $flutter_14.ValueKey<$flutter_12.DoubleProperty>(value);
+          case $flutter_12.IntProperty _: return $flutter_14.ValueKey<$flutter_12.IntProperty>(value);
+          case $flutter_12.PercentProperty _: return $flutter_14.ValueKey<$flutter_12.PercentProperty>(value);
+          case $flutter_12.FlagProperty _: return $flutter_14.ValueKey<$flutter_12.FlagProperty>(value);
+          case $flutter_12.IterableProperty _: return $flutter_14.ValueKey<$flutter_12.IterableProperty>(value);
+          case $flutter_12.EnumProperty _: return $flutter_14.ValueKey<$flutter_12.EnumProperty>(value);
+          case $flutter_12.ObjectFlagProperty _: return $flutter_14.ValueKey<$flutter_12.ObjectFlagProperty>(value);
+          case $flutter_12.FlagsSummary _: return $flutter_14.ValueKey<$flutter_12.FlagsSummary>(value);
+          case $flutter_12.DiagnosticsProperty _: return $flutter_14.ValueKey<$flutter_12.DiagnosticsProperty>(value);
+          case $flutter_12.DiagnosticableNode _: return $flutter_14.ValueKey<$flutter_12.DiagnosticableNode>(value);
+          case $flutter_12.DiagnosticableTreeNode _: return $flutter_14.ValueKey<$flutter_12.DiagnosticableTreeNode>(value);
+          case $flutter_12.DiagnosticPropertiesBuilder _: return $flutter_14.ValueKey<$flutter_12.DiagnosticPropertiesBuilder>(value);
+          case $flutter_12.Diagnosticable _: return $flutter_14.ValueKey<$flutter_12.Diagnosticable>(value);
+          case $flutter_12.DiagnosticableTree _: return $flutter_14.ValueKey<$flutter_12.DiagnosticableTree>(value);
+          case $flutter_12.DiagnosticableTreeMixin _: return $flutter_14.ValueKey<$flutter_12.DiagnosticableTreeMixin>(value);
+          case $flutter_12.DiagnosticsBlock _: return $flutter_14.ValueKey<$flutter_12.DiagnosticsBlock>(value);
+          case $flutter_12.DiagnosticsSerializationDelegate _: return $flutter_14.ValueKey<$flutter_12.DiagnosticsSerializationDelegate>(value);
+          case $flutter_24.StackFrame _: return $flutter_14.ValueKey<$flutter_24.StackFrame>(value);
+          case $flutter_2.PartialStackFrame _: return $flutter_14.ValueKey<$flutter_2.PartialStackFrame>(value);
+          case $flutter_2.StackFilter _: return $flutter_14.ValueKey<$flutter_2.StackFilter>(value);
+          case $flutter_2.RepetitiveStackFrameFilter _: return $flutter_14.ValueKey<$flutter_2.RepetitiveStackFrameFilter>(value);
+          case $flutter_2.ErrorDescription _: return $flutter_14.ValueKey<$flutter_2.ErrorDescription>(value);
+          case $flutter_2.ErrorSummary _: return $flutter_14.ValueKey<$flutter_2.ErrorSummary>(value);
+          case $flutter_2.ErrorHint _: return $flutter_14.ValueKey<$flutter_2.ErrorHint>(value);
+          case $flutter_2.ErrorSpacer _: return $flutter_14.ValueKey<$flutter_2.ErrorSpacer>(value);
+          case $flutter_2.FlutterErrorDetails _: return $flutter_14.ValueKey<$flutter_2.FlutterErrorDetails>(value);
+          case $flutter_2.FlutterError _: return $flutter_14.ValueKey<$flutter_2.FlutterError>(value);
+          case $flutter_2.DiagnosticsStackTrace _: return $flutter_14.ValueKey<$flutter_2.DiagnosticsStackTrace>(value);
+          case $flutter_4.BindingBase _: return $flutter_14.ValueKey<$flutter_4.BindingBase>(value);
+          case $flutter_5.BitField _: return $flutter_14.ValueKey<$flutter_5.BitField>(value);
+          case $flutter_7.Listenable _: return $flutter_14.ValueKey<$flutter_7.Listenable>(value);
+          case $flutter_7.ValueListenable _: return $flutter_14.ValueKey<$flutter_7.ValueListenable>(value);
+          case $flutter_7.ChangeNotifier _: return $flutter_14.ValueKey<$flutter_7.ChangeNotifier>(value);
+          case $flutter_7.ValueNotifier _: return $flutter_14.ValueKey<$flutter_7.ValueNotifier>(value);
+          case $flutter_14.Key _: return $flutter_14.ValueKey<$flutter_14.Key>(value);
+          case $flutter_14.LocalKey _: return $flutter_14.ValueKey<$flutter_14.LocalKey>(value);
+          case $flutter_14.UniqueKey _: return $flutter_14.ValueKey<$flutter_14.UniqueKey>(value);
+          case $flutter_15.LicenseParagraph _: return $flutter_14.ValueKey<$flutter_15.LicenseParagraph>(value);
+          case $flutter_15.LicenseEntry _: return $flutter_14.ValueKey<$flutter_15.LicenseEntry>(value);
+          case $flutter_15.LicenseEntryWithLineBreaks _: return $flutter_14.ValueKey<$flutter_15.LicenseEntryWithLineBreaks>(value);
+          case $flutter_15.LicenseRegistry _: return $flutter_14.ValueKey<$flutter_15.LicenseRegistry>(value);
+          case $flutter_16.ObjectEvent _: return $flutter_14.ValueKey<$flutter_16.ObjectEvent>(value);
+          case $flutter_16.ObjectCreated _: return $flutter_14.ValueKey<$flutter_16.ObjectCreated>(value);
+          case $flutter_16.ObjectDisposed _: return $flutter_14.ValueKey<$flutter_16.ObjectDisposed>(value);
+          case $flutter_16.FlutterMemoryAllocations _: return $flutter_14.ValueKey<$flutter_16.FlutterMemoryAllocations>(value);
+          case $flutter_18.ObserverList _: return $flutter_14.ValueKey<$flutter_18.ObserverList>(value);
+          case $flutter_18.HashedObserverList _: return $flutter_14.ValueKey<$flutter_18.HashedObserverList>(value);
+          case $flutter_19.PersistentHashMap _: return $flutter_14.ValueKey<$flutter_19.PersistentHashMap>(value);
+          case $flutter_22.WriteBuffer _: return $flutter_14.ValueKey<$flutter_22.WriteBuffer>(value);
+          case $flutter_22.ReadBuffer _: return $flutter_14.ValueKey<$flutter_22.ReadBuffer>(value);
+          case $flutter_25.SynchronousFuture _: return $flutter_14.ValueKey<$flutter_25.SynchronousFuture>(value);
+          case $flutter_26.FlutterTimeline _: return $flutter_14.ValueKey<$flutter_26.FlutterTimeline>(value);
+          case $flutter_26.TimedBlock _: return $flutter_14.ValueKey<$flutter_26.TimedBlock>(value);
+          case $flutter_26.AggregatedTimings _: return $flutter_14.ValueKey<$flutter_26.AggregatedTimings>(value);
+          case $flutter_26.AggregatedTimedBlock _: return $flutter_14.ValueKey<$flutter_26.AggregatedTimedBlock>(value);
+          case $flutter_27.Unicode _: return $flutter_14.ValueKey<$flutter_27.Unicode>(value);
+          case $meta_1.Immutable _: return $flutter_14.ValueKey<$meta_1.Immutable>(value);
           default: return $flutter_14.ValueKey(value);
         }
       },
@@ -5960,7 +6262,7 @@ BridgedClass _createObserverListBridge() {
           throw ArgumentError('map: Missing required argument "toElement" at position 0');
         }
         final toElementRaw = positional[0];
-        return t.map((dynamic p0) { return D4.callInterpreterCallback(visitor!, toElementRaw, [p0]) as dynamic; });
+        return t.map((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, toElementRaw, [p0])); });
       },
       'where': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
@@ -6001,7 +6303,7 @@ BridgedClass _createObserverListBridge() {
           throw ArgumentError('reduce: Missing required argument "combine" at position 0');
         }
         final combineRaw = positional[0];
-        return t.reduce((dynamic p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1]) as dynamic; });
+        return t.reduce((dynamic p0, dynamic p1) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1])); });
       },
       'fold': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
@@ -6011,7 +6313,7 @@ BridgedClass _createObserverListBridge() {
           throw ArgumentError('fold: Missing required argument "combine" at position 1');
         }
         final combineRaw = positional[1];
-        return t.fold(initialValue, (dynamic p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1]) as dynamic; });
+        return t.fold(initialValue, (dynamic p0, dynamic p1) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1])); });
       },
       'every': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
@@ -6078,7 +6380,7 @@ BridgedClass _createObserverListBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.firstWhere((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, orElseRaw, []) as dynamic; });
+        return t.firstWhere((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, orElseRaw, [])); });
       },
       'lastWhere': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
@@ -6088,7 +6390,7 @@ BridgedClass _createObserverListBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.lastWhere((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, orElseRaw, []) as dynamic; });
+        return t.lastWhere((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, orElseRaw, [])); });
       },
       'singleWhere': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
@@ -6098,7 +6400,7 @@ BridgedClass _createObserverListBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.singleWhere((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, orElseRaw, []) as dynamic; });
+        return t.singleWhere((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, orElseRaw, [])); });
       },
       'elementAt': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
@@ -6228,7 +6530,7 @@ BridgedClass _createHashedObserverListBridge() {
           throw ArgumentError('map: Missing required argument "toElement" at position 0');
         }
         final toElementRaw = positional[0];
-        return t.map((dynamic p0) { return D4.callInterpreterCallback(visitor!, toElementRaw, [p0]) as dynamic; });
+        return t.map((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, toElementRaw, [p0])); });
       },
       'where': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
@@ -6269,7 +6571,7 @@ BridgedClass _createHashedObserverListBridge() {
           throw ArgumentError('reduce: Missing required argument "combine" at position 0');
         }
         final combineRaw = positional[0];
-        return t.reduce((dynamic p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1]) as dynamic; });
+        return t.reduce((dynamic p0, dynamic p1) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1])); });
       },
       'fold': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
@@ -6279,7 +6581,7 @@ BridgedClass _createHashedObserverListBridge() {
           throw ArgumentError('fold: Missing required argument "combine" at position 1');
         }
         final combineRaw = positional[1];
-        return t.fold(initialValue, (dynamic p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1]) as dynamic; });
+        return t.fold(initialValue, (dynamic p0, dynamic p1) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1])); });
       },
       'every': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
@@ -6346,7 +6648,7 @@ BridgedClass _createHashedObserverListBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.firstWhere((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, orElseRaw, []) as dynamic; });
+        return t.firstWhere((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, orElseRaw, [])); });
       },
       'lastWhere': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
@@ -6356,7 +6658,7 @@ BridgedClass _createHashedObserverListBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.lastWhere((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, orElseRaw, []) as dynamic; });
+        return t.lastWhere((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, orElseRaw, [])); });
       },
       'singleWhere': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
@@ -6366,7 +6668,7 @@ BridgedClass _createHashedObserverListBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.singleWhere((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, orElseRaw, []) as dynamic; });
+        return t.singleWhere((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, orElseRaw, [])); });
       },
       'elementAt': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
@@ -6706,6 +7008,73 @@ BridgedClass _createSynchronousFutureBridge() {
           case int _: return $flutter_25.SynchronousFuture<int>(value);
           case String _: return $flutter_25.SynchronousFuture<String>(value);
           case bool _: return $flutter_25.SynchronousFuture<bool>(value);
+          case $flutter_1.Category _: return $flutter_25.SynchronousFuture<$flutter_1.Category>(value);
+          case $flutter_1.DocumentationIcon _: return $flutter_25.SynchronousFuture<$flutter_1.DocumentationIcon>(value);
+          case $flutter_1.Summary _: return $flutter_25.SynchronousFuture<$flutter_1.Summary>(value);
+          case $flutter_3.CachingIterable _: return $flutter_25.SynchronousFuture<$flutter_3.CachingIterable>(value);
+          case $flutter_3.Factory _: return $flutter_25.SynchronousFuture<$flutter_3.Factory>(value);
+          case $flutter_12.TextTreeConfiguration _: return $flutter_25.SynchronousFuture<$flutter_12.TextTreeConfiguration>(value);
+          case $flutter_12.TextTreeRenderer _: return $flutter_25.SynchronousFuture<$flutter_12.TextTreeRenderer>(value);
+          case $flutter_12.DiagnosticsNode _: return $flutter_25.SynchronousFuture<$flutter_12.DiagnosticsNode>(value);
+          case $flutter_12.MessageProperty _: return $flutter_25.SynchronousFuture<$flutter_12.MessageProperty>(value);
+          case $flutter_12.StringProperty _: return $flutter_25.SynchronousFuture<$flutter_12.StringProperty>(value);
+          case $flutter_12.DoubleProperty _: return $flutter_25.SynchronousFuture<$flutter_12.DoubleProperty>(value);
+          case $flutter_12.IntProperty _: return $flutter_25.SynchronousFuture<$flutter_12.IntProperty>(value);
+          case $flutter_12.PercentProperty _: return $flutter_25.SynchronousFuture<$flutter_12.PercentProperty>(value);
+          case $flutter_12.FlagProperty _: return $flutter_25.SynchronousFuture<$flutter_12.FlagProperty>(value);
+          case $flutter_12.IterableProperty _: return $flutter_25.SynchronousFuture<$flutter_12.IterableProperty>(value);
+          case $flutter_12.EnumProperty _: return $flutter_25.SynchronousFuture<$flutter_12.EnumProperty>(value);
+          case $flutter_12.ObjectFlagProperty _: return $flutter_25.SynchronousFuture<$flutter_12.ObjectFlagProperty>(value);
+          case $flutter_12.FlagsSummary _: return $flutter_25.SynchronousFuture<$flutter_12.FlagsSummary>(value);
+          case $flutter_12.DiagnosticsProperty _: return $flutter_25.SynchronousFuture<$flutter_12.DiagnosticsProperty>(value);
+          case $flutter_12.DiagnosticableNode _: return $flutter_25.SynchronousFuture<$flutter_12.DiagnosticableNode>(value);
+          case $flutter_12.DiagnosticableTreeNode _: return $flutter_25.SynchronousFuture<$flutter_12.DiagnosticableTreeNode>(value);
+          case $flutter_12.DiagnosticPropertiesBuilder _: return $flutter_25.SynchronousFuture<$flutter_12.DiagnosticPropertiesBuilder>(value);
+          case $flutter_12.Diagnosticable _: return $flutter_25.SynchronousFuture<$flutter_12.Diagnosticable>(value);
+          case $flutter_12.DiagnosticableTree _: return $flutter_25.SynchronousFuture<$flutter_12.DiagnosticableTree>(value);
+          case $flutter_12.DiagnosticableTreeMixin _: return $flutter_25.SynchronousFuture<$flutter_12.DiagnosticableTreeMixin>(value);
+          case $flutter_12.DiagnosticsBlock _: return $flutter_25.SynchronousFuture<$flutter_12.DiagnosticsBlock>(value);
+          case $flutter_12.DiagnosticsSerializationDelegate _: return $flutter_25.SynchronousFuture<$flutter_12.DiagnosticsSerializationDelegate>(value);
+          case $flutter_24.StackFrame _: return $flutter_25.SynchronousFuture<$flutter_24.StackFrame>(value);
+          case $flutter_2.PartialStackFrame _: return $flutter_25.SynchronousFuture<$flutter_2.PartialStackFrame>(value);
+          case $flutter_2.StackFilter _: return $flutter_25.SynchronousFuture<$flutter_2.StackFilter>(value);
+          case $flutter_2.RepetitiveStackFrameFilter _: return $flutter_25.SynchronousFuture<$flutter_2.RepetitiveStackFrameFilter>(value);
+          case $flutter_2.ErrorDescription _: return $flutter_25.SynchronousFuture<$flutter_2.ErrorDescription>(value);
+          case $flutter_2.ErrorSummary _: return $flutter_25.SynchronousFuture<$flutter_2.ErrorSummary>(value);
+          case $flutter_2.ErrorHint _: return $flutter_25.SynchronousFuture<$flutter_2.ErrorHint>(value);
+          case $flutter_2.ErrorSpacer _: return $flutter_25.SynchronousFuture<$flutter_2.ErrorSpacer>(value);
+          case $flutter_2.FlutterErrorDetails _: return $flutter_25.SynchronousFuture<$flutter_2.FlutterErrorDetails>(value);
+          case $flutter_2.FlutterError _: return $flutter_25.SynchronousFuture<$flutter_2.FlutterError>(value);
+          case $flutter_2.DiagnosticsStackTrace _: return $flutter_25.SynchronousFuture<$flutter_2.DiagnosticsStackTrace>(value);
+          case $flutter_4.BindingBase _: return $flutter_25.SynchronousFuture<$flutter_4.BindingBase>(value);
+          case $flutter_5.BitField _: return $flutter_25.SynchronousFuture<$flutter_5.BitField>(value);
+          case $flutter_7.Listenable _: return $flutter_25.SynchronousFuture<$flutter_7.Listenable>(value);
+          case $flutter_7.ValueListenable _: return $flutter_25.SynchronousFuture<$flutter_7.ValueListenable>(value);
+          case $flutter_7.ChangeNotifier _: return $flutter_25.SynchronousFuture<$flutter_7.ChangeNotifier>(value);
+          case $flutter_7.ValueNotifier _: return $flutter_25.SynchronousFuture<$flutter_7.ValueNotifier>(value);
+          case $flutter_14.Key _: return $flutter_25.SynchronousFuture<$flutter_14.Key>(value);
+          case $flutter_14.LocalKey _: return $flutter_25.SynchronousFuture<$flutter_14.LocalKey>(value);
+          case $flutter_14.UniqueKey _: return $flutter_25.SynchronousFuture<$flutter_14.UniqueKey>(value);
+          case $flutter_14.ValueKey _: return $flutter_25.SynchronousFuture<$flutter_14.ValueKey>(value);
+          case $flutter_15.LicenseParagraph _: return $flutter_25.SynchronousFuture<$flutter_15.LicenseParagraph>(value);
+          case $flutter_15.LicenseEntry _: return $flutter_25.SynchronousFuture<$flutter_15.LicenseEntry>(value);
+          case $flutter_15.LicenseEntryWithLineBreaks _: return $flutter_25.SynchronousFuture<$flutter_15.LicenseEntryWithLineBreaks>(value);
+          case $flutter_15.LicenseRegistry _: return $flutter_25.SynchronousFuture<$flutter_15.LicenseRegistry>(value);
+          case $flutter_16.ObjectEvent _: return $flutter_25.SynchronousFuture<$flutter_16.ObjectEvent>(value);
+          case $flutter_16.ObjectCreated _: return $flutter_25.SynchronousFuture<$flutter_16.ObjectCreated>(value);
+          case $flutter_16.ObjectDisposed _: return $flutter_25.SynchronousFuture<$flutter_16.ObjectDisposed>(value);
+          case $flutter_16.FlutterMemoryAllocations _: return $flutter_25.SynchronousFuture<$flutter_16.FlutterMemoryAllocations>(value);
+          case $flutter_18.ObserverList _: return $flutter_25.SynchronousFuture<$flutter_18.ObserverList>(value);
+          case $flutter_18.HashedObserverList _: return $flutter_25.SynchronousFuture<$flutter_18.HashedObserverList>(value);
+          case $flutter_19.PersistentHashMap _: return $flutter_25.SynchronousFuture<$flutter_19.PersistentHashMap>(value);
+          case $flutter_22.WriteBuffer _: return $flutter_25.SynchronousFuture<$flutter_22.WriteBuffer>(value);
+          case $flutter_22.ReadBuffer _: return $flutter_25.SynchronousFuture<$flutter_22.ReadBuffer>(value);
+          case $flutter_26.FlutterTimeline _: return $flutter_25.SynchronousFuture<$flutter_26.FlutterTimeline>(value);
+          case $flutter_26.TimedBlock _: return $flutter_25.SynchronousFuture<$flutter_26.TimedBlock>(value);
+          case $flutter_26.AggregatedTimings _: return $flutter_25.SynchronousFuture<$flutter_26.AggregatedTimings>(value);
+          case $flutter_26.AggregatedTimedBlock _: return $flutter_25.SynchronousFuture<$flutter_26.AggregatedTimedBlock>(value);
+          case $flutter_27.Unicode _: return $flutter_25.SynchronousFuture<$flutter_27.Unicode>(value);
+          case $meta_1.Immutable _: return $flutter_25.SynchronousFuture<$meta_1.Immutable>(value);
           default: return $flutter_25.SynchronousFuture(value);
         }
       },
@@ -6801,7 +7170,7 @@ BridgedClass _createFlutterTimelineBridge() {
           throw ArgumentError('timeSync: Missing required argument "function" at position 1');
         }
         final functionRaw = positional[1];
-        final function = () { return D4.callInterpreterCallback(visitor!, functionRaw, []) as dynamic; };
+        final function = () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, functionRaw, [])); };
         final arguments = D4.coerceMapOrNull<String, Object?>(named['arguments'], 'arguments');
         final flow = D4.getOptionalNamedArg<Flow?>(named, 'flow');
         return $flutter_26.FlutterTimeline.timeSync(name, function, arguments: arguments, flow: flow);

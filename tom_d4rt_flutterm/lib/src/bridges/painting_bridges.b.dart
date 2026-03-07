@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 51 files
-// Generated: 2026-03-06T19:16:01.602707
+// Generated: 2026-03-07T11:45:53.224698
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -1677,6 +1677,7 @@ BridgedClass _createPaintingBindingBridge() {
       'accessibilityFocus': (visitor, target) => D4.validateTarget<$flutter_13.PaintingBinding>(target, 'PaintingBinding').accessibilityFocus,
       'restorationManager': (visitor, target) => D4.validateTarget<$flutter_13.PaintingBinding>(target, 'PaintingBinding').restorationManager,
       'lifecycleState': (visitor, target) => D4.validateTarget<$flutter_13.PaintingBinding>(target, 'PaintingBinding').lifecycleState,
+      'schedulingStrategy': (visitor, target) => D4.validateTarget<$flutter_13.PaintingBinding>(target, 'PaintingBinding').schedulingStrategy,
       'transientCallbackCount': (visitor, target) => D4.validateTarget<$flutter_13.PaintingBinding>(target, 'PaintingBinding').transientCallbackCount,
       'endOfFrame': (visitor, target) => D4.validateTarget<$flutter_13.PaintingBinding>(target, 'PaintingBinding').endOfFrame,
       'hasScheduledFrame': (visitor, target) => D4.validateTarget<$flutter_13.PaintingBinding>(target, 'PaintingBinding').hasScheduledFrame,
@@ -2117,6 +2118,7 @@ BridgedClass _createPaintingBindingBridge() {
       'accessibilityFocus': 'ValueNotifier<int?> get accessibilityFocus',
       'restorationManager': 'RestorationManager get restorationManager',
       'lifecycleState': 'AppLifecycleState? get lifecycleState',
+      'schedulingStrategy': 'bool Function({required int priority, required SchedulerBinding scheduler}) get schedulingStrategy',
       'transientCallbackCount': 'int get transientCallbackCount',
       'endOfFrame': 'Future<void> get endOfFrame',
       'hasScheduledFrame': 'bool get hasScheduledFrame',
@@ -2166,23 +2168,189 @@ BridgedClass _createBorderRadiusGeometryBridge() {
         return $flutter_14.BorderRadiusGeometry.horizontal(left: left, right: right, start: start, end: end);
       },
       'only': (visitor, positional, named) {
-        final topLeft = D4.getRequiredNamedArgTodoDefault<Radius>(named, 'topLeft', 'BorderRadiusGeometry', '<default unavailable>');
-        final topRight = D4.getRequiredNamedArgTodoDefault<Radius>(named, 'topRight', 'BorderRadiusGeometry', '<default unavailable>');
-        final bottomLeft = D4.getRequiredNamedArgTodoDefault<Radius>(named, 'bottomLeft', 'BorderRadiusGeometry', '<default unavailable>');
-        final bottomRight = D4.getRequiredNamedArgTodoDefault<Radius>(named, 'bottomRight', 'BorderRadiusGeometry', '<default unavailable>');
-        return $flutter_14.BorderRadiusGeometry.only(topLeft: topLeft, topRight: topRight, bottomLeft: bottomLeft, bottomRight: bottomRight);
+        if (!named.containsKey('topLeft') && !named.containsKey('topRight') && !named.containsKey('bottomLeft') && !named.containsKey('bottomRight')) {
+          return $flutter_14.BorderRadiusGeometry.only();
+        }
+        if (named.containsKey('topLeft') && !named.containsKey('topRight') && !named.containsKey('bottomLeft') && !named.containsKey('bottomRight')) {
+          final topLeft = D4.getRequiredNamedArg<Radius>(named, 'topLeft', 'BorderRadiusGeometry');
+          return $flutter_14.BorderRadiusGeometry.only(topLeft: topLeft);
+        }
+        if (!named.containsKey('topLeft') && named.containsKey('topRight') && !named.containsKey('bottomLeft') && !named.containsKey('bottomRight')) {
+          final topRight = D4.getRequiredNamedArg<Radius>(named, 'topRight', 'BorderRadiusGeometry');
+          return $flutter_14.BorderRadiusGeometry.only(topRight: topRight);
+        }
+        if (named.containsKey('topLeft') && named.containsKey('topRight') && !named.containsKey('bottomLeft') && !named.containsKey('bottomRight')) {
+          final topLeft = D4.getRequiredNamedArg<Radius>(named, 'topLeft', 'BorderRadiusGeometry');
+          final topRight = D4.getRequiredNamedArg<Radius>(named, 'topRight', 'BorderRadiusGeometry');
+          return $flutter_14.BorderRadiusGeometry.only(topLeft: topLeft, topRight: topRight);
+        }
+        if (!named.containsKey('topLeft') && !named.containsKey('topRight') && named.containsKey('bottomLeft') && !named.containsKey('bottomRight')) {
+          final bottomLeft = D4.getRequiredNamedArg<Radius>(named, 'bottomLeft', 'BorderRadiusGeometry');
+          return $flutter_14.BorderRadiusGeometry.only(bottomLeft: bottomLeft);
+        }
+        if (named.containsKey('topLeft') && !named.containsKey('topRight') && named.containsKey('bottomLeft') && !named.containsKey('bottomRight')) {
+          final topLeft = D4.getRequiredNamedArg<Radius>(named, 'topLeft', 'BorderRadiusGeometry');
+          final bottomLeft = D4.getRequiredNamedArg<Radius>(named, 'bottomLeft', 'BorderRadiusGeometry');
+          return $flutter_14.BorderRadiusGeometry.only(topLeft: topLeft, bottomLeft: bottomLeft);
+        }
+        if (!named.containsKey('topLeft') && named.containsKey('topRight') && named.containsKey('bottomLeft') && !named.containsKey('bottomRight')) {
+          final topRight = D4.getRequiredNamedArg<Radius>(named, 'topRight', 'BorderRadiusGeometry');
+          final bottomLeft = D4.getRequiredNamedArg<Radius>(named, 'bottomLeft', 'BorderRadiusGeometry');
+          return $flutter_14.BorderRadiusGeometry.only(topRight: topRight, bottomLeft: bottomLeft);
+        }
+        if (named.containsKey('topLeft') && named.containsKey('topRight') && named.containsKey('bottomLeft') && !named.containsKey('bottomRight')) {
+          final topLeft = D4.getRequiredNamedArg<Radius>(named, 'topLeft', 'BorderRadiusGeometry');
+          final topRight = D4.getRequiredNamedArg<Radius>(named, 'topRight', 'BorderRadiusGeometry');
+          final bottomLeft = D4.getRequiredNamedArg<Radius>(named, 'bottomLeft', 'BorderRadiusGeometry');
+          return $flutter_14.BorderRadiusGeometry.only(topLeft: topLeft, topRight: topRight, bottomLeft: bottomLeft);
+        }
+        if (!named.containsKey('topLeft') && !named.containsKey('topRight') && !named.containsKey('bottomLeft') && named.containsKey('bottomRight')) {
+          final bottomRight = D4.getRequiredNamedArg<Radius>(named, 'bottomRight', 'BorderRadiusGeometry');
+          return $flutter_14.BorderRadiusGeometry.only(bottomRight: bottomRight);
+        }
+        if (named.containsKey('topLeft') && !named.containsKey('topRight') && !named.containsKey('bottomLeft') && named.containsKey('bottomRight')) {
+          final topLeft = D4.getRequiredNamedArg<Radius>(named, 'topLeft', 'BorderRadiusGeometry');
+          final bottomRight = D4.getRequiredNamedArg<Radius>(named, 'bottomRight', 'BorderRadiusGeometry');
+          return $flutter_14.BorderRadiusGeometry.only(topLeft: topLeft, bottomRight: bottomRight);
+        }
+        if (!named.containsKey('topLeft') && named.containsKey('topRight') && !named.containsKey('bottomLeft') && named.containsKey('bottomRight')) {
+          final topRight = D4.getRequiredNamedArg<Radius>(named, 'topRight', 'BorderRadiusGeometry');
+          final bottomRight = D4.getRequiredNamedArg<Radius>(named, 'bottomRight', 'BorderRadiusGeometry');
+          return $flutter_14.BorderRadiusGeometry.only(topRight: topRight, bottomRight: bottomRight);
+        }
+        if (named.containsKey('topLeft') && named.containsKey('topRight') && !named.containsKey('bottomLeft') && named.containsKey('bottomRight')) {
+          final topLeft = D4.getRequiredNamedArg<Radius>(named, 'topLeft', 'BorderRadiusGeometry');
+          final topRight = D4.getRequiredNamedArg<Radius>(named, 'topRight', 'BorderRadiusGeometry');
+          final bottomRight = D4.getRequiredNamedArg<Radius>(named, 'bottomRight', 'BorderRadiusGeometry');
+          return $flutter_14.BorderRadiusGeometry.only(topLeft: topLeft, topRight: topRight, bottomRight: bottomRight);
+        }
+        if (!named.containsKey('topLeft') && !named.containsKey('topRight') && named.containsKey('bottomLeft') && named.containsKey('bottomRight')) {
+          final bottomLeft = D4.getRequiredNamedArg<Radius>(named, 'bottomLeft', 'BorderRadiusGeometry');
+          final bottomRight = D4.getRequiredNamedArg<Radius>(named, 'bottomRight', 'BorderRadiusGeometry');
+          return $flutter_14.BorderRadiusGeometry.only(bottomLeft: bottomLeft, bottomRight: bottomRight);
+        }
+        if (named.containsKey('topLeft') && !named.containsKey('topRight') && named.containsKey('bottomLeft') && named.containsKey('bottomRight')) {
+          final topLeft = D4.getRequiredNamedArg<Radius>(named, 'topLeft', 'BorderRadiusGeometry');
+          final bottomLeft = D4.getRequiredNamedArg<Radius>(named, 'bottomLeft', 'BorderRadiusGeometry');
+          final bottomRight = D4.getRequiredNamedArg<Radius>(named, 'bottomRight', 'BorderRadiusGeometry');
+          return $flutter_14.BorderRadiusGeometry.only(topLeft: topLeft, bottomLeft: bottomLeft, bottomRight: bottomRight);
+        }
+        if (!named.containsKey('topLeft') && named.containsKey('topRight') && named.containsKey('bottomLeft') && named.containsKey('bottomRight')) {
+          final topRight = D4.getRequiredNamedArg<Radius>(named, 'topRight', 'BorderRadiusGeometry');
+          final bottomLeft = D4.getRequiredNamedArg<Radius>(named, 'bottomLeft', 'BorderRadiusGeometry');
+          final bottomRight = D4.getRequiredNamedArg<Radius>(named, 'bottomRight', 'BorderRadiusGeometry');
+          return $flutter_14.BorderRadiusGeometry.only(topRight: topRight, bottomLeft: bottomLeft, bottomRight: bottomRight);
+        }
+        if (named.containsKey('topLeft') && named.containsKey('topRight') && named.containsKey('bottomLeft') && named.containsKey('bottomRight')) {
+          final topLeft = D4.getRequiredNamedArg<Radius>(named, 'topLeft', 'BorderRadiusGeometry');
+          final topRight = D4.getRequiredNamedArg<Radius>(named, 'topRight', 'BorderRadiusGeometry');
+          final bottomLeft = D4.getRequiredNamedArg<Radius>(named, 'bottomLeft', 'BorderRadiusGeometry');
+          final bottomRight = D4.getRequiredNamedArg<Radius>(named, 'bottomRight', 'BorderRadiusGeometry');
+          return $flutter_14.BorderRadiusGeometry.only(topLeft: topLeft, topRight: topRight, bottomLeft: bottomLeft, bottomRight: bottomRight);
+        }
+        throw StateError('Unreachable: all named parameter combinations should be covered');
       },
       'directional': (visitor, positional, named) {
-        final topStart = D4.getRequiredNamedArgTodoDefault<Radius>(named, 'topStart', 'BorderRadiusGeometry', '<default unavailable>');
-        final topEnd = D4.getRequiredNamedArgTodoDefault<Radius>(named, 'topEnd', 'BorderRadiusGeometry', '<default unavailable>');
-        final bottomStart = D4.getRequiredNamedArgTodoDefault<Radius>(named, 'bottomStart', 'BorderRadiusGeometry', '<default unavailable>');
-        final bottomEnd = D4.getRequiredNamedArgTodoDefault<Radius>(named, 'bottomEnd', 'BorderRadiusGeometry', '<default unavailable>');
-        return $flutter_14.BorderRadiusGeometry.directional(topStart: topStart, topEnd: topEnd, bottomStart: bottomStart, bottomEnd: bottomEnd);
+        if (!named.containsKey('topStart') && !named.containsKey('topEnd') && !named.containsKey('bottomStart') && !named.containsKey('bottomEnd')) {
+          return $flutter_14.BorderRadiusGeometry.directional();
+        }
+        if (named.containsKey('topStart') && !named.containsKey('topEnd') && !named.containsKey('bottomStart') && !named.containsKey('bottomEnd')) {
+          final topStart = D4.getRequiredNamedArg<Radius>(named, 'topStart', 'BorderRadiusGeometry');
+          return $flutter_14.BorderRadiusGeometry.directional(topStart: topStart);
+        }
+        if (!named.containsKey('topStart') && named.containsKey('topEnd') && !named.containsKey('bottomStart') && !named.containsKey('bottomEnd')) {
+          final topEnd = D4.getRequiredNamedArg<Radius>(named, 'topEnd', 'BorderRadiusGeometry');
+          return $flutter_14.BorderRadiusGeometry.directional(topEnd: topEnd);
+        }
+        if (named.containsKey('topStart') && named.containsKey('topEnd') && !named.containsKey('bottomStart') && !named.containsKey('bottomEnd')) {
+          final topStart = D4.getRequiredNamedArg<Radius>(named, 'topStart', 'BorderRadiusGeometry');
+          final topEnd = D4.getRequiredNamedArg<Radius>(named, 'topEnd', 'BorderRadiusGeometry');
+          return $flutter_14.BorderRadiusGeometry.directional(topStart: topStart, topEnd: topEnd);
+        }
+        if (!named.containsKey('topStart') && !named.containsKey('topEnd') && named.containsKey('bottomStart') && !named.containsKey('bottomEnd')) {
+          final bottomStart = D4.getRequiredNamedArg<Radius>(named, 'bottomStart', 'BorderRadiusGeometry');
+          return $flutter_14.BorderRadiusGeometry.directional(bottomStart: bottomStart);
+        }
+        if (named.containsKey('topStart') && !named.containsKey('topEnd') && named.containsKey('bottomStart') && !named.containsKey('bottomEnd')) {
+          final topStart = D4.getRequiredNamedArg<Radius>(named, 'topStart', 'BorderRadiusGeometry');
+          final bottomStart = D4.getRequiredNamedArg<Radius>(named, 'bottomStart', 'BorderRadiusGeometry');
+          return $flutter_14.BorderRadiusGeometry.directional(topStart: topStart, bottomStart: bottomStart);
+        }
+        if (!named.containsKey('topStart') && named.containsKey('topEnd') && named.containsKey('bottomStart') && !named.containsKey('bottomEnd')) {
+          final topEnd = D4.getRequiredNamedArg<Radius>(named, 'topEnd', 'BorderRadiusGeometry');
+          final bottomStart = D4.getRequiredNamedArg<Radius>(named, 'bottomStart', 'BorderRadiusGeometry');
+          return $flutter_14.BorderRadiusGeometry.directional(topEnd: topEnd, bottomStart: bottomStart);
+        }
+        if (named.containsKey('topStart') && named.containsKey('topEnd') && named.containsKey('bottomStart') && !named.containsKey('bottomEnd')) {
+          final topStart = D4.getRequiredNamedArg<Radius>(named, 'topStart', 'BorderRadiusGeometry');
+          final topEnd = D4.getRequiredNamedArg<Radius>(named, 'topEnd', 'BorderRadiusGeometry');
+          final bottomStart = D4.getRequiredNamedArg<Radius>(named, 'bottomStart', 'BorderRadiusGeometry');
+          return $flutter_14.BorderRadiusGeometry.directional(topStart: topStart, topEnd: topEnd, bottomStart: bottomStart);
+        }
+        if (!named.containsKey('topStart') && !named.containsKey('topEnd') && !named.containsKey('bottomStart') && named.containsKey('bottomEnd')) {
+          final bottomEnd = D4.getRequiredNamedArg<Radius>(named, 'bottomEnd', 'BorderRadiusGeometry');
+          return $flutter_14.BorderRadiusGeometry.directional(bottomEnd: bottomEnd);
+        }
+        if (named.containsKey('topStart') && !named.containsKey('topEnd') && !named.containsKey('bottomStart') && named.containsKey('bottomEnd')) {
+          final topStart = D4.getRequiredNamedArg<Radius>(named, 'topStart', 'BorderRadiusGeometry');
+          final bottomEnd = D4.getRequiredNamedArg<Radius>(named, 'bottomEnd', 'BorderRadiusGeometry');
+          return $flutter_14.BorderRadiusGeometry.directional(topStart: topStart, bottomEnd: bottomEnd);
+        }
+        if (!named.containsKey('topStart') && named.containsKey('topEnd') && !named.containsKey('bottomStart') && named.containsKey('bottomEnd')) {
+          final topEnd = D4.getRequiredNamedArg<Radius>(named, 'topEnd', 'BorderRadiusGeometry');
+          final bottomEnd = D4.getRequiredNamedArg<Radius>(named, 'bottomEnd', 'BorderRadiusGeometry');
+          return $flutter_14.BorderRadiusGeometry.directional(topEnd: topEnd, bottomEnd: bottomEnd);
+        }
+        if (named.containsKey('topStart') && named.containsKey('topEnd') && !named.containsKey('bottomStart') && named.containsKey('bottomEnd')) {
+          final topStart = D4.getRequiredNamedArg<Radius>(named, 'topStart', 'BorderRadiusGeometry');
+          final topEnd = D4.getRequiredNamedArg<Radius>(named, 'topEnd', 'BorderRadiusGeometry');
+          final bottomEnd = D4.getRequiredNamedArg<Radius>(named, 'bottomEnd', 'BorderRadiusGeometry');
+          return $flutter_14.BorderRadiusGeometry.directional(topStart: topStart, topEnd: topEnd, bottomEnd: bottomEnd);
+        }
+        if (!named.containsKey('topStart') && !named.containsKey('topEnd') && named.containsKey('bottomStart') && named.containsKey('bottomEnd')) {
+          final bottomStart = D4.getRequiredNamedArg<Radius>(named, 'bottomStart', 'BorderRadiusGeometry');
+          final bottomEnd = D4.getRequiredNamedArg<Radius>(named, 'bottomEnd', 'BorderRadiusGeometry');
+          return $flutter_14.BorderRadiusGeometry.directional(bottomStart: bottomStart, bottomEnd: bottomEnd);
+        }
+        if (named.containsKey('topStart') && !named.containsKey('topEnd') && named.containsKey('bottomStart') && named.containsKey('bottomEnd')) {
+          final topStart = D4.getRequiredNamedArg<Radius>(named, 'topStart', 'BorderRadiusGeometry');
+          final bottomStart = D4.getRequiredNamedArg<Radius>(named, 'bottomStart', 'BorderRadiusGeometry');
+          final bottomEnd = D4.getRequiredNamedArg<Radius>(named, 'bottomEnd', 'BorderRadiusGeometry');
+          return $flutter_14.BorderRadiusGeometry.directional(topStart: topStart, bottomStart: bottomStart, bottomEnd: bottomEnd);
+        }
+        if (!named.containsKey('topStart') && named.containsKey('topEnd') && named.containsKey('bottomStart') && named.containsKey('bottomEnd')) {
+          final topEnd = D4.getRequiredNamedArg<Radius>(named, 'topEnd', 'BorderRadiusGeometry');
+          final bottomStart = D4.getRequiredNamedArg<Radius>(named, 'bottomStart', 'BorderRadiusGeometry');
+          final bottomEnd = D4.getRequiredNamedArg<Radius>(named, 'bottomEnd', 'BorderRadiusGeometry');
+          return $flutter_14.BorderRadiusGeometry.directional(topEnd: topEnd, bottomStart: bottomStart, bottomEnd: bottomEnd);
+        }
+        if (named.containsKey('topStart') && named.containsKey('topEnd') && named.containsKey('bottomStart') && named.containsKey('bottomEnd')) {
+          final topStart = D4.getRequiredNamedArg<Radius>(named, 'topStart', 'BorderRadiusGeometry');
+          final topEnd = D4.getRequiredNamedArg<Radius>(named, 'topEnd', 'BorderRadiusGeometry');
+          final bottomStart = D4.getRequiredNamedArg<Radius>(named, 'bottomStart', 'BorderRadiusGeometry');
+          final bottomEnd = D4.getRequiredNamedArg<Radius>(named, 'bottomEnd', 'BorderRadiusGeometry');
+          return $flutter_14.BorderRadiusGeometry.directional(topStart: topStart, topEnd: topEnd, bottomStart: bottomStart, bottomEnd: bottomEnd);
+        }
+        throw StateError('Unreachable: all named parameter combinations should be covered');
       },
       'vertical': (visitor, positional, named) {
-        final top = D4.getRequiredNamedArgTodoDefault<Radius>(named, 'top', 'BorderRadiusGeometry', '<default unavailable>');
-        final bottom = D4.getRequiredNamedArgTodoDefault<Radius>(named, 'bottom', 'BorderRadiusGeometry', '<default unavailable>');
-        return $flutter_14.BorderRadiusGeometry.vertical(top: top, bottom: bottom);
+        if (!named.containsKey('top') && !named.containsKey('bottom')) {
+          return $flutter_14.BorderRadiusGeometry.vertical();
+        }
+        if (named.containsKey('top') && !named.containsKey('bottom')) {
+          final top = D4.getRequiredNamedArg<Radius>(named, 'top', 'BorderRadiusGeometry');
+          return $flutter_14.BorderRadiusGeometry.vertical(top: top);
+        }
+        if (!named.containsKey('top') && named.containsKey('bottom')) {
+          final bottom = D4.getRequiredNamedArg<Radius>(named, 'bottom', 'BorderRadiusGeometry');
+          return $flutter_14.BorderRadiusGeometry.vertical(bottom: bottom);
+        }
+        if (named.containsKey('top') && named.containsKey('bottom')) {
+          final top = D4.getRequiredNamedArg<Radius>(named, 'top', 'BorderRadiusGeometry');
+          final bottom = D4.getRequiredNamedArg<Radius>(named, 'bottom', 'BorderRadiusGeometry');
+          return $flutter_14.BorderRadiusGeometry.vertical(top: top, bottom: bottom);
+        }
+        throw StateError('Unreachable: all named parameter combinations should be covered');
       },
     },
     getters: {
@@ -3006,11 +3174,87 @@ BridgedClass _createBoxBorderBridge() {
         return $flutter_16.BoxBorder.fromLTRB(top: top, right: right, bottom: bottom, left: left);
       },
       'all': (visitor, positional, named) {
-        final color = D4.getRequiredNamedArgTodoDefault<Color>(named, 'color', 'BoxBorder', '<default unavailable>');
-        final width = D4.getRequiredNamedArgTodoDefault<double>(named, 'width', 'BoxBorder', '<default unavailable>');
-        final style = D4.getRequiredNamedArgTodoDefault<$flutter_15.BorderStyle>(named, 'style', 'BoxBorder', '<default unavailable>');
-        final strokeAlign = D4.getRequiredNamedArgTodoDefault<double>(named, 'strokeAlign', 'BoxBorder', '<default unavailable>');
-        return $flutter_16.BoxBorder.all(color: color, width: width, style: style, strokeAlign: strokeAlign);
+        if (!named.containsKey('color') && !named.containsKey('width') && !named.containsKey('style') && !named.containsKey('strokeAlign')) {
+          return $flutter_16.BoxBorder.all();
+        }
+        if (named.containsKey('color') && !named.containsKey('width') && !named.containsKey('style') && !named.containsKey('strokeAlign')) {
+          final color = D4.getRequiredNamedArg<Color>(named, 'color', 'BoxBorder');
+          return $flutter_16.BoxBorder.all(color: color);
+        }
+        if (!named.containsKey('color') && named.containsKey('width') && !named.containsKey('style') && !named.containsKey('strokeAlign')) {
+          final width = D4.getRequiredNamedArg<double>(named, 'width', 'BoxBorder');
+          return $flutter_16.BoxBorder.all(width: width);
+        }
+        if (named.containsKey('color') && named.containsKey('width') && !named.containsKey('style') && !named.containsKey('strokeAlign')) {
+          final color = D4.getRequiredNamedArg<Color>(named, 'color', 'BoxBorder');
+          final width = D4.getRequiredNamedArg<double>(named, 'width', 'BoxBorder');
+          return $flutter_16.BoxBorder.all(color: color, width: width);
+        }
+        if (!named.containsKey('color') && !named.containsKey('width') && named.containsKey('style') && !named.containsKey('strokeAlign')) {
+          final style = D4.getRequiredNamedArg<$flutter_15.BorderStyle>(named, 'style', 'BoxBorder');
+          return $flutter_16.BoxBorder.all(style: style);
+        }
+        if (named.containsKey('color') && !named.containsKey('width') && named.containsKey('style') && !named.containsKey('strokeAlign')) {
+          final color = D4.getRequiredNamedArg<Color>(named, 'color', 'BoxBorder');
+          final style = D4.getRequiredNamedArg<$flutter_15.BorderStyle>(named, 'style', 'BoxBorder');
+          return $flutter_16.BoxBorder.all(color: color, style: style);
+        }
+        if (!named.containsKey('color') && named.containsKey('width') && named.containsKey('style') && !named.containsKey('strokeAlign')) {
+          final width = D4.getRequiredNamedArg<double>(named, 'width', 'BoxBorder');
+          final style = D4.getRequiredNamedArg<$flutter_15.BorderStyle>(named, 'style', 'BoxBorder');
+          return $flutter_16.BoxBorder.all(width: width, style: style);
+        }
+        if (named.containsKey('color') && named.containsKey('width') && named.containsKey('style') && !named.containsKey('strokeAlign')) {
+          final color = D4.getRequiredNamedArg<Color>(named, 'color', 'BoxBorder');
+          final width = D4.getRequiredNamedArg<double>(named, 'width', 'BoxBorder');
+          final style = D4.getRequiredNamedArg<$flutter_15.BorderStyle>(named, 'style', 'BoxBorder');
+          return $flutter_16.BoxBorder.all(color: color, width: width, style: style);
+        }
+        if (!named.containsKey('color') && !named.containsKey('width') && !named.containsKey('style') && named.containsKey('strokeAlign')) {
+          final strokeAlign = D4.getRequiredNamedArg<double>(named, 'strokeAlign', 'BoxBorder');
+          return $flutter_16.BoxBorder.all(strokeAlign: strokeAlign);
+        }
+        if (named.containsKey('color') && !named.containsKey('width') && !named.containsKey('style') && named.containsKey('strokeAlign')) {
+          final color = D4.getRequiredNamedArg<Color>(named, 'color', 'BoxBorder');
+          final strokeAlign = D4.getRequiredNamedArg<double>(named, 'strokeAlign', 'BoxBorder');
+          return $flutter_16.BoxBorder.all(color: color, strokeAlign: strokeAlign);
+        }
+        if (!named.containsKey('color') && named.containsKey('width') && !named.containsKey('style') && named.containsKey('strokeAlign')) {
+          final width = D4.getRequiredNamedArg<double>(named, 'width', 'BoxBorder');
+          final strokeAlign = D4.getRequiredNamedArg<double>(named, 'strokeAlign', 'BoxBorder');
+          return $flutter_16.BoxBorder.all(width: width, strokeAlign: strokeAlign);
+        }
+        if (named.containsKey('color') && named.containsKey('width') && !named.containsKey('style') && named.containsKey('strokeAlign')) {
+          final color = D4.getRequiredNamedArg<Color>(named, 'color', 'BoxBorder');
+          final width = D4.getRequiredNamedArg<double>(named, 'width', 'BoxBorder');
+          final strokeAlign = D4.getRequiredNamedArg<double>(named, 'strokeAlign', 'BoxBorder');
+          return $flutter_16.BoxBorder.all(color: color, width: width, strokeAlign: strokeAlign);
+        }
+        if (!named.containsKey('color') && !named.containsKey('width') && named.containsKey('style') && named.containsKey('strokeAlign')) {
+          final style = D4.getRequiredNamedArg<$flutter_15.BorderStyle>(named, 'style', 'BoxBorder');
+          final strokeAlign = D4.getRequiredNamedArg<double>(named, 'strokeAlign', 'BoxBorder');
+          return $flutter_16.BoxBorder.all(style: style, strokeAlign: strokeAlign);
+        }
+        if (named.containsKey('color') && !named.containsKey('width') && named.containsKey('style') && named.containsKey('strokeAlign')) {
+          final color = D4.getRequiredNamedArg<Color>(named, 'color', 'BoxBorder');
+          final style = D4.getRequiredNamedArg<$flutter_15.BorderStyle>(named, 'style', 'BoxBorder');
+          final strokeAlign = D4.getRequiredNamedArg<double>(named, 'strokeAlign', 'BoxBorder');
+          return $flutter_16.BoxBorder.all(color: color, style: style, strokeAlign: strokeAlign);
+        }
+        if (!named.containsKey('color') && named.containsKey('width') && named.containsKey('style') && named.containsKey('strokeAlign')) {
+          final width = D4.getRequiredNamedArg<double>(named, 'width', 'BoxBorder');
+          final style = D4.getRequiredNamedArg<$flutter_15.BorderStyle>(named, 'style', 'BoxBorder');
+          final strokeAlign = D4.getRequiredNamedArg<double>(named, 'strokeAlign', 'BoxBorder');
+          return $flutter_16.BoxBorder.all(width: width, style: style, strokeAlign: strokeAlign);
+        }
+        if (named.containsKey('color') && named.containsKey('width') && named.containsKey('style') && named.containsKey('strokeAlign')) {
+          final color = D4.getRequiredNamedArg<Color>(named, 'color', 'BoxBorder');
+          final width = D4.getRequiredNamedArg<double>(named, 'width', 'BoxBorder');
+          final style = D4.getRequiredNamedArg<$flutter_15.BorderStyle>(named, 'style', 'BoxBorder');
+          final strokeAlign = D4.getRequiredNamedArg<double>(named, 'strokeAlign', 'BoxBorder');
+          return $flutter_16.BoxBorder.all(color: color, width: width, style: style, strokeAlign: strokeAlign);
+        }
+        throw StateError('Unreachable: all named parameter combinations should be covered');
       },
       'fromBorderSide': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'BoxBorder');
@@ -3018,9 +3262,23 @@ BridgedClass _createBoxBorderBridge() {
         return $flutter_16.BoxBorder.fromBorderSide(side);
       },
       'symmetric': (visitor, positional, named) {
-        final vertical = D4.getRequiredNamedArgTodoDefault<$flutter_15.BorderSide>(named, 'vertical', 'BoxBorder', '<default unavailable>');
-        final horizontal = D4.getRequiredNamedArgTodoDefault<$flutter_15.BorderSide>(named, 'horizontal', 'BoxBorder', '<default unavailable>');
-        return $flutter_16.BoxBorder.symmetric(vertical: vertical, horizontal: horizontal);
+        if (!named.containsKey('vertical') && !named.containsKey('horizontal')) {
+          return $flutter_16.BoxBorder.symmetric();
+        }
+        if (named.containsKey('vertical') && !named.containsKey('horizontal')) {
+          final vertical = D4.getRequiredNamedArg<$flutter_15.BorderSide>(named, 'vertical', 'BoxBorder');
+          return $flutter_16.BoxBorder.symmetric(vertical: vertical);
+        }
+        if (!named.containsKey('vertical') && named.containsKey('horizontal')) {
+          final horizontal = D4.getRequiredNamedArg<$flutter_15.BorderSide>(named, 'horizontal', 'BoxBorder');
+          return $flutter_16.BoxBorder.symmetric(horizontal: horizontal);
+        }
+        if (named.containsKey('vertical') && named.containsKey('horizontal')) {
+          final vertical = D4.getRequiredNamedArg<$flutter_15.BorderSide>(named, 'vertical', 'BoxBorder');
+          final horizontal = D4.getRequiredNamedArg<$flutter_15.BorderSide>(named, 'horizontal', 'BoxBorder');
+          return $flutter_16.BoxBorder.symmetric(vertical: vertical, horizontal: horizontal);
+        }
+        throw StateError('Unreachable: all named parameter combinations should be covered');
       },
       'fromSTEB': (visitor, positional, named) {
         final top = D4.getNamedArgWithDefault<$flutter_15.BorderSide>(named, 'top', $flutter_15.BorderSide.none);
@@ -4994,23 +5252,189 @@ BridgedClass _createEdgeInsetsGeometryBridge() {
         return $flutter_27.EdgeInsetsGeometry.all(value);
       },
       'only': (visitor, positional, named) {
-        final left = D4.getRequiredNamedArgTodoDefault<double>(named, 'left', 'EdgeInsetsGeometry', '<default unavailable>');
-        final right = D4.getRequiredNamedArgTodoDefault<double>(named, 'right', 'EdgeInsetsGeometry', '<default unavailable>');
-        final top = D4.getRequiredNamedArgTodoDefault<double>(named, 'top', 'EdgeInsetsGeometry', '<default unavailable>');
-        final bottom = D4.getRequiredNamedArgTodoDefault<double>(named, 'bottom', 'EdgeInsetsGeometry', '<default unavailable>');
-        return $flutter_27.EdgeInsetsGeometry.only(left: left, right: right, top: top, bottom: bottom);
+        if (!named.containsKey('left') && !named.containsKey('right') && !named.containsKey('top') && !named.containsKey('bottom')) {
+          return $flutter_27.EdgeInsetsGeometry.only();
+        }
+        if (named.containsKey('left') && !named.containsKey('right') && !named.containsKey('top') && !named.containsKey('bottom')) {
+          final left = D4.getRequiredNamedArg<double>(named, 'left', 'EdgeInsetsGeometry');
+          return $flutter_27.EdgeInsetsGeometry.only(left: left);
+        }
+        if (!named.containsKey('left') && named.containsKey('right') && !named.containsKey('top') && !named.containsKey('bottom')) {
+          final right = D4.getRequiredNamedArg<double>(named, 'right', 'EdgeInsetsGeometry');
+          return $flutter_27.EdgeInsetsGeometry.only(right: right);
+        }
+        if (named.containsKey('left') && named.containsKey('right') && !named.containsKey('top') && !named.containsKey('bottom')) {
+          final left = D4.getRequiredNamedArg<double>(named, 'left', 'EdgeInsetsGeometry');
+          final right = D4.getRequiredNamedArg<double>(named, 'right', 'EdgeInsetsGeometry');
+          return $flutter_27.EdgeInsetsGeometry.only(left: left, right: right);
+        }
+        if (!named.containsKey('left') && !named.containsKey('right') && named.containsKey('top') && !named.containsKey('bottom')) {
+          final top = D4.getRequiredNamedArg<double>(named, 'top', 'EdgeInsetsGeometry');
+          return $flutter_27.EdgeInsetsGeometry.only(top: top);
+        }
+        if (named.containsKey('left') && !named.containsKey('right') && named.containsKey('top') && !named.containsKey('bottom')) {
+          final left = D4.getRequiredNamedArg<double>(named, 'left', 'EdgeInsetsGeometry');
+          final top = D4.getRequiredNamedArg<double>(named, 'top', 'EdgeInsetsGeometry');
+          return $flutter_27.EdgeInsetsGeometry.only(left: left, top: top);
+        }
+        if (!named.containsKey('left') && named.containsKey('right') && named.containsKey('top') && !named.containsKey('bottom')) {
+          final right = D4.getRequiredNamedArg<double>(named, 'right', 'EdgeInsetsGeometry');
+          final top = D4.getRequiredNamedArg<double>(named, 'top', 'EdgeInsetsGeometry');
+          return $flutter_27.EdgeInsetsGeometry.only(right: right, top: top);
+        }
+        if (named.containsKey('left') && named.containsKey('right') && named.containsKey('top') && !named.containsKey('bottom')) {
+          final left = D4.getRequiredNamedArg<double>(named, 'left', 'EdgeInsetsGeometry');
+          final right = D4.getRequiredNamedArg<double>(named, 'right', 'EdgeInsetsGeometry');
+          final top = D4.getRequiredNamedArg<double>(named, 'top', 'EdgeInsetsGeometry');
+          return $flutter_27.EdgeInsetsGeometry.only(left: left, right: right, top: top);
+        }
+        if (!named.containsKey('left') && !named.containsKey('right') && !named.containsKey('top') && named.containsKey('bottom')) {
+          final bottom = D4.getRequiredNamedArg<double>(named, 'bottom', 'EdgeInsetsGeometry');
+          return $flutter_27.EdgeInsetsGeometry.only(bottom: bottom);
+        }
+        if (named.containsKey('left') && !named.containsKey('right') && !named.containsKey('top') && named.containsKey('bottom')) {
+          final left = D4.getRequiredNamedArg<double>(named, 'left', 'EdgeInsetsGeometry');
+          final bottom = D4.getRequiredNamedArg<double>(named, 'bottom', 'EdgeInsetsGeometry');
+          return $flutter_27.EdgeInsetsGeometry.only(left: left, bottom: bottom);
+        }
+        if (!named.containsKey('left') && named.containsKey('right') && !named.containsKey('top') && named.containsKey('bottom')) {
+          final right = D4.getRequiredNamedArg<double>(named, 'right', 'EdgeInsetsGeometry');
+          final bottom = D4.getRequiredNamedArg<double>(named, 'bottom', 'EdgeInsetsGeometry');
+          return $flutter_27.EdgeInsetsGeometry.only(right: right, bottom: bottom);
+        }
+        if (named.containsKey('left') && named.containsKey('right') && !named.containsKey('top') && named.containsKey('bottom')) {
+          final left = D4.getRequiredNamedArg<double>(named, 'left', 'EdgeInsetsGeometry');
+          final right = D4.getRequiredNamedArg<double>(named, 'right', 'EdgeInsetsGeometry');
+          final bottom = D4.getRequiredNamedArg<double>(named, 'bottom', 'EdgeInsetsGeometry');
+          return $flutter_27.EdgeInsetsGeometry.only(left: left, right: right, bottom: bottom);
+        }
+        if (!named.containsKey('left') && !named.containsKey('right') && named.containsKey('top') && named.containsKey('bottom')) {
+          final top = D4.getRequiredNamedArg<double>(named, 'top', 'EdgeInsetsGeometry');
+          final bottom = D4.getRequiredNamedArg<double>(named, 'bottom', 'EdgeInsetsGeometry');
+          return $flutter_27.EdgeInsetsGeometry.only(top: top, bottom: bottom);
+        }
+        if (named.containsKey('left') && !named.containsKey('right') && named.containsKey('top') && named.containsKey('bottom')) {
+          final left = D4.getRequiredNamedArg<double>(named, 'left', 'EdgeInsetsGeometry');
+          final top = D4.getRequiredNamedArg<double>(named, 'top', 'EdgeInsetsGeometry');
+          final bottom = D4.getRequiredNamedArg<double>(named, 'bottom', 'EdgeInsetsGeometry');
+          return $flutter_27.EdgeInsetsGeometry.only(left: left, top: top, bottom: bottom);
+        }
+        if (!named.containsKey('left') && named.containsKey('right') && named.containsKey('top') && named.containsKey('bottom')) {
+          final right = D4.getRequiredNamedArg<double>(named, 'right', 'EdgeInsetsGeometry');
+          final top = D4.getRequiredNamedArg<double>(named, 'top', 'EdgeInsetsGeometry');
+          final bottom = D4.getRequiredNamedArg<double>(named, 'bottom', 'EdgeInsetsGeometry');
+          return $flutter_27.EdgeInsetsGeometry.only(right: right, top: top, bottom: bottom);
+        }
+        if (named.containsKey('left') && named.containsKey('right') && named.containsKey('top') && named.containsKey('bottom')) {
+          final left = D4.getRequiredNamedArg<double>(named, 'left', 'EdgeInsetsGeometry');
+          final right = D4.getRequiredNamedArg<double>(named, 'right', 'EdgeInsetsGeometry');
+          final top = D4.getRequiredNamedArg<double>(named, 'top', 'EdgeInsetsGeometry');
+          final bottom = D4.getRequiredNamedArg<double>(named, 'bottom', 'EdgeInsetsGeometry');
+          return $flutter_27.EdgeInsetsGeometry.only(left: left, right: right, top: top, bottom: bottom);
+        }
+        throw StateError('Unreachable: all named parameter combinations should be covered');
       },
       'directional': (visitor, positional, named) {
-        final start = D4.getRequiredNamedArgTodoDefault<double>(named, 'start', 'EdgeInsetsGeometry', '<default unavailable>');
-        final end = D4.getRequiredNamedArgTodoDefault<double>(named, 'end', 'EdgeInsetsGeometry', '<default unavailable>');
-        final top = D4.getRequiredNamedArgTodoDefault<double>(named, 'top', 'EdgeInsetsGeometry', '<default unavailable>');
-        final bottom = D4.getRequiredNamedArgTodoDefault<double>(named, 'bottom', 'EdgeInsetsGeometry', '<default unavailable>');
-        return $flutter_27.EdgeInsetsGeometry.directional(start: start, end: end, top: top, bottom: bottom);
+        if (!named.containsKey('start') && !named.containsKey('end') && !named.containsKey('top') && !named.containsKey('bottom')) {
+          return $flutter_27.EdgeInsetsGeometry.directional();
+        }
+        if (named.containsKey('start') && !named.containsKey('end') && !named.containsKey('top') && !named.containsKey('bottom')) {
+          final start = D4.getRequiredNamedArg<double>(named, 'start', 'EdgeInsetsGeometry');
+          return $flutter_27.EdgeInsetsGeometry.directional(start: start);
+        }
+        if (!named.containsKey('start') && named.containsKey('end') && !named.containsKey('top') && !named.containsKey('bottom')) {
+          final end = D4.getRequiredNamedArg<double>(named, 'end', 'EdgeInsetsGeometry');
+          return $flutter_27.EdgeInsetsGeometry.directional(end: end);
+        }
+        if (named.containsKey('start') && named.containsKey('end') && !named.containsKey('top') && !named.containsKey('bottom')) {
+          final start = D4.getRequiredNamedArg<double>(named, 'start', 'EdgeInsetsGeometry');
+          final end = D4.getRequiredNamedArg<double>(named, 'end', 'EdgeInsetsGeometry');
+          return $flutter_27.EdgeInsetsGeometry.directional(start: start, end: end);
+        }
+        if (!named.containsKey('start') && !named.containsKey('end') && named.containsKey('top') && !named.containsKey('bottom')) {
+          final top = D4.getRequiredNamedArg<double>(named, 'top', 'EdgeInsetsGeometry');
+          return $flutter_27.EdgeInsetsGeometry.directional(top: top);
+        }
+        if (named.containsKey('start') && !named.containsKey('end') && named.containsKey('top') && !named.containsKey('bottom')) {
+          final start = D4.getRequiredNamedArg<double>(named, 'start', 'EdgeInsetsGeometry');
+          final top = D4.getRequiredNamedArg<double>(named, 'top', 'EdgeInsetsGeometry');
+          return $flutter_27.EdgeInsetsGeometry.directional(start: start, top: top);
+        }
+        if (!named.containsKey('start') && named.containsKey('end') && named.containsKey('top') && !named.containsKey('bottom')) {
+          final end = D4.getRequiredNamedArg<double>(named, 'end', 'EdgeInsetsGeometry');
+          final top = D4.getRequiredNamedArg<double>(named, 'top', 'EdgeInsetsGeometry');
+          return $flutter_27.EdgeInsetsGeometry.directional(end: end, top: top);
+        }
+        if (named.containsKey('start') && named.containsKey('end') && named.containsKey('top') && !named.containsKey('bottom')) {
+          final start = D4.getRequiredNamedArg<double>(named, 'start', 'EdgeInsetsGeometry');
+          final end = D4.getRequiredNamedArg<double>(named, 'end', 'EdgeInsetsGeometry');
+          final top = D4.getRequiredNamedArg<double>(named, 'top', 'EdgeInsetsGeometry');
+          return $flutter_27.EdgeInsetsGeometry.directional(start: start, end: end, top: top);
+        }
+        if (!named.containsKey('start') && !named.containsKey('end') && !named.containsKey('top') && named.containsKey('bottom')) {
+          final bottom = D4.getRequiredNamedArg<double>(named, 'bottom', 'EdgeInsetsGeometry');
+          return $flutter_27.EdgeInsetsGeometry.directional(bottom: bottom);
+        }
+        if (named.containsKey('start') && !named.containsKey('end') && !named.containsKey('top') && named.containsKey('bottom')) {
+          final start = D4.getRequiredNamedArg<double>(named, 'start', 'EdgeInsetsGeometry');
+          final bottom = D4.getRequiredNamedArg<double>(named, 'bottom', 'EdgeInsetsGeometry');
+          return $flutter_27.EdgeInsetsGeometry.directional(start: start, bottom: bottom);
+        }
+        if (!named.containsKey('start') && named.containsKey('end') && !named.containsKey('top') && named.containsKey('bottom')) {
+          final end = D4.getRequiredNamedArg<double>(named, 'end', 'EdgeInsetsGeometry');
+          final bottom = D4.getRequiredNamedArg<double>(named, 'bottom', 'EdgeInsetsGeometry');
+          return $flutter_27.EdgeInsetsGeometry.directional(end: end, bottom: bottom);
+        }
+        if (named.containsKey('start') && named.containsKey('end') && !named.containsKey('top') && named.containsKey('bottom')) {
+          final start = D4.getRequiredNamedArg<double>(named, 'start', 'EdgeInsetsGeometry');
+          final end = D4.getRequiredNamedArg<double>(named, 'end', 'EdgeInsetsGeometry');
+          final bottom = D4.getRequiredNamedArg<double>(named, 'bottom', 'EdgeInsetsGeometry');
+          return $flutter_27.EdgeInsetsGeometry.directional(start: start, end: end, bottom: bottom);
+        }
+        if (!named.containsKey('start') && !named.containsKey('end') && named.containsKey('top') && named.containsKey('bottom')) {
+          final top = D4.getRequiredNamedArg<double>(named, 'top', 'EdgeInsetsGeometry');
+          final bottom = D4.getRequiredNamedArg<double>(named, 'bottom', 'EdgeInsetsGeometry');
+          return $flutter_27.EdgeInsetsGeometry.directional(top: top, bottom: bottom);
+        }
+        if (named.containsKey('start') && !named.containsKey('end') && named.containsKey('top') && named.containsKey('bottom')) {
+          final start = D4.getRequiredNamedArg<double>(named, 'start', 'EdgeInsetsGeometry');
+          final top = D4.getRequiredNamedArg<double>(named, 'top', 'EdgeInsetsGeometry');
+          final bottom = D4.getRequiredNamedArg<double>(named, 'bottom', 'EdgeInsetsGeometry');
+          return $flutter_27.EdgeInsetsGeometry.directional(start: start, top: top, bottom: bottom);
+        }
+        if (!named.containsKey('start') && named.containsKey('end') && named.containsKey('top') && named.containsKey('bottom')) {
+          final end = D4.getRequiredNamedArg<double>(named, 'end', 'EdgeInsetsGeometry');
+          final top = D4.getRequiredNamedArg<double>(named, 'top', 'EdgeInsetsGeometry');
+          final bottom = D4.getRequiredNamedArg<double>(named, 'bottom', 'EdgeInsetsGeometry');
+          return $flutter_27.EdgeInsetsGeometry.directional(end: end, top: top, bottom: bottom);
+        }
+        if (named.containsKey('start') && named.containsKey('end') && named.containsKey('top') && named.containsKey('bottom')) {
+          final start = D4.getRequiredNamedArg<double>(named, 'start', 'EdgeInsetsGeometry');
+          final end = D4.getRequiredNamedArg<double>(named, 'end', 'EdgeInsetsGeometry');
+          final top = D4.getRequiredNamedArg<double>(named, 'top', 'EdgeInsetsGeometry');
+          final bottom = D4.getRequiredNamedArg<double>(named, 'bottom', 'EdgeInsetsGeometry');
+          return $flutter_27.EdgeInsetsGeometry.directional(start: start, end: end, top: top, bottom: bottom);
+        }
+        throw StateError('Unreachable: all named parameter combinations should be covered');
       },
       'symmetric': (visitor, positional, named) {
-        final vertical = D4.getRequiredNamedArgTodoDefault<double>(named, 'vertical', 'EdgeInsetsGeometry', '<default unavailable>');
-        final horizontal = D4.getRequiredNamedArgTodoDefault<double>(named, 'horizontal', 'EdgeInsetsGeometry', '<default unavailable>');
-        return $flutter_27.EdgeInsetsGeometry.symmetric(vertical: vertical, horizontal: horizontal);
+        if (!named.containsKey('vertical') && !named.containsKey('horizontal')) {
+          return $flutter_27.EdgeInsetsGeometry.symmetric();
+        }
+        if (named.containsKey('vertical') && !named.containsKey('horizontal')) {
+          final vertical = D4.getRequiredNamedArg<double>(named, 'vertical', 'EdgeInsetsGeometry');
+          return $flutter_27.EdgeInsetsGeometry.symmetric(vertical: vertical);
+        }
+        if (!named.containsKey('vertical') && named.containsKey('horizontal')) {
+          final horizontal = D4.getRequiredNamedArg<double>(named, 'horizontal', 'EdgeInsetsGeometry');
+          return $flutter_27.EdgeInsetsGeometry.symmetric(horizontal: horizontal);
+        }
+        if (named.containsKey('vertical') && named.containsKey('horizontal')) {
+          final vertical = D4.getRequiredNamedArg<double>(named, 'vertical', 'EdgeInsetsGeometry');
+          final horizontal = D4.getRequiredNamedArg<double>(named, 'horizontal', 'EdgeInsetsGeometry');
+          return $flutter_27.EdgeInsetsGeometry.symmetric(vertical: vertical, horizontal: horizontal);
+        }
+        throw StateError('Unreachable: all named parameter combinations should be covered');
       },
       'fromLTRB': (visitor, positional, named) {
         D4.requireMinArgs(positional, 4, 'EdgeInsetsGeometry');
@@ -7056,10 +7480,24 @@ BridgedClass _createNetworkImageBridge() {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'NetworkImage');
         final url = D4.getRequiredArg<String>(positional, 0, 'url', 'NetworkImage');
-        final scale = D4.getRequiredNamedArgTodoDefault<double>(named, 'scale', 'NetworkImage', '<default unavailable>');
         final headers = D4.coerceMapOrNull<String, String>(named['headers'], 'headers');
-        final webHtmlElementStrategy = D4.getRequiredNamedArgTodoDefault<$flutter_34.WebHtmlElementStrategy>(named, 'webHtmlElementStrategy', 'NetworkImage', '<default unavailable>');
-        return $flutter_34.NetworkImage(url, scale: scale, headers: headers, webHtmlElementStrategy: webHtmlElementStrategy);
+        if (!named.containsKey('scale') && !named.containsKey('webHtmlElementStrategy')) {
+          return $flutter_34.NetworkImage(url, headers: headers);
+        }
+        if (named.containsKey('scale') && !named.containsKey('webHtmlElementStrategy')) {
+          final scale = D4.getRequiredNamedArg<double>(named, 'scale', 'NetworkImage');
+          return $flutter_34.NetworkImage(url, headers: headers, scale: scale);
+        }
+        if (!named.containsKey('scale') && named.containsKey('webHtmlElementStrategy')) {
+          final webHtmlElementStrategy = D4.getRequiredNamedArg<$flutter_34.WebHtmlElementStrategy>(named, 'webHtmlElementStrategy', 'NetworkImage');
+          return $flutter_34.NetworkImage(url, headers: headers, webHtmlElementStrategy: webHtmlElementStrategy);
+        }
+        if (named.containsKey('scale') && named.containsKey('webHtmlElementStrategy')) {
+          final scale = D4.getRequiredNamedArg<double>(named, 'scale', 'NetworkImage');
+          final webHtmlElementStrategy = D4.getRequiredNamedArg<$flutter_34.WebHtmlElementStrategy>(named, 'webHtmlElementStrategy', 'NetworkImage');
+          return $flutter_34.NetworkImage(url, headers: headers, scale: scale, webHtmlElementStrategy: webHtmlElementStrategy);
+        }
+        throw StateError('Unreachable: all named parameter combinations should be covered');
       },
     },
     getters: {
@@ -8269,7 +8707,7 @@ BridgedClass _createOneFrameImageStreamCompleterBridge() {
       'debugLabel': 'String? get debugLabel',
     },
     setterSignatures: {
-      'debugLabel': 'set debugLabel(dynamic value)',
+      'debugLabel': 'set debugLabel(String? value)',
     },
   );
 }
@@ -8430,7 +8868,7 @@ BridgedClass _createMultiFrameImageStreamCompleterBridge() {
       'debugLabel': 'String? get debugLabel',
     },
     setterSignatures: {
-      'debugLabel': 'set debugLabel(dynamic value)',
+      'debugLabel': 'set debugLabel(String? value)',
     },
   );
 }

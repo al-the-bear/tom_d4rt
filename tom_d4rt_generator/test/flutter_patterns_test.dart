@@ -743,7 +743,7 @@ void main() {
       );
 
       test(
-        'G-FLP-54: SchedulingStrategy-like function setter preserves all required named params. [2026-02-27] (PASS)',
+        'G-FLP-54: SchedulingStrategy-like function setter wraps callback with correct signature. [2026-02-27] (PASS)',
         () {
           expect(
             generatedCode,
@@ -762,23 +762,39 @@ void main() {
               ? generatedCode.substring(sectionStart)
               : generatedCode.substring(sectionStart, sectionEnd);
 
-          // The generator uses extractBridgedArg with the full function type,
-          // preserving all required named params (priority and scheduler).
+          // Function setters use extractBridgedArgOrNull<dynamic> to get the raw
+          // callback value, then create a wrapper that preserves the full function
+          // signature including all required named params.
           expect(
             section,
-            contains(
-              RegExp(
-                r"extractBridgedArg<bool Function\(\{required int priority, required [^}]*ExternalSchedulerBindingLike scheduler\}\)>",
-              ),
-            ),
+            contains('extractBridgedArgOrNull<dynamic>'),
             reason:
-                'Function setter should use extractBridgedArg with full function type preserving all required named params',
+                'Function setter extracts callback as dynamic (InterpretedFunction cannot be typed)',
           );
           expect(
             section,
-            isNot(
-              contains('value as bool Function({required dynamic scheduler})'),
-            ),
+            contains('callInterpreterCallback'),
+            reason: 'Function setter wraps callback via callInterpreterCallback',
+          );
+          // The wrapper function preserves all required named params
+          expect(
+            section,
+            contains(RegExp(
+              r"\{required int priority, required.*ExternalSchedulerBindingLike scheduler\}",
+            )),
+            reason:
+                'Wrapper function preserves required named params in signature',
+          );
+          // Params are passed to callInterpreterCallback's named map
+          expect(
+            section,
+            contains("'priority': priority"),
+            reason: 'priority is passed to callInterpreterCallback',
+          );
+          expect(
+            section,
+            contains("'scheduler': scheduler"),
+            reason: 'scheduler is passed to callInterpreterCallback',
           );
         },
       );
@@ -1606,7 +1622,7 @@ void main() {
       );
 
       test(
-        'G-FLP-41: Wide external non-nullable named params avoid nullable extraction. [2026-02-27] (FAIL)',
+        'G-FLP-41: Wide external non-nullable named params use combinatorial dispatch. [2026-02-27] (PASS)',
         () {
           expect(generatedCode, contains("name: 'ExternalWideDefaultGapLike'"));
 
@@ -1634,11 +1650,25 @@ void main() {
             reason:
                 'Non-nullable Duration should not be extracted through nullable helper',
           );
+          // For <=6 params with external defaults, combinatorial dispatch is used
+          // instead of getRequiredNamedArgTodoDefault. Each branch checks which
+          // params were provided via containsKey and calls the constructor accordingly.
           expect(
             section,
-            contains('getRequiredNamedArgTodoDefault'),
+            contains("named.containsKey('scrollable')"),
             reason:
-                'When defaults are unavailable, non-nullable optional params should use TODO-default helper path',
+                'Combinatorial dispatch checks presence of each param via containsKey',
+          );
+          expect(
+            section,
+            contains('getRequiredNamedArg<bool>'),
+            reason:
+                'Combinatorial dispatch uses typed getRequiredNamedArg extraction',
+          );
+          expect(
+            section,
+            contains('getRequiredNamedArg<Duration>'),
+            reason: 'Duration param extracted with proper type',
           );
         },
       );

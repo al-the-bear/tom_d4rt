@@ -10,6 +10,7 @@ library;
 // ignore_for_file: unused_import
 
 import 'package:flutter/rendering.dart';
+import 'package:tom_d4rt_ast/runtime.dart';
 
 /// D4rt proxy for [CustomPainter].
 ///
@@ -283,6 +284,305 @@ class D4rtSingleChildLayoutDelegate extends SingleChildLayoutDelegate {
   @override
   Offset getPositionForChild(Size size, Size childSize) =>
       onGetPositionForChild != null ? onGetPositionForChild!(size, childSize) : super.getPositionForChild(size, childSize);
+
+}
+
+// =========================================================================
+// Proxy Factory Registration (GEN-092)
+// =========================================================================
+
+/// Registers interface proxy factories for all generated proxy classes.
+///
+/// Call this during bridge initialization to enable D4rt scripts to
+/// create interpreted subclasses of these abstract classes.
+/// Each factory bridges InterpretedInstance method calls to native
+/// proxy callbacks.
+void registerProxyFactories() {
+  // Register factory for CustomPainter
+  D4.registerInterfaceProxy('CustomPainter', (visitor, instance) {
+    return D4rtCustomPainter(
+      onPaint: (Canvas canvas, Size size) {
+        final method = instance.klass.findInstanceMethod('paint');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [canvas, size], {});
+          return;
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement paint');
+      },
+      onShouldRepaint: (CustomPainter oldDelegate) {
+        final method = instance.klass.findInstanceMethod('shouldRepaint');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [oldDelegate], {});
+          return D4.extractBridgedArg<bool>(result, 'shouldRepaint');
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement shouldRepaint');
+      },
+      onAddListener: instance.klass.findInstanceMethod('addListener') != null
+          ? (void Function() listener) {
+        final method = instance.klass.findInstanceMethod('addListener');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [listener], {});
+          return;
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement addListener');
+          }
+          : null,
+      onRemoveListener: instance.klass.findInstanceMethod('removeListener') != null
+          ? (void Function() listener) {
+        final method = instance.klass.findInstanceMethod('removeListener');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [listener], {});
+          return;
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement removeListener');
+          }
+          : null,
+      onShouldRebuildSemantics: instance.klass.findInstanceMethod('shouldRebuildSemantics') != null
+          ? (CustomPainter oldDelegate) {
+        final method = instance.klass.findInstanceMethod('shouldRebuildSemantics');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [oldDelegate], {});
+          return D4.extractBridgedArg<bool>(result, 'shouldRebuildSemantics');
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement shouldRebuildSemantics');
+          }
+          : null,
+      onHitTest: instance.klass.findInstanceMethod('hitTest') != null
+          ? (Offset position) {
+        final method = instance.klass.findInstanceMethod('hitTest');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [position], {});
+          return D4.extractBridgedArg<bool?>(result, 'hitTest');
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement hitTest');
+          }
+          : null,
+      onSemanticsBuilder: instance.klass.findInstanceGetter('semanticsBuilder') != null
+          ? () {
+        final getter = instance.klass.findInstanceGetter('semanticsBuilder');
+        if (getter != null) {
+          final result = getter.bind(instance).call(visitor, [], {});
+          return D4.extractBridgedArg<List<CustomPainterSemantics> Function(Size)?>(result, 'semanticsBuilder');
+        }
+        try {
+          final field = instance.getField('semanticsBuilder');
+          return D4.extractBridgedArg<List<CustomPainterSemantics> Function(Size)?>(field, 'semanticsBuilder');
+        } catch (_) {}
+        throw StateError('Interpreted class ${instance.klass.name} does not implement semanticsBuilder');
+          }
+          : null,
+    );
+  });
+
+  // Register factory for CustomClipper
+  D4.registerInterfaceProxy('CustomClipper', (visitor, instance) {
+    return D4rtCustomClipper(
+      onGetClip: (Size size) {
+        final method = instance.klass.findInstanceMethod('getClip');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [size], {});
+          return D4.extractBridgedArg<dynamic>(result, 'getClip');
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement getClip');
+      },
+      onShouldReclip: (CustomClipper<dynamic> oldClipper) {
+        final method = instance.klass.findInstanceMethod('shouldReclip');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [oldClipper], {});
+          return D4.extractBridgedArg<bool>(result, 'shouldReclip');
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement shouldReclip');
+      },
+      onAddListener: instance.klass.findInstanceMethod('addListener') != null
+          ? (void Function() listener) {
+        final method = instance.klass.findInstanceMethod('addListener');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [listener], {});
+          return;
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement addListener');
+          }
+          : null,
+      onRemoveListener: instance.klass.findInstanceMethod('removeListener') != null
+          ? (void Function() listener) {
+        final method = instance.klass.findInstanceMethod('removeListener');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [listener], {});
+          return;
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement removeListener');
+          }
+          : null,
+      onGetApproximateClipRect: instance.klass.findInstanceMethod('getApproximateClipRect') != null
+          ? (Size size) {
+        final method = instance.klass.findInstanceMethod('getApproximateClipRect');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [size], {});
+          return D4.extractBridgedArg<Rect>(result, 'getApproximateClipRect');
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement getApproximateClipRect');
+          }
+          : null,
+    );
+  });
+
+  // Register factory for FlowDelegate
+  D4.registerInterfaceProxy('FlowDelegate', (visitor, instance) {
+    return D4rtFlowDelegate(
+      onPaintChildren: (FlowPaintingContext context) {
+        final method = instance.klass.findInstanceMethod('paintChildren');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [context], {});
+          return;
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement paintChildren');
+      },
+      onShouldRepaint: (FlowDelegate oldDelegate) {
+        final method = instance.klass.findInstanceMethod('shouldRepaint');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [oldDelegate], {});
+          return D4.extractBridgedArg<bool>(result, 'shouldRepaint');
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement shouldRepaint');
+      },
+      onGetSize: instance.klass.findInstanceMethod('getSize') != null
+          ? (BoxConstraints constraints) {
+        final method = instance.klass.findInstanceMethod('getSize');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [constraints], {});
+          return D4.extractBridgedArg<Size>(result, 'getSize');
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement getSize');
+          }
+          : null,
+      onGetConstraintsForChild: instance.klass.findInstanceMethod('getConstraintsForChild') != null
+          ? (int i, BoxConstraints constraints) {
+        final method = instance.klass.findInstanceMethod('getConstraintsForChild');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [i, constraints], {});
+          return D4.extractBridgedArg<BoxConstraints>(result, 'getConstraintsForChild');
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement getConstraintsForChild');
+          }
+          : null,
+      onShouldRelayout: instance.klass.findInstanceMethod('shouldRelayout') != null
+          ? (FlowDelegate oldDelegate) {
+        final method = instance.klass.findInstanceMethod('shouldRelayout');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [oldDelegate], {});
+          return D4.extractBridgedArg<bool>(result, 'shouldRelayout');
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement shouldRelayout');
+          }
+          : null,
+    );
+  });
+
+  // Register factory for MultiChildLayoutDelegate
+  D4.registerInterfaceProxy('MultiChildLayoutDelegate', (visitor, instance) {
+    return D4rtMultiChildLayoutDelegate(
+      onPerformLayout: (Size size) {
+        final method = instance.klass.findInstanceMethod('performLayout');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [size], {});
+          return;
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement performLayout');
+      },
+      onShouldRelayout: (MultiChildLayoutDelegate oldDelegate) {
+        final method = instance.klass.findInstanceMethod('shouldRelayout');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [oldDelegate], {});
+          return D4.extractBridgedArg<bool>(result, 'shouldRelayout');
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement shouldRelayout');
+      },
+      onHasChild: instance.klass.findInstanceMethod('hasChild') != null
+          ? (Object childId) {
+        final method = instance.klass.findInstanceMethod('hasChild');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [childId], {});
+          return D4.extractBridgedArg<bool>(result, 'hasChild');
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement hasChild');
+          }
+          : null,
+      onLayoutChild: instance.klass.findInstanceMethod('layoutChild') != null
+          ? (Object childId, BoxConstraints constraints) {
+        final method = instance.klass.findInstanceMethod('layoutChild');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [childId, constraints], {});
+          return D4.extractBridgedArg<Size>(result, 'layoutChild');
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement layoutChild');
+          }
+          : null,
+      onPositionChild: instance.klass.findInstanceMethod('positionChild') != null
+          ? (Object childId, Offset offset) {
+        final method = instance.klass.findInstanceMethod('positionChild');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [childId, offset], {});
+          return;
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement positionChild');
+          }
+          : null,
+      onGetSize: instance.klass.findInstanceMethod('getSize') != null
+          ? (BoxConstraints constraints) {
+        final method = instance.klass.findInstanceMethod('getSize');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [constraints], {});
+          return D4.extractBridgedArg<Size>(result, 'getSize');
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement getSize');
+          }
+          : null,
+    );
+  });
+
+  // Register factory for SingleChildLayoutDelegate
+  D4.registerInterfaceProxy('SingleChildLayoutDelegate', (visitor, instance) {
+    return D4rtSingleChildLayoutDelegate(
+      onShouldRelayout: (SingleChildLayoutDelegate oldDelegate) {
+        final method = instance.klass.findInstanceMethod('shouldRelayout');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [oldDelegate], {});
+          return D4.extractBridgedArg<bool>(result, 'shouldRelayout');
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement shouldRelayout');
+      },
+      onGetSize: instance.klass.findInstanceMethod('getSize') != null
+          ? (BoxConstraints constraints) {
+        final method = instance.klass.findInstanceMethod('getSize');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [constraints], {});
+          return D4.extractBridgedArg<Size>(result, 'getSize');
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement getSize');
+          }
+          : null,
+      onGetConstraintsForChild: instance.klass.findInstanceMethod('getConstraintsForChild') != null
+          ? (BoxConstraints constraints) {
+        final method = instance.klass.findInstanceMethod('getConstraintsForChild');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [constraints], {});
+          return D4.extractBridgedArg<BoxConstraints>(result, 'getConstraintsForChild');
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement getConstraintsForChild');
+          }
+          : null,
+      onGetPositionForChild: instance.klass.findInstanceMethod('getPositionForChild') != null
+          ? (Size size, Size childSize) {
+        final method = instance.klass.findInstanceMethod('getPositionForChild');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [size, childSize], {});
+          return D4.extractBridgedArg<Offset>(result, 'getPositionForChild');
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement getPositionForChild');
+          }
+          : null,
+    );
+  });
 
 }
 

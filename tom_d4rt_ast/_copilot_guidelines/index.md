@@ -3,6 +3,16 @@
 **Project:** `tom_d4rt_ast`  
 **Type:** Dart Package
 
+---
+
+## 🚨 CRITICAL SYNCHRONIZATION WARNING 🚨
+
+**Changes to the D4 class (`lib/src/runtime/generator/d4.dart`) MUST also be made in `tom_d4rt`!**
+
+See [sync_with_tom_d4rt.md](sync_with_tom_d4rt.md) for details. Both packages must be published together.
+
+---
+
 ## Applicable Guidelines
 
 ### Global Guidelines
@@ -20,7 +30,9 @@
 
 ## Project-Specific Guidelines
 
-None - this project follows standard guidelines.
+| File | Description |
+|------|-------------|
+| [sync_with_tom_d4rt.md](sync_with_tom_d4rt.md) | 🚨 **CRITICAL** D4 class synchronization with tom_d4rt |
 
 ## Quick Reference
 

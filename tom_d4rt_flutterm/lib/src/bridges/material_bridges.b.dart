@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Dartscript registration for flutter_material_bridges
-// Generated: 2026-03-06T19:17:51.285468
+// Generated: 2026-03-07T11:48:21.242699
 
 /// D4rt Bridge Registration for flutter_material_bridges
 library;
@@ -19,6 +19,7 @@ import 'rendering_bridges.b.dart' as flutter_rendering_bridges;
 import 'widgets_bridges.b.dart' as flutter_widgets_bridges;
 import 'material_widgets_bridges.b.dart' as flutter_material_bridges;
 import 'cupertino_bridges.b.dart' as flutter_cupertino_bridges;
+import 'flutter_proxies.b.dart' as proxy_factories;
 
 /// Combined bridge registration for flutter_material_bridges.
 class FlutterMaterialBridges {
@@ -130,6 +131,9 @@ class FlutterMaterialBridges {
     for (final barrel in flutter_cupertino_bridges.FlutterCupertinoBridge.subPackageBarrels()) {
       flutter_cupertino_bridges.FlutterCupertinoBridge.registerBridges(d4rt, barrel);
     }
+
+    // GEN-092: Register proxy factories for interface proxies
+    proxy_factories.registerProxyFactories();
   }
 
   /// Get import block for all modules.

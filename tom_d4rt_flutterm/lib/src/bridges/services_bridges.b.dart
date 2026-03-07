@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 50 files
-// Generated: 2026-03-06T19:16:38.235510
+// Generated: 2026-03-07T11:46:37.553473
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -5596,12 +5596,18 @@ BridgedClass _createLogicalKeyboardKeyBridge() {
       },
       'collapseSynonyms': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'collapseSynonyms');
-        final input = D4.getRequiredArg<Set<$flutter_25.LogicalKeyboardKey>>(positional, 0, 'input', 'collapseSynonyms');
+        if (positional.isEmpty) {
+          throw ArgumentError('collapseSynonyms: Missing required argument "input" at position 0');
+        }
+        final input = D4.coerceSet<$flutter_25.LogicalKeyboardKey>(positional[0], 'input');
         return $flutter_25.LogicalKeyboardKey.collapseSynonyms(input);
       },
       'expandSynonyms': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'expandSynonyms');
-        final input = D4.getRequiredArg<Set<$flutter_25.LogicalKeyboardKey>>(positional, 0, 'input', 'expandSynonyms');
+        if (positional.isEmpty) {
+          throw ArgumentError('expandSynonyms: Missing required argument "input" at position 0');
+        }
+        final input = D4.coerceSet<$flutter_25.LogicalKeyboardKey>(positional[0], 'input');
         return $flutter_25.LogicalKeyboardKey.expandSynonyms(input);
       },
     },
@@ -7336,6 +7342,7 @@ BridgedClass _createServicesBindingBridge() {
       'platformDispatcher': (visitor, target) => D4.validateTarget<$flutter_14.ServicesBinding>(target, 'ServicesBinding').platformDispatcher,
       'locked': (visitor, target) => D4.validateTarget<$flutter_14.ServicesBinding>(target, 'ServicesBinding').locked,
       'lifecycleState': (visitor, target) => D4.validateTarget<$flutter_14.ServicesBinding>(target, 'ServicesBinding').lifecycleState,
+      'schedulingStrategy': (visitor, target) => D4.validateTarget<$flutter_14.ServicesBinding>(target, 'ServicesBinding').schedulingStrategy,
       'transientCallbackCount': (visitor, target) => D4.validateTarget<$flutter_14.ServicesBinding>(target, 'ServicesBinding').transientCallbackCount,
       'endOfFrame': (visitor, target) => D4.validateTarget<$flutter_14.ServicesBinding>(target, 'ServicesBinding').endOfFrame,
       'hasScheduledFrame': (visitor, target) => D4.validateTarget<$flutter_14.ServicesBinding>(target, 'ServicesBinding').hasScheduledFrame,
@@ -7751,6 +7758,7 @@ BridgedClass _createServicesBindingBridge() {
       'platformDispatcher': 'PlatformDispatcher get platformDispatcher',
       'locked': 'bool get locked',
       'lifecycleState': 'AppLifecycleState? get lifecycleState',
+      'schedulingStrategy': 'bool Function({required int priority, required SchedulerBinding scheduler}) get schedulingStrategy',
       'transientCallbackCount': 'int get transientCallbackCount',
       'endOfFrame': 'Future<void> get endOfFrame',
       'hasScheduledFrame': 'bool get hasScheduledFrame',
@@ -8281,9 +8289,15 @@ BridgedClass _createPlatformExceptionBridge() {
       '': (visitor, positional, named) {
         final code = D4.getRequiredNamedArg<String>(named, 'code', 'PlatformException');
         final message = D4.getOptionalNamedArg<String?>(named, 'message');
-        final details = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'details', 'PlatformException', '<default unavailable>');
         final stacktrace = D4.getOptionalNamedArg<String?>(named, 'stacktrace');
-        return $flutter_28.PlatformException(code: code, message: message, details: details, stacktrace: stacktrace);
+        if (!named.containsKey('details')) {
+          return $flutter_28.PlatformException(code: code, message: message, stacktrace: stacktrace);
+        }
+        if (named.containsKey('details')) {
+          final details = D4.getRequiredNamedArg<dynamic>(named, 'details', 'PlatformException');
+          return $flutter_28.PlatformException(code: code, message: message, stacktrace: stacktrace, details: details);
+        }
+        throw StateError('Unreachable: all named parameter combinations should be covered');
       },
     },
     getters: {
@@ -9938,8 +9952,10 @@ BridgedClass _createSurfaceAndroidViewControllerBridge() {
       'isCreated': (visitor, target) => D4.validateTarget<$flutter_33.SurfaceAndroidViewController>(target, 'SurfaceAndroidViewController').isCreated,
     },
     setters: {
-      'pointTransformer': (visitor, target, value) => 
-        D4.validateTarget<$flutter_33.SurfaceAndroidViewController>(target, 'SurfaceAndroidViewController').pointTransformer = D4.extractBridgedArg<$flutter_33.PointTransformer>(value, 'pointTransformer'),
+      'pointTransformer': (visitor, target, value) {
+        final pointTransformerRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'pointTransformer');
+        D4.validateTarget<$flutter_33.SurfaceAndroidViewController>(target, 'SurfaceAndroidViewController').pointTransformer = (Offset p0) { return D4.callInterpreterCallback(visitor!, pointTransformerRaw, [p0]) as Offset; };
+      },
     },
     methods: {
       'dispatchPointerEvent': (visitor, target, positional, named, typeArgs) {
@@ -10028,7 +10044,7 @@ BridgedClass _createSurfaceAndroidViewControllerBridge() {
       'isCreated': 'bool get isCreated',
     },
     setterSignatures: {
-      'pointTransformer': 'set pointTransformer(PointTransformer value)',
+      'pointTransformer': 'set pointTransformer(Offset Function(Offset) value)',
     },
   );
 }
@@ -10053,8 +10069,10 @@ BridgedClass _createExpensiveAndroidViewControllerBridge() {
       'isCreated': (visitor, target) => D4.validateTarget<$flutter_33.ExpensiveAndroidViewController>(target, 'ExpensiveAndroidViewController').isCreated,
     },
     setters: {
-      'pointTransformer': (visitor, target, value) => 
-        D4.validateTarget<$flutter_33.ExpensiveAndroidViewController>(target, 'ExpensiveAndroidViewController').pointTransformer = D4.extractBridgedArg<$flutter_33.PointTransformer>(value, 'pointTransformer'),
+      'pointTransformer': (visitor, target, value) {
+        final pointTransformerRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'pointTransformer');
+        D4.validateTarget<$flutter_33.ExpensiveAndroidViewController>(target, 'ExpensiveAndroidViewController').pointTransformer = (Offset p0) { return D4.callInterpreterCallback(visitor!, pointTransformerRaw, [p0]) as Offset; };
+      },
     },
     methods: {
       'dispatchPointerEvent': (visitor, target, positional, named, typeArgs) {
@@ -10143,7 +10161,7 @@ BridgedClass _createExpensiveAndroidViewControllerBridge() {
       'isCreated': 'bool get isCreated',
     },
     setterSignatures: {
-      'pointTransformer': 'set pointTransformer(PointTransformer value)',
+      'pointTransformer': 'set pointTransformer(Offset Function(Offset) value)',
     },
   );
 }
@@ -10168,8 +10186,10 @@ BridgedClass _createHybridAndroidViewControllerBridge() {
       'isCreated': (visitor, target) => D4.validateTarget<$flutter_33.HybridAndroidViewController>(target, 'HybridAndroidViewController').isCreated,
     },
     setters: {
-      'pointTransformer': (visitor, target, value) => 
-        D4.validateTarget<$flutter_33.HybridAndroidViewController>(target, 'HybridAndroidViewController').pointTransformer = D4.extractBridgedArg<$flutter_33.PointTransformer>(value, 'pointTransformer'),
+      'pointTransformer': (visitor, target, value) {
+        final pointTransformerRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'pointTransformer');
+        D4.validateTarget<$flutter_33.HybridAndroidViewController>(target, 'HybridAndroidViewController').pointTransformer = (Offset p0) { return D4.callInterpreterCallback(visitor!, pointTransformerRaw, [p0]) as Offset; };
+      },
     },
     methods: {
       'dispatchPointerEvent': (visitor, target, positional, named, typeArgs) {
@@ -10263,7 +10283,7 @@ BridgedClass _createHybridAndroidViewControllerBridge() {
       'isCreated': 'bool get isCreated',
     },
     setterSignatures: {
-      'pointTransformer': 'set pointTransformer(PointTransformer value)',
+      'pointTransformer': 'set pointTransformer(Offset Function(Offset) value)',
     },
     staticMethodSignatures: {
       'checkIfSupported': 'Future<bool> checkIfSupported()',
@@ -10291,8 +10311,10 @@ BridgedClass _createTextureAndroidViewControllerBridge() {
       'isCreated': (visitor, target) => D4.validateTarget<$flutter_33.TextureAndroidViewController>(target, 'TextureAndroidViewController').isCreated,
     },
     setters: {
-      'pointTransformer': (visitor, target, value) => 
-        D4.validateTarget<$flutter_33.TextureAndroidViewController>(target, 'TextureAndroidViewController').pointTransformer = D4.extractBridgedArg<$flutter_33.PointTransformer>(value, 'pointTransformer'),
+      'pointTransformer': (visitor, target, value) {
+        final pointTransformerRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'pointTransformer');
+        D4.validateTarget<$flutter_33.TextureAndroidViewController>(target, 'TextureAndroidViewController').pointTransformer = (Offset p0) { return D4.callInterpreterCallback(visitor!, pointTransformerRaw, [p0]) as Offset; };
+      },
     },
     methods: {
       'dispatchPointerEvent': (visitor, target, positional, named, typeArgs) {
@@ -10381,7 +10403,7 @@ BridgedClass _createTextureAndroidViewControllerBridge() {
       'isCreated': 'bool get isCreated',
     },
     setterSignatures: {
-      'pointTransformer': 'set pointTransformer(PointTransformer value)',
+      'pointTransformer': 'set pointTransformer(Offset Function(Offset) value)',
     },
   );
 }

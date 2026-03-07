@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 33 files
-// Generated: 2026-03-06T19:16:44.543995
+// Generated: 2026-03-07T11:46:45.396181
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -6418,7 +6418,7 @@ BridgedClass _createEagerGestureRecognizerBridge() {
     isAssignable: (v) => v is $flutter_12.EagerGestureRecognizer,
     constructors: {
       '': (visitor, positional, named) {
-        final supportedDevices = D4.getOptionalNamedArg<Set<PointerDeviceKind>?>(named, 'supportedDevices');
+        final supportedDevices = D4.coerceSetOrNull<PointerDeviceKind>(named['supportedDevices'], 'supportedDevices');
         if (!named.containsKey('allowedButtonsFilter')) {
           return $flutter_12.EagerGestureRecognizer(supportedDevices: supportedDevices);
         }
@@ -6535,7 +6535,7 @@ BridgedClass _createEagerGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as dynamic; }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_12.EagerGestureRecognizer>(target, 'EagerGestureRecognizer');
@@ -6670,8 +6670,8 @@ BridgedClass _createEagerGestureRecognizerBridge() {
       'team': 'GestureArenaTeam? get team',
     },
     setterSignatures: {
-      'gestureSettings': 'set gestureSettings(dynamic value)',
-      'supportedDevices': 'set supportedDevices(dynamic value)',
+      'gestureSettings': 'set gestureSettings(DeviceGestureSettings? value)',
+      'supportedDevices': 'set supportedDevices(Set<PointerDeviceKind>? value)',
       'team': 'set team(GestureArenaTeam? value)',
     },
   );
@@ -6754,7 +6754,7 @@ BridgedClass _createForcePressGestureRecognizerBridge() {
         final startPressure = D4.getNamedArgWithDefault<double>(named, 'startPressure', 0.4);
         final peakPressure = D4.getNamedArgWithDefault<double>(named, 'peakPressure', 0.85);
         final debugOwner = D4.getOptionalNamedArg<Object?>(named, 'debugOwner');
-        final supportedDevices = D4.getOptionalNamedArg<Set<PointerDeviceKind>?>(named, 'supportedDevices');
+        final supportedDevices = D4.coerceSetOrNull<PointerDeviceKind>(named['supportedDevices'], 'supportedDevices');
         if (!named.containsKey('interpolation') && !named.containsKey('allowedButtonsFilter')) {
           return $flutter_14.ForcePressGestureRecognizer(startPressure: startPressure, peakPressure: peakPressure, debugOwner: debugOwner, supportedDevices: supportedDevices);
         }
@@ -6800,14 +6800,22 @@ BridgedClass _createForcePressGestureRecognizerBridge() {
         D4.validateTarget<$flutter_14.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
       'team': (visitor, target, value) => 
         D4.validateTarget<$flutter_14.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer').team = D4.extractBridgedArgOrNull<$flutter_30.GestureArenaTeam>(value, 'team'),
-      'onStart': (visitor, target, value) => 
-        D4.validateTarget<$flutter_14.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer').onStart = D4.extractBridgedArgOrNull<$flutter_14.GestureForcePressStartCallback>(value, 'onStart'),
-      'onUpdate': (visitor, target, value) => 
-        D4.validateTarget<$flutter_14.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer').onUpdate = D4.extractBridgedArgOrNull<$flutter_14.GestureForcePressUpdateCallback>(value, 'onUpdate'),
-      'onPeak': (visitor, target, value) => 
-        D4.validateTarget<$flutter_14.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer').onPeak = D4.extractBridgedArgOrNull<$flutter_14.GestureForcePressPeakCallback>(value, 'onPeak'),
-      'onEnd': (visitor, target, value) => 
-        D4.validateTarget<$flutter_14.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer').onEnd = D4.extractBridgedArgOrNull<$flutter_14.GestureForcePressEndCallback>(value, 'onEnd'),
+      'onStart': (visitor, target, value) {
+        final onStartRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onStart');
+        D4.validateTarget<$flutter_14.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer').onStart = onStartRaw == null ? null : ($flutter_14.ForcePressDetails p0) { D4.callInterpreterCallback(visitor!, onStartRaw, [p0]); };
+      },
+      'onUpdate': (visitor, target, value) {
+        final onUpdateRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onUpdate');
+        D4.validateTarget<$flutter_14.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer').onUpdate = onUpdateRaw == null ? null : ($flutter_14.ForcePressDetails p0) { D4.callInterpreterCallback(visitor!, onUpdateRaw, [p0]); };
+      },
+      'onPeak': (visitor, target, value) {
+        final onPeakRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onPeak');
+        D4.validateTarget<$flutter_14.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer').onPeak = onPeakRaw == null ? null : ($flutter_14.ForcePressDetails p0) { D4.callInterpreterCallback(visitor!, onPeakRaw, [p0]); };
+      },
+      'onEnd': (visitor, target, value) {
+        final onEndRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onEnd');
+        D4.validateTarget<$flutter_14.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer').onEnd = onEndRaw == null ? null : ($flutter_14.ForcePressDetails p0) { D4.callInterpreterCallback(visitor!, onEndRaw, [p0]); };
+      },
     },
     methods: {
       'acceptGesture': (visitor, target, positional, named, typeArgs) {
@@ -6898,7 +6906,7 @@ BridgedClass _createForcePressGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as dynamic; }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_14.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer');
@@ -7040,8 +7048,8 @@ BridgedClass _createForcePressGestureRecognizerBridge() {
       'interpolation': 'GestureForceInterpolation get interpolation',
     },
     setterSignatures: {
-      'gestureSettings': 'set gestureSettings(dynamic value)',
-      'supportedDevices': 'set supportedDevices(dynamic value)',
+      'gestureSettings': 'set gestureSettings(DeviceGestureSettings? value)',
+      'supportedDevices': 'set supportedDevices(Set<PointerDeviceKind>? value)',
       'team': 'set team(GestureArenaTeam? value)',
       'onStart': 'set onStart(dynamic value)',
       'onUpdate': 'set onUpdate(dynamic value)',
@@ -7338,7 +7346,7 @@ BridgedClass _createLongPressGestureRecognizerBridge() {
       '': (visitor, positional, named) {
         final duration = D4.getOptionalNamedArg<Duration?>(named, 'duration');
         final postAcceptSlopTolerance = D4.getNamedArgWithDefault<double?>(named, 'postAcceptSlopTolerance', null);
-        final supportedDevices = D4.getOptionalNamedArg<Set<PointerDeviceKind>?>(named, 'supportedDevices');
+        final supportedDevices = D4.coerceSetOrNull<PointerDeviceKind>(named['supportedDevices'], 'supportedDevices');
         final debugOwner = D4.getOptionalNamedArg<Object?>(named, 'debugOwner');
         final allowedButtonsFilterRaw = named['allowedButtonsFilter'];
         return $flutter_18.LongPressGestureRecognizer(duration: duration, postAcceptSlopTolerance: postAcceptSlopTolerance, supportedDevices: supportedDevices, debugOwner: debugOwner, allowedButtonsFilter: allowedButtonsFilterRaw == null ? null : (int p0) { return D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]) as bool; });
@@ -7386,48 +7394,90 @@ BridgedClass _createLongPressGestureRecognizerBridge() {
         D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
       'team': (visitor, target, value) => 
         D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').team = D4.extractBridgedArgOrNull<$flutter_30.GestureArenaTeam>(value, 'team'),
-      'onLongPressDown': (visitor, target, value) => 
-        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onLongPressDown = D4.extractBridgedArgOrNull<$flutter_18.GestureLongPressDownCallback>(value, 'onLongPressDown'),
-      'onLongPressCancel': (visitor, target, value) => 
-        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onLongPressCancel = D4.extractBridgedArgOrNull<$flutter_18.GestureLongPressCancelCallback>(value, 'onLongPressCancel'),
-      'onLongPress': (visitor, target, value) => 
-        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onLongPress = D4.extractBridgedArgOrNull<dynamic>(value, 'onLongPress'),
-      'onLongPressStart': (visitor, target, value) => 
-        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onLongPressStart = D4.extractBridgedArgOrNull<$flutter_18.GestureLongPressStartCallback>(value, 'onLongPressStart'),
-      'onLongPressMoveUpdate': (visitor, target, value) => 
-        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onLongPressMoveUpdate = D4.extractBridgedArgOrNull<$flutter_18.GestureLongPressMoveUpdateCallback>(value, 'onLongPressMoveUpdate'),
-      'onLongPressUp': (visitor, target, value) => 
-        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onLongPressUp = D4.extractBridgedArgOrNull<$flutter_18.GestureLongPressUpCallback>(value, 'onLongPressUp'),
-      'onLongPressEnd': (visitor, target, value) => 
-        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onLongPressEnd = D4.extractBridgedArgOrNull<$flutter_18.GestureLongPressEndCallback>(value, 'onLongPressEnd'),
-      'onSecondaryLongPressDown': (visitor, target, value) => 
-        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onSecondaryLongPressDown = D4.extractBridgedArgOrNull<$flutter_18.GestureLongPressDownCallback>(value, 'onSecondaryLongPressDown'),
-      'onSecondaryLongPressCancel': (visitor, target, value) => 
-        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onSecondaryLongPressCancel = D4.extractBridgedArgOrNull<$flutter_18.GestureLongPressCancelCallback>(value, 'onSecondaryLongPressCancel'),
-      'onSecondaryLongPress': (visitor, target, value) => 
-        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onSecondaryLongPress = D4.extractBridgedArgOrNull<dynamic>(value, 'onSecondaryLongPress'),
-      'onSecondaryLongPressStart': (visitor, target, value) => 
-        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onSecondaryLongPressStart = D4.extractBridgedArgOrNull<$flutter_18.GestureLongPressStartCallback>(value, 'onSecondaryLongPressStart'),
-      'onSecondaryLongPressMoveUpdate': (visitor, target, value) => 
-        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onSecondaryLongPressMoveUpdate = D4.extractBridgedArgOrNull<$flutter_18.GestureLongPressMoveUpdateCallback>(value, 'onSecondaryLongPressMoveUpdate'),
-      'onSecondaryLongPressUp': (visitor, target, value) => 
-        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onSecondaryLongPressUp = D4.extractBridgedArgOrNull<$flutter_18.GestureLongPressUpCallback>(value, 'onSecondaryLongPressUp'),
-      'onSecondaryLongPressEnd': (visitor, target, value) => 
-        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onSecondaryLongPressEnd = D4.extractBridgedArgOrNull<$flutter_18.GestureLongPressEndCallback>(value, 'onSecondaryLongPressEnd'),
-      'onTertiaryLongPressDown': (visitor, target, value) => 
-        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onTertiaryLongPressDown = D4.extractBridgedArgOrNull<$flutter_18.GestureLongPressDownCallback>(value, 'onTertiaryLongPressDown'),
-      'onTertiaryLongPressCancel': (visitor, target, value) => 
-        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onTertiaryLongPressCancel = D4.extractBridgedArgOrNull<$flutter_18.GestureLongPressCancelCallback>(value, 'onTertiaryLongPressCancel'),
-      'onTertiaryLongPress': (visitor, target, value) => 
-        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onTertiaryLongPress = D4.extractBridgedArgOrNull<dynamic>(value, 'onTertiaryLongPress'),
-      'onTertiaryLongPressStart': (visitor, target, value) => 
-        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onTertiaryLongPressStart = D4.extractBridgedArgOrNull<$flutter_18.GestureLongPressStartCallback>(value, 'onTertiaryLongPressStart'),
-      'onTertiaryLongPressMoveUpdate': (visitor, target, value) => 
-        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onTertiaryLongPressMoveUpdate = D4.extractBridgedArgOrNull<$flutter_18.GestureLongPressMoveUpdateCallback>(value, 'onTertiaryLongPressMoveUpdate'),
-      'onTertiaryLongPressUp': (visitor, target, value) => 
-        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onTertiaryLongPressUp = D4.extractBridgedArgOrNull<$flutter_18.GestureLongPressUpCallback>(value, 'onTertiaryLongPressUp'),
-      'onTertiaryLongPressEnd': (visitor, target, value) => 
-        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onTertiaryLongPressEnd = D4.extractBridgedArgOrNull<$flutter_18.GestureLongPressEndCallback>(value, 'onTertiaryLongPressEnd'),
+      'onLongPressDown': (visitor, target, value) {
+        final onLongPressDownRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onLongPressDown');
+        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onLongPressDown = onLongPressDownRaw == null ? null : ($flutter_18.LongPressDownDetails p0) { D4.callInterpreterCallback(visitor!, onLongPressDownRaw, [p0]); };
+      },
+      'onLongPressCancel': (visitor, target, value) {
+        final onLongPressCancelRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onLongPressCancel');
+        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onLongPressCancel = onLongPressCancelRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onLongPressCancelRaw, []); };
+      },
+      'onLongPress': (visitor, target, value) {
+        final onLongPressRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onLongPress');
+        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onLongPress = onLongPressRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onLongPressRaw, []); };
+      },
+      'onLongPressStart': (visitor, target, value) {
+        final onLongPressStartRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onLongPressStart');
+        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onLongPressStart = onLongPressStartRaw == null ? null : ($flutter_18.LongPressStartDetails p0) { D4.callInterpreterCallback(visitor!, onLongPressStartRaw, [p0]); };
+      },
+      'onLongPressMoveUpdate': (visitor, target, value) {
+        final onLongPressMoveUpdateRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onLongPressMoveUpdate');
+        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onLongPressMoveUpdate = onLongPressMoveUpdateRaw == null ? null : ($flutter_18.LongPressMoveUpdateDetails p0) { D4.callInterpreterCallback(visitor!, onLongPressMoveUpdateRaw, [p0]); };
+      },
+      'onLongPressUp': (visitor, target, value) {
+        final onLongPressUpRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onLongPressUp');
+        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onLongPressUp = onLongPressUpRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onLongPressUpRaw, []); };
+      },
+      'onLongPressEnd': (visitor, target, value) {
+        final onLongPressEndRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onLongPressEnd');
+        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onLongPressEnd = onLongPressEndRaw == null ? null : ($flutter_18.LongPressEndDetails p0) { D4.callInterpreterCallback(visitor!, onLongPressEndRaw, [p0]); };
+      },
+      'onSecondaryLongPressDown': (visitor, target, value) {
+        final onSecondaryLongPressDownRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onSecondaryLongPressDown');
+        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onSecondaryLongPressDown = onSecondaryLongPressDownRaw == null ? null : ($flutter_18.LongPressDownDetails p0) { D4.callInterpreterCallback(visitor!, onSecondaryLongPressDownRaw, [p0]); };
+      },
+      'onSecondaryLongPressCancel': (visitor, target, value) {
+        final onSecondaryLongPressCancelRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onSecondaryLongPressCancel');
+        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onSecondaryLongPressCancel = onSecondaryLongPressCancelRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onSecondaryLongPressCancelRaw, []); };
+      },
+      'onSecondaryLongPress': (visitor, target, value) {
+        final onSecondaryLongPressRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onSecondaryLongPress');
+        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onSecondaryLongPress = onSecondaryLongPressRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onSecondaryLongPressRaw, []); };
+      },
+      'onSecondaryLongPressStart': (visitor, target, value) {
+        final onSecondaryLongPressStartRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onSecondaryLongPressStart');
+        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onSecondaryLongPressStart = onSecondaryLongPressStartRaw == null ? null : ($flutter_18.LongPressStartDetails p0) { D4.callInterpreterCallback(visitor!, onSecondaryLongPressStartRaw, [p0]); };
+      },
+      'onSecondaryLongPressMoveUpdate': (visitor, target, value) {
+        final onSecondaryLongPressMoveUpdateRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onSecondaryLongPressMoveUpdate');
+        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onSecondaryLongPressMoveUpdate = onSecondaryLongPressMoveUpdateRaw == null ? null : ($flutter_18.LongPressMoveUpdateDetails p0) { D4.callInterpreterCallback(visitor!, onSecondaryLongPressMoveUpdateRaw, [p0]); };
+      },
+      'onSecondaryLongPressUp': (visitor, target, value) {
+        final onSecondaryLongPressUpRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onSecondaryLongPressUp');
+        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onSecondaryLongPressUp = onSecondaryLongPressUpRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onSecondaryLongPressUpRaw, []); };
+      },
+      'onSecondaryLongPressEnd': (visitor, target, value) {
+        final onSecondaryLongPressEndRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onSecondaryLongPressEnd');
+        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onSecondaryLongPressEnd = onSecondaryLongPressEndRaw == null ? null : ($flutter_18.LongPressEndDetails p0) { D4.callInterpreterCallback(visitor!, onSecondaryLongPressEndRaw, [p0]); };
+      },
+      'onTertiaryLongPressDown': (visitor, target, value) {
+        final onTertiaryLongPressDownRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onTertiaryLongPressDown');
+        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onTertiaryLongPressDown = onTertiaryLongPressDownRaw == null ? null : ($flutter_18.LongPressDownDetails p0) { D4.callInterpreterCallback(visitor!, onTertiaryLongPressDownRaw, [p0]); };
+      },
+      'onTertiaryLongPressCancel': (visitor, target, value) {
+        final onTertiaryLongPressCancelRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onTertiaryLongPressCancel');
+        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onTertiaryLongPressCancel = onTertiaryLongPressCancelRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onTertiaryLongPressCancelRaw, []); };
+      },
+      'onTertiaryLongPress': (visitor, target, value) {
+        final onTertiaryLongPressRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onTertiaryLongPress');
+        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onTertiaryLongPress = onTertiaryLongPressRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onTertiaryLongPressRaw, []); };
+      },
+      'onTertiaryLongPressStart': (visitor, target, value) {
+        final onTertiaryLongPressStartRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onTertiaryLongPressStart');
+        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onTertiaryLongPressStart = onTertiaryLongPressStartRaw == null ? null : ($flutter_18.LongPressStartDetails p0) { D4.callInterpreterCallback(visitor!, onTertiaryLongPressStartRaw, [p0]); };
+      },
+      'onTertiaryLongPressMoveUpdate': (visitor, target, value) {
+        final onTertiaryLongPressMoveUpdateRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onTertiaryLongPressMoveUpdate');
+        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onTertiaryLongPressMoveUpdate = onTertiaryLongPressMoveUpdateRaw == null ? null : ($flutter_18.LongPressMoveUpdateDetails p0) { D4.callInterpreterCallback(visitor!, onTertiaryLongPressMoveUpdateRaw, [p0]); };
+      },
+      'onTertiaryLongPressUp': (visitor, target, value) {
+        final onTertiaryLongPressUpRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onTertiaryLongPressUp');
+        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onTertiaryLongPressUp = onTertiaryLongPressUpRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onTertiaryLongPressUpRaw, []); };
+      },
+      'onTertiaryLongPressEnd': (visitor, target, value) {
+        final onTertiaryLongPressEndRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onTertiaryLongPressEnd');
+        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onTertiaryLongPressEnd = onTertiaryLongPressEndRaw == null ? null : ($flutter_18.LongPressEndDetails p0) { D4.callInterpreterCallback(visitor!, onTertiaryLongPressEndRaw, [p0]); };
+      },
     },
     methods: {
       'acceptGesture': (visitor, target, positional, named, typeArgs) {
@@ -7518,7 +7568,7 @@ BridgedClass _createLongPressGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as dynamic; }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer');
@@ -7702,8 +7752,8 @@ BridgedClass _createLongPressGestureRecognizerBridge() {
       'onTertiaryLongPressEnd': 'GestureLongPressEndCallback? get onTertiaryLongPressEnd',
     },
     setterSignatures: {
-      'gestureSettings': 'set gestureSettings(dynamic value)',
-      'supportedDevices': 'set supportedDevices(dynamic value)',
+      'gestureSettings': 'set gestureSettings(DeviceGestureSettings? value)',
+      'supportedDevices': 'set supportedDevices(Set<PointerDeviceKind>? value)',
       'team': 'set team(GestureArenaTeam? value)',
       'onLongPressDown': 'set onLongPressDown(dynamic value)',
       'onLongPressCancel': 'set onLongPressCancel(dynamic value)',
@@ -7988,7 +8038,7 @@ BridgedClass _createGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as dynamic; }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_25.GestureRecognizer>(target, 'GestureRecognizer');
@@ -8183,7 +8233,7 @@ BridgedClass _createOneSequenceGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as dynamic; }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_25.OneSequenceGestureRecognizer>(target, 'OneSequenceGestureRecognizer');
@@ -8315,8 +8365,8 @@ BridgedClass _createOneSequenceGestureRecognizerBridge() {
       'team': 'GestureArenaTeam? get team',
     },
     setterSignatures: {
-      'gestureSettings': 'set gestureSettings(dynamic value)',
-      'supportedDevices': 'set supportedDevices(dynamic value)',
+      'gestureSettings': 'set gestureSettings(DeviceGestureSettings? value)',
+      'supportedDevices': 'set supportedDevices(Set<PointerDeviceKind>? value)',
       'team': 'set team(GestureArenaTeam? value)',
     },
   );
@@ -8444,7 +8494,7 @@ BridgedClass _createPrimaryPointerGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as dynamic; }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_25.PrimaryPointerGestureRecognizer>(target, 'PrimaryPointerGestureRecognizer');
@@ -8604,8 +8654,8 @@ BridgedClass _createPrimaryPointerGestureRecognizerBridge() {
       'initialPosition': 'OffsetPair? get initialPosition',
     },
     setterSignatures: {
-      'gestureSettings': 'set gestureSettings(dynamic value)',
-      'supportedDevices': 'set supportedDevices(dynamic value)',
+      'gestureSettings': 'set gestureSettings(DeviceGestureSettings? value)',
+      'supportedDevices': 'set supportedDevices(Set<PointerDeviceKind>? value)',
       'team': 'set team(GestureArenaTeam? value)',
     },
   );
@@ -8722,16 +8772,26 @@ BridgedClass _createDragGestureRecognizerBridge() {
         D4.validateTarget<$flutter_20.DragGestureRecognizer>(target, 'DragGestureRecognizer').dragStartBehavior = D4.extractBridgedArg<$flutter_25.DragStartBehavior>(value, 'dragStartBehavior'),
       'multitouchDragStrategy': (visitor, target, value) => 
         D4.validateTarget<$flutter_20.DragGestureRecognizer>(target, 'DragGestureRecognizer').multitouchDragStrategy = D4.extractBridgedArg<$flutter_25.MultitouchDragStrategy>(value, 'multitouchDragStrategy'),
-      'onDown': (visitor, target, value) => 
-        D4.validateTarget<$flutter_20.DragGestureRecognizer>(target, 'DragGestureRecognizer').onDown = D4.extractBridgedArgOrNull<$flutter_11.GestureDragDownCallback>(value, 'onDown'),
-      'onStart': (visitor, target, value) => 
-        D4.validateTarget<$flutter_20.DragGestureRecognizer>(target, 'DragGestureRecognizer').onStart = D4.extractBridgedArgOrNull<$flutter_11.GestureDragStartCallback>(value, 'onStart'),
-      'onUpdate': (visitor, target, value) => 
-        D4.validateTarget<$flutter_20.DragGestureRecognizer>(target, 'DragGestureRecognizer').onUpdate = D4.extractBridgedArgOrNull<$flutter_11.GestureDragUpdateCallback>(value, 'onUpdate'),
-      'onEnd': (visitor, target, value) => 
-        D4.validateTarget<$flutter_20.DragGestureRecognizer>(target, 'DragGestureRecognizer').onEnd = D4.extractBridgedArgOrNull<$flutter_20.GestureDragEndCallback>(value, 'onEnd'),
-      'onCancel': (visitor, target, value) => 
-        D4.validateTarget<$flutter_20.DragGestureRecognizer>(target, 'DragGestureRecognizer').onCancel = D4.extractBridgedArgOrNull<$flutter_20.GestureDragCancelCallback>(value, 'onCancel'),
+      'onDown': (visitor, target, value) {
+        final onDownRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onDown');
+        D4.validateTarget<$flutter_20.DragGestureRecognizer>(target, 'DragGestureRecognizer').onDown = onDownRaw == null ? null : ($flutter_11.DragDownDetails p0) { D4.callInterpreterCallback(visitor!, onDownRaw, [p0]); };
+      },
+      'onStart': (visitor, target, value) {
+        final onStartRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onStart');
+        D4.validateTarget<$flutter_20.DragGestureRecognizer>(target, 'DragGestureRecognizer').onStart = onStartRaw == null ? null : ($flutter_11.DragStartDetails p0) { D4.callInterpreterCallback(visitor!, onStartRaw, [p0]); };
+      },
+      'onUpdate': (visitor, target, value) {
+        final onUpdateRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onUpdate');
+        D4.validateTarget<$flutter_20.DragGestureRecognizer>(target, 'DragGestureRecognizer').onUpdate = onUpdateRaw == null ? null : ($flutter_11.DragUpdateDetails p0) { D4.callInterpreterCallback(visitor!, onUpdateRaw, [p0]); };
+      },
+      'onEnd': (visitor, target, value) {
+        final onEndRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onEnd');
+        D4.validateTarget<$flutter_20.DragGestureRecognizer>(target, 'DragGestureRecognizer').onEnd = onEndRaw == null ? null : ($flutter_11.DragEndDetails p0) { D4.callInterpreterCallback(visitor!, onEndRaw, [p0]); };
+      },
+      'onCancel': (visitor, target, value) {
+        final onCancelRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onCancel');
+        D4.validateTarget<$flutter_20.DragGestureRecognizer>(target, 'DragGestureRecognizer').onCancel = onCancelRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onCancelRaw, []); };
+      },
       'minFlingDistance': (visitor, target, value) => 
         D4.validateTarget<$flutter_20.DragGestureRecognizer>(target, 'DragGestureRecognizer').minFlingDistance = D4.extractBridgedArgOrNull<double>(value, 'minFlingDistance'),
       'minFlingVelocity': (visitor, target, value) => 
@@ -8740,8 +8800,10 @@ BridgedClass _createDragGestureRecognizerBridge() {
         D4.validateTarget<$flutter_20.DragGestureRecognizer>(target, 'DragGestureRecognizer').maxFlingVelocity = D4.extractBridgedArgOrNull<double>(value, 'maxFlingVelocity'),
       'onlyAcceptDragOnThreshold': (visitor, target, value) => 
         D4.validateTarget<$flutter_20.DragGestureRecognizer>(target, 'DragGestureRecognizer').onlyAcceptDragOnThreshold = D4.extractBridgedArg<bool>(value, 'onlyAcceptDragOnThreshold'),
-      'velocityTrackerBuilder': (visitor, target, value) => 
-        D4.validateTarget<$flutter_20.DragGestureRecognizer>(target, 'DragGestureRecognizer').velocityTrackerBuilder = D4.extractBridgedArg<$flutter_20.GestureVelocityTrackerBuilder>(value, 'velocityTrackerBuilder'),
+      'velocityTrackerBuilder': (visitor, target, value) {
+        final velocityTrackerBuilderRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'velocityTrackerBuilder');
+        D4.validateTarget<$flutter_20.DragGestureRecognizer>(target, 'DragGestureRecognizer').velocityTrackerBuilder = ($flutter_13.PointerEvent p0) { return D4.callInterpreterCallback(visitor!, velocityTrackerBuilderRaw, [p0]) as $flutter_31.VelocityTracker; };
+      },
     },
     methods: {
       'acceptGesture': (visitor, target, positional, named, typeArgs) {
@@ -8832,7 +8894,7 @@ BridgedClass _createDragGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as dynamic; }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_20.DragGestureRecognizer>(target, 'DragGestureRecognizer');
@@ -9005,8 +9067,8 @@ BridgedClass _createDragGestureRecognizerBridge() {
       'globalDistanceMoved': 'double get globalDistanceMoved',
     },
     setterSignatures: {
-      'gestureSettings': 'set gestureSettings(dynamic value)',
-      'supportedDevices': 'set supportedDevices(dynamic value)',
+      'gestureSettings': 'set gestureSettings(DeviceGestureSettings? value)',
+      'supportedDevices': 'set supportedDevices(Set<PointerDeviceKind>? value)',
       'team': 'set team(GestureArenaTeam? value)',
       'dragStartBehavior': 'set dragStartBehavior(dynamic value)',
       'multitouchDragStrategy': 'set multitouchDragStrategy(dynamic value)',
@@ -9036,7 +9098,7 @@ BridgedClass _createVerticalDragGestureRecognizerBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final debugOwner = D4.getOptionalNamedArg<Object?>(named, 'debugOwner');
-        final supportedDevices = D4.getOptionalNamedArg<Set<PointerDeviceKind>?>(named, 'supportedDevices');
+        final supportedDevices = D4.coerceSetOrNull<PointerDeviceKind>(named['supportedDevices'], 'supportedDevices');
         if (!named.containsKey('allowedButtonsFilter')) {
           return $flutter_20.VerticalDragGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices);
         }
@@ -9081,16 +9143,26 @@ BridgedClass _createVerticalDragGestureRecognizerBridge() {
         D4.validateTarget<$flutter_20.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').dragStartBehavior = D4.extractBridgedArg<$flutter_25.DragStartBehavior>(value, 'dragStartBehavior'),
       'multitouchDragStrategy': (visitor, target, value) => 
         D4.validateTarget<$flutter_20.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').multitouchDragStrategy = D4.extractBridgedArg<$flutter_25.MultitouchDragStrategy>(value, 'multitouchDragStrategy'),
-      'onDown': (visitor, target, value) => 
-        D4.validateTarget<$flutter_20.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').onDown = D4.extractBridgedArgOrNull<$flutter_11.GestureDragDownCallback>(value, 'onDown'),
-      'onStart': (visitor, target, value) => 
-        D4.validateTarget<$flutter_20.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').onStart = D4.extractBridgedArgOrNull<$flutter_11.GestureDragStartCallback>(value, 'onStart'),
-      'onUpdate': (visitor, target, value) => 
-        D4.validateTarget<$flutter_20.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').onUpdate = D4.extractBridgedArgOrNull<$flutter_11.GestureDragUpdateCallback>(value, 'onUpdate'),
-      'onEnd': (visitor, target, value) => 
-        D4.validateTarget<$flutter_20.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').onEnd = D4.extractBridgedArgOrNull<$flutter_20.GestureDragEndCallback>(value, 'onEnd'),
-      'onCancel': (visitor, target, value) => 
-        D4.validateTarget<$flutter_20.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').onCancel = D4.extractBridgedArgOrNull<$flutter_20.GestureDragCancelCallback>(value, 'onCancel'),
+      'onDown': (visitor, target, value) {
+        final onDownRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onDown');
+        D4.validateTarget<$flutter_20.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').onDown = onDownRaw == null ? null : ($flutter_11.DragDownDetails p0) { D4.callInterpreterCallback(visitor!, onDownRaw, [p0]); };
+      },
+      'onStart': (visitor, target, value) {
+        final onStartRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onStart');
+        D4.validateTarget<$flutter_20.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').onStart = onStartRaw == null ? null : ($flutter_11.DragStartDetails p0) { D4.callInterpreterCallback(visitor!, onStartRaw, [p0]); };
+      },
+      'onUpdate': (visitor, target, value) {
+        final onUpdateRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onUpdate');
+        D4.validateTarget<$flutter_20.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').onUpdate = onUpdateRaw == null ? null : ($flutter_11.DragUpdateDetails p0) { D4.callInterpreterCallback(visitor!, onUpdateRaw, [p0]); };
+      },
+      'onEnd': (visitor, target, value) {
+        final onEndRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onEnd');
+        D4.validateTarget<$flutter_20.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').onEnd = onEndRaw == null ? null : ($flutter_11.DragEndDetails p0) { D4.callInterpreterCallback(visitor!, onEndRaw, [p0]); };
+      },
+      'onCancel': (visitor, target, value) {
+        final onCancelRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onCancel');
+        D4.validateTarget<$flutter_20.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').onCancel = onCancelRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onCancelRaw, []); };
+      },
       'minFlingDistance': (visitor, target, value) => 
         D4.validateTarget<$flutter_20.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').minFlingDistance = D4.extractBridgedArgOrNull<double>(value, 'minFlingDistance'),
       'minFlingVelocity': (visitor, target, value) => 
@@ -9099,8 +9171,10 @@ BridgedClass _createVerticalDragGestureRecognizerBridge() {
         D4.validateTarget<$flutter_20.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').maxFlingVelocity = D4.extractBridgedArgOrNull<double>(value, 'maxFlingVelocity'),
       'onlyAcceptDragOnThreshold': (visitor, target, value) => 
         D4.validateTarget<$flutter_20.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').onlyAcceptDragOnThreshold = D4.extractBridgedArg<bool>(value, 'onlyAcceptDragOnThreshold'),
-      'velocityTrackerBuilder': (visitor, target, value) => 
-        D4.validateTarget<$flutter_20.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').velocityTrackerBuilder = D4.extractBridgedArg<$flutter_20.GestureVelocityTrackerBuilder>(value, 'velocityTrackerBuilder'),
+      'velocityTrackerBuilder': (visitor, target, value) {
+        final velocityTrackerBuilderRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'velocityTrackerBuilder');
+        D4.validateTarget<$flutter_20.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').velocityTrackerBuilder = ($flutter_13.PointerEvent p0) { return D4.callInterpreterCallback(visitor!, velocityTrackerBuilderRaw, [p0]) as $flutter_31.VelocityTracker; };
+      },
     },
     methods: {
       'acceptGesture': (visitor, target, positional, named, typeArgs) {
@@ -9191,7 +9265,7 @@ BridgedClass _createVerticalDragGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as dynamic; }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_20.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer');
@@ -9364,21 +9438,21 @@ BridgedClass _createVerticalDragGestureRecognizerBridge() {
       'globalDistanceMoved': 'double get globalDistanceMoved',
     },
     setterSignatures: {
-      'gestureSettings': 'set gestureSettings(dynamic value)',
-      'supportedDevices': 'set supportedDevices(dynamic value)',
+      'gestureSettings': 'set gestureSettings(DeviceGestureSettings? value)',
+      'supportedDevices': 'set supportedDevices(Set<PointerDeviceKind>? value)',
       'team': 'set team(GestureArenaTeam? value)',
-      'dragStartBehavior': 'set dragStartBehavior(dynamic value)',
-      'multitouchDragStrategy': 'set multitouchDragStrategy(dynamic value)',
-      'onDown': 'set onDown(dynamic value)',
-      'onStart': 'set onStart(dynamic value)',
-      'onUpdate': 'set onUpdate(dynamic value)',
-      'onEnd': 'set onEnd(dynamic value)',
-      'onCancel': 'set onCancel(dynamic value)',
-      'minFlingDistance': 'set minFlingDistance(dynamic value)',
-      'minFlingVelocity': 'set minFlingVelocity(dynamic value)',
-      'maxFlingVelocity': 'set maxFlingVelocity(dynamic value)',
-      'onlyAcceptDragOnThreshold': 'set onlyAcceptDragOnThreshold(dynamic value)',
-      'velocityTrackerBuilder': 'set velocityTrackerBuilder(dynamic value)',
+      'dragStartBehavior': 'set dragStartBehavior(DragStartBehavior value)',
+      'multitouchDragStrategy': 'set multitouchDragStrategy(MultitouchDragStrategy value)',
+      'onDown': 'set onDown(void Function(DragDownDetails)? value)',
+      'onStart': 'set onStart(void Function(DragStartDetails)? value)',
+      'onUpdate': 'set onUpdate(void Function(DragUpdateDetails)? value)',
+      'onEnd': 'set onEnd(void Function(DragEndDetails)? value)',
+      'onCancel': 'set onCancel(void Function()? value)',
+      'minFlingDistance': 'set minFlingDistance(double? value)',
+      'minFlingVelocity': 'set minFlingVelocity(double? value)',
+      'maxFlingVelocity': 'set maxFlingVelocity(double? value)',
+      'onlyAcceptDragOnThreshold': 'set onlyAcceptDragOnThreshold(bool value)',
+      'velocityTrackerBuilder': 'set velocityTrackerBuilder(VelocityTracker Function(PointerEvent) value)',
     },
   );
 }
@@ -9395,7 +9469,7 @@ BridgedClass _createHorizontalDragGestureRecognizerBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final debugOwner = D4.getOptionalNamedArg<Object?>(named, 'debugOwner');
-        final supportedDevices = D4.getOptionalNamedArg<Set<PointerDeviceKind>?>(named, 'supportedDevices');
+        final supportedDevices = D4.coerceSetOrNull<PointerDeviceKind>(named['supportedDevices'], 'supportedDevices');
         if (!named.containsKey('allowedButtonsFilter')) {
           return $flutter_20.HorizontalDragGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices);
         }
@@ -9440,16 +9514,26 @@ BridgedClass _createHorizontalDragGestureRecognizerBridge() {
         D4.validateTarget<$flutter_20.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').dragStartBehavior = D4.extractBridgedArg<$flutter_25.DragStartBehavior>(value, 'dragStartBehavior'),
       'multitouchDragStrategy': (visitor, target, value) => 
         D4.validateTarget<$flutter_20.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').multitouchDragStrategy = D4.extractBridgedArg<$flutter_25.MultitouchDragStrategy>(value, 'multitouchDragStrategy'),
-      'onDown': (visitor, target, value) => 
-        D4.validateTarget<$flutter_20.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').onDown = D4.extractBridgedArgOrNull<$flutter_11.GestureDragDownCallback>(value, 'onDown'),
-      'onStart': (visitor, target, value) => 
-        D4.validateTarget<$flutter_20.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').onStart = D4.extractBridgedArgOrNull<$flutter_11.GestureDragStartCallback>(value, 'onStart'),
-      'onUpdate': (visitor, target, value) => 
-        D4.validateTarget<$flutter_20.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').onUpdate = D4.extractBridgedArgOrNull<$flutter_11.GestureDragUpdateCallback>(value, 'onUpdate'),
-      'onEnd': (visitor, target, value) => 
-        D4.validateTarget<$flutter_20.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').onEnd = D4.extractBridgedArgOrNull<$flutter_20.GestureDragEndCallback>(value, 'onEnd'),
-      'onCancel': (visitor, target, value) => 
-        D4.validateTarget<$flutter_20.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').onCancel = D4.extractBridgedArgOrNull<$flutter_20.GestureDragCancelCallback>(value, 'onCancel'),
+      'onDown': (visitor, target, value) {
+        final onDownRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onDown');
+        D4.validateTarget<$flutter_20.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').onDown = onDownRaw == null ? null : ($flutter_11.DragDownDetails p0) { D4.callInterpreterCallback(visitor!, onDownRaw, [p0]); };
+      },
+      'onStart': (visitor, target, value) {
+        final onStartRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onStart');
+        D4.validateTarget<$flutter_20.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').onStart = onStartRaw == null ? null : ($flutter_11.DragStartDetails p0) { D4.callInterpreterCallback(visitor!, onStartRaw, [p0]); };
+      },
+      'onUpdate': (visitor, target, value) {
+        final onUpdateRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onUpdate');
+        D4.validateTarget<$flutter_20.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').onUpdate = onUpdateRaw == null ? null : ($flutter_11.DragUpdateDetails p0) { D4.callInterpreterCallback(visitor!, onUpdateRaw, [p0]); };
+      },
+      'onEnd': (visitor, target, value) {
+        final onEndRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onEnd');
+        D4.validateTarget<$flutter_20.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').onEnd = onEndRaw == null ? null : ($flutter_11.DragEndDetails p0) { D4.callInterpreterCallback(visitor!, onEndRaw, [p0]); };
+      },
+      'onCancel': (visitor, target, value) {
+        final onCancelRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onCancel');
+        D4.validateTarget<$flutter_20.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').onCancel = onCancelRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onCancelRaw, []); };
+      },
       'minFlingDistance': (visitor, target, value) => 
         D4.validateTarget<$flutter_20.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').minFlingDistance = D4.extractBridgedArgOrNull<double>(value, 'minFlingDistance'),
       'minFlingVelocity': (visitor, target, value) => 
@@ -9458,8 +9542,10 @@ BridgedClass _createHorizontalDragGestureRecognizerBridge() {
         D4.validateTarget<$flutter_20.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').maxFlingVelocity = D4.extractBridgedArgOrNull<double>(value, 'maxFlingVelocity'),
       'onlyAcceptDragOnThreshold': (visitor, target, value) => 
         D4.validateTarget<$flutter_20.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').onlyAcceptDragOnThreshold = D4.extractBridgedArg<bool>(value, 'onlyAcceptDragOnThreshold'),
-      'velocityTrackerBuilder': (visitor, target, value) => 
-        D4.validateTarget<$flutter_20.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').velocityTrackerBuilder = D4.extractBridgedArg<$flutter_20.GestureVelocityTrackerBuilder>(value, 'velocityTrackerBuilder'),
+      'velocityTrackerBuilder': (visitor, target, value) {
+        final velocityTrackerBuilderRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'velocityTrackerBuilder');
+        D4.validateTarget<$flutter_20.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').velocityTrackerBuilder = ($flutter_13.PointerEvent p0) { return D4.callInterpreterCallback(visitor!, velocityTrackerBuilderRaw, [p0]) as $flutter_31.VelocityTracker; };
+      },
     },
     methods: {
       'acceptGesture': (visitor, target, positional, named, typeArgs) {
@@ -9550,7 +9636,7 @@ BridgedClass _createHorizontalDragGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as dynamic; }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_20.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer');
@@ -9723,21 +9809,21 @@ BridgedClass _createHorizontalDragGestureRecognizerBridge() {
       'globalDistanceMoved': 'double get globalDistanceMoved',
     },
     setterSignatures: {
-      'gestureSettings': 'set gestureSettings(dynamic value)',
-      'supportedDevices': 'set supportedDevices(dynamic value)',
+      'gestureSettings': 'set gestureSettings(DeviceGestureSettings? value)',
+      'supportedDevices': 'set supportedDevices(Set<PointerDeviceKind>? value)',
       'team': 'set team(GestureArenaTeam? value)',
-      'dragStartBehavior': 'set dragStartBehavior(dynamic value)',
-      'multitouchDragStrategy': 'set multitouchDragStrategy(dynamic value)',
-      'onDown': 'set onDown(dynamic value)',
-      'onStart': 'set onStart(dynamic value)',
-      'onUpdate': 'set onUpdate(dynamic value)',
-      'onEnd': 'set onEnd(dynamic value)',
-      'onCancel': 'set onCancel(dynamic value)',
-      'minFlingDistance': 'set minFlingDistance(dynamic value)',
-      'minFlingVelocity': 'set minFlingVelocity(dynamic value)',
-      'maxFlingVelocity': 'set maxFlingVelocity(dynamic value)',
-      'onlyAcceptDragOnThreshold': 'set onlyAcceptDragOnThreshold(dynamic value)',
-      'velocityTrackerBuilder': 'set velocityTrackerBuilder(dynamic value)',
+      'dragStartBehavior': 'set dragStartBehavior(DragStartBehavior value)',
+      'multitouchDragStrategy': 'set multitouchDragStrategy(MultitouchDragStrategy value)',
+      'onDown': 'set onDown(void Function(DragDownDetails)? value)',
+      'onStart': 'set onStart(void Function(DragStartDetails)? value)',
+      'onUpdate': 'set onUpdate(void Function(DragUpdateDetails)? value)',
+      'onEnd': 'set onEnd(void Function(DragEndDetails)? value)',
+      'onCancel': 'set onCancel(void Function()? value)',
+      'minFlingDistance': 'set minFlingDistance(double? value)',
+      'minFlingVelocity': 'set minFlingVelocity(double? value)',
+      'maxFlingVelocity': 'set maxFlingVelocity(double? value)',
+      'onlyAcceptDragOnThreshold': 'set onlyAcceptDragOnThreshold(bool value)',
+      'velocityTrackerBuilder': 'set velocityTrackerBuilder(VelocityTracker Function(PointerEvent) value)',
     },
   );
 }
@@ -9754,7 +9840,7 @@ BridgedClass _createPanGestureRecognizerBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final debugOwner = D4.getOptionalNamedArg<Object?>(named, 'debugOwner');
-        final supportedDevices = D4.getOptionalNamedArg<Set<PointerDeviceKind>?>(named, 'supportedDevices');
+        final supportedDevices = D4.coerceSetOrNull<PointerDeviceKind>(named['supportedDevices'], 'supportedDevices');
         if (!named.containsKey('allowedButtonsFilter')) {
           return $flutter_20.PanGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices);
         }
@@ -9799,16 +9885,26 @@ BridgedClass _createPanGestureRecognizerBridge() {
         D4.validateTarget<$flutter_20.PanGestureRecognizer>(target, 'PanGestureRecognizer').dragStartBehavior = D4.extractBridgedArg<$flutter_25.DragStartBehavior>(value, 'dragStartBehavior'),
       'multitouchDragStrategy': (visitor, target, value) => 
         D4.validateTarget<$flutter_20.PanGestureRecognizer>(target, 'PanGestureRecognizer').multitouchDragStrategy = D4.extractBridgedArg<$flutter_25.MultitouchDragStrategy>(value, 'multitouchDragStrategy'),
-      'onDown': (visitor, target, value) => 
-        D4.validateTarget<$flutter_20.PanGestureRecognizer>(target, 'PanGestureRecognizer').onDown = D4.extractBridgedArgOrNull<$flutter_11.GestureDragDownCallback>(value, 'onDown'),
-      'onStart': (visitor, target, value) => 
-        D4.validateTarget<$flutter_20.PanGestureRecognizer>(target, 'PanGestureRecognizer').onStart = D4.extractBridgedArgOrNull<$flutter_11.GestureDragStartCallback>(value, 'onStart'),
-      'onUpdate': (visitor, target, value) => 
-        D4.validateTarget<$flutter_20.PanGestureRecognizer>(target, 'PanGestureRecognizer').onUpdate = D4.extractBridgedArgOrNull<$flutter_11.GestureDragUpdateCallback>(value, 'onUpdate'),
-      'onEnd': (visitor, target, value) => 
-        D4.validateTarget<$flutter_20.PanGestureRecognizer>(target, 'PanGestureRecognizer').onEnd = D4.extractBridgedArgOrNull<$flutter_20.GestureDragEndCallback>(value, 'onEnd'),
-      'onCancel': (visitor, target, value) => 
-        D4.validateTarget<$flutter_20.PanGestureRecognizer>(target, 'PanGestureRecognizer').onCancel = D4.extractBridgedArgOrNull<$flutter_20.GestureDragCancelCallback>(value, 'onCancel'),
+      'onDown': (visitor, target, value) {
+        final onDownRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onDown');
+        D4.validateTarget<$flutter_20.PanGestureRecognizer>(target, 'PanGestureRecognizer').onDown = onDownRaw == null ? null : ($flutter_11.DragDownDetails p0) { D4.callInterpreterCallback(visitor!, onDownRaw, [p0]); };
+      },
+      'onStart': (visitor, target, value) {
+        final onStartRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onStart');
+        D4.validateTarget<$flutter_20.PanGestureRecognizer>(target, 'PanGestureRecognizer').onStart = onStartRaw == null ? null : ($flutter_11.DragStartDetails p0) { D4.callInterpreterCallback(visitor!, onStartRaw, [p0]); };
+      },
+      'onUpdate': (visitor, target, value) {
+        final onUpdateRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onUpdate');
+        D4.validateTarget<$flutter_20.PanGestureRecognizer>(target, 'PanGestureRecognizer').onUpdate = onUpdateRaw == null ? null : ($flutter_11.DragUpdateDetails p0) { D4.callInterpreterCallback(visitor!, onUpdateRaw, [p0]); };
+      },
+      'onEnd': (visitor, target, value) {
+        final onEndRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onEnd');
+        D4.validateTarget<$flutter_20.PanGestureRecognizer>(target, 'PanGestureRecognizer').onEnd = onEndRaw == null ? null : ($flutter_11.DragEndDetails p0) { D4.callInterpreterCallback(visitor!, onEndRaw, [p0]); };
+      },
+      'onCancel': (visitor, target, value) {
+        final onCancelRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onCancel');
+        D4.validateTarget<$flutter_20.PanGestureRecognizer>(target, 'PanGestureRecognizer').onCancel = onCancelRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onCancelRaw, []); };
+      },
       'minFlingDistance': (visitor, target, value) => 
         D4.validateTarget<$flutter_20.PanGestureRecognizer>(target, 'PanGestureRecognizer').minFlingDistance = D4.extractBridgedArgOrNull<double>(value, 'minFlingDistance'),
       'minFlingVelocity': (visitor, target, value) => 
@@ -9817,8 +9913,10 @@ BridgedClass _createPanGestureRecognizerBridge() {
         D4.validateTarget<$flutter_20.PanGestureRecognizer>(target, 'PanGestureRecognizer').maxFlingVelocity = D4.extractBridgedArgOrNull<double>(value, 'maxFlingVelocity'),
       'onlyAcceptDragOnThreshold': (visitor, target, value) => 
         D4.validateTarget<$flutter_20.PanGestureRecognizer>(target, 'PanGestureRecognizer').onlyAcceptDragOnThreshold = D4.extractBridgedArg<bool>(value, 'onlyAcceptDragOnThreshold'),
-      'velocityTrackerBuilder': (visitor, target, value) => 
-        D4.validateTarget<$flutter_20.PanGestureRecognizer>(target, 'PanGestureRecognizer').velocityTrackerBuilder = D4.extractBridgedArg<$flutter_20.GestureVelocityTrackerBuilder>(value, 'velocityTrackerBuilder'),
+      'velocityTrackerBuilder': (visitor, target, value) {
+        final velocityTrackerBuilderRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'velocityTrackerBuilder');
+        D4.validateTarget<$flutter_20.PanGestureRecognizer>(target, 'PanGestureRecognizer').velocityTrackerBuilder = ($flutter_13.PointerEvent p0) { return D4.callInterpreterCallback(visitor!, velocityTrackerBuilderRaw, [p0]) as $flutter_31.VelocityTracker; };
+      },
     },
     methods: {
       'acceptGesture': (visitor, target, positional, named, typeArgs) {
@@ -9909,7 +10007,7 @@ BridgedClass _createPanGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as dynamic; }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_20.PanGestureRecognizer>(target, 'PanGestureRecognizer');
@@ -10082,21 +10180,21 @@ BridgedClass _createPanGestureRecognizerBridge() {
       'globalDistanceMoved': 'double get globalDistanceMoved',
     },
     setterSignatures: {
-      'gestureSettings': 'set gestureSettings(dynamic value)',
-      'supportedDevices': 'set supportedDevices(dynamic value)',
+      'gestureSettings': 'set gestureSettings(DeviceGestureSettings? value)',
+      'supportedDevices': 'set supportedDevices(Set<PointerDeviceKind>? value)',
       'team': 'set team(GestureArenaTeam? value)',
-      'dragStartBehavior': 'set dragStartBehavior(dynamic value)',
-      'multitouchDragStrategy': 'set multitouchDragStrategy(dynamic value)',
-      'onDown': 'set onDown(dynamic value)',
-      'onStart': 'set onStart(dynamic value)',
-      'onUpdate': 'set onUpdate(dynamic value)',
-      'onEnd': 'set onEnd(dynamic value)',
-      'onCancel': 'set onCancel(dynamic value)',
-      'minFlingDistance': 'set minFlingDistance(dynamic value)',
-      'minFlingVelocity': 'set minFlingVelocity(dynamic value)',
-      'maxFlingVelocity': 'set maxFlingVelocity(dynamic value)',
-      'onlyAcceptDragOnThreshold': 'set onlyAcceptDragOnThreshold(dynamic value)',
-      'velocityTrackerBuilder': 'set velocityTrackerBuilder(dynamic value)',
+      'dragStartBehavior': 'set dragStartBehavior(DragStartBehavior value)',
+      'multitouchDragStrategy': 'set multitouchDragStrategy(MultitouchDragStrategy value)',
+      'onDown': 'set onDown(void Function(DragDownDetails)? value)',
+      'onStart': 'set onStart(void Function(DragStartDetails)? value)',
+      'onUpdate': 'set onUpdate(void Function(DragUpdateDetails)? value)',
+      'onEnd': 'set onEnd(void Function(DragEndDetails)? value)',
+      'onCancel': 'set onCancel(void Function()? value)',
+      'minFlingDistance': 'set minFlingDistance(double? value)',
+      'minFlingVelocity': 'set minFlingVelocity(double? value)',
+      'maxFlingVelocity': 'set maxFlingVelocity(double? value)',
+      'onlyAcceptDragOnThreshold': 'set onlyAcceptDragOnThreshold(bool value)',
+      'velocityTrackerBuilder': 'set velocityTrackerBuilder(VelocityTracker Function(PointerEvent) value)',
     },
   );
 }
@@ -10192,8 +10290,10 @@ BridgedClass _createMultiDragGestureRecognizerBridge() {
         D4.validateTarget<$flutter_21.MultiDragGestureRecognizer>(target, 'MultiDragGestureRecognizer').gestureSettings = D4.extractBridgedArgOrNull<$flutter_16.DeviceGestureSettings>(value, 'gestureSettings'),
       'supportedDevices': (visitor, target, value) => 
         D4.validateTarget<$flutter_21.MultiDragGestureRecognizer>(target, 'MultiDragGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
-      'onStart': (visitor, target, value) => 
-        D4.validateTarget<$flutter_21.MultiDragGestureRecognizer>(target, 'MultiDragGestureRecognizer').onStart = D4.extractBridgedArgOrNull<$flutter_21.GestureMultiDragStartCallback>(value, 'onStart'),
+      'onStart': (visitor, target, value) {
+        final onStartRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onStart');
+        D4.validateTarget<$flutter_21.MultiDragGestureRecognizer>(target, 'MultiDragGestureRecognizer').onStart = onStartRaw == null ? null : (Offset p0) { return D4.callInterpreterCallback(visitor!, onStartRaw, [p0]) as $flutter_10.Drag?; };
+      },
     },
     methods: {
       'acceptGesture': (visitor, target, positional, named, typeArgs) {
@@ -10284,7 +10384,7 @@ BridgedClass _createMultiDragGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as dynamic; }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_21.MultiDragGestureRecognizer>(target, 'MultiDragGestureRecognizer');
@@ -10365,8 +10465,8 @@ BridgedClass _createMultiDragGestureRecognizerBridge() {
       'onStart': 'GestureMultiDragStartCallback? get onStart',
     },
     setterSignatures: {
-      'gestureSettings': 'set gestureSettings(dynamic value)',
-      'supportedDevices': 'set supportedDevices(dynamic value)',
+      'gestureSettings': 'set gestureSettings(DeviceGestureSettings? value)',
+      'supportedDevices': 'set supportedDevices(Set<PointerDeviceKind>? value)',
       'onStart': 'set onStart(dynamic value)',
     },
   );
@@ -10384,7 +10484,7 @@ BridgedClass _createImmediateMultiDragGestureRecognizerBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final debugOwner = D4.getOptionalNamedArg<Object?>(named, 'debugOwner');
-        final supportedDevices = D4.getOptionalNamedArg<Set<PointerDeviceKind>?>(named, 'supportedDevices');
+        final supportedDevices = D4.coerceSetOrNull<PointerDeviceKind>(named['supportedDevices'], 'supportedDevices');
         final allowedButtonsFilterRaw = named['allowedButtonsFilter'];
         return $flutter_21.ImmediateMultiDragGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices, allowedButtonsFilter: allowedButtonsFilterRaw == null ? null : (int p0) { return D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]) as bool; });
       },
@@ -10402,8 +10502,10 @@ BridgedClass _createImmediateMultiDragGestureRecognizerBridge() {
         D4.validateTarget<$flutter_21.ImmediateMultiDragGestureRecognizer>(target, 'ImmediateMultiDragGestureRecognizer').gestureSettings = D4.extractBridgedArgOrNull<$flutter_16.DeviceGestureSettings>(value, 'gestureSettings'),
       'supportedDevices': (visitor, target, value) => 
         D4.validateTarget<$flutter_21.ImmediateMultiDragGestureRecognizer>(target, 'ImmediateMultiDragGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
-      'onStart': (visitor, target, value) => 
-        D4.validateTarget<$flutter_21.ImmediateMultiDragGestureRecognizer>(target, 'ImmediateMultiDragGestureRecognizer').onStart = D4.extractBridgedArgOrNull<$flutter_21.GestureMultiDragStartCallback>(value, 'onStart'),
+      'onStart': (visitor, target, value) {
+        final onStartRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onStart');
+        D4.validateTarget<$flutter_21.ImmediateMultiDragGestureRecognizer>(target, 'ImmediateMultiDragGestureRecognizer').onStart = onStartRaw == null ? null : (Offset p0) { return D4.callInterpreterCallback(visitor!, onStartRaw, [p0]) as $flutter_10.Drag?; };
+      },
     },
     methods: {
       'acceptGesture': (visitor, target, positional, named, typeArgs) {
@@ -10494,7 +10596,7 @@ BridgedClass _createImmediateMultiDragGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as dynamic; }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_21.ImmediateMultiDragGestureRecognizer>(target, 'ImmediateMultiDragGestureRecognizer');
@@ -10578,9 +10680,9 @@ BridgedClass _createImmediateMultiDragGestureRecognizerBridge() {
       'onStart': 'Drag? Function(Offset)? get onStart',
     },
     setterSignatures: {
-      'gestureSettings': 'set gestureSettings(dynamic value)',
-      'supportedDevices': 'set supportedDevices(dynamic value)',
-      'onStart': 'set onStart(dynamic value)',
+      'gestureSettings': 'set gestureSettings(DeviceGestureSettings? value)',
+      'supportedDevices': 'set supportedDevices(Set<PointerDeviceKind>? value)',
+      'onStart': 'set onStart(Drag? Function(Offset)? value)',
     },
   );
 }
@@ -10597,7 +10699,7 @@ BridgedClass _createHorizontalMultiDragGestureRecognizerBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final debugOwner = D4.getOptionalNamedArg<Object?>(named, 'debugOwner');
-        final supportedDevices = D4.getOptionalNamedArg<Set<PointerDeviceKind>?>(named, 'supportedDevices');
+        final supportedDevices = D4.coerceSetOrNull<PointerDeviceKind>(named['supportedDevices'], 'supportedDevices');
         final allowedButtonsFilterRaw = named['allowedButtonsFilter'];
         return $flutter_21.HorizontalMultiDragGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices, allowedButtonsFilter: allowedButtonsFilterRaw == null ? null : (int p0) { return D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]) as bool; });
       },
@@ -10615,8 +10717,10 @@ BridgedClass _createHorizontalMultiDragGestureRecognizerBridge() {
         D4.validateTarget<$flutter_21.HorizontalMultiDragGestureRecognizer>(target, 'HorizontalMultiDragGestureRecognizer').gestureSettings = D4.extractBridgedArgOrNull<$flutter_16.DeviceGestureSettings>(value, 'gestureSettings'),
       'supportedDevices': (visitor, target, value) => 
         D4.validateTarget<$flutter_21.HorizontalMultiDragGestureRecognizer>(target, 'HorizontalMultiDragGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
-      'onStart': (visitor, target, value) => 
-        D4.validateTarget<$flutter_21.HorizontalMultiDragGestureRecognizer>(target, 'HorizontalMultiDragGestureRecognizer').onStart = D4.extractBridgedArgOrNull<$flutter_21.GestureMultiDragStartCallback>(value, 'onStart'),
+      'onStart': (visitor, target, value) {
+        final onStartRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onStart');
+        D4.validateTarget<$flutter_21.HorizontalMultiDragGestureRecognizer>(target, 'HorizontalMultiDragGestureRecognizer').onStart = onStartRaw == null ? null : (Offset p0) { return D4.callInterpreterCallback(visitor!, onStartRaw, [p0]) as $flutter_10.Drag?; };
+      },
     },
     methods: {
       'acceptGesture': (visitor, target, positional, named, typeArgs) {
@@ -10707,7 +10811,7 @@ BridgedClass _createHorizontalMultiDragGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as dynamic; }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_21.HorizontalMultiDragGestureRecognizer>(target, 'HorizontalMultiDragGestureRecognizer');
@@ -10791,9 +10895,9 @@ BridgedClass _createHorizontalMultiDragGestureRecognizerBridge() {
       'onStart': 'Drag? Function(Offset)? get onStart',
     },
     setterSignatures: {
-      'gestureSettings': 'set gestureSettings(dynamic value)',
-      'supportedDevices': 'set supportedDevices(dynamic value)',
-      'onStart': 'set onStart(dynamic value)',
+      'gestureSettings': 'set gestureSettings(DeviceGestureSettings? value)',
+      'supportedDevices': 'set supportedDevices(Set<PointerDeviceKind>? value)',
+      'onStart': 'set onStart(Drag? Function(Offset)? value)',
     },
   );
 }
@@ -10810,7 +10914,7 @@ BridgedClass _createVerticalMultiDragGestureRecognizerBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final debugOwner = D4.getOptionalNamedArg<Object?>(named, 'debugOwner');
-        final supportedDevices = D4.getOptionalNamedArg<Set<PointerDeviceKind>?>(named, 'supportedDevices');
+        final supportedDevices = D4.coerceSetOrNull<PointerDeviceKind>(named['supportedDevices'], 'supportedDevices');
         final allowedButtonsFilterRaw = named['allowedButtonsFilter'];
         return $flutter_21.VerticalMultiDragGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices, allowedButtonsFilter: allowedButtonsFilterRaw == null ? null : (int p0) { return D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]) as bool; });
       },
@@ -10828,8 +10932,10 @@ BridgedClass _createVerticalMultiDragGestureRecognizerBridge() {
         D4.validateTarget<$flutter_21.VerticalMultiDragGestureRecognizer>(target, 'VerticalMultiDragGestureRecognizer').gestureSettings = D4.extractBridgedArgOrNull<$flutter_16.DeviceGestureSettings>(value, 'gestureSettings'),
       'supportedDevices': (visitor, target, value) => 
         D4.validateTarget<$flutter_21.VerticalMultiDragGestureRecognizer>(target, 'VerticalMultiDragGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
-      'onStart': (visitor, target, value) => 
-        D4.validateTarget<$flutter_21.VerticalMultiDragGestureRecognizer>(target, 'VerticalMultiDragGestureRecognizer').onStart = D4.extractBridgedArgOrNull<$flutter_21.GestureMultiDragStartCallback>(value, 'onStart'),
+      'onStart': (visitor, target, value) {
+        final onStartRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onStart');
+        D4.validateTarget<$flutter_21.VerticalMultiDragGestureRecognizer>(target, 'VerticalMultiDragGestureRecognizer').onStart = onStartRaw == null ? null : (Offset p0) { return D4.callInterpreterCallback(visitor!, onStartRaw, [p0]) as $flutter_10.Drag?; };
+      },
     },
     methods: {
       'acceptGesture': (visitor, target, positional, named, typeArgs) {
@@ -10920,7 +11026,7 @@ BridgedClass _createVerticalMultiDragGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as dynamic; }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_21.VerticalMultiDragGestureRecognizer>(target, 'VerticalMultiDragGestureRecognizer');
@@ -11004,9 +11110,9 @@ BridgedClass _createVerticalMultiDragGestureRecognizerBridge() {
       'onStart': 'Drag? Function(Offset)? get onStart',
     },
     setterSignatures: {
-      'gestureSettings': 'set gestureSettings(dynamic value)',
-      'supportedDevices': 'set supportedDevices(dynamic value)',
-      'onStart': 'set onStart(dynamic value)',
+      'gestureSettings': 'set gestureSettings(DeviceGestureSettings? value)',
+      'supportedDevices': 'set supportedDevices(Set<PointerDeviceKind>? value)',
+      'onStart': 'set onStart(Drag? Function(Offset)? value)',
     },
   );
 }
@@ -11023,7 +11129,7 @@ BridgedClass _createDelayedMultiDragGestureRecognizerBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final debugOwner = D4.getOptionalNamedArg<Object?>(named, 'debugOwner');
-        final supportedDevices = D4.getOptionalNamedArg<Set<PointerDeviceKind>?>(named, 'supportedDevices');
+        final supportedDevices = D4.coerceSetOrNull<PointerDeviceKind>(named['supportedDevices'], 'supportedDevices');
         final allowedButtonsFilterRaw = named['allowedButtonsFilter'];
         if (!named.containsKey('delay')) {
           return $flutter_21.DelayedMultiDragGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices, allowedButtonsFilter: allowedButtonsFilterRaw == null ? null : (int p0) { return D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]) as bool; });
@@ -11049,8 +11155,10 @@ BridgedClass _createDelayedMultiDragGestureRecognizerBridge() {
         D4.validateTarget<$flutter_21.DelayedMultiDragGestureRecognizer>(target, 'DelayedMultiDragGestureRecognizer').gestureSettings = D4.extractBridgedArgOrNull<$flutter_16.DeviceGestureSettings>(value, 'gestureSettings'),
       'supportedDevices': (visitor, target, value) => 
         D4.validateTarget<$flutter_21.DelayedMultiDragGestureRecognizer>(target, 'DelayedMultiDragGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
-      'onStart': (visitor, target, value) => 
-        D4.validateTarget<$flutter_21.DelayedMultiDragGestureRecognizer>(target, 'DelayedMultiDragGestureRecognizer').onStart = D4.extractBridgedArgOrNull<$flutter_21.GestureMultiDragStartCallback>(value, 'onStart'),
+      'onStart': (visitor, target, value) {
+        final onStartRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onStart');
+        D4.validateTarget<$flutter_21.DelayedMultiDragGestureRecognizer>(target, 'DelayedMultiDragGestureRecognizer').onStart = onStartRaw == null ? null : (Offset p0) { return D4.callInterpreterCallback(visitor!, onStartRaw, [p0]) as $flutter_10.Drag?; };
+      },
     },
     methods: {
       'acceptGesture': (visitor, target, positional, named, typeArgs) {
@@ -11141,7 +11249,7 @@ BridgedClass _createDelayedMultiDragGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as dynamic; }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_21.DelayedMultiDragGestureRecognizer>(target, 'DelayedMultiDragGestureRecognizer');
@@ -11226,9 +11334,9 @@ BridgedClass _createDelayedMultiDragGestureRecognizerBridge() {
       'delay': 'Duration get delay',
     },
     setterSignatures: {
-      'gestureSettings': 'set gestureSettings(dynamic value)',
-      'supportedDevices': 'set supportedDevices(dynamic value)',
-      'onStart': 'set onStart(dynamic value)',
+      'gestureSettings': 'set gestureSettings(DeviceGestureSettings? value)',
+      'supportedDevices': 'set supportedDevices(Set<PointerDeviceKind>? value)',
+      'onStart': 'set onStart(Drag? Function(Offset)? value)',
     },
   );
 }
@@ -11517,7 +11625,7 @@ BridgedClass _createBaseTapGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as dynamic; }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_28.BaseTapGestureRecognizer>(target, 'BaseTapGestureRecognizer');
@@ -11708,8 +11816,8 @@ BridgedClass _createBaseTapGestureRecognizerBridge() {
       'initialPosition': 'OffsetPair? get initialPosition',
     },
     setterSignatures: {
-      'gestureSettings': 'set gestureSettings(dynamic value)',
-      'supportedDevices': 'set supportedDevices(dynamic value)',
+      'gestureSettings': 'set gestureSettings(DeviceGestureSettings? value)',
+      'supportedDevices': 'set supportedDevices(Set<PointerDeviceKind>? value)',
       'team': 'set team(GestureArenaTeam? value)',
     },
   );
@@ -11727,7 +11835,7 @@ BridgedClass _createTapGestureRecognizerBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final debugOwner = D4.getOptionalNamedArg<Object?>(named, 'debugOwner');
-        final supportedDevices = D4.getOptionalNamedArg<Set<PointerDeviceKind>?>(named, 'supportedDevices');
+        final supportedDevices = D4.coerceSetOrNull<PointerDeviceKind>(named['supportedDevices'], 'supportedDevices');
         if (!named.containsKey('allowedButtonsFilter') && !named.containsKey('preAcceptSlopTolerance') && !named.containsKey('postAcceptSlopTolerance')) {
           return $flutter_28.TapGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices);
         }
@@ -11804,30 +11912,54 @@ BridgedClass _createTapGestureRecognizerBridge() {
         D4.validateTarget<$flutter_28.TapGestureRecognizer>(target, 'TapGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
       'team': (visitor, target, value) => 
         D4.validateTarget<$flutter_28.TapGestureRecognizer>(target, 'TapGestureRecognizer').team = D4.extractBridgedArgOrNull<$flutter_30.GestureArenaTeam>(value, 'team'),
-      'onTapDown': (visitor, target, value) => 
-        D4.validateTarget<$flutter_28.TapGestureRecognizer>(target, 'TapGestureRecognizer').onTapDown = D4.extractBridgedArgOrNull<dynamic>(value, 'onTapDown'),
-      'onTapUp': (visitor, target, value) => 
-        D4.validateTarget<$flutter_28.TapGestureRecognizer>(target, 'TapGestureRecognizer').onTapUp = D4.extractBridgedArgOrNull<dynamic>(value, 'onTapUp'),
-      'onTap': (visitor, target, value) => 
-        D4.validateTarget<$flutter_28.TapGestureRecognizer>(target, 'TapGestureRecognizer').onTap = D4.extractBridgedArgOrNull<dynamic>(value, 'onTap'),
-      'onTapMove': (visitor, target, value) => 
-        D4.validateTarget<$flutter_28.TapGestureRecognizer>(target, 'TapGestureRecognizer').onTapMove = D4.extractBridgedArgOrNull<$flutter_28.GestureTapMoveCallback>(value, 'onTapMove'),
-      'onTapCancel': (visitor, target, value) => 
-        D4.validateTarget<$flutter_28.TapGestureRecognizer>(target, 'TapGestureRecognizer').onTapCancel = D4.extractBridgedArgOrNull<dynamic>(value, 'onTapCancel'),
-      'onSecondaryTap': (visitor, target, value) => 
-        D4.validateTarget<$flutter_28.TapGestureRecognizer>(target, 'TapGestureRecognizer').onSecondaryTap = D4.extractBridgedArgOrNull<dynamic>(value, 'onSecondaryTap'),
-      'onSecondaryTapDown': (visitor, target, value) => 
-        D4.validateTarget<$flutter_28.TapGestureRecognizer>(target, 'TapGestureRecognizer').onSecondaryTapDown = D4.extractBridgedArgOrNull<dynamic>(value, 'onSecondaryTapDown'),
-      'onSecondaryTapUp': (visitor, target, value) => 
-        D4.validateTarget<$flutter_28.TapGestureRecognizer>(target, 'TapGestureRecognizer').onSecondaryTapUp = D4.extractBridgedArgOrNull<dynamic>(value, 'onSecondaryTapUp'),
-      'onSecondaryTapCancel': (visitor, target, value) => 
-        D4.validateTarget<$flutter_28.TapGestureRecognizer>(target, 'TapGestureRecognizer').onSecondaryTapCancel = D4.extractBridgedArgOrNull<dynamic>(value, 'onSecondaryTapCancel'),
-      'onTertiaryTapDown': (visitor, target, value) => 
-        D4.validateTarget<$flutter_28.TapGestureRecognizer>(target, 'TapGestureRecognizer').onTertiaryTapDown = D4.extractBridgedArgOrNull<dynamic>(value, 'onTertiaryTapDown'),
-      'onTertiaryTapUp': (visitor, target, value) => 
-        D4.validateTarget<$flutter_28.TapGestureRecognizer>(target, 'TapGestureRecognizer').onTertiaryTapUp = D4.extractBridgedArgOrNull<dynamic>(value, 'onTertiaryTapUp'),
-      'onTertiaryTapCancel': (visitor, target, value) => 
-        D4.validateTarget<$flutter_28.TapGestureRecognizer>(target, 'TapGestureRecognizer').onTertiaryTapCancel = D4.extractBridgedArgOrNull<dynamic>(value, 'onTertiaryTapCancel'),
+      'onTapDown': (visitor, target, value) {
+        final onTapDownRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onTapDown');
+        D4.validateTarget<$flutter_28.TapGestureRecognizer>(target, 'TapGestureRecognizer').onTapDown = onTapDownRaw == null ? null : ($flutter_28.TapDownDetails p0) { D4.callInterpreterCallback(visitor!, onTapDownRaw, [p0]); };
+      },
+      'onTapUp': (visitor, target, value) {
+        final onTapUpRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onTapUp');
+        D4.validateTarget<$flutter_28.TapGestureRecognizer>(target, 'TapGestureRecognizer').onTapUp = onTapUpRaw == null ? null : ($flutter_28.TapUpDetails p0) { D4.callInterpreterCallback(visitor!, onTapUpRaw, [p0]); };
+      },
+      'onTap': (visitor, target, value) {
+        final onTapRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onTap');
+        D4.validateTarget<$flutter_28.TapGestureRecognizer>(target, 'TapGestureRecognizer').onTap = onTapRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onTapRaw, []); };
+      },
+      'onTapMove': (visitor, target, value) {
+        final onTapMoveRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onTapMove');
+        D4.validateTarget<$flutter_28.TapGestureRecognizer>(target, 'TapGestureRecognizer').onTapMove = onTapMoveRaw == null ? null : ($flutter_28.TapMoveDetails p0) { D4.callInterpreterCallback(visitor!, onTapMoveRaw, [p0]); };
+      },
+      'onTapCancel': (visitor, target, value) {
+        final onTapCancelRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onTapCancel');
+        D4.validateTarget<$flutter_28.TapGestureRecognizer>(target, 'TapGestureRecognizer').onTapCancel = onTapCancelRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onTapCancelRaw, []); };
+      },
+      'onSecondaryTap': (visitor, target, value) {
+        final onSecondaryTapRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onSecondaryTap');
+        D4.validateTarget<$flutter_28.TapGestureRecognizer>(target, 'TapGestureRecognizer').onSecondaryTap = onSecondaryTapRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onSecondaryTapRaw, []); };
+      },
+      'onSecondaryTapDown': (visitor, target, value) {
+        final onSecondaryTapDownRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onSecondaryTapDown');
+        D4.validateTarget<$flutter_28.TapGestureRecognizer>(target, 'TapGestureRecognizer').onSecondaryTapDown = onSecondaryTapDownRaw == null ? null : ($flutter_28.TapDownDetails p0) { D4.callInterpreterCallback(visitor!, onSecondaryTapDownRaw, [p0]); };
+      },
+      'onSecondaryTapUp': (visitor, target, value) {
+        final onSecondaryTapUpRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onSecondaryTapUp');
+        D4.validateTarget<$flutter_28.TapGestureRecognizer>(target, 'TapGestureRecognizer').onSecondaryTapUp = onSecondaryTapUpRaw == null ? null : ($flutter_28.TapUpDetails p0) { D4.callInterpreterCallback(visitor!, onSecondaryTapUpRaw, [p0]); };
+      },
+      'onSecondaryTapCancel': (visitor, target, value) {
+        final onSecondaryTapCancelRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onSecondaryTapCancel');
+        D4.validateTarget<$flutter_28.TapGestureRecognizer>(target, 'TapGestureRecognizer').onSecondaryTapCancel = onSecondaryTapCancelRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onSecondaryTapCancelRaw, []); };
+      },
+      'onTertiaryTapDown': (visitor, target, value) {
+        final onTertiaryTapDownRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onTertiaryTapDown');
+        D4.validateTarget<$flutter_28.TapGestureRecognizer>(target, 'TapGestureRecognizer').onTertiaryTapDown = onTertiaryTapDownRaw == null ? null : ($flutter_28.TapDownDetails p0) { D4.callInterpreterCallback(visitor!, onTertiaryTapDownRaw, [p0]); };
+      },
+      'onTertiaryTapUp': (visitor, target, value) {
+        final onTertiaryTapUpRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onTertiaryTapUp');
+        D4.validateTarget<$flutter_28.TapGestureRecognizer>(target, 'TapGestureRecognizer').onTertiaryTapUp = onTertiaryTapUpRaw == null ? null : ($flutter_28.TapUpDetails p0) { D4.callInterpreterCallback(visitor!, onTertiaryTapUpRaw, [p0]); };
+      },
+      'onTertiaryTapCancel': (visitor, target, value) {
+        final onTertiaryTapCancelRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onTertiaryTapCancel');
+        D4.validateTarget<$flutter_28.TapGestureRecognizer>(target, 'TapGestureRecognizer').onTertiaryTapCancel = onTertiaryTapCancelRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onTertiaryTapCancelRaw, []); };
+      },
     },
     methods: {
       'acceptGesture': (visitor, target, positional, named, typeArgs) {
@@ -11918,7 +12050,7 @@ BridgedClass _createTapGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as dynamic; }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_28.TapGestureRecognizer>(target, 'TapGestureRecognizer');
@@ -12124,8 +12256,8 @@ BridgedClass _createTapGestureRecognizerBridge() {
       'onTertiaryTapCancel': 'GestureTapCancelCallback? get onTertiaryTapCancel',
     },
     setterSignatures: {
-      'gestureSettings': 'set gestureSettings(dynamic value)',
-      'supportedDevices': 'set supportedDevices(dynamic value)',
+      'gestureSettings': 'set gestureSettings(DeviceGestureSettings? value)',
+      'supportedDevices': 'set supportedDevices(Set<PointerDeviceKind>? value)',
       'team': 'set team(GestureArenaTeam? value)',
       'onTapDown': 'set onTapDown(dynamic value)',
       'onTapUp': 'set onTapUp(dynamic value)',
@@ -12155,7 +12287,7 @@ BridgedClass _createDoubleTapGestureRecognizerBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final debugOwner = D4.getOptionalNamedArg<Object?>(named, 'debugOwner');
-        final supportedDevices = D4.getOptionalNamedArg<Set<PointerDeviceKind>?>(named, 'supportedDevices');
+        final supportedDevices = D4.coerceSetOrNull<PointerDeviceKind>(named['supportedDevices'], 'supportedDevices');
         if (!named.containsKey('allowedButtonsFilter')) {
           return $flutter_22.DoubleTapGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices);
         }
@@ -12182,12 +12314,18 @@ BridgedClass _createDoubleTapGestureRecognizerBridge() {
         D4.validateTarget<$flutter_22.DoubleTapGestureRecognizer>(target, 'DoubleTapGestureRecognizer').gestureSettings = D4.extractBridgedArgOrNull<$flutter_16.DeviceGestureSettings>(value, 'gestureSettings'),
       'supportedDevices': (visitor, target, value) => 
         D4.validateTarget<$flutter_22.DoubleTapGestureRecognizer>(target, 'DoubleTapGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
-      'onDoubleTapDown': (visitor, target, value) => 
-        D4.validateTarget<$flutter_22.DoubleTapGestureRecognizer>(target, 'DoubleTapGestureRecognizer').onDoubleTapDown = D4.extractBridgedArgOrNull<dynamic>(value, 'onDoubleTapDown'),
-      'onDoubleTap': (visitor, target, value) => 
-        D4.validateTarget<$flutter_22.DoubleTapGestureRecognizer>(target, 'DoubleTapGestureRecognizer').onDoubleTap = D4.extractBridgedArgOrNull<$flutter_22.GestureDoubleTapCallback>(value, 'onDoubleTap'),
-      'onDoubleTapCancel': (visitor, target, value) => 
-        D4.validateTarget<$flutter_22.DoubleTapGestureRecognizer>(target, 'DoubleTapGestureRecognizer').onDoubleTapCancel = D4.extractBridgedArgOrNull<dynamic>(value, 'onDoubleTapCancel'),
+      'onDoubleTapDown': (visitor, target, value) {
+        final onDoubleTapDownRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onDoubleTapDown');
+        D4.validateTarget<$flutter_22.DoubleTapGestureRecognizer>(target, 'DoubleTapGestureRecognizer').onDoubleTapDown = onDoubleTapDownRaw == null ? null : ($flutter_28.TapDownDetails p0) { D4.callInterpreterCallback(visitor!, onDoubleTapDownRaw, [p0]); };
+      },
+      'onDoubleTap': (visitor, target, value) {
+        final onDoubleTapRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onDoubleTap');
+        D4.validateTarget<$flutter_22.DoubleTapGestureRecognizer>(target, 'DoubleTapGestureRecognizer').onDoubleTap = onDoubleTapRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDoubleTapRaw, []); };
+      },
+      'onDoubleTapCancel': (visitor, target, value) {
+        final onDoubleTapCancelRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onDoubleTapCancel');
+        D4.validateTarget<$flutter_22.DoubleTapGestureRecognizer>(target, 'DoubleTapGestureRecognizer').onDoubleTapCancel = onDoubleTapCancelRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDoubleTapCancelRaw, []); };
+      },
     },
     methods: {
       'acceptGesture': (visitor, target, positional, named, typeArgs) {
@@ -12278,7 +12416,7 @@ BridgedClass _createDoubleTapGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as dynamic; }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_22.DoubleTapGestureRecognizer>(target, 'DoubleTapGestureRecognizer');
@@ -12357,8 +12495,8 @@ BridgedClass _createDoubleTapGestureRecognizerBridge() {
       'onDoubleTapCancel': 'GestureTapCancelCallback? get onDoubleTapCancel',
     },
     setterSignatures: {
-      'gestureSettings': 'set gestureSettings(dynamic value)',
-      'supportedDevices': 'set supportedDevices(dynamic value)',
+      'gestureSettings': 'set gestureSettings(DeviceGestureSettings? value)',
+      'supportedDevices': 'set supportedDevices(Set<PointerDeviceKind>? value)',
       'onDoubleTapDown': 'set onDoubleTapDown(dynamic value)',
       'onDoubleTap': 'set onDoubleTap(dynamic value)',
       'onDoubleTapCancel': 'set onDoubleTapCancel(dynamic value)',
@@ -12379,7 +12517,7 @@ BridgedClass _createMultiTapGestureRecognizerBridge() {
       '': (visitor, positional, named) {
         final longTapDelay = D4.getNamedArgWithDefault<Duration>(named, 'longTapDelay', Duration.zero);
         final debugOwner = D4.getOptionalNamedArg<Object?>(named, 'debugOwner');
-        final supportedDevices = D4.getOptionalNamedArg<Set<PointerDeviceKind>?>(named, 'supportedDevices');
+        final supportedDevices = D4.coerceSetOrNull<PointerDeviceKind>(named['supportedDevices'], 'supportedDevices');
         if (!named.containsKey('allowedButtonsFilter')) {
           return $flutter_22.MultiTapGestureRecognizer(longTapDelay: longTapDelay, debugOwner: debugOwner, supportedDevices: supportedDevices);
         }
@@ -12409,18 +12547,28 @@ BridgedClass _createMultiTapGestureRecognizerBridge() {
         D4.validateTarget<$flutter_22.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer').gestureSettings = D4.extractBridgedArgOrNull<$flutter_16.DeviceGestureSettings>(value, 'gestureSettings'),
       'supportedDevices': (visitor, target, value) => 
         D4.validateTarget<$flutter_22.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
-      'onTapDown': (visitor, target, value) => 
-        D4.validateTarget<$flutter_22.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer').onTapDown = D4.extractBridgedArgOrNull<$flutter_22.GestureMultiTapDownCallback>(value, 'onTapDown'),
-      'onTapUp': (visitor, target, value) => 
-        D4.validateTarget<$flutter_22.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer').onTapUp = D4.extractBridgedArgOrNull<$flutter_22.GestureMultiTapUpCallback>(value, 'onTapUp'),
-      'onTap': (visitor, target, value) => 
-        D4.validateTarget<$flutter_22.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer').onTap = D4.extractBridgedArgOrNull<$flutter_22.GestureMultiTapCallback>(value, 'onTap'),
-      'onTapCancel': (visitor, target, value) => 
-        D4.validateTarget<$flutter_22.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer').onTapCancel = D4.extractBridgedArgOrNull<$flutter_22.GestureMultiTapCancelCallback>(value, 'onTapCancel'),
+      'onTapDown': (visitor, target, value) {
+        final onTapDownRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onTapDown');
+        D4.validateTarget<$flutter_22.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer').onTapDown = onTapDownRaw == null ? null : (int p0, $flutter_28.TapDownDetails p1) { D4.callInterpreterCallback(visitor!, onTapDownRaw, [p0, p1]); };
+      },
+      'onTapUp': (visitor, target, value) {
+        final onTapUpRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onTapUp');
+        D4.validateTarget<$flutter_22.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer').onTapUp = onTapUpRaw == null ? null : (int p0, $flutter_28.TapUpDetails p1) { D4.callInterpreterCallback(visitor!, onTapUpRaw, [p0, p1]); };
+      },
+      'onTap': (visitor, target, value) {
+        final onTapRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onTap');
+        D4.validateTarget<$flutter_22.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer').onTap = onTapRaw == null ? null : (int p0) { D4.callInterpreterCallback(visitor!, onTapRaw, [p0]); };
+      },
+      'onTapCancel': (visitor, target, value) {
+        final onTapCancelRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onTapCancel');
+        D4.validateTarget<$flutter_22.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer').onTapCancel = onTapCancelRaw == null ? null : (int p0) { D4.callInterpreterCallback(visitor!, onTapCancelRaw, [p0]); };
+      },
       'longTapDelay': (visitor, target, value) => 
         D4.validateTarget<$flutter_22.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer').longTapDelay = D4.extractBridgedArg<Duration>(value, 'longTapDelay'),
-      'onLongTapDown': (visitor, target, value) => 
-        D4.validateTarget<$flutter_22.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer').onLongTapDown = D4.extractBridgedArgOrNull<$flutter_22.GestureMultiTapDownCallback>(value, 'onLongTapDown'),
+      'onLongTapDown': (visitor, target, value) {
+        final onLongTapDownRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onLongTapDown');
+        D4.validateTarget<$flutter_22.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer').onLongTapDown = onLongTapDownRaw == null ? null : (int p0, $flutter_28.TapDownDetails p1) { D4.callInterpreterCallback(visitor!, onLongTapDownRaw, [p0, p1]); };
+      },
     },
     methods: {
       'acceptGesture': (visitor, target, positional, named, typeArgs) {
@@ -12511,7 +12659,7 @@ BridgedClass _createMultiTapGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as dynamic; }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_22.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer');
@@ -12593,8 +12741,8 @@ BridgedClass _createMultiTapGestureRecognizerBridge() {
       'onLongTapDown': 'GestureMultiTapDownCallback? get onLongTapDown',
     },
     setterSignatures: {
-      'gestureSettings': 'set gestureSettings(dynamic value)',
-      'supportedDevices': 'set supportedDevices(dynamic value)',
+      'gestureSettings': 'set gestureSettings(DeviceGestureSettings? value)',
+      'supportedDevices': 'set supportedDevices(Set<PointerDeviceKind>? value)',
       'onTapDown': 'set onTapDown(dynamic value)',
       'onTapUp': 'set onTapUp(dynamic value)',
       'onTap': 'set onTap(dynamic value)',
@@ -12809,7 +12957,7 @@ BridgedClass _createSerialTapGestureRecognizerBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final debugOwner = D4.getOptionalNamedArg<Object?>(named, 'debugOwner');
-        final supportedDevices = D4.getOptionalNamedArg<Set<PointerDeviceKind>?>(named, 'supportedDevices');
+        final supportedDevices = D4.coerceSetOrNull<PointerDeviceKind>(named['supportedDevices'], 'supportedDevices');
         if (!named.containsKey('allowedButtonsFilter')) {
           return $flutter_22.SerialTapGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices);
         }
@@ -12837,12 +12985,18 @@ BridgedClass _createSerialTapGestureRecognizerBridge() {
         D4.validateTarget<$flutter_22.SerialTapGestureRecognizer>(target, 'SerialTapGestureRecognizer').gestureSettings = D4.extractBridgedArgOrNull<$flutter_16.DeviceGestureSettings>(value, 'gestureSettings'),
       'supportedDevices': (visitor, target, value) => 
         D4.validateTarget<$flutter_22.SerialTapGestureRecognizer>(target, 'SerialTapGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
-      'onSerialTapDown': (visitor, target, value) => 
-        D4.validateTarget<$flutter_22.SerialTapGestureRecognizer>(target, 'SerialTapGestureRecognizer').onSerialTapDown = D4.extractBridgedArgOrNull<$flutter_22.GestureSerialTapDownCallback>(value, 'onSerialTapDown'),
-      'onSerialTapCancel': (visitor, target, value) => 
-        D4.validateTarget<$flutter_22.SerialTapGestureRecognizer>(target, 'SerialTapGestureRecognizer').onSerialTapCancel = D4.extractBridgedArgOrNull<$flutter_22.GestureSerialTapCancelCallback>(value, 'onSerialTapCancel'),
-      'onSerialTapUp': (visitor, target, value) => 
-        D4.validateTarget<$flutter_22.SerialTapGestureRecognizer>(target, 'SerialTapGestureRecognizer').onSerialTapUp = D4.extractBridgedArgOrNull<$flutter_22.GestureSerialTapUpCallback>(value, 'onSerialTapUp'),
+      'onSerialTapDown': (visitor, target, value) {
+        final onSerialTapDownRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onSerialTapDown');
+        D4.validateTarget<$flutter_22.SerialTapGestureRecognizer>(target, 'SerialTapGestureRecognizer').onSerialTapDown = onSerialTapDownRaw == null ? null : ($flutter_22.SerialTapDownDetails p0) { D4.callInterpreterCallback(visitor!, onSerialTapDownRaw, [p0]); };
+      },
+      'onSerialTapCancel': (visitor, target, value) {
+        final onSerialTapCancelRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onSerialTapCancel');
+        D4.validateTarget<$flutter_22.SerialTapGestureRecognizer>(target, 'SerialTapGestureRecognizer').onSerialTapCancel = onSerialTapCancelRaw == null ? null : ($flutter_22.SerialTapCancelDetails p0) { D4.callInterpreterCallback(visitor!, onSerialTapCancelRaw, [p0]); };
+      },
+      'onSerialTapUp': (visitor, target, value) {
+        final onSerialTapUpRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onSerialTapUp');
+        D4.validateTarget<$flutter_22.SerialTapGestureRecognizer>(target, 'SerialTapGestureRecognizer').onSerialTapUp = onSerialTapUpRaw == null ? null : ($flutter_22.SerialTapUpDetails p0) { D4.callInterpreterCallback(visitor!, onSerialTapUpRaw, [p0]); };
+      },
     },
     methods: {
       'acceptGesture': (visitor, target, positional, named, typeArgs) {
@@ -12933,7 +13087,7 @@ BridgedClass _createSerialTapGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as dynamic; }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_22.SerialTapGestureRecognizer>(target, 'SerialTapGestureRecognizer');
@@ -13013,8 +13167,8 @@ BridgedClass _createSerialTapGestureRecognizerBridge() {
       'isTrackingPointer': 'bool get isTrackingPointer',
     },
     setterSignatures: {
-      'gestureSettings': 'set gestureSettings(dynamic value)',
-      'supportedDevices': 'set supportedDevices(dynamic value)',
+      'gestureSettings': 'set gestureSettings(DeviceGestureSettings? value)',
+      'supportedDevices': 'set supportedDevices(Set<PointerDeviceKind>? value)',
       'onSerialTapDown': 'set onSerialTapDown(dynamic value)',
       'onSerialTapCancel': 'set onSerialTapCancel(dynamic value)',
       'onSerialTapUp': 'set onSerialTapUp(dynamic value)',
@@ -13313,7 +13467,7 @@ BridgedClass _createScaleGestureRecognizerBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final debugOwner = D4.getOptionalNamedArg<Object?>(named, 'debugOwner');
-        final supportedDevices = D4.getOptionalNamedArg<Set<PointerDeviceKind>?>(named, 'supportedDevices');
+        final supportedDevices = D4.coerceSetOrNull<PointerDeviceKind>(named['supportedDevices'], 'supportedDevices');
         final dragStartBehavior = D4.getNamedArgWithDefault<$flutter_25.DragStartBehavior>(named, 'dragStartBehavior', $flutter_25.DragStartBehavior.down);
         final trackpadScrollCausesScale = D4.getNamedArgWithDefault<bool>(named, 'trackpadScrollCausesScale', false);
         if (!named.containsKey('allowedButtonsFilter') && !named.containsKey('trackpadScrollToScaleFactor')) {
@@ -13361,12 +13515,18 @@ BridgedClass _createScaleGestureRecognizerBridge() {
         D4.validateTarget<$flutter_27.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer').team = D4.extractBridgedArgOrNull<$flutter_30.GestureArenaTeam>(value, 'team'),
       'dragStartBehavior': (visitor, target, value) => 
         D4.validateTarget<$flutter_27.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer').dragStartBehavior = D4.extractBridgedArg<$flutter_25.DragStartBehavior>(value, 'dragStartBehavior'),
-      'onStart': (visitor, target, value) => 
-        D4.validateTarget<$flutter_27.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer').onStart = D4.extractBridgedArgOrNull<$flutter_27.GestureScaleStartCallback>(value, 'onStart'),
-      'onUpdate': (visitor, target, value) => 
-        D4.validateTarget<$flutter_27.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer').onUpdate = D4.extractBridgedArgOrNull<$flutter_27.GestureScaleUpdateCallback>(value, 'onUpdate'),
-      'onEnd': (visitor, target, value) => 
-        D4.validateTarget<$flutter_27.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer').onEnd = D4.extractBridgedArgOrNull<$flutter_27.GestureScaleEndCallback>(value, 'onEnd'),
+      'onStart': (visitor, target, value) {
+        final onStartRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onStart');
+        D4.validateTarget<$flutter_27.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer').onStart = onStartRaw == null ? null : ($flutter_27.ScaleStartDetails p0) { D4.callInterpreterCallback(visitor!, onStartRaw, [p0]); };
+      },
+      'onUpdate': (visitor, target, value) {
+        final onUpdateRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onUpdate');
+        D4.validateTarget<$flutter_27.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer').onUpdate = onUpdateRaw == null ? null : ($flutter_27.ScaleUpdateDetails p0) { D4.callInterpreterCallback(visitor!, onUpdateRaw, [p0]); };
+      },
+      'onEnd': (visitor, target, value) {
+        final onEndRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onEnd');
+        D4.validateTarget<$flutter_27.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer').onEnd = onEndRaw == null ? null : ($flutter_27.ScaleEndDetails p0) { D4.callInterpreterCallback(visitor!, onEndRaw, [p0]); };
+      },
       'trackpadScrollCausesScale': (visitor, target, value) => 
         D4.validateTarget<$flutter_27.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer').trackpadScrollCausesScale = D4.extractBridgedArg<bool>(value, 'trackpadScrollCausesScale'),
       'trackpadScrollToScaleFactor': (visitor, target, value) => 
@@ -13461,7 +13621,7 @@ BridgedClass _createScaleGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as dynamic; }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_27.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer');
@@ -13603,8 +13763,8 @@ BridgedClass _createScaleGestureRecognizerBridge() {
       'pointerCount': 'int get pointerCount',
     },
     setterSignatures: {
-      'gestureSettings': 'set gestureSettings(dynamic value)',
-      'supportedDevices': 'set supportedDevices(dynamic value)',
+      'gestureSettings': 'set gestureSettings(DeviceGestureSettings? value)',
+      'supportedDevices': 'set supportedDevices(Set<PointerDeviceKind>? value)',
       'team': 'set team(GestureArenaTeam? value)',
       'dragStartBehavior': 'set dragStartBehavior(dynamic value)',
       'onStart': 'set onStart(dynamic value)',
@@ -13998,6 +14158,8 @@ BridgedClass _createBaseTapAndDragGestureRecognizerBridge() {
       'currentDown': (visitor, target) => D4.validateTarget<$flutter_29.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').currentDown,
       'currentUp': (visitor, target) => D4.validateTarget<$flutter_29.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').currentUp,
       'consecutiveTapCount': (visitor, target) => D4.validateTarget<$flutter_29.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').consecutiveTapCount,
+      'onTapTrackStart': (visitor, target) => D4.validateTarget<$flutter_29.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').onTapTrackStart,
+      'onTapTrackReset': (visitor, target) => D4.validateTarget<$flutter_29.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').onTapTrackReset,
     },
     setters: {
       'gestureSettings': (visitor, target, value) => 
@@ -14014,18 +14176,30 @@ BridgedClass _createBaseTapAndDragGestureRecognizerBridge() {
         D4.validateTarget<$flutter_29.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').maxConsecutiveTap = D4.extractBridgedArgOrNull<int>(value, 'maxConsecutiveTap'),
       'eagerVictoryOnDrag': (visitor, target, value) => 
         D4.validateTarget<$flutter_29.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').eagerVictoryOnDrag = D4.extractBridgedArg<bool>(value, 'eagerVictoryOnDrag'),
-      'onTapDown': (visitor, target, value) => 
-        D4.validateTarget<$flutter_29.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').onTapDown = D4.extractBridgedArgOrNull<$flutter_29.GestureTapDragDownCallback>(value, 'onTapDown'),
-      'onTapUp': (visitor, target, value) => 
-        D4.validateTarget<$flutter_29.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').onTapUp = D4.extractBridgedArgOrNull<$flutter_29.GestureTapDragUpCallback>(value, 'onTapUp'),
-      'onDragStart': (visitor, target, value) => 
-        D4.validateTarget<$flutter_29.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').onDragStart = D4.extractBridgedArgOrNull<$flutter_29.GestureTapDragStartCallback>(value, 'onDragStart'),
-      'onDragUpdate': (visitor, target, value) => 
-        D4.validateTarget<$flutter_29.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').onDragUpdate = D4.extractBridgedArgOrNull<$flutter_29.GestureTapDragUpdateCallback>(value, 'onDragUpdate'),
-      'onDragEnd': (visitor, target, value) => 
-        D4.validateTarget<$flutter_29.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').onDragEnd = D4.extractBridgedArgOrNull<$flutter_29.GestureTapDragEndCallback>(value, 'onDragEnd'),
-      'onCancel': (visitor, target, value) => 
-        D4.validateTarget<$flutter_29.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').onCancel = D4.extractBridgedArgOrNull<$flutter_29.GestureCancelCallback>(value, 'onCancel'),
+      'onTapDown': (visitor, target, value) {
+        final onTapDownRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onTapDown');
+        D4.validateTarget<$flutter_29.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').onTapDown = onTapDownRaw == null ? null : ($flutter_29.TapDragDownDetails p0) { D4.callInterpreterCallback(visitor!, onTapDownRaw, [p0]); };
+      },
+      'onTapUp': (visitor, target, value) {
+        final onTapUpRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onTapUp');
+        D4.validateTarget<$flutter_29.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').onTapUp = onTapUpRaw == null ? null : ($flutter_29.TapDragUpDetails p0) { D4.callInterpreterCallback(visitor!, onTapUpRaw, [p0]); };
+      },
+      'onDragStart': (visitor, target, value) {
+        final onDragStartRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onDragStart');
+        D4.validateTarget<$flutter_29.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').onDragStart = onDragStartRaw == null ? null : ($flutter_29.TapDragStartDetails p0) { D4.callInterpreterCallback(visitor!, onDragStartRaw, [p0]); };
+      },
+      'onDragUpdate': (visitor, target, value) {
+        final onDragUpdateRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onDragUpdate');
+        D4.validateTarget<$flutter_29.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').onDragUpdate = onDragUpdateRaw == null ? null : ($flutter_29.TapDragUpdateDetails p0) { D4.callInterpreterCallback(visitor!, onDragUpdateRaw, [p0]); };
+      },
+      'onDragEnd': (visitor, target, value) {
+        final onDragEndRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onDragEnd');
+        D4.validateTarget<$flutter_29.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').onDragEnd = onDragEndRaw == null ? null : ($flutter_29.TapDragEndDetails p0) { D4.callInterpreterCallback(visitor!, onDragEndRaw, [p0]); };
+      },
+      'onCancel': (visitor, target, value) {
+        final onCancelRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onCancel');
+        D4.validateTarget<$flutter_29.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').onCancel = onCancelRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onCancelRaw, []); };
+      },
       'onTapTrackStart': (visitor, target, value) {
         final onTapTrackStartRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onTapTrackStart');
         D4.validateTarget<$flutter_29.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').onTapTrackStart = onTapTrackStartRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onTapTrackStartRaw, []); };
@@ -14124,7 +14298,7 @@ BridgedClass _createBaseTapAndDragGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as dynamic; }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_29.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer');
@@ -14270,10 +14444,12 @@ BridgedClass _createBaseTapAndDragGestureRecognizerBridge() {
       'currentDown': 'PointerDownEvent? get currentDown',
       'currentUp': 'PointerUpEvent? get currentUp',
       'consecutiveTapCount': 'int get consecutiveTapCount',
+      'onTapTrackStart': 'void Function()? get onTapTrackStart',
+      'onTapTrackReset': 'void Function()? get onTapTrackReset',
     },
     setterSignatures: {
-      'gestureSettings': 'set gestureSettings(dynamic value)',
-      'supportedDevices': 'set supportedDevices(dynamic value)',
+      'gestureSettings': 'set gestureSettings(DeviceGestureSettings? value)',
+      'supportedDevices': 'set supportedDevices(Set<PointerDeviceKind>? value)',
       'team': 'set team(GestureArenaTeam? value)',
       'dragStartBehavior': 'set dragStartBehavior(dynamic value)',
       'dragUpdateThrottleFrequency': 'set dragUpdateThrottleFrequency(dynamic value)',
@@ -14303,7 +14479,7 @@ BridgedClass _createTapAndHorizontalDragGestureRecognizerBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final debugOwner = D4.getOptionalNamedArg<Object?>(named, 'debugOwner');
-        final supportedDevices = D4.getOptionalNamedArg<Set<PointerDeviceKind>?>(named, 'supportedDevices');
+        final supportedDevices = D4.coerceSetOrNull<PointerDeviceKind>(named['supportedDevices'], 'supportedDevices');
         return $flutter_29.TapAndHorizontalDragGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices);
       },
     },
@@ -14327,6 +14503,8 @@ BridgedClass _createTapAndHorizontalDragGestureRecognizerBridge() {
       'currentDown': (visitor, target) => D4.validateTarget<$flutter_29.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').currentDown,
       'currentUp': (visitor, target) => D4.validateTarget<$flutter_29.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').currentUp,
       'consecutiveTapCount': (visitor, target) => D4.validateTarget<$flutter_29.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').consecutiveTapCount,
+      'onTapTrackStart': (visitor, target) => D4.validateTarget<$flutter_29.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').onTapTrackStart,
+      'onTapTrackReset': (visitor, target) => D4.validateTarget<$flutter_29.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').onTapTrackReset,
     },
     setters: {
       'gestureSettings': (visitor, target, value) => 
@@ -14343,18 +14521,30 @@ BridgedClass _createTapAndHorizontalDragGestureRecognizerBridge() {
         D4.validateTarget<$flutter_29.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').maxConsecutiveTap = D4.extractBridgedArgOrNull<int>(value, 'maxConsecutiveTap'),
       'eagerVictoryOnDrag': (visitor, target, value) => 
         D4.validateTarget<$flutter_29.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').eagerVictoryOnDrag = D4.extractBridgedArg<bool>(value, 'eagerVictoryOnDrag'),
-      'onTapDown': (visitor, target, value) => 
-        D4.validateTarget<$flutter_29.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').onTapDown = D4.extractBridgedArgOrNull<$flutter_29.GestureTapDragDownCallback>(value, 'onTapDown'),
-      'onTapUp': (visitor, target, value) => 
-        D4.validateTarget<$flutter_29.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').onTapUp = D4.extractBridgedArgOrNull<$flutter_29.GestureTapDragUpCallback>(value, 'onTapUp'),
-      'onDragStart': (visitor, target, value) => 
-        D4.validateTarget<$flutter_29.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').onDragStart = D4.extractBridgedArgOrNull<$flutter_29.GestureTapDragStartCallback>(value, 'onDragStart'),
-      'onDragUpdate': (visitor, target, value) => 
-        D4.validateTarget<$flutter_29.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').onDragUpdate = D4.extractBridgedArgOrNull<$flutter_29.GestureTapDragUpdateCallback>(value, 'onDragUpdate'),
-      'onDragEnd': (visitor, target, value) => 
-        D4.validateTarget<$flutter_29.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').onDragEnd = D4.extractBridgedArgOrNull<$flutter_29.GestureTapDragEndCallback>(value, 'onDragEnd'),
-      'onCancel': (visitor, target, value) => 
-        D4.validateTarget<$flutter_29.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').onCancel = D4.extractBridgedArgOrNull<$flutter_29.GestureCancelCallback>(value, 'onCancel'),
+      'onTapDown': (visitor, target, value) {
+        final onTapDownRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onTapDown');
+        D4.validateTarget<$flutter_29.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').onTapDown = onTapDownRaw == null ? null : ($flutter_29.TapDragDownDetails p0) { D4.callInterpreterCallback(visitor!, onTapDownRaw, [p0]); };
+      },
+      'onTapUp': (visitor, target, value) {
+        final onTapUpRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onTapUp');
+        D4.validateTarget<$flutter_29.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').onTapUp = onTapUpRaw == null ? null : ($flutter_29.TapDragUpDetails p0) { D4.callInterpreterCallback(visitor!, onTapUpRaw, [p0]); };
+      },
+      'onDragStart': (visitor, target, value) {
+        final onDragStartRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onDragStart');
+        D4.validateTarget<$flutter_29.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').onDragStart = onDragStartRaw == null ? null : ($flutter_29.TapDragStartDetails p0) { D4.callInterpreterCallback(visitor!, onDragStartRaw, [p0]); };
+      },
+      'onDragUpdate': (visitor, target, value) {
+        final onDragUpdateRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onDragUpdate');
+        D4.validateTarget<$flutter_29.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').onDragUpdate = onDragUpdateRaw == null ? null : ($flutter_29.TapDragUpdateDetails p0) { D4.callInterpreterCallback(visitor!, onDragUpdateRaw, [p0]); };
+      },
+      'onDragEnd': (visitor, target, value) {
+        final onDragEndRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onDragEnd');
+        D4.validateTarget<$flutter_29.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').onDragEnd = onDragEndRaw == null ? null : ($flutter_29.TapDragEndDetails p0) { D4.callInterpreterCallback(visitor!, onDragEndRaw, [p0]); };
+      },
+      'onCancel': (visitor, target, value) {
+        final onCancelRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onCancel');
+        D4.validateTarget<$flutter_29.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').onCancel = onCancelRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onCancelRaw, []); };
+      },
       'onTapTrackStart': (visitor, target, value) {
         final onTapTrackStartRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onTapTrackStart');
         D4.validateTarget<$flutter_29.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').onTapTrackStart = onTapTrackStartRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onTapTrackStartRaw, []); };
@@ -14453,7 +14643,7 @@ BridgedClass _createTapAndHorizontalDragGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as dynamic; }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_29.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer');
@@ -14599,21 +14789,23 @@ BridgedClass _createTapAndHorizontalDragGestureRecognizerBridge() {
       'currentDown': 'PointerDownEvent? get currentDown',
       'currentUp': 'PointerUpEvent? get currentUp',
       'consecutiveTapCount': 'int get consecutiveTapCount',
+      'onTapTrackStart': 'void Function()? get onTapTrackStart',
+      'onTapTrackReset': 'void Function()? get onTapTrackReset',
     },
     setterSignatures: {
-      'gestureSettings': 'set gestureSettings(dynamic value)',
-      'supportedDevices': 'set supportedDevices(dynamic value)',
+      'gestureSettings': 'set gestureSettings(DeviceGestureSettings? value)',
+      'supportedDevices': 'set supportedDevices(Set<PointerDeviceKind>? value)',
       'team': 'set team(GestureArenaTeam? value)',
-      'dragStartBehavior': 'set dragStartBehavior(dynamic value)',
-      'dragUpdateThrottleFrequency': 'set dragUpdateThrottleFrequency(dynamic value)',
-      'maxConsecutiveTap': 'set maxConsecutiveTap(dynamic value)',
-      'eagerVictoryOnDrag': 'set eagerVictoryOnDrag(dynamic value)',
-      'onTapDown': 'set onTapDown(dynamic value)',
-      'onTapUp': 'set onTapUp(dynamic value)',
-      'onDragStart': 'set onDragStart(dynamic value)',
-      'onDragUpdate': 'set onDragUpdate(dynamic value)',
-      'onDragEnd': 'set onDragEnd(dynamic value)',
-      'onCancel': 'set onCancel(dynamic value)',
+      'dragStartBehavior': 'set dragStartBehavior(DragStartBehavior value)',
+      'dragUpdateThrottleFrequency': 'set dragUpdateThrottleFrequency(Duration? value)',
+      'maxConsecutiveTap': 'set maxConsecutiveTap(int? value)',
+      'eagerVictoryOnDrag': 'set eagerVictoryOnDrag(bool value)',
+      'onTapDown': 'set onTapDown(void Function(TapDragDownDetails)? value)',
+      'onTapUp': 'set onTapUp(void Function(TapDragUpDetails)? value)',
+      'onDragStart': 'set onDragStart(void Function(TapDragStartDetails)? value)',
+      'onDragUpdate': 'set onDragUpdate(void Function(TapDragUpdateDetails)? value)',
+      'onDragEnd': 'set onDragEnd(void Function(TapDragEndDetails)? value)',
+      'onCancel': 'set onCancel(void Function()? value)',
       'onTapTrackStart': 'set onTapTrackStart(void Function()? value)',
       'onTapTrackReset': 'set onTapTrackReset(void Function()? value)',
     },
@@ -14632,7 +14824,7 @@ BridgedClass _createTapAndPanGestureRecognizerBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final debugOwner = D4.getOptionalNamedArg<Object?>(named, 'debugOwner');
-        final supportedDevices = D4.getOptionalNamedArg<Set<PointerDeviceKind>?>(named, 'supportedDevices');
+        final supportedDevices = D4.coerceSetOrNull<PointerDeviceKind>(named['supportedDevices'], 'supportedDevices');
         return $flutter_29.TapAndPanGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices);
       },
     },
@@ -14656,6 +14848,8 @@ BridgedClass _createTapAndPanGestureRecognizerBridge() {
       'currentDown': (visitor, target) => D4.validateTarget<$flutter_29.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').currentDown,
       'currentUp': (visitor, target) => D4.validateTarget<$flutter_29.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').currentUp,
       'consecutiveTapCount': (visitor, target) => D4.validateTarget<$flutter_29.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').consecutiveTapCount,
+      'onTapTrackStart': (visitor, target) => D4.validateTarget<$flutter_29.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').onTapTrackStart,
+      'onTapTrackReset': (visitor, target) => D4.validateTarget<$flutter_29.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').onTapTrackReset,
     },
     setters: {
       'gestureSettings': (visitor, target, value) => 
@@ -14672,18 +14866,30 @@ BridgedClass _createTapAndPanGestureRecognizerBridge() {
         D4.validateTarget<$flutter_29.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').maxConsecutiveTap = D4.extractBridgedArgOrNull<int>(value, 'maxConsecutiveTap'),
       'eagerVictoryOnDrag': (visitor, target, value) => 
         D4.validateTarget<$flutter_29.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').eagerVictoryOnDrag = D4.extractBridgedArg<bool>(value, 'eagerVictoryOnDrag'),
-      'onTapDown': (visitor, target, value) => 
-        D4.validateTarget<$flutter_29.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').onTapDown = D4.extractBridgedArgOrNull<$flutter_29.GestureTapDragDownCallback>(value, 'onTapDown'),
-      'onTapUp': (visitor, target, value) => 
-        D4.validateTarget<$flutter_29.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').onTapUp = D4.extractBridgedArgOrNull<$flutter_29.GestureTapDragUpCallback>(value, 'onTapUp'),
-      'onDragStart': (visitor, target, value) => 
-        D4.validateTarget<$flutter_29.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').onDragStart = D4.extractBridgedArgOrNull<$flutter_29.GestureTapDragStartCallback>(value, 'onDragStart'),
-      'onDragUpdate': (visitor, target, value) => 
-        D4.validateTarget<$flutter_29.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').onDragUpdate = D4.extractBridgedArgOrNull<$flutter_29.GestureTapDragUpdateCallback>(value, 'onDragUpdate'),
-      'onDragEnd': (visitor, target, value) => 
-        D4.validateTarget<$flutter_29.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').onDragEnd = D4.extractBridgedArgOrNull<$flutter_29.GestureTapDragEndCallback>(value, 'onDragEnd'),
-      'onCancel': (visitor, target, value) => 
-        D4.validateTarget<$flutter_29.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').onCancel = D4.extractBridgedArgOrNull<$flutter_29.GestureCancelCallback>(value, 'onCancel'),
+      'onTapDown': (visitor, target, value) {
+        final onTapDownRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onTapDown');
+        D4.validateTarget<$flutter_29.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').onTapDown = onTapDownRaw == null ? null : ($flutter_29.TapDragDownDetails p0) { D4.callInterpreterCallback(visitor!, onTapDownRaw, [p0]); };
+      },
+      'onTapUp': (visitor, target, value) {
+        final onTapUpRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onTapUp');
+        D4.validateTarget<$flutter_29.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').onTapUp = onTapUpRaw == null ? null : ($flutter_29.TapDragUpDetails p0) { D4.callInterpreterCallback(visitor!, onTapUpRaw, [p0]); };
+      },
+      'onDragStart': (visitor, target, value) {
+        final onDragStartRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onDragStart');
+        D4.validateTarget<$flutter_29.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').onDragStart = onDragStartRaw == null ? null : ($flutter_29.TapDragStartDetails p0) { D4.callInterpreterCallback(visitor!, onDragStartRaw, [p0]); };
+      },
+      'onDragUpdate': (visitor, target, value) {
+        final onDragUpdateRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onDragUpdate');
+        D4.validateTarget<$flutter_29.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').onDragUpdate = onDragUpdateRaw == null ? null : ($flutter_29.TapDragUpdateDetails p0) { D4.callInterpreterCallback(visitor!, onDragUpdateRaw, [p0]); };
+      },
+      'onDragEnd': (visitor, target, value) {
+        final onDragEndRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onDragEnd');
+        D4.validateTarget<$flutter_29.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').onDragEnd = onDragEndRaw == null ? null : ($flutter_29.TapDragEndDetails p0) { D4.callInterpreterCallback(visitor!, onDragEndRaw, [p0]); };
+      },
+      'onCancel': (visitor, target, value) {
+        final onCancelRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onCancel');
+        D4.validateTarget<$flutter_29.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').onCancel = onCancelRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onCancelRaw, []); };
+      },
       'onTapTrackStart': (visitor, target, value) {
         final onTapTrackStartRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onTapTrackStart');
         D4.validateTarget<$flutter_29.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').onTapTrackStart = onTapTrackStartRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onTapTrackStartRaw, []); };
@@ -14782,7 +14988,7 @@ BridgedClass _createTapAndPanGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as dynamic; }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; });
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_29.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer');
@@ -14928,21 +15134,23 @@ BridgedClass _createTapAndPanGestureRecognizerBridge() {
       'currentDown': 'PointerDownEvent? get currentDown',
       'currentUp': 'PointerUpEvent? get currentUp',
       'consecutiveTapCount': 'int get consecutiveTapCount',
+      'onTapTrackStart': 'void Function()? get onTapTrackStart',
+      'onTapTrackReset': 'void Function()? get onTapTrackReset',
     },
     setterSignatures: {
-      'gestureSettings': 'set gestureSettings(dynamic value)',
-      'supportedDevices': 'set supportedDevices(dynamic value)',
+      'gestureSettings': 'set gestureSettings(DeviceGestureSettings? value)',
+      'supportedDevices': 'set supportedDevices(Set<PointerDeviceKind>? value)',
       'team': 'set team(GestureArenaTeam? value)',
-      'dragStartBehavior': 'set dragStartBehavior(dynamic value)',
-      'dragUpdateThrottleFrequency': 'set dragUpdateThrottleFrequency(dynamic value)',
-      'maxConsecutiveTap': 'set maxConsecutiveTap(dynamic value)',
-      'eagerVictoryOnDrag': 'set eagerVictoryOnDrag(dynamic value)',
-      'onTapDown': 'set onTapDown(dynamic value)',
-      'onTapUp': 'set onTapUp(dynamic value)',
-      'onDragStart': 'set onDragStart(dynamic value)',
-      'onDragUpdate': 'set onDragUpdate(dynamic value)',
-      'onDragEnd': 'set onDragEnd(dynamic value)',
-      'onCancel': 'set onCancel(dynamic value)',
+      'dragStartBehavior': 'set dragStartBehavior(DragStartBehavior value)',
+      'dragUpdateThrottleFrequency': 'set dragUpdateThrottleFrequency(Duration? value)',
+      'maxConsecutiveTap': 'set maxConsecutiveTap(int? value)',
+      'eagerVictoryOnDrag': 'set eagerVictoryOnDrag(bool value)',
+      'onTapDown': 'set onTapDown(void Function(TapDragDownDetails)? value)',
+      'onTapUp': 'set onTapUp(void Function(TapDragUpDetails)? value)',
+      'onDragStart': 'set onDragStart(void Function(TapDragStartDetails)? value)',
+      'onDragUpdate': 'set onDragUpdate(void Function(TapDragUpdateDetails)? value)',
+      'onDragEnd': 'set onDragEnd(void Function(TapDragEndDetails)? value)',
+      'onCancel': 'set onCancel(void Function()? value)',
       'onTapTrackStart': 'set onTapTrackStart(void Function()? value)',
       'onTapTrackReset': 'set onTapTrackReset(void Function()? value)',
     },

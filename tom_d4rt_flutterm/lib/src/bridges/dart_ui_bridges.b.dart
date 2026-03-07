@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 13 files
-// Generated: 2026-03-06T19:15:48.806923
+// Generated: 2026-03-07T11:45:38.430471
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -3126,10 +3126,14 @@ BridgedClass _createImageBridge() {
       'onDispose': (visitor) => $dart_ui.Image.onDispose,
     },
     staticSetters: {
-      'onCreate': (visitor, value) => 
-        $dart_ui.Image.onCreate = D4.extractBridgedArgOrNull<ImageEventCallback>(value, 'onCreate'),
-      'onDispose': (visitor, value) => 
-        $dart_ui.Image.onDispose = D4.extractBridgedArgOrNull<ImageEventCallback>(value, 'onDispose'),
+      'onCreate': (visitor, value) {
+        final onCreateRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onCreate');
+        $dart_ui.Image.onCreate = onCreateRaw == null ? null : ($dart_ui.Image p0) { D4.callInterpreterCallback(visitor!, onCreateRaw, [p0]); };
+      },
+      'onDispose': (visitor, value) {
+        final onDisposeRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onDispose');
+        $dart_ui.Image.onDispose = onDisposeRaw == null ? null : ($dart_ui.Image p0) { D4.callInterpreterCallback(visitor!, onDisposeRaw, [p0]); };
+      },
     },
     methodSignatures: {
       'dispose': 'void dispose()',
@@ -3675,7 +3679,7 @@ BridgedClass _createPathMetricsBridge() {
           throw ArgumentError('map: Missing required argument "toElement" at position 0');
         }
         final toElementRaw = positional[0];
-        return t.map(($dart_ui.PathMetric p0) { return D4.callInterpreterCallback(visitor!, toElementRaw, [p0]) as dynamic; });
+        return t.map(($dart_ui.PathMetric p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, toElementRaw, [p0])); });
       },
       'where': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PathMetrics>(target, 'PathMetrics');
@@ -3732,7 +3736,7 @@ BridgedClass _createPathMetricsBridge() {
           throw ArgumentError('fold: Missing required argument "combine" at position 1');
         }
         final combineRaw = positional[1];
-        return t.fold(initialValue, (dynamic p0, $dart_ui.PathMetric p1) { return D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1]) as dynamic; });
+        return t.fold(initialValue, (dynamic p0, $dart_ui.PathMetric p1) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1])); });
       },
       'every': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PathMetrics>(target, 'PathMetrics');
@@ -5046,10 +5050,14 @@ BridgedClass _createPictureBridge() {
       'onDispose': (visitor) => $dart_ui.Picture.onDispose,
     },
     staticSetters: {
-      'onCreate': (visitor, value) => 
-        $dart_ui.Picture.onCreate = D4.extractBridgedArgOrNull<PictureEventCallback>(value, 'onCreate'),
-      'onDispose': (visitor, value) => 
-        $dart_ui.Picture.onDispose = D4.extractBridgedArgOrNull<PictureEventCallback>(value, 'onDispose'),
+      'onCreate': (visitor, value) {
+        final onCreateRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onCreate');
+        $dart_ui.Picture.onCreate = onCreateRaw == null ? null : ($dart_ui.Picture p0) { D4.callInterpreterCallback(visitor!, onCreateRaw, [p0]); };
+      },
+      'onDispose': (visitor, value) {
+        final onDisposeRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onDispose');
+        $dart_ui.Picture.onDispose = onDisposeRaw == null ? null : ($dart_ui.Picture p0) { D4.callInterpreterCallback(visitor!, onDisposeRaw, [p0]); };
+      },
     },
     methodSignatures: {
       'toImage': 'Future<Image> toImage(int width, int height)',
