@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 13 files
-// Generated: 2026-03-07T11:45:38.430471
+// Generated: 2026-03-08T14:40:46.549628
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -243,6 +243,33 @@ class DartUiBridge {
     return {
       'WindowPadding': 'ViewPadding',
     };
+  }
+
+  /// Returns the list of function typedef names declared in this library.
+  ///
+  /// Function typedefs like `typedef VoidCallback = void Function()` are
+  /// registered so that they can be used as type arguments in D4rt scripts.
+  static List<String> functionTypedefs() {
+    return [
+      'ChannelCallback',
+      'PlatformMessageResponseCallback',
+      'DrainChannelCallback',
+      'ImageEventCallback',
+      'ImageDecoderCallback',
+      'TargetImageSizeCallback',
+      'PictureEventCallback',
+      'VoidCallback',
+      'FrameCallback',
+      'TimingsCallback',
+      'PointerDataPacketCallback',
+      'KeyDataCallback',
+      'SemanticsActionEventCallback',
+      'ErrorCallback',
+      'ViewFocusChangeCallback',
+      '_SetNeedsReportTimingsFunc',
+      'PlatformMessageCallback',
+      'PointerDataRespondCallback',
+    ];
   }
 
   /// Returns all bridged enum definitions.
@@ -582,6 +609,12 @@ class DartUiBridge {
     final aliases = classAliases();
     for (final entry in aliases.entries) {
       interpreter.registerClassAlias(entry.key, entry.value, importPath);
+    }
+
+    // Register function typedefs for type resolution
+    final typedefs = functionTypedefs();
+    for (final name in typedefs) {
+      interpreter.registerFunctionTypedef(name, importPath);
     }
   }
 

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 50 files
-// Generated: 2026-03-07T11:46:37.553473
+// Generated: 2026-03-08T14:41:53.422052
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -351,6 +351,85 @@ class FlutterServicesBridge {
     };
   }
 
+  /// Returns the list of function typedef names declared in this library.
+  ///
+  /// Function typedefs like `typedef VoidCallback = void Function()` are
+  /// registered so that they can be used as type arguments in D4rt scripts.
+  static List<String> functionTypedefs() {
+    return [
+      'VoidCallback',
+      'MessageHandler',
+      'PlatformMessageResponseCallback',
+      'KeyEventCallback',
+      'SystemUiChangeCallback',
+      'AsyncCallback',
+      'AsyncValueGetter',
+      'AsyncValueSetter',
+      'ServiceExtensionCallback',
+      'SchedulingStrategy',
+      'TimingsCallback',
+      'TaskCallback',
+      'FrameCallback',
+      'RespondPointerEventCallback',
+      'PointerRoute',
+      'PointerSignalResolvedCallback',
+      'InformationCollector',
+      'IterableFilter',
+      'DevicePixelRatioGetter',
+      'GestureDragDownCallback',
+      'GestureDragStartCallback',
+      'GestureDragUpdateCallback',
+      'AllowedButtonsFilter',
+      'RecognizerCallback',
+      'GestureForcePressStartCallback',
+      'GestureForcePressPeakCallback',
+      'GestureForcePressUpdateCallback',
+      'GestureForcePressEndCallback',
+      'GestureForceInterpolation',
+      'GestureLongPressDownCallback',
+      'GestureLongPressCancelCallback',
+      'GestureLongPressCallback',
+      'GestureLongPressUpCallback',
+      'GestureLongPressStartCallback',
+      'GestureLongPressMoveUpdateCallback',
+      'GestureLongPressEndCallback',
+      'GestureDragEndCallback',
+      'GestureDragCancelCallback',
+      'GestureVelocityTrackerBuilder',
+      'GestureMultiDragStartCallback',
+      'GestureTapDownCallback',
+      'GestureTapUpCallback',
+      'GestureTapCallback',
+      'GestureTapMoveCallback',
+      'GestureTapCancelCallback',
+      'GestureDoubleTapCallback',
+      'GestureMultiTapDownCallback',
+      'GestureMultiTapUpCallback',
+      'GestureMultiTapCallback',
+      'GestureMultiTapCancelCallback',
+      'GestureSerialTapDownCallback',
+      'GestureSerialTapCancelCallback',
+      'GestureSerialTapUpCallback',
+      'HandleEventCallback',
+      'GestureScaleStartCallback',
+      'GestureScaleUpdateCallback',
+      'GestureScaleEndCallback',
+      'GestureTapDragDownCallback',
+      'GestureTapDragUpCallback',
+      'GestureTapDragStartCallback',
+      'GestureTapDragUpdateCallback',
+      'GestureTapDragEndCallback',
+      'GestureCancelCallback',
+      'PointerEnterEventListener',
+      'PointerExitEventListener',
+      'PointerHoverEventListener',
+      'PointTransformer',
+      'PlatformViewCreatedCallback',
+      'UntilPredicate',
+      'TextInputFormatFunction',
+    ];
+  }
+
   /// Returns all bridged enum definitions.
   static List<BridgedEnumDefinition> bridgedEnums() {
     return [
@@ -489,6 +568,12 @@ class FlutterServicesBridge {
     final funcSigs = globalFunctionSignatures();
     for (final entry in funcs.entries) {
       interpreter.registertopLevelFunction(entry.key, entry.value, importPath, sourceUri: funcSources[entry.key], signature: funcSigs[entry.key]);
+    }
+
+    // Register function typedefs for type resolution
+    final typedefs = functionTypedefs();
+    for (final name in typedefs) {
+      interpreter.registerFunctionTypedef(name, importPath);
     }
   }
 

@@ -5887,6 +5887,26 @@ class BridgeGenerator {
     buffer.writeln('  }');
     buffer.writeln();
 
+    // GEN-100d: Generate functionTypedefs() method for function typedef registration
+    buffer.writeln(
+      '  /// Returns the list of function typedef names declared in this library.',
+    );
+    buffer.writeln('  ///');
+    buffer.writeln(
+      '  /// Function typedefs like `typedef VoidCallback = void Function()` are',
+    );
+    buffer.writeln(
+      '  /// registered so that they can be used as type arguments in D4rt scripts.',
+    );
+    buffer.writeln('  static List<String> functionTypedefs() {');
+    buffer.writeln('    return [');
+    for (final name in _typedefExpansions.keys) {
+      buffer.writeln("      '$name',");
+    }
+    buffer.writeln('    ];');
+    buffer.writeln('  }');
+    buffer.writeln();
+
     // Always generate bridgedEnums method (returns empty list if no enums)
     // This is required for delegating barrel files to compile
     buffer.writeln('  /// Returns all bridged enum definitions.');
@@ -6171,6 +6191,17 @@ class BridgeGenerator {
       buffer.writeln('    for (final entry in aliases.entries) {');
       buffer.writeln(
         '      interpreter.registerClassAlias(entry.key, entry.value, importPath);',
+      );
+      buffer.writeln('    }');
+    }
+    // GEN-100d: Register function typedefs
+    if (_typedefExpansions.isNotEmpty) {
+      buffer.writeln();
+      buffer.writeln('    // Register function typedefs for type resolution');
+      buffer.writeln('    final typedefs = functionTypedefs();');
+      buffer.writeln('    for (final name in typedefs) {');
+      buffer.writeln(
+        '      interpreter.registerFunctionTypedef(name, importPath);',
       );
       buffer.writeln('    }');
     }

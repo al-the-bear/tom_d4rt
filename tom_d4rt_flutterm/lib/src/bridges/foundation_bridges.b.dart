@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 28 files
-// Generated: 2026-03-07T11:46:01.462243
+// Generated: 2026-03-08T14:41:12.552173
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -206,6 +206,36 @@ class FlutterFoundationBridge {
     };
   }
 
+  /// Returns the list of function typedef names declared in this library.
+  ///
+  /// Function typedefs like `typedef VoidCallback = void Function()` are
+  /// registered so that they can be used as type arguments in D4rt scripts.
+  static List<String> functionTypedefs() {
+    return [
+      'ValueChanged',
+      'ValueSetter',
+      'ValueGetter',
+      'IterableFilter',
+      'AsyncCallback',
+      'AsyncValueSetter',
+      'AsyncValueGetter',
+      'ComputePropertyValueCallback',
+      'FlutterExceptionHandler',
+      'DiagnosticPropertiesTransformer',
+      'InformationCollector',
+      'StackTraceDemangler',
+      'ServiceExtensionCallback',
+      'VoidCallback',
+      'BytesReceivedCallback',
+      'DebugPrintCallback',
+      'ComputeCallback',
+      'ComputeImpl',
+      'LicenseEntryCollector',
+      'ObjectEventListener',
+      'TimelineSyncFunction',
+    ];
+  }
+
   /// Returns all bridged enum definitions.
   static List<BridgedEnumDefinition> bridgedEnums() {
     return [
@@ -287,6 +317,12 @@ class FlutterFoundationBridge {
     final aliases = classAliases();
     for (final entry in aliases.entries) {
       interpreter.registerClassAlias(entry.key, entry.value, importPath);
+    }
+
+    // Register function typedefs for type resolution
+    final typedefs = functionTypedefs();
+    for (final name in typedefs) {
+      interpreter.registerFunctionTypedef(name, importPath);
     }
   }
 
