@@ -160,7 +160,11 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     final value = node.expression!.accept<Object?>(this);
     final typeNode = node.type;
     if (typeNode is SNamedType) {
-      final typeName = typeNode.name!.name;
+      final rawTypeName = typeNode.name!.name;
+      // GEN-100c: Handle import-prefixed cast types (e.g., value as ui.Color)
+      final typeName = typeNode.importPrefix != null
+          ? '${typeNode.importPrefix!.name}.$rawTypeName'
+          : rawTypeName;
       // G-DOV2-1 FIX: Handle nullable types (e.g., String?, int?)
       // If the type is nullable (has a '?' suffix), then null is always allowed
       final isNullable = typeNode.isNullable;
@@ -3958,6 +3962,26 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     Logger.debug(
       "[SPropertyAccess: ${node.toString()}] Target type: ${target.runtimeType}, Target value: ${target.toString()}",
     );
+
+    // GEN-100c: Handle prefixed import access (e.g., prefix.SomeClass.staticMember)
+    // When the AST produces SPropertyAccess with a prefix target that resolved to an Environment,
+    // delegate to that environment for member lookup.
+    if (target is Environment) {
+      Logger.debug(
+        "[SPropertyAccess] Target resolved to Environment (prefixed import). Looking up '$propertyName'.",
+      );
+      try {
+        final member = target.get(propertyName);
+        if (member is InterpretedFunction && member.isGetter) {
+          return member.call(this, [], {});
+        }
+        return member;
+      } on RuntimeD4rtException catch (e) {
+        throw RuntimeD4rtException(
+          "Undefined member '$propertyName' in prefixed import: ${e.message}",
+        );
+      }
+    }
 
     if (target is InterpretedInstance) {
       // Standard Instance Access: Try direct first, then extension
@@ -8970,7 +8994,11 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     bool result = false;
 
     if (typeNode is SNamedType) {
-      final typeName = typeNode.name!.name;
+      final rawTypeName = typeNode.name!.name;
+      // GEN-100c: Handle import-prefixed type checks (e.g., value is ui.Color)
+      final typeName = typeNode.importPrefix != null
+          ? '${typeNode.importPrefix!.name}.$rawTypeName'
+          : rawTypeName;
 
       // Handle built-in types first
       switch (typeName) {
@@ -9251,6 +9279,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       }
       if (typeName.contains('<') && typeName.contains('>')) {
         typeName = typeName.substring(0, typeName.indexOf('<'));
+      }
+      // GEN-100c: Handle import-prefixed type annotations (e.g., ui.StrutStyle, math.Point)
+      if (typeNode.importPrefix != null) {
+        typeName = '${typeNode.importPrefix!.name}.$typeName';
       }
       if (typeName == "void") {
         // void is not a valid type literal expression; use Null as runtime placeholder
