@@ -14010,6 +14010,25 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         declaredMemberNames,
       );
       members.addAll(inheritedMembers);
+    } else if (node.onClause != null) {
+      // GEN-100b: Fallback when declaredFragment?.element is null.
+      // Collect inherited members from the on-clause constraint elements.
+      // This ensures mixin bridges include members from their superclass
+      // constraints (e.g., AnimationWithParentMixin<T> on Animation<T>
+      // should inherit 'value' from Animation<T>).
+      for (final constraint in node.onClause!.superclassConstraints) {
+        final constraintType = constraint.type;
+        if (constraintType is InterfaceType) {
+          final constraintElement = constraintType.element;
+          final inheritedMembers = _collectInheritedMembersFromElement(
+            constraintElement,
+            declaredMemberNames,
+          );
+          members.addAll(inheritedMembers);
+          // Update declaredMemberNames to avoid duplicates from subsequent constraints
+          declaredMemberNames.addAll(_buildQualifiedMemberNames(inheritedMembers));
+        }
+      }
     }
 
     // Parse generic type parameters and their bounds

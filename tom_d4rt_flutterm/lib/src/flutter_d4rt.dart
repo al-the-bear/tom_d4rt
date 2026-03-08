@@ -35,6 +35,7 @@ class FlutterD4rt {
   FlutterD4rt() : _interpreter = D4rt() {
     _ensureRelaxersRegistered();
     FlutterMaterialBridges.register(_interpreter);
+    registerFlutterFunctionTypedefs(_interpreter);
   }
 
   /// Creates a [FlutterD4rt] wrapping an existing [D4rt] interpreter.
@@ -46,6 +47,7 @@ class FlutterD4rt {
   FlutterD4rt.withInterpreter(this._interpreter) {
     _ensureRelaxersRegistered();
     FlutterMaterialBridges.register(_interpreter);
+    registerFlutterFunctionTypedefs(_interpreter);
   }
 
   /// GEN-079: Register generic type relaxers once globally.

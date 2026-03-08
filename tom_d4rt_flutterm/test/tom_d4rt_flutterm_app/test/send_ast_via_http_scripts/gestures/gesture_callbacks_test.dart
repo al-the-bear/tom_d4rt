@@ -93,19 +93,26 @@ dynamic build(BuildContext context) {
   print('PanGestureRecognizer configured with all drag callbacks');
   print('PanGestureRecognizer type: ${panRecognizer.runtimeType}');
 
-  // Verify all callbacks with a GestureDetector
+  // Verify pan callbacks with a GestureDetector
+  // Note: Pan and Scale cannot be combined on the same GestureDetector
+  // because scale is a superset of pan in Flutter.
   final gestureDetector = GestureDetector(
     onPanStart: dragStartCallback,
     onPanUpdate: dragUpdateCallback,
     onPanEnd: dragEndCallback,
     onPanCancel: dragCancelCallback,
     onPanDown: dragDownCallback,
-    onScaleStart: scaleStartCallback,
-    onScaleUpdate: scaleUpdateCallback,
     child: Container(),
   );
   print(
-    'GestureDetector configured with all callbacks: ${gestureDetector.runtimeType}',
+    'GestureDetector configured with pan callbacks: ${gestureDetector.runtimeType}',
+  );
+
+  // Verify scale callbacks with a separate GestureDetector
+  final scaleDetector = GestureDetector(
+    onScaleStart: scaleStartCallback,
+    onScaleUpdate: scaleUpdateCallback,
+    child: Container(),
   );
 
   print('All gesture callback tests passed');

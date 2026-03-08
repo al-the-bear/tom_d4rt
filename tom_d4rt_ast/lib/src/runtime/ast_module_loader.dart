@@ -1,4 +1,5 @@
 import 'package:tom_d4rt_ast/ast.dart';
+import 'package:tom_d4rt_ast/src/runtime/bridge/bridged_types.dart';
 import 'package:tom_d4rt_ast/src/runtime/d4rt_runner.dart';
 import 'package:tom_d4rt_ast/src/runtime/declaration_visitor.dart';
 import 'package:tom_d4rt_ast/src/runtime/exceptions.dart';
@@ -316,6 +317,21 @@ class AstModuleLoader implements ModuleContext {
       Logger.debug(
         '[AstModuleLoader] Registered class alias: '
         '${alias.aliasName} -> ${alias.targetName} from $uriString',
+      );
+    }
+
+    // Register function typedefs as BridgedClass(nativeType: Function)
+    // so they can be resolved in type annotations and type arguments.
+    for (final typedef in runner.functionTypedefs) {
+      if (typedef.library != uriString) continue;
+      if (!_shouldInclude(typedef.name, showNames, hideNames)) continue;
+
+      targetEnvironment.defineBridge(
+        BridgedClass(nativeType: Function, name: typedef.name),
+      );
+      Logger.debug(
+        '[AstModuleLoader] Registered function typedef: '
+        '${typedef.name} from $uriString',
       );
     }
 

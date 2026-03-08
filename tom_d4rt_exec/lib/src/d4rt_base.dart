@@ -171,6 +171,19 @@ class D4rt {
     _runner.registerClassAlias(aliasName, targetName, library);
   }
 
+  /// Registers a function typedef so it can be used as a type in D4rt scripts.
+  ///
+  /// Function typedefs like `typedef VoidCallback = void Function()` are not
+  /// classes, but D4rt scripts may reference them as type arguments
+  /// (e.g., `ObserverList<VoidCallback>()`). This registers the name so type
+  /// resolution succeeds.
+  ///
+  /// [name] The typedef name (e.g., 'VoidCallback').
+  /// [library] The library path where this typedef is exported from.
+  void registerFunctionTypedef(String name, String library) {
+    _runner.registerFunctionTypedef(name, library);
+  }
+
   /// Registers a bridged extension for use in interpreted code.
   ///
   /// When the corresponding library is imported in a D4rt script, the extension

@@ -34,7 +34,7 @@ import 'package:flutter/widgets.dart'
         StatefulWidget,
         StatelessWidget,
         Widget;
-import 'package:tom_d4rt_exec/d4rt.dart' show D4;
+import 'package:tom_d4rt_exec/d4rt.dart' show D4, D4rt;
 import 'package:tom_d4rt_ast/src/runtime/bridge/bridged_types.dart'
     show BridgedInstance;
 import 'package:tom_d4rt_ast/src/runtime/interpreter_visitor.dart';
@@ -452,4 +452,87 @@ void _registerSupplementaryMethods() {
     // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
     return cn.hasListeners;
   });
+}
+
+// =============================================================================
+// Function Typedef Registrations
+// =============================================================================
+
+/// Register common Flutter/Dart function typedefs with a D4rt interpreter.
+///
+/// Function typedefs are not classes and cannot be bridged as `BridgedClass`
+/// instances. However, when D4rt scripts use them as type arguments
+/// (e.g., `ObserverList<VoidCallback>()`), the type resolver must find them
+/// in the environment. This registers them as Function types.
+///
+/// Call this once per D4rt interpreter instance during bridge setup.
+/// Eventually, the bridge generator will emit these automatically.
+void registerFlutterFunctionTypedefs(D4rt interpreter) {
+  // dart:ui typedefs
+  const dartUi = 'dart:ui';
+  interpreter.registerFunctionTypedef('VoidCallback', dartUi);
+  interpreter.registerFunctionTypedef('PictureEventCallback', dartUi);
+  interpreter.registerFunctionTypedef('ImageDecoderCallback', dartUi);
+
+  // package:flutter/foundation.dart typedefs
+  const foundation = 'package:flutter/foundation.dart';
+  interpreter.registerFunctionTypedef('VoidCallback', foundation);
+  interpreter.registerFunctionTypedef('ValueChanged', foundation);
+  interpreter.registerFunctionTypedef('ValueGetter', foundation);
+  interpreter.registerFunctionTypedef('ValueSetter', foundation);
+  interpreter.registerFunctionTypedef('IterableFilter', foundation);
+  interpreter.registerFunctionTypedef('AsyncCallback', foundation);
+  interpreter.registerFunctionTypedef('AsyncValueGetter', foundation);
+  interpreter.registerFunctionTypedef('AsyncValueSetter', foundation);
+
+  // Re-export through all barrel files that re-export foundation
+  for (final barrel in [
+    'package:flutter/painting.dart',
+    'package:flutter/widgets.dart',
+    'package:flutter/material.dart',
+    'package:flutter/cupertino.dart',
+  ]) {
+    interpreter.registerFunctionTypedef('VoidCallback', barrel);
+    interpreter.registerFunctionTypedef('ValueChanged', barrel);
+    interpreter.registerFunctionTypedef('ValueGetter', barrel);
+    interpreter.registerFunctionTypedef('ValueSetter', barrel);
+    interpreter.registerFunctionTypedef('AsyncCallback', barrel);
+  }
+
+  // package:flutter/gestures.dart typedefs
+  const gestures = 'package:flutter/gestures.dart';
+  interpreter.registerFunctionTypedef('GestureTapCallback', gestures);
+  interpreter.registerFunctionTypedef('GestureTapDownCallback', gestures);
+  interpreter.registerFunctionTypedef('GestureTapUpCallback', gestures);
+  interpreter.registerFunctionTypedef('GestureTapCancelCallback', gestures);
+  interpreter.registerFunctionTypedef('GestureLongPressCallback', gestures);
+  interpreter.registerFunctionTypedef('GestureLongPressStartCallback', gestures);
+  interpreter.registerFunctionTypedef('GestureLongPressMoveUpdateCallback', gestures);
+  interpreter.registerFunctionTypedef('GestureLongPressEndCallback', gestures);
+  interpreter.registerFunctionTypedef('GestureLongPressUpCallback', gestures);
+  interpreter.registerFunctionTypedef('GestureDragStartCallback', gestures);
+  interpreter.registerFunctionTypedef('GestureDragUpdateCallback', gestures);
+  interpreter.registerFunctionTypedef('GestureDragEndCallback', gestures);
+  interpreter.registerFunctionTypedef('GestureDragCancelCallback', gestures);
+  interpreter.registerFunctionTypedef('GestureDragDownCallback', gestures);
+  interpreter.registerFunctionTypedef('GestureScaleStartCallback', gestures);
+  interpreter.registerFunctionTypedef('GestureScaleUpdateCallback', gestures);
+  interpreter.registerFunctionTypedef('GestureScaleEndCallback', gestures);
+
+  // package:flutter/widgets.dart typedefs
+  const widgets = 'package:flutter/widgets.dart';
+  interpreter.registerFunctionTypedef('WidgetBuilder', widgets);
+  interpreter.registerFunctionTypedef('TransitionBuilder', widgets);
+  interpreter.registerFunctionTypedef('StateSetter', widgets);
+  interpreter.registerFunctionTypedef('CreateRectTween', widgets);
+  interpreter.registerFunctionTypedef('TweenConstructor', widgets);
+  interpreter.registerFunctionTypedef('TweenVisitor', widgets);
+
+  // package:flutter/material.dart typedefs
+  const material = 'package:flutter/material.dart';
+  interpreter.registerFunctionTypedef('WidgetBuilder', material);
+  interpreter.registerFunctionTypedef('TransitionBuilder', material);
+  interpreter.registerFunctionTypedef('StateSetter', material);
+  interpreter.registerFunctionTypedef('GestureTapCallback', material);
+  interpreter.registerFunctionTypedef('GestureLongPressCallback', material);
 }

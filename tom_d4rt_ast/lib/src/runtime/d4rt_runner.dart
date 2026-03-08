@@ -112,6 +112,12 @@ class D4rtRunner {
   /// GEN-074: Class aliases (type aliases) for alias name → target class name mapping.
   final List<({String aliasName, String targetName, String library})>
   _classAliases = [];
+
+  /// Function typedefs (e.g., VoidCallback = void Function()) registered
+  /// as environment types so they can be resolved in type annotations
+  /// and type arguments.
+  final List<({String name, String library})> _functionTypedefs = [];
+
   final List<Map<String, LibraryFunction>> _libraryFunctions = [];
   final List<Map<String, LibraryVariable>> _libraryVariables = [];
   final List<Map<String, LibraryGetter>> _libraryGetters = [];
@@ -200,6 +206,24 @@ class D4rtRunner {
   /// Registered class aliases keyed by library URI.
   List<({String aliasName, String targetName, String library})>
   get classAliases => _classAliases;
+
+  /// Registers a function typedef so it can be resolved as a type.
+  ///
+  /// Function typedefs like `typedef VoidCallback = void Function()` are not
+  /// classes, but D4rt scripts may reference them as type arguments
+  /// (e.g., `ObserverList<VoidCallback>()`). This registers the name
+  /// as a `BridgedClass` with `nativeType: Function` so type resolution
+  /// succeeds.
+  ///
+  /// [name] The typedef name (e.g., 'VoidCallback').
+  /// [library] The library path where this typedef is exported from.
+  void registerFunctionTypedef(String name, String library) {
+    _functionTypedefs.add((name: name, library: library));
+  }
+
+  /// Registered function typedefs.
+  List<({String name, String library})> get functionTypedefs =>
+      _functionTypedefs;
 
   /// Registers a bridged extension.
   void registerBridgedExtension(
@@ -374,6 +398,14 @@ class D4rtRunner {
       for (final e in entry.entries) {
         env.defineBridge(e.value.bridgedClass);
       }
+    }
+
+    // Register function typedefs as BridgedClass(nativeType: Function)
+    // so they can be resolved in type annotations and type arguments.
+    for (final typedef in _functionTypedefs) {
+      env.defineBridge(
+        BridgedClass(nativeType: Function, name: typedef.name),
+      );
     }
 
     // Register library functions

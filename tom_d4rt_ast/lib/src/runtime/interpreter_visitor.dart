@@ -9318,11 +9318,16 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     // with SConstructorName.name being null.
     String constructorName;
     String? namedConstructorPart;
+    String? resolvedImportPrefix; // Track real import prefix for resolution
 
     if (node.constructorName!.name != null) {
       // Resolved form: type.name = class, constructorName.name = named ctor
+      // May also have importPrefix for prefix.ClassName.namedCtor() calls
       constructorName = constructorNameNode!.name!.name;
       namedConstructorPart = node.constructorName!.name!.name;
+      if (constructorNameNode.importPrefix != null) {
+        resolvedImportPrefix = constructorNameNode.importPrefix!.name;
+      }
     } else if (constructorNameNode!.importPrefix != null) {
       // Unresolved ambiguity: check if importPrefix is actually a class name
       final possibleClassName = constructorNameNode.importPrefix!.name;
@@ -9339,6 +9344,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       } else {
         // It really is a prefix.ClassName() call
         constructorName = constructorNameNode.name!.name;
+        resolvedImportPrefix = constructorNameNode.importPrefix!.name;
         namedConstructorPart = null;
       }
     } else {
@@ -9351,10 +9357,14 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       "[InstanceCreation] Creating instance of '$constructorName'${namedConstructorPart != null ? '.$namedConstructorPart' : ''}",
     );
 
-    // Resolve the type
+    // Resolve the type — use prefix if present so that e.g. ui.StrutStyle
+    // resolves through the dart:ui prefixed environment, not the current scope.
+    final lookupName = resolvedImportPrefix != null
+        ? '$resolvedImportPrefix.$constructorName'
+        : constructorName;
     Object? typeValue;
     try {
-      typeValue = environment.get(constructorName);
+      typeValue = environment.get(lookupName);
     } on RuntimeD4rtException {
       throw RuntimeD4rtException(
         "Type '$constructorName' not found for instantiation.",
