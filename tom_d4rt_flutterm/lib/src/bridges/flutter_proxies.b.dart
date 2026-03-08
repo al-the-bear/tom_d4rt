@@ -9,7 +9,9 @@ library;
 
 // ignore_for_file: unused_import
 
+import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:tom_d4rt_ast/runtime.dart';
 
 /// D4rt proxy for [CustomPainter].
@@ -284,6 +286,156 @@ class D4rtSingleChildLayoutDelegate extends SingleChildLayoutDelegate {
   @override
   Offset getPositionForChild(Size size, Size childSize) =>
       onGetPositionForChild != null ? onGetPositionForChild!(size, childSize) : super.getPositionForChild(size, childSize);
+
+}
+
+/// D4rt proxy for [SliverPersistentHeaderDelegate].
+///
+/// Delegates abstract methods to callback functions, enabling
+/// D4rt scripts to implement [SliverPersistentHeaderDelegate] via named
+/// function parameters.
+class D4rtSliverPersistentHeaderDelegate extends SliverPersistentHeaderDelegate {
+  /// Callback for [SliverPersistentHeaderDelegate.build].
+  final Widget Function(BuildContext, double, bool) onBuild;
+
+  /// Callback for [SliverPersistentHeaderDelegate.shouldRebuild].
+  final bool Function(SliverPersistentHeaderDelegate) onShouldRebuild;
+
+  /// Callback for [SliverPersistentHeaderDelegate.minExtent].
+  final double Function() onMinExtent;
+
+  /// Callback for [SliverPersistentHeaderDelegate.maxExtent].
+  final double Function() onMaxExtent;
+
+  /// Callback for [SliverPersistentHeaderDelegate.vsync].
+  final TickerProvider? Function()? onVsync;
+
+  /// Callback for [SliverPersistentHeaderDelegate.snapConfiguration].
+  final FloatingHeaderSnapConfiguration? Function()? onSnapConfiguration;
+
+  /// Callback for [SliverPersistentHeaderDelegate.stretchConfiguration].
+  final OverScrollHeaderStretchConfiguration? Function()? onStretchConfiguration;
+
+  /// Callback for [SliverPersistentHeaderDelegate.showOnScreenConfiguration].
+  final PersistentHeaderShowOnScreenConfiguration? Function()? onShowOnScreenConfiguration;
+
+  /// Creates a [D4rtSliverPersistentHeaderDelegate] with callback implementations.
+  D4rtSliverPersistentHeaderDelegate({
+    required this.onBuild,
+    required this.onShouldRebuild,
+    required this.onMinExtent,
+    required this.onMaxExtent,
+    this.onVsync,
+    this.onSnapConfiguration,
+    this.onStretchConfiguration,
+    this.onShowOnScreenConfiguration,
+  });
+
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) =>
+      onBuild(context, shrinkOffset, overlapsContent);
+
+  @override
+  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) =>
+      onShouldRebuild(oldDelegate);
+
+  @override
+  double get minExtent => onMinExtent();
+
+  @override
+  double get maxExtent => onMaxExtent();
+
+  @override
+  TickerProvider? get vsync => onVsync != null ? onVsync!() : super.vsync;
+
+  @override
+  FloatingHeaderSnapConfiguration? get snapConfiguration => onSnapConfiguration != null ? onSnapConfiguration!() : super.snapConfiguration;
+
+  @override
+  OverScrollHeaderStretchConfiguration? get stretchConfiguration => onStretchConfiguration != null ? onStretchConfiguration!() : super.stretchConfiguration;
+
+  @override
+  PersistentHeaderShowOnScreenConfiguration? get showOnScreenConfiguration => onShowOnScreenConfiguration != null ? onShowOnScreenConfiguration!() : super.showOnScreenConfiguration;
+
+}
+
+/// D4rt proxy for [DataTableSource].
+///
+/// Delegates abstract methods to callback functions, enabling
+/// D4rt scripts to implement [DataTableSource] via named
+/// function parameters.
+class D4rtDataTableSource extends DataTableSource {
+  /// Callback for [DataTableSource.getRow].
+  final DataRow? Function(int) onGetRow;
+
+  /// Callback for [DataTableSource.rowCount].
+  final int Function() onRowCount;
+
+  /// Callback for [DataTableSource.isRowCountApproximate].
+  final bool Function() onIsRowCountApproximate;
+
+  /// Callback for [DataTableSource.selectedRowCount].
+  final int Function() onSelectedRowCount;
+
+  /// Callback for [DataTableSource.addListener].
+  final void Function(void Function())? onAddListener;
+
+  /// Callback for [DataTableSource.removeListener].
+  final void Function(void Function())? onRemoveListener;
+
+  /// Callback for [DataTableSource.dispose].
+  final void Function()? onDispose;
+
+  /// Callback for [DataTableSource.notifyListeners].
+  final void Function()? onNotifyListeners;
+
+  /// Callback for [DataTableSource.hasListeners].
+  final bool Function()? onHasListeners;
+
+  /// Creates a [D4rtDataTableSource] with callback implementations.
+  D4rtDataTableSource({
+    required this.onGetRow,
+    required this.onRowCount,
+    required this.onIsRowCountApproximate,
+    required this.onSelectedRowCount,
+    this.onAddListener,
+    this.onRemoveListener,
+    this.onDispose,
+    this.onNotifyListeners,
+    this.onHasListeners,
+  });
+
+  @override
+  DataRow? getRow(int index) =>
+      onGetRow(index);
+
+  @override
+  int get rowCount => onRowCount();
+
+  @override
+  bool get isRowCountApproximate => onIsRowCountApproximate();
+
+  @override
+  int get selectedRowCount => onSelectedRowCount();
+
+  @override
+  void addListener(void Function() listener) =>
+      onAddListener != null ? onAddListener!(listener) : super.addListener(listener);
+
+  @override
+  void removeListener(void Function() listener) =>
+      onRemoveListener != null ? onRemoveListener!(listener) : super.removeListener(listener);
+
+  @override
+  void dispose() =>
+      onDispose != null ? onDispose!() : super.dispose();
+
+  @override
+  void notifyListeners() =>
+      onNotifyListeners != null ? onNotifyListeners!() : super.notifyListeners();
+
+  @override
+  bool get hasListeners => onHasListeners != null ? onHasListeners!() : super.hasListeners;
 
 }
 
@@ -579,6 +731,212 @@ void registerProxyFactories() {
           return D4.extractBridgedArg<Offset>(result, 'getPositionForChild');
         }
         throw StateError('Interpreted class ${instance.klass.name} does not implement getPositionForChild');
+          }
+          : null,
+    );
+  });
+
+  // Register factory for SliverPersistentHeaderDelegate
+  D4.registerInterfaceProxy('SliverPersistentHeaderDelegate', (visitor, instance) {
+    return D4rtSliverPersistentHeaderDelegate(
+      onBuild: (BuildContext context, double shrinkOffset, bool overlapsContent) {
+        final method = instance.klass.findInstanceMethod('build');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [context, shrinkOffset, overlapsContent], {});
+          return D4.extractBridgedArg<Widget>(result, 'build');
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement build');
+      },
+      onShouldRebuild: (SliverPersistentHeaderDelegate oldDelegate) {
+        final method = instance.klass.findInstanceMethod('shouldRebuild');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [oldDelegate], {});
+          return D4.extractBridgedArg<bool>(result, 'shouldRebuild');
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement shouldRebuild');
+      },
+      onMinExtent: () {
+        final getter = instance.klass.findInstanceGetter('minExtent');
+        if (getter != null) {
+          final result = getter.bind(instance).call(visitor, [], {});
+          return D4.extractBridgedArg<double>(result, 'minExtent');
+        }
+        try {
+          final field = instance.getField('minExtent');
+          return D4.extractBridgedArg<double>(field, 'minExtent');
+        } catch (_) {}
+        throw StateError('Interpreted class ${instance.klass.name} does not implement minExtent');
+      },
+      onMaxExtent: () {
+        final getter = instance.klass.findInstanceGetter('maxExtent');
+        if (getter != null) {
+          final result = getter.bind(instance).call(visitor, [], {});
+          return D4.extractBridgedArg<double>(result, 'maxExtent');
+        }
+        try {
+          final field = instance.getField('maxExtent');
+          return D4.extractBridgedArg<double>(field, 'maxExtent');
+        } catch (_) {}
+        throw StateError('Interpreted class ${instance.klass.name} does not implement maxExtent');
+      },
+      onVsync: instance.klass.findInstanceGetter('vsync') != null
+          ? () {
+        final getter = instance.klass.findInstanceGetter('vsync');
+        if (getter != null) {
+          final result = getter.bind(instance).call(visitor, [], {});
+          return D4.extractBridgedArg<TickerProvider?>(result, 'vsync');
+        }
+        try {
+          final field = instance.getField('vsync');
+          return D4.extractBridgedArg<TickerProvider?>(field, 'vsync');
+        } catch (_) {}
+        throw StateError('Interpreted class ${instance.klass.name} does not implement vsync');
+          }
+          : null,
+      onSnapConfiguration: instance.klass.findInstanceGetter('snapConfiguration') != null
+          ? () {
+        final getter = instance.klass.findInstanceGetter('snapConfiguration');
+        if (getter != null) {
+          final result = getter.bind(instance).call(visitor, [], {});
+          return D4.extractBridgedArg<FloatingHeaderSnapConfiguration?>(result, 'snapConfiguration');
+        }
+        try {
+          final field = instance.getField('snapConfiguration');
+          return D4.extractBridgedArg<FloatingHeaderSnapConfiguration?>(field, 'snapConfiguration');
+        } catch (_) {}
+        throw StateError('Interpreted class ${instance.klass.name} does not implement snapConfiguration');
+          }
+          : null,
+      onStretchConfiguration: instance.klass.findInstanceGetter('stretchConfiguration') != null
+          ? () {
+        final getter = instance.klass.findInstanceGetter('stretchConfiguration');
+        if (getter != null) {
+          final result = getter.bind(instance).call(visitor, [], {});
+          return D4.extractBridgedArg<OverScrollHeaderStretchConfiguration?>(result, 'stretchConfiguration');
+        }
+        try {
+          final field = instance.getField('stretchConfiguration');
+          return D4.extractBridgedArg<OverScrollHeaderStretchConfiguration?>(field, 'stretchConfiguration');
+        } catch (_) {}
+        throw StateError('Interpreted class ${instance.klass.name} does not implement stretchConfiguration');
+          }
+          : null,
+      onShowOnScreenConfiguration: instance.klass.findInstanceGetter('showOnScreenConfiguration') != null
+          ? () {
+        final getter = instance.klass.findInstanceGetter('showOnScreenConfiguration');
+        if (getter != null) {
+          final result = getter.bind(instance).call(visitor, [], {});
+          return D4.extractBridgedArg<PersistentHeaderShowOnScreenConfiguration?>(result, 'showOnScreenConfiguration');
+        }
+        try {
+          final field = instance.getField('showOnScreenConfiguration');
+          return D4.extractBridgedArg<PersistentHeaderShowOnScreenConfiguration?>(field, 'showOnScreenConfiguration');
+        } catch (_) {}
+        throw StateError('Interpreted class ${instance.klass.name} does not implement showOnScreenConfiguration');
+          }
+          : null,
+    );
+  });
+
+  // Register factory for DataTableSource
+  D4.registerInterfaceProxy('DataTableSource', (visitor, instance) {
+    return D4rtDataTableSource(
+      onGetRow: (int index) {
+        final method = instance.klass.findInstanceMethod('getRow');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [index], {});
+          return D4.extractBridgedArg<DataRow?>(result, 'getRow');
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement getRow');
+      },
+      onRowCount: () {
+        final getter = instance.klass.findInstanceGetter('rowCount');
+        if (getter != null) {
+          final result = getter.bind(instance).call(visitor, [], {});
+          return D4.extractBridgedArg<int>(result, 'rowCount');
+        }
+        try {
+          final field = instance.getField('rowCount');
+          return D4.extractBridgedArg<int>(field, 'rowCount');
+        } catch (_) {}
+        throw StateError('Interpreted class ${instance.klass.name} does not implement rowCount');
+      },
+      onIsRowCountApproximate: () {
+        final getter = instance.klass.findInstanceGetter('isRowCountApproximate');
+        if (getter != null) {
+          final result = getter.bind(instance).call(visitor, [], {});
+          return D4.extractBridgedArg<bool>(result, 'isRowCountApproximate');
+        }
+        try {
+          final field = instance.getField('isRowCountApproximate');
+          return D4.extractBridgedArg<bool>(field, 'isRowCountApproximate');
+        } catch (_) {}
+        throw StateError('Interpreted class ${instance.klass.name} does not implement isRowCountApproximate');
+      },
+      onSelectedRowCount: () {
+        final getter = instance.klass.findInstanceGetter('selectedRowCount');
+        if (getter != null) {
+          final result = getter.bind(instance).call(visitor, [], {});
+          return D4.extractBridgedArg<int>(result, 'selectedRowCount');
+        }
+        try {
+          final field = instance.getField('selectedRowCount');
+          return D4.extractBridgedArg<int>(field, 'selectedRowCount');
+        } catch (_) {}
+        throw StateError('Interpreted class ${instance.klass.name} does not implement selectedRowCount');
+      },
+      onAddListener: instance.klass.findInstanceMethod('addListener') != null
+          ? (void Function() listener) {
+        final method = instance.klass.findInstanceMethod('addListener');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [listener], {});
+          return;
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement addListener');
+          }
+          : null,
+      onRemoveListener: instance.klass.findInstanceMethod('removeListener') != null
+          ? (void Function() listener) {
+        final method = instance.klass.findInstanceMethod('removeListener');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [listener], {});
+          return;
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement removeListener');
+          }
+          : null,
+      onDispose: instance.klass.findInstanceMethod('dispose') != null
+          ? () {
+        final method = instance.klass.findInstanceMethod('dispose');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [], {});
+          return;
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement dispose');
+          }
+          : null,
+      onNotifyListeners: instance.klass.findInstanceMethod('notifyListeners') != null
+          ? () {
+        final method = instance.klass.findInstanceMethod('notifyListeners');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [], {});
+          return;
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement notifyListeners');
+          }
+          : null,
+      onHasListeners: instance.klass.findInstanceGetter('hasListeners') != null
+          ? () {
+        final getter = instance.klass.findInstanceGetter('hasListeners');
+        if (getter != null) {
+          final result = getter.bind(instance).call(visitor, [], {});
+          return D4.extractBridgedArg<bool>(result, 'hasListeners');
+        }
+        try {
+          final field = instance.getField('hasListeners');
+          return D4.extractBridgedArg<bool>(field, 'hasListeners');
+        } catch (_) {}
+        throw StateError('Interpreted class ${instance.klass.name} does not implement hasListeners');
           }
           : null,
     );

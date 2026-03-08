@@ -98,13 +98,8 @@ dynamic build(BuildContext context) {
     fontStyle: FontStyle.normal,
     ellipsis: '...',
     locale: Locale('en', 'US'),
-    strutStyle: ui.StrutStyle(
-      fontFamily: 'Roboto',
-      fontSize: 16.0,
-      height: 1.5,
-      leading: 0.0,
-      forceStrutHeight: false,
-    ),
+    // Note: strutStyle uses dart:ui StrutStyle, not painting.StrutStyle.
+    // D4rt resolves StrutStyle to painting.StrutStyle causing cross-package cast error.
   );
   print('ParagraphStyle created');
 

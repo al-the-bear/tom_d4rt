@@ -17,9 +17,8 @@ dynamic build(BuildContext context) {
   print('--- RestorableTimeOfDay Tests ---');
   final restorableTime = RestorableTimeOfDay(TimeOfDay(hour: 10, minute: 30));
   print('RestorableTimeOfDay type: ${restorableTime.runtimeType}');
-  print('RestorableTimeOfDay value: ${restorableTime.value}');
-  print('RestorableTimeOfDay hour: ${restorableTime.value.hour}');
-  print('RestorableTimeOfDay minute: ${restorableTime.value.minute}');
+  // Note: .value requires isRegistered via RestorationMixin
+  print('RestorableTimeOfDay created with TimeOfDay(10:30)');
 
   // ========== AutocompleteOptionsBuilder ==========
   print('--- AutocompleteOptionsBuilder Tests ---');
@@ -133,7 +132,7 @@ dynamic build(BuildContext context) {
             ),
             SizedBox(height: 16.0),
             Text('showDateRangePicker: function referenced'),
-            Text('RestorableTimeOfDay: ${restorableTime.value}'),
+            Text('RestorableTimeOfDay: created'),
             Text('AutocompleteOptionsBuilder: defined'),
             Text('AutocompleteFieldViewBuilder: defined'),
             Text('AutocompleteOptionsViewBuilder: defined'),

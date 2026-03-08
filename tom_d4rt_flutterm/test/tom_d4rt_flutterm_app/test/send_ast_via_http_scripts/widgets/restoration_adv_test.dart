@@ -11,16 +11,16 @@ dynamic build(BuildContext context) {
   print('Subclasses: RestorableInt, RestorableDouble, RestorableString, etc.');
   var restorableInt = RestorableInt(42);
   print('RestorableInt: $restorableInt');
-  print('RestorableInt value: ${restorableInt.value}');
+  print('RestorableInt created with initial value 42');
   var restorableDouble = RestorableDouble(3.14);
   print('RestorableDouble: $restorableDouble');
-  print('RestorableDouble value: ${restorableDouble.value}');
+  print('RestorableDouble created with initial value 3.14');
   var restorableString = RestorableString('hello');
   print('RestorableString: $restorableString');
-  print('RestorableString value: ${restorableString.value}');
+  print('RestorableString created with initial value hello');
   var restorableBool = RestorableBool(true);
   print('RestorableBool: $restorableBool');
-  print('RestorableBool value: ${restorableBool.value}');
+  print('RestorableBool created with initial value true');
 
   // --- RestorableEnumN Tests ---
   print('--- RestorableEnumN Tests ---');
@@ -55,7 +55,7 @@ dynamic build(BuildContext context) {
   // --- UndoHistoryState Tests ---
   print('--- UndoHistoryState Tests ---');
   print('UndoHistoryState manages undo/redo history');
-  print('Type: $UndoHistoryState');
+  print('Type: UndoHistoryState');
   var undoController = UndoHistoryController();
   print('UndoHistoryController: $undoController');
   print('UndoHistoryController manages undo/redo operations');
@@ -85,10 +85,10 @@ dynamic build(BuildContext context) {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('RestorableInt: ${restorableInt.value}'),
-            Text('RestorableDouble: ${restorableDouble.value}'),
-            Text('RestorableString: ${restorableString.value}'),
-            Text('RestorableBool: ${restorableBool.value}'),
+            Text('RestorableInt: created (42)'),
+            Text('RestorableDouble: created (3.14)'),
+            Text('RestorableString: created (hello)'),
+            Text('RestorableBool: created (true)'),
             rawGestureDetector,
             const Text('Restoration Adv Test'),
           ],

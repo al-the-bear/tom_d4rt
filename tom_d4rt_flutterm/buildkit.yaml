@@ -20,6 +20,8 @@ d4rtgen:
     - FlowDelegate
     - MultiChildLayoutDelegate
     - SingleChildLayoutDelegate
+    - SliverPersistentHeaderDelegate
+    - DataTableSource
   modules:
     # --- Layer 0: dart:ui (most fundamental) ---
     - name: dart_ui

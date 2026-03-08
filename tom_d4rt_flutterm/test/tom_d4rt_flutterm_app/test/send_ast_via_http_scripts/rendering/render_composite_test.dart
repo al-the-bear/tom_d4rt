@@ -44,11 +44,8 @@ dynamic build(BuildContext context) {
 
   // ========== RenderAnimatedOpacity ==========
   print('--- RenderAnimatedOpacity Tests ---');
-  final animController = AnimationController(
-    value: 0.5,
-    vsync: const AlwaysStoppedAnimation<double>(1.0) as TickerProvider,
-  );
-  print('AnimatedOpacity concept: uses AlwaysStoppedAnimation for bridge test');
+  // Note: AlwaysStoppedAnimation is NOT a TickerProvider, cannot be used for vsync
+  print('AnimatedOpacity concept: widget-level test only (no AnimationController without TickerProvider)');
 
   // AnimatedOpacity widget
   final animOpacity = AnimatedOpacity(

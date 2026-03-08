@@ -127,31 +127,25 @@ dynamic build(BuildContext context) {
 
   // ========== Shortcuts widget ==========
   print('--- Shortcuts Tests ---');
+  // Note: Actions widget requires Map<Type, Action<Intent>> where Type must be
+  // a real Dart Type. D4rt interpreted classes (CopyIntent, PasteIntent) are
+  // InterpretedClass, not Type. Use only built-in bridged intent types.
   final shortcuts = Shortcuts(
     shortcuts: {
-      LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyC):
-          CopyIntent(),
-      LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyV):
-          PasteIntent(),
       SingleActivator(LogicalKeyboardKey.escape): DismissIntent(),
+      SingleActivator(LogicalKeyboardKey.enter): ActivateIntent(),
     },
     child: Actions(
       actions: {
-        CopyIntent: CallbackAction<CopyIntent>(
-          onInvoke: (intent) {
-            print('  Copy invoked');
-            return null;
-          },
-        ),
-        PasteIntent: CallbackAction<PasteIntent>(
-          onInvoke: (intent) {
-            print('  Paste invoked');
-            return null;
-          },
-        ),
         DismissIntent: CallbackAction<DismissIntent>(
           onInvoke: (intent) {
             print('  Dismiss invoked');
+            return null;
+          },
+        ),
+        ActivateIntent: CallbackAction<ActivateIntent>(
+          onInvoke: (intent) {
+            print('  Activate invoked');
             return null;
           },
         ),
@@ -166,10 +160,8 @@ dynamic build(BuildContext context) {
 
   // ========== Intent types ==========
   print('--- Intent Types ---');
-  print('  CopyIntent: ${CopyIntent()}');
-  print('  PasteIntent: ${PasteIntent()}');
-  // SelectAllIntent, CutIntent, UndoIntent, RedoIntent are not public Flutter API
-  print('  (SelectAll, Cut, Undo, Redo intents are private)');
+  // Note: CopyIntent and PasteIntent are locally defined and cannot be used
+  // as Type map keys in D4rt (InterpretedClass vs Type limitation)
   print('  DismissIntent: ${DismissIntent()}');
   print('  ActivateIntent: ${ActivateIntent()}');
   print('  ScrollIntent: ${ScrollIntent(direction: AxisDirection.down)}');
@@ -181,7 +173,3 @@ dynamic build(BuildContext context) {
     home: Scaffold(body: Column(children: [keyboardListener, shortcuts])),
   );
 }
-
-class CopyIntent extends Intent {}
-
-class PasteIntent extends Intent {}

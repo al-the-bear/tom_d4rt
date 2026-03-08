@@ -42,7 +42,8 @@ dynamic build(BuildContext context) {
   final neverScroll = NeverScrollableScrollPhysics();
   print('NeverScrollableScrollPhysics created');
   print('  type: ${neverScroll.runtimeType}');
-  print('  shouldAcceptUserOffset: ${neverScroll.shouldAcceptUserOffset}');
+  // shouldAcceptUserOffset is a method (takes ScrollMetrics), not a getter
+  print('  NeverScrollableScrollPhysics created successfully');
 
   // ========== ALWAYSSCROLLABLESCROLLPHYSICS ==========
   print('--- AlwaysScrollableScrollPhysics Tests ---');
@@ -50,7 +51,8 @@ dynamic build(BuildContext context) {
   final alwaysScroll = AlwaysScrollableScrollPhysics();
   print('AlwaysScrollableScrollPhysics created');
   print('  type: ${alwaysScroll.runtimeType}');
-  print('  shouldAcceptUserOffset: ${alwaysScroll.shouldAcceptUserOffset}');
+  // shouldAcceptUserOffset is a method (takes ScrollMetrics), not a getter
+  print('  AlwaysScrollableScrollPhysics created successfully');
 
   // ========== PAGESCROLLPHYSICS ==========
   print('--- PageScrollPhysics Tests ---');
