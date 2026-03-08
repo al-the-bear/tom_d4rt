@@ -4,55 +4,128 @@ import 'package:flutter/cupertino.dart';
 dynamic build(BuildContext context) {
   print('CupertinoSheetTransition test executing');
 
-  final title = 'CupertinoSheetTransition';
-  final packageName = 'cupertino';
-  final details = 'Sheet transition';
+  // ===== 1. Basic CupertinoSheetTransition =====
+  print('--- Basic CupertinoSheetTransition ---');
+  final primaryAnim = AnimationController(
+    vsync: Navigator.of(context),
+    duration: Duration(milliseconds: 400),
+    value: 1.0,
+  );
+  final secondaryAnim = AnimationController(
+    vsync: Navigator.of(context),
+    duration: Duration(milliseconds: 400),
+    value: 0.0,
+  );
 
-  print('Class: $title');
-  print('Package: $packageName');
-  print('Details: $details');
+  final basicTransition = CupertinoSheetTransition(
+    primaryRouteAnimation: primaryAnim,
+    secondaryRouteAnimation: secondaryAnim,
+    linearTransition: false,
+    child: Container(
+      color: CupertinoColors.white,
+      child: Center(child: Text('Sheet Content')),
+    ),
+  );
+  print('  basic transition created');
+  print('  child type: ${basicTransition.child.runtimeType}');
+
+  // ===== 2. With linearTransition: true =====
+  print('--- Linear transition ---');
+  final linearTransition = CupertinoSheetTransition(
+    primaryRouteAnimation: primaryAnim,
+    secondaryRouteAnimation: secondaryAnim,
+    linearTransition: true,
+    child: Container(
+      color: CupertinoColors.systemGrey6,
+      child: Center(child: Text('Linear Sheet')),
+    ),
+  );
+  print('  linear transition created');
+
+  // ===== 3. With topGap =====
+  print('--- With topGap ---');
+  final gappedTransition = CupertinoSheetTransition(
+    primaryRouteAnimation: primaryAnim,
+    secondaryRouteAnimation: secondaryAnim,
+    linearTransition: false,
+    topGap: 56.0,
+    child: Container(
+      color: CupertinoColors.white,
+      child: Center(child: Text('Gapped Sheet')),
+    ),
+  );
+  print('  transition with topGap: 56.0 created');
+
+  // ===== 4. Animation at different phases =====
+  print('--- Animation phases ---');
+  final phases = [0.0, 0.25, 0.5, 0.75, 1.0];
+  for (final phase in phases) {
+    final phaseAnim = AlwaysStoppedAnimation(phase);
+    final phaseTransition = CupertinoSheetTransition(
+      primaryRouteAnimation: phaseAnim,
+      secondaryRouteAnimation: AlwaysStoppedAnimation(0.0),
+      linearTransition: false,
+      child: SizedBox(height: 50.0, child: Text('Phase $phase')),
+    );
+    print('  phase $phase transition created: ${phaseTransition.runtimeType}');
+  }
+
+  // ===== 5. With rich child content =====
+  print('--- Rich child content ---');
+  final richTransition = CupertinoSheetTransition(
+    primaryRouteAnimation: primaryAnim,
+    secondaryRouteAnimation: secondaryAnim,
+    linearTransition: false,
+    child: CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(
+        middle: Text('Sheet'),
+        leading: CupertinoButton(
+          padding: EdgeInsets.zero,
+          child: Text('Close'),
+          onPressed: () {},
+        ),
+      ),
+      child: SafeArea(
+        child: CupertinoListSection.insetGrouped(
+          children: [
+            CupertinoListTile(title: Text('Item 1')),
+            CupertinoListTile(title: Text('Item 2')),
+            CupertinoListTile(title: Text('Item 3')),
+          ],
+        ),
+      ),
+    ),
+  );
+  print('  rich transition with scaffold created');
+
+  // ===== 6. Secondary animation active (push another route) =====
+  print('--- Secondary animation active ---');
+  final secondaryActive = CupertinoSheetTransition(
+    primaryRouteAnimation: AlwaysStoppedAnimation(1.0),
+    secondaryRouteAnimation: AlwaysStoppedAnimation(0.5),
+    linearTransition: false,
+    child: Center(child: Text('Being pushed back')),
+  );
+  print('  secondary-active transition created');
+
+  primaryAnim.dispose();
+  secondaryAnim.dispose();
 
   print('CupertinoSheetTransition test completed');
-  return Center(
-    child: ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: 460),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: const Color(0xFF111827),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: const Color(0xFF374151), width: 1.5),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
+  return CupertinoApp(
+    home: CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(middle: Text('SheetTransition')),
+      child: SafeArea(
+        child: SingleChildScrollView(
           child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: const [
-                  FlutterLogo(size: 18),
-                  SizedBox(width: 10),
-                ],
-              ),
-              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
-              const SizedBox(height: 6),
-              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
-              const SizedBox(height: 6),
-              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
-              const SizedBox(height: 12),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: const ColoredBox(
-                  color: Color(0xFF1F2937),
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: 40,
-                    child: Center(
-                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
-                    ),
-                  ),
-                ),
-              ),
+              SizedBox(height: 200.0, child: basicTransition),
+              SizedBox(height: 8.0),
+              SizedBox(height: 200.0, child: linearTransition),
+              SizedBox(height: 8.0),
+              SizedBox(height: 200.0, child: gappedTransition),
+              SizedBox(height: 8.0),
+              SizedBox(height: 200.0, child: richTransition),
             ],
           ),
         ),

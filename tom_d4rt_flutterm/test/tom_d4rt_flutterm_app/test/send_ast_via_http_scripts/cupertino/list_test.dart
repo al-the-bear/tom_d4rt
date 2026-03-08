@@ -1,50 +1,148 @@
-// D4rt test script: compile-safe visual probe
-import 'package:flutter/material.dart';
+// D4rt test script: Tests Cupertino list widgets overview
+import 'package:flutter/cupertino.dart';
 
 dynamic build(BuildContext context) {
-  const scriptName = 'cupertino/list_test.dart';
+  print('Cupertino list widgets test executing');
 
-  print('$scriptName executing');
+  // ===== 1. CupertinoListSection default =====
+  print('--- CupertinoListSection ---');
+  final defaultSection = CupertinoListSection(
+    header: Text('Default Section'),
+    children: [
+      CupertinoListTile(title: Text('Item 1')),
+      CupertinoListTile(title: Text('Item 2')),
+      CupertinoListTile(title: Text('Item 3')),
+    ],
+  );
+  print('  default section created');
 
-  return Center(
-    child: ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: 560),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: const Color(0xFF111827),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: const Color(0xFF334155), width: 1.5),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
+  // ===== 2. CupertinoListSection.insetGrouped =====
+  print('--- CupertinoListSection.insetGrouped ---');
+  final insetSection = CupertinoListSection.insetGrouped(
+    header: Text('Inset Grouped'),
+    footer: Text('This is a footer'),
+    children: [
+      CupertinoListTile(
+        leading: Icon(CupertinoIcons.person),
+        title: Text('Profile'),
+        trailing: CupertinoListTileChevron(),
+      ),
+      CupertinoListTile(
+        leading: Icon(CupertinoIcons.gear),
+        title: Text('Settings'),
+        trailing: CupertinoListTileChevron(),
+      ),
+      CupertinoListTile(
+        leading: Icon(CupertinoIcons.bell),
+        title: Text('Notifications'),
+        additionalInfo: Text('3'),
+        trailing: CupertinoListTileChevron(),
+      ),
+    ],
+  );
+  print('  inset grouped section with footer created');
+
+  // ===== 3. CupertinoListTile variations =====
+  print('--- CupertinoListTile variations ---');
+  final basicTile = CupertinoListTile(title: Text('Basic'));
+  print('  basic tile created');
+
+  final detailTile = CupertinoListTile(
+    title: Text('Detail'),
+    subtitle: Text('Subtitle text'),
+    additionalInfo: Text('Info'),
+    trailing: CupertinoListTileChevron(),
+  );
+  print('  detail tile created');
+
+  final leadingTile = CupertinoListTile(
+    leading: Container(
+      width: 40.0,
+      height: 40.0,
+      decoration: BoxDecoration(
+        color: CupertinoColors.activeBlue,
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      child: Center(child: Icon(CupertinoIcons.star, color: CupertinoColors.white, size: 20.0)),
+    ),
+    title: Text('With Leading'),
+    subtitle: Text('Custom leading widget'),
+  );
+  print('  leading tile created');
+
+  // ===== 4. CupertinoListTile.notched =====
+  print('--- CupertinoListTile.notched ---');
+  final notchedTile = CupertinoListTile.notched(
+    leading: Icon(CupertinoIcons.wifi),
+    title: Text('Wi-Fi'),
+    additionalInfo: Text('Connected'),
+    trailing: CupertinoListTileChevron(),
+  );
+  print('  notched tile created');
+
+  // ===== 5. Section with switches and controls =====
+  print('--- Interactive list items ---');
+  final interactiveSection = CupertinoListSection.insetGrouped(
+    header: Text('Preferences'),
+    children: [
+      CupertinoListTile(
+        title: Text('Airplane Mode'),
+        leading: Icon(CupertinoIcons.airplane),
+        trailing: CupertinoSwitch(value: false, onChanged: (v) {}),
+      ),
+      CupertinoListTile(
+        title: Text('Bluetooth'),
+        leading: Icon(CupertinoIcons.bluetooth),
+        trailing: CupertinoSwitch(value: true, onChanged: (v) {}),
+      ),
+      CupertinoListTile(
+        title: Text('Dark Mode'),
+        leading: Icon(CupertinoIcons.moon),
+        trailing: CupertinoSwitch(value: false, onChanged: (v) {}),
+      ),
+    ],
+  );
+  print('  interactive section with switches created');
+
+  // ===== 6. Empty section =====
+  print('--- Edge cases ---');
+  final singleItemSection = CupertinoListSection.insetGrouped(
+    children: [
+      CupertinoListTile(title: Text('Only item')),
+    ],
+  );
+  print('  single-item section created');
+
+  // ===== 7. Long list =====
+  print('--- Long list ---');
+  final longItems = <CupertinoListTile>[];
+  for (var i = 0; i < 15; i++) {
+    longItems.add(CupertinoListTile(
+      title: Text('Item $i'),
+      trailing: CupertinoListTileChevron(),
+    ));
+  }
+  print('  ${longItems.length}-item list created');
+
+  print('Cupertino list widgets test completed');
+  return CupertinoApp(
+    home: CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(middle: Text('List Widgets')),
+      child: SafeArea(
+        child: SingleChildScrollView(
           child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Row(
-                children: [
-                  FlutterLogo(size: 18),
-                  SizedBox(width: 10),
-                  Text(
-                    'D4rt Compile-Safe Probe',
-                    style: TextStyle(color: Color(0xFFE2E8F0), fontWeight: FontWeight.w600),
-                  ),
-                ],
+            children: [
+              defaultSection,
+              insetSection,
+              CupertinoListSection.insetGrouped(
+                header: Text('Tile Variations'),
+                children: [basicTile, detailTile, leadingTile, notchedTile],
               ),
-              SizedBox(height: 10),
-              Text('This script is intentionally compile-safe.', style: TextStyle(color: Color(0xFFCBD5E1))),
-              SizedBox(height: 6),
-              Text('Used to unblock analyzer compile errors.', style: TextStyle(color: Color(0xFF94A3B8))),
-              SizedBox(height: 12),
-              ColoredBox(
-                color: Color(0xFF1E293B),
-                child: SizedBox(
-                  height: 42,
-                  width: double.infinity,
-                  child: Center(
-                    child: Text('Visible UI output', style: TextStyle(color: Color(0xFF93C5FD))),
-                  ),
-                ),
+              interactiveSection,
+              singleItemSection,
+              CupertinoListSection.insetGrouped(
+                header: Text('Long List'),
+                children: longItems,
               ),
             ],
           ),

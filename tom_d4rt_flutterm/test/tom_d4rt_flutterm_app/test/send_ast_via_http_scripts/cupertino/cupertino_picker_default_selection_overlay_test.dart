@@ -4,55 +4,128 @@ import 'package:flutter/cupertino.dart';
 dynamic build(BuildContext context) {
   print('CupertinoPickerDefaultSelectionOverlay test executing');
 
-  final title = 'CupertinoPickerDefaultSelectionOverlay';
-  final packageName = 'cupertino';
-  final details = 'Selection overlay';
+  // ===== 1. Default overlay (all defaults) =====
+  print('--- Default overlay ---');
+  final defaultOverlay = CupertinoPickerDefaultSelectionOverlay();
+  print('  default overlay created');
+  print('  runtimeType: ${defaultOverlay.runtimeType}');
 
-  print('Class: $title');
-  print('Package: $packageName');
-  print('Details: $details');
+  // ===== 2. Custom background color =====
+  print('--- Custom background ---');
+  final blueOverlay = CupertinoPickerDefaultSelectionOverlay(
+    background: CupertinoColors.systemBlue.withOpacity(0.15),
+  );
+  print('  blue background overlay created');
+
+  final redOverlay = CupertinoPickerDefaultSelectionOverlay(
+    background: CupertinoColors.systemRed.withOpacity(0.1),
+  );
+  print('  red background overlay created');
+
+  final transparentOverlay = CupertinoPickerDefaultSelectionOverlay(
+    background: Color(0x00000000),
+  );
+  print('  transparent overlay created');
+
+  // ===== 3. Cap edge options =====
+  print('--- Cap edge variations ---');
+  final bothCapped = CupertinoPickerDefaultSelectionOverlay(
+    capStartEdge: true,
+    capEndEdge: true,
+  );
+  print('  both edges capped (default)');
+
+  final noCaps = CupertinoPickerDefaultSelectionOverlay(
+    capStartEdge: false,
+    capEndEdge: false,
+  );
+  print('  no caps');
+
+  final startOnly = CupertinoPickerDefaultSelectionOverlay(
+    capStartEdge: true,
+    capEndEdge: false,
+  );
+  print('  start cap only');
+
+  final endOnly = CupertinoPickerDefaultSelectionOverlay(
+    capStartEdge: false,
+    capEndEdge: true,
+  );
+  print('  end cap only');
+
+  // ===== 4. Combined: custom background + cap settings =====
+  print('--- Combined customization ---');
+  final combined = CupertinoPickerDefaultSelectionOverlay(
+    background: CupertinoColors.systemGreen.withOpacity(0.2),
+    capStartEdge: false,
+    capEndEdge: true,
+  );
+  print('  combined customization overlay created');
+
+  // ===== 5. Inside CupertinoPicker =====
+  print('--- Inside CupertinoPicker ---');
+  final pickerWithDefault = CupertinoPicker(
+    itemExtent: 32.0,
+    onSelectedItemChanged: (index) {},
+    selectionOverlay: CupertinoPickerDefaultSelectionOverlay(),
+    children: [
+      for (var i = 1; i <= 12; i++) Center(child: Text('Item $i')),
+    ],
+  );
+  print('  picker with default overlay created');
+
+  final pickerCustom = CupertinoPicker(
+    itemExtent: 40.0,
+    onSelectedItemChanged: (index) {},
+    selectionOverlay: CupertinoPickerDefaultSelectionOverlay(
+      background: CupertinoColors.systemIndigo.withOpacity(0.12),
+      capStartEdge: true,
+      capEndEdge: true,
+    ),
+    children: [
+      for (var i = 0; i < 10; i++) Center(child: Text('Option $i')),
+    ],
+  );
+  print('  picker with custom overlay created');
+
+  // ===== 6. Picker with NO overlay (null) vs default =====
+  print('--- Null vs default overlay ---');
+  final pickerNoOverlay = CupertinoPicker(
+    itemExtent: 32.0,
+    onSelectedItemChanged: (index) {},
+    selectionOverlay: null,
+    children: [
+      Center(child: Text('No overlay')),
+      Center(child: Text('Picker')),
+    ],
+  );
+  print('  picker with null overlay created');
 
   print('CupertinoPickerDefaultSelectionOverlay test completed');
-  return Center(
-    child: ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: 460),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: const Color(0xFF111827),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: const Color(0xFF374151), width: 1.5),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
+  return CupertinoApp(
+    home: CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(middle: Text('PickerOverlay Test')),
+      child: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(16.0),
           child: Column(
-            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: const [
-                  FlutterLogo(size: 18),
-                  SizedBox(width: 10),
-                ],
-              ),
-              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
-              const SizedBox(height: 6),
-              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
-              const SizedBox(height: 6),
-              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
-              const SizedBox(height: 12),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: const ColoredBox(
-                  color: Color(0xFF1F2937),
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: 40,
-                    child: Center(
-                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
-                    ),
-                  ),
-                ),
-              ),
+              Text('Default Picker:', style: TextStyle(fontWeight: FontWeight.bold)),
+              SizedBox(height: 150.0, child: pickerWithDefault),
+              SizedBox(height: 16.0),
+              Text('Custom Overlay:', style: TextStyle(fontWeight: FontWeight.bold)),
+              SizedBox(height: 150.0, child: pickerCustom),
+              SizedBox(height: 16.0),
+              Text('No Overlay:', style: TextStyle(fontWeight: FontWeight.bold)),
+              SizedBox(height: 100.0, child: pickerNoOverlay),
+              SizedBox(height: 16.0),
+              Text('Standalone overlays:', style: TextStyle(fontWeight: FontWeight.bold)),
+              SizedBox(height: 40.0, child: defaultOverlay),
+              SizedBox(height: 40.0, child: blueOverlay),
+              SizedBox(height: 40.0, child: redOverlay),
+              SizedBox(height: 40.0, child: noCaps),
+              SizedBox(height: 40.0, child: combined),
             ],
           ),
         ),

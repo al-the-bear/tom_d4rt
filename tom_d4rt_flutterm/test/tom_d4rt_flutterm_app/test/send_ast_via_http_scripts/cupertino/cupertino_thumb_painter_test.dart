@@ -4,55 +4,143 @@ import 'package:flutter/cupertino.dart';
 dynamic build(BuildContext context) {
   print('CupertinoThumbPainter test executing');
 
-  final title = 'CupertinoThumbPainter';
-  final packageName = 'cupertino';
-  final details = 'CupertinoThumbPainter';
+  // ===== 1. Default constructor =====
+  print('--- Default CupertinoThumbPainter ---');
+  final defaultPainter = CupertinoThumbPainter();
+  print('  default painter created: ${defaultPainter.runtimeType}');
 
-  print('Class: $title');
-  print('Package: $packageName');
-  print('Details: $details');
+  // ===== 2. With custom color =====
+  print('--- Custom color ---');
+  final bluePainter = CupertinoThumbPainter(
+    color: CupertinoColors.activeBlue,
+  );
+  print('  blue painter created');
+
+  final redPainter = CupertinoThumbPainter(
+    color: CupertinoColors.systemRed,
+  );
+  print('  red painter created');
+
+  final grayPainter = CupertinoThumbPainter(
+    color: CupertinoColors.systemGrey,
+  );
+  print('  gray painter created');
+
+  // ===== 3. With custom shadows =====
+  print('--- Custom shadows ---');
+  final customShadows = CupertinoThumbPainter(
+    shadows: [
+      BoxShadow(
+        color: Color(0x33000000),
+        blurRadius: 4.0,
+        offset: Offset(0.0, 2.0),
+      ),
+    ],
+  );
+  print('  custom shadows painter created');
+
+  final noShadows = CupertinoThumbPainter(
+    shadows: [],
+  );
+  print('  no-shadow painter created');
+
+  final heavyShadows = CupertinoThumbPainter(
+    shadows: [
+      BoxShadow(
+        color: Color(0x66000000),
+        blurRadius: 8.0,
+        offset: Offset(0.0, 4.0),
+      ),
+      BoxShadow(
+        color: Color(0x1A000000),
+        blurRadius: 16.0,
+        offset: Offset(0.0, 8.0),
+      ),
+    ],
+  );
+  print('  heavy shadows painter created (2 shadows)');
+
+  // ===== 4. switchThumb named constructor =====
+  print('--- CupertinoThumbPainter.switchThumb ---');
+  final switchDefault = CupertinoThumbPainter.switchThumb();
+  print('  switch thumb default: ${switchDefault.runtimeType}');
+
+  final switchColored = CupertinoThumbPainter.switchThumb(
+    color: CupertinoColors.systemGreen,
+  );
+  print('  switch thumb green created');
+
+  final switchCustom = CupertinoThumbPainter.switchThumb(
+    color: CupertinoColors.white,
+    shadows: [
+      BoxShadow(
+        color: Color(0x40000000),
+        blurRadius: 6.0,
+        offset: Offset(0.0, 3.0),
+      ),
+    ],
+  );
+  print('  switch thumb custom created');
+
+  // ===== 5. Static properties =====
+  print('--- Static properties ---');
+  print('  radius: ${CupertinoThumbPainter.radius}');
+  print('  extension: ${CupertinoThumbPainter.extension}');
+
+  // ===== 6. Color + shadows combined =====
+  print('--- Combined customization ---');
+  final combined = CupertinoThumbPainter(
+    color: Color(0xFFE8E8E8),
+    shadows: [
+      BoxShadow(
+        color: Color(0x22000000),
+        blurRadius: 3.0,
+        offset: Offset(0.0, 1.0),
+      ),
+    ],
+  );
+  print('  combined painter created');
+
+  // ===== 7. Visual demo with CupertinoSwitch and CupertinoSlider =====
+  print('--- Usage context ---');
+  final switchWidget = CupertinoSwitch(
+    value: true,
+    onChanged: (v) {},
+  );
+  print('  CupertinoSwitch uses thumb painter internally');
+
+  final slider = CupertinoSlider(
+    value: 0.5,
+    onChanged: (v) {},
+  );
+  print('  CupertinoSlider uses thumb painter internally');
 
   print('CupertinoThumbPainter test completed');
-  return Center(
-    child: ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: 460),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: const Color(0xFF111827),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: const Color(0xFF374151), width: 1.5),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
+  return CupertinoApp(
+    home: CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(middle: Text('ThumbPainter Test')),
+      child: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(16.0),
           child: Column(
-            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: const [
-                  FlutterLogo(size: 18),
-                  SizedBox(width: 10),
-                ],
-              ),
-              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
-              const SizedBox(height: 6),
-              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
-              const SizedBox(height: 6),
-              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
-              const SizedBox(height: 12),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: const ColoredBox(
-                  color: Color(0xFF1F2937),
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: 40,
-                    child: Center(
-                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
-                    ),
-                  ),
-                ),
-              ),
+              Text('CupertinoThumbPainter', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+              SizedBox(height: 12.0),
+              Text('Static radius: ${CupertinoThumbPainter.radius}'),
+              Text('Static extension: ${CupertinoThumbPainter.extension}'),
+              SizedBox(height: 16.0),
+              Text('CupertinoSwitch (uses thumb):', style: TextStyle(fontWeight: FontWeight.bold)),
+              switchWidget,
+              SizedBox(height: 12.0),
+              CupertinoSwitch(value: false, onChanged: (v) {}),
+              SizedBox(height: 16.0),
+              Text('CupertinoSlider (uses thumb):', style: TextStyle(fontWeight: FontWeight.bold)),
+              slider,
+              SizedBox(height: 8.0),
+              CupertinoSlider(value: 0.0, onChanged: (v) {}),
+              SizedBox(height: 8.0),
+              CupertinoSlider(value: 1.0, onChanged: (v) {}),
             ],
           ),
         ),

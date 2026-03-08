@@ -1,19 +1,41 @@
-// D4rt test script: Tests IsolateNameServer from dart_ui
-import 'package:flutter/widgets.dart';
+// D4rt test script: Tests IsolateNameServer from dart:ui
+import 'dart:ui' as ui;
+import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print('IsolateNameServer test executing');
 
-  // Test IsolateNameServer - Isolate communication
-  print('IsolateNameServer is available in the dart_ui package');
-  print('IsolateNameServer: Isolate communication');
+  // IsolateNameServer has only static methods, no constructor
+  print('IsolateNameServer type: ${IsolateNameServer}');
+
+  // lookupPortByName — returns null if not registered
+  final port1 = IsolateNameServer.lookupPortByName('nonexistent_port');
+  print('lookupPortByName(nonexistent): $port1');
+
+  final port2 = IsolateNameServer.lookupPortByName('test_service');
+  print('lookupPortByName(test_service): $port2');
+
+  // removePortNameMapping — returns false if not found
+  final removed1 = IsolateNameServer.removePortNameMapping('nonexistent_port');
+  print('removePortNameMapping(nonexistent): $removed1');
+
+  final removed2 = IsolateNameServer.removePortNameMapping('test_service');
+  print('removePortNameMapping(test_service): $removed2');
+
+  print('IsolateNameServer API:');
+  print('  lookupPortByName(String name) -> SendPort?');
+  print('  registerPortWithName(SendPort port, String name) -> bool');
+  print('  removePortNameMapping(String name) -> bool');
 
   print('IsolateNameServer test completed');
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('IsolateNameServer Tests'),
-      Text('Isolate communication'),
+      Text('IsolateNameServer Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      SizedBox(height: 8),
+      Text('Static-only class (no constructor)'),
+      Text('lookupPortByName: returns null if not found'),
+      Text('removePortNameMapping: returns false if not found'),
     ],
   );
 }

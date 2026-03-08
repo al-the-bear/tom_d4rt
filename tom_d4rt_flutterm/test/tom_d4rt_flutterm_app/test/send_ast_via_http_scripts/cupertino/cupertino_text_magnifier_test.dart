@@ -4,55 +4,129 @@ import 'package:flutter/cupertino.dart';
 dynamic build(BuildContext context) {
   print('CupertinoTextMagnifier test executing');
 
-  final title = 'CupertinoTextMagnifier';
-  final packageName = 'cupertino';
-  final details = 'Text magnifier';
+  // ===== 1. Basic CupertinoTextMagnifier with controller =====
+  print('--- Basic CupertinoTextMagnifier ---');
+  final controller = ValueNotifier(MagnifierInfo.empty);
+  final magnifier = CupertinoTextMagnifier(
+    controller: controller,
+    magnifierInfo: controller,
+  );
+  print('  basic magnifier created');
+  print('  runtimeType: ${magnifier.runtimeType}');
 
-  print('Class: $title');
-  print('Package: $packageName');
-  print('Details: $details');
+  // ===== 2. With custom dragResistance =====
+  print('--- Custom dragResistance ---');
+  final highResistance = CupertinoTextMagnifier(
+    controller: controller,
+    magnifierInfo: controller,
+    dragResistance: 20.0,
+  );
+  print('  dragResistance: 20.0 magnifier created');
+
+  final lowResistance = CupertinoTextMagnifier(
+    controller: controller,
+    magnifierInfo: controller,
+    dragResistance: 5.0,
+  );
+  print('  dragResistance: 5.0 magnifier created');
+
+  // ===== 3. With custom hideBelowThreshold =====
+  print('--- Custom hideBelowThreshold ---');
+  final highThreshold = CupertinoTextMagnifier(
+    controller: controller,
+    magnifierInfo: controller,
+    hideBelowThreshold: 100.0,
+  );
+  print('  hideBelowThreshold: 100.0');
+
+  final lowThreshold = CupertinoTextMagnifier(
+    controller: controller,
+    magnifierInfo: controller,
+    hideBelowThreshold: 20.0,
+  );
+  print('  hideBelowThreshold: 20.0');
+
+  // ===== 4. With custom horizontalScreenEdgePadding =====
+  print('--- Custom horizontalScreenEdgePadding ---');
+  final widePadding = CupertinoTextMagnifier(
+    controller: controller,
+    magnifierInfo: controller,
+    horizontalScreenEdgePadding: 24.0,
+  );
+  print('  horizontalScreenEdgePadding: 24.0');
+
+  // ===== 5. With custom animation curve =====
+  print('--- Custom animationCurve ---');
+  final linearCurve = CupertinoTextMagnifier(
+    controller: controller,
+    magnifierInfo: controller,
+    animationCurve: Curves.linear,
+  );
+  print('  animationCurve: Curves.linear');
+
+  final bounceCurve = CupertinoTextMagnifier(
+    controller: controller,
+    magnifierInfo: controller,
+    animationCurve: Curves.bounceOut,
+  );
+  print('  animationCurve: Curves.bounceOut');
+
+  // ===== 6. All custom parameters combined =====
+  print('--- All custom parameters ---');
+  final fullCustom = CupertinoTextMagnifier(
+    controller: controller,
+    magnifierInfo: controller,
+    dragResistance: 15.0,
+    hideBelowThreshold: 60.0,
+    horizontalScreenEdgePadding: 16.0,
+    animationCurve: Curves.easeInOut,
+  );
+  print('  full custom magnifier created');
+
+  // ===== 7. MagnifierInfo with position =====
+  print('--- MagnifierInfo values ---');
+  final positionedInfo = MagnifierInfo(
+    globalGesturePosition: Offset(150.0, 300.0),
+    caretRect: Rect.fromLTWH(145.0, 290.0, 2.0, 20.0),
+    fieldBounds: Rect.fromLTWH(20.0, 280.0, 340.0, 40.0),
+    currentLineBoundaries: Rect.fromLTWH(20.0, 290.0, 340.0, 20.0),
+  );
+  print('  gesture: ${positionedInfo.globalGesturePosition}');
+  print('  caret: ${positionedInfo.caretRect}');
+  print('  fieldBounds: ${positionedInfo.fieldBounds}');
+
+  // ===== 8. Context: CupertinoTextField uses magnifier natively =====
+  print('--- TextField integration ---');
+  final textField = CupertinoTextField(
+    placeholder: 'Long press to see magnifier',
+    magnifierConfiguration: TextMagnifierConfiguration(),
+  );
+  print('  text field with magnifier config created');
+
+  controller.dispose();
 
   print('CupertinoTextMagnifier test completed');
-  return Center(
-    child: ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: 460),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: const Color(0xFF111827),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: const Color(0xFF374151), width: 1.5),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
+  return CupertinoApp(
+    home: CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(middle: Text('TextMagnifier Test')),
+      child: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(16.0),
           child: Column(
-            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: const [
-                  FlutterLogo(size: 18),
-                  SizedBox(width: 10),
-                ],
-              ),
-              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
-              const SizedBox(height: 6),
-              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
-              const SizedBox(height: 6),
-              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
-              const SizedBox(height: 12),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: const ColoredBox(
-                  color: Color(0xFF1F2937),
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: 40,
-                    child: Center(
-                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
-                    ),
-                  ),
-                ),
-              ),
+              Text('CupertinoTextMagnifier Tests', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+              SizedBox(height: 16.0),
+              Text('Magnifier type: ${magnifier.runtimeType}'),
+              SizedBox(height: 8.0),
+              Text('Custom params tested:'),
+              Text('  - dragResistance: 5.0, 10.0, 20.0'),
+              Text('  - hideBelowThreshold: 20.0, 48.0, 100.0'),
+              Text('  - horizontalScreenEdgePadding: 10.0, 24.0'),
+              Text('  - animationCurve: easeOut, linear, bounceOut, easeInOut'),
+              SizedBox(height: 16.0),
+              Text('TextField with magnifier:'),
+              textField,
             ],
           ),
         ),

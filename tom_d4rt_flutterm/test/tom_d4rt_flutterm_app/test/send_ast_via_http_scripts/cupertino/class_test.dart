@@ -1,57 +1,124 @@
-// D4rt test script: Tests Class from cupertino
+// D4rt test script: Tests Cupertino class overview from cupertino
 import 'package:flutter/cupertino.dart';
 
 dynamic build(BuildContext context) {
-  print('Class test executing');
+  print('Cupertino class overview test executing');
 
-  final title = 'Class';
-  final packageName = 'cupertino';
-  final details = 'Description';
+  // ========== CupertinoApp ==========
+  print('--- CupertinoApp ---');
+  final app = CupertinoApp(
+    home: CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(
+        middle: Text('Test'),
+      ),
+      child: Center(child: Text('Hello')),
+    ),
+  );
+  print('  CupertinoApp created');
+  print('  type: ${app.runtimeType}');
 
-  print('Class: $title');
-  print('Package: $packageName');
-  print('Details: $details');
+  // ========== CupertinoThemeData ==========
+  print('--- CupertinoThemeData ---');
+  final theme = CupertinoThemeData(
+    brightness: Brightness.dark,
+    primaryColor: CupertinoColors.activeBlue,
+    scaffoldBackgroundColor: CupertinoColors.black,
+    barBackgroundColor: CupertinoColors.darkBackgroundGray,
+  );
+  print('  brightness: ${theme.brightness}');
+  print('  primaryColor: ${theme.primaryColor}');
+  print('  scaffoldBackgroundColor: ${theme.scaffoldBackgroundColor}');
 
-  print('Class test completed');
-  return Center(
-    child: ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: 460),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: const Color(0xFF111827),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: const Color(0xFF374151), width: 1.5),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
+  // ========== CupertinoTextThemeData ==========
+  print('--- CupertinoTextThemeData ---');
+  final textTheme = CupertinoTextThemeData(
+    primaryColor: CupertinoColors.activeBlue,
+  );
+  print('  textStyle: ${textTheme.textStyle}');
+  print('  navTitleTextStyle: ${textTheme.navTitleTextStyle}');
+  print('  navLargeTitleTextStyle: ${textTheme.navLargeTitleTextStyle}');
+
+  // ========== CupertinoColors ==========
+  print('--- CupertinoColors ---');
+  final colors = <(String, Color)>[
+    ('activeBlue', CupertinoColors.activeBlue),
+    ('activeGreen', CupertinoColors.activeGreen),
+    ('activeOrange', CupertinoColors.activeOrange),
+    ('white', CupertinoColors.white),
+    ('black', CupertinoColors.black),
+    ('lightBackgroundGray', CupertinoColors.lightBackgroundGray),
+    ('darkBackgroundGray', CupertinoColors.darkBackgroundGray),
+    ('systemRed', CupertinoColors.systemRed),
+    ('systemGreen', CupertinoColors.systemGreen),
+    ('systemBlue', CupertinoColors.systemBlue),
+    ('systemYellow', CupertinoColors.systemYellow),
+    ('systemPurple', CupertinoColors.systemPurple),
+    ('systemPink', CupertinoColors.systemPink),
+    ('systemGrey', CupertinoColors.systemGrey),
+  ];
+  for (final c in colors) {
+    print('  ${c.$1}: ${c.$2}');
+  }
+
+  // ========== CupertinoIcons ==========
+  print('--- CupertinoIcons ---');
+  final icons = <(String, IconData)>[
+    ('back', CupertinoIcons.back),
+    ('forward', CupertinoIcons.forward),
+    ('add', CupertinoIcons.add),
+    ('search', CupertinoIcons.search),
+    ('settings', CupertinoIcons.settings),
+    ('heart', CupertinoIcons.heart),
+    ('heartFill', CupertinoIcons.heart_fill),
+    ('home', CupertinoIcons.home),
+    ('trash', CupertinoIcons.trash),
+    ('gear', CupertinoIcons.gear),
+  ];
+  for (final i in icons) {
+    print('  ${i.$1}: codePoint=${i.$2.codePoint}');
+  }
+
+  print('Cupertino class overview test completed');
+  return CupertinoApp(
+    home: CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(
+        middle: Text('Cupertino Class Overview'),
+      ),
+      child: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(16.0),
           child: Column(
-            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: const [
-                  FlutterLogo(size: 18),
-                  SizedBox(width: 10),
-                ],
-              ),
-              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
-              const SizedBox(height: 6),
-              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
-              const SizedBox(height: 6),
-              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
-              const SizedBox(height: 12),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: const ColoredBox(
-                  color: Color(0xFF1F2937),
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: 40,
-                    child: Center(
-                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
-                    ),
-                  ),
+              Text('CupertinoThemeData', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
+              Text('  brightness: ${theme.brightness}'),
+              Text('  primaryColor: ${theme.primaryColor}'),
+              SizedBox(height: 12.0),
+              Text('CupertinoColors', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
+              for (final c in colors)
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 2.0),
+                  child: Row(children: [
+                    Container(width: 24.0, height: 24.0, color: c.$2),
+                    SizedBox(width: 8.0),
+                    Text(c.$1),
+                  ]),
                 ),
+              SizedBox(height: 12.0),
+              Text('CupertinoIcons', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
+              Wrap(
+                spacing: 12.0,
+                runSpacing: 8.0,
+                children: [
+                  for (final i in icons)
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(i.$2, size: 28.0),
+                        Text(i.$1, style: TextStyle(fontSize: 10.0)),
+                      ],
+                    ),
+                ],
               ),
             ],
           ),

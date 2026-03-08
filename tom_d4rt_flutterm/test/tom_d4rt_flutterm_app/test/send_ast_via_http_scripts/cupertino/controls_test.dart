@@ -1,51 +1,116 @@
-// D4rt test script: compile-safe visual probe
-import 'package:flutter/material.dart';
+// D4rt test script: Tests Cupertino form controls from cupertino
+import 'package:flutter/cupertino.dart';
 
 dynamic build(BuildContext context) {
-  const scriptName = 'cupertino/controls_test.dart';
+  print('Cupertino controls test executing');
 
-  print('$scriptName executing');
+  // ========== CupertinoFormSection ==========
+  print('--- CupertinoFormSection ---');
+  final formSection = CupertinoFormSection(
+    header: Text('Account Settings'),
+    footer: Text('Changes are saved automatically'),
+    children: [
+      CupertinoFormRow(
+        prefix: Text('Username'),
+        child: CupertinoTextField(placeholder: 'Enter username'),
+      ),
+      CupertinoFormRow(
+        prefix: Text('Email'),
+        child: CupertinoTextField(placeholder: 'Enter email'),
+      ),
+    ],
+  );
+  print('  formSection created');
 
-  return Center(
-    child: ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: 560),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: const Color(0xFF111827),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: const Color(0xFF334155), width: 1.5),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
+  // ========== CupertinoFormSection.insetGrouped ==========
+  print('--- CupertinoFormSection.insetGrouped ---');
+  final insetGrouped = CupertinoFormSection.insetGrouped(
+    header: Text('Preferences'),
+    children: [
+      CupertinoFormRow(
+        prefix: Text('Notifications'),
+        child: CupertinoSwitch(value: true, onChanged: (v) { print('switch: $v'); }),
+      ),
+      CupertinoFormRow(
+        prefix: Text('Dark Mode'),
+        child: CupertinoSwitch(value: false, onChanged: (v) { print('dark: $v'); }),
+      ),
+    ],
+  );
+  print('  insetGrouped created');
+
+  // ========== CupertinoListSection ==========
+  print('--- CupertinoListSection ---');
+  final listSection = CupertinoListSection(
+    header: Text('Items'),
+    children: [
+      CupertinoListTile(
+        title: Text('Item 1'),
+        leading: Icon(CupertinoIcons.star),
+        trailing: CupertinoListTileChevron(),
+      ),
+      CupertinoListTile(
+        title: Text('Item 2'),
+        subtitle: Text('With subtitle'),
+        leading: Icon(CupertinoIcons.heart),
+        trailing: CupertinoListTileChevron(),
+      ),
+      CupertinoListTile(
+        title: Text('Item 3'),
+        additionalInfo: Text('Info'),
+        trailing: CupertinoListTileChevron(),
+      ),
+    ],
+  );
+  print('  listSection created');
+
+  // ========== CupertinoListSection.insetGrouped ==========
+  print('--- CupertinoListSection.insetGrouped ---');
+  final insetList = CupertinoListSection.insetGrouped(
+    header: Text('Settings'),
+    footer: Text('Tap to configure'),
+    children: [
+      CupertinoListTile(
+        title: Text('General'),
+        leading: Icon(CupertinoIcons.gear),
+      ),
+      CupertinoListTile(
+        title: Text('Privacy'),
+        leading: Icon(CupertinoIcons.lock),
+      ),
+    ],
+  );
+  print('  insetList created');
+
+  // ========== CupertinoListTile variants ==========
+  print('--- CupertinoListTile variants ---');
+  final basicTile = CupertinoListTile(title: Text('Basic'));
+  print('  basic tile created');
+
+  final notchedTile = CupertinoListTile.notched(
+    title: Text('Notched Tile'),
+    leading: Icon(CupertinoIcons.person),
+    subtitle: Text('A notched variant'),
+    trailing: CupertinoListTileChevron(),
+  );
+  print('  notched tile created');
+
+  print('Cupertino controls test completed');
+  return CupertinoApp(
+    home: CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(middle: Text('Controls Test')),
+      child: SafeArea(
+        child: SingleChildScrollView(
           child: Column(
-            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Row(
-                children: [
-                  FlutterLogo(size: 18),
-                  SizedBox(width: 10),
-                  Text(
-                    'D4rt Compile-Safe Probe',
-                    style: TextStyle(color: Color(0xFFE2E8F0), fontWeight: FontWeight.w600),
-                  ),
-                ],
-              ),
-              SizedBox(height: 10),
-              Text('This script is intentionally compile-safe.', style: TextStyle(color: Color(0xFFCBD5E1))),
-              SizedBox(height: 6),
-              Text('Used to unblock analyzer compile errors.', style: TextStyle(color: Color(0xFF94A3B8))),
-              SizedBox(height: 12),
-              ColoredBox(
-                color: Color(0xFF1E293B),
-                child: SizedBox(
-                  height: 42,
-                  width: double.infinity,
-                  child: Center(
-                    child: Text('Visible UI output', style: TextStyle(color: Color(0xFF93C5FD))),
-                  ),
-                ),
-              ),
+            children: [
+              formSection,
+              SizedBox(height: 16.0),
+              insetGrouped,
+              SizedBox(height: 16.0),
+              listSection,
+              SizedBox(height: 16.0),
+              insetList,
             ],
           ),
         ),

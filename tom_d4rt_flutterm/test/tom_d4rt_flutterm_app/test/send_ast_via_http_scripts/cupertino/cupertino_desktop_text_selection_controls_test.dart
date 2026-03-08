@@ -4,54 +4,76 @@ import 'package:flutter/cupertino.dart';
 dynamic build(BuildContext context) {
   print('CupertinoDesktopTextSelectionControls test executing');
 
-  final title = 'CupertinoDesktopTextSelectionControls';
-  final packageName = 'cupertino';
-  final details = 'CupertinoDesktopTextSelectionControls';
+  // ========== Construction ==========
+  print('--- Construction ---');
+  final controls = CupertinoDesktopTextSelectionControls();
+  print('  created: ${controls.runtimeType}');
 
-  print('Class: $title');
-  print('Package: $packageName');
-  print('Details: $details');
+  // ========== Handle size ==========
+  print('--- Handle size ---');
+  final handleSize = controls.getHandleSize(14.0);
+  print('  getHandleSize(14.0): $handleSize');
+  final handleSize2 = controls.getHandleSize(20.0);
+  print('  getHandleSize(20.0): $handleSize2');
+  final handleSize3 = controls.getHandleSize(10.0);
+  print('  getHandleSize(10.0): $handleSize3');
+
+  // ========== Handle anchor ==========
+  print('--- Handle anchor ---');
+  final anchorLeft = controls.getHandleAnchor(TextSelectionHandleType.left, 14.0);
+  print('  anchor(left, 14.0): $anchorLeft');
+  final anchorRight = controls.getHandleAnchor(TextSelectionHandleType.right, 14.0);
+  print('  anchor(right, 14.0): $anchorRight');
+  final anchorCollapsed = controls.getHandleAnchor(TextSelectionHandleType.collapsed, 14.0);
+  print('  anchor(collapsed, 14.0): $anchorCollapsed');
+
+  // ========== Capability methods ==========
+  print('--- Capability methods ---');
+  print('  canCut: ${controls.canCut}');
+  print('  canCopy: ${controls.canCopy}');
+  print('  canPaste: ${controls.canPaste}');
+  print('  canSelectAll: ${controls.canSelectAll}');
+
+  // ========== Compare with mobile controls ==========
+  print('--- Compare with mobile controls ---');
+  final mobileControls = CupertinoTextSelectionControls();
+  print('  desktop type: ${controls.runtimeType}');
+  print('  mobile type: ${mobileControls.runtimeType}');
+  final desktopSize = controls.getHandleSize(14.0);
+  final mobileSize = mobileControls.getHandleSize(14.0);
+  print('  desktop handleSize: $desktopSize');
+  print('  mobile handleSize: $mobileSize');
 
   print('CupertinoDesktopTextSelectionControls test completed');
-  return Center(
-    child: ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: 460),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: const Color(0xFF111827),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: const Color(0xFF374151), width: 1.5),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
+  return CupertinoApp(
+    home: CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(middle: Text('Desktop Text Selection')),
+      child: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(16.0),
           child: Column(
-            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: const [
-                  FlutterLogo(size: 18),
-                  SizedBox(width: 10),
-                ],
-              ),
-              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
-              const SizedBox(height: 6),
-              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
-              const SizedBox(height: 6),
-              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
-              const SizedBox(height: 12),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: const ColoredBox(
-                  color: Color(0xFF1F2937),
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: 40,
-                    child: Center(
-                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
-                    ),
-                  ),
-                ),
+              Text('CupertinoDesktopTextSelectionControls', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
+              SizedBox(height: 8.0),
+              Text('Handle Sizes:'),
+              Text('  14pt: $handleSize'),
+              Text('  20pt: $handleSize2'),
+              Text('  10pt: $handleSize3'),
+              SizedBox(height: 8.0),
+              Text('Handle Anchors:'),
+              Text('  left: $anchorLeft'),
+              Text('  right: $anchorRight'),
+              Text('  collapsed: $anchorCollapsed'),
+              SizedBox(height: 8.0),
+              Text('Desktop vs Mobile:'),
+              Text('  desktop handle: $desktopSize'),
+              Text('  mobile handle: $mobileSize'),
+              SizedBox(height: 16.0),
+              Text('Text field with desktop controls:'),
+              CupertinoTextField(
+                placeholder: 'Try selecting text',
+                selectionControls: controls,
               ),
             ],
           ),

@@ -1,51 +1,166 @@
-// D4rt test script: compile-safe visual probe
-import 'package:flutter/material.dart';
+// D4rt test script: Tests Cupertino routing classes overview
+import 'package:flutter/cupertino.dart';
 
 dynamic build(BuildContext context) {
-  const scriptName = 'cupertino/route_test.dart';
+  print('Cupertino routing test executing');
 
-  print('$scriptName executing');
+  // ===== 1. CupertinoPageRoute =====
+  print('--- CupertinoPageRoute ---');
+  final pageRoute = CupertinoPageRoute(
+    builder: (ctx) => CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(middle: Text('Page Route')),
+      child: Center(child: Text('Via CupertinoPageRoute')),
+    ),
+    title: 'Page Route',
+  );
+  print('  CupertinoPageRoute created: ${pageRoute.runtimeType}');
 
-  return Center(
-    child: ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: 560),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: const Color(0xFF111827),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: const Color(0xFF334155), width: 1.5),
+  // ===== 2. CupertinoPageRoute with fullscreenDialog =====
+  print('--- Fullscreen dialog route ---');
+  final dialogRoute = CupertinoPageRoute(
+    fullscreenDialog: true,
+    builder: (ctx) => CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(
+        middle: Text('Dialog'),
+        leading: CupertinoButton(
+          padding: EdgeInsets.zero,
+          child: Text('Close'),
+          onPressed: () => Navigator.of(ctx).pop(),
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
+      ),
+      child: Center(child: Text('Fullscreen dialog')),
+    ),
+  );
+  print('  fullscreenDialog route: ${dialogRoute.fullscreenDialog}');
+
+  // ===== 3. CupertinoPage declarative routing =====
+  print('--- CupertinoPage ---');
+  final page = CupertinoPage(
+    child: Center(child: Text('Declarative page')),
+    title: 'Declarative',
+  );
+  print('  CupertinoPage: title=${page.title}');
+
+  // ===== 4. CupertinoSheetRoute =====
+  print('--- CupertinoSheetRoute ---');
+  final sheetRoute = CupertinoSheetRoute(
+    builder: (ctx) => CupertinoPageScaffold(
+      child: Center(child: Text('Sheet content')),
+    ),
+  );
+  print('  CupertinoSheetRoute: ${sheetRoute.runtimeType}');
+
+  // ===== 5. Navigator.push with CupertinoPageRoute =====
+  print('--- Navigator integration ---');
+  final pushButton = CupertinoButton(
+    child: Text('Push Page'),
+    onPressed: () {
+      Navigator.of(context).push(CupertinoPageRoute(
+        builder: (ctx) => CupertinoPageScaffold(
+          navigationBar: CupertinoNavigationBar(middle: Text('Pushed')),
+          child: SafeArea(
+            child: Center(
+              child: CupertinoButton(
+                child: Text('Go Back'),
+                onPressed: () => Navigator.of(ctx).pop(),
+              ),
+            ),
+          ),
+        ),
+      ));
+    },
+  );
+  print('  push button created');
+
+  // ===== 6. showCupertinoModalPopup =====
+  print('--- Modal popup ---');
+  final modalButton = CupertinoButton(
+    child: Text('Show Modal'),
+    onPressed: () {
+      showCupertinoModalPopup(
+        context: context,
+        builder: (ctx) => CupertinoActionSheet(
+          title: Text('Options'),
+          actions: [
+            CupertinoActionSheetAction(
+              child: Text('Option 1'),
+              onPressed: () => Navigator.of(ctx).pop(),
+            ),
+            CupertinoActionSheetAction(
+              child: Text('Option 2'),
+              onPressed: () => Navigator.of(ctx).pop(),
+            ),
+          ],
+          cancelButton: CupertinoActionSheetAction(
+            child: Text('Cancel'),
+            isDefaultAction: true,
+            onPressed: () => Navigator.of(ctx).pop(),
+          ),
+        ),
+      );
+    },
+  );
+  print('  modal button created');
+
+  // ===== 7. showCupertinoDialog =====
+  print('--- Cupertino dialog ---');
+  final dialogButton = CupertinoButton(
+    child: Text('Show Dialog'),
+    onPressed: () {
+      showCupertinoDialog(
+        context: context,
+        builder: (ctx) => CupertinoAlertDialog(
+          title: Text('Alert'),
+          content: Text('This is an alert dialog'),
+          actions: [
+            CupertinoDialogAction(
+              child: Text('OK'),
+              onPressed: () => Navigator.of(ctx).pop(),
+            ),
+          ],
+        ),
+      );
+    },
+  );
+  print('  dialog button created');
+
+  // ===== 8. showCupertinoSheet =====
+  print('--- Sheet ---');
+  final sheetButton = CupertinoButton(
+    child: Text('Show Sheet'),
+    onPressed: () {
+      showCupertinoSheet(
+        context: context,
+        pageBuilder: (ctx) => CupertinoPageScaffold(
+          navigationBar: CupertinoNavigationBar(middle: Text('Sheet')),
+          child: Center(child: Text('Sheet page')),
+        ),
+      );
+    },
+  );
+  print('  sheet button created');
+
+  print('Cupertino routing test completed');
+  return CupertinoApp(
+    home: CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(middle: Text('Routes Test')),
+      child: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(16.0),
           child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Row(
-                children: [
-                  FlutterLogo(size: 18),
-                  SizedBox(width: 10),
-                  Text(
-                    'D4rt Compile-Safe Probe',
-                    style: TextStyle(color: Color(0xFFE2E8F0), fontWeight: FontWeight.w600),
-                  ),
-                ],
-              ),
-              SizedBox(height: 10),
-              Text('This script is intentionally compile-safe.', style: TextStyle(color: Color(0xFFCBD5E1))),
-              SizedBox(height: 6),
-              Text('Used to unblock analyzer compile errors.', style: TextStyle(color: Color(0xFF94A3B8))),
-              SizedBox(height: 12),
-              ColoredBox(
-                color: Color(0xFF1E293B),
-                child: SizedBox(
-                  height: 42,
-                  width: double.infinity,
-                  child: Center(
-                    child: Text('Visible UI output', style: TextStyle(color: Color(0xFF93C5FD))),
-                  ),
-                ),
-              ),
+            children: [
+              pushButton,
+              SizedBox(height: 8.0),
+              modalButton,
+              SizedBox(height: 8.0),
+              dialogButton,
+              SizedBox(height: 8.0),
+              sheetButton,
+              SizedBox(height: 24.0),
+              Text('Route types:', style: TextStyle(fontWeight: FontWeight.bold)),
+              Text('CupertinoPageRoute: ${pageRoute.runtimeType}'),
+              Text('CupertinoSheetRoute: ${sheetRoute.runtimeType}'),
+              Text('CupertinoPage: ${page.runtimeType}'),
             ],
           ),
         ),

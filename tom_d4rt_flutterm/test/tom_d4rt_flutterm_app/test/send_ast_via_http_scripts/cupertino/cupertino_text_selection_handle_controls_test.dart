@@ -1,58 +1,108 @@
 // D4rt test script: Tests CupertinoTextSelectionHandleControls from cupertino
+// NOTE: CupertinoTextSelectionHandleControls is NOT bridged in d4rt.
+// This test demonstrates the class through its superclass behavior and
+// CupertinoTextField integration where it is used internally.
 import 'package:flutter/cupertino.dart';
 
 dynamic build(BuildContext context) {
   print('CupertinoTextSelectionHandleControls test executing');
 
-  final title = 'CupertinoTextSelectionHandleControls';
-  final packageName = 'cupertino';
-  final details = 'CupertinoTextSelectionHandleControls';
+  // ===== 1. Create instance (handle-only controls, no toolbar) =====
+  print('--- CupertinoTextSelectionHandleControls ---');
+  final handleControls = CupertinoTextSelectionHandleControls();
+  print('  created: ${handleControls.runtimeType}');
 
-  print('Class: $title');
-  print('Package: $packageName');
-  print('Details: $details');
+  // ===== 2. getHandleSize =====
+  print('--- getHandleSize ---');
+  final sizes = [12.0, 16.0, 20.0, 24.0, 32.0];
+  for (final fs in sizes) {
+    final size = handleControls.getHandleSize(fs);
+    print('  fontSize $fs -> ${size.width}x${size.height}');
+  }
+
+  // ===== 3. getHandleAnchor for each type =====
+  print('--- getHandleAnchor ---');
+  final types = [
+    TextSelectionHandleType.left,
+    TextSelectionHandleType.right,
+    TextSelectionHandleType.collapsed,
+  ];
+  for (final type in types) {
+    final anchor = handleControls.getHandleAnchor(type, 16.0);
+    print('  $type -> dx:${anchor.dx}, dy:${anchor.dy}');
+  }
+
+  // ===== 4. Compare with CupertinoTextSelectionControls =====
+  print('--- Comparison with full controls ---');
+  final fullControls = CupertinoTextSelectionControls();
+  final handleSize16 = handleControls.getHandleSize(16.0);
+  final fullSize16 = fullControls.getHandleSize(16.0);
+  print('  handleControls size@16: $handleSize16');
+  print('  fullControls size@16: $fullSize16');
+  print('  sizes match: ${handleSize16 == fullSize16}');
+
+  final handleAnchorLeft = handleControls.getHandleAnchor(TextSelectionHandleType.left, 16.0);
+  final fullAnchorLeft = fullControls.getHandleAnchor(TextSelectionHandleType.left, 16.0);
+  print('  handleControls anchor left: $handleAnchorLeft');
+  print('  fullControls anchor left: $fullAnchorLeft');
+
+  // ===== 5. CupertinoTextField uses handle controls internally =====
+  print('--- TextField integration ---');
+  final textField = CupertinoTextField(
+    placeholder: 'Select text to see handles',
+    controller: TextEditingController(text: 'Sample text for selection'),
+  );
+  print('  text field created');
+
+  // ===== 6. Multiple selection-enabled fields =====
+  print('--- Multiple selectable fields ---');
+  final editableFields = <Widget>[];
+  final labels = ['Name', 'Email', 'Phone', 'Address'];
+  for (final label in labels) {
+    editableFields.add(Padding(
+      padding: EdgeInsets.only(bottom: 8.0),
+      child: CupertinoTextField(
+        placeholder: label,
+        prefix: Padding(
+          padding: EdgeInsets.only(left: 8.0),
+          child: Text('$label:'),
+        ),
+      ),
+    ));
+  }
+  print('  ${editableFields.length} editable fields created');
+
+  // ===== 7. Handle size scaling verification =====
+  print('--- Handle size at extreme font sizes ---');
+  final extremeSizes = [8.0, 72.0, 96.0];
+  for (final fs in extremeSizes) {
+    final size = handleControls.getHandleSize(fs);
+    print('  fontSize $fs -> ${size.width}x${size.height}');
+  }
 
   print('CupertinoTextSelectionHandleControls test completed');
-  return Center(
-    child: ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: 460),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: const Color(0xFF111827),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: const Color(0xFF374151), width: 1.5),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
+  return CupertinoApp(
+    home: CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(middle: Text('HandleControls')),
+      child: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(16.0),
           child: Column(
-            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: const [
-                  FlutterLogo(size: 18),
-                  SizedBox(width: 10),
-                ],
-              ),
-              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
-              const SizedBox(height: 6),
-              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
-              const SizedBox(height: 6),
-              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
-              const SizedBox(height: 12),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: const ColoredBox(
-                  color: Color(0xFF1F2937),
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: 40,
-                    child: Center(
-                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
-                    ),
-                  ),
-                ),
-              ),
+              Text('Handle Controls Test', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+              SizedBox(height: 8.0),
+              Text('Type: ${handleControls.runtimeType}'),
+              SizedBox(height: 8.0),
+              Text('Handle sizes:'),
+              for (final fs in sizes)
+                Text('  ${fs}px: ${handleControls.getHandleSize(fs)}'),
+              SizedBox(height: 16.0),
+              Text('Select text in fields:', style: TextStyle(fontWeight: FontWeight.bold)),
+              SizedBox(height: 8.0),
+              textField,
+              SizedBox(height: 12.0),
+              ...editableFields,
             ],
           ),
         ),

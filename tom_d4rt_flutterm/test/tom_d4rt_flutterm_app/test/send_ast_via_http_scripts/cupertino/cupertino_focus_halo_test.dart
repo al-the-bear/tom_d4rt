@@ -4,55 +4,99 @@ import 'package:flutter/cupertino.dart';
 dynamic build(BuildContext context) {
   print('CupertinoFocusHalo test executing');
 
-  final title = 'CupertinoFocusHalo';
-  final packageName = 'cupertino';
-  final details = 'CupertinoFocusHalo';
+  // ===== 1. CupertinoFocusHalo.withRect — wrapping a button =====
+  print('--- CupertinoFocusHalo.withRect ---');
+  final rectHalo = CupertinoFocusHalo.withRect(
+    child: CupertinoButton(
+      child: Text('Rect Focus'),
+      onPressed: () {},
+    ),
+  );
+  print('  withRect halo created');
+  print('  child type: ${rectHalo.child.runtimeType}');
 
-  print('Class: $title');
-  print('Package: $packageName');
-  print('Details: $details');
+  // ===== 2. CupertinoFocusHalo.withRRect — with border radius =====
+  print('--- CupertinoFocusHalo.withRRect ---');
+  final rRectHalo = CupertinoFocusHalo.withRRect(
+    borderRadius: BorderRadius.circular(12.0),
+    child: CupertinoButton.filled(
+      child: Text('RRect Focus'),
+      onPressed: () {},
+    ),
+  );
+  print('  withRRect halo created');
+  print('  borderRadius: 12.0');
+  print('  child type: ${rRectHalo.child.runtimeType}');
+
+  // ===== 3. withRRect with zero radius (effectively rect) =====
+  print('--- withRRect zero radius ---');
+  final zeroRadius = CupertinoFocusHalo.withRRect(
+    borderRadius: BorderRadius.zero,
+    child: Container(
+      width: 100.0,
+      height: 40.0,
+      color: CupertinoColors.activeBlue,
+      child: Center(child: Text('Zero', style: TextStyle(color: CupertinoColors.white))),
+    ),
+  );
+  print('  zero-radius halo created');
+
+  // ===== 4. withRRect large radius =====
+  print('--- withRRect large radius ---');
+  final largeRadius = CupertinoFocusHalo.withRRect(
+    borderRadius: BorderRadius.circular(50.0),
+    child: Container(
+      width: 100.0,
+      height: 100.0,
+      decoration: BoxDecoration(
+        color: CupertinoColors.systemGreen,
+        borderRadius: BorderRadius.circular(50.0),
+      ),
+      child: Center(child: Text('Circle')),
+    ),
+  );
+  print('  large-radius halo created (borderRadius: 50.0)');
+
+  // ===== 5. Wrapping different interactive widgets =====
+  print('--- Various child widgets ---');
+  final switchHalo = CupertinoFocusHalo.withRect(
+    child: CupertinoSwitch(value: true, onChanged: (v) {}),
+  );
+  print('  switch halo created');
+
+  final textFieldHalo = CupertinoFocusHalo.withRRect(
+    borderRadius: BorderRadius.circular(8.0),
+    child: CupertinoTextField(placeholder: 'Focused field'),
+  );
+  print('  text field halo created');
 
   print('CupertinoFocusHalo test completed');
-  return Center(
-    child: ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: 460),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: const Color(0xFF111827),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: const Color(0xFF374151), width: 1.5),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
+  return CupertinoApp(
+    home: CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(middle: Text('FocusHalo Test')),
+      child: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(16.0),
           child: Column(
-            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: const [
-                  FlutterLogo(size: 18),
-                  SizedBox(width: 10),
-                ],
-              ),
-              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
-              const SizedBox(height: 6),
-              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
-              const SizedBox(height: 6),
-              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
-              const SizedBox(height: 12),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: const ColoredBox(
-                  color: Color(0xFF1F2937),
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: 40,
-                    child: Center(
-                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
-                    ),
-                  ),
-                ),
-              ),
+              Text('withRect:', style: TextStyle(fontWeight: FontWeight.bold)),
+              rectHalo,
+              SizedBox(height: 16.0),
+              Text('withRRect (r=12):', style: TextStyle(fontWeight: FontWeight.bold)),
+              rRectHalo,
+              SizedBox(height: 16.0),
+              Text('withRRect (r=0):', style: TextStyle(fontWeight: FontWeight.bold)),
+              zeroRadius,
+              SizedBox(height: 16.0),
+              Text('withRRect (r=50):', style: TextStyle(fontWeight: FontWeight.bold)),
+              largeRadius,
+              SizedBox(height: 16.0),
+              Text('Switch:', style: TextStyle(fontWeight: FontWeight.bold)),
+              switchHalo,
+              SizedBox(height: 16.0),
+              Text('TextField:', style: TextStyle(fontWeight: FontWeight.bold)),
+              textFieldHalo,
             ],
           ),
         ),

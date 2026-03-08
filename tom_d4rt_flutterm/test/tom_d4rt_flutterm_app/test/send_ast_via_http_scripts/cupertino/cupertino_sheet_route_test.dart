@@ -4,55 +4,137 @@ import 'package:flutter/cupertino.dart';
 dynamic build(BuildContext context) {
   print('CupertinoSheetRoute test executing');
 
-  final title = 'CupertinoSheetRoute';
-  final packageName = 'cupertino';
-  final details = 'Sheet route';
+  // ===== 1. Show sheet route via button =====
+  print('--- CupertinoSheetRoute via showCupertinoSheet ---');
+  final showSheetButton = CupertinoButton(
+    child: Text('Show Sheet'),
+    onPressed: () {
+      showCupertinoSheet(
+        context: context,
+        pageBuilder: (sheetContext) => CupertinoPageScaffold(
+          navigationBar: CupertinoNavigationBar(
+            middle: Text('Sheet'),
+            trailing: CupertinoButton(
+              padding: EdgeInsets.zero,
+              child: Text('Done'),
+              onPressed: () => Navigator.of(sheetContext).pop(),
+            ),
+          ),
+          child: Center(child: Text('Sheet content')),
+        ),
+      );
+    },
+  );
+  print('  show sheet button created');
 
-  print('Class: $title');
-  print('Package: $packageName');
-  print('Details: $details');
+  // ===== 2. CupertinoSheetRoute with builder =====
+  print('--- CupertinoSheetRoute direct construction ---');
+  final sheetRoute = CupertinoSheetRoute(
+    builder: (routeContext) => CupertinoPageScaffold(
+      child: Center(child: Text('Direct route content')),
+    ),
+  );
+  print('  sheet route created: ${sheetRoute.runtimeType}');
+
+  // ===== 3. With enableDrag: false =====
+  print('--- enableDrag: false ---');
+  final noDragRoute = CupertinoSheetRoute(
+    enableDrag: false,
+    builder: (routeContext) => CupertinoPageScaffold(
+      child: Center(child: Text('No drag')),
+    ),
+  );
+  print('  no-drag route created');
+
+  // ===== 4. With showDragHandle: true =====
+  print('--- showDragHandle: true ---');
+  final dragHandleButton = CupertinoButton(
+    child: Text('Sheet with Handle'),
+    onPressed: () {
+      showCupertinoSheet(
+        context: context,
+        pageBuilder: (ctx) => CupertinoPageScaffold(
+          navigationBar: CupertinoNavigationBar(middle: Text('Drag Handle')),
+          child: Center(child: Text('Has drag handle')),
+        ),
+      );
+    },
+  );
+  print('  drag handle sheet button created');
+
+  // ===== 5. Nested sheets =====
+  print('--- Nested sheets ---');
+  final nestedButton = CupertinoButton(
+    child: Text('Nested Sheet'),
+    onPressed: () {
+      showCupertinoSheet(
+        context: context,
+        pageBuilder: (ctx1) => CupertinoPageScaffold(
+          navigationBar: CupertinoNavigationBar(middle: Text('Sheet 1')),
+          child: Center(
+            child: CupertinoButton(
+              child: Text('Open Sheet 2'),
+              onPressed: () {
+                showCupertinoSheet(
+                  context: ctx1,
+                  pageBuilder: (ctx2) => CupertinoPageScaffold(
+                    navigationBar: CupertinoNavigationBar(middle: Text('Sheet 2')),
+                    child: Center(child: Text('Nested sheet content')),
+                  ),
+                );
+              },
+            ),
+          ),
+        ),
+      );
+    },
+  );
+  print('  nested sheet button created');
+
+  // ===== 6. Sheet with list content =====
+  print('--- Sheet with list content ---');
+  final listSheetButton = CupertinoButton(
+    child: Text('List Sheet'),
+    onPressed: () {
+      showCupertinoSheet(
+        context: context,
+        pageBuilder: (ctx) => CupertinoPageScaffold(
+          navigationBar: CupertinoNavigationBar(middle: Text('Options')),
+          child: SafeArea(
+            child: CupertinoListSection.insetGrouped(
+              children: [
+                for (var i = 0; i < 8; i++)
+                  CupertinoListTile(
+                    title: Text('Option $i'),
+                    trailing: CupertinoListTileChevron(),
+                  ),
+              ],
+            ),
+          ),
+        ),
+      );
+    },
+  );
+  print('  list sheet button created');
 
   print('CupertinoSheetRoute test completed');
-  return Center(
-    child: ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: 460),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: const Color(0xFF111827),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: const Color(0xFF374151), width: 1.5),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
+  return CupertinoApp(
+    home: CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(middle: Text('SheetRoute Test')),
+      child: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(16.0),
           child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: const [
-                  FlutterLogo(size: 18),
-                  SizedBox(width: 10),
-                ],
-              ),
-              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
-              const SizedBox(height: 6),
-              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
-              const SizedBox(height: 6),
-              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
-              const SizedBox(height: 12),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: const ColoredBox(
-                  color: Color(0xFF1F2937),
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: 40,
-                    child: Center(
-                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
-                    ),
-                  ),
-                ),
-              ),
+              showSheetButton,
+              SizedBox(height: 12.0),
+              dragHandleButton,
+              SizedBox(height: 12.0),
+              nestedButton,
+              SizedBox(height: 12.0),
+              listSheetButton,
+              SizedBox(height: 24.0),
+              Text('Route type: ${sheetRoute.runtimeType}'),
             ],
           ),
         ),

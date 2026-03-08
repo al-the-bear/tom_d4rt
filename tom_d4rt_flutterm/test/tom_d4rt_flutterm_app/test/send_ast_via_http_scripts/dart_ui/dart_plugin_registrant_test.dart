@@ -1,19 +1,31 @@
-// D4rt test script: Tests DartPluginRegistrant from dart_ui
-import 'package:flutter/widgets.dart';
+// D4rt test script: Tests DartPluginRegistrant from dart:ui
+import 'dart:ui' as ui;
+import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print('DartPluginRegistrant test executing');
 
-  // Test DartPluginRegistrant - Plugin registration
-  print('DartPluginRegistrant is available in the dart_ui package');
-  print('DartPluginRegistrant: Plugin registration');
+  // DartPluginRegistrant has one static method
+  print('DartPluginRegistrant type: ${DartPluginRegistrant}');
+
+  // ensureInitialized — safe to call multiple times
+  DartPluginRegistrant.ensureInitialized();
+  print('DartPluginRegistrant.ensureInitialized() called');
+
+  DartPluginRegistrant.ensureInitialized();
+  print('DartPluginRegistrant.ensureInitialized() called again (idempotent)');
+
+  DartPluginRegistrant.ensureInitialized();
+  print('Third call also succeeds');
 
   print('DartPluginRegistrant test completed');
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('DartPluginRegistrant Tests'),
-      Text('Plugin registration'),
+      Text('DartPluginRegistrant Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      SizedBox(height: 8),
+      Text('ensureInitialized: called 3 times (idempotent)'),
+      Text('Type: ${DartPluginRegistrant}'),
     ],
   );
 }

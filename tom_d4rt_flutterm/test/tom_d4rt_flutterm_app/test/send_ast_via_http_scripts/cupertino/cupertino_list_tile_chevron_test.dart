@@ -4,54 +4,98 @@ import 'package:flutter/cupertino.dart';
 dynamic build(BuildContext context) {
   print('CupertinoListTileChevron test executing');
 
-  final title = 'CupertinoListTileChevron';
-  final packageName = 'cupertino';
-  final details = 'CupertinoListTileChevron';
+  // ===== 1. Standalone chevron =====
+  print('--- Standalone CupertinoListTileChevron ---');
+  final standalone = CupertinoListTileChevron();
+  print('  standalone chevron created');
+  print('  runtimeType: ${standalone.runtimeType}');
 
-  print('Class: $title');
-  print('Package: $packageName');
-  print('Details: $details');
+  // ===== 2. Inside a CupertinoListTile trailing =====
+  print('--- As CupertinoListTile trailing ---');
+  final tileWithChevron = CupertinoListTile(
+    title: Text('Navigate'),
+    trailing: CupertinoListTileChevron(),
+  );
+  print('  tile with trailing chevron created');
+
+  // ===== 3. Multiple tiles with chevrons in a section =====
+  print('--- Multiple tiles in section ---');
+  final menuItems = ['General', 'Privacy', 'Notifications', 'Sounds', 'Display'];
+  final tilesWithChevrons = <CupertinoListTile>[];
+  for (final item in menuItems) {
+    tilesWithChevrons.add(CupertinoListTile(
+      leading: Icon(CupertinoIcons.circle, size: 20.0),
+      title: Text(item),
+      trailing: CupertinoListTileChevron(),
+    ));
+  }
+  print('  created ${tilesWithChevrons.length} tiles with chevrons');
+
+  // ===== 4. Chevron with additional trailing content =====
+  print('--- Chevron alongside other trailing widgets ---');
+  final tileWithBadge = CupertinoListTile(
+    title: Text('Updates'),
+    additionalInfo: Text('3'),
+    trailing: CupertinoListTileChevron(),
+  );
+  print('  tile with badge + chevron created');
+
+  // ===== 5. In notched list tile =====
+  print('--- In notched CupertinoListTile ---');
+  final notchedTile = CupertinoListTile.notched(
+    title: Text('Notched Item'),
+    leading: Icon(CupertinoIcons.gear),
+    trailing: CupertinoListTileChevron(),
+  );
+  print('  notched tile with chevron created');
+
+  // ===== 6. Chevron visual comparison: with vs without =====
+  print('--- With vs without chevron ---');
+  final withChevron = CupertinoListTile(
+    title: Text('With chevron'),
+    trailing: CupertinoListTileChevron(),
+  );
+  final withoutChevron = CupertinoListTile(
+    title: Text('Without chevron'),
+  );
+  print('  comparison tiles created');
 
   print('CupertinoListTileChevron test completed');
-  return Center(
-    child: ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: 460),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: const Color(0xFF111827),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: const Color(0xFF374151), width: 1.5),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
+  return CupertinoApp(
+    home: CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(middle: Text('ListTileChevron')),
+      child: SafeArea(
+        child: SingleChildScrollView(
           child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: const [
-                  FlutterLogo(size: 18),
-                  SizedBox(width: 10),
+              CupertinoListSection.insetGrouped(
+                header: Text('Standalone'),
+                children: [
+                  CupertinoListTile(
+                    title: Text('Chevron widget'),
+                    trailing: standalone,
+                  ),
                 ],
               ),
-              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
-              const SizedBox(height: 6),
-              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
-              const SizedBox(height: 6),
-              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
-              const SizedBox(height: 12),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: const ColoredBox(
-                  color: Color(0xFF1F2937),
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: 40,
-                    child: Center(
-                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
-                    ),
-                  ),
-                ),
+              CupertinoListSection.insetGrouped(
+                header: Text('Basic usage'),
+                children: [tileWithChevron],
+              ),
+              CupertinoListSection.insetGrouped(
+                header: Text('Menu items'),
+                children: tilesWithChevrons,
+              ),
+              CupertinoListSection.insetGrouped(
+                header: Text('With additional info'),
+                children: [tileWithBadge],
+              ),
+              CupertinoListSection.insetGrouped(
+                header: Text('Notched'),
+                children: [notchedTile],
+              ),
+              CupertinoListSection.insetGrouped(
+                header: Text('Comparison'),
+                children: [withChevron, withoutChevron],
               ),
             ],
           ),

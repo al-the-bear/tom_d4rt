@@ -1,51 +1,104 @@
-// D4rt test script: compile-safe visual probe
-import 'package:flutter/material.dart';
+// D4rt test script: Tests CupertinoContextMenu from cupertino
+import 'package:flutter/cupertino.dart';
 
 dynamic build(BuildContext context) {
-  const scriptName = 'cupertino/contextmenu_test.dart';
+  print('CupertinoContextMenu test executing');
 
-  print('$scriptName executing');
+  // ========== Static constants ==========
+  print('--- Static constants ---');
+  print('  kOpenBorderRadius: ${CupertinoContextMenu.kOpenBorderRadius}');
+  print('  animationOpensAt: ${CupertinoContextMenu.animationOpensAt}');
 
-  return Center(
-    child: ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: 560),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: const Color(0xFF111827),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: const Color(0xFF334155), width: 1.5),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
+  // ========== Basic CupertinoContextMenu ==========
+  print('--- Basic CupertinoContextMenu ---');
+  final contextMenu = CupertinoContextMenu(
+    actions: [
+      CupertinoContextMenuAction(
+        child: Text('Copy'),
+        onPressed: () { print('Copy pressed'); },
+      ),
+      CupertinoContextMenuAction(
+        child: Text('Share'),
+        onPressed: () { print('Share pressed'); },
+      ),
+      CupertinoContextMenuAction(
+        child: Text('Delete'),
+        isDestructiveAction: true,
+        onPressed: () { print('Delete pressed'); },
+      ),
+    ],
+    child: Container(
+      width: 150.0,
+      height: 150.0,
+      color: CupertinoColors.systemBlue,
+      child: Center(child: Text('Long Press Me', style: TextStyle(color: CupertinoColors.white))),
+    ),
+  );
+  print('  created CupertinoContextMenu');
+  print('  actions count: ${contextMenu.actions.length}');
+  print('  has child: ${contextMenu.child != null}');
+  print('  enableHapticFeedback: ${contextMenu.enableHapticFeedback}');
+
+  // ========== CupertinoContextMenu with haptic feedback ==========
+  print('--- With haptic feedback ---');
+  final hapticMenu = CupertinoContextMenu(
+    enableHapticFeedback: true,
+    actions: [
+      CupertinoContextMenuAction(child: Text('Action 1')),
+    ],
+    child: Container(width: 100.0, height: 100.0, color: CupertinoColors.activeGreen),
+  );
+  print('  enableHapticFeedback: ${hapticMenu.enableHapticFeedback}');
+
+  // ========== CupertinoContextMenuAction properties ==========
+  print('--- CupertinoContextMenuAction ---');
+  final defaultAction = CupertinoContextMenuAction(
+    isDefaultAction: true,
+    child: Text('Default Action'),
+    onPressed: () { print('default'); },
+  );
+  print('  isDefaultAction: ${defaultAction.isDefaultAction}');
+  print('  isDestructiveAction: ${defaultAction.isDestructiveAction}');
+
+  final destructiveAction = CupertinoContextMenuAction(
+    isDestructiveAction: true,
+    child: Text('Destructive Action'),
+    trailingIcon: CupertinoIcons.trash,
+  );
+  print('  destructive.isDestructiveAction: ${destructiveAction.isDestructiveAction}');
+  print('  destructive.trailingIcon: ${destructiveAction.trailingIcon}');
+
+  // ========== Action with icon ==========
+  print('--- Action with trailing icon ---');
+  final iconAction = CupertinoContextMenuAction(
+    child: Text('Share'),
+    trailingIcon: CupertinoIcons.share,
+    onPressed: () { print('share'); },
+  );
+  print('  trailingIcon: ${iconAction.trailingIcon}');
+
+  print('CupertinoContextMenu test completed');
+  return CupertinoApp(
+    home: CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(middle: Text('ContextMenu Test')),
+      child: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(16.0),
           child: Column(
-            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Row(
-                children: [
-                  FlutterLogo(size: 18),
-                  SizedBox(width: 10),
-                  Text(
-                    'D4rt Compile-Safe Probe',
-                    style: TextStyle(color: Color(0xFFE2E8F0), fontWeight: FontWeight.w600),
-                  ),
-                ],
-              ),
-              SizedBox(height: 10),
-              Text('This script is intentionally compile-safe.', style: TextStyle(color: Color(0xFFCBD5E1))),
-              SizedBox(height: 6),
-              Text('Used to unblock analyzer compile errors.', style: TextStyle(color: Color(0xFF94A3B8))),
-              SizedBox(height: 12),
-              ColoredBox(
-                color: Color(0xFF1E293B),
-                child: SizedBox(
-                  height: 42,
-                  width: double.infinity,
-                  child: Center(
-                    child: Text('Visible UI output', style: TextStyle(color: Color(0xFF93C5FD))),
-                  ),
-                ),
-              ),
+            children: [
+              Text('CupertinoContextMenu', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
+              SizedBox(height: 8.0),
+              contextMenu,
+              SizedBox(height: 16.0),
+              Text('Context Menu Actions', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
+              SizedBox(height: 8.0),
+              CupertinoContextMenuAction(child: Text('Default'), isDefaultAction: true),
+              CupertinoContextMenuAction(child: Text('Destructive'), isDestructiveAction: true),
+              CupertinoContextMenuAction(child: Text('With Icon'), trailingIcon: CupertinoIcons.share),
+              SizedBox(height: 8.0),
+              Text('kOpenBorderRadius: ${CupertinoContextMenu.kOpenBorderRadius}'),
+              Text('animationOpensAt: ${CupertinoContextMenu.animationOpensAt}'),
             ],
           ),
         ),
