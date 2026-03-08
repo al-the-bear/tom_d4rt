@@ -196,9 +196,21 @@ class AstModuleLoader implements ModuleContext {
   // Bridged Library Loading
   // ===========================================================================
 
+  /// Module-specific environments for bridged libraries.
+  /// Each bridged module gets its own environment containing only its symbols,
+  /// preventing same-named symbols from different modules from overwriting
+  /// each other in globalEnvironment.
+  /// GEN-100 FIX: Use per-module environments for bridge isolation.
+  final Map<String, Environment> _bridgedModuleEnvironments = {};
+
   /// Attempts to load a bridged library by registering its definitions.
   ///
   /// Returns `null` if the URI has no bridged content registered in the runner.
+  ///
+  /// GEN-100 FIX: Creates a module-specific environment for each bridged library
+  /// instead of registering all bridges into globalEnvironment. This prevents
+  /// same-named classes (e.g., dart:ui.TextStyle vs painting.TextStyle) from
+  /// overwriting each other.
   LoadedModule? _tryLoadBridgedModule(
     Uri uri,
     Set<String>? showNames,
@@ -211,17 +223,30 @@ class AstModuleLoader implements ModuleContext {
       return null;
     }
 
-    // Only register bridges once per URI
-    if (!_registeredBridgeUris.contains(uriString)) {
-      _registerBridgesForUri(uriString, showNames, hideNames);
+    // Check cache first
+    if (_moduleCache.containsKey(uri)) {
+      return _moduleCache[uri];
+    }
+
+    // GEN-100 FIX: Create a module-specific environment for this bridged library.
+    // The environment encloses globalEnvironment so standard library and other
+    // pre-registered symbols are still accessible, but this module's bridges
+    // are isolated in its own environment.
+    Environment moduleEnv;
+    if (_bridgedModuleEnvironments.containsKey(uriString)) {
+      moduleEnv = _bridgedModuleEnvironments[uriString]!;
+    } else {
+      moduleEnv = Environment(enclosing: globalEnvironment);
+      _registerBridgesForUriInto(uriString, showNames, hideNames, moduleEnv);
+      _bridgedModuleEnvironments[uriString] = moduleEnv;
       _registeredBridgeUris.add(uriString);
     }
 
-    // Return an empty module — bridge symbols are in globalEnvironment
+    // Return module with its own environment as exportedEnvironment
     final emptyAst = SCompilationUnit(offset: 0, length: 0);
     final module = LoadedModule(
       ast: emptyAst,
-      exportedEnvironment: globalEnvironment,
+      exportedEnvironment: moduleEnv,
       uri: uri,
     );
     _moduleCache[uri] = module;
@@ -244,11 +269,15 @@ class AstModuleLoader implements ModuleContext {
     return entries.any((m) => m.containsKey(key));
   }
 
-  /// Registers all bridged definitions for a URI into the global environment.
-  void _registerBridgesForUri(
+  /// Registers all bridged definitions for a URI into a target environment.
+  ///
+  /// GEN-100 FIX: Changed to accept a target environment parameter instead of
+  /// always using globalEnvironment. This enables per-module bridge isolation.
+  void _registerBridgesForUriInto(
     String uriString,
     Set<String>? showNames,
     Set<String>? hideNames,
+    Environment targetEnvironment,
   ) {
     // Register bridged enums
     for (final entry in runner.bridgedEnumDefinitions) {
@@ -258,7 +287,7 @@ class AstModuleLoader implements ModuleContext {
       if (!_shouldInclude(name, showNames, hideNames)) continue;
 
       final bridgedEnum = libEnum.enumDefinition.buildBridgedEnum();
-      globalEnvironment.defineBridgedEnum(bridgedEnum);
+      targetEnvironment.defineBridgedEnum(bridgedEnum);
       Logger.debug(
         '[AstModuleLoader] Registered bridged enum: $name from $uriString',
       );
@@ -271,7 +300,7 @@ class AstModuleLoader implements ModuleContext {
       final name = libClass.bridgedClass.name;
       if (!_shouldInclude(name, showNames, hideNames)) continue;
 
-      globalEnvironment.defineBridge(libClass.bridgedClass);
+      targetEnvironment.defineBridge(libClass.bridgedClass);
       Logger.debug(
         '[AstModuleLoader] Registered bridged class: $name from $uriString',
       );
@@ -283,7 +312,7 @@ class AstModuleLoader implements ModuleContext {
       if (alias.library != uriString) continue;
       if (!_shouldInclude(alias.aliasName, showNames, hideNames)) continue;
 
-      globalEnvironment.defineBridgeAlias(alias.aliasName, alias.targetName);
+      targetEnvironment.defineBridgeAlias(alias.aliasName, alias.targetName);
       Logger.debug(
         '[AstModuleLoader] Registered class alias: '
         '${alias.aliasName} -> ${alias.targetName} from $uriString',
@@ -311,7 +340,7 @@ class AstModuleLoader implements ModuleContext {
       if (name == '<native>') continue; // Skip unnamed functions
       if (!_shouldInclude(name, showNames, hideNames)) continue;
 
-      globalEnvironment.define(name, libFunc.function);
+      targetEnvironment.define(name, libFunc.function);
       Logger.debug(
         '[AstModuleLoader] Registered library function: $name from $uriString',
       );
@@ -323,7 +352,7 @@ class AstModuleLoader implements ModuleContext {
       if (libVar == null) continue;
       if (!_shouldInclude(libVar.name, showNames, hideNames)) continue;
 
-      globalEnvironment.define(libVar.name, libVar.value);
+      targetEnvironment.define(libVar.name, libVar.value);
       Logger.debug(
         '[AstModuleLoader] Registered library variable: '
         '${libVar.name} from $uriString',
@@ -345,7 +374,7 @@ class AstModuleLoader implements ModuleContext {
       if (!_shouldInclude(libGetter.name, showNames, hideNames)) continue;
 
       final setter = settersByName.remove(libGetter.name);
-      globalEnvironment.define(
+      targetEnvironment.define(
         libGetter.name,
         GlobalGetter(libGetter.getter, setter: setter?.setter),
       );
@@ -359,7 +388,7 @@ class AstModuleLoader implements ModuleContext {
     for (final entry in settersByName.entries) {
       if (!_shouldInclude(entry.key, showNames, hideNames)) continue;
 
-      globalEnvironment.define(
+      targetEnvironment.define(
         entry.key,
         GlobalGetter(
           () =>

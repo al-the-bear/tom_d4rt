@@ -350,7 +350,10 @@ class D4rtRunner {
     // Register standard library
     Stdlib(globalEnv).register();
 
-    // Register bridged definitions
+    // Register bridged definitions into global environment.
+    // This pre-populates all bridges for type-based resolution (toBridgedInstance)
+    // and provides a baseline for name resolution. Import directives will later
+    // overwrite specific entries when libraries are explicitly imported.
     _registerBridgedDefinitions(globalEnv);
 
     return globalEnv;
