@@ -1,0 +1,4 @@
+# Force serial test execution — all test files share one HTTP test app
+# on port 4247, so concurrent execution causes port contention and
+# massive test failures.
+concurrency: 1
