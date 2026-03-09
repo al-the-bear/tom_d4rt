@@ -110,6 +110,9 @@ Future<void> _generateBridges(
     print('  Modules: ${config.modules.length}');
   }
 
+  // GEN-079: Collect class lookup across modules for relaxer generation.
+  final globalClassLookup = <String, ClassInfo>{};
+
   // Generate bridges for each module
   for (final module in config.modules) {
     if (verbose) {
@@ -168,6 +171,8 @@ Future<void> _generateBridges(
     if (verbose) {
       print('    Generated ${result.classesGenerated} classes');
     }
+    // GEN-079: Accumulate class lookup for relaxer generation
+    globalClassLookup.addAll(generator.classLookup);
   }
 
   // Generate barrel file if requested
@@ -225,6 +230,30 @@ Future<void> _generateBridges(
         '  GEN-083: Generated ${proxyResult.proxies.length} proxy classes'
         ' → ${proxyResult.outputFile}',
       );
+    }
+  }
+
+  // Generate relaxer wrappers if requested (GEN-079)
+  if (config.generateRelaxers) {
+    final relaxerResult = await generateRelaxers(
+      config: config,
+      projectPath: projectDir,
+      globalClassLookup: globalClassLookup,
+    );
+    if (relaxerResult.errors.isNotEmpty) {
+      for (final error in relaxerResult.errors) {
+        print('  RELAXER ERROR: $error');
+      }
+    }
+    if (relaxerResult.wrapperClassesGenerated > 0) {
+      print(
+        '  GEN-079: Generated ${relaxerResult.wrapperClassesGenerated} relaxer wrappers'
+        ' (${relaxerResult.factoryFunctionsGenerated} factories)'
+        ' → ${relaxerResult.outputFile}',
+      );
+    }
+    for (final warning in relaxerResult.warnings) {
+      print('  GEN-079 WARNING: $warning');
     }
   }
 

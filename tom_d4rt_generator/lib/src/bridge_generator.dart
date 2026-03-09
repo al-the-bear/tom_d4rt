@@ -987,6 +987,13 @@ class BridgeGenerator {
   /// Built during bridge file generation.
   Map<String, ClassInfo> _classLookup = {};
 
+  /// Read-only view of the class lookup built during bridge generation.
+  ///
+  /// Populated after [generateBridgesFromExports] or [parseFile] is called.
+  /// Used by the relaxer generator to build wrapper classes with correct
+  /// member delegation.
+  Map<String, ClassInfo> get classLookup => Map.unmodifiable(_classLookup);
+
   /// Cache for resolved type arguments to prevent redundant resolution.
   /// Key is the full type string, value is the resolved result.
   /// This cache is cleared at the start of each bridge file generation.

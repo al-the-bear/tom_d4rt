@@ -369,6 +369,29 @@ class BridgeConfig {
   /// ```
   final List<ProxyClassConfig> proxyClasses;
 
+  /// Whether to generate GEN-079 relaxer wrapper classes and factory functions.
+  ///
+  /// When true and [relaxerOutputPath] is set, the generator will:
+  /// 1. Scan generated bridge files for `extractBridgedArg<Base<Arg>>` patterns
+  /// 2. Generate `$Relaxed{Base}<V>` wrapper classes for each generic base type
+  /// 3. Generate per-module factory functions with type-arg switch dispatch
+  /// 4. Generate a `registerRelaxers()` function for runtime registration
+  ///
+  /// Example in buildkit.yaml:
+  /// ```yaml
+  /// d4rtgen:
+  ///   generateRelaxers: true
+  ///   relaxerOutputPath: lib/src/bridges/flutter_relaxers.b.dart
+  /// ```
+  final bool generateRelaxers;
+
+  /// Output path for the generated relaxers file.
+  ///
+  /// Contains wrapper classes, per-module factory functions, and the
+  /// `registerRelaxers()` registration entry point.
+  /// Example: `lib/src/bridges/flutter_relaxers.b.dart`
+  final String? relaxerOutputPath;
+
   const BridgeConfig({
     required this.name,
     required this.modules,
@@ -387,6 +410,8 @@ class BridgeConfig {
     this.generateProxies = false,
     this.proxiesOutputPath,
     this.proxyClasses = const [],
+    this.generateRelaxers = false,
+    this.relaxerOutputPath,
   });
 
   factory BridgeConfig.fromJson(Map<String, dynamic> json) {
@@ -421,6 +446,8 @@ class BridgeConfig {
               ?.map((e) => ProxyClassConfig.fromYaml(e))
               .toList() ??
           const [],
+      generateRelaxers: json['generateRelaxers'] as bool? ?? false,
+      relaxerOutputPath: json['relaxerOutputPath'] as String?,
     );
   }
 
@@ -496,6 +523,8 @@ class BridgeConfig {
       if (proxiesOutputPath != null) 'proxiesOutputPath': proxiesOutputPath,
       if (proxyClasses.isNotEmpty)
         'proxyClasses': proxyClasses.map((p) => p.toJson()).toList(),
+      if (generateRelaxers) 'generateRelaxers': generateRelaxers,
+      if (relaxerOutputPath != null) 'relaxerOutputPath': relaxerOutputPath,
     };
   }
 
@@ -518,6 +547,8 @@ class BridgeConfig {
     bool? generateProxies,
     String? proxiesOutputPath,
     List<ProxyClassConfig>? proxyClasses,
+    bool? generateRelaxers,
+    String? relaxerOutputPath,
   }) {
     return BridgeConfig(
       name: name ?? this.name,
@@ -537,6 +568,8 @@ class BridgeConfig {
       generateProxies: generateProxies ?? this.generateProxies,
       proxiesOutputPath: proxiesOutputPath ?? this.proxiesOutputPath,
       proxyClasses: proxyClasses ?? this.proxyClasses,
+      generateRelaxers: generateRelaxers ?? this.generateRelaxers,
+      relaxerOutputPath: relaxerOutputPath ?? this.relaxerOutputPath,
     );
   }
 }

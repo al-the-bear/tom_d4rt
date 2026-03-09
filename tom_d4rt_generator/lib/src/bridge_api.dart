@@ -13,6 +13,7 @@ import 'build_config_loader.dart';
 import 'd4rtgen_logging.dart';
 import 'file_generators.dart';
 import 'proxy_generator.dart';
+import 'relaxer_generator.dart';
 
 /// Result of a bridge generation operation.
 class GenerationResult {
@@ -131,6 +132,9 @@ Future<GenerationResult> generateBridges({
     // so different classes with the same name (e.g., dart:ui vs Flutter) are kept.
     final globallyGeneratedClasses = <String, String>{};
 
+    // GEN-079: Collect class lookup across modules for relaxer generation.
+    final globalClassLookup = <String, ClassInfo>{};
+
     // Generate bridges for each module
     for (final module in bridgeConfig.modules) {
       // Determine sourceImport: use barrelImport if provided, otherwise first barrel file
@@ -198,6 +202,8 @@ Future<GenerationResult> generateBridges({
       errors.addAll(result.errors);
       // GEN-076: Accumulate generated class sources for next module
       globallyGeneratedClasses.addAll(result.generatedClassSources);
+      // GEN-079: Accumulate class lookup for relaxer generation
+      globalClassLookup.addAll(generator.classLookup);
       // DEBUG: Temporary logging for GEN-076
       print(
         '  GEN-076: Module ${module.name} generated ${result.generatedClassSources.length} classes, '
@@ -260,6 +266,29 @@ Future<GenerationResult> generateBridges({
           '  GEN-083: Generated ${proxyResult.proxies.length} proxy classes'
           ' → ${proxyResult.outputFile}',
         );
+      }
+    }
+
+    // Generate relaxer wrappers if requested (GEN-079)
+    if (bridgeConfig.generateRelaxers) {
+      final relaxerResult = await generateRelaxers(
+        config: bridgeConfig,
+        projectPath: projectDir,
+        globalClassLookup: globalClassLookup,
+      );
+      if (relaxerResult.outputFile != null) {
+        outputFiles.add(relaxerResult.outputFile!);
+      }
+      errors.addAll(relaxerResult.errors);
+      if (relaxerResult.wrapperClassesGenerated > 0) {
+        print(
+          '  GEN-079: Generated ${relaxerResult.wrapperClassesGenerated} relaxer wrappers'
+          ' (${relaxerResult.factoryFunctionsGenerated} factories)'
+          ' → ${relaxerResult.outputFile}',
+        );
+      }
+      for (final warning in relaxerResult.warnings) {
+        print('  GEN-079 WARNING: $warning');
       }
     }
   } catch (e) {
