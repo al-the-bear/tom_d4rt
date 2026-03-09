@@ -43,7 +43,7 @@ import 'package:tom_d4rt_ast/src/runtime/runtime_types.dart';
 /// Register all runtime registrations (interface proxies, type coercions,
 /// generic constructor factories).
 ///
-/// Call this once during bridge setup, alongside [registerGenericTypeRelaxers].
+/// Call this once during bridge setup, alongside [registerRelaxers].
 void registerD4rtRuntimeExtensions() {
   _registerInterfaceProxies();
   _registerTypeCoercions();

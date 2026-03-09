@@ -224,6 +224,7 @@ Future<RelaxerGenerationResult> generateRelaxers({
         typeArgs,
         funcName,
       );
+      if (code.isEmpty) continue; // All type args were filtered (e.g., self-referential bounds)
       buffer.writeln(code);
       factoriesGenerated++;
       (factoryNames[target.baseTypeName] ??= []).add(funcName);
@@ -522,6 +523,7 @@ void _writeFileHeader(StringBuffer buffer, BridgeConfig config) {
   buffer.writeln('library;');
   buffer.writeln();
   buffer.writeln('// ignore_for_file: unused_import');
+  buffer.writeln('// ignore_for_file: invalid_implementation_override');
   buffer.writeln();
 }
 
@@ -576,12 +578,17 @@ String? _generateWrapperClass(
   final wrapperName = '\$Relaxed$baseTypeName';
 
   // Determine extends vs implements
-  final useExtends = _canExtend(classInfo);
+  final useExtends = _canExtend(classInfo, globalClassLookup, typeParamName);
 
   final buf = StringBuffer();
 
   // Bound declaration (e.g., `<V extends Object>` or just `<V>`)
-  final boundDecl = typeParamBound != null ? '<V extends $typeParamBound>' : '<V>';
+  // Replace the original type param name with V in the bound too (handles
+  // self-referential bounds like ThemeExtension<T extends ThemeExtension<T>>)
+  final rawBound = typeParamBound != null
+      ? _replaceTypeParam(typeParamBound, typeParamName, 'V')
+      : null;
+  final boundDecl = rawBound != null ? '<V extends $rawBound>' : '<V>';
   final keyword = useExtends ? 'extends' : 'implements';
 
   buf.writeln('// ---------------------------------------------------------------------------');
@@ -666,13 +673,18 @@ String? _generateWrapperClass(
   // is the core requirement. Non-T abstract members are handled by the base
   // class (for extends) or need delegation (for implements).
   if (!useExtends) {
-    // For implements: delegate ALL instance members from the base class
+    // For implements: add noSuchMethod to suppress unimplemented member errors,
+    // then only override T-involving members that need type casts.
+    // Dart's implicit noSuchMethod forwarders handle all other interface members.
     _writeImplementsDelegation(
       buf,
       classInfo,
       globalClassLookup,
       typeParamName,
       tPattern,
+      tGetters,
+      tSetters,
+      tMethods,
     );
   } else {
     // For extends: only override T-involving members
@@ -703,14 +715,43 @@ String? _generateWrapperClass(
 }
 
 /// Whether the class can be extended (has a suitable constructor).
-bool _canExtend(ClassInfo classInfo) {
+///
+/// Returns false for abstract classes, sealed classes, and classes without
+/// a suitable unnamed constructor. Also rejects constructors with required
+/// positional parameters that can't be satisfied from `_inner`, such as:
+/// - More than 1 required positional param
+/// - A T-typed required positional param with no public T-getter to source
+///   the value from (e.g., DisposableBuildContext stores T in a private field)
+bool _canExtend(
+  ClassInfo classInfo,
+  Map<String, ClassInfo> classLookup,
+  String typeParamName,
+) {
   if (classInfo.isAbstract || classInfo.isSealed) return false;
   if (classInfo.constructors.isEmpty) return false;
+
+  final tPattern = RegExp('\\b${RegExp.escape(typeParamName)}\\b');
 
   // Check for default or simple constructor
   for (final ctor in classInfo.constructors) {
     if (ctor.isFactory) continue;
     if (ctor.name != null) continue; // Only unnamed constructors
+
+    final requiredPositional = ctor.parameters
+        .where((p) => p.isRequired && !p.isNamed)
+        .toList();
+
+    // Reject constructors with >1 required positional param
+    if (requiredPositional.length > 1) return false;
+
+    // If the single required positional param involves T, verify we can get
+    // the value from _inner via a public getter
+    if (requiredPositional.length == 1 &&
+        tPattern.hasMatch(requiredPositional.first.type)) {
+      final tGetter = _findPrimaryTGetter(classInfo, classLookup, typeParamName);
+      if (tGetter == null) return false; // Can't source T value
+    }
+
     return true;
   }
 
@@ -835,22 +876,30 @@ void _writeConstructor(
   } else if (hasTPosParam) {
     // Constructor takes T value — pass _inner's primary value
     final tGetter = _findPrimaryTGetter(classInfo, classLookup, typeParamName);
-    final valueExpr = tGetter != null ? '_inner.${tGetter.name} as V' : '_inner';
-
-    buf.writeln('  $wrapperName(this._inner) : super($valueExpr) {');
+    if (tGetter == null) {
+      // Can't find a suitable T-typed getter — treat as implements instead.
+      // This returns null to signal the caller to switch strategies.
+      // For now, use a safe fallback constructor.
+      buf.writeln('  $wrapperName(this._inner) : super(_inner as V) {');
+    } else {
+      final valueExpr = '_inner.${tGetter.name} as V';
+      buf.writeln('  $wrapperName(this._inner) : super($valueExpr) {');
+    }
     if (isChangeNotifier) {
       buf.writeln('    _inner.addListener(_forwardNotify);');
     }
     buf.writeln('  }');
   } else {
-    // Constructor has non-T required params — try to pass them from _inner
-    // This is a best-effort approach; complex constructors may need manual override
+    // Constructor has required params — forward from _inner with casts
+    // for T-involving parameters.
     final args = <String>[];
     for (final param in defaultCtor.parameters.where((p) => p.isRequired)) {
+      final involvesT = tPattern.hasMatch(param.type);
+      final castExpr = involvesT ? ' as ${_replaceTypeParam(param.type, typeParamName, 'V')}' : '';
       if (param.isNamed) {
-        args.add('${param.name}: _inner.${param.name}');
+        args.add('${param.name}: _inner.${param.name}$castExpr');
       } else {
-        args.add('_inner.${param.name}');
+        args.add('_inner.${param.name}$castExpr');
       }
     }
     buf.writeln(
@@ -903,6 +952,10 @@ void _writeExtendsDelegation(
   }
 
   for (final method in tMethods) {
+    // Skip methods with their own type parameters — these can't be properly
+    // delegated without matching the generic signature (e.g., drive<U>)
+    if (method.hasTypeParameters) continue;
+
     final castReturn =
         _replaceTypeParam(method.returnType, typeParamName, 'V');
     final paramSig = _buildMethodParamSignature(method, typeParamName);
@@ -928,64 +981,88 @@ void _writeExtendsDelegation(
   }
 }
 
-/// Writes member overrides for `implements` wrappers (all members).
+/// Writes member overrides for `implements` wrappers.
+///
+/// Uses Dart's implicit noSuchMethod forwarding: by overriding `noSuchMethod`,
+/// unimplemented interface members get automatic stub methods that call
+/// `noSuchMethod` instead of producing compilation errors. We only explicitly
+/// override T-involving members that need type casts.
 void _writeImplementsDelegation(
   StringBuffer buf,
   ClassInfo classInfo,
   Map<String, ClassInfo> classLookup,
   String typeParamName,
   RegExp tPattern,
+  List<MemberInfo> tGetters,
+  List<MemberInfo> tSetters,
+  List<MemberInfo> tMethods,
 ) {
-  final allGetters = classInfo.allInstanceGetters(classLookup);
-  final allSetters = classInfo.allInstanceSetters(classLookup);
-  final allMethods = classInfo.allInstanceMethods(classLookup);
+  // noSuchMethod override — suppresses all unimplemented member errors.
+  // At runtime, unimplemented members throw NoSuchMethodError which is
+  // acceptable since bridge code only accesses T-involving members.
+  buf.writeln();
+  buf.writeln('  @override');
+  buf.writeln('  dynamic noSuchMethod(Invocation invocation) =>');
+  buf.writeln('    super.noSuchMethod(invocation);');
+  buf.writeln();
 
-  for (final getter in allGetters) {
-    final involvesT = tPattern.hasMatch(getter.returnType);
-    final castReturn = involvesT
-        ? _replaceTypeParam(getter.returnType, typeParamName, 'V')
-        : getter.returnType;
-    final castExpr = involvesT ? ' as $castReturn' : '';
-    buf.writeln();
+  // Explicit toString override — required for classes whose interface has
+  // String toString({DiagnosticLevel minLevel}) (like Diagnosticable,
+  // RenderObject). Object.toString() has incompatible signature and
+  // noSuchMethod can't resolve it (it's already a concrete implementation).
+  buf.writeln('  @override');
+  buf.writeln('  String toString({dynamic minLevel}) =>');
+  buf.writeln("    _inner.toString();");
+  buf.writeln();
+
+  // Override T-involving getters with cast
+  for (final getter in tGetters) {
+    final castReturn = _replaceTypeParam(getter.returnType, typeParamName, 'V');
     buf.writeln('  @override');
     buf.writeln(
-      '  $castReturn get ${getter.name} => _inner.${getter.name}$castExpr;',
+      '  $castReturn get ${getter.name} => _inner.${getter.name} as $castReturn;',
     );
+    buf.writeln();
   }
 
-  for (final setter in allSetters) {
+  // Override T-involving setters
+  for (final setter in tSetters) {
     final param = setter.parameters.first;
-    final involvesT = tPattern.hasMatch(param.type);
-    final castType = involvesT
-        ? _replaceTypeParam(param.type, typeParamName, 'V')
-        : param.type;
-    buf.writeln();
+    final castType = _replaceTypeParam(param.type, typeParamName, 'V');
     buf.writeln('  @override');
     buf.writeln(
       '  set ${setter.name}($castType ${param.name}) { _inner.${setter.name} = ${param.name}; }',
     );
+    buf.writeln();
   }
 
-  for (final method in allMethods) {
-    final involvesReturn = tPattern.hasMatch(method.returnType);
-    final castReturn = involvesReturn
-        ? _replaceTypeParam(method.returnType, typeParamName, 'V')
-        : method.returnType;
+  // Override T-involving methods (skip methods with method-level type params)
+  for (final method in tMethods) {
+    // Skip methods with their own type parameters — these can't be properly
+    // delegated without matching the generic signature
+    if (method.hasTypeParameters) continue;
+
+    final castReturn =
+        _replaceTypeParam(method.returnType, typeParamName, 'V');
     final paramSig = _buildMethodParamSignature(method, typeParamName);
     final callArgs = _buildMethodCallArgs(method);
-    final castExpr = involvesReturn ? ' as $castReturn' : '';
+    final needsCast = tPattern.hasMatch(method.returnType);
 
-    buf.writeln();
     buf.writeln('  @override');
     if (method.returnType == 'void') {
       buf.writeln(
         '  void ${method.name}($paramSig) => _inner.${method.name}($callArgs);',
       );
+    } else if (needsCast) {
+      buf.writeln(
+        '  $castReturn ${method.name}($paramSig) => _inner.${method.name}($callArgs) as $castReturn;',
+      );
     } else {
       buf.writeln(
-        '  $castReturn ${method.name}($paramSig) => _inner.${method.name}($callArgs)$castExpr;',
+        '  ${method.returnType} ${method.name}($paramSig) => _inner.${method.name}($callArgs);',
       );
     }
+    buf.writeln();
   }
 }
 
@@ -1013,7 +1090,18 @@ String _generateFactoryFunction(
   String funcName,
 ) {
   final wrapperName = '\$Relaxed$baseTypeName';
-  final sortedArgs = typeArgs.toList()..sort();
+  // Filter out type args that reference the base type itself (self-referential
+  // bounds like ThemeExtension<ThemeExtension<T>> produce invalid factory cases).
+  // Use word-boundary matching to avoid false positives (e.g., "StatefulWidget"
+  // should NOT be filtered for base type "State").
+  final selfRefPattern = RegExp('\\b${RegExp.escape(baseTypeName)}\\b');
+  final sortedArgs = typeArgs
+      .where((arg) => !selfRefPattern.hasMatch(arg))
+      .toList()
+    ..sort();
+
+  // If all args were filtered, skip this factory entirely
+  if (sortedArgs.isEmpty) return '';
 
   final buf = StringBuffer();
   buf.writeln(
@@ -1100,16 +1188,33 @@ String _replaceTypeParam(String typeStr, String typeParamName, String replacemen
 }
 
 /// Builds a method parameter signature with T replaced by V.
+///
+/// Handles required positional, optional positional (`[T? arg]`), and
+/// named parameters (`{required T arg}` or `{T? arg}`).
 String _buildMethodParamSignature(MemberInfo method, String typeParamName) {
   if (method.parameters.isEmpty) return '';
 
   final parts = <String>[];
-  final positional = method.parameters.where((p) => !p.isNamed).toList();
+  final requiredPos = method.parameters
+      .where((p) => !p.isNamed && p.isRequired)
+      .toList();
+  final optionalPos = method.parameters
+      .where((p) => !p.isNamed && !p.isRequired)
+      .toList();
   final named = method.parameters.where((p) => p.isNamed).toList();
 
-  for (final param in positional) {
+  for (final param in requiredPos) {
     final type = _replaceTypeParam(param.type, typeParamName, 'V');
     parts.add('$type ${param.name}');
+  }
+
+  if (optionalPos.isNotEmpty) {
+    final optParts = <String>[];
+    for (final param in optionalPos) {
+      final type = _replaceTypeParam(param.type, typeParamName, 'V');
+      optParts.add('$type ${param.name}');
+    }
+    parts.add('[${optParts.join(', ')}]');
   }
 
   if (named.isNotEmpty) {
