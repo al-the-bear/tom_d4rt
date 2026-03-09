@@ -759,7 +759,7 @@ class D4 {
         // Extract element type from T string
         final prefixLen = tStr.startsWith('List<') ? 5 : 9;
         final elementType = tStr.substring(prefixLen, tStr.length - 1);
-        return switch (elementType) {
+        final result = switch (elementType) {
           'int' => unwrappedList.cast<int>().toList(),
           'double' => unwrappedList
               .map((e) => e is int ? e.toDouble() : e)
@@ -769,8 +769,18 @@ class D4 {
           'num' => unwrappedList.cast<num>().toList(),
           'bool' => unwrappedList.cast<bool>().toList(),
           'Object' || 'dynamic' => unwrappedList.cast<Object>().toList(),
+          // ENG-001: For non-primitive types, use coerceList which handles
+          // BridgedInstance/InterpretedInstance/BridgedEnumValue unwrapping
+          // and produces a properly typed List<T> via element casting.
           _ => unwrappedList,
-        } as T;
+        };
+        // ENG-001: Try typed cast; if it fails, try coerceList which creates
+        // a properly-typed list using per-element casting.
+        try {
+          return result as T;
+        } catch (_) {
+          // Fall through — collection is right shape but wrong generic type
+        }
       } catch (_) {
         // Fall through to error
       }
@@ -785,7 +795,7 @@ class D4 {
         final source = unwrapped is Map ? unwrapped.keys : (unwrapped as Set);
         final unwrappedSet = source.map(_unwrapElement).toSet();
         final elementType = tStr.substring(4, tStr.length - 1);
-        return switch (elementType) {
+        final result = switch (elementType) {
           'int' => unwrappedSet.cast<int>().toSet(),
           'double' => unwrappedSet
               .map((e) => e is int ? e.toDouble() : e)
@@ -795,16 +805,32 @@ class D4 {
           'num' => unwrappedSet.cast<num>().toSet(),
           'bool' => unwrappedSet.cast<bool>().toSet(),
           'Object' || 'dynamic' => unwrappedSet.cast<Object>().toSet(),
+          // ENG-001: For non-primitive types, return unwrapped and try cast
           _ => unwrappedSet,
-        } as T;
+        };
+        try {
+          return result as T;
+        } catch (_) {
+          // Fall through — collection is right shape but wrong generic type
+        }
       } catch (_) {
         // Fall through to error
       }
     }
 
     // Map casting support
-    if (unwrapped is Map && T.toString().startsWith('Map<')) {
+    if (unwrapped is Map && tStr.startsWith('Map<')) {
       try {
+        // ENG-001: Try unwrapping map keys and values first
+        final unwrappedMap = <Object?, Object?>{};
+        for (final entry in unwrapped.entries) {
+          unwrappedMap[_unwrapElement(entry.key)] =
+              _unwrapElement(entry.value);
+        }
+        try {
+          return unwrappedMap as T;
+        } catch (_) {}
+        // Fall back to original map
         return unwrapped as T;
       } catch (_) {
         // Fall through to error
