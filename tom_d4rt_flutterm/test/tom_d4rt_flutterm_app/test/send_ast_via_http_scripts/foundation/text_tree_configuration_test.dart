@@ -11,6 +11,8 @@ dynamic build(BuildContext context) {
     prefixOtherLines: '│ ',
     linkCharacter: '│',
     prefixOtherLinesRootNode: '  ',
+    propertyPrefixIfChildren: '│ ',
+    propertyPrefixNoChildren: '  ',
   );
   print('TextTreeConfiguration: ${ttc.runtimeType}');
   print('prefixLineOne: ${ttc.prefixLineOne}');

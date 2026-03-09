@@ -1350,6 +1350,13 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('ztmp_path_metrics_access_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'dart_ui/ztmp_path_metrics_access_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
     test('platform_dispatcher_test.dart', () async {
       final result = await SendTestRunner.send(
         'dart_ui/platform_dispatcher_test.dart',

@@ -61,16 +61,16 @@ dynamic build(BuildContext context) {
 
   // ========== ImageFilter ==========
   print('--- ImageFilter Tests ---');
-  final imgf1 = ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0);
+  final imgf1 = ui.ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0);
   print('ImageFilter.blur(5,5): $imgf1');
-  final imgf2 = ImageFilter.blur(sigmaX: 0.0, sigmaY: 10.0);
+  final imgf2 = ui.ImageFilter.blur(sigmaX: 0.0, sigmaY: 10.0);
   print('ImageFilter.blur(0,10): $imgf2');
-  final imgf3 = ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0, tileMode: TileMode.clamp);
+  final imgf3 = ui.ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0, tileMode: TileMode.clamp);
   print('ImageFilter.blur w/ clamp: $imgf3');
 
   // ========== Canvas + PictureRecorder ==========
   print('--- Canvas/PictureRecorder Tests ---');
-  final recorder = PictureRecorder();
+  final recorder = ui.PictureRecorder();
   print('PictureRecorder created: ${recorder.runtimeType}');
   print('isRecording before: ${recorder.isRecording}');
 

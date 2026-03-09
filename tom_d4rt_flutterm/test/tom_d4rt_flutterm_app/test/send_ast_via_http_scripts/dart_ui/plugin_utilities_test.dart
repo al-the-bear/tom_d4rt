@@ -6,7 +6,7 @@ dynamic build(BuildContext context) {
   print('PluginUtilities test executing');
 
   // PluginUtilities has static methods only, no constructor
-  print('PluginUtilities type: ${PluginUtilities}');
+  print('PluginUtilities type: ${ui.PluginUtilities}');
 
   // getCallbackHandle — works with top-level functions
   print('PluginUtilities.getCallbackHandle: CallbackHandle? Function(Function)');
@@ -18,12 +18,12 @@ dynamic build(BuildContext context) {
 
   // getCallbackFromHandle with a handle
   // Note: getCallbackFromHandle returns null for handles not registered via getCallbackHandle
-  final callback = PluginUtilities.getCallbackFromHandle(handle);
+  final callback = ui.PluginUtilities.getCallbackFromHandle(handle);
   print('getCallbackFromHandle(42): ${callback != null ? "found" : "null"}');
 
   // Test with another handle
   final handle2 = ui.CallbackHandle.fromRawHandle(0);
-  final callback2 = PluginUtilities.getCallbackFromHandle(handle2);
+  final callback2 = ui.PluginUtilities.getCallbackFromHandle(handle2);
   print('getCallbackFromHandle(0): ${callback2 != null ? "found" : "null"}');
 
   print('PluginUtilities test completed');

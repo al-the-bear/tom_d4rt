@@ -7,12 +7,12 @@ dynamic build(BuildContext context) {
 
   // PictureRasterizationException has no public constructor
   // It's thrown when Picture.toImage/toImageSync fails during rasterization
-  print('PictureRasterizationException type: ${PictureRasterizationException}');
+  print('PictureRasterizationException type: ${ui.PictureRasterizationException}');
   print('Properties: message (String), stack (StackTrace?)');
   print('Methods: toString()');
 
   // Demonstrate related APIs that could throw this exception
-  final recorder = PictureRecorder();
+  final recorder = ui.PictureRecorder();
   final canvas = Canvas(recorder, Rect.fromLTWH(0, 0, 100, 100));
   canvas.drawRect(Rect.fromLTWH(10, 10, 80, 80), Paint()..color = Colors.blue);
   final picture = recorder.endRecording();

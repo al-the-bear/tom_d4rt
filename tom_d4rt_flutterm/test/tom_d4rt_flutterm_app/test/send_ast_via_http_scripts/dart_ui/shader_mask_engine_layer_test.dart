@@ -6,7 +6,7 @@ dynamic build(BuildContext context) {
   print('ShaderMaskEngineLayer test executing');
 
   final sb = ui.SceneBuilder();
-  final gradient = Gradient.linear(
+  final gradient = ui.Gradient.linear(
     Offset.zero, Offset(100, 100),
     [Colors.red, Colors.blue],
   );

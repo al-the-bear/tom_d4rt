@@ -6,20 +6,20 @@ dynamic build(BuildContext context) {
   print('IsolateNameServer test executing');
 
   // IsolateNameServer has only static methods, no constructor
-  print('IsolateNameServer type: ${IsolateNameServer}');
+  print('IsolateNameServer type: ${ui.IsolateNameServer}');
 
   // lookupPortByName — returns null if not registered
-  final port1 = IsolateNameServer.lookupPortByName('nonexistent_port');
+  final port1 = ui.IsolateNameServer.lookupPortByName('nonexistent_port');
   print('lookupPortByName(nonexistent): $port1');
 
-  final port2 = IsolateNameServer.lookupPortByName('test_service');
+  final port2 = ui.IsolateNameServer.lookupPortByName('test_service');
   print('lookupPortByName(test_service): $port2');
 
   // removePortNameMapping — returns false if not found
-  final removed1 = IsolateNameServer.removePortNameMapping('nonexistent_port');
+  final removed1 = ui.IsolateNameServer.removePortNameMapping('nonexistent_port');
   print('removePortNameMapping(nonexistent): $removed1');
 
-  final removed2 = IsolateNameServer.removePortNameMapping('test_service');
+  final removed2 = ui.IsolateNameServer.removePortNameMapping('test_service');
   print('removePortNameMapping(test_service): $removed2');
 
   print('IsolateNameServer API:');

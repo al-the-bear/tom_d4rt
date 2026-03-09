@@ -6,12 +6,14 @@ dynamic build(BuildContext context) {
   print('ObjectEvent test executing');
 
   // ObjectEvent is abstract, test via subtypes
-  final created = ObjectCreated(library: 'widgets', className: 'Text');
+  final obj1 = Object();
+  final created = ObjectCreated(library: 'widgets', className: 'Text', object: obj1);
   print('ObjectCreated is ObjectEvent: ${created is ObjectEvent}');
   print('library: ${created.library}');
   print('className: ${created.className}');
 
-  final disposed = ObjectDisposed(library: 'widgets', className: 'Text');
+  final obj2 = Object();
+  final disposed = ObjectDisposed(object: obj2);
   print('ObjectDisposed is ObjectEvent: ${disposed is ObjectEvent}');
 
   print('ObjectEvent test completed');

@@ -21,7 +21,7 @@ dynamic build(BuildContext context) {
   vn.dispose();
 
   // TextTreeConfiguration
-  final ttc = TextTreeConfiguration(prefixLineOne: '├─', prefixLastChildLineOne: '└─', prefixOtherLines: '│ ', linkCharacter: '│', prefixOtherLinesRootNode: ' ');
+  final ttc = TextTreeConfiguration(prefixLineOne: '├─', prefixLastChildLineOne: '└─', prefixOtherLines: '│ ', linkCharacter: '│', prefixOtherLinesRootNode: ' ', propertyPrefixIfChildren: '│ ', propertyPrefixNoChildren: '  ');
   print('TextTreeConfiguration: ${ttc.runtimeType}');
 
   // kReleaseMode, kDebugMode, kProfileMode

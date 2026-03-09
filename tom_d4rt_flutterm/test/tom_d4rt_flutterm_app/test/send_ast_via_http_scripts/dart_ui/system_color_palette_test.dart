@@ -15,12 +15,12 @@ dynamic build(BuildContext context) {
   final dark = ui.SystemColor.dark;
   print('Dark palette: ${dark.runtimeType}');
 
-  // Access colors from the palette
-  print('light.text: ${light.text}');
-  print('light.background: ${light.background}');
-  print('light.accent: ${light.accent}');
-  print('dark.text: ${dark.text}');
-  print('dark.background: ${dark.background}');
+  // Access colors from the palette (CSS system color names)
+  print('light.canvasText: ${light.canvasText}');
+  print('light.canvas: ${light.canvas}');
+  print('light.accentColor: ${light.accentColor}');
+  print('dark.canvasText: ${dark.canvasText}');
+  print('dark.canvas: ${dark.canvas}');
 
   print('SystemColorPalette test completed');
   return Column(mainAxisSize: MainAxisSize.min, children: [

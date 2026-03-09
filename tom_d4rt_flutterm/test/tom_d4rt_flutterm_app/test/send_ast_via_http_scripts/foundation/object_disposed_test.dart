@@ -5,16 +5,15 @@ import 'package:flutter/material.dart';
 dynamic build(BuildContext context) {
   print('ObjectDisposed test executing');
 
-  final event = ObjectDisposed(library: 'test', className: 'MyWidget');
+  final obj = Object();
+  final event = ObjectDisposed(object: obj);
   print('ObjectDisposed: ${event.runtimeType}');
-  print('library: ${event.library}');
-  print('className: ${event.className}');
+  print('object: ${event.object}');
   print('is ObjectEvent: ${event is ObjectEvent}');
 
   print('ObjectDisposed test completed');
   return Column(mainAxisSize: MainAxisSize.min, children: [
     Text('ObjectDisposed Tests', style: TextStyle(fontWeight: FontWeight.bold)),
-    Text('library: ${event.library}'),
-    Text('className: ${event.className}'),
+    Text('object: ${event.object}'),
   ]);
 }

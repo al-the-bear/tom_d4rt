@@ -17,7 +17,7 @@ dynamic build(BuildContext context) {
     Offset(0.7, 0.2),
     Offset(1.0, 1.0),
   ]);
-  final samples = spline.generateSamples();
+  final samples = spline.generateSamples().toList();
   print('  Total samples: ${samples.length}');
 
   // ========== Inspect sample properties ==========

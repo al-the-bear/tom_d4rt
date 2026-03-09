@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 dynamic build(BuildContext context) {
   print('Category test executing');
 
-  final cat = Category('widgets');
+  final cat = Category(['widgets']);
   print('Category: ${cat.runtimeType}');
   print('sections: ${cat.sections}');
 
-  final cat2 = Category('animation');
+  final cat2 = Category(['animation']);
   print('cat2 sections: ${cat2.sections}');
 
   print('Category test completed');

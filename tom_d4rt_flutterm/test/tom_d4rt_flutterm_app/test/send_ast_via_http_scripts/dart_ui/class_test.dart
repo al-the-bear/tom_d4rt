@@ -40,7 +40,7 @@ dynamic build(BuildContext context) {
 
   // Verify recording classes
   print('--- Recording ---');
-  final recorder = PictureRecorder();
+  final recorder = ui.PictureRecorder();
   print('PictureRecorder: ${recorder.runtimeType}');
   final sb = ui.SceneBuilder();
   print('SceneBuilder: ${sb.runtimeType}');

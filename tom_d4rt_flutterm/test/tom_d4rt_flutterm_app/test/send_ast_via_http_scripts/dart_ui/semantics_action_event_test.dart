@@ -6,7 +6,7 @@ dynamic build(BuildContext context) {
   print('SemanticsActionEvent test executing');
 
   final event1 = ui.SemanticsActionEvent(
-    type: SemanticsAction.tap,
+    type: ui.SemanticsAction.tap,
     viewId: 0,
     nodeId: 1,
   );
@@ -15,7 +15,7 @@ dynamic build(BuildContext context) {
 
   // With arguments
   final event2 = ui.SemanticsActionEvent(
-    type: SemanticsAction.scrollUp,
+    type: ui.SemanticsAction.scrollUp,
     viewId: 0,
     nodeId: 2,
   );

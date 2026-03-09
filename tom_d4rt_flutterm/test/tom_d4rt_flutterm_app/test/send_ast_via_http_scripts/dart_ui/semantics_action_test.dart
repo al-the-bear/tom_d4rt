@@ -7,22 +7,22 @@ dynamic build(BuildContext context) {
 
   // All predefined actions
   final actions = [
-    SemanticsAction.tap,
-    SemanticsAction.longPress,
-    SemanticsAction.scrollLeft,
-    SemanticsAction.scrollRight,
-    SemanticsAction.scrollUp,
-    SemanticsAction.scrollDown,
-    SemanticsAction.increase,
-    SemanticsAction.decrease,
-    SemanticsAction.copy,
-    SemanticsAction.cut,
-    SemanticsAction.paste,
-    SemanticsAction.dismiss,
-    SemanticsAction.moveCursorForwardByCharacter,
-    SemanticsAction.moveCursorBackwardByCharacter,
-    SemanticsAction.setText,
-    SemanticsAction.focus,
+    ui.SemanticsAction.tap,
+    ui.SemanticsAction.longPress,
+    ui.SemanticsAction.scrollLeft,
+    ui.SemanticsAction.scrollRight,
+    ui.SemanticsAction.scrollUp,
+    ui.SemanticsAction.scrollDown,
+    ui.SemanticsAction.increase,
+    ui.SemanticsAction.decrease,
+    ui.SemanticsAction.copy,
+    ui.SemanticsAction.cut,
+    ui.SemanticsAction.paste,
+    ui.SemanticsAction.dismiss,
+    ui.SemanticsAction.moveCursorForwardByCharacter,
+    ui.SemanticsAction.moveCursorBackwardByCharacter,
+    ui.SemanticsAction.setText,
+    ui.SemanticsAction.focus,
   ];
   print('SemanticsAction count: ${actions.length}');
   for (final a in actions) {
@@ -30,13 +30,13 @@ dynamic build(BuildContext context) {
   }
 
   // values map
-  print('SemanticsAction.values: ${SemanticsAction.values.length} entries');
-  print('tap index: ${SemanticsAction.tap.index}');
+  print('SemanticsAction.values: ${ui.SemanticsAction.values.length} entries');
+  print('tap index: ${ui.SemanticsAction.tap.index}');
 
   print('SemanticsAction test completed');
   return Column(mainAxisSize: MainAxisSize.min, children: [
     Text('SemanticsAction Tests', style: TextStyle(fontWeight: FontWeight.bold)),
     Text('${actions.length} actions tested'),
-    Text('values map: ${SemanticsAction.values.length} entries'),
+    Text('values map: ${ui.SemanticsAction.values.length} entries'),
   ]);
 }

@@ -6,16 +6,16 @@ dynamic build(BuildContext context) {
   print('DartPluginRegistrant test executing');
 
   // DartPluginRegistrant has one static method
-  print('DartPluginRegistrant type: ${DartPluginRegistrant}');
+  print('DartPluginRegistrant type: ${ui.DartPluginRegistrant}');
 
   // ensureInitialized — safe to call multiple times
-  DartPluginRegistrant.ensureInitialized();
+  ui.DartPluginRegistrant.ensureInitialized();
   print('DartPluginRegistrant.ensureInitialized() called');
 
-  DartPluginRegistrant.ensureInitialized();
+  ui.DartPluginRegistrant.ensureInitialized();
   print('DartPluginRegistrant.ensureInitialized() called again (idempotent)');
 
-  DartPluginRegistrant.ensureInitialized();
+  ui.DartPluginRegistrant.ensureInitialized();
   print('Third call also succeeds');
 
   print('DartPluginRegistrant test completed');
@@ -25,7 +25,7 @@ dynamic build(BuildContext context) {
       Text('DartPluginRegistrant Tests', style: TextStyle(fontWeight: FontWeight.bold)),
       SizedBox(height: 8),
       Text('ensureInitialized: called 3 times (idempotent)'),
-      Text('Type: ${DartPluginRegistrant}'),
+      Text('Type: ${ui.DartPluginRegistrant}'),
     ],
   );
 }

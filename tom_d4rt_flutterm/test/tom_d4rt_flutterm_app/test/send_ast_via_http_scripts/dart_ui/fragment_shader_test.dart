@@ -13,7 +13,7 @@ dynamic build(BuildContext context) {
 
   // Shader is the base class
   // Test Gradient as another Shader subclass we can instantiate
-  final gradient = Gradient.linear(
+  final gradient = ui.Gradient.linear(
     Offset.zero,
     Offset(100.0, 0.0),
     [Colors.red, Colors.blue],

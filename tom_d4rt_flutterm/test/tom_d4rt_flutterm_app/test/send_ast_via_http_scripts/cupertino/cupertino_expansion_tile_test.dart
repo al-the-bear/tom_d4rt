@@ -70,7 +70,7 @@ dynamic build(BuildContext context) {
   print('--- Slide transition mode ---');
   final slideTile = CupertinoExpansionTile(
     title: Text('Slide Section'),
-    transitionMode: ExpansionTileTransitionMode.slide,
+    transitionMode: ExpansionTileTransitionMode.scroll,
     child: Container(
       height: 100.0,
       color: CupertinoColors.systemGrey5,
