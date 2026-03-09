@@ -110,11 +110,15 @@ class D4 {
   // GEN-079: Generic Type Wrapper Registration
   // ==========================================================================
 
-  /// Registered wrapper factories keyed by base type name.
+  /// Registered wrapper factory lists keyed by base type name.
   ///
-  /// Example: 'WidgetStateProperty' → factory that creates
-  /// typed WidgetStateProperty wrappers.
-  static final Map<String, GenericTypeWrapperFactory> _genericTypeWrappers = {};
+  /// Each base type name maps to a list of factories registered additively
+  /// across modules. Factories are checked in registration order — the first
+  /// factory that returns non-null wins.
+  ///
+  /// Example: 'ValueNotifier' → [foundationFactory, widgetsFactory, userFactory]
+  static final Map<String, List<GenericTypeWrapperFactory>>
+      _genericTypeWrappers = {};
 
   // ==========================================================================
   // RC-1: Interface Proxy Registration
@@ -169,12 +173,12 @@ class D4 {
 
   static final Map<_TypePair, TypeCoercionFactory> _typeCoercionsByType = {};
 
-  /// Register a wrapper factory for a generic base type.
+  /// Register a wrapper factory for a generic base type (additive).
   ///
-  /// When [extractBridgedArg] encounters a value whose `is T` check fails
-  /// due to generic type argument mismatch (e.g., `WidgetStatePropertyAll<dynamic>`
-  /// vs `WidgetStateProperty<Color?>`), it looks up a registered factory for
-  /// the base type name and uses it to create a properly typed wrapper.
+  /// Multiple factories can be registered for the same base type — each module
+  /// contributes factory cases for its own types. Factories are checked in
+  /// registration order during [extractBridgedArg] resolution; the first to
+  /// return non-null wins.
   ///
   /// The [baseTypeName] is the unparameterized type name (e.g., 'WidgetStateProperty').
   /// The [factory] receives the raw value and the desired inner type argument string.
@@ -182,7 +186,7 @@ class D4 {
     String baseTypeName,
     GenericTypeWrapperFactory factory,
   ) {
-    _genericTypeWrappers[baseTypeName] = factory;
+    (_genericTypeWrappers[baseTypeName] ??= []).add(factory);
   }
 
   // ==========================================================================
@@ -715,6 +719,8 @@ class D4 {
     // (e.g., WidgetStatePropertyAll<dynamic>) because Dart's reified generics
     // require exact type argument matching for subtype checks.
     // Use registered wrapper factories to create properly typed proxy objects.
+    // Factories are checked additively — each module contributes cases for
+    // its own types, and the first factory to return non-null wins.
     if (unwrapped != null && _genericTypeWrappers.isNotEmpty) {
       final tStr = T.toString();
       // Strip trailing '?' for nullable generic types
@@ -724,14 +730,16 @@ class D4 {
       }
       if (baseT.contains('<')) {
         final baseTypeName = baseT.substring(0, baseT.indexOf('<'));
-        final factory = _genericTypeWrappers[baseTypeName];
-        if (factory != null) {
+        final factories = _genericTypeWrappers[baseTypeName];
+        if (factories != null) {
           final innerTypeArg = baseT.substring(
             baseT.indexOf('<') + 1,
             baseT.lastIndexOf('>'),
           );
-          final wrapped = factory(unwrapped, innerTypeArg);
-          if (wrapped is T) return wrapped;
+          for (final factory in factories) {
+            final wrapped = factory(unwrapped, innerTypeArg);
+            if (wrapped is T) return wrapped;
+          }
         }
       }
     }
@@ -1307,6 +1315,36 @@ class D4 {
 /// 5. Use `MyListUserBridge.nativeNames` in the generated `BridgedClass`
 abstract class D4UserBridge {
   // Empty marker class - all override methods in subclasses must be static
+}
+
+/// Base class for user-provided relaxer factories.
+///
+/// Extend this class to add type argument cases to existing auto-generated
+/// relaxer wrappers, or to register entirely new wrapper classes for generic
+/// types not covered by generation.
+///
+/// Classes extending [D4UserRelaxer] are automatically excluded from bridge
+/// generation (same as [D4UserBridge]).
+///
+/// Example:
+/// ```dart
+/// class ValueNotifierUserRelaxer extends D4UserRelaxer {
+///   @override
+///   String get baseTypeName => 'ValueNotifier';
+///
+///   static Object? relaxFactory(Object value, String innerTypeArg) {
+///     if (value is! ValueNotifier) return null;
+///     return switch (innerTypeArg) {
+///       'MyCustomModel' => $RelaxedValueNotifier<MyCustomModel>(value),
+///       _ => null,
+///     };
+///   }
+/// }
+/// ```
+abstract class D4UserRelaxer {
+  /// The unparameterized base type name this relaxer targets.
+  /// E.g., 'ValueNotifier', 'Animation', 'ReactiveStream'.
+  String get baseTypeName;
 }
 
 // =============================================================================

@@ -782,15 +782,21 @@ This applies to Phase 1 changes (additive registry, `D4UserRelaxer`), any future
 
 ### Phase 1: Runtime Changes (tom_d4rt_ast) + API Sync
 
+> **Clean break — no backward compatibility.** The existing hand-written relaxers
+> in `generic_type_relaxers.dart` (3 wrappers for `ValueNotifier`, `Animation`,
+> `WidgetStateProperty`) will be **deleted entirely** once the auto-generated
+> replacements are in place. Phase 1 changes the runtime API to the new additive
+> list-based model immediately; there is no transition period where old and new
+> coexist.
+
 1. Change `_genericTypeWrappers` from `Map<String, Factory>` to `Map<String, List<Factory>>`
 2. Make `registerGenericTypeWrapper` additive (append to list)
 3. Update GEN-079 resolution in `extractBridgedArg` to iterate the list
 4. Add lazy index map for optimized lookups
 5. Add `D4UserRelaxer` abstract base class (marker class, parallel to `D4UserBridge`)
-6. Maintain backward compatibility — single-factory registration still works
-7. **Sync tom_d4rt** — mirror new/changed public APIs
-8. **Sync tom_d4rt_exec** — add forwarding calls to tom_d4rt_ast for all new registration and resolution methods
-9. **Test all three packages** — ensure relaxer registration works via tom_d4rt and tom_d4rt_exec entry points
+6. **Sync tom_d4rt** — mirror new/changed public APIs
+7. **Sync tom_d4rt_exec** — add forwarding calls to tom_d4rt_ast for all new registration and resolution methods
+8. **Test all three packages** — ensure relaxer registration works via tom_d4rt and tom_d4rt_exec entry points
 
 ### Phase 2: Generator Changes (tom_d4rt_generator)
 
@@ -803,11 +809,17 @@ This applies to Phase 1 changes (additive registry, `D4UserRelaxer`), any future
 
 ### Phase 3: Regenerate and Validate (tom_d4rt_flutterm and all other package using tom_d4rt_generator for bridge registrations, e.g. tom_d4rt_dcli, tom_dcli_exec, tom_core_d4rt, tom_vscode_bridge)
 
+> **Complete replacement.** The hand-written `generic_type_relaxers.dart` and its
+> `registerGenericTypeRelaxers()` call are deleted — not preserved as fallbacks.
+> All relaxer functionality is provided by the auto-generated code from this point
+> forward.
+
 1. Add config to `buildkit.yaml`
-2. Regenerate all bridge files
-3. Delete hand-written `generic_type_relaxers.dart`
-4. Run full test suite to validate all ~99 generic extraction sites work
-5. Verify no regressions in the 651+ existing passing tests
+2. Regenerate all bridge files (produces auto-generated wrapper classes + per-module factories)
+3. **Delete** hand-written `generic_type_relaxers.dart` entirely
+4. **Remove** the `registerGenericTypeRelaxers()` call from bridge registration entry point
+5. Run full test suite to validate all ~99 generic extraction sites work
+6. Verify no regressions in the 1970+ existing passing tests
 
 ## Related: Proxy Class Generation
 
@@ -819,7 +831,12 @@ See [proxy_class_generation.md](proxy_class_generation.md) for full details.
 
 ## Summary
 
-| Aspect | Current (Hand-Written) | Target (Auto-Generated) |
+> **This is a full replacement, not an incremental enhancement.** The hand-written
+> `generic_type_relaxers.dart` (3 wrappers, ~35 switch cases) will be deleted
+> entirely. There is no coexistence period — Phase 3 removes all hand-written
+> relaxer code and replaces it with auto-generated equivalents.
+
+| Aspect | Current (Hand-Written — to be deleted) | Target (Auto-Generated — full replacement) |
 |--------|----------------------|------------------------|
 | Wrapper classes | 3 (manual) | ~28 (all generic base types, auto-generated) |
 | Factory cases | ~35 switch cases (manual) | All known type args per module (auto-generated) |
