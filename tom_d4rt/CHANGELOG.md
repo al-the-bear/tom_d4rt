@@ -1,3 +1,19 @@
+## 1.8.11
+
+### Features
+- **GEN-081**: Added `isAssignable` callback to `BridgedClass` for supertype bridge lookup on private subclasses
+- **ENG-001**: Back-ported 3 collection handling improvements to `extractBridgedArg`:
+  - List cast: try/catch fallback for non-primitive `List<T>` casts
+  - Set cast: try/catch fallback for non-primitive `Set<T>` casts
+  - Map unwrapping: `_unwrapElement()` for map keys/values before casting
+
+### Bug Fixes
+- Synced 4 functional gaps from tom_d4rt_ast (`extractBridgedArg` collection/enum handling)
+- `toBridgedInstance` prefers most-specific `isAssignable` match
+- Auto-unwrap `BridgedInstance`/`BridgedEnumValue` in callback returns
+- Fixed G-DOV-8, extended I-BUG-14b records to 16 fields
+- Resolved all 13 open issues (161 pass, 9 skip, 0 fail)
+
 ## 1.8.10
 
 ### Bug Fixes

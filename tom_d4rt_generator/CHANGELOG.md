@@ -1,3 +1,17 @@
+## 1.8.17
+
+### Features
+- **GEN-100d**: Auto-generate function typedef registrations from source
+- **GEN-083**: Proxy/adapter class generator for abstract delegates (CustomPainter, CustomClipper, etc.)
+- **GEN-082**: Setter `sourceFilePath` fix + resolved 14 skipped and 3 failed tests
+- **GEN-081**: Generator now emits `isAssignable` callback in `BridgedClass` constructors
+
+### Bug Fixes
+- **GEN-100**: Follow-up fix for secondary_classes_test failures
+- Auto `dart pub get` for barrel resolution
+- Pass `d4rtImport` from config in `generateBridges()`
+- Dart format cleanup
+
 ## 1.8.16
 
 ### Bug Fixes
