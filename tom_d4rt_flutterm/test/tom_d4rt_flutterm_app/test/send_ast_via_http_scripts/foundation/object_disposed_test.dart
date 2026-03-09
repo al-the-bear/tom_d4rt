@@ -1,19 +1,20 @@
 // D4rt test script: Tests ObjectDisposed from foundation
-import 'package:flutter/widgets.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print('ObjectDisposed test executing');
 
-  // Test ObjectDisposed - Object lifecycle
-  print('ObjectDisposed is available in the foundation package');
-  print('ObjectDisposed: Object lifecycle');
+  final event = ObjectDisposed(library: 'test', className: 'MyWidget');
+  print('ObjectDisposed: ${event.runtimeType}');
+  print('library: ${event.library}');
+  print('className: ${event.className}');
+  print('is ObjectEvent: ${event is ObjectEvent}');
 
   print('ObjectDisposed test completed');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('ObjectDisposed Tests'),
-      Text('Object lifecycle'),
-    ],
-  );
+  return Column(mainAxisSize: MainAxisSize.min, children: [
+    Text('ObjectDisposed Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+    Text('library: ${event.library}'),
+    Text('className: ${event.className}'),
+  ]);
 }

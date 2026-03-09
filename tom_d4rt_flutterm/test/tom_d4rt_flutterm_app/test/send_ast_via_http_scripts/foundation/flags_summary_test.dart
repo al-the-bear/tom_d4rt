@@ -1,19 +1,26 @@
 // D4rt test script: Tests FlagsSummary from foundation
-import 'package:flutter/widgets.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print('FlagsSummary test executing');
 
-  // Test FlagsSummary - FlagsSummary
-  print('FlagsSummary is available in the foundation package');
-  print('FlagsSummary: FlagsSummary');
+  final fs = FlagsSummary<bool>(
+    'options',
+    {'scrollable': true, 'draggable': false, 'resizable': true},
+    ifEmpty: 'none',
+  );
+  print('FlagsSummary: ${fs.runtimeType}');
+  print('toString: ${fs.toString()}');
+  print('value: ${fs.value}');
+
+  final fs2 = FlagsSummary<bool>('empty', {}, ifEmpty: 'no flags');
+  print('Empty: ${fs2.toString()}');
 
   print('FlagsSummary test completed');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('FlagsSummary Tests'),
-      Text('FlagsSummary'),
-    ],
-  );
+  return Column(mainAxisSize: MainAxisSize.min, children: [
+    Text('FlagsSummary Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+    Text('Result: ${fs.toString()}'),
+    Text('Empty: ${fs2.toString()}'),
+  ]);
 }

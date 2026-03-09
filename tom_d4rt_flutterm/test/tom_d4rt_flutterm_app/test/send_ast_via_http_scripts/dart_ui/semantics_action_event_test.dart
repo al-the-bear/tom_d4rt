@@ -1,19 +1,36 @@
-// D4rt test script: Tests SemanticsActionEvent from dart_ui
-import 'package:flutter/widgets.dart';
+// D4rt test script: Tests SemanticsActionEvent from dart:ui
+import 'dart:ui' as ui;
+import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print('SemanticsActionEvent test executing');
 
-  // Test SemanticsActionEvent - Accessibility events
-  print('SemanticsActionEvent is available in the dart_ui package');
-  print('SemanticsActionEvent: Accessibility events');
+  final event1 = ui.SemanticsActionEvent(
+    type: SemanticsAction.tap,
+    viewId: 0,
+    nodeId: 1,
+  );
+  print('SemanticsActionEvent: type=${event1.type}, viewId=${event1.viewId}, nodeId=${event1.nodeId}');
+  print('arguments: ${event1.arguments}');
+
+  // With arguments
+  final event2 = ui.SemanticsActionEvent(
+    type: SemanticsAction.scrollUp,
+    viewId: 0,
+    nodeId: 2,
+  );
+  print('ScrollUp event: type=${event2.type}');
+
+  // copyWith
+  final event3 = event1.copyWith(nodeId: 42);
+  print('copyWith nodeId: ${event3.nodeId}');
+  print('copyWith type unchanged: ${event3.type}');
 
   print('SemanticsActionEvent test completed');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('SemanticsActionEvent Tests'),
-      Text('Accessibility events'),
-    ],
-  );
+  return Column(mainAxisSize: MainAxisSize.min, children: [
+    Text('SemanticsActionEvent Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+    Text('tap: nodeId=${event1.nodeId}'),
+    Text('scrollUp: nodeId=${event2.nodeId}'),
+    Text('copyWith: nodeId=${event3.nodeId}'),
+  ]);
 }

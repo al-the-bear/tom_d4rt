@@ -1,50 +1,75 @@
-// D4rt test script: compile-safe visual probe
+// D4rt test script: Tests CupertinoTextField
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  const scriptName = 'cupertino/textfield_test.dart';
+  print('CupertinoTextField test executing');
 
-  print('$scriptName executing');
+  // Default constructor
+  final tf1 = CupertinoTextField(
+    placeholder: 'Enter text',
+    padding: EdgeInsets.all(12.0),
+  );
+  print('CupertinoTextField created: ${tf1.runtimeType}');
+  print('placeholder: ${tf1.placeholder}');
+  print('padding: ${tf1.padding}');
+  print('obscureText: ${tf1.obscureText}');
+  print('autocorrect: ${tf1.autocorrect}');
+  print('maxLines: ${tf1.maxLines}');
+  print('enabled: ${tf1.enabled}');
+  print('readOnly: ${tf1.readOnly}');
+  print('textAlign: ${tf1.textAlign}');
 
-  return Center(
-    child: ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: 560),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: const Color(0xFF111827),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: const Color(0xFF334155), width: 1.5),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
+  // With more options
+  final tf2 = CupertinoTextField(
+    placeholder: 'Password',
+    obscureText: true,
+    maxLines: 1,
+    keyboardType: TextInputType.visiblePassword,
+    textAlign: TextAlign.center,
+    readOnly: false,
+    autocorrect: false,
+    prefix: Icon(CupertinoIcons.lock),
+    suffix: Icon(CupertinoIcons.eye),
+    clearButtonMode: OverlayVisibilityMode.editing,
+  );
+  print('tf2 obscureText: ${tf2.obscureText}');
+  print('tf2 autocorrect: ${tf2.autocorrect}');
+  print('tf2 clearButtonMode: ${tf2.clearButtonMode}');
+
+  // Borderless variant
+  final tf3 = CupertinoTextField.borderless(
+    placeholder: 'Borderless',
+    padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+  );
+  print('CupertinoTextField.borderless: ${tf3.runtimeType}');
+  print('tf3 placeholder: ${tf3.placeholder}');
+
+  // With controller
+  final controller = TextEditingController(text: 'Initial');
+  final tf4 = CupertinoTextField(controller: controller);
+  print('controller text: ${controller.text}');
+  controller.dispose();
+
+  print('CupertinoTextField test completed');
+  return CupertinoApp(
+    home: CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(middle: Text('TextField Test')),
+      child: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(16),
           child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Row(
-                children: [
-                  FlutterLogo(size: 18),
-                  SizedBox(width: 10),
-                  Text(
-                    'D4rt Compile-Safe Probe',
-                    style: TextStyle(color: Color(0xFFE2E8F0), fontWeight: FontWeight.w600),
-                  ),
-                ],
-              ),
-              SizedBox(height: 10),
-              Text('This script is intentionally compile-safe.', style: TextStyle(color: Color(0xFFCBD5E1))),
-              SizedBox(height: 6),
-              Text('Used to unblock analyzer compile errors.', style: TextStyle(color: Color(0xFF94A3B8))),
+            children: [
+              CupertinoTextField(placeholder: 'Default', padding: EdgeInsets.all(12)),
               SizedBox(height: 12),
-              ColoredBox(
-                color: Color(0xFF1E293B),
-                child: SizedBox(
-                  height: 42,
-                  width: double.infinity,
-                  child: Center(
-                    child: Text('Visible UI output', style: TextStyle(color: Color(0xFF93C5FD))),
-                  ),
-                ),
+              CupertinoTextField(placeholder: 'Password', obscureText: true, padding: EdgeInsets.all(12)),
+              SizedBox(height: 12),
+              CupertinoTextField.borderless(placeholder: 'Borderless'),
+              SizedBox(height: 12),
+              CupertinoTextField(
+                placeholder: 'With prefix',
+                prefix: Icon(CupertinoIcons.search),
+                padding: EdgeInsets.all(12),
               ),
             ],
           ),

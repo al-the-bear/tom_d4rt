@@ -1,19 +1,24 @@
 // D4rt test script: Tests ObjectEvent from foundation
-import 'package:flutter/widgets.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print('ObjectEvent test executing');
 
-  // Test ObjectEvent - Object events
-  print('ObjectEvent is available in the foundation package');
-  print('ObjectEvent: Object events');
+  // ObjectEvent is abstract, test via subtypes
+  final created = ObjectCreated(library: 'widgets', className: 'Text');
+  print('ObjectCreated is ObjectEvent: ${created is ObjectEvent}');
+  print('library: ${created.library}');
+  print('className: ${created.className}');
+
+  final disposed = ObjectDisposed(library: 'widgets', className: 'Text');
+  print('ObjectDisposed is ObjectEvent: ${disposed is ObjectEvent}');
 
   print('ObjectEvent test completed');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('ObjectEvent Tests'),
-      Text('Object events'),
-    ],
-  );
+  return Column(mainAxisSize: MainAxisSize.min, children: [
+    Text('ObjectEvent Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+    Text('Abstract base: tested via Created+Disposed'),
+    Text('ObjectCreated is ObjectEvent: true'),
+    Text('ObjectDisposed is ObjectEvent: true'),
+  ]);
 }

@@ -1,19 +1,28 @@
-// D4rt test script: Tests Unicode from foundation
-import 'package:flutter/widgets.dart';
+// D4rt test script: Tests Unicode utilities from foundation
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print('Unicode test executing');
 
-  // Test Unicode - Unicode utilities
-  print('Unicode is available in the foundation package');
-  print('Unicode: Unicode utilities');
+  // Unicode constants
+  print('Unicode.LRE: ${Unicode.LRE}');
+  print('Unicode.RLE: ${Unicode.RLE}');
+  print('Unicode.PDF: ${Unicode.PDF}');
+  print('Unicode.LRO: ${Unicode.LRO}');
+  print('Unicode.RLO: ${Unicode.RLO}');
+  print('Unicode.LRI: ${Unicode.LRI}');
+  print('Unicode.RLI: ${Unicode.RLI}');
+  print('Unicode.FSI: ${Unicode.FSI}');
+  print('Unicode.PDI: ${Unicode.PDI}');
+  print('Unicode.LRM: ${Unicode.LRM}');
+  print('Unicode.RLM: ${Unicode.RLM}');
+  print('Unicode.ALM: ${Unicode.ALM}');
 
   print('Unicode test completed');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('Unicode Tests'),
-      Text('Unicode utilities'),
-    ],
-  );
+  return Column(mainAxisSize: MainAxisSize.min, children: [
+    Text('Unicode Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+    Text('12 bidirectional constants tested'),
+    Text('LRE: 0x${Unicode.LRE.codeUnitAt(0).toRadixString(16)}'),
+  ]);
 }

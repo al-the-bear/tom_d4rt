@@ -1,19 +1,32 @@
-// D4rt test script: Tests ShaderMaskEngineLayer from dart_ui
-import 'package:flutter/widgets.dart';
+// D4rt test script: Tests ShaderMaskEngineLayer via SceneBuilder
+import 'dart:ui' as ui;
+import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print('ShaderMaskEngineLayer test executing');
 
-  // Test ShaderMaskEngineLayer - Shader mask layer
-  print('ShaderMaskEngineLayer is available in the dart_ui package');
-  print('ShaderMaskEngineLayer: Shader mask layer');
+  final sb = ui.SceneBuilder();
+  final gradient = Gradient.linear(
+    Offset.zero, Offset(100, 100),
+    [Colors.red, Colors.blue],
+  );
+  final layer = sb.pushShaderMask(gradient, Rect.fromLTWH(0, 0, 200, 200), BlendMode.srcOver);
+  print('pushShaderMask: ${layer.runtimeType}');
+  print('is EngineLayer: ${layer is ui.EngineLayer}');
+  sb.pop();
+
+  // Different blend mode
+  final layer2 = sb.pushShaderMask(gradient, Rect.fromLTWH(0, 0, 100, 100), BlendMode.dstIn);
+  print('dstIn blend: ${layer2.runtimeType}');
+  sb.pop();
+
+  final scene = sb.build();
+  scene.dispose();
 
   print('ShaderMaskEngineLayer test completed');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('ShaderMaskEngineLayer Tests'),
-      Text('Shader mask layer'),
-    ],
-  );
+  return Column(mainAxisSize: MainAxisSize.min, children: [
+    Text('ShaderMaskEngineLayer Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+    Text('Type: ${layer.runtimeType}'),
+    Text('Created via pushShaderMask'),
+  ]);
 }
