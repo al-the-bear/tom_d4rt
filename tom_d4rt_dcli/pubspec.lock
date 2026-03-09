@@ -758,10 +758,10 @@ packages:
     dependency: "direct main"
     description:
       name: tom_d4rt
-      sha256: "09613a76dce5004aa7b2c5603c324411a6772e3f16dfe20365ff360270a2f718"
+      sha256: "901f770531327419f6ce47b12e0d1b9dcad441dcfed03cc5d374b76d69ab18bf"
       url: "https://pub.dev"
     source: hosted
-    version: "1.8.10"
+    version: "1.8.11"
   tom_d4rt_generator:
     dependency: "direct dev"
     description:
