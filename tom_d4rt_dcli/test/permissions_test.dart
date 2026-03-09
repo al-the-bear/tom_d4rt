@@ -60,14 +60,14 @@ void main() {
   });
 
   group('isWritable', () {
-    test('returns true for writable file', () {
+    test('returns true for writable file [fails on Macos]', () {
       final path = p.join(testDir, 'writable.txt');
       touch(path, create: true);
 
       expect(isWritable(path), isTrue);
     });
 
-    test('returns true for writable directory', () {
+    test('returns true for writable directory [fails on Macos]', () {
       final path = p.join(testDir, 'writable_dir');
       createDir(path);
 
@@ -85,7 +85,7 @@ void main() {
       );
     });
 
-    test('can write to writable file', () {
+    test('can write to writable file [fails on Macos]', () {
       final path = p.join(testDir, 'write_test.txt');
       touch(path, create: true);
 
@@ -166,7 +166,7 @@ void main() {
       'chmod 644 $path'.run;
     });
 
-    test('makes file writable', () {
+    test('makes file writable [fails on Macos]', () {
       final path = p.join(testDir, 'writable.txt');
       touch(path, create: true);
       'chmod 444 $path'.run;
@@ -176,7 +176,7 @@ void main() {
       expect(isWritable(path), isTrue);
     });
 
-    test('handles directory permissions', () {
+    test('handles directory permissions [fails on Macos]', () {
       final path = p.join(testDir, 'perm_dir');
       createDir(path);
 
@@ -260,7 +260,7 @@ void main() {
   });
 
   group('permission modes', () {
-    test('mode 644 - rw-r--r--', () {
+    test('mode 644 - rw-r--r-- [fails on Macos]', () {
       final path = p.join(testDir, 'mode644.txt');
       touch(path, create: true);
       'chmod 644 $path'.run;
@@ -270,7 +270,7 @@ void main() {
       expect(isExecutable(path), isFalse);
     });
 
-    test('mode 755 - rwxr-xr-x', () {
+    test('mode 755 - rwxr-xr-x [fails on Macos]', () {
       final path = p.join(testDir, 'mode755.sh');
       touch(path, create: true);
       'chmod 755 $path'.run;
@@ -280,7 +280,7 @@ void main() {
       expect(isExecutable(path), isTrue);
     });
 
-    test('mode 600 - rw-------', () {
+    test('mode 600 - rw------- [fails on Macos]', () {
       final path = p.join(testDir, 'mode600.txt');
       touch(path, create: true);
       'chmod 600 $path'.run;
@@ -290,7 +290,7 @@ void main() {
       expect(isExecutable(path), isFalse);
     });
 
-    test('mode 700 - rwx------', () {
+    test('mode 700 - rwx------ [fails on Macos]', () {
       final path = p.join(testDir, 'mode700.sh');
       touch(path, create: true);
       'chmod 700 $path'.run;
@@ -302,7 +302,7 @@ void main() {
   });
 
   group('special permissions', () {
-    test('hidden files are accessible', () {
+    test('hidden files are accessible [fails on Macos]', () {
       final path = p.join(testDir, '.hidden');
       touch(path, create: true);
 
@@ -310,7 +310,7 @@ void main() {
       expect(isWritable(path), isTrue);
     });
 
-    test('symlink permissions follow target', () {
+    test('symlink permissions follow target [fails on Macos]', () {
       final target = p.join(testDir, 'target.txt');
       final link = p.join(testDir, 'link.txt');
       touch(target, create: true);
@@ -334,7 +334,7 @@ echo "Deploying..."
       expect(isExecutable(script), isTrue);
     });
 
-    test('create config file with restricted permissions', () {
+    test('create config file with restricted permissions [fails on Macos]', () {
       final config = p.join(testDir, 'secrets.conf');
       config.write('API_KEY=secret123');
       'chmod 600 $config'.run;
@@ -351,7 +351,7 @@ echo "Deploying..."
       expect(isExecutable(dir), isTrue); // x on dir means traversable
     });
 
-    test('check before writing', () {
+    test('check before writing [fails on Macos]', () {
       final path = p.join(testDir, 'check_write.txt');
       touch(path, create: true);
 

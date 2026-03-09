@@ -214,7 +214,7 @@ void main() {
       expect(withHidden.any((f) => f.contains('.hidden')), isTrue);
     });
 
-    test('case-insensitive matching when specified', () {
+    test('case-insensitive matching when specified [fails on Macos]', () {
       final subDir = p.join(testDir, 'case_test');
       createDir(subDir);
       touch(p.join(subDir, 'FILE.TXT'), create: true);
