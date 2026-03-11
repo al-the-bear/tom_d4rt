@@ -113,6 +113,11 @@ Future<void> _generateBridges(
   // GEN-079: Collect class lookup across modules for relaxer generation.
   final globalClassLookup = <String, ClassInfo>{};
 
+  // GEN-079: Collect generic extraction sites and GEN-075 classes
+  // across all modules for relaxer generation.
+  final allExtractionSites = <GenericExtractionSite>[];
+  final allGen075Classes = <String>{};
+
   // Generate bridges for each module
   for (final module in config.modules) {
     if (verbose) {
@@ -173,6 +178,9 @@ Future<void> _generateBridges(
     }
     // GEN-079: Accumulate class lookup for relaxer generation
     globalClassLookup.addAll(generator.classLookup);
+    // GEN-079: Accumulate generic extraction sites and GEN-075 classes
+    allExtractionSites.addAll(generator.genericExtractionSites);
+    allGen075Classes.addAll(generator.gen075Classes);
   }
 
   // Generate barrel file if requested
@@ -239,6 +247,8 @@ Future<void> _generateBridges(
       config: config,
       projectPath: projectDir,
       globalClassLookup: globalClassLookup,
+      genericExtractionSites: allExtractionSites,
+      gen075Classes: allGen075Classes,
     );
     if (relaxerResult.errors.isNotEmpty) {
       for (final error in relaxerResult.errors) {

@@ -94,6 +94,21 @@ class $RelaxedAction<V extends Intent> implements Action<V> {
 
 
 // ---------------------------------------------------------------------------
+// $RelaxedAdaptation
+// ---------------------------------------------------------------------------
+
+/// Auto-generated GEN-079 relaxer wrapper for Adaptation<V>.
+class $RelaxedAdaptation<V> extends Adaptation<V> {
+  final Adaptation _inner;
+
+  $RelaxedAdaptation(this._inner);
+
+  @override
+  V adapt(ThemeData theme, V defaultValue) => _inner.adapt(theme, defaultValue) as V;
+}
+
+
+// ---------------------------------------------------------------------------
 // $RelaxedAnimatable
 // ---------------------------------------------------------------------------
 
@@ -106,10 +121,6 @@ class $RelaxedAnimatable<V> implements Animatable<V> {
   @override
   dynamic noSuchMethod(Invocation invocation) =>
     super.noSuchMethod(invocation);
-
-  @override
-  String toString({dynamic minLevel}) =>
-    _inner.toString();
 
   @override
   V transform(double t) => _inner.transform(t) as V;
@@ -139,10 +150,6 @@ class $RelaxedAnimation<V> implements Animation<V> {
   @override
   dynamic noSuchMethod(Invocation invocation) =>
     super.noSuchMethod(invocation);
-
-  @override
-  String toString({dynamic minLevel}) =>
-    _inner.toString();
 
   @override
   V get value => _inner.value as V;
@@ -184,10 +191,6 @@ class $RelaxedCalendarDelegate<V extends DateTime> implements CalendarDelegate<V
   @override
   dynamic noSuchMethod(Invocation invocation) =>
     super.noSuchMethod(invocation);
-
-  @override
-  String toString({dynamic minLevel}) =>
-    _inner.toString();
 
   @override
   V now() => _inner.now() as V;
@@ -258,10 +261,6 @@ class $RelaxedCustomClipper<V> implements CustomClipper<V> {
     super.noSuchMethod(invocation);
 
   @override
-  String toString({dynamic minLevel}) =>
-    _inner.toString();
-
-  @override
   V getClip(Size size) => _inner.getClip(size) as V;
 
   @override
@@ -302,10 +301,44 @@ class $RelaxedDisposableBuildContext<V extends State<StatefulWidget>> implements
   dynamic noSuchMethod(Invocation invocation) =>
     super.noSuchMethod(invocation);
 
-  @override
-  String toString({dynamic minLevel}) =>
-    _inner.toString();
+}
 
+
+// ---------------------------------------------------------------------------
+// $RelaxedDragBoundaryDelegate
+// ---------------------------------------------------------------------------
+
+/// Auto-generated GEN-079 relaxer wrapper for DragBoundaryDelegate<V>.
+class $RelaxedDragBoundaryDelegate<V> implements DragBoundaryDelegate<V> {
+  final DragBoundaryDelegate _inner;
+
+  $RelaxedDragBoundaryDelegate(this._inner);
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) =>
+    super.noSuchMethod(invocation);
+
+  @override
+  bool isWithinBoundary(V draggedObject) => _inner.isWithinBoundary(draggedObject);
+
+  @override
+  V nearestPositionWithinBoundary(V draggedObject) => _inner.nearestPositionWithinBoundary(draggedObject) as V;
+
+}
+
+
+// ---------------------------------------------------------------------------
+// $RelaxedDragTargetDetails
+// ---------------------------------------------------------------------------
+
+/// Auto-generated GEN-079 relaxer wrapper for DragTargetDetails<V>.
+class $RelaxedDragTargetDetails<V> extends DragTargetDetails<V> {
+  final DragTargetDetails _inner;
+
+  $RelaxedDragTargetDetails(this._inner) : super(data: _inner.data as V, offset: _inner.offset);
+
+  @override
+  V get data => _inner.data as V;
 }
 
 
@@ -328,6 +361,44 @@ class $RelaxedDraggable<V extends Object> extends Draggable<V> {
 
 
 // ---------------------------------------------------------------------------
+// $RelaxedFactory
+// ---------------------------------------------------------------------------
+
+/// Auto-generated GEN-079 relaxer wrapper for Factory<V>.
+class $RelaxedFactory<V> extends Factory<V> {
+  final Factory _inner;
+
+  $RelaxedFactory(this._inner) : super(_inner.constructor as V Function());
+
+  @override
+  ValueGetter<V> get constructor => _inner.constructor as ValueGetter<V>;
+}
+
+
+// ---------------------------------------------------------------------------
+// $RelaxedGestureRecognizerFactory
+// ---------------------------------------------------------------------------
+
+/// Auto-generated GEN-079 relaxer wrapper for GestureRecognizerFactory<V>.
+class $RelaxedGestureRecognizerFactory<V extends GestureRecognizer> implements GestureRecognizerFactory<V> {
+  final GestureRecognizerFactory _inner;
+
+  $RelaxedGestureRecognizerFactory(this._inner);
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) =>
+    super.noSuchMethod(invocation);
+
+  @override
+  V constructor() => _inner.constructor() as V;
+
+  @override
+  void initializer(V instance) => _inner.initializer(instance);
+
+}
+
+
+// ---------------------------------------------------------------------------
 // $RelaxedGlobalKey
 // ---------------------------------------------------------------------------
 
@@ -340,10 +411,6 @@ class $RelaxedGlobalKey<V extends State<StatefulWidget>> implements GlobalKey<V>
   @override
   dynamic noSuchMethod(Invocation invocation) =>
     super.noSuchMethod(invocation);
-
-  @override
-  String toString({dynamic minLevel}) =>
-    _inner.toString();
 
   @override
   V? get currentState => _inner.currentState as V?;
@@ -382,10 +449,6 @@ class $RelaxedImageProvider<V extends Object> implements ImageProvider<V> {
     super.noSuchMethod(invocation);
 
   @override
-  String toString({dynamic minLevel}) =>
-    _inner.toString();
-
-  @override
   void resolveStreamForKey(ImageConfiguration configuration, ImageStream stream, V key, ImageErrorListener handleError) => _inner.resolveStreamForKey(configuration, stream, key, handleError);
 
   @override
@@ -413,10 +476,6 @@ class $RelaxedIndexedSlot<V extends Element?> implements IndexedSlot<V> {
   @override
   dynamic noSuchMethod(Invocation invocation) =>
     super.noSuchMethod(invocation);
-
-  @override
-  String toString({dynamic minLevel}) =>
-    _inner.toString();
 
   @override
   V get value => _inner.value as V;
@@ -447,6 +506,52 @@ class $RelaxedInheritedNotifier<V extends Listenable> implements InheritedNotifi
 
   @override
   bool updateShouldNotify(InheritedNotifier<V> oldWidget) => _inner.updateShouldNotify(oldWidget);
+
+}
+
+
+// ---------------------------------------------------------------------------
+// $RelaxedLocalizationsDelegate
+// ---------------------------------------------------------------------------
+
+/// Auto-generated GEN-079 relaxer wrapper for LocalizationsDelegate<V>.
+class $RelaxedLocalizationsDelegate<V> implements LocalizationsDelegate<V> {
+  final LocalizationsDelegate _inner;
+
+  $RelaxedLocalizationsDelegate(this._inner);
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) =>
+    super.noSuchMethod(invocation);
+
+  @override
+  Future<V> load(Locale locale) => _inner.load(locale) as Future<V>;
+
+  @override
+  bool shouldReload(LocalizationsDelegate<V> old) => _inner.shouldReload(old);
+
+}
+
+
+// ---------------------------------------------------------------------------
+// $RelaxedPage
+// ---------------------------------------------------------------------------
+
+/// Auto-generated GEN-079 relaxer wrapper for Page<V>.
+class $RelaxedPage<V> implements Page<V> {
+  final Page _inner;
+
+  $RelaxedPage(this._inner);
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) =>
+    super.noSuchMethod(invocation);
+
+  @override
+  PopInvokedWithResultCallback<V> get onPopInvoked => _inner.onPopInvoked as PopInvokedWithResultCallback<V>;
+
+  @override
+  Route<V> createRoute(BuildContext context) => _inner.createRoute(context) as Route<V>;
 
 }
 
@@ -488,10 +593,6 @@ class $RelaxedPopEntry<V> implements PopEntry<V> {
   @override
   dynamic noSuchMethod(Invocation invocation) =>
     super.noSuchMethod(invocation);
-
-  @override
-  String toString({dynamic minLevel}) =>
-    _inner.toString();
 
   @override
   void onPopInvokedWithResult(bool didPop, V? result) => _inner.onPopInvokedWithResult(didPop, result);
@@ -542,6 +643,24 @@ class $RelaxedRenderObjectToWidgetAdapter<V extends RenderObject> extends Render
 
 
 // ---------------------------------------------------------------------------
+// $RelaxedRenderObjectToWidgetElement
+// ---------------------------------------------------------------------------
+
+/// Auto-generated GEN-079 relaxer wrapper for RenderObjectToWidgetElement<V>.
+class $RelaxedRenderObjectToWidgetElement<V extends RenderObject> extends RenderObjectToWidgetElement<V> {
+  final RenderObjectToWidgetElement _inner;
+
+  $RelaxedRenderObjectToWidgetElement(this._inner) : super(_inner.widget as RenderObjectToWidgetAdapter<V>);
+
+  @override
+  RenderObjectWithChildMixin<V> get renderObject => _inner.renderObject as RenderObjectWithChildMixin<V>;
+
+  @override
+  void update(RenderObjectToWidgetAdapter<V> newWidget) => _inner.update(newWidget);
+}
+
+
+// ---------------------------------------------------------------------------
 // $RelaxedRenderObjectWithChildMixin
 // ---------------------------------------------------------------------------
 
@@ -584,10 +703,6 @@ class $RelaxedRestorableProperty<V> implements RestorableProperty<V> {
     super.noSuchMethod(invocation);
 
   @override
-  String toString({dynamic minLevel}) =>
-    _inner.toString();
-
-  @override
   V createDefaultValue() => _inner.createDefaultValue() as V;
 
   @override
@@ -612,10 +727,6 @@ class $RelaxedRoute<V> implements Route<V> {
   @override
   dynamic noSuchMethod(Invocation invocation) =>
     super.noSuchMethod(invocation);
-
-  @override
-  String toString({dynamic minLevel}) =>
-    _inner.toString();
 
   @override
   V? get currentResult => _inner.currentResult as V?;
@@ -648,10 +759,6 @@ class $RelaxedRouteInformationParser<V> implements RouteInformationParser<V> {
   @override
   dynamic noSuchMethod(Invocation invocation) =>
     super.noSuchMethod(invocation);
-
-  @override
-  String toString({dynamic minLevel}) =>
-    _inner.toString();
 
   @override
   Future<V> parseRouteInformation(RouteInformation routeInformation) => _inner.parseRouteInformation(routeInformation) as Future<V>;
@@ -696,10 +803,6 @@ class $RelaxedRouterDelegate<V> implements RouterDelegate<V> {
   @override
   dynamic noSuchMethod(Invocation invocation) =>
     super.noSuchMethod(invocation);
-
-  @override
-  String toString({dynamic minLevel}) =>
-    _inner.toString();
 
   @override
   V? get currentConfiguration => _inner.currentConfiguration as V?;
@@ -758,14 +861,37 @@ class $RelaxedThemeExtension<V extends ThemeExtension<V>> implements ThemeExtens
     super.noSuchMethod(invocation);
 
   @override
-  String toString({dynamic minLevel}) =>
-    _inner.toString();
-
-  @override
   ThemeExtension<V> copyWith() => _inner.copyWith() as ThemeExtension<V>;
 
   @override
   ThemeExtension<V> lerp(ThemeExtension<V>? other, double t) => _inner.lerp(other, t) as ThemeExtension<V>;
+
+}
+
+
+// ---------------------------------------------------------------------------
+// $RelaxedToggleableStateMixin
+// ---------------------------------------------------------------------------
+
+/// Auto-generated GEN-079 relaxer wrapper for ToggleableStateMixin<V>.
+class $RelaxedToggleableStateMixin<V extends StatefulWidget> implements ToggleableStateMixin<V> {
+  final ToggleableStateMixin _inner;
+
+  $RelaxedToggleableStateMixin(this._inner);
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) =>
+    super.noSuchMethod(invocation);
+
+  @override
+  String toString({dynamic minLevel}) =>
+    _inner.toString();
+
+  @override
+  V get widget => _inner.widget as V;
+
+  @override
+  void didUpdateWidget(V oldWidget) => _inner.didUpdateWidget(oldWidget);
 
 }
 
@@ -826,6 +952,21 @@ class $RelaxedTween<V extends Object?> extends Tween<V> {
 
 
 // ---------------------------------------------------------------------------
+// $RelaxedTweenSequenceItem
+// ---------------------------------------------------------------------------
+
+/// Auto-generated GEN-079 relaxer wrapper for TweenSequenceItem<V>.
+class $RelaxedTweenSequenceItem<V> extends TweenSequenceItem<V> {
+  final TweenSequenceItem _inner;
+
+  $RelaxedTweenSequenceItem(this._inner) : super(tween: _inner.tween as Animatable<V>, weight: _inner.weight);
+
+  @override
+  Animatable<V> get tween => _inner.tween as Animatable<V>;
+}
+
+
+// ---------------------------------------------------------------------------
 // $RelaxedValueListenable
 // ---------------------------------------------------------------------------
 
@@ -838,10 +979,6 @@ class $RelaxedValueListenable<V> implements ValueListenable<V> {
   @override
   dynamic noSuchMethod(Invocation invocation) =>
     super.noSuchMethod(invocation);
-
-  @override
-  String toString({dynamic minLevel}) =>
-    _inner.toString();
 
   @override
   V get value => _inner.value as V;
@@ -907,10 +1044,6 @@ class $RelaxedWidgetStateProperty<V> implements WidgetStateProperty<V> {
     super.noSuchMethod(invocation);
 
   @override
-  String toString({dynamic minLevel}) =>
-    _inner.toString();
-
-  @override
   V resolve(Set<WidgetState> states) => _inner.resolve(states) as V;
 
 }
@@ -933,6 +1066,36 @@ Object? _relaxAction$widgets(Object value, String innerTypeArg) {
   if (value is! Action) return null;
   return switch (innerTypeArg) {
     'Intent' => $RelaxedAction<Intent>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for Action — flutter_material layer types.
+Object? _relaxAction$material(Object value, String innerTypeArg) {
+  if (value is! Action) return null;
+  return switch (innerTypeArg) {
+    'Intent' => $RelaxedAction<Intent>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for Action — flutter_cupertino layer types.
+Object? _relaxAction$cupertino(Object value, String innerTypeArg) {
+  if (value is! Action) return null;
+  return switch (innerTypeArg) {
+    'Intent' => $RelaxedAction<Intent>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for Adaptation — flutter_material layer types.
+Object? _relaxAdaptation$material(Object value, String innerTypeArg) {
+  if (value is! Adaptation) return null;
+  return switch (innerTypeArg) {
+    'Object' => $RelaxedAdaptation<Object>(value),
     _ => null,
   };
 }
@@ -1005,10 +1168,10 @@ Object? _relaxAnimation$widgets(Object value, String innerTypeArg) {
   if (value is! Animation) return null;
   return switch (innerTypeArg) {
     'AlignmentGeometry' => $RelaxedAnimation<AlignmentGeometry>(value),
-    'Color?' => $RelaxedAnimation<Color?>(value),
+    'Color' => $RelaxedAnimation<Color>(value),
     'Decoration' => $RelaxedAnimation<Decoration>(value),
     'Offset' => $RelaxedAnimation<Offset>(value),
-    'Rect?' => $RelaxedAnimation<Rect?>(value),
+    'Rect' => $RelaxedAnimation<Rect>(value),
     'RelativeRect' => $RelaxedAnimation<RelativeRect>(value),
     'TextStyle' => $RelaxedAnimation<TextStyle>(value),
     'double' => $RelaxedAnimation<double>(value),
@@ -1021,7 +1184,7 @@ Object? _relaxAnimation$widgets(Object value, String innerTypeArg) {
 Object? _relaxAnimation$material(Object value, String innerTypeArg) {
   if (value is! Animation) return null;
   return switch (innerTypeArg) {
-    'Color?' => $RelaxedAnimation<Color?>(value),
+    'Color' => $RelaxedAnimation<Color>(value),
     'double' => $RelaxedAnimation<double>(value),
     _ => null,
   };
@@ -1104,6 +1267,36 @@ Object? _relaxDisposableBuildContext$widgets(Object value, String innerTypeArg) 
 }
 
 
+/// Auto-generated relaxer factory for DragBoundaryDelegate — flutter_widgets layer types.
+Object? _relaxDragBoundaryDelegate$widgets(Object value, String innerTypeArg) {
+  if (value is! DragBoundaryDelegate) return null;
+  return switch (innerTypeArg) {
+    'Rect' => $RelaxedDragBoundaryDelegate<Rect>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for DragBoundaryDelegate — flutter_material layer types.
+Object? _relaxDragBoundaryDelegate$material(Object value, String innerTypeArg) {
+  if (value is! DragBoundaryDelegate) return null;
+  return switch (innerTypeArg) {
+    'Rect' => $RelaxedDragBoundaryDelegate<Rect>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for DragTargetDetails — flutter_widgets layer types.
+Object? _relaxDragTargetDetails$widgets(Object value, String innerTypeArg) {
+  if (value is! DragTargetDetails) return null;
+  return switch (innerTypeArg) {
+    'Object' => $RelaxedDragTargetDetails<Object>(value),
+    _ => null,
+  };
+}
+
+
 /// Auto-generated relaxer factory for Draggable — flutter_widgets layer types.
 Object? _relaxDraggable$widgets(Object value, String innerTypeArg) {
   if (value is! Draggable) return null;
@@ -1134,11 +1327,42 @@ Object? _relaxDraggable$cupertino(Object value, String innerTypeArg) {
 }
 
 
+/// Auto-generated relaxer factory for Factory — flutter_rendering layer types.
+Object? _relaxFactory$rendering(Object value, String innerTypeArg) {
+  if (value is! Factory) return null;
+  return switch (innerTypeArg) {
+    'OneSequenceGestureRecognizer' => $RelaxedFactory<OneSequenceGestureRecognizer>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for Factory — flutter_widgets layer types.
+Object? _relaxFactory$widgets(Object value, String innerTypeArg) {
+  if (value is! Factory) return null;
+  return switch (innerTypeArg) {
+    'OneSequenceGestureRecognizer' => $RelaxedFactory<OneSequenceGestureRecognizer>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for GestureRecognizerFactory — flutter_widgets layer types.
+Object? _relaxGestureRecognizerFactory$widgets(Object value, String innerTypeArg) {
+  if (value is! GestureRecognizerFactory) return null;
+  return switch (innerTypeArg) {
+    'GestureRecognizer' => $RelaxedGestureRecognizerFactory<GestureRecognizer>(value),
+    _ => null,
+  };
+}
+
+
 /// Auto-generated relaxer factory for GlobalKey — flutter_widgets layer types.
 Object? _relaxGlobalKey$widgets(Object value, String innerTypeArg) {
   if (value is! GlobalKey) return null;
   return switch (innerTypeArg) {
     'NavigatorState' => $RelaxedGlobalKey<NavigatorState>(value),
+    'State<StatefulWidget>' => $RelaxedGlobalKey<State<StatefulWidget>>(value),
     _ => null,
   };
 }
@@ -1256,6 +1480,26 @@ Object? _relaxInheritedNotifier$widgets(Object value, String innerTypeArg) {
 }
 
 
+/// Auto-generated relaxer factory for LocalizationsDelegate — flutter_widgets layer types.
+Object? _relaxLocalizationsDelegate$widgets(Object value, String innerTypeArg) {
+  if (value is! LocalizationsDelegate) return null;
+  return switch (innerTypeArg) {
+    'Object' => $RelaxedLocalizationsDelegate<Object>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for Page — flutter_widgets layer types.
+Object? _relaxPage$widgets(Object value, String innerTypeArg) {
+  if (value is! Page) return null;
+  return switch (innerTypeArg) {
+    'Object' => $RelaxedPage<Object>(value),
+    _ => null,
+  };
+}
+
+
 /// Auto-generated relaxer factory for ParentDataWidget — flutter_widgets layer types.
 Object? _relaxParentDataWidget$widgets(Object value, String innerTypeArg) {
   if (value is! ParentDataWidget) return null;
@@ -1270,7 +1514,7 @@ Object? _relaxParentDataWidget$widgets(Object value, String innerTypeArg) {
 Object? _relaxPopEntry$widgets(Object value, String innerTypeArg) {
   if (value is! PopEntry) return null;
   return switch (innerTypeArg) {
-    'Object?' => $RelaxedPopEntry<Object?>(value),
+    'Object' => $RelaxedPopEntry<Object>(value),
     _ => null,
   };
 }
@@ -1280,7 +1524,7 @@ Object? _relaxPopEntry$widgets(Object value, String innerTypeArg) {
 Object? _relaxPopEntry$material(Object value, String innerTypeArg) {
   if (value is! PopEntry) return null;
   return switch (innerTypeArg) {
-    'Object?' => $RelaxedPopEntry<Object?>(value),
+    'Object' => $RelaxedPopEntry<Object>(value),
     _ => null,
   };
 }
@@ -1290,7 +1534,7 @@ Object? _relaxPopEntry$material(Object value, String innerTypeArg) {
 Object? _relaxPopEntry$cupertino(Object value, String innerTypeArg) {
   if (value is! PopEntry) return null;
   return switch (innerTypeArg) {
-    'Object?' => $RelaxedPopEntry<Object?>(value),
+    'Object' => $RelaxedPopEntry<Object>(value),
     _ => null,
   };
 }
@@ -1316,6 +1560,16 @@ Object? _relaxRenderObjectToWidgetAdapter$widgets(Object value, String innerType
 }
 
 
+/// Auto-generated relaxer factory for RenderObjectToWidgetElement — flutter_widgets layer types.
+Object? _relaxRenderObjectToWidgetElement$widgets(Object value, String innerTypeArg) {
+  if (value is! RenderObjectToWidgetElement) return null;
+  return switch (innerTypeArg) {
+    'RenderObject' => $RelaxedRenderObjectToWidgetElement<RenderObject>(value),
+    _ => null,
+  };
+}
+
+
 /// Auto-generated relaxer factory for RenderObjectWithChildMixin — flutter_widgets layer types.
 Object? _relaxRenderObjectWithChildMixin$widgets(Object value, String innerTypeArg) {
   if (value is! RenderObjectWithChildMixin) return null;
@@ -1330,7 +1584,7 @@ Object? _relaxRenderObjectWithChildMixin$widgets(Object value, String innerTypeA
 Object? _relaxRestorableProperty$widgets(Object value, String innerTypeArg) {
   if (value is! RestorableProperty) return null;
   return switch (innerTypeArg) {
-    'Object?' => $RelaxedRestorableProperty<Object?>(value),
+    'Object' => $RelaxedRestorableProperty<Object>(value),
     _ => null,
   };
 }
@@ -1340,7 +1594,7 @@ Object? _relaxRestorableProperty$widgets(Object value, String innerTypeArg) {
 Object? _relaxRestorableProperty$material(Object value, String innerTypeArg) {
   if (value is! RestorableProperty) return null;
   return switch (innerTypeArg) {
-    'Object?' => $RelaxedRestorableProperty<Object?>(value),
+    'Object' => $RelaxedRestorableProperty<Object>(value),
     _ => null,
   };
 }
@@ -1350,7 +1604,7 @@ Object? _relaxRestorableProperty$material(Object value, String innerTypeArg) {
 Object? _relaxRoute$widgets(Object value, String innerTypeArg) {
   if (value is! Route) return null;
   return switch (innerTypeArg) {
-    'Object?' => $RelaxedRoute<Object?>(value),
+    'Object' => $RelaxedRoute<Object>(value),
     _ => null,
   };
 }
@@ -1456,11 +1710,21 @@ Object? _relaxState$widgets(Object value, String innerTypeArg) {
 }
 
 
+/// Auto-generated relaxer factory for ToggleableStateMixin — flutter_widgets layer types.
+Object? _relaxToggleableStateMixin$widgets(Object value, String innerTypeArg) {
+  if (value is! ToggleableStateMixin) return null;
+  return switch (innerTypeArg) {
+    'StatefulWidget' => $RelaxedToggleableStateMixin<StatefulWidget>(value),
+    _ => null,
+  };
+}
+
+
 /// Auto-generated relaxer factory for TreeSliverNode — flutter_widgets layer types.
 Object? _relaxTreeSliverNode$widgets(Object value, String innerTypeArg) {
   if (value is! TreeSliverNode) return null;
   return switch (innerTypeArg) {
-    'Object?' => $RelaxedTreeSliverNode<Object?>(value),
+    'Object' => $RelaxedTreeSliverNode<Object>(value),
     _ => null,
   };
 }
@@ -1470,7 +1734,7 @@ Object? _relaxTreeSliverNode$widgets(Object value, String innerTypeArg) {
 Object? _relaxTween$animation(Object value, String innerTypeArg) {
   if (value is! Tween) return null;
   return switch (innerTypeArg) {
-    'Object?' => $RelaxedTween<Object?>(value),
+    'Object' => $RelaxedTween<Object>(value),
     _ => null,
   };
 }
@@ -1480,7 +1744,18 @@ Object? _relaxTween$animation(Object value, String innerTypeArg) {
 Object? _relaxTween$widgets(Object value, String innerTypeArg) {
   if (value is! Tween) return null;
   return switch (innerTypeArg) {
-    'Object?' => $RelaxedTween<Object?>(value),
+    'Object' => $RelaxedTween<Object>(value),
+    'Rect' => $RelaxedTween<Rect>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for TweenSequenceItem — flutter_animation layer types.
+Object? _relaxTweenSequenceItem$animation(Object value, String innerTypeArg) {
+  if (value is! TweenSequenceItem) return null;
+  return switch (innerTypeArg) {
+    'double' => $RelaxedTweenSequenceItem<double>(value),
     _ => null,
   };
 }
@@ -1532,6 +1807,7 @@ Object? _relaxValueNotifier$widgets(Object value, String innerTypeArg) {
   if (value is! ValueNotifier) return null;
   return switch (innerTypeArg) {
     'EdgeInsets' => $RelaxedValueNotifier<EdgeInsets>(value),
+    'MagnifierInfo' => $RelaxedValueNotifier<MagnifierInfo>(value),
     'int' => $RelaxedValueNotifier<int>(value),
     _ => null,
   };
@@ -1575,17 +1851,16 @@ Object? _relaxWidgetStateProperty$material(Object value, String innerTypeArg) {
   return switch (innerTypeArg) {
     'BorderSide' => $RelaxedWidgetStateProperty<BorderSide>(value),
     'Color' => $RelaxedWidgetStateProperty<Color>(value),
-    'Color?' => $RelaxedWidgetStateProperty<Color?>(value),
     'EdgeInsetsGeometry' => $RelaxedWidgetStateProperty<EdgeInsetsGeometry>(value),
     'Icon' => $RelaxedWidgetStateProperty<Icon>(value),
     'IconThemeData' => $RelaxedWidgetStateProperty<IconThemeData>(value),
     'MouseCursor' => $RelaxedWidgetStateProperty<MouseCursor>(value),
     'OutlinedBorder' => $RelaxedWidgetStateProperty<OutlinedBorder>(value),
-    'Size?' => $RelaxedWidgetStateProperty<Size?>(value),
+    'Size' => $RelaxedWidgetStateProperty<Size>(value),
     'TextStyle' => $RelaxedWidgetStateProperty<TextStyle>(value),
     'Widget' => $RelaxedWidgetStateProperty<Widget>(value),
-    'bool?' => $RelaxedWidgetStateProperty<bool?>(value),
-    'double?' => $RelaxedWidgetStateProperty<double?>(value),
+    'bool' => $RelaxedWidgetStateProperty<bool>(value),
+    'double' => $RelaxedWidgetStateProperty<double>(value),
     _ => null,
   };
 }
@@ -1595,10 +1870,10 @@ Object? _relaxWidgetStateProperty$material(Object value, String innerTypeArg) {
 Object? _relaxWidgetStateProperty$cupertino(Object value, String innerTypeArg) {
   if (value is! WidgetStateProperty) return null;
   return switch (innerTypeArg) {
-    'Color?' => $RelaxedWidgetStateProperty<Color?>(value),
+    'Color' => $RelaxedWidgetStateProperty<Color>(value),
     'Icon' => $RelaxedWidgetStateProperty<Icon>(value),
     'MouseCursor' => $RelaxedWidgetStateProperty<MouseCursor>(value),
-    'double?' => $RelaxedWidgetStateProperty<double?>(value),
+    'double' => $RelaxedWidgetStateProperty<double>(value),
     _ => null,
   };
 }
@@ -1615,6 +1890,9 @@ Object? _relaxWidgetStateProperty$cupertino(Object value, String innerTypeArg) {
 void registerRelaxers() {
   D4.registerGenericTypeWrapper('AbstractLayoutBuilder', _relaxAbstractLayoutBuilder$widgets);
   D4.registerGenericTypeWrapper('Action', _relaxAction$widgets);
+  D4.registerGenericTypeWrapper('Action', _relaxAction$material);
+  D4.registerGenericTypeWrapper('Action', _relaxAction$cupertino);
+  D4.registerGenericTypeWrapper('Adaptation', _relaxAdaptation$material);
   D4.registerGenericTypeWrapper('Animatable', _relaxAnimatable$animation);
   D4.registerGenericTypeWrapper('Animatable', _relaxAnimatable$rendering);
   D4.registerGenericTypeWrapper('Animatable', _relaxAnimatable$widgets);
@@ -1630,9 +1908,15 @@ void registerRelaxers() {
   D4.registerGenericTypeWrapper('CustomClipper', _relaxCustomClipper$widgets);
   D4.registerGenericTypeWrapper('DateTimeRange', _relaxDateTimeRange$material);
   D4.registerGenericTypeWrapper('DisposableBuildContext', _relaxDisposableBuildContext$widgets);
+  D4.registerGenericTypeWrapper('DragBoundaryDelegate', _relaxDragBoundaryDelegate$widgets);
+  D4.registerGenericTypeWrapper('DragBoundaryDelegate', _relaxDragBoundaryDelegate$material);
+  D4.registerGenericTypeWrapper('DragTargetDetails', _relaxDragTargetDetails$widgets);
   D4.registerGenericTypeWrapper('Draggable', _relaxDraggable$widgets);
   D4.registerGenericTypeWrapper('Draggable', _relaxDraggable$material);
   D4.registerGenericTypeWrapper('Draggable', _relaxDraggable$cupertino);
+  D4.registerGenericTypeWrapper('Factory', _relaxFactory$rendering);
+  D4.registerGenericTypeWrapper('Factory', _relaxFactory$widgets);
+  D4.registerGenericTypeWrapper('GestureRecognizerFactory', _relaxGestureRecognizerFactory$widgets);
   D4.registerGenericTypeWrapper('GlobalKey', _relaxGlobalKey$widgets);
   D4.registerGenericTypeWrapper('GlobalKey', _relaxGlobalKey$material);
   D4.registerGenericTypeWrapper('GlobalKey', _relaxGlobalKey$cupertino);
@@ -1645,12 +1929,15 @@ void registerRelaxers() {
   D4.registerGenericTypeWrapper('ImageProvider', _relaxImageProvider$cupertino);
   D4.registerGenericTypeWrapper('IndexedSlot', _relaxIndexedSlot$widgets);
   D4.registerGenericTypeWrapper('InheritedNotifier', _relaxInheritedNotifier$widgets);
+  D4.registerGenericTypeWrapper('LocalizationsDelegate', _relaxLocalizationsDelegate$widgets);
+  D4.registerGenericTypeWrapper('Page', _relaxPage$widgets);
   D4.registerGenericTypeWrapper('ParentDataWidget', _relaxParentDataWidget$widgets);
   D4.registerGenericTypeWrapper('PopEntry', _relaxPopEntry$widgets);
   D4.registerGenericTypeWrapper('PopEntry', _relaxPopEntry$material);
   D4.registerGenericTypeWrapper('PopEntry', _relaxPopEntry$cupertino);
   D4.registerGenericTypeWrapper('RenderAnnotatedRegion', _relaxRenderAnnotatedRegion$widgets);
   D4.registerGenericTypeWrapper('RenderObjectToWidgetAdapter', _relaxRenderObjectToWidgetAdapter$widgets);
+  D4.registerGenericTypeWrapper('RenderObjectToWidgetElement', _relaxRenderObjectToWidgetElement$widgets);
   D4.registerGenericTypeWrapper('RenderObjectWithChildMixin', _relaxRenderObjectWithChildMixin$widgets);
   D4.registerGenericTypeWrapper('RestorableProperty', _relaxRestorableProperty$widgets);
   D4.registerGenericTypeWrapper('RestorableProperty', _relaxRestorableProperty$material);
@@ -1665,9 +1952,11 @@ void registerRelaxers() {
   D4.registerGenericTypeWrapper('RouterDelegate', _relaxRouterDelegate$material);
   D4.registerGenericTypeWrapper('RouterDelegate', _relaxRouterDelegate$cupertino);
   D4.registerGenericTypeWrapper('State', _relaxState$widgets);
+  D4.registerGenericTypeWrapper('ToggleableStateMixin', _relaxToggleableStateMixin$widgets);
   D4.registerGenericTypeWrapper('TreeSliverNode', _relaxTreeSliverNode$widgets);
   D4.registerGenericTypeWrapper('Tween', _relaxTween$animation);
   D4.registerGenericTypeWrapper('Tween', _relaxTween$widgets);
+  D4.registerGenericTypeWrapper('TweenSequenceItem', _relaxTweenSequenceItem$animation);
   D4.registerGenericTypeWrapper('ValueListenable', _relaxValueListenable$widgets);
   D4.registerGenericTypeWrapper('ValueListenable', _relaxValueListenable$material);
   D4.registerGenericTypeWrapper('ValueListenable', _relaxValueListenable$cupertino);

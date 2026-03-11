@@ -916,6 +916,33 @@ String? mapPrivateSdkLibrary(
   return null;
 }
 
+/// A generic extraction site discovered during bridge code generation.
+///
+/// Recorded whenever the generator emits a `D4.extractBridgedArg<Base<Arg>>`
+/// or similar helper call where the type argument is itself generic.
+/// Used by the relaxer generator to build wrapper classes and factory functions
+/// without post-processing regex scanning.
+class GenericExtractionSite {
+  /// The generic base type name (unqualified, e.g., 'ValueNotifier').
+  final String baseTypeName;
+
+  /// The inner type argument (unqualified, e.g., 'MagnifierInfo', 'Color?').
+  final String typeArg;
+
+  /// The module this extraction was generated in.
+  final String moduleName;
+
+  const GenericExtractionSite({
+    required this.baseTypeName,
+    required this.typeArg,
+    required this.moduleName,
+  });
+
+  @override
+  String toString() =>
+      'GenericExtractionSite($baseTypeName<$typeArg>, module: $moduleName)';
+}
+
 /// Generates D4rt BridgedClass implementations from Dart source files.
 class BridgeGenerator {
   /// Workspace root path.
@@ -993,6 +1020,33 @@ class BridgeGenerator {
   /// Used by the relaxer generator to build wrapper classes with correct
   /// member delegation.
   Map<String, ClassInfo> get classLookup => Map.unmodifiable(_classLookup);
+
+  /// GEN-079: Generic extraction sites collected during bridge code generation.
+  ///
+  /// Each entry records a `D4.extractBridgedArg<Base<Arg>>` (or similar helper)
+  /// call site where the type argument is itself generic. Populated during
+  /// [generateBridgesFromExports] and consumed by the relaxer generator.
+  final List<GenericExtractionSite> _genericExtractionSites = [];
+
+  /// Read-only view of generic extraction sites collected during generation.
+  List<GenericExtractionSite> get genericExtractionSites =>
+      List.unmodifiable(_genericExtractionSites);
+
+  /// GEN-079: Class names that have GEN-075 type-dispatch constructor switches.
+  ///
+  /// Populated during constructor body generation when a type-dispatch switch
+  /// is emitted. Used by the relaxer generator to know which classes are
+  /// constructed with runtime type inference.
+  final Set<String> _gen075Classes = {};
+
+  /// Read-only view of classes with GEN-075 type-dispatch switches.
+  Set<String> get gen075Classes => Set.unmodifiable(_gen075Classes);
+
+  /// GEN-079: The current module name during bridge generation.
+  ///
+  /// Set at the start of [generateBridges] and used by [_recordResolvedGenericType]
+  /// to tag extraction sites with their source module.
+  String? _currentModuleName;
 
   /// Cache for resolved type arguments to prevent redundant resolution.
   /// Key is the full type string, value is the resolved result.
@@ -2313,6 +2367,9 @@ class BridgeGenerator {
     Map<String, String>? skipClassSources,
   }) async {
     _skipReports.clear();
+
+    // GEN-079: Track module name for recording generic extraction sites
+    _currentModuleName = moduleName;
 
     // Build dynamic source file to barrel mapping from exportInfo
     _dynamicSourceFileToBarrel.clear();
@@ -8208,6 +8265,8 @@ class BridgeGenerator {
         [...positionalParams, ...namedParams],
       );
       if (typeDispatchParam != null && cls.typeParameters.length == 1) {
+        // GEN-079: Record this class as having a GEN-075 type-dispatch switch
+        _gen075Classes.add(cls.name);
         final localName = _getSafeLocalName(typeDispatchParam.name);
         final argsStr = args.join(', ');
         // For named constructors, type arg goes on the class: Class<T>.named(...)
@@ -10510,11 +10569,115 @@ class BridgeGenerator {
       );
       // Cache the result
       _typeResolutionCache[cacheKey] = result;
+      // GEN-079: Record non-core generic types for relaxer generation.
+      // This is the single centralized recording point — every type
+      // resolution flows through here, so all generic specializations
+      // are captured automatically.
+      _recordResolvedGenericType(result);
       return result;
     } finally {
       // Remove from in-progress set
       _typeResolutionInProgress.remove(cacheKey);
     }
+  }
+
+  /// Dart core generic types handled by `.cast()` conversions in the bridge
+  /// generator. These do NOT need relaxer wrappers.
+  static const _coreGenericTypes = {
+    'List',
+    'Set',
+    'Map',
+    'Iterable',
+    'Iterator',
+    'Future',
+    'Stream',
+    'Comparable',
+  };
+
+  /// GEN-079: Records a generic extraction site if the raw (unprefixed) type
+  /// GEN-079: Records a resolved generic type for relaxer generation.
+  ///
+  /// Analyses the RESOLVED type string (which has import prefixes like
+  /// `material.Animation<ui.Color>`) and records the unprefixed base type
+  /// and type argument. Called centrally from [_getTypeArgument] after
+  /// type resolution, so ALL generic types flowing through the generator
+  /// are captured automatically.
+  void _recordResolvedGenericType(String resolvedType) {
+    if (_currentModuleName == null) return;
+
+    // Strip nullable suffix
+    var type = resolvedType;
+    if (type.endsWith('?')) {
+      type = type.substring(0, type.length - 1);
+    }
+
+    // Must be a generic type
+    final ltIdx = type.indexOf('<');
+    if (ltIdx == -1) return;
+
+    // Extract base type name and strip import prefix (e.g., "material.Animation" → "Animation")
+    var baseTypeName = type.substring(0, ltIdx).trim();
+    final dotIdx = baseTypeName.lastIndexOf('.');
+    if (dotIdx != -1) {
+      baseTypeName = baseTypeName.substring(dotIdx + 1);
+    }
+    // Strip '$' bridge-class prefix (e.g., "$Animation" → "Animation")
+    if (baseTypeName.startsWith(r'$')) {
+      baseTypeName = baseTypeName.substring(1);
+    }
+
+    // Skip Dart core collection types — handled by .cast() in the generator
+    if (_coreGenericTypes.contains(baseTypeName)) return;
+
+    // Parse the inner type argument (handling nested generics)
+    var depth = 0;
+    var gtIdx = -1;
+    for (var i = ltIdx; i < type.length; i++) {
+      if (type[i] == '<') depth++;
+      if (type[i] == '>') {
+        depth--;
+        if (depth == 0) {
+          gtIdx = i;
+          break;
+        }
+      }
+    }
+    if (gtIdx == -1) return;
+
+    var typeArg = type.substring(ltIdx + 1, gtIdx).trim();
+    if (typeArg.isEmpty || typeArg == 'dynamic') return;
+
+    // Strip ALL import prefixes from type arg, including nested generics.
+    // Import prefixes are lowercase identifiers before a dot+uppercase:
+    //   "flutter_163.State<flutter_163.StatefulWidget>" → "State<StatefulWidget>"
+    //   "ui.Color" → "Color"
+    //   "flutter_10.ValueNotifier<int>" → "ValueNotifier<int>"
+    typeArg = typeArg.replaceAll(RegExp(r'[a-z_]\w*\.(?=[A-Z])'), '');
+
+    // Strip '$' bridge-class prefix from all type names.
+    // Bridge code uses $Icon, $Color etc. for wrapper classes, but the relaxer
+    // needs bare Flutter type names (Icon, Color).
+    typeArg = typeArg.replaceAll(RegExp(r'\$(?=[A-Z])'), '');
+
+    // Strip nullable suffix from type arg
+    if (typeArg.endsWith('?')) {
+      typeArg = typeArg.substring(0, typeArg.length - 1);
+    }
+
+    // Skip unresolved type parameters (e.g., T, V, E, K, S) — these are
+    // generic placeholders, not concrete specializations.
+    if (typeArg.length <= 2 &&
+        typeArg.codeUnits.every((c) => c >= 65 && c <= 90)) {
+      return;
+    }
+
+    _genericExtractionSites.add(
+      GenericExtractionSite(
+        baseTypeName: baseTypeName,
+        typeArg: typeArg,
+        moduleName: _currentModuleName!,
+      ),
+    );
   }
 
   /// GEN-057: Generates a cast expression for setter values.

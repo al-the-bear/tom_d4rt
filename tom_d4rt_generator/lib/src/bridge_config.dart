@@ -392,6 +392,21 @@ class BridgeConfig {
   /// Example: `lib/src/bridges/flutter_relaxers.b.dart`
   final String? relaxerOutputPath;
 
+  /// Package names whose relaxer modules should be imported and re-used.
+  ///
+  /// When a downstream package (e.g., `tom_d4rt_flutterm`) depends on a
+  /// package that already generates relaxers (e.g., `tom_core_d4rt`), list
+  /// those upstream package names here. The relaxer generator will import
+  /// their registration functions and avoid re-generating duplicate wrappers.
+  ///
+  /// Example in buildkit.yaml:
+  /// ```yaml
+  /// d4rtgen:
+  ///   priorRelaxerModules:
+  ///     - tom_core_d4rt
+  /// ```
+  final List<String> priorRelaxerModules;
+
   const BridgeConfig({
     required this.name,
     required this.modules,
@@ -412,6 +427,7 @@ class BridgeConfig {
     this.proxyClasses = const [],
     this.generateRelaxers = false,
     this.relaxerOutputPath,
+    this.priorRelaxerModules = const [],
   });
 
   factory BridgeConfig.fromJson(Map<String, dynamic> json) {
@@ -448,6 +464,8 @@ class BridgeConfig {
           const [],
       generateRelaxers: json['generateRelaxers'] as bool? ?? false,
       relaxerOutputPath: json['relaxerOutputPath'] as String?,
+      priorRelaxerModules:
+          (json['priorRelaxerModules'] as List?)?.cast<String>() ?? const [],
     );
   }
 
@@ -525,6 +543,8 @@ class BridgeConfig {
         'proxyClasses': proxyClasses.map((p) => p.toJson()).toList(),
       if (generateRelaxers) 'generateRelaxers': generateRelaxers,
       if (relaxerOutputPath != null) 'relaxerOutputPath': relaxerOutputPath,
+      if (priorRelaxerModules.isNotEmpty)
+        'priorRelaxerModules': priorRelaxerModules,
     };
   }
 
@@ -549,6 +569,7 @@ class BridgeConfig {
     List<ProxyClassConfig>? proxyClasses,
     bool? generateRelaxers,
     String? relaxerOutputPath,
+    List<String>? priorRelaxerModules,
   }) {
     return BridgeConfig(
       name: name ?? this.name,
@@ -570,6 +591,7 @@ class BridgeConfig {
       proxyClasses: proxyClasses ?? this.proxyClasses,
       generateRelaxers: generateRelaxers ?? this.generateRelaxers,
       relaxerOutputPath: relaxerOutputPath ?? this.relaxerOutputPath,
+      priorRelaxerModules: priorRelaxerModules ?? this.priorRelaxerModules,
     );
   }
 }

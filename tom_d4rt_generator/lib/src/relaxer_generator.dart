@@ -1,8 +1,11 @@
 /// D4rt Relaxer Generator — Auto-generates GEN-079 type-relaxing wrappers.
 ///
-/// Post-processing generator that scans generated bridge files for generic
-/// extraction patterns (e.g., `extractBridgedArg<Animation<double>>`) and
-/// produces:
+/// Generates relaxer wrappers from pre-collected data gathered during bridge
+/// code generation and the analyzer. The bridge generator records generic
+/// extraction sites (e.g., `extractBridgedArg<Animation<double>>`) and GEN-075
+/// class names during code emission, then passes them to this generator.
+///
+/// Produces:
 ///
 /// 1. **Wrapper classes** (`$RelaxedAnimation<V>`, `$RelaxedValueNotifier<V>`, …)
 ///    that extend or implement the generic base type with correct delegation.
@@ -20,7 +23,7 @@ import 'package:path/path.dart' as p;
 
 import 'bridge_config.dart';
 import 'bridge_generator.dart'
-    show ClassInfo, MemberInfo;
+    show ClassInfo, GenericExtractionSite, MemberInfo;
 import 'file_generators.dart' show ensureBDartExtension;
 
 // =============================================================================
@@ -55,25 +58,6 @@ class RelaxerGenerationResult {
   bool get isSuccess => errors.isEmpty;
 }
 
-/// A discovered generic extraction site in a generated bridge file.
-// ignore: comment_references
-class _ExtractionSite {
-  /// The generic base type name (e.g., 'ValueNotifier').
-  final String baseTypeName;
-
-  /// The inner type argument (e.g., 'MagnifierInfo', 'Color?').
-  final String typeArg;
-
-  /// The module this extraction was found in.
-  final String moduleName;
-
-  _ExtractionSite({
-    required this.baseTypeName,
-    required this.typeArg,
-    required this.moduleName,
-  });
-}
-
 /// Collected information about a generic base type that needs a relaxer.
 class _RelaxerTarget {
   /// The unparameterized class name (e.g., 'ValueNotifier').
@@ -106,21 +90,23 @@ class _RelaxerTarget {
 
 /// Generates relaxer wrapper classes and factory functions.
 ///
-/// This runs as a post-processing step after the main bridge generator has
-/// produced all `*.b.dart` files. It scans those files for generic type
-/// extraction patterns, identifies which wrappers are needed, and writes
-/// a single output file containing wrapper classes, factory functions,
-/// and a registration function.
+/// Uses pre-collected data from the bridge generator rather than scanning
+/// generated files. The bridge generator records generic extraction sites
+/// and GEN-075 class names during code emission.
 ///
 /// Parameters:
 /// - [config]: The bridge configuration (must have `generateRelaxers: true`).
 /// - [projectPath]: Absolute path to the project root.
 /// - [globalClassLookup]: Map of class name → ClassInfo from the orchestrator.
+/// - [genericExtractionSites]: Pre-collected generic extraction sites from bridge generation.
+/// - [gen075Classes]: Class names with GEN-075 type-dispatch constructor switches.
 /// - [onWarning]: Optional callback for non-fatal warnings.
 Future<RelaxerGenerationResult> generateRelaxers({
   required BridgeConfig config,
   required String projectPath,
   required Map<String, ClassInfo> globalClassLookup,
+  List<GenericExtractionSite> genericExtractionSites = const [],
+  Set<String> gen075Classes = const {},
   void Function(String)? onWarning,
 }) async {
   if (!config.generateRelaxers) {
@@ -142,23 +128,20 @@ Future<RelaxerGenerationResult> generateRelaxers({
   }
 
   // -------------------------------------------------------------------------
-  // Step 1: Scan generated bridge files for generic extraction patterns
+  // Step 1: Use pre-collected generic extraction sites from bridge generator
   // -------------------------------------------------------------------------
-  final moduleExtractions = _scanBridgeFiles(config, projectPath, warn);
-
-  if (moduleExtractions.isEmpty) {
-    warn('No generic extraction patterns found in bridge files');
+  if (genericExtractionSites.isEmpty) {
+    warn('No generic extraction sites collected during bridge generation');
     return RelaxerGenerationResult(warnings: warnings);
   }
 
   // -------------------------------------------------------------------------
-  // Step 2: Build RelaxerTarget list from extraction data
+  // Step 2: Build RelaxerTarget list from pre-collected extraction data
   // -------------------------------------------------------------------------
   final targets = _buildRelaxerTargets(
-    moduleExtractions,
+    genericExtractionSites,
     globalClassLookup,
-    config,
-    projectPath,
+    gen075Classes,
     warn,
   );
 
@@ -231,6 +214,32 @@ Future<RelaxerGenerationResult> generateRelaxers({
     }
   }
 
+  // Scan for user-defined relaxer extensions
+  final userRelaxers = scanUserRelaxers(
+    config.relaxerOutputPath!,
+    projectPath,
+    warn,
+  );
+
+  // Add user relaxer imports if any exist
+  if (userRelaxers.isNotEmpty) {
+    // Insert user imports into the import section (before wrapper classes)
+    // We generate the import at the top of the file by prepending
+    final userImportBuf = StringBuffer();
+    final importedUris = <String>{};
+    for (final entry in userRelaxers) {
+      if (importedUris.add(entry.importUri)) {
+        userImportBuf.writeln("import '${entry.importUri}';");
+      }
+    }
+    // Note: We insert user imports inline with the generated code.
+    // The import block was already written to buffer, so we prepend
+    // user relaxer registrations to the registration function.
+    for (final entry in userRelaxers) {
+      (factoryNames[entry.baseTypeName] ??= []).add(entry.factoryFunctionName);
+    }
+  }
+
   // Registration function
   _writeRegistrationFunction(buffer, factoryNames);
 
@@ -262,168 +271,28 @@ Future<RelaxerGenerationResult> generateRelaxers({
 }
 
 // =============================================================================
-// Step 1: Scanning bridge files
-// =============================================================================
-
-/// Scans generated bridge files for extraction patterns like
-/// `D4.extractBridgedArg<Base<Arg>>`.
-///
-/// Returns a list of [_ExtractionSite] entries grouping each occurrence by
-/// base type, inner type arg, and source module.
-List<_ExtractionSite> _scanBridgeFiles(
-  BridgeConfig config,
-  String projectPath,
-  void Function(String) warn,
-) {
-  final results = <_ExtractionSite>[];
-
-  for (final module in config.modules) {
-    if (module.outputPath.isEmpty) continue;
-
-    final filePath = p.join(projectPath, module.outputPath);
-    final file = File(filePath);
-    if (!file.existsSync()) {
-      warn('Bridge file not found: $filePath');
-      continue;
-    }
-
-    final content = file.readAsStringSync();
-    final extractions = _extractGenericTypeArgs(content);
-
-    for (final (baseType, typeArg) in extractions) {
-      // Skip 'dynamic' — no mismatch possible
-      if (typeArg == 'dynamic') continue;
-
-      results.add(
-        _ExtractionSite(
-          baseTypeName: baseType,
-          typeArg: typeArg,
-          moduleName: module.name,
-        ),
-      );
-    }
-  }
-
-  return results;
-}
-
-/// Parses a bridge file's content and extracts all (baseType, innerTypeArg)
-/// pairs from generic extraction calls.
-///
-/// Handles patterns like:
-/// - `D4.extractBridgedArg<$prefix.Base<$prefix.Arg>>`
-/// - `D4.getRequiredNamedArg<$prefix.Base<$prefix.Arg?>>`
-/// - `D4.getOptionalNamedArg<Base<Arg>>`
-List<(String baseType, String innerArg)> _extractGenericTypeArgs(
-  String content,
-) {
-  final results = <(String, String)>[];
-  final methods = [
-    'extractBridgedArg',
-    'extractBridgedArgOrNull',
-    'getRequiredNamedArg',
-    'getOptionalNamedArg',
-    'getNamedArgWithDefault',
-    'getRequiredArg',
-    'getOptionalArgWithDefault',
-    'getRequiredNamedArgTodoDefault',
-  ];
-
-  for (final method in methods) {
-    final prefix = 'D4.$method<';
-    var searchFrom = 0;
-
-    while (true) {
-      final idx = content.indexOf(prefix, searchFrom);
-      if (idx == -1) break;
-
-      final typeStart = idx + prefix.length;
-
-      // Find the matching '>' for the outer generic bracket.
-      // We need to track nesting depth because the type argument may
-      // itself contain generics (e.g., `Map<String, int>`).
-      var depth = 1;
-      var pos = typeStart;
-      while (pos < content.length && depth > 0) {
-        if (content[pos] == '<') depth++;
-        if (content[pos] == '>') depth--;
-        pos++;
-      }
-      if (depth != 0) {
-        searchFrom = pos;
-        continue;
-      }
-
-      // typeStr is the full type argument, e.g.:
-      // '$flutter_1.Animation<double>'
-      // '$flutter_10.ValueNotifier<$flutter_284.MagnifierInfo>'
-      final typeStr = content.substring(typeStart, pos - 1);
-
-      // Strip import prefixes ($identifier.)
-      final cleanType = typeStr.replaceAll(RegExp(r'\$\w+\.'), '');
-
-      // Parse first-level generic: 'Base<InnerArg>'
-      final ltIdx = cleanType.indexOf('<');
-      if (ltIdx == -1) {
-        // Not a generic type — skip
-        searchFrom = pos;
-        continue;
-      }
-
-      final baseType = cleanType.substring(0, ltIdx);
-
-      // Find matching '>' for the inner generic
-      var d = 0;
-      var gtIdx = -1;
-      for (var i = ltIdx; i < cleanType.length; i++) {
-        if (cleanType[i] == '<') d++;
-        if (cleanType[i] == '>') {
-          d--;
-          if (d == 0) {
-            gtIdx = i;
-            break;
-          }
-        }
-      }
-      if (gtIdx == -1) {
-        searchFrom = pos;
-        continue;
-      }
-
-      final innerArg = cleanType.substring(ltIdx + 1, gtIdx);
-      results.add((baseType, innerArg));
-
-      searchFrom = pos;
-    }
-  }
-
-  return results;
-}
-
-// =============================================================================
 // Step 2: Building relaxer targets
 // =============================================================================
 
-/// Builds the list of [_RelaxerTarget] from raw extraction sites.
+/// Builds the list of [_RelaxerTarget] from pre-collected extraction sites.
 ///
 /// Groups extractions by base type, resolves ClassInfo from the global lookup,
-/// and checks for GEN-075 constructor switches.
+/// and marks classes with GEN-075 constructor switches.
 List<_RelaxerTarget> _buildRelaxerTargets(
-  List<_ExtractionSite> extractions,
+  List<GenericExtractionSite> extractions,
   Map<String, ClassInfo> globalClassLookup,
-  BridgeConfig config,
-  String projectPath,
+  Set<String> gen075Classes,
   void Function(String) warn,
 ) {
   // Group by base type → module → Set<typeArg>
   final grouped = <String, Map<String, Set<String>>>{};
   for (final site in extractions) {
+    // Skip 'dynamic' — no mismatch possible
+    if (site.typeArg == 'dynamic') continue;
+
     final moduleMap = grouped.putIfAbsent(site.baseTypeName, () => {});
     moduleMap.putIfAbsent(site.moduleName, () => {}).add(site.typeArg);
   }
-
-  // Check which classes have GEN-075 switches
-  final gen075Classes = _scanForGEN075Classes(config, projectPath);
 
   final targets = <_RelaxerTarget>[];
   for (final entry in grouped.entries) {
@@ -469,38 +338,6 @@ const _dartCoreGenericTypes = {
   'Stream',
   'Comparable',
 };
-
-/// Scans generated bridge files for GEN-075 comments to identify which
-/// classes have type-dispatch constructor switches.
-Set<String> _scanForGEN075Classes(BridgeConfig config, String projectPath) {
-  final result = <String>{};
-  // Pattern: a _create{ClassName}Bridge function before a GEN-075 comment
-  final pattern = RegExp(
-    r'BridgedClass _create(\w+)Bridge\(\)',
-  );
-
-  for (final module in config.modules) {
-    if (module.outputPath.isEmpty) continue;
-    final filePath = p.join(projectPath, module.outputPath);
-    final file = File(filePath);
-    if (!file.existsSync()) continue;
-
-    final lines = file.readAsLinesSync();
-    String? currentBridgeClass;
-
-    for (final line in lines) {
-      final match = pattern.firstMatch(line);
-      if (match != null) {
-        currentBridgeClass = match.group(1);
-      }
-      if (line.contains('GEN-075') && currentBridgeClass != null) {
-        result.add(currentBridgeClass);
-      }
-    }
-  }
-
-  return result;
-}
 
 // =============================================================================
 // Step 3a: File header and imports
@@ -860,10 +697,13 @@ void _writeConstructor(
     return;
   }
 
-  // Check if constructor has T-typed required parameters
+  // Check if constructor has T-typed required parameters.
+  // Only match when T IS the param type (possibly nullable), not when T
+  // appears inside a complex type like `T Function()` or `Container<T>`.
+  final exactTPattern = RegExp('^${RegExp.escape(typeParamName)}\\??\$');
   final requiredParams = defaultCtor.parameters.where((p) => p.isRequired);
   final hasTPosParam = requiredParams.any(
-    (p) => !p.isNamed && tPattern.hasMatch(p.type),
+    (p) => !p.isNamed && exactTPattern.hasMatch(p.type.trim()),
   );
 
   if (defaultCtor.parameters.isEmpty) {
@@ -1006,14 +846,20 @@ void _writeImplementsDelegation(
   buf.writeln('    super.noSuchMethod(invocation);');
   buf.writeln();
 
-  // Explicit toString override — required for classes whose interface has
-  // String toString({DiagnosticLevel minLevel}) (like Diagnosticable,
-  // RenderObject). Object.toString() has incompatible signature and
-  // noSuchMethod can't resolve it (it's already a concrete implementation).
-  buf.writeln('  @override');
-  buf.writeln('  String toString({dynamic minLevel}) =>');
-  buf.writeln("    _inner.toString();");
-  buf.writeln();
+  // GEN-079: Detect if the class hierarchy has a non-standard toString
+  // signature (e.g., Diagnosticable.toString({DiagnosticLevel minLevel})).
+  // Object.toString() is already concrete, so noSuchMethod can't handle it.
+  // We generate an override only when the analyzer data shows parameters.
+  final toStringOverride = _findNonStandardToString(
+    classInfo,
+    classLookup,
+  );
+  if (toStringOverride != null) {
+    buf.writeln('  @override');
+    buf.writeln('  String toString($toStringOverride) =>');
+    buf.writeln("    _inner.toString();");
+    buf.writeln();
+  }
 
   // Override T-involving getters with cast
   for (final getter in tGetters) {
@@ -1173,8 +1019,137 @@ void _writeRegistrationFunction(
 }
 
 // =============================================================================
+// Step 4: User relaxer scanner
+// =============================================================================
+
+/// A discovered user-defined relaxer extension.
+class UserRelaxerEntry {
+  /// The base type name this relaxer handles (e.g., 'MyGenericType').
+  final String baseTypeName;
+
+  /// The factory function name from the user file.
+  final String factoryFunctionName;
+
+  /// Import URI for the user relaxer file.
+  final String importUri;
+
+  const UserRelaxerEntry({
+    required this.baseTypeName,
+    required this.factoryFunctionName,
+    required this.importUri,
+  });
+}
+
+/// Scans for user-defined relaxer files matching `*_user_relaxer.dart`
+/// in the `user_relaxers/` subdirectory relative to the relaxer output path.
+///
+/// User relaxer files allow hand-written relaxer factories for types that
+/// the auto-generator can't handle (e.g., multi-type-parameter generics,
+/// special construction patterns).
+///
+/// Expected file structure:
+/// ```dart
+/// // my_type_user_relaxer.dart
+/// Object? relaxMyType(Object value, String innerTypeArg) {
+///   // Custom relaxer logic
+/// }
+/// ```
+///
+/// The scanner looks for top-level functions matching `relax{TypeName}`.
+List<UserRelaxerEntry> scanUserRelaxers(
+  String relaxerOutputPath,
+  String projectPath,
+  void Function(String) warn,
+) {
+  final results = <UserRelaxerEntry>[];
+  final outputDir = p.dirname(p.join(projectPath, relaxerOutputPath));
+  final userRelaxerDir = Directory(p.join(outputDir, 'user_relaxers'));
+
+  if (!userRelaxerDir.existsSync()) return results;
+
+  final relaxerFiles = userRelaxerDir
+      .listSync()
+      .whereType<File>()
+      .where((f) => f.path.endsWith('_user_relaxer.dart'));
+
+  final funcPattern = RegExp(
+    r'^\s*Object\?\s+(relax\w+)\s*\(',
+    multiLine: true,
+  );
+
+  for (final file in relaxerFiles) {
+    try {
+      final content = file.readAsStringSync();
+      final matches = funcPattern.allMatches(content);
+
+      for (final match in matches) {
+        final funcName = match.group(1)!;
+        // Extract base type from function name: relax{TypeName} → TypeName
+        if (funcName.length <= 5) continue; // 'relax' + at least 1 char
+        final baseTypeName = funcName.substring(5); // Strip 'relax'
+
+        // Compute import URI relative to the project
+        final relativePath = p.relative(file.path, from: projectPath);
+        final importUri = 'package:${p.split(relativePath).skip(1).join('/')}';
+
+        results.add(
+          UserRelaxerEntry(
+            baseTypeName: baseTypeName,
+            factoryFunctionName: funcName,
+            importUri: importUri,
+          ),
+        );
+      }
+    } catch (e) {
+      warn('Failed to scan user relaxer ${file.path}: $e');
+    }
+  }
+
+  return results;
+}
+
+// =============================================================================
 // Helper functions
 // =============================================================================
+
+/// Checks if the class hierarchy has a `toString` with a non-standard
+/// signature (i.e., with parameters beyond Object's parameterless `toString()`).
+///
+/// Returns the parameter signature string (e.g., `{dynamic minLevel}`) if a
+/// non-standard toString is found, or null if `Object.toString()` suffices.
+///
+/// This replaces the previous hardcoded `toString({dynamic minLevel})` override
+/// that was specific to Flutter's `Diagnosticable` hierarchy. Now it detects
+/// the actual signature from the analyzer data.
+String? _findNonStandardToString(
+  ClassInfo classInfo,
+  Map<String, ClassInfo> classLookup,
+) {
+  // Walk the inheritance chain looking for a toString with parameters
+  final allMethods = classInfo.allInstanceMethods(classLookup);
+  for (final method in allMethods) {
+    if (method.name == 'toString' && method.parameters.isNotEmpty) {
+      // Found a toString with parameters — build the parameter signature
+      // Use 'dynamic' for parameter types to avoid import dependencies
+      // in the generated relaxer file.
+      final paramParts = <String>[];
+      for (final param in method.parameters) {
+        if (param.isNamed) {
+          paramParts.add('dynamic ${param.name}');
+        } else {
+          paramParts.add('dynamic ${param.name}');
+        }
+      }
+      // All known cases use named parameters (e.g., {DiagnosticLevel minLevel})
+      final hasNamed = method.parameters.any((p) => p.isNamed);
+      if (hasNamed) {
+        return '{${paramParts.join(', ')}}';
+      }
+      return paramParts.join(', ');
+    }
+  }
+  return null;
+}
 
 /// Replaces occurrences of a type parameter name with 'V' in a type string.
 ///
