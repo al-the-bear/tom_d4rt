@@ -369,28 +369,24 @@ class BridgeConfig {
   /// ```
   final List<ProxyClassConfig> proxyClasses;
 
-  /// Whether to generate GEN-079 relaxer wrapper classes and factory functions.
+  /// Output path for the generated GEN-079 relaxer wrapper file.
   ///
-  /// When true and [relaxerOutputPath] is set, the generator will:
-  /// 1. Scan generated bridge files for `extractBridgedArg<Base<Arg>>` patterns
+  /// Relaxer generation is automatic during bridge generation. The generator
+  /// will:
+  /// 1. Collect generic type arguments from bridge analysis (`_getTypeArgument`)
   /// 2. Generate `$Relaxed{Base}<V>` wrapper classes for each generic base type
   /// 3. Generate per-module factory functions with type-arg switch dispatch
   /// 4. Generate a `registerRelaxers()` function for runtime registration
   ///
-  /// Example in buildkit.yaml:
+  /// If not explicitly set, defaults to `relaxers.b.dart` in the same directory
+  /// as the first module's output path.
+  ///
+  /// To override in buildkit.yaml:
   /// ```yaml
   /// d4rtgen:
-  ///   generateRelaxers: true
   ///   relaxerOutputPath: lib/src/bridges/flutter_relaxers.b.dart
   /// ```
-  final bool generateRelaxers;
-
-  /// Output path for the generated relaxers file.
-  ///
-  /// Contains wrapper classes, per-module factory functions, and the
-  /// `registerRelaxers()` registration entry point.
-  /// Example: `lib/src/bridges/flutter_relaxers.b.dart`
-  final String? relaxerOutputPath;
+  final String relaxerOutputPath;
 
   /// Package names whose relaxer modules should be imported and re-used.
   ///
@@ -425,17 +421,18 @@ class BridgeConfig {
     this.generateProxies = false,
     this.proxiesOutputPath,
     this.proxyClasses = const [],
-    this.generateRelaxers = false,
-    this.relaxerOutputPath,
+    this.relaxerOutputPath = 'lib/src/relaxers.b.dart',
     this.priorRelaxerModules = const [],
   });
 
   factory BridgeConfig.fromJson(Map<String, dynamic> json) {
+    final modules =
+        (json['modules'] as List)
+            .map((m) => ModuleConfig.fromJson(m as Map<String, dynamic>))
+            .toList();
     return BridgeConfig(
       name: json['name'] as String,
-      modules: (json['modules'] as List)
-          .map((m) => ModuleConfig.fromJson(m as Map<String, dynamic>))
-          .toList(),
+      modules: modules,
       helpersImport: json['helpersImport'] as String?,
       d4rtImport: json['d4rtImport'] as String?,
       generateBarrel: json['generateBarrel'] as bool? ?? true,
@@ -462,8 +459,8 @@ class BridgeConfig {
               ?.map((e) => ProxyClassConfig.fromYaml(e))
               .toList() ??
           const [],
-      generateRelaxers: json['generateRelaxers'] as bool? ?? false,
-      relaxerOutputPath: json['relaxerOutputPath'] as String?,
+      relaxerOutputPath: json['relaxerOutputPath'] as String? ??
+          _defaultRelaxerOutputPath(modules),
       priorRelaxerModules:
           (json['priorRelaxerModules'] as List?)?.cast<String>() ?? const [],
     );
@@ -541,8 +538,7 @@ class BridgeConfig {
       if (proxiesOutputPath != null) 'proxiesOutputPath': proxiesOutputPath,
       if (proxyClasses.isNotEmpty)
         'proxyClasses': proxyClasses.map((p) => p.toJson()).toList(),
-      if (generateRelaxers) 'generateRelaxers': generateRelaxers,
-      if (relaxerOutputPath != null) 'relaxerOutputPath': relaxerOutputPath,
+      'relaxerOutputPath': relaxerOutputPath,
       if (priorRelaxerModules.isNotEmpty)
         'priorRelaxerModules': priorRelaxerModules,
     };
@@ -567,7 +563,6 @@ class BridgeConfig {
     bool? generateProxies,
     String? proxiesOutputPath,
     List<ProxyClassConfig>? proxyClasses,
-    bool? generateRelaxers,
     String? relaxerOutputPath,
     List<String>? priorRelaxerModules,
   }) {
@@ -589,9 +584,18 @@ class BridgeConfig {
       generateProxies: generateProxies ?? this.generateProxies,
       proxiesOutputPath: proxiesOutputPath ?? this.proxiesOutputPath,
       proxyClasses: proxyClasses ?? this.proxyClasses,
-      generateRelaxers: generateRelaxers ?? this.generateRelaxers,
       relaxerOutputPath: relaxerOutputPath ?? this.relaxerOutputPath,
       priorRelaxerModules: priorRelaxerModules ?? this.priorRelaxerModules,
     );
+  }
+
+  /// Derives a default relaxer output path from the first module's output
+  /// directory, placing `relaxers.b.dart` alongside the module bridge files.
+  static String _defaultRelaxerOutputPath(List<ModuleConfig> modules) {
+    if (modules.isEmpty) return 'lib/src/relaxers.b.dart';
+    final firstOutput = modules.first.outputPath;
+    final lastSlash = firstOutput.lastIndexOf('/');
+    if (lastSlash < 0) return 'relaxers.b.dart';
+    return '${firstOutput.substring(0, lastSlash)}/relaxers.b.dart';
   }
 }

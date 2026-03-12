@@ -15,7 +15,6 @@ d4rtgen:
   generateProxies: true
   proxiesOutputPath: lib/src/bridges/flutter_proxies.b.dart
   # GEN-079: Auto-generated generic type relaxer wrappers
-  generateRelaxers: true
   relaxerOutputPath: lib/src/bridges/flutter_relaxers.b.dart
   proxyClasses:
     - CustomPainter

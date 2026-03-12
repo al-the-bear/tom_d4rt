@@ -95,7 +95,7 @@ class _RelaxerTarget {
 /// and GEN-075 class names during code emission.
 ///
 /// Parameters:
-/// - [config]: The bridge configuration (must have `generateRelaxers: true`).
+/// - [config]: The bridge configuration.
 /// - [projectPath]: Absolute path to the project root.
 /// - [globalClassLookup]: Map of class name → ClassInfo from the orchestrator.
 /// - [genericExtractionSites]: Pre-collected generic extraction sites from bridge generation.
@@ -109,15 +109,9 @@ Future<RelaxerGenerationResult> generateRelaxers({
   Set<String> gen075Classes = const {},
   void Function(String)? onWarning,
 }) async {
-  if (!config.generateRelaxers) {
-    return const RelaxerGenerationResult();
-  }
-
-  if (config.relaxerOutputPath == null) {
-    return const RelaxerGenerationResult(
-      errors: ['generateRelaxers is true but relaxerOutputPath is not set'],
-    );
-  }
+  // relaxerOutputPath always has a value (auto-derived default), but guard
+  // for programmatic callers who pass a config with the constructor default.
+  final outputPath = config.relaxerOutputPath;
 
   final errors = <String>[];
   final warnings = <String>[];
@@ -216,7 +210,7 @@ Future<RelaxerGenerationResult> generateRelaxers({
 
   // Scan for user-defined relaxer extensions
   final userRelaxers = scanUserRelaxers(
-    config.relaxerOutputPath!,
+    outputPath,
     projectPath,
     warn,
   );
@@ -246,23 +240,23 @@ Future<RelaxerGenerationResult> generateRelaxers({
   // -------------------------------------------------------------------------
   // Step 4: Write the output file
   // -------------------------------------------------------------------------
-  final outputPath = p.join(
+  final outputFilePath = p.join(
     projectPath,
-    ensureBDartExtension(config.relaxerOutputPath!),
+    ensureBDartExtension(outputPath),
   );
-  final outputDir = Directory(p.dirname(outputPath));
+  final outputDir = Directory(p.dirname(outputFilePath));
   if (!outputDir.existsSync()) {
     outputDir.createSync(recursive: true);
   }
-  await File(outputPath).writeAsString(buffer.toString());
+  await File(outputFilePath).writeAsString(buffer.toString());
 
   print(
     '  RELAXER: Generated $wrappersGenerated wrapper classes, '
-    '$factoriesGenerated factory functions → $outputPath',
+    '$factoriesGenerated factory functions → $outputFilePath',
   );
 
   return RelaxerGenerationResult(
-    outputFile: outputPath,
+    outputFile: outputFilePath,
     wrapperClassesGenerated: wrappersGenerated,
     factoryFunctionsGenerated: factoriesGenerated,
     errors: errors,

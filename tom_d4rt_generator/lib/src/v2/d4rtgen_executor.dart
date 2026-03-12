@@ -241,8 +241,9 @@ Future<void> _generateBridges(
     }
   }
 
-  // Generate relaxer wrappers if requested (GEN-079)
-  if (config.generateRelaxers) {
+  // Generate relaxer wrappers (GEN-079) — always runs, output path
+  // auto-derived from first module when not explicitly configured.
+  {
     final relaxerResult = await generateRelaxers(
       config: config,
       projectPath: projectDir,
