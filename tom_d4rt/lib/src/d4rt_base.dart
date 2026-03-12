@@ -158,6 +158,12 @@ class D4rt {
   /// GEN-074: Class aliases - (aliasName, targetName, library) tuples
   final List<({String aliasName, String targetName, String library})>
       _classAliases = [];
+
+  /// GEN-079: Function typedefs (e.g., VoidCallback = void Function()) registered
+  /// as environment types so they can be resolved in type annotations
+  /// and type arguments.
+  final List<({String name, String library})> _functionTypedefs = [];
+
   InterpretedInstance? _interpretedInstance;
   InterpreterVisitor? _visitor;
   final Map<Type, BridgedClass> _bridgedDefLookupByType = {};
@@ -222,6 +228,20 @@ class D4rt {
   void registerClassAlias(String aliasName, String targetName, String library) {
     _classAliases
         .add((aliasName: aliasName, targetName: targetName, library: library));
+  }
+
+  /// GEN-079: Registers a function typedef so it can be resolved as a type.
+  ///
+  /// Function typedefs like `typedef VoidCallback = void Function()` are not
+  /// classes, but D4rt scripts may reference them as type arguments
+  /// (e.g., `ObserverList<VoidCallback>()`). This registers the name
+  /// so the runtime can create a `BridgedClass` with `nativeType: Function`
+  /// for type resolution.
+  ///
+  /// [name] The typedef name (e.g., 'VoidCallback').
+  /// [library] The library path where this typedef is exported from.
+  void registerFunctionTypedef(String name, String library) {
+    _functionTypedefs.add((name: name, library: library));
   }
 
   /// Registers a bridged extension for use in interpreted code.

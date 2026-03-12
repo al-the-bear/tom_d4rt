@@ -1,3 +1,10 @@
+## 1.8.18
+
+### Features
+- **GEN-079**: Added `registerFunctionTypedef` to `D4rt` base class for function typedef type resolution
+  - Function typedefs (e.g., `VoidCallback`) can now be registered so the runtime resolves them as types
+  - Required by bridges generated with tom_d4rt_generator 1.8.18
+
 ## 1.8.11
 
 ### Features
