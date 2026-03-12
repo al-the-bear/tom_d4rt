@@ -49,9 +49,11 @@ class FlutterD4rt {
   }
 
   /// GEN-079: Register auto-generated generic type relaxers once globally.
+  /// RC-2: Register auto-generated generic constructor factories.
   static void _ensureRelaxersRegistered() {
     if (!_relaxersRegistered) {
       registerRelaxers();
+      registerGenericConstructors(); // RC-2
       registerD4rtRuntimeExtensions();
       _relaxersRegistered = true;
     }

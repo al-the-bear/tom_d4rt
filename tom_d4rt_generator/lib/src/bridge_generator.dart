@@ -13444,14 +13444,16 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     return null;
   }
 
-  /// Checks if a node has @visibleForTesting or @internal annotation.
-  /// GEN-075: @protected is NOT skipped - bridge code calls methods on native
+  /// Checks if a node has @internal or @visibleForOverriding annotation.
+  ///
+  /// RC-5: @visibleForTesting is NOT skipped — bridge code needs these
+  /// methods (e.g., ChangeNotifier.notifyListeners, .hasListeners).
+  /// GEN-075: @protected is NOT skipped — bridge code calls methods on native
   /// objects, so @protected methods should be bridged.
-  bool _hasTestOnlyAnnotation(AnnotatedNode node) {
+  bool _hasInternalAnnotation(AnnotatedNode node) {
     for (final annotation in node.metadata) {
       final name = annotation.name.name;
-      if (name == 'visibleForTesting' ||
-          name == 'internal' ||
+      if (name == 'internal' ||
           name == 'visibleForOverriding' ||
           name == 'mustBeOverridden') {
         return true;
@@ -13460,16 +13462,17 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     return false;
   }
 
-  /// Checks if an element has @visibleForTesting or @internal.
+  /// Checks if an element has @internal or @visibleForOverriding.
   /// Used for inherited members collected from resolved elements.
   ///
-  /// GEN-075: @protected is NOT skipped - bridge code calls methods on native
+  /// RC-5: @visibleForTesting is NOT skipped — bridge code needs these
+  /// methods (e.g., ChangeNotifier.notifyListeners, .hasListeners).
+  /// GEN-075: @protected is NOT skipped — bridge code calls methods on native
   /// objects, so @protected methods should be bridged.
-  bool _hasTestOnlyElementAnnotation(Element element) {
+  bool _hasInternalElementAnnotation(Element element) {
     final dynamic dynamicElement = element;
     try {
-      if (dynamicElement.isVisibleForTesting == true ||
-          dynamicElement.isInternal == true ||
+      if (dynamicElement.isInternal == true ||
           dynamicElement.isMustBeOverridden == true ||
           dynamicElement.isVisibleForOverriding == true) {
         return true;
@@ -13479,16 +13482,14 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     }
 
     for (final annotation in element.metadata.annotations) {
-      if (annotation.isVisibleForTesting ||
-          annotation.isInternal ||
+      if (annotation.isInternal ||
           annotation.isMustBeOverridden ||
           annotation.isVisibleForOverriding) {
         return true;
       }
 
       final annotationSource = annotation.toSource();
-      if (annotationSource.contains('visibleForTesting') ||
-          annotationSource.contains('internal') ||
+      if (annotationSource.contains('internal') ||
           annotationSource.contains('mustBeOverridden') ||
           annotationSource.contains('visibleForOverriding')) {
         return true;
@@ -13498,8 +13499,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
           .computeConstantValue()
           ?.type
           ?.getDisplayString();
-      if (annotationType == 'VisibleForTesting' ||
-          annotationType == 'Internal' ||
+      if (annotationType == 'Internal' ||
           annotationType == 'MustBeOverridden') {
         return true;
       }
@@ -13507,9 +13507,10 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     return false;
   }
 
-  /// Checks if a method overrides a super member that has test-only/protected
-  /// annotations, even when the overriding declaration itself is unannotated.
-  bool _overridesTestOnlySuperMember(MethodDeclaration node) {
+  /// Checks if a method overrides a super member that has @internal or
+  /// @visibleForOverriding annotations, even when the overriding declaration
+  /// itself is unannotated.
+  bool _overridesInternalSuperMember(MethodDeclaration node) {
     final parent = node.parent;
     InterfaceElement? interfaceElement;
 
@@ -13540,7 +13541,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
       }
 
       if (inheritedMember != null &&
-          _hasTestOnlyElementAnnotation(inheritedMember)) {
+          _hasInternalElementAnnotation(inheritedMember)) {
         return true;
       }
     }
@@ -13567,7 +13568,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     if (skipPrivate && enumName.startsWith('_')) return;
 
     // Skip enums marked as @visibleForTesting, @protected, or @internal
-    if (_hasTestOnlyAnnotation(node)) return;
+    if (_hasInternalAnnotation(node)) return;
 
     // Skip deprecated enums unless generateDeprecatedElements is enabled
     if (!generateDeprecatedElements && _hasDeprecatedAnnotation(node)) {
@@ -13700,7 +13701,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     if (skipPrivate && aliasName.startsWith('_')) return;
 
     // Skip aliases marked as @visibleForTesting, @protected, or @internal
-    if (_hasTestOnlyAnnotation(node)) return;
+    if (_hasInternalAnnotation(node)) return;
 
     // GEN-078: Do NOT skip deprecated non-function type aliases. Type aliases
     // (e.g., typedef MaterialStateProperty<T> = WidgetStateProperty<T>) exist
@@ -13753,7 +13754,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     if (skipPrivate && extName != null && extName.startsWith('_')) return;
 
     // Skip extensions marked as @visibleForTesting, @protected, or @internal
-    if (_hasTestOnlyAnnotation(node)) return;
+    if (_hasInternalAnnotation(node)) return;
 
     // Skip deprecated extensions unless generateDeprecatedElements is enabled
     if (!generateDeprecatedElements && _hasDeprecatedAnnotation(node)) {
@@ -13844,8 +13845,8 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
 
     if (skipPrivate && name.startsWith('_')) return null;
 
-    // Skip methods marked as @visibleForTesting, @protected, or @internal
-    if (_hasTestOnlyAnnotation(node)) return null;
+    // Skip methods marked as @internal or @visibleForOverriding
+    if (_hasInternalAnnotation(node)) return null;
 
     // Track if method has type parameters (will use type erasure)
     final hasTypeParameters =
@@ -13893,7 +13894,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     if (skipPrivate && name.startsWith('_')) return;
 
     // Skip functions marked as @visibleForTesting, @protected, or @internal
-    if (_hasTestOnlyAnnotation(node)) return;
+    if (_hasInternalAnnotation(node)) return;
 
     // Skip deprecated functions unless generateDeprecatedElements is enabled
     if (!generateDeprecatedElements && _hasDeprecatedAnnotation(node)) {
@@ -13988,7 +13989,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
   @override
   void visitTopLevelVariableDeclaration(TopLevelVariableDeclaration node) {
     // Skip variables marked as @visibleForTesting, @protected, or @internal
-    if (_hasTestOnlyAnnotation(node)) return;
+    if (_hasInternalAnnotation(node)) return;
 
     // Skip deprecated variables unless generateDeprecatedElements is enabled
     if (!generateDeprecatedElements && _hasDeprecatedAnnotation(node)) {
@@ -14036,7 +14037,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     if (node.parent is ClassDeclaration) return;
 
     // Skip classes marked as @visibleForTesting, @protected, or @internal
-    if (_hasTestOnlyAnnotation(node)) return;
+    if (_hasInternalAnnotation(node)) return;
 
     // Skip deprecated classes unless generateDeprecatedElements is enabled
     if (!generateDeprecatedElements && _hasDeprecatedAnnotation(node)) {
@@ -14158,7 +14159,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     if (skipPrivate && mixinName.startsWith('_')) return;
 
     // Skip mixins marked as @visibleForTesting, @protected, or @internal
-    if (_hasTestOnlyAnnotation(node)) return;
+    if (_hasInternalAnnotation(node)) return;
 
     // Skip deprecated mixins unless generateDeprecatedElements is enabled
     if (!generateDeprecatedElements && _hasDeprecatedAnnotation(node)) {
@@ -14288,7 +14289,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     if (skipPrivate && className.startsWith('_')) return;
 
     // Skip classes marked as @visibleForTesting, @protected, or @internal
-    if (_hasTestOnlyAnnotation(node)) return;
+    if (_hasInternalAnnotation(node)) return;
 
     // Skip deprecated classes unless generateDeprecatedElements is enabled
     if (!generateDeprecatedElements && _hasDeprecatedAnnotation(node)) {
@@ -14652,7 +14653,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         if (getterName.startsWith('_')) continue;
 
         // Skip inherited members that are not part of the public API
-        if (_hasTestOnlyElementAnnotation(getter)) continue;
+        if (_hasInternalElementAnnotation(getter)) continue;
 
         // Skip if already processed (declared or inherited from a more specific type)
         // GEN-093: Use qualified name to avoid getter/setter collisions
@@ -14698,7 +14699,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         if (setterName.startsWith('_')) continue;
 
         // Skip inherited members that are not part of the public API
-        if (_hasTestOnlyElementAnnotation(setter)) continue;
+        if (_hasInternalElementAnnotation(setter)) continue;
 
         // Skip if already processed
         // GEN-093: Use qualified name to avoid getter/setter collisions
@@ -14738,7 +14739,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         if (methodName == null || methodName.startsWith('_')) continue;
 
         // Skip inherited members that are not part of the public API
-        if (_hasTestOnlyElementAnnotation(method)) continue;
+        if (_hasInternalElementAnnotation(method)) continue;
 
         // Resolve to the most-specific override from the inheritance chain.
         // getMember() correctly narrows covariant parameter types
@@ -14794,7 +14795,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         if (methodName == null || methodName.startsWith('_')) continue;
 
         // Skip inherited members that are not part of the public API
-        if (_hasTestOnlyElementAnnotation(method)) continue;
+        if (_hasInternalElementAnnotation(method)) continue;
 
         // Check if operator is already declared in the class (using simple name)
         // or already processed from a more specific supertype (using compound key)
@@ -15078,8 +15079,8 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     final name = node.name?.lexeme;
     if (skipPrivate && name != null && name.startsWith('_')) return null;
 
-    // Skip constructors marked as @visibleForTesting, @protected, or @internal
-    if (_hasTestOnlyAnnotation(node)) return null;
+    // Skip constructors marked as @internal or @visibleForOverriding
+    if (_hasInternalAnnotation(node)) return null;
 
     final parameters = _parseParameters(node.parameters);
 
@@ -15097,15 +15098,15 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
 
     if (skipPrivate && name.startsWith('_')) return null;
 
-    // Skip methods marked as @visibleForTesting, @protected, or @internal
-    if (_hasTestOnlyAnnotation(node)) return null;
+    // Skip methods marked as @internal or @visibleForOverriding
+    if (_hasInternalAnnotation(node)) return null;
 
     final methodElement = node.declaredFragment?.element;
-    if (methodElement != null && _hasTestOnlyElementAnnotation(methodElement)) {
+    if (methodElement != null && _hasInternalElementAnnotation(methodElement)) {
       return null;
     }
 
-    if (_overridesTestOnlySuperMember(node)) {
+    if (_overridesInternalSuperMember(node)) {
       return null;
     }
 
@@ -15185,8 +15186,8 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
 
   /// Parses a field declaration with resolved types.
   List<MemberInfo> _parseField(FieldDeclaration node) {
-    // Skip fields marked as @visibleForTesting, @protected, or @internal
-    if (_hasTestOnlyAnnotation(node)) return const [];
+    // Skip fields marked as @internal or @visibleForOverriding
+    if (_hasInternalAnnotation(node)) return const [];
 
     final results = <MemberInfo>[];
     final isStatic = node.isStatic;
@@ -15500,14 +15501,16 @@ class _ClassVisitor extends RecursiveAstVisitor<void> {
     this.generateDeprecatedElements = false,
   });
 
-  /// Checks if a node has @visibleForTesting or @internal annotation.
-  /// GEN-075: @protected is NOT skipped - bridge code calls methods on native
+  /// Checks if a node has @internal or @visibleForOverriding annotation.
+  ///
+  /// RC-5: @visibleForTesting is NOT skipped — bridge code needs these
+  /// methods (e.g., ChangeNotifier.notifyListeners, .hasListeners).
+  /// GEN-075: @protected is NOT skipped — bridge code calls methods on native
   /// objects, so @protected methods should be bridged.
-  bool _hasTestOnlyAnnotation(AnnotatedNode node) {
+  bool _hasInternalAnnotation(AnnotatedNode node) {
     for (final annotation in node.metadata) {
       final name = annotation.name.name;
-      if (name == 'visibleForTesting' ||
-          name == 'internal' ||
+      if (name == 'internal' ||
           name == 'visibleForOverriding' ||
           name == 'mustBeOverridden') {
         return true;
@@ -15540,7 +15543,7 @@ class _ClassVisitor extends RecursiveAstVisitor<void> {
     if (node.parent is ClassDeclaration) return;
 
     // Skip classes marked as @visibleForTesting, @protected, or @internal
-    if (_hasTestOnlyAnnotation(node)) return;
+    if (_hasInternalAnnotation(node)) return;
 
     // Skip deprecated classes unless generateDeprecatedElements is enabled
     if (!generateDeprecatedElements && _hasDeprecatedAnnotation(node)) {
@@ -15616,7 +15619,7 @@ class _ClassVisitor extends RecursiveAstVisitor<void> {
     if (skipPrivate && mixinName.startsWith('_')) return;
 
     // Skip mixins marked as @visibleForTesting, @protected, or @internal
-    if (_hasTestOnlyAnnotation(node)) return;
+    if (_hasInternalAnnotation(node)) return;
 
     // Skip deprecated mixins unless generateDeprecatedElements is enabled
     if (!generateDeprecatedElements && _hasDeprecatedAnnotation(node)) {
@@ -15684,7 +15687,7 @@ class _ClassVisitor extends RecursiveAstVisitor<void> {
     if (skipPrivate && className.startsWith('_')) return;
 
     // Skip classes marked as @visibleForTesting, @protected, or @internal
-    if (_hasTestOnlyAnnotation(node)) return;
+    if (_hasInternalAnnotation(node)) return;
 
     // Skip deprecated classes unless generateDeprecatedElements is enabled
     if (!generateDeprecatedElements && _hasDeprecatedAnnotation(node)) {
@@ -15739,8 +15742,8 @@ class _ClassVisitor extends RecursiveAstVisitor<void> {
     final name = node.name?.lexeme;
     if (skipPrivate && name != null && name.startsWith('_')) return null;
 
-    // Skip constructors marked as @visibleForTesting, @protected, or @internal
-    if (_hasTestOnlyAnnotation(node)) return null;
+    // Skip constructors marked as @internal or @visibleForOverriding
+    if (_hasInternalAnnotation(node)) return null;
 
     final parameters = _parseParameters(node.parameters);
 
@@ -15759,8 +15762,8 @@ class _ClassVisitor extends RecursiveAstVisitor<void> {
     // Skip private members
     if (skipPrivate && name.startsWith('_')) return null;
 
-    // Skip methods marked as @visibleForTesting, @protected, or @internal
-    if (_hasTestOnlyAnnotation(node)) return null;
+    // Skip methods marked as @internal or @visibleForOverriding
+    if (_hasInternalAnnotation(node)) return null;
 
     // Track if method has type parameters (will use type erasure)
     final hasTypeParameters =
@@ -15813,8 +15816,8 @@ class _ClassVisitor extends RecursiveAstVisitor<void> {
 
   /// Parses a field declaration.
   List<MemberInfo> _parseField(FieldDeclaration node) {
-    // Skip fields marked as @visibleForTesting, @protected, or @internal
-    if (_hasTestOnlyAnnotation(node)) return const [];
+    // Skip fields marked as @internal or @visibleForOverriding
+    if (_hasInternalAnnotation(node)) return const [];
 
     final results = <MemberInfo>[];
     final isStatic = node.isStatic;

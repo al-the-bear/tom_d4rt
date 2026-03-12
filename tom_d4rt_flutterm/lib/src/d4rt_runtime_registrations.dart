@@ -2,7 +2,7 @@
 /// and generic constructor factories.
 ///
 /// These registrations enable D4rt script classes to:
-/// - Implement native interfaces (RC-1: TickerProvider, CustomClipper)
+/// - Implement native interfaces (RC-1: TickerProvider, StatelessWidget, StatefulWidget)
 /// - Pass cross-package types transparently (RC-3: TextStyle, StrutStyle)
 /// - Construct generic classes with type arguments (RC-2: GlobalKey)
 library;
@@ -11,8 +11,6 @@ import 'dart:ui' as ui
     show
         FontStyle,
         FontWeight,
-        Path,
-        Size,
         StrutStyle,
         TextLeadingDistribution,
         TextStyle;
@@ -23,7 +21,6 @@ import 'package:flutter/material.dart' show ScaffoldState;
 import 'package:flutter/painting.dart' as painting
     show StrutStyle, TextStyle;
 import 'package:flutter/scheduler.dart' show Ticker, TickerProvider;
-import 'package:flutter/rendering.dart' show CustomClipper;
 import 'package:flutter/widgets.dart'
     show
         BuildContext,
@@ -61,10 +58,8 @@ void _registerInterfaceProxies() {
     return _InterpretedTickerProvider(visitor, instance);
   });
 
-  // CustomClipper<Path> — used by ClipPath(clipper: ...), ClipRRect(clipper: ...)
-  D4.registerInterfaceProxy('CustomClipper', (visitor, instance) {
-    return _InterpretedCustomClipper(visitor, instance);
-  });
+  // RC-1: CustomClipper registration removed — auto-generated in
+  // flutter_proxies.b.dart via registerProxyFactories().
 
   // StatelessWidget — D4rt script classes extending StatelessWidget need
   // to be real Flutter widgets for the widget tree.
@@ -121,39 +116,8 @@ class _InterpretedTickerProvider implements TickerProvider {
   }
 }
 
-/// Native CustomClipper<Path> that delegates [getClip] and [shouldReclip]
-/// to an interpreted D4rt class extending CustomClipper<Path>.
-class _InterpretedCustomClipper extends CustomClipper<ui.Path> {
-  final InterpreterVisitor _visitor;
-  final InterpretedInstance _instance;
-
-  _InterpretedCustomClipper(this._visitor, this._instance);
-
-  @override
-  ui.Path getClip(ui.Size size) {
-    final method = _instance.klass.findInstanceMethod('getClip');
-    if (method != null) {
-      final bound = method.bind(_instance);
-      final result = bound.call(_visitor, [size], {});
-      return D4.extractBridgedArg<ui.Path>(result, 'getClip');
-    }
-    throw StateError(
-      'Interpreted class ${_instance.klass.name} does not implement getClip',
-    );
-  }
-
-  @override
-  bool shouldReclip(covariant CustomClipper<ui.Path> oldClipper) {
-    final method = _instance.klass.findInstanceMethod('shouldReclip');
-    if (method != null) {
-      final bound = method.bind(_instance);
-      final result = bound.call(_visitor, [oldClipper], {});
-      if (result is bool) return result;
-    }
-    // Default behavior: always reclip
-    return true;
-  }
-}
+// RC-1: _InterpretedCustomClipper removed — auto-generated proxy
+// D4rtCustomClipper in flutter_proxies.b.dart replaces this.
 
 // =============================================================================
 // RC-3: Type Coercion Registrations

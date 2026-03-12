@@ -208,12 +208,29 @@ class D4 {
   /// [className] - The bridged class name (e.g., 'GlobalKey').
   /// [constructorName] - The constructor name ('' for default, 'named' for named).
   /// [factory] - Creates the native object using the provided type arguments.
+  ///
+  /// **Chaining:** If a factory is already registered for the same key, the
+  /// new factory runs first. If it returns `null` (unhandled type), the
+  /// previously-registered factory runs as fallback. This enables downstream
+  /// packages to extend type dispatches without knowledge of upstream types.
   static void registerGenericConstructor(
     String className,
     String constructorName,
     GenericConstructorFactory factory,
   ) {
-    _genericConstructors['$className.$constructorName'] = factory;
+    final key = '$className.$constructorName';
+    final existing = _genericConstructors[key];
+    if (existing != null) {
+      // Chain: try new factory first, fall back to existing
+      _genericConstructors[key] =
+          (visitor, positionalArgs, namedArgs, typeArgs) {
+        final result = factory(visitor, positionalArgs, namedArgs, typeArgs);
+        if (result != null) return result;
+        return existing(visitor, positionalArgs, namedArgs, typeArgs);
+      };
+    } else {
+      _genericConstructors[key] = factory;
+    }
   }
 
   /// Look up a registered generic constructor factory.

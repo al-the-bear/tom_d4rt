@@ -23,7 +23,8 @@ import 'package:path/path.dart' as p;
 
 import 'bridge_config.dart';
 import 'bridge_generator.dart'
-    show ClassInfo, GenericExtractionSite, MemberInfo;
+    show ClassInfo, ConstructorInfo, GenericExtractionSite, MemberInfo,
+         ParameterInfo;
 import 'file_generators.dart' show ensureBDartExtension;
 
 // =============================================================================
@@ -238,10 +239,19 @@ Future<RelaxerGenerationResult> generateRelaxers({
   _writeRegistrationFunction(buffer, factoryNames);
 
   // -------------------------------------------------------------------------
+  // Step 3b: Generate RC-2 generic constructor registrations
+  // -------------------------------------------------------------------------
+  final genericCtorCount = _writeGenericConstructorSection(
+    buffer,
+    globalClassLookup,
+    warn,
+  );
+
+  // -------------------------------------------------------------------------
   // Step 4: Write the output file (only if there are actual wrappers)
   // -------------------------------------------------------------------------
   if (wrappersGenerated == 0 && factoriesGenerated == 0 &&
-      userRelaxers.isEmpty) {
+      userRelaxers.isEmpty && genericCtorCount == 0) {
     // Nothing to generate — don't create an empty file.
     return RelaxerGenerationResult(warnings: warnings);
   }
@@ -258,7 +268,8 @@ Future<RelaxerGenerationResult> generateRelaxers({
 
   print(
     '  RELAXER: Generated $wrappersGenerated wrapper classes, '
-    '$factoriesGenerated factory functions → $outputFilePath',
+    '$factoriesGenerated factory functions, '
+    '$genericCtorCount generic constructor registrations → $outputFilePath',
   );
 
   return RelaxerGenerationResult(
@@ -1219,4 +1230,347 @@ String _buildMethodCallArgs(MemberInfo method) {
   }
 
   return parts.join(', ');
+}
+
+// =============================================================================
+// RC-2: Generic Constructor Auto-Generation
+// =============================================================================
+
+/// Primitive types that are always included in dispatches for unbounded type
+/// parameters.
+const _rc2PrimitiveTypes = ['String', 'int', 'double', 'bool', 'num'];
+
+/// Types to skip in dispatches (core Dart types, not useful as type args).
+const _rc2SkipTypes = {
+  'Object',
+  'dynamic',
+  'void',
+  'Null',
+  'Never',
+  'Function',
+  'Record',
+  'Type',
+  'Symbol',
+  'Enum',
+  'Pattern',
+  'RegExp',
+  'StackTrace',
+  'Comparable',
+  'Invocation',
+  'Match',
+  'BidirectionalIterator',
+  'Iterator',
+  'MapEntry',
+  'Stopwatch',
+  'StringSink',
+  'Sink',
+  'StringBuffer',
+  'RuneIterator',
+  'Runes',
+  'UriData',
+  'int',
+  'double',
+  'String',
+  'bool',
+  'num',
+};
+
+/// Generates the RC-2 generic constructor registration section.
+///
+/// Returns the number of generic constructor registrations generated.
+int _writeGenericConstructorSection(
+  StringBuffer buffer,
+  Map<String, ClassInfo> globalClassLookup,
+  void Function(String) warn,
+) {
+  // Find all eligible generic classes: single type param, non-abstract,
+  // non-sealed, has at least one non-factory constructor.
+  final eligible = <String, ClassInfo>{};
+  for (final entry in globalClassLookup.entries) {
+    final cls = entry.value;
+    if (cls.typeParameters.isEmpty) continue;
+    if (cls.typeParameters.length != 1) continue; // Single type param only
+    if (cls.isAbstract || cls.isSealed) continue;
+    if (!cls.constructors.any((c) => !c.isFactory)) continue;
+    eligible[entry.key] = cls;
+  }
+
+  if (eligible.isEmpty) return 0;
+
+  // Collect all concrete bridged class names for type dispatches
+  final allBridgedTypes = globalClassLookup.entries
+      .where((e) =>
+          !e.value.isAbstract &&
+          !e.value.isSealed &&
+          !_rc2SkipTypes.contains(e.key))
+      .map((e) => e.key)
+      .toList()
+    ..sort();
+
+  buffer.writeln(
+    '// =============================================================================',
+  );
+  buffer.writeln('// RC-2: Generic Constructor Registrations');
+  buffer.writeln(
+    '// =============================================================================',
+  );
+  buffer.writeln();
+
+  // Generate per-class factory functions
+  final registrations =
+      <({String className, String ctorName, String funcName})>[];
+
+  for (final entry in eligible.entries.toList()
+    ..sort((a, b) => a.key.compareTo(b.key))) {
+    final className = entry.key;
+    final cls = entry.value;
+
+    for (final ctor in cls.constructors) {
+      if (ctor.isFactory) continue;
+
+      final ctorName = ctor.name ?? '';
+      final safeName = ctorName.isEmpty ? '' : '_$ctorName';
+      final funcName = '_rc2$className$safeName';
+
+      _writeGenericConstructorFactory(
+        buffer,
+        cls,
+        ctor,
+        className,
+        funcName,
+        allBridgedTypes,
+        globalClassLookup,
+      );
+      registrations.add((
+        className: className,
+        ctorName: ctorName,
+        funcName: funcName,
+      ));
+    }
+  }
+
+  // Write registerGenericConstructors() function
+  buffer.writeln(
+    '/// RC-2: Register auto-generated generic constructor factories.',
+  );
+  buffer.writeln('///');
+  buffer.writeln(
+    '/// Enables scripts to construct generic classes with explicit type',
+  );
+  buffer.writeln(
+    "/// arguments (e.g., `GlobalKey<NavigatorState>()`). Uses chaining —",
+  );
+  buffer.writeln(
+    '/// downstream packages can register additional type dispatches.',
+  );
+  buffer.writeln('void registerGenericConstructors() {');
+  for (final r in registrations) {
+    buffer.writeln(
+      "  D4.registerGenericConstructor('${r.className}', '${r.ctorName}', ${r.funcName});",
+    );
+  }
+  buffer.writeln('}');
+  buffer.writeln();
+
+  return registrations.length;
+}
+
+/// Generates a single generic constructor factory function.
+void _writeGenericConstructorFactory(
+  StringBuffer buffer,
+  ClassInfo cls,
+  ConstructorInfo ctor,
+  String className,
+  String funcName,
+  List<String> allBridgedTypes,
+  Map<String, ClassInfo> globalClassLookup,
+) {
+  final typeParamName = cls.typeParameters.keys.first;
+  final typeParamBound = cls.typeParameters.values.first;
+  final ctorSuffix = ctor.name != null ? '.${ctor.name}' : '';
+
+  final positionalParams = ctor.parameters.where((p) => !p.isNamed).toList();
+  final namedParams = ctor.parameters.where((p) => p.isNamed).toList();
+
+  // Determine which params are typed with the class type parameter
+  bool isTypeParamTyped(ParameterInfo p) {
+    final t = p.type.replaceAll('?', '');
+    return t == typeParamName;
+  }
+
+  // Is the type parameter bounded to a non-trivial type?
+  final isUnbounded = typeParamBound == null ||
+      typeParamBound == 'Object' ||
+      typeParamBound == 'Object?';
+
+  buffer.writeln(
+    '/// RC-2: Generic constructor factory for `$className<$typeParamName>$ctorSuffix`.',
+  );
+  // Use the GenericConstructorFactory signature with inferred types via lambda
+  // in the registration call. Here we declare a plain function.
+  buffer.writeln('Object? $funcName(');
+  buffer.writeln('  dynamic visitor,');
+  buffer.writeln('  List<Object?> positional,');
+  buffer.writeln('  Map<String, Object?> named,');
+  buffer.writeln('  List<dynamic>? typeArgs,');
+  buffer.writeln(') {');
+  buffer.writeln(
+    '  final typeName = typeArgs?.isNotEmpty == true '
+    "? typeArgs!.first.name as String? : null;",
+  );
+  buffer.writeln('  if (typeName == null) return null;');
+
+  // Extract fixed-type params before the switch
+  for (var i = 0; i < positionalParams.length; i++) {
+    final p = positionalParams[i];
+    if (!isTypeParamTyped(p)) {
+      final castType = _rc2NullableCast(p.type);
+      buffer.writeln(
+        '  final ${_rc2SafeName(p.name)} = positional.length > $i '
+        '? positional[$i] as $castType : null;',
+      );
+    } else {
+      // Type-param-typed positional: extract as dynamic
+      buffer.writeln(
+        '  final ${_rc2SafeName(p.name)} = positional.length > $i '
+        '? positional[$i] : null;',
+      );
+    }
+  }
+  for (final p in namedParams) {
+    if (!isTypeParamTyped(p)) {
+      final castType = _rc2NullableCast(p.type);
+      buffer.writeln(
+        "  final ${_rc2SafeName(p.name)} = named.containsKey('${p.name}') "
+        "? named['${p.name}'] as $castType : null;",
+      );
+    } else {
+      buffer.writeln(
+        "  final ${_rc2SafeName(p.name)} = named.containsKey('${p.name}') "
+        "? named['${p.name}'] : null;",
+      );
+    }
+  }
+
+  buffer.writeln('  return switch (typeName) {');
+
+  // Primitive dispatches (for unbounded type params)
+  if (isUnbounded) {
+    _writeRC2Case(
+      buffer, className, ctorSuffix, 'dynamic',
+      "'dynamic' || 'Object' || 'Object?'",
+      positionalParams, namedParams, typeParamName,
+    );
+    for (final prim in _rc2PrimitiveTypes) {
+      _writeRC2Case(
+        buffer, className, ctorSuffix, prim, "'$prim'",
+        positionalParams, namedParams, typeParamName,
+      );
+    }
+  }
+
+  // Bridged class dispatches
+  for (final typeName in allBridgedTypes) {
+    if (typeName == className) continue;
+
+    // If bounded, check superclass chain
+    if (!isUnbounded) {
+      if (!_rc2SatisfiesBound(
+          typeName, typeParamBound, globalClassLookup)) {
+        continue;
+      }
+    }
+
+    _writeRC2Case(
+      buffer, className, ctorSuffix, typeName, "'$typeName'",
+      positionalParams, namedParams, typeParamName,
+    );
+  }
+
+  buffer.writeln('    _ => null,');
+  buffer.writeln('  };');
+  buffer.writeln('}');
+  buffer.writeln();
+}
+
+/// Writes a single switch case for a generic constructor dispatch.
+void _writeRC2Case(
+  StringBuffer buffer,
+  String className,
+  String ctorSuffix,
+  String typeArg,
+  String casePattern,
+  List<ParameterInfo> positionalParams,
+  List<ParameterInfo> namedParams,
+  String typeParamName,
+) {
+  final args = <String>[];
+
+  // Positional args
+  for (final p in positionalParams) {
+    final safeName = _rc2SafeName(p.name);
+    final isTPTyped = p.type.replaceAll('?', '') == typeParamName;
+    if (isTPTyped && typeArg != 'dynamic') {
+      // Cast to the dispatch type
+      final isNullable = p.type.endsWith('?') || !p.isRequired;
+      args.add('$safeName as $typeArg${isNullable ? '?' : ''}');
+    } else {
+      args.add(safeName);
+    }
+  }
+
+  // Named args — only include if they have a value
+  final namedArgParts = <String>[];
+  for (final p in namedParams) {
+    final safeName = _rc2SafeName(p.name);
+    final isTPTyped = p.type.replaceAll('?', '') == typeParamName;
+    if (isTPTyped && typeArg != 'dynamic') {
+      final isNullable = p.type.endsWith('?') || !p.isRequired;
+      namedArgParts.add(
+        '${p.name}: $safeName as $typeArg${isNullable ? '?' : ''}',
+      );
+    } else {
+      namedArgParts.add('${p.name}: $safeName');
+    }
+  }
+
+  final allArgs = [...args, ...namedArgParts].join(', ');
+  buffer.writeln(
+    '    $casePattern => $className<$typeArg>$ctorSuffix($allArgs),',
+  );
+}
+
+/// Checks if [typeName] satisfies the [bound] using the class hierarchy.
+bool _rc2SatisfiesBound(
+  String typeName,
+  String bound,
+  Map<String, ClassInfo> classLookup,
+) {
+  // Direct match
+  if (typeName == bound) return true;
+
+  // Walk superclass chain
+  var current = typeName;
+  final visited = <String>{};
+  while (classLookup.containsKey(current) && visited.add(current)) {
+    final cls = classLookup[current]!;
+    final superclass = cls.superclass;
+    if (superclass == null) break;
+    if (superclass == bound) return true;
+    current = superclass;
+  }
+  return false;
+}
+
+/// Makes a type nullable for safe null-coalescing casts.
+String _rc2NullableCast(String type) {
+  if (type.endsWith('?')) return type;
+  return '$type?';
+}
+
+/// Ensures a parameter name is safe (avoids Dart keywords).
+String _rc2SafeName(String name) {
+  const keywords = {'default', 'class', 'abstract', 'switch', 'case', 'new'};
+  if (keywords.contains(name)) return '$name\$';
+  return name;
 }
