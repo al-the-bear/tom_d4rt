@@ -238,8 +238,14 @@ Future<RelaxerGenerationResult> generateRelaxers({
   _writeRegistrationFunction(buffer, factoryNames);
 
   // -------------------------------------------------------------------------
-  // Step 4: Write the output file
+  // Step 4: Write the output file (only if there are actual wrappers)
   // -------------------------------------------------------------------------
+  if (wrappersGenerated == 0 && factoriesGenerated == 0 &&
+      userRelaxers.isEmpty) {
+    // Nothing to generate — don't create an empty file.
+    return RelaxerGenerationResult(warnings: warnings);
+  }
+
   final outputFilePath = p.join(
     projectPath,
     ensureBDartExtension(outputPath),

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
-// Source: lib/test_extensions.dart
-// Generated: 2026-03-06T18:39:55.193378
+// Source: /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_ast_generator/example/d4/lib/test_extensions.dart
+// Generated: 2026-03-12T18:38:40.887376
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -38,6 +38,15 @@ class CoreExtensionsBridge {
   static Map<String, String> classAliases() {
     return {
     };
+  }
+
+  /// Returns the list of function typedef names declared in this library.
+  ///
+  /// Function typedefs like `typedef VoidCallback = void Function()` are
+  /// registered so that they can be used as type arguments in D4rt scripts.
+  static List<String> functionTypedefs() {
+    return [
+    ];
   }
 
   /// Returns all bridged enum definitions.
@@ -139,7 +148,7 @@ class CoreExtensionsBridge {
           throw ArgumentError('processItems: Missing required argument "transform" at position 1');
         }
         final transformRaw = positional[1];
-        final transform = (dynamic p0) { return D4.callInterpreterCallback(visitor!, transformRaw, [p0]) as dynamic; };
+        final transform = (dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, transformRaw, [p0])); };
         return $d4_example_1.processItems<dynamic, dynamic>(items, transform);
       },
       'filterItems': (visitor, positional, named, typeArgs) {
@@ -229,7 +238,7 @@ BridgedClass _createItemProcessorBridge() {
           throw ArgumentError('ItemProcessor: Missing required argument "transform" at position 0');
         }
         final transformRaw = positional[0];
-        return $d4_example_1.ItemProcessor((dynamic p0) { return D4.callInterpreterCallback(visitor!, transformRaw, [p0]) as dynamic; });
+        return $d4_example_1.ItemProcessor((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, transformRaw, [p0])); });
       },
       'identity': (visitor, positional, named) {
         return $d4_example_1.ItemProcessor.identity();

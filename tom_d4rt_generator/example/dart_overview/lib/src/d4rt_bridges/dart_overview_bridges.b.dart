@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 16 files
-// Generated: 2026-03-06T18:40:38.280554
+// Generated: 2026-03-12T18:17:03.241713
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -273,6 +273,19 @@ class AllBridge {
     };
   }
 
+  /// Returns the list of function typedef names declared in this library.
+  ///
+  /// Function typedefs like `typedef VoidCallback = void Function()` are
+  /// registered so that they can be used as type arguments in D4rt scripts.
+  static List<String> functionTypedefs() {
+    return [
+      'IntOperation',
+      'Predicate',
+      'VoidCallback',
+      'EventListener',
+    ];
+  }
+
   /// Returns all bridged enum definitions.
   static List<BridgedEnumDefinition> bridgedEnums() {
     return [
@@ -402,6 +415,12 @@ class AllBridge {
     final aliases = classAliases();
     for (final entry in aliases.entries) {
       interpreter.registerClassAlias(entry.key, entry.value, importPath);
+    }
+
+    // Register function typedefs for type resolution
+    final typedefs = functionTypedefs();
+    for (final name in typedefs) {
+      interpreter.registerFunctionTypedef(name, importPath);
     }
   }
 
@@ -1341,6 +1360,115 @@ BridgedClass _createBoxBridge() {
           case int _: return $dart_overview_11.Box<int>(value);
           case String _: return $dart_overview_11.Box<String>(value);
           case bool _: return $dart_overview_11.Box<bool>(value);
+          case $dart_overview_12.Person _: return $dart_overview_11.Box<$dart_overview_12.Person>(value);
+          case $dart_overview_4.Dog _: return $dart_overview_11.Box<$dart_overview_4.Dog>(value);
+          case $dart_overview_14.User _: return $dart_overview_11.Box<$dart_overview_14.User>(value);
+          case $dart_overview_3.Calculator _: return $dart_overview_11.Box<$dart_overview_3.Calculator>(value);
+          case $dart_overview_4.Rectangle _: return $dart_overview_11.Box<$dart_overview_4.Rectangle>(value);
+          case $dart_overview_3.BankAccount _: return $dart_overview_11.Box<$dart_overview_3.BankAccount>(value);
+          case $dart_overview_4.Circle _: return $dart_overview_11.Box<$dart_overview_4.Circle>(value);
+          case $dart_overview_11.Wrapper _: return $dart_overview_11.Box<$dart_overview_11.Wrapper>(value);
+          case $dart_overview_11.Pair _: return $dart_overview_11.Box<$dart_overview_11.Pair>(value);
+          case $dart_overview_11.Stack _: return $dart_overview_11.Box<$dart_overview_11.Stack>(value);
+          case $dart_overview_11.Queue _: return $dart_overview_11.Box<$dart_overview_11.Queue>(value);
+          case $dart_overview_11.Maybe _: return $dart_overview_11.Box<$dart_overview_11.Maybe>(value);
+          case $dart_overview_11.Result _: return $dart_overview_11.Box<$dart_overview_11.Result>(value);
+          case $dart_overview_7.LoggableMixin _: return $dart_overview_11.Box<$dart_overview_7.LoggableMixin>(value);
+          case $dart_overview_1.Vehicle _: return $dart_overview_11.Box<$dart_overview_1.Vehicle>(value);
+          case $dart_overview_4.Car _: return $dart_overview_11.Box<$dart_overview_4.Car>(value);
+          case $dart_overview_1.Motorcycle _: return $dart_overview_11.Box<$dart_overview_1.Motorcycle>(value);
+          case $dart_overview_1.BaseAnimal _: return $dart_overview_11.Box<$dart_overview_1.BaseAnimal>(value);
+          case $dart_overview_1.DogAnimal _: return $dart_overview_11.Box<$dart_overview_1.DogAnimal>(value);
+          case $dart_overview_1.DataSource _: return $dart_overview_11.Box<$dart_overview_1.DataSource>(value);
+          case $dart_overview_1.JsonDataSource _: return $dart_overview_11.Box<$dart_overview_1.JsonDataSource>(value);
+          case $dart_overview_1.XmlDataSource _: return $dart_overview_11.Box<$dart_overview_1.XmlDataSource>(value);
+          case $dart_overview_1.AppConfig _: return $dart_overview_11.Box<$dart_overview_1.AppConfig>(value);
+          case $dart_overview_1.SealedShape _: return $dart_overview_11.Box<$dart_overview_1.SealedShape>(value);
+          case $dart_overview_1.SealedCircle _: return $dart_overview_11.Box<$dart_overview_1.SealedCircle>(value);
+          case $dart_overview_1.SealedSquare _: return $dart_overview_11.Box<$dart_overview_1.SealedSquare>(value);
+          case $dart_overview_1.SealedTriangle _: return $dart_overview_11.Box<$dart_overview_1.SealedTriangle>(value);
+          case $dart_overview_1.LoggerMixin _: return $dart_overview_11.Box<$dart_overview_1.LoggerMixin>(value);
+          case $dart_overview_1.LoggingService _: return $dart_overview_11.Box<$dart_overview_1.LoggingService>(value);
+          case $dart_overview_1.AbstractBaseClass _: return $dart_overview_11.Box<$dart_overview_1.AbstractBaseClass>(value);
+          case $dart_overview_1.DerivedFromAbstractBase _: return $dart_overview_11.Box<$dart_overview_1.DerivedFromAbstractBase>(value);
+          case $dart_overview_1.ApiClient _: return $dart_overview_11.Box<$dart_overview_1.ApiClient>(value);
+          case $dart_overview_1.RestApiClient _: return $dart_overview_11.Box<$dart_overview_1.RestApiClient>(value);
+          case $dart_overview_1.GraphqlApiClient _: return $dart_overview_11.Box<$dart_overview_1.GraphqlApiClient>(value);
+          case $dart_overview_1.AbstractFinalClass _: return $dart_overview_11.Box<$dart_overview_1.AbstractFinalClass>(value);
+          case $dart_overview_1.SingletonHolder _: return $dart_overview_11.Box<$dart_overview_1.SingletonHolder>(value);
+          case $dart_overview_2.SimplePoint _: return $dart_overview_11.Box<$dart_overview_2.SimplePoint>(value);
+          case $dart_overview_5.Point _: return $dart_overview_11.Box<$dart_overview_5.Point>(value);
+          case $dart_overview_2.RectangleArea _: return $dart_overview_11.Box<$dart_overview_2.RectangleArea>(value);
+          case $dart_overview_2.PositiveNumber _: return $dart_overview_11.Box<$dart_overview_2.PositiveNumber>(value);
+          case $dart_overview_2.Vector _: return $dart_overview_11.Box<$dart_overview_2.Vector>(value);
+          case $dart_overview_2.Color _: return $dart_overview_11.Box<$dart_overview_2.Color>(value);
+          case $dart_overview_2.Logger _: return $dart_overview_11.Box<$dart_overview_2.Logger>(value);
+          case $dart_overview_4.Shape _: return $dart_overview_11.Box<$dart_overview_4.Shape>(value);
+          case $dart_overview_2.CircleShape _: return $dart_overview_11.Box<$dart_overview_2.CircleShape>(value);
+          case $dart_overview_2.SquareShape _: return $dart_overview_11.Box<$dart_overview_2.SquareShape>(value);
+          case $dart_overview_2.Database _: return $dart_overview_11.Box<$dart_overview_2.Database>(value);
+          case $dart_overview_2.PersonBase _: return $dart_overview_11.Box<$dart_overview_2.PersonBase>(value);
+          case $dart_overview_2.Employee _: return $dart_overview_11.Box<$dart_overview_2.Employee>(value);
+          case $dart_overview_2.Manager _: return $dart_overview_11.Box<$dart_overview_2.Manager>(value);
+          case $dart_overview_14.Animal _: return $dart_overview_11.Box<$dart_overview_14.Animal>(value);
+          case $dart_overview_4.Cat _: return $dart_overview_11.Box<$dart_overview_4.Cat>(value);
+          case $dart_overview_4.ElectricCar _: return $dart_overview_11.Box<$dart_overview_4.ElectricCar>(value);
+          case $dart_overview_4.NotificationService _: return $dart_overview_11.Box<$dart_overview_4.NotificationService>(value);
+          case $dart_overview_4.EmailNotificationService _: return $dart_overview_11.Box<$dart_overview_4.EmailNotificationService>(value);
+          case $dart_overview_4.SmsNotificationService _: return $dart_overview_11.Box<$dart_overview_4.SmsNotificationService>(value);
+          case $dart_overview_4.Switchable _: return $dart_overview_11.Box<$dart_overview_4.Switchable>(value);
+          case $dart_overview_4.TemperatureControl _: return $dart_overview_11.Box<$dart_overview_4.TemperatureControl>(value);
+          case $dart_overview_4.Connectable _: return $dart_overview_11.Box<$dart_overview_4.Connectable>(value);
+          case $dart_overview_4.SmartThermostat _: return $dart_overview_11.Box<$dart_overview_4.SmartThermostat>(value);
+          case $dart_overview_4.Machine _: return $dart_overview_11.Box<$dart_overview_4.Machine>(value);
+          case $dart_overview_4.Speakable _: return $dart_overview_11.Box<$dart_overview_4.Speakable>(value);
+          case $dart_overview_4.Robot _: return $dart_overview_11.Box<$dart_overview_4.Robot>(value);
+          case $dart_overview_4.AdvancedRobot _: return $dart_overview_11.Box<$dart_overview_4.AdvancedRobot>(value);
+          case $dart_overview_5.MathUtils _: return $dart_overview_11.Box<$dart_overview_5.MathUtils>(value);
+          case $dart_overview_14.Counter _: return $dart_overview_11.Box<$dart_overview_14.Counter>(value);
+          case $dart_overview_5.FlexibleObject _: return $dart_overview_11.Box<$dart_overview_5.FlexibleObject>(value);
+          case $dart_overview_5.SortablePerson _: return $dart_overview_11.Box<$dart_overview_5.SortablePerson>(value);
+          case $dart_overview_6.NumberWrapper _: return $dart_overview_11.Box<$dart_overview_6.NumberWrapper>(value);
+          case $dart_overview_6.BitFlags _: return $dart_overview_11.Box<$dart_overview_6.BitFlags>(value);
+          case $dart_overview_6.NullableFields _: return $dart_overview_11.Box<$dart_overview_6.NullableFields>(value);
+          case $dart_overview_6.LateFieldDemo _: return $dart_overview_11.Box<$dart_overview_6.LateFieldDemo>(value);
+          case $dart_overview_6.Multiplier _: return $dart_overview_11.Box<$dart_overview_6.Multiplier>(value);
+          case $dart_overview_6.Printable _: return $dart_overview_11.Box<$dart_overview_6.Printable>(value);
+          case $dart_overview_6.Serializable _: return $dart_overview_11.Box<$dart_overview_6.Serializable>(value);
+          case $dart_overview_6.SerializablePrintable _: return $dart_overview_11.Box<$dart_overview_6.SerializablePrintable>(value);
+          case $dart_overview_6.Trackable _: return $dart_overview_11.Box<$dart_overview_6.Trackable>(value);
+          case $dart_overview_6.TrackedItem _: return $dart_overview_11.Box<$dart_overview_6.TrackedItem>(value);
+          case $dart_overview_6.DataProcessor _: return $dart_overview_11.Box<$dart_overview_6.DataProcessor>(value);
+          case $dart_overview_12.Statistics _: return $dart_overview_11.Box<$dart_overview_12.Statistics>(value);
+          case $dart_overview_12.SortedList _: return $dart_overview_11.Box<$dart_overview_12.SortedList>(value);
+          case $dart_overview_12.PriorityQueue _: return $dart_overview_11.Box<$dart_overview_12.PriorityQueue>(value);
+          case $dart_overview_12.Range _: return $dart_overview_11.Box<$dart_overview_12.Range>(value);
+          case $dart_overview_12.BinarySearchTree _: return $dart_overview_11.Box<$dart_overview_12.BinarySearchTree>(value);
+          case $dart_overview_12.Cache _: return $dart_overview_11.Box<$dart_overview_12.Cache>(value);
+          case $dart_overview_9.TreeNode _: return $dart_overview_11.Box<$dart_overview_9.TreeNode>(value);
+          case $dart_overview_14.Musical _: return $dart_overview_11.Box<$dart_overview_14.Musical>(value);
+          case $dart_overview_14.Dancing _: return $dart_overview_11.Box<$dart_overview_14.Dancing>(value);
+          case $dart_overview_14.Musician _: return $dart_overview_11.Box<$dart_overview_14.Musician>(value);
+          case $dart_overview_14.ProfessionalDancer _: return $dart_overview_11.Box<$dart_overview_14.ProfessionalDancer>(value);
+          case $dart_overview_14.Entertainer _: return $dart_overview_11.Box<$dart_overview_14.Entertainer>(value);
+          case $dart_overview_14.CountableItem _: return $dart_overview_11.Box<$dart_overview_14.CountableItem>(value);
+          case $dart_overview_14.Flying _: return $dart_overview_11.Box<$dart_overview_14.Flying>(value);
+          case $dart_overview_14.Walking _: return $dart_overview_11.Box<$dart_overview_14.Walking>(value);
+          case $dart_overview_14.Bird _: return $dart_overview_11.Box<$dart_overview_14.Bird>(value);
+          case $dart_overview_14.Eagle _: return $dart_overview_11.Box<$dart_overview_14.Eagle>(value);
+          case $dart_overview_14.Penguin _: return $dart_overview_11.Box<$dart_overview_14.Penguin>(value);
+          case $dart_overview_14.Logging _: return $dart_overview_11.Box<$dart_overview_14.Logging>(value);
+          case $dart_overview_14.ConsoleLogger _: return $dart_overview_11.Box<$dart_overview_14.ConsoleLogger>(value);
+          case $dart_overview_14.Greeter1 _: return $dart_overview_11.Box<$dart_overview_14.Greeter1>(value);
+          case $dart_overview_14.Greeter2 _: return $dart_overview_11.Box<$dart_overview_14.Greeter2>(value);
+          case $dart_overview_14.MultiMixed _: return $dart_overview_11.Box<$dart_overview_14.MultiMixed>(value);
+          case $dart_overview_14.Helper _: return $dart_overview_11.Box<$dart_overview_14.Helper>(value);
+          case $dart_overview_14.HelpfulService _: return $dart_overview_11.Box<$dart_overview_14.HelpfulService>(value);
+          case $dart_overview_14.EventEmitter _: return $dart_overview_11.Box<$dart_overview_14.EventEmitter>(value);
+          case $dart_overview_14.Button _: return $dart_overview_11.Box<$dart_overview_14.Button>(value);
+          case $dart_overview_14.ComparableMixin _: return $dart_overview_11.Box<$dart_overview_14.ComparableMixin>(value);
+          case $dart_overview_14.SortableItem _: return $dart_overview_11.Box<$dart_overview_14.SortableItem>(value);
+          case $dart_overview_14.JsonSerializable _: return $dart_overview_11.Box<$dart_overview_14.JsonSerializable>(value);
           default: return $dart_overview_11.Box(value);
         }
       },
@@ -1376,6 +1504,115 @@ BridgedClass _createWrapperBridge() {
           case int _: return $dart_overview_11.Wrapper<int>(value);
           case String _: return $dart_overview_11.Wrapper<String>(value);
           case bool _: return $dart_overview_11.Wrapper<bool>(value);
+          case $dart_overview_12.Person _: return $dart_overview_11.Wrapper<$dart_overview_12.Person>(value);
+          case $dart_overview_4.Dog _: return $dart_overview_11.Wrapper<$dart_overview_4.Dog>(value);
+          case $dart_overview_14.User _: return $dart_overview_11.Wrapper<$dart_overview_14.User>(value);
+          case $dart_overview_3.Calculator _: return $dart_overview_11.Wrapper<$dart_overview_3.Calculator>(value);
+          case $dart_overview_4.Rectangle _: return $dart_overview_11.Wrapper<$dart_overview_4.Rectangle>(value);
+          case $dart_overview_3.BankAccount _: return $dart_overview_11.Wrapper<$dart_overview_3.BankAccount>(value);
+          case $dart_overview_4.Circle _: return $dart_overview_11.Wrapper<$dart_overview_4.Circle>(value);
+          case $dart_overview_11.Box _: return $dart_overview_11.Wrapper<$dart_overview_11.Box>(value);
+          case $dart_overview_11.Pair _: return $dart_overview_11.Wrapper<$dart_overview_11.Pair>(value);
+          case $dart_overview_11.Stack _: return $dart_overview_11.Wrapper<$dart_overview_11.Stack>(value);
+          case $dart_overview_11.Queue _: return $dart_overview_11.Wrapper<$dart_overview_11.Queue>(value);
+          case $dart_overview_11.Maybe _: return $dart_overview_11.Wrapper<$dart_overview_11.Maybe>(value);
+          case $dart_overview_11.Result _: return $dart_overview_11.Wrapper<$dart_overview_11.Result>(value);
+          case $dart_overview_7.LoggableMixin _: return $dart_overview_11.Wrapper<$dart_overview_7.LoggableMixin>(value);
+          case $dart_overview_1.Vehicle _: return $dart_overview_11.Wrapper<$dart_overview_1.Vehicle>(value);
+          case $dart_overview_4.Car _: return $dart_overview_11.Wrapper<$dart_overview_4.Car>(value);
+          case $dart_overview_1.Motorcycle _: return $dart_overview_11.Wrapper<$dart_overview_1.Motorcycle>(value);
+          case $dart_overview_1.BaseAnimal _: return $dart_overview_11.Wrapper<$dart_overview_1.BaseAnimal>(value);
+          case $dart_overview_1.DogAnimal _: return $dart_overview_11.Wrapper<$dart_overview_1.DogAnimal>(value);
+          case $dart_overview_1.DataSource _: return $dart_overview_11.Wrapper<$dart_overview_1.DataSource>(value);
+          case $dart_overview_1.JsonDataSource _: return $dart_overview_11.Wrapper<$dart_overview_1.JsonDataSource>(value);
+          case $dart_overview_1.XmlDataSource _: return $dart_overview_11.Wrapper<$dart_overview_1.XmlDataSource>(value);
+          case $dart_overview_1.AppConfig _: return $dart_overview_11.Wrapper<$dart_overview_1.AppConfig>(value);
+          case $dart_overview_1.SealedShape _: return $dart_overview_11.Wrapper<$dart_overview_1.SealedShape>(value);
+          case $dart_overview_1.SealedCircle _: return $dart_overview_11.Wrapper<$dart_overview_1.SealedCircle>(value);
+          case $dart_overview_1.SealedSquare _: return $dart_overview_11.Wrapper<$dart_overview_1.SealedSquare>(value);
+          case $dart_overview_1.SealedTriangle _: return $dart_overview_11.Wrapper<$dart_overview_1.SealedTriangle>(value);
+          case $dart_overview_1.LoggerMixin _: return $dart_overview_11.Wrapper<$dart_overview_1.LoggerMixin>(value);
+          case $dart_overview_1.LoggingService _: return $dart_overview_11.Wrapper<$dart_overview_1.LoggingService>(value);
+          case $dart_overview_1.AbstractBaseClass _: return $dart_overview_11.Wrapper<$dart_overview_1.AbstractBaseClass>(value);
+          case $dart_overview_1.DerivedFromAbstractBase _: return $dart_overview_11.Wrapper<$dart_overview_1.DerivedFromAbstractBase>(value);
+          case $dart_overview_1.ApiClient _: return $dart_overview_11.Wrapper<$dart_overview_1.ApiClient>(value);
+          case $dart_overview_1.RestApiClient _: return $dart_overview_11.Wrapper<$dart_overview_1.RestApiClient>(value);
+          case $dart_overview_1.GraphqlApiClient _: return $dart_overview_11.Wrapper<$dart_overview_1.GraphqlApiClient>(value);
+          case $dart_overview_1.AbstractFinalClass _: return $dart_overview_11.Wrapper<$dart_overview_1.AbstractFinalClass>(value);
+          case $dart_overview_1.SingletonHolder _: return $dart_overview_11.Wrapper<$dart_overview_1.SingletonHolder>(value);
+          case $dart_overview_2.SimplePoint _: return $dart_overview_11.Wrapper<$dart_overview_2.SimplePoint>(value);
+          case $dart_overview_5.Point _: return $dart_overview_11.Wrapper<$dart_overview_5.Point>(value);
+          case $dart_overview_2.RectangleArea _: return $dart_overview_11.Wrapper<$dart_overview_2.RectangleArea>(value);
+          case $dart_overview_2.PositiveNumber _: return $dart_overview_11.Wrapper<$dart_overview_2.PositiveNumber>(value);
+          case $dart_overview_2.Vector _: return $dart_overview_11.Wrapper<$dart_overview_2.Vector>(value);
+          case $dart_overview_2.Color _: return $dart_overview_11.Wrapper<$dart_overview_2.Color>(value);
+          case $dart_overview_2.Logger _: return $dart_overview_11.Wrapper<$dart_overview_2.Logger>(value);
+          case $dart_overview_4.Shape _: return $dart_overview_11.Wrapper<$dart_overview_4.Shape>(value);
+          case $dart_overview_2.CircleShape _: return $dart_overview_11.Wrapper<$dart_overview_2.CircleShape>(value);
+          case $dart_overview_2.SquareShape _: return $dart_overview_11.Wrapper<$dart_overview_2.SquareShape>(value);
+          case $dart_overview_2.Database _: return $dart_overview_11.Wrapper<$dart_overview_2.Database>(value);
+          case $dart_overview_2.PersonBase _: return $dart_overview_11.Wrapper<$dart_overview_2.PersonBase>(value);
+          case $dart_overview_2.Employee _: return $dart_overview_11.Wrapper<$dart_overview_2.Employee>(value);
+          case $dart_overview_2.Manager _: return $dart_overview_11.Wrapper<$dart_overview_2.Manager>(value);
+          case $dart_overview_14.Animal _: return $dart_overview_11.Wrapper<$dart_overview_14.Animal>(value);
+          case $dart_overview_4.Cat _: return $dart_overview_11.Wrapper<$dart_overview_4.Cat>(value);
+          case $dart_overview_4.ElectricCar _: return $dart_overview_11.Wrapper<$dart_overview_4.ElectricCar>(value);
+          case $dart_overview_4.NotificationService _: return $dart_overview_11.Wrapper<$dart_overview_4.NotificationService>(value);
+          case $dart_overview_4.EmailNotificationService _: return $dart_overview_11.Wrapper<$dart_overview_4.EmailNotificationService>(value);
+          case $dart_overview_4.SmsNotificationService _: return $dart_overview_11.Wrapper<$dart_overview_4.SmsNotificationService>(value);
+          case $dart_overview_4.Switchable _: return $dart_overview_11.Wrapper<$dart_overview_4.Switchable>(value);
+          case $dart_overview_4.TemperatureControl _: return $dart_overview_11.Wrapper<$dart_overview_4.TemperatureControl>(value);
+          case $dart_overview_4.Connectable _: return $dart_overview_11.Wrapper<$dart_overview_4.Connectable>(value);
+          case $dart_overview_4.SmartThermostat _: return $dart_overview_11.Wrapper<$dart_overview_4.SmartThermostat>(value);
+          case $dart_overview_4.Machine _: return $dart_overview_11.Wrapper<$dart_overview_4.Machine>(value);
+          case $dart_overview_4.Speakable _: return $dart_overview_11.Wrapper<$dart_overview_4.Speakable>(value);
+          case $dart_overview_4.Robot _: return $dart_overview_11.Wrapper<$dart_overview_4.Robot>(value);
+          case $dart_overview_4.AdvancedRobot _: return $dart_overview_11.Wrapper<$dart_overview_4.AdvancedRobot>(value);
+          case $dart_overview_5.MathUtils _: return $dart_overview_11.Wrapper<$dart_overview_5.MathUtils>(value);
+          case $dart_overview_14.Counter _: return $dart_overview_11.Wrapper<$dart_overview_14.Counter>(value);
+          case $dart_overview_5.FlexibleObject _: return $dart_overview_11.Wrapper<$dart_overview_5.FlexibleObject>(value);
+          case $dart_overview_5.SortablePerson _: return $dart_overview_11.Wrapper<$dart_overview_5.SortablePerson>(value);
+          case $dart_overview_6.NumberWrapper _: return $dart_overview_11.Wrapper<$dart_overview_6.NumberWrapper>(value);
+          case $dart_overview_6.BitFlags _: return $dart_overview_11.Wrapper<$dart_overview_6.BitFlags>(value);
+          case $dart_overview_6.NullableFields _: return $dart_overview_11.Wrapper<$dart_overview_6.NullableFields>(value);
+          case $dart_overview_6.LateFieldDemo _: return $dart_overview_11.Wrapper<$dart_overview_6.LateFieldDemo>(value);
+          case $dart_overview_6.Multiplier _: return $dart_overview_11.Wrapper<$dart_overview_6.Multiplier>(value);
+          case $dart_overview_6.Printable _: return $dart_overview_11.Wrapper<$dart_overview_6.Printable>(value);
+          case $dart_overview_6.Serializable _: return $dart_overview_11.Wrapper<$dart_overview_6.Serializable>(value);
+          case $dart_overview_6.SerializablePrintable _: return $dart_overview_11.Wrapper<$dart_overview_6.SerializablePrintable>(value);
+          case $dart_overview_6.Trackable _: return $dart_overview_11.Wrapper<$dart_overview_6.Trackable>(value);
+          case $dart_overview_6.TrackedItem _: return $dart_overview_11.Wrapper<$dart_overview_6.TrackedItem>(value);
+          case $dart_overview_6.DataProcessor _: return $dart_overview_11.Wrapper<$dart_overview_6.DataProcessor>(value);
+          case $dart_overview_12.Statistics _: return $dart_overview_11.Wrapper<$dart_overview_12.Statistics>(value);
+          case $dart_overview_12.SortedList _: return $dart_overview_11.Wrapper<$dart_overview_12.SortedList>(value);
+          case $dart_overview_12.PriorityQueue _: return $dart_overview_11.Wrapper<$dart_overview_12.PriorityQueue>(value);
+          case $dart_overview_12.Range _: return $dart_overview_11.Wrapper<$dart_overview_12.Range>(value);
+          case $dart_overview_12.BinarySearchTree _: return $dart_overview_11.Wrapper<$dart_overview_12.BinarySearchTree>(value);
+          case $dart_overview_12.Cache _: return $dart_overview_11.Wrapper<$dart_overview_12.Cache>(value);
+          case $dart_overview_9.TreeNode _: return $dart_overview_11.Wrapper<$dart_overview_9.TreeNode>(value);
+          case $dart_overview_14.Musical _: return $dart_overview_11.Wrapper<$dart_overview_14.Musical>(value);
+          case $dart_overview_14.Dancing _: return $dart_overview_11.Wrapper<$dart_overview_14.Dancing>(value);
+          case $dart_overview_14.Musician _: return $dart_overview_11.Wrapper<$dart_overview_14.Musician>(value);
+          case $dart_overview_14.ProfessionalDancer _: return $dart_overview_11.Wrapper<$dart_overview_14.ProfessionalDancer>(value);
+          case $dart_overview_14.Entertainer _: return $dart_overview_11.Wrapper<$dart_overview_14.Entertainer>(value);
+          case $dart_overview_14.CountableItem _: return $dart_overview_11.Wrapper<$dart_overview_14.CountableItem>(value);
+          case $dart_overview_14.Flying _: return $dart_overview_11.Wrapper<$dart_overview_14.Flying>(value);
+          case $dart_overview_14.Walking _: return $dart_overview_11.Wrapper<$dart_overview_14.Walking>(value);
+          case $dart_overview_14.Bird _: return $dart_overview_11.Wrapper<$dart_overview_14.Bird>(value);
+          case $dart_overview_14.Eagle _: return $dart_overview_11.Wrapper<$dart_overview_14.Eagle>(value);
+          case $dart_overview_14.Penguin _: return $dart_overview_11.Wrapper<$dart_overview_14.Penguin>(value);
+          case $dart_overview_14.Logging _: return $dart_overview_11.Wrapper<$dart_overview_14.Logging>(value);
+          case $dart_overview_14.ConsoleLogger _: return $dart_overview_11.Wrapper<$dart_overview_14.ConsoleLogger>(value);
+          case $dart_overview_14.Greeter1 _: return $dart_overview_11.Wrapper<$dart_overview_14.Greeter1>(value);
+          case $dart_overview_14.Greeter2 _: return $dart_overview_11.Wrapper<$dart_overview_14.Greeter2>(value);
+          case $dart_overview_14.MultiMixed _: return $dart_overview_11.Wrapper<$dart_overview_14.MultiMixed>(value);
+          case $dart_overview_14.Helper _: return $dart_overview_11.Wrapper<$dart_overview_14.Helper>(value);
+          case $dart_overview_14.HelpfulService _: return $dart_overview_11.Wrapper<$dart_overview_14.HelpfulService>(value);
+          case $dart_overview_14.EventEmitter _: return $dart_overview_11.Wrapper<$dart_overview_14.EventEmitter>(value);
+          case $dart_overview_14.Button _: return $dart_overview_11.Wrapper<$dart_overview_14.Button>(value);
+          case $dart_overview_14.ComparableMixin _: return $dart_overview_11.Wrapper<$dart_overview_14.ComparableMixin>(value);
+          case $dart_overview_14.SortableItem _: return $dart_overview_11.Wrapper<$dart_overview_14.SortableItem>(value);
+          case $dart_overview_14.JsonSerializable _: return $dart_overview_11.Wrapper<$dart_overview_14.JsonSerializable>(value);
           default: return $dart_overview_11.Wrapper(value);
         }
       },
@@ -1395,7 +1632,7 @@ BridgedClass _createWrapperBridge() {
           throw ArgumentError('transform: Missing required argument "f" at position 0');
         }
         final fRaw = positional[0];
-        return t.transform((dynamic p0) { return D4.callInterpreterCallback(visitor!, fRaw, [p0]) as dynamic; });
+        return t.transform((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, fRaw, [p0])); });
       },
     },
     constructorSignatures: {
@@ -1584,6 +1821,115 @@ BridgedClass _createMaybeBridge() {
           case int _: return $dart_overview_11.Maybe<int>.some(value);
           case String _: return $dart_overview_11.Maybe<String>.some(value);
           case bool _: return $dart_overview_11.Maybe<bool>.some(value);
+          case $dart_overview_12.Person _: return $dart_overview_11.Maybe<$dart_overview_12.Person>.some(value);
+          case $dart_overview_4.Dog _: return $dart_overview_11.Maybe<$dart_overview_4.Dog>.some(value);
+          case $dart_overview_14.User _: return $dart_overview_11.Maybe<$dart_overview_14.User>.some(value);
+          case $dart_overview_3.Calculator _: return $dart_overview_11.Maybe<$dart_overview_3.Calculator>.some(value);
+          case $dart_overview_4.Rectangle _: return $dart_overview_11.Maybe<$dart_overview_4.Rectangle>.some(value);
+          case $dart_overview_3.BankAccount _: return $dart_overview_11.Maybe<$dart_overview_3.BankAccount>.some(value);
+          case $dart_overview_4.Circle _: return $dart_overview_11.Maybe<$dart_overview_4.Circle>.some(value);
+          case $dart_overview_11.Box _: return $dart_overview_11.Maybe<$dart_overview_11.Box>.some(value);
+          case $dart_overview_11.Wrapper _: return $dart_overview_11.Maybe<$dart_overview_11.Wrapper>.some(value);
+          case $dart_overview_11.Pair _: return $dart_overview_11.Maybe<$dart_overview_11.Pair>.some(value);
+          case $dart_overview_11.Stack _: return $dart_overview_11.Maybe<$dart_overview_11.Stack>.some(value);
+          case $dart_overview_11.Queue _: return $dart_overview_11.Maybe<$dart_overview_11.Queue>.some(value);
+          case $dart_overview_11.Result _: return $dart_overview_11.Maybe<$dart_overview_11.Result>.some(value);
+          case $dart_overview_7.LoggableMixin _: return $dart_overview_11.Maybe<$dart_overview_7.LoggableMixin>.some(value);
+          case $dart_overview_1.Vehicle _: return $dart_overview_11.Maybe<$dart_overview_1.Vehicle>.some(value);
+          case $dart_overview_4.Car _: return $dart_overview_11.Maybe<$dart_overview_4.Car>.some(value);
+          case $dart_overview_1.Motorcycle _: return $dart_overview_11.Maybe<$dart_overview_1.Motorcycle>.some(value);
+          case $dart_overview_1.BaseAnimal _: return $dart_overview_11.Maybe<$dart_overview_1.BaseAnimal>.some(value);
+          case $dart_overview_1.DogAnimal _: return $dart_overview_11.Maybe<$dart_overview_1.DogAnimal>.some(value);
+          case $dart_overview_1.DataSource _: return $dart_overview_11.Maybe<$dart_overview_1.DataSource>.some(value);
+          case $dart_overview_1.JsonDataSource _: return $dart_overview_11.Maybe<$dart_overview_1.JsonDataSource>.some(value);
+          case $dart_overview_1.XmlDataSource _: return $dart_overview_11.Maybe<$dart_overview_1.XmlDataSource>.some(value);
+          case $dart_overview_1.AppConfig _: return $dart_overview_11.Maybe<$dart_overview_1.AppConfig>.some(value);
+          case $dart_overview_1.SealedShape _: return $dart_overview_11.Maybe<$dart_overview_1.SealedShape>.some(value);
+          case $dart_overview_1.SealedCircle _: return $dart_overview_11.Maybe<$dart_overview_1.SealedCircle>.some(value);
+          case $dart_overview_1.SealedSquare _: return $dart_overview_11.Maybe<$dart_overview_1.SealedSquare>.some(value);
+          case $dart_overview_1.SealedTriangle _: return $dart_overview_11.Maybe<$dart_overview_1.SealedTriangle>.some(value);
+          case $dart_overview_1.LoggerMixin _: return $dart_overview_11.Maybe<$dart_overview_1.LoggerMixin>.some(value);
+          case $dart_overview_1.LoggingService _: return $dart_overview_11.Maybe<$dart_overview_1.LoggingService>.some(value);
+          case $dart_overview_1.AbstractBaseClass _: return $dart_overview_11.Maybe<$dart_overview_1.AbstractBaseClass>.some(value);
+          case $dart_overview_1.DerivedFromAbstractBase _: return $dart_overview_11.Maybe<$dart_overview_1.DerivedFromAbstractBase>.some(value);
+          case $dart_overview_1.ApiClient _: return $dart_overview_11.Maybe<$dart_overview_1.ApiClient>.some(value);
+          case $dart_overview_1.RestApiClient _: return $dart_overview_11.Maybe<$dart_overview_1.RestApiClient>.some(value);
+          case $dart_overview_1.GraphqlApiClient _: return $dart_overview_11.Maybe<$dart_overview_1.GraphqlApiClient>.some(value);
+          case $dart_overview_1.AbstractFinalClass _: return $dart_overview_11.Maybe<$dart_overview_1.AbstractFinalClass>.some(value);
+          case $dart_overview_1.SingletonHolder _: return $dart_overview_11.Maybe<$dart_overview_1.SingletonHolder>.some(value);
+          case $dart_overview_2.SimplePoint _: return $dart_overview_11.Maybe<$dart_overview_2.SimplePoint>.some(value);
+          case $dart_overview_5.Point _: return $dart_overview_11.Maybe<$dart_overview_5.Point>.some(value);
+          case $dart_overview_2.RectangleArea _: return $dart_overview_11.Maybe<$dart_overview_2.RectangleArea>.some(value);
+          case $dart_overview_2.PositiveNumber _: return $dart_overview_11.Maybe<$dart_overview_2.PositiveNumber>.some(value);
+          case $dart_overview_2.Vector _: return $dart_overview_11.Maybe<$dart_overview_2.Vector>.some(value);
+          case $dart_overview_2.Color _: return $dart_overview_11.Maybe<$dart_overview_2.Color>.some(value);
+          case $dart_overview_2.Logger _: return $dart_overview_11.Maybe<$dart_overview_2.Logger>.some(value);
+          case $dart_overview_4.Shape _: return $dart_overview_11.Maybe<$dart_overview_4.Shape>.some(value);
+          case $dart_overview_2.CircleShape _: return $dart_overview_11.Maybe<$dart_overview_2.CircleShape>.some(value);
+          case $dart_overview_2.SquareShape _: return $dart_overview_11.Maybe<$dart_overview_2.SquareShape>.some(value);
+          case $dart_overview_2.Database _: return $dart_overview_11.Maybe<$dart_overview_2.Database>.some(value);
+          case $dart_overview_2.PersonBase _: return $dart_overview_11.Maybe<$dart_overview_2.PersonBase>.some(value);
+          case $dart_overview_2.Employee _: return $dart_overview_11.Maybe<$dart_overview_2.Employee>.some(value);
+          case $dart_overview_2.Manager _: return $dart_overview_11.Maybe<$dart_overview_2.Manager>.some(value);
+          case $dart_overview_14.Animal _: return $dart_overview_11.Maybe<$dart_overview_14.Animal>.some(value);
+          case $dart_overview_4.Cat _: return $dart_overview_11.Maybe<$dart_overview_4.Cat>.some(value);
+          case $dart_overview_4.ElectricCar _: return $dart_overview_11.Maybe<$dart_overview_4.ElectricCar>.some(value);
+          case $dart_overview_4.NotificationService _: return $dart_overview_11.Maybe<$dart_overview_4.NotificationService>.some(value);
+          case $dart_overview_4.EmailNotificationService _: return $dart_overview_11.Maybe<$dart_overview_4.EmailNotificationService>.some(value);
+          case $dart_overview_4.SmsNotificationService _: return $dart_overview_11.Maybe<$dart_overview_4.SmsNotificationService>.some(value);
+          case $dart_overview_4.Switchable _: return $dart_overview_11.Maybe<$dart_overview_4.Switchable>.some(value);
+          case $dart_overview_4.TemperatureControl _: return $dart_overview_11.Maybe<$dart_overview_4.TemperatureControl>.some(value);
+          case $dart_overview_4.Connectable _: return $dart_overview_11.Maybe<$dart_overview_4.Connectable>.some(value);
+          case $dart_overview_4.SmartThermostat _: return $dart_overview_11.Maybe<$dart_overview_4.SmartThermostat>.some(value);
+          case $dart_overview_4.Machine _: return $dart_overview_11.Maybe<$dart_overview_4.Machine>.some(value);
+          case $dart_overview_4.Speakable _: return $dart_overview_11.Maybe<$dart_overview_4.Speakable>.some(value);
+          case $dart_overview_4.Robot _: return $dart_overview_11.Maybe<$dart_overview_4.Robot>.some(value);
+          case $dart_overview_4.AdvancedRobot _: return $dart_overview_11.Maybe<$dart_overview_4.AdvancedRobot>.some(value);
+          case $dart_overview_5.MathUtils _: return $dart_overview_11.Maybe<$dart_overview_5.MathUtils>.some(value);
+          case $dart_overview_14.Counter _: return $dart_overview_11.Maybe<$dart_overview_14.Counter>.some(value);
+          case $dart_overview_5.FlexibleObject _: return $dart_overview_11.Maybe<$dart_overview_5.FlexibleObject>.some(value);
+          case $dart_overview_5.SortablePerson _: return $dart_overview_11.Maybe<$dart_overview_5.SortablePerson>.some(value);
+          case $dart_overview_6.NumberWrapper _: return $dart_overview_11.Maybe<$dart_overview_6.NumberWrapper>.some(value);
+          case $dart_overview_6.BitFlags _: return $dart_overview_11.Maybe<$dart_overview_6.BitFlags>.some(value);
+          case $dart_overview_6.NullableFields _: return $dart_overview_11.Maybe<$dart_overview_6.NullableFields>.some(value);
+          case $dart_overview_6.LateFieldDemo _: return $dart_overview_11.Maybe<$dart_overview_6.LateFieldDemo>.some(value);
+          case $dart_overview_6.Multiplier _: return $dart_overview_11.Maybe<$dart_overview_6.Multiplier>.some(value);
+          case $dart_overview_6.Printable _: return $dart_overview_11.Maybe<$dart_overview_6.Printable>.some(value);
+          case $dart_overview_6.Serializable _: return $dart_overview_11.Maybe<$dart_overview_6.Serializable>.some(value);
+          case $dart_overview_6.SerializablePrintable _: return $dart_overview_11.Maybe<$dart_overview_6.SerializablePrintable>.some(value);
+          case $dart_overview_6.Trackable _: return $dart_overview_11.Maybe<$dart_overview_6.Trackable>.some(value);
+          case $dart_overview_6.TrackedItem _: return $dart_overview_11.Maybe<$dart_overview_6.TrackedItem>.some(value);
+          case $dart_overview_6.DataProcessor _: return $dart_overview_11.Maybe<$dart_overview_6.DataProcessor>.some(value);
+          case $dart_overview_12.Statistics _: return $dart_overview_11.Maybe<$dart_overview_12.Statistics>.some(value);
+          case $dart_overview_12.SortedList _: return $dart_overview_11.Maybe<$dart_overview_12.SortedList>.some(value);
+          case $dart_overview_12.PriorityQueue _: return $dart_overview_11.Maybe<$dart_overview_12.PriorityQueue>.some(value);
+          case $dart_overview_12.Range _: return $dart_overview_11.Maybe<$dart_overview_12.Range>.some(value);
+          case $dart_overview_12.BinarySearchTree _: return $dart_overview_11.Maybe<$dart_overview_12.BinarySearchTree>.some(value);
+          case $dart_overview_12.Cache _: return $dart_overview_11.Maybe<$dart_overview_12.Cache>.some(value);
+          case $dart_overview_9.TreeNode _: return $dart_overview_11.Maybe<$dart_overview_9.TreeNode>.some(value);
+          case $dart_overview_14.Musical _: return $dart_overview_11.Maybe<$dart_overview_14.Musical>.some(value);
+          case $dart_overview_14.Dancing _: return $dart_overview_11.Maybe<$dart_overview_14.Dancing>.some(value);
+          case $dart_overview_14.Musician _: return $dart_overview_11.Maybe<$dart_overview_14.Musician>.some(value);
+          case $dart_overview_14.ProfessionalDancer _: return $dart_overview_11.Maybe<$dart_overview_14.ProfessionalDancer>.some(value);
+          case $dart_overview_14.Entertainer _: return $dart_overview_11.Maybe<$dart_overview_14.Entertainer>.some(value);
+          case $dart_overview_14.CountableItem _: return $dart_overview_11.Maybe<$dart_overview_14.CountableItem>.some(value);
+          case $dart_overview_14.Flying _: return $dart_overview_11.Maybe<$dart_overview_14.Flying>.some(value);
+          case $dart_overview_14.Walking _: return $dart_overview_11.Maybe<$dart_overview_14.Walking>.some(value);
+          case $dart_overview_14.Bird _: return $dart_overview_11.Maybe<$dart_overview_14.Bird>.some(value);
+          case $dart_overview_14.Eagle _: return $dart_overview_11.Maybe<$dart_overview_14.Eagle>.some(value);
+          case $dart_overview_14.Penguin _: return $dart_overview_11.Maybe<$dart_overview_14.Penguin>.some(value);
+          case $dart_overview_14.Logging _: return $dart_overview_11.Maybe<$dart_overview_14.Logging>.some(value);
+          case $dart_overview_14.ConsoleLogger _: return $dart_overview_11.Maybe<$dart_overview_14.ConsoleLogger>.some(value);
+          case $dart_overview_14.Greeter1 _: return $dart_overview_11.Maybe<$dart_overview_14.Greeter1>.some(value);
+          case $dart_overview_14.Greeter2 _: return $dart_overview_11.Maybe<$dart_overview_14.Greeter2>.some(value);
+          case $dart_overview_14.MultiMixed _: return $dart_overview_11.Maybe<$dart_overview_14.MultiMixed>.some(value);
+          case $dart_overview_14.Helper _: return $dart_overview_11.Maybe<$dart_overview_14.Helper>.some(value);
+          case $dart_overview_14.HelpfulService _: return $dart_overview_11.Maybe<$dart_overview_14.HelpfulService>.some(value);
+          case $dart_overview_14.EventEmitter _: return $dart_overview_11.Maybe<$dart_overview_14.EventEmitter>.some(value);
+          case $dart_overview_14.Button _: return $dart_overview_11.Maybe<$dart_overview_14.Button>.some(value);
+          case $dart_overview_14.ComparableMixin _: return $dart_overview_11.Maybe<$dart_overview_14.ComparableMixin>.some(value);
+          case $dart_overview_14.SortableItem _: return $dart_overview_11.Maybe<$dart_overview_14.SortableItem>.some(value);
+          case $dart_overview_14.JsonSerializable _: return $dart_overview_11.Maybe<$dart_overview_14.JsonSerializable>.some(value);
           default: return $dart_overview_11.Maybe.some(value);
         }
       },
@@ -1609,7 +1955,7 @@ BridgedClass _createMaybeBridge() {
           throw ArgumentError('map: Missing required argument "f" at position 0');
         }
         final fRaw = positional[0];
-        return t.map((dynamic p0) { return D4.callInterpreterCallback(visitor!, fRaw, [p0]) as dynamic; });
+        return t.map((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, fRaw, [p0])); });
       },
     },
     constructorSignatures: {
@@ -1663,7 +2009,7 @@ BridgedClass _createResultBridge() {
           throw ArgumentError('fold: Missing required argument "onFailure" at position 1');
         }
         final onFailureRaw = positional[1];
-        return t.fold((dynamic p0) { return D4.callInterpreterCallback(visitor!, onSuccessRaw, [p0]) as dynamic; }, (dynamic p0) { return D4.callInterpreterCallback(visitor!, onFailureRaw, [p0]) as dynamic; });
+        return t.fold((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, onSuccessRaw, [p0])); }, (dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, onFailureRaw, [p0])); });
       },
     },
     constructorSignatures: {

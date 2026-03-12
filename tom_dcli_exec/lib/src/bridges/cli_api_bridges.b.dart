@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 10 files
-// Generated: 2026-03-06T18:38:27.990157
+// Generated: 2026-03-12T18:10:15.970636
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -99,6 +99,16 @@ class CliApiBridge {
     };
   }
 
+  /// Returns the list of function typedef names declared in this library.
+  ///
+  /// Function typedefs like `typedef VoidCallback = void Function()` are
+  /// registered so that they can be used as type arguments in D4rt scripts.
+  static List<String> functionTypedefs() {
+    return [
+      'NativeFunctionImpl',
+    ];
+  }
+
   /// Returns all bridged enum definitions.
   static List<BridgedEnumDefinition> bridgedEnums() {
     return [
@@ -164,6 +174,12 @@ class CliApiBridge {
     final funcSigs = globalFunctionSignatures();
     for (final entry in funcs.entries) {
       interpreter.registertopLevelFunction(entry.key, entry.value, importPath, sourceUri: funcSources[entry.key], signature: funcSigs[entry.key]);
+    }
+
+    // Register function typedefs for type resolution
+    final typedefs = functionTypedefs();
+    for (final name in typedefs) {
+      interpreter.registerFunctionTypedef(name, importPath);
     }
   }
 
@@ -1540,11 +1556,17 @@ BridgedClass _createExecuteResultBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final success = D4.getRequiredNamedArg<bool>(named, 'success', 'ExecuteResult');
-        final result = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'result', 'ExecuteResult', '<default unavailable>');
         final error = D4.getOptionalNamedArg<String?>(named, 'error');
         final stackTrace = D4.getOptionalNamedArg<StackTrace?>(named, 'stackTrace');
         final sourcesLoaded = D4.getNamedArgWithDefault<int>(named, 'sourcesLoaded', 1);
-        return $tom_dcli_exec_5.ExecuteResult(success: success, result: result, error: error, stackTrace: stackTrace, sourcesLoaded: sourcesLoaded);
+        if (!named.containsKey('result')) {
+          return $tom_dcli_exec_5.ExecuteResult(success: success, error: error, stackTrace: stackTrace, sourcesLoaded: sourcesLoaded);
+        }
+        if (named.containsKey('result')) {
+          final result = D4.getRequiredNamedArg<dynamic>(named, 'result', 'ExecuteResult');
+          return $tom_dcli_exec_5.ExecuteResult(success: success, error: error, stackTrace: stackTrace, sourcesLoaded: sourcesLoaded, result: result);
+        }
+        throw StateError('Unreachable: all named parameter combinations should be covered');
       },
       'success': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ExecuteResult');
@@ -2234,6 +2256,14 @@ BridgedClass _createD4rtBridge() {
         t.registerClassAlias(aliasName, targetName, library);
         return null;
       },
+      'registerFunctionTypedef': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_d4rt_exec_1.D4rt>(target, 'D4rt');
+        D4.requireMinArgs(positional, 2, 'registerFunctionTypedef');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'registerFunctionTypedef');
+        final library = D4.getRequiredArg<String>(positional, 1, 'library', 'registerFunctionTypedef');
+        t.registerFunctionTypedef(name, library);
+        return null;
+      },
       'registerBridgedExtension': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_d4rt_exec_1.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 2, 'registerBridgedExtension');
@@ -2254,7 +2284,7 @@ BridgedClass _createD4rtBridge() {
         final library = D4.getRequiredArg<String>(positional, 2, 'library', 'registertopLevelFunction');
         final sourceUri = D4.getOptionalNamedArg<String?>(named, 'sourceUri');
         final signature = D4.getOptionalNamedArg<String?>(named, 'signature');
-        t.registertopLevelFunction(name, ($tom_d4rt_ast_5.InterpreterVisitor p0, List<Object?> p1, Map<String, Object?> p2, List<$tom_d4rt_ast_7.RuntimeType>? p3) { return D4.callInterpreterCallback(visitor!, functionRaw, [p0, p1, p2, p3]); }, library, sourceUri: sourceUri, signature: signature);
+        t.registertopLevelFunction(name, ($tom_d4rt_ast_5.InterpreterVisitor p0, List<Object?> p1, Map<String, Object?> p2, List<$tom_d4rt_ast_7.RuntimeType>? p3) { return D4.castCallbackResult<Object?>(D4.callInterpreterCallback(visitor!, functionRaw, [p0, p1, p2, p3])); }, library, sourceUri: sourceUri, signature: signature);
         return null;
       },
       'registerGlobalVariable': (visitor, target, positional, named, typeArgs) {
@@ -2277,7 +2307,7 @@ BridgedClass _createD4rtBridge() {
         final getterRaw = positional[1];
         final library = D4.getRequiredArg<String>(positional, 2, 'library', 'registerGlobalGetter');
         final sourceUri = D4.getOptionalNamedArg<String?>(named, 'sourceUri');
-        t.registerGlobalGetter(name, () { return D4.callInterpreterCallback(visitor!, getterRaw, []); }, library, sourceUri: sourceUri);
+        t.registerGlobalGetter(name, () { return D4.castCallbackResult<Object?>(D4.callInterpreterCallback(visitor!, getterRaw, [])); }, library, sourceUri: sourceUri);
         return null;
       },
       'registerGlobalSetter': (visitor, target, positional, named, typeArgs) {
@@ -2430,6 +2460,7 @@ BridgedClass _createD4rtBridge() {
       'registerBridgedEnum': 'void registerBridgedEnum(BridgedEnumDefinition definition, String library, {String? sourceUri})',
       'registerBridgedClass': 'void registerBridgedClass(BridgedClass definition, String library, {String? sourceUri})',
       'registerClassAlias': 'void registerClassAlias(String aliasName, String targetName, String library)',
+      'registerFunctionTypedef': 'void registerFunctionTypedef(String name, String library)',
       'registerBridgedExtension': 'void registerBridgedExtension(BridgedExtensionDefinition definition, String library, {String? sourceUri})',
       'registertopLevelFunction': 'void registertopLevelFunction(String? name, NativeFunctionImpl function, String library, {String? sourceUri, String? signature})',
       'registerGlobalVariable': 'void registerGlobalVariable(String name, Object? value, String library, {String? sourceUri})',

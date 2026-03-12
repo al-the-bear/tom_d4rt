@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 7 files
-// Generated: 2026-03-06T18:39:55.589313
+// Generated: 2026-03-12T18:38:42.376533
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -87,6 +87,17 @@ class ExampleProjectBridge {
   static Map<String, String> classAliases() {
     return {
     };
+  }
+
+  /// Returns the list of function typedef names declared in this library.
+  ///
+  /// Function typedefs like `typedef VoidCallback = void Function()` are
+  /// registered so that they can be used as type arguments in D4rt scripts.
+  static List<String> functionTypedefs() {
+    return [
+      'EventCallback',
+      'DataCallback',
+    ];
   }
 
   /// Returns all bridged enum definitions.
@@ -210,6 +221,12 @@ class ExampleProjectBridge {
     for (final entry in funcs.entries) {
       interpreter.registertopLevelFunction(entry.key, entry.value, importPath, sourceUri: funcSources[entry.key], signature: funcSigs[entry.key]);
     }
+
+    // Register function typedefs for type resolution
+    final typedefs = functionTypedefs();
+    for (final name in typedefs) {
+      interpreter.registerFunctionTypedef(name, importPath);
+    }
   }
 
   /// Registers all global variables with the interpreter.
@@ -321,7 +338,7 @@ class ExampleProjectBridge {
           throw ArgumentError('mapList: Missing required argument "mapper" at position 1');
         }
         final mapperRaw = positional[1];
-        final mapper = (dynamic p0) { return D4.callInterpreterCallback(visitor!, mapperRaw, [p0]) as dynamic; };
+        final mapper = (dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, mapperRaw, [p0])); };
         return $d4_example_5.mapList<dynamic, dynamic>(items, mapper);
       },
       'filterList': (visitor, positional, named, typeArgs) {
@@ -341,7 +358,7 @@ class ExampleProjectBridge {
           throw ArgumentError('reduceList: Missing required argument "combiner" at position 1');
         }
         final combinerRaw = positional[1];
-        final combiner = (dynamic p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, combinerRaw, [p0, p1]) as dynamic; };
+        final combiner = (dynamic p0, dynamic p1) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, combinerRaw, [p0, p1])); };
         return $d4_example_5.reduceList<dynamic>(items, combiner);
       },
       'sortItems': (visitor, positional, named, typeArgs) {
@@ -773,6 +790,28 @@ BridgedClass _createResultBridge() {
           case int _: return $d4_example_2.Result<int>.success(value);
           case String _: return $d4_example_2.Result<String>.success(value);
           case bool _: return $d4_example_2.Result<bool>.success(value);
+          case $d4_example_1.Person _: return $d4_example_2.Result<$d4_example_1.Person>.success(value);
+          case $d4_example_1.Calculator _: return $d4_example_2.Result<$d4_example_1.Calculator>.success(value);
+          case $d4_example_1.MathUtils _: return $d4_example_2.Result<$d4_example_1.MathUtils>.success(value);
+          case $d4_example_2.TaskScheduler _: return $d4_example_2.Result<$d4_example_2.TaskScheduler>.success(value);
+          case $d4_example_2.AsyncService _: return $d4_example_2.Result<$d4_example_2.AsyncService>.success(value);
+          case $d4_example_2.EventEmitter _: return $d4_example_2.Result<$d4_example_2.EventEmitter>.success(value);
+          case $d4_example_4.Identifiable _: return $d4_example_2.Result<$d4_example_4.Identifiable>.success(value);
+          case $d4_example_4.Entity _: return $d4_example_2.Result<$d4_example_4.Entity>.success(value);
+          case $d4_example_4.Box _: return $d4_example_2.Result<$d4_example_4.Box>.success(value);
+          case $d4_example_4.Repository _: return $d4_example_2.Result<$d4_example_4.Repository>.success(value);
+          case $d4_example_4.Pair _: return $d4_example_2.Result<$d4_example_4.Pair>.success(value);
+          case $d4_example_4.Transformer _: return $d4_example_2.Result<$d4_example_4.Transformer>.success(value);
+          case $d4_example_6.Shape _: return $d4_example_2.Result<$d4_example_6.Shape>.success(value);
+          case $d4_example_6.Circle _: return $d4_example_2.Result<$d4_example_6.Circle>.success(value);
+          case $d4_example_6.Rectangle _: return $d4_example_2.Result<$d4_example_6.Rectangle>.success(value);
+          case $d4_example_6.Serializable _: return $d4_example_2.Result<$d4_example_6.Serializable>.success(value);
+          case $d4_example_6.Cloneable _: return $d4_example_2.Result<$d4_example_6.Cloneable>.success(value);
+          case $d4_example_6.Point _: return $d4_example_2.Result<$d4_example_6.Point>.success(value);
+          case $d4_example_6.ColoredRectangle _: return $d4_example_2.Result<$d4_example_6.ColoredRectangle>.success(value);
+          case $d4_example_7.Vector2D _: return $d4_example_2.Result<$d4_example_7.Vector2D>.success(value);
+          case $d4_example_7.Matrix _: return $d4_example_2.Result<$d4_example_7.Matrix>.success(value);
+          case $d4_example_7.Dictionary _: return $d4_example_2.Result<$d4_example_7.Dictionary>.success(value);
           default: return $d4_example_2.Result.success(value);
         }
       },
@@ -855,7 +894,7 @@ BridgedClass _createTaskSchedulerBridge() {
           throw ArgumentError('runWithHandler: Missing required argument "onError" at position 2');
         }
         final onErrorRaw = positional[2];
-        t.runWithHandler(() { return D4.callInterpreterCallback(visitor!, taskRaw, []) as dynamic; }, (dynamic p0) { D4.callInterpreterCallback(visitor!, onSuccessRaw, [p0]); }, (Object p0) { D4.callInterpreterCallback(visitor!, onErrorRaw, [p0]); });
+        t.runWithHandler(() { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, taskRaw, [])); }, (dynamic p0) { D4.callInterpreterCallback(visitor!, onSuccessRaw, [p0]); }, (Object p0) { D4.callInterpreterCallback(visitor!, onErrorRaw, [p0]); });
         return null;
       },
       'mapValues': (visitor, target, positional, named, typeArgs) {
@@ -869,7 +908,7 @@ BridgedClass _createTaskSchedulerBridge() {
           throw ArgumentError('mapValues: Missing required argument "mapper" at position 1');
         }
         final mapperRaw = positional[1];
-        return t.mapValues(values, (dynamic p0) { return D4.callInterpreterCallback(visitor!, mapperRaw, [p0]) as dynamic; });
+        return t.mapValues(values, (dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, mapperRaw, [p0])); });
       },
       'filterValues': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$d4_example_2.TaskScheduler>(target, 'TaskScheduler');
@@ -895,7 +934,7 @@ BridgedClass _createTaskSchedulerBridge() {
           throw ArgumentError('reduceValues: Missing required argument "combiner" at position 1');
         }
         final combinerRaw = positional[1];
-        return t.reduceValues(values, (dynamic p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, combinerRaw, [p0, p1]) as dynamic; });
+        return t.reduceValues(values, (dynamic p0, dynamic p1) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, combinerRaw, [p0, p1])); });
       },
     },
     staticMethods: {
@@ -906,7 +945,7 @@ BridgedClass _createTaskSchedulerBridge() {
           throw ArgumentError('generate: Missing required argument "generator" at position 1');
         }
         final generatorRaw = positional[1];
-        final generator = (int p0) { return D4.callInterpreterCallback(visitor!, generatorRaw, [p0]) as dynamic; };
+        final generator = (int p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, generatorRaw, [p0])); };
         return $d4_example_2.TaskScheduler.generate(count, generator);
       },
     },
@@ -1152,6 +1191,28 @@ BridgedClass _createBoxBridge() {
           case int _: return $d4_example_4.Box<int>(value);
           case String _: return $d4_example_4.Box<String>(value);
           case bool _: return $d4_example_4.Box<bool>(value);
+          case $d4_example_1.Person _: return $d4_example_4.Box<$d4_example_1.Person>(value);
+          case $d4_example_1.Calculator _: return $d4_example_4.Box<$d4_example_1.Calculator>(value);
+          case $d4_example_1.MathUtils _: return $d4_example_4.Box<$d4_example_1.MathUtils>(value);
+          case $d4_example_2.Result _: return $d4_example_4.Box<$d4_example_2.Result>(value);
+          case $d4_example_2.TaskScheduler _: return $d4_example_4.Box<$d4_example_2.TaskScheduler>(value);
+          case $d4_example_2.AsyncService _: return $d4_example_4.Box<$d4_example_2.AsyncService>(value);
+          case $d4_example_2.EventEmitter _: return $d4_example_4.Box<$d4_example_2.EventEmitter>(value);
+          case $d4_example_4.Identifiable _: return $d4_example_4.Box<$d4_example_4.Identifiable>(value);
+          case $d4_example_4.Entity _: return $d4_example_4.Box<$d4_example_4.Entity>(value);
+          case $d4_example_4.Repository _: return $d4_example_4.Box<$d4_example_4.Repository>(value);
+          case $d4_example_4.Pair _: return $d4_example_4.Box<$d4_example_4.Pair>(value);
+          case $d4_example_4.Transformer _: return $d4_example_4.Box<$d4_example_4.Transformer>(value);
+          case $d4_example_6.Shape _: return $d4_example_4.Box<$d4_example_6.Shape>(value);
+          case $d4_example_6.Circle _: return $d4_example_4.Box<$d4_example_6.Circle>(value);
+          case $d4_example_6.Rectangle _: return $d4_example_4.Box<$d4_example_6.Rectangle>(value);
+          case $d4_example_6.Serializable _: return $d4_example_4.Box<$d4_example_6.Serializable>(value);
+          case $d4_example_6.Cloneable _: return $d4_example_4.Box<$d4_example_6.Cloneable>(value);
+          case $d4_example_6.Point _: return $d4_example_4.Box<$d4_example_6.Point>(value);
+          case $d4_example_6.ColoredRectangle _: return $d4_example_4.Box<$d4_example_6.ColoredRectangle>(value);
+          case $d4_example_7.Vector2D _: return $d4_example_4.Box<$d4_example_7.Vector2D>(value);
+          case $d4_example_7.Matrix _: return $d4_example_4.Box<$d4_example_7.Matrix>(value);
+          case $d4_example_7.Dictionary _: return $d4_example_4.Box<$d4_example_7.Dictionary>(value);
           default: return $d4_example_4.Box(value);
         }
       },
@@ -1177,7 +1238,7 @@ BridgedClass _createBoxBridge() {
           throw ArgumentError('transform: Missing required argument "transformer" at position 0');
         }
         final transformerRaw = positional[0];
-        return t.transform((dynamic p0) { return D4.callInterpreterCallback(visitor!, transformerRaw, [p0]) as dynamic; });
+        return t.transform((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, transformerRaw, [p0])); });
       },
     },
     staticMethods: {
@@ -1264,7 +1325,7 @@ BridgedClass _createRepositoryBridge() {
           throw ArgumentError('mapAll: Missing required argument "mapper" at position 0');
         }
         final mapperRaw = positional[0];
-        return t.mapAll(($d4_example_4.Identifiable p0) { return D4.callInterpreterCallback(visitor!, mapperRaw, [p0]) as dynamic; });
+        return t.mapAll(($d4_example_4.Identifiable p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, mapperRaw, [p0])); });
       },
     },
     staticMethods: {
@@ -1333,7 +1394,7 @@ BridgedClass _createPairBridge() {
           throw ArgumentError('mapBoth: Missing required argument "mapSecond" at position 1');
         }
         final mapSecondRaw = positional[1];
-        return t.mapBoth((dynamic p0) { return D4.callInterpreterCallback(visitor!, mapFirstRaw, [p0]) as dynamic; }, (dynamic p0) { return D4.callInterpreterCallback(visitor!, mapSecondRaw, [p0]) as dynamic; });
+        return t.mapBoth((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, mapFirstRaw, [p0])); }, (dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, mapSecondRaw, [p0])); });
       },
       'withFirst': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$d4_example_4.Pair>(target, 'Pair');

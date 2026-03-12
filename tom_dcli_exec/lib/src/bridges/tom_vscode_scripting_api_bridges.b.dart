@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 13 files
-// Generated: 2026-03-06T18:38:28.475912
+// Generated: 2026-03-12T18:10:17.211203
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -133,6 +133,16 @@ class TomVscodeScriptingApiBridge {
     };
   }
 
+  /// Returns the list of function typedef names declared in this library.
+  ///
+  /// Function typedefs like `typedef VoidCallback = void Function()` are
+  /// registered so that they can be used as type arguments in D4rt scripts.
+  static List<String> functionTypedefs() {
+    return [
+      'ChatRequestHandler',
+    ];
+  }
+
   /// Returns all bridged enum definitions.
   static List<BridgedEnumDefinition> bridgedEnums() {
     return [
@@ -189,6 +199,12 @@ class TomVscodeScriptingApiBridge {
 
     // Register global variables
     registerGlobalVariables(interpreter, importPath);
+
+    // Register function typedefs for type resolution
+    final typedefs = functionTypedefs();
+    for (final name in typedefs) {
+      interpreter.registerFunctionTypedef(name, importPath);
+    }
   }
 
   /// Registers all global variables with the interpreter.
@@ -323,22 +339,34 @@ BridgedClass _createVSCodeBridgeResultBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final success = D4.getRequiredNamedArg<bool>(named, 'success', 'VSCodeBridgeResult');
-        final value = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'value', 'VSCodeBridgeResult', '<default unavailable>');
         final output = D4.getNamedArgWithDefault<String>(named, 'output', '');
         final error = D4.getOptionalNamedArg<String?>(named, 'error');
         final stackTrace = D4.getOptionalNamedArg<String?>(named, 'stackTrace');
         final exception = D4.getOptionalNamedArg<String?>(named, 'exception');
         final exceptionStackTrace = D4.getOptionalNamedArg<String?>(named, 'exceptionStackTrace');
         final duration = D4.getRequiredNamedArg<Duration>(named, 'duration', 'VSCodeBridgeResult');
-        return $tom_vscode_scripting_api_5.VSCodeBridgeResult(success: success, value: value, output: output, error: error, stackTrace: stackTrace, exception: exception, exceptionStackTrace: exceptionStackTrace, duration: duration);
+        if (!named.containsKey('value')) {
+          return $tom_vscode_scripting_api_5.VSCodeBridgeResult(success: success, output: output, error: error, stackTrace: stackTrace, exception: exception, exceptionStackTrace: exceptionStackTrace, duration: duration);
+        }
+        if (named.containsKey('value')) {
+          final value = D4.getRequiredNamedArg<dynamic>(named, 'value', 'VSCodeBridgeResult');
+          return $tom_vscode_scripting_api_5.VSCodeBridgeResult(success: success, output: output, error: error, stackTrace: stackTrace, exception: exception, exceptionStackTrace: exceptionStackTrace, duration: duration, value: value);
+        }
+        throw StateError('Unreachable: all named parameter combinations should be covered');
       },
       'success': (visitor, positional, named) {
-        final value = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'value', 'VSCodeBridgeResult', '<default unavailable>');
         final output = D4.getNamedArgWithDefault<String>(named, 'output', '');
         final exception = D4.getOptionalNamedArg<String?>(named, 'exception');
         final exceptionStackTrace = D4.getOptionalNamedArg<String?>(named, 'exceptionStackTrace');
         final duration = D4.getRequiredNamedArg<Duration>(named, 'duration', 'VSCodeBridgeResult');
-        return $tom_vscode_scripting_api_5.VSCodeBridgeResult.success(value: value, output: output, exception: exception, exceptionStackTrace: exceptionStackTrace, duration: duration);
+        if (!named.containsKey('value')) {
+          return $tom_vscode_scripting_api_5.VSCodeBridgeResult.success(output: output, exception: exception, exceptionStackTrace: exceptionStackTrace, duration: duration);
+        }
+        if (named.containsKey('value')) {
+          final value = D4.getRequiredNamedArg<dynamic>(named, 'value', 'VSCodeBridgeResult');
+          return $tom_vscode_scripting_api_5.VSCodeBridgeResult.success(output: output, exception: exception, exceptionStackTrace: exceptionStackTrace, duration: duration, value: value);
+        }
+        throw StateError('Unreachable: all named parameter combinations should be covered');
       },
       'failure': (visitor, positional, named) {
         final error = D4.getRequiredNamedArg<String>(named, 'error', 'VSCodeBridgeResult');

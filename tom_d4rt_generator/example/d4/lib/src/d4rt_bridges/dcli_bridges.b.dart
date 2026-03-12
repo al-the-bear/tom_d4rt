@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 72 files
-// Generated: 2026-03-07T11:13:23.475795
+// Generated: 2026-03-12T18:22:38.267874
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -251,6 +251,27 @@ class DcliBridge {
     };
   }
 
+  /// Returns the list of function typedef names declared in this library.
+  ///
+  /// Function typedefs like `typedef VoidCallback = void Function()` are
+  /// registered so that they can be used as type arguments in D4rt scripts.
+  static List<String> functionTypedefs() {
+    return [
+      'LineAction',
+      'ProgressCallback',
+      'ControllerCallback',
+      'ControllerCancelCallback',
+      'CancelableLineAction',
+      'CustomAskPrompt',
+      'CustomConfirmPrompt',
+      'OnFetchProgress',
+      'CustomMenuPrompt',
+      'RunPrivileged',
+      'RunPrivilegedAsync',
+      'CaptureZonePrintErr',
+    ];
+  }
+
   /// Returns all bridged enum definitions.
   static List<BridgedEnumDefinition> bridgedEnums() {
     return [
@@ -417,6 +438,12 @@ class DcliBridge {
     for (final extDef in extensions) {
       final extKey = extDef.name ?? '<unnamed>@${extDef.onTypeName}';
       interpreter.registerBridgedExtension(extDef, importPath, sourceUri: extSources[extKey]);
+    }
+
+    // Register function typedefs for type resolution
+    final typedefs = functionTypedefs();
+    for (final name in typedefs) {
+      interpreter.registerFunctionTypedef(name, importPath);
     }
   }
 

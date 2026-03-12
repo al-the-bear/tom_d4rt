@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
-// Source: lib/test_part_of_files.dart
-// Generated: 2026-03-06T18:40:06.411434
+// Source: /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_ast_generator/example/d4/lib/test_part_of_files.dart
+// Generated: 2026-03-12T18:39:05.738659
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -40,6 +40,15 @@ class TestPartOfFilesBridge {
   static Map<String, String> classAliases() {
     return {
     };
+  }
+
+  /// Returns the list of function typedef names declared in this library.
+  ///
+  /// Function typedefs like `typedef VoidCallback = void Function()` are
+  /// registered so that they can be used as type arguments in D4rt scripts.
+  static List<String> functionTypedefs() {
+    return [
+    ];
   }
 
   /// Returns all bridged enum definitions.

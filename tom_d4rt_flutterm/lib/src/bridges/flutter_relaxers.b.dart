@@ -1061,6 +1061,30 @@ Object? _relaxAbstractLayoutBuilder$widgets(Object value, String innerTypeArg) {
 }
 
 
+/// Auto-generated relaxer factory for AbstractLayoutBuilder — flutter_material layer types.
+Object? _relaxAbstractLayoutBuilder$material(Object value, String innerTypeArg) {
+  if (value is! AbstractLayoutBuilder) return null;
+  return switch (innerTypeArg) {
+    'BoxConstraints' => $RelaxedAbstractLayoutBuilder<BoxConstraints>(value),
+    'Constraints' => $RelaxedAbstractLayoutBuilder<Constraints>(value),
+    'SliverConstraints' => $RelaxedAbstractLayoutBuilder<SliverConstraints>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for AbstractLayoutBuilder — flutter_cupertino layer types.
+Object? _relaxAbstractLayoutBuilder$cupertino(Object value, String innerTypeArg) {
+  if (value is! AbstractLayoutBuilder) return null;
+  return switch (innerTypeArg) {
+    'BoxConstraints' => $RelaxedAbstractLayoutBuilder<BoxConstraints>(value),
+    'Constraints' => $RelaxedAbstractLayoutBuilder<Constraints>(value),
+    'SliverConstraints' => $RelaxedAbstractLayoutBuilder<SliverConstraints>(value),
+    _ => null,
+  };
+}
+
+
 /// Auto-generated relaxer factory for Action — flutter_widgets layer types.
 Object? _relaxAction$widgets(Object value, String innerTypeArg) {
   if (value is! Action) return null;
@@ -1136,6 +1160,18 @@ Object? _relaxAnimatable$widgets(Object value, String innerTypeArg) {
 Object? _relaxAnimatable$material(Object value, String innerTypeArg) {
   if (value is! Animatable) return null;
   return switch (innerTypeArg) {
+    'Object' => $RelaxedAnimatable<Object>(value),
+    'double' => $RelaxedAnimatable<double>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for Animatable — flutter_cupertino layer types.
+Object? _relaxAnimatable$cupertino(Object value, String innerTypeArg) {
+  if (value is! Animatable) return null;
+  return switch (innerTypeArg) {
+    'Object' => $RelaxedAnimatable<Object>(value),
     'double' => $RelaxedAnimatable<double>(value),
     _ => null,
   };
@@ -1184,7 +1220,13 @@ Object? _relaxAnimation$widgets(Object value, String innerTypeArg) {
 Object? _relaxAnimation$material(Object value, String innerTypeArg) {
   if (value is! Animation) return null;
   return switch (innerTypeArg) {
+    'AlignmentGeometry' => $RelaxedAnimation<AlignmentGeometry>(value),
     'Color' => $RelaxedAnimation<Color>(value),
+    'Decoration' => $RelaxedAnimation<Decoration>(value),
+    'Offset' => $RelaxedAnimation<Offset>(value),
+    'Rect' => $RelaxedAnimation<Rect>(value),
+    'RelativeRect' => $RelaxedAnimation<RelativeRect>(value),
+    'TextStyle' => $RelaxedAnimation<TextStyle>(value),
     'double' => $RelaxedAnimation<double>(value),
     _ => null,
   };
@@ -1195,6 +1237,13 @@ Object? _relaxAnimation$material(Object value, String innerTypeArg) {
 Object? _relaxAnimation$cupertino(Object value, String innerTypeArg) {
   if (value is! Animation) return null;
   return switch (innerTypeArg) {
+    'AlignmentGeometry' => $RelaxedAnimation<AlignmentGeometry>(value),
+    'Color' => $RelaxedAnimation<Color>(value),
+    'Decoration' => $RelaxedAnimation<Decoration>(value),
+    'Offset' => $RelaxedAnimation<Offset>(value),
+    'Rect' => $RelaxedAnimation<Rect>(value),
+    'RelativeRect' => $RelaxedAnimation<RelativeRect>(value),
+    'TextStyle' => $RelaxedAnimation<TextStyle>(value),
     'double' => $RelaxedAnimation<double>(value),
     _ => null,
   };
@@ -1247,6 +1296,32 @@ Object? _relaxCustomClipper$widgets(Object value, String innerTypeArg) {
 }
 
 
+/// Auto-generated relaxer factory for CustomClipper — flutter_material layer types.
+Object? _relaxCustomClipper$material(Object value, String innerTypeArg) {
+  if (value is! CustomClipper) return null;
+  return switch (innerTypeArg) {
+    'Path' => $RelaxedCustomClipper<Path>(value),
+    'RRect' => $RelaxedCustomClipper<RRect>(value),
+    'RSuperellipse' => $RelaxedCustomClipper<RSuperellipse>(value),
+    'Rect' => $RelaxedCustomClipper<Rect>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for CustomClipper — flutter_cupertino layer types.
+Object? _relaxCustomClipper$cupertino(Object value, String innerTypeArg) {
+  if (value is! CustomClipper) return null;
+  return switch (innerTypeArg) {
+    'Path' => $RelaxedCustomClipper<Path>(value),
+    'RRect' => $RelaxedCustomClipper<RRect>(value),
+    'RSuperellipse' => $RelaxedCustomClipper<RSuperellipse>(value),
+    'Rect' => $RelaxedCustomClipper<Rect>(value),
+    _ => null,
+  };
+}
+
+
 /// Auto-generated relaxer factory for DateTimeRange — flutter_material layer types.
 Object? _relaxDateTimeRange$material(Object value, String innerTypeArg) {
   if (value is! DateTimeRange) return null;
@@ -1259,6 +1334,26 @@ Object? _relaxDateTimeRange$material(Object value, String innerTypeArg) {
 
 /// Auto-generated relaxer factory for DisposableBuildContext — flutter_widgets layer types.
 Object? _relaxDisposableBuildContext$widgets(Object value, String innerTypeArg) {
+  if (value is! DisposableBuildContext) return null;
+  return switch (innerTypeArg) {
+    'State<StatefulWidget>' => $RelaxedDisposableBuildContext<State<StatefulWidget>>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for DisposableBuildContext — flutter_material layer types.
+Object? _relaxDisposableBuildContext$material(Object value, String innerTypeArg) {
+  if (value is! DisposableBuildContext) return null;
+  return switch (innerTypeArg) {
+    'State<StatefulWidget>' => $RelaxedDisposableBuildContext<State<StatefulWidget>>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for DisposableBuildContext — flutter_cupertino layer types.
+Object? _relaxDisposableBuildContext$cupertino(Object value, String innerTypeArg) {
   if (value is! DisposableBuildContext) return null;
   return switch (innerTypeArg) {
     'State<StatefulWidget>' => $RelaxedDisposableBuildContext<State<StatefulWidget>>(value),
@@ -1287,8 +1382,38 @@ Object? _relaxDragBoundaryDelegate$material(Object value, String innerTypeArg) {
 }
 
 
+/// Auto-generated relaxer factory for DragBoundaryDelegate — flutter_cupertino layer types.
+Object? _relaxDragBoundaryDelegate$cupertino(Object value, String innerTypeArg) {
+  if (value is! DragBoundaryDelegate) return null;
+  return switch (innerTypeArg) {
+    'Rect' => $RelaxedDragBoundaryDelegate<Rect>(value),
+    _ => null,
+  };
+}
+
+
 /// Auto-generated relaxer factory for DragTargetDetails — flutter_widgets layer types.
 Object? _relaxDragTargetDetails$widgets(Object value, String innerTypeArg) {
+  if (value is! DragTargetDetails) return null;
+  return switch (innerTypeArg) {
+    'Object' => $RelaxedDragTargetDetails<Object>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for DragTargetDetails — flutter_material layer types.
+Object? _relaxDragTargetDetails$material(Object value, String innerTypeArg) {
+  if (value is! DragTargetDetails) return null;
+  return switch (innerTypeArg) {
+    'Object' => $RelaxedDragTargetDetails<Object>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for DragTargetDetails — flutter_cupertino layer types.
+Object? _relaxDragTargetDetails$cupertino(Object value, String innerTypeArg) {
   if (value is! DragTargetDetails) return null;
   return switch (innerTypeArg) {
     'Object' => $RelaxedDragTargetDetails<Object>(value),
@@ -1347,8 +1472,48 @@ Object? _relaxFactory$widgets(Object value, String innerTypeArg) {
 }
 
 
+/// Auto-generated relaxer factory for Factory — flutter_material layer types.
+Object? _relaxFactory$material(Object value, String innerTypeArg) {
+  if (value is! Factory) return null;
+  return switch (innerTypeArg) {
+    'OneSequenceGestureRecognizer' => $RelaxedFactory<OneSequenceGestureRecognizer>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for Factory — flutter_cupertino layer types.
+Object? _relaxFactory$cupertino(Object value, String innerTypeArg) {
+  if (value is! Factory) return null;
+  return switch (innerTypeArg) {
+    'OneSequenceGestureRecognizer' => $RelaxedFactory<OneSequenceGestureRecognizer>(value),
+    _ => null,
+  };
+}
+
+
 /// Auto-generated relaxer factory for GestureRecognizerFactory — flutter_widgets layer types.
 Object? _relaxGestureRecognizerFactory$widgets(Object value, String innerTypeArg) {
+  if (value is! GestureRecognizerFactory) return null;
+  return switch (innerTypeArg) {
+    'GestureRecognizer' => $RelaxedGestureRecognizerFactory<GestureRecognizer>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for GestureRecognizerFactory — flutter_material layer types.
+Object? _relaxGestureRecognizerFactory$material(Object value, String innerTypeArg) {
+  if (value is! GestureRecognizerFactory) return null;
+  return switch (innerTypeArg) {
+    'GestureRecognizer' => $RelaxedGestureRecognizerFactory<GestureRecognizer>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for GestureRecognizerFactory — flutter_cupertino layer types.
+Object? _relaxGestureRecognizerFactory$cupertino(Object value, String innerTypeArg) {
   if (value is! GestureRecognizerFactory) return null;
   return switch (innerTypeArg) {
     'GestureRecognizer' => $RelaxedGestureRecognizerFactory<GestureRecognizer>(value),
@@ -1374,6 +1539,7 @@ Object? _relaxGlobalKey$material(Object value, String innerTypeArg) {
   return switch (innerTypeArg) {
     'NavigatorState' => $RelaxedGlobalKey<NavigatorState>(value),
     'ScaffoldMessengerState' => $RelaxedGlobalKey<ScaffoldMessengerState>(value),
+    'State<StatefulWidget>' => $RelaxedGlobalKey<State<StatefulWidget>>(value),
     _ => null,
   };
 }
@@ -1384,6 +1550,7 @@ Object? _relaxGlobalKey$cupertino(Object value, String innerTypeArg) {
   if (value is! GlobalKey) return null;
   return switch (innerTypeArg) {
     'NavigatorState' => $RelaxedGlobalKey<NavigatorState>(value),
+    'State<StatefulWidget>' => $RelaxedGlobalKey<State<StatefulWidget>>(value),
     _ => null,
   };
 }
@@ -1411,6 +1578,26 @@ Object? _relaxHitTestEntry$rendering(Object value, String innerTypeArg) {
 
 /// Auto-generated relaxer factory for HitTestEntry — flutter_widgets layer types.
 Object? _relaxHitTestEntry$widgets(Object value, String innerTypeArg) {
+  if (value is! HitTestEntry) return null;
+  return switch (innerTypeArg) {
+    'HitTestTarget' => $RelaxedHitTestEntry<HitTestTarget>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for HitTestEntry — flutter_material layer types.
+Object? _relaxHitTestEntry$material(Object value, String innerTypeArg) {
+  if (value is! HitTestEntry) return null;
+  return switch (innerTypeArg) {
+    'HitTestTarget' => $RelaxedHitTestEntry<HitTestTarget>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for HitTestEntry — flutter_cupertino layer types.
+Object? _relaxHitTestEntry$cupertino(Object value, String innerTypeArg) {
   if (value is! HitTestEntry) return null;
   return switch (innerTypeArg) {
     'HitTestTarget' => $RelaxedHitTestEntry<HitTestTarget>(value),
@@ -1469,8 +1656,50 @@ Object? _relaxIndexedSlot$widgets(Object value, String innerTypeArg) {
 }
 
 
+/// Auto-generated relaxer factory for IndexedSlot — flutter_material layer types.
+Object? _relaxIndexedSlot$material(Object value, String innerTypeArg) {
+  if (value is! IndexedSlot) return null;
+  return switch (innerTypeArg) {
+    'Element' => $RelaxedIndexedSlot<Element>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for IndexedSlot — flutter_cupertino layer types.
+Object? _relaxIndexedSlot$cupertino(Object value, String innerTypeArg) {
+  if (value is! IndexedSlot) return null;
+  return switch (innerTypeArg) {
+    'Element' => $RelaxedIndexedSlot<Element>(value),
+    _ => null,
+  };
+}
+
+
 /// Auto-generated relaxer factory for InheritedNotifier — flutter_widgets layer types.
 Object? _relaxInheritedNotifier$widgets(Object value, String innerTypeArg) {
+  if (value is! InheritedNotifier) return null;
+  return switch (innerTypeArg) {
+    'Listenable' => $RelaxedInheritedNotifier<Listenable>(value),
+    'ValueNotifier<int>' => $RelaxedInheritedNotifier<ValueNotifier<int>>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for InheritedNotifier — flutter_material layer types.
+Object? _relaxInheritedNotifier$material(Object value, String innerTypeArg) {
+  if (value is! InheritedNotifier) return null;
+  return switch (innerTypeArg) {
+    'Listenable' => $RelaxedInheritedNotifier<Listenable>(value),
+    'ValueNotifier<int>' => $RelaxedInheritedNotifier<ValueNotifier<int>>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for InheritedNotifier — flutter_cupertino layer types.
+Object? _relaxInheritedNotifier$cupertino(Object value, String innerTypeArg) {
   if (value is! InheritedNotifier) return null;
   return switch (innerTypeArg) {
     'Listenable' => $RelaxedInheritedNotifier<Listenable>(value),
@@ -1490,6 +1719,26 @@ Object? _relaxLocalizationsDelegate$widgets(Object value, String innerTypeArg) {
 }
 
 
+/// Auto-generated relaxer factory for LocalizationsDelegate — flutter_material layer types.
+Object? _relaxLocalizationsDelegate$material(Object value, String innerTypeArg) {
+  if (value is! LocalizationsDelegate) return null;
+  return switch (innerTypeArg) {
+    'Object' => $RelaxedLocalizationsDelegate<Object>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for LocalizationsDelegate — flutter_cupertino layer types.
+Object? _relaxLocalizationsDelegate$cupertino(Object value, String innerTypeArg) {
+  if (value is! LocalizationsDelegate) return null;
+  return switch (innerTypeArg) {
+    'Object' => $RelaxedLocalizationsDelegate<Object>(value),
+    _ => null,
+  };
+}
+
+
 /// Auto-generated relaxer factory for Page — flutter_widgets layer types.
 Object? _relaxPage$widgets(Object value, String innerTypeArg) {
   if (value is! Page) return null;
@@ -1500,8 +1749,48 @@ Object? _relaxPage$widgets(Object value, String innerTypeArg) {
 }
 
 
+/// Auto-generated relaxer factory for Page — flutter_material layer types.
+Object? _relaxPage$material(Object value, String innerTypeArg) {
+  if (value is! Page) return null;
+  return switch (innerTypeArg) {
+    'Object' => $RelaxedPage<Object>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for Page — flutter_cupertino layer types.
+Object? _relaxPage$cupertino(Object value, String innerTypeArg) {
+  if (value is! Page) return null;
+  return switch (innerTypeArg) {
+    'Object' => $RelaxedPage<Object>(value),
+    _ => null,
+  };
+}
+
+
 /// Auto-generated relaxer factory for ParentDataWidget — flutter_widgets layer types.
 Object? _relaxParentDataWidget$widgets(Object value, String innerTypeArg) {
+  if (value is! ParentDataWidget) return null;
+  return switch (innerTypeArg) {
+    'ParentData' => $RelaxedParentDataWidget<ParentData>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for ParentDataWidget — flutter_material layer types.
+Object? _relaxParentDataWidget$material(Object value, String innerTypeArg) {
+  if (value is! ParentDataWidget) return null;
+  return switch (innerTypeArg) {
+    'ParentData' => $RelaxedParentDataWidget<ParentData>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for ParentDataWidget — flutter_cupertino layer types.
+Object? _relaxParentDataWidget$cupertino(Object value, String innerTypeArg) {
   if (value is! ParentDataWidget) return null;
   return switch (innerTypeArg) {
     'ParentData' => $RelaxedParentDataWidget<ParentData>(value),
@@ -1550,8 +1839,48 @@ Object? _relaxRenderAnnotatedRegion$widgets(Object value, String innerTypeArg) {
 }
 
 
+/// Auto-generated relaxer factory for RenderAnnotatedRegion — flutter_material layer types.
+Object? _relaxRenderAnnotatedRegion$material(Object value, String innerTypeArg) {
+  if (value is! RenderAnnotatedRegion) return null;
+  return switch (innerTypeArg) {
+    'Object' => $RelaxedRenderAnnotatedRegion<Object>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for RenderAnnotatedRegion — flutter_cupertino layer types.
+Object? _relaxRenderAnnotatedRegion$cupertino(Object value, String innerTypeArg) {
+  if (value is! RenderAnnotatedRegion) return null;
+  return switch (innerTypeArg) {
+    'Object' => $RelaxedRenderAnnotatedRegion<Object>(value),
+    _ => null,
+  };
+}
+
+
 /// Auto-generated relaxer factory for RenderObjectToWidgetAdapter — flutter_widgets layer types.
 Object? _relaxRenderObjectToWidgetAdapter$widgets(Object value, String innerTypeArg) {
+  if (value is! RenderObjectToWidgetAdapter) return null;
+  return switch (innerTypeArg) {
+    'RenderObject' => $RelaxedRenderObjectToWidgetAdapter<RenderObject>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for RenderObjectToWidgetAdapter — flutter_material layer types.
+Object? _relaxRenderObjectToWidgetAdapter$material(Object value, String innerTypeArg) {
+  if (value is! RenderObjectToWidgetAdapter) return null;
+  return switch (innerTypeArg) {
+    'RenderObject' => $RelaxedRenderObjectToWidgetAdapter<RenderObject>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for RenderObjectToWidgetAdapter — flutter_cupertino layer types.
+Object? _relaxRenderObjectToWidgetAdapter$cupertino(Object value, String innerTypeArg) {
   if (value is! RenderObjectToWidgetAdapter) return null;
   return switch (innerTypeArg) {
     'RenderObject' => $RelaxedRenderObjectToWidgetAdapter<RenderObject>(value),
@@ -1570,8 +1899,48 @@ Object? _relaxRenderObjectToWidgetElement$widgets(Object value, String innerType
 }
 
 
+/// Auto-generated relaxer factory for RenderObjectToWidgetElement — flutter_material layer types.
+Object? _relaxRenderObjectToWidgetElement$material(Object value, String innerTypeArg) {
+  if (value is! RenderObjectToWidgetElement) return null;
+  return switch (innerTypeArg) {
+    'RenderObject' => $RelaxedRenderObjectToWidgetElement<RenderObject>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for RenderObjectToWidgetElement — flutter_cupertino layer types.
+Object? _relaxRenderObjectToWidgetElement$cupertino(Object value, String innerTypeArg) {
+  if (value is! RenderObjectToWidgetElement) return null;
+  return switch (innerTypeArg) {
+    'RenderObject' => $RelaxedRenderObjectToWidgetElement<RenderObject>(value),
+    _ => null,
+  };
+}
+
+
 /// Auto-generated relaxer factory for RenderObjectWithChildMixin — flutter_widgets layer types.
 Object? _relaxRenderObjectWithChildMixin$widgets(Object value, String innerTypeArg) {
+  if (value is! RenderObjectWithChildMixin) return null;
+  return switch (innerTypeArg) {
+    'RenderObject' => $RelaxedRenderObjectWithChildMixin<RenderObject>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for RenderObjectWithChildMixin — flutter_material layer types.
+Object? _relaxRenderObjectWithChildMixin$material(Object value, String innerTypeArg) {
+  if (value is! RenderObjectWithChildMixin) return null;
+  return switch (innerTypeArg) {
+    'RenderObject' => $RelaxedRenderObjectWithChildMixin<RenderObject>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for RenderObjectWithChildMixin — flutter_cupertino layer types.
+Object? _relaxRenderObjectWithChildMixin$cupertino(Object value, String innerTypeArg) {
   if (value is! RenderObjectWithChildMixin) return null;
   return switch (innerTypeArg) {
     'RenderObject' => $RelaxedRenderObjectWithChildMixin<RenderObject>(value),
@@ -1600,8 +1969,38 @@ Object? _relaxRestorableProperty$material(Object value, String innerTypeArg) {
 }
 
 
+/// Auto-generated relaxer factory for RestorableProperty — flutter_cupertino layer types.
+Object? _relaxRestorableProperty$cupertino(Object value, String innerTypeArg) {
+  if (value is! RestorableProperty) return null;
+  return switch (innerTypeArg) {
+    'Object' => $RelaxedRestorableProperty<Object>(value),
+    _ => null,
+  };
+}
+
+
 /// Auto-generated relaxer factory for Route — flutter_widgets layer types.
 Object? _relaxRoute$widgets(Object value, String innerTypeArg) {
+  if (value is! Route) return null;
+  return switch (innerTypeArg) {
+    'Object' => $RelaxedRoute<Object>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for Route — flutter_material layer types.
+Object? _relaxRoute$material(Object value, String innerTypeArg) {
+  if (value is! Route) return null;
+  return switch (innerTypeArg) {
+    'Object' => $RelaxedRoute<Object>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for Route — flutter_cupertino layer types.
+Object? _relaxRoute$cupertino(Object value, String innerTypeArg) {
   if (value is! Route) return null;
   return switch (innerTypeArg) {
     'Object' => $RelaxedRoute<Object>(value),
@@ -1710,6 +2109,26 @@ Object? _relaxState$widgets(Object value, String innerTypeArg) {
 }
 
 
+/// Auto-generated relaxer factory for State — flutter_material layer types.
+Object? _relaxState$material(Object value, String innerTypeArg) {
+  if (value is! State) return null;
+  return switch (innerTypeArg) {
+    'StatefulWidget' => $RelaxedState<StatefulWidget>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for State — flutter_cupertino layer types.
+Object? _relaxState$cupertino(Object value, String innerTypeArg) {
+  if (value is! State) return null;
+  return switch (innerTypeArg) {
+    'StatefulWidget' => $RelaxedState<StatefulWidget>(value),
+    _ => null,
+  };
+}
+
+
 /// Auto-generated relaxer factory for ToggleableStateMixin — flutter_widgets layer types.
 Object? _relaxToggleableStateMixin$widgets(Object value, String innerTypeArg) {
   if (value is! ToggleableStateMixin) return null;
@@ -1720,8 +2139,48 @@ Object? _relaxToggleableStateMixin$widgets(Object value, String innerTypeArg) {
 }
 
 
+/// Auto-generated relaxer factory for ToggleableStateMixin — flutter_material layer types.
+Object? _relaxToggleableStateMixin$material(Object value, String innerTypeArg) {
+  if (value is! ToggleableStateMixin) return null;
+  return switch (innerTypeArg) {
+    'StatefulWidget' => $RelaxedToggleableStateMixin<StatefulWidget>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for ToggleableStateMixin — flutter_cupertino layer types.
+Object? _relaxToggleableStateMixin$cupertino(Object value, String innerTypeArg) {
+  if (value is! ToggleableStateMixin) return null;
+  return switch (innerTypeArg) {
+    'StatefulWidget' => $RelaxedToggleableStateMixin<StatefulWidget>(value),
+    _ => null,
+  };
+}
+
+
 /// Auto-generated relaxer factory for TreeSliverNode — flutter_widgets layer types.
 Object? _relaxTreeSliverNode$widgets(Object value, String innerTypeArg) {
+  if (value is! TreeSliverNode) return null;
+  return switch (innerTypeArg) {
+    'Object' => $RelaxedTreeSliverNode<Object>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for TreeSliverNode — flutter_material layer types.
+Object? _relaxTreeSliverNode$material(Object value, String innerTypeArg) {
+  if (value is! TreeSliverNode) return null;
+  return switch (innerTypeArg) {
+    'Object' => $RelaxedTreeSliverNode<Object>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for TreeSliverNode — flutter_cupertino layer types.
+Object? _relaxTreeSliverNode$cupertino(Object value, String innerTypeArg) {
   if (value is! TreeSliverNode) return null;
   return switch (innerTypeArg) {
     'Object' => $RelaxedTreeSliverNode<Object>(value),
@@ -1742,6 +2201,28 @@ Object? _relaxTween$animation(Object value, String innerTypeArg) {
 
 /// Auto-generated relaxer factory for Tween — flutter_widgets layer types.
 Object? _relaxTween$widgets(Object value, String innerTypeArg) {
+  if (value is! Tween) return null;
+  return switch (innerTypeArg) {
+    'Object' => $RelaxedTween<Object>(value),
+    'Rect' => $RelaxedTween<Rect>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for Tween — flutter_material layer types.
+Object? _relaxTween$material(Object value, String innerTypeArg) {
+  if (value is! Tween) return null;
+  return switch (innerTypeArg) {
+    'Object' => $RelaxedTween<Object>(value),
+    'Rect' => $RelaxedTween<Rect>(value),
+    _ => null,
+  };
+}
+
+
+/// Auto-generated relaxer factory for Tween — flutter_cupertino layer types.
+Object? _relaxTween$cupertino(Object value, String innerTypeArg) {
   if (value is! Tween) return null;
   return switch (innerTypeArg) {
     'Object' => $RelaxedTween<Object>(value),
@@ -1777,6 +2258,7 @@ Object? _relaxValueListenable$material(Object value, String innerTypeArg) {
   if (value is! ValueListenable) return null;
   return switch (innerTypeArg) {
     'ClipboardStatus' => $RelaxedValueListenable<ClipboardStatus>(value),
+    'bool' => $RelaxedValueListenable<bool>(value),
     _ => null,
   };
 }
@@ -1787,6 +2269,7 @@ Object? _relaxValueListenable$cupertino(Object value, String innerTypeArg) {
   if (value is! ValueListenable) return null;
   return switch (innerTypeArg) {
     'ClipboardStatus' => $RelaxedValueListenable<ClipboardStatus>(value),
+    'bool' => $RelaxedValueListenable<bool>(value),
     _ => null,
   };
 }
@@ -1818,7 +2301,9 @@ Object? _relaxValueNotifier$widgets(Object value, String innerTypeArg) {
 Object? _relaxValueNotifier$material(Object value, String innerTypeArg) {
   if (value is! ValueNotifier) return null;
   return switch (innerTypeArg) {
+    'EdgeInsets' => $RelaxedValueNotifier<EdgeInsets>(value),
     'MagnifierInfo' => $RelaxedValueNotifier<MagnifierInfo>(value),
+    'int' => $RelaxedValueNotifier<int>(value),
     _ => null,
   };
 }
@@ -1828,7 +2313,9 @@ Object? _relaxValueNotifier$material(Object value, String innerTypeArg) {
 Object? _relaxValueNotifier$cupertino(Object value, String innerTypeArg) {
   if (value is! ValueNotifier) return null;
   return switch (innerTypeArg) {
+    'EdgeInsets' => $RelaxedValueNotifier<EdgeInsets>(value),
     'MagnifierInfo' => $RelaxedValueNotifier<MagnifierInfo>(value),
+    'int' => $RelaxedValueNotifier<int>(value),
     _ => null,
   };
 }
@@ -1870,6 +2357,7 @@ Object? _relaxWidgetStateProperty$material(Object value, String innerTypeArg) {
 Object? _relaxWidgetStateProperty$cupertino(Object value, String innerTypeArg) {
   if (value is! WidgetStateProperty) return null;
   return switch (innerTypeArg) {
+    'BorderSide' => $RelaxedWidgetStateProperty<BorderSide>(value),
     'Color' => $RelaxedWidgetStateProperty<Color>(value),
     'Icon' => $RelaxedWidgetStateProperty<Icon>(value),
     'MouseCursor' => $RelaxedWidgetStateProperty<MouseCursor>(value),
@@ -1889,6 +2377,8 @@ Object? _relaxWidgetStateProperty$cupertino(Object value, String innerTypeArg) {
 /// `registerGenericTypeRelaxers()` function.
 void registerRelaxers() {
   D4.registerGenericTypeWrapper('AbstractLayoutBuilder', _relaxAbstractLayoutBuilder$widgets);
+  D4.registerGenericTypeWrapper('AbstractLayoutBuilder', _relaxAbstractLayoutBuilder$material);
+  D4.registerGenericTypeWrapper('AbstractLayoutBuilder', _relaxAbstractLayoutBuilder$cupertino);
   D4.registerGenericTypeWrapper('Action', _relaxAction$widgets);
   D4.registerGenericTypeWrapper('Action', _relaxAction$material);
   D4.registerGenericTypeWrapper('Action', _relaxAction$cupertino);
@@ -1897,6 +2387,7 @@ void registerRelaxers() {
   D4.registerGenericTypeWrapper('Animatable', _relaxAnimatable$rendering);
   D4.registerGenericTypeWrapper('Animatable', _relaxAnimatable$widgets);
   D4.registerGenericTypeWrapper('Animatable', _relaxAnimatable$material);
+  D4.registerGenericTypeWrapper('Animatable', _relaxAnimatable$cupertino);
   D4.registerGenericTypeWrapper('Animation', _relaxAnimation$animation);
   D4.registerGenericTypeWrapper('Animation', _relaxAnimation$rendering);
   D4.registerGenericTypeWrapper('Animation', _relaxAnimation$widgets);
@@ -1906,42 +2397,76 @@ void registerRelaxers() {
   D4.registerGenericTypeWrapper('CalendarDelegate', _relaxCalendarDelegate$material);
   D4.registerGenericTypeWrapper('CustomClipper', _relaxCustomClipper$rendering);
   D4.registerGenericTypeWrapper('CustomClipper', _relaxCustomClipper$widgets);
+  D4.registerGenericTypeWrapper('CustomClipper', _relaxCustomClipper$material);
+  D4.registerGenericTypeWrapper('CustomClipper', _relaxCustomClipper$cupertino);
   D4.registerGenericTypeWrapper('DateTimeRange', _relaxDateTimeRange$material);
   D4.registerGenericTypeWrapper('DisposableBuildContext', _relaxDisposableBuildContext$widgets);
+  D4.registerGenericTypeWrapper('DisposableBuildContext', _relaxDisposableBuildContext$material);
+  D4.registerGenericTypeWrapper('DisposableBuildContext', _relaxDisposableBuildContext$cupertino);
   D4.registerGenericTypeWrapper('DragBoundaryDelegate', _relaxDragBoundaryDelegate$widgets);
   D4.registerGenericTypeWrapper('DragBoundaryDelegate', _relaxDragBoundaryDelegate$material);
+  D4.registerGenericTypeWrapper('DragBoundaryDelegate', _relaxDragBoundaryDelegate$cupertino);
   D4.registerGenericTypeWrapper('DragTargetDetails', _relaxDragTargetDetails$widgets);
+  D4.registerGenericTypeWrapper('DragTargetDetails', _relaxDragTargetDetails$material);
+  D4.registerGenericTypeWrapper('DragTargetDetails', _relaxDragTargetDetails$cupertino);
   D4.registerGenericTypeWrapper('Draggable', _relaxDraggable$widgets);
   D4.registerGenericTypeWrapper('Draggable', _relaxDraggable$material);
   D4.registerGenericTypeWrapper('Draggable', _relaxDraggable$cupertino);
   D4.registerGenericTypeWrapper('Factory', _relaxFactory$rendering);
   D4.registerGenericTypeWrapper('Factory', _relaxFactory$widgets);
+  D4.registerGenericTypeWrapper('Factory', _relaxFactory$material);
+  D4.registerGenericTypeWrapper('Factory', _relaxFactory$cupertino);
   D4.registerGenericTypeWrapper('GestureRecognizerFactory', _relaxGestureRecognizerFactory$widgets);
+  D4.registerGenericTypeWrapper('GestureRecognizerFactory', _relaxGestureRecognizerFactory$material);
+  D4.registerGenericTypeWrapper('GestureRecognizerFactory', _relaxGestureRecognizerFactory$cupertino);
   D4.registerGenericTypeWrapper('GlobalKey', _relaxGlobalKey$widgets);
   D4.registerGenericTypeWrapper('GlobalKey', _relaxGlobalKey$material);
   D4.registerGenericTypeWrapper('GlobalKey', _relaxGlobalKey$cupertino);
   D4.registerGenericTypeWrapper('HitTestEntry', _relaxHitTestEntry$gestures);
   D4.registerGenericTypeWrapper('HitTestEntry', _relaxHitTestEntry$rendering);
   D4.registerGenericTypeWrapper('HitTestEntry', _relaxHitTestEntry$widgets);
+  D4.registerGenericTypeWrapper('HitTestEntry', _relaxHitTestEntry$material);
+  D4.registerGenericTypeWrapper('HitTestEntry', _relaxHitTestEntry$cupertino);
   D4.registerGenericTypeWrapper('ImageProvider', _relaxImageProvider$painting);
   D4.registerGenericTypeWrapper('ImageProvider', _relaxImageProvider$widgets);
   D4.registerGenericTypeWrapper('ImageProvider', _relaxImageProvider$material);
   D4.registerGenericTypeWrapper('ImageProvider', _relaxImageProvider$cupertino);
   D4.registerGenericTypeWrapper('IndexedSlot', _relaxIndexedSlot$widgets);
+  D4.registerGenericTypeWrapper('IndexedSlot', _relaxIndexedSlot$material);
+  D4.registerGenericTypeWrapper('IndexedSlot', _relaxIndexedSlot$cupertino);
   D4.registerGenericTypeWrapper('InheritedNotifier', _relaxInheritedNotifier$widgets);
+  D4.registerGenericTypeWrapper('InheritedNotifier', _relaxInheritedNotifier$material);
+  D4.registerGenericTypeWrapper('InheritedNotifier', _relaxInheritedNotifier$cupertino);
   D4.registerGenericTypeWrapper('LocalizationsDelegate', _relaxLocalizationsDelegate$widgets);
+  D4.registerGenericTypeWrapper('LocalizationsDelegate', _relaxLocalizationsDelegate$material);
+  D4.registerGenericTypeWrapper('LocalizationsDelegate', _relaxLocalizationsDelegate$cupertino);
   D4.registerGenericTypeWrapper('Page', _relaxPage$widgets);
+  D4.registerGenericTypeWrapper('Page', _relaxPage$material);
+  D4.registerGenericTypeWrapper('Page', _relaxPage$cupertino);
   D4.registerGenericTypeWrapper('ParentDataWidget', _relaxParentDataWidget$widgets);
+  D4.registerGenericTypeWrapper('ParentDataWidget', _relaxParentDataWidget$material);
+  D4.registerGenericTypeWrapper('ParentDataWidget', _relaxParentDataWidget$cupertino);
   D4.registerGenericTypeWrapper('PopEntry', _relaxPopEntry$widgets);
   D4.registerGenericTypeWrapper('PopEntry', _relaxPopEntry$material);
   D4.registerGenericTypeWrapper('PopEntry', _relaxPopEntry$cupertino);
   D4.registerGenericTypeWrapper('RenderAnnotatedRegion', _relaxRenderAnnotatedRegion$widgets);
+  D4.registerGenericTypeWrapper('RenderAnnotatedRegion', _relaxRenderAnnotatedRegion$material);
+  D4.registerGenericTypeWrapper('RenderAnnotatedRegion', _relaxRenderAnnotatedRegion$cupertino);
   D4.registerGenericTypeWrapper('RenderObjectToWidgetAdapter', _relaxRenderObjectToWidgetAdapter$widgets);
+  D4.registerGenericTypeWrapper('RenderObjectToWidgetAdapter', _relaxRenderObjectToWidgetAdapter$material);
+  D4.registerGenericTypeWrapper('RenderObjectToWidgetAdapter', _relaxRenderObjectToWidgetAdapter$cupertino);
   D4.registerGenericTypeWrapper('RenderObjectToWidgetElement', _relaxRenderObjectToWidgetElement$widgets);
+  D4.registerGenericTypeWrapper('RenderObjectToWidgetElement', _relaxRenderObjectToWidgetElement$material);
+  D4.registerGenericTypeWrapper('RenderObjectToWidgetElement', _relaxRenderObjectToWidgetElement$cupertino);
   D4.registerGenericTypeWrapper('RenderObjectWithChildMixin', _relaxRenderObjectWithChildMixin$widgets);
+  D4.registerGenericTypeWrapper('RenderObjectWithChildMixin', _relaxRenderObjectWithChildMixin$material);
+  D4.registerGenericTypeWrapper('RenderObjectWithChildMixin', _relaxRenderObjectWithChildMixin$cupertino);
   D4.registerGenericTypeWrapper('RestorableProperty', _relaxRestorableProperty$widgets);
   D4.registerGenericTypeWrapper('RestorableProperty', _relaxRestorableProperty$material);
+  D4.registerGenericTypeWrapper('RestorableProperty', _relaxRestorableProperty$cupertino);
   D4.registerGenericTypeWrapper('Route', _relaxRoute$widgets);
+  D4.registerGenericTypeWrapper('Route', _relaxRoute$material);
+  D4.registerGenericTypeWrapper('Route', _relaxRoute$cupertino);
   D4.registerGenericTypeWrapper('RouteInformationParser', _relaxRouteInformationParser$widgets);
   D4.registerGenericTypeWrapper('RouteInformationParser', _relaxRouteInformationParser$material);
   D4.registerGenericTypeWrapper('RouteInformationParser', _relaxRouteInformationParser$cupertino);
@@ -1952,10 +2477,18 @@ void registerRelaxers() {
   D4.registerGenericTypeWrapper('RouterDelegate', _relaxRouterDelegate$material);
   D4.registerGenericTypeWrapper('RouterDelegate', _relaxRouterDelegate$cupertino);
   D4.registerGenericTypeWrapper('State', _relaxState$widgets);
+  D4.registerGenericTypeWrapper('State', _relaxState$material);
+  D4.registerGenericTypeWrapper('State', _relaxState$cupertino);
   D4.registerGenericTypeWrapper('ToggleableStateMixin', _relaxToggleableStateMixin$widgets);
+  D4.registerGenericTypeWrapper('ToggleableStateMixin', _relaxToggleableStateMixin$material);
+  D4.registerGenericTypeWrapper('ToggleableStateMixin', _relaxToggleableStateMixin$cupertino);
   D4.registerGenericTypeWrapper('TreeSliverNode', _relaxTreeSliverNode$widgets);
+  D4.registerGenericTypeWrapper('TreeSliverNode', _relaxTreeSliverNode$material);
+  D4.registerGenericTypeWrapper('TreeSliverNode', _relaxTreeSliverNode$cupertino);
   D4.registerGenericTypeWrapper('Tween', _relaxTween$animation);
   D4.registerGenericTypeWrapper('Tween', _relaxTween$widgets);
+  D4.registerGenericTypeWrapper('Tween', _relaxTween$material);
+  D4.registerGenericTypeWrapper('Tween', _relaxTween$cupertino);
   D4.registerGenericTypeWrapper('TweenSequenceItem', _relaxTweenSequenceItem$animation);
   D4.registerGenericTypeWrapper('ValueListenable', _relaxValueListenable$widgets);
   D4.registerGenericTypeWrapper('ValueListenable', _relaxValueListenable$material);
