@@ -1,18 +1,23 @@
 // D4rt Bridge - Generated file, do not edit
+<<<<<<< Updated upstream
+// Dartscript registration for tom_d4rt_dcli
+// Generated: 2026-02-15T12:30:05.624625
+=======
 // Dartscript registration for tom_dcli_exec
-// Generated: 2026-03-06T18:38:34.185052
+// Generated: 2026-03-12T17:07:54.788085
+>>>>>>> Stashed changes
 
-/// D4rt Bridge Registration for tom_dcli_exec
+/// D4rt Bridge Registration for tom_d4rt_dcli
 library;
 
 import 'package:tom_d4rt_exec/d4rt.dart';
-import 'src/bridges/cli_api_bridges.b.dart' as cli_api_bridges;
-import 'src/bridges/tom_vscode_scripting_api_bridges.b.dart' as tom_vscode_scripting_api_bridges;
-import 'src/bridges/dcli_bridges.b.dart' as dcli_bridges;
-import 'src/bridges/path_bridges.b.dart' as path_bridges;
-import 'src/bridges/tom_chattools_bridges.b.dart' as tom_chattools_bridges;
+import 'src\bridges\cli_api_bridges.b.dart' as cli_api_bridges;
+import 'src\bridges\tom_vscode_scripting_api_bridges.b.dart' as tom_vscode_scripting_api_bridges;
+import 'src\bridges\dcli_bridges.b.dart' as dcli_bridges;
+import 'src\bridges\path_bridges.b.dart' as path_bridges;
+import 'src\bridges\tom_chattools_bridges.b.dart' as tom_chattools_bridges;
 
-/// Combined bridge registration for tom_dcli_exec.
+/// Combined bridge registration for tom_d4rt_dcli.
 class TomD4rtDcliBridge {
   /// Register all bridges with D4rt interpreter.
   static void register([D4rt? interpreter]) {

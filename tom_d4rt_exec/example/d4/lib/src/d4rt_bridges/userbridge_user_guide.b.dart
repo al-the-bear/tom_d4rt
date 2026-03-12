@@ -1,16 +1,17 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 2 files
-// Generated: 2026-03-06T18:40:17.318170
+<<<<<<< Updated upstream
+// Generated: 2026-02-22T08:01:30.041291
+=======
+// Generated: 2026-03-12T17:04:00.281542
+>>>>>>> Stashed changes
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
 import 'package:tom_d4rt_exec/d4rt.dart';
 import 'package:tom_d4rt_exec/tom_d4rt.dart';
 
-import 'package:d4_example/src/userbridge_user_guide/matrix2x2.dart' as $d4_example_1;
-import 'package:d4_example/src/userbridge_user_guide/matrix2x2_user_bridge.dart' as $d4_example_2;
-import 'package:d4_example/src/userbridge_user_guide/vector2d.dart' as $d4_example_3;
-import 'package:d4_example/src/userbridge_user_guide/vector2d_user_bridge.dart' as $d4_example_4;
+import 'package:d4_example/src/userbridge_user_guide/vector2d.dart' as $d4_example_1;
 
 /// Bridge class for userbridge_user_guide module.
 class UserbridgeUserGuideBridge {
@@ -28,11 +29,13 @@ class UserbridgeUserGuideBridge {
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> classSourceUris() {
     return {
-      'Vector2D': 'package:d4_example/src/userbridge_user_guide/vector2d.dart',
-      'Matrix2x2': 'package:d4_example/src/userbridge_user_guide/matrix2x2.dart',
+      'Vector2D': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_exec\example\d4\lib\src\userbridge_user_guide\vector2d.dart',
+      'Matrix2x2': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_exec\example\d4\lib\src\userbridge_user_guide\matrix2x2.dart',
     };
   }
 
+<<<<<<< Updated upstream
+=======
   /// Returns a map of type alias names to their target class names.
   ///
   /// Type aliases like `typedef MaterialStateProperty<T> = WidgetStateProperty<T>`
@@ -43,6 +46,16 @@ class UserbridgeUserGuideBridge {
     };
   }
 
+  /// Returns the list of function typedef names declared in this library.
+  ///
+  /// Function typedefs like `typedef VoidCallback = void Function()` are
+  /// registered so that they can be used as type arguments in D4rt scripts.
+  static List<String> functionTypedefs() {
+    return [
+    ];
+  }
+
+>>>>>>> Stashed changes
   /// Returns all bridged enum definitions.
   static List<BridgedEnumDefinition> bridgedEnums() {
     return [
@@ -105,8 +118,8 @@ class UserbridgeUserGuideBridge {
   /// multiple barrels.
   static List<String> sourceLibraries() {
     return [
-      'package:d4_example/src/userbridge_user_guide/matrix2x2.dart',
-      'package:d4_example/src/userbridge_user_guide/vector2d.dart',
+      'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_exec\example\d4\lib\src\userbridge_user_guide\matrix2x2.dart',
+      'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_exec\example\d4\lib\src\userbridge_user_guide\vector2d.dart',
     ];
   }
 
@@ -136,44 +149,70 @@ class UserbridgeUserGuideBridge {
 
 BridgedClass _createVector2DBridge() {
   return BridgedClass(
-    nativeType: $d4_example_3.Vector2D,
+    nativeType: $d4_example_1.Vector2D,
     name: 'Vector2D',
-    isAssignable: (v) => v is $d4_example_3.Vector2D,
+<<<<<<< Updated upstream
+=======
+    isAssignable: (v) => v is $d4_example_1.Vector2D,
+>>>>>>> Stashed changes
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Vector2D');
         final x = D4.getRequiredArg<double>(positional, 0, 'x', 'Vector2D');
         final y = D4.getRequiredArg<double>(positional, 1, 'y', 'Vector2D');
-        return $d4_example_3.Vector2D(x, y);
+        return $d4_example_1.Vector2D(x, y);
       },
       'zero': (visitor, positional, named) {
-        return $d4_example_3.Vector2D.zero();
+        return $d4_example_1.Vector2D.zero();
       },
     },
     getters: {
-      'x': (visitor, target) => D4.validateTarget<$d4_example_3.Vector2D>(target, 'Vector2D').x,
-      'y': (visitor, target) => D4.validateTarget<$d4_example_3.Vector2D>(target, 'Vector2D').y,
-      'hashCode': (visitor, target) => D4.validateTarget<$d4_example_3.Vector2D>(target, 'Vector2D').hashCode,
-      'magnitude': (visitor, target) => D4.validateTarget<$d4_example_3.Vector2D>(target, 'Vector2D').magnitude,
-      'normalized': (visitor, target) => D4.validateTarget<$d4_example_3.Vector2D>(target, 'Vector2D').normalized,
+      'x': (visitor, target) => D4.validateTarget<$d4_example_1.Vector2D>(target, 'Vector2D').x,
+      'y': (visitor, target) => D4.validateTarget<$d4_example_1.Vector2D>(target, 'Vector2D').y,
+      'hashCode': (visitor, target) => D4.validateTarget<$d4_example_1.Vector2D>(target, 'Vector2D').hashCode,
+      'magnitude': (visitor, target) => D4.validateTarget<$d4_example_1.Vector2D>(target, 'Vector2D').magnitude,
+      'normalized': (visitor, target) => D4.validateTarget<$d4_example_1.Vector2D>(target, 'Vector2D').normalized,
     },
     methods: {
-      'dot': $d4_example_4.Vector2DUserBridge.overrideMethodDot,
+      'dot': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_1.Vector2D>(target, 'Vector2D');
+        D4.requireMinArgs(positional, 1, 'dot');
+        final other = D4.getRequiredArg<$d4_example_1.Vector2D>(positional, 0, 'other', 'dot');
+        return t.dot(other);
+      },
       'scale': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_3.Vector2D>(target, 'Vector2D');
+        final t = D4.validateTarget<$d4_example_1.Vector2D>(target, 'Vector2D');
         D4.requireMinArgs(positional, 1, 'scale');
         final factor = D4.getRequiredArg<double>(positional, 0, 'factor', 'scale');
         return t.scale(factor);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_3.Vector2D>(target, 'Vector2D');
+        final t = D4.validateTarget<$d4_example_1.Vector2D>(target, 'Vector2D');
         return t.toString();
       },
-      '+': $d4_example_4.Vector2DUserBridge.overrideOperatorPlus,
-      '-': $d4_example_4.Vector2DUserBridge.overrideOperatorMinus,
-      '*': $d4_example_4.Vector2DUserBridge.overrideOperatorMultiply,
+      '+': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_1.Vector2D>(target, 'Vector2D');
+        final other = D4.getRequiredArg<$d4_example_1.Vector2D>(positional, 0, 'other', 'operator+');
+        return t + other;
+      },
+      '-': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_1.Vector2D>(target, 'Vector2D');
+        if (positional.isEmpty) {
+          // Unary operator
+          return -t;
+        } else {
+          // Binary operator
+          final other = D4.getRequiredArg<$d4_example_1.Vector2D>(positional, 0, 'other', 'operator-');
+          return t - other;
+        }
+      },
+      '*': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_1.Vector2D>(target, 'Vector2D');
+        final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator*');
+        return t * other;
+      },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_3.Vector2D>(target, 'Vector2D');
+        final t = D4.validateTarget<$d4_example_1.Vector2D>(target, 'Vector2D');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -203,9 +242,12 @@ BridgedClass _createVector2DBridge() {
 
 BridgedClass _createMatrix2x2Bridge() {
   return BridgedClass(
-    nativeType: $d4_example_1.Matrix2x2,
+    nativeType: Matrix2x2,
     name: 'Matrix2x2',
-    isAssignable: (v) => v is $d4_example_1.Matrix2x2,
+<<<<<<< Updated upstream
+=======
+    isAssignable: (v) => v is Matrix2x2,
+>>>>>>> Stashed changes
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 4, 'Matrix2x2');
@@ -213,29 +255,39 @@ BridgedClass _createMatrix2x2Bridge() {
         final b = D4.getRequiredArg<double>(positional, 1, 'b', 'Matrix2x2');
         final c = D4.getRequiredArg<double>(positional, 2, 'c', 'Matrix2x2');
         final d = D4.getRequiredArg<double>(positional, 3, 'd', 'Matrix2x2');
-        return $d4_example_1.Matrix2x2(a, b, c, d);
+        return Matrix2x2(a, b, c, d);
       },
       'identity': (visitor, positional, named) {
-        return $d4_example_1.Matrix2x2.identity();
+        return Matrix2x2.identity();
       },
     },
     getters: {
-      'determinant': (visitor, target) => D4.validateTarget<$d4_example_1.Matrix2x2>(target, 'Matrix2x2').determinant,
-      'trace': (visitor, target) => D4.validateTarget<$d4_example_1.Matrix2x2>(target, 'Matrix2x2').trace,
+      'determinant': (visitor, target) => D4.validateTarget<Matrix2x2>(target, 'Matrix2x2').determinant,
+      'trace': (visitor, target) => D4.validateTarget<Matrix2x2>(target, 'Matrix2x2').trace,
     },
     methods: {
       'row': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_1.Matrix2x2>(target, 'Matrix2x2');
+        final t = D4.validateTarget<Matrix2x2>(target, 'Matrix2x2');
         D4.requireMinArgs(positional, 1, 'row');
         final index = D4.getRequiredArg<int>(positional, 0, 'index', 'row');
         return t.row(index);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_1.Matrix2x2>(target, 'Matrix2x2');
+        final t = D4.validateTarget<Matrix2x2>(target, 'Matrix2x2');
         return t.toString();
       },
-      '[]': $d4_example_2.Matrix2x2UserBridge.overrideOperatorIndex,
-      '[]=': $d4_example_2.Matrix2x2UserBridge.overrideOperatorIndexAssign,
+      '[]': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<Matrix2x2>(target, 'Matrix2x2');
+        final index = D4.getRequiredArg<List<int>>(positional, 0, 'index', 'operator[]');
+        return t[index];
+      },
+      '[]=': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<Matrix2x2>(target, 'Matrix2x2');
+        final index = D4.getRequiredArg<List<int>>(positional, 0, 'index', 'operator[]=');
+        final value = D4.getRequiredArg<double>(positional, 1, 'value', 'operator[]=');
+        t[index] = value;
+        return null;
+      },
     },
     constructorSignatures: {
       '': 'Matrix2x2(double a, double b, double c, double d)',

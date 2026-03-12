@@ -1,14 +1,18 @@
 // D4rt Bridge - Generated file, do not edit
-// Source: lib/test_callback_types.dart
-// Generated: 2026-03-06T18:40:06.648520
+<<<<<<< Updated upstream
+// Source: /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom/xternal/tom_module_d4rt/tom_ast_generator/example/d4/lib/test_callback_types.dart
+// Generated: 2026-02-21T15:07:57.976735
+=======
+// Source: C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_ast_generator\example\d4\lib\test_callback_types.dart
+// Generated: 2026-03-12T17:02:45.490302
+>>>>>>> Stashed changes
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
 import 'package:tom_d4rt_exec/d4rt.dart';
 import 'package:tom_d4rt_exec/tom_d4rt.dart';
 import 'dart:async';
 
-import 'package:d4_example/test_callback_types.dart' as $d4_example_1;
 
 /// Bridge class for test_callback_types module.
 class TestCallbackTypesBridge {
@@ -26,11 +30,13 @@ class TestCallbackTypesBridge {
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> classSourceUris() {
     return {
-      'GenericCallbackService': 'package:d4_example/test_callback_types.dart',
-      'CallbackTypeService': 'package:d4_example/test_callback_types.dart',
+      'GenericCallbackService': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_ast_generator\example\d4\lib\test_callback_types.dart',
+      'CallbackTypeService': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_ast_generator\example\d4\lib\test_callback_types.dart',
     };
   }
 
+<<<<<<< Updated upstream
+=======
   /// Returns a map of type alias names to their target class names.
   ///
   /// Type aliases like `typedef MaterialStateProperty<T> = WidgetStateProperty<T>`
@@ -41,6 +47,16 @@ class TestCallbackTypesBridge {
     };
   }
 
+  /// Returns the list of function typedef names declared in this library.
+  ///
+  /// Function typedefs like `typedef VoidCallback = void Function()` are
+  /// registered so that they can be used as type arguments in D4rt scripts.
+  static List<String> functionTypedefs() {
+    return [
+    ];
+  }
+
+>>>>>>> Stashed changes
   /// Returns all bridged enum definitions.
   static List<BridgedEnumDefinition> bridgedEnums() {
     return [
@@ -103,7 +119,7 @@ class TestCallbackTypesBridge {
   /// multiple barrels.
   static List<String> sourceLibraries() {
     return [
-      'package:d4_example/test_callback_types.dart',
+      'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_ast_generator\example\d4\lib\test_callback_types.dart',
     ];
   }
 
@@ -133,41 +149,44 @@ class TestCallbackTypesBridge {
 
 BridgedClass _createGenericCallbackServiceBridge() {
   return BridgedClass(
-    nativeType: $d4_example_1.GenericCallbackService,
+    nativeType: GenericCallbackService,
     name: 'GenericCallbackService',
-    isAssignable: (v) => v is $d4_example_1.GenericCallbackService,
+<<<<<<< Updated upstream
+=======
+    isAssignable: (v) => v is GenericCallbackService,
+>>>>>>> Stashed changes
     constructors: {
       '': (visitor, positional, named) {
-        return $d4_example_1.GenericCallbackService();
+        return GenericCallbackService();
       },
     },
     methods: {
       'withConnection': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_1.GenericCallbackService>(target, 'GenericCallbackService');
+        final t = D4.validateTarget<GenericCallbackService>(target, 'GenericCallbackService');
         D4.requireMinArgs(positional, 1, 'withConnection');
         if (positional.isEmpty) {
           throw ArgumentError('withConnection: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return t.withConnection((dynamic p0) { return D4.callInterpreterCallback(visitor!, callbackRaw, [p0]) as FutureOr<Object>; });
+        return t.withConnection((dynamic p0) { return D4.callInterpreterCallback(visitor, callbackRaw, [p0]) as FutureOr<Object>; });
       },
       'transactional': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_1.GenericCallbackService>(target, 'GenericCallbackService');
+        final t = D4.validateTarget<GenericCallbackService>(target, 'GenericCallbackService');
         D4.requireMinArgs(positional, 1, 'transactional');
         if (positional.isEmpty) {
           throw ArgumentError('transactional: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return t.transactional((String p0) { return D4.callInterpreterCallback(visitor!, callbackRaw, [p0]) as FutureOr<Object>; });
+        return t.transactional((String p0) { return D4.callInterpreterCallback(visitor, callbackRaw, [p0]) as FutureOr<Object>; });
       },
       'withBoundedType': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_1.GenericCallbackService>(target, 'GenericCallbackService');
+        final t = D4.validateTarget<GenericCallbackService>(target, 'GenericCallbackService');
         D4.requireMinArgs(positional, 1, 'withBoundedType');
         if (positional.isEmpty) {
           throw ArgumentError('withBoundedType: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return t.withBoundedType((dynamic p0) { return D4.callInterpreterCallback(visitor!, callbackRaw, [p0]) as FutureOr<Object>; });
+        return t.withBoundedType((dynamic p0) { return D4.callInterpreterCallback(visitor, callbackRaw, [p0]) as FutureOr<Object>; });
       },
     },
     constructorSignatures: {
@@ -187,23 +206,26 @@ BridgedClass _createGenericCallbackServiceBridge() {
 
 BridgedClass _createCallbackTypeServiceBridge() {
   return BridgedClass(
-    nativeType: $d4_example_1.CallbackTypeService,
+    nativeType: CallbackTypeService,
     name: 'CallbackTypeService',
-    isAssignable: (v) => v is $d4_example_1.CallbackTypeService,
+<<<<<<< Updated upstream
+=======
+    isAssignable: (v) => v is CallbackTypeService,
+>>>>>>> Stashed changes
     constructors: {
       '': (visitor, positional, named) {
-        return $d4_example_1.CallbackTypeService();
+        return CallbackTypeService();
       },
     },
     methods: {
       'withConnection': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_1.CallbackTypeService>(target, 'CallbackTypeService');
+        final t = D4.validateTarget<CallbackTypeService>(target, 'CallbackTypeService');
         D4.requireMinArgs(positional, 1, 'withConnection');
         if (positional.isEmpty) {
           throw ArgumentError('withConnection: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return t.withConnection((dynamic p0) { return D4.callInterpreterCallback(visitor!, callbackRaw, [p0]) as FutureOr<Object>; });
+        return t.withConnection((dynamic p0) { return D4.callInterpreterCallback(visitor, callbackRaw, [p0]) as FutureOr<Object>; });
       },
     },
     constructorSignatures: {

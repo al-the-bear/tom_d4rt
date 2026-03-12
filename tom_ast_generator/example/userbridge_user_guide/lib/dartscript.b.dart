@@ -1,12 +1,21 @@
 // D4rt Bridge - Generated file, do not edit
 // Dartscript registration for userbridge_user_guide_example
-// Generated: 2026-03-06T18:40:12.135418
+<<<<<<< Updated upstream
+// Generated: 2026-02-14T00:51:15.586507
+=======
+// Generated: 2026-03-12T17:03:00.817603
+>>>>>>> Stashed changes
 
 /// D4rt Bridge Registration for userbridge_user_guide_example
 library;
 
-import 'package:tom_d4rt/d4rt.dart';
+<<<<<<< Updated upstream
+import 'package:tom_d4rt_exec/d4rt.dart';
 import 'src/d4rt_bridges/userbridge_user_guide_bridges.b.dart' as all_bridges;
+=======
+import 'package:tom_d4rt/d4rt.dart';
+import 'src\d4rt_bridges\userbridge_user_guide_bridges.b.dart' as all_bridges;
+>>>>>>> Stashed changes
 
 /// Combined bridge registration for userbridge_user_guide_example.
 class UserbridgeUserGuideExampleBridges {
@@ -22,10 +31,6 @@ class UserbridgeUserGuideExampleBridges {
       d4rt,
       'lib/userbridge_user_guide_example.dart',
     );
-    // Register under sub-package barrels for direct imports
-    for (final barrel in all_bridges.AllBridge.subPackageBarrels()) {
-      all_bridges.AllBridge.registerBridges(d4rt, barrel);
-    }
   }
 
   /// Get import block for all modules.

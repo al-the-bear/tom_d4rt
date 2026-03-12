@@ -1,9 +1,14 @@
 // D4rt Bridge - Generated file, do not edit
+<<<<<<< Updated upstream
+// Test runner for tom_d4rt_dcli
+// Generated: 2026-02-15T12:30:05.626429
+=======
 // Test runner for tom_dcli_exec
-// Generated: 2026-03-06T18:38:34.185385
+// Generated: 2026-03-12T17:07:54.789123
 
 // ignore_for_file: avoid_print
 
+>>>>>>> Stashed changes
 //
 // Usage:
 //   dart run bin/d4rtrun.b.dart <script.dart|.d4rt>  Run a D4rt script file
@@ -226,7 +231,7 @@ void _runEvalFile(String filePath) {
 /// Validate bridge registrations by running the init script
 /// and collecting all duplicate element errors.
 void _runInitEval() {
-  print('Validating bridge registrations for tom_dcli_exec...');
+  print('Validating bridge registrations for tom_d4rt_dcli...');
   print('');
 
   final d4rt = D4rt();

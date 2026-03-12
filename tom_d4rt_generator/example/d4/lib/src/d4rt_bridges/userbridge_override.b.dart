@@ -1,16 +1,17 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 2 files
-// Generated: 2026-03-07T11:13:07.112784
+<<<<<<< Updated upstream
+// Generated: 2026-02-21T14:11:07.535961
+=======
+// Generated: 2026-03-12T17:06:50.447734
+>>>>>>> Stashed changes
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
 
-import 'package:d4_example/src/userbridge_override/globals.dart' as $d4_example_1;
-import 'package:d4_example/src/userbridge_override/globals_user_bridge.dart' as $d4_example_2;
-import 'package:d4_example/src/userbridge_override/my_list.dart' as $d4_example_3;
-import 'package:d4_example/src/userbridge_override/my_list_user_bridge.dart' as $d4_example_4;
+import 'package:d4_example/src/userbridge_override/my_list.dart' as $d4_example_1;
 
 /// Bridge class for userbridge_override module.
 class UserbridgeOverrideBridge {
@@ -27,10 +28,12 @@ class UserbridgeOverrideBridge {
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> classSourceUris() {
     return {
-      'MyList': 'package:d4_example/src/userbridge_override/my_list.dart',
+      'MyList': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\userbridge_override\my_list.dart',
     };
   }
 
+<<<<<<< Updated upstream
+=======
   /// Returns a map of type alias names to their target class names.
   ///
   /// Type aliases like `typedef MaterialStateProperty<T> = WidgetStateProperty<T>`
@@ -41,6 +44,16 @@ class UserbridgeOverrideBridge {
     };
   }
 
+  /// Returns the list of function typedef names declared in this library.
+  ///
+  /// Function typedefs like `typedef VoidCallback = void Function()` are
+  /// registered so that they can be used as type arguments in D4rt scripts.
+  static List<String> functionTypedefs() {
+    return [
+    ];
+  }
+
+>>>>>>> Stashed changes
   /// Returns all bridged enum definitions.
   static List<BridgedEnumDefinition> bridgedEnums() {
     return [
@@ -101,21 +114,21 @@ class UserbridgeOverrideBridge {
     final errors = <String>[];
 
     try {
-      interpreter.registerGlobalVariable('appName', $d4_example_2.GlobalsUserBridge.overrideGlobalVariableAppName(), importPath, sourceUri: 'package:d4_example/src/userbridge_override/globals.dart');
+      interpreter.registerGlobalVariable('appName', appName, importPath, sourceUri: 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\userbridge_override\globals.dart');
     } catch (e) {
       errors.add('Failed to register variable "appName": $e');
     }
     try {
-      interpreter.registerGlobalVariable('maxRetries', $d4_example_2.GlobalsUserBridge.overrideGlobalVariableMaxRetries(), importPath, sourceUri: 'package:d4_example/src/userbridge_override/globals.dart');
+      interpreter.registerGlobalVariable('maxRetries', maxRetries, importPath, sourceUri: 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\userbridge_override\globals.dart');
     } catch (e) {
       errors.add('Failed to register variable "maxRetries": $e');
     }
     try {
-      interpreter.registerGlobalVariable('version', $d4_example_1.version, importPath, sourceUri: 'package:d4_example/src/userbridge_override/globals.dart');
+      interpreter.registerGlobalVariable('version', version, importPath, sourceUri: 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\userbridge_override\globals.dart');
     } catch (e) {
       errors.add('Failed to register variable "version": $e');
     }
-    interpreter.registerGlobalGetter('currentTime', $d4_example_2.GlobalsUserBridge.overrideGlobalGetterCurrentTime(), importPath, sourceUri: 'package:d4_example/src/userbridge_override/globals.dart');
+    interpreter.registerGlobalGetter('currentTime', () => currentTime, importPath, sourceUri: 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\userbridge_override\globals.dart');
 
     if (errors.isNotEmpty) {
       throw StateError('Bridge registration errors (userbridge_override):\n${errors.join("\n")}');
@@ -125,8 +138,18 @@ class UserbridgeOverrideBridge {
   /// Returns a map of global function names to their native implementations.
   static Map<String, NativeFunctionImpl> globalFunctions() {
     return {
-      'greet': $d4_example_2.GlobalsUserBridge.overrideGlobalFunctionGreet,
-      'calculate': $d4_example_2.GlobalsUserBridge.overrideGlobalFunctionCalculate,
+      'greet': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'greet');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'greet');
+        return greet(name);
+      },
+      'calculate': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 2, 'calculate');
+        final a = D4.getRequiredArg<int>(positional, 0, 'a', 'calculate');
+        final b = D4.getRequiredArg<int>(positional, 1, 'b', 'calculate');
+        final operation = D4.getNamedArgWithDefault<String>(named, 'operation', 'add');
+        return calculate(a, b, operation: operation);
+      },
     };
   }
 
@@ -136,8 +159,8 @@ class UserbridgeOverrideBridge {
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> globalFunctionSourceUris() {
     return {
-      'greet': 'package:d4_example/src/userbridge_override/globals.dart',
-      'calculate': 'package:d4_example/src/userbridge_override/globals.dart',
+      'greet': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\userbridge_override\globals.dart',
+      'calculate': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\userbridge_override\globals.dart',
     };
   }
 
@@ -156,8 +179,8 @@ class UserbridgeOverrideBridge {
   /// multiple barrels.
   static List<String> sourceLibraries() {
     return [
-      'package:d4_example/src/userbridge_override/globals.dart',
-      'package:d4_example/src/userbridge_override/my_list.dart',
+      'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\userbridge_override\globals.dart',
+      'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\userbridge_override\my_list.dart',
     ];
   }
 
@@ -187,43 +210,56 @@ class UserbridgeOverrideBridge {
 
 BridgedClass _createMyListBridge() {
   return BridgedClass(
-    nativeType: $d4_example_3.MyList,
+    nativeType: $d4_example_1.MyList,
     name: 'MyList',
-    isAssignable: (v) => v is $d4_example_3.MyList,
+<<<<<<< Updated upstream
+=======
+    isAssignable: (v) => v is $d4_example_1.MyList,
+>>>>>>> Stashed changes
     constructors: {
       '': (visitor, positional, named) {
-        return $d4_example_3.MyList();
+        return $d4_example_1.MyList();
       },
     },
     getters: {
-      'length': (visitor, target) => D4.validateTarget<$d4_example_3.MyList>(target, 'MyList').length,
-      'isEmpty': (visitor, target) => D4.validateTarget<$d4_example_3.MyList>(target, 'MyList').isEmpty,
+      'length': (visitor, target) => D4.validateTarget<$d4_example_1.MyList>(target, 'MyList').length,
+      'isEmpty': (visitor, target) => D4.validateTarget<$d4_example_1.MyList>(target, 'MyList').isEmpty,
     },
     methods: {
       'add': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_3.MyList>(target, 'MyList');
+        final t = D4.validateTarget<$d4_example_1.MyList>(target, 'MyList');
         D4.requireMinArgs(positional, 1, 'add');
         final item = D4.getRequiredArg<dynamic>(positional, 0, 'item', 'add');
         t.add(item);
         return null;
       },
       'remove': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_3.MyList>(target, 'MyList');
+        final t = D4.validateTarget<$d4_example_1.MyList>(target, 'MyList');
         D4.requireMinArgs(positional, 1, 'remove');
         final item = D4.getRequiredArg<dynamic>(positional, 0, 'item', 'remove');
         return t.remove(item);
       },
       'clear': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_3.MyList>(target, 'MyList');
+        final t = D4.validateTarget<$d4_example_1.MyList>(target, 'MyList');
         t.clear();
         return null;
       },
-      '[]': $d4_example_4.MyListUserBridge.overrideOperatorIndex,
-      '[]=': $d4_example_4.MyListUserBridge.overrideOperatorIndexAssign,
+      '[]': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_1.MyList>(target, 'MyList');
+        final index = D4.getRequiredArg<int>(positional, 0, 'index', 'operator[]');
+        return t[index];
+      },
+      '[]=': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_1.MyList>(target, 'MyList');
+        final index = D4.getRequiredArg<int>(positional, 0, 'index', 'operator[]=');
+        final value = D4.getRequiredArg<dynamic>(positional, 1, 'value', 'operator[]=');
+        t[index] = value;
+        return null;
+      },
     },
     staticMethods: {
       'empty': (visitor, positional, named, typeArgs) {
-        return $d4_example_3.MyList.empty();
+        return $d4_example_1.MyList.empty();
       },
       'from': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'from');
@@ -231,7 +267,7 @@ BridgedClass _createMyListBridge() {
           throw ArgumentError('from: Missing required argument "items" at position 0');
         }
         final items = D4.coerceList<dynamic>(positional[0], 'items');
-        return $d4_example_3.MyList.from(items);
+        return $d4_example_1.MyList.from(items);
       },
     },
     constructorSignatures: {

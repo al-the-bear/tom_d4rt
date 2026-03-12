@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 5 files
-// Generated: 2026-03-09T20:30:07.751296
+// Generated: 2026-03-12T17:05:14.292373
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -15,10 +15,8 @@ import 'package:flutter/src/foundation/basic_types.dart' as $flutter_1;
 import 'package:flutter/src/foundation/binding.dart' as $flutter_2;
 import 'package:flutter/src/foundation/diagnostics.dart' as $flutter_3;
 import 'package:flutter/src/scheduler/binding.dart' as $flutter_4;
-import 'package:flutter/src/scheduler/debug.dart' as $flutter_5;
-import 'package:flutter/src/scheduler/priority.dart' as $flutter_6;
-import 'package:flutter/src/scheduler/service_extensions.dart' as $flutter_7;
-import 'package:flutter/src/scheduler/ticker.dart' as $flutter_8;
+import 'package:flutter/src/scheduler/priority.dart' as $flutter_5;
+import 'package:flutter/src/scheduler/ticker.dart' as $flutter_6;
 
 /// Bridge class for flutter_scheduler module.
 class FlutterSchedulerBridge {
@@ -28,7 +26,10 @@ class FlutterSchedulerBridge {
       _createPriorityBridge(),
       _createPerformanceModeRequestHandleBridge(),
       _createSchedulerBindingBridge(),
+      _createTickerProviderBridge(),
       _createTickerBridge(),
+      _createTickerFutureBridge(),
+      _createTickerCanceledBridge(),
     ];
   }
 
@@ -38,10 +39,13 @@ class FlutterSchedulerBridge {
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> classSourceUris() {
     return {
-      'Priority': 'package:flutter/src/scheduler/priority.dart',
-      'PerformanceModeRequestHandle': 'package:flutter/src/scheduler/binding.dart',
-      'SchedulerBinding': 'package:flutter/src/scheduler/binding.dart',
-      'Ticker': 'package:flutter/src/scheduler/ticker.dart',
+      'Priority': 'C:\flutter\packages\flutter\lib\src\scheduler\priority.dart',
+      'PerformanceModeRequestHandle': 'C:\flutter\packages\flutter\lib\src\scheduler\binding.dart',
+      'SchedulerBinding': 'C:\flutter\packages\flutter\lib\src\scheduler\binding.dart',
+      'TickerProvider': 'C:\flutter\packages\flutter\lib\src\scheduler\ticker.dart',
+      'Ticker': 'C:\flutter\packages\flutter\lib\src\scheduler\ticker.dart',
+      'TickerFuture': 'C:\flutter\packages\flutter\lib\src\scheduler\ticker.dart',
+      'TickerCanceled': 'C:\flutter\packages\flutter\lib\src\scheduler\ticker.dart',
     };
   }
 
@@ -82,9 +86,9 @@ class FlutterSchedulerBridge {
         name: 'SchedulerPhase',
         values: $flutter_4.SchedulerPhase.values,
       ),
-      BridgedEnumDefinition<$flutter_7.SchedulerServiceExtensions>(
+      BridgedEnumDefinition<SchedulerServiceExtensions>(
         name: 'SchedulerServiceExtensions',
-        values: $flutter_7.SchedulerServiceExtensions.values,
+        values: SchedulerServiceExtensions.values,
       ),
     ];
   }
@@ -95,8 +99,8 @@ class FlutterSchedulerBridge {
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> enumSourceUris() {
     return {
-      'SchedulerPhase': 'package:flutter/src/scheduler/binding.dart',
-      'SchedulerServiceExtensions': 'package:flutter/src/scheduler/service_extensions.dart',
+      'SchedulerPhase': 'C:\flutter\packages\flutter\lib\src\scheduler\binding.dart',
+      'SchedulerServiceExtensions': 'C:\flutter\packages\flutter\lib\src\scheduler\service_extensions.dart',
     };
   }
 
@@ -158,27 +162,27 @@ class FlutterSchedulerBridge {
     final errors = <String>[];
 
     try {
-      interpreter.registerGlobalVariable('debugPrintBeginFrameBanner', $flutter_5.debugPrintBeginFrameBanner, importPath, sourceUri: 'package:flutter/src/scheduler/debug.dart');
+      interpreter.registerGlobalVariable('debugPrintBeginFrameBanner', debugPrintBeginFrameBanner, importPath, sourceUri: 'C:\flutter\packages\flutter\lib\src\scheduler\debug.dart');
     } catch (e) {
       errors.add('Failed to register variable "debugPrintBeginFrameBanner": $e');
     }
     try {
-      interpreter.registerGlobalVariable('debugPrintEndFrameBanner', $flutter_5.debugPrintEndFrameBanner, importPath, sourceUri: 'package:flutter/src/scheduler/debug.dart');
+      interpreter.registerGlobalVariable('debugPrintEndFrameBanner', debugPrintEndFrameBanner, importPath, sourceUri: 'C:\flutter\packages\flutter\lib\src\scheduler\debug.dart');
     } catch (e) {
       errors.add('Failed to register variable "debugPrintEndFrameBanner": $e');
     }
     try {
-      interpreter.registerGlobalVariable('debugPrintScheduleFrameStacks', $flutter_5.debugPrintScheduleFrameStacks, importPath, sourceUri: 'package:flutter/src/scheduler/debug.dart');
+      interpreter.registerGlobalVariable('debugPrintScheduleFrameStacks', debugPrintScheduleFrameStacks, importPath, sourceUri: 'C:\flutter\packages\flutter\lib\src\scheduler\debug.dart');
     } catch (e) {
       errors.add('Failed to register variable "debugPrintScheduleFrameStacks": $e');
     }
     try {
-      interpreter.registerGlobalVariable('debugTracePostFrameCallbacks', $flutter_5.debugTracePostFrameCallbacks, importPath, sourceUri: 'package:flutter/src/scheduler/debug.dart');
+      interpreter.registerGlobalVariable('debugTracePostFrameCallbacks', debugTracePostFrameCallbacks, importPath, sourceUri: 'C:\flutter\packages\flutter\lib\src\scheduler\debug.dart');
     } catch (e) {
       errors.add('Failed to register variable "debugTracePostFrameCallbacks": $e');
     }
-    interpreter.registerGlobalGetter('timeDilation', () => $flutter_4.timeDilation, importPath, sourceUri: 'package:flutter/src/scheduler/binding.dart');
-    interpreter.registerGlobalSetter('timeDilation', (v) => $flutter_4.timeDilation = v as double, importPath, sourceUri: 'package:flutter/src/scheduler/binding.dart');
+    interpreter.registerGlobalGetter('timeDilation', () => timeDilation, importPath, sourceUri: 'C:\flutter\packages\flutter\lib\src\scheduler\binding.dart');
+    interpreter.registerGlobalSetter('timeDilation', (v) => timeDilation = v as double, importPath, sourceUri: 'C:\flutter\packages\flutter\lib\src\scheduler\binding.dart');
 
     if (errors.isNotEmpty) {
       throw StateError('Bridge registration errors (flutter_scheduler):\n${errors.join("\n")}');
@@ -191,12 +195,12 @@ class FlutterSchedulerBridge {
       'defaultSchedulingStrategy': (visitor, positional, named, typeArgs) {
         final priority = D4.getRequiredNamedArg<int>(named, 'priority', 'defaultSchedulingStrategy');
         final scheduler = D4.getRequiredNamedArg<$flutter_4.SchedulerBinding>(named, 'scheduler', 'defaultSchedulingStrategy');
-        return $flutter_4.defaultSchedulingStrategy(priority: priority, scheduler: scheduler);
+        return defaultSchedulingStrategy(priority: priority, scheduler: scheduler);
       },
       'debugAssertAllSchedulerVarsUnset': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'debugAssertAllSchedulerVarsUnset');
         final reason = D4.getRequiredArg<String>(positional, 0, 'reason', 'debugAssertAllSchedulerVarsUnset');
-        return $flutter_5.debugAssertAllSchedulerVarsUnset(reason);
+        return debugAssertAllSchedulerVarsUnset(reason);
       },
     };
   }
@@ -207,8 +211,8 @@ class FlutterSchedulerBridge {
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> globalFunctionSourceUris() {
     return {
-      'defaultSchedulingStrategy': 'package:flutter/src/scheduler/binding.dart',
-      'debugAssertAllSchedulerVarsUnset': 'package:flutter/src/scheduler/debug.dart',
+      'defaultSchedulingStrategy': 'C:\flutter\packages\flutter\lib\src\scheduler\binding.dart',
+      'debugAssertAllSchedulerVarsUnset': 'C:\flutter\packages\flutter\lib\src\scheduler\debug.dart',
     };
   }
 
@@ -227,11 +231,11 @@ class FlutterSchedulerBridge {
   /// multiple barrels.
   static List<String> sourceLibraries() {
     return [
-      'package:flutter/src/scheduler/binding.dart',
-      'package:flutter/src/scheduler/debug.dart',
-      'package:flutter/src/scheduler/priority.dart',
-      'package:flutter/src/scheduler/service_extensions.dart',
-      'package:flutter/src/scheduler/ticker.dart',
+      'C:\flutter\packages\flutter\lib\src\scheduler\binding.dart',
+      'C:\flutter\packages\flutter\lib\src\scheduler\debug.dart',
+      'C:\flutter\packages\flutter\lib\src\scheduler\priority.dart',
+      'C:\flutter\packages\flutter\lib\src\scheduler\service_extensions.dart',
+      'C:\flutter\packages\flutter\lib\src\scheduler\ticker.dart',
     ];
   }
 
@@ -267,31 +271,31 @@ class FlutterSchedulerBridge {
 
 BridgedClass _createPriorityBridge() {
   return BridgedClass(
-    nativeType: $flutter_6.Priority,
+    nativeType: $flutter_5.Priority,
     name: 'Priority',
-    isAssignable: (v) => v is $flutter_6.Priority,
+    isAssignable: (v) => v is $flutter_5.Priority,
     constructors: {
     },
     getters: {
-      'value': (visitor, target) => D4.validateTarget<$flutter_6.Priority>(target, 'Priority').value,
+      'value': (visitor, target) => D4.validateTarget<$flutter_5.Priority>(target, 'Priority').value,
     },
     methods: {
       '+': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.Priority>(target, 'Priority');
+        final t = D4.validateTarget<$flutter_5.Priority>(target, 'Priority');
         final other = D4.getRequiredArg<int>(positional, 0, 'other', 'operator+');
         return t + other;
       },
       '-': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.Priority>(target, 'Priority');
+        final t = D4.validateTarget<$flutter_5.Priority>(target, 'Priority');
         final other = D4.getRequiredArg<int>(positional, 0, 'other', 'operator-');
         return t - other;
       },
     },
     staticGetters: {
-      'idle': (visitor) => $flutter_6.Priority.idle,
-      'animation': (visitor) => $flutter_6.Priority.animation,
-      'touch': (visitor) => $flutter_6.Priority.touch,
-      'kMaxOffset': (visitor) => $flutter_6.Priority.kMaxOffset,
+      'idle': (visitor) => $flutter_5.Priority.idle,
+      'animation': (visitor) => $flutter_5.Priority.animation,
+      'touch': (visitor) => $flutter_5.Priority.touch,
+      'kMaxOffset': (visitor) => $flutter_5.Priority.kMaxOffset,
     },
     getterSignatures: {
       'value': 'int get value',
@@ -405,7 +409,7 @@ BridgedClass _createSchedulerBindingBridge() {
           throw ArgumentError('scheduleTask: Missing required argument "task" at position 0');
         }
         final taskRaw = positional[0];
-        final priority = D4.getRequiredArg<$flutter_6.Priority>(positional, 1, 'priority', 'scheduleTask');
+        final priority = D4.getRequiredArg<$flutter_5.Priority>(positional, 1, 'priority', 'scheduleTask');
         final debugLabel = D4.getOptionalNamedArg<String?>(named, 'debugLabel');
         final flow = D4.getOptionalNamedArg<Flow?>(named, 'flow');
         return t.scheduleTask(() { return D4.callInterpreterCallback(visitor!, taskRaw, []) as FutureOr<Object>; }, priority, debugLabel: debugLabel, flow: flow);
@@ -697,14 +701,42 @@ BridgedClass _createSchedulerBindingBridge() {
 }
 
 // =============================================================================
+// TickerProvider Bridge
+// =============================================================================
+
+BridgedClass _createTickerProviderBridge() {
+  return BridgedClass(
+    nativeType: TickerProvider,
+    name: 'TickerProvider',
+    isAssignable: (v) => v is TickerProvider,
+    constructors: {
+    },
+    methods: {
+      'createTicker': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<TickerProvider>(target, 'TickerProvider');
+        D4.requireMinArgs(positional, 1, 'createTicker');
+        if (positional.isEmpty) {
+          throw ArgumentError('createTicker: Missing required argument "onTick" at position 0');
+        }
+        final onTickRaw = positional[0];
+        return t.createTicker((Duration p0) { D4.callInterpreterCallback(visitor!, onTickRaw, [p0]); });
+      },
+    },
+    methodSignatures: {
+      'createTicker': 'Ticker createTicker(TickerCallback onTick)',
+    },
+  );
+}
+
+// =============================================================================
 // Ticker Bridge
 // =============================================================================
 
 BridgedClass _createTickerBridge() {
   return BridgedClass(
-    nativeType: $flutter_8.Ticker,
+    nativeType: $flutter_6.Ticker,
     name: 'Ticker',
-    isAssignable: (v) => v is $flutter_8.Ticker,
+    isAssignable: (v) => v is $flutter_6.Ticker,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Ticker');
@@ -713,66 +745,66 @@ BridgedClass _createTickerBridge() {
         }
         final onTickRaw = positional[0];
         final debugLabel = D4.getOptionalNamedArg<String?>(named, 'debugLabel');
-        return $flutter_8.Ticker((Duration p0) { D4.callInterpreterCallback(visitor!, onTickRaw, [p0]); }, debugLabel: debugLabel);
+        return $flutter_6.Ticker((Duration p0) { D4.callInterpreterCallback(visitor!, onTickRaw, [p0]); }, debugLabel: debugLabel);
       },
     },
     getters: {
-      'forceFrames': (visitor, target) => D4.validateTarget<$flutter_8.Ticker>(target, 'Ticker').forceFrames,
-      'muted': (visitor, target) => D4.validateTarget<$flutter_8.Ticker>(target, 'Ticker').muted,
-      'isTicking': (visitor, target) => D4.validateTarget<$flutter_8.Ticker>(target, 'Ticker').isTicking,
-      'isActive': (visitor, target) => D4.validateTarget<$flutter_8.Ticker>(target, 'Ticker').isActive,
-      'scheduled': (visitor, target) => D4.validateTarget<$flutter_8.Ticker>(target, 'Ticker').scheduled,
-      'shouldScheduleTick': (visitor, target) => D4.validateTarget<$flutter_8.Ticker>(target, 'Ticker').shouldScheduleTick,
-      'debugLabel': (visitor, target) => D4.validateTarget<$flutter_8.Ticker>(target, 'Ticker').debugLabel,
+      'forceFrames': (visitor, target) => D4.validateTarget<$flutter_6.Ticker>(target, 'Ticker').forceFrames,
+      'muted': (visitor, target) => D4.validateTarget<$flutter_6.Ticker>(target, 'Ticker').muted,
+      'isTicking': (visitor, target) => D4.validateTarget<$flutter_6.Ticker>(target, 'Ticker').isTicking,
+      'isActive': (visitor, target) => D4.validateTarget<$flutter_6.Ticker>(target, 'Ticker').isActive,
+      'scheduled': (visitor, target) => D4.validateTarget<$flutter_6.Ticker>(target, 'Ticker').scheduled,
+      'shouldScheduleTick': (visitor, target) => D4.validateTarget<$flutter_6.Ticker>(target, 'Ticker').shouldScheduleTick,
+      'debugLabel': (visitor, target) => D4.validateTarget<$flutter_6.Ticker>(target, 'Ticker').debugLabel,
     },
     setters: {
       'forceFrames': (visitor, target, value) => 
-        D4.validateTarget<$flutter_8.Ticker>(target, 'Ticker').forceFrames = D4.extractBridgedArg<bool>(value, 'forceFrames'),
+        D4.validateTarget<$flutter_6.Ticker>(target, 'Ticker').forceFrames = D4.extractBridgedArg<bool>(value, 'forceFrames'),
       'muted': (visitor, target, value) => 
-        D4.validateTarget<$flutter_8.Ticker>(target, 'Ticker').muted = D4.extractBridgedArg<bool>(value, 'muted'),
+        D4.validateTarget<$flutter_6.Ticker>(target, 'Ticker').muted = D4.extractBridgedArg<bool>(value, 'muted'),
     },
     methods: {
       'start': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.Ticker>(target, 'Ticker');
+        final t = D4.validateTarget<$flutter_6.Ticker>(target, 'Ticker');
         return t.start();
       },
       'describeForError': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.Ticker>(target, 'Ticker');
+        final t = D4.validateTarget<$flutter_6.Ticker>(target, 'Ticker');
         D4.requireMinArgs(positional, 1, 'describeForError');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'describeForError');
         return t.describeForError(name);
       },
       'stop': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.Ticker>(target, 'Ticker');
+        final t = D4.validateTarget<$flutter_6.Ticker>(target, 'Ticker');
         final canceled = D4.getNamedArgWithDefault<bool>(named, 'canceled', false);
         t.stop(canceled: canceled);
         return null;
       },
       'scheduleTick': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.Ticker>(target, 'Ticker');
+        final t = D4.validateTarget<$flutter_6.Ticker>(target, 'Ticker');
         final rescheduling = D4.getNamedArgWithDefault<bool>(named, 'rescheduling', false);
         t.scheduleTick(rescheduling: rescheduling);
         return null;
       },
       'unscheduleTick': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.Ticker>(target, 'Ticker');
+        final t = D4.validateTarget<$flutter_6.Ticker>(target, 'Ticker');
         t.unscheduleTick();
         return null;
       },
       'absorbTicker': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.Ticker>(target, 'Ticker');
+        final t = D4.validateTarget<$flutter_6.Ticker>(target, 'Ticker');
         D4.requireMinArgs(positional, 1, 'absorbTicker');
-        final originalTicker = D4.getRequiredArg<$flutter_8.Ticker>(positional, 0, 'originalTicker', 'absorbTicker');
+        final originalTicker = D4.getRequiredArg<$flutter_6.Ticker>(positional, 0, 'originalTicker', 'absorbTicker');
         t.absorbTicker(originalTicker);
         return null;
       },
       'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.Ticker>(target, 'Ticker');
+        final t = D4.validateTarget<$flutter_6.Ticker>(target, 'Ticker');
         (t as dynamic).dispose();
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.Ticker>(target, 'Ticker');
+        final t = D4.validateTarget<$flutter_6.Ticker>(target, 'Ticker');
         final debugIncludeStack = D4.getNamedArgWithDefault<bool>(named, 'debugIncludeStack', false);
         return t.toString(debugIncludeStack: debugIncludeStack);
       },
@@ -802,6 +834,130 @@ BridgedClass _createTickerBridge() {
     setterSignatures: {
       'forceFrames': 'set forceFrames(dynamic value)',
       'muted': 'set muted(bool value)',
+    },
+  );
+}
+
+// =============================================================================
+// TickerFuture Bridge
+// =============================================================================
+
+BridgedClass _createTickerFutureBridge() {
+  return BridgedClass(
+    nativeType: $flutter_6.TickerFuture,
+    name: 'TickerFuture',
+    isAssignable: (v) => v is $flutter_6.TickerFuture,
+    constructors: {
+      'complete': (visitor, positional, named) {
+        return $flutter_6.TickerFuture.complete();
+      },
+    },
+    getters: {
+      'orCancel': (visitor, target) => D4.validateTarget<$flutter_6.TickerFuture>(target, 'TickerFuture').orCancel,
+    },
+    methods: {
+      'whenCompleteOrCancel': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_6.TickerFuture>(target, 'TickerFuture');
+        D4.requireMinArgs(positional, 1, 'whenCompleteOrCancel');
+        if (positional.isEmpty) {
+          throw ArgumentError('whenCompleteOrCancel: Missing required argument "callback" at position 0');
+        }
+        final callbackRaw = positional[0];
+        t.whenCompleteOrCancel(() { D4.callInterpreterCallback(visitor!, callbackRaw, []); });
+        return null;
+      },
+      'asStream': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_6.TickerFuture>(target, 'TickerFuture');
+        return t.asStream();
+      },
+      'catchError': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_6.TickerFuture>(target, 'TickerFuture');
+        D4.requireMinArgs(positional, 1, 'catchError');
+        final onError = D4.getRequiredArg<Function>(positional, 0, 'onError', 'catchError');
+        final testRaw = named['test'];
+        return t.catchError(onError, test: testRaw == null ? null : (Object p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+      },
+      'then': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_6.TickerFuture>(target, 'TickerFuture');
+        D4.requireMinArgs(positional, 1, 'then');
+        if (positional.isEmpty) {
+          throw ArgumentError('then: Missing required argument "onValue" at position 0');
+        }
+        final onValueRaw = positional[0];
+        final onError = D4.getOptionalNamedArg<Function?>(named, 'onError');
+        return t.then((void p0) { return D4.callInterpreterCallback(visitor!, onValueRaw, [null]) as FutureOr<Object>; }, onError: onError);
+      },
+      'timeout': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_6.TickerFuture>(target, 'TickerFuture');
+        D4.requireMinArgs(positional, 1, 'timeout');
+        final timeLimit = D4.getRequiredArg<Duration>(positional, 0, 'timeLimit', 'timeout');
+        final onTimeoutRaw = named['onTimeout'];
+        return t.timeout(timeLimit, onTimeout: onTimeoutRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, onTimeoutRaw, []) as FutureOr<void>; });
+      },
+      'whenComplete': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_6.TickerFuture>(target, 'TickerFuture');
+        D4.requireMinArgs(positional, 1, 'whenComplete');
+        if (positional.isEmpty) {
+          throw ArgumentError('whenComplete: Missing required argument "action" at position 0');
+        }
+        final actionRaw = positional[0];
+        return t.whenComplete(() { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, actionRaw, [])); });
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_6.TickerFuture>(target, 'TickerFuture');
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      'complete': 'TickerFuture.complete()',
+    },
+    methodSignatures: {
+      'whenCompleteOrCancel': 'void whenCompleteOrCancel(VoidCallback callback)',
+      'asStream': 'Stream<void> asStream()',
+      'catchError': 'Future<void> catchError(Function onError, {bool Function(Object)? test})',
+      'then': 'Future<R> then(FutureOr<R> Function(void value) onValue, {Function? onError})',
+      'timeout': 'Future<void> timeout(Duration timeLimit, {FutureOr<void> Function()? onTimeout})',
+      'whenComplete': 'Future<void> whenComplete(dynamic Function() action)',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'orCancel': 'Future<void> get orCancel',
+    },
+  );
+}
+
+// =============================================================================
+// TickerCanceled Bridge
+// =============================================================================
+
+BridgedClass _createTickerCanceledBridge() {
+  return BridgedClass(
+    nativeType: TickerCanceled,
+    name: 'TickerCanceled',
+    isAssignable: (v) => v is TickerCanceled,
+    constructors: {
+      '': (visitor, positional, named) {
+        final ticker = D4.getOptionalArg<$flutter_6.Ticker?>(positional, 0, 'ticker');
+        return TickerCanceled(ticker);
+      },
+    },
+    getters: {
+      'ticker': (visitor, target) => D4.validateTarget<TickerCanceled>(target, 'TickerCanceled').ticker,
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<TickerCanceled>(target, 'TickerCanceled');
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      '': 'const TickerCanceled([Ticker? ticker])',
+    },
+    methodSignatures: {
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'ticker': 'Ticker? get ticker',
     },
   );
 }

@@ -1197,9 +1197,10 @@ class BridgeGenerator {
 
     // 4. Try to find dart in PATH and derive SDK path (resolve symlinks)
     try {
-      final result = Process.runSync('which', ['dart']);
+      final whichCmd = Platform.isWindows ? 'where.exe' : 'which';
+      final result = Process.runSync(whichCmd, ['dart']);
       if (result.exitCode == 0) {
-        final dartPath = (result.stdout as String).trim();
+        final dartPath = (result.stdout as String).trim().split('\n').first.trim();
         if (dartPath.isNotEmpty) {
           final sdk = _resolveSdkFromDartPath(dartPath);
           if (sdk != null) {
@@ -1209,14 +1210,15 @@ class BridgeGenerator {
         }
       }
     } catch (_) {
-      // Ignore errors from which command
+      // Ignore errors from which/where command
     }
 
     // 5. Try to find flutter in PATH → <flutter>/bin/cache/dart-sdk
     try {
-      final result = Process.runSync('which', ['flutter']);
+      final whichCmd = Platform.isWindows ? 'where.exe' : 'which';
+      final result = Process.runSync(whichCmd, ['flutter']);
       if (result.exitCode == 0) {
-        var flutterPath = (result.stdout as String).trim();
+        var flutterPath = (result.stdout as String).trim().split('\n').first.trim();
         if (flutterPath.isNotEmpty) {
           // Resolve symlinks
           try {

@@ -1,12 +1,21 @@
 // D4rt Bridge - Generated file, do not edit
 // Dartscript registration for d4rt_generator_example
-// Generated: 2026-03-06T18:40:07.393470
+<<<<<<< Updated upstream
+// Generated: 2026-02-14T00:51:09.158721
+=======
+// Generated: 2026-03-12T17:02:52.824804
+>>>>>>> Stashed changes
 
 /// D4rt Bridge Registration for d4rt_generator_example
 library;
 
-import 'package:tom_d4rt/d4rt.dart';
+<<<<<<< Updated upstream
+import 'package:tom_d4rt_exec/d4rt.dart';
 import 'src/d4rt_bridges/example_bridges.b.dart' as all_bridges;
+=======
+import 'package:tom_d4rt/d4rt.dart';
+import 'src\d4rt_bridges\example_bridges.b.dart' as all_bridges;
+>>>>>>> Stashed changes
 
 /// Combined bridge registration for d4rt_generator_example.
 class D4rtGeneratorExampleBridges {
@@ -22,10 +31,6 @@ class D4rtGeneratorExampleBridges {
       d4rt,
       'lib/test_classes.dart',
     );
-    // Register under sub-package barrels for direct imports
-    for (final barrel in all_bridges.AllBridge.subPackageBarrels()) {
-      all_bridges.AllBridge.registerBridges(d4rt, barrel);
-    }
   }
 
   /// Get import block for all modules.

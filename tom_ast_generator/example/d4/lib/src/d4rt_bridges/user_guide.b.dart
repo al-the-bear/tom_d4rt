@@ -1,14 +1,16 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 2 files
-// Generated: 2026-03-06T18:39:55.908181
+<<<<<<< Updated upstream
+// Generated: 2026-02-21T15:07:40.560806
+=======
+// Generated: 2026-03-12T17:02:31.409130
+>>>>>>> Stashed changes
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
 import 'package:tom_d4rt_exec/d4rt.dart';
 import 'package:tom_d4rt_exec/tom_d4rt.dart';
 
-import 'package:d4_example/src/user_guide/calculator.dart' as $d4_example_1;
-import 'package:d4_example/src/user_guide/greeter.dart' as $d4_example_2;
 
 /// Bridge class for user_guide module.
 class UserGuideBridge {
@@ -26,11 +28,13 @@ class UserGuideBridge {
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> classSourceUris() {
     return {
-      'Calculator': 'package:d4_example/src/user_guide/calculator.dart',
-      'Greeter': 'package:d4_example/src/user_guide/greeter.dart',
+      'Calculator': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_ast_generator\example\d4\lib\src\user_guide\calculator.dart',
+      'Greeter': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_ast_generator\example\d4\lib\src\user_guide\greeter.dart',
     };
   }
 
+<<<<<<< Updated upstream
+=======
   /// Returns a map of type alias names to their target class names.
   ///
   /// Type aliases like `typedef MaterialStateProperty<T> = WidgetStateProperty<T>`
@@ -41,6 +45,16 @@ class UserGuideBridge {
     };
   }
 
+  /// Returns the list of function typedef names declared in this library.
+  ///
+  /// Function typedefs like `typedef VoidCallback = void Function()` are
+  /// registered so that they can be used as type arguments in D4rt scripts.
+  static List<String> functionTypedefs() {
+    return [
+    ];
+  }
+
+>>>>>>> Stashed changes
   /// Returns all bridged enum definitions.
   static List<BridgedEnumDefinition> bridgedEnums() {
     return [
@@ -103,8 +117,8 @@ class UserGuideBridge {
   /// multiple barrels.
   static List<String> sourceLibraries() {
     return [
-      'package:d4_example/src/user_guide/calculator.dart',
-      'package:d4_example/src/user_guide/greeter.dart',
+      'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_ast_generator\example\d4\lib\src\user_guide\calculator.dart',
+      'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_ast_generator\example\d4\lib\src\user_guide\greeter.dart',
     ];
   }
 
@@ -134,38 +148,41 @@ class UserGuideBridge {
 
 BridgedClass _createCalculatorBridge() {
   return BridgedClass(
-    nativeType: $d4_example_1.Calculator,
+    nativeType: Calculator,
     name: 'Calculator',
-    isAssignable: (v) => v is $d4_example_1.Calculator,
+<<<<<<< Updated upstream
+=======
+    isAssignable: (v) => v is Calculator,
+>>>>>>> Stashed changes
     constructors: {
       '': (visitor, positional, named) {
-        return $d4_example_1.Calculator();
+        return Calculator();
       },
     },
     methods: {
       'add': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_1.Calculator>(target, 'Calculator');
+        final t = D4.validateTarget<Calculator>(target, 'Calculator');
         D4.requireMinArgs(positional, 2, 'add');
         final a = D4.getRequiredArg<int>(positional, 0, 'a', 'add');
         final b = D4.getRequiredArg<int>(positional, 1, 'b', 'add');
         return t.add(a, b);
       },
       'subtract': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_1.Calculator>(target, 'Calculator');
+        final t = D4.validateTarget<Calculator>(target, 'Calculator');
         D4.requireMinArgs(positional, 2, 'subtract');
         final a = D4.getRequiredArg<int>(positional, 0, 'a', 'subtract');
         final b = D4.getRequiredArg<int>(positional, 1, 'b', 'subtract');
         return t.subtract(a, b);
       },
       'multiply': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_1.Calculator>(target, 'Calculator');
+        final t = D4.validateTarget<Calculator>(target, 'Calculator');
         D4.requireMinArgs(positional, 2, 'multiply');
         final a = D4.getRequiredArg<int>(positional, 0, 'a', 'multiply');
         final b = D4.getRequiredArg<int>(positional, 1, 'b', 'multiply');
         return t.multiply(a, b);
       },
       'divide': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_1.Calculator>(target, 'Calculator');
+        final t = D4.validateTarget<Calculator>(target, 'Calculator');
         D4.requireMinArgs(positional, 2, 'divide');
         final a = D4.getRequiredArg<double>(positional, 0, 'a', 'divide');
         final b = D4.getRequiredArg<double>(positional, 1, 'b', 'divide');
@@ -178,7 +195,7 @@ BridgedClass _createCalculatorBridge() {
         D4.requireMinArgs(positional, 2, 'quickAdd');
         final a = D4.getRequiredArg<int>(positional, 0, 'a', 'quickAdd');
         final b = D4.getRequiredArg<int>(positional, 1, 'b', 'quickAdd');
-        return $d4_example_1.Calculator.quickAdd(a, b);
+        return Calculator.quickAdd(a, b);
       },
     },
     constructorSignatures: {
@@ -202,31 +219,34 @@ BridgedClass _createCalculatorBridge() {
 
 BridgedClass _createGreeterBridge() {
   return BridgedClass(
-    nativeType: $d4_example_2.Greeter,
+    nativeType: Greeter,
     name: 'Greeter',
-    isAssignable: (v) => v is $d4_example_2.Greeter,
+<<<<<<< Updated upstream
+=======
+    isAssignable: (v) => v is Greeter,
+>>>>>>> Stashed changes
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Greeter');
         final greeting = D4.getRequiredArg<String>(positional, 0, 'greeting', 'Greeter');
-        return $d4_example_2.Greeter(greeting);
+        return Greeter(greeting);
       },
       'defaultGreeting': (visitor, positional, named) {
-        return $d4_example_2.Greeter.defaultGreeting();
+        return Greeter.defaultGreeting();
       },
     },
     getters: {
-      'greeting': (visitor, target) => D4.validateTarget<$d4_example_2.Greeter>(target, 'Greeter').greeting,
+      'greeting': (visitor, target) => D4.validateTarget<Greeter>(target, 'Greeter').greeting,
     },
     methods: {
       'greet': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_2.Greeter>(target, 'Greeter');
+        final t = D4.validateTarget<Greeter>(target, 'Greeter');
         D4.requireMinArgs(positional, 1, 'greet');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'greet');
         return t.greet(name);
       },
       'greetAll': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_2.Greeter>(target, 'Greeter');
+        final t = D4.validateTarget<Greeter>(target, 'Greeter');
         D4.requireMinArgs(positional, 1, 'greetAll');
         if (positional.isEmpty) {
           throw ArgumentError('greetAll: Missing required argument "names" at position 0');
