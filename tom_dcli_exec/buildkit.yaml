@@ -13,7 +13,6 @@ cleanup:
 d4rtgen:
   name: tom_dcli_exec
   helpersImport: package:tom_d4rt_exec/tom_d4rt_exec.dart
-  d4rtImport: package:tom_d4rt_exec/d4rt.dart
   generateBarrel: true
   barrelPath: lib/d4rt_bridges.b.dart
   generateDartscript: true
@@ -65,22 +64,43 @@ d4rtgen:
 compiler:
   compiles:
     # macOS ARM64 - compile for self + all Linux targets
+<<<<<<< Updated upstream
     - commandline:
         - mkdir -p $TOM_BINARY_PATH/%{target-platform-vs}
-        - dart compile exe %{file} --target-os=%{dart-target-os} --target-arch=%{dart-target-arch} -o $TOM_BINARY_PATH/%{target-platform-vs}/%{file.name}
+        - dart compile exe %{file} --target-os=%{target-os} -o $TOM_BINARY_PATH/%{target-platform-vs}/%{file.name}
+=======
+    - pipeline:
+      - shell mkdir -p $TOM_BINARY_PATH/%{target-platform-vs}
+      - shell dart compile exe %{file} --target-os=%{dart-target-os} --target-arch=%{dart-target-arch} -o $TOM_BINARY_PATH/%{target-platform-vs}/%{file.name}
+>>>>>>> Stashed changes
       files: bin/dclie.dart
       targets: [darwin-arm64, linux-x64, linux-arm64, linux-armhf]
       platforms: [darwin-arm64]
     
+<<<<<<< Updated upstream
     # Other platforms - compile for self only
     - commandline:
         - mkdir -p $TOM_BINARY_PATH/%{target-platform-vs}
-        - dart compile exe %{file} --target-os=%{dart-target-os} --target-arch=%{dart-target-arch} -o $TOM_BINARY_PATH/%{target-platform-vs}/%{file.name}
+        - dart compile exe %{file} -o $TOM_BINARY_PATH/%{target-platform-vs}/%{file.name}
       files: bin/dclie.dart
       platforms: [darwin-x64, linux-*, win32-*]
+=======
+    # Unix-like platforms - compile for self only
+    - pipeline:
+      - shell mkdir -p $TOM_BINARY_PATH/%{target-platform-vs}
+      - shell dart compile exe %{file} --target-os=%{dart-target-os} --target-arch=%{dart-target-arch} -o $TOM_BINARY_PATH/%{target-platform-vs}/%{file.name}
+      files: bin/dclie.dart
+      platforms: [darwin-x64, linux-*]
+
+    # Windows - compile for self only
+    - pipeline:
+      - shell dart compile exe %{file} --target-os=%{dart-target-os} --target-arch=%{dart-target-arch} -o %TOM_BINARY_PATH%/win32-x64/%{file.name}.exe
+      files: bin/dclie.dart
+      platforms: [win32-*]
+>>>>>>> Stashed changes
 
   postcompile:
     # Make binaries executable on Unix-like systems
-    - commandline:
-        - chmod -R +x $TOM_BINARY_PATH/%{current-platform-vs}/
+    - pipeline:
+      - shell chmod -R +x $TOM_BINARY_PATH/%{current-platform-vs}/
       platforms: [macos, linux]
