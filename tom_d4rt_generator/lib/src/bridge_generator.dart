@@ -13567,7 +13567,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     // Skip private enums if configured
     if (skipPrivate && enumName.startsWith('_')) return;
 
-    // Skip enums marked as @visibleForTesting, @protected, or @internal
+    // Skip enums marked as @internal, @visibleForOverriding, or @mustBeOverridden
     if (_hasInternalAnnotation(node)) return;
 
     // Skip deprecated enums unless generateDeprecatedElements is enabled
@@ -13700,7 +13700,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     // Skip private type aliases if configured
     if (skipPrivate && aliasName.startsWith('_')) return;
 
-    // Skip aliases marked as @visibleForTesting, @protected, or @internal
+    // Skip aliases marked as @internal, @visibleForOverriding, or @mustBeOverridden
     if (_hasInternalAnnotation(node)) return;
 
     // GEN-078: Do NOT skip deprecated non-function type aliases. Type aliases
@@ -13753,7 +13753,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     // Skip private extensions if configured
     if (skipPrivate && extName != null && extName.startsWith('_')) return;
 
-    // Skip extensions marked as @visibleForTesting, @protected, or @internal
+    // Skip extensions marked as @internal, @visibleForOverriding, or @mustBeOverridden
     if (_hasInternalAnnotation(node)) return;
 
     // Skip deprecated extensions unless generateDeprecatedElements is enabled
@@ -13893,7 +13893,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     final name = node.name.lexeme;
     if (skipPrivate && name.startsWith('_')) return;
 
-    // Skip functions marked as @visibleForTesting, @protected, or @internal
+    // Skip functions marked as @internal, @visibleForOverriding, or @mustBeOverridden
     if (_hasInternalAnnotation(node)) return;
 
     // Skip deprecated functions unless generateDeprecatedElements is enabled
@@ -13988,7 +13988,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
 
   @override
   void visitTopLevelVariableDeclaration(TopLevelVariableDeclaration node) {
-    // Skip variables marked as @visibleForTesting, @protected, or @internal
+    // Skip variables marked as @internal, @visibleForOverriding, or @mustBeOverridden
     if (_hasInternalAnnotation(node)) return;
 
     // Skip deprecated variables unless generateDeprecatedElements is enabled
@@ -14036,7 +14036,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     // if parsing malformed code)
     if (node.parent is ClassDeclaration) return;
 
-    // Skip classes marked as @visibleForTesting, @protected, or @internal
+    // Skip classes marked as @internal, @visibleForOverriding, or @mustBeOverridden
     if (_hasInternalAnnotation(node)) return;
 
     // Skip deprecated classes unless generateDeprecatedElements is enabled
@@ -14158,7 +14158,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     // Skip private mixins if configured
     if (skipPrivate && mixinName.startsWith('_')) return;
 
-    // Skip mixins marked as @visibleForTesting, @protected, or @internal
+    // Skip mixins marked as @internal, @visibleForOverriding, or @mustBeOverridden
     if (_hasInternalAnnotation(node)) return;
 
     // Skip deprecated mixins unless generateDeprecatedElements is enabled
@@ -14288,7 +14288,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     // Skip private classes if configured
     if (skipPrivate && className.startsWith('_')) return;
 
-    // Skip classes marked as @visibleForTesting, @protected, or @internal
+    // Skip classes marked as @internal, @visibleForOverriding, or @mustBeOverridden
     if (_hasInternalAnnotation(node)) return;
 
     // Skip deprecated classes unless generateDeprecatedElements is enabled
@@ -15542,7 +15542,7 @@ class _ClassVisitor extends RecursiveAstVisitor<void> {
     // if parsing malformed code)
     if (node.parent is ClassDeclaration) return;
 
-    // Skip classes marked as @visibleForTesting, @protected, or @internal
+    // Skip classes marked as @internal, @visibleForOverriding, or @mustBeOverridden
     if (_hasInternalAnnotation(node)) return;
 
     // Skip deprecated classes unless generateDeprecatedElements is enabled
@@ -15618,7 +15618,7 @@ class _ClassVisitor extends RecursiveAstVisitor<void> {
     // Skip private mixins if configured
     if (skipPrivate && mixinName.startsWith('_')) return;
 
-    // Skip mixins marked as @visibleForTesting, @protected, or @internal
+    // Skip mixins marked as @internal, @visibleForOverriding, or @mustBeOverridden
     if (_hasInternalAnnotation(node)) return;
 
     // Skip deprecated mixins unless generateDeprecatedElements is enabled
@@ -15686,7 +15686,7 @@ class _ClassVisitor extends RecursiveAstVisitor<void> {
     // Skip private classes if configured
     if (skipPrivate && className.startsWith('_')) return;
 
-    // Skip classes marked as @visibleForTesting, @protected, or @internal
+    // Skip classes marked as @internal, @visibleForOverriding, or @mustBeOverridden
     if (_hasInternalAnnotation(node)) return;
 
     // Skip deprecated classes unless generateDeprecatedElements is enabled

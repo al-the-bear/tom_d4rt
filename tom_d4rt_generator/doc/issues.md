@@ -1,12 +1,21 @@
 # D4rt Bridge Generator — Known Issues & Limitations
 
-> Last updated: 2026-03-07
+> Last updated: 2026-06-15
 >
 > **secondary_classes_test.dart:** 629 passed, 26 failed
 
 ---
 
 ## Issue Index
+
+### Release Candidate Issues
+
+| ID | Description | Component | Status |
+|----|-------------|-----------|--------|
+| [RC-1](#rc-1) | Auto-generated proxy factories not wired into dartscript registration | file_generators.dart | **FIXED** (code correct, needs regeneration) |
+| [RC-2](#rc-2) | Generic constructors and relaxers not wired into dartscript registration | file_generators.dart | **FIXED** (import + calls added) |
+| [RC-5](#rc-5) | Supplementary methods (@protected, @deprecated) missing from bridges | bridge_generator.dart | **NO BUG** (annotation filtering correct, needs regeneration) |
+| [RC-3](#rc-3) | StrutStyle constructor override via UserBridge | strut_style_user_bridge.dart | **DONE** (UserBridge exists, needs regeneration) |
 
 ### Bridge Generator Issues
 
@@ -36,6 +45,90 @@
 | [TST-100](#tst-100) | Invalid GestureDetector configuration | Test Script | gesture_callbacks | **OPEN** |
 | [TST-101](#tst-101) | Restoration registration logic error | Test Script | autocomplete_chips, restoration_scope, restoration_adv | **OPEN** |
 | [TST-102](#tst-102) | Wrong type passed to constructor | Test Script | render_composite | **OPEN** |
+
+---
+
+## Release Candidate Issues
+
+### RC-1
+
+**Auto-generated proxy factories not wired into dartscript registration**
+
+**Status:** FIXED (code correct, needs regeneration)
+
+**Problem:**
+`flutter_proxies.b.dart` generates `registerProxyFactories()` with all 7 configured proxy classes, but the generated `material_bridges.b.dart` (stale from 2026-03-12) did not import or call this function.
+
+**Root Cause:**
+The code in `file_generators.dart` (L136-143 import, L207-215 call) was already correct for GEN-092 proxy registration. The generated output was simply stale.
+
+**Resolution:**
+No code change needed. A regeneration of the bridge output will produce the correct imports and calls. After regeneration, the handwritten `_registerInterfaceProxies()` in `d4rt_runtime_registrations.dart` (L62-96) still contains 3 non-auto-generated proxies (TickerProvider, StatelessWidget, StatefulWidget) that are NOT in the `proxyClasses` config — these remain handwritten intentionally.
+
+---
+
+### RC-2
+
+**Generic constructors and relaxers not wired into dartscript registration**
+
+**Status:** FIXED
+
+**Problem:**
+`flutter_relaxers.b.dart` generates both `registerGenericConstructors()` (L154838) and `registerRelaxers()` (L2378), but `file_generators.dart` never imported or called these functions. The generated master registration file (`material_bridges.b.dart`) therefore never registered generic constructors or relaxers.
+
+**Root Cause:**
+Missing import and calls in `generateDartscriptFileContent()` in `file_generators.dart`. The proxy registration (GEN-092) had been added but the equivalent relaxer/RC-2 wiring was overlooked.
+
+**Fix Applied:**
+Added to `file_generators.dart`:
+- Import for relaxer output file (alongside existing proxy import)
+- Calls to `registerGenericConstructors()` and `registerRelaxers()` in the dartscript init function
+
+After regeneration, the handwritten `_registerGenericConstructors()` in `d4rt_runtime_registrations.dart` (L176-268) can be removed since the auto-generated version covers the same classes. The handwritten `generic_type_relaxers.dart` can also be removed.
+
+---
+
+### RC-5
+
+**Supplementary methods (@protected, @deprecated) missing from bridges**
+
+**Status:** NO BUG in annotation filtering (needs regeneration)
+
+**Problem:**
+Generated bridges appeared to be missing `@protected` methods (e.g., `ChangeNotifier.notifyListeners`, `ChangeNotifier.hasListeners`) and `@deprecated` methods.
+
+**Investigation Findings:**
+The annotation filtering in `bridge_generator.dart` is **already correct**:
+- `_hasInternalAnnotation()` (L13453, L15510) only checks `@internal`, `@visibleForOverriding`, `@mustBeOverridden`
+- `_hasInternalElementAnnotation()` (L13472) — same resolved-element checks
+- `_parseMethod()` (L15096, L15759) — only filters via the above functions
+- `_parseMemberFromGetterElement` (L14923), `_parseMemberFromSetterElement` (L14952), `_parseMemberFromMethodElement` (L15008) — NO annotation filtering for inherited members
+- `@protected`, `@deprecated`, and `@visibleForTesting` are **NOT** filtered at member level
+
+**Fix Applied:**
+Fixed 11 misleading comments throughout `bridge_generator.dart` that incorrectly said "Skip X marked as @visibleForTesting, @protected, or @internal" — changed to accurately describe the actual behavior: "@internal, @visibleForOverriding, or @mustBeOverridden".
+
+**Note:** The stale generated output has other issues (corrupted `foundation_bridges.b.dart`, ChangeNotifier placed in wrong module). Regeneration should resolve these.
+
+---
+
+### RC-3
+
+**StrutStyle constructor override via UserBridge**
+
+**Status:** DONE (needs regeneration)
+
+**Problem:**
+`dart:ui.StrutStyle` creates an opaque object with no getters. D4rt scripts need `painting.StrutStyle` (which has full getter support) to be created instead.
+
+**Solution:**
+`StrutStyleUserBridge` in `d4rt_user_bridges/strut_style_user_bridge.dart` is already implemented:
+- Annotated with `@D4rtUserBridge('dart:ui', 'StrutStyle')`
+- `overrideConstructor` method creates `painting.StrutStyle` with all named parameters
+- The `UserBridgeScanner` recognizes this via the `overrideConstructor` naming convention (L538-544 in `user_bridge_scanner.dart`)
+- The bridge generator checks `userBridge?.getConstructorOverride(ctorName)` at L7457 and emits the UserBridge override
+
+After regeneration, the handwritten `StrutStyle` generic constructor in `d4rt_runtime_registrations.dart` (L231-268) can be removed (it has a TODO for this).
 
 ---
 

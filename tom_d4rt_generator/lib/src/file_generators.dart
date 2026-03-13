@@ -144,6 +144,16 @@ String generateDartscriptFileContent(
     buffer.writeln("import '$proxyImportPath' as proxy_factories;");
   }
 
+  // RC-2: Import relaxer file for generic constructor + relaxer registration
+  if (config.modules.isNotEmpty) {
+    final relaxerImportPath = _moduleImportPath(
+      config.relaxerOutputPath,
+      dartscriptDir,
+      effectivePackageName,
+    );
+    buffer.writeln("import '$relaxerImportPath' as relaxer_factories;");
+  }
+
   buffer.writeln();
   buffer.writeln('/// Combined bridge registration for ${config.name}.');
   buffer.writeln('class $registrationClass {');
@@ -213,6 +223,15 @@ String generateDartscriptFileContent(
     buffer.writeln();
     buffer.writeln('    // GEN-092: Register proxy factories for interface proxies');
     buffer.writeln('    proxy_factories.registerProxyFactories();');
+  }
+
+  // RC-2: Register generic constructors and GEN-079 relaxer factories
+  if (config.modules.isNotEmpty) {
+    buffer.writeln();
+    buffer.writeln('    // RC-2: Register generic constructor factories');
+    buffer.writeln('    relaxer_factories.registerGenericConstructors();');
+    buffer.writeln('    // GEN-079: Register relaxer wrapper factories');
+    buffer.writeln('    relaxer_factories.registerRelaxers();');
   }
 
   buffer.writeln('  }');
