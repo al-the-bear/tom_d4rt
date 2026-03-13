@@ -1,3 +1,14 @@
+## 1.8.19
+
+### Bug Fixes
+- **RC-2**: Wire `registerGenericConstructors()` and `registerRelaxers()` into dartscript registration
+- **RC-5**: Fix 11 misleading comments in annotation filtering (actual: @internal/@visibleForOverriding/@mustBeOverridden only)
+
+## 1.8.18
+
+### Bug Fixes
+- Minor internal refactoring
+
 ## 1.8.17
 
 ### Features
