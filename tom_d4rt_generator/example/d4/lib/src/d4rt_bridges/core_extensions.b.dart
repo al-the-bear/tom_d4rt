@@ -1,8 +1,8 @@
 // D4rt Bridge - Generated file, do not edit
-// Source: /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_generator/example/d4/lib/test_extensions.dart
-// Generated: 2026-03-12T18:22:08.469908
+// Source: C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\test_extensions.dart
+// Generated: 2026-03-12T17:06:46.326923
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
@@ -25,147 +25,29 @@ class CoreExtensionsBridge {
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> classSourceUris() {
     return {
-      'ItemProcessor': 'package:d4_example/test_extensions.dart',
-      'TestPoint': 'package:d4_example/test_extensions.dart',
+      'ItemProcessor': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\test_extensions.dart',
+      'TestPoint': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\test_extensions.dart',
     };
   }
 
-  /// Returns a map of type alias names to their target class names.
-  ///
-  /// Type aliases like `typedef MaterialStateProperty<T> = WidgetStateProperty<T>`
-  /// are registered so that code using the alias name can resolve to the
-  /// bridged class under its canonical name.
-  static Map<String, String> classAliases() {
-    return {
-    };
-  }
-
-  /// Returns the list of function typedef names declared in this library.
-  ///
-  /// Function typedefs like `typedef VoidCallback = void Function()` are
-  /// registered so that they can be used as type arguments in D4rt scripts.
-  static List<String> functionTypedefs() {
-    return [
-    ];
-  }
-
-  /// Returns all bridged enum definitions.
-  static List<BridgedEnumDefinition> bridgedEnums() {
-    return [
-    ];
-  }
-
-  /// Returns a map of enum names to their canonical source URIs.
-  ///
-  /// Used for deduplication when the same enum is exported through
-  /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
-  static Map<String, String> enumSourceUris() {
-    return {
-    };
-  }
-
-  /// Returns all bridged extension definitions.
-  static List<BridgedExtensionDefinition> bridgedExtensions() {
-    return [
-      BridgedExtensionDefinition(
-        name: 'StringExtension',
-        onTypeName: 'String',
-        getters: {
-          'reversed': (visitor, target) => (target as String).reversed,
-          'isBlank': (visitor, target) => (target as String).isBlank,
-          'isNotBlank': (visitor, target) => (target as String).isNotBlank,
-          'inParens': (visitor, target) => (target as String).inParens,
-        },
-        methods: {
-          'repeatWith': (visitor, target, positional, named, typeArgs) {
-            final t = target as String;
-            return Function.apply(t.repeatWith, positional, named.map((k, v) => MapEntry(Symbol(k), v)));
-          },
-        },
-      ),
-      BridgedExtensionDefinition(
-        name: 'IntExtension',
-        onTypeName: 'int',
-        getters: {
-          'isEven': (visitor, target) => (target as int).isEven,
-          'isOdd': (visitor, target) => (target as int).isOdd,
-          'factorial': (visitor, target) => (target as int).factorial,
-        },
-        methods: {
-          'clampTo': (visitor, target, positional, named, typeArgs) {
-            final t = target as int;
-            return Function.apply(t.clampTo, positional, named.map((k, v) => MapEntry(Symbol(k), v)));
-          },
-        },
-      ),
-    ];
-  }
-
-  /// Returns a map of extension identifiers to their canonical source URIs.
-  static Map<String, String> extensionSourceUris() {
-    return {
-      'StringExtension': 'package:d4_example/test_extensions.dart',
-      'IntExtension': 'package:d4_example/test_extensions.dart',
-    };
-  }
-
-  /// Registers all bridges with an interpreter.
-  ///
-  /// [importPath] is the package import path that D4rt scripts will use
-  /// to access these classes (e.g., 'package:tom_build/tom.dart').
-  static void registerBridges(D4rt interpreter, String importPath) {
-    // Register bridged classes with source URIs for deduplication
-    final classes = bridgeClasses();
-    final classSources = classSourceUris();
-    for (final bridge in classes) {
-      interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
-    }
-
-    // Register global functions with source URIs for deduplication
-    final funcs = globalFunctions();
-    final funcSources = globalFunctionSourceUris();
-    final funcSigs = globalFunctionSignatures();
-    for (final entry in funcs.entries) {
-      interpreter.registertopLevelFunction(entry.key, entry.value, importPath, sourceUri: funcSources[entry.key], signature: funcSigs[entry.key]);
-    }
-
-    // Register bridged extensions with source URIs for deduplication
-    final extensions = bridgedExtensions();
-    final extSources = extensionSourceUris();
-    for (final extDef in extensions) {
-      final extKey = extDef.name ?? '<unnamed>@${extDef.onTypeName}';
-      interpreter.registerBridgedExtension(extDef, importPath, sourceUri: extSources[extKey]);
-    }
-  }
-
-  /// Returns a map of global function names to their native implementations.
-  static Map<String, NativeFunctionImpl> globalFunctions() {
-    return {
-      'processItems': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 2, 'processItems');
-        final items = D4.getRequiredArg<List<dynamic>>(positional, 0, 'items', 'processItems');
-        if (positional.length <= 1) {
-          throw ArgumentError('processItems: Missing required argument "transform" at position 1');
-        }
-        final transformRaw = positional[1];
         final transform = (dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, transformRaw, [p0])); };
-        return $d4_example_1.processItems<dynamic, dynamic>(items, transform);
+        return processItems<dynamic, dynamic>(items, transform);
       },
       'filterItems': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'filterItems');
         final items = D4.getRequiredArg<List<dynamic>>(positional, 0, 'items', 'filterItems');
         final predicateRaw = named['predicate'];
         final predicate = predicateRaw == null ? null : (dynamic p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; };
-        return $d4_example_1.filterItems<dynamic>(items, predicate: predicate);
+        return filterItems<dynamic>(items, predicate: predicate);
       },
       'promptUser': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'promptUser');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'promptUser');
         final customPromptRaw = named['customPrompt'];
-        final customPrompt = customPromptRaw == null ? null : (String p0, String? p1, bool p2) { return D4.callInterpreterCallback(visitor!, customPromptRaw, [p0, p1, p2]) as String; };
+        final customPrompt = customPromptRaw == null ? null : (String p0, String? p1, bool p2) { return D4.callInterpreterCallback(visitor, customPromptRaw, [p0, p1, p2]) as String; };
         final defaultValue = D4.getOptionalNamedArg<String?>(named, 'defaultValue');
         final required = D4.getNamedArgWithDefault<bool>(named, 'required', true);
-        return $d4_example_1.promptUser(message, customPrompt: customPrompt, defaultValue: defaultValue, required: required);
+        return promptUser(message, customPrompt: customPrompt, defaultValue: defaultValue, required: required);
       },
     };
   }
@@ -176,9 +58,9 @@ class CoreExtensionsBridge {
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> globalFunctionSourceUris() {
     return {
-      'processItems': 'package:d4_example/test_extensions.dart',
-      'filterItems': 'package:d4_example/test_extensions.dart',
-      'promptUser': 'package:d4_example/test_extensions.dart',
+      'processItems': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\test_extensions.dart',
+      'filterItems': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\test_extensions.dart',
+      'promptUser': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\test_extensions.dart',
     };
   }
 
@@ -198,7 +80,7 @@ class CoreExtensionsBridge {
   /// multiple barrels.
   static List<String> sourceLibraries() {
     return [
-      'package:d4_example/test_extensions.dart',
+      'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\test_extensions.dart',
     ];
   }
 
@@ -228,34 +110,26 @@ class CoreExtensionsBridge {
 
 BridgedClass _createItemProcessorBridge() {
   return BridgedClass(
-    nativeType: $d4_example_1.ItemProcessor,
+    nativeType: ItemProcessor,
     name: 'ItemProcessor',
-    isAssignable: (v) => v is $d4_example_1.ItemProcessor,
-    constructors: {
-      '': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'ItemProcessor');
-        if (positional.isEmpty) {
-          throw ArgumentError('ItemProcessor: Missing required argument "transform" at position 0');
-        }
-        final transformRaw = positional[0];
-        return $d4_example_1.ItemProcessor((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, transformRaw, [p0])); });
+        return ItemProcessor((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, transformRaw, [p0])); });
       },
       'identity': (visitor, positional, named) {
-        return $d4_example_1.ItemProcessor.identity();
+        return ItemProcessor.identity();
       },
     },
     getters: {
-      'transform': (visitor, target) => D4.validateTarget<$d4_example_1.ItemProcessor>(target, 'ItemProcessor').transform,
+      'transform': (visitor, target) => D4.validateTarget<ItemProcessor>(target, 'ItemProcessor').transform,
     },
     methods: {
       'process': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_1.ItemProcessor>(target, 'ItemProcessor');
+        final t = D4.validateTarget<ItemProcessor>(target, 'ItemProcessor');
         D4.requireMinArgs(positional, 1, 'process');
         final item = D4.getRequiredArg<dynamic>(positional, 0, 'item', 'process');
         return t.process(item);
       },
       'processAll': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_1.ItemProcessor>(target, 'ItemProcessor');
+        final t = D4.validateTarget<ItemProcessor>(target, 'ItemProcessor');
         D4.requireMinArgs(positional, 1, 'processAll');
         if (positional.isEmpty) {
           throw ArgumentError('processAll: Missing required argument "items" at position 0');
@@ -286,7 +160,6 @@ BridgedClass _createTestPointBridge() {
   return BridgedClass(
     nativeType: $d4_example_1.TestPoint,
     name: 'TestPoint',
-    isAssignable: (v) => v is $d4_example_1.TestPoint,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'TestPoint');

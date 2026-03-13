@@ -1,22 +1,22 @@
 // D4rt Bridge - Generated file, do not edit
 // Dartscript registration for d4_example
-// Generated: 2026-03-12T19:22:10.983518
+// Generated: 2026-03-12T17:02:45.492572
 
 /// D4rt Bridge Registration for d4_example
 library;
 
 import 'package:tom_d4rt_exec/d4rt.dart';
-import 'src/d4rt_bridges/core_extensions.b.dart' as core_extensions_bridges;
-import 'src/d4rt_bridges/example_project.b.dart' as example_project_bridges;
-import 'src/d4rt_bridges/user_guide.b.dart' as user_guide_bridges;
-import 'src/d4rt_bridges/user_reference.b.dart' as user_reference_bridges;
-import 'src/d4rt_bridges/userbridge_override.b.dart' as userbridge_override_bridges;
-import 'src/d4rt_bridges/userbridge_user_guide.b.dart' as userbridge_user_guide_bridges;
-import 'src/d4rt_bridges/dart_overview.b.dart' as dart_overview_bridges;
-import 'src/d4rt_bridges/path_bridges.b.dart' as path_bridges;
-import 'src/d4rt_bridges/dcli_bridges.b.dart' as dcli_bridges;
-import 'src/d4rt_bridges/test_part_of_files.b.dart' as test_part_of_files_bridges;
-import 'src/d4rt_bridges/test_callback_types.b.dart' as test_callback_types_bridges;
+import 'src\d4rt_bridges\core_extensions.b.dart' as core_extensions_bridges;
+import 'src\d4rt_bridges\example_project.b.dart' as example_project_bridges;
+import 'src\d4rt_bridges\user_guide.b.dart' as user_guide_bridges;
+import 'src\d4rt_bridges\user_reference.b.dart' as user_reference_bridges;
+import 'src\d4rt_bridges\userbridge_override.b.dart' as userbridge_override_bridges;
+import 'src\d4rt_bridges\userbridge_user_guide.b.dart' as userbridge_user_guide_bridges;
+import 'src\d4rt_bridges\dart_overview.b.dart' as dart_overview_bridges;
+import 'src\d4rt_bridges\path_bridges.b.dart' as path_bridges;
+import 'src\d4rt_bridges\dcli_bridges.b.dart' as dcli_bridges;
+import 'src\d4rt_bridges\test_part_of_files.b.dart' as test_part_of_files_bridges;
+import 'src\d4rt_bridges\test_callback_types.b.dart' as test_callback_types_bridges;
 
 /// Combined bridge registration for d4_example.
 class D4ExampleBridges {
