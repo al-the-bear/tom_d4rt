@@ -1,12 +1,12 @@
 // D4rt Bridge - Generated file, do not edit
 // Dartscript registration for dart_overview
-// Generated: 2026-03-12T18:17:51.735151
+// Generated: 2026-03-12T17:02:50.229994
 
 /// D4rt Bridge Registration for dart_overview
 library;
 
 import 'package:tom_d4rt/d4rt.dart';
-import 'src/d4rt_bridges/dart_overview_bridges.b.dart' as all_bridges;
+import 'src\d4rt_bridges\dart_overview_bridges.b.dart' as all_bridges;
 
 /// Combined bridge registration for dart_overview.
 class DartOverviewBridges {
