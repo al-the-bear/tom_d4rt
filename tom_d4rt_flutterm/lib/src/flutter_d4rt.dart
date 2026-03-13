@@ -53,7 +53,9 @@ class FlutterD4rt {
   static void _ensureRelaxersRegistered() {
     if (!_relaxersRegistered) {
       registerRelaxers();
-      registerGenericConstructors(); // RC-2
+      // TODO(RC-2): Uncomment after d4rtgen re-run generates
+      // registerGenericConstructors() in flutter_relaxers.b.dart.
+      // registerGenericConstructors();
       registerD4rtRuntimeExtensions();
       _relaxersRegistered = true;
     }

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 5 files
-// Generated: 2026-03-12T18:14:33.277590
+// Generated: 2026-03-12T22:40:34.446597
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -397,6 +397,11 @@ BridgedClass _createSchedulerBindingBridge() {
         (t as dynamic).initServiceExtensions();
         return null;
       },
+      'resetInternalState': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_4.SchedulerBinding>(target, 'SchedulerBinding');
+        t.resetInternalState();
+        return null;
+      },
       'handleAppLifecycleStateChanged': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_4.SchedulerBinding>(target, 'SchedulerBinding');
         D4.requireMinArgs(positional, 1, 'handleAppLifecycleStateChanged');
@@ -420,6 +425,10 @@ BridgedClass _createSchedulerBindingBridge() {
         final t = D4.validateTarget<$flutter_4.SchedulerBinding>(target, 'SchedulerBinding');
         (t as dynamic).unlocked();
         return null;
+      },
+      'handleEventLoopCallback': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_4.SchedulerBinding>(target, 'SchedulerBinding');
+        return t.handleEventLoopCallback();
       },
       'scheduleFrameCallback': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_4.SchedulerBinding>(target, 'SchedulerBinding');
@@ -644,9 +653,11 @@ BridgedClass _createSchedulerBindingBridge() {
       'addTimingsCallback': 'void addTimingsCallback(TimingsCallback callback)',
       'removeTimingsCallback': 'void removeTimingsCallback(TimingsCallback callback)',
       'initServiceExtensions': 'void initServiceExtensions()',
+      'resetInternalState': 'void resetInternalState()',
       'handleAppLifecycleStateChanged': 'void handleAppLifecycleStateChanged(AppLifecycleState state)',
       'scheduleTask': 'Future<T> scheduleTask(TaskCallback<T> task, Priority priority, {String? debugLabel, Flow? flow})',
       'unlocked': 'void unlocked()',
+      'handleEventLoopCallback': 'bool handleEventLoopCallback()',
       'scheduleFrameCallback': 'int scheduleFrameCallback(FrameCallback callback, {bool rescheduling = false, bool scheduleNewFrame = true})',
       'cancelFrameCallbackWithId': 'void cancelFrameCallbackWithId(int id)',
       'debugAssertNoTransientCallbacks': 'bool debugAssertNoTransientCallbacks(String reason)',

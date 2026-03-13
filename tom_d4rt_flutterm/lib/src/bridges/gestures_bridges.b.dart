@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 33 files
-// Generated: 2026-03-12T18:14:56.013972
+// Generated: 2026-03-12T22:41:05.945726
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -8829,6 +8829,7 @@ BridgedClass _createDragGestureRecognizerBridge() {
       'onlyAcceptDragOnThreshold': (visitor, target) => D4.validateTarget<$flutter_20.DragGestureRecognizer>(target, 'DragGestureRecognizer').onlyAcceptDragOnThreshold,
       'velocityTrackerBuilder': (visitor, target) => D4.validateTarget<$flutter_20.DragGestureRecognizer>(target, 'DragGestureRecognizer').velocityTrackerBuilder,
       'lastPosition': (visitor, target) => D4.validateTarget<$flutter_20.DragGestureRecognizer>(target, 'DragGestureRecognizer').lastPosition,
+      'debugLastPendingEventTimestamp': (visitor, target) => D4.validateTarget<$flutter_20.DragGestureRecognizer>(target, 'DragGestureRecognizer').debugLastPendingEventTimestamp,
       'globalDistanceMoved': (visitor, target) => D4.validateTarget<$flutter_20.DragGestureRecognizer>(target, 'DragGestureRecognizer').globalDistanceMoved,
     },
     setters: {
@@ -9134,6 +9135,7 @@ BridgedClass _createDragGestureRecognizerBridge() {
       'onlyAcceptDragOnThreshold': 'bool get onlyAcceptDragOnThreshold',
       'velocityTrackerBuilder': 'GestureVelocityTrackerBuilder get velocityTrackerBuilder',
       'lastPosition': 'OffsetPair get lastPosition',
+      'debugLastPendingEventTimestamp': 'Duration? get debugLastPendingEventTimestamp',
       'globalDistanceMoved': 'double get globalDistanceMoved',
     },
     setterSignatures: {
@@ -9200,6 +9202,7 @@ BridgedClass _createVerticalDragGestureRecognizerBridge() {
       'onlyAcceptDragOnThreshold': (visitor, target) => D4.validateTarget<$flutter_20.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').onlyAcceptDragOnThreshold,
       'velocityTrackerBuilder': (visitor, target) => D4.validateTarget<$flutter_20.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').velocityTrackerBuilder,
       'lastPosition': (visitor, target) => D4.validateTarget<$flutter_20.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').lastPosition,
+      'debugLastPendingEventTimestamp': (visitor, target) => D4.validateTarget<$flutter_20.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').debugLastPendingEventTimestamp,
       'globalDistanceMoved': (visitor, target) => D4.validateTarget<$flutter_20.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').globalDistanceMoved,
     },
     setters: {
@@ -9505,6 +9508,7 @@ BridgedClass _createVerticalDragGestureRecognizerBridge() {
       'onlyAcceptDragOnThreshold': 'bool get onlyAcceptDragOnThreshold',
       'velocityTrackerBuilder': 'VelocityTracker Function(PointerEvent) get velocityTrackerBuilder',
       'lastPosition': 'OffsetPair get lastPosition',
+      'debugLastPendingEventTimestamp': 'Duration? get debugLastPendingEventTimestamp',
       'globalDistanceMoved': 'double get globalDistanceMoved',
     },
     setterSignatures: {
@@ -9571,6 +9575,7 @@ BridgedClass _createHorizontalDragGestureRecognizerBridge() {
       'onlyAcceptDragOnThreshold': (visitor, target) => D4.validateTarget<$flutter_20.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').onlyAcceptDragOnThreshold,
       'velocityTrackerBuilder': (visitor, target) => D4.validateTarget<$flutter_20.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').velocityTrackerBuilder,
       'lastPosition': (visitor, target) => D4.validateTarget<$flutter_20.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').lastPosition,
+      'debugLastPendingEventTimestamp': (visitor, target) => D4.validateTarget<$flutter_20.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').debugLastPendingEventTimestamp,
       'globalDistanceMoved': (visitor, target) => D4.validateTarget<$flutter_20.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').globalDistanceMoved,
     },
     setters: {
@@ -9876,6 +9881,7 @@ BridgedClass _createHorizontalDragGestureRecognizerBridge() {
       'onlyAcceptDragOnThreshold': 'bool get onlyAcceptDragOnThreshold',
       'velocityTrackerBuilder': 'VelocityTracker Function(PointerEvent) get velocityTrackerBuilder',
       'lastPosition': 'OffsetPair get lastPosition',
+      'debugLastPendingEventTimestamp': 'Duration? get debugLastPendingEventTimestamp',
       'globalDistanceMoved': 'double get globalDistanceMoved',
     },
     setterSignatures: {
@@ -9942,6 +9948,7 @@ BridgedClass _createPanGestureRecognizerBridge() {
       'onlyAcceptDragOnThreshold': (visitor, target) => D4.validateTarget<$flutter_20.PanGestureRecognizer>(target, 'PanGestureRecognizer').onlyAcceptDragOnThreshold,
       'velocityTrackerBuilder': (visitor, target) => D4.validateTarget<$flutter_20.PanGestureRecognizer>(target, 'PanGestureRecognizer').velocityTrackerBuilder,
       'lastPosition': (visitor, target) => D4.validateTarget<$flutter_20.PanGestureRecognizer>(target, 'PanGestureRecognizer').lastPosition,
+      'debugLastPendingEventTimestamp': (visitor, target) => D4.validateTarget<$flutter_20.PanGestureRecognizer>(target, 'PanGestureRecognizer').debugLastPendingEventTimestamp,
       'globalDistanceMoved': (visitor, target) => D4.validateTarget<$flutter_20.PanGestureRecognizer>(target, 'PanGestureRecognizer').globalDistanceMoved,
     },
     setters: {
@@ -10247,6 +10254,7 @@ BridgedClass _createPanGestureRecognizerBridge() {
       'onlyAcceptDragOnThreshold': 'bool get onlyAcceptDragOnThreshold',
       'velocityTrackerBuilder': 'VelocityTracker Function(PointerEvent) get velocityTrackerBuilder',
       'lastPosition': 'OffsetPair get lastPosition',
+      'debugLastPendingEventTimestamp': 'Duration? get debugLastPendingEventTimestamp',
       'globalDistanceMoved': 'double get globalDistanceMoved',
     },
     setterSignatures: {

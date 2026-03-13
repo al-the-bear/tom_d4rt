@@ -229,6 +229,11 @@ void _registerGenericConstructors() {
   });
 
   // RC-3: StrutStyle constructor override.
+  // TODO: Remove after generator re-run. The StrutStyleUserBridge in
+  // d4rt_user_bridges/strut_style_user_bridge.dart replaces this override.
+  // This registerGenericConstructor call is only needed until the generator
+  // wires up the UserBridge constructor override in dart_ui_bridges.b.dart.
+  //
   // The dart:ui.StrutStyle bridge creates an opaque object (no getters).
   // When a D4rt script imports 'dart:ui', it gets dart:ui.StrutStyle, but
   // TextPainter etc. expect painting.StrutStyle. Since painting.StrutStyle

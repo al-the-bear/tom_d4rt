@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 50 files
-// Generated: 2026-03-12T18:14:49.220402
+// Generated: 2026-03-12T22:40:56.403520
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -3906,6 +3906,12 @@ BridgedClass _createTextInputConnectionBridge() {
         return null;
       },
     },
+    staticMethods: {
+      'debugResetId': (visitor, positional, named, typeArgs) {
+        final to = D4.getNamedArgWithDefault<int>(named, 'to', 1);
+        return $flutter_50.TextInputConnection.debugResetId(to: to);
+      },
+    },
     methodSignatures: {
       'show': 'void show()',
       'requestAutofill': 'void requestAutofill()',
@@ -3922,6 +3928,9 @@ BridgedClass _createTextInputConnectionBridge() {
     getterSignatures: {
       'attached': 'bool get attached',
       'scribbleInProgress': 'bool get scribbleInProgress',
+    },
+    staticMethodSignatures: {
+      'debugResetId': 'void debugResetId({int to = 1})',
     },
   );
 }
@@ -3940,7 +3949,15 @@ BridgedClass _createTextInputBridge() {
     getters: {
       'scribbleInProgress': (visitor, target) => D4.validateTarget<$flutter_50.TextInput>(target, 'TextInput').scribbleInProgress,
     },
+    staticGetters: {
+      'scribbleClients': (visitor) => $flutter_50.TextInput.scribbleClients,
+    },
     staticMethods: {
+      'setChannel': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'setChannel');
+        final newChannel = D4.getRequiredArg<$flutter_32.MethodChannel>(positional, 0, 'newChannel', 'setChannel');
+        return $flutter_50.TextInput.setChannel(newChannel);
+      },
       'setInputControl': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'setInputControl');
         final newControl = D4.getRequiredArg<$flutter_50.TextInputControl?>(positional, 0, 'newControl', 'setInputControl');
@@ -3983,6 +4000,7 @@ BridgedClass _createTextInputBridge() {
       'scribbleInProgress': 'bool get scribbleInProgress',
     },
     staticMethodSignatures: {
+      'setChannel': 'void setChannel(MethodChannel newChannel)',
       'setInputControl': 'void setInputControl(TextInputControl? newControl)',
       'restorePlatformInputControl': 'void restorePlatformInputControl()',
       'ensureInitialized': 'void ensureInitialized()',
@@ -3991,6 +4009,9 @@ BridgedClass _createTextInputBridge() {
       'finishAutofillContext': 'void finishAutofillContext({bool shouldSave = true})',
       'registerScribbleElement': 'void registerScribbleElement(String elementIdentifier, ScribbleClient scribbleClient)',
       'unregisterScribbleElement': 'void unregisterScribbleElement(String elementIdentifier)',
+    },
+    staticGetterSignatures: {
+      'scribbleClients': 'Map<String, ScribbleClient> get scribbleClients',
     },
   );
 }
@@ -4135,6 +4156,7 @@ BridgedClass _createSystemContextMenuControllerBridge() {
     },
     getters: {
       'onSystemHide': (visitor, target) => D4.validateTarget<$flutter_50.SystemContextMenuController>(target, 'SystemContextMenuController').onSystemHide,
+      'isVisible': (visitor, target) => D4.validateTarget<$flutter_50.SystemContextMenuController>(target, 'SystemContextMenuController').isVisible,
     },
     methods: {
       'handleSystemHide': (visitor, target, positional, named, typeArgs) {
@@ -4214,6 +4236,7 @@ BridgedClass _createSystemContextMenuControllerBridge() {
     },
     getterSignatures: {
       'onSystemHide': 'VoidCallback? get onSystemHide',
+      'isVisible': 'bool get isVisible',
     },
   );
 }
@@ -7168,6 +7191,11 @@ BridgedClass _createHardwareKeyboardBridge() {
         final event = D4.getRequiredArg<$flutter_23.KeyEvent>(positional, 0, 'event', 'handleKeyEvent');
         return t.handleKeyEvent(event);
       },
+      'clearState': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_23.HardwareKeyboard>(target, 'HardwareKeyboard');
+        t.clearState();
+        return null;
+      },
     },
     staticGetters: {
       'instance': (visitor) => $flutter_23.HardwareKeyboard.instance,
@@ -7183,6 +7211,7 @@ BridgedClass _createHardwareKeyboardBridge() {
       'removeHandler': 'void removeHandler(KeyEventCallback handler)',
       'syncKeyboardState': 'Future<void> syncKeyboardState()',
       'handleKeyEvent': 'bool handleKeyEvent(KeyEvent event)',
+      'clearState': 'void clearState()',
     },
     getterSignatures: {
       'physicalKeysPressed': 'Set<PhysicalKeyboardKey> get physicalKeysPressed',
@@ -7237,6 +7266,20 @@ BridgedClass _createRestorationManagerBridge() {
         final encodedData = D4.getRequiredArg<Uint8List>(positional, 0, 'encodedData', 'sendToEngine');
         return t.sendToEngine(encodedData);
       },
+      'scheduleSerializationFor': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_37.RestorationManager>(target, 'RestorationManager');
+        D4.requireMinArgs(positional, 1, 'scheduleSerializationFor');
+        final bucket = D4.getRequiredArg<$flutter_37.RestorationBucket>(positional, 0, 'bucket', 'scheduleSerializationFor');
+        t.scheduleSerializationFor(bucket);
+        return null;
+      },
+      'unscheduleSerializationFor': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_37.RestorationManager>(target, 'RestorationManager');
+        D4.requireMinArgs(positional, 1, 'unscheduleSerializationFor');
+        final bucket = D4.getRequiredArg<$flutter_37.RestorationBucket>(positional, 0, 'bucket', 'unscheduleSerializationFor');
+        t.unscheduleSerializationFor(bucket);
+        return null;
+      },
       'flushData': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_37.RestorationManager>(target, 'RestorationManager');
         t.flushData();
@@ -7267,6 +7310,11 @@ BridgedClass _createRestorationManagerBridge() {
         t.removeListener(() { D4.callInterpreterCallback(visitor!, listenerRaw, []); });
         return null;
       },
+      'notifyListeners': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_37.RestorationManager>(target, 'RestorationManager');
+        t.notifyListeners();
+        return null;
+      },
     },
     constructorSignatures: {
       '': 'RestorationManager()',
@@ -7275,10 +7323,13 @@ BridgedClass _createRestorationManagerBridge() {
       'initChannels': 'void initChannels()',
       'handleRestorationUpdateFromEngine': 'void handleRestorationUpdateFromEngine({required bool enabled, required Uint8List? data})',
       'sendToEngine': 'Future<void> sendToEngine(Uint8List encodedData)',
+      'scheduleSerializationFor': 'void scheduleSerializationFor(RestorationBucket bucket)',
+      'unscheduleSerializationFor': 'void unscheduleSerializationFor(RestorationBucket bucket)',
       'flushData': 'void flushData()',
       'dispose': 'void dispose()',
       'addListener': 'void addListener(void Function() listener)',
       'removeListener': 'void removeListener(void Function() listener)',
+      'notifyListeners': 'void notifyListeners()',
     },
     getterSignatures: {
       'rootBucket': 'Future<RestorationBucket?> get rootBucket',
@@ -7364,6 +7415,11 @@ BridgedClass _createRestorationBucketBridge() {
         t.adoptChild(child);
         return null;
       },
+      'finalize': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_37.RestorationBucket>(target, 'RestorationBucket');
+        t.finalize();
+        return null;
+      },
       'rename': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_37.RestorationBucket>(target, 'RestorationBucket');
         D4.requireMinArgs(positional, 1, 'rename');
@@ -7393,6 +7449,7 @@ BridgedClass _createRestorationBucketBridge() {
       'contains': 'bool contains(String restorationId)',
       'claimChild': 'RestorationBucket claimChild(String restorationId, {required Object? debugOwner})',
       'adoptChild': 'void adoptChild(RestorationBucket child)',
+      'finalize': 'void finalize()',
       'rename': 'void rename(String newRestorationId)',
       'dispose': 'void dispose()',
       'toString': 'String toString()',
@@ -7646,6 +7703,11 @@ BridgedClass _createServicesBindingBridge() {
         t.removeTimingsCallback((List<FrameTiming> p0) { D4.callInterpreterCallback(visitor!, callbackRaw, [p0]); });
         return null;
       },
+      'resetInternalState': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_14.ServicesBinding>(target, 'ServicesBinding');
+        t.resetInternalState();
+        return null;
+      },
       'handleAppLifecycleStateChanged': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_14.ServicesBinding>(target, 'ServicesBinding');
         D4.requireMinArgs(positional, 1, 'handleAppLifecycleStateChanged');
@@ -7664,6 +7726,10 @@ BridgedClass _createServicesBindingBridge() {
         final debugLabel = D4.getOptionalNamedArg<String?>(named, 'debugLabel');
         final flow = D4.getOptionalNamedArg<Flow?>(named, 'flow');
         return t.scheduleTask(() { return D4.callInterpreterCallback(visitor!, taskRaw, []) as FutureOr<Object>; }, priority, debugLabel: debugLabel, flow: flow);
+      },
+      'handleEventLoopCallback': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_14.ServicesBinding>(target, 'ServicesBinding');
+        return t.handleEventLoopCallback();
       },
       'scheduleFrameCallback': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_14.ServicesBinding>(target, 'ServicesBinding');
@@ -7812,8 +7878,10 @@ BridgedClass _createServicesBindingBridge() {
       'toString': 'String toString()',
       'addTimingsCallback': 'void addTimingsCallback(void Function(List<FrameTiming>) callback)',
       'removeTimingsCallback': 'void removeTimingsCallback(void Function(List<FrameTiming>) callback)',
+      'resetInternalState': 'void resetInternalState()',
       'handleAppLifecycleStateChanged': 'void handleAppLifecycleStateChanged(AppLifecycleState state)',
       'scheduleTask': 'Future<T> scheduleTask(FutureOr<T> Function() task, Priority priority, {String? debugLabel, Flow? flow})',
+      'handleEventLoopCallback': 'bool handleEventLoopCallback()',
       'scheduleFrameCallback': 'int scheduleFrameCallback(void Function(Duration) callback, {bool rescheduling = false, bool scheduleNewFrame = true})',
       'cancelFrameCallbackWithId': 'void cancelFrameCallbackWithId(int id)',
       'debugAssertNoTransientCallbacks': 'bool debugAssertNoTransientCallbacks(String reason)',
@@ -8085,6 +8153,13 @@ BridgedClass _createFontLoaderBridge() {
         final t = D4.validateTarget<$flutter_21.FontLoader>(target, 'FontLoader');
         return t.load();
       },
+      'loadFont': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_21.FontLoader>(target, 'FontLoader');
+        D4.requireMinArgs(positional, 2, 'loadFont');
+        final list = D4.getRequiredArg<Uint8List>(positional, 0, 'list', 'loadFont');
+        final family = D4.getRequiredArg<String>(positional, 1, 'family', 'loadFont');
+        return t.loadFont(list, family);
+      },
     },
     constructorSignatures: {
       '': 'FontLoader(String family)',
@@ -8092,6 +8167,7 @@ BridgedClass _createFontLoaderBridge() {
     methodSignatures: {
       'addFont': 'void addFont(Future<ByteData> bytes)',
       'load': 'Future<void> load()',
+      'loadFont': 'Future<void> loadFont(Uint8List list, String family)',
     },
     getterSignatures: {
       'family': 'String get family',
@@ -9879,6 +9955,7 @@ BridgedClass _createAndroidViewControllerBridge() {
       'requiresViewComposition': (visitor, target) => D4.validateTarget<$flutter_33.AndroidViewController>(target, 'AndroidViewController').requiresViewComposition,
       'pointTransformer': (visitor, target) => D4.validateTarget<$flutter_33.AndroidViewController>(target, 'AndroidViewController').pointTransformer,
       'isCreated': (visitor, target) => D4.validateTarget<$flutter_33.AndroidViewController>(target, 'AndroidViewController').isCreated,
+      'createdCallbacks': (visitor, target) => D4.validateTarget<$flutter_33.AndroidViewController>(target, 'AndroidViewController').createdCallbacks,
     },
     setters: {
       'pointTransformer': (visitor, target, value) => 
@@ -9992,6 +10069,7 @@ BridgedClass _createAndroidViewControllerBridge() {
       'requiresViewComposition': 'bool get requiresViewComposition',
       'pointTransformer': 'PointTransformer get pointTransformer',
       'isCreated': 'bool get isCreated',
+      'createdCallbacks': 'List<PlatformViewCreatedCallback> get createdCallbacks',
     },
     setterSignatures: {
       'pointTransformer': 'set pointTransformer(PointTransformer value)',
@@ -10035,6 +10113,7 @@ BridgedClass _createSurfaceAndroidViewControllerBridge() {
       'requiresViewComposition': (visitor, target) => D4.validateTarget<$flutter_33.SurfaceAndroidViewController>(target, 'SurfaceAndroidViewController').requiresViewComposition,
       'pointTransformer': (visitor, target) => D4.validateTarget<$flutter_33.SurfaceAndroidViewController>(target, 'SurfaceAndroidViewController').pointTransformer,
       'isCreated': (visitor, target) => D4.validateTarget<$flutter_33.SurfaceAndroidViewController>(target, 'SurfaceAndroidViewController').isCreated,
+      'createdCallbacks': (visitor, target) => D4.validateTarget<$flutter_33.SurfaceAndroidViewController>(target, 'SurfaceAndroidViewController').createdCallbacks,
     },
     setters: {
       'pointTransformer': (visitor, target, value) {
@@ -10127,6 +10206,7 @@ BridgedClass _createSurfaceAndroidViewControllerBridge() {
       'requiresViewComposition': 'bool get requiresViewComposition',
       'pointTransformer': 'Offset Function(Offset) get pointTransformer',
       'isCreated': 'bool get isCreated',
+      'createdCallbacks': 'List<void Function(int)> get createdCallbacks',
     },
     setterSignatures: {
       'pointTransformer': 'set pointTransformer(Offset Function(Offset) value)',
@@ -10152,6 +10232,7 @@ BridgedClass _createExpensiveAndroidViewControllerBridge() {
       'requiresViewComposition': (visitor, target) => D4.validateTarget<$flutter_33.ExpensiveAndroidViewController>(target, 'ExpensiveAndroidViewController').requiresViewComposition,
       'pointTransformer': (visitor, target) => D4.validateTarget<$flutter_33.ExpensiveAndroidViewController>(target, 'ExpensiveAndroidViewController').pointTransformer,
       'isCreated': (visitor, target) => D4.validateTarget<$flutter_33.ExpensiveAndroidViewController>(target, 'ExpensiveAndroidViewController').isCreated,
+      'createdCallbacks': (visitor, target) => D4.validateTarget<$flutter_33.ExpensiveAndroidViewController>(target, 'ExpensiveAndroidViewController').createdCallbacks,
     },
     setters: {
       'pointTransformer': (visitor, target, value) {
@@ -10244,6 +10325,7 @@ BridgedClass _createExpensiveAndroidViewControllerBridge() {
       'requiresViewComposition': 'bool get requiresViewComposition',
       'pointTransformer': 'Offset Function(Offset) get pointTransformer',
       'isCreated': 'bool get isCreated',
+      'createdCallbacks': 'List<void Function(int)> get createdCallbacks',
     },
     setterSignatures: {
       'pointTransformer': 'set pointTransformer(Offset Function(Offset) value)',
@@ -10269,6 +10351,7 @@ BridgedClass _createHybridAndroidViewControllerBridge() {
       'requiresViewComposition': (visitor, target) => D4.validateTarget<$flutter_33.HybridAndroidViewController>(target, 'HybridAndroidViewController').requiresViewComposition,
       'pointTransformer': (visitor, target) => D4.validateTarget<$flutter_33.HybridAndroidViewController>(target, 'HybridAndroidViewController').pointTransformer,
       'isCreated': (visitor, target) => D4.validateTarget<$flutter_33.HybridAndroidViewController>(target, 'HybridAndroidViewController').isCreated,
+      'createdCallbacks': (visitor, target) => D4.validateTarget<$flutter_33.HybridAndroidViewController>(target, 'HybridAndroidViewController').createdCallbacks,
     },
     setters: {
       'pointTransformer': (visitor, target, value) {
@@ -10366,6 +10449,7 @@ BridgedClass _createHybridAndroidViewControllerBridge() {
       'requiresViewComposition': 'bool get requiresViewComposition',
       'pointTransformer': 'Offset Function(Offset) get pointTransformer',
       'isCreated': 'bool get isCreated',
+      'createdCallbacks': 'List<void Function(int)> get createdCallbacks',
     },
     setterSignatures: {
       'pointTransformer': 'set pointTransformer(Offset Function(Offset) value)',
@@ -10394,6 +10478,7 @@ BridgedClass _createTextureAndroidViewControllerBridge() {
       'requiresViewComposition': (visitor, target) => D4.validateTarget<$flutter_33.TextureAndroidViewController>(target, 'TextureAndroidViewController').requiresViewComposition,
       'pointTransformer': (visitor, target) => D4.validateTarget<$flutter_33.TextureAndroidViewController>(target, 'TextureAndroidViewController').pointTransformer,
       'isCreated': (visitor, target) => D4.validateTarget<$flutter_33.TextureAndroidViewController>(target, 'TextureAndroidViewController').isCreated,
+      'createdCallbacks': (visitor, target) => D4.validateTarget<$flutter_33.TextureAndroidViewController>(target, 'TextureAndroidViewController').createdCallbacks,
     },
     setters: {
       'pointTransformer': (visitor, target, value) {
@@ -10486,6 +10571,7 @@ BridgedClass _createTextureAndroidViewControllerBridge() {
       'requiresViewComposition': 'bool get requiresViewComposition',
       'pointTransformer': 'Offset Function(Offset) get pointTransformer',
       'isCreated': 'bool get isCreated',
+      'createdCallbacks': 'List<void Function(int)> get createdCallbacks',
     },
     setterSignatures: {
       'pointTransformer': 'set pointTransformer(Offset Function(Offset) value)',
@@ -10821,6 +10907,13 @@ BridgedClass _createDefaultProcessTextServiceBridge() {
       },
     },
     methods: {
+      'setChannel': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_35.DefaultProcessTextService>(target, 'DefaultProcessTextService');
+        D4.requireMinArgs(positional, 1, 'setChannel');
+        final newChannel = D4.getRequiredArg<$flutter_32.MethodChannel>(positional, 0, 'newChannel', 'setChannel');
+        t.setChannel(newChannel);
+        return null;
+      },
       'queryTextActions': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_35.DefaultProcessTextService>(target, 'DefaultProcessTextService');
         return t.queryTextActions();
@@ -10838,6 +10931,7 @@ BridgedClass _createDefaultProcessTextServiceBridge() {
       '': 'DefaultProcessTextService()',
     },
     methodSignatures: {
+      'setChannel': 'void setChannel(MethodChannel newChannel)',
       'queryTextActions': 'Future<List<ProcessTextAction>> queryTextActions()',
       'processTextAction': 'Future<String?> processTextAction(String id, String text, bool readOnly)',
     },
@@ -11334,6 +11428,9 @@ BridgedClass _createSystemChromeBridge() {
     isAssignable: (v) => v is $flutter_43.SystemChrome,
     constructors: {
     },
+    staticGetters: {
+      'latestStyle': (visitor) => $flutter_43.SystemChrome.latestStyle,
+    },
     staticMethods: {
       'setPreferredOrientations': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'setPreferredOrientations');
@@ -11385,6 +11482,9 @@ BridgedClass _createSystemChromeBridge() {
       'restoreSystemUIOverlays': 'Future<void> restoreSystemUIOverlays()',
       'setSystemUIOverlayStyle': 'void setSystemUIOverlayStyle(SystemUiOverlayStyle style)',
       'handleAppLifecycleStateChanged': 'void handleAppLifecycleStateChanged(AppLifecycleState state)',
+    },
+    staticGetterSignatures: {
+      'latestStyle': 'SystemUiOverlayStyle? get latestStyle',
     },
   );
 }
@@ -11825,6 +11925,12 @@ BridgedClass _createLengthLimitingTextInputFormatterBridge() {
         final platform = D4.getOptionalArg<$flutter_5.TargetPlatform?>(positional, 0, 'platform');
         return $flutter_49.LengthLimitingTextInputFormatter.getDefaultMaxLengthEnforcement(platform);
       },
+      'truncate': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 2, 'truncate');
+        final value = D4.getRequiredArg<$flutter_50.TextEditingValue>(positional, 0, 'value', 'truncate');
+        final maxLength = D4.getRequiredArg<int>(positional, 1, 'maxLength', 'truncate');
+        return $flutter_49.LengthLimitingTextInputFormatter.truncate(value, maxLength);
+      },
     },
     constructorSignatures: {
       '': 'LengthLimitingTextInputFormatter(int? maxLength, {MaxLengthEnforcement? maxLengthEnforcement})',
@@ -11838,6 +11944,7 @@ BridgedClass _createLengthLimitingTextInputFormatterBridge() {
     },
     staticMethodSignatures: {
       'getDefaultMaxLengthEnforcement': 'MaxLengthEnforcement getDefaultMaxLengthEnforcement([TargetPlatform? platform])',
+      'truncate': 'TextEditingValue truncate(TextEditingValue value, int maxLength)',
     },
   );
 }
@@ -11919,6 +12026,11 @@ BridgedClass _createUndoManagerBridge() {
       'client': (visitor) => $flutter_52.UndoManager.client,
     },
     staticMethods: {
+      'setChannel': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'setChannel');
+        final newChannel = D4.getRequiredArg<$flutter_32.MethodChannel>(positional, 0, 'newChannel', 'setChannel');
+        return $flutter_52.UndoManager.setChannel(newChannel);
+      },
       'setUndoState': (visitor, positional, named, typeArgs) {
         final canUndo = D4.getNamedArgWithDefault<bool>(named, 'canUndo', false);
         final canRedo = D4.getNamedArgWithDefault<bool>(named, 'canRedo', false);
@@ -11930,6 +12042,7 @@ BridgedClass _createUndoManagerBridge() {
         $flutter_52.UndoManager.client = D4.extractBridgedArgOrNull<$flutter_52.UndoManagerClient>(value, 'client'),
     },
     staticMethodSignatures: {
+      'setChannel': 'void setChannel(MethodChannel newChannel)',
       'setUndoState': 'void setUndoState({bool canUndo = false, bool canRedo = false})',
     },
     staticGetterSignatures: {

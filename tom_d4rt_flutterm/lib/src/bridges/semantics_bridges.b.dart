@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 12 files
-// Generated: 2026-03-12T18:14:41.360038
+// Generated: 2026-03-12T22:40:45.910801
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -2487,6 +2487,9 @@ BridgedClass _createCustomSemanticsActionBridge() {
         final id = D4.getRequiredArg<int>(positional, 0, 'id', 'getAction');
         return $flutter_7.CustomSemanticsAction.getAction(id);
       },
+      'resetForTests': (visitor, positional, named, typeArgs) {
+        return $flutter_7.CustomSemanticsAction.resetForTests();
+      },
     },
     constructorSignatures: {
       '': 'const CustomSemanticsAction({required String label})',
@@ -2504,6 +2507,7 @@ BridgedClass _createCustomSemanticsActionBridge() {
     staticMethodSignatures: {
       'getIdentifier': 'int getIdentifier(CustomSemanticsAction action)',
       'getAction': 'CustomSemanticsAction? getAction(int id)',
+      'resetForTests': 'void resetForTests()',
     },
   );
 }
@@ -3429,6 +3433,7 @@ BridgedClass _createSemanticsNodeBridge() {
       'parent': (visitor, target) => D4.validateTarget<$flutter_7.SemanticsNode>(target, 'SemanticsNode').parent,
       'traversalParent': (visitor, target) => D4.validateTarget<$flutter_7.SemanticsNode>(target, 'SemanticsNode').traversalParent,
       'depth': (visitor, target) => D4.validateTarget<$flutter_7.SemanticsNode>(target, 'SemanticsNode').depth,
+      'debugIsDirty': (visitor, target) => D4.validateTarget<$flutter_7.SemanticsNode>(target, 'SemanticsNode').debugIsDirty,
       'tags': (visitor, target) => D4.validateTarget<$flutter_7.SemanticsNode>(target, 'SemanticsNode').tags,
       'flagsCollection': (visitor, target) => D4.validateTarget<$flutter_7.SemanticsNode>(target, 'SemanticsNode').flagsCollection,
       'identifier': (visitor, target) => D4.validateTarget<$flutter_7.SemanticsNode>(target, 'SemanticsNode').identifier,
@@ -3497,6 +3502,18 @@ BridgedClass _createSemanticsNodeBridge() {
         }
         final visitor_Raw = positional[0];
         t.visitChildren(($flutter_7.SemanticsNode p0) { return D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]) as bool; });
+        return null;
+      },
+      'attach': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.SemanticsNode>(target, 'SemanticsNode');
+        D4.requireMinArgs(positional, 1, 'attach');
+        final owner = D4.getRequiredArg<$flutter_7.SemanticsOwner>(positional, 0, 'owner', 'attach');
+        t.attach(owner);
+        return null;
+      },
+      'detach': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.SemanticsNode>(target, 'SemanticsNode');
+        t.detach();
         return null;
       },
       'isTagged': (visitor, target, positional, named, typeArgs) {
@@ -3585,6 +3602,8 @@ BridgedClass _createSemanticsNodeBridge() {
     },
     methodSignatures: {
       'visitChildren': 'void visitChildren(SemanticsNodeVisitor visitor)',
+      'attach': 'void attach(SemanticsOwner owner)',
+      'detach': 'void detach()',
       'isTagged': 'bool isTagged(SemanticsTag tag)',
       'hasFlag': 'bool hasFlag(SemanticsFlag flag)',
       'updateWith': 'void updateWith({required SemanticsConfiguration? config, List<SemanticsNode>? childrenInInversePaintOrder})',
@@ -3620,6 +3639,7 @@ BridgedClass _createSemanticsNodeBridge() {
       'parent': 'SemanticsNode? get parent',
       'traversalParent': 'SemanticsNode? get traversalParent',
       'depth': 'int get depth',
+      'debugIsDirty': 'bool? get debugIsDirty',
       'tags': 'Set<SemanticsTag>? get tags',
       'flagsCollection': 'SemanticsFlags get flagsCollection',
       'identifier': 'String get identifier',
@@ -3749,6 +3769,11 @@ BridgedClass _createSemanticsOwnerBridge() {
         t.removeListener(() { D4.callInterpreterCallback(visitor!, listenerRaw, []); });
         return null;
       },
+      'notifyListeners': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.SemanticsOwner>(target, 'SemanticsOwner');
+        t.notifyListeners();
+        return null;
+      },
     },
     constructorSignatures: {
       '': 'SemanticsOwner({required void Function(SemanticsUpdate) onSemanticsUpdate})',
@@ -3761,6 +3786,7 @@ BridgedClass _createSemanticsOwnerBridge() {
       'toString': 'String toString()',
       'addListener': 'void addListener(void Function() listener)',
       'removeListener': 'void removeListener(void Function() listener)',
+      'notifyListeners': 'void notifyListeners()',
     },
     getterSignatures: {
       'onSemanticsUpdate': 'SemanticsUpdateCallback get onSemanticsUpdate',
