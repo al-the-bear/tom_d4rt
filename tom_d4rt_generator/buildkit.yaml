@@ -6,22 +6,28 @@ versioner:
 compiler:
   compiles:
     # macOS ARM64 - compile for self + all Linux targets
-    - commandline:
-        - mkdir -p $TOM_BINARY_PATH/%{target-platform-vs}
-        - dart compile exe %{file} --target-os=%{target-os} -o $TOM_BINARY_PATH/%{target-platform-vs}/%{file.name}
+    - pipeline:
+        - shell mkdir -p $TOM_BINARY_PATH/%{target-platform-vs}
+        - shell dart compile exe %{file} --target-os=%{target-os} -o $TOM_BINARY_PATH/%{target-platform-vs}/%{file.name}
       files: bin/d4rtgen.dart
       targets: [darwin-arm64, linux-x64, linux-arm64, linux-armhf]
       platforms: [darwin-arm64]
     
-    # Other platforms - compile for self only
-    - commandline:
-        - mkdir -p $TOM_BINARY_PATH/%{target-platform-vs}
-        - dart compile exe %{file} -o $TOM_BINARY_PATH/%{target-platform-vs}/%{file.name}
+    # Unix-like platforms - compile for self only
+    - pipeline:
+        - shell mkdir -p $TOM_BINARY_PATH/%{target-platform-vs}
+        - shell dart compile exe %{file} -o $TOM_BINARY_PATH/%{target-platform-vs}/%{file.name}
       files: bin/d4rtgen.dart
-      platforms: [darwin-x64, linux-*, win32-*]
+      platforms: [darwin-x64, linux-*]
+
+    # Windows - compile for self only
+    - pipeline:
+        - shell dart compile exe %{file} -o $TOM_BINARY_PATH/win32-x64/%{file.name}.exe
+      files: bin/d4rtgen.dart
+      platforms: [win32-*]
 
   postcompile:
     # Make binaries executable on Unix-like systems
     - pipeline:
-      - shell chmod -R +x $TOM_BINARY_PATH/%{current-platform-vs}/
+        - shell chmod -R +x $TOM_BINARY_PATH/%{current-platform-vs}/
       platforms: [macos, linux]
