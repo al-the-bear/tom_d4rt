@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 7 files
-// Generated: 2026-03-12T22:40:25.825112
+// Generated: 2026-03-13T17:53:33.286135
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -16,6 +16,7 @@ import 'package:flutter/src/physics/simulation.dart' as $flutter_4;
 import 'package:flutter/src/physics/spring_simulation.dart' as $flutter_5;
 import 'package:flutter/src/physics/tolerance.dart' as $flutter_6;
 import 'package:flutter/src/physics/utils.dart' as $flutter_7;
+import 'package:tom_d4rt_flutterm/src/d4rt_user_bridges/strut_style_user_bridge.dart' as $tom_d4rt_flutterm_1;
 
 /// Bridge class for flutter_physics module.
 class FlutterPhysicsBridge {

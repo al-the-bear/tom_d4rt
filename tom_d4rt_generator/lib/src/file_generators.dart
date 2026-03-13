@@ -221,7 +221,9 @@ String generateDartscriptFileContent(
       config.proxyClasses.isNotEmpty &&
       config.proxiesOutputPath != null) {
     buffer.writeln();
-    buffer.writeln('    // GEN-092: Register proxy factories for interface proxies');
+    buffer.writeln(
+      '    // GEN-092: Register proxy factories for interface proxies',
+    );
     buffer.writeln('    proxy_factories.registerProxyFactories();');
   }
 

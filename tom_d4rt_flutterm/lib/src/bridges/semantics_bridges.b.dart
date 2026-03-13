@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 12 files
-// Generated: 2026-03-12T22:40:45.910801
+// Generated: 2026-03-13T17:53:49.540149
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -23,6 +23,7 @@ import 'package:flutter/src/semantics/semantics.dart' as $flutter_7;
 import 'package:flutter/src/semantics/semantics_event.dart' as $flutter_8;
 import 'package:flutter/src/semantics/semantics_service.dart' as $flutter_9;
 import 'package:flutter/src/services/text_editing.dart' as $flutter_10;
+import 'package:tom_d4rt_flutterm/src/d4rt_user_bridges/strut_style_user_bridge.dart' as $tom_d4rt_flutterm_1;
 import 'package:vector_math/vector_math_64.dart' as $vector_math_1;
 import 'package:flutter/src/foundation/change_notifier.dart' as $aux_flutter_2;
 

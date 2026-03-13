@@ -1,3 +1,11 @@
+## 1.8.20
+
+### Features
+- **UserBridge**: CLI executor now scans `lib/src/d4rt_user_bridges/` and `lib/d4rt_user_bridges/` directories for user bridge classes
+
+### Bug Fixes
+- **Off-by-one**: Fix `_getPackageUri()` sky_engine parsing producing `dart:i` instead of `dart:ui`
+
 ## 1.8.19
 
 ### Bug Fixes

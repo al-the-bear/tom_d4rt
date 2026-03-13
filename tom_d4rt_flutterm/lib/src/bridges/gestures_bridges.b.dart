@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 33 files
-// Generated: 2026-03-12T22:41:05.945726
+// Generated: 2026-03-13T17:54:06.279433
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -44,6 +44,7 @@ import 'package:flutter/src/gestures/tap.dart' as $flutter_28;
 import 'package:flutter/src/gestures/tap_and_drag.dart' as $flutter_29;
 import 'package:flutter/src/gestures/team.dart' as $flutter_30;
 import 'package:flutter/src/gestures/velocity_tracker.dart' as $flutter_31;
+import 'package:tom_d4rt_flutterm/src/d4rt_user_bridges/strut_style_user_bridge.dart' as $tom_d4rt_flutterm_1;
 import 'package:vector_math/vector_math_64.dart' as $vector_math_1;
 
 /// Bridge class for flutter_gestures module.

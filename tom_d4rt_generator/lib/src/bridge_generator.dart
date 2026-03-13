@@ -1254,7 +1254,11 @@ class BridgeGenerator {
       final whichCmd = Platform.isWindows ? 'where.exe' : 'which';
       final result = Process.runSync(whichCmd, ['dart']);
       if (result.exitCode == 0) {
-        final dartPath = (result.stdout as String).trim().split('\n').first.trim();
+        final dartPath = (result.stdout as String)
+            .trim()
+            .split('\n')
+            .first
+            .trim();
         if (dartPath.isNotEmpty) {
           final sdk = _resolveSdkFromDartPath(dartPath);
           if (sdk != null) {
@@ -1272,7 +1276,11 @@ class BridgeGenerator {
       final whichCmd = Platform.isWindows ? 'where.exe' : 'which';
       final result = Process.runSync(whichCmd, ['flutter']);
       if (result.exitCode == 0) {
-        var flutterPath = (result.stdout as String).trim().split('\n').first.trim();
+        var flutterPath = (result.stdout as String)
+            .trim()
+            .split('\n')
+            .first
+            .trim();
         if (flutterPath.isNotEmpty) {
           // Resolve symlinks
           try {
@@ -6488,7 +6496,10 @@ class BridgeGenerator {
             )) {
               nonWrappableDefaults.add(p);
             }
-          } else if (p.isNamed && p.defaultValue == null && !p.isRequired && !p.type.endsWith('?')) {
+          } else if (p.isNamed &&
+              p.defaultValue == null &&
+              !p.isRequired &&
+              !p.type.endsWith('?')) {
             // GEN-087: Named non-required non-nullable param with unavailable default
             // (e.g., const factory redirects where analyzer can't read the default).
             // Must use combinatorial dispatch to omit when not provided.
@@ -7337,8 +7348,8 @@ class BridgeGenerator {
     if (normalizedPath.contains('/sky_engine/lib/')) {
       final skyEngineLibIndex = normalizedPath.indexOf('/sky_engine/lib/');
       final relativePath = normalizedPath.substring(
-        skyEngineLibIndex + 17,
-      ); // Skip '/sky_engine/lib/'
+        skyEngineLibIndex + 16,
+      ); // Skip '/sky_engine/lib/' (16 chars)
       // Map common sky_engine paths to their dart: equivalents
       if (relativePath.startsWith('ui/')) {
         // ui/ui.dart, ui/painting.dart, etc. -> dart:ui
@@ -8303,8 +8314,14 @@ class BridgeGenerator {
           // Skip the class being generated to avoid self-reference
           if (otherClassName == cls.name) continue;
           // Skip primitive-like types already handled above
-          if (const {'int', 'double', 'String', 'bool', 'num'}
-              .contains(otherClassName)) continue;
+          if (const {
+            'int',
+            'double',
+            'String',
+            'bool',
+            'num',
+          }.contains(otherClassName))
+            continue;
           final prefixedOther = _getPrefixedClassName(
             otherClassName,
             otherClassInfo.sourceFile,
@@ -14230,7 +14247,9 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
           );
           members.addAll(inheritedMembers);
           // Update declaredMemberNames to avoid duplicates from subsequent constraints
-          declaredMemberNames.addAll(_buildQualifiedMemberNames(inheritedMembers));
+          declaredMemberNames.addAll(
+            _buildQualifiedMemberNames(inheritedMembers),
+          );
         }
       }
     }

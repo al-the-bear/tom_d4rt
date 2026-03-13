@@ -7,11 +7,14 @@ library;
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:analyzer/dart/analysis/features.dart';
+import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:path/path.dart' as p;
 import 'package:tom_build_base/tom_build_base.dart'
     show TomBuildConfig, hasTomBuildConfig, findWorkspaceRoot;
 import 'package:tom_build_base/tom_build_base_v2.dart';
 import 'package:tom_d4rt_generator/src/build_config_loader.dart';
+import 'package:tom_d4rt_generator/src/user_bridge_scanner.dart';
 import 'package:tom_d4rt_generator/tom_d4rt_generator.dart';
 import 'package:yaml/yaml.dart';
 
@@ -96,6 +99,61 @@ Future<void> _processProjectDirect(
   );
 }
 
+/// Scan user bridge files in d4rt_user_bridges directories.
+///
+/// User bridge files should be placed in:
+/// - `lib/src/d4rt_user_bridges/` for package projects
+/// - `lib/d4rt_user_bridges/` for console projects
+Future<UserBridgeScanner> _scanUserBridges(
+  String projectDir, {
+  required bool verbose,
+}) async {
+  final scanner = UserBridgeScanner();
+
+  final userBridgeDirs = [
+    p.join(projectDir, 'lib', 'src', 'd4rt_user_bridges'),
+    p.join(projectDir, 'lib', 'd4rt_user_bridges'),
+  ];
+
+  for (final dirPath in userBridgeDirs) {
+    final dir = Directory(dirPath);
+    if (!dir.existsSync()) continue;
+
+    if (verbose) {
+      print('  Scanning user bridges in $dirPath');
+    }
+
+    await for (final entity in dir.list(recursive: true)) {
+      if (entity is! File) continue;
+      if (!entity.path.endsWith('.dart')) continue;
+
+      try {
+        final content = await entity.readAsString();
+        final parseResult = parseString(
+          content: content,
+          featureSet: FeatureSet.latestLanguageVersion(),
+        );
+        scanner.scanUnit(parseResult.unit, entity.path);
+      } catch (e) {
+        if (verbose) {
+          stderr.writeln('Warning: Failed to parse user bridge ${entity.path}: $e');
+        }
+      }
+    }
+  }
+
+  // Report what was found
+  final classCount = scanner.userBridges.length;
+  final globalsCount = scanner.globalsUserBridges.length;
+  if (classCount > 0 || globalsCount > 0) {
+    print(
+      '  USER-BRIDGE: Found $classCount class user bridges and $globalsCount globals user bridges',
+    );
+  }
+
+  return scanner;
+}
+
 /// Generate bridges from a BridgeConfig object.
 Future<void> _generateBridges(
   BridgeConfig config,
@@ -109,6 +167,9 @@ Future<void> _generateBridges(
     print('  Project: ${config.name}');
     print('  Modules: ${config.modules.length}');
   }
+
+  // Scan for user bridges before processing modules
+  final userBridgeScanner = await _scanUserBridges(projectDir, verbose: verbose);
 
   // GEN-079: Collect class lookup across modules for relaxer generation.
   final globalClassLookup = <String, ClassInfo>{};
@@ -137,6 +198,7 @@ Future<void> _generateBridges(
     }
 
     // Create a fresh generator instance for each module
+    // Pass the shared UserBridgeScanner to enable constructor overrides
     final generator = BridgeGenerator(
       workspacePath: projectDir,
       packageName: config.name,
@@ -145,6 +207,7 @@ Future<void> _generateBridges(
       helpersImport: config.helpersImport ?? 'package:tom_d4rt/tom_d4rt.dart',
       d4rtImport: config.d4rtImport ?? 'package:tom_d4rt/d4rt.dart',
       verbose: verbose,
+      userBridgeScanner: userBridgeScanner,
     );
 
     // Resolve barrel files
