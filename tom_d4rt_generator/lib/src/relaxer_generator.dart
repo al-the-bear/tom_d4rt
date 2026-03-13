@@ -1242,6 +1242,7 @@ const _rc2PrimitiveTypes = ['String', 'int', 'double', 'bool', 'num'];
 
 /// Types to skip in dispatches (core Dart types, not useful as type args).
 const _rc2SkipTypes = {
+  // Core Dart types
   'Object',
   'dynamic',
   'void',
@@ -1273,6 +1274,35 @@ const _rc2SkipTypes = {
   'String',
   'bool',
   'num',
+  'FutureOr', // async primitive, not a concrete type
+  // Common type parameter names (not actual types)
+  'T',
+  'E',
+  'K',
+  'V',
+  'R',
+  'S',
+  // package:meta annotations (not instantiable)
+  'Immutable',
+  'Required',
+  'Sealed',
+  'UseResult',
+  // package:vector_math types (not imported in relaxer output)
+  'Vector2',
+  'Vector3',
+  'Vector4',
+  'Matrix2',
+  'Matrix3',
+  'Matrix4',
+  'Quaternion',
+  'Aabb2',
+  'Aabb3',
+  'Obb3',
+  'Plane',
+  'Ray',
+  'Sphere',
+  'Triangle',
+  'Frustum',
 };
 
 /// Generates the RC-2 generic constructor registration section.
@@ -1392,16 +1422,22 @@ void _writeGenericConstructorFactory(
   final positionalParams = ctor.parameters.where((p) => !p.isNamed).toList();
   final namedParams = ctor.parameters.where((p) => p.isNamed).toList();
 
-  // Determine which params are typed with the class type parameter
+  // Determine which params are typed with the class type parameter.
+  // This includes both exact matches (T, T?) and types containing the
+  // type param (e.g., MessageCodec<T>, List<T>).
   bool isTypeParamTyped(ParameterInfo p) {
     final t = p.type.replaceAll('?', '');
-    return t == typeParamName;
+    // Exact match
+    if (t == typeParamName) return true;
+    // Contains the type param as a type argument (e.g., Foo<T>)
+    if (RegExp('\\b$typeParamName\\b').hasMatch(t)) return true;
+    return false;
   }
 
   // Is the type parameter bounded to a non-trivial type?
-  final isUnbounded = typeParamBound == null ||
-      typeParamBound == 'Object' ||
-      typeParamBound == 'Object?';
+  // Note: 'Object' (non-nullable) is NOT unbounded since 'dynamic' doesn't satisfy it.
+  // Only 'Object?' (nullable) and no bound at all are truly unbounded.
+  final isUnbounded = typeParamBound == null || typeParamBound == 'Object?';
 
   buffer.writeln(
     '/// RC-2: Generic constructor factory for `$className<$typeParamName>$ctorSuffix`.',
@@ -1506,16 +1542,45 @@ void _writeRC2Case(
 ) {
   final args = <String>[];
 
+  // Helper: check if type exactly matches or contains the type param
+  bool containsTypeParam(String type) {
+    final t = type.replaceAll('?', '');
+    if (t == typeParamName) return true;
+    return RegExp('\\b$typeParamName\\b').hasMatch(t);
+  }
+
+  // Helper: substitute type param with concrete type arg
+  String substituteTypeParam(String type) {
+    return type.replaceAll(RegExp('\\b$typeParamName\\b'), typeArg);
+  }
+
   // Positional args
   for (final p in positionalParams) {
     final safeName = _rc2SafeName(p.name);
-    final isTPTyped = p.type.replaceAll('?', '') == typeParamName;
-    if (isTPTyped && typeArg != 'dynamic') {
-      // Cast to the dispatch type
-      final isNullable = p.type.endsWith('?') || !p.isRequired;
-      args.add('$safeName as $typeArg${isNullable ? '?' : ''}');
+    final isExactTypeParam = p.type.replaceAll('?', '') == typeParamName;
+    final hasTypeParam = containsTypeParam(p.type);
+    final isNullable = p.type.endsWith('?') || !p.isRequired;
+
+    if (hasTypeParam) {
+      if (isExactTypeParam) {
+        // Exact type param match (T or T?)
+        if (typeArg == 'dynamic') {
+          // No cast needed for dynamic — anything assigns to dynamic
+          // But still need ! for non-nullable params since extaction produces nullable
+          args.add(isNullable ? safeName : '$safeName!');
+        } else {
+          args.add('$safeName as $typeArg${isNullable ? '?' : ''}');
+        }
+      } else {
+        // Contains type param (e.g., MessageCodec<T>) — substitute and cast
+        final substitutedType = substituteTypeParam(p.type);
+        final castType = _rc2NullableCast(substitutedType);
+        args.add(isNullable ? '$safeName as $castType' : '($safeName as $castType)!');
+      }
     } else {
-      args.add(safeName);
+      // Non-type-param-typed: add ! if param type is non-nullable
+      final needsAssert = !p.type.endsWith('?');
+      args.add(needsAssert ? '$safeName!' : safeName);
     }
   }
 
@@ -1523,14 +1588,30 @@ void _writeRC2Case(
   final namedArgParts = <String>[];
   for (final p in namedParams) {
     final safeName = _rc2SafeName(p.name);
-    final isTPTyped = p.type.replaceAll('?', '') == typeParamName;
-    if (isTPTyped && typeArg != 'dynamic') {
-      final isNullable = p.type.endsWith('?') || !p.isRequired;
-      namedArgParts.add(
-        '${p.name}: $safeName as $typeArg${isNullable ? '?' : ''}',
-      );
+    final isExactTypeParam = p.type.replaceAll('?', '') == typeParamName;
+    final hasTypeParam = containsTypeParam(p.type);
+    final isNullable = p.type.endsWith('?') || !p.isRequired;
+
+    if (hasTypeParam) {
+      if (isExactTypeParam) {
+        if (typeArg == 'dynamic') {
+          namedArgParts.add('${p.name}: ${isNullable ? safeName : '$safeName!'}');
+        } else {
+          namedArgParts.add(
+            '${p.name}: $safeName as $typeArg${isNullable ? '?' : ''}',
+          );
+        }
+      } else {
+        final substitutedType = substituteTypeParam(p.type);
+        final castType = _rc2NullableCast(substitutedType);
+        namedArgParts.add(isNullable
+            ? '${p.name}: $safeName as $castType'
+            : '${p.name}: ($safeName as $castType)!');
+      }
     } else {
-      namedArgParts.add('${p.name}: $safeName');
+      // Non-type-param-typed: add ! if param type is non-nullable
+      final needsAssert = !p.type.endsWith('?');
+      namedArgParts.add('${p.name}: ${needsAssert ? '$safeName!' : safeName}');
     }
   }
 

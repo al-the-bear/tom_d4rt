@@ -1,8 +1,8 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 7 files
-// Generated: 2026-03-12T17:06:46.823549
+// Generated: 2026-03-13T18:14:18.197284
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
@@ -10,9 +10,11 @@ import 'dart:async';
 
 import 'package:d4_example/src/example_project/basic_classes.dart' as $d4_example_1;
 import 'package:d4_example/src/example_project/callback_classes.dart' as $d4_example_2;
-import 'package:d4_example/src/example_project/generic_classes.dart' as $d4_example_3;
-import 'package:d4_example/src/example_project/inheritance_classes.dart' as $d4_example_4;
-import 'package:d4_example/src/example_project/operator_classes.dart' as $d4_example_5;
+import 'package:d4_example/src/example_project/enum_classes.dart' as $d4_example_3;
+import 'package:d4_example/src/example_project/generic_classes.dart' as $d4_example_4;
+import 'package:d4_example/src/example_project/global_members.dart' as $d4_example_5;
+import 'package:d4_example/src/example_project/inheritance_classes.dart' as $d4_example_6;
+import 'package:d4_example/src/example_project/operator_classes.dart' as $d4_example_7;
 
 /// Bridge class for example_project module.
 class ExampleProjectBridge {
@@ -51,34 +53,283 @@ class ExampleProjectBridge {
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> classSourceUris() {
     return {
-      'Person': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\basic_classes.dart',
-      'Calculator': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\basic_classes.dart',
-      'MathUtils': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\basic_classes.dart',
-      'Result': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\callback_classes.dart',
-      'TaskScheduler': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\callback_classes.dart',
-      'AsyncService': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\callback_classes.dart',
-      'EventEmitter': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\callback_classes.dart',
-      'Identifiable': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\generic_classes.dart',
-      'Entity': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\generic_classes.dart',
-      'Box': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\generic_classes.dart',
-      'Repository': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\generic_classes.dart',
-      'Pair': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\generic_classes.dart',
-      'Transformer': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\generic_classes.dart',
-      'Shape': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\inheritance_classes.dart',
-      'Circle': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\inheritance_classes.dart',
-      'Rectangle': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\inheritance_classes.dart',
-      'Serializable': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\inheritance_classes.dart',
-      'Cloneable': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\inheritance_classes.dart',
-      'Point': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\inheritance_classes.dart',
-      'ColoredRectangle': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\inheritance_classes.dart',
-      'Vector2D': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\operator_classes.dart',
-      'Matrix': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\operator_classes.dart',
-      'Dictionary': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\operator_classes.dart',
+      'Person': 'package:d4_example/src/example_project/basic_classes.dart',
+      'Calculator': 'package:d4_example/src/example_project/basic_classes.dart',
+      'MathUtils': 'package:d4_example/src/example_project/basic_classes.dart',
+      'Result': 'package:d4_example/src/example_project/callback_classes.dart',
+      'TaskScheduler': 'package:d4_example/src/example_project/callback_classes.dart',
+      'AsyncService': 'package:d4_example/src/example_project/callback_classes.dart',
+      'EventEmitter': 'package:d4_example/src/example_project/callback_classes.dart',
+      'Identifiable': 'package:d4_example/src/example_project/generic_classes.dart',
+      'Entity': 'package:d4_example/src/example_project/generic_classes.dart',
+      'Box': 'package:d4_example/src/example_project/generic_classes.dart',
+      'Repository': 'package:d4_example/src/example_project/generic_classes.dart',
+      'Pair': 'package:d4_example/src/example_project/generic_classes.dart',
+      'Transformer': 'package:d4_example/src/example_project/generic_classes.dart',
+      'Shape': 'package:d4_example/src/example_project/inheritance_classes.dart',
+      'Circle': 'package:d4_example/src/example_project/inheritance_classes.dart',
+      'Rectangle': 'package:d4_example/src/example_project/inheritance_classes.dart',
+      'Serializable': 'package:d4_example/src/example_project/inheritance_classes.dart',
+      'Cloneable': 'package:d4_example/src/example_project/inheritance_classes.dart',
+      'Point': 'package:d4_example/src/example_project/inheritance_classes.dart',
+      'ColoredRectangle': 'package:d4_example/src/example_project/inheritance_classes.dart',
+      'Vector2D': 'package:d4_example/src/example_project/operator_classes.dart',
+      'Matrix': 'package:d4_example/src/example_project/operator_classes.dart',
+      'Dictionary': 'package:d4_example/src/example_project/operator_classes.dart',
     };
   }
 
+  /// Returns a map of type alias names to their target class names.
+  ///
+  /// Type aliases like `typedef MaterialStateProperty<T> = WidgetStateProperty<T>`
+  /// are registered so that code using the alias name can resolve to the
+  /// bridged class under its canonical name.
+  static Map<String, String> classAliases() {
+    return {
+    };
+  }
+
+  /// Returns the list of function typedef names declared in this library.
+  ///
+  /// Function typedefs like `typedef VoidCallback = void Function()` are
+  /// registered so that they can be used as type arguments in D4rt scripts.
+  static List<String> functionTypedefs() {
+    return [
+      'EventCallback',
+      'DataCallback',
+    ];
+  }
+
+  /// Returns all bridged enum definitions.
+  static List<BridgedEnumDefinition> bridgedEnums() {
+    return [
+      BridgedEnumDefinition<$d4_example_3.Status>(
+        name: 'Status',
+        values: $d4_example_3.Status.values,
+      ),
+      BridgedEnumDefinition<$d4_example_3.Priority>(
+        name: 'Priority',
+        values: $d4_example_3.Priority.values,
+        getters: {
+          'value': (visitor, target) => (target as $d4_example_3.Priority).value,
+        },
+        methods: {
+          'compareTo': (visitor, target, positional, named, typeArgs) {
+            final t = target as $d4_example_3.Priority;
+            return Function.apply(t.compareTo, positional, named.map((k, v) => MapEntry(Symbol(k), v)));
+          },
+          '<': (visitor, target, positional, named, typeArgs) {
+            final t = target as $d4_example_3.Priority;
+            return (t as dynamic) < positional[0];
+          },
+          '>': (visitor, target, positional, named, typeArgs) {
+            final t = target as $d4_example_3.Priority;
+            return (t as dynamic) > positional[0];
+          },
+        },
+      ),
+      BridgedEnumDefinition<$d4_example_3.Color>(
+        name: 'Color',
+        values: $d4_example_3.Color.values,
+        getters: {
+          'r': (visitor, target) => (target as $d4_example_3.Color).r,
+          'g': (visitor, target) => (target as $d4_example_3.Color).g,
+          'b': (visitor, target) => (target as $d4_example_3.Color).b,
+          'hex': (visitor, target) => (target as $d4_example_3.Color).hex,
+          'brightness': (visitor, target) => (target as $d4_example_3.Color).brightness,
+          'isDark': (visitor, target) => (target as $d4_example_3.Color).isDark,
+          'isLight': (visitor, target) => (target as $d4_example_3.Color).isLight,
+          'inverted': (visitor, target) => (target as $d4_example_3.Color).inverted,
+        },
+      ),
+      BridgedEnumDefinition<$d4_example_3.HttpMethod>(
+        name: 'HttpMethod',
+        values: $d4_example_3.HttpMethod.values,
+        getters: {
+          'value': (visitor, target) => (target as $d4_example_3.HttpMethod).value,
+          'isIdempotent': (visitor, target) => (target as $d4_example_3.HttpMethod).isIdempotent,
+          'hasBody': (visitor, target) => (target as $d4_example_3.HttpMethod).hasBody,
+        },
+      ),
+      BridgedEnumDefinition<$d4_example_3.DayOfWeek>(
+        name: 'DayOfWeek',
+        values: $d4_example_3.DayOfWeek.values,
+        getters: {
+          'number': (visitor, target) => (target as $d4_example_3.DayOfWeek).number,
+          'shortName': (visitor, target) => (target as $d4_example_3.DayOfWeek).shortName,
+          'isWeekend': (visitor, target) => (target as $d4_example_3.DayOfWeek).isWeekend,
+          'isWeekday': (visitor, target) => (target as $d4_example_3.DayOfWeek).isWeekday,
+          'next': (visitor, target) => (target as $d4_example_3.DayOfWeek).next,
+          'previous': (visitor, target) => (target as $d4_example_3.DayOfWeek).previous,
+        },
+      ),
+    ];
+  }
+
+  /// Returns a map of enum names to their canonical source URIs.
+  ///
+  /// Used for deduplication when the same enum is exported through
+  /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
+  static Map<String, String> enumSourceUris() {
+    return {
+      'Status': 'package:d4_example/src/example_project/enum_classes.dart',
+      'Priority': 'package:d4_example/src/example_project/enum_classes.dart',
+      'Color': 'package:d4_example/src/example_project/enum_classes.dart',
+      'HttpMethod': 'package:d4_example/src/example_project/enum_classes.dart',
+      'DayOfWeek': 'package:d4_example/src/example_project/enum_classes.dart',
+    };
+  }
+
+  /// Returns all bridged extension definitions.
+  static List<BridgedExtensionDefinition> bridgedExtensions() {
+    return [
+    ];
+  }
+
+  /// Returns a map of extension identifiers to their canonical source URIs.
+  static Map<String, String> extensionSourceUris() {
+    return {
+    };
+  }
+
+  /// Registers all bridges with an interpreter.
+  ///
+  /// [importPath] is the package import path that D4rt scripts will use
+  /// to access these classes (e.g., 'package:tom_build/tom.dart').
+  static void registerBridges(D4rt interpreter, String importPath) {
+    // Register bridged classes with source URIs for deduplication
+    final classes = bridgeClasses();
+    final classSources = classSourceUris();
+    for (final bridge in classes) {
+      interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
+    }
+
+    // Register bridged enums with source URIs for deduplication
+    final enums = bridgedEnums();
+    final enumSources = enumSourceUris();
+    for (final enumDef in enums) {
+      interpreter.registerBridgedEnum(enumDef, importPath, sourceUri: enumSources[enumDef.name]);
+    }
+
+    // Register global variables
+    registerGlobalVariables(interpreter, importPath);
+
+    // Register global functions with source URIs for deduplication
+    final funcs = globalFunctions();
+    final funcSources = globalFunctionSourceUris();
+    final funcSigs = globalFunctionSignatures();
+    for (final entry in funcs.entries) {
+      interpreter.registertopLevelFunction(entry.key, entry.value, importPath, sourceUri: funcSources[entry.key], signature: funcSigs[entry.key]);
+    }
+
+    // Register function typedefs for type resolution
+    final typedefs = functionTypedefs();
+    for (final name in typedefs) {
+      interpreter.registerFunctionTypedef(name, importPath);
+    }
+  }
+
+  /// Registers all global variables with the interpreter.
+  ///
+  /// [importPath] is the package import path for library-scoped registration.
+  /// Collects all registration errors and throws a single exception
+  /// with all error details if any registrations fail.
+  static void registerGlobalVariables(D4rt interpreter, String importPath) {
+    final errors = <String>[];
+
+    try {
+      interpreter.registerGlobalVariable('appVersion', $d4_example_5.appVersion, importPath, sourceUri: 'package:d4_example/src/example_project/global_members.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "appVersion": $e');
+    }
+    try {
+      interpreter.registerGlobalVariable('appName', $d4_example_5.appName, importPath, sourceUri: 'package:d4_example/src/example_project/global_members.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "appName": $e');
+    }
+    try {
+      interpreter.registerGlobalVariable('defaultTimeout', $d4_example_5.defaultTimeout, importPath, sourceUri: 'package:d4_example/src/example_project/global_members.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "defaultTimeout": $e');
+    }
+    try {
+      interpreter.registerGlobalVariable('pi', $d4_example_5.pi, importPath, sourceUri: 'package:d4_example/src/example_project/global_members.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "pi": $e');
+    }
+    try {
+      interpreter.registerGlobalVariable('globalCounter', $d4_example_5.globalCounter, importPath, sourceUri: 'package:d4_example/src/example_project/global_members.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "globalCounter": $e');
+    }
+    try {
+      interpreter.registerGlobalVariable('registeredNames', $d4_example_5.registeredNames, importPath, sourceUri: 'package:d4_example/src/example_project/global_members.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "registeredNames": $e');
+    }
+
+    if (errors.isNotEmpty) {
+      throw StateError('Bridge registration errors (example_project):\n${errors.join("\n")}');
+    }
+  }
+
+  /// Returns a map of global function names to their native implementations.
+  static Map<String, NativeFunctionImpl> globalFunctions() {
+    return {
+      'greet': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'greet');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'greet');
+        return $d4_example_5.greet(name);
+      },
+      'add': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 2, 'add');
+        final a = D4.getRequiredArg<int>(positional, 0, 'a', 'add');
+        final b = D4.getRequiredArg<int>(positional, 1, 'b', 'add');
+        return $d4_example_5.add(a, b);
+      },
+      'multiply': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'multiply');
+        final value = D4.getRequiredArg<double>(positional, 0, 'value', 'multiply');
+        final factor = D4.getOptionalArgWithDefault<double>(positional, 1, 'factor', 1.0);
+        return $d4_example_5.multiply(value, factor);
+      },
+      'circleArea': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'circleArea');
+        final radius = D4.getRequiredArg<double>(positional, 0, 'radius', 'circleArea');
+        return $d4_example_5.circleArea(radius);
+      },
+      'formatMessage': (visitor, positional, named, typeArgs) {
+        final message = D4.getRequiredNamedArg<String>(named, 'message', 'formatMessage');
+        final prefix = D4.getNamedArgWithDefault<String>(named, 'prefix', '');
+        final suffix = D4.getNamedArgWithDefault<String>(named, 'suffix', '');
+        return $d4_example_5.formatMessage(message: message, prefix: prefix, suffix: suffix);
+      },
+      'identity': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'identity');
+        final value = D4.getRequiredArg<dynamic>(positional, 0, 'value', 'identity');
+        return $d4_example_5.identity<dynamic>(value);
+      },
+      'makePair': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 2, 'makePair');
+        final first = D4.getRequiredArg<dynamic>(positional, 0, 'first', 'makePair');
+        final second = D4.getRequiredArg<dynamic>(positional, 1, 'second', 'makePair');
+        final $result = $d4_example_5.makePair<dynamic, dynamic>(first, second);
+        return InterpretedRecord([$result.$1, $result.$2], {});
+      },
+      'firstOrNull': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'firstOrNull');
+        final items = D4.getRequiredArg<List<dynamic>>(positional, 0, 'items', 'firstOrNull');
+        return $d4_example_5.firstOrNull<dynamic>(items);
+      },
+      'findWhere': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 2, 'findWhere');
+        final items = D4.getRequiredArg<List<dynamic>>(positional, 0, 'items', 'findWhere');
+        if (positional.length <= 1) {
+          throw ArgumentError('findWhere: Missing required argument "predicate" at position 1');
+        }
+        final predicateRaw = positional[1];
         final predicate = (dynamic p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; };
-        return findWhere<dynamic>(items, predicate);
+        return $d4_example_5.findWhere<dynamic>(items, predicate);
       },
       'mapList': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'mapList');
@@ -88,7 +339,7 @@ class ExampleProjectBridge {
         }
         final mapperRaw = positional[1];
         final mapper = (dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, mapperRaw, [p0])); };
-        return mapList<dynamic, dynamic>(items, mapper);
+        return $d4_example_5.mapList<dynamic, dynamic>(items, mapper);
       },
       'filterList': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'filterList');
@@ -98,7 +349,7 @@ class ExampleProjectBridge {
         }
         final predicateRaw = positional[1];
         final predicate = (dynamic p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; };
-        return filterList<dynamic>(items, predicate);
+        return $d4_example_5.filterList<dynamic>(items, predicate);
       },
       'reduceList': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'reduceList');
@@ -108,7 +359,7 @@ class ExampleProjectBridge {
         }
         final combinerRaw = positional[1];
         final combiner = (dynamic p0, dynamic p1) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, combinerRaw, [p0, p1])); };
-        return reduceList<dynamic>(items, combiner);
+        return $d4_example_5.reduceList<dynamic>(items, combiner);
       },
       'sortItems': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'sortItems');
@@ -116,19 +367,19 @@ class ExampleProjectBridge {
         if (sample.isEmpty) return <dynamic>[];
         final firstElem = sample.first;
         if (firstElem is num) {
-          return sortItems<num>((positional[0] as List).cast<num>());
+          return $d4_example_5.sortItems<num>((positional[0] as List).cast<num>());
         }
         if (firstElem is String) {
-          return sortItems<String>((positional[0] as List).cast<String>());
+          return $d4_example_5.sortItems<String>((positional[0] as List).cast<String>());
         }
         if (firstElem is DateTime) {
-          return sortItems<DateTime>((positional[0] as List).cast<DateTime>());
+          return $d4_example_5.sortItems<DateTime>((positional[0] as List).cast<DateTime>());
         }
         if (firstElem is Duration) {
-          return sortItems<Duration>((positional[0] as List).cast<Duration>());
+          return $d4_example_5.sortItems<Duration>((positional[0] as List).cast<Duration>());
         }
         if (firstElem is BigInt) {
-          return sortItems<BigInt>((positional[0] as List).cast<BigInt>());
+          return $d4_example_5.sortItems<BigInt>((positional[0] as List).cast<BigInt>());
         }
         throw ArgumentError('sortItems: Unsupported type for recursive bound. Supported types: num, String, DateTime, Duration, BigInt. Got: ${sample.runtimeType}');
       },
@@ -136,19 +387,19 @@ class ExampleProjectBridge {
         D4.requireMinArgs(positional, 2, 'minValue');
         final sample = positional[0];
         if (sample is num) {
-          return minValue<num>(positional[0] as num, positional[1] as num);
+          return $d4_example_5.minValue<num>(positional[0] as num, positional[1] as num);
         }
         if (sample is String) {
-          return minValue<String>(positional[0] as String, positional[1] as String);
+          return $d4_example_5.minValue<String>(positional[0] as String, positional[1] as String);
         }
         if (sample is DateTime) {
-          return minValue<DateTime>(positional[0] as DateTime, positional[1] as DateTime);
+          return $d4_example_5.minValue<DateTime>(positional[0] as DateTime, positional[1] as DateTime);
         }
         if (sample is Duration) {
-          return minValue<Duration>(positional[0] as Duration, positional[1] as Duration);
+          return $d4_example_5.minValue<Duration>(positional[0] as Duration, positional[1] as Duration);
         }
         if (sample is BigInt) {
-          return minValue<BigInt>(positional[0] as BigInt, positional[1] as BigInt);
+          return $d4_example_5.minValue<BigInt>(positional[0] as BigInt, positional[1] as BigInt);
         }
         throw ArgumentError('minValue: Unsupported type for recursive bound. Supported types: num, String, DateTime, Duration, BigInt. Got: ${sample.runtimeType}');
       },
@@ -156,19 +407,19 @@ class ExampleProjectBridge {
         D4.requireMinArgs(positional, 2, 'maxValue');
         final sample = positional[0];
         if (sample is num) {
-          return maxValue<num>(positional[0] as num, positional[1] as num);
+          return $d4_example_5.maxValue<num>(positional[0] as num, positional[1] as num);
         }
         if (sample is String) {
-          return maxValue<String>(positional[0] as String, positional[1] as String);
+          return $d4_example_5.maxValue<String>(positional[0] as String, positional[1] as String);
         }
         if (sample is DateTime) {
-          return maxValue<DateTime>(positional[0] as DateTime, positional[1] as DateTime);
+          return $d4_example_5.maxValue<DateTime>(positional[0] as DateTime, positional[1] as DateTime);
         }
         if (sample is Duration) {
-          return maxValue<Duration>(positional[0] as Duration, positional[1] as Duration);
+          return $d4_example_5.maxValue<Duration>(positional[0] as Duration, positional[1] as Duration);
         }
         if (sample is BigInt) {
-          return maxValue<BigInt>(positional[0] as BigInt, positional[1] as BigInt);
+          return $d4_example_5.maxValue<BigInt>(positional[0] as BigInt, positional[1] as BigInt);
         }
         throw ArgumentError('maxValue: Unsupported type for recursive bound. Supported types: num, String, DateTime, Duration, BigInt. Got: ${sample.runtimeType}');
       },
@@ -176,12 +427,12 @@ class ExampleProjectBridge {
         D4.requireMinArgs(positional, 2, 'delayedGreeting');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'delayedGreeting');
         final delayMs = D4.getRequiredArg<int>(positional, 1, 'delayMs', 'delayedGreeting');
-        return delayedGreeting(name, delayMs);
+        return $d4_example_5.delayedGreeting(name, delayMs);
       },
       'fetchData': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'fetchData');
         final id = D4.getRequiredArg<String>(positional, 0, 'id', 'fetchData');
-        return fetchData(id);
+        return $d4_example_5.fetchData(id);
       },
       'processAsync': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'processAsync');
@@ -191,24 +442,24 @@ class ExampleProjectBridge {
         }
         final processorRaw = positional[1];
         final processor = (dynamic p0) { return D4.callInterpreterCallback(visitor!, processorRaw, [p0]) as Future<dynamic>; };
-        return processAsync<dynamic, dynamic>(items, processor);
+        return $d4_example_5.processAsync<dynamic, dynamic>(items, processor);
       },
       'incrementCounter': (visitor, positional, named, typeArgs) {
-        return incrementCounter();
+        return $d4_example_5.incrementCounter();
       },
       'resetCounter': (visitor, positional, named, typeArgs) {
-        return resetCounter();
+        return $d4_example_5.resetCounter();
       },
       'registerName': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'registerName');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'registerName');
-        return registerName(name);
+        return $d4_example_5.registerName(name);
       },
       'getRegisteredNames': (visitor, positional, named, typeArgs) {
-        return getRegisteredNames();
+        return $d4_example_5.getRegisteredNames();
       },
       'clearNames': (visitor, positional, named, typeArgs) {
-        return clearNames();
+        return $d4_example_5.clearNames();
       },
     };
   }
@@ -219,29 +470,29 @@ class ExampleProjectBridge {
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> globalFunctionSourceUris() {
     return {
-      'greet': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\global_members.dart',
-      'add': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\global_members.dart',
-      'multiply': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\global_members.dart',
-      'circleArea': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\global_members.dart',
-      'formatMessage': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\global_members.dart',
-      'identity': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\global_members.dart',
-      'makePair': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\global_members.dart',
-      'firstOrNull': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\global_members.dart',
-      'findWhere': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\global_members.dart',
-      'mapList': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\global_members.dart',
-      'filterList': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\global_members.dart',
-      'reduceList': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\global_members.dart',
-      'sortItems': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\global_members.dart',
-      'minValue': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\global_members.dart',
-      'maxValue': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\global_members.dart',
-      'delayedGreeting': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\global_members.dart',
-      'fetchData': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\global_members.dart',
-      'processAsync': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\global_members.dart',
-      'incrementCounter': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\global_members.dart',
-      'resetCounter': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\global_members.dart',
-      'registerName': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\global_members.dart',
-      'getRegisteredNames': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\global_members.dart',
-      'clearNames': 'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\global_members.dart',
+      'greet': 'package:d4_example/src/example_project/global_members.dart',
+      'add': 'package:d4_example/src/example_project/global_members.dart',
+      'multiply': 'package:d4_example/src/example_project/global_members.dart',
+      'circleArea': 'package:d4_example/src/example_project/global_members.dart',
+      'formatMessage': 'package:d4_example/src/example_project/global_members.dart',
+      'identity': 'package:d4_example/src/example_project/global_members.dart',
+      'makePair': 'package:d4_example/src/example_project/global_members.dart',
+      'firstOrNull': 'package:d4_example/src/example_project/global_members.dart',
+      'findWhere': 'package:d4_example/src/example_project/global_members.dart',
+      'mapList': 'package:d4_example/src/example_project/global_members.dart',
+      'filterList': 'package:d4_example/src/example_project/global_members.dart',
+      'reduceList': 'package:d4_example/src/example_project/global_members.dart',
+      'sortItems': 'package:d4_example/src/example_project/global_members.dart',
+      'minValue': 'package:d4_example/src/example_project/global_members.dart',
+      'maxValue': 'package:d4_example/src/example_project/global_members.dart',
+      'delayedGreeting': 'package:d4_example/src/example_project/global_members.dart',
+      'fetchData': 'package:d4_example/src/example_project/global_members.dart',
+      'processAsync': 'package:d4_example/src/example_project/global_members.dart',
+      'incrementCounter': 'package:d4_example/src/example_project/global_members.dart',
+      'resetCounter': 'package:d4_example/src/example_project/global_members.dart',
+      'registerName': 'package:d4_example/src/example_project/global_members.dart',
+      'getRegisteredNames': 'package:d4_example/src/example_project/global_members.dart',
+      'clearNames': 'package:d4_example/src/example_project/global_members.dart',
     };
   }
 
@@ -281,13 +532,13 @@ class ExampleProjectBridge {
   /// multiple barrels.
   static List<String> sourceLibraries() {
     return [
-      'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\basic_classes.dart',
-      'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\callback_classes.dart',
-      'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\enum_classes.dart',
-      'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\generic_classes.dart',
-      'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\global_members.dart',
-      'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\inheritance_classes.dart',
-      'C:\Code\al_the_bear\inhouse\second_wind\enterprise_flutter\tom_agent_container\tom_ai\d4rt\tom_d4rt_generator\example\d4\lib\src\example_project\operator_classes.dart',
+      'package:d4_example/src/example_project/basic_classes.dart',
+      'package:d4_example/src/example_project/callback_classes.dart',
+      'package:d4_example/src/example_project/enum_classes.dart',
+      'package:d4_example/src/example_project/generic_classes.dart',
+      'package:d4_example/src/example_project/global_members.dart',
+      'package:d4_example/src/example_project/inheritance_classes.dart',
+      'package:d4_example/src/example_project/operator_classes.dart',
     ];
   }
 
@@ -328,6 +579,7 @@ BridgedClass _createPersonBridge() {
   return BridgedClass(
     nativeType: $d4_example_1.Person,
     name: 'Person',
+    isAssignable: (v) => v is $d4_example_1.Person,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Person');
@@ -355,7 +607,7 @@ BridgedClass _createPersonBridge() {
     },
     setters: {
       'age': (visitor, target, value) => 
-        D4.validateTarget<$d4_example_1.Person>(target, 'Person').age = value as int,
+        D4.validateTarget<$d4_example_1.Person>(target, 'Person').age = D4.extractBridgedArg<int>(value, 'age'),
     },
     methods: {
       'greet': (visitor, target, positional, named, typeArgs) {
@@ -378,7 +630,7 @@ BridgedClass _createPersonBridge() {
     },
     staticSetters: {
       'instanceCount': (visitor, value) => 
-        $d4_example_1.Person.instanceCount = value as int,
+        $d4_example_1.Person.instanceCount = D4.extractBridgedArg<int>(value, 'instanceCount'),
     },
     constructorSignatures: {
       '': 'Person(String name, int age)',
@@ -415,30 +667,96 @@ BridgedClass _createPersonBridge() {
 
 BridgedClass _createCalculatorBridge() {
   return BridgedClass(
-    nativeType: Calculator,
+    nativeType: $d4_example_1.Calculator,
     name: 'Calculator',
-    isAssignable: (v) => v is MathUtils,
+    isAssignable: (v) => v is $d4_example_1.Calculator,
+    constructors: {
+      '': (visitor, positional, named) {
+        final precision = D4.getOptionalArgWithDefault<int>(positional, 0, 'precision', 2);
+        return $d4_example_1.Calculator(precision);
+      },
+    },
+    getters: {
+      'precision': (visitor, target) => D4.validateTarget<$d4_example_1.Calculator>(target, 'Calculator').precision,
+    },
+    methods: {
+      'add': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_1.Calculator>(target, 'Calculator');
+        D4.requireMinArgs(positional, 2, 'add');
+        final a = D4.getRequiredArg<int>(positional, 0, 'a', 'add');
+        final b = D4.getRequiredArg<int>(positional, 1, 'b', 'add');
+        return t.add(a, b);
+      },
+      'addOptional': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_1.Calculator>(target, 'Calculator');
+        D4.requireMinArgs(positional, 1, 'addOptional');
+        final a = D4.getRequiredArg<int>(positional, 0, 'a', 'addOptional');
+        final b = D4.getOptionalArgWithDefault<int>(positional, 1, 'b', 0);
+        final c = D4.getOptionalArgWithDefault<int>(positional, 2, 'c', 0);
+        return t.addOptional(a, b, c);
+      },
+      'calculate': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_1.Calculator>(target, 'Calculator');
+        final value = D4.getRequiredNamedArg<double>(named, 'value', 'calculate');
+        final multiplier = D4.getNamedArgWithDefault<double>(named, 'multiplier', 1.0);
+        return t.calculate(value: value, multiplier: multiplier);
+      },
+    },
+    staticMethods: {
+      'format': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'format');
+        final value = D4.getRequiredArg<double>(positional, 0, 'value', 'format');
+        final decimals = D4.getOptionalNamedArg<int?>(named, 'decimals');
+        return $d4_example_1.Calculator.format(value, decimals: decimals);
+      },
+    },
+    constructorSignatures: {
+      '': 'Calculator([int precision = 2])',
+    },
+    methodSignatures: {
+      'add': 'int add(int a, int b)',
+      'addOptional': 'int addOptional(int a, [int b = 0, int c = 0])',
+      'calculate': 'double calculate({required double value, double multiplier = 1.0})',
+    },
+    getterSignatures: {
+      'precision': 'int get precision',
+    },
+    staticMethodSignatures: {
+      'format': 'String format(double value, {int? decimals})',
+    },
+  );
+}
+
+// =============================================================================
+// MathUtils Bridge
+// =============================================================================
+
+BridgedClass _createMathUtilsBridge() {
+  return BridgedClass(
+    nativeType: $d4_example_1.MathUtils,
+    name: 'MathUtils',
+    isAssignable: (v) => v is $d4_example_1.MathUtils,
     constructors: {
     },
     staticGetters: {
-      'pi': (visitor) => MathUtils.pi,
-      'e': (visitor) => MathUtils.e,
+      'pi': (visitor) => $d4_example_1.MathUtils.pi,
+      'e': (visitor) => $d4_example_1.MathUtils.e,
     },
     staticMethods: {
       'circleArea': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'circleArea');
         final radius = D4.getRequiredArg<double>(positional, 0, 'radius', 'circleArea');
-        return MathUtils.circleArea(radius);
+        return $d4_example_1.MathUtils.circleArea(radius);
       },
       'square': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'square');
         final x = D4.getRequiredArg<double>(positional, 0, 'x', 'square');
-        return MathUtils.square(x);
+        return $d4_example_1.MathUtils.square(x);
       },
       'cube': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'cube');
         final x = D4.getRequiredArg<double>(positional, 0, 'x', 'cube');
-        return MathUtils.cube(x);
+        return $d4_example_1.MathUtils.cube(x);
       },
     },
     staticMethodSignatures: {
@@ -461,6 +779,7 @@ BridgedClass _createResultBridge() {
   return BridgedClass(
     nativeType: $d4_example_2.Result,
     name: 'Result',
+    isAssignable: (v) => v is $d4_example_2.Result,
     constructors: {
       'success': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Result');
@@ -472,27 +791,27 @@ BridgedClass _createResultBridge() {
           case String _: return $d4_example_2.Result<String>.success(value);
           case bool _: return $d4_example_2.Result<bool>.success(value);
           case $d4_example_1.Person _: return $d4_example_2.Result<$d4_example_1.Person>.success(value);
-          case Calculator _: return $d4_example_2.Result<Calculator>.success(value);
-          case MathUtils _: return $d4_example_2.Result<MathUtils>.success(value);
-          case TaskScheduler _: return $d4_example_2.Result<TaskScheduler>.success(value);
+          case $d4_example_1.Calculator _: return $d4_example_2.Result<$d4_example_1.Calculator>.success(value);
+          case $d4_example_1.MathUtils _: return $d4_example_2.Result<$d4_example_1.MathUtils>.success(value);
+          case $d4_example_2.TaskScheduler _: return $d4_example_2.Result<$d4_example_2.TaskScheduler>.success(value);
           case $d4_example_2.AsyncService _: return $d4_example_2.Result<$d4_example_2.AsyncService>.success(value);
-          case EventEmitter _: return $d4_example_2.Result<EventEmitter>.success(value);
-          case $d4_example_3.Identifiable _: return $d4_example_2.Result<$d4_example_3.Identifiable>.success(value);
-          case Entity _: return $d4_example_2.Result<Entity>.success(value);
-          case $d4_example_3.Box _: return $d4_example_2.Result<$d4_example_3.Box>.success(value);
-          case $d4_example_3.Repository _: return $d4_example_2.Result<$d4_example_3.Repository>.success(value);
-          case $d4_example_3.Pair _: return $d4_example_2.Result<$d4_example_3.Pair>.success(value);
-          case Transformer _: return $d4_example_2.Result<Transformer>.success(value);
-          case Shape _: return $d4_example_2.Result<Shape>.success(value);
-          case Circle _: return $d4_example_2.Result<Circle>.success(value);
-          case Rectangle _: return $d4_example_2.Result<Rectangle>.success(value);
-          case Serializable _: return $d4_example_2.Result<Serializable>.success(value);
-          case Cloneable _: return $d4_example_2.Result<Cloneable>.success(value);
-          case $d4_example_4.Point _: return $d4_example_2.Result<$d4_example_4.Point>.success(value);
-          case ColoredRectangle _: return $d4_example_2.Result<ColoredRectangle>.success(value);
-          case $d4_example_5.Vector2D _: return $d4_example_2.Result<$d4_example_5.Vector2D>.success(value);
-          case $d4_example_5.Matrix _: return $d4_example_2.Result<$d4_example_5.Matrix>.success(value);
-          case Dictionary _: return $d4_example_2.Result<Dictionary>.success(value);
+          case $d4_example_2.EventEmitter _: return $d4_example_2.Result<$d4_example_2.EventEmitter>.success(value);
+          case $d4_example_4.Identifiable _: return $d4_example_2.Result<$d4_example_4.Identifiable>.success(value);
+          case $d4_example_4.Entity _: return $d4_example_2.Result<$d4_example_4.Entity>.success(value);
+          case $d4_example_4.Box _: return $d4_example_2.Result<$d4_example_4.Box>.success(value);
+          case $d4_example_4.Repository _: return $d4_example_2.Result<$d4_example_4.Repository>.success(value);
+          case $d4_example_4.Pair _: return $d4_example_2.Result<$d4_example_4.Pair>.success(value);
+          case $d4_example_4.Transformer _: return $d4_example_2.Result<$d4_example_4.Transformer>.success(value);
+          case $d4_example_6.Shape _: return $d4_example_2.Result<$d4_example_6.Shape>.success(value);
+          case $d4_example_6.Circle _: return $d4_example_2.Result<$d4_example_6.Circle>.success(value);
+          case $d4_example_6.Rectangle _: return $d4_example_2.Result<$d4_example_6.Rectangle>.success(value);
+          case $d4_example_6.Serializable _: return $d4_example_2.Result<$d4_example_6.Serializable>.success(value);
+          case $d4_example_6.Cloneable _: return $d4_example_2.Result<$d4_example_6.Cloneable>.success(value);
+          case $d4_example_6.Point _: return $d4_example_2.Result<$d4_example_6.Point>.success(value);
+          case $d4_example_6.ColoredRectangle _: return $d4_example_2.Result<$d4_example_6.ColoredRectangle>.success(value);
+          case $d4_example_7.Vector2D _: return $d4_example_2.Result<$d4_example_7.Vector2D>.success(value);
+          case $d4_example_7.Matrix _: return $d4_example_2.Result<$d4_example_7.Matrix>.success(value);
+          case $d4_example_7.Dictionary _: return $d4_example_2.Result<$d4_example_7.Dictionary>.success(value);
           default: return $d4_example_2.Result.success(value);
         }
       },
@@ -536,10 +855,98 @@ BridgedClass _createResultBridge() {
 
 BridgedClass _createTaskSchedulerBridge() {
   return BridgedClass(
-    nativeType: TaskScheduler,
+    nativeType: $d4_example_2.TaskScheduler,
     name: 'TaskScheduler',
+    isAssignable: (v) => v is $d4_example_2.TaskScheduler,
+    constructors: {
+      '': (visitor, positional, named) {
+        return $d4_example_2.TaskScheduler();
+      },
+    },
+    methods: {
+      'addTask': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_2.TaskScheduler>(target, 'TaskScheduler');
+        D4.requireMinArgs(positional, 1, 'addTask');
+        if (positional.isEmpty) {
+          throw ArgumentError('addTask: Missing required argument "task" at position 0');
+        }
+        final taskRaw = positional[0];
+        t.addTask(() { D4.callInterpreterCallback(visitor!, taskRaw, []); });
+        return null;
+      },
+      'runAll': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_2.TaskScheduler>(target, 'TaskScheduler');
+        t.runAll();
+        return null;
+      },
+      'runWithHandler': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_2.TaskScheduler>(target, 'TaskScheduler');
+        D4.requireMinArgs(positional, 3, 'runWithHandler');
+        if (positional.isEmpty) {
+          throw ArgumentError('runWithHandler: Missing required argument "task" at position 0');
+        }
+        final taskRaw = positional[0];
+        if (positional.length <= 1) {
+          throw ArgumentError('runWithHandler: Missing required argument "onSuccess" at position 1');
+        }
+        final onSuccessRaw = positional[1];
+        if (positional.length <= 2) {
+          throw ArgumentError('runWithHandler: Missing required argument "onError" at position 2');
+        }
+        final onErrorRaw = positional[2];
+        t.runWithHandler(() { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, taskRaw, [])); }, (dynamic p0) { D4.callInterpreterCallback(visitor!, onSuccessRaw, [p0]); }, (Object p0) { D4.callInterpreterCallback(visitor!, onErrorRaw, [p0]); });
+        return null;
+      },
+      'mapValues': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_2.TaskScheduler>(target, 'TaskScheduler');
+        D4.requireMinArgs(positional, 2, 'mapValues');
+        if (positional.isEmpty) {
+          throw ArgumentError('mapValues: Missing required argument "values" at position 0');
+        }
+        final values = D4.coerceList<dynamic>(positional[0], 'values');
+        if (positional.length <= 1) {
+          throw ArgumentError('mapValues: Missing required argument "mapper" at position 1');
+        }
+        final mapperRaw = positional[1];
+        return t.mapValues(values, (dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, mapperRaw, [p0])); });
+      },
+      'filterValues': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_2.TaskScheduler>(target, 'TaskScheduler');
+        D4.requireMinArgs(positional, 2, 'filterValues');
+        if (positional.isEmpty) {
+          throw ArgumentError('filterValues: Missing required argument "values" at position 0');
+        }
+        final values = D4.coerceList<dynamic>(positional[0], 'values');
+        if (positional.length <= 1) {
+          throw ArgumentError('filterValues: Missing required argument "predicate" at position 1');
+        }
+        final predicateRaw = positional[1];
+        return t.filterValues(values, (dynamic p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; });
+      },
+      'reduceValues': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_2.TaskScheduler>(target, 'TaskScheduler');
+        D4.requireMinArgs(positional, 2, 'reduceValues');
+        if (positional.isEmpty) {
+          throw ArgumentError('reduceValues: Missing required argument "values" at position 0');
+        }
+        final values = D4.coerceList<dynamic>(positional[0], 'values');
+        if (positional.length <= 1) {
+          throw ArgumentError('reduceValues: Missing required argument "combiner" at position 1');
+        }
+        final combinerRaw = positional[1];
+        return t.reduceValues(values, (dynamic p0, dynamic p1) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, combinerRaw, [p0, p1])); });
+      },
+    },
+    staticMethods: {
+      'generate': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 2, 'generate');
+        final count = D4.getRequiredArg<int>(positional, 0, 'count', 'generate');
+        if (positional.length <= 1) {
+          throw ArgumentError('generate: Missing required argument "generator" at position 1');
+        }
+        final generatorRaw = positional[1];
         final generator = (int p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, generatorRaw, [p0])); };
-        return TaskScheduler.generate(count, generator);
+        return $d4_example_2.TaskScheduler.generate(count, generator);
       },
     },
     constructorSignatures: {
@@ -567,6 +974,7 @@ BridgedClass _createAsyncServiceBridge() {
   return BridgedClass(
     nativeType: $d4_example_2.AsyncService,
     name: 'AsyncService',
+    isAssignable: (v) => v is $d4_example_2.AsyncService,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'AsyncService');
@@ -596,7 +1004,7 @@ BridgedClass _createAsyncServiceBridge() {
           throw ArgumentError('fetchWithProgress: Missing required argument "onProgress" at position 0');
         }
         final onProgressRaw = positional[0];
-        return t.fetchWithProgress((int p0) { D4.callInterpreterCallback(visitor, onProgressRaw, [p0]); });
+        return t.fetchWithProgress((int p0) { D4.callInterpreterCallback(visitor!, onProgressRaw, [p0]); });
       },
       'tryFetch': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$d4_example_2.AsyncService>(target, 'AsyncService');
@@ -636,13 +1044,88 @@ BridgedClass _createAsyncServiceBridge() {
 
 BridgedClass _createEventEmitterBridge() {
   return BridgedClass(
-    nativeType: EventEmitter,
+    nativeType: $d4_example_2.EventEmitter,
     name: 'EventEmitter',
-    isAssignable: (v) => v is $d4_example_3.Identifiable,
+    isAssignable: (v) => v is $d4_example_2.EventEmitter,
+    constructors: {
+      '': (visitor, positional, named) {
+        return $d4_example_2.EventEmitter();
+      },
+    },
+    methods: {
+      'on': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_2.EventEmitter>(target, 'EventEmitter');
+        D4.requireMinArgs(positional, 2, 'on');
+        final event = D4.getRequiredArg<String>(positional, 0, 'event', 'on');
+        if (positional.length <= 1) {
+          throw ArgumentError('on: Missing required argument "callback" at position 1');
+        }
+        final callbackRaw = positional[1];
+        t.on(event, (String p0) { D4.callInterpreterCallback(visitor!, callbackRaw, [p0]); });
+        return null;
+      },
+      'emit': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_2.EventEmitter>(target, 'EventEmitter');
+        D4.requireMinArgs(positional, 1, 'emit');
+        final event = D4.getRequiredArg<String>(positional, 0, 'event', 'emit');
+        t.emit(event);
+        return null;
+      },
+      'off': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_2.EventEmitter>(target, 'EventEmitter');
+        D4.requireMinArgs(positional, 2, 'off');
+        final event = D4.getRequiredArg<String>(positional, 0, 'event', 'off');
+        if (positional.length <= 1) {
+          throw ArgumentError('off: Missing required argument "callback" at position 1');
+        }
+        final callbackRaw = positional[1];
+        t.off(event, (String p0) { D4.callInterpreterCallback(visitor!, callbackRaw, [p0]); });
+        return null;
+      },
+      'once': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_2.EventEmitter>(target, 'EventEmitter');
+        D4.requireMinArgs(positional, 2, 'once');
+        final event = D4.getRequiredArg<String>(positional, 0, 'event', 'once');
+        if (positional.length <= 1) {
+          throw ArgumentError('once: Missing required argument "callback" at position 1');
+        }
+        final callbackRaw = positional[1];
+        t.once(event, (String p0) { D4.callInterpreterCallback(visitor!, callbackRaw, [p0]); });
+        return null;
+      },
+      'listenerCount': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_2.EventEmitter>(target, 'EventEmitter');
+        D4.requireMinArgs(positional, 1, 'listenerCount');
+        final event = D4.getRequiredArg<String>(positional, 0, 'event', 'listenerCount');
+        return t.listenerCount(event);
+      },
+    },
+    constructorSignatures: {
+      '': 'EventEmitter()',
+    },
+    methodSignatures: {
+      'on': 'void on(String event, EventCallback callback)',
+      'emit': 'void emit(String event)',
+      'off': 'void off(String event, EventCallback callback)',
+      'once': 'void once(String event, EventCallback callback)',
+      'listenerCount': 'int listenerCount(String event)',
+    },
+  );
+}
+
+// =============================================================================
+// Identifiable Bridge
+// =============================================================================
+
+BridgedClass _createIdentifiableBridge() {
+  return BridgedClass(
+    nativeType: $d4_example_4.Identifiable,
+    name: 'Identifiable',
+    isAssignable: (v) => v is $d4_example_4.Identifiable,
     constructors: {
     },
     getters: {
-      'id': (visitor, target) => D4.validateTarget<$d4_example_3.Identifiable>(target, 'Identifiable').id,
+      'id': (visitor, target) => D4.validateTarget<$d4_example_4.Identifiable>(target, 'Identifiable').id,
     },
     getterSignatures: {
       'id': 'String get id',
@@ -656,78 +1139,118 @@ BridgedClass _createEventEmitterBridge() {
 
 BridgedClass _createEntityBridge() {
   return BridgedClass(
-    nativeType: Entity,
+    nativeType: $d4_example_4.Entity,
     name: 'Entity',
-    isAssignable: (v) => v is $d4_example_3.Box,
+    isAssignable: (v) => v is $d4_example_4.Entity,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'Entity');
+        final id = D4.getRequiredArg<String>(positional, 0, 'id', 'Entity');
+        final name = D4.getRequiredArg<String>(positional, 1, 'name', 'Entity');
+        return $d4_example_4.Entity(id, name);
+      },
+    },
+    getters: {
+      'id': (visitor, target) => D4.validateTarget<$d4_example_4.Entity>(target, 'Entity').id,
+      'name': (visitor, target) => D4.validateTarget<$d4_example_4.Entity>(target, 'Entity').name,
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_4.Entity>(target, 'Entity');
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      '': 'Entity(String id, String name)',
+    },
+    methodSignatures: {
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'id': 'String get id',
+      'name': 'String get name',
+    },
+  );
+}
+
+// =============================================================================
+// Box Bridge
+// =============================================================================
+
+BridgedClass _createBoxBridge() {
+  return BridgedClass(
+    nativeType: $d4_example_4.Box,
+    name: 'Box',
+    isAssignable: (v) => v is $d4_example_4.Box,
     constructors: {
       '': (visitor, positional, named) {
         final value = D4.getOptionalArg<dynamic>(positional, 0, 'value');
         // GEN-075: Preserve generic type parameter from runtime value
         switch (value) {
-          case double _: return $d4_example_3.Box<double>(value);
-          case int _: return $d4_example_3.Box<int>(value);
-          case String _: return $d4_example_3.Box<String>(value);
-          case bool _: return $d4_example_3.Box<bool>(value);
-          case $d4_example_1.Person _: return $d4_example_3.Box<$d4_example_1.Person>(value);
-          case Calculator _: return $d4_example_3.Box<Calculator>(value);
-          case MathUtils _: return $d4_example_3.Box<MathUtils>(value);
-          case $d4_example_2.Result _: return $d4_example_3.Box<$d4_example_2.Result>(value);
-          case TaskScheduler _: return $d4_example_3.Box<TaskScheduler>(value);
-          case $d4_example_2.AsyncService _: return $d4_example_3.Box<$d4_example_2.AsyncService>(value);
-          case EventEmitter _: return $d4_example_3.Box<EventEmitter>(value);
-          case $d4_example_3.Identifiable _: return $d4_example_3.Box<$d4_example_3.Identifiable>(value);
-          case Entity _: return $d4_example_3.Box<Entity>(value);
-          case $d4_example_3.Repository _: return $d4_example_3.Box<$d4_example_3.Repository>(value);
-          case $d4_example_3.Pair _: return $d4_example_3.Box<$d4_example_3.Pair>(value);
-          case Transformer _: return $d4_example_3.Box<Transformer>(value);
-          case Shape _: return $d4_example_3.Box<Shape>(value);
-          case Circle _: return $d4_example_3.Box<Circle>(value);
-          case Rectangle _: return $d4_example_3.Box<Rectangle>(value);
-          case Serializable _: return $d4_example_3.Box<Serializable>(value);
-          case Cloneable _: return $d4_example_3.Box<Cloneable>(value);
-          case $d4_example_4.Point _: return $d4_example_3.Box<$d4_example_4.Point>(value);
-          case ColoredRectangle _: return $d4_example_3.Box<ColoredRectangle>(value);
-          case $d4_example_5.Vector2D _: return $d4_example_3.Box<$d4_example_5.Vector2D>(value);
-          case $d4_example_5.Matrix _: return $d4_example_3.Box<$d4_example_5.Matrix>(value);
-          case Dictionary _: return $d4_example_3.Box<Dictionary>(value);
-          default: return $d4_example_3.Box(value);
+          case double _: return $d4_example_4.Box<double>(value);
+          case int _: return $d4_example_4.Box<int>(value);
+          case String _: return $d4_example_4.Box<String>(value);
+          case bool _: return $d4_example_4.Box<bool>(value);
+          case $d4_example_1.Person _: return $d4_example_4.Box<$d4_example_1.Person>(value);
+          case $d4_example_1.Calculator _: return $d4_example_4.Box<$d4_example_1.Calculator>(value);
+          case $d4_example_1.MathUtils _: return $d4_example_4.Box<$d4_example_1.MathUtils>(value);
+          case $d4_example_2.Result _: return $d4_example_4.Box<$d4_example_2.Result>(value);
+          case $d4_example_2.TaskScheduler _: return $d4_example_4.Box<$d4_example_2.TaskScheduler>(value);
+          case $d4_example_2.AsyncService _: return $d4_example_4.Box<$d4_example_2.AsyncService>(value);
+          case $d4_example_2.EventEmitter _: return $d4_example_4.Box<$d4_example_2.EventEmitter>(value);
+          case $d4_example_4.Identifiable _: return $d4_example_4.Box<$d4_example_4.Identifiable>(value);
+          case $d4_example_4.Entity _: return $d4_example_4.Box<$d4_example_4.Entity>(value);
+          case $d4_example_4.Repository _: return $d4_example_4.Box<$d4_example_4.Repository>(value);
+          case $d4_example_4.Pair _: return $d4_example_4.Box<$d4_example_4.Pair>(value);
+          case $d4_example_4.Transformer _: return $d4_example_4.Box<$d4_example_4.Transformer>(value);
+          case $d4_example_6.Shape _: return $d4_example_4.Box<$d4_example_6.Shape>(value);
+          case $d4_example_6.Circle _: return $d4_example_4.Box<$d4_example_6.Circle>(value);
+          case $d4_example_6.Rectangle _: return $d4_example_4.Box<$d4_example_6.Rectangle>(value);
+          case $d4_example_6.Serializable _: return $d4_example_4.Box<$d4_example_6.Serializable>(value);
+          case $d4_example_6.Cloneable _: return $d4_example_4.Box<$d4_example_6.Cloneable>(value);
+          case $d4_example_6.Point _: return $d4_example_4.Box<$d4_example_6.Point>(value);
+          case $d4_example_6.ColoredRectangle _: return $d4_example_4.Box<$d4_example_6.ColoredRectangle>(value);
+          case $d4_example_7.Vector2D _: return $d4_example_4.Box<$d4_example_7.Vector2D>(value);
+          case $d4_example_7.Matrix _: return $d4_example_4.Box<$d4_example_7.Matrix>(value);
+          case $d4_example_7.Dictionary _: return $d4_example_4.Box<$d4_example_7.Dictionary>(value);
+          default: return $d4_example_4.Box(value);
         }
       },
     },
     getters: {
-      'value': (visitor, target) => D4.validateTarget<$d4_example_3.Box>(target, 'Box').value,
-      'isEmpty': (visitor, target) => D4.validateTarget<$d4_example_3.Box>(target, 'Box').isEmpty,
+      'value': (visitor, target) => D4.validateTarget<$d4_example_4.Box>(target, 'Box').value,
+      'isEmpty': (visitor, target) => D4.validateTarget<$d4_example_4.Box>(target, 'Box').isEmpty,
     },
     setters: {
       'value': (visitor, target, value) => 
-        D4.validateTarget<$d4_example_3.Box>(target, 'Box').value = D4.extractBridgedArgOrNull<dynamic>(value, 'value'),
+        D4.validateTarget<$d4_example_4.Box>(target, 'Box').value = D4.extractBridgedArgOrNull<dynamic>(value, 'value'),
     },
     methods: {
       'clear': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_3.Box>(target, 'Box');
+        final t = D4.validateTarget<$d4_example_4.Box>(target, 'Box');
         t.clear();
         return null;
       },
       'transform': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_3.Box>(target, 'Box');
+        final t = D4.validateTarget<$d4_example_4.Box>(target, 'Box');
         D4.requireMinArgs(positional, 1, 'transform');
         if (positional.isEmpty) {
           throw ArgumentError('transform: Missing required argument "transformer" at position 0');
         }
         final transformerRaw = positional[0];
-        return t.transform((dynamic p0) { return D4.callInterpreterCallback(visitor, transformerRaw, [p0]) as dynamic; });
+        return t.transform((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, transformerRaw, [p0])); });
       },
     },
     staticMethods: {
       'filled': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'filled');
         final value = D4.getRequiredArg<dynamic>(positional, 0, 'value', 'filled');
-        return $d4_example_3.Box.filled(value);
+        return $d4_example_4.Box.filled(value);
       },
       'identity': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'identity');
         final value = D4.getRequiredArg<dynamic>(positional, 0, 'value', 'identity');
-        return $d4_example_3.Box.identity(value);
+        return $d4_example_4.Box.identity(value);
       },
     },
     constructorSignatures: {
@@ -757,18 +1280,52 @@ BridgedClass _createEntityBridge() {
 
 BridgedClass _createRepositoryBridge() {
   return BridgedClass(
-    nativeType: $d4_example_3.Repository,
+    nativeType: $d4_example_4.Repository,
     name: 'Repository',
-        return t.findWhere(($d4_example_3.Identifiable p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; });
+    isAssignable: (v) => v is $d4_example_4.Repository,
+    constructors: {
+      '': (visitor, positional, named) {
+        return $d4_example_4.Repository();
+      },
+    },
+    getters: {
+      'count': (visitor, target) => D4.validateTarget<$d4_example_4.Repository>(target, 'Repository').count,
+    },
+    methods: {
+      'add': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_4.Repository>(target, 'Repository');
+        D4.requireMinArgs(positional, 1, 'add');
+        final item = D4.getRequiredArg<$d4_example_4.Identifiable>(positional, 0, 'item', 'add');
+        t.add(item);
+        return null;
+      },
+      'getById': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_4.Repository>(target, 'Repository');
+        D4.requireMinArgs(positional, 1, 'getById');
+        final id = D4.getRequiredArg<String>(positional, 0, 'id', 'getById');
+        return t.getById(id);
+      },
+      'getAll': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_4.Repository>(target, 'Repository');
+        return t.getAll();
+      },
+      'findWhere': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_4.Repository>(target, 'Repository');
+        D4.requireMinArgs(positional, 1, 'findWhere');
+        if (positional.isEmpty) {
+          throw ArgumentError('findWhere: Missing required argument "predicate" at position 0');
+        }
+        final predicateRaw = positional[0];
+        return t.findWhere(($d4_example_4.Identifiable p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; });
       },
       'mapAll': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_3.Repository>(target, 'Repository');
+        final t = D4.validateTarget<$d4_example_4.Repository>(target, 'Repository');
         D4.requireMinArgs(positional, 1, 'mapAll');
         if (positional.isEmpty) {
           throw ArgumentError('mapAll: Missing required argument "mapper" at position 0');
         }
         final mapperRaw = positional[0];
-        return t.mapAll(($d4_example_3.Identifiable p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, mapperRaw, [p0])); });
+        return t.mapAll(($d4_example_4.Identifiable p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, mapperRaw, [p0])); });
       },
     },
     staticMethods: {
@@ -777,8 +1334,8 @@ BridgedClass _createRepositoryBridge() {
         if (positional.isEmpty) {
           throw ArgumentError('fromList: Missing required argument "items" at position 0');
         }
-        final items = D4.coerceList<$d4_example_3.Identifiable>(positional[0], 'items');
-        return $d4_example_3.Repository.fromList(items);
+        final items = D4.coerceList<$d4_example_4.Identifiable>(positional[0], 'items');
+        return $d4_example_4.Repository.fromList(items);
       },
     },
     constructorSignatures: {
@@ -806,44 +1363,117 @@ BridgedClass _createRepositoryBridge() {
 
 BridgedClass _createPairBridge() {
   return BridgedClass(
-    nativeType: $d4_example_3.Pair,
+    nativeType: $d4_example_4.Pair,
     name: 'Pair',
-    isAssignable: (v) => v is Transformer,
+    isAssignable: (v) => v is $d4_example_4.Pair,
     constructors: {
       '': (visitor, positional, named) {
-        return Transformer();
+        D4.requireMinArgs(positional, 2, 'Pair');
+        final first = D4.getRequiredArg<dynamic>(positional, 0, 'first', 'Pair');
+        final second = D4.getRequiredArg<dynamic>(positional, 1, 'second', 'Pair');
+        return $d4_example_4.Pair(first, second);
+      },
+    },
+    getters: {
+      'first': (visitor, target) => D4.validateTarget<$d4_example_4.Pair>(target, 'Pair').first,
+      'second': (visitor, target) => D4.validateTarget<$d4_example_4.Pair>(target, 'Pair').second,
+    },
+    methods: {
+      'swap': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_4.Pair>(target, 'Pair');
+        return t.swap();
+      },
+      'mapBoth': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_4.Pair>(target, 'Pair');
+        D4.requireMinArgs(positional, 2, 'mapBoth');
+        if (positional.isEmpty) {
+          throw ArgumentError('mapBoth: Missing required argument "mapFirst" at position 0');
+        }
+        final mapFirstRaw = positional[0];
+        if (positional.length <= 1) {
+          throw ArgumentError('mapBoth: Missing required argument "mapSecond" at position 1');
+        }
+        final mapSecondRaw = positional[1];
+        return t.mapBoth((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, mapFirstRaw, [p0])); }, (dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, mapSecondRaw, [p0])); });
+      },
+      'withFirst': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_4.Pair>(target, 'Pair');
+        D4.requireMinArgs(positional, 1, 'withFirst');
+        final newFirst = D4.getRequiredArg<dynamic>(positional, 0, 'newFirst', 'withFirst');
+        return t.withFirst(newFirst);
+      },
+      'withSecond': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_4.Pair>(target, 'Pair');
+        D4.requireMinArgs(positional, 1, 'withSecond');
+        final newSecond = D4.getRequiredArg<dynamic>(positional, 0, 'newSecond', 'withSecond');
+        return t.withSecond(newSecond);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_4.Pair>(target, 'Pair');
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      '': 'Pair(K first, V second)',
+    },
+    methodSignatures: {
+      'swap': 'Pair<V, K> swap()',
+      'mapBoth': 'Pair<K2, V2> mapBoth(K2 Function(K) mapFirst, V2 Function(V) mapSecond)',
+      'withFirst': 'Pair<K3, V> withFirst(K3 newFirst)',
+      'withSecond': 'Pair<K, V3> withSecond(V3 newSecond)',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'first': 'K get first',
+      'second': 'V get second',
+    },
+  );
+}
+
+// =============================================================================
+// Transformer Bridge
+// =============================================================================
+
+BridgedClass _createTransformerBridge() {
+  return BridgedClass(
+    nativeType: $d4_example_4.Transformer,
+    name: 'Transformer',
+    isAssignable: (v) => v is $d4_example_4.Transformer,
+    constructors: {
+      '': (visitor, positional, named) {
+        return $d4_example_4.Transformer();
       },
     },
     methods: {
       'identity': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<Transformer>(target, 'Transformer');
+        final t = D4.validateTarget<$d4_example_4.Transformer>(target, 'Transformer');
         D4.requireMinArgs(positional, 1, 'identity');
         final value = D4.getRequiredArg<dynamic>(positional, 0, 'value', 'identity');
         return t.identity(value);
       },
       'cast': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<Transformer>(target, 'Transformer');
+        final t = D4.validateTarget<$d4_example_4.Transformer>(target, 'Transformer');
         D4.requireMinArgs(positional, 1, 'cast');
         final value = D4.getRequiredArg<dynamic>(positional, 0, 'value', 'cast');
         return t.cast(value);
       },
       'singleton': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<Transformer>(target, 'Transformer');
+        final t = D4.validateTarget<$d4_example_4.Transformer>(target, 'Transformer');
         D4.requireMinArgs(positional, 1, 'singleton');
         final value = D4.getRequiredArg<dynamic>(positional, 0, 'value', 'singleton');
         return t.singleton(value);
       },
       'pair': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<Transformer>(target, 'Transformer');
+        final t = D4.validateTarget<$d4_example_4.Transformer>(target, 'Transformer');
         D4.requireMinArgs(positional, 2, 'pair');
         final first = D4.getRequiredArg<dynamic>(positional, 0, 'first', 'pair');
         final second = D4.getRequiredArg<dynamic>(positional, 1, 'second', 'pair');
         return t.pair(first, second);
       },
       'idOf': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<Transformer>(target, 'Transformer');
+        final t = D4.validateTarget<$d4_example_4.Transformer>(target, 'Transformer');
         D4.requireMinArgs(positional, 1, 'idOf');
-        final item = D4.getRequiredArg<$d4_example_3.Identifiable>(positional, 0, 'item', 'idOf');
+        final item = D4.getRequiredArg<$d4_example_4.Identifiable>(positional, 0, 'item', 'idOf');
         return t.idOf(item);
       },
     },
@@ -852,7 +1482,7 @@ BridgedClass _createPairBridge() {
         D4.requireMinArgs(positional, 2, 'repeat');
         final value = D4.getRequiredArg<dynamic>(positional, 0, 'value', 'repeat');
         final count = D4.getRequiredArg<int>(positional, 1, 'count', 'repeat');
-        return Transformer.repeat(value, count);
+        return $d4_example_4.Transformer.repeat(value, count);
       },
     },
     constructorSignatures: {
@@ -877,32 +1507,71 @@ BridgedClass _createPairBridge() {
 
 BridgedClass _createShapeBridge() {
   return BridgedClass(
-    nativeType: Shape,
+    nativeType: $d4_example_6.Shape,
     name: 'Shape',
-    isAssignable: (v) => v is Circle,
+    isAssignable: (v) => v is $d4_example_6.Shape,
+    constructors: {
+    },
+    getters: {
+      'name': (visitor, target) => D4.validateTarget<$d4_example_6.Shape>(target, 'Shape').name,
+    },
+    methods: {
+      'area': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_6.Shape>(target, 'Shape');
+        return t.area();
+      },
+      'perimeter': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_6.Shape>(target, 'Shape');
+        return t.perimeter();
+      },
+      'describe': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_6.Shape>(target, 'Shape');
+        return t.describe();
+      },
+    },
+    methodSignatures: {
+      'area': 'double area()',
+      'perimeter': 'double perimeter()',
+      'describe': 'String describe()',
+    },
+    getterSignatures: {
+      'name': 'String get name',
+    },
+  );
+}
+
+// =============================================================================
+// Circle Bridge
+// =============================================================================
+
+BridgedClass _createCircleBridge() {
+  return BridgedClass(
+    nativeType: $d4_example_6.Circle,
+    name: 'Circle',
+    isAssignable: (v) => v is $d4_example_6.Circle,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Circle');
         final radius = D4.getRequiredArg<double>(positional, 0, 'radius', 'Circle');
-        return Circle(radius);
+        return $d4_example_6.Circle(radius);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<Circle>(target, 'Circle').name,
-      'radius': (visitor, target) => D4.validateTarget<Circle>(target, 'Circle').radius,
-      'diameter': (visitor, target) => D4.validateTarget<Circle>(target, 'Circle').diameter,
+      'name': (visitor, target) => D4.validateTarget<$d4_example_6.Circle>(target, 'Circle').name,
+      'radius': (visitor, target) => D4.validateTarget<$d4_example_6.Circle>(target, 'Circle').radius,
+      'diameter': (visitor, target) => D4.validateTarget<$d4_example_6.Circle>(target, 'Circle').diameter,
     },
     methods: {
       'area': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<Circle>(target, 'Circle');
+        final t = D4.validateTarget<$d4_example_6.Circle>(target, 'Circle');
         return t.area();
       },
       'perimeter': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<Circle>(target, 'Circle');
+        final t = D4.validateTarget<$d4_example_6.Circle>(target, 'Circle');
         return t.perimeter();
       },
       'describe': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<Circle>(target, 'Circle');
+        final t = D4.validateTarget<$d4_example_6.Circle>(target, 'Circle');
         return t.describe();
       },
     },
@@ -928,14 +1597,74 @@ BridgedClass _createShapeBridge() {
 
 BridgedClass _createRectangleBridge() {
   return BridgedClass(
-    nativeType: Rectangle,
+    nativeType: $d4_example_6.Rectangle,
     name: 'Rectangle',
-    isAssignable: (v) => v is Serializable,
+    isAssignable: (v) => v is $d4_example_6.Rectangle,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'Rectangle');
+        final width = D4.getRequiredArg<double>(positional, 0, 'width', 'Rectangle');
+        final height = D4.getRequiredArg<double>(positional, 1, 'height', 'Rectangle');
+        return $d4_example_6.Rectangle(width, height);
+      },
+      'square': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'Rectangle');
+        final side = D4.getRequiredArg<double>(positional, 0, 'side', 'Rectangle');
+        return $d4_example_6.Rectangle.square(side);
+      },
+    },
+    getters: {
+      'name': (visitor, target) => D4.validateTarget<$d4_example_6.Rectangle>(target, 'Rectangle').name,
+      'width': (visitor, target) => D4.validateTarget<$d4_example_6.Rectangle>(target, 'Rectangle').width,
+      'height': (visitor, target) => D4.validateTarget<$d4_example_6.Rectangle>(target, 'Rectangle').height,
+      'isSquare': (visitor, target) => D4.validateTarget<$d4_example_6.Rectangle>(target, 'Rectangle').isSquare,
+    },
+    methods: {
+      'area': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_6.Rectangle>(target, 'Rectangle');
+        return t.area();
+      },
+      'perimeter': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_6.Rectangle>(target, 'Rectangle');
+        return t.perimeter();
+      },
+      'describe': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_6.Rectangle>(target, 'Rectangle');
+        return t.describe();
+      },
+    },
+    constructorSignatures: {
+      '': 'Rectangle(double width, double height)',
+      'square': 'Rectangle.square(double side)',
+    },
+    methodSignatures: {
+      'area': 'double area()',
+      'perimeter': 'double perimeter()',
+      'describe': 'String describe()',
+    },
+    getterSignatures: {
+      'name': 'String get name',
+      'width': 'double get width',
+      'height': 'double get height',
+      'isSquare': 'bool get isSquare',
+    },
+  );
+}
+
+// =============================================================================
+// Serializable Bridge
+// =============================================================================
+
+BridgedClass _createSerializableBridge() {
+  return BridgedClass(
+    nativeType: $d4_example_6.Serializable,
+    name: 'Serializable',
+    isAssignable: (v) => v is $d4_example_6.Serializable,
     constructors: {
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<Serializable>(target, 'Serializable');
+        final t = D4.validateTarget<$d4_example_6.Serializable>(target, 'Serializable');
         return t.toJson();
       },
     },
@@ -951,47 +1680,70 @@ BridgedClass _createRectangleBridge() {
 
 BridgedClass _createCloneableBridge() {
   return BridgedClass(
-    nativeType: Cloneable,
+    nativeType: $d4_example_6.Cloneable,
     name: 'Cloneable',
-    isAssignable: (v) => v is $d4_example_4.Point,
+    isAssignable: (v) => v is $d4_example_6.Cloneable,
+    constructors: {
+    },
+    methods: {
+      'clone': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_6.Cloneable>(target, 'Cloneable');
+        return t.clone();
+      },
+    },
+    methodSignatures: {
+      'clone': 'T clone()',
+    },
+  );
+}
+
+// =============================================================================
+// Point Bridge
+// =============================================================================
+
+BridgedClass _createPointBridge() {
+  return BridgedClass(
+    nativeType: $d4_example_6.Point,
+    name: 'Point',
+    isAssignable: (v) => v is $d4_example_6.Point,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Point');
         final x = D4.getRequiredArg<double>(positional, 0, 'x', 'Point');
         final y = D4.getRequiredArg<double>(positional, 1, 'y', 'Point');
-        return $d4_example_4.Point(x, y);
+        return $d4_example_6.Point(x, y);
       },
       'origin': (visitor, positional, named) {
-        return $d4_example_4.Point.origin();
+        return $d4_example_6.Point.origin();
       },
     },
     getters: {
-      'x': (visitor, target) => D4.validateTarget<$d4_example_4.Point>(target, 'Point').x,
-      'y': (visitor, target) => D4.validateTarget<$d4_example_4.Point>(target, 'Point').y,
+      'x': (visitor, target) => D4.validateTarget<$d4_example_6.Point>(target, 'Point').x,
+      'y': (visitor, target) => D4.validateTarget<$d4_example_6.Point>(target, 'Point').y,
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_4.Point>(target, 'Point');
+        final t = D4.validateTarget<$d4_example_6.Point>(target, 'Point');
         return t.toJson();
       },
       'clone': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_4.Point>(target, 'Point');
+        final t = D4.validateTarget<$d4_example_6.Point>(target, 'Point');
         return t.clone();
       },
       'distanceTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_4.Point>(target, 'Point');
+        final t = D4.validateTarget<$d4_example_6.Point>(target, 'Point');
         D4.requireMinArgs(positional, 1, 'distanceTo');
-        final other = D4.getRequiredArg<$d4_example_4.Point>(positional, 0, 'other', 'distanceTo');
+        final other = D4.getRequiredArg<$d4_example_6.Point>(positional, 0, 'other', 'distanceTo');
         return t.distanceTo(other);
       },
       'add': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_4.Point>(target, 'Point');
+        final t = D4.validateTarget<$d4_example_6.Point>(target, 'Point');
         D4.requireMinArgs(positional, 1, 'add');
-        final other = D4.getRequiredArg<$d4_example_4.Point>(positional, 0, 'other', 'add');
+        final other = D4.getRequiredArg<$d4_example_6.Point>(positional, 0, 'other', 'add');
         return t.add(other);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_4.Point>(target, 'Point');
+        final t = D4.validateTarget<$d4_example_6.Point>(target, 'Point');
         return t.toString();
       },
     },
@@ -1002,7 +1754,7 @@ BridgedClass _createCloneableBridge() {
           throw ArgumentError('fromJson: Missing required argument "json" at position 0');
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $d4_example_4.Point.fromJson(json);
+        return $d4_example_6.Point.fromJson(json);
       },
     },
     constructorSignatures: {
@@ -1032,69 +1784,138 @@ BridgedClass _createCloneableBridge() {
 
 BridgedClass _createColoredRectangleBridge() {
   return BridgedClass(
-    nativeType: ColoredRectangle,
+    nativeType: $d4_example_6.ColoredRectangle,
     name: 'ColoredRectangle',
-    isAssignable: (v) => v is $d4_example_5.Vector2D,
+    isAssignable: (v) => v is $d4_example_6.ColoredRectangle,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 3, 'ColoredRectangle');
+        final width = D4.getRequiredArg<double>(positional, 0, 'width', 'ColoredRectangle');
+        final height = D4.getRequiredArg<double>(positional, 1, 'height', 'ColoredRectangle');
+        final color = D4.getRequiredArg<String>(positional, 2, 'color', 'ColoredRectangle');
+        return $d4_example_6.ColoredRectangle(width, height, color);
+      },
+      'red': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'ColoredRectangle');
+        final width = D4.getRequiredArg<double>(positional, 0, 'width', 'ColoredRectangle');
+        final height = D4.getRequiredArg<double>(positional, 1, 'height', 'ColoredRectangle');
+        return $d4_example_6.ColoredRectangle.red(width, height);
+      },
+    },
+    getters: {
+      'name': (visitor, target) => D4.validateTarget<$d4_example_6.ColoredRectangle>(target, 'ColoredRectangle').name,
+      'width': (visitor, target) => D4.validateTarget<$d4_example_6.ColoredRectangle>(target, 'ColoredRectangle').width,
+      'height': (visitor, target) => D4.validateTarget<$d4_example_6.ColoredRectangle>(target, 'ColoredRectangle').height,
+      'isSquare': (visitor, target) => D4.validateTarget<$d4_example_6.ColoredRectangle>(target, 'ColoredRectangle').isSquare,
+      'color': (visitor, target) => D4.validateTarget<$d4_example_6.ColoredRectangle>(target, 'ColoredRectangle').color,
+    },
+    methods: {
+      'area': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_6.ColoredRectangle>(target, 'ColoredRectangle');
+        return t.area();
+      },
+      'perimeter': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_6.ColoredRectangle>(target, 'ColoredRectangle');
+        return t.perimeter();
+      },
+      'describe': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_6.ColoredRectangle>(target, 'ColoredRectangle');
+        return t.describe();
+      },
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_6.ColoredRectangle>(target, 'ColoredRectangle');
+        return t.toJson();
+      },
+    },
+    constructorSignatures: {
+      '': 'ColoredRectangle(double width, double height, String color)',
+      'red': 'ColoredRectangle.red(double width, double height)',
+    },
+    methodSignatures: {
+      'area': 'double area()',
+      'perimeter': 'double perimeter()',
+      'describe': 'String describe()',
+      'toJson': 'Map<String, dynamic> toJson()',
+    },
+    getterSignatures: {
+      'name': 'String get name',
+      'width': 'double get width',
+      'height': 'double get height',
+      'isSquare': 'bool get isSquare',
+      'color': 'String get color',
+    },
+  );
+}
+
+// =============================================================================
+// Vector2D Bridge
+// =============================================================================
+
+BridgedClass _createVector2DBridge() {
+  return BridgedClass(
+    nativeType: $d4_example_7.Vector2D,
+    name: 'Vector2D',
+    isAssignable: (v) => v is $d4_example_7.Vector2D,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Vector2D');
         final x = D4.getRequiredArg<double>(positional, 0, 'x', 'Vector2D');
         final y = D4.getRequiredArg<double>(positional, 1, 'y', 'Vector2D');
-        return $d4_example_5.Vector2D(x, y);
+        return $d4_example_7.Vector2D(x, y);
       },
       'zero': (visitor, positional, named) {
-        return $d4_example_5.Vector2D.zero();
+        return $d4_example_7.Vector2D.zero();
       },
     },
     getters: {
-      'x': (visitor, target) => D4.validateTarget<$d4_example_5.Vector2D>(target, 'Vector2D').x,
-      'y': (visitor, target) => D4.validateTarget<$d4_example_5.Vector2D>(target, 'Vector2D').y,
-      'magnitude': (visitor, target) => D4.validateTarget<$d4_example_5.Vector2D>(target, 'Vector2D').magnitude,
-      'hashCode': (visitor, target) => D4.validateTarget<$d4_example_5.Vector2D>(target, 'Vector2D').hashCode,
+      'x': (visitor, target) => D4.validateTarget<$d4_example_7.Vector2D>(target, 'Vector2D').x,
+      'y': (visitor, target) => D4.validateTarget<$d4_example_7.Vector2D>(target, 'Vector2D').y,
+      'magnitude': (visitor, target) => D4.validateTarget<$d4_example_7.Vector2D>(target, 'Vector2D').magnitude,
+      'hashCode': (visitor, target) => D4.validateTarget<$d4_example_7.Vector2D>(target, 'Vector2D').hashCode,
     },
     methods: {
       'normalize': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_5.Vector2D>(target, 'Vector2D');
+        final t = D4.validateTarget<$d4_example_7.Vector2D>(target, 'Vector2D');
         return t.normalize();
       },
       'dot': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_5.Vector2D>(target, 'Vector2D');
+        final t = D4.validateTarget<$d4_example_7.Vector2D>(target, 'Vector2D');
         D4.requireMinArgs(positional, 1, 'dot');
-        final other = D4.getRequiredArg<$d4_example_5.Vector2D>(positional, 0, 'other', 'dot');
+        final other = D4.getRequiredArg<$d4_example_7.Vector2D>(positional, 0, 'other', 'dot');
         return t.dot(other);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_5.Vector2D>(target, 'Vector2D');
+        final t = D4.validateTarget<$d4_example_7.Vector2D>(target, 'Vector2D');
         return t.toString();
       },
       '+': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_5.Vector2D>(target, 'Vector2D');
-        final other = D4.getRequiredArg<$d4_example_5.Vector2D>(positional, 0, 'other', 'operator+');
+        final t = D4.validateTarget<$d4_example_7.Vector2D>(target, 'Vector2D');
+        final other = D4.getRequiredArg<$d4_example_7.Vector2D>(positional, 0, 'other', 'operator+');
         return t + other;
       },
       '-': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_5.Vector2D>(target, 'Vector2D');
+        final t = D4.validateTarget<$d4_example_7.Vector2D>(target, 'Vector2D');
         if (positional.isEmpty) {
           // Unary operator
           return -t;
         } else {
           // Binary operator
-          final other = D4.getRequiredArg<$d4_example_5.Vector2D>(positional, 0, 'other', 'operator-');
+          final other = D4.getRequiredArg<$d4_example_7.Vector2D>(positional, 0, 'other', 'operator-');
           return t - other;
         }
       },
       '*': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_5.Vector2D>(target, 'Vector2D');
+        final t = D4.validateTarget<$d4_example_7.Vector2D>(target, 'Vector2D');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator*');
         return t * other;
       },
       '/': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_5.Vector2D>(target, 'Vector2D');
+        final t = D4.validateTarget<$d4_example_7.Vector2D>(target, 'Vector2D');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator/');
         return t / other;
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_5.Vector2D>(target, 'Vector2D');
+        final t = D4.validateTarget<$d4_example_7.Vector2D>(target, 'Vector2D');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -1123,48 +1944,136 @@ BridgedClass _createColoredRectangleBridge() {
 
 BridgedClass _createMatrixBridge() {
   return BridgedClass(
-    nativeType: $d4_example_5.Matrix,
+    nativeType: $d4_example_7.Matrix,
     name: 'Matrix',
-    isAssignable: (v) => v is Dictionary,
+    isAssignable: (v) => v is $d4_example_7.Matrix,
     constructors: {
       '': (visitor, positional, named) {
-        return Dictionary();
+        D4.requireMinArgs(positional, 2, 'Matrix');
+        final rows = D4.getRequiredArg<int>(positional, 0, 'rows', 'Matrix');
+        final cols = D4.getRequiredArg<int>(positional, 1, 'cols', 'Matrix');
+        return $d4_example_7.Matrix(rows, cols);
+      },
+      'fromList': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'Matrix');
+        if (positional.isEmpty) {
+          throw ArgumentError('Matrix: Missing required argument "data" at position 0');
+        }
+        final data = D4.coerceList<List<double>>(positional[0], 'data');
+        return $d4_example_7.Matrix.fromList(data);
+      },
+      'identity': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'Matrix');
+        final size = D4.getRequiredArg<int>(positional, 0, 'size', 'Matrix');
+        return $d4_example_7.Matrix.identity(size);
       },
     },
     getters: {
-      'keys': (visitor, target) => D4.validateTarget<Dictionary>(target, 'Dictionary').keys,
-      'values': (visitor, target) => D4.validateTarget<Dictionary>(target, 'Dictionary').values,
-      'length': (visitor, target) => D4.validateTarget<Dictionary>(target, 'Dictionary').length,
+      'rows': (visitor, target) => D4.validateTarget<$d4_example_7.Matrix>(target, 'Matrix').rows,
+      'cols': (visitor, target) => D4.validateTarget<$d4_example_7.Matrix>(target, 'Matrix').cols,
+    },
+    methods: {
+      'get': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_7.Matrix>(target, 'Matrix');
+        D4.requireMinArgs(positional, 2, 'get');
+        final row = D4.getRequiredArg<int>(positional, 0, 'row', 'get');
+        final col = D4.getRequiredArg<int>(positional, 1, 'col', 'get');
+        return t.get(row, col);
+      },
+      'set': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_7.Matrix>(target, 'Matrix');
+        D4.requireMinArgs(positional, 3, 'set');
+        final row = D4.getRequiredArg<int>(positional, 0, 'row', 'set');
+        final col = D4.getRequiredArg<int>(positional, 1, 'col', 'set');
+        final value = D4.getRequiredArg<double>(positional, 2, 'value', 'set');
+        t.set(row, col, value);
+        return null;
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_7.Matrix>(target, 'Matrix');
+        return t.toString();
+      },
+      '[]': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_7.Matrix>(target, 'Matrix');
+        final index = D4.getRequiredArg<int>(positional, 0, 'index', 'operator[]');
+        return t[index];
+      },
+      '+': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_7.Matrix>(target, 'Matrix');
+        final other = D4.getRequiredArg<$d4_example_7.Matrix>(positional, 0, 'other', 'operator+');
+        return t + other;
+      },
+      '*': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_7.Matrix>(target, 'Matrix');
+        final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator*');
+        return t * other;
+      },
+    },
+    constructorSignatures: {
+      '': 'Matrix(int rows, int cols)',
+      'fromList': 'Matrix.fromList(List<List<double>> data)',
+      'identity': 'factory Matrix.identity(int size)',
+    },
+    methodSignatures: {
+      'get': 'double get(int row, int col)',
+      'set': 'void set(int row, int col, double value)',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'rows': 'int get rows',
+      'cols': 'int get cols',
+    },
+  );
+}
+
+// =============================================================================
+// Dictionary Bridge
+// =============================================================================
+
+BridgedClass _createDictionaryBridge() {
+  return BridgedClass(
+    nativeType: $d4_example_7.Dictionary,
+    name: 'Dictionary',
+    isAssignable: (v) => v is $d4_example_7.Dictionary,
+    constructors: {
+      '': (visitor, positional, named) {
+        return $d4_example_7.Dictionary();
+      },
+    },
+    getters: {
+      'keys': (visitor, target) => D4.validateTarget<$d4_example_7.Dictionary>(target, 'Dictionary').keys,
+      'values': (visitor, target) => D4.validateTarget<$d4_example_7.Dictionary>(target, 'Dictionary').values,
+      'length': (visitor, target) => D4.validateTarget<$d4_example_7.Dictionary>(target, 'Dictionary').length,
     },
     methods: {
       'containsKey': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<Dictionary>(target, 'Dictionary');
+        final t = D4.validateTarget<$d4_example_7.Dictionary>(target, 'Dictionary');
         D4.requireMinArgs(positional, 1, 'containsKey');
         final key = D4.getRequiredArg<dynamic>(positional, 0, 'key', 'containsKey');
         return t.containsKey(key);
       },
       'remove': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<Dictionary>(target, 'Dictionary');
+        final t = D4.validateTarget<$d4_example_7.Dictionary>(target, 'Dictionary');
         D4.requireMinArgs(positional, 1, 'remove');
         final key = D4.getRequiredArg<dynamic>(positional, 0, 'key', 'remove');
         return t.remove(key);
       },
       'clear': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<Dictionary>(target, 'Dictionary');
+        final t = D4.validateTarget<$d4_example_7.Dictionary>(target, 'Dictionary');
         t.clear();
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<Dictionary>(target, 'Dictionary');
+        final t = D4.validateTarget<$d4_example_7.Dictionary>(target, 'Dictionary');
         return t.toString();
       },
       '[]': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<Dictionary>(target, 'Dictionary');
+        final t = D4.validateTarget<$d4_example_7.Dictionary>(target, 'Dictionary');
         final index = D4.getRequiredArg<dynamic>(positional, 0, 'index', 'operator[]');
         return t[index];
       },
       '[]=': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<Dictionary>(target, 'Dictionary');
+        final t = D4.validateTarget<$d4_example_7.Dictionary>(target, 'Dictionary');
         final index = D4.getRequiredArg<dynamic>(positional, 0, 'index', 'operator[]=');
         final value = D4.getRequiredArg<dynamic>(positional, 1, 'value', 'operator[]=');
         t[index] = value;

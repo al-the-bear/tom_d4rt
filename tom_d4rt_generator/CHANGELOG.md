@@ -1,3 +1,19 @@
+## 1.8.22
+
+### Bug Fixes
+- **RC-2**: Comprehensive fix for generic constructor param type handling — reduced compile errors from 441K to 3K (99.3%)
+- **RC-2**: Extended `_rc2SkipTypes` with `FutureOr`, type param names (T/E/K/V/R/S), and vector_math types
+- **RC-2**: Improved `isTypeParamTyped` to detect types containing type params (e.g., `MessageCodec<T>`)
+- **RC-2**: Fixed bounded type params — `Object` bound now correctly excludes `dynamic` fallback
+- **RC-2**: Add `!` assertion for non-nullable params since extraction produces nullable values
+- **RC-2**: Proper type substitution and casting for params containing type params
+
+## 1.8.21
+
+### Bug Fixes
+- **RC-2**: Fix nullable param passing in `_writeRC2Case()` — add `!` assertion for required non-nullable params
+- **RC-2**: Add missing types to `_rc2SkipTypes` (meta annotations, vector_math types not imported in relaxer output)
+
 ## 1.8.20
 
 ### Features
