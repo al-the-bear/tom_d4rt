@@ -1,3 +1,9 @@
+## 1.8.23
+
+### Bug Fixes
+- **RC-2**: Fix inline function types with type params (e.g., `Object? Function(T)`) — cast to `dynamic` to bypass static type checking since analyzer expands typedef aliases to inline form which can't be cast back to the typedef
+- **RC-2**: This fixes the remaining 3,208 compile errors in flutter_relaxers.b.dart (total error reduction: 441,443 → 0)
+
 ## 1.8.22
 
 ### Bug Fixes

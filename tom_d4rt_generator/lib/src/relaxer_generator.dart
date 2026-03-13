@@ -1554,6 +1554,14 @@ void _writeRC2Case(
     return type.replaceAll(RegExp('\\b$typeParamName\\b'), typeArg);
   }
 
+  // Helper: check if type is an inline function type (not castable via as)
+  // Inline: "void Function(bool, T?)?", "Object? Function(T)"
+  // NOT inline: "OnInvokeCallback<T>", "ValueGetter<T>" (these are typedef names)
+  bool isInlineFunctionType(String type) {
+    // Inline function types have 'Function' as a standalone token followed by ( or <
+    return RegExp(r'\bFunction\s*[<(]').hasMatch(type);
+  }
+
   // Positional args
   for (final p in positionalParams) {
     final safeName = _rc2SafeName(p.name);
@@ -1565,12 +1573,14 @@ void _writeRC2Case(
       if (isExactTypeParam) {
         // Exact type param match (T or T?)
         if (typeArg == 'dynamic') {
-          // No cast needed for dynamic — anything assigns to dynamic
-          // But still need ! for non-nullable params since extaction produces nullable
           args.add(isNullable ? safeName : '$safeName!');
         } else {
           args.add('$safeName as $typeArg${isNullable ? '?' : ''}');
         }
+      } else if (isInlineFunctionType(p.type)) {
+        // Inline function type (e.g., void Function(T)?) — cast to dynamic
+        // to bypass static type checking since we can't match the typedef form
+        args.add('$safeName as dynamic');
       } else {
         // Contains type param (e.g., MessageCodec<T>) — substitute and cast
         final substitutedType = substituteTypeParam(p.type);
@@ -1601,7 +1611,12 @@ void _writeRC2Case(
             '${p.name}: $safeName as $typeArg${isNullable ? '?' : ''}',
           );
         }
+      } else if (isInlineFunctionType(p.type)) {
+        // Inline function type (e.g., void Function(T)?) — cast to dynamic
+        // to bypass static type checking since we can't match the typedef form
+        namedArgParts.add('${p.name}: $safeName as dynamic');
       } else {
+        // Contains type param (e.g., MessageCodec<T>) — substitute and cast
         final substitutedType = substituteTypeParam(p.type);
         final castType = _rc2NullableCast(substitutedType);
         namedArgParts.add(isNullable
