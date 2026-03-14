@@ -1,30 +1,118 @@
-// D4rt test script: Tests PathOperation from dart_ui
+// D4rt test script: Comprehensive tests for PathOperation from dart_ui
 import 'dart:ui';
 import 'package:flutter/widgets.dart';
 
-dynamic build(BuildContext context) {
-  print('PathOperation test executing');
-
-  // Enumerate all PathOperation values
-  print('PathOperation values:');
-  for (final value in PathOperation.values) {
-    print('  ${value.name}: $value');
+void _expectCondition(bool condition, String message) {
+  if (!condition) {
+    throw StateError('Assertion failed: $message');
   }
-  print('PathOperation has ${ PathOperation.values.length} values');
+  print('✅ $message');
+}
 
-  final first = PathOperation.values.first;
-  final last = PathOperation.values.last;
-  print('First: $first, Last: $last');
-  print('First index: ${first.index}, Last index: ${last.index}');
+String _formatEnumValues(List<PathOperation> values) {
+  final buffer = StringBuffer();
+  for (final value in values) {
+    buffer.writeln(' - ${value.index}: ${value.name} => $value');
+  }
+  return buffer.toString();
+}
 
-  print('PathOperation test completed');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('PathOperation Tests'),
-      Text('Values: ${ PathOperation.values.length}'),
-      Text('First: $first'),
-      Text('Last: $last'),
-    ],
+void _validateRoundTripByIndex(List<PathOperation> values) {
+  for (var index = 0; index < values.length; index++) {
+    final fromList = values[index];
+    final fromIndex = PathOperation.values[index];
+    _expectCondition(fromList == fromIndex, 'Round-trip by index works at $index');
+  }
+}
+
+Map<int, PathOperation> _buildIndexMap(List<PathOperation> values) {
+  final map = <int, PathOperation>{};
+  for (final value in values) {
+    map[value.index] = value;
+  }
+  return map;
+}
+
+dynamic build(BuildContext context) {
+  print('--- PathOperation test start ---');
+
+  final values = PathOperation.values;
+  final names = values.map((value) => value.name).toList(growable: false);
+  final indexes = values.map((value) => value.index).toList(growable: false);
+  final indexMap = _buildIndexMap(values);
+
+  print('PathOperation.values length: ${values.length}');
+  print('PathOperation names: $names');
+  print('PathOperation indexes: $indexes');
+  print('PathOperation detailed values:
+${_formatEnumValues(values)}');
+
+  _expectCondition(values.isNotEmpty, 'PathOperation has at least one value');
+  _expectCondition(names.length == values.length, 'Name list aligns with values length');
+  _expectCondition(indexes.length == values.length, 'Index list aligns with values length');
+  _expectCondition(indexMap.length == values.length, 'Index map has all enum values');
+  _expectCondition(names.toSet().length == names.length, 'All enum names are unique');
+  _expectCondition(indexes.toSet().length == indexes.length, 'All enum indexes are unique');
+  _expectCondition(indexes.first == 0, 'First enum index is 0');
+  _expectCondition(indexes.last == values.length - 1, 'Last index matches values.length - 1');
+
+  for (var i = 0; i < indexes.length; i++) {
+    _expectCondition(indexes[i] == i, 'Index sequence is contiguous at position $i');
+  }
+
+  final first = values.first;
+  final last = values.last;
+
+  print('First PathOperation value: $first (${first.name}, ${first.index})');
+  print('Last PathOperation value: $last (${last.name}, ${last.index})');
+
+  _expectCondition(PathOperation.values.byName(first.name) == first, 'byName resolves first value');
+  _expectCondition(PathOperation.values.byName(last.name) == last, 'byName resolves last value');
+  _expectCondition(indexMap[first.index] == first, 'Index map resolves first value');
+  _expectCondition(indexMap[last.index] == last, 'Index map resolves last value');
+  _expectCondition(first == PathOperation.values[first.index], 'First value round-trips from index');
+  _expectCondition(last == PathOperation.values[last.index], 'Last value round-trips from index');
+  _expectCondition(first.toString().contains(first.name), 'toString contains first name');
+  _expectCondition(last.toString().contains(last.name), 'toString contains last name');
+  _expectCondition(first == first, 'Reflexive equality for first value');
+  _expectCondition(first.hashCode == first.hashCode, 'Stable hashCode for first value');
+
+  _validateRoundTripByIndex(values);
+
+  bool invalidNameThrows = false;
+  try {
+    PathOperation.values.byName('__not_a_valid_pathoperation_name__');
+  } catch (error) {
+    invalidNameThrows = true;
+    print('Expected byName failure captured for PathOperation: $error');
+  }
+  _expectCondition(invalidNameThrows, 'Invalid byName lookup throws for PathOperation');
+
+  final sorted = [...values]..sort((a, b) => a.index.compareTo(b.index));
+  _expectCondition(sorted.join('|') == values.join('|'), 'Sorting by index preserves declaration order');
+
+  final summary =
+      'PathOperation summary -> count=${values.length}, first=${first.name}, last=${last.name}';
+  print(summary);
+  print('--- PathOperation test complete ---');
+
+  return Container(
+    padding: const EdgeInsets.all(8),
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text('PathOperation Comprehensive Tests'),
+        Text('Count: ${values.length}'),
+        Text('First: ${first.name} (${first.index})'),
+        Text('Last: ${last.name} (${last.index})'),
+        Text('Unique names: ${names.toSet().length}'),
+        Text('Unique indexes: ${indexes.toSet().length}'),
+        Text('Invalid lookup throws: $invalidNameThrows'),
+        Text(summary),
+        for (final value in values.take(8))
+          Text('${value.index}: ${value.name} -> $value'),
+      ],
+    ),
   );
 }

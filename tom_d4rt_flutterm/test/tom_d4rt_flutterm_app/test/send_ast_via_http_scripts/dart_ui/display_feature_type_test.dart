@@ -1,30 +1,118 @@
-// D4rt test script: Tests DisplayFeatureType from dart_ui
+// D4rt test script: Comprehensive tests for DisplayFeatureType from dart_ui
 import 'dart:ui';
 import 'package:flutter/widgets.dart';
 
-dynamic build(BuildContext context) {
-  print('DisplayFeatureType test executing');
-
-  // Enumerate all DisplayFeatureType values
-  print('DisplayFeatureType values:');
-  for (final value in DisplayFeatureType.values) {
-    print('  ${value.name}: $value');
+void _expectCondition(bool condition, String message) {
+  if (!condition) {
+    throw StateError('Assertion failed: $message');
   }
-  print('DisplayFeatureType has ${ DisplayFeatureType.values.length} values');
+  print('✅ $message');
+}
 
-  final first = DisplayFeatureType.values.first;
-  final last = DisplayFeatureType.values.last;
-  print('First: $first, Last: $last');
-  print('First index: ${first.index}, Last index: ${last.index}');
+String _formatEnumValues(List<DisplayFeatureType> values) {
+  final buffer = StringBuffer();
+  for (final value in values) {
+    buffer.writeln(' - ${value.index}: ${value.name} => $value');
+  }
+  return buffer.toString();
+}
 
-  print('DisplayFeatureType test completed');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('DisplayFeatureType Tests'),
-      Text('Values: ${ DisplayFeatureType.values.length}'),
-      Text('First: $first'),
-      Text('Last: $last'),
-    ],
+void _validateRoundTripByIndex(List<DisplayFeatureType> values) {
+  for (var index = 0; index < values.length; index++) {
+    final fromList = values[index];
+    final fromIndex = DisplayFeatureType.values[index];
+    _expectCondition(fromList == fromIndex, 'Round-trip by index works at $index');
+  }
+}
+
+Map<int, DisplayFeatureType> _buildIndexMap(List<DisplayFeatureType> values) {
+  final map = <int, DisplayFeatureType>{};
+  for (final value in values) {
+    map[value.index] = value;
+  }
+  return map;
+}
+
+dynamic build(BuildContext context) {
+  print('--- DisplayFeatureType test start ---');
+
+  final values = DisplayFeatureType.values;
+  final names = values.map((value) => value.name).toList(growable: false);
+  final indexes = values.map((value) => value.index).toList(growable: false);
+  final indexMap = _buildIndexMap(values);
+
+  print('DisplayFeatureType.values length: ${values.length}');
+  print('DisplayFeatureType names: $names');
+  print('DisplayFeatureType indexes: $indexes');
+  print('DisplayFeatureType detailed values:
+${_formatEnumValues(values)}');
+
+  _expectCondition(values.isNotEmpty, 'DisplayFeatureType has at least one value');
+  _expectCondition(names.length == values.length, 'Name list aligns with values length');
+  _expectCondition(indexes.length == values.length, 'Index list aligns with values length');
+  _expectCondition(indexMap.length == values.length, 'Index map has all enum values');
+  _expectCondition(names.toSet().length == names.length, 'All enum names are unique');
+  _expectCondition(indexes.toSet().length == indexes.length, 'All enum indexes are unique');
+  _expectCondition(indexes.first == 0, 'First enum index is 0');
+  _expectCondition(indexes.last == values.length - 1, 'Last index matches values.length - 1');
+
+  for (var i = 0; i < indexes.length; i++) {
+    _expectCondition(indexes[i] == i, 'Index sequence is contiguous at position $i');
+  }
+
+  final first = values.first;
+  final last = values.last;
+
+  print('First DisplayFeatureType value: $first (${first.name}, ${first.index})');
+  print('Last DisplayFeatureType value: $last (${last.name}, ${last.index})');
+
+  _expectCondition(DisplayFeatureType.values.byName(first.name) == first, 'byName resolves first value');
+  _expectCondition(DisplayFeatureType.values.byName(last.name) == last, 'byName resolves last value');
+  _expectCondition(indexMap[first.index] == first, 'Index map resolves first value');
+  _expectCondition(indexMap[last.index] == last, 'Index map resolves last value');
+  _expectCondition(first == DisplayFeatureType.values[first.index], 'First value round-trips from index');
+  _expectCondition(last == DisplayFeatureType.values[last.index], 'Last value round-trips from index');
+  _expectCondition(first.toString().contains(first.name), 'toString contains first name');
+  _expectCondition(last.toString().contains(last.name), 'toString contains last name');
+  _expectCondition(first == first, 'Reflexive equality for first value');
+  _expectCondition(first.hashCode == first.hashCode, 'Stable hashCode for first value');
+
+  _validateRoundTripByIndex(values);
+
+  bool invalidNameThrows = false;
+  try {
+    DisplayFeatureType.values.byName('__not_a_valid_displayfeaturetype_name__');
+  } catch (error) {
+    invalidNameThrows = true;
+    print('Expected byName failure captured for DisplayFeatureType: $error');
+  }
+  _expectCondition(invalidNameThrows, 'Invalid byName lookup throws for DisplayFeatureType');
+
+  final sorted = [...values]..sort((a, b) => a.index.compareTo(b.index));
+  _expectCondition(sorted.join('|') == values.join('|'), 'Sorting by index preserves declaration order');
+
+  final summary =
+      'DisplayFeatureType summary -> count=${values.length}, first=${first.name}, last=${last.name}';
+  print(summary);
+  print('--- DisplayFeatureType test complete ---');
+
+  return Container(
+    padding: const EdgeInsets.all(8),
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text('DisplayFeatureType Comprehensive Tests'),
+        Text('Count: ${values.length}'),
+        Text('First: ${first.name} (${first.index})'),
+        Text('Last: ${last.name} (${last.index})'),
+        Text('Unique names: ${names.toSet().length}'),
+        Text('Unique indexes: ${indexes.toSet().length}'),
+        Text('Invalid lookup throws: $invalidNameThrows'),
+        Text(summary),
+        for (final value in values.take(8))
+          Text('${value.index}: ${value.name} -> $value'),
+      ],
+    ),
   );
 }

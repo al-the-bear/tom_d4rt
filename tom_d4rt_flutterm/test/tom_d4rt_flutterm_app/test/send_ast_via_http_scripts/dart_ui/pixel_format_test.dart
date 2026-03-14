@@ -1,30 +1,118 @@
-// D4rt test script: Tests PixelFormat from dart_ui
+// D4rt test script: Comprehensive tests for PixelFormat from dart_ui
 import 'dart:ui';
 import 'package:flutter/widgets.dart';
 
-dynamic build(BuildContext context) {
-  print('PixelFormat test executing');
-
-  // Enumerate all PixelFormat values
-  print('PixelFormat values:');
-  for (final value in PixelFormat.values) {
-    print('  ${value.name}: $value');
+void _expectCondition(bool condition, String message) {
+  if (!condition) {
+    throw StateError('Assertion failed: $message');
   }
-  print('PixelFormat has ${ PixelFormat.values.length} values');
+  print('✅ $message');
+}
 
-  final first = PixelFormat.values.first;
-  final last = PixelFormat.values.last;
-  print('First: $first, Last: $last');
-  print('First index: ${first.index}, Last index: ${last.index}');
+String _formatEnumValues(List<PixelFormat> values) {
+  final buffer = StringBuffer();
+  for (final value in values) {
+    buffer.writeln(' - ${value.index}: ${value.name} => $value');
+  }
+  return buffer.toString();
+}
 
-  print('PixelFormat test completed');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('PixelFormat Tests'),
-      Text('Values: ${ PixelFormat.values.length}'),
-      Text('First: $first'),
-      Text('Last: $last'),
-    ],
+void _validateRoundTripByIndex(List<PixelFormat> values) {
+  for (var index = 0; index < values.length; index++) {
+    final fromList = values[index];
+    final fromIndex = PixelFormat.values[index];
+    _expectCondition(fromList == fromIndex, 'Round-trip by index works at $index');
+  }
+}
+
+Map<int, PixelFormat> _buildIndexMap(List<PixelFormat> values) {
+  final map = <int, PixelFormat>{};
+  for (final value in values) {
+    map[value.index] = value;
+  }
+  return map;
+}
+
+dynamic build(BuildContext context) {
+  print('--- PixelFormat test start ---');
+
+  final values = PixelFormat.values;
+  final names = values.map((value) => value.name).toList(growable: false);
+  final indexes = values.map((value) => value.index).toList(growable: false);
+  final indexMap = _buildIndexMap(values);
+
+  print('PixelFormat.values length: ${values.length}');
+  print('PixelFormat names: $names');
+  print('PixelFormat indexes: $indexes');
+  print('PixelFormat detailed values:
+${_formatEnumValues(values)}');
+
+  _expectCondition(values.isNotEmpty, 'PixelFormat has at least one value');
+  _expectCondition(names.length == values.length, 'Name list aligns with values length');
+  _expectCondition(indexes.length == values.length, 'Index list aligns with values length');
+  _expectCondition(indexMap.length == values.length, 'Index map has all enum values');
+  _expectCondition(names.toSet().length == names.length, 'All enum names are unique');
+  _expectCondition(indexes.toSet().length == indexes.length, 'All enum indexes are unique');
+  _expectCondition(indexes.first == 0, 'First enum index is 0');
+  _expectCondition(indexes.last == values.length - 1, 'Last index matches values.length - 1');
+
+  for (var i = 0; i < indexes.length; i++) {
+    _expectCondition(indexes[i] == i, 'Index sequence is contiguous at position $i');
+  }
+
+  final first = values.first;
+  final last = values.last;
+
+  print('First PixelFormat value: $first (${first.name}, ${first.index})');
+  print('Last PixelFormat value: $last (${last.name}, ${last.index})');
+
+  _expectCondition(PixelFormat.values.byName(first.name) == first, 'byName resolves first value');
+  _expectCondition(PixelFormat.values.byName(last.name) == last, 'byName resolves last value');
+  _expectCondition(indexMap[first.index] == first, 'Index map resolves first value');
+  _expectCondition(indexMap[last.index] == last, 'Index map resolves last value');
+  _expectCondition(first == PixelFormat.values[first.index], 'First value round-trips from index');
+  _expectCondition(last == PixelFormat.values[last.index], 'Last value round-trips from index');
+  _expectCondition(first.toString().contains(first.name), 'toString contains first name');
+  _expectCondition(last.toString().contains(last.name), 'toString contains last name');
+  _expectCondition(first == first, 'Reflexive equality for first value');
+  _expectCondition(first.hashCode == first.hashCode, 'Stable hashCode for first value');
+
+  _validateRoundTripByIndex(values);
+
+  bool invalidNameThrows = false;
+  try {
+    PixelFormat.values.byName('__not_a_valid_pixelformat_name__');
+  } catch (error) {
+    invalidNameThrows = true;
+    print('Expected byName failure captured for PixelFormat: $error');
+  }
+  _expectCondition(invalidNameThrows, 'Invalid byName lookup throws for PixelFormat');
+
+  final sorted = [...values]..sort((a, b) => a.index.compareTo(b.index));
+  _expectCondition(sorted.join('|') == values.join('|'), 'Sorting by index preserves declaration order');
+
+  final summary =
+      'PixelFormat summary -> count=${values.length}, first=${first.name}, last=${last.name}';
+  print(summary);
+  print('--- PixelFormat test complete ---');
+
+  return Container(
+    padding: const EdgeInsets.all(8),
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text('PixelFormat Comprehensive Tests'),
+        Text('Count: ${values.length}'),
+        Text('First: ${first.name} (${first.index})'),
+        Text('Last: ${last.name} (${last.index})'),
+        Text('Unique names: ${names.toSet().length}'),
+        Text('Unique indexes: ${indexes.toSet().length}'),
+        Text('Invalid lookup throws: $invalidNameThrows'),
+        Text(summary),
+        for (final value in values.take(8))
+          Text('${value.index}: ${value.name} -> $value'),
+      ],
+    ),
   );
 }
