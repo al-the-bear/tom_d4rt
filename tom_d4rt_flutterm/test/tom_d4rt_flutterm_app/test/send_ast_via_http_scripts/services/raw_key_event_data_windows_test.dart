@@ -35,8 +35,15 @@ dynamic build(BuildContext context) {
   print('\n--- Test 2: Test Windows virtual key codes ---');
   try {
     final vkCodes = {
-      'A': 65, 'B': 66, 'C': 67, '0': 48, '1': 49,
-      'Enter': 13, 'Escape': 27, 'Space': 32, 'Tab': 9,
+      'A': 65,
+      'B': 66,
+      'C': 67,
+      '0': 48,
+      '1': 49,
+      'Enter': 13,
+      'Escape': 27,
+      'Space': 32,
+      'Tab': 9,
     };
     for (final entry in vkCodes.entries) {
       final data = RawKeyEventDataWindows(
@@ -169,7 +176,10 @@ dynamic build(BuildContext context) {
   print('\n--- Test 8: Verify inheritance from RawKeyEventData ---');
   try {
     final data = RawKeyEventDataWindows(
-      keyCode: 65, scanCode: 30, characterCodePoint: 97, modifiers: 0,
+      keyCode: 65,
+      scanCode: 30,
+      characterCodePoint: 97,
+      modifiers: 0,
     );
     assert(data is RawKeyEventData);
     print('Inherits from RawKeyEventData: true');
@@ -193,8 +203,16 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('RawKeyEventDataWindows Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-      Text('Passed: $testsPassed, Failed: $testsFailed', style: TextStyle(color: testsFailed == 0 ? Color(0xFF00AA00) : Color(0xFFAA0000))),
+      Text(
+        'RawKeyEventDataWindows Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+      ),
+      Text(
+        'Passed: $testsPassed, Failed: $testsFailed',
+        style: TextStyle(
+          color: testsFailed == 0 ? Color(0xFF00AA00) : Color(0xFFAA0000),
+        ),
+      ),
       const SizedBox(height: 8),
       ...results.map((r) => Text(r, style: TextStyle(fontSize: 12))),
     ],

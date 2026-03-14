@@ -81,7 +81,9 @@ dynamic build(BuildContext context) {
       Text('items: ${items.length}'),
       Text('checks: ${checks.length}'),
       Text('notes: ${notes.length}'),
-      const Text('SliverLogicalParentData constructor/properties/edge-cases tested'),
+      const Text(
+        'SliverLogicalParentData constructor/properties/edge-cases tested',
+      ),
     ],
   );
 }

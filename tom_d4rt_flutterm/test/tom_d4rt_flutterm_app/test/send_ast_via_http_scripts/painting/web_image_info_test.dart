@@ -169,7 +169,10 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('ImageInfo (Web) Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      Text(
+        'ImageInfo (Web) Tests',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
       SizedBox(height: 8),
       Text('ImageInfo: image + scale + debugLabel'),
       Text('MemoryImage: load from bytes'),

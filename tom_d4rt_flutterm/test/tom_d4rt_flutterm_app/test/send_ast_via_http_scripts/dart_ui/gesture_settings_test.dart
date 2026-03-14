@@ -20,27 +20,52 @@ dynamic build(BuildContext context) {
     physicalDoubleTapSlop: 36,
   );
 
-  _expect(base.physicalTouchSlop == 18, 'constructor stores physicalTouchSlop', logs);
+  _expect(
+    base.physicalTouchSlop == 18,
+    'constructor stores physicalTouchSlop',
+    logs,
+  );
   assertionCount++;
-  _expect(base.physicalDoubleTapSlop == 36, 'constructor stores physicalDoubleTapSlop', logs);
+  _expect(
+    base.physicalDoubleTapSlop == 36,
+    'constructor stores physicalDoubleTapSlop',
+    logs,
+  );
   assertionCount++;
 
   final copy = base.copyWith(physicalTouchSlop: 22);
   _expect(copy.physicalTouchSlop == 22, 'copyWith updates touch slop', logs);
   assertionCount++;
-  _expect(copy.physicalDoubleTapSlop == 36, 'copyWith preserves unspecified properties', logs);
+  _expect(
+    copy.physicalDoubleTapSlop == 36,
+    'copyWith preserves unspecified properties',
+    logs,
+  );
   assertionCount++;
 
   final sameAsBase = base.copyWith();
-  _expect(sameAsBase == base, 'copyWith without values returns equal object', logs);
+  _expect(
+    sameAsBase == base,
+    'copyWith without values returns equal object',
+    logs,
+  );
   assertionCount++;
 
-  final fromView = WidgetsBinding.instance.platformDispatcher.implicitView?.gestureSettings;
-  _expect(fromView == null || fromView.toString().isNotEmpty, 'platform gesture settings are readable', logs);
+  final fromView =
+      WidgetsBinding.instance.platformDispatcher.implicitView?.gestureSettings;
+  _expect(
+    fromView == null || fromView.toString().isNotEmpty,
+    'platform gesture settings are readable',
+    logs,
+  );
   assertionCount++;
 
   const edge = ui.GestureSettings();
-  _expect(edge.physicalTouchSlop == null && edge.physicalDoubleTapSlop == null, 'edge case null defaults are supported', logs);
+  _expect(
+    edge.physicalTouchSlop == null && edge.physicalDoubleTapSlop == null,
+    'edge case null defaults are supported',
+    logs,
+  );
   assertionCount++;
 
   for (final line in logs) {
@@ -61,6 +86,7 @@ dynamic build(BuildContext context) {
     ],
   );
 }
+
 // coverage filler line 01
 // coverage filler line 02
 // coverage filler line 03

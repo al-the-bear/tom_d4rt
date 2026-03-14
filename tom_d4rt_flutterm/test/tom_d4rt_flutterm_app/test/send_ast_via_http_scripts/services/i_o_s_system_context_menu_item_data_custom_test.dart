@@ -94,7 +94,9 @@ dynamic build(BuildContext context) {
       {'title': 'Share', 'destructive': false},
     ];
     for (final action in actions) {
-      final style = action['destructive'] == true ? 'destructive (red)' : 'normal';
+      final style = action['destructive'] == true
+          ? 'destructive (red)'
+          : 'normal';
       print('  - ${action['title']}: $style');
     }
     assert(actions.length == 4);
@@ -223,16 +225,24 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('IOSSystemContextMenuItemDataCustom Tests',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      Text(
+        'IOSSystemContextMenuItemDataCustom Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
       SizedBox(height: 8),
-      Text('Passed: $passCount / ${passCount + failCount}',
-          style: TextStyle(color: failCount == 0 ? Color(0xFF4CAF50) : Color(0xFFF44336))),
+      Text(
+        'Passed: $passCount / ${passCount + failCount}',
+        style: TextStyle(
+          color: failCount == 0 ? Color(0xFF4CAF50) : Color(0xFFF44336),
+        ),
+      ),
       SizedBox(height: 8),
-      ...results.map((r) => Padding(
-            padding: EdgeInsets.symmetric(vertical: 2),
-            child: Text(r, style: TextStyle(fontSize: 12)),
-          )),
+      ...results.map(
+        (r) => Padding(
+          padding: EdgeInsets.symmetric(vertical: 2),
+          child: Text(r, style: TextStyle(fontSize: 12)),
+        ),
+      ),
     ],
   );
 }

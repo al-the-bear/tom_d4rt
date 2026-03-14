@@ -141,8 +141,10 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('NetworkAssetBundle Test Results',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+      Text(
+        'NetworkAssetBundle Test Results',
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      ),
       SizedBox(height: 8),
       Text('Tests passed: $passCount'),
       Text('Tests failed: $failCount'),

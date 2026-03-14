@@ -47,7 +47,9 @@ dynamic build(BuildContext context) {
       'GLFW_MOD_NUM_LOCK': 0x0020,
     };
     for (final entry in modifierMasks.entries) {
-      print('  - ${entry.key}: 0x${entry.value.toRadixString(16).padLeft(4, '0')}');
+      print(
+        '  - ${entry.key}: 0x${entry.value.toRadixString(16).padLeft(4, '0')}',
+      );
     }
     assert(modifierMasks['GLFW_MOD_SHIFT'] == 1);
     assert(modifierMasks['GLFW_MOD_CONTROL'] == 2);
@@ -260,16 +262,24 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('GLFWKeyHelper Tests',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      Text(
+        'GLFWKeyHelper Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
       SizedBox(height: 8),
-      Text('Passed: $passCount / ${passCount + failCount}',
-          style: TextStyle(color: failCount == 0 ? Color(0xFF4CAF50) : Color(0xFFF44336))),
+      Text(
+        'Passed: $passCount / ${passCount + failCount}',
+        style: TextStyle(
+          color: failCount == 0 ? Color(0xFF4CAF50) : Color(0xFFF44336),
+        ),
+      ),
       SizedBox(height: 8),
-      ...results.map((r) => Padding(
-            padding: EdgeInsets.symmetric(vertical: 2),
-            child: Text(r, style: TextStyle(fontSize: 12)),
-          )),
+      ...results.map(
+        (r) => Padding(
+          padding: EdgeInsets.symmetric(vertical: 2),
+          child: Text(r, style: TextStyle(fontSize: 12)),
+        ),
+      ),
     ],
   );
 }

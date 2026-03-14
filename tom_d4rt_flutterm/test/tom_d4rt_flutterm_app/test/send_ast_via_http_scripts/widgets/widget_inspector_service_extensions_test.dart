@@ -72,9 +72,12 @@ dynamic build(BuildContext context) {
   }
 
   final List<WidgetInspectorServiceExtensions> sortedByIndex =
-      <WidgetInspectorServiceExtensions>[...values]
-        ..sort((WidgetInspectorServiceExtensions a, WidgetInspectorServiceExtensions b) =>
-            a.index - b.index);
+      <WidgetInspectorServiceExtensions>[...values]..sort(
+        (
+          WidgetInspectorServiceExtensions a,
+          WidgetInspectorServiceExtensions b,
+        ) => a.index - b.index,
+      );
   bool orderMatches = true;
   for (int index = 0; index < values.length; index++) {
     if (values[index] != sortedByIndex[index]) {

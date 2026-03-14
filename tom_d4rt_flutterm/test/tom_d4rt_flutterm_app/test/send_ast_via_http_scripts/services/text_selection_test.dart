@@ -15,10 +15,7 @@ dynamic build(BuildContext context) {
   print('\n--- Test 1: Basic TextSelection ---');
   totalTests++;
 
-  const selection1 = TextSelection(
-    baseOffset: 0,
-    extentOffset: 5,
-  );
+  const selection1 = TextSelection(baseOffset: 0, extentOffset: 5);
   print('Basic TextSelection:');
   print('baseOffset: ${selection1.baseOffset}');
   print('extentOffset: ${selection1.extentOffset}');
@@ -37,7 +34,9 @@ dynamic build(BuildContext context) {
   print('Collapsed selection (cursor):');
   print('offset: ${cursor.baseOffset}');
   print('isCollapsed: ${cursor.isCollapsed}');
-  print('baseOffset == extentOffset: ${cursor.baseOffset == cursor.extentOffset}');
+  print(
+    'baseOffset == extentOffset: ${cursor.baseOffset == cursor.extentOffset}',
+  );
   assert(cursor.isCollapsed == true, 'Should be collapsed');
   assert(cursor.baseOffset == 10, 'Cursor at position 10');
   print('Test 2 PASSED: Collapsed selection works');
@@ -58,8 +57,14 @@ dynamic build(BuildContext context) {
   print('Selection with affinity:');
   print('upstream: ${selectionUpstream.affinity}');
   print('downstream: ${selectionDownstream.affinity}');
-  assert(selectionUpstream.affinity == TextAffinity.upstream, 'Should be upstream');
-  assert(selectionDownstream.affinity == TextAffinity.downstream, 'Should be downstream');
+  assert(
+    selectionUpstream.affinity == TextAffinity.upstream,
+    'Should be upstream',
+  );
+  assert(
+    selectionDownstream.affinity == TextAffinity.downstream,
+    'Should be downstream',
+  );
   print('Test 3 PASSED: Affinity works');
   testsPassed++;
 
@@ -67,10 +72,7 @@ dynamic build(BuildContext context) {
   print('\n--- Test 4: Reverse Selection ---');
   totalTests++;
 
-  const reverseSelection = TextSelection(
-    baseOffset: 10,
-    extentOffset: 5,
-  );
+  const reverseSelection = TextSelection(baseOffset: 10, extentOffset: 5);
   print('Reverse selection (base > extent):');
   print('baseOffset: ${reverseSelection.baseOffset}');
   print('extentOffset: ${reverseSelection.extentOffset}');
@@ -90,7 +92,9 @@ dynamic build(BuildContext context) {
   final selectedText = text.substring(selection5.start, selection5.end);
   print('Text extraction:');
   print('full text: "$text"');
-  print('selection: base=${selection5.baseOffset}, extent=${selection5.extentOffset}');
+  print(
+    'selection: base=${selection5.baseOffset}, extent=${selection5.extentOffset}',
+  );
   print('selected: "$selectedText"');
   assert(selectedText == 'Flutter', 'Should select "Flutter"');
   print('Test 5 PASSED: Text extraction works');
@@ -118,8 +122,12 @@ dynamic build(BuildContext context) {
   const original = TextSelection(baseOffset: 0, extentOffset: 5);
   final modified = original.copyWith(extentOffset: 10);
   print('copyWith:');
-  print('original: base=${original.baseOffset}, extent=${original.extentOffset}');
-  print('modified: base=${modified.baseOffset}, extent=${modified.extentOffset}');
+  print(
+    'original: base=${original.baseOffset}, extent=${original.extentOffset}',
+  );
+  print(
+    'modified: base=${modified.baseOffset}, extent=${modified.extentOffset}',
+  );
   assert(modified.extentOffset == 10, 'Extent should be modified');
   assert(modified.baseOffset == 0, 'Base should remain');
   print('Test 7 PASSED: copyWith works');
@@ -146,10 +154,20 @@ dynamic build(BuildContext context) {
   const normalizedSel = TextSelection(baseOffset: 0, extentOffset: 5);
   const notNormalizedSel = TextSelection(baseOffset: 5, extentOffset: 0);
   print('Selection normalized:');
-  print('normalized (0-5): ${normalizedSel.baseOffset <= normalizedSel.extentOffset}');
-  print('not normalized (5-0): ${notNormalizedSel.baseOffset <= notNormalizedSel.extentOffset}');
-  assert(normalizedSel.baseOffset <= normalizedSel.extentOffset, 'Is normalized');
-  assert(notNormalizedSel.baseOffset > notNormalizedSel.extentOffset, 'Not normalized');
+  print(
+    'normalized (0-5): ${normalizedSel.baseOffset <= normalizedSel.extentOffset}',
+  );
+  print(
+    'not normalized (5-0): ${notNormalizedSel.baseOffset <= notNormalizedSel.extentOffset}',
+  );
+  assert(
+    normalizedSel.baseOffset <= normalizedSel.extentOffset,
+    'Is normalized',
+  );
+  assert(
+    notNormalizedSel.baseOffset > notNormalizedSel.extentOffset,
+    'Not normalized',
+  );
   print('Test 9 PASSED: Normalization check works');
   testsPassed++;
 
@@ -161,7 +179,9 @@ dynamic build(BuildContext context) {
   final expanded = startSel.expandTo(TextPosition(offset: 10));
   print('expandTo:');
   print('start: ${startSel.baseOffset} (collapsed)');
-  print('expanded to 10: base=${expanded.baseOffset}, extent=${expanded.extentOffset}');
+  print(
+    'expanded to 10: base=${expanded.baseOffset}, extent=${expanded.extentOffset}',
+  );
   assert(expanded.baseOffset == 5, 'Base should stay');
   assert(expanded.extentOffset == 10, 'Extent should expand to 10');
   print('Test 10 PASSED: expandTo works');
@@ -175,7 +195,9 @@ dynamic build(BuildContext context) {
   final extended = baseSel.extendTo(TextPosition(offset: 15));
   print('extendTo:');
   print('original: base=${baseSel.baseOffset}, extent=${baseSel.extentOffset}');
-  print('extended: base=${extended.baseOffset}, extent=${extended.extentOffset}');
+  print(
+    'extended: base=${extended.baseOffset}, extent=${extended.extentOffset}',
+  );
   assert(extended.extentOffset == 15, 'Extent should extend to 15');
   print('Test 11 PASSED: extendTo works');
   testsPassed++;
@@ -187,7 +209,9 @@ dynamic build(BuildContext context) {
   const selection12 = TextSelection(baseOffset: 3, extentOffset: 8);
   final range = TextRange(start: selection12.start, end: selection12.end);
   print('TextRange from selection:');
-  print('selection: base=${selection12.baseOffset}, extent=${selection12.extentOffset}');
+  print(
+    'selection: base=${selection12.baseOffset}, extent=${selection12.extentOffset}',
+  );
   print('range: start=${range.start}, end=${range.end}');
   assert(range.start == 3, 'Range start matches selection start');
   assert(range.end == 8, 'Range end matches selection end');

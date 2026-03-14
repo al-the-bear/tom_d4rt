@@ -29,19 +29,39 @@ dynamic build(BuildContext context) {
   final values = WindowPositionerAnchor.values;
   _expect(values.isNotEmpty, 'WindowPositionerAnchor has values', logs);
   assertionCount++;
-  _expect(values.contains(WindowPositionerAnchor.center), 'contains center anchor', logs);
+  _expect(
+    values.contains(WindowPositionerAnchor.center),
+    'contains center anchor',
+    logs,
+  );
   assertionCount++;
-  _expect(values.contains(WindowPositionerAnchor.topLeft), 'contains topLeft anchor', logs);
+  _expect(
+    values.contains(WindowPositionerAnchor.topLeft),
+    'contains topLeft anchor',
+    logs,
+  );
   assertionCount++;
-  _expect(values.contains(WindowPositionerAnchor.bottomRight), 'contains bottomRight anchor', logs);
+  _expect(
+    values.contains(WindowPositionerAnchor.bottomRight),
+    'contains bottomRight anchor',
+    logs,
+  );
   assertionCount++;
 
   final nameMap = values.map((e) => e.name).toList();
-  _expect(nameMap.contains('left') && nameMap.contains('right'), 'contains edge anchors left/right', logs);
+  _expect(
+    nameMap.contains('left') && nameMap.contains('right'),
+    'contains edge anchors left/right',
+    logs,
+  );
   assertionCount++;
 
   final sorted = [...nameMap]..sort();
-  _expect(sorted.length == values.length, 'sorting names keeps full enum set', logs);
+  _expect(
+    sorted.length == values.length,
+    'sorting names keeps full enum set',
+    logs,
+  );
   assertionCount++;
 
   final centerIndex = WindowPositionerAnchor.center.index;
@@ -70,6 +90,7 @@ dynamic build(BuildContext context) {
     ],
   );
 }
+
 // coverage filler line 01
 // coverage filler line 02
 // coverage filler line 03

@@ -58,7 +58,10 @@ dynamic build(BuildContext context) {
   print('inputType: ${config3.inputType}');
   print('keyboardAppearance: ${config3.keyboardAppearance}');
   print('textCapitalization: ${config3.textCapitalization}');
-  assert(config3.textCapitalization == TextCapitalization.none, 'Email should not capitalize');
+  assert(
+    config3.textCapitalization == TextCapitalization.none,
+    'Email should not capitalize',
+  );
   print('Test 3 PASSED: Email configuration works correctly');
   testsPassed++;
 
@@ -75,7 +78,10 @@ dynamic build(BuildContext context) {
   print('inputType: ${config4.inputType}');
   print('inputAction: ${config4.inputAction}');
   print('textCapitalization: ${config4.textCapitalization}');
-  assert(config4.inputAction == TextInputAction.newline, 'Multiline should use newline action');
+  assert(
+    config4.inputAction == TextInputAction.newline,
+    'Multiline should use newline action',
+  );
   print('Test 4 PASSED: Multiline configuration works correctly');
   testsPassed++;
 
@@ -123,7 +129,10 @@ dynamic build(BuildContext context) {
   print('inputType: ${config7.inputType}');
   print('inputAction: ${config7.inputAction}');
   print('autocorrect: ${config7.autocorrect}');
-  assert(config7.inputAction == TextInputAction.search, 'Should use search action');
+  assert(
+    config7.inputAction == TextInputAction.search,
+    'Should use search action',
+  );
   print('Test 7 PASSED: Search configuration works correctly');
   testsPassed++;
 
@@ -148,9 +157,7 @@ dynamic build(BuildContext context) {
   print('\n--- Test 9: Dark Keyboard Appearance ---');
   totalTests++;
 
-  const config9 = TextInputConfiguration(
-    keyboardAppearance: Brightness.dark,
-  );
+  const config9 = TextInputConfiguration(keyboardAppearance: Brightness.dark);
   print('Dark keyboard configuration:');
   print('keyboardAppearance: ${config9.keyboardAppearance}');
   assert(config9.keyboardAppearance == Brightness.dark, 'Should be dark');
@@ -171,7 +178,10 @@ dynamic build(BuildContext context) {
   );
   print('Autofill configuration:');
   print('autofillConfiguration: ${config10.autofillConfiguration}');
-  assert(config10.autofillConfiguration != AutofillConfiguration.disabled, 'Should have autofill');
+  assert(
+    config10.autofillConfiguration != AutofillConfiguration.disabled,
+    'Should have autofill',
+  );
   print('Test 10 PASSED: Autofill configuration works');
   testsPassed++;
 

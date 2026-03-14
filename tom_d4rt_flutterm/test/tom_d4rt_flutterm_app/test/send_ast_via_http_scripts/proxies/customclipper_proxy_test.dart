@@ -9,12 +9,20 @@ class _RectProxyClipper extends CustomClipper<Rect> {
 
   @override
   Rect getClip(Size size) {
-    final safeInset = inset.clamp(0.0, math.min(size.width, size.height) / 2).toDouble();
-    return Rect.fromLTWH(safeInset, safeInset, size.width - (safeInset * 2), size.height - (safeInset * 2));
+    final safeInset = inset
+        .clamp(0.0, math.min(size.width, size.height) / 2)
+        .toDouble();
+    return Rect.fromLTWH(
+      safeInset,
+      safeInset,
+      size.width - (safeInset * 2),
+      size.height - (safeInset * 2),
+    );
   }
 
   @override
-  bool shouldReclip(covariant _RectProxyClipper oldClipper) => oldClipper.inset != inset;
+  bool shouldReclip(covariant _RectProxyClipper oldClipper) =>
+      oldClipper.inset != inset;
 }
 
 void _expect(bool condition, String message, List<String> logs) {
@@ -35,17 +43,33 @@ dynamic build(BuildContext context) {
   const clipperC = _RectProxyClipper(12);
 
   final clipRect = clipperA.getClip(const Size(100, 60));
-  _expect(clipRect.left == 8 && clipRect.top == 8, 'getClip applies inset to origin', logs);
+  _expect(
+    clipRect.left == 8 && clipRect.top == 8,
+    'getClip applies inset to origin',
+    logs,
+  );
   assertionCount++;
-  _expect(clipRect.width == 84 && clipRect.height == 44, 'getClip calculates reduced size correctly', logs);
+  _expect(
+    clipRect.width == 84 && clipRect.height == 44,
+    'getClip calculates reduced size correctly',
+    logs,
+  );
   assertionCount++;
   _expect(!clipperA.shouldReclip(clipperB), 'same inset does not reclip', logs);
   assertionCount++;
-  _expect(clipperA.shouldReclip(clipperC), 'different inset triggers reclip', logs);
+  _expect(
+    clipperA.shouldReclip(clipperC),
+    'different inset triggers reclip',
+    logs,
+  );
   assertionCount++;
 
   final edgeRect = const _RectProxyClipper(200).getClip(const Size(20, 20));
-  _expect(edgeRect.width >= 0 && edgeRect.height >= 0, 'edge case oversized inset is clamped', logs);
+  _expect(
+    edgeRect.width >= 0 && edgeRect.height >= 0,
+    'edge case oversized inset is clamped',
+    logs,
+  );
   assertionCount++;
 
   final widget = ClipRect(
@@ -73,6 +97,7 @@ dynamic build(BuildContext context) {
     ],
   );
 }
+
 // coverage filler line 01
 // coverage filler line 02
 // coverage filler line 03

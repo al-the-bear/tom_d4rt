@@ -14,7 +14,10 @@ void _check({
 }
 
 class _TreeNodeSample extends DiagnosticableTree {
-  const _TreeNodeSample({required this.id, this.children = const <_TreeNodeSample>[]});
+  const _TreeNodeSample({
+    required this.id,
+    this.children = const <_TreeNodeSample>[],
+  });
 
   final String id;
   final List<_TreeNodeSample> children;
@@ -29,7 +32,12 @@ class _TreeNodeSample extends DiagnosticableTree {
   @override
   List<DiagnosticsNode> debugDescribeChildren() {
     return children
-        .map((child) => child.toDiagnosticsNode(name: 'child-${child.id}', style: DiagnosticsTreeStyle.sparse))
+        .map(
+          (child) => child.toDiagnosticsNode(
+            name: 'child-${child.id}',
+            style: DiagnosticsTreeStyle.sparse,
+          ),
+        )
         .toList();
   }
 }
@@ -66,26 +74,75 @@ dynamic build(BuildContext context) {
     style: DiagnosticsTreeStyle.sparse,
   );
 
-  _check(logs: logs, label: 'DiagnosticableTreeNode created', condition: node is DiagnosticableTreeNode);
-  _check(logs: logs, label: 'name preserved', condition: node.name == 'rootNode');
-  _check(logs: logs, label: 'style preserved', condition: node.style == DiagnosticsTreeStyle.sparse);
+  _check(
+    logs: logs,
+    label: 'DiagnosticableTreeNode created',
+    condition: node is DiagnosticableTreeNode,
+  );
+  _check(
+    logs: logs,
+    label: 'name preserved',
+    condition: node.name == 'rootNode',
+  );
+  _check(
+    logs: logs,
+    label: 'style preserved',
+    condition: node.style == DiagnosticsTreeStyle.sparse,
+  );
 
   final children = node.getChildren();
   final properties = node.getProperties();
-  _check(logs: logs, label: 'children count = 2', condition: children.length == 2);
-  _check(logs: logs, label: 'properties include id', condition: properties.any((n) => n.name == 'id'));
-  _check(logs: logs, label: 'properties include childCount', condition: properties.any((n) => n.name == 'childCount'));
+  _check(
+    logs: logs,
+    label: 'children count = 2',
+    condition: children.length == 2,
+  );
+  _check(
+    logs: logs,
+    label: 'properties include id',
+    condition: properties.any((n) => n.name == 'id'),
+  );
+  _check(
+    logs: logs,
+    label: 'properties include childCount',
+    condition: properties.any((n) => n.name == 'childCount'),
+  );
 
   final desc = node.toDescription();
-  _check(logs: logs, label: 'description contains class name', condition: desc.contains('TreeNodeSample'));
+  _check(
+    logs: logs,
+    label: 'description contains class name',
+    condition: desc.contains('TreeNodeSample'),
+  );
 
   final deep = node.toStringDeep();
-  _check(logs: logs, label: 'deep string has leafA', condition: deep.contains('leafA'));
-  _check(logs: logs, label: 'deep string has leafB', condition: deep.contains('leafB'));
+  _check(
+    logs: logs,
+    label: 'deep string has leafA',
+    condition: deep.contains('leafA'),
+  );
+  _check(
+    logs: logs,
+    label: 'deep string has leafB',
+    condition: deep.contains('leafB'),
+  );
 
-  final json = node.toJsonMap(const DiagnosticsSerializationDelegate(subtreeDepth: 2, includeProperties: true));
-  _check(logs: logs, label: 'json has description', condition: json.containsKey('description'));
-  _check(logs: logs, label: 'json has children', condition: json.containsKey('children'));
+  final json = node.toJsonMap(
+    const DiagnosticsSerializationDelegate(
+      subtreeDepth: 2,
+      includeProperties: true,
+    ),
+  );
+  _check(
+    logs: logs,
+    label: 'json has description',
+    condition: json.containsKey('description'),
+  );
+  _check(
+    logs: logs,
+    label: 'json has children',
+    condition: json.containsKey('children'),
+  );
 
   print('DiagnosticableTreeNode comprehensive test complete');
   return _summary('DiagnosticableTreeNode Comprehensive Test', logs);

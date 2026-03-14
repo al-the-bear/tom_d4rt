@@ -76,7 +76,10 @@ dynamic build(BuildContext context) {
 
   // Test 10: Scale operation
   final scaledBorder = border1.scale(2.0);
-  assert(scaledBorder is RoundedSuperellipseBorder, 'Scaled should return same type');
+  assert(
+    scaledBorder is RoundedSuperellipseBorder,
+    'Scaled should return same type',
+  );
   results.add('scale(2.0) works');
   print('Scaled border: ${scaledBorder.runtimeType}');
 
@@ -152,9 +155,7 @@ dynamic build(BuildContext context) {
   print('Container(decoration: ShapeDecoration(shape: ...))');
 
   // Test 21: BorderRadius.zero
-  final borderZero = RoundedSuperellipseBorder(
-    cornerRadius: BorderRadius.zero,
-  );
+  final borderZero = RoundedSuperellipseBorder(cornerRadius: BorderRadius.zero);
   results.add('BorderRadius.zero creates square corners');
   print('Zero radius: superellipse becomes rectangle');
 
@@ -167,14 +168,19 @@ dynamic build(BuildContext context) {
   print('No side: only shape, no stroke');
 
   // Test 23: Summary of tests
-  print('RoundedSuperellipseBorder test completed with ${results.length} tests');
+  print(
+    'RoundedSuperellipseBorder test completed with ${results.length} tests',
+  );
   results.add('All ${results.length} tests passed');
 
   return Column(
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('RoundedSuperellipseBorder Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      Text(
+        'RoundedSuperellipseBorder Tests',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
       SizedBox(height: 8),
       Text('Inheritance: OutlinedBorder -> ShapeBorder'),
       Text('Properties: cornerRadius, side'),

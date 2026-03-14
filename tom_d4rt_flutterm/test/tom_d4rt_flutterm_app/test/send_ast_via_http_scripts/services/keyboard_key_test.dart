@@ -45,9 +45,12 @@ dynamic build(BuildContext context) {
   print('\nTest 3: Testing alphabet keys');
   try {
     final alphabetKeys = [
-      LogicalKeyboardKey.keyA, LogicalKeyboardKey.keyB,
-      LogicalKeyboardKey.keyC, LogicalKeyboardKey.keyD,
-      LogicalKeyboardKey.keyE, LogicalKeyboardKey.keyF,
+      LogicalKeyboardKey.keyA,
+      LogicalKeyboardKey.keyB,
+      LogicalKeyboardKey.keyC,
+      LogicalKeyboardKey.keyD,
+      LogicalKeyboardKey.keyE,
+      LogicalKeyboardKey.keyF,
     ];
     for (final key in alphabetKeys) {
       print('  - ${key.keyLabel}: ${key.keyId}');
@@ -64,11 +67,16 @@ dynamic build(BuildContext context) {
   print('\nTest 4: Testing number keys');
   try {
     final numberKeys = [
-      LogicalKeyboardKey.digit0, LogicalKeyboardKey.digit1,
-      LogicalKeyboardKey.digit2, LogicalKeyboardKey.digit3,
-      LogicalKeyboardKey.digit4, LogicalKeyboardKey.digit5,
-      LogicalKeyboardKey.digit6, LogicalKeyboardKey.digit7,
-      LogicalKeyboardKey.digit8, LogicalKeyboardKey.digit9,
+      LogicalKeyboardKey.digit0,
+      LogicalKeyboardKey.digit1,
+      LogicalKeyboardKey.digit2,
+      LogicalKeyboardKey.digit3,
+      LogicalKeyboardKey.digit4,
+      LogicalKeyboardKey.digit5,
+      LogicalKeyboardKey.digit6,
+      LogicalKeyboardKey.digit7,
+      LogicalKeyboardKey.digit8,
+      LogicalKeyboardKey.digit9,
     ];
     print('  - Number keys count: ${numberKeys.length}');
     for (var i = 0; i < 5; i++) {
@@ -86,9 +94,12 @@ dynamic build(BuildContext context) {
   print('\nTest 5: Testing function keys');
   try {
     final functionKeys = [
-      LogicalKeyboardKey.f1, LogicalKeyboardKey.f2,
-      LogicalKeyboardKey.f3, LogicalKeyboardKey.f4,
-      LogicalKeyboardKey.f5, LogicalKeyboardKey.f6,
+      LogicalKeyboardKey.f1,
+      LogicalKeyboardKey.f2,
+      LogicalKeyboardKey.f3,
+      LogicalKeyboardKey.f4,
+      LogicalKeyboardKey.f5,
+      LogicalKeyboardKey.f6,
     ];
     for (final key in functionKeys) {
       print('  - Function key: ${key.keyLabel}');
@@ -194,9 +205,12 @@ dynamic build(BuildContext context) {
   print('\nTest 10: Testing numpad keys');
   try {
     final numpadKeys = [
-      LogicalKeyboardKey.numpad0, LogicalKeyboardKey.numpad1,
-      LogicalKeyboardKey.numpad2, LogicalKeyboardKey.numpad3,
-      LogicalKeyboardKey.numpad4, LogicalKeyboardKey.numpad5,
+      LogicalKeyboardKey.numpad0,
+      LogicalKeyboardKey.numpad1,
+      LogicalKeyboardKey.numpad2,
+      LogicalKeyboardKey.numpad3,
+      LogicalKeyboardKey.numpad4,
+      LogicalKeyboardKey.numpad5,
     ];
     for (final key in numpadKeys) {
       print('  - Numpad: ${key.keyLabel}');
@@ -241,16 +255,24 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('KeyboardKey Tests',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      Text(
+        'KeyboardKey Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
       SizedBox(height: 8),
-      Text('Passed: $passCount / ${passCount + failCount}',
-          style: TextStyle(color: failCount == 0 ? Color(0xFF4CAF50) : Color(0xFFF44336))),
+      Text(
+        'Passed: $passCount / ${passCount + failCount}',
+        style: TextStyle(
+          color: failCount == 0 ? Color(0xFF4CAF50) : Color(0xFFF44336),
+        ),
+      ),
       SizedBox(height: 8),
-      ...results.map((r) => Padding(
-            padding: EdgeInsets.symmetric(vertical: 2),
-            child: Text(r, style: TextStyle(fontSize: 12)),
-          )),
+      ...results.map(
+        (r) => Padding(
+          padding: EdgeInsets.symmetric(vertical: 2),
+          child: Text(r, style: TextStyle(fontSize: 12)),
+        ),
+      ),
     ],
   );
 }

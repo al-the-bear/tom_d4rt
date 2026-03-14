@@ -2,10 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class _PointerCase {
-  const _PointerCase({
-    required this.label,
-    required this.event,
-  });
+  const _PointerCase({required this.label, required this.event});
 
   final String label;
   final PointerEnterEvent event;
@@ -133,8 +130,9 @@ dynamic build(BuildContext context) {
   );
   checks++;
 
-  final allPointerEvents =
-      cases.every((item) => item.event.runtimeType == PointerEnterEvent);
+  final allPointerEvents = cases.every(
+    (item) => item.event.runtimeType == PointerEnterEvent,
+  );
   _check(
     condition: allPointerEvents,
     message: 'all constructed cases are PointerEnterEvent instances',

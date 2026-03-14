@@ -16,7 +16,9 @@ dynamic build(BuildContext context) {
   String describe(SelectionEventType value) => '${value.name}#${value.index}';
 
   log('--- constructor semantics ---');
-  log('Enum instances are canonical singletons created by Dart enum constructors.');
+  log(
+    'Enum instances are canonical singletons created by Dart enum constructors.',
+  );
 
   final values = SelectionEventType.values;
   log('value count: ${values.length}');
@@ -65,9 +67,16 @@ dynamic build(BuildContext context) {
 
   final lengthHistogram = <int, int>{};
   for (final value in values) {
-    lengthHistogram.update(value.name.length, (count) => count + 1, ifAbsent: () => 1);
+    lengthHistogram.update(
+      value.name.length,
+      (count) => count + 1,
+      ifAbsent: () => 1,
+    );
   }
-  final histogramTotal = lengthHistogram.values.fold<int>(0, (sum, count) => sum + count);
+  final histogramTotal = lengthHistogram.values.fold<int>(
+    0,
+    (sum, count) => sum + count,
+  );
   assert(histogramTotal == values.length);
 
   final roundTripStable = values
@@ -98,7 +107,9 @@ dynamic build(BuildContext context) {
       Text('Histogram entries: ${lengthHistogram.length}'),
       Text('Round-trip stable: $roundTripStable'),
       Text('Trace entries: ${traces.length}'),
-      const Text('Assertions passed for constructor/properties/behavior/edge cases'),
+      const Text(
+        'Assertions passed for constructor/properties/behavior/edge cases',
+      ),
     ],
   );
 }

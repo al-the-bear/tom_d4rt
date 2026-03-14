@@ -111,9 +111,21 @@ dynamic build(BuildContext context) {
     print('Progress drives animation controller');
     print('Touch offset provides visual feedback position');
     final events = [
-      PredictiveBackEvent(touchOffset: Offset(10, 200), progress: 0.1, swipeEdge: SwipeEdge.left),
-      PredictiveBackEvent(touchOffset: Offset(50, 200), progress: 0.3, swipeEdge: SwipeEdge.left),
-      PredictiveBackEvent(touchOffset: Offset(100, 200), progress: 0.5, swipeEdge: SwipeEdge.left),
+      PredictiveBackEvent(
+        touchOffset: Offset(10, 200),
+        progress: 0.1,
+        swipeEdge: SwipeEdge.left,
+      ),
+      PredictiveBackEvent(
+        touchOffset: Offset(50, 200),
+        progress: 0.3,
+        swipeEdge: SwipeEdge.left,
+      ),
+      PredictiveBackEvent(
+        touchOffset: Offset(100, 200),
+        progress: 0.5,
+        swipeEdge: SwipeEdge.left,
+      ),
     ];
     for (final e in events) {
       print('  Progress ${e.progress}: x=${e.touchOffset?.dx}');
@@ -153,8 +165,10 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('PredictiveBackEvent Test Results',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+      Text(
+        'PredictiveBackEvent Test Results',
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      ),
       SizedBox(height: 8),
       Text('Tests passed: $passCount'),
       Text('Tests failed: $failCount'),

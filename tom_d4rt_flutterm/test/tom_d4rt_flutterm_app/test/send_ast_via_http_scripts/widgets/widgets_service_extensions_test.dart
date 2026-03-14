@@ -17,7 +17,10 @@ dynamic build(BuildContext context) {
   log('BuildContext type: ${context.runtimeType}');
 
   final List<WidgetsServiceExtensions> values = WidgetsServiceExtensions.values;
-  expectCondition(values.isNotEmpty, 'WidgetsServiceExtensions.values is not empty');
+  expectCondition(
+    values.isNotEmpty,
+    'WidgetsServiceExtensions.values is not empty',
+  );
   expectCondition(
     values.toSet().length == values.length,
     'WidgetsServiceExtensions.values contains unique entries',
@@ -67,9 +70,10 @@ dynamic build(BuildContext context) {
   }
 
   final List<WidgetsServiceExtensions> sortedByIndex =
-      <WidgetsServiceExtensions>[...values]
-        ..sort((WidgetsServiceExtensions a, WidgetsServiceExtensions b) =>
-            a.index - b.index);
+      <WidgetsServiceExtensions>[...values]..sort(
+        (WidgetsServiceExtensions a, WidgetsServiceExtensions b) =>
+            a.index - b.index,
+      );
   bool orderMatches = true;
   for (int index = 0; index < values.length; index++) {
     if (values[index] != sortedByIndex[index]) {

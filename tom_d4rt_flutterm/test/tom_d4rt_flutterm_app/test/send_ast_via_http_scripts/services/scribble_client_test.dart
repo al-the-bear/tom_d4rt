@@ -8,36 +8,36 @@ class TestScribbleClient implements ScribbleClient {
   String? _insertedText;
   bool _showToolbar = false;
   Rect _bounds = Rect.zero;
-  
+
   @override
   String get currentTextEditingValue => 'Test text';
-  
+
   @override
   void insertTextPlaceholder(Size size) {
     print('  insertTextPlaceholder called with size: $size');
   }
-  
+
   @override
   void performSelector(String selectorName) {
     print('  performSelector called with: $selectorName');
   }
-  
+
   @override
   void removeTextPlaceholder() {
     print('  removeTextPlaceholder called');
   }
-  
+
   @override
   void showToolbar() {
     _showToolbar = true;
     print('  showToolbar called');
   }
-  
+
   @override
   Rect get bounds => _bounds;
-  
+
   set bounds(Rect r) => _bounds = r;
-  
+
   @override
   bool isInScribbleRect(Rect rect) {
     final result = _bounds.overlaps(rect);
@@ -86,7 +86,11 @@ dynamic build(BuildContext context) {
   print('\n--- Test 3: Test insertTextPlaceholder ---');
   try {
     final client = TestScribbleClient();
-    final sizes = [const Size(50, 20), const Size(100, 40), const Size(200, 80)];
+    final sizes = [
+      const Size(50, 20),
+      const Size(100, 40),
+      const Size(200, 80),
+    ];
     for (final size in sizes) {
       client.insertTextPlaceholder(size);
     }
@@ -166,8 +170,12 @@ dynamic build(BuildContext context) {
   try {
     final client = TestScribbleClient();
     client.bounds = const Rect.fromLTWH(0, 0, 100, 100);
-    final overlapping = client.isInScribbleRect(const Rect.fromLTWH(50, 50, 100, 100));
-    final nonOverlapping = client.isInScribbleRect(const Rect.fromLTWH(200, 200, 50, 50));
+    final overlapping = client.isInScribbleRect(
+      const Rect.fromLTWH(50, 50, 100, 100),
+    );
+    final nonOverlapping = client.isInScribbleRect(
+      const Rect.fromLTWH(200, 200, 50, 50),
+    );
     print('Overlapping rect: $overlapping');
     print('Non-overlapping rect: $nonOverlapping');
     assert(overlapping == true);
@@ -191,8 +199,16 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('ScribbleClient Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-      Text('Passed: $testsPassed, Failed: $testsFailed', style: TextStyle(color: testsFailed == 0 ? Color(0xFF00AA00) : Color(0xFFAA0000))),
+      Text(
+        'ScribbleClient Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+      ),
+      Text(
+        'Passed: $testsPassed, Failed: $testsFailed',
+        style: TextStyle(
+          color: testsFailed == 0 ? Color(0xFF00AA00) : Color(0xFFAA0000),
+        ),
+      ),
       const SizedBox(height: 8),
       ...results.map((r) => Text(r, style: TextStyle(fontSize: 12))),
     ],

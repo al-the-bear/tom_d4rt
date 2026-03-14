@@ -112,7 +112,10 @@ dynamic build(BuildContext context) {
   print('viewType: ${creationParams['viewType']}');
   print('layoutDirection: ${creationParams['layoutDirection']}');
   print('creationParams: ${creationParams['creationParams']}');
-  assert(creationParams['viewType'] == 'my.custom.view', 'View type should match');
+  assert(
+    creationParams['viewType'] == 'my.custom.view',
+    'View type should match',
+  );
   print('Test 7 PASSED: Creation parameters verified');
   testsPassed++;
 

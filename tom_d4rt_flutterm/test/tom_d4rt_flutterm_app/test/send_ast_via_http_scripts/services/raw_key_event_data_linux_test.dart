@@ -113,12 +113,18 @@ dynamic build(BuildContext context) {
     final downEvent = RawKeyEventDataLinux(
       keyHelper: const GtkKeyHelper(),
       unicodeScalarValues: 97,
-      scanCode: 38, keyCode: 38, modifiers: 0, isDown: true,
+      scanCode: 38,
+      keyCode: 38,
+      modifiers: 0,
+      isDown: true,
     );
     final upEvent = RawKeyEventDataLinux(
       keyHelper: const GtkKeyHelper(),
       unicodeScalarValues: 97,
-      scanCode: 38, keyCode: 38, modifiers: 0, isDown: false,
+      scanCode: 38,
+      keyCode: 38,
+      modifiers: 0,
+      isDown: false,
     );
     print('Down event isDown: ${downEvent.isDown}');
     print('Up event isDown: ${upEvent.isDown}');
@@ -182,7 +188,10 @@ dynamic build(BuildContext context) {
     final data = RawKeyEventDataLinux(
       keyHelper: const GtkKeyHelper(),
       unicodeScalarValues: 97,
-      scanCode: 38, keyCode: 38, modifiers: 0, isDown: true,
+      scanCode: 38,
+      keyCode: 38,
+      modifiers: 0,
+      isDown: true,
     );
     assert(data is RawKeyEventData);
     print('Inherits from RawKeyEventData: true');
@@ -206,8 +215,16 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('RawKeyEventDataLinux Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-      Text('Passed: $testsPassed, Failed: $testsFailed', style: TextStyle(color: testsFailed == 0 ? Color(0xFF00AA00) : Color(0xFFAA0000))),
+      Text(
+        'RawKeyEventDataLinux Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+      ),
+      Text(
+        'Passed: $testsPassed, Failed: $testsFailed',
+        style: TextStyle(
+          color: testsFailed == 0 ? Color(0xFF00AA00) : Color(0xFFAA0000),
+        ),
+      ),
       const SizedBox(height: 8),
       ...results.map((r) => Text(r, style: TextStyle(fontSize: 12))),
     ],

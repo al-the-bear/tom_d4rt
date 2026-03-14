@@ -39,11 +39,19 @@ dynamic build(BuildContext context) {
   final picture = recorder.endRecording();
 
   final imageFuture = picture.toImage(10, 10);
-  _expectCondition(imageFuture is Future<ui.Image>, 'picture.toImage returns Future<Image>', logs);
+  _expectCondition(
+    imageFuture is Future<ui.Image>,
+    'picture.toImage returns Future<Image>',
+    logs,
+  );
   assertionCount++;
 
   final imageSync = picture.toImageSync(10, 10);
-  _expectCondition(imageSync.width == 10 && imageSync.height == 10, 'toImageSync returns expected image dimensions', logs);
+  _expectCondition(
+    imageSync.width == 10 && imageSync.height == 10,
+    'toImageSync returns expected image dimensions',
+    logs,
+  );
   assertionCount++;
 
   var invalidDimensionThrows = false;
@@ -54,7 +62,11 @@ dynamic build(BuildContext context) {
     print('expected invalid dimension error: $error');
   }
 
-  _expectCondition(invalidDimensionThrows, 'toImageSync throws for invalid dimensions', logs);
+  _expectCondition(
+    invalidDimensionThrows,
+    'toImageSync throws for invalid dimensions',
+    logs,
+  );
   assertionCount++;
 
   // Edge-case behavior context for target exception type.
@@ -64,7 +76,11 @@ dynamic build(BuildContext context) {
     'The type is observed during image conversion paths',
   ];
 
-  _expectCondition(documentedBehavior.length == 3, 'behavior documentation entries created', logs);
+  _expectCondition(
+    documentedBehavior.length == 3,
+    'behavior documentation entries created',
+    logs,
+  );
   assertionCount++;
 
   for (final line in documentedBehavior) {
@@ -110,4 +126,3 @@ dynamic build(BuildContext context) {
 // filler line to satisfy minimum length requirement
 // filler line to satisfy minimum length requirement
 // filler line to satisfy minimum length requirement
-

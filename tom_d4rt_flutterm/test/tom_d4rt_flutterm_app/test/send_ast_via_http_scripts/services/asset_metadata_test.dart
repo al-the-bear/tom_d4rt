@@ -124,10 +124,26 @@ dynamic build(BuildContext context) {
   print('\n--- Test 6: Asset family with variants ---');
   try {
     final family = [
-      AssetMetadata(key: 'assets/images/logo.png', targetDevicePixelRatio: 1.0, main: true),
-      AssetMetadata(key: 'assets/images/1.5x/logo.png', targetDevicePixelRatio: 1.5, main: false),
-      AssetMetadata(key: 'assets/images/2.0x/logo.png', targetDevicePixelRatio: 2.0, main: false),
-      AssetMetadata(key: 'assets/images/3.0x/logo.png', targetDevicePixelRatio: 3.0, main: false),
+      AssetMetadata(
+        key: 'assets/images/logo.png',
+        targetDevicePixelRatio: 1.0,
+        main: true,
+      ),
+      AssetMetadata(
+        key: 'assets/images/1.5x/logo.png',
+        targetDevicePixelRatio: 1.5,
+        main: false,
+      ),
+      AssetMetadata(
+        key: 'assets/images/2.0x/logo.png',
+        targetDevicePixelRatio: 2.0,
+        main: false,
+      ),
+      AssetMetadata(
+        key: 'assets/images/3.0x/logo.png',
+        targetDevicePixelRatio: 3.0,
+        main: false,
+      ),
     ];
     final mainCount = family.where((m) => m.main).length;
     assert(mainCount == 1);
@@ -169,11 +185,7 @@ dynamic build(BuildContext context) {
   // Test 8: Unicode in asset keys
   print('\n--- Test 8: Unicode in asset keys ---');
   try {
-    final unicodeKeys = [
-      'assets/日本語.png',
-      'assets/中文.png',
-      'assets/한국어.png',
-    ];
+    final unicodeKeys = ['assets/日本語.png', 'assets/中文.png', 'assets/한국어.png'];
     for (final key in unicodeKeys) {
       final metadata = AssetMetadata(
         key: key,
@@ -236,11 +248,17 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('AssetMetadata Test Results',
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+      Text(
+        'AssetMetadata Test Results',
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      ),
       SizedBox(height: 8),
-      Text('Passed: $passCount | Failed: $failCount',
-        style: TextStyle(color: failCount == 0 ? Color(0xFF4CAF50) : Color(0xFFF44336))),
+      Text(
+        'Passed: $passCount | Failed: $failCount',
+        style: TextStyle(
+          color: failCount == 0 ? Color(0xFF4CAF50) : Color(0xFFF44336),
+        ),
+      ),
       SizedBox(height: 8),
       ...results.map((r) => Text(r, style: TextStyle(fontSize: 12))),
     ],

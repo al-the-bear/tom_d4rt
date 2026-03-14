@@ -52,10 +52,7 @@ dynamic build(BuildContext context) {
   assert(transformed != null);
 
   log('--- reverse tween ---');
-  final reverseTween = AlignmentTween(
-    begin: tween.end,
-    end: tween.begin,
-  );
+  final reverseTween = AlignmentTween(begin: tween.end, end: tween.begin);
   final reverseHalf = reverseTween.transform(0.5);
   log('reverse transform(0.5): $reverseHalf');
   assert(reverseHalf != null);

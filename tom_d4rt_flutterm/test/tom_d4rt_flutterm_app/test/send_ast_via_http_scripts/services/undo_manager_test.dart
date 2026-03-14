@@ -42,7 +42,9 @@ dynamic build(BuildContext context) {
   log('--- behavior sanity loop ---');
   for (var i = 0; i < 3; i++) {
     log('Sanity iteration $i, clientNull=${UndoManager.client == null}');
-    assert(UndoManager.client == null || UndoManager.client is UndoManagerClient);
+    assert(
+      UndoManager.client == null || UndoManager.client is UndoManagerClient,
+    );
   }
 
   log('--- optional method invocation: conservative ---');

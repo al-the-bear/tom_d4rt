@@ -34,7 +34,11 @@ dynamic build(BuildContext context) {
   print('\n--- Test 2: Test logicalKey property ---');
   try {
     final data = RawKeyEventDataWeb(
-      code: 'KeyA', key: 'a', location: 0, metaState: 0, keyCode: 65,
+      code: 'KeyA',
+      key: 'a',
+      location: 0,
+      metaState: 0,
+      keyCode: 65,
     );
     final logicalKey = data.logicalKey;
     assert(logicalKey is LogicalKeyboardKey);
@@ -52,7 +56,11 @@ dynamic build(BuildContext context) {
   print('\n--- Test 3: Test physicalKey property ---');
   try {
     final data = RawKeyEventDataWeb(
-      code: 'KeyA', key: 'a', location: 0, metaState: 0, keyCode: 65,
+      code: 'KeyA',
+      key: 'a',
+      location: 0,
+      metaState: 0,
+      keyCode: 65,
     );
     final physicalKey = data.physicalKey;
     assert(physicalKey is PhysicalKeyboardKey);
@@ -70,7 +78,11 @@ dynamic build(BuildContext context) {
   print('\n--- Test 4: Test keyLabel property ---');
   try {
     final data = RawKeyEventDataWeb(
-      code: 'KeyA', key: 'a', location: 0, metaState: 0, keyCode: 65,
+      code: 'KeyA',
+      key: 'a',
+      location: 0,
+      metaState: 0,
+      keyCode: 65,
     );
     final keyLabel = data.keyLabel;
     print('Key label: "$keyLabel"');
@@ -86,15 +98,53 @@ dynamic build(BuildContext context) {
   print('\n--- Test 5: Verify platform implementations ---');
   try {
     final implementations = <RawKeyEventData>[
-      RawKeyEventDataWeb(code: 'KeyA', key: 'a', location: 0, metaState: 0, keyCode: 65),
-      RawKeyEventDataAndroid(flags: 0, codePoint: 97, plainCodePoint: 97, keyCode: 29,
-        scanCode: 30, metaState: 0, eventSource: 0, vendorId: 0, productId: 0, deviceId: 0, repeatCount: 0),
+      RawKeyEventDataWeb(
+        code: 'KeyA',
+        key: 'a',
+        location: 0,
+        metaState: 0,
+        keyCode: 65,
+      ),
+      RawKeyEventDataAndroid(
+        flags: 0,
+        codePoint: 97,
+        plainCodePoint: 97,
+        keyCode: 29,
+        scanCode: 30,
+        metaState: 0,
+        eventSource: 0,
+        vendorId: 0,
+        productId: 0,
+        deviceId: 0,
+        repeatCount: 0,
+      ),
       RawKeyEventDataFuchsia(hidUsage: 4, codePoint: 97, modifiers: 0),
-      RawKeyEventDataIos(characters: 'a', charactersIgnoringModifiers: 'a', keyCode: 0, modifiers: 0),
-      RawKeyEventDataMacOs(characters: 'a', charactersIgnoringModifiers: 'a', keyCode: 0, modifiers: 0),
-      RawKeyEventDataLinux(keyHelper: const GtkKeyHelper(), unicodeScalarValues: 97,
-        scanCode: 38, keyCode: 38, modifiers: 0, isDown: true),
-      RawKeyEventDataWindows(keyCode: 65, scanCode: 30, characterCodePoint: 97, modifiers: 0),
+      RawKeyEventDataIos(
+        characters: 'a',
+        charactersIgnoringModifiers: 'a',
+        keyCode: 0,
+        modifiers: 0,
+      ),
+      RawKeyEventDataMacOs(
+        characters: 'a',
+        charactersIgnoringModifiers: 'a',
+        keyCode: 0,
+        modifiers: 0,
+      ),
+      RawKeyEventDataLinux(
+        keyHelper: const GtkKeyHelper(),
+        unicodeScalarValues: 97,
+        scanCode: 38,
+        keyCode: 38,
+        modifiers: 0,
+        isDown: true,
+      ),
+      RawKeyEventDataWindows(
+        keyCode: 65,
+        scanCode: 30,
+        characterCodePoint: 97,
+        modifiers: 0,
+      ),
     ];
     for (final impl in implementations) {
       assert(impl is RawKeyEventData);
@@ -113,7 +163,9 @@ dynamic build(BuildContext context) {
   print('\n--- Test 6: Test modifier key detection ---');
   try {
     final data = RawKeyEventDataWeb(
-      code: 'KeyA', key: 'A', location: 0,
+      code: 'KeyA',
+      key: 'A',
+      location: 0,
       metaState: 1,
       keyCode: 65,
     );
@@ -133,7 +185,11 @@ dynamic build(BuildContext context) {
   print('\n--- Test 7: Test modifiersPressed getter ---');
   try {
     final data = RawKeyEventDataWeb(
-      code: 'KeyA', key: 'A', location: 0, metaState: 0, keyCode: 65,
+      code: 'KeyA',
+      key: 'A',
+      location: 0,
+      metaState: 0,
+      keyCode: 65,
     );
     final modifiers = data.modifiersPressed;
     print('Modifiers pressed: $modifiers');
@@ -150,7 +206,11 @@ dynamic build(BuildContext context) {
   print('\n--- Test 8: Test shouldDispatchKeyEvent ---');
   try {
     final data = RawKeyEventDataWeb(
-      code: 'KeyA', key: 'a', location: 0, metaState: 0, keyCode: 65,
+      code: 'KeyA',
+      key: 'a',
+      location: 0,
+      metaState: 0,
+      keyCode: 65,
     );
     final shouldDispatch = data.shouldDispatchEvent();
     print('Should dispatch event: $shouldDispatch');
@@ -173,8 +233,16 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('RawKeyEventData Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-      Text('Passed: $testsPassed, Failed: $testsFailed', style: TextStyle(color: testsFailed == 0 ? Color(0xFF00AA00) : Color(0xFFAA0000))),
+      Text(
+        'RawKeyEventData Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+      ),
+      Text(
+        'Passed: $testsPassed, Failed: $testsFailed',
+        style: TextStyle(
+          color: testsFailed == 0 ? Color(0xFF00AA00) : Color(0xFFAA0000),
+        ),
+      ),
       const SizedBox(height: 8),
       ...results.map((r) => Text(r, style: TextStyle(fontSize: 12))),
     ],

@@ -36,10 +36,7 @@ dynamic build(BuildContext context) {
   // Test 2: Password autofill hints
   print('\n--- Test 2: Password autofill hints ---');
   try {
-    final passwordHints = [
-      AutofillHints.password,
-      AutofillHints.newPassword,
-    ];
+    final passwordHints = [AutofillHints.password, AutofillHints.newPassword];
     for (final hint in passwordHints) {
       print('Password hint: $hint');
       assert(hint.isNotEmpty);
@@ -176,10 +173,7 @@ dynamic build(BuildContext context) {
   // Test 9: Organization hints
   print('\n--- Test 9: Organization hints ---');
   try {
-    final orgHints = [
-      AutofillHints.organizationName,
-      AutofillHints.jobTitle,
-    ];
+    final orgHints = [AutofillHints.organizationName, AutofillHints.jobTitle];
     print('Organization hints:');
     for (final hint in orgHints) {
       print('  - $hint');
@@ -240,11 +234,17 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('AutofillHints Test Results',
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+      Text(
+        'AutofillHints Test Results',
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      ),
       SizedBox(height: 8),
-      Text('Passed: $passCount | Failed: $failCount',
-        style: TextStyle(color: failCount == 0 ? Color(0xFF4CAF50) : Color(0xFFF44336))),
+      Text(
+        'Passed: $passCount | Failed: $failCount',
+        style: TextStyle(
+          color: failCount == 0 ? Color(0xFF4CAF50) : Color(0xFFF44336),
+        ),
+      ),
       SizedBox(height: 8),
       ...results.map((r) => Text(r, style: TextStyle(fontSize: 12))),
     ],

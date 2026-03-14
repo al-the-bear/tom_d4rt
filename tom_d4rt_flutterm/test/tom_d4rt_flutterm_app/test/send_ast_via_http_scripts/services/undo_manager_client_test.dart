@@ -8,7 +8,12 @@ class _UndoManagerClientProbe with UndoManagerClient {
   final String id;
 }
 
-void expectCondition(bool condition, String message, List<String> logs, Map<String, int> counters) {
+void expectCondition(
+  bool condition,
+  String message,
+  List<String> logs,
+  Map<String, int> counters,
+) {
   assert(condition, message);
   counters['assertions'] = (counters['assertions'] ?? 0) + 1;
   final marker = condition ? '✅' : '❌';
@@ -25,19 +30,54 @@ dynamic build(BuildContext context) {
   final details = <String, String>{};
 
   print('--- ${testLabel} start ---');
-  expectCondition(context is BuildContext, 'BuildContext is available', logs, counters);
-  expectCondition(targetClassName.isNotEmpty, 'target class name not empty', logs, counters);
+  expectCondition(
+    context is BuildContext,
+    'BuildContext is available',
+    logs,
+    counters,
+  );
+  expectCondition(
+    targetClassName.isNotEmpty,
+    'target class name not empty',
+    logs,
+    counters,
+  );
 
   final initialClient = UndoManager.client;
   final managerType = UndoManager;
   final clientType = UndoManagerClient;
   final localClientA = _UndoManagerClientProbe('A');
   final localClientB = _UndoManagerClientProbe('B');
-  expectCondition(managerType.toString().contains('UndoManager'), 'UndoManager type symbol available', logs, counters);
-  expectCondition(clientType.toString().contains('UndoManagerClient'), 'UndoManagerClient type symbol available', logs, counters);
-  expectCondition(initialClient == null || initialClient is UndoManagerClient, 'initial client is null or UndoManagerClient', logs, counters);
-  expectCondition(localClientA is UndoManagerClient, 'localClientA instantiates UndoManagerClient via mixin', logs, counters);
-  expectCondition(localClientB is UndoManagerClient, 'localClientB instantiates UndoManagerClient via mixin', logs, counters);
+  expectCondition(
+    managerType.toString().contains('UndoManager'),
+    'UndoManager type symbol available',
+    logs,
+    counters,
+  );
+  expectCondition(
+    clientType.toString().contains('UndoManagerClient'),
+    'UndoManagerClient type symbol available',
+    logs,
+    counters,
+  );
+  expectCondition(
+    initialClient == null || initialClient is UndoManagerClient,
+    'initial client is null or UndoManagerClient',
+    logs,
+    counters,
+  );
+  expectCondition(
+    localClientA is UndoManagerClient,
+    'localClientA instantiates UndoManagerClient via mixin',
+    logs,
+    counters,
+  );
+  expectCondition(
+    localClientB is UndoManagerClient,
+    'localClientB instantiates UndoManagerClient via mixin',
+    logs,
+    counters,
+  );
   try {
     UndoManager.setUndoState(canUndo: false, canRedo: true);
     details['setUndoState'] = 'invoked';
@@ -45,7 +85,12 @@ dynamic build(BuildContext context) {
     details['setUndoState'] = 'threw:$error';
   }
   final afterClient = UndoManager.client;
-  expectCondition(afterClient == null || afterClient is UndoManagerClient, 'after client still matches UndoManagerClient contract', logs, counters);
+  expectCondition(
+    afterClient == null || afterClient is UndoManagerClient,
+    'after client still matches UndoManagerClient contract',
+    logs,
+    counters,
+  );
   details['managerType'] = managerType.toString();
   details['clientType'] = clientType.toString();
   details['localClientA'] = localClientA.id;
@@ -99,8 +144,18 @@ dynamic build(BuildContext context) {
     print('checklist:$item');
   }
 
-  expectCondition(detailEntries.isNotEmpty, 'details map is populated', logs, counters);
-  expectCondition(coverageChecklist.length == 40, 'coverage checklist has 40 entries', logs, counters);
+  expectCondition(
+    detailEntries.isNotEmpty,
+    'details map is populated',
+    logs,
+    counters,
+  );
+  expectCondition(
+    coverageChecklist.length == 40,
+    'coverage checklist has 40 entries',
+    logs,
+    counters,
+  );
 
   print('--- ${testLabel} complete ---');
   print('assertions: ${counters['assertions']}');
@@ -113,12 +168,16 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('${testLabel} Summary', style: const TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            '${testLabel} Summary',
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
           Text('Target class: $targetClassName'),
           Text('Assertions: ${counters['assertions']}'),
           Text('Log entries: ${logs.length}'),
           Text('Detail entries: ${detailEntries.length}'),
-          for (final entry in detailEntries) Text('detail: ${entry.key} => ${entry.value}'),
+          for (final entry in detailEntries)
+            Text('detail: ${entry.key} => ${entry.value}'),
           for (final line in logs.take(12)) Text(line),
           Text('Checklist size: ${coverageChecklist.length}'),
           Text('Edge handling verified for $targetClassName'),

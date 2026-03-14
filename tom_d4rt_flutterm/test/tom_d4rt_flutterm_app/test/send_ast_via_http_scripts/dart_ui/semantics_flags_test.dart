@@ -23,7 +23,11 @@ dynamic build(BuildContext context) {
   final names = values.map((value) => value.name).toList();
   final indices = values.map((value) => value.index).toList();
 
-  _expectCondition(values.isNotEmpty, 'SemanticsFlag values are available', logs);
+  _expectCondition(
+    values.isNotEmpty,
+    'SemanticsFlag values are available',
+    logs,
+  );
   assertionCount++;
 
   _expectCondition(
@@ -71,11 +75,7 @@ dynamic build(BuildContext context) {
   final first = values.first;
   final last = values.last;
 
-  _expectCondition(
-    first.index == 0,
-    'first SemanticsFlag index is zero',
-    logs,
-  );
+  _expectCondition(first.index == 0, 'first SemanticsFlag index is zero', logs);
   assertionCount++;
 
   _expectCondition(

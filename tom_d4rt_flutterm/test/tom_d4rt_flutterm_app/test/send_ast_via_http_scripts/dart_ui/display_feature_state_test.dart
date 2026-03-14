@@ -68,9 +68,10 @@ dynamic build(BuildContext context) {
   }
 
   final List<ui.DisplayFeatureState> sortedByIndex =
-      <ui.DisplayFeatureState>[...values]
-        ..sort((ui.DisplayFeatureState a, ui.DisplayFeatureState b) =>
-            a.index - b.index);
+      <ui.DisplayFeatureState>[...values]..sort(
+        (ui.DisplayFeatureState a, ui.DisplayFeatureState b) =>
+            a.index - b.index,
+      );
   bool orderMatches = true;
   for (int index = 0; index < values.length; index++) {
     if (values[index] != sortedByIndex[index]) {

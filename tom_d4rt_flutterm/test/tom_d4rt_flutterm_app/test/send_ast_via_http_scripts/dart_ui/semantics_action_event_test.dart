@@ -26,29 +26,68 @@ dynamic build(BuildContext context) {
     type: ui.SemanticsActionEventType.longPress,
     viewId: 11,
     nodeId: 100,
-    arguments: const <String, Object?>{'source': 'integration', 'enabled': true},
+    arguments: const <String, Object?>{
+      'source': 'integration',
+      'enabled': true,
+    },
   );
 
-  _expectCondition(eventA.type == ui.SemanticsActionEventType.tap, 'constructor sets type on eventA', logs);
+  _expectCondition(
+    eventA.type == ui.SemanticsActionEventType.tap,
+    'constructor sets type on eventA',
+    logs,
+  );
   assertionCount++;
-  _expectCondition(eventA.viewId == 10, 'constructor sets viewId on eventA', logs);
+  _expectCondition(
+    eventA.viewId == 10,
+    'constructor sets viewId on eventA',
+    logs,
+  );
   assertionCount++;
-  _expectCondition(eventA.nodeId == 99, 'constructor sets nodeId on eventA', logs);
+  _expectCondition(
+    eventA.nodeId == 99,
+    'constructor sets nodeId on eventA',
+    logs,
+  );
   assertionCount++;
-  _expectCondition(eventA.arguments?['source'] == 'test', 'constructor sets arguments on eventA', logs);
+  _expectCondition(
+    eventA.arguments?['source'] == 'test',
+    'constructor sets arguments on eventA',
+    logs,
+  );
   assertionCount++;
 
-  _expectCondition(eventB.type == ui.SemanticsActionEventType.longPress, 'constructor sets type on eventB', logs);
+  _expectCondition(
+    eventB.type == ui.SemanticsActionEventType.longPress,
+    'constructor sets type on eventB',
+    logs,
+  );
   assertionCount++;
-  _expectCondition(eventB.viewId == 11, 'constructor sets viewId on eventB', logs);
+  _expectCondition(
+    eventB.viewId == 11,
+    'constructor sets viewId on eventB',
+    logs,
+  );
   assertionCount++;
-  _expectCondition(eventB.nodeId == 100, 'constructor sets nodeId on eventB', logs);
+  _expectCondition(
+    eventB.nodeId == 100,
+    'constructor sets nodeId on eventB',
+    logs,
+  );
   assertionCount++;
-  _expectCondition(eventB.arguments?['enabled'] == true, 'constructor sets arguments on eventB', logs);
+  _expectCondition(
+    eventB.arguments?['enabled'] == true,
+    'constructor sets arguments on eventB',
+    logs,
+  );
   assertionCount++;
 
   final types = ui.SemanticsActionEventType.values;
-  _expectCondition(types.isNotEmpty, 'SemanticsActionEventType enum has values', logs);
+  _expectCondition(
+    types.isNotEmpty,
+    'SemanticsActionEventType enum has values',
+    logs,
+  );
   assertionCount++;
 
   for (final type in types) {
@@ -63,11 +102,17 @@ dynamic build(BuildContext context) {
 
   var invalidTypeThrows = false;
   try {
-    ui.SemanticsActionEventType.values.byName('__invalid_semantics_action_event_type__');
+    ui.SemanticsActionEventType.values.byName(
+      '__invalid_semantics_action_event_type__',
+    );
   } catch (_) {
     invalidTypeThrows = true;
   }
-  _expectCondition(invalidTypeThrows, 'invalid byName throws for SemanticsActionEventType', logs);
+  _expectCondition(
+    invalidTypeThrows,
+    'invalid byName throws for SemanticsActionEventType',
+    logs,
+  );
   assertionCount++;
 
   final eventWithoutArgs = ui.SemanticsActionEvent(
@@ -75,12 +120,22 @@ dynamic build(BuildContext context) {
     viewId: 12,
     nodeId: 101,
   );
-  _expectCondition(eventWithoutArgs.arguments == null, 'arguments defaults to null when omitted', logs);
+  _expectCondition(
+    eventWithoutArgs.arguments == null,
+    'arguments defaults to null when omitted',
+    logs,
+  );
   assertionCount++;
 
-  print('eventA: type=${eventA.type}, view=${eventA.viewId}, node=${eventA.nodeId}, args=${eventA.arguments}');
-  print('eventB: type=${eventB.type}, view=${eventB.viewId}, node=${eventB.nodeId}, args=${eventB.arguments}');
-  print('eventWithoutArgs: type=${eventWithoutArgs.type}, view=${eventWithoutArgs.viewId}, node=${eventWithoutArgs.nodeId}');
+  print(
+    'eventA: type=${eventA.type}, view=${eventA.viewId}, node=${eventA.nodeId}, args=${eventA.arguments}',
+  );
+  print(
+    'eventB: type=${eventB.type}, view=${eventB.viewId}, node=${eventB.nodeId}, args=${eventB.arguments}',
+  );
+  print(
+    'eventWithoutArgs: type=${eventWithoutArgs.type}, view=${eventWithoutArgs.viewId}, node=${eventWithoutArgs.nodeId}',
+  );
 
   final summary = <String>[
     'constructors covered with and without optional arguments',

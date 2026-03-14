@@ -92,7 +92,8 @@ dynamic build(BuildContext context) {
     var text = 'Hello |World';
     final cursorPos = text.indexOf('|');
     final clipboardContent = 'Flutter ';
-    text = text.substring(0, cursorPos) +
+    text =
+        text.substring(0, cursorPos) +
         clipboardContent +
         text.substring(cursorPos + 1);
     print('  - Original: "Hello |World"');
@@ -117,7 +118,9 @@ dynamic build(BuildContext context) {
     };
     final afterPaste = 'Hi World';
     print('  - Before: "${beforePaste['text']}"');
-    print('  - Selection: [${beforePaste['selectionStart']}, ${beforePaste['selectionEnd']})');
+    print(
+      '  - Selection: [${beforePaste['selectionStart']}, ${beforePaste['selectionEnd']})',
+    );
     print('  - Clipboard: "${beforePaste['clipboard']}"');
     print('  - After: "$afterPaste"');
     assert(afterPaste == 'Hi World');
@@ -222,16 +225,24 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('IOSSystemContextMenuItemDataPaste Tests',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      Text(
+        'IOSSystemContextMenuItemDataPaste Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
       SizedBox(height: 8),
-      Text('Passed: $passCount / ${passCount + failCount}',
-          style: TextStyle(color: failCount == 0 ? Color(0xFF4CAF50) : Color(0xFFF44336))),
+      Text(
+        'Passed: $passCount / ${passCount + failCount}',
+        style: TextStyle(
+          color: failCount == 0 ? Color(0xFF4CAF50) : Color(0xFFF44336),
+        ),
+      ),
       SizedBox(height: 8),
-      ...results.map((r) => Padding(
-            padding: EdgeInsets.symmetric(vertical: 2),
-            child: Text(r, style: TextStyle(fontSize: 12)),
-          )),
+      ...results.map(
+        (r) => Padding(
+          padding: EdgeInsets.symmetric(vertical: 2),
+          child: Text(r, style: TextStyle(fontSize: 12)),
+        ),
+      ),
     ],
   );
 }

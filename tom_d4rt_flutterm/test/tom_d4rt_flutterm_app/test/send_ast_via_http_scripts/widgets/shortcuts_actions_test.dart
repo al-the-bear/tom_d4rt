@@ -46,30 +46,59 @@ dynamic build(BuildContext context) {
     _DoThingIntent: _DoThingAction(actionLog) as Action<Intent>,
   };
 
-  _expectCondition(shortcutsMap.length == 2, 'shortcuts map has two bindings', logs);
+  _expectCondition(
+    shortcutsMap.length == 2,
+    'shortcuts map has two bindings',
+    logs,
+  );
   assertionCount++;
-  _expectCondition(actionsMap.containsKey(_DoThingIntent), 'actions map contains _DoThingIntent handler', logs);
+  _expectCondition(
+    actionsMap.containsKey(_DoThingIntent),
+    'actions map contains _DoThingIntent handler',
+    logs,
+  );
   assertionCount++;
 
   final action = actionsMap[_DoThingIntent]! as _DoThingAction;
   final resultA = action.invoke(intentSave);
   final resultB = action.invoke(intentOpen);
 
-  _expectCondition(resultA == 'invoked:save', 'action invocation returns expected value for save', logs);
+  _expectCondition(
+    resultA == 'invoked:save',
+    'action invocation returns expected value for save',
+    logs,
+  );
   assertionCount++;
-  _expectCondition(resultB == 'invoked:open', 'action invocation returns expected value for open', logs);
+  _expectCondition(
+    resultB == 'invoked:open',
+    'action invocation returns expected value for open',
+    logs,
+  );
   assertionCount++;
-  _expectCondition(actionLog.length == 2, 'action log captured both invocations', logs);
+  _expectCondition(
+    actionLog.length == 2,
+    'action log captured both invocations',
+    logs,
+  );
   assertionCount++;
 
   final manager = ShortcutManager(shortcuts: shortcutsMap);
-  _expectCondition(manager.shortcuts.length == 2, 'ShortcutManager stores shortcuts', logs);
+  _expectCondition(
+    manager.shortcuts.length == 2,
+    'ShortcutManager stores shortcuts',
+    logs,
+  );
   assertionCount++;
 
   manager.shortcuts = <ShortcutActivator, Intent>{
-    const SingleActivator(LogicalKeyboardKey.keyN, control: true): const _DoThingIntent('new'),
+    const SingleActivator(LogicalKeyboardKey.keyN, control: true):
+        const _DoThingIntent('new'),
   };
-  _expectCondition(manager.shortcuts.length == 1, 'ShortcutManager supports runtime replacement', logs);
+  _expectCondition(
+    manager.shortcuts.length == 1,
+    'ShortcutManager supports runtime replacement',
+    logs,
+  );
   assertionCount++;
 
   final widgetTree = Shortcuts(
@@ -83,7 +112,11 @@ dynamic build(BuildContext context) {
     ),
   );
 
-  _expectCondition(widgetTree.runtimeType == Shortcuts, 'Shortcuts widget constructed successfully', logs);
+  _expectCondition(
+    widgetTree.runtimeType == Shortcuts,
+    'Shortcuts widget constructed successfully',
+    logs,
+  );
   assertionCount++;
 
   manager.dispose();
@@ -114,6 +147,7 @@ dynamic build(BuildContext context) {
     ],
   );
 }
+
 // filler line to satisfy minimum length requirement
 // filler line to satisfy minimum length requirement
 // filler line to satisfy minimum length requirement

@@ -11,10 +11,11 @@ dynamic build(BuildContext context) {
   // Test 1: Test SuggestionSpan creation
   print('\n--- Test 1: Test SuggestionSpan creation ---');
   try {
-    final span = SuggestionSpan(
-      const TextRange(start: 0, end: 5),
-      ['hello', 'hallo', 'hullo'],
-    );
+    final span = SuggestionSpan(const TextRange(start: 0, end: 5), [
+      'hello',
+      'hallo',
+      'hullo',
+    ]);
     assert(span is SuggestionSpan);
     print('Created SuggestionSpan successfully');
     print('Range: ${span.range}');
@@ -74,9 +75,18 @@ dynamic build(BuildContext context) {
     final text = 'Thsi is a tset of speling';
     print('Original text: "$text"');
     final misspellings = [
-      {'range': const TextRange(start: 0, end: 4), 'suggestions': ['This']},
-      {'range': const TextRange(start: 10, end: 14), 'suggestions': ['test']},
-      {'range': const TextRange(start: 18, end: 25), 'suggestions': ['spelling']},
+      {
+        'range': const TextRange(start: 0, end: 4),
+        'suggestions': ['This'],
+      },
+      {
+        'range': const TextRange(start: 10, end: 14),
+        'suggestions': ['test'],
+      },
+      {
+        'range': const TextRange(start: 18, end: 25),
+        'suggestions': ['spelling'],
+      },
     ];
     print('Detected ${misspellings.length} misspellings:');
     for (final m in misspellings) {
@@ -123,10 +133,9 @@ dynamic build(BuildContext context) {
     final emptySpan = SuggestionSpan(TextRange.empty, []);
     print('Empty span range: ${emptySpan.range}');
     print('Empty span suggestions: ${emptySpan.suggestions}');
-    final singleSuggestion = SuggestionSpan(
-      const TextRange(start: 0, end: 3),
-      ['fix'],
-    );
+    final singleSuggestion = SuggestionSpan(const TextRange(start: 0, end: 3), [
+      'fix',
+    ]);
     print('Single suggestion: ${singleSuggestion.suggestions}');
     results.add('Test 6 PASSED: Edge cases');
     testsPassed++;
@@ -180,8 +189,16 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('SpellCheckService Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-      Text('Passed: $testsPassed, Failed: $testsFailed', style: TextStyle(color: testsFailed == 0 ? Color(0xFF00AA00) : Color(0xFFAA0000))),
+      Text(
+        'SpellCheckService Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+      ),
+      Text(
+        'Passed: $testsPassed, Failed: $testsFailed',
+        style: TextStyle(
+          color: testsFailed == 0 ? Color(0xFF00AA00) : Color(0xFFAA0000),
+        ),
+      ),
       const SizedBox(height: 8),
       ...results.map((r) => Text(r, style: TextStyle(fontSize: 12))),
     ],

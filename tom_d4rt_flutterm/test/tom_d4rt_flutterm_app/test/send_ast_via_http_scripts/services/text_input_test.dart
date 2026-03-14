@@ -85,7 +85,7 @@ dynamic build(BuildContext context) {
   print('Initial TextEditingValue:');
   print('text: ${value1.text}');
   print('selection offset: ${value1.selection.baseOffset}');
-  
+
   final value2 = value1.copyWith(text: 'Modified text');
   print('Modified text: ${value2.text}');
   assert(value2.text == 'Modified text', 'Text should be modified');
@@ -96,10 +96,7 @@ dynamic build(BuildContext context) {
   print('\n--- Test 6: TextSelection Creation ---');
   totalTests++;
 
-  const selection1 = TextSelection(
-    baseOffset: 0,
-    extentOffset: 5,
-  );
+  const selection1 = TextSelection(baseOffset: 0, extentOffset: 5);
   print('TextSelection:');
   print('baseOffset: ${selection1.baseOffset}');
   print('extentOffset: ${selection1.extentOffset}');
@@ -118,7 +115,10 @@ dynamic build(BuildContext context) {
   print('offset: ${collapsed.baseOffset}');
   print('isCollapsed: ${collapsed.isCollapsed}');
   assert(collapsed.isCollapsed == true, 'Should be collapsed');
-  assert(collapsed.baseOffset == collapsed.extentOffset, 'Offsets should match');
+  assert(
+    collapsed.baseOffset == collapsed.extentOffset,
+    'Offsets should match',
+  );
   print('Test 7 PASSED: Collapsed selection works');
   testsPassed++;
 
@@ -161,8 +161,14 @@ dynamic build(BuildContext context) {
   for (final action in TextInputAction.values) {
     print('- $action');
   }
-  assert(TextInputAction.values.contains(TextInputAction.done), 'Should contain done');
-  assert(TextInputAction.values.contains(TextInputAction.search), 'Should contain search');
+  assert(
+    TextInputAction.values.contains(TextInputAction.done),
+    'Should contain done',
+  );
+  assert(
+    TextInputAction.values.contains(TextInputAction.search),
+    'Should contain search',
+  );
   print('Test 10 PASSED: All TextInputAction values available');
   testsPassed++;
 
@@ -193,7 +199,10 @@ dynamic build(BuildContext context) {
   print('Keyboard appearances:');
   print('light: ${lightConfig.keyboardAppearance}');
   print('dark: ${darkConfig.keyboardAppearance}');
-  assert(lightConfig.keyboardAppearance != darkConfig.keyboardAppearance, 'Should differ');
+  assert(
+    lightConfig.keyboardAppearance != darkConfig.keyboardAppearance,
+    'Should differ',
+  );
   print('Test 12 PASSED: Keyboard appearance works');
   testsPassed++;
 

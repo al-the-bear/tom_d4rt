@@ -36,7 +36,9 @@ dynamic build(BuildContext context) {
 
   log('--- toString checks ---');
   final description = absorber.toString();
-  log('contains class name: ${description.contains('RenderSliverOverlapAbsorber')}');
+  log(
+    'contains class name: ${description.contains('RenderSliverOverlapAbsorber')}',
+  );
   assert(description.contains('RenderSliverOverlapAbsorber'));
 
   final checklist = <String>[

@@ -141,7 +141,10 @@ dynamic build(BuildContext context) {
       restorationId: 'parent',
       debugOwner: null,
     );
-    final childBucket = parentBucket.claimChild('child_bucket', debugOwner: null);
+    final childBucket = parentBucket.claimChild(
+      'child_bucket',
+      debugOwner: null,
+    );
     assert(childBucket != null);
     print('Child bucket created');
     print('Child restoration ID: ${childBucket.restorationId}');
@@ -185,8 +188,16 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('RestorationBucket Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-      Text('Passed: $testsPassed, Failed: $testsFailed', style: TextStyle(color: testsFailed == 0 ? Color(0xFF00AA00) : Color(0xFFAA0000))),
+      Text(
+        'RestorationBucket Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+      ),
+      Text(
+        'Passed: $testsPassed, Failed: $testsFailed',
+        style: TextStyle(
+          color: testsFailed == 0 ? Color(0xFF00AA00) : Color(0xFFAA0000),
+        ),
+      ),
       const SizedBox(height: 8),
       ...results.map((r) => Text(r, style: TextStyle(fontSize: 12))),
     ],

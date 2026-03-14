@@ -80,8 +80,17 @@ dynamic build(BuildContext context) {
   print('\n--- Test 5: LiveText Language Support ---');
   try {
     print('Live Text supports multiple languages:');
-    final languages = ['English', 'Chinese', 'French', 'German', 'Italian', 
-                       'Japanese', 'Korean', 'Portuguese', 'Spanish'];
+    final languages = [
+      'English',
+      'Chinese',
+      'French',
+      'German',
+      'Italian',
+      'Japanese',
+      'Korean',
+      'Portuguese',
+      'Spanish',
+    ];
     for (final lang in languages) {
       print('  - $lang');
     }
@@ -147,8 +156,10 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('LiveText Test Results',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+      Text(
+        'LiveText Test Results',
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      ),
       SizedBox(height: 8),
       Text('Tests passed: $passCount'),
       Text('Tests failed: $failCount'),

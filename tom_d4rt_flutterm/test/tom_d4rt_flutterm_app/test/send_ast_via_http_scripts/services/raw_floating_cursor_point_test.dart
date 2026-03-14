@@ -57,9 +57,7 @@ dynamic build(BuildContext context) {
   // Test 3: Create RawFloatingCursorPoint with End state
   print('\n--- Test 3: Create RawFloatingCursorPoint with End state ---');
   try {
-    final point3 = RawFloatingCursorPoint(
-      state: FloatingCursorDragState.End,
-    );
+    final point3 = RawFloatingCursorPoint(state: FloatingCursorDragState.End);
     assert(point3.state == FloatingCursorDragState.End);
     print('Created RawFloatingCursorPoint with End state');
     print('State: ${point3.state}');
@@ -121,17 +119,21 @@ dynamic build(BuildContext context) {
   print('\n--- Test 6: Simulate floating cursor movement sequence ---');
   try {
     final sequence = <RawFloatingCursorPoint>[];
-    sequence.add(RawFloatingCursorPoint(
-      state: FloatingCursorDragState.Start,
-      startLocation: const Offset(100, 100),
-      currentLocation: const Offset(100, 100),
-    ));
-    for (int i = 1; i <= 5; i++) {
-      sequence.add(RawFloatingCursorPoint(
-        state: FloatingCursorDragState.Update,
+    sequence.add(
+      RawFloatingCursorPoint(
+        state: FloatingCursorDragState.Start,
         startLocation: const Offset(100, 100),
-        currentLocation: Offset(100.0 + i * 10, 100.0 + i * 5),
-      ));
+        currentLocation: const Offset(100, 100),
+      ),
+    );
+    for (int i = 1; i <= 5; i++) {
+      sequence.add(
+        RawFloatingCursorPoint(
+          state: FloatingCursorDragState.Update,
+          startLocation: const Offset(100, 100),
+          currentLocation: Offset(100.0 + i * 10, 100.0 + i * 5),
+        ),
+      );
     }
     sequence.add(RawFloatingCursorPoint(state: FloatingCursorDragState.End));
     assert(sequence.length == 7);
@@ -160,8 +162,16 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('RawFloatingCursorPoint Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-      Text('Passed: $testsPassed, Failed: $testsFailed', style: TextStyle(color: testsFailed == 0 ? Color(0xFF00AA00) : Color(0xFFAA0000))),
+      Text(
+        'RawFloatingCursorPoint Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+      ),
+      Text(
+        'Passed: $testsPassed, Failed: $testsFailed',
+        style: TextStyle(
+          color: testsFailed == 0 ? Color(0xFF00AA00) : Color(0xFFAA0000),
+        ),
+      ),
       const SizedBox(height: 8),
       ...results.map((r) => Text(r, style: TextStyle(fontSize: 12))),
     ],

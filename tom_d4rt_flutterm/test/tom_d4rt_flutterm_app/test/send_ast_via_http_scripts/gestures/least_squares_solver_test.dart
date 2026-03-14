@@ -22,38 +22,78 @@ dynamic build(BuildContext context) {
   final solverLinear = LeastSquaresSolver(xLinear, yLinear, wLinear);
   final fitLinear = solverLinear.solve(2);
 
-  _expectCondition(solverLinear.x.length == xLinear.length, 'constructor stores x list', logs);
+  _expectCondition(
+    solverLinear.x.length == xLinear.length,
+    'constructor stores x list',
+    logs,
+  );
   assertionCount++;
-  _expectCondition(solverLinear.y.length == yLinear.length, 'constructor stores y list', logs);
+  _expectCondition(
+    solverLinear.y.length == yLinear.length,
+    'constructor stores y list',
+    logs,
+  );
   assertionCount++;
-  _expectCondition(solverLinear.w.length == wLinear.length, 'constructor stores w list', logs);
+  _expectCondition(
+    solverLinear.w.length == wLinear.length,
+    'constructor stores w list',
+    logs,
+  );
   assertionCount++;
 
-  _expectCondition(fitLinear != null, 'solve(2) returns PolynomialFit for linear data', logs);
+  _expectCondition(
+    fitLinear != null,
+    'solve(2) returns PolynomialFit for linear data',
+    logs,
+  );
   assertionCount++;
 
   if (fitLinear != null) {
-    _expectCondition(fitLinear.coefficients.length == 2, 'linear fit has two coefficients', logs);
+    _expectCondition(
+      fitLinear.coefficients.length == 2,
+      'linear fit has two coefficients',
+      logs,
+    );
     assertionCount++;
-    _expectCondition(fitLinear.confidence >= 0, 'fit confidence is non-negative', logs);
+    _expectCondition(
+      fitLinear.confidence >= 0,
+      'fit confidence is non-negative',
+      logs,
+    );
     assertionCount++;
-    print('linear fit coefficients: ${fitLinear.coefficients}, confidence=${fitLinear.confidence}');
+    print(
+      'linear fit coefficients: ${fitLinear.coefficients}, confidence=${fitLinear.confidence}',
+    );
   }
 
   final xQuadratic = <double>[0, 1, 2, 3, 4];
   final yQuadratic = <double>[1, 4, 9, 16, 25];
   final wQuadratic = <double>[1, 1, 1, 1, 1];
 
-  final solverQuadratic = LeastSquaresSolver(xQuadratic, yQuadratic, wQuadratic);
+  final solverQuadratic = LeastSquaresSolver(
+    xQuadratic,
+    yQuadratic,
+    wQuadratic,
+  );
   final fitQuadratic = solverQuadratic.solve(3);
 
-  _expectCondition(fitQuadratic != null, 'solve(3) returns PolynomialFit for quadratic-like data', logs);
+  _expectCondition(
+    fitQuadratic != null,
+    'solve(3) returns PolynomialFit for quadratic-like data',
+    logs,
+  );
   assertionCount++;
 
   if (fitQuadratic != null) {
-    _expectCondition(fitQuadratic.coefficients.length == 3, 'quadratic fit has three coefficients', logs);
+    _expectCondition(
+      fitQuadratic.coefficients.length == 3,
+      'quadratic fit has three coefficients',
+      logs,
+    );
     assertionCount++;
-    print('quadratic fit coefficients: ${fitQuadratic.coefficients}, confidence=${fitQuadratic.confidence}');
+    print(
+      'quadratic fit coefficients: ${fitQuadratic.coefficients}, confidence=${fitQuadratic.confidence}',
+    );
   }
 
   var mismatchedThrows = false;
@@ -63,7 +103,11 @@ dynamic build(BuildContext context) {
     mismatchedThrows = true;
   }
 
-  _expectCondition(mismatchedThrows, 'constructor throws for mismatched list lengths', logs);
+  _expectCondition(
+    mismatchedThrows,
+    'constructor throws for mismatched list lengths',
+    logs,
+  );
   assertionCount++;
 
   var underdeterminedHandled = false;
@@ -75,7 +119,11 @@ dynamic build(BuildContext context) {
     underdeterminedHandled = true;
   }
 
-  _expectCondition(underdeterminedHandled, 'underdetermined system handled safely (null or exception)', logs);
+  _expectCondition(
+    underdeterminedHandled,
+    'underdetermined system handled safely (null or exception)',
+    logs,
+  );
   assertionCount++;
 
   final summary = <String>[
@@ -111,4 +159,3 @@ dynamic build(BuildContext context) {
 // filler line to satisfy minimum length requirement
 // filler line to satisfy minimum length requirement
 // filler line to satisfy minimum length requirement
-

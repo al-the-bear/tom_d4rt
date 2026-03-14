@@ -154,14 +154,30 @@ dynamic build(BuildContext context) {
   print('\n--- Test 6: Test repeatCount property ---');
   try {
     final dataNoRepeat = RawKeyEventDataAndroid(
-      flags: 0, codePoint: 97, plainCodePoint: 97, keyCode: 29,
-      scanCode: 30, metaState: 0, eventSource: 0x101,
-      vendorId: 0, productId: 0, deviceId: 0, repeatCount: 0,
+      flags: 0,
+      codePoint: 97,
+      plainCodePoint: 97,
+      keyCode: 29,
+      scanCode: 30,
+      metaState: 0,
+      eventSource: 0x101,
+      vendorId: 0,
+      productId: 0,
+      deviceId: 0,
+      repeatCount: 0,
     );
     final dataWithRepeat = RawKeyEventDataAndroid(
-      flags: 0, codePoint: 97, plainCodePoint: 97, keyCode: 29,
-      scanCode: 30, metaState: 0, eventSource: 0x101,
-      vendorId: 0, productId: 0, deviceId: 0, repeatCount: 5,
+      flags: 0,
+      codePoint: 97,
+      plainCodePoint: 97,
+      keyCode: 29,
+      scanCode: 30,
+      metaState: 0,
+      eventSource: 0x101,
+      vendorId: 0,
+      productId: 0,
+      deviceId: 0,
+      repeatCount: 5,
     );
     print('RepeatCount (no repeat): ${dataNoRepeat.repeatCount}');
     print('RepeatCount (with repeat): ${dataWithRepeat.repeatCount}');
@@ -179,9 +195,17 @@ dynamic build(BuildContext context) {
   print('\n--- Test 7: Test device identifiers ---');
   try {
     final data = RawKeyEventDataAndroid(
-      flags: 0, codePoint: 97, plainCodePoint: 97, keyCode: 29,
-      scanCode: 30, metaState: 0, eventSource: 0x101,
-      vendorId: 1234, productId: 5678, deviceId: 1, repeatCount: 0,
+      flags: 0,
+      codePoint: 97,
+      plainCodePoint: 97,
+      keyCode: 29,
+      scanCode: 30,
+      metaState: 0,
+      eventSource: 0x101,
+      vendorId: 1234,
+      productId: 5678,
+      deviceId: 1,
+      repeatCount: 0,
     );
     print('VendorId: ${data.vendorId}');
     print('ProductId: ${data.productId}');
@@ -200,9 +224,17 @@ dynamic build(BuildContext context) {
   print('\n--- Test 8: Verify inheritance from RawKeyEventData ---');
   try {
     final data = RawKeyEventDataAndroid(
-      flags: 0, codePoint: 97, plainCodePoint: 97, keyCode: 29,
-      scanCode: 30, metaState: 0, eventSource: 0x101,
-      vendorId: 0, productId: 0, deviceId: 0, repeatCount: 0,
+      flags: 0,
+      codePoint: 97,
+      plainCodePoint: 97,
+      keyCode: 29,
+      scanCode: 30,
+      metaState: 0,
+      eventSource: 0x101,
+      vendorId: 0,
+      productId: 0,
+      deviceId: 0,
+      repeatCount: 0,
     );
     assert(data is RawKeyEventData);
     print('Inherits from RawKeyEventData: true');
@@ -226,8 +258,16 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('RawKeyEventDataAndroid Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-      Text('Passed: $testsPassed, Failed: $testsFailed', style: TextStyle(color: testsFailed == 0 ? Color(0xFF00AA00) : Color(0xFFAA0000))),
+      Text(
+        'RawKeyEventDataAndroid Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+      ),
+      Text(
+        'Passed: $testsPassed, Failed: $testsFailed',
+        style: TextStyle(
+          color: testsFailed == 0 ? Color(0xFF00AA00) : Color(0xFFAA0000),
+        ),
+      ),
       const SizedBox(height: 8),
       ...results.map((r) => Text(r, style: TextStyle(fontSize: 12))),
     ],

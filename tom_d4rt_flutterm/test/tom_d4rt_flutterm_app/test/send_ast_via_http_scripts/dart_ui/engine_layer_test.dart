@@ -18,23 +18,43 @@ dynamic build(BuildContext context) {
   final sceneBuilder = ui.SceneBuilder();
   final offsetLayer = sceneBuilder.pushOffset(10, 20);
 
-  _expect(offsetLayer.runtimeType.toString().isNotEmpty, 'pushOffset returns concrete EngineLayer subtype', logs);
+  _expect(
+    offsetLayer.runtimeType.toString().isNotEmpty,
+    'pushOffset returns concrete EngineLayer subtype',
+    logs,
+  );
   assertionCount++;
-  _expect(offsetLayer.runtimeType.toString().isNotEmpty, 'runtimeType is readable for offset layer', logs);
+  _expect(
+    offsetLayer.runtimeType.toString().isNotEmpty,
+    'runtimeType is readable for offset layer',
+    logs,
+  );
   assertionCount++;
 
   sceneBuilder.pop();
   final scene = sceneBuilder.build();
-  _expect(scene.toString().isNotEmpty, 'SceneBuilder build returns readable Scene instance', logs);
+  _expect(
+    scene.toString().isNotEmpty,
+    'SceneBuilder build returns readable Scene instance',
+    logs,
+  );
   assertionCount++;
 
   final secondBuilder = ui.SceneBuilder();
   final opacityLayer = secondBuilder.pushOpacity(128);
-  _expect(opacityLayer.runtimeType.toString().isNotEmpty, 'pushOpacity returns concrete EngineLayer subtype', logs);
+  _expect(
+    opacityLayer.runtimeType.toString().isNotEmpty,
+    'pushOpacity returns concrete EngineLayer subtype',
+    logs,
+  );
   assertionCount++;
   secondBuilder.pop();
   final secondScene = secondBuilder.build();
-  _expect(secondScene.toString().isNotEmpty, 'secondary SceneBuilder build returns readable Scene instance', logs);
+  _expect(
+    secondScene.toString().isNotEmpty,
+    'secondary SceneBuilder build returns readable Scene instance',
+    logs,
+  );
   assertionCount++;
 
   scene.dispose();
@@ -44,7 +64,11 @@ dynamic build(BuildContext context) {
   edgeBuilder.pushTransform(Matrix4.identity().storage);
   edgeBuilder.pop();
   final edgeScene = edgeBuilder.build();
-  _expect(edgeScene.toString().isNotEmpty, 'edge case transform layer builds valid scene', logs);
+  _expect(
+    edgeScene.toString().isNotEmpty,
+    'edge case transform layer builds valid scene',
+    logs,
+  );
   assertionCount++;
   edgeScene.dispose();
 
@@ -66,6 +90,7 @@ dynamic build(BuildContext context) {
     ],
   );
 }
+
 // coverage filler line 01
 // coverage filler line 02
 // coverage filler line 03

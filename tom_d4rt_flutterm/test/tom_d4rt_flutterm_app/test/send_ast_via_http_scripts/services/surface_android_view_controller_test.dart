@@ -37,7 +37,7 @@ dynamic build(BuildContext context) {
 
   final ltrDirection = TextDirection.ltr;
   final rtlDirection = TextDirection.rtl;
-  
+
   print('Supports TextDirection.ltr: $ltrDirection');
   print('Supports TextDirection.rtl: $rtlDirection');
   print('Layout direction affects how platform view is positioned');
@@ -141,7 +141,9 @@ dynamic build(BuildContext context) {
   print('\n--- Test 10: Point Transformer ---');
   totalTests++;
 
-  print('Point transformer converts Flutter coordinates to Android coordinates');
+  print(
+    'Point transformer converts Flutter coordinates to Android coordinates',
+  );
   final flutterPoint = Offset(100.0, 200.0);
   print('Flutter point: $flutterPoint');
   print('Transformation accounts for:');
@@ -188,8 +190,10 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('SurfaceAndroidViewController Test Results',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      Text(
+        'SurfaceAndroidViewController Test Results',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
       SizedBox(height: 8),
       Text('Tests Passed: $testsPassed / $totalTests'),
       SizedBox(height: 4),
@@ -206,8 +210,10 @@ dynamic build(BuildContext context) {
       Text('Gesture Recognition: ✓'),
       Text('Memory Management: ✓'),
       SizedBox(height: 8),
-      Text('All SurfaceAndroidViewController tests completed!',
-          style: TextStyle(color: Color(0xFF4CAF50))),
+      Text(
+        'All SurfaceAndroidViewController tests completed!',
+        style: TextStyle(color: Color(0xFF4CAF50)),
+      ),
     ],
   );
 }

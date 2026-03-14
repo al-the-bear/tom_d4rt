@@ -65,11 +65,15 @@ dynamic build(BuildContext context) {
   // Test 5: Verify exactly one mode is active
   print('\nTest 5: Verifying exactly one mode is active');
   try {
-    final modeCount = [kDebugMode, kProfileMode, kReleaseMode]
-        .where((m) => m)
-        .length;
+    final modeCount = [
+      kDebugMode,
+      kProfileMode,
+      kReleaseMode,
+    ].where((m) => m).length;
     print('  - Active modes count: $modeCount');
-    print('  - Debug: $kDebugMode, Profile: $kProfileMode, Release: $kReleaseMode');
+    print(
+      '  - Debug: $kDebugMode, Profile: $kProfileMode, Release: $kReleaseMode',
+    );
     assert(modeCount == 1);
     results.add('✓ Exactly one mode is active');
     passCount++;
@@ -127,15 +131,18 @@ dynamic build(BuildContext context) {
   print('\nTest 9: Platform-specific checks');
   try {
     final platform = defaultTargetPlatform;
-    final isDesktop = platform == TargetPlatform.linux ||
+    final isDesktop =
+        platform == TargetPlatform.linux ||
         platform == TargetPlatform.macOS ||
         platform == TargetPlatform.windows;
-    final isMobile = platform == TargetPlatform.android ||
-        platform == TargetPlatform.iOS;
+    final isMobile =
+        platform == TargetPlatform.android || platform == TargetPlatform.iOS;
     print('  - Is desktop platform: $isDesktop');
     print('  - Is mobile platform: $isMobile');
     print('  - Is fuchsia: ${platform == TargetPlatform.fuchsia}');
-    results.add('✓ Platform classification: desktop=$isDesktop, mobile=$isMobile');
+    results.add(
+      '✓ Platform classification: desktop=$isDesktop, mobile=$isMobile',
+    );
     passCount++;
   } catch (e) {
     results.add('✗ Platform-specific checks failed: $e');
@@ -218,19 +225,33 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('Flutter Version Tests',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      Text(
+        'Flutter Version Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
       SizedBox(height: 8),
       Text('Platform: ${defaultTargetPlatform.name}'),
-      Text('Mode: ${kDebugMode ? "Debug" : kProfileMode ? "Profile" : "Release"}'),
+      Text(
+        'Mode: ${kDebugMode
+            ? "Debug"
+            : kProfileMode
+            ? "Profile"
+            : "Release"}',
+      ),
       SizedBox(height: 8),
-      Text('Passed: $passCount / ${passCount + failCount}',
-          style: TextStyle(color: failCount == 0 ? Color(0xFF4CAF50) : Color(0xFFF44336))),
+      Text(
+        'Passed: $passCount / ${passCount + failCount}',
+        style: TextStyle(
+          color: failCount == 0 ? Color(0xFF4CAF50) : Color(0xFFF44336),
+        ),
+      ),
       SizedBox(height: 8),
-      ...results.map((r) => Padding(
-            padding: EdgeInsets.symmetric(vertical: 2),
-            child: Text(r, style: TextStyle(fontSize: 12)),
-          )),
+      ...results.map(
+        (r) => Padding(
+          padding: EdgeInsets.symmetric(vertical: 2),
+          child: Text(r, style: TextStyle(fontSize: 12)),
+        ),
+      ),
     ],
   );
 }

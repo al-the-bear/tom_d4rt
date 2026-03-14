@@ -86,7 +86,9 @@ dynamic build(BuildContext context) {
 
   print('Created ${spans.length} suggestion spans');
   for (int i = 0; i < spans.length; i++) {
-    print('Span $i: range=${spans[i].range}, suggestions=${spans[i].suggestions}');
+    print(
+      'Span $i: range=${spans[i].range}, suggestions=${spans[i].suggestions}',
+    );
   }
   assert(spans.length == 3, 'Should have 3 spans');
   print('Test 5 PASSED: Multiple spans work correctly');
@@ -99,8 +101,13 @@ dynamic build(BuildContext context) {
   final largeRange = TextRange(start: 0, end: 1000);
   final largeSpan = SuggestionSpan(largeRange, ['replacement']);
 
-  print('Large range span: start=${largeSpan.range.start}, end=${largeSpan.range.end}');
-  assert(largeSpan.range.end - largeSpan.range.start == 1000, 'Range length should be 1000');
+  print(
+    'Large range span: start=${largeSpan.range.start}, end=${largeSpan.range.end}',
+  );
+  assert(
+    largeSpan.range.end - largeSpan.range.start == 1000,
+    'Range length should be 1000',
+  );
   print('Test 6 PASSED: Large range works');
   testsPassed++;
 
@@ -113,7 +120,10 @@ dynamic build(BuildContext context) {
   final unicodeSpan = SuggestionSpan(unicodeRange, unicodeSuggestions);
 
   print('Unicode suggestions: ${unicodeSpan.suggestions}');
-  assert(unicodeSpan.suggestions.length == 4, 'Should have 4 unicode suggestions');
+  assert(
+    unicodeSpan.suggestions.length == 4,
+    'Should have 4 unicode suggestions',
+  );
   print('Test 7 PASSED: Unicode suggestions work');
   testsPassed++;
 
@@ -126,7 +136,10 @@ dynamic build(BuildContext context) {
   final specialSpan = SuggestionSpan(specialRange, specialSuggestions);
 
   print('Special character suggestions: ${specialSpan.suggestions}');
-  assert(specialSpan.suggestions.contains("don't"), 'Should contain apostrophe word');
+  assert(
+    specialSpan.suggestions.contains("don't"),
+    'Should contain apostrophe word',
+  );
   print('Test 8 PASSED: Special characters work');
   testsPassed++;
 
@@ -147,7 +160,7 @@ dynamic build(BuildContext context) {
   totalTests++;
 
   final sampleText = 'The quick brown fox jumps';
-  final wordRange = TextRange(start: 4, end: 9);  // "quick"
+  final wordRange = TextRange(start: 4, end: 9); // "quick"
   final wordSpan = SuggestionSpan(wordRange, ['fast', 'rapid', 'swift']);
 
   print('Sample text: "$sampleText"');
@@ -155,7 +168,10 @@ dynamic build(BuildContext context) {
   print('Text before range: "${wordSpan.range.textBefore(sampleText)}"');
   print('Text inside range: "${wordSpan.range.textInside(sampleText)}"');
   print('Text after range: "${wordSpan.range.textAfter(sampleText)}"');
-  assert(wordSpan.range.textInside(sampleText) == 'quick', 'Should extract "quick"');
+  assert(
+    wordSpan.range.textInside(sampleText) == 'quick',
+    'Should extract "quick"',
+  );
   print('Test 10 PASSED: Range text operations work');
   testsPassed++;
 
@@ -172,8 +188,10 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('SuggestionSpan Test Results',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      Text(
+        'SuggestionSpan Test Results',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
       SizedBox(height: 8),
       Text('Tests Passed: $testsPassed / $totalTests'),
       SizedBox(height: 4),
@@ -188,8 +206,10 @@ dynamic build(BuildContext context) {
       Text('Collapsed Range: ✓'),
       Text('Range Text Operations: ✓'),
       SizedBox(height: 8),
-      Text('All SuggestionSpan tests completed successfully!',
-          style: TextStyle(color: Color(0xFF4CAF50))),
+      Text(
+        'All SuggestionSpan tests completed successfully!',
+        style: TextStyle(color: Color(0xFF4CAF50)),
+      ),
     ],
   );
 }

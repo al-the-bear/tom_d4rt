@@ -26,7 +26,10 @@ Map<int, T> _buildIndexMap<T extends Enum>(List<T> values) {
 
 void _validateRoundTripByIndex<T extends Enum>(List<T> values) {
   for (var index = 0; index < values.length; index++) {
-    _expectCondition(values[index].index == index, 'Contiguous index at $index');
+    _expectCondition(
+      values[index].index == index,
+      'Contiguous index at $index',
+    );
   }
 }
 
@@ -44,13 +47,31 @@ dynamic build(BuildContext context) {
   print('TargetPlatform details:\n${_formatEnumValues(values)}');
 
   _expectCondition(values.isNotEmpty, 'TargetPlatform has at least one value');
-  _expectCondition(names.length == values.length, 'Names length matches values length');
-  _expectCondition(indexes.length == values.length, 'Indexes length matches values length');
-  _expectCondition(indexMap.length == values.length, 'Index map covers all TargetPlatform values');
-  _expectCondition(names.toSet().length == names.length, 'TargetPlatform names are unique');
-  _expectCondition(indexes.toSet().length == indexes.length, 'TargetPlatform indexes are unique');
+  _expectCondition(
+    names.length == values.length,
+    'Names length matches values length',
+  );
+  _expectCondition(
+    indexes.length == values.length,
+    'Indexes length matches values length',
+  );
+  _expectCondition(
+    indexMap.length == values.length,
+    'Index map covers all TargetPlatform values',
+  );
+  _expectCondition(
+    names.toSet().length == names.length,
+    'TargetPlatform names are unique',
+  );
+  _expectCondition(
+    indexes.toSet().length == indexes.length,
+    'TargetPlatform indexes are unique',
+  );
   _expectCondition(indexes.first == 0, 'First TargetPlatform index is 0');
-  _expectCondition(indexes.last == values.length - 1, 'Last TargetPlatform index is values.length - 1');
+  _expectCondition(
+    indexes.last == values.length - 1,
+    'Last TargetPlatform index is values.length - 1',
+  );
 
   _validateRoundTripByIndex(values);
 
@@ -60,15 +81,42 @@ dynamic build(BuildContext context) {
   print('First TargetPlatform: $first (${first.name}, ${first.index})');
   print('Last TargetPlatform: $last (${last.name}, ${last.index})');
 
-  _expectCondition(TargetPlatform.values.byName(first.name) == first, 'byName resolves first TargetPlatform');
-  _expectCondition(TargetPlatform.values.byName(last.name) == last, 'byName resolves last TargetPlatform');
-  _expectCondition(indexMap[first.index] == first, 'Index map resolves first TargetPlatform');
-  _expectCondition(indexMap[last.index] == last, 'Index map resolves last TargetPlatform');
-  _expectCondition(first == TargetPlatform.values[first.index], 'First TargetPlatform round-trips from index');
-  _expectCondition(last == TargetPlatform.values[last.index], 'Last TargetPlatform round-trips from index');
-  _expectCondition(first.toString().contains(first.name), 'first.toString contains name');
-  _expectCondition(last.toString().contains(last.name), 'last.toString contains name');
-  _expectCondition(first == first, 'Reflexive equality for first TargetPlatform');
+  _expectCondition(
+    TargetPlatform.values.byName(first.name) == first,
+    'byName resolves first TargetPlatform',
+  );
+  _expectCondition(
+    TargetPlatform.values.byName(last.name) == last,
+    'byName resolves last TargetPlatform',
+  );
+  _expectCondition(
+    indexMap[first.index] == first,
+    'Index map resolves first TargetPlatform',
+  );
+  _expectCondition(
+    indexMap[last.index] == last,
+    'Index map resolves last TargetPlatform',
+  );
+  _expectCondition(
+    first == TargetPlatform.values[first.index],
+    'First TargetPlatform round-trips from index',
+  );
+  _expectCondition(
+    last == TargetPlatform.values[last.index],
+    'Last TargetPlatform round-trips from index',
+  );
+  _expectCondition(
+    first.toString().contains(first.name),
+    'first.toString contains name',
+  );
+  _expectCondition(
+    last.toString().contains(last.name),
+    'last.toString contains name',
+  );
+  _expectCondition(
+    first == first,
+    'Reflexive equality for first TargetPlatform',
+  );
   _expectCondition(last == last, 'Reflexive equality for last TargetPlatform');
 
   bool invalidNameThrows = false;
@@ -78,10 +126,16 @@ dynamic build(BuildContext context) {
     invalidNameThrows = true;
     print('Expected TargetPlatform byName failure: $error');
   }
-  _expectCondition(invalidNameThrows, 'Invalid byName throws for TargetPlatform');
+  _expectCondition(
+    invalidNameThrows,
+    'Invalid byName throws for TargetPlatform',
+  );
 
   final sortedByIndex = [...values]..sort((a, b) => a.index.compareTo(b.index));
-  _expectCondition(sortedByIndex.join('|') == values.join('|'), 'Sorting by index preserves TargetPlatform order');
+  _expectCondition(
+    sortedByIndex.join('|') == values.join('|'),
+    'Sorting by index preserves TargetPlatform order',
+  );
 
   final summary =
       'TargetPlatform summary -> count=${values.length}, first=${first.name}, last=${last.name}, invalidLookupThrows=$invalidNameThrows';

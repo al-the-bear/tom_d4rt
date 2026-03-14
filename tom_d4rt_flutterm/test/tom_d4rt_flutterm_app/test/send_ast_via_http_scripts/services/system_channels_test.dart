@@ -19,7 +19,10 @@ dynamic build(BuildContext context) {
   print('SystemChannels.navigation: $navChannel');
   print('Channel name: ${navChannel.name}');
   print('Used for: Back button handling, route pop operations');
-  assert(navChannel.name == 'flutter/navigation', 'Should be flutter/navigation');
+  assert(
+    navChannel.name == 'flutter/navigation',
+    'Should be flutter/navigation',
+  );
   print('Test 1 PASSED: Navigation channel verified');
   testsPassed++;
 
@@ -31,7 +34,10 @@ dynamic build(BuildContext context) {
   print('SystemChannels.platform: $platformChannel');
   print('Channel name: ${platformChannel.name}');
   print('Used for: Clipboard, haptic feedback, sound effects');
-  assert(platformChannel.name == 'flutter/platform', 'Should be flutter/platform');
+  assert(
+    platformChannel.name == 'flutter/platform',
+    'Should be flutter/platform',
+  );
   print('Test 2 PASSED: Platform channel verified');
   testsPassed++;
 
@@ -43,7 +49,10 @@ dynamic build(BuildContext context) {
   print('SystemChannels.textInput: $textInputChannel');
   print('Channel name: ${textInputChannel.name}');
   print('Used for: Keyboard input, IME communication');
-  assert(textInputChannel.name == 'flutter/textinput', 'Should be flutter/textinput');
+  assert(
+    textInputChannel.name == 'flutter/textinput',
+    'Should be flutter/textinput',
+  );
   print('Test 3 PASSED: Text input channel verified');
   testsPassed++;
 
@@ -55,7 +64,10 @@ dynamic build(BuildContext context) {
   print('SystemChannels.lifecycle: $lifecycleChannel');
   print('Channel name: ${lifecycleChannel.name}');
   print('Used for: App lifecycle state changes (resumed, paused, etc.)');
-  assert(lifecycleChannel.name == 'flutter/lifecycle', 'Should be flutter/lifecycle');
+  assert(
+    lifecycleChannel.name == 'flutter/lifecycle',
+    'Should be flutter/lifecycle',
+  );
   print('Test 4 PASSED: Lifecycle channel verified');
   testsPassed++;
 
@@ -79,7 +91,10 @@ dynamic build(BuildContext context) {
   print('SystemChannels.accessibility: $accessibilityChannel');
   print('Channel name: ${accessibilityChannel.name}');
   print('Used for: Screen reader announcements, accessibility actions');
-  assert(accessibilityChannel.name == 'flutter/accessibility', 'Should be flutter/accessibility');
+  assert(
+    accessibilityChannel.name == 'flutter/accessibility',
+    'Should be flutter/accessibility',
+  );
   print('Test 6 PASSED: Accessibility channel verified');
   testsPassed++;
 
@@ -91,7 +106,10 @@ dynamic build(BuildContext context) {
   print('SystemChannels.platform_views: $platformViewsChannel');
   print('Channel name: ${platformViewsChannel.name}');
   print('Used for: Embedding native views in Flutter');
-  assert(platformViewsChannel.name == 'flutter/platform_views', 'Should be flutter/platform_views');
+  assert(
+    platformViewsChannel.name == 'flutter/platform_views',
+    'Should be flutter/platform_views',
+  );
   print('Test 7 PASSED: Platform views channel verified');
   testsPassed++;
 
@@ -192,8 +210,10 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('SystemChannels Test Results',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      Text(
+        'SystemChannels Test Results',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
       SizedBox(height: 8),
       Text('Tests Passed: $testsPassed / $totalTests'),
       SizedBox(height: 4),
@@ -211,8 +231,10 @@ dynamic build(BuildContext context) {
       Text('Method Invocation Pattern: ✓'),
       Text('Message Handlers: ✓'),
       SizedBox(height: 8),
-      Text('All SystemChannels tests completed!',
-          style: TextStyle(color: Color(0xFF4CAF50))),
+      Text(
+        'All SystemChannels tests completed!',
+        style: TextStyle(color: Color(0xFF4CAF50)),
+      ),
     ],
   );
 }

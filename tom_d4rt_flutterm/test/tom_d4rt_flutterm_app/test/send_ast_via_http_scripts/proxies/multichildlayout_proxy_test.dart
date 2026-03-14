@@ -10,12 +10,19 @@ class _MultiChildLayoutProxy extends MultiChildLayoutDelegate {
   void performLayout(Size size) {
     if (hasChild('a')) {
       final childSize = layoutChild('a', BoxConstraints.loose(size));
-      positionChild('a', Offset((size.width - childSize.width) / 2, (size.height - childSize.height) / 2));
+      positionChild(
+        'a',
+        Offset(
+          (size.width - childSize.width) / 2,
+          (size.height - childSize.height) / 2,
+        ),
+      );
     }
   }
 
   @override
-  bool shouldRelayout(covariant _MultiChildLayoutProxy oldDelegate) => oldDelegate.fallbackSize != fallbackSize;
+  bool shouldRelayout(covariant _MultiChildLayoutProxy oldDelegate) =>
+      oldDelegate.fallbackSize != fallbackSize;
 }
 
 void _expect(bool condition, String message, List<String> logs) {
@@ -35,27 +42,49 @@ dynamic build(BuildContext context) {
   final delegateB = _MultiChildLayoutProxy(const Size(120, 80));
   final delegateC = _MultiChildLayoutProxy(const Size(200, 120));
 
-  _expect(!delegateA.shouldRelayout(delegateB), 'same fallback size does not relayout', logs);
+  _expect(
+    !delegateA.shouldRelayout(delegateB),
+    'same fallback size does not relayout',
+    logs,
+  );
   assertionCount++;
-  _expect(delegateA.shouldRelayout(delegateC), 'different fallback size triggers relayout', logs);
+  _expect(
+    delegateA.shouldRelayout(delegateC),
+    'different fallback size triggers relayout',
+    logs,
+  );
   assertionCount++;
 
   final customLayout = CustomMultiChildLayout(
     delegate: delegateA,
-    children: [
-      LayoutId(id: 'a', child: const SizedBox(width: 20, height: 20)),
-    ],
+    children: [LayoutId(id: 'a', child: const SizedBox(width: 20, height: 20))],
   );
-  _expect(customLayout.delegate == delegateA, 'CustomMultiChildLayout stores delegate', logs);
+  _expect(
+    customLayout.delegate == delegateA,
+    'CustomMultiChildLayout stores delegate',
+    logs,
+  );
   assertionCount++;
-  _expect(customLayout.children.length == 1, 'CustomMultiChildLayout stores child list', logs);
+  _expect(
+    customLayout.children.length == 1,
+    'CustomMultiChildLayout stores child list',
+    logs,
+  );
   assertionCount++;
 
   final edgeDelegate = _MultiChildLayoutProxy(Size.zero);
-  _expect(edgeDelegate.fallbackSize == Size.zero, 'edge case zero fallback size is accepted', logs);
+  _expect(
+    edgeDelegate.fallbackSize == Size.zero,
+    'edge case zero fallback size is accepted',
+    logs,
+  );
   assertionCount++;
 
-  _expect(delegateA.runtimeType.toString().contains('MultiChildLayout'), 'runtime type contains MultiChildLayout identifier', logs);
+  _expect(
+    delegateA.runtimeType.toString().contains('MultiChildLayout'),
+    'runtime type contains MultiChildLayout identifier',
+    logs,
+  );
   assertionCount++;
 
   for (final line in logs) {
@@ -76,6 +105,7 @@ dynamic build(BuildContext context) {
     ],
   );
 }
+
 // coverage filler line 01
 // coverage filler line 02
 // coverage filler line 03

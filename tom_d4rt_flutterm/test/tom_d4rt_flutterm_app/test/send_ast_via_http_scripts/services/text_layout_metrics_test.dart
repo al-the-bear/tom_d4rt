@@ -33,11 +33,20 @@ dynamic build(BuildContext context) {
   const position2 = TextPosition(offset: 10);
   const position3 = TextPosition(offset: 5, affinity: TextAffinity.upstream);
   print('TextPosition objects:');
-  print('position1: offset=${position1.offset}, affinity=${position1.affinity}');
-  print('position2: offset=${position2.offset}, affinity=${position2.affinity}');
-  print('position3: offset=${position3.offset}, affinity=${position3.affinity}');
+  print(
+    'position1: offset=${position1.offset}, affinity=${position1.affinity}',
+  );
+  print(
+    'position2: offset=${position2.offset}, affinity=${position2.affinity}',
+  );
+  print(
+    'position3: offset=${position3.offset}, affinity=${position3.affinity}',
+  );
   assert(position1.offset == 0, 'First position at 0');
-  assert(position3.affinity == TextAffinity.upstream, 'Affinity should be upstream');
+  assert(
+    position3.affinity == TextAffinity.upstream,
+    'Affinity should be upstream',
+  );
   print('Test 2 PASSED: TextPosition creation works');
   testsPassed++;
 
@@ -49,7 +58,10 @@ dynamic build(BuildContext context) {
   print('- upstream: ${TextAffinity.upstream}');
   print('- downstream: ${TextAffinity.downstream}');
   print('Affinity indicates cursor preference at line breaks');
-  assert(TextAffinity.upstream != TextAffinity.downstream, 'Values should differ');
+  assert(
+    TextAffinity.upstream != TextAffinity.downstream,
+    'Values should differ',
+  );
   print('Test 3 PASSED: TextAffinity values work');
   testsPassed++;
 
@@ -165,10 +177,7 @@ dynamic build(BuildContext context) {
   print('- position: character position in text');
   print('- bounds: Rect defining visual position');
   print('- direction: TextDirection for bidirectional text');
-  const rect = SelectionRect(
-    position: 0,
-    bounds: Rect.fromLTWH(0, 0, 10, 20),
-  );
+  const rect = SelectionRect(position: 0, bounds: Rect.fromLTWH(0, 0, 10, 20));
   print('SelectionRect created: position=${rect.position}');
   print('bounds: ${rect.bounds}');
   assert(rect.position == 0, 'Position should be 0');

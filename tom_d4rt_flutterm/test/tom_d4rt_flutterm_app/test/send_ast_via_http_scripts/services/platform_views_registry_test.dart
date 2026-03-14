@@ -78,7 +78,11 @@ dynamic build(BuildContext context) {
   try {
     print('Common platform view types:');
     final types = {
-      'Android': ['SurfaceAndroidView', 'TextureAndroidView', 'HybridAndroidView'],
+      'Android': [
+        'SurfaceAndroidView',
+        'TextureAndroidView',
+        'HybridAndroidView',
+      ],
       'iOS': ['UiKitView'],
       'macOS': ['AppKitView'],
       'Web': ['HtmlElementView'],
@@ -137,8 +141,10 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('PlatformViewsRegistry Test Results',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+      Text(
+        'PlatformViewsRegistry Test Results',
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      ),
       SizedBox(height: 8),
       Text('Tests passed: $passCount'),
       Text('Tests failed: $failCount'),

@@ -21,15 +21,29 @@ dynamic build(BuildContext context) {
   var assertionCount = 0;
 
   final typeName = ui.FragmentShader.toString();
-  _expectCondition(typeName.contains('FragmentShader'), 'FragmentShader type is resolvable', logs);
+  _expectCondition(
+    typeName.contains('FragmentShader'),
+    'FragmentShader type is resolvable',
+    logs,
+  );
   assertionCount++;
 
   final parentTypeName = ui.Shader.toString();
-  _expectCondition(parentTypeName.contains('Shader'), 'Shader parent type is resolvable', logs);
+  _expectCondition(
+    parentTypeName.contains('Shader'),
+    'Shader parent type is resolvable',
+    logs,
+  );
   assertionCount++;
 
-  final invalidProgramFuture = ui.FragmentProgram.fromBytes(_invalidShaderData());
-  _expectCondition(invalidProgramFuture is Future<ui.FragmentProgram>, 'FragmentProgram.fromBytes returns Future<FragmentProgram>', logs);
+  final invalidProgramFuture = ui.FragmentProgram.fromBytes(
+    _invalidShaderData(),
+  );
+  _expectCondition(
+    invalidProgramFuture is Future<ui.FragmentProgram>,
+    'FragmentProgram.fromBytes returns Future<FragmentProgram>',
+    logs,
+  );
   assertionCount++;
 
   var invalidProgramThrows = false;
@@ -46,7 +60,11 @@ dynamic build(BuildContext context) {
     'FragmentShader exposes debugDisposed in debug mode',
   ];
 
-  _expectCondition(lifecycleHints.length == 4, 'lifecycle hints prepared for behavior coverage', logs);
+  _expectCondition(
+    lifecycleHints.length == 4,
+    'lifecycle hints prepared for behavior coverage',
+    logs,
+  );
   assertionCount++;
 
   for (final hint in lifecycleHints) {
@@ -59,7 +77,11 @@ dynamic build(BuildContext context) {
     'sampler index out of range should throw when binding image',
   ];
 
-  _expectCondition(expectedEdgeCases.isNotEmpty, 'edge case scenarios listed', logs);
+  _expectCondition(
+    expectedEdgeCases.isNotEmpty,
+    'edge case scenarios listed',
+    logs,
+  );
   assertionCount++;
 
   for (final edge in expectedEdgeCases) {
@@ -109,4 +131,3 @@ dynamic build(BuildContext context) {
 // filler line to satisfy minimum length requirement
 // filler line to satisfy minimum length requirement
 // filler line to satisfy minimum length requirement
-

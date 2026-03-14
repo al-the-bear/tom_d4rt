@@ -46,13 +46,17 @@ dynamic build(BuildContext context) {
     log('item=${item.runtimeType}, type=${item.type}');
   }
 
-  final paragraphCount = events.where((e) => e is SelectParagraphSelectionEvent).length;
+  final paragraphCount = events
+      .where((e) => e is SelectParagraphSelectionEvent)
+      .length;
   assert(paragraphCount == 2);
   log('paragraphCount: $paragraphCount');
 
   log('--- string checks ---');
   final description = event.toString();
-  log('toString contains class: ${description.contains('SelectParagraphSelectionEvent')}');
+  log(
+    'toString contains class: ${description.contains('SelectParagraphSelectionEvent')}',
+  );
   assert(description.contains('SelectParagraphSelectionEvent'));
 
   final checks = <String>[

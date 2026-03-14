@@ -90,11 +90,7 @@ dynamic build(BuildContext context) {
   // Test 5: Point transformation
   print('\n--- Test 5: Point transformation ---');
   try {
-    final points = [
-      Offset(0, 0),
-      Offset(100, 200),
-      Offset(500, 300),
-    ];
+    final points = [Offset(0, 0), Offset(100, 200), Offset(500, 300)];
     for (final point in points) {
       print('Point: (${point.dx}, ${point.dy})');
       assert(point.dx >= 0 || point.dx < 0); // Always valid
@@ -164,11 +160,7 @@ dynamic build(BuildContext context) {
   // Test 10: Offset configuration
   print('\n--- Test 10: Offset configuration ---');
   try {
-    final offsets = [
-      Offset.zero,
-      Offset(10, 20),
-      Offset(100, 100),
-    ];
+    final offsets = [Offset.zero, Offset(10, 20), Offset(100, 100)];
     for (final offset in offsets) {
       print('Offset: dx=${offset.dx}, dy=${offset.dy}');
     }
@@ -206,11 +198,17 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('AndroidViewController Test Results',
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+      Text(
+        'AndroidViewController Test Results',
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      ),
       SizedBox(height: 8),
-      Text('Passed: $passCount | Failed: $failCount',
-        style: TextStyle(color: failCount == 0 ? Color(0xFF4CAF50) : Color(0xFFF44336))),
+      Text(
+        'Passed: $passCount | Failed: $failCount',
+        style: TextStyle(
+          color: failCount == 0 ? Color(0xFF4CAF50) : Color(0xFFF44336),
+        ),
+      ),
       SizedBox(height: 8),
       ...results.map((r) => Text(r, style: TextStyle(fontSize: 12))),
     ],

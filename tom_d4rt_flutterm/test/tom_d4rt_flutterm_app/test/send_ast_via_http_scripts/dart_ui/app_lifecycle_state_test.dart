@@ -68,8 +68,9 @@ dynamic build(BuildContext context) {
   }
 
   final List<ui.AppLifecycleState> sortedByIndex =
-      <ui.AppLifecycleState>[...values]
-        ..sort((ui.AppLifecycleState a, ui.AppLifecycleState b) => a.index - b.index);
+      <ui.AppLifecycleState>[...values]..sort(
+        (ui.AppLifecycleState a, ui.AppLifecycleState b) => a.index - b.index,
+      );
   bool orderMatches = true;
   for (int index = 0; index < values.length; index++) {
     if (values[index] != sortedByIndex[index]) {

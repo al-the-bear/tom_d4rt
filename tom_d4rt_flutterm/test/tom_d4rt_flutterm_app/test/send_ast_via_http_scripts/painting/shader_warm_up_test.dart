@@ -67,23 +67,17 @@ dynamic build(BuildContext context) {
   print('Stroke paint: width=${strokePaint.strokeWidth}');
 
   // Test 11: Gradient shaders need warmup
-  final linearGradient = LinearGradient(
-    colors: [Colors.red, Colors.blue],
-  );
+  final linearGradient = LinearGradient(colors: [Colors.red, Colors.blue]);
   results.add('LinearGradient shaders benefit from warmup');
   print('Gradient type: ${linearGradient.runtimeType}');
 
   // Test 12: RadialGradient warmup
-  final radialGradient = RadialGradient(
-    colors: [Colors.green, Colors.yellow],
-  );
+  final radialGradient = RadialGradient(colors: [Colors.green, Colors.yellow]);
   results.add('RadialGradient also needs warmup');
   print('RadialGradient: ${radialGradient.runtimeType}');
 
   // Test 13: SweepGradient warmup
-  final sweepGradient = SweepGradient(
-    colors: [Colors.purple, Colors.orange],
-  );
+  final sweepGradient = SweepGradient(colors: [Colors.purple, Colors.orange]);
   results.add('SweepGradient shader compilation');
   print('SweepGradient: ${sweepGradient.runtimeType}');
 
@@ -97,10 +91,7 @@ dynamic build(BuildContext context) {
   print('Warmup rect: $warmUpRect');
 
   // Test 16: Drawing rounded rect
-  final warmUpRRect = RRect.fromRectAndRadius(
-    warmUpRect,
-    Radius.circular(10),
-  );
+  final warmUpRRect = RRect.fromRectAndRadius(warmUpRect, Radius.circular(10));
   results.add('drawRRect: rounded corners shader');
   print('Warmup RRect: $warmUpRRect');
 

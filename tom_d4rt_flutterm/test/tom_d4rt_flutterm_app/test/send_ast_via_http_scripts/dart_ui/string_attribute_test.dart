@@ -14,10 +14,7 @@ void _check({
   assert(condition, 'Assertion failed: $label');
 }
 
-Widget _summary({
-  required String title,
-  required List<String> logs,
-}) {
+Widget _summary({required String title, required List<String> logs}) {
   final pass = logs.where((line) => line.startsWith('[PASS]')).length;
   final fail = logs.where((line) => line.startsWith('[FAIL]')).length;
   return Material(
@@ -40,41 +37,98 @@ dynamic build(BuildContext context) {
   print('StringAttribute comprehensive test start');
   final logs = <String>[];
 
-  final spell = ui.SpellOutStringAttribute(range: const TextRange(start: 0, end: 4));
-  _check(logs: logs, label: 'SpellOut subtype is StringAttribute', condition: spell is ui.StringAttribute);
-  _check(logs: logs, label: 'SpellOut range start', condition: spell.range.start == 0);
-  _check(logs: logs, label: 'SpellOut range end', condition: spell.range.end == 4);
+  final spell = ui.SpellOutStringAttribute(
+    range: const TextRange(start: 0, end: 4),
+  );
+  _check(
+    logs: logs,
+    label: 'SpellOut subtype is StringAttribute',
+    condition: spell is ui.StringAttribute,
+  );
+  _check(
+    logs: logs,
+    label: 'SpellOut range start',
+    condition: spell.range.start == 0,
+  );
+  _check(
+    logs: logs,
+    label: 'SpellOut range end',
+    condition: spell.range.end == 4,
+  );
 
   final copiedSpell = spell.copy(range: const TextRange(start: 2, end: 5));
-  _check(logs: logs, label: 'copy creates new range', condition: copiedSpell.range.start == 2 && copiedSpell.range.end == 5);
+  _check(
+    logs: logs,
+    label: 'copy creates new range',
+    condition: copiedSpell.range.start == 2 && copiedSpell.range.end == 5,
+  );
 
   final locale = ui.LocaleStringAttribute(
     range: const TextRange(start: 5, end: 9),
     locale: const ui.Locale('en', 'US'),
   );
-  _check(logs: logs, label: 'Locale subtype is StringAttribute', condition: locale is ui.StringAttribute);
-  _check(logs: logs, label: 'Locale value preserved', condition: locale.locale.languageCode == 'en');
+  _check(
+    logs: logs,
+    label: 'Locale subtype is StringAttribute',
+    condition: locale is ui.StringAttribute,
+  );
+  _check(
+    logs: logs,
+    label: 'Locale value preserved',
+    condition: locale.locale.languageCode == 'en',
+  );
 
   final copiedLocale = locale.copy(range: const TextRange(start: 10, end: 12));
-  _check(logs: logs, label: 'copied locale keeps language', condition: (copiedLocale as ui.LocaleStringAttribute).locale.languageCode == 'en');
-  _check(logs: logs, label: 'copied locale range changed', condition: copiedLocale.range.start == 10 && copiedLocale.range.end == 12);
+  _check(
+    logs: logs,
+    label: 'copied locale keeps language',
+    condition:
+        (copiedLocale as ui.LocaleStringAttribute).locale.languageCode == 'en',
+  );
+  _check(
+    logs: logs,
+    label: 'copied locale range changed',
+    condition: copiedLocale.range.start == 10 && copiedLocale.range.end == 12,
+  );
 
   final list = <ui.StringAttribute>[spell, copiedSpell, locale, copiedLocale];
-  _check(logs: logs, label: 'list has 4 attributes', condition: list.length == 4);
-  _check(logs: logs, label: 'all ranges valid', condition: list.every((attribute) => attribute.range.start <= attribute.range.end));
+  _check(
+    logs: logs,
+    label: 'list has 4 attributes',
+    condition: list.length == 4,
+  );
+  _check(
+    logs: logs,
+    label: 'all ranges valid',
+    condition: list.every(
+      (attribute) => attribute.range.start <= attribute.range.end,
+    ),
+  );
 
   for (var index = 0; index < list.length; index++) {
     final attribute = list[index];
     print('attribute[$index] => $attribute | range=${attribute.range}');
-    _check(logs: logs, label: 'attribute[$index] range non-negative', condition: attribute.range.start >= 0);
+    _check(
+      logs: logs,
+      label: 'attribute[$index] range non-negative',
+      condition: attribute.range.start >= 0,
+    );
   }
 
   final attributed = ui.AttributedString(
     'Speak 123',
     attributes: [spell, locale],
   );
-  _check(logs: logs, label: 'AttributedString created', condition: attributed.string == 'Speak 123');
-  _check(logs: logs, label: 'AttributedString has 2 attrs', condition: attributed.attributes.length == 2);
+  _check(
+    logs: logs,
+    label: 'AttributedString created',
+    condition: attributed.string == 'Speak 123',
+  );
+  _check(
+    logs: logs,
+    label: 'AttributedString has 2 attrs',
+    condition: attributed.attributes.length == 2,
+  );
 
   print('StringAttribute comprehensive test complete');
   return _summary(title: 'StringAttribute Comprehensive Test', logs: logs);
@@ -103,7 +157,6 @@ dynamic build(BuildContext context) {
 // coverage note: line guard 13
 // coverage note: line guard 14
 // coverage note: line guard 15
-
 
 // --- extra comprehensive coverage section ---
 void _extraCoverageMarker(List<String> logs) {

@@ -18,26 +18,54 @@ dynamic build(BuildContext context) {
   const ui.Offset offset = ui.Offset(12, 24);
   const ui.Size size = ui.Size(30, 50);
 
-  _expect(offset.runtimeType.toString().contains('Offset'), 'Offset instance is constructed', logs);
+  _expect(
+    offset.runtimeType.toString().contains('Offset'),
+    'Offset instance is constructed',
+    logs,
+  );
   assertionCount++;
-  _expect(size.runtimeType.toString().contains('Size'), 'Size instance is constructed', logs);
+  _expect(
+    size.runtimeType.toString().contains('Size'),
+    'Size instance is constructed',
+    logs,
+  );
   assertionCount++;
 
-  _expect(offset.dx == 12 && offset.dy == 24, 'Offset constructor stores dx/dy', logs);
+  _expect(
+    offset.dx == 12 && offset.dy == 24,
+    'Offset constructor stores dx/dy',
+    logs,
+  );
   assertionCount++;
-  _expect(size.width == 30 && size.height == 50, 'Size constructor stores width/height', logs);
+  _expect(
+    size.width == 30 && size.height == 50,
+    'Size constructor stores width/height',
+    logs,
+  );
   assertionCount++;
 
   final sum = offset + const ui.Offset(3, -4);
-  _expect(sum.dx == 15 && sum.dy == 20, 'Offset behavior supports vector addition', logs);
+  _expect(
+    sum.dx == 15 && sum.dy == 20,
+    'Offset behavior supports vector addition',
+    logs,
+  );
   assertionCount++;
 
   final translatedRect = const ui.Rect.fromLTWH(0, 0, 10, 10).shift(offset);
-  _expect(translatedRect.left == 12 && translatedRect.top == 24, 'Offset shifts rect as expected', logs);
+  _expect(
+    translatedRect.left == 12 && translatedRect.top == 24,
+    'Offset shifts rect as expected',
+    logs,
+  );
   assertionCount++;
 
   final edgeOffset = const ui.Offset(-5, -7);
-  _expect(edgeOffset.dx < 0 && edgeOffset.dy < 0, 'edge case negative offset values are valid', logs);
+  _expect(
+    edgeOffset.dx < 0 && edgeOffset.dy < 0,
+    'edge case negative offset values are valid',
+    logs,
+  );
   assertionCount++;
 
   for (final line in logs) {
@@ -58,6 +86,7 @@ dynamic build(BuildContext context) {
     ],
   );
 }
+
 // coverage filler line 01
 // coverage filler line 02
 // coverage filler line 03

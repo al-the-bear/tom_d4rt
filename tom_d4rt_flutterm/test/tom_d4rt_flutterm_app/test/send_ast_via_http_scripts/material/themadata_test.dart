@@ -19,33 +19,68 @@ dynamic build(BuildContext context) {
   final ThemeData darkTheme = ThemeData.dark();
   final ThemeData copied = lightTheme.copyWith(useMaterial3: true);
   final ColorScheme seededScheme = ColorScheme.fromSeed(seedColor: Colors.teal);
-  final ThemeData seededTheme = ThemeData.from(colorScheme: seededScheme, textTheme: Typography.material2021().black);
+  final ThemeData seededTheme = ThemeData.from(
+    colorScheme: seededScheme,
+    textTheme: Typography.material2021().black,
+  );
 
-  _expect(baseTheme.colorScheme.brightness == Brightness.light, 'base ThemeData defaults to light brightness', logs);
+  _expect(
+    baseTheme.colorScheme.brightness == Brightness.light,
+    'base ThemeData defaults to light brightness',
+    logs,
+  );
   assertionCount++;
-  _expect(lightTheme.brightness == Brightness.light, 'ThemeData.light has light brightness', logs);
+  _expect(
+    lightTheme.brightness == Brightness.light,
+    'ThemeData.light has light brightness',
+    logs,
+  );
   assertionCount++;
-  _expect(darkTheme.brightness == Brightness.dark, 'ThemeData.dark has dark brightness', logs);
+  _expect(
+    darkTheme.brightness == Brightness.dark,
+    'ThemeData.dark has dark brightness',
+    logs,
+  );
   assertionCount++;
-  _expect(copied.useMaterial3 == true, 'copyWith applies useMaterial3 override', logs);
+  _expect(
+    copied.useMaterial3 == true,
+    'copyWith applies useMaterial3 override',
+    logs,
+  );
   assertionCount++;
-  _expect(seededTheme.colorScheme.primary == seededScheme.primary, 'ThemeData.from keeps seeded primary color', logs);
+  _expect(
+    seededTheme.colorScheme.primary == seededScheme.primary,
+    'ThemeData.from keeps seeded primary color',
+    logs,
+  );
   assertionCount++;
 
   final ThemeData merged = lightTheme.copyWith(
     colorScheme: lightTheme.colorScheme.copyWith(primary: Colors.purple),
     textTheme: lightTheme.textTheme.apply(fontSizeFactor: 1.05),
   );
-  _expect(merged.colorScheme.primary == Colors.purple, 'copyWith updates colorScheme primary', logs);
+  _expect(
+    merged.colorScheme.primary == Colors.purple,
+    'copyWith updates colorScheme primary',
+    logs,
+  );
   assertionCount++;
-  _expect(merged.textTheme.bodyMedium != null, 'merged theme keeps text theme entries', logs);
+  _expect(
+    merged.textTheme.bodyMedium != null,
+    'merged theme keeps text theme entries',
+    logs,
+  );
   assertionCount++;
 
   final ThemeData edgeCase = ThemeData(
     colorScheme: const ColorScheme.dark(),
     useMaterial3: false,
   );
-  _expect(edgeCase.brightness == Brightness.dark, 'explicit dark ColorScheme keeps dark brightness', logs);
+  _expect(
+    edgeCase.brightness == Brightness.dark,
+    'explicit dark ColorScheme keeps dark brightness',
+    logs,
+  );
   assertionCount++;
 
   for (final line in logs) {
@@ -66,6 +101,7 @@ dynamic build(BuildContext context) {
     ],
   );
 }
+
 // coverage filler line 01
 // coverage filler line 02
 // coverage filler line 03

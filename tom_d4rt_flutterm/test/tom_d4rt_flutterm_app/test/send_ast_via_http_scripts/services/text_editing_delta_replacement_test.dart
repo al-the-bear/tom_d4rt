@@ -50,7 +50,10 @@ dynamic build(BuildContext context) {
   print('Replacing: "${delta2.replacedRange.textInside(delta2.oldText)}"');
   print('With: "${delta2.replacementText}"');
   print('Result would be: "The slow brown fox"');
-  assert(delta2.replacedRange.textInside(delta2.oldText) == 'quick', 'Should replace "quick"');
+  assert(
+    delta2.replacedRange.textInside(delta2.oldText) == 'quick',
+    'Should replace "quick"',
+  );
   print('Test 2 PASSED: Word replacement works');
   testsPassed++;
 
@@ -68,8 +71,13 @@ dynamic build(BuildContext context) {
 
   print('Longer replacement:');
   print('Original: "${delta3.oldText}" (${delta3.oldText.length} chars)');
-  print('Replacement: "${delta3.replacementText}" (${delta3.replacementText.length} chars)');
-  assert(delta3.replacementText.length > delta3.oldText.length, 'Replacement should be longer');
+  print(
+    'Replacement: "${delta3.replacementText}" (${delta3.replacementText.length} chars)',
+  );
+  assert(
+    delta3.replacementText.length > delta3.oldText.length,
+    'Replacement should be longer',
+  );
   print('Test 3 PASSED: Longer replacement works');
   testsPassed++;
 
@@ -87,9 +95,14 @@ dynamic build(BuildContext context) {
 
   print('Shorter replacement:');
   print('Original: "${delta4.oldText}" (${delta4.oldText.length} chars)');
-  print('Replacement: "${delta4.replacementText}" (${delta4.replacementText.length} chars)');
-  assert(delta4.replacementText.length < delta4.replacedRange.end - delta4.replacedRange.start, 
-         'Replacement should be shorter than replaced text');
+  print(
+    'Replacement: "${delta4.replacementText}" (${delta4.replacementText.length} chars)',
+  );
+  assert(
+    delta4.replacementText.length <
+        delta4.replacedRange.end - delta4.replacedRange.start,
+    'Replacement should be shorter than replaced text',
+  );
   print('Test 4 PASSED: Shorter replacement works');
   testsPassed++;
 
@@ -130,7 +143,10 @@ dynamic build(BuildContext context) {
   print('replacedRange: ${delta6.replacedRange}');
   print('replacementText length: ${delta6.replacementText.length}');
   print('selection offset: ${delta6.selection.baseOffset}');
-  assert(delta6.selection.baseOffset == 18, 'Cursor should be after replacement');
+  assert(
+    delta6.selection.baseOffset == 18,
+    'Cursor should be after replacement',
+  );
   print('Test 6 PASSED: Selection after replacement is correct');
   testsPassed++;
 
@@ -184,7 +200,9 @@ dynamic build(BuildContext context) {
   );
 
   print('IME composition replacement:');
-  print('Hiragana composed: "${delta9.replacedRange.textInside(delta9.oldText)}"');
+  print(
+    'Hiragana composed: "${delta9.replacedRange.textInside(delta9.oldText)}"',
+  );
   print('Converted to kanji: "${delta9.replacementText}"');
   print('Test 9 PASSED: IME composition replacement works');
   testsPassed++;
@@ -261,8 +279,10 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('TextEditingDeltaReplacement Test Results',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      Text(
+        'TextEditingDeltaReplacement Test Results',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
       SizedBox(height: 8),
       Text('Tests Passed: $testsPassed / $totalTests'),
       SizedBox(height: 4),
@@ -279,8 +299,10 @@ dynamic build(BuildContext context) {
       Text('Find and Replace: ✓'),
       Text('Composing During Replacement: ✓'),
       SizedBox(height: 8),
-      Text('All TextEditingDeltaReplacement tests completed!',
-          style: TextStyle(color: Color(0xFF4CAF50))),
+      Text(
+        'All TextEditingDeltaReplacement tests completed!',
+        style: TextStyle(color: Color(0xFF4CAF50)),
+      ),
     ],
   );
 }

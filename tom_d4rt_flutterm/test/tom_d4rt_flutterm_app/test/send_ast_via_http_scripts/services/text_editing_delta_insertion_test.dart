@@ -90,7 +90,10 @@ dynamic build(BuildContext context) {
   print('oldText: "${delta4.oldText}"');
   print('textInserted: "${delta4.textInserted}"');
   print('insertionOffset: ${delta4.insertionOffset}');
-  assert(delta4.insertionOffset == delta4.oldText.length, 'Should insert at end');
+  assert(
+    delta4.insertionOffset == delta4.oldText.length,
+    'Should insert at end',
+  );
   print('Test 4 PASSED: End insertion works');
   testsPassed++;
 
@@ -131,7 +134,10 @@ dynamic build(BuildContext context) {
   print('insertionOffset: ${delta6.insertionOffset}');
   print('textInserted length: ${delta6.textInserted.length}');
   print('selection offset: ${delta6.selection.baseOffset}');
-  assert(delta6.selection.baseOffset == 13, 'Cursor should be after inserted text');
+  assert(
+    delta6.selection.baseOffset == 13,
+    'Cursor should be after inserted text',
+  );
   print('Test 6 PASSED: Selection after insertion is correct');
   testsPassed++;
 
@@ -212,7 +218,10 @@ dynamic build(BuildContext context) {
   print('textInserted: "${delta10.textInserted}"');
   print('textInserted length: ${delta10.textInserted.length}');
   print('Simulates Ctrl+V / Cmd+V paste');
-  assert(delta10.textInserted.length > 20, 'Pasted content should be substantial');
+  assert(
+    delta10.textInserted.length > 20,
+    'Pasted content should be substantial',
+  );
   print('Test 10 PASSED: Paste operation simulation works');
   testsPassed++;
 
@@ -270,8 +279,10 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('TextEditingDeltaInsertion Test Results',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      Text(
+        'TextEditingDeltaInsertion Test Results',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
       SizedBox(height: 8),
       Text('Tests Passed: $testsPassed / $totalTests'),
       SizedBox(height: 4),
@@ -288,8 +299,10 @@ dynamic build(BuildContext context) {
       Text('Space Insertion: ✓'),
       Text('Empty Text Insertion: ✓'),
       SizedBox(height: 8),
-      Text('All TextEditingDeltaInsertion tests completed!',
-          style: TextStyle(color: Color(0xFF4CAF50))),
+      Text(
+        'All TextEditingDeltaInsertion tests completed!',
+        style: TextStyle(color: Color(0xFF4CAF50)),
+      ),
     ],
   );
 }

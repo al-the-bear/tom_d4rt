@@ -13,7 +13,11 @@ dynamic build(BuildContext context) {
   print('\n--- Test 1: Create RawKeyUpEvent with web data ---');
   try {
     final data = RawKeyEventDataWeb(
-      code: 'KeyA', key: 'a', location: 0, metaState: 0, keyCode: 65,
+      code: 'KeyA',
+      key: 'a',
+      location: 0,
+      metaState: 0,
+      keyCode: 65,
     );
     final event = RawKeyUpEvent(data: data);
     assert(event is RawKeyUpEvent);
@@ -32,7 +36,11 @@ dynamic build(BuildContext context) {
   print('\n--- Test 2: Verify logical key from event ---');
   try {
     final data = RawKeyEventDataWeb(
-      code: 'KeyA', key: 'a', location: 0, metaState: 0, keyCode: 65,
+      code: 'KeyA',
+      key: 'a',
+      location: 0,
+      metaState: 0,
+      keyCode: 65,
     );
     final event = RawKeyUpEvent(data: data);
     final logicalKey = event.logicalKey;
@@ -50,7 +58,11 @@ dynamic build(BuildContext context) {
   print('\n--- Test 3: Verify physical key from event ---');
   try {
     final data = RawKeyEventDataWeb(
-      code: 'KeyA', key: 'a', location: 0, metaState: 0, keyCode: 65,
+      code: 'KeyA',
+      key: 'a',
+      location: 0,
+      metaState: 0,
+      keyCode: 65,
     );
     final event = RawKeyUpEvent(data: data);
     final physicalKey = event.physicalKey;
@@ -68,7 +80,11 @@ dynamic build(BuildContext context) {
   print('\n--- Test 4: Test modifier keys with up event ---');
   try {
     final dataWithModifiers = RawKeyEventDataWeb(
-      code: 'KeyA', key: 'A', location: 0, metaState: 3, keyCode: 65,
+      code: 'KeyA',
+      key: 'A',
+      location: 0,
+      metaState: 3,
+      keyCode: 65,
     );
     final event = RawKeyUpEvent(data: dataWithModifiers);
     print('isShiftPressed: ${event.isShiftPressed}');
@@ -87,7 +103,11 @@ dynamic build(BuildContext context) {
   print('\n--- Test 5: Test repeat property ---');
   try {
     final data = RawKeyEventDataWeb(
-      code: 'KeyA', key: 'a', location: 0, metaState: 0, keyCode: 65,
+      code: 'KeyA',
+      key: 'a',
+      location: 0,
+      metaState: 0,
+      keyCode: 65,
     );
     final event = RawKeyUpEvent(data: data);
     print('Is repeat: ${event.repeat}');
@@ -105,7 +125,11 @@ dynamic build(BuildContext context) {
     final keys = ['KeyA', 'KeyB', 'KeyC', 'Enter', 'Space', 'Escape'];
     for (final code in keys) {
       final data = RawKeyEventDataWeb(
-        code: code, key: code.toLowerCase(), location: 0, metaState: 0, keyCode: 0,
+        code: code,
+        key: code.toLowerCase(),
+        location: 0,
+        metaState: 0,
+        keyCode: 0,
       );
       final event = RawKeyUpEvent(data: data);
       print('Created key up event for: $code');
@@ -123,7 +147,11 @@ dynamic build(BuildContext context) {
   print('\n--- Test 7: Verify event inheritance ---');
   try {
     final data = RawKeyEventDataWeb(
-      code: 'KeyA', key: 'a', location: 0, metaState: 0, keyCode: 65,
+      code: 'KeyA',
+      key: 'a',
+      location: 0,
+      metaState: 0,
+      keyCode: 65,
     );
     final event = RawKeyUpEvent(data: data);
     assert(event is RawKeyEvent);
@@ -141,7 +169,11 @@ dynamic build(BuildContext context) {
   print('\n--- Test 8: Simulate down/up event pair ---');
   try {
     final data = RawKeyEventDataWeb(
-      code: 'KeyA', key: 'a', location: 0, metaState: 0, keyCode: 65,
+      code: 'KeyA',
+      key: 'a',
+      location: 0,
+      metaState: 0,
+      keyCode: 65,
     );
     final downEvent = RawKeyDownEvent(data: data);
     final upEvent = RawKeyUpEvent(data: data);
@@ -169,8 +201,16 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('RawKeyUpEvent Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-      Text('Passed: $testsPassed, Failed: $testsFailed', style: TextStyle(color: testsFailed == 0 ? Color(0xFF00AA00) : Color(0xFFAA0000))),
+      Text(
+        'RawKeyUpEvent Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+      ),
+      Text(
+        'Passed: $testsPassed, Failed: $testsFailed',
+        style: TextStyle(
+          color: testsFailed == 0 ? Color(0xFF00AA00) : Color(0xFFAA0000),
+        ),
+      ),
       const SizedBox(height: 8),
       ...results.map((r) => Text(r, style: TextStyle(fontSize: 12))),
     ],

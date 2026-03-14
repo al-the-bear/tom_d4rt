@@ -96,7 +96,9 @@ dynamic build(BuildContext context) {
     ];
     for (final tc in testCases) {
       final result = tc['canCut'] == true ? '✓' : '✗';
-      print('  - Selection: ${tc['hasSelection']}, Editable: ${tc['isEditable']} → $result');
+      print(
+        '  - Selection: ${tc['hasSelection']}, Editable: ${tc['isEditable']} → $result',
+      );
     }
     assert(testCases.length == 4);
     results.add('✓ Combined conditions verified');
@@ -111,11 +113,7 @@ dynamic build(BuildContext context) {
   try {
     final undoStack = <Map<String, dynamic>>[];
     // Record undo action
-    undoStack.add({
-      'action': 'cut',
-      'text': 'Hello',
-      'position': 0,
-    });
+    undoStack.add({'action': 'cut', 'text': 'Hello', 'position': 0});
     print('  - Cut action recorded for undo');
     print('  - Undo will restore: "${undoStack.last['text']}"');
     print('  - At position: ${undoStack.last['position']}');
@@ -222,16 +220,24 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('IOSSystemContextMenuItemDataCut Tests',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      Text(
+        'IOSSystemContextMenuItemDataCut Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
       SizedBox(height: 8),
-      Text('Passed: $passCount / ${passCount + failCount}',
-          style: TextStyle(color: failCount == 0 ? Color(0xFF4CAF50) : Color(0xFFF44336))),
+      Text(
+        'Passed: $passCount / ${passCount + failCount}',
+        style: TextStyle(
+          color: failCount == 0 ? Color(0xFF4CAF50) : Color(0xFFF44336),
+        ),
+      ),
       SizedBox(height: 8),
-      ...results.map((r) => Padding(
-            padding: EdgeInsets.symmetric(vertical: 2),
-            child: Text(r, style: TextStyle(fontSize: 12)),
-          )),
+      ...results.map(
+        (r) => Padding(
+          padding: EdgeInsets.symmetric(vertical: 2),
+          child: Text(r, style: TextStyle(fontSize: 12)),
+        ),
+      ),
     ],
   );
 }

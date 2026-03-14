@@ -55,20 +55,32 @@ dynamic build(BuildContext context) {
   }
 
   final String targetClassName = "RenderConstraintsTransformBox";
-  final Widget indirectWidget = const UnconstrainedBox(child: SizedBox(width: 20, height: 14));
+  final Widget indirectWidget = const UnconstrainedBox(
+    child: SizedBox(width: 20, height: 14),
+  );
 
   final Size sampleSize = const Size(320, 180);
   final Offset sampleOffset = const Offset(12, 24);
   final Color sampleColor = const Color(0xFF336699);
 
-  _expectCondition(targetClassName.startsWith("Render") || targetClassName.startsWith("Rendering"), "target class name has render prefix");
-  _expectCondition(indirectWidget is Widget, "indirect widget is a widget instance");
+  _expectCondition(
+    targetClassName.startsWith("Render") ||
+        targetClassName.startsWith("Rendering"),
+    "target class name has render prefix",
+  );
+  _expectCondition(
+    indirectWidget is Widget,
+    "indirect widget is a widget instance",
+  );
   _expectCondition(sampleSize.width > 0, "sample width is positive");
   _expectCondition(sampleSize.height > 0, "sample height is positive");
   _expectCondition(sampleOffset.dx >= 0, "sample dx is non-negative");
   _expectCondition(sampleOffset.dy >= 0, "sample dy is non-negative");
   _expectCondition(sampleColor.alpha == 0xFF, "sample color is fully opaque");
-  _expectCondition(indirectWidget.runtimeType.toString().isNotEmpty, "runtime type text is available");
+  _expectCondition(
+    indirectWidget.runtimeType.toString().isNotEmpty,
+    "runtime type text is available",
+  );
 
   logStep("Target class: $targetClassName");
   logStep("Indirect usage path widget: ${indirectWidget.runtimeType}");
@@ -82,10 +94,22 @@ dynamic build(BuildContext context) {
     indirectWidget: indirectWidget,
   );
 
-  _expectCondition(snapshot.containsKey("className"), "snapshot contains className");
-  _expectCondition(snapshot.containsKey("widgetRuntimeType"), "snapshot contains widget runtime type");
-  _expectCondition((snapshot["sampleWidth"] as double) == 320, "snapshot width matches expected value");
-  _expectCondition((snapshot["sampleHeight"] as double) == 180, "snapshot height matches expected value");
+  _expectCondition(
+    snapshot.containsKey("className"),
+    "snapshot contains className",
+  );
+  _expectCondition(
+    snapshot.containsKey("widgetRuntimeType"),
+    "snapshot contains widget runtime type",
+  );
+  _expectCondition(
+    (snapshot["sampleWidth"] as double) == 320,
+    "snapshot width matches expected value",
+  );
+  _expectCondition(
+    (snapshot["sampleHeight"] as double) == 180,
+    "snapshot height matches expected value",
+  );
 
   final List<String> behaviorChecks = <String>[
     "Constructor path represented through indirect widget construction",
@@ -105,7 +129,10 @@ dynamic build(BuildContext context) {
   }
 
   final int assertionLikeCount = 12 + behaviorChecks.length;
-  _expectCondition(assertionLikeCount >= 12, "sufficient assertion coverage count");
+  _expectCondition(
+    assertionLikeCount >= 12,
+    "sufficient assertion coverage count",
+  );
   _expectCondition(logs.isNotEmpty, "logs collected during script execution");
   _expectCondition(logs.length >= 10, "multiple log statements were emitted");
 

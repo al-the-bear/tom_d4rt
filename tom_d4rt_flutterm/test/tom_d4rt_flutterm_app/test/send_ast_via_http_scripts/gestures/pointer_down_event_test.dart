@@ -34,33 +34,77 @@ dynamic build(BuildContext context) {
     pressure: 1.0,
   );
 
-  _expectCondition(eventA.pointer == 1, 'constructor sets pointer id for eventA', logs);
+  _expectCondition(
+    eventA.pointer == 1,
+    'constructor sets pointer id for eventA',
+    logs,
+  );
   assertionCount++;
-  _expectCondition(eventA.position == const Offset(100, 200), 'constructor sets position for eventA', logs);
+  _expectCondition(
+    eventA.position == const Offset(100, 200),
+    'constructor sets position for eventA',
+    logs,
+  );
   assertionCount++;
-  _expectCondition(eventA.localPosition == const Offset(10, 20), 'constructor sets localPosition for eventA', logs);
+  _expectCondition(
+    eventA.localPosition == const Offset(10, 20),
+    'constructor sets localPosition for eventA',
+    logs,
+  );
   assertionCount++;
-  _expectCondition(eventA.kind == PointerDeviceKind.touch, 'constructor sets device kind for eventA', logs);
+  _expectCondition(
+    eventA.kind == PointerDeviceKind.touch,
+    'constructor sets device kind for eventA',
+    logs,
+  );
   assertionCount++;
-  _expectCondition(eventA.buttons == kPrimaryButton, 'constructor sets buttons for eventA', logs);
+  _expectCondition(
+    eventA.buttons == kPrimaryButton,
+    'constructor sets buttons for eventA',
+    logs,
+  );
   assertionCount++;
 
-  _expectCondition(eventB.pointer == 2, 'constructor sets pointer id for eventB', logs);
+  _expectCondition(
+    eventB.pointer == 2,
+    'constructor sets pointer id for eventB',
+    logs,
+  );
   assertionCount++;
-  _expectCondition(eventB.kind == PointerDeviceKind.mouse, 'constructor sets device kind for eventB', logs);
+  _expectCondition(
+    eventB.kind == PointerDeviceKind.mouse,
+    'constructor sets device kind for eventB',
+    logs,
+  );
   assertionCount++;
-  _expectCondition(eventB.buttons == kSecondaryButton, 'constructor sets buttons for eventB', logs);
+  _expectCondition(
+    eventB.buttons == kSecondaryButton,
+    'constructor sets buttons for eventB',
+    logs,
+  );
   assertionCount++;
 
   _expectCondition(eventA.down, 'PointerDownEvent.down is true', logs);
   assertionCount++;
-  _expectCondition(!eventA.synthesized, 'PointerDownEvent synthesized default is false', logs);
+  _expectCondition(
+    !eventA.synthesized,
+    'PointerDownEvent synthesized default is false',
+    logs,
+  );
   assertionCount++;
 
   final transformed = eventA.transformed(Matrix4.identity().storage);
-  _expectCondition(transformed is PointerDownEvent, 'transformed() returns PointerDownEvent', logs);
+  _expectCondition(
+    transformed is PointerDownEvent,
+    'transformed() returns PointerDownEvent',
+    logs,
+  );
   assertionCount++;
-  _expectCondition(transformed.pointer == eventA.pointer, 'transformed event keeps pointer id', logs);
+  _expectCondition(
+    transformed.pointer == eventA.pointer,
+    'transformed event keeps pointer id',
+    logs,
+  );
   assertionCount++;
 
   // Edge case: unusual pressure range value still retained in object.
@@ -71,14 +115,28 @@ dynamic build(BuildContext context) {
     kind: PointerDeviceKind.stylus,
   );
 
-  _expectCondition(eventEdge.pressure == 0.0, 'edge event stores zero pressure', logs);
+  _expectCondition(
+    eventEdge.pressure == 0.0,
+    'edge event stores zero pressure',
+    logs,
+  );
   assertionCount++;
-  _expectCondition(eventEdge.kind == PointerDeviceKind.stylus, 'edge event stores stylus kind', logs);
+  _expectCondition(
+    eventEdge.kind == PointerDeviceKind.stylus,
+    'edge event stores stylus kind',
+    logs,
+  );
   assertionCount++;
 
-  print('eventA: pointer=${eventA.pointer}, position=${eventA.position}, local=${eventA.localPosition}, buttons=${eventA.buttons}, pressure=${eventA.pressure}');
-  print('eventB: pointer=${eventB.pointer}, position=${eventB.position}, kind=${eventB.kind}, buttons=${eventB.buttons}');
-  print('eventEdge: pointer=${eventEdge.pointer}, pressure=${eventEdge.pressure}, kind=${eventEdge.kind}');
+  print(
+    'eventA: pointer=${eventA.pointer}, position=${eventA.position}, local=${eventA.localPosition}, buttons=${eventA.buttons}, pressure=${eventA.pressure}',
+  );
+  print(
+    'eventB: pointer=${eventB.pointer}, position=${eventB.position}, kind=${eventB.kind}, buttons=${eventB.buttons}',
+  );
+  print(
+    'eventEdge: pointer=${eventEdge.pointer}, pressure=${eventEdge.pressure}, kind=${eventEdge.kind}',
+  );
 
   final summary = <String>[
     'constructors covered with multiple device kinds',
@@ -112,4 +170,3 @@ dynamic build(BuildContext context) {
 // filler line to satisfy minimum length requirement
 // filler line to satisfy minimum length requirement
 // filler line to satisfy minimum length requirement
-

@@ -28,7 +28,11 @@ dynamic build(BuildContext context) {
   final bytes = writer.done();
   final readBuffer = ReadBuffer(bytes);
 
-  _expectCondition(readBuffer.hasRemaining, 'buffer has remaining data after construction', logs);
+  _expectCondition(
+    readBuffer.hasRemaining,
+    'buffer has remaining data after construction',
+    logs,
+  );
   assertionCount++;
 
   final vUint8 = readBuffer.getUint8();
@@ -51,10 +55,18 @@ dynamic build(BuildContext context) {
   assertionCount++;
   _expectCondition(vInt64 == 9999999, 'getInt64 returns expected value', logs);
   assertionCount++;
-  _expectCondition((vFloat32 - 2.25).abs() < 0.0001, 'getFloat32 returns expected value', logs);
+  _expectCondition(
+    (vFloat32 - 2.25).abs() < 0.0001,
+    'getFloat32 returns expected value',
+    logs,
+  );
   assertionCount++;
 
-  _expectCondition(!readBuffer.hasRemaining, 'buffer has no remaining data after full read', logs);
+  _expectCondition(
+    !readBuffer.hasRemaining,
+    'buffer has no remaining data after full read',
+    logs,
+  );
   assertionCount++;
 
   var overreadThrows = false;
@@ -67,7 +79,9 @@ dynamic build(BuildContext context) {
   _expectCondition(overreadThrows, 'overread throws range/state error', logs);
   assertionCount++;
 
-  print('values: uint8=$vUint8 int32=$vInt32 float64=$vFloat64 uint16=$vUint16 uint32=$vUint32 int64=$vInt64 float32=$vFloat32');
+  print(
+    'values: uint8=$vUint8 int32=$vInt32 float64=$vFloat64 uint16=$vUint16 uint32=$vUint32 int64=$vInt64 float32=$vFloat32',
+  );
 
   final summary = <String>[
     'constructor covered: ReadBuffer(ByteData)',
@@ -110,4 +124,3 @@ dynamic build(BuildContext context) {
 // filler line to satisfy minimum length requirement
 // filler line to satisfy minimum length requirement
 // filler line to satisfy minimum length requirement
-

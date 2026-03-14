@@ -43,7 +43,9 @@ dynamic build(BuildContext context) {
   print('Selection change:');
   print('Text unchanged: "${delta2.oldText}"');
   print('New selection: ${delta2.selection}');
-  print('Selected text: "${originalText.substring(delta2.selection.start, delta2.selection.end)}"');
+  print(
+    'Selected text: "${originalText.substring(delta2.selection.start, delta2.selection.end)}"',
+  );
   assert(!delta2.selection.isCollapsed, 'Selection should not be collapsed');
   print('Test 2 PASSED: Selection change works');
   testsPassed++;
@@ -78,7 +80,9 @@ dynamic build(BuildContext context) {
   print('Composing range update:');
   print('composing: ${delta4.composing}');
   print('composing isValid: ${delta4.composing.isValid}');
-  print('composing text: "${delta4.oldText.substring(delta4.composing.start, delta4.composing.end)}"');
+  print(
+    'composing text: "${delta4.oldText.substring(delta4.composing.start, delta4.composing.end)}"',
+  );
   assert(delta4.composing.isValid, 'Composing should be valid');
   print('Test 4 PASSED: Composing range update works');
   testsPassed++;
@@ -117,7 +121,10 @@ dynamic build(BuildContext context) {
   print('selection end: ${delta6.selection.end}');
   print('text length: ${fullText.length}');
   assert(delta6.selection.start == 0, 'Selection should start at 0');
-  assert(delta6.selection.end == fullText.length, 'Selection should end at text length');
+  assert(
+    delta6.selection.end == fullText.length,
+    'Selection should end at text length',
+  );
   print('Test 6 PASSED: Select all operation works');
   testsPassed++;
 
@@ -181,7 +188,10 @@ dynamic build(BuildContext context) {
   );
 
   print('Word selection (double-click):');
-  final selectedWord = sentenceText.substring(delta9.selection.start, delta9.selection.end);
+  final selectedWord = sentenceText.substring(
+    delta9.selection.start,
+    delta9.selection.end,
+  );
   print('Selected word: "$selectedWord"');
   assert(selectedWord == 'click', 'Should select "click"');
   print('Test 9 PASSED: Word selection works');
@@ -199,7 +209,10 @@ dynamic build(BuildContext context) {
   );
 
   print('Line selection (triple-click):');
-  final selectedLine = multilineText.substring(delta10.selection.start, delta10.selection.end);
+  final selectedLine = multilineText.substring(
+    delta10.selection.start,
+    delta10.selection.end,
+  );
   print('Selected line: "$selectedLine"');
   print('Test 10 PASSED: Line selection works');
   testsPassed++;
@@ -252,8 +265,10 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('TextEditingDeltaNonTextUpdate Test Results',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      Text(
+        'TextEditingDeltaNonTextUpdate Test Results',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
       SizedBox(height: 8),
       Text('Tests Passed: $testsPassed / $totalTests'),
       SizedBox(height: 4),
@@ -270,8 +285,10 @@ dynamic build(BuildContext context) {
       Text('Unicode Selection: ✓'),
       Text('No Change Scenario: ✓'),
       SizedBox(height: 8),
-      Text('All TextEditingDeltaNonTextUpdate tests completed!',
-          style: TextStyle(color: Color(0xFF4CAF50))),
+      Text(
+        'All TextEditingDeltaNonTextUpdate tests completed!',
+        style: TextStyle(color: Color(0xFF4CAF50)),
+      ),
     ],
   );
 }

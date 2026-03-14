@@ -30,15 +30,27 @@ dynamic build(BuildContext context) {
   _expectCondition(scene is ui.Scene, 'SceneBuilder.build returns Scene', logs);
   assertionCount++;
 
-  _expectCondition(ui.Scene.toString().contains('Scene'), 'Scene type is accessible', logs);
+  _expectCondition(
+    ui.Scene.toString().contains('Scene'),
+    'Scene type is accessible',
+    logs,
+  );
   assertionCount++;
 
   final imageFuture = scene.toImage(20, 20);
-  _expectCondition(imageFuture is Future<ui.Image>, 'Scene.toImage returns Future<Image>', logs);
+  _expectCondition(
+    imageFuture is Future<ui.Image>,
+    'Scene.toImage returns Future<Image>',
+    logs,
+  );
   assertionCount++;
 
   final imageSync = scene.toImageSync(20, 20);
-  _expectCondition(imageSync.width == 20 && imageSync.height == 20, 'Scene.toImageSync returns expected dimensions', logs);
+  _expectCondition(
+    imageSync.width == 20 && imageSync.height == 20,
+    'Scene.toImageSync returns expected dimensions',
+    logs,
+  );
   assertionCount++;
 
   var invalidSizeThrows = false;
@@ -47,7 +59,11 @@ dynamic build(BuildContext context) {
   } catch (_) {
     invalidSizeThrows = true;
   }
-  _expectCondition(invalidSizeThrows, 'toImageSync throws for invalid zero dimensions', logs);
+  _expectCondition(
+    invalidSizeThrows,
+    'toImageSync throws for invalid zero dimensions',
+    logs,
+  );
   assertionCount++;
 
   final secondBuilder = ui.SceneBuilder();
@@ -56,9 +72,17 @@ dynamic build(BuildContext context) {
   secondBuilder.pop();
   final secondScene = secondBuilder.build();
 
-  _expectCondition(offsetLayer is ui.OffsetEngineLayer, 'pushOffset returns OffsetEngineLayer while composing Scene', logs);
+  _expectCondition(
+    offsetLayer is ui.OffsetEngineLayer,
+    'pushOffset returns OffsetEngineLayer while composing Scene',
+    logs,
+  );
   assertionCount++;
-  _expectCondition(secondScene is ui.Scene, 'second scene with offset layer builds', logs);
+  _expectCondition(
+    secondScene is ui.Scene,
+    'second scene with offset layer builds',
+    logs,
+  );
   assertionCount++;
 
   print('scene runtimeType: ${scene.runtimeType}');
@@ -110,4 +134,3 @@ dynamic build(BuildContext context) {
 // filler line to satisfy minimum length requirement
 // filler line to satisfy minimum length requirement
 // filler line to satisfy minimum length requirement
-

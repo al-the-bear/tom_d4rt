@@ -88,7 +88,8 @@ dynamic build(BuildContext context) {
   checks++;
 
   final indices = values.map((value) => value.index).toList(growable: false);
-  final isContiguous = indices.every((index) => index >= 0) &&
+  final isContiguous =
+      indices.every((index) => index >= 0) &&
       indices.toSet().length == indices.length &&
       indices.reduce((a, b) => a < b ? a : b) == 0 &&
       indices.reduce((a, b) => a > b ? a : b) == values.length - 1;
@@ -125,8 +126,9 @@ dynamic build(BuildContext context) {
   );
   checks++;
 
-  final toStringIncludesType =
-      values.every((value) => value.toString().startsWith('TextWidthBasis.'));
+  final toStringIncludesType = values.every(
+    (value) => value.toString().startsWith('TextWidthBasis.'),
+  );
   _check(
     condition: toStringIncludesType,
     message: 'toString includes enum type prefix',

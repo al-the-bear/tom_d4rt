@@ -24,7 +24,9 @@ dynamic build(BuildContext context) {
 
   log('--- edge positions ---');
   const cornerEvent = SelectWordSelectionEvent(globalPosition: Offset.zero);
-  const farEvent = SelectWordSelectionEvent(globalPosition: Offset(9999.0, 9999.0));
+  const farEvent = SelectWordSelectionEvent(
+    globalPosition: Offset(9999.0, 9999.0),
+  );
   log('corner: ${cornerEvent.globalPosition}');
   log('far: ${farEvent.globalPosition}');
   assert(cornerEvent.globalPosition == Offset.zero);
@@ -49,7 +51,9 @@ dynamic build(BuildContext context) {
 
   log('--- string representation ---');
   final description = event.toString();
-  log('toString contains class: ${description.contains('SelectWordSelectionEvent')}');
+  log(
+    'toString contains class: ${description.contains('SelectWordSelectionEvent')}',
+  );
   assert(description.contains('SelectWordSelectionEvent'));
 
   final checklist = <String>[
@@ -84,7 +88,9 @@ dynamic build(BuildContext context) {
       Text('word events: ${wordEvents.length}'),
       Text('checklist: ${checklist.length}'),
       Text('logs: ${logs.length}'),
-      const Text('SelectWordSelectionEvent constructor/properties/edge-cases tested'),
+      const Text(
+        'SelectWordSelectionEvent constructor/properties/edge-cases tested',
+      ),
     ],
   );
 }

@@ -55,24 +55,56 @@ dynamic build(BuildContext context) {
     propertyPrefixNoChildren: '. ',
   );
 
-  _expectCondition(configA.prefixLineOne == '├─', 'constructor sets prefixLineOne', logs);
+  _expectCondition(
+    configA.prefixLineOne == '├─',
+    'constructor sets prefixLineOne',
+    logs,
+  );
   assertionCount++;
-  _expectCondition(configA.prefixOtherLines == '│ ', 'constructor sets prefixOtherLines', logs);
+  _expectCondition(
+    configA.prefixOtherLines == '│ ',
+    'constructor sets prefixOtherLines',
+    logs,
+  );
   assertionCount++;
-  _expectCondition(configA.prefixLastChildLineOne == '└─', 'constructor sets prefixLastChildLineOne', logs);
+  _expectCondition(
+    configA.prefixLastChildLineOne == '└─',
+    'constructor sets prefixLastChildLineOne',
+    logs,
+  );
   assertionCount++;
-  _expectCondition(configA.prefixOtherLinesRootNode == '  ', 'constructor sets prefixOtherLinesRootNode', logs);
+  _expectCondition(
+    configA.prefixOtherLinesRootNode == '  ',
+    'constructor sets prefixOtherLinesRootNode',
+    logs,
+  );
   assertionCount++;
-  _expectCondition(configA.linkCharacter == '│', 'constructor sets linkCharacter', logs);
+  _expectCondition(
+    configA.linkCharacter == '│',
+    'constructor sets linkCharacter',
+    logs,
+  );
   assertionCount++;
-  _expectCondition(configA.propertyPrefixIfChildren == '│ ', 'constructor sets propertyPrefixIfChildren', logs);
+  _expectCondition(
+    configA.propertyPrefixIfChildren == '│ ',
+    'constructor sets propertyPrefixIfChildren',
+    logs,
+  );
   assertionCount++;
-  _expectCondition(configA.propertyPrefixNoChildren == '  ', 'constructor sets propertyPrefixNoChildren', logs);
+  _expectCondition(
+    configA.propertyPrefixNoChildren == '  ',
+    'constructor sets propertyPrefixNoChildren',
+    logs,
+  );
   assertionCount++;
 
   _expectCondition(configA.showChildren, 'showChildren defaults to true', logs);
   assertionCount++;
-  _expectCondition(!configA.addBlankLineIfNoChildren, 'addBlankLineIfNoChildren defaults to false', logs);
+  _expectCondition(
+    !configA.addBlankLineIfNoChildren,
+    'addBlankLineIfNoChildren defaults to false',
+    logs,
+  );
   assertionCount++;
   _expectCondition(
     !configA.isBlankLineBetweenPropertiesAndChildren,
@@ -81,21 +113,41 @@ dynamic build(BuildContext context) {
   );
   assertionCount++;
 
-  _expectCondition(configA != configB, 'different constructor values produce different configs', logs);
+  _expectCondition(
+    configA != configB,
+    'different constructor values produce different configs',
+    logs,
+  );
   assertionCount++;
 
   final sparse = sparseTextConfiguration;
   final dense = denseTextConfiguration;
 
-  _expectCondition(sparse.toString().isNotEmpty, 'sparseTextConfiguration is available', logs);
+  _expectCondition(
+    sparse.toString().isNotEmpty,
+    'sparseTextConfiguration is available',
+    logs,
+  );
   assertionCount++;
-  _expectCondition(dense.toString().isNotEmpty, 'denseTextConfiguration is available', logs);
+  _expectCondition(
+    dense.toString().isNotEmpty,
+    'denseTextConfiguration is available',
+    logs,
+  );
   assertionCount++;
-  _expectCondition(sparse != dense, 'sparse and dense configs are different', logs);
+  _expectCondition(
+    sparse != dense,
+    'sparse and dense configs are different',
+    logs,
+  );
   assertionCount++;
 
   final configAString = configA.toString();
-  _expectCondition(configAString.contains('TextTreeConfiguration'), 'toString contains class name', logs);
+  _expectCondition(
+    configAString.contains('TextTreeConfiguration'),
+    'toString contains class name',
+    logs,
+  );
   assertionCount++;
 
   print('configA: $configA');
@@ -131,6 +183,7 @@ dynamic build(BuildContext context) {
     ],
   );
 }
+
 // filler line to satisfy minimum length requirement
 // filler line to satisfy minimum length requirement
 // filler line to satisfy minimum length requirement

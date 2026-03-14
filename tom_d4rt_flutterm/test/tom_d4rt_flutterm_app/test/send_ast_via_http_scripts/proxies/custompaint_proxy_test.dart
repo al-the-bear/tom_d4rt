@@ -37,9 +37,17 @@ dynamic build(BuildContext context) {
   final painterB = _GridPainter(color: Colors.red, strokeWidth: 2);
   final painterC = _GridPainter(color: Colors.green, strokeWidth: 2);
 
-  _expect(!painterA.shouldRepaint(painterB), 'equal painter state does not repaint', logs);
+  _expect(
+    !painterA.shouldRepaint(painterB),
+    'equal painter state does not repaint',
+    logs,
+  );
   assertionCount++;
-  _expect(painterA.shouldRepaint(painterC), 'different color requests repaint', logs);
+  _expect(
+    painterA.shouldRepaint(painterC),
+    'different color requests repaint',
+    logs,
+  );
   assertionCount++;
 
   final customPaint = CustomPaint(
@@ -51,13 +59,25 @@ dynamic build(BuildContext context) {
   );
   _expect(customPaint.painter == painterA, 'CustomPaint stores painter', logs);
   assertionCount++;
-  _expect(customPaint.foregroundPainter == painterC, 'CustomPaint stores foregroundPainter', logs);
+  _expect(
+    customPaint.foregroundPainter == painterC,
+    'CustomPaint stores foregroundPainter',
+    logs,
+  );
   assertionCount++;
-  _expect(customPaint.size == const Size(64, 48), 'CustomPaint stores explicit size', logs);
+  _expect(
+    customPaint.size == const Size(64, 48),
+    'CustomPaint stores explicit size',
+    logs,
+  );
   assertionCount++;
 
   final edgePainter = _GridPainter(color: Colors.black, strokeWidth: 0);
-  _expect(edgePainter.strokeWidth == 0, 'edge case zero-width stroke is accepted', logs);
+  _expect(
+    edgePainter.strokeWidth == 0,
+    'edge case zero-width stroke is accepted',
+    logs,
+  );
   assertionCount++;
 
   for (final line in logs) {
@@ -78,6 +98,7 @@ dynamic build(BuildContext context) {
     ],
   );
 }
+
 // coverage filler line 01
 // coverage filler line 02
 // coverage filler line 03

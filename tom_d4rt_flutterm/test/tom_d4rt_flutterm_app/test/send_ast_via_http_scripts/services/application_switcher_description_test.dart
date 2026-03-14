@@ -32,7 +32,9 @@ dynamic build(BuildContext context) {
     assert(desc.label == 'My App');
     assert(desc.primaryColor == 0xFF2196F3);
     print('Label: ${desc.label}');
-    print('Primary color: 0x${desc.primaryColor?.toRadixString(16).toUpperCase()}');
+    print(
+      'Primary color: 0x${desc.primaryColor?.toRadixString(16).toUpperCase()}',
+    );
     recordTest('Basic ApplicationSwitcherDescription creation', true);
   } catch (e) {
     print('Error: $e');
@@ -42,13 +44,13 @@ dynamic build(BuildContext context) {
   // Test 2: Description with null label
   print('\n--- Test 2: Description with null label ---');
   try {
-    final desc = ApplicationSwitcherDescription(
-      primaryColor: 0xFF4CAF50,
-    );
+    final desc = ApplicationSwitcherDescription(primaryColor: 0xFF4CAF50);
     assert(desc.label == null);
     assert(desc.primaryColor == 0xFF4CAF50);
     print('Label: ${desc.label}');
-    print('Primary color: 0x${desc.primaryColor?.toRadixString(16).toUpperCase()}');
+    print(
+      'Primary color: 0x${desc.primaryColor?.toRadixString(16).toUpperCase()}',
+    );
     recordTest('Description with null label', true);
   } catch (e) {
     print('Error: $e');
@@ -58,9 +60,7 @@ dynamic build(BuildContext context) {
   // Test 3: Description with null primaryColor
   print('\n--- Test 3: Description with null primaryColor ---');
   try {
-    final desc = ApplicationSwitcherDescription(
-      label: 'Test App',
-    );
+    final desc = ApplicationSwitcherDescription(label: 'Test App');
     assert(desc.label == 'Test App');
     assert(desc.primaryColor == null);
     print('Label: ${desc.label}');
@@ -228,11 +228,17 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('ApplicationSwitcherDescription Test Results',
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+      Text(
+        'ApplicationSwitcherDescription Test Results',
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      ),
       SizedBox(height: 8),
-      Text('Passed: $passCount | Failed: $failCount',
-        style: TextStyle(color: failCount == 0 ? Color(0xFF4CAF50) : Color(0xFFF44336))),
+      Text(
+        'Passed: $passCount | Failed: $failCount',
+        style: TextStyle(
+          color: failCount == 0 ? Color(0xFF4CAF50) : Color(0xFFF44336),
+        ),
+      ),
       SizedBox(height: 8),
       ...results.map((r) => Text(r, style: TextStyle(fontSize: 12))),
     ],

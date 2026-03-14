@@ -64,7 +64,10 @@ dynamic build(BuildContext context) {
   print('\n--- Test 4: Encode Successful Result ---');
   try {
     final codec = const StandardMethodCodec();
-    final result = {'status': 'success', 'data': [1, 2, 3]};
+    final result = {
+      'status': 'success',
+      'data': [1, 2, 3],
+    };
     final encoded = codec.encodeSuccessEnvelope(result);
     print('Result: $result');
     print('Encoded bytes: ${encoded.lengthInBytes}');
@@ -143,8 +146,10 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('MethodCodec Test Results',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+      Text(
+        'MethodCodec Test Results',
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      ),
       SizedBox(height: 8),
       Text('Tests passed: $passCount'),
       Text('Tests failed: $failCount'),

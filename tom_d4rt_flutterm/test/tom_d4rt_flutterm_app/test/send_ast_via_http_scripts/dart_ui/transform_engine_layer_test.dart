@@ -12,10 +12,22 @@ void _expectCondition(bool condition, String message, List<String> logs) {
 
 Float64List _translation(double dx, double dy) {
   return Float64List.fromList(<double>[
-    1, 0, 0, 0,
-    0, 1, 0, 0,
-    0, 0, 1, 0,
-    dx, dy, 0, 1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    dx,
+    dy,
+    0,
+    1,
   ]);
 }
 
@@ -29,7 +41,11 @@ dynamic build(BuildContext context) {
   final transformA = _translation(12, 24);
   final layerA = builderA.pushTransform(transformA);
 
-  _expectCondition(layerA is ui.TransformEngineLayer, 'pushTransform creates TransformEngineLayer', logs);
+  _expectCondition(
+    layerA is ui.TransformEngineLayer,
+    'pushTransform creates TransformEngineLayer',
+    logs,
+  );
   assertionCount++;
 
   final recorderA = ui.PictureRecorder();
@@ -42,14 +58,22 @@ dynamic build(BuildContext context) {
   builderA.pop();
   final sceneA = builderA.build();
 
-  _expectCondition(sceneA is ui.Scene, 'scene with transform layer builds successfully', logs);
+  _expectCondition(
+    sceneA is ui.Scene,
+    'scene with transform layer builds successfully',
+    logs,
+  );
   assertionCount++;
 
   final builderB = ui.SceneBuilder();
   final transformB = _translation(-6, 18);
   final reusedLayer = builderB.pushTransform(transformB, oldLayer: layerA);
 
-  _expectCondition(reusedLayer is ui.TransformEngineLayer, 'oldLayer reuse returns TransformEngineLayer', logs);
+  _expectCondition(
+    reusedLayer is ui.TransformEngineLayer,
+    'oldLayer reuse returns TransformEngineLayer',
+    logs,
+  );
   assertionCount++;
 
   final recorderB = ui.PictureRecorder();
@@ -63,7 +87,11 @@ dynamic build(BuildContext context) {
   builderB.pop();
   final sceneB = builderB.build();
 
-  _expectCondition(sceneB is ui.Scene, 'scene with reused transform layer builds successfully', logs);
+  _expectCondition(
+    sceneB is ui.Scene,
+    'scene with reused transform layer builds successfully',
+    logs,
+  );
   assertionCount++;
 
   _expectCondition(
@@ -74,13 +102,25 @@ dynamic build(BuildContext context) {
   assertionCount++;
 
   final matrixLengths = <int>[transformA.length, transformB.length];
-  _expectCondition(matrixLengths.every((value) => value == 16), 'both transform matrices are 4x4', logs);
+  _expectCondition(
+    matrixLengths.every((value) => value == 16),
+    'both transform matrices are 4x4',
+    logs,
+  );
   assertionCount++;
 
-  _expectCondition(transformA[12] == 12 && transformA[13] == 24, 'first transform translation stored in matrix', logs);
+  _expectCondition(
+    transformA[12] == 12 && transformA[13] == 24,
+    'first transform translation stored in matrix',
+    logs,
+  );
   assertionCount++;
 
-  _expectCondition(transformB[12] == -6 && transformB[13] == 18, 'second transform translation stored in matrix', logs);
+  _expectCondition(
+    transformB[12] == -6 && transformB[13] == 18,
+    'second transform translation stored in matrix',
+    logs,
+  );
   assertionCount++;
 
   sceneA.dispose();

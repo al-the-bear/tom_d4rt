@@ -12,10 +12,22 @@ void _expectCondition(bool condition, String message, List<String> logs) {
 
 Float64List _identityMatrix4() {
   return Float64List.fromList(<double>[
-    1, 0, 0, 0,
-    0, 1, 0, 0,
-    0, 0, 1, 0,
-    0, 0, 0, 1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
   ]);
 }
 
@@ -39,7 +51,11 @@ dynamic build(BuildContext context) {
     ui.BlendMode.srcIn,
   );
 
-  _expectCondition(layerA is ui.ShaderMaskEngineLayer, 'pushShaderMask returns ShaderMaskEngineLayer', logs);
+  _expectCondition(
+    layerA is ui.ShaderMaskEngineLayer,
+    'pushShaderMask returns ShaderMaskEngineLayer',
+    logs,
+  );
   assertionCount++;
 
   builderA.addPicture(
@@ -57,12 +73,20 @@ dynamic build(BuildContext context) {
   builderA.pop();
 
   final sceneA = builderA.build();
-  _expectCondition(sceneA is ui.Scene, 'scene build with shader mask layer succeeds', logs);
+  _expectCondition(
+    sceneA is ui.Scene,
+    'scene build with shader mask layer succeeds',
+    logs,
+  );
   assertionCount++;
 
   final builderB = ui.SceneBuilder();
   final transformLayer = builderB.pushTransform(_identityMatrix4());
-  _expectCondition(transformLayer is ui.TransformEngineLayer, 'pushTransform returns TransformEngineLayer', logs);
+  _expectCondition(
+    transformLayer is ui.TransformEngineLayer,
+    'pushTransform returns TransformEngineLayer',
+    logs,
+  );
   assertionCount++;
 
   final reusedLayer = builderB.pushShaderMask(
@@ -73,7 +97,11 @@ dynamic build(BuildContext context) {
     filterQuality: ui.FilterQuality.medium,
   );
 
-  _expectCondition(reusedLayer is ui.ShaderMaskEngineLayer, 'oldLayer reuse returns ShaderMaskEngineLayer', logs);
+  _expectCondition(
+    reusedLayer is ui.ShaderMaskEngineLayer,
+    'oldLayer reuse returns ShaderMaskEngineLayer',
+    logs,
+  );
   assertionCount++;
 
   builderB.pop();
@@ -91,8 +119,16 @@ dynamic build(BuildContext context) {
   );
   assertionCount++;
 
-  final blendModes = <ui.BlendMode>[ui.BlendMode.srcIn, ui.BlendMode.srcOver, ui.BlendMode.modulate];
-  _expectCondition(blendModes.length == 3, 'multiple blend modes prepared for behavior coverage', logs);
+  final blendModes = <ui.BlendMode>[
+    ui.BlendMode.srcIn,
+    ui.BlendMode.srcOver,
+    ui.BlendMode.modulate,
+  ];
+  _expectCondition(
+    blendModes.length == 3,
+    'multiple blend modes prepared for behavior coverage',
+    logs,
+  );
   assertionCount++;
 
   for (var index = 0; index < blendModes.length; index++) {

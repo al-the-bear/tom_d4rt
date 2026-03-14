@@ -26,15 +26,23 @@ dynamic build(BuildContext context) {
   print('--- DiagnosticsProperty comprehensive test start ---');
 
   final properties = _createDiagnosticsProperties();
-  final names = properties.map((property) => property.name).toList(growable: false);
+  final names = properties
+      .map((property) => property.name)
+      .toList(growable: false);
 
   print('DiagnosticsProperty instances created: ${properties.length}');
   for (final property in properties) {
     print('Property -> ${_describeProperty(property)}');
   }
 
-  _expectCondition(properties.length == 5, 'Created expected number of properties');
-  _expectCondition(names.toSet().length == names.length, 'Property names are unique');
+  _expectCondition(
+    properties.length == 5,
+    'Created expected number of properties',
+  );
+  _expectCondition(
+    names.toSet().length == names.length,
+    'Property names are unique',
+  );
 
   final title = properties[0];
   final count = properties[1];
@@ -43,33 +51,80 @@ dynamic build(BuildContext context) {
   final sameAsDefault = properties[4];
 
   _expectCondition(title.name == 'title', 'Title property has expected name');
-  _expectCondition(title.value == 'hello world', 'Title property keeps assigned value');
-  _expectCondition(title.level == DiagnosticLevel.info, 'Title property default level is info');
+  _expectCondition(
+    title.value == 'hello world',
+    'Title property keeps assigned value',
+  );
+  _expectCondition(
+    title.level == DiagnosticLevel.info,
+    'Title property default level is info',
+  );
 
   _expectCondition(count.name == 'count', 'Count property has expected name');
   _expectCondition(count.value == 42, 'Count property keeps integer value');
-  _expectCondition(count.defaultValue == 0, 'Count property keeps explicit defaultValue');
+  _expectCondition(
+    count.defaultValue == 0,
+    'Count property keeps explicit defaultValue',
+  );
 
-  _expectCondition(nullable.name == 'nullable', 'Nullable property has expected name');
-  _expectCondition(nullable.value == null, 'Nullable property stores null value');
-  _expectCondition(nullable.ifNull == 'not set', 'Nullable property keeps ifNull fallback');
+  _expectCondition(
+    nullable.name == 'nullable',
+    'Nullable property has expected name',
+  );
+  _expectCondition(
+    nullable.value == null,
+    'Nullable property stores null value',
+  );
+  _expectCondition(
+    nullable.ifNull == 'not set',
+    'Nullable property keeps ifNull fallback',
+  );
 
-  _expectCondition(enabled.name == 'enabled', 'Enabled property has expected name');
-  _expectCondition(enabled.value == true, 'Enabled property keeps boolean value');
-  _expectCondition(enabled.level == DiagnosticLevel.debug, 'Enabled property keeps debug level');
+  _expectCondition(
+    enabled.name == 'enabled',
+    'Enabled property has expected name',
+  );
+  _expectCondition(
+    enabled.value == true,
+    'Enabled property keeps boolean value',
+  );
+  _expectCondition(
+    enabled.level == DiagnosticLevel.debug,
+    'Enabled property keeps debug level',
+  );
 
-  _expectCondition(sameAsDefault.name == 'sameAsDefault', 'sameAsDefault property has expected name');
-  _expectCondition(sameAsDefault.value == 7, 'sameAsDefault property stores numeric value');
-  _expectCondition(sameAsDefault.defaultValue == 7, 'sameAsDefault property stores matching default');
+  _expectCondition(
+    sameAsDefault.name == 'sameAsDefault',
+    'sameAsDefault property has expected name',
+  );
+  _expectCondition(
+    sameAsDefault.value == 7,
+    'sameAsDefault property stores numeric value',
+  );
+  _expectCondition(
+    sameAsDefault.defaultValue == 7,
+    'sameAsDefault property stores matching default',
+  );
 
   final infoFilter = title.isFiltered(DiagnosticLevel.info);
   final warningFilter = title.isFiltered(DiagnosticLevel.warning);
   final hiddenFilter = enabled.isFiltered(DiagnosticLevel.hidden);
 
-  print('Filter checks -> info=$infoFilter, warning=$warningFilter, hidden=$hiddenFilter');
-  _expectCondition(infoFilter == true || infoFilter == false, 'isFiltered(info) returns a valid boolean value');
-  _expectCondition(warningFilter == true || warningFilter == false, 'isFiltered(warning) returns a valid boolean value');
-  _expectCondition(hiddenFilter == true || hiddenFilter == false, 'isFiltered(hidden) returns a valid boolean value');
+  print(
+    'Filter checks -> info=$infoFilter, warning=$warningFilter, hidden=$hiddenFilter',
+  );
+  _expectCondition(
+    infoFilter == true || infoFilter == false,
+    'isFiltered(info) returns a valid boolean value',
+  );
+  _expectCondition(
+    warningFilter == true || warningFilter == false,
+    'isFiltered(warning) returns a valid boolean value',
+  );
+  _expectCondition(
+    hiddenFilter == true || hiddenFilter == false,
+    'isFiltered(hidden) returns a valid boolean value',
+  );
 
   final titleString = title.toString();
   final countString = count.toString();
@@ -79,9 +134,18 @@ dynamic build(BuildContext context) {
   print('toString(count): $countString');
   print('toString(nullable): $nullableString');
 
-  _expectCondition(titleString.contains('title'), 'title.toString includes property name');
-  _expectCondition(countString.contains('count'), 'count.toString includes property name');
-  _expectCondition(nullableString.contains('nullable'), 'nullable.toString includes property name');
+  _expectCondition(
+    titleString.contains('title'),
+    'title.toString includes property name',
+  );
+  _expectCondition(
+    countString.contains('count'),
+    'count.toString includes property name',
+  );
+  _expectCondition(
+    nullableString.contains('nullable'),
+    'nullable.toString includes property name',
+  );
 
   final summary =
       'DiagnosticsProperty summary -> count=${properties.length}, names=$names, titleLevel=${title.level}, enabledLevel=${enabled.level}';
@@ -103,7 +167,9 @@ dynamic build(BuildContext context) {
         Text('Nullable ifNull: ${nullable.ifNull}'),
         Text(summary),
         for (final property in properties)
-          Text('${property.name}: value=${property.value}, default=${property.defaultValue}'),
+          Text(
+            '${property.name}: value=${property.value}, default=${property.defaultValue}',
+          ),
       ],
     ),
   );

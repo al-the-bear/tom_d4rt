@@ -66,14 +66,7 @@ dynamic build(BuildContext context) {
   // Test 4: Locale support
   print('\n--- Test 4: Locale support ---');
   try {
-    final locales = [
-      'en_US',
-      'en_GB',
-      'de_DE',
-      'fr_FR',
-      'es_ES',
-      'pt_BR',
-    ];
+    final locales = ['en_US', 'en_GB', 'de_DE', 'fr_FR', 'es_ES', 'pt_BR'];
     print('Common spell check locales:');
     for (final locale in locales) {
       print('  - $locale');
@@ -195,11 +188,17 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('DefaultSpellCheckService Tests',
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+      Text(
+        'DefaultSpellCheckService Tests',
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      ),
       SizedBox(height: 8),
-      Text('Passed: $passCount | Failed: $failCount',
-        style: TextStyle(color: failCount == 0 ? Color(0xFF4CAF50) : Color(0xFFF44336))),
+      Text(
+        'Passed: $passCount | Failed: $failCount',
+        style: TextStyle(
+          color: failCount == 0 ? Color(0xFF4CAF50) : Color(0xFFF44336),
+        ),
+      ),
       SizedBox(height: 8),
       ...results.map((r) => Text(r, style: TextStyle(fontSize: 12))),
     ],

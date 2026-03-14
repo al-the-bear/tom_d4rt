@@ -98,11 +98,7 @@ dynamic build(BuildContext context) {
     print('onHover receives PointerHoverEvent');
     print('Triggered for every mouse movement');
     print('Provides continuous position updates');
-    final hoverPositions = [
-      Offset(10, 10),
-      Offset(20, 20),
-      Offset(30, 30),
-    ];
+    final hoverPositions = [Offset(10, 10), Offset(20, 20), Offset(30, 30)];
     for (final pos in hoverPositions) {
       print('  Hover position: $pos');
     }
@@ -140,8 +136,10 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('MouseTrackerAnnotation Test Results',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+      Text(
+        'MouseTrackerAnnotation Test Results',
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      ),
       SizedBox(height: 8),
       Text('Tests passed: $passCount'),
       Text('Tests failed: $failCount'),

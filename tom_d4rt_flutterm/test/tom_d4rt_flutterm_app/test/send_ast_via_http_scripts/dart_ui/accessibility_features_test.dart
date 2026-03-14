@@ -16,13 +16,26 @@ dynamic build(BuildContext context) {
   var assertionCount = 0;
 
   WidgetsFlutterBinding.ensureInitialized();
-  final ui.AccessibilityFeatures features = WidgetsBinding.instance.platformDispatcher.accessibilityFeatures;
+  final ui.AccessibilityFeatures features =
+      WidgetsBinding.instance.platformDispatcher.accessibilityFeatures;
 
-  _expect(features.toString().isNotEmpty, 'platform dispatcher returns readable AccessibilityFeatures instance', logs);
+  _expect(
+    features.toString().isNotEmpty,
+    'platform dispatcher returns readable AccessibilityFeatures instance',
+    logs,
+  );
   assertionCount++;
-  _expect(features.hashCode >= 0 || features.hashCode < 0, 'AccessibilityFeatures exposes stable hashCode', logs);
+  _expect(
+    features.hashCode >= 0 || features.hashCode < 0,
+    'AccessibilityFeatures exposes stable hashCode',
+    logs,
+  );
   assertionCount++;
-  _expect(features.toString().contains('AccessibilityFeatures'), 'toString contains class name', logs);
+  _expect(
+    features.toString().contains('AccessibilityFeatures'),
+    'toString contains class name',
+    logs,
+  );
   assertionCount++;
 
   final booleans = <bool>[
@@ -35,17 +48,34 @@ dynamic build(BuildContext context) {
     features.onOffSwitchLabels,
     features.supportsAnnounce,
   ];
-  _expect(booleans.length == 8, 'all documented feature flags are readable', logs);
+  _expect(
+    booleans.length == 8,
+    'all documented feature flags are readable',
+    logs,
+  );
   assertionCount++;
-  _expect(booleans.every((v) => v == true || v == false), 'all feature flags evaluate to bool', logs);
+  _expect(
+    booleans.every((v) => v == true || v == false),
+    'all feature flags evaluate to bool',
+    logs,
+  );
   assertionCount++;
 
-  final sameFeatures = WidgetsBinding.instance.platformDispatcher.accessibilityFeatures;
-  _expect(sameFeatures == features, 're-reading features from dispatcher is stable', logs);
+  final sameFeatures =
+      WidgetsBinding.instance.platformDispatcher.accessibilityFeatures;
+  _expect(
+    sameFeatures == features,
+    're-reading features from dispatcher is stable',
+    logs,
+  );
   assertionCount++;
 
   final edgeText = features.toString();
-  _expect(edgeText.isNotEmpty, 'edge case toString is non-empty on all platforms', logs);
+  _expect(
+    edgeText.isNotEmpty,
+    'edge case toString is non-empty on all platforms',
+    logs,
+  );
   assertionCount++;
 
   for (final line in logs) {
@@ -66,6 +96,7 @@ dynamic build(BuildContext context) {
     ],
   );
 }
+
 // coverage filler line 01
 // coverage filler line 02
 // coverage filler line 03

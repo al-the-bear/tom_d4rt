@@ -35,10 +35,22 @@ dynamic build(BuildContext context) {
   // Test 2: Test code property (DOM key code string)
   print('\n--- Test 2: Test code property ---');
   try {
-    final codes = ['KeyA', 'KeyB', 'Enter', 'Space', 'Escape', 'ShiftLeft', 'ControlRight'];
+    final codes = [
+      'KeyA',
+      'KeyB',
+      'Enter',
+      'Space',
+      'Escape',
+      'ShiftLeft',
+      'ControlRight',
+    ];
     for (final code in codes) {
       final data = RawKeyEventDataWeb(
-        code: code, key: '', location: 0, metaState: 0, keyCode: 0,
+        code: code,
+        key: '',
+        location: 0,
+        metaState: 0,
+        keyCode: 0,
       );
       print('Code: ${data.code}');
       assert(data.code == code);
@@ -57,7 +69,11 @@ dynamic build(BuildContext context) {
     final keys = ['a', 'A', '1', '!', 'Enter', 'Escape', 'Tab'];
     for (final key in keys) {
       final data = RawKeyEventDataWeb(
-        code: 'KeyA', key: key, location: 0, metaState: 0, keyCode: 65,
+        code: 'KeyA',
+        key: key,
+        location: 0,
+        metaState: 0,
+        keyCode: 65,
       );
       print('Key: "${data.key}"');
       assert(data.key == key);
@@ -76,7 +92,11 @@ dynamic build(BuildContext context) {
     final locations = {0: 'Standard', 1: 'Left', 2: 'Right', 3: 'Numpad'};
     for (final entry in locations.entries) {
       final data = RawKeyEventDataWeb(
-        code: 'ShiftLeft', key: 'Shift', location: entry.key, metaState: 0, keyCode: 16,
+        code: 'ShiftLeft',
+        key: 'Shift',
+        location: entry.key,
+        metaState: 0,
+        keyCode: 16,
       );
       print('Location ${entry.key} (${entry.value}): ${data.location}');
       assert(data.location == entry.key);
@@ -97,7 +117,9 @@ dynamic build(BuildContext context) {
     final metaAlt = 4;
     final metaMeta = 8;
     final data = RawKeyEventDataWeb(
-      code: 'KeyA', key: 'A', location: 0,
+      code: 'KeyA',
+      key: 'A',
+      location: 0,
       metaState: metaShift | metaCtrl,
       keyCode: 65,
     );
@@ -118,7 +140,11 @@ dynamic build(BuildContext context) {
   print('\n--- Test 6: Test logical key extraction ---');
   try {
     final data = RawKeyEventDataWeb(
-      code: 'KeyA', key: 'a', location: 0, metaState: 0, keyCode: 65,
+      code: 'KeyA',
+      key: 'a',
+      location: 0,
+      metaState: 0,
+      keyCode: 65,
     );
     final logicalKey = data.logicalKey;
     print('Logical key: ${logicalKey.debugName}');
@@ -135,7 +161,11 @@ dynamic build(BuildContext context) {
   print('\n--- Test 7: Test physical key extraction ---');
   try {
     final data = RawKeyEventDataWeb(
-      code: 'KeyA', key: 'a', location: 0, metaState: 0, keyCode: 65,
+      code: 'KeyA',
+      key: 'a',
+      location: 0,
+      metaState: 0,
+      keyCode: 65,
     );
     final physicalKey = data.physicalKey;
     print('Physical key: ${physicalKey.debugName}');
@@ -152,7 +182,11 @@ dynamic build(BuildContext context) {
   print('\n--- Test 8: Verify inheritance from RawKeyEventData ---');
   try {
     final data = RawKeyEventDataWeb(
-      code: 'KeyA', key: 'a', location: 0, metaState: 0, keyCode: 65,
+      code: 'KeyA',
+      key: 'a',
+      location: 0,
+      metaState: 0,
+      keyCode: 65,
     );
     assert(data is RawKeyEventData);
     print('Inherits from RawKeyEventData: true');
@@ -176,8 +210,16 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('RawKeyEventDataWeb Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-      Text('Passed: $testsPassed, Failed: $testsFailed', style: TextStyle(color: testsFailed == 0 ? Color(0xFF00AA00) : Color(0xFFAA0000))),
+      Text(
+        'RawKeyEventDataWeb Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+      ),
+      Text(
+        'Passed: $testsPassed, Failed: $testsFailed',
+        style: TextStyle(
+          color: testsFailed == 0 ? Color(0xFF00AA00) : Color(0xFFAA0000),
+        ),
+      ),
       const SizedBox(height: 8),
       ...results.map((r) => Text(r, style: TextStyle(fontSize: 12))),
     ],

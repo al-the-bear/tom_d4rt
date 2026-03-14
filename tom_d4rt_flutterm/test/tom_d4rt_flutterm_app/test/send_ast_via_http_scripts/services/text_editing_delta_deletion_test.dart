@@ -126,7 +126,10 @@ dynamic build(BuildContext context) {
   print('Full text deletion:');
   print('oldText length: ${delta6.oldText.length}');
   print('deletedRange: ${delta6.deletedRange}');
-  assert(delta6.deletedRange.end == fullText.length, 'Should delete entire text');
+  assert(
+    delta6.deletedRange.end == fullText.length,
+    'Should delete entire text',
+  );
   print('Test 6 PASSED: Full text deletion works');
   testsPassed++;
 
@@ -145,8 +148,14 @@ dynamic build(BuildContext context) {
   print('selection baseOffset: ${delta7.selection.baseOffset}');
   print('selection extentOffset: ${delta7.selection.extentOffset}');
   print('selection isCollapsed: ${delta7.selection.isCollapsed}');
-  assert(delta7.selection.isCollapsed, 'Selection should be collapsed after deletion');
-  assert(delta7.selection.baseOffset == 10, 'Cursor should be at deletion start');
+  assert(
+    delta7.selection.isCollapsed,
+    'Selection should be collapsed after deletion',
+  );
+  assert(
+    delta7.selection.baseOffset == 10,
+    'Cursor should be at deletion start',
+  );
   print('Test 7 PASSED: Selection after deletion is correct');
   testsPassed++;
 
@@ -202,7 +211,9 @@ dynamic build(BuildContext context) {
 
   print('Backspace simulation:');
   print('Cursor was at: 7, now at: ${delta10.selection.baseOffset}');
-  print('Character deleted: "${delta10.deletedRange.textInside(delta10.oldText)}"');
+  print(
+    'Character deleted: "${delta10.deletedRange.textInside(delta10.oldText)}"',
+  );
   assert(delta10.selection.baseOffset == 6, 'Cursor moves back on backspace');
   print('Test 10 PASSED: Backspace simulation works');
   testsPassed++;
@@ -221,7 +232,9 @@ dynamic build(BuildContext context) {
 
   print('Delete key simulation:');
   print('Cursor stays at: ${delta11.selection.baseOffset}');
-  print('Character deleted: "${delta11.deletedRange.textInside(delta11.oldText)}"');
+  print(
+    'Character deleted: "${delta11.deletedRange.textInside(delta11.oldText)}"',
+  );
   assert(delta11.selection.baseOffset == 0, 'Cursor stays on delete key');
   print('Test 11 PASSED: Delete key simulation works');
   testsPassed++;
@@ -259,8 +272,10 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('TextEditingDeltaDeletion Test Results',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      Text(
+        'TextEditingDeltaDeletion Test Results',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
       SizedBox(height: 8),
       Text('Tests Passed: $testsPassed / $totalTests'),
       SizedBox(height: 4),
@@ -277,8 +292,10 @@ dynamic build(BuildContext context) {
       Text('Delete Key Simulation: ✓'),
       Text('Multi-line Deletion: ✓'),
       SizedBox(height: 8),
-      Text('All TextEditingDeltaDeletion tests completed!',
-          style: TextStyle(color: Color(0xFF4CAF50))),
+      Text(
+        'All TextEditingDeltaDeletion tests completed!',
+        style: TextStyle(color: Color(0xFF4CAF50)),
+      ),
     ],
   );
 }

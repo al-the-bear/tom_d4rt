@@ -32,7 +32,9 @@ dynamic build(BuildContext context) {
 
   log('--- toString diagnostics ---');
   final description = surface.toString();
-  log('toString contains class: ${description.contains('RenderTapRegionSurface')}');
+  log(
+    'toString contains class: ${description.contains('RenderTapRegionSurface')}',
+  );
   assert(description.contains('RenderTapRegionSurface'));
 
   log('--- synthetic pointer event relationship checks ---');
@@ -78,7 +80,9 @@ dynamic build(BuildContext context) {
       Text('pointer kinds: ${pointerKinds.length}'),
       Text('checks: ${checklist.length}'),
       Text('logs: ${logs.length}'),
-      const Text('RenderTapRegionSurface constructor/properties/edge-cases tested'),
+      const Text(
+        'RenderTapRegionSurface constructor/properties/edge-cases tested',
+      ),
     ],
   );
 }

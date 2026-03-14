@@ -76,8 +76,15 @@ dynamic build(BuildContext context) {
   print('\n--- Test 4: Test macOS keyCode values ---');
   try {
     final keyCodes = {
-      'A': 0, 'S': 1, 'D': 2, 'F': 3, 'G': 5,
-      'Return': 36, 'Tab': 48, 'Space': 49, 'Escape': 53,
+      'A': 0,
+      'S': 1,
+      'D': 2,
+      'F': 3,
+      'G': 5,
+      'Return': 36,
+      'Tab': 48,
+      'Space': 49,
+      'Escape': 53,
     };
     for (final entry in keyCodes.entries) {
       final data = RawKeyEventDataMacOs(
@@ -195,8 +202,16 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('RawKeyEventDataMacOs Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-      Text('Passed: $testsPassed, Failed: $testsFailed', style: TextStyle(color: testsFailed == 0 ? Color(0xFF00AA00) : Color(0xFFAA0000))),
+      Text(
+        'RawKeyEventDataMacOs Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+      ),
+      Text(
+        'Passed: $testsPassed, Failed: $testsFailed',
+        style: TextStyle(
+          color: testsFailed == 0 ? Color(0xFF00AA00) : Color(0xFFAA0000),
+        ),
+      ),
       const SizedBox(height: 8),
       ...results.map((r) => Text(r, style: TextStyle(fontSize: 12))),
     ],

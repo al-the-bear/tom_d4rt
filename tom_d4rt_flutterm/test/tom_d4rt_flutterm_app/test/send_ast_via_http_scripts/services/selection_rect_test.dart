@@ -33,10 +33,7 @@ dynamic build(BuildContext context) {
   try {
     final positions = [0, 5, 10, 50, 100];
     for (final pos in positions) {
-      final rect = SelectionRect(
-        position: pos,
-        bounds: Rect.zero,
-      );
+      final rect = SelectionRect(position: pos, bounds: Rect.zero);
       print('Position: ${rect.position}');
       assert(rect.position == pos);
     }
@@ -125,7 +122,9 @@ dynamic build(BuildContext context) {
     }
     print('Created ${lineRects.length} character rects');
     for (int i = 0; i < lineRects.length; i++) {
-      print('Char $i: pos=${lineRects[i].position}, x=${lineRects[i].bounds.left.toStringAsFixed(1)}');
+      print(
+        'Char $i: pos=${lineRects[i].position}, x=${lineRects[i].bounds.left.toStringAsFixed(1)}',
+      );
     }
     results.add('Test 6 PASSED: Text line rects');
     testsPassed++;
@@ -196,8 +195,16 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('SelectionRect Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-      Text('Passed: $testsPassed, Failed: $testsFailed', style: TextStyle(color: testsFailed == 0 ? Color(0xFF00AA00) : Color(0xFFAA0000))),
+      Text(
+        'SelectionRect Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+      ),
+      Text(
+        'Passed: $testsPassed, Failed: $testsFailed',
+        style: TextStyle(
+          color: testsFailed == 0 ? Color(0xFF00AA00) : Color(0xFFAA0000),
+        ),
+      ),
       const SizedBox(height: 8),
       ...results.map((r) => Text(r, style: TextStyle(fontSize: 12))),
     ],

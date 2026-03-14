@@ -57,11 +57,20 @@ dynamic build(BuildContext context) {
 
   final signedNumber = TextInputType.numberWithOptions(signed: true);
   final decimalNumber = TextInputType.numberWithOptions(decimal: true);
-  final signedDecimal = TextInputType.numberWithOptions(signed: true, decimal: true);
+  final signedDecimal = TextInputType.numberWithOptions(
+    signed: true,
+    decimal: true,
+  );
   print('Number with options:');
-  print('signed only: signed=${signedNumber.signed}, decimal=${signedNumber.decimal}');
-  print('decimal only: signed=${decimalNumber.signed}, decimal=${decimalNumber.decimal}');
-  print('both: signed=${signedDecimal.signed}, decimal=${signedDecimal.decimal}');
+  print(
+    'signed only: signed=${signedNumber.signed}, decimal=${signedNumber.decimal}',
+  );
+  print(
+    'decimal only: signed=${decimalNumber.signed}, decimal=${decimalNumber.decimal}',
+  );
+  print(
+    'both: signed=${signedDecimal.signed}, decimal=${signedDecimal.decimal}',
+  );
   assert(signedNumber.signed == true, 'Should allow signed');
   assert(decimalNumber.decimal == true, 'Should allow decimal');
   print('Test 4 PASSED: TextInputType.numberWithOptions works');
@@ -128,7 +137,10 @@ dynamic build(BuildContext context) {
   print('type: $passwordType');
   print('index: ${passwordType.index}');
   print('Used with obscureText for password fields');
-  assert(passwordType == TextInputType.visiblePassword, 'Should be visiblePassword type');
+  assert(
+    passwordType == TextInputType.visiblePassword,
+    'Should be visiblePassword type',
+  );
   print('Test 9 PASSED: TextInputType.visiblePassword works');
   testsPassed++;
 
@@ -154,7 +166,10 @@ dynamic build(BuildContext context) {
   print('type: $addressType');
   print('index: ${addressType.index}');
   print('Optimized for address input');
-  assert(addressType == TextInputType.streetAddress, 'Should be streetAddress type');
+  assert(
+    addressType == TextInputType.streetAddress,
+    'Should be streetAddress type',
+  );
   print('Test 11 PASSED: TextInputType.streetAddress works');
   testsPassed++;
 
@@ -166,8 +181,14 @@ dynamic build(BuildContext context) {
   print('text == text: ${TextInputType.text == TextInputType.text}');
   print('text != number: ${TextInputType.text != TextInputType.number}');
   print('email != url: ${TextInputType.emailAddress != TextInputType.url}');
-  assert(TextInputType.text == TextInputType.text, 'Same types should be equal');
-  assert(TextInputType.text != TextInputType.number, 'Different types should not be equal');
+  assert(
+    TextInputType.text == TextInputType.text,
+    'Same types should be equal',
+  );
+  assert(
+    TextInputType.text != TextInputType.number,
+    'Different types should not be equal',
+  );
   print('Test 12 PASSED: Equality checks work');
   testsPassed++;
 

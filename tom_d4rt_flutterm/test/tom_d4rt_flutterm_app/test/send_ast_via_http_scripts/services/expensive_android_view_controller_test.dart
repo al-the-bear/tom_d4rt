@@ -12,7 +12,9 @@ dynamic build(BuildContext context) {
   print('Test 1: Verifying ExpensiveAndroidViewController class existence');
   try {
     // ExpensiveAndroidViewController is an abstract class for expensive rendering
-    print('  - ExpensiveAndroidViewController is part of platform views system');
+    print(
+      '  - ExpensiveAndroidViewController is part of platform views system',
+    );
     print('  - Used for Android views that require expensive rendering');
     results.add('✓ ExpensiveAndroidViewController class accessible');
     passCount++;
@@ -206,16 +208,24 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('ExpensiveAndroidViewController Tests',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      Text(
+        'ExpensiveAndroidViewController Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
       SizedBox(height: 8),
-      Text('Passed: $passCount / ${passCount + failCount}',
-          style: TextStyle(color: failCount == 0 ? Color(0xFF4CAF50) : Color(0xFFF44336))),
+      Text(
+        'Passed: $passCount / ${passCount + failCount}',
+        style: TextStyle(
+          color: failCount == 0 ? Color(0xFF4CAF50) : Color(0xFFF44336),
+        ),
+      ),
       SizedBox(height: 8),
-      ...results.map((r) => Padding(
-            padding: EdgeInsets.symmetric(vertical: 2),
-            child: Text(r, style: TextStyle(fontSize: 12)),
-          )),
+      ...results.map(
+        (r) => Padding(
+          padding: EdgeInsets.symmetric(vertical: 2),
+          child: Text(r, style: TextStyle(fontSize: 12)),
+        ),
+      ),
     ],
   );
 }

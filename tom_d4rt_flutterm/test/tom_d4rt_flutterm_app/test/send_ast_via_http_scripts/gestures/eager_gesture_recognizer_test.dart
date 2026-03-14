@@ -15,7 +15,9 @@ dynamic build(BuildContext context) {
   final recognizer = EagerGestureRecognizer();
   log('runtimeType: ${recognizer.runtimeType}');
   log('is GestureRecognizer: ${recognizer is GestureRecognizer}');
-  log('is OneSequenceGestureRecognizer: ${recognizer is OneSequenceGestureRecognizer}');
+  log(
+    'is OneSequenceGestureRecognizer: ${recognizer is OneSequenceGestureRecognizer}',
+  );
   assert(recognizer is GestureRecognizer);
   assert(recognizer is OneSequenceGestureRecognizer);
 
@@ -48,12 +50,16 @@ dynamic build(BuildContext context) {
 
   log('--- edge case: empty device filter ---');
   recognizer.supportedDevices = <PointerDeviceKind>{};
-  log('supportedDevices empty: ${recognizer.supportedDevices?.isEmpty ?? false}');
+  log(
+    'supportedDevices empty: ${recognizer.supportedDevices?.isEmpty ?? false}',
+  );
   assert(recognizer.supportedDevices?.isEmpty ?? false);
 
   log('--- string checks ---');
   final text = recognizer.toString();
-  log('toString contains class name: ${text.contains('EagerGestureRecognizer')}');
+  log(
+    'toString contains class name: ${text.contains('EagerGestureRecognizer')}',
+  );
   assert(text.contains('EagerGestureRecognizer'));
 
   log('--- cleanup ---');

@@ -39,8 +39,14 @@ dynamic build(BuildContext context) {
     print('Physical key: ${upEvent.physicalKey}');
     print('Logical key: ${upEvent.logicalKey}');
     print('Timestamp: ${upEvent.timeStamp}');
-    assert(upEvent.physicalKey == PhysicalKeyboardKey.keyA, 'Physical key mismatch');
-    assert(upEvent.logicalKey == LogicalKeyboardKey.keyA, 'Logical key mismatch');
+    assert(
+      upEvent.physicalKey == PhysicalKeyboardKey.keyA,
+      'Physical key mismatch',
+    );
+    assert(
+      upEvent.logicalKey == LogicalKeyboardKey.keyA,
+      'Logical key mismatch',
+    );
     results.add('✓ KeyUpEvent creation passed');
     passCount++;
   } catch (e) {
@@ -172,8 +178,10 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('KeyUpEvent Test Results',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+      Text(
+        'KeyUpEvent Test Results',
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      ),
       SizedBox(height: 8),
       Text('Tests passed: $passCount'),
       Text('Tests failed: $failCount'),

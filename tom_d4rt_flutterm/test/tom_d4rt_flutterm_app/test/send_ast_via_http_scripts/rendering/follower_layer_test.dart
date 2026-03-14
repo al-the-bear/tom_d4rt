@@ -46,7 +46,9 @@ dynamic build(BuildContext context) {
 
   log('--- toString and diagnostics ---');
   final description = layer.toString();
-  log('toString contains FollowerLayer: ${description.contains('FollowerLayer')}');
+  log(
+    'toString contains FollowerLayer: ${description.contains('FollowerLayer')}',
+  );
   assert(description.contains('FollowerLayer'));
 
   final checks = <String>[

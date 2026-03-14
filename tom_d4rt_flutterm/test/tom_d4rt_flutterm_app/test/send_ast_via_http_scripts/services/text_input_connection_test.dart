@@ -50,9 +50,16 @@ dynamic build(BuildContext context) {
   print('Cursor position:');
   print('text: ${editingValue2.text}');
   print('cursor at offset: ${editingValue2.selection.baseOffset}');
-  print('before cursor: "${editingValue2.text.substring(0, editingValue2.selection.baseOffset)}"');
-  print('after cursor: "${editingValue2.text.substring(editingValue2.selection.baseOffset)}"');
-  assert(editingValue2.selection.baseOffset == 3, 'Cursor should be at position 3');
+  print(
+    'before cursor: "${editingValue2.text.substring(0, editingValue2.selection.baseOffset)}"',
+  );
+  print(
+    'after cursor: "${editingValue2.text.substring(editingValue2.selection.baseOffset)}"',
+  );
+  assert(
+    editingValue2.selection.baseOffset == 3,
+    'Cursor should be at position 3',
+  );
   print('Test 3 PASSED: Cursor position management works');
   testsPassed++;
 
@@ -90,7 +97,9 @@ dynamic build(BuildContext context) {
   print('text: ${editingValue4.text}');
   print('composing start: ${editingValue4.composing.start}');
   print('composing end: ${editingValue4.composing.end}');
-  print('composing text: "${editingValue4.text.substring(editingValue4.composing.start, editingValue4.composing.end)}"');
+  print(
+    'composing text: "${editingValue4.text.substring(editingValue4.composing.start, editingValue4.composing.end)}"',
+  );
   assert(editingValue4.composing.isValid, 'Composing should be valid');
   print('Test 5 PASSED: Composing region works');
   testsPassed++;
@@ -116,10 +125,7 @@ dynamic build(BuildContext context) {
     text: 'Old text',
     selection: TextSelection.collapsed(offset: 8),
   );
-  final newValue = editingValue6.replaced(
-    TextRange(start: 0, end: 3),
-    'New',
-  );
+  final newValue = editingValue6.replaced(TextRange(start: 0, end: 3), 'New');
   print('Replaced editing value:');
   print('original: ${editingValue6.text}');
   print('new: ${newValue.text}');
@@ -174,7 +180,9 @@ dynamic build(BuildContext context) {
   print('Focus scope simulation:');
   print('When focused, connection sends value to platform');
   print('text: ${focusedValue.text}');
-  print('cursor at end: ${focusedValue.selection.baseOffset == focusedValue.text.length}');
+  print(
+    'cursor at end: ${focusedValue.selection.baseOffset == focusedValue.text.length}',
+  );
   assert(focusedValue.selection.isCollapsed, 'Cursor should be collapsed');
   print('Test 10 PASSED: Focus scope simulation works');
   testsPassed++;
@@ -211,8 +219,13 @@ dynamic build(BuildContext context) {
   print('Delta update simulation:');
   print('before: "${beforeUpdate.text}"');
   print('after: "${afterUpdate.text}"');
-  print('characters added: ${afterUpdate.text.length - beforeUpdate.text.length}');
-  assert(afterUpdate.text.length > beforeUpdate.text.length, 'Text should grow');
+  print(
+    'characters added: ${afterUpdate.text.length - beforeUpdate.text.length}',
+  );
+  assert(
+    afterUpdate.text.length > beforeUpdate.text.length,
+    'Text should grow',
+  );
   print('Test 12 PASSED: Delta update simulation works');
   testsPassed++;
 

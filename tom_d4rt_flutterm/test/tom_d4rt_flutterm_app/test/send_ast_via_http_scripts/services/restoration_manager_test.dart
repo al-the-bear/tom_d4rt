@@ -95,8 +95,12 @@ dynamic build(BuildContext context) {
     childBucket1.write<String>('title', 'Page 1');
     childBucket2.write<String>('title', 'Page 2');
     print('Root bucket: ${rootBucket.restorationId}');
-    print('Child 1: ${childBucket1.restorationId} - ${childBucket1.read<String>('title')}');
-    print('Child 2: ${childBucket2.restorationId} - ${childBucket2.read<String>('title')}');
+    print(
+      'Child 1: ${childBucket1.restorationId} - ${childBucket1.read<String>('title')}',
+    );
+    print(
+      'Child 2: ${childBucket2.restorationId} - ${childBucket2.read<String>('title')}',
+    );
     results.add('Test 5 PASSED: Hierarchical restoration');
     testsPassed++;
   } catch (e) {
@@ -181,8 +185,16 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('RestorationManager Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-      Text('Passed: $testsPassed, Failed: $testsFailed', style: TextStyle(color: testsFailed == 0 ? Color(0xFF00AA00) : Color(0xFFAA0000))),
+      Text(
+        'RestorationManager Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+      ),
+      Text(
+        'Passed: $testsPassed, Failed: $testsFailed',
+        style: TextStyle(
+          color: testsFailed == 0 ? Color(0xFF00AA00) : Color(0xFFAA0000),
+        ),
+      ),
       const SizedBox(height: 8),
       ...results.map((r) => Text(r, style: TextStyle(fontSize: 12))),
     ],

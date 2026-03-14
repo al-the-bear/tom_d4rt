@@ -42,21 +42,53 @@ dynamic build(BuildContext context) {
 
   final value = <String>['a', 'b', 'c'];
   final prop = IterableProperty<String>('letters', value, showName: true);
-  _check(logs: logs, label: 'IterableProperty constructed', condition: prop is IterableProperty<String>);
-  _check(logs: logs, label: 'name is preserved', condition: prop.name == 'letters');
-  _check(logs: logs, label: 'value length is 3', condition: prop.value!.length == 3);
+  _check(
+    logs: logs,
+    label: 'IterableProperty constructed',
+    condition: prop is IterableProperty<String>,
+  );
+  _check(
+    logs: logs,
+    label: 'name is preserved',
+    condition: prop.name == 'letters',
+  );
+  _check(
+    logs: logs,
+    label: 'value length is 3',
+    condition: prop.value!.length == 3,
+  );
 
   final rendered = prop.toString();
-  _check(logs: logs, label: 'render includes first entry', condition: rendered.contains('a'));
-  _check(logs: logs, label: 'render includes second entry', condition: rendered.contains('b'));
+  _check(
+    logs: logs,
+    label: 'render includes first entry',
+    condition: rendered.contains('a'),
+  );
+  _check(
+    logs: logs,
+    label: 'render includes second entry',
+    condition: rendered.contains('b'),
+  );
 
-  final empty = IterableProperty<String>('empty', const <String>[], ifEmpty: 'empty-list');
+  final empty = IterableProperty<String>(
+    'empty',
+    const <String>[],
+    ifEmpty: 'empty-list',
+  );
   final emptyText = empty.toString();
-  _check(logs: logs, label: 'ifEmpty message appears', condition: emptyText.contains('empty-list'));
+  _check(
+    logs: logs,
+    label: 'ifEmpty message appears',
+    condition: emptyText.contains('empty-list'),
+  );
 
   final nullValue = IterableProperty<String>('null', null, ifNull: 'none');
   final nullText = nullValue.toString();
-  _check(logs: logs, label: 'ifNull message appears', condition: nullText.contains('none'));
+  _check(
+    logs: logs,
+    label: 'ifNull message appears',
+    condition: nullText.contains('none'),
+  );
 
   final hiddenDefault = IterableProperty<int>(
     'defaulted',
@@ -66,36 +98,63 @@ dynamic build(BuildContext context) {
   _check(
     logs: logs,
     label: 'default value hidden by diagnostics policy',
-    condition: hiddenDefault.toString(minLevel: DiagnosticLevel.hidden).isNotEmpty,
+    condition: hiddenDefault
+        .toString(minLevel: DiagnosticLevel.hidden)
+        .isNotEmpty,
   );
 
-  final lineBreak = IterableProperty<int>(
-    'numbers',
-    const <int>[1, 2, 3, 4, 5, 6, 7],
-    style: DiagnosticsTreeStyle.flat,
-  );
+  final lineBreak = IterableProperty<int>('numbers', const <int>[
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+  ], style: DiagnosticsTreeStyle.flat);
   final lineBreakText = lineBreak.toString();
-  _check(logs: logs, label: 'flat style still renders values', condition: lineBreakText.contains('7'));
+  _check(
+    logs: logs,
+    label: 'flat style still renders values',
+    condition: lineBreakText.contains('7'),
+  );
 
   final builder = DiagnosticPropertiesBuilder();
   builder.add(prop);
   builder.add(empty);
   builder.add(nullValue);
-  _check(logs: logs, label: 'builder collects 3 properties', condition: builder.properties.length == 3);
+  _check(
+    logs: logs,
+    label: 'builder collects 3 properties',
+    condition: builder.properties.length == 3,
+  );
 
   final jsonMap = prop.toJsonMap(const DiagnosticsSerializationDelegate());
-  _check(logs: logs, label: 'json map has description', condition: jsonMap.containsKey('description'));
+  _check(
+    logs: logs,
+    label: 'json map has description',
+    condition: jsonMap.containsKey('description'),
+  );
 
   for (var index = 0; index < 3; index++) {
-    final generated = IterableProperty<int>('generated$index', [index, index + 1]);
+    final generated = IterableProperty<int>('generated$index', [
+      index,
+      index + 1,
+    ]);
     final text = generated.toString();
-    _check(logs: logs, label: 'generated property $index renders', condition: text.contains('${index + 1}'));
+    _check(
+      logs: logs,
+      label: 'generated property $index renders',
+      condition: text.contains('${index + 1}'),
+    );
   }
 
   final passCount = logs.where((line) => line.startsWith('[PASS]')).length;
   final failCount = logs.where((line) => line.startsWith('[FAIL]')).length;
 
-  print('IterableProperty comprehensive test finished: pass=$passCount fail=$failCount');
+  print(
+    'IterableProperty comprehensive test finished: pass=$passCount fail=$failCount',
+  );
 
   return _summaryWidget(
     title: 'IterableProperty Comprehensive Test',

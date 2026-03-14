@@ -25,9 +25,17 @@ dynamic build(BuildContext context) {
 
   _expect(props.label == 'Save', 'SemanticsProperties label is stored', logs);
   assertionCount++;
-  _expect(props.button == true, 'SemanticsProperties button flag is true', logs);
+  _expect(
+    props.button == true,
+    'SemanticsProperties button flag is true',
+    logs,
+  );
   assertionCount++;
-  _expect(props.enabled == true, 'SemanticsProperties enabled flag is true', logs);
+  _expect(
+    props.enabled == true,
+    'SemanticsProperties enabled flag is true',
+    logs,
+  );
   assertionCount++;
 
   final config = SemanticsConfiguration();
@@ -36,9 +44,17 @@ dynamic build(BuildContext context) {
   config.isButton = true;
   config.isEnabled = true;
 
-  _expect(config.label == 'Send', 'SemanticsConfiguration label is writable', logs);
+  _expect(
+    config.label == 'Send',
+    'SemanticsConfiguration label is writable',
+    logs,
+  );
   assertionCount++;
-  _expect(config.isButton == true && config.isEnabled == true, 'SemanticsConfiguration boolean flags are writable', logs);
+  _expect(
+    config.isButton == true && config.isEnabled == true,
+    'SemanticsConfiguration boolean flags are writable',
+    logs,
+  );
   assertionCount++;
 
   final semanticsWidget = Semantics(
@@ -47,11 +63,19 @@ dynamic build(BuildContext context) {
     enabled: true,
     child: const Text('semantic node'),
   );
-  _expect(semanticsWidget.properties.label == 'Node', 'Semantics widget keeps configured label', logs);
+  _expect(
+    semanticsWidget.properties.label == 'Node',
+    'Semantics widget keeps configured label',
+    logs,
+  );
   assertionCount++;
 
   final edge = SemanticsProperties(label: '');
-  _expect(edge.label != null && edge.label!.isEmpty, 'edge case empty semantics label is accepted', logs);
+  _expect(
+    edge.label != null && edge.label!.isEmpty,
+    'edge case empty semantics label is accepted',
+    logs,
+  );
   assertionCount++;
 
   for (final line in logs) {
@@ -72,6 +96,7 @@ dynamic build(BuildContext context) {
     ],
   );
 }
+
 // coverage filler line 01
 // coverage filler line 02
 // coverage filler line 03

@@ -8,36 +8,36 @@ class MockScribeClient implements ScribbleClient {
   List<String> selectorHistory = [];
   bool toolbarVisible = false;
   Rect _bounds = Rect.zero;
-  
+
   @override
   String get currentTextEditingValue => 'Mock text value';
-  
+
   @override
   void insertTextPlaceholder(Size size) {
     print('  MockScribeClient: insertTextPlaceholder($size)');
   }
-  
+
   @override
   void performSelector(String selectorName) {
     selectorHistory.add(selectorName);
     print('  MockScribeClient: performSelector($selectorName)');
   }
-  
+
   @override
   void removeTextPlaceholder() {
     print('  MockScribeClient: removeTextPlaceholder');
   }
-  
+
   @override
   void showToolbar() {
     toolbarVisible = true;
     print('  MockScribeClient: showToolbar');
   }
-  
+
   @override
   Rect get bounds => _bounds;
   set bounds(Rect r) => _bounds = r;
-  
+
   @override
   bool isInScribbleRect(Rect rect) => _bounds.overlaps(rect);
 }
@@ -103,13 +103,7 @@ dynamic build(BuildContext context) {
   print('\n--- Test 4: Test selector actions ---');
   try {
     final client = MockScribeClient();
-    final selectors = [
-      'cut:',
-      'copy:',
-      'paste:',
-      'selectAll:',
-      'delete:',
-    ];
+    final selectors = ['cut:', 'copy:', 'paste:', 'selectAll:', 'delete:'];
     for (final selector in selectors) {
       client.performSelector(selector);
     }
@@ -211,8 +205,16 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('Scribe Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-      Text('Passed: $testsPassed, Failed: $testsFailed', style: TextStyle(color: testsFailed == 0 ? Color(0xFF00AA00) : Color(0xFFAA0000))),
+      Text(
+        'Scribe Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+      ),
+      Text(
+        'Passed: $testsPassed, Failed: $testsFailed',
+        style: TextStyle(
+          color: testsFailed == 0 ? Color(0xFF00AA00) : Color(0xFFAA0000),
+        ),
+      ),
       const SizedBox(height: 8),
       ...results.map((r) => Text(r, style: TextStyle(fontSize: 12))),
     ],

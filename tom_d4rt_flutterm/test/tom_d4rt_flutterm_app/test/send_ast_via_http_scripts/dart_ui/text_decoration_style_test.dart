@@ -26,7 +26,10 @@ Map<int, T> _buildIndexMap<T extends Enum>(List<T> values) {
 
 void _validateRoundTripByIndex<T extends Enum>(List<T> values) {
   for (var index = 0; index < values.length; index++) {
-    _expectCondition(values[index].index == index, 'Contiguous index at $index');
+    _expectCondition(
+      values[index].index == index,
+      'Contiguous index at $index',
+    );
   }
 }
 
@@ -43,14 +46,35 @@ dynamic build(BuildContext context) {
   print('TextDecorationStyle indexes: $indexes');
   print('TextDecorationStyle details:\n${_formatEnumValues(values)}');
 
-  _expectCondition(values.isNotEmpty, 'TextDecorationStyle has at least one value');
-  _expectCondition(names.length == values.length, 'Names length matches values length');
-  _expectCondition(indexes.length == values.length, 'Indexes length matches values length');
-  _expectCondition(indexMap.length == values.length, 'Index map covers all TextDecorationStyle values');
-  _expectCondition(names.toSet().length == names.length, 'TextDecorationStyle names are unique');
-  _expectCondition(indexes.toSet().length == indexes.length, 'TextDecorationStyle indexes are unique');
+  _expectCondition(
+    values.isNotEmpty,
+    'TextDecorationStyle has at least one value',
+  );
+  _expectCondition(
+    names.length == values.length,
+    'Names length matches values length',
+  );
+  _expectCondition(
+    indexes.length == values.length,
+    'Indexes length matches values length',
+  );
+  _expectCondition(
+    indexMap.length == values.length,
+    'Index map covers all TextDecorationStyle values',
+  );
+  _expectCondition(
+    names.toSet().length == names.length,
+    'TextDecorationStyle names are unique',
+  );
+  _expectCondition(
+    indexes.toSet().length == indexes.length,
+    'TextDecorationStyle indexes are unique',
+  );
   _expectCondition(indexes.first == 0, 'First TextDecorationStyle index is 0');
-  _expectCondition(indexes.last == values.length - 1, 'Last TextDecorationStyle index is values.length - 1');
+  _expectCondition(
+    indexes.last == values.length - 1,
+    'Last TextDecorationStyle index is values.length - 1',
+  );
 
   _validateRoundTripByIndex(values);
 
@@ -60,16 +84,46 @@ dynamic build(BuildContext context) {
   print('First TextDecorationStyle: $first (${first.name}, ${first.index})');
   print('Last TextDecorationStyle: $last (${last.name}, ${last.index})');
 
-  _expectCondition(TextDecorationStyle.values.byName(first.name) == first, 'byName resolves first TextDecorationStyle');
-  _expectCondition(TextDecorationStyle.values.byName(last.name) == last, 'byName resolves last TextDecorationStyle');
-  _expectCondition(indexMap[first.index] == first, 'Index map resolves first TextDecorationStyle');
-  _expectCondition(indexMap[last.index] == last, 'Index map resolves last TextDecorationStyle');
-  _expectCondition(first == TextDecorationStyle.values[first.index], 'First TextDecorationStyle round-trips from index');
-  _expectCondition(last == TextDecorationStyle.values[last.index], 'Last TextDecorationStyle round-trips from index');
-  _expectCondition(first.toString().contains(first.name), 'first.toString contains name');
-  _expectCondition(last.toString().contains(last.name), 'last.toString contains name');
-  _expectCondition(first == first, 'Reflexive equality for first TextDecorationStyle');
-  _expectCondition(last == last, 'Reflexive equality for last TextDecorationStyle');
+  _expectCondition(
+    TextDecorationStyle.values.byName(first.name) == first,
+    'byName resolves first TextDecorationStyle',
+  );
+  _expectCondition(
+    TextDecorationStyle.values.byName(last.name) == last,
+    'byName resolves last TextDecorationStyle',
+  );
+  _expectCondition(
+    indexMap[first.index] == first,
+    'Index map resolves first TextDecorationStyle',
+  );
+  _expectCondition(
+    indexMap[last.index] == last,
+    'Index map resolves last TextDecorationStyle',
+  );
+  _expectCondition(
+    first == TextDecorationStyle.values[first.index],
+    'First TextDecorationStyle round-trips from index',
+  );
+  _expectCondition(
+    last == TextDecorationStyle.values[last.index],
+    'Last TextDecorationStyle round-trips from index',
+  );
+  _expectCondition(
+    first.toString().contains(first.name),
+    'first.toString contains name',
+  );
+  _expectCondition(
+    last.toString().contains(last.name),
+    'last.toString contains name',
+  );
+  _expectCondition(
+    first == first,
+    'Reflexive equality for first TextDecorationStyle',
+  );
+  _expectCondition(
+    last == last,
+    'Reflexive equality for last TextDecorationStyle',
+  );
 
   bool invalidNameThrows = false;
   try {
@@ -78,10 +132,16 @@ dynamic build(BuildContext context) {
     invalidNameThrows = true;
     print('Expected TextDecorationStyle byName failure: $error');
   }
-  _expectCondition(invalidNameThrows, 'Invalid byName throws for TextDecorationStyle');
+  _expectCondition(
+    invalidNameThrows,
+    'Invalid byName throws for TextDecorationStyle',
+  );
 
   final sortedByIndex = [...values]..sort((a, b) => a.index.compareTo(b.index));
-  _expectCondition(sortedByIndex.join('|') == values.join('|'), 'Sorting by index preserves TextDecorationStyle order');
+  _expectCondition(
+    sortedByIndex.join('|') == values.join('|'),
+    'Sorting by index preserves TextDecorationStyle order',
+  );
 
   final summary =
       'TextDecorationStyle summary -> count=${values.length}, first=${first.name}, last=${last.name}, invalidLookupThrows=$invalidNameThrows';

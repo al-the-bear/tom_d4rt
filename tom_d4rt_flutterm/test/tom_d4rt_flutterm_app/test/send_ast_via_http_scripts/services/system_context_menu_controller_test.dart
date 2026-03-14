@@ -37,7 +37,11 @@ dynamic build(BuildContext context) {
   totalTests++;
 
   final menuRect1 = Rect.fromLTWH(100, 200, 150, 50);
-  final menuRect2 = Rect.fromCenter(center: Offset(200, 300), width: 100, height: 30);
+  final menuRect2 = Rect.fromCenter(
+    center: Offset(200, 300),
+    width: 100,
+    height: 30,
+  );
   final menuRect3 = Rect.fromPoints(Offset(50, 100), Offset(250, 150));
 
   print('Menu positioning rects:');
@@ -128,7 +132,9 @@ dynamic build(BuildContext context) {
   print('\n--- Test 9: Integration with TextEditingController ---');
   totalTests++;
 
-  final textController = TextEditingController(text: 'Sample text for context menu');
+  final textController = TextEditingController(
+    text: 'Sample text for context menu',
+  );
   print('TextEditingController text: ${textController.text}');
   print('Context menu actions can modify text');
   print('Cut: Removes selected text');
@@ -189,8 +195,10 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('SystemContextMenuController Test Results',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      Text(
+        'SystemContextMenuController Test Results',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
       SizedBox(height: 8),
       Text('Tests Passed: $testsPassed / $totalTests'),
       SizedBox(height: 4),
@@ -207,8 +215,10 @@ dynamic build(BuildContext context) {
       Text('Accessibility: ✓'),
       Text('Custom Menu Items: ✓'),
       SizedBox(height: 8),
-      Text('All SystemContextMenuController tests completed!',
-          style: TextStyle(color: Color(0xFF4CAF50))),
+      Text(
+        'All SystemContextMenuController tests completed!',
+        style: TextStyle(color: Color(0xFF4CAF50)),
+      ),
     ],
   );
 }

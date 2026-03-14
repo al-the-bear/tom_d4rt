@@ -146,11 +146,7 @@ dynamic build(BuildContext context) {
   // Test 8: Phone autofill scenario
   print('\n--- Test 8: Phone autofill scenario ---');
   try {
-    final phones = [
-      '+1 (555) 123-4567',
-      '555-123-4567',
-      '+44 20 7123 4567',
-    ];
+    final phones = ['+1 (555) 123-4567', '555-123-4567', '+44 20 7123 4567'];
     for (final phone in phones) {
       final value = TextEditingValue(
         text: phone,
@@ -236,11 +232,17 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('AutofillClient Test Results',
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+      Text(
+        'AutofillClient Test Results',
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      ),
       SizedBox(height: 8),
-      Text('Passed: $passCount | Failed: $failCount',
-        style: TextStyle(color: failCount == 0 ? Color(0xFF4CAF50) : Color(0xFFF44336))),
+      Text(
+        'Passed: $passCount | Failed: $failCount',
+        style: TextStyle(
+          color: failCount == 0 ? Color(0xFF4CAF50) : Color(0xFFF44336),
+        ),
+      ),
       SizedBox(height: 8),
       ...results.map((r) => Text(r, style: TextStyle(fontSize: 12))),
     ],

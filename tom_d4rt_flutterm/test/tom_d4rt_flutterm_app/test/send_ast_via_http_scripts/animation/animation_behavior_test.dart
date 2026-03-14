@@ -70,9 +70,10 @@ dynamic build(BuildContext context) {
   }
 
   final List<animation.AnimationBehavior> sortedByIndex =
-      <animation.AnimationBehavior>[...values]
-        ..sort((animation.AnimationBehavior a, animation.AnimationBehavior b) =>
-            a.index - b.index);
+      <animation.AnimationBehavior>[...values]..sort(
+        (animation.AnimationBehavior a, animation.AnimationBehavior b) =>
+            a.index - b.index,
+      );
   bool orderMatches = true;
   for (int index = 0; index < values.length; index++) {
     if (values[index] != sortedByIndex[index]) {

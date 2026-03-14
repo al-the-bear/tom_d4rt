@@ -32,7 +32,10 @@ dynamic build(BuildContext context) {
 
   // Test 4: RoundedRectangleBorder - basic
   final roundedRect = RoundedRectangleBorder();
-  assert(roundedRect is ShapeBorder, 'RoundedRectangleBorder should be ShapeBorder');
+  assert(
+    roundedRect is ShapeBorder,
+    'RoundedRectangleBorder should be ShapeBorder',
+  );
   results.add('RoundedRectangleBorder: ShapeBorder subclass');
   print('RoundedRectangleBorder: ${roundedRect.runtimeType}');
 
@@ -68,7 +71,10 @@ dynamic build(BuildContext context) {
   final beveledRect = BeveledRectangleBorder(
     borderRadius: BorderRadius.circular(8.0),
   );
-  assert(beveledRect is ShapeBorder, 'BeveledRectangleBorder should be ShapeBorder');
+  assert(
+    beveledRect is ShapeBorder,
+    'BeveledRectangleBorder should be ShapeBorder',
+  );
   results.add('BeveledRectangleBorder: cut corners');
   print('BeveledRectangleBorder: ${beveledRect.runtimeType}');
 
@@ -76,7 +82,10 @@ dynamic build(BuildContext context) {
   final continuousRect = ContinuousRectangleBorder(
     borderRadius: BorderRadius.circular(20.0),
   );
-  assert(continuousRect is ShapeBorder, 'ContinuousRectangleBorder should be ShapeBorder');
+  assert(
+    continuousRect is ShapeBorder,
+    'ContinuousRectangleBorder should be ShapeBorder',
+  );
   results.add('ContinuousRectangleBorder: smooth superellipse');
   print('ContinuousRectangleBorder: ${continuousRect.runtimeType}');
 
@@ -140,7 +149,10 @@ dynamic build(BuildContext context) {
 
   // Test 21: OutlinedBorder subclasses
   assert(circleBorder is OutlinedBorder, 'CircleBorder is OutlinedBorder');
-  assert(roundedRect is OutlinedBorder, 'RoundedRectangleBorder is OutlinedBorder');
+  assert(
+    roundedRect is OutlinedBorder,
+    'RoundedRectangleBorder is OutlinedBorder',
+  );
   results.add('OutlinedBorder: common base for borders with side');
   print('OutlinedBorder hierarchy confirmed');
 

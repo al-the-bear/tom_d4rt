@@ -118,7 +118,9 @@ dynamic build(BuildContext context) {
       {'type': 'up', 'key': 'B', 'time': 1300},
     ];
     for (final event in keyEvents) {
-      print('  - ${event['type'].toString().toUpperCase()}: ${event['key']} at ${event['time']}');
+      print(
+        '  - ${event['type'].toString().toUpperCase()}: ${event['key']} at ${event['time']}',
+      );
     }
     assert(keyEvents.length == 4);
     results.add('✓ Key event pairing concept verified');
@@ -221,16 +223,24 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('KeyDownEvent Tests',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      Text(
+        'KeyDownEvent Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
       SizedBox(height: 8),
-      Text('Passed: $passCount / ${passCount + failCount}',
-          style: TextStyle(color: failCount == 0 ? Color(0xFF4CAF50) : Color(0xFFF44336))),
+      Text(
+        'Passed: $passCount / ${passCount + failCount}',
+        style: TextStyle(
+          color: failCount == 0 ? Color(0xFF4CAF50) : Color(0xFFF44336),
+        ),
+      ),
       SizedBox(height: 8),
-      ...results.map((r) => Padding(
-            padding: EdgeInsets.symmetric(vertical: 2),
-            child: Text(r, style: TextStyle(fontSize: 12)),
-          )),
+      ...results.map(
+        (r) => Padding(
+          padding: EdgeInsets.symmetric(vertical: 2),
+          child: Text(r, style: TextStyle(fontSize: 12)),
+        ),
+      ),
     ],
   );
 }

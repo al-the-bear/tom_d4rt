@@ -22,7 +22,11 @@ dynamic build(BuildContext context) {
 
   _expect(blendModes.isNotEmpty, 'BlendMode has values', logs);
   assertionCount++;
-  _expect(paintingStyles.length >= 2, 'PaintingStyle includes fill and stroke', logs);
+  _expect(
+    paintingStyles.length >= 2,
+    'PaintingStyle includes fill and stroke',
+    logs,
+  );
   assertionCount++;
   _expect(strokeCaps.length >= 3, 'StrokeCap contains expected values', logs);
   assertionCount++;
@@ -31,17 +35,31 @@ dynamic build(BuildContext context) {
 
   _expect(blendModes.first.index == 0, 'first BlendMode has index 0', logs);
   assertionCount++;
-  _expect(paintingStyles.any((e) => e.name == 'fill'), 'PaintingStyle.fill exists', logs);
+  _expect(
+    paintingStyles.any((e) => e.name == 'fill'),
+    'PaintingStyle.fill exists',
+    logs,
+  );
   assertionCount++;
-  _expect(paintingStyles.any((e) => e.name == 'stroke'), 'PaintingStyle.stroke exists', logs);
+  _expect(
+    paintingStyles.any((e) => e.name == 'stroke'),
+    'PaintingStyle.stroke exists',
+    logs,
+  );
   assertionCount++;
 
   final namesJoined = blendModes.take(5).map((e) => e.name).join(',');
   _expect(namesJoined.isNotEmpty, 'enum name mapping works', logs);
   assertionCount++;
 
-  final missing = strokeCaps.where((e) => e.name == 'nonExistingValue').toList();
-  _expect(missing.isEmpty, 'edge case unknown enum name returns no match', logs);
+  final missing = strokeCaps
+      .where((e) => e.name == 'nonExistingValue')
+      .toList();
+  _expect(
+    missing.isEmpty,
+    'edge case unknown enum name returns no match',
+    logs,
+  );
   assertionCount++;
 
   for (final line in logs) {
@@ -62,6 +80,7 @@ dynamic build(BuildContext context) {
     ],
   );
 }
+
 // coverage filler line 01
 // coverage filler line 02
 // coverage filler line 03

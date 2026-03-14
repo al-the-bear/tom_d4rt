@@ -27,7 +27,9 @@ dynamic build(BuildContext context) {
     final props = AndroidPointerProperties(id: 0, toolType: 1);
     assert(props.id == 0);
     assert(props.toolType == 1);
-    print('Created properties with id: ${props.id}, toolType: ${props.toolType}');
+    print(
+      'Created properties with id: ${props.id}, toolType: ${props.toolType}',
+    );
     recordTest('Basic AndroidPointerProperties creation', true);
   } catch (e) {
     print('Error: $e');
@@ -40,7 +42,7 @@ dynamic build(BuildContext context) {
     final props0 = AndroidPointerProperties(id: 0, toolType: 1);
     final props1 = AndroidPointerProperties(id: 1, toolType: 1);
     final props2 = AndroidPointerProperties(id: 2, toolType: 1);
-    
+
     assert(props0.id == 0);
     assert(props1.id == 1);
     assert(props2.id == 2);
@@ -141,7 +143,7 @@ dynamic build(BuildContext context) {
     final highIdProps = AndroidPointerProperties(id: 99, toolType: 1);
     assert(highIdProps.id == 99);
     print('High ID pointer: ${highIdProps.id}');
-    
+
     final maxIdProps = AndroidPointerProperties(id: 255, toolType: 1);
     assert(maxIdProps.id == 255);
     print('Max ID pointer: ${maxIdProps.id}');
@@ -161,7 +163,9 @@ dynamic build(BuildContext context) {
     ];
     assert(pinchProps.length == 2);
     assert(pinchProps[0].id != pinchProps[1].id);
-    print('Pinch gesture with pointers: ${pinchProps[0].id} and ${pinchProps[1].id}');
+    print(
+      'Pinch gesture with pointers: ${pinchProps[0].id} and ${pinchProps[1].id}',
+    );
     recordTest('Properties for multi-touch gesture', true);
   } catch (e) {
     print('Error: $e');
@@ -175,7 +179,7 @@ dynamic build(BuildContext context) {
     final stylusTip = AndroidPointerProperties(id: 0, toolType: 2);
     assert(stylusTip.toolType == 2);
     print('Stylus tip: toolType ${stylusTip.toolType}');
-    
+
     // Stylus eraser end
     final stylusEraser = AndroidPointerProperties(id: 0, toolType: 4);
     assert(stylusEraser.toolType == 4);
@@ -199,11 +203,17 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('AndroidPointerProperties Test Results',
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+      Text(
+        'AndroidPointerProperties Test Results',
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      ),
       SizedBox(height: 8),
-      Text('Passed: $passCount | Failed: $failCount',
-        style: TextStyle(color: failCount == 0 ? Color(0xFF4CAF50) : Color(0xFFF44336))),
+      Text(
+        'Passed: $passCount | Failed: $failCount',
+        style: TextStyle(
+          color: failCount == 0 ? Color(0xFF4CAF50) : Color(0xFFF44336),
+        ),
+      ),
       SizedBox(height: 8),
       ...results.map((r) => Text(r, style: TextStyle(fontSize: 12))),
     ],

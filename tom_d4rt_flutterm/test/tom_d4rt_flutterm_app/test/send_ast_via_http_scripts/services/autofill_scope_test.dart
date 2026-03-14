@@ -158,11 +158,7 @@ dynamic build(BuildContext context) {
   // Test 9: Multiple scopes scenario
   print('\n--- Test 9: Multiple scopes scenario ---');
   try {
-    final scopes = [
-      'login_scope',
-      'profile_scope',
-      'payment_scope',
-    ];
+    final scopes = ['login_scope', 'profile_scope', 'payment_scope'];
     print('Multiple autofill scopes on a page:');
     for (final scope in scopes) {
       print('  - $scope');
@@ -214,11 +210,17 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('AutofillScope Test Results',
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+      Text(
+        'AutofillScope Test Results',
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      ),
       SizedBox(height: 8),
-      Text('Passed: $passCount | Failed: $failCount',
-        style: TextStyle(color: failCount == 0 ? Color(0xFF4CAF50) : Color(0xFFF44336))),
+      Text(
+        'Passed: $passCount | Failed: $failCount',
+        style: TextStyle(
+          color: failCount == 0 ? Color(0xFF4CAF50) : Color(0xFFF44336),
+        ),
+      ),
       SizedBox(height: 8),
       ...results.map((r) => Text(r, style: TextStyle(fontSize: 12))),
     ],

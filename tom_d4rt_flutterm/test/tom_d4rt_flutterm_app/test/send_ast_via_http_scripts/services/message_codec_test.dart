@@ -55,7 +55,11 @@ dynamic build(BuildContext context) {
   try {
     final codec = const JSONMessageCodec();
     print('JSONMessageCodec implements MessageCodec<Object?>');
-    final message = {'key': 'value', 'number': 42, 'list': [1, 2, 3]};
+    final message = {
+      'key': 'value',
+      'number': 42,
+      'list': [1, 2, 3],
+    };
     final encoded = codec.encodeMessage(message);
     print('Original: $message');
     print('Encoded bytes: ${encoded?.lengthInBytes}');
@@ -162,8 +166,10 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('MessageCodec Test Results',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+      Text(
+        'MessageCodec Test Results',
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      ),
       SizedBox(height: 8),
       Text('Tests passed: $passCount'),
       Text('Tests failed: $failCount'),

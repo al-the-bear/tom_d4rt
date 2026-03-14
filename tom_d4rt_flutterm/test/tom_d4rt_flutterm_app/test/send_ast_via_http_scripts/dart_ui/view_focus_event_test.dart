@@ -27,22 +27,46 @@ dynamic build(BuildContext context) {
     direction: ui.ViewFocusDirection.backward,
   );
 
-  _expectCondition(eventFocusedForward.viewId == 1, 'constructor sets viewId for first event', logs);
+  _expectCondition(
+    eventFocusedForward.viewId == 1,
+    'constructor sets viewId for first event',
+    logs,
+  );
   assertionCount++;
 
-  _expectCondition(eventFocusedForward.state == ui.ViewFocusState.focused, 'constructor sets state for first event', logs);
+  _expectCondition(
+    eventFocusedForward.state == ui.ViewFocusState.focused,
+    'constructor sets state for first event',
+    logs,
+  );
   assertionCount++;
 
-  _expectCondition(eventFocusedForward.direction == ui.ViewFocusDirection.forward, 'constructor sets direction for first event', logs);
+  _expectCondition(
+    eventFocusedForward.direction == ui.ViewFocusDirection.forward,
+    'constructor sets direction for first event',
+    logs,
+  );
   assertionCount++;
 
-  _expectCondition(eventUnfocusedBackward.viewId == 2, 'constructor sets viewId for second event', logs);
+  _expectCondition(
+    eventUnfocusedBackward.viewId == 2,
+    'constructor sets viewId for second event',
+    logs,
+  );
   assertionCount++;
 
-  _expectCondition(eventUnfocusedBackward.state == ui.ViewFocusState.unfocused, 'constructor sets state for second event', logs);
+  _expectCondition(
+    eventUnfocusedBackward.state == ui.ViewFocusState.unfocused,
+    'constructor sets state for second event',
+    logs,
+  );
   assertionCount++;
 
-  _expectCondition(eventUnfocusedBackward.direction == ui.ViewFocusDirection.backward, 'constructor sets direction for second event', logs);
+  _expectCondition(
+    eventUnfocusedBackward.direction == ui.ViewFocusDirection.backward,
+    'constructor sets direction for second event',
+    logs,
+  );
   assertionCount++;
 
   final states = ui.ViewFocusState.values;
@@ -51,12 +75,20 @@ dynamic build(BuildContext context) {
   _expectCondition(states.isNotEmpty, 'ViewFocusState enum has values', logs);
   assertionCount++;
 
-  _expectCondition(directions.isNotEmpty, 'ViewFocusDirection enum has values', logs);
+  _expectCondition(
+    directions.isNotEmpty,
+    'ViewFocusDirection enum has values',
+    logs,
+  );
   assertionCount++;
 
   for (final state in states) {
     print('state: ${state.name} (${state.index})');
-    _expectCondition(ui.ViewFocusState.values.byName(state.name) == state, 'byName works for state ${state.name}', logs);
+    _expectCondition(
+      ui.ViewFocusState.values.byName(state.name) == state,
+      'byName works for state ${state.name}',
+      logs,
+    );
     assertionCount++;
   }
 
@@ -85,11 +117,19 @@ dynamic build(BuildContext context) {
   } catch (_) {
     invalidDirectionThrows = true;
   }
-  _expectCondition(invalidDirectionThrows, 'invalid direction byName throws', logs);
+  _expectCondition(
+    invalidDirectionThrows,
+    'invalid direction byName throws',
+    logs,
+  );
   assertionCount++;
 
-  print('eventFocusedForward: view=${eventFocusedForward.viewId}, state=${eventFocusedForward.state}, direction=${eventFocusedForward.direction}');
-  print('eventUnfocusedBackward: view=${eventUnfocusedBackward.viewId}, state=${eventUnfocusedBackward.state}, direction=${eventUnfocusedBackward.direction}');
+  print(
+    'eventFocusedForward: view=${eventFocusedForward.viewId}, state=${eventFocusedForward.state}, direction=${eventFocusedForward.direction}',
+  );
+  print(
+    'eventUnfocusedBackward: view=${eventUnfocusedBackward.viewId}, state=${eventUnfocusedBackward.state}, direction=${eventUnfocusedBackward.direction}',
+  );
 
   final summary = <String>[
     'constructors covered for multiple ViewFocusEvent instances',

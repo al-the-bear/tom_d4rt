@@ -72,7 +72,9 @@ dynamic build(BuildContext context) {
     ];
     for (final c in conditions) {
       final status = c['enabled'] == true ? 'enabled' : 'disabled';
-      print('  - hasText: ${c['hasText']}, alreadyAll: ${c['alreadyAll']} → $status');
+      print(
+        '  - hasText: ${c['hasText']}, alreadyAll: ${c['alreadyAll']} → $status',
+      );
     }
     assert(conditions.length == 3);
     results.add('✓ Enabled conditions verified');
@@ -154,7 +156,9 @@ Line 3''';
     selectAllExecuted = true;
     newSelection = {'start': 0, 'end': 100};
     print('  - After Select All: executed = $selectAllExecuted');
-    print('  - New selection: [${newSelection['start']}, ${newSelection['end']})');
+    print(
+      '  - New selection: [${newSelection['start']}, ${newSelection['end']})',
+    );
     assert(selectAllExecuted == true);
     results.add('✓ Callback execution verified');
     passCount++;
@@ -216,16 +220,24 @@ Line 3''';
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('IOSSystemContextMenuItemDataSelectAll Tests',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      Text(
+        'IOSSystemContextMenuItemDataSelectAll Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
       SizedBox(height: 8),
-      Text('Passed: $passCount / ${passCount + failCount}',
-          style: TextStyle(color: failCount == 0 ? Color(0xFF4CAF50) : Color(0xFFF44336))),
+      Text(
+        'Passed: $passCount / ${passCount + failCount}',
+        style: TextStyle(
+          color: failCount == 0 ? Color(0xFF4CAF50) : Color(0xFFF44336),
+        ),
+      ),
       SizedBox(height: 8),
-      ...results.map((r) => Padding(
-            padding: EdgeInsets.symmetric(vertical: 2),
-            child: Text(r, style: TextStyle(fontSize: 12)),
-          )),
+      ...results.map(
+        (r) => Padding(
+          padding: EdgeInsets.symmetric(vertical: 2),
+          child: Text(r, style: TextStyle(fontSize: 12)),
+        ),
+      ),
     ],
   );
 }

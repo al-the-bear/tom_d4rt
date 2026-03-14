@@ -81,7 +81,10 @@ dynamic build(BuildContext context) {
   print('\n--- Test 4: Manifest structure simulation ---');
   try {
     final manifestData = {
-      'assets/images/logo.png': ['assets/images/logo.png', 'assets/images/2.0x/logo.png'],
+      'assets/images/logo.png': [
+        'assets/images/logo.png',
+        'assets/images/2.0x/logo.png',
+      ],
       'assets/fonts/Roboto.ttf': ['assets/fonts/Roboto.ttf'],
       'assets/data/config.json': ['assets/data/config.json'],
     };
@@ -233,11 +236,17 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('AssetManifest Test Results',
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+      Text(
+        'AssetManifest Test Results',
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      ),
       SizedBox(height: 8),
-      Text('Passed: $passCount | Failed: $failCount',
-        style: TextStyle(color: failCount == 0 ? Color(0xFF4CAF50) : Color(0xFFF44336))),
+      Text(
+        'Passed: $passCount | Failed: $failCount',
+        style: TextStyle(
+          color: failCount == 0 ? Color(0xFF4CAF50) : Color(0xFFF44336),
+        ),
+      ),
       SizedBox(height: 8),
       ...results.map((r) => Text(r, style: TextStyle(fontSize: 12))),
     ],

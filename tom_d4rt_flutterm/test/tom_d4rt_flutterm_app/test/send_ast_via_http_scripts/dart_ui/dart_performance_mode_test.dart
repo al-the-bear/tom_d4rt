@@ -68,9 +68,10 @@ dynamic build(BuildContext context) {
   }
 
   final List<ui.DartPerformanceMode> sortedByIndex =
-      <ui.DartPerformanceMode>[...values]
-        ..sort((ui.DartPerformanceMode a, ui.DartPerformanceMode b) =>
-            a.index - b.index);
+      <ui.DartPerformanceMode>[...values]..sort(
+        (ui.DartPerformanceMode a, ui.DartPerformanceMode b) =>
+            a.index - b.index,
+      );
   bool orderMatches = true;
   for (int index = 0; index < values.length; index++) {
     if (values[index] != sortedByIndex[index]) {

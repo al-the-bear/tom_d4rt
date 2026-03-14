@@ -28,7 +28,9 @@ dynamic build(BuildContext context) {
 
   log('--- string diagnostics ---');
   final description = injector.toString();
-  log('toString contains class: ${description.contains('RenderSliverOverlapInjector')}');
+  log(
+    'toString contains class: ${description.contains('RenderSliverOverlapInjector')}',
+  );
   assert(description.contains('RenderSliverOverlapInjector'));
 
   log('--- list behavior ---');

@@ -40,8 +40,14 @@ dynamic build(BuildContext context) {
     print('Physical key: ${repeatEvent.physicalKey}');
     print('Logical key: ${repeatEvent.logicalKey}');
     print('Character: ${repeatEvent.character}');
-    assert(repeatEvent.physicalKey == PhysicalKeyboardKey.keyA, 'Physical key mismatch');
-    assert(repeatEvent.logicalKey == LogicalKeyboardKey.keyA, 'Logical key mismatch');
+    assert(
+      repeatEvent.physicalKey == PhysicalKeyboardKey.keyA,
+      'Physical key mismatch',
+    );
+    assert(
+      repeatEvent.logicalKey == LogicalKeyboardKey.keyA,
+      'Logical key mismatch',
+    );
     results.add('✓ KeyRepeatEvent creation passed');
     passCount++;
   } catch (e) {
@@ -76,7 +82,9 @@ dynamic build(BuildContext context) {
       timeStamp: Duration(milliseconds: 200),
     );
     print('Shift repeat event: $shiftRepeat');
-    print('Is shift key: ${shiftRepeat.logicalKey == LogicalKeyboardKey.shiftLeft}');
+    print(
+      'Is shift key: ${shiftRepeat.logicalKey == LogicalKeyboardKey.shiftLeft}',
+    );
     results.add('✓ KeyRepeatEvent with modifiers test passed');
     passCount++;
   } catch (e) {
@@ -101,7 +109,10 @@ dynamic build(BuildContext context) {
     );
     print('KeyDownEvent type: ${downEvent.runtimeType}');
     print('KeyRepeatEvent type: ${repeatEvent.runtimeType}');
-    assert(downEvent.runtimeType != repeatEvent.runtimeType, 'Types should differ');
+    assert(
+      downEvent.runtimeType != repeatEvent.runtimeType,
+      'Types should differ',
+    );
     results.add('✓ KeyRepeatEvent vs KeyDownEvent comparison passed');
     passCount++;
   } catch (e) {
@@ -138,12 +149,14 @@ dynamic build(BuildContext context) {
   try {
     final repeats = <KeyRepeatEvent>[];
     for (var i = 0; i < 5; i++) {
-      repeats.add(KeyRepeatEvent(
-        physicalKey: PhysicalKeyboardKey.keyA,
-        logicalKey: LogicalKeyboardKey.keyA,
-        timeStamp: Duration(milliseconds: 100 * (i + 1)),
-        character: 'a',
-      ));
+      repeats.add(
+        KeyRepeatEvent(
+          physicalKey: PhysicalKeyboardKey.keyA,
+          logicalKey: LogicalKeyboardKey.keyA,
+          timeStamp: Duration(milliseconds: 100 * (i + 1)),
+          character: 'a',
+        ),
+      );
     }
     print('Created ${repeats.length} repeat events');
     for (var i = 0; i < repeats.length; i++) {
@@ -170,8 +183,10 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('KeyRepeatEvent Test Results',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+      Text(
+        'KeyRepeatEvent Test Results',
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      ),
       SizedBox(height: 8),
       Text('Tests passed: $passCount'),
       Text('Tests failed: $failCount'),

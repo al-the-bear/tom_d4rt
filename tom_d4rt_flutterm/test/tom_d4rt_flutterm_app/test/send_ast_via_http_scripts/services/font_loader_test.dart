@@ -24,7 +24,13 @@ dynamic build(BuildContext context) {
   // Test 2: FontLoader with various font family names
   print('\nTest 2: Testing FontLoader with various family names');
   try {
-    final fontFamilies = ['Roboto', 'OpenSans', 'Lato', 'Montserrat', 'CustomFont'];
+    final fontFamilies = [
+      'Roboto',
+      'OpenSans',
+      'Lato',
+      'Montserrat',
+      'CustomFont',
+    ];
     for (final family in fontFamilies) {
       final loader = FontLoader(family);
       print('  - Created loader for: $family');
@@ -92,7 +98,9 @@ dynamic build(BuildContext context) {
     print('  - Font family: ${fontData['family']}');
     print('  - Asset count: ${(fontData['assets'] as List).length}');
     for (final asset in fontData['assets'] as List) {
-      print('    - ${asset['path']} (weight: ${asset['weight']}, style: ${asset['style']})');
+      print(
+        '    - ${asset['path']} (weight: ${asset['weight']}, style: ${asset['style']})',
+      );
     }
     assert(fontData['family'] != null);
     results.add('✓ Font data structure validated');
@@ -150,7 +158,9 @@ dynamic build(BuildContext context) {
       {'ext': '.woff2', 'name': 'WOFF 2.0', 'supported': true},
     ];
     for (final f in formats) {
-      print('  - ${f['name']} (${f['ext']}): ${f['supported'] ? "Supported" : "Not supported"}');
+      print(
+        '  - ${f['name']} (${f['ext']}): ${f['supported'] ? "Supported" : "Not supported"}',
+      );
     }
     assert(formats.every((f) => f['supported'] == true));
     results.add('✓ ${formats.length} font formats documented');
@@ -214,16 +224,24 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('FontLoader Tests',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      Text(
+        'FontLoader Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
       SizedBox(height: 8),
-      Text('Passed: $passCount / ${passCount + failCount}',
-          style: TextStyle(color: failCount == 0 ? Color(0xFF4CAF50) : Color(0xFFF44336))),
+      Text(
+        'Passed: $passCount / ${passCount + failCount}',
+        style: TextStyle(
+          color: failCount == 0 ? Color(0xFF4CAF50) : Color(0xFFF44336),
+        ),
+      ),
       SizedBox(height: 8),
-      ...results.map((r) => Padding(
-            padding: EdgeInsets.symmetric(vertical: 2),
-            child: Text(r, style: TextStyle(fontSize: 12)),
-          )),
+      ...results.map(
+        (r) => Padding(
+          padding: EdgeInsets.symmetric(vertical: 2),
+          child: Text(r, style: TextStyle(fontSize: 12)),
+        ),
+      ),
     ],
   );
 }

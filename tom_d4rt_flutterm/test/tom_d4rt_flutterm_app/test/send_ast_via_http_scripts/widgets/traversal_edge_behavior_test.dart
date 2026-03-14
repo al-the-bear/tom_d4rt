@@ -17,7 +17,10 @@ dynamic build(BuildContext context) {
   log('BuildContext type: ${context.runtimeType}');
 
   final List<TraversalEdgeBehavior> values = TraversalEdgeBehavior.values;
-  expectCondition(values.isNotEmpty, 'TraversalEdgeBehavior.values is not empty');
+  expectCondition(
+    values.isNotEmpty,
+    'TraversalEdgeBehavior.values is not empty',
+  );
   expectCondition(
     values.toSet().length == values.length,
     'TraversalEdgeBehavior.values contains unique entries',
@@ -67,8 +70,9 @@ dynamic build(BuildContext context) {
   }
 
   final List<TraversalEdgeBehavior> sortedByIndex =
-      <TraversalEdgeBehavior>[...values]
-        ..sort((TraversalEdgeBehavior a, TraversalEdgeBehavior b) => a.index - b.index);
+      <TraversalEdgeBehavior>[...values]..sort(
+        (TraversalEdgeBehavior a, TraversalEdgeBehavior b) => a.index - b.index,
+      );
   bool orderMatches = true;
   for (int index = 0; index < values.length; index++) {
     if (values[index] != sortedByIndex[index]) {

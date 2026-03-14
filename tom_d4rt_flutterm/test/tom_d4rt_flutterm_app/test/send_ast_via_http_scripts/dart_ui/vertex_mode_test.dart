@@ -26,7 +26,10 @@ Map<int, T> _buildIndexMap<T extends Enum>(List<T> values) {
 
 void _validateRoundTripByIndex<T extends Enum>(List<T> values) {
   for (var index = 0; index < values.length; index++) {
-    _expectCondition(values[index].index == index, 'Contiguous index at $index');
+    _expectCondition(
+      values[index].index == index,
+      'Contiguous index at $index',
+    );
   }
 }
 
@@ -44,13 +47,31 @@ dynamic build(BuildContext context) {
   print('VertexMode details:\n${_formatEnumValues(values)}');
 
   _expectCondition(values.isNotEmpty, 'VertexMode has at least one value');
-  _expectCondition(names.length == values.length, 'Names length matches values length');
-  _expectCondition(indexes.length == values.length, 'Indexes length matches values length');
-  _expectCondition(indexMap.length == values.length, 'Index map covers all VertexMode values');
-  _expectCondition(names.toSet().length == names.length, 'VertexMode names are unique');
-  _expectCondition(indexes.toSet().length == indexes.length, 'VertexMode indexes are unique');
+  _expectCondition(
+    names.length == values.length,
+    'Names length matches values length',
+  );
+  _expectCondition(
+    indexes.length == values.length,
+    'Indexes length matches values length',
+  );
+  _expectCondition(
+    indexMap.length == values.length,
+    'Index map covers all VertexMode values',
+  );
+  _expectCondition(
+    names.toSet().length == names.length,
+    'VertexMode names are unique',
+  );
+  _expectCondition(
+    indexes.toSet().length == indexes.length,
+    'VertexMode indexes are unique',
+  );
   _expectCondition(indexes.first == 0, 'First VertexMode index is 0');
-  _expectCondition(indexes.last == values.length - 1, 'Last VertexMode index is values.length - 1');
+  _expectCondition(
+    indexes.last == values.length - 1,
+    'Last VertexMode index is values.length - 1',
+  );
 
   _validateRoundTripByIndex(values);
 
@@ -60,14 +81,38 @@ dynamic build(BuildContext context) {
   print('First VertexMode: $first (${first.name}, ${first.index})');
   print('Last VertexMode: $last (${last.name}, ${last.index})');
 
-  _expectCondition(VertexMode.values.byName(first.name) == first, 'byName resolves first VertexMode');
-  _expectCondition(VertexMode.values.byName(last.name) == last, 'byName resolves last VertexMode');
-  _expectCondition(indexMap[first.index] == first, 'Index map resolves first VertexMode');
-  _expectCondition(indexMap[last.index] == last, 'Index map resolves last VertexMode');
-  _expectCondition(first == VertexMode.values[first.index], 'First VertexMode round-trips from index');
-  _expectCondition(last == VertexMode.values[last.index], 'Last VertexMode round-trips from index');
-  _expectCondition(first.toString().contains(first.name), 'first.toString contains name');
-  _expectCondition(last.toString().contains(last.name), 'last.toString contains name');
+  _expectCondition(
+    VertexMode.values.byName(first.name) == first,
+    'byName resolves first VertexMode',
+  );
+  _expectCondition(
+    VertexMode.values.byName(last.name) == last,
+    'byName resolves last VertexMode',
+  );
+  _expectCondition(
+    indexMap[first.index] == first,
+    'Index map resolves first VertexMode',
+  );
+  _expectCondition(
+    indexMap[last.index] == last,
+    'Index map resolves last VertexMode',
+  );
+  _expectCondition(
+    first == VertexMode.values[first.index],
+    'First VertexMode round-trips from index',
+  );
+  _expectCondition(
+    last == VertexMode.values[last.index],
+    'Last VertexMode round-trips from index',
+  );
+  _expectCondition(
+    first.toString().contains(first.name),
+    'first.toString contains name',
+  );
+  _expectCondition(
+    last.toString().contains(last.name),
+    'last.toString contains name',
+  );
   _expectCondition(first == first, 'Reflexive equality for first VertexMode');
   _expectCondition(last == last, 'Reflexive equality for last VertexMode');
 
@@ -81,7 +126,10 @@ dynamic build(BuildContext context) {
   _expectCondition(invalidNameThrows, 'Invalid byName throws for VertexMode');
 
   final sortedByIndex = [...values]..sort((a, b) => a.index.compareTo(b.index));
-  _expectCondition(sortedByIndex.join('|') == values.join('|'), 'Sorting by index preserves VertexMode order');
+  _expectCondition(
+    sortedByIndex.join('|') == values.join('|'),
+    'Sorting by index preserves VertexMode order',
+  );
 
   final summary =
       'VertexMode summary -> count=${values.length}, first=${first.name}, last=${last.name}, invalidLookupThrows=$invalidNameThrows';

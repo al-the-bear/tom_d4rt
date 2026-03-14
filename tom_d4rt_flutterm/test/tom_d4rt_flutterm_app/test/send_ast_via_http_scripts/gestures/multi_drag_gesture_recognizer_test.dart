@@ -81,7 +81,9 @@ dynamic build(BuildContext context) {
   );
   assertionCount++;
 
-  final delayed = recognizers.whereType<DelayedMultiDragGestureRecognizer>().first;
+  final delayed = recognizers
+      .whereType<DelayedMultiDragGestureRecognizer>()
+      .first;
   _expectCondition(
     delayed.delay == const Duration(milliseconds: 120),
     'DelayedMultiDragGestureRecognizer constructor delay is retained',
@@ -89,7 +91,9 @@ dynamic build(BuildContext context) {
   );
   assertionCount++;
 
-  final immediate = recognizers.whereType<ImmediateMultiDragGestureRecognizer>().first;
+  final immediate = recognizers
+      .whereType<ImmediateMultiDragGestureRecognizer>()
+      .first;
   _expectCondition(
     immediate.gestureSettings?.touchSlop == 18,
     'ImmediateMultiDragGestureRecognizer gestureSettings touchSlop retained',

@@ -46,10 +46,7 @@ dynamic build(BuildContext context) {
   log('identical(new,new): ${identical(b1, b2)}');
 
   log('--- edge case: const list literal ---');
-  const directions = <TextDirection>[
-    TextDirection.ltr,
-    TextDirection.rtl,
-  ];
+  const directions = <TextDirection>[TextDirection.ltr, TextDirection.rtl];
   assert(directions.length == 2);
   assert(directions.first == TextDirection.ltr);
   for (final direction in directions) {
