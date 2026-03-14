@@ -1,30 +1,183 @@
-// D4rt test script: Tests CrossAxisAlignment from rendering
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
-dynamic build(BuildContext context) {
-  print('CrossAxisAlignment test executing');
+class _EnumProbe<T> {
+  const _EnumProbe({
+    required this.value,
+    required this.name,
+    required this.index,
+  });
 
-  // Enumerate all CrossAxisAlignment values
-  print('CrossAxisAlignment values:');
-  for (final value in CrossAxisAlignment.values) {
-    print('  ${value.name}: $value');
+  final T value;
+  final String name;
+  final int index;
+
+  String get signature => '$name#$index';
+}
+
+class _RunSummary {
+  const _RunSummary({
+    required this.checks,
+    required this.failures,
+    required this.valueCount,
+  });
+
+  final int checks;
+  final int failures;
+  final int valueCount;
+}
+
+void _check({
+  required bool condition,
+  required String message,
+  required List<String> logs,
+  required List<String> failures,
+}) {
+  if (condition) {
+    logs.add('PASS: $message');
+    return;
   }
-  print('CrossAxisAlignment has ${ CrossAxisAlignment.values.length} values');
 
-  final first = CrossAxisAlignment.values.first;
-  final last = CrossAxisAlignment.values.last;
-  print('First: $first, Last: $last');
-  print('First index: ${first.index}, Last index: ${last.index}');
+  logs.add('FAIL: $message');
+  failures.add(message);
+  assert(condition, message);
+}
 
-  print('CrossAxisAlignment test completed');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
+dynamic build(BuildContext context) {
+  final logs = <String>[];
+  final failures = <String>[];
+  var checks = 0;
+
+  logs.add('Starting CrossAxisAlignment enum verification');
+
+  final values = CrossAxisAlignment.values;
+  _check(
+    condition: values.isNotEmpty,
+    message: 'values are not empty',
+    logs: logs,
+    failures: failures,
+  );
+  checks++;
+
+  final probes = values
+      .map(
+        (value) => _EnumProbe<CrossAxisAlignment>(
+          value: value,
+          name: value.name,
+          index: value.index,
+        ),
+      )
+      .toList(growable: false);
+
+  _check(
+    condition: probes.length == values.length,
+    message: 'probe count matches value count',
+    logs: logs,
+    failures: failures,
+  );
+  checks++;
+
+  final names = values.map((value) => value.name).toList(growable: false);
+  final uniqueNames = names.toSet();
+  _check(
+    condition: uniqueNames.length == values.length,
+    message: 'enum names are unique',
+    logs: logs,
+    failures: failures,
+  );
+  checks++;
+
+  final indices = values.map((value) => value.index).toList(growable: false);
+  final isContiguous = indices.every((index) => index >= 0) &&
+      indices.toSet().length == indices.length &&
+      indices.reduce((a, b) => a < b ? a : b) == 0 &&
+      indices.reduce((a, b) => a > b ? a : b) == values.length - 1;
+  _check(
+    condition: isContiguous,
+    message: 'indices are contiguous from 0..n-1',
+    logs: logs,
+    failures: failures,
+  );
+  checks++;
+
+  final roundTripValid = values
+      .map((value) => CrossAxisAlignment.values.byName(value.name) == value)
+      .every((isMatch) => isMatch);
+  _check(
+    condition: roundTripValid,
+    message: 'byName round-trip works for all values',
+    logs: logs,
+    failures: failures,
+  );
+  checks++;
+
+  var invalidByNameThrows = false;
+  try {
+    CrossAxisAlignment.values.byName('__invalid_cross_axis_alignment__');
+  } catch (_) {
+    invalidByNameThrows = true;
+  }
+  _check(
+    condition: invalidByNameThrows,
+    message: 'invalid byName lookup throws as edge case',
+    logs: logs,
+    failures: failures,
+  );
+  checks++;
+
+  final toStringIncludesType = values
+      .every((value) => value.toString().startsWith('CrossAxisAlignment.'));
+  _check(
+    condition: toStringIncludesType,
+    message: 'toString includes enum type prefix',
+    logs: logs,
+    failures: failures,
+  );
+  checks++;
+
+  final first = values.first;
+  final last = values.last;
+  _check(
+    condition: first.index == 0 && last.index == values.length - 1,
+    message: 'first and last boundaries are valid',
+    logs: logs,
+    failures: failures,
+  );
+  checks++;
+
+  final signatureText = probes.map((probe) => probe.signature).join(', ');
+  _check(
+    condition: signatureText.isNotEmpty,
+    message: 'probe signatures produce summary text',
+    logs: logs,
+    failures: failures,
+  );
+  checks++;
+
+  final summary = _RunSummary(
+    checks: checks,
+    failures: failures.length,
+    valueCount: values.length,
+  );
+  final summaryLine =
+      'CrossAxisAlignment summary: checks=${summary.checks}, failures=${summary.failures}, values=${summary.valueCount}';
+
+  print(summaryLine);
+  for (final line in logs) {
+    print(line);
+  }
+
+  return ListView(
+    padding: const EdgeInsets.all(12),
     children: [
-      Text('CrossAxisAlignment Tests'),
-      Text('Values: ${ CrossAxisAlignment.values.length}'),
-      Text('First: $first'),
-      Text('Last: $last'),
+      const Text('CrossAxisAlignment Test Summary'),
+      Text(summaryLine),
+      Text('Context: ${context.runtimeType}'),
+      Text('First: ${first.name} (${first.index})'),
+      Text('Last: ${last.name} (${last.index})'),
+      Text('Signatures: $signatureText'),
+      const SizedBox(height: 8),
+      ...logs.map(Text.new),
     ],
   );
 }
