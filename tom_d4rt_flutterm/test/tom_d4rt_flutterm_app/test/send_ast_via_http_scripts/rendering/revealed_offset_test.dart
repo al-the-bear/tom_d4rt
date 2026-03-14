@@ -17,9 +17,18 @@ dynamic build(BuildContext context) {
 
   // ========== Different offset values ==========
   print('--- Different offset values ---');
-  final offsetZero = RevealedOffset(offset: 0.0, rect: Rect.fromLTWH(0.0, 0.0, 100.0, 100.0));
-  final offsetNegative = RevealedOffset(offset: -50.0, rect: Rect.fromLTWH(0.0, -50.0, 100.0, 100.0));
-  final offsetLarge = RevealedOffset(offset: 10000.0, rect: Rect.fromLTWH(0.0, 10000.0, 100.0, 100.0));
+  final offsetZero = RevealedOffset(
+    offset: 0.0,
+    rect: Rect.fromLTWH(0.0, 0.0, 100.0, 100.0),
+  );
+  final offsetNegative = RevealedOffset(
+    offset: -50.0,
+    rect: Rect.fromLTWH(0.0, -50.0, 100.0, 100.0),
+  );
+  final offsetLarge = RevealedOffset(
+    offset: 10000.0,
+    rect: Rect.fromLTWH(0.0, 10000.0, 100.0, 100.0),
+  );
   print('  zero offset: ${offsetZero.offset}');
   print('  negative offset: ${offsetNegative.offset}');
   print('  large offset: ${offsetLarge.offset}');
@@ -36,7 +45,11 @@ dynamic build(BuildContext context) {
 
   final rectFromCenter = RevealedOffset(
     offset: 75.0,
-    rect: Rect.fromCenter(center: Offset(100.0, 75.0), width: 80.0, height: 60.0),
+    rect: Rect.fromCenter(
+      center: Offset(100.0, 75.0),
+      width: 80.0,
+      height: 60.0,
+    ),
   );
   print('  rect fromCenter: ${rectFromCenter.rect}');
   print('  rect center: ${rectFromCenter.rect.center}');
@@ -65,7 +78,9 @@ dynamic build(BuildContext context) {
 
   // ========== Offset relation to rect ==========
   print('--- Offset relation to rect ---');
-  print('  offset matches rect.top: ${testOffset.offset == testOffset.rect.top}');
+  print(
+    '  offset matches rect.top: ${testOffset.offset == testOffset.rect.top}',
+  );
   print('  offset value: ${testOffset.offset}');
   print('  rect.top value: ${testOffset.rect.top}');
 
@@ -73,13 +88,24 @@ dynamic build(BuildContext context) {
   print('--- Multiple RevealedOffsets ---');
   final offsets = [
     RevealedOffset(offset: 0.0, rect: Rect.fromLTWH(0.0, 0.0, 100.0, 100.0)),
-    RevealedOffset(offset: 100.0, rect: Rect.fromLTWH(0.0, 100.0, 100.0, 100.0)),
-    RevealedOffset(offset: 200.0, rect: Rect.fromLTWH(0.0, 200.0, 100.0, 100.0)),
-    RevealedOffset(offset: 300.0, rect: Rect.fromLTWH(0.0, 300.0, 100.0, 100.0)),
+    RevealedOffset(
+      offset: 100.0,
+      rect: Rect.fromLTWH(0.0, 100.0, 100.0, 100.0),
+    ),
+    RevealedOffset(
+      offset: 200.0,
+      rect: Rect.fromLTWH(0.0, 200.0, 100.0, 100.0),
+    ),
+    RevealedOffset(
+      offset: 300.0,
+      rect: Rect.fromLTWH(0.0, 300.0, 100.0, 100.0),
+    ),
   ];
   print('  Created ${offsets.length} RevealedOffsets');
   for (var i = 0; i < offsets.length; i++) {
-    print('  [$i] offset: ${offsets[i].offset}, rect.top: ${offsets[i].rect.top}');
+    print(
+      '  [$i] offset: ${offsets[i].offset}, rect.top: ${offsets[i].rect.top}',
+    );
   }
 
   // ========== ToString ==========
@@ -88,11 +114,19 @@ dynamic build(BuildContext context) {
 
   // ========== Equality behavior ==========
   print('--- Equality behavior ---');
-  final offsetA = RevealedOffset(offset: 100.0, rect: Rect.fromLTWH(0.0, 100.0, 50.0, 50.0));
-  final offsetB = RevealedOffset(offset: 100.0, rect: Rect.fromLTWH(0.0, 100.0, 50.0, 50.0));
+  final offsetA = RevealedOffset(
+    offset: 100.0,
+    rect: Rect.fromLTWH(0.0, 100.0, 50.0, 50.0),
+  );
+  final offsetB = RevealedOffset(
+    offset: 100.0,
+    rect: Rect.fromLTWH(0.0, 100.0, 50.0, 50.0),
+  );
   print('  offsetA == offsetA: ${offsetA == offsetA}');
   print('  offsetA == offsetB: ${offsetA == offsetB}');
-  print('  offsetA.offset == offsetB.offset: ${offsetA.offset == offsetB.offset}');
+  print(
+    '  offsetA.offset == offsetB.offset: ${offsetA.offset == offsetB.offset}',
+  );
   print('  offsetA.rect == offsetB.rect: ${offsetA.rect == offsetB.rect}');
 
   print('RevealedOffset test completed');
@@ -103,8 +137,10 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('RevealedOffset Tests',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          Text(
+            'RevealedOffset Tests',
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('Basic offset: ${offset1.offset}'),
           Text('Basic rect: ${offset1.rect}'),

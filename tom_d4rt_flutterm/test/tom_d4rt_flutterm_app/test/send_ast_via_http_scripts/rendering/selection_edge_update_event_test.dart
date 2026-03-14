@@ -64,9 +64,15 @@ dynamic build(BuildContext context) {
 
   // ========== Different positions ==========
   print('--- Different positions ---');
-  final zeroPos = SelectionEdgeUpdateEvent.forStart(globalPosition: Offset.zero);
-  final negativePos = SelectionEdgeUpdateEvent.forStart(globalPosition: Offset(-50.0, -50.0));
-  final largePos = SelectionEdgeUpdateEvent.forEnd(globalPosition: Offset(10000.0, 20000.0));
+  final zeroPos = SelectionEdgeUpdateEvent.forStart(
+    globalPosition: Offset.zero,
+  );
+  final negativePos = SelectionEdgeUpdateEvent.forStart(
+    globalPosition: Offset(-50.0, -50.0),
+  );
+  final largePos = SelectionEdgeUpdateEvent.forEnd(
+    globalPosition: Offset(10000.0, 20000.0),
+  );
   print('  zero position: ${zeroPos.globalPosition}');
   print('  negative position: ${negativePos.globalPosition}');
   print('  large position: ${largePos.globalPosition}');
@@ -74,8 +80,12 @@ dynamic build(BuildContext context) {
   // ========== Event type verification ==========
   print('--- Event type ---');
   print('  event1.type: ${event1.type}');
-  print('  is startEdgeUpdate: ${event1.type == SelectionEventType.startEdgeUpdate}');
-  print('  is endEdgeUpdate: ${event1.type == SelectionEventType.endEdgeUpdate}');
+  print(
+    '  is startEdgeUpdate: ${event1.type == SelectionEventType.startEdgeUpdate}',
+  );
+  print(
+    '  is endEdgeUpdate: ${event1.type == SelectionEventType.endEdgeUpdate}',
+  );
 
   // ========== Multiple events ==========
   print('--- Multiple events ---');
@@ -92,11 +102,17 @@ dynamic build(BuildContext context) {
 
   // ========== Equality behavior ==========
   print('--- Equality behavior ---');
-  final eventA = SelectionEdgeUpdateEvent.forStart(globalPosition: Offset(100.0, 100.0));
-  final eventB = SelectionEdgeUpdateEvent.forStart(globalPosition: Offset(100.0, 100.0));
+  final eventA = SelectionEdgeUpdateEvent.forStart(
+    globalPosition: Offset(100.0, 100.0),
+  );
+  final eventB = SelectionEdgeUpdateEvent.forStart(
+    globalPosition: Offset(100.0, 100.0),
+  );
   print('  eventA == eventA: ${eventA == eventA}');
   print('  eventA == eventB: ${eventA == eventB}');
-  print('  eventA.globalPosition == eventB.globalPosition: ${eventA.globalPosition == eventB.globalPosition}');
+  print(
+    '  eventA.globalPosition == eventB.globalPosition: ${eventA.globalPosition == eventB.globalPosition}',
+  );
 
   // ========== ToString ==========
   print('--- ToString ---');
@@ -110,8 +126,10 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('SelectionEdgeUpdateEvent Tests',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          Text(
+            'SelectionEdgeUpdateEvent Tests',
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('Start event position: ${startEvent.globalPosition}'),
           Text('End event position: ${endEvent.globalPosition}'),

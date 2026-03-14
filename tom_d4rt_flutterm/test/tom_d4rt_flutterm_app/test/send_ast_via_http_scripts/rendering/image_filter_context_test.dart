@@ -16,11 +16,7 @@ dynamic build(BuildContext context) {
   print('--- BackdropFilter (uses ImageFilterContext) ---');
   final backdropFilter = BackdropFilter(
     filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
-    child: Container(
-      width: 100.0,
-      height: 100.0,
-      color: Color(0x80FFFFFF),
-    ),
+    child: Container(width: 100.0, height: 100.0, color: Color(0x80FFFFFF)),
   );
   print('  BackdropFilter created');
   print('  filter: blur(5.0, 5.0)');
@@ -76,10 +72,22 @@ dynamic build(BuildContext context) {
   // ========== Matrix transforms in filter ==========
   print('--- Matrix transforms ---');
   final identityMatrix = Float64List.fromList([
-    1.0, 0.0, 0.0, 0.0,
-    0.0, 1.0, 0.0, 0.0,
-    0.0, 0.0, 1.0, 0.0,
-    0.0, 0.0, 0.0, 1.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
   ]);
   final matrixFilter = ImageFilter.matrix(identityMatrix);
   print('  identity matrix filter created');
@@ -102,8 +110,10 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('ImageFilterContext Tests',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          Text(
+            'ImageFilterContext Tests',
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('ImageFilterContext is abstract'),
           Text('Used by BackdropFilter internally'),

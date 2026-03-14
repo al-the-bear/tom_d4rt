@@ -16,13 +16,13 @@ dynamic build(BuildContext context) {
   print('--- Different layer types ---');
   final containerHandle = LayerHandle<ContainerLayer>();
   print('  ContainerLayer handle: ${containerHandle.runtimeType}');
-  
+
   final offsetHandle = LayerHandle<OffsetLayer>();
   print('  OffsetLayer handle: ${offsetHandle.runtimeType}');
-  
+
   final transformHandle = LayerHandle<TransformLayer>();
   print('  TransformLayer handle: ${transformHandle.runtimeType}');
-  
+
   final opacityHandle = LayerHandle<OpacityLayer>();
   print('  OpacityLayer handle: ${opacityHandle.runtimeType}');
 
@@ -96,8 +96,10 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('LayerHandle Tests',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          Text(
+            'LayerHandle Tests',
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('Basic handle: ${handle1.runtimeType}'),
           Text('Initial layer: null'),

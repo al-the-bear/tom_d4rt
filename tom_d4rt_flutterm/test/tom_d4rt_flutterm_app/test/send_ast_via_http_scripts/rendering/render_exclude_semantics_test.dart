@@ -52,9 +52,7 @@ dynamic build(BuildContext context) {
       width: 150,
       height: 50,
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Colors.purple, Colors.blue],
-        ),
+        gradient: LinearGradient(colors: [Colors.purple, Colors.blue]),
         borderRadius: BorderRadius.circular(25),
       ),
     ),
@@ -65,9 +63,7 @@ dynamic build(BuildContext context) {
   final duplicateInfo = Row(
     mainAxisSize: MainAxisSize.min,
     children: [
-      ExcludeSemantics(
-        child: Icon(Icons.email, color: Colors.blue),
-      ),
+      ExcludeSemantics(child: Icon(Icons.email, color: Colors.blue)),
       SizedBox(width: 8),
       Text('email@example.com'),
     ],
@@ -86,9 +82,7 @@ dynamic build(BuildContext context) {
     child: Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        ExcludeSemantics(
-          child: Icon(Icons.star, color: Colors.amber),
-        ),
+        ExcludeSemantics(child: Icon(Icons.star, color: Colors.amber)),
         Text('Star'),
       ],
     ),
@@ -145,9 +139,7 @@ dynamic build(BuildContext context) {
           width: 120,
           height: 40,
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Colors.orange, Colors.red],
-            ),
+            gradient: LinearGradient(colors: [Colors.orange, Colors.red]),
             borderRadius: BorderRadius.circular(20),
           ),
         ),

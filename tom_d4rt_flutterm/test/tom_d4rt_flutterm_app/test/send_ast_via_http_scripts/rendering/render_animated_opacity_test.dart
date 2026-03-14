@@ -28,7 +28,9 @@ dynamic build(BuildContext context) {
       width: 80,
       height: 60,
       color: Colors.blue,
-      child: Center(child: Text('100%', style: TextStyle(color: Colors.white))),
+      child: Center(
+        child: Text('100%', style: TextStyle(color: Colors.white)),
+      ),
     ),
   );
   print('Created AnimatedOpacity with opacity: 1.0');
@@ -40,7 +42,9 @@ dynamic build(BuildContext context) {
       width: 80,
       height: 60,
       color: Colors.blue,
-      child: Center(child: Text('50%', style: TextStyle(color: Colors.white))),
+      child: Center(
+        child: Text('50%', style: TextStyle(color: Colors.white)),
+      ),
     ),
   );
   print('Created AnimatedOpacity with opacity: 0.5');
@@ -52,7 +56,9 @@ dynamic build(BuildContext context) {
       width: 80,
       height: 60,
       color: Colors.blue,
-      child: Center(child: Text('25%', style: TextStyle(color: Colors.white))),
+      child: Center(
+        child: Text('25%', style: TextStyle(color: Colors.white)),
+      ),
     ),
   );
   print('Created AnimatedOpacity with opacity: 0.25');
@@ -64,7 +70,9 @@ dynamic build(BuildContext context) {
       width: 80,
       height: 60,
       color: Colors.blue,
-      child: Center(child: Text('0%', style: TextStyle(color: Colors.white))),
+      child: Center(
+        child: Text('0%', style: TextStyle(color: Colors.white)),
+      ),
     ),
   );
   print('Created AnimatedOpacity with opacity: 0.0');
@@ -143,7 +151,9 @@ dynamic build(BuildContext context) {
     alwaysIncludeSemantics: true,
     child: Text('Hidden but accessible'),
   );
-  print('alwaysIncludeSemantics: true - accessibility included even when invisible');
+  print(
+    'alwaysIncludeSemantics: true - accessibility included even when invisible',
+  );
 
   final withoutSemantics = AnimatedOpacity(
     opacity: 0.0,
@@ -151,7 +161,9 @@ dynamic build(BuildContext context) {
     alwaysIncludeSemantics: false,
     child: Text('Hidden and not accessible'),
   );
-  print('alwaysIncludeSemantics: false - accessibility excluded when invisible');
+  print(
+    'alwaysIncludeSemantics: false - accessibility excluded when invisible',
+  );
 
   // ========== ON END CALLBACK ==========
   print('--- onEnd Callback ---');

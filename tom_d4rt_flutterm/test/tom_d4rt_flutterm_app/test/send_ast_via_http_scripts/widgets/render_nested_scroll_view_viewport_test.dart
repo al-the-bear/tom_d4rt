@@ -35,19 +35,21 @@ dynamic build(BuildContext context) {
         ),
       ),
     ],
-    body: Builder(builder: (context) {
-      // Access NestedScrollView internals
-      final parentController = PrimaryScrollController.maybeOf(context);
-      print('NestedScrollView parent controller: $parentController');
-      return ListView.builder(
-        key: innerScrollKey,
-        itemCount: 20,
-        itemBuilder: (context, index) => ListTile(
-          title: Text('Item $index'),
-          leading: CircleAvatar(child: Text('$index')),
-        ),
-      );
-    }),
+    body: Builder(
+      builder: (context) {
+        // Access NestedScrollView internals
+        final parentController = PrimaryScrollController.maybeOf(context);
+        print('NestedScrollView parent controller: $parentController');
+        return ListView.builder(
+          key: innerScrollKey,
+          itemCount: 20,
+          itemBuilder: (context, index) => ListTile(
+            title: Text('Item $index'),
+            leading: CircleAvatar(child: Text('$index')),
+          ),
+        );
+      },
+    ),
   );
   print('NestedScrollView (floating) created');
 
@@ -93,8 +95,10 @@ dynamic build(BuildContext context) {
           height: 80,
           color: Colors.orange.shade200,
           child: Center(
-            child: Text('Secondary Header Section',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+            child: Text(
+              'Secondary Header Section',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            ),
           ),
         ),
       ),
@@ -141,21 +145,24 @@ dynamic build(BuildContext context) {
         ),
       ),
     ],
-    body: Builder(builder: (context) {
-      return CustomScrollView(
-        slivers: [
-          SliverOverlapInjector(
-            handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-          ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) => ListTile(title: Text('Overlap Item $index')),
-              childCount: 25,
+    body: Builder(
+      builder: (context) {
+        return CustomScrollView(
+          slivers: [
+            SliverOverlapInjector(
+              handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
             ),
-          ),
-        ],
-      );
-    }),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) =>
+                    ListTile(title: Text('Overlap Item $index')),
+                childCount: 25,
+              ),
+            ),
+          ],
+        );
+      },
+    ),
   );
   print('NestedScrollView (overlap absorber) created');
 
@@ -189,9 +196,7 @@ dynamic build(BuildContext context) {
           ],
         ),
       ),
-      body: TabBarView(
-        children: [widget1, widget2, widget3, widget4],
-      ),
+      body: TabBarView(children: [widget1, widget2, widget3, widget4]),
     ),
   );
 }
@@ -215,7 +220,11 @@ class _SliverPersistentHeaderDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => maxHeight;
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
     return SizedBox.expand(child: child);
   }
 

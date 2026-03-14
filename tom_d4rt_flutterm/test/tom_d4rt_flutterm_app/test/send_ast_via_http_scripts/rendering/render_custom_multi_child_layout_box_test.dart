@@ -125,8 +125,14 @@ dynamic build(BuildContext context) {
   final stringIds = CustomMultiChildLayout(
     delegate: _StackLayoutDelegate(),
     children: [
-      LayoutId(id: 'bg', child: Container(color: Colors.grey)),
-      LayoutId(id: 'fg', child: Container(width: 40, height: 40, color: Colors.red)),
+      LayoutId(
+        id: 'bg',
+        child: Container(color: Colors.grey),
+      ),
+      LayoutId(
+        id: 'fg',
+        child: Container(width: 40, height: 40, color: Colors.red),
+      ),
     ],
   );
   print('String IDs: "bg", "fg"');
@@ -150,19 +156,14 @@ dynamic build(BuildContext context) {
           id: 'background',
           child: Container(
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Colors.purple, Colors.blue],
-              ),
+              gradient: LinearGradient(colors: [Colors.purple, Colors.blue]),
             ),
           ),
         ),
         LayoutId(
           id: 'foreground',
           child: Card(
-            child: Padding(
-              padding: EdgeInsets.all(8),
-              child: Text('Card'),
-            ),
+            child: Padding(padding: EdgeInsets.all(8), child: Text('Card')),
           ),
         ),
       ],
@@ -195,10 +196,7 @@ dynamic build(BuildContext context) {
         id: 'foreground',
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(Icons.star, size: 24),
-            Text('Star'),
-          ],
+          children: [Icon(Icons.star, size: 24), Text('Star')],
         ),
       ),
     ],
@@ -216,11 +214,7 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('RenderCustomMultiChildLayoutBox Tests'),
-      Container(
-        width: 150,
-        height: 100,
-        child: stackLayout,
-      ),
+      Container(width: 150, height: 100, child: stackLayout),
       SizedBox(height: 8),
       Container(
         width: 120,

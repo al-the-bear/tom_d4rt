@@ -112,9 +112,7 @@ dynamic build(BuildContext context) {
       width: 100,
       height: 100,
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Colors.blue, Colors.purple],
-        ),
+        gradient: LinearGradient(colors: [Colors.blue, Colors.purple]),
       ),
       child: Center(child: Icon(Icons.image, color: Colors.white)),
     ),
@@ -157,7 +155,13 @@ dynamic build(BuildContext context) {
       SizedBox(height: 8),
       Row(
         mainAxisSize: MainAxisSize.min,
-        children: [smallRadius, SizedBox(width: 8), mediumRadius, SizedBox(width: 8), largeRadius],
+        children: [
+          smallRadius,
+          SizedBox(width: 8),
+          mediumRadius,
+          SizedBox(width: 8),
+          largeRadius,
+        ],
       ),
       SizedBox(height: 8),
       asymmetric,

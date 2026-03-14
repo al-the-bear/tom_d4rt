@@ -86,8 +86,10 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('FloatingHeaderSnapConfiguration Tests',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          Text(
+            'FloatingHeaderSnapConfiguration Tests',
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('Basic config: ${config1.runtimeType}'),
           Text('Curve: ${config1.curve}'),

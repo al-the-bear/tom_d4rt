@@ -32,9 +32,15 @@ dynamic build(BuildContext context) {
 
   // ========== COMPARING WITH IGNORE POINTER ==========
   print('--- AbsorbPointer vs IgnorePointer ---');
-  print('AbsorbPointer: Absorbs pointer events, prevents children from receiving them');
-  print('IgnorePointer: Ignores pointer events, they pass through to widgets behind');
-  print('Key difference: AbsorbPointer stops propagation, IgnorePointer allows it');
+  print(
+    'AbsorbPointer: Absorbs pointer events, prevents children from receiving them',
+  );
+  print(
+    'IgnorePointer: Ignores pointer events, they pass through to widgets behind',
+  );
+  print(
+    'Key difference: AbsorbPointer stops propagation, IgnorePointer allows it',
+  );
 
   // Test with ignoringSemantics
   final absorbWithSemantics = AbsorbPointer(
@@ -68,10 +74,7 @@ dynamic build(BuildContext context) {
     absorbing: true,
     child: Column(
       children: [
-        AbsorbPointer(
-          absorbing: false,
-          child: Text('Inner not absorbing'),
-        ),
+        AbsorbPointer(absorbing: false, child: Text('Inner not absorbing')),
         Text('Direct child'),
       ],
     ),
@@ -104,7 +107,7 @@ dynamic build(BuildContext context) {
 
   // ========== WIDGET TREE TESTING ==========
   print('--- Widget Tree Structure ---');
-  
+
   final complexTree = AbsorbPointer(
     absorbing: true,
     child: Stack(

@@ -8,7 +8,7 @@ dynamic build(BuildContext context) {
 
   // ========== Section 1: Basic Creation ==========
   print('--- Section 1: Basic SliverPhysicalParentData Creation ---');
-  
+
   final parentData1 = SliverPhysicalParentData();
   print('Created SliverPhysicalParentData: ${parentData1.runtimeType}');
   print('Type check: ${parentData1 is SliverPhysicalParentData}');
@@ -17,23 +17,23 @@ dynamic build(BuildContext context) {
 
   // ========== Section 2: Paint Offset Property ==========
   print('--- Section 2: Paint Offset Property ---');
-  
+
   final parentData2 = SliverPhysicalParentData();
   print('Initial paintOffset: ${parentData2.paintOffset}');
-  
+
   parentData2.paintOffset = Offset(100.0, 50.0);
   print('After setting to (100, 50): ${parentData2.paintOffset}');
-  
+
   parentData2.paintOffset = Offset(0.0, 0.0);
   print('After setting to (0, 0): ${parentData2.paintOffset}');
-  
+
   parentData2.paintOffset = Offset(200.5, 150.5);
   print('After setting to (200.5, 150.5): ${parentData2.paintOffset}');
   results.add('Paint offset tested');
 
   // ========== Section 3: Offset Zero ==========
   print('--- Section 3: Offset Zero ---');
-  
+
   final parentData3 = SliverPhysicalParentData();
   parentData3.paintOffset = Offset.zero;
   print('Offset.zero: ${parentData3.paintOffset}');
@@ -42,7 +42,7 @@ dynamic build(BuildContext context) {
 
   // ========== Section 4: Various Paint Offsets ==========
   print('--- Section 4: Various Paint Offsets ---');
-  
+
   final offsets = [
     Offset(0, 0),
     Offset(10, 20),
@@ -54,13 +54,15 @@ dynamic build(BuildContext context) {
   for (final offset in offsets) {
     final pd = SliverPhysicalParentData();
     pd.paintOffset = offset;
-    print('Paint offset $offset: dx=${pd.paintOffset.dx}, dy=${pd.paintOffset.dy}');
+    print(
+      'Paint offset $offset: dx=${pd.paintOffset.dx}, dy=${pd.paintOffset.dy}',
+    );
   }
   results.add('Tested ${offsets.length} paint offsets');
 
   // ========== Section 5: Negative Offsets ==========
   print('--- Section 5: Negative Offsets ---');
-  
+
   final negativeOffsets = [
     Offset(-10, -20),
     Offset(-50, 0),
@@ -76,7 +78,7 @@ dynamic build(BuildContext context) {
 
   // ========== Section 6: Multiple Instances ==========
   print('--- Section 6: Multiple Instances ---');
-  
+
   final instances = <SliverPhysicalParentData>[];
   for (int i = 0; i < 5; i++) {
     final pd = SliverPhysicalParentData();
@@ -89,16 +91,18 @@ dynamic build(BuildContext context) {
 
   // ========== Section 7: Inheritance Chain ==========
   print('--- Section 7: Inheritance Chain ---');
-  
+
   final parentData4 = SliverPhysicalParentData();
   print('Is ParentData: ${parentData4 is ParentData}');
-  print('Is SliverPhysicalParentData: ${parentData4 is SliverPhysicalParentData}');
+  print(
+    'Is SliverPhysicalParentData: ${parentData4 is SliverPhysicalParentData}',
+  );
   print('Runtime type: ${parentData4.runtimeType}');
   results.add('Inheritance chain verified');
 
   // ========== Section 8: Large Paint Offsets ==========
   print('--- Section 8: Large Paint Offsets ---');
-  
+
   final largeOffsets = [
     Offset(10000, 5000),
     Offset(50000, 25000),
@@ -114,7 +118,7 @@ dynamic build(BuildContext context) {
 
   // ========== Section 9: Fractional Offsets ==========
   print('--- Section 9: Fractional Offsets ---');
-  
+
   final fractionalOffsets = [
     Offset(0.1, 0.2),
     Offset(1.5, 2.5),
@@ -130,17 +134,19 @@ dynamic build(BuildContext context) {
 
   // ========== Section 10: Offset Distance and Direction ==========
   print('--- Section 10: Offset Distance and Direction ---');
-  
+
   final parentData5 = SliverPhysicalParentData();
   parentData5.paintOffset = Offset(100.0, 100.0);
   print('Offset (100, 100) distance: ${parentData5.paintOffset.distance}');
   print('Offset (100, 100) direction: ${parentData5.paintOffset.direction}');
-  print('Offset (100, 100) distanceSquared: ${parentData5.paintOffset.distanceSquared}');
+  print(
+    'Offset (100, 100) distanceSquared: ${parentData5.paintOffset.distanceSquared}',
+  );
   results.add('Distance and direction tested');
 
   // ========== Section 11: toString Method ==========
   print('--- Section 11: toString Method ---');
-  
+
   final parentData6 = SliverPhysicalParentData();
   parentData6.paintOffset = Offset(75.0, 125.0);
   print('toString: ${parentData6.toString()}');

@@ -23,7 +23,8 @@ dynamic build(BuildContext context) {
   print('--- ClipPathLayer with Different Paths ---');
 
   // Circle path
-  final circlePath = Path()..addOval(Rect.fromCircle(center: Offset(50.0, 50.0), radius: 40.0));
+  final circlePath = Path()
+    ..addOval(Rect.fromCircle(center: Offset(50.0, 50.0), radius: 40.0));
   final circleClip = ClipPathLayer(clipPath: circlePath);
   print('  circle clip created');
 
@@ -33,10 +34,13 @@ dynamic build(BuildContext context) {
   print('  rectangle clip created');
 
   // Rounded rectangle path
-  final rrectPath = Path()..addRRect(RRect.fromRectAndRadius(
-    Rect.fromLTWH(0.0, 0.0, 100.0, 80.0),
-    Radius.circular(15.0),
-  ));
+  final rrectPath = Path()
+    ..addRRect(
+      RRect.fromRectAndRadius(
+        Rect.fromLTWH(0.0, 0.0, 100.0, 80.0),
+        Radius.circular(15.0),
+      ),
+    );
   final rrectClip = ClipPathLayer(clipPath: rrectPath);
   print('  rounded rectangle clip created');
 
@@ -131,8 +135,10 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('ClipPathLayer Tests',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          Text(
+            'ClipPathLayer Tests',
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('ClipPathLayer: ${clipLayer.runtimeType}'),
           Text('Shapes: triangle, circle, rect, rrect, star'),

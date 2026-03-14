@@ -132,12 +132,14 @@ dynamic build(BuildContext context) {
   print('--- EdgeInsets Tests ---');
   final ei1 = EdgeInsets.all(16.0);
   print('EdgeInsets.all: ${ei1.left}');
-  
+
   final ei2 = EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0);
   print('EdgeInsets.symmetric h: ${ei2.left}, v: ${ei2.top}');
 
   final ei3 = EdgeInsets.fromLTRB(5, 10, 15, 20);
-  print('EdgeInsets.fromLTRB: ${ei3.left}, ${ei3.top}, ${ei3.right}, ${ei3.bottom}');
+  print(
+    'EdgeInsets.fromLTRB: ${ei3.left}, ${ei3.top}, ${ei3.right}, ${ei3.bottom}',
+  );
 
   // ========== ALIGNMENT ==========
   print('--- Alignment Tests ---');
@@ -157,55 +159,75 @@ dynamic build(BuildContext context) {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Painting Classes Overview',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          Text(
+            'Painting Classes Overview',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 12),
-          
+
           // TextPainter demo
-          Text('TextPainter: ${textPainter.width.toStringAsFixed(1)} x ${textPainter.height.toStringAsFixed(1)}'),
+          Text(
+            'TextPainter: ${textPainter.width.toStringAsFixed(1)} x ${textPainter.height.toStringAsFixed(1)}',
+          ),
           SizedBox(height: 8),
-          
+
           // TextStyle demos
           Text('Bold Italic Underline', style: textStyle1),
           Text('Merged Green', style: mergedStyle),
           SizedBox(height: 12),
-          
+
           // BoxDecoration demos
           Container(
-            width: 150, height: 50,
+            width: 150,
+            height: 50,
             decoration: boxDeco1,
-            child: Center(child: Text('Shadow Box', style: TextStyle(color: Colors.white))),
+            child: Center(
+              child: Text('Shadow Box', style: TextStyle(color: Colors.white)),
+            ),
           ),
           SizedBox(height: 8),
           Container(width: 60, height: 60, decoration: boxDeco2),
           SizedBox(height: 12),
-          
+
           // Gradient demos
           Container(
-            width: 200, height: 40,
-            decoration: BoxDecoration(gradient: linearGrad, borderRadius: BorderRadius.circular(8)),
+            width: 200,
+            height: 40,
+            decoration: BoxDecoration(
+              gradient: linearGrad,
+              borderRadius: BorderRadius.circular(8),
+            ),
             child: Center(child: Text('LinearGradient')),
           ),
           SizedBox(height: 8),
           Container(
-            width: 80, height: 80,
-            decoration: BoxDecoration(gradient: radialGrad, shape: BoxShape.circle),
+            width: 80,
+            height: 80,
+            decoration: BoxDecoration(
+              gradient: radialGrad,
+              shape: BoxShape.circle,
+            ),
           ),
           SizedBox(height: 8),
           Container(
-            width: 80, height: 80,
-            decoration: BoxDecoration(gradient: sweepGrad, shape: BoxShape.circle),
+            width: 80,
+            height: 80,
+            decoration: BoxDecoration(
+              gradient: sweepGrad,
+              shape: BoxShape.circle,
+            ),
           ),
           SizedBox(height: 12),
-          
+
           // Border demo
           Container(
-            width: 100, height: 50,
+            width: 100,
+            height: 50,
             decoration: BoxDecoration(border: border2, color: Colors.white),
             child: Center(child: Text('Borders')),
           ),
           SizedBox(height: 12),
-          
+
           // EdgeInsets demo
           Container(
             color: Colors.grey.shade300,

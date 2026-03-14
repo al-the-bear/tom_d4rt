@@ -16,19 +16,23 @@ dynamic build(BuildContext context) {
   print('RenderAnimatedSizeState.start: animation not yet started');
   print('RenderAnimatedSizeState.stable: no animation, stable size');
   print('RenderAnimatedSizeState.changed: size changed, animating');
-  print('RenderAnimatedSizeState.unstable: child size changing during animation');
+  print(
+    'RenderAnimatedSizeState.unstable: child size changing during animation',
+  );
 
   // ========== ANIMATED SIZE WIDGET ==========
   print('--- AnimatedSize Widget Tests ---');
 
-  // Small size container  
+  // Small size container
   final smallContainer = AnimatedSize(
     duration: Duration(milliseconds: 500),
     child: Container(
       width: 60,
       height: 40,
       color: Colors.blue,
-      child: Center(child: Text('S', style: TextStyle(color: Colors.white))),
+      child: Center(
+        child: Text('S', style: TextStyle(color: Colors.white)),
+      ),
     ),
   );
   print('Created AnimatedSize with small child (60x40)');
@@ -40,7 +44,9 @@ dynamic build(BuildContext context) {
       width: 100,
       height: 80,
       color: Colors.green,
-      child: Center(child: Text('M', style: TextStyle(color: Colors.white))),
+      child: Center(
+        child: Text('M', style: TextStyle(color: Colors.white)),
+      ),
     ),
   );
   print('Created AnimatedSize with medium child (100x80)');
@@ -52,7 +58,9 @@ dynamic build(BuildContext context) {
       width: 150,
       height: 100,
       color: Colors.red,
-      child: Center(child: Text('L', style: TextStyle(color: Colors.white))),
+      child: Center(
+        child: Text('L', style: TextStyle(color: Colors.white)),
+      ),
     ),
   );
   print('Created AnimatedSize with large child (150x100)');

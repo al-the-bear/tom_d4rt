@@ -16,16 +16,16 @@ dynamic build(BuildContext context) {
   print('--- Different index values ---');
   final tag0 = PlaceholderSpanIndexSemanticsTag(0);
   print('  index = 0: ${tag0.index}');
-  
+
   final tag1b = PlaceholderSpanIndexSemanticsTag(1);
   print('  index = 1: ${tag1b.index}');
-  
+
   final tag5 = PlaceholderSpanIndexSemanticsTag(5);
   print('  index = 5: ${tag5.index}');
-  
+
   final tag10 = PlaceholderSpanIndexSemanticsTag(10);
   print('  index = 10: ${tag10.index}');
-  
+
   final tag100 = PlaceholderSpanIndexSemanticsTag(100);
   print('  index = 100: ${tag100.index}');
 
@@ -42,9 +42,14 @@ dynamic build(BuildContext context) {
 
   // ========== Multiple tags for inline placeholders ==========
   print('--- Multiple tags for inline placeholders ---');
-  final inlineTags = List.generate(5, (i) => PlaceholderSpanIndexSemanticsTag(i));
+  final inlineTags = List.generate(
+    5,
+    (i) => PlaceholderSpanIndexSemanticsTag(i),
+  );
   for (int i = 0; i < inlineTags.length; i++) {
-    print('  placeholder $i: index=${inlineTags[i].index}, name=${inlineTags[i].name}');
+    print(
+      '  placeholder $i: index=${inlineTags[i].index}, name=${inlineTags[i].name}',
+    );
   }
 
   // ========== Equality comparison ==========
@@ -67,7 +72,7 @@ dynamic build(BuildContext context) {
   print('--- Large index values ---');
   final tagLarge1 = PlaceholderSpanIndexSemanticsTag(500);
   print('  index = 500: ${tagLarge1.index}');
-  
+
   final tagLarge2 = PlaceholderSpanIndexSemanticsTag(1000);
   print('  index = 1000: ${tagLarge2.index}');
 
@@ -104,8 +109,10 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('PlaceholderSpanIndexSemanticsTag Tests',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          Text(
+            'PlaceholderSpanIndexSemanticsTag Tests',
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('Type: ${tag1.runtimeType}'),
           Text('Inherits from: SemanticsTag'),

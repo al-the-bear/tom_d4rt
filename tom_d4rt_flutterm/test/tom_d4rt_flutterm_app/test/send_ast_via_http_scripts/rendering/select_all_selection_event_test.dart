@@ -15,7 +15,9 @@ dynamic build(BuildContext context) {
   print('--- SelectionEventType ---');
   print('  event type: ${event1.type}');
   print('  type name: ${event1.type.name}');
-  print('  type == SelectionEventType.selectAll: ${event1.type == SelectionEventType.selectAll}');
+  print(
+    '  type == SelectionEventType.selectAll: ${event1.type == SelectionEventType.selectAll}',
+  );
 
   // ========== Multiple SelectAllSelectionEvent instances ==========
   print('--- Multiple instances ---');
@@ -24,7 +26,9 @@ dynamic build(BuildContext context) {
   print('  event1.type: ${event1.type}');
   print('  event2.type: ${event2.type}');
   print('  event3.type: ${event3.type}');
-  print('  All have same type: ${event1.type == event2.type && event2.type == event3.type}');
+  print(
+    '  All have same type: ${event1.type == event2.type && event2.type == event3.type}',
+  );
 
   // ========== Equality behavior ==========
   print('--- Equality behavior ---');
@@ -36,7 +40,9 @@ dynamic build(BuildContext context) {
   // ========== Runtime type check ==========
   print('--- Runtime type check ---');
   print('  event1 is SelectionEvent: ${event1 is SelectionEvent}');
-  print('  event1 is SelectAllSelectionEvent: ${event1 is SelectAllSelectionEvent}');
+  print(
+    '  event1 is SelectAllSelectionEvent: ${event1 is SelectAllSelectionEvent}',
+  );
   print('  event1.runtimeType: ${event1.runtimeType}');
 
   // ========== SelectionEventType enumeration ==========
@@ -51,8 +57,12 @@ dynamic build(BuildContext context) {
   print('  selectAll index: ${SelectionEventType.selectAll.index}');
   print('  selectWord index: ${SelectionEventType.selectWord.index}');
   print('  selectParagraph index: ${SelectionEventType.selectParagraph.index}');
-  print('  granularlyExtendSelection index: ${SelectionEventType.granularlyExtendSelection.index}');
-  print('  directionallyExtendSelection index: ${SelectionEventType.directionallyExtendSelection.index}');
+  print(
+    '  granularlyExtendSelection index: ${SelectionEventType.granularlyExtendSelection.index}',
+  );
+  print(
+    '  directionallyExtendSelection index: ${SelectionEventType.directionallyExtendSelection.index}',
+  );
 
   // ========== ToString ==========
   print('--- ToString ---');
@@ -74,12 +84,16 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('SelectAllSelectionEvent Tests',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          Text(
+            'SelectAllSelectionEvent Tests',
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('Event type: ${event1.type}'),
           Text('Is SelectionEvent: ${event1 is SelectionEvent}'),
-          Text('Type == selectAll: ${event1.type == SelectionEventType.selectAll}'),
+          Text(
+            'Type == selectAll: ${event1.type == SelectionEventType.selectAll}',
+          ),
           Text('Total event types: ${SelectionEventType.values.length}'),
           Text('Events created: 3'),
         ],

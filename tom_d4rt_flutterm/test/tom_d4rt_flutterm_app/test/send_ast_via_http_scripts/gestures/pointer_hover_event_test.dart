@@ -1,19 +1,162 @@
-// D4rt test script: Tests PointerHoverEvent from gestures
+// D4rt test script: Tests PointerHoverEvent concepts from gestures
+import 'dart:ui';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print('PointerHoverEvent test executing');
+  final results = <String>[];
 
-  // Test PointerHoverEvent - PointerHoverEvent
-  print('PointerHoverEvent is available in the gestures package');
-  print('PointerHoverEvent: PointerHoverEvent');
+  // ========== PointerHoverEvent Tests ==========
+  print('Testing PointerHoverEvent...');
 
-  print('PointerHoverEvent test completed');
+  // Test 1: Create basic PointerHoverEvent
+  final hoverEvent1 = PointerHoverEvent(
+    position: Offset(150.0, 200.0),
+  );
+  assert(hoverEvent1 is PointerEvent, 'Should be PointerEvent');
+  results.add('PointerHoverEvent created');
+  print('PointerHoverEvent created: ${hoverEvent1.runtimeType}');
+
+  // Test 2: Position property
+  assert(hoverEvent1.position == Offset(150.0, 200.0), 'Position should match');
+  results.add('position: ${hoverEvent1.position}');
+  print('Hover event position: ${hoverEvent1.position}');
+
+  // Test 3: LocalPosition property
+  results.add('localPosition: ${hoverEvent1.localPosition}');
+  print('Hover event localPosition: ${hoverEvent1.localPosition}');
+
+  // Test 4: Default kind
+  results.add('default kind: ${hoverEvent1.kind}');
+  print('Hover event default kind: ${hoverEvent1.kind}');
+
+  // Test 5: Hover with mouse kind
+  final hoverMouse = PointerHoverEvent(
+    position: Offset(100.0, 100.0),
+    kind: PointerDeviceKind.mouse,
+  );
+  assert(hoverMouse.kind == PointerDeviceKind.mouse, 'Kind should be mouse');
+  results.add('mouse kind: ${hoverMouse.kind}');
+  print('Hover event with mouse kind: ${hoverMouse.kind}');
+
+  // Test 6: Hover with delta
+  final hoverDelta = PointerHoverEvent(
+    position: Offset(200.0, 250.0),
+    delta: Offset(10.0, 15.0),
+  );
+  assert(hoverDelta.delta == Offset(10.0, 15.0), 'Delta should match');
+  results.add('delta: ${hoverDelta.delta}');
+  print('Hover event delta: ${hoverDelta.delta}');
+
+  // Test 7: TimeStamp property
+  final hoverTime = PointerHoverEvent(
+    position: Offset(75.0, 100.0),
+    timeStamp: Duration(milliseconds: 1000),
+  );
+  assert(hoverTime.timeStamp == Duration(milliseconds: 1000), 'TimeStamp should match');
+  results.add('timeStamp: ${hoverTime.timeStamp}');
+  print('Hover event timeStamp: ${hoverTime.timeStamp}');
+
+  // Test 8: Device property
+  final hoverDevice = PointerHoverEvent(
+    position: Offset(180.0, 220.0),
+    device: 3,
+  );
+  assert(hoverDevice.device == 3, 'Device should be 3');
+  results.add('device: ${hoverDevice.device}');
+  print('Hover event device: ${hoverDevice.device}');
+
+  // Test 9: Down property should be false for hover
+  assert(hoverEvent1.down == false, 'Down should be false for hover event');
+  results.add('down: ${hoverEvent1.down}');
+  print('Hover event down: ${hoverEvent1.down}');
+
+  // Test 10: Buttons property (default 0 for hover)
+  results.add('buttons: ${hoverEvent1.buttons}');
+  print('Hover event buttons: ${hoverEvent1.buttons}');
+
+  // Test 11: Pressure properties
+  results.add('pressure: ${hoverEvent1.pressure}');
+  print('Hover event pressure: ${hoverEvent1.pressure}');
+
+  // Test 12: Hover with stylus kind
+  final hoverStylus = PointerHoverEvent(
+    position: Offset(120.0, 140.0),
+    kind: PointerDeviceKind.stylus,
+    tilt: 0.2,
+  );
+  assert(hoverStylus.kind == PointerDeviceKind.stylus, 'Kind should be stylus');
+  results.add('stylus tilt: ${hoverStylus.tilt}');
+  print('Hover event stylus tilt: ${hoverStylus.tilt}');
+
+  // Test 13: Obscured property
+  final hoverObscured = PointerHoverEvent(
+    position: Offset(90.0, 110.0),
+    obscured: true,
+  );
+  assert(hoverObscured.obscured == true, 'Obscured should be true');
+  results.add('obscured: ${hoverObscured.obscured}');
+  print('Hover event obscured: ${hoverObscured.obscured}');
+
+  // Test 14: Synthesized property
+  results.add('synthesized: ${hoverEvent1.synthesized}');
+  print('Hover event synthesized: ${hoverEvent1.synthesized}');
+
+  // Test 15: Pointer ID
+  final hoverPointer = PointerHoverEvent(
+    position: Offset(60.0, 80.0),
+    pointer: 99,
+  );
+  assert(hoverPointer.pointer == 99, 'Pointer should be 99');
+  results.add('pointer: ${hoverPointer.pointer}');
+  print('Hover event pointer: ${hoverPointer.pointer}');
+
+  // Test 16: Multiple hover events with different positions
+  final hoverA = PointerHoverEvent(position: Offset(10, 20));
+  final hoverB = PointerHoverEvent(position: Offset(30, 40));
+  assert(hoverA.position != hoverB.position, 'Positions should differ');
+  results.add('Events have different positions');
+  print('Hover events comparison: positions differ');
+
+  // Test 17: Offset operations for hover tracking
+  final startPos = Offset(100.0, 100.0);
+  final currentPos = Offset(150.0, 180.0);
+  final movement = currentPos - startPos;
+  assert(movement == Offset(50.0, 80.0), 'Movement should be correct');
+  results.add('movement: $movement');
+  print('Hover movement calculation: $movement');
+
+  // Test 18: Offset magnitude
+  final magnitude = movement.distance;
+  results.add('magnitude: ${magnitude.toStringAsFixed(2)}');
+  print('Hover movement magnitude: $magnitude');
+
+  // Test 19: EmbedderId property
+  final hoverEmbed = PointerHoverEvent(
+    position: Offset(45, 55),
+    embedderId: 456,
+  );
+  assert(hoverEmbed.embedderId == 456, 'EmbedderId should be 456');
+  results.add('embedderId: ${hoverEmbed.embedderId}');
+  print('Hover event embedderId: ${hoverEmbed.embedderId}');
+
+  // Test 20: Size and orientation
+  final hoverSize = PointerHoverEvent(
+    position: Offset(200, 200),
+    size: 1.5,
+    orientation: 0.5,
+  );
+  results.add('size: ${hoverSize.size}');
+  print('Hover event size: ${hoverSize.size}, orientation: ${hoverSize.orientation}');
+
+  print('PointerHoverEvent test completed with ${results.length} tests');
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('PointerHoverEvent Tests'),
-      Text('PointerHoverEvent'),
+      Text('Tests passed: ${results.length}'),
+      ...results.take(6).map((r) => Text(r, style: TextStyle(fontSize: 10))),
     ],
   );
 }

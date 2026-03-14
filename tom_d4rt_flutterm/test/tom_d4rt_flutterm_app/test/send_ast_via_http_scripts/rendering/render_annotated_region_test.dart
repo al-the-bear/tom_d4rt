@@ -8,7 +8,9 @@ dynamic build(BuildContext context) {
 
   // ========== ANNOTATED REGION CONCEPTS ==========
   print('--- RenderAnnotatedRegion Concepts ---');
-  print('RenderAnnotatedRegion adds metadata annotations to render tree regions');
+  print(
+    'RenderAnnotatedRegion adds metadata annotations to render tree regions',
+  );
   print('Annotations can be queried via hit testing');
   print('Generic type T defines the annotation value type');
 
@@ -103,7 +105,9 @@ dynamic build(BuildContext context) {
       width: 100,
       height: 40,
       color: Colors.purple,
-      child: Center(child: Text('Header', style: TextStyle(color: Colors.white))),
+      child: Center(
+        child: Text('Header', style: TextStyle(color: Colors.white)),
+      ),
     ),
   );
   print('Created AnnotatedRegion<String> with value: header-region');
@@ -115,7 +119,9 @@ dynamic build(BuildContext context) {
       width: 80,
       height: 40,
       color: Colors.orange,
-      child: Center(child: Text('ID: 42', style: TextStyle(color: Colors.white))),
+      child: Center(
+        child: Text('ID: 42', style: TextStyle(color: Colors.white)),
+      ),
     ),
   );
   print('Created AnnotatedRegion<int> with value: 42');
@@ -152,11 +158,14 @@ dynamic build(BuildContext context) {
         Container(
           height: 30,
           color: Colors.blue,
-          child: Center(child: Text('AppBar', style: TextStyle(color: Colors.white, fontSize: 12))),
+          child: Center(
+            child: Text(
+              'AppBar',
+              style: TextStyle(color: Colors.white, fontSize: 12),
+            ),
+          ),
         ),
-        Expanded(
-          child: Center(child: Text('Body')),
-        ),
+        Expanded(child: Center(child: Text('Body'))),
       ],
     ),
   );
@@ -180,7 +189,9 @@ dynamic build(BuildContext context) {
             width: 60,
             height: 40,
             color: Colors.red.shade400,
-            child: Center(child: Text('Inner', style: TextStyle(color: Colors.white))),
+            child: Center(
+              child: Text('Inner', style: TextStyle(color: Colors.white)),
+            ),
           ),
         ),
       ),

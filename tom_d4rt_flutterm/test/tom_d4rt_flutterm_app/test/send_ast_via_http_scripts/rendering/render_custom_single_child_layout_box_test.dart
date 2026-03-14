@@ -42,18 +42,24 @@ class _CornerDelegate extends SingleChildLayoutDelegate {
 
   @override
   BoxConstraints getConstraintsForChild(BoxConstraints constraints) {
-    return BoxConstraints.loose(Size(
-      constraints.maxWidth - padding.horizontal,
-      constraints.maxHeight - padding.vertical,
-    ));
+    return BoxConstraints.loose(
+      Size(
+        constraints.maxWidth - padding.horizontal,
+        constraints.maxHeight - padding.vertical,
+      ),
+    );
   }
 
   @override
   Offset getPositionForChild(Size size, Size childSize) {
-    final x = padding.left + (size.width - padding.horizontal - childSize.width) * 
-        ((alignment.x + 1) / 2);
-    final y = padding.top + (size.height - padding.vertical - childSize.height) * 
-        ((alignment.y + 1) / 2);
+    final x =
+        padding.left +
+        (size.width - padding.horizontal - childSize.width) *
+            ((alignment.x + 1) / 2);
+    final y =
+        padding.top +
+        (size.height - padding.vertical - childSize.height) *
+            ((alignment.y + 1) / 2);
     return Offset(x, y);
   }
 
@@ -222,7 +228,10 @@ dynamic build(BuildContext context) {
     height: 100,
     color: Colors.grey[300],
     child: CustomSingleChildLayout(
-      delegate: _CornerDelegate(alignment: Alignment.topRight, padding: EdgeInsets.all(4)),
+      delegate: _CornerDelegate(
+        alignment: Alignment.topRight,
+        padding: EdgeInsets.all(4),
+      ),
       child: CustomSingleChildLayout(
         delegate: _CenterOffsetDelegate(),
         child: Container(
@@ -257,9 +266,19 @@ dynamic build(BuildContext context) {
       Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(width: 80, height: 60, color: Colors.grey[100], child: topLeftLayout),
+          Container(
+            width: 80,
+            height: 60,
+            color: Colors.grey[100],
+            child: topLeftLayout,
+          ),
           SizedBox(width: 8),
-          Container(width: 80, height: 60, color: Colors.grey[100], child: bottomRightLayout),
+          Container(
+            width: 80,
+            height: 60,
+            color: Colors.grey[100],
+            child: bottomRightLayout,
+          ),
         ],
       ),
       SizedBox(height: 8),

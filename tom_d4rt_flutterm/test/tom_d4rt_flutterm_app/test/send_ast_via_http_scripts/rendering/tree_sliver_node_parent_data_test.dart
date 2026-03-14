@@ -58,7 +58,9 @@ dynamic build(BuildContext context) {
   print('--- TreeSliverNodeParentData Inheritance ---');
   // TreeSliverNodeParentData extends SliverMultiBoxAdaptorParentData
   print('  extends SliverMultiBoxAdaptorParentData: true');
-  print('  parentData is SliverMultiBoxAdaptorParentData: ${parentData is SliverMultiBoxAdaptorParentData}');
+  print(
+    '  parentData is SliverMultiBoxAdaptorParentData: ${parentData is SliverMultiBoxAdaptorParentData}',
+  );
   print('  parentData is ParentData: ${parentData is ParentData}');
 
   // ========== TreeSliverNodeParentData Index Property ==========
@@ -96,7 +98,9 @@ dynamic build(BuildContext context) {
     node.layoutOffset = i * 40.0;
     node.index = i;
     nodes.add(node);
-    print('  node[$i]: depth=${node.depth}, offset=${node.layoutOffset}, index=${node.index}');
+    print(
+      '  node[$i]: depth=${node.depth}, offset=${node.layoutOffset}, index=${node.index}',
+    );
   }
 
   print('TreeSliverNodeParentData test completed');
@@ -107,8 +111,10 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('TreeSliverNodeParentData Tests',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          Text(
+            'TreeSliverNodeParentData Tests',
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('Type: ${parentData.runtimeType}'),
           Text('Properties: depth, layoutOffset'),

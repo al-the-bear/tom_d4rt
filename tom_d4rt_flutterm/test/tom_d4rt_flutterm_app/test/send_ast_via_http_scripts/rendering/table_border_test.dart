@@ -9,7 +9,7 @@ dynamic build(BuildContext context) {
 
   // ========== Section 1: Basic TableBorder Creation ==========
   print('--- Section 1: Basic TableBorder Creation ---');
-  
+
   final border1 = TableBorder();
   print('Created default TableBorder: ${border1.runtimeType}');
   print('Default top: ${border1.top}');
@@ -20,7 +20,7 @@ dynamic build(BuildContext context) {
 
   // ========== Section 2: TableBorder with All Sides ==========
   print('--- Section 2: TableBorder with All Sides ---');
-  
+
   final borderSide = BorderSide(color: Color(0xFF000000), width: 2.0);
   final border2 = TableBorder(
     top: borderSide,
@@ -36,20 +36,21 @@ dynamic build(BuildContext context) {
 
   // ========== Section 3: TableBorder.all Factory ==========
   print('--- Section 3: TableBorder.all Factory ---');
-  
-  final borderAll = TableBorder.all(
-    color: Color(0xFFFF0000),
-    width: 1.5,
-  );
+
+  final borderAll = TableBorder.all(color: Color(0xFFFF0000), width: 1.5);
   print('TableBorder.all top width: ${borderAll.top.width}');
   print('TableBorder.all top color: ${borderAll.top.color}');
-  print('TableBorder.all horizontalInside width: ${borderAll.horizontalInside.width}');
-  print('TableBorder.all verticalInside width: ${borderAll.verticalInside.width}');
+  print(
+    'TableBorder.all horizontalInside width: ${borderAll.horizontalInside.width}',
+  );
+  print(
+    'TableBorder.all verticalInside width: ${borderAll.verticalInside.width}',
+  );
   results.add('TableBorder.all: width=1.5, color=red');
 
   // ========== Section 4: TableBorder.symmetric Factory ==========
   print('--- Section 4: TableBorder.symmetric Factory ---');
-  
+
   final outsideSide = BorderSide(color: Color(0xFF0000FF), width: 2.0);
   final insideSide = BorderSide(color: Color(0xFF00FF00), width: 1.0);
   final borderSymmetric = TableBorder.symmetric(
@@ -57,13 +58,17 @@ dynamic build(BuildContext context) {
     inside: insideSide,
   );
   print('Symmetric - top width: ${borderSymmetric.top.width}');
-  print('Symmetric - horizontalInside width: ${borderSymmetric.horizontalInside.width}');
-  print('Symmetric - verticalInside width: ${borderSymmetric.verticalInside.width}');
+  print(
+    'Symmetric - horizontalInside width: ${borderSymmetric.horizontalInside.width}',
+  );
+  print(
+    'Symmetric - verticalInside width: ${borderSymmetric.verticalInside.width}',
+  );
   results.add('TableBorder.symmetric: outside=2, inside=1');
 
   // ========== Section 5: Horizontal and Vertical Inside ==========
   print('--- Section 5: Horizontal and Vertical Inside ---');
-  
+
   final border3 = TableBorder(
     top: BorderSide(width: 1.0),
     bottom: BorderSide(width: 1.0),
@@ -79,7 +84,7 @@ dynamic build(BuildContext context) {
 
   // ========== Section 6: Border Radius ==========
   print('--- Section 6: Border Radius ---');
-  
+
   final borderWithRadius = TableBorder(
     top: BorderSide(width: 1.0),
     bottom: BorderSide(width: 1.0),
@@ -94,7 +99,7 @@ dynamic build(BuildContext context) {
 
   // ========== Section 7: Various Border Widths ==========
   print('--- Section 7: Various Border Widths ---');
-  
+
   final widths = [0.5, 1.0, 1.5, 2.0, 3.0, 5.0];
   for (final width in widths) {
     final border = TableBorder.all(width: width);
@@ -104,7 +109,7 @@ dynamic build(BuildContext context) {
 
   // ========== Section 8: Various Colors ==========
   print('--- Section 8: Various Colors ---');
-  
+
   final colors = [
     Color(0xFF000000), // Black
     Color(0xFFFF0000), // Red
@@ -120,10 +125,10 @@ dynamic build(BuildContext context) {
 
   // ========== Section 9: isUniform Property ==========
   print('--- Section 9: isUniform Property ---');
-  
+
   final uniformBorder = TableBorder.all(width: 1.0, color: Color(0xFF000000));
   print('Uniform border isUniform: ${uniformBorder.isUniform}');
-  
+
   final nonUniformBorder = TableBorder(
     top: BorderSide(width: 1.0),
     bottom: BorderSide(width: 2.0),
@@ -133,7 +138,7 @@ dynamic build(BuildContext context) {
 
   // ========== Section 10: dimensions Property ==========
   print('--- Section 10: dimensions Property ---');
-  
+
   final border4 = TableBorder.all(width: 2.0);
   print('dimensions: ${border4.dimensions}');
   print('dimensions.horizontal: ${border4.dimensions.horizontal}');
@@ -142,25 +147,25 @@ dynamic build(BuildContext context) {
 
   // ========== Section 11: scale Method ==========
   print('--- Section 11: scale Method ---');
-  
+
   final originalBorder = TableBorder.all(width: 2.0);
   final scaledBorder = originalBorder.scale(0.5);
   print('Original width: ${originalBorder.top.width}');
   print('Scaled (0.5) width: ${scaledBorder.top.width}');
-  
+
   final scaledBorder2 = originalBorder.scale(2.0);
   print('Scaled (2.0) width: ${scaledBorder2.top.width}');
   results.add('scale method tested');
 
   // ========== Section 12: lerp Static Method ==========
   print('--- Section 12: lerp Static Method ---');
-  
+
   final borderA = TableBorder.all(width: 1.0);
   final borderB = TableBorder.all(width: 3.0);
-  
+
   final lerpHalf = TableBorder.lerp(borderA, borderB, 0.5);
   print('Lerp 0.5 width: ${lerpHalf?.top.width}');
-  
+
   final lerpQuarter = TableBorder.lerp(borderA, borderB, 0.25);
   print('Lerp 0.25 width: ${lerpQuarter?.top.width}');
   results.add('lerp method tested');

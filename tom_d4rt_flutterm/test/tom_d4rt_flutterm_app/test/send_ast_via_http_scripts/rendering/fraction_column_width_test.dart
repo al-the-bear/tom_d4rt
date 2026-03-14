@@ -15,16 +15,16 @@ dynamic build(BuildContext context) {
   print('--- Different fraction values ---');
   final width10 = FractionColumnWidth(0.1);
   print('  FractionColumnWidth(0.1): ${width10.runtimeType}');
-  
+
   final width25 = FractionColumnWidth(0.25);
   print('  FractionColumnWidth(0.25): ${width25.runtimeType}');
-  
+
   final width33 = FractionColumnWidth(0.333);
   print('  FractionColumnWidth(0.333): ${width33.runtimeType}');
-  
+
   final width75 = FractionColumnWidth(0.75);
   print('  FractionColumnWidth(0.75): ${width75.runtimeType}');
-  
+
   final width100 = FractionColumnWidth(1.0);
   print('  FractionColumnWidth(1.0): ${width100.runtimeType}');
 
@@ -64,7 +64,7 @@ dynamic build(BuildContext context) {
   print('--- Edge cases ---');
   final widthZero = FractionColumnWidth(0.0);
   print('  FractionColumnWidth(0.0): ${widthZero.runtimeType}');
-  
+
   final widthSmall = FractionColumnWidth(0.01);
   print('  FractionColumnWidth(0.01): ${widthSmall.runtimeType}');
 
@@ -76,8 +76,10 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('FractionColumnWidth Tests',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          Text(
+            'FractionColumnWidth Tests',
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('Basic FractionColumnWidth: ${width1.runtimeType}'),
           Text('Fraction 0.5 for 50% width'),
@@ -90,16 +92,20 @@ dynamic build(BuildContext context) {
             },
             border: TableBorder.all(color: Color(0xFF9E9E9E)),
             children: [
-              TableRow(children: [
-                Padding(padding: EdgeInsets.all(8.0), child: Text('30%')),
-                Padding(padding: EdgeInsets.all(8.0), child: Text('40%')),
-                Padding(padding: EdgeInsets.all(8.0), child: Text('30%')),
-              ]),
-              TableRow(children: [
-                Padding(padding: EdgeInsets.all(8.0), child: Text('Col A')),
-                Padding(padding: EdgeInsets.all(8.0), child: Text('Col B')),
-                Padding(padding: EdgeInsets.all(8.0), child: Text('Col C')),
-              ]),
+              TableRow(
+                children: [
+                  Padding(padding: EdgeInsets.all(8.0), child: Text('30%')),
+                  Padding(padding: EdgeInsets.all(8.0), child: Text('40%')),
+                  Padding(padding: EdgeInsets.all(8.0), child: Text('30%')),
+                ],
+              ),
+              TableRow(
+                children: [
+                  Padding(padding: EdgeInsets.all(8.0), child: Text('Col A')),
+                  Padding(padding: EdgeInsets.all(8.0), child: Text('Col B')),
+                  Padding(padding: EdgeInsets.all(8.0), child: Text('Col C')),
+                ],
+              ),
             ],
           ),
         ],

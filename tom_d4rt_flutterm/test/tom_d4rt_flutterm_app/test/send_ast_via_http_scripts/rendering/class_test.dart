@@ -10,13 +10,21 @@ dynamic build(BuildContext context) {
   print('--- Core Layer Classes ---');
   final offsetLayer = OffsetLayer();
   offsetLayer.offset = Offset(10.0, 20.0);
-  print('  OffsetLayer: ${offsetLayer.runtimeType}, offset=${offsetLayer.offset}');
+  print(
+    '  OffsetLayer: ${offsetLayer.runtimeType}, offset=${offsetLayer.offset}',
+  );
 
-  final clipRectLayer = ClipRectLayer(clipRect: Rect.fromLTWH(0.0, 0.0, 100.0, 100.0));
-  print('  ClipRectLayer: ${clipRectLayer.runtimeType}, rect=${clipRectLayer.clipRect}');
+  final clipRectLayer = ClipRectLayer(
+    clipRect: Rect.fromLTWH(0.0, 0.0, 100.0, 100.0),
+  );
+  print(
+    '  ClipRectLayer: ${clipRectLayer.runtimeType}, rect=${clipRectLayer.clipRect}',
+  );
 
   final opacityLayer = OpacityLayer(alpha: 128);
-  print('  OpacityLayer: ${opacityLayer.runtimeType}, alpha=${opacityLayer.alpha}');
+  print(
+    '  OpacityLayer: ${opacityLayer.runtimeType}, alpha=${opacityLayer.alpha}',
+  );
 
   final transformLayer = TransformLayer(transform: Matrix4.identity());
   print('  TransformLayer: ${transformLayer.runtimeType}');
@@ -29,7 +37,9 @@ dynamic build(BuildContext context) {
     minHeight: 30.0,
     maxHeight: 150.0,
   );
-  print('  BoxConstraints: minW=${boxConstraints.minWidth}, maxW=${boxConstraints.maxWidth}');
+  print(
+    '  BoxConstraints: minW=${boxConstraints.minWidth}, maxW=${boxConstraints.maxWidth}',
+  );
   print('    isTight: ${boxConstraints.isTight}');
   print('    isNormalized: ${boxConstraints.isNormalized}');
 
@@ -47,7 +57,9 @@ dynamic build(BuildContext context) {
     remainingCacheExtent: 500.0,
     cacheOrigin: 0.0,
   );
-  print('  SliverConstraints: remainingPaintExtent=${sliverConstraints.remainingPaintExtent}');
+  print(
+    '  SliverConstraints: remainingPaintExtent=${sliverConstraints.remainingPaintExtent}',
+  );
 
   // ========== ParentData Classes ==========
   print('--- ParentData Classes ---');
@@ -58,12 +70,16 @@ dynamic build(BuildContext context) {
   final flexParentData = FlexParentData();
   flexParentData.flex = 2;
   flexParentData.fit = FlexFit.tight;
-  print('  FlexParentData: flex=${flexParentData.flex}, fit=${flexParentData.fit}');
+  print(
+    '  FlexParentData: flex=${flexParentData.flex}, fit=${flexParentData.fit}',
+  );
 
   final stackParentData = StackParentData();
   stackParentData.top = 10.0;
   stackParentData.left = 20.0;
-  print('  StackParentData: top=${stackParentData.top}, left=${stackParentData.left}');
+  print(
+    '  StackParentData: top=${stackParentData.top}, left=${stackParentData.left}',
+  );
 
   // ========== Geometry Classes ==========
   print('--- Geometry Classes ---');
@@ -76,8 +92,13 @@ dynamic build(BuildContext context) {
   print('    paintExtent: ${sliverGeometry.paintExtent}');
   print('    visible: ${sliverGeometry.visible}');
 
-  final revealedOffset = RevealedOffset(offset: 100.0, rect: Rect.fromLTWH(0, 0, 50, 50));
-  print('  RevealedOffset: offset=${revealedOffset.offset}, rect=${revealedOffset.rect}');
+  final revealedOffset = RevealedOffset(
+    offset: 100.0,
+    rect: Rect.fromLTWH(0, 0, 50, 50),
+  );
+  print(
+    '  RevealedOffset: offset=${revealedOffset.offset}, rect=${revealedOffset.rect}',
+  );
 
   // ========== Hit Test Classes ==========
   print('--- Hit Test Classes ---');
@@ -129,17 +150,20 @@ dynamic build(BuildContext context) {
   print('  AxisDirection.values: ${AxisDirection.values.length} values');
   print('  GrowthDirection.values: ${GrowthDirection.values.length} values');
   print('  ScrollDirection.values: ${ScrollDirection.values.length} values');
-  print('  TextSelectionHandleType.values: ${TextSelectionHandleType.values.length} values');
+  print(
+    '  TextSelectionHandleType.values: ${TextSelectionHandleType.values.length} values',
+  );
   print('  FlexFit.values: ${FlexFit.values.length} values');
-  print('  MainAxisAlignment.values: ${MainAxisAlignment.values.length} values');
-  print('  CrossAxisAlignment.values: ${CrossAxisAlignment.values.length} values');
+  print(
+    '  MainAxisAlignment.values: ${MainAxisAlignment.values.length} values',
+  );
+  print(
+    '  CrossAxisAlignment.values: ${CrossAxisAlignment.values.length} values',
+  );
 
   // ========== Table Classes ==========
   print('--- Table Classes ---');
-  final tableBorder = TableBorder.all(
-    color: Color(0xFF000000),
-    width: 1.0,
-  );
+  final tableBorder = TableBorder.all(color: Color(0xFF000000), width: 1.0);
   print('  TableBorder: ${tableBorder.runtimeType}');
   print('    top: ${tableBorder.top}');
   print('    isUniform: ${tableBorder.isUniform}');
@@ -152,8 +176,10 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('Rendering Classes Overview',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          Text(
+            'Rendering Classes Overview',
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('Layer Classes: OffsetLayer, ClipRect, Opacity, Transform'),
           Text('Constraints: BoxConstraints, SliverConstraints'),

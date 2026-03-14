@@ -35,8 +35,12 @@ dynamic build(BuildContext context) {
   );
   print('  startSelectionPoint: ${geometryWithPoints.startSelectionPoint}');
   print('  endSelectionPoint: ${geometryWithPoints.endSelectionPoint}');
-  print('  start localPosition: ${geometryWithPoints.startSelectionPoint?.localPosition}');
-  print('  end localPosition: ${geometryWithPoints.endSelectionPoint?.localPosition}');
+  print(
+    '  start localPosition: ${geometryWithPoints.startSelectionPoint?.localPosition}',
+  );
+  print(
+    '  end localPosition: ${geometryWithPoints.endSelectionPoint?.localPosition}',
+  );
 
   // ========== SelectionStatus enumeration ==========
   print('--- SelectionStatus values ---');
@@ -65,8 +69,14 @@ dynamic build(BuildContext context) {
 
   // ========== hasContent variations ==========
   print('--- hasContent variations ---');
-  final withContent = SelectionGeometry(status: SelectionStatus.uncollapsed, hasContent: true);
-  final withoutContent = SelectionGeometry(status: SelectionStatus.none, hasContent: false);
+  final withContent = SelectionGeometry(
+    status: SelectionStatus.uncollapsed,
+    hasContent: true,
+  );
+  final withoutContent = SelectionGeometry(
+    status: SelectionStatus.none,
+    hasContent: false,
+  );
   print('  withContent.hasContent: ${withContent.hasContent}');
   print('  withoutContent.hasContent: ${withoutContent.hasContent}');
 
@@ -97,7 +107,9 @@ dynamic build(BuildContext context) {
   ];
   print('  Created ${geometries.length} geometries');
   for (var i = 0; i < geometries.length; i++) {
-    print('  [$i] status: ${geometries[i].status}, hasContent: ${geometries[i].hasContent}');
+    print(
+      '  [$i] status: ${geometries[i].status}, hasContent: ${geometries[i].hasContent}',
+    );
   }
 
   // ========== CopyWith ==========
@@ -116,8 +128,14 @@ dynamic build(BuildContext context) {
 
   // ========== Equality and HashCode ==========
   print('--- Equality and HashCode ---');
-  final geoA = SelectionGeometry(status: SelectionStatus.none, hasContent: false);
-  final geoB = SelectionGeometry(status: SelectionStatus.none, hasContent: false);
+  final geoA = SelectionGeometry(
+    status: SelectionStatus.none,
+    hasContent: false,
+  );
+  final geoB = SelectionGeometry(
+    status: SelectionStatus.none,
+    hasContent: false,
+  );
   print('  geoA == geoA: ${geoA == geoA}');
   print('  geoA == geoB: ${geoA == geoB}');
   print('  geoA.hashCode: ${geoA.hashCode}');
@@ -135,8 +153,10 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('SelectionGeometry Tests',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          Text(
+            'SelectionGeometry Tests',
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('Status: ${geometry1.status}'),
           Text('HasContent: ${geometry1.hasContent}'),

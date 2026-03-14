@@ -16,17 +16,19 @@ dynamic build(BuildContext context) {
   print('  ListBodyParentData extends ContainerBoxParentData');
   print('  parentData1 is ParentData: ${parentData1 is ParentData}');
   print('  parentData1 is BoxParentData: ${parentData1 is BoxParentData}');
-  print('  parentData1 is ContainerBoxParentData: ${parentData1 is ContainerBoxParentData}');
+  print(
+    '  parentData1 is ContainerBoxParentData: ${parentData1 is ContainerBoxParentData}',
+  );
 
   // ========== BoxParentData properties ==========
   print('--- BoxParentData properties ---');
   final parentData2 = ListBodyParentData();
   parentData2.offset = Offset(10.0, 20.0);
   print('  offset set: ${parentData2.offset}');
-  
+
   parentData2.offset = Offset(50.0, 100.0);
   print('  offset modified: ${parentData2.offset}');
-  
+
   parentData2.offset = Offset.zero;
   print('  offset cleared: ${parentData2.offset}');
 
@@ -81,7 +83,9 @@ dynamic build(BuildContext context) {
   compareA.offset = Offset(10.0, 10.0);
   compareB.offset = Offset(10.0, 10.0);
   print('  compareA == compareB: ${compareA == compareB}');
-  print('  compareA.offset == compareB.offset: ${compareA.offset == compareB.offset}');
+  print(
+    '  compareA.offset == compareB.offset: ${compareA.offset == compareB.offset}',
+  );
 
   print('ListBodyParentData test completed');
   return SingleChildScrollView(
@@ -91,8 +95,10 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('ListBodyParentData Tests',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          Text(
+            'ListBodyParentData Tests',
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('Basic data: ${parentData1.runtimeType}'),
           Text('Offset: ${parentData2.offset}'),
@@ -103,8 +109,8 @@ dynamic build(BuildContext context) {
           Text('  - includes sibling links'),
           SizedBox(height: 8.0),
           Text('List layout (${items.length} items):'),
-          ...items.asMap().entries.map((e) => 
-            Text('  Item ${e.key}: y=${e.value.offset.dy}')
+          ...items.asMap().entries.map(
+            (e) => Text('  Item ${e.key}: y=${e.value.offset.dy}'),
           ),
         ],
       ),

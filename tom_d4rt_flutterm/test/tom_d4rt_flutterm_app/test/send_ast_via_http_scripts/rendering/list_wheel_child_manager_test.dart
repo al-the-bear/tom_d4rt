@@ -6,18 +6,18 @@ import 'package:flutter/widgets.dart';
 class TestListWheelChildManager extends ListWheelChildManager {
   final int _childCount;
   final Map<int, RenderBox> _children = {};
-  
+
   TestListWheelChildManager({int childCount = 10}) : _childCount = childCount;
-  
+
   @override
   int? get childCount => _childCount;
-  
+
   @override
   void createChild(int index, {required RenderBox? after}) {
     print('  createChild called for index: $index');
     // In a real implementation, this would create a RenderBox
   }
-  
+
   @override
   void removeChild(RenderBox child) {
     print('  removeChild called');
@@ -29,12 +29,12 @@ class TestListWheelChildManager extends ListWheelChildManager {
 class UnboundedListWheelChildManager extends ListWheelChildManager {
   @override
   int? get childCount => null; // Unbounded
-  
+
   @override
   void createChild(int index, {required RenderBox? after}) {
     print('  createChild for unbounded manager at index: $index');
   }
-  
+
   @override
   void removeChild(RenderBox child) {
     print('  removeChild from unbounded manager');
@@ -54,13 +54,13 @@ dynamic build(BuildContext context) {
   print('--- childCount property ---');
   final manager5 = TestListWheelChildManager(childCount: 5);
   print('  childCount = 5: ${manager5.childCount}');
-  
+
   final manager20 = TestListWheelChildManager(childCount: 20);
   print('  childCount = 20: ${manager20.childCount}');
-  
+
   final manager0 = TestListWheelChildManager(childCount: 0);
   print('  childCount = 0: ${manager0.childCount}');
-  
+
   final manager100 = TestListWheelChildManager(childCount: 100);
   print('  childCount = 100: ${manager100.childCount}');
 
@@ -85,8 +85,12 @@ dynamic build(BuildContext context) {
 
   // ========== Interface check ==========
   print('--- Interface check ---');
-  print('  manager is ListWheelChildManager: ${manager is ListWheelChildManager}');
-  print('  unbounded is ListWheelChildManager: ${unbounded is ListWheelChildManager}');
+  print(
+    '  manager is ListWheelChildManager: ${manager is ListWheelChildManager}',
+  );
+  print(
+    '  unbounded is ListWheelChildManager: ${unbounded is ListWheelChildManager}',
+  );
 
   // ========== RuntimeType checks ==========
   print('--- RuntimeType checks ---');
@@ -109,14 +113,18 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('ListWheelChildManager Tests',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          Text(
+            'ListWheelChildManager Tests',
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('Manager type: ${manager.runtimeType}'),
           Text('Child count: ${manager.childCount}'),
           SizedBox(height: 8.0),
           Text('Unbounded manager: ${unbounded.runtimeType}'),
-          Text('Unbounded childCount: ${unbounded.childCount ?? "null (infinite)"}'),
+          Text(
+            'Unbounded childCount: ${unbounded.childCount ?? "null (infinite)"}',
+          ),
           SizedBox(height: 8.0),
           Text('Interface: ListWheelChildManager'),
           Text('Methods: createChild, removeChild'),

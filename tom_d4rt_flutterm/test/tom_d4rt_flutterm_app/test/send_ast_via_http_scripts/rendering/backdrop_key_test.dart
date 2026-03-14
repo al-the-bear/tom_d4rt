@@ -93,8 +93,14 @@ dynamic build(BuildContext context) {
   // ========== BlendMode Values ==========
   print('--- BlendMode Values ---');
   final blendModes = [
-    BlendMode.clear, BlendMode.src, BlendMode.dst, BlendMode.srcOver,
-    BlendMode.dstOver, BlendMode.srcIn, BlendMode.dstIn, BlendMode.srcOut,
+    BlendMode.clear,
+    BlendMode.src,
+    BlendMode.dst,
+    BlendMode.srcOver,
+    BlendMode.dstOver,
+    BlendMode.srcIn,
+    BlendMode.dstIn,
+    BlendMode.srcOut,
   ];
   for (final mode in blendModes) {
     print('  ${mode.name}: index=${mode.index}');
@@ -120,8 +126,10 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('BackdropKey Tests',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          Text(
+            'BackdropKey Tests',
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('BackdropFilterLayer: ${backdropLayer.runtimeType}'),
           Text('Filter: blur effect'),

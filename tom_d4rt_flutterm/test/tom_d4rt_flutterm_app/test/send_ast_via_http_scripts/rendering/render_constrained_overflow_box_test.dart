@@ -7,7 +7,9 @@ dynamic build(BuildContext context) {
 
   // ========== CONSTRAINED OVERFLOW BOX BASICS ==========
   print('--- ConstrainedOverflowBox Basics ---');
-  print('RenderConstrainedOverflowBox allows child to overflow with constraints');
+  print(
+    'RenderConstrainedOverflowBox allows child to overflow with constraints',
+  );
   print('Child can be larger than parent but respects min/max constraints');
   print('Useful for controlled overflow scenarios');
 

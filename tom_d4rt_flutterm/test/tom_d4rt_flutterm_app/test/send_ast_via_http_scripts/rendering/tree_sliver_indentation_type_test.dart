@@ -34,7 +34,9 @@ dynamic build(BuildContext context) {
 
   // ========== TreeSliverIndentationType Equality ==========
   print('--- TreeSliverIndentationType Equality ---');
-  print('  standard == standard: ${standard == TreeSliverIndentationType.standard}');
+  print(
+    '  standard == standard: ${standard == TreeSliverIndentationType.standard}',
+  );
   print('  none == none: ${none == TreeSliverIndentationType.none}');
   print('  standard == none: ${standard == none}');
 
@@ -98,8 +100,10 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('TreeSliverIndentationType Tests',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          Text(
+            'TreeSliverIndentationType Tests',
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('Static values: standard, none'),
           Text('Custom values: custom(double)'),

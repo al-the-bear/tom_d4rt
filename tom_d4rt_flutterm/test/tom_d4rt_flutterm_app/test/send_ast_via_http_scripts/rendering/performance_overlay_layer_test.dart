@@ -23,48 +23,64 @@ dynamic build(BuildContext context) {
     optionsMask: 0,
   );
   print('  rect (10, 20, 200, 80): ${layer2.overlayRect}');
-  
+
   final layer3 = PerformanceOverlayLayer(
     overlayRect: Rect.fromLTWH(0.0, 0.0, 400.0, 150.0),
     optionsMask: 0,
   );
   print('  rect (0, 0, 400, 150): ${layer3.overlayRect}');
-  
+
   final layer4 = PerformanceOverlayLayer(
-    overlayRect: Rect.fromCenter(center: Offset(150.0, 50.0), width: 300.0, height: 100.0),
+    overlayRect: Rect.fromCenter(
+      center: Offset(150.0, 50.0),
+      width: 300.0,
+      height: 100.0,
+    ),
     optionsMask: 0,
   );
   print('  centered rect: ${layer4.overlayRect}');
 
   // ========== PerformanceOverlayOption masks ==========
   print('--- PerformanceOverlayOption ---');
-  print('  displayRasterizerStatistics: ${PerformanceOverlayOption.displayRasterizerStatistics.index}');
-  print('  visualizeRasterizerStatistics: ${PerformanceOverlayOption.visualizeRasterizerStatistics.index}');
-  print('  displayEngineStatistics: ${PerformanceOverlayOption.displayEngineStatistics.index}');
-  print('  visualizeEngineStatistics: ${PerformanceOverlayOption.visualizeEngineStatistics.index}');
+  print(
+    '  displayRasterizerStatistics: ${PerformanceOverlayOption.displayRasterizerStatistics.index}',
+  );
+  print(
+    '  visualizeRasterizerStatistics: ${PerformanceOverlayOption.visualizeRasterizerStatistics.index}',
+  );
+  print(
+    '  displayEngineStatistics: ${PerformanceOverlayOption.displayEngineStatistics.index}',
+  );
+  print(
+    '  visualizeEngineStatistics: ${PerformanceOverlayOption.visualizeEngineStatistics.index}',
+  );
 
   // ========== Creating with different option masks ==========
   print('--- Different option masks ---');
   final layerRaster = PerformanceOverlayLayer(
     overlayRect: Rect.fromLTWH(0.0, 0.0, 300.0, 100.0),
-    optionsMask: 1 << PerformanceOverlayOption.displayRasterizerStatistics.index,
+    optionsMask:
+        1 << PerformanceOverlayOption.displayRasterizerStatistics.index,
   );
   print('  displayRasterizerStatistics mask: ${layerRaster.optionsMask}');
-  
+
   final layerEngine = PerformanceOverlayLayer(
     overlayRect: Rect.fromLTWH(0.0, 0.0, 300.0, 100.0),
     optionsMask: 1 << PerformanceOverlayOption.displayEngineStatistics.index,
   );
   print('  displayEngineStatistics mask: ${layerEngine.optionsMask}');
-  
+
   // Combined mask
-  final combinedMask = (1 << PerformanceOverlayOption.displayRasterizerStatistics.index) |
-                        (1 << PerformanceOverlayOption.visualizeRasterizerStatistics.index);
+  final combinedMask =
+      (1 << PerformanceOverlayOption.displayRasterizerStatistics.index) |
+      (1 << PerformanceOverlayOption.visualizeRasterizerStatistics.index);
   final layerCombined = PerformanceOverlayLayer(
     overlayRect: Rect.fromLTWH(0.0, 0.0, 300.0, 100.0),
     optionsMask: combinedMask,
   );
-  print('  combined mask (raster display + visualize): ${layerCombined.optionsMask}');
+  print(
+    '  combined mask (raster display + visualize): ${layerCombined.optionsMask}',
+  );
 
   // ========== rasterizerThreshold property ==========
   print('--- rasterizerThreshold property ---');
@@ -73,8 +89,10 @@ dynamic build(BuildContext context) {
     optionsMask: 0,
     rasterizerThreshold: 16,
   );
-  print('  rasterizerThreshold = 16: ${layerWithThreshold.rasterizerThreshold}');
-  
+  print(
+    '  rasterizerThreshold = 16: ${layerWithThreshold.rasterizerThreshold}',
+  );
+
   final layerThreshold0 = PerformanceOverlayLayer(
     overlayRect: Rect.fromLTWH(0.0, 0.0, 300.0, 100.0),
     optionsMask: 0,
@@ -89,14 +107,18 @@ dynamic build(BuildContext context) {
     optionsMask: 0,
     checkerboardRasterCacheImages: true,
   );
-  print('  checkerboardRasterCacheImages = true: ${layerCheckerboard.checkerboardRasterCacheImages}');
-  
+  print(
+    '  checkerboardRasterCacheImages = true: ${layerCheckerboard.checkerboardRasterCacheImages}',
+  );
+
   final layerNoCheckerboard = PerformanceOverlayLayer(
     overlayRect: Rect.fromLTWH(0.0, 0.0, 300.0, 100.0),
     optionsMask: 0,
     checkerboardRasterCacheImages: false,
   );
-  print('  checkerboardRasterCacheImages = false: ${layerNoCheckerboard.checkerboardRasterCacheImages}');
+  print(
+    '  checkerboardRasterCacheImages = false: ${layerNoCheckerboard.checkerboardRasterCacheImages}',
+  );
 
   // ========== checkerboardOffscreenLayers property ==========
   print('--- checkerboardOffscreenLayers ---');
@@ -105,7 +127,9 @@ dynamic build(BuildContext context) {
     optionsMask: 0,
     checkerboardOffscreenLayers: true,
   );
-  print('  checkerboardOffscreenLayers = true: ${layerOffscreen.checkerboardOffscreenLayers}');
+  print(
+    '  checkerboardOffscreenLayers = true: ${layerOffscreen.checkerboardOffscreenLayers}',
+  );
 
   // ========== Layer inheritance ==========
   print('--- Layer inheritance ---');
@@ -125,23 +149,39 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('PerformanceOverlayLayer Tests',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          Text(
+            'PerformanceOverlayLayer Tests',
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('Type: ${layer1.runtimeType}'),
           Text('overlayRect: ${layer1.overlayRect}'),
           Text('optionsMask: ${layer1.optionsMask}'),
           SizedBox(height: 8.0),
           Text('PerformanceOverlayOption values:'),
-          Text('  displayRasterizerStatistics: ${PerformanceOverlayOption.displayRasterizerStatistics.index}'),
-          Text('  visualizeRasterizerStatistics: ${PerformanceOverlayOption.visualizeRasterizerStatistics.index}'),
-          Text('  displayEngineStatistics: ${PerformanceOverlayOption.displayEngineStatistics.index}'),
-          Text('  visualizeEngineStatistics: ${PerformanceOverlayOption.visualizeEngineStatistics.index}'),
+          Text(
+            '  displayRasterizerStatistics: ${PerformanceOverlayOption.displayRasterizerStatistics.index}',
+          ),
+          Text(
+            '  visualizeRasterizerStatistics: ${PerformanceOverlayOption.visualizeRasterizerStatistics.index}',
+          ),
+          Text(
+            '  displayEngineStatistics: ${PerformanceOverlayOption.displayEngineStatistics.index}',
+          ),
+          Text(
+            '  visualizeEngineStatistics: ${PerformanceOverlayOption.visualizeEngineStatistics.index}',
+          ),
           SizedBox(height: 8.0),
           Text('Configuration options:'),
-          Text('  rasterizerThreshold: ${layerWithThreshold.rasterizerThreshold}'),
-          Text('  checkerboardRasterCacheImages: ${layerCheckerboard.checkerboardRasterCacheImages}'),
-          Text('  checkerboardOffscreenLayers: ${layerOffscreen.checkerboardOffscreenLayers}'),
+          Text(
+            '  rasterizerThreshold: ${layerWithThreshold.rasterizerThreshold}',
+          ),
+          Text(
+            '  checkerboardRasterCacheImages: ${layerCheckerboard.checkerboardRasterCacheImages}',
+          ),
+          Text(
+            '  checkerboardOffscreenLayers: ${layerOffscreen.checkerboardOffscreenLayers}',
+          ),
         ],
       ),
     ),

@@ -11,7 +11,7 @@ dynamic build(BuildContext context) {
   final clipData = ClipboardData(text: 'Services test clipboard');
   print('ClipboardData text: ${clipData.text}');
   print('Clipboard.kTextPlain: ${Clipboard.kTextPlain}');
-  
+
   // Set clipboard (async, won't block)
   Clipboard.setData(clipData);
   print('Clipboard.setData called');
@@ -46,8 +46,12 @@ dynamic build(BuildContext context) {
   print('--- SystemChrome Tests ---');
   final darkStyle = SystemUiOverlayStyle.dark;
   final lightStyle = SystemUiOverlayStyle.light;
-  print('SystemUiOverlayStyle.dark statusBarBrightness: ${darkStyle.statusBarBrightness}');
-  print('SystemUiOverlayStyle.light statusBarBrightness: ${lightStyle.statusBarBrightness}');
+  print(
+    'SystemUiOverlayStyle.dark statusBarBrightness: ${darkStyle.statusBarBrightness}',
+  );
+  print(
+    'SystemUiOverlayStyle.light statusBarBrightness: ${lightStyle.statusBarBrightness}',
+  );
 
   final customStyle = SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
@@ -108,7 +112,9 @@ dynamic build(BuildContext context) {
     'altLeft': PhysicalKeyboardKey.altLeft,
   };
   for (final entry in physKeys.entries) {
-    print('PhysicalKeyboardKey.${entry.key}: usbHidUsage=${entry.value.usbHidUsage}');
+    print(
+      'PhysicalKeyboardKey.${entry.key}: usbHidUsage=${entry.value.usbHidUsage}',
+    );
   }
 
   // ========== TEXTINPUTTYPE ==========
@@ -136,7 +142,9 @@ dynamic build(BuildContext context) {
   final digitsOnly = FilteringTextInputFormatter.digitsOnly;
   print('FilteringTextInputFormatter.digitsOnly available');
 
-  final allowPattern = FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9]'));
+  final allowPattern = FilteringTextInputFormatter.allow(
+    RegExp(r'[a-zA-Z0-9]'),
+  );
   print('FilteringTextInputFormatter.allow alphanumeric');
 
   FilteringTextInputFormatter.deny(RegExp(r'[<>]'));
@@ -169,18 +177,26 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Services Classes Overview',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              Text(
+                'Services Classes Overview',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
               SizedBox(height: 16),
-              
+
               // Clipboard section
-              Text('Clipboard', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+              Text(
+                'Clipboard',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              ),
               Text('kTextPlain: ${Clipboard.kTextPlain}'),
               Text('ClipboardData: "${clipData.text}"'),
               SizedBox(height: 12),
-              
+
               // HapticFeedback section
-              Text('HapticFeedback', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+              Text(
+                'HapticFeedback',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              ),
               Row(
                 children: [
                   ElevatedButton(
@@ -200,15 +216,21 @@ dynamic build(BuildContext context) {
                 ],
               ),
               SizedBox(height: 12),
-              
+
               // SystemChannels section
-              Text('SystemChannels', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+              Text(
+                'SystemChannels',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              ),
               Text('navigation, platform, textInput, keyEvent'),
               Text('lifecycle, system, accessibility, platform_views'),
               SizedBox(height: 12),
-              
+
               // TextInputFormatter section
-              Text('TextInputFormatter', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+              Text(
+                'TextInputFormatter',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              ),
               TextField(
                 inputFormatters: [lengthFormatter, allowPattern],
                 decoration: InputDecoration(
@@ -226,15 +248,20 @@ dynamic build(BuildContext context) {
                 ),
               ),
               SizedBox(height: 12),
-              
+
               // Keyboard keys section
-              Text('LogicalKeyboardKey', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+              Text(
+                'LogicalKeyboardKey',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              ),
               Wrap(
                 spacing: 8,
                 children: [
                   Chip(label: Text('Enter: ${LogicalKeyboardKey.enter.keyId}')),
                   Chip(label: Text('Space: ${LogicalKeyboardKey.space.keyId}')),
-                  Chip(label: Text('Escape: ${LogicalKeyboardKey.escape.keyId}')),
+                  Chip(
+                    label: Text('Escape: ${LogicalKeyboardKey.escape.keyId}'),
+                  ),
                 ],
               ),
             ],

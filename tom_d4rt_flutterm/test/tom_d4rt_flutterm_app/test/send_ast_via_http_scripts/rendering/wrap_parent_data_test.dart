@@ -46,7 +46,9 @@ dynamic build(BuildContext context) {
   print('--- WrapParentData Inheritance ---');
   // WrapParentData extends ContainerBoxParentData<RenderBox>
   print('  extends ContainerBoxParentData<RenderBox>: true');
-  print('  parentData is ContainerBoxParentData: ${parentData is ContainerBoxParentData}');
+  print(
+    '  parentData is ContainerBoxParentData: ${parentData is ContainerBoxParentData}',
+  );
   print('  parentData is BoxParentData: ${parentData is BoxParentData}');
   print('  parentData is ParentData: ${parentData is ParentData}');
 
@@ -68,7 +70,7 @@ dynamic build(BuildContext context) {
   final items = <WrapParentData>[];
   for (int i = 0; i < 6; i++) {
     final item = WrapParentData();
-    item.runIndex = i ~/ 3;  // 2 items per row
+    item.runIndex = i ~/ 3; // 2 items per row
     item.offset = Offset((i % 3) * 100.0, (i ~/ 3) * 50.0);
     items.add(item);
     print('  item[$i]: runIndex=${item.runIndex}, offset=${item.offset}');
@@ -92,7 +94,9 @@ dynamic build(BuildContext context) {
   final edgeCase = WrapParentData();
   edgeCase.runIndex = 0;
   edgeCase.offset = Offset.zero;
-  print('  empty wrap (first item): runIndex=${edgeCase.runIndex}, offset=${edgeCase.offset}');
+  print(
+    '  empty wrap (first item): runIndex=${edgeCase.runIndex}, offset=${edgeCase.offset}',
+  );
 
   final largeRunIndex = WrapParentData();
   largeRunIndex.runIndex = 100;
@@ -116,8 +120,10 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('WrapParentData Tests',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          Text(
+            'WrapParentData Tests',
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('Type: ${parentData.runtimeType}'),
           Text('Properties: runIndex, offset (inherited)'),

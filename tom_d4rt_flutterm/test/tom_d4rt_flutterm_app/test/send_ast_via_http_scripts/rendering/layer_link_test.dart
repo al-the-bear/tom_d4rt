@@ -27,7 +27,9 @@ dynamic build(BuildContext context) {
   print('--- LayerLink hashCode ---');
   print('  link1.hashCode: ${link1.hashCode}');
   print('  link2.hashCode: ${link2.hashCode}');
-  print('  link1.hashCode == link2.hashCode: ${link1.hashCode == link2.hashCode}');
+  print(
+    '  link1.hashCode == link2.hashCode: ${link1.hashCode == link2.hashCode}',
+  );
 
   // ========== LayerLink toString ==========
   print('--- LayerLink toString ---');
@@ -67,8 +69,10 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('LayerLink Tests',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          Text(
+            'LayerLink Tests',
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('LayerLink created: ${link.runtimeType}'),
           Text('Multiple links: 3 created'),

@@ -25,7 +25,9 @@ dynamic build(BuildContext context) {
 
   // ========== SelectWordSelectionEvent ==========
   print('--- SelectWordSelectionEvent ---');
-  final selectWord = SelectWordSelectionEvent(globalPosition: Offset(100.0, 100.0));
+  final selectWord = SelectWordSelectionEvent(
+    globalPosition: Offset(100.0, 100.0),
+  );
   print('  type: ${selectWord.type}');
   print('  globalPosition: ${selectWord.globalPosition}');
   print('  is SelectionEvent: ${selectWord is SelectionEvent}');
@@ -73,23 +75,35 @@ dynamic build(BuildContext context) {
   ];
   print('  Total events: ${events.length}');
   for (var i = 0; i < events.length; i++) {
-    print('  [$i] type: ${events[i].type}, runtimeType: ${events[i].runtimeType}');
+    print(
+      '  [$i] type: ${events[i].type}, runtimeType: ${events[i].runtimeType}',
+    );
   }
 
   // ========== Type checking ==========
   print('--- Type checking ---');
   for (final event in events) {
     print('  ${event.runtimeType}:');
-    print('    is SelectAllSelectionEvent: ${event is SelectAllSelectionEvent}');
-    print('    is SelectWordSelectionEvent: ${event is SelectWordSelectionEvent}');
+    print(
+      '    is SelectAllSelectionEvent: ${event is SelectAllSelectionEvent}',
+    );
+    print(
+      '    is SelectWordSelectionEvent: ${event is SelectWordSelectionEvent}',
+    );
     print('    is ClearSelectionEvent: ${event is ClearSelectionEvent}');
-    print('    is SelectionEdgeUpdateEvent: ${event is SelectionEdgeUpdateEvent}');
+    print(
+      '    is SelectionEdgeUpdateEvent: ${event is SelectionEdgeUpdateEvent}',
+    );
   }
 
   // ========== Event type comparison ==========
   print('--- Event type comparison ---');
-  print('  selectAll.type == selectWord.type: ${selectAll.type == selectWord.type}');
-  print('  selectAll.type == clearSelection.type: ${selectAll.type == clearSelection.type}');
+  print(
+    '  selectAll.type == selectWord.type: ${selectAll.type == selectWord.type}',
+  );
+  print(
+    '  selectAll.type == clearSelection.type: ${selectAll.type == clearSelection.type}',
+  );
   print('  startEdge.type == endEdge.type: ${startEdge.type == endEdge.type}');
 
   // ========== ToString ==========
@@ -106,8 +120,10 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('SelectionEvent Tests',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          Text(
+            'SelectionEvent Tests',
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('SelectionEvent is abstract base class'),
           Text('Concrete types tested: 5'),

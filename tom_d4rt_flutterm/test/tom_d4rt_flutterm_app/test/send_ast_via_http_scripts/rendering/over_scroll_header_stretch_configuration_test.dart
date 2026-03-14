@@ -19,17 +19,17 @@ dynamic build(BuildContext context) {
     stretchTriggerOffset: 50.0,
   );
   print('  stretchTriggerOffset = 50: ${config50.stretchTriggerOffset}');
-  
+
   final config100 = OverScrollHeaderStretchConfiguration(
     stretchTriggerOffset: 100.0,
   );
   print('  stretchTriggerOffset = 100: ${config100.stretchTriggerOffset}');
-  
+
   final config150 = OverScrollHeaderStretchConfiguration(
     stretchTriggerOffset: 150.0,
   );
   print('  stretchTriggerOffset = 150: ${config150.stretchTriggerOffset}');
-  
+
   final config200 = OverScrollHeaderStretchConfiguration(
     stretchTriggerOffset: 200.0,
   );
@@ -47,7 +47,9 @@ dynamic build(BuildContext context) {
     },
   );
   print('  config with callback: ${configWithCallback.runtimeType}');
-  print('  has onStretchTrigger: ${configWithCallback.onStretchTrigger != null}');
+  print(
+    '  has onStretchTrigger: ${configWithCallback.onStretchTrigger != null}',
+  );
 
   // ========== Callback variations ==========
   print('--- Callback variations ---');
@@ -59,7 +61,9 @@ dynamic build(BuildContext context) {
       print('  callback count: $callCount');
     },
   );
-  print('  counter config: stretchTriggerOffset=${configCounter.stretchTriggerOffset}');
+  print(
+    '  counter config: stretchTriggerOffset=${configCounter.stretchTriggerOffset}',
+  );
 
   final configNoCallback = OverScrollHeaderStretchConfiguration(
     stretchTriggerOffset: 120.0,
@@ -72,7 +76,7 @@ dynamic build(BuildContext context) {
     stretchTriggerOffset: 10.0,
   );
   print('  small offset (10): ${config10.stretchTriggerOffset}');
-  
+
   final config25 = OverScrollHeaderStretchConfiguration(
     stretchTriggerOffset: 25.0,
   );
@@ -84,7 +88,7 @@ dynamic build(BuildContext context) {
     stretchTriggerOffset: 300.0,
   );
   print('  large offset (300): ${config300.stretchTriggerOffset}');
-  
+
   final config500 = OverScrollHeaderStretchConfiguration(
     stretchTriggerOffset: 500.0,
   );
@@ -118,8 +122,10 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('OverScrollHeaderStretchConfiguration Tests',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          Text(
+            'OverScrollHeaderStretchConfiguration Tests',
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('Type: ${config1.runtimeType}'),
           Text('stretchTriggerOffset: ${config1.stretchTriggerOffset}'),

@@ -20,7 +20,7 @@ dynamic build(BuildContext context) {
   int enterCount = 0;
   int exitCount = 0;
   int hoverCount = 0;
-  
+
   final annotation1 = MouseTrackerAnnotation(
     onEnter: (event) {
       enterCount++;
@@ -129,8 +129,10 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('MouseTracker Tests',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          Text(
+            'MouseTracker Tests',
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('MouseTracker: Manages mouse pointer state'),
           Text('MouseTrackerAnnotation: ${annotation1.runtimeType}'),
@@ -148,8 +150,10 @@ dynamic build(BuildContext context) {
             child: Container(
               color: Color(0xFF2196F3),
               padding: EdgeInsets.all(16.0),
-              child: Text('Hover me!',
-                  style: TextStyle(color: Color(0xFFFFFFFF))),
+              child: Text(
+                'Hover me!',
+                style: TextStyle(color: Color(0xFFFFFFFF)),
+              ),
             ),
           ),
         ],

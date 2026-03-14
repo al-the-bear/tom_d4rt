@@ -73,7 +73,10 @@ dynamic build(BuildContext context) {
     child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Text('Background', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        Text(
+          'Background',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -96,7 +99,10 @@ dynamic build(BuildContext context) {
       child: Container(
         color: Colors.white.withValues(alpha: 0.3),
         padding: EdgeInsets.all(12),
-        child: Text('Frosted Glass', style: TextStyle(fontWeight: FontWeight.bold)),
+        child: Text(
+          'Frosted Glass',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
     ),
   );
@@ -143,7 +149,10 @@ dynamic build(BuildContext context) {
               height: 40,
               color: Colors.black26,
               alignment: Alignment.center,
-              child: Text('Blurred Caption', style: TextStyle(color: Colors.white)),
+              child: Text(
+                'Blurred Caption',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ),
         ),
@@ -172,7 +181,9 @@ dynamic build(BuildContext context) {
       width: 60,
       height: 40,
       color: Colors.orange,
-      child: Center(child: Text('Blur', style: TextStyle(color: Colors.white))),
+      child: Center(
+        child: Text('Blur', style: TextStyle(color: Colors.white)),
+      ),
     ),
   );
   print('Created ImageFiltered widget (blurs child, not backdrop)');
@@ -206,7 +217,7 @@ dynamic build(BuildContext context) {
   print('--- Clipping Best Practices ---');
   print('Always clip BackdropFilter to minimize render area');
   print('ClipRect: rectangular clip');
-  print('ClipRRect: rounded rectangle clip');  
+  print('ClipRRect: rounded rectangle clip');
   print('ClipPath: custom path clip');
   print('ClipOval: elliptical clip');
 
@@ -216,13 +227,7 @@ dynamic build(BuildContext context) {
     children: [
       Text('RenderBackdropFilter Tests'),
       SizedBox(height: 8),
-      Stack(
-        alignment: Alignment.center,
-        children: [
-          background,
-          frostedGlass,
-        ],
-      ),
+      Stack(alignment: Alignment.center, children: [background, frostedGlass]),
       SizedBox(height: 8),
       stackWithBlur,
       SizedBox(height: 8),

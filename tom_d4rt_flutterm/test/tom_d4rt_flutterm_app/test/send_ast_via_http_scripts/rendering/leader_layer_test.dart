@@ -17,22 +17,13 @@ dynamic build(BuildContext context) {
   // ========== LeaderLayer with offset ==========
   print('--- LeaderLayer with offset ---');
   final link2 = LayerLink();
-  final leader2 = LeaderLayer(
-    link: link2,
-    offset: Offset(10.0, 20.0),
-  );
+  final leader2 = LeaderLayer(link: link2, offset: Offset(10.0, 20.0));
   print('  offset: ${leader2.offset}');
 
-  final leader3 = LeaderLayer(
-    link: LayerLink(),
-    offset: Offset(-5.0, 15.0),
-  );
+  final leader3 = LeaderLayer(link: LayerLink(), offset: Offset(-5.0, 15.0));
   print('  negative x offset: ${leader3.offset}');
 
-  final leader4 = LeaderLayer(
-    link: LayerLink(),
-    offset: Offset.zero,
-  );
+  final leader4 = LeaderLayer(link: LayerLink(), offset: Offset.zero);
   print('  zero offset: ${leader4.offset}');
 
   // ========== LayerLink relationship ==========
@@ -78,11 +69,7 @@ dynamic build(BuildContext context) {
   final widgetLink = LayerLink();
   final targetWidget = CompositedTransformTarget(
     link: widgetLink,
-    child: Container(
-      width: 80.0,
-      height: 40.0,
-      color: Color(0xFF4CAF50),
-    ),
+    child: Container(width: 80.0, height: 40.0, color: Color(0xFF4CAF50)),
   );
   print('  CompositedTransformTarget created');
   print('  uses LeaderLayer internally');
@@ -95,8 +82,10 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('LeaderLayer Tests',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          Text(
+            'LeaderLayer Tests',
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('Basic leader: ${leader1.runtimeType}'),
           Text('Link: ${leader1.link.runtimeType}'),
@@ -112,7 +101,12 @@ dynamic build(BuildContext context) {
               width: 100.0,
               height: 50.0,
               color: Color(0xFF2196F3),
-              child: Center(child: Text('Target', style: TextStyle(color: Color(0xFFFFFFFF)))),
+              child: Center(
+                child: Text(
+                  'Target',
+                  style: TextStyle(color: Color(0xFFFFFFFF)),
+                ),
+              ),
             ),
           ),
           Text('CompositedTransformTarget uses LeaderLayer'),

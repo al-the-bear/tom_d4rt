@@ -7,10 +7,7 @@ dynamic build(BuildContext context) {
 
   // ========== Basic SelectedContentRange creation ==========
   print('--- Basic SelectedContentRange ---');
-  final range1 = SelectedContentRange(
-    startOffset: 0,
-    endOffset: 10,
-  );
+  final range1 = SelectedContentRange(startOffset: 0, endOffset: 10);
   print('  created: ${range1.runtimeType}');
   print('  startOffset: ${range1.startOffset}');
   print('  endOffset: ${range1.endOffset}');
@@ -20,14 +17,18 @@ dynamic build(BuildContext context) {
   final rangeZeroZero = SelectedContentRange(startOffset: 0, endOffset: 0);
   final rangeLarge = SelectedContentRange(startOffset: 1000, endOffset: 5000);
   final rangeSmall = SelectedContentRange(startOffset: 5, endOffset: 6);
-  print('  zero range: ${rangeZeroZero.startOffset} to ${rangeZeroZero.endOffset}');
+  print(
+    '  zero range: ${rangeZeroZero.startOffset} to ${rangeZeroZero.endOffset}',
+  );
   print('  large range: ${rangeLarge.startOffset} to ${rangeLarge.endOffset}');
   print('  small range: ${rangeSmall.startOffset} to ${rangeSmall.endOffset}');
 
   // ========== Calculate range length ==========
   print('--- Range length calculations ---');
   print('  range1 length: ${range1.endOffset - range1.startOffset}');
-  print('  zeroZero length: ${rangeZeroZero.endOffset - rangeZeroZero.startOffset}');
+  print(
+    '  zeroZero length: ${rangeZeroZero.endOffset - rangeZeroZero.startOffset}',
+  );
   print('  large length: ${rangeLarge.endOffset - rangeLarge.startOffset}');
   print('  small length: ${rangeSmall.endOffset - rangeSmall.startOffset}');
 
@@ -55,7 +56,7 @@ dynamic build(BuildContext context) {
   print('--- Contiguous range check ---');
   for (var i = 0; i < ranges.length - 1; i++) {
     final isContiguous = ranges[i].endOffset == ranges[i + 1].startOffset;
-    print('  ranges[$i] -> ranges[${i+1}] contiguous: $isContiguous');
+    print('  ranges[$i] -> ranges[${i + 1}] contiguous: $isContiguous');
   }
 
   // ========== Equality behavior ==========
@@ -66,8 +67,12 @@ dynamic build(BuildContext context) {
   print('  rangeA == rangeA: ${rangeA == rangeA}');
   print('  rangeA == rangeB: ${rangeA == rangeB}');
   print('  rangeA == rangeC: ${rangeA == rangeC}');
-  print('  rangeA.startOffset == rangeB.startOffset: ${rangeA.startOffset == rangeB.startOffset}');
-  print('  rangeA.endOffset == rangeB.endOffset: ${rangeA.endOffset == rangeB.endOffset}');
+  print(
+    '  rangeA.startOffset == rangeB.startOffset: ${rangeA.startOffset == rangeB.startOffset}',
+  );
+  print(
+    '  rangeA.endOffset == rangeB.endOffset: ${rangeA.endOffset == rangeB.endOffset}',
+  );
 
   // ========== HashCode ==========
   print('--- HashCode ---');
@@ -83,7 +88,9 @@ dynamic build(BuildContext context) {
   // ========== Range with single character ==========
   print('--- Single character ranges ---');
   final singleChar = SelectedContentRange(startOffset: 100, endOffset: 101);
-  print('  single char range: ${singleChar.startOffset} to ${singleChar.endOffset}');
+  print(
+    '  single char range: ${singleChar.startOffset} to ${singleChar.endOffset}',
+  );
   print('  length: ${singleChar.endOffset - singleChar.startOffset}');
 
   print('SelectedContentRange test completed');
@@ -94,13 +101,19 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('SelectedContentRange Tests',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          Text(
+            'SelectedContentRange Tests',
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('Basic range: ${range1.startOffset} to ${range1.endOffset}'),
           Text('Range length: ${range1.endOffset - range1.startOffset}'),
-          Text('Zero range length: ${rangeZeroZero.endOffset - rangeZeroZero.startOffset}'),
-          Text('Large range: ${rangeLarge.startOffset} to ${rangeLarge.endOffset}'),
+          Text(
+            'Zero range length: ${rangeZeroZero.endOffset - rangeZeroZero.startOffset}',
+          ),
+          Text(
+            'Large range: ${rangeLarge.startOffset} to ${rangeLarge.endOffset}',
+          ),
           Text('Ranges created: ${ranges.length}'),
         ],
       ),

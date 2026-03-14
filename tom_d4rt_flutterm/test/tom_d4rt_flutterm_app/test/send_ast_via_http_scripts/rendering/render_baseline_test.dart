@@ -93,7 +93,9 @@ dynamic build(BuildContext context) {
       width: 50,
       height: 30,
       color: Colors.green,
-      child: Center(child: Text('20', style: TextStyle(color: Colors.white))),
+      child: Center(
+        child: Text('20', style: TextStyle(color: Colors.white)),
+      ),
     ),
   );
   print('Baseline at 20 pixels');
@@ -105,7 +107,9 @@ dynamic build(BuildContext context) {
       width: 50,
       height: 30,
       color: Colors.orange,
-      child: Center(child: Text('40', style: TextStyle(color: Colors.white))),
+      child: Center(
+        child: Text('40', style: TextStyle(color: Colors.white)),
+      ),
     ),
   );
   print('Baseline at 40 pixels');
@@ -117,7 +121,9 @@ dynamic build(BuildContext context) {
       width: 50,
       height: 30,
       color: Colors.purple,
-      child: Center(child: Text('60', style: TextStyle(color: Colors.white))),
+      child: Center(
+        child: Text('60', style: TextStyle(color: Colors.white)),
+      ),
     ),
   );
   print('Baseline at 60 pixels');

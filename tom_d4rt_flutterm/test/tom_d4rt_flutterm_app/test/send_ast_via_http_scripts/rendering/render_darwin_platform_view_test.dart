@@ -87,7 +87,8 @@ dynamic build(BuildContext context) {
             children: [
               SizedBox(width: 8),
               Container(
-                width: 12, height: 12,
+                width: 12,
+                height: 12,
                 decoration: BoxDecoration(
                   color: Colors.red,
                   shape: BoxShape.circle,
@@ -95,7 +96,8 @@ dynamic build(BuildContext context) {
               ),
               SizedBox(width: 4),
               Container(
-                width: 12, height: 12,
+                width: 12,
+                height: 12,
                 decoration: BoxDecoration(
                   color: Colors.yellow,
                   shape: BoxShape.circle,
@@ -103,7 +105,8 @@ dynamic build(BuildContext context) {
               ),
               SizedBox(width: 4),
               Container(
-                width: 12, height: 12,
+                width: 12,
+                height: 12,
                 decoration: BoxDecoration(
                   color: Colors.green,
                   shape: BoxShape.circle,
@@ -115,9 +118,7 @@ dynamic build(BuildContext context) {
             ],
           ),
         ),
-        Expanded(
-          child: Center(child: Text('Web Content Area')),
-        ),
+        Expanded(child: Center(child: Text('Web Content Area'))),
       ],
     ),
   );
@@ -166,10 +167,7 @@ dynamic build(BuildContext context) {
       child: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(Icons.touch_app),
-            Text('Gesture Area'),
-          ],
+          children: [Icon(Icons.touch_app), Text('Gesture Area')],
         ),
       ),
     ),
@@ -185,7 +183,12 @@ dynamic build(BuildContext context) {
   final layoutExample = Row(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Container(width: 60, height: 60, color: Colors.amber, child: Center(child: Text('FL'))),
+      Container(
+        width: 60,
+        height: 60,
+        color: Colors.amber,
+        child: Center(child: Text('FL')),
+      ),
       Container(
         width: 80,
         height: 60,
@@ -195,7 +198,12 @@ dynamic build(BuildContext context) {
         ),
         child: Center(child: Text('Native')),
       ),
-      Container(width: 60, height: 60, color: Colors.teal, child: Center(child: Text('FL'))),
+      Container(
+        width: 60,
+        height: 60,
+        color: Colors.teal,
+        child: Center(child: Text('FL')),
+      ),
     ],
   );
   print('Mixed Flutter/Native layout');

@@ -41,10 +41,7 @@ dynamic build(BuildContext context) {
     blocking: true,
     child: Column(
       children: [
-        BlockSemantics(
-          blocking: false,
-          child: Text('Inner not blocking'),
-        ),
+        BlockSemantics(blocking: false, child: Text('Inner not blocking')),
         Text('Direct child'),
       ],
     ),
@@ -108,7 +105,9 @@ dynamic build(BuildContext context) {
   print('--- BlockSemantics vs ExcludeSemantics ---');
   print('BlockSemantics: Blocks semantics of widgets BELOW in paint order');
   print('ExcludeSemantics: Excludes semantics of THIS widget and its subtree');
-  print('Key difference: BlockSemantics affects Z-order, ExcludeSemantics affects subtree');
+  print(
+    'Key difference: BlockSemantics affects Z-order, ExcludeSemantics affects subtree',
+  );
 
   // Test toggle behavior
   final toggleBlocking = BlockSemantics(

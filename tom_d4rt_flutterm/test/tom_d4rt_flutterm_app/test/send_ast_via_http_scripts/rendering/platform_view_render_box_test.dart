@@ -72,9 +72,15 @@ dynamic build(BuildContext context) {
 
   // ========== Gesture recognizer factories ==========
   print('--- Gesture recognizer factories ---');
-  final tapFactory = Factory<TapGestureRecognizer>(() => TapGestureRecognizer());
-  final longPressFactory = Factory<LongPressGestureRecognizer>(() => LongPressGestureRecognizer());
-  final panFactory = Factory<PanGestureRecognizer>(() => PanGestureRecognizer());
+  final tapFactory = Factory<TapGestureRecognizer>(
+    () => TapGestureRecognizer(),
+  );
+  final longPressFactory = Factory<LongPressGestureRecognizer>(
+    () => LongPressGestureRecognizer(),
+  );
+  final panFactory = Factory<PanGestureRecognizer>(
+    () => PanGestureRecognizer(),
+  );
   print('  Created TapGestureRecognizer factory');
   print('  Created LongPressGestureRecognizer factory');
   print('  Created PanGestureRecognizer factory');
@@ -113,12 +119,16 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('PlatformViewRenderBox Tests',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          Text(
+            'PlatformViewRenderBox Tests',
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('AndroidView widget created'),
           Text('UiKitView widget created'),
-          Text('Hit test behaviors: ${PlatformViewHitTestBehavior.values.length}'),
+          Text(
+            'Hit test behaviors: ${PlatformViewHitTestBehavior.values.length}',
+          ),
           Text('Opaque: blocks hit tests'),
           Text('Translucent: passes hit tests'),
           Text('Transparent: ignores hit tests'),

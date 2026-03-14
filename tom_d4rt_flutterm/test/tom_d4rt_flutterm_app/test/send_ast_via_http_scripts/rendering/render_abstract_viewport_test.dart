@@ -7,9 +7,13 @@ dynamic build(BuildContext context) {
 
   // ========== VIEWPORT CONCEPTS ==========
   print('--- RenderAbstractViewport Concepts ---');
-  print('RenderAbstractViewport is the abstract base class for viewport render objects');
+  print(
+    'RenderAbstractViewport is the abstract base class for viewport render objects',
+  );
   print('It provides the interface for scrollable regions');
-  print('Concrete implementations: RenderViewport, RenderShrinkWrappingViewport');
+  print(
+    'Concrete implementations: RenderViewport, RenderShrinkWrappingViewport',
+  );
 
   // ========== SCROLL DIRECTION TESTS ==========
   print('--- Scroll Direction ---');
@@ -23,7 +27,9 @@ dynamic build(BuildContext context) {
 
   // Create ScrollController to test viewport behavior
   final scrollController = ScrollController(initialScrollOffset: 100.0);
-  print('ScrollController created with initialScrollOffset: ${scrollController.initialScrollOffset}');
+  print(
+    'ScrollController created with initialScrollOffset: ${scrollController.initialScrollOffset}',
+  );
 
   // ========== SINGLE CHILD SCROLL VIEW ==========
   print('--- SingleChildScrollView (uses RenderViewport concepts) ---');
@@ -32,11 +38,14 @@ dynamic build(BuildContext context) {
     controller: scrollController,
     scrollDirection: Axis.vertical,
     child: Column(
-      children: List.generate(20, (i) => Container(
-        height: 50,
-        color: i.isEven ? Colors.blue : Colors.green,
-        child: Center(child: Text('Item $i')),
-      )),
+      children: List.generate(
+        20,
+        (i) => Container(
+          height: 50,
+          color: i.isEven ? Colors.blue : Colors.green,
+          child: Center(child: Text('Item $i')),
+        ),
+      ),
     ),
   );
   print('Created vertical SingleChildScrollView');
@@ -45,12 +54,15 @@ dynamic build(BuildContext context) {
   final horizontalScroll = SingleChildScrollView(
     scrollDirection: Axis.horizontal,
     child: Row(
-      children: List.generate(10, (i) => Container(
-        width: 80,
-        height: 60,
-        color: i.isEven ? Colors.red : Colors.orange,
-        child: Center(child: Text('H$i')),
-      )),
+      children: List.generate(
+        10,
+        (i) => Container(
+          width: 80,
+          height: 60,
+          color: i.isEven ? Colors.red : Colors.orange,
+          child: Center(child: Text('H$i')),
+        ),
+      ),
     ),
   );
   print('Created horizontal SingleChildScrollView');
@@ -63,10 +75,8 @@ dynamic build(BuildContext context) {
     height: 150,
     child: ListView.builder(
       itemCount: 50,
-      itemBuilder: (context, index) => ListTile(
-        title: Text('List Item $index'),
-        leading: Icon(Icons.star),
-      ),
+      itemBuilder: (context, index) =>
+          ListTile(title: Text('List Item $index'), leading: Icon(Icons.star)),
     ),
   );
   print('Created ListView.builder with 50 items');
@@ -79,10 +89,13 @@ dynamic build(BuildContext context) {
     height: 150,
     child: GridView.count(
       crossAxisCount: 3,
-      children: List.generate(12, (i) => Container(
-        color: Colors.primaries[i % Colors.primaries.length],
-        child: Center(child: Text('G$i')),
-      )),
+      children: List.generate(
+        12,
+        (i) => Container(
+          color: Colors.primaries[i % Colors.primaries.length],
+          child: Center(child: Text('G$i')),
+        ),
+      ),
     ),
   );
   print('Created GridView.count with 3 columns');
@@ -128,7 +141,10 @@ dynamic build(BuildContext context) {
 
   // ========== REVEALED OFFSET ==========
   print('--- RevealedOffset Class ---');
-  final revealedOffset = RevealedOffset(offset: 100.0, rect: Rect.fromLTWH(0, 100, 50, 50));
+  final revealedOffset = RevealedOffset(
+    offset: 100.0,
+    rect: Rect.fromLTWH(0, 100, 50, 50),
+  );
   print('RevealedOffset: offset=${revealedOffset.offset}');
   print('  rect=${revealedOffset.rect}');
 
@@ -152,10 +168,18 @@ dynamic build(BuildContext context) {
 
   // ========== AXIS DIRECTION UTILITIES ==========
   print('--- Axis Direction Utilities ---');
-  print('axisDirectionToAxis(AxisDirection.down): ${axisDirectionToAxis(AxisDirection.down)}');
-  print('axisDirectionToAxis(AxisDirection.right): ${axisDirectionToAxis(AxisDirection.right)}');
-  print('axisDirectionIsReversed(AxisDirection.up): ${axisDirectionIsReversed(AxisDirection.up)}');
-  print('axisDirectionIsReversed(AxisDirection.down): ${axisDirectionIsReversed(AxisDirection.down)}');
+  print(
+    'axisDirectionToAxis(AxisDirection.down): ${axisDirectionToAxis(AxisDirection.down)}',
+  );
+  print(
+    'axisDirectionToAxis(AxisDirection.right): ${axisDirectionToAxis(AxisDirection.right)}',
+  );
+  print(
+    'axisDirectionIsReversed(AxisDirection.up): ${axisDirectionIsReversed(AxisDirection.up)}',
+  );
+  print(
+    'axisDirectionIsReversed(AxisDirection.down): ${axisDirectionIsReversed(AxisDirection.down)}',
+  );
 
   print('RenderAbstractViewport test completed');
   return Column(

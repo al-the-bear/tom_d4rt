@@ -19,7 +19,10 @@ dynamic build(BuildContext context) {
   final srcOverLayer = ColorFilterLayer(colorFilter: srcOverFilter);
   print('  srcOver filter: ${srcOverLayer.colorFilter}');
 
-  final multiplyFilter = ColorFilter.mode(Color(0xFF4CAF50), BlendMode.multiply);
+  final multiplyFilter = ColorFilter.mode(
+    Color(0xFF4CAF50),
+    BlendMode.multiply,
+  );
   final multiplyLayer = ColorFilterLayer(colorFilter: multiplyFilter);
   print('  multiply filter: ${multiplyLayer.colorFilter}');
 
@@ -31,7 +34,10 @@ dynamic build(BuildContext context) {
   final overlayLayer = ColorFilterLayer(colorFilter: overlayFilter);
   print('  overlay filter: ${overlayLayer.colorFilter}');
 
-  final colorDodgeFilter = ColorFilter.mode(Color(0xFF00BCD4), BlendMode.colorDodge);
+  final colorDodgeFilter = ColorFilter.mode(
+    Color(0xFF00BCD4),
+    BlendMode.colorDodge,
+  );
   final colorDodgeLayer = ColorFilterLayer(colorFilter: colorDodgeFilter);
   print('  colorDodge filter: ${colorDodgeLayer.colorFilter}');
 
@@ -39,30 +45,78 @@ dynamic build(BuildContext context) {
   print('--- ColorFilter.matrix ---');
   // Grayscale matrix
   final grayscaleMatrix = ColorFilter.matrix(<double>[
-    0.2126, 0.7152, 0.0722, 0, 0,
-    0.2126, 0.7152, 0.0722, 0, 0,
-    0.2126, 0.7152, 0.0722, 0, 0,
-    0, 0, 0, 1, 0,
+    0.2126,
+    0.7152,
+    0.0722,
+    0,
+    0,
+    0.2126,
+    0.7152,
+    0.0722,
+    0,
+    0,
+    0.2126,
+    0.7152,
+    0.0722,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
   ]);
   final grayscaleLayer = ColorFilterLayer(colorFilter: grayscaleMatrix);
   print('  grayscale matrix filter: created');
 
   // Sepia matrix
   final sepiaMatrix = ColorFilter.matrix(<double>[
-    0.393, 0.769, 0.189, 0, 0,
-    0.349, 0.686, 0.168, 0, 0,
-    0.272, 0.534, 0.131, 0, 0,
-    0, 0, 0, 1, 0,
+    0.393,
+    0.769,
+    0.189,
+    0,
+    0,
+    0.349,
+    0.686,
+    0.168,
+    0,
+    0,
+    0.272,
+    0.534,
+    0.131,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
   ]);
   final sepiaLayer = ColorFilterLayer(colorFilter: sepiaMatrix);
   print('  sepia matrix filter: created');
 
   // Invert matrix
   final invertMatrix = ColorFilter.matrix(<double>[
-    -1, 0, 0, 0, 255,
-    0, -1, 0, 0, 255,
-    0, 0, -1, 0, 255,
-    0, 0, 0, 1, 0,
+    -1,
+    0,
+    0,
+    0,
+    255,
+    0,
+    -1,
+    0,
+    0,
+    255,
+    0,
+    0,
+    -1,
+    0,
+    255,
+    0,
+    0,
+    0,
+    1,
+    0,
   ]);
   final invertLayer = ColorFilterLayer(colorFilter: invertMatrix);
   print('  invert matrix filter: created');
@@ -116,9 +170,15 @@ dynamic build(BuildContext context) {
   // ========== BlendMode Values ==========
   print('--- BlendMode Values for ColorFilter ---');
   final usefulBlendModes = [
-    BlendMode.srcIn, BlendMode.srcOver, BlendMode.multiply,
-    BlendMode.screen, BlendMode.overlay, BlendMode.darken,
-    BlendMode.lighten, BlendMode.colorDodge, BlendMode.colorBurn,
+    BlendMode.srcIn,
+    BlendMode.srcOver,
+    BlendMode.multiply,
+    BlendMode.screen,
+    BlendMode.overlay,
+    BlendMode.darken,
+    BlendMode.lighten,
+    BlendMode.colorDodge,
+    BlendMode.colorBurn,
   ];
   for (final mode in usefulBlendModes) {
     print('  ${mode.name}: useful for color filtering');
@@ -132,8 +192,10 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('ColorFilterLayer Tests',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          Text(
+            'ColorFilterLayer Tests',
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('ColorFilterLayer: ${filterLayer.runtimeType}'),
           Text('ColorFilter.mode: various blend modes'),

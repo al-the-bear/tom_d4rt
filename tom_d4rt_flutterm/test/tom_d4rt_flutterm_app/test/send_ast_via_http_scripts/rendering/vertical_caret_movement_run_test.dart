@@ -112,13 +112,22 @@ dynamic build(BuildContext context) {
 
   // ========== Caret Position Calculation ==========
   print('--- Caret Position Calculation ---');
-  final caretOffset1 = textPainter.getOffsetForCaret(TextPosition(offset: 0), Rect.zero);
+  final caretOffset1 = textPainter.getOffsetForCaret(
+    TextPosition(offset: 0),
+    Rect.zero,
+  );
   print('  caret at offset 0: $caretOffset1');
 
-  final caretOffset2 = textPainter.getOffsetForCaret(TextPosition(offset: 5), Rect.zero);
+  final caretOffset2 = textPainter.getOffsetForCaret(
+    TextPosition(offset: 5),
+    Rect.zero,
+  );
   print('  caret at offset 5: $caretOffset2');
 
-  final caretOffset3 = textPainter.getOffsetForCaret(TextPosition(offset: 12), Rect.zero);
+  final caretOffset3 = textPainter.getOffsetForCaret(
+    TextPosition(offset: 12),
+    Rect.zero,
+  );
   print('  caret at offset 12 (newline): $caretOffset3');
 
   print('VerticalCaretMovementRun test completed');
@@ -129,8 +138,10 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('VerticalCaretMovementRun Tests',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          Text(
+            'VerticalCaretMovementRun Tests',
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('Type: Iterator<TextPosition>'),
           Text('Created via: RenderEditable.startVerticalCaretMovement'),

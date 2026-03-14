@@ -7,10 +7,7 @@ class _HighlightPainter extends RenderEditablePainter {
   final Color highlightColor;
   final List<TextBox> boxes;
 
-  _HighlightPainter({
-    required this.highlightColor,
-    this.boxes = const [],
-  });
+  _HighlightPainter({required this.highlightColor, this.boxes = const []});
 
   @override
   void paint(Canvas canvas, Size size, RenderEditable renderEditable) {
@@ -36,10 +33,7 @@ class _UnderlinePainter extends RenderEditablePainter {
   final Color color;
   final double thickness;
 
-  _UnderlinePainter({
-    this.color = Colors.red,
-    this.thickness = 2.0,
-  });
+  _UnderlinePainter({this.color = Colors.red, this.thickness = 2.0});
 
   @override
   void paint(Canvas canvas, Size size, RenderEditable renderEditable) {
@@ -88,17 +82,12 @@ dynamic build(BuildContext context) {
   // Create custom painters
   final highlightPainter = _HighlightPainter(
     highlightColor: Colors.yellow.withValues(alpha: 0.5),
-    boxes: [
-      TextBox.fromLTRBD(0, 0, 100, 20, TextDirection.ltr),
-    ],
+    boxes: [TextBox.fromLTRBD(0, 0, 100, 20, TextDirection.ltr)],
   );
   print('Created highlight painter');
   print('  highlightColor: yellow with 50% opacity');
 
-  final underlinePainter = _UnderlinePainter(
-    color: Colors.red,
-    thickness: 1.5,
-  );
+  final underlinePainter = _UnderlinePainter(color: Colors.red, thickness: 1.5);
   print('Created underline painter');
   print('  color: red, thickness: 1.5');
 
@@ -120,9 +109,7 @@ dynamic build(BuildContext context) {
         fillColor: Colors.yellow[50],
         border: OutlineInputBorder(),
       ),
-      style: TextStyle(
-        background: Paint()..color = Colors.yellow[200]!,
-      ),
+      style: TextStyle(background: Paint()..color = Colors.yellow[200]!),
     ),
   );
   print('TextField with yellow highlight background');

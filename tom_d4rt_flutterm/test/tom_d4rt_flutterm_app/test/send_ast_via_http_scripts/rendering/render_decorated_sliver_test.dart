@@ -12,9 +12,7 @@ dynamic build(BuildContext context) {
   print('Supports BoxDecoration, ShapeDecoration, etc.');
 
   // Test using DecoratedSliver widget
-  final colorDecoration = BoxDecoration(
-    color: Colors.blue[100],
-  );
+  final colorDecoration = BoxDecoration(color: Colors.blue[100]);
   print('Simple color BoxDecoration');
   print('  color: Colors.blue[100]');
 
@@ -46,11 +44,7 @@ dynamic build(BuildContext context) {
   final shadowDecoration = BoxDecoration(
     color: Colors.white,
     boxShadow: [
-      BoxShadow(
-        color: Colors.black26,
-        blurRadius: 8,
-        offset: Offset(2, 2),
-      ),
+      BoxShadow(color: Colors.black26, blurRadius: 8, offset: Offset(2, 2)),
     ],
   );
   print('Shadow decoration');
@@ -58,16 +52,10 @@ dynamic build(BuildContext context) {
 
   // Combined decoration
   final combinedDecoration = BoxDecoration(
-    gradient: LinearGradient(
-      colors: [Colors.orange, Colors.red],
-    ),
+    gradient: LinearGradient(colors: [Colors.orange, Colors.red]),
     borderRadius: BorderRadius.circular(12),
     boxShadow: [
-      BoxShadow(
-        color: Colors.black38,
-        blurRadius: 10,
-        offset: Offset(0, 4),
-      ),
+      BoxShadow(color: Colors.black38, blurRadius: 10, offset: Offset(0, 4)),
     ],
   );
   print('Combined decoration: gradient + radius + shadow');
@@ -104,10 +92,8 @@ dynamic build(BuildContext context) {
         // Content sliver
         SliverList(
           delegate: SliverChildBuilderDelegate(
-            (context, index) => ListTile(
-              title: Text('Item $index'),
-              leading: Icon(Icons.star),
-            ),
+            (context, index) =>
+                ListTile(title: Text('Item $index'), leading: Icon(Icons.star)),
             childCount: 5,
           ),
         ),
@@ -118,10 +104,7 @@ dynamic build(BuildContext context) {
             border: Border(top: BorderSide(color: Colors.grey)),
           ),
           sliver: SliverToBoxAdapter(
-            child: Container(
-              height: 50,
-              child: Center(child: Text('Footer')),
-            ),
+            child: Container(height: 50, child: Center(child: Text('Footer'))),
           ),
         ),
       ],
@@ -153,7 +136,9 @@ dynamic build(BuildContext context) {
       border: Border.all(color: Colors.green, width: 3),
     ),
     position: DecorationPosition.foreground,
-    sliver: SliverToBoxAdapter(child: Container(height: 40, color: Colors.yellow[100])),
+    sliver: SliverToBoxAdapter(
+      child: Container(height: 40, color: Colors.yellow[100]),
+    ),
   );
   print('Foreground positioned border');
 
@@ -193,21 +178,26 @@ dynamic build(BuildContext context) {
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            width: 60, height: 50,
+            width: 60,
+            height: 50,
             decoration: colorDecoration,
             child: Center(child: Text('Color')),
           ),
           SizedBox(width: 8),
           Container(
-            width: 60, height: 50,
+            width: 60,
+            height: 50,
             decoration: borderDecoration,
             child: Center(child: Text('Border')),
           ),
           SizedBox(width: 8),
           Container(
-            width: 60, height: 50,
+            width: 60,
+            height: 50,
             decoration: gradientDecoration,
-            child: Center(child: Text('Grad', style: TextStyle(color: Colors.white))),
+            child: Center(
+              child: Text('Grad', style: TextStyle(color: Colors.white)),
+            ),
           ),
         ],
       ),

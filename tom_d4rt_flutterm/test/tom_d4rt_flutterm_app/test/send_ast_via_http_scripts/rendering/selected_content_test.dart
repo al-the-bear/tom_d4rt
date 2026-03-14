@@ -7,9 +7,7 @@ dynamic build(BuildContext context) {
 
   // ========== Basic SelectedContent creation ==========
   print('--- Basic SelectedContent ---');
-  final content1 = SelectedContent(
-    plainText: 'Hello World',
-  );
+  final content1 = SelectedContent(plainText: 'Hello World');
   print('  created: ${content1.runtimeType}');
   print('  plainText: ${content1.plainText}');
 
@@ -41,8 +39,12 @@ dynamic build(BuildContext context) {
   print('--- Special characters ---');
   final specialChars = SelectedContent(plainText: 'Tab:\tNewline:\nEnd');
   final symbolContent = SelectedContent(plainText: '@#\$%^&*()[]{}');
-  print('  special chars contains tab: ${specialChars.plainText.contains('\t')}');
-  print('  special chars contains newline: ${specialChars.plainText.contains('\n')}');
+  print(
+    '  special chars contains tab: ${specialChars.plainText.contains('\t')}',
+  );
+  print(
+    '  special chars contains newline: ${specialChars.plainText.contains('\n')}',
+  );
   print('  symbol content length: ${symbolContent.plainText.length}');
 
   // ========== Long text content ==========
@@ -73,7 +75,9 @@ dynamic build(BuildContext context) {
   print('  contentA == contentA: ${contentA == contentA}');
   print('  contentA == contentB: ${contentA == contentB}');
   print('  contentA == contentC: ${contentA == contentC}');
-  print('  contentA.plainText == contentB.plainText: ${contentA.plainText == contentB.plainText}');
+  print(
+    '  contentA.plainText == contentB.plainText: ${contentA.plainText == contentB.plainText}',
+  );
 
   // ========== HashCode ==========
   print('--- HashCode ---');
@@ -92,8 +96,10 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('SelectedContent Tests',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          Text(
+            'SelectedContent Tests',
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('Basic plainText: ${content1.plainText}'),
           Text('Empty length: ${emptyContent.plainText.length}'),

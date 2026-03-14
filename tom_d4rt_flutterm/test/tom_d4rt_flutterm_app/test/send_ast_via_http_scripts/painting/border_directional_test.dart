@@ -1,19 +1,134 @@
 // D4rt test script: Tests BorderDirectional from painting
+import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {
   print('BorderDirectional test executing');
+  final results = <String>[];
 
-  // Test BorderDirectional - RTL-aware border
-  print('BorderDirectional is available in the painting package');
-  print('BorderDirectional: RTL-aware border');
+  // ========== BorderDirectional Tests ==========
+  print('Testing BorderDirectional...');
 
-  print('BorderDirectional test completed');
+  // Test 1: Create basic BorderDirectional
+  final border1 = BorderDirectional(
+    top: BorderSide(color: Color(0xFFFF0000), width: 1.0),
+    bottom: BorderSide(color: Color(0xFF00FF00), width: 2.0),
+    start: BorderSide(color: Color(0xFF0000FF), width: 3.0),
+    end: BorderSide(color: Color(0xFFFFFF00), width: 4.0),
+  );
+  assert(border1.top.width == 1.0, 'Top width should be 1.0');
+  assert(border1.bottom.width == 2.0, 'Bottom width should be 2.0');
+  assert(border1.start.width == 3.0, 'Start width should be 3.0');
+  assert(border1.end.width == 4.0, 'End width should be 4.0');
+  results.add('BorderDirectional: top=${border1.top.width}, start=${border1.start.width}');
+  print('BorderDirectional created with all sides');
+
+  // Test 2: BorderDirectional with only top
+  final border2 = BorderDirectional(
+    top: BorderSide(color: Color(0xFF000000), width: 2.0),
+  );
+  assert(border2.top.width == 2.0, 'Top width should be 2.0');
+  assert(border2.bottom == BorderSide.none, 'Bottom should be none');
+  results.add('BorderDirectional top only: ${border2.top.width}');
+  print('BorderDirectional top only verified');
+
+  // Test 3: BorderDirectional with only bottom
+  final border3 = BorderDirectional(
+    bottom: BorderSide(color: Color(0xFF000000), width: 3.0),
+  );
+  assert(border3.bottom.width == 3.0, 'Bottom width should be 3.0');
+  results.add('BorderDirectional bottom only: ${border3.bottom.width}');
+  print('BorderDirectional bottom only verified');
+
+  // Test 4: BorderDirectional with start and end (RTL-aware)
+  final border4 = BorderDirectional(
+    start: BorderSide(color: Color(0xFFFF0000), width: 5.0),
+    end: BorderSide(color: Color(0xFF0000FF), width: 2.0),
+  );
+  assert(border4.start.width == 5.0, 'Start width should be 5.0');
+  assert(border4.end.width == 2.0, 'End width should be 2.0');
+  results.add('BorderDirectional start/end: start=${border4.start.width}, end=${border4.end.width}');
+  print('BorderDirectional start/end verified');
+
+  // Test 5: BorderDirectional dimensions
+  final border5 = BorderDirectional(
+    top: BorderSide(width: 10.0),
+    bottom: BorderSide(width: 10.0),
+    start: BorderSide(width: 5.0),
+    end: BorderSide(width: 5.0),
+  );
+  final dims = border5.dimensions;
+  assert(dims.vertical == 20.0, 'Vertical dimensions should be 20.0');
+  assert(dims.horizontal == 10.0, 'Horizontal dimensions should be 10.0');
+  results.add('BorderDirectional dimensions: h=${dims.horizontal}, v=${dims.vertical}');
+  print('BorderDirectional dimensions: $dims');
+
+  // Test 6: BorderDirectional isUniform
+  final uniformBorder = BorderDirectional(
+    top: BorderSide(color: Color(0xFF000000), width: 1.0),
+    bottom: BorderSide(color: Color(0xFF000000), width: 1.0),
+    start: BorderSide(color: Color(0xFF000000), width: 1.0),
+    end: BorderSide(color: Color(0xFF000000), width: 1.0),
+  );
+  assert(uniformBorder.isUniform == true, 'Should be uniform');
+  results.add('BorderDirectional isUniform: ${uniformBorder.isUniform}');
+  print('BorderDirectional isUniform: ${uniformBorder.isUniform}');
+
+  // Test 7: BorderDirectional non-uniform
+  final nonUniformBorder = BorderDirectional(
+    top: BorderSide(width: 1.0),
+    bottom: BorderSide(width: 2.0),
+  );
+  assert(nonUniformBorder.isUniform == false, 'Should not be uniform');
+  results.add('BorderDirectional non-uniform: ${nonUniformBorder.isUniform}');
+  print('BorderDirectional non-uniform verified');
+
+  // Test 8: BorderDirectional scale
+  final scaledBorder = border1.scale(2.0);
+  assert(scaledBorder.top.width == 2.0, 'Scaled top should be 2.0');
+  results.add('BorderDirectional scaled: ${scaledBorder.top.width}');
+  print('BorderDirectional scale verified');
+
+  // Test 9: BorderDirectional lerp
+  final borderA = BorderDirectional(top: BorderSide(width: 0.0));
+  final borderB = BorderDirectional(top: BorderSide(width: 10.0));
+  final lerped = BorderDirectional.lerp(borderA, borderB, 0.5);
+  assert(lerped != null, 'Lerped border should not be null');
+  results.add('BorderDirectional lerp: applied');
+  print('BorderDirectional lerp applied');
+
+  // Test 10: BorderDirectional with BorderSide.none
+  final borderNone = BorderDirectional(
+    top: BorderSide(width: 1.0),
+    bottom: BorderSide.none,
+    start: BorderSide.none,
+    end: BorderSide.none,
+  );
+  assert(borderNone.bottom == BorderSide.none, 'Bottom should be none');
+  results.add('BorderDirectional with none sides: verified');
+  print('BorderDirectional with none sides verified');
+
+  // Test 11: BorderDirectional equality
+  final bdA = BorderDirectional(top: BorderSide(width: 1.0));
+  final bdB = BorderDirectional(top: BorderSide(width: 1.0));
+  assert(bdA == bdB, 'Equal borders should be equal');
+  results.add('BorderDirectional equality: ${bdA == bdB}');
+  print('BorderDirectional equality verified');
+
+  // Test 12: BorderDirectional hashCode
+  final hashA = bdA.hashCode;
+  final hashB = bdB.hashCode;
+  assert(hashA == hashB, 'Equal borders should have same hash');
+  results.add('BorderDirectional hashCode: $hashA');
+  print('BorderDirectional hashCode verified');
+
+  print('BorderDirectional test completed with ${results.length} tests');
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('BorderDirectional Tests'),
-      Text('RTL-aware border'),
+      Text('Tests passed: ${results.length}'),
+      ...results.take(5).map((r) => Text(r, style: TextStyle(fontSize: 10))),
     ],
   );
 }

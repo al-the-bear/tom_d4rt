@@ -7,9 +7,13 @@ dynamic build(BuildContext context) {
 
   // ========== ALIGNMENT CONCEPTS ==========
   print('--- RenderAligningShiftedBox Concepts ---');
-  print('RenderAligningShiftedBox is the base class for alignment render objects');
+  print(
+    'RenderAligningShiftedBox is the base class for alignment render objects',
+  );
   print('It shifts its child according to an Alignment value');
-  print('Subclasses: RenderPositionedBox (Align), RenderConstrainedOverflowBox, etc.');
+  print(
+    'Subclasses: RenderPositionedBox (Align), RenderConstrainedOverflowBox, etc.',
+  );
 
   // ========== ALIGNMENT VALUES ==========
   print('--- Alignment Values ---');
@@ -99,15 +103,15 @@ dynamic build(BuildContext context) {
 
   // ========== CENTER WIDGET ==========
   print('--- Center Widget Tests ---');
-  print('Center is a convenience widget equivalent to Align(alignment: Alignment.center)');
+  print(
+    'Center is a convenience widget equivalent to Align(alignment: Alignment.center)',
+  );
 
   final centerWidget = Container(
     width: 100,
     height: 80,
     color: Colors.grey.shade200,
-    child: Center(
-      child: Container(width: 30, height: 30, color: Colors.teal),
-    ),
+    child: Center(child: Container(width: 30, height: 30, color: Colors.teal)),
   );
   print('Created Center widget');
 
@@ -137,7 +141,7 @@ dynamic build(BuildContext context) {
 
   // ========== ALIGNMENT GEOMETRY ==========
   print('--- AlignmentGeometry Tests ---');
-  
+
   final directional = AlignmentDirectional.topStart;
   print('AlignmentDirectional.topStart: $directional');
   print('AlignmentDirectional.bottomEnd: ${AlignmentDirectional.bottomEnd}');

@@ -27,7 +27,11 @@ dynamic build(BuildContext context) {
   print('  height: ${layer2.rect.height}');
 
   final layer3 = PlatformViewLayer(
-    rect: Rect.fromCenter(center: Offset(50.0, 50.0), width: 80.0, height: 60.0),
+    rect: Rect.fromCenter(
+      center: Offset(50.0, 50.0),
+      width: 80.0,
+      height: 60.0,
+    ),
     viewId: 3,
   );
   print('  rect fromCenter: ${layer3.rect}');
@@ -35,10 +39,7 @@ dynamic build(BuildContext context) {
 
   // ========== Zero-sized rect ==========
   print('--- Zero-sized rect ---');
-  final layerZero = PlatformViewLayer(
-    rect: Rect.zero,
-    viewId: 4,
-  );
+  final layerZero = PlatformViewLayer(rect: Rect.zero, viewId: 4);
   print('  rect.isEmpty: ${layerZero.rect.isEmpty}');
   print('  rect: ${layerZero.rect}');
 
@@ -58,7 +59,9 @@ dynamic build(BuildContext context) {
   print('  layer1.firstChild: ${layer1.firstChild}');
   print('  layer1.lastChild: ${layer1.lastChild}');
   print('  layer1.attached: ${layer1.attached}');
-  print('  layer1.debugSubtreeNeedsAddToScene: ${layer1.debugSubtreeNeedsAddToScene}');
+  print(
+    '  layer1.debugSubtreeNeedsAddToScene: ${layer1.debugSubtreeNeedsAddToScene}',
+  );
 
   // ========== ContainerLayer as parent ==========
   print('--- ContainerLayer as parent ---');
@@ -71,28 +74,53 @@ dynamic build(BuildContext context) {
   // ========== Multiple layers in container ==========
   print('--- Multiple layers in container ---');
   final container2 = ContainerLayer();
-  final pvLayer1 = PlatformViewLayer(rect: Rect.fromLTWH(0.0, 0.0, 100.0, 100.0), viewId: 10);
-  final pvLayer2 = PlatformViewLayer(rect: Rect.fromLTWH(100.0, 0.0, 100.0, 100.0), viewId: 11);
-  final pvLayer3 = PlatformViewLayer(rect: Rect.fromLTWH(200.0, 0.0, 100.0, 100.0), viewId: 12);
+  final pvLayer1 = PlatformViewLayer(
+    rect: Rect.fromLTWH(0.0, 0.0, 100.0, 100.0),
+    viewId: 10,
+  );
+  final pvLayer2 = PlatformViewLayer(
+    rect: Rect.fromLTWH(100.0, 0.0, 100.0, 100.0),
+    viewId: 11,
+  );
+  final pvLayer3 = PlatformViewLayer(
+    rect: Rect.fromLTWH(200.0, 0.0, 100.0, 100.0),
+    viewId: 12,
+  );
   container2.append(pvLayer1);
   container2.append(pvLayer2);
   container2.append(pvLayer3);
-  print('  pvLayer1.nextSibling == pvLayer2: ${pvLayer1.nextSibling == pvLayer2}');
-  print('  pvLayer2.previousSibling == pvLayer1: ${pvLayer2.previousSibling == pvLayer1}');
-  print('  pvLayer3.previousSibling == pvLayer2: ${pvLayer3.previousSibling == pvLayer2}');
+  print(
+    '  pvLayer1.nextSibling == pvLayer2: ${pvLayer1.nextSibling == pvLayer2}',
+  );
+  print(
+    '  pvLayer2.previousSibling == pvLayer1: ${pvLayer2.previousSibling == pvLayer1}',
+  );
+  print(
+    '  pvLayer3.previousSibling == pvLayer2: ${pvLayer3.previousSibling == pvLayer2}',
+  );
 
   // ========== Remove from parent ==========
   print('--- Remove from parent ---');
   pvLayer2.remove();
   print('  After remove pvLayer2:');
-  print('  pvLayer1.nextSibling == pvLayer3: ${pvLayer1.nextSibling == pvLayer3}');
-  print('  pvLayer3.previousSibling == pvLayer1: ${pvLayer3.previousSibling == pvLayer1}');
+  print(
+    '  pvLayer1.nextSibling == pvLayer3: ${pvLayer1.nextSibling == pvLayer3}',
+  );
+  print(
+    '  pvLayer3.previousSibling == pvLayer1: ${pvLayer3.previousSibling == pvLayer1}',
+  );
   print('  pvLayer2.parent: ${pvLayer2.parent}');
 
   // ========== Equality and hashCode ==========
   print('--- Equality and hashCode ---');
-  final layerA = PlatformViewLayer(rect: Rect.fromLTWH(0.0, 0.0, 100.0, 100.0), viewId: 100);
-  final layerB = PlatformViewLayer(rect: Rect.fromLTWH(0.0, 0.0, 100.0, 100.0), viewId: 100);
+  final layerA = PlatformViewLayer(
+    rect: Rect.fromLTWH(0.0, 0.0, 100.0, 100.0),
+    viewId: 100,
+  );
+  final layerB = PlatformViewLayer(
+    rect: Rect.fromLTWH(0.0, 0.0, 100.0, 100.0),
+    viewId: 100,
+  );
   print('  layerA == layerA: ${layerA == layerA}');
   print('  layerA == layerB: ${layerA == layerB}');
   print('  layerA.hashCode: ${layerA.hashCode}');
@@ -109,8 +137,10 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('PlatformViewLayer Tests',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          Text(
+            'PlatformViewLayer Tests',
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('Basic layer rect: ${layer1.rect}'),
           Text('Basic layer viewId: ${layer1.viewId}'),

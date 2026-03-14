@@ -14,9 +14,15 @@ dynamic build(BuildContext context) {
 
   // ========== PLATFORM VIEW HIT TEST BEHAVIOR ==========
   print('--- PlatformViewHitTestBehavior ---');
-  print('PlatformViewHitTestBehavior.opaque: ${PlatformViewHitTestBehavior.opaque}');
-  print('PlatformViewHitTestBehavior.translucent: ${PlatformViewHitTestBehavior.translucent}');
-  print('PlatformViewHitTestBehavior.transparent: ${PlatformViewHitTestBehavior.transparent}');
+  print(
+    'PlatformViewHitTestBehavior.opaque: ${PlatformViewHitTestBehavior.opaque}',
+  );
+  print(
+    'PlatformViewHitTestBehavior.translucent: ${PlatformViewHitTestBehavior.translucent}',
+  );
+  print(
+    'PlatformViewHitTestBehavior.transparent: ${PlatformViewHitTestBehavior.transparent}',
+  );
 
   // ========== ANDROID VIEW WIDGET ==========
   print('--- AndroidView Widget (creates RenderAndroidView) ---');

@@ -84,9 +84,15 @@ dynamic build(BuildContext context) {
     lineHeight: 16.0,
     handleType: TextSelectionHandleType.collapsed,
   );
-  print('  Start point: ${startPoint.localPosition}, handle: ${startPoint.handleType}');
-  print('  End point: ${endPoint.localPosition}, handle: ${endPoint.handleType}');
-  print('  Collapsed point: ${collapsedPoint.localPosition}, handle: ${collapsedPoint.handleType}');
+  print(
+    '  Start point: ${startPoint.localPosition}, handle: ${startPoint.handleType}',
+  );
+  print(
+    '  End point: ${endPoint.localPosition}, handle: ${endPoint.handleType}',
+  );
+  print(
+    '  Collapsed point: ${collapsedPoint.localPosition}, handle: ${collapsedPoint.handleType}',
+  );
 
   // ========== TextSelectionHandleType ==========
   print('--- TextSelectionHandleType values ---');
@@ -124,8 +130,10 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('SelectionHandler Tests',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          Text(
+            'SelectionHandler Tests',
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('SelectionHandler is a mixin'),
           Text('SelectionResult values: ${SelectionResult.values.length}'),

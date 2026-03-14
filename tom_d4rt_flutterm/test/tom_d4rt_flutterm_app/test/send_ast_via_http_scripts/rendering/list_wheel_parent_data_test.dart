@@ -15,15 +15,15 @@ dynamic build(BuildContext context) {
   final pd1 = ListWheelParentData();
   pd1.index = 0;
   print('  index = 0: ${pd1.index}');
-  
+
   final pd2 = ListWheelParentData();
   pd2.index = 5;
   print('  index = 5: ${pd2.index}');
-  
+
   final pd3 = ListWheelParentData();
   pd3.index = 10;
   print('  index = 10: ${pd3.index}');
-  
+
   final pd4 = ListWheelParentData();
   pd4.index = 100;
   print('  index = 100: ${pd4.index}');
@@ -39,15 +39,15 @@ dynamic build(BuildContext context) {
   final pdOffset1 = ListWheelParentData();
   pdOffset1.offset = Offset(10.0, 20.0);
   print('  offset (10, 20): ${pdOffset1.offset}');
-  
+
   final pdOffset2 = ListWheelParentData();
   pdOffset2.offset = Offset(0.0, 0.0);
   print('  offset (0, 0): ${pdOffset2.offset}');
-  
+
   final pdOffset3 = ListWheelParentData();
   pdOffset3.offset = Offset(100.0, 200.0);
   print('  offset (100, 200): ${pdOffset3.offset}');
-  
+
   final pdOffset4 = ListWheelParentData();
   pdOffset4.offset = Offset(-50.0, -100.0);
   print('  offset (-50, -100): ${pdOffset4.offset}');
@@ -68,12 +68,16 @@ dynamic build(BuildContext context) {
     return pd;
   });
   for (int i = 0; i < dataList.length; i++) {
-    print('  child $i: index=${dataList[i].index}, offset=${dataList[i].offset}');
+    print(
+      '  child $i: index=${dataList[i].index}, offset=${dataList[i].offset}',
+    );
   }
 
   // ========== Is ContainerBoxParentData ==========
   print('--- Inheritance check ---');
-  print('  is ContainerBoxParentData: ${parentData1 is ContainerBoxParentData}');
+  print(
+    '  is ContainerBoxParentData: ${parentData1 is ContainerBoxParentData}',
+  );
   print('  is ParentData: ${parentData1 is ParentData}');
 
   // ========== RuntimeType ==========
@@ -94,8 +98,10 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('ListWheelParentData Tests',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          Text(
+            'ListWheelParentData Tests',
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('Type: ${parentData1.runtimeType}'),
           Text('Properties: index, offset'),

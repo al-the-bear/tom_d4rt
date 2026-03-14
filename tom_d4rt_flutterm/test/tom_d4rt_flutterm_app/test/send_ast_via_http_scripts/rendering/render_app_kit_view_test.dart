@@ -22,11 +22,17 @@ dynamic build(BuildContext context) {
 
   // ========== PLATFORM VIEW HIT TEST BEHAVIOR ==========
   print('--- PlatformViewHitTestBehavior ---');
-  print('PlatformViewHitTestBehavior.opaque: ${PlatformViewHitTestBehavior.opaque}');
+  print(
+    'PlatformViewHitTestBehavior.opaque: ${PlatformViewHitTestBehavior.opaque}',
+  );
   print('  Blocks hit testing - native view handles all touches');
-  print('PlatformViewHitTestBehavior.translucent: ${PlatformViewHitTestBehavior.translucent}');
+  print(
+    'PlatformViewHitTestBehavior.translucent: ${PlatformViewHitTestBehavior.translucent}',
+  );
   print('  Allows hit testing - both Flutter and native can respond');
-  print('PlatformViewHitTestBehavior.transparent: ${PlatformViewHitTestBehavior.transparent}');
+  print(
+    'PlatformViewHitTestBehavior.transparent: ${PlatformViewHitTestBehavior.transparent}',
+  );
   print('  Ignores native view - Flutter handles all touches');
 
   // ========== APPKIT VIEW WIDGET ==========
@@ -113,7 +119,7 @@ dynamic build(BuildContext context) {
 
   // ========== PLATFORM CHANNEL COMMUNICATION ==========
   print('--- Platform Channel Communication ---');
-  
+
   final channelExample = MethodChannel('example/appkit_view');
   print('MethodChannel for AppKit communication: example/appkit_view');
 

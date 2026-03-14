@@ -1,36 +1,41 @@
 # Test Plan — All Test Files
 
 Generated: 2026-03-08  
-Updated: 2026-03-14 (Session 4: ~100 rendering/dart_ui tests implemented)
+Updated: 2026-03-14 (Session 5: Implemented 103 tests)
+
+## Implementation Threshold
+
+**A test is considered "implemented" if it has ≥80 lines of code.**
+
+Tests with fewer than 80 lines cannot comprehensively test a Flutter class - they are either placeholders or incomplete stubs. This threshold ensures that "implemented" tests actually exercise multiple aspects of the class being tested.
 
 ## Overview
 
 This document lists **all 1988 test files** in `send_ast_via_http_scripts/`.
-Based on line count analysis:
-- **1285** tests implemented (≥60 lines)
-- **331** tests partial (26-59 lines)
-- **372** tests are placeholders (≤25 lines)
+Based on 80-line threshold analysis:
+- **577** tests fully implemented (≥80 lines)
+- **1411** tests need implementation (<80 lines)
 
-Coverage: **65%** fully implemented, **81%** if counting partial tests
+Coverage: **29%** fully implemented
 
 ## Summary by Directory
 
 | Directory | Implemented | Placeholder | Total | Coverage |
 |-----------|------------|-------------|-------|----------|
-| animation | 43 | 0 | 43 | 100% |
-| cupertino | 60 | 0 | 60 | 100% |
-| dart_ui | 131 | 0 | 131 | 100% |
-| foundation | 60 | 0 | 60 | 100% |
-| gestures | 78 | 0 | 78 | 100% |
-| material | 348 | 0 | 348 | 100% |
-| painting | 79 | 2 | 81 | 98% |
-| physics | 8 | 0 | 8 | 100% |
-| rendering | 150 | 77 | 227 | 66% |
-| scheduler | 8 | 0 | 8 | 100% |
-| semantics | 21 | 0 | 21 | 100% |
-| services | 140 | 0 | 140 | 100% |
-| widgets | 490 | 287 | 777 | 63% |
-| **TOTAL** | **1616** | **372** | **1988** | **81%** |
+| animation | 14 | 29 | 43 | 32% |
+| cupertino | 55 | 5 | 60 | 91% |
+| dart_ui | 20 | 112 | 132 | 15% |
+| foundation | 11 | 49 | 60 | 18% |
+| gestures | 47 | 31 | 78 | 60% |
+| material | 93 | 255 | 348 | 26% |
+| painting | 59 | 22 | 81 | 72% |
+| physics | 7 | 1 | 8 | 87% |
+| rendering | 114 | 113 | 227 | 50% |
+| scheduler | 6 | 2 | 8 | 75% |
+| semantics | 15 | 6 | 21 | 71% |
+| services | 16 | 124 | 140 | 11% |
+| widgets | 120 | 657 | 777 | 15% |
+| **TOTAL** | **577** | **1411** | **1988** | **29%** |
 
 ## animation/ (43 files)
 

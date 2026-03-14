@@ -93,7 +93,9 @@ dynamic build(BuildContext context) {
   );
   print('  eventA.forward: ${eventA.forward}');
   print('  eventB.forward: ${eventB.forward}');
-  print('  eventA.granularity == eventB.granularity: ${eventA.granularity == eventB.granularity}');
+  print(
+    '  eventA.granularity == eventB.granularity: ${eventA.granularity == eventB.granularity}',
+  );
 
   print('GranularlyExtendSelectionEvent test completed');
   return SingleChildScrollView(
@@ -103,8 +105,10 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('GranularlyExtendSelectionEvent Tests',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          Text(
+            'GranularlyExtendSelectionEvent Tests',
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('Event type: ${event1.runtimeType}'),
           Text('Forward event: ${forwardEvent.forward}'),

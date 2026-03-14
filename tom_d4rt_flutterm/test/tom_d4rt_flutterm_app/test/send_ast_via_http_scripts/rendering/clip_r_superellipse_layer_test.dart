@@ -144,8 +144,10 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('ClipRSuperellipseLayer Tests',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          Text(
+            'ClipRSuperellipseLayer Tests',
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('ClipRSuperellipseLayer: ${clipLayer.runtimeType}'),
           Text('RSuperellipse: smooth corner "squircle" shape'),

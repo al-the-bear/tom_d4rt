@@ -6,24 +6,28 @@ import 'package:flutter/widgets.dart';
 /// Test implementation of PipelineManifold
 class TestPipelineManifold extends PipelineManifold {
   final Set<Listenable> _semanticsListeners = {};
-  
+
   @override
   void requestVisualUpdate() {
     print('  requestVisualUpdate called');
   }
-  
+
   @override
   void addSemanticsListener(Listenable listener) {
     _semanticsListeners.add(listener);
-    print('  addSemanticsListener: total listeners = ${_semanticsListeners.length}');
+    print(
+      '  addSemanticsListener: total listeners = ${_semanticsListeners.length}',
+    );
   }
-  
+
   @override
   void removeSemanticsListener(Listenable listener) {
     _semanticsListeners.remove(listener);
-    print('  removeSemanticsListener: total listeners = ${_semanticsListeners.length}');
+    print(
+      '  removeSemanticsListener: total listeners = ${_semanticsListeners.length}',
+    );
   }
-  
+
   int get listenerCount => _semanticsListeners.length;
 }
 
@@ -53,20 +57,20 @@ dynamic build(BuildContext context) {
   print('--- addSemanticsListener method ---');
   final listener1 = TestListenable('listener1');
   manifold.addSemanticsListener(listener1);
-  
+
   final listener2 = TestListenable('listener2');
   manifold.addSemanticsListener(listener2);
-  
+
   final listener3 = TestListenable('listener3');
   manifold.addSemanticsListener(listener3);
-  
+
   print('  listener count after adding 3: ${manifold.listenerCount}');
 
   // ========== removeSemanticsListener method ==========
   print('--- removeSemanticsListener method ---');
   manifold.removeSemanticsListener(listener2);
   print('  listener count after removing 1: ${manifold.listenerCount}');
-  
+
   manifold.removeSemanticsListener(listener1);
   print('  listener count after removing 2: ${manifold.listenerCount}');
 
@@ -76,7 +80,7 @@ dynamic build(BuildContext context) {
   final manifold3 = TestPipelineManifold();
   print('  manifold2: ${manifold2.runtimeType}');
   print('  manifold3: ${manifold3.runtimeType}');
-  
+
   // Add listeners to multiple manifolds
   final sharedListener = TestListenable('shared');
   manifold2.addSemanticsListener(sharedListener);
@@ -91,7 +95,9 @@ dynamic build(BuildContext context) {
   final sameListener = TestListenable('same');
   newManifold.addSemanticsListener(sameListener);
   newManifold.addSemanticsListener(sameListener); // Add again
-  print('  added same listener twice, count: ${newManifold.listenerCount}'); // Set prevents duplicates
+  print(
+    '  added same listener twice, count: ${newManifold.listenerCount}',
+  ); // Set prevents duplicates
 
   // ========== Request visual update multiple times ==========
   print('--- Multiple visual update requests ---');
@@ -109,7 +115,7 @@ dynamic build(BuildContext context) {
     manyListenersManifold.addSemanticsListener(l);
   }
   print('  added 10 listeners, count: ${manyListenersManifold.listenerCount}');
-  
+
   // Remove half
   for (int i = 0; i < 5; i++) {
     manyListenersManifold.removeSemanticsListener(listeners[i]);
@@ -130,8 +136,10 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('PipelineManifold Tests',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          Text(
+            'PipelineManifold Tests',
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('Type: ${manifold.runtimeType}'),
           Text('Interface: PipelineManifold'),
