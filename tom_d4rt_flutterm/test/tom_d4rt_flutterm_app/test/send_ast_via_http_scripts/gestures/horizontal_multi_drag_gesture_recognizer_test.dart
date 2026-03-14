@@ -5,14 +5,75 @@ import 'package:flutter/material.dart';
 dynamic build(BuildContext context) {
   print('HorizontalMultiDragGestureRecognizer test executing');
 
+  // Create recognizer
   final recognizer = HorizontalMultiDragGestureRecognizer();
-  print('Type: ${recognizer.runtimeType}');
-  print('is MultiDragGestureRecognizer: ${recognizer is MultiDragGestureRecognizer}');
-  recognizer.dispose();
+  print('Created: ${recognizer.runtimeType}');
 
-  print('HorizontalMultiDragGestureRecognizer test completed');
-  return Column(mainAxisSize: MainAxisSize.min, children: [
-    Text('HorizontalMultiDragGestureRecognizer', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-    Text('Multi-pointer horizontal drags'),
-  ]);
+  // Test type hierarchy
+  print('\nType hierarchy:');
+  print(
+    'is MultiDragGestureRecognizer: ${recognizer is MultiDragGestureRecognizer}',
+  );
+  print('is GestureRecognizer: ${recognizer is GestureRecognizer}');
+
+  // Test debugOwner
+  print('\nDebug properties:');
+  print('debugOwner: ${recognizer.debugOwner}');
+  recognizer.debugOwner = 'TestOwner';
+  print('debugOwner after set: ${recognizer.debugOwner}');
+
+  // Test gestureSettings
+  print('\nGesture settings:');
+  print('gestureSettings: ${recognizer.gestureSettings}');
+
+  // Test onStart callback
+  print('\nCallback properties:');
+  print('onStart: ${recognizer.onStart}');
+
+  // Set onStart callback
+  bool startCalled = false;
+  recognizer.onStart = (Offset position) {
+    startCalled = true;
+    print('  onStart called at: $position');
+    return null; // Would return Drag in real usage
+  };
+  print('onStart after set: ${recognizer.onStart != null}');
+
+  // Test allowedButtonsFilter
+  print('\nButton filter:');
+  print('allowedButtonsFilter: ${recognizer.allowedButtonsFilter}');
+
+  // Explain purpose
+  print('\nHorizontalMultiDragGestureRecognizer purpose:');
+  print('- Recognizes horizontal drags from multiple pointers');
+  print('- Each pointer can start independent drag');
+  print('- Requires movement only in horizontal direction');
+  print('- Used in multi-finger horizontal swiping');
+
+  // Multi-drag hierarchy
+  print('\nMulti-drag recognizer family:');
+  print('- ImmediateMultiDragGestureRecognizer: starts immediately');
+  print('- HorizontalMultiDragGestureRecognizer: horizontal only');
+  print('- VerticalMultiDragGestureRecognizer: vertical only');
+  print('- DelayedMultiDragGestureRecognizer: delayed start');
+
+  // Clean up
+  recognizer.dispose();
+  print('\nDisposed recognizer');
+
+  print('\nHorizontalMultiDragGestureRecognizer test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text(
+        'HorizontalMultiDragGestureRecognizer',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+      ),
+      SizedBox(height: 8),
+      Text('Multi-pointer horizontal drags'),
+      Text('is MultiDragGestureRecognizer: true'),
+      Text('Direction: horizontal only'),
+      Text('Pointers: multiple simultaneous'),
+    ],
+  );
 }

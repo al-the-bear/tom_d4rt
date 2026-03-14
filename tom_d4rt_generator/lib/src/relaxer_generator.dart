@@ -23,8 +23,12 @@ import 'package:path/path.dart' as p;
 
 import 'bridge_config.dart';
 import 'bridge_generator.dart'
-    show ClassInfo, ConstructorInfo, GenericExtractionSite, MemberInfo,
-         ParameterInfo;
+    show
+        ClassInfo,
+        ConstructorInfo,
+        GenericExtractionSite,
+        MemberInfo,
+        ParameterInfo;
 import 'file_generators.dart' show ensureBDartExtension;
 
 // =============================================================================
@@ -81,8 +85,7 @@ class _RelaxerTarget {
   }) : moduleTypeArgs = moduleTypeArgs ?? {};
 
   /// All unique non-dynamic type args across all modules.
-  Set<String> get allTypeArgs =>
-      moduleTypeArgs.values.expand((s) => s).toSet();
+  Set<String> get allTypeArgs => moduleTypeArgs.values.expand((s) => s).toSet();
 }
 
 // =============================================================================
@@ -202,7 +205,8 @@ Future<RelaxerGenerationResult> generateRelaxers({
         typeArgs,
         funcName,
       );
-      if (code.isEmpty) continue; // All type args were filtered (e.g., self-referential bounds)
+      if (code.isEmpty)
+        continue; // All type args were filtered (e.g., self-referential bounds)
       buffer.writeln(code);
       factoriesGenerated++;
       (factoryNames[target.baseTypeName] ??= []).add(funcName);
@@ -210,11 +214,7 @@ Future<RelaxerGenerationResult> generateRelaxers({
   }
 
   // Scan for user-defined relaxer extensions
-  final userRelaxers = scanUserRelaxers(
-    outputPath,
-    projectPath,
-    warn,
-  );
+  final userRelaxers = scanUserRelaxers(outputPath, projectPath, warn);
 
   // Add user relaxer imports if any exist
   if (userRelaxers.isNotEmpty) {
@@ -250,16 +250,15 @@ Future<RelaxerGenerationResult> generateRelaxers({
   // -------------------------------------------------------------------------
   // Step 4: Write the output file (only if there are actual wrappers)
   // -------------------------------------------------------------------------
-  if (wrappersGenerated == 0 && factoriesGenerated == 0 &&
-      userRelaxers.isEmpty && genericCtorCount == 0) {
+  if (wrappersGenerated == 0 &&
+      factoriesGenerated == 0 &&
+      userRelaxers.isEmpty &&
+      genericCtorCount == 0) {
     // Nothing to generate — don't create an empty file.
     return RelaxerGenerationResult(warnings: warnings);
   }
 
-  final outputFilePath = p.join(
-    projectPath,
-    ensureBDartExtension(outputPath),
-  );
+  final outputFilePath = p.join(projectPath, ensureBDartExtension(outputPath));
   final outputDir = Directory(p.dirname(outputFilePath));
   if (!outputDir.existsSync()) {
     outputDir.createSync(recursive: true);
@@ -439,11 +438,17 @@ String? _generateWrapperClass(
   final boundDecl = rawBound != null ? '<V extends $rawBound>' : '<V>';
   final keyword = useExtends ? 'extends' : 'implements';
 
-  buf.writeln('// ---------------------------------------------------------------------------');
+  buf.writeln(
+    '// ---------------------------------------------------------------------------',
+  );
   buf.writeln('// $wrapperName');
-  buf.writeln('// ---------------------------------------------------------------------------');
+  buf.writeln(
+    '// ---------------------------------------------------------------------------',
+  );
   buf.writeln();
-  buf.writeln('/// Auto-generated GEN-079 relaxer wrapper for $baseTypeName<V>.');
+  buf.writeln(
+    '/// Auto-generated GEN-079 relaxer wrapper for $baseTypeName<V>.',
+  );
   buf.writeln('class $wrapperName$boundDecl $keyword $baseTypeName<V> {');
   buf.writeln('  final $baseTypeName _inner;');
 
@@ -480,7 +485,11 @@ String? _generateWrapperClass(
     buf.writeln('      _syncing = true;');
 
     // Find the primary T-valued getter (usually 'value')
-    final tGetter = _findPrimaryTGetter(classInfo, globalClassLookup, typeParamName);
+    final tGetter = _findPrimaryTGetter(
+      classInfo,
+      globalClassLookup,
+      typeParamName,
+    );
     if (tGetter != null) {
       buf.writeln('      super.${tGetter.name} = _inner.${tGetter.name} as V;');
     } else {
@@ -501,19 +510,21 @@ String? _generateWrapperClass(
   final allMethods = classInfo.allInstanceMethods(globalClassLookup);
 
   // Filter to members involving T (or abstract members we must override)
-  final tGetters = allGetters.where(
-    (m) => tPattern.hasMatch(m.returnType),
-  ).toList();
+  final tGetters = allGetters
+      .where((m) => tPattern.hasMatch(m.returnType))
+      .toList();
 
-  final tSetters = allSetters.where(
-    (m) => m.parameters.any((p) => tPattern.hasMatch(p.type)),
-  ).toList();
+  final tSetters = allSetters
+      .where((m) => m.parameters.any((p) => tPattern.hasMatch(p.type)))
+      .toList();
 
-  final tMethods = allMethods.where(
-    (m) =>
-        tPattern.hasMatch(m.returnType) ||
-        m.parameters.any((p) => tPattern.hasMatch(p.type)),
-  ).toList();
+  final tMethods = allMethods
+      .where(
+        (m) =>
+            tPattern.hasMatch(m.returnType) ||
+            m.parameters.any((p) => tPattern.hasMatch(p.type)),
+      )
+      .toList();
 
   // For `implements`, we also need to override all abstract non-T members.
   // For `extends`, we only override T-involving members.
@@ -596,7 +607,11 @@ bool _canExtend(
     // the value from _inner via a public getter
     if (requiredPositional.length == 1 &&
         tPattern.hasMatch(requiredPositional.first.type)) {
-      final tGetter = _findPrimaryTGetter(classInfo, classLookup, typeParamName);
+      final tGetter = _findPrimaryTGetter(
+        classInfo,
+        classLookup,
+        typeParamName,
+      );
       if (tGetter == null) return false; // Can't source T value
     }
 
@@ -649,8 +664,11 @@ bool _isListenableSubclass(
 
     final parent = classLookup[current.superclass];
     if (parent == null) {
-      return const {'Listenable', 'Animation', 'ChangeNotifier'}
-          .contains(current.superclass);
+      return const {
+        'Listenable',
+        'Animation',
+        'ChangeNotifier',
+      }.contains(current.superclass);
     }
     current = parent;
   }
@@ -746,7 +764,9 @@ void _writeConstructor(
     final args = <String>[];
     for (final param in defaultCtor.parameters.where((p) => p.isRequired)) {
       final involvesT = tPattern.hasMatch(param.type);
-      final castExpr = involvesT ? ' as ${_replaceTypeParam(param.type, typeParamName, 'V')}' : '';
+      final castExpr = involvesT
+          ? ' as ${_replaceTypeParam(param.type, typeParamName, 'V')}'
+          : '';
       if (param.isNamed) {
         args.add('${param.name}: _inner.${param.name}$castExpr');
       } else {
@@ -807,12 +827,12 @@ void _writeExtendsDelegation(
     // delegated without matching the generic signature (e.g., drive<U>)
     if (method.hasTypeParameters) continue;
 
-    final castReturn =
-        _replaceTypeParam(method.returnType, typeParamName, 'V');
+    final castReturn = _replaceTypeParam(method.returnType, typeParamName, 'V');
     final paramSig = _buildMethodParamSignature(method, typeParamName);
     final callArgs = _buildMethodCallArgs(method);
-    final needsCast = RegExp('\\b${RegExp.escape(typeParamName)}\\b')
-        .hasMatch(method.returnType);
+    final needsCast = RegExp(
+      '\\b${RegExp.escape(typeParamName)}\\b',
+    ).hasMatch(method.returnType);
 
     buf.writeln();
     buf.writeln('  @override');
@@ -861,10 +881,7 @@ void _writeImplementsDelegation(
   // signature (e.g., Diagnosticable.toString({DiagnosticLevel minLevel})).
   // Object.toString() is already concrete, so noSuchMethod can't handle it.
   // We generate an override only when the analyzer data shows parameters.
-  final toStringOverride = _findNonStandardToString(
-    classInfo,
-    classLookup,
-  );
+  final toStringOverride = _findNonStandardToString(classInfo, classLookup);
   if (toStringOverride != null) {
     buf.writeln('  @override');
     buf.writeln('  String toString($toStringOverride) =>');
@@ -899,8 +916,7 @@ void _writeImplementsDelegation(
     // delegated without matching the generic signature
     if (method.hasTypeParameters) continue;
 
-    final castReturn =
-        _replaceTypeParam(method.returnType, typeParamName, 'V');
+    final castReturn = _replaceTypeParam(method.returnType, typeParamName, 'V');
     final paramSig = _buildMethodParamSignature(method, typeParamName);
     final callArgs = _buildMethodCallArgs(method);
     final needsCast = tPattern.hasMatch(method.returnType);
@@ -952,10 +968,8 @@ String _generateFactoryFunction(
   // Use word-boundary matching to avoid false positives (e.g., "StatefulWidget"
   // should NOT be filtered for base type "State").
   final selfRefPattern = RegExp('\\b${RegExp.escape(baseTypeName)}\\b');
-  final sortedArgs = typeArgs
-      .where((arg) => !selfRefPattern.hasMatch(arg))
-      .toList()
-    ..sort();
+  final sortedArgs =
+      typeArgs.where((arg) => !selfRefPattern.hasMatch(arg)).toList()..sort();
 
   // If all args were filtered, skip this factory entirely
   if (sortedArgs.isEmpty) return '';
@@ -964,9 +978,7 @@ String _generateFactoryFunction(
   buf.writeln(
     '/// Auto-generated relaxer factory for $baseTypeName — $moduleName layer types.',
   );
-  buf.writeln(
-    'Object? $funcName(Object value, String innerTypeArg) {',
-  );
+  buf.writeln('Object? $funcName(Object value, String innerTypeArg) {');
   buf.writeln('  if (value is! $baseTypeName) return null;');
   buf.writeln('  return switch (innerTypeArg) {');
 
@@ -988,10 +1000,7 @@ String _factoryFunctionName(String baseTypeName, String moduleName) {
   final cleanModule = moduleName
       .replaceAll(RegExp(r'^flutter_'), '')
       .replaceAll(RegExp(r'^dart_'), 'dart')
-      .replaceAllMapped(
-        RegExp(r'_(\w)'),
-        (m) => m.group(1)!.toUpperCase(),
-      );
+      .replaceAllMapped(RegExp(r'_(\w)'), (m) => m.group(1)!.toUpperCase());
   return '_relax$baseTypeName\$$cleanModule';
 }
 
@@ -1004,13 +1013,21 @@ void _writeRegistrationFunction(
   StringBuffer buffer,
   Map<String, List<String>> factoryNames,
 ) {
-  buffer.writeln('// =============================================================================');
+  buffer.writeln(
+    '// =============================================================================',
+  );
   buffer.writeln('// Registration');
-  buffer.writeln('// =============================================================================');
+  buffer.writeln(
+    '// =============================================================================',
+  );
   buffer.writeln();
-  buffer.writeln('/// Register all auto-generated relaxer factories with the D4 runtime.');
+  buffer.writeln(
+    '/// Register all auto-generated relaxer factories with the D4 runtime.',
+  );
   buffer.writeln('///');
-  buffer.writeln('/// Call this once during bridge setup — replaces the old hand-written');
+  buffer.writeln(
+    '/// Call this once during bridge setup — replaces the old hand-written',
+  );
   buffer.writeln('/// `registerGenericTypeRelaxers()` function.');
   buffer.writeln('void registerRelaxers() {');
 
@@ -1078,10 +1095,9 @@ List<UserRelaxerEntry> scanUserRelaxers(
 
   if (!userRelaxerDir.existsSync()) return results;
 
-  final relaxerFiles = userRelaxerDir
-      .listSync()
-      .whereType<File>()
-      .where((f) => f.path.endsWith('_user_relaxer.dart'));
+  final relaxerFiles = userRelaxerDir.listSync().whereType<File>().where(
+    (f) => f.path.endsWith('_user_relaxer.dart'),
+  );
 
   final funcPattern = RegExp(
     r'^\s*Object\?\s+(relax\w+)\s*\(',
@@ -1166,7 +1182,11 @@ String? _findNonStandardToString(
 ///
 /// Uses word boundary matching to avoid replacing partial matches
 /// (e.g., 'T' in 'TextStyle').
-String _replaceTypeParam(String typeStr, String typeParamName, String replacement) {
+String _replaceTypeParam(
+  String typeStr,
+  String typeParamName,
+  String replacement,
+) {
   return typeStr.replaceAll(
     RegExp('\\b${RegExp.escape(typeParamName)}\\b'),
     replacement,
@@ -1328,14 +1348,17 @@ int _writeGenericConstructorSection(
   if (eligible.isEmpty) return 0;
 
   // Collect all concrete bridged class names for type dispatches
-  final allBridgedTypes = globalClassLookup.entries
-      .where((e) =>
-          !e.value.isAbstract &&
-          !e.value.isSealed &&
-          !_rc2SkipTypes.contains(e.key))
-      .map((e) => e.key)
-      .toList()
-    ..sort();
+  final allBridgedTypes =
+      globalClassLookup.entries
+          .where(
+            (e) =>
+                !e.value.isAbstract &&
+                !e.value.isSealed &&
+                !_rc2SkipTypes.contains(e.key),
+          )
+          .map((e) => e.key)
+          .toList()
+        ..sort();
 
   buffer.writeln(
     '// =============================================================================',
@@ -1350,8 +1373,8 @@ int _writeGenericConstructorSection(
   final registrations =
       <({String className, String ctorName, String funcName})>[];
 
-  for (final entry in eligible.entries.toList()
-    ..sort((a, b) => a.key.compareTo(b.key))) {
+  for (final entry
+      in eligible.entries.toList()..sort((a, b) => a.key.compareTo(b.key))) {
     final className = entry.key;
     final cls = entry.value;
 
@@ -1493,14 +1516,25 @@ void _writeGenericConstructorFactory(
   // Primitive dispatches (for unbounded type params)
   if (isUnbounded) {
     _writeRC2Case(
-      buffer, className, ctorSuffix, 'dynamic',
+      buffer,
+      className,
+      ctorSuffix,
+      'dynamic',
       "'dynamic' || 'Object' || 'Object?'",
-      positionalParams, namedParams, typeParamName,
+      positionalParams,
+      namedParams,
+      typeParamName,
     );
     for (final prim in _rc2PrimitiveTypes) {
       _writeRC2Case(
-        buffer, className, ctorSuffix, prim, "'$prim'",
-        positionalParams, namedParams, typeParamName,
+        buffer,
+        className,
+        ctorSuffix,
+        prim,
+        "'$prim'",
+        positionalParams,
+        namedParams,
+        typeParamName,
       );
     }
   }
@@ -1511,15 +1545,20 @@ void _writeGenericConstructorFactory(
 
     // If bounded, check superclass chain
     if (!isUnbounded) {
-      if (!_rc2SatisfiesBound(
-          typeName, typeParamBound, globalClassLookup)) {
+      if (!_rc2SatisfiesBound(typeName, typeParamBound, globalClassLookup)) {
         continue;
       }
     }
 
     _writeRC2Case(
-      buffer, className, ctorSuffix, typeName, "'$typeName'",
-      positionalParams, namedParams, typeParamName,
+      buffer,
+      className,
+      ctorSuffix,
+      typeName,
+      "'$typeName'",
+      positionalParams,
+      namedParams,
+      typeParamName,
     );
   }
 
@@ -1585,7 +1624,9 @@ void _writeRC2Case(
         // Contains type param (e.g., MessageCodec<T>) — substitute and cast
         final substitutedType = substituteTypeParam(p.type);
         final castType = _rc2NullableCast(substitutedType);
-        args.add(isNullable ? '$safeName as $castType' : '($safeName as $castType)!');
+        args.add(
+          isNullable ? '$safeName as $castType' : '($safeName as $castType)!',
+        );
       }
     } else {
       // Non-type-param-typed: add ! if param type is non-nullable
@@ -1605,7 +1646,9 @@ void _writeRC2Case(
     if (hasTypeParam) {
       if (isExactTypeParam) {
         if (typeArg == 'dynamic') {
-          namedArgParts.add('${p.name}: ${isNullable ? safeName : '$safeName!'}');
+          namedArgParts.add(
+            '${p.name}: ${isNullable ? safeName : '$safeName!'}',
+          );
         } else {
           namedArgParts.add(
             '${p.name}: $safeName as $typeArg${isNullable ? '?' : ''}',
@@ -1619,9 +1662,11 @@ void _writeRC2Case(
         // Contains type param (e.g., MessageCodec<T>) — substitute and cast
         final substitutedType = substituteTypeParam(p.type);
         final castType = _rc2NullableCast(substitutedType);
-        namedArgParts.add(isNullable
-            ? '${p.name}: $safeName as $castType'
-            : '${p.name}: ($safeName as $castType)!');
+        namedArgParts.add(
+          isNullable
+              ? '${p.name}: $safeName as $castType'
+              : '${p.name}: ($safeName as $castType)!',
+        );
       }
     } else {
       // Non-type-param-typed: add ! if param type is non-nullable

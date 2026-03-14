@@ -1,19 +1,68 @@
 // D4rt test script: Tests AutomaticNotchedShape from painting
-import 'package:flutter/widgets.dart';
+import 'package:flutter/painting.dart';
+import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print('AutomaticNotchedShape test executing');
 
-  // Test AutomaticNotchedShape - Auto-notched shape
-  print('AutomaticNotchedShape is available in the painting package');
-  print('AutomaticNotchedShape: Auto-notched shape');
+  // Create AutomaticNotchedShape
+  final hostShape = RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(8),
+  );
+  final guestShape = CircleBorder();
 
-  print('AutomaticNotchedShape test completed');
+  final notchedShape = AutomaticNotchedShape(hostShape, guestShape);
+
+  print('Created: ${notchedShape.runtimeType}');
+  print('is NotchedShape: ${notchedShape is NotchedShape}');
+
+  // vs CircularNotchedRectangle
+  print('\nvs CircularNotchedRectangle:');
+  print('- Circular: only circular notch');
+  print('- Automatic: adapts to guest shape');
+
+  // How it works
+  print('\nHow it works:');
+  print('1. Takes host shape (e.g. rounded rect)');
+  print('2. Takes guest shape (e.g. circle)');
+  print('3. Computes notch from guest outline');
+  print('4. Subtracts guest from host path');
+
+  // getOuterPath
+  print('\ngetOuterPath method:');
+  final hostRect = Rect.fromLTWH(0, 0, 400, 56);
+  final guestRect = Rect.fromCircle(center: Offset(200, 28), radius: 28);
+  final path = notchedShape.getOuterPath(hostRect, guestRect);
+  print('Host: $hostRect');
+  print('Guest: $guestRect');
+  print('Path type: ${path.runtimeType}');
+
+  // Use case
+  print('\nUse case:');
+  print('BottomAppBar with non-circular FAB');
+  print('Custom shaped floating buttons');
+
+  // Usage
+  print('\nUsage:');
+  print('BottomAppBar(');
+  print('  shape: AutomaticNotchedShape(');
+  print('    RoundedRectangleBorder(),');
+  print('    StarBorder(points: 5),');
+  print('  ),');
+  print(')');
+
+  print('\nAutomaticNotchedShape test completed');
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('AutomaticNotchedShape Tests'),
-      Text('Auto-notched shape'),
+      Text(
+        'AutomaticNotchedShape Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
+      SizedBox(height: 8),
+      Text('Adaptive notched shape'),
+      Text('Takes: host + guest shapes'),
+      Text('For: custom FAB shapes'),
     ],
   );
 }

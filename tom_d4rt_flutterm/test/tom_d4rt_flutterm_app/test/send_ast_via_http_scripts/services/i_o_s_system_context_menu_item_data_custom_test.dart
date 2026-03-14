@@ -1,19 +1,99 @@
 // D4rt test script: Tests IOSSystemContextMenuItemDataCustom from services
-import 'package:flutter/widgets.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print('IOSSystemContextMenuItemDataCustom test executing');
+  print('=' * 50);
 
-  // Test IOSSystemContextMenuItemDataCustom - IOSSystemContextMenuItemDataCustom
-  print('IOSSystemContextMenuItemDataCustom is available in the services package');
-  print('IOSSystemContextMenuItemDataCustom: IOSSystemContextMenuItemDataCustom');
+  // IOSSystemContextMenuItemDataCustom - Custom action
+  print('\nIOSSystemContextMenuItemDataCustom:');
+  print('iOS context menu custom action');
+  print('Allows app-defined menu items');
 
+  // Create instance with custom label and callback
+  final customItem = IOSSystemContextMenuItemDataCustom(
+    label: 'My Action',
+    onPressed: () => print('Custom action pressed'),
+  );
+  print('\nInstance created:');
+  print('runtimeType: ${customItem.runtimeType}');
+
+  // Properties
+  print('\nProperties:');
+  print('label: ${customItem.label}');
+  print('onPressed: (callback function)');
+  print('type: ${customItem.type}');
+
+  // Extends base class
+  print('\nExtends IOSSystemContextMenuItemData:');
+  print(
+    'is IOSSystemContextMenuItemData: ${customItem is IOSSystemContextMenuItemData}',
+  );
+
+  // Custom vs standard actions
+  print('\nCustom vs standard actions:');
+  print('Standard: Cut, Copy, Paste (localized)');
+  print('Custom: Any label, any callback');
+  print('');
+  print('Advantages of custom actions:');
+  print('- App-specific functionality');
+  print('- Custom labels');
+  print('- Flexible callbacks');
+
+  // Usage example
+  print('\nUsage example:');
+  print('SystemContextMenuController.show(');
+  print('  targetRect: rect,');
+  print('  items: [');
+  print('    IOSSystemContextMenuItemDataCopy(),');
+  print('    IOSSystemContextMenuItemDataCustom(');
+  print('      label: "Translate",');
+  print('      onPressed: () => translateSelected(),');
+  print('    ),');
+  print('  ],');
+  print(');');
+
+  // Multiple custom items
+  final shareItem = IOSSystemContextMenuItemDataCustom(
+    label: 'Share',
+    onPressed: () => print('Share action'),
+  );
+  final defineItem = IOSSystemContextMenuItemDataCustom(
+    label: 'Define',
+    onPressed: () => print('Define action'),
+  );
+  print('\nMultiple custom items:');
+  print('Share: ${shareItem.label}');
+  print('Define: ${defineItem.label}');
+
+  // Type hierarchy
+  print('\nType hierarchy:');
+  print('IOSSystemContextMenuItemData');
+  print('  \u2514\u2500 IOSSystemContextMenuItemDataCustom');
+
+  // Explain purpose
+  print('\nIOSSystemContextMenuItemDataCustom purpose:');
+  print('- Custom iOS menu actions');
+  print('- User-defined label');
+  print('- Custom onPressed callback');
+  print('- Native iOS appearance');
+  print('- Extends standard menu options');
+
+  print('\n' + '=' * 50);
   print('IOSSystemContextMenuItemDataCustom test completed');
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('IOSSystemContextMenuItemDataCustom Tests'),
-      Text('IOSSystemContextMenuItemDataCustom'),
+      Text(
+        'IOSSystemContextMenuItemDataCustom Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
+      SizedBox(height: 8),
+      Text('Type: ${customItem.runtimeType}'),
+      Text('Label: ${customItem.label}'),
+      Text('Platform: iOS'),
+      Text('Purpose: Custom context menu items'),
     ],
   );
 }

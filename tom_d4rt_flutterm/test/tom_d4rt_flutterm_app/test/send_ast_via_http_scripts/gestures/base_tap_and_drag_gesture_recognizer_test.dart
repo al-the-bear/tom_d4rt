@@ -5,17 +5,61 @@ import 'package:flutter/material.dart';
 dynamic build(BuildContext context) {
   print('BaseTapAndDragGestureRecognizer test executing');
 
+  // BaseTapAndDragGestureRecognizer is abstract - test via TapAndPanGestureRecognizer
   final recognizer = TapAndPanGestureRecognizer();
-  print('TapAndPanGestureRecognizer type: ${recognizer.runtimeType}');
-  print('is BaseTapAndDragGestureRecognizer: ${recognizer is BaseTapAndDragGestureRecognizer}');
-  print('dragStartBehavior: ${recognizer.dragStartBehavior}');
-  recognizer.dispose();
-  print('Disposed');
 
-  print('BaseTapAndDragGestureRecognizer test completed');
-  return Column(mainAxisSize: MainAxisSize.min, children: [
-    Text('BaseTapAndDragGestureRecognizer', style: TextStyle(fontWeight: FontWeight.bold)),
-    Text('Abstract base for tap+drag'),
-    Text('Impl: TapAndPanGestureRecognizer'),
-  ]);
+  print('Created: ${recognizer.runtimeType}');
+  print(
+    'is BaseTapAndDragGestureRecognizer: ${recognizer is BaseTapAndDragGestureRecognizer}',
+  );
+
+  // Properties from base class
+  print('\nBase class properties:');
+  print('dragStartBehavior: ${recognizer.dragStartBehavior}');
+  print('eagerVictoryOnDrag: ${recognizer.eagerVictoryOnDrag}');
+
+  // Callbacks
+  print('\nCallbacks available:');
+  print('- onTapDown');
+  print('- onTapUp');
+  print('- onDragStart');
+  print('- onDragUpdate');
+  print('- onDragEnd');
+  print('- onCancel');
+
+  // Set up callbacks
+  recognizer.onTapDown = (details) =>
+      print('Tap down at ${details.globalPosition}');
+  recognizer.onDragStart = (details) => print('Drag started');
+  recognizer.onDragUpdate = (details) => print('Drag delta: ${details.delta}');
+  recognizer.onDragEnd = (details) => print('Drag ended');
+  print('Callbacks set');
+
+  // Subclasses
+  print('\nSubclasses:');
+  print('- TapAndPanGestureRecognizer: any direction');
+  print('- TapAndHorizontalDragGestureRecognizer');
+
+  // Use case
+  print('\nUse case:');
+  print('- Text selection: tap to position, drag to select');
+  print('- Combined tap + drag gestures');
+
+  recognizer.dispose();
+  print('\nDisposed');
+
+  print('\nBaseTapAndDragGestureRecognizer test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text(
+        'BaseTapAndDragGestureRecognizer Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
+      SizedBox(height: 8),
+      Text('Abstract base for tap+drag'),
+      Text('Subclass: TapAndPanGestureRecognizer'),
+      Text('Callbacks: tap + drag events'),
+    ],
+  );
 }
