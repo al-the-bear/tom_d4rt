@@ -1,29 +1,136 @@
-// D4rt test script: Tests ScrollDecelerationRate from widgets
+// D4rt comprehensive test script: ScrollDecelerationRate from widgets
 import 'package:flutter/widgets.dart';
 
-dynamic build(BuildContext context) {
-  print('ScrollDecelerationRate test executing');
-
-  // Enumerate all ScrollDecelerationRate values
-  print('ScrollDecelerationRate values:');
-  for (final value in ScrollDecelerationRate.values) {
-    print('  ${value.name}: $value');
+void _expect(bool condition, String message) {
+  if (!condition) {
+    print('❌ $message');
+    throw StateError('ScrollDecelerationRate test failed: $message');
   }
-  print('ScrollDecelerationRate has ${ ScrollDecelerationRate.values.length} values');
+  print('✅ $message');
+}
 
-  final first = ScrollDecelerationRate.values.first;
-  final last = ScrollDecelerationRate.values.last;
-  print('First: $first, Last: $last');
-  print('First index: ${first.index}, Last index: ${last.index}');
+String _line(String key, Object value) => '$key: $value';
 
-  print('ScrollDecelerationRate test completed');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('ScrollDecelerationRate Tests'),
-      Text('Values: ${ ScrollDecelerationRate.values.length}'),
-      Text('First: $first'),
-      Text('Last: $last'),
-    ],
+List<String> _collectDiagnostics(List<ScrollDecelerationRate> values) {
+  final names = values.map((v) => v.name).toList(growable: false);
+  final indices = values.map((v) => v.index).toList(growable: false);
+  return <String>[
+    _line('enum', 'ScrollDecelerationRate'),
+    _line('count', values.length),
+    _line('names', names.join(', ')),
+    _line('indices', indices.join(', ')),
+    _line('first', values.first),
+    _line('last', values.last),
+  ];
+}
+
+dynamic build(BuildContext context) {
+  print('========== ScrollDecelerationRate comprehensive test start ==========' );
+
+  final List<ScrollDecelerationRate> values = ScrollDecelerationRate.values.toList(growable: false);
+  _expect(values.isNotEmpty, 'ScrollDecelerationRate exposes at least one enum value');
+  _expect(
+    values.length == ScrollDecelerationRate.values.length,
+    'ScrollDecelerationRate.values list length is consistent',
+  );
+
+  final ScrollDecelerationRate first = values.first;
+  final ScrollDecelerationRate last = values.last;
+
+  print(_line('runtimeType', ScrollDecelerationRate));
+  print(_line('firstName', first.name));
+  print(_line('firstIndex', first.index));
+  print(_line('lastName', last.name));
+  print(_line('lastIndex', last.index));
+  print(
+    'Constructor coverage: enum instances are created by framework internals and validated through values traversal.',
+  );
+
+  final List<String> names = values.map((v) => v.name).toList(growable: false);
+  final List<int> indices = values.map((v) => v.index).toList(growable: false);
+  final Set<String> uniqueNames = names.toSet();
+  final Set<int> uniqueIndices = indices.toSet();
+
+  _expect(uniqueNames.length == names.length, 'all enum names are unique');
+  _expect(uniqueIndices.length == indices.length, 'all enum indices are unique');
+  _expect(indices.first == 0, 'first enum index starts at zero');
+
+  for (final value in values) {
+    print('Inspecting value => name=${value.name}, index=${value.index}, raw=$value');
+    _expect(
+      ScrollDecelerationRate.values[value.index] == value,
+      'index lookup round-trip works for $value',
+    );
+    _expect(value.toString().contains('.'), 'toString has qualified enum format for $value');
+  }
+
+  for (final name in names) {
+    final parsed = ScrollDecelerationRate.values.byName(name);
+    _expect(parsed.name == name, 'byName resolves exact name "$name"');
+  }
+
+  bool byNameThrows = false;
+  try {
+    ScrollDecelerationRate.values.byName('__invalid_enum_name__');
+  } catch (error) {
+    byNameThrows = true;
+    print('Expected byName edge-case error: $error');
+  }
+  _expect(byNameThrows, 'byName throws on an unknown name');
+
+  bool rangeThrows = false;
+  try {
+    values[values.length];
+  } catch (error) {
+    rangeThrows = true;
+    print('Expected range edge-case error: $error');
+  }
+  _expect(rangeThrows, 'list indexing throws for out-of-range access');
+
+  final List<ScrollDecelerationRate> reversed = values.reversed.toList(growable: false);
+  _expect(reversed.first == last, 'reversed list starts with original last');
+  _expect(reversed.last == first, 'reversed list ends with original first');
+
+  final List<ScrollDecelerationRate> sorted = [...values]
+    ..sort((a, b) => a.index.compareTo(b.index));
+  _expect(sorted.length == values.length, 'sorted list preserves all entries');
+  for (var i = 0; i < sorted.length; i++) {
+    _expect(sorted[i] == values[i], 'sorted order matches declaration order at index $i');
+  }
+
+  final Map<String, ScrollDecelerationRate> asMap = {
+    for (final value in values) value.name: value,
+  };
+  _expect(asMap.length == values.length, 'name map includes all enum values');
+  _expect(asMap[first.name] == first, 'name map resolves first enum value');
+  _expect(asMap[last.name] == last, 'name map resolves last enum value');
+
+  final diagnostics = _collectDiagnostics(values);
+  print('Diagnostics output:');
+  for (final row in diagnostics) {
+    print('  $row');
+  }
+
+  final String summary = 'ScrollDecelerationRate checks passed: ${values.length} values validated';
+  print(summary);
+  print('========== ScrollDecelerationRate comprehensive test end ==========' );
+
+  return Directionality(
+    textDirection: TextDirection.ltr,
+    child: Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('ScrollDecelerationRate Comprehensive Tests'),
+          Text('Count: ${values.length}'),
+          Text('First: $first (index: ${first.index})'),
+          Text('Last: $last (index: ${last.index})'),
+          Text('Unique names: ${uniqueNames.length}'),
+          Text('Unique indices: ${uniqueIndices.length}'),
+          Text('Summary: $summary'),
+        ],
+      ),
+    ),
   );
 }
