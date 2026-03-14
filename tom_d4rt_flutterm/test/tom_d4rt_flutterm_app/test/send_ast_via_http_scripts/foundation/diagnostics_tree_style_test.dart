@@ -1,30 +1,110 @@
-// D4rt test script: Tests DiagnosticsTreeStyle from foundation
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
-dynamic build(BuildContext context) {
-  print('DiagnosticsTreeStyle test executing');
-
-  // Enumerate all DiagnosticsTreeStyle values
-  print('DiagnosticsTreeStyle values:');
-  for (final value in DiagnosticsTreeStyle.values) {
-    print('  ${value.name}: $value');
+void _expectCondition(bool condition, String message) {
+  if (!condition) {
+    throw StateError('Assertion failed: $message');
   }
-  print('DiagnosticsTreeStyle has ${ DiagnosticsTreeStyle.values.length} values');
+  print('✅ $message');
+}
 
-  final first = DiagnosticsTreeStyle.values.first;
-  final last = DiagnosticsTreeStyle.values.last;
-  print('First: $first, Last: $last');
-  print('First index: ${first.index}, Last index: ${last.index}');
+String _formatEnumValues<T extends Enum>(List<T> values) {
+  final buffer = StringBuffer();
+  for (final value in values) {
+    buffer.writeln(' - ${value.index}: ${value.name} => $value');
+  }
+  return buffer.toString();
+}
 
-  print('DiagnosticsTreeStyle test completed');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('DiagnosticsTreeStyle Tests'),
-      Text('Values: ${ DiagnosticsTreeStyle.values.length}'),
-      Text('First: $first'),
-      Text('Last: $last'),
-    ],
+Map<int, T> _buildIndexMap<T extends Enum>(List<T> values) {
+  final map = <int, T>{};
+  for (final value in values) {
+    map[value.index] = value;
+  }
+  return map;
+}
+
+void _validateRoundTripByIndex<T extends Enum>(List<T> values) {
+  for (var index = 0; index < values.length; index++) {
+    _expectCondition(values[index].index == index, 'Contiguous index at $index');
+  }
+}
+
+dynamic build(BuildContext context) {
+  print('--- DiagnosticsTreeStyle comprehensive test start ---');
+
+  final values = DiagnosticsTreeStyle.values;
+  final names = values.map((value) => value.name).toList(growable: false);
+  final indexes = values.map((value) => value.index).toList(growable: false);
+  final indexMap = _buildIndexMap(values);
+
+  print('DiagnosticsTreeStyle values count: ${values.length}');
+  print('DiagnosticsTreeStyle names: $names');
+  print('DiagnosticsTreeStyle indexes: $indexes');
+  print('DiagnosticsTreeStyle details:\n${_formatEnumValues(values)}');
+
+  _expectCondition(values.isNotEmpty, 'DiagnosticsTreeStyle has at least one value');
+  _expectCondition(names.length == values.length, 'Names length matches values length');
+  _expectCondition(indexes.length == values.length, 'Indexes length matches values length');
+  _expectCondition(indexMap.length == values.length, 'Index map covers all DiagnosticsTreeStyle values');
+  _expectCondition(names.toSet().length == names.length, 'DiagnosticsTreeStyle names are unique');
+  _expectCondition(indexes.toSet().length == indexes.length, 'DiagnosticsTreeStyle indexes are unique');
+  _expectCondition(indexes.first == 0, 'First DiagnosticsTreeStyle index is 0');
+  _expectCondition(indexes.last == values.length - 1, 'Last DiagnosticsTreeStyle index is values.length - 1');
+
+  _validateRoundTripByIndex(values);
+
+  final first = values.first;
+  final last = values.last;
+
+  print('First DiagnosticsTreeStyle: $first (${first.name}, ${first.index})');
+  print('Last DiagnosticsTreeStyle: $last (${last.name}, ${last.index})');
+
+  _expectCondition(DiagnosticsTreeStyle.values.byName(first.name) == first, 'byName resolves first DiagnosticsTreeStyle');
+  _expectCondition(DiagnosticsTreeStyle.values.byName(last.name) == last, 'byName resolves last DiagnosticsTreeStyle');
+  _expectCondition(indexMap[first.index] == first, 'Index map resolves first DiagnosticsTreeStyle');
+  _expectCondition(indexMap[last.index] == last, 'Index map resolves last DiagnosticsTreeStyle');
+  _expectCondition(first == DiagnosticsTreeStyle.values[first.index], 'First DiagnosticsTreeStyle round-trips from index');
+  _expectCondition(last == DiagnosticsTreeStyle.values[last.index], 'Last DiagnosticsTreeStyle round-trips from index');
+  _expectCondition(first.toString().contains(first.name), 'first.toString contains name');
+  _expectCondition(last.toString().contains(last.name), 'last.toString contains name');
+  _expectCondition(first == first, 'Reflexive equality for first DiagnosticsTreeStyle');
+  _expectCondition(last == last, 'Reflexive equality for last DiagnosticsTreeStyle');
+
+  bool invalidNameThrows = false;
+  try {
+    DiagnosticsTreeStyle.values.byName('__invalid_diagnostics_tree_style__');
+  } catch (error) {
+    invalidNameThrows = true;
+    print('Expected DiagnosticsTreeStyle byName failure: $error');
+  }
+  _expectCondition(invalidNameThrows, 'Invalid byName throws for DiagnosticsTreeStyle');
+
+  final sortedByIndex = [...values]..sort((a, b) => a.index.compareTo(b.index));
+  _expectCondition(sortedByIndex.join('|') == values.join('|'), 'Sorting by index preserves DiagnosticsTreeStyle order');
+
+  final summary =
+      'DiagnosticsTreeStyle summary -> count=${values.length}, first=${first.name}, last=${last.name}, invalidLookupThrows=$invalidNameThrows';
+  print(summary);
+  print('--- DiagnosticsTreeStyle comprehensive test complete ---');
+
+  return Container(
+    padding: const EdgeInsets.all(8),
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text('DiagnosticsTreeStyle Comprehensive Tests'),
+        Text('Count: ${values.length}'),
+        Text('First: ${first.name} (${first.index})'),
+        Text('Last: ${last.name} (${last.index})'),
+        Text('Unique names: ${names.toSet().length}'),
+        Text('Unique indexes: ${indexes.toSet().length}'),
+        Text('Invalid lookup throws: $invalidNameThrows'),
+        Text(summary),
+        for (final value in values)
+          Text('${value.index}: ${value.name} -> $value'),
+      ],
+    ),
   );
 }
