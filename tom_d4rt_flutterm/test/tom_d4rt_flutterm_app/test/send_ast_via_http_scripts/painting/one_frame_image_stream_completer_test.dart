@@ -20,11 +20,9 @@ dynamic build(BuildContext context) {
 
   // Test 2: ImageStreamListener for single image
   var imageReceived = false;
-  final listener = ImageStreamListener(
-    (ImageInfo image, bool synchronousCall) {
-      imageReceived = true;
-    },
-  );
+  final listener = ImageStreamListener((ImageInfo image, bool synchronousCall) {
+    imageReceived = true;
+  });
   assert(listener.onImage != null, 'Should have onImage callback');
   results.add('ImageStreamListener: callback present');
   print('ImageStreamListener for single frame created');
@@ -46,7 +44,8 @@ dynamic build(BuildContext context) {
     cumulativeBytesLoaded: 10000,
     expectedTotalBytes: 10000,
   );
-  final progress = chunkEvent.cumulativeBytesLoaded / (chunkEvent.expectedTotalBytes ?? 1);
+  final progress =
+      chunkEvent.cumulativeBytesLoaded / (chunkEvent.expectedTotalBytes ?? 1);
   assert(progress == 1.0, 'Progress should be 1.0 (complete)');
   results.add('ImageChunkEvent progress: ${(progress * 100).toInt()}%');
   print('ImageChunkEvent: ${(progress * 100).toInt()}% complete');
@@ -58,7 +57,10 @@ dynamic build(BuildContext context) {
   print('NetworkImage for single frame: ${networkImage.url}');
 
   // Test 6: NetworkImage with scale
-  final scaledImage = NetworkImage('https://example.com/2x/photo.jpg', scale: 2.0);
+  final scaledImage = NetworkImage(
+    'https://example.com/2x/photo.jpg',
+    scale: 2.0,
+  );
   assert(scaledImage.scale == 2.0, 'Scale should be 2.0');
   results.add('NetworkImage scale: ${scaledImage.scale}');
   print('NetworkImage scale: ${scaledImage.scale}');
@@ -69,7 +71,9 @@ dynamic build(BuildContext context) {
     headers: {'Authorization': 'Bearer token'},
   );
   assert(imageWithHeaders.headers != null, 'Headers should not be null');
-  results.add('NetworkImage headers: ${imageWithHeaders.headers?.length} entries');
+  results.add(
+    'NetworkImage headers: ${imageWithHeaders.headers?.length} entries',
+  );
   print('NetworkImage with headers');
 
   // Test 8: AssetImage for single frame
@@ -113,7 +117,9 @@ dynamic build(BuildContext context) {
   results.add('ImageConfiguration DPR: ${config.devicePixelRatio}');
   print('ImageConfiguration: DPR=${config.devicePixelRatio}');
 
-  print('OneFrameImageStreamCompleter test completed with ${results.length} tests');
+  print(
+    'OneFrameImageStreamCompleter test completed with ${results.length} tests',
+  );
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [

@@ -123,6 +123,7 @@ dynamic build(BuildContext context) {
   void onTapUp(TapDragUpDetails d) {
     capturedUp = d;
   }
+
   onTapUp(details);
   assert(capturedUp != null, 'Should capture up');
   results.add('Callback pattern works');
@@ -158,14 +159,19 @@ dynamic build(BuildContext context) {
   print('Pure tap (no drag): $pureTap');
 
   // Test 20: Summary
-  results.add('Properties: globalPosition, localPosition, kind, consecutiveTapCount');
+  results.add(
+    'Properties: globalPosition, localPosition, kind, consecutiveTapCount',
+  );
   print('TapDragUpDetails: tap completion when pointer released without drag');
 
   print('TapDragUpDetails test completed with ${results.length} tests');
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('TapDragUpDetails Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      Text(
+        'TapDragUpDetails Tests',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
       Text('Properties: globalPosition, localPosition'),
       Text('Properties: kind, consecutiveTapCount'),
       Text('Usage: onTapUp callback'),

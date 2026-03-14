@@ -20,7 +20,10 @@ dynamic build(BuildContext context) {
   print('TapDragEndDetails created');
 
   // Test 2: Velocity property
-  assert(details.velocity.pixelsPerSecond == Offset(500.0, 300.0), 'Velocity should match');
+  assert(
+    details.velocity.pixelsPerSecond == Offset(500.0, 300.0),
+    'Velocity should match',
+  );
   results.add('Velocity: ${details.velocity.pixelsPerSecond}');
   print('Velocity: ${details.velocity.pixelsPerSecond}');
 
@@ -58,7 +61,10 @@ dynamic build(BuildContext context) {
   print('Slow drag end: velocity=${slowEnd.velocity.pixelsPerSecond}');
 
   // Test 8: Velocity.zero properties
-  assert(Velocity.zero.pixelsPerSecond == Offset.zero, 'Zero velocity should be zero offset');
+  assert(
+    Velocity.zero.pixelsPerSecond == Offset.zero,
+    'Zero velocity should be zero offset',
+  );
   results.add('Velocity.zero: ${Velocity.zero.pixelsPerSecond}');
   print('Velocity.zero: ${Velocity.zero.pixelsPerSecond}');
 
@@ -72,7 +78,9 @@ dynamic build(BuildContext context) {
   final kMaxFlingVelocity = 8000.0;
   final cappedSpeed = speed.clamp(0.0, kMaxFlingVelocity);
   results.add('Capped speed: ${cappedSpeed.toStringAsFixed(2)}');
-  print('Capped velocity: ${cappedSpeed.toStringAsFixed(2)} px/s (max $kMaxFlingVelocity)');
+  print(
+    'Capped velocity: ${cappedSpeed.toStringAsFixed(2)} px/s (max $kMaxFlingVelocity)',
+  );
 
   // Test 11: Horizontal velocity component
   final horizontalVel = details.velocity.pixelsPerSecond.dx;
@@ -105,7 +113,9 @@ dynamic build(BuildContext context) {
   // Test 15: Velocity for animation
   final animationDuration = 300; // milliseconds
   final travelDistance = speed * (animationDuration / 1000.0);
-  results.add('Travel estimate: ${travelDistance.toStringAsFixed(2)} px over ${animationDuration}ms');
+  results.add(
+    'Travel estimate: ${travelDistance.toStringAsFixed(2)} px over ${animationDuration}ms',
+  );
   print('Animation travel: ${travelDistance.toStringAsFixed(2)} px');
 
   // Test 16: Dominant axis detection
@@ -123,6 +133,7 @@ dynamic build(BuildContext context) {
   void onDragEnd(TapDragEndDetails d) {
     capturedEnd = d;
   }
+
   onDragEnd(details);
   assert(capturedEnd != null, 'Should capture end');
   results.add('Callback pattern works');
@@ -135,13 +146,18 @@ dynamic build(BuildContext context) {
 
   // Test 20: Summary
   results.add('Properties: velocity, consecutiveTapCount');
-  print('TapDragEndDetails: velocity for fling animations, tap count for multi-tap-drag');
+  print(
+    'TapDragEndDetails: velocity for fling animations, tap count for multi-tap-drag',
+  );
 
   print('TapDragEndDetails test completed with ${results.length} tests');
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('TapDragEndDetails Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      Text(
+        'TapDragEndDetails Tests',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
       Text('Properties: velocity, consecutiveTapCount'),
       Text('Velocity: pixelsPerSecond, speed, direction'),
       Text('Fling: detect and animate based on velocity'),

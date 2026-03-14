@@ -22,7 +22,9 @@ dynamic build(BuildContext context) {
   final border2 = Border.all(color: Color(0xFFFF0000), width: 2.5);
   assert(border2.top.width == 2.5, 'Border width should be 2.5');
   assert(border2.top.color == Color(0xFFFF0000), 'Border color should be red');
-  results.add('Border.all custom: width=${border2.top.width}, color=${border2.top.color}');
+  results.add(
+    'Border.all custom: width=${border2.top.width}, color=${border2.top.color}',
+  );
   print('Border.all custom width verified');
 
   // Test 3: Border with individual sides
@@ -48,7 +50,9 @@ dynamic build(BuildContext context) {
   assert(border4.bottom.width == 2.0, 'Vertical bottom should be 2.0');
   assert(border4.left.width == 3.0, 'Horizontal left should be 3.0');
   assert(border4.right.width == 3.0, 'Horizontal right should be 3.0');
-  results.add('Border.symmetric: vertical=${border4.top.width}, horizontal=${border4.left.width}');
+  results.add(
+    'Border.symmetric: vertical=${border4.top.width}, horizontal=${border4.left.width}',
+  );
   print('Border.symmetric verified');
 
   // Test 5: Border dimensions calculation
@@ -56,7 +60,9 @@ dynamic build(BuildContext context) {
   final dimensions = border5.dimensions;
   assert(dimensions.horizontal == 10.0, 'Horizontal dimensions should be 10.0');
   assert(dimensions.vertical == 10.0, 'Vertical dimensions should be 10.0');
-  results.add('Border dimensions: h=${dimensions.horizontal}, v=${dimensions.vertical}');
+  results.add(
+    'Border dimensions: h=${dimensions.horizontal}, v=${dimensions.vertical}',
+  );
   print('Border dimensions: ${dimensions}');
 
   // Test 6: Border isUniform check
@@ -83,7 +89,11 @@ dynamic build(BuildContext context) {
   print('Border scale: ${scaledBorder.top.width}');
 
   // Test 9: BorderSide styles
-  final solidBorder = BorderSide(color: Color(0xFF000000), width: 1.0, style: BorderStyle.solid);
+  final solidBorder = BorderSide(
+    color: Color(0xFF000000),
+    width: 1.0,
+    style: BorderStyle.solid,
+  );
   assert(solidBorder.style == BorderStyle.solid, 'Style should be solid');
   results.add('BorderSide style: ${solidBorder.style}');
   print('BorderSide style: ${solidBorder.style}');
@@ -103,7 +113,9 @@ dynamic build(BuildContext context) {
   print('Border hashCode verified');
 
   // Test 12: Border add operation
-  final addedBorder = Border.all(width: 1.0).add(Border.all(width: 1.0), reversed: false);
+  final addedBorder = Border.all(
+    width: 1.0,
+  ).add(Border.all(width: 1.0), reversed: false);
   results.add('Border add: $addedBorder');
   print('Border add operation tested');
 

@@ -36,7 +36,10 @@ dynamic build(BuildContext context) {
   // Test 4: Distance calculation
   final distance = offsetFromStart.distance;
   final expectedDistance = 70.71; // sqrt(50^2 + 50^2)
-  assert((distance - expectedDistance).abs() < 0.1, 'Distance should be ~70.71');
+  assert(
+    (distance - expectedDistance).abs() < 0.1,
+    'Distance should be ~70.71',
+  );
   results.add('Distance moved: ${distance.toStringAsFixed(2)}');
   print('Distance moved: ${distance.toStringAsFixed(2)}');
 
@@ -57,16 +60,24 @@ dynamic build(BuildContext context) {
   final smallDistance = smallMovement.distance;
   final withinSlop = smallDistance < kTouchSlop;
   assert(withinSlop, 'Small movement should be within slop');
-  results.add('Movement ${smallDistance.toStringAsFixed(2)} within slop: $withinSlop');
-  print('Movement ${smallDistance.toStringAsFixed(2)}px within slop ($kTouchSlop): $withinSlop');
+  results.add(
+    'Movement ${smallDistance.toStringAsFixed(2)} within slop: $withinSlop',
+  );
+  print(
+    'Movement ${smallDistance.toStringAsFixed(2)}px within slop ($kTouchSlop): $withinSlop',
+  );
 
   // Test 8: Movement exceeds threshold
   final largeMovement = Offset(20.0, 20.0);
   final largeDistance = largeMovement.distance;
   final exceedsSlop = largeDistance > kTouchSlop;
   assert(exceedsSlop, 'Large movement should exceed slop');
-  results.add('Movement ${largeDistance.toStringAsFixed(2)} exceeds slop: $exceedsSlop');
-  print('Movement ${largeDistance.toStringAsFixed(2)}px exceeds slop ($kTouchSlop): $exceedsSlop');
+  results.add(
+    'Movement ${largeDistance.toStringAsFixed(2)} exceeds slop: $exceedsSlop',
+  );
+  print(
+    'Movement ${largeDistance.toStringAsFixed(2)}px exceeds slop ($kTouchSlop): $exceedsSlop',
+  );
 
   // Test 9: Delta for incremental movement
   final previousPosition = Offset(130.0, 220.0);
@@ -89,7 +100,9 @@ dynamic build(BuildContext context) {
 
   // Test 12: Unit vector for direction
   final unitVector = Offset.fromDirection(direction);
-  results.add('Unit vector: (${unitVector.dx.toStringAsFixed(3)}, ${unitVector.dy.toStringAsFixed(3)})');
+  results.add(
+    'Unit vector: (${unitVector.dx.toStringAsFixed(3)}, ${unitVector.dy.toStringAsFixed(3)})',
+  );
   print('Unit vector: $unitVector');
 
   // Test 13: Offset.zero constant
@@ -105,7 +118,10 @@ dynamic build(BuildContext context) {
   print('Offset equality: ${pos1 == pos2}');
 
   // Test 15: Offset hash code consistency
-  assert(pos1.hashCode == pos2.hashCode, 'Equal offsets should have same hashCode');
+  assert(
+    pos1.hashCode == pos2.hashCode,
+    'Equal offsets should have same hashCode',
+  );
   results.add('HashCode consistency: ${pos1.hashCode == pos2.hashCode}');
   print('Offset hashCode: ${pos1.hashCode}');
 
@@ -131,23 +147,38 @@ dynamic build(BuildContext context) {
   print('Velocity estimate: ($velocityX, $velocityY) px/s');
 
   // Test 19: Multiple device kinds
-  final kinds = [PointerDeviceKind.touch, PointerDeviceKind.mouse, PointerDeviceKind.stylus];
+  final kinds = [
+    PointerDeviceKind.touch,
+    PointerDeviceKind.mouse,
+    PointerDeviceKind.stylus,
+  ];
   results.add('Supported device kinds: ${kinds.length}');
   print('Supported device kinds for tap move: $kinds');
 
   // Test 20: Position clamping concept
   final screenBounds = Rect.fromLTWH(0, 0, 400, 800);
-  final clampedX = currentPosition.dx.clamp(screenBounds.left, screenBounds.right);
-  final clampedY = currentPosition.dy.clamp(screenBounds.top, screenBounds.bottom);
+  final clampedX = currentPosition.dx.clamp(
+    screenBounds.left,
+    screenBounds.right,
+  );
+  final clampedY = currentPosition.dy.clamp(
+    screenBounds.top,
+    screenBounds.bottom,
+  );
   final clampedPos = Offset(clampedX, clampedY);
   results.add('Clamped position: $clampedPos');
   print('Clamped position to bounds: $clampedPos');
 
-  print('TapMoveDetails conceptual test completed with ${results.length} tests');
+  print(
+    'TapMoveDetails conceptual test completed with ${results.length} tests',
+  );
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('TapMoveDetails Conceptual Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      Text(
+        'TapMoveDetails Conceptual Tests',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
       Text('Position: global, local'),
       Text('Movement: offset, distance, direction'),
       Text('Detection: horizontal, vertical, slop'),

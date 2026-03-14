@@ -22,12 +22,18 @@ dynamic build(BuildContext context) {
   print('Single tap up details: count=${singleTapUp.count}');
 
   // Test 2: Global position property
-  assert(singleTapUp.globalPosition == Offset(100.0, 200.0), 'Global position should match');
+  assert(
+    singleTapUp.globalPosition == Offset(100.0, 200.0),
+    'Global position should match',
+  );
   results.add('Global position: ${singleTapUp.globalPosition}');
   print('Global position: ${singleTapUp.globalPosition}');
 
   // Test 3: Local position property
-  assert(singleTapUp.localPosition == Offset(50.0, 100.0), 'Local position should match');
+  assert(
+    singleTapUp.localPosition == Offset(50.0, 100.0),
+    'Local position should match',
+  );
   results.add('Local position: ${singleTapUp.localPosition}');
   print('Local position: ${singleTapUp.localPosition}');
 
@@ -87,7 +93,10 @@ dynamic build(BuildContext context) {
     kind: PointerDeviceKind.trackpad,
     count: 1,
   );
-  assert(trackpadUp.kind == PointerDeviceKind.trackpad, 'Kind should be trackpad');
+  assert(
+    trackpadUp.kind == PointerDeviceKind.trackpad,
+    'Kind should be trackpad',
+  );
   results.add('Trackpad up: ${trackpadUp.kind}');
   print('Trackpad up details: ${trackpadUp.kind}');
 
@@ -119,7 +128,9 @@ dynamic build(BuildContext context) {
   final delta = tapUpPos - tapDownPos;
   final deltaDist = delta.distance;
   results.add('Tap delta distance: ${deltaDist.toStringAsFixed(2)}');
-  print('Position delta during tap: $delta (distance: ${deltaDist.toStringAsFixed(2)})');
+  print(
+    'Position delta during tap: $delta (distance: ${deltaDist.toStringAsFixed(2)})',
+  );
 
   // Test 14: Within tap tolerance
   final kTapTolerance = 18.0;
@@ -175,7 +186,10 @@ dynamic build(BuildContext context) {
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('SerialTapUpDetails Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      Text(
+        'SerialTapUpDetails Tests',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
       Text('Properties: globalPosition, localPosition'),
       Text('Properties: kind, count'),
       Text('Count: indicates tap sequence completion'),

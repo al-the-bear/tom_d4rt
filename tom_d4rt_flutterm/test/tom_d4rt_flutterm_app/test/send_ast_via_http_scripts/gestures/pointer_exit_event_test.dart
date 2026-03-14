@@ -11,9 +11,7 @@ dynamic build(BuildContext context) {
   print('Testing PointerExitEvent...');
 
   // Test 1: Create basic PointerExitEvent
-  final exitEvent1 = PointerExitEvent(
-    position: Offset(100.0, 150.0),
-  );
+  final exitEvent1 = PointerExitEvent(position: Offset(100.0, 150.0));
   assert(exitEvent1 is PointerEvent, 'Should be PointerEvent');
   results.add('PointerExitEvent created');
   print('PointerExitEvent created: ${exitEvent1.runtimeType}');
@@ -36,7 +34,10 @@ dynamic build(BuildContext context) {
     position: Offset(200.0, 250.0),
     kind: PointerDeviceKind.touch,
   );
-  assert(exitEventTouch.kind == PointerDeviceKind.touch, 'Kind should be touch');
+  assert(
+    exitEventTouch.kind == PointerDeviceKind.touch,
+    'Kind should be touch',
+  );
   results.add('touch kind: ${exitEventTouch.kind}');
   print('Exit event with touch kind: ${exitEventTouch.kind}');
 
@@ -54,7 +55,10 @@ dynamic build(BuildContext context) {
     position: Offset(50.0, 75.0),
     timeStamp: Duration(milliseconds: 500),
   );
-  assert(exitEventTime.timeStamp == Duration(milliseconds: 500), 'TimeStamp should match');
+  assert(
+    exitEventTime.timeStamp == Duration(milliseconds: 500),
+    'TimeStamp should match',
+  );
   results.add('timeStamp: ${exitEventTime.timeStamp}');
   print('Exit event timeStamp: ${exitEventTime.timeStamp}');
 
@@ -77,7 +81,10 @@ dynamic build(BuildContext context) {
     position: Offset(300.0, 400.0),
     buttons: kSecondaryButton,
   );
-  assert(exitEventButtons.buttons == kSecondaryButton, 'Buttons should be secondary');
+  assert(
+    exitEventButtons.buttons == kSecondaryButton,
+    'Buttons should be secondary',
+  );
   results.add('buttons: ${exitEventButtons.buttons}');
   print('Exit event buttons: ${exitEventButtons.buttons}');
 
@@ -143,7 +150,9 @@ dynamic build(BuildContext context) {
 
   // Test 20: Distance properties
   results.add('distance: ${exitEvent1.distance}');
-  print('Exit event distance: ${exitEvent1.distance}, distanceMax: ${exitEvent1.distanceMax}');
+  print(
+    'Exit event distance: ${exitEvent1.distance}, distanceMax: ${exitEvent1.distanceMax}',
+  );
 
   print('PointerExitEvent test completed with ${results.length} tests');
   return Column(

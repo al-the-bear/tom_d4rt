@@ -17,7 +17,9 @@ dynamic build(BuildContext context) {
     fit1.coefficients[i] = coefficients1[i];
   }
   assert(fit1.coefficients.length == 3, 'Should have 3 coefficients');
-  results.add('PolynomialFit created with ${fit1.coefficients.length} coefficients');
+  results.add(
+    'PolynomialFit created with ${fit1.coefficients.length} coefficients',
+  );
   print('PolynomialFit created: ${fit1.coefficients.length} coefficients');
 
   // Test 2: Access coefficients
@@ -26,18 +28,26 @@ dynamic build(BuildContext context) {
 
   // Test 3: Linear fit (degree 1)
   final linearFit = PolynomialFit(2); // [c, m] for y = mx + c
-  linearFit.coefficients[0] = 50.0;  // intercept
+  linearFit.coefficients[0] = 50.0; // intercept
   linearFit.coefficients[1] = 100.0; // slope (velocity)
-  assert(linearFit.coefficients.length == 2, 'Linear should have 2 coefficients');
-  results.add('Linear fit: c=${linearFit.coefficients[0]}, m=${linearFit.coefficients[1]}');
+  assert(
+    linearFit.coefficients.length == 2,
+    'Linear should have 2 coefficients',
+  );
+  results.add(
+    'Linear fit: c=${linearFit.coefficients[0]}, m=${linearFit.coefficients[1]}',
+  );
   print('Linear fit coefficients: ${linearFit.coefficients}');
 
   // Test 4: Quadratic fit (degree 2)
   final quadFit = PolynomialFit(3); // [c, b, a] for y = ax^2 + bx + c
-  quadFit.coefficients[0] = 0.0;    // constant
-  quadFit.coefficients[1] = 500.0;  // linear (velocity)
-  quadFit.coefficients[2] = -50.0;  // quadratic (deceleration)
-  assert(quadFit.coefficients.length == 3, 'Quadratic should have 3 coefficients');
+  quadFit.coefficients[0] = 0.0; // constant
+  quadFit.coefficients[1] = 500.0; // linear (velocity)
+  quadFit.coefficients[2] = -50.0; // quadratic (deceleration)
+  assert(
+    quadFit.coefficients.length == 3,
+    'Quadratic should have 3 coefficients',
+  );
   results.add('Quadratic fit: ${quadFit.coefficients}');
   print('Quadratic fit coefficients: ${quadFit.coefficients}');
 
@@ -62,6 +72,7 @@ dynamic build(BuildContext context) {
     }
     return result;
   }
+
   final evalResult = evaluate(quadFit.coefficients.toList(), 1.0); // at x=1
   results.add('Evaluate at x=1: ${evalResult.toStringAsFixed(2)}');
   print('Polynomial value at x=1: $evalResult');
@@ -94,7 +105,9 @@ dynamic build(BuildContext context) {
 
   // Test 12: Confidence from velocity estimate
   if (estimate != null) {
-    results.add('Estimate confidence: ${estimate.confidence.toStringAsFixed(3)}');
+    results.add(
+      'Estimate confidence: ${estimate.confidence.toStringAsFixed(3)}',
+    );
     print('Velocity estimate confidence: ${estimate.confidence}');
   } else {
     results.add('Estimate: null');
@@ -103,7 +116,10 @@ dynamic build(BuildContext context) {
 
   // Test 13: Position samples for fitting
   final positions = [
-    Offset(0, 0), Offset(50, 30), Offset(110, 65), Offset(180, 105)
+    Offset(0, 0),
+    Offset(50, 30),
+    Offset(110, 65),
+    Offset(180, 105),
   ];
   results.add('Sample positions: ${positions.length}');
   print('Position samples for fit: ${positions.length}');

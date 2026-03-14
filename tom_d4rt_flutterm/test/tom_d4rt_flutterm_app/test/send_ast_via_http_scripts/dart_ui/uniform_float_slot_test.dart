@@ -106,7 +106,10 @@ dynamic build(BuildContext context) {
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('UniformFloatSlot Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      Text(
+        'UniformFloatSlot Tests',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
       Text('Type: Single float (32-bit)'),
       Text('API: FragmentShader.setFloat(index, value)'),
       Text('Uses: time, opacity, threshold, intensity'),

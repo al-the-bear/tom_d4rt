@@ -65,7 +65,10 @@ dynamic build(BuildContext context) {
     delta: Offset.zero,
     timeStamp: Duration(milliseconds: 750),
   );
-  assert(moveTime.timeStamp == Duration(milliseconds: 750), 'TimeStamp should match');
+  assert(
+    moveTime.timeStamp == Duration(milliseconds: 750),
+    'TimeStamp should match',
+  );
   results.add('timeStamp: ${moveTime.timeStamp}');
   print('Move event timeStamp: ${moveTime.timeStamp}');
 
@@ -162,11 +165,15 @@ dynamic build(BuildContext context) {
     radiusMajor: 10.0,
   );
   results.add('size: ${moveSize.size}');
-  print('Move event size: ${moveSize.size}, radiusMajor: ${moveSize.radiusMajor}');
+  print(
+    'Move event size: ${moveSize.size}, radiusMajor: ${moveSize.radiusMajor}',
+  );
 
   // Test 20: Distance properties
   results.add('distance: ${moveEvent1.distance}');
-  print('Move event distance: ${moveEvent1.distance}, distanceMax: ${moveEvent1.distanceMax}');
+  print(
+    'Move event distance: ${moveEvent1.distance}, distanceMax: ${moveEvent1.distanceMax}',
+  );
 
   print('PointerMoveEvent test completed with ${results.length} tests');
   return Column(

@@ -85,7 +85,10 @@ dynamic build(BuildContext context) {
     borderRadius: BorderRadius.circular(5.0),
   );
   final notched10 = AutomaticNotchedShape(hostShape10, guestShape1);
-  assert(notched10.host == hostShape10, 'Host should be BeveledRectangleBorder');
+  assert(
+    notched10.host == hostShape10,
+    'Host should be BeveledRectangleBorder',
+  );
   results.add('AutomaticNotchedShape beveled host: verified');
   print('AutomaticNotchedShape with BeveledRectangleBorder host verified');
 

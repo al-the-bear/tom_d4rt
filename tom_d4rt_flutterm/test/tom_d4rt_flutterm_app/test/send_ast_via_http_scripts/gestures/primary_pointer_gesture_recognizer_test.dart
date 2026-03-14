@@ -18,14 +18,19 @@ dynamic build(BuildContext context) {
   print('LongPressGestureRecognizer: ${longPress.runtimeType}');
 
   // Test 2: Check inheritance chain
-  assert(longPress is OneSequenceGestureRecognizer, 'Should be OneSequenceGestureRecognizer');
+  assert(
+    longPress is OneSequenceGestureRecognizer,
+    'Should be OneSequenceGestureRecognizer',
+  );
   results.add('Inheritance: OneSequenceGestureRecognizer');
   print('Inheritance verified: OneSequenceGestureRecognizer');
 
   // Test 3: Primary pointer concept - single pointer tracking
   var primaryPointer = 0; // First pointer that touches
   results.add('Primary pointer tracking: $primaryPointer');
-  print('Primary pointer concept: tracks first touch (pointer $primaryPointer)');
+  print(
+    'Primary pointer concept: tracks first touch (pointer $primaryPointer)',
+  );
 
   // Test 4: Initial position tracking
   final initialPosition = Offset(100.0, 200.0);
@@ -48,7 +53,9 @@ dynamic build(BuildContext context) {
   final movement = (movedPos - initialPos).distance;
   final exceedsSlop = movement > kTouchSlop;
   assert(exceedsSlop, 'Movement should exceed slop');
-  results.add('Movement ${movement.toStringAsFixed(2)} exceeds slop: $exceedsSlop');
+  results.add(
+    'Movement ${movement.toStringAsFixed(2)} exceeds slop: $exceedsSlop',
+  );
   print('Movement check: $movement > $kTouchSlop = $exceedsSlop');
 
   // Test 8: Within slop - gesture continues
@@ -56,7 +63,9 @@ dynamic build(BuildContext context) {
   final smallDist = (smallMove - initialPos).distance;
   final withinSlop = smallDist <= kTouchSlop;
   assert(withinSlop, 'Small movement should be within slop');
-  results.add('Movement ${smallDist.toStringAsFixed(2)} within slop: $withinSlop');
+  results.add(
+    'Movement ${smallDist.toStringAsFixed(2)} within slop: $withinSlop',
+  );
   print('Small movement: $smallDist <= $kTouchSlop = $withinSlop');
 
   // Test 9: State enum concept for gesture lifecycle
@@ -104,7 +113,9 @@ dynamic build(BuildContext context) {
     localPosition: Offset(50.0, 100.0),
     kind: PointerDeviceKind.touch,
   );
-  results.add('LongPressDownDetails: global=${longPressDownDetails.globalPosition}');
+  results.add(
+    'LongPressDownDetails: global=${longPressDownDetails.globalPosition}',
+  );
   print('LongPressDownDetails: ${longPressDownDetails.globalPosition}');
 
   // Test 15: Pointer ID tracking
@@ -143,11 +154,16 @@ dynamic build(BuildContext context) {
   results.add('Recognizer disposed');
   print('LongPressGestureRecognizer disposed');
 
-  print('PrimaryPointerGestureRecognizer test completed with ${results.length} tests');
+  print(
+    'PrimaryPointerGestureRecognizer test completed with ${results.length} tests',
+  );
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('PrimaryPointerGestureRecognizer Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      Text(
+        'PrimaryPointerGestureRecognizer Tests',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
       Text('Concept: tracks first (primary) pointer'),
       Text('Subclass: LongPressGestureRecognizer'),
       Text('Properties: deadline, preAcceptSlop'),

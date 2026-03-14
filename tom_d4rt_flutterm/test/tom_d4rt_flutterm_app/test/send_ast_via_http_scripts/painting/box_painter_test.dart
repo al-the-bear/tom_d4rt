@@ -11,10 +11,11 @@ dynamic build(BuildContext context) {
   print('Testing BoxPainter via BoxDecoration.createBoxPainter()...');
 
   // Test 1: Create BoxDecoration to get BoxPainter
-  final decoration1 = BoxDecoration(
-    color: Color(0xFF0000FF),
+  final decoration1 = BoxDecoration(color: Color(0xFF0000FF));
+  assert(
+    decoration1.color == Color(0xFF0000FF),
+    'Decoration color should be blue',
   );
-  assert(decoration1.color == Color(0xFF0000FF), 'Decoration color should be blue');
   results.add('BoxDecoration for painter: color=${decoration1.color}');
   print('BoxDecoration created for BoxPainter access');
 
@@ -38,9 +39,7 @@ dynamic build(BuildContext context) {
 
   // Test 4: BoxDecoration with gradient
   final decoration4 = BoxDecoration(
-    gradient: LinearGradient(
-      colors: [Color(0xFFFF0000), Color(0xFF0000FF)],
-    ),
+    gradient: LinearGradient(colors: [Color(0xFFFF0000), Color(0xFF0000FF)]),
   );
   assert(decoration4.gradient != null, 'Gradient should not be null');
   results.add('BoxDecoration gradient: present');
@@ -59,7 +58,9 @@ dynamic build(BuildContext context) {
   );
   assert(decoration5.boxShadow != null, 'BoxShadow should not be null');
   assert(decoration5.boxShadow!.length == 1, 'Should have 1 shadow');
-  results.add('BoxDecoration boxShadow count: ${decoration5.boxShadow!.length}');
+  results.add(
+    'BoxDecoration boxShadow count: ${decoration5.boxShadow!.length}',
+  );
   print('BoxDecoration boxShadow: ${decoration5.boxShadow!.length} shadows');
 
   // Test 6: BoxDecoration BoxShape.circle
@@ -81,9 +82,7 @@ dynamic build(BuildContext context) {
   print('BoxDecoration rectangle shape verified');
 
   // Test 8: BoxDecoration padding calculation
-  final decoration8 = BoxDecoration(
-    border: Border.all(width: 5.0),
-  );
+  final decoration8 = BoxDecoration(border: Border.all(width: 5.0));
   final padding = decoration8.padding;
   assert(padding != null, 'Padding should not be null');
   results.add('BoxDecoration padding: $padding');
@@ -108,12 +107,19 @@ dynamic build(BuildContext context) {
     border: Border.all(color: Color(0xFF333333), width: 1.0),
     borderRadius: BorderRadius.circular(8.0),
     boxShadow: [
-      BoxShadow(color: Color(0x20000000), blurRadius: 4.0, offset: Offset(0, 2)),
+      BoxShadow(
+        color: Color(0x20000000),
+        blurRadius: 4.0,
+        offset: Offset(0, 2),
+      ),
     ],
   );
   assert(complexDecoration.color != null, 'Complex decoration color present');
   assert(complexDecoration.border != null, 'Complex decoration border present');
-  assert(complexDecoration.borderRadius != null, 'Complex decoration radius present');
+  assert(
+    complexDecoration.borderRadius != null,
+    'Complex decoration radius present',
+  );
   results.add('Complex BoxDecoration: all properties set');
   print('Complex BoxDecoration verified');
 

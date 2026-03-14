@@ -50,7 +50,9 @@ dynamic build(BuildContext context) {
   assert(tapDown.globalPosition == globalPosition, 'Global should match');
   assert(tapDown.localPosition == localPosition, 'Local should match');
   results.add('TapDownDetails: position=${tapDown.globalPosition}');
-  print('TapDownDetails: global=${tapDown.globalPosition}, local=${tapDown.localPosition}');
+  print(
+    'TapDownDetails: global=${tapDown.globalPosition}, local=${tapDown.localPosition}',
+  );
 
   // Test 7: TapUpDetails (concrete positioned details)
   final tapUp = TapUpDetails(
@@ -60,7 +62,9 @@ dynamic build(BuildContext context) {
   );
   assert(tapUp.globalPosition == globalPosition, 'Global should match');
   results.add('TapUpDetails: position=${tapUp.globalPosition}');
-  print('TapUpDetails: global=${tapUp.globalPosition}, local=${tapUp.localPosition}');
+  print(
+    'TapUpDetails: global=${tapUp.globalPosition}, local=${tapUp.localPosition}',
+  );
 
   // Test 8: LongPressDownDetails (positioned gesture details)
   final longPressDown = LongPressDownDetails(
@@ -151,14 +155,21 @@ dynamic build(BuildContext context) {
   print('Device kind associated with position: $kind');
 
   // Test 20: Summary of positioned gesture concepts
-  results.add('Concepts: globalPosition, localPosition, transform, distance, direction');
-  print('PositionedGestureDetails: provides position context for gesture callbacks');
+  results.add(
+    'Concepts: globalPosition, localPosition, transform, distance, direction',
+  );
+  print(
+    'PositionedGestureDetails: provides position context for gesture callbacks',
+  );
 
   print('PositionedGestureDetails test completed with ${results.length} tests');
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('PositionedGestureDetails Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      Text(
+        'PositionedGestureDetails Tests',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
       Text('Concepts: globalPosition, localPosition'),
       Text('Transform: global - local = offset'),
       Text('Math: distance, direction, arithmetic'),

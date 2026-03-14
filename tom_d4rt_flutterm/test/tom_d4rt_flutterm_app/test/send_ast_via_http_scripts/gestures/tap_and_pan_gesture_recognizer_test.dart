@@ -151,11 +151,16 @@ dynamic build(BuildContext context) {
   results.add('Recognizer disposed');
   print('TapAndPanGestureRecognizer disposed');
 
-  print('TapAndPanGestureRecognizer test completed with ${results.length} tests');
+  print(
+    'TapAndPanGestureRecognizer test completed with ${results.length} tests',
+  );
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('TapAndPanGestureRecognizer Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      Text(
+        'TapAndPanGestureRecognizer Tests',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
       Text('Constraint: All directions (pan)'),
       Text('Callbacks: onTapDown/Up, onDragStart/Update/End'),
       Text('Movement: horizontal, vertical, diagonal'),

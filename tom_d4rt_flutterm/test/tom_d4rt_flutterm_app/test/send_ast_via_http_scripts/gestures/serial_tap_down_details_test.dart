@@ -23,22 +23,34 @@ dynamic build(BuildContext context) {
   print('Single tap details: count=${singleTapDetails.count}');
 
   // Test 2: Global position property
-  assert(singleTapDetails.globalPosition == Offset(100.0, 200.0), 'Global position should match');
+  assert(
+    singleTapDetails.globalPosition == Offset(100.0, 200.0),
+    'Global position should match',
+  );
   results.add('Global position: ${singleTapDetails.globalPosition}');
   print('Global position: ${singleTapDetails.globalPosition}');
 
   // Test 3: Local position property
-  assert(singleTapDetails.localPosition == Offset(50.0, 100.0), 'Local position should match');
+  assert(
+    singleTapDetails.localPosition == Offset(50.0, 100.0),
+    'Local position should match',
+  );
   results.add('Local position: ${singleTapDetails.localPosition}');
   print('Local position: ${singleTapDetails.localPosition}');
 
   // Test 4: Kind property
-  assert(singleTapDetails.kind == PointerDeviceKind.touch, 'Kind should be touch');
+  assert(
+    singleTapDetails.kind == PointerDeviceKind.touch,
+    'Kind should be touch',
+  );
   results.add('Kind: ${singleTapDetails.kind}');
   print('Device kind: ${singleTapDetails.kind}');
 
   // Test 5: Buttons property
-  assert(singleTapDetails.buttons == kPrimaryButton, 'Buttons should be primary');
+  assert(
+    singleTapDetails.buttons == kPrimaryButton,
+    'Buttons should be primary',
+  );
   results.add('Buttons: ${singleTapDetails.buttons}');
   print('Buttons: ${singleTapDetails.buttons}');
 
@@ -98,7 +110,10 @@ dynamic build(BuildContext context) {
     count: 1,
     buttons: kPrimaryButton,
   );
-  assert(stylusDetails.kind == PointerDeviceKind.stylus, 'Kind should be stylus');
+  assert(
+    stylusDetails.kind == PointerDeviceKind.stylus,
+    'Kind should be stylus',
+  );
   results.add('Stylus device: ${stylusDetails.kind}');
   print('Stylus details: ${stylusDetails.kind}');
 
@@ -110,7 +125,10 @@ dynamic build(BuildContext context) {
     count: 1,
     buttons: kSecondaryButton,
   );
-  assert(secondaryDetails.buttons == kSecondaryButton, 'Should be secondary button');
+  assert(
+    secondaryDetails.buttons == kSecondaryButton,
+    'Should be secondary button',
+  );
   results.add('Secondary button: ${secondaryDetails.buttons}');
   print('Secondary button details: ${secondaryDetails.buttons}');
 
@@ -136,14 +154,18 @@ dynamic build(BuildContext context) {
   print('Within double-tap slop: $withinSlop');
 
   // Test 15: Global to local transform
-  final transform = singleTapDetails.globalPosition - singleTapDetails.localPosition;
+  final transform =
+      singleTapDetails.globalPosition - singleTapDetails.localPosition;
   assert(transform == Offset(50.0, 100.0), 'Transform should be (50, 100)');
   results.add('Global to local transform: $transform');
   print('Position transform: $transform');
 
   // Test 16: Offset operations
   final scaledPos = singleTapDetails.globalPosition * 2.0;
-  assert(scaledPos == Offset(200.0, 400.0), 'Scaled position should be (200, 400)');
+  assert(
+    scaledPos == Offset(200.0, 400.0),
+    'Scaled position should be (200, 400)',
+  );
   results.add('Scaled position: $scaledPos');
   print('Scaled position (2x): $scaledPos');
 
@@ -174,14 +196,21 @@ dynamic build(BuildContext context) {
   results.add('Tap sequence 1-5 tested');
 
   // Test 20: Summary of SerialTapDownDetails properties
-  results.add('Properties: globalPosition, localPosition, kind, count, buttons');
-  print('SerialTapDownDetails properties: globalPosition, localPosition, kind, count, buttons');
+  results.add(
+    'Properties: globalPosition, localPosition, kind, count, buttons',
+  );
+  print(
+    'SerialTapDownDetails properties: globalPosition, localPosition, kind, count, buttons',
+  );
 
   print('SerialTapDownDetails test completed with ${results.length} tests');
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('SerialTapDownDetails Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      Text(
+        'SerialTapDownDetails Tests',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
       Text('Properties: globalPosition, localPosition'),
       Text('Properties: kind, count, buttons'),
       Text('Count: 1=single, 2=double, 3=triple, 4+=more'),

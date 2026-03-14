@@ -71,11 +71,15 @@ dynamic build(BuildContext context) {
   print('addListener documented');
 
   // Method: removeListener
-  results.add('Method: removeListener(ImageStreamListener) - unregisters listener');
+  results.add(
+    'Method: removeListener(ImageStreamListener) - unregisters listener',
+  );
   print('removeListener documented');
 
   // Method: setCompleter
-  results.add('Method: setCompleter(ImageStreamCompleter) - sets the completer');
+  results.add(
+    'Method: setCompleter(ImageStreamCompleter) - sets the completer',
+  );
   print('setCompleter documented');
 
   // Property: debugLabel
@@ -86,7 +90,9 @@ dynamic build(BuildContext context) {
   print('Documenting ImageStream properties...');
 
   // Property: completer
-  results.add('Property: completer (ImageStreamCompleter?) - the current completer');
+  results.add(
+    'Property: completer (ImageStreamCompleter?) - the current completer',
+  );
   print('completer property documented');
 
   // Property: key
@@ -120,7 +126,9 @@ dynamic build(BuildContext context) {
   print('Error types documented');
 
   // Stack trace
-  results.add('Error callback receives: (Object exception, StackTrace? stackTrace)');
+  results.add(
+    'Error callback receives: (Object exception, StackTrace? stackTrace)',
+  );
   print('Stack trace documented');
 
   // ========== ImageStream Usage Patterns ==========
@@ -167,13 +175,18 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('ImageStream Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+      Text(
+        'ImageStream Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+      ),
       Text('Total items: ${results.length}', style: TextStyle(fontSize: 14)),
       Divider(),
-      ...results.map((r) => Padding(
-        padding: EdgeInsets.symmetric(vertical: 2),
-        child: Text(r, style: TextStyle(fontSize: 11)),
-      )),
+      ...results.map(
+        (r) => Padding(
+          padding: EdgeInsets.symmetric(vertical: 2),
+          child: Text(r, style: TextStyle(fontSize: 11)),
+        ),
+      ),
     ],
   );
 }

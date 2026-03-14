@@ -89,19 +89,13 @@ dynamic build(BuildContext context) {
   print('TextSpan compareTo: $comparison');
 
   // Test 9: TextSpan with locale
-  final span9 = TextSpan(
-    text: 'Localized',
-    locale: Locale('en', 'US'),
-  );
+  final span9 = TextSpan(text: 'Localized', locale: Locale('en', 'US'));
   assert(span9.locale == Locale('en', 'US'), 'Locale should match');
   results.add('TextSpan locale: ${span9.locale}');
   print('TextSpan locale: ${span9.locale}');
 
   // Test 10: TextSpan with spellOut
-  final span10 = TextSpan(
-    text: 'Spell check',
-    spellOut: true,
-  );
+  final span10 = TextSpan(text: 'Spell check', spellOut: true);
   assert(span10.spellOut == true, 'SpellOut should be true');
   results.add('TextSpan spellOut: ${span10.spellOut}');
   print('TextSpan spellOut verified');

@@ -110,7 +110,10 @@ dynamic build(BuildContext context) {
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('ResizeImageKey Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      Text(
+        'ResizeImageKey Tests',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
       Text('Purpose: Cache key for ResizeImage provider'),
       Text('Parameters: width, height, policy'),
       Text('Policies: exact, fit'),

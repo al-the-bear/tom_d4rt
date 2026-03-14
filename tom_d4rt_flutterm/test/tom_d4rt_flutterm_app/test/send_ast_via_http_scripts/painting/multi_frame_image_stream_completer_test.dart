@@ -19,11 +19,9 @@ dynamic build(BuildContext context) {
 
   // Test 2: ImageStreamListener callback structure
   var listenerCalled = false;
-  final listener1 = ImageStreamListener(
-    (ImageInfo image, bool sync) {
-      listenerCalled = true;
-    },
-  );
+  final listener1 = ImageStreamListener((ImageInfo image, bool sync) {
+    listenerCalled = true;
+  });
   assert(listener1.onImage != null, 'Listener should have onImage callback');
   results.add('ImageStreamListener: onImage callback present');
   print('ImageStreamListener created with callback');
@@ -57,10 +55,17 @@ dynamic build(BuildContext context) {
     cumulativeBytesLoaded: 5000,
     expectedTotalBytes: 10000,
   );
-  assert(chunkEvent.cumulativeBytesLoaded == 5000, 'Loaded bytes should be 5000');
+  assert(
+    chunkEvent.cumulativeBytesLoaded == 5000,
+    'Loaded bytes should be 5000',
+  );
   assert(chunkEvent.expectedTotalBytes == 10000, 'Total bytes should be 10000');
-  results.add('ImageChunkEvent: ${chunkEvent.cumulativeBytesLoaded}/${chunkEvent.expectedTotalBytes}');
-  print('ImageChunkEvent: ${chunkEvent.cumulativeBytesLoaded}/${chunkEvent.expectedTotalBytes}');
+  results.add(
+    'ImageChunkEvent: ${chunkEvent.cumulativeBytesLoaded}/${chunkEvent.expectedTotalBytes}',
+  );
+  print(
+    'ImageChunkEvent: ${chunkEvent.cumulativeBytesLoaded}/${chunkEvent.expectedTotalBytes}',
+  );
 
   // Test 6: ImageChunkEvent without expected total
   final chunkEvent2 = ImageChunkEvent(
@@ -68,7 +73,9 @@ dynamic build(BuildContext context) {
     expectedTotalBytes: null,
   );
   assert(chunkEvent2.expectedTotalBytes == null, 'Expected total can be null');
-  results.add('ImageChunkEvent unknown total: loaded=${chunkEvent2.cumulativeBytesLoaded}');
+  results.add(
+    'ImageChunkEvent unknown total: loaded=${chunkEvent2.cumulativeBytesLoaded}',
+  );
   print('ImageChunkEvent without expected total');
 
   // Test 7: Multiple ImageStreamListeners (concept)
@@ -89,12 +96,18 @@ dynamic build(BuildContext context) {
 
   // Test 9: ImageProvider concepts for multi-frame
   final networkImage = NetworkImage('https://example.com/animated.gif');
-  assert(networkImage.url == 'https://example.com/animated.gif', 'URL should match');
+  assert(
+    networkImage.url == 'https://example.com/animated.gif',
+    'URL should match',
+  );
   results.add('NetworkImage URL: ${networkImage.url}');
   print('NetworkImage for multi-frame: ${networkImage.url}');
 
   // Test 10: ImageProvider scale
-  final networkImage2 = NetworkImage('https://example.com/2x/image.png', scale: 2.0);
+  final networkImage2 = NetworkImage(
+    'https://example.com/2x/image.png',
+    scale: 2.0,
+  );
   assert(networkImage2.scale == 2.0, 'Scale should be 2.0');
   results.add('NetworkImage scale: ${networkImage2.scale}');
   print('NetworkImage scale: ${networkImage2.scale}');
@@ -107,7 +120,8 @@ dynamic build(BuildContext context) {
 
   // Test 12: Calculate frame count concept
   final totalDuration = Duration(seconds: 2);
-  final frameCount = totalDuration.inMilliseconds ~/ frameDuration.inMilliseconds;
+  final frameCount =
+      totalDuration.inMilliseconds ~/ frameDuration.inMilliseconds;
   assert(frameCount == 20, 'Should have 20 frames');
   results.add('Frame count for 2s: $frameCount');
   print('Calculated frame count: $frameCount');
@@ -117,7 +131,9 @@ dynamic build(BuildContext context) {
   results.add('ImageStream for handle: created');
   print('ImageStream for completer handle concept');
 
-  print('MultiFrameImageStreamCompleter test completed with ${results.length} tests');
+  print(
+    'MultiFrameImageStreamCompleter test completed with ${results.length} tests',
+  );
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [

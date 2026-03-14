@@ -21,12 +21,18 @@ dynamic build(BuildContext context) {
   print('PointerScrollEvent created: ${scrollEvent1.runtimeType}');
 
   // Test 2: Position property
-  assert(scrollEvent1.position == Offset(200.0, 300.0), 'Position should match');
+  assert(
+    scrollEvent1.position == Offset(200.0, 300.0),
+    'Position should match',
+  );
   results.add('position: ${scrollEvent1.position}');
   print('Scroll event position: ${scrollEvent1.position}');
 
   // Test 3: ScrollDelta property
-  assert(scrollEvent1.scrollDelta == Offset(0.0, -120.0), 'ScrollDelta should match');
+  assert(
+    scrollEvent1.scrollDelta == Offset(0.0, -120.0),
+    'ScrollDelta should match',
+  );
   results.add('scrollDelta: ${scrollEvent1.scrollDelta}');
   print('Scroll event scrollDelta: ${scrollEvent1.scrollDelta}');
 
@@ -62,7 +68,10 @@ dynamic build(BuildContext context) {
     position: Offset(150.0, 200.0),
     scrollDelta: Offset(40.0, 0.0),
   );
-  assert(scrollRight.scrollDelta.dx > 0, 'Scroll right should have positive dx');
+  assert(
+    scrollRight.scrollDelta.dx > 0,
+    'Scroll right should have positive dx',
+  );
   results.add('scroll right dx: ${scrollRight.scrollDelta.dx}');
   print('Scroll right event: ${scrollRight.scrollDelta}');
 
@@ -71,7 +80,10 @@ dynamic build(BuildContext context) {
     position: Offset(150.0, 200.0),
     scrollDelta: Offset(30.0, -45.0),
   );
-  assert(scrollDiagonal.scrollDelta.dx != 0 && scrollDiagonal.scrollDelta.dy != 0, 'Should be diagonal');
+  assert(
+    scrollDiagonal.scrollDelta.dx != 0 && scrollDiagonal.scrollDelta.dy != 0,
+    'Should be diagonal',
+  );
   results.add('diagonal: ${scrollDiagonal.scrollDelta}');
   print('Diagonal scroll event: ${scrollDiagonal.scrollDelta}');
 
@@ -81,7 +93,10 @@ dynamic build(BuildContext context) {
     scrollDelta: Offset(0.0, -30.0),
     timeStamp: Duration(milliseconds: 500),
   );
-  assert(scrollTime.timeStamp == Duration(milliseconds: 500), 'TimeStamp should match');
+  assert(
+    scrollTime.timeStamp == Duration(milliseconds: 500),
+    'TimeStamp should match',
+  );
   results.add('timeStamp: ${scrollTime.timeStamp}');
   print('Scroll event timeStamp: ${scrollTime.timeStamp}');
 
@@ -163,7 +178,10 @@ dynamic build(BuildContext context) {
     scrollDelta: Offset(10, -35),
     kind: PointerDeviceKind.trackpad,
   );
-  assert(scrollTrackpad.kind == PointerDeviceKind.trackpad, 'Kind should be trackpad');
+  assert(
+    scrollTrackpad.kind == PointerDeviceKind.trackpad,
+    'Kind should be trackpad',
+  );
   results.add('trackpad kind: ${scrollTrackpad.kind}');
   print('Scroll event with trackpad kind: ${scrollTrackpad.kind}');
 

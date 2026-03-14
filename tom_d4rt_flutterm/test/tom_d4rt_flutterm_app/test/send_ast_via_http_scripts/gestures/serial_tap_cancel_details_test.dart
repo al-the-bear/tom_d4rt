@@ -41,7 +41,9 @@ dynamic build(BuildContext context) {
   final movement = (currentPos - downPos).distance;
   final exceededSlop = movement > kTouchSlop;
   assert(exceededSlop, 'Movement should exceed slop');
-  results.add('Slop exceeded: $exceededSlop (movement ${movement.toStringAsFixed(2)})');
+  results.add(
+    'Slop exceeded: $exceededSlop (movement ${movement.toStringAsFixed(2)})',
+  );
   print('Cancel scenario - slop exceeded: $exceededSlop');
 
   // Test 6: Cancel scenarios - timeout expired
@@ -78,14 +80,18 @@ dynamic build(BuildContext context) {
   void onTapDown() {
     tapSequenceCount++;
   }
+
   void onTapCancel(int count) {
     cancelled = true;
     assert(count == tapSequenceCount, 'Cancel count should match sequence');
   }
+
   onTapDown();
   onTapDown();
   onTapCancel(2);
-  results.add('Cancel state tracking: cancelled=$cancelled, count=$tapSequenceCount');
+  results.add(
+    'Cancel state tracking: cancelled=$cancelled, count=$tapSequenceCount',
+  );
   print('State tracking: tapCount=$tapSequenceCount, cancelled=$cancelled');
 
   // Test 11: Callback pattern
@@ -93,6 +99,7 @@ dynamic build(BuildContext context) {
   void handleCancel(SerialTapCancelDetails details) {
     lastCancelDetails = details;
   }
+
   handleCancel(cancelDetails2);
   assert(lastCancelDetails != null, 'Details should be captured');
   assert(lastCancelDetails!.count == 2, 'Count should be preserved');
@@ -126,6 +133,7 @@ dynamic build(BuildContext context) {
   void recordCancel(SerialTapCancelDetails d) {
     cancelCounts.add(d.count);
   }
+
   recordCancel(SerialTapCancelDetails(count: 1));
   recordCancel(SerialTapCancelDetails(count: 2));
   recordCancel(SerialTapCancelDetails(count: 3));
@@ -139,6 +147,7 @@ dynamic build(BuildContext context) {
     if (elapsed > kTapTimeout) return 'timeout';
     return 'competing_gesture';
   }
+
   final reason = determineReason(25.0, Duration(milliseconds: 100));
   assert(reason == 'movement_exceeded', 'Reason should be movement');
   results.add('Cancel reason: $reason');
@@ -170,13 +179,18 @@ dynamic build(BuildContext context) {
 
   // Test 20: Summary
   results.add('SerialTapCancelDetails: single property (count)');
-  print('SerialTapCancelDetails summary: count property indicates tap sequence depth at cancel');
+  print(
+    'SerialTapCancelDetails summary: count property indicates tap sequence depth at cancel',
+  );
 
   print('SerialTapCancelDetails test completed with ${results.length} tests');
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('SerialTapCancelDetails Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      Text(
+        'SerialTapCancelDetails Tests',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
       Text('Property: count (tap sequence depth)'),
       Text('Cancel reasons: movement, timeout, competing'),
       Text('Usage: onSerialTapCancel callback'),

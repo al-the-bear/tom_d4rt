@@ -42,6 +42,7 @@ dynamic build(BuildContext context) {
     callbackCalled = true;
     print('Callback received event: ${event.runtimeType}');
   }
+
   results.add('Callback pattern defined');
   print('Registration callback pattern defined');
 
@@ -139,9 +140,7 @@ dynamic build(BuildContext context) {
 
   // Test 19: Cumulative scroll within resolution
   var totalScroll = Offset.zero;
-  final scrollDeltas = [
-    Offset(0, -20), Offset(0, -15), Offset(0, -10)
-  ];
+  final scrollDeltas = [Offset(0, -20), Offset(0, -15), Offset(0, -10)];
   for (final d in scrollDeltas) {
     totalScroll += d;
   }

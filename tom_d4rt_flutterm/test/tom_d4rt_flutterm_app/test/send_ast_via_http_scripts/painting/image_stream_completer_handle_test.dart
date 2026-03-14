@@ -22,7 +22,9 @@ dynamic build(BuildContext context) {
   print('Documenting ImageStreamCompleterHandle properties...');
 
   // completer property
-  results.add('Property: completer (ImageStreamCompleter) - the held completer');
+  results.add(
+    'Property: completer (ImageStreamCompleter) - the held completer',
+  );
   print('completer property documented');
 
   // ========== Method Documentation ==========
@@ -188,14 +190,22 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('ImageStreamCompleterHandle Tests (Conceptual)', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-      Text('Note: Handle obtained via completer.keepAlive()', style: TextStyle(fontSize: 11, fontStyle: FontStyle.italic)),
+      Text(
+        'ImageStreamCompleterHandle Tests (Conceptual)',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+      ),
+      Text(
+        'Note: Handle obtained via completer.keepAlive()',
+        style: TextStyle(fontSize: 11, fontStyle: FontStyle.italic),
+      ),
       Text('Total items: ${results.length}', style: TextStyle(fontSize: 14)),
       Divider(),
-      ...results.map((r) => Padding(
-        padding: EdgeInsets.symmetric(vertical: 2),
-        child: Text(r, style: TextStyle(fontSize: 11)),
-      )),
+      ...results.map(
+        (r) => Padding(
+          padding: EdgeInsets.symmetric(vertical: 2),
+          child: Text(r, style: TextStyle(fontSize: 11)),
+        ),
+      ),
     ],
   );
 }

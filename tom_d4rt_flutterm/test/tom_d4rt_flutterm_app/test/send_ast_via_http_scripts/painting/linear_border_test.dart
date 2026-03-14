@@ -65,9 +65,7 @@ dynamic build(BuildContext context) {
   print('LinearBorder with edges: start size=${border7.start?.size}');
 
   // Test 8: LinearBorder scale
-  final border8 = LinearBorder(
-    side: BorderSide(width: 2.0),
-  );
+  final border8 = LinearBorder(side: BorderSide(width: 2.0));
   final scaled = border8.scale(2.0);
   results.add('LinearBorder scaled: applied');
   print('LinearBorder scale applied');
@@ -91,7 +89,9 @@ dynamic build(BuildContext context) {
   // Test 11: LinearBorder getInnerPath
   final innerPath = border2.getInnerPath(rect10);
   final innerBounds = innerPath.getBounds();
-  results.add('LinearBorder innerPath: ${innerBounds.width}x${innerBounds.height}');
+  results.add(
+    'LinearBorder innerPath: ${innerBounds.width}x${innerBounds.height}',
+  );
   print('LinearBorder innerPath: $innerBounds');
 
   // Test 12: LinearBorder dimensions

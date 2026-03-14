@@ -14,10 +14,15 @@ dynamic build(BuildContext context) {
   final recognizer = ImmediateMultiDragGestureRecognizer();
   assert(recognizer != null, 'Should create recognizer');
   results.add('ImmediateMultiDragGestureRecognizer created');
-  print('ImmediateMultiDragGestureRecognizer created: ${recognizer.runtimeType}');
+  print(
+    'ImmediateMultiDragGestureRecognizer created: ${recognizer.runtimeType}',
+  );
 
   // Test 2: Check inheritance
-  assert(recognizer is MultiDragGestureRecognizer, 'Should be MultiDragGestureRecognizer');
+  assert(
+    recognizer is MultiDragGestureRecognizer,
+    'Should be MultiDragGestureRecognizer',
+  );
   results.add('Inheritance: MultiDragGestureRecognizer');
   print('Inheritance verified: MultiDragGestureRecognizer');
 
@@ -71,11 +76,11 @@ dynamic build(BuildContext context) {
 
   // Test 10: Movement in any direction
   final directions = [
-    Offset(50.0, 0.0),   // right
-    Offset(-50.0, 0.0),  // left
-    Offset(0.0, 50.0),   // down
-    Offset(0.0, -50.0),  // up
-    Offset(50.0, 50.0),  // diagonal
+    Offset(50.0, 0.0), // right
+    Offset(-50.0, 0.0), // left
+    Offset(0.0, 50.0), // down
+    Offset(0.0, -50.0), // up
+    Offset(50.0, 50.0), // diagonal
   ];
   for (final dir in directions) {
     print('Direction allowed: $dir');
@@ -107,7 +112,9 @@ dynamic build(BuildContext context) {
   print('Drag velocity: ${velocity.toStringAsFixed(0)} px/s');
 
   // Test 15: Create with debugOwner
-  final recognizer2 = ImmediateMultiDragGestureRecognizer(debugOwner: 'TestOwner');
+  final recognizer2 = ImmediateMultiDragGestureRecognizer(
+    debugOwner: 'TestOwner',
+  );
   assert(recognizer2 != null, 'Should create with debugOwner');
   results.add('Recognizer with debugOwner');
   print('Created with debugOwner');
@@ -138,11 +145,16 @@ dynamic build(BuildContext context) {
   results.add('Recognizer disposed');
   print('ImmediateMultiDragGestureRecognizer disposed');
 
-  print('ImmediateMultiDragGestureRecognizer test completed with ${results.length} tests');
+  print(
+    'ImmediateMultiDragGestureRecognizer test completed with ${results.length} tests',
+  );
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('ImmediateMultiDragGestureRecognizer Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      Text(
+        'ImmediateMultiDragGestureRecognizer Tests',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
       Text('Behavior: starts immediately on down'),
       Text('No slop: responds to any movement'),
       Text('Multi-pointer: tracks all touches'),

@@ -19,7 +19,10 @@ dynamic build(BuildContext context) {
   print('PointerPanZoomStartEvent created: ${panZoomStart1.runtimeType}');
 
   // Test 2: Position property
-  assert(panZoomStart1.position == Offset(200.0, 300.0), 'Position should match');
+  assert(
+    panZoomStart1.position == Offset(200.0, 300.0),
+    'Position should match',
+  );
   results.add('position: ${panZoomStart1.position}');
   print('PanZoomStart event position: ${panZoomStart1.position}');
 
@@ -32,7 +35,10 @@ dynamic build(BuildContext context) {
     position: Offset(150.0, 200.0),
     kind: PointerDeviceKind.trackpad,
   );
-  assert(panZoomTrackpad.kind == PointerDeviceKind.trackpad, 'Kind should be trackpad');
+  assert(
+    panZoomTrackpad.kind == PointerDeviceKind.trackpad,
+    'Kind should be trackpad',
+  );
   results.add('trackpad kind: ${panZoomTrackpad.kind}');
   print('PanZoomStart with trackpad kind: ${panZoomTrackpad.kind}');
 
@@ -41,7 +47,10 @@ dynamic build(BuildContext context) {
     position: Offset(100.0, 150.0),
     timeStamp: Duration(milliseconds: 1000),
   );
-  assert(panZoomTime.timeStamp == Duration(milliseconds: 1000), 'TimeStamp should match');
+  assert(
+    panZoomTime.timeStamp == Duration(milliseconds: 1000),
+    'TimeStamp should match',
+  );
   results.add('timeStamp: ${panZoomTime.timeStamp}');
   print('PanZoomStart event timeStamp: ${panZoomTime.timeStamp}');
 
@@ -112,7 +121,10 @@ dynamic build(BuildContext context) {
 
   // Test 16: Pan zoom sequence pattern (start -> updates -> end)
   final sequenceId = 123;
-  final startEvent = PointerPanZoomStartEvent(position: Offset(100, 100), pointer: sequenceId);
+  final startEvent = PointerPanZoomStartEvent(
+    position: Offset(100, 100),
+    pointer: sequenceId,
+  );
   results.add('Sequence started with pointer: $sequenceId');
   print('Pan zoom sequence started with pointer: $sequenceId');
 
@@ -133,10 +145,18 @@ dynamic build(BuildContext context) {
   print('Total movement from start: $totalMovement');
 
   // Test 19: Multiple pan zoom gestures
-  final gesture1 = PointerPanZoomStartEvent(position: Offset(50, 50), device: 1);
-  final gesture2 = PointerPanZoomStartEvent(position: Offset(250, 250), device: 2);
+  final gesture1 = PointerPanZoomStartEvent(
+    position: Offset(50, 50),
+    device: 1,
+  );
+  final gesture2 = PointerPanZoomStartEvent(
+    position: Offset(250, 250),
+    device: 2,
+  );
   assert(gesture1.device != gesture2.device, 'Devices should differ');
-  results.add('Multiple gestures: devices ${gesture1.device} and ${gesture2.device}');
+  results.add(
+    'Multiple gestures: devices ${gesture1.device} and ${gesture2.device}',
+  );
   print('Multiple pan zoom gestures tracked');
 
   // Test 20: Start position distance from origin

@@ -16,12 +16,18 @@ dynamic build(BuildContext context) {
     position: Offset(150.0, 200.0),
     scrollDelta: Offset(0.0, -50.0),
   );
-  assert(scrollSignal is PointerSignalEvent, 'PointerScrollEvent should be PointerSignalEvent');
+  assert(
+    scrollSignal is PointerSignalEvent,
+    'PointerScrollEvent should be PointerSignalEvent',
+  );
   results.add('PointerScrollEvent is PointerSignalEvent: true');
   print('PointerScrollEvent is PointerSignalEvent: true');
 
   // Test 2: Position property from PointerSignalEvent
-  assert(scrollSignal.position == Offset(150.0, 200.0), 'Position should match');
+  assert(
+    scrollSignal.position == Offset(150.0, 200.0),
+    'Position should match',
+  );
   results.add('signal position: ${scrollSignal.position}');
   print('Signal event position: ${scrollSignal.position}');
 
@@ -35,7 +41,10 @@ dynamic build(BuildContext context) {
     scrollDelta: Offset(0.0, -30.0),
     timeStamp: Duration(milliseconds: 750),
   );
-  assert(signalTime.timeStamp == Duration(milliseconds: 750), 'TimeStamp should match');
+  assert(
+    signalTime.timeStamp == Duration(milliseconds: 750),
+    'TimeStamp should match',
+  );
   results.add('timeStamp: ${signalTime.timeStamp}');
   print('Signal event timeStamp: ${signalTime.timeStamp}');
 
@@ -83,7 +92,10 @@ dynamic build(BuildContext context) {
     position: Offset(200.0, 250.0),
     scale: 1.5,
   );
-  assert(scaleSignal is PointerSignalEvent, 'PointerScaleEvent should be PointerSignalEvent');
+  assert(
+    scaleSignal is PointerSignalEvent,
+    'PointerScaleEvent should be PointerSignalEvent',
+  );
   results.add('PointerScaleEvent is PointerSignalEvent: true');
   print('PointerScaleEvent is PointerSignalEvent: true');
 
@@ -122,17 +134,25 @@ dynamic build(BuildContext context) {
 
   // Test 16: Signal events are distinct from tap/drag events
   final downEvent = PointerDownEvent(position: Offset(100, 100));
-  assert(downEvent is! PointerSignalEvent, 'PointerDownEvent should not be PointerSignalEvent');
+  assert(
+    downEvent is! PointerSignalEvent,
+    'PointerDownEvent should not be PointerSignalEvent',
+  );
   results.add('PointerDownEvent is not PointerSignalEvent');
   print('PointerDownEvent is not PointerSignalEvent');
 
   // Test 17: Signal event type hierarchy
   assert(scrollSignal is PointerEvent, 'Should be PointerEvent');
   results.add('Type hierarchy verified');
-  print('Signal event type hierarchy: PointerEvent -> PointerSignalEvent -> PointerScrollEvent');
+  print(
+    'Signal event type hierarchy: PointerEvent -> PointerSignalEvent -> PointerScrollEvent',
+  );
 
   // Test 18: Different signal types comparison
-  final scroll1 = PointerScrollEvent(position: Offset(10, 10), scrollDelta: Offset(0, -5));
+  final scroll1 = PointerScrollEvent(
+    position: Offset(10, 10),
+    scrollDelta: Offset(0, -5),
+  );
   final scale1 = PointerScaleEvent(position: Offset(10, 10), scale: 1.2);
   assert(scroll1.runtimeType != scale1.runtimeType, 'Types should differ');
   results.add('Different signal types: scroll vs scale');
@@ -148,7 +168,10 @@ dynamic build(BuildContext context) {
     scrollDelta: Offset(5, -35),
     kind: PointerDeviceKind.trackpad,
   );
-  assert(trackpadSignal.kind == PointerDeviceKind.trackpad, 'Kind should be trackpad');
+  assert(
+    trackpadSignal.kind == PointerDeviceKind.trackpad,
+    'Kind should be trackpad',
+  );
   results.add('trackpad signal: ${trackpadSignal.kind}');
   print('Signal event with trackpad kind: ${trackpadSignal.kind}');
 

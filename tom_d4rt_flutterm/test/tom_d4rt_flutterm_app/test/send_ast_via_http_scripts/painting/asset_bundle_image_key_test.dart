@@ -73,8 +73,16 @@ dynamic build(BuildContext context) {
   print('AssetBundleImageKey package path verified');
 
   // Test 7: AssetBundleImageKey equality - same values
-  final keyA = AssetBundleImageKey(bundle: bundle, name: 'same.png', scale: 1.0);
-  final keyB = AssetBundleImageKey(bundle: bundle, name: 'same.png', scale: 1.0);
+  final keyA = AssetBundleImageKey(
+    bundle: bundle,
+    name: 'same.png',
+    scale: 1.0,
+  );
+  final keyB = AssetBundleImageKey(
+    bundle: bundle,
+    name: 'same.png',
+    scale: 1.0,
+  );
   assert(keyA == keyB, 'Same keys should be equal');
   results.add('AssetBundleImageKey equality: ${keyA == keyB}');
   print('AssetBundleImageKey equality verified');
@@ -87,8 +95,16 @@ dynamic build(BuildContext context) {
   print('AssetBundleImageKey name inequality verified');
 
   // Test 9: AssetBundleImageKey inequality - different scales
-  final keyE = AssetBundleImageKey(bundle: bundle, name: 'test.png', scale: 1.0);
-  final keyF = AssetBundleImageKey(bundle: bundle, name: 'test.png', scale: 2.0);
+  final keyE = AssetBundleImageKey(
+    bundle: bundle,
+    name: 'test.png',
+    scale: 1.0,
+  );
+  final keyF = AssetBundleImageKey(
+    bundle: bundle,
+    name: 'test.png',
+    scale: 2.0,
+  );
   assert(keyE != keyF, 'Different scales should not be equal');
   results.add('AssetBundleImageKey inequality (scale): ${keyE != keyF}');
   print('AssetBundleImageKey scale inequality verified');

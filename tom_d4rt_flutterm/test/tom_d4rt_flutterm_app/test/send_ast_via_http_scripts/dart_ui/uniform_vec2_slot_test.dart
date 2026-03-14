@@ -50,7 +50,9 @@ dynamic build(BuildContext context) {
   // Test 8: Direction vector concept
   final direction = Offset(0.707, 0.707); // 45 degrees normalized
   final magnitude = direction.distance;
-  results.add('Direction: (${direction.dx.toStringAsFixed(3)}, ${direction.dy.toStringAsFixed(3)})');
+  results.add(
+    'Direction: (${direction.dx.toStringAsFixed(3)}, ${direction.dy.toStringAsFixed(3)})',
+  );
   print('Direction vector, magnitude: ${magnitude.toStringAsFixed(3)}');
 
   // Test 9: Velocity vector concept
@@ -109,7 +111,9 @@ dynamic build(BuildContext context) {
   final raw = Offset(3.0, 4.0);
   final len = raw.distance;
   final normalized = Offset(raw.dx / len, raw.dy / len);
-  results.add('Normalized: (${normalized.dx.toStringAsFixed(1)}, ${normalized.dy.toStringAsFixed(1)})');
+  results.add(
+    'Normalized: (${normalized.dx.toStringAsFixed(1)}, ${normalized.dy.toStringAsFixed(1)})',
+  );
   print('Normalized vector for direction uniforms');
 
   // Test 20: Summary
@@ -119,7 +123,10 @@ dynamic build(BuildContext context) {
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('UniformVec2Slot Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      Text(
+        'UniformVec2Slot Tests',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
       Text('Type: Vec2 (2 floats, 8 bytes)'),
       Text('Dart: Offset(dx, dy) maps to vec2'),
       Text('Uses: resolution, UV, mouse, direction'),

@@ -15,8 +15,13 @@ dynamic build(BuildContext context) {
     alignment: PlaceholderAlignment.bottom,
   );
   assert(dim1.size == Size(100.0, 50.0), 'Size should match');
-  assert(dim1.alignment == PlaceholderAlignment.bottom, 'Alignment should be bottom');
-  results.add('PlaceholderDimensions: size=${dim1.size}, alignment=${dim1.alignment}');
+  assert(
+    dim1.alignment == PlaceholderAlignment.bottom,
+    'Alignment should be bottom',
+  );
+  results.add(
+    'PlaceholderDimensions: size=${dim1.size}, alignment=${dim1.alignment}',
+  );
   print('Basic PlaceholderDimensions created');
 
   // Test 2: Create with baseline
@@ -26,7 +31,10 @@ dynamic build(BuildContext context) {
     baseline: TextBaseline.alphabetic,
     baselineOffset: 50.0,
   );
-  assert(dim2.baseline == TextBaseline.alphabetic, 'Baseline should be alphabetic');
+  assert(
+    dim2.baseline == TextBaseline.alphabetic,
+    'Baseline should be alphabetic',
+  );
   assert(dim2.baselineOffset == 50.0, 'Baseline offset should be 50');
   results.add('With baseline: ${dim2.baseline}, offset=${dim2.baselineOffset}');
   print('Baseline PlaceholderDimensions created');
@@ -38,7 +46,10 @@ dynamic build(BuildContext context) {
     baseline: TextBaseline.ideographic,
     baselineOffset: 35.0,
   );
-  assert(dim3.baseline == TextBaseline.ideographic, 'Baseline should be ideographic');
+  assert(
+    dim3.baseline == TextBaseline.ideographic,
+    'Baseline should be ideographic',
+  );
   results.add('Ideographic baseline: offset=${dim3.baselineOffset}');
   print('Ideographic baseline created');
 
@@ -177,13 +188,18 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('PlaceholderDimensions Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+      Text(
+        'PlaceholderDimensions Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+      ),
       Text('Total tests: ${results.length}', style: TextStyle(fontSize: 14)),
       Divider(),
-      ...results.map((r) => Padding(
-        padding: EdgeInsets.symmetric(vertical: 2),
-        child: Text(r, style: TextStyle(fontSize: 11)),
-      )),
+      ...results.map(
+        (r) => Padding(
+          padding: EdgeInsets.symmetric(vertical: 2),
+          child: Text(r, style: TextStyle(fontSize: 11)),
+        ),
+      ),
     ],
   );
 }

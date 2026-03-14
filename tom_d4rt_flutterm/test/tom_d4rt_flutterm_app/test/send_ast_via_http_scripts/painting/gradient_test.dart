@@ -13,7 +13,10 @@ dynamic build(BuildContext context) {
   final linearGradient1 = LinearGradient(
     colors: [Color(0xFFFF0000), Color(0xFF0000FF)],
   );
-  assert(linearGradient1.colors.length == 2, 'LinearGradient should have 2 colors');
+  assert(
+    linearGradient1.colors.length == 2,
+    'LinearGradient should have 2 colors',
+  );
   results.add('LinearGradient basic: ${linearGradient1.colors.length} colors');
   print('LinearGradient basic: ${linearGradient1.colors.length} colors');
 
@@ -24,8 +27,13 @@ dynamic build(BuildContext context) {
     colors: [Color(0xFFFF0000), Color(0xFF00FF00), Color(0xFF0000FF)],
   );
   assert(linearGradient2.begin == Alignment.topLeft, 'Begin should be topLeft');
-  assert(linearGradient2.end == Alignment.bottomRight, 'End should be bottomRight');
-  results.add('LinearGradient begin/end: ${linearGradient2.begin} to ${linearGradient2.end}');
+  assert(
+    linearGradient2.end == Alignment.bottomRight,
+    'End should be bottomRight',
+  );
+  results.add(
+    'LinearGradient begin/end: ${linearGradient2.begin} to ${linearGradient2.end}',
+  );
   print('LinearGradient begin/end verified');
 
   // Test 3: LinearGradient with stops
@@ -43,7 +51,10 @@ dynamic build(BuildContext context) {
     colors: [Color(0xFFFF0000), Color(0xFF0000FF)],
     tileMode: TileMode.mirror,
   );
-  assert(linearGradient4.tileMode == TileMode.mirror, 'TileMode should be mirror');
+  assert(
+    linearGradient4.tileMode == TileMode.mirror,
+    'TileMode should be mirror',
+  );
   results.add('LinearGradient tileMode: ${linearGradient4.tileMode}');
   print('LinearGradient tileMode: ${linearGradient4.tileMode}');
 
@@ -64,7 +75,10 @@ dynamic build(BuildContext context) {
   final radialGradient1 = RadialGradient(
     colors: [Color(0xFFFFFFFF), Color(0xFF000000)],
   );
-  assert(radialGradient1.colors.length == 2, 'RadialGradient should have 2 colors');
+  assert(
+    radialGradient1.colors.length == 2,
+    'RadialGradient should have 2 colors',
+  );
   results.add('RadialGradient basic: ${radialGradient1.colors.length} colors');
   print('RadialGradient basic: ${radialGradient1.colors.length} colors');
 
@@ -73,7 +87,10 @@ dynamic build(BuildContext context) {
     center: Alignment.topRight,
     colors: [Color(0xFFFF0000), Color(0xFF0000FF)],
   );
-  assert(radialGradient2.center == Alignment.topRight, 'Center should be topRight');
+  assert(
+    radialGradient2.center == Alignment.topRight,
+    'Center should be topRight',
+  );
   results.add('RadialGradient center: ${radialGradient2.center}');
   print('RadialGradient center: ${radialGradient2.center}');
 
@@ -95,7 +112,9 @@ dynamic build(BuildContext context) {
   );
   assert(radialGradient4.focal == Alignment.topLeft, 'Focal should be topLeft');
   assert(radialGradient4.focalRadius == 0.1, 'FocalRadius should be 0.1');
-  results.add('RadialGradient focal: ${radialGradient4.focal}, focalRadius: ${radialGradient4.focalRadius}');
+  results.add(
+    'RadialGradient focal: ${radialGradient4.focal}, focalRadius: ${radialGradient4.focalRadius}',
+  );
   print('RadialGradient focal settings verified');
 
   // ========== SweepGradient Tests ==========
@@ -103,9 +122,17 @@ dynamic build(BuildContext context) {
 
   // Test 10: Basic SweepGradient
   final sweepGradient1 = SweepGradient(
-    colors: [Color(0xFFFF0000), Color(0xFF00FF00), Color(0xFF0000FF), Color(0xFFFF0000)],
+    colors: [
+      Color(0xFFFF0000),
+      Color(0xFF00FF00),
+      Color(0xFF0000FF),
+      Color(0xFFFF0000),
+    ],
   );
-  assert(sweepGradient1.colors.length == 4, 'SweepGradient should have 4 colors');
+  assert(
+    sweepGradient1.colors.length == 4,
+    'SweepGradient should have 4 colors',
+  );
   results.add('SweepGradient basic: ${sweepGradient1.colors.length} colors');
   print('SweepGradient basic: ${sweepGradient1.colors.length} colors');
 
@@ -116,7 +143,9 @@ dynamic build(BuildContext context) {
     colors: [Color(0xFFFF0000), Color(0xFF0000FF)],
   );
   assert(sweepGradient2.startAngle == 0.0, 'StartAngle should be 0.0');
-  results.add('SweepGradient angles: start=${sweepGradient2.startAngle}, end=${sweepGradient2.endAngle}');
+  results.add(
+    'SweepGradient angles: start=${sweepGradient2.startAngle}, end=${sweepGradient2.endAngle}',
+  );
   print('SweepGradient angles verified');
 
   // ========== Gradient comparison tests ==========
@@ -144,7 +173,10 @@ dynamic build(BuildContext context) {
 
   // Test 15: All TileModes
   for (final mode in TileMode.values) {
-    final lg = LinearGradient(colors: [Color(0xFFFF0000), Color(0xFF0000FF)], tileMode: mode);
+    final lg = LinearGradient(
+      colors: [Color(0xFFFF0000), Color(0xFF0000FF)],
+      tileMode: mode,
+    );
     assert(lg.tileMode == mode, 'TileMode should match');
     results.add('TileMode.$mode gradient created');
     print('TileMode.$mode verified');
@@ -155,13 +187,18 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('Gradient Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+      Text(
+        'Gradient Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+      ),
       Text('Total tests: ${results.length}', style: TextStyle(fontSize: 14)),
       Divider(),
-      ...results.map((r) => Padding(
-        padding: EdgeInsets.symmetric(vertical: 2),
-        child: Text(r, style: TextStyle(fontSize: 11)),
-      )),
+      ...results.map(
+        (r) => Padding(
+          padding: EdgeInsets.symmetric(vertical: 2),
+          child: Text(r, style: TextStyle(fontSize: 11)),
+        ),
+      ),
     ],
   );
 }

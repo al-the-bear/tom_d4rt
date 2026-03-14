@@ -85,7 +85,9 @@ dynamic build(BuildContext context) {
   final dragDelta = currentPos - startPos;
   assert(dragDelta == Offset(50.0, 50.0), 'Delta should match');
   results.add('Drag delta: $dragDelta');
-  print('Position tracking: start=$startPos, current=$currentPos, delta=$dragDelta');
+  print(
+    'Position tracking: start=$startPos, current=$currentPos, delta=$dragDelta',
+  );
 
   // Test 10: Drag distance calculation
   final distance = dragDelta.distance;
@@ -100,14 +102,18 @@ dynamic build(BuildContext context) {
   final isTap = smallDist < kDragSlop;
   assert(isTap, 'Small movement should be tap');
   results.add('Small movement is tap: $isTap');
-  print('Tap detection (< $kDragSlop): distance=${smallDist.toStringAsFixed(2)}, isTap=$isTap');
+  print(
+    'Tap detection (< $kDragSlop): distance=${smallDist.toStringAsFixed(2)}, isTap=$isTap',
+  );
 
   // Test 12: Large movement is drag
   final largeDist = dragDelta.distance;
   final isDrag = largeDist >= kDragSlop;
   assert(isDrag, 'Large movement should be drag');
   results.add('Large movement is drag: $isDrag');
-  print('Drag detection (>= $kDragSlop): distance=${largeDist.toStringAsFixed(2)}, isDrag=$isDrag');
+  print(
+    'Drag detection (>= $kDragSlop): distance=${largeDist.toStringAsFixed(2)}, isDrag=$isDrag',
+  );
 
   // Test 13: Velocity concept
   final timeDelta = Duration(milliseconds: 100);
@@ -164,11 +170,16 @@ dynamic build(BuildContext context) {
   results.add('Recognizer disposed');
   print('TapAndPanGestureRecognizer disposed');
 
-  print('TapAndDragGestureRecognizer test completed with ${results.length} tests');
+  print(
+    'TapAndDragGestureRecognizer test completed with ${results.length} tests',
+  );
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('TapAndDragGestureRecognizer Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      Text(
+        'TapAndDragGestureRecognizer Tests',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
       Text('Callbacks: onTapDown, onTapUp, onCancel'),
       Text('Drag callbacks: onDragStart, onDragUpdate, onDragEnd'),
       Text('Details: TapDragDownDetails, TapDragUpdateDetails, etc.'),

@@ -33,7 +33,9 @@ dynamic build(BuildContext context) {
   final colorR = color.red / 255.0;
   final colorG = color.green / 255.0;
   final colorB = color.blue / 255.0;
-  results.add('Color to vec3: (${colorR.toStringAsFixed(2)}, ${colorG.toStringAsFixed(2)}, ${colorB.toStringAsFixed(2)})');
+  results.add(
+    'Color to vec3: (${colorR.toStringAsFixed(2)}, ${colorG.toStringAsFixed(2)}, ${colorB.toStringAsFixed(2)})',
+  );
   print('Color conversion: RGB normalized to 0-1');
 
   // Test 6: 3D position concept
@@ -69,7 +71,9 @@ dynamic build(BuildContext context) {
 
   // Test 12: Setting via API
   results.add('API: 3 consecutive setFloat calls');
-  print('shader.setFloat(idx, x/r); setFloat(idx+1, y/g); setFloat(idx+2, z/b)');
+  print(
+    'shader.setFloat(idx, x/r); setFloat(idx+1, y/g); setFloat(idx+2, z/b)',
+  );
 
   // Test 13: Component access in GLSL
   results.add('GLSL access: uVec.x, uVec.y, uVec.z, uVec.rgb');
@@ -110,7 +114,10 @@ dynamic build(BuildContext context) {
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('UniformVec3Slot Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      Text(
+        'UniformVec3Slot Tests',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
       Text('Type: Vec3 (3 floats, 12 bytes)'),
       Text('Uses: RGB color, 3D position, normals'),
       Text('GLSL: uniform vec3 uName;'),

@@ -63,7 +63,9 @@ dynamic build(BuildContext context) {
   final posDelta = pos3 - pos1;
   final expectedVelX = posDelta.dx / timeDelta;
   final expectedVelY = posDelta.dy / timeDelta;
-  results.add('Expected velocity: (${expectedVelX.toStringAsFixed(1)}, ${expectedVelY.toStringAsFixed(1)})');
+  results.add(
+    'Expected velocity: (${expectedVelX.toStringAsFixed(1)}, ${expectedVelY.toStringAsFixed(1)})',
+  );
   print('Expected velocity: ($expectedVelX, $expectedVelY)');
 
   // Test 9: Create tracker with stylus kind
@@ -90,7 +92,10 @@ dynamic build(BuildContext context) {
 
   // Test 12: Velocity zero check
   final zeroVelocity = Velocity.zero;
-  assert(zeroVelocity.pixelsPerSecond == Offset.zero, 'Zero velocity should be zero');
+  assert(
+    zeroVelocity.pixelsPerSecond == Offset.zero,
+    'Zero velocity should be zero',
+  );
   results.add('Velocity.zero: ${zeroVelocity.pixelsPerSecond}');
   print('Velocity.zero: ${zeroVelocity.pixelsPerSecond}');
 

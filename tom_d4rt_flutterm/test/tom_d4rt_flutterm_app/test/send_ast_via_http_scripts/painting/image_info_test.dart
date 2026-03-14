@@ -72,8 +72,13 @@ dynamic build(BuildContext context) {
   final devicePixelRatios = [1.0, 1.5, 2.0, 3.0, 4.0];
   for (final dpr in devicePixelRatios) {
     final logicalSize = Size(100.0, 100.0);
-    final physicalSize = Size(logicalSize.width * dpr, logicalSize.height * dpr);
-    results.add('DPR $dpr: logical 100x100 -> physical ${physicalSize.width}x${physicalSize.height}');
+    final physicalSize = Size(
+      logicalSize.width * dpr,
+      logicalSize.height * dpr,
+    );
+    results.add(
+      'DPR $dpr: logical 100x100 -> physical ${physicalSize.width}x${physicalSize.height}',
+    );
     print('DPR $dpr: ${physicalSize.width}x${physicalSize.height}');
   }
 
@@ -134,19 +139,29 @@ dynamic build(BuildContext context) {
   print('Finite size: ${sizeA.isFinite}');
 
   // ========== Summary ==========
-  print('ImageInfo conceptual test completed: ${results.length} items documented');
+  print(
+    'ImageInfo conceptual test completed: ${results.length} items documented',
+  );
   return Column(
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('ImageInfo Tests (Conceptual)', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-      Text('Note: ImageInfo requires dart:ui Image - testing related APIs', style: TextStyle(fontSize: 11, fontStyle: FontStyle.italic)),
+      Text(
+        'ImageInfo Tests (Conceptual)',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+      ),
+      Text(
+        'Note: ImageInfo requires dart:ui Image - testing related APIs',
+        style: TextStyle(fontSize: 11, fontStyle: FontStyle.italic),
+      ),
       Text('Total items: ${results.length}', style: TextStyle(fontSize: 14)),
       Divider(),
-      ...results.map((r) => Padding(
-        padding: EdgeInsets.symmetric(vertical: 2),
-        child: Text(r, style: TextStyle(fontSize: 11)),
-      )),
+      ...results.map(
+        (r) => Padding(
+          padding: EdgeInsets.symmetric(vertical: 2),
+          child: Text(r, style: TextStyle(fontSize: 11)),
+        ),
+      ),
     ],
   );
 }

@@ -14,7 +14,9 @@ dynamic build(BuildContext context) {
   final recognizer = TapAndHorizontalDragGestureRecognizer();
   assert(recognizer != null, 'Should create recognizer');
   results.add('TapAndHorizontalDragGestureRecognizer created');
-  print('TapAndHorizontalDragGestureRecognizer created: ${recognizer.runtimeType}');
+  print(
+    'TapAndHorizontalDragGestureRecognizer created: ${recognizer.runtimeType}',
+  );
 
   // Test 2: Check inheritance
   assert(recognizer is GestureRecognizer, 'Should be GestureRecognizer');
@@ -71,7 +73,8 @@ dynamic build(BuildContext context) {
   // Test 9: Vertical movement should be rejected
   final verticalMove = Offset(5.0, 100.0);
   final isVertical = verticalMove.dy.abs() > verticalMove.dx.abs();
-  final rejectedAsHorizontal = !isVertical || verticalMove.dx.abs() > verticalMove.dy.abs();
+  final rejectedAsHorizontal =
+      !isVertical || verticalMove.dx.abs() > verticalMove.dy.abs();
   results.add('Vertical movement: $isVertical (rejected for horizontal)');
   print('Vertical movement: $isVertical');
 
@@ -108,14 +111,18 @@ dynamic build(BuildContext context) {
   final kPanSlop = 18.0;
   final smallHorizontal = Offset(10.0, 2.0);
   final withinSlop = smallHorizontal.distance < kPanSlop;
-  results.add('Within slop (${smallHorizontal.distance.toStringAsFixed(2)}): $withinSlop');
+  results.add(
+    'Within slop (${smallHorizontal.distance.toStringAsFixed(2)}): $withinSlop',
+  );
   print('Within horizontal slop: $withinSlop');
 
   // Test 15: Exceeds slop starts drag
   final largeHorizontal = Offset(30.0, 2.0);
   final exceedsSlop = largeHorizontal.distance >= kPanSlop;
   assert(exceedsSlop, 'Should exceed slop');
-  results.add('Exceeds slop (${largeHorizontal.distance.toStringAsFixed(2)}): $exceedsSlop');
+  results.add(
+    'Exceeds slop (${largeHorizontal.distance.toStringAsFixed(2)}): $exceedsSlop',
+  );
   print('Exceeds slop, starts drag: $exceedsSlop');
 
   // Test 16: Horizontal constraint enforcement
@@ -152,11 +159,16 @@ dynamic build(BuildContext context) {
   results.add('Recognizer disposed');
   print('TapAndHorizontalDragGestureRecognizer disposed');
 
-  print('TapAndHorizontalDragGestureRecognizer test completed with ${results.length} tests');
+  print(
+    'TapAndHorizontalDragGestureRecognizer test completed with ${results.length} tests',
+  );
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('TapAndHorizontalDragGestureRecognizer Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      Text(
+        'TapAndHorizontalDragGestureRecognizer Tests',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
       Text('Constraint: Horizontal movement only'),
       Text('Callbacks: onTapDown/Up, onDragStart/Update/End'),
       Text('Direction: left/right detection'),

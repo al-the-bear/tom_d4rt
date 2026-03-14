@@ -11,9 +11,7 @@ dynamic build(BuildContext context) {
   print('Testing PointerUpEvent...');
 
   // Test 1: Create basic PointerUpEvent
-  final upEvent1 = PointerUpEvent(
-    position: Offset(250.0, 350.0),
-  );
+  final upEvent1 = PointerUpEvent(position: Offset(250.0, 350.0));
   assert(upEvent1 is PointerEvent, 'Should be PointerEvent');
   results.add('PointerUpEvent created');
   print('PointerUpEvent created: ${upEvent1.runtimeType}');
@@ -55,15 +53,15 @@ dynamic build(BuildContext context) {
     position: Offset(90.0, 110.0),
     timeStamp: Duration(milliseconds: 1500),
   );
-  assert(upTime.timeStamp == Duration(milliseconds: 1500), 'TimeStamp should match');
+  assert(
+    upTime.timeStamp == Duration(milliseconds: 1500),
+    'TimeStamp should match',
+  );
   results.add('timeStamp: ${upTime.timeStamp}');
   print('Up event timeStamp: ${upTime.timeStamp}');
 
   // Test 8: Device property
-  final upDevice = PointerUpEvent(
-    position: Offset(200.0, 240.0),
-    device: 11,
-  );
+  final upDevice = PointerUpEvent(position: Offset(200.0, 240.0), device: 11);
   assert(upDevice.device == 11, 'Device should be 11');
   results.add('device: ${upDevice.device}');
   print('Up event device: ${upDevice.device}');
@@ -73,10 +71,7 @@ dynamic build(BuildContext context) {
   print('Up event buttons: ${upEvent1.buttons}');
 
   // Test 10: Pointer ID
-  final upPointer = PointerUpEvent(
-    position: Offset(70.0, 85.0),
-    pointer: 77,
-  );
+  final upPointer = PointerUpEvent(position: Offset(70.0, 85.0), pointer: 77);
   assert(upPointer.pointer == 77, 'Pointer should be 77');
   results.add('pointer: ${upPointer.pointer}');
   print('Up event pointer: ${upPointer.pointer}');
@@ -113,10 +108,7 @@ dynamic build(BuildContext context) {
   print('Up event obscured: ${upObscured.obscured}');
 
   // Test 15: EmbedderId property
-  final upEmbed = PointerUpEvent(
-    position: Offset(55, 65),
-    embedderId: 321,
-  );
+  final upEmbed = PointerUpEvent(position: Offset(55, 65), embedderId: 321);
   assert(upEmbed.embedderId == 321, 'EmbedderId should be 321');
   results.add('embedderId: ${upEmbed.embedderId}');
   print('Up event embedderId: ${upEmbed.embedderId}');
@@ -124,7 +116,10 @@ dynamic build(BuildContext context) {
   // Test 16: Down/Up event pair pattern
   final downEvent = PointerDownEvent(position: Offset(100, 100));
   final upEventPair = PointerUpEvent(position: Offset(100, 100));
-  assert(downEvent.down == true && upEventPair.down == false, 'Down/Up pattern');
+  assert(
+    downEvent.down == true && upEventPair.down == false,
+    'Down/Up pattern',
+  );
   results.add('Down/Up pair verified');
   print('Down/Up event pair: down=${downEvent.down}, up=${upEventPair.down}');
 
@@ -147,10 +142,7 @@ dynamic build(BuildContext context) {
   print('Multiple up events with different pointers');
 
   // Test 20: Size property
-  final upSize = PointerUpEvent(
-    position: Offset(220, 270),
-    size: 1.2,
-  );
+  final upSize = PointerUpEvent(position: Offset(220, 270), size: 1.2);
   results.add('size: ${upSize.size}');
   print('Up event size: ${upSize.size}');
 

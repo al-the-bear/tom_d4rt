@@ -11,15 +11,16 @@ dynamic build(BuildContext context) {
   print('Testing PointerRemovedEvent...');
 
   // Test 1: Create basic PointerRemovedEvent
-  final removedEvent1 = PointerRemovedEvent(
-    position: Offset(180.0, 220.0),
-  );
+  final removedEvent1 = PointerRemovedEvent(position: Offset(180.0, 220.0));
   assert(removedEvent1 is PointerEvent, 'Should be PointerEvent');
   results.add('PointerRemovedEvent created');
   print('PointerRemovedEvent created: ${removedEvent1.runtimeType}');
 
   // Test 2: Position property
-  assert(removedEvent1.position == Offset(180.0, 220.0), 'Position should match');
+  assert(
+    removedEvent1.position == Offset(180.0, 220.0),
+    'Position should match',
+  );
   results.add('position: ${removedEvent1.position}');
   print('Removed event position: ${removedEvent1.position}');
 
@@ -54,7 +55,10 @@ dynamic build(BuildContext context) {
     position: Offset(100.0, 110.0),
     timeStamp: Duration(milliseconds: 2000),
   );
-  assert(removedTime.timeStamp == Duration(milliseconds: 2000), 'TimeStamp should match');
+  assert(
+    removedTime.timeStamp == Duration(milliseconds: 2000),
+    'TimeStamp should match',
+  );
   results.add('timeStamp: ${removedTime.timeStamp}');
   print('Removed event timeStamp: ${removedTime.timeStamp}');
 
@@ -94,7 +98,10 @@ dynamic build(BuildContext context) {
     position: Offset(175.0, 200.0),
     kind: PointerDeviceKind.stylus,
   );
-  assert(removedStylus.kind == PointerDeviceKind.stylus, 'Kind should be stylus');
+  assert(
+    removedStylus.kind == PointerDeviceKind.stylus,
+    'Kind should be stylus',
+  );
   results.add('stylus kind: ${removedStylus.kind}');
   print('Removed event stylus kind: ${removedStylus.kind}');
 
@@ -122,7 +129,10 @@ dynamic build(BuildContext context) {
 
   // Test 17: Added/Removed event pair pattern
   final addedEvent = PointerAddedEvent(position: Offset(100, 100), device: 5);
-  final removedEventPair = PointerRemovedEvent(position: Offset(100, 100), device: 5);
+  final removedEventPair = PointerRemovedEvent(
+    position: Offset(100, 100),
+    device: 5,
+  );
   assert(addedEvent.device == removedEventPair.device, 'Devices should match');
   results.add('Added/Removed pair: device=${addedEvent.device}');
   print('Added/Removed event pair verified');
@@ -133,8 +143,9 @@ dynamic build(BuildContext context) {
 
   // Test 19: Multiple removed events tracking
   final devices = <int>[1, 2, 3];
-  final removedEvents = devices.map((d) =>
-    PointerRemovedEvent(position: Offset.zero, device: d)).toList();
+  final removedEvents = devices
+      .map((d) => PointerRemovedEvent(position: Offset.zero, device: d))
+      .toList();
   assert(removedEvents.length == 3, 'Should have 3 events');
   results.add('Tracked ${removedEvents.length} removed events');
   print('Multiple removed events: ${removedEvents.length}');

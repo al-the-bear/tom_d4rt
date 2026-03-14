@@ -48,7 +48,10 @@ dynamic build(BuildContext context) {
 
   for (final sc in statusCodes) {
     final uri = Uri.parse('https://test.com/image.png');
-    final exc = NetworkImageLoadException(statusCode: sc['code'] as int, uri: uri);
+    final exc = NetworkImageLoadException(
+      statusCode: sc['code'] as int,
+      uri: uri,
+    );
     assert(exc.statusCode == sc['code'], 'Status code should match');
     results.add('HTTP ${sc['code']}: ${sc['desc']}');
     print('Status ${sc['code']}: ${sc['desc']}');
@@ -84,14 +87,19 @@ dynamic build(BuildContext context) {
   final message = msgException.toString();
   assert(message.isNotEmpty, 'Message should not be empty');
   results.add('toString length: ${message.length} chars');
-  print('Message: ${message.substring(0, message.length > 50 ? 50 : message.length)}...');
+  print(
+    'Message: ${message.substring(0, message.length > 50 ? 50 : message.length)}...',
+  );
 
   // ========== Exception in Try-Catch Pattern ==========
   print('Testing try-catch pattern...');
 
   void simulateImageLoad(bool shouldFail, int statusCode, String url) {
     if (shouldFail) {
-      throw NetworkImageLoadException(statusCode: statusCode, uri: Uri.parse(url));
+      throw NetworkImageLoadException(
+        statusCode: statusCode,
+        uri: Uri.parse(url),
+      );
     }
   }
 
@@ -132,7 +140,9 @@ dynamic build(BuildContext context) {
   // ========== URI Component Testing ==========
   print('Testing URI components...');
 
-  final complexUri = Uri.parse('https://user:pass@cdn.example.com:443/v2/images/photo.png?quality=high&width=1920#section');
+  final complexUri = Uri.parse(
+    'https://user:pass@cdn.example.com:443/v2/images/photo.png?quality=high&width=1920#section',
+  );
   final exComplex = NetworkImageLoadException(statusCode: 500, uri: complexUri);
 
   results.add('Scheme: ${exComplex.uri.scheme}');
@@ -164,18 +174,25 @@ dynamic build(BuildContext context) {
     print('$status retryable: $isRetryable');
   }
 
-  print('NetworkImageLoadException test completed: ${results.length} tests passed');
+  print(
+    'NetworkImageLoadException test completed: ${results.length} tests passed',
+  );
   return Column(
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('NetworkImageLoadException Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+      Text(
+        'NetworkImageLoadException Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+      ),
       Text('Total tests: ${results.length}', style: TextStyle(fontSize: 14)),
       Divider(),
-      ...results.map((r) => Padding(
-        padding: EdgeInsets.symmetric(vertical: 2),
-        child: Text(r, style: TextStyle(fontSize: 11)),
-      )),
+      ...results.map(
+        (r) => Padding(
+          padding: EdgeInsets.symmetric(vertical: 2),
+          child: Text(r, style: TextStyle(fontSize: 11)),
+        ),
+      ),
     ],
   );
 }

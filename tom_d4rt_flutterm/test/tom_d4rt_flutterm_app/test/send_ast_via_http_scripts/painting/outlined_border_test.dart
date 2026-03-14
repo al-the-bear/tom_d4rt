@@ -21,7 +21,10 @@ dynamic build(BuildContext context) {
   final border2 = RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(10.0),
   );
-  assert(border2.borderRadius == BorderRadius.circular(10.0), 'Radius should be 10.0');
+  assert(
+    border2.borderRadius == BorderRadius.circular(10.0),
+    'Radius should be 10.0',
+  );
   results.add('RoundedRectangleBorder radius: ${border2.borderRadius}');
   print('RoundedRectangleBorder borderRadius: ${border2.borderRadius}');
 
@@ -36,7 +39,10 @@ dynamic build(BuildContext context) {
 
   // Test 4: CircleBorder (another OutlinedBorder implementation)
   final circleBorder = CircleBorder();
-  assert(circleBorder.side == BorderSide.none, 'Default circle side should be none');
+  assert(
+    circleBorder.side == BorderSide.none,
+    'Default circle side should be none',
+  );
   results.add('CircleBorder: side=${circleBorder.side}');
   print('CircleBorder created');
 
@@ -50,7 +56,10 @@ dynamic build(BuildContext context) {
 
   // Test 6: StadiumBorder (another OutlinedBorder)
   final stadiumBorder = StadiumBorder();
-  assert(stadiumBorder.side == BorderSide.none, 'Default stadium side should be none');
+  assert(
+    stadiumBorder.side == BorderSide.none,
+    'Default stadium side should be none',
+  );
   results.add('StadiumBorder: created');
   print('StadiumBorder created');
 
@@ -66,7 +75,10 @@ dynamic build(BuildContext context) {
   final beveledBorder = BeveledRectangleBorder(
     borderRadius: BorderRadius.circular(5.0),
   );
-  assert(beveledBorder.borderRadius == BorderRadius.circular(5.0), 'Bevel radius should match');
+  assert(
+    beveledBorder.borderRadius == BorderRadius.circular(5.0),
+    'Bevel radius should match',
+  );
   results.add('BeveledRectangleBorder radius: ${beveledBorder.borderRadius}');
   print('BeveledRectangleBorder created');
 
@@ -98,8 +110,12 @@ dynamic build(BuildContext context) {
   print('OutlinedBorder scale applied');
 
   // Test 13: OutlinedBorder lerp
-  final borderA = RoundedRectangleBorder(borderRadius: BorderRadius.circular(0.0));
-  final borderB = RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0));
+  final borderA = RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(0.0),
+  );
+  final borderB = RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(20.0),
+  );
   final lerped = ShapeBorder.lerp(borderA, borderB, 0.5);
   assert(lerped != null, 'Lerped border should not be null');
   results.add('ShapeBorder.lerp: computed');

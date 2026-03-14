@@ -67,7 +67,10 @@ dynamic build(BuildContext context) {
     scale: 1.3,
     timeStamp: Duration(milliseconds: 600),
   );
-  assert(scaleTime.timeStamp == Duration(milliseconds: 600), 'TimeStamp should match');
+  assert(
+    scaleTime.timeStamp == Duration(milliseconds: 600),
+    'TimeStamp should match',
+  );
   results.add('timeStamp: ${scaleTime.timeStamp}');
   print('Scale event timeStamp: ${scaleTime.timeStamp}');
 
@@ -87,7 +90,10 @@ dynamic build(BuildContext context) {
     scale: 1.25,
     kind: PointerDeviceKind.trackpad,
   );
-  assert(scaleKind.kind == PointerDeviceKind.trackpad, 'Kind should be trackpad');
+  assert(
+    scaleKind.kind == PointerDeviceKind.trackpad,
+    'Kind should be trackpad',
+  );
   results.add('kind: ${scaleKind.kind}');
   print('Scale event kind: ${scaleKind.kind}');
 
@@ -153,10 +159,7 @@ dynamic build(BuildContext context) {
   print('Scale event distance: ${scaleEvent1.distance}');
 
   // Test 20: Very small scale
-  final scaleSmall = PointerScaleEvent(
-    position: Offset(100, 100),
-    scale: 0.1,
-  );
+  final scaleSmall = PointerScaleEvent(position: Offset(100, 100), scale: 0.1);
   assert(scaleSmall.scale == 0.1, 'Small scale should be 0.1');
   results.add('very small scale: ${scaleSmall.scale}');
   print('Very small scale: ${scaleSmall.scale}');

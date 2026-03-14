@@ -14,14 +14,18 @@ dynamic build(BuildContext context) {
   final colorProp1 = ColorProperty('backgroundColor', Color(0xFFFF0000));
   assert(colorProp1.name == 'backgroundColor', 'Name should match');
   assert(colorProp1.value == Color(0xFFFF0000), 'Value should match');
-  results.add('ColorProperty: name=${colorProp1.name}, value=${colorProp1.value}');
+  results.add(
+    'ColorProperty: name=${colorProp1.name}, value=${colorProp1.value}',
+  );
   print('ColorProperty created: ${colorProp1.name}');
 
   // Test 2: Create ColorProperty with null value
   final colorProp2 = ColorProperty('foregroundColor', null);
   assert(colorProp2.name == 'foregroundColor', 'Name should match');
   assert(colorProp2.value == null, 'Value should be null');
-  results.add('ColorProperty null: name=${colorProp2.name}, value=${colorProp2.value}');
+  results.add(
+    'ColorProperty null: name=${colorProp2.name}, value=${colorProp2.value}',
+  );
   print('Null ColorProperty created');
 
   // Test 3: Create ColorProperty with defaultValue
@@ -88,11 +92,7 @@ dynamic build(BuildContext context) {
   ];
 
   for (final level in levels) {
-    final prop = ColorProperty(
-      'levelColor',
-      Color(0xFFFF00FF),
-      level: level,
-    );
+    final prop = ColorProperty('levelColor', Color(0xFFFF00FF), level: level);
     results.add('Level ${level.name}: created');
     print('Level ${level.name} property created');
   }
@@ -172,13 +172,18 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('ColorProperty Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+      Text(
+        'ColorProperty Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+      ),
       Text('Total tests: ${results.length}', style: TextStyle(fontSize: 14)),
       Divider(),
-      ...results.map((r) => Padding(
-        padding: EdgeInsets.symmetric(vertical: 2),
-        child: Text(r, style: TextStyle(fontSize: 11)),
-      )),
+      ...results.map(
+        (r) => Padding(
+          padding: EdgeInsets.symmetric(vertical: 2),
+          child: Text(r, style: TextStyle(fontSize: 11)),
+        ),
+      ),
     ],
   );
 }

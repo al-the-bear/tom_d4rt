@@ -33,7 +33,10 @@ dynamic build(BuildContext context) {
     image: NetworkImage('https://example.com/image3.png'),
     alignment: Alignment.topLeft,
   );
-  assert(decorationImage3.alignment == Alignment.topLeft, 'Alignment should be topLeft');
+  assert(
+    decorationImage3.alignment == Alignment.topLeft,
+    'Alignment should be topLeft',
+  );
   results.add('DecorationImage alignment: ${decorationImage3.alignment}');
   print('DecorationImage alignment: ${decorationImage3.alignment}');
 
@@ -42,7 +45,10 @@ dynamic build(BuildContext context) {
     image: NetworkImage('https://example.com/pattern.png'),
     repeat: ImageRepeat.repeat,
   );
-  assert(decorationImage4.repeat == ImageRepeat.repeat, 'Repeat should be repeat');
+  assert(
+    decorationImage4.repeat == ImageRepeat.repeat,
+    'Repeat should be repeat',
+  );
   results.add('DecorationImage repeat: ${decorationImage4.repeat}');
   print('DecorationImage repeat: ${decorationImage4.repeat}');
 
@@ -51,7 +57,10 @@ dynamic build(BuildContext context) {
     image: NetworkImage('https://example.com/stripe.png'),
     repeat: ImageRepeat.repeatX,
   );
-  assert(decorationImage5.repeat == ImageRepeat.repeatX, 'Repeat should be repeatX');
+  assert(
+    decorationImage5.repeat == ImageRepeat.repeatX,
+    'Repeat should be repeatX',
+  );
   results.add('DecorationImage repeatX: ${decorationImage5.repeat}');
   print('DecorationImage repeatX verified');
 
@@ -60,7 +69,10 @@ dynamic build(BuildContext context) {
     image: NetworkImage('https://example.com/vstripe.png'),
     repeat: ImageRepeat.repeatY,
   );
-  assert(decorationImage6.repeat == ImageRepeat.repeatY, 'Repeat should be repeatY');
+  assert(
+    decorationImage6.repeat == ImageRepeat.repeatY,
+    'Repeat should be repeatY',
+  );
   results.add('DecorationImage repeatY: ${decorationImage6.repeat}');
   print('DecorationImage repeatY verified');
 
@@ -87,7 +99,10 @@ dynamic build(BuildContext context) {
     image: NetworkImage('https://example.com/9patch.png'),
     centerSlice: Rect.fromLTWH(10, 10, 80, 80),
   );
-  assert(decorationImage9.centerSlice != null, 'CenterSlice should not be null');
+  assert(
+    decorationImage9.centerSlice != null,
+    'CenterSlice should not be null',
+  );
   results.add('DecorationImage centerSlice: ${decorationImage9.centerSlice}');
   print('DecorationImage centerSlice: ${decorationImage9.centerSlice}');
 
@@ -96,8 +111,13 @@ dynamic build(BuildContext context) {
     image: NetworkImage('https://example.com/hq.png'),
     filterQuality: FilterQuality.high,
   );
-  assert(decorationImage10.filterQuality == FilterQuality.high, 'FilterQuality should be high');
-  results.add('DecorationImage filterQuality: ${decorationImage10.filterQuality}');
+  assert(
+    decorationImage10.filterQuality == FilterQuality.high,
+    'FilterQuality should be high',
+  );
+  results.add(
+    'DecorationImage filterQuality: ${decorationImage10.filterQuality}',
+  );
   print('DecorationImage filterQuality: ${decorationImage10.filterQuality}');
 
   // Test 11: DecorationImage with invertColors
@@ -106,7 +126,9 @@ dynamic build(BuildContext context) {
     invertColors: true,
   );
   assert(decorationImage11.invertColors == true, 'InvertColors should be true');
-  results.add('DecorationImage invertColors: ${decorationImage11.invertColors}');
+  results.add(
+    'DecorationImage invertColors: ${decorationImage11.invertColors}',
+  );
   print('DecorationImage invertColors: ${decorationImage11.invertColors}');
 
   // Test 12: DecorationImage with matchTextDirection
@@ -114,13 +136,24 @@ dynamic build(BuildContext context) {
     image: NetworkImage('https://example.com/rtl.png'),
     matchTextDirection: true,
   );
-  assert(decorationImage12.matchTextDirection == true, 'MatchTextDirection should be true');
-  results.add('DecorationImage matchTextDirection: ${decorationImage12.matchTextDirection}');
+  assert(
+    decorationImage12.matchTextDirection == true,
+    'MatchTextDirection should be true',
+  );
+  results.add(
+    'DecorationImage matchTextDirection: ${decorationImage12.matchTextDirection}',
+  );
   print('DecorationImage matchTextDirection verified');
 
   // Test 13: DecorationImage equality
-  final imgA = DecorationImage(image: NetworkImage('https://a.com/img.png'), fit: BoxFit.cover);
-  final imgB = DecorationImage(image: NetworkImage('https://a.com/img.png'), fit: BoxFit.cover);
+  final imgA = DecorationImage(
+    image: NetworkImage('https://a.com/img.png'),
+    fit: BoxFit.cover,
+  );
+  final imgB = DecorationImage(
+    image: NetworkImage('https://a.com/img.png'),
+    fit: BoxFit.cover,
+  );
   results.add('DecorationImage equality test: completed');
   print('DecorationImage equality test completed');
 

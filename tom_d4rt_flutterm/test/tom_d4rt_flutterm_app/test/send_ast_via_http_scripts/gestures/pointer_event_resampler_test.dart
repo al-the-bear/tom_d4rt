@@ -17,7 +17,10 @@ dynamic build(BuildContext context) {
   print('PointerEventResampler created: ${resampler.runtimeType}');
 
   // Test 2: Check hasPendingEvents initially
-  assert(resampler.hasPendingEvents == false, 'Should have no pending events initially');
+  assert(
+    resampler.hasPendingEvents == false,
+    'Should have no pending events initially',
+  );
   results.add('hasPendingEvents initial: ${resampler.hasPendingEvents}');
   print('Initial hasPendingEvents: ${resampler.hasPendingEvents}');
 
@@ -132,8 +135,12 @@ dynamic build(BuildContext context) {
   // Test 18: Resample frequency concept
   final freq60Hz = Duration(microseconds: 16667);
   final freq120Hz = Duration(microseconds: 8333);
-  results.add('60Hz: ${freq60Hz.inMicroseconds}µs, 120Hz: ${freq120Hz.inMicroseconds}µs');
-  print('Resample frequencies: 60Hz=${freq60Hz.inMicroseconds}µs, 120Hz=${freq120Hz.inMicroseconds}µs');
+  results.add(
+    '60Hz: ${freq60Hz.inMicroseconds}µs, 120Hz: ${freq120Hz.inMicroseconds}µs',
+  );
+  print(
+    'Resample frequencies: 60Hz=${freq60Hz.inMicroseconds}µs, 120Hz=${freq120Hz.inMicroseconds}µs',
+  );
 
   // Test 19: Event preservation through resampling
   assert(downEvent.position == Offset(100.0, 150.0), 'Original preserved');
@@ -143,14 +150,26 @@ dynamic build(BuildContext context) {
   // Test 20: Multiple pointer tracking concept
   final pointer1Events = [
     PointerDownEvent(position: Offset(100, 100), pointer: 1),
-    PointerMoveEvent(position: Offset(110, 110), delta: Offset(10, 10), pointer: 1),
+    PointerMoveEvent(
+      position: Offset(110, 110),
+      delta: Offset(10, 10),
+      pointer: 1,
+    ),
   ];
   final pointer2Events = [
     PointerDownEvent(position: Offset(200, 200), pointer: 2),
-    PointerMoveEvent(position: Offset(210, 210), delta: Offset(10, 10), pointer: 2),
+    PointerMoveEvent(
+      position: Offset(210, 210),
+      delta: Offset(10, 10),
+      pointer: 2,
+    ),
   ];
-  results.add('Multi-pointer: ${pointer1Events.length + pointer2Events.length} events');
-  print('Multi-pointer resampling concept: ${pointer1Events.length + pointer2Events.length} events');
+  results.add(
+    'Multi-pointer: ${pointer1Events.length + pointer2Events.length} events',
+  );
+  print(
+    'Multi-pointer resampling concept: ${pointer1Events.length + pointer2Events.length} events',
+  );
 
   print('PointerEventResampler test completed with ${results.length} tests');
   return Column(

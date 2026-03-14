@@ -75,21 +75,40 @@ dynamic build(BuildContext context) {
     timeStamp: Duration(milliseconds: 32),
   );
   results.add('TimeStamps: 0, 16, 32 ms');
-  print('TimeStamp progression: ${timedDown.timeStamp}, ${timedMove.timeStamp}, ${timedUp.timeStamp}');
+  print(
+    'TimeStamp progression: ${timedDown.timeStamp}, ${timedMove.timeStamp}, ${timedUp.timeStamp}',
+  );
 
   // Test 9: Device consistency in sequence
   final deviceId = 5;
-  final deviceDown = PointerDownEvent(position: Offset(50, 50), device: deviceId);
-  final deviceMove = PointerMoveEvent(position: Offset(60, 60), delta: Offset(10, 10), device: deviceId);
+  final deviceDown = PointerDownEvent(
+    position: Offset(50, 50),
+    device: deviceId,
+  );
+  final deviceMove = PointerMoveEvent(
+    position: Offset(60, 60),
+    delta: Offset(10, 10),
+    device: deviceId,
+  );
   final deviceUp = PointerUpEvent(position: Offset(70, 70), device: deviceId);
-  assert(deviceDown.device == deviceMove.device && deviceMove.device == deviceUp.device, 'Devices should match');
+  assert(
+    deviceDown.device == deviceMove.device &&
+        deviceMove.device == deviceUp.device,
+    'Devices should match',
+  );
   results.add('Device consistency: $deviceId');
   print('Device consistency across sequence: $deviceId');
 
   // Test 10: Pointer ID consistency
   final pointerId = 42;
-  final pointerDown = PointerDownEvent(position: Offset(80, 80), pointer: pointerId);
-  final pointerUp = PointerUpEvent(position: Offset(80, 80), pointer: pointerId);
+  final pointerDown = PointerDownEvent(
+    position: Offset(80, 80),
+    pointer: pointerId,
+  );
+  final pointerUp = PointerUpEvent(
+    position: Offset(80, 80),
+    pointer: pointerId,
+  );
   assert(pointerDown.pointer == pointerUp.pointer, 'Pointer IDs should match');
   results.add('Pointer ID consistency: $pointerId');
   print('Pointer ID consistency: $pointerId');
@@ -175,7 +194,9 @@ dynamic build(BuildContext context) {
   );
   assert(fullEvent.position == Offset(200, 300), 'All properties preserved');
   results.add('Full event: all properties preserved');
-  print('Full event conversion: position=${fullEvent.position}, pointer=${fullEvent.pointer}');
+  print(
+    'Full event conversion: position=${fullEvent.position}, pointer=${fullEvent.pointer}',
+  );
 
   print('PointerEventConverter test completed with ${results.length} tests');
   return Column(

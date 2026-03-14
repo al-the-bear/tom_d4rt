@@ -22,7 +22,10 @@ dynamic build(BuildContext context) {
   print('VelocityEstimate created: ${estimate1.runtimeType}');
 
   // Test 2: pixelsPerSecond property
-  assert(estimate1.pixelsPerSecond == Offset(500.0, 300.0), 'pixelsPerSecond should match');
+  assert(
+    estimate1.pixelsPerSecond == Offset(500.0, 300.0),
+    'pixelsPerSecond should match',
+  );
   results.add('pixelsPerSecond: ${estimate1.pixelsPerSecond}');
   print('pixelsPerSecond: ${estimate1.pixelsPerSecond}');
 
@@ -32,7 +35,10 @@ dynamic build(BuildContext context) {
   print('confidence: ${estimate1.confidence}');
 
   // Test 4: duration property
-  assert(estimate1.duration == Duration(milliseconds: 100), 'Duration should match');
+  assert(
+    estimate1.duration == Duration(milliseconds: 100),
+    'Duration should match',
+  );
   results.add('duration: ${estimate1.duration}');
   print('duration: ${estimate1.duration}');
 
@@ -123,7 +129,9 @@ dynamic build(BuildContext context) {
 
   // Test 15: Confidence from tracker estimate
   if (trackerEstimate != null) {
-    results.add('Tracker confidence: ${trackerEstimate.confidence.toStringAsFixed(3)}');
+    results.add(
+      'Tracker confidence: ${trackerEstimate.confidence.toStringAsFixed(3)}',
+    );
     print('Tracker estimate confidence: ${trackerEstimate.confidence}');
   } else {
     results.add('Tracker confidence: null');
@@ -161,7 +169,9 @@ dynamic build(BuildContext context) {
   final durationSeconds = estimate1.duration.inMicroseconds / 1000000.0;
   final calcVelX = estimate1.offset.dx / durationSeconds;
   final calcVelY = estimate1.offset.dy / durationSeconds;
-  results.add('Calc velocity: (${calcVelX.toStringAsFixed(1)}, ${calcVelY.toStringAsFixed(1)})');
+  results.add(
+    'Calc velocity: (${calcVelX.toStringAsFixed(1)}, ${calcVelY.toStringAsFixed(1)})',
+  );
   print('Calculated velocity: ($calcVelX, $calcVelY)');
 
   print('VelocityEstimate test completed with ${results.length} tests');

@@ -20,7 +20,9 @@ dynamic build(BuildContext context) {
   assert(border1.bottom.width == 2.0, 'Bottom width should be 2.0');
   assert(border1.start.width == 3.0, 'Start width should be 3.0');
   assert(border1.end.width == 4.0, 'End width should be 4.0');
-  results.add('BorderDirectional: top=${border1.top.width}, start=${border1.start.width}');
+  results.add(
+    'BorderDirectional: top=${border1.top.width}, start=${border1.start.width}',
+  );
   print('BorderDirectional created with all sides');
 
   // Test 2: BorderDirectional with only top
@@ -47,7 +49,9 @@ dynamic build(BuildContext context) {
   );
   assert(border4.start.width == 5.0, 'Start width should be 5.0');
   assert(border4.end.width == 2.0, 'End width should be 2.0');
-  results.add('BorderDirectional start/end: start=${border4.start.width}, end=${border4.end.width}');
+  results.add(
+    'BorderDirectional start/end: start=${border4.start.width}, end=${border4.end.width}',
+  );
   print('BorderDirectional start/end verified');
 
   // Test 5: BorderDirectional dimensions
@@ -60,7 +64,9 @@ dynamic build(BuildContext context) {
   final dims = border5.dimensions;
   assert(dims.vertical == 20.0, 'Vertical dimensions should be 20.0');
   assert(dims.horizontal == 10.0, 'Horizontal dimensions should be 10.0');
-  results.add('BorderDirectional dimensions: h=${dims.horizontal}, v=${dims.vertical}');
+  results.add(
+    'BorderDirectional dimensions: h=${dims.horizontal}, v=${dims.vertical}',
+  );
   print('BorderDirectional dimensions: $dims');
 
   // Test 6: BorderDirectional isUniform

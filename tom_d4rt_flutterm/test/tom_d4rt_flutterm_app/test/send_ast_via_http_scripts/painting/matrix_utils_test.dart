@@ -95,7 +95,9 @@ dynamic build(BuildContext context) {
   print('MatrixUtils.isIdentity: $identityCheck');
 
   // Test 12: MatrixUtils.isIdentity false case
-  final notIdentity = MatrixUtils.isIdentity(Matrix4.translationValues(1, 0, 0));
+  final notIdentity = MatrixUtils.isIdentity(
+    Matrix4.translationValues(1, 0, 0),
+  );
   assert(notIdentity == false, 'Translated matrix should not be identity');
   results.add('MatrixUtils.isIdentity translated: $notIdentity');
   print('MatrixUtils.isIdentity for translated: $notIdentity');

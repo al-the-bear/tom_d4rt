@@ -11,12 +11,10 @@ dynamic build(BuildContext context) {
 
   // Test 1: Create ImageStreamListener with onImage only
   var imageCallCount = 0;
-  final listener1 = ImageStreamListener(
-    (ImageInfo info, bool synchronousCall) {
-      imageCallCount++;
-      print('Image callback invoked');
-    },
-  );
+  final listener1 = ImageStreamListener((ImageInfo info, bool synchronousCall) {
+    imageCallCount++;
+    print('Image callback invoked');
+  });
   assert(listener1 != null, 'Listener should be created');
   results.add('ImageStreamListener with onImage created');
   print('Listener1 created');
@@ -44,7 +42,9 @@ dynamic build(BuildContext context) {
     },
     onChunk: (ImageChunkEvent event) {
       chunkCallCount++;
-      print('Chunk event: ${event.cumulativeBytesLoaded}/${event.expectedTotalBytes}');
+      print(
+        'Chunk event: ${event.cumulativeBytesLoaded}/${event.expectedTotalBytes}',
+      );
     },
   );
   assert(listener3 != null, 'Listener with chunk handler should be created');
@@ -75,7 +75,9 @@ dynamic build(BuildContext context) {
   print('onImage signature documented');
 
   // onError signature
-  results.add('onError: void Function(Object exception, StackTrace? stackTrace)?');
+  results.add(
+    'onError: void Function(Object exception, StackTrace? stackTrace)?',
+  );
   print('onError signature documented');
 
   // onChunk signature
@@ -86,7 +88,9 @@ dynamic build(BuildContext context) {
   print('Documenting callback behavior...');
 
   // synchronousCall parameter
-  results.add('synchronousCall=true: Called during addListener (image was cached)');
+  results.add(
+    'synchronousCall=true: Called during addListener (image was cached)',
+  );
   print('synchronousCall=true documented');
 
   results.add('synchronousCall=false: Called asynchronously (image loaded)');
@@ -182,13 +186,18 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('ImageStreamListener Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+      Text(
+        'ImageStreamListener Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+      ),
       Text('Total items: ${results.length}', style: TextStyle(fontSize: 14)),
       Divider(),
-      ...results.map((r) => Padding(
-        padding: EdgeInsets.symmetric(vertical: 2),
-        child: Text(r, style: TextStyle(fontSize: 11)),
-      )),
+      ...results.map(
+        (r) => Padding(
+          padding: EdgeInsets.symmetric(vertical: 2),
+          child: Text(r, style: TextStyle(fontSize: 11)),
+        ),
+      ),
     ],
   );
 }

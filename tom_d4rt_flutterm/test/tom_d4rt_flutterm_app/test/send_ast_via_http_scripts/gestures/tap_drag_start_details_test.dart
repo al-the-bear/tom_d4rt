@@ -127,6 +127,7 @@ dynamic build(BuildContext context) {
   void onDragStart(TapDragStartDetails d) {
     capturedStart = d;
   }
+
   onDragStart(details);
   assert(capturedStart != null, 'Should capture start');
   results.add('Callback pattern works');
@@ -157,14 +158,21 @@ dynamic build(BuildContext context) {
   results.add('Device kinds enumerated');
 
   // Test 20: Summary
-  results.add('Properties: globalPosition, localPosition, kind, consecutiveTapCount');
-  print('TapDragStartDetails: marks drag gesture initiation after slop exceeded');
+  results.add(
+    'Properties: globalPosition, localPosition, kind, consecutiveTapCount',
+  );
+  print(
+    'TapDragStartDetails: marks drag gesture initiation after slop exceeded',
+  );
 
   print('TapDragStartDetails test completed with ${results.length} tests');
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('TapDragStartDetails Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      Text(
+        'TapDragStartDetails Tests',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
       Text('Properties: globalPosition, localPosition'),
       Text('Properties: kind, consecutiveTapCount'),
       Text('Usage: onDragStart callback'),

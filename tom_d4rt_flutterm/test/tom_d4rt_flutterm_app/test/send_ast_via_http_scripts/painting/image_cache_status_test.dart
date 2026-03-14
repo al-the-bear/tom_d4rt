@@ -90,7 +90,9 @@ dynamic build(BuildContext context) {
   for (final size in imageSizes) {
     final bytes = size['bytes'] as int;
     final mb = bytes / (1 << 20);
-    results.add('Image ${size['width']}x${size['height']}: ${mb.toStringAsFixed(2)} MB');
+    results.add(
+      'Image ${size['width']}x${size['height']}: ${mb.toStringAsFixed(2)} MB',
+    );
     print('Image size calculated: ${mb.toStringAsFixed(2)} MB');
   }
 
@@ -114,15 +116,47 @@ dynamic build(BuildContext context) {
 
   // All possible boolean combinations (some may be invalid)
   final combinations = [
-    {'pending': true, 'keepAlive': false, 'live': false, 'tracked': true, 'desc': 'Image loading'},
-    {'pending': false, 'keepAlive': true, 'live': true, 'tracked': true, 'desc': 'Active cached'},
-    {'pending': false, 'keepAlive': true, 'live': false, 'tracked': true, 'desc': 'Kept alive'},
-    {'pending': false, 'keepAlive': false, 'live': true, 'tracked': true, 'desc': 'Live reference'},
-    {'pending': false, 'keepAlive': false, 'live': false, 'tracked': false, 'desc': 'Not in cache'},
+    {
+      'pending': true,
+      'keepAlive': false,
+      'live': false,
+      'tracked': true,
+      'desc': 'Image loading',
+    },
+    {
+      'pending': false,
+      'keepAlive': true,
+      'live': true,
+      'tracked': true,
+      'desc': 'Active cached',
+    },
+    {
+      'pending': false,
+      'keepAlive': true,
+      'live': false,
+      'tracked': true,
+      'desc': 'Kept alive',
+    },
+    {
+      'pending': false,
+      'keepAlive': false,
+      'live': true,
+      'tracked': true,
+      'desc': 'Live reference',
+    },
+    {
+      'pending': false,
+      'keepAlive': false,
+      'live': false,
+      'tracked': false,
+      'desc': 'Not in cache',
+    },
   ];
 
   for (final combo in combinations) {
-    results.add('Status [${combo['desc']}]: pending=${combo['pending']}, keepAlive=${combo['keepAlive']}, live=${combo['live']}');
+    results.add(
+      'Status [${combo['desc']}]: pending=${combo['pending']}, keepAlive=${combo['keepAlive']}, live=${combo['live']}',
+    );
     print('Combination: ${combo['desc']}');
   }
 
@@ -146,19 +180,29 @@ dynamic build(BuildContext context) {
   print('pendingImageCount property documented');
 
   // ========== Summary ==========
-  print('ImageCacheStatus conceptual test completed: ${results.length} items documented');
+  print(
+    'ImageCacheStatus conceptual test completed: ${results.length} items documented',
+  );
   return Column(
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('ImageCacheStatus Tests (Conceptual)', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-      Text('Note: ImageCacheStatus obtained via ImageCache.statusForKey', style: TextStyle(fontSize: 11, fontStyle: FontStyle.italic)),
+      Text(
+        'ImageCacheStatus Tests (Conceptual)',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+      ),
+      Text(
+        'Note: ImageCacheStatus obtained via ImageCache.statusForKey',
+        style: TextStyle(fontSize: 11, fontStyle: FontStyle.italic),
+      ),
       Text('Total items: ${results.length}', style: TextStyle(fontSize: 14)),
       Divider(),
-      ...results.map((r) => Padding(
-        padding: EdgeInsets.symmetric(vertical: 2),
-        child: Text(r, style: TextStyle(fontSize: 11)),
-      )),
+      ...results.map(
+        (r) => Padding(
+          padding: EdgeInsets.symmetric(vertical: 2),
+          child: Text(r, style: TextStyle(fontSize: 11)),
+        ),
+      ),
     ],
   );
 }

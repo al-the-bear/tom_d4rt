@@ -11,25 +11,37 @@ dynamic build(BuildContext context) {
 
   // Test 1: Default FlutterLogoDecoration
   final logoDeco1 = FlutterLogoDecoration();
-  assert(logoDeco1.style == FlutterLogoStyle.markOnly, 'Default style should be markOnly');
+  assert(
+    logoDeco1.style == FlutterLogoStyle.markOnly,
+    'Default style should be markOnly',
+  );
   results.add('FlutterLogoDecoration default style: ${logoDeco1.style}');
   print('FlutterLogoDecoration default: ${logoDeco1.style}');
 
   // Test 2: FlutterLogoDecoration with markOnly style
   final logoDeco2 = FlutterLogoDecoration(style: FlutterLogoStyle.markOnly);
-  assert(logoDeco2.style == FlutterLogoStyle.markOnly, 'Style should be markOnly');
+  assert(
+    logoDeco2.style == FlutterLogoStyle.markOnly,
+    'Style should be markOnly',
+  );
   results.add('FlutterLogoDecoration markOnly: ${logoDeco2.style}');
   print('FlutterLogoDecoration markOnly verified');
 
   // Test 3: FlutterLogoDecoration with horizontal style
   final logoDeco3 = FlutterLogoDecoration(style: FlutterLogoStyle.horizontal);
-  assert(logoDeco3.style == FlutterLogoStyle.horizontal, 'Style should be horizontal');
+  assert(
+    logoDeco3.style == FlutterLogoStyle.horizontal,
+    'Style should be horizontal',
+  );
   results.add('FlutterLogoDecoration horizontal: ${logoDeco3.style}');
   print('FlutterLogoDecoration horizontal: ${logoDeco3.style}');
 
   // Test 4: FlutterLogoDecoration with stacked style
   final logoDeco4 = FlutterLogoDecoration(style: FlutterLogoStyle.stacked);
-  assert(logoDeco4.style == FlutterLogoStyle.stacked, 'Style should be stacked');
+  assert(
+    logoDeco4.style == FlutterLogoStyle.stacked,
+    'Style should be stacked',
+  );
   results.add('FlutterLogoDecoration stacked: ${logoDeco4.style}');
   print('FlutterLogoDecoration stacked: ${logoDeco4.style}');
 
@@ -78,7 +90,10 @@ dynamic build(BuildContext context) {
     style: FlutterLogoStyle.horizontal,
     textColor: Color(0xFF0000FF),
   );
-  assert(logoDeco11.style == FlutterLogoStyle.horizontal, 'Style should be horizontal');
+  assert(
+    logoDeco11.style == FlutterLogoStyle.horizontal,
+    'Style should be horizontal',
+  );
   assert(logoDeco11.textColor == Color(0xFF0000FF), 'TextColor should be blue');
   results.add('FlutterLogoDecoration horizontal+blue: verified');
   print('FlutterLogoDecoration horizontal with blue text verified');

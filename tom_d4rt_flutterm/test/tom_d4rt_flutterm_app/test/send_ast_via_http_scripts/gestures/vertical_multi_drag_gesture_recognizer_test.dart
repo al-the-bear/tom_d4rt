@@ -14,10 +14,15 @@ dynamic build(BuildContext context) {
   final recognizer = VerticalMultiDragGestureRecognizer();
   assert(recognizer != null, 'Should create recognizer');
   results.add('VerticalMultiDragGestureRecognizer created');
-  print('VerticalMultiDragGestureRecognizer created: ${recognizer.runtimeType}');
+  print(
+    'VerticalMultiDragGestureRecognizer created: ${recognizer.runtimeType}',
+  );
 
   // Test 2: Check inheritance
-  assert(recognizer is MultiDragGestureRecognizer, 'Should be MultiDragGestureRecognizer');
+  assert(
+    recognizer is MultiDragGestureRecognizer,
+    'Should be MultiDragGestureRecognizer',
+  );
   results.add('Inheritance: MultiDragGestureRecognizer');
   print('Inheritance verified: MultiDragGestureRecognizer');
 
@@ -96,18 +101,24 @@ dynamic build(BuildContext context) {
   final kPanSlop = 18.0;
   final smallVertical = Offset(0.0, 10.0);
   final withinSlop = smallVertical.distance < kPanSlop;
-  results.add('Small movement (${smallVertical.distance}): within slop=$withinSlop');
+  results.add(
+    'Small movement (${smallVertical.distance}): within slop=$withinSlop',
+  );
   print('Slop check: ${smallVertical.distance} vs $kPanSlop');
 
   // Test 14: Exceeds slop - starts drag
   final largeVertical = Offset(0.0, 25.0);
   final exceedsSlop = largeVertical.distance >= kPanSlop;
   assert(exceedsSlop, 'Should exceed slop');
-  results.add('Large movement (${largeVertical.distance}): exceeds slop=$exceedsSlop');
+  results.add(
+    'Large movement (${largeVertical.distance}): exceeds slop=$exceedsSlop',
+  );
   print('Exceeds slop: starts vertical drag');
 
   // Test 15: Create with debugOwner
-  final recognizer2 = VerticalMultiDragGestureRecognizer(debugOwner: 'TestOwner');
+  final recognizer2 = VerticalMultiDragGestureRecognizer(
+    debugOwner: 'TestOwner',
+  );
   assert(recognizer2 != null, 'Should create with debugOwner');
   results.add('Recognizer with debugOwner');
   print('Created with debugOwner');
@@ -145,11 +156,16 @@ dynamic build(BuildContext context) {
   results.add('Recognizer disposed');
   print('VerticalMultiDragGestureRecognizer disposed');
 
-  print('VerticalMultiDragGestureRecognizer test completed with ${results.length} tests');
+  print(
+    'VerticalMultiDragGestureRecognizer test completed with ${results.length} tests',
+  );
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('VerticalMultiDragGestureRecognizer Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      Text(
+        'VerticalMultiDragGestureRecognizer Tests',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
       Text('Constraint: Vertical only'),
       Text('Multi-pointer: tracks multiple drags'),
       Text('Callback: onStart returns Drag'),

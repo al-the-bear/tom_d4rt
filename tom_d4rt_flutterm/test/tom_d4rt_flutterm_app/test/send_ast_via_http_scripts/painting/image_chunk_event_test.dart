@@ -14,9 +14,17 @@ dynamic build(BuildContext context) {
     cumulativeBytesLoaded: 5000,
     expectedTotalBytes: 10000,
   );
-  assert(event1.cumulativeBytesLoaded == 5000, 'cumulativeBytesLoaded should be 5000');
-  assert(event1.expectedTotalBytes == 10000, 'expectedTotalBytes should be 10000');
-  results.add('ImageChunkEvent: loaded=${event1.cumulativeBytesLoaded}, total=${event1.expectedTotalBytes}');
+  assert(
+    event1.cumulativeBytesLoaded == 5000,
+    'cumulativeBytesLoaded should be 5000',
+  );
+  assert(
+    event1.expectedTotalBytes == 10000,
+    'expectedTotalBytes should be 10000',
+  );
+  results.add(
+    'ImageChunkEvent: loaded=${event1.cumulativeBytesLoaded}, total=${event1.expectedTotalBytes}',
+  );
   print('Event1: ${event1.cumulativeBytesLoaded}/${event1.expectedTotalBytes}');
 
   // Test 2: ImageChunkEvent with null expectedTotalBytes
@@ -24,9 +32,17 @@ dynamic build(BuildContext context) {
     cumulativeBytesLoaded: 2500,
     expectedTotalBytes: null,
   );
-  assert(event2.cumulativeBytesLoaded == 2500, 'cumulativeBytesLoaded should be 2500');
-  assert(event2.expectedTotalBytes == null, 'expectedTotalBytes should be null');
-  results.add('ImageChunkEvent (unknown total): loaded=${event2.cumulativeBytesLoaded}, total=unknown');
+  assert(
+    event2.cumulativeBytesLoaded == 2500,
+    'cumulativeBytesLoaded should be 2500',
+  );
+  assert(
+    event2.expectedTotalBytes == null,
+    'expectedTotalBytes should be null',
+  );
+  results.add(
+    'ImageChunkEvent (unknown total): loaded=${event2.cumulativeBytesLoaded}, total=unknown',
+  );
   print('Event2: ${event2.cumulativeBytesLoaded}/unknown');
 
   // Test 3: Progress calculation
@@ -68,7 +84,9 @@ dynamic build(BuildContext context) {
     expectedTotalBytes: 50000,
   );
   assert(event3.cumulativeBytesLoaded == 0, 'Should allow 0 bytes loaded');
-  results.add('Zero loaded: ${event3.cumulativeBytesLoaded}/${event3.expectedTotalBytes}');
+  results.add(
+    'Zero loaded: ${event3.cumulativeBytesLoaded}/${event3.expectedTotalBytes}',
+  );
   print('Zero loaded event created');
 
   // Test 5: All bytes loaded
@@ -78,7 +96,9 @@ dynamic build(BuildContext context) {
   );
   final completed = event4.cumulativeBytesLoaded == event4.expectedTotalBytes;
   assert(completed, 'Should detect completion');
-  results.add('Completed: ${event4.cumulativeBytesLoaded}/${event4.expectedTotalBytes} (done=$completed)');
+  results.add(
+    'Completed: ${event4.cumulativeBytesLoaded}/${event4.expectedTotalBytes} (done=$completed)',
+  );
   print('Completed event: done=$completed');
 
   // Test 6: Large file progress
@@ -88,8 +108,11 @@ dynamic build(BuildContext context) {
     cumulativeBytesLoaded: largeLoaded,
     expectedTotalBytes: largeTotal,
   );
-  final largePct = (event5.cumulativeBytesLoaded / event5.expectedTotalBytes!) * 100;
-  results.add('Large file: ${(largeLoaded / 1024 / 1024).toStringAsFixed(0)}MB/${(largeTotal / 1024 / 1024).toStringAsFixed(0)}MB (${largePct.toStringAsFixed(1)}%)');
+  final largePct =
+      (event5.cumulativeBytesLoaded / event5.expectedTotalBytes!) * 100;
+  results.add(
+    'Large file: ${(largeLoaded / 1024 / 1024).toStringAsFixed(0)}MB/${(largeTotal / 1024 / 1024).toStringAsFixed(0)}MB (${largePct.toStringAsFixed(1)}%)',
+  );
   print('Large file progress: ${largePct.toStringAsFixed(1)}%');
 
   // ========== Byte Size Formatting ==========
@@ -98,7 +121,8 @@ dynamic build(BuildContext context) {
   String formatBytes(int bytes) {
     if (bytes < 1024) return '${bytes}B';
     if (bytes < 1024 * 1024) return '${(bytes / 1024).toStringAsFixed(1)}KB';
-    if (bytes < 1024 * 1024 * 1024) return '${(bytes / 1024 / 1024).toStringAsFixed(1)}MB';
+    if (bytes < 1024 * 1024 * 1024)
+      return '${(bytes / 1024 / 1024).toStringAsFixed(1)}MB';
     return '${(bytes / 1024 / 1024 / 1024).toStringAsFixed(1)}GB';
   }
 
@@ -145,13 +169,18 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('ImageChunkEvent Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+      Text(
+        'ImageChunkEvent Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+      ),
       Text('Total tests: ${results.length}', style: TextStyle(fontSize: 14)),
       Divider(),
-      ...results.map((r) => Padding(
-        padding: EdgeInsets.symmetric(vertical: 2),
-        child: Text(r, style: TextStyle(fontSize: 11)),
-      )),
+      ...results.map(
+        (r) => Padding(
+          padding: EdgeInsets.symmetric(vertical: 2),
+          child: Text(r, style: TextStyle(fontSize: 11)),
+        ),
+      ),
     ],
   );
 }

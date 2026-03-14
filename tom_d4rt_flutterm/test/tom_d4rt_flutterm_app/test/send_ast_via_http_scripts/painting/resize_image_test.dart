@@ -43,18 +43,29 @@ dynamic build(BuildContext context) {
 
   // Test 6: ResizeImage.resizeIfNeeded (both null - returns original)
   final provider6 = ResizeImage.resizeIfNeeded(null, null, originalImage1);
-  assert(provider6 == originalImage1, 'Should return original when no resize needed');
+  assert(
+    provider6 == originalImage1,
+    'Should return original when no resize needed',
+  );
   results.add('ResizeImage.resizeIfNeeded null: returns original');
   print('ResizeImage.resizeIfNeeded with null returns original');
 
   // Test 7: ResizeImage with allowUpscaling false (default)
-  final resized7 = ResizeImage(originalImage1, width: 50, allowUpscaling: false);
+  final resized7 = ResizeImage(
+    originalImage1,
+    width: 50,
+    allowUpscaling: false,
+  );
   assert(resized7.allowUpscaling == false, 'allowUpscaling should be false');
   results.add('ResizeImage allowUpscaling: ${resized7.allowUpscaling}');
   print('ResizeImage allowUpscaling: ${resized7.allowUpscaling}');
 
   // Test 8: ResizeImage with allowUpscaling true
-  final resized8 = ResizeImage(originalImage1, width: 500, allowUpscaling: true);
+  final resized8 = ResizeImage(
+    originalImage1,
+    width: 500,
+    allowUpscaling: true,
+  );
   assert(resized8.allowUpscaling == true, 'allowUpscaling should be true');
   results.add('ResizeImage allowUpscaling true: ${resized8.allowUpscaling}');
   print('ResizeImage allowUpscaling true verified');
@@ -62,8 +73,13 @@ dynamic build(BuildContext context) {
   // Test 9: ResizeImage with AssetImage
   final assetImage = AssetImage('assets/photo.png');
   final resizedAsset = ResizeImage(assetImage, width: 200, height: 200);
-  assert(resizedAsset.imageProvider == assetImage, 'Image provider should match');
-  results.add('ResizeImage AssetImage: ${resizedAsset.width}x${resizedAsset.height}');
+  assert(
+    resizedAsset.imageProvider == assetImage,
+    'Image provider should match',
+  );
+  results.add(
+    'ResizeImage AssetImage: ${resizedAsset.width}x${resizedAsset.height}',
+  );
   print('ResizeImage with AssetImage');
 
   // Test 10: ResizeImage imageProvider getter

@@ -54,7 +54,9 @@ dynamic build(BuildContext context) {
   assert(downEvent.pressureMin == 0.0, 'PressureMin should be 0.0');
   assert(downEvent.pressureMax == 1.0, 'PressureMax should be 1.0');
   results.add('pressure: ${downEvent.pressure}');
-  print('Event pressure: ${downEvent.pressure}, min: ${downEvent.pressureMin}, max: ${downEvent.pressureMax}');
+  print(
+    'Event pressure: ${downEvent.pressure}, min: ${downEvent.pressureMin}, max: ${downEvent.pressureMax}',
+  );
 
   // Test 8: TimeStamp property
   results.add('timeStamp: ${downEvent.timeStamp}');
@@ -136,7 +138,9 @@ dynamic build(BuildContext context) {
 
   // Test 20: Distance and distanceMax
   results.add('distance: ${downEvent.distance}');
-  print('Event distance: ${downEvent.distance}, distanceMax: ${downEvent.distanceMax}');
+  print(
+    'Event distance: ${downEvent.distance}, distanceMax: ${downEvent.distanceMax}',
+  );
 
   print('PointerEvent base class test completed with ${results.length} tests');
   return Column(

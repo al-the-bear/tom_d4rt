@@ -14,7 +14,10 @@ dynamic build(BuildContext context) {
 
   // Test 1: Create basic AssetImage
   final assetImage1 = AssetImage('assets/images/logo.png');
-  assert(assetImage1.assetName == 'assets/images/logo.png', 'Asset name should match');
+  assert(
+    assetImage1.assetName == 'assets/images/logo.png',
+    'Asset name should match',
+  );
   results.add('AssetImage name: ${assetImage1.assetName}');
   print('AssetImage created: ${assetImage1.assetName}');
 
@@ -33,7 +36,10 @@ dynamic build(BuildContext context) {
 
   // Test 4: AssetImage without package keyName
   final assetImage4 = AssetImage('assets/test.png');
-  assert(assetImage4.keyName == 'assets/test.png', 'KeyName should equal assetName');
+  assert(
+    assetImage4.keyName == 'assets/test.png',
+    'KeyName should equal assetName',
+  );
   results.add('AssetImage no-package keyName: ${assetImage4.keyName}');
   print('AssetImage keyName without package verified');
 

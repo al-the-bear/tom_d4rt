@@ -11,9 +11,7 @@ dynamic build(BuildContext context) {
   print('Testing PointerPanZoomEndEvent...');
 
   // Test 1: Create basic PointerPanZoomEndEvent
-  final panZoomEnd1 = PointerPanZoomEndEvent(
-    position: Offset(240.0, 340.0),
-  );
+  final panZoomEnd1 = PointerPanZoomEndEvent(position: Offset(240.0, 340.0));
   assert(panZoomEnd1 is PointerEvent, 'Should be PointerEvent');
   results.add('PointerPanZoomEndEvent created');
   print('PointerPanZoomEndEvent created: ${panZoomEnd1.runtimeType}');
@@ -32,7 +30,10 @@ dynamic build(BuildContext context) {
     position: Offset(200.0, 300.0),
     timeStamp: Duration(milliseconds: 1500),
   );
-  assert(panZoomEndTime.timeStamp == Duration(milliseconds: 1500), 'TimeStamp should match');
+  assert(
+    panZoomEndTime.timeStamp == Duration(milliseconds: 1500),
+    'TimeStamp should match',
+  );
   results.add('timeStamp: ${panZoomEndTime.timeStamp}');
   print('PanZoomEnd event timeStamp: ${panZoomEndTime.timeStamp}');
 
@@ -59,7 +60,10 @@ dynamic build(BuildContext context) {
     position: Offset(170.0, 220.0),
     kind: PointerDeviceKind.trackpad,
   );
-  assert(panZoomEndKind.kind == PointerDeviceKind.trackpad, 'Kind should be trackpad');
+  assert(
+    panZoomEndKind.kind == PointerDeviceKind.trackpad,
+    'Kind should be trackpad',
+  );
   results.add('kind: ${panZoomEndKind.kind}');
   print('PanZoomEnd event kind: ${panZoomEndKind.kind}');
 
@@ -95,7 +99,10 @@ dynamic build(BuildContext context) {
 
   // Test 13: Complete pan zoom sequence (start -> updates -> end)
   final pointerId = 99;
-  final startEvent = PointerPanZoomStartEvent(position: Offset(100, 100), pointer: pointerId);
+  final startEvent = PointerPanZoomStartEvent(
+    position: Offset(100, 100),
+    pointer: pointerId,
+  );
   final updateEvent = PointerPanZoomUpdateEvent(
     position: Offset(150, 150),
     pointer: pointerId,
@@ -103,8 +110,15 @@ dynamic build(BuildContext context) {
     scale: 1.5,
     rotation: 0.3,
   );
-  final endEvent = PointerPanZoomEndEvent(position: Offset(200, 200), pointer: pointerId);
-  assert(startEvent.pointer == updateEvent.pointer && updateEvent.pointer == endEvent.pointer, 'Pointer IDs should match');
+  final endEvent = PointerPanZoomEndEvent(
+    position: Offset(200, 200),
+    pointer: pointerId,
+  );
+  assert(
+    startEvent.pointer == updateEvent.pointer &&
+        updateEvent.pointer == endEvent.pointer,
+    'Pointer IDs should match',
+  );
   results.add('Complete sequence verified');
   print('Pan zoom sequence: start -> update -> end verified');
 
@@ -126,10 +140,12 @@ dynamic build(BuildContext context) {
   // Test 17: Multiple end events tracking
   final endEvents = <PointerPanZoomEndEvent>[];
   for (int i = 0; i < 3; i++) {
-    endEvents.add(PointerPanZoomEndEvent(
-      position: Offset(100.0 + i * 50, 100.0 + i * 50),
-      pointer: i,
-    ));
+    endEvents.add(
+      PointerPanZoomEndEvent(
+        position: Offset(100.0 + i * 50, 100.0 + i * 50),
+        pointer: i,
+      ),
+    );
   }
   assert(endEvents.length == 3, 'Should have 3 end events');
   results.add('Tracked ${endEvents.length} end events');
@@ -145,12 +161,16 @@ dynamic build(BuildContext context) {
     position: Offset(190.0, 240.0),
     kind: PointerDeviceKind.mouse,
   );
-  assert(panZoomEndMouse.kind == PointerDeviceKind.mouse, 'Kind should be mouse');
+  assert(
+    panZoomEndMouse.kind == PointerDeviceKind.mouse,
+    'Kind should be mouse',
+  );
   results.add('mouse kind: ${panZoomEndMouse.kind}');
   print('PanZoomEnd with mouse kind: ${panZoomEndMouse.kind}');
 
   // Test 20: End event timing analysis
-  final gestureDuration = Duration(milliseconds: 1500) - Duration(milliseconds: 1000);
+  final gestureDuration =
+      Duration(milliseconds: 1500) - Duration(milliseconds: 1000);
   results.add('gesture duration: ${gestureDuration.inMilliseconds}ms');
   print('Gesture duration: $gestureDuration');
 

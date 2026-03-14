@@ -59,10 +59,15 @@ dynamic build(BuildContext context) {
     count: 1,
     buttons: kPrimaryButton,
   );
-  assert(downDetails.globalPosition == Offset(100.0, 200.0), 'Global should match');
+  assert(
+    downDetails.globalPosition == Offset(100.0, 200.0),
+    'Global should match',
+  );
   assert(downDetails.count == 1, 'Count should be 1');
   results.add('SerialTapDownDetails: count=${downDetails.count}');
-  print('SerialTapDownDetails: global=${downDetails.globalPosition}, count=${downDetails.count}');
+  print(
+    'SerialTapDownDetails: global=${downDetails.globalPosition}, count=${downDetails.count}',
+  );
 
   // Test 7: SerialTapDownDetails for double tap
   final doubleTapDown = SerialTapDownDetails(
@@ -95,10 +100,15 @@ dynamic build(BuildContext context) {
     kind: PointerDeviceKind.touch,
     count: 1,
   );
-  assert(upDetails.globalPosition == Offset(100.0, 200.0), 'Global should match');
+  assert(
+    upDetails.globalPosition == Offset(100.0, 200.0),
+    'Global should match',
+  );
   assert(upDetails.count == 1, 'Count should be 1');
   results.add('SerialTapUpDetails: count=${upDetails.count}');
-  print('SerialTapUpDetails: global=${upDetails.globalPosition}, count=${upDetails.count}');
+  print(
+    'SerialTapUpDetails: global=${upDetails.globalPosition}, count=${upDetails.count}',
+  );
 
   // Test 10: SerialTapCancelDetails construction
   final cancelDetails = SerialTapCancelDetails(count: 2);
@@ -117,11 +127,17 @@ dynamic build(BuildContext context) {
   // Test 12: Buttons property for different tap types
   assert(kPrimaryButton == 1, 'Primary button is 1');
   assert(kSecondaryButton == 2, 'Secondary button is 2');
-  results.add('Button values: primary=$kPrimaryButton, secondary=$kSecondaryButton');
+  results.add(
+    'Button values: primary=$kPrimaryButton, secondary=$kSecondaryButton',
+  );
   print('Button values: primary=$kPrimaryButton, secondary=$kSecondaryButton');
 
   // Test 13: Multiple pointer device kinds
-  for (final kind in [PointerDeviceKind.touch, PointerDeviceKind.mouse, PointerDeviceKind.stylus]) {
+  for (final kind in [
+    PointerDeviceKind.touch,
+    PointerDeviceKind.mouse,
+    PointerDeviceKind.stylus,
+  ]) {
     final details = SerialTapDownDetails(
       globalPosition: Offset.zero,
       localPosition: Offset.zero,
@@ -147,8 +163,12 @@ dynamic build(BuildContext context) {
   final tapDistance = (secondTapPos - firstTapPos).distance;
   final withinSlop = tapDistance < kDoubleTapSlop;
   assert(withinSlop, 'Taps should be within slop');
-  results.add('Tap distance ${tapDistance.toStringAsFixed(2)} within slop: $withinSlop');
-  print('Tap slop: distance=${tapDistance.toStringAsFixed(2)}, within=$withinSlop');
+  results.add(
+    'Tap distance ${tapDistance.toStringAsFixed(2)} within slop: $withinSlop',
+  );
+  print(
+    'Tap slop: distance=${tapDistance.toStringAsFixed(2)}, within=$withinSlop',
+  );
 
   // Test 16: Tap count tracking concept
   var tapCount = 0;
@@ -156,6 +176,7 @@ dynamic build(BuildContext context) {
     tapCount++;
     print('Tap count: $tapCount');
   }
+
   simulateTap();
   simulateTap();
   simulateTap();
@@ -179,7 +200,10 @@ dynamic build(BuildContext context) {
   // Test 19: Callback state verification
   assert(recognizer.onSerialTapDown != null, 'onSerialTapDown should be set');
   assert(recognizer.onSerialTapUp != null, 'onSerialTapUp should be set');
-  assert(recognizer.onSerialTapCancel != null, 'onSerialTapCancel should be set');
+  assert(
+    recognizer.onSerialTapCancel != null,
+    'onSerialTapCancel should be set',
+  );
   results.add('All callbacks verified as set');
   print('Callbacks state verified');
 
@@ -188,11 +212,16 @@ dynamic build(BuildContext context) {
   results.add('Recognizer disposed');
   print('SerialTapGestureRecognizer disposed');
 
-  print('SerialTapGestureRecognizer test completed with ${results.length} tests');
+  print(
+    'SerialTapGestureRecognizer test completed with ${results.length} tests',
+  );
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('SerialTapGestureRecognizer Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      Text(
+        'SerialTapGestureRecognizer Tests',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
       Text('Callbacks: onSerialTapDown, onSerialTapUp, onSerialTapCancel'),
       Text('Details: SerialTapDownDetails, SerialTapUpDetails'),
       Text('Multi-tap: single, double, triple (count property)'),

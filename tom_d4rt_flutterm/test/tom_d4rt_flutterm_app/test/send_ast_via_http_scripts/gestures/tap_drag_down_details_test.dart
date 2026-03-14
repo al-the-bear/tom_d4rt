@@ -81,7 +81,10 @@ dynamic build(BuildContext context) {
     kind: PointerDeviceKind.stylus,
     consecutiveTapCount: 1,
   );
-  assert(stylusDetails.kind == PointerDeviceKind.stylus, 'Kind should be stylus');
+  assert(
+    stylusDetails.kind == PointerDeviceKind.stylus,
+    'Kind should be stylus',
+  );
   results.add('Stylus device: ${stylusDetails.kind}');
   print('Stylus down: kind=${stylusDetails.kind}');
 
@@ -136,6 +139,7 @@ dynamic build(BuildContext context) {
   void onTapDown(TapDragDownDetails d) {
     capturedDetails = d;
   }
+
   onTapDown(details);
   assert(capturedDetails != null, 'Should capture details');
   results.add('Callback pattern works');
@@ -149,25 +153,28 @@ dynamic build(BuildContext context) {
   print('Position hash: $posHash1');
 
   // Test 19: Tap count semantics
-  final semantics = {
-    1: 'single tap',
-    2: 'double tap',
-    3: 'triple tap',
-  };
+  final semantics = {1: 'single tap', 2: 'double tap', 3: 'triple tap'};
   for (var entry in semantics.entries) {
     print('Count ${entry.key}: ${entry.value}');
   }
   results.add('Tap count semantics documented');
 
   // Test 20: Summary
-  results.add('Properties: globalPosition, localPosition, kind, consecutiveTapCount');
-  print('TapDragDownDetails: globalPosition, localPosition, kind, consecutiveTapCount');
+  results.add(
+    'Properties: globalPosition, localPosition, kind, consecutiveTapCount',
+  );
+  print(
+    'TapDragDownDetails: globalPosition, localPosition, kind, consecutiveTapCount',
+  );
 
   print('TapDragDownDetails test completed with ${results.length} tests');
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('TapDragDownDetails Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      Text(
+        'TapDragDownDetails Tests',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
       Text('Properties: globalPosition, localPosition'),
       Text('Properties: kind, consecutiveTapCount'),
       Text('Usage: onTapDown in TapAndDragGestureRecognizer'),

@@ -23,7 +23,10 @@ dynamic build(BuildContext context) {
     child: Icon(Icons.star),
     alignment: PlaceholderAlignment.bottom,
   );
-  assert(widgetSpan2.alignment == PlaceholderAlignment.bottom, 'Alignment should be bottom');
+  assert(
+    widgetSpan2.alignment == PlaceholderAlignment.bottom,
+    'Alignment should be bottom',
+  );
   results.add('WidgetSpan alignment: ${widgetSpan2.alignment}');
   print('WidgetSpan alignment: ${widgetSpan2.alignment}');
 
@@ -32,7 +35,10 @@ dynamic build(BuildContext context) {
     child: Icon(Icons.circle),
     alignment: PlaceholderAlignment.top,
   );
-  assert(widgetSpan3.alignment == PlaceholderAlignment.top, 'Alignment should be top');
+  assert(
+    widgetSpan3.alignment == PlaceholderAlignment.top,
+    'Alignment should be top',
+  );
   results.add('WidgetSpan top: ${widgetSpan3.alignment}');
   print('WidgetSpan top alignment verified');
 
@@ -41,7 +47,10 @@ dynamic build(BuildContext context) {
     child: Icon(Icons.square),
     alignment: PlaceholderAlignment.middle,
   );
-  assert(widgetSpan4.alignment == PlaceholderAlignment.middle, 'Alignment should be middle');
+  assert(
+    widgetSpan4.alignment == PlaceholderAlignment.middle,
+    'Alignment should be middle',
+  );
   results.add('WidgetSpan middle: ${widgetSpan4.alignment}');
   print('WidgetSpan middle alignment verified');
 
@@ -51,7 +60,10 @@ dynamic build(BuildContext context) {
     alignment: PlaceholderAlignment.aboveBaseline,
     baseline: TextBaseline.alphabetic,
   );
-  assert(widgetSpan5.alignment == PlaceholderAlignment.aboveBaseline, 'Alignment should be aboveBaseline');
+  assert(
+    widgetSpan5.alignment == PlaceholderAlignment.aboveBaseline,
+    'Alignment should be aboveBaseline',
+  );
   results.add('WidgetSpan aboveBaseline: ${widgetSpan5.alignment}');
   print('WidgetSpan aboveBaseline verified');
 
@@ -61,7 +73,10 @@ dynamic build(BuildContext context) {
     alignment: PlaceholderAlignment.belowBaseline,
     baseline: TextBaseline.alphabetic,
   );
-  assert(widgetSpan6.alignment == PlaceholderAlignment.belowBaseline, 'Alignment should be belowBaseline');
+  assert(
+    widgetSpan6.alignment == PlaceholderAlignment.belowBaseline,
+    'Alignment should be belowBaseline',
+  );
   results.add('WidgetSpan belowBaseline: ${widgetSpan6.alignment}');
   print('WidgetSpan belowBaseline verified');
 
@@ -71,7 +86,10 @@ dynamic build(BuildContext context) {
     alignment: PlaceholderAlignment.baseline,
     baseline: TextBaseline.alphabetic,
   );
-  assert(widgetSpan7.baseline == TextBaseline.alphabetic, 'Baseline should be alphabetic');
+  assert(
+    widgetSpan7.baseline == TextBaseline.alphabetic,
+    'Baseline should be alphabetic',
+  );
   results.add('WidgetSpan baseline: ${widgetSpan7.baseline}');
   print('WidgetSpan baseline: ${widgetSpan7.baseline}');
 
@@ -81,7 +99,10 @@ dynamic build(BuildContext context) {
     alignment: PlaceholderAlignment.baseline,
     baseline: TextBaseline.ideographic,
   );
-  assert(widgetSpan8.baseline == TextBaseline.ideographic, 'Baseline should be ideographic');
+  assert(
+    widgetSpan8.baseline == TextBaseline.ideographic,
+    'Baseline should be ideographic',
+  );
   results.add('WidgetSpan ideographic: ${widgetSpan8.baseline}');
   print('WidgetSpan ideographic baseline verified');
 
@@ -103,7 +124,9 @@ dynamic build(BuildContext context) {
     ],
   );
   assert(textSpan.children!.length == 2, 'Should have 2 children');
-  results.add('TextSpan with WidgetSpan: ${textSpan.children!.length} children');
+  results.add(
+    'TextSpan with WidgetSpan: ${textSpan.children!.length} children',
+  );
   print('TextSpan with WidgetSpan children');
 
   // Test 11: WidgetSpan toPlainText

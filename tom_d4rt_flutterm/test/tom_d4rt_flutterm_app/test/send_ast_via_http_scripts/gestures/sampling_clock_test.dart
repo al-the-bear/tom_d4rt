@@ -28,7 +28,10 @@ dynamic build(BuildContext context) {
   final eventTime = Duration(milliseconds: 50);
   final now = Duration(milliseconds: 150);
   final timeSinceEvent = now - eventTime;
-  assert(timeSinceEvent.inMilliseconds == 100, 'Time since event should be 100ms');
+  assert(
+    timeSinceEvent.inMilliseconds == 100,
+    'Time since event should be 100ms',
+  );
   results.add('Time since event: ${timeSinceEvent.inMilliseconds}ms');
   print('Time since event: ${timeSinceEvent.inMilliseconds}ms');
 
@@ -80,7 +83,9 @@ dynamic build(BuildContext context) {
   print('VelocityTracker with time samples');
 
   // Test 10: Current time concept
-  final systemTime = Duration(milliseconds: DateTime.now().millisecondsSinceEpoch % 100000);
+  final systemTime = Duration(
+    milliseconds: DateTime.now().millisecondsSinceEpoch % 100000,
+  );
   results.add('System time sample: ${systemTime.inMilliseconds}ms');
   print('System time (truncated): ${systemTime.inMilliseconds}ms');
 
@@ -96,8 +101,12 @@ dynamic build(BuildContext context) {
   final tapGap = tap2Time - tap1Time;
   final isDoubleTap = tapGap < kDoubleTapTimeout;
   assert(isDoubleTap, 'Should be double tap');
-  results.add('Double tap gap: ${tapGap.inMilliseconds}ms, valid: $isDoubleTap');
-  print('Double tap timing: gap=${tapGap.inMilliseconds}ms, valid=$isDoubleTap');
+  results.add(
+    'Double tap gap: ${tapGap.inMilliseconds}ms, valid: $isDoubleTap',
+  );
+  print(
+    'Double tap timing: gap=${tapGap.inMilliseconds}ms, valid=$isDoubleTap',
+  );
 
   // Test 13: Long press timing
   final kLongPressTimeout = Duration(milliseconds: 500);
@@ -106,22 +115,31 @@ dynamic build(BuildContext context) {
   final holdDuration = pressHold - pressStart;
   final isLongPress = holdDuration >= kLongPressTimeout;
   assert(isLongPress, 'Should be long press');
-  results.add('Long press duration: ${holdDuration.inMilliseconds}ms, valid: $isLongPress');
-  print('Long press: duration=${holdDuration.inMilliseconds}ms, valid=$isLongPress');
+  results.add(
+    'Long press duration: ${holdDuration.inMilliseconds}ms, valid: $isLongPress',
+  );
+  print(
+    'Long press: duration=${holdDuration.inMilliseconds}ms, valid=$isLongPress',
+  );
 
   // Test 14: Frame budget concept
   final frameBudget = Duration(milliseconds: 16);
   final workDone = Duration(milliseconds: 8);
   final withinBudget = workDone <= frameBudget;
   assert(withinBudget, 'Should be within budget');
-  results.add('Frame budget: ${workDone.inMilliseconds}/${frameBudget.inMilliseconds}ms');
+  results.add(
+    'Frame budget: ${workDone.inMilliseconds}/${frameBudget.inMilliseconds}ms',
+  );
   print('Work within frame budget: $withinBudget');
 
   // Test 15: Sampling rate calculation
   final sampleCount = 10;
   final totalDuration = Duration(milliseconds: 160);
-  final samplesPerSecond = sampleCount / (totalDuration.inMilliseconds / 1000.0);
-  results.add('Sampling rate: ${samplesPerSecond.toStringAsFixed(1)} samples/s');
+  final samplesPerSecond =
+      sampleCount / (totalDuration.inMilliseconds / 1000.0);
+  results.add(
+    'Sampling rate: ${samplesPerSecond.toStringAsFixed(1)} samples/s',
+  );
   print('Sampling rate: ${samplesPerSecond.toStringAsFixed(1)} samples/second');
 
   // Test 16: Duration comparison
@@ -148,14 +166,21 @@ dynamic build(BuildContext context) {
   print('Duration from microseconds: ${microDuration.inMicroseconds}μs');
 
   // Test 20: Summary
-  results.add('Timing concepts: sampling, velocity, frame budget, gesture timeouts');
-  print('SamplingClock: provides timing for gesture sampling and velocity calculation');
+  results.add(
+    'Timing concepts: sampling, velocity, frame budget, gesture timeouts',
+  );
+  print(
+    'SamplingClock: provides timing for gesture sampling and velocity calculation',
+  );
 
   print('SamplingClock test completed with ${results.length} tests');
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('SamplingClock Concept Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      Text(
+        'SamplingClock Concept Tests',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
       Text('Timing: Duration, timestamps'),
       Text('Sampling: 16ms interval (60fps)'),
       Text('Velocity: position/time calculation'),

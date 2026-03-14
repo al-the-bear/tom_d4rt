@@ -66,7 +66,10 @@ dynamic build(BuildContext context) {
   acc10.increment(25);
   final afterIncrement = acc10.value;
   results.add('Before: $initialValue, After: $afterIncrement');
-  assert(initialValue == 100 && afterIncrement == 125, 'Value getter should reflect state');
+  assert(
+    initialValue == 100 && afterIncrement == 125,
+    'Value getter should reflect state',
+  );
 
   // Test 11: Large increments
   final acc11 = Accumulator(0);
@@ -79,7 +82,10 @@ dynamic build(BuildContext context) {
   final accB = Accumulator(10);
   accA.increment(3);
   results.add('AccA: ${accA.value}, AccB: ${accB.value}');
-  assert(accA.value == 8 && accB.value == 10, 'Accumulators should be independent');
+  assert(
+    accA.value == 8 && accB.value == 10,
+    'Accumulators should be independent',
+  );
 
   print('Accumulator test completed');
   print('All tests passed: ${results.length} assertions');
@@ -90,10 +96,12 @@ dynamic build(BuildContext context) {
     children: [
       Text('Accumulator Tests', style: TextStyle(fontWeight: FontWeight.bold)),
       SizedBox(height: 8.0),
-      ...results.map((r) => Padding(
-        padding: EdgeInsets.only(bottom: 4.0),
-        child: Text(r, style: TextStyle(fontSize: 12.0)),
-      )),
+      ...results.map(
+        (r) => Padding(
+          padding: EdgeInsets.only(bottom: 4.0),
+          child: Text(r, style: TextStyle(fontSize: 12.0)),
+        ),
+      ),
     ],
   );
 }

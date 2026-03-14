@@ -18,8 +18,13 @@ dynamic build(BuildContext context) {
 
   // Test 2: Check inheritance
   assert(recognizer is GestureRecognizer, 'Should be GestureRecognizer');
-  assert(recognizer is OneSequenceGestureRecognizer, 'Should be OneSequenceGestureRecognizer');
-  results.add('Inheritance verified: GestureRecognizer, OneSequenceGestureRecognizer');
+  assert(
+    recognizer is OneSequenceGestureRecognizer,
+    'Should be OneSequenceGestureRecognizer',
+  );
+  results.add(
+    'Inheritance verified: GestureRecognizer, OneSequenceGestureRecognizer',
+  );
   print('Inheritance: GestureRecognizer, OneSequenceGestureRecognizer');
 
   // Test 3: Set onTapDown callback
@@ -120,11 +125,24 @@ dynamic build(BuildContext context) {
     localPosition: Offset(50.0, 100.0),
     kind: PointerDeviceKind.touch,
   );
-  assert(tapDownDetails.globalPosition == Offset(100.0, 200.0), 'Global position should match');
-  assert(tapDownDetails.localPosition == Offset(50.0, 100.0), 'Local position should match');
-  assert(tapDownDetails.kind == PointerDeviceKind.touch, 'Kind should be touch');
-  results.add('TapDownDetails: global=${tapDownDetails.globalPosition}, local=${tapDownDetails.localPosition}');
-  print('TapDownDetails: global=${tapDownDetails.globalPosition}, local=${tapDownDetails.localPosition}, kind=${tapDownDetails.kind}');
+  assert(
+    tapDownDetails.globalPosition == Offset(100.0, 200.0),
+    'Global position should match',
+  );
+  assert(
+    tapDownDetails.localPosition == Offset(50.0, 100.0),
+    'Local position should match',
+  );
+  assert(
+    tapDownDetails.kind == PointerDeviceKind.touch,
+    'Kind should be touch',
+  );
+  results.add(
+    'TapDownDetails: global=${tapDownDetails.globalPosition}, local=${tapDownDetails.localPosition}',
+  );
+  print(
+    'TapDownDetails: global=${tapDownDetails.globalPosition}, local=${tapDownDetails.localPosition}, kind=${tapDownDetails.kind}',
+  );
 
   // Test 15: TapUpDetails construction
   final tapUpDetails = TapUpDetails(
@@ -132,17 +150,30 @@ dynamic build(BuildContext context) {
     localPosition: Offset(50.0, 100.0),
     kind: PointerDeviceKind.mouse,
   );
-  assert(tapUpDetails.globalPosition == Offset(100.0, 200.0), 'Global position should match');
-  assert(tapUpDetails.localPosition == Offset(50.0, 100.0), 'Local position should match');
+  assert(
+    tapUpDetails.globalPosition == Offset(100.0, 200.0),
+    'Global position should match',
+  );
+  assert(
+    tapUpDetails.localPosition == Offset(50.0, 100.0),
+    'Local position should match',
+  );
   assert(tapUpDetails.kind == PointerDeviceKind.mouse, 'Kind should be mouse');
-  results.add('TapUpDetails: global=${tapUpDetails.globalPosition}, local=${tapUpDetails.localPosition}');
-  print('TapUpDetails: global=${tapUpDetails.globalPosition}, local=${tapUpDetails.localPosition}, kind=${tapUpDetails.kind}');
+  results.add(
+    'TapUpDetails: global=${tapUpDetails.globalPosition}, local=${tapUpDetails.localPosition}',
+  );
+  print(
+    'TapUpDetails: global=${tapUpDetails.globalPosition}, local=${tapUpDetails.localPosition}, kind=${tapUpDetails.kind}',
+  );
 
   // Test 16: PointerDeviceKind values for tap gestures
   final deviceKinds = PointerDeviceKind.values;
   assert(deviceKinds.contains(PointerDeviceKind.touch), 'Should contain touch');
   assert(deviceKinds.contains(PointerDeviceKind.mouse), 'Should contain mouse');
-  assert(deviceKinds.contains(PointerDeviceKind.stylus), 'Should contain stylus');
+  assert(
+    deviceKinds.contains(PointerDeviceKind.stylus),
+    'Should contain stylus',
+  );
   results.add('PointerDeviceKind types: ${deviceKinds.length}');
   print('PointerDeviceKind values: $deviceKinds');
 
@@ -150,8 +181,12 @@ dynamic build(BuildContext context) {
   assert(kPrimaryButton == 1, 'Primary button should be 1');
   assert(kSecondaryButton == 2, 'Secondary button should be 2');
   assert(kTertiaryButton == 4, 'Tertiary button should be 4');
-  results.add('Button constants: primary=$kPrimaryButton, secondary=$kSecondaryButton, tertiary=$kTertiaryButton');
-  print('Button constants verified: primary=$kPrimaryButton, secondary=$kSecondaryButton, tertiary=$kTertiaryButton');
+  results.add(
+    'Button constants: primary=$kPrimaryButton, secondary=$kSecondaryButton, tertiary=$kTertiaryButton',
+  );
+  print(
+    'Button constants verified: primary=$kPrimaryButton, secondary=$kSecondaryButton, tertiary=$kTertiaryButton',
+  );
 
   // Test 18: Offset calculations for tap positions
   final startPos = Offset(100.0, 100.0);
@@ -177,7 +212,10 @@ dynamic build(BuildContext context) {
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('TapGestureRecognizer Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      Text(
+        'TapGestureRecognizer Tests',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
       Text('Callbacks: onTap, onTapDown, onTapUp, onTapCancel'),
       Text('Secondary: onSecondaryTap, onSecondaryTapDown/Up/Cancel'),
       Text('Tertiary: onTertiaryTapDown/Up/Cancel'),

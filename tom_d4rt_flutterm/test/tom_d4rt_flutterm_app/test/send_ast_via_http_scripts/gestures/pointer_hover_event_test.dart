@@ -11,9 +11,7 @@ dynamic build(BuildContext context) {
   print('Testing PointerHoverEvent...');
 
   // Test 1: Create basic PointerHoverEvent
-  final hoverEvent1 = PointerHoverEvent(
-    position: Offset(150.0, 200.0),
-  );
+  final hoverEvent1 = PointerHoverEvent(position: Offset(150.0, 200.0));
   assert(hoverEvent1 is PointerEvent, 'Should be PointerEvent');
   results.add('PointerHoverEvent created');
   print('PointerHoverEvent created: ${hoverEvent1.runtimeType}');
@@ -54,7 +52,10 @@ dynamic build(BuildContext context) {
     position: Offset(75.0, 100.0),
     timeStamp: Duration(milliseconds: 1000),
   );
-  assert(hoverTime.timeStamp == Duration(milliseconds: 1000), 'TimeStamp should match');
+  assert(
+    hoverTime.timeStamp == Duration(milliseconds: 1000),
+    'TimeStamp should match',
+  );
   results.add('timeStamp: ${hoverTime.timeStamp}');
   print('Hover event timeStamp: ${hoverTime.timeStamp}');
 
@@ -148,7 +149,9 @@ dynamic build(BuildContext context) {
     orientation: 0.5,
   );
   results.add('size: ${hoverSize.size}');
-  print('Hover event size: ${hoverSize.size}, orientation: ${hoverSize.orientation}');
+  print(
+    'Hover event size: ${hoverSize.size}, orientation: ${hoverSize.orientation}',
+  );
 
   print('PointerHoverEvent test completed with ${results.length} tests');
   return Column(

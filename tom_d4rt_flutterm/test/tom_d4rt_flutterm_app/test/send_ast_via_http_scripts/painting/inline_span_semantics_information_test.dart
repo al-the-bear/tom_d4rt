@@ -22,18 +22,24 @@ dynamic build(BuildContext context) {
   );
   assert(info2.semanticsLabel == 'Star icon', 'Semantics label should match');
   results.add('InlineSpanSemanticsInformation label: ${info2.semanticsLabel}');
-  print('InlineSpanSemanticsInformation semanticsLabel: ${info2.semanticsLabel}');
+  print(
+    'InlineSpanSemanticsInformation semanticsLabel: ${info2.semanticsLabel}',
+  );
 
   // Test 3: InlineSpanSemanticsInformation isPlaceholder false
   final info3 = InlineSpanSemanticsInformation('Regular text');
   assert(info3.isPlaceholder == false, 'isPlaceholder should be false');
-  results.add('InlineSpanSemanticsInformation isPlaceholder: ${info3.isPlaceholder}');
+  results.add(
+    'InlineSpanSemanticsInformation isPlaceholder: ${info3.isPlaceholder}',
+  );
   print('InlineSpanSemanticsInformation isPlaceholder: ${info3.isPlaceholder}');
 
   // Test 4: InlineSpanSemanticsInformation placeholder
   final info4 = InlineSpanSemanticsInformation.placeholder;
   assert(info4.isPlaceholder == true, 'Placeholder should be true');
-  results.add('InlineSpanSemanticsInformation placeholder: ${info4.isPlaceholder}');
+  results.add(
+    'InlineSpanSemanticsInformation placeholder: ${info4.isPlaceholder}',
+  );
   print('InlineSpanSemanticsInformation placeholder verified');
 
   // Test 5: InlineSpanSemanticsInformation requiresOwnNode
@@ -43,8 +49,12 @@ dynamic build(BuildContext context) {
     requiresOwnNode: true,
   );
   assert(info5.requiresOwnNode == true, 'requiresOwnNode should be true');
-  results.add('InlineSpanSemanticsInformation requiresOwnNode: ${info5.requiresOwnNode}');
-  print('InlineSpanSemanticsInformation requiresOwnNode: ${info5.requiresOwnNode}');
+  results.add(
+    'InlineSpanSemanticsInformation requiresOwnNode: ${info5.requiresOwnNode}',
+  );
+  print(
+    'InlineSpanSemanticsInformation requiresOwnNode: ${info5.requiresOwnNode}',
+  );
 
   // Test 6: InlineSpanSemanticsInformation with all parameters
   final info6 = InlineSpanSemanticsInformation(
@@ -82,7 +92,9 @@ dynamic build(BuildContext context) {
     semanticsLabel: 'Only label provided',
   );
   assert(info10.semanticsLabel == 'Only label provided', 'Label should match');
-  results.add('InlineSpanSemanticsInformation label only: ${info10.semanticsLabel}');
+  results.add(
+    'InlineSpanSemanticsInformation label only: ${info10.semanticsLabel}',
+  );
   print('InlineSpanSemanticsInformation label only verified');
 
   // Test 11: InlineSpanSemanticsInformation toString
@@ -106,7 +118,9 @@ dynamic build(BuildContext context) {
   results.add('InlineSpanSemanticsInformation hashCode: $hash1');
   print('InlineSpanSemanticsInformation hashCode: $hash1');
 
-  print('InlineSpanSemanticsInformation test completed with ${results.length} tests');
+  print(
+    'InlineSpanSemanticsInformation test completed with ${results.length} tests',
+  );
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [

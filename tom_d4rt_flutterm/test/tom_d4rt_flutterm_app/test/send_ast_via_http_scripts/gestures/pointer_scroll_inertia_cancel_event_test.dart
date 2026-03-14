@@ -20,7 +20,10 @@ dynamic build(BuildContext context) {
   print('PointerScrollInertiaCancelEvent created: ${cancelEvent1.runtimeType}');
 
   // Test 2: Position property
-  assert(cancelEvent1.position == Offset(200.0, 250.0), 'Position should match');
+  assert(
+    cancelEvent1.position == Offset(200.0, 250.0),
+    'Position should match',
+  );
   results.add('position: ${cancelEvent1.position}');
   print('Cancel event position: ${cancelEvent1.position}');
 
@@ -33,7 +36,10 @@ dynamic build(BuildContext context) {
     position: Offset(150.0, 180.0),
     timeStamp: Duration(milliseconds: 800),
   );
-  assert(cancelTime.timeStamp == Duration(milliseconds: 800), 'TimeStamp should match');
+  assert(
+    cancelTime.timeStamp == Duration(milliseconds: 800),
+    'TimeStamp should match',
+  );
   results.add('timeStamp: ${cancelTime.timeStamp}');
   print('Cancel event timeStamp: ${cancelTime.timeStamp}');
 
@@ -60,7 +66,10 @@ dynamic build(BuildContext context) {
     position: Offset(140.0, 170.0),
     kind: PointerDeviceKind.trackpad,
   );
-  assert(cancelKind.kind == PointerDeviceKind.trackpad, 'Kind should be trackpad');
+  assert(
+    cancelKind.kind == PointerDeviceKind.trackpad,
+    'Kind should be trackpad',
+  );
   results.add('kind: ${cancelKind.kind}');
   print('Cancel event kind: ${cancelKind.kind}');
 
@@ -133,10 +142,12 @@ dynamic build(BuildContext context) {
   // Test 18: Multiple cancel events
   final cancelEvents = <PointerScrollInertiaCancelEvent>[];
   for (int i = 0; i < 3; i++) {
-    cancelEvents.add(PointerScrollInertiaCancelEvent(
-      position: Offset(100.0 + i * 30, 100.0 + i * 30),
-      pointer: i,
-    ));
+    cancelEvents.add(
+      PointerScrollInertiaCancelEvent(
+        position: Offset(100.0 + i * 30, 100.0 + i * 30),
+        pointer: i,
+      ),
+    );
   }
   assert(cancelEvents.length == 3, 'Should have 3 cancel events');
   results.add('Multiple cancel events: ${cancelEvents.length}');
@@ -154,7 +165,9 @@ dynamic build(BuildContext context) {
   results.add('Distance from origin: ${distanceFromOrigin.toStringAsFixed(2)}');
   print('Position distance from origin: $distanceFromOrigin');
 
-  print('PointerScrollInertiaCancelEvent test completed with ${results.length} tests');
+  print(
+    'PointerScrollInertiaCancelEvent test completed with ${results.length} tests',
+  );
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [

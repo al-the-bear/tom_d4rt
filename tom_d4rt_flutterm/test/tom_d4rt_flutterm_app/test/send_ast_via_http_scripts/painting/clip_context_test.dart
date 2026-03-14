@@ -57,7 +57,9 @@ dynamic build(BuildContext context) {
   );
   assert(asymmetricRadius.topLeft.x == 10.0, 'TopLeft should be 10.0');
   assert(asymmetricRadius.topRight.x == 20.0, 'TopRight should be 20.0');
-  results.add('Asymmetric clip radius: TL=${asymmetricRadius.topLeft.x}, TR=${asymmetricRadius.topRight.x}');
+  results.add(
+    'Asymmetric clip radius: TL=${asymmetricRadius.topLeft.x}, TR=${asymmetricRadius.topRight.x}',
+  );
   print('Asymmetric BorderRadius verified');
 
   // Test 6: Clip behavior concepts
@@ -89,7 +91,9 @@ dynamic build(BuildContext context) {
   complexPath.addOval(Rect.fromLTWH(0, 0, 100, 80));
   final ovalBounds = complexPath.getBounds();
   assert(ovalBounds.width == 100.0, 'Oval width should be 100.0');
-  results.add('Complex clip path (oval): ${ovalBounds.width}x${ovalBounds.height}');
+  results.add(
+    'Complex clip path (oval): ${ovalBounds.width}x${ovalBounds.height}',
+  );
   print('Complex oval clip path created');
 
   // Test 11: RRect with different corner radii
@@ -102,7 +106,9 @@ dynamic build(BuildContext context) {
   );
   assert(customRRect.tlRadiusX == 10.0, 'TL radius should be 10.0');
   assert(customRRect.trRadiusX == 20.0, 'TR radius should be 20.0');
-  results.add('Custom RRect: TL=${customRRect.tlRadiusX}, TR=${customRRect.trRadiusX}');
+  results.add(
+    'Custom RRect: TL=${customRRect.tlRadiusX}, TR=${customRRect.trRadiusX}',
+  );
   print('Custom corner RRect verified');
 
   // Test 12: Path operations for clip
@@ -110,7 +116,9 @@ dynamic build(BuildContext context) {
   final path2 = Path()..addRect(Rect.fromLTWH(50, 50, 100, 100));
   final combinedPath = Path.combine(PathOperation.intersect, path1, path2);
   final combinedBounds = combinedPath.getBounds();
-  results.add('Path combine intersect: ${combinedBounds.width}x${combinedBounds.height}');
+  results.add(
+    'Path combine intersect: ${combinedBounds.width}x${combinedBounds.height}',
+  );
   print('Combined path intersection: $combinedBounds');
 
   print('ClipContext test completed with ${results.length} tests');

@@ -34,13 +34,19 @@ dynamic build(BuildContext context) {
   final colorG = color.green / 255.0;
   final colorB = color.blue / 255.0;
   final colorA = color.alpha / 255.0;
-  results.add('Color to vec4: (${colorR.toStringAsFixed(2)}, ${colorG.toStringAsFixed(2)}, ${colorB.toStringAsFixed(2)}, ${colorA.toStringAsFixed(2)})');
+  results.add(
+    'Color to vec4: (${colorR.toStringAsFixed(2)}, ${colorG.toStringAsFixed(2)}, ${colorB.toStringAsFixed(2)}, ${colorA.toStringAsFixed(2)})',
+  );
   print('Flutter Color to vec4 RGBA');
 
   // Test 6: Rect as vec4 (x, y, width, height)
   final rect = Rect.fromLTWH(10.0, 20.0, 100.0, 50.0);
-  results.add('Rect as vec4: (${rect.left}, ${rect.top}, ${rect.width}, ${rect.height})');
-  print('Rect (LTWH): (${rect.left}, ${rect.top}, ${rect.width}, ${rect.height})');
+  results.add(
+    'Rect as vec4: (${rect.left}, ${rect.top}, ${rect.width}, ${rect.height})',
+  );
+  print(
+    'Rect (LTWH): (${rect.left}, ${rect.top}, ${rect.width}, ${rect.height})',
+  );
 
   // Test 7: Quaternion representation
   final qx = 0.0, qy = 0.0, qz = 0.707, qw = 0.707; // 90° Z rotation
@@ -76,7 +82,9 @@ dynamic build(BuildContext context) {
 
   // Test 14: Edge insets as vec4
   final edgeInsets = EdgeInsets.fromLTRB(4.0, 8.0, 4.0, 8.0);
-  results.add('EdgeInsets: (${edgeInsets.left}, ${edgeInsets.top}, ${edgeInsets.right}, ${edgeInsets.bottom})');
+  results.add(
+    'EdgeInsets: (${edgeInsets.left}, ${edgeInsets.top}, ${edgeInsets.right}, ${edgeInsets.bottom})',
+  );
   print('EdgeInsets as vec4 (LTRB)');
 
   // Test 15: Shadow parameters
@@ -111,7 +119,10 @@ dynamic build(BuildContext context) {
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('UniformVec4Slot Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      Text(
+        'UniformVec4Slot Tests',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
       Text('Type: Vec4 (4 floats, 16 bytes)'),
       Text('Uses: RGBA, rect, quaternion, clip bounds'),
       Text('GLSL: uniform vec4 uName;'),

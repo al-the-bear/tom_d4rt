@@ -22,7 +22,10 @@ dynamic build(BuildContext context) {
   print('PointerPanZoomUpdateEvent created: ${panZoomUpdate1.runtimeType}');
 
   // Test 2: Position property
-  assert(panZoomUpdate1.position == Offset(220.0, 320.0), 'Position should match');
+  assert(
+    panZoomUpdate1.position == Offset(220.0, 320.0),
+    'Position should match',
+  );
   results.add('position: ${panZoomUpdate1.position}');
   print('PanZoomUpdate event position: ${panZoomUpdate1.position}');
 
@@ -57,7 +60,10 @@ dynamic build(BuildContext context) {
     scale: 1.0,
     rotation: 0.0,
   );
-  assert(panZoomWithDelta.panDelta == Offset(5.0, 10.0), 'PanDelta should match');
+  assert(
+    panZoomWithDelta.panDelta == Offset(5.0, 10.0),
+    'PanDelta should match',
+  );
   results.add('panDelta: ${panZoomWithDelta.panDelta}');
   print('PanZoomUpdate event panDelta: ${panZoomWithDelta.panDelta}');
 
@@ -69,7 +75,10 @@ dynamic build(BuildContext context) {
     rotation: 0.0,
     timeStamp: Duration(milliseconds: 1200),
   );
-  assert(panZoomTime.timeStamp == Duration(milliseconds: 1200), 'TimeStamp should match');
+  assert(
+    panZoomTime.timeStamp == Duration(milliseconds: 1200),
+    'TimeStamp should match',
+  );
   results.add('timeStamp: ${panZoomTime.timeStamp}');
   print('PanZoomUpdate event timeStamp: ${panZoomTime.timeStamp}');
 
@@ -105,7 +114,10 @@ dynamic build(BuildContext context) {
     rotation: 0.2,
     kind: PointerDeviceKind.trackpad,
   );
-  assert(panZoomKind.kind == PointerDeviceKind.trackpad, 'Kind should be trackpad');
+  assert(
+    panZoomKind.kind == PointerDeviceKind.trackpad,
+    'Kind should be trackpad',
+  );
   results.add('kind: ${panZoomKind.kind}');
   print('PanZoomUpdate event kind: ${panZoomKind.kind}');
 
@@ -160,7 +172,9 @@ dynamic build(BuildContext context) {
   results.add('localPosition: ${panZoomUpdate1.localPosition}');
   print('PanZoomUpdate event localPosition: ${panZoomUpdate1.localPosition}');
 
-  print('PointerPanZoomUpdateEvent test completed with ${results.length} tests');
+  print(
+    'PointerPanZoomUpdateEvent test completed with ${results.length} tests',
+  );
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [

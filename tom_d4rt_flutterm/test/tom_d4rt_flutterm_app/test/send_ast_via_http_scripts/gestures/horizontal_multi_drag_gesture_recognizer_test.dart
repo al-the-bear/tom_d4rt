@@ -14,10 +14,15 @@ dynamic build(BuildContext context) {
   final recognizer = HorizontalMultiDragGestureRecognizer();
   assert(recognizer != null, 'Should create recognizer');
   results.add('HorizontalMultiDragGestureRecognizer created');
-  print('HorizontalMultiDragGestureRecognizer created: ${recognizer.runtimeType}');
+  print(
+    'HorizontalMultiDragGestureRecognizer created: ${recognizer.runtimeType}',
+  );
 
   // Test 2: Check inheritance
-  assert(recognizer is MultiDragGestureRecognizer, 'Should be MultiDragGestureRecognizer');
+  assert(
+    recognizer is MultiDragGestureRecognizer,
+    'Should be MultiDragGestureRecognizer',
+  );
   results.add('Inheritance: MultiDragGestureRecognizer');
   print('Inheritance verified: MultiDragGestureRecognizer');
 
@@ -97,11 +102,15 @@ dynamic build(BuildContext context) {
   final kPanSlop = 18.0;
   final smallHorizontal = Offset(10.0, 0.0);
   final exceedsSlop = smallHorizontal.distance >= kPanSlop;
-  results.add('Small movement (${smallHorizontal.distance}): exceeds slop=$exceedsSlop');
+  results.add(
+    'Small movement (${smallHorizontal.distance}): exceeds slop=$exceedsSlop',
+  );
   print('Slop check: ${smallHorizontal.distance} vs $kPanSlop');
 
   // Test 14: Create recognizer with debugOwner
-  final recognizer2 = HorizontalMultiDragGestureRecognizer(debugOwner: 'TestOwner');
+  final recognizer2 = HorizontalMultiDragGestureRecognizer(
+    debugOwner: 'TestOwner',
+  );
   assert(recognizer2 != null, 'Should create with debugOwner');
   results.add('Recognizer with debugOwner');
   print('Created with debugOwner');
@@ -118,7 +127,9 @@ dynamic build(BuildContext context) {
   final pointer1Delta = pointer1Current - pointer1Start;
   assert(pointer1Delta.dy == 0, 'Y unchanged for horizontal');
   results.add('Pointer 1 horizontal delta: ${pointer1Delta.dx}');
-  print('Pointer 1: start=$pointer1Start, current=$pointer1Current, delta=$pointer1Delta');
+  print(
+    'Pointer 1: start=$pointer1Start, current=$pointer1Current, delta=$pointer1Delta',
+  );
 
   // Test 17: Cumulative drag distance
   var totalDistance = 0.0;
@@ -144,11 +155,16 @@ dynamic build(BuildContext context) {
   results.add('Recognizer disposed');
   print('HorizontalMultiDragGestureRecognizer disposed');
 
-  print('HorizontalMultiDragGestureRecognizer test completed with ${results.length} tests');
+  print(
+    'HorizontalMultiDragGestureRecognizer test completed with ${results.length} tests',
+  );
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('HorizontalMultiDragGestureRecognizer Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      Text(
+        'HorizontalMultiDragGestureRecognizer Tests',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
       Text('Constraint: Horizontal only'),
       Text('Multi-pointer: tracks multiple drags'),
       Text('Callback: onStart returns Drag'),

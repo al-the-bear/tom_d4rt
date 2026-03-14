@@ -38,10 +38,7 @@ dynamic build(BuildContext context) {
   print('Star with 6 points');
 
   // Test 6: Create StarBorder with inner radius ratio
-  final borderInnerRadius = StarBorder(
-    points: 5,
-    innerRadiusRatio: 0.4,
-  );
+  final borderInnerRadius = StarBorder(points: 5, innerRadiusRatio: 0.4);
   results.add('Star with innerRadiusRatio: 0.4');
   print('Inner radius ratio: 0.4');
 
@@ -64,26 +61,17 @@ dynamic build(BuildContext context) {
   print('Rotation: 36 degrees');
 
   // Test 9: Create StarBorder with valleyRounding
-  final borderValleyRound = StarBorder(
-    points: 5,
-    valleyRounding: 0.5,
-  );
+  final borderValleyRound = StarBorder(points: 5, valleyRounding: 0.5);
   results.add('Star with valleyRounding: 0.5');
   print('Valley rounding: 0.5');
 
   // Test 10: Create StarBorder with pointRounding
-  final borderPointRound = StarBorder(
-    points: 5,
-    pointRounding: 0.3,
-  );
+  final borderPointRound = StarBorder(points: 5, pointRounding: 0.3);
   results.add('Star with pointRounding: 0.3');
   print('Point rounding: 0.3');
 
   // Test 11: Create StarBorder with squash
-  final borderSquash = StarBorder(
-    points: 5,
-    squash: 0.8,
-  );
+  final borderSquash = StarBorder(points: 5, squash: 0.8);
   results.add('Star with squash: 0.8');
   print('Squash (vertical scaling): 0.8');
 

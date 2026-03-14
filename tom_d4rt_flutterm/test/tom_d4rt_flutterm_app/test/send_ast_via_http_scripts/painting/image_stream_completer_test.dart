@@ -25,7 +25,7 @@ dynamic build(BuildContext context) {
   results.add('Subclass: OneFrameImageStreamCompleter - single frame images');
   print('OneFrameImageStreamCompleter documented');
 
-  // MultiFrameImageStreamCompleter  
+  // MultiFrameImageStreamCompleter
   results.add('Subclass: MultiFrameImageStreamCompleter - animated images');
   print('MultiFrameImageStreamCompleter documented');
 
@@ -128,7 +128,9 @@ dynamic build(BuildContext context) {
     expectedTotalBytes: 10000,
   );
   assert(chunkEvent.cumulativeBytesLoaded == 5000, 'Bytes loaded should match');
-  results.add('ImageChunkEvent: ${chunkEvent.cumulativeBytesLoaded}/${chunkEvent.expectedTotalBytes}');
+  results.add(
+    'ImageChunkEvent: ${chunkEvent.cumulativeBytesLoaded}/${chunkEvent.expectedTotalBytes}',
+  );
   print('ChunkEvent created');
 
   // ========== Lifecycle Documentation ==========
@@ -156,19 +158,29 @@ dynamic build(BuildContext context) {
   results.add('Handle disposal decreases reference count');
   print('Handle disposal documented');
 
-  print('ImageStreamCompleter conceptual test completed: ${results.length} items');
+  print(
+    'ImageStreamCompleter conceptual test completed: ${results.length} items',
+  );
   return Column(
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('ImageStreamCompleter Tests (Conceptual)', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-      Text('Note: Abstract class - documenting API and testing related classes', style: TextStyle(fontSize: 11, fontStyle: FontStyle.italic)),
+      Text(
+        'ImageStreamCompleter Tests (Conceptual)',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+      ),
+      Text(
+        'Note: Abstract class - documenting API and testing related classes',
+        style: TextStyle(fontSize: 11, fontStyle: FontStyle.italic),
+      ),
       Text('Total items: ${results.length}', style: TextStyle(fontSize: 14)),
       Divider(),
-      ...results.map((r) => Padding(
-        padding: EdgeInsets.symmetric(vertical: 2),
-        child: Text(r, style: TextStyle(fontSize: 11)),
-      )),
+      ...results.map(
+        (r) => Padding(
+          padding: EdgeInsets.symmetric(vertical: 2),
+          child: Text(r, style: TextStyle(fontSize: 11)),
+        ),
+      ),
     ],
   );
 }

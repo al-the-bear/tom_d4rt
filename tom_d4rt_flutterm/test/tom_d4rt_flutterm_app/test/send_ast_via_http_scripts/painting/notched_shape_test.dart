@@ -22,7 +22,9 @@ dynamic build(BuildContext context) {
   final pathNoNotch = notchedRect1.getOuterPath(hostRect, null);
   final boundsNoNotch = pathNoNotch.getBounds();
   assert(boundsNoNotch.width == 300, 'Width should be 300');
-  results.add('OuterPath no notch: ${boundsNoNotch.width}x${boundsNoNotch.height}');
+  results.add(
+    'OuterPath no notch: ${boundsNoNotch.width}x${boundsNoNotch.height}',
+  );
   print('OuterPath without notch: $boundsNoNotch');
 
   // Test 3: Get outer path with circular notch
@@ -30,7 +32,9 @@ dynamic build(BuildContext context) {
   final pathWithNotch = notchedRect1.getOuterPath(hostRect, guestRect);
   final boundsWithNotch = pathWithNotch.getBounds();
   assert(boundsWithNotch.width >= 300, 'Width should include notch');
-  results.add('OuterPath with notch: ${boundsWithNotch.width}x${boundsWithNotch.height}');
+  results.add(
+    'OuterPath with notch: ${boundsWithNotch.width}x${boundsWithNotch.height}',
+  );
   print('OuterPath with notch: $boundsWithNotch');
 
   // Test 4: Different notch positions - left

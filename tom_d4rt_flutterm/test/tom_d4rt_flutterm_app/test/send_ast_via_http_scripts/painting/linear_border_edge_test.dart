@@ -13,8 +13,12 @@ dynamic build(BuildContext context) {
   final edge1 = LinearBorderEdge();
   assert(edge1.size == 1.0, 'Default size should be 1.0');
   assert(edge1.alignment == 0.0, 'Default alignment should be 0.0');
-  results.add('LinearBorderEdge default: size=${edge1.size}, align=${edge1.alignment}');
-  print('LinearBorderEdge default: size=${edge1.size}, alignment=${edge1.alignment}');
+  results.add(
+    'LinearBorderEdge default: size=${edge1.size}, align=${edge1.alignment}',
+  );
+  print(
+    'LinearBorderEdge default: size=${edge1.size}, alignment=${edge1.alignment}',
+  );
 
   // Test 2: LinearBorderEdge with custom size
   final edge2 = LinearBorderEdge(size: 0.5);
@@ -32,8 +36,12 @@ dynamic build(BuildContext context) {
   final edge4 = LinearBorderEdge(size: 0.75, alignment: -1.0);
   assert(edge4.size == 0.75, 'Size should be 0.75');
   assert(edge4.alignment == -1.0, 'Alignment should be -1.0');
-  results.add('LinearBorderEdge full: size=${edge4.size}, align=${edge4.alignment}');
-  print('LinearBorderEdge custom: size=${edge4.size}, alignment=${edge4.alignment}');
+  results.add(
+    'LinearBorderEdge full: size=${edge4.size}, align=${edge4.alignment}',
+  );
+  print(
+    'LinearBorderEdge custom: size=${edge4.size}, alignment=${edge4.alignment}',
+  );
 
   // Test 5: LinearBorderEdge alignment at start (-1.0)
   final edgeStart = LinearBorderEdge(size: 0.5, alignment: -1.0);
@@ -66,8 +74,12 @@ dynamic build(BuildContext context) {
   assert(lerped != null, 'Lerped edge should not be null');
   assert(lerped!.size == 0.5, 'Lerped size should be 0.5');
   assert(lerped.alignment == 0.0, 'Lerped alignment should be 0.0');
-  results.add('LinearBorderEdge lerp: size=${lerped.size}, align=${lerped.alignment}');
-  print('LinearBorderEdge lerp: size=${lerped.size}, alignment=${lerped.alignment}');
+  results.add(
+    'LinearBorderEdge lerp: size=${lerped.size}, align=${lerped.alignment}',
+  );
+  print(
+    'LinearBorderEdge lerp: size=${lerped.size}, alignment=${lerped.alignment}',
+  );
 
   // Test 10: LinearBorderEdge small size
   final edgeSmall = LinearBorderEdge(size: 0.1);

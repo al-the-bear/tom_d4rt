@@ -135,7 +135,9 @@ dynamic build(BuildContext context) {
     ..rotateZ(math.pi / 6)
     ..scale(1.5, 1.5);
   final extractedTrans = complexTransform.getTranslation();
-  results.add('Extracted translation: (${extractedTrans.x.toStringAsFixed(1)}, ${extractedTrans.y.toStringAsFixed(1)})');
+  results.add(
+    'Extracted translation: (${extractedTrans.x.toStringAsFixed(1)}, ${extractedTrans.y.toStringAsFixed(1)})',
+  );
   print('Translation extracted');
 
   // Check if perspective
@@ -195,13 +197,18 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('TransformProperty Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+      Text(
+        'TransformProperty Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+      ),
       Text('Total tests: ${results.length}', style: TextStyle(fontSize: 14)),
       Divider(),
-      ...results.map((r) => Padding(
-        padding: EdgeInsets.symmetric(vertical: 2),
-        child: Text(r, style: TextStyle(fontSize: 11)),
-      )),
+      ...results.map(
+        (r) => Padding(
+          padding: EdgeInsets.symmetric(vertical: 2),
+          child: Text(r, style: TextStyle(fontSize: 11)),
+        ),
+      ),
     ],
   );
 }

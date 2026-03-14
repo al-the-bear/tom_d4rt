@@ -14,7 +14,10 @@ dynamic build(BuildContext context) {
 
   // Test 1: GestureBinding is HitTestDispatcher
   final binding = GestureBinding.instance;
-  assert(binding is HitTestDispatcher, 'GestureBinding should implement HitTestDispatcher');
+  assert(
+    binding is HitTestDispatcher,
+    'GestureBinding should implement HitTestDispatcher',
+  );
   results.add('GestureBinding is HitTestDispatcher: true');
   print('GestureBinding is HitTestDispatcher: ${binding is HitTestDispatcher}');
 
@@ -138,4 +141,3 @@ dynamic build(BuildContext context) {
     ],
   );
 }
-

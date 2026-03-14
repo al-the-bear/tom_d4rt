@@ -45,7 +45,10 @@ dynamic build(BuildContext context) {
   print('Offset from origin: ${details.offsetFromOrigin}');
 
   // Test 6: Local offset from origin
-  assert(details.localOffsetFromOrigin == Offset(50.0, 50.0), 'Local offset should match');
+  assert(
+    details.localOffsetFromOrigin == Offset(50.0, 50.0),
+    'Local offset should match',
+  );
   results.add('Local offset from origin: ${details.localOffsetFromOrigin}');
   print('Local offset from origin: ${details.localOffsetFromOrigin}');
 
@@ -65,18 +68,26 @@ dynamic build(BuildContext context) {
     localOffsetFromOrigin: Offset(100.0, 100.0),
   );
   assert(doubleTapUpdate.consecutiveTapCount == 2, 'Count should be 2');
-  results.add('Double tap update: count=${doubleTapUpdate.consecutiveTapCount}');
+  results.add(
+    'Double tap update: count=${doubleTapUpdate.consecutiveTapCount}',
+  );
   print('Double tap drag update: count=${doubleTapUpdate.consecutiveTapCount}');
 
   // Test 9: Delta distance
   final deltaDistance = details.delta.distance;
-  assert((deltaDistance - 70.71).abs() < 0.1, 'Delta distance should be ~70.71');
+  assert(
+    (deltaDistance - 70.71).abs() < 0.1,
+    'Delta distance should be ~70.71',
+  );
   results.add('Delta distance: ${deltaDistance.toStringAsFixed(2)}');
   print('Delta distance: ${deltaDistance.toStringAsFixed(2)}');
 
   // Test 10: Total drag distance
   final totalDistance = details.offsetFromOrigin.distance;
-  assert((totalDistance - 70.71).abs() < 0.1, 'Total distance should be ~70.71');
+  assert(
+    (totalDistance - 70.71).abs() < 0.1,
+    'Total distance should be ~70.71',
+  );
   results.add('Total distance: ${totalDistance.toStringAsFixed(2)}');
   print('Total drag distance from origin: ${totalDistance.toStringAsFixed(2)}');
 
@@ -99,7 +110,9 @@ dynamic build(BuildContext context) {
   final timeInterval = Duration(milliseconds: 16);
   final velocityX = details.delta.dx / (timeInterval.inMilliseconds / 1000.0);
   final velocityY = details.delta.dy / (timeInterval.inMilliseconds / 1000.0);
-  results.add('Velocity estimate: (${velocityX.toStringAsFixed(0)}, ${velocityY.toStringAsFixed(0)}) px/s');
+  results.add(
+    'Velocity estimate: (${velocityX.toStringAsFixed(0)}, ${velocityY.toStringAsFixed(0)}) px/s',
+  );
   print('Velocity estimate: ($velocityX, $velocityY) px/s');
 
   // Test 15: Mouse device update
@@ -135,6 +148,7 @@ dynamic build(BuildContext context) {
   void onDragUpdate(TapDragUpdateDetails d) {
     capturedUpdate = d;
   }
+
   onDragUpdate(details);
   assert(capturedUpdate != null, 'Should capture update');
   results.add('Callback pattern works');
@@ -155,14 +169,21 @@ dynamic build(BuildContext context) {
   print('Device kind: ${details.kind}');
 
   // Test 20: Summary
-  results.add('Properties: globalPosition, localPosition, delta, offsetFromOrigin, localOffsetFromOrigin, kind, consecutiveTapCount');
-  print('TapDragUpdateDetails: continuous drag updates with delta and cumulative offset');
+  results.add(
+    'Properties: globalPosition, localPosition, delta, offsetFromOrigin, localOffsetFromOrigin, kind, consecutiveTapCount',
+  );
+  print(
+    'TapDragUpdateDetails: continuous drag updates with delta and cumulative offset',
+  );
 
   print('TapDragUpdateDetails test completed with ${results.length} tests');
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('TapDragUpdateDetails Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      Text(
+        'TapDragUpdateDetails Tests',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
       Text('Properties: position (global/local)'),
       Text('Properties: delta, offsetFromOrigin'),
       Text('Properties: kind, consecutiveTapCount'),

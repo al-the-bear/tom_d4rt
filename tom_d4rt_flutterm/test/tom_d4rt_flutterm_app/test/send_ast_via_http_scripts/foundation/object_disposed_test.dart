@@ -88,7 +88,10 @@ dynamic build(BuildContext context) {
   print('Memory tracking disabled in release builds');
 
   // Test 15: Event runtime type
-  assert(event1.runtimeType.toString() == 'ObjectDisposed', 'Runtime type should match');
+  assert(
+    event1.runtimeType.toString() == 'ObjectDisposed',
+    'Runtime type should match',
+  );
   results.add('Runtime type: ${event1.runtimeType}');
   print('Runtime type: ${event1.runtimeType}');
 
@@ -122,7 +125,10 @@ dynamic build(BuildContext context) {
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('ObjectDisposed Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      Text(
+        'ObjectDisposed Tests',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
       Text('Constructor: ObjectDisposed(object: obj)'),
       Text('Inheritance: ObjectEvent'),
       Text('Purpose: Track object disposal for memory analysis'),
