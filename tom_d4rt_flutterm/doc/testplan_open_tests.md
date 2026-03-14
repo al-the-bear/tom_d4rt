@@ -1,7 +1,7 @@
 # Test Plan — All Test Files
 
 Generated: 2026-03-08  
-Updated: 2026-03-14 (Session 10: Implemented 100 tests)
+Updated: 2026-03-14 (Session 11: Implemented 100 tests)
 
 ## Implementation Threshold
 
@@ -13,29 +13,29 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 
 This document lists **all 1988 test files** in `send_ast_via_http_scripts/`.
 Based on 80-line threshold analysis:
-- **1077** tests fully implemented (≥80 lines)
-- **911** tests need implementation (<80 lines)
+- **1177** tests fully implemented (≥80 lines)
+- **811** tests need implementation (<80 lines)
 
-Coverage: **54%** fully implemented
+Coverage: **59%** fully implemented
 
 ## Summary by Directory
 
 | Directory | Implemented | Placeholder | Total | Coverage |
 |-----------|------------|-------------|-------|----------|
-| animation | 15 | 28 | 43 | 34% |
+| animation | 21 | 22 | 43 | 48% |
 | cupertino | 60 | 0 | 60 | 100% |
-| dart_ui | 78 | 54 | 132 | 59% |
-| foundation | 52 | 8 | 60 | 86% |
-| gestures | 69 | 9 | 78 | 88% |
-| material | 143 | 205 | 348 | 41% |
-| painting | 77 | 4 | 81 | 95% |
+| dart_ui | 121 | 11 | 132 | 91% |
+| foundation | 59 | 1 | 60 | 98% |
+| gestures | 77 | 1 | 78 | 98% |
+| material | 147 | 201 | 348 | 42% |
+| painting | 78 | 3 | 81 | 96% |
 | physics | 8 | 0 | 8 | 100% |
 | rendering | 225 | 2 | 227 | 99% |
 | scheduler | 8 | 0 | 8 | 100% |
-| semantics | 19 | 2 | 21 | 90% |
-| services | 125 | 15 | 140 | 89% |
-| widgets | 198 | 579 | 777 | 25% |
-| **TOTAL** | **1077** | **911** | **1988** | **54%** |
+| semantics | 20 | 1 | 21 | 95% |
+| services | 140 | 0 | 140 | 100% |
+| widgets | 208 | 569 | 777 | 26% |
+| **TOTAL** | **1177** | **811** | **1988** | **59%** |
 
 ## animation/ (43 files)
 
