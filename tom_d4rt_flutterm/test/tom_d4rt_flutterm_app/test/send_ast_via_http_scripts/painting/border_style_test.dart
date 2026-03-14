@@ -1,30 +1,181 @@
-// D4rt test script: Tests BorderStyle from painting
+import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:flutter/widgets.dart';
+
+class _EnumHolder<T> {
+  const _EnumHolder({
+    required this.value,
+    required this.label,
+  });
+
+  final T value;
+  final String label;
+
+  String get pair => '$label:$value';
+}
+
+class _RunStats {
+  const _RunStats({
+    required this.checks,
+    required this.failures,
+  });
+
+  final int checks;
+  final int failures;
+}
+
+void _check({
+  required bool condition,
+  required String message,
+  required List<String> logs,
+  required List<String> failures,
+}) {
+  if (condition) {
+    logs.add('PASS: $message');
+    return;
+  }
+
+  logs.add('FAIL: $message');
+  failures.add(message);
+  assert(condition, message);
+}
 
 dynamic build(BuildContext context) {
-  print('BorderStyle test executing');
+  final logs = <String>[];
+  final failures = <String>[];
+  var checks = 0;
 
-  // Enumerate all BorderStyle values
-  print('BorderStyle values:');
-  for (final value in BorderStyle.values) {
-    print('  ${value.name}: $value');
+  logs.add('Starting BorderStyle checks');
+
+  final values = BorderStyle.values;
+  _check(
+    condition: values.isNotEmpty,
+    message: 'values list is not empty',
+    logs: logs,
+    failures: failures,
+  );
+  checks++;
+
+  final holders = values
+      .map(
+        (value) => _EnumHolder<BorderStyle>(
+          value: value,
+          label: value.name,
+        ),
+      )
+      .toList(growable: false);
+
+  _check(
+    condition: holders.length == values.length,
+    message: 'holder count matches enum value count',
+    logs: logs,
+    failures: failures,
+  );
+  checks++;
+
+  final first = values.first;
+  final last = values.last;
+
+  _check(
+    condition: first.index == 0,
+    message: 'first enum index is 0',
+    logs: logs,
+    failures: failures,
+  );
+  checks++;
+
+  _check(
+    condition: last.index == values.length - 1,
+    message: 'last enum index is values.length - 1',
+    logs: logs,
+    failures: failures,
+  );
+  checks++;
+
+  final uniqueNames = values.map((value) => value.name).toSet();
+  _check(
+    condition: uniqueNames.length == values.length,
+    message: 'enum names are unique',
+    logs: logs,
+    failures: failures,
+  );
+  checks++;
+
+  final allRoundTrips = values
+      .map((value) => BorderStyle.values.byName(value.name) == value)
+      .every((isMatch) => isMatch);
+  _check(
+    condition: allRoundTrips,
+    message: 'all names round-trip with byName',
+    logs: logs,
+    failures: failures,
+  );
+  checks++;
+
+  var invalidNameThrows = false;
+  try {
+    BorderStyle.values.byName('__BorderStyle_invalid__');
+  } catch (_) {
+    invalidNameThrows = true;
   }
-  print('BorderStyle has ${ BorderStyle.values.length} values');
 
-  final first = BorderStyle.values.first;
-  final last = BorderStyle.values.last;
-  print('First: $first, Last: $last');
-  print('First index: ${first.index}, Last index: ${last.index}');
+  _check(
+    condition: invalidNameThrows,
+    message: 'invalid byName lookup throws',
+    logs: logs,
+    failures: failures,
+  );
+  checks++;
 
-  print('BorderStyle test completed');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
+  final namesFromHolders = holders.map((holder) => holder.label).toList();
+  _check(
+    condition: namesFromHolders.first == first.name,
+    message: 'holder label reflects first enum name',
+    logs: logs,
+    failures: failures,
+  );
+  checks++;
+
+  final pairPreview = holders.map((holder) => holder.pair).join(' | ');
+  _check(
+    condition: pairPreview.contains(first.name),
+    message: 'pair preview includes first enum name',
+    logs: logs,
+    failures: failures,
+  );
+  checks++;
+
+  final sortedByIndex = [...values]..sort((a, b) => a.index.compareTo(b.index));
+  _check(
+    condition: sortedByIndex.first == first && sortedByIndex.last == last,
+    message: 'sorting by index keeps first/last boundaries',
+    logs: logs,
+    failures: failures,
+  );
+  checks++;
+
+  final stats = _RunStats(checks: checks, failures: failures.length);
+  final summary =
+      'BorderStyle summary: checks=${stats.checks}, failures=${stats.failures}, values=${values.length}';
+
+  print(summary);
+  for (final line in logs) {
+    print(line);
+  }
+
+  return ListView(
+    padding: const EdgeInsets.all(12),
     children: [
-      Text('BorderStyle Tests'),
-      Text('Values: ${ BorderStyle.values.length}'),
-      Text('First: $first'),
-      Text('Last: $last'),
+      const Text(
+        'BorderStyle Test Summary',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+      Text(summary),
+      Text('Context: ${context.runtimeType}'),
+      Text('First: ${first.name} (${first.index})'),
+      Text('Last: ${last.name} (${last.index})'),
+      Text('Pairs: $pairPreview'),
+      const SizedBox(height: 8),
+      ...logs.map(Text.new),
     ],
   );
 }
