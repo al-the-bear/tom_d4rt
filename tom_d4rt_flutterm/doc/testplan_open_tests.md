@@ -1,30 +1,36 @@
 # Test Plan — All Test Files
 
-Generated: 2026-03-08
+Generated: 2026-03-08  
+Updated: 2026-03-14 (Session 4: ~100 rendering/dart_ui tests implemented)
 
 ## Overview
 
-This document lists **all 1982 test files** in `send_ast_via_http_scripts/`.
-**593** tests are implemented, **1389** are placeholders needing real test content.
+This document lists **all 1988 test files** in `send_ast_via_http_scripts/`.
+Based on line count analysis:
+- **1285** tests implemented (≥60 lines)
+- **331** tests partial (26-59 lines)
+- **372** tests are placeholders (≤25 lines)
+
+Coverage: **65%** fully implemented, **81%** if counting partial tests
 
 ## Summary by Directory
 
 | Directory | Implemented | Placeholder | Total | Coverage |
 |-----------|------------|-------------|-------|----------|
-| animation | 10 | 33 | 43 | 23% |
-| cupertino | 35 | 25 | 60 | 58% |
-| dart_ui | 62 | 69 | 131 | 47% |
-| foundation | 14 | 46 | 60 | 23% |
-| gestures | 11 | 67 | 78 | 14% |
-| material | 138 | 210 | 348 | 40% |
-| painting | 36 | 45 | 81 | 44% |
-| physics | 4 | 4 | 8 | 50% |
-| rendering | 47 | 180 | 227 | 21% |
-| scheduler | 5 | 3 | 8 | 63% |
-| semantics | 6 | 15 | 21 | 29% |
-| services | 34 | 106 | 140 | 24% |
-| widgets | 191 | 586 | 777 | 25% |
-| **TOTAL** | **593** | **1389** | **1982** | **30%** |
+| animation | 43 | 0 | 43 | 100% |
+| cupertino | 60 | 0 | 60 | 100% |
+| dart_ui | 131 | 0 | 131 | 100% |
+| foundation | 60 | 0 | 60 | 100% |
+| gestures | 78 | 0 | 78 | 100% |
+| material | 348 | 0 | 348 | 100% |
+| painting | 79 | 2 | 81 | 98% |
+| physics | 8 | 0 | 8 | 100% |
+| rendering | 150 | 77 | 227 | 66% |
+| scheduler | 8 | 0 | 8 | 100% |
+| semantics | 21 | 0 | 21 | 100% |
+| services | 140 | 0 | 140 | 100% |
+| widgets | 490 | 287 | 777 | 63% |
+| **TOTAL** | **1616** | **372** | **1988** | **81%** |
 
 ## animation/ (43 files)
 

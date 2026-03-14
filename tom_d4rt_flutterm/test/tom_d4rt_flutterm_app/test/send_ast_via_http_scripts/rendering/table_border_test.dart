@@ -1,20 +1,177 @@
 // D4rt test script: Tests TableBorder from rendering
+import 'dart:ui';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {
   print('TableBorder test executing');
+  final results = <String>[];
 
-  // Test TableBorder - Table border
-  print('TableBorder is available in the rendering package');
-  print('TableBorder: Table border');
+  // ========== Section 1: Basic TableBorder Creation ==========
+  print('--- Section 1: Basic TableBorder Creation ---');
+  
+  final border1 = TableBorder();
+  print('Created default TableBorder: ${border1.runtimeType}');
+  print('Default top: ${border1.top}');
+  print('Default right: ${border1.right}');
+  print('Default bottom: ${border1.bottom}');
+  print('Default left: ${border1.left}');
+  results.add('Basic creation successful');
+
+  // ========== Section 2: TableBorder with All Sides ==========
+  print('--- Section 2: TableBorder with All Sides ---');
+  
+  final borderSide = BorderSide(color: Color(0xFF000000), width: 2.0);
+  final border2 = TableBorder(
+    top: borderSide,
+    right: borderSide,
+    bottom: borderSide,
+    left: borderSide,
+  );
+  print('Border with sides - top width: ${border2.top.width}');
+  print('Border with sides - right width: ${border2.right.width}');
+  print('Border with sides - bottom width: ${border2.bottom.width}');
+  print('Border with sides - left width: ${border2.left.width}');
+  results.add('All sides: width=2.0');
+
+  // ========== Section 3: TableBorder.all Factory ==========
+  print('--- Section 3: TableBorder.all Factory ---');
+  
+  final borderAll = TableBorder.all(
+    color: Color(0xFFFF0000),
+    width: 1.5,
+  );
+  print('TableBorder.all top width: ${borderAll.top.width}');
+  print('TableBorder.all top color: ${borderAll.top.color}');
+  print('TableBorder.all horizontalInside width: ${borderAll.horizontalInside.width}');
+  print('TableBorder.all verticalInside width: ${borderAll.verticalInside.width}');
+  results.add('TableBorder.all: width=1.5, color=red');
+
+  // ========== Section 4: TableBorder.symmetric Factory ==========
+  print('--- Section 4: TableBorder.symmetric Factory ---');
+  
+  final outsideSide = BorderSide(color: Color(0xFF0000FF), width: 2.0);
+  final insideSide = BorderSide(color: Color(0xFF00FF00), width: 1.0);
+  final borderSymmetric = TableBorder.symmetric(
+    outside: outsideSide,
+    inside: insideSide,
+  );
+  print('Symmetric - top width: ${borderSymmetric.top.width}');
+  print('Symmetric - horizontalInside width: ${borderSymmetric.horizontalInside.width}');
+  print('Symmetric - verticalInside width: ${borderSymmetric.verticalInside.width}');
+  results.add('TableBorder.symmetric: outside=2, inside=1');
+
+  // ========== Section 5: Horizontal and Vertical Inside ==========
+  print('--- Section 5: Horizontal and Vertical Inside ---');
+  
+  final border3 = TableBorder(
+    top: BorderSide(width: 1.0),
+    bottom: BorderSide(width: 1.0),
+    left: BorderSide(width: 1.0),
+    right: BorderSide(width: 1.0),
+    horizontalInside: BorderSide(width: 0.5, color: Color(0xFFCCCCCC)),
+    verticalInside: BorderSide(width: 0.5, color: Color(0xFFCCCCCC)),
+  );
+  print('horizontalInside width: ${border3.horizontalInside.width}');
+  print('verticalInside width: ${border3.verticalInside.width}');
+  print('horizontalInside color: ${border3.horizontalInside.color}');
+  results.add('Inside borders: width=0.5');
+
+  // ========== Section 6: Border Radius ==========
+  print('--- Section 6: Border Radius ---');
+  
+  final borderWithRadius = TableBorder(
+    top: BorderSide(width: 1.0),
+    bottom: BorderSide(width: 1.0),
+    left: BorderSide(width: 1.0),
+    right: BorderSide(width: 1.0),
+    borderRadius: BorderRadius.circular(8.0),
+  );
+  print('Border radius: ${borderWithRadius.borderRadius}');
+  print('Top left radius: ${borderWithRadius.borderRadius.topLeft}');
+  print('Bottom right radius: ${borderWithRadius.borderRadius.bottomRight}');
+  results.add('Border radius: 8.0');
+
+  // ========== Section 7: Various Border Widths ==========
+  print('--- Section 7: Various Border Widths ---');
+  
+  final widths = [0.5, 1.0, 1.5, 2.0, 3.0, 5.0];
+  for (final width in widths) {
+    final border = TableBorder.all(width: width);
+    print('Border width $width: top=${border.top.width}');
+  }
+  results.add('Tested ${widths.length} border widths');
+
+  // ========== Section 8: Various Colors ==========
+  print('--- Section 8: Various Colors ---');
+  
+  final colors = [
+    Color(0xFF000000), // Black
+    Color(0xFFFF0000), // Red
+    Color(0xFF00FF00), // Green
+    Color(0xFF0000FF), // Blue
+    Color(0xFFFFFFFF), // White
+  ];
+  for (final color in colors) {
+    final border = TableBorder.all(color: color);
+    print('Border color $color: ${border.top.color}');
+  }
+  results.add('Tested ${colors.length} colors');
+
+  // ========== Section 9: isUniform Property ==========
+  print('--- Section 9: isUniform Property ---');
+  
+  final uniformBorder = TableBorder.all(width: 1.0, color: Color(0xFF000000));
+  print('Uniform border isUniform: ${uniformBorder.isUniform}');
+  
+  final nonUniformBorder = TableBorder(
+    top: BorderSide(width: 1.0),
+    bottom: BorderSide(width: 2.0),
+  );
+  print('Non-uniform border isUniform: ${nonUniformBorder.isUniform}');
+  results.add('isUniform tested');
+
+  // ========== Section 10: dimensions Property ==========
+  print('--- Section 10: dimensions Property ---');
+  
+  final border4 = TableBorder.all(width: 2.0);
+  print('dimensions: ${border4.dimensions}');
+  print('dimensions.horizontal: ${border4.dimensions.horizontal}');
+  print('dimensions.vertical: ${border4.dimensions.vertical}');
+  results.add('dimensions tested');
+
+  // ========== Section 11: scale Method ==========
+  print('--- Section 11: scale Method ---');
+  
+  final originalBorder = TableBorder.all(width: 2.0);
+  final scaledBorder = originalBorder.scale(0.5);
+  print('Original width: ${originalBorder.top.width}');
+  print('Scaled (0.5) width: ${scaledBorder.top.width}');
+  
+  final scaledBorder2 = originalBorder.scale(2.0);
+  print('Scaled (2.0) width: ${scaledBorder2.top.width}');
+  results.add('scale method tested');
+
+  // ========== Section 12: lerp Static Method ==========
+  print('--- Section 12: lerp Static Method ---');
+  
+  final borderA = TableBorder.all(width: 1.0);
+  final borderB = TableBorder.all(width: 3.0);
+  
+  final lerpHalf = TableBorder.lerp(borderA, borderB, 0.5);
+  print('Lerp 0.5 width: ${lerpHalf?.top.width}');
+  
+  final lerpQuarter = TableBorder.lerp(borderA, borderB, 0.25);
+  print('Lerp 0.25 width: ${lerpQuarter?.top.width}');
+  results.add('lerp method tested');
 
   print('TableBorder test completed');
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('TableBorder Tests'),
-      Text('Table border'),
+      Text('Results: ${results.length} sections'),
+      ...results.map((r) => Text(r)),
     ],
   );
 }
