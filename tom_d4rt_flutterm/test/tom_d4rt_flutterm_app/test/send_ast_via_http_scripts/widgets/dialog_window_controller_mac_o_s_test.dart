@@ -23,7 +23,13 @@ Widget _buildSummaryCard({
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('D4rt widgets test: $title', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              Text(
+                'D4rt widgets test: $title',
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               const SizedBox(height: 8),
               Text('Assertions passed: ' + assertions.length.toString()),
               const SizedBox(height: 8),
@@ -39,7 +45,6 @@ Widget _buildSummaryCard({
     ),
   );
 }
-
 
 dynamic build(BuildContext context) {
   print('=== Running comprehensive DialogWindowControllerMacOS script ===');
@@ -60,11 +65,20 @@ dynamic build(BuildContext context) {
   detailLines.add('buildContextType=' + context.runtimeType.toString());
   detailLines.add('targetType=' + targetTypeName);
 
-  check(targetTypeName == 'DialogWindowControllerMacOS', 'Target type symbol resolves');
+  check(
+    targetTypeName == 'DialogWindowControllerMacOS',
+    'Target type symbol resolves',
+  );
   check(uiProbeA.key != null, 'First probe widget is instantiated');
   check(uiProbeB.key != null, 'Second probe widget is instantiated');
-  check(uiProbeA.runtimeType.toString().contains('Container'), 'Probe A runtime type is stable');
-  check(uiProbeB.runtimeType.toString().contains('Container'), 'Probe B runtime type is stable');
+  check(
+    uiProbeA.runtimeType.toString().contains('Container'),
+    'Probe A runtime type is stable',
+  );
+  check(
+    uiProbeB.runtimeType.toString().contains('Container'),
+    'Probe B runtime type is stable',
+  );
 
   detailLines.add('probeAType=${uiProbeA.runtimeType}');
   detailLines.add('probeBType=${uiProbeB.runtimeType}');
@@ -102,7 +116,10 @@ dynamic build(BuildContext context) {
   print('=== Script completed successfully ===');
 
   return _buildSummaryCard(
-    title: detailLines.firstWhere((String line) => line.startsWith('target=')).split('=').last,
+    title: detailLines
+        .firstWhere((String line) => line.startsWith('target='))
+        .split('=')
+        .last,
     assertions: assertionLog,
     details: detailLines,
   );

@@ -14,16 +14,27 @@ dynamic build(BuildContext context) {
   final logs = <String>[];
   var assertionCount = 0;
 
-
   const icon = BackButtonIcon();
   _expect(icon is BackButtonIcon, 'instantiates BackButtonIcon', logs);
   assertionCount++;
-  _expect(icon.runtimeType.toString().contains('BackButtonIcon'), 'runtimeType confirms class usage', logs);
+  _expect(
+    icon.runtimeType.toString().contains('BackButtonIcon'),
+    'runtimeType confirms class usage',
+    logs,
+  );
   assertionCount++;
   const icon2 = BackButtonIcon();
-  _expect(icon2.toStringShort().isNotEmpty, 'second instance has diagnostics text', logs);
+  _expect(
+    icon2.toStringShort().isNotEmpty,
+    'second instance has diagnostics text',
+    logs,
+  );
   assertionCount++;
-  _expect(icon.toStringShort().contains('BackButtonIcon'), 'string representation available', logs);
+  _expect(
+    icon.toStringShort().contains('BackButtonIcon'),
+    'string representation available',
+    logs,
+  );
   assertionCount++;
 
   _expect(assertionCount >= 3, 'ensures multiple assertions executed', logs);
@@ -33,7 +44,9 @@ dynamic build(BuildContext context) {
   _expect(passLogs > 0, 'log collection contains pass entries', logs);
   assertionCount++;
 
-  for (final line in logs) { print(line); }
+  for (final line in logs) {
+    print(line);
+  }
   print('=== BackButtonIcon comprehensive test complete ===');
 
   return Column(

@@ -24,7 +24,13 @@ Widget _buildSummaryCard({
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('D4rt widgets test: \$title', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              Text(
+                'D4rt widgets test: \$title',
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               const SizedBox(height: 8),
               Text('Assertions passed: ' + assertions.length.toString()),
               const SizedBox(height: 8),
@@ -40,7 +46,6 @@ Widget _buildSummaryCard({
     ),
   );
 }
-
 
 dynamic build(BuildContext context) {
   print('=== Running comprehensive KeySet script ===');
@@ -65,9 +70,15 @@ dynamic build(BuildContext context) {
   // KeySet: a set of keys for shortcuts
   final KeySet singleKey = KeySet(LogicalKeyboardKey.keyA);
   check(singleKey.keys.length == 1, 'Single key set has 1 key');
-  final KeySet comboKey = KeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyC);
+  final KeySet comboKey = KeySet(
+    LogicalKeyboardKey.control,
+    LogicalKeyboardKey.keyC,
+  );
   check(comboKey.keys.length == 2, 'Combo key set has 2 keys');
-  check(comboKey.keys.contains(LogicalKeyboardKey.control), 'Contains control key');
+  check(
+    comboKey.keys.contains(LogicalKeyboardKey.control),
+    'Contains control key',
+  );
   check(comboKey.keys.contains(LogicalKeyboardKey.keyC), 'Contains C key');
   detailLines.add('singleKeyCount=' + singleKey.keys.length.toString());
   detailLines.add('comboKeyCount=' + comboKey.keys.length.toString());
@@ -106,7 +117,10 @@ dynamic build(BuildContext context) {
   print('=== Script completed successfully ===');
 
   return _buildSummaryCard(
-    title: detailLines.firstWhere((String line) => line.startsWith('target=')).split('=').last,
+    title: detailLines
+        .firstWhere((String line) => line.startsWith('target='))
+        .split('=')
+        .last,
     assertions: assertionLog,
     details: detailLines,
   );

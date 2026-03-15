@@ -23,7 +23,13 @@ Widget _buildSummaryCard({
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('D4rt Material test: $title', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              Text(
+                'D4rt Material test: $title',
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               const SizedBox(height: 8),
               Text('Assertions passed: ' + assertions.length.toString()),
               const SizedBox(height: 8),
@@ -39,7 +45,6 @@ Widget _buildSummaryCard({
     ),
   );
 }
-
 
 dynamic build(BuildContext context) {
   print('=== Running comprehensive IconButtonThemeData script ===');
@@ -64,11 +69,28 @@ dynamic build(BuildContext context) {
     ),
   );
 
-  check(defaultData.style == null, 'Default IconButtonThemeData has nullable style');
-  check(configuredData.style != null, 'Configured IconButtonThemeData stores style');
-  check(configuredData.style!.iconSize?.resolve(<WidgetState>{}) == 28, 'Configured iconSize resolves to 28');
-  check(configuredData.style!.foregroundColor?.resolve(<WidgetState>{}) == Colors.red, 'Configured foregroundColor resolves to red');
-  check(configuredData.style!.backgroundColor?.resolve(<WidgetState>{}) == Colors.black, 'Configured backgroundColor resolves to black');
+  check(
+    defaultData.style == null,
+    'Default IconButtonThemeData has nullable style',
+  );
+  check(
+    configuredData.style != null,
+    'Configured IconButtonThemeData stores style',
+  );
+  check(
+    configuredData.style!.iconSize?.resolve(<WidgetState>{}) == 28,
+    'Configured iconSize resolves to 28',
+  );
+  check(
+    configuredData.style!.foregroundColor?.resolve(<WidgetState>{}) ==
+        Colors.red,
+    'Configured foregroundColor resolves to red',
+  );
+  check(
+    configuredData.style!.backgroundColor?.resolve(<WidgetState>{}) ==
+        Colors.black,
+    'Configured backgroundColor resolves to black',
+  );
   detailLines.add('defaultData.hashCode=${defaultData.hashCode}');
   detailLines.add('configuredData.hashCode=${configuredData.hashCode}');
 
@@ -93,7 +115,10 @@ dynamic build(BuildContext context) {
   }
 
   check(coverageChecklist.length >= 10, 'Coverage checklist populated');
-  check(coverageChecklist.contains('summary widget returned'), 'Coverage includes summary widget return check');
+  check(
+    coverageChecklist.contains('summary widget returned'),
+    'Coverage includes summary widget return check',
+  );
 
   check(assertionLog.length >= 5, 'At least five assertions executed');
   check(detailLines.isNotEmpty, 'Detail lines were collected');
@@ -103,7 +128,10 @@ dynamic build(BuildContext context) {
   print('=== Script completed successfully ===');
 
   return _buildSummaryCard(
-    title: detailLines.firstWhere((String line) => line.startsWith('target=')).split('=').last,
+    title: detailLines
+        .firstWhere((String line) => line.startsWith('target='))
+        .split('=')
+        .last,
     assertions: assertionLog,
     details: detailLines,
   );

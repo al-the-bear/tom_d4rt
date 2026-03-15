@@ -2,7 +2,8 @@
 import 'package:flutter/animation.dart';
 import 'package:flutter/widgets.dart';
 
-class _ProxyAnimation extends Animation<double> with AnimationWithParentMixin<double> {
+class _ProxyAnimation extends Animation<double>
+    with AnimationWithParentMixin<double> {
   _ProxyAnimation(this.parent);
 
   @override
@@ -28,20 +29,45 @@ dynamic build(BuildContext context) {
   const parent = AlwaysStoppedAnimation<double>(0.6);
   final proxy = _ProxyAnimation(parent);
 
-  _expect(proxy.parent == parent, 'proxy stores parent animation', logs); assertionCount++;
-  _expect((proxy.value - 0.6).abs() < 0.0001, 'value delegates to parent', logs); assertionCount++;
-  _expect(proxy.status == AnimationStatus.forward, 'status delegates to parent', logs); assertionCount++;
+  _expect(proxy.parent == parent, 'proxy stores parent animation', logs);
+  assertionCount++;
+  _expect(
+    (proxy.value - 0.6).abs() < 0.0001,
+    'value delegates to parent',
+    logs,
+  );
+  assertionCount++;
+  _expect(
+    proxy.status == AnimationStatus.forward,
+    'status delegates to parent',
+    logs,
+  );
+  assertionCount++;
 
   final driven = proxy.drive(Tween<double>(begin: 0.0, end: 10.0));
-  _expect((driven.value - 6.0).abs() < 0.0001, 'drive uses delegated value', logs); assertionCount++;
+  _expect(
+    (driven.value - 6.0).abs() < 0.0001,
+    'drive uses delegated value',
+    logs,
+  );
+  assertionCount++;
 
   final curved = proxy.drive(CurveTween(curve: Curves.easeInOut));
-  _expect(curved.value >= 0.0 && curved.value <= 1.0, 'curved drive remains in range', logs); assertionCount++;
+  _expect(
+    curved.value >= 0.0 && curved.value <= 1.0,
+    'curved drive remains in range',
+    logs,
+  );
+  assertionCount++;
 
-  _expect(proxy.isDismissed == false, 'edge check for dismissed state', logs); assertionCount++;
-  _expect(proxy.isCompleted == false, 'edge check for completed state', logs); assertionCount++;
+  _expect(proxy.isDismissed == false, 'edge check for dismissed state', logs);
+  assertionCount++;
+  _expect(proxy.isCompleted == false, 'edge check for completed state', logs);
+  assertionCount++;
 
-  for (final line in logs) { print(line); }
+  for (final line in logs) {
+    print(line);
+  }
   print('=== AnimationWithParentMixin comprehensive test complete ===');
   return Column(
     mainAxisSize: MainAxisSize.min,

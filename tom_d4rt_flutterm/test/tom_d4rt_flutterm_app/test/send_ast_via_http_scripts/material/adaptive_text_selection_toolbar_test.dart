@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 void _expect(bool condition, String message, List<String> logs) {
   if (!condition) {
     logs.add('FAIL: ' + message);
-    throw StateError('AdaptiveTextSelectionToolbar assertion failed: ' + message);
+    throw StateError(
+      'AdaptiveTextSelectionToolbar assertion failed: ' + message,
+    );
   }
   logs.add('PASS: ' + message);
 }
@@ -14,7 +16,6 @@ dynamic build(BuildContext context) {
   final logs = <String>[];
   var assertionCount = 0;
 
-
   final anchors = TextSelectionToolbarAnchors(primaryAnchor: Offset.zero);
   final toolbar = AdaptiveTextSelectionToolbar.buttonItems(
     anchors: anchors,
@@ -23,13 +24,29 @@ dynamic build(BuildContext context) {
       ContextMenuButtonItem(label: 'Paste', onPressed: () {}),
     ],
   );
-  _expect(toolbar is AdaptiveTextSelectionToolbar, 'instantiates AdaptiveTextSelectionToolbar', logs);
+  _expect(
+    toolbar is AdaptiveTextSelectionToolbar,
+    'instantiates AdaptiveTextSelectionToolbar',
+    logs,
+  );
   assertionCount++;
-  _expect((toolbar.buttonItems?.length ?? 0) == 2, 'stores context menu button items', logs);
+  _expect(
+    (toolbar.buttonItems?.length ?? 0) == 2,
+    'stores context menu button items',
+    logs,
+  );
   assertionCount++;
-  _expect(toolbar.anchors.primaryAnchor == Offset.zero, 'stores toolbar anchors', logs);
+  _expect(
+    toolbar.anchors.primaryAnchor == Offset.zero,
+    'stores toolbar anchors',
+    logs,
+  );
   assertionCount++;
-  _expect(toolbar.toStringShort().contains('AdaptiveTextSelectionToolbar'), 'string representation available', logs);
+  _expect(
+    toolbar.toStringShort().contains('AdaptiveTextSelectionToolbar'),
+    'string representation available',
+    logs,
+  );
   assertionCount++;
 
   _expect(assertionCount >= 3, 'ensures multiple assertions executed', logs);
@@ -39,7 +56,9 @@ dynamic build(BuildContext context) {
   _expect(passLogs > 0, 'log collection contains pass entries', logs);
   assertionCount++;
 
-  for (final line in logs) { print(line); }
+  for (final line in logs) {
+    print(line);
+  }
   print('=== AdaptiveTextSelectionToolbar comprehensive test complete ===');
 
   return Column(

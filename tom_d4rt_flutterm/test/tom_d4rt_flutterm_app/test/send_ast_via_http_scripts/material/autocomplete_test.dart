@@ -14,7 +14,6 @@ dynamic build(BuildContext context) {
   final logs = <String>[];
   var assertionCount = 0;
 
-
   final autocomplete = Autocomplete<String>(
     optionsBuilder: (TextEditingValue value) {
       if (value.text.isEmpty) {
@@ -26,12 +25,26 @@ dynamic build(BuildContext context) {
       print('Selected: $selection');
     },
   );
-  _expect(autocomplete is Autocomplete<String>, 'instantiates Autocomplete<String>', logs);
+  _expect(
+    autocomplete is Autocomplete<String>,
+    'instantiates Autocomplete<String>',
+    logs,
+  );
   assertionCount++;
-  final optionsResult = autocomplete.optionsBuilder(const TextEditingValue(text: 'a'));
-  _expect(optionsResult is Iterable<String> && optionsResult.isNotEmpty, 'optionsBuilder returns options', logs);
+  final optionsResult = autocomplete.optionsBuilder(
+    const TextEditingValue(text: 'a'),
+  );
+  _expect(
+    optionsResult is Iterable<String> && optionsResult.isNotEmpty,
+    'optionsBuilder returns options',
+    logs,
+  );
   assertionCount++;
-  _expect(autocomplete.toStringShort().contains('Autocomplete'), 'string representation available', logs);
+  _expect(
+    autocomplete.toStringShort().contains('Autocomplete'),
+    'string representation available',
+    logs,
+  );
   assertionCount++;
 
   _expect(assertionCount >= 3, 'ensures multiple assertions executed', logs);
@@ -41,7 +54,9 @@ dynamic build(BuildContext context) {
   _expect(passLogs > 0, 'log collection contains pass entries', logs);
   assertionCount++;
 
-  for (final line in logs) { print(line); }
+  for (final line in logs) {
+    print(line);
+  }
   print('=== Autocomplete comprehensive test complete ===');
 
   return Column(

@@ -23,7 +23,13 @@ Widget _buildSummaryCard({
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('D4rt Material test: $title', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              Text(
+                'D4rt Material test: $title',
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               const SizedBox(height: 8),
               Text('Assertions passed: ' + assertions.length.toString()),
               const SizedBox(height: 8),
@@ -39,7 +45,6 @@ Widget _buildSummaryCard({
     ),
   );
 }
-
 
 dynamic build(BuildContext context) {
   print('=== Running comprehensive InkDecoration script ===');
@@ -64,11 +69,23 @@ dynamic build(BuildContext context) {
     child: SizedBox(width: 8, height: 8),
   );
 
-  check(inkDecorationType.toString().contains('InkDecoration'), 'InkDecoration type is available');
-  check(inkWidget.decoration is BoxDecoration, 'Ink widget uses a BoxDecoration');
-  check(inkWidgetWithoutDecoration.decoration == null, 'Edge case: Ink can be created without decoration');
+  check(
+    inkDecorationType.toString().contains('InkDecoration'),
+    'InkDecoration type is available',
+  );
+  check(
+    inkWidget.decoration is BoxDecoration,
+    'Ink widget uses a BoxDecoration',
+  );
+  check(
+    inkWidgetWithoutDecoration.decoration == null,
+    'Edge case: Ink can be created without decoration',
+  );
   check(inkWidget.child is Widget, 'Ink widget exposes child');
-  check(inkWidgetWithoutDecoration.child is Widget, 'Ink edge case child exists');
+  check(
+    inkWidgetWithoutDecoration.child is Widget,
+    'Ink edge case child exists',
+  );
   detailLines.add('inkDecorationType=$inkDecorationType');
   detailLines.add('inkWidget.runtimeType=${inkWidget.runtimeType}');
 
@@ -93,7 +110,10 @@ dynamic build(BuildContext context) {
   }
 
   check(coverageChecklist.length >= 10, 'Coverage checklist populated');
-  check(coverageChecklist.contains('summary widget returned'), 'Coverage includes summary widget return check');
+  check(
+    coverageChecklist.contains('summary widget returned'),
+    'Coverage includes summary widget return check',
+  );
 
   check(assertionLog.length >= 5, 'At least five assertions executed');
   check(detailLines.isNotEmpty, 'Detail lines were collected');
@@ -103,7 +123,10 @@ dynamic build(BuildContext context) {
   print('=== Script completed successfully ===');
 
   return _buildSummaryCard(
-    title: detailLines.firstWhere((String line) => line.startsWith('target=')).split('=').last,
+    title: detailLines
+        .firstWhere((String line) => line.startsWith('target='))
+        .split('=')
+        .last,
     assertions: assertionLog,
     details: detailLines,
   );

@@ -23,7 +23,13 @@ Widget _buildSummaryCard({
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('D4rt Material test: $title', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              Text(
+                'D4rt Material test: $title',
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               const SizedBox(height: 8),
               Text('Assertions passed: ' + assertions.length.toString()),
               const SizedBox(height: 8),
@@ -39,7 +45,6 @@ Widget _buildSummaryCard({
     ),
   );
 }
-
 
 dynamic build(BuildContext context) {
   print('=== Running comprehensive HandleThumbShape script ===');
@@ -59,11 +64,20 @@ dynamic build(BuildContext context) {
   final Size enabledDiscrete = thumbShape.getPreferredSize(true, true);
   final Size disabledContinuous = thumbShape.getPreferredSize(false, false);
 
-  check(thumbShape.runtimeType.toString().contains('HandleThumbShape'), 'Runtime type mentions HandleThumbShape');
+  check(
+    thumbShape.runtimeType.toString().contains('HandleThumbShape'),
+    'Runtime type mentions HandleThumbShape',
+  );
   check(enabledDiscrete.width > 0, 'Preferred width is positive');
   check(enabledDiscrete.height > 0, 'Preferred height is positive');
-  check(enabledDiscrete == disabledContinuous, 'Edge case: preferred size is stable across flags');
-  check(enabledDiscrete == const Size(4.0, 44.0), 'Expected documented preferred size');
+  check(
+    enabledDiscrete == disabledContinuous,
+    'Edge case: preferred size is stable across flags',
+  );
+  check(
+    enabledDiscrete == const Size(4.0, 44.0),
+    'Expected documented preferred size',
+  );
   detailLines.add('enabledDiscrete=$enabledDiscrete');
   detailLines.add('disabledContinuous=$disabledContinuous');
 
@@ -96,7 +110,6 @@ dynamic build(BuildContext context) {
   print('Detail count: ${detailLines.length}');
   print('=== Script completed successfully ===');
 
-
   final List<String> paddingLog = <String>[
     'padding-line-1',
     'padding-line-2',
@@ -111,7 +124,10 @@ dynamic build(BuildContext context) {
   }
 
   return _buildSummaryCard(
-    title: detailLines.firstWhere((String line) => line.startsWith('target=')).split('=').last,
+    title: detailLines
+        .firstWhere((String line) => line.startsWith('target='))
+        .split('=')
+        .last,
     assertions: assertionLog,
     details: detailLines,
   );

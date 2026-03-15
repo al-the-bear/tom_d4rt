@@ -16,23 +16,44 @@ dynamic build(BuildContext context) {
   var assertionCount = 0;
 
   const r = Rect.fromLTWH(10.0, 20.0, 40.0, 50.0);
-  _expect(r.left == 10.0 && r.top == 20.0, 'constructor stores origin', logs); assertionCount++;
-  _expect(r.width == 40.0 && r.height == 50.0, 'constructor stores size', logs); assertionCount++;
-  _expect(r.right == 50.0 && r.bottom == 70.0, 'derived edges are correct', logs); assertionCount++;
+  _expect(r.left == 10.0 && r.top == 20.0, 'constructor stores origin', logs);
+  assertionCount++;
+  _expect(r.width == 40.0 && r.height == 50.0, 'constructor stores size', logs);
+  assertionCount++;
+  _expect(
+    r.right == 50.0 && r.bottom == 70.0,
+    'derived edges are correct',
+    logs,
+  );
+  assertionCount++;
 
   final shifted = r.shift(const Offset(5.0, -5.0));
-  _expect(shifted.left == 15.0 && shifted.top == 15.0, 'shift changes origin', logs); assertionCount++;
+  _expect(
+    shifted.left == 15.0 && shifted.top == 15.0,
+    'shift changes origin',
+    logs,
+  );
+  assertionCount++;
 
   const other = Rect.fromLTWH(20.0, 30.0, 10.0, 10.0);
   final intersection = r.intersect(other);
-  _expect(intersection.width > 0 && intersection.height > 0, 'intersection computes overlap', logs); assertionCount++;
+  _expect(
+    intersection.width > 0 && intersection.height > 0,
+    'intersection computes overlap',
+    logs,
+  );
+  assertionCount++;
 
   final expanded = r.expandToInclude(const Rect.fromLTWH(-2.0, 5.0, 5.0, 5.0));
-  _expect(expanded.left <= r.left, 'expandToInclude extends bounds', logs); assertionCount++;
+  _expect(expanded.left <= r.left, 'expandToInclude extends bounds', logs);
+  assertionCount++;
 
-  _expect(Rect.zero.isEmpty, 'edge case Rect.zero is empty', logs); assertionCount++;
+  _expect(Rect.zero.isEmpty, 'edge case Rect.zero is empty', logs);
+  assertionCount++;
 
-  for (final line in logs) { print(line); }
+  for (final line in logs) {
+    print(line);
+  }
   print('=== Rect comprehensive test complete ===');
   return Column(
     mainAxisSize: MainAxisSize.min,
