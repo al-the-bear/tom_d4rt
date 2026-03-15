@@ -30,7 +30,13 @@ Widget _buildSummaryCard({
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('D4rt animation test: \$title', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              Text(
+                'D4rt animation test: \$title',
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               const SizedBox(height: 8),
               Text('Assertions passed: ' + assertions.length.toString()),
               const SizedBox(height: 8),
@@ -46,7 +52,6 @@ Widget _buildSummaryCard({
     ),
   );
 }
-
 
 dynamic build(BuildContext context) {
   print('=== Running comprehensive Curve2D script ===');
@@ -70,7 +75,11 @@ dynamic build(BuildContext context) {
 
   // Curve2D is abstract, test via CatmullRomCurve
   const String targetTypeName = 'Curve2D';
-  final CatmullRomCurve curve = CatmullRomCurve(const <Offset>[Offset(0.2, 0.3), Offset(0.5, 0.7), Offset(0.8, 0.5)]);
+  final CatmullRomCurve curve = CatmullRomCurve(const <Offset>[
+    Offset(0.2, 0.3),
+    Offset(0.5, 0.7),
+    Offset(0.8, 0.5),
+  ]);
   check(curve is Curve2D, 'CatmullRomCurve is Curve2D');
   final double val = curve.transform(0.5);
   check(val >= 0.0 && val <= 1.0, 'Transform in range');
@@ -110,7 +119,10 @@ dynamic build(BuildContext context) {
   print('=== Script completed successfully ===');
 
   return _buildSummaryCard(
-    title: detailLines.firstWhere((String line) => line.startsWith('target=')).split('=').last,
+    title: detailLines
+        .firstWhere((String line) => line.startsWith('target='))
+        .split('=')
+        .last,
     assertions: assertionLog,
     details: detailLines,
   );

@@ -23,7 +23,13 @@ Widget _buildSummaryCard({
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('D4rt widgets test: \$title', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              Text(
+                'D4rt widgets test: \$title',
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               const SizedBox(height: 8),
               Text('Assertions passed: ' + assertions.length.toString()),
               const SizedBox(height: 8),
@@ -39,7 +45,6 @@ Widget _buildSummaryCard({
     ),
   );
 }
-
 
 dynamic build(BuildContext context) {
   print('=== Running comprehensive LocalizationsResolver script ===');
@@ -62,9 +67,16 @@ dynamic build(BuildContext context) {
   check(uiProbeB.key != null, 'Second probe widget is instantiated');
 
   const String targetTypeName = 'LocalizationsResolver';
-  check(targetTypeName.contains('Localizations'), 'Name includes Localizations');
+  check(
+    targetTypeName.contains('Localizations'),
+    'Name includes Localizations',
+  );
   detailLines.add('description=Resolves localizations for a locale');
-  final Widget localized = Localizations(locale: const Locale('en'), delegates: const <LocalizationsDelegate<dynamic>>[], child: const Text('Hello'));
+  final Widget localized = Localizations(
+    locale: const Locale('en'),
+    delegates: const <LocalizationsDelegate<dynamic>>[],
+    child: const Text('Hello'),
+  );
   check(localized is Localizations, 'Localizations widget created');
 
   detailLines.add('probeAType=\${uiProbeA.runtimeType}');
@@ -101,7 +113,10 @@ dynamic build(BuildContext context) {
   print('=== Script completed successfully ===');
 
   return _buildSummaryCard(
-    title: detailLines.firstWhere((String line) => line.startsWith('target=')).split('=').last,
+    title: detailLines
+        .firstWhere((String line) => line.startsWith('target='))
+        .split('=')
+        .last,
     assertions: assertionLog,
     details: detailLines,
   );

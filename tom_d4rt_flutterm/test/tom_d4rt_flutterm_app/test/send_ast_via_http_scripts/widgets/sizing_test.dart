@@ -23,7 +23,13 @@ Widget _buildSummaryCard({
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('D4rt widgets test: \$title', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              Text(
+                'D4rt widgets test: \$title',
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               const SizedBox(height: 8),
               Text('Assertions passed: ' + assertions.length.toString()),
               const SizedBox(height: 8),
@@ -39,7 +45,6 @@ Widget _buildSummaryCard({
     ),
   );
 }
-
 
 dynamic build(BuildContext context) {
   print('=== Running comprehensive Sizing script ===');
@@ -65,12 +70,21 @@ dynamic build(BuildContext context) {
   detailLines.add('category=widgets_sizing');
   detailLines.add('desc=Various sizing widget tests');
   // Test FractionallySizedBox, ConstrainedBox, UnconstrainedBox
-  const FractionallySizedBox frac = FractionallySizedBox(widthFactor: 0.5, heightFactor: 0.8, child: SizedBox());
+  const FractionallySizedBox frac = FractionallySizedBox(
+    widthFactor: 0.5,
+    heightFactor: 0.8,
+    child: SizedBox(),
+  );
   check(frac is Widget, 'Fractional');
   check(frac.widthFactor == 0.5, 'Width factor');
-  final ConstrainedBox cb = ConstrainedBox(constraints: const BoxConstraints(minWidth: 50, maxWidth: 200), child: const SizedBox());
+  final ConstrainedBox cb = ConstrainedBox(
+    constraints: const BoxConstraints(minWidth: 50, maxWidth: 200),
+    child: const SizedBox(),
+  );
   check(cb is Widget, 'Constrained');
-  final UnconstrainedBox ub = UnconstrainedBox(child: const SizedBox(width: 300, height: 300));
+  final UnconstrainedBox ub = UnconstrainedBox(
+    child: const SizedBox(width: 300, height: 300),
+  );
   check(ub is Widget, 'Unconstrained');
   detailLines.add('types=Fractional,Constrained,Unconstrained');
 
@@ -108,7 +122,10 @@ dynamic build(BuildContext context) {
   print('=== Script completed successfully ===');
 
   return _buildSummaryCard(
-    title: detailLines.firstWhere((String line) => line.startsWith('target=')).split('=').last,
+    title: detailLines
+        .firstWhere((String line) => line.startsWith('target='))
+        .split('=')
+        .last,
     assertions: assertionLog,
     details: detailLines,
   );

@@ -23,7 +23,13 @@ Widget _buildSummaryCard({
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('D4rt widgets test: \$title', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              Text(
+                'D4rt widgets test: \$title',
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               const SizedBox(height: 8),
               Text('Assertions passed: ' + assertions.length.toString()),
               const SizedBox(height: 8),
@@ -39,7 +45,6 @@ Widget _buildSummaryCard({
     ),
   );
 }
-
 
 dynamic build(BuildContext context) {
   print('=== Running comprehensive LeafRenderObjectWidget script ===');
@@ -63,9 +68,14 @@ dynamic build(BuildContext context) {
 
   const String targetTypeName = 'LeafRenderObjectWidget';
   check(targetTypeName.contains('Widget'), 'Name includes Widget');
-  detailLines.add('description=Base for widgets with no children that create RenderObjects');
+  detailLines.add(
+    'description=Base for widgets with no children that create RenderObjects',
+  );
   final Widget errorWidget = ErrorWidget('test');
-  check(errorWidget is ErrorWidget, 'ErrorWidget (a LeafRenderObjectWidget) created');
+  check(
+    errorWidget is ErrorWidget,
+    'ErrorWidget (a LeafRenderObjectWidget) created',
+  );
 
   detailLines.add('probeAType=\${uiProbeA.runtimeType}');
   detailLines.add('probeBType=\${uiProbeB.runtimeType}');
@@ -101,7 +111,10 @@ dynamic build(BuildContext context) {
   print('=== Script completed successfully ===');
 
   return _buildSummaryCard(
-    title: detailLines.firstWhere((String line) => line.startsWith('target=')).split('=').last,
+    title: detailLines
+        .firstWhere((String line) => line.startsWith('target='))
+        .split('=')
+        .last,
     assertions: assertionLog,
     details: detailLines,
   );

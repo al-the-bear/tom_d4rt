@@ -30,7 +30,13 @@ Widget _buildSummaryCard({
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('D4rt widgets test: \$title', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              Text(
+                'D4rt widgets test: \$title',
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               const SizedBox(height: 8),
               Text('Assertions passed: ' + assertions.length.toString()),
               const SizedBox(height: 8),
@@ -46,7 +52,6 @@ Widget _buildSummaryCard({
     ),
   );
 }
-
 
 dynamic build(BuildContext context) {
   print('=== Running comprehensive RelativePositionedTransition script ===');
@@ -68,12 +73,24 @@ dynamic build(BuildContext context) {
   check(uiProbeA.key != null, 'First probe widget is instantiated');
   check(uiProbeB.key != null, 'Second probe widget is instantiated');
 
-  final AnimationController anim = AnimationController(duration: const Duration(milliseconds: 300), vsync: const TestVSync());
-  final RelativeRectTween tween = RelativeRectTween(begin: const RelativeRect.fromLTRB(0, 0, 0, 0), end: const RelativeRect.fromLTRB(50, 50, 0, 0));
-  final Widget transition = PositionedTransition(rect: tween.animate(anim), child: Container(color: const Color(0xFF3B82F6)));
+  final AnimationController anim = AnimationController(
+    duration: const Duration(milliseconds: 300),
+    vsync: const TestVSync(),
+  );
+  final RelativeRectTween tween = RelativeRectTween(
+    begin: const RelativeRect.fromLTRB(0, 0, 0, 0),
+    end: const RelativeRect.fromLTRB(50, 50, 0, 0),
+  );
+  final Widget transition = PositionedTransition(
+    rect: tween.animate(anim),
+    child: Container(color: const Color(0xFF3B82F6)),
+  );
   check(transition is PositionedTransition, 'PositionedTransition created');
   check(transition is AnimatedWidget, 'Is AnimatedWidget');
-  check(tween is Tween<RelativeRect>, 'RelativeRectTween is Tween<RelativeRect>');
+  check(
+    tween is Tween<RelativeRect>,
+    'RelativeRectTween is Tween<RelativeRect>',
+  );
   final RelativeRect mid = tween.lerp(0.5);
   check(mid.left == 25.0, 'Midpoint left is 25');
   anim.dispose();
@@ -112,7 +129,10 @@ dynamic build(BuildContext context) {
   print('=== Script completed successfully ===');
 
   return _buildSummaryCard(
-    title: detailLines.firstWhere((String line) => line.startsWith('target=')).split('=').last,
+    title: detailLines
+        .firstWhere((String line) => line.startsWith('target='))
+        .split('=')
+        .last,
     assertions: assertionLog,
     details: detailLines,
   );
