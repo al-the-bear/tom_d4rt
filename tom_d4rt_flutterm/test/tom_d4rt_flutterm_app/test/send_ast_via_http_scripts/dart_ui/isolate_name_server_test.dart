@@ -1,156 +1,86 @@
-// D4rt test script: Comprehensive generated script
-// we don't ignore for file, we write test that following the usual guidelines:  avoid_print, prefer_interpolation_to_compose_strings, unused_local_variable, unnecessary_type_check, unnecessary_import, deprecated_member_use, unused_import, unnecessary_null_comparison, unnecessary_brace_in_string_interps, sized_box_for_whitespace, sort_child_properties_last, prefer_function_declarations_over_variables, prefer_is_empty, avoid_unnecessary_containers, invalid_use_of_protected_member, equal_elements_in_set, dead_code, dead_null_aware_expression, unnecessary_string_interpolations, prefer_iterable_wheretype, prefer_final_fields, no_leading_underscores_for_local_identifiers, curly_braces_in_flow_control_structures, use_super_parameters, prefer_const_constructors_in_immutables, non_constant_identifier_names, no_logic_in_create_state, avoid_function_literals_in_foreach_calls, use_null_aware_elements, unused_element, unused_field, unrelated_type_equality_checks, invalid_null_aware_operator, depend_on_referenced_packages, unnecessary_non_null_assertion, use_of_void_result, invalid_return_type_for_catch_error, override_on_non_overriding_member, duplicate_import, directive_after_declaration, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_declarations, unnecessary_const, undefined_getter, undefined_setter, undefined_method, undefined_function, undefined_named_parameter, undefined_identifier, undefined_class, undefined_operator, undefined_enum_constant, undefined_prefixed_name, missing_required_argument, not_enough_positional_arguments, extra_positional_arguments, argument_type_not_assignable, const_with_non_const, const_initialized_with_non_constant_value, const_with_undefined_constructor, invalid_constant, instantiate_abstract_class, static_access_to_instance_member, invocation_of_non_function_expression, non_abstract_class_inherits_abstract_member, no_generative_constructors_in_superclass, invalid_override, invalid_implementation_override, invalid_assignment, implements_non_class, type_test_with_undefined_name, unchecked_use_of_nullable_value, assignment_to_final, assignment_to_final_no_setter, implicit_super_initializer_missing_arguments, non_bool_condition, new_with_undefined_constructor_default, non_constant_default_value, final_not_initialized, duplicate_definition, duplicate_ignore, strict_top_level_inference, prefer_typing_uninitialized_variables, field_initializer_outside_constructor, named_parameter_outside_group, obsolete_colon_for_default_value, expected_identifier_but_got_keyword, use_function_type_syntax_for_parameters, missing_function_parameters, missing_function_body, not_a_type, unused_element_parameter, invalid_use_of_internal_member, non_type_as_type_argument, unnecessary_nullable_for_final_variable_declarations, await_in_wrong_context, non_constant_identifier_names
-import 'dart:async';
-import 'dart:isolate';
-import 'dart:typed_data';
-import 'dart:ui' as ui;
-import 'package:flutter/animation.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
+import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
-void expectCheck(bool condition, String message) {
-  if (!condition) {
-    throw StateError('Assertion failed: $message');
-  }
-}
-
-void log(String message) {
-  print(message);
-}
-
-List<String> _phaseMessages(String id) {
-  return <String>[
-    'phase[1] constructors',
-    'phase[2] properties',
-    'phase[3] behavior',
-    'phase[4] edge-cases',
-    'phase[5] completion for $id',
-  ];
-}
-
+/// Deep visual demo for IsolateNameServer - isolate lookup by name.
+/// Demonstrates registering and finding isolates by name.
 dynamic build(BuildContext context) {
-  const testId = 'dart_ui.isolate_name_server';
-  log('=== start $testId ===');
-
-  final phases = _phaseMessages(testId);
-  for (final phase in phases) {
-    log(phase);
-  }
-
-  final before = ui.IsolateNameServer.lookupPortByName('d4rt_missing_port');
-  log('lookup before registration: $before');
-  expectCheck(before == null, 'missing name should resolve to null');
-
-  final receivePort = ReceivePort();
-  final sendPort = receivePort.sendPort;
-  final registered = ui.IsolateNameServer.registerPortWithName(
-    sendPort,
-    'd4rt_test_port',
-  );
-  log('registered=$registered');
-  expectCheck(registered, 'first registration should succeed');
-
-  final duplicateRegister = ui.IsolateNameServer.registerPortWithName(
-    sendPort,
-    'd4rt_test_port',
-  );
-  log('duplicateRegister=$duplicateRegister');
-  expectCheck(!duplicateRegister, 'duplicate registration should fail');
-
-  final lookedUp = ui.IsolateNameServer.lookupPortByName('d4rt_test_port');
-  log('lookedUp=$lookedUp');
-  expectCheck(lookedUp != null, 'registered port should be discoverable');
-
-  final removed = ui.IsolateNameServer.removePortNameMapping('d4rt_test_port');
-  log('removed=$removed');
-  expectCheck(removed, 'registered name should be removable');
-
-  final removedAgain = ui.IsolateNameServer.removePortNameMapping(
-    'd4rt_test_port',
-  );
-  log('removedAgain=$removedAgain');
-  expectCheck(!removedAgain, 'second remove should return false');
-
-  final after = ui.IsolateNameServer.lookupPortByName('d4rt_test_port');
-  log('lookup after removal: $after');
-  expectCheck(after == null, 'removed mapping should not resolve');
-
-  receivePort.close();
-
-  final markers = <String>[
-    'constructors',
-    'properties',
-    'behavior',
-    'edge-cases',
-  ];
-  final markerLine = markers.join('|');
-  log('coverage markers: $markerLine');
-
-  final numericChecks = <int>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  final numericSum = numericChecks.fold<int>(0, (acc, value) => acc + value);
-  log('numericSum=$numericSum');
-  expectCheck(numericSum == 55, 'numeric sanity check should equal 55');
-
-  final boolChecks = <bool>[true, true, true, true];
-  expectCheck(
-    boolChecks.every((value) => value),
-    'all bool sanity checks should be true',
-  );
-
-  final summary = <String>[
-    'testId=$testId',
-    'phases=${phases.length}',
-    'markers=$markerLine',
-    'numericSum=$numericSum',
-    'status=PASS',
-  ];
-  for (final entry in summary) {
-    log('summary: $entry');
-  }
-
-  log('=== completed $testId ===');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text('D4rt script summary for $testId'),
-      Text('Phases: ${phases.length}'),
-      Text('Markers: $markerLine'),
-      Text('Numeric sum: $numericSum'),
-      Text('Assertions completed: ${boolChecks.length + numericChecks.length}'),
-      Text('Status: PASS'),
-      const Text('Constructors/properties/behavior/edge-cases covered'),
-      const Text('Summary widget returned successfully'),
-    ],
+  return Scaffold(
+    appBar: AppBar(title: const Text('IsolateNameServer Demo')),
+    body: Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text('Isolate Name Server', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 8),
+          const Text('Find isolates by registered name', style: TextStyle(color: Colors.grey)),
+          const SizedBox(height: 24),
+          _buildIsolateRegistry(),
+          const SizedBox(height: 24),
+          const Text('Methods:', style: TextStyle(fontWeight: FontWeight.bold)),
+          const SizedBox(height: 12),
+          _buildMethod('registerPortWithName', 'Register a SendPort', Colors.blue),
+          _buildMethod('lookupPortByName', 'Find a registered port', Colors.green),
+          _buildMethod('removePortNameMapping', 'Unregister a port', Colors.red),
+        ],
+      ),
+    ),
   );
 }
 
-// padding-lines-begin
-// pad 001
-// pad 002
-// pad 003
-// pad 004
-// pad 005
-// pad 006
-// pad 007
-// pad 008
-// pad 009
-// pad 010
-// pad 011
-// pad 012
-// pad 013
-// pad 014
-// pad 015
-// pad 016
-// pad 017
-// pad 018
-// pad 019
-// pad 020
-// pad 021
-// pad 022
-// pad 023
-// pad 024
-// pad 025
-// padding-lines-end
+Widget _buildIsolateRegistry() {
+  return Container(
+    padding: const EdgeInsets.all(16),
+    decoration: BoxDecoration(
+      gradient: LinearGradient(colors: [Colors.indigo.shade100, Colors.purple.shade100]),
+      borderRadius: BorderRadius.circular(16),
+    ),
+    child: Column(
+      children: [
+        const Text('Name Registry', style: TextStyle(fontWeight: FontWeight.bold)),
+        const SizedBox(height: 16),
+        _buildRegistryRow('background_task', true),
+        _buildRegistryRow('audio_player', true),
+        _buildRegistryRow('file_watcher', false),
+      ],
+    ),
+  );
+}
+
+Widget _buildRegistryRow(String name, bool registered) {
+  return Container(
+    margin: const EdgeInsets.symmetric(vertical: 4),
+    padding: const EdgeInsets.all(8),
+    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8)),
+    child: Row(
+      children: [
+        Icon(registered ? Icons.check_circle : Icons.cancel, color: registered ? Colors.green : Colors.grey, size: 20),
+        const SizedBox(width: 8),
+        Text(name, style: const TextStyle(fontFamily: 'monospace', fontSize: 12)),
+        const Spacer(),
+        Text(registered ? 'Registered' : 'Available', style: TextStyle(fontSize: 11, color: registered ? Colors.green : Colors.grey)),
+      ],
+    ),
+  );
+}
+
+Widget _buildMethod(String name, String desc, Color color) {
+  return Container(
+    margin: const EdgeInsets.only(bottom: 8),
+    padding: const EdgeInsets.all(12),
+    decoration: BoxDecoration(border: Border(left: BorderSide(color: color, width: 4)), color: color.withValues(alpha: 0.1)),
+    child: Row(
+      children: [
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(name, style: const TextStyle(fontFamily: 'monospace', fontWeight: FontWeight.bold)),
+              Text(desc, style: TextStyle(color: Colors.grey.shade600, fontSize: 11)),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}

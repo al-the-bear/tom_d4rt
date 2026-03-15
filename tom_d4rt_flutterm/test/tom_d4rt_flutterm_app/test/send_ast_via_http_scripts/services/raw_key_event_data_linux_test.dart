@@ -6,7 +6,13 @@ Widget _kv(String label, Object? value) {
     padding: const EdgeInsets.symmetric(vertical: 2),
     child: Row(
       children: [
-        SizedBox(width: 130, child: Text(label, style: const TextStyle(fontWeight: FontWeight.w600))),
+        SizedBox(
+          width: 130,
+          child: Text(
+            label,
+            style: const TextStyle(fontWeight: FontWeight.w600),
+          ),
+        ),
         Expanded(child: Text('$value')),
       ],
     ),
@@ -34,7 +40,10 @@ dynamic build(BuildContext context) {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('KeyEvent Visual Test (modern replacement)', style: TextStyle(fontWeight: FontWeight.bold)),
+          const Text(
+            'KeyEvent Visual Test (modern replacement)',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 8),
           _kv('Down type', down.runtimeType),
           _kv('Down logical', down.logicalKey.debugName),

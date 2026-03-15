@@ -12,7 +12,9 @@ dynamic build(BuildContext context) {
     range: const TextRange(start: 0, end: 5),
     locale: const Locale('en', 'US'),
   );
-  final spellAttr = SpellOutStringAttribute(range: const TextRange(start: 0, end: 4));
+  final spellAttr = SpellOutStringAttribute(
+    range: const TextRange(start: 0, end: 4),
+  );
   final announce = AnnounceSemanticsEvent('hello', TextDirection.ltr, 0);
   const tap = TapSemanticEvent();
   const longPress = LongPressSemanticsEvent();
@@ -23,12 +25,18 @@ dynamic build(BuildContext context) {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Semantics Class Visual Test', style: TextStyle(fontWeight: FontWeight.bold)),
+        const Text(
+          'Semantics Class Visual Test',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         const SizedBox(height: 8),
         Semantics(
           label: config.label,
           button: config.isButton,
-          child: ElevatedButton(onPressed: () {}, child: const Text('Accessible Button')),
+          child: ElevatedButton(
+            onPressed: () {},
+            child: const Text('Accessible Button'),
+          ),
         ),
         const SizedBox(height: 10),
         Wrap(

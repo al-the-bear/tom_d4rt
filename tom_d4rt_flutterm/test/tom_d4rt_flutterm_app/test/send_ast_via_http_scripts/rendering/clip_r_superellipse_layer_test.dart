@@ -20,7 +20,10 @@ dynamic build(BuildContext context) {
     const Rect.fromLTWH(0, 0, 220, 120),
     const Radius.circular(24),
   );
-  final layer = ClipRSuperellipseLayer(clipRSuperellipse: shape, clipBehavior: Clip.antiAlias);
+  final layer = ClipRSuperellipseLayer(
+    clipRSuperellipse: shape,
+    clipBehavior: Clip.antiAlias,
+  );
 
   return Padding(
     padding: const EdgeInsets.all(16),
@@ -28,7 +31,10 @@ dynamic build(BuildContext context) {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('ClipRSuperellipseLayer Visual Test', style: TextStyle(fontWeight: FontWeight.bold)),
+        const Text(
+          'ClipRSuperellipseLayer Visual Test',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         const SizedBox(height: 8),
         ClipPath(
           clipper: _SuperellipseClipper(),
@@ -39,7 +45,13 @@ dynamic build(BuildContext context) {
               gradient: LinearGradient(colors: [Colors.blue, Colors.purple]),
             ),
             alignment: Alignment.center,
-            child: const Text('Clipped Superellipse', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+            child: const Text(
+              'Clipped Superellipse',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
         const SizedBox(height: 8),

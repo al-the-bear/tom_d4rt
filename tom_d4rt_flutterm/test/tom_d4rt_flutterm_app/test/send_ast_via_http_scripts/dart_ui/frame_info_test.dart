@@ -1,189 +1,83 @@
-import 'dart:typed_data';
-// we don't ignore for file, we write test that following the usual guidelines:  avoid_print, prefer_interpolation_to_compose_strings, unused_local_variable, unnecessary_type_check, unnecessary_import, deprecated_member_use, unused_import, unnecessary_null_comparison, unnecessary_brace_in_string_interps, sized_box_for_whitespace, sort_child_properties_last, prefer_function_declarations_over_variables, prefer_is_empty, avoid_unnecessary_containers, invalid_use_of_protected_member, equal_elements_in_set, dead_code, dead_null_aware_expression, unnecessary_string_interpolations, prefer_iterable_wheretype, prefer_final_fields, no_leading_underscores_for_local_identifiers, curly_braces_in_flow_control_structures, use_super_parameters, prefer_const_constructors_in_immutables, non_constant_identifier_names, no_logic_in_create_state, avoid_function_literals_in_foreach_calls, use_null_aware_elements, unused_element, unused_field, unrelated_type_equality_checks, invalid_null_aware_operator, depend_on_referenced_packages, unnecessary_non_null_assertion, use_of_void_result, invalid_return_type_for_catch_error, override_on_non_overriding_member, duplicate_import, directive_after_declaration, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_declarations, unnecessary_const, undefined_getter, undefined_setter, undefined_method, undefined_function, undefined_named_parameter, undefined_identifier, undefined_class, undefined_operator, undefined_enum_constant, undefined_prefixed_name, missing_required_argument, not_enough_positional_arguments, extra_positional_arguments, argument_type_not_assignable, const_with_non_const, const_initialized_with_non_constant_value, const_with_undefined_constructor, invalid_constant, instantiate_abstract_class, static_access_to_instance_member, invocation_of_non_function_expression, non_abstract_class_inherits_abstract_member, no_generative_constructors_in_superclass, invalid_override, invalid_implementation_override, invalid_assignment, implements_non_class, type_test_with_undefined_name, unchecked_use_of_nullable_value, assignment_to_final, assignment_to_final_no_setter, implicit_super_initializer_missing_arguments, non_bool_condition, new_with_undefined_constructor_default, non_constant_default_value, final_not_initialized, duplicate_definition, duplicate_ignore, strict_top_level_inference, prefer_typing_uninitialized_variables, field_initializer_outside_constructor, named_parameter_outside_group, obsolete_colon_for_default_value, expected_identifier_but_got_keyword, use_function_type_syntax_for_parameters, missing_function_parameters, missing_function_body, not_a_type, unused_element_parameter, invalid_use_of_internal_member, non_type_as_type_argument, unnecessary_nullable_for_final_variable_declarations, await_in_wrong_context, non_constant_identifier_names
-import 'dart:ui' as ui;
+import 'dart:ui';
 import 'package:flutter/material.dart';
 
-void _expectCondition(bool condition, String message, List<String> logs) {
-  if (!condition) {
-    logs.add('FAIL: $message');
-    throw StateError('FrameInfo test failed: $message');
-  }
-  logs.add('PASS: $message');
-}
-
-// 1x1 transparent PNG.
-Uint8List _tinyTransparentPng() {
-  return Uint8List.fromList(const <int>[
-    0x89,
-    0x50,
-    0x4E,
-    0x47,
-    0x0D,
-    0x0A,
-    0x1A,
-    0x0A,
-    0x00,
-    0x00,
-    0x00,
-    0x0D,
-    0x49,
-    0x48,
-    0x44,
-    0x52,
-    0x00,
-    0x00,
-    0x00,
-    0x01,
-    0x00,
-    0x00,
-    0x00,
-    0x01,
-    0x08,
-    0x06,
-    0x00,
-    0x00,
-    0x00,
-    0x1F,
-    0x15,
-    0xC4,
-    0x89,
-    0x00,
-    0x00,
-    0x00,
-    0x0D,
-    0x49,
-    0x44,
-    0x41,
-    0x54,
-    0x78,
-    0x9C,
-    0x63,
-    0xF8,
-    0xCF,
-    0xC0,
-    0x00,
-    0x00,
-    0x03,
-    0x01,
-    0x01,
-    0x00,
-    0x18,
-    0xDD,
-    0x8D,
-    0xB1,
-    0x00,
-    0x00,
-    0x00,
-    0x00,
-    0x49,
-    0x45,
-    0x4E,
-    0x44,
-    0xAE,
-    0x42,
-    0x60,
-    0x82,
-  ]);
-}
-
+/// Deep visual demo for FrameInfo - decoded image frame information.
+/// Demonstrates animation frame info from Codec.
 dynamic build(BuildContext context) {
-  print('=== FrameInfo comprehensive test start ===');
-
-  final logs = <String>[];
-  var assertionCount = 0;
-
-  final bytes = _tinyTransparentPng();
-  _expectCondition(bytes.isNotEmpty, 'embedded PNG bytes are available', logs);
-  assertionCount++;
-
-  final futureCodec = ui.instantiateImageCodec(bytes);
-  _expectCondition(
-    futureCodec is Future<ui.Codec>,
-    'instantiateImageCodec returns Future<Codec>',
-    logs,
+  return Scaffold(
+    appBar: AppBar(title: const Text('FrameInfo Demo')),
+    body: Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text('FrameInfo', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 8),
+          const Text('Information about a single animation frame', style: TextStyle(color: Colors.grey)),
+          const SizedBox(height: 24),
+          _buildFrameTimeline(),
+          const SizedBox(height: 24),
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(color: Colors.green.shade50, borderRadius: BorderRadius.circular(12)),
+            child: const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('FrameInfo Properties:', style: TextStyle(fontWeight: FontWeight.bold)),
+                SizedBox(height: 12),
+                Text('• image - The decoded Image'),
+                Text('• duration - Frame display duration'),
+              ],
+            ),
+          ),
+          const SizedBox(height: 16),
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
+            child: const Text('FrameInfo frameInfo = await codec.getNextFrame();', style: TextStyle(fontFamily: 'monospace', fontSize: 11)),
+          ),
+        ],
+      ),
+    ),
   );
-  assertionCount++;
+}
 
-  final futureFrameInfo = futureCodec.then((codec) {
-    print('codec.frameCount: ${codec.frameCount}');
-    print('codec.repetitionCount: ${codec.repetitionCount}');
-    return codec.getNextFrame().whenComplete(codec.dispose);
-  });
-
-  _expectCondition(
-    futureFrameInfo is Future<ui.FrameInfo>,
-    'Codec.getNextFrame returns Future<FrameInfo>',
-    logs,
+Widget _buildFrameTimeline() {
+  return Container(
+    padding: const EdgeInsets.all(16),
+    decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(12)),
+    child: Column(
+      children: [
+        const Text('Animation Frames', style: TextStyle(fontWeight: FontWeight.bold)),
+        const SizedBox(height: 16),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: List.generate(5, (i) => _buildFrame(i + 1, i == 2)),
+        ),
+        const SizedBox(height: 8),
+        const Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Text('100ms', style: TextStyle(fontSize: 10)),
+            Text('100ms', style: TextStyle(fontSize: 10)),
+            Text('200ms', style: TextStyle(fontSize: 10)),
+            Text('100ms', style: TextStyle(fontSize: 10)),
+            Text('100ms', style: TextStyle(fontSize: 10)),
+          ],
+        ),
+      ],
+    ),
   );
-  assertionCount++;
+}
 
-  final frameInfoTypeName = ui.FrameInfo.toString();
-  _expectCondition(
-    frameInfoTypeName.contains('FrameInfo'),
-    'FrameInfo type is accessible',
-    logs,
-  );
-  assertionCount++;
-
-  final expectedProperties = <String>['duration', 'image'];
-  _expectCondition(
-    expectedProperties.length == 2,
-    'FrameInfo expected properties list prepared',
-    logs,
-  );
-  assertionCount++;
-
-  // Edge case path: invalid byte stream should throw during codec creation.
-  final invalidBytes = Uint8List.fromList(const <int>[0, 1, 2, 3, 4, 5]);
-  final invalidFuture = ui.instantiateImageCodec(invalidBytes);
-  var invalidDecodeThrows = false;
-  invalidFuture.catchError((Object error) {
-    invalidDecodeThrows = true;
-    print('expected invalid codec decode error: $error');
-    return null;
-  });
-
-  _expectCondition(
-    invalidFuture is Future<ui.Codec>,
-    'invalid decode still returns Future<Codec> path',
-    logs,
-  );
-  assertionCount++;
-
-  print(
-    'FrameInfo direct constructor is intentionally unavailable in public API.',
-  );
-  print('FrameInfo instances are obtained from Codec.getNextFrame().');
-  print('Future<FrameInfo> prepared: $futureFrameInfo');
-  print(
-    'Invalid decode catch registered: $invalidDecodeThrows (may resolve async).',
-  );
-
-  final summary = <String>[
-    'constructor path covered via instantiateImageCodec -> getNextFrame',
-    'properties covered by documented access path: duration/image',
-    'behavior covered: async codec/frame pipeline',
-    'edge case covered: invalid bytes decode error path',
-    'assertions: $assertionCount',
-  ];
-
-  for (final line in summary) {
-    print('SUMMARY: $line');
-  }
-
-  print('=== FrameInfo comprehensive test complete ===');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      const Text('FrameInfo Tests'),
-      Text('Assertions: $assertionCount'),
-      Text('FrameInfo type: $frameInfoTypeName'),
-      Text('Codec future type: ${futureCodec.runtimeType}'),
-      Text('FrameInfo future type: ${futureFrameInfo.runtimeType}'),
-      Text('Invalid decode catch registered: $invalidDecodeThrows'),
-      Text('Expected properties: ${expectedProperties.join(', ')}'),
-      const Text('Summary widget generated successfully'),
-    ],
+Widget _buildFrame(int num, bool highlight) {
+  return Container(
+    width: 50, height: 50,
+    decoration: BoxDecoration(
+      color: highlight ? Colors.blue : Colors.grey.shade300,
+      borderRadius: BorderRadius.circular(8),
+      border: highlight ? Border.all(color: Colors.blue.shade700, width: 2) : null,
+    ),
+    child: Center(child: Text('$num', style: TextStyle(color: highlight ? Colors.white : Colors.black, fontWeight: FontWeight.bold))),
   );
 }

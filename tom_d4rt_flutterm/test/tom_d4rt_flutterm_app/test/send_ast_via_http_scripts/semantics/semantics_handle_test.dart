@@ -21,7 +21,10 @@ dynamic build(BuildContext context) {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('SemanticsHandle Visual Test', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              'SemanticsHandle Visual Test',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 12),
             Row(
               children: [
@@ -43,7 +46,9 @@ dynamic build(BuildContext context) {
               spacing: 8,
               runSpacing: 8,
               children: [
-                Chip(label: Text('Boundary: ${configuration.isSemanticBoundary}')),
+                Chip(
+                  label: Text('Boundary: ${configuration.isSemanticBoundary}'),
+                ),
                 Chip(label: Text('Button: ${configuration.isButton}')),
                 Chip(label: Text('Actions: ${SemanticsAction.values.length}')),
                 Chip(label: Text('Flags: ${SemanticsFlag.values.length}')),

@@ -36,7 +36,10 @@ class _ActionsDemoState extends State<_ActionsDemo> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text('Actions demo', style: TextStyle(fontWeight: FontWeight.bold)),
+          const Text(
+            'Actions demo',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           FilledButton(
             onPressed: () => Actions.invoke(context, const _IncrementIntent()),
             child: const Text('Invoke intent'),

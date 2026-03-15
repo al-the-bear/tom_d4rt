@@ -7,7 +7,14 @@ Widget _bar(String label, int value, Color color) {
     child: Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        Container(height: height.toDouble(), width: 32, decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(6))),
+        Container(
+          height: height.toDouble(),
+          width: 32,
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(6),
+          ),
+        ),
         const SizedBox(height: 6),
         Text(label, style: const TextStyle(fontSize: 11)),
         Text('$value', style: const TextStyle(fontSize: 10)),
@@ -29,7 +36,10 @@ dynamic build(BuildContext context) {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Scheduler Priority Visual Test', style: TextStyle(fontWeight: FontWeight.bold)),
+        const Text(
+          'Scheduler Priority Visual Test',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         const SizedBox(height: 8),
         SizedBox(
           height: 120,

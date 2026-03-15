@@ -12,7 +12,10 @@ dynamic build(BuildContext context) {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('WrapParentData Visual Test', style: TextStyle(fontWeight: FontWeight.bold)),
+        const Text(
+          'WrapParentData Visual Test',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         const SizedBox(height: 8),
         SizedBox(
           width: 220,
@@ -22,7 +25,10 @@ dynamic build(BuildContext context) {
             children: List.generate(
               6,
               (index) => Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.blueGrey[(index + 1) * 100],
                   borderRadius: BorderRadius.circular(8),

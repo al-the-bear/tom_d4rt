@@ -1,107 +1,52 @@
-// D4rt test script: Tests CupertinoSwitch, CupertinoSlider,
-// we don't ignore for file, we write test that following the usual guidelines:  avoid_print, prefer_interpolation_to_compose_strings, unused_local_variable, unnecessary_type_check, unnecessary_import, deprecated_member_use, unused_import, unnecessary_null_comparison, unnecessary_brace_in_string_interps, sized_box_for_whitespace, sort_child_properties_last, prefer_function_declarations_over_variables, prefer_is_empty, avoid_unnecessary_containers, invalid_use_of_protected_member, equal_elements_in_set, dead_code, dead_null_aware_expression, unnecessary_string_interpolations, prefer_iterable_wheretype, prefer_final_fields, no_leading_underscores_for_local_identifiers, curly_braces_in_flow_control_structures, use_super_parameters, prefer_const_constructors_in_immutables, non_constant_identifier_names, no_logic_in_create_state, avoid_function_literals_in_foreach_calls, use_null_aware_elements, unused_element, unused_field, unrelated_type_equality_checks, invalid_null_aware_operator, depend_on_referenced_packages, unnecessary_non_null_assertion, use_of_void_result, invalid_return_type_for_catch_error, override_on_non_overriding_member, duplicate_import, directive_after_declaration, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_declarations, unnecessary_const, undefined_getter, undefined_setter, undefined_method, undefined_function, undefined_named_parameter, undefined_identifier, undefined_class, undefined_operator, undefined_enum_constant, undefined_prefixed_name, missing_required_argument, not_enough_positional_arguments, extra_positional_arguments, argument_type_not_assignable, const_with_non_const, const_initialized_with_non_constant_value, const_with_undefined_constructor, invalid_constant, instantiate_abstract_class, static_access_to_instance_member, invocation_of_non_function_expression, non_abstract_class_inherits_abstract_member, no_generative_constructors_in_superclass, invalid_override, invalid_implementation_override, invalid_assignment, implements_non_class, type_test_with_undefined_name, unchecked_use_of_nullable_value, assignment_to_final, assignment_to_final_no_setter, implicit_super_initializer_missing_arguments, non_bool_condition, new_with_undefined_constructor_default, non_constant_default_value, final_not_initialized, duplicate_definition, duplicate_ignore, strict_top_level_inference, prefer_typing_uninitialized_variables, field_initializer_outside_constructor, named_parameter_outside_group, obsolete_colon_for_default_value, expected_identifier_but_got_keyword, use_function_type_syntax_for_parameters, missing_function_parameters, missing_function_body, not_a_type, unused_element_parameter, invalid_use_of_internal_member, non_type_as_type_argument, unnecessary_nullable_for_final_variable_declarations, await_in_wrong_context, non_constant_identifier_names
-// CupertinoActivityIndicator, CupertinoSearchTextField
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
+/// Demonstrates CupertinoSwitch with advanced styling options.
 dynamic build(BuildContext context) {
-  print('Cupertino controls advanced test executing');
-
-  // ========== CupertinoSwitch ==========
-  print('--- CupertinoSwitch Tests ---');
-  final cupertinoSwitch = CupertinoSwitch(
-    value: true,
-    onChanged: (bool value) => print('Switch: $value'),
-    activeColor: CupertinoColors.activeGreen,
-    trackColor: CupertinoColors.systemGrey4,
-    thumbColor: CupertinoColors.white,
-  );
-  print('CupertinoSwitch created: value=true');
-
-  final offSwitch = CupertinoSwitch(value: false, onChanged: (v) {});
-  print('CupertinoSwitch off created');
-
-  // ========== CupertinoSlider ==========
-  print('--- CupertinoSlider Tests ---');
-  final slider = CupertinoSlider(
-    value: 0.5,
-    min: 0.0,
-    max: 1.0,
-    divisions: 10,
-    activeColor: CupertinoColors.activeBlue,
-    thumbColor: CupertinoColors.white,
-    onChanged: (double value) => print('Slider: $value'),
-    onChangeStart: (double value) => print('Slider start: $value'),
-    onChangeEnd: (double value) => print('Slider end: $value'),
-  );
-  print('CupertinoSlider created: value=0.5, divisions=10');
-
-  // ========== CupertinoActivityIndicator ==========
-  print('--- CupertinoActivityIndicator Tests ---');
-  final indicator = CupertinoActivityIndicator(
-    radius: 15.0,
-    color: CupertinoColors.activeBlue,
-    animating: true,
-  );
-  print('CupertinoActivityIndicator created: radius=15');
-
-  final partialIndicator = CupertinoActivityIndicator.partiallyRevealed(
-    radius: 15.0,
-    progress: 0.7,
-  );
-  print('CupertinoActivityIndicator.partiallyRevealed: 0.7');
-
-  // ========== CupertinoSearchTextField ==========
-  print('--- CupertinoSearchTextField Tests ---');
-  final searchField = CupertinoSearchTextField(
-    placeholder: 'Search...',
-    onChanged: (String value) => print('Search: $value'),
-    onSubmitted: (String value) => print('Submit: $value'),
-    autocorrect: false,
-    padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
-    prefixIcon: Icon(CupertinoIcons.search, size: 20.0),
-    suffixIcon: Icon(CupertinoIcons.xmark_circle_fill, size: 18.0),
-    suffixMode: OverlayVisibilityMode.editing,
-    style: TextStyle(fontSize: 16.0),
-    borderRadius: BorderRadius.circular(8.0),
-    backgroundColor: CupertinoColors.systemGrey6,
-  );
-  print('CupertinoSearchTextField created');
-
-  // ========== OverlayVisibilityMode ==========
-  print('--- OverlayVisibilityMode Tests ---');
-  for (final mode in OverlayVisibilityMode.values) {
-    print('OverlayVisibilityMode: ${mode.name}');
-  }
-
-  print('All cupertino controls tests passed');
-
-  // ========== RETURN WIDGET ==========
-  return CupertinoApp(
-    home: CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(middle: Text('Controls Test')),
-      child: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      const Text('CupertinoSwitch Styles', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+      const SizedBox(height: 16),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Column(
             children: [
-              searchField,
-              SizedBox(height: 16.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [Text('Switch:'), cupertinoSwitch],
-              ),
-              SizedBox(height: 16.0),
-              slider,
-              SizedBox(height: 16.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [indicator, partialIndicator],
-              ),
+              CupertinoSwitch(value: true, onChanged: (_) {}),
+              const SizedBox(height: 4),
+              const Text('Default', style: TextStyle(fontSize: 10)),
             ],
           ),
-        ),
+          const SizedBox(width: 24),
+          Column(
+            children: [
+              CupertinoSwitch(
+                value: true,
+                activeTrackColor: CupertinoColors.systemPurple,
+                onChanged: (_) {},
+              ),
+              const SizedBox(height: 4),
+              const Text('Purple', style: TextStyle(fontSize: 10)),
+            ],
+          ),
+          const SizedBox(width: 24),
+          Column(
+            children: [
+              CupertinoSwitch(
+                value: false,
+                onChanged: (_) {},
+              ),
+              const SizedBox(height: 4),
+              const Text('Off', style: TextStyle(fontSize: 10)),
+            ],
+          ),
+        ],
       ),
-    ),
+      const SizedBox(height: 16),
+      const CupertinoSwitch(value: true, onChanged: null),
+      const Text('Disabled', style: TextStyle(fontSize: 10)),
+      const SizedBox(height: 12),
+      const Text('activeTrackColor, thumbColor customization', style: TextStyle(fontSize: 11, color: CupertinoColors.systemGrey)),
+    ],
   );
 }

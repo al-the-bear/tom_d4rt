@@ -4,7 +4,10 @@ dynamic build(BuildContext context) {
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      const Text('AbstractLayoutBuilder concept', style: TextStyle(fontWeight: FontWeight.bold)),
+      const Text(
+        'AbstractLayoutBuilder concept',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
       const SizedBox(height: 8),
       Container(
         width: 320,
@@ -20,7 +23,9 @@ dynamic build(BuildContext context) {
                 height: 80,
                 color: compact ? Colors.orange : Colors.teal,
                 alignment: Alignment.center,
-                child: Text('maxWidth ${constraints.maxWidth.toStringAsFixed(0)}'),
+                child: Text(
+                  'maxWidth ${constraints.maxWidth.toStringAsFixed(0)}',
+                ),
               ),
             );
           },

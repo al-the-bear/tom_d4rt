@@ -16,8 +16,17 @@ dynamic build(BuildContext context) {
         width: 70,
         height: 40,
         alignment: Alignment.center,
-        decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(8)),
-        child: Text(label, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Text(
+          label,
+          style: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
     );
   }
@@ -28,13 +37,18 @@ dynamic build(BuildContext context) {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('ContainerBoxParentData Visual Test', style: TextStyle(fontWeight: FontWeight.bold)),
+        const Text(
+          'ContainerBoxParentData Visual Test',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         const SizedBox(height: 8),
         SizedBox(
           width: 240,
           height: 180,
           child: DecoratedBox(
-            decoration: BoxDecoration(border: Border.all(color: Colors.black26)),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.black26),
+            ),
             child: Stack(
               children: [
                 marker('A', dataA.offset, Colors.blue),

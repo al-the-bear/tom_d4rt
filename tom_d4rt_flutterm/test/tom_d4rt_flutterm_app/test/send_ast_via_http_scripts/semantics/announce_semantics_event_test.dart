@@ -33,7 +33,10 @@ dynamic build(BuildContext context) {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('AnnounceSemanticsEvent Visual Test', style: TextStyle(fontWeight: FontWeight.bold)),
+        const Text(
+          'AnnounceSemanticsEvent Visual Test',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         const SizedBox(height: 10),
         tile('LTR Announcement', ltr, Colors.blue),
         tile('RTL Announcement', rtl, Colors.deepPurple),

@@ -6,14 +6,18 @@ dynamic build(BuildContext context) {
     child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        const Text('Android overscroll indicator behavior', style: TextStyle(fontWeight: FontWeight.bold)),
+        const Text(
+          'Android overscroll indicator behavior',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         const SizedBox(height: 8),
         SizedBox(
           height: 140,
           width: 280,
           child: ListView.builder(
             itemCount: 20,
-            itemBuilder: (context, index) => ListTile(title: Text('Row $index')),
+            itemBuilder: (context, index) =>
+                ListTile(title: Text('Row $index')),
           ),
         ),
       ],

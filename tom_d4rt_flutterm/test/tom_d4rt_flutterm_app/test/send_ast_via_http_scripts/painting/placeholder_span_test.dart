@@ -14,7 +14,11 @@ dynamic build(BuildContext context) {
   final text = TextSpan(
     text: 'A',
     style: const TextStyle(color: Colors.black, fontSize: 18),
-    children: [baselineSpan, const TextSpan(text: 'B'), middleSpan],
+    children: [
+      baselineSpan,
+      const TextSpan(text: 'B'),
+      middleSpan,
+    ],
   );
 
   return Padding(
@@ -23,7 +27,10 @@ dynamic build(BuildContext context) {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('PlaceholderSpan Visual Test', style: TextStyle(fontWeight: FontWeight.bold)),
+        const Text(
+          'PlaceholderSpan Visual Test',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         const SizedBox(height: 8),
         RichText(text: text),
         const SizedBox(height: 8),

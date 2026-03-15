@@ -38,7 +38,10 @@ class _ActionListenerDemoState extends State<_ActionListenerDemo> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text('ActionListener demo', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              'ActionListener demo',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             ElevatedButton(
               onPressed: () => Actions.invoke(context, const _ListenerIntent()),

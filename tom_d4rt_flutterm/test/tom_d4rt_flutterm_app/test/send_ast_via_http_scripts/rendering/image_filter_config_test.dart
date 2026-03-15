@@ -22,19 +22,28 @@ Widget _baseBox() {
       borderRadius: BorderRadius.circular(10),
     ),
     alignment: Alignment.center,
-    child: const Text('Filter', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+    child: const Text(
+      'Filter',
+      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+    ),
   );
 }
 
 dynamic build(BuildContext context) {
   final direct = ImageFilterConfig(ui.ImageFilter.blur(sigmaX: 4, sigmaY: 2));
-  final boundedBlur = const ImageFilterConfig.blur(sigmaX: 6, sigmaY: 3, bounded: true);
+  final boundedBlur = const ImageFilterConfig.blur(
+    sigmaX: 6,
+    sigmaY: 3,
+    bounded: true,
+  );
   final composed = ImageFilterConfig.compose(
     outer: boundedBlur,
     inner: const ImageFilterConfig.blur(sigmaX: 1.5, sigmaY: 1.5),
   );
 
-  const filterContext = ImageFilterContext(bounds: ui.Rect.fromLTWH(0, 0, 95, 70));
+  const filterContext = ImageFilterContext(
+    bounds: ui.Rect.fromLTWH(0, 0, 95, 70),
+  );
   final resolvedDirect = direct.resolve(filterContext);
   final resolvedComposed = composed.resolve(filterContext);
 
@@ -44,15 +53,24 @@ dynamic build(BuildContext context) {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('ImageFilterConfig Visual Test', style: TextStyle(fontWeight: FontWeight.bold)),
+        const Text(
+          'ImageFilterConfig Visual Test',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         const SizedBox(height: 10),
         Row(
           children: [
             _tile('Original', _baseBox()),
             const SizedBox(width: 8),
-            _tile('Direct blur', ImageFiltered(imageFilter: resolvedDirect, child: _baseBox())),
+            _tile(
+              'Direct blur',
+              ImageFiltered(imageFilter: resolvedDirect, child: _baseBox()),
+            ),
             const SizedBox(width: 8),
-            _tile('Composed', ImageFiltered(imageFilter: resolvedComposed, child: _baseBox())),
+            _tile(
+              'Composed',
+              ImageFiltered(imageFilter: resolvedComposed, child: _baseBox()),
+            ),
           ],
         ),
       ],

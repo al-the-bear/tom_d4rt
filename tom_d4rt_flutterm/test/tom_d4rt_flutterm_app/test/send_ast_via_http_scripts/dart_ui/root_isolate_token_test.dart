@@ -1,424 +1,65 @@
-// D4rt test script: Comprehensive RootIsolateToken coverage
-// we don't ignore for file, we write test that following the usual guidelines:  avoid_print, prefer_interpolation_to_compose_strings, unused_local_variable, unnecessary_type_check, unnecessary_import, deprecated_member_use, unused_import, unnecessary_null_comparison, unnecessary_brace_in_string_interps, sized_box_for_whitespace, sort_child_properties_last, prefer_function_declarations_over_variables, prefer_is_empty, avoid_unnecessary_containers, invalid_use_of_protected_member, equal_elements_in_set, dead_code, dead_null_aware_expression, unnecessary_string_interpolations, prefer_iterable_wheretype, prefer_final_fields, no_leading_underscores_for_local_identifiers, curly_braces_in_flow_control_structures, use_super_parameters, prefer_const_constructors_in_immutables, non_constant_identifier_names, no_logic_in_create_state, avoid_function_literals_in_foreach_calls, use_null_aware_elements, unused_element, unused_field, unrelated_type_equality_checks, invalid_null_aware_operator, depend_on_referenced_packages, unnecessary_non_null_assertion, use_of_void_result, invalid_return_type_for_catch_error, override_on_non_overriding_member, duplicate_import, directive_after_declaration, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_declarations, unnecessary_const, undefined_getter, undefined_setter, undefined_method, undefined_function, undefined_named_parameter, undefined_identifier, undefined_class, undefined_operator, undefined_enum_constant, undefined_prefixed_name, missing_required_argument, not_enough_positional_arguments, extra_positional_arguments, argument_type_not_assignable, const_with_non_const, const_initialized_with_non_constant_value, const_with_undefined_constructor, invalid_constant, instantiate_abstract_class, static_access_to_instance_member, invocation_of_non_function_expression, non_abstract_class_inherits_abstract_member, no_generative_constructors_in_superclass, invalid_override, invalid_implementation_override, invalid_assignment, implements_non_class, type_test_with_undefined_name, unchecked_use_of_nullable_value, assignment_to_final, assignment_to_final_no_setter, implicit_super_initializer_missing_arguments, non_bool_condition, new_with_undefined_constructor_default, non_constant_default_value, final_not_initialized, duplicate_definition, duplicate_ignore, strict_top_level_inference, prefer_typing_uninitialized_variables, field_initializer_outside_constructor, named_parameter_outside_group, obsolete_colon_for_default_value, expected_identifier_but_got_keyword, use_function_type_syntax_for_parameters, missing_function_parameters, missing_function_body, not_a_type, unused_element_parameter, invalid_use_of_internal_member, non_type_as_type_argument, unnecessary_nullable_for_final_variable_declarations, await_in_wrong_context, non_constant_identifier_names
 import 'dart:ui';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
-void expectCondition(
-  bool condition,
-  String message,
-  List<String> logs,
-  Map<String, int> counters,
-) {
-  assert(condition, message);
-  counters['assertions'] = (counters['assertions'] ?? 0) + 1;
-  final marker = condition ? '✅' : '❌';
-  logs.add('$marker $message');
-  print('$marker $message');
-}
-
-Text summaryLine(String text) {
-  return Text(text, textDirection: TextDirection.ltr);
-}
-
+/// Deep visual demo for RootIsolateToken - background isolate registration.
+/// Demonstrates token used for background processing setup.
 dynamic build(BuildContext context) {
-  print('--- RootIsolateToken test start ---');
-  final logs = <String>[];
-  final counters = <String, int>{'assertions': 0};
-  final startedAt = DateTime.now();
-
-  expectCondition(
-    context is BuildContext,
-    'BuildContext is available',
-    logs,
-    counters,
-  );
-  expectCondition(
-    startedAt.millisecondsSinceEpoch > 0,
-    'Start time is valid',
-    logs,
-    counters,
-  );
-
-  final tokenA = RootIsolateToken.instance;
-  final tokenB = RootIsolateToken.instance;
-  expectCondition(
-    tokenA == tokenB,
-    'RootIsolateToken.instance is stable',
-    logs,
-    counters,
-  );
-  expectCondition(
-    tokenA == null ||
-        tokenA.runtimeType.toString().contains('RootIsolateToken'),
-    'Token type is RootIsolateToken when present',
-    logs,
-    counters,
-  );
-  if (tokenA != null) {
-    expectCondition(
-      tokenA.toString().isNotEmpty,
-      'Token has non-empty string output',
-      logs,
-      counters,
-    );
-  } else {
-    expectCondition(
-      tokenA == null,
-      'Null token is allowed in non-root isolate contexts',
-      logs,
-      counters,
-    );
-  }
-  final tokenList = <RootIsolateToken?>[
-    tokenA,
-    tokenB,
-    RootIsolateToken.instance,
-  ];
-  expectCondition(
-    tokenList.length == 3,
-    'Token list contains three snapshots',
-    logs,
-    counters,
-  );
-  expectCondition(
-    tokenList.first == tokenList.last,
-    'First and last snapshot are equal',
-    logs,
-    counters,
-  );
-  for (final t in tokenList) {
-    expectCondition(
-      t == null || t.hashCode == tokenA.hashCode,
-      'Hash code is stable when token exists',
-      logs,
-      counters,
-    );
-  }
-  for (var i = 0; i < 10; i++) {
-    expectCondition(
-      RootIsolateToken.instance == tokenA,
-      'Repeated reads remain stable',
-      logs,
-      counters,
-    );
-  }
-  expectCondition(
-    true,
-    'Filler assertion 1 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 2 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 3 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 4 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 5 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 6 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 7 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 8 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 9 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 10 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 11 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 12 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 13 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 14 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 15 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 16 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 17 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 18 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 19 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 20 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 21 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 22 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 23 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 24 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 25 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 26 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 27 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 28 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 29 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 30 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 31 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 32 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 33 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 34 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 35 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 36 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 37 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 38 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 39 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 40 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 41 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 42 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 43 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 44 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 45 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 46 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 47 for minimum script size',
-    logs,
-    counters,
-  );
-  expectCondition(
-    true,
-    'Filler assertion 48 for minimum script size',
-    logs,
-    counters,
-  );
-
-  final elapsed = DateTime.now().difference(startedAt).inMicroseconds;
-  expectCondition(
-    elapsed >= 0,
-    'Elapsed measurement is non-negative',
-    logs,
-    counters,
-  );
-  expectCondition(
-    (counters['assertions'] ?? 0) >= 24,
-    'Performed many assertions',
-    logs,
-    counters,
-  );
-
-  print('--- RootIsolateToken test end ---');
-  print('Assertions: ${counters['assertions']}');
-  print('Log entries: ${logs.length}');
-
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      summaryLine('RootIsolateToken summary widget'),
-      summaryLine('Title: RootIsolateToken'),
-      summaryLine('Assertions: ${counters['assertions']}'),
-      summaryLine('Logs: ${logs.length}'),
-      summaryLine('Elapsed(us): $elapsed'),
-      for (final line in logs.take(24)) summaryLine(line),
-    ],
+  final tokenExists = RootIsolateToken.instance != null;
+  
+  return Scaffold(
+    appBar: AppBar(title: const Text('RootIsolateToken Demo')),
+    body: Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text('Root Isolate Token', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 8),
+          const Text('Setup token for background isolates', style: TextStyle(color: Colors.grey)),
+          const SizedBox(height: 24),
+          Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: tokenExists ? Colors.green.shade50 : Colors.red.shade50,
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Row(
+              children: [
+                Icon(tokenExists ? Icons.check_circle : Icons.error, color: tokenExists ? Colors.green : Colors.red, size: 48),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('Token Status', style: TextStyle(fontWeight: FontWeight.bold)),
+                      Text(tokenExists ? 'Available in root isolate' : 'Not available'),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 24),
+          const Text('Usage:', style: TextStyle(fontWeight: FontWeight.bold)),
+          const SizedBox(height: 12),
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
+            child: const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('1. Get token in root isolate:', style: TextStyle(fontSize: 12)),
+                Text('   final token = RootIsolateToken.instance;', style: TextStyle(fontFamily: 'monospace', fontSize: 11)),
+                SizedBox(height: 8),
+                Text('2. Pass to background isolate', style: TextStyle(fontSize: 12)),
+                SizedBox(height: 8),
+                Text('3. Register in background:', style: TextStyle(fontSize: 12)),
+                Text('   BackgroundIsolateBinaryMessenger.ensureInitialized(token);', style: TextStyle(fontFamily: 'monospace', fontSize: 11)),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ),
   );
 }

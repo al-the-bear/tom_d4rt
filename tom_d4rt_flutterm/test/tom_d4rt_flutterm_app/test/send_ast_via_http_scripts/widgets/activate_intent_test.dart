@@ -12,7 +12,10 @@ dynamic build(BuildContext context) {
       child: const Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('ActivateIntent demo', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            'ActivateIntent demo',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8),
           Text('Enter/Space mapped to ActivateIntent'),
         ],

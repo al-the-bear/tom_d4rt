@@ -19,7 +19,11 @@ dynamic build(BuildContext context) {
       ),
       child: Row(
         children: [
-          Icon(ok ? Icons.check_circle : Icons.error, color: ok ? Colors.green : Colors.red, size: 18),
+          Icon(
+            ok ? Icons.check_circle : Icons.error,
+            color: ok ? Colors.green : Colors.red,
+            size: 18,
+          ),
           const SizedBox(width: 8),
           Text(label),
         ],
@@ -33,7 +37,10 @@ dynamic build(BuildContext context) {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('TextParentData Visual Test', style: TextStyle(fontWeight: FontWeight.bold)),
+        const Text(
+          'TextParentData Visual Test',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         const SizedBox(height: 10),
         statusTile('Before detach: span assigned', beforeDetach),
         const SizedBox(height: 8),

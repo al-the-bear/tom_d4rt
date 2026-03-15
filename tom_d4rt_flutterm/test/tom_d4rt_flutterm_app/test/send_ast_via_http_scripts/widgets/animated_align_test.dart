@@ -17,8 +17,14 @@ class _AnimatedAlignDemoState extends State<_AnimatedAlignDemo> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        const Text('AnimatedAlign demo', style: TextStyle(fontWeight: FontWeight.bold)),
-        FilledButton(onPressed: () => setState(() => _end = !_end), child: const Text('Toggle alignment')),
+        const Text(
+          'AnimatedAlign demo',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        FilledButton(
+          onPressed: () => setState(() => _end = !_end),
+          child: const Text('Toggle alignment'),
+        ),
         Container(
           width: 280,
           height: 120,
@@ -26,7 +32,11 @@ class _AnimatedAlignDemoState extends State<_AnimatedAlignDemo> {
           child: AnimatedAlign(
             duration: const Duration(milliseconds: 350),
             alignment: _end ? Alignment.bottomRight : Alignment.topLeft,
-            child: Container(width: 50, height: 50, color: Colors.cyan.shade700),
+            child: Container(
+              width: 50,
+              height: 50,
+              color: Colors.cyan.shade700,
+            ),
           ),
         ),
       ],

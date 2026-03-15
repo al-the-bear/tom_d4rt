@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  final color = ColorTween(begin: Colors.transparent, end: Colors.black54).animate(
-    const AlwaysStoppedAnimation<double>(0.7),
-  );
+  final color = ColorTween(
+    begin: Colors.transparent,
+    end: Colors.black54,
+  ).animate(const AlwaysStoppedAnimation<double>(0.7));
 
   return Stack(
     children: [

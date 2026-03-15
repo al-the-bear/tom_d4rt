@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-Widget _eventCard(String title, GranularlyExtendSelectionEvent event, Color color) {
+Widget _eventCard(
+  String title,
+  GranularlyExtendSelectionEvent event,
+  Color color,
+) {
   return Expanded(
     child: Container(
       padding: const EdgeInsets.all(10),
@@ -42,7 +46,10 @@ dynamic build(BuildContext context) {
     child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        const Text('GranularlyExtendSelectionEvent Visual Test', style: TextStyle(fontWeight: FontWeight.bold)),
+        const Text(
+          'GranularlyExtendSelectionEvent Visual Test',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         const SizedBox(height: 10),
         Row(
           children: [

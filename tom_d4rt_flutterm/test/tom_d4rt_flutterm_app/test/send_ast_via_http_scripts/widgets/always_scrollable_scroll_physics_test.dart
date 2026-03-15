@@ -4,7 +4,10 @@ dynamic build(BuildContext context) {
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      const Text('AlwaysScrollableScrollPhysics demo', style: TextStyle(fontWeight: FontWeight.bold)),
+      const Text(
+        'AlwaysScrollableScrollPhysics demo',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
       const SizedBox(height: 8),
       SizedBox(
         height: 140,

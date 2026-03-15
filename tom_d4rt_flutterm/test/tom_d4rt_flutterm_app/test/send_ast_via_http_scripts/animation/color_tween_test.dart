@@ -1,80 +1,47 @@
-// D4rt test script: Tests ColorTween from animation
-// we don't ignore for file, we write test that following the usual guidelines:  avoid_print, prefer_interpolation_to_compose_strings, unused_local_variable, unnecessary_type_check, unnecessary_import, deprecated_member_use, unused_import, unnecessary_null_comparison, unnecessary_brace_in_string_interps, sized_box_for_whitespace, sort_child_properties_last, prefer_function_declarations_over_variables, prefer_is_empty, avoid_unnecessary_containers, invalid_use_of_protected_member, equal_elements_in_set, dead_code, dead_null_aware_expression, unnecessary_string_interpolations, prefer_iterable_wheretype, prefer_final_fields, no_leading_underscores_for_local_identifiers, curly_braces_in_flow_control_structures, use_super_parameters, prefer_const_constructors_in_immutables, non_constant_identifier_names, no_logic_in_create_state, avoid_function_literals_in_foreach_calls, use_null_aware_elements, unused_element, unused_field, unrelated_type_equality_checks, invalid_null_aware_operator, depend_on_referenced_packages, unnecessary_non_null_assertion, use_of_void_result, invalid_return_type_for_catch_error, override_on_non_overriding_member, duplicate_import, directive_after_declaration, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_declarations, unnecessary_const, undefined_getter, undefined_setter, undefined_method, undefined_function, undefined_named_parameter, undefined_identifier, undefined_class, undefined_operator, undefined_enum_constant, undefined_prefixed_name, missing_required_argument, not_enough_positional_arguments, extra_positional_arguments, argument_type_not_assignable, const_with_non_const, const_initialized_with_non_constant_value, const_with_undefined_constructor, invalid_constant, instantiate_abstract_class, static_access_to_instance_member, invocation_of_non_function_expression, non_abstract_class_inherits_abstract_member, no_generative_constructors_in_superclass, invalid_override, invalid_implementation_override, invalid_assignment, implements_non_class, type_test_with_undefined_name, unchecked_use_of_nullable_value, assignment_to_final, assignment_to_final_no_setter, implicit_super_initializer_missing_arguments, non_bool_condition, new_with_undefined_constructor_default, non_constant_default_value, final_not_initialized, duplicate_definition, duplicate_ignore, strict_top_level_inference, prefer_typing_uninitialized_variables, field_initializer_outside_constructor, named_parameter_outside_group, obsolete_colon_for_default_value, expected_identifier_but_got_keyword, use_function_type_syntax_for_parameters, missing_function_parameters, missing_function_body, not_a_type, unused_element_parameter, invalid_use_of_internal_member, non_type_as_type_argument, unnecessary_nullable_for_final_variable_declarations, await_in_wrong_context, non_constant_identifier_names
-import 'dart:ui';
-import 'package:flutter/animation.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
+/// Demonstrates ColorTween - interpolates between two colors.
 dynamic build(BuildContext context) {
-  print('ColorTween test executing');
+  final tween = ColorTween(begin: Colors.blue, end: Colors.orange);
 
-  // ========== Basic ColorTween ==========
-  print('--- Basic ColorTween ---');
-  final tween = ColorTween(begin: Color(0xFFFF0000), end: Color(0xFF0000FF));
-  print('  begin: ${tween.begin}');
-  print('  end: ${tween.end}');
-
-  // ========== Lerp at various t ==========
-  print('--- Lerp values ---');
-  final tValues = [0.0, 0.25, 0.5, 0.75, 1.0];
-  final colors = <Color?>[];
-  for (final t in tValues) {
-    final color = tween.lerp(t);
-    colors.add(color);
-    print('  t=$t: $color');
-  }
-
-  // ========== Null begin/end ==========
-  print('--- Null begin ---');
-  final nullBegin = ColorTween(begin: null, end: Color(0xFF00FF00));
-  print('  lerp(0.0): ${nullBegin.lerp(0.0)}');
-  print('  lerp(1.0): ${nullBegin.lerp(1.0)}');
-
-  // ========== Same color ==========
-  print('--- Same color ---');
-  final same = ColorTween(begin: Color(0xFF808080), end: Color(0xFF808080));
-  print('  lerp(0.5): ${same.lerp(0.5)}');
-
-  // ========== With transparency ==========
-  print('--- With transparency ---');
-  final alpha = ColorTween(begin: Color(0x00FF0000), end: Color(0xFFFF0000));
-  print('  t=0.0 alpha: ${alpha.lerp(0.0)}');
-  print('  t=0.5 alpha: ${alpha.lerp(0.5)}');
-  print('  t=1.0 alpha: ${alpha.lerp(1.0)}');
-
-  // ========== Transform (uses Animation) ==========
-  print('--- Transform via Animation ---');
-  final anim = AlwaysStoppedAnimation<double>(0.5);
-  final result = tween.evaluate(anim);
-  print('  evaluate at 0.5: $result');
-
-  print('ColorTween test completed');
-  return SingleChildScrollView(
-    child: Padding(
-      padding: EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+  return TweenAnimationBuilder<Color?>(
+    tween: tween,
+    duration: const Duration(seconds: 3),
+    builder: (context, color, _) {
+      return Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            'ColorTween Tests',
-            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          const Text('ColorTween Demo', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+          const SizedBox(height: 16),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(width: 50, height: 50, decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(8)),
+                child: const Center(child: Text('Begin', style: TextStyle(color: Colors.white, fontSize: 9)))),
+              const SizedBox(width: 8),
+              const Icon(Icons.arrow_forward),
+              const SizedBox(width: 8),
+              Container(width: 80, height: 80, decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(12), boxShadow: [BoxShadow(color: color!.withOpacity(0.5), blurRadius: 12)]),
+                child: const Center(child: Text('Current', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)))),
+              const SizedBox(width: 8),
+              const Icon(Icons.arrow_forward),
+              const SizedBox(width: 8),
+              Container(width: 50, height: 50, decoration: BoxDecoration(color: Colors.orange, borderRadius: BorderRadius.circular(8)),
+                child: const Center(child: Text('End', style: TextStyle(color: Colors.white, fontSize: 9)))),
+            ],
           ),
-          SizedBox(height: 8.0),
-          for (var i = 0; i < tValues.length; i++)
-            Container(
-              height: 30.0,
-              width: 200.0,
-              margin: EdgeInsets.symmetric(vertical: 2.0),
-              color: colors[i] ?? Color(0x00000000),
-              child: Center(
-                child: Text(
-                  't=${tValues[i]}',
-                  style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 12.0),
-                ),
-              ),
+          const SizedBox(height: 16),
+          Container(
+            height: 20, width: 200,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(colors: [Colors.blue, Colors.purple, Colors.orange]),
+              borderRadius: BorderRadius.circular(4),
             ),
+          ),
+          const SizedBox(height: 8),
+          const Text('Interpolates through color space', style: TextStyle(fontSize: 11, color: Colors.grey)),
         ],
-      ),
-    ),
+      );
+    },
   );
 }

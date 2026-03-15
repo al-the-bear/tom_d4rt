@@ -17,7 +17,10 @@ class _AbsorbPointerDemoState extends State<_AbsorbPointerDemo> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        const Text('AbsorbPointer demo', style: TextStyle(fontWeight: FontWeight.bold)),
+        const Text(
+          'AbsorbPointer demo',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SwitchListTile(
           title: const Text('Absorbing enabled'),
           value: _absorbing,
@@ -30,7 +33,10 @@ class _AbsorbPointerDemoState extends State<_AbsorbPointerDemo> {
           alignment: Alignment.center,
           child: AbsorbPointer(
             absorbing: _absorbing,
-            child: ElevatedButton(onPressed: () {}, child: const Text('Tap target')),
+            child: ElevatedButton(
+              onPressed: () {},
+              child: const Text('Tap target'),
+            ),
           ),
         ),
       ],

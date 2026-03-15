@@ -15,11 +15,17 @@ dynamic build(BuildContext context) {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text('ActivateAction demo', style: TextStyle(fontWeight: FontWeight.bold)),
+          const Text(
+            'ActivateAction demo',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 8),
           const Text('Press Enter/Space while button has focus'),
           const SizedBox(height: 8),
-          ElevatedButton(onPressed: () {}, child: const Text('Focusable button')),
+          ElevatedButton(
+            onPressed: () {},
+            child: const Text('Focusable button'),
+          ),
         ],
       ),
     ),

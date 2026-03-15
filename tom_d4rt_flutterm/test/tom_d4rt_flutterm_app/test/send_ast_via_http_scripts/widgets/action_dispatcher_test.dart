@@ -31,11 +31,16 @@ class _ActionDispatcherDemoState extends State<_ActionDispatcherDemo> {
   Widget build(BuildContext context) {
     return Actions(
       dispatcher: ActionDispatcher(),
-      actions: <Type, Action<Intent>>{_PingIntent: _PingAction(() => setState(() => _count++))},
+      actions: <Type, Action<Intent>>{
+        _PingIntent: _PingAction(() => setState(() => _count++)),
+      },
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text('ActionDispatcher demo', style: TextStyle(fontWeight: FontWeight.bold)),
+          const Text(
+            'ActionDispatcher demo',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 8),
           FilledButton(
             onPressed: () => Actions.invoke(context, const _PingIntent()),

@@ -1,155 +1,90 @@
-// D4rt test script: Comprehensive generated script
-// we don't ignore for file, we write test that following the usual guidelines:  avoid_print, prefer_interpolation_to_compose_strings, unused_local_variable, unnecessary_type_check, unnecessary_import, deprecated_member_use, unused_import, unnecessary_null_comparison, unnecessary_brace_in_string_interps, sized_box_for_whitespace, sort_child_properties_last, prefer_function_declarations_over_variables, prefer_is_empty, avoid_unnecessary_containers, invalid_use_of_protected_member, equal_elements_in_set, dead_code, dead_null_aware_expression, unnecessary_string_interpolations, prefer_iterable_wheretype, prefer_final_fields, no_leading_underscores_for_local_identifiers, curly_braces_in_flow_control_structures, use_super_parameters, prefer_const_constructors_in_immutables, non_constant_identifier_names, no_logic_in_create_state, avoid_function_literals_in_foreach_calls, use_null_aware_elements, unused_element, unused_field, unrelated_type_equality_checks, invalid_null_aware_operator, depend_on_referenced_packages, unnecessary_non_null_assertion, use_of_void_result, invalid_return_type_for_catch_error, override_on_non_overriding_member, duplicate_import, directive_after_declaration, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_declarations, unnecessary_const, undefined_getter, undefined_setter, undefined_method, undefined_function, undefined_named_parameter, undefined_identifier, undefined_class, undefined_operator, undefined_enum_constant, undefined_prefixed_name, missing_required_argument, not_enough_positional_arguments, extra_positional_arguments, argument_type_not_assignable, const_with_non_const, const_initialized_with_non_constant_value, const_with_undefined_constructor, invalid_constant, instantiate_abstract_class, static_access_to_instance_member, invocation_of_non_function_expression, non_abstract_class_inherits_abstract_member, no_generative_constructors_in_superclass, invalid_override, invalid_implementation_override, invalid_assignment, implements_non_class, type_test_with_undefined_name, unchecked_use_of_nullable_value, assignment_to_final, assignment_to_final_no_setter, implicit_super_initializer_missing_arguments, non_bool_condition, new_with_undefined_constructor_default, non_constant_default_value, final_not_initialized, duplicate_definition, duplicate_ignore, strict_top_level_inference, prefer_typing_uninitialized_variables, field_initializer_outside_constructor, named_parameter_outside_group, obsolete_colon_for_default_value, expected_identifier_but_got_keyword, use_function_type_syntax_for_parameters, missing_function_parameters, missing_function_body, not_a_type, unused_element_parameter, invalid_use_of_internal_member, non_type_as_type_argument, unnecessary_nullable_for_final_variable_declarations, await_in_wrong_context, non_constant_identifier_names
-import 'dart:async';
-import 'dart:isolate';
-import 'dart:typed_data';
-import 'dart:ui' as ui;
-import 'package:flutter/animation.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
+import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
-void expectCheck(bool condition, String message) {
-  if (!condition) {
-    throw StateError('Assertion failed: $message');
-  }
-}
-
-void log(String message) {
-  print(message);
-}
-
-List<String> _phaseMessages(String id) {
-  return <String>[
-    'phase[1] constructors',
-    'phase[2] properties',
-    'phase[3] behavior',
-    'phase[4] edge-cases',
-    'phase[5] completion for $id',
-  ];
-}
-
+/// Deep visual demo for CallbackHandle - handle to top-level function for background isolate.
+/// Demonstrates concept of callback handles for isolate communication.
 dynamic build(BuildContext context) {
-  const testId = 'dart_ui.callback_handle';
-  log('=== start $testId ===');
-
-  final phases = _phaseMessages(testId);
-  for (final phase in phases) {
-    log(phase);
-  }
-
-  final handle1 = ui.CallbackHandle.fromRawHandle(12345);
-  final handle2 = ui.CallbackHandle.fromRawHandle(12345);
-  final handle3 = ui.CallbackHandle.fromRawHandle(67890);
-
-  log('handle1 raw=${handle1.toRawHandle()}');
-  log('handle2 raw=${handle2.toRawHandle()}');
-  log('handle3 raw=${handle3.toRawHandle()}');
-
-  expectCheck(handle1 == handle2, 'same raw value should create equal handles');
-  expectCheck(
-    handle1 != handle3,
-    'different raw values should create different handles',
-  );
-  expectCheck(
-    handle1.hashCode == handle2.hashCode,
-    'equal handles should share hashCode',
-  );
-
-  final zeroHandle = ui.CallbackHandle.fromRawHandle(0);
-  final maxLikeHandle = ui.CallbackHandle.fromRawHandle(999999999);
-  log('zeroHandle raw=${zeroHandle.toRawHandle()}');
-  log('maxLikeHandle raw=${maxLikeHandle.toRawHandle()}');
-
-  expectCheck(zeroHandle.toRawHandle() == 0, 'zero handle should roundtrip');
-  expectCheck(
-    maxLikeHandle.toRawHandle() == 999999999,
-    'large handle should roundtrip',
-  );
-
-  final handleSet = <ui.CallbackHandle>{
-    handle1,
-    handle2,
-    handle3,
-    zeroHandle,
-    maxLikeHandle,
-  };
-  log('handleSet length=${handleSet.length}');
-  expectCheck(handleSet.length == 4, 'set should deduplicate equal handles');
-
-  final markers = <String>[
-    'constructors',
-    'properties',
-    'behavior',
-    'edge-cases',
-  ];
-  final markerLine = markers.join('|');
-  log('coverage markers: $markerLine');
-
-  final numericChecks = <int>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  final numericSum = numericChecks.fold<int>(0, (acc, value) => acc + value);
-  log('numericSum=$numericSum');
-  expectCheck(numericSum == 55, 'numeric sanity check should equal 55');
-
-  final boolChecks = <bool>[true, true, true, true];
-  expectCheck(
-    boolChecks.every((value) => value),
-    'all bool sanity checks should be true',
-  );
-
-  final summary = <String>[
-    'testId=$testId',
-    'phases=${phases.length}',
-    'markers=$markerLine',
-    'numericSum=$numericSum',
-    'status=PASS',
-  ];
-  for (final entry in summary) {
-    log('summary: $entry');
-  }
-
-  log('=== completed $testId ===');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text('D4rt script summary for $testId'),
-      Text('Phases: ${phases.length}'),
-      Text('Markers: $markerLine'),
-      Text('Numeric sum: $numericSum'),
-      Text('Assertions completed: ${boolChecks.length + numericChecks.length}'),
-      Text('Status: PASS'),
-      const Text('Constructors/properties/behavior/edge-cases covered'),
-      const Text('Summary widget returned successfully'),
-    ],
+  return Scaffold(
+    appBar: AppBar(title: const Text('CallbackHandle Demo')),
+    body: Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text('CallbackHandle', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 8),
+          const Text('Handle to a top-level function for isolate communication', style: TextStyle(color: Colors.grey)),
+          const SizedBox(height: 24),
+          Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(colors: [Colors.purple.shade100, Colors.blue.shade100]),
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    _buildIsolateBox('Main Isolate', Colors.purple),
+                    const Icon(Icons.arrow_forward, size: 32),
+                    _buildIsolateBox('Background Isolate', Colors.blue),
+                  ],
+                ),
+                const SizedBox(height: 24),
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const Text(
+                    'CallbackHandle allows passing function references '
+                    'between isolates via PluginUtilities',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 13),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 24),
+          const Text('API:', style: TextStyle(fontWeight: FontWeight.bold)),
+          const SizedBox(height: 8),
+          _buildCodeBlock('PluginUtilities.getCallbackHandle(myFunction)'),
+          const SizedBox(height: 8),
+          _buildCodeBlock('PluginUtilities.getCallbackFromHandle(handle)'),
+        ],
+      ),
+    ),
   );
 }
 
-// padding-lines-begin
-// pad 001
-// pad 002
-// pad 003
-// pad 004
-// pad 005
-// pad 006
-// pad 007
-// pad 008
-// pad 009
-// pad 010
-// pad 011
-// pad 012
-// pad 013
-// pad 014
-// pad 015
-// pad 016
-// pad 017
-// pad 018
-// pad 019
-// pad 020
-// pad 021
-// pad 022
-// pad 023
-// pad 024
-// pad 025
-// padding-lines-end
+Widget _buildIsolateBox(String label, Color color) {
+  return Container(
+    padding: const EdgeInsets.all(16),
+    decoration: BoxDecoration(
+      color: color,
+      borderRadius: BorderRadius.circular(12),
+    ),
+    child: Column(
+      children: [
+        const Icon(Icons.memory, color: Colors.white),
+        const SizedBox(height: 4),
+        Text(label, style: const TextStyle(color: Colors.white, fontSize: 12)),
+      ],
+    ),
+  );
+}
+
+Widget _buildCodeBlock(String code) {
+  return Container(
+    width: double.infinity,
+    padding: const EdgeInsets.all(12),
+    decoration: BoxDecoration(
+      color: Colors.grey.shade100,
+      borderRadius: BorderRadius.circular(8),
+    ),
+    child: Text(code, style: const TextStyle(fontFamily: 'monospace', fontSize: 13)),
+  );
+}

@@ -17,7 +17,10 @@ dynamic build(BuildContext context) {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('LongPressSemanticsEvent Visual Test', style: TextStyle(fontWeight: FontWeight.bold)),
+          const Text(
+            'LongPressSemanticsEvent Visual Test',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 8),
           const Icon(Icons.touch_app, color: Colors.purple, size: 28),
           const SizedBox(height: 8),

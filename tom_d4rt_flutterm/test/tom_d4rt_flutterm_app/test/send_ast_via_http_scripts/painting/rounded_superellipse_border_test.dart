@@ -29,7 +29,10 @@ dynamic build(BuildContext context) {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('RoundedSuperellipseBorder Visual Test', style: TextStyle(fontWeight: FontWeight.bold)),
+        const Text(
+          'RoundedSuperellipseBorder Visual Test',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         const SizedBox(height: 10),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -6,10 +6,12 @@ dynamic build(BuildContext context) {
 
 class _AnimatedFractionallySizedBoxDemo extends StatefulWidget {
   @override
-  State<_AnimatedFractionallySizedBoxDemo> createState() => _AnimatedFractionallySizedBoxDemoState();
+  State<_AnimatedFractionallySizedBoxDemo> createState() =>
+      _AnimatedFractionallySizedBoxDemoState();
 }
 
-class _AnimatedFractionallySizedBoxDemoState extends State<_AnimatedFractionallySizedBoxDemo> {
+class _AnimatedFractionallySizedBoxDemoState
+    extends State<_AnimatedFractionallySizedBoxDemo> {
   var _expanded = false;
 
   @override
@@ -17,8 +19,14 @@ class _AnimatedFractionallySizedBoxDemoState extends State<_AnimatedFractionally
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        const Text('AnimatedFractionallySizedBox demo', style: TextStyle(fontWeight: FontWeight.bold)),
-        ElevatedButton(onPressed: () => setState(() => _expanded = !_expanded), child: const Text('Toggle factor')),
+        const Text(
+          'AnimatedFractionallySizedBox demo',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        ElevatedButton(
+          onPressed: () => setState(() => _expanded = !_expanded),
+          child: const Text('Toggle factor'),
+        ),
         Container(
           width: 280,
           height: 100,
