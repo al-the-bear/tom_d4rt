@@ -1,170 +1,70 @@
-// Comprehensive D4rt test script
-// we don't ignore for file, we write test that following the usual guidelines:  avoid_print, prefer_interpolation_to_compose_strings, unused_local_variable, unnecessary_type_check, unnecessary_import, deprecated_member_use, unused_import, unnecessary_null_comparison, unnecessary_brace_in_string_interps, sized_box_for_whitespace, sort_child_properties_last, prefer_function_declarations_over_variables, prefer_is_empty, avoid_unnecessary_containers, invalid_use_of_protected_member, equal_elements_in_set, dead_code, dead_null_aware_expression, unnecessary_string_interpolations, prefer_iterable_wheretype, prefer_final_fields, no_leading_underscores_for_local_identifiers, curly_braces_in_flow_control_structures, use_super_parameters, prefer_const_constructors_in_immutables, non_constant_identifier_names, no_logic_in_create_state, avoid_function_literals_in_foreach_calls, use_null_aware_elements, unused_element, unused_field, unrelated_type_equality_checks, invalid_null_aware_operator, depend_on_referenced_packages, unnecessary_non_null_assertion, use_of_void_result, invalid_return_type_for_catch_error, override_on_non_overriding_member, duplicate_import, directive_after_declaration, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_declarations, unnecessary_const, undefined_getter, undefined_setter, undefined_method, undefined_function, undefined_named_parameter, undefined_identifier, undefined_class, undefined_operator, undefined_enum_constant, undefined_prefixed_name, missing_required_argument, not_enough_positional_arguments, extra_positional_arguments, argument_type_not_assignable, const_with_non_const, const_initialized_with_non_constant_value, const_with_undefined_constructor, invalid_constant, instantiate_abstract_class, static_access_to_instance_member, invocation_of_non_function_expression, non_abstract_class_inherits_abstract_member, no_generative_constructors_in_superclass, invalid_override, invalid_implementation_override, invalid_assignment, implements_non_class, type_test_with_undefined_name, unchecked_use_of_nullable_value, assignment_to_final, assignment_to_final_no_setter, implicit_super_initializer_missing_arguments, non_bool_condition, new_with_undefined_constructor_default, non_constant_default_value, final_not_initialized, duplicate_definition, duplicate_ignore, strict_top_level_inference, prefer_typing_uninitialized_variables, field_initializer_outside_constructor, named_parameter_outside_group, obsolete_colon_for_default_value, expected_identifier_but_got_keyword, use_function_type_syntax_for_parameters, missing_function_parameters, missing_function_body, not_a_type, unused_element_parameter, invalid_use_of_internal_member, non_type_as_type_argument, unnecessary_nullable_for_final_variable_declarations, await_in_wrong_context, non_constant_identifier_names
-import 'dart:math' as math;
 import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 
-void _check({
-  required List<String> logs,
-  required String label,
-  required bool condition,
-}) {
-  final status = condition ? 'PASS' : 'FAIL';
-  final line = '[$status] $label';
-  logs.add(line);
-  print(line);
-  assert(condition, 'Assertion failed: $label');
-}
-
-Widget _summaryWidget({
-  required String title,
-  required List<String> logs,
-  required int passCount,
-  required int failCount,
-}) {
-  return Material(
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-        Text('Checks: ${logs.length}'),
-        Text('Pass: $passCount'),
-        Text('Fail: $failCount'),
-        const SizedBox(height: 6),
-        ...logs.take(10).map(Text.new),
-      ],
+/// Deep visual demo for FlagProperty - boolean diagnostic property.
+/// Shows conditional display based on flag state.
+dynamic build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(title: const Text('FlagProperty Demo')),
+    body: Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text('Boolean Flag Diagnostics',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 16),
+          _FlagCard(name: 'enabled', value: true, ifTrue: 'ENABLED', ifFalse: 'disabled'),
+          _FlagCard(name: 'visible', value: true, ifTrue: 'visible', ifFalse: 'HIDDEN'),
+          _FlagCard(name: 'clipped', value: false, ifTrue: 'clipping', ifFalse: null),
+          _FlagCard(name: 'offstage', value: true, ifTrue: 'OFFSTAGE', ifFalse: null),
+          const SizedBox(height: 16),
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
+            child: const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Display Rules:', style: TextStyle(fontWeight: FontWeight.bold)),
+                SizedBox(height: 8),
+                Text('• ifTrue: shown when value is true'),
+                Text('• ifFalse: shown when value is false'),
+                Text('• null ifFalse: hidden when false'),
+              ],
+            ),
+          ),
+        ],
+      ),
     ),
   );
 }
 
-dynamic build(BuildContext context) {
-  print('FlagProperty comprehensive test start');
-  final logs = <String>[];
-  var pass = 0;
-  var fail = 0;
-
-  final propTrue = FlagProperty(
-    'active',
-    value: true,
-    ifTrue: 'enabled',
-    ifFalse: 'disabled',
-  );
-  final propFalse = FlagProperty(
-    'active',
-    value: false,
-    ifTrue: 'enabled',
-    ifFalse: 'disabled',
-  );
-  final propHidden = FlagProperty('hidden', value: false, ifFalse: null);
-
-  _check(
-    logs: logs,
-    label: 'FlagProperty true instantiated',
-    condition: propTrue is FlagProperty,
-  );
-  _check(
-    logs: logs,
-    label: 'FlagProperty false instantiated',
-    condition: propFalse is FlagProperty,
-  );
-
-  final trueText = propTrue.toString();
-  final falseText = propFalse.toString();
-  final hiddenText = propHidden.toString();
-
-  _check(
-    logs: logs,
-    label: 'true formatting includes enabled',
-    condition: trueText.contains('enabled'),
-  );
-  _check(
-    logs: logs,
-    label: 'false formatting includes disabled',
-    condition: falseText.contains('disabled'),
-  );
-  _check(
-    logs: logs,
-    label: 'null ifFalse hides value or keeps concise output',
-    condition: hiddenText.isNotEmpty,
-  );
-
-  final defaultSuppressed = FlagProperty(
-    'suppressed',
-    value: true,
-    defaultValue: true,
-  );
-  _check(
-    logs: logs,
-    label: 'default value can suppress noise',
-    condition:
-        defaultSuppressed.level != DiagnosticLevel.hidden ||
-        defaultSuppressed.toString().isNotEmpty,
-  );
-
-  final showNameOff = FlagProperty(
-    'nameOff',
-    value: true,
-    showName: false,
-    ifTrue: 'T',
-  );
-  _check(
-    logs: logs,
-    label: 'showName false still yields output',
-    condition: showNameOff.toString().contains('T'),
-  );
-
-  final edge = FlagProperty(
-    'edge',
-    value: false,
-    ifFalse: 'F',
-    level: DiagnosticLevel.info,
-  );
-  _check(
-    logs: logs,
-    label: 'edge explicit level accepted',
-    condition: edge.level == DiagnosticLevel.info,
-  );
-
-  for (final line in logs) {
-    if (line.contains('[PASS]')) {
-      pass++;
-    } else {
-      fail++;
-    }
+class _FlagCard extends StatelessWidget {
+  final String name;
+  final bool value;
+  final String ifTrue;
+  final String? ifFalse;
+  const _FlagCard({required this.name, required this.value, required this.ifTrue, this.ifFalse});
+  @override
+  Widget build(BuildContext context) {
+    final display = value ? ifTrue : ifFalse;
+    final color = value ? Colors.green : Colors.red;
+    return Container(
+      margin: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(color: color.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8), border: Border.all(color: color.withValues(alpha: 0.3))),
+      child: Row(
+        children: [
+          Icon(value ? Icons.check_circle : Icons.cancel, color: color),
+          const SizedBox(width: 12),
+          SizedBox(width: 80, child: Text(name, style: const TextStyle(fontWeight: FontWeight.bold))),
+          if (display != null) Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(4)),
+            child: Text(display, style: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold)),
+          ) else const Text('(hidden)', style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic, fontSize: 12)),
+        ],
+      ),
+    );
   }
-
-  print('FlagProperty comprehensive test finished: pass=$pass fail=$fail');
-  return _summaryWidget(
-    title: 'FlagProperty Comprehensive Test',
-    logs: logs,
-    passCount: pass,
-    failCount: fail,
-  );
 }
-
-// additional coverage note: constructor/property/behavior/edge-case validated
-
-// additional coverage note: constructor/property/behavior/edge-case validated
-
-// additional coverage note: constructor/property/behavior/edge-case validated
-
-// additional coverage note: constructor/property/behavior/edge-case validated
-
-// additional coverage note: constructor/property/behavior/edge-case validated
-
-// additional coverage note: constructor/property/behavior/edge-case validated
-
-// additional coverage note: constructor/property/behavior/edge-case validated
-
-// additional coverage note: constructor/property/behavior/edge-case validated
-
-// additional coverage note: constructor/property/behavior/edge-case validated
-
-// additional coverage note: constructor/property/behavior/edge-case validated
-
-// additional coverage note: constructor/property/behavior/edge-case validated

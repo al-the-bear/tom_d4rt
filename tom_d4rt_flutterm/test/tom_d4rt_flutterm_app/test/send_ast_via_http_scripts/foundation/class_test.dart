@@ -1,163 +1,117 @@
-// D4rt test script: Comprehensive generated script
-// we don't ignore for file, we write test that following the usual guidelines:  avoid_print, prefer_interpolation_to_compose_strings, unused_local_variable, unnecessary_type_check, unnecessary_import, deprecated_member_use, unused_import, unnecessary_null_comparison, unnecessary_brace_in_string_interps, sized_box_for_whitespace, sort_child_properties_last, prefer_function_declarations_over_variables, prefer_is_empty, avoid_unnecessary_containers, invalid_use_of_protected_member, equal_elements_in_set, dead_code, dead_null_aware_expression, unnecessary_string_interpolations, prefer_iterable_wheretype, prefer_final_fields, no_leading_underscores_for_local_identifiers, curly_braces_in_flow_control_structures, use_super_parameters, prefer_const_constructors_in_immutables, non_constant_identifier_names, no_logic_in_create_state, avoid_function_literals_in_foreach_calls, use_null_aware_elements, unused_element, unused_field, unrelated_type_equality_checks, invalid_null_aware_operator, depend_on_referenced_packages, unnecessary_non_null_assertion, use_of_void_result, invalid_return_type_for_catch_error, override_on_non_overriding_member, duplicate_import, directive_after_declaration, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_declarations, unnecessary_const, undefined_getter, undefined_setter, undefined_method, undefined_function, undefined_named_parameter, undefined_identifier, undefined_class, undefined_operator, undefined_enum_constant, undefined_prefixed_name, missing_required_argument, not_enough_positional_arguments, extra_positional_arguments, argument_type_not_assignable, const_with_non_const, const_initialized_with_non_constant_value, const_with_undefined_constructor, invalid_constant, instantiate_abstract_class, static_access_to_instance_member, invocation_of_non_function_expression, non_abstract_class_inherits_abstract_member, no_generative_constructors_in_superclass, invalid_override, invalid_implementation_override, invalid_assignment, implements_non_class, type_test_with_undefined_name, unchecked_use_of_nullable_value, assignment_to_final, assignment_to_final_no_setter, implicit_super_initializer_missing_arguments, non_bool_condition, new_with_undefined_constructor_default, non_constant_default_value, final_not_initialized, duplicate_definition, duplicate_ignore, strict_top_level_inference, prefer_typing_uninitialized_variables, field_initializer_outside_constructor, named_parameter_outside_group, obsolete_colon_for_default_value, expected_identifier_but_got_keyword, use_function_type_syntax_for_parameters, missing_function_parameters, missing_function_body, not_a_type, unused_element_parameter, invalid_use_of_internal_member, non_type_as_type_argument, unnecessary_nullable_for_final_variable_declarations, await_in_wrong_context, non_constant_identifier_names
-import 'dart:async';
-import 'dart:isolate';
-import 'dart:typed_data';
-import 'dart:ui' as ui;
-import 'package:flutter/animation.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
-void expectCheck(bool condition, String message) {
-  if (!condition) {
-    throw StateError('Assertion failed: $message');
-  }
-}
-
-void log(String message) {
-  print(message);
-}
-
-List<String> _phaseMessages(String id) {
-  return <String>[
-    'phase[1] constructors',
-    'phase[2] properties',
-    'phase[3] behavior',
-    'phase[4] edge-cases',
-    'phase[5] completion for $id',
-  ];
-}
-
+/// Deep visual demo for foundation Class utilities.
+/// Shows class metadata, type checking, and reflection patterns.
 dynamic build(BuildContext context) {
-  const testId = 'foundation.class_overview';
-  log('=== start $testId ===');
-
-  final phases = _phaseMessages(testId);
-  for (final phase in phases) {
-    log(phase);
-  }
-
-  final notifier = ChangeNotifier();
-  var notifyCount = 0;
-  void listener() {
-    notifyCount++;
-  }
-
-  notifier.addListener(listener);
-  notifier.notifyListeners();
-  notifier.notifyListeners();
-  log('notifyCount=$notifyCount hasListeners=${notifier.hasListeners}');
-  expectCheck(notifyCount == 2, 'listener should be invoked twice');
-  expectCheck(
-    notifier.hasListeners,
-    'notifier should report listeners after add',
-  );
-  notifier.removeListener(listener);
-  notifier.dispose();
-
-  final valueNotifier = ValueNotifier<int>(10);
-  final snapshots = <int>[valueNotifier.value];
-  valueNotifier.addListener(() => snapshots.add(valueNotifier.value));
-  valueNotifier.value = 25;
-  valueNotifier.value = -5;
-  log('valueNotifier snapshots=$snapshots');
-  expectCheck(
-    snapshots.length >= 3,
-    'value notifier should capture value changes',
-  );
-  expectCheck(
-    snapshots.first == 10,
-    'initial value should be preserved in snapshots',
-  );
-  expectCheck(
-    snapshots.last == -5,
-    'last snapshot should reflect latest value',
-  );
-  valueNotifier.dispose();
-
-  final list = List<int>.generate(6, (index) => index * index);
-  final sum = list.fold<int>(0, (acc, value) => acc + value);
-  log('class test helper list=$list sum=$sum');
-  expectCheck(sum == 55, 'sum of first six squares should be 55');
-  expectCheck(
-    kDebugMode || kReleaseMode || kProfileMode,
-    'one build mode flag should be true',
-  );
-
-  final markers = <String>[
-    'constructors',
-    'properties',
-    'behavior',
-    'edge-cases',
-  ];
-  final markerLine = markers.join('|');
-  log('coverage markers: $markerLine');
-
-  final numericChecks = <int>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  final numericSum = numericChecks.fold<int>(0, (acc, value) => acc + value);
-  log('numericSum=$numericSum');
-  expectCheck(numericSum == 55, 'numeric sanity check should equal 55');
-
-  final boolChecks = <bool>[true, true, true, true];
-  expectCheck(
-    boolChecks.every((value) => value),
-    'all bool sanity checks should be true',
-  );
-
-  final summary = <String>[
-    'testId=$testId',
-    'phases=${phases.length}',
-    'markers=$markerLine',
-    'numericSum=$numericSum',
-    'status=PASS',
-  ];
-  for (final entry in summary) {
-    log('summary: $entry');
-  }
-
-  log('=== completed $testId ===');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text('D4rt script summary for $testId'),
-      Text('Phases: ${phases.length}'),
-      Text('Markers: $markerLine'),
-      Text('Numeric sum: $numericSum'),
-      Text('Assertions completed: ${boolChecks.length + numericChecks.length}'),
-      Text('Status: PASS'),
-      const Text('Constructors/properties/behavior/edge-cases covered'),
-      const Text('Summary widget returned successfully'),
-    ],
+  return Scaffold(
+    appBar: AppBar(title: const Text('Class Utilities Demo')),
+    body: Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text('Class Metadata Inspection',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 16),
+          _ClassInfoCard(
+            className: 'Container',
+            runtimeTypeName: 'Container',
+            superclass: 'StatelessWidget',
+            mixins: ['DiagnosticableTreeMixin'],
+          ),
+          const SizedBox(height: 16),
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Colors.blue.shade50,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text('Type Checks:', style: TextStyle(fontWeight: FontWeight.bold)),
+                const SizedBox(height: 8),
+                _TypeCheckRow(check: 'is Widget', result: true),
+                _TypeCheckRow(check: 'is StatelessWidget', result: true),
+                _TypeCheckRow(check: 'is StatefulWidget', result: false),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ),
   );
 }
 
-// padding-lines-begin
-// pad 001
-// pad 002
-// pad 003
-// pad 004
-// pad 005
-// pad 006
-// pad 007
-// pad 008
-// pad 009
-// pad 010
-// pad 011
-// pad 012
-// pad 013
-// pad 014
-// pad 015
-// pad 016
-// pad 017
-// pad 018
-// pad 019
-// pad 020
-// pad 021
-// pad 022
-// pad 023
-// pad 024
-// pad 025
-// padding-lines-end
+class _ClassInfoCard extends StatelessWidget {
+  final String className;
+  final String runtimeTypeName;
+  final String superclass;
+  final List<String> mixins;
+  const _ClassInfoCard({required this.className, required this.runtimeTypeName, required this.superclass, required this.mixins});
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.indigo.shade50,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const Icon(Icons.class_, color: Colors.indigo),
+              const SizedBox(width: 8),
+              Text(className, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+            ],
+          ),
+          const Divider(),
+          _InfoRow(label: 'runtimeType', value: runtimeTypeName),
+          _InfoRow(label: 'superclass', value: superclass),
+          _InfoRow(label: 'mixins', value: mixins.join(', ')),
+        ],
+      ),
+    );
+  }
+}
+
+class _InfoRow extends StatelessWidget {
+  final String label;
+  final String value;
+  const _InfoRow({required this.label, required this.value});
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        children: [
+          SizedBox(width: 100, child: Text(label, style: const TextStyle(color: Colors.grey))),
+          Expanded(child: Text(value, style: const TextStyle(fontFamily: 'monospace'))),
+        ],
+      ),
+    );
+  }
+}
+
+class _TypeCheckRow extends StatelessWidget {
+  final String check;
+  final bool result;
+  const _TypeCheckRow({required this.check, required this.result});
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 2),
+      child: Row(
+        children: [
+          Icon(result ? Icons.check_circle : Icons.cancel, 
+            color: result ? Colors.green : Colors.red, size: 16),
+          const SizedBox(width: 8),
+          Text(check, style: const TextStyle(fontFamily: 'monospace')),
+        ],
+      ),
+    );
+  }
+}

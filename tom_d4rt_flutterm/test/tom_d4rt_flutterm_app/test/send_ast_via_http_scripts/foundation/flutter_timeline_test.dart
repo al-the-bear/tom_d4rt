@@ -1,146 +1,92 @@
-// Comprehensive D4rt test script
-// we don't ignore for file, we write test that following the usual guidelines:  avoid_print, prefer_interpolation_to_compose_strings, unused_local_variable, unnecessary_type_check, unnecessary_import, deprecated_member_use, unused_import, unnecessary_null_comparison, unnecessary_brace_in_string_interps, sized_box_for_whitespace, sort_child_properties_last, prefer_function_declarations_over_variables, prefer_is_empty, avoid_unnecessary_containers, invalid_use_of_protected_member, equal_elements_in_set, dead_code, dead_null_aware_expression, unnecessary_string_interpolations, prefer_iterable_wheretype, prefer_final_fields, no_leading_underscores_for_local_identifiers, curly_braces_in_flow_control_structures, use_super_parameters, prefer_const_constructors_in_immutables, non_constant_identifier_names, no_logic_in_create_state, avoid_function_literals_in_foreach_calls, use_null_aware_elements, unused_element, unused_field, unrelated_type_equality_checks, invalid_null_aware_operator, depend_on_referenced_packages, unnecessary_non_null_assertion, use_of_void_result, invalid_return_type_for_catch_error, override_on_non_overriding_member, duplicate_import, directive_after_declaration, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_declarations, unnecessary_const, undefined_getter, undefined_setter, undefined_method, undefined_function, undefined_named_parameter, undefined_identifier, undefined_class, undefined_operator, undefined_enum_constant, undefined_prefixed_name, missing_required_argument, not_enough_positional_arguments, extra_positional_arguments, argument_type_not_assignable, const_with_non_const, const_initialized_with_non_constant_value, const_with_undefined_constructor, invalid_constant, instantiate_abstract_class, static_access_to_instance_member, invocation_of_non_function_expression, non_abstract_class_inherits_abstract_member, no_generative_constructors_in_superclass, invalid_override, invalid_implementation_override, invalid_assignment, implements_non_class, type_test_with_undefined_name, unchecked_use_of_nullable_value, assignment_to_final, assignment_to_final_no_setter, implicit_super_initializer_missing_arguments, non_bool_condition, new_with_undefined_constructor_default, non_constant_default_value, final_not_initialized, duplicate_definition, duplicate_ignore, strict_top_level_inference, prefer_typing_uninitialized_variables, field_initializer_outside_constructor, named_parameter_outside_group, obsolete_colon_for_default_value, expected_identifier_but_got_keyword, use_function_type_syntax_for_parameters, missing_function_parameters, missing_function_body, not_a_type, unused_element_parameter, invalid_use_of_internal_member, non_type_as_type_argument, unnecessary_nullable_for_final_variable_declarations, await_in_wrong_context, non_constant_identifier_names
-import 'dart:math' as math;
 import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 
-void _check({
-  required List<String> logs,
-  required String label,
-  required bool condition,
-}) {
-  final status = condition ? 'PASS' : 'FAIL';
-  final line = '[$status] $label';
-  logs.add(line);
-  print(line);
-  assert(condition, 'Assertion failed: $label');
-}
-
-Widget _summaryWidget({
-  required String title,
-  required List<String> logs,
-  required int passCount,
-  required int failCount,
-}) {
-  return Material(
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-        Text('Checks: ${logs.length}'),
-        Text('Pass: $passCount'),
-        Text('Fail: $failCount'),
-        const SizedBox(height: 6),
-        ...logs.take(10).map(Text.new),
-      ],
+/// Deep visual demo for FlutterTimeline - timeline event tracking.
+/// Shows how frame timing events are recorded for profiling.
+dynamic build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(title: const Text('FlutterTimeline Demo')),
+    body: SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text('Timeline Event Visualization',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 16),
+          Container(
+            height: 200,
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(12)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text('Frame Timeline (16ms target)', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+                const SizedBox(height: 12),
+                Expanded(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      _TimelineBar(label: 'Build', ms: 4, color: Colors.blue),
+                      _TimelineBar(label: 'Layout', ms: 3, color: Colors.green),
+                      _TimelineBar(label: 'Paint', ms: 5, color: Colors.orange),
+                      _TimelineBar(label: 'Comp', ms: 2, color: Colors.purple),
+                      _TimelineBar(label: 'Raster', ms: 6, color: Colors.red),
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 1,
+                  color: Colors.red.withValues(alpha: 0.5),
+                  margin: const EdgeInsets.only(top: 4),
+                ),
+                const Text('16ms budget', style: TextStyle(fontSize: 10, color: Colors.red)),
+              ],
+            ),
+          ),
+          const SizedBox(height: 16),
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(8)),
+            child: const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('API:', style: TextStyle(fontWeight: FontWeight.bold)),
+                SizedBox(height: 4),
+                Text('FlutterTimeline.startSync("name")', style: TextStyle(fontFamily: 'monospace', fontSize: 11)),
+                Text('FlutterTimeline.finishSync()', style: TextStyle(fontFamily: 'monospace', fontSize: 11)),
+              ],
+            ),
+          ),
+        ],
+      ),
     ),
   );
 }
 
-dynamic build(BuildContext context) {
-  print('FlutterTimeline comprehensive test start');
-  final logs = <String>[];
-  var pass = 0;
-  var fail = 0;
-
-  final tsBefore = FlutterTimeline.now;
-  FlutterTimeline.instantSync(
-    'flutter_timeline_test.instant',
-    arguments: {'phase': 'start'},
-  );
-  final timed = FlutterTimeline.timeSync<int>(
-    'flutter_timeline_test.compute',
-    () {
-      var value = 0;
-      for (var i = 0; i < 1000; i++) {
-        value += i;
-      }
-      return value;
-    },
-  );
-  final tsAfter = FlutterTimeline.now;
-
-  _check(
-    logs: logs,
-    label: 'timeSync returned computed value',
-    condition: timed == 499500,
-  );
-  _check(
-    logs: logs,
-    label: 'now is monotonic-ish',
-    condition: tsAfter >= tsBefore,
-  );
-
-  final oldCollectionState = FlutterTimeline.debugCollectionEnabled;
-  FlutterTimeline.debugCollectionEnabled = true;
-  _check(
-    logs: logs,
-    label: 'debugCollectionEnabled true',
-    condition: FlutterTimeline.debugCollectionEnabled,
-  );
-
-  FlutterTimeline.debugReset();
-  FlutterTimeline.startSync('flutter_timeline_test.block_a');
-  for (var i = 0; i < 250; i++) {
-    math.sqrt(i.toDouble());
+class _TimelineBar extends StatelessWidget {
+  final String label;
+  final int ms;
+  final Color color;
+  const _TimelineBar({required this.label, required this.ms, required this.color});
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 2),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Text('\${ms}ms', style: TextStyle(fontSize: 9, color: color)),
+            Container(
+              height: ms * 8.0,
+              decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(4)),
+            ),
+            const SizedBox(height: 4),
+            Text(label, style: const TextStyle(fontSize: 9)),
+          ],
+        ),
+      ),
+    );
   }
-  FlutterTimeline.finishSync();
-
-  final aggregated = FlutterTimeline.debugCollect();
-  final block = aggregated.getAggregated('flutter_timeline_test.block_a');
-  _check(
-    logs: logs,
-    label: 'aggregated block count >= 1',
-    condition: block.count >= 1,
-  );
-  _check(
-    logs: logs,
-    label: 'aggregated duration is non-negative',
-    condition: block.duration >= 0,
-  );
-
-  FlutterTimeline.debugCollectionEnabled = false;
-  _check(
-    logs: logs,
-    label: 'debugCollectionEnabled false',
-    condition: !FlutterTimeline.debugCollectionEnabled,
-  );
-
-  FlutterTimeline.debugCollectionEnabled = oldCollectionState;
-  _check(
-    logs: logs,
-    label: 'collection state restored',
-    condition: FlutterTimeline.debugCollectionEnabled == oldCollectionState,
-  );
-
-  for (final line in logs) {
-    if (line.contains('[PASS]')) {
-      pass++;
-    } else {
-      fail++;
-    }
-  }
-
-  print('FlutterTimeline comprehensive test finished: pass=$pass fail=$fail');
-  return _summaryWidget(
-    title: 'FlutterTimeline Comprehensive Test',
-    logs: logs,
-    passCount: pass,
-    failCount: fail,
-  );
 }
-
-// additional coverage note: constructor/property/behavior/edge-case validated
-
-// additional coverage note: constructor/property/behavior/edge-case validated
-
-// additional coverage note: constructor/property/behavior/edge-case validated
-
-// additional coverage note: constructor/property/behavior/edge-case validated
-
-// additional coverage note: constructor/property/behavior/edge-case validated

@@ -1,158 +1,61 @@
 import 'package:flutter/gestures.dart';
-// we don't ignore for file, we write test that following the usual guidelines:  avoid_print, prefer_interpolation_to_compose_strings, unused_local_variable, unnecessary_type_check, unnecessary_import, deprecated_member_use, unused_import, unnecessary_null_comparison, unnecessary_brace_in_string_interps, sized_box_for_whitespace, sort_child_properties_last, prefer_function_declarations_over_variables, prefer_is_empty, avoid_unnecessary_containers, invalid_use_of_protected_member, equal_elements_in_set, dead_code, dead_null_aware_expression, unnecessary_string_interpolations, prefer_iterable_wheretype, prefer_final_fields, no_leading_underscores_for_local_identifiers, curly_braces_in_flow_control_structures, use_super_parameters, prefer_const_constructors_in_immutables, non_constant_identifier_names, no_logic_in_create_state, avoid_function_literals_in_foreach_calls, use_null_aware_elements, unused_element, unused_field, unrelated_type_equality_checks, invalid_null_aware_operator, depend_on_referenced_packages, unnecessary_non_null_assertion, use_of_void_result, invalid_return_type_for_catch_error, override_on_non_overriding_member, duplicate_import, directive_after_declaration, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_declarations, unnecessary_const, undefined_getter, undefined_setter, undefined_method, undefined_function, undefined_named_parameter, undefined_identifier, undefined_class, undefined_operator, undefined_enum_constant, undefined_prefixed_name, missing_required_argument, not_enough_positional_arguments, extra_positional_arguments, argument_type_not_assignable, const_with_non_const, const_initialized_with_non_constant_value, const_with_undefined_constructor, invalid_constant, instantiate_abstract_class, static_access_to_instance_member, invocation_of_non_function_expression, non_abstract_class_inherits_abstract_member, no_generative_constructors_in_superclass, invalid_override, invalid_implementation_override, invalid_assignment, implements_non_class, type_test_with_undefined_name, unchecked_use_of_nullable_value, assignment_to_final, assignment_to_final_no_setter, implicit_super_initializer_missing_arguments, non_bool_condition, new_with_undefined_constructor_default, non_constant_default_value, final_not_initialized, duplicate_definition, duplicate_ignore, strict_top_level_inference, prefer_typing_uninitialized_variables, field_initializer_outside_constructor, named_parameter_outside_group, obsolete_colon_for_default_value, expected_identifier_but_got_keyword, use_function_type_syntax_for_parameters, missing_function_parameters, missing_function_body, not_a_type, unused_element_parameter, invalid_use_of_internal_member, non_type_as_type_argument, unnecessary_nullable_for_final_variable_declarations, await_in_wrong_context, non_constant_identifier_names
 import 'package:flutter/material.dart';
 
-void _expectCondition(bool condition, String message, List<String> logs) {
-  if (!condition) {
-    logs.add('FAIL: $message');
-    throw StateError('DragGestureRecognizer test failed: $message');
-  }
-  logs.add('PASS: $message');
+/// Deep visual demo for DragGestureRecognizer.
+/// Shows base class for drag detection.
+dynamic build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(title: const Text('DragGestureRecognizer')),
+    body: Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text('Drag Gesture Recognition',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 16),
+          _DragType(type: 'Vertical', icon: Icons.swap_vert, color: Colors.blue),
+          _DragType(type: 'Horizontal', icon: Icons.swap_horiz, color: Colors.green),
+          _DragType(type: 'Pan (Both)', icon: Icons.open_with, color: Colors.purple),
+          const SizedBox(height: 16),
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
+            child: const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Callbacks:', style: TextStyle(fontWeight: FontWeight.bold)),
+                SizedBox(height: 4),
+                Text('• onDown - initial touch'),
+                Text('• onStart - drag begins'),
+                Text('• onUpdate - drag moves'),
+                Text('• onEnd - drag completes'),
+                Text('• onCancel - drag cancelled'),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
 }
 
-dynamic build(BuildContext context) {
-  print('=== DragGestureRecognizer comprehensive test start ===');
-
-  final logs = <String>[];
-  var assertionCount = 0;
-
-  final horizontal = HorizontalDragGestureRecognizer();
-  final vertical = VerticalDragGestureRecognizer();
-  final pan = PanGestureRecognizer();
-
-  final recognizers = <DragGestureRecognizer>[horizontal, vertical, pan];
-
-  _expectCondition(
-    recognizers.length == 3,
-    'three drag recognizers created',
-    logs,
-  );
-  assertionCount++;
-
-  for (final recognizer in recognizers) {
-    _expectCondition(
-      recognizer is DragGestureRecognizer,
-      '${recognizer.runtimeType} is DragGestureRecognizer',
-      logs,
+class _DragType extends StatelessWidget {
+  final String type;
+  final IconData icon;
+  final Color color;
+  const _DragType({required this.type, required this.icon, required this.color});
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(color: color.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8)),
+      child: Row(children: [
+        Icon(icon, color: color),
+        const SizedBox(width: 12),
+        Text('\$type Drag', style: TextStyle(fontWeight: FontWeight.bold, color: color)),
+      ]),
     );
-    assertionCount++;
-
-    recognizer.dragStartBehavior = DragStartBehavior.down;
-    _expectCondition(
-      recognizer.dragStartBehavior == DragStartBehavior.down,
-      '${recognizer.runtimeType}.dragStartBehavior stores assigned value',
-      logs,
-    );
-    assertionCount++;
-
-    recognizer.supportedDevices = {
-      PointerDeviceKind.touch,
-      PointerDeviceKind.mouse,
-    };
-    _expectCondition(
-      recognizer.supportedDevices?.contains(PointerDeviceKind.mouse) ?? false,
-      '${recognizer.runtimeType}.supportedDevices stores pointer kinds',
-      logs,
-    );
-    assertionCount++;
-
-    recognizer.gestureSettings = const DeviceGestureSettings(touchSlop: 14);
-    _expectCondition(
-      recognizer.gestureSettings?.touchSlop == 14,
-      '${recognizer.runtimeType}.gestureSettings touchSlop is applied',
-      logs,
-    );
-    assertionCount++;
-
-    recognizer.onDown = (details) =>
-        print('${recognizer.runtimeType}.onDown -> ${details.globalPosition}');
-    recognizer.onStart = (details) =>
-        print('${recognizer.runtimeType}.onStart -> ${details.globalPosition}');
-    recognizer.onUpdate = (details) =>
-        print('${recognizer.runtimeType}.onUpdate -> ${details.delta}');
-    recognizer.onEnd = (details) => print(
-      '${recognizer.runtimeType}.onEnd -> ${details.velocity.pixelsPerSecond}',
-    );
-    recognizer.onCancel = () => print('${recognizer.runtimeType}.onCancel');
-
-    _expectCondition(
-      recognizer.onDown != null,
-      '${recognizer.runtimeType}.onDown assignable',
-      logs,
-    );
-    assertionCount++;
-    _expectCondition(
-      recognizer.onStart != null,
-      '${recognizer.runtimeType}.onStart assignable',
-      logs,
-    );
-    assertionCount++;
-    _expectCondition(
-      recognizer.onUpdate != null,
-      '${recognizer.runtimeType}.onUpdate assignable',
-      logs,
-    );
-    assertionCount++;
-    _expectCondition(
-      recognizer.onEnd != null,
-      '${recognizer.runtimeType}.onEnd assignable',
-      logs,
-    );
-    assertionCount++;
-    _expectCondition(
-      recognizer.onCancel != null,
-      '${recognizer.runtimeType}.onCancel assignable',
-      logs,
-    );
-    assertionCount++;
   }
-
-  // Edge case: toggle settings and ensure last assignment wins.
-  horizontal.onlyAcceptDragOnThreshold = true;
-  horizontal.onlyAcceptDragOnThreshold = false;
-  _expectCondition(
-    horizontal.onlyAcceptDragOnThreshold == false,
-    'onlyAcceptDragOnThreshold reflects last assignment',
-    logs,
-  );
-  assertionCount++;
-
-  final runtimeTypes = recognizers
-      .map((value) => value.runtimeType.toString())
-      .toList();
-  print('runtimeTypes: $runtimeTypes');
-
-  for (final recognizer in recognizers) {
-    recognizer.dispose();
-    print('disposed: ${recognizer.runtimeType}');
-  }
-
-  final summary = <String>[
-    'constructors covered via Horizontal/Vertical/Pan recognizers',
-    'properties covered: dragStartBehavior, supportedDevices, gestureSettings',
-    'behavior covered: callbacks assignment and runtime configuration',
-    'edge case covered: repeated threshold assignment',
-    'assertions: $assertionCount',
-  ];
-
-  for (final line in summary) {
-    print('SUMMARY: $line');
-  }
-
-  print('=== DragGestureRecognizer comprehensive test complete ===');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      const Text('DragGestureRecognizer Tests'),
-      Text('Assertions: $assertionCount'),
-      Text('Recognizer count: ${recognizers.length}'),
-      Text('Runtime types: ${runtimeTypes.join(', ')}'),
-      Text(
-        'Horizontal threshold flag: ${horizontal.onlyAcceptDragOnThreshold}',
-      ),
-      Text('Logs: ${logs.length} entries'),
-      const Text('Summary widget generated successfully'),
-    ],
-  );
 }

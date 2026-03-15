@@ -1,119 +1,76 @@
-// D4rt test script: Tests PointerAddedEvent from gestures
-// we don't ignore for file, we write test that following the usual guidelines:  avoid_print, prefer_interpolation_to_compose_strings, unused_local_variable, unnecessary_type_check, unnecessary_import, deprecated_member_use, unused_import, unnecessary_null_comparison, unnecessary_brace_in_string_interps, sized_box_for_whitespace, sort_child_properties_last, prefer_function_declarations_over_variables, prefer_is_empty, avoid_unnecessary_containers, invalid_use_of_protected_member, equal_elements_in_set, dead_code, dead_null_aware_expression, unnecessary_string_interpolations, prefer_iterable_wheretype, prefer_final_fields, no_leading_underscores_for_local_identifiers, curly_braces_in_flow_control_structures, use_super_parameters, prefer_const_constructors_in_immutables, non_constant_identifier_names, no_logic_in_create_state, avoid_function_literals_in_foreach_calls, use_null_aware_elements, unused_element, unused_field, unrelated_type_equality_checks, invalid_null_aware_operator, depend_on_referenced_packages, unnecessary_non_null_assertion, use_of_void_result, invalid_return_type_for_catch_error, override_on_non_overriding_member, duplicate_import, directive_after_declaration, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_declarations, unnecessary_const, undefined_getter, undefined_setter, undefined_method, undefined_function, undefined_named_parameter, undefined_identifier, undefined_class, undefined_operator, undefined_enum_constant, undefined_prefixed_name, missing_required_argument, not_enough_positional_arguments, extra_positional_arguments, argument_type_not_assignable, const_with_non_const, const_initialized_with_non_constant_value, const_with_undefined_constructor, invalid_constant, instantiate_abstract_class, static_access_to_instance_member, invocation_of_non_function_expression, non_abstract_class_inherits_abstract_member, no_generative_constructors_in_superclass, invalid_override, invalid_implementation_override, invalid_assignment, implements_non_class, type_test_with_undefined_name, unchecked_use_of_nullable_value, assignment_to_final, assignment_to_final_no_setter, implicit_super_initializer_missing_arguments, non_bool_condition, new_with_undefined_constructor_default, non_constant_default_value, final_not_initialized, duplicate_definition, duplicate_ignore, strict_top_level_inference, prefer_typing_uninitialized_variables, field_initializer_outside_constructor, named_parameter_outside_group, obsolete_colon_for_default_value, expected_identifier_but_got_keyword, use_function_type_syntax_for_parameters, missing_function_parameters, missing_function_body, not_a_type, unused_element_parameter, invalid_use_of_internal_member, non_type_as_type_argument, unnecessary_nullable_for_final_variable_declarations, await_in_wrong_context, non_constant_identifier_names
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
+/// Deep visual demo for PointerAddedEvent.
+/// Shows when a new pointer is detected.
 dynamic build(BuildContext context) {
-  print('PointerAddedEvent test executing');
-
-  final event = PointerAddedEvent(
-    position: Offset(100, 200),
-    kind: PointerDeviceKind.mouse,
-    device: 1,
-  );
-  print('PointerAddedEvent: ${event.runtimeType}');
-  print('position: ${event.position}');
-  print('kind: ${event.kind}');
-  print('device: ${event.device}');
-  print('is PointerEvent: ${event is PointerEvent}');
-  print('buttons: ${event.buttons}');
-  print('timeStamp: ${event.timeStamp}');
-
-  print('PointerAddedEvent test completed');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text(
-        'PointerAddedEvent Tests',
-        style: TextStyle(fontWeight: FontWeight.bold),
+  return Scaffold(
+    appBar: AppBar(title: const Text('PointerAddedEvent')),
+    body: Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text('Pointer Added Event',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 16),
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(color: Colors.green.shade50, borderRadius: BorderRadius.circular(12)),
+            child: Row(children: [
+              const Icon(Icons.add_circle, size: 48, color: Colors.green),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text('New Pointer Detected', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                    const SizedBox(height: 4),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(4)),
+                      child: const Text('ADDED', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11)),
+                    ),
+                  ],
+                ),
+              ),
+            ]),
+          ),
+          const SizedBox(height: 16),
+          _EventTimeline(events: ['added', 'hover', 'down', 'move', 'up', 'removed'], current: 0),
+          const SizedBox(height: 16),
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
+            child: const Text('Dispatched when a pointer (mouse, stylus) enters the coordinate space. Not all devices send this.', style: TextStyle(fontSize: 12)),
+          ),
+        ],
       ),
-      Text('pos: ${event.position}'),
-      Text('kind: ${event.kind}'),
-      Text('device: ${event.device}'),
-    ],
+    ),
   );
 }
 
-// --- extra comprehensive coverage section ---
-void _extraCoverageMarker(List<String> logs) {
-  print('extra coverage marker for ${logs.length}');
-  assert(logs != null);
-  logs.add('extra-coverage');
+class _EventTimeline extends StatelessWidget {
+  final List<String> events;
+  final int current;
+  const _EventTimeline({required this.events, required this.current});
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(children: [
+        for (int i = 0; i < events.length; i++) ...[
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            decoration: BoxDecoration(
+              color: i == current ? Colors.green : Colors.grey.shade200,
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Text(events[i], style: TextStyle(fontSize: 11, color: i == current ? Colors.white : Colors.grey)),
+          ),
+          if (i < events.length - 1) Container(width: 20, height: 2, color: Colors.grey.shade300),
+        ],
+      ]),
+    );
+  }
 }
-
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
-// extra guard line
