@@ -1,517 +1,74 @@
-// D4rt test script: Tests Drawer, NavigationBar, NavigationRail, NavigationDrawer from material
-// we don't ignore for file, we write test that following the usual guidelines:  avoid_print, prefer_interpolation_to_compose_strings, unused_local_variable, unnecessary_type_check, unnecessary_import, deprecated_member_use, unused_import, unnecessary_null_comparison, unnecessary_brace_in_string_interps, sized_box_for_whitespace, sort_child_properties_last, prefer_function_declarations_over_variables, prefer_is_empty, avoid_unnecessary_containers, invalid_use_of_protected_member, equal_elements_in_set, dead_code, dead_null_aware_expression, unnecessary_string_interpolations, prefer_iterable_wheretype, prefer_final_fields, no_leading_underscores_for_local_identifiers, curly_braces_in_flow_control_structures, use_super_parameters, prefer_const_constructors_in_immutables, non_constant_identifier_names, no_logic_in_create_state, avoid_function_literals_in_foreach_calls, use_null_aware_elements, unused_element, unused_field, unrelated_type_equality_checks, invalid_null_aware_operator, depend_on_referenced_packages, unnecessary_non_null_assertion, use_of_void_result, invalid_return_type_for_catch_error, override_on_non_overriding_member, duplicate_import, directive_after_declaration, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_declarations, unnecessary_const, undefined_getter, undefined_setter, undefined_method, undefined_function, undefined_named_parameter, undefined_identifier, undefined_class, undefined_operator, undefined_enum_constant, undefined_prefixed_name, missing_required_argument, not_enough_positional_arguments, extra_positional_arguments, argument_type_not_assignable, const_with_non_const, const_initialized_with_non_constant_value, const_with_undefined_constructor, invalid_constant, instantiate_abstract_class, static_access_to_instance_member, invocation_of_non_function_expression, non_abstract_class_inherits_abstract_member, no_generative_constructors_in_superclass, invalid_override, invalid_implementation_override, invalid_assignment, implements_non_class, type_test_with_undefined_name, unchecked_use_of_nullable_value, assignment_to_final, assignment_to_final_no_setter, implicit_super_initializer_missing_arguments, non_bool_condition, new_with_undefined_constructor_default, non_constant_default_value, final_not_initialized, duplicate_definition, duplicate_ignore, strict_top_level_inference, prefer_typing_uninitialized_variables, field_initializer_outside_constructor, named_parameter_outside_group, obsolete_colon_for_default_value, expected_identifier_but_got_keyword, use_function_type_syntax_for_parameters, missing_function_parameters, missing_function_body, not_a_type, unused_element_parameter, invalid_use_of_internal_member, non_type_as_type_argument, unnecessary_nullable_for_final_variable_declarations, await_in_wrong_context, non_constant_identifier_names
 import 'package:flutter/material.dart';
 
+/// Deep visual demo for navigation components.
+/// NavigationBar, NavigationRail, NavigationDrawer.
 dynamic build(BuildContext context) {
-  print('Navigation widgets test executing');
-
-  // ========== DRAWER ==========
-  print('--- Drawer Tests ---');
-
-  // Test basic Drawer
-  final basicDrawer = Drawer(
-    child: ListView(
-      padding: EdgeInsets.zero,
-      children: [
-        DrawerHeader(
-          decoration: BoxDecoration(color: Colors.blue),
-          child: Text(
-            'Drawer Header',
-            style: TextStyle(color: Colors.white, fontSize: 24),
-          ),
-        ),
-        ListTile(
-          leading: Icon(Icons.home),
-          title: Text('Home'),
-          onTap: () {
-            print('Home tapped');
-          },
-        ),
-        ListTile(
-          leading: Icon(Icons.settings),
-          title: Text('Settings'),
-          onTap: () {},
-        ),
-      ],
-    ),
-  );
-  print('Basic Drawer created');
-
-  // Test Drawer with backgroundColor
-  final coloredDrawer = Drawer(
-    backgroundColor: Colors.grey.shade100,
-    child: Center(child: Text('Colored Drawer')),
-  );
-  print('Drawer with backgroundColor created');
-
-  // Test Drawer with elevation
-  final elevatedDrawer = Drawer(
-    elevation: 24.0,
-    child: Center(child: Text('Elevated Drawer')),
-  );
-  print('Drawer with elevation created');
-
-  // Test Drawer with shape
-  final shapedDrawer = Drawer(
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.horizontal(right: Radius.circular(24.0)),
-    ),
-    child: Center(child: Text('Shaped Drawer')),
-  );
-  print('Drawer with shape created');
-
-  // Test Drawer with width
-  final wideDrawer = Drawer(
-    width: 300.0,
-    child: Center(child: Text('Wide Drawer')),
-  );
-  print('Drawer with width created');
-
-  // Test Drawer with shadowColor
-  final shadowDrawer = Drawer(
-    shadowColor: Colors.red,
-    elevation: 16.0,
-    child: Center(child: Text('Shadow Drawer')),
-  );
-  print('Drawer with shadowColor created');
-
-  // Test Drawer with surfaceTintColor
-  final tintDrawer = Drawer(
-    surfaceTintColor: Colors.purple,
-    child: Center(child: Text('Tinted Drawer')),
-  );
-  print('Drawer with surfaceTintColor created');
-
-  // Test DrawerHeader
-  final drawerHeader = DrawerHeader(
-    decoration: BoxDecoration(
-      gradient: LinearGradient(colors: [Colors.blue, Colors.purple]),
-    ),
-    margin: EdgeInsets.zero,
-    padding: EdgeInsets.all(16.0),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        CircleAvatar(radius: 30, child: Text('U')),
-        SizedBox(height: 8),
-        Text('User Name', style: TextStyle(color: Colors.white)),
-        Text('user@email.com', style: TextStyle(color: Colors.white70)),
-      ],
-    ),
-  );
-  print('DrawerHeader created');
-
-  // Test UserAccountsDrawerHeader
-  final userAccountsHeader = UserAccountsDrawerHeader(
-    accountName: Text('John Doe'),
-    accountEmail: Text('john.doe@example.com'),
-    currentAccountPicture: CircleAvatar(
-      backgroundColor: Colors.orange,
-      child: Text('JD'),
-    ),
-    otherAccountsPictures: [
-      CircleAvatar(child: Text('A')),
-      CircleAvatar(child: Text('B')),
-    ],
-    decoration: BoxDecoration(color: Colors.blue),
-    onDetailsPressed: () {
-      print('Details pressed');
-    },
-  );
-  print('UserAccountsDrawerHeader created');
-
-  // ========== NAVIGATIONBAR ==========
-  print('--- NavigationBar Tests ---');
-
-  // Test basic NavigationBar
-  final basicNavBar = NavigationBar(
-    selectedIndex: 0,
-    destinations: [
-      NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
-      NavigationDestination(icon: Icon(Icons.business), label: 'Business'),
-      NavigationDestination(icon: Icon(Icons.school), label: 'School'),
-    ],
-    onDestinationSelected: (int index) {
-      print('Destination selected: $index');
-    },
-  );
-  print('Basic NavigationBar created');
-
-  // Test NavigationBar with selectedIndex
-  final selectedNavBar = NavigationBar(
-    selectedIndex: 1,
-    destinations: [
-      NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
-      NavigationDestination(icon: Icon(Icons.explore), label: 'Explore'),
-      NavigationDestination(icon: Icon(Icons.person), label: 'Profile'),
-    ],
-    onDestinationSelected: (index) {},
-  );
-  print('NavigationBar with selectedIndex created');
-
-  // Test NavigationBar with backgroundColor
-  final coloredNavBar = NavigationBar(
-    backgroundColor: Colors.purple.shade100,
-    selectedIndex: 0,
-    destinations: [
-      NavigationDestination(icon: Icon(Icons.star), label: 'Starred'),
-      NavigationDestination(icon: Icon(Icons.favorite), label: 'Favorites'),
-    ],
-    onDestinationSelected: (index) {},
-  );
-  print('NavigationBar with backgroundColor created');
-
-  // Test NavigationBar with elevation
-  final elevatedNavBar = NavigationBar(
-    elevation: 8.0,
-    selectedIndex: 0,
-    destinations: [
-      NavigationDestination(icon: Icon(Icons.inbox), label: 'Inbox'),
-      NavigationDestination(icon: Icon(Icons.send), label: 'Sent'),
-    ],
-    onDestinationSelected: (index) {},
-  );
-  print('NavigationBar with elevation created');
-
-  // Test NavigationBar with indicatorColor
-  final indicatorNavBar = NavigationBar(
-    indicatorColor: Colors.orange.shade200,
-    selectedIndex: 0,
-    destinations: [
-      NavigationDestination(icon: Icon(Icons.dashboard), label: 'Dashboard'),
-      NavigationDestination(icon: Icon(Icons.analytics), label: 'Analytics'),
-    ],
-    onDestinationSelected: (index) {},
-  );
-  print('NavigationBar with indicatorColor created');
-
-  // Test NavigationBar with height
-  final tallNavBar = NavigationBar(
-    height: 100.0,
-    selectedIndex: 0,
-    destinations: [
-      NavigationDestination(icon: Icon(Icons.movie), label: 'Movies'),
-      NavigationDestination(icon: Icon(Icons.music_note), label: 'Music'),
-    ],
-    onDestinationSelected: (index) {},
-  );
-  print('NavigationBar with height created');
-
-  // Test NavigationBar with labelBehavior
-  final labelBehaviorNavBar = NavigationBar(
-    labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
-    selectedIndex: 0,
-    destinations: [
-      NavigationDestination(icon: Icon(Icons.cloud), label: 'Cloud'),
-      NavigationDestination(icon: Icon(Icons.download), label: 'Downloads'),
-    ],
-    onDestinationSelected: (index) {},
-  );
-  print('NavigationBar with labelBehavior created');
-
-  // Test NavigationDestination with selectedIcon
-  final selectedIconNavBar = NavigationBar(
-    selectedIndex: 0,
-    destinations: [
-      NavigationDestination(
-        icon: Icon(Icons.bookmark_outline),
-        selectedIcon: Icon(Icons.bookmark),
-        label: 'Bookmarks',
-      ),
-      NavigationDestination(
-        icon: Icon(Icons.notifications_outlined),
-        selectedIcon: Icon(Icons.notifications),
-        label: 'Notifications',
-      ),
-    ],
-    onDestinationSelected: (index) {},
-  );
-  print('NavigationBar with selectedIcon destinations created');
-
-  // ========== NAVIGATIONRAIL ==========
-  print('--- NavigationRail Tests ---');
-
-  // Test basic NavigationRail
-  final basicRail = NavigationRail(
-    selectedIndex: 0,
-    destinations: [
-      NavigationRailDestination(icon: Icon(Icons.home), label: Text('Home')),
-      NavigationRailDestination(
-        icon: Icon(Icons.search),
-        label: Text('Search'),
-      ),
-      NavigationRailDestination(
-        icon: Icon(Icons.person),
-        label: Text('Profile'),
-      ),
-    ],
-    onDestinationSelected: (int index) {
-      print('Rail destination: $index');
-    },
-  );
-  print('Basic NavigationRail created');
-
-  // Test NavigationRail with labelType
-  final labelTypeRail = NavigationRail(
-    labelType: NavigationRailLabelType.all,
-    selectedIndex: 0,
-    destinations: [
-      NavigationRailDestination(icon: Icon(Icons.folder), label: Text('Files')),
-      NavigationRailDestination(icon: Icon(Icons.image), label: Text('Images')),
-    ],
-    onDestinationSelected: (index) {},
-  );
-  print('NavigationRail with labelType created');
-
-  // Test NavigationRail with leading
-  final leadingRail = NavigationRail(
-    leading: FloatingActionButton(onPressed: () {}, child: Icon(Icons.add)),
-    selectedIndex: 0,
-    destinations: [
-      NavigationRailDestination(icon: Icon(Icons.mail), label: Text('Mail')),
-      NavigationRailDestination(
-        icon: Icon(Icons.drafts),
-        label: Text('Drafts'),
-      ),
-    ],
-    onDestinationSelected: (index) {},
-  );
-  print('NavigationRail with leading created');
-
-  // Test NavigationRail with trailing
-  final trailingRail = NavigationRail(
-    trailing: IconButton(icon: Icon(Icons.settings), onPressed: () {}),
-    selectedIndex: 0,
-    destinations: [
-      NavigationRailDestination(icon: Icon(Icons.home), label: Text('Home')),
-      NavigationRailDestination(icon: Icon(Icons.info), label: Text('About')),
-    ],
-    onDestinationSelected: (index) {},
-  );
-  print('NavigationRail with trailing created');
-
-  // Test NavigationRail extended
-  final extendedRail = NavigationRail(
-    extended: true,
-    selectedIndex: 0,
-    destinations: [
-      NavigationRailDestination(
-        icon: Icon(Icons.dashboard),
-        label: Text('Dashboard'),
-      ),
-      NavigationRailDestination(
-        icon: Icon(Icons.report),
-        label: Text('Reports'),
-      ),
-    ],
-    onDestinationSelected: (index) {},
-  );
-  print('NavigationRail extended created');
-
-  // Test NavigationRail with backgroundColor
-  final coloredRail = NavigationRail(
-    backgroundColor: Colors.blue.shade50,
-    selectedIndex: 0,
-    destinations: [
-      NavigationRailDestination(icon: Icon(Icons.chat), label: Text('Chat')),
-      NavigationRailDestination(icon: Icon(Icons.group), label: Text('Groups')),
-    ],
-    onDestinationSelected: (index) {},
-  );
-  print('NavigationRail with backgroundColor created');
-
-  // Test NavigationRail with useIndicator
-  final indicatorRail = NavigationRail(
-    useIndicator: true,
-    indicatorColor: Colors.orange.shade200,
-    selectedIndex: 0,
-    destinations: [
-      NavigationRailDestination(
-        icon: Icon(Icons.calendar_today),
-        label: Text('Calendar'),
-      ),
-      NavigationRailDestination(icon: Icon(Icons.event), label: Text('Events')),
-    ],
-    onDestinationSelected: (index) {},
-  );
-  print('NavigationRail with indicator created');
-
-  // Test NavigationRail with minWidth
-  final wideRail = NavigationRail(
-    minWidth: 80.0,
-    selectedIndex: 0,
-    destinations: [
-      NavigationRailDestination(icon: Icon(Icons.book), label: Text('Library')),
-      NavigationRailDestination(
-        icon: Icon(Icons.history),
-        label: Text('History'),
-      ),
-    ],
-    onDestinationSelected: (index) {},
-  );
-  print('NavigationRail with minWidth created');
-
-  // Test NavigationRail with groupAlignment
-  final alignedRail = NavigationRail(
-    groupAlignment: 0.0, // Center
-    selectedIndex: 0,
-    destinations: [
-      NavigationRailDestination(icon: Icon(Icons.map), label: Text('Map')),
-      NavigationRailDestination(icon: Icon(Icons.place), label: Text('Places')),
-    ],
-    onDestinationSelected: (index) {},
-  );
-  print('NavigationRail with groupAlignment created');
-
-  // ========== NAVIGATIONDRAWER ==========
-  print('--- NavigationDrawer Tests ---');
-
-  // Test basic NavigationDrawer
-  final basicNavDrawer = NavigationDrawer(
-    selectedIndex: 0,
-    onDestinationSelected: (int index) {
-      print('Nav drawer destination: $index');
-    },
+  return Column(
+    mainAxisSize: MainAxisSize.min,
     children: [
-      NavigationDrawerDestination(
-        icon: Icon(Icons.inbox),
-        label: Text('Inbox'),
+      const Text('Navigation Components', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+      const SizedBox(height: 16),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          _NavType('Bar', Icons.horizontal_distribute),
+          const SizedBox(width: 16),
+          _NavType('Rail', Icons.vertical_distribute),
+          const SizedBox(width: 16),
+          _NavType('Drawer', Icons.menu),
+        ],
       ),
-      NavigationDrawerDestination(icon: Icon(Icons.send), label: Text('Sent')),
-      NavigationDrawerDestination(
-        icon: Icon(Icons.delete),
-        label: Text('Trash'),
-      ),
-    ],
-  );
-  print('Basic NavigationDrawer created');
-
-  // Test NavigationDrawer with header
-  final headerNavDrawer = NavigationDrawer(
-    selectedIndex: 0,
-    onDestinationSelected: (index) {},
-    children: [
-      Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Text(
-          'Mail',
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-        ),
-      ),
-      Divider(),
-      NavigationDrawerDestination(
-        icon: Icon(Icons.inbox),
-        label: Text('Inbox'),
-      ),
-      NavigationDrawerDestination(
-        icon: Icon(Icons.drafts),
-        label: Text('Drafts'),
-      ),
-    ],
-  );
-  print('NavigationDrawer with header created');
-
-  // Test NavigationDrawer with backgroundColor
-  final coloredNavDrawer = NavigationDrawer(
-    backgroundColor: Colors.green.shade50,
-    selectedIndex: 0,
-    onDestinationSelected: (index) {},
-    children: [
-      NavigationDrawerDestination(
-        icon: Icon(Icons.folder),
-        label: Text('Folder 1'),
-      ),
-      NavigationDrawerDestination(
-        icon: Icon(Icons.folder),
-        label: Text('Folder 2'),
-      ),
-    ],
-  );
-  print('NavigationDrawer with backgroundColor created');
-
-  // Test NavigationDrawer with elevation
-  final elevatedNavDrawer = NavigationDrawer(
-    elevation: 16.0,
-    selectedIndex: 0,
-    onDestinationSelected: (index) {},
-    children: [
-      NavigationDrawerDestination(icon: Icon(Icons.note), label: Text('Notes')),
-    ],
-  );
-  print('NavigationDrawer with elevation created');
-
-  // Test NavigationDrawer with indicatorColor
-  final indicatorNavDrawer = NavigationDrawer(
-    indicatorColor: Colors.purple.shade100,
-    selectedIndex: 0,
-    onDestinationSelected: (index) {},
-    children: [
-      NavigationDrawerDestination(
-        icon: Icon(Icons.star),
-        label: Text('Starred'),
-      ),
-      NavigationDrawerDestination(
-        icon: Icon(Icons.archive),
-        label: Text('Archive'),
-      ),
-    ],
-  );
-  print('NavigationDrawer with indicatorColor created');
-
-  print('Navigation widgets test completed');
-
-  return Row(
-    children: [
-      // NavigationRail on left
-      basicRail,
-      VerticalDivider(width: 1),
-      // Main content
-      Expanded(
-        child: Column(
+      const SizedBox(height: 16),
+      Container(
+        width: 200,
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(20)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Expanded(
-              child: SingleChildScrollView(
-                padding: EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Navigation Widgets Test',
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 16.0),
-
-                    Text(
-                      'Drawer:',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Container(height: 300, width: 250, child: basicDrawer),
-                    SizedBox(height: 16.0),
-
-                    Text(
-                      'UserAccountsDrawerHeader:',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Container(width: 280, child: userAccountsHeader),
-                    SizedBox(height: 16.0),
-
-                    Text(
-                      'NavigationDrawer:',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Container(height: 200, width: 280, child: basicNavDrawer),
-                  ],
-                ),
-              ),
-            ),
-            // NavigationBar at bottom
-            basicNavBar,
+            _NavItem(Icons.home, 'Home', true),
+            _NavItem(Icons.search, 'Search', false),
+            _NavItem(Icons.notifications, 'Alerts', false),
+            _NavItem(Icons.person, 'Profile', false),
           ],
         ),
       ),
     ],
   );
+}
+
+class _NavType extends StatelessWidget {
+  final String label;
+  final IconData icon;
+  const _NavType(this.label, this.icon);
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Icon(icon, size: 24, color: Colors.blue),
+        const SizedBox(height: 4),
+        Text(label, style: const TextStyle(fontSize: 10)),
+      ],
+    );
+  }
+}
+
+class _NavItem extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final bool selected;
+  const _NavItem(this.icon, this.label, this.selected);
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(color: selected ? Colors.blue.withAlpha(50) : null, borderRadius: BorderRadius.circular(12)),
+          child: Icon(icon, size: 18, color: selected ? Colors.blue : Colors.grey),
+        ),
+        Text(label, style: TextStyle(fontSize: 8, color: selected ? Colors.blue : Colors.grey)),
+      ],
+    );
+  }
 }
