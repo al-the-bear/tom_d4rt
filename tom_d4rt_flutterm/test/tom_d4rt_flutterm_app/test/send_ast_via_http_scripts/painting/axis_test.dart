@@ -10,7 +10,7 @@ dynamic build(BuildContext context) {
   for (final value in Axis.values) {
     print('  ${value.name}: $value');
   }
-  print('Axis has ${ Axis.values.length} values');
+  print('Axis has ${Axis.values.length} values');
 
   final first = Axis.values.first;
   final last = Axis.values.last;
@@ -22,7 +22,7 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('Axis Tests'),
-      Text('Values: ${ Axis.values.length}'),
+      Text('Values: ${Axis.values.length}'),
       Text('First: $first'),
       Text('Last: $last'),
     ],

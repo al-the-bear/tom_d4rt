@@ -1,0 +1,6 @@
+import 'package:flutter/material.dart';
+
+/// Deep visual demo for TimeOfDayFormat
+dynamic build(BuildContext context) {
+  return Scaffold(appBar: AppBar(title: Text('TimeOfDayFormat Demo')), body: Center(child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [Text('TimeOfDayFormat', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)), SizedBox(height: 30), Container(padding: EdgeInsets.all(16), decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(8)), child: Column(children: [Text('H:mm (24-hour)', style: TextStyle(fontWeight: FontWeight.bold)), Text('14:30', style: TextStyle(fontSize: 24))])), SizedBox(height: 16), Container(padding: EdgeInsets.all(16), decoration: BoxDecoration(color: Colors.green.shade50, borderRadius: BorderRadius.circular(8)), child: Column(children: [Text('h:mm a (12-hour)', style: TextStyle(fontWeight: FontWeight.bold)), Text('2:30 PM', style: TextStyle(fontSize: 24))])), SizedBox(height: 16), Container(padding: EdgeInsets.all(16), decoration: BoxDecoration(color: Colors.orange.shade50, borderRadius: BorderRadius.circular(8)), child: Column(children: [Text('a h:mm (AM/PM first)', style: TextStyle(fontWeight: FontWeight.bold)), Text('PM 2:30', style: TextStyle(fontSize: 24))]))])));
+}
