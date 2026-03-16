@@ -1398,156 +1398,156 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [desktop_text_selection_toolbar_layout_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/desktop_text_selection_toolbar_layout_delegate_test.dart) | DesktopTextSelectionToolbarLayoutDelegate | No | No | Yes |
 | [dev_tools_deep_link_property_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dev_tools_deep_link_property_test.dart) | DevToolsDeepLinkProperty | No | No | Yes |
 | [device_orientation_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/device_orientation_builder_test.dart) | DeviceOrientationBuilder | No | No | Yes |
-| [diagonal_drag_behavior_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/diagonal_drag_behavior_test.dart) | DiagonalDragBehavior |  |  |  |
-| [dialog_window_controller_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dialog_window_controller_delegate_test.dart) | DialogWindowControllerDelegate |  |  |  |
-| [dialog_window_controller_linux_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dialog_window_controller_linux_test.dart) | DialogWindowControllerLinux |  |  |  |
-| [dialog_window_controller_mac_o_s_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dialog_window_controller_mac_o_s_test.dart) | DialogWindowControllerMacOS |  |  |  |
-| [dialog_window_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dialog_window_controller_test.dart) | DialogWindowController |  |  |  |
-| [dialog_window_controller_win32_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dialog_window_controller_win32_test.dart) | DialogWindowControllerWin32 |  |  |  |
-| [dialog_window_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dialog_window_test.dart) | DialogWindow |  |  |  |
-| [directional_caret_movement_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/directional_caret_movement_intent_test.dart) | DirectionalCaretMovementIntent |  |  |  |
-| [directional_focus_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/directional_focus_action_test.dart) | DirectionalFocusAction |  |  |  |
-| [directional_focus_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/directional_focus_intent_test.dart) | DirectionalFocusIntent |  |  |  |
-| [directional_focus_traversal_policy_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/directional_focus_traversal_policy_mixin_test.dart) | DirectionalFocusTraversalPolicyMixin |  |  |  |
-| [directional_text_editing_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/directional_text_editing_intent_test.dart) | DirectionalTextEditingIntent |  |  |  |
-| [directionality_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/directionality_test.dart) | Directionality |  |  |  |
-| [disable_widget_inspector_scope_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/disable_widget_inspector_scope_test.dart) | DisableWidgetInspectorScope |  |  |  |
-| [dismiss_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dismiss_action_test.dart) | DismissAction |  |  |  |
-| [dismiss_direction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dismiss_direction_test.dart) | DismissDirection |  |  |  |
-| [dismiss_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dismiss_intent_test.dart) | DismissIntent |  |  |  |
-| [dismiss_menu_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dismiss_menu_action_test.dart) | DismissMenuAction |  |  |  |
-| [dismiss_update_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dismiss_update_details_test.dart) | DismissUpdateDetails |  |  |  |
-| [dismissible_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dismissible_test.dart) | Dismissible |  |  |  |
-| [display_feature_sub_screen_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/display_feature_sub_screen_test.dart) | DisplayFeatureSubScreen |  |  |  |
-| [display_feature_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/display_feature_test.dart) | DisplayFeature |  |  |  |
-| [disposable_build_context_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/disposable_build_context_test.dart) | DisposableBuildContext |  |  |  |
-| [do_nothing_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/do_nothing_action_test.dart) | DoNothingAction |  |  |  |
-| [do_nothing_and_stop_propagation_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/do_nothing_and_stop_propagation_intent_test.dart) | DoNothingAndStopPropagationIntent |  |  |  |
-| [do_nothing_and_stop_propagation_text_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/do_nothing_and_stop_propagation_text_intent_test.dart) | DoNothingAndStopPropagationTextIntent |  |  |  |
-| [do_nothing_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/do_nothing_intent_test.dart) | DoNothingIntent |  |  |  |
-| [drag_boundary_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/drag_boundary_delegate_test.dart) | DragBoundaryDelegate |  |  |  |
-| [drag_boundary_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/drag_boundary_test.dart) | DragBoundary |  |  |  |
-| [drag_scroll_activity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/drag_scroll_activity_test.dart) | DragScrollActivity |  |  |  |
-| [drag_target_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/drag_target_details_test.dart) | DragTargetDetails |  |  |  |
-| [draggable_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/draggable_details_test.dart) | DraggableDetails |  |  |  |
-| [draggable_scrollable_actuator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/draggable_scrollable_actuator_test.dart) | DraggableScrollableActuator |  |  |  |
-| [draggable_scrollable_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/draggable_scrollable_controller_test.dart) | DraggableScrollableController |  |  |  |
-| [draggable_scrollable_notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/draggable_scrollable_notification_test.dart) | DraggableScrollableNotification |  |  |  |
-| [draggable_sheet_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/draggable_sheet_test.dart) | DraggableScrollableSheet |  |  |  |
-| [draggable_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/draggable_test.dart) | Draggable |  |  |  |
-| [draggablescrollablesheet_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/draggablescrollablesheet_test.dart) | DraggableScrollableSheet |  |  |  |
-| [driven_scroll_activity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/driven_scroll_activity_test.dart) | DrivenScrollActivity |  |  |  |
-| [dual_transition_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dual_transition_builder_test.dart) | DualTransitionBuilder |  |  |  |
-| [edge_dragging_auto_scroller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/edge_dragging_auto_scroller_test.dart) | EdgeDraggingAutoScroller |  |  |  |
-| [edge_insets_geometry_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/edge_insets_geometry_tween_test.dart) | EdgeInsetsGeometryTween |  |  |  |
-| [edge_insets_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/edge_insets_tween_test.dart) | EdgeInsetsTween |  |  |  |
-| [editable_text_misc_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/editable_text_misc_test.dart) | EditorText |  |  |  |
-| [editable_text_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/editable_text_state_test.dart) | EditableTextState |  |  |  |
-| [editable_text_tap_outside_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/editable_text_tap_outside_intent_test.dart) | EditableTextTapOutsideIntent |  |  |  |
-| [editable_text_tap_up_outside_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/editable_text_tap_up_outside_intent_test.dart) | EditableTextTapUpOutsideIntent |  |  |  |
-| [element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/element_test.dart) | Element |  |  |  |
-| [element_types_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/element_types_test.dart) | ElementTypes |  |  |  |
-| [empty_text_selection_controls_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/empty_text_selection_controls_test.dart) | EmptyTextSelectionControls |  |  |  |
-| [enable_widget_inspector_scope_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/enable_widget_inspector_scope_test.dart) | EnableWidgetInspectorScope |  |  |  |
-| [exclude_focus_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/exclude_focus_test.dart) | ExcludeFocus |  |  |  |
-| [exclude_focus_traversal_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/exclude_focus_traversal_test.dart) | ExcludeFocusTraversal |  |  |  |
-| [expand_selection_to_document_boundary_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/expand_selection_to_document_boundary_intent_test.dart) | ExpandSelectionToDocumentBoundaryIntent |  |  |  |
-| [expand_selection_to_line_break_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/expand_selection_to_line_break_intent_test.dart) | ExpandSelectionToLineBreakIntent |  |  |  |
-| [expanded_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/expanded_test.dart) | Expanded |  |  |  |
-| [expansible_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/expansible_controller_test.dart) | ExpansibleController |  |  |  |
-| [expansible_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/expansible_test.dart) | Expansible |  |  |  |
-| [extend_selection_by_character_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/extend_selection_by_character_intent_test.dart) | ExtendSelectionByCharacterIntent |  |  |  |
-| [extend_selection_by_page_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/extend_selection_by_page_intent_test.dart) | ExtendSelectionByPageIntent |  |  |  |
-| [extend_selection_to_document_boundary_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/extend_selection_to_document_boundary_intent_test.dart) | ExtendSelectionToDocumentBoundaryIntent |  |  |  |
-| [extend_selection_to_line_break_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/extend_selection_to_line_break_intent_test.dart) | ExtendSelectionToLineBreakIntent |  |  |  |
-| [extend_selection_to_next_paragraph_boundary_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/extend_selection_to_next_paragraph_boundary_intent_test.dart) | ExtendSelectionToNextParagraphBoundaryIntent |  |  |  |
-| [extend_selection_to_next_paragraph_boundary_or_caret_location_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/extend_selection_to_next_paragraph_boundary_or_caret_location_intent_test.dart) | ExtendSelectionToNextParagraphBoundaryOrCaretLocationIntent |  |  |  |
-| [extend_selection_to_next_word_boundary_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/extend_selection_to_next_word_boundary_intent_test.dart) | ExtendSelectionToNextWordBoundaryIntent |  |  |  |
-| [extend_selection_to_next_word_boundary_or_caret_location_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/extend_selection_to_next_word_boundary_or_caret_location_intent_test.dart) | ExtendSelectionToNextWordBoundaryOrCaretLocationIntent |  |  |  |
-| [extend_selection_vertically_to_adjacent_line_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/extend_selection_vertically_to_adjacent_line_intent_test.dart) | ExtendSelectionVerticallyToAdjacentLineIntent |  |  |  |
-| [extend_selection_vertically_to_adjacent_page_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/extend_selection_vertically_to_adjacent_page_intent_test.dart) | ExtendSelectionVerticallyToAdjacentPageIntent |  |  |  |
-| [fade_in_image_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/fade_in_image_test.dart) | FadeInImage |  |  |  |
-| [fadetransition_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/fadetransition_test.dart) | FadeTransition |  |  |  |
-| [feedback_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/feedback_test.dart) | Feedback |  |  |  |
-| [fixed_extent_metrics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/fixed_extent_metrics_test.dart) | FixedExtentMetrics |  |  |  |
-| [fixed_extent_scroll_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/fixed_extent_scroll_controller_test.dart) | FixedExtentScrollController |  |  |  |
-| [fixed_extent_scroll_physics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/fixed_extent_scroll_physics_test.dart) | FixedExtentScrollPhysics |  |  |  |
-| [fixed_scroll_metrics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/fixed_scroll_metrics_test.dart) | FixedScrollMetrics |  |  |  |
-| [flex_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/flex_test.dart) | Flex |  |  |  |
-| [flexible_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/flexible_test.dart) | Flexible |  |  |  |
-| [floating_header_snap_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/floating_header_snap_mode_test.dart) | FloatingHeaderSnapMode |  |  |  |
-| [flow_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/flow_test.dart) | Flow |  |  |  |
-| [focus_attachment_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focus_attachment_test.dart) | FocusAttachment |  |  |  |
-| [focus_highlight_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focus_highlight_mode_test.dart) | FocusHighlightMode |  |  |  |
-| [focus_highlight_strategy_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focus_highlight_strategy_test.dart) | FocusHighlightStrategy |  |  |  |
-| [focus_order_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focus_order_test.dart) | FocusOrder |  |  |  |
-| [focus_properties_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focus_properties_test.dart) | FocusScopeNode |  |  |  |
-| [focus_scope_node_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focus_scope_node_test.dart) | FocusScopeNode |  |  |  |
-| [focus_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focus_test.dart) | Focus |  |  |  |
-| [focus_traversal_advanced_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focus_traversal_advanced_test.dart) | WidgetOrderTraversalPolicy |  |  |  |
-| [focus_traversal_order_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focus_traversal_order_test.dart) | FocusTraversalOrder |  |  |  |
-| [focusnode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focusnode_test.dart) | FocusNode |  |  |  |
-| [focustraversal_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focustraversal_test.dart) | FocusTraversalGroup |  |  |  |
-| [form_field_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/form_field_test.dart) | Form |  |  |  |
-| [form_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/form_test.dart) | Form |  |  |  |
-| [formstate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/formstate_test.dart) | FormState |  |  |  |
-| [fractional_translation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/fractional_translation_test.dart) | FractionalTranslation |  |  |  |
-| [futurebuilder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/futurebuilder_test.dart) | FutureBuilder |  |  |  |
-| [gesture_detector_adv_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/gesture_detector_adv_test.dart) | Dismissible |  |  |  |
-| [gesture_recognizer_factory_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/gesture_recognizer_factory_test.dart) | GestureRecognizerFactory |  |  |  |
-| [gesture_recognizer_factory_with_handlers_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/gesture_recognizer_factory_with_handlers_test.dart) | GestureRecognizerFactoryWithHandlers |  |  |  |
-| [gesturedetector_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/gesturedetector_test.dart) | GestureDetector |  |  |  |
-| [global_object_key_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/global_object_key_test.dart) | GlobalObjectKey |  |  |  |
-| [glowing_overscroll_indicator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/glowing_overscroll_indicator_test.dart) | GlowingOverscrollIndicator |  |  |  |
-| [gridview_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/gridview_test.dart) | GridView |  |  |  |
-| [hero_controller_scope_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/hero_controller_scope_test.dart) | HeroControllerScope |  |  |  |
-| [hero_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/hero_controller_test.dart) | HeroController |  |  |  |
-| [hero_flight_direction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/hero_flight_direction_test.dart) | HeroFlightDirection |  |  |  |
-| [hero_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/hero_test.dart) | Hero |  |  |  |
-| [heromode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/heromode_test.dart) | HeroMode |  |  |  |
-| [hold_scroll_activity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/hold_scroll_activity_test.dart) | HoldScrollActivity |  |  |  |
-| [html_element_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/html_element_view_test.dart) | HtmlElementView |  |  |  |
-| [i_o_s_system_context_menu_item_copy_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/i_o_s_system_context_menu_item_copy_test.dart) | IOSSystemContextMenuItemCopy |  |  |  |
-| [i_o_s_system_context_menu_item_custom_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/i_o_s_system_context_menu_item_custom_test.dart) | IOSSystemContextMenuItemCustom |  |  |  |
-| [i_o_s_system_context_menu_item_cut_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/i_o_s_system_context_menu_item_cut_test.dart) | IOSSystemContextMenuItemCut |  |  |  |
-| [i_o_s_system_context_menu_item_live_text_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/i_o_s_system_context_menu_item_live_text_test.dart) | IOSSystemContextMenuItemLiveText |  |  |  |
-| [i_o_s_system_context_menu_item_look_up_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/i_o_s_system_context_menu_item_look_up_test.dart) | IOSSystemContextMenuItemLookUp |  |  |  |
-| [i_o_s_system_context_menu_item_paste_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/i_o_s_system_context_menu_item_paste_test.dart) | IOSSystemContextMenuItemPaste |  |  |  |
-| [i_o_s_system_context_menu_item_search_web_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/i_o_s_system_context_menu_item_search_web_test.dart) | IOSSystemContextMenuItemSearchWeb |  |  |  |
-| [i_o_s_system_context_menu_item_select_all_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/i_o_s_system_context_menu_item_select_all_test.dart) | IOSSystemContextMenuItemSelectAll |  |  |  |
-| [i_o_s_system_context_menu_item_share_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/i_o_s_system_context_menu_item_share_test.dart) | IOSSystemContextMenuItemShare |  |  |  |
-| [i_o_s_system_context_menu_item_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/i_o_s_system_context_menu_item_test.dart) | IOSSystemContextMenuItem |  |  |  |
-| [icon_data_property_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/icon_data_property_test.dart) | IconDataProperty |  |  |  |
-| [icon_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/icon_data_test.dart) | IconData |  |  |  |
-| [icon_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/icon_test.dart) | Icon |  |  |  |
-| [icon_theme_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/icon_theme_data_test.dart) | IconThemeData |  |  |  |
-| [idle_scroll_activity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/idle_scroll_activity_test.dart) | IdleScrollActivity |  |  |  |
-| [ignore_baseline_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/ignore_baseline_test.dart) | IgnoreBaseline |  |  |  |
-| [image_filtered_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/image_filtered_test.dart) | ImageFiltered |  |  |  |
-| [image_icon_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/image_icon_test.dart) | ImageIcon |  |  |  |
-| [image_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/image_test.dart) | Image |  |  |  |
-| [img_element_platform_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/img_element_platform_view_test.dart) | ImgElementPlatformView |  |  |  |
-| [implicitly_animated_widget_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/implicitly_animated_widget_state_test.dart) | ImplicitlyAnimatedWidgetState |  |  |  |
-| [implicitly_animated_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/implicitly_animated_widget_test.dart) | ImplicitlyAnimatedWidget |  |  |  |
-| [indexed_slot_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/indexed_slot_test.dart) | IndexedSlot |  |  |  |
-| [indexed_stack_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/indexed_stack_test.dart) | IndexedStack |  |  |  |
-| [inherited_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inherited_element_test.dart) | InheritedElement |  |  |  |
-| [inherited_model_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inherited_model_element_test.dart) | InheritedModelElement |  |  |  |
-| [inherited_model_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inherited_model_test.dart) | InheritedModel |  |  |  |
-| [inherited_notifier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inherited_notifier_test.dart) | InheritedNotifier |  |  |  |
-| [inherited_theme_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inherited_theme_test.dart) | InheritedTheme |  |  |  |
-| [inherited_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inherited_widget_test.dart) | InheritedWidget |  |  |  |
-| [inkwell_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inkwell_test.dart) | InkWell |  |  |  |
-| [inspector_button_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inspector_button_test.dart) | InspectorButton |  |  |  |
-| [inspector_button_variant_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inspector_button_variant_test.dart) | InspectorButtonVariant |  |  |  |
-| [inspector_reference_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inspector_reference_data_test.dart) | InspectorReferenceData |  |  |  |
-| [inspector_selection_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inspector_selection_test.dart) | InspectorSelection |  |  |  |
-| [inspector_serialization_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inspector_serialization_delegate_test.dart) | InspectorSerializationDelegate |  |  |  |
-| [interactive_viewer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/interactive_viewer_test.dart) | InteractiveViewer |  |  |  |
-| [interactiveviewer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/interactiveviewer_test.dart) | InteractiveViewer |  |  |  |
-| [keep_alive_handle_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/keep_alive_handle_test.dart) | KeepAliveHandle |  |  |  |
-| [keep_alive_notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/keep_alive_notification_test.dart) | KeepAliveNotification |  |  |  |
-| [keepalive_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/keepalive_test.dart) | KeepAlive |  |  |  |
+| [diagonal_drag_behavior_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/diagonal_drag_behavior_test.dart) | DiagonalDragBehavior | No | No | Yes |
+| [dialog_window_controller_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dialog_window_controller_delegate_test.dart) | DialogWindowControllerDelegate | No | No | Yes |
+| [dialog_window_controller_linux_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dialog_window_controller_linux_test.dart) | DialogWindowControllerLinux | No | No | Yes |
+| [dialog_window_controller_mac_o_s_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dialog_window_controller_mac_o_s_test.dart) | DialogWindowControllerMacOS | No | No | Yes |
+| [dialog_window_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dialog_window_controller_test.dart) | DialogWindowController | No | No | Yes |
+| [dialog_window_controller_win32_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dialog_window_controller_win32_test.dart) | DialogWindowControllerWin32 | No | No | Yes |
+| [dialog_window_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dialog_window_test.dart) | DialogWindow | No | No | Yes |
+| [directional_caret_movement_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/directional_caret_movement_intent_test.dart) | DirectionalCaretMovementIntent | No | No | Yes |
+| [directional_focus_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/directional_focus_action_test.dart) | DirectionalFocusAction | No | No | Yes |
+| [directional_focus_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/directional_focus_intent_test.dart) | DirectionalFocusIntent | No | No | Yes |
+| [directional_focus_traversal_policy_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/directional_focus_traversal_policy_mixin_test.dart) | DirectionalFocusTraversalPolicyMixin | No | No | Yes |
+| [directional_text_editing_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/directional_text_editing_intent_test.dart) | DirectionalTextEditingIntent | No | No | Yes |
+| [directionality_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/directionality_test.dart) | Directionality | No | No | Yes |
+| [disable_widget_inspector_scope_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/disable_widget_inspector_scope_test.dart) | DisableWidgetInspectorScope | No | No | Yes |
+| [dismiss_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dismiss_action_test.dart) | DismissAction | No | No | Yes |
+| [dismiss_direction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dismiss_direction_test.dart) | DismissDirection | No | No | Yes |
+| [dismiss_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dismiss_intent_test.dart) | DismissIntent | No | No | Yes |
+| [dismiss_menu_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dismiss_menu_action_test.dart) | DismissMenuAction | No | No | Yes |
+| [dismiss_update_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dismiss_update_details_test.dart) | DismissUpdateDetails | No | No | Yes |
+| [dismissible_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dismissible_test.dart) | Dismissible | No | No | Yes |
+| [display_feature_sub_screen_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/display_feature_sub_screen_test.dart) | DisplayFeatureSubScreen | No | No | Yes |
+| [display_feature_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/display_feature_test.dart) | DisplayFeature | No | No | No |
+| [disposable_build_context_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/disposable_build_context_test.dart) | DisposableBuildContext | No | No | Yes |
+| [do_nothing_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/do_nothing_action_test.dart) | DoNothingAction | No | No | Yes |
+| [do_nothing_and_stop_propagation_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/do_nothing_and_stop_propagation_intent_test.dart) | DoNothingAndStopPropagationIntent | No | No | Yes |
+| [do_nothing_and_stop_propagation_text_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/do_nothing_and_stop_propagation_text_intent_test.dart) | DoNothingAndStopPropagationTextIntent | No | No | Yes |
+| [do_nothing_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/do_nothing_intent_test.dart) | DoNothingIntent | No | No | Yes |
+| [drag_boundary_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/drag_boundary_delegate_test.dart) | DragBoundaryDelegate | No | No | Yes |
+| [drag_boundary_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/drag_boundary_test.dart) | DragBoundary | No | No | Yes |
+| [drag_scroll_activity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/drag_scroll_activity_test.dart) | DragScrollActivity | No | No | Yes |
+| [drag_target_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/drag_target_details_test.dart) | DragTargetDetails | No | No | Yes |
+| [draggable_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/draggable_details_test.dart) | DraggableDetails | No | No | Yes |
+| [draggable_scrollable_actuator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/draggable_scrollable_actuator_test.dart) | DraggableScrollableActuator | No | No | Yes |
+| [draggable_scrollable_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/draggable_scrollable_controller_test.dart) | DraggableScrollableController | No | No | Yes |
+| [draggable_scrollable_notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/draggable_scrollable_notification_test.dart) | DraggableScrollableNotification | No | No | Yes |
+| [draggable_sheet_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/draggable_sheet_test.dart) | DraggableScrollableSheet | No | Yes | No |
+| [draggable_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/draggable_test.dart) | Draggable | No | Yes | No |
+| [draggablescrollablesheet_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/draggablescrollablesheet_test.dart) | DraggableScrollableSheet | No | Yes | No |
+| [driven_scroll_activity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/driven_scroll_activity_test.dart) | DrivenScrollActivity | No | No | Yes |
+| [dual_transition_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dual_transition_builder_test.dart) | DualTransitionBuilder | No | No | Yes |
+| [edge_dragging_auto_scroller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/edge_dragging_auto_scroller_test.dart) | EdgeDraggingAutoScroller | No | No | Yes |
+| [edge_insets_geometry_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/edge_insets_geometry_tween_test.dart) | EdgeInsetsGeometryTween | No | No | Yes |
+| [edge_insets_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/edge_insets_tween_test.dart) | EdgeInsetsTween | No | No | Yes |
+| [editable_text_misc_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/editable_text_misc_test.dart) | EditorText | No | No | No |
+| [editable_text_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/editable_text_state_test.dart) | EditableTextState | No | No | Yes |
+| [editable_text_tap_outside_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/editable_text_tap_outside_intent_test.dart) | EditableTextTapOutsideIntent | No | No | Yes |
+| [editable_text_tap_up_outside_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/editable_text_tap_up_outside_intent_test.dart) | EditableTextTapUpOutsideIntent | No | No | Yes |
+| [element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/element_test.dart) | Element | No | No | Yes |
+| [element_types_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/element_types_test.dart) | ElementTypes | No | No | No |
+| [empty_text_selection_controls_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/empty_text_selection_controls_test.dart) | EmptyTextSelectionControls | No | No | Yes |
+| [enable_widget_inspector_scope_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/enable_widget_inspector_scope_test.dart) | EnableWidgetInspectorScope | No | No | Yes |
+| [exclude_focus_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/exclude_focus_test.dart) | ExcludeFocus | No | No | Yes |
+| [exclude_focus_traversal_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/exclude_focus_traversal_test.dart) | ExcludeFocusTraversal | No | No | Yes |
+| [expand_selection_to_document_boundary_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/expand_selection_to_document_boundary_intent_test.dart) | ExpandSelectionToDocumentBoundaryIntent | No | No | Yes |
+| [expand_selection_to_line_break_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/expand_selection_to_line_break_intent_test.dart) | ExpandSelectionToLineBreakIntent | No | No | Yes |
+| [expanded_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/expanded_test.dart) | Expanded | No | Yes | No |
+| [expansible_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/expansible_controller_test.dart) | ExpansibleController | No | No | Yes |
+| [expansible_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/expansible_test.dart) | Expansible | No | No | Yes |
+| [extend_selection_by_character_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/extend_selection_by_character_intent_test.dart) | ExtendSelectionByCharacterIntent | No | No | Yes |
+| [extend_selection_by_page_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/extend_selection_by_page_intent_test.dart) | ExtendSelectionByPageIntent | No | No | Yes |
+| [extend_selection_to_document_boundary_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/extend_selection_to_document_boundary_intent_test.dart) | ExtendSelectionToDocumentBoundaryIntent | No | No | Yes |
+| [extend_selection_to_line_break_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/extend_selection_to_line_break_intent_test.dart) | ExtendSelectionToLineBreakIntent | No | No | Yes |
+| [extend_selection_to_next_paragraph_boundary_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/extend_selection_to_next_paragraph_boundary_intent_test.dart) | ExtendSelectionToNextParagraphBoundaryIntent | No | No | Yes |
+| [extend_selection_to_next_paragraph_boundary_or_caret_location_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/extend_selection_to_next_paragraph_boundary_or_caret_location_intent_test.dart) | ExtendSelectionToNextParagraphBoundaryOrCaretLocationIntent | No | No | Yes |
+| [extend_selection_to_next_word_boundary_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/extend_selection_to_next_word_boundary_intent_test.dart) | ExtendSelectionToNextWordBoundaryIntent | No | No | Yes |
+| [extend_selection_to_next_word_boundary_or_caret_location_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/extend_selection_to_next_word_boundary_or_caret_location_intent_test.dart) | ExtendSelectionToNextWordBoundaryOrCaretLocationIntent | No | No | Yes |
+| [extend_selection_vertically_to_adjacent_line_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/extend_selection_vertically_to_adjacent_line_intent_test.dart) | ExtendSelectionVerticallyToAdjacentLineIntent | No | No | Yes |
+| [extend_selection_vertically_to_adjacent_page_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/extend_selection_vertically_to_adjacent_page_intent_test.dart) | ExtendSelectionVerticallyToAdjacentPageIntent | No | No | Yes |
+| [fade_in_image_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/fade_in_image_test.dart) | FadeInImage | No | No | Yes |
+| [fadetransition_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/fadetransition_test.dart) | FadeTransition | No | Yes | No |
+| [feedback_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/feedback_test.dart) | Feedback | No | No | Yes |
+| [fixed_extent_metrics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/fixed_extent_metrics_test.dart) | FixedExtentMetrics | No | No | Yes |
+| [fixed_extent_scroll_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/fixed_extent_scroll_controller_test.dart) | FixedExtentScrollController | No | No | Yes |
+| [fixed_extent_scroll_physics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/fixed_extent_scroll_physics_test.dart) | FixedExtentScrollPhysics | No | No | Yes |
+| [fixed_scroll_metrics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/fixed_scroll_metrics_test.dart) | FixedScrollMetrics | No | No | Yes |
+| [flex_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/flex_test.dart) | Flex | No | No | Yes |
+| [flexible_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/flexible_test.dart) | Flexible | No | Yes | No |
+| [floating_header_snap_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/floating_header_snap_mode_test.dart) | FloatingHeaderSnapMode | No | No | Yes |
+| [flow_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/flow_test.dart) | Flow | No | No | Yes |
+| [focus_attachment_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focus_attachment_test.dart) | FocusAttachment | No | No | Yes |
+| [focus_highlight_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focus_highlight_mode_test.dart) | FocusHighlightMode | No | No | Yes |
+| [focus_highlight_strategy_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focus_highlight_strategy_test.dart) | FocusHighlightStrategy | No | No | Yes |
+| [focus_order_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focus_order_test.dart) | FocusOrder | No | No | Yes |
+| [focus_properties_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focus_properties_test.dart) | FocusScopeNode | No | No | Yes |
+| [focus_scope_node_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focus_scope_node_test.dart) | FocusScopeNode | No | No | Yes |
+| [focus_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focus_test.dart) | Focus | No | No | Yes |
+| [focus_traversal_advanced_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focus_traversal_advanced_test.dart) | WidgetOrderTraversalPolicy | No | No | No |
+| [focus_traversal_order_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focus_traversal_order_test.dart) | FocusTraversalOrder | No | No | Yes |
+| [focusnode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focusnode_test.dart) | FocusNode | No | Yes | No |
+| [focustraversal_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focustraversal_test.dart) | FocusTraversalGroup | No | Yes | No |
+| [form_field_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/form_field_test.dart) | Form | No | Yes | No |
+| [form_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/form_test.dart) | Form | No | Yes | No |
+| [formstate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/formstate_test.dart) | FormState | No | No | No |
+| [fractional_translation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/fractional_translation_test.dart) | FractionalTranslation | No | No | Yes |
+| [futurebuilder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/futurebuilder_test.dart) | FutureBuilder | No | No | Yes |
+| [gesture_detector_adv_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/gesture_detector_adv_test.dart) | Dismissible | No | No | Yes |
+| [gesture_recognizer_factory_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/gesture_recognizer_factory_test.dart) | GestureRecognizerFactory | No | No | Yes |
+| [gesture_recognizer_factory_with_handlers_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/gesture_recognizer_factory_with_handlers_test.dart) | GestureRecognizerFactoryWithHandlers | No | No | Yes |
+| [gesturedetector_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/gesturedetector_test.dart) | GestureDetector | No | Yes | No |
+| [global_object_key_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/global_object_key_test.dart) | GlobalObjectKey | No | No | Yes |
+| [glowing_overscroll_indicator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/glowing_overscroll_indicator_test.dart) | GlowingOverscrollIndicator | No | No | Yes |
+| [gridview_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/gridview_test.dart) | GridView | No | Yes | No |
+| [hero_controller_scope_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/hero_controller_scope_test.dart) | HeroControllerScope | No | No | Yes |
+| [hero_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/hero_controller_test.dart) | HeroController | No | No | Yes |
+| [hero_flight_direction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/hero_flight_direction_test.dart) | HeroFlightDirection | No | No | Yes |
+| [hero_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/hero_test.dart) | Hero | No | Yes | No |
+| [heromode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/heromode_test.dart) | HeroMode | No | No | Yes |
+| [hold_scroll_activity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/hold_scroll_activity_test.dart) | HoldScrollActivity | No | No | Yes |
+| [html_element_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/html_element_view_test.dart) | HtmlElementView | No | No | Yes |
+| [i_o_s_system_context_menu_item_copy_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/i_o_s_system_context_menu_item_copy_test.dart) | IOSSystemContextMenuItemCopy | No | No | Yes |
+| [i_o_s_system_context_menu_item_custom_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/i_o_s_system_context_menu_item_custom_test.dart) | IOSSystemContextMenuItemCustom | No | No | Yes |
+| [i_o_s_system_context_menu_item_cut_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/i_o_s_system_context_menu_item_cut_test.dart) | IOSSystemContextMenuItemCut | No | No | Yes |
+| [i_o_s_system_context_menu_item_live_text_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/i_o_s_system_context_menu_item_live_text_test.dart) | IOSSystemContextMenuItemLiveText | No | No | Yes |
+| [i_o_s_system_context_menu_item_look_up_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/i_o_s_system_context_menu_item_look_up_test.dart) | IOSSystemContextMenuItemLookUp | No | No | Yes |
+| [i_o_s_system_context_menu_item_paste_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/i_o_s_system_context_menu_item_paste_test.dart) | IOSSystemContextMenuItemPaste | No | No | Yes |
+| [i_o_s_system_context_menu_item_search_web_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/i_o_s_system_context_menu_item_search_web_test.dart) | IOSSystemContextMenuItemSearchWeb | No | No | Yes |
+| [i_o_s_system_context_menu_item_select_all_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/i_o_s_system_context_menu_item_select_all_test.dart) | IOSSystemContextMenuItemSelectAll | No | No | Yes |
+| [i_o_s_system_context_menu_item_share_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/i_o_s_system_context_menu_item_share_test.dart) | IOSSystemContextMenuItemShare | No | No | Yes |
+| [i_o_s_system_context_menu_item_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/i_o_s_system_context_menu_item_test.dart) | IOSSystemContextMenuItem | No | No | Yes |
+| [icon_data_property_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/icon_data_property_test.dart) | IconDataProperty | No | No | Yes |
+| [icon_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/icon_data_test.dart) | IconData | No | No | Yes |
+| [icon_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/icon_test.dart) | Icon | No | Yes | No |
+| [icon_theme_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/icon_theme_data_test.dart) | IconThemeData | No | No | Yes |
+| [idle_scroll_activity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/idle_scroll_activity_test.dart) | IdleScrollActivity | No | No | Yes |
+| [ignore_baseline_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/ignore_baseline_test.dart) | IgnoreBaseline | No | No | Yes |
+| [image_filtered_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/image_filtered_test.dart) | ImageFiltered | No | No | Yes |
+| [image_icon_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/image_icon_test.dart) | ImageIcon | No | No | Yes |
+| [image_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/image_test.dart) | Image | No | Yes | No |
+| [img_element_platform_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/img_element_platform_view_test.dart) | ImgElementPlatformView | No | No | Yes |
+| [implicitly_animated_widget_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/implicitly_animated_widget_state_test.dart) | ImplicitlyAnimatedWidgetState | No | No | Yes |
+| [implicitly_animated_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/implicitly_animated_widget_test.dart) | ImplicitlyAnimatedWidget | No | No | Yes |
+| [indexed_slot_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/indexed_slot_test.dart) | IndexedSlot | No | No | Yes |
+| [indexed_stack_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/indexed_stack_test.dart) | IndexedStack | No | No | Yes |
+| [inherited_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inherited_element_test.dart) | InheritedElement | No | No | Yes |
+| [inherited_model_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inherited_model_element_test.dart) | InheritedModelElement | No | No | Yes |
+| [inherited_model_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inherited_model_test.dart) | InheritedModel | No | No | No |
+| [inherited_notifier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inherited_notifier_test.dart) | InheritedNotifier | No | No | Yes |
+| [inherited_theme_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inherited_theme_test.dart) | InheritedTheme | No | No | Yes |
+| [inherited_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inherited_widget_test.dart) | InheritedWidget | No | No | Yes |
+| [inkwell_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inkwell_test.dart) | InkWell | No | Yes | No |
+| [inspector_button_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inspector_button_test.dart) | InspectorButton | No | No | Yes |
+| [inspector_button_variant_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inspector_button_variant_test.dart) | InspectorButtonVariant | No | No | Yes |
+| [inspector_reference_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inspector_reference_data_test.dart) | InspectorReferenceData | No | No | Yes |
+| [inspector_selection_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inspector_selection_test.dart) | InspectorSelection | No | No | Yes |
+| [inspector_serialization_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inspector_serialization_delegate_test.dart) | InspectorSerializationDelegate | No | No | Yes |
+| [interactive_viewer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/interactive_viewer_test.dart) | InteractiveViewer | No | No | No |
+| [interactiveviewer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/interactiveviewer_test.dart) | InteractiveViewer | No | Yes | No |
+| [keep_alive_handle_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/keep_alive_handle_test.dart) | KeepAliveHandle | No | No | Yes |
+| [keep_alive_notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/keep_alive_notification_test.dart) | KeepAliveNotification | No | No | Yes |
+| [keepalive_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/keepalive_test.dart) | KeepAlive | No | Yes | No |
 | [key_event_result_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/key_event_result_test.dart) | KeyEventResult |  |  |  |
 | [key_set_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/key_set_test.dart) | KeySet |  |  |  |
 | [key_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/key_test.dart) | Key |  |  |  |
