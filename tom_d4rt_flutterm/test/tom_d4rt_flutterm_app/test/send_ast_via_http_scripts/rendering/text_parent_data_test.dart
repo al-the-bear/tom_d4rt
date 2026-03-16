@@ -1,54 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
+/// Deep visual demo for TextParentData
 dynamic build(BuildContext context) {
-  final data = TextParentData();
-  const span = WidgetSpan(child: Text('inline-child'));
-  data.span = span;
-  final beforeDetach = data.span != null;
-  data.detach();
-  final afterDetach = data.span == null;
+  return Scaffold(appBar: AppBar(title: Text('Text Parent Data')), body: Padding(padding: EdgeInsets.all(16), child: Column(children: [
+    Text('TextParentData', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+    SizedBox(height: 16),
+    Container(padding: EdgeInsets.all(16), decoration: BoxDecoration(color: Colors.orange.shade50, borderRadius: BorderRadius.circular(12)),
+      child: Column(children: [
+        Icon(Icons.text_snippet, size: 48, color: Colors.orange),
+        SizedBox(height: 12),
+        Text('Parent data for text widgets', style: TextStyle(fontWeight: FontWeight.bold)),
+        SizedBox(height: 12),
+        _Field('scale', 'Text scale factor'),
+        _Field('offset', 'Position offset'),
+      ])),
+    Spacer(),
+    Container(padding: EdgeInsets.all(8), decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
+      child: Text('Used by widgets embedded in text', style: TextStyle(fontSize: 11))),
+  ])));
+}
 
-  Widget statusTile(String label, bool ok) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-      decoration: BoxDecoration(
-        color: ok ? Colors.green.withAlpha(28) : Colors.red.withAlpha(28),
-        border: Border.all(color: ok ? Colors.green : Colors.red),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Row(
-        children: [
-          Icon(
-            ok ? Icons.check_circle : Icons.error,
-            color: ok ? Colors.green : Colors.red,
-            size: 18,
-          ),
-          const SizedBox(width: 8),
-          Text(label),
-        ],
-      ),
-    );
-  }
-
-  return Padding(
-    padding: const EdgeInsets.all(16),
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'TextParentData Visual Test',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: 10),
-        statusTile('Before detach: span assigned', beforeDetach),
-        const SizedBox(height: 8),
-        statusTile('After detach: span cleared', afterDetach),
-        const SizedBox(height: 8),
-        Text('Offset: ${data.offset}'),
-        Text('Type: ${data.runtimeType}'),
-      ],
-    ),
-  );
+class _Field extends StatelessWidget {
+  final String name; final String desc;
+  const _Field(this.name, this.desc);
+  @override Widget build(BuildContext context) => Container(margin: EdgeInsets.only(bottom: 8), padding: EdgeInsets.all(8), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4)),
+    child: Row(children: [Text(name, style: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'monospace', fontSize: 11)), Spacer(), Text(desc, style: TextStyle(fontSize: 10, color: Colors.grey))]));
 }

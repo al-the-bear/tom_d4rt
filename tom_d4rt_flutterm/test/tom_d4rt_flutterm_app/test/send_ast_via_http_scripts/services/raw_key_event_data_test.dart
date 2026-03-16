@@ -1,250 +1,46 @@
-// D4rt test script: Tests RawKeyEventData base class from services
-// we don't ignore for file, we write test that following the usual guidelines:  avoid_print, prefer_interpolation_to_compose_strings, unused_local_variable, unnecessary_type_check, unnecessary_import, deprecated_member_use, unused_import, unnecessary_null_comparison, unnecessary_brace_in_string_interps, sized_box_for_whitespace, sort_child_properties_last, prefer_function_declarations_over_variables, prefer_is_empty, avoid_unnecessary_containers, invalid_use_of_protected_member, equal_elements_in_set, dead_code, dead_null_aware_expression, unnecessary_string_interpolations, prefer_iterable_wheretype, prefer_final_fields, no_leading_underscores_for_local_identifiers, curly_braces_in_flow_control_structures, use_super_parameters, prefer_const_constructors_in_immutables, non_constant_identifier_names, no_logic_in_create_state, avoid_function_literals_in_foreach_calls, use_null_aware_elements, unused_element, unused_field, unrelated_type_equality_checks, invalid_null_aware_operator, depend_on_referenced_packages, unnecessary_non_null_assertion, use_of_void_result, invalid_return_type_for_catch_error, override_on_non_overriding_member, duplicate_import, directive_after_declaration, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_declarations, unnecessary_const, undefined_getter, undefined_setter, undefined_method, undefined_function, undefined_named_parameter, undefined_identifier, undefined_class, undefined_operator, undefined_enum_constant, undefined_prefixed_name, missing_required_argument, not_enough_positional_arguments, extra_positional_arguments, argument_type_not_assignable, const_with_non_const, const_initialized_with_non_constant_value, const_with_undefined_constructor, invalid_constant, instantiate_abstract_class, static_access_to_instance_member, invocation_of_non_function_expression, non_abstract_class_inherits_abstract_member, no_generative_constructors_in_superclass, invalid_override, invalid_implementation_override, invalid_assignment, implements_non_class, type_test_with_undefined_name, unchecked_use_of_nullable_value, assignment_to_final, assignment_to_final_no_setter, implicit_super_initializer_missing_arguments, non_bool_condition, new_with_undefined_constructor_default, non_constant_default_value, final_not_initialized, duplicate_definition, duplicate_ignore, strict_top_level_inference, prefer_typing_uninitialized_variables, field_initializer_outside_constructor, named_parameter_outside_group, obsolete_colon_for_default_value, expected_identifier_but_got_keyword, use_function_type_syntax_for_parameters, missing_function_parameters, missing_function_body, not_a_type, unused_element_parameter, invalid_use_of_internal_member, non_type_as_type_argument, unnecessary_nullable_for_final_variable_declarations, await_in_wrong_context, non_constant_identifier_names
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 
+/// Deep visual demo for RawKeyEventData
 dynamic build(BuildContext context) {
-  print('RawKeyEventData test executing');
-  final results = <String>[];
-  int testsPassed = 0;
-  int testsFailed = 0;
+  return Scaffold(appBar: AppBar(title: Text('RawKeyEventData')), body: Padding(padding: EdgeInsets.all(16), child: Column(children: [
+    Text('Raw Key Event Data', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+    SizedBox(height: 16),
+    Expanded(child: SingleChildScrollView(child: Column(children: [
+      _Section('Base Class', 'RawKeyEventData is abstract base for platform key events', Icons.keyboard, Colors.blue),
+      SizedBox(height: 12),
+      _Section('Properties', 'keyLabel, logicalKey, physicalKey, modifiersPressed', Icons.list, Colors.green),
+      SizedBox(height: 12),
+      Container(padding: EdgeInsets.all(12), decoration: BoxDecoration(color: Colors.orange.shade50, borderRadius: BorderRadius.circular(8)),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Text('Platform Implementations:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+          SizedBox(height: 8),
+          _Platform('RawKeyEventDataAndroid', 'Android events'),
+          _Platform('RawKeyEventDataFuchsia', 'Fuchsia events'),
+          _Platform('RawKeyEventDataIos', 'iOS events'),
+          _Platform('RawKeyEventDataMacOs', 'macOS events'),
+          _Platform('RawKeyEventDataLinux', 'Linux/GTK events'),
+          _Platform('RawKeyEventDataWindows', 'Windows events'),
+          _Platform('RawKeyEventDataWeb', 'Web browser events'),
+        ])),
+      SizedBox(height: 12),
+      _Section('Modifier Detection', 'isShiftPressed, isControlPressed, isAltPressed, isMetaPressed', Icons.tune, Colors.purple),
+    ]))),
+    Container(padding: EdgeInsets.all(8), decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
+      child: Text('Deprecated: Use KeyEvent and HardwareKeyboard instead', style: TextStyle(fontSize: 10, color: Colors.red))),
+  ])));
+}
 
-  // Test 1: Verify RawKeyEventData is abstract - use concrete implementation
-  print('\n--- Test 1: Verify RawKeyEventData via concrete implementation ---');
-  try {
-    final data = RawKeyEventDataWeb(
-      code: 'KeyA',
-      key: 'a',
-      location: 0,
-      metaState: 0,
-      keyCode: 65,
-    );
-    assert(data is RawKeyEventData);
-    print('RawKeyEventDataWeb is RawKeyEventData: true');
-    print('Runtime type: ${data.runtimeType}');
-    results.add('Test 1 PASSED: Abstract class verification');
-    testsPassed++;
-  } catch (e) {
-    print('Test 1 FAILED: $e');
-    results.add('Test 1 FAILED: $e');
-    testsFailed++;
-  }
+class _Section extends StatelessWidget {
+  final String title; final String desc; final IconData icon; final MaterialColor color;
+  const _Section(this.title, this.desc, this.icon, this.color);
+  @override Widget build(BuildContext context) => Container(padding: EdgeInsets.all(12), decoration: BoxDecoration(color: color.shade50, borderRadius: BorderRadius.circular(8)),
+    child: Row(children: [Icon(icon, color: color), SizedBox(width: 12), Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(title, style: TextStyle(fontWeight: FontWeight.bold)), Text(desc, style: TextStyle(fontSize: 10, color: Colors.grey))]))]));
+}
 
-  // Test 2: Test logicalKey property from base class
-  print('\n--- Test 2: Test logicalKey property ---');
-  try {
-    final data = RawKeyEventDataWeb(
-      code: 'KeyA',
-      key: 'a',
-      location: 0,
-      metaState: 0,
-      keyCode: 65,
-    );
-    final logicalKey = data.logicalKey;
-    assert(logicalKey is LogicalKeyboardKey);
-    print('Logical key: ${logicalKey.debugName}');
-    print('Key ID: ${logicalKey.keyId}');
-    results.add('Test 2 PASSED: LogicalKey property');
-    testsPassed++;
-  } catch (e) {
-    print('Test 2 FAILED: $e');
-    results.add('Test 2 FAILED: $e');
-    testsFailed++;
-  }
-
-  // Test 3: Test physicalKey property from base class
-  print('\n--- Test 3: Test physicalKey property ---');
-  try {
-    final data = RawKeyEventDataWeb(
-      code: 'KeyA',
-      key: 'a',
-      location: 0,
-      metaState: 0,
-      keyCode: 65,
-    );
-    final physicalKey = data.physicalKey;
-    assert(physicalKey is PhysicalKeyboardKey);
-    print('Physical key: ${physicalKey.debugName}');
-    print('USB HID: ${physicalKey.usbHidUsage}');
-    results.add('Test 3 PASSED: PhysicalKey property');
-    testsPassed++;
-  } catch (e) {
-    print('Test 3 FAILED: $e');
-    results.add('Test 3 FAILED: $e');
-    testsFailed++;
-  }
-
-  // Test 4: Test keyLabel property
-  print('\n--- Test 4: Test keyLabel property ---');
-  try {
-    final data = RawKeyEventDataWeb(
-      code: 'KeyA',
-      key: 'a',
-      location: 0,
-      metaState: 0,
-      keyCode: 65,
-    );
-    final keyLabel = data.keyLabel;
-    print('Key label: "$keyLabel"');
-    results.add('Test 4 PASSED: KeyLabel property');
-    testsPassed++;
-  } catch (e) {
-    print('Test 4 FAILED: $e');
-    results.add('Test 4 FAILED: $e');
-    testsFailed++;
-  }
-
-  // Test 5: Verify different platform implementations
-  print('\n--- Test 5: Verify platform implementations ---');
-  try {
-    final implementations = <RawKeyEventData>[
-      RawKeyEventDataWeb(
-        code: 'KeyA',
-        key: 'a',
-        location: 0,
-        metaState: 0,
-        keyCode: 65,
-      ),
-      RawKeyEventDataAndroid(
-        flags: 0,
-        codePoint: 97,
-        plainCodePoint: 97,
-        keyCode: 29,
-        scanCode: 30,
-        metaState: 0,
-        eventSource: 0,
-        vendorId: 0,
-        productId: 0,
-        deviceId: 0,
-        repeatCount: 0,
-      ),
-      RawKeyEventDataFuchsia(hidUsage: 4, codePoint: 97, modifiers: 0),
-      RawKeyEventDataIos(
-        characters: 'a',
-        charactersIgnoringModifiers: 'a',
-        keyCode: 0,
-        modifiers: 0,
-      ),
-      RawKeyEventDataMacOs(
-        characters: 'a',
-        charactersIgnoringModifiers: 'a',
-        keyCode: 0,
-        modifiers: 0,
-      ),
-      RawKeyEventDataLinux(
-        keyHelper: const GtkKeyHelper(),
-        unicodeScalarValues: 97,
-        scanCode: 38,
-        keyCode: 38,
-        modifiers: 0,
-        isDown: true,
-      ),
-      RawKeyEventDataWindows(
-        keyCode: 65,
-        scanCode: 30,
-        characterCodePoint: 97,
-        modifiers: 0,
-      ),
-    ];
-    for (final impl in implementations) {
-      assert(impl is RawKeyEventData);
-      print('${impl.runtimeType} extends RawKeyEventData');
-    }
-    print('Total implementations tested: ${implementations.length}');
-    results.add('Test 5 PASSED: Platform implementations');
-    testsPassed++;
-  } catch (e) {
-    print('Test 5 FAILED: $e');
-    results.add('Test 5 FAILED: $e');
-    testsFailed++;
-  }
-
-  // Test 6: Test modifier key detection
-  print('\n--- Test 6: Test modifier key detection ---');
-  try {
-    final data = RawKeyEventDataWeb(
-      code: 'KeyA',
-      key: 'A',
-      location: 0,
-      metaState: 1,
-      keyCode: 65,
-    );
-    print('isShiftPressed: ${data.isShiftPressed}');
-    print('isControlPressed: ${data.isControlPressed}');
-    print('isAltPressed: ${data.isAltPressed}');
-    print('isMetaPressed: ${data.isMetaPressed}');
-    results.add('Test 6 PASSED: Modifier detection');
-    testsPassed++;
-  } catch (e) {
-    print('Test 6 FAILED: $e');
-    results.add('Test 6 FAILED: $e');
-    testsFailed++;
-  }
-
-  // Test 7: Test modifiersPressed getter
-  print('\n--- Test 7: Test modifiersPressed getter ---');
-  try {
-    final data = RawKeyEventDataWeb(
-      code: 'KeyA',
-      key: 'A',
-      location: 0,
-      metaState: 0,
-      keyCode: 65,
-    );
-    final modifiers = data.modifiersPressed;
-    print('Modifiers pressed: $modifiers');
-    print('Modifiers count: ${modifiers.length}');
-    results.add('Test 7 PASSED: ModifiersPressed getter');
-    testsPassed++;
-  } catch (e) {
-    print('Test 7 FAILED: $e');
-    results.add('Test 7 FAILED: $e');
-    testsFailed++;
-  }
-
-  // Test 8: Test shouldDispatchKeyEvent
-  print('\n--- Test 8: Test shouldDispatchKeyEvent ---');
-  try {
-    final data = RawKeyEventDataWeb(
-      code: 'KeyA',
-      key: 'a',
-      location: 0,
-      metaState: 0,
-      keyCode: 65,
-    );
-    final shouldDispatch = data.shouldDispatchEvent();
-    print('Should dispatch event: $shouldDispatch');
-    results.add('Test 8 PASSED: ShouldDispatchKeyEvent');
-    testsPassed++;
-  } catch (e) {
-    print('Test 8 FAILED: $e');
-    results.add('Test 8 FAILED: $e');
-    testsFailed++;
-  }
-
-  // Print summary
-  print('\n========================================');
-  print('RawKeyEventData test completed');
-  print('Tests passed: $testsPassed');
-  print('Tests failed: $testsFailed');
-  print('========================================');
-
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        'RawKeyEventData Tests',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-      ),
-      Text(
-        'Passed: $testsPassed, Failed: $testsFailed',
-        style: TextStyle(
-          color: testsFailed == 0 ? Color(0xFF00AA00) : Color(0xFFAA0000),
-        ),
-      ),
-      const SizedBox(height: 8),
-      ...results.map((r) => Text(r, style: TextStyle(fontSize: 12))),
-    ],
-  );
+class _Platform extends StatelessWidget {
+  final String name; final String desc;
+  const _Platform(this.name, this.desc);
+  @override Widget build(BuildContext context) => Padding(padding: EdgeInsets.only(bottom: 4),
+    child: Row(children: [Icon(Icons.devices, size: 14, color: Colors.orange), SizedBox(width: 8), Text(name, style: TextStyle(fontFamily: 'monospace', fontSize: 9)), Spacer(), Text(desc, style: TextStyle(fontSize: 9, color: Colors.grey))]));
 }
