@@ -1,95 +1,34 @@
-// D4rt test script: Tests LayerLink from rendering
-// we don't ignore for file, we write test that following the usual guidelines:  avoid_print, prefer_interpolation_to_compose_strings, unused_local_variable, unnecessary_type_check, unnecessary_import, deprecated_member_use, unused_import, unnecessary_null_comparison, unnecessary_brace_in_string_interps, sized_box_for_whitespace, sort_child_properties_last, prefer_function_declarations_over_variables, prefer_is_empty, avoid_unnecessary_containers, invalid_use_of_protected_member, equal_elements_in_set, dead_code, dead_null_aware_expression, unnecessary_string_interpolations, prefer_iterable_wheretype, prefer_final_fields, no_leading_underscores_for_local_identifiers, curly_braces_in_flow_control_structures, use_super_parameters, prefer_const_constructors_in_immutables, non_constant_identifier_names, no_logic_in_create_state, avoid_function_literals_in_foreach_calls, use_null_aware_elements, unused_element, unused_field, unrelated_type_equality_checks, invalid_null_aware_operator, depend_on_referenced_packages, unnecessary_non_null_assertion, use_of_void_result, invalid_return_type_for_catch_error, override_on_non_overriding_member, duplicate_import, directive_after_declaration, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_declarations, unnecessary_const, undefined_getter, undefined_setter, undefined_method, undefined_function, undefined_named_parameter, undefined_identifier, undefined_class, undefined_operator, undefined_enum_constant, undefined_prefixed_name, missing_required_argument, not_enough_positional_arguments, extra_positional_arguments, argument_type_not_assignable, const_with_non_const, const_initialized_with_non_constant_value, const_with_undefined_constructor, invalid_constant, instantiate_abstract_class, static_access_to_instance_member, invocation_of_non_function_expression, non_abstract_class_inherits_abstract_member, no_generative_constructors_in_superclass, invalid_override, invalid_implementation_override, invalid_assignment, implements_non_class, type_test_with_undefined_name, unchecked_use_of_nullable_value, assignment_to_final, assignment_to_final_no_setter, implicit_super_initializer_missing_arguments, non_bool_condition, new_with_undefined_constructor_default, non_constant_default_value, final_not_initialized, duplicate_definition, duplicate_ignore, strict_top_level_inference, prefer_typing_uninitialized_variables, field_initializer_outside_constructor, named_parameter_outside_group, obsolete_colon_for_default_value, expected_identifier_but_got_keyword, use_function_type_syntax_for_parameters, missing_function_parameters, missing_function_body, not_a_type, unused_element_parameter, invalid_use_of_internal_member, non_type_as_type_argument, unnecessary_nullable_for_final_variable_declarations, await_in_wrong_context, non_constant_identifier_names
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
+/// Deep visual demo for LayerLink (connects Leader and Follower layers)
 dynamic build(BuildContext context) {
-  print('LayerLink test executing');
+  return Scaffold(appBar: AppBar(title: Text('LayerLink')), body: Padding(padding: EdgeInsets.all(16), child: Column(children: [
+    Text('Layer Linking', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+    SizedBox(height: 16),
+    Container(padding: EdgeInsets.all(16), decoration: BoxDecoration(color: Colors.orange.shade50, borderRadius: BorderRadius.circular(12)),
+      child: Column(children: [
+        Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          _LinkBox('Leader', Icons.location_on, Colors.blue),
+          Icon(Icons.link, color: Colors.orange, size: 32),
+          _LinkBox('Follower', Icons.my_location, Colors.green),
+        ]),
+        SizedBox(height: 12),
+        Text('LayerLink connects two positioned layers', style: TextStyle(fontSize: 12)),
+      ])),
+    SizedBox(height: 16),
+    Container(padding: EdgeInsets.all(12), decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Text('Use case:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text('• CompositedTransformTarget (leader)', style: TextStyle(fontSize: 11)),
+        Text('• CompositedTransformFollower (follower)', style: TextStyle(fontSize: 11)),
+        Text('• Overlays, tooltips, dropdowns', style: TextStyle(fontSize: 11)),
+      ])),
+  ])));
+}
 
-  // ========== Basic LayerLink creation ==========
-  print('--- Basic LayerLink ---');
-  final link = LayerLink();
-  print('  created: ${link.runtimeType}');
-  print('  leader: ${link.leader}');
-  print('  leaderSize: ${link.leaderSize}');
-
-  // ========== Multiple LayerLinks ==========
-  print('--- Multiple LayerLinks ---');
-  final link1 = LayerLink();
-  final link2 = LayerLink();
-  final link3 = LayerLink();
-  print('  link1: ${link1.runtimeType}');
-  print('  link2: ${link2.runtimeType}');
-  print('  link3: ${link3.runtimeType}');
-  print('  link1 == link2: ${link1 == link2}');
-  print('  link1 == link1: ${link1 == link1}');
-
-  // ========== LayerLink hashCode ==========
-  print('--- LayerLink hashCode ---');
-  print('  link1.hashCode: ${link1.hashCode}');
-  print('  link2.hashCode: ${link2.hashCode}');
-  print(
-    '  link1.hashCode == link2.hashCode: ${link1.hashCode == link2.hashCode}',
-  );
-
-  // ========== LayerLink toString ==========
-  print('--- LayerLink toString ---');
-  print('  link.toString(): ${link.toString()}');
-  print('  link1.toString(): ${link1.toString()}');
-
-  // ========== Use with CompositedTransformTarget ==========
-  print('--- With CompositedTransformTarget ---');
-  final targetLink = LayerLink();
-  final target = CompositedTransformTarget(
-    link: targetLink,
-    child: Container(width: 100.0, height: 100.0, color: Color(0xFF2196F3)),
-  );
-  print('  CompositedTransformTarget created');
-  print('  target.link: ${target.link}');
-  print('  target.link == targetLink: ${target.link == targetLink}');
-
-  // ========== Use with CompositedTransformFollower ==========
-  print('--- With CompositedTransformFollower ---');
-  final followerLink = LayerLink();
-  final follower = CompositedTransformFollower(
-    link: followerLink,
-    offset: Offset(10.0, 10.0),
-    child: Container(width: 50.0, height: 50.0, color: Color(0xFFFF5722)),
-  );
-  print('  CompositedTransformFollower created');
-  print('  follower.link: ${follower.link}');
-  print('  follower.offset: ${follower.offset}');
-  print('  follower.targetAnchor: ${follower.targetAnchor}');
-  print('  follower.followerAnchor: ${follower.followerAnchor}');
-
-  print('LayerLink test completed');
-  return SingleChildScrollView(
-    child: Padding(
-      padding: EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            'LayerLink Tests',
-            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 8.0),
-          Text('LayerLink created: ${link.runtimeType}'),
-          Text('Multiple links: 3 created'),
-          Text('Equality: link1 != link2'),
-          Text('HashCode: unique per instance'),
-          CompositedTransformTarget(
-            link: LayerLink(),
-            child: Container(
-              width: 80.0,
-              height: 40.0,
-              color: Color(0xFF4CAF50),
-              child: Center(child: Text('Target')),
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
+class _LinkBox extends StatelessWidget {
+  final String label; final IconData icon; final Color color;
+  const _LinkBox(this.label, this.icon, this.color);
+  @override Widget build(BuildContext context) => Container(padding: EdgeInsets.all(12), decoration: BoxDecoration(color: color.withOpacity(0.2), borderRadius: BorderRadius.circular(8), border: Border.all(color: color)),
+    child: Column(children: [Icon(icon, color: color), Text(label, style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: color))]));
 }

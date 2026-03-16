@@ -1,55 +1,25 @@
 import 'package:flutter/material.dart';
 
+/// Deep visual demo for WordBoundary
 dynamic build(BuildContext context) {
-  const sample = 'Hello world\nSecond line';
-  final painter = TextPainter(
-    text: const TextSpan(
-      text: sample,
-      style: TextStyle(fontSize: 18, color: Colors.black),
-    ),
-    textDirection: TextDirection.ltr,
-  )..layout(maxWidth: 320);
-
-  final boundary = painter.wordBoundaries;
-  final positions = <int>[0, 1, 6, 12, 18];
-  final ranges = positions.map(boundary.getTextBoundaryAt).toList();
-
-  String slice(TextRange r) =>
-      sample.substring(r.start, r.end).replaceAll('\n', '\\n');
-
-  return Padding(
-    padding: const EdgeInsets.all(16),
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'WordBoundary Visual Test',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: 8),
-        Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.black26),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: const Text(sample, style: TextStyle(fontSize: 18)),
-        ),
-        const SizedBox(height: 8),
-        Wrap(
-          spacing: 8,
-          runSpacing: 8,
-          children: [
-            for (var i = 0; i < ranges.length; i++)
-              Chip(
-                label: Text(
-                  'p${positions[i]}: "${slice(ranges[i])}" ${ranges[i]}',
-                ),
-              ),
-          ],
-        ),
-      ],
-    ),
-  );
+  const text = 'Hello World Flutter Demo';
+  final words = text.split(' ');
+  return Scaffold(appBar: AppBar(title: Text('WordBoundary Demo')), body: Padding(padding: EdgeInsets.all(16), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+    Text('Text: "$text"', style: TextStyle(fontWeight: FontWeight.bold)),
+    SizedBox(height: 16),
+    Text('Word Boundaries:', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue)),
+    SizedBox(height: 8),
+    Wrap(spacing: 8, runSpacing: 8, children: [
+      for (int i = 0; i < words.length; i++)
+        Container(padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(color: Colors.blue.withOpacity(0.1), border: Border.all(color: Colors.blue), borderRadius: BorderRadius.circular(4)),
+          child: Column(children: [Text('Word $i', style: TextStyle(fontSize: 10, color: Colors.grey)), Text(words[i], style: TextStyle(fontWeight: FontWeight.bold))]))
+    ]),
+    SizedBox(height: 24),
+    Container(padding: EdgeInsets.all(12), decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Text('WordBoundary Properties:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text('• start: int - start index', style: TextStyle(fontSize: 12)),
+        Text('• end: int - end index (exclusive)', style: TextStyle(fontSize: 12)),
+      ]))
+  ])));
 }

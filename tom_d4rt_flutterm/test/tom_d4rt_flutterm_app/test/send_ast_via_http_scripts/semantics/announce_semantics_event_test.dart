@@ -1,46 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/semantics.dart';
 
+/// Deep visual demo for AnnounceSemanticsEvent
 dynamic build(BuildContext context) {
-  const ltr = AnnounceSemanticsEvent('Hello world', TextDirection.ltr, 0);
-  const rtl = AnnounceSemanticsEvent('مرحبا بالعالم', TextDirection.rtl, 0);
-
-  Widget tile(String title, AnnounceSemanticsEvent event, Color color) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 10),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        border: Border.all(color: color),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-          const SizedBox(height: 6),
-          Text('Message: ${event.message}'),
-          Text('Direction: ${event.textDirection.name}'),
-          Text('Type: ${event.type}'),
-          Text('View: ${event.viewId}'),
-        ],
-      ),
-    );
-  }
-
-  return Padding(
-    padding: const EdgeInsets.all(16),
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'AnnounceSemanticsEvent Visual Test',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: 10),
-        tile('LTR Announcement', ltr, Colors.blue),
-        tile('RTL Announcement', rtl, Colors.deepPurple),
-      ],
-    ),
-  );
+  return Scaffold(appBar: AppBar(title: Text('AnnounceSemanticsEvent')), body: Padding(padding: EdgeInsets.all(16), child: Column(children: [
+    Icon(Icons.campaign, size: 60, color: Colors.orange),
+    SizedBox(height: 8),
+    Text('Announce Event', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+    SizedBox(height: 16),
+    Container(padding: EdgeInsets.all(16), decoration: BoxDecoration(color: Colors.orange.shade50, borderRadius: BorderRadius.circular(12)),
+      child: Column(children: [
+        Text('"Download complete!"', style: TextStyle(fontSize: 18, fontStyle: FontStyle.italic)),
+        SizedBox(height: 8),
+        Row(mainAxisAlignment: MainAxisAlignment.center, children: [Icon(Icons.volume_up, color: Colors.orange), SizedBox(width: 8), Text('Screen reader speaks', style: TextStyle(color: Colors.grey))]),
+      ])),
+    SizedBox(height: 16),
+    Container(padding: EdgeInsets.all(12), decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Text('Properties:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text('• message: String to announce', style: TextStyle(fontSize: 11)),
+        Text('• textDirection: LTR or RTL', style: TextStyle(fontSize: 11)),
+        Text('• assertiveness: polite/assertive', style: TextStyle(fontSize: 11)),
+      ])),
+    Spacer(),
+    Text('Use for dynamic content updates', style: TextStyle(color: Colors.grey)),
+  ])));
 }

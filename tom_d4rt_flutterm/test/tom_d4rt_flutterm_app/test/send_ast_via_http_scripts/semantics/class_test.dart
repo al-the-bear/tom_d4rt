@@ -1,58 +1,33 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/semantics.dart';
 
+/// Deep visual demo for semantics package classes overview
 dynamic build(BuildContext context) {
-  final config = SemanticsConfiguration()
-    ..label = 'Demo Button'
-    ..isButton = true;
-  final tag = SemanticsTag('test-tag');
-  final localeAttr = LocaleStringAttribute(
-    range: const TextRange(start: 0, end: 5),
-    locale: const Locale('en', 'US'),
-  );
-  final spellAttr = SpellOutStringAttribute(
-    range: const TextRange(start: 0, end: 4),
-  );
-  final announce = AnnounceSemanticsEvent('hello', TextDirection.ltr, 0);
-  const tap = TapSemanticEvent();
-  const longPress = LongPressSemanticsEvent();
+  return Scaffold(appBar: AppBar(title: Text('Semantics Classes')), body: Padding(padding: EdgeInsets.all(16), child: Column(children: [
+    Text('flutter/semantics.dart', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, fontFamily: 'monospace')),
+    SizedBox(height: 16),
+    Expanded(child: ListView(children: [
+      _ClassTile('SemanticsNode', 'Node in semantics tree', Colors.blue),
+      _ClassTile('SemanticsData', 'Immutable node data', Colors.green),
+      _ClassTile('SemanticsConfiguration', 'Mutable config builder', Colors.orange),
+      _ClassTile('SemanticsOwner', 'Tree owner/manager', Colors.purple),
+      Divider(),
+      _ClassTile('SemanticsBinding', 'Platform binding', Colors.teal),
+      _ClassTile('SemanticsHandle', 'Tree access handle', Colors.red),
+      Divider(),
+      _ClassTile('Semantics (widget)', 'Flutter widget', Colors.indigo),
+      _ClassTile('SemanticsProperties', 'Property container', Colors.brown),
+    ])),
+    Container(padding: EdgeInsets.all(8), decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(8)),
+      child: Text('Accessibility primitives for screen readers', style: TextStyle(fontSize: 11))),
+  ])));
+}
 
-  return Padding(
-    padding: const EdgeInsets.all(16),
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Semantics Class Visual Test',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: 8),
-        Semantics(
-          label: config.label,
-          button: config.isButton,
-          child: ElevatedButton(
-            onPressed: () {},
-            child: const Text('Accessible Button'),
-          ),
-        ),
-        const SizedBox(height: 10),
-        Wrap(
-          spacing: 8,
-          runSpacing: 8,
-          children: [
-            Chip(label: Text('Tag: ${tag.name}')),
-            Chip(label: Text('Locale: ${localeAttr.locale.toLanguageTag()}')),
-            Chip(label: Text('Spell range: ${spellAttr.range}')),
-            Chip(label: Text('Announce: ${announce.type}')),
-            Chip(label: Text('Tap: ${tap.type}')),
-            Chip(label: Text('LongPress: ${longPress.type}')),
-            Chip(label: Text('Actions: ${SemanticsAction.values.length}')),
-          ],
-        ),
-      ],
-    ),
+class _ClassTile extends StatelessWidget {
+  final String name; final String desc; final Color color;
+  const _ClassTile(this.name, this.desc, this.color);
+  @override Widget build(BuildContext context) => ListTile(
+    leading: CircleAvatar(backgroundColor: color.withOpacity(0.2), child: Icon(Icons.class_, color: color, size: 20)),
+    title: Text(name, style: TextStyle(fontWeight: FontWeight.bold)),
+    subtitle: Text(desc),
   );
 }

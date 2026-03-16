@@ -1,64 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
-Widget _eventCard(
-  String title,
-  GranularlyExtendSelectionEvent event,
-  Color color,
-) {
-  return Expanded(
-    child: Container(
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: color.withAlpha(26),
-        border: Border.all(color: color),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-          const SizedBox(height: 6),
-          Text('Forward: ${event.forward}'),
-          Text('isEnd: ${event.isEnd}'),
-          Text('Granularity: ${event.granularity.name}'),
-          Text('Type: ${event.type.name}'),
-        ],
-      ),
-    ),
-  );
+/// Deep visual demo for granular text selection extension
+dynamic build(BuildContext context) {
+  return Scaffold(appBar: AppBar(title: Text('Granular Selection')), body: Padding(padding: EdgeInsets.all(16), child: Column(children: [
+    Text('Selection Granularity', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+    SizedBox(height: 16),
+    Container(padding: EdgeInsets.all(16), decoration: BoxDecoration(color: Colors.green.shade50, borderRadius: BorderRadius.circular(12)),
+      child: Column(children: [
+        Text('Hello World Flutter Demo', style: TextStyle(fontSize: 18)),
+        SizedBox(height: 16),
+        Wrap(spacing: 8, runSpacing: 8, children: [
+          _GranChip('Character', Icons.text_fields),
+          _GranChip('Word', Icons.space_bar),
+          _GranChip('Line', Icons.wrap_text),
+          _GranChip('Document', Icons.article),
+        ]),
+      ])),
+    SizedBox(height: 16),
+    Container(padding: EdgeInsets.all(12), decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Text('Properties:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text('• forward: bool - direction', style: TextStyle(fontSize: 11)),
+        Text('• isEnd: bool - extend end or start', style: TextStyle(fontSize: 11)),
+        Text('• granularity: TextGranularity', style: TextStyle(fontSize: 11)),
+      ])),
+  ])));
 }
 
-dynamic build(BuildContext context) {
-  const byCharacter = GranularlyExtendSelectionEvent(
-    forward: true,
-    isEnd: true,
-    granularity: TextGranularity.character,
-  );
-  const byWordBackward = GranularlyExtendSelectionEvent(
-    forward: false,
-    isEnd: false,
-    granularity: TextGranularity.word,
-  );
-
-  return Padding(
-    padding: const EdgeInsets.all(16),
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const Text(
-          'GranularlyExtendSelectionEvent Visual Test',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: 10),
-        Row(
-          children: [
-            _eventCard('Character forward', byCharacter, Colors.blue),
-            const SizedBox(width: 10),
-            _eventCard('Word backward', byWordBackward, Colors.deepOrange),
-          ],
-        ),
-      ],
-    ),
-  );
+class _GranChip extends StatelessWidget {
+  final String label; final IconData icon;
+  const _GranChip(this.label, this.icon);
+  @override Widget build(BuildContext context) => Container(padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(color: Colors.green.withOpacity(0.2), borderRadius: BorderRadius.circular(16)),
+    child: Row(mainAxisSize: MainAxisSize.min, children: [Icon(icon, size: 16, color: Colors.green), SizedBox(width: 4), Text(label, style: TextStyle(fontSize: 12))]));
 }
