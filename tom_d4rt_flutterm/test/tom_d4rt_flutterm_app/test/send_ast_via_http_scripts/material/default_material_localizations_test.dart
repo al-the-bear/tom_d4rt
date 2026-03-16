@@ -7,7 +7,10 @@ dynamic build(BuildContext context) {
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      const Text('DefaultMaterialLocalizations', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+      const Text(
+        'DefaultMaterialLocalizations',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+      ),
       const SizedBox(height: 16),
       Container(
         padding: const EdgeInsets.all(12),
@@ -28,7 +31,10 @@ dynamic build(BuildContext context) {
         ),
       ),
       const SizedBox(height: 12),
-      const Text('Extend for custom localizations', style: TextStyle(fontSize: 11, color: Colors.grey)),
+      const Text(
+        'Extend for custom localizations',
+        style: TextStyle(fontSize: 11, color: Colors.grey),
+      ),
     ],
   );
 }
@@ -43,11 +49,22 @@ class _LocaleEntry extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 2),
       child: Row(
         children: [
-          Expanded(child: Text(localeKey, style: const TextStyle(fontSize: 10, fontFamily: 'monospace'))),
+          Expanded(
+            child: Text(
+              localeKey,
+              style: const TextStyle(fontSize: 10, fontFamily: 'monospace'),
+            ),
+          ),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-            decoration: BoxDecoration(color: Colors.green.shade200, borderRadius: BorderRadius.circular(4)),
-            child: Text(value, style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold)),
+            decoration: BoxDecoration(
+              color: Colors.green.shade200,
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Text(
+              value,
+              style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+            ),
           ),
         ],
       ),

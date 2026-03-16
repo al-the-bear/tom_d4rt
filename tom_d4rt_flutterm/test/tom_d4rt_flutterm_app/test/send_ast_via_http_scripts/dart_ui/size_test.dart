@@ -11,7 +11,10 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Size', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          const Text(
+            'Size',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 24),
           SizedBox(
             height: 180,
@@ -36,11 +39,21 @@ dynamic build(BuildContext context) {
 Widget _buildProp(String name, String desc) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 4),
-    child: Row(children: [
-      Text(name, style: const TextStyle(fontFamily: 'monospace', fontSize: 11)),
-      const SizedBox(width: 12),
-      Expanded(child: Text(desc, style: TextStyle(color: Colors.grey.shade600, fontSize: 12))),
-    ]),
+    child: Row(
+      children: [
+        Text(
+          name,
+          style: const TextStyle(fontFamily: 'monospace', fontSize: 11),
+        ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: Text(
+            desc,
+            style: TextStyle(color: Colors.grey.shade600, fontSize: 12),
+          ),
+        ),
+      ],
+    ),
   );
 }
 
@@ -50,12 +63,24 @@ class _SizePainter extends CustomPainter {
     const demoSize = Size(180, 120);
     final rect = Rect.fromLTWH(20, 20, demoSize.width, demoSize.height);
     canvas.drawRect(rect, Paint()..color = Colors.blue.withValues(alpha: 0.3));
-    canvas.drawRect(rect, Paint()..color = Colors.blue..style = PaintingStyle.stroke..strokeWidth = 2);
-    
-    final tp1 = TextPainter(text: const TextSpan(text: 'width: 180', style: TextStyle(fontSize: 11)), textDirection: TextDirection.ltr)..layout();
+    canvas.drawRect(
+      rect,
+      Paint()
+        ..color = Colors.blue
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2,
+    );
+
+    final tp1 = TextPainter(
+      text: const TextSpan(text: 'width: 180', style: TextStyle(fontSize: 11)),
+      textDirection: TextDirection.ltr,
+    )..layout();
     tp1.paint(canvas, Offset(60, demoSize.height + 25));
-    
-    final tp2 = TextPainter(text: const TextSpan(text: 'height: 120', style: TextStyle(fontSize: 11)), textDirection: TextDirection.ltr)..layout();
+
+    final tp2 = TextPainter(
+      text: const TextSpan(text: 'height: 120', style: TextStyle(fontSize: 11)),
+      textDirection: TextDirection.ltr,
+    )..layout();
     canvas.save();
     canvas.translate(demoSize.width + 30, 80);
     canvas.rotate(-1.57);

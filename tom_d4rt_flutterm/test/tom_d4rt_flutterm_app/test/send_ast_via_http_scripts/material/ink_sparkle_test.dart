@@ -6,7 +6,10 @@ dynamic build(BuildContext context) {
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      const Text('InkSparkle (M3)', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+      const Text(
+        'InkSparkle (M3)',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+      ),
       const SizedBox(height: 16),
       Container(
         width: 160,
@@ -40,7 +43,10 @@ dynamic build(BuildContext context) {
         ),
       ),
       const SizedBox(height: 12),
-      const Text('Particle-based splash animation', style: TextStyle(fontSize: 11, color: Colors.grey)),
+      const Text(
+        'Particle-based splash animation',
+        style: TextStyle(fontSize: 11, color: Colors.grey),
+      ),
     ],
   );
 }

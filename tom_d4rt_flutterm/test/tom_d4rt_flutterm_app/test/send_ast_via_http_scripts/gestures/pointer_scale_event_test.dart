@@ -24,7 +24,10 @@ class _ScaleDemoState extends State<_ScaleDemo> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        const Text('Use trackpad pinch gesture', style: TextStyle(fontSize: 16)),
+        const Text(
+          'Use trackpad pinch gesture',
+          style: TextStyle(fontSize: 16),
+        ),
         const SizedBox(height: 16),
         Listener(
           onPointerSignal: (e) {
@@ -38,7 +41,8 @@ class _ScaleDemoState extends State<_ScaleDemo> {
             }
           },
           child: Container(
-            width: 280, height: 200,
+            width: 280,
+            height: 200,
             decoration: BoxDecoration(
               color: Colors.grey.shade100,
               border: Border.all(color: Colors.grey),
@@ -48,14 +52,22 @@ class _ScaleDemoState extends State<_ScaleDemo> {
             child: Transform.scale(
               scale: _scale,
               child: Container(
-                width: 80, height: 80,
+                width: 80,
+                height: 80,
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(colors: [Colors.blue, Colors.purple]),
+                  gradient: LinearGradient(
+                    colors: [Colors.blue, Colors.purple],
+                  ),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 alignment: Alignment.center,
-                child: Text('\${(_scale * 100).toInt()}%', 
-                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                child: Text(
+                  '\${(_scale * 100).toInt()}%',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ),
           ),
@@ -63,7 +75,10 @@ class _ScaleDemoState extends State<_ScaleDemo> {
         const SizedBox(height: 16),
         Text('Scale: \${_scale.toStringAsFixed(2)}x'),
         Text('Events: \$_eventCount'),
-        TextButton(onPressed: () => setState(() => _scale = 1.0), child: const Text('Reset')),
+        TextButton(
+          onPressed: () => setState(() => _scale = 1.0),
+          child: const Text('Reset'),
+        ),
       ],
     );
   }

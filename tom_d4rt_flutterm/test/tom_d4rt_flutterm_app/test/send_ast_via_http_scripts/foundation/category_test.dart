@@ -11,8 +11,10 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('API Documentation Categories',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          const Text(
+            'API Documentation Categories',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 16),
           _CategoryCard(
             category: 'Widgets',
@@ -57,7 +59,12 @@ class _CategoryCard extends StatelessWidget {
   final IconData icon;
   final Color color;
   final List<String> items;
-  const _CategoryCard({required this.category, required this.icon, required this.color, required this.items});
+  const _CategoryCard({
+    required this.category,
+    required this.icon,
+    required this.color,
+    required this.items,
+  });
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -75,15 +82,29 @@ class _CategoryCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(category, style: TextStyle(fontWeight: FontWeight.bold, color: color, fontSize: 16)),
+                Text(
+                  category,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: color,
+                    fontSize: 16,
+                  ),
+                ),
                 const SizedBox(height: 4),
                 Wrap(
                   spacing: 8,
-                  children: items.map((item) => Chip(
-                    label: Text(item, style: const TextStyle(fontSize: 11)),
-                    backgroundColor: color.withValues(alpha: 0.1),
-                    visualDensity: VisualDensity.compact,
-                  )).toList(),
+                  children: items
+                      .map(
+                        (item) => Chip(
+                          label: Text(
+                            item,
+                            style: const TextStyle(fontSize: 11),
+                          ),
+                          backgroundColor: color.withValues(alpha: 0.1),
+                          visualDensity: VisualDensity.compact,
+                        ),
+                      )
+                      .toList(),
                 ),
               ],
             ),

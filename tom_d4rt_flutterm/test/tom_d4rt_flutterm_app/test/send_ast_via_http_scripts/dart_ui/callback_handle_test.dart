@@ -11,14 +11,22 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('CallbackHandle', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          const Text(
+            'CallbackHandle',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 8),
-          const Text('Handle to a top-level function for isolate communication', style: TextStyle(color: Colors.grey)),
+          const Text(
+            'Handle to a top-level function for isolate communication',
+            style: TextStyle(color: Colors.grey),
+          ),
           const SizedBox(height: 24),
           Container(
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [Colors.purple.shade100, Colors.blue.shade100]),
+              gradient: LinearGradient(
+                colors: [Colors.purple.shade100, Colors.blue.shade100],
+              ),
               borderRadius: BorderRadius.circular(16),
             ),
             child: Column(
@@ -85,6 +93,9 @@ Widget _buildCodeBlock(String code) {
       color: Colors.grey.shade100,
       borderRadius: BorderRadius.circular(8),
     ),
-    child: Text(code, style: const TextStyle(fontFamily: 'monospace', fontSize: 13)),
+    child: Text(
+      code,
+      style: const TextStyle(fontFamily: 'monospace', fontSize: 13),
+    ),
   );
 }

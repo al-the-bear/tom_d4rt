@@ -16,13 +16,16 @@ class _CarouselDemo extends StatefulWidget {
 
 class _CarouselDemoState extends State<_CarouselDemo> {
   final _controller = CarouselController();
-  
+
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text('CarouselController Demo', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        const Text(
+          'CarouselController Demo',
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
         const SizedBox(height: 8),
         const Text('Swipe or use buttons to navigate'),
         const SizedBox(height: 24),
@@ -41,7 +44,14 @@ class _CarouselDemoState extends State<_CarouselDemo> {
                     borderRadius: BorderRadius.circular(16),
                   ),
                   alignment: Alignment.center,
-                  child: Text('Page ' + (i + 1).toString(), style: const TextStyle(fontSize: 24, color: Colors.white, fontWeight: FontWeight.bold)),
+                  child: Text(
+                    'Page ' + (i + 1).toString(),
+                    style: const TextStyle(
+                      fontSize: 24,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
             ],
           ),
@@ -51,13 +61,21 @@ class _CarouselDemoState extends State<_CarouselDemo> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             FilledButton.icon(
-              onPressed: () => _controller.animateTo(_controller.position.pixels - 280, duration: const Duration(milliseconds: 300), curve: Curves.easeInOut),
+              onPressed: () => _controller.animateTo(
+                _controller.position.pixels - 280,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
+              ),
               icon: const Icon(Icons.arrow_back),
               label: const Text('Prev'),
             ),
             const SizedBox(width: 16),
             FilledButton.icon(
-              onPressed: () => _controller.animateTo(_controller.position.pixels + 280, duration: const Duration(milliseconds: 300), curve: Curves.easeInOut),
+              onPressed: () => _controller.animateTo(
+                _controller.position.pixels + 280,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
+              ),
               icon: const Icon(Icons.arrow_forward),
               label: const Text('Next'),
             ),

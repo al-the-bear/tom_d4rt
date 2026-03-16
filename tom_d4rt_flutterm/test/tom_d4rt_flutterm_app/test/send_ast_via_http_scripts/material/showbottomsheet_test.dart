@@ -1,140 +1,46 @@
-// D4rt test script: Tests showModalBottomSheet, showBottomSheet from material
-// we don't ignore for file, we write test that following the usual guidelines:  avoid_print, prefer_interpolation_to_compose_strings, unused_local_variable, unnecessary_type_check, unnecessary_import, deprecated_member_use, unused_import, unnecessary_null_comparison, unnecessary_brace_in_string_interps, sized_box_for_whitespace, sort_child_properties_last, prefer_function_declarations_over_variables, prefer_is_empty, avoid_unnecessary_containers, invalid_use_of_protected_member, equal_elements_in_set, dead_code, dead_null_aware_expression, unnecessary_string_interpolations, prefer_iterable_wheretype, prefer_final_fields, no_leading_underscores_for_local_identifiers, curly_braces_in_flow_control_structures, use_super_parameters, prefer_const_constructors_in_immutables, non_constant_identifier_names, no_logic_in_create_state, avoid_function_literals_in_foreach_calls, use_null_aware_elements, unused_element, unused_field, unrelated_type_equality_checks, invalid_null_aware_operator, depend_on_referenced_packages, unnecessary_non_null_assertion, use_of_void_result, invalid_return_type_for_catch_error, override_on_non_overriding_member, duplicate_import, directive_after_declaration, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_declarations, unnecessary_const, undefined_getter, undefined_setter, undefined_method, undefined_function, undefined_named_parameter, undefined_identifier, undefined_class, undefined_operator, undefined_enum_constant, undefined_prefixed_name, missing_required_argument, not_enough_positional_arguments, extra_positional_arguments, argument_type_not_assignable, const_with_non_const, const_initialized_with_non_constant_value, const_with_undefined_constructor, invalid_constant, instantiate_abstract_class, static_access_to_instance_member, invocation_of_non_function_expression, non_abstract_class_inherits_abstract_member, no_generative_constructors_in_superclass, invalid_override, invalid_implementation_override, invalid_assignment, implements_non_class, type_test_with_undefined_name, unchecked_use_of_nullable_value, assignment_to_final, assignment_to_final_no_setter, implicit_super_initializer_missing_arguments, non_bool_condition, new_with_undefined_constructor_default, non_constant_default_value, final_not_initialized, duplicate_definition, duplicate_ignore, strict_top_level_inference, prefer_typing_uninitialized_variables, field_initializer_outside_constructor, named_parameter_outside_group, obsolete_colon_for_default_value, expected_identifier_but_got_keyword, use_function_type_syntax_for_parameters, missing_function_parameters, missing_function_body, not_a_type, unused_element_parameter, invalid_use_of_internal_member, non_type_as_type_argument, unnecessary_nullable_for_final_variable_declarations, await_in_wrong_context, non_constant_identifier_names
 import 'package:flutter/material.dart';
 
+/// Deep visual demo for showBottomSheet function.
+/// Shows a persistent bottom sheet attached to scaffold.
 dynamic build(BuildContext context) {
-  print('showBottomSheet test executing');
-
-  // Schedule showModalBottomSheet via Future.microtask
-  Future.microtask(() {
-    showModalBottomSheet<String>(
-      context: context,
-      builder: (ctx) {
-        print('showModalBottomSheet builder called');
-        return Container(
-          height: 250,
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Modal Bottom Sheet',
-                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      const Text('showBottomSheet()', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+      const SizedBox(height: 16),
+      Container(
+        width: 160,
+        height: 120,
+        decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(8)),
+        child: Stack(
+          children: [
+            Container(color: Colors.grey.shade100),
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                height: 50,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+                  boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, -2))],
+                ),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 8),
+                    Container(width: 32, height: 4, decoration: BoxDecoration(color: Colors.grey.shade300, borderRadius: BorderRadius.circular(2))),
+                    const SizedBox(height: 8),
+                    const Text('Content', style: TextStyle(fontSize: 10)),
+                  ],
+                ),
               ),
-              SizedBox(height: 8.0),
-              Text('This bottom sheet was shown via Future.microtask'),
-              SizedBox(height: 16.0),
-              ListTile(
-                leading: Icon(Icons.share),
-                title: Text('Share'),
-                onTap: () {
-                  print('Share tapped');
-                  Navigator.pop(ctx, 'share');
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.link),
-                title: Text('Get link'),
-                onTap: () {
-                  print('Get link tapped');
-                  Navigator.pop(ctx, 'link');
-                },
-              ),
-            ],
-          ),
-        );
-      },
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
+            ),
+          ],
+        ),
       ),
-      isScrollControlled: false,
-    ).then((result) {
-      print('showModalBottomSheet result: $result');
-    });
-    print('showModalBottomSheet called');
-  });
-
-  return Container(
-    padding: EdgeInsets.all(16.0),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('showModalBottomSheet scheduled'),
-        SizedBox(height: 8.0),
-        Text('Bottom sheet should appear from below'),
-        SizedBox(height: 16.0),
-        // Button for showModalBottomSheet with different shape
-        ElevatedButton(
-          onPressed: () {
-            showModalBottomSheet<void>(
-              context: context,
-              isScrollControlled: true,
-              builder: (ctx) => DraggableScrollableSheet(
-                expand: false,
-                initialChildSize: 0.4,
-                minChildSize: 0.2,
-                maxChildSize: 0.8,
-                builder: (scrollCtx, scrollController) {
-                  return Container(
-                    padding: EdgeInsets.all(16.0),
-                    child: ListView(
-                      controller: scrollController,
-                      children: [
-                        Text(
-                          'Draggable Bottom Sheet',
-                          style: TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 8.0),
-                        ...List.generate(
-                          10,
-                          (i) => ListTile(title: Text('Item ${i + 1}')),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            );
-            print('Draggable bottom sheet shown');
-          },
-          child: Text('Show Draggable Sheet'),
-        ),
-        SizedBox(height: 8.0),
-        // Button to test showBottomSheet (persistent, via Scaffold)
-        Builder(
-          builder: (scaffoldCtx) {
-            return ElevatedButton(
-              onPressed: () {
-                try {
-                  Scaffold.of(scaffoldCtx).showBottomSheet(
-                    (ctx) => Container(
-                      height: 150,
-                      color: Colors.blue.shade100,
-                      padding: EdgeInsets.all(16.0),
-                      child: Column(
-                        children: [
-                          Text('Persistent Bottom Sheet'),
-                          SizedBox(height: 8.0),
-                          Text(
-                            'Shown via Scaffold.of(context).showBottomSheet',
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                  print('showBottomSheet (persistent) called');
-                } catch (e) {
-                  print('showBottomSheet failed: $e');
-                }
-              },
-              child: Text('Show Persistent Sheet'),
-            );
-          },
-        ),
-      ],
-    ),
+      const SizedBox(height: 12),
+      const Text('Returns PersistentBottomSheetController', style: TextStyle(fontSize: 10, color: Colors.grey)),
+    ],
   );
 }

@@ -25,7 +25,10 @@ class _ScrollDemoState extends State<_ScrollDemo> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        const Text('Scroll with mouse wheel or trackpad', style: TextStyle(fontSize: 16)),
+        const Text(
+          'Scroll with mouse wheel or trackpad',
+          style: TextStyle(fontSize: 16),
+        ),
         const SizedBox(height: 16),
         Listener(
           onPointerSignal: (e) {
@@ -38,7 +41,8 @@ class _ScrollDemoState extends State<_ScrollDemo> {
             }
           },
           child: Container(
-            width: 280, height: 180,
+            width: 280,
+            height: 180,
             decoration: BoxDecoration(
               color: Colors.teal.shade50,
               border: Border.all(color: Colors.teal, width: 2),
@@ -49,8 +53,14 @@ class _ScrollDemoState extends State<_ScrollDemo> {
               children: [
                 const Icon(Icons.mouse, size: 40, color: Colors.teal),
                 const SizedBox(height: 12),
-                Text('Δx: \${_totalX.toStringAsFixed(0)}', style: const TextStyle(fontSize: 16)),
-                Text('Δy: \${_totalY.toStringAsFixed(0)}', style: const TextStyle(fontSize: 16)),
+                Text(
+                  'Δx: \${_totalX.toStringAsFixed(0)}',
+                  style: const TextStyle(fontSize: 16),
+                ),
+                Text(
+                  'Δy: \${_totalY.toStringAsFixed(0)}',
+                  style: const TextStyle(fontSize: 16),
+                ),
               ],
             ),
           ),
@@ -58,7 +68,11 @@ class _ScrollDemoState extends State<_ScrollDemo> {
         const SizedBox(height: 16),
         Text('Scroll events: \$_eventCount'),
         ElevatedButton(
-          onPressed: () => setState(() { _totalX = 0; _totalY = 0; _eventCount = 0; }),
+          onPressed: () => setState(() {
+            _totalX = 0;
+            _totalY = 0;
+            _eventCount = 0;
+          }),
           child: const Text('Reset'),
         ),
       ],

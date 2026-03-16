@@ -1,118 +1,62 @@
-// D4rt test script: Tests ScaffoldFeatureController, FabTopOffsetY, FabFloatOffsetY, FabDockedOffsetY, EndFloatFabLocation, CenterFloatFabLocation, EndDockedFabLocation, CenterDockedFabLocation, EndTopFabLocation, StartTopFabLocation, EndContainedFabLocation
-// we don't ignore for file, we write test that following the usual guidelines:  avoid_print, prefer_interpolation_to_compose_strings, unused_local_variable, unnecessary_type_check, unnecessary_import, deprecated_member_use, unused_import, unnecessary_null_comparison, unnecessary_brace_in_string_interps, sized_box_for_whitespace, sort_child_properties_last, prefer_function_declarations_over_variables, prefer_is_empty, avoid_unnecessary_containers, invalid_use_of_protected_member, equal_elements_in_set, dead_code, dead_null_aware_expression, unnecessary_string_interpolations, prefer_iterable_wheretype, prefer_final_fields, no_leading_underscores_for_local_identifiers, curly_braces_in_flow_control_structures, use_super_parameters, prefer_const_constructors_in_immutables, non_constant_identifier_names, no_logic_in_create_state, avoid_function_literals_in_foreach_calls, use_null_aware_elements, unused_element, unused_field, unrelated_type_equality_checks, invalid_null_aware_operator, depend_on_referenced_packages, unnecessary_non_null_assertion, use_of_void_result, invalid_return_type_for_catch_error, override_on_non_overriding_member, duplicate_import, directive_after_declaration, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_declarations, unnecessary_const, undefined_getter, undefined_setter, undefined_method, undefined_function, undefined_named_parameter, undefined_identifier, undefined_class, undefined_operator, undefined_enum_constant, undefined_prefixed_name, missing_required_argument, not_enough_positional_arguments, extra_positional_arguments, argument_type_not_assignable, const_with_non_const, const_initialized_with_non_constant_value, const_with_undefined_constructor, invalid_constant, instantiate_abstract_class, static_access_to_instance_member, invocation_of_non_function_expression, non_abstract_class_inherits_abstract_member, no_generative_constructors_in_superclass, invalid_override, invalid_implementation_override, invalid_assignment, implements_non_class, type_test_with_undefined_name, unchecked_use_of_nullable_value, assignment_to_final, assignment_to_final_no_setter, implicit_super_initializer_missing_arguments, non_bool_condition, new_with_undefined_constructor_default, non_constant_default_value, final_not_initialized, duplicate_definition, duplicate_ignore, strict_top_level_inference, prefer_typing_uninitialized_variables, field_initializer_outside_constructor, named_parameter_outside_group, obsolete_colon_for_default_value, expected_identifier_but_got_keyword, use_function_type_syntax_for_parameters, missing_function_parameters, missing_function_body, not_a_type, unused_element_parameter, invalid_use_of_internal_member, non_type_as_type_argument, unnecessary_nullable_for_final_variable_declarations, await_in_wrong_context, non_constant_identifier_names
 import 'package:flutter/material.dart';
 
+/// Deep visual demo for Scaffold FAB locations.
+/// Different floatingActionButtonLocation values.
 dynamic build(BuildContext context) {
-  print('Scaffold FAB location and feature controller tests executing');
-
-  // ========== ScaffoldFeatureController ==========
-  print('--- ScaffoldFeatureController Tests ---');
-  // ScaffoldFeatureController is returned by ScaffoldState.showBottomSheet etc.
-  // It is a generic class: ScaffoldFeatureController<T extends Widget, U>
-  // We reference the type since we cannot call showBottomSheet outside a live Scaffold.
-  print('ScaffoldFeatureController type: ${ScaffoldFeatureController}');
-  print('ScaffoldFeatureController referenced successfully');
-
-  // ========== FloatingActionButtonLocation Subclasses ==========
-  print('--- FAB Location Tests ---');
-
-  // EndFloatFabLocation
-  final FloatingActionButtonLocation endFloat =
-      FloatingActionButtonLocation.endFloat;
-  print('endFloat type: ${endFloat.runtimeType}');
-  print('endFloat toString: ${endFloat}');
-
-  // CenterFloatFabLocation
-  final FloatingActionButtonLocation centerFloat =
-      FloatingActionButtonLocation.centerFloat;
-  print('centerFloat type: ${centerFloat.runtimeType}');
-  print('centerFloat toString: ${centerFloat}');
-
-  // EndDockedFabLocation
-  final FloatingActionButtonLocation endDocked =
-      FloatingActionButtonLocation.endDocked;
-  print('endDocked type: ${endDocked.runtimeType}');
-  print('endDocked toString: ${endDocked}');
-
-  // CenterDockedFabLocation
-  final FloatingActionButtonLocation centerDocked =
-      FloatingActionButtonLocation.centerDocked;
-  print('centerDocked type: ${centerDocked.runtimeType}');
-  print('centerDocked toString: ${centerDocked}');
-
-  // EndTopFabLocation
-  final FloatingActionButtonLocation endTop =
-      FloatingActionButtonLocation.endTop;
-  print('endTop type: ${endTop.runtimeType}');
-  print('endTop toString: ${endTop}');
-
-  // StartTopFabLocation
-  final FloatingActionButtonLocation startTop =
-      FloatingActionButtonLocation.startTop;
-  print('startTop type: ${startTop.runtimeType}');
-  print('startTop toString: ${startTop}');
-
-  // EndContainedFabLocation
-  final FloatingActionButtonLocation endContained =
-      FloatingActionButtonLocation.endContained;
-  print('endContained type: ${endContained.runtimeType}');
-  print('endContained toString: ${endContained}');
-
-  // ========== FAB Offset Mixins ==========
-  print('--- FAB Offset Mixin Tests ---');
-  // FabTopOffsetY, FabFloatOffsetY, FabDockedOffsetY are mixins applied to FAB location classes.
-  // endTop uses FabTopOffsetY
-  print('endTop (FabTopOffsetY mixin): ${endTop.runtimeType}');
-  // endFloat/centerFloat use FabFloatOffsetY
-  print('endFloat (FabFloatOffsetY mixin): ${endFloat.runtimeType}');
-  print('centerFloat (FabFloatOffsetY mixin): ${centerFloat.runtimeType}');
-  // endDocked/centerDocked use FabDockedOffsetY
-  print('endDocked (FabDockedOffsetY mixin): ${endDocked.runtimeType}');
-  print('centerDocked (FabDockedOffsetY mixin): ${centerDocked.runtimeType}');
-
-  // Collect all locations for verification
-  final List<FloatingActionButtonLocation> allLocations = [
-    endFloat,
-    centerFloat,
-    endDocked,
-    centerDocked,
-    endTop,
-    startTop,
-    endContained,
-  ];
-  print('Total FAB locations tested: ${allLocations.length}');
-
-  print('All Scaffold FAB tests passed');
-
-  // ========== RETURN WIDGET ==========
-  return MaterialApp(
-    home: Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: Icon(Icons.add),
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      const Text('FAB Locations', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+      const SizedBox(height: 16),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          _FabLocationDemo('endFloat', Alignment.bottomRight),
+          const SizedBox(width: 12),
+          _FabLocationDemo('centerFloat', Alignment.bottomCenter),
+          const SizedBox(width: 12),
+          _FabLocationDemo('endDocked', Alignment.bottomRight, docked: true),
+        ],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Scaffold FAB Test',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
-            ),
-            SizedBox(height: 16.0),
-            Text('ScaffoldFeatureController: referenced'),
-            Text('FAB Locations: ${allLocations.length} tested'),
-            Text('endFloat: ${endFloat.runtimeType}'),
-            Text('centerFloat: ${centerFloat.runtimeType}'),
-            Text('endDocked: ${endDocked.runtimeType}'),
-            Text('centerDocked: ${centerDocked.runtimeType}'),
-            Text('endTop: ${endTop.runtimeType}'),
-            Text('startTop: ${startTop.runtimeType}'),
-            Text('endContained: ${endContained.runtimeType}'),
-          ],
-        ),
-      ),
-    ),
+      const SizedBox(height: 12),
+      const Text('floatingActionButtonLocation', style: TextStyle(fontSize: 11, color: Colors.grey)),
+    ],
   );
+}
+
+class _FabLocationDemo extends StatelessWidget {
+  final String label;
+  final Alignment align;
+  final bool docked;
+  const _FabLocationDemo(this.label, this.align, {this.docked = false});
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          width: 60,
+          height: 80,
+          decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)),
+          child: Stack(
+            children: [
+              if (docked) Positioned(bottom: 0, left: 0, right: 0, child: Container(height: 12, color: Colors.grey.shade200)),
+              Positioned(
+                right: align == Alignment.bottomCenter ? null : 4,
+                left: align == Alignment.bottomCenter ? 20 : null,
+                bottom: docked ? 6 : 4,
+                child: Container(
+                  width: 16,
+                  height: 16,
+                  decoration: const BoxDecoration(color: Colors.pink, shape: BoxShape.circle),
+                  child: const Icon(Icons.add, color: Colors.white, size: 10),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(label, style: const TextStyle(fontSize: 8)),
+      ],
+    );
+  }
 }

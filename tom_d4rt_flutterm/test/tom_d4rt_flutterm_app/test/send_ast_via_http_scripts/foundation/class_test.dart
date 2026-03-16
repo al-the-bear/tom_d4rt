@@ -11,8 +11,10 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Class Metadata Inspection',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          const Text(
+            'Class Metadata Inspection',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 16),
           _ClassInfoCard(
             className: 'Container',
@@ -30,7 +32,10 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Type Checks:', style: TextStyle(fontWeight: FontWeight.bold)),
+                const Text(
+                  'Type Checks:',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 const SizedBox(height: 8),
                 _TypeCheckRow(check: 'is Widget', result: true),
                 _TypeCheckRow(check: 'is StatelessWidget', result: true),
@@ -49,7 +54,12 @@ class _ClassInfoCard extends StatelessWidget {
   final String runtimeTypeName;
   final String superclass;
   final List<String> mixins;
-  const _ClassInfoCard({required this.className, required this.runtimeTypeName, required this.superclass, required this.mixins});
+  const _ClassInfoCard({
+    required this.className,
+    required this.runtimeTypeName,
+    required this.superclass,
+    required this.mixins,
+  });
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -65,7 +75,13 @@ class _ClassInfoCard extends StatelessWidget {
             children: [
               const Icon(Icons.class_, color: Colors.indigo),
               const SizedBox(width: 8),
-              Text(className, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+              Text(
+                className,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
             ],
           ),
           const Divider(),
@@ -88,8 +104,13 @@ class _InfoRow extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
         children: [
-          SizedBox(width: 100, child: Text(label, style: const TextStyle(color: Colors.grey))),
-          Expanded(child: Text(value, style: const TextStyle(fontFamily: 'monospace'))),
+          SizedBox(
+            width: 100,
+            child: Text(label, style: const TextStyle(color: Colors.grey)),
+          ),
+          Expanded(
+            child: Text(value, style: const TextStyle(fontFamily: 'monospace')),
+          ),
         ],
       ),
     );
@@ -106,8 +127,11 @@ class _TypeCheckRow extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 2),
       child: Row(
         children: [
-          Icon(result ? Icons.check_circle : Icons.cancel, 
-            color: result ? Colors.green : Colors.red, size: 16),
+          Icon(
+            result ? Icons.check_circle : Icons.cancel,
+            color: result ? Colors.green : Colors.red,
+            size: 16,
+          ),
           const SizedBox(width: 8),
           Text(check, style: const TextStyle(fontFamily: 'monospace')),
         ],
