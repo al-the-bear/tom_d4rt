@@ -1,346 +1,38 @@
-// D4rt test script: Tests Divider and VerticalDivider widgets from material
-// we don't ignore for file, we write test that following the usual guidelines:  avoid_print, prefer_interpolation_to_compose_strings, unused_local_variable, unnecessary_type_check, unnecessary_import, deprecated_member_use, unused_import, unnecessary_null_comparison, unnecessary_brace_in_string_interps, sized_box_for_whitespace, sort_child_properties_last, prefer_function_declarations_over_variables, prefer_is_empty, avoid_unnecessary_containers, invalid_use_of_protected_member, equal_elements_in_set, dead_code, dead_null_aware_expression, unnecessary_string_interpolations, prefer_iterable_wheretype, prefer_final_fields, no_leading_underscores_for_local_identifiers, curly_braces_in_flow_control_structures, use_super_parameters, prefer_const_constructors_in_immutables, non_constant_identifier_names, no_logic_in_create_state, avoid_function_literals_in_foreach_calls, use_null_aware_elements, unused_element, unused_field, unrelated_type_equality_checks, invalid_null_aware_operator, depend_on_referenced_packages, unnecessary_non_null_assertion, use_of_void_result, invalid_return_type_for_catch_error, override_on_non_overriding_member, duplicate_import, directive_after_declaration, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_declarations, unnecessary_const, undefined_getter, undefined_setter, undefined_method, undefined_function, undefined_named_parameter, undefined_identifier, undefined_class, undefined_operator, undefined_enum_constant, undefined_prefixed_name, missing_required_argument, not_enough_positional_arguments, extra_positional_arguments, argument_type_not_assignable, const_with_non_const, const_initialized_with_non_constant_value, const_with_undefined_constructor, invalid_constant, instantiate_abstract_class, static_access_to_instance_member, invocation_of_non_function_expression, non_abstract_class_inherits_abstract_member, no_generative_constructors_in_superclass, invalid_override, invalid_implementation_override, invalid_assignment, implements_non_class, type_test_with_undefined_name, unchecked_use_of_nullable_value, assignment_to_final, assignment_to_final_no_setter, implicit_super_initializer_missing_arguments, non_bool_condition, new_with_undefined_constructor_default, non_constant_default_value, final_not_initialized, duplicate_definition, duplicate_ignore, strict_top_level_inference, prefer_typing_uninitialized_variables, field_initializer_outside_constructor, named_parameter_outside_group, obsolete_colon_for_default_value, expected_identifier_but_got_keyword, use_function_type_syntax_for_parameters, missing_function_parameters, missing_function_body, not_a_type, unused_element_parameter, invalid_use_of_internal_member, non_type_as_type_argument, unnecessary_nullable_for_final_variable_declarations, await_in_wrong_context, non_constant_identifier_names
 import 'package:flutter/material.dart';
 
+/// Deep visual demo for Divider - thin horizontal line.
+/// Shows various divider styles and configurations.
 dynamic build(BuildContext context) {
-  print('Divider widgets test executing');
-
-  // ========== DIVIDER ==========
-  print('--- Divider Tests ---');
-
-  // Test basic Divider
-  final basicDivider = Divider();
-  print('Basic Divider created');
-
-  // Test Divider with height
-  final heightDivider = Divider(height: 40.0);
-  print('Divider with height=40 created');
-
-  // Test Divider with zero height
-  final zeroHeightDivider = Divider(height: 0);
-  print('Divider with height=0 created');
-
-  // Test Divider with thickness
-  final thickDivider = Divider(thickness: 4.0);
-  print('Divider with thickness=4 created');
-
-  // Test thin Divider
-  final thinDivider = Divider(thickness: 0.5);
-  print('Divider with thickness=0.5 created');
-
-  // Test Divider with indent
-  final indentDivider = Divider(indent: 20.0);
-  print('Divider with indent=20 created');
-
-  // Test Divider with endIndent
-  final endIndentDivider = Divider(endIndent: 20.0);
-  print('Divider with endIndent=20 created');
-
-  // Test Divider with both indents
-  final bothIndentDivider = Divider(indent: 40.0, endIndent: 40.0);
-  print('Divider with indent=40, endIndent=40 created');
-
-  // Test Divider with color
-  final coloredDivider = Divider(color: Colors.red);
-  print('Divider with color=red created');
-
-  // Test various colored dividers
-  final blueDivider = Divider(color: Colors.blue, thickness: 2.0);
-  final greenDivider = Divider(color: Colors.green, thickness: 2.0);
-  final orangeDivider = Divider(color: Colors.orange, thickness: 2.0);
-  final purpleDivider = Divider(color: Colors.purple, thickness: 2.0);
-  print('Various colored Dividers created');
-
-  // Test styled Divider
-  final styledDivider = Divider(
-    color: Colors.teal,
-    thickness: 3.0,
-    height: 30.0,
-    indent: 16.0,
-    endIndent: 16.0,
-  );
-  print('Styled Divider created');
-
-  // ========== VERTICALDIVIDER ==========
-  print('--- VerticalDivider Tests ---');
-
-  // Test basic VerticalDivider
-  final basicVerticalDivider = VerticalDivider();
-  print('Basic VerticalDivider created');
-
-  // Test VerticalDivider with width
-  final widthVerticalDivider = VerticalDivider(width: 40.0);
-  print('VerticalDivider with width=40 created');
-
-  // Test VerticalDivider with zero width
-  final zeroWidthVerticalDivider = VerticalDivider(width: 0);
-  print('VerticalDivider with width=0 created');
-
-  // Test VerticalDivider with thickness
-  final thickVerticalDivider = VerticalDivider(thickness: 4.0);
-  print('VerticalDivider with thickness=4 created');
-
-  // Test thin VerticalDivider
-  final thinVerticalDivider = VerticalDivider(thickness: 0.5);
-  print('VerticalDivider with thickness=0.5 created');
-
-  // Test VerticalDivider with indent
-  final indentVerticalDivider = VerticalDivider(indent: 20.0);
-  print('VerticalDivider with indent=20 created');
-
-  // Test VerticalDivider with endIndent
-  final endIndentVerticalDivider = VerticalDivider(endIndent: 20.0);
-  print('VerticalDivider with endIndent=20 created');
-
-  // Test VerticalDivider with both indents
-  final bothIndentVerticalDivider = VerticalDivider(
-    indent: 10.0,
-    endIndent: 10.0,
-  );
-  print('VerticalDivider with indent=10, endIndent=10 created');
-
-  // Test VerticalDivider with color
-  final coloredVerticalDivider = VerticalDivider(color: Colors.blue);
-  print('VerticalDivider with color=blue created');
-
-  // Test various colored vertical dividers
-  final redVertical = VerticalDivider(color: Colors.red, thickness: 2.0);
-  final greenVertical = VerticalDivider(color: Colors.green, thickness: 2.0);
-  final orangeVertical = VerticalDivider(color: Colors.orange, thickness: 2.0);
-  final purpleVertical = VerticalDivider(color: Colors.purple, thickness: 2.0);
-  print('Various colored VerticalDividers created');
-
-  // Test styled VerticalDivider
-  final styledVerticalDivider = VerticalDivider(
-    color: Colors.indigo,
-    thickness: 3.0,
-    width: 30.0,
-    indent: 8.0,
-    endIndent: 8.0,
-  );
-  print('Styled VerticalDivider created');
-
-  print('Divider widgets test completed');
-
-  return SingleChildScrollView(
-    padding: EdgeInsets.all(16.0),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Divider Widgets Test',
-          style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      const Text('Divider Demo', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+      const SizedBox(height: 16),
+      Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.grey.shade100,
+          borderRadius: BorderRadius.circular(12),
         ),
-        SizedBox(height: 16.0),
-
-        Text(
-          'Divider Examples:',
-          style: TextStyle(fontWeight: FontWeight.bold),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('Default Divider:', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold)),
+            const Divider(),
+            const SizedBox(height: 8),
+            const Text('Thick Divider:', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold)),
+            const Divider(thickness: 4),
+            const SizedBox(height: 8),
+            const Text('Colored Divider:', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold)),
+            const Divider(color: Colors.blue, thickness: 2),
+            const SizedBox(height: 8),
+            const Text('Indented Divider:', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold)),
+            const Divider(indent: 40, endIndent: 40),
+          ],
         ),
-        SizedBox(height: 8.0),
-
-        Text('Basic Divider:'),
-        basicDivider,
-
-        Text('With height=40 (more space):'),
-        heightDivider,
-
-        Text('With height=0 (no extra space):'),
-        zeroHeightDivider,
-
-        Text('Thick (thickness=4):'),
-        thickDivider,
-
-        Text('Thin (thickness=0.5):'),
-        thinDivider,
-
-        SizedBox(height: 16.0),
-        Text('With Indents:', style: TextStyle(fontWeight: FontWeight.bold)),
-
-        Text('Indent left:'),
-        indentDivider,
-
-        Text('Indent right:'),
-        endIndentDivider,
-
-        Text('Indent both sides:'),
-        bothIndentDivider,
-
-        SizedBox(height: 16.0),
-        Text(
-          'Colored Dividers:',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-
-        coloredDivider,
-        blueDivider,
-        greenDivider,
-        orangeDivider,
-        purpleDivider,
-
-        SizedBox(height: 16.0),
-        Text('Styled Divider:', style: TextStyle(fontWeight: FontWeight.bold)),
-        styledDivider,
-
-        SizedBox(height: 24.0),
-        Text(
-          'VerticalDivider Examples:',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        Text(
-          '(Requires Row with IntrinsicHeight)',
-          style: TextStyle(fontSize: 12, color: Colors.grey),
-        ),
-        SizedBox(height: 8.0),
-
-        Text('Basic:'),
-        SizedBox(
-          height: 60,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [Text('Left'), basicVerticalDivider, Text('Right')],
-          ),
-        ),
-
-        Text('With width=40:'),
-        SizedBox(
-          height: 60,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [Text('Left'), widthVerticalDivider, Text('Right')],
-          ),
-        ),
-
-        Text('Thick (thickness=4):'),
-        SizedBox(
-          height: 60,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [Text('Left'), thickVerticalDivider, Text('Right')],
-          ),
-        ),
-
-        Text('With indents (top and bottom):'),
-        SizedBox(
-          height: 80,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [Text('Left'), bothIndentVerticalDivider, Text('Right')],
-          ),
-        ),
-
-        SizedBox(height: 16.0),
-        Text(
-          'Colored VerticalDividers:',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        SizedBox(
-          height: 60,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text('A'),
-              redVertical,
-              Text('B'),
-              greenVertical,
-              Text('C'),
-              orangeVertical,
-              Text('D'),
-              purpleVertical,
-              Text('E'),
-            ],
-          ),
-        ),
-
-        SizedBox(height: 16.0),
-        Text(
-          'Styled VerticalDivider:',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        SizedBox(
-          height: 80,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                padding: EdgeInsets.all(16.0),
-                color: Colors.grey.shade100,
-                child: Text('Section 1'),
-              ),
-              styledVerticalDivider,
-              Container(
-                padding: EdgeInsets.all(16.0),
-                color: Colors.grey.shade100,
-                child: Text('Section 2'),
-              ),
-            ],
-          ),
-        ),
-
-        SizedBox(height: 24.0),
-        Text(
-          'Common Use Cases:',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        SizedBox(height: 8.0),
-
-        // List with dividers
-        Text('ListView with Dividers:'),
-        Container(
-          height: 200,
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.grey),
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          child: ListView.separated(
-            itemCount: 5,
-            separatorBuilder: (context, index) => Divider(height: 1),
-            itemBuilder: (context, index) => ListTile(
-              title: Text('Item ${index + 1}'),
-              leading: Icon(Icons.folder),
-            ),
-          ),
-        ),
-
-        SizedBox(height: 16.0),
-
-        // Row with vertical dividers
-        Text('Toolbar with VerticalDividers:'),
-        Container(
-          height: 56,
-          decoration: BoxDecoration(
-            color: Colors.grey.shade100,
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(icon: Icon(Icons.format_bold), onPressed: () {}),
-              IconButton(icon: Icon(Icons.format_italic), onPressed: () {}),
-              IconButton(icon: Icon(Icons.format_underline), onPressed: () {}),
-              VerticalDivider(indent: 8, endIndent: 8),
-              IconButton(icon: Icon(Icons.format_align_left), onPressed: () {}),
-              IconButton(
-                icon: Icon(Icons.format_align_center),
-                onPressed: () {},
-              ),
-              IconButton(
-                icon: Icon(Icons.format_align_right),
-                onPressed: () {},
-              ),
-              VerticalDivider(indent: 8, endIndent: 8),
-              IconButton(
-                icon: Icon(Icons.format_list_bulleted),
-                onPressed: () {},
-              ),
-              IconButton(
-                icon: Icon(Icons.format_list_numbered),
-                onPressed: () {},
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
+      ),
+      const SizedBox(height: 12),
+      const Text('height = vertical space (default 16)', style: TextStyle(fontSize: 11, color: Colors.grey)),
+    ],
   );
 }
