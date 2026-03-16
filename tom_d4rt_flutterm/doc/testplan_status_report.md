@@ -1,7 +1,7 @@
 # Test Plan — All Test Files
 
 Generated: 2026-03-08  
-Updated: 2026-03-15 (Session 19: Implemented final 111 widget tests — 100% complete)
+Updated: 2026-03-15 (Session 14: Analyzed 100 widget files — key_event_result through physicalmodel)
 
 ## Implementation Threshold
 
@@ -1548,106 +1548,106 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [keep_alive_handle_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/keep_alive_handle_test.dart) | KeepAliveHandle | No | No | Yes |
 | [keep_alive_notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/keep_alive_notification_test.dart) | KeepAliveNotification | No | No | Yes |
 | [keepalive_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/keepalive_test.dart) | KeepAlive | No | Yes | No |
-| [key_event_result_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/key_event_result_test.dart) | KeyEventResult |  |  |  |
-| [key_set_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/key_set_test.dart) | KeySet |  |  |  |
-| [key_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/key_test.dart) | Key |  |  |  |
-| [keyboard_listener_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/keyboard_listener_test.dart) | KeyboardListener |  |  |  |
-| [keyedsubtree_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/keyedsubtree_test.dart) | KeyedSubtree |  |  |  |
-| [labeled_global_key_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/labeled_global_key_test.dart) | LabeledGlobalKey |  |  |  |
-| [layout_builder_adv_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/layout_builder_adv_test.dart) | LayoutBuilder |  |  |  |
-| [layout_id_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/layout_id_test.dart) | LayoutId |  |  |  |
-| [layoutbuilder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/layoutbuilder_test.dart) | LayoutBuilder |  |  |  |
-| [leaf_render_object_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/leaf_render_object_element_test.dart) | LeafRenderObjectElement |  |  |  |
-| [leaf_render_object_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/leaf_render_object_widget_test.dart) | LeafRenderObjectWidget |  |  |  |
-| [lexical_focus_order_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/lexical_focus_order_test.dart) | LexicalFocusOrder |  |  |  |
-| [list_wheel_child_builder_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/list_wheel_child_builder_delegate_test.dart) | ListWheelChildBuilderDelegate |  |  |  |
-| [list_wheel_child_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/list_wheel_child_delegate_test.dart) | ListWheelChildDelegate |  |  |  |
-| [list_wheel_child_list_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/list_wheel_child_list_delegate_test.dart) | ListWheelChildListDelegate |  |  |  |
-| [list_wheel_child_looping_list_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/list_wheel_child_looping_list_delegate_test.dart) | ListWheelChildLoopingListDelegate |  |  |  |
-| [list_wheel_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/list_wheel_element_test.dart) | ListWheelElement |  |  |  |
-| [list_wheel_scroll_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/list_wheel_scroll_view_test.dart) | ListWheelScrollView |  |  |  |
-| [list_wheel_viewport_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/list_wheel_viewport_test.dart) | ListWheelViewport |  |  |  |
-| [listbody_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/listbody_test.dart) | ListBody |  |  |  |
-| [listener_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/listener_test.dart) | Listener |  |  |  |
-| [listview_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/listview_test.dart) | ListView |  |  |  |
-| [live_text_input_status_notifier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/live_text_input_status_notifier_test.dart) | LiveTextInputStatusNotifier |  |  |  |
-| [live_text_input_status_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/live_text_input_status_test.dart) | LiveTextInputStatus |  |  |  |
-| [local_history_entry_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/local_history_entry_test.dart) | LocalHistoryEntry |  |  |  |
-| [localizations_resolver_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/localizations_resolver_test.dart) | LocalizationsResolver |  |  |  |
-| [localizations_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/localizations_test.dart) | Localizations |  |  |  |
-| [lock_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/lock_state_test.dart) | LockState |  |  |  |
-| [logical_key_set_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/logical_key_set_test.dart) | LogicalKeySet |  |  |  |
-| [lookup_boundary_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/lookup_boundary_test.dart) | LookupBoundary |  |  |  |
-| [magnifier_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/magnifier_controller_test.dart) | MagnifierController |  |  |  |
-| [magnifier_decoration_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/magnifier_decoration_test.dart) | MagnifierDecoration |  |  |  |
-| [magnifier_info_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/magnifier_info_test.dart) | MagnifierInfo |  |  |  |
-| [matrix4_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/matrix4_tween_test.dart) | Matrix4Tween |  |  |  |
-| [matrix_transition_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/matrix_transition_test.dart) | MatrixTransition |  |  |  |
-| [media_query_adv_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/media_query_adv_test.dart) | MediaQueryData |  |  |  |
-| [mediaquery_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/mediaquery_test.dart) | MediaQuery |  |  |  |
-| [menu_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/menu_controller_test.dart) | MenuController |  |  |  |
-| [menu_serializable_shortcut_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/menu_serializable_shortcut_test.dart) | MenuSerializableShortcut |  |  |  |
-| [meta_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/meta_data_test.dart) | MetaData |  |  |  |
-| [modal_barrier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/modal_barrier_test.dart) | ModalBarrier |  |  |  |
-| [multi_child_render_object_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/multi_child_render_object_element_test.dart) | MultiChildRenderObjectElement |  |  |  |
-| [multi_child_render_object_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/multi_child_render_object_widget_test.dart) | MultiChildRenderObjectWidget |  |  |  |
-| [multi_selectable_selection_container_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/multi_selectable_selection_container_delegate_test.dart) | MultiSelectableSelectionContainerDelegate |  |  |  |
-| [navigation_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/navigation_mode_test.dart) | NavigationMode |  |  |  |
-| [navigation_notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/navigation_notification_test.dart) | NavigationNotification |  |  |  |
-| [navigation_toolbar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/navigation_toolbar_test.dart) | NavigationToolbar |  |  |  |
-| [navigator_pop_handler_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/navigator_pop_handler_test.dart) | NavigatorPopHandler |  |  |  |
-| [navigator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/navigator_test.dart) | Navigator |  |  |  |
-| [navigatorstate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/navigatorstate_test.dart) | NavigatorState |  |  |  |
-| [nested_scroll_view_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/nested_scroll_view_state_test.dart) | NestedScrollViewState |  |  |  |
-| [nested_scroll_view_viewport_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/nested_scroll_view_viewport_test.dart) | NestedScrollViewViewport |  |  |  |
-| [nestedscrollview_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/nestedscrollview_test.dart) | NestedScrollView |  |  |  |
-| [never_scrollable_scroll_physics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/never_scrollable_scroll_physics_test.dart) | NeverScrollableScrollPhysics |  |  |  |
-| [next_focus_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/next_focus_action_test.dart) | NextFocusAction |  |  |  |
-| [next_focus_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/next_focus_intent_test.dart) | NextFocusIntent |  |  |  |
-| [notifiable_element_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/notifiable_element_mixin_test.dart) | YestifiableElementMixin |  |  |  |
-| [notification_locale_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/notification_locale_test.dart) | YestificationListener |  |  |  |
-| [notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/notification_test.dart) | Yestification |  |  |  |
-| [notificationlistener_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/notificationlistener_test.dart) | YestificationListener |  |  |  |
-| [numeric_focus_order_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/numeric_focus_order_test.dart) | NumericFocusOrder |  |  |  |
-| [object_key_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/object_key_test.dart) | ObjectKey |  |  |  |
-| [offstage_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/offstage_test.dart) | Offstage |  |  |  |
-| [opacity_full_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/opacity_full_test.dart) | Opacity |  |  |  |
-| [opacity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/opacity_test.dart) | Opacity |  |  |  |
-| [options_view_open_direction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/options_view_open_direction_test.dart) | OptionsViewOpenDirection |  |  |  |
-| [ordered_traversal_policy_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/ordered_traversal_policy_test.dart) | OrderedTraversalPolicy |  |  |  |
-| [orientation_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/orientation_builder_test.dart) | OrientationBuilder |  |  |  |
-| [orientation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/orientation_test.dart) | Orientation |  |  |  |
-| [overflow_bar_alignment_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overflow_bar_alignment_test.dart) | OverflowBarAlignment |  |  |  |
-| [overflow_bar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overflow_bar_test.dart) | OverflowBar |  |  |  |
-| [overflow_box_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overflow_box_test.dart) | OverflowBox |  |  |  |
-| [overlay_child_layout_info_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_child_layout_info_test.dart) | OverlayChildLayoutInfo |  |  |  |
-| [overlay_child_location_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_child_location_test.dart) | OverlayChildLocation |  |  |  |
-| [overlay_portal_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_portal_controller_test.dart) | OverlayPortalController |  |  |  |
-| [overlay_portal_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_portal_test.dart) | Overlay |  |  |  |
-| [overlay_route_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_route_test.dart) | OverlayRoute |  |  |  |
-| [overlay_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_state_test.dart) | OverlayState |  |  |  |
-| [overlay_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_test.dart) | Overlay |  |  |  |
-| [overscroll_indicator_notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overscroll_indicator_notification_test.dart) | OverscrollIndicatorNotification |  |  |  |
-| [overscroll_notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overscroll_notification_test.dart) | OverscrollNotification |  |  |  |
-| [padding_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/padding_test.dart) | Padding |  |  |  |
-| [page_metrics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_metrics_test.dart) | PageMetrics |  |  |  |
-| [page_route_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_route_builder_test.dart) | PageRouteBuilder |  |  |  |
-| [page_scroll_physics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_scroll_physics_test.dart) | PageScrollPhysics |  |  |  |
-| [page_storage_bucket_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_storage_bucket_test.dart) | PageStorageBucket |  |  |  |
-| [page_storage_key_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_storage_key_test.dart) | PageStorageKey |  |  |  |
-| [page_storage_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_storage_test.dart) | PageStorage |  |  |  |
-| [page_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_test.dart) | Page |  |  |  |
-| [page_view_tabview_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_view_tabview_test.dart) | PageView |  |  |  |
-| [pagecontroller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/pagecontroller_test.dart) | PageController |  |  |  |
-| [pageview_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/pageview_test.dart) | PageView |  |  |  |
-| [pan_axis_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/pan_axis_test.dart) | PanAxis |  |  |  |
-| [parent_data_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/parent_data_element_test.dart) | ParentDataElement |  |  |  |
-| [parent_data_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/parent_data_widget_test.dart) | ParentDataWidget |  |  |  |
-| [paste_text_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/paste_text_intent_test.dart) | PasteTextIntent |  |  |  |
-| [performance_overlay_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/performance_overlay_test.dart) | PerformanceOverlay |  |  |  |
-| [physical_model_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/physical_model_test.dart) | PhysicalModel |  |  |  |
-| [physical_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/physical_shape_test.dart) | PhysicalShape |  |  |  |
-| [physicalmodel_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/physicalmodel_test.dart) | PhysicalModel |  |  |  |
+| [key_event_result_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/key_event_result_test.dart) | KeyEventResult | No | No | Yes |
+| [key_set_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/key_set_test.dart) | KeySet | No | No | Yes |
+| [key_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/key_test.dart) | Key | No | Yes | No |
+| [keyboard_listener_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/keyboard_listener_test.dart) | KeyboardListener | No | No | Yes |
+| [keyedsubtree_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/keyedsubtree_test.dart) | KeyedSubtree | No | Yes | No |
+| [labeled_global_key_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/labeled_global_key_test.dart) | LabeledGlobalKey | No | No | Yes |
+| [layout_builder_adv_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/layout_builder_adv_test.dart) | LayoutBuilder | No | Yes | No |
+| [layout_id_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/layout_id_test.dart) | LayoutId | No | No | Yes |
+| [layoutbuilder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/layoutbuilder_test.dart) | LayoutBuilder | No | Yes | No |
+| [leaf_render_object_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/leaf_render_object_element_test.dart) | LeafRenderObjectElement | No | No | Yes |
+| [leaf_render_object_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/leaf_render_object_widget_test.dart) | LeafRenderObjectWidget | No | No | Yes |
+| [lexical_focus_order_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/lexical_focus_order_test.dart) | LexicalFocusOrder | No | No | Yes |
+| [list_wheel_child_builder_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/list_wheel_child_builder_delegate_test.dart) | ListWheelChildBuilderDelegate | No | No | Yes |
+| [list_wheel_child_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/list_wheel_child_delegate_test.dart) | ListWheelChildDelegate | No | No | Yes |
+| [list_wheel_child_list_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/list_wheel_child_list_delegate_test.dart) | ListWheelChildListDelegate | No | No | Yes |
+| [list_wheel_child_looping_list_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/list_wheel_child_looping_list_delegate_test.dart) | ListWheelChildLoopingListDelegate | No | No | Yes |
+| [list_wheel_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/list_wheel_element_test.dart) | ListWheelElement | No | No | Yes |
+| [list_wheel_scroll_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/list_wheel_scroll_view_test.dart) | ListWheelScrollView | No | No | Yes |
+| [list_wheel_viewport_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/list_wheel_viewport_test.dart) | ListWheelViewport | No | No | Yes |
+| [listbody_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/listbody_test.dart) | ListBody | No | Yes | No |
+| [listener_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/listener_test.dart) | Listener | No | Yes | No |
+| [listview_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/listview_test.dart) | ListView | No | Yes | No |
+| [live_text_input_status_notifier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/live_text_input_status_notifier_test.dart) | LiveTextInputStatusNotifier | No | No | Yes |
+| [live_text_input_status_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/live_text_input_status_test.dart) | LiveTextInputStatus | No | No | Yes |
+| [local_history_entry_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/local_history_entry_test.dart) | LocalHistoryEntry | No | No | Yes |
+| [localizations_resolver_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/localizations_resolver_test.dart) | LocalizationsResolver | No | No | Yes |
+| [localizations_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/localizations_test.dart) | Localizations | No | No | Yes |
+| [lock_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/lock_state_test.dart) | LockState | No | No | Yes |
+| [logical_key_set_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/logical_key_set_test.dart) | LogicalKeySet | No | No | Yes |
+| [lookup_boundary_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/lookup_boundary_test.dart) | LookupBoundary | No | No | Yes |
+| [magnifier_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/magnifier_controller_test.dart) | MagnifierController | No | No | Yes |
+| [magnifier_decoration_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/magnifier_decoration_test.dart) | MagnifierDecoration | No | No | Yes |
+| [magnifier_info_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/magnifier_info_test.dart) | MagnifierInfo | No | No | Yes |
+| [matrix4_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/matrix4_tween_test.dart) | Matrix4Tween | No | No | Yes |
+| [matrix_transition_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/matrix_transition_test.dart) | MatrixTransition | No | No | Yes |
+| [media_query_adv_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/media_query_adv_test.dart) | MediaQueryData | No | No | Yes |
+| [mediaquery_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/mediaquery_test.dart) | MediaQuery | No | Yes | No |
+| [menu_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/menu_controller_test.dart) | MenuController | No | No | Yes |
+| [menu_serializable_shortcut_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/menu_serializable_shortcut_test.dart) | MenuSerializableShortcut | No | No | Yes |
+| [meta_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/meta_data_test.dart) | MetaData | No | No | Yes |
+| [modal_barrier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/modal_barrier_test.dart) | ModalBarrier | No | No | Yes |
+| [multi_child_render_object_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/multi_child_render_object_element_test.dart) | MultiChildRenderObjectElement | No | No | Yes |
+| [multi_child_render_object_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/multi_child_render_object_widget_test.dart) | MultiChildRenderObjectWidget | No | No | Yes |
+| [multi_selectable_selection_container_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/multi_selectable_selection_container_delegate_test.dart) | MultiSelectableSelectionContainerDelegate | No | No | Yes |
+| [navigation_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/navigation_mode_test.dart) | NavigationMode | No | No | Yes |
+| [navigation_notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/navigation_notification_test.dart) | NavigationNotification | No | No | Yes |
+| [navigation_toolbar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/navigation_toolbar_test.dart) | NavigationToolbar | No | No | Yes |
+| [navigator_pop_handler_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/navigator_pop_handler_test.dart) | NavigatorPopHandler | No | No | Yes |
+| [navigator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/navigator_test.dart) | Navigator | No | Yes | No |
+| [navigatorstate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/navigatorstate_test.dart) | NavigatorState | No | No | Yes |
+| [nested_scroll_view_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/nested_scroll_view_state_test.dart) | NestedScrollViewState | No | No | Yes |
+| [nested_scroll_view_viewport_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/nested_scroll_view_viewport_test.dart) | NestedScrollViewViewport | No | No | Yes |
+| [nestedscrollview_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/nestedscrollview_test.dart) | NestedScrollView | No | Yes | No |
+| [never_scrollable_scroll_physics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/never_scrollable_scroll_physics_test.dart) | NeverScrollableScrollPhysics | No | No | Yes |
+| [next_focus_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/next_focus_action_test.dart) | NextFocusAction | No | No | Yes |
+| [next_focus_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/next_focus_intent_test.dart) | NextFocusIntent | No | No | Yes |
+| [notifiable_element_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/notifiable_element_mixin_test.dart) | YestifiableElementMixin | No | No | Yes |
+| [notification_locale_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/notification_locale_test.dart) | YestificationListener | No | No | Yes |
+| [notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/notification_test.dart) | Yestification | No | No | Yes |
+| [notificationlistener_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/notificationlistener_test.dart) | YestificationListener | No | Yes | No |
+| [numeric_focus_order_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/numeric_focus_order_test.dart) | NumericFocusOrder | No | No | Yes |
+| [object_key_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/object_key_test.dart) | ObjectKey | No | No | Yes |
+| [offstage_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/offstage_test.dart) | Offstage | No | Yes | No |
+| [opacity_full_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/opacity_full_test.dart) | Opacity | No | No | Yes |
+| [opacity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/opacity_test.dart) | Opacity | No | Yes | No |
+| [options_view_open_direction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/options_view_open_direction_test.dart) | OptionsViewOpenDirection | No | No | Yes |
+| [ordered_traversal_policy_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/ordered_traversal_policy_test.dart) | OrderedTraversalPolicy | No | No | Yes |
+| [orientation_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/orientation_builder_test.dart) | OrientationBuilder | No | No | Yes |
+| [orientation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/orientation_test.dart) | Orientation | No | No | Yes |
+| [overflow_bar_alignment_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overflow_bar_alignment_test.dart) | OverflowBarAlignment | No | No | Yes |
+| [overflow_bar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overflow_bar_test.dart) | OverflowBar | No | No | Yes |
+| [overflow_box_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overflow_box_test.dart) | OverflowBox | No | No | Yes |
+| [overlay_child_layout_info_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_child_layout_info_test.dart) | OverlayChildLayoutInfo | No | No | Yes |
+| [overlay_child_location_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_child_location_test.dart) | OverlayChildLocation | No | No | Yes |
+| [overlay_portal_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_portal_controller_test.dart) | OverlayPortalController | No | No | Yes |
+| [overlay_portal_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_portal_test.dart) | Overlay | No | Yes | No |
+| [overlay_route_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_route_test.dart) | OverlayRoute | No | No | Yes |
+| [overlay_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_state_test.dart) | OverlayState | No | No | Yes |
+| [overlay_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_test.dart) | Overlay | No | Yes | No |
+| [overscroll_indicator_notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overscroll_indicator_notification_test.dart) | OverscrollIndicatorNotification | No | No | Yes |
+| [overscroll_notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overscroll_notification_test.dart) | OverscrollNotification | No | No | Yes |
+| [padding_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/padding_test.dart) | Padding | No | No | Yes |
+| [page_metrics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_metrics_test.dart) | PageMetrics | No | No | Yes |
+| [page_route_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_route_builder_test.dart) | PageRouteBuilder | No | No | Yes |
+| [page_scroll_physics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_scroll_physics_test.dart) | PageScrollPhysics | No | No | Yes |
+| [page_storage_bucket_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_storage_bucket_test.dart) | PageStorageBucket | No | No | Yes |
+| [page_storage_key_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_storage_key_test.dart) | PageStorageKey | No | No | Yes |
+| [page_storage_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_storage_test.dart) | PageStorage | No | No | Yes |
+| [page_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_test.dart) | Page | No | No | Yes |
+| [page_view_tabview_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_view_tabview_test.dart) | PageView | No | Yes | No |
+| [pagecontroller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/pagecontroller_test.dart) | PageController | No | Yes | No |
+| [pageview_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/pageview_test.dart) | PageView | No | Yes | No |
+| [pan_axis_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/pan_axis_test.dart) | PanAxis | No | No | Yes |
+| [parent_data_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/parent_data_element_test.dart) | ParentDataElement | No | No | Yes |
+| [parent_data_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/parent_data_widget_test.dart) | ParentDataWidget | No | No | Yes |
+| [paste_text_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/paste_text_intent_test.dart) | PasteTextIntent | No | No | Yes |
+| [performance_overlay_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/performance_overlay_test.dart) | PerformanceOverlay | No | No | Yes |
+| [physical_model_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/physical_model_test.dart) | PhysicalModel | No | No | Yes |
+| [physical_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/physical_shape_test.dart) | PhysicalShape | No | No | Yes |
+| [physicalmodel_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/physicalmodel_test.dart) | PhysicalModel | No | Yes | No |
 | [pinned_header_sliver_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/pinned_header_sliver_test.dart) | PinnedHeaderSliver |  |  |  |
 | [placeholder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/placeholder_test.dart) | Placeholder |  |  |  |
 | [platform_menu_bar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/platform_menu_bar_test.dart) | PlatformMenuBar |  |  |  |
