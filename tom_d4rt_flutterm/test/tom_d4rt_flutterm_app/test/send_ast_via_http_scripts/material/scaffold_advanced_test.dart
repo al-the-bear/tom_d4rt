@@ -1,95 +1,82 @@
-// D4rt test script: Tests ScaffoldGeometry, FloatingActionButtonAnimator,
-// ScaffoldMessenger, ScaffoldPrelayoutGeometry concepts
 import 'package:flutter/material.dart';
 
+/// Deep visual demo for advanced Scaffold features.
+/// Drawers, persistent bottom sheets, FAB locations.
 dynamic build(BuildContext context) {
-  print('Scaffold advanced test executing');
-
-  // ========== FloatingActionButtonAnimator ==========
-  print('--- FloatingActionButtonAnimator Tests ---');
-  final animator = FloatingActionButtonAnimator.scaling;
-  print('FloatingActionButtonAnimator.scaling: $animator');
-
-  // ========== ScaffoldMessenger concept ==========
-  print('--- ScaffoldMessenger Tests ---');
-  // ScaffoldMessenger is accessed from context
-  print('ScaffoldMessenger accessible via ScaffoldMessenger.of(context)');
-
-  // ========== MaterialBanner advanced ==========
-  print('--- MaterialBanner Tests ---');
-  final banner = MaterialBanner(
-    content: Text('This is a banner'),
-    leading: Icon(Icons.info),
-    backgroundColor: Colors.yellow.shade100,
-    padding: EdgeInsets.all(16.0),
-    leadingPadding: EdgeInsets.only(right: 16.0),
-    forceActionsBelow: false,
-    overflowAlignment: OverflowBarAlignment.end,
-    actions: [
-      TextButton(onPressed: () {}, child: Text('Dismiss')),
-      TextButton(onPressed: () {}, child: Text('Learn More')),
-    ],
-  );
-  print('MaterialBanner created with 2 actions');
-
-  // ========== SnackBar advanced ==========
-  print('--- SnackBar advanced Tests ---');
-  final snack = SnackBar(
-    content: Text('Advanced SnackBar'),
-    action: SnackBarAction(
-      label: 'Undo',
-      onPressed: () {},
-      textColor: Colors.white,
-    ),
-    duration: Duration(seconds: 4),
-    behavior: SnackBarBehavior.floating,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-    margin: EdgeInsets.all(16.0),
-    padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-    width: null,
-    elevation: 6.0,
-    backgroundColor: Colors.blue.shade800,
-    clipBehavior: Clip.antiAlias,
-    dismissDirection: DismissDirection.horizontal,
-    showCloseIcon: true,
-    closeIconColor: Colors.white,
-  );
-  print('Advanced SnackBar created');
-  print('  behavior: ${snack.behavior}');
-  print('  elevation: ${snack.elevation}');
-  print('  showCloseIcon: ${snack.showCloseIcon}');
-
-  // ========== DismissDirection ==========
-  print('--- DismissDirection Tests ---');
-  for (final dir in DismissDirection.values) {
-    print('DismissDirection: ${dir.name}');
-  }
-
-  print('All scaffold advanced tests passed');
-
-  // ========== RETURN WIDGET ==========
-  return MaterialApp(
-    home: Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: Icon(Icons.add),
-      ),
-      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Scaffold Advanced Test',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
-            ),
-            SizedBox(height: 16.0),
-            Text('FloatingActionButtonAnimator.scaling'),
-            Text('MaterialBanner with actions'),
-            Text('Advanced SnackBar properties'),
-          ],
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      const Text('Advanced Scaffold Features', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+      const SizedBox(height: 16),
+      Container(
+        width: 200,
+        height: 160,
+        decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(8)),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: Stack(
+            children: [
+              // Main content
+              Container(color: Colors.grey.shade100, child: const Center(child: Text('Body', style: TextStyle(color: Colors.grey)))),
+              // Left drawer
+              Positioned(
+                left: 0,
+                top: 0,
+                bottom: 0,
+                child: Container(
+                  width: 60,
+                  color: Colors.blue.shade100,
+                  child: const Column(
+                    children: [
+                      SizedBox(height: 8),
+                      Icon(Icons.menu, size: 18),
+                      Text('Drawer', style: TextStyle(fontSize: 8)),
+                    ],
+                  ),
+                ),
+              ),
+              // AppBar
+              Positioned(
+                top: 0,
+                left: 60,
+                right: 0,
+                child: Container(
+                  height: 30,
+                  color: Colors.blue,
+                  alignment: Alignment.center,
+                  child: const Text('AppBar', style: TextStyle(color: Colors.white, fontSize: 10)),
+                ),
+              ),
+              // Bottom sheet
+              Positioned(
+                bottom: 0,
+                left: 60,
+                right: 0,
+                child: Container(
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, -2))],
+                  ),
+                  alignment: Alignment.center,
+                  child: const Text('Bottom Sheet', style: TextStyle(fontSize: 9)),
+                ),
+              ),
+              // FAB
+              Positioned(
+                right: 8,
+                bottom: 48,
+                child: Container(
+                  width: 30,
+                  height: 30,
+                  decoration: const BoxDecoration(color: Colors.pink, shape: BoxShape.circle),
+                  child: const Icon(Icons.add, color: Colors.white, size: 18),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-    ),
+    ],
   );
 }

@@ -1,35 +1,82 @@
-// D4rt test script: Tests OffsetPair from gestures
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
+/// Deep visual demo for OffsetPair.
+/// Shows global and local offset pair.
 dynamic build(BuildContext context) {
-  print('OffsetPair test executing');
+  return Scaffold(
+    appBar: AppBar(title: const Text('OffsetPair')),
+    body: Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text('Offset Pair',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 16),
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(color: Colors.cyan.shade50, borderRadius: BorderRadius.circular(12)),
+            child: Row(children: [
+              Expanded(
+                child: _OffsetBox(
+                  label: 'global',
+                  value: '(256, 384)',
+                  desc: 'Screen coordinates',
+                  color: Colors.cyan,
+                ),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: _OffsetBox(
+                  label: 'local',
+                  value: '(100, 150)',
+                  desc: 'Widget coordinates',
+                  color: Colors.teal,
+                ),
+              ),
+            ]),
+          ),
+          const SizedBox(height: 16),
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
+            child: const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Methods:', style: TextStyle(fontWeight: FontWeight.bold)),
+                SizedBox(height: 4),
+                Text('• OffsetPair(global, local)'),
+                Text('• operator + / -'),
+                Text('• OffsetPair.zero'),
+                Text('• fromEventPosition / fromEventDelta'),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
 
-  final op1 = OffsetPair(local: Offset(10, 20), global: Offset(100, 200));
-  print('OffsetPair: local=${op1.local}, global=${op1.global}');
-
-  // fromEventPosition/fromEventDelta require PointerEvent, test via constructor
-  final op2 = OffsetPair(local: Offset(150, 250), global: Offset(150, 250));
-  print('OffsetPair(150,250): local=${op2.local}, global=${op2.global}');
-
-  final op3 = OffsetPair(local: Offset(5, 10), global: Offset(5, 10));
-  print('OffsetPair(5,10): local=${op3.local}, global=${op3.global}');
-
-  // Operators
-  final added = op1 + op3;
-  print('op1+op3: local=${added.local}, global=${added.global}');
-
-  final subtracted = op1 - op3;
-  print('op1-op3: local=${subtracted.local}, global=${subtracted.global}');
-
-  // zero
-  print('zero: ${OffsetPair.zero.local}');
-
-  print('OffsetPair test completed');
-  return Column(mainAxisSize: MainAxisSize.min, children: [
-    Text('OffsetPair Tests', style: TextStyle(fontWeight: FontWeight.bold)),
-    Text('local=${op1.local}, global=${op1.global}'),
-    Text('Operators: +, -'),
-    Text('zero: ${OffsetPair.zero.local}'),
-  ]);
+class _OffsetBox extends StatelessWidget {
+  final String label;
+  final String value;
+  final String desc;
+  final Color color;
+  const _OffsetBox({required this.label, required this.value, required this.desc, required this.color});
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), border: Border.all(color: color)),
+      child: Column(children: [
+        Text(label, style: TextStyle(fontWeight: FontWeight.bold, color: color)),
+        const SizedBox(height: 8),
+        Text(value, style: const TextStyle(fontFamily: 'monospace')),
+        const SizedBox(height: 4),
+        Text(desc, style: const TextStyle(fontSize: 10, color: Colors.grey)),
+      ]),
+    );
+  }
 }
