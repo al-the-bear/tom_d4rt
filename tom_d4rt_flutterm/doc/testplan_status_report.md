@@ -329,110 +329,110 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [delayed_multi_drag_gesture_recognizer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/delayed_multi_drag_gesture_recognizer_test.dart) | DelayedMultiDragGestureRecognizer | No | No | Yes |
 | [details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/details_test.dart) | gesture | No | Yes | No |
 | [device_gesture_settings_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/device_gesture_settings_test.dart) | DeviceGestureSettings | No | No | Yes |
-| [drag_down_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/drag_down_details_test.dart) | DragDownDetails |  |  |  |
-| [drag_gesture_recognizer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/drag_gesture_recognizer_test.dart) | DragGestureRecognizer |  |  |  |
-| [drag_start_behavior_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/drag_start_behavior_test.dart) | DragStartBehavior |  |  |  |
-| [drag_start_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/drag_start_details_test.dart) | DragStartDetails |  |  |  |
-| [drag_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/drag_test.dart) | Drag |  |  |  |
-| [eager_gesture_recognizer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/eager_gesture_recognizer_test.dart) | EagerGestureRecognizer |  |  |  |
-| [flutter_error_details_for_pointer_event_dispatcher_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/flutter_error_details_for_pointer_event_dispatcher_test.dart) | FlutterErrorDetailsForPointerEventDispatcher |  |  |  |
-| [gesture_callbacks_adv_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/gesture_callbacks_adv_test.dart) | GestureScaleEndCallback |  |  |  |
-| [gesture_callbacks_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/gesture_callbacks_test.dart) | GestureRecognizerCallback |  |  |  |
-| [gesture_disposition_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/gesture_disposition_test.dart) | GestureDisposition |  |  |  |
-| [gesture_recognizer_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/gesture_recognizer_state_test.dart) | GestureRecognizerState |  |  |  |
-| [gesture_recognizer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/gesture_recognizer_test.dart) | GestureRecognizer |  |  |  |
-| [hit_test_dispatcher_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/hit_test_dispatcher_test.dart) | HitTestDispatcher |  |  |  |
-| [hit_testable_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/hit_testable_test.dart) | HitTestable |  |  |  |
-| [horizontal_multi_drag_gesture_recognizer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/horizontal_multi_drag_gesture_recognizer_test.dart) | HorizontalMultiDragGestureRecognizer |  |  |  |
-| [i_o_s_scroll_view_fling_velocity_tracker_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/i_o_s_scroll_view_fling_velocity_tracker_test.dart) | IOSScrollViewFlingVelocityTracker |  |  |  |
-| [immediate_multi_drag_gesture_recognizer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/immediate_multi_drag_gesture_recognizer_test.dart) | ImmediateMultiDragGestureRecognizer |  |  |  |
-| [least_squares_solver_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/least_squares_solver_test.dart) | LeastSquaresSolver |  |  |  |
-| [long_press_down_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/long_press_down_details_test.dart) | LongPressDownDetails |  |  |  |
-| [mac_o_s_scroll_view_fling_velocity_tracker_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/mac_o_s_scroll_view_fling_velocity_tracker_test.dart) | MacOSScrollViewFlingVelocityTracker |  |  |  |
-| [multi_drag_gesture_recognizer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/multi_drag_gesture_recognizer_test.dart) | MultiDragGestureRecognizer |  |  |  |
-| [multi_drag_pointer_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/multi_drag_pointer_state_test.dart) | MultiDragPointerState |  |  |  |
-| [multi_tap_gesture_recognizer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/multi_tap_gesture_recognizer_test.dart) | MultiTapGestureRecognizer |  |  |  |
-| [multitouch_drag_strategy_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/multitouch_drag_strategy_test.dart) | MultitouchDragStrategy |  |  |  |
-| [offset_pair_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/offset_pair_test.dart) | OffsetPair |  |  |  |
-| [one_sequence_gesture_recognizer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/one_sequence_gesture_recognizer_test.dart) | OneSequenceGestureRecognizer |  |  |  |
-| [pointer_added_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_added_event_test.dart) | PointerAddedEvent |  |  |  |
-| [pointer_cancel_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_cancel_event_test.dart) | PointerCancelEvent |  |  |  |
-| [pointer_down_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_down_event_test.dart) | PointerDownEvent |  |  |  |
-| [pointer_enter_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_enter_event_test.dart) | PointerEnterEvent |  |  |  |
-| [pointer_event_converter_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_event_converter_test.dart) | PointerEventConverter |  |  |  |
-| [pointer_event_resampler_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_event_resampler_test.dart) | PointerEventResampler |  |  |  |
-| [pointer_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_event_test.dart) | PointerEvent |  |  |  |
-| [pointer_exit_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_exit_event_test.dart) | PointerExitEvent |  |  |  |
-| [pointer_hover_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_hover_event_test.dart) | PointerHoverEvent |  |  |  |
-| [pointer_move_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_move_event_test.dart) | PointerMoveEvent |  |  |  |
-| [pointer_pan_zoom_end_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_pan_zoom_end_event_test.dart) | PointerPanZoomEndEvent |  |  |  |
-| [pointer_pan_zoom_start_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_pan_zoom_start_event_test.dart) | PointerPanZoomStartEvent |  |  |  |
-| [pointer_pan_zoom_update_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_pan_zoom_update_event_test.dart) | PointerPanZoomUpdateEvent |  |  |  |
-| [pointer_removed_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_removed_event_test.dart) | PointerRemovedEvent |  |  |  |
-| [pointer_scale_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_scale_event_test.dart) | PointerScaleEvent |  |  |  |
-| [pointer_scroll_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_scroll_event_test.dart) | PointerScrollEvent |  |  |  |
-| [pointer_scroll_inertia_cancel_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_scroll_inertia_cancel_event_test.dart) | PointerScrollInertiaCancelEvent |  |  |  |
-| [pointer_signal_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_signal_event_test.dart) | PointerSignalEvent |  |  |  |
-| [pointer_signal_resolver_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_signal_resolver_test.dart) | PointerSignalResolver |  |  |  |
-| [pointer_up_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_up_event_test.dart) | PointerUpEvent |  |  |  |
-| [polynomial_fit_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/polynomial_fit_test.dart) | PolynomialFit |  |  |  |
-| [positioned_gesture_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/positioned_gesture_details_test.dart) | PositionedGestureDetails |  |  |  |
-| [primary_pointer_gesture_recognizer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/primary_pointer_gesture_recognizer_test.dart) | PrimaryPointerGestureRecognizer |  |  |  |
-| [recognizers_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/recognizers_test.dart) | gesture |  |  |  |
-| [sampling_clock_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/sampling_clock_test.dart) | SamplingClock |  |  |  |
-| [scale_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/scale_details_test.dart) | ScaleStartDetails |  |  |  |
-| [serial_tap_cancel_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/serial_tap_cancel_details_test.dart) | SerialTapCancelDetails |  |  |  |
-| [serial_tap_down_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/serial_tap_down_details_test.dart) | SerialTapDownDetails |  |  |  |
-| [serial_tap_gesture_recognizer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/serial_tap_gesture_recognizer_test.dart) | SerialTapGestureRecognizer |  |  |  |
-| [serial_tap_up_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/serial_tap_up_details_test.dart) | SerialTapUpDetails |  |  |  |
-| [tap_and_drag_gesture_recognizer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/tap_and_drag_gesture_recognizer_test.dart) | TapAndDragGestureRecognizer |  |  |  |
-| [tap_and_horizontal_drag_gesture_recognizer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/tap_and_horizontal_drag_gesture_recognizer_test.dart) | TapAndHorizontalDragGestureRecognizer |  |  |  |
-| [tap_and_pan_gesture_recognizer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/tap_and_pan_gesture_recognizer_test.dart) | TapAndPanGestureRecognizer |  |  |  |
-| [tap_drag_down_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/tap_drag_down_details_test.dart) | TapDragDownDetails |  |  |  |
-| [tap_drag_end_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/tap_drag_end_details_test.dart) | TapDragEndDetails |  |  |  |
-| [tap_drag_start_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/tap_drag_start_details_test.dart) | TapDragStartDetails |  |  |  |
-| [tap_drag_up_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/tap_drag_up_details_test.dart) | TapDragUpDetails |  |  |  |
-| [tap_drag_update_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/tap_drag_update_details_test.dart) | TapDragUpdateDetails |  |  |  |
-| [tap_force_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/tap_force_test.dart) | TapDownDetails |  |  |  |
-| [tap_gesture_recognizer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/tap_gesture_recognizer_test.dart) | TapGestureRecognizer |  |  |  |
-| [tap_move_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/tap_move_details_test.dart) | TapMoveDetails |  |  |  |
-| [velocity_drag_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/velocity_drag_test.dart) | VelocityEstimate |  |  |  |
-| [velocity_estimate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/velocity_estimate_test.dart) | VelocityEstimate |  |  |  |
-| [velocity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/velocity_test.dart) | Velocity |  |  |  |
-| [velocity_tracker_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/velocity_tracker_test.dart) | VelocityTracker |  |  |  |
-| [vertical_multi_drag_gesture_recognizer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/vertical_multi_drag_gesture_recognizer_test.dart) | VerticalMultiDragGestureRecognizer |  |  |  |
+| [drag_down_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/drag_down_details_test.dart) | DragDownDetails | No | No | Yes |
+| [drag_gesture_recognizer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/drag_gesture_recognizer_test.dart) | DragGestureRecognizer | No | No | Yes |
+| [drag_start_behavior_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/drag_start_behavior_test.dart) | DragStartBehavior | No | No | Yes |
+| [drag_start_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/drag_start_details_test.dart) | DragStartDetails | No | No | Yes |
+| [drag_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/drag_test.dart) | Drag | No | No | Yes |
+| [eager_gesture_recognizer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/eager_gesture_recognizer_test.dart) | EagerGestureRecognizer | No | No | Yes |
+| [flutter_error_details_for_pointer_event_dispatcher_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/flutter_error_details_for_pointer_event_dispatcher_test.dart) | FlutterErrorDetailsForPointerEventDispatcher | No | No | Yes |
+| [gesture_callbacks_adv_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/gesture_callbacks_adv_test.dart) | GestureScaleEndCallback | No | No | No |
+| [gesture_callbacks_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/gesture_callbacks_test.dart) | GestureRecognizerCallback | No | No | No |
+| [gesture_disposition_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/gesture_disposition_test.dart) | GestureDisposition | No | No | Yes |
+| [gesture_recognizer_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/gesture_recognizer_state_test.dart) | GestureRecognizerState | No | No | Yes |
+| [gesture_recognizer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/gesture_recognizer_test.dart) | GestureRecognizer | No | No | Yes |
+| [hit_test_dispatcher_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/hit_test_dispatcher_test.dart) | HitTestDispatcher | No | No | Yes |
+| [hit_testable_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/hit_testable_test.dart) | HitTestable | No | No | Yes |
+| [horizontal_multi_drag_gesture_recognizer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/horizontal_multi_drag_gesture_recognizer_test.dart) | HorizontalMultiDragGestureRecognizer | No | No | Yes |
+| [i_o_s_scroll_view_fling_velocity_tracker_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/i_o_s_scroll_view_fling_velocity_tracker_test.dart) | IOSScrollViewFlingVelocityTracker | No | No | Yes |
+| [immediate_multi_drag_gesture_recognizer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/immediate_multi_drag_gesture_recognizer_test.dart) | ImmediateMultiDragGestureRecognizer | Yes | No | No |
+| [least_squares_solver_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/least_squares_solver_test.dart) | LeastSquaresSolver | Yes | No | No |
+| [long_press_down_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/long_press_down_details_test.dart) | LongPressDownDetails | No | No | Yes |
+| [mac_o_s_scroll_view_fling_velocity_tracker_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/mac_o_s_scroll_view_fling_velocity_tracker_test.dart) | MacOSScrollViewFlingVelocityTracker | No | No | Yes |
+| [multi_drag_gesture_recognizer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/multi_drag_gesture_recognizer_test.dart) | MultiDragGestureRecognizer | No | No | Yes |
+| [multi_drag_pointer_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/multi_drag_pointer_state_test.dart) | MultiDragPointerState | No | No | Yes |
+| [multi_tap_gesture_recognizer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/multi_tap_gesture_recognizer_test.dart) | MultiTapGestureRecognizer | No | No | Yes |
+| [multitouch_drag_strategy_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/multitouch_drag_strategy_test.dart) | MultitouchDragStrategy | No | No | Yes |
+| [offset_pair_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/offset_pair_test.dart) | OffsetPair | Yes | No | No |
+| [one_sequence_gesture_recognizer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/one_sequence_gesture_recognizer_test.dart) | OneSequenceGestureRecognizer | No | No | Yes |
+| [pointer_added_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_added_event_test.dart) | PointerAddedEvent | No | No | Yes |
+| [pointer_cancel_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_cancel_event_test.dart) | PointerCancelEvent | No | No | Yes |
+| [pointer_down_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_down_event_test.dart) | PointerDownEvent | No | No | Yes |
+| [pointer_enter_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_enter_event_test.dart) | PointerEnterEvent | No | No | Yes |
+| [pointer_event_converter_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_event_converter_test.dart) | PointerEventConverter | No | No | Yes |
+| [pointer_event_resampler_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_event_resampler_test.dart) | PointerEventResampler | Yes | No | No |
+| [pointer_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_event_test.dart) | PointerEvent | No | No | Yes |
+| [pointer_exit_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_exit_event_test.dart) | PointerExitEvent | No | No | Yes |
+| [pointer_hover_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_hover_event_test.dart) | PointerHoverEvent | No | No | Yes |
+| [pointer_move_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_move_event_test.dart) | PointerMoveEvent | No | No | Yes |
+| [pointer_pan_zoom_end_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_pan_zoom_end_event_test.dart) | PointerPanZoomEndEvent | No | No | Yes |
+| [pointer_pan_zoom_start_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_pan_zoom_start_event_test.dart) | PointerPanZoomStartEvent | No | No | Yes |
+| [pointer_pan_zoom_update_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_pan_zoom_update_event_test.dart) | PointerPanZoomUpdateEvent | No | No | Yes |
+| [pointer_removed_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_removed_event_test.dart) | PointerRemovedEvent | No | No | Yes |
+| [pointer_scale_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_scale_event_test.dart) | PointerScaleEvent | Yes | No | No |
+| [pointer_scroll_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_scroll_event_test.dart) | PointerScrollEvent | Yes | No | No |
+| [pointer_scroll_inertia_cancel_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_scroll_inertia_cancel_event_test.dart) | PointerScrollInertiaCancelEvent | No | No | Yes |
+| [pointer_signal_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_signal_event_test.dart) | PointerSignalEvent | No | No | Yes |
+| [pointer_signal_resolver_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_signal_resolver_test.dart) | PointerSignalResolver | No | No | Yes |
+| [pointer_up_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/pointer_up_event_test.dart) | PointerUpEvent | No | No | Yes |
+| [polynomial_fit_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/polynomial_fit_test.dart) | PolynomialFit | Yes | No | No |
+| [positioned_gesture_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/positioned_gesture_details_test.dart) | PositionedGestureDetails | Yes | No | No |
+| [primary_pointer_gesture_recognizer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/primary_pointer_gesture_recognizer_test.dart) | PrimaryPointerGestureRecognizer | No | No | Yes |
+| [recognizers_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/recognizers_test.dart) | gesture | No | No | No |
+| [sampling_clock_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/sampling_clock_test.dart) | SamplingClock | No | No | Yes |
+| [scale_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/scale_details_test.dart) | ScaleStartDetails | Yes | No | No |
+| [serial_tap_cancel_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/serial_tap_cancel_details_test.dart) | SerialTapCancelDetails | No | No | Yes |
+| [serial_tap_down_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/serial_tap_down_details_test.dart) | SerialTapDownDetails | No | No | Yes |
+| [serial_tap_gesture_recognizer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/serial_tap_gesture_recognizer_test.dart) | SerialTapGestureRecognizer | No | No | Yes |
+| [serial_tap_up_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/serial_tap_up_details_test.dart) | SerialTapUpDetails | No | No | Yes |
+| [tap_and_drag_gesture_recognizer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/tap_and_drag_gesture_recognizer_test.dart) | TapAndDragGestureRecognizer | No | No | Yes |
+| [tap_and_horizontal_drag_gesture_recognizer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/tap_and_horizontal_drag_gesture_recognizer_test.dart) | TapAndHorizontalDragGestureRecognizer | No | No | Yes |
+| [tap_and_pan_gesture_recognizer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/tap_and_pan_gesture_recognizer_test.dart) | TapAndPanGestureRecognizer | No | No | Yes |
+| [tap_drag_down_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/tap_drag_down_details_test.dart) | TapDragDownDetails | No | No | Yes |
+| [tap_drag_end_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/tap_drag_end_details_test.dart) | TapDragEndDetails | No | No | Yes |
+| [tap_drag_start_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/tap_drag_start_details_test.dart) | TapDragStartDetails | Yes | No | No |
+| [tap_drag_up_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/tap_drag_up_details_test.dart) | TapDragUpDetails | No | No | Yes |
+| [tap_drag_update_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/tap_drag_update_details_test.dart) | TapDragUpdateDetails | No | No | Yes |
+| [tap_force_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/tap_force_test.dart) | TapDownDetails | No | No | No |
+| [tap_gesture_recognizer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/tap_gesture_recognizer_test.dart) | TapGestureRecognizer | No | No | Yes |
+| [tap_move_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/tap_move_details_test.dart) | TapMoveDetails | No | No | Yes |
+| [velocity_drag_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/velocity_drag_test.dart) | VelocityEstimate | Yes | No | No |
+| [velocity_estimate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/velocity_estimate_test.dart) | VelocityEstimate | Yes | No | No |
+| [velocity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/velocity_test.dart) | Velocity | Yes | No | No |
+| [velocity_tracker_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/velocity_tracker_test.dart) | VelocityTracker | Yes | No | No |
+| [vertical_multi_drag_gesture_recognizer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/vertical_multi_drag_gesture_recognizer_test.dart) | VerticalMultiDragGestureRecognizer | Yes | No | No |
 ## material/ (348 files)
 
 | Filename | Class to Test | Fully Implemented in backup | Fully implemented in send_ast | Dummy |
 |----------|---------------|------------------------------|-------------------------------|-------|
-| [aboutdialog_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/aboutdialog_test.dart) | AboutDialog |  |  |  |
-| [adaptation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/adaptation_test.dart) | Adaptation |  |  |  |
-| [adaptive_text_selection_toolbar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/adaptive_text_selection_toolbar_test.dart) | AdaptiveTextSelectionToolbar |  |  |  |
-| [animated_icon_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/animated_icon_data_test.dart) | AnimatedIconData |  |  |  |
-| [animated_theme_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/animated_theme_test.dart) | AnimatedTheme |  |  |  |
-| [animatedicon_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/animatedicon_test.dart) | AnimatedIcon |  |  |  |
-| [app_bar_theme_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/app_bar_theme_data_test.dart) | AppBarThemeData |  |  |  |
-| [appbar_themes_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/appbar_themes_test.dart) | AppBarTheme |  |  |  |
-| [autocomplete_chips_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/autocomplete_chips_test.dart) | showDateRangePicker |  |  |  |
-| [autocomplete_datepicker_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/autocomplete_datepicker_test.dart) | Autocomplete |  |  |  |
-| [autocomplete_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/autocomplete_test.dart) | Autocomplete |  |  |  |
-| [back_button_icon_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/back_button_icon_test.dart) | BackButtonIcon |  |  |  |
-| [back_button_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/back_button_test.dart) | BackButton |  |  |  |
-| [badge_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/badge_test.dart) | Badge |  |  |  |
-| [base_range_slider_track_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/base_range_slider_track_shape_test.dart) | BaseRangeSliderTrackShape |  |  |  |
-| [base_slider_track_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/base_slider_track_shape_test.dart) | BaseSliderTrackShape |  |  |  |
-| [bottom_app_bar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/bottom_app_bar_test.dart) | BottomAppBar |  |  |  |
-| [bottom_app_bar_theme_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/bottom_app_bar_theme_data_test.dart) | BottomAppBarThemeData |  |  |  |
-| [bottom_navigation_bar_landscape_layout_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/bottom_navigation_bar_landscape_layout_test.dart) | BottomNavigationBarLandscapeLayout |  |  |  |
-| [bottom_navigation_bar_theme_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/bottom_navigation_bar_theme_data_test.dart) | BottomNavigationBarThemeData |  |  |  |
-| [bottom_navigation_bar_theme_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/bottom_navigation_bar_theme_test.dart) | BottomNavigationBarTheme |  |  |  |
-| [bottom_navigation_bar_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/bottom_navigation_bar_type_test.dart) | BottomNavigationBarType |  |  |  |
-| [bottomappbar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/bottomappbar_test.dart) | BottomAppBar |  |  |  |
-| [bottomnavigationbar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/bottomnavigationbar_test.dart) | BottomNavigationBar |  |  |  |
-| [button_bar_layout_behavior_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/button_bar_layout_behavior_test.dart) | ButtonBarLayoutBehavior |  |  |  |
-| [button_bar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/button_bar_test.dart) | ButtonBar |  |  |  |
-| [button_bar_theme_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/button_bar_theme_data_test.dart) | ButtonBarThemeData |  |  |  |
-| [button_bar_theme_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/button_bar_theme_test.dart) | ButtonBarTheme |  |  |  |
+| [aboutdialog_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/aboutdialog_test.dart) | AboutDialog | No | No | Yes |
+| [adaptation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/adaptation_test.dart) | Adaptation | No | No | Yes |
+| [adaptive_text_selection_toolbar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/adaptive_text_selection_toolbar_test.dart) | AdaptiveTextSelectionToolbar | No | No | Yes |
+| [animated_icon_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/animated_icon_data_test.dart) | AnimatedIconData | No | No | Yes |
+| [animated_theme_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/animated_theme_test.dart) | AnimatedTheme | No | No | Yes |
+| [animatedicon_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/animatedicon_test.dart) | AnimatedIcon | No | Yes | No |
+| [app_bar_theme_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/app_bar_theme_data_test.dart) | AppBarThemeData | No | No | Yes |
+| [appbar_themes_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/appbar_themes_test.dart) | AppBarTheme | No | No | No |
+| [autocomplete_chips_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/autocomplete_chips_test.dart) | showDateRangePicker | No | No | No |
+| [autocomplete_datepicker_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/autocomplete_datepicker_test.dart) | Autocomplete | No | No | Yes |
+| [autocomplete_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/autocomplete_test.dart) | Autocomplete | No | No | Yes |
+| [back_button_icon_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/back_button_icon_test.dart) | BackButtonIcon | No | No | Yes |
+| [back_button_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/back_button_test.dart) | BackButton | No | No | Yes |
+| [badge_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/badge_test.dart) | Badge | No | Yes | No |
+| [base_range_slider_track_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/base_range_slider_track_shape_test.dart) | BaseRangeSliderTrackShape | No | No | Yes |
+| [base_slider_track_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/base_slider_track_shape_test.dart) | BaseSliderTrackShape | No | No | Yes |
+| [bottom_app_bar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/bottom_app_bar_test.dart) | BottomAppBar | No | No | No |
+| [bottom_app_bar_theme_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/bottom_app_bar_theme_data_test.dart) | BottomAppBarThemeData | No | No | Yes |
+| [bottom_navigation_bar_landscape_layout_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/bottom_navigation_bar_landscape_layout_test.dart) | BottomNavigationBarLandscapeLayout | Yes | No | No |
+| [bottom_navigation_bar_theme_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/bottom_navigation_bar_theme_data_test.dart) | BottomNavigationBarThemeData | No | No | Yes |
+| [bottom_navigation_bar_theme_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/bottom_navigation_bar_theme_test.dart) | BottomNavigationBarTheme | No | No | Yes |
+| [bottom_navigation_bar_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/bottom_navigation_bar_type_test.dart) | BottomNavigationBarType | No | No | Yes |
+| [bottomappbar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/bottomappbar_test.dart) | BottomAppBar | No | Yes | No |
+| [bottomnavigationbar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/bottomnavigationbar_test.dart) | BottomNavigationBar | No | No | No |
+| [button_bar_layout_behavior_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/button_bar_layout_behavior_test.dart) | ButtonBarLayoutBehavior | No | No | Yes |
+| [button_bar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/button_bar_test.dart) | ButtonBar | No | No | Yes |
+| [button_bar_theme_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/button_bar_theme_data_test.dart) | ButtonBarThemeData | No | No | Yes |
+| [button_bar_theme_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/button_bar_theme_test.dart) | ButtonBarTheme | No | No | Yes |
 | [button_style_button_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/button_style_button_test.dart) | ButtonStyleButton |  |  |  |
 | [button_styles_misc_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/button_styles_misc_test.dart) | ButtonBarTheme |  |  |  |
 | [button_text_theme_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/button_text_theme_test.dart) | ButtonTextTheme |  |  |  |
