@@ -1,52 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget _sample(String label, RoundedSuperellipseBorder border, Color fill) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Container(
-        width: 90,
-        height: 70,
-        decoration: ShapeDecoration(shape: border, color: fill),
-      ),
-      const SizedBox(height: 6),
-      Text(label),
-    ],
-  );
-}
-
+/// Deep visual demo for SuperellipseBorder
 dynamic build(BuildContext context) {
-  const base = RoundedSuperellipseBorder();
-  const thick = RoundedSuperellipseBorder(
-    borderRadius: BorderRadius.all(Radius.circular(18)),
-    side: BorderSide(color: Colors.indigo, width: 3),
-  );
-  final scaled = thick.scale(0.6) as RoundedSuperellipseBorder;
-
-  return Padding(
-    padding: const EdgeInsets.all(16),
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'RoundedSuperellipseBorder Visual Test',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: 10),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            _sample('Base', base, Colors.amber.shade200),
-            _sample('Thick', thick, Colors.lightBlue.shade100),
-            _sample('Scaled', scaled, Colors.green.shade100),
-          ],
-        ),
-        const SizedBox(height: 10),
-        Text('Base side width: ${base.side.width}'),
-        Text('Thick side width: ${thick.side.width}'),
-        Text('Scaled side width: ${scaled.side.width}'),
-      ],
-    ),
-  );
+  return Scaffold(appBar: AppBar(title: Text('Superellipse Border Demo')), body: Center(child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [Container(width: 150, height: 100, decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(30)), child: Center(child: Text('Rounded', style: TextStyle(color: Colors.white)))), SizedBox(height: 20), Container(width: 150, height: 100, decoration: ShapeDecoration(color: Colors.purple, shape: ContinuousRectangleBorder(borderRadius: BorderRadius.circular(40))), child: Center(child: Text('Continuous', style: TextStyle(color: Colors.white)))), SizedBox(height: 20), Text('ContinuousRectangleBorder for superellipse', style: TextStyle(color: Colors.grey, fontSize: 12))])));
 }
