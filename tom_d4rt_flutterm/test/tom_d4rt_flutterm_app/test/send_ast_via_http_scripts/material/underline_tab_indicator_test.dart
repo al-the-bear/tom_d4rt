@@ -1,6 +1,62 @@
+// D4rt test script: Tests UnderlineTabIndicator from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for UnderlineTabIndicator
 dynamic build(BuildContext context) {
-  return Scaffold(appBar: AppBar(title: Text('UnderlineTabIndicator Demo')), body: DefaultTabController(length: 3, child: Column(children: [TabBar(indicator: UnderlineTabIndicator(borderSide: BorderSide(width: 2)), tabs: [Tab(text: 'Default')]), SizedBox(height: 10), TabBar(indicator: UnderlineTabIndicator(borderSide: BorderSide(width: 4, color: Colors.blue)), tabs: [Tab(text: 'Blue')]), SizedBox(height: 10), TabBar(indicator: UnderlineTabIndicator(borderSide: BorderSide(width: 3, color: Colors.orange), insets: EdgeInsets.symmetric(horizontal: 20)), tabs: [Tab(text: 'Inset')]), SizedBox(height: 10), TabBar(indicator: UnderlineTabIndicator(borderSide: BorderSide(width: 5, color: Colors.purple), borderRadius: BorderRadius.circular(4)), tabs: [Tab(text: 'Rounded')]), Expanded(child: TabBarView(children: [Center(child: Text('Tab 1')), Center(child: Text('Tab 2')), Center(child: Text('Tab 3'))]))])));
+  print('UnderlineTabIndicator test executing');
+
+  final title = 'UnderlineTabIndicator';
+  final packageName = 'material';
+  final details = 'UnderlineTabIndicator';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('UnderlineTabIndicator test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
 }

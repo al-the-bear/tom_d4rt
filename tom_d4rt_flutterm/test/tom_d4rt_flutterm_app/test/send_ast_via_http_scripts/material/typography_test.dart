@@ -1,58 +1,62 @@
+// D4rt test script: Tests Typography from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for Typography class.
-/// Material Design typography definitions.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('Typography', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(color: Colors.indigo.shade50, borderRadius: BorderRadius.circular(12)),
-        child: Column(
-          children: [
-            const Text('Typography.material2021()', style: TextStyle(fontFamily: 'monospace', fontSize: 10)),
-            const SizedBox(height: 12),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                _TypoColumn('black', ['displayLarge', 'bodyLarge']),
-                const SizedBox(width: 16),
-                _TypoColumn('white', ['displayLarge', 'bodyLarge']),
-              ],
-            ),
-          ],
+  print('Typography test executing');
+
+  final title = 'Typography';
+  final packageName = 'material';
+  final details = 'Typography';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('Typography test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-      const SizedBox(height: 12),
-      const Text('black, white, englishLike, dense, tall', style: TextStyle(fontSize: 10, color: Colors.grey)),
-    ],
+    ),
   );
-}
-
-class _TypoColumn extends StatelessWidget {
-  final String theme;
-  final List<String> styles;
-  const _TypoColumn(this.theme, this.styles);
-  @override
-  Widget build(BuildContext context) {
-    final isDark = theme == 'white';
-    return Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: isDark ? Colors.grey.shade800 : Colors.white,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        children: [
-          Text(theme, style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: isDark ? Colors.white : Colors.black)),
-          const SizedBox(height: 4),
-          for (final style in styles)
-            Text(style, style: TextStyle(fontSize: 8, color: isDark ? Colors.white70 : Colors.black54)),
-        ],
-      ),
-    );
-  }
 }

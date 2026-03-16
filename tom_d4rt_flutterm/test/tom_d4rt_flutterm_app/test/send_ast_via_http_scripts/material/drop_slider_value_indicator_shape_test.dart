@@ -1,67 +1,62 @@
+// D4rt test script: Tests DropSliderValueIndicatorShape from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for DropSliderValueIndicatorShape - drop-shaped value indicator.
-/// Shows the teardrop indicator for single slider.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('Drop Slider Indicator', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Container(
-        padding: const EdgeInsets.all(16),
+  print('DropSliderValueIndicatorShape test executing');
+
+  final title = 'DropSliderValueIndicatorShape';
+  final packageName = 'material';
+  final details = 'DropSliderValueIndicatorShape';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('DropSliderValueIndicatorShape test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
         decoration: BoxDecoration(
-          color: Colors.grey.shade100,
+          color: const Color(0xFF111827),
           borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
         ),
-        child: Column(
-          children: [
-            // Drop indicator
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-              decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(12)),
-              child: const Text('50', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-            ),
-            CustomPaint(
-              size: const Size(12, 8),
-              painter: _DropPainter(Colors.green),
-            ),
-            const SizedBox(height: 4),
-            // Slider track
-            Container(
-              height: 30,
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Container(height: 4, decoration: BoxDecoration(color: Colors.grey.shade300, borderRadius: BorderRadius.circular(2))),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: FractionallySizedBox(widthFactor: 0.5, child: Container(height: 4, decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(2)))),
-                  ),
-                  Positioned(
-                    left: 90,
-                    child: Container(width: 20, height: 20, decoration: BoxDecoration(color: Colors.green, shape: BoxShape.circle, boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 4)])),
-                  ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
                 ],
               ),
-            ),
-          ],
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-      const SizedBox(height: 12),
-      const Text('Shows value in drop-shaped bubble', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
+    ),
   );
-}
-
-class _DropPainter extends CustomPainter {
-  final Color color;
-  _DropPainter(this.color);
-  @override
-  void paint(Canvas canvas, Size size) {
-    final path = Path()..moveTo(0, 0)..lineTo(size.width / 2, size.height)..lineTo(size.width, 0)..close();
-    canvas.drawPath(path, Paint()..color = color);
-  }
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

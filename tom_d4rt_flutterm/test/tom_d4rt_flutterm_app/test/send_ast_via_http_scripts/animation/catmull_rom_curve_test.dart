@@ -1,62 +1,77 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests CatmullRomCurve from animation
+import 'dart:ui';
+import 'package:flutter/animation.dart';
+import 'package:flutter/widgets.dart';
 
-/// Demonstrates CatmullRomCurve - smooth curve through control points.
 dynamic build(BuildContext context) {
-  final curve = CatmullRomCurve([
-    const Offset(0.0, 0.0),
-    const Offset(0.25, 0.6),
-    const Offset(0.5, 0.2),
-    const Offset(0.75, 0.8),
-    const Offset(1.0, 1.0),
-  ]);
+  print('CatmullRomCurve test executing');
 
-  return TweenAnimationBuilder<double>(
-    tween: Tween(begin: 0.0, end: 1.0),
-    duration: const Duration(seconds: 3),
-    builder: (context, t, _) {
-      final y = curve.transform(t);
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Text('CatmullRomCurve Demo', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-          const SizedBox(height: 16),
-          SizedBox(
-            height: 120, width: 200,
-            child: CustomPaint(
-              painter: _CurvePainter(curve: curve, progress: t),
-            ),
-          ),
-          const SizedBox(height: 12),
-          Text('t=${t.toStringAsFixed(2)} → y=${y.toStringAsFixed(2)}', style: const TextStyle(fontFamily: 'monospace')),
-          const SizedBox(height: 8),
-          const Text('Smooth spline through control points', style: TextStyle(fontSize: 11, color: Colors.grey)),
-        ],
-      );
-    },
-  );
-}
+  // ========== Basic CatmullRomCurve ==========
+  print('--- Basic CatmullRomCurve ---');
+  final controlPoints = <Offset>[
+    Offset(0.2, 0.2),
+    Offset(0.5, 0.8),
+    Offset(0.8, 0.2),
+  ];
+  final curve = CatmullRomCurve(controlPoints);
 
-class _CurvePainter extends CustomPainter {
-  final CatmullRomCurve curve; final double progress;
-  _CurvePainter({required this.curve, required this.progress});
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final path = Path();
-    for (int i = 0; i <= 50; i++) {
-      final t = i / 50;
-      final y = curve.transform(t);
-      final x = t * size.width;
-      final py = size.height - y * size.height;
-      if (i == 0) path.moveTo(x, py); else path.lineTo(x, py);
-    }
-    canvas.drawPath(path, Paint()..color = Colors.blue..style = PaintingStyle.stroke..strokeWidth = 2);
-    // Progress dot
-    final px = progress * size.width;
-    final py = size.height - curve.transform(progress) * size.height;
-    canvas.drawCircle(Offset(px, py), 6, Paint()..color = Colors.red);
+  // ========== Transform at various t values ==========
+  print('--- Transform values ---');
+  final tValues = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0];
+  final results = <double>[];
+  for (final t in tValues) {
+    final v = curve.transform(t);
+    results.add(v);
+    print('  t=$t: ${v.toStringAsFixed(4)}');
   }
 
-  @override
-  bool shouldRepaint(covariant _CurvePainter old) => progress != old.progress;
+  // ========== Boundary conditions ==========
+  print('--- Boundary conditions ---');
+  print('  transform(0.0): ${curve.transform(0.0).toStringAsFixed(4)}');
+  print('  transform(1.0): ${curve.transform(1.0).toStringAsFixed(4)}');
+
+  // ========== Different control points ==========
+  print('--- S-curve control points ---');
+  final sCurve = CatmullRomCurve([
+    Offset(0.25, 0.1),
+    Offset(0.75, 0.9),
+  ]);
+  print('  sCurve(0.0): ${sCurve.transform(0.0).toStringAsFixed(4)}');
+  print('  sCurve(0.5): ${sCurve.transform(0.5).toStringAsFixed(4)}');
+  print('  sCurve(1.0): ${sCurve.transform(1.0).toStringAsFixed(4)}');
+
+  print('CatmullRomCurve test completed');
+  return SingleChildScrollView(
+    child: Padding(
+      padding: EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text('CatmullRomCurve Tests',
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          SizedBox(height: 8.0),
+          for (var i = 0; i < tValues.length; i++)
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 1.0),
+              child: Row(children: [
+                SizedBox(width: 60.0, child: Text('t=${tValues[i]}')),
+                Expanded(
+                  child: Container(
+                    height: 16.0,
+                    child: FractionallySizedBox(
+                      alignment: Alignment.centerLeft,
+                      widthFactor: results[i].clamp(0.0, 1.0),
+                      child: Container(color: Color(0xFF2196F3)),
+                    ),
+                  ),
+                ),
+                SizedBox(width: 8.0),
+                Text(results[i].toStringAsFixed(3)),
+              ]),
+            ),
+        ],
+      ),
+    ),
+  );
 }

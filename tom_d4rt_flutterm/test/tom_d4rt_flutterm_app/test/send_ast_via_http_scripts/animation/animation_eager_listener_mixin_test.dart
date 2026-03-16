@@ -1,50 +1,74 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests AnimationEagerListenerMixin from animation
+import 'dart:ui';
+import 'package:flutter/animation.dart';
+import 'package:flutter/widgets.dart';
 
-/// Demonstrates AnimationEagerListenerMixin - notifies listeners immediately
-/// upon registration, ensuring they receive the current value right away.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('AnimationEagerListenerMixin', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(color: Colors.amber.shade50, borderRadius: BorderRadius.circular(12)),
-        child: Column(
-          children: [
-            const Icon(Icons.bolt, color: Colors.amber, size: 40),
-            const SizedBox(height: 8),
-            const Text('EAGER', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.amber)),
-            const SizedBox(height: 12),
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8)),
-              child: const Column(
-                children: [
-                  Icon(Icons.person_add, color: Colors.amber),
-                  Icon(Icons.arrow_downward, size: 16),
-                  Icon(Icons.notifications_active, color: Colors.amber),
-                  Text('Notifies IMMEDIATELY', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold)),
-                ],
-              ),
-            ),
-          ],
-        ),
+  print('AnimationEagerListenerMixin test executing');
+
+  // AnimationEagerListenerMixin is used by animation classes that eagerly add listeners.
+  // AlwaysStoppedAnimation uses it internally. Test through concrete usage.
+
+  // ========== Create AlwaysStoppedAnimation (uses eager listener mixin) ==========
+  print('--- AlwaysStoppedAnimation with EagerListenerMixin ---');
+  final anim = AlwaysStoppedAnimation<double>(0.75);
+  print('  value: ${anim.value}');
+  print('  status: ${anim.status}');
+
+  // ========== Listener management ==========
+  print('--- Listener management ---');
+  var listenerCallCount = 0;
+  void listener() {
+    listenerCallCount++;
+  }
+  anim.addListener(listener);
+  print('  Added listener, callCount: $listenerCallCount');
+  anim.removeListener(listener);
+  print('  Removed listener, callCount: $listenerCallCount');
+
+  // ========== Status listener management ==========
+  print('--- Status listener management ---');
+  var statusCallCount = 0;
+  void statusListener(AnimationStatus status) {
+    statusCallCount++;
+  }
+  anim.addStatusListener(statusListener);
+  print('  Added status listener, callCount: $statusCallCount');
+  anim.removeStatusListener(statusListener);
+  print('  Removed status listener, callCount: $statusCallCount');
+
+  // ========== Multiple animations with the mixin ==========
+  print('--- Multiple animations ---');
+  final anim1 = AlwaysStoppedAnimation<double>(0.0);
+  final anim2 = AlwaysStoppedAnimation<double>(0.5);
+  final anim3 = AlwaysStoppedAnimation<double>(1.0);
+  print('  anim1.value: ${anim1.value}');
+  print('  anim2.value: ${anim2.value}');
+  print('  anim3.value: ${anim3.value}');
+
+  // ========== String animations ==========
+  print('--- String animation ---');
+  final stringAnim = AlwaysStoppedAnimation<String>('hello');
+  print('  string value: ${stringAnim.value}');
+
+  print('AnimationEagerListenerMixin test completed');
+  return SingleChildScrollView(
+    child: Padding(
+      padding: EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text('AnimationEagerListenerMixin Tests',
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          SizedBox(height: 8.0),
+          Text('AlwaysStoppedAnimation value: ${anim.value}'),
+          Text('Status: ${anim.status}'),
+          Text('Listener add/remove: OK'),
+          Text('Status listener add/remove: OK'),
+          Text('Multiple animations: ${anim1.value}, ${anim2.value}, ${anim3.value}'),
+        ],
       ),
-      const SizedBox(height: 16),
-      Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
-        child: const Column(
-          children: [
-            Text('Use when:', style: TextStyle(fontWeight: FontWeight.bold)),
-            SizedBox(height: 4),
-            Text('• Listeners need current value on subscribe', style: TextStyle(fontSize: 11)),
-            Text('• Animation state must be synchronized', style: TextStyle(fontSize: 11)),
-          ],
-        ),
-      ),
-    ],
+    ),
   );
 }

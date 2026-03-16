@@ -1,77 +1,30 @@
+// D4rt test script: Tests DisplayFeatureType from dart_ui
 import 'dart:ui';
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-/// Deep visual demo for DisplayFeatureType - types of display features.
-/// Demonstrates hinge, fold, and cutout feature types.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('DisplayFeatureType Demo')),
-    body: ListView(
-      padding: const EdgeInsets.all(16),
-      children: [
-        const Text('Display Feature Types', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-        const SizedBox(height: 24),
-        _buildTypeDemo(
-          'DisplayFeatureType.hinge',
-          'Physical hardware hinge',
-          'Connects two display panels that can fold',
-          Icons.compare_arrows,
-          Colors.blue,
-        ),
-        const SizedBox(height: 16),
-        _buildTypeDemo(
-          'DisplayFeatureType.fold',
-          'Flexible fold area',
-          'Part of display that bends when folding',
-          Icons.crop_landscape,
-          Colors.green,
-        ),
-        const SizedBox(height: 16),
-        _buildTypeDemo(
-          'DisplayFeatureType.cutout',
-          'Screen cutout',
-          'Area for camera, sensors, or speakers',
-          Icons.camera_front,
-          Colors.orange,
-        ),
-      ],
-    ),
-  );
-}
+  print('DisplayFeatureType test executing');
 
-Widget _buildTypeDemo(String code, String name, String desc, IconData icon, Color color) {
-  return Container(
-    padding: const EdgeInsets.all(20),
-    decoration: BoxDecoration(
-      gradient: LinearGradient(colors: [color.withValues(alpha: 0.1), color.withValues(alpha: 0.05)]),
-      border: Border.all(color: color.withValues(alpha: 0.3)),
-      borderRadius: BorderRadius.circular(16),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Icon(icon, color: color, size: 40),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(name, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: color)),
-                  Text(desc, style: TextStyle(color: Colors.grey.shade600)),
-                ],
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 12),
-        Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8)),
-          child: Text(code, style: const TextStyle(fontFamily: 'monospace', fontSize: 11)),
-        ),
-      ],
-    ),
+  // Enumerate all DisplayFeatureType values
+  print('DisplayFeatureType values:');
+  for (final value in DisplayFeatureType.values) {
+    print('  ${value.name}: $value');
+  }
+  print('DisplayFeatureType has ${ DisplayFeatureType.values.length} values');
+
+  final first = DisplayFeatureType.values.first;
+  final last = DisplayFeatureType.values.last;
+  print('First: $first, Last: $last');
+  print('First index: ${first.index}, Last index: ${last.index}');
+
+  print('DisplayFeatureType test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('DisplayFeatureType Tests'),
+      Text('Values: ${ DisplayFeatureType.values.length}'),
+      Text('First: $first'),
+      Text('Last: $last'),
+    ],
   );
 }

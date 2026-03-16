@@ -1,6 +1,30 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests TextOverflow from painting
+import 'package:flutter/painting.dart';
+import 'package:flutter/widgets.dart';
 
-/// Deep visual demo for TextOverflow
 dynamic build(BuildContext context) {
-  return Scaffold(appBar: AppBar(title: Text('TextOverflow Demo')), body: Padding(padding: EdgeInsets.all(16), child: Column(children: [Container(width: 200, child: Text('This is a very long text that will clip', overflow: TextOverflow.clip)), SizedBox(height: 20), Container(width: 200, child: Text('This is a very long text with ellipsis...', overflow: TextOverflow.ellipsis)), SizedBox(height: 20), Container(width: 200, child: Text('This is a very long text that will fade', overflow: TextOverflow.fade, softWrap: false)), SizedBox(height: 20), Container(width: 200, child: Text('This is a very long text that can wrap to multiple lines', overflow: TextOverflow.visible))])));
+  print('TextOverflow test executing');
+
+  // Enumerate all TextOverflow values
+  print('TextOverflow values:');
+  for (final value in TextOverflow.values) {
+    print('  ${value.name}: $value');
+  }
+  print('TextOverflow has ${ TextOverflow.values.length} values');
+
+  final first = TextOverflow.values.first;
+  final last = TextOverflow.values.last;
+  print('First: $first, Last: $last');
+  print('First index: ${first.index}, Last index: ${last.index}');
+
+  print('TextOverflow test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('TextOverflow Tests'),
+      Text('Values: ${ TextOverflow.values.length}'),
+      Text('First: $first'),
+      Text('Last: $last'),
+    ],
+  );
 }

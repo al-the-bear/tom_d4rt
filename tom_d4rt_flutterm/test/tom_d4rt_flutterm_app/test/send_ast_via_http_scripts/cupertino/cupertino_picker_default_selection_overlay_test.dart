@@ -1,40 +1,135 @@
+// D4rt test script: Tests CupertinoPickerDefaultSelectionOverlay from cupertino
 import 'package:flutter/cupertino.dart';
 
-/// Demonstrates CupertinoPickerDefaultSelectionOverlay.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
+  print('CupertinoPickerDefaultSelectionOverlay test executing');
+
+  // ===== 1. Default overlay (all defaults) =====
+  print('--- Default overlay ---');
+  final defaultOverlay = CupertinoPickerDefaultSelectionOverlay();
+  print('  default overlay created');
+  print('  runtimeType: ${defaultOverlay.runtimeType}');
+
+  // ===== 2. Custom background color =====
+  print('--- Custom background ---');
+  final blueOverlay = CupertinoPickerDefaultSelectionOverlay(
+    background: CupertinoColors.systemBlue.withOpacity(0.15),
+  );
+  print('  blue background overlay created');
+
+  final redOverlay = CupertinoPickerDefaultSelectionOverlay(
+    background: CupertinoColors.systemRed.withOpacity(0.1),
+  );
+  print('  red background overlay created');
+
+  final transparentOverlay = CupertinoPickerDefaultSelectionOverlay(
+    background: Color(0x00000000),
+  );
+  print('  transparent overlay created');
+
+  // ===== 3. Cap edge options =====
+  print('--- Cap edge variations ---');
+  final bothCapped = CupertinoPickerDefaultSelectionOverlay(
+    capStartEdge: true,
+    capEndEdge: true,
+  );
+  print('  both edges capped (default)');
+
+  final noCaps = CupertinoPickerDefaultSelectionOverlay(
+    capStartEdge: false,
+    capEndEdge: false,
+  );
+  print('  no caps');
+
+  final startOnly = CupertinoPickerDefaultSelectionOverlay(
+    capStartEdge: true,
+    capEndEdge: false,
+  );
+  print('  start cap only');
+
+  final endOnly = CupertinoPickerDefaultSelectionOverlay(
+    capStartEdge: false,
+    capEndEdge: true,
+  );
+  print('  end cap only');
+
+  // ===== 4. Combined: custom background + cap settings =====
+  print('--- Combined customization ---');
+  final combined = CupertinoPickerDefaultSelectionOverlay(
+    background: CupertinoColors.systemGreen.withOpacity(0.2),
+    capStartEdge: false,
+    capEndEdge: true,
+  );
+  print('  combined customization overlay created');
+
+  // ===== 5. Inside CupertinoPicker =====
+  print('--- Inside CupertinoPicker ---');
+  final pickerWithDefault = CupertinoPicker(
+    itemExtent: 32.0,
+    onSelectedItemChanged: (index) {},
+    selectionOverlay: CupertinoPickerDefaultSelectionOverlay(),
     children: [
-      const Text('Picker Selection Overlay', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-      const SizedBox(height: 16),
-      Container(
-        width: 200, height: 100,
-        decoration: BoxDecoration(color: CupertinoColors.systemGrey6, borderRadius: BorderRadius.circular(12)),
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('Item 1', style: TextStyle(color: CupertinoColors.systemGrey2)),
-                const SizedBox(height: 4),
-                Container(
-                  padding: const EdgeInsets.symmetric(vertical: 4),
-                  decoration: BoxDecoration(
-                    color: CupertinoColors.systemGrey4.withOpacity(0.3),
-                    border: Border.symmetric(horizontal: BorderSide(color: CupertinoColors.systemGrey3)),
-                  ),
-                  child: const Center(child: Text('Item 2', style: TextStyle(fontWeight: FontWeight.bold))),
-                ),
-                const SizedBox(height: 4),
-                Text('Item 3', style: TextStyle(color: CupertinoColors.systemGrey2)),
-              ],
-            ),
-          ],
+      for (var i = 1; i <= 12; i++) Center(child: Text('Item $i')),
+    ],
+  );
+  print('  picker with default overlay created');
+
+  final pickerCustom = CupertinoPicker(
+    itemExtent: 40.0,
+    onSelectedItemChanged: (index) {},
+    selectionOverlay: CupertinoPickerDefaultSelectionOverlay(
+      background: CupertinoColors.systemIndigo.withOpacity(0.12),
+      capStartEdge: true,
+      capEndEdge: true,
+    ),
+    children: [
+      for (var i = 0; i < 10; i++) Center(child: Text('Option $i')),
+    ],
+  );
+  print('  picker with custom overlay created');
+
+  // ===== 6. Picker with NO overlay (null) vs default =====
+  print('--- Null vs default overlay ---');
+  final pickerNoOverlay = CupertinoPicker(
+    itemExtent: 32.0,
+    onSelectedItemChanged: (index) {},
+    selectionOverlay: null,
+    children: [
+      Center(child: Text('No overlay')),
+      Center(child: Text('Picker')),
+    ],
+  );
+  print('  picker with null overlay created');
+
+  print('CupertinoPickerDefaultSelectionOverlay test completed');
+  return CupertinoApp(
+    home: CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(middle: Text('PickerOverlay Test')),
+      child: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Default Picker:', style: TextStyle(fontWeight: FontWeight.bold)),
+              SizedBox(height: 150.0, child: pickerWithDefault),
+              SizedBox(height: 16.0),
+              Text('Custom Overlay:', style: TextStyle(fontWeight: FontWeight.bold)),
+              SizedBox(height: 150.0, child: pickerCustom),
+              SizedBox(height: 16.0),
+              Text('No Overlay:', style: TextStyle(fontWeight: FontWeight.bold)),
+              SizedBox(height: 100.0, child: pickerNoOverlay),
+              SizedBox(height: 16.0),
+              Text('Standalone overlays:', style: TextStyle(fontWeight: FontWeight.bold)),
+              SizedBox(height: 40.0, child: defaultOverlay),
+              SizedBox(height: 40.0, child: blueOverlay),
+              SizedBox(height: 40.0, child: redOverlay),
+              SizedBox(height: 40.0, child: noCaps),
+              SizedBox(height: 40.0, child: combined),
+            ],
+          ),
         ),
       ),
-      const SizedBox(height: 12),
-      const Text('Visual indicator for selected item', style: TextStyle(fontSize: 11, color: CupertinoColors.systemGrey)),
-    ],
+    ),
   );
 }

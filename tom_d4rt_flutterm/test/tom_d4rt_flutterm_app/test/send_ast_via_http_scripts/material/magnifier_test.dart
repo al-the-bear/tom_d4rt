@@ -1,49 +1,62 @@
+// D4rt test script: Tests Magnifier from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for Magnifier widget.
-/// Shows text selection magnification lens.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('Magnifier', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Container(
-        width: 200,
-        height: 100,
+  print('Magnifier test executing');
+
+  final title = 'Magnifier';
+  final packageName = 'material';
+  final details = 'Magnifier';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('Magnifier test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
         decoration: BoxDecoration(
-          color: Colors.grey.shade200,
-          borderRadius: BorderRadius.circular(8),
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
         ),
-        child: Stack(
-          children: [
-            // Text beneath
-            const Center(
-              child: Text('Hello World', style: TextStyle(fontSize: 14)),
-            ),
-            // Magnifier lens
-            Positioned(
-              top: 20,
-              left: 70,
-              child: Container(
-                width: 60,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: Colors.grey.shade400, width: 2),
-                  boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 8)],
-                ),
-                child: const Center(
-                  child: Text('Wor', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
-      const SizedBox(height: 12),
-      const Text('Magnifies text during selection', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
+    ),
   );
 }

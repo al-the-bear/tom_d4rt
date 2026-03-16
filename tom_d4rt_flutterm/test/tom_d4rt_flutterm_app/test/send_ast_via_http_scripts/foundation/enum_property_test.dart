@@ -1,65 +1,28 @@
+// D4rt test script: Tests EnumProperty from foundation
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for EnumProperty - diagnostic property for enums.
-/// Shows enum value formatting in debug output.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('EnumProperty Demo')),
-    body: Padding(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('Enum Value Diagnostics',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 16),
-          _EnumDisplay(enumType: 'Axis', selected: 'horizontal', values: ['horizontal', 'vertical'], color: Colors.blue),
-          const SizedBox(height: 12),
-          _EnumDisplay(enumType: 'MainAxisAlignment', selected: 'center', values: ['start', 'end', 'center', 'spaceBetween', 'spaceAround', 'spaceEvenly'], color: Colors.green),
-          const SizedBox(height: 12),
-          _EnumDisplay(enumType: 'CrossAxisAlignment', selected: 'stretch', values: ['start', 'end', 'center', 'stretch', 'baseline'], color: Colors.orange),
-          const SizedBox(height: 16),
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
-            child: const Text('EnumProperty displays enum.name without the enum type prefix for cleaner output.', style: TextStyle(fontSize: 12)),
-          ),
-        ],
-      ),
-    ),
-  );
-}
+  print('EnumProperty test executing');
 
-class _EnumDisplay extends StatelessWidget {
-  final String enumType;
-  final String selected;
-  final List<String> values;
-  final Color color;
-  const _EnumDisplay({required this.enumType, required this.selected, required this.values, required this.color});
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(color: color.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(enumType, style: TextStyle(fontWeight: FontWeight.bold, color: color)),
-          const SizedBox(height: 8),
-          Wrap(
-            spacing: 6, runSpacing: 6,
-            children: values.map((v) => Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(
-                color: v == selected ? color : Colors.grey.shade200,
-                borderRadius: BorderRadius.circular(4),
-              ),
-              child: Text(v, style: TextStyle(fontSize: 11, color: v == selected ? Colors.white : Colors.black87)),
-            )).toList(),
-          ),
-        ],
-      ),
-    );
-  }
+  final ep1 = EnumProperty<TextAlign>('textAlign', TextAlign.center);
+  print('EnumProperty: ${ep1.name}=${ep1.value}');
+  print('toString: ${ep1.toString()}');
+
+  final ep2 = EnumProperty<Axis>('axis', Axis.vertical);
+  print('ep2: ${ep2.toString()}');
+
+  final ep3 = EnumProperty<TextDirection>('dir', null, defaultValue: null);
+  print('ep3 null: ${ep3.toString()}');
+
+  final ep4 = EnumProperty<MainAxisAlignment>('main', MainAxisAlignment.center, level: DiagnosticLevel.fine);
+  print('ep4 level: ${ep4.level}');
+
+  print('EnumProperty test completed');
+  return Column(mainAxisSize: MainAxisSize.min, children: [
+    Text('EnumProperty Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+    Text('textAlign: ${ep1.toString()}'),
+    Text('axis: ${ep2.toString()}'),
+    Text('null: ${ep3.toString()}'),
+  ]);
 }

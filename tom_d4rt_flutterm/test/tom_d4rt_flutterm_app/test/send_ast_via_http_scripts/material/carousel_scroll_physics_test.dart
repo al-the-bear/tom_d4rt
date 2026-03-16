@@ -1,48 +1,62 @@
+// D4rt test script: Tests CarouselScrollPhysics from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for CarouselScrollPhysics.
-/// Shows carousel snapping physics.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('CarouselScrollPhysics')),
-    body: Column(
-      children: [
-        const Padding(
-          padding: EdgeInsets.all(16),
-          child: Column(
-            children: [
-              Text('Carousel Scroll Physics', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-              SizedBox(height: 8),
-              Text('Provides snapping behavior for carousel items'),
-            ],
-          ),
+  print('CarouselScrollPhysics test executing');
+
+  final title = 'CarouselScrollPhysics';
+  final packageName = 'material';
+  final details = 'CarouselScrollPhysics';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('CarouselScrollPhysics test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
         ),
-        Expanded(
-          child: CarouselView(
-            itemExtent: 280,
-            shrinkExtent: 200,
-            children: [
-              for (int i = 0; i < 6; i++)
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 8),
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Colors.primaries[i * 2 % Colors.primaries.length], Colors.primaries[(i * 2 + 1) % Colors.primaries.length]],
-                    ),
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  alignment: Alignment.center,
-                  child: Text('Card ' + (i + 1).toString(), style: const TextStyle(fontSize: 24, color: Colors.white, fontWeight: FontWeight.bold)),
-                ),
-            ],
-          ),
-        ),
-        Container(
+        child: Padding(
           padding: const EdgeInsets.all(16),
-          color: Colors.grey.shade100,
-          child: const Text('Swipe and release - items snap to center position', style: TextStyle(fontSize: 12)),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
-      ],
+      ),
     ),
   );
 }

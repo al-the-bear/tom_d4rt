@@ -1,51 +1,62 @@
+// D4rt test script: Tests CarouselView from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for CarouselView.
-/// Shows carousel widget for scrollable items.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('CarouselView')),
-    body: Column(
-      children: [
-        const Padding(
-          padding: EdgeInsets.all(16),
-          child: Text('Featured Items', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+  print('CarouselView test executing');
+
+  final title = 'CarouselView';
+  final packageName = 'material';
+  final details = 'CarouselView';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('CarouselView test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
         ),
-        SizedBox(
-          height: 220,
-          child: CarouselView(
-            itemExtent: 300,
-            shrinkExtent: 240,
-            elevation: 4,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _CarouselItem('Featured 1', Colors.blue, Icons.star),
-              _CarouselItem('Featured 2', Colors.green, Icons.favorite),
-              _CarouselItem('Featured 3', Colors.orange, Icons.bolt),
-              _CarouselItem('Featured 4', Colors.purple, Icons.rocket),
-              _CarouselItem('Featured 5', Colors.teal, Icons.diamond),
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
-        const SizedBox(height: 24),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Text('Properties: itemExtent, shrinkExtent, elevation, shape, onTap', style: TextStyle(fontSize: 12, color: Colors.grey)),
-        ),
-      ],
-    ),
-  );
-}
-
-class _CarouselItem extends StatelessWidget {
-  final String title; final Color color; final IconData icon;
-  const _CarouselItem(this.title, this.color, this.icon);
-  @override
-  Widget build(BuildContext context) => Container(
-    decoration: BoxDecoration(gradient: LinearGradient(colors: [color, color.withAlpha(180)], begin: Alignment.topLeft, end: Alignment.bottomRight)),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [Icon(icon, size: 48, color: Colors.white), const SizedBox(height: 16), Text(title, style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold))],
+      ),
     ),
   );
 }

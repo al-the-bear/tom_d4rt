@@ -1,67 +1,40 @@
-import 'dart:ui';
+// D4rt test script: Tests PictureRasterizationException from dart:ui
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for PictureRasterizationException.
-/// Demonstrates rasterization error scenarios.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('PictureRasterizationException'), titleTextStyle: const TextStyle(fontSize: 14)),
-    body: Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('Picture Rasterization Exception', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 16),
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(color: Colors.red.shade50, borderRadius: BorderRadius.circular(12)),
-            child: Row(
-              children: [
-                Icon(Icons.error, color: Colors.red.shade700, size: 40),
-                const SizedBox(width: 16),
-                const Expanded(child: Text('Thrown when Picture.toImage fails due to GPU resource limits.', style: TextStyle(fontWeight: FontWeight.w500))),
-              ],
-            ),
-          ),
-          const SizedBox(height: 24),
-          const Text('Common Causes:', style: TextStyle(fontWeight: FontWeight.bold)),
-          const SizedBox(height: 12),
-          _buildCause('Oversized images', 'Picture too large for GPU memory'),
-          _buildCause('Invalid dimensions', 'Zero or negative size'),
-          _buildCause('Resource exhaustion', 'Too many textures allocated'),
-          const SizedBox(height: 24),
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
-            child: const Text(
-              'Catch this exception when using Picture.toImage() or toImageSync().',
-              style: TextStyle(fontFamily: 'monospace', fontSize: 12),
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
-}
+  print('PictureRasterizationException test executing');
 
-Widget _buildCause(String title, String desc) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 4),
-    child: Row(
-      children: [
-        Icon(Icons.warning_amber, color: Colors.orange.shade700, size: 20),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(title, style: const TextStyle(fontWeight: FontWeight.w500)),
-              Text(desc, style: TextStyle(color: Colors.grey.shade600, fontSize: 12)),
-            ],
-          ),
-        ),
-      ],
-    ),
+  // PictureRasterizationException has no public constructor
+  // It's thrown when Picture.toImage/toImageSync fails during rasterization
+  print('PictureRasterizationException type: ${ui.PictureRasterizationException}');
+  print('Properties: message (String), stack (StackTrace?)');
+  print('Methods: toString()');
+
+  // Demonstrate related APIs that could throw this exception
+  final recorder = ui.PictureRecorder();
+  final canvas = Canvas(recorder, Rect.fromLTWH(0, 0, 100, 100));
+  canvas.drawRect(Rect.fromLTWH(10, 10, 80, 80), Paint()..color = Colors.blue);
+  final picture = recorder.endRecording();
+  print('Picture recorded: ${picture.runtimeType}');
+
+  // picture.toImage is async and normally succeeds
+  print('picture.toImage would return Future<Image>');
+  print('PictureRasterizationException thrown on GPU failure');
+
+  picture.dispose();
+  print('Picture disposed');
+
+  print('PictureRasterizationException test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('PictureRasterizationException Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      SizedBox(height: 8),
+      Text('No public constructor'),
+      Text('Thrown when rasterization fails'),
+      Text('Properties: message + stack'),
+      Text('Related to Picture.toImage/toImageSync'),
+    ],
   );
 }

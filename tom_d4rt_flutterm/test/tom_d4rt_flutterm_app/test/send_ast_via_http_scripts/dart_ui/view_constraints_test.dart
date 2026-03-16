@@ -1,67 +1,33 @@
-import 'dart:ui';
+// D4rt test script: Tests ViewConstraints from dart:ui
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for ViewConstraints.
-/// Demonstrates view sizing constraints.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('ViewConstraints Demo')),
-    body: Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('View Constraints', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 8),
-          const Text('Size boundaries for FlutterView', style: TextStyle(color: Colors.grey)),
-          const SizedBox(height: 24),
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(color: Colors.green.shade50, borderRadius: BorderRadius.circular(12)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text('Properties:', style: TextStyle(fontWeight: FontWeight.bold)),
-                const SizedBox(height: 12),
-                _buildProp('minWidth', 'Minimum allowed width'),
-                _buildProp('maxWidth', 'Maximum allowed width'),
-                _buildProp('minHeight', 'Minimum allowed height'),
-                _buildProp('maxHeight', 'Maximum allowed height'),
-              ],
-            ),
-          ),
-          const SizedBox(height: 24),
-          Container(
-            height: 150,
-            decoration: BoxDecoration(border: Border.all(color: Colors.green, width: 2), borderRadius: BorderRadius.circular(12)),
-            child: Stack(
-              children: [
-                const Positioned(top: 8, left: 8, child: Text('maxWidth, maxHeight', style: TextStyle(fontSize: 10, color: Colors.green))),
-                Center(
-                  child: Container(
-                    width: 100, height: 80,
-                    decoration: BoxDecoration(color: Colors.green.withValues(alpha: 0.3), border: Border.all(color: Colors.green)),
-                    child: const Center(child: Text('minWidth\nminHeight', style: TextStyle(fontSize: 10), textAlign: TextAlign.center)),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
-}
+  print('ViewConstraints test executing');
 
-Widget _buildProp(String name, String desc) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 4),
-    child: Row(children: [
-      const Icon(Icons.straighten, color: Colors.green, size: 16),
-      const SizedBox(width: 8),
-      Text(name, style: const TextStyle(fontFamily: 'monospace', fontSize: 12)),
-      const Spacer(),
-      Text(desc, style: TextStyle(color: Colors.grey.shade600, fontSize: 11)),
-    ]),
-  );
+  final vc1 = ui.ViewConstraints(minWidth: 0, maxWidth: 800, minHeight: 0, maxHeight: 600);
+  print('ViewConstraints: minW=${vc1.minWidth}, maxW=${vc1.maxWidth}, minH=${vc1.minHeight}, maxH=${vc1.maxHeight}');
+  print('isTight: ${vc1.isTight}');
+
+  final vc2 = ui.ViewConstraints.tight(Size(400, 300));
+  print('Tight: minW=${vc2.minWidth}, maxW=${vc2.maxWidth}');
+  print('isTight: ${vc2.isTight}');
+  print('isSatisfiedBy: ${vc2.isSatisfiedBy(Size(400, 300))}');
+  print('not satisfied: ${vc2.isSatisfiedBy(Size(500, 300))}');
+
+  // From PlatformDispatcher view
+  final pd = ui.PlatformDispatcher.instance;
+  final view = pd.implicitView;
+  if (view != null) {
+    final pc = view.physicalConstraints;
+    print('View constraints: ${pc.minWidth}-${pc.maxWidth} x ${pc.minHeight}-${pc.maxHeight}');
+  }
+
+  print('ViewConstraints test completed');
+  return Column(mainAxisSize: MainAxisSize.min, children: [
+    Text('ViewConstraints Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+    Text('Loose: 0-800 x 0-600, tight=${vc1.isTight}'),
+    Text('Tight: 400x300, tight=${vc2.isTight}'),
+    Text('isSatisfiedBy: ${vc2.isSatisfiedBy(Size(400, 300))}'),
+  ]);
 }

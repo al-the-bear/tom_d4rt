@@ -1,22 +1,127 @@
+// D4rt test script: Tests RenderAspectRatio, RenderFittedBox, RenderLimitedBox, RenderIntrinsicWidth, RenderIntrinsicHeight
+import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
-/// Deep visual demo for sizing render objects
 dynamic build(BuildContext context) {
-  return Scaffold(appBar: AppBar(title: Text('Sizing RenderObjects')), body: Padding(padding: EdgeInsets.all(16), child: Column(children: [
-    Text('Size Constraints', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-    SizedBox(height: 16),
-    Expanded(child: ListView(children: [
-      _SizingDemo('ConstrainedBox', ConstrainedBox(constraints: BoxConstraints(minWidth: 100, maxWidth: 200), child: Container(color: Colors.blue, height: 40, child: Center(child: Text('100-200w', style: TextStyle(color: Colors.white)))))),
-      _SizingDemo('SizedBox', SizedBox(width: 100, height: 50, child: Container(color: Colors.green, child: Center(child: Text('100x50', style: TextStyle(color: Colors.white)))))),
-      _SizingDemo('LimitedBox', LimitedBox(maxWidth: 150, maxHeight: 60, child: Container(color: Colors.orange, child: Center(child: Text('max 150x60', style: TextStyle(color: Colors.white)))))),
-      _SizingDemo('FractionallySizedBox', FractionallySizedBox(widthFactor: 0.6, child: Container(color: Colors.purple, height: 40, child: Center(child: Text('60% width', style: TextStyle(color: Colors.white)))))),
-    ])),
-  ])));
-}
+  print('RenderObjects sizing test executing');
 
-class _SizingDemo extends StatelessWidget {
-  final String label; final Widget child;
-  const _SizingDemo(this.label, this.child);
-  @override Widget build(BuildContext context) => Container(margin: EdgeInsets.only(bottom: 12), padding: EdgeInsets.all(12), decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
-    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(label, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11)), SizedBox(height: 8), child]));
+  // ========== RENDER ASPECT RATIO ==========
+  print('--- RenderAspectRatio Tests ---');
+
+  final aspectRatio16x9 = RenderAspectRatio(aspectRatio: 16.0 / 9.0);
+  print('RenderAspectRatio(16:9) created: ${aspectRatio16x9.runtimeType}');
+  print('  aspectRatio: ${aspectRatio16x9.aspectRatio}');
+
+  final aspectRatio1x1 = RenderAspectRatio(aspectRatio: 1.0);
+  print('RenderAspectRatio(1:1) aspectRatio: ${aspectRatio1x1.aspectRatio}');
+
+  final aspectRatio4x3 = RenderAspectRatio(aspectRatio: 4.0 / 3.0);
+  print('RenderAspectRatio(4:3) aspectRatio: ${aspectRatio4x3.aspectRatio}');
+
+  // Modify aspectRatio
+  aspectRatio16x9.aspectRatio = 2.0;
+  print('After setting aspectRatio to 2.0: ${aspectRatio16x9.aspectRatio}');
+
+  // ========== RENDER FITTED BOX ==========
+  print('--- RenderFittedBox Tests ---');
+
+  final fittedBoxDefault = RenderFittedBox();
+  print('RenderFittedBox() created: ${fittedBoxDefault.runtimeType}');
+  print('  fit: ${fittedBoxDefault.fit}');
+  print('  alignment: ${fittedBoxDefault.alignment}');
+  print('  clipBehavior: ${fittedBoxDefault.clipBehavior}');
+
+  final fittedBoxContain = RenderFittedBox(
+    fit: BoxFit.contain,
+    alignment: Alignment.center,
+  );
+  print('RenderFittedBox(contain, center):');
+  print('  fit: ${fittedBoxContain.fit}');
+  print('  alignment: ${fittedBoxContain.alignment}');
+
+  final fittedBoxCover = RenderFittedBox(
+    fit: BoxFit.cover,
+    alignment: Alignment.topLeft,
+    clipBehavior: Clip.hardEdge,
+  );
+  print('RenderFittedBox(cover, topLeft, hardEdge):');
+  print('  fit: ${fittedBoxCover.fit}');
+  print('  alignment: ${fittedBoxCover.alignment}');
+  print('  clipBehavior: ${fittedBoxCover.clipBehavior}');
+
+  final fittedBoxFill = RenderFittedBox(
+    fit: BoxFit.fill,
+    textDirection: TextDirection.ltr,
+  );
+  print('RenderFittedBox(fill) fit: ${fittedBoxFill.fit}');
+
+  // Modify properties
+  fittedBoxDefault.fit = BoxFit.scaleDown;
+  print('After setting fit to scaleDown: ${fittedBoxDefault.fit}');
+
+  // ========== BOX FIT ENUM ==========
+  print('--- BoxFit enum values ---');
+  print('BoxFit.fill: ${BoxFit.fill}');
+  print('BoxFit.contain: ${BoxFit.contain}');
+  print('BoxFit.cover: ${BoxFit.cover}');
+  print('BoxFit.fitWidth: ${BoxFit.fitWidth}');
+  print('BoxFit.fitHeight: ${BoxFit.fitHeight}');
+  print('BoxFit.none: ${BoxFit.none}');
+  print('BoxFit.scaleDown: ${BoxFit.scaleDown}');
+
+  // ========== RENDER LIMITED BOX ==========
+  print('--- RenderLimitedBox Tests ---');
+
+  final limitedBox = RenderLimitedBox();
+  print('RenderLimitedBox() created: ${limitedBox.runtimeType}');
+  print('  maxWidth: ${limitedBox.maxWidth}');
+  print('  maxHeight: ${limitedBox.maxHeight}');
+
+  final limitedBoxCustom = RenderLimitedBox(maxWidth: 200.0, maxHeight: 150.0);
+  print('RenderLimitedBox(200x150):');
+  print('  maxWidth: ${limitedBoxCustom.maxWidth}');
+  print('  maxHeight: ${limitedBoxCustom.maxHeight}');
+
+  // Modify properties
+  limitedBox.maxWidth = 300.0;
+  print('After setting maxWidth to 300: ${limitedBox.maxWidth}');
+  limitedBox.maxHeight = 250.0;
+  print('After setting maxHeight to 250: ${limitedBox.maxHeight}');
+
+  // ========== RENDER INTRINSIC WIDTH ==========
+  print('--- RenderIntrinsicWidth Tests ---');
+
+  final intrinsicWidth = RenderIntrinsicWidth();
+  print('RenderIntrinsicWidth() created: ${intrinsicWidth.runtimeType}');
+  print('  stepWidth: ${intrinsicWidth.stepWidth}');
+  print('  stepHeight: ${intrinsicWidth.stepHeight}');
+
+  final intrinsicWidthCustom = RenderIntrinsicWidth(
+    stepWidth: 50.0,
+    stepHeight: 25.0,
+  );
+  print('RenderIntrinsicWidth(50, 25):');
+  print('  stepWidth: ${intrinsicWidthCustom.stepWidth}');
+  print('  stepHeight: ${intrinsicWidthCustom.stepHeight}');
+
+  // Modify properties
+  intrinsicWidth.stepWidth = 100.0;
+  print('After setting stepWidth to 100: ${intrinsicWidth.stepWidth}');
+
+  // ========== RENDER INTRINSIC HEIGHT ==========
+  print('--- RenderIntrinsicHeight Tests ---');
+
+  final intrinsicHeight = RenderIntrinsicHeight();
+  print('RenderIntrinsicHeight() created: ${intrinsicHeight.runtimeType}');
+
+  // RenderIntrinsicHeight has no special configuration properties
+  // It sizes its child to the child's intrinsic height
+  print('Note: RenderIntrinsicHeight sizes child to intrinsic height');
+
+  // Note: Cannot call layout() or paint() on orphan render objects
+  print('Note: render objects not laid out - no parent render tree attached');
+
+  print('RenderObjects sizing test completed');
+  return Container(child: Text('RenderObjects sizing test passed'));
 }

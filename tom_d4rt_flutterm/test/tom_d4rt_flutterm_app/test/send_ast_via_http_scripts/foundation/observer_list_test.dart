@@ -1,75 +1,117 @@
+// D4rt test script: Tests ObserverList, HashedObserverList from foundation
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for ObserverList - list optimized for listeners.
-/// Shows efficient add/remove during iteration.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('ObserverList Demo')),
-    body: Padding(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('Observer List Management',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 16),
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(color: Colors.teal.shade50, borderRadius: BorderRadius.circular(12)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text('Registered Observers:', style: TextStyle(fontWeight: FontWeight.bold)),
-                const SizedBox(height: 12),
-                _ObserverRow(index: 0, name: 'WidgetA.onUpdate'),
-                _ObserverRow(index: 1, name: 'WidgetB.onUpdate'),
-                _ObserverRow(index: 2, name: 'Logger.onUpdate'),
-                const SizedBox(height: 12),
-                Row(children: [
-                  ElevatedButton.icon(onPressed: () {}, icon: const Icon(Icons.add, size: 16), label: const Text('Add'), style: ElevatedButton.styleFrom(visualDensity: VisualDensity.compact)),
-                  const SizedBox(width: 8),
-                  ElevatedButton.icon(onPressed: () {}, icon: const Icon(Icons.remove, size: 16), label: const Text('Remove'), style: ElevatedButton.styleFrom(visualDensity: VisualDensity.compact, backgroundColor: Colors.red)),
-                ]),
-              ],
+  print('ObserverList test executing');
+
+  // ========== OBSERVERLIST ==========
+  print('--- ObserverList Tests ---');
+
+  // ObserverList allows duplicates (unlike Set) but iterates safely
+  final observers = ObserverList<VoidCallback>();
+  print('ObserverList created, isEmpty: ${observers.isEmpty}');
+
+  int callCount = 0;
+  void callback1() {
+    callCount += 1;
+  }
+
+  void callback2() {
+    callCount += 10;
+  }
+
+  void callback3() {
+    callCount += 100;
+  }
+
+  // Add observers
+  observers.add(callback1);
+  observers.add(callback2);
+  observers.add(callback3);
+  print('Added 3 observers');
+  print('ObserverList isEmpty: ${observers.isEmpty}');
+
+  // Iterate and call all observers
+  for (final observer in observers) {
+    observer();
+  }
+  print('After calling all observers, callCount: $callCount');
+
+  // Add duplicate
+  observers.add(callback1);
+  print('Added duplicate callback1');
+
+  // Remove one instance of callback1
+  final removed = observers.remove(callback1);
+  print('Remove callback1: $removed');
+
+  // Contains check
+  print('Contains callback1: ${observers.contains(callback1)}');
+  print('Contains callback2: ${observers.contains(callback2)}');
+
+  // ========== HASHEDOBSERVERLIST ==========
+  print('--- HashedObserverList Tests ---');
+
+  // HashedObserverList prevents duplicates (uses a Set internally)
+  final hashedObservers = HashedObserverList<VoidCallback>();
+  print('HashedObserverList created, isEmpty: ${hashedObservers.isEmpty}');
+
+  int hashedCount = 0;
+  void hCallback1() {
+    hashedCount += 1;
+  }
+
+  void hCallback2() {
+    hashedCount += 10;
+  }
+
+  hashedObservers.add(hCallback1);
+  hashedObservers.add(hCallback2);
+  print('Added 2 hashed observers');
+  print('HashedObserverList isEmpty: ${hashedObservers.isEmpty}');
+
+  // Try adding duplicate
+  hashedObservers.add(hCallback1);
+  print('Added duplicate hCallback1 (should be ignored)');
+
+  // Iterate and call
+  for (final observer in hashedObservers) {
+    observer();
+  }
+  print('After calling hashed observers, hashedCount: $hashedCount');
+
+  // Contains check
+  print('Hashed contains hCallback1: ${hashedObservers.contains(hCallback1)}');
+
+  // Remove
+  final hashedRemoved = hashedObservers.remove(hCallback1);
+  print('Hashed remove hCallback1: $hashedRemoved');
+  print(
+    'Hashed contains hCallback1 after remove: ${hashedObservers.contains(hCallback1)}',
+  );
+
+  print('All ObserverList tests passed');
+
+  // ========== RETURN WIDGET ==========
+  return MaterialApp(
+    home: Scaffold(
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'ObserverList Test',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
             ),
-          ),
-          const SizedBox(height: 16),
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(color: Colors.amber.shade50, borderRadius: BorderRadius.circular(8)),
-            child: const Row(children: [
-              Icon(Icons.flash_on, color: Colors.amber),
-              SizedBox(width: 8),
-              Expanded(child: Text('ObserverList allows safe modification during iteration')),
-            ]),
-          ),
-        ],
+            SizedBox(height: 8.0),
+            Text('ObserverList callCount: $callCount'),
+            SizedBox(height: 4.0),
+            Text('HashedObserverList hashedCount: $hashedCount'),
+          ],
+        ),
       ),
     ),
   );
-}
-
-class _ObserverRow extends StatelessWidget {
-  final int index;
-  final String name;
-  const _ObserverRow({required this.index, required this.name});
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Row(children: [
-        Container(
-          width: 24, height: 24,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(color: Colors.teal, borderRadius: BorderRadius.circular(4)),
-          child: Text('\$index', style: const TextStyle(color: Colors.white, fontSize: 11)),
-        ),
-        const SizedBox(width: 12),
-        const Icon(Icons.hearing, size: 16, color: Colors.teal),
-        const SizedBox(width: 8),
-        Text(name, style: const TextStyle(fontFamily: 'monospace', fontSize: 12)),
-      ]),
-    );
-  }
 }

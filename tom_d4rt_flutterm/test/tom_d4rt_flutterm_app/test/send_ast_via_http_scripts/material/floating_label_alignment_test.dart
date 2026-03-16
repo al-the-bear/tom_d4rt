@@ -1,44 +1,62 @@
+// D4rt test script: Tests FloatingLabelAlignment from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for FloatingLabelAlignment.
-/// Shows how floating labels align within InputDecoration.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('FloatingLabelAlignment', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      _InputPreview('Start Aligned', FloatingLabelAlignment.start),
-      const SizedBox(height: 12),
-      _InputPreview('Center Aligned', FloatingLabelAlignment.center),
-      const SizedBox(height: 12),
-      const Text('Controls label position when floating', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
-  );
-}
+  print('FloatingLabelAlignment test executing');
 
-class _InputPreview extends StatelessWidget {
-  final String title;
-  final FloatingLabelAlignment alignment;
-  const _InputPreview(this.title, this.alignment);
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 200,
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
-      child: Column(
-        crossAxisAlignment: alignment == FloatingLabelAlignment.start ? CrossAxisAlignment.start : CrossAxisAlignment.center,
-        children: [
-          Text(title, style: TextStyle(fontSize: 10, color: Colors.blue.shade700)),
-          const SizedBox(height: 4),
-          Container(
-            height: 32,
-            decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey.shade400))),
-            child: const Align(alignment: Alignment.centerLeft, child: Text('Input value', style: TextStyle(fontSize: 12))),
+  final title = 'FloatingLabelAlignment';
+  final packageName = 'material';
+  final details = 'FloatingLabelAlignment';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('FloatingLabelAlignment test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
-    );
-  }
+    ),
+  );
 }

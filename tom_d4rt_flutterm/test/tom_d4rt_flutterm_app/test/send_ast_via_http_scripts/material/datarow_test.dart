@@ -1,68 +1,121 @@
+// D4rt test script: Tests DataRow, DataColumn, DataCell from Flutter material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for DataRow - a row in a DataTable.
-/// Shows row states, selection, and cell organization.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('DataRow Demo', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-      const SizedBox(height: 16),
-      Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey.shade300),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Column(
-          children: [
-            // Header
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-              decoration: BoxDecoration(
-                color: Colors.grey.shade100,
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
-              ),
-              child: const Row(
-                children: [
-                  SizedBox(width: 40, child: Text('', style: TextStyle(fontWeight: FontWeight.bold))),
-                  Expanded(child: Text('Name', style: TextStyle(fontWeight: FontWeight.bold))),
-                  SizedBox(width: 60, child: Text('Age', style: TextStyle(fontWeight: FontWeight.bold))),
-                ],
-              ),
-            ),
-            // Normal row
-            _DataRowVisual(false, 'Alice', '28', Colors.white),
-            // Selected row
-            _DataRowVisual(true, 'Bob', '34', Colors.blue.shade50),
-            // Normal row
-            _DataRowVisual(false, 'Carol', '22', Colors.white),
-          ],
-        ),
-      ),
-      const SizedBox(height: 12),
-      const Text('selected: true highlights the row', style: TextStyle(fontSize: 11, color: Colors.grey)),
+  print('DataRow/DataColumn/DataCell test executing');
+
+  // Test DataColumn variations
+  final col1 = DataColumn(label: Text('Name'));
+  print('DataColumn(label: Name) created');
+
+  final col2 = DataColumn(label: Text('Age'), numeric: true);
+  print('DataColumn(label: Age, numeric: true) created');
+
+  final col3 = DataColumn(
+    label: Text('Sortable'),
+    onSort: (colIndex, ascending) {
+      print('sort $colIndex $ascending');
+    },
+  );
+  print('DataColumn(label: Sortable, onSort) created');
+
+  final col4 = DataColumn(label: Text('Action'));
+  print('DataColumn(label: Action) created');
+
+  // Test DataRow variations
+  final row1 = DataRow(
+    cells: [
+      DataCell(Text('John')),
+      DataCell(Text('25')),
+      DataCell(Text('A')),
+      DataCell(Text('View')),
     ],
   );
-}
+  print('DataRow(cells: 4 basic cells) created');
 
-class _DataRowVisual extends StatelessWidget {
-  final bool selected;
-  final String name;
-  final String age;
-  final Color bg;
-  const _DataRowVisual(this.selected, this.name, this.age, this.bg);
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-      color: bg,
-      child: Row(
+  final row2 = DataRow(
+    selected: true,
+    cells: [
+      DataCell(Text('Jane')),
+      DataCell(Text('30')),
+      DataCell(Text('B')),
+      DataCell(Text('Edit')),
+    ],
+  );
+  print('DataRow(selected: true) created');
+
+  final row3 = DataRow(
+    onSelectChanged: (selected) {
+      print('selected: $selected');
+    },
+    cells: [
+      DataCell(Text('Bob')),
+      DataCell(Text('22')),
+      DataCell(Text('C')),
+      DataCell(Text('Delete')),
+    ],
+  );
+  print('DataRow(onSelectChanged) created');
+
+  // Test DataCell variations
+  final cellSimple = DataCell(Text('Simple'));
+  print('DataCell(Text simple) created');
+
+  final cellEditable = DataCell(Text('Editable'), showEditIcon: true);
+  print('DataCell(showEditIcon: true) created');
+
+  final cellPlaceholder = DataCell(Text('Placeholder'), placeholder: true);
+  print('DataCell(placeholder: true) created');
+
+  final cellOnTap = DataCell(
+    Text('Tappable'),
+    onTap: () {
+      print('cell tapped');
+    },
+  );
+  print('DataCell(onTap) created');
+
+  // Row using the special cells
+  final row4 = DataRow(
+    cells: [cellSimple, cellEditable, cellPlaceholder, cellOnTap],
+  );
+  print('DataRow(mixed cell types) created');
+
+  // Row with color
+  final row5 = DataRow(
+    color: WidgetStateProperty.all(Colors.blue.shade50),
+    cells: [
+      DataCell(Text('Colored')),
+      DataCell(Text('42')),
+      DataCell(Text('D')),
+      DataCell(Text('Colored row')),
+    ],
+  );
+  print('DataRow(color: blue.shade50) created');
+
+  // Build the DataTable with all variations
+  final dataTable = DataTable(
+    columns: [col1, col2, col3, col4],
+    rows: [row1, row2, row3, row4, row5],
+  );
+  print('DataTable(5 columns, 5 rows) assembled');
+
+  print('DataRow/DataColumn/DataCell test completed');
+  return SingleChildScrollView(
+    scrollDirection: Axis.horizontal,
+    child: SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(width: 40, child: Checkbox(value: selected, onChanged: (_) {})),
-          Expanded(child: Text(name)),
-          SizedBox(width: 60, child: Text(age)),
+          Padding(
+            padding: EdgeInsets.all(16),
+            child: Text(
+              'DataTable with various DataRow/DataColumn/DataCell variations',
+            ),
+          ),
+          dataTable,
         ],
       ),
-    );
-  }
+    ),
+  );
 }

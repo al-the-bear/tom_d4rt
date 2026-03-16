@@ -1,36 +1,29 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests ChangeReportingBehavior from widgets
+import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {
+  print('ChangeReportingBehavior test executing');
+
+  // Enumerate all ChangeReportingBehavior values
+  print('ChangeReportingBehavior values:');
+  for (final value in ChangeReportingBehavior.values) {
+    print('  ${value.name}: $value');
+  }
+  print('ChangeReportingBehavior has ${ ChangeReportingBehavior.values.length} values');
+
+  final first = ChangeReportingBehavior.values.first;
+  final last = ChangeReportingBehavior.values.last;
+  print('First: $first, Last: $last');
+  print('First index: ${first.index}, Last index: ${last.index}');
+
+  print('ChangeReportingBehavior test completed');
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      const Text('ChangeReportingBehavior demo', style: TextStyle(fontWeight: FontWeight.bold)),
-      const SizedBox(height: 8),
-      SizedBox(
-        width: 300,
-        height: 170,
-        child: TweenAnimationBuilder<double>(
-          tween: Tween(begin: 0.25, end: 1.0),
-          duration: const Duration(milliseconds: 1200),
-          builder: (context, value, child) {
-            return Opacity(
-              opacity: value,
-              child: Transform.scale(
-                scale: 0.7 + (value * 0.3),
-                child: child,
-              ),
-            );
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(colors: [Colors.teal, Colors.blue]),
-              borderRadius: BorderRadius.circular(14),
-            ),
-            alignment: Alignment.center,
-            child: const Text('Animated visual sample', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-          ),
-        ),
-      ),
+      Text('ChangeReportingBehavior Tests'),
+      Text('Values: ${ ChangeReportingBehavior.values.length}'),
+      Text('First: $first'),
+      Text('Last: $last'),
     ],
   );
 }

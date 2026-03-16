@@ -1,6 +1,71 @@
+// D4rt test script: Tests ExactAssetImage, FractionalOffset
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for ImageProviders
 dynamic build(BuildContext context) {
-  return Scaffold(appBar: AppBar(title: Text('ImageProviders Demo')), body: ListView(padding: EdgeInsets.all(16), children: [ListTile(leading: Icon(Icons.folder, color: Colors.blue), title: Text('AssetImage'), subtitle: Text('Load from assets')), ListTile(leading: Icon(Icons.cloud, color: Colors.green), title: Text('NetworkImage'), subtitle: Text('Load from URL')), ListTile(leading: Icon(Icons.memory, color: Colors.orange), title: Text('MemoryImage'), subtitle: Text('Load from bytes')), ListTile(leading: Icon(Icons.insert_drive_file, color: Colors.purple), title: Text('FileImage'), subtitle: Text('Load from file')), ListTile(leading: Icon(Icons.photo_size_select_actual, color: Colors.red), title: Text('ResizeImage'), subtitle: Text('Resize on decode'))]));
+  print('ImageProvidersTest test executing');
+
+  // ExactAssetImage
+  final exactAsset = ExactAssetImage('assets/placeholder.png', scale: 2.0);
+  print('ExactAssetImage assetName: ${exactAsset.assetName}');
+  print('ExactAssetImage scale: ${exactAsset.scale}');
+
+  // FractionalOffset
+  final offset1 = FractionalOffset(0.5, 0.5);
+  print('FractionalOffset(0.5, 0.5) dx: ${offset1.dx}');
+  print('FractionalOffset(0.5, 0.5) dy: ${offset1.dy}');
+
+  final offset2 = FractionalOffset(0.0, 1.0);
+  print('FractionalOffset(0.0, 1.0) dx: ${offset2.dx}');
+  print('FractionalOffset(0.0, 1.0) dy: ${offset2.dy}');
+
+  // FractionalOffset constants
+  final topLeft = FractionalOffset.topLeft;
+  final center = FractionalOffset.center;
+  final bottomRight = FractionalOffset.bottomRight;
+  print('FractionalOffset.topLeft: $topLeft');
+  print('FractionalOffset.center: $center');
+  print('FractionalOffset.bottomRight: $bottomRight');
+
+  // Use FractionalOffset in alignment
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Container(
+        width: 200.0,
+        height: 60.0,
+        color: Colors.blue.shade50,
+        alignment: offset1,
+        child: Text('Centered (0.5, 0.5)'),
+      ),
+      SizedBox(height: 8.0),
+      Container(
+        width: 200.0,
+        height: 60.0,
+        color: Colors.green.shade50,
+        alignment: offset2,
+        child: Text('Bottom-left (0.0, 1.0)'),
+      ),
+      SizedBox(height: 8.0),
+      Container(
+        width: 200.0,
+        height: 60.0,
+        color: Colors.orange.shade50,
+        alignment: topLeft,
+        child: Text('FractionalOffset.topLeft'),
+      ),
+      SizedBox(height: 8.0),
+      Container(
+        width: 200.0,
+        height: 60.0,
+        color: Colors.purple.shade50,
+        alignment: bottomRight,
+        child: Text('FractionalOffset.bottomRight'),
+      ),
+      SizedBox(height: 16.0),
+      Text(
+        'ExactAssetImage: ${exactAsset.assetName} @${exactAsset.scale}x',
+        style: TextStyle(fontSize: 12.0, color: Colors.grey),
+      ),
+    ],
+  );
 }

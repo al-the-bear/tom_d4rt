@@ -1,42 +1,114 @@
+// D4rt test script: Tests LinearProgressIndicator, CircularProgressIndicator,
+// ProgressIndicatorThemeData, BottomSheet, BottomSheetThemeData
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for progress in bottom sheets.
-/// Progress indicators in modal sheets.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('Progress in Sheets', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Container(
-        width: 180,
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-          boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 8)],
-        ),
+  print('Progress/BottomSheet test executing');
+
+  // ========== ProgressIndicatorThemeData ==========
+  print('--- ProgressIndicatorThemeData Tests ---');
+  final progressTheme = ProgressIndicatorThemeData(
+    color: Colors.blue,
+    linearTrackColor: Colors.blue.shade100,
+    linearMinHeight: 6.0,
+    circularTrackColor: Colors.blue.shade100,
+  );
+  print('ProgressIndicatorThemeData created');
+  print('  linearMinHeight: ${progressTheme.linearMinHeight}');
+
+  // ========== LinearProgressIndicator ==========
+  print('--- LinearProgressIndicator Tests ---');
+  final linearDeterminate = LinearProgressIndicator(
+    value: 0.7,
+    backgroundColor: Colors.grey.shade200,
+    color: Colors.blue,
+    minHeight: 8.0,
+    borderRadius: BorderRadius.circular(4.0),
+  );
+  print('LinearProgressIndicator determinate: 0.7');
+
+  final linearIndeterminate = LinearProgressIndicator(
+    backgroundColor: Colors.grey.shade200,
+    color: Colors.green,
+  );
+  print('LinearProgressIndicator indeterminate');
+
+  // ========== CircularProgressIndicator ==========
+  print('--- CircularProgressIndicator Tests ---');
+  final circularDeterminate = CircularProgressIndicator(
+    value: 0.5,
+    backgroundColor: Colors.grey.shade200,
+    color: Colors.red,
+    strokeWidth: 6.0,
+    strokeCap: StrokeCap.round,
+  );
+  print('CircularProgressIndicator determinate: 0.5');
+
+  final circularIndeterminate = CircularProgressIndicator(
+    strokeWidth: 4.0,
+    color: Colors.purple,
+  );
+  print('CircularProgressIndicator indeterminate');
+
+  // ========== RefreshProgressIndicator ==========
+  print('--- RefreshProgressIndicator Tests ---');
+  final refreshIndicator = RefreshProgressIndicator(
+    value: 0.3,
+    backgroundColor: Colors.white,
+    color: Colors.blue,
+    strokeWidth: 2.5,
+  );
+  print('RefreshProgressIndicator created');
+
+  // ========== BottomSheetThemeData ==========
+  print('--- BottomSheetThemeData Tests ---');
+  final sheetTheme = BottomSheetThemeData(
+    backgroundColor: Colors.white,
+    elevation: 8.0,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
+    ),
+    clipBehavior: Clip.antiAlias,
+    constraints: BoxConstraints(maxWidth: 640),
+    modalBackgroundColor: Colors.white,
+    modalElevation: 16.0,
+    showDragHandle: true,
+    dragHandleColor: Colors.grey.shade400,
+    dragHandleSize: Size(32, 4),
+  );
+  print('BottomSheetThemeData created');
+  print('  showDragHandle: ${sheetTheme.showDragHandle}');
+
+  print('All progress/bottomsheet tests passed');
+
+  // ========== RETURN WIDGET ==========
+  return MaterialApp(
+    home: Scaffold(
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(width: 40, height: 4, margin: const EdgeInsets.all(8), decoration: BoxDecoration(color: Colors.grey.shade300, borderRadius: BorderRadius.circular(2))),
-            const SizedBox(height: 8),
-            const SizedBox(width: 32, height: 32, child: CircularProgressIndicator(strokeWidth: 3)),
-            const SizedBox(height: 12),
-            const Text('Uploading...', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 4),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 32),
-              child: Container(
-                height: 4,
-                decoration: BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.circular(2)),
-                child: FractionallySizedBox(alignment: Alignment.centerLeft, widthFactor: 0.6, child: Container(decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(2)))),
-              ),
+            Text(
+              'Progress/BottomSheet Test',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
             ),
-            const SizedBox(height: 8),
-            const Text('60%', style: TextStyle(fontSize: 10, color: Colors.grey)),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.0),
+            linearDeterminate,
+            SizedBox(height: 8.0),
+            linearIndeterminate,
+            SizedBox(height: 16.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                circularDeterminate,
+                circularIndeterminate,
+                refreshIndicator,
+              ],
+            ),
           ],
         ),
       ),
-    ],
+    ),
   );
 }

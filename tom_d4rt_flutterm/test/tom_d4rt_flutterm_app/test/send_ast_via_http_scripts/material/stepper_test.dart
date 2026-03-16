@@ -1,76 +1,331 @@
+// D4rt test script: Tests Stepper, Step, StepState from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for Stepper widget.
-/// Material Design stepper for sequential steps.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('Stepper', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12), boxShadow: [const BoxShadow(color: Colors.black12, blurRadius: 4)]),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _StepItem(1, 'Account', StepState.complete),
-            _StepConnector(true),
-            _StepItem(2, 'Profile', StepState.editing),
-            _StepConnector(false),
-            _StepItem(3, 'Confirm', StepState.indexed),
-          ],
-        ),
-      ),
-      const SizedBox(height: 12),
-      const Text('type: horizontal | vertical', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
+  print('Stepper widgets test executing');
+
+  // ========== STEP ==========
+  print('--- Step Tests ---');
+
+  // Note: Step must be used within Stepper
+
+  // Test basic Step
+  final basicSteps = [
+    Step(title: Text('Step 1'), content: Text('Content for step 1')),
+    Step(title: Text('Step 2'), content: Text('Content for step 2')),
+    Step(title: Text('Step 3'), content: Text('Content for step 3')),
+  ];
+  print('Basic Steps created');
+
+  // Test Step with subtitle
+  final subtitleSteps = [
+    Step(
+      title: Text('Account'),
+      subtitle: Text('Enter your details'),
+      content: TextField(decoration: InputDecoration(labelText: 'Email')),
+    ),
+    Step(
+      title: Text('Address'),
+      subtitle: Text('Where do you live?'),
+      content: TextField(decoration: InputDecoration(labelText: 'Address')),
+    ),
+    Step(
+      title: Text('Confirm'),
+      subtitle: Text('Review your info'),
+      content: Text('All done!'),
+    ),
+  ];
+  print('Steps with subtitle created');
+
+  // Test Step with isActive
+  final activeSteps = [
+    Step(title: Text('Step 1'), isActive: true, content: Text('Active step')),
+    Step(
+      title: Text('Step 2'),
+      isActive: false,
+      content: Text('Inactive step'),
+    ),
+  ];
+  print('Steps with isActive created');
+
+  // Test Step with state
+  final stateSteps = [
+    Step(
+      title: Text('Complete'),
+      state: StepState.complete,
+      content: Text('This step is complete'),
+    ),
+    Step(
+      title: Text('Editing'),
+      state: StepState.editing,
+      content: Text('Currently editing this'),
+    ),
+    Step(
+      title: Text('Indexed'),
+      state: StepState.indexed,
+      content: Text('Shows number'),
+    ),
+    Step(
+      title: Text('Disabled'),
+      state: StepState.disabled,
+      content: Text('Cannot interact'),
+    ),
+    Step(
+      title: Text('Error'),
+      state: StepState.error,
+      content: Text('Has an error'),
+    ),
+  ];
+  print('Steps with various states created');
+
+  // Test Step with label
+  final labelSteps = [
+    Step(
+      title: Text('Select campaign settings'),
+      label: Text('Step 1'),
+      content: Text('Campaign settings content'),
+    ),
+    Step(
+      title: Text('Create an ad group'),
+      label: Text('Step 2'),
+      content: Text('Ad group content'),
+    ),
+  ];
+  print('Steps with label created');
+
+  // ========== STEPPER ==========
+  print('--- Stepper Tests ---');
+
+  // Test vertical Stepper (default)
+  final verticalStepper = Stepper(
+    currentStep: 0,
+    steps: basicSteps,
+    onStepTapped: (int index) {
+      print('Step tapped: $index');
+    },
+    onStepContinue: () {
+      print('Continue pressed');
+    },
+    onStepCancel: () {
+      print('Cancel pressed');
+    },
   );
-}
+  print('Vertical Stepper created');
 
-enum StepState { indexed, editing, complete, disabled, error }
+  // Test horizontal Stepper
+  final horizontalStepper = Stepper(
+    type: StepperType.horizontal,
+    currentStep: 1,
+    steps: [
+      Step(title: Text('Step 1'), content: Text('First')),
+      Step(title: Text('Step 2'), content: Text('Second')),
+      Step(title: Text('Step 3'), content: Text('Third')),
+    ],
+    onStepTapped: (index) {},
+    onStepContinue: () {},
+    onStepCancel: () {},
+  );
+  print('Horizontal Stepper created');
 
-class _StepItem extends StatelessWidget {
-  final int index;
-  final String label;
-  final StepState state;
-  const _StepItem(this.index, this.label, this.state);
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 24,
-          height: 24,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: state == StepState.complete ? Colors.blue : state == StepState.editing ? Colors.blue : Colors.grey.shade400,
+  // Test Stepper with physics
+  final physicsStepper = Stepper(
+    physics: ClampingScrollPhysics(),
+    currentStep: 0,
+    steps: basicSteps,
+  );
+  print('Stepper with physics created');
+
+  // Test Stepper with elevation
+  final elevatedStepper = Stepper(
+    elevation: 8.0,
+    currentStep: 0,
+    steps: basicSteps,
+  );
+  print('Stepper with elevation created');
+
+  // Test Stepper with margin
+  final marginStepper = Stepper(
+    margin: EdgeInsets.all(24.0),
+    currentStep: 0,
+    steps: basicSteps,
+  );
+  print('Stepper with margin created');
+
+  // Test Stepper with controlsBuilder
+  final customControlsStepper = Stepper(
+    currentStep: 0,
+    steps: basicSteps,
+    controlsBuilder: (BuildContext context, ControlsDetails details) {
+      return Row(
+        children: [
+          ElevatedButton(
+            onPressed: details.onStepContinue,
+            child: Text('Next'),
           ),
-          child: Center(
-            child: state == StepState.complete
-                ? const Icon(Icons.check, color: Colors.white, size: 14)
-                : state == StepState.editing
-                    ? const Icon(Icons.edit, color: Colors.white, size: 12)
-                    : Text('\$index', style: const TextStyle(color: Colors.white, fontSize: 11)),
+          SizedBox(width: 8),
+          TextButton(onPressed: details.onStepCancel, child: Text('Back')),
+        ],
+      );
+    },
+  );
+  print('Stepper with controlsBuilder created');
+
+  // Test Stepper with stepIconBuilder
+  final iconBuilderStepper = Stepper(
+    currentStep: 0,
+    steps: basicSteps,
+    stepIconBuilder: (int stepIndex, StepState stepState) {
+      if (stepState == StepState.complete) {
+        return Icon(Icons.check_circle, color: Colors.green);
+      }
+      if (stepState == StepState.error) {
+        return Icon(Icons.error, color: Colors.red);
+      }
+      return null; // Use default
+    },
+  );
+  print('Stepper with stepIconBuilder created');
+
+  // Test Stepper with connectorColor
+  final connectorColorStepper = Stepper(
+    currentStep: 0,
+    connectorColor: MaterialStateProperty.all(Colors.purple),
+    steps: basicSteps,
+  );
+  print('Stepper with connectorColor created');
+
+  // Test Stepper with connectorThickness
+  final connectorThicknessStepper = Stepper(
+    currentStep: 0,
+    connectorThickness: 3.0,
+    steps: basicSteps,
+  );
+  print('Stepper with connectorThickness created');
+
+  // Test Stepper with stepIconHeight and stepIconWidth
+  final iconSizeStepper = Stepper(
+    currentStep: 0,
+    stepIconHeight: 40.0,
+    stepIconWidth: 40.0,
+    steps: basicSteps,
+  );
+  print('Stepper with stepIconHeight/Width created');
+
+  // Test Stepper with stepIconMargin
+  final iconMarginStepper = Stepper(
+    currentStep: 0,
+    stepIconMargin: EdgeInsets.all(8.0),
+    steps: basicSteps,
+  );
+  print('Stepper with stepIconMargin created');
+
+  // Demo Stepper with all step states
+  final allStatesStepper = Stepper(
+    currentStep: 1,
+    steps: stateSteps,
+    onStepTapped: (index) {},
+    onStepContinue: () {},
+    onStepCancel: () {},
+  );
+  print('Stepper with all step states created');
+
+  print('Stepper widgets test completed');
+
+  return SingleChildScrollView(
+    padding: EdgeInsets.all(16.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Stepper Widgets Test',
+          style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 16.0),
+
+        Text(
+          'Vertical Stepper (default):',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 8.0),
+        Container(
+          height: 400,
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.grey.shade300),
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          child: verticalStepper,
+        ),
+
+        SizedBox(height: 24.0),
+        Text(
+          'Horizontal Stepper:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 8.0),
+        Container(
+          height: 200,
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.grey.shade300),
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          child: horizontalStepper,
+        ),
+
+        SizedBox(height: 24.0),
+        Text(
+          'Step States Demo:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        Text(
+          '(Complete, Editing, Indexed, Disabled, Error)',
+          style: TextStyle(fontSize: 12, color: Colors.grey),
+        ),
+        SizedBox(height: 8.0),
+        Container(
+          height: 500,
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.grey.shade300),
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          child: allStatesStepper,
+        ),
+
+        SizedBox(height: 24.0),
+        Text(
+          'Custom Controls Stepper:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 8.0),
+        Container(
+          height: 300,
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.grey.shade300),
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          child: customControlsStepper,
+        ),
+
+        SizedBox(height: 24.0),
+        Text(
+          'Stepper with Subtitles:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 8.0),
+        Container(
+          height: 400,
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.grey.shade300),
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          child: Stepper(
+            currentStep: 0,
+            steps: subtitleSteps,
+            onStepTapped: (index) {},
+            onStepContinue: () {},
+            onStepCancel: () {},
           ),
         ),
-        const SizedBox(height: 4),
-        Text(label, style: TextStyle(fontSize: 9, color: state == StepState.complete ? Colors.blue : null)),
       ],
-    );
-  }
-}
-
-class _StepConnector extends StatelessWidget {
-  final bool completed;
-  const _StepConnector(this.completed);
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 30,
-      height: 2,
-      margin: const EdgeInsets.only(bottom: 18),
-      color: completed ? Colors.blue : Colors.grey.shade300,
-    );
-  }
+    ),
+  );
 }

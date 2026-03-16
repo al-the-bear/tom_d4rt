@@ -1,63 +1,53 @@
-import 'dart:ui';
+// D4rt test script: Tests ClipRSuperellipseEngineLayer via SceneBuilder
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for ClipRSuperellipseEngineLayer - superellipse clipping.
-/// Demonstrates smooth rounded rectangle (squircle) clipping.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('ClipRSuperellipse Demo')),
-    body: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text('Superellipse Clipping', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 8),
-          const Text('Smooth "squircle" corners like iOS icons', style: TextStyle(color: Colors.grey)),
-          const SizedBox(height: 32),
-          Container(
-            width: 200,
-            height: 200,
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [Colors.blue, Colors.purple],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-              borderRadius: BorderRadius.circular(50),
-              // Note: RSuperellipse provides smoother corners than BorderRadius
-            ),
-            child: const Center(
-              child: Icon(Icons.apps, color: Colors.white, size: 80),
-            ),
-          ),
-          const SizedBox(height: 24),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _buildComparison('RRect', false),
-              const SizedBox(width: 24),
-              _buildComparison('RSuperellipse', true),
-            ],
-          ),
-        ],
-      ),
-    ),
-  );
-}
+  print('ClipRSuperellipseEngineLayer test executing');
 
-Widget _buildComparison(String label, bool isSuper) {
+  final builder = ui.SceneBuilder();
+  final rse = RSuperellipse.fromRectAndCorners(
+    Rect.fromLTWH(0, 0, 200, 150),
+    topLeft: Radius.circular(20),
+    topRight: Radius.circular(20),
+    bottomLeft: Radius.circular(20),
+    bottomRight: Radius.circular(20),
+  );
+
+  final layer = builder.pushClipRSuperellipse(rse);
+  print('pushClipRSuperellipse returned: ${layer.runtimeType}');
+  print('is EngineLayer: ${layer is ui.EngineLayer}');
+  builder.pop();
+
+  // With different clip behavior
+  final layer2 = builder.pushClipRSuperellipse(rse, clipBehavior: Clip.hardEdge);
+  print('pushClipRSuperellipse hardEdge: ${layer2.runtimeType}');
+  builder.pop();
+
+  // Asymmetric superellipse
+  final rse2 = RSuperellipse.fromRectAndCorners(
+    Rect.fromLTWH(0, 0, 100, 100),
+    topLeft: Radius.circular(5),
+    topRight: Radius.circular(30),
+    bottomLeft: Radius.circular(15),
+    bottomRight: Radius.circular(25),
+  );
+  final layer3 = builder.pushClipRSuperellipse(rse2);
+  print('pushClipRSuperellipse asymmetric: ${layer3.runtimeType}');
+  builder.pop();
+
+  final scene = builder.build();
+  scene.dispose();
+
+  print('ClipRSuperellipseEngineLayer test completed');
   return Column(
+    mainAxisSize: MainAxisSize.min,
     children: [
-      Container(
-        width: 80,
-        height: 80,
-        decoration: BoxDecoration(
-          color: isSuper ? Colors.purple : Colors.blue,
-          borderRadius: BorderRadius.circular(isSuper ? 24 : 20),
-        ),
-      ),
-      const SizedBox(height: 8),
-      Text(label, style: const TextStyle(fontSize: 12)),
+      Text('ClipRSuperellipseEngineLayer Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      SizedBox(height: 8),
+      Text('Type: ${layer.runtimeType}'),
+      Text('Symmetric + asymmetric corners'),
+      Text('Smoother clipping than RRect'),
     ],
   );
 }

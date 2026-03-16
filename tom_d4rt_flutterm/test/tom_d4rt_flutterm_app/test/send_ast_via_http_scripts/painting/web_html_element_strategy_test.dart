@@ -1,6 +1,30 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests WebHtmlElementStrategy from painting
+import 'package:flutter/painting.dart';
+import 'package:flutter/widgets.dart';
 
-/// Deep visual demo for WebHtmlElementStrategy
 dynamic build(BuildContext context) {
-  return Scaffold(appBar: AppBar(title: Text('WebHtmlElementStrategy Demo')), body: Center(child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [Icon(Icons.web, size: 48, color: Colors.blue), SizedBox(height: 16), Text('HtmlElementViewLeaderState', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)), SizedBox(height: 20), Container(padding: EdgeInsets.all(16), decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(8)), child: Column(children: [Text('Web platform specific'), Text('HtmlElementView rendering'), Text('Platform view strategy')]))])));
+  print('WebHtmlElementStrategy test executing');
+
+  // Enumerate all WebHtmlElementStrategy values
+  print('WebHtmlElementStrategy values:');
+  for (final value in WebHtmlElementStrategy.values) {
+    print('  ${value.name}: $value');
+  }
+  print('WebHtmlElementStrategy has ${ WebHtmlElementStrategy.values.length} values');
+
+  final first = WebHtmlElementStrategy.values.first;
+  final last = WebHtmlElementStrategy.values.last;
+  print('First: $first, Last: $last');
+  print('First index: ${first.index}, Last index: ${last.index}');
+
+  print('WebHtmlElementStrategy test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('WebHtmlElementStrategy Tests'),
+      Text('Values: ${ WebHtmlElementStrategy.values.length}'),
+      Text('First: $first'),
+      Text('Last: $last'),
+    ],
+  );
 }

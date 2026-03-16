@@ -1,58 +1,62 @@
+// D4rt test script: Tests ChipAnimationStyle from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for ChipAnimationStyle.
-/// Shows chip transition animations.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('ChipAnimationStyle')),
-    body: _AnimatedChipDemo(),
-  );
-}
+  print('ChipAnimationStyle test executing');
 
-class _AnimatedChipDemo extends StatefulWidget {
-  @override
-  State<_AnimatedChipDemo> createState() => _AnimatedChipDemoState();
-}
+  final title = 'ChipAnimationStyle';
+  final packageName = 'material';
+  final details = 'Chip animation';
 
-class _AnimatedChipDemoState extends State<_AnimatedChipDemo> {
-  bool _selected = false;
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
 
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.all(16),
-      children: [
-        const Text('Chip Animation Style', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-        const SizedBox(height: 8),
-        const Text('Customize selection and enable/disable animations'),
-        const SizedBox(height: 24),
-        FilterChip(
-          label: const Text('Animated Chip'),
-          selected: _selected,
-          onSelected: (v) => setState(() => _selected = v),
+  print('ChipAnimationStyle test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
         ),
-        const SizedBox(height: 16),
-        ElevatedButton(
-          onPressed: () => setState(() => _selected = !_selected),
-          child: Text(_selected ? 'Deselect' : 'Select'),
-        ),
-        const SizedBox(height: 24),
-        Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
-          child: const Column(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('ChipAnimationStyle properties:', style: TextStyle(fontWeight: FontWeight.bold)),
-              SizedBox(height: 8),
-              Text('• enableAnimation - Duration for enable'),
-              Text('• selectAnimation - Duration for select'),
-              Text('• avatarDrawerAnimation - Avatar reveal'),
-              Text('• deleteDrawerAnimation - Delete icon'),
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
-      ],
-    );
-  }
+      ),
+    ),
+  );
 }

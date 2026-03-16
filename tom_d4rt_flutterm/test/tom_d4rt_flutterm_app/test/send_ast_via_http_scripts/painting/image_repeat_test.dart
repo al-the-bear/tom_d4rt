@@ -1,6 +1,30 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests ImageRepeat from painting
+import 'package:flutter/painting.dart';
+import 'package:flutter/widgets.dart';
 
-/// Deep visual demo for ImageRepeat
 dynamic build(BuildContext context) {
-  return Scaffold(appBar: AppBar(title: Text('ImageRepeat Demo')), body: Center(child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [for (final mode in ['noRepeat', 'repeat', 'repeatX', 'repeatY']) Padding(padding: EdgeInsets.all(4), child: Container(padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8), decoration: BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.circular(8)), child: Text('ImageRepeat.' + mode)))])));
+  print('ImageRepeat test executing');
+
+  // Enumerate all ImageRepeat values
+  print('ImageRepeat values:');
+  for (final value in ImageRepeat.values) {
+    print('  ${value.name}: $value');
+  }
+  print('ImageRepeat has ${ ImageRepeat.values.length} values');
+
+  final first = ImageRepeat.values.first;
+  final last = ImageRepeat.values.last;
+  print('First: $first, Last: $last');
+  print('First index: ${first.index}, Last index: ${last.index}');
+
+  print('ImageRepeat test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('ImageRepeat Tests'),
+      Text('Values: ${ ImageRepeat.values.length}'),
+      Text('First: $first'),
+      Text('Last: $last'),
+    ],
+  );
 }

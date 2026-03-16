@@ -1,33 +1,29 @@
+// D4rt test script: Tests ExpansionTileTransitionMode from cupertino
 import 'package:flutter/cupertino.dart';
 
-/// Demonstrates ExpansionTileTransitionMode.
 dynamic build(BuildContext context) {
+  print('ExpansionTileTransitionMode test executing');
+
+  // Enumerate all ExpansionTileTransitionMode values
+  print('ExpansionTileTransitionMode values:');
+  for (final value in ExpansionTileTransitionMode.values) {
+    print('  ${value.name}: $value');
+  }
+  print('ExpansionTileTransitionMode has ${ ExpansionTileTransitionMode.values.length} values');
+
+  final first = ExpansionTileTransitionMode.values.first;
+  final last = ExpansionTileTransitionMode.values.last;
+  print('First: $first, Last: $last');
+  print('First index: ${first.index}, Last index: ${last.index}');
+
+  print('ExpansionTileTransitionMode test completed');
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      const Text('Expansion Transition', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-      const SizedBox(height: 16),
-      Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          _ModeCard('clipFade', CupertinoIcons.scissors),
-          const SizedBox(width: 12),
-          _ModeCard('heightFactor', CupertinoIcons.arrow_up_arrow_down),
-        ],
-      ),
-      const SizedBox(height: 12),
-      const Text('Expand/collapse animation style', style: TextStyle(fontSize: 11, color: CupertinoColors.systemGrey)),
+      Text('ExpansionTileTransitionMode Tests'),
+      Text('Values: ${ ExpansionTileTransitionMode.values.length}'),
+      Text('First: $first'),
+      Text('Last: $last'),
     ],
-  );
-}
-
-class _ModeCard extends StatelessWidget {
-  final String name; final IconData icon;
-  const _ModeCard(this.name, this.icon);
-  @override
-  Widget build(BuildContext context) => Container(
-    width: 90, padding: const EdgeInsets.all(12),
-    decoration: BoxDecoration(color: CupertinoColors.systemGrey6, borderRadius: BorderRadius.circular(8)),
-    child: Column(children: [Icon(icon, size: 24), const SizedBox(height: 4), Text(name, style: const TextStyle(fontSize: 10))]),
   );
 }

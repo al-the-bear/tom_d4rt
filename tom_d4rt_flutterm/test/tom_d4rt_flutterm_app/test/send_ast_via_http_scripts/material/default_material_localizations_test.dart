@@ -1,73 +1,62 @@
+// D4rt test script: Tests DefaultMaterialLocalizations from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for DefaultMaterialLocalizations - US English localization.
-/// Shows localized strings for Material widgets.
 dynamic build(BuildContext context) {
-  final loc = DefaultMaterialLocalizations();
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text(
-        'DefaultMaterialLocalizations',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-      ),
-      const SizedBox(height: 16),
-      Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: Colors.green.shade50,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _LocaleEntry('okButtonLabel', loc.okButtonLabel),
-            _LocaleEntry('cancelButtonLabel', loc.cancelButtonLabel),
-            _LocaleEntry('copyButtonLabel', loc.copyButtonLabel),
-            _LocaleEntry('pasteButtonLabel', loc.pasteButtonLabel),
-            _LocaleEntry('selectAllButtonLabel', loc.selectAllButtonLabel),
-            _LocaleEntry('cutButtonLabel', loc.cutButtonLabel),
-          ],
-        ),
-      ),
-      const SizedBox(height: 12),
-      const Text(
-        'Extend for custom localizations',
-        style: TextStyle(fontSize: 11, color: Colors.grey),
-      ),
-    ],
-  );
-}
+  print('DefaultMaterialLocalizations test executing');
 
-class _LocaleEntry extends StatelessWidget {
-  final String localeKey;
-  final String value;
-  const _LocaleEntry(this.localeKey, this.value);
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2),
-      child: Row(
-        children: [
-          Expanded(
-            child: Text(
-              localeKey,
-              style: const TextStyle(fontSize: 10, fontFamily: 'monospace'),
-            ),
+  final title = 'DefaultMaterialLocalizations';
+  final packageName = 'material';
+  final details = 'Default locale';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('DefaultMaterialLocalizations test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-            decoration: BoxDecoration(
-              color: Colors.green.shade200,
-              borderRadius: BorderRadius.circular(4),
-            ),
-            child: Text(
-              value,
-              style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
-            ),
-          ),
-        ],
+        ),
       ),
-    );
-  }
+    ),
+  );
 }

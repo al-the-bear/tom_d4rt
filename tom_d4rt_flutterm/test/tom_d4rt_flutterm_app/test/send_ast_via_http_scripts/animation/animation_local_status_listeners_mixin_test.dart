@@ -1,62 +1,68 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests AnimationLocalStatusListenersMixin from animation
+import 'dart:ui';
+import 'package:flutter/animation.dart';
+import 'package:flutter/widgets.dart';
 
-/// Demonstrates AnimationLocalStatusListenersMixin - manages status listeners.
-/// Notifies when animation transitions between states (forward/reverse/completed/dismissed).
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('AnimationLocalStatusListenersMixin', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-      const SizedBox(height: 16),
-      // Status flow diagram
-      Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(color: Colors.purple.shade50, borderRadius: BorderRadius.circular(12)),
-        child: Column(
-          children: [
-            const Text('Animation Status Flow', style: TextStyle(fontWeight: FontWeight.bold)),
-            const SizedBox(height: 12),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                _StatusChip('dismissed', Colors.grey),
-                const Icon(Icons.arrow_forward, size: 14),
-                _StatusChip('forward', Colors.blue),
-                const Icon(Icons.arrow_forward, size: 14),
-                _StatusChip('completed', Colors.green),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                _StatusChip('completed', Colors.green),
-                const Icon(Icons.arrow_forward, size: 14),
-                _StatusChip('reverse', Colors.orange),
-                const Icon(Icons.arrow_forward, size: 14),
-                _StatusChip('dismissed', Colors.grey),
-              ],
-            ),
-          ],
-        ),
-      ),
-      const SizedBox(height: 12),
-      const Text('Notifies on state transitions', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
-  );
-}
+  print('AnimationLocalStatusListenersMixin test executing');
 
-class _StatusChip extends StatelessWidget {
-  final String label;
-  final Color color;
-  const _StatusChip(this.label, this.color);
+  // AnimationLocalStatusListenersMixin manages status listeners.
+  // Test through AlwaysStoppedAnimation.
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
-      decoration: BoxDecoration(color: color.withOpacity(0.2), borderRadius: BorderRadius.circular(4), border: Border.all(color: color)),
-      child: Text(label, style: TextStyle(fontSize: 8, color: color, fontWeight: FontWeight.bold)),
-    );
+  // ========== Status listener management ==========
+  print('--- Status listener management ---');
+  final anim = AlwaysStoppedAnimation<double>(0.5);
+  
+  final statuses = <AnimationStatus>[];
+  void statusListenerA(AnimationStatus status) {
+    statuses.add(status);
   }
+  void statusListenerB(AnimationStatus status) {
+    statuses.add(status);
+  }
+
+  anim.addStatusListener(statusListenerA);
+  anim.addStatusListener(statusListenerB);
+  print('  Added 2 status listeners');
+  print('  Current status: ${anim.status}');
+
+  anim.removeStatusListener(statusListenerA);
+  print('  Removed listener A');
+  anim.removeStatusListener(statusListenerB);
+  print('  Removed listener B');
+
+  // ========== All AnimationStatus values ==========
+  print('--- AnimationStatus values ---');
+  for (final status in AnimationStatus.values) {
+    print('  AnimationStatus.${status.name}');
+  }
+
+  // ========== Status of AlwaysStoppedAnimation ==========
+  print('--- AlwaysStoppedAnimation status is always completed ---');
+  final a1 = AlwaysStoppedAnimation<double>(0.0);
+  final a2 = AlwaysStoppedAnimation<double>(1.0);
+  print('  anim(0.0).status: ${a1.status}');
+  print('  anim(1.0).status: ${a2.status}');
+  print('  isDismissed: ${a1.isDismissed}');
+  print('  isCompleted: ${a2.isCompleted}');
+
+  print('AnimationLocalStatusListenersMixin test completed');
+  return SingleChildScrollView(
+    child: Padding(
+      padding: EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text('AnimationLocalStatusListenersMixin Tests',
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          SizedBox(height: 8.0),
+          Text('Status listener management: OK'),
+          for (final status in AnimationStatus.values)
+            Text('AnimationStatus.${status.name}'),
+          Text('AlwaysStopped status: ${anim.status}'),
+        ],
+      ),
+    ),
+  );
 }

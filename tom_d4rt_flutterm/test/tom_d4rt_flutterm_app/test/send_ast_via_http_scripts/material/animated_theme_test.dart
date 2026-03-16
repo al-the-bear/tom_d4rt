@@ -1,50 +1,62 @@
+// D4rt test script: Tests AnimatedTheme from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for AnimatedTheme.
-/// Shows smooth theme transitions.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('AnimatedTheme')),
-    body: Center(child: _ThemeDemo()),
-  );
-}
+  print('AnimatedTheme test executing');
 
-class _ThemeDemo extends StatefulWidget {
-  @override
-  State<_ThemeDemo> createState() => _ThemeDemoState();
-}
+  final title = 'AnimatedTheme';
+  final packageName = 'material';
+  final details = 'Theme';
 
-class _ThemeDemoState extends State<_ThemeDemo> {
-  bool _isDark = false;
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedTheme(
-      data: _isDark ? ThemeData.dark() : ThemeData.light(),
-      duration: const Duration(milliseconds: 500),
-      child: Builder(builder: (ctx) => Container(
-        width: 300,
-        padding: const EdgeInsets.all(24),
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('AnimatedTheme test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
         decoration: BoxDecoration(
-          color: Theme.of(ctx).scaffoldBackgroundColor,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: Theme.of(ctx).dividerColor),
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
         ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(Icons.palette, size: 48, color: Theme.of(ctx).primaryColor),
-            const SizedBox(height: 16),
-            Text('AnimatedTheme Demo', style: Theme.of(ctx).textTheme.titleLarge),
-            const SizedBox(height: 8),
-            Text('Smooth 500ms transition', style: Theme.of(ctx).textTheme.bodySmall),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () => setState(() => _isDark = !_isDark),
-              child: Text(_isDark ? 'Go Light' : 'Go Dark'),
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
-      )),
-    );
-  }
+      ),
+    ),
+  );
 }

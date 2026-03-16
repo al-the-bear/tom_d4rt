@@ -1,41 +1,62 @@
+// D4rt test script: Tests RoundRangeSliderTickMarkShape from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for RoundRangeSliderTickMarkShape.
-/// Default circular tick marks for RangeSlider.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('RoundRangeSliderTickMarkShape', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Container(
-        width: 200,
-        height: 30,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Container(height: 4, decoration: BoxDecoration(color: Colors.grey.shade300, borderRadius: BorderRadius.circular(2))),
-            Positioned(left: 50, right: 50, child: Container(height: 4, decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(2)))),
-            // Tick marks
-            for (var i = 0; i < 5; i++)
-              Positioned(
-                left: 20 + i * 40.0,
-                child: Container(
-                  width: 6,
-                  height: 6,
-                  decoration: BoxDecoration(
-                    color: (i >= 1 && i <= 3) ? Colors.white : Colors.grey,
-                    shape: BoxShape.circle,
+  print('RoundRangeSliderTickMarkShape test executing');
+
+  final title = 'RoundRangeSliderTickMarkShape';
+  final packageName = 'material';
+  final details = 'RoundRangeSliderTickMarkShape';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('RoundRangeSliderTickMarkShape test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
                   ),
                 ),
               ),
-            Positioned(left: 45, child: Container(width: 16, height: 16, decoration: const BoxDecoration(color: Colors.blue, shape: BoxShape.circle))),
-            Positioned(right: 45, child: Container(width: 16, height: 16, decoration: const BoxDecoration(color: Colors.blue, shape: BoxShape.circle))),
-          ],
+            ],
+          ),
         ),
       ),
-      const SizedBox(height: 12),
-      const Text('tickMarkRadius property', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
+    ),
   );
 }

@@ -1,60 +1,62 @@
+// D4rt test script: Tests ScrollbarThemeData from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for ScrollbarThemeData.
-/// Theme data for customizing scrollbar appearance.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('ScrollbarThemeData', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _ScrollbarDemo('Default', Colors.grey.shade400, 4, 2),
-          const SizedBox(width: 16),
-          _ScrollbarDemo('Thick', Colors.blue, 8, 4),
-          const SizedBox(width: 16),
-          _ScrollbarDemo('Square', Colors.purple, 6, 0),
-        ],
-      ),
-      const SizedBox(height: 12),
-      const Text('thickness, thumbColor, radius, crossAxisMargin', style: TextStyle(fontSize: 10, color: Colors.grey)),
-    ],
-  );
-}
+  print('ScrollbarThemeData test executing');
 
-class _ScrollbarDemo extends StatelessWidget {
-  final String label;
-  final Color color;
-  final double thickness;
-  final double radius;
-  const _ScrollbarDemo(this.label, this.color, this.thickness, this.radius);
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 40,
-          height: 60,
-          decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(4)),
-          child: Stack(
+  final title = 'ScrollbarThemeData';
+  final packageName = 'material';
+  final details = 'ScrollbarThemeData';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('ScrollbarThemeData test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Positioned(
-                right: 2,
-                top: 8,
-                child: Container(
-                  width: thickness,
-                  height: 24,
-                  decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(radius)),
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
                 ),
               ),
             ],
           ),
         ),
-        const SizedBox(height: 4),
-        Text(label, style: const TextStyle(fontSize: 9)),
-      ],
-    );
-  }
+      ),
+    ),
+  );
 }

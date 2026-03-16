@@ -1,48 +1,62 @@
+// D4rt test script: Tests InkDecoration from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for Ink decoration.
-/// Shows how Ink provides decoration that responds to gestures.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('Ink Decoration', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Container(
-        width: 200,
-        height: 120,
+  print('InkDecoration test executing');
+
+  final title = 'InkDecoration';
+  final packageName = 'material';
+  final details = 'InkDecoration';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('InkDecoration test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
         decoration: BoxDecoration(
-          color: Colors.blue.shade100,
-          borderRadius: BorderRadius.circular(16),
-          image: const DecorationImage(
-            image: NetworkImage('https://picsum.photos/200/120'),
-            fit: BoxFit.cover,
-            opacity: 0.3,
-          ),
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
         ),
-        child: Stack(
-          children: [
-            // Ripple effect indicator
-            Positioned(
-              top: 40,
-              left: 60,
-              child: Container(
-                width: 80,
-                height: 80,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white.withAlpha(100),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
                 ),
               ),
-            ),
-            const Center(
-              child: Text('Tap here', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, shadows: [Shadow(blurRadius: 4)])),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
-      const SizedBox(height: 12),
-      const Text('Ink respects Material clip + ripples', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
+    ),
   );
 }

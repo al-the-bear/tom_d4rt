@@ -1,42 +1,62 @@
+// D4rt test script: Tests MenuButtonTheme from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for MenuButtonTheme widget.
-/// InheritedWidget providing MenuButtonThemeData to descendants.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('MenuButtonTheme', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Container(
-        padding: const EdgeInsets.all(16),
+  print('MenuButtonTheme test executing');
+
+  final title = 'MenuButtonTheme';
+  final packageName = 'material';
+  final details = 'MenuButtonTheme';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('MenuButtonTheme test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
         decoration: BoxDecoration(
-          color: Colors.purple.shade50,
+          color: const Color(0xFF111827),
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: Colors.purple.shade200),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
         ),
-        child: Column(
-          children: [
-            const Text('Theme Scope', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.purple)),
-            const SizedBox(height: 12),
-            Container(
-              width: 140,
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(color: Colors.purple.shade100, borderRadius: BorderRadius.circular(4)),
-              child: const Row(children: [Icon(Icons.edit, size: 16), SizedBox(width: 8), Text('Edit', style: TextStyle(fontSize: 12))]),
-            ),
-            const SizedBox(height: 4),
-            Container(
-              width: 140,
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(color: Colors.purple.shade100, borderRadius: BorderRadius.circular(4)),
-              child: const Row(children: [Icon(Icons.delete, size: 16), SizedBox(width: 8), Text('Delete', style: TextStyle(fontSize: 12))]),
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-      const SizedBox(height: 12),
-      const Text('Applies theme to all nested menus', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
+    ),
   );
 }

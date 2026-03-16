@@ -1,65 +1,68 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests AnimationLocalListenersMixin from animation
+import 'dart:ui';
+import 'package:flutter/animation.dart';
+import 'package:flutter/widgets.dart';
 
-/// Demonstrates AnimationLocalListenersMixin - manages value change listeners.
-/// Provides addListener(), removeListener(), notifyListeners(), clearListeners().
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('AnimationLocalListenersMixin', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(12)),
-        child: Column(
-          children: [
-            const Text('Value Listeners', style: TextStyle(fontWeight: FontWeight.bold)),
-            const SizedBox(height: 12),
-            // Visual: Animation with multiple listeners
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(8)),
-                  child: const Icon(Icons.animation, color: Colors.white),
-                ),
-                const SizedBox(width: 8),
-                Column(
-                  children: [
-                    for (int i = 1; i <= 3; i++)
-                      Row(
-                        children: [
-                          const Icon(Icons.arrow_forward, size: 16, color: Colors.blue),
-                          Container(
-                            margin: const EdgeInsets.all(2),
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                            decoration: BoxDecoration(color: Colors.green.shade100, borderRadius: BorderRadius.circular(4)),
-                            child: Text('Listener $i', style: const TextStyle(fontSize: 10)),
-                          ),
-                        ],
-                      ),
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
+  print('AnimationLocalListenersMixin test executing');
+
+  // AnimationLocalListenersMixin manages a list of value listeners.
+  // Test through AlwaysStoppedAnimation which uses it.
+
+  // ========== Value listener management ==========
+  print('--- Value listener management ---');
+  final anim = AlwaysStoppedAnimation<double>(0.5);
+  
+  final calls = <String>[];
+  void listenerA() {
+    calls.add('A');
+  }
+  void listenerB() {
+    calls.add('B');
+  }
+
+  anim.addListener(listenerA);
+  anim.addListener(listenerB);
+  print('  Added 2 listeners');
+
+  anim.removeListener(listenerA);
+  print('  Removed listener A');
+  anim.removeListener(listenerB);
+  print('  Removed listener B');
+
+  // ========== Multiple add/remove cycles ==========
+  print('--- Multiple add/remove cycles ---');
+  for (var i = 0; i < 3; i++) {
+    anim.addListener(listenerA);
+    anim.removeListener(listenerA);
+    print('  Cycle $i: add/remove OK');
+  }
+
+  // ========== Animation value checks ==========
+  print('--- Value checks ---');
+  final values = [0.0, 0.25, 0.5, 0.75, 1.0];
+  for (final v in values) {
+    final a = AlwaysStoppedAnimation<double>(v);
+    print('  AlwaysStoppedAnimation($v).value: ${a.value}');
+  }
+
+  print('AnimationLocalListenersMixin test completed');
+  return SingleChildScrollView(
+    child: Padding(
+      padding: EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text('AnimationLocalListenersMixin Tests',
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          SizedBox(height: 8.0),
+          Text('Listener add/remove: OK'),
+          Text('Multiple cycles: OK'),
+          for (final v in values)
+            Text('Animation($v): ${AlwaysStoppedAnimation<double>(v).value}'),
+        ],
       ),
-      const SizedBox(height: 16),
-      Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
-        child: const Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('API:', style: TextStyle(fontWeight: FontWeight.bold)),
-            Text('• addListener(VoidCallback)', style: TextStyle(fontSize: 10, fontFamily: 'monospace')),
-            Text('• removeListener(VoidCallback)', style: TextStyle(fontSize: 10, fontFamily: 'monospace')),
-            Text('• notifyListeners()', style: TextStyle(fontSize: 10, fontFamily: 'monospace')),
-          ],
-        ),
-      ),
-    ],
+    ),
   );
 }

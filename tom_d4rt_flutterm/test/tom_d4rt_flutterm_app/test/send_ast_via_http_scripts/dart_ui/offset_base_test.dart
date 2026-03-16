@@ -1,81 +1,56 @@
-import 'dart:ui';
+// D4rt test script: Tests OffsetBase from dart:ui (abstract base of Offset and Size)
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for OffsetBase - base class for Offset and Size.
-/// Demonstrates shared properties between Offset and Size.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('OffsetBase Demo')),
-    body: Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('OffsetBase', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 8),
-          const Text('Base class for 2D values', style: TextStyle(color: Colors.grey)),
-          const SizedBox(height: 24),
-          _buildHierarchy(),
-          const SizedBox(height: 24),
-          _buildComparisonTable(),
-        ],
-      ),
-    ),
-  );
-}
+  print('OffsetBase test executing');
 
-Widget _buildHierarchy() {
-  return Container(
-    padding: const EdgeInsets.all(16),
-    decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(12)),
-    child: Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(color: Colors.purple, borderRadius: BorderRadius.circular(8)),
-          child: const Text('OffsetBase', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-        ),
-        const SizedBox(height: 8),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(width: 2, height: 20, color: Colors.grey),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(8)),
-              child: const Text('Offset', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-            ),
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(8)),
-              child: const Text('Size', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-            ),
-          ],
-        ),
-      ],
-    ),
-  );
-}
+  // OffsetBase is an abstract class — tested through Offset and Size
+  final offset = Offset(10.0, 20.0);
+  print('Offset is OffsetBase: ${offset is ui.OffsetBase}');
+  print('Offset dx: ${offset.dx}, dy: ${offset.dy}');
 
-Widget _buildComparisonTable() {
-  return Container(
-    padding: const EdgeInsets.all(16),
-    decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(12)),
-    child: const Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('Properties:', style: TextStyle(fontWeight: FontWeight.bold)),
-        SizedBox(height: 12),
-        Row(children: [Text('• dx / width', style: TextStyle(fontFamily: 'monospace')), SizedBox(width: 16), Text('First component')]),
-        Row(children: [Text('• dy / height', style: TextStyle(fontFamily: 'monospace')), SizedBox(width: 16), Text('Second component')]),
-        SizedBox(height: 12),
-        Text('Common to both Offset and Size', style: TextStyle(fontSize: 12, color: Colors.grey)),
-      ],
-    ),
+  final size = Size(100.0, 50.0);
+  print('Size is OffsetBase: ${size is ui.OffsetBase}');
+  print('Size width: ${size.width}, height: ${size.height}');
+
+  // OffsetBase comparison operators (>, >=, <, <=)
+  // These compare both components
+  final o1 = Offset(5.0, 5.0);
+  final o2 = Offset(10.0, 10.0);
+  print('o1 < o2: ${o1 < o2}');
+  print('o1 <= o2: ${o1 <= o2}');
+  print('o2 > o1: ${o2 > o1}');
+  print('o2 >= o1: ${o2 >= o1}');
+
+  final s1 = Size(50.0, 30.0);
+  final s2 = Size(100.0, 60.0);
+  print('s1 < s2: ${s1 < s2}');
+  print('s2 > s1: ${s2 > s1}');
+
+  // isInfinite and isFinite from OffsetBase
+  final finiteOffset = Offset(1.0, 2.0);
+  print('finite offset isInfinite: ${finiteOffset.isInfinite}');
+  print('finite offset isFinite: ${finiteOffset.isFinite}');
+
+  final infiniteOffset = Offset.infinite;
+  print('infinite offset isInfinite: ${infiniteOffset.isInfinite}');
+
+  final finiteSize = Size(10.0, 20.0);
+  print('finite size isInfinite: ${finiteSize.isInfinite}');
+  print('finite size isFinite: ${finiteSize.isFinite}');
+
+  print('OffsetBase test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('OffsetBase Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      SizedBox(height: 8),
+      Text('Abstract base of Offset and Size'),
+      Text('Offset is OffsetBase: ${offset is ui.OffsetBase}'),
+      Text('Size is OffsetBase: ${size is ui.OffsetBase}'),
+      Text('Comparison: o1 < o2 = ${o1 < o2}'),
+      Text('isFinite/isInfinite tested'),
+    ],
   );
 }

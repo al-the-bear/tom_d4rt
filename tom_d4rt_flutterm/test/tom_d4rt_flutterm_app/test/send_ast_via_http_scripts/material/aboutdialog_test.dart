@@ -1,26 +1,63 @@
+// D4rt test script: Tests AboutDialog from Flutter material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for AboutDialog.
-/// Shows application info dialog.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('AboutDialog')),
-    body: Center(
-      child: ElevatedButton.icon(
-        onPressed: () => showAboutDialog(
-          context: context,
-          applicationName: 'Demo App',
-          applicationVersion: '1.0.0',
-          applicationIcon: const FlutterLogo(size: 48),
-          applicationLegalese: '© 2024 Demo Company',
-          children: [
-            const SizedBox(height: 16),
-            const Text('An example application demonstrating AboutDialog widget.'),
-          ],
-        ),
-        icon: const Icon(Icons.info_outline),
-        label: const Text('Show About Dialog'),
-      ),
+  print('AboutDialog test executing');
+
+  // Variation 1: AboutDialog with name and version
+  final widget1 = AboutDialog(
+    applicationName: 'Test App',
+    applicationVersion: '1.0.0',
+  );
+  print('AboutDialog(applicationName, applicationVersion) created');
+
+  // Variation 2: AboutDialog with icon
+  final widget2 = AboutDialog(
+    applicationName: 'Test',
+    applicationIcon: FlutterLogo(size: 40),
+  );
+  print('AboutDialog(applicationName, applicationIcon: FlutterLogo) created');
+
+  // Variation 3: AboutDialog with legalese
+  final widget3 = AboutDialog(
+    applicationName: 'Legal App',
+    applicationVersion: '2.0.0',
+    applicationLegalese: 'Copyright 2025',
+  );
+  print('AboutDialog(applicationLegalese) created');
+
+  // Variation 4: AboutDialog with children
+  final widget4 = AboutDialog(
+    applicationName: 'Extended App',
+    applicationVersion: '3.0.0',
+    children: [
+      Text('Extra info'),
+      SizedBox(height: 8),
+      Text('More details about the application'),
+    ],
+  );
+  print('AboutDialog(with children) created');
+
+  // Variation 5: AboutDialog with all properties
+  final widget5 = AboutDialog(
+    applicationName: 'Full App',
+    applicationVersion: '4.0.0',
+    applicationIcon: FlutterLogo(size: 48),
+    applicationLegalese: 'Copyright 2025 Test Corp',
+    children: [SizedBox(height: 16), Text('Built with Flutter and D4rt')],
+  );
+  print('AboutDialog(all properties) created');
+
+  print('AboutDialog test completed');
+  return SingleChildScrollView(
+    child: Column(
+      children: [
+        SizedBox(height: 400.0, child: widget1),
+        SizedBox(height: 400.0, child: widget2),
+        SizedBox(height: 400.0, child: widget3),
+        SizedBox(height: 400.0, child: widget4),
+        SizedBox(height: 400.0, child: widget5),
+      ],
     ),
   );
 }

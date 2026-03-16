@@ -1,40 +1,109 @@
+// D4rt test script: Tests CupertinoScrollBehavior from cupertino
 import 'package:flutter/cupertino.dart';
 
-/// Demonstrates CupertinoScrollBehavior - iOS scroll physics.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
+  print('CupertinoScrollBehavior test executing');
+
+  // ===== 1. Default constructor =====
+  print('--- Default CupertinoScrollBehavior ---');
+  final defaultBehavior = CupertinoScrollBehavior();
+  print('  created: ${defaultBehavior.runtimeType}');
+
+  // ===== 2. copyWith variations =====
+  print('--- copyWith ---');
+  final withScrollbars = defaultBehavior.copyWith(scrollbars: false);
+  print('  copyWith(scrollbars: false) type: ${withScrollbars.runtimeType}');
+
+  final withOverscroll = defaultBehavior.copyWith(
+    overscroll: false,
+  );
+  print('  copyWith(overscroll: false) type: ${withOverscroll.runtimeType}');
+
+  final combinedCopy = defaultBehavior.copyWith(
+    scrollbars: true,
+    overscroll: true,
+  );
+  print('  combined copyWith type: ${combinedCopy.runtimeType}');
+
+  // ===== 3. Applied to a ScrollView =====
+  print('--- Applied to ScrollView ---');
+  final scrollItems = <Widget>[];
+  for (var i = 0; i < 30; i++) {
+    scrollItems.add(
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
+        child: Text('Scroll item $i'),
+      ),
+    );
+  }
+
+  // ===== 4. getScrollPhysics returns BouncingScrollPhysics =====
+  print('--- getScrollPhysics ---');
+  final physics = defaultBehavior.getScrollPhysics(context);
+  print('  physics type: ${physics.runtimeType}');
+
+  // ===== 5. Multiple scrollable areas with same behavior =====
+  print('--- Multiple scrollable areas ---');
+  final listView1 = ListView(
+    shrinkWrap: true,
+    physics: NeverScrollableScrollPhysics(),
     children: [
-      const Text('CupertinoScrollBehavior', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-      const SizedBox(height: 16),
-      Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(color: CupertinoColors.systemGrey6, borderRadius: BorderRadius.circular(12)),
-        child: Column(
-          children: [
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(color: CupertinoColors.activeBlue, borderRadius: BorderRadius.circular(8)),
-                  child: const Text('Bouncing', style: TextStyle(color: CupertinoColors.white, fontSize: 11)),
+      for (var i = 0; i < 5; i++)
+        CupertinoListTile(title: Text('List 1 item $i')),
+    ],
+  );
+  final listView2 = ListView(
+    shrinkWrap: true,
+    physics: NeverScrollableScrollPhysics(),
+    children: [
+      for (var i = 0; i < 5; i++)
+        CupertinoListTile(title: Text('List 2 item $i')),
+    ],
+  );
+  print('  two list views created');
+
+  // ===== 6. buildOverscrollIndicator =====
+  print('--- buildOverscrollIndicator ---');
+  final testChild = SizedBox(height: 100.0, child: Text('Test child'));
+  final indicator = defaultBehavior.buildOverscrollIndicator(
+    context,
+    testChild,
+    ScrollableDetails(
+      direction: AxisDirection.down,
+      controller: ScrollController(),
+    ),
+  );
+  print('  overscroll indicator type: ${indicator.runtimeType}');
+
+  print('CupertinoScrollBehavior test completed');
+  return CupertinoApp(
+    home: CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(middle: Text('ScrollBehavior')),
+      child: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('ScrollBehavior Tests', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
+                    SizedBox(height: 8.0),
+                    Text('Default: ${defaultBehavior.runtimeType}'),
+                    Text('Physics: ${physics.runtimeType}'),
+                    Text('Indicator: ${indicator.runtimeType}'),
+                  ],
                 ),
-                const SizedBox(width: 8),
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(color: CupertinoColors.systemPurple, borderRadius: BorderRadius.circular(8)),
-                  child: const Text('Deceleration', style: TextStyle(color: CupertinoColors.white, fontSize: 11)),
-                ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            const Text('BouncingScrollPhysics', style: TextStyle(fontFamily: 'monospace', fontSize: 10)),
-          ],
+              ),
+              listView1,
+              SizedBox(height: 8.0),
+              listView2,
+            ],
+          ),
         ),
       ),
-      const SizedBox(height: 12),
-      const Text('Overscroll bounce + iOS momentum', style: TextStyle(fontSize: 11, color: CupertinoColors.systemGrey)),
-    ],
+    ),
   );
 }

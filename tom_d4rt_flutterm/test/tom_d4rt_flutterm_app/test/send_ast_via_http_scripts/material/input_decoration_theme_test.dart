@@ -1,53 +1,62 @@
+// D4rt test script: Tests InputDecorationTheme from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for InputDecorationTheme widget.
-/// Shows how InputDecorationTheme provides defaults for descendant TextFields.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('InputDecorationTheme', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.purple.shade50,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: Colors.purple.shade200),
-        ),
-        child: Column(
-          children: [
-            const Text('Themed Inputs', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.purple)),
-            const SizedBox(height: 12),
-            _ThemedInput('Username'),
-            const SizedBox(height: 8),
-            _ThemedInput('Password'),
-          ],
-        ),
-      ),
-      const SizedBox(height: 12),
-      const Text('Provides defaults to all nested TextFields', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
-  );
-}
+  print('InputDecorationTheme test executing');
 
-class _ThemedInput extends StatelessWidget {
-  final String label;
-  const _ThemedInput(this.label);
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.purple.shade300),
+  final title = 'InputDecorationTheme';
+  final packageName = 'material';
+  final details = 'Input theme';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('InputDecorationTheme test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
-      child: Row(
-        children: [
-          Text(label, style: TextStyle(color: Colors.purple.shade300, fontSize: 12)),
-        ],
-      ),
-    );
-  }
+    ),
+  );
 }

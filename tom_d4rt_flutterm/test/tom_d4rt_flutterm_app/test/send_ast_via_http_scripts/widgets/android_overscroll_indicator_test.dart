@@ -1,26 +1,29 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests AndroidOverscrollIndicator from widgets
+import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {
-  return Theme(
-    data: ThemeData(useMaterial3: true),
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const Text(
-          'Android overscroll indicator behavior',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: 8),
-        SizedBox(
-          height: 140,
-          width: 280,
-          child: ListView.builder(
-            itemCount: 20,
-            itemBuilder: (context, index) =>
-                ListTile(title: Text('Row $index')),
-          ),
-        ),
-      ],
-    ),
+  print('AndroidOverscrollIndicator test executing');
+
+  // Enumerate all AndroidOverscrollIndicator values
+  print('AndroidOverscrollIndicator values:');
+  for (final value in AndroidOverscrollIndicator.values) {
+    print('  ${value.name}: $value');
+  }
+  print('AndroidOverscrollIndicator has ${ AndroidOverscrollIndicator.values.length} values');
+
+  final first = AndroidOverscrollIndicator.values.first;
+  final last = AndroidOverscrollIndicator.values.last;
+  print('First: $first, Last: $last');
+  print('First index: ${first.index}, Last index: ${last.index}');
+
+  print('AndroidOverscrollIndicator test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('AndroidOverscrollIndicator Tests'),
+      Text('Values: ${ AndroidOverscrollIndicator.values.length}'),
+      Text('First: $first'),
+      Text('Last: $last'),
+    ],
   );
 }

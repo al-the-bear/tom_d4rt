@@ -1,64 +1,124 @@
+// D4rt test script: Tests ExpansionTile advanced, Stepper, Step,
+// StepState, StepperType, ControlsDetails
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for expansion in Stepper - expandable stepper steps.
-/// Shows how expansion panels work within a stepper context.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('Expansion in Stepper', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: Colors.grey.shade100,
-          borderRadius: BorderRadius.circular(12),
-        ),
+  print('ExpansionTile/Stepper test executing');
+
+  // ========== ExpansionTile advanced ==========
+  print('--- ExpansionTile advanced Tests ---');
+  final expansionTile = ExpansionTile(
+    title: Text('Expansion Title'),
+    subtitle: Text('Tap to expand'),
+    leading: Icon(Icons.expand_more),
+    trailing: Icon(Icons.arrow_drop_down),
+    initiallyExpanded: false,
+    maintainState: true,
+    tilePadding: EdgeInsets.symmetric(horizontal: 16.0),
+    expandedCrossAxisAlignment: CrossAxisAlignment.start,
+    expandedAlignment: Alignment.centerLeft,
+    childrenPadding: EdgeInsets.all(16.0),
+    backgroundColor: Colors.grey.shade50,
+    collapsedBackgroundColor: Colors.white,
+    iconColor: Colors.blue,
+    collapsedIconColor: Colors.grey,
+    textColor: Colors.blue,
+    collapsedTextColor: Colors.black,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+    collapsedShape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(8.0),
+    ),
+    clipBehavior: Clip.antiAlias,
+    controlAffinity: ListTileControlAffinity.leading,
+    dense: false,
+    enableFeedback: true,
+    children: [Text('Child 1'), Text('Child 2'), Text('Child 3')],
+  );
+  print('ExpansionTile created with 3 children');
+
+  // ========== StepState ==========
+  print('--- StepState Tests ---');
+  for (final state in StepState.values) {
+    print('StepState: ${state.name}');
+  }
+
+  // ========== StepperType ==========
+  print('--- StepperType Tests ---');
+  for (final type in StepperType.values) {
+    print('StepperType: ${type.name}');
+  }
+
+  // ========== Step ==========
+  print('--- Step Tests ---');
+  final step1 = Step(
+    title: Text('Step 1'),
+    subtitle: Text('First step'),
+    content: Text('Content of step 1'),
+    state: StepState.complete,
+    isActive: true,
+  );
+  print('Step 1 created: state=${step1.state}');
+
+  final step2 = Step(
+    title: Text('Step 2'),
+    content: Text('Content of step 2'),
+    state: StepState.editing,
+    isActive: true,
+  );
+  print('Step 2 created: state=${step2.state}');
+
+  final step3 = Step(
+    title: Text('Step 3'),
+    content: Text('Content of step 3'),
+    state: StepState.indexed,
+    isActive: false,
+  );
+  print('Step 3 created: state=${step3.state}');
+
+  final step4 = Step(
+    title: Text('Step 4'),
+    content: Text('Cannot proceed'),
+    state: StepState.error,
+    isActive: false,
+  );
+  print('Step 4 created: state=${step4.state}');
+
+  // ========== Stepper ==========
+  print('--- Stepper Tests ---');
+  final stepper = Stepper(
+    currentStep: 1,
+    type: StepperType.vertical,
+    physics: ClampingScrollPhysics(),
+    onStepTapped: (step) => print('Step $step tapped'),
+    onStepContinue: () => print('Continue'),
+    onStepCancel: () => print('Cancel'),
+    elevation: 2.0,
+    margin: EdgeInsets.all(16.0),
+    steps: [step1, step2, step3, step4],
+  );
+  print('Stepper created with 4 steps, current=1');
+
+  print('All expansion/stepper tests passed');
+
+  // ========== RETURN WIDGET ==========
+  return MaterialApp(
+    home: Scaffold(
+      body: SingleChildScrollView(
         child: Column(
           children: [
-            _StepItem(1, 'Step 1', true, true),
-            _StepItem(2, 'Step 2', true, false),
-            _StepItem(3, 'Step 3', false, false),
+            Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Text(
+                'ExpansionTile/Stepper Test',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+              ),
+            ),
+            expansionTile,
+            SizedBox(height: 16.0),
+            stepper,
           ],
         ),
       ),
-      const SizedBox(height: 12),
-      const Text('Stepper with expandable content', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
+    ),
   );
-}
-
-class _StepItem extends StatelessWidget {
-  final int num;
-  final String title;
-  final bool complete;
-  final bool expanded;
-  const _StepItem(this.num, this.title, this.complete, this.expanded);
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 24,
-            height: 24,
-            decoration: BoxDecoration(color: complete ? Colors.blue : Colors.grey.shade300, shape: BoxShape.circle),
-            child: Center(child: complete ? const Icon(Icons.check, size: 14, color: Colors.white) : Text('$num', style: const TextStyle(fontSize: 12))),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-                if (expanded) const Padding(padding: EdgeInsets.only(top: 8), child: Text('Step content expanded', style: TextStyle(fontSize: 10, color: Colors.grey))),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 }

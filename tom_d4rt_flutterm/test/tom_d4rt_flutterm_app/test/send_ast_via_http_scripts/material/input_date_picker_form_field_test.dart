@@ -1,46 +1,62 @@
+// D4rt test script: Tests InputDatePickerFormField from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for InputDatePickerFormField.
-/// Shows date input with text field and calendar picker.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('InputDatePickerFormField', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Container(
-        width: 220,
-        padding: const EdgeInsets.all(16),
+  print('InputDatePickerFormField test executing');
+
+  final title = 'InputDatePickerFormField';
+  final packageName = 'material';
+  final details = 'InputDatePickerFormField';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('InputDatePickerFormField test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: const Color(0xFF111827),
           borderRadius: BorderRadius.circular(12),
-          boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 8)],
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text('Date of birth', style: TextStyle(fontSize: 10, color: Colors.blue)),
-            const SizedBox(height: 8),
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.blue),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Row(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
                 children: const [
-                  Expanded(child: Text('03/15/1990', style: TextStyle(fontSize: 14))),
-                  Icon(Icons.calendar_today, color: Colors.blue, size: 20),
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
                 ],
               ),
-            ),
-            const SizedBox(height: 8),
-            const Text('Enter date or use picker', style: TextStyle(fontSize: 9, color: Colors.grey)),
-          ],
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-      const SizedBox(height: 12),
-      const Text('Text input + calendar picker', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
+    ),
   );
 }

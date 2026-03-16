@@ -1,79 +1,205 @@
+// D4rt test script: Tests MenuBar, CheckboxMenuButton, RadioMenuButton from Flutter material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for MenuBar widget.
-/// Shows desktop-style menu bar.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
+  print('MenuBar/CheckboxMenuButton/RadioMenuButton test executing');
+
+  // ========== MENUBAR ==========
+  print('--- MenuBar Tests ---');
+
+  // Variation 1: Basic MenuBar with SubmenuButton children
+  final widget1 = MenuBar(
     children: [
-      const Text('MenuBar', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Container(
-        decoration: BoxDecoration(
-          color: Colors.grey.shade100,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _MenuBarItem('File'),
-            _MenuBarItem('Edit'),
-            _MenuBarItem('View'),
-            _MenuBarItem('Help'),
-          ],
-        ),
+      SubmenuButton(
+        menuChildren: [
+          MenuItemButton(
+            onPressed: () {
+              print('New pressed');
+            },
+            child: Text('New'),
+          ),
+          MenuItemButton(
+            onPressed: () {
+              print('Open pressed');
+            },
+            child: Text('Open'),
+          ),
+          MenuItemButton(
+            onPressed: () {
+              print('Save pressed');
+            },
+            child: Text('Save'),
+          ),
+        ],
+        child: Text('File'),
       ),
-      const SizedBox(height: 12),
-      // One menu expanded
-      Container(
-        width: 200,
-        decoration: BoxDecoration(
-          color: Colors.grey.shade100,
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
-        ),
-        child: Column(
-          children: [
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                _MenuBarItem('File', selected: true),
-                _MenuBarItem('Edit'),
-                _MenuBarItem('View'),
-                _MenuBarItem('Help'),
-              ],
-            ),
-            Container(
-              width: 100,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 4)],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Padding(padding: EdgeInsets.all(8), child: Text('New', style: TextStyle(fontSize: 11))),
-                  Padding(padding: EdgeInsets.all(8), child: Text('Open', style: TextStyle(fontSize: 11))),
-                  Padding(padding: EdgeInsets.all(8), child: Text('Save', style: TextStyle(fontSize: 11))),
-                ],
-              ),
-            ),
-          ],
-        ),
+      SubmenuButton(
+        menuChildren: [
+          MenuItemButton(onPressed: () {}, child: Text('Undo')),
+          MenuItemButton(onPressed: () {}, child: Text('Redo')),
+        ],
+        child: Text('Edit'),
       ),
     ],
   );
-}
+  print('MenuBar(basic with File and Edit menus) created');
 
-class _MenuBarItem extends StatelessWidget {
-  final String label;
-  final bool selected;
-  const _MenuBarItem(this.label, {this.selected = false});
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      color: selected ? Colors.blue.withAlpha(50) : null,
-      child: Text(label, style: TextStyle(fontSize: 12, color: selected ? Colors.blue : null)),
-    );
-  }
+  // Variation 2: MenuBar with style
+  final widget2 = MenuBar(
+    style: MenuStyle(
+      backgroundColor: WidgetStatePropertyAll(Colors.blue.shade50),
+      elevation: WidgetStatePropertyAll(4.0),
+    ),
+    children: [
+      SubmenuButton(
+        menuChildren: [
+          MenuItemButton(onPressed: () {}, child: Text('Option 1')),
+        ],
+        child: Text('Styled Menu'),
+      ),
+    ],
+  );
+  print('MenuBar(with MenuStyle) created');
+
+  // ========== CHECKBOXMENUBUTTON ==========
+  print('--- CheckboxMenuButton Tests ---');
+
+  // Variation 3: CheckboxMenuButton checked
+  final widget3 = CheckboxMenuButton(
+    value: true,
+    onChanged: (bool? value) {
+      print('Checkbox changed: $value');
+    },
+    child: Text('Show Toolbar'),
+  );
+  print('CheckboxMenuButton(value: true) created');
+
+  // Variation 4: CheckboxMenuButton unchecked
+  final widget4 = CheckboxMenuButton(
+    value: false,
+    onChanged: (bool? value) {
+      print('Checkbox changed: $value');
+    },
+    child: Text('Show Status Bar'),
+  );
+  print('CheckboxMenuButton(value: false) created');
+
+  // Variation 5: CheckboxMenuButton tristate
+  final widget5 = CheckboxMenuButton(
+    value: null,
+    tristate: true,
+    onChanged: (bool? value) {
+      print('Tristate changed: $value');
+    },
+    child: Text('Select All'),
+  );
+  print('CheckboxMenuButton(tristate, value: null) created');
+
+  // Variation 6: CheckboxMenuButton disabled
+  final widget6 = CheckboxMenuButton(
+    value: true,
+    onChanged: null,
+    child: Text('Disabled Check'),
+  );
+  print('CheckboxMenuButton(disabled, onChanged: null) created');
+
+  // ========== RADIOMENUBUTTON ==========
+  print('--- RadioMenuButton Tests ---');
+
+  // Variation 7: RadioMenuButton selected
+  final widget7 = RadioMenuButton<String>(
+    value: 'small',
+    groupValue: 'small',
+    onChanged: (String? value) {
+      print('Radio changed: $value');
+    },
+    child: Text('Small'),
+  );
+  print('RadioMenuButton(selected, value matches groupValue) created');
+
+  // Variation 8: RadioMenuButton unselected
+  final widget8 = RadioMenuButton<String>(
+    value: 'medium',
+    groupValue: 'small',
+    onChanged: (String? value) {
+      print('Radio changed: $value');
+    },
+    child: Text('Medium'),
+  );
+  print('RadioMenuButton(unselected) created');
+
+  // Variation 9: RadioMenuButton disabled
+  final widget9 = RadioMenuButton<String>(
+    value: 'large',
+    groupValue: 'small',
+    onChanged: null,
+    child: Text('Large (disabled)'),
+  );
+  print('RadioMenuButton(disabled) created');
+
+  // Variation 10: MenuBar with CheckboxMenuButton and RadioMenuButton
+  final widget10 = MenuBar(
+    children: [
+      SubmenuButton(
+        menuChildren: [
+          CheckboxMenuButton(
+            value: true,
+            onChanged: (bool? v) {},
+            child: Text('Word Wrap'),
+          ),
+          CheckboxMenuButton(
+            value: false,
+            onChanged: (bool? v) {},
+            child: Text('Line Numbers'),
+          ),
+        ],
+        child: Text('View'),
+      ),
+      SubmenuButton(
+        menuChildren: [
+          RadioMenuButton<int>(
+            value: 12,
+            groupValue: 14,
+            onChanged: (int? v) {},
+            child: Text('12pt'),
+          ),
+          RadioMenuButton<int>(
+            value: 14,
+            groupValue: 14,
+            onChanged: (int? v) {},
+            child: Text('14pt'),
+          ),
+          RadioMenuButton<int>(
+            value: 16,
+            groupValue: 14,
+            onChanged: (int? v) {},
+            child: Text('16pt'),
+          ),
+        ],
+        child: Text('Font Size'),
+      ),
+    ],
+  );
+  print('MenuBar(with CheckboxMenuButton and RadioMenuButton) created');
+
+  print('MenuBar/CheckboxMenuButton/RadioMenuButton test completed');
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    children: [
+      widget1,
+      SizedBox(height: 8),
+      widget2,
+      SizedBox(height: 8),
+      widget3,
+      widget4,
+      widget5,
+      widget6,
+      SizedBox(height: 8),
+      widget7,
+      widget8,
+      widget9,
+      SizedBox(height: 8),
+      widget10,
+    ],
+  );
 }

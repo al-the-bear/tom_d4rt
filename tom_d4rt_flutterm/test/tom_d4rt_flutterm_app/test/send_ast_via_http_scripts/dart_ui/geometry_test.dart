@@ -1,80 +1,108 @@
-import 'dart:ui';
+// D4rt test script: Tests Offset, Size, Rect, RRect, RSuperellipse from dart:ui
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for Geometry - geometric primitives in dart:ui.
-/// Demonstrates Offset, Size, Rect, RRect, and Radius.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('Geometry Demo')),
-    body: SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('Geometric Primitives', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 24),
-          SizedBox(
-            height: 200,
-            child: CustomPaint(
-              painter: _GeometryPainter(),
-              size: const Size(double.infinity, 200),
-            ),
-          ),
-          const SizedBox(height: 24),
-          _buildGeometryCard('Offset', 'Point in 2D space', 'Offset(10, 20)', Colors.blue),
-          _buildGeometryCard('Size', 'Width and height', 'Size(100, 50)', Colors.green),
-          _buildGeometryCard('Rect', 'Rectangle bounds', 'Rect.fromLTWH(...)', Colors.orange),
-          _buildGeometryCard('RRect', 'Rounded rectangle', 'RRect.fromRectAndRadius(...)', Colors.purple),
-          _buildGeometryCard('Radius', 'Corner radius', 'Radius.circular(8)', Colors.red),
-        ],
-      ),
-    ),
-  );
-}
+  print('dart:ui geometry tests executing');
 
-Widget _buildGeometryCard(String name, String desc, String example, Color color) {
-  return Container(
-    margin: const EdgeInsets.only(bottom: 12),
-    padding: const EdgeInsets.all(12),
-    decoration: BoxDecoration(border: Border(left: BorderSide(color: color, width: 4)), color: color.withValues(alpha: 0.1)),
-    child: Row(
-      children: [
-        Container(width: 40, height: 40, decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(8)), child: const Icon(Icons.category, color: Colors.white)),
-        const SizedBox(width: 12),
-        Expanded(
+  // ========== Offset advanced ==========
+  print('--- Offset Advanced Tests ---');
+  final o1 = Offset.fromDirection(1.5708); // ~pi/2
+  print('Offset.fromDirection(pi/2): dx=${o1.dx.toStringAsFixed(4)}, dy=${o1.dy.toStringAsFixed(4)}');
+  final o2 = Offset.fromDirection(0.0, 100.0);
+  print('Offset.fromDirection(0, 100): dx=${o2.dx}, dy=${o2.dy}');
+  final o3 = Offset(3.0, 4.0);
+  print('distance: ${o3.distance}'); // 5.0
+  print('distanceSquared: ${o3.distanceSquared}'); // 25.0
+  print('direction: ${o3.direction}');
+  print('isFinite: ${o3.isFinite}');
+  print('isInfinite: ${o3.isInfinite}');
+  final scaled = o3.scale(2.0, 3.0);
+  print('scale(2,3): ${scaled.dx}, ${scaled.dy}');
+  final translated = o3.translate(10.0, 20.0);
+  print('translate(10,20): ${translated.dx}, ${translated.dy}');
+  final negated = -o3;
+  print('negated: ${negated.dx}, ${negated.dy}');
+  print('Offset.zero: ${Offset.zero.dx}, ${Offset.zero.dy}');
+  print('Offset.infinite: ${Offset.infinite.dx}');
+
+  // ========== Size advanced ==========
+  print('--- Size Advanced Tests ---');
+  final s1 = Size.fromWidth(200.0);
+  print('Size.fromWidth(200): ${s1.width}x${s1.height}');
+  final s2 = Size.fromHeight(150.0);
+  print('Size.fromHeight(150): ${s2.width}x${s2.height}');
+  final s3 = Size.fromRadius(50.0);
+  print('Size.fromRadius(50): ${s3.width}x${s3.height}');
+  final s4 = Size(100.0, 80.0);
+  print('aspectRatio: ${s4.aspectRatio}');
+  print('longestSide: ${s4.longestSide}');
+  print('shortestSide: ${s4.shortestSide}');
+  print('isEmpty: ${s4.isEmpty}');
+  print('isFinite: ${s4.isFinite}');
+  print('isInfinite: ${s4.isInfinite}');
+  print('flipped: ${s4.flipped.width}x${s4.flipped.height}');
+  final constrained = s4.bottomRight(Offset.zero);
+  print('bottomRight: ${constrained.dx}, ${constrained.dy}');
+  print('Size.zero: ${Size.zero.width}x${Size.zero.height}');
+  print('Size.infinite: ${Size.infinite.width}');
+
+  // ========== RRect ==========
+  print('--- RRect Tests ---');
+  final rr1 = RRect.fromLTRBXY(10.0, 20.0, 200.0, 150.0, 8.0, 8.0);
+  print('RRect.fromLTRBXY: left=${rr1.left}, top=${rr1.top}, width=${rr1.width}, height=${rr1.height}');
+  final rr2 = RRect.fromRectXY(Rect.fromLTWH(0, 0, 100, 100), 12.0, 12.0);
+  print('RRect.fromRectXY: tlRadiusX=${rr2.tlRadiusX}');
+  final rr3 = RRect.fromRectAndRadius(Rect.fromLTWH(0, 0, 80, 60), Radius.circular(10.0));
+  print('RRect.fromRectAndRadius: blRadius=${rr3.blRadius}');
+  final rr4 = RRect.fromRectAndCorners(
+    Rect.fromLTWH(0, 0, 120, 90),
+    topLeft: Radius.circular(4.0),
+    topRight: Radius.circular(8.0),
+    bottomLeft: Radius.circular(12.0),
+    bottomRight: Radius.circular(16.0),
+  );
+  print('RRect.fromRectAndCorners: tl=${rr4.tlRadiusX}, tr=${rr4.trRadiusX}, bl=${rr4.blRadiusX}, br=${rr4.brRadiusX}');
+  print('RRect.zero: ${RRect.zero.width}x${RRect.zero.height}');
+  print('isRect: ${rr1.isRect}');
+  print('isFinite: ${rr1.isFinite}');
+  print('isStadium: ${rr1.isStadium}');
+  print('isEllipse: ${rr1.isEllipse}');
+
+  // ========== RSuperellipse ==========
+  print('--- RSuperellipse Tests ---');
+  final rse1 = RSuperellipse.fromRectAndCorners(
+    Rect.fromLTWH(0, 0, 100, 100),
+    topLeft: Radius.circular(20.0),
+    topRight: Radius.circular(20.0),
+    bottomLeft: Radius.circular(20.0),
+    bottomRight: Radius.circular(20.0),
+  );
+  print('RSuperellipse: left=${rse1.left}, top=${rse1.top}, width=${rse1.width}');
+  print('tlRadiusX: ${rse1.tlRadiusX}, trRadiusX: ${rse1.trRadiusX}');
+  print('isFinite: ${rse1.isFinite}');
+
+  print('All geometry tests passed');
+
+  return MaterialApp(
+    home: Scaffold(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(name, style: const TextStyle(fontWeight: FontWeight.bold)),
-              Text(desc, style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
-              Text(example, style: const TextStyle(fontFamily: 'monospace', fontSize: 10)),
+              Text('dart:ui Geometry Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+              SizedBox(height: 8.0),
+              Text('Offset: direction=${o3.direction.toStringAsFixed(2)}, distance=${o3.distance}'),
+              Text('Size: ${s4.width}x${s4.height}, aspect=${s4.aspectRatio.toStringAsFixed(2)}'),
+              Text('RRect: ${rr4.tlRadiusX}/${rr4.trRadiusX}/${rr4.blRadiusX}/${rr4.brRadiusX}'),
+              Text('RSuperellipse: ${rse1.width.toInt()}x${rse1.height.toInt()}'),
+              Container(width: 60, height: 60, decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: Colors.blue)),
             ],
           ),
         ),
-      ],
+      ),
     ),
   );
-}
-
-class _GeometryPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    // Rect
-    canvas.drawRect(Rect.fromLTWH(10, 10, 80, 60), Paint()..color = Colors.blue.withValues(alpha: 0.5));
-    canvas.drawRect(Rect.fromLTWH(10, 10, 80, 60), Paint()..color = Colors.blue..style = PaintingStyle.stroke..strokeWidth = 2);
-    
-    // RRect
-    canvas.drawRRect(RRect.fromRectAndRadius(const Rect.fromLTWH(110, 10, 80, 60), const Radius.circular(12)), Paint()..color = Colors.green.withValues(alpha: 0.5));
-    
-    // Circle (from center Offset)
-    canvas.drawCircle(const Offset(260, 40), 30, Paint()..color = Colors.orange.withValues(alpha: 0.5));
-    
-    // Point
-    canvas.drawCircle(const Offset(50, 130), 6, Paint()..color = Colors.red);
-    final tp = TextPainter(text: const TextSpan(text: 'Offset(50, 130)', style: TextStyle(fontSize: 10)), textDirection: TextDirection.ltr)..layout();
-    tp.paint(canvas, const Offset(65, 125));
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

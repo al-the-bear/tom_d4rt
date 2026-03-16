@@ -1,6 +1,29 @@
+// D4rt test script: Tests Thumb from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for Thumb
 dynamic build(BuildContext context) {
-  return Scaffold(appBar: AppBar(title: Text('Thumb Demo')), body: Center(child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [Text('Slider Thumb Shapes', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)), SizedBox(height: 30), SliderTheme(data: SliderTheme.of(context).copyWith(thumbShape: RoundSliderThumbShape(enabledThumbRadius: 12)), child: Slider(value: 0.5, onChanged: (v) {})), Text('Round Thumb (default)'), SizedBox(height: 20), SliderTheme(data: SliderTheme.of(context).copyWith(thumbShape: RoundSliderThumbShape(enabledThumbRadius: 8, pressedElevation: 8)), child: Slider(value: 0.7, onChanged: (v) {})), Text('Smaller with elevation'), SizedBox(height: 20), SliderTheme(data: SliderTheme.of(context).copyWith(thumbColor: Colors.orange), child: Slider(value: 0.3, onChanged: (v) {})), Text('Custom color')])));
+  print('Thumb test executing');
+
+  // Enumerate all Thumb values
+  print('Thumb values:');
+  for (final value in Thumb.values) {
+    print('  ${value.name}: $value');
+  }
+  print('Thumb has ${ Thumb.values.length} values');
+
+  final first = Thumb.values.first;
+  final last = Thumb.values.last;
+  print('First: $first, Last: $last');
+  print('First index: ${first.index}, Last index: ${last.index}');
+
+  print('Thumb test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('Thumb Tests'),
+      Text('Values: ${ Thumb.values.length}'),
+      Text('First: $first'),
+      Text('Last: $last'),
+    ],
+  );
 }

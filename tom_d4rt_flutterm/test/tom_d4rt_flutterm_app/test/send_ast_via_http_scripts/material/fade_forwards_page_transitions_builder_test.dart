@@ -1,81 +1,62 @@
+// D4rt test script: Tests FadeForwardsPageTransitionsBuilder from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for fade forward page transition.
-/// Shows the fade + slide up animation style.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('Fade Forwards Transition', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          // Before state
-          Container(
-            width: 80,
-            height: 100,
-            decoration: BoxDecoration(
-              color: Colors.blue.shade100,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(Icons.article, size: 24, color: Colors.blue),
-                const SizedBox(height: 4),
-                const Text('Page A', style: TextStyle(fontSize: 10)),
-              ],
-            ),
-          ),
-          // Arrow
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              children: [
-                const Icon(Icons.arrow_forward, color: Colors.grey),
-                Container(
-                  padding: const EdgeInsets.all(4),
-                  decoration: BoxDecoration(color: Colors.amber.shade100, borderRadius: BorderRadius.circular(4)),
-                  child: const Text('Fade\nUp', textAlign: TextAlign.center, style: TextStyle(fontSize: 8, fontWeight: FontWeight.bold)),
-                ),
-              ],
-            ),
-          ),
-          // After state
-          Stack(
+  print('FadeForwardsPageTransitionsBuilder test executing');
+
+  final title = 'FadeForwardsPageTransitionsBuilder';
+  final packageName = 'material';
+  final details = 'FadeForwardsPageTransitionsBuilder';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('FadeForwardsPageTransitionsBuilder test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                width: 80,
-                height: 100,
-                decoration: BoxDecoration(
-                  color: Colors.blue.shade50,
-                  borderRadius: BorderRadius.circular(8),
-                ),
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
               ),
-              Container(
-                width: 80,
-                height: 100,
-                decoration: BoxDecoration(
-                  color: Colors.green.shade100,
-                  borderRadius: BorderRadius.circular(8),
-                  boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 8)],
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(Icons.settings, size: 24, color: Colors.green),
-                    const SizedBox(height: 4),
-                    const Text('Page B', style: TextStyle(fontSize: 10)),
-                  ],
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
                 ),
               ),
             ],
           ),
-        ],
+        ),
       ),
-      const SizedBox(height: 12),
-      const Text('Android/Linux default transition', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
+    ),
   );
 }

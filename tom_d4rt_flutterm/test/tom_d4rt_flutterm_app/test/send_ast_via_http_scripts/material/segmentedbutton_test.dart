@@ -1,96 +1,237 @@
+// D4rt test script: Tests SegmentedButton from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for SegmentedButton widget.
-/// Material 3 segmented button for single or multi-selection.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('SegmentedButton', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Container(
-        decoration: BoxDecoration(border: Border.all(color: Colors.blue), borderRadius: BorderRadius.circular(20)),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _Segment(Icons.format_align_left, true),
-            _Divider(),
-            _Segment(Icons.format_align_center, false),
-            _Divider(),
-            _Segment(Icons.format_align_right, false),
-          ],
-        ),
-      ),
-      const SizedBox(height: 16),
-      const Text('Multi-select:', style: TextStyle(fontSize: 10)),
-      const SizedBox(height: 8),
-      Container(
-        decoration: BoxDecoration(border: Border.all(color: Colors.purple), borderRadius: BorderRadius.circular(20)),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _MultiSegment('S', true),
-            _Divider(color: Colors.purple),
-            _MultiSegment('M', true),
-            _Divider(color: Colors.purple),
-            _MultiSegment('L', false),
-            _Divider(color: Colors.purple),
-            _MultiSegment('XL', false),
-          ],
-        ),
-      ),
-      const SizedBox(height: 12),
-      const Text('multiSelectionEnabled property', style: TextStyle(fontSize: 11, color: Colors.grey)),
+  print('SegmentedButton test executing');
+
+  // Test basic SegmentedButton with single selection
+  final segBasic = SegmentedButton<String>(
+    segments: [
+      ButtonSegment(value: 'day', label: Text('Day')),
+      ButtonSegment(value: 'week', label: Text('Week')),
+      ButtonSegment(value: 'month', label: Text('Month')),
     ],
+    selected: {'day'},
+    onSelectionChanged: (value) {
+      print('Selected: $value');
+    },
   );
-}
+  print('SegmentedButton basic single selection created');
 
-class _Segment extends StatelessWidget {
-  final IconData icon;
-  final bool selected;
-  const _Segment(this.icon, this.selected);
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      decoration: BoxDecoration(
-        color: selected ? Colors.blue.shade100 : null,
-        borderRadius: BorderRadius.circular(19),
+  // Test SegmentedButton with icons
+  final segIcons = SegmentedButton<String>(
+    segments: [
+      ButtonSegment(value: 'list', label: Text('List'), icon: Icon(Icons.list)),
+      ButtonSegment(
+        value: 'grid',
+        label: Text('Grid'),
+        icon: Icon(Icons.grid_view),
       ),
-      child: Row(
-        children: [
-          if (selected) const Icon(Icons.check, size: 14, color: Colors.blue),
-          if (selected) const SizedBox(width: 4),
-          Icon(icon, size: 16, color: Colors.blue),
-        ],
+      ButtonSegment(
+        value: 'table',
+        label: Text('Table'),
+        icon: Icon(Icons.table_chart),
       ),
-    );
-  }
-}
+    ],
+    selected: {'grid'},
+    onSelectionChanged: (value) {
+      print('View: $value');
+    },
+  );
+  print('SegmentedButton with icons created');
 
-class _MultiSegment extends StatelessWidget {
-  final String label;
-  final bool selected;
-  const _MultiSegment(this.label, this.selected);
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(color: selected ? Colors.purple.shade100 : null, borderRadius: BorderRadius.circular(19)),
-      child: Row(
-        children: [
-          if (selected) const Icon(Icons.check, size: 12, color: Colors.purple),
-          if (selected) const SizedBox(width: 2),
-          Text(label, style: TextStyle(fontSize: 11, color: Colors.purple)),
-        ],
-      ),
-    );
-  }
-}
+  // Test SegmentedButton with multiSelectionEnabled
+  final segMulti = SegmentedButton<String>(
+    segments: [
+      ButtonSegment(value: 'bold', label: Text('B')),
+      ButtonSegment(value: 'italic', label: Text('I')),
+      ButtonSegment(value: 'underline', label: Text('U')),
+      ButtonSegment(value: 'strike', label: Text('S')),
+    ],
+    selected: {'bold', 'italic'},
+    multiSelectionEnabled: true,
+    onSelectionChanged: (value) {
+      print('Format: $value');
+    },
+  );
+  print('SegmentedButton multiSelectionEnabled created');
 
-class _Divider extends StatelessWidget {
-  final Color color;
-  const _Divider({this.color = Colors.blue});
-  @override
-  Widget build(BuildContext context) => Container(width: 1, height: 24, color: color.withAlpha(100));
+  // Test SegmentedButton with showSelectedIcon=false
+  final segNoIcon = SegmentedButton<String>(
+    segments: [
+      ButtonSegment(value: 'small', label: Text('S')),
+      ButtonSegment(value: 'medium', label: Text('M')),
+      ButtonSegment(value: 'large', label: Text('L')),
+    ],
+    selected: {'medium'},
+    showSelectedIcon: false,
+    onSelectionChanged: (value) {
+      print('Size: $value');
+    },
+  );
+  print('SegmentedButton showSelectedIcon=false created');
+
+  // Test SegmentedButton with showSelectedIcon=true (default)
+  final segShowIcon = SegmentedButton<String>(
+    segments: [
+      ButtonSegment(value: 'on', label: Text('On')),
+      ButtonSegment(value: 'off', label: Text('Off')),
+    ],
+    selected: {'on'},
+    showSelectedIcon: true,
+    onSelectionChanged: (value) {
+      print('Toggle: $value');
+    },
+  );
+  print('SegmentedButton showSelectedIcon=true created');
+
+  // Test SegmentedButton with two segments
+  final segTwo = SegmentedButton<int>(
+    segments: [
+      ButtonSegment(value: 0, label: Text('Left')),
+      ButtonSegment(value: 1, label: Text('Right')),
+    ],
+    selected: {0},
+    onSelectionChanged: (value) {
+      print('Side: $value');
+    },
+  );
+  print('SegmentedButton with two segments created');
+
+  // Test SegmentedButton with disabled segment
+  final segDisabled = SegmentedButton<String>(
+    segments: [
+      ButtonSegment(value: 'a', label: Text('A')),
+      ButtonSegment(value: 'b', label: Text('B'), enabled: false),
+      ButtonSegment(value: 'c', label: Text('C')),
+    ],
+    selected: {'a'},
+    onSelectionChanged: (value) {
+      print('Selected: $value');
+    },
+  );
+  print('SegmentedButton with disabled segment created');
+
+  // Test SegmentedButton multi with empty selection
+  final segMultiEmpty = SegmentedButton<String>(
+    segments: [
+      ButtonSegment(value: 'x', label: Text('X')),
+      ButtonSegment(value: 'y', label: Text('Y')),
+      ButtonSegment(value: 'z', label: Text('Z')),
+    ],
+    selected: {},
+    multiSelectionEnabled: true,
+    emptySelectionAllowed: true,
+    onSelectionChanged: (value) {
+      print('Empty selection: $value');
+    },
+  );
+  print('SegmentedButton multi with empty selection created');
+
+  // Test SegmentedButton with style
+  final segStyled = SegmentedButton<String>(
+    segments: [
+      ButtonSegment(value: 'red', label: Text('Red')),
+      ButtonSegment(value: 'green', label: Text('Green')),
+      ButtonSegment(value: 'blue', label: Text('Blue')),
+    ],
+    selected: {'green'},
+    onSelectionChanged: (value) {
+      print('Color: $value');
+    },
+    style: ButtonStyle(backgroundColor: WidgetStateProperty.all(Colors.grey)),
+  );
+  print('SegmentedButton with style created');
+
+  // Test SegmentedButton with icon-only segments
+  final segIconOnly = SegmentedButton<String>(
+    segments: [
+      ButtonSegment(value: 'align_left', icon: Icon(Icons.format_align_left)),
+      ButtonSegment(
+        value: 'align_center',
+        icon: Icon(Icons.format_align_center),
+      ),
+      ButtonSegment(value: 'align_right', icon: Icon(Icons.format_align_right)),
+      ButtonSegment(
+        value: 'align_justify',
+        icon: Icon(Icons.format_align_justify),
+      ),
+    ],
+    selected: {'align_left'},
+    showSelectedIcon: false,
+    onSelectionChanged: (value) {
+      print('Alignment: $value');
+    },
+  );
+  print('SegmentedButton icon-only created');
+
+  print('All SegmentedButton tests completed');
+
+  return SingleChildScrollView(
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          '=== SegmentedButton Tests ===',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+        ),
+        SizedBox(height: 8.0),
+        Text(
+          'Basic single selection:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        segBasic,
+        SizedBox(height: 12.0),
+        Text('With icons:', style: TextStyle(fontWeight: FontWeight.bold)),
+        segIcons,
+        SizedBox(height: 12.0),
+        Text('Multi selection:', style: TextStyle(fontWeight: FontWeight.bold)),
+        segMulti,
+        SizedBox(height: 12.0),
+        Text(
+          'No selected icon:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        segNoIcon,
+        SizedBox(height: 12.0),
+        Text(
+          'Show selected icon:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        segShowIcon,
+        SizedBox(height: 12.0),
+        Text('Two segments:', style: TextStyle(fontWeight: FontWeight.bold)),
+        segTwo,
+        SizedBox(height: 12.0),
+        Text(
+          'Disabled segment:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        segDisabled,
+        SizedBox(height: 12.0),
+        Text(
+          'Multi empty selection:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        segMultiEmpty,
+        SizedBox(height: 12.0),
+        Text('Styled:', style: TextStyle(fontWeight: FontWeight.bold)),
+        segStyled,
+        SizedBox(height: 12.0),
+        Text(
+          'Icon-only segments:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        segIconOnly,
+        SizedBox(height: 16.0),
+        Text('Key Points:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text('• SegmentedButton provides segmented toggle control'),
+        Text('• segments list defines ButtonSegment items'),
+        Text('• selected is a Set for single or multi selection'),
+        Text('• multiSelectionEnabled allows multiple selections'),
+        Text('• showSelectedIcon toggles check icon on selected'),
+        Text('• emptySelectionAllowed allows deselecting all'),
+      ],
+    ),
+  );
 }

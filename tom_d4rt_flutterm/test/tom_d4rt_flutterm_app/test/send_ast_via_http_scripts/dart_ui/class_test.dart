@@ -1,62 +1,78 @@
-import 'dart:ui';
+// D4rt test script: Tests dart:ui core class availability and type system
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for dart:ui Class type - representation of classes in dart:ui.
-/// Demonstrates concept of class introspection in dart:ui layer.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('dart:ui Classes Demo')),
-    body: Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('dart:ui Core Classes', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 24),
-          Expanded(
-            child: GridView.count(
-              crossAxisCount: 2,
-              mainAxisSpacing: 12,
-              crossAxisSpacing: 12,
-              childAspectRatio: 1.5,
-              children: [
-                _buildClassCard('Canvas', 'Drawing operations', Icons.brush, Colors.blue),
-                _buildClassCard('Paint', 'Style settings', Icons.format_paint, Colors.purple),
-                _buildClassCard('Path', 'Vector shapes', Icons.timeline, Colors.green),
-                _buildClassCard('Picture', 'Recorded drawing', Icons.image, Colors.orange),
-                _buildClassCard('Offset', '2D position', Icons.location_on, Colors.red),
-                _buildClassCard('Rect', 'Rectangle bounds', Icons.crop_square, Colors.teal),
-                _buildClassCard('Color', 'ARGB color', Icons.color_lens, Colors.pink),
-                _buildClassCard('Size', 'Width & height', Icons.aspect_ratio, Colors.indigo),
-              ],
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
-}
+  print('dart:ui class overview test executing');
 
-Widget _buildClassCard(String name, String desc, IconData icon, Color color) {
-  return Container(
-    padding: const EdgeInsets.all(12),
-    decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: [color.withValues(alpha: 0.1), color.withValues(alpha: 0.2)],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
+  // Verify core class types are accessible
+  print('--- Core Geometry ---');
+  final offset = Offset(10, 20);
+  print('Offset: ${offset.runtimeType}');
+  final size = Size(100, 50);
+  print('Size: ${size.runtimeType}');
+  final rect = Rect.fromLTWH(0, 0, 100, 100);
+  print('Rect: ${rect.runtimeType}');
+  final rrect = RRect.fromRectXY(rect, 8, 8);
+  print('RRect: ${rrect.runtimeType}');
+  final radius = Radius.circular(10);
+  print('Radius: ${radius.runtimeType}');
+
+  // Verify painting classes
+  print('--- Painting ---');
+  final paint = Paint();
+  print('Paint: ${paint.runtimeType}');
+  final path = Path();
+  print('Path: ${path.runtimeType}');
+  final color = Color.fromARGB(255, 100, 200, 50);
+  print('Color: ${color.runtimeType}');
+
+  // Verify text classes
+  print('--- Text ---');
+  final ps = ui.ParagraphStyle(fontSize: 14);
+  print('ParagraphStyle: ${ps.runtimeType}');
+  final ts = ui.TextStyle(fontSize: 14);
+  print('ui.TextStyle: ${ts.runtimeType}');
+  final tp = TextPosition(offset: 0);
+  print('TextPosition: ${tp.runtimeType}');
+  final tr = TextRange(start: 0, end: 5);
+  print('TextRange: ${tr.runtimeType}');
+
+  // Verify recording classes
+  print('--- Recording ---');
+  final recorder = ui.PictureRecorder();
+  print('PictureRecorder: ${recorder.runtimeType}');
+  final sb = ui.SceneBuilder();
+  print('SceneBuilder: ${sb.runtimeType}');
+  final sub = ui.SemanticsUpdateBuilder();
+  print('SemanticsUpdateBuilder: ${sub.runtimeType}');
+
+  // Type hierarchy checks
+  print('--- Type Hierarchy ---');
+  print('Offset is OffsetBase: ${offset is ui.OffsetBase}');
+  print('Size is OffsetBase: ${size is ui.OffsetBase}');
+
+  final update = sub.build();
+  update.dispose();
+  print('SemanticsUpdate disposed');
+
+  print('dart:ui class overview test completed');
+  return MaterialApp(
+    home: Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('dart:ui Class Overview', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+            SizedBox(height: 16.0),
+            Text('Geometry: Offset, Size, Rect, RRect, Radius'),
+            Text('Painting: Paint, Path, Color'),
+            Text('Text: ParagraphStyle, TextStyle, TextPosition'),
+            Text('Recording: PictureRecorder, SceneBuilder'),
+            Text('Hierarchy: Offset/Size extend OffsetBase'),
+          ],
+        ),
       ),
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: color.withValues(alpha: 0.3)),
-    ),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Icon(icon, color: color, size: 28),
-        const SizedBox(height: 8),
-        Text(name, style: TextStyle(fontWeight: FontWeight.bold, color: color)),
-        Text(desc, style: TextStyle(fontSize: 11, color: Colors.grey.shade600)),
-      ],
     ),
   );
 }

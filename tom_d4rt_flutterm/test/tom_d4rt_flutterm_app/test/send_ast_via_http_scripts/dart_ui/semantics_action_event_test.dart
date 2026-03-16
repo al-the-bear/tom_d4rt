@@ -1,67 +1,36 @@
-import 'dart:ui';
+// D4rt test script: Tests SemanticsActionEvent from dart:ui
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for SemanticsActionEvent - accessibility action.
-/// Demonstrates events triggered by assistive technology.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('SemanticsActionEvent Demo')),
-    body: Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('Semantics Action Event', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 8),
-          const Text('Action triggered by accessibility tools', style: TextStyle(color: Colors.grey)),
-          const SizedBox(height: 24),
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(12)),
-            child: const Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Event Properties:', style: TextStyle(fontWeight: FontWeight.bold)),
-                SizedBox(height: 12),
-                Row(children: [Icon(Icons.numbers, size: 16), SizedBox(width: 8), Text('nodeId - Target semantics node')]),
-                SizedBox(height: 8),
-                Row(children: [Icon(Icons.touch_app, size: 16), SizedBox(width: 8), Text('type - Action type (tap, scroll, etc.)')]),
-                SizedBox(height: 8),
-                Row(children: [Icon(Icons.data_object, size: 16), SizedBox(width: 8), Text('arguments - Optional action data')]),
-              ],
-            ),
-          ),
-          const SizedBox(height: 24),
-          _buildEventExample('Tap', 'User double-tapped via TalkBack'),
-          _buildEventExample('Scroll', 'User scrolled via VoiceOver'),
-          _buildEventExample('Increase', 'User adjusted slider up'),
-        ],
-      ),
-    ),
-  );
-}
+  print('SemanticsActionEvent test executing');
 
-Widget _buildEventExample(String action, String desc) {
-  return Container(
-    margin: const EdgeInsets.symmetric(vertical: 6),
-    padding: const EdgeInsets.all(12),
-    decoration: BoxDecoration(border: Border.all(color: Colors.green.shade200), borderRadius: BorderRadius.circular(8)),
-    child: Row(children: [
-      Container(
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(color: Colors.green.shade100, borderRadius: BorderRadius.circular(8)),
-        child: const Icon(Icons.accessibility, color: Colors.green),
-      ),
-      const SizedBox(width: 12),
-      Expanded(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('SemanticsAction.$action', style: const TextStyle(fontFamily: 'monospace', fontWeight: FontWeight.bold)),
-            Text(desc, style: TextStyle(color: Colors.grey.shade600, fontSize: 12)),
-          ],
-        ),
-      ),
-    ]),
+  final event1 = ui.SemanticsActionEvent(
+    type: ui.SemanticsAction.tap,
+    viewId: 0,
+    nodeId: 1,
   );
+  print('SemanticsActionEvent: type=${event1.type}, viewId=${event1.viewId}, nodeId=${event1.nodeId}');
+  print('arguments: ${event1.arguments}');
+
+  // With arguments
+  final event2 = ui.SemanticsActionEvent(
+    type: ui.SemanticsAction.scrollUp,
+    viewId: 0,
+    nodeId: 2,
+  );
+  print('ScrollUp event: type=${event2.type}');
+
+  // copyWith
+  final event3 = event1.copyWith(nodeId: 42);
+  print('copyWith nodeId: ${event3.nodeId}');
+  print('copyWith type unchanged: ${event3.type}');
+
+  print('SemanticsActionEvent test completed');
+  return Column(mainAxisSize: MainAxisSize.min, children: [
+    Text('SemanticsActionEvent Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+    Text('tap: nodeId=${event1.nodeId}'),
+    Text('scrollUp: nodeId=${event2.nodeId}'),
+    Text('copyWith: nodeId=${event3.nodeId}'),
+  ]);
 }

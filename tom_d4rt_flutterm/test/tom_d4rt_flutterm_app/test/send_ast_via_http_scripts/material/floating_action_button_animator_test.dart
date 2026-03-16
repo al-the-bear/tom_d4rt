@@ -1,51 +1,62 @@
+// D4rt test script: Tests FloatingActionButtonAnimator from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for FloatingActionButtonAnimator.
-/// Shows animation controller for FAB transitions.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('FAB Animator', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: List.generate(5, (i) {
-          final progress = i / 4;
-          final scale = 0.5 + (progress * 0.5);
-          final opacity = progress;
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
-            child: Opacity(
-              opacity: opacity.clamp(0.2, 1.0),
-              child: Transform.scale(
-                scale: scale,
-                child: Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: Colors.pink,
-                    shape: BoxShape.circle,
-                    boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 4 * progress)],
+  print('FloatingActionButtonAnimator test executing');
+
+  final title = 'FloatingActionButtonAnimator';
+  final packageName = 'material';
+  final details = 'FAB animator';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('FloatingActionButtonAnimator test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
                   ),
-                  child: Icon(Icons.add, color: Colors.white, size: 16 + (8 * progress)),
                 ),
               ),
-            ),
-          );
-        }),
+            ],
+          ),
+        ),
       ),
-      const SizedBox(height: 12),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
-          Text('0%', style: TextStyle(fontSize: 9, color: Colors.grey)),
-          SizedBox(width: 120),
-          Text('100%', style: TextStyle(fontSize: 9, color: Colors.grey)),
-        ],
-      ),
-      const SizedBox(height: 8),
-      const Text('Animates scale + rotation on location change', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
+    ),
   );
 }

@@ -1,61 +1,120 @@
+// D4rt test script: Tests TargetPlatformVariant, TargetPlatform, DiagnosticsNode, DiagnosticsProperty, DiagnosticPropertiesBuilder
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for TargetPlatformVariant - testing across platforms.
-/// Shows how tests can run variants for different target platforms.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('TargetPlatformVariant Demo')),
-    body: Padding(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('Platform Test Variants',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 16),
-          _PlatformCard(platform: 'Android', icon: Icons.android, color: Colors.green),
-          _PlatformCard(platform: 'iOS', icon: Icons.phone_iphone, color: Colors.grey),
-          _PlatformCard(platform: 'macOS', icon: Icons.laptop_mac, color: Colors.blue),
-          _PlatformCard(platform: 'Windows', icon: Icons.window, color: Colors.cyan),
-          _PlatformCard(platform: 'Linux', icon: Icons.computer, color: Colors.orange),
-          _PlatformCard(platform: 'Fuchsia', icon: Icons.devices_other, color: Colors.pink),
-          const SizedBox(height: 16),
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
-            child: const Text('TargetPlatformVariant.all() runs tests on all platforms automatically', style: TextStyle(fontSize: 12)),
-          ),
-        ],
+  print('Foundation misc advanced tests executing');
+
+  // ========== TargetPlatform ==========
+  print('--- TargetPlatform Tests ---');
+  print('TargetPlatform values:');
+  for (final platform in TargetPlatform.values) {
+    print('  TargetPlatform.${platform.name} (index: ${platform.index})');
+  }
+  print('defaultTargetPlatform: $defaultTargetPlatform');
+  print(
+    'debugDefaultTargetPlatformOverride: $debugDefaultTargetPlatformOverride',
+  );
+  print('TargetPlatform tests passed');
+
+  // ========== TargetPlatformVariant ==========
+  print('--- TargetPlatformVariant Tests ---');
+  print('TargetPlatformVariant is a flutter_test utility class');
+  print('It is NOT available via foundation.dart imports');
+  print('It requires: import package:flutter_test/flutter_test.dart');
+  print(
+    'Usage: TargetPlatformVariant.all() or TargetPlatformVariant({TargetPlatform.iOS})',
+  );
+  print('It extends TestVariant<TargetPlatform> for parameterized testing');
+  print('Since we cannot import flutter_test in a D4rt script,');
+  print('we reference TargetPlatform enum values instead');
+  print('TargetPlatformVariant reference passed');
+
+  // ========== DiagnosticsNode ==========
+  print('--- DiagnosticsNode Tests ---');
+  final messageNode = DiagnosticsNode.message('Test diagnostic message');
+  print('DiagnosticsNode.message type: ${messageNode.runtimeType}');
+  print('name: ${messageNode.name}');
+  print('toString: ${messageNode.toString()}');
+  print('toDescription: ${messageNode.toDescription()}');
+  print('style: ${messageNode.style}');
+  print('level: ${messageNode.level}');
+  print('DiagnosticsNode tests passed');
+
+  // ========== DiagnosticsProperty ==========
+  print('--- DiagnosticsProperty Tests ---');
+  final stringProp = DiagnosticsProperty<String>('label', 'hello');
+  print('DiagnosticsProperty type: ${stringProp.runtimeType}');
+  print('name: ${stringProp.name}');
+  print('value: ${stringProp.value}');
+  print('toString: ${stringProp.toString()}');
+
+  final intProp = IntProperty('count', 42);
+  print('IntProperty type: ${intProp.runtimeType}');
+  print('IntProperty value: ${intProp.value}');
+
+  final doubleProp = DoubleProperty('ratio', 3.14);
+  print('DoubleProperty type: ${doubleProp.runtimeType}');
+  print('DoubleProperty value: ${doubleProp.value}');
+
+  final flagProp = FlagProperty(
+    'visible',
+    value: true,
+    ifTrue: 'VISIBLE',
+    ifFalse: 'HIDDEN',
+  );
+  print('FlagProperty type: ${flagProp.runtimeType}');
+  print('FlagProperty toString: ${flagProp.toString()}');
+
+  final enumProp = EnumProperty<TargetPlatform>(
+    'platform',
+    TargetPlatform.android,
+  );
+  print('EnumProperty type: ${enumProp.runtimeType}');
+  print('EnumProperty value: ${enumProp.value}');
+
+  final colorProp = ColorProperty('color', const Color(0xFFFF0000));
+  print('ColorProperty type: ${colorProp.runtimeType}');
+  print('ColorProperty value: ${colorProp.value}');
+  print('DiagnosticsProperty tests passed');
+
+  // ========== DiagnosticPropertiesBuilder ==========
+  print('--- DiagnosticPropertiesBuilder Tests ---');
+  final builder = DiagnosticPropertiesBuilder();
+  print('DiagnosticPropertiesBuilder type: ${builder.runtimeType}');
+  builder.add(DiagnosticsProperty<String>('name', 'TestWidget'));
+  builder.add(IntProperty('width', 100));
+  builder.add(DoubleProperty('opacity', 0.75));
+  builder.add(FlagProperty('enabled', value: true, ifTrue: 'ON'));
+  builder.add(EnumProperty<TargetPlatform>('platform', TargetPlatform.iOS));
+  print('properties count: ${builder.properties.length}');
+  for (final prop in builder.properties) {
+    print('  property: ${prop.toString()}');
+  }
+  print('DiagnosticPropertiesBuilder tests passed');
+
+  print('All Foundation misc advanced tests passed');
+
+  // ========== RETURN WIDGET ==========
+  return MaterialApp(
+    home: Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Foundation Misc Advanced Tests',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
+            SizedBox(height: 16.0),
+            Text('TargetPlatform: OK (${TargetPlatform.values.length} values)'),
+            Text('TargetPlatformVariant: test-only reference'),
+            Text('DiagnosticsNode: OK'),
+            Text('DiagnosticsProperty: OK'),
+            Text('DiagnosticPropertiesBuilder: OK'),
+          ],
+        ),
       ),
     ),
   );
-}
-
-class _PlatformCard extends StatelessWidget {
-  final String platform;
-  final IconData icon;
-  final Color color;
-  const _PlatformCard({required this.platform, required this.icon, required this.color});
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 8),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      decoration: BoxDecoration(color: color.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8)),
-      child: Row(
-        children: [
-          Icon(icon, color: color),
-          const SizedBox(width: 12),
-          Text(platform, style: TextStyle(fontWeight: FontWeight.bold, color: color)),
-          const Spacer(),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(4)),
-            child: const Text('PASS', style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)),
-          ),
-        ],
-      ),
-    );
-  }
 }

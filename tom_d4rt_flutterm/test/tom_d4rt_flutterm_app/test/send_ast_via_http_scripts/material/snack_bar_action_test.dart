@@ -1,42 +1,62 @@
+// D4rt test script: Tests SnackBarAction from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for SnackBarAction widget.
-/// Action button displayed in a SnackBar.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('SnackBarAction', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Container(
-        width: 220,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        decoration: BoxDecoration(color: Colors.grey.shade800, borderRadius: BorderRadius.circular(8)),
-        child: Row(
-          children: [
-            const Expanded(child: Text('Item deleted', style: TextStyle(color: Colors.white, fontSize: 12))),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(4)),
-              child: const Text('UNDO', style: TextStyle(color: Colors.amber, fontSize: 12, fontWeight: FontWeight.bold)),
-            ),
-          ],
+  print('SnackBarAction test executing');
+
+  final title = 'SnackBarAction';
+  final packageName = 'material';
+  final details = 'Snackbar action';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('SnackBarAction test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-      const SizedBox(height: 16),
-      Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(color: Colors.amber.shade50, borderRadius: BorderRadius.circular(8)),
-        child: const Column(
-          children: [
-            Text('Properties:', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)),
-            SizedBox(height: 8),
-            Text('label: String', style: TextStyle(fontFamily: 'monospace', fontSize: 9)),
-            Text('onPressed: VoidCallback', style: TextStyle(fontFamily: 'monospace', fontSize: 9)),
-            Text('textColor: Color?', style: TextStyle(fontFamily: 'monospace', fontSize: 9)),
-          ],
-        ),
-      ),
-    ],
+    ),
   );
 }

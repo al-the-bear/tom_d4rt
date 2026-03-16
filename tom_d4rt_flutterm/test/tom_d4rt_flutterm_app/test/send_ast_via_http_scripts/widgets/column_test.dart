@@ -1,36 +1,136 @@
+// D4rt test script: Tests Column from widgets
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  return Column(
+  print('Column test executing');
+
+  // Test basic Column
+  final basicColumn = Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      const Text('Column demo', style: TextStyle(fontWeight: FontWeight.bold)),
-      const SizedBox(height: 8),
-      SizedBox(
-        width: 300,
-        height: 170,
-        child: TweenAnimationBuilder<double>(
-          tween: Tween(begin: 0.25, end: 1.0),
-          duration: const Duration(milliseconds: 1200),
-          builder: (context, value, child) {
-            return Opacity(
-              opacity: value,
-              child: Transform.scale(
-                scale: 0.7 + (value * 0.3),
-                child: child,
+      Container(width: 60.0, height: 30.0, color: Colors.red),
+      Container(width: 60.0, height: 30.0, color: Colors.green),
+      Container(width: 60.0, height: 30.0, color: Colors.blue),
+    ],
+  );
+  print('Basic Column created with 3 children');
+
+  // Test Column with mainAxisAlignment
+  final centeredColumn = Column(
+    mainAxisSize: MainAxisSize.min,
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Container(width: 50.0, height: 25.0, color: Colors.orange),
+      Container(width: 50.0, height: 25.0, color: Colors.purple),
+    ],
+  );
+  print('Centered Column created');
+
+  // Test Column with crossAxisAlignment
+  final startAlignedColumn = Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Container(width: 80.0, height: 20.0, color: Colors.teal),
+      Container(width: 50.0, height: 20.0, color: Colors.cyan),
+      Container(width: 100.0, height: 20.0, color: Colors.pink),
+    ],
+  );
+  print('CrossAxisAlignment.start Column created');
+
+  final endAlignedColumn = Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.end,
+    children: [
+      Container(width: 80.0, height: 20.0, color: Colors.amber),
+      Container(width: 50.0, height: 20.0, color: Colors.lime),
+      Container(width: 100.0, height: 20.0, color: Colors.indigo),
+    ],
+  );
+  print('CrossAxisAlignment.end Column created');
+
+  // Test Column with spacing using SizedBox
+  final spacedColumn = Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Container(width: 40.0, height: 25.0, color: Colors.deepOrange),
+      SizedBox(height: 10.0),
+      Container(width: 40.0, height: 25.0, color: Colors.deepPurple),
+      SizedBox(height: 10.0),
+      Container(width: 40.0, height: 25.0, color: Colors.brown),
+    ],
+  );
+  print('Spaced Column created');
+
+  print('Column test completed');
+
+  return Container(
+    padding: EdgeInsets.all(8.0),
+    color: Colors.grey.shade200,
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: EdgeInsets.all(4.0),
+          color: Colors.white,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Basic',
+                style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold),
               ),
-            );
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(colors: [Colors.teal, Colors.blue]),
-              borderRadius: BorderRadius.circular(14),
-            ),
-            alignment: Alignment.center,
-            child: const Text('Animated visual sample', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+              basicColumn,
+            ],
           ),
         ),
-      ),
-    ],
+        SizedBox(width: 8.0),
+        Container(
+          padding: EdgeInsets.all(4.0),
+          color: Colors.white,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Start',
+                style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold),
+              ),
+              startAlignedColumn,
+            ],
+          ),
+        ),
+        SizedBox(width: 8.0),
+        Container(
+          padding: EdgeInsets.all(4.0),
+          color: Colors.white,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'End',
+                style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold),
+              ),
+              endAlignedColumn,
+            ],
+          ),
+        ),
+        SizedBox(width: 8.0),
+        Container(
+          padding: EdgeInsets.all(4.0),
+          color: Colors.white,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Spaced',
+                style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold),
+              ),
+              spacedColumn,
+            ],
+          ),
+        ),
+      ],
+    ),
   );
 }

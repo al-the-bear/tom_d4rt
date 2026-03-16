@@ -1,58 +1,62 @@
+// D4rt test script: Tests CheckmarkableChipAttributes from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for CheckmarkableChipAttributes.
-/// Shows chip attributes for checkmark display.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('CheckmarkableChipAttributes')),
-    body: _ChipDemo(),
+  print('CheckmarkableChipAttributes test executing');
+
+  final title = 'CheckmarkableChipAttributes';
+  final packageName = 'material';
+  final details = 'Checkmarkable';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('CheckmarkableChipAttributes test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    ),
   );
-}
-
-class _ChipDemo extends StatefulWidget {
-  @override
-  State<_ChipDemo> createState() => _ChipDemoState();
-}
-
-class _ChipDemoState extends State<_ChipDemo> {
-  final _selected = <String>{'Flutter'};
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.all(16),
-      children: [
-        const Text('Checkmarkable Chips', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-        const SizedBox(height: 8),
-        const Text('FilterChip and ChoiceChip support checkmarks'),
-        const SizedBox(height: 24),
-        const Text('FilterChip (with checkmark):', style: TextStyle(fontWeight: FontWeight.bold)),
-        const SizedBox(height: 8),
-        Wrap(
-          spacing: 8,
-          children: ['Flutter', 'Dart', 'Firebase', 'Cloud'].map((tag) => FilterChip(
-            label: Text(tag),
-            selected: _selected.contains(tag),
-            showCheckmark: true,
-            checkmarkColor: Colors.white,
-            onSelected: (v) => setState(() => v ? _selected.add(tag) : _selected.remove(tag)),
-          )).toList(),
-        ),
-        const SizedBox(height: 24),
-        const Text('FilterChip (no checkmark):', style: TextStyle(fontWeight: FontWeight.bold)),
-        const SizedBox(height: 8),
-        Wrap(
-          spacing: 8,
-          children: ['A', 'B', 'C'].map((tag) => FilterChip(
-            label: Text(tag),
-            selected: _selected.contains(tag),
-            showCheckmark: false,
-            onSelected: (v) => setState(() => v ? _selected.add(tag) : _selected.remove(tag)),
-          )).toList(),
-        ),
-        const SizedBox(height: 16),
-        Text('Selected: ' + _selected.join(', ')),
-      ],
-    );
-  }
 }

@@ -1,35 +1,109 @@
+// D4rt test script: Tests RestorableCupertinoTabController from cupertino
 import 'package:flutter/cupertino.dart';
 
-/// Demonstrates RestorableCupertinoTabController.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('Restorable Tab Controller', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-      const SizedBox(height: 16),
-      Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(color: CupertinoColors.systemGrey6, borderRadius: BorderRadius.circular(12)),
-        child: Column(
-          children: [
-            const Icon(CupertinoIcons.arrow_counterclockwise, size: 32),
-            const SizedBox(height: 8),
-            const Text('State Restoration', style: TextStyle(fontWeight: FontWeight.bold)),
-            const SizedBox(height: 8),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: List.generate(3, (i) => Container(
-                width: 40, height: 30, margin: const EdgeInsets.symmetric(horizontal: 2),
-                decoration: BoxDecoration(color: i == 1 ? CupertinoColors.activeBlue : CupertinoColors.systemGrey4, borderRadius: BorderRadius.circular(4)),
-                alignment: Alignment.center,
-                child: Text('${i + 1}', style: TextStyle(color: i == 1 ? CupertinoColors.white : CupertinoColors.black, fontSize: 12)),
-              )),
+  print('RestorableCupertinoTabController test executing');
+
+  // ===== 1. Default constructor (initialIndex: 0) =====
+  print('--- Default RestorableCupertinoTabController ---');
+  final defaultCtrl = RestorableCupertinoTabController();
+  print('  created: ${defaultCtrl.runtimeType}');
+
+  // ===== 2. With custom initialIndex =====
+  print('--- Custom initialIndex ---');
+  final ctrl1 = RestorableCupertinoTabController(initialIndex: 1);
+  print('  initialIndex: 1 controller created');
+
+  final ctrl2 = RestorableCupertinoTabController(initialIndex: 2);
+  print('  initialIndex: 2 controller created');
+
+  final ctrl3 = RestorableCupertinoTabController(initialIndex: 3);
+  print('  initialIndex: 3 controller created');
+
+  // ===== 3. CupertinoTabScaffold with default controller =====
+  print('--- CupertinoTabScaffold integration ---');
+  final tabItems = [
+    BottomNavigationBarItem(icon: Icon(CupertinoIcons.home), label: 'Home'),
+    BottomNavigationBarItem(icon: Icon(CupertinoIcons.search), label: 'Search'),
+    BottomNavigationBarItem(icon: Icon(CupertinoIcons.settings), label: 'Settings'),
+    BottomNavigationBarItem(icon: Icon(CupertinoIcons.person), label: 'Profile'),
+  ];
+  print('  ${tabItems.length} tab items created');
+
+  // ===== 4. Tab controller with CupertinoTabController =====
+  print('--- CupertinoTabController comparison ---');
+  final regularCtrl = CupertinoTabController(initialIndex: 0);
+  print('  regular controller type: ${regularCtrl.runtimeType}');
+  print('  regular controller index: ${regularCtrl.index}');
+
+  final regularCtrl2 = CupertinoTabController(initialIndex: 2);
+  print('  regular controller at index 2: ${regularCtrl2.index}');
+
+  // ===== 5. Tab bar items =====
+  print('--- CupertinoTabBar ---');
+  final tabBar = CupertinoTabBar(
+    items: tabItems,
+    currentIndex: 0,
+  );
+  print('  tab bar created with ${tabItems.length} items');
+
+  // ===== 6. Multiple tab configurations =====
+  print('--- Multiple tab configurations ---');
+  final twoTabs = [
+    BottomNavigationBarItem(icon: Icon(CupertinoIcons.doc), label: 'Files'),
+    BottomNavigationBarItem(icon: Icon(CupertinoIcons.folder), label: 'Folders'),
+  ];
+  final fiveTabs = [
+    BottomNavigationBarItem(icon: Icon(CupertinoIcons.home), label: 'Home'),
+    BottomNavigationBarItem(icon: Icon(CupertinoIcons.search), label: 'Search'),
+    BottomNavigationBarItem(icon: Icon(CupertinoIcons.heart), label: 'Favorites'),
+    BottomNavigationBarItem(icon: Icon(CupertinoIcons.cart), label: 'Cart'),
+    BottomNavigationBarItem(icon: Icon(CupertinoIcons.person), label: 'Account'),
+  ];
+  print('  2-tab config created');
+  print('  5-tab config created');
+
+  // ===== 7. Tab scaffold with explicit controller =====
+  print('--- Tab scaffold ---');
+  final tabPages = [
+    Center(child: Text('Home Page')),
+    Center(child: Text('Search Page')),
+    Center(child: Text('Settings Page')),
+    Center(child: Text('Profile Page')),
+  ];
+
+  regularCtrl.dispose();
+  regularCtrl2.dispose();
+
+  print('RestorableCupertinoTabController test completed');
+  return CupertinoApp(
+    home: CupertinoTabScaffold(
+      tabBar: CupertinoTabBar(items: tabItems),
+      tabBuilder: (context, index) {
+        return CupertinoPageScaffold(
+          navigationBar: CupertinoNavigationBar(
+            middle: Text('Tab $index'),
+          ),
+          child: SafeArea(
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text('Tab $index Content', style: TextStyle(fontSize: 20.0)),
+                  SizedBox(height: 8.0),
+                  Text('RestorableCupertinoTabController'),
+                  Text('Supports state restoration'),
+                  SizedBox(height: 16.0),
+                  Text('Controllers tested:'),
+                  Text('  default (index 0)'),
+                  Text('  index 1, 2, 3'),
+                  Text('  2-tab, 4-tab, 5-tab configs'),
+                ],
+              ),
             ),
-          ],
-        ),
-      ),
-      const SizedBox(height: 12),
-      const Text('Persists selected tab index', style: TextStyle(fontSize: 11, color: CupertinoColors.systemGrey)),
-    ],
+          ),
+        );
+      },
+    ),
   );
 }

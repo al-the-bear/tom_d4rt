@@ -1,36 +1,76 @@
+// D4rt test script: Tests ClipRect, ClipOval, ClipPath, ClipRRect from Flutter widgets
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('Clipping demo', style: TextStyle(fontWeight: FontWeight.bold)),
-      const SizedBox(height: 8),
-      SizedBox(
-        width: 300,
-        height: 170,
-        child: TweenAnimationBuilder<double>(
-          tween: Tween(begin: 0.25, end: 1.0),
-          duration: const Duration(milliseconds: 1200),
-          builder: (context, value, child) {
-            return Opacity(
-              opacity: value,
-              child: Transform.scale(
-                scale: 0.7 + (value * 0.3),
-                child: child,
-              ),
-            );
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(colors: [Colors.teal, Colors.blue]),
-              borderRadius: BorderRadius.circular(14),
-            ),
-            alignment: Alignment.center,
-            child: const Text('Animated visual sample', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-          ),
-        ),
-      ),
-    ],
+  print('Clipping widgets test executing');
+
+  // Test ClipRect with child Container
+  final clipRect = ClipRect(
+    child: Container(width: 100, height: 100, color: Colors.blue),
+  );
+  print('ClipRect with child Container created');
+
+  // Test ClipOval with child Container
+  final clipOval = ClipOval(
+    child: Container(width: 100, height: 100, color: Colors.green),
+  );
+  print('ClipOval with child Container created');
+
+  // Test ClipPath with clipper null and child
+  final clipPath = ClipPath(
+    clipper: null,
+    child: Container(width: 100, height: 100, color: Colors.red),
+  );
+  print('ClipPath with clipper: null created');
+
+  // Test ClipRRect with default border radius
+  final clipRRect = ClipRRect(
+    borderRadius: BorderRadius.circular(16.0),
+    child: Container(width: 100, height: 100, color: Colors.orange),
+  );
+  print('ClipRRect with borderRadius created');
+
+  // Test ClipRect with Clip.hardEdge
+  final clipRectHard = ClipRect(
+    clipBehavior: Clip.hardEdge,
+    child: Container(width: 80, height: 80, color: Colors.purple),
+  );
+  print('ClipRect with Clip.hardEdge created');
+
+  // Test ClipRect with Clip.antiAlias
+  final clipRectAA = ClipRect(
+    clipBehavior: Clip.antiAlias,
+    child: Container(width: 80, height: 80, color: Colors.teal),
+  );
+  print('ClipRect with Clip.antiAlias created');
+
+  // Test ClipRect with Clip.antiAliasWithSaveLayer
+  final clipRectAASL = ClipRect(
+    clipBehavior: Clip.antiAliasWithSaveLayer,
+    child: Container(width: 80, height: 80, color: Colors.amber),
+  );
+  print('ClipRect with Clip.antiAliasWithSaveLayer created');
+
+  // Test ClipOval with Clip.antiAlias
+  final clipOvalAA = ClipOval(
+    clipBehavior: Clip.antiAlias,
+    child: Container(width: 60, height: 60, color: Colors.indigo),
+  );
+  print('ClipOval with Clip.antiAlias created');
+
+  print('Clipping widgets test completed');
+  return SingleChildScrollView(
+    child: Column(
+      children: [
+        clipRect,
+        clipOval,
+        clipPath,
+        clipRRect,
+        clipRectHard,
+        clipRectAA,
+        clipRectAASL,
+        clipOvalAA,
+      ],
+    ),
   );
 }

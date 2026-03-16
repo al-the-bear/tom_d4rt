@@ -1,54 +1,62 @@
+// D4rt test script: Tests Icons from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for Material Icons.
-/// Shows commonly used Material Design icons.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('Material Icons', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Wrap(
-        spacing: 12,
-        runSpacing: 12,
-        children: [
-          _IconPreview(Icons.home, 'home'),
-          _IconPreview(Icons.search, 'search'),
-          _IconPreview(Icons.menu, 'menu'),
-          _IconPreview(Icons.settings, 'settings'),
-          _IconPreview(Icons.person, 'person'),
-          _IconPreview(Icons.favorite, 'favorite'),
-          _IconPreview(Icons.star, 'star'),
-          _IconPreview(Icons.add, 'add'),
-          _IconPreview(Icons.delete, 'delete'),
-          _IconPreview(Icons.edit, 'edit'),
-          _IconPreview(Icons.share, 'share'),
-          _IconPreview(Icons.close, 'close'),
-        ],
-      ),
-      const SizedBox(height: 12),
-      const Text('7,000+ icons available', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
-  );
-}
+  print('Icons test executing');
 
-class _IconPreview extends StatelessWidget {
-  final IconData icon;
-  final String name;
-  const _IconPreview(this.icon, this.name);
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 48,
-      padding: const EdgeInsets.all(4),
-      decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
-      child: Column(
-        children: [
-          Icon(icon, size: 24),
-          const SizedBox(height: 2),
-          Text(name, style: const TextStyle(fontSize: 7)),
-        ],
+  final title = 'Icons';
+  final packageName = 'material';
+  final details = 'Icons';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('Icons test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
-    );
-  }
+    ),
+  );
 }

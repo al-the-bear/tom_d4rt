@@ -1,44 +1,73 @@
+// D4rt test script: Tests Icon from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for Icon widget.
-/// Shows icons with different sizes and colors.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('Icon Widget', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
-          Icon(Icons.star, size: 18, color: Colors.grey),
-          SizedBox(width: 8),
-          Icon(Icons.star, size: 24, color: Colors.blue),
-          SizedBox(width: 8),
-          Icon(Icons.star, size: 32, color: Colors.amber),
-          SizedBox(width: 8),
-          Icon(Icons.star, size: 40, color: Colors.orange),
-        ],
-      ),
-      const SizedBox(height: 12),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
-          Text('18', style: TextStyle(fontSize: 9)),
-          SizedBox(width: 20),
-          Text('24', style: TextStyle(fontSize: 9)),
-          SizedBox(width: 20),
-          Text('32', style: TextStyle(fontSize: 9)),
-          SizedBox(width: 20),
-          Text('40', style: TextStyle(fontSize: 9)),
-        ],
-      ),
-      const SizedBox(height: 16),
-      Container(
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(8)),
-        child: const Text('Icon(Icons.star, size: 24, color: ...)', style: TextStyle(fontSize: 10, fontFamily: 'monospace')),
-      ),
-    ],
+  print('Icon test executing');
+
+  // Test basic Icon
+  final basic = Icon(Icons.home);
+  print('Basic Icon created');
+
+  // Test Icon with size
+  final sized = Icon(Icons.star, size: 48.0);
+  print('Sized Icon created');
+
+  // Test Icon with color
+  final colored = Icon(Icons.favorite, color: Colors.red);
+  print('Colored Icon created');
+
+  // Test Icon with size and color
+  final styledIcon = Icon(Icons.settings, size: 36.0, color: Colors.blue);
+  print('Styled Icon created');
+
+  // Test various common icons
+  print('Testing various icons...');
+
+  print('Icon test completed');
+
+  return Container(
+    padding: EdgeInsets.all(16.0),
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Row(mainAxisSize: MainAxisSize.min, children: [Text('Basic: '), basic]),
+        SizedBox(height: 8.0),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [Text('Sized (48): '), sized],
+        ),
+        SizedBox(height: 8.0),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [Text('Colored: '), colored],
+        ),
+        SizedBox(height: 8.0),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [Text('Styled: '), styledIcon],
+        ),
+        SizedBox(height: 16.0),
+        Text('Common Icons:', style: TextStyle(fontWeight: FontWeight.bold)),
+        SizedBox(height: 8.0),
+        Wrap(
+          spacing: 16.0,
+          runSpacing: 8.0,
+          children: [
+            Icon(Icons.add, color: Colors.green),
+            Icon(Icons.remove, color: Colors.red),
+            Icon(Icons.edit, color: Colors.orange),
+            Icon(Icons.delete, color: Colors.grey),
+            Icon(Icons.search, color: Colors.blue),
+            Icon(Icons.menu, color: Colors.purple),
+            Icon(Icons.close, color: Colors.brown),
+            Icon(Icons.check, color: Colors.teal),
+            Icon(Icons.arrow_back),
+            Icon(Icons.arrow_forward),
+            Icon(Icons.refresh, color: Colors.cyan),
+            Icon(Icons.share, color: Colors.pink),
+          ],
+        ),
+      ],
+    ),
   );
 }

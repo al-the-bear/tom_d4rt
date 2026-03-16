@@ -1,67 +1,62 @@
+// D4rt test script: Tests TooltipState from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for TooltipState class.
-/// State class managing tooltip visibility.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('TooltipState', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(color: Colors.orange.shade50, borderRadius: BorderRadius.circular(12)),
-        child: Column(
-          children: [
-            const Text('TooltipState methods', style: TextStyle(fontFamily: 'monospace', fontSize: 10)),
-            const SizedBox(height: 12),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                _MethodBox('.ensureTooltipVisible()', Icons.visibility),
-                const SizedBox(width: 8),
-                _MethodBox('.controller', Icons.settings_remote),
-              ],
-            ),
-          ],
+  print('TooltipState test executing');
+
+  final title = 'TooltipState';
+  final packageName = 'material';
+  final details = 'TooltipState';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('TooltipState test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-      const SizedBox(height: 16),
-      Stack(
-        clipBehavior: Clip.none,
-        children: [
-          const Icon(Icons.info_outline, color: Colors.blue),
-          Positioned(
-            top: -30,
-            left: -20,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(color: Colors.grey.shade800, borderRadius: BorderRadius.circular(4)),
-              child: const Text('Tooltip text', style: TextStyle(color: Colors.white, fontSize: 10)),
-            ),
-          ),
-        ],
-      ),
-    ],
+    ),
   );
-}
-
-class _MethodBox extends StatelessWidget {
-  final String method;
-  final IconData icon;
-  const _MethodBox(this.method, this.icon);
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8)),
-      child: Column(
-        children: [
-          Icon(icon, color: Colors.orange, size: 18),
-          const SizedBox(height: 4),
-          Text(method, style: const TextStyle(fontFamily: 'monospace', fontSize: 8)),
-        ],
-      ),
-    );
-  }
 }

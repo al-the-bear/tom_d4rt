@@ -1,6 +1,29 @@
+// D4rt test script: Tests TimeOfDayFormat from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for TimeOfDayFormat
 dynamic build(BuildContext context) {
-  return Scaffold(appBar: AppBar(title: Text('TimeOfDayFormat Demo')), body: Center(child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [Text('TimeOfDayFormat', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)), SizedBox(height: 30), Container(padding: EdgeInsets.all(16), decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(8)), child: Column(children: [Text('H:mm (24-hour)', style: TextStyle(fontWeight: FontWeight.bold)), Text('14:30', style: TextStyle(fontSize: 24))])), SizedBox(height: 16), Container(padding: EdgeInsets.all(16), decoration: BoxDecoration(color: Colors.green.shade50, borderRadius: BorderRadius.circular(8)), child: Column(children: [Text('h:mm a (12-hour)', style: TextStyle(fontWeight: FontWeight.bold)), Text('2:30 PM', style: TextStyle(fontSize: 24))])), SizedBox(height: 16), Container(padding: EdgeInsets.all(16), decoration: BoxDecoration(color: Colors.orange.shade50, borderRadius: BorderRadius.circular(8)), child: Column(children: [Text('a h:mm (AM/PM first)', style: TextStyle(fontWeight: FontWeight.bold)), Text('PM 2:30', style: TextStyle(fontSize: 24))]))])));
+  print('TimeOfDayFormat test executing');
+
+  // Enumerate all TimeOfDayFormat values
+  print('TimeOfDayFormat values:');
+  for (final value in TimeOfDayFormat.values) {
+    print('  ${value.name}: $value');
+  }
+  print('TimeOfDayFormat has ${ TimeOfDayFormat.values.length} values');
+
+  final first = TimeOfDayFormat.values.first;
+  final last = TimeOfDayFormat.values.last;
+  print('First: $first, Last: $last');
+  print('First index: ${first.index}, Last index: ${last.index}');
+
+  print('TimeOfDayFormat test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('TimeOfDayFormat Tests'),
+      Text('Values: ${ TimeOfDayFormat.values.length}'),
+      Text('First: $first'),
+      Text('Last: $last'),
+    ],
+  );
 }

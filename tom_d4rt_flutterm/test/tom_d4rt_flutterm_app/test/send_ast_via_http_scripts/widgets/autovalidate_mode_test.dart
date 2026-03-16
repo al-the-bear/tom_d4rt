@@ -1,36 +1,29 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests AutovalidateMode from widgets
+import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {
+  print('AutovalidateMode test executing');
+
+  // Enumerate all AutovalidateMode values
+  print('AutovalidateMode values:');
+  for (final value in AutovalidateMode.values) {
+    print('  ${value.name}: $value');
+  }
+  print('AutovalidateMode has ${ AutovalidateMode.values.length} values');
+
+  final first = AutovalidateMode.values.first;
+  final last = AutovalidateMode.values.last;
+  print('First: $first, Last: $last');
+  print('First index: ${first.index}, Last index: ${last.index}');
+
+  print('AutovalidateMode test completed');
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      const Text('AutovalidateMode demo', style: TextStyle(fontWeight: FontWeight.bold)),
-      const SizedBox(height: 8),
-      SizedBox(
-        width: 300,
-        height: 170,
-        child: TweenAnimationBuilder<double>(
-          tween: Tween(begin: 0.25, end: 1.0),
-          duration: const Duration(milliseconds: 1200),
-          builder: (context, value, child) {
-            return Opacity(
-              opacity: value,
-              child: Transform.scale(
-                scale: 0.7 + (value * 0.3),
-                child: child,
-              ),
-            );
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(colors: [Colors.teal, Colors.blue]),
-              borderRadius: BorderRadius.circular(14),
-            ),
-            alignment: Alignment.center,
-            child: const Text('Animated visual sample', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-          ),
-        ),
-      ),
+      Text('AutovalidateMode Tests'),
+      Text('Values: ${ AutovalidateMode.values.length}'),
+      Text('First: $first'),
+      Text('Last: $last'),
     ],
   );
 }

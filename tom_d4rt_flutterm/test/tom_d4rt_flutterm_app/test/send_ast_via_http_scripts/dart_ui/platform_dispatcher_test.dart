@@ -1,63 +1,73 @@
-import 'dart:ui';
+// D4rt test script: Tests PlatformDispatcher from dart:ui
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for PlatformDispatcher - platform communication.
-/// Demonstrates access to platform settings and callbacks.
 dynamic build(BuildContext context) {
-  final dispatcher = PlatformDispatcher.instance;
-  
-  return Scaffold(
-    appBar: AppBar(title: const Text('PlatformDispatcher Demo')),
-    body: Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: ListView(
-        children: [
-          const Text('Platform Dispatcher', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 8),
-          const Text('Central point for platform communication', style: TextStyle(color: Colors.grey)),
-          const SizedBox(height: 24),
-          _buildPropCard('views', '${dispatcher.views.length} FlutterView(s)', Icons.view_quilt),
-          _buildPropCard('locales', dispatcher.locales.isNotEmpty ? dispatcher.locales.first.toString() : 'unknown', Icons.language),
-          _buildPropCard('textScaleFactor', dispatcher.textScaleFactor.toStringAsFixed(2), Icons.text_fields),
-          _buildPropCard('accessibilityFeatures', 'AccessibilityFeatures', Icons.accessibility),
-          _buildPropCard('platformBrightness', dispatcher.platformBrightness.name, Icons.brightness_6),
-          const Divider(height: 32),
-          const Text('Callbacks:', style: TextStyle(fontWeight: FontWeight.bold)),
-          const SizedBox(height: 12),
-          _buildCallback('onBeginFrame', 'Animation frame start'),
-          _buildCallback('onDrawFrame', 'Render frame'),
-          _buildCallback('onReportTimings', 'Frame timing stats'),
-          _buildCallback('onPointerDataPacket', 'Pointer events'),
-        ],
+  print('PlatformDispatcher test executing');
+
+  // Singleton instance
+  final pd = ui.PlatformDispatcher.instance;
+  print('PlatformDispatcher type: ${pd.runtimeType}');
+
+  // Display & view info
+  print('displays: ${pd.displays.length}');
+  print('views: ${pd.views.length}');
+  print('implicitView: ${pd.implicitView != null ? "available" : "null"}');
+
+  // Locale info
+  print('locale: ${pd.locale}');
+  print('locales: ${pd.locales.length} locale(s)');
+  if (pd.locales.isNotEmpty) {
+    print('first locale: ${pd.locales.first}');
+  }
+
+  // Platform settings
+  print('textScaleFactor: ${pd.textScaleFactor}');
+  print('platformBrightness: ${pd.platformBrightness}');
+  print('alwaysUse24HourFormat: ${pd.alwaysUse24HourFormat}');
+  print('semanticsEnabled: ${pd.semanticsEnabled}');
+  print('defaultRouteName: ${pd.defaultRouteName}');
+
+  // Accessibility
+  final af = pd.accessibilityFeatures;
+  print('accessibilityFeatures: ${af.runtimeType}');
+
+  // Frame data
+  final fd = pd.frameData;
+  print('frameData.frameNumber: ${fd.frameNumber}');
+
+  // SpellCheck / context menu support
+  print('nativeSpellCheckServiceDefined: ${pd.nativeSpellCheckServiceDefined}');
+  print('supportsShowingSystemContextMenu: ${pd.supportsShowingSystemContextMenu}');
+  print('brieflyShowPassword: ${pd.brieflyShowPassword}');
+
+  // System font
+  print('systemFontFamily: ${pd.systemFontFamily}');
+
+  // scaleFontSize
+  final scaled = pd.scaleFontSize(16.0);
+  print('scaleFontSize(16): $scaled');
+  final scaled2 = pd.scaleFontSize(24.0);
+  print('scaleFontSize(24): $scaled2');
+
+  print('PlatformDispatcher test completed');
+  return MaterialApp(
+    home: Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('PlatformDispatcher Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+            SizedBox(height: 16.0),
+            Text('locale: ${pd.locale}'),
+            Text('brightness: ${pd.platformBrightness}'),
+            Text('textScaleFactor: ${pd.textScaleFactor}'),
+            Text('displays: ${pd.displays.length}'),
+            Text('views: ${pd.views.length}'),
+            Text('semanticsEnabled: ${pd.semanticsEnabled}'),
+          ],
+        ),
       ),
     ),
-  );
-}
-
-Widget _buildPropCard(String name, String value, IconData icon) {
-  return Container(
-    margin: const EdgeInsets.symmetric(vertical: 4),
-    padding: const EdgeInsets.all(12),
-    decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(8)),
-    child: Row(children: [
-      Icon(icon, color: Colors.blue),
-      const SizedBox(width: 12),
-      Text(name, style: const TextStyle(fontWeight: FontWeight.w500)),
-      const Spacer(),
-      Text(value, style: TextStyle(color: Colors.grey.shade700, fontFamily: 'monospace', fontSize: 12)),
-    ]),
-  );
-}
-
-Widget _buildCallback(String name, String desc) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 4),
-    child: Row(children: [
-      const Icon(Icons.call_made, color: Colors.green, size: 16),
-      const SizedBox(width: 12),
-      Text(name, style: const TextStyle(fontFamily: 'monospace', fontSize: 12)),
-      const Spacer(),
-      Text(desc, style: TextStyle(color: Colors.grey.shade600, fontSize: 11)),
-    ]),
   );
 }

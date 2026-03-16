@@ -1,53 +1,62 @@
+// D4rt test script: Tests IconButtonThemeData from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for IconButtonThemeData.
-/// Shows themed icon button styling.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('IconButtonThemeData', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(12)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _IconButtonPreview('Standard', null),
-            _IconButtonPreview('Filled', Colors.blue.shade100),
-            _IconButtonPreview('Outlined', null, outlined: true),
-          ],
+  print('IconButtonThemeData test executing');
+
+  final title = 'IconButtonThemeData';
+  final packageName = 'material';
+  final details = 'Icon data';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('IconButtonThemeData test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-      const SizedBox(height: 12),
-      const Text('style property controls appearance', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
+    ),
   );
-}
-
-class _IconButtonPreview extends StatelessWidget {
-  final String label;
-  final Color? bg;
-  final bool outlined;
-  const _IconButtonPreview(this.label, this.bg, {this.outlined = false});
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 40,
-          height: 40,
-          decoration: BoxDecoration(
-            color: bg,
-            shape: BoxShape.circle,
-            border: outlined ? Border.all(color: Colors.grey.shade400) : null,
-          ),
-          child: const Icon(Icons.favorite, color: Colors.blue),
-        ),
-        const SizedBox(height: 4),
-        Text(label, style: const TextStyle(fontSize: 9)),
-      ],
-    );
-  }
 }

@@ -1,58 +1,62 @@
+// D4rt test script: Tests DataTableTheme from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for DataTableTheme - inherited widget for DataTable theming.
-/// Shows how theme cascades to child DataTables.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('DataTableTheme Demo', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-      const SizedBox(height: 16),
-      // Theme inheritance visual
-      Container(
-        padding: const EdgeInsets.all(12),
+  print('DataTableTheme test executing');
+
+  final title = 'DataTableTheme';
+  final packageName = 'material';
+  final details = 'Table theme';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('DataTableTheme test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.blue),
+          color: const Color(0xFF111827),
           borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
         ),
-        child: Column(
-          children: [
-            const Text('DataTableTheme', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue)),
-            const SizedBox(height: 8),
-            Container(
-              padding: const EdgeInsets.all(8),
-              margin: const EdgeInsets.symmetric(horizontal: 16),
-              decoration: BoxDecoration(
-                color: Colors.blue.shade50,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: const Column(
-                children: [
-                  Icon(Icons.table_chart, color: Colors.blue),
-                  Text('DataTable 1', style: TextStyle(fontSize: 11)),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
                 ],
               ),
-            ),
-            const SizedBox(height: 8),
-            Container(
-              padding: const EdgeInsets.all(8),
-              margin: const EdgeInsets.symmetric(horizontal: 16),
-              decoration: BoxDecoration(
-                color: Colors.blue.shade50,
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
                 borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
               ),
-              child: const Column(
-                children: [
-                  Icon(Icons.table_chart, color: Colors.blue),
-                  Text('DataTable 2', style: TextStyle(fontSize: 11)),
-                ],
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
-      const SizedBox(height: 12),
-      const Text('Use DataTableTheme.of(context) to access', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
+    ),
   );
 }

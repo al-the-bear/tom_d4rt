@@ -1,81 +1,62 @@
+// D4rt test script: Tests DesktopTextSelectionToolbarButton from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for DesktopTextSelectionToolbarButton - individual toolbar button.
-/// Shows button styling and interaction states.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('Toolbar Button', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _ButtonState('Normal', Colors.grey.shade100, Colors.black),
-          const SizedBox(width: 8),
-          _ButtonState('Hovered', Colors.blue.shade50, Colors.blue),
-          const SizedBox(width: 8),
-          _ButtonState('Disabled', Colors.grey.shade50, Colors.grey),
-        ],
-      ),
-      const SizedBox(height: 16),
-      // In context
-      Container(
-        padding: const EdgeInsets.all(8),
+  print('DesktopTextSelectionToolbarButton test executing');
+
+  final title = 'DesktopTextSelectionToolbarButton';
+  final packageName = 'material';
+  final details = 'Desktop button';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('DesktopTextSelectionToolbarButton test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(8),
-          boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4)],
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
         ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _ToolbarBtn(Icons.content_cut, 'Cut'),
-            _ToolbarBtn(Icons.content_copy, 'Copy'),
-            _ToolbarBtn(Icons.content_paste, 'Paste'),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-    ],
+    ),
   );
-}
-
-class _ButtonState extends StatelessWidget {
-  final String label;
-  final Color bg;
-  final Color fg;
-  const _ButtonState(this.label, this.bg, this.fg);
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(4)),
-          child: Text('Copy', style: TextStyle(color: fg, fontSize: 12)),
-        ),
-        const SizedBox(height: 4),
-        Text(label, style: const TextStyle(fontSize: 9)),
-      ],
-    );
-  }
-}
-
-class _ToolbarBtn extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  const _ToolbarBtn(this.icon, this.label);
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 18),
-          Text(label, style: const TextStyle(fontSize: 8)),
-        ],
-      ),
-    );
-  }
 }

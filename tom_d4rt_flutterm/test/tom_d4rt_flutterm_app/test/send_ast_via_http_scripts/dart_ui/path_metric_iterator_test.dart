@@ -1,68 +1,50 @@
-import 'dart:ui';
+// D4rt test script: Tests PathMetricIterator from dart:ui
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for PathMetricIterator - iterates path contours.
-/// Demonstrates iteration over path metrics.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('PathMetricIterator Demo')),
-    body: Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('PathMetricIterator', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 8),
-          const Text('Iterates through path contours', style: TextStyle(color: Colors.grey)),
-          const SizedBox(height: 24),
-          SizedBox(
-            height: 200,
-            child: CustomPaint(
-              painter: _PathIteratorPainter(),
-              size: const Size(double.infinity, 200),
-            ),
-          ),
-          const SizedBox(height: 24),
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(color: Colors.green.shade50, borderRadius: BorderRadius.circular(12)),
-            child: const Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Usage:', style: TextStyle(fontWeight: FontWeight.bold)),
-                SizedBox(height: 8),
-                Text('final metrics = path.computeMetrics();', style: TextStyle(fontFamily: 'monospace', fontSize: 12)),
-                Text('for (PathMetric metric in metrics) {', style: TextStyle(fontFamily: 'monospace', fontSize: 12)),
-                Text('  // Each contour in the path', style: TextStyle(fontFamily: 'monospace', fontSize: 12)),
-                Text('}', style: TextStyle(fontFamily: 'monospace', fontSize: 12)),
-              ],
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
-}
+  print('PathMetricIterator test executing');
 
-class _PathIteratorPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final colors = [Colors.red, Colors.green, Colors.blue];
-    
-    // Draw 3 separate contours
-    for (int i = 0; i < 3; i++) {
-      final path = Path()
-        ..addOval(Rect.fromCenter(center: Offset(60 + i * 100, size.height / 2), width: 60, height: 60));
-      canvas.drawPath(path, Paint()..color = colors[i]..style = PaintingStyle.stroke..strokeWidth = 4);
-      
-      final tp = TextPainter(
-        text: TextSpan(text: 'Contour ${i + 1}', style: TextStyle(fontSize: 10, color: colors[i])),
-        textDirection: TextDirection.ltr,
-      )..layout();
-      tp.paint(canvas, Offset(35 + i * 100, size.height / 2 + 40));
-    }
+  // Create a path with multiple contours
+  final path = Path()
+    ..addRect(Rect.fromLTWH(0, 0, 100, 50))
+    ..addOval(Rect.fromCircle(center: Offset(200, 50), radius: 30));
+
+  final metrics = path.computeMetrics();
+  print('PathMetrics type: ${metrics.runtimeType}');
+
+  // Get iterator
+  final iterator = metrics.iterator;
+  print('Iterator type: ${iterator.runtimeType}');
+  print('is Iterator<PathMetric>: ${iterator is Iterator<ui.PathMetric>}');
+
+  // Iterate manually
+  var count = 0;
+  while (iterator.moveNext()) {
+    final metric = iterator.current;
+    print('Contour $count: length=${metric.length.toStringAsFixed(1)}, isClosed=${metric.isClosed}');
+    count++;
   }
+  print('Total contours: $count');
 
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+  // Second path — single line
+  final path2 = Path()..moveTo(0, 0)..lineTo(100, 0);
+  final metrics2 = path2.computeMetrics();
+  final iter2 = metrics2.iterator;
+  if (iter2.moveNext()) {
+    print('Line contour: length=${iter2.current.length}, isClosed=${iter2.current.isClosed}');
+  }
+  print('Has more: ${iter2.moveNext()}');
+
+  print('PathMetricIterator test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('PathMetricIterator Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      SizedBox(height: 8),
+      Text('Iterator from path with 2 contours'),
+      Text('Total contours iterated: $count'),
+      Text('moveNext + current pattern'),
+    ],
+  );
 }

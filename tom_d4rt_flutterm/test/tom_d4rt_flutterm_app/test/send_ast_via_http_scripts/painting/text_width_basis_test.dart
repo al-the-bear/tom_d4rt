@@ -1,6 +1,30 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests TextWidthBasis from painting
+import 'package:flutter/painting.dart';
+import 'package:flutter/widgets.dart';
 
-/// Deep visual demo for TextWidthBasis
 dynamic build(BuildContext context) {
-  return Scaffold(appBar: AppBar(title: Text('TextWidthBasis Demo')), body: Center(child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [Container(color: Colors.blue.shade100, child: Text('TextWidthBasis.parent\nMulti-line text', textWidthBasis: TextWidthBasis.parent)), SizedBox(height: 20), Container(color: Colors.green.shade100, child: Text('TextWidthBasis.longestLine\nMulti-line text', textWidthBasis: TextWidthBasis.longestLine)), SizedBox(height: 20), Text('parent = container width\nlongestLine = actual text width', style: TextStyle(color: Colors.grey, fontSize: 12))])));
+  print('TextWidthBasis test executing');
+
+  // Enumerate all TextWidthBasis values
+  print('TextWidthBasis values:');
+  for (final value in TextWidthBasis.values) {
+    print('  ${value.name}: $value');
+  }
+  print('TextWidthBasis has ${ TextWidthBasis.values.length} values');
+
+  final first = TextWidthBasis.values.first;
+  final last = TextWidthBasis.values.last;
+  print('First: $first, Last: $last');
+  print('First index: ${first.index}, Last index: ${last.index}');
+
+  print('TextWidthBasis test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('TextWidthBasis Tests'),
+      Text('Values: ${ TextWidthBasis.values.length}'),
+      Text('First: $first'),
+      Text('Last: $last'),
+    ],
+  );
 }

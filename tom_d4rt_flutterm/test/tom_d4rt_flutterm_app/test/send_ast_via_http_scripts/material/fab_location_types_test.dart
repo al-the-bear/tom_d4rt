@@ -1,57 +1,98 @@
+// D4rt test script: Tests FloatingActionButtonLocation variants:
+// StandardFabLocation, endFloat, centerFloat, endDocked, centerDocked,
+// endTop, startTop, endContained, miniStartTop
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for FloatingActionButtonLocation types.
-/// Shows all built-in FAB location options.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('FAB Location Types', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 12),
-      Wrap(
-        spacing: 8,
-        runSpacing: 8,
-        children: [
-          _LocationBox('centerFloat', Alignment.bottomCenter, false),
-          _LocationBox('centerDocked', Alignment.bottomCenter, true),
-          _LocationBox('endFloat', Alignment.bottomRight, false),
-          _LocationBox('endDocked', Alignment.bottomRight, true),
-          _LocationBox('startFloat', Alignment.bottomLeft, false),
-          _LocationBox('startTop', Alignment.topRight, false),
-        ],
-      ),
-      const SizedBox(height: 12),
-      const Text('FloatingActionButtonLocation variants', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
-  );
-}
+  print('FAB location types test executing');
 
-class _LocationBox extends StatelessWidget {
-  final String name;
-  final Alignment align;
-  final bool docked;
-  const _LocationBox(this.name, this.align, this.docked);
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 64,
-          height: 48,
-          decoration: BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.circular(4)),
-          child: Stack(
-            children: [
-              if (docked) Positioned(bottom: 0, left: 0, right: 0, child: Container(height: 12, color: Colors.blue.shade300)),
-              Align(
-                alignment: docked ? Alignment(align.x, 0.5) : align,
-                child: Container(width: 16, height: 16, decoration: const BoxDecoration(color: Colors.pink, shape: BoxShape.circle)),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 4),
-        Text(name, style: const TextStyle(fontSize: 8)),
-      ],
-    );
+  // ========== FloatingActionButtonLocation constants ==========
+  print('--- FloatingActionButtonLocation Types ---');
+  final locations = <String, FloatingActionButtonLocation>{
+    'endFloat': FloatingActionButtonLocation.endFloat,
+    'centerFloat': FloatingActionButtonLocation.centerFloat,
+    'endDocked': FloatingActionButtonLocation.endDocked,
+    'centerDocked': FloatingActionButtonLocation.centerDocked,
+    'endTop': FloatingActionButtonLocation.endTop,
+    'startTop': FloatingActionButtonLocation.startTop,
+    'endContained': FloatingActionButtonLocation.endContained,
+    'miniStartTop': FloatingActionButtonLocation.miniStartTop,
+  };
+
+  for (final entry in locations.entries) {
+    print('  ${entry.key}: ${entry.value}');
+    print('    type: ${entry.value.runtimeType}');
   }
+
+  // ========== FloatingActionButtonAnimator ==========
+  print('--- FloatingActionButtonAnimator Tests ---');
+  final animator = FloatingActionButtonAnimator.scaling;
+  print('FloatingActionButtonAnimator.scaling: $animator');
+
+  // ========== FAB types ==========
+  print('--- FloatingActionButton variants ---');
+  final fab = FloatingActionButton(
+    onPressed: () {},
+    child: Icon(Icons.add),
+    tooltip: 'Add',
+    elevation: 6.0,
+    focusElevation: 8.0,
+    hoverElevation: 10.0,
+    highlightElevation: 12.0,
+    disabledElevation: 0.0,
+    shape: CircleBorder(),
+    clipBehavior: Clip.none,
+    isExtended: false,
+    materialTapTargetSize: MaterialTapTargetSize.padded,
+  );
+  print('FloatingActionButton created');
+
+  final fabSmall = FloatingActionButton.small(
+    onPressed: () {},
+    child: Icon(Icons.edit),
+  );
+  print('FloatingActionButton.small created');
+
+  final fabLarge = FloatingActionButton.large(
+    onPressed: () {},
+    child: Icon(Icons.camera),
+  );
+  print('FloatingActionButton.large created');
+
+  final fabExtended = FloatingActionButton.extended(
+    onPressed: () {},
+    label: Text('Extended'),
+    icon: Icon(Icons.navigation),
+  );
+  print('FloatingActionButton.extended created');
+
+  // ========== MaterialTapTargetSize ==========
+  print('--- MaterialTapTargetSize Tests ---');
+  for (final size in MaterialTapTargetSize.values) {
+    print('  MaterialTapTargetSize: $size');
+  }
+
+  print('All FAB location tests passed');
+
+  // ========== RETURN WIDGET ==========
+  return MaterialApp(
+    home: Scaffold(
+      appBar: AppBar(title: Text('FAB Locations')),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            fabSmall,
+            SizedBox(height: 8),
+            fabLarge,
+            SizedBox(height: 8),
+            fabExtended,
+          ],
+        ),
+      ),
+      floatingActionButton: fab,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
+    ),
+  );
 }

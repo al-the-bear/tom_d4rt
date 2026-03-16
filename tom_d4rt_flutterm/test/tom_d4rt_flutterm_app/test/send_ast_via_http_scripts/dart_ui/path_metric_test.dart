@@ -1,74 +1,74 @@
-import 'dart:ui';
+// D4rt test script: Tests PathMetric from dart:ui
+// Uses for-in pattern to iterate PathMetrics (same as path_metric_iterator_test)
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for PathMetric - measurements along path.
-/// Demonstrates path length, position, and tangent queries.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('PathMetric Demo')),
-    body: Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('PathMetric', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 24),
-          SizedBox(
-            height: 200,
-            child: CustomPaint(
-              painter: _PathMetricPainter(),
-              size: const Size(double.infinity, 200),
-            ),
-          ),
-          const SizedBox(height: 24),
-          _buildProp('length', 'Total length of contour'),
-          _buildProp('isClosed', 'Whether contour is closed'),
-          _buildProp('contourIndex', 'Index in path'),
-          _buildProp('getTangentForOffset(d)', 'Position & direction at distance'),
-          _buildProp('extractPath(start, end)', 'Extract sub-path'),
-        ],
-      ),
-    ),
-  );
-}
+  print('PathMetric test executing');
 
-Widget _buildProp(String name, String desc) {
-  return Container(
-    margin: const EdgeInsets.symmetric(vertical: 4),
-    padding: const EdgeInsets.all(8),
-    decoration: BoxDecoration(color: Colors.purple.shade50, borderRadius: BorderRadius.circular(6)),
-    child: Row(children: [
-      Text(name, style: const TextStyle(fontFamily: 'monospace', fontSize: 12, fontWeight: FontWeight.w500)),
-      const SizedBox(width: 12),
-      Expanded(child: Text(desc, style: TextStyle(fontSize: 12, color: Colors.grey.shade700))),
-    ]),
-  );
-}
+  // Create a simple rectangular path and iterate with for-in
+  final path = Path()
+    ..addRect(Rect.fromLTWH(0, 0, 100, 50));
 
-class _PathMetricPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final path = Path()
-      ..moveTo(20, size.height / 2)
-      ..quadraticBezierTo(size.width / 2, 20, size.width - 20, size.height / 2);
-    
-    canvas.drawPath(path, Paint()..color = Colors.grey.shade400..style = PaintingStyle.stroke..strokeWidth = 3);
-    
-    final metric = path.computeMetrics().first;
-    
-    // Draw points along path
-    for (double d = 0; d <= metric.length; d += metric.length / 8) {
-      final tangent = metric.getTangentForOffset(d);
-      if (tangent != null) {
-        canvas.drawCircle(tangent.position, 6, Paint()..color = Colors.purple);
-      }
+  var rectLength = 0.0;
+  var rectClosed = false;
+  var rectIndex = 0;
+  for (final metric in path.computeMetrics()) {
+    rectLength = metric.length;
+    rectClosed = metric.isClosed;
+    rectIndex = metric.contourIndex;
+    print('PathMetric type: ${metric.runtimeType}');
+    print('length: ${metric.length}');
+    print('isClosed: ${metric.isClosed}');
+    print('contourIndex: ${metric.contourIndex}');
+
+    // getTangentForOffset
+    final tangent0 = metric.getTangentForOffset(0.0);
+    if (tangent0 != null) {
+      print('Tangent at 0: pos=${tangent0.position}, vec=${tangent0.vector}, angle=${tangent0.angle}');
     }
-    
-    // Label
-    final tp = TextPainter(text: TextSpan(text: 'Length: ${metric.length.toInt()}px', style: const TextStyle(fontSize: 12)), textDirection: TextDirection.ltr)..layout();
-    tp.paint(canvas, Offset(20, size.height - 30));
+
+    final tangentMid = metric.getTangentForOffset(metric.length / 2.0);
+    if (tangentMid != null) {
+      print('Tangent at mid: pos=${tangentMid.position}');
+    }
+
+    final tangentEnd = metric.getTangentForOffset(metric.length);
+    if (tangentEnd != null) {
+      print('Tangent at end: pos=${tangentEnd.position}');
+    }
+
+    // extractPath
+    final subPath = metric.extractPath(0.0, metric.length / 4.0);
+    print('extractPath(0, len/4): ${subPath.runtimeType}');
+    final subBounds = subPath.getBounds();
+    print('subPath bounds: $subBounds');
+
+    final subPath2 = metric.extractPath(metric.length / 4.0, metric.length / 2.0);
+    print('extractPath(len/4, len/2) bounds: ${subPath2.getBounds()}');
   }
 
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+  // Circle path metric using for-in
+  final circlePath = Path()
+    ..addOval(Rect.fromCircle(center: Offset(50, 50), radius: 25));
+  var circleLen = 0.0;
+  var circleClosed = false;
+  for (final circleMetric in circlePath.computeMetrics()) {
+    circleLen = circleMetric.length;
+    circleClosed = circleMetric.isClosed;
+    print('Circle length: ${circleMetric.length.toStringAsFixed(1)}');
+    print('Circle isClosed: ${circleMetric.isClosed}');
+  }
+
+  print('PathMetric test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('PathMetric Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      SizedBox(height: 8),
+      Text('Rect length: ${rectLength.toStringAsFixed(1)}'),
+      Text('isClosed: $rectClosed'),
+      Text('Circle circumference: ${circleLen.toStringAsFixed(1)}'),
+    ],
+  );
 }

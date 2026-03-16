@@ -1,73 +1,33 @@
-import 'dart:ui';
+// D4rt test script: Tests ImageSamplerSlot from dart:ui (type reference — part of FragmentShader)
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for ImageSamplerSlot - shader texture sampling slot.
-/// Demonstrates binding images to shader uniform slots.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('ImageSamplerSlot Demo')),
-    body: Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('Image Sampler Slots', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 8),
-          const Text('Bind textures to shader programs', style: TextStyle(color: Colors.grey)),
-          const SizedBox(height: 24),
-          _buildSlotDiagram(),
-          const SizedBox(height: 24),
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(color: Colors.purple.shade50, borderRadius: BorderRadius.circular(12)),
-            child: const Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Usage in Shader:', style: TextStyle(fontWeight: FontWeight.bold)),
-                SizedBox(height: 8),
-                Text('shader.setImageSampler(0, image);', style: TextStyle(fontFamily: 'monospace', fontSize: 12)),
-                SizedBox(height: 4),
-                Text('// Texture now available at slot 0', style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: Colors.grey)),
-              ],
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
-}
+  print('ImageSamplerSlot test executing');
 
-Widget _buildSlotDiagram() {
-  return Container(
-    padding: const EdgeInsets.all(16),
-    decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(12)),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        _buildSlot(0, 'Texture A', true),
-        _buildSlot(1, 'Texture B', true),
-        _buildSlot(2, 'Empty', false),
-        _buildSlot(3, 'Texture C', true),
-      ],
-    ),
-  );
-}
+  // ImageSamplerSlot is part of the fragment shader system
+  print('ImageSamplerSlot type: ${ui.ImageSamplerSlot}');
+  print('Used to bind Image to a FragmentShader sampler slot');
+  print('Accessed via FragmentProgram after compiling a SPIR-V shader');
 
-Widget _buildSlot(int index, String label, bool filled) {
+  // Related uniform slot types
+  print('UniformFloatSlot type: ${ui.UniformFloatSlot}');
+  print('UniformVec2Slot type: ${ui.UniformVec2Slot}');
+  print('UniformVec3Slot type: ${ui.UniformVec3Slot}');
+  print('UniformVec4Slot type: ${ui.UniformVec4Slot}');
+
+  print('Fragment shader pipeline: GLSL -> SPIR-V -> FragmentProgram.fromAsset -> FragmentShader');
+  print('Uniforms set via slot types, images via ImageSamplerSlot');
+
+  print('ImageSamplerSlot test completed');
   return Column(
+    mainAxisSize: MainAxisSize.min,
     children: [
-      Container(
-        width: 60, height: 60,
-        decoration: BoxDecoration(
-          color: filled ? Colors.purple.withValues(alpha: 0.2) : Colors.grey.shade200,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: filled ? Colors.purple : Colors.grey.shade400),
-        ),
-        child: Center(child: Icon(filled ? Icons.image : Icons.add_photo_alternate, color: filled ? Colors.purple : Colors.grey)),
-      ),
-      const SizedBox(height: 8),
-      Text('Slot $index', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
-      Text(label, style: TextStyle(fontSize: 10, color: Colors.grey.shade600)),
+      Text('ImageSamplerSlot Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      SizedBox(height: 8),
+      Text('Type reference (requires shader asset)'),
+      Text('Part of FragmentShader uniform system'),
+      Text('Slot types: Float, Vec2, Vec3, Vec4, ImageSampler'),
     ],
   );
 }

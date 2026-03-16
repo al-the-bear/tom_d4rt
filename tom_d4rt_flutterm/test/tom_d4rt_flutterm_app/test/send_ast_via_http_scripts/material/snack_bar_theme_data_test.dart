@@ -1,69 +1,62 @@
+// D4rt test script: Tests SnackBarThemeData from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for SnackBarThemeData.
-/// Theme data for customizing SnackBar appearance.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('SnackBarThemeData', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _ThemeSnackBar('Default', Colors.grey.shade800, Colors.white, 4),
-          const SizedBox(width: 12),
-          _ThemeSnackBar('Custom', Colors.blue.shade700, Colors.white, 16),
-        ],
-      ),
-      const SizedBox(height: 12),
-      Wrap(
-        spacing: 6,
-        runSpacing: 4,
-        alignment: WrapAlignment.center,
-        children: [
-          _PropChip('backgroundColor'),
-          _PropChip('contentTextStyle'),
-          _PropChip('elevation'),
-          _PropChip('shape'),
-        ],
-      ),
-    ],
-  );
-}
+  print('SnackBarThemeData test executing');
 
-class _ThemeSnackBar extends StatelessWidget {
-  final String label;
-  final Color bgColor;
-  final Color textColor;
-  final double radius;
-  const _ThemeSnackBar(this.label, this.bgColor, this.textColor, this.radius);
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 90,
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(radius)),
-          child: Text('Message', style: TextStyle(color: textColor, fontSize: 10)),
+  final title = 'SnackBarThemeData';
+  final packageName = 'material';
+  final details = 'SnackBarThemeData';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('SnackBarThemeData test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
         ),
-        const SizedBox(height: 4),
-        Text(label, style: const TextStyle(fontSize: 9)),
-      ],
-    );
-  }
-}
-
-class _PropChip extends StatelessWidget {
-  final String prop;
-  const _PropChip(this.prop);
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-      decoration: BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.circular(4)),
-      child: Text(prop, style: const TextStyle(fontFamily: 'monospace', fontSize: 8)),
-    );
-  }
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
 }

@@ -1,92 +1,90 @@
+// D4rt test script: Tests SynchronousFuture, Factory from foundation
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for SynchronousFuture - immediately resolved future.
-/// Shows synchronous Future with known value.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('SynchronousFuture Demo')),
-    body: Padding(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('Synchronous Future',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 16),
-          Row(
-            children: [
-              Expanded(
-                child: _FutureCard(
-                  title: 'Regular Future',
-                  timeline: ['Created', 'Event loop...', 'Resolved'],
-                  async: true,
-                ),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: _FutureCard(
-                  title: 'SynchronousFuture',
-                  timeline: ['Created', 'Resolved'],
-                  async: false,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(color: Colors.amber.shade50, borderRadius: BorderRadius.circular(8)),
-            child: const Row(children: [
-              Icon(Icons.flash_on, color: Colors.amber),
-              SizedBox(width: 8),
-              Expanded(child: Text('then() callback fires immediately, not after event loop')),
-            ]),
-          ),
-          const SizedBox(height: 12),
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
-            child: const Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Use Case:', style: TextStyle(fontWeight: FontWeight.bold)),
-                SizedBox(height: 4),
-                Text('When you have a Future API but value is already known, avoiding unnecessary async delays.'),
-              ],
+  print('Foundation misc test executing');
+
+  // ========== SYNCHRONOUSFUTURE ==========
+  print('--- SynchronousFuture Tests ---');
+
+  // Test SynchronousFuture with int
+  final syncFuture = SynchronousFuture<int>(42);
+  print('SynchronousFuture<int>(42) created');
+
+  // SynchronousFuture completes synchronously
+  // Note: .then() callback must return a non-null value in D4rt bridge
+  // (Null is not a subtype of Object in type cast)
+  int? syncResult;
+  syncFuture.then((value) {
+    syncResult = value;
+    return value;
+  });
+  print('SynchronousFuture result (synchronous): $syncResult');
+
+  // Test SynchronousFuture with String
+  final syncStringFuture = SynchronousFuture<String>('hello');
+  String? syncStringResult;
+  syncStringFuture.then((value) {
+    syncStringResult = value;
+    return value;
+  });
+  print('SynchronousFuture<String> result: $syncStringResult');
+
+  // Test SynchronousFuture with List
+  final syncListFuture = SynchronousFuture<List<int>>([1, 2, 3]);
+  List<int>? syncListResult;
+  syncListFuture.then((value) {
+    syncListResult = value;
+    return value;
+  });
+  print('SynchronousFuture<List<int>> result: $syncListResult');
+
+  // Test SynchronousFuture with null
+  final syncNullFuture = SynchronousFuture<String?>(null);
+  String? syncNullResult = 'sentinel';
+  syncNullFuture.then((value) {
+    syncNullResult = value;
+    return value ?? '';
+  });
+  print('SynchronousFuture<String?>(null) result: $syncNullResult');
+
+  // ========== FACTORY ==========
+  print('--- Factory Tests ---');
+
+  // Factory wraps a constructor callback
+  // Note: Factory.constructor is not bridged in D4rt (no instance method named 'constructor')
+  final containerFactory = Factory<Container>(() {
+    return Container(color: Colors.blue, width: 50.0, height: 50.0);
+  });
+  print('Factory<Container> created');
+  print('Factory type: ${containerFactory.runtimeType}');
+  // Note: .constructor() call skipped — method not bridged
+  print('Factory concept verified');
+
+  print('All foundation misc tests passed');
+
+  // ========== RETURN WIDGET ==========
+  return MaterialApp(
+    home: Scaffold(
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Foundation Misc Test',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
             ),
-          ),
-        ],
+            SizedBox(height: 8.0),
+            Text('SynchronousFuture<int>(42) → $syncResult'),
+            SizedBox(height: 4.0),
+            Text('SynchronousFuture<String>("hello") → $syncStringResult'),
+            SizedBox(height: 4.0),
+            Text('Factory: created successfully'),
+          ],
+        ),
       ),
     ),
   );
-}
-
-class _FutureCard extends StatelessWidget {
-  final String title;
-  final List<String> timeline;
-  final bool async;
-  const _FutureCard({required this.title, required this.timeline, required this.async});
-  @override
-  Widget build(BuildContext context) {
-    final color = async ? Colors.orange : Colors.green;
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(color: color.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8), border: Border.all(color: color)),
-      child: Column(
-        children: [
-          Text(title, style: TextStyle(fontWeight: FontWeight.bold, color: color)),
-          const SizedBox(height: 12),
-          ...timeline.map((step) => Padding(
-            padding: const EdgeInsets.symmetric(vertical: 4),
-            child: Row(children: [
-              Icon(step.contains('...') ? Icons.hourglass_empty : Icons.check_circle, size: 14, color: step.contains('...') ? Colors.grey : color),
-              const SizedBox(width: 8),
-              Text(step, style: TextStyle(fontSize: 11, color: step.contains('...') ? Colors.grey : null)),
-            ]),
-          )),
-        ],
-      ),
-    );
-  }
 }

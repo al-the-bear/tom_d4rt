@@ -1,79 +1,61 @@
-import 'dart:ui';
+// D4rt test script: Tests Rect from dart:ui
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for Rect - axis-aligned rectangle.
-/// Demonstrates Rect constructors and properties.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('Rect Demo')),
-    body: Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('Rect', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 24),
-          SizedBox(
-            height: 180,
-            child: CustomPaint(
-              painter: _RectPainter(),
-              size: const Size(double.infinity, 180),
-            ),
-          ),
-          const SizedBox(height: 24),
-          const Text('Constructors:', style: TextStyle(fontWeight: FontWeight.bold)),
-          _buildConstructor('fromLTRB', 'left, top, right, bottom'),
-          _buildConstructor('fromLTWH', 'left, top, width, height'),
-          _buildConstructor('fromCenter', 'center, width, height'),
-          _buildConstructor('fromCircle', 'center, radius'),
-          _buildConstructor('fromPoints', 'two corners'),
-          const SizedBox(height: 16),
-          const Text('Properties:', style: TextStyle(fontWeight: FontWeight.bold)),
-          Wrap(
-            spacing: 8, runSpacing: 8,
-            children: ['left', 'top', 'right', 'bottom', 'width', 'height', 'center', 'size'].map((p) =>
-              Container(padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4), decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(4)),
-                child: Text(p, style: const TextStyle(fontFamily: 'monospace', fontSize: 11)))).toList(),
-          ),
-        ],
+  print('Rect test executing');
+
+  // Test Rect.fromLTWH
+  final rect1 = Rect.fromLTWH(10.0, 20.0, 200.0, 100.0);
+  print(
+    'Rect.fromLTWH: left=${rect1.left}, top=${rect1.top}, width=${rect1.width}, height=${rect1.height}',
+  );
+
+  // Test Rect.fromLTRB
+  final rect2 = Rect.fromLTRB(0.0, 0.0, 150.0, 150.0);
+  print(
+    'Rect.fromLTRB: ${rect2.left}, ${rect2.top}, ${rect2.right}, ${rect2.bottom}',
+  );
+
+  // Test Rect.fromCenter
+  final rect3 = Rect.fromCenter(
+    center: Offset(100.0, 100.0),
+    width: 80.0,
+    height: 60.0,
+  );
+  print('Rect.fromCenter: center=(${rect3.center.dx}, ${rect3.center.dy})');
+
+  // Test Rect.fromCircle
+  final rect4 = Rect.fromCircle(center: Offset(50.0, 50.0), radius: 25.0);
+  print('Rect.fromCircle: size=${rect4.width}x${rect4.height}');
+
+  // Test Rect.zero
+  final zero = Rect.zero;
+  print('Rect.zero: ${zero.width}x${zero.height}');
+
+  // Test Rect properties
+  print('rect1.size: ${rect1.size.width}x${rect1.size.height}');
+  print('rect1.topLeft: ${rect1.topLeft.dx}, ${rect1.topLeft.dy}');
+  print('rect1.bottomRight: ${rect1.bottomRight.dx}, ${rect1.bottomRight.dy}');
+
+  // Test Rect operations
+  final inflated = rect2.inflate(10.0);
+  print('inflated: ${inflated.width}x${inflated.height}');
+
+  final deflated = rect2.deflate(10.0);
+  print('deflated: ${deflated.width}x${deflated.height}');
+
+  print('Rect test completed');
+
+  return Container(
+    width: rect1.width,
+    height: rect1.height,
+    margin: EdgeInsets.only(left: rect1.left, top: rect1.top),
+    color: Colors.purple,
+    child: Center(
+      child: Text(
+        'Rect: ${rect1.width.toInt()}x${rect1.height.toInt()}',
+        style: TextStyle(color: Colors.white, fontSize: 14.0),
       ),
     ),
   );
-}
-
-Widget _buildConstructor(String name, String params) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 2),
-    child: Row(children: [
-      Text('Rect.$name', style: const TextStyle(fontFamily: 'monospace', fontSize: 11, fontWeight: FontWeight.w500)),
-      const SizedBox(width: 8),
-      Text('($params)', style: TextStyle(color: Colors.grey.shade600, fontSize: 11)),
-    ]),
-  );
-}
-
-class _RectPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final rect = Rect.fromLTWH(40, 20, 180, 120);
-    
-    canvas.drawRect(rect, Paint()..color = Colors.blue.withValues(alpha: 0.3));
-    canvas.drawRect(rect, Paint()..color = Colors.blue..style = PaintingStyle.stroke..strokeWidth = 2);
-    
-    // Labels
-    void label(String text, Offset pos) {
-      final tp = TextPainter(text: TextSpan(text: text, style: const TextStyle(fontSize: 10, color: Colors.blue)), textDirection: TextDirection.ltr)..layout();
-      tp.paint(canvas, pos);
-    }
-    
-    label('left=${rect.left.toInt()}', Offset(rect.left - 35, rect.center.dy));
-    label('right=${rect.right.toInt()}', Offset(rect.right + 5, rect.center.dy));
-    label('top=${rect.top.toInt()}', Offset(rect.center.dx, rect.top - 15));
-    label('bottom=${rect.bottom.toInt()}', Offset(rect.center.dx, rect.bottom + 5));
-    canvas.drawCircle(rect.center, 4, Paint()..color = Colors.red);
-    label('center', rect.center + const Offset(8, -5));
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

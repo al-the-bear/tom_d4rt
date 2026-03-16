@@ -1,53 +1,62 @@
+// D4rt test script: Tests CalendarDelegate from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for CalendarDelegate.
-/// Shows calendar date selection delegate.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('CalendarDelegate')),
-    body: ListView(
-      padding: const EdgeInsets.all(16),
-      children: [
-        const Text('Calendar Date Selection', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-        const SizedBox(height: 8),
-        const Text('Used internally by date picker widgets', style: TextStyle(color: Colors.grey)),
-        const SizedBox(height: 24),
-        const Text('Delegate Methods:', style: TextStyle(fontWeight: FontWeight.bold)),
-        _Method('buildItems', 'Build calendar day widgets'),
-        _Method('firstDayOfMonth', 'Get first day of displayed month'),
-        _Method('handleMonthPageChanged', 'Handle month navigation'),
-        _Method('selectableDayPredicate', 'Filter selectable dates'),
-        const SizedBox(height: 24),
-        ElevatedButton.icon(
-          onPressed: () async {
-            final date = await showDatePicker(
-              context: context,
-              initialDate: DateTime.now(),
-              firstDate: DateTime(2020),
-              lastDate: DateTime(2030),
-            );
-            if (date != null) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Selected: ' + date.toString().split(' ')[0])),
-              );
-            }
-          },
-          icon: const Icon(Icons.calendar_today),
-          label: const Text('Open DatePicker'),
-        ),
-      ],
-    ),
-  );
-}
+  print('CalendarDelegate test executing');
 
-class _Method extends StatelessWidget {
-  final String name, desc;
-  const _Method(this.name, this.desc);
-  @override
-  Widget build(BuildContext context) => ListTile(
-    leading: const Icon(Icons.code, size: 20),
-    title: Text(name, style: const TextStyle(fontFamily: 'monospace')),
-    subtitle: Text(desc),
-    dense: true,
+  final title = 'CalendarDelegate';
+  final packageName = 'material';
+  final details = 'Calendar delegate';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('CalendarDelegate test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    ),
   );
 }

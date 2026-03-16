@@ -1,41 +1,130 @@
+// D4rt test script: Tests AppBarTheme, BottomAppBarTheme from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for AppBarTheme.
-/// Shows different app bar theme styles.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    body: ListView(
-      children: [
-        _ThemedAppBar('Default', AppBarTheme(backgroundColor: Colors.blue)),
-        _ThemedAppBar('Elevated', AppBarTheme(backgroundColor: Colors.white, foregroundColor: Colors.black, elevation: 4)),
-        _ThemedAppBar('Flat', AppBarTheme(backgroundColor: Colors.green, elevation: 0)),
-        _ThemedAppBar('Transparent', const AppBarTheme(backgroundColor: Colors.transparent, elevation: 0)),
-        _ThemedAppBar('Custom', AppBarTheme(
-          backgroundColor: Colors.deepPurple,
-          titleTextStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-          centerTitle: true,
-        )),
-        const SizedBox(height: 16),
-        Padding(
-          padding: const EdgeInsets.all(16),
-          child: Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
-            child: const Text('Apply via Theme(data: ThemeData(appBarTheme: ...))', style: TextStyle(fontSize: 11)),
-          ),
-        ),
-      ],
+  print('AppBar themes test executing');
+
+  // ========== APPBAR THEME ==========
+  print('--- AppBarTheme Tests ---');
+
+  final appBarTheme = AppBarTheme(
+    backgroundColor: Colors.indigo,
+    foregroundColor: Colors.white,
+    elevation: 4.0,
+    scrolledUnderElevation: 3.0,
+    shadowColor: Colors.black54,
+    surfaceTintColor: Colors.indigo.shade100,
+    centerTitle: true,
+    titleSpacing: 16.0,
+    toolbarHeight: 56.0,
+    toolbarTextStyle: TextStyle(fontSize: 16.0, color: Colors.white),
+    titleTextStyle: TextStyle(
+      fontSize: 20.0,
+      fontWeight: FontWeight.bold,
+      color: Colors.white,
+    ),
+    iconTheme: IconThemeData(color: Colors.white, size: 24.0),
+    actionsIconTheme: IconThemeData(color: Colors.white70, size: 22.0),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(bottom: Radius.circular(12.0)),
     ),
   );
-}
+  print('AppBarTheme created');
+  print('  backgroundColor: ${appBarTheme.backgroundColor}');
+  print('  foregroundColor: ${appBarTheme.foregroundColor}');
+  print('  elevation: ${appBarTheme.elevation}');
+  print('  scrolledUnderElevation: ${appBarTheme.scrolledUnderElevation}');
+  print('  centerTitle: ${appBarTheme.centerTitle}');
+  print('  toolbarHeight: ${appBarTheme.toolbarHeight}');
+  print('  titleSpacing: ${appBarTheme.titleSpacing}');
+  print('  shadowColor: ${appBarTheme.shadowColor}');
+  print('  surfaceTintColor: ${appBarTheme.surfaceTintColor}');
+  print('  shape: ${appBarTheme.shape}');
 
-class _ThemedAppBar extends StatelessWidget {
-  final String name;
-  final AppBarTheme theme;
-  const _ThemedAppBar(this.name, this.theme);
-  @override
-  Widget build(BuildContext context) => Theme(
-    data: ThemeData(appBarTheme: theme),
-    child: AppBar(title: Text(name), actions: [IconButton(icon: const Icon(Icons.info), onPressed: () {})]),
+  // Test AppBarTheme copyWith
+  final copiedAppBarTheme = appBarTheme.copyWith(
+    backgroundColor: Colors.deepPurple,
+    elevation: 8.0,
+    centerTitle: false,
+  );
+  print('AppBarTheme.copyWith created');
+  print('  new backgroundColor: ${copiedAppBarTheme.backgroundColor}');
+  print('  new elevation: ${copiedAppBarTheme.elevation}');
+  print('  new centerTitle: ${copiedAppBarTheme.centerTitle}');
+  print('  foregroundColor preserved: ${copiedAppBarTheme.foregroundColor}');
+
+  // ========== BOTTOM APP BAR THEME DATA ==========
+  print('--- BottomAppBarThemeData Tests ---');
+
+  final bottomAppBarTheme = BottomAppBarThemeData(
+    color: Colors.blue.shade50,
+    elevation: 8.0,
+    shadowColor: Colors.black26,
+    surfaceTintColor: Colors.blue.shade100,
+    height: 80.0,
+    padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+    shape: CircularNotchedRectangle(),
+  );
+  print('BottomAppBarThemeData created');
+  print('  color: ${bottomAppBarTheme.color}');
+  print('  elevation: ${bottomAppBarTheme.elevation}');
+  print('  shadowColor: ${bottomAppBarTheme.shadowColor}');
+  print('  surfaceTintColor: ${bottomAppBarTheme.surfaceTintColor}');
+  print('  height: ${bottomAppBarTheme.height}');
+  print('  shape: ${bottomAppBarTheme.shape}');
+
+  // Test BottomAppBarThemeData copyWith
+  final copiedBottomAppBarTheme = bottomAppBarTheme.copyWith(
+    color: Colors.grey.shade100,
+    elevation: 4.0,
+  );
+  print('BottomAppBarThemeData.copyWith created');
+  print('  new color: ${copiedBottomAppBarTheme.color}');
+  print('  new elevation: ${copiedBottomAppBarTheme.elevation}');
+  print('  height preserved: ${copiedBottomAppBarTheme.height}');
+
+  // ========== WRAP IN THEME WIDGET ==========
+  print('--- Theme Integration ---');
+
+  final themeData = ThemeData(
+    appBarTheme: appBarTheme,
+    bottomAppBarTheme: bottomAppBarTheme,
+  );
+  print('ThemeData with AppBar themes created');
+
+  return Theme(
+    data: themeData,
+    child: Builder(
+      builder: (ctx) {
+        final resolvedTheme = Theme.of(ctx);
+        print('Theme.of resolved');
+        print(
+          '  appBarTheme.backgroundColor: ${resolvedTheme.appBarTheme.backgroundColor}',
+        );
+        print(
+          '  appBarTheme.elevation: ${resolvedTheme.appBarTheme.elevation}',
+        );
+        print(
+          '  bottomAppBarTheme.color: ${resolvedTheme.bottomAppBarTheme.color}',
+        );
+        print(
+          '  bottomAppBarTheme.elevation: ${resolvedTheme.bottomAppBarTheme.elevation}',
+        );
+
+        return Scaffold(
+          appBar: AppBar(title: Text('AppBar Theme Test')),
+          bottomNavigationBar: BottomAppBar(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                IconButton(icon: Icon(Icons.home), onPressed: () {}),
+                IconButton(icon: Icon(Icons.search), onPressed: () {}),
+              ],
+            ),
+          ),
+          body: Center(child: Text('AppBar themes test passed')),
+        );
+      },
+    ),
   );
 }

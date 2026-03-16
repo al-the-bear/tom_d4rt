@@ -1,55 +1,63 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests Animation class hierarchy from animation
+import 'dart:ui';
+import 'package:flutter/animation.dart';
+import 'package:flutter/widgets.dart';
 
-/// Demonstrates basic Dart class concepts used in Flutter animations.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('Dart Class Demo', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-      const SizedBox(height: 16),
-      Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(color: Colors.teal.shade50, borderRadius: BorderRadius.circular(12)),
-        child: const Column(
-          children: [
-            _ClassBlock('abstract class', 'Animation<T>', 'Base for all animations'),
-            SizedBox(height: 8),
-            _ClassBlock('mixin', 'AnimationLocalListenersMixin', 'Adds listener management'),
-            SizedBox(height: 8),
-            _ClassBlock('class', 'AnimationController', 'Concrete implementation'),
-          ],
-        ),
-      ),
-      const SizedBox(height: 12),
-      const Text('Flutter animation hierarchy', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
-  );
-}
+  print('Animation class hierarchy test executing');
 
-class _ClassBlock extends StatelessWidget {
-  final String keyword; final String name; final String desc;
-  const _ClassBlock(this.keyword, this.name, this.desc);
-  @override
-  Widget build(BuildContext context) => Container(
-    padding: const EdgeInsets.all(8),
-    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8)),
-    child: Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-          decoration: BoxDecoration(color: Colors.teal, borderRadius: BorderRadius.circular(4)),
-          child: Text(keyword, style: const TextStyle(color: Colors.white, fontSize: 9, fontWeight: FontWeight.bold)),
-        ),
-        const SizedBox(width: 8),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(name, style: const TextStyle(fontFamily: 'monospace', fontSize: 11)),
-            Text(desc, style: const TextStyle(fontSize: 9, color: Colors.grey)),
-          ],
-        ),
-      ],
+  // ========== AlwaysStoppedAnimation ==========
+  print('--- AlwaysStoppedAnimation ---');
+  final stopped = AlwaysStoppedAnimation<double>(0.75);
+  print('  value: ${stopped.value}');
+  print('  status: ${stopped.status}');
+  print('  isCompleted: ${stopped.isCompleted}');
+  print('  isDismissed: ${stopped.isDismissed}');
+  print('  toString: ${stopped.toString()}');
+
+  // ========== ProxyAnimation ==========
+  print('--- ProxyAnimation ---');
+  final proxy = ProxyAnimation(stopped);
+  print('  proxy.value: ${proxy.value}');
+  print('  proxy.status: ${proxy.status}');
+
+  // ========== ReverseAnimation ==========
+  print('--- ReverseAnimation ---');
+  final reverse = ReverseAnimation(stopped);
+  print('  reverse.value: ${reverse.value}');
+  print('  reverse.status: ${reverse.status}');
+
+  // ========== AnimationStatus enum ==========
+  print('--- AnimationStatus enum ---');
+  for (final status in AnimationStatus.values) {
+    print('  ${status.name}: index=${status.index}');
+  }
+
+  // ========== Type checks ==========
+  print('--- Type checks ---');
+  print('  stopped is Animation<double>: ${stopped is Animation<double>}');
+  print('  proxy is Animation<double>: ${proxy is Animation<double>}');
+
+  print('Animation class hierarchy test completed');
+  return SingleChildScrollView(
+    child: Padding(
+      padding: EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text('Animation Class Hierarchy',
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          SizedBox(height: 8.0),
+          Text('AlwaysStoppedAnimation(0.75): ${stopped.value}'),
+          Text('ProxyAnimation: ${proxy.value}'),
+          Text('ReverseAnimation: ${reverse.value}'),
+          SizedBox(height: 8.0),
+          Text('AnimationStatus values:'),
+          for (final status in AnimationStatus.values)
+            Text('  ${status.name}'),
+        ],
+      ),
     ),
   );
 }

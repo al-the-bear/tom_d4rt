@@ -1,19 +1,29 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests ContextMenuButtonType from widgets
+import 'package:flutter/widgets.dart';
 
-/// Deep visual demo for ContextMenuButtonType
 dynamic build(BuildContext context) {
-  return Scaffold(appBar: AppBar(title: Text('ContextMenuButtonType')), body: Padding(padding: EdgeInsets.all(16), child: Column(children: [
-    Text('ContextMenuButtonType', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-    SizedBox(height: 8),
-    Text('Types of context menu buttons', style: TextStyle(fontSize: 12, color: Colors.grey)),
-    SizedBox(height: 16),
-    Expanded(child: Container(padding: EdgeInsets.all(16), decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(12)),
-      child: Center(child: Column(mainAxisSize: MainAxisSize.min, children: [
-        Icon(Icons.widgets, size: 48, color: Colors.blue),
-        SizedBox(height: 12),
-        Text('ContextMenuButtonType Demo', style: TextStyle(fontWeight: FontWeight.bold)),
-      ])))),
-    Container(padding: EdgeInsets.all(8), decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
-      child: Text('Widget from widgets library', style: TextStyle(fontSize: 10))),
-  ])));
+  print('ContextMenuButtonType test executing');
+
+  // Enumerate all ContextMenuButtonType values
+  print('ContextMenuButtonType values:');
+  for (final value in ContextMenuButtonType.values) {
+    print('  ${value.name}: $value');
+  }
+  print('ContextMenuButtonType has ${ ContextMenuButtonType.values.length} values');
+
+  final first = ContextMenuButtonType.values.first;
+  final last = ContextMenuButtonType.values.last;
+  print('First: $first, Last: $last');
+  print('First index: ${first.index}, Last index: ${last.index}');
+
+  print('ContextMenuButtonType test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('ContextMenuButtonType Tests'),
+      Text('Values: ${ ContextMenuButtonType.values.length}'),
+      Text('First: $first'),
+      Text('Last: $last'),
+    ],
+  );
 }

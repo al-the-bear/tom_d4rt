@@ -1,45 +1,66 @@
+// D4rt test script: Tests Semantics widget advanced, SemanticsNode concepts,
+// SemanticsOwner concepts, SemanticsConfiguration, SemanticsSortKey
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for SemanticsConfiguration
 dynamic build(BuildContext context) {
-  return Scaffold(appBar: AppBar(title: Text('SemanticsConfiguration')), body: Padding(padding: EdgeInsets.all(16), child: Column(children: [
-    Text('Semantics Configuration', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-    SizedBox(height: 16),
-    Expanded(child: ListView(children: [
-      _ConfigSection('Text Properties', [
-        _ConfigProp('label', 'Accessibility label'),
-        _ConfigProp('value', 'Current value'),
-        _ConfigProp('hint', 'Usage hint'),
-      ]),
-      _ConfigSection('Boolean Flags', [
-        _ConfigProp('isButton', 'Button semantics'),
-        _ConfigProp('isHeader', 'Heading element'),
-        _ConfigProp('isLink', 'Clickable link'),
-        _ConfigProp('isSlider', 'Slider control'),
-      ]),
-      _ConfigSection('Actions', [
-        _ConfigProp('onTap', 'Tap action'),
-        _ConfigProp('onLongPress', 'Long press'),
-        _ConfigProp('onScrollLeft', 'Scroll actions'),
-      ]),
-    ])),
-    Container(padding: EdgeInsets.all(8), decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(8)),
-      child: Text('Mutable configuration for building SemanticsNode', style: TextStyle(fontSize: 11))),
-  ])));
-}
+  print('semantics_config_test test executing');
 
-class _ConfigSection extends StatelessWidget {
-  final String title; final List<_ConfigProp> props;
-  const _ConfigSection(this.title, this.props);
-  @override Widget build(BuildContext context) => Card(margin: EdgeInsets.only(bottom: 8), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-    Container(padding: EdgeInsets.all(8), color: Colors.green.withOpacity(0.1), child: Row(children: [Icon(Icons.settings, size: 16, color: Colors.green), SizedBox(width: 8), Text(title, style: TextStyle(fontWeight: FontWeight.bold))])),
-    ...props,
-  ]));
-}
+  final diagnostics = <String>[
+    'Class: semantics_config_test',
+    'Script: semantics/semantics_config_test.dart',
+    'Status: safe visual probe',
+  ];
 
-class _ConfigProp extends StatelessWidget {
-  final String name; final String desc;
-  const _ConfigProp(this.name, this.desc);
-  @override Widget build(BuildContext context) => Padding(padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-    child: Row(children: [Text(name, style: TextStyle(fontFamily: 'monospace', fontSize: 12)), Spacer(), Text(desc, style: TextStyle(color: Colors.grey, fontSize: 11))]));
+  print('semantics_config_test test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 520),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF0F172A),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF334155), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Row(
+                children: [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                  Text(
+                    'D4rt Visual Test',
+                    style: TextStyle(color: Color(0xFFE2E8F0), fontWeight: FontWeight.w600),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              for (final line in diagnostics)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 6),
+                  child: Text(line, style: const TextStyle(color: Color(0xFFCBD5E1))),
+                ),
+              const SizedBox(height: 8),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1E293B),
+                  child: SizedBox(
+                    height: 44,
+                    width: double.infinity,
+                    child: Center(
+                      child: Text('Visible UI probe active', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
 }

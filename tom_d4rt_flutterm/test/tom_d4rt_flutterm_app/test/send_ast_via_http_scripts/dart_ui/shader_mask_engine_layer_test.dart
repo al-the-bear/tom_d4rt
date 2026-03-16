@@ -1,42 +1,32 @@
-import 'dart:ui';
+// D4rt test script: Tests ShaderMaskEngineLayer via SceneBuilder
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for ShaderMaskEngineLayer.
-/// Demonstrates shader-based masking in rendering.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('ShaderMaskEngineLayer Demo')),
-    body: Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('Shader Mask Engine Layer', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 24),
-          Center(
-            child: ShaderMask(
-              shaderCallback: (Rect bounds) {
-                return const LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [Colors.white, Colors.transparent],
-                ).createShader(bounds);
-              },
-              child: Container(
-                width: 200, height: 200,
-                color: Colors.blue,
-                child: const Center(child: Icon(Icons.star, color: Colors.white, size: 80)),
-              ),
-            ),
-          ),
-          const SizedBox(height: 24),
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(8)),
-            child: const Text('ShaderMaskEngineLayer applies a shader as a mask to child layers, creating gradient fade effects.'),
-          ),
-        ],
-      ),
-    ),
+  print('ShaderMaskEngineLayer test executing');
+
+  final sb = ui.SceneBuilder();
+  final gradient = ui.Gradient.linear(
+    Offset.zero, Offset(100, 100),
+    [Colors.red, Colors.blue],
   );
+  final layer = sb.pushShaderMask(gradient, Rect.fromLTWH(0, 0, 200, 200), BlendMode.srcOver);
+  print('pushShaderMask: ${layer.runtimeType}');
+  print('is EngineLayer: ${layer is ui.EngineLayer}');
+  sb.pop();
+
+  // Different blend mode
+  final layer2 = sb.pushShaderMask(gradient, Rect.fromLTWH(0, 0, 100, 100), BlendMode.dstIn);
+  print('dstIn blend: ${layer2.runtimeType}');
+  sb.pop();
+
+  final scene = sb.build();
+  scene.dispose();
+
+  print('ShaderMaskEngineLayer test completed');
+  return Column(mainAxisSize: MainAxisSize.min, children: [
+    Text('ShaderMaskEngineLayer Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+    Text('Type: ${layer.runtimeType}'),
+    Text('Created via pushShaderMask'),
+  ]);
 }

@@ -1,54 +1,94 @@
+// D4rt test script: Tests MenuAnchor, MenuItemButton, SubmenuButton from Flutter material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for MenuAnchor widget.
-/// Anchors a menu to any widget.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('MenuAnchor', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Stack(
-        clipBehavior: Clip.none,
-        children: [
-          // Anchor button
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(8)),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: const [
-                Text('Options', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                SizedBox(width: 4),
-                Icon(Icons.arrow_drop_down, color: Colors.white),
-              ],
-            ),
-          ),
-          // Menu
-          Positioned(
-            top: 50,
-            left: 0,
-            child: Container(
-              width: 120,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 8)],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Padding(padding: EdgeInsets.all(8), child: Text('Edit', style: TextStyle(fontSize: 12))),
-                  Padding(padding: EdgeInsets.all(8), child: Text('Delete', style: TextStyle(fontSize: 12))),
-                  Padding(padding: EdgeInsets.all(8), child: Text('Share', style: TextStyle(fontSize: 12))),
-                ],
-              ),
-            ),
-          ),
-        ],
+  print('MenuAnchor/MenuItemButton/SubmenuButton test executing');
+
+  // Variation 1: Basic MenuAnchor with MenuItemButtons
+  final widget1 = MenuAnchor(
+    menuChildren: [
+      MenuItemButton(
+        onPressed: () {
+          print('item1');
+        },
+        child: Text('Item 1'),
       ),
-      const SizedBox(height: 80),
-      const Text('Positions menu relative to child', style: TextStyle(fontSize: 11, color: Colors.grey)),
+      MenuItemButton(
+        onPressed: () {
+          print('item2');
+        },
+        child: Text('Item 2'),
+      ),
     ],
+    child: TextButton(onPressed: () {}, child: Text('Open Menu')),
+  );
+  print('MenuAnchor(basic with 2 MenuItemButtons) created');
+
+  // Variation 2: MenuItemButton with leading icon
+  final widget2 = MenuItemButton(
+    onPressed: () {},
+    leadingIcon: Icon(Icons.edit),
+    child: Text('Edit'),
+  );
+  print('MenuItemButton(leadingIcon: edit) created');
+
+  // Variation 3: MenuItemButton disabled
+  final widget3 = MenuItemButton(onPressed: null, child: Text('Disabled'));
+  print('MenuItemButton(onPressed: null, disabled) created');
+
+  // Variation 4: SubmenuButton with children
+  final widget4 = SubmenuButton(
+    menuChildren: [
+      MenuItemButton(onPressed: () {}, child: Text('Sub1')),
+      MenuItemButton(onPressed: () {}, child: Text('Sub2')),
+    ],
+    child: Text('Submenu'),
+  );
+  print('SubmenuButton(2 children) created');
+
+  // Variation 5: MenuAnchor with SubmenuButton and MenuItemButtons
+  final widget5 = MenuAnchor(
+    menuChildren: [
+      MenuItemButton(
+        onPressed: () {
+          print('new');
+        },
+        leadingIcon: Icon(Icons.add),
+        child: Text('New'),
+      ),
+      SubmenuButton(
+        menuChildren: [
+          MenuItemButton(onPressed: () {}, child: Text('Copy')),
+          MenuItemButton(onPressed: () {}, child: Text('Paste')),
+        ],
+        child: Text('Edit'),
+      ),
+      MenuItemButton(
+        onPressed: () {
+          print('delete');
+        },
+        leadingIcon: Icon(Icons.delete),
+        child: Text('Delete'),
+      ),
+    ],
+    child: TextButton(onPressed: () {}, child: Text('Actions')),
+  );
+  print('MenuAnchor(with SubmenuButton nested) created');
+
+  // Variation 6: MenuItemButton with trailing icon
+  final widget6 = MenuItemButton(
+    onPressed: () {
+      print('settings');
+    },
+    leadingIcon: Icon(Icons.settings),
+    trailingIcon: Icon(Icons.arrow_forward),
+    child: Text('Settings'),
+  );
+  print('MenuItemButton(leadingIcon + trailingIcon) created');
+
+  print('MenuAnchor/MenuItemButton/SubmenuButton test completed');
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    children: [widget1, widget2, widget3, widget4, widget5, widget6],
   );
 }

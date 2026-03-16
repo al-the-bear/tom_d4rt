@@ -1,6 +1,29 @@
+// D4rt test script: Tests TabIndicatorAnimation from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for TabIndicatorAnimation
 dynamic build(BuildContext context) {
-  return Scaffold(appBar: AppBar(title: Text('TabIndicatorAnimation Demo')), body: DefaultTabController(length: 3, child: Column(children: [Text('Linear Animation', style: TextStyle(fontWeight: FontWeight.bold)), TabBar(tabs: [Tab(text: 'One'), Tab(text: 'Two'), Tab(text: 'Three')]), SizedBox(height: 30), Text('Elastic Animation', style: TextStyle(fontWeight: FontWeight.bold)), TabBar(splashFactory: NoSplash.splashFactory, tabs: [Tab(text: 'A'), Tab(text: 'B'), Tab(text: 'C')]), Expanded(child: TabBarView(children: [Center(child: Text('First')), Center(child: Text('Second')), Center(child: Text('Third'))]))])));
+  print('TabIndicatorAnimation test executing');
+
+  // Enumerate all TabIndicatorAnimation values
+  print('TabIndicatorAnimation values:');
+  for (final value in TabIndicatorAnimation.values) {
+    print('  ${value.name}: $value');
+  }
+  print('TabIndicatorAnimation has ${ TabIndicatorAnimation.values.length} values');
+
+  final first = TabIndicatorAnimation.values.first;
+  final last = TabIndicatorAnimation.values.last;
+  print('First: $first, Last: $last');
+  print('First index: ${first.index}, Last index: ${last.index}');
+
+  print('TabIndicatorAnimation test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('TabIndicatorAnimation Tests'),
+      Text('Values: ${ TabIndicatorAnimation.values.length}'),
+      Text('First: $first'),
+      Text('Last: $last'),
+    ],
+  );
 }

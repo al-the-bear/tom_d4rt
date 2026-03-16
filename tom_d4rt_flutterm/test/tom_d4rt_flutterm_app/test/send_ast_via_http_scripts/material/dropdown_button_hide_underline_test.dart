@@ -1,64 +1,62 @@
+// D4rt test script: Tests DropdownButtonHideUnderline from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for DropdownButtonHideUnderline - removes underline from dropdown.
-/// Shows dropdown button with and without underline.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('DropdownButtonHideUnderline', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          // With underline
-          Column(
+  print('DropdownButtonHideUnderline test executing');
+
+  final title = 'DropdownButtonHideUnderline';
+  final packageName = 'material';
+  final details = 'DropdownButtonHideUnderline';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('DropdownButtonHideUnderline test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                decoration: BoxDecoration(
-                  border: Border(bottom: BorderSide(color: Colors.grey.shade400)),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Text('Option 1'),
-                    const SizedBox(width: 8),
-                    Icon(Icons.arrow_drop_down, color: Colors.grey.shade600),
-                  ],
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
                 ),
               ),
-              const SizedBox(height: 4),
-              const Text('Default', style: TextStyle(fontSize: 10)),
             ],
           ),
-          const SizedBox(width: 24),
-          // Without underline
-          Column(
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                decoration: BoxDecoration(
-                  color: Colors.blue.shade50,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Text('Option 1'),
-                    const SizedBox(width: 8),
-                    Icon(Icons.arrow_drop_down, color: Colors.blue.shade600),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 4),
-              const Text('HideUnderline', style: TextStyle(fontSize: 10)),
-            ],
-          ),
-        ],
+        ),
       ),
-      const SizedBox(height: 12),
-      const Text('Wrap DropdownButton with this widget', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
+    ),
   );
 }

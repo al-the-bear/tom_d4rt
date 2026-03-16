@@ -1,6 +1,29 @@
+// D4rt test script: Tests ShowValueIndicator from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for ShowValueIndicator
 dynamic build(BuildContext context) {
-  return Scaffold(appBar: AppBar(title: Text('ShowValueIndicator Demo')), body: Center(child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [SliderTheme(data: SliderTheme.of(context).copyWith(showValueIndicator: ShowValueIndicator.always), child: Slider(value: 0.5, onChanged: (v) {}, label: 'Always')), SliderTheme(data: SliderTheme.of(context).copyWith(showValueIndicator: ShowValueIndicator.onlyForDiscrete), child: Slider(value: 0.7, divisions: 5, onChanged: (v) {}, label: 'Discrete')), SliderTheme(data: SliderTheme.of(context).copyWith(showValueIndicator: ShowValueIndicator.onlyForContinuous), child: Slider(value: 0.3, onChanged: (v) {}, label: 'Continuous')), SliderTheme(data: SliderTheme.of(context).copyWith(showValueIndicator: ShowValueIndicator.never), child: Slider(value: 0.6, onChanged: (v) {}, label: 'Never'))])));
+  print('ShowValueIndicator test executing');
+
+  // Enumerate all ShowValueIndicator values
+  print('ShowValueIndicator values:');
+  for (final value in ShowValueIndicator.values) {
+    print('  ${value.name}: $value');
+  }
+  print('ShowValueIndicator has ${ ShowValueIndicator.values.length} values');
+
+  final first = ShowValueIndicator.values.first;
+  final last = ShowValueIndicator.values.last;
+  print('First: $first, Last: $last');
+  print('First index: ${first.index}, Last index: ${last.index}');
+
+  print('ShowValueIndicator test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('ShowValueIndicator Tests'),
+      Text('Values: ${ ShowValueIndicator.values.length}'),
+      Text('First: $first'),
+      Text('Last: $last'),
+    ],
+  );
 }

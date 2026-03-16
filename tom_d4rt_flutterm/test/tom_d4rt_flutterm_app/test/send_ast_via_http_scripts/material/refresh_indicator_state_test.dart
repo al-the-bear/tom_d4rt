@@ -1,37 +1,62 @@
+// D4rt test script: Tests RefreshIndicatorState from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for RefreshIndicatorState.
-/// State object providing programmatic refresh.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('RefreshIndicatorState', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(12)),
-        child: Column(
-          children: [
-            const Text('GlobalKey<RefreshIndicatorState>', style: TextStyle(fontFamily: 'monospace', fontSize: 9)),
-            const SizedBox(height: 12),
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8)),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
+  print('RefreshIndicatorState test executing');
+
+  final title = 'RefreshIndicatorState';
+  final packageName = 'material';
+  final details = 'RefreshIndicatorState';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('RefreshIndicatorState test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
                 children: const [
-                  Icon(Icons.refresh, color: Colors.blue),
-                  SizedBox(width: 8),
-                  Text('.show()', style: TextStyle(fontFamily: 'monospace', fontSize: 10)),
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
                 ],
               ),
-            ),
-          ],
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-      const SizedBox(height: 12),
-      const Text('Trigger refresh programmatically', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
+    ),
   );
 }

@@ -1,86 +1,41 @@
-import 'dart:ui';
+// D4rt test script: Tests IsolateNameServer from dart:ui
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for IsolateNameServer - isolate lookup by name.
-/// Demonstrates registering and finding isolates by name.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('IsolateNameServer Demo')),
-    body: Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('Isolate Name Server', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 8),
-          const Text('Find isolates by registered name', style: TextStyle(color: Colors.grey)),
-          const SizedBox(height: 24),
-          _buildIsolateRegistry(),
-          const SizedBox(height: 24),
-          const Text('Methods:', style: TextStyle(fontWeight: FontWeight.bold)),
-          const SizedBox(height: 12),
-          _buildMethod('registerPortWithName', 'Register a SendPort', Colors.blue),
-          _buildMethod('lookupPortByName', 'Find a registered port', Colors.green),
-          _buildMethod('removePortNameMapping', 'Unregister a port', Colors.red),
-        ],
-      ),
-    ),
-  );
-}
+  print('IsolateNameServer test executing');
 
-Widget _buildIsolateRegistry() {
-  return Container(
-    padding: const EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      gradient: LinearGradient(colors: [Colors.indigo.shade100, Colors.purple.shade100]),
-      borderRadius: BorderRadius.circular(16),
-    ),
-    child: Column(
-      children: [
-        const Text('Name Registry', style: TextStyle(fontWeight: FontWeight.bold)),
-        const SizedBox(height: 16),
-        _buildRegistryRow('background_task', true),
-        _buildRegistryRow('audio_player', true),
-        _buildRegistryRow('file_watcher', false),
-      ],
-    ),
-  );
-}
+  // IsolateNameServer has only static methods, no constructor
+  print('IsolateNameServer type: ${ui.IsolateNameServer}');
 
-Widget _buildRegistryRow(String name, bool registered) {
-  return Container(
-    margin: const EdgeInsets.symmetric(vertical: 4),
-    padding: const EdgeInsets.all(8),
-    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8)),
-    child: Row(
-      children: [
-        Icon(registered ? Icons.check_circle : Icons.cancel, color: registered ? Colors.green : Colors.grey, size: 20),
-        const SizedBox(width: 8),
-        Text(name, style: const TextStyle(fontFamily: 'monospace', fontSize: 12)),
-        const Spacer(),
-        Text(registered ? 'Registered' : 'Available', style: TextStyle(fontSize: 11, color: registered ? Colors.green : Colors.grey)),
-      ],
-    ),
-  );
-}
+  // lookupPortByName — returns null if not registered
+  final port1 = ui.IsolateNameServer.lookupPortByName('nonexistent_port');
+  print('lookupPortByName(nonexistent): $port1');
 
-Widget _buildMethod(String name, String desc, Color color) {
-  return Container(
-    margin: const EdgeInsets.only(bottom: 8),
-    padding: const EdgeInsets.all(12),
-    decoration: BoxDecoration(border: Border(left: BorderSide(color: color, width: 4)), color: color.withValues(alpha: 0.1)),
-    child: Row(
-      children: [
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(name, style: const TextStyle(fontFamily: 'monospace', fontWeight: FontWeight.bold)),
-              Text(desc, style: TextStyle(color: Colors.grey.shade600, fontSize: 11)),
-            ],
-          ),
-        ),
-      ],
-    ),
+  final port2 = ui.IsolateNameServer.lookupPortByName('test_service');
+  print('lookupPortByName(test_service): $port2');
+
+  // removePortNameMapping — returns false if not found
+  final removed1 = ui.IsolateNameServer.removePortNameMapping('nonexistent_port');
+  print('removePortNameMapping(nonexistent): $removed1');
+
+  final removed2 = ui.IsolateNameServer.removePortNameMapping('test_service');
+  print('removePortNameMapping(test_service): $removed2');
+
+  print('IsolateNameServer API:');
+  print('  lookupPortByName(String name) -> SendPort?');
+  print('  registerPortWithName(SendPort port, String name) -> bool');
+  print('  removePortNameMapping(String name) -> bool');
+
+  print('IsolateNameServer test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('IsolateNameServer Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      SizedBox(height: 8),
+      Text('Static-only class (no constructor)'),
+      Text('lookupPortByName: returns null if not found'),
+      Text('removePortNameMapping: returns false if not found'),
+    ],
   );
 }

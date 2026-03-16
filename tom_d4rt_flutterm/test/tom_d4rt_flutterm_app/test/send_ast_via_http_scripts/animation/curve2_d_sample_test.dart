@@ -1,46 +1,59 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests Curve2DSample from animation
+import 'dart:ui';
+import 'package:flutter/animation.dart';
+import 'package:flutter/widgets.dart';
 
-/// Demonstrates Curve2DSample - a sampled point on a 2D curve.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('Curve2DSample Demo', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-      const SizedBox(height: 16),
-      Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(color: Colors.teal.shade50, borderRadius: BorderRadius.circular(12)),
-        child: Column(
-          children: [
-            const Text('A point on a 2D curve', style: TextStyle(fontWeight: FontWeight.bold)),
-            const SizedBox(height: 12),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(color: Colors.teal, borderRadius: BorderRadius.circular(8)),
-                  child: const Column(
-                    children: [Text('t', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)), Text('0.5', style: TextStyle(color: Colors.white))],
-                  ),
-                ),
-                const SizedBox(width: 8),
-                const Icon(Icons.arrow_forward, color: Colors.teal),
-                const SizedBox(width: 8),
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(color: Colors.orange, borderRadius: BorderRadius.circular(8)),
-                  child: const Column(
-                    children: [Text('value', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)), Text('Offset(0.3, 0.7)', style: TextStyle(color: Colors.white, fontSize: 10))],
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+  print('Curve2DSample test executing');
+
+  // Curve2DSample holds a sample point from a 2D curve.
+  // Generate samples via CatmullRomSpline.
+
+  // ========== Generate samples from spline ==========
+  print('--- Curve2DSample from CatmullRomSpline ---');
+  final spline = CatmullRomSpline([
+    Offset(0.0, 0.0),
+    Offset(0.3, 0.8),
+    Offset(0.7, 0.2),
+    Offset(1.0, 1.0),
+  ]);
+  final samples = spline.generateSamples().toList();
+  print('  Total samples: ${samples.length}');
+
+  // ========== Inspect sample properties ==========
+  print('--- Sample properties ---');
+  final first = samples.first;
+  print('  first.t: ${first.t.toStringAsFixed(4)}');
+  print('  first.value: ${first.value}');
+
+  final last = samples.last;
+  print('  last.t: ${last.t.toStringAsFixed(4)}');
+  print('  last.value: ${last.value}');
+
+  // ========== Check samples at various positions ==========
+  print('--- Sample values ---');
+  final step = samples.length ~/ 5;
+  for (var i = 0; i < samples.length; i += step) {
+    final s = samples[i];
+    print('  sample[$i] t=${s.t.toStringAsFixed(3)} value=(${s.value.dx.toStringAsFixed(3)}, ${s.value.dy.toStringAsFixed(3)})');
+  }
+
+  print('Curve2DSample test completed');
+  return SingleChildScrollView(
+    child: Padding(
+      padding: EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text('Curve2DSample Tests',
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          SizedBox(height: 8.0),
+          Text('Total samples: ${samples.length}'),
+          Text('First: t=${first.t.toStringAsFixed(3)}, value=${first.value}'),
+          Text('Last: t=${last.t.toStringAsFixed(3)}, value=${last.value}'),
+        ],
       ),
-      const SizedBox(height: 12),
-      const Text('Contains t (time) and value (position)', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
+    ),
   );
 }

@@ -1,79 +1,75 @@
-import 'dart:ui';
+// D4rt test script: Tests FrameTiming from dart:ui
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for FrameTiming - timing information for frames.
-/// Demonstrates frame duration metrics and performance tracking.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('FrameTiming Demo')),
-    body: Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('Frame Timing', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 8),
-          const Text('Performance metrics for each frame', style: TextStyle(color: Colors.grey)),
-          const SizedBox(height: 24),
-          _buildMetricCard('buildDuration', 'Time to build widgets', '4.2ms', Colors.blue),
-          _buildMetricCard('rasterDuration', 'Time to rasterize', '8.1ms', Colors.green),
-          _buildMetricCard('totalSpan', 'Total frame time', '12.3ms', Colors.orange),
-          const SizedBox(height: 24),
-          _buildFrameBar('Frame 1', 12.3, false),
-          _buildFrameBar('Frame 2', 8.5, false),
-          _buildFrameBar('Frame 3', 22.1, true),
-          _buildFrameBar('Frame 4', 10.2, false),
-          const SizedBox(height: 16),
-          Row(
-            children: [
-              Container(width: 12, height: 12, color: Colors.green),
-              const SizedBox(width: 8),
-              const Text('< 16.67ms (60 FPS)', style: TextStyle(fontSize: 12)),
-              const SizedBox(width: 24),
-              Container(width: 12, height: 12, color: Colors.red),
-              const SizedBox(width: 8),
-              const Text('> 16.67ms (dropped)', style: TextStyle(fontSize: 12)),
-            ],
-          ),
-        ],
-      ),
-    ),
-  );
-}
+  print('FrameTiming test executing');
 
-Widget _buildMetricCard(String name, String desc, String value, Color color) {
-  return Container(
-    margin: const EdgeInsets.only(bottom: 12),
-    padding: const EdgeInsets.all(12),
-    decoration: BoxDecoration(border: Border(left: BorderSide(color: color, width: 4)), color: color.withValues(alpha: 0.1)),
-    child: Row(
-      children: [
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(name, style: const TextStyle(fontFamily: 'monospace', fontWeight: FontWeight.bold)),
-              Text(desc, style: TextStyle(color: Colors.grey.shade600, fontSize: 11)),
-            ],
-          ),
-        ),
-        Text(value, style: TextStyle(fontWeight: FontWeight.bold, color: color, fontFamily: 'monospace')),
-      ],
-    ),
+  // Create FrameTiming with required params
+  final ft1 = ui.FrameTiming(
+    vsyncStart: 1000,
+    buildStart: 2000,
+    buildFinish: 5000,
+    rasterStart: 6000,
+    rasterFinish: 9000,
+    rasterFinishWallTime: 9500,
   );
-}
+  print('FrameTiming created');
+  print('buildDuration: ${ft1.buildDuration}');
+  print('rasterDuration: ${ft1.rasterDuration}');
+  print('vsyncOverhead: ${ft1.vsyncOverhead}');
+  print('totalSpan: ${ft1.totalSpan}');
+  print('layerCacheCount: ${ft1.layerCacheCount}');
+  print('layerCacheBytes: ${ft1.layerCacheBytes}');
+  print('layerCacheMegabytes: ${ft1.layerCacheMegabytes}');
+  print('pictureCacheCount: ${ft1.pictureCacheCount}');
+  print('pictureCacheBytes: ${ft1.pictureCacheBytes}');
+  print('pictureCacheMegabytes: ${ft1.pictureCacheMegabytes}');
+  print('frameNumber: ${ft1.frameNumber}');
 
-Widget _buildFrameBar(String label, double ms, bool dropped) {
-  final width = (ms / 30 * 200).clamp(20.0, 200.0);
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 4),
-    child: Row(
-      children: [
-        SizedBox(width: 60, child: Text(label, style: const TextStyle(fontSize: 12))),
-        Container(width: width, height: 20, color: dropped ? Colors.red : Colors.green),
-        const SizedBox(width: 8),
-        Text('${ms}ms', style: const TextStyle(fontSize: 11, fontFamily: 'monospace')),
-      ],
-    ),
+  // With optional cache and frame params
+  final ft2 = ui.FrameTiming(
+    vsyncStart: 0,
+    buildStart: 1000,
+    buildFinish: 3000,
+    rasterStart: 4000,
+    rasterFinish: 7000,
+    rasterFinishWallTime: 7200,
+    layerCacheCount: 5,
+    layerCacheBytes: 1048576,
+    pictureCacheCount: 10,
+    pictureCacheBytes: 2097152,
+    frameNumber: 42,
+  );
+  print('ft2 layerCacheCount: ${ft2.layerCacheCount}');
+  print('ft2 layerCacheBytes: ${ft2.layerCacheBytes}');
+  print('ft2 layerCacheMegabytes: ${ft2.layerCacheMegabytes}');
+  print('ft2 pictureCacheCount: ${ft2.pictureCacheCount}');
+  print('ft2 pictureCacheBytes: ${ft2.pictureCacheBytes}');
+  print('ft2 pictureCacheMegabytes: ${ft2.pictureCacheMegabytes}');
+  print('ft2 frameNumber: ${ft2.frameNumber}');
+
+  // FramePhase timestamps
+  print('--- FramePhase Timestamps ---');
+  print('vsyncStart: ${ft2.timestampInMicroseconds(ui.FramePhase.vsyncStart)}');
+  print('buildStart: ${ft2.timestampInMicroseconds(ui.FramePhase.buildStart)}');
+  print('buildFinish: ${ft2.timestampInMicroseconds(ui.FramePhase.buildFinish)}');
+  print('rasterStart: ${ft2.timestampInMicroseconds(ui.FramePhase.rasterStart)}');
+  print('rasterFinish: ${ft2.timestampInMicroseconds(ui.FramePhase.rasterFinish)}');
+
+  print('toString: ${ft1.toString()}');
+
+  print('FrameTiming test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('FrameTiming Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      SizedBox(height: 8),
+      Text('buildDuration: ${ft1.buildDuration}'),
+      Text('rasterDuration: ${ft1.rasterDuration}'),
+      Text('totalSpan: ${ft1.totalSpan}'),
+      Text('ft2 frameNumber: ${ft2.frameNumber}'),
+      Text('ft2 caches: ${ft2.layerCacheCount} layers, ${ft2.pictureCacheCount} pictures'),
+    ],
   );
 }

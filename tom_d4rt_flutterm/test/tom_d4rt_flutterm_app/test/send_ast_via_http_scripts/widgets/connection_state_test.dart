@@ -1,36 +1,29 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests ConnectionState from widgets
+import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {
+  print('ConnectionState test executing');
+
+  // Enumerate all ConnectionState values
+  print('ConnectionState values:');
+  for (final value in ConnectionState.values) {
+    print('  ${value.name}: $value');
+  }
+  print('ConnectionState has ${ ConnectionState.values.length} values');
+
+  final first = ConnectionState.values.first;
+  final last = ConnectionState.values.last;
+  print('First: $first, Last: $last');
+  print('First index: ${first.index}, Last index: ${last.index}');
+
+  print('ConnectionState test completed');
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      const Text('ConnectionState demo', style: TextStyle(fontWeight: FontWeight.bold)),
-      const SizedBox(height: 8),
-      SizedBox(
-        width: 300,
-        height: 170,
-        child: TweenAnimationBuilder<double>(
-          tween: Tween(begin: 0.25, end: 1.0),
-          duration: const Duration(milliseconds: 1200),
-          builder: (context, value, child) {
-            return Opacity(
-              opacity: value,
-              child: Transform.scale(
-                scale: 0.7 + (value * 0.3),
-                child: child,
-              ),
-            );
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(colors: [Colors.teal, Colors.blue]),
-              borderRadius: BorderRadius.circular(14),
-            ),
-            alignment: Alignment.center,
-            child: const Text('Animated visual sample', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-          ),
-        ),
-      ),
+      Text('ConnectionState Tests'),
+      Text('Values: ${ ConnectionState.values.length}'),
+      Text('First: $first'),
+      Text('Last: $last'),
     ],
   );
 }

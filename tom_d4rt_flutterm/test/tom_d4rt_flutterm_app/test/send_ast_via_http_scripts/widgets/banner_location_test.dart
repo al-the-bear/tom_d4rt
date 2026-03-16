@@ -1,36 +1,29 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests BannerLocation from widgets
+import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {
+  print('BannerLocation test executing');
+
+  // Enumerate all BannerLocation values
+  print('BannerLocation values:');
+  for (final value in BannerLocation.values) {
+    print('  ${value.name}: $value');
+  }
+  print('BannerLocation has ${ BannerLocation.values.length} values');
+
+  final first = BannerLocation.values.first;
+  final last = BannerLocation.values.last;
+  print('First: $first, Last: $last');
+  print('First index: ${first.index}, Last index: ${last.index}');
+
+  print('BannerLocation test completed');
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      const Text('BannerLocation demo', style: TextStyle(fontWeight: FontWeight.bold)),
-      const SizedBox(height: 8),
-      SizedBox(
-        width: 300,
-        height: 170,
-        child: TweenAnimationBuilder<double>(
-          tween: Tween(begin: 0.25, end: 1.0),
-          duration: const Duration(milliseconds: 1200),
-          builder: (context, value, child) {
-            return Opacity(
-              opacity: value,
-              child: Transform.scale(
-                scale: 0.7 + (value * 0.3),
-                child: child,
-              ),
-            );
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(colors: [Colors.teal, Colors.blue]),
-              borderRadius: BorderRadius.circular(14),
-            ),
-            alignment: Alignment.center,
-            child: const Text('Animated visual sample', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-          ),
-        ),
-      ),
+      Text('BannerLocation Tests'),
+      Text('Values: ${ BannerLocation.values.length}'),
+      Text('First: $first'),
+      Text('Last: $last'),
     ],
   );
 }

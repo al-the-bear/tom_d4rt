@@ -1,36 +1,51 @@
+// D4rt test script: Tests AnimatedPadding from Flutter widgets
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('Animatedpadding demo', style: TextStyle(fontWeight: FontWeight.bold)),
-      const SizedBox(height: 8),
-      SizedBox(
-        width: 300,
-        height: 170,
-        child: TweenAnimationBuilder<double>(
-          tween: Tween(begin: 0.25, end: 1.0),
-          duration: const Duration(milliseconds: 1200),
-          builder: (context, value, child) {
-            return Opacity(
-              opacity: value,
-              child: Transform.scale(
-                scale: 0.7 + (value * 0.3),
-                child: child,
-              ),
-            );
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(colors: [Colors.teal, Colors.blue]),
-              borderRadius: BorderRadius.circular(14),
-            ),
-            alignment: Alignment.center,
-            child: const Text('Animated visual sample', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-          ),
-        ),
-      ),
-    ],
+  print('AnimatedPadding test executing');
+
+  // Test AnimatedPadding with EdgeInsets.all
+  final padAll = AnimatedPadding(
+    padding: EdgeInsets.all(16),
+    duration: Duration(milliseconds: 300),
+    child: Container(color: Colors.blue, width: 80, height: 80),
   );
+  print('AnimatedPadding(EdgeInsets.all(16)) created');
+
+  // Test AnimatedPadding with symmetric horizontal
+  final padSymH = AnimatedPadding(
+    padding: EdgeInsets.symmetric(horizontal: 32),
+    duration: Duration(milliseconds: 300),
+    child: Container(color: Colors.green, width: 80, height: 80),
+  );
+  print('AnimatedPadding(EdgeInsets.symmetric(horizontal: 32)) created');
+
+  // Test AnimatedPadding with only top and left
+  final padOnly = AnimatedPadding(
+    padding: EdgeInsets.only(top: 20, left: 10),
+    duration: Duration(milliseconds: 300),
+    child: Container(color: Colors.red, width: 80, height: 80),
+  );
+  print('AnimatedPadding(EdgeInsets.only(top: 20, left: 10)) created');
+
+  // Test AnimatedPadding with Curves.easeIn
+  final padCurve = AnimatedPadding(
+    padding: EdgeInsets.all(24),
+    duration: Duration(milliseconds: 500),
+    curve: Curves.easeIn,
+    child: Container(color: Colors.orange, width: 80, height: 80),
+  );
+  print('AnimatedPadding with Curves.easeIn created');
+
+  // Test AnimatedPadding with Curves.bounceOut
+  final padBounce = AnimatedPadding(
+    padding: EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+    duration: Duration(milliseconds: 400),
+    curve: Curves.bounceOut,
+    child: Container(color: Colors.purple, width: 80, height: 80),
+  );
+  print('AnimatedPadding with Curves.bounceOut created');
+
+  print('AnimatedPadding test completed');
+  return Column(children: [padAll, padSymH, padOnly, padCurve, padBounce]);
 }

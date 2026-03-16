@@ -1,40 +1,70 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests SizeTween from animation
+import 'dart:ui';
+import 'package:flutter/animation.dart';
+import 'package:flutter/widgets.dart';
 
-/// Demonstrates SizeTween - interpolates between two sizes.
 dynamic build(BuildContext context) {
-  final tween = SizeTween(begin: const Size(50, 50), end: const Size(200, 120));
+  print('SizeTween test executing');
 
-  return TweenAnimationBuilder<Size?>(
-    tween: tween,
-    duration: const Duration(seconds: 2),
-    builder: (context, size, _) => Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const Text('SizeTween Demo', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-        const SizedBox(height: 16),
-        Container(
-          width: size!.width, height: size.height,
-          decoration: BoxDecoration(
-            gradient: const LinearGradient(colors: [Colors.purple, Colors.blue]),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          alignment: Alignment.center,
-          child: Text('${size.width.toInt()} x ${size.height.toInt()}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-        ),
-        const SizedBox(height: 16),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(width: 50, height: 50, decoration: BoxDecoration(border: Border.all(color: Colors.purple), borderRadius: BorderRadius.circular(4)),
-              child: const Center(child: Text('Begin', style: TextStyle(fontSize: 8)))),
-            const SizedBox(width: 8),
-            const Icon(Icons.arrow_forward),
-            const SizedBox(width: 8),
-            Container(width: 60, height: 36, decoration: BoxDecoration(border: Border.all(color: Colors.blue), borderRadius: BorderRadius.circular(4)),
-              child: const Center(child: Text('End', style: TextStyle(fontSize: 8)))),
-          ],
-        ),
-      ],
+  // ========== Basic SizeTween ==========
+  print('--- Basic SizeTween ---');
+  final tween = SizeTween(
+    begin: Size(50.0, 50.0),
+    end: Size(200.0, 100.0),
+  );
+  print('  begin: ${tween.begin}');
+  print('  end: ${tween.end}');
+
+  // ========== Lerp at various t ==========
+  print('--- Lerp values ---');
+  final tValues = [0.0, 0.25, 0.5, 0.75, 1.0];
+  for (final t in tValues) {
+    final s = tween.lerp(t);
+    print('  t=$t: ${s!.width.toStringAsFixed(1)} x ${s.height.toStringAsFixed(1)}');
+  }
+
+  // ========== Zero to full ==========
+  print('--- Zero to full ---');
+  final zeroTween = SizeTween(begin: Size.zero, end: Size(300.0, 200.0));
+  print('  zero->full at 0.5: ${zeroTween.lerp(0.5)}');
+
+  // ========== Square to rectangle ==========
+  print('--- Square to rectangle ---');
+  final shapeTween = SizeTween(
+    begin: Size(100.0, 100.0),
+    end: Size(300.0, 50.0),
+  );
+  for (final t in tValues) {
+    final s = shapeTween.lerp(t);
+    print('  t=$t: ${s!.width.toStringAsFixed(0)}x${s.height.toStringAsFixed(0)}');
+  }
+
+  // ========== Evaluate ==========
+  print('--- Evaluate ---');
+  final anim = AlwaysStoppedAnimation<double>(0.5);
+  print('  evaluate(0.5): ${tween.evaluate(anim)}');
+
+  print('SizeTween test completed');
+  return SingleChildScrollView(
+    child: Padding(
+      padding: EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text('SizeTween Tests',
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          SizedBox(height: 8.0),
+          for (final t in tValues)
+            Container(
+              width: tween.lerp(t)!.width * 0.5,
+              height: tween.lerp(t)!.height * 0.5,
+              margin: EdgeInsets.symmetric(vertical: 2.0),
+              color: Color(0xFF795548),
+              child: Center(child: Text('t=$t', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 10.0))),
+            ),
+        ],
+      ),
     ),
   );
 }

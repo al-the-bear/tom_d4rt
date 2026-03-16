@@ -1,56 +1,132 @@
+// D4rt test script: Tests material FAB location, ScaffoldMessenger,
+// SnackBarBehavior, FloatingActionButtonLocation
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for FloatingActionButtonLocation messaging.
-/// Shows how different FAB locations communicate with Scaffold.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('FAB Location Messenger', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.purple.shade50,
-          borderRadius: BorderRadius.circular(12),
-        ),
+  print('FAB location and scaffold messenger test executing');
+
+  // ========== FloatingActionButtonLocation ==========
+  print('--- FloatingActionButtonLocation Tests ---');
+
+  print('FABLocation.endFloat: ${FloatingActionButtonLocation.endFloat}');
+  print('FABLocation.centerFloat: ${FloatingActionButtonLocation.centerFloat}');
+  print('FABLocation.endDocked: ${FloatingActionButtonLocation.endDocked}');
+  print(
+    'FABLocation.centerDocked: ${FloatingActionButtonLocation.centerDocked}',
+  );
+  print('FABLocation.endTop: ${FloatingActionButtonLocation.endTop}');
+  print('FABLocation.startTop: ${FloatingActionButtonLocation.startTop}');
+  print(
+    'FABLocation.endContained: ${FloatingActionButtonLocation.endContained}',
+  );
+  print(
+    'FABLocation.miniStartTop: ${FloatingActionButtonLocation.miniStartTop}',
+  );
+  print('FABLocation.miniEndTop: ${FloatingActionButtonLocation.miniEndTop}');
+  print(
+    'FABLocation.miniCenterTop: ${FloatingActionButtonLocation.miniCenterTop}',
+  );
+  print(
+    'FABLocation.miniStartFloat: ${FloatingActionButtonLocation.miniStartFloat}',
+  );
+  print(
+    'FABLocation.miniEndFloat: ${FloatingActionButtonLocation.miniEndFloat}',
+  );
+  print(
+    'FABLocation.miniCenterFloat: ${FloatingActionButtonLocation.miniCenterFloat}',
+  );
+  print(
+    'FABLocation.miniStartDocked: ${FloatingActionButtonLocation.miniStartDocked}',
+  );
+  print(
+    'FABLocation.miniEndDocked: ${FloatingActionButtonLocation.miniEndDocked}',
+  );
+  print(
+    'FABLocation.miniCenterDocked: ${FloatingActionButtonLocation.miniCenterDocked}',
+  );
+
+  // ========== SnackBarBehavior ==========
+  print('--- SnackBarBehavior Tests ---');
+
+  print('SnackBarBehavior.fixed: ${SnackBarBehavior.fixed}');
+  print('SnackBarBehavior.floating: ${SnackBarBehavior.floating}');
+
+  // ========== SnackBarClosedReason ==========
+  print('--- SnackBarClosedReason Tests ---');
+
+  print('SnackBarClosedReason.action: ${SnackBarClosedReason.action}');
+  print('SnackBarClosedReason.dismiss: ${SnackBarClosedReason.dismiss}');
+  print('SnackBarClosedReason.swipe: ${SnackBarClosedReason.swipe}');
+  print('SnackBarClosedReason.hide: ${SnackBarClosedReason.hide}');
+  print('SnackBarClosedReason.remove: ${SnackBarClosedReason.remove}');
+  print('SnackBarClosedReason.timeout: ${SnackBarClosedReason.timeout}');
+  print('SnackBarClosedReason.values: ${SnackBarClosedReason.values}');
+
+  // ========== MaterialBanner/SnackBar actions ==========
+  print('--- SnackBarAction Tests ---');
+
+  final snackAction = SnackBarAction(
+    label: 'UNDO',
+    onPressed: () => print('Undo pressed'),
+    textColor: Colors.yellow,
+  );
+  print('SnackBarAction label: ${snackAction.label}');
+
+  // ========== MaterialBannerClosedReason ==========
+  print('--- MaterialBannerClosedReason Tests ---');
+
+  print(
+    'MaterialBannerClosedReason.dismiss: ${MaterialBannerClosedReason.dismiss}',
+  );
+  print(
+    'MaterialBannerClosedReason.swipe: ${MaterialBannerClosedReason.swipe}',
+  );
+  print('MaterialBannerClosedReason.hide: ${MaterialBannerClosedReason.hide}');
+  print(
+    'MaterialBannerClosedReason.remove: ${MaterialBannerClosedReason.remove}',
+  );
+
+  // ========== TabBarIndicatorSize ==========
+  print('--- TabBarIndicatorSize Tests ---');
+
+  print('TabBarIndicatorSize.tab: ${TabBarIndicatorSize.tab}');
+  print('TabBarIndicatorSize.label: ${TabBarIndicatorSize.label}');
+
+  print('All FAB location and scaffold messenger tests passed');
+
+  // ========== RETURN WIDGET ==========
+  return MaterialApp(
+    home: Scaffold(
+      appBar: AppBar(title: Text('FAB Location Test')),
+      body: Center(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.message, size: 32, color: Colors.purple),
-            const SizedBox(height: 8),
-            const Text('Location → Scaffold', style: TextStyle(fontWeight: FontWeight.bold)),
-            const SizedBox(height: 12),
-            _MessageRow('getOffset', 'Position calculation'),
-            _MessageRow('isMiniSize', 'Use mini dimensions'),
-            _MessageRow('isDockedMode', 'Dock to bar'),
+            Text(
+              'FAB Location Test',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
+            Text('SnackBarBehavior: floating'),
+            Text('FAB location: endFloat'),
           ],
         ),
       ),
-      const SizedBox(height: 12),
-      const Text('Locations communicate with Scaffold', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
-  );
-}
-
-class _MessageRow extends StatelessWidget {
-  final String method;
-  final String desc;
-  const _MessageRow(this.method, this.desc);
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-            decoration: BoxDecoration(color: Colors.purple, borderRadius: BorderRadius.circular(4)),
-            child: Text(method, style: const TextStyle(fontSize: 10, color: Colors.white, fontFamily: 'monospace')),
-          ),
-          const SizedBox(width: 8),
-          Expanded(child: Text(desc, style: const TextStyle(fontSize: 10))),
-        ],
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => print('FAB pressed'),
+        child: Icon(Icons.add),
       ),
-    );
-  }
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      bottomNavigationBar: BottomAppBar(
+        shape: CircularNotchedRectangle(),
+        notchMargin: 4.0,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            IconButton(icon: Icon(Icons.home), onPressed: () {}),
+            IconButton(icon: Icon(Icons.settings), onPressed: () {}),
+          ],
+        ),
+      ),
+    ),
+  );
 }

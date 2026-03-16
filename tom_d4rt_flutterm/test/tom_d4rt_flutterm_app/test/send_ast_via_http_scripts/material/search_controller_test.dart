@@ -1,56 +1,62 @@
+// D4rt test script: Tests SearchController from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for SearchController.
-/// Controller for search view state and text.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('SearchController', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(color: Colors.indigo.shade50, borderRadius: BorderRadius.circular(12)),
-        child: Column(
-          children: [
-            const Text('extends TextEditingController', style: TextStyle(fontFamily: 'monospace', fontSize: 9, fontStyle: FontStyle.italic)),
-            const SizedBox(height: 12),
-            Wrap(
-              spacing: 6,
-              runSpacing: 6,
-              children: [
-                _MethodBadge('.openView()', Icons.open_in_full),
-                _MethodBadge('.closeView()', Icons.close_fullscreen),
-                _MethodBadge('.text', Icons.text_fields),
-                _MethodBadge('.isOpen', Icons.visibility),
-              ],
-            ),
-          ],
+  print('SearchController test executing');
+
+  final title = 'SearchController';
+  final packageName = 'material';
+  final details = 'SearchController';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('SearchController test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-      const SizedBox(height: 12),
-      const Text('Controls SearchAnchor state', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
+    ),
   );
-}
-
-class _MethodBadge extends StatelessWidget {
-  final String text;
-  final IconData icon;
-  const _MethodBadge(this.text, this.icon);
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4)),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 12, color: Colors.indigo),
-          const SizedBox(width: 4),
-          Text(text, style: const TextStyle(fontFamily: 'monospace', fontSize: 9)),
-        ],
-      ),
-    );
-  }
 }

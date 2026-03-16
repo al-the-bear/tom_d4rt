@@ -1,36 +1,64 @@
+// D4rt test script: Tests AnimatedPositioned from Flutter widgets
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('Animatedpositioned demo', style: TextStyle(fontWeight: FontWeight.bold)),
-      const SizedBox(height: 8),
-      SizedBox(
-        width: 300,
-        height: 170,
-        child: TweenAnimationBuilder<double>(
-          tween: Tween(begin: 0.25, end: 1.0),
-          duration: const Duration(milliseconds: 1200),
-          builder: (context, value, child) {
-            return Opacity(
-              opacity: value,
-              child: Transform.scale(
-                scale: 0.7 + (value * 0.3),
-                child: child,
-              ),
-            );
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(colors: [Colors.teal, Colors.blue]),
-              borderRadius: BorderRadius.circular(14),
-            ),
-            alignment: Alignment.center,
-            child: const Text('Animated visual sample', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-          ),
-        ),
-      ),
-    ],
+  print('AnimatedPositioned test executing');
+
+  // Test AnimatedPositioned with left and top
+  final pos1 = AnimatedPositioned(
+    left: 10,
+    top: 10,
+    duration: Duration(milliseconds: 300),
+    child: Container(width: 50, height: 50, color: Colors.blue),
+  );
+  print('AnimatedPositioned(left: 10, top: 10) created');
+
+  // Test AnimatedPositioned with right and bottom
+  final pos2 = AnimatedPositioned(
+    right: 20,
+    bottom: 20,
+    duration: Duration(milliseconds: 300),
+    child: Container(width: 50, height: 50, color: Colors.green),
+  );
+  print('AnimatedPositioned(right: 20, bottom: 20) created');
+
+  // Test AnimatedPositioned with left, right, and top (stretching)
+  final pos3 = AnimatedPositioned(
+    left: 0,
+    right: 0,
+    top: 50,
+    duration: Duration(milliseconds: 400),
+    child: Container(height: 40, color: Colors.red),
+  );
+  print('AnimatedPositioned(left: 0, right: 0, top: 50) created');
+
+  // Test AnimatedPositioned with explicit width and height
+  final pos4 = AnimatedPositioned(
+    width: 100,
+    height: 60,
+    left: 20,
+    top: 20,
+    duration: Duration(milliseconds: 300),
+    child: Container(color: Colors.orange),
+  );
+  print(
+    'AnimatedPositioned(width: 100, height: 60, left: 20, top: 20) created',
+  );
+
+  // Test AnimatedPositioned with curve
+  final pos5 = AnimatedPositioned(
+    left: 50,
+    top: 80,
+    duration: Duration(milliseconds: 500),
+    curve: Curves.easeInOut,
+    child: Container(width: 60, height: 60, color: Colors.purple),
+  );
+  print('AnimatedPositioned with Curves.easeInOut created');
+
+  print('AnimatedPositioned test completed');
+  return SizedBox(
+    width: 300,
+    height: 300,
+    child: Stack(children: [pos1, pos2, pos3, pos4, pos5]),
   );
 }

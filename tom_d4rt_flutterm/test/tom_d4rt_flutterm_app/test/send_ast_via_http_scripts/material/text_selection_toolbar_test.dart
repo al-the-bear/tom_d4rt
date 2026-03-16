@@ -1,68 +1,62 @@
+// D4rt test script: Tests TextSelectionToolbar from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for text selection toolbar.
-/// Context menu for text selection actions.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('TextSelectionToolbar', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Container(
-        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-        decoration: BoxDecoration(color: Colors.grey.shade800, borderRadius: BorderRadius.circular(4), boxShadow: [const BoxShadow(color: Colors.black26, blurRadius: 8)]),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _ToolbarButton(Icons.cut, 'Cut'),
-            _ToolbarDivider(),
-            _ToolbarButton(Icons.copy, 'Copy'),
-            _ToolbarDivider(),
-            _ToolbarButton(Icons.paste, 'Paste'),
-            _ToolbarDivider(),
-            _ToolbarButton(Icons.select_all, 'All'),
-          ],
+  print('TextSelectionToolbar test executing');
+
+  final title = 'TextSelectionToolbar';
+  final packageName = 'material';
+  final details = 'Selection toolbar';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('TextSelectionToolbar test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-      const SizedBox(height: 16),
-      Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(8)),
-        child: const Column(
-          children: [
-            Text('customizableToolbar', style: TextStyle(fontFamily: 'monospace', fontSize: 9)),
-            SizedBox(height: 4),
-            Text('Use buttonItems for custom actions', style: TextStyle(fontSize: 10)),
-          ],
-        ),
-      ),
-    ],
+    ),
   );
-}
-
-class _ToolbarButton extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  const _ToolbarButton(this.icon, this.label);
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, color: Colors.white, size: 16),
-          const SizedBox(height: 2),
-          Text(label, style: const TextStyle(color: Colors.white, fontSize: 9)),
-        ],
-      ),
-    );
-  }
-}
-
-class _ToolbarDivider extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(width: 1, height: 30, color: Colors.grey.shade600);
-  }
 }

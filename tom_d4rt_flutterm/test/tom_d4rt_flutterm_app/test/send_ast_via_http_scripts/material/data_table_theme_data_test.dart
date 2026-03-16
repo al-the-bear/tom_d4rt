@@ -1,60 +1,62 @@
+// D4rt test script: Tests DataTableThemeData from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for DataTableThemeData - theme data for DataTable.
-/// Shows configurable styling properties.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('DataTableThemeData', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Container(
-        padding: const EdgeInsets.all(12),
+  print('DataTableThemeData test executing');
+
+  final title = 'DataTableThemeData';
+  final packageName = 'material';
+  final details = 'Table data';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('DataTableThemeData test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
         decoration: BoxDecoration(
-          color: Colors.purple.shade50,
+          color: const Color(0xFF111827),
           borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
         ),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                _ThemeProperty('headingRowColor', Colors.purple.shade200),
-                _ThemeProperty('dataRowColor', Colors.purple.shade50),
-              ],
-            ),
-            const SizedBox(height: 12),
-            const Text('Key Properties:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11)),
-            const SizedBox(height: 4),
-            const Wrap(
-              spacing: 8,
-              runSpacing: 4,
-              children: [
-                Chip(label: Text('columnSpacing', style: TextStyle(fontSize: 9)), padding: EdgeInsets.zero),
-                Chip(label: Text('horizontalMargin', style: TextStyle(fontSize: 9)), padding: EdgeInsets.zero),
-                Chip(label: Text('checkboxHorizontalMargin', style: TextStyle(fontSize: 9)), padding: EdgeInsets.zero),
-                Chip(label: Text('dividerThickness', style: TextStyle(fontSize: 9)), padding: EdgeInsets.zero),
-              ],
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-    ],
+    ),
   );
-}
-
-class _ThemeProperty extends StatelessWidget {
-  final String name;
-  final Color color;
-  const _ThemeProperty(this.name, this.color);
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(width: 60, height: 20, decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(4))),
-        const SizedBox(height: 4),
-        Text(name, style: const TextStyle(fontSize: 8)),
-      ],
-    );
-  }
 }

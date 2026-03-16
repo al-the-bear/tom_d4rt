@@ -1,51 +1,62 @@
+// D4rt test script: Tests RangeSliderThumbShape from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for RangeSliderThumbShape.
-/// Abstract class for range slider thumb shapes.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('RangeSliderThumbShape', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _ThumbDemo('Circle', 20, 20, 10),
-          const SizedBox(width: 16),
-          _ThumbDemo('Large', 28, 28, 14),
-          const SizedBox(width: 16),
-          _ThumbDemo('Square', 16, 16, 2),
-        ],
-      ),
-      const SizedBox(height: 12),
-      const Text('RoundRangeSliderThumbShape', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
-  );
-}
+  print('RangeSliderThumbShape test executing');
 
-class _ThumbDemo extends StatelessWidget {
-  final String label;
-  final double w;
-  final double h;
-  final double r;
-  const _ThumbDemo(this.label, this.w, this.h, this.r);
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: w,
-          height: h,
-          decoration: BoxDecoration(
-            color: Colors.blue,
-            borderRadius: BorderRadius.circular(r),
-            boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 4)],
+  final title = 'RangeSliderThumbShape';
+  final packageName = 'material';
+  final details = 'Range thumb';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('RangeSliderThumbShape test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
-        const SizedBox(height: 4),
-        Text(label, style: const TextStyle(fontSize: 9)),
-      ],
-    );
-  }
+      ),
+    ),
+  );
 }

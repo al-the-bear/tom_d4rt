@@ -1,67 +1,83 @@
+// D4rt test script: Tests AnimatedIcon from Flutter material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for AnimatedIcon.
-/// Shows morphing icon animations.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('AnimatedIcon')),
-    body: Center(child: _AnimatedIconDemo()),
+  print('AnimatedIcon test executing');
+
+  // Variation 1: menu_arrow at progress 0.0
+  final widget1 = AnimatedIcon(
+    icon: AnimatedIcons.menu_arrow,
+    progress: AlwaysStoppedAnimation(0.0),
   );
-}
+  print('AnimatedIcon(menu_arrow, progress: 0.0) created');
 
-class _AnimatedIconDemo extends StatefulWidget {
-  @override
-  State<_AnimatedIconDemo> createState() => _AnimatedIconDemoState();
-}
+  // Variation 2: menu_arrow at progress 0.5
+  final widget2 = AnimatedIcon(
+    icon: AnimatedIcons.menu_arrow,
+    progress: AlwaysStoppedAnimation(0.5),
+  );
+  print('AnimatedIcon(menu_arrow, progress: 0.5) created');
 
-class _AnimatedIconDemoState extends State<_AnimatedIconDemo> with SingleTickerProviderStateMixin {
-  late AnimationController _ctrl;
-  @override
-  void initState() {
-    super.initState();
-    _ctrl = AnimationController(vsync: this, duration: const Duration(milliseconds: 400));
-  }
-  @override
-  void dispose() { _ctrl.dispose(); super.dispose(); }
+  // Variation 3: menu_arrow at progress 1.0
+  final widget3 = AnimatedIcon(
+    icon: AnimatedIcons.menu_arrow,
+    progress: AlwaysStoppedAnimation(1.0),
+  );
+  print('AnimatedIcon(menu_arrow, progress: 1.0) created');
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const Text('Tap the icon to animate', style: TextStyle(fontSize: 16)),
-        const SizedBox(height: 32),
-        GestureDetector(
-          onTap: () {
-            if (_ctrl.isCompleted) _ctrl.reverse(); else _ctrl.forward();
-          },
-          child: Container(
-            width: 120, height: 120,
-            decoration: BoxDecoration(
-              color: Colors.blue,
-              borderRadius: BorderRadius.circular(24),
-              boxShadow: [BoxShadow(color: Colors.blue.withAlpha(100), blurRadius: 12)],
-            ),
-            alignment: Alignment.center,
-            child: AnimatedIcon(
-              icon: AnimatedIcons.menu_close,
-              progress: _ctrl,
-              size: 56,
-              color: Colors.white,
-            ),
-          ),
-        ),
-        const SizedBox(height: 24),
-        AnimatedBuilder(
-          animation: _ctrl,
-          builder: (_, __) => Text(
-            'Progress: \${(_ctrl.value * 100).toInt()}%',
-            style: const TextStyle(fontSize: 14),
-          ),
-        ),
-        const SizedBox(height: 16),
-        const Text('Menu ↔ Close', style: TextStyle(color: Colors.grey)),
-      ],
-    );
-  }
+  // Variation 4: play_pause with size and color
+  final widget4 = AnimatedIcon(
+    icon: AnimatedIcons.play_pause,
+    progress: AlwaysStoppedAnimation(0.5),
+    size: 48.0,
+    color: Colors.blue,
+  );
+  print(
+    'AnimatedIcon(play_pause, progress: 0.5, size: 48, color: blue) created',
+  );
+
+  // Variation 5: menu_close at progress 0.0
+  final widget5 = AnimatedIcon(
+    icon: AnimatedIcons.menu_close,
+    progress: AlwaysStoppedAnimation(0.0),
+  );
+  print('AnimatedIcon(menu_close, progress: 0.0) created');
+
+  // Variation 6: home_menu at progress 1.0
+  final widget6 = AnimatedIcon(
+    icon: AnimatedIcons.home_menu,
+    progress: AlwaysStoppedAnimation(1.0),
+  );
+  print('AnimatedIcon(home_menu, progress: 1.0) created');
+
+  print('AnimatedIcon test completed');
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    children: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [Text('menu_arrow 0.0: '), widget1],
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [Text('menu_arrow 0.5: '), widget2],
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [Text('menu_arrow 1.0: '), widget3],
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [Text('play_pause 0.5: '), widget4],
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [Text('menu_close 0.0: '), widget5],
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [Text('home_menu 1.0: '), widget6],
+      ),
+    ],
+  );
 }

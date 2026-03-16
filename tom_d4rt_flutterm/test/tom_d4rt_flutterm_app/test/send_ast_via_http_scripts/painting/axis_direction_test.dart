@@ -1,21 +1,30 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests AxisDirection from painting
+import 'package:flutter/painting.dart';
+import 'package:flutter/widgets.dart';
 
-/// Deep visual demo for AxisDirection
 dynamic build(BuildContext context) {
-  return Scaffold(appBar: AppBar(title: Text('AxisDirection Demo')), body: Center(child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [Row(mainAxisAlignment: MainAxisAlignment.center, children: [_DirectionCard('up', Icons.arrow_upward, Colors.blue), _DirectionCard('right', Icons.arrow_forward, Colors.green)]), Row(mainAxisAlignment: MainAxisAlignment.center, children: [_DirectionCard('left', Icons.arrow_back, Colors.orange), _DirectionCard('down', Icons.arrow_downward, Colors.red)])])));
-}
+  print('AxisDirection test executing');
 
-class _DirectionCard extends StatelessWidget {
-  final String label;
-  final IconData icon;
-  final Color color;
-  const _DirectionCard(this.label, this.icon, this.color);
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 80, height: 80, margin: EdgeInsets.all(8),
-      decoration: BoxDecoration(color: color.withOpacity(0.1), borderRadius: BorderRadius.circular(8), border: Border.all(color: color)),
-      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [Icon(icon, color: color), Text(label, style: TextStyle(fontSize: 10, color: color))]),
-    );
+  // Enumerate all AxisDirection values
+  print('AxisDirection values:');
+  for (final value in AxisDirection.values) {
+    print('  ${value.name}: $value');
   }
+  print('AxisDirection has ${ AxisDirection.values.length} values');
+
+  final first = AxisDirection.values.first;
+  final last = AxisDirection.values.last;
+  print('First: $first, Last: $last');
+  print('First index: ${first.index}, Last index: ${last.index}');
+
+  print('AxisDirection test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('AxisDirection Tests'),
+      Text('Values: ${ AxisDirection.values.length}'),
+      Text('First: $first'),
+      Text('Last: $last'),
+    ],
+  );
 }

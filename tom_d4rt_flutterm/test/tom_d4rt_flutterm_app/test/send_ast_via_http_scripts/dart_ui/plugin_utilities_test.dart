@@ -1,66 +1,41 @@
-import 'dart:ui';
+// D4rt test script: Tests PluginUtilities from dart:ui
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for PluginUtilities - plugin message registration.
-/// Demonstrates platform channel registration for plugins.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('PluginUtilities Demo')),
-    body: Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('Plugin Utilities', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 8),
-          const Text('Low-level plugin registration', style: TextStyle(color: Colors.grey)),
-          const SizedBox(height: 24),
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(color: Colors.indigo.shade50, borderRadius: BorderRadius.circular(12)),
-            child: const Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(children: [Icon(Icons.extension, color: Colors.indigo), SizedBox(width: 8), Text('Purpose', style: TextStyle(fontWeight: FontWeight.bold))]),
-                SizedBox(height: 8),
-                Text('Register Dart callbacks that can be invoked from platform-specific plugin code.'),
-              ],
-            ),
-          ),
-          const SizedBox(height: 24),
-          const Text('Key Methods:', style: TextStyle(fontWeight: FontWeight.bold)),
-          const SizedBox(height: 12),
-          _buildMethod('getCallbackHandle', 'Get handle for callback function'),
-          _buildMethod('getCallbackFromHandle', 'Get callback from handle'),
-          const SizedBox(height: 24),
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(color: Colors.orange.shade50, borderRadius: BorderRadius.circular(8)),
-            child: const Row(
-              children: [
-                Icon(Icons.info, color: Colors.orange),
-                SizedBox(width: 12),
-                Expanded(child: Text('Typically used for background execution and platform plugin communication.')),
-              ],
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
-}
+  print('PluginUtilities test executing');
 
-Widget _buildMethod(String name, String desc) {
-  return Container(
-    margin: const EdgeInsets.symmetric(vertical: 4),
-    padding: const EdgeInsets.all(12),
-    decoration: BoxDecoration(border: Border.all(color: Colors.indigo.shade200), borderRadius: BorderRadius.circular(8)),
-    child: Row(children: [
-      const Icon(Icons.functions, color: Colors.indigo, size: 20),
-      const SizedBox(width: 12),
-      Text(name, style: const TextStyle(fontFamily: 'monospace', fontSize: 12, fontWeight: FontWeight.w500)),
-      const Spacer(),
-      Text(desc, style: TextStyle(color: Colors.grey.shade600, fontSize: 11)),
-    ]),
+  // PluginUtilities has static methods only, no constructor
+  print('PluginUtilities type: ${ui.PluginUtilities}');
+
+  // getCallbackHandle — works with top-level functions
+  print('PluginUtilities.getCallbackHandle: CallbackHandle? Function(Function)');
+  print('PluginUtilities.getCallbackFromHandle: Function? Function(CallbackHandle)');
+
+  // Test CallbackHandle roundtrip with a well-known raw value
+  final handle = ui.CallbackHandle.fromRawHandle(42);
+  print('CallbackHandle(42): toRaw=${handle.toRawHandle()}');
+
+  // getCallbackFromHandle with a handle
+  // Note: getCallbackFromHandle returns null for handles not registered via getCallbackHandle
+  final callback = ui.PluginUtilities.getCallbackFromHandle(handle);
+  print('getCallbackFromHandle(42): ${callback != null ? "found" : "null"}');
+
+  // Test with another handle
+  final handle2 = ui.CallbackHandle.fromRawHandle(0);
+  final callback2 = ui.PluginUtilities.getCallbackFromHandle(handle2);
+  print('getCallbackFromHandle(0): ${callback2 != null ? "found" : "null"}');
+
+  print('PluginUtilities test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('PluginUtilities Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      SizedBox(height: 8),
+      Text('Static-only class (no constructor)'),
+      Text('getCallbackHandle: Function -> CallbackHandle?'),
+      Text('getCallbackFromHandle: CallbackHandle -> Function?'),
+      Text('CallbackHandle roundtrip: ${handle.toRawHandle()}'),
+    ],
   );
 }

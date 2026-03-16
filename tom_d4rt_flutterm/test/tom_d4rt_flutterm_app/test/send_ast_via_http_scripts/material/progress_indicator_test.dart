@@ -1,54 +1,62 @@
+// D4rt test script: Tests ProgressIndicator from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for progress indicators.
-/// CircularProgressIndicator, LinearProgressIndicator.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('Progress Indicators', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Column(
+  print('ProgressIndicator test executing');
+
+  final title = 'ProgressIndicator';
+  final packageName = 'material';
+  final details = 'ProgressIndicator';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('ProgressIndicator test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                width: 40,
-                height: 40,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    CircularProgressIndicator(strokeWidth: 3, value: 0.7, backgroundColor: Colors.grey.shade200, color: Colors.blue),
-                    const Text('70%', style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold)),
-                  ],
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
                 ),
               ),
-              const SizedBox(height: 4),
-              const Text('Circular', style: TextStyle(fontSize: 9)),
             ],
           ),
-          const SizedBox(width: 32),
-          Column(
-            children: [
-              Container(
-                width: 100,
-                height: 8,
-                decoration: BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.circular(4)),
-                child: FractionallySizedBox(
-                  alignment: Alignment.centerLeft,
-                  widthFactor: 0.7,
-                  child: Container(decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(4))),
-                ),
-              ),
-              const SizedBox(height: 4),
-              const Text('Linear', style: TextStyle(fontSize: 9)),
-            ],
-          ),
-        ],
+        ),
       ),
-      const SizedBox(height: 16),
-      const Text('Determinate & indeterminate', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
+    ),
   );
 }

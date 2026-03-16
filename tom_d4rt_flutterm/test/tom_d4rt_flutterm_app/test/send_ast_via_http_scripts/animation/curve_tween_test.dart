@@ -1,57 +1,79 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests CurveTween from animation
+import 'dart:ui';
+import 'package:flutter/animation.dart';
+import 'package:flutter/widgets.dart';
 
-/// Demonstrates CurveTween - applies a curve to a 0.0-1.0 animation.
 dynamic build(BuildContext context) {
-  final curveTween = CurveTween(curve: Curves.easeInOut);
+  print('CurveTween test executing');
 
-  return TweenAnimationBuilder<double>(
-    tween: Tween(begin: 0.0, end: 1.0),
-    duration: const Duration(seconds: 2),
-    builder: (context, linear, _) {
-      final curved = curveTween.transform(linear);
-      return Column(
+  // ========== CurveTween with Curves.easeIn ==========
+  print('--- CurveTween with easeIn ---');
+  final easeInTween = CurveTween(curve: Curves.easeIn);
+  final tValues = [0.0, 0.25, 0.5, 0.75, 1.0];
+  for (final t in tValues) {
+    print('  easeIn($t): ${easeInTween.transform(t).toStringAsFixed(4)}');
+  }
+
+  // ========== CurveTween with Curves.easeOut ==========
+  print('--- CurveTween with easeOut ---');
+  final easeOutTween = CurveTween(curve: Curves.easeOut);
+  for (final t in tValues) {
+    print('  easeOut($t): ${easeOutTween.transform(t).toStringAsFixed(4)}');
+  }
+
+  // ========== CurveTween with linear ==========
+  print('--- CurveTween with linear ---');
+  final linearTween = CurveTween(curve: Curves.linear);
+  for (final t in tValues) {
+    print('  linear($t): ${linearTween.transform(t).toStringAsFixed(4)}');
+  }
+
+  // ========== CurveTween with bounceOut ==========
+  print('--- CurveTween with bounceOut ---');
+  final bounceTween = CurveTween(curve: Curves.bounceOut);
+  print('  bounceOut(0.5): ${bounceTween.transform(0.5).toStringAsFixed(4)}');
+  print('  bounceOut(0.9): ${bounceTween.transform(0.9).toStringAsFixed(4)}');
+
+  // ========== Evaluate via Animation ==========
+  print('--- Evaluate ---');
+  final anim = AlwaysStoppedAnimation<double>(0.5);
+  print('  easeIn.evaluate(0.5): ${easeInTween.evaluate(anim).toStringAsFixed(4)}');
+
+  // ========== Chain with Tween ==========
+  print('--- Chain with Tween ---');
+  final chained = Tween<double>(begin: 100.0, end: 200.0).chain(easeInTween);
+  print('  chained(0.5): ${chained.transform(0.5).toStringAsFixed(2)}');
+
+  print('CurveTween test completed');
+  return SingleChildScrollView(
+    child: Padding(
+      padding: EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text('CurveTween Demo', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-          const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _ProgressBar('Linear', linear, Colors.grey),
-              const SizedBox(width: 24),
-              _ProgressBar('Curved', curved, Colors.purple),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(color: Colors.purple.shade50, borderRadius: BorderRadius.circular(8)),
-            child: Text('CurveTween(curve: Curves.easeInOut)', style: TextStyle(fontFamily: 'monospace', fontSize: 10, color: Colors.purple.shade700)),
-          ),
+          Text('CurveTween Tests',
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          SizedBox(height: 8.0),
+          for (final t in tValues)
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 1.0),
+              child: Row(children: [
+                SizedBox(width: 50.0, child: Text('t=$t')),
+                Expanded(
+                  child: Container(
+                    height: 14.0,
+                    child: FractionallySizedBox(
+                      alignment: Alignment.centerLeft,
+                      widthFactor: easeInTween.transform(t).clamp(0.0, 1.0),
+                      child: Container(color: Color(0xFFE91E63)),
+                    ),
+                  ),
+                ),
+              ]),
+            ),
         ],
-      );
-    },
-  );
-}
-
-class _ProgressBar extends StatelessWidget {
-  final String label; final double value; final Color color;
-  const _ProgressBar(this.label, this.value, this.color);
-  @override
-  Widget build(BuildContext context) => Column(
-    children: [
-      Text('${(value * 100).toInt()}%', style: TextStyle(fontWeight: FontWeight.bold, color: color)),
-      const SizedBox(height: 4),
-      Container(
-        width: 30, height: 100,
-        decoration: BoxDecoration(color: color.withOpacity(0.2), borderRadius: BorderRadius.circular(4)),
-        child: Align(
-          alignment: Alignment.bottomCenter,
-          child: Container(width: 30, height: 100 * value, decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(4))),
-        ),
       ),
-      const SizedBox(height: 4),
-      Text(label, style: TextStyle(fontSize: 10, color: color)),
-    ],
+    ),
   );
 }

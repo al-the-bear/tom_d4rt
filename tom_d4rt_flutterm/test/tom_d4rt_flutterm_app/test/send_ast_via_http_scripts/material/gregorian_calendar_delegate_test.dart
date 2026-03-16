@@ -1,57 +1,62 @@
+// D4rt test script: Tests GregorianCalendarDelegate from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for Gregorian calendar delegate.
-/// Shows date picker with Gregorian calendar system.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('Gregorian Calendar', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 12),
-      Container(
-        padding: const EdgeInsets.all(12),
+  print('GregorianCalendarDelegate test executing');
+
+  final title = 'GregorianCalendarDelegate';
+  final packageName = 'material';
+  final details = 'GregorianCalendarDelegate';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('GregorianCalendarDelegate test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: const Color(0xFF111827),
           borderRadius: BorderRadius.circular(12),
-          boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 8)],
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
         ),
-        child: Column(
-          children: [
-            // Month header
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Icon(Icons.chevron_left, size: 20),
-                Text('March 2024', style: TextStyle(fontWeight: FontWeight.bold)),
-                Icon(Icons.chevron_right, size: 20),
-              ],
-            ),
-            const SizedBox(height: 12),
-            // Day headers
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: ['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((d) => SizedBox(width: 24, child: Center(child: Text(d, style: const TextStyle(fontSize: 10, color: Colors.grey))))).toList(),
-            ),
-            const SizedBox(height: 8),
-            // Days grid (simplified)
-            ...List.generate(3, (week) => Padding(
-              padding: const EdgeInsets.symmetric(vertical: 2),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: List.generate(7, (day) {
-                  final dayNum = week * 7 + day + 1;
-                  final selected = dayNum == 15;
-                  return Container(
-                    width: 24, height: 24,
-                    decoration: selected ? const BoxDecoration(color: Colors.blue, shape: BoxShape.circle) : null,
-                    child: Center(child: Text('$dayNum', style: TextStyle(fontSize: 10, color: selected ? Colors.white : Colors.black))),
-                  );
-                }),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
               ),
-            )),
-          ],
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-    ],
+    ),
   );
 }

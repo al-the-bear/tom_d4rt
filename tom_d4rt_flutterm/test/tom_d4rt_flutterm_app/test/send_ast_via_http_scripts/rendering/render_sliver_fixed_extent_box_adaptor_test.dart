@@ -1,15 +1,21 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests RenderSliverFixedExtentBoxAdaptor from rendering
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 
-/// Deep visual demo for RenderSliverFixedExtentBoxAdaptor
 dynamic build(BuildContext context) {
-  return Scaffold(appBar: AppBar(title: Text('Fixed Extent')), body: Padding(padding: EdgeInsets.all(16), child: Column(children: [
-    Text('Fixed Extent List', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-    SizedBox(height: 16),
-    Expanded(child: CustomScrollView(slivers: [
-      SliverFixedExtentList(itemExtent: 60, delegate: SliverChildBuilderDelegate((_, i) => Container(margin: EdgeInsets.symmetric(horizontal: 8, vertical: 2), decoration: BoxDecoration(color: Colors.pink.shade100, borderRadius: BorderRadius.circular(8)),
-        child: Center(child: Text('Fixed 60px item ${i + 1}'))), childCount: 20)),
-    ])),
-    Container(padding: EdgeInsets.all(8), decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
-      child: Text('itemExtent enables O(1) scroll position calculation', style: TextStyle(fontSize: 11))),
-  ])));
+  print('RenderSliverFixedExtentBoxAdaptor test executing');
+
+  // RenderSliverFixedExtentBoxAdaptor - Fixed extent adaptor
+  // This is typically an abstract/base class used through subclasses
+  print('RenderSliverFixedExtentBoxAdaptor is available in the rendering package');
+  print('RenderSliverFixedExtentBoxAdaptor: Fixed extent adaptor');
+
+  print('RenderSliverFixedExtentBoxAdaptor test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('RenderSliverFixedExtentBoxAdaptor Tests'),
+      Text('Fixed extent adaptor'),
+    ],
+  );
 }

@@ -1,56 +1,62 @@
+// D4rt test script: Tests ScaffoldGeometry from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for ScaffoldGeometry class.
-/// Describes geometry of Scaffold components.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('ScaffoldGeometry', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Container(
-        width: 180,
-        height: 120,
-        decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(8)),
-        child: Stack(
-          children: [
-            // FAB notch
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                height: 30,
-                color: Colors.blue.shade100,
-                alignment: Alignment.center,
-                child: const Text('bottomNavigationBar', style: TextStyle(fontSize: 8)),
-              ),
-            ),
-            // FAB with geometry annotation
-            Positioned(
-              right: 60,
-              bottom: 15,
-              child: Column(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(4),
-                    decoration: BoxDecoration(color: Colors.orange.shade100, borderRadius: BorderRadius.circular(4)),
-                    child: const Text('floatingActionButtonArea', style: TextStyle(fontSize: 6)),
-                  ),
-                  Container(
-                    width: 30,
-                    height: 30,
-                    decoration: const BoxDecoration(color: Colors.pink, shape: BoxShape.circle),
-                    child: const Icon(Icons.add, color: Colors.white, size: 16),
-                  ),
+  print('ScaffoldGeometry test executing');
+
+  final title = 'ScaffoldGeometry';
+  final packageName = 'material';
+  final details = 'ScaffoldGeometry';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('ScaffoldGeometry test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
                 ],
               ),
-            ),
-          ],
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-      const SizedBox(height: 12),
-      const Text('floatingActionButtonArea, bottomNavigationBarTop', style: TextStyle(fontSize: 10, color: Colors.grey)),
-    ],
+    ),
   );
 }

@@ -1,19 +1,29 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests CrossFadeState from widgets
+import 'package:flutter/widgets.dart';
 
-/// Deep visual demo for CrossFadeState
 dynamic build(BuildContext context) {
-  return Scaffold(appBar: AppBar(title: Text('CrossFadeState')), body: Padding(padding: EdgeInsets.all(16), child: Column(children: [
-    Text('CrossFadeState', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-    SizedBox(height: 8),
-    Text('State for animated cross fade', style: TextStyle(fontSize: 12, color: Colors.grey)),
-    SizedBox(height: 16),
-    Expanded(child: Container(padding: EdgeInsets.all(16), decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(12)),
-      child: Center(child: Column(mainAxisSize: MainAxisSize.min, children: [
-        Icon(Icons.widgets, size: 48, color: Colors.blue),
-        SizedBox(height: 12),
-        Text('CrossFadeState Demo', style: TextStyle(fontWeight: FontWeight.bold)),
-      ])))),
-    Container(padding: EdgeInsets.all(8), decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
-      child: Text('Widget from widgets library', style: TextStyle(fontSize: 10))),
-  ])));
+  print('CrossFadeState test executing');
+
+  // Enumerate all CrossFadeState values
+  print('CrossFadeState values:');
+  for (final value in CrossFadeState.values) {
+    print('  ${value.name}: $value');
+  }
+  print('CrossFadeState has ${ CrossFadeState.values.length} values');
+
+  final first = CrossFadeState.values.first;
+  final last = CrossFadeState.values.last;
+  print('First: $first, Last: $last');
+  print('First index: ${first.index}, Last index: ${last.index}');
+
+  print('CrossFadeState test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('CrossFadeState Tests'),
+      Text('Values: ${ CrossFadeState.values.length}'),
+      Text('First: $first'),
+      Text('Last: $last'),
+    ],
+  );
 }

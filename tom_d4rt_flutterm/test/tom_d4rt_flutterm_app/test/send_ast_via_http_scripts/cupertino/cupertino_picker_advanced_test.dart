@@ -1,29 +1,96 @@
+// D4rt test script: Tests CupertinoPicker, CupertinoTimerPicker,
+// CupertinoDatePicker modes, CupertinoDialogRoute
+import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
-/// Demonstrates CupertinoPicker - iOS wheel picker.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('CupertinoPicker', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-      const SizedBox(height: 16),
-      SizedBox(
-        height: 120, width: 200,
-        child: CupertinoPicker(
-          itemExtent: 32,
-          onSelectedItemChanged: (_) {},
-          children: List.generate(10, (i) => Center(child: Text('Item ${i + 1}'))),
+  print('Cupertino picker test executing');
+
+  // ========== CupertinoPicker ==========
+  print('--- CupertinoPicker Tests ---');
+  final picker = CupertinoPicker(
+    magnification: 1.22,
+    squeeze: 1.2,
+    useMagnifier: true,
+    itemExtent: 32.0,
+    diameterRatio: 1.07,
+    backgroundColor: CupertinoColors.systemBackground,
+    selectionOverlay: CupertinoPickerDefaultSelectionOverlay(
+      background: CupertinoColors.tertiarySystemFill,
+    ),
+    onSelectedItemChanged: (int index) {
+      print('Picker changed: $index');
+    },
+    children: List.generate(10, (i) => Center(child: Text('Item $i'))),
+  );
+  print('CupertinoPicker created with 10 items');
+
+  // ========== CupertinoTimerPicker ==========
+  print('--- CupertinoTimerPicker Tests ---');
+  final timerPicker = CupertinoTimerPicker(
+    mode: CupertinoTimerPickerMode.hms,
+    initialTimerDuration: Duration(hours: 1, minutes: 30, seconds: 0),
+    minuteInterval: 1,
+    secondInterval: 1,
+    alignment: Alignment.center,
+    backgroundColor: CupertinoColors.systemBackground,
+    onTimerDurationChanged: (Duration duration) {
+      print('Timer: $duration');
+    },
+  );
+  print('CupertinoTimerPicker created: mode=hms');
+
+  // ========== CupertinoTimerPickerMode ==========
+  print('--- CupertinoTimerPickerMode Tests ---');
+  for (final mode in CupertinoTimerPickerMode.values) {
+    print('CupertinoTimerPickerMode: ${mode.name}');
+  }
+
+  // ========== CupertinoDatePicker modes ==========
+  print('--- CupertinoDatePickerMode Tests ---');
+  for (final mode in CupertinoDatePickerMode.values) {
+    print('CupertinoDatePickerMode: ${mode.name}');
+  }
+
+  final datePicker = CupertinoDatePicker(
+    mode: CupertinoDatePickerMode.dateAndTime,
+    initialDateTime: DateTime(2026, 3, 4, 10, 30),
+    minimumDate: DateTime(2020, 1, 1),
+    maximumDate: DateTime(2030, 12, 31),
+    use24hFormat: true,
+    minuteInterval: 5,
+    backgroundColor: CupertinoColors.systemBackground,
+    onDateTimeChanged: (DateTime dt) {
+      print('Date: $dt');
+    },
+  );
+  print('CupertinoDatePicker dateAndTime created');
+
+  // ========== CupertinoPickerDefaultSelectionOverlay ==========
+  print('--- CupertinoPickerDefaultSelectionOverlay Tests ---');
+  final overlay = CupertinoPickerDefaultSelectionOverlay(
+    background: CupertinoColors.tertiarySystemFill,
+    capStartEdge: true,
+    capEndEdge: true,
+  );
+  print('CupertinoPickerDefaultSelectionOverlay created');
+
+  print('All cupertino picker tests passed');
+
+  // ========== RETURN WIDGET ==========
+  return CupertinoApp(
+    home: CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(middle: Text('Picker Test')),
+      child: SafeArea(
+        child: Column(
+          children: [
+            SizedBox(height: 16.0),
+            SizedBox(height: 200, child: picker),
+            SizedBox(height: 16.0),
+            SizedBox(height: 200, child: timerPicker),
+          ],
         ),
       ),
-      const SizedBox(height: 12),
-      const Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(CupertinoIcons.arrow_up_arrow_down, size: 16),
-          SizedBox(width: 4),
-          Text('Scroll to select', style: TextStyle(fontSize: 11, color: CupertinoColors.systemGrey)),
-        ],
-      ),
-    ],
+    ),
   );
 }

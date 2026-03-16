@@ -1,51 +1,56 @@
-import 'dart:ui';
+// D4rt test script: Tests GestureSettings from dart:ui
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for GestureSettings - gesture configuration.
-/// Demonstrates physicalTouchSlop boundary.
 dynamic build(BuildContext context) {
-  final settings = View.of(context).gestureSettings;
-  
-  return Scaffold(
-    appBar: AppBar(title: const Text('GestureSettings Demo')),
-    body: Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('Gesture Settings', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 24),
-          _buildSettingCard('physicalTouchSlop', '${settings.physicalTouchSlop ?? "null"}', 'Physical touch slop'),
-          _buildSettingCard('physicalDoubleTapSlop', '${settings.physicalDoubleTapSlop ?? "null"}', 'Double tap slop'),
-          const SizedBox(height: 24),
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(12)),
-            child: const Text('Defines minimum touch distance thresholds for gesture recognition.'),
-          ),
-        ],
-      ),
-    ),
-  );
-}
+  print('GestureSettings test executing');
 
-Widget _buildSettingCard(String name, String value, String desc) {
-  return Container(
-    margin: const EdgeInsets.symmetric(vertical: 8),
-    padding: const EdgeInsets.all(16),
-    decoration: BoxDecoration(border: Border.all(color: Colors.purple.shade200), borderRadius: BorderRadius.circular(12)),
-    child: Row(children: [
-      Container(
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(color: Colors.purple.shade100, borderRadius: BorderRadius.circular(10)),
-        child: const Icon(Icons.touch_app, color: Colors.purple),
-      ),
-      const SizedBox(width: 16),
-      Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text(name, style: const TextStyle(fontWeight: FontWeight.bold)),
-        Text(desc, style: TextStyle(color: Colors.grey.shade600, fontSize: 12)),
-      ])),
-      Text(value, style: const TextStyle(fontFamily: 'monospace', fontWeight: FontWeight.bold)),
-    ]),
+  // Default constructor (null slops)
+  final gs1 = ui.GestureSettings();
+  print('GestureSettings(): touchSlop=${gs1.physicalTouchSlop}, doubleTapSlop=${gs1.physicalDoubleTapSlop}');
+
+  // With physicalTouchSlop
+  final gs2 = ui.GestureSettings(physicalTouchSlop: 18.0);
+  print('GestureSettings(touchSlop:18): touchSlop=${gs2.physicalTouchSlop}');
+
+  // With both slops
+  final gs3 = ui.GestureSettings(physicalTouchSlop: 20.0, physicalDoubleTapSlop: 100.0);
+  print('GestureSettings(20, 100): touchSlop=${gs3.physicalTouchSlop}, doubleTapSlop=${gs3.physicalDoubleTapSlop}');
+
+  // copyWith
+  final gs4 = gs3.copyWith(physicalTouchSlop: 30.0);
+  print('copyWith(touchSlop:30): touchSlop=${gs4.physicalTouchSlop}, doubleTapSlop=${gs4.physicalDoubleTapSlop}');
+
+  final gs5 = gs3.copyWith(physicalDoubleTapSlop: 50.0);
+  print('copyWith(doubleTapSlop:50): touchSlop=${gs5.physicalTouchSlop}, doubleTapSlop=${gs5.physicalDoubleTapSlop}');
+
+  // Equality
+  final gs6 = ui.GestureSettings(physicalTouchSlop: 20.0, physicalDoubleTapSlop: 100.0);
+  print('gs3 == gs6 (same params): ${gs3 == gs6}');
+  print('gs3 == gs2 (different): ${gs3 == gs2}');
+  print('gs3.hashCode == gs6.hashCode: ${gs3.hashCode == gs6.hashCode}');
+
+  // toString
+  print('gs3 toString: ${gs3.toString()}');
+
+  // Access from FlutterView
+  final dispatcher = ui.PlatformDispatcher.instance;
+  final view = dispatcher.implicitView;
+  if (view != null) {
+    final viewGS = view.gestureSettings;
+    print('View gestureSettings: touchSlop=${viewGS.physicalTouchSlop}');
+  }
+
+  print('GestureSettings test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('GestureSettings Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      SizedBox(height: 8),
+      Text('Default: touchSlop=${gs1.physicalTouchSlop}'),
+      Text('Custom: touchSlop=${gs3.physicalTouchSlop}, dtSlop=${gs3.physicalDoubleTapSlop}'),
+      Text('copyWith: touchSlop=${gs4.physicalTouchSlop}'),
+      Text('Equality: ${gs3 == gs6}'),
+    ],
   );
 }

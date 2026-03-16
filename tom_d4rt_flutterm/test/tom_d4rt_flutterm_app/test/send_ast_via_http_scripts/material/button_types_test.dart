@@ -1,43 +1,89 @@
+// D4rt test script: Tests MaterialButton, RawMaterialButton, MaterialType,
+// ButtonBar, ButtonBarThemeData, MaterialBanner advanced
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for MaterialButton types.
-/// Shows all Material button variants.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('Button Types')),
-    body: ListView(
-      padding: const EdgeInsets.all(16),
-      children: [
-        const Text('Material 3 Buttons', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-        const SizedBox(height: 16),
-        _Row('ElevatedButton', ElevatedButton(onPressed: () {}, child: const Text('Elevated'))),
-        _Row('FilledButton', FilledButton(onPressed: () {}, child: const Text('Filled'))),
-        _Row('FilledButton.tonal', FilledButton.tonal(onPressed: () {}, child: const Text('Tonal'))),
-        _Row('OutlinedButton', OutlinedButton(onPressed: () {}, child: const Text('Outlined'))),
-        _Row('TextButton', TextButton(onPressed: () {}, child: const Text('Text'))),
-        const Divider(height: 32),
-        const Text('Icon Variants', style: TextStyle(fontWeight: FontWeight.bold)),
-        const SizedBox(height: 8),
-        _Row('ElevatedButton.icon', ElevatedButton.icon(onPressed: () {}, icon: const Icon(Icons.add), label: const Text('Add'))),
-        _Row('FilledButton.icon', FilledButton.icon(onPressed: () {}, icon: const Icon(Icons.save), label: const Text('Save'))),
-        _Row('OutlinedButton.icon', OutlinedButton.icon(onPressed: () {}, icon: const Icon(Icons.edit), label: const Text('Edit'))),
-        const Divider(height: 32),
-        const Text('FAB & IconButton', style: TextStyle(fontWeight: FontWeight.bold)),
-        const SizedBox(height: 8),
-        _Row('FloatingActionButton', FloatingActionButton.small(onPressed: () {}, child: const Icon(Icons.add))),
-        _Row('IconButton', IconButton(onPressed: () {}, icon: const Icon(Icons.settings))),
-        _Row('IconButton.filled', IconButton.filled(onPressed: () {}, icon: const Icon(Icons.star))),
-      ],
-    ),
-  );
-}
+  print('Button types test executing');
 
-class _Row extends StatelessWidget {
-  final String label; final Widget button;
-  const _Row(this.label, this.button);
-  @override
-  Widget build(BuildContext context) => Padding(
-    padding: const EdgeInsets.symmetric(vertical: 6),
-    child: Row(children: [SizedBox(width: 150, child: Text(label, style: const TextStyle(fontSize: 12))), button]),
+  // ========== MaterialType ==========
+  print('--- MaterialType Tests ---');
+  for (final type in MaterialType.values) {
+    print('MaterialType: ${type.name}');
+  }
+
+  // ========== ButtonBar ==========
+  print('--- ButtonBar Tests ---');
+  final buttonBar = ButtonBar(
+    alignment: MainAxisAlignment.end,
+    mainAxisSize: MainAxisSize.min,
+    buttonPadding: EdgeInsets.symmetric(horizontal: 8.0),
+    buttonTextTheme: ButtonTextTheme.primary,
+    children: [
+      TextButton(onPressed: () {}, child: Text('Cancel')),
+      ElevatedButton(onPressed: () {}, child: Text('OK')),
+    ],
+  );
+  print('ButtonBar created');
+
+  // ========== ButtonBarThemeData ==========
+  print('--- ButtonBarThemeData Tests ---');
+  final barTheme = ButtonBarThemeData(
+    alignment: MainAxisAlignment.center,
+    mainAxisSize: MainAxisSize.min,
+    buttonTextTheme: ButtonTextTheme.accent,
+    buttonMinWidth: 80.0,
+    buttonHeight: 40.0,
+    buttonPadding: EdgeInsets.all(8.0),
+    layoutBehavior: ButtonBarLayoutBehavior.constrained,
+    overflowDirection: VerticalDirection.down,
+  );
+  print('ButtonBarThemeData created');
+  print('  alignment: ${barTheme.alignment}');
+  print('  buttonMinWidth: ${barTheme.buttonMinWidth}');
+  print('  layoutBehavior: ${barTheme.layoutBehavior}');
+
+  // ========== ButtonTextTheme ==========
+  print('--- ButtonTextTheme Tests ---');
+  for (final t in ButtonTextTheme.values) {
+    print('ButtonTextTheme: ${t.name}');
+  }
+
+  // ========== ButtonBarLayoutBehavior ==========
+  print('--- ButtonBarLayoutBehavior Tests ---');
+  for (final b in ButtonBarLayoutBehavior.values) {
+    print('ButtonBarLayoutBehavior: ${b.name}');
+  }
+
+  // ========== ThemeDataTween ==========
+  print('--- ThemeDataTween Tests ---');
+  final lightTheme = ThemeData.light();
+  final darkTheme = ThemeData.dark();
+  final tween = ThemeDataTween(begin: lightTheme, end: darkTheme);
+  final mid = tween.lerp(0.5);
+  print('ThemeDataTween created');
+  print('  lerp(0.5) brightness: ${mid.brightness}');
+
+  print('All button types tests passed');
+
+  // ========== RETURN WIDGET ==========
+  return MaterialApp(
+    home: Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Button Types Test',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
+            SizedBox(height: 16.0),
+            buttonBar,
+            SizedBox(height: 8.0),
+            Text('MaterialType: ${MaterialType.values.length} values'),
+            Text('ButtonTextTheme: ${ButtonTextTheme.values.length} values'),
+          ],
+        ),
+      ),
+    ),
   );
 }

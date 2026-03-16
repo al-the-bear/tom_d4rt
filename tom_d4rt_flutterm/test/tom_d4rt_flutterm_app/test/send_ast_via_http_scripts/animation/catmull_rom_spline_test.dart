@@ -1,57 +1,59 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests CatmullRomSpline from animation
+import 'dart:ui';
+import 'package:flutter/animation.dart';
+import 'package:flutter/widgets.dart';
 
-/// Demonstrates CatmullRomSpline - 2D spline for path animation.
 dynamic build(BuildContext context) {
-  final spline = CatmullRomSpline([
-    const Offset(0.1, 0.5),
-    const Offset(0.3, 0.2),
-    const Offset(0.5, 0.8),
-    const Offset(0.7, 0.3),
-    const Offset(0.9, 0.6),
-  ]);
+  print('CatmullRomSpline test executing');
 
-  return TweenAnimationBuilder<double>(
-    tween: Tween(begin: 0.0, end: 1.0),
-    duration: const Duration(seconds: 4),
-    builder: (context, t, _) {
-      final pos = spline.transform(t);
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Text('CatmullRomSpline Demo', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-          const SizedBox(height: 16),
-          SizedBox(
-            height: 150, width: 200,
-            child: CustomPaint(
-              painter: _SplinePainter(spline: spline, progress: t, position: pos),
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text('Position: (${pos.dx.toStringAsFixed(2)}, ${pos.dy.toStringAsFixed(2)})', style: const TextStyle(fontFamily: 'monospace', fontSize: 11)),
-        ],
-      );
-    },
-  );
-}
+  // ========== Basic CatmullRomSpline ==========
+  print('--- Basic CatmullRomSpline ---');
+  final controlPoints = <Offset>[
+    Offset(0.0, 0.0),
+    Offset(0.3, 0.8),
+    Offset(0.7, 0.2),
+    Offset(1.0, 1.0),
+  ];
+  final spline = CatmullRomSpline(controlPoints);
 
-class _SplinePainter extends CustomPainter {
-  final CatmullRomSpline spline; final double progress; final Offset position;
-  _SplinePainter({required this.spline, required this.progress, required this.position});
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    // Draw path
-    final path = Path();
-    for (int i = 0; i <= 50; i++) {
-      final p = spline.transform(i / 50);
-      final x = p.dx * size.width; final y = p.dy * size.height;
-      if (i == 0) path.moveTo(x, y); else path.lineTo(x, y);
-    }
-    canvas.drawPath(path, Paint()..color = Colors.blue.withOpacity(0.5)..style = PaintingStyle.stroke..strokeWidth = 2);
-    // Current position
-    canvas.drawCircle(Offset(position.dx * size.width, position.dy * size.height), 8, Paint()..color = Colors.red);
+  // ========== Sample at various t ==========
+  print('--- Spline samples ---');
+  final tValues = [0.0, 0.2, 0.4, 0.5, 0.6, 0.8, 1.0];
+  for (final t in tValues) {
+    final point = spline.transform(t);
+    print('  t=$t: (${point.dx.toStringAsFixed(3)}, ${point.dy.toStringAsFixed(3)})');
   }
 
-  @override
-  bool shouldRepaint(covariant _SplinePainter old) => progress != old.progress;
+  // ========== Generate sample set ==========
+  print('--- Sample set ---');
+  final samples = spline.generateSamples();
+  print('  Number of samples: ${samples.length}');
+  print('  First sample t: ${samples.first.t.toStringAsFixed(4)}');
+  print('  Last sample t: ${samples.last.t.toStringAsFixed(4)}');
+
+  // ========== Precomputed spline ==========
+  print('--- Precomputed variant ---');
+  final precomp = CatmullRomSpline.precompute(controlPoints);
+  final precompVal = precomp.transform(0.5);
+  print('  precomputed(0.5): (${precompVal.dx.toStringAsFixed(3)}, ${precompVal.dy.toStringAsFixed(3)})');
+
+  print('CatmullRomSpline test completed');
+  return SingleChildScrollView(
+    child: Padding(
+      padding: EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text('CatmullRomSpline Tests',
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          SizedBox(height: 8.0),
+          Text('Control points: ${controlPoints.length}'),
+          Text('Samples generated: ${samples.length}'),
+          for (final t in tValues)
+            Text('t=$t: ${spline.transform(t).toString()}'),
+        ],
+      ),
+    ),
+  );
 }

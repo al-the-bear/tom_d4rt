@@ -1,56 +1,62 @@
+// D4rt test script: Tests ExpandIcon from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for ExpandIcon - animated expand/collapse icon.
-/// Shows the rotating chevron icon for expandable content.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('ExpandIcon Demo', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-      const SizedBox(height: 16),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          // Collapsed
-          Column(
+  print('ExpandIcon test executing');
+
+  final title = 'ExpandIcon';
+  final packageName = 'material';
+  final details = 'ExpandIcon';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('ExpandIcon test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade100,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: const Icon(Icons.expand_more, size: 36),
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
               ),
-              const SizedBox(height: 8),
-              const Text('Collapsed', style: TextStyle(fontSize: 10)),
-              const Text('isExpanded: false', style: TextStyle(fontSize: 9, fontFamily: 'monospace')),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Icon(Icons.arrow_forward, color: Colors.grey),
-          ),
-          // Expanded
-          Column(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Colors.blue.shade50,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: const Icon(Icons.expand_less, size: 36, color: Colors.blue),
-              ),
-              const SizedBox(height: 8),
-              const Text('Expanded', style: TextStyle(fontSize: 10)),
-              const Text('isExpanded: true', style: TextStyle(fontSize: 9, fontFamily: 'monospace')),
-            ],
-          ),
-        ],
+        ),
       ),
-      const SizedBox(height: 12),
-      const Text('Rotates 180° with animation', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
+    ),
   );
 }

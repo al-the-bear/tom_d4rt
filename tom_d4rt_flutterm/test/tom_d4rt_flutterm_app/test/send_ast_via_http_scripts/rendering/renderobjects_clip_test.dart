@@ -1,29 +1,104 @@
+// D4rt test script: Tests RenderClipRect, RenderClipRRect, RenderClipOval, RenderClipPath
+import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
-/// Deep visual demo for clip RenderObjects
 dynamic build(BuildContext context) {
-  return Scaffold(appBar: AppBar(title: Text('Clip RenderObjects')), body: Padding(padding: EdgeInsets.all(16), child: Column(children: [
-    Text('Clipping Variants', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-    SizedBox(height: 16),
-    Expanded(child: ListView(children: [
-      _ClipDemo('ClipRect', ClipRect(child: _OverflowBox())),
-      _ClipDemo('ClipRRect', ClipRRect(borderRadius: BorderRadius.circular(20), child: _OverflowBox())),
-      _ClipDemo('ClipOval', ClipOval(child: _OverflowBox())),
-      _ClipDemo('ClipPath', ClipPath(clipper: _TriangleClipper(), child: _OverflowBox())),
-    ])),
-  ])));
-}
+  print('RenderObjects clip test executing');
 
-Widget _OverflowBox() => Container(width: 150, height: 100, color: Colors.purple.shade100, child: GridView.count(crossAxisCount: 3, children: List.generate(12, (i) => Container(margin: EdgeInsets.all(2), color: Colors.purple.withOpacity(0.3 + (i % 3) * 0.2)))));
+  // ========== RENDER CLIP RECT ==========
+  print('--- RenderClipRect Tests ---');
 
-class _ClipDemo extends StatelessWidget {
-  final String name; final Widget child;
-  const _ClipDemo(this.name, this.child);
-  @override Widget build(BuildContext context) => Container(margin: EdgeInsets.only(bottom: 12), padding: EdgeInsets.all(12), decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
-    child: Row(children: [SizedBox(width: 80, child: Text(name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))), Expanded(child: Center(child: child))]));
-}
+  final clipRect = RenderClipRect();
+  print('RenderClipRect() created: ${clipRect.runtimeType}');
+  print('  clipBehavior: ${clipRect.clipBehavior}');
 
-class _TriangleClipper extends CustomClipper<Path> {
-  @override Path getClip(Size size) => Path()..moveTo(size.width / 2, 0)..lineTo(size.width, size.height)..lineTo(0, size.height)..close();
-  @override bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
+  final clipRectHardEdge = RenderClipRect(clipBehavior: Clip.hardEdge);
+  print(
+    'RenderClipRect(hardEdge) clipBehavior: ${clipRectHardEdge.clipBehavior}',
+  );
+
+  final clipRectAntiAlias = RenderClipRect(clipBehavior: Clip.antiAlias);
+  print(
+    'RenderClipRect(antiAlias) clipBehavior: ${clipRectAntiAlias.clipBehavior}',
+  );
+
+  final clipRectAntiAliasLayer = RenderClipRect(
+    clipBehavior: Clip.antiAliasWithSaveLayer,
+  );
+  print(
+    'RenderClipRect(antiAliasWithSaveLayer) clipBehavior: ${clipRectAntiAliasLayer.clipBehavior}',
+  );
+
+  // Note: clipBehavior setter not bridged in D4rt
+
+  // ========== RENDER CLIP RRECT ==========
+  print('--- RenderClipRRect Tests ---');
+
+  final clipRRect = RenderClipRRect();
+  print('RenderClipRRect() created: ${clipRRect.runtimeType}');
+  print('  clipBehavior: ${clipRRect.clipBehavior}');
+  print('  borderRadius: ${clipRRect.borderRadius}');
+
+  final clipRRectWithRadius = RenderClipRRect(
+    borderRadius: BorderRadius.circular(12.0),
+  );
+  print(
+    'RenderClipRRect(radius=12) borderRadius: ${clipRRectWithRadius.borderRadius}',
+  );
+
+  final clipRRectCustom = RenderClipRRect(
+    borderRadius: BorderRadius.only(
+      topLeft: Radius.circular(8.0),
+      topRight: Radius.circular(16.0),
+      bottomLeft: Radius.circular(4.0),
+      bottomRight: Radius.circular(24.0),
+    ),
+  );
+  print(
+    'RenderClipRRect(custom corners) borderRadius: ${clipRRectCustom.borderRadius}',
+  );
+
+  // Note: borderRadius setter not bridged in D4rt
+
+  // ========== RENDER CLIP OVAL ==========
+  print('--- RenderClipOval Tests ---');
+
+  final clipOval = RenderClipOval();
+  print('RenderClipOval() created: ${clipOval.runtimeType}');
+  print('  clipBehavior: ${clipOval.clipBehavior}');
+
+  final clipOvalAntiAlias = RenderClipOval(clipBehavior: Clip.antiAlias);
+  print(
+    'RenderClipOval(antiAlias) clipBehavior: ${clipOvalAntiAlias.clipBehavior}',
+  );
+
+  // ========== RENDER CLIP PATH ==========
+  print('--- RenderClipPath Tests ---');
+
+  final clipPath = RenderClipPath();
+  print('RenderClipPath() created: ${clipPath.runtimeType}');
+  print('  clipBehavior: ${clipPath.clipBehavior}');
+
+  final clipPathAntiAlias = RenderClipPath(clipBehavior: Clip.antiAlias);
+  print(
+    'RenderClipPath(antiAlias) clipBehavior: ${clipPathAntiAlias.clipBehavior}',
+  );
+
+  // RenderClipPath accepts a CustomClipper<Path> via the clipper parameter
+  // Cannot easily test custom clippers here without a render tree
+  print('Note: CustomClipper<Path> requires render tree to function');
+
+  // ========== CLIP BEHAVIOR ENUM ==========
+  print('--- Clip enum values ---');
+  print('Clip.none: ${Clip.none}');
+  print('Clip.hardEdge: ${Clip.hardEdge}');
+  print('Clip.antiAlias: ${Clip.antiAlias}');
+  print('Clip.antiAliasWithSaveLayer: ${Clip.antiAliasWithSaveLayer}');
+
+  // Note: Cannot call layout() or paint() on orphan render objects
+  print('Note: render objects not laid out - no parent render tree attached');
+
+  print('RenderObjects clip test completed');
+  return Container(child: Text('RenderObjects clip test passed'));
 }

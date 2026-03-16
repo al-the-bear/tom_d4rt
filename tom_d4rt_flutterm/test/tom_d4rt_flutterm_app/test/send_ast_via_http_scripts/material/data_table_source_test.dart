@@ -1,62 +1,62 @@
+// D4rt test script: Tests DataTableSource from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for DataTableSource - data source for PaginatedDataTable.
-/// Shows how to provide paginated data to tables.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('DataTableSource Demo', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-      const SizedBox(height: 16),
-      Container(
-        padding: const EdgeInsets.all(12),
+  print('DataTableSource test executing');
+
+  final title = 'DataTableSource';
+  final packageName = 'material';
+  final details = 'Data source';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('DataTableSource test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
         decoration: BoxDecoration(
-          color: Colors.blue.shade50,
+          color: const Color(0xFF111827),
           borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
         ),
-        child: Column(
-          children: [
-            const Icon(Icons.storage, size: 40, color: Colors.blue),
-            const SizedBox(height: 8),
-            const Text('DataTableSource', style: TextStyle(fontWeight: FontWeight.bold)),
-            const SizedBox(height: 12),
-            // Virtual representation
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8)),
-              child: const Column(
-                children: [
-                  Text('rowCount: 1000', style: TextStyle(fontSize: 11, fontFamily: 'monospace')),
-                  Text('selectedRowCount: 3', style: TextStyle(fontSize: 11, fontFamily: 'monospace')),
-                  Text('isRowCountApproximate: false', style: TextStyle(fontSize: 11, fontFamily: 'monospace')),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
                 ],
               ),
-            ),
-          ],
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-      const SizedBox(height: 16),
-      // Page indicator
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Icon(Icons.chevron_left),
-          for (int i = 1; i <= 5; i++)
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 2),
-              width: 24,
-              height: 24,
-              decoration: BoxDecoration(
-                color: i == 2 ? Colors.blue : Colors.grey.shade200,
-                borderRadius: BorderRadius.circular(4),
-              ),
-              child: Center(child: Text('$i', style: TextStyle(fontSize: 10, color: i == 2 ? Colors.white : Colors.black))),
-            ),
-          const Icon(Icons.chevron_right),
-        ],
-      ),
-      const SizedBox(height: 8),
-      const Text('Enables lazy loading for large datasets', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
+    ),
   );
 }

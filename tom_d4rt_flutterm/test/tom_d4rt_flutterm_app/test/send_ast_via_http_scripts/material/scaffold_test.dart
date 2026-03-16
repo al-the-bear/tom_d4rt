@@ -1,67 +1,86 @@
+// D4rt test script: Tests Scaffold from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for Scaffold widget.
-/// Implements the basic Material Design visual layout structure.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('Scaffold', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Container(
-        width: 180,
-        height: 160,
-        decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(8)),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(8),
-          child: Column(
+  print('Scaffold test executing');
+
+  // Test basic Scaffold
+  final scaffold = Scaffold(
+    appBar: AppBar(title: Text('Scaffold Test'), backgroundColor: Colors.blue),
+    body: Center(
+      child: Text('Scaffold Body', style: TextStyle(fontSize: 18.0)),
+    ),
+    floatingActionButton: FloatingActionButton(
+      onPressed: () {},
+      child: Icon(Icons.add),
+    ),
+  );
+  print('Basic Scaffold with AppBar and FAB created');
+
+  print('Scaffold test completed');
+
+  // Return just the scaffold structure elements without full Scaffold
+  // (since Scaffold needs MaterialApp context which the test app provides)
+  return Container(
+    width: 300.0,
+    height: 400.0,
+    decoration: BoxDecoration(
+      border: Border.all(color: Colors.grey),
+      borderRadius: BorderRadius.circular(8.0),
+    ),
+    clipBehavior: Clip.antiAlias,
+    child: Column(
+      children: [
+        // Simulated AppBar
+        Container(
+          height: 56.0,
+          color: Colors.blue,
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          child: Row(
             children: [
-              Container(
-                height: 30,
-                color: Colors.blue,
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: const Row(
-                  children: [
-                    Icon(Icons.menu, color: Colors.white, size: 16),
-                    SizedBox(width: 8),
-                    Text('App Title', style: TextStyle(color: Colors.white, fontSize: 12)),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  color: Colors.grey.shade100,
-                  child: const Center(child: Text('body', style: TextStyle(color: Colors.grey))),
-                ),
-              ),
-              Container(
-                height: 40,
-                color: Colors.white,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    _NavItem(Icons.home, true),
-                    _NavItem(Icons.search, false),
-                    _NavItem(Icons.person, false),
-                  ],
+              Text(
+                'Scaffold Test',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ],
           ),
         ),
-      ),
-      const SizedBox(height: 12),
-      const Text('appBar, body, bottomNavigationBar, floatingActionButton', style: TextStyle(fontSize: 9, color: Colors.grey)),
-    ],
+        // Body
+        Expanded(
+          child: Stack(
+            children: [
+              Center(
+                child: Text('Scaffold Body', style: TextStyle(fontSize: 18.0)),
+              ),
+              // FAB position
+              Positioned(
+                right: 16.0,
+                bottom: 16.0,
+                child: Container(
+                  width: 56.0,
+                  height: 56.0,
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black26,
+                        blurRadius: 8.0,
+                        offset: Offset(0.0, 4.0),
+                      ),
+                    ],
+                  ),
+                  child: Icon(Icons.add, color: Colors.white),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
   );
-}
-
-class _NavItem extends StatelessWidget {
-  final IconData icon;
-  final bool selected;
-  const _NavItem(this.icon, this.selected);
-  @override
-  Widget build(BuildContext context) {
-    return Icon(icon, color: selected ? Colors.blue : Colors.grey, size: 20);
-  }
 }

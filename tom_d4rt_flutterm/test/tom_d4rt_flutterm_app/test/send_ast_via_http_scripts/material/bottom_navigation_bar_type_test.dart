@@ -1,52 +1,29 @@
+// D4rt test script: Tests BottomNavigationBarType from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for BottomNavigationBarType.
-/// Shows fixed vs shifting navigation types.
 dynamic build(BuildContext context) {
-  return _TypeDemo();
-}
+  print('BottomNavigationBarType test executing');
 
-class _TypeDemo extends StatefulWidget {
-  @override
-  State<_TypeDemo> createState() => _TypeDemoState();
-}
-
-class _TypeDemoState extends State<_TypeDemo> {
-  int _index = 0;
-  bool _isFixed = true;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('BottomNavigationBarType')),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(_isFixed ? 'FIXED' : 'SHIFTING', style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 16),
-            Text(_isFixed ? 'All labels always visible' : 'Only selected label visible'),
-            const SizedBox(height: 24),
-            ElevatedButton(
-              onPressed: () => setState(() => _isFixed = !_isFixed),
-              child: Text('Switch to ' + (_isFixed ? 'Shifting' : 'Fixed')),
-            ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _index,
-        onTap: (i) => setState(() => _index = i),
-        type: _isFixed ? BottomNavigationBarType.fixed : BottomNavigationBarType.shifting,
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.grey,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.explore), label: 'Explore'),
-          BottomNavigationBarItem(icon: Icon(Icons.notifications), label: 'Alerts'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-        ],
-      ),
-    );
+  // Enumerate all BottomNavigationBarType values
+  print('BottomNavigationBarType values:');
+  for (final value in BottomNavigationBarType.values) {
+    print('  ${value.name}: $value');
   }
+  print('BottomNavigationBarType has ${ BottomNavigationBarType.values.length} values');
+
+  final first = BottomNavigationBarType.values.first;
+  final last = BottomNavigationBarType.values.last;
+  print('First: $first, Last: $last');
+  print('First index: ${first.index}, Last index: ${last.index}');
+
+  print('BottomNavigationBarType test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('BottomNavigationBarType Tests'),
+      Text('Values: ${ BottomNavigationBarType.values.length}'),
+      Text('First: $first'),
+      Text('Last: $last'),
+    ],
+  );
 }

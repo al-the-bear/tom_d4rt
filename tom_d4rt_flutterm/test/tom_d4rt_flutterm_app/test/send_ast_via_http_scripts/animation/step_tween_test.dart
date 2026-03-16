@@ -1,41 +1,60 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests StepTween from animation
+import 'dart:ui';
+import 'package:flutter/animation.dart';
+import 'package:flutter/widgets.dart';
 
-/// Demonstrates StepTween - interpolates integers, always rounding down.
 dynamic build(BuildContext context) {
-  final tween = StepTween(begin: 0, end: 5);
+  print('StepTween test executing');
 
-  return TweenAnimationBuilder<int>(
-    tween: tween,
-    duration: const Duration(seconds: 3),
-    builder: (context, value, _) => Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const Text('StepTween Demo', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-        const SizedBox(height: 16),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            for (int i = 0; i <= 5; i++)
-              Container(
-                width: 40, height: 40, margin: const EdgeInsets.symmetric(horizontal: 2),
-                decoration: BoxDecoration(
-                  color: i <= value ? Colors.teal : Colors.grey.shade300,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                alignment: Alignment.center,
-                child: Text('$i', style: TextStyle(color: i <= value ? Colors.white : Colors.grey, fontWeight: FontWeight.bold)),
-              ),
-          ],
-        ),
-        const SizedBox(height: 16),
-        Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(color: Colors.teal.shade50, borderRadius: BorderRadius.circular(8)),
-          child: Text('Current step: $value', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-        ),
-        const SizedBox(height: 8),
-        const Text('Always rounds DOWN (floor)', style: TextStyle(fontSize: 11, color: Colors.grey)),
-      ],
+  // ========== Basic StepTween ==========
+  print('--- StepTween(0, 10) ---');
+  final tween = StepTween(begin: 0, end: 10);
+  for (final t in [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]) {
+    print('  t=$t: ${tween.lerp(t)}');
+  }
+
+  // ========== StepTween uses floor (truncation) ==========
+  print('--- Step behavior (floor) ---');
+  final step = StepTween(begin: 0, end: 5);
+  for (final t in [0.0, 0.19, 0.2, 0.39, 0.4, 0.59, 0.6, 0.79, 0.8, 0.99, 1.0]) {
+    print('  t=$t: ${step.lerp(t)}');
+  }
+
+  // ========== Large range ==========
+  print('--- StepTween(0, 100) ---');
+  final large = StepTween(begin: 0, end: 100);
+  print('  t=0.0: ${large.lerp(0.0)}');
+  print('  t=0.1: ${large.lerp(0.1)}');
+  print('  t=0.5: ${large.lerp(0.5)}');
+  print('  t=1.0: ${large.lerp(1.0)}');
+
+  // ========== Reverse ==========
+  print('--- StepTween(10, 0) ---');
+  final rev = StepTween(begin: 10, end: 0);
+  for (final t in [0.0, 0.5, 1.0]) {
+    print('  t=$t: ${rev.lerp(t)}');
+  }
+
+  // ========== Evaluate ==========
+  print('--- Evaluate ---');
+  final anim = AlwaysStoppedAnimation<double>(0.33);
+  print('  evaluate(0.33): ${tween.evaluate(anim)}');
+
+  print('StepTween test completed');
+  return SingleChildScrollView(
+    child: Padding(
+      padding: EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text('StepTween Tests',
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          SizedBox(height: 8.0),
+          for (final t in [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
+            Text('t=$t: ${tween.lerp(t)}'),
+        ],
+      ),
     ),
   );
 }

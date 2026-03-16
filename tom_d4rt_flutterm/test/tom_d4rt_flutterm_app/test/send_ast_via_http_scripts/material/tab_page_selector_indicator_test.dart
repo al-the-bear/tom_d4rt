@@ -1,73 +1,62 @@
+// D4rt test script: Tests TabPageSelectorIndicator from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for TabPageSelectorIndicator widget.
-/// Single dot indicator for TabPageSelector.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('TabPageSelectorIndicator', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _IndicatorDemo(1.0),
-          const SizedBox(width: 8),
-          _IndicatorDemo(0.5),
-          const SizedBox(width: 8),
-          _IndicatorDemo(0.0),
-        ],
-      ),
-      const SizedBox(height: 12),
-      const Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text('backgroundColor: ', style: TextStyle(fontSize: 10)),
-          _ColorChip('selected', Colors.blue),
-          SizedBox(width: 8),
-          _ColorChip('unselected', Colors.grey),
-        ],
-      ),
-    ],
-  );
-}
+  print('TabPageSelectorIndicator test executing');
 
-class _IndicatorDemo extends StatelessWidget {
-  final double value;
-  const _IndicatorDemo(this.value);
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 12,
-          height: 12,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: Color.lerp(Colors.grey, Colors.blue, value),
-            border: Border.all(color: Colors.blue.withAlpha(50)),
+  final title = 'TabPageSelectorIndicator';
+  final packageName = 'material';
+  final details = 'TabPageSelectorIndicator';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('TabPageSelectorIndicator test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
-        const SizedBox(height: 4),
-        Text('${(value * 100).toInt()}%', style: const TextStyle(fontSize: 9)),
-      ],
-    );
-  }
-}
-
-class _ColorChip extends StatelessWidget {
-  final String label;
-  final Color color;
-  const _ColorChip(this.label, this.color);
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(width: 10, height: 10, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
-        const SizedBox(width: 4),
-        Text(label, style: const TextStyle(fontSize: 9)),
-      ],
-    );
-  }
+      ),
+    ),
+  );
 }

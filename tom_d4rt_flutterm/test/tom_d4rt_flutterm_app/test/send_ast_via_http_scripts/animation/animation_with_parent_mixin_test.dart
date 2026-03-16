@@ -1,60 +1,61 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests AnimationWithParentMixin from animation
+import 'dart:ui';
+import 'package:flutter/animation.dart';
+import 'package:flutter/widgets.dart';
 
-/// Demonstrates AnimationWithParentMixin - creates derived animations from a parent.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('AnimationWithParentMixin', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(color: Colors.cyan.shade50, borderRadius: BorderRadius.circular(12)),
-        child: Column(
-          children: [
-            // Parent animation at top
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(color: Colors.cyan, borderRadius: BorderRadius.circular(8)),
-              child: const Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(Icons.animation, color: Colors.white),
-                  SizedBox(width: 8),
-                  Text('Parent Animation', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                ],
-              ),
-            ),
-            const SizedBox(height: 8),
-            const Icon(Icons.arrow_downward, color: Colors.cyan),
-            const SizedBox(height: 8),
-            // Derived animations
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                _DerivedBox('CurveTween', Colors.purple),
-                const SizedBox(width: 8),
-                _DerivedBox('Interval', Colors.orange),
-                const SizedBox(width: 8),
-                _DerivedBox('ReverseAnimation', Colors.red),
-              ],
-            ),
-          ],
-        ),
-      ),
-      const SizedBox(height: 12),
-      const Text('Transforms parent value to derived value', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
-  );
-}
+  print('AnimationWithParentMixin test executing');
 
-class _DerivedBox extends StatelessWidget {
-  final String label; final Color color;
-  const _DerivedBox(this.label, this.color);
-  @override
-  Widget build(BuildContext context) => Container(
-    padding: const EdgeInsets.all(8),
-    decoration: BoxDecoration(color: color.withOpacity(0.2), borderRadius: BorderRadius.circular(4), border: Border.all(color: color)),
-    child: Text(label, style: TextStyle(fontSize: 9, color: color)),
+  // AnimationWithParentMixin is used by classes like CurvedAnimation.
+  // It delegates to a parent animation. Test through concrete usage.
+
+  // ========== ProxyAnimation (uses parent mixin) ==========
+  print('--- ProxyAnimation parent delegation ---');
+  final parent = AlwaysStoppedAnimation<double>(0.6);
+  final proxy = ProxyAnimation(parent);
+  print('  parent.value: ${parent.value}');
+  print('  proxy.value: ${proxy.value}');
+  print('  proxy.status: ${proxy.status}');
+
+  // ========== Change parent ==========
+  print('--- Parent switching ---');
+  final newParent = AlwaysStoppedAnimation<double>(0.2);
+  proxy.parent = newParent;
+  print('  After switch, proxy.value: ${proxy.value}');
+
+  // ========== ReverseAnimation ==========
+  print('--- ReverseAnimation (parent mixin) ---');
+  final source = AlwaysStoppedAnimation<double>(0.3);
+  final reverse = ReverseAnimation(source);
+  print('  source.value: ${source.value}');
+  print('  reverse.value: ${reverse.value}');
+  print('  reverse.status: ${reverse.status}');
+
+  // ========== Multiple levels of proxy ==========
+  print('--- Nested proxy ---');
+  final base = AlwaysStoppedAnimation<double>(0.9);
+  final proxy1 = ProxyAnimation(base);
+  final proxy2 = ProxyAnimation(proxy1);
+  print('  base: ${base.value}');
+  print('  proxy1: ${proxy1.value}');
+  print('  proxy2: ${proxy2.value}');
+
+  print('AnimationWithParentMixin test completed');
+  return SingleChildScrollView(
+    child: Padding(
+      padding: EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text('AnimationWithParentMixin Tests',
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          SizedBox(height: 8.0),
+          Text('Proxy delegates to parent: ${proxy.value}'),
+          Text('ReverseAnimation(0.3): ${reverse.value}'),
+          Text('Nested proxy: ${proxy2.value}'),
+        ],
+      ),
+    ),
   );
 }

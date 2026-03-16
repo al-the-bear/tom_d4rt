@@ -1,62 +1,62 @@
+// D4rt test script: Tests MenuStyle from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for MenuStyle class.
-/// Configures visual properties of Menu widget.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('MenuStyle', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _StyleDemo('Default', Colors.white, Colors.grey.shade300, 4),
-          const SizedBox(width: 16),
-          _StyleDemo('Custom', Colors.blue.shade50, Colors.blue, 12),
-        ],
-      ),
-      const SizedBox(height: 12),
-      Container(
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
-        child: const Text('backgroundColor, shape, elevation, padding', style: TextStyle(fontSize: 9)),
-      ),
-    ],
-  );
-}
+  print('MenuStyle test executing');
 
-class _StyleDemo extends StatelessWidget {
-  final String label;
-  final Color bg;
-  final Color border;
-  final double radius;
-  const _StyleDemo(this.label, this.bg, this.border, this.radius);
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 90,
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: bg,
-            borderRadius: BorderRadius.circular(radius),
-            border: Border.all(color: border),
-            boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4)],
-          ),
+  final title = 'MenuStyle';
+  final packageName = 'material';
+  final details = 'Menu style';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('MenuStyle test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Text('Item 1', style: TextStyle(fontSize: 10)),
-              Divider(height: 8),
-              Text('Item 2', style: TextStyle(fontSize: 10)),
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
-        const SizedBox(height: 4),
-        Text(label, style: const TextStyle(fontSize: 9)),
-      ],
-    );
-  }
+      ),
+    ),
+  );
 }

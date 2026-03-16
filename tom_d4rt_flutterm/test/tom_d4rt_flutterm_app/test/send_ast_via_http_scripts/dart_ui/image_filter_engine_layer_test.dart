@@ -1,60 +1,47 @@
-import 'dart:ui';
+// D4rt test script: Tests ImageFilterEngineLayer via SceneBuilder
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for ImageFilterEngineLayer - image filter in layer tree.
-/// Demonstrates blur and matrix filters applied to layers.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('ImageFilterEngineLayer Demo')),
-    body: Column(
-      children: [
-        Expanded(
-          child: Stack(
-            children: [
-              // Background pattern
-              GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 6),
-                itemCount: 36,
-                itemBuilder: (_, i) => Container(color: Colors.primaries[i % Colors.primaries.length]),
-              ),
-              // Blur filter demonstration
-              Center(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(16),
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
-                    child: Container(
-                      width: 220,
-                      height: 150,
-                      decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.3),
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      child: const Center(
-                        child: Text('ImageFilter.blur', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          padding: const EdgeInsets.all(16),
-          color: Colors.grey.shade100,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Text('Available Filters:', style: TextStyle(fontWeight: FontWeight.bold)),
-              SizedBox(height: 8),
-              Text('• ImageFilter.blur(sigmaX, sigmaY)'),
-              Text('• ImageFilter.matrix(matrix4)'),
-              Text('• ImageFilter.compose(outer, inner)'),
-            ],
-          ),
-        ),
-      ],
-    ),
+  print('ImageFilterEngineLayer test executing');
+
+  final builder = ui.SceneBuilder();
+
+  // Blur filter
+  final blurFilter = ui.ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0);
+  final layer1 = builder.pushImageFilter(blurFilter);
+  print('pushImageFilter blur: ${layer1.runtimeType}');
+  print('is EngineLayer: ${layer1 is ui.EngineLayer}');
+  builder.pop();
+
+  // Blur with offset
+  final layer2 = builder.pushImageFilter(blurFilter, offset: Offset(10.0, 20.0));
+  print('pushImageFilter with offset: ${layer2.runtimeType}');
+  builder.pop();
+
+  // Asymmetric blur
+  final asymFilter = ui.ImageFilter.blur(sigmaX: 10.0, sigmaY: 0.0);
+  final layer3 = builder.pushImageFilter(asymFilter);
+  print('pushImageFilter asymmetric: ${layer3.runtimeType}');
+  builder.pop();
+
+  // No blur
+  final noBlur = ui.ImageFilter.blur(sigmaX: 0.0, sigmaY: 0.0);
+  final layer4 = builder.pushImageFilter(noBlur);
+  print('pushImageFilter no blur: ${layer4.runtimeType}');
+  builder.pop();
+
+  final scene = builder.build();
+  scene.dispose();
+
+  print('ImageFilterEngineLayer test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('ImageFilterEngineLayer Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      SizedBox(height: 8),
+      Text('Type: ${layer1.runtimeType}'),
+      Text('Blur, offset, asymmetric, zero'),
+    ],
   );
 }

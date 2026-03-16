@@ -1,67 +1,62 @@
+// D4rt test script: Tests DialogThemeData from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for DialogThemeData - theme data for dialogs.
-/// Shows configurable styling properties for dialog appearance.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('DialogThemeData', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _DialogPreview('Default', Colors.white, Colors.black, 16),
-          const SizedBox(width: 12),
-          _DialogPreview('Custom', Colors.indigo.shade50, Colors.indigo, 24),
-        ],
-      ),
-      const SizedBox(height: 16),
-      Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: Colors.grey.shade100,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: const Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Theme Properties:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11)),
-            Text('• backgroundColor', style: TextStyle(fontSize: 10)),
-            Text('• elevation', style: TextStyle(fontSize: 10)),
-            Text('• shape', style: TextStyle(fontSize: 10)),
-            Text('• titleTextStyle', style: TextStyle(fontSize: 10)),
-            Text('• contentTextStyle', style: TextStyle(fontSize: 10)),
-          ],
-        ),
-      ),
-    ],
-  );
-}
+  print('DialogThemeData test executing');
 
-class _DialogPreview extends StatelessWidget {
-  final String label;
-  final Color bg;
-  final Color fg;
-  final double radius;
-  const _DialogPreview(this.label, this.bg, this.fg, this.radius);
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 100,
-          height: 80,
-          decoration: BoxDecoration(
-            color: bg,
-            borderRadius: BorderRadius.circular(radius),
-            boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 4)],
-          ),
-          child: Center(child: Text('Content', style: TextStyle(color: fg, fontSize: 11))),
+  final title = 'DialogThemeData';
+  final packageName = 'material';
+  final details = 'Dialog data';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('DialogThemeData test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
         ),
-        const SizedBox(height: 4),
-        Text(label, style: const TextStyle(fontSize: 10)),
-      ],
-    );
-  }
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
 }

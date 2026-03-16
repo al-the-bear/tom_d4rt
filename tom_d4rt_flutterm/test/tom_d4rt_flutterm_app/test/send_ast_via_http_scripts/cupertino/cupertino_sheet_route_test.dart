@@ -1,38 +1,144 @@
+// D4rt test script: Tests CupertinoSheetRoute from cupertino
 import 'package:flutter/cupertino.dart';
 
-/// Demonstrates CupertinoSheetRoute - iOS modal sheet.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('CupertinoSheetRoute', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-      const SizedBox(height: 16),
-      Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          Container(
-            width: 200, height: 120,
-            decoration: BoxDecoration(color: CupertinoColors.systemGrey6, borderRadius: BorderRadius.circular(12)),
-            child: const Center(child: Text('Background')),
-          ),
-          Container(
-            width: 200, height: 80,
-            decoration: const BoxDecoration(
-              color: CupertinoColors.white,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-              boxShadow: [BoxShadow(blurRadius: 10, color: Color(0x33000000))],
+  print('CupertinoSheetRoute test executing');
+
+  // ===== 1. Show sheet route via button =====
+  print('--- CupertinoSheetRoute via showCupertinoSheet ---');
+  final showSheetButton = CupertinoButton(
+    child: Text('Show Sheet'),
+    onPressed: () {
+      showCupertinoSheet(
+        context: context,
+        pageBuilder: (sheetContext) => CupertinoPageScaffold(
+          navigationBar: CupertinoNavigationBar(
+            middle: Text('Sheet'),
+            trailing: CupertinoButton(
+              padding: EdgeInsets.zero,
+              child: Text('Done'),
+              onPressed: () => Navigator.of(sheetContext).pop(),
             ),
-            child: Column(
+          ),
+          child: Center(child: Text('Sheet content')),
+        ),
+      );
+    },
+  );
+  print('  show sheet button created');
+
+  // ===== 2. CupertinoSheetRoute with builder =====
+  print('--- CupertinoSheetRoute direct construction ---');
+  final sheetRoute = CupertinoSheetRoute(
+    builder: (routeContext) => CupertinoPageScaffold(
+      child: Center(child: Text('Direct route content')),
+    ),
+  );
+  print('  sheet route created: ${sheetRoute.runtimeType}');
+
+  // ===== 3. With enableDrag: false =====
+  print('--- enableDrag: false ---');
+  final noDragRoute = CupertinoSheetRoute(
+    enableDrag: false,
+    builder: (routeContext) => CupertinoPageScaffold(
+      child: Center(child: Text('No drag')),
+    ),
+  );
+  print('  no-drag route created');
+
+  // ===== 4. With showDragHandle: true =====
+  print('--- showDragHandle: true ---');
+  final dragHandleButton = CupertinoButton(
+    child: Text('Sheet with Handle'),
+    onPressed: () {
+      showCupertinoSheet(
+        context: context,
+        pageBuilder: (ctx) => CupertinoPageScaffold(
+          navigationBar: CupertinoNavigationBar(middle: Text('Drag Handle')),
+          child: Center(child: Text('Has drag handle')),
+        ),
+      );
+    },
+  );
+  print('  drag handle sheet button created');
+
+  // ===== 5. Nested sheets =====
+  print('--- Nested sheets ---');
+  final nestedButton = CupertinoButton(
+    child: Text('Nested Sheet'),
+    onPressed: () {
+      showCupertinoSheet(
+        context: context,
+        pageBuilder: (ctx1) => CupertinoPageScaffold(
+          navigationBar: CupertinoNavigationBar(middle: Text('Sheet 1')),
+          child: Center(
+            child: CupertinoButton(
+              child: Text('Open Sheet 2'),
+              onPressed: () {
+                showCupertinoSheet(
+                  context: ctx1,
+                  pageBuilder: (ctx2) => CupertinoPageScaffold(
+                    navigationBar: CupertinoNavigationBar(middle: Text('Sheet 2')),
+                    child: Center(child: Text('Nested sheet content')),
+                  ),
+                );
+              },
+            ),
+          ),
+        ),
+      );
+    },
+  );
+  print('  nested sheet button created');
+
+  // ===== 6. Sheet with list content =====
+  print('--- Sheet with list content ---');
+  final listSheetButton = CupertinoButton(
+    child: Text('List Sheet'),
+    onPressed: () {
+      showCupertinoSheet(
+        context: context,
+        pageBuilder: (ctx) => CupertinoPageScaffold(
+          navigationBar: CupertinoNavigationBar(middle: Text('Options')),
+          child: SafeArea(
+            child: CupertinoListSection.insetGrouped(
               children: [
-                Container(margin: const EdgeInsets.only(top: 8), width: 36, height: 4, decoration: BoxDecoration(color: CupertinoColors.systemGrey4, borderRadius: BorderRadius.circular(2))),
-                const Padding(padding: EdgeInsets.all(12), child: Text('Sheet Content', style: TextStyle(fontWeight: FontWeight.bold))),
+                for (var i = 0; i < 8; i++)
+                  CupertinoListTile(
+                    title: Text('Option $i'),
+                    trailing: CupertinoListTileChevron(),
+                  ),
               ],
             ),
           ),
-        ],
+        ),
+      );
+    },
+  );
+  print('  list sheet button created');
+
+  print('CupertinoSheetRoute test completed');
+  return CupertinoApp(
+    home: CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(middle: Text('SheetRoute Test')),
+      child: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              showSheetButton,
+              SizedBox(height: 12.0),
+              dragHandleButton,
+              SizedBox(height: 12.0),
+              nestedButton,
+              SizedBox(height: 12.0),
+              listSheetButton,
+              SizedBox(height: 24.0),
+              Text('Route type: ${sheetRoute.runtimeType}'),
+            ],
+          ),
+        ),
       ),
-      const SizedBox(height: 12),
-      const Text('Drag-dismissible modal sheet', style: TextStyle(fontSize: 11, color: CupertinoColors.systemGrey)),
-    ],
+    ),
   );
 }

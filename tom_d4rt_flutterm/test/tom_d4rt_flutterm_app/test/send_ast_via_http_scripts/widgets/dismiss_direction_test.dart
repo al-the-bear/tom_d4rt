@@ -1,19 +1,29 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests DismissDirection from widgets
+import 'package:flutter/widgets.dart';
 
-/// Deep visual demo for DismissDirection
 dynamic build(BuildContext context) {
-  return Scaffold(appBar: AppBar(title: Text('DismissDirection')), body: Padding(padding: EdgeInsets.all(16), child: Column(children: [
-    Text('DismissDirection', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-    SizedBox(height: 8),
-    Text('Direction of dismissal swipe', style: TextStyle(fontSize: 12, color: Colors.grey)),
-    SizedBox(height: 16),
-    Expanded(child: Container(padding: EdgeInsets.all(16), decoration: BoxDecoration(color: Colors.purple.shade50, borderRadius: BorderRadius.circular(12)),
-      child: Center(child: Column(mainAxisSize: MainAxisSize.min, children: [
-        Icon(Icons.widgets, size: 48, color: Colors.purple),
-        SizedBox(height: 12),
-        Text('DismissDirection Demo', style: TextStyle(fontWeight: FontWeight.bold)),
-      ])))),
-    Container(padding: EdgeInsets.all(8), decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
-      child: Text('Widget from widgets library', style: TextStyle(fontSize: 10))),
-  ])));
+  print('DismissDirection test executing');
+
+  // Enumerate all DismissDirection values
+  print('DismissDirection values:');
+  for (final value in DismissDirection.values) {
+    print('  ${value.name}: $value');
+  }
+  print('DismissDirection has ${ DismissDirection.values.length} values');
+
+  final first = DismissDirection.values.first;
+  final last = DismissDirection.values.last;
+  print('First: $first, Last: $last');
+  print('First index: ${first.index}, Last index: ${last.index}');
+
+  print('DismissDirection test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('DismissDirection Tests'),
+      Text('Values: ${ DismissDirection.values.length}'),
+      Text('First: $first'),
+      Text('Last: $last'),
+    ],
+  );
 }

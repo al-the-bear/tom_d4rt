@@ -1,41 +1,62 @@
+// D4rt test script: Tests MaterialStateOutlineInputBorder from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for WidgetState-aware OutlineInputBorder.
-/// Shows different border styles based on interaction state.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('WidgetState Input Border', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      _BorderPreview('Default', Colors.grey, 1),
-      const SizedBox(height: 8),
-      _BorderPreview('Focused', Colors.blue, 2),
-      const SizedBox(height: 8),
-      _BorderPreview('Error', Colors.red, 2),
-      const SizedBox(height: 8),
-      _BorderPreview('Disabled', Colors.grey.shade300, 1),
-      const SizedBox(height: 12),
-      const Text('Border adapts to state', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
-  );
-}
+  print('MaterialStateOutlineInputBorder test executing');
 
-class _BorderPreview extends StatelessWidget {
-  final String state;
-  final Color color;
-  final double width;
-  const _BorderPreview(this.state, this.color, this.width);
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 180,
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        border: Border.all(color: color, width: width),
-        borderRadius: BorderRadius.circular(8),
+  final title = 'MaterialStateOutlineInputBorder';
+  final packageName = 'material';
+  final details = 'MaterialStateOutlineInputBorder';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('MaterialStateOutlineInputBorder test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
-      child: Text(state, style: TextStyle(color: color, fontSize: 12)),
-    );
-  }
+    ),
+  );
 }

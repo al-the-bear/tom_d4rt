@@ -1,45 +1,73 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests Threshold from animation
+import 'dart:ui';
+import 'package:flutter/animation.dart';
+import 'package:flutter/widgets.dart';
 
-/// Demonstrates Threshold curve - jumps from 0 to 1 at a threshold point.
 dynamic build(BuildContext context) {
-  const threshold = Threshold(0.5); // Jump at t=0.5
+  print('Threshold test executing');
 
-  return TweenAnimationBuilder<double>(
-    tween: Tween(begin: 0.0, end: 1.0),
-    duration: const Duration(seconds: 3),
-    builder: (context, t, _) {
-      final threshVal = threshold.transform(t);
-      return Column(
+  // ========== Threshold(0.5) ==========
+  print('--- Threshold(0.5) ---');
+  final t50 = Threshold(0.5);
+  for (final t in [0.0, 0.1, 0.2, 0.3, 0.4, 0.49, 0.5, 0.51, 0.6, 0.8, 1.0]) {
+    print('  t=$t: ${t50.transform(t).toStringAsFixed(1)}');
+  }
+
+  // ========== Threshold(0.0) ==========
+  print('--- Threshold(0.0) ---');
+  final t0 = Threshold(0.0);
+  print('  t=0.0: ${t0.transform(0.0).toStringAsFixed(1)}');
+  print('  t=0.01: ${t0.transform(0.01).toStringAsFixed(1)}');
+  print('  t=1.0: ${t0.transform(1.0).toStringAsFixed(1)}');
+
+  // ========== Threshold(1.0) ==========
+  print('--- Threshold(1.0) ---');
+  final t1 = Threshold(1.0);
+  print('  t=0.0: ${t1.transform(0.0).toStringAsFixed(1)}');
+  print('  t=0.99: ${t1.transform(0.99).toStringAsFixed(1)}');
+  print('  t=1.0: ${t1.transform(1.0).toStringAsFixed(1)}');
+
+  // ========== Threshold(0.25) ==========
+  print('--- Threshold(0.25) ---');
+  final t25 = Threshold(0.25);
+  for (final t in [0.0, 0.24, 0.25, 0.26, 0.5, 1.0]) {
+    print('  t=$t: ${t25.transform(t).toStringAsFixed(1)}');
+  }
+
+  // ========== Threshold(0.75) ==========
+  print('--- Threshold(0.75) ---');
+  final t75 = Threshold(0.75);
+  for (final t in [0.0, 0.5, 0.74, 0.75, 0.76, 1.0]) {
+    print('  t=$t: ${t75.transform(t).toStringAsFixed(1)}');
+  }
+
+  print('Threshold test completed');
+  return SingleChildScrollView(
+    child: Padding(
+      padding: EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text('Threshold Curve', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-          const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+          Text('Threshold Tests',
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          SizedBox(height: 8.0),
+          Text('Threshold(0.5): step function at t=0.5'),
+          Text('Threshold(0.25): step function at t=0.25'),
+          Text('Threshold(0.75): step function at t=0.75'),
+          for (final t in [0.0, 0.25, 0.5, 0.75, 1.0])
+            Row(children: [
+              SizedBox(width: 50.0, child: Text('t=$t')),
               Container(
-                width: 100, height: 100,
-                decoration: BoxDecoration(
-                  color: threshVal == 0 ? Colors.grey : Colors.green,
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                alignment: Alignment.center,
-                child: Icon(threshVal == 0 ? Icons.radio_button_off : Icons.check_circle, color: Colors.white, size: 50),
+                width: 100.0,
+                height: 16.0,
+                color: t50.transform(t) > 0.5 ? Color(0xFF4CAF50) : Color(0xFFFF5722),
+                child: Center(child: Text(t50.transform(t) > 0.5 ? 'ON' : 'OFF',
+                    style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 10.0))),
               ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
-            child: Text('t=${t.toStringAsFixed(2)} → ${threshVal == 0 ? "OFF" : "ON"}', style: const TextStyle(fontFamily: 'monospace')),
-          ),
-          const SizedBox(height: 8),
-          LinearProgressIndicator(value: t),
-          const SizedBox(height: 8),
-          const Text('Threshold(0.5) = instant switch at 50%', style: TextStyle(fontSize: 11, color: Colors.grey)),
+            ]),
         ],
-      );
-    },
+      ),
+    ),
   );
 }

@@ -1,35 +1,30 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests MainAxisAlignment from rendering
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 
-/// Deep visual demo for MainAxisAlignment enum
 dynamic build(BuildContext context) {
-  return Scaffold(appBar: AppBar(title: Text('MainAxisAlignment')), body: Padding(padding: EdgeInsets.all(12), child: Column(children: [
-    Text('Main Axis Alignments', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-    SizedBox(height: 12),
-    Expanded(child: ListView(children: [
-      _AlignDemo(MainAxisAlignment.start, 'start'),
-      _AlignDemo(MainAxisAlignment.end, 'end'),
-      _AlignDemo(MainAxisAlignment.center, 'center'),
-      _AlignDemo(MainAxisAlignment.spaceBetween, 'spaceBetween'),
-      _AlignDemo(MainAxisAlignment.spaceAround, 'spaceAround'),
-      _AlignDemo(MainAxisAlignment.spaceEvenly, 'spaceEvenly'),
-    ])),
-  ])));
-}
+  print('MainAxisAlignment test executing');
 
-class _AlignDemo extends StatelessWidget {
-  final MainAxisAlignment alignment; final String name;
-  const _AlignDemo(this.alignment, this.name);
-  @override Widget build(BuildContext context) => Container(margin: EdgeInsets.only(bottom: 8), padding: EdgeInsets.all(8), decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
-    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text(name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-      SizedBox(height: 4),
-      Container(height: 40, decoration: BoxDecoration(border: Border.all(color: Colors.grey), borderRadius: BorderRadius.circular(4)),
-        child: Row(mainAxisAlignment: alignment, children: [_Box(Colors.blue), _Box(Colors.orange), _Box(Colors.green)])),
-    ]));
-}
+  // Enumerate all MainAxisAlignment values
+  print('MainAxisAlignment values:');
+  for (final value in MainAxisAlignment.values) {
+    print('  ${value.name}: $value');
+  }
+  print('MainAxisAlignment has ${ MainAxisAlignment.values.length} values');
 
-class _Box extends StatelessWidget {
-  final Color color;
-  const _Box(this.color);
-  @override Widget build(BuildContext context) => Container(width: 30, height: 30, decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(4)));
+  final first = MainAxisAlignment.values.first;
+  final last = MainAxisAlignment.values.last;
+  print('First: $first, Last: $last');
+  print('First index: ${first.index}, Last index: ${last.index}');
+
+  print('MainAxisAlignment test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('MainAxisAlignment Tests'),
+      Text('Values: ${ MainAxisAlignment.values.length}'),
+      Text('First: $first'),
+      Text('Last: $last'),
+    ],
+  );
 }

@@ -1,49 +1,84 @@
+// D4rt test script: Tests CupertinoDesktopTextSelectionControls from cupertino
 import 'package:flutter/cupertino.dart';
 
-/// Demonstrates CupertinoDesktopTextSelectionControls - desktop text selection.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('Desktop Text Selection', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-      const SizedBox(height: 16),
-      Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(color: CupertinoColors.systemGrey6, borderRadius: BorderRadius.circular(12)),
-        child: Column(
-          children: [
-            const Icon(CupertinoIcons.cursor_rays, size: 40),
-            const SizedBox(height: 8),
-            const Text('CupertinoDesktopTextSelectionControls'),
-            const SizedBox(height: 8),
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(color: CupertinoColors.white, borderRadius: BorderRadius.circular(8)),
-              child: const Text('Desktop-optimized handles'),
-            ),
-          ],
+  print('CupertinoDesktopTextSelectionControls test executing');
+
+  // ========== Construction ==========
+  print('--- Construction ---');
+  final controls = CupertinoDesktopTextSelectionControls();
+  print('  created: ${controls.runtimeType}');
+
+  // ========== Handle size ==========
+  print('--- Handle size ---');
+  final handleSize = controls.getHandleSize(14.0);
+  print('  getHandleSize(14.0): $handleSize');
+  final handleSize2 = controls.getHandleSize(20.0);
+  print('  getHandleSize(20.0): $handleSize2');
+  final handleSize3 = controls.getHandleSize(10.0);
+  print('  getHandleSize(10.0): $handleSize3');
+
+  // ========== Handle anchor ==========
+  print('--- Handle anchor ---');
+  final anchorLeft = controls.getHandleAnchor(TextSelectionHandleType.left, 14.0);
+  print('  anchor(left, 14.0): $anchorLeft');
+  final anchorRight = controls.getHandleAnchor(TextSelectionHandleType.right, 14.0);
+  print('  anchor(right, 14.0): $anchorRight');
+  final anchorCollapsed = controls.getHandleAnchor(TextSelectionHandleType.collapsed, 14.0);
+  print('  anchor(collapsed, 14.0): $anchorCollapsed');
+
+  // ========== Capability methods ==========
+  print('--- Capability methods ---');
+  print('  canCut: ${controls.canCut}');
+  print('  canCopy: ${controls.canCopy}');
+  print('  canPaste: ${controls.canPaste}');
+  print('  canSelectAll: ${controls.canSelectAll}');
+
+  // ========== Compare with mobile controls ==========
+  print('--- Compare with mobile controls ---');
+  final mobileControls = CupertinoTextSelectionControls();
+  print('  desktop type: ${controls.runtimeType}');
+  print('  mobile type: ${mobileControls.runtimeType}');
+  final desktopSize = controls.getHandleSize(14.0);
+  final mobileSize = mobileControls.getHandleSize(14.0);
+  print('  desktop handleSize: $desktopSize');
+  print('  mobile handleSize: $mobileSize');
+
+  print('CupertinoDesktopTextSelectionControls test completed');
+  return CupertinoApp(
+    home: CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(middle: Text('Desktop Text Selection')),
+      child: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('CupertinoDesktopTextSelectionControls', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
+              SizedBox(height: 8.0),
+              Text('Handle Sizes:'),
+              Text('  14pt: $handleSize'),
+              Text('  20pt: $handleSize2'),
+              Text('  10pt: $handleSize3'),
+              SizedBox(height: 8.0),
+              Text('Handle Anchors:'),
+              Text('  left: $anchorLeft'),
+              Text('  right: $anchorRight'),
+              Text('  collapsed: $anchorCollapsed'),
+              SizedBox(height: 8.0),
+              Text('Desktop vs Mobile:'),
+              Text('  desktop handle: $desktopSize'),
+              Text('  mobile handle: $mobileSize'),
+              SizedBox(height: 16.0),
+              Text('Text field with desktop controls:'),
+              CupertinoTextField(
+                placeholder: 'Try selecting text',
+                selectionControls: controls,
+              ),
+            ],
+          ),
         ),
       ),
-      const SizedBox(height: 12),
-      const Wrap(
-        spacing: 8,
-        children: [
-          _FeatureChip('Right-click menu'),
-          _FeatureChip('Keyboard shortcuts'),
-          _FeatureChip('No handles'),
-        ],
-      ),
-    ],
-  );
-}
-
-class _FeatureChip extends StatelessWidget {
-  final String text;
-  const _FeatureChip(this.text);
-  @override
-  Widget build(BuildContext context) => Container(
-    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-    decoration: BoxDecoration(color: CupertinoColors.systemGrey5, borderRadius: BorderRadius.circular(8)),
-    child: Text(text, style: const TextStyle(fontSize: 10)),
+    ),
   );
 }

@@ -1,80 +1,45 @@
-import 'dart:ui';
+// D4rt test script: Tests Codec from dart:ui (type reference — requires image data)
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for Codec - image decoder for animated images.
-/// Demonstrates codec concept for decoding image formats like GIF.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('Codec Demo')),
-    body: Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('Image Codec', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 8),
-          const Text('Decodes image data into frames', style: TextStyle(color: Colors.grey)),
-          const SizedBox(height: 24),
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [Colors.indigo.shade100, Colors.purple.shade100]),
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Column(
-              children: [
-                const Icon(Icons.image, size: 64, color: Colors.indigo),
-                const SizedBox(height: 16),
-                const Text('Codec Properties:', style: TextStyle(fontWeight: FontWeight.bold)),
-                const SizedBox(height: 12),
-                _buildProperty('frameCount', 'Number of frames'),
-                _buildProperty('repetitionCount', 'Animation loops'),
-                const SizedBox(height: 16),
-                const Text('Methods:', style: TextStyle(fontWeight: FontWeight.bold)),
-                const SizedBox(height: 8),
-                _buildMethod('getNextFrame()', 'Get next FrameInfo'),
-                _buildMethod('dispose()', 'Release resources'),
-              ],
-            ),
-          ),
-          const SizedBox(height: 24),
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(8)),
-            child: const Text('Create via: instantiateImageCodec(bytes)', style: TextStyle(fontFamily: 'monospace', fontSize: 12)),
-          ),
-        ],
-      ),
-    ),
-  );
-}
+  print('Codec test executing');
 
-Widget _buildProperty(String name, String desc) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 4),
-    child: Row(
-      children: [
-        Container(width: 8, height: 8, decoration: const BoxDecoration(color: Colors.indigo, shape: BoxShape.circle)),
-        const SizedBox(width: 12),
-        Text(name, style: const TextStyle(fontFamily: 'monospace')),
-        const SizedBox(width: 8),
-        Text('- $desc', style: TextStyle(color: Colors.grey.shade600)),
-      ],
-    ),
-  );
-}
+  // Codec has no public constructor — obtained from ImageDescriptor.instantiateCodec
+  // or ui.instantiateImageCodec. Testing available API surface.
+  print('Codec type reference: ${ui.Codec}');
+  print('Codec properties: frameCount, repetitionCount');
+  print('Codec methods: getNextFrame() -> Future<FrameInfo>, dispose()');
 
-Widget _buildMethod(String name, String desc) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 4),
-    child: Row(
-      children: [
-        const Icon(Icons.code, size: 16, color: Colors.purple),
-        const SizedBox(width: 8),
-        Text(name, style: const TextStyle(fontFamily: 'monospace')),
-        const SizedBox(width: 8),
-        Text('- $desc', style: TextStyle(color: Colors.grey.shade600, fontSize: 12)),
-      ],
-    ),
+  // FrameInfo reference
+  print('FrameInfo type reference: ${ui.FrameInfo}');
+  print('FrameInfo properties: duration, image');
+
+  // TargetImageSize — related to Codec decoding
+  final targetSize1 = ui.TargetImageSize();
+  print('TargetImageSize(): width=${targetSize1.width}, height=${targetSize1.height}');
+
+  final targetSize2 = ui.TargetImageSize(width: 100, height: 200);
+  print('TargetImageSize(100,200): width=${targetSize2.width}, height=${targetSize2.height}');
+
+  final targetSize3 = ui.TargetImageSize(width: 50);
+  print('TargetImageSize(width:50): width=${targetSize3.width}, height=${targetSize3.height}');
+
+  final targetSize4 = ui.TargetImageSize(height: 75);
+  print('TargetImageSize(height:75): width=${targetSize4.width}, height=${targetSize4.height}');
+
+  print('TargetImageSize toString: ${targetSize2.toString()}');
+
+  print('Codec test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('Codec Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      SizedBox(height: 8),
+      Text('Codec: type reference (no public constructor)'),
+      Text('TargetImageSize(): w=${targetSize1.width}, h=${targetSize1.height}'),
+      Text('TargetImageSize(100,200): w=${targetSize2.width}, h=${targetSize2.height}'),
+      Text('TargetImageSize(50,null): w=${targetSize3.width}'),
+    ],
   );
 }

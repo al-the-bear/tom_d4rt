@@ -1,30 +1,30 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests BoxShape from painting
+import 'package:flutter/painting.dart';
+import 'package:flutter/widgets.dart';
 
-/// Deep visual demo for BoxShape
 dynamic build(BuildContext context) {
-  return Scaffold(appBar: AppBar(title: Text('BoxShape Demo')), body: Center(child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [Column(children: [Container(width: 100, height: 100, decoration: BoxDecoration(color: Colors.blue, shape: BoxShape.rectangle)), SizedBox(height: 8), Text('rectangle')]), SizedBox(width: 30), Column(children: [Container(width: 100, height: 100, decoration: BoxDecoration(color: Colors.green, shape: BoxShape.circle)), SizedBox(height: 8), Text('circle')])])));
-}
+  print('BoxShape test executing');
 
-class _DemoBoxPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()..color = Colors.purple..style = PaintingStyle.fill;
-    canvas.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(10, 10, size.width - 20, size.height - 20), Radius.circular(12)), paint);
+  // Enumerate all BoxShape values
+  print('BoxShape values:');
+  for (final value in BoxShape.values) {
+    print('  ${value.name}: $value');
   }
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}
+  print('BoxShape has ${ BoxShape.values.length} values');
 
-class _TriangleClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    final path = Path();
-    path.moveTo(size.width / 2, 0);
-    path.lineTo(size.width, size.height);
-    path.lineTo(0, size.height);
-    path.close();
-    return path;
-  }
-  @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
+  final first = BoxShape.values.first;
+  final last = BoxShape.values.last;
+  print('First: $first, Last: $last');
+  print('First index: ${first.index}, Last index: ${last.index}');
+
+  print('BoxShape test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('BoxShape Tests'),
+      Text('Values: ${ BoxShape.values.length}'),
+      Text('First: $first'),
+      Text('Last: $last'),
+    ],
+  );
 }

@@ -1,46 +1,139 @@
+// D4rt test script: Tests showModalBottomSheet, showBottomSheet from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for showBottomSheet function.
-/// Shows a persistent bottom sheet attached to scaffold.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('showBottomSheet()', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Container(
-        width: 160,
-        height: 120,
-        decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(8)),
-        child: Stack(
-          children: [
-            Container(color: Colors.grey.shade100),
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                height: 50,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
-                  boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, -2))],
-                ),
-                child: Column(
-                  children: [
-                    const SizedBox(height: 8),
-                    Container(width: 32, height: 4, decoration: BoxDecoration(color: Colors.grey.shade300, borderRadius: BorderRadius.circular(2))),
-                    const SizedBox(height: 8),
-                    const Text('Content', style: TextStyle(fontSize: 10)),
-                  ],
-                ),
+  print('showBottomSheet test executing');
+
+  // Schedule showModalBottomSheet via Future.microtask
+  Future.microtask(() {
+    showModalBottomSheet<String>(
+      context: context,
+      builder: (ctx) {
+        print('showModalBottomSheet builder called');
+        return Container(
+          height: 250,
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Modal Bottom Sheet',
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
               ),
-            ),
-          ],
-        ),
+              SizedBox(height: 8.0),
+              Text('This bottom sheet was shown via Future.microtask'),
+              SizedBox(height: 16.0),
+              ListTile(
+                leading: Icon(Icons.share),
+                title: Text('Share'),
+                onTap: () {
+                  print('Share tapped');
+                  Navigator.pop(ctx, 'share');
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.link),
+                title: Text('Get link'),
+                onTap: () {
+                  print('Get link tapped');
+                  Navigator.pop(ctx, 'link');
+                },
+              ),
+            ],
+          ),
+        );
+      },
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
       ),
-      const SizedBox(height: 12),
-      const Text('Returns PersistentBottomSheetController', style: TextStyle(fontSize: 10, color: Colors.grey)),
-    ],
+      isScrollControlled: false,
+    ).then((result) {
+      print('showModalBottomSheet result: $result');
+    });
+    print('showModalBottomSheet called');
+  });
+
+  return Container(
+    padding: EdgeInsets.all(16.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('showModalBottomSheet scheduled'),
+        SizedBox(height: 8.0),
+        Text('Bottom sheet should appear from below'),
+        SizedBox(height: 16.0),
+        // Button for showModalBottomSheet with different shape
+        ElevatedButton(
+          onPressed: () {
+            showModalBottomSheet<void>(
+              context: context,
+              isScrollControlled: true,
+              builder: (ctx) => DraggableScrollableSheet(
+                expand: false,
+                initialChildSize: 0.4,
+                minChildSize: 0.2,
+                maxChildSize: 0.8,
+                builder: (scrollCtx, scrollController) {
+                  return Container(
+                    padding: EdgeInsets.all(16.0),
+                    child: ListView(
+                      controller: scrollController,
+                      children: [
+                        Text(
+                          'Draggable Bottom Sheet',
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 8.0),
+                        ...List.generate(
+                          10,
+                          (i) => ListTile(title: Text('Item ${i + 1}')),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            );
+            print('Draggable bottom sheet shown');
+          },
+          child: Text('Show Draggable Sheet'),
+        ),
+        SizedBox(height: 8.0),
+        // Button to test showBottomSheet (persistent, via Scaffold)
+        Builder(
+          builder: (scaffoldCtx) {
+            return ElevatedButton(
+              onPressed: () {
+                try {
+                  Scaffold.of(scaffoldCtx).showBottomSheet(
+                    (ctx) => Container(
+                      height: 150,
+                      color: Colors.blue.shade100,
+                      padding: EdgeInsets.all(16.0),
+                      child: Column(
+                        children: [
+                          Text('Persistent Bottom Sheet'),
+                          SizedBox(height: 8.0),
+                          Text(
+                            'Shown via Scaffold.of(context).showBottomSheet',
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                  print('showBottomSheet (persistent) called');
+                } catch (e) {
+                  print('showBottomSheet failed: $e');
+                }
+              },
+              child: Text('Show Persistent Sheet'),
+            );
+          },
+        ),
+      ],
+    ),
   );
 }

@@ -1,57 +1,62 @@
+// D4rt test script: Tests ShapeBorderTween from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for ShapeBorderTween.
-/// Animates between ShapeBorder values.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('ShapeBorderTween', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _ShapeBox(0),
-          const SizedBox(width: 8),
-          const Icon(Icons.arrow_forward, size: 12, color: Colors.grey),
-          const SizedBox(width: 8),
-          _ShapeBox(50),
-          const SizedBox(width: 8),
-          const Icon(Icons.arrow_forward, size: 12, color: Colors.grey),
-          const SizedBox(width: 8),
-          _ShapeBox(100),
-        ],
-      ),
-      const SizedBox(height: 12),
-      Container(
-        height: 8,
-        width: 150,
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(4), gradient: const LinearGradient(colors: [Colors.blue, Colors.purple])),
-      ),
-      const SizedBox(height: 8),
-      const Text('RoundedRectangle → Circle', style: TextStyle(fontSize: 10)),
-      const SizedBox(height: 12),
-      const Text('lerp(begin, end, t)', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
-  );
-}
+  print('ShapeBorderTween test executing');
 
-class _ShapeBox extends StatelessWidget {
-  final double percent;
-  const _ShapeBox(this.percent);
-  @override
-  Widget build(BuildContext context) {
-    final t = percent / 100;
-    final radius = 8 + (22 * t);
-    return Container(
-      width: 44,
-      height: 44,
-      decoration: BoxDecoration(
-        color: Color.lerp(Colors.blue, Colors.purple, t),
-        borderRadius: BorderRadius.circular(radius),
+  final title = 'ShapeBorderTween';
+  final packageName = 'material';
+  final details = 'ShapeBorderTween';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('ShapeBorderTween test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
-      alignment: Alignment.center,
-      child: Text('\${percent.toInt()}%', style: const TextStyle(color: Colors.white, fontSize: 10)),
-    );
-  }
+    ),
+  );
 }

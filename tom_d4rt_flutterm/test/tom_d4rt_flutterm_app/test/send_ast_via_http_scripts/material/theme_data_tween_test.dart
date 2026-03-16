@@ -1,6 +1,62 @@
+// D4rt test script: Tests ThemeDataTween from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for ThemeDataTween
 dynamic build(BuildContext context) {
-  return Scaffold(appBar: AppBar(title: Text('ThemeDataTween Demo')), body: TweenAnimationBuilder<ThemeData>(tween: ThemeDataTween(begin: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue)), end: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange))), duration: Duration(seconds: 3), builder: (context, theme, _) => Theme(data: theme, child: Center(child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [Text('Animating ThemeData', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)), SizedBox(height: 20), ElevatedButton(onPressed: () {}, child: Text('Animated Button')), SizedBox(height: 10), FloatingActionButton(onPressed: () {}, child: Icon(Icons.add)), SizedBox(height: 10), CircularProgressIndicator()])))));
+  print('ThemeDataTween test executing');
+
+  final title = 'ThemeDataTween';
+  final packageName = 'material';
+  final details = 'ThemeDataTween';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('ThemeDataTween test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
 }

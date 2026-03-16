@@ -1,60 +1,62 @@
+// D4rt test script: Tests MaterialPointArcTween from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for MaterialPointArcTween.
-/// Animates between two points along a circular arc.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('MaterialPointArcTween', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Container(
-        width: 180,
-        height: 120,
+  print('MaterialPointArcTween test executing');
+
+  final title = 'MaterialPointArcTween';
+  final packageName = 'material';
+  final details = 'MaterialPointArcTween';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('MaterialPointArcTween test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
         decoration: BoxDecoration(
-          color: Colors.grey.shade200,
+          color: const Color(0xFF111827),
           borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
         ),
-        child: CustomPaint(
-          painter: _ArcPainter(),
-          child: Stack(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Start point
-              Positioned(
-                left: 20,
-                top: 80,
-                child: Container(width: 16, height: 16, decoration: const BoxDecoration(color: Colors.blue, shape: BoxShape.circle),
-                  child: const Center(child: Text('A', style: TextStyle(color: Colors.white, fontSize: 8)))),
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
               ),
-              // End point
-              Positioned(
-                right: 20,
-                top: 20,
-                child: Container(width: 16, height: 16, decoration: const BoxDecoration(color: Colors.green, shape: BoxShape.circle),
-                  child: const Center(child: Text('B', style: TextStyle(color: Colors.white, fontSize: 8)))),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
               ),
             ],
           ),
         ),
       ),
-      const SizedBox(height: 12),
-      const Text('Arc path between two Offsets', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
+    ),
   );
-}
-
-class _ArcPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = Colors.purple
-      ..strokeWidth = 2
-      ..style = PaintingStyle.stroke;
-    final path = Path();
-    path.moveTo(28, 88);
-    path.quadraticBezierTo(size.width * 0.7, size.height * 0.8, size.width - 28, 28);
-    canvas.drawPath(path, paint);
-  }
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

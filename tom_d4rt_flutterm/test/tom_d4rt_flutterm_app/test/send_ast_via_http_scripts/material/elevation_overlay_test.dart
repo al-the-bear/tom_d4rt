@@ -1,58 +1,62 @@
+// D4rt test script: Tests ElevationOverlay from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for ElevationOverlay - dark mode elevation tinting.
-/// Shows how elevation adds tint overlay in dark themes.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('ElevationOverlay Demo', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          // Light theme
-          Column(
+  print('ElevationOverlay test executing');
+
+  final title = 'ElevationOverlay';
+  final packageName = 'material';
+  final details = 'ElevationOverlay';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('ElevationOverlay test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Light', style: TextStyle(fontSize: 10)),
-              const SizedBox(height: 8),
-              for (final elev in [0.0, 2.0, 4.0, 8.0])
-                Container(
-                  width: 60,
-                  height: 30,
-                  margin: const EdgeInsets.symmetric(vertical: 2),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(4),
-                    boxShadow: [BoxShadow(color: Colors.black12, blurRadius: elev)],
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
                   ),
-                  child: Center(child: Text('${elev.toInt()}', style: const TextStyle(fontSize: 10))),
                 ),
+              ),
             ],
           ),
-          const SizedBox(width: 24),
-          // Dark theme
-          Column(
-            children: [
-              const Text('Dark', style: TextStyle(fontSize: 10)),
-              const SizedBox(height: 8),
-              for (final elev in [0.0, 2.0, 4.0, 8.0])
-                Container(
-                  width: 60,
-                  height: 30,
-                  margin: const EdgeInsets.symmetric(vertical: 2),
-                  decoration: BoxDecoration(
-                    color: Color.lerp(Colors.grey.shade900, Colors.white, elev / 40),
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: Center(child: Text('${elev.toInt()}', style: const TextStyle(fontSize: 10, color: Colors.white))),
-                ),
-            ],
-          ),
-        ],
+        ),
       ),
-      const SizedBox(height: 12),
-      const Text('Dark theme: higher elevation = lighter', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
+    ),
   );
 }

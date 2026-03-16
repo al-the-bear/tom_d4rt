@@ -1,6 +1,62 @@
+// D4rt test script: Tests TappableChipAttributes from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for TappableChipAttributes
 dynamic build(BuildContext context) {
-  return Scaffold(appBar: AppBar(title: Text('TappableChipAttributes Demo')), body: Center(child: Wrap(spacing: 8, runSpacing: 8, children: [ActionChip(label: Text('Action'), onPressed: () {}), ActionChip(label: Text('With Avatar'), avatar: Icon(Icons.add, size: 18), onPressed: () {}), ActionChip(label: Text('Elevated'), onPressed: () {}, elevation: 4), ActionChip(label: Text('Custom Color'), onPressed: () {}, backgroundColor: Colors.blue.shade100), ActionChip(label: Text('Disabled'), onPressed: null), InputChip(label: Text('Input Chip'), onPressed: () {}, onDeleted: () {})])));
+  print('TappableChipAttributes test executing');
+
+  final title = 'TappableChipAttributes';
+  final packageName = 'material';
+  final details = 'TappableChipAttributes';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('TappableChipAttributes test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
 }

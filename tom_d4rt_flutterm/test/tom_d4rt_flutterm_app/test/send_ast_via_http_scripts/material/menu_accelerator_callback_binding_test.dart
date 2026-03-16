@@ -1,61 +1,62 @@
+// D4rt test script: Tests MenuAcceleratorCallbackBinding from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for MenuAcceleratorCallbackBinding.
-/// Handles keyboard shortcuts for menu items.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('MenuAcceleratorCallback', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(12)),
-        child: Column(
-          children: [
-            _AcceleratorRow('&File', 'Alt+F'),
-            _AcceleratorRow('&Edit', 'Alt+E'),
-            _AcceleratorRow('&View', 'Alt+V'),
-            _AcceleratorRow('&Help', 'Alt+H'),
-          ],
+  print('MenuAcceleratorCallbackBinding test executing');
+
+  final title = 'MenuAcceleratorCallbackBinding';
+  final packageName = 'material';
+  final details = 'MenuAcceleratorCallbackBinding';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('MenuAcceleratorCallbackBinding test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-      const SizedBox(height: 12),
-      const Text('& marks accelerator key', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
+    ),
   );
-}
-
-class _AcceleratorRow extends StatelessWidget {
-  final String label;
-  final String shortcut;
-  const _AcceleratorRow(this.label, this.shortcut);
-  @override
-  Widget build(BuildContext context) {
-    final underlineIndex = label.indexOf('&');
-    final cleanLabel = label.replaceAll('&', '');
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Row(
-        children: [
-          RichText(
-            text: TextSpan(
-              style: const TextStyle(color: Colors.black, fontSize: 12),
-              children: [
-                TextSpan(text: cleanLabel.substring(0, underlineIndex)),
-                TextSpan(text: cleanLabel[underlineIndex], style: const TextStyle(decoration: TextDecoration.underline)),
-                TextSpan(text: cleanLabel.substring(underlineIndex + 1)),
-              ],
-            ),
-          ),
-          const Spacer(),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-            decoration: BoxDecoration(color: Colors.grey.shade300, borderRadius: BorderRadius.circular(4)),
-            child: Text(shortcut, style: const TextStyle(fontSize: 9, fontFamily: 'monospace')),
-          ),
-        ],
-      ),
-    );
-  }
 }

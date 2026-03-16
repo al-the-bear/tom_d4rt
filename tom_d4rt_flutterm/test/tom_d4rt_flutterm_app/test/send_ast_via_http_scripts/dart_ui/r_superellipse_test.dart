@@ -1,83 +1,54 @@
-import 'dart:ui';
+// D4rt test script: Tests RSuperellipse from dart:ui
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for RSuperellipse - squircle rounded shape.
-/// Demonstrates continuous corner radius curves.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('RSuperellipse Demo')),
-    body: Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('RSuperellipse', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 8),
-          const Text('iOS-style continuous corner curves', style: TextStyle(color: Colors.grey)),
-          const SizedBox(height: 24),
-          Expanded(
-            child: Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 100, height: 100,
-                        decoration: BoxDecoration(color: Colors.grey.shade300, borderRadius: BorderRadius.circular(24)),
-                      ),
-                      const SizedBox(height: 8),
-                      const Text('RRect', style: TextStyle(fontWeight: FontWeight.bold)),
-                      const Text('Standard corners', style: TextStyle(fontSize: 12, color: Colors.grey)),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ClipPath(
-                        clipper: _SuperellipseClipper(),
-                        child: Container(width: 100, height: 100, color: Colors.blue),
-                      ),
-                      const SizedBox(height: 8),
-                      const Text('RSuperellipse', style: TextStyle(fontWeight: FontWeight.bold)),
-                      const Text('Continuous curves', style: TextStyle(fontSize: 12, color: Colors.grey)),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(8)),
-            child: const Text('Used in iOS app icons and UI elements for smoother corner transitions.'),
-          ),
-        ],
-      ),
-    ),
+  print('RSuperellipse test executing');
+
+  // fromRectAndCorners
+  final rse1 = RSuperellipse.fromRectAndCorners(
+    Rect.fromLTWH(0, 0, 200, 100),
+    topLeft: Radius.circular(20),
+    topRight: Radius.circular(15),
+    bottomLeft: Radius.circular(10),
+    bottomRight: Radius.circular(25),
   );
-}
+  print('RSuperellipse: left=${rse1.left}, top=${rse1.top}, right=${rse1.right}, bottom=${rse1.bottom}');
+  print('width=${rse1.width}, height=${rse1.height}');
+  print('tlRadiusX=${rse1.tlRadiusX}, trRadiusX=${rse1.trRadiusX}');
+  print('blRadiusX=${rse1.blRadiusX}, brRadiusX=${rse1.brRadiusX}');
 
-class _SuperellipseClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    final path = Path();
-    final r = size.width * 0.22;
-    path.moveTo(r, 0);
-    path.lineTo(size.width - r, 0);
-    path.quadraticBezierTo(size.width, 0, size.width, r);
-    path.lineTo(size.width, size.height - r);
-    path.quadraticBezierTo(size.width, size.height, size.width - r, size.height);
-    path.lineTo(r, size.height);
-    path.quadraticBezierTo(0, size.height, 0, size.height - r);
-    path.lineTo(0, r);
-    path.quadraticBezierTo(0, 0, r, 0);
-    path.close();
-    return path;
-  }
+  // Uniform
+  final rse2 = RSuperellipse.fromRectAndCorners(
+    Rect.fromLTWH(10, 20, 150, 80),
+    topLeft: Radius.circular(12),
+    topRight: Radius.circular(12),
+    bottomLeft: Radius.circular(12),
+    bottomRight: Radius.circular(12),
+  );
+  print('Uniform: width=${rse2.width}, height=${rse2.height}');
+  print('isFinite: ${rse2.isFinite}');
+  print('isEmpty: ${rse2.isEmpty}');
 
-  @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
+  // Contains point
+  final inside = rse1.contains(Offset(100, 50));
+  print('contains(100,50): $inside');
+  final outside = rse1.contains(Offset(300, 300));
+  print('contains(300,300): $outside');
+
+  // Shift
+  final shifted = rse1.shift(Offset(10, 20));
+  print('shifted: left=${shifted.left}, top=${shifted.top}');
+
+  // outerRect
+  final outer = rse1.outerRect;
+  print('outerRect: $outer');
+
+  print('RSuperellipse test completed');
+  return Column(mainAxisSize: MainAxisSize.min, children: [
+    Text('RSuperellipse Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+    Text('Size: ${rse1.width.toInt()}x${rse1.height.toInt()}'),
+    Text('Corners: ${rse1.tlRadiusX}/${rse1.trRadiusX}/${rse1.blRadiusX}/${rse1.brRadiusX}'),
+    Text('Contains center: $inside'),
+  ]);
 }

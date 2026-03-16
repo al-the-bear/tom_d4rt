@@ -1,6 +1,77 @@
+// D4rt test script: Tests TimePickerDialog from Flutter material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for TimePickerWidget
 dynamic build(BuildContext context) {
-  return Scaffold(appBar: AppBar(title: Text('TimePicker Widget Demo')), body: Center(child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [Icon(Icons.schedule, size: 64, color: Colors.blue), SizedBox(height: 20), Text('Time Picker', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)), SizedBox(height: 30), ElevatedButton.icon(icon: Icon(Icons.access_time), label: Text('Pick Time'), onPressed: () async { final time = await showTimePicker(context: context, initialTime: TimeOfDay.now()); if (time != null) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Selected: ' + time.format(context)))); }), SizedBox(height: 20), Container(padding: EdgeInsets.all(16), decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)), child: Text('showTimePicker() returns TimeOfDay?', style: TextStyle(fontFamily: 'monospace', fontSize: 12)))])));
+  print('TimePickerDialog test executing');
+
+  // Variation 1: Basic TimePickerDialog
+  final widget1 = TimePickerDialog(
+    initialTime: TimeOfDay(hour: 10, minute: 30),
+  );
+  print('TimePickerDialog(initialTime: 10:30) created');
+
+  // Variation 2: TimePickerDialog with helpText
+  final widget2 = TimePickerDialog(
+    initialTime: TimeOfDay(hour: 14, minute: 0),
+    helpText: 'Select time',
+  );
+  print('TimePickerDialog(helpText) created');
+
+  // Variation 3: TimePickerDialog with cancelText and confirmText
+  final widget3 = TimePickerDialog(
+    initialTime: TimeOfDay(hour: 8, minute: 15),
+    cancelText: 'Dismiss',
+    confirmText: 'Set',
+  );
+  print('TimePickerDialog(cancelText, confirmText) created');
+
+  // Variation 4: TimePickerDialog with initialEntryMode input
+  final widget4 = TimePickerDialog(
+    initialTime: TimeOfDay(hour: 16, minute: 45),
+    initialEntryMode: TimePickerEntryMode.input,
+  );
+  print('TimePickerDialog(initialEntryMode: input) created');
+
+  // Variation 5: TimePickerDialog with initialEntryMode inputOnly
+  final widget5 = TimePickerDialog(
+    initialTime: TimeOfDay(hour: 23, minute: 59),
+    initialEntryMode: TimePickerEntryMode.inputOnly,
+  );
+  print('TimePickerDialog(initialEntryMode: inputOnly) created');
+
+  // Variation 6: TimePickerDialog with initialEntryMode dialOnly
+  final widget6 = TimePickerDialog(
+    initialTime: TimeOfDay(hour: 6, minute: 0),
+    initialEntryMode: TimePickerEntryMode.dialOnly,
+  );
+  print('TimePickerDialog(initialEntryMode: dialOnly) created');
+
+  // Variation 7: TimePickerDialog with orientation
+  final widget7 = TimePickerDialog(
+    initialTime: TimeOfDay(hour: 12, minute: 0),
+    orientation: Orientation.landscape,
+  );
+  print('TimePickerDialog(orientation: landscape) created');
+
+  // Variation 8: TimePickerDialog with errorInvalidText
+  final widget8 = TimePickerDialog(
+    initialTime: TimeOfDay(hour: 9, minute: 0),
+    errorInvalidText: 'Invalid time entered',
+    hourLabelText: 'Hour',
+    minuteLabelText: 'Minute',
+  );
+  print(
+    'TimePickerDialog(errorInvalidText, hourLabelText, minuteLabelText) created',
+  );
+
+  print('TimePickerDialog test completed');
+  return SingleChildScrollView(
+    child: Column(
+      children: [
+        SizedBox(height: 500.0, child: widget1),
+        SizedBox(height: 500.0, child: widget4),
+        SizedBox(height: 500.0, child: widget6),
+      ],
+    ),
+  );
 }

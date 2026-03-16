@@ -1,49 +1,44 @@
-import 'dart:ui';
+// D4rt test script: Tests SemanticsFlag from dart:ui
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for SemanticsFlag - accessibility boolean flags.
-/// Demonstrates flags for node properties.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('SemanticsFlag Demo')),
-    body: SingleChildScrollView(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('Semantics Flags', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 8),
-          const Text('Boolean properties for accessibility', style: TextStyle(color: Colors.grey)),
-          const SizedBox(height: 16),
-          _buildFlagCategory('Interactive', ['hasCheckedState', 'isChecked', 'isSelected', 'isButton', 'isLink', 'isTextField']),
-          _buildFlagCategory('State', ['isEnabled', 'isFocused', 'isFocusable', 'isReadOnly', 'isHidden', 'isObscured']),
-          _buildFlagCategory('Focus', ['scopesRoute', 'namesRoute', 'isHeader', 'hasImplicitScrolling']),
-          _buildFlagCategory('Slider', ['isSlider', 'hasEnabledState', 'hasExpandedState', 'isExpanded']),
-        ],
-      ),
-    ),
-  );
-}
+  print('SemanticsFlag test executing');
 
-Widget _buildFlagCategory(String title, List<String> flags) {
-  return Container(
-    margin: const EdgeInsets.only(bottom: 16),
-    padding: const EdgeInsets.all(12),
-    decoration: BoxDecoration(border: Border.all(color: Colors.orange.shade200), borderRadius: BorderRadius.circular(12)),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(title, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.orange.shade700)),
-        const SizedBox(height: 8),
-        Wrap(
-          spacing: 6, runSpacing: 6,
-          children: flags.map((f) => Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(color: Colors.orange.shade50, borderRadius: BorderRadius.circular(4)),
-            child: Text(f, style: const TextStyle(fontFamily: 'monospace', fontSize: 10)),
-          )).toList(),
-        ),
-      ],
-    ),
-  );
+  final flags = [
+    ui.SemanticsFlag.hasCheckedState,
+    ui.SemanticsFlag.isChecked,
+    ui.SemanticsFlag.isSelected,
+    ui.SemanticsFlag.isButton,
+    ui.SemanticsFlag.isTextField,
+    ui.SemanticsFlag.isFocused,
+    ui.SemanticsFlag.hasEnabledState,
+    ui.SemanticsFlag.isEnabled,
+    ui.SemanticsFlag.isInMutuallyExclusiveGroup,
+    ui.SemanticsFlag.isHeader,
+    ui.SemanticsFlag.isObscured,
+    ui.SemanticsFlag.isImage,
+    ui.SemanticsFlag.isLiveRegion,
+    ui.SemanticsFlag.hasToggledState,
+    ui.SemanticsFlag.isToggled,
+    ui.SemanticsFlag.hasImplicitScrolling,
+    ui.SemanticsFlag.isReadOnly,
+    ui.SemanticsFlag.isFocusable,
+    ui.SemanticsFlag.isLink,
+    ui.SemanticsFlag.isSlider,
+    ui.SemanticsFlag.isKeyboardKey,
+    ui.SemanticsFlag.isHidden,
+  ];
+  print('SemanticsFlag count: ${flags.length}');
+  for (final f in flags) {
+    print('  flag: $f, index=${f.index}');
+  }
+  print('SemanticsFlag.values: ${ui.SemanticsFlag.values.length}');
+
+  print('SemanticsFlag test completed');
+  return Column(mainAxisSize: MainAxisSize.min, children: [
+    Text('SemanticsFlag Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+    Text('${flags.length} flags tested'),
+    Text('Total values: ${ui.SemanticsFlag.values.length}'),
+  ]);
 }

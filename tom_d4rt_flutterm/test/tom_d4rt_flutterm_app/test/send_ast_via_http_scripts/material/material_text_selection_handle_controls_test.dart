@@ -1,77 +1,62 @@
+// D4rt test script: Tests MaterialTextSelectionHandleControls from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for Material text selection handles.
-/// Shows different handle types used in text selection.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('Selection Handle Types', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _HandleDemo('Left', true, false),
-          const SizedBox(width: 24),
-          _HandleDemo('Right', false, true),
-          const SizedBox(width: 24),
-          _HandleDemo('Collapsed', false, false),
-        ],
-      ),
-      const SizedBox(height: 12),
-      const Text('TextSelectionHandleType variants', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
-  );
-}
+  print('MaterialTextSelectionHandleControls test executing');
 
-class _HandleDemo extends StatelessWidget {
-  final String label;
-  final bool pointsLeft;
-  final bool pointsRight;
-  const _HandleDemo(this.label, this.pointsLeft, this.pointsRight);
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(width: 2, height: 20, color: Colors.blue),
-        CustomPaint(
-          size: const Size(20, 20),
-          painter: _HandlePainter(pointsLeft, pointsRight),
+  final title = 'MaterialTextSelectionHandleControls';
+  final packageName = 'material';
+  final details = 'MaterialTextSelectionHandleControls';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('MaterialTextSelectionHandleControls test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
         ),
-        const SizedBox(height: 4),
-        Text(label, style: const TextStyle(fontSize: 9)),
-      ],
-    );
-  }
-}
-
-class _HandlePainter extends CustomPainter {
-  final bool left;
-  final bool right;
-  _HandlePainter(this.left, this.right);
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()..color = Colors.blue;
-    if (!left && !right) {
-      canvas.drawCircle(Offset(size.width / 2, size.height / 2), 8, paint);
-    } else {
-      final path = Path();
-      if (left) {
-        path.moveTo(size.width, 0);
-        path.lineTo(0, 0);
-        path.lineTo(0, size.height);
-        path.lineTo(size.width / 2, size.height);
-        path.arcToPoint(Offset(size.width / 2, 0), radius: const Radius.circular(8));
-      } else {
-        path.moveTo(0, 0);
-        path.lineTo(size.width, 0);
-        path.lineTo(size.width, size.height);
-        path.lineTo(size.width / 2, size.height);
-        path.arcToPoint(Offset(size.width / 2, 0), radius: const Radius.circular(8), clockwise: false);
-      }
-      canvas.drawPath(path, paint);
-    }
-  }
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
 }

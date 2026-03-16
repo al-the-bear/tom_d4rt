@@ -1,51 +1,91 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests Curves from animation
+import 'dart:ui';
+import 'package:flutter/animation.dart';
+import 'package:flutter/widgets.dart';
 
-/// Demonstrates Curves - a collection of predefined animation curves.
 dynamic build(BuildContext context) {
-  final curves = [
+  print('Curves test executing');
+
+  // ========== All named curves ==========
+  final curves = <(String, Curve)>[
     ('linear', Curves.linear),
+    ('decelerate', Curves.decelerate),
+    ('fastLinearToSlowEaseIn', Curves.fastLinearToSlowEaseIn),
     ('ease', Curves.ease),
     ('easeIn', Curves.easeIn),
+    ('easeInToLinear', Curves.easeInToLinear),
+    ('easeInSine', Curves.easeInSine),
+    ('easeInQuad', Curves.easeInQuad),
+    ('easeInCubic', Curves.easeInCubic),
+    ('easeInQuart', Curves.easeInQuart),
+    ('easeInQuint', Curves.easeInQuint),
+    ('easeInExpo', Curves.easeInExpo),
+    ('easeInCirc', Curves.easeInCirc),
+    ('easeInBack', Curves.easeInBack),
     ('easeOut', Curves.easeOut),
+    ('linearToEaseOut', Curves.linearToEaseOut),
+    ('easeOutSine', Curves.easeOutSine),
+    ('easeOutQuad', Curves.easeOutQuad),
+    ('easeOutCubic', Curves.easeOutCubic),
+    ('easeOutQuart', Curves.easeOutQuart),
+    ('easeOutQuint', Curves.easeOutQuint),
+    ('easeOutExpo', Curves.easeOutExpo),
+    ('easeOutCirc', Curves.easeOutCirc),
+    ('easeOutBack', Curves.easeOutBack),
     ('easeInOut', Curves.easeInOut),
+    ('easeInOutSine', Curves.easeInOutSine),
+    ('easeInOutCubic', Curves.easeInOutCubic),
+    ('bounceIn', Curves.bounceIn),
     ('bounceOut', Curves.bounceOut),
+    ('bounceInOut', Curves.bounceInOut),
+    ('elasticIn', Curves.elasticIn),
     ('elasticOut', Curves.elasticOut),
-    ('fastOutSlowIn', Curves.fastOutSlowIn),
+    ('elasticInOut', Curves.elasticInOut),
   ];
 
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('Curves Collection', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-      const SizedBox(height: 16),
-      Wrap(
-        spacing: 8, runSpacing: 8,
-        children: [
-          for (final (name, curve) in curves)
-            _CurveChip(name, curve),
-        ],
-      ),
-      const SizedBox(height: 12),
-      const Text('50+ predefined curves in Flutter', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
-  );
-}
+  print('--- All Curves at t=0.5 ---');
+  for (final entry in curves) {
+    final val = entry.$2.transform(0.5);
+    print('  ${entry.$1}: ${val.toStringAsFixed(4)}');
+  }
 
-class _CurveChip extends StatelessWidget {
-  final String name; final Curve curve;
-  const _CurveChip(this.name, this.curve);
-  @override
-  Widget build(BuildContext context) => TweenAnimationBuilder<double>(
-    tween: Tween(begin: 0.0, end: 1.0),
-    duration: const Duration(seconds: 2),
-    curve: curve,
-    builder: (context, value, _) => Container(
-      width: 80, padding: const EdgeInsets.all(6),
-      decoration: BoxDecoration(color: Colors.blue.withOpacity(0.1 + value * 0.2), borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.blue)),
+  // ========== Boundary conditions ==========
+  print('--- Boundary conditions (all should be 0 at t=0, ~1 at t=1) ---');
+  for (final entry in curves) {
+    final v0 = entry.$2.transform(0.0);
+    final v1 = entry.$2.transform(1.0);
+    print('  ${entry.$1}: t=0 -> ${v0.toStringAsFixed(4)}, t=1 -> ${v1.toStringAsFixed(4)}');
+  }
+
+  print('Curves test completed');
+  return SingleChildScrollView(
+    child: Padding(
+      padding: EdgeInsets.all(16.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Text(name, style: const TextStyle(fontSize: 8, fontWeight: FontWeight.bold)),
-          LinearProgressIndicator(value: value, minHeight: 4),
+          Text('Curves Tests (${curves.length} curves)',
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          SizedBox(height: 8.0),
+          for (final entry in curves)
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 1.0),
+              child: Row(children: [
+                SizedBox(width: 160.0,
+                    child: Text(entry.$1, style: TextStyle(fontSize: 11.0))),
+                Expanded(
+                  child: Container(
+                    height: 12.0,
+                    child: FractionallySizedBox(
+                      alignment: Alignment.centerLeft,
+                      widthFactor: entry.$2.transform(0.5).clamp(0.0, 1.0),
+                      child: Container(color: Color(0xFF3F51B5)),
+                    ),
+                  ),
+                ),
+              ]),
+            ),
         ],
       ),
     ),

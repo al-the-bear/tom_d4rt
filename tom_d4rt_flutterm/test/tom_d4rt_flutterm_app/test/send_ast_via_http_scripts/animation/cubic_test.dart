@@ -1,55 +1,86 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests Cubic from animation
+import 'dart:ui';
+import 'package:flutter/animation.dart';
+import 'package:flutter/widgets.dart';
 
-/// Demonstrates Cubic - cubic Bezier curve defined by 4 control points.
 dynamic build(BuildContext context) {
-  const cubic = Cubic(0.25, 0.1, 0.25, 1.0); // ease-out like
+  print('Cubic test executing');
 
-  return TweenAnimationBuilder<double>(
-    tween: Tween(begin: 0.0, end: 1.0),
-    duration: const Duration(seconds: 2),
-    builder: (context, t, _) {
-      final y = cubic.transform(t);
-      return Column(
+  // ========== Standard Cubic ==========
+  print('--- Standard Cubic (ease) ---');
+  final ease = Cubic(0.25, 0.1, 0.25, 1.0);
+  final tValues = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0];
+  final results = <double>[];
+  for (final t in tValues) {
+    final v = ease.transform(t);
+    results.add(v);
+    print('  t=$t: ${v.toStringAsFixed(4)}');
+  }
+
+  // ========== Cubic ease-in ==========
+  print('--- Cubic ease-in ---');
+  final easeIn = Cubic(0.42, 0.0, 1.0, 1.0);
+  print('  easeIn(0.25): ${easeIn.transform(0.25).toStringAsFixed(4)}');
+  print('  easeIn(0.50): ${easeIn.transform(0.50).toStringAsFixed(4)}');
+  print('  easeIn(0.75): ${easeIn.transform(0.75).toStringAsFixed(4)}');
+
+  // ========== Cubic ease-out ==========
+  print('--- Cubic ease-out ---');
+  final easeOut = Cubic(0.0, 0.0, 0.58, 1.0);
+  print('  easeOut(0.25): ${easeOut.transform(0.25).toStringAsFixed(4)}');
+  print('  easeOut(0.50): ${easeOut.transform(0.50).toStringAsFixed(4)}');
+  print('  easeOut(0.75): ${easeOut.transform(0.75).toStringAsFixed(4)}');
+
+  // ========== Linear Cubic ==========
+  print('--- Linear Cubic ---');
+  final linear = Cubic(0.0, 0.0, 1.0, 1.0);
+  print('  linear(0.25): ${linear.transform(0.25).toStringAsFixed(4)}');
+  print('  linear(0.50): ${linear.transform(0.50).toStringAsFixed(4)}');
+  print('  linear(0.75): ${linear.transform(0.75).toStringAsFixed(4)}');
+
+  // ========== Boundary conditions ==========
+  print('--- Boundary conditions ---');
+  print('  transform(0.0): ${ease.transform(0.0).toStringAsFixed(4)}');
+  print('  transform(1.0): ${ease.transform(1.0).toStringAsFixed(4)}');
+
+  // ========== Flipped ==========
+  print('--- Flipped ---');
+  final flipped = ease.flipped;
+  print('  flipped(0.5): ${flipped.transform(0.5).toStringAsFixed(4)}');
+
+  print('Cubic test completed');
+  return SingleChildScrollView(
+    child: Padding(
+      padding: EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text('Cubic Bezier Curve', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-          const SizedBox(height: 16),
-          SizedBox(
-            height: 100, width: 200,
-            child: CustomPaint(painter: _CubicPainter(cubic: cubic, progress: t)),
-          ),
-          const SizedBox(height: 12),
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
-            child: const Text('Cubic(0.25, 0.1, 0.25, 1.0)', style: TextStyle(fontFamily: 'monospace', fontSize: 11)),
-          ),
-          const SizedBox(height: 8),
-          Transform.translate(
-            offset: Offset((t - 0.5) * 150, 0),
-            child: Container(width: 20, height: 20, decoration: const BoxDecoration(color: Colors.purple, shape: BoxShape.circle)),
-          ),
+          Text('Cubic Tests',
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          SizedBox(height: 8.0),
+          Text('Ease curve visualization:'),
+          for (var i = 0; i < tValues.length; i++)
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 1.0),
+              child: Row(children: [
+                SizedBox(width: 50.0, child: Text('t=${tValues[i]}')),
+                Expanded(
+                  child: Container(
+                    height: 14.0,
+                    child: FractionallySizedBox(
+                      alignment: Alignment.centerLeft,
+                      widthFactor: results[i].clamp(0.0, 1.0),
+                      child: Container(color: Color(0xFF9C27B0)),
+                    ),
+                  ),
+                ),
+                SizedBox(width: 6.0),
+                Text(results[i].toStringAsFixed(3)),
+              ]),
+            ),
         ],
-      );
-    },
+      ),
+    ),
   );
-}
-
-class _CubicPainter extends CustomPainter {
-  final Cubic cubic; final double progress;
-  _CubicPainter({required this.cubic, required this.progress});
-  @override
-  void paint(Canvas canvas, Size size) {
-    final path = Path();
-    for (int i = 0; i <= 50; i++) {
-      final t = i / 50;
-      final y = cubic.transform(t);
-      if (i == 0) path.moveTo(0, size.height - y * size.height);
-      else path.lineTo(t * size.width, size.height - y * size.height);
-    }
-    canvas.drawPath(path, Paint()..color = Colors.purple..style = PaintingStyle.stroke..strokeWidth = 2);
-    canvas.drawCircle(Offset(progress * size.width, size.height - cubic.transform(progress) * size.height), 5, Paint()..color = Colors.red);
-  }
-  @override
-  bool shouldRepaint(covariant _CubicPainter old) => progress != old.progress;
 }

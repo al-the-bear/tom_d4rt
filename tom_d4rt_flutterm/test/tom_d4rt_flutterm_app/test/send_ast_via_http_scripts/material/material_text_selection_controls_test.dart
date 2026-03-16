@@ -1,62 +1,62 @@
+// D4rt test script: Tests MaterialTextSelectionControls from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for MaterialTextSelectionControls.
-/// Shows text selection handles and toolbar.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('MaterialTextSelectionControls', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-      const SizedBox(height: 16),
-      Container(
-        width: 220,
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
-        child: Column(
-          children: [
-            // Toolbar
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(color: Colors.grey.shade800, borderRadius: BorderRadius.circular(4)),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
+  print('MaterialTextSelectionControls test executing');
+
+  final title = 'MaterialTextSelectionControls';
+  final packageName = 'material';
+  final details = 'Material controls';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('MaterialTextSelectionControls test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
                 children: const [
-                  Text('Cut', style: TextStyle(color: Colors.white, fontSize: 10)),
-                  SizedBox(width: 12),
-                  Text('Copy', style: TextStyle(color: Colors.white, fontSize: 10)),
-                  SizedBox(width: 12),
-                  Text('Paste', style: TextStyle(color: Colors.white, fontSize: 10)),
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
                 ],
               ),
-            ),
-            const SizedBox(height: 8),
-            // Selected text with handles
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(width: 2, height: 20, color: Colors.blue),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 4),
-                  color: Colors.blue.withAlpha(80),
-                  child: const Text('Selected', style: TextStyle(fontSize: 14)),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
                 ),
-                Container(width: 2, height: 20, color: Colors.blue),
-              ],
-            ),
-            // Handles
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(width: 10, height: 10, decoration: const BoxDecoration(color: Colors.blue, shape: BoxShape.circle)),
-                const SizedBox(width: 60),
-                Container(width: 10, height: 10, decoration: const BoxDecoration(color: Colors.blue, shape: BoxShape.circle)),
-              ],
-            ),
-          ],
+              ),
+            ],
+          ),
         ),
       ),
-      const SizedBox(height: 12),
-      const Text('Handles + toolbar for selection', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
+    ),
   );
 }

@@ -1,30 +1,106 @@
+// D4rt test script: Tests BoxDecoration from painting
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for BoxDecoration
 dynamic build(BuildContext context) {
-  return Scaffold(appBar: AppBar(title: Text('BoxDecoration Demo')), body: SingleChildScrollView(padding: EdgeInsets.all(16), child: Wrap(spacing: 16, runSpacing: 16, children: [Container(width: 100, height: 100, decoration: BoxDecoration(color: Colors.blue)), Container(width: 100, height: 100, decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(16))), Container(width: 100, height: 100, decoration: BoxDecoration(color: Colors.orange, shape: BoxShape.circle)), Container(width: 100, height: 100, decoration: BoxDecoration(gradient: LinearGradient(colors: [Colors.purple, Colors.pink]))), Container(width: 100, height: 100, decoration: BoxDecoration(color: Colors.white, boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 10, offset: Offset(0, 4))])), Container(width: 100, height: 100, decoration: BoxDecoration(border: Border.all(width: 3, color: Colors.red), borderRadius: BorderRadius.circular(8)))])));
-}
+  print('BoxDecoration test executing');
 
-class _DemoBoxPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()..color = Colors.purple..style = PaintingStyle.fill;
-    canvas.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(10, 10, size.width - 20, size.height - 20), Radius.circular(12)), paint);
-  }
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}
+  // Test BoxDecoration with color
+  final colorDeco = BoxDecoration(color: Colors.blue);
+  print('BoxDecoration with color: ${colorDeco.color}');
 
-class _TriangleClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    final path = Path();
-    path.moveTo(size.width / 2, 0);
-    path.lineTo(size.width, size.height);
-    path.lineTo(0, size.height);
-    path.close();
-    return path;
-  }
-  @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
+  // Test BoxDecoration with borderRadius
+  final roundedDeco = BoxDecoration(
+    color: Colors.green,
+    borderRadius: BorderRadius.circular(16.0),
+  );
+  print('BoxDecoration with borderRadius created');
+
+  // Test BoxDecoration with border
+  final borderDeco = BoxDecoration(
+    color: Colors.white,
+    border: Border.all(color: Colors.black, width: 2.0),
+  );
+  print('BoxDecoration with border created');
+
+  // Test BoxDecoration with boxShadow
+  final shadowDeco = BoxDecoration(
+    color: Colors.white,
+    borderRadius: BorderRadius.circular(8.0),
+    boxShadow: [
+      BoxShadow(
+        color: Colors.black26,
+        blurRadius: 10.0,
+        offset: Offset(0.0, 4.0),
+      ),
+    ],
+  );
+  print('BoxDecoration with boxShadow created');
+
+  // Test BoxDecoration with gradient
+  final gradientDeco = BoxDecoration(
+    gradient: LinearGradient(
+      colors: [Colors.purple, Colors.blue, Colors.cyan],
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+    ),
+    borderRadius: BorderRadius.circular(12.0),
+  );
+  print('BoxDecoration with gradient created');
+
+  // Test BoxDecoration with shape
+  final circleDeco = BoxDecoration(
+    color: Colors.orange,
+    shape: BoxShape.circle,
+  );
+  print('BoxDecoration with shape: ${circleDeco.shape}');
+
+  print('BoxDecoration test completed');
+
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Container(
+        width: 100.0,
+        height: 40.0,
+        decoration: colorDeco,
+        child: Center(
+          child: Text('color', style: TextStyle(color: Colors.white)),
+        ),
+      ),
+      SizedBox(height: 8.0),
+      Container(
+        width: 100.0,
+        height: 40.0,
+        decoration: roundedDeco,
+        child: Center(
+          child: Text('rounded', style: TextStyle(color: Colors.white)),
+        ),
+      ),
+      SizedBox(height: 8.0),
+      Container(
+        width: 100.0,
+        height: 40.0,
+        decoration: borderDeco,
+        child: Center(child: Text('border')),
+      ),
+      SizedBox(height: 8.0),
+      Container(
+        width: 100.0,
+        height: 40.0,
+        decoration: shadowDeco,
+        child: Center(child: Text('shadow')),
+      ),
+      SizedBox(height: 8.0),
+      Container(
+        width: 100.0,
+        height: 40.0,
+        decoration: gradientDeco,
+        child: Center(
+          child: Text('gradient', style: TextStyle(color: Colors.white)),
+        ),
+      ),
+      SizedBox(height: 8.0),
+      Container(width: 50.0, height: 50.0, decoration: circleDeco),
+    ],
+  );
 }

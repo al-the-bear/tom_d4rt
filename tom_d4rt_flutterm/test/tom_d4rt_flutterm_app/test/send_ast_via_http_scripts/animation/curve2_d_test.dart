@@ -1,45 +1,65 @@
-import 'package:flutter/material.dart';
-import 'dart:math' as math;
+// D4rt test script: Tests Curve2D from animation
+import 'dart:ui';
+import 'package:flutter/animation.dart';
+import 'package:flutter/widgets.dart';
 
-/// Demonstrates Curve2D - parametric 2D curves that output Offset values.
 dynamic build(BuildContext context) {
-  return TweenAnimationBuilder<double>(
-    tween: Tween(begin: 0.0, end: 1.0),
-    duration: const Duration(seconds: 3),
-    builder: (context, t, _) {
-      // Circle parametric: (cos(2πt), sin(2πt))
-      final x = math.cos(t * 2 * math.pi);
-      final y = math.sin(t * 2 * math.pi);
-      return Column(
+  print('Curve2D test executing');
+
+  // Curve2D is abstract; CatmullRomSpline is a concrete implementation.
+
+  // ========== CatmullRomSpline as Curve2D ==========
+  print('--- CatmullRomSpline as Curve2D ---');
+  final curve = CatmullRomSpline([
+    Offset(0.0, 0.0),
+    Offset(0.5, 1.0),
+    Offset(1.0, 0.0),
+  ]);
+
+  // ========== transform returns Offset ==========
+  print('--- transform returns Offset ---');
+  final tValues = [0.0, 0.25, 0.5, 0.75, 1.0];
+  for (final t in tValues) {
+    final point = curve.transform(t);
+    print('  t=$t: (${point.dx.toStringAsFixed(3)}, ${point.dy.toStringAsFixed(3)})');
+  }
+
+  // ========== generateSamples ==========
+  print('--- generateSamples ---');
+  final samples = curve.generateSamples();
+  print('  sample count: ${samples.length}');
+
+  // ========== Generate with custom tolerance ==========
+  print('--- Custom tolerance ---');
+  final fineSamples = curve.generateSamples(tolerance: 0.01);
+  print('  fine sample count: ${fineSamples.length}');
+  final coarseSamples = curve.generateSamples(tolerance: 0.5);
+  print('  coarse sample count: ${coarseSamples.length}');
+
+  // ========== findInverse ==========
+  print('--- findInverse ---');
+  final mid = curve.transform(0.5);
+  print('  transform(0.5): (${mid.dx.toStringAsFixed(3)}, ${mid.dy.toStringAsFixed(3)})');
+
+  print('Curve2D test completed');
+  return SingleChildScrollView(
+    child: Padding(
+      padding: EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text('Curve2D Demo', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-          const SizedBox(height: 16),
-          SizedBox(
-            height: 120, width: 120,
-            child: CustomPaint(painter: _Circle2DPainter(progress: t, x: x, y: y)),
-          ),
-          const SizedBox(height: 12),
-          Text('(${x.toStringAsFixed(2)}, ${y.toStringAsFixed(2)})', style: const TextStyle(fontFamily: 'monospace', fontSize: 11)),
-          const SizedBox(height: 8),
-          const Text('Abstract base for 2D parametric curves', style: TextStyle(fontSize: 11, color: Colors.grey)),
+          Text('Curve2D Tests (via CatmullRomSpline)',
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          SizedBox(height: 8.0),
+          for (final t in tValues)
+            Text('t=$t: ${curve.transform(t).toString()}'),
+          SizedBox(height: 4.0),
+          Text('Default samples: ${samples.length}'),
+          Text('Fine samples: ${fineSamples.length}'),
+          Text('Coarse samples: ${coarseSamples.length}'),
         ],
-      );
-    },
+      ),
+    ),
   );
-}
-
-class _Circle2DPainter extends CustomPainter {
-  final double progress, x, y;
-  _Circle2DPainter({required this.progress, required this.x, required this.y});
-  @override
-  void paint(Canvas canvas, Size size) {
-    final center = Offset(size.width / 2, size.height / 2);
-    final radius = size.width / 2 - 10;
-    canvas.drawCircle(center, radius, Paint()..color = Colors.blue.withOpacity(0.3)..style = PaintingStyle.stroke..strokeWidth = 2);
-    final point = Offset(center.dx + x * radius * 0.9, center.dy + y * radius * 0.9);
-    canvas.drawCircle(point, 8, Paint()..color = Colors.red);
-  }
-  @override
-  bool shouldRepaint(covariant _Circle2DPainter old) => progress != old.progress;
 }

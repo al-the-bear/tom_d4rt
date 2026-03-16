@@ -1,54 +1,70 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests ParametricCurve from animation
+import 'dart:ui';
+import 'package:flutter/animation.dart';
+import 'package:flutter/widgets.dart';
 
-/// Demonstrates ParametricCurve - base class for curves that return T from t.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('ParametricCurve<T>', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-      const SizedBox(height: 16),
-      Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(color: Colors.indigo.shade50, borderRadius: BorderRadius.circular(12)),
-        child: Column(
-          children: [
-            const Text('abstract class', style: TextStyle(fontSize: 10, color: Colors.grey)),
-            const Text('ParametricCurve<T>', style: TextStyle(fontFamily: 'monospace', fontWeight: FontWeight.bold)),
-            const SizedBox(height: 12),
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8)),
-              child: const Column(
-                children: [
-                  Text('T transform(double t)', style: TextStyle(fontFamily: 'monospace', fontSize: 11)),
-                  SizedBox(height: 4),
-                  Text('Maps t ∈ [0,1] to T', style: TextStyle(fontSize: 10, color: Colors.grey)),
-                ],
-              ),
-            ),
-            const SizedBox(height: 12),
-            const Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                _SubclassChip('Curve'),
-                SizedBox(width: 8),
-                _SubclassChip('Curve2D'),
-              ],
-            ),
-          ],
-        ),
-      ),
-    ],
-  );
-}
+  print('ParametricCurve test executing');
 
-class _SubclassChip extends StatelessWidget {
-  final String name;
-  const _SubclassChip(this.name);
-  @override
-  Widget build(BuildContext context) => Container(
-    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-    decoration: BoxDecoration(color: Colors.indigo, borderRadius: BorderRadius.circular(4)),
-    child: Text(name, style: const TextStyle(color: Colors.white, fontSize: 10)),
+  // ParametricCurve is the base class for all curves.
+  // Test through concrete implementations.
+
+  // ========== Cubic as ParametricCurve ==========
+  print('--- Cubic as ParametricCurve ---');
+  final cubic = Cubic(0.25, 0.1, 0.25, 1.0);
+  final tValues = [0.0, 0.25, 0.5, 0.75, 1.0];
+  for (final t in tValues) {
+    print('  cubic.transform($t): ${cubic.transform(t).toStringAsFixed(4)}');
+  }
+
+  // ========== Interval as ParametricCurve ==========
+  print('--- Interval as ParametricCurve ---');
+  final interval = Interval(0.2, 0.8);
+  for (final t in tValues) {
+    print('  interval.transform($t): ${interval.transform(t).toStringAsFixed(4)}');
+  }
+
+  // ========== SawTooth as ParametricCurve ==========
+  print('--- SawTooth as ParametricCurve ---');
+  final sawTooth = SawTooth(3);
+  for (final t in [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]) {
+    print('  sawTooth.transform($t): ${sawTooth.transform(t).toStringAsFixed(4)}');
+  }
+
+  // ========== Threshold as ParametricCurve ==========
+  print('--- Threshold as ParametricCurve ---');
+  final threshold = Threshold(0.5);
+  for (final t in tValues) {
+    print('  threshold.transform($t): ${threshold.transform(t).toStringAsFixed(4)}');
+  }
+
+  // ========== Flipped via .flipped getter ==========
+  print('--- Flipped curve ---');
+  final flipped = cubic.flipped;
+  for (final t in tValues) {
+    print('  flipped.transform($t): ${flipped.transform(t).toStringAsFixed(4)}');
+  }
+
+  print('ParametricCurve test completed');
+  return SingleChildScrollView(
+    child: Padding(
+      padding: EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text('ParametricCurve Tests',
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          SizedBox(height: 8.0),
+          Text('Cubic(0.25,0.1,0.25,1.0):'),
+          for (final t in tValues)
+            Text('  t=$t: ${cubic.transform(t).toStringAsFixed(4)}'),
+          SizedBox(height: 4.0),
+          Text('SawTooth(3):'),
+          for (final t in [0.0, 0.33, 0.66, 1.0])
+            Text('  t=$t: ${sawTooth.transform(t).toStringAsFixed(4)}'),
+        ],
+      ),
+    ),
   );
 }

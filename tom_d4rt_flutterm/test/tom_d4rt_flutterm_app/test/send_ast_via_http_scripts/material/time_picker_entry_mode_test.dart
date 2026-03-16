@@ -1,6 +1,29 @@
+// D4rt test script: Tests TimePickerEntryMode from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for TimePickerEntryMode
 dynamic build(BuildContext context) {
-  return Scaffold(appBar: AppBar(title: Text('TimePickerEntryMode Demo')), body: Center(child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [ElevatedButton.icon(icon: Icon(Icons.dialpad), label: Text('Dial Mode'), onPressed: () => showTimePicker(context: context, initialTime: TimeOfDay.now(), initialEntryMode: TimePickerEntryMode.dial)), SizedBox(height: 16), ElevatedButton.icon(icon: Icon(Icons.keyboard), label: Text('Input Mode'), onPressed: () => showTimePicker(context: context, initialTime: TimeOfDay.now(), initialEntryMode: TimePickerEntryMode.input)), SizedBox(height: 16), ElevatedButton.icon(icon: Icon(Icons.access_time), label: Text('Dial Only'), onPressed: () => showTimePicker(context: context, initialTime: TimeOfDay.now(), initialEntryMode: TimePickerEntryMode.dialOnly)), SizedBox(height: 16), ElevatedButton.icon(icon: Icon(Icons.edit), label: Text('Input Only'), onPressed: () => showTimePicker(context: context, initialTime: TimeOfDay.now(), initialEntryMode: TimePickerEntryMode.inputOnly))])));
+  print('TimePickerEntryMode test executing');
+
+  // Enumerate all TimePickerEntryMode values
+  print('TimePickerEntryMode values:');
+  for (final value in TimePickerEntryMode.values) {
+    print('  ${value.name}: $value');
+  }
+  print('TimePickerEntryMode has ${ TimePickerEntryMode.values.length} values');
+
+  final first = TimePickerEntryMode.values.first;
+  final last = TimePickerEntryMode.values.last;
+  print('First: $first, Last: $last');
+  print('First index: ${first.index}, Last index: ${last.index}');
+
+  print('TimePickerEntryMode test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('TimePickerEntryMode Tests'),
+      Text('Values: ${ TimePickerEntryMode.values.length}'),
+      Text('First: $first'),
+      Text('Last: $last'),
+    ],
+  );
 }

@@ -1,31 +1,121 @@
+// D4rt test script: Tests SemanticsProperties, CustomSemanticsAction,
+// OrdinalSortKey, SemanticsTag, SemanticsHintOverrides
 import 'package:flutter/material.dart';
+import 'package:flutter/semantics.dart';
 
-/// Deep visual demo for SemanticsProperties
 dynamic build(BuildContext context) {
-  return Scaffold(appBar: AppBar(title: Text('SemanticsProperties')), body: Padding(padding: EdgeInsets.all(16), child: Column(children: [
-    Text('Semantics Properties', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-    SizedBox(height: 16),
-    Expanded(child: ListView(children: [
-      _PropSection('Identification', [_Prop('label', 'Screen reader text'), _Prop('value', 'Current value'), _Prop('hint', 'Usage description')]),
-      _PropSection('State', [_Prop('enabled', 'Interactive state'), _Prop('checked', 'Toggle state'), _Prop('selected', 'Selection state')]),
-      _PropSection('Actions', [_Prop('onTap', 'Tap handler'), _Prop('onLongPress', 'Long press'), _Prop('onScrollLeft/Right', 'Scroll handlers')]),
-      _PropSection('Structure', [_Prop('container', 'Group children'), _Prop('explicitChildNodes', 'Child control'), _Prop('sortKey', 'Focus order')]),
-    ])),
-  ])));
-}
+  print('Semantics properties test executing');
 
-class _PropSection extends StatelessWidget {
-  final String title; final List<_Prop> props;
-  const _PropSection(this.title, this.props);
-  @override Widget build(BuildContext context) => Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-    Padding(padding: EdgeInsets.symmetric(vertical: 8), child: Text(title, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue))),
-    ...props, Divider(),
-  ]);
-}
+  // ========== SemanticsProperties ==========
+  print('--- SemanticsProperties Tests ---');
 
-class _Prop extends StatelessWidget {
-  final String name; final String desc;
-  const _Prop(this.name, this.desc);
-  @override Widget build(BuildContext context) => Padding(padding: EdgeInsets.symmetric(vertical: 2, horizontal: 8),
-    child: Row(children: [Text(name, style: TextStyle(fontFamily: 'monospace', fontWeight: FontWeight.bold, fontSize: 12)), SizedBox(width: 8), Expanded(child: Text(desc, style: TextStyle(fontSize: 12, color: Colors.grey)))]));
+  final props = SemanticsProperties(
+    enabled: true,
+    checked: false,
+    label: 'Test label',
+    value: 'Test value',
+    hint: 'Test hint',
+    textDirection: TextDirection.ltr,
+    button: true,
+    header: false,
+    link: false,
+    focusable: true,
+    focused: false,
+    hidden: false,
+    slider: false,
+    toggled: false,
+    readOnly: false,
+    selected: false,
+    liveRegion: false,
+    maxValueLength: 100,
+    currentValueLength: 50,
+  );
+  print('SemanticsProperties label: ${props.label}');
+  print('SemanticsProperties value: ${props.value}');
+  print('SemanticsProperties hint: ${props.hint}');
+  print('SemanticsProperties enabled: ${props.enabled}');
+  print('SemanticsProperties checked: ${props.checked}');
+  print('SemanticsProperties button: ${props.button}');
+  print('SemanticsProperties focusable: ${props.focusable}');
+  print('SemanticsProperties textDirection: ${props.textDirection}');
+
+  // ========== CustomSemanticsAction ==========
+  print('--- CustomSemanticsAction Tests ---');
+
+  final action1 = CustomSemanticsAction(label: 'Custom action 1');
+  print('CustomSemanticsAction label: ${action1.label}');
+
+  final action2 = CustomSemanticsAction(label: 'Custom action 2');
+  print('CustomSemanticsAction label2: ${action2.label}');
+
+  // ========== OrdinalSortKey ==========
+  print('--- OrdinalSortKey Tests ---');
+
+  final sortKey1 = OrdinalSortKey(1.0);
+  print('OrdinalSortKey order: ${sortKey1.order}');
+  print('OrdinalSortKey name: ${sortKey1.name}');
+
+  final sortKey2 = OrdinalSortKey(2.0, name: 'secondary');
+  print('OrdinalSortKey named order: ${sortKey2.order}');
+  print('OrdinalSortKey named name: ${sortKey2.name}');
+
+  final comparison = sortKey1.compareTo(sortKey2);
+  print('OrdinalSortKey compareTo: $comparison');
+
+  // ========== SemanticsTag ==========
+  print('--- SemanticsTag Tests ---');
+
+  final tag = SemanticsTag('myTag');
+  print('SemanticsTag name: ${tag.name}');
+
+  final tag2 = SemanticsTag('anotherTag');
+  print('SemanticsTag2 name: ${tag2.name}');
+
+  // ========== SemanticsHintOverrides ==========
+  print('--- SemanticsHintOverrides Tests ---');
+
+  final hintOverrides = SemanticsHintOverrides(
+    onTapHint: 'Tap to activate',
+    onLongPressHint: 'Long press to show options',
+  );
+  print('SemanticsHintOverrides onTapHint: ${hintOverrides.onTapHint}');
+  print(
+    'SemanticsHintOverrides onLongPressHint: ${hintOverrides.onLongPressHint}',
+  );
+
+  print('All semantics properties tests passed');
+
+  // ========== RETURN WIDGET ==========
+  return MaterialApp(
+    home: Scaffold(
+      body: Center(
+        child: Semantics(
+          label: 'Test label for semantics',
+          value: 'value',
+          hint: 'hint',
+          button: true,
+          enabled: true,
+          sortKey: OrdinalSortKey(1.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Semantics Properties Test',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Text('Label: ${props.label}'),
+              Text('SortKey order: ${sortKey1.order}'),
+              Semantics(
+                customSemanticsActions: {
+                  action1: () => print('Action 1'),
+                  action2: () => print('Action 2'),
+                },
+                child: Text('Custom Actions'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
 }

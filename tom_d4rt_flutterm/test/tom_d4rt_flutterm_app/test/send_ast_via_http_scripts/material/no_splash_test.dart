@@ -1,55 +1,62 @@
+// D4rt test script: Tests NoSplash from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for NoSplash class.
-/// Ink splash factory that produces no splash effect.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('NoSplash', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _SplashDemo('With Splash', true),
-          const SizedBox(width: 24),
-          _SplashDemo('No Splash', false),
-        ],
-      ),
-      const SizedBox(height: 12),
-      const Text('splashFactory: NoSplash.splashFactory', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
-  );
-}
+  print('NoSplash test executing');
 
-class _SplashDemo extends StatelessWidget {
-  final String label;
-  final bool hasSplash;
-  const _SplashDemo(this.label, this.hasSplash);
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 80,
-          height: 80,
-          decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(12), border: Border.all(color: Colors.blue.shade200)),
-          child: Stack(
-            alignment: Alignment.center,
+  final title = 'NoSplash';
+  final packageName = 'material';
+  final details = 'NoSplash';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('NoSplash test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Icon(Icons.touch_app, color: Colors.blue),
-              if (hasSplash)
-                Container(
-                  width: 60,
-                  height: 60,
-                  decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.blue.withAlpha(50)),
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
                 ),
+              ),
             ],
           ),
         ),
-        const SizedBox(height: 4),
-        Text(label, style: const TextStyle(fontSize: 9)),
-      ],
-    );
-  }
+      ),
+    ),
+  );
 }

@@ -1,63 +1,162 @@
+// D4rt test script: Tests dart:ui enums - Clip, PathFillType, PathOperation,
+// StrokeCap, StrokeJoin, PaintingStyle, BlendMode, TileMode, VertexMode,
+// PointMode, ImageByteFormat, PixelFormat, Brightness, AppLifecycleState,
+// PointerDeviceKind, PointerSignalKind
 import 'dart:ui';
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for dart:ui enums overview.
-/// Displays various enums available in dart:ui.
 dynamic build(BuildContext context) {
-  final enums = [
-    ('BlendMode', 'Pixel blending algorithms'),
-    ('BlurStyle', 'Blur rendering styles'),
-    ('Clip', 'Clipping behavior'),
-    ('FilterQuality', 'Image filtering'),
-    ('FontStyle', 'Normal or italic'),
-    ('PaintingStyle', 'Fill or stroke'),
-    ('PathFillType', 'Path fill rules'),
-    ('PathOperation', 'Path combining'),
-    ('PointMode', 'Point drawing'),
-    ('StrokeCap', 'Line end caps'),
-    ('StrokeJoin', 'Line corners'),
-    ('TileMode', 'Shader tiling'),
-  ];
-  
-  return Scaffold(
-    appBar: AppBar(title: const Text('dart:ui Enums Demo')),
-    body: ListView.builder(
-      padding: const EdgeInsets.all(16),
-      itemCount: enums.length,
-      itemBuilder: (context, i) {
-        final (name, desc) = enums[i];
-        return Container(
-          margin: const EdgeInsets.only(bottom: 8),
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Colors.primaries[i % Colors.primaries.length].withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.primaries[i % Colors.primaries.length].withValues(alpha: 0.3)),
-          ),
-          child: Row(
-            children: [
-              Container(
-                width: 40, height: 40,
-                decoration: BoxDecoration(
-                  color: Colors.primaries[i % Colors.primaries.length],
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Center(child: Text('${i + 1}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(name, style: const TextStyle(fontWeight: FontWeight.bold, fontFamily: 'monospace')),
-                    Text(desc, style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        );
-      },
+  print('dart:ui enums test executing');
+
+  // ========== Clip ==========
+  print('--- Clip Tests ---');
+  print('Clip.none: ${Clip.none}');
+  print('Clip.hardEdge: ${Clip.hardEdge}');
+  print('Clip.antiAlias: ${Clip.antiAlias}');
+  print('Clip.antiAliasWithSaveLayer: ${Clip.antiAliasWithSaveLayer}');
+  print('Clip.values: ${Clip.values}');
+
+  // ========== PathFillType ==========
+  print('--- PathFillType Tests ---');
+  print('PathFillType.nonZero: ${PathFillType.nonZero}');
+  print('PathFillType.evenOdd: ${PathFillType.evenOdd}');
+
+  // ========== PathOperation ==========
+  print('--- PathOperation Tests ---');
+  print('PathOperation.difference: ${PathOperation.difference}');
+  print('PathOperation.intersect: ${PathOperation.intersect}');
+  print('PathOperation.union: ${PathOperation.union}');
+  print('PathOperation.xor: ${PathOperation.xor}');
+  print('PathOperation.reverseDifference: ${PathOperation.reverseDifference}');
+
+  // ========== StrokeCap ==========
+  print('--- StrokeCap Tests ---');
+  print('StrokeCap.butt: ${StrokeCap.butt}');
+  print('StrokeCap.round: ${StrokeCap.round}');
+  print('StrokeCap.square: ${StrokeCap.square}');
+
+  // ========== StrokeJoin ==========
+  print('--- StrokeJoin Tests ---');
+  print('StrokeJoin.miter: ${StrokeJoin.miter}');
+  print('StrokeJoin.round: ${StrokeJoin.round}');
+  print('StrokeJoin.bevel: ${StrokeJoin.bevel}');
+
+  // ========== PaintingStyle ==========
+  print('--- PaintingStyle Tests ---');
+  print('PaintingStyle.fill: ${PaintingStyle.fill}');
+  print('PaintingStyle.stroke: ${PaintingStyle.stroke}');
+
+  // ========== BlendMode ==========
+  print('--- BlendMode Tests ---');
+  print('BlendMode.clear: ${BlendMode.clear}');
+  print('BlendMode.src: ${BlendMode.src}');
+  print('BlendMode.dst: ${BlendMode.dst}');
+  print('BlendMode.srcOver: ${BlendMode.srcOver}');
+  print('BlendMode.dstOver: ${BlendMode.dstOver}');
+  print('BlendMode.srcIn: ${BlendMode.srcIn}');
+  print('BlendMode.multiply: ${BlendMode.multiply}');
+  print('BlendMode.screen: ${BlendMode.screen}');
+  print('BlendMode.overlay: ${BlendMode.overlay}');
+  print('BlendMode.values: ${BlendMode.values.length} values');
+
+  // ========== TileMode ==========
+  print('--- TileMode Tests ---');
+  print('TileMode.clamp: ${TileMode.clamp}');
+  print('TileMode.repeated: ${TileMode.repeated}');
+  print('TileMode.mirror: ${TileMode.mirror}');
+  print('TileMode.decal: ${TileMode.decal}');
+
+  // ========== VertexMode ==========
+  print('--- VertexMode Tests ---');
+  print('VertexMode.triangles: ${VertexMode.triangles}');
+  print('VertexMode.triangleStrip: ${VertexMode.triangleStrip}');
+  print('VertexMode.triangleFan: ${VertexMode.triangleFan}');
+
+  // ========== PointMode ==========
+  print('--- PointMode Tests ---');
+  print('PointMode.points: ${PointMode.points}');
+  print('PointMode.lines: ${PointMode.lines}');
+  print('PointMode.polygon: ${PointMode.polygon}');
+
+  // ========== ImageByteFormat ==========
+  print('--- ImageByteFormat Tests ---');
+  print('ImageByteFormat.rawRgba: ${ImageByteFormat.rawRgba}');
+  print('ImageByteFormat.rawStraightRgba: ${ImageByteFormat.rawStraightRgba}');
+  print('ImageByteFormat.rawUnmodified: ${ImageByteFormat.rawUnmodified}');
+  print('ImageByteFormat.png: ${ImageByteFormat.png}');
+
+  // ========== PixelFormat ==========
+  print('--- PixelFormat Tests ---');
+  print('PixelFormat.rgba8888: ${PixelFormat.rgba8888}');
+  print('PixelFormat.bgra8888: ${PixelFormat.bgra8888}');
+
+  // ========== Brightness ==========
+  print('--- Brightness Tests ---');
+  print('Brightness.dark: ${Brightness.dark}');
+  print('Brightness.light: ${Brightness.light}');
+
+  // ========== AppLifecycleState ==========
+  print('--- AppLifecycleState Tests ---');
+  print('AppLifecycleState.detached: ${AppLifecycleState.detached}');
+  print('AppLifecycleState.resumed: ${AppLifecycleState.resumed}');
+  print('AppLifecycleState.inactive: ${AppLifecycleState.inactive}');
+  print('AppLifecycleState.hidden: ${AppLifecycleState.hidden}');
+  print('AppLifecycleState.paused: ${AppLifecycleState.paused}');
+  print('AppLifecycleState.values: ${AppLifecycleState.values}');
+
+  // ========== PointerDeviceKind ==========
+  print('--- PointerDeviceKind Tests ---');
+  print('PointerDeviceKind.touch: ${PointerDeviceKind.touch}');
+  print('PointerDeviceKind.mouse: ${PointerDeviceKind.mouse}');
+  print('PointerDeviceKind.stylus: ${PointerDeviceKind.stylus}');
+  print(
+    'PointerDeviceKind.invertedStylus: ${PointerDeviceKind.invertedStylus}',
+  );
+  print('PointerDeviceKind.trackpad: ${PointerDeviceKind.trackpad}');
+  print('PointerDeviceKind.unknown: ${PointerDeviceKind.unknown}');
+
+  // ========== PointerSignalKind ==========
+  print('--- PointerSignalKind Tests ---');
+  print('PointerSignalKind.none: ${PointerSignalKind.none}');
+  print('PointerSignalKind.scroll: ${PointerSignalKind.scroll}');
+  print(
+    'PointerSignalKind.scrollInertiaCancel: ${PointerSignalKind.scrollInertiaCancel}',
+  );
+  print('PointerSignalKind.scale: ${PointerSignalKind.scale}');
+  print('PointerSignalKind.unknown: ${PointerSignalKind.unknown}');
+
+  // ========== Locale ==========
+  print('--- Locale Tests ---');
+  final locale1 = Locale('en', 'US');
+  print('Locale: ${locale1.languageCode}_${locale1.countryCode}');
+  final locale2 = Locale('de');
+  print('Locale de: ${locale2.languageCode}');
+  final locale3 = Locale.fromSubtags(
+    languageCode: 'zh',
+    scriptCode: 'Hans',
+    countryCode: 'CN',
+  );
+  print('Locale zh_Hans_CN: ${locale3}');
+
+  print('All dart:ui enum tests passed');
+
+  // ========== RETURN WIDGET ==========
+  return MaterialApp(
+    home: Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              'dart:ui Enums Test',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            Text('BlendMode values: ${BlendMode.values.length}'),
+            Text('Brightness: ${Brightness.light}'),
+            Text('Locale: ${locale1}'),
+          ],
+        ),
+      ),
     ),
   );
 }

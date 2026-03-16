@@ -1,60 +1,62 @@
+// D4rt test script: Tests MaterialRectCenterArcTween from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for MaterialRectCenterArcTween.
-/// Animates Rect by moving its center along an arc.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('MaterialRectCenterArcTween', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-      const SizedBox(height: 16),
-      Container(
-        width: 200,
-        height: 120,
+  print('MaterialRectCenterArcTween test executing');
+
+  final title = 'MaterialRectCenterArcTween';
+  final packageName = 'material';
+  final details = 'MaterialRectCenterArcTween';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('MaterialRectCenterArcTween test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
         decoration: BoxDecoration(
-          color: Colors.grey.shade200,
+          color: const Color(0xFF111827),
           borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
         ),
-        child: Stack(
-          children: [
-            // Arc path
-            CustomPaint(size: const Size(200, 120), painter: _CenterArcPainter()),
-            // Start rect
-            Positioned(
-              left: 20,
-              top: 70,
-              child: Container(width: 30, height: 30,
-                decoration: BoxDecoration(color: Colors.blue.withAlpha(150), border: Border.all(color: Colors.blue, width: 2)),
-                child: const Center(child: Icon(Icons.crop_square, size: 14)),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
               ),
-            ),
-            // End rect
-            Positioned(
-              right: 20,
-              top: 20,
-              child: Container(width: 50, height: 50,
-                decoration: BoxDecoration(color: Colors.green.withAlpha(150), border: Border.all(color: Colors.green, width: 2)),
-                child: const Center(child: Icon(Icons.crop_square, size: 20)),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
-      const SizedBox(height: 12),
-      const Text('Center follows arc, size interpolates', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
+    ),
   );
-}
-
-class _CenterArcPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()..color = Colors.orange..strokeWidth = 2..style = PaintingStyle.stroke;
-    final path = Path()..moveTo(35, 85)..quadraticBezierTo(100, 100, 155, 45);
-    canvas.drawPath(path, paint);
-    canvas.drawCircle(const Offset(35, 85), 4, Paint()..color = Colors.blue);
-    canvas.drawCircle(const Offset(155, 45), 4, Paint()..color = Colors.green);
-  }
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

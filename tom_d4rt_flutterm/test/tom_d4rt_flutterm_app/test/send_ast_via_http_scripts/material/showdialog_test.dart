@@ -1,48 +1,91 @@
+// D4rt test script: Tests showDialog from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for showDialog function.
-/// Shows a Material dialog.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('showDialog()', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Stack(
-        alignment: Alignment.center,
-        children: [
-          Container(
-            width: 180,
-            height: 100,
-            decoration: BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.circular(8)),
-            child: const Center(child: Text('App Content', style: TextStyle(color: Colors.grey, fontSize: 10))),
+  print('showDialog test executing');
+
+  // Schedule showDialog via Future.microtask so it runs after the build completes
+  // The dialog appears as an overlay on top of the current route
+  Future.microtask(() {
+    showDialog<String>(
+      context: context,
+      barrierDismissible: true,
+      builder: (ctx) {
+        print('showDialog builder called');
+        return AlertDialog(
+          title: Text('Test Dialog'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('showDialog works!'),
+              SizedBox(height: 8.0),
+              Text('This dialog was created via Future.microtask'),
+            ],
           ),
-          Container(
-            width: 150,
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12), boxShadow: [const BoxShadow(color: Colors.black26, blurRadius: 12)]),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Text('Dialog Title', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-                const SizedBox(height: 8),
-                const Text('Dialog content goes here.', style: TextStyle(fontSize: 10)),
-                const SizedBox(height: 12),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text('CANCEL', style: TextStyle(color: Colors.grey.shade600, fontSize: 10)),
-                    const SizedBox(width: 12),
-                    const Text('OK', style: TextStyle(color: Colors.blue, fontSize: 10, fontWeight: FontWeight.bold)),
-                  ],
-                ),
-              ],
+          actions: [
+            TextButton(
+              onPressed: () {
+                print('Cancel pressed');
+                Navigator.pop(ctx);
+              },
+              child: Text('Cancel'),
             ),
-          ),
-        ],
-      ),
-      const SizedBox(height: 12),
-      const Text('barrierDismissible, barrierColor', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
+            TextButton(
+              onPressed: () {
+                print('OK pressed');
+                Navigator.pop(ctx, 'ok');
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    ).then((result) {
+      print('showDialog result: $result');
+    });
+    print('showDialog called successfully');
+  });
+
+  return Container(
+    padding: EdgeInsets.all(16.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('showDialog scheduled'),
+        SizedBox(height: 8.0),
+        Text('Dialog should appear as overlay'),
+        SizedBox(height: 16.0),
+        // Also provide a button to show dialog on demand
+        ElevatedButton(
+          onPressed: () {
+            showDialog<void>(
+              context: context,
+              builder: (ctx) => SimpleDialog(
+                title: Text('Simple Dialog'),
+                children: [
+                  SimpleDialogOption(
+                    onPressed: () {
+                      print('Option 1 selected');
+                      Navigator.pop(ctx);
+                    },
+                    child: Text('Option 1'),
+                  ),
+                  SimpleDialogOption(
+                    onPressed: () {
+                      print('Option 2 selected');
+                      Navigator.pop(ctx);
+                    },
+                    child: Text('Option 2'),
+                  ),
+                ],
+              ),
+            );
+            print('SimpleDialog shown from button');
+          },
+          child: Text('Show SimpleDialog'),
+        ),
+      ],
+    ),
   );
 }

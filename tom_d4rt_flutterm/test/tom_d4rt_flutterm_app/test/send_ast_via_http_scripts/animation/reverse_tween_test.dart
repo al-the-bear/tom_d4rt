@@ -1,55 +1,52 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests ReverseTween from animation
+import 'dart:ui';
+import 'package:flutter/animation.dart';
+import 'package:flutter/widgets.dart';
 
-/// Demonstrates ReverseTween - swaps begin and end of another tween.
 dynamic build(BuildContext context) {
+  print('ReverseTween test executing');
+
+  // ========== Basic ReverseTween ==========
+  print('--- ReverseTween ---');
   final original = Tween<double>(begin: 0.0, end: 100.0);
   final reversed = ReverseTween<double>(original);
+  print('  original begin: ${original.begin}, end: ${original.end}');
+  print('  reversed begin: ${reversed.begin}, end: ${reversed.end}');
 
-  return TweenAnimationBuilder<double>(
-    tween: Tween(begin: 0.0, end: 1.0),
-    duration: const Duration(seconds: 2),
-    builder: (context, t, _) {
-      final origVal = original.transform(t);
-      final revVal = reversed.transform(t);
-      return Column(
+  // ========== Lerp comparison ==========
+  print('--- Lerp comparison ---');
+  for (final t in [0.0, 0.25, 0.5, 0.75, 1.0]) {
+    print('  t=$t: original=${original.lerp(t).toStringAsFixed(1)}, reversed=${reversed.lerp(t).toStringAsFixed(1)}');
+  }
+
+  // ========== Color ReverseTween ==========
+  print('--- Color ReverseTween ---');
+  final colorTween = ColorTween(begin: Color(0xFFFF0000), end: Color(0xFF0000FF));
+  final reversedColor = ReverseTween<Color?>(colorTween);
+  print('  original lerp(0.0): ${colorTween.lerp(0.0)}');
+  print('  reversed lerp(0.0): ${reversedColor.lerp(0.0)}');
+
+  // ========== Evaluate ==========
+  print('--- Evaluate ---');
+  final anim = AlwaysStoppedAnimation<double>(0.25);
+  print('  original.evaluate(0.25): ${original.evaluate(anim)}');
+  print('  reversed.evaluate(0.25): ${reversed.evaluate(anim)}');
+
+  print('ReverseTween test completed');
+  return SingleChildScrollView(
+    child: Padding(
+      padding: EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text('ReverseTween Demo', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-          const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _TweenBar('Original', '0→100', origVal, 100, Colors.blue),
-              const SizedBox(width: 24),
-              _TweenBar('Reversed', '100→0', revVal, 100, Colors.orange),
-            ],
-          ),
-          const SizedBox(height: 12),
-          const Text('ReverseTween swaps begin ↔ end', style: TextStyle(fontSize: 11, color: Colors.grey)),
+          Text('ReverseTween Tests',
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          SizedBox(height: 8.0),
+          for (final t in [0.0, 0.25, 0.5, 0.75, 1.0])
+            Text('t=$t: orig=${original.lerp(t).toStringAsFixed(0)}, rev=${reversed.lerp(t).toStringAsFixed(0)}'),
         ],
-      );
-    },
-  );
-}
-
-class _TweenBar extends StatelessWidget {
-  final String label, range; final double value, max; final Color color;
-  const _TweenBar(this.label, this.range, this.value, this.max, this.color);
-  @override
-  Widget build(BuildContext context) => Column(
-    children: [
-      Text(label, style: TextStyle(fontWeight: FontWeight.bold, color: color)),
-      Text(range, style: const TextStyle(fontSize: 10)),
-      const SizedBox(height: 4),
-      Container(
-        width: 40, height: 100,
-        decoration: BoxDecoration(color: color.withOpacity(0.2), borderRadius: BorderRadius.circular(4)),
-        child: Align(
-          alignment: Alignment.bottomCenter,
-          child: Container(width: 40, height: (value / max) * 100, decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(4))),
-        ),
       ),
-      Text('${value.toInt()}', style: TextStyle(color: color, fontWeight: FontWeight.bold)),
-    ],
+    ),
   );
 }

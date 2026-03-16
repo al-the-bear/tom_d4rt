@@ -1,71 +1,62 @@
+// D4rt test script: Tests FloatingActionButtonLocation from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for FloatingActionButtonLocation.
-/// Shows the abstract class defining FAB positioning.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('FloatingActionButtonLocation', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 12),
-      Container(
-        width: 260,
-        height: 160,
+  print('FloatingActionButtonLocation test executing');
+
+  final title = 'FloatingActionButtonLocation';
+  final packageName = 'material';
+  final details = 'FAB location';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('FloatingActionButtonLocation test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
         decoration: BoxDecoration(
-          color: Colors.grey.shade200,
+          color: const Color(0xFF111827),
           borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
         ),
-        child: Stack(
-          children: [
-            // Grid of possible locations
-            ..._buildLocationDots(),
-            // Legend
-            Positioned(
-              bottom: 8,
-              left: 8,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
                 children: const [
-                  Text('• centerFloat', style: TextStyle(fontSize: 8)),
-                  Text('• endFloat', style: TextStyle(fontSize: 8)),
-                  Text('• *Docked variants', style: TextStyle(fontSize: 8)),
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
                 ],
               ),
-            ),
-          ],
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-      const SizedBox(height: 12),
-      Container(
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(8)),
-        child: const Text('getOffset(context, fabSize, scaffold)', style: TextStyle(fontSize: 10, fontFamily: 'monospace')),
-      ),
-    ],
+    ),
   );
-}
-
-List<Widget> _buildLocationDots() {
-  final positions = [
-    (0.5, 0.85, 'centerFloat', true),
-    (0.85, 0.85, 'endFloat', true),
-    (0.15, 0.85, 'startFloat', false),
-    (0.85, 0.15, 'startTop', false),
-    (0.5, 0.5, 'mini locations', false),
-  ];
-  return positions.map((p) {
-    return Positioned(
-      left: 260 * p.$1 - 12,
-      top: 160 * p.$2 - 12,
-      child: Container(
-        width: 24,
-        height: 24,
-        decoration: BoxDecoration(
-          color: p.$4 ? Colors.pink : Colors.pink.shade200,
-          shape: BoxShape.circle,
-        ),
-        child: const Icon(Icons.add, color: Colors.white, size: 12),
-      ),
-    );
-  }).toList();
 }

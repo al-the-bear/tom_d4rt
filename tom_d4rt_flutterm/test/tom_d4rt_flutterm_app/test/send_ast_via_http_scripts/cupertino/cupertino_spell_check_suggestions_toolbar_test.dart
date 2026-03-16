@@ -1,39 +1,99 @@
+// D4rt test script: Tests CupertinoSpellCheckSuggestionsToolbar from cupertino
 import 'package:flutter/cupertino.dart';
 
-/// Demonstrates CupertinoSpellCheckSuggestionsToolbar.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('Spell Check Toolbar', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-      const SizedBox(height: 16),
-      Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(color: CupertinoColors.white, borderRadius: BorderRadius.circular(12), boxShadow: const [BoxShadow(blurRadius: 8, color: Color(0x22000000))]),
+  print('CupertinoSpellCheckSuggestionsToolbar test executing');
+
+  // Basic toolbar with anchors and buttonItems (max 3 suggestions allowed)
+  final anchors = TextSelectionToolbarAnchors(
+    primaryAnchor: Offset(100.0, 200.0),
+  );
+  final buttonItems = <ContextMenuButtonItem>[
+    ContextMenuButtonItem(
+      label: 'Replace with "hello"',
+      onPressed: () {
+        print('Replace tapped');
+      },
+    ),
+    ContextMenuButtonItem(
+      label: 'Replace with "world"',
+      onPressed: () {
+        print('Replace tapped');
+      },
+    ),
+  ];
+  final toolbar = CupertinoSpellCheckSuggestionsToolbar(
+    anchors: anchors,
+    buttonItems: buttonItems,
+  );
+  print('toolbar created: ${toolbar.runtimeType}');
+  print('anchors primary: ${anchors.primaryAnchor}');
+  print('buttonItems count: ${buttonItems.length}');
+
+  // Single suggestion
+  final singleToolbar = CupertinoSpellCheckSuggestionsToolbar(
+    anchors: TextSelectionToolbarAnchors(
+      primaryAnchor: Offset(50.0, 100.0),
+    ),
+    buttonItems: [
+      ContextMenuButtonItem(
+        label: 'Suggestion',
+        onPressed: () {},
+      ),
+    ],
+  );
+  print('single-suggestion toolbar created');
+
+  // Max 3 suggestions (the internal limit is _kMaxSuggestions = 3)
+  final threeItems = <ContextMenuButtonItem>[
+    ContextMenuButtonItem(label: 'Sug 1', onPressed: () {}),
+    ContextMenuButtonItem(label: 'Sug 2', onPressed: () {}),
+    ContextMenuButtonItem(label: 'Sug 3', onPressed: () {}),
+  ];
+  final maxToolbar = CupertinoSpellCheckSuggestionsToolbar(
+    anchors: TextSelectionToolbarAnchors(
+      primaryAnchor: Offset(150.0, 300.0),
+    ),
+    buttonItems: threeItems,
+  );
+  print('3-suggestion toolbar created (max allowed)');
+
+  // With secondary anchor
+  final dualAnchor = TextSelectionToolbarAnchors(
+    primaryAnchor: Offset(100.0, 200.0),
+    secondaryAnchor: Offset(100.0, 180.0),
+  );
+  final dualToolbar = CupertinoSpellCheckSuggestionsToolbar(
+    anchors: dualAnchor,
+    buttonItems: buttonItems,
+  );
+  print('toolbar with secondary anchor: ${dualAnchor.secondaryAnchor}');
+
+  // ContextMenuButtonItem types
+  final typedItems = <ContextMenuButtonItem>[
+    ContextMenuButtonItem(label: 'Cut', type: ContextMenuButtonType.cut, onPressed: () {}),
+    ContextMenuButtonItem(label: 'Copy', type: ContextMenuButtonType.copy, onPressed: () {}),
+    ContextMenuButtonItem(label: 'Paste', type: ContextMenuButtonType.paste, onPressed: () {}),
+  ];
+  for (final item in typedItems) {
+    print('button: ${item.label} type: ${item.type}');
+  }
+
+  print('CupertinoSpellCheckSuggestionsToolbar test completed');
+  return CupertinoApp(
+    home: CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(middle: Text('SpellCheck Toolbar')),
+      child: SafeArea(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text('hte', style: TextStyle(color: CupertinoColors.destructiveRed, decoration: TextDecoration.underline)),
-                SizedBox(width: 8),
-                Icon(CupertinoIcons.arrow_right, size: 14),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Wrap(
-              spacing: 8,
-              children: ['the', 'he', 'hate'].map((s) => Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(color: CupertinoColors.activeBlue, borderRadius: BorderRadius.circular(4)),
-                child: Text(s, style: const TextStyle(color: CupertinoColors.white, fontSize: 11)),
-              )).toList(),
-            ),
+            Text('Spell Check Toolbar Tests', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+            Text('2-suggestion toolbar OK'),
+            Text('3-suggestion toolbar OK (max)'),
+            Text('Dual anchor toolbar OK'),
           ],
         ),
       ),
-      const SizedBox(height: 12),
-      const Text('Offers spelling corrections', style: TextStyle(fontSize: 11, color: CupertinoColors.systemGrey)),
-    ],
+    ),
   );
 }

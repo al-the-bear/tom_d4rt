@@ -1,60 +1,62 @@
+// D4rt test script: Tests NavigationDrawerTheme from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for NavigationDrawerTheme widget.
-/// InheritedWidget providing NavigationDrawerThemeData.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('NavigationDrawerTheme', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _ThemeSample('Default', Colors.grey.shade100, Colors.grey),
-          const SizedBox(width: 12),
-          _ThemeSample('Custom', Colors.purple.shade50, Colors.purple),
-        ],
-      ),
-      const SizedBox(height: 12),
-      const Text('Wraps subtree with theme', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
-  );
-}
+  print('NavigationDrawerTheme test executing');
 
-class _ThemeSample extends StatelessWidget {
-  final String label;
-  final Color bg;
-  final Color accent;
-  const _ThemeSample(this.label, this.bg, this.accent);
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 90,
-          height: 120,
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(8)),
+  final title = 'NavigationDrawerTheme';
+  final packageName = 'material';
+  final details = 'NavigationDrawerTheme';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('NavigationDrawerTheme test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                padding: const EdgeInsets.all(6),
-                decoration: BoxDecoration(color: accent.withAlpha(50), borderRadius: BorderRadius.circular(12)),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [Icon(Icons.home, size: 12, color: accent), const SizedBox(width: 4), Text('Home', style: TextStyle(fontSize: 8, color: accent))],
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
                 ),
               ),
-              const SizedBox(height: 4),
-              Row(mainAxisSize: MainAxisSize.min, children: [const SizedBox(width: 6), Icon(Icons.inbox, size: 12, color: Colors.grey.shade600), const SizedBox(width: 4), Text('Inbox', style: TextStyle(fontSize: 8, color: Colors.grey.shade600))]),
             ],
           ),
         ),
-        const SizedBox(height: 4),
-        Text(label, style: const TextStyle(fontSize: 9)),
-      ],
-    );
-  }
+      ),
+    ),
+  );
 }

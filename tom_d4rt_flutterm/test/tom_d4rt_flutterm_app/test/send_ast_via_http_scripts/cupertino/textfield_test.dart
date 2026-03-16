@@ -1,66 +1,78 @@
+// D4rt test script: Tests CupertinoTextField
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
-/// Deep visual demo for CupertinoTextField - iOS-style text input field.
-/// Demonstrates placeholder, prefix, suffix, clearButton, and styling.
 dynamic build(BuildContext context) {
-  return CupertinoPageScaffold(
-    navigationBar: const CupertinoNavigationBar(
-      middle: Text('CupertinoTextField Demo'),
-    ),
-    child: SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const Text('Basic TextField:', style: TextStyle(fontSize: 14, color: CupertinoColors.secondaryLabel)),
-            const SizedBox(height: 8),
-            CupertinoTextField(
-              placeholder: 'Enter your name',
-              padding: const EdgeInsets.all(12),
-            ),
-            const SizedBox(height: 24),
-            const Text('With Prefix & Suffix:', style: TextStyle(fontSize: 14, color: CupertinoColors.secondaryLabel)),
-            const SizedBox(height: 8),
-            CupertinoTextField(
-              placeholder: 'Search...',
-              prefix: const Padding(
-                padding: EdgeInsets.only(left: 8),
-                child: Icon(CupertinoIcons.search, color: CupertinoColors.systemGrey),
+  print('CupertinoTextField test executing');
+
+  // Default constructor
+  final tf1 = CupertinoTextField(
+    placeholder: 'Enter text',
+    padding: EdgeInsets.all(12.0),
+  );
+  print('CupertinoTextField created: ${tf1.runtimeType}');
+  print('placeholder: ${tf1.placeholder}');
+  print('padding: ${tf1.padding}');
+  print('obscureText: ${tf1.obscureText}');
+  print('autocorrect: ${tf1.autocorrect}');
+  print('maxLines: ${tf1.maxLines}');
+  print('enabled: ${tf1.enabled}');
+  print('readOnly: ${tf1.readOnly}');
+  print('textAlign: ${tf1.textAlign}');
+
+  // With more options
+  final tf2 = CupertinoTextField(
+    placeholder: 'Password',
+    obscureText: true,
+    maxLines: 1,
+    keyboardType: TextInputType.visiblePassword,
+    textAlign: TextAlign.center,
+    readOnly: false,
+    autocorrect: false,
+    prefix: Icon(CupertinoIcons.lock),
+    suffix: Icon(CupertinoIcons.eye),
+    clearButtonMode: OverlayVisibilityMode.editing,
+  );
+  print('tf2 obscureText: ${tf2.obscureText}');
+  print('tf2 autocorrect: ${tf2.autocorrect}');
+  print('tf2 clearButtonMode: ${tf2.clearButtonMode}');
+
+  // Borderless variant
+  final tf3 = CupertinoTextField.borderless(
+    placeholder: 'Borderless',
+    padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+  );
+  print('CupertinoTextField.borderless: ${tf3.runtimeType}');
+  print('tf3 placeholder: ${tf3.placeholder}');
+
+  // With controller
+  final controller = TextEditingController(text: 'Initial');
+  final tf4 = CupertinoTextField(controller: controller);
+  print('controller text: ${controller.text}');
+  controller.dispose();
+
+  print('CupertinoTextField test completed');
+  return CupertinoApp(
+    home: CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(middle: Text('TextField Test')),
+      child: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(16),
+          child: Column(
+            children: [
+              CupertinoTextField(placeholder: 'Default', padding: EdgeInsets.all(12)),
+              SizedBox(height: 12),
+              CupertinoTextField(placeholder: 'Password', obscureText: true, padding: EdgeInsets.all(12)),
+              SizedBox(height: 12),
+              CupertinoTextField.borderless(placeholder: 'Borderless'),
+              SizedBox(height: 12),
+              CupertinoTextField(
+                placeholder: 'With prefix',
+                prefix: Icon(CupertinoIcons.search),
+                padding: EdgeInsets.all(12),
               ),
-              suffix: const Padding(
-                padding: EdgeInsets.only(right: 8),
-                child: Icon(CupertinoIcons.mic, color: CupertinoColors.systemGrey),
-              ),
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-            ),
-            const SizedBox(height: 24),
-            const Text('With Clear Button:', style: TextStyle(fontSize: 14, color: CupertinoColors.secondaryLabel)),
-            const SizedBox(height: 8),
-            CupertinoTextField(
-              placeholder: 'Email address',
-              clearButtonMode: OverlayVisibilityMode.editing,
-              keyboardType: TextInputType.emailAddress,
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                border: Border.all(color: CupertinoColors.systemGrey4),
-                borderRadius: BorderRadius.circular(8),
-              ),
-            ),
-            const SizedBox(height: 24),
-            const Text('Multiline TextField:', style: TextStyle(fontSize: 14, color: CupertinoColors.secondaryLabel)),
-            const SizedBox(height: 8),
-            CupertinoTextField(
-              placeholder: 'Write your message here...',
-              maxLines: 4,
-              minLines: 3,
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: CupertinoColors.systemGrey6,
-                borderRadius: BorderRadius.circular(8),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     ),

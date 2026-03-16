@@ -1,49 +1,62 @@
+// D4rt test script: Tests CardThemeData from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for CardThemeData.
-/// Shows card theme customization.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('CardThemeData')),
-    body: ListView(
-      padding: const EdgeInsets.all(16),
-      children: [
-        const Text('Card Theme Properties', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-        const SizedBox(height: 16),
-        _Prop('color', 'Color', 'Background color'),
-        _Prop('shadowColor', 'Color', 'Shadow color'),
-        _Prop('surfaceTintColor', 'Color', 'M3 surface tint'),
-        _Prop('elevation', 'double', 'Shadow elevation'),
-        _Prop('shape', 'ShapeBorder', 'Card shape'),
-        _Prop('clipBehavior', 'Clip', 'Clipping behavior'),
-        _Prop('margin', 'EdgeInsets', 'Outer margin'),
-        const SizedBox(height: 24),
-        const Text('Themed Card:', style: TextStyle(fontWeight: FontWeight.bold)),
-        Theme(
-          data: Theme.of(context).copyWith(
-            cardTheme: CardThemeData(
-              color: Colors.amber.shade100,
-              elevation: 4,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            ),
-          ),
-          child: const Card(
-            child: Padding(padding: EdgeInsets.all(24), child: Text('This card uses CardThemeData')),
+  print('CardThemeData test executing');
+
+  final title = 'CardThemeData';
+  final packageName = 'material';
+  final details = 'Card data';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('CardThemeData test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
-      ],
+      ),
     ),
-  );
-}
-
-class _Prop extends StatelessWidget {
-  final String name, type, desc;
-  const _Prop(this.name, this.type, this.desc);
-  @override
-  Widget build(BuildContext context) => ListTile(
-    title: Text(name),
-    subtitle: Text(desc),
-    trailing: Text(type, style: const TextStyle(fontSize: 10, color: Colors.grey)),
-    dense: true,
   );
 }

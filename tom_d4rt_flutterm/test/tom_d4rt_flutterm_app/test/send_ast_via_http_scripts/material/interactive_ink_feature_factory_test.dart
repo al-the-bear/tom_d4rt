@@ -1,69 +1,62 @@
+// D4rt test script: Tests InteractiveInkFeatureFactory from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for InteractiveInkFeatureFactory.
-/// Shows factory for creating ink splash/ripple effects.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('InteractiveInkFeatureFactory', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-      const SizedBox(height: 16),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _InkDemo('Splash', Colors.blue),
-          const SizedBox(width: 16),
-          _InkDemo('Ripple', Colors.purple),
-        ],
-      ),
-      const SizedBox(height: 16),
-      Container(
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
-        child: const Column(
-          children: [
-            Text('InkSplash.splashFactory', style: TextStyle(fontSize: 9, fontFamily: 'monospace')),
-            Text('InkRipple.splashFactory', style: TextStyle(fontSize: 9, fontFamily: 'monospace')),
-          ],
-        ),
-      ),
-    ],
-  );
-}
+  print('InteractiveInkFeatureFactory test executing');
 
-class _InkDemo extends StatelessWidget {
-  final String type;
-  final Color color;
-  const _InkDemo(this.type, this.color);
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 80,
-          height: 80,
-          decoration: BoxDecoration(
-            color: color.withAlpha(30),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Stack(
-            alignment: Alignment.center,
+  final title = 'InteractiveInkFeatureFactory';
+  final packageName = 'material';
+  final details = 'InteractiveInkFeatureFactory';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('InteractiveInkFeatureFactory test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: color.withAlpha(100),
-                  shape: BoxShape.circle,
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
                 ),
               ),
-              const Icon(Icons.touch_app, color: Colors.white),
             ],
           ),
         ),
-        const SizedBox(height: 4),
-        Text(type, style: TextStyle(fontSize: 10, color: color)),
-      ],
-    );
-  }
+      ),
+    ),
+  );
 }

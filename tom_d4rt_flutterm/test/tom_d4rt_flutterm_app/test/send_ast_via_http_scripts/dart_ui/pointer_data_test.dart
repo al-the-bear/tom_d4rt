@@ -1,55 +1,60 @@
-import 'dart:ui';
+// D4rt test script: Tests PointerData from dart:ui
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for PointerData - raw pointer event data.
-/// Demonstrates pointer properties from platform.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('PointerData Demo')),
-    body: SingleChildScrollView(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('Pointer Data', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 8),
-          const Text('Raw pointer event from platform', style: TextStyle(color: Colors.grey)),
-          const SizedBox(height: 24),
-          _buildPropGroup('Position', ['physicalX', 'physicalY', 'physicalDeltaX', 'physicalDeltaY']),
-          _buildPropGroup('State', ['change', 'buttons', 'device', 'pointerIdentifier']),
-          _buildPropGroup('Pressure', ['pressure', 'pressureMin', 'pressureMax']),
-          _buildPropGroup('Stylus', ['distance', 'tilt', 'orientation']),
-          _buildPropGroup('Scroll', ['scrollDeltaX', 'scrollDeltaY']),
-          _buildPropGroup('Device', ['kind', 'platformData']),
-        ],
-      ),
-    ),
-  );
-}
+  print('PointerData test executing');
 
-Widget _buildPropGroup(String title, List<String> props) {
-  return Container(
-    margin: const EdgeInsets.only(bottom: 16),
-    padding: const EdgeInsets.all(12),
-    decoration: BoxDecoration(
-      border: Border.all(color: Colors.purple.shade200),
-      borderRadius: BorderRadius.circular(12),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(title, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.purple.shade700)),
-        const SizedBox(height: 8),
-        Wrap(
-          spacing: 8,
-          runSpacing: 8,
-          children: props.map((p) => Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(color: Colors.purple.shade50, borderRadius: BorderRadius.circular(4)),
-            child: Text(p, style: const TextStyle(fontFamily: 'monospace', fontSize: 11)),
-          )).toList(),
-        ),
-      ],
-    ),
+  // Default
+  final pd1 = ui.PointerData();
+  print('Default: change=${pd1.change}, kind=${pd1.kind}');
+  print('physicalX=${pd1.physicalX}, physicalY=${pd1.physicalY}');
+  print('buttons=${pd1.buttons}, pressure=${pd1.pressure}');
+  print('device=${pd1.device}, pointerIdentifier=${pd1.pointerIdentifier}');
+
+  // Touch down
+  final pd2 = ui.PointerData(
+    change: ui.PointerChange.down,
+    kind: ui.PointerDeviceKind.touch,
+    physicalX: 150.0,
+    physicalY: 300.0,
+    buttons: 1,
+    pressure: 0.5,
+    pressureMin: 0.0,
+    pressureMax: 1.0,
+    device: 1,
   );
+  print('Touch: change=${pd2.change}, kind=${pd2.kind}, x=${pd2.physicalX}, y=${pd2.physicalY}');
+  print('pressure=${pd2.pressure}, pressureMin=${pd2.pressureMin}, pressureMax=${pd2.pressureMax}');
+
+  // Mouse hover
+  final pd3 = ui.PointerData(
+    change: ui.PointerChange.hover,
+    kind: ui.PointerDeviceKind.mouse,
+    physicalX: 200.0,
+    physicalY: 100.0,
+    scrollDeltaX: 0.0,
+    scrollDeltaY: -10.0,
+  );
+  print('Mouse: change=${pd3.change}, scrollDeltaY=${pd3.scrollDeltaY}');
+
+  // Stylus
+  final pd4 = ui.PointerData(
+    change: ui.PointerChange.move,
+    kind: ui.PointerDeviceKind.stylus,
+    physicalX: 50.0,
+    physicalY: 50.0,
+    tilt: 0.3,
+  );
+  print('Stylus: kind=${pd4.kind}, tilt=${pd4.tilt}');
+  print('toString: ${pd1.toString()}');
+
+  print('PointerData test completed');
+  return Column(mainAxisSize: MainAxisSize.min, children: [
+    Text('PointerData Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+    Text('Default: ${pd1.change}'),
+    Text('Touch: x=${pd2.physicalX}, y=${pd2.physicalY}'),
+    Text('Mouse: scroll=${pd3.scrollDeltaY}'),
+    Text('Stylus: tilt=${pd4.tilt}'),
+  ]);
 }

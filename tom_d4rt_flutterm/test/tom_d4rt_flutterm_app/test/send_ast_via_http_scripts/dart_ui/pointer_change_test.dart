@@ -1,53 +1,30 @@
+// D4rt test script: Tests PointerChange from dart_ui
 import 'dart:ui';
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-/// Deep visual demo for PointerChange - pointer event types.
-/// Demonstrates add, hover, down, move, up, remove events.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('PointerChange Demo')),
-    body: Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('Pointer Changes', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 16),
-          _buildChangeCard('add', 'Pointer enters proximity', Colors.green),
-          _buildChangeCard('hover', 'Pointer moves (no contact)', Colors.blue),
-          _buildChangeCard('down', 'Pointer starts contact', Colors.purple),
-          _buildChangeCard('move', 'Pointer moves (in contact)', Colors.orange),
-          _buildChangeCard('up', 'Pointer ends contact', Colors.pink),
-          _buildChangeCard('remove', 'Pointer leaves proximity', Colors.red),
-          _buildChangeCard('cancel', 'Gesture cancelled', Colors.grey),
-          const SizedBox(height: 16),
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
-            child: const Text('PointerChange describes the change in state for a pointer device interaction.'),
-          ),
-        ],
-      ),
-    ),
-  );
-}
+  print('PointerChange test executing');
 
-Widget _buildChangeCard(String name, String desc, Color color) {
-  return Container(
-    margin: const EdgeInsets.symmetric(vertical: 4),
-    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-    decoration: BoxDecoration(
-      gradient: LinearGradient(colors: [color.withValues(alpha: 0.1), color.withValues(alpha: 0.05)]),
-      borderRadius: BorderRadius.circular(8),
-    ),
-    child: Row(
-      children: [
-        Container(width: 10, height: 10, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
-        const SizedBox(width: 16),
-        Text('PointerChange.$name', style: const TextStyle(fontFamily: 'monospace', fontSize: 11, fontWeight: FontWeight.w500)),
-        const Spacer(),
-        Text(desc, style: TextStyle(color: Colors.grey.shade700, fontSize: 11)),
-      ],
-    ),
+  // Enumerate all PointerChange values
+  print('PointerChange values:');
+  for (final value in PointerChange.values) {
+    print('  ${value.name}: $value');
+  }
+  print('PointerChange has ${ PointerChange.values.length} values');
+
+  final first = PointerChange.values.first;
+  final last = PointerChange.values.last;
+  print('First: $first, Last: $last');
+  print('First index: ${first.index}, Last index: ${last.index}');
+
+  print('PointerChange test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('PointerChange Tests'),
+      Text('Values: ${ PointerChange.values.length}'),
+      Text('First: $first'),
+      Text('Last: $last'),
+    ],
   );
 }

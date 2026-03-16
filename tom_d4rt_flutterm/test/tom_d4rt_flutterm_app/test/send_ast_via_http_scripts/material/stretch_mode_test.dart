@@ -1,6 +1,29 @@
+// D4rt test script: Tests StretchMode from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for StretchMode
 dynamic build(BuildContext context) {
-  return Scaffold(body: CustomScrollView(physics: BouncingScrollPhysics(), slivers: [SliverAppBar(expandedHeight: 200, stretch: true, flexibleSpace: FlexibleSpaceBar(title: Text('StretchMode Demo'), stretchModes: [StretchMode.zoomBackground, StretchMode.blurBackground, StretchMode.fadeTitle], background: Container(color: Colors.blue))), SliverList(delegate: SliverChildBuilderDelegate((c, i) => ListTile(title: Text('Item i')), childCount: 30))]));
+  print('StretchMode test executing');
+
+  // Enumerate all StretchMode values
+  print('StretchMode values:');
+  for (final value in StretchMode.values) {
+    print('  ${value.name}: $value');
+  }
+  print('StretchMode has ${ StretchMode.values.length} values');
+
+  final first = StretchMode.values.first;
+  final last = StretchMode.values.last;
+  print('First: $first, Last: $last');
+  print('First index: ${first.index}, Last index: ${last.index}');
+
+  print('StretchMode test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('StretchMode Tests'),
+      Text('Values: ${ StretchMode.values.length}'),
+      Text('First: $first'),
+      Text('Last: $last'),
+    ],
+  );
 }

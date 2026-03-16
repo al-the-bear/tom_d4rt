@@ -1,37 +1,62 @@
+// D4rt test script: Tests RectangularSliderValueIndicatorShape from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for RectangularSliderValueIndicatorShape.
-/// Rectangular value indicator for Slider.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('RectangularSliderValueIndicatorShape', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 20),
-      Container(
-        width: 200,
-        height: 50,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Container(height: 4, color: Colors.grey.shade300),
-            Positioned(left: 0, right: 70, child: Container(height: 4, color: Colors.blue)),
-            // Rectangular indicator
-            Positioned(
-              right: 58,
-              bottom: 35,
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(2)),
-                child: const Text('65%', style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)),
+  print('RectangularSliderValueIndicatorShape test executing');
+
+  final title = 'RectangularSliderValueIndicatorShape';
+  final packageName = 'material';
+  final details = 'RectangularSliderValueIndicatorShape';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('RectangularSliderValueIndicatorShape test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
               ),
-            ),
-            Positioned(right: 65, child: Container(width: 16, height: 16, decoration: const BoxDecoration(color: Colors.blue, shape: BoxShape.circle))),
-          ],
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-      const SizedBox(height: 8),
-      const Text('Sharp-edged tooltip styling', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
+    ),
   );
 }

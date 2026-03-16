@@ -1,38 +1,71 @@
+// D4rt test script: Tests ElevatedButton from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for ElevatedButton - Material elevated button.
-/// Shows button with elevation, states, and customization.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('ElevatedButton Demo', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-      const SizedBox(height: 16),
-      // Button states
-      Wrap(
-        spacing: 12,
-        runSpacing: 12,
-        alignment: WrapAlignment.center,
-        children: [
-          ElevatedButton(onPressed: () {}, child: const Text('Enabled')),
-          const ElevatedButton(onPressed: null, child: Text('Disabled')),
-          ElevatedButton.icon(onPressed: () {}, icon: const Icon(Icons.add), label: const Text('With Icon')),
-        ],
-      ),
-      const SizedBox(height: 16),
-      Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: Colors.grey.shade100,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: const Column(
-          children: [
-            Text('Elevation: 1 → 3 on press', style: TextStyle(fontSize: 11)),
-            Text('Use for primary actions', style: TextStyle(fontSize: 11)),
-          ],
-        ),
-      ),
-    ],
+  print('ElevatedButton test executing');
+
+  // Test basic ElevatedButton
+  final basic = ElevatedButton(
+    onPressed: () {
+      print('Basic button pressed');
+    },
+    child: Text('Basic Button'),
+  );
+  print('Basic ElevatedButton created');
+
+  // Test ElevatedButton with icon
+  final withIcon = ElevatedButton.icon(
+    onPressed: () {
+      print('Icon button pressed');
+    },
+    icon: Icon(Icons.send),
+    label: Text('Send'),
+  );
+  print('ElevatedButton.icon created');
+
+  // Test ElevatedButton with style
+  final styled = ElevatedButton(
+    onPressed: () {},
+    style: ElevatedButton.styleFrom(
+      backgroundColor: Colors.green,
+      foregroundColor: Colors.white,
+      padding: EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
+    ),
+    child: Text('Styled Button'),
+  );
+  print('Styled ElevatedButton created');
+
+  // Test disabled ElevatedButton
+  final disabled = ElevatedButton(onPressed: null, child: Text('Disabled'));
+  print('Disabled ElevatedButton created');
+
+  // Test ElevatedButton with custom shape
+  final rounded = ElevatedButton(
+    onPressed: () {},
+    style: ElevatedButton.styleFrom(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+    ),
+    child: Text('Rounded'),
+  );
+  print('Rounded ElevatedButton created');
+
+  print('ElevatedButton test completed');
+
+  return Container(
+    padding: EdgeInsets.all(16.0),
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        basic,
+        SizedBox(height: 12.0),
+        withIcon,
+        SizedBox(height: 12.0),
+        styled,
+        SizedBox(height: 12.0),
+        disabled,
+        SizedBox(height: 12.0),
+        rounded,
+      ],
+    ),
   );
 }

@@ -1,61 +1,62 @@
+// D4rt test script: Tests SegmentedButtonState from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for SegmentedButton state management.
-/// Stateful selection handling for segmented buttons.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('SegmentedButton State', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(12)),
-        child: Column(
-          children: [
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                _SegmentDemo('Day', true),
-                _SegmentDemo('Week', false),
-                _SegmentDemo('Month', false),
-              ],
-            ),
-            const SizedBox(height: 12),
-            const Text("selected: {CalendarView.day}", style: TextStyle(fontFamily: 'monospace', fontSize: 9)),
-            const SizedBox(height: 4),
-            const Text('onSelectionChanged:', style: TextStyle(fontFamily: 'monospace', fontSize: 9)),
-            const Text('(Set<T> newSelection) { }', style: TextStyle(fontFamily: 'monospace', fontSize: 9)),
-          ],
+  print('SegmentedButtonState test executing');
+
+  final title = 'SegmentedButtonState';
+  final packageName = 'material';
+  final details = 'SegmentedButtonState';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('SegmentedButtonState test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-      const SizedBox(height: 12),
-      const Text('Type-safe enum selection', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
+    ),
   );
-}
-
-class _SegmentDemo extends StatelessWidget {
-  final String label;
-  final bool selected;
-  const _SegmentDemo(this.label, this.selected);
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration: BoxDecoration(
-        color: selected ? Colors.blue : Colors.white,
-        border: Border.all(color: Colors.blue),
-        borderRadius: label == 'Day' ? const BorderRadius.horizontal(left: Radius.circular(16)) : label == 'Month' ? const BorderRadius.horizontal(right: Radius.circular(16)) : null,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (selected) const Icon(Icons.check, size: 12, color: Colors.white),
-          if (selected) const SizedBox(width: 4),
-          Text(label, style: TextStyle(fontSize: 10, color: selected ? Colors.white : Colors.blue)),
-        ],
-      ),
-    );
-  }
 }

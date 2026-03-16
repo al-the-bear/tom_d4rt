@@ -1,32 +1,67 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests ConstantTween from animation
+import 'dart:ui';
+import 'package:flutter/animation.dart';
+import 'package:flutter/widgets.dart';
 
-/// Demonstrates ConstantTween - returns the same value regardless of animation progress.
 dynamic build(BuildContext context) {
-  final tween = ConstantTween<double>(42.0);
+  print('ConstantTween test executing');
 
-  return TweenAnimationBuilder<double>(
-    tween: Tween(begin: 0.0, end: 1.0),
-    duration: const Duration(seconds: 2),
-    builder: (context, t, _) {
-      final constVal = tween.transform(t);
-      return Column(
+  // ========== Double ConstantTween ==========
+  print('--- Double ConstantTween ---');
+  final doubleTween = ConstantTween<double>(42.0);
+  print('  value at 0.0: ${doubleTween.lerp(0.0)}');
+  print('  value at 0.5: ${doubleTween.lerp(0.5)}');
+  print('  value at 1.0: ${doubleTween.lerp(1.0)}');
+  print('  begin: ${doubleTween.begin}');
+  print('  end: ${doubleTween.end}');
+
+  // ========== String ConstantTween ==========
+  print('--- String ConstantTween ---');
+  final stringTween = ConstantTween<String>('hello');
+  print('  value at 0.0: ${stringTween.lerp(0.0)}');
+  print('  value at 1.0: ${stringTween.lerp(1.0)}');
+
+  // ========== Int ConstantTween ==========
+  print('--- Int ConstantTween ---');
+  final intTween = ConstantTween<int>(7);
+  print('  value at 0.0: ${intTween.lerp(0.0)}');
+  print('  value at 0.5: ${intTween.lerp(0.5)}');
+
+  // ========== Color ConstantTween ==========
+  print('--- Color ConstantTween ---');
+  final colorTween = ConstantTween<Color>(Color(0xFFFF5722));
+  print('  value at 0.0: ${colorTween.lerp(0.0)}');
+  print('  value at 1.0: ${colorTween.lerp(1.0)}');
+
+  // ========== Evaluate via animation ==========
+  print('--- Evaluate ---');
+  final anim = AlwaysStoppedAnimation<double>(0.7);
+  print('  evaluate(0.7): ${doubleTween.evaluate(anim)}');
+
+  print('ConstantTween test completed');
+  return SingleChildScrollView(
+    child: Padding(
+      padding: EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text('ConstantTween Demo', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-          const SizedBox(height: 16),
+          Text('ConstantTween Tests',
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          SizedBox(height: 8.0),
+          Text('double(42.0) at t=0: ${doubleTween.lerp(0.0)}'),
+          Text('double(42.0) at t=0.5: ${doubleTween.lerp(0.5)}'),
+          Text('double(42.0) at t=1: ${doubleTween.lerp(1.0)}'),
+          Text('string("hello") at t=0.5: ${stringTween.lerp(0.5)}'),
+          Text('int(7) at t=0.5: ${intTween.lerp(0.5)}'),
           Container(
-            padding: const EdgeInsets.all(24),
-            decoration: BoxDecoration(color: Colors.purple.shade50, borderRadius: BorderRadius.circular(16)),
-            child: Text('${constVal.toInt()}', style: const TextStyle(fontSize: 48, fontWeight: FontWeight.bold, color: Colors.purple)),
+            height: 30.0,
+            width: 200.0,
+            color: colorTween.lerp(0.5),
+            child: Center(child: Text('Constant Color', style: TextStyle(color: Color(0xFFFFFFFF)))),
           ),
-          const SizedBox(height: 12),
-          LinearProgressIndicator(value: t),
-          const SizedBox(height: 8),
-          Text('t = ${t.toStringAsFixed(2)} → always 42', style: const TextStyle(fontFamily: 'monospace', fontSize: 11)),
-          const SizedBox(height: 8),
-          const Text('Useful for conditional animations', style: TextStyle(fontSize: 11, color: Colors.grey)),
         ],
-      );
-    },
+      ),
+    ),
   );
 }

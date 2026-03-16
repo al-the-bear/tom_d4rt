@@ -1,71 +1,43 @@
-import 'dart:ui';
+// D4rt test script: Tests Offset from dart:ui
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for Offset - 2D point/vector.
-/// Demonstrates offset operations and usage.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('Offset Demo')),
-    body: SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('Offset', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 24),
-          SizedBox(
-            height: 200,
-            child: CustomPaint(
-              painter: _OffsetPainter(),
-              size: const Size(double.infinity, 200),
-            ),
-          ),
-          const SizedBox(height: 24),
-          _buildOffsetOp('Offset(10, 20)', 'Create from dx, dy'),
-          _buildOffsetOp('Offset.fromDirection(angle, dist)', 'Polar coordinates'),
-          _buildOffsetOp('offset1 + offset2', 'Add offsets'),
-          _buildOffsetOp('offset1 - offset2', 'Subtract offsets'),
-          _buildOffsetOp('offset * factor', 'Scale offset'),
-          _buildOffsetOp('offset.distance', 'Distance from origin'),
-          _buildOffsetOp('offset.direction', 'Angle from x-axis'),
-        ],
+  print('Offset test executing');
+
+  // Test Offset constructors
+  final offset1 = Offset(100.0, 200.0);
+  print('Offset created: dx=${offset1.dx}, dy=${offset1.dy}');
+
+  // Test Offset.zero
+  final zero = Offset.zero;
+  print('Offset.zero: dx=${zero.dx}, dy=${zero.dy}');
+
+  // Test Offset operations
+  final offset2 = Offset(50.0, 50.0);
+  final sum = offset1 + offset2;
+  print('Offset addition: ${sum.dx}, ${sum.dy}');
+
+  final diff = offset1 - offset2;
+  print('Offset subtraction: ${diff.dx}, ${diff.dy}');
+
+  final scaled = offset1 * 2.0;
+  print('Offset scale: ${scaled.dx}, ${scaled.dy}');
+
+  // Test distance
+  final distance = offset1.distance;
+  print('Offset distance: $distance');
+
+  print('Offset test completed');
+
+  return Container(
+    width: offset1.dx,
+    height: offset1.dy,
+    color: Colors.blue,
+    child: Center(
+      child: Text(
+        'Offset: ${offset1.dx}, ${offset1.dy}',
+        style: TextStyle(color: Colors.white, fontSize: 16.0),
       ),
     ),
   );
-}
-
-Widget _buildOffsetOp(String code, String desc) {
-  return Container(
-    margin: const EdgeInsets.only(bottom: 8),
-    padding: const EdgeInsets.all(12),
-    decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(8)),
-    child: Row(
-      children: [
-        Expanded(child: Text(code, style: const TextStyle(fontFamily: 'monospace', fontSize: 12))),
-        Text(desc, style: TextStyle(color: Colors.grey.shade600, fontSize: 11)),
-      ],
-    ),
-  );
-}
-
-class _OffsetPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final center = Offset(size.width / 2, size.height / 2);
-    
-    // Draw axes
-    canvas.drawLine(Offset(0, center.dy), Offset(size.width, center.dy), Paint()..color = Colors.grey.shade400);
-    canvas.drawLine(Offset(center.dx, 0), Offset(center.dx, size.height), Paint()..color = Colors.grey.shade400);
-    
-    // Draw point
-    final point = center + const Offset(80, -50);
-    canvas.drawCircle(point, 8, Paint()..color = Colors.blue);
-    canvas.drawLine(center, point, Paint()..color = Colors.blue..strokeWidth = 2);
-    
-    final tp = TextPainter(text: const TextSpan(text: 'Offset(80, -50)', style: TextStyle(fontSize: 11, color: Colors.blue)), textDirection: TextDirection.ltr)..layout();
-    tp.paint(canvas, point + const Offset(10, -20));
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

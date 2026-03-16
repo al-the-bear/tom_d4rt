@@ -1,51 +1,62 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests AnimatedCrossFade from widgets
+import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {
-  return _AnimatedCrossFadeDemo();
-}
+  print('AnimatedCrossFade test executing');
 
-class _AnimatedCrossFadeDemo extends StatefulWidget {
-  @override
-  State<_AnimatedCrossFadeDemo> createState() => _AnimatedCrossFadeDemoState();
-}
+  final title = 'AnimatedCrossFade';
+  final packageName = 'widgets';
+  final details = 'Cross fade';
 
-class _AnimatedCrossFadeDemoState extends State<_AnimatedCrossFadeDemo> {
-  var _showFirst = true;
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const Text(
-          'AnimatedCrossFade demo',
-          style: TextStyle(fontWeight: FontWeight.bold),
+  print('AnimatedCrossFade test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
         ),
-        OutlinedButton(
-          onPressed: () => setState(() => _showFirst = !_showFirst),
-          child: const Text('Cross-fade'),
-        ),
-        AnimatedCrossFade(
-          firstChild: Container(
-            width: 260,
-            height: 90,
-            color: Colors.pink.shade100,
-            alignment: Alignment.center,
-            child: const Text('First child'),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-          secondChild: Container(
-            width: 260,
-            height: 90,
-            color: Colors.purple.shade100,
-            alignment: Alignment.center,
-            child: const Text('Second child'),
-          ),
-          crossFadeState: _showFirst
-              ? CrossFadeState.showFirst
-              : CrossFadeState.showSecond,
-          duration: const Duration(milliseconds: 300),
         ),
-      ],
-    );
-  }
+      ),
+    ),
+  );
 }

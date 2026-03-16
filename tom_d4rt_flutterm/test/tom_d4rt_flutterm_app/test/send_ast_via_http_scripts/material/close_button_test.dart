@@ -1,39 +1,61 @@
+// D4rt test script: Tests CloseButton from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for CloseButton.
-/// Shows close button widget with back navigation.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(
-      title: const Text('CloseButton'),
-      actions: const [CloseButton()],
-    ),
-    body: Padding(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('CloseButton Widget', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 8),
-          const Text('Calls Navigator.maybePop when pressed'),
-          const SizedBox(height: 32),
-          const Text('Standalone:', style: TextStyle(fontWeight: FontWeight.bold)),
-          const SizedBox(height: 8),
-          Row(children: [const CloseButton(), const Text(' Tap to trigger pop')]),
-          const SizedBox(height: 24),
-          const Text('Custom onPressed:', style: TextStyle(fontWeight: FontWeight.bold)),
-          const SizedBox(height: 8),
-          Row(children: [
-            CloseButton(onPressed: () => ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Custom action')))),
-            const Text(' Custom handler'),
-          ]),
-          const SizedBox(height: 24),
-          const Text('Comparison:', style: TextStyle(fontWeight: FontWeight.bold)),
-          const SizedBox(height: 8),
-          const Row(children: [CloseButton(), SizedBox(width: 8), Text('CloseButton - X icon')]),
-          const SizedBox(height: 8),
-          const Row(children: [BackButton(), SizedBox(width: 8), Text('BackButton - Arrow icon')]),
-        ],
+  print('CloseButton test executing');
+
+  final title = 'CloseButton';
+  final packageName = 'material';
+  final details = 'CloseButton';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('CloseButton test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     ),
   );

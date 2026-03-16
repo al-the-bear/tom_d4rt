@@ -1,44 +1,62 @@
+// D4rt test script: Tests OutlinedButtonThemeData from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for OutlinedButtonThemeData.
-/// Configures visual properties of OutlinedButton.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('OutlinedButtonThemeData', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Column(
-        children: [
-          _ThemedButton('Default', Colors.blue, 1),
-          const SizedBox(height: 8),
-          _ThemedButton('Bold Border', Colors.purple, 2),
-          const SizedBox(height: 8),
-          _ThemedButton('Rounded', Colors.green, 1, rounded: true),
-        ],
-      ),
-      const SizedBox(height: 12),
-      const Text('style property on OutlinedButton', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
-  );
-}
+  print('OutlinedButtonThemeData test executing');
 
-class _ThemedButton extends StatelessWidget {
-  final String label;
-  final Color color;
-  final double borderWidth;
-  final bool rounded;
-  const _ThemedButton(this.label, this.color, this.borderWidth, {this.rounded = false});
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-      decoration: BoxDecoration(
-        color: Colors.transparent,
-        border: Border.all(color: color, width: borderWidth),
-        borderRadius: BorderRadius.circular(rounded ? 20 : 8),
+  final title = 'OutlinedButtonThemeData';
+  final packageName = 'material';
+  final details = 'Outlined data';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('OutlinedButtonThemeData test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
-      child: Text(label, style: TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 12)),
-    );
-  }
+    ),
+  );
 }

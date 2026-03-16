@@ -1,46 +1,63 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests Interval from animation
+import 'dart:ui';
+import 'package:flutter/animation.dart';
+import 'package:flutter/widgets.dart';
 
-/// Demonstrates Interval - applies a curve to only part of the animation timeline.
 dynamic build(BuildContext context) {
-  const early = Interval(0.0, 0.5, curve: Curves.easeOut);
-  const late = Interval(0.5, 1.0, curve: Curves.easeIn);
+  print('Interval test executing');
 
-  return TweenAnimationBuilder<double>(
-    tween: Tween(begin: 0.0, end: 1.0),
-    duration: const Duration(seconds: 3),
-    builder: (context, t, _) {
-      final earlyVal = early.transform(t);
-      final lateVal = late.transform(t);
-      return Column(
+  // ========== Basic Interval ==========
+  print('--- Interval(0.0, 1.0) ---');
+  final full = Interval(0.0, 1.0);
+  final tValues = [0.0, 0.25, 0.5, 0.75, 1.0];
+  for (final t in tValues) {
+    print('  t=$t: ${full.transform(t).toStringAsFixed(4)}');
+  }
+
+  // ========== Partial Interval ==========
+  print('--- Interval(0.25, 0.75) ---');
+  final partial = Interval(0.25, 0.75);
+  for (final t in [0.0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1.0]) {
+    print('  t=$t: ${partial.transform(t).toStringAsFixed(4)}');
+  }
+
+  // ========== First half only ==========
+  print('--- Interval(0.0, 0.5) ---');
+  final firstHalf = Interval(0.0, 0.5);
+  for (final t in tValues) {
+    print('  t=$t: ${firstHalf.transform(t).toStringAsFixed(4)}');
+  }
+
+  // ========== Second half only ==========
+  print('--- Interval(0.5, 1.0) ---');
+  final secondHalf = Interval(0.5, 1.0);
+  for (final t in tValues) {
+    print('  t=$t: ${secondHalf.transform(t).toStringAsFixed(4)}');
+  }
+
+  // ========== With curve ==========
+  print('--- Interval(0.0, 1.0, curve: easeIn) ---');
+  final eased = Interval(0.0, 1.0, curve: Curves.easeIn);
+  for (final t in tValues) {
+    print('  t=$t: ${eased.transform(t).toStringAsFixed(4)}');
+  }
+
+  print('Interval test completed');
+  return SingleChildScrollView(
+    child: Padding(
+      padding: EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text('Interval Demo', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-          const SizedBox(height: 16),
-          // Timeline visualization
-          Container(
-            height: 40, width: 250,
-            decoration: BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.circular(8)),
-            child: Row(
-              children: [
-                Expanded(child: Container(
-                  decoration: BoxDecoration(color: Colors.blue.withOpacity(earlyVal), borderRadius: const BorderRadius.horizontal(left: Radius.circular(8))),
-                  alignment: Alignment.center,
-                  child: const Text('0.0-0.5', style: TextStyle(color: Colors.white, fontSize: 11)),
-                )),
-                Expanded(child: Container(
-                  decoration: BoxDecoration(color: Colors.orange.withOpacity(lateVal), borderRadius: const BorderRadius.horizontal(right: Radius.circular(8))),
-                  alignment: Alignment.center,
-                  child: const Text('0.5-1.0', style: TextStyle(color: Colors.white, fontSize: 11)),
-                )),
-              ],
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text('t=${t.toStringAsFixed(2)}', style: const TextStyle(fontFamily: 'monospace')),
-          const SizedBox(height: 12),
-          const Text('Sequence animations within timeline segments', style: TextStyle(fontSize: 11, color: Colors.grey)),
+          Text('Interval Tests',
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          SizedBox(height: 8.0),
+          Text('Interval(0.25, 0.75) at t=0.5: ${partial.transform(0.5).toStringAsFixed(3)}'),
+          Text('Interval(0.0, 0.5) at t=0.25: ${firstHalf.transform(0.25).toStringAsFixed(3)}'),
+          Text('Interval(0.5, 1.0) at t=0.75: ${secondHalf.transform(0.75).toStringAsFixed(3)}'),
         ],
-      );
-    },
+      ),
+    ),
   );
 }

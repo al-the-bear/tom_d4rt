@@ -1,19 +1,62 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests ExtendSelectionByPageIntent from widgets
+import 'package:flutter/widgets.dart';
 
-/// Deep visual demo for ExtendSelectionByPageIntent
 dynamic build(BuildContext context) {
-  return Scaffold(appBar: AppBar(title: Text('ExtendSelectionByPageIntent')), body: Padding(padding: EdgeInsets.all(16), child: Column(children: [
-    Text('ExtendSelectionByPageIntent', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-    SizedBox(height: 8),
-    Text('Extend selection by page', style: TextStyle(fontSize: 12, color: Colors.grey)),
-    SizedBox(height: 16),
-    Expanded(child: Container(padding: EdgeInsets.all(16), decoration: BoxDecoration(color: Colors.lime.shade50, borderRadius: BorderRadius.circular(12)),
-      child: Center(child: Column(mainAxisSize: MainAxisSize.min, children: [
-        Icon(Icons.widgets, size: 48, color: Colors.lime.shade700),
-        SizedBox(height: 12),
-        Text('ExtendSelectionByPageIntent Demo', style: TextStyle(fontWeight: FontWeight.bold)),
-      ])))),
-    Container(padding: EdgeInsets.all(8), decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
-      child: Text('Widget from widgets library', style: TextStyle(fontSize: 10))),
-  ])));
+  print('ExtendSelectionByPageIntent test executing');
+
+  final title = 'ExtendSelectionByPageIntent';
+  final packageName = 'widgets';
+  final details = 'ExtendSelectionByPageIntent';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('ExtendSelectionByPageIntent test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
 }

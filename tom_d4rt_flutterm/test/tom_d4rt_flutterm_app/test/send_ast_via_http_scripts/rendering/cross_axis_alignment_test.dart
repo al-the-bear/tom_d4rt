@@ -1,36 +1,30 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests CrossAxisAlignment from rendering
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 
-/// Deep visual demo for CrossAxisAlignment enum
 dynamic build(BuildContext context) {
-  return Scaffold(appBar: AppBar(title: Text('CrossAxisAlignment')), body: Padding(padding: EdgeInsets.all(16), child: Column(children: [
-    Text('Cross Axis Alignment', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-    SizedBox(height: 12),
-    Expanded(child: ListView(children: [
-      _AlignDemo(CrossAxisAlignment.start, 'start'),
-      _AlignDemo(CrossAxisAlignment.end, 'end'),
-      _AlignDemo(CrossAxisAlignment.center, 'center'),
-      _AlignDemo(CrossAxisAlignment.stretch, 'stretch'),
-      _AlignDemo(CrossAxisAlignment.baseline, 'baseline'),
-    ])),
-  ])));
-}
+  print('CrossAxisAlignment test executing');
 
-class _AlignDemo extends StatelessWidget {
-  final CrossAxisAlignment align; final String name;
-  const _AlignDemo(this.align, this.name);
-  @override Widget build(BuildContext context) => Container(margin: EdgeInsets.only(bottom: 8), padding: EdgeInsets.all(8), decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
-    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text(name, style: TextStyle(fontWeight: FontWeight.bold)),
-      SizedBox(height: 4),
-      Container(height: 60, decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
-        child: Row(crossAxisAlignment: align == CrossAxisAlignment.baseline ? CrossAxisAlignment.center : align,
-          textBaseline: TextBaseline.alphabetic,
-          children: [
-            Container(width: 40, height: 40, color: Colors.blue),
-            SizedBox(width: 8),
-            Container(width: 40, height: 25, color: Colors.orange),
-            SizedBox(width: 8),
-            Container(width: 40, height: 50, color: Colors.green),
-          ])),
-    ]));
+  // Enumerate all CrossAxisAlignment values
+  print('CrossAxisAlignment values:');
+  for (final value in CrossAxisAlignment.values) {
+    print('  ${value.name}: $value');
+  }
+  print('CrossAxisAlignment has ${ CrossAxisAlignment.values.length} values');
+
+  final first = CrossAxisAlignment.values.first;
+  final last = CrossAxisAlignment.values.last;
+  print('First: $first, Last: $last');
+  print('First index: ${first.index}, Last index: ${last.index}');
+
+  print('CrossAxisAlignment test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('CrossAxisAlignment Tests'),
+      Text('Values: ${ CrossAxisAlignment.values.length}'),
+      Text('First: $first'),
+      Text('Last: $last'),
+    ],
+  );
 }

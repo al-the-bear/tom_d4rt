@@ -1,45 +1,66 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests RectTween from animation
+import 'dart:ui';
+import 'package:flutter/animation.dart';
+import 'package:flutter/widgets.dart';
 
-/// Demonstrates RectTween - interpolates between two rectangles.
 dynamic build(BuildContext context) {
-  final tween = RectTween(
-    begin: const Rect.fromLTWH(0, 0, 50, 50),
-    end: const Rect.fromLTWH(100, 50, 150, 100),
-  );
+  print('RectTween test executing');
 
-  return TweenAnimationBuilder<Rect?>(
-    tween: tween,
-    duration: const Duration(seconds: 2),
-    builder: (context, rect, _) => Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const Text('RectTween Demo', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-        const SizedBox(height: 16),
-        SizedBox(
-          height: 180, width: 280,
-          child: CustomPaint(painter: _RectPainter(rect: rect)),
-        ),
-        const SizedBox(height: 8),
-        Text('L:${rect!.left.toInt()} T:${rect.top.toInt()} W:${rect.width.toInt()} H:${rect.height.toInt()}',
-            style: const TextStyle(fontFamily: 'monospace', fontSize: 11)),
-      ],
+  // ========== Basic RectTween ==========
+  print('--- Basic RectTween ---');
+  final tween = RectTween(
+    begin: Rect.fromLTWH(0.0, 0.0, 100.0, 100.0),
+    end: Rect.fromLTWH(50.0, 50.0, 200.0, 200.0),
+  );
+  print('  begin: ${tween.begin}');
+  print('  end: ${tween.end}');
+
+  // ========== Lerp at various t ==========
+  print('--- Lerp values ---');
+  for (final t in [0.0, 0.25, 0.5, 0.75, 1.0]) {
+    final r = tween.lerp(t);
+    print('  t=$t: $r');
+  }
+
+  // ========== Size changes ==========
+  print('--- Size interpolation ---');
+  final sizeTween = RectTween(
+    begin: Rect.fromLTWH(0.0, 0.0, 50.0, 50.0),
+    end: Rect.fromLTWH(0.0, 0.0, 200.0, 100.0),
+  );
+  final mid = sizeTween.lerp(0.5);
+  print('  midpoint size: ${mid!.width} x ${mid.height}');
+
+  // ========== Position changes ==========
+  print('--- Position interpolation ---');
+  final posTween = RectTween(
+    begin: Rect.fromLTWH(0.0, 0.0, 100.0, 100.0),
+    end: Rect.fromLTWH(200.0, 100.0, 100.0, 100.0),
+  );
+  final midPos = posTween.lerp(0.5);
+  print('  midpoint position: (${midPos!.left}, ${midPos.top})');
+
+  // ========== Evaluate ==========
+  print('--- Evaluate ---');
+  final anim = AlwaysStoppedAnimation<double>(0.5);
+  final evalResult = tween.evaluate(anim);
+  print('  evaluate(0.5): $evalResult');
+
+  print('RectTween test completed');
+  return SingleChildScrollView(
+    child: Padding(
+      padding: EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text('RectTween Tests',
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          SizedBox(height: 8.0),
+          for (final t in [0.0, 0.25, 0.5, 0.75, 1.0])
+            Text('t=$t: ${tween.lerp(t)}'),
+        ],
+      ),
     ),
   );
-}
-
-class _RectPainter extends CustomPainter {
-  final Rect? rect;
-  _RectPainter({required this.rect});
-  @override
-  void paint(Canvas canvas, Size size) {
-    if (rect == null) return;
-    // Draw begin rect outline
-    canvas.drawRect(const Rect.fromLTWH(0, 0, 50, 50), Paint()..color = Colors.blue.withOpacity(0.3)..style = PaintingStyle.stroke..strokeWidth = 2);
-    // Draw end rect outline
-    canvas.drawRect(const Rect.fromLTWH(100, 50, 150, 100), Paint()..color = Colors.orange.withOpacity(0.3)..style = PaintingStyle.stroke..strokeWidth = 2);
-    // Draw current rect
-    canvas.drawRect(rect!, Paint()..color = Colors.purple);
-  }
-  @override
-  bool shouldRepaint(covariant _RectPainter old) => rect != old.rect;
 }

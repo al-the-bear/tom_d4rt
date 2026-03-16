@@ -1,21 +1,81 @@
+// D4rt test script: Tests BorderRadius from painting
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for BorderRadius
 dynamic build(BuildContext context) {
-  return Scaffold(appBar: AppBar(title: Text('BorderRadius Demo')), body: SingleChildScrollView(padding: EdgeInsets.all(16), child: Wrap(spacing: 16, runSpacing: 16, children: [Container(width: 80, height: 80, decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(8)), child: Center(child: Text('8', style: TextStyle(color: Colors.white)))), Container(width: 80, height: 80, decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(20)), child: Center(child: Text('20', style: TextStyle(color: Colors.white)))), Container(width: 80, height: 80, decoration: BoxDecoration(color: Colors.orange, borderRadius: BorderRadius.circular(40)), child: Center(child: Text('40', style: TextStyle(color: Colors.white)))), Container(width: 80, height: 80, decoration: BoxDecoration(color: Colors.purple, borderRadius: BorderRadius.only(topLeft: Radius.circular(30))), child: Center(child: Text('TL', style: TextStyle(color: Colors.white)))), Container(width: 80, height: 80, decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.horizontal(left: Radius.circular(40))), child: Center(child: Text('H', style: TextStyle(color: Colors.white)))), Container(width: 80, height: 80, decoration: BoxDecoration(color: Colors.teal, borderRadius: BorderRadius.vertical(top: Radius.circular(40))), child: Center(child: Text('V', style: TextStyle(color: Colors.white))))])));
-}
+  print('BorderRadius test executing');
 
-class _DirectionCard extends StatelessWidget {
-  final String label;
-  final IconData icon;
-  final Color color;
-  const _DirectionCard(this.label, this.icon, this.color);
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 80, height: 80, margin: EdgeInsets.all(8),
-      decoration: BoxDecoration(color: color.withOpacity(0.1), borderRadius: BorderRadius.circular(8), border: Border.all(color: color)),
-      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [Icon(icon, color: color), Text(label, style: TextStyle(fontSize: 10, color: color))]),
-    );
-  }
+  // Test BorderRadius.circular
+  final circular = BorderRadius.circular(16.0);
+  print('BorderRadius.circular(16): topLeft=${circular.topLeft.x}');
+
+  // Test BorderRadius.all
+  final all = BorderRadius.all(Radius.circular(12.0));
+  print('BorderRadius.all: ${all.topLeft.x}');
+
+  // Test BorderRadius.only
+  final only = BorderRadius.only(
+    topLeft: Radius.circular(20.0),
+    topRight: Radius.circular(10.0),
+    bottomLeft: Radius.circular(5.0),
+    bottomRight: Radius.circular(15.0),
+  );
+  print(
+    'BorderRadius.only: tl=${only.topLeft.x}, tr=${only.topRight.x}, bl=${only.bottomLeft.x}, br=${only.bottomRight.x}',
+  );
+
+  // Test BorderRadius.vertical
+  final vertical = BorderRadius.vertical(
+    top: Radius.circular(25.0),
+    bottom: Radius.circular(10.0),
+  );
+  print(
+    'BorderRadius.vertical: top=${vertical.topLeft.x}, bottom=${vertical.bottomLeft.x}',
+  );
+
+  // Test BorderRadius.horizontal
+  final horizontal = BorderRadius.horizontal(
+    left: Radius.circular(15.0),
+    right: Radius.circular(30.0),
+  );
+  print(
+    'BorderRadius.horizontal: left=${horizontal.topLeft.x}, right=${horizontal.topRight.x}',
+  );
+
+  // Test BorderRadius.zero
+  final zero = BorderRadius.zero;
+  print('BorderRadius.zero: ${zero.topLeft.x}');
+
+  print('BorderRadius test completed');
+
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Container(
+        width: 150.0,
+        height: 50.0,
+        decoration: BoxDecoration(color: Colors.blue, borderRadius: circular),
+        child: Center(
+          child: Text('circular', style: TextStyle(color: Colors.white)),
+        ),
+      ),
+      SizedBox(height: 8.0),
+      Container(
+        width: 150.0,
+        height: 50.0,
+        decoration: BoxDecoration(color: Colors.green, borderRadius: only),
+        child: Center(
+          child: Text('only', style: TextStyle(color: Colors.white)),
+        ),
+      ),
+      SizedBox(height: 8.0),
+      Container(
+        width: 150.0,
+        height: 50.0,
+        decoration: BoxDecoration(color: Colors.orange, borderRadius: vertical),
+        child: Center(
+          child: Text('vertical', style: TextStyle(color: Colors.white)),
+        ),
+      ),
+    ],
+  );
 }

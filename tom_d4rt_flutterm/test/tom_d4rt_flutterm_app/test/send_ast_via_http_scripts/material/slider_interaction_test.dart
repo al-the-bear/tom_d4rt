@@ -1,6 +1,29 @@
+// D4rt test script: Tests SliderInteraction from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for SliderInteraction
 dynamic build(BuildContext context) {
-  return Scaffold(appBar: AppBar(title: Text('SliderInteraction Demo')), body: Center(child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [Text('Tap Only'), SliderTheme(data: SliderTheme.of(context).copyWith(allowedInteraction: SliderInteraction.tapOnly), child: Slider(value: 0.3, onChanged: (v) {})), Text('Slide Only'), SliderTheme(data: SliderTheme.of(context).copyWith(allowedInteraction: SliderInteraction.slideOnly), child: Slider(value: 0.5, onChanged: (v) {})), Text('Tap and Slide'), SliderTheme(data: SliderTheme.of(context).copyWith(allowedInteraction: SliderInteraction.tapAndSlide), child: Slider(value: 0.7, onChanged: (v) {})), Text('Slide Thumb'), SliderTheme(data: SliderTheme.of(context).copyWith(allowedInteraction: SliderInteraction.slideThumb), child: Slider(value: 0.9, onChanged: (v) {}))])));
+  print('SliderInteraction test executing');
+
+  // Enumerate all SliderInteraction values
+  print('SliderInteraction values:');
+  for (final value in SliderInteraction.values) {
+    print('  ${value.name}: $value');
+  }
+  print('SliderInteraction has ${ SliderInteraction.values.length} values');
+
+  final first = SliderInteraction.values.first;
+  final last = SliderInteraction.values.last;
+  print('First: $first, Last: $last');
+  print('First index: ${first.index}, Last index: ${last.index}');
+
+  print('SliderInteraction test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('SliderInteraction Tests'),
+      Text('Values: ${ SliderInteraction.values.length}'),
+      Text('First: $first'),
+      Text('Last: $last'),
+    ],
+  );
 }

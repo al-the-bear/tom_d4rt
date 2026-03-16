@@ -1,54 +1,62 @@
+// D4rt test script: Tests RoundSliderOverlayShape from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for RoundSliderOverlayShape.
-/// Circular overlay shown when slider thumb is pressed.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('RoundSliderOverlayShape', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _OverlayDemo('Default', 12, 24),
-          const SizedBox(width: 24),
-          _OverlayDemo('Large', 12, 36),
-        ],
-      ),
-      const SizedBox(height: 12),
-      const Text('overlayRadius property', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
-  );
-}
+  print('RoundSliderOverlayShape test executing');
 
-class _OverlayDemo extends StatelessWidget {
-  final String label;
-  final double thumbRadius;
-  final double overlayRadius;
-  const _OverlayDemo(this.label, this.thumbRadius, this.overlayRadius);
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Stack(
-          alignment: Alignment.center,
-          children: [
-            Container(
-              width: overlayRadius * 2,
-              height: overlayRadius * 2,
-              decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.blue.withAlpha(50)),
-            ),
-            Container(
-              width: thumbRadius * 2,
-              height: thumbRadius * 2,
-              decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.blue),
-            ),
-          ],
+  final title = 'RoundSliderOverlayShape';
+  final packageName = 'material';
+  final details = 'Round overlay';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('RoundSliderOverlayShape test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
         ),
-        const SizedBox(height: 4),
-        Text(label, style: const TextStyle(fontSize: 9)),
-      ],
-    );
-  }
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
 }

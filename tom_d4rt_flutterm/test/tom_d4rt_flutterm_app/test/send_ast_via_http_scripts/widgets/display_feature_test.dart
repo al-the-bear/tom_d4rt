@@ -1,19 +1,81 @@
+// D4rt test script: Tests DisplayFeature, DisplayFeatureType,
+// DisplayFeatureSubScreen, DisplayFeatureState
 import 'package:flutter/material.dart';
+import 'dart:ui' as ui;
 
-/// Deep visual demo for DisplayFeature
 dynamic build(BuildContext context) {
-  return Scaffold(appBar: AppBar(title: Text('DisplayFeature')), body: Padding(padding: EdgeInsets.all(16), child: Column(children: [
-    Text('DisplayFeature', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-    SizedBox(height: 8),
-    Text('Foldable display feature info', style: TextStyle(fontSize: 12, color: Colors.grey)),
-    SizedBox(height: 16),
-    Expanded(child: Container(padding: EdgeInsets.all(16), decoration: BoxDecoration(color: Colors.purple.shade50, borderRadius: BorderRadius.circular(12)),
-      child: Center(child: Column(mainAxisSize: MainAxisSize.min, children: [
-        Icon(Icons.widgets, size: 48, color: Colors.purple),
-        SizedBox(height: 12),
-        Text('DisplayFeature Demo', style: TextStyle(fontWeight: FontWeight.bold)),
-      ])))),
-    Container(padding: EdgeInsets.all(8), decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
-      child: Text('Widget from widgets library', style: TextStyle(fontSize: 10))),
-  ])));
+  print('DisplayFeature test executing');
+
+  // ========== DisplayFeatureType ==========
+  print('--- DisplayFeatureType Tests ---');
+  for (final type in ui.DisplayFeatureType.values) {
+    print('DisplayFeatureType: ${type.name}');
+  }
+
+  // ========== DisplayFeatureState ==========
+  print('--- DisplayFeatureState Tests ---');
+  for (final state in ui.DisplayFeatureState.values) {
+    print('DisplayFeatureState: ${state.name}');
+  }
+
+  // ========== DisplayFeature ==========
+  print('--- DisplayFeature Tests ---');
+  final feature = ui.DisplayFeature(
+    bounds: Rect.fromLTWH(0, 0, 10, 800),
+    type: ui.DisplayFeatureType.fold,
+    state: ui.DisplayFeatureState.postureFlat,
+  );
+  print('DisplayFeature created');
+  print('  bounds: ${feature.bounds}');
+  print('  type: ${feature.type}');
+  print('  state: ${feature.state}');
+
+  // Another feature type
+  final hinge = ui.DisplayFeature(
+    bounds: Rect.fromLTWH(380, 0, 20, 800),
+    type: ui.DisplayFeatureType.hinge,
+    state: ui.DisplayFeatureState.unknown,
+  );
+  print('Hinge DisplayFeature created');
+  print('  bounds: ${hinge.bounds}');
+  print('  type: ${hinge.type}');
+
+  // ========== DisplayFeatureSubScreen ==========
+  print('--- DisplayFeatureSubScreen Tests ---');
+  final subScreen = DisplayFeatureSubScreen(
+    anchorPoint: Offset(100.0, 100.0),
+    child: Text('Sub screen content'),
+  );
+  print('DisplayFeatureSubScreen created');
+  print('  anchorPoint: ${subScreen.anchorPoint}');
+
+  print('All display feature tests passed');
+
+  // ========== RETURN WIDGET ==========
+  return MaterialApp(
+    home: Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'DisplayFeature Test',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
+            SizedBox(height: 16.0),
+            Text(
+              'DisplayFeatureType values: ${ui.DisplayFeatureType.values.length}',
+            ),
+            Text(
+              'DisplayFeatureState values: ${ui.DisplayFeatureState.values.length}',
+            ),
+            DisplayFeatureSubScreen(
+              anchorPoint: Offset.zero,
+              child: Text('SubScreen content'),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
 }

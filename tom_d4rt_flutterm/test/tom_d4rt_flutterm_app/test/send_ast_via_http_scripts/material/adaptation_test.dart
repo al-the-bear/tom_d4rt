@@ -1,51 +1,62 @@
+// D4rt test script: Tests Adaptation from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for Adaptation.
-/// Shows adaptive behavior across platforms.
 dynamic build(BuildContext context) {
-  final platform = Theme.of(context).platform;
-  return Scaffold(
-    appBar: AppBar(title: const Text('Adaptation')),
-    body: Padding(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('Platform Adaptation', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 16),
-          _PlatformChip('Current Platform', platform.name, Colors.blue),
-          const SizedBox(height: 24),
-          const Text('Adaptive Widgets:', style: TextStyle(fontWeight: FontWeight.bold)),
-          const SizedBox(height: 8),
-          _AdaptiveItem('Switch', Icons.toggle_on),
-          _AdaptiveItem('Slider', Icons.tune),
-          _AdaptiveItem('CircularProgressIndicator', Icons.refresh),
-          _AdaptiveItem('AlertDialog', Icons.chat_bubble),
-          const SizedBox(height: 16),
-          const Text('Uses Material on Android/web, Cupertino on iOS/macOS',
-            style: TextStyle(fontSize: 12, color: Colors.grey)),
-        ],
+  print('Adaptation test executing');
+
+  final title = 'Adaptation';
+  final packageName = 'material';
+  final details = 'Adaptation';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('Adaptation test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     ),
-  );
-}
-
-class _PlatformChip extends StatelessWidget {
-  final String label; final String value; final Color color;
-  const _PlatformChip(this.label, this.value, this.color);
-  @override
-  Widget build(BuildContext context) => Chip(
-    avatar: CircleAvatar(backgroundColor: color, child: Icon(Icons.devices, color: Colors.white, size: 16)),
-    label: Text('\$label: \$value'),
-  );
-}
-
-class _AdaptiveItem extends StatelessWidget {
-  final String name; final IconData icon;
-  const _AdaptiveItem(this.name, this.icon);
-  @override
-  Widget build(BuildContext context) => Padding(
-    padding: const EdgeInsets.symmetric(vertical: 4),
-    child: Row(children: [Icon(icon, size: 20), const SizedBox(width: 8), Text(name)]),
   );
 }

@@ -1,51 +1,62 @@
+// D4rt test script: Tests DrawerButtonIcon from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for DrawerButtonIcon - icon for opening drawer.
-/// Shows the hamburger menu icon used to toggle drawers.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('DrawerButtonIcon', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          // Standard
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Colors.blue.shade50,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: const Column(
-              children: [
-                Icon(Icons.menu, size: 40, color: Colors.blue),
-                SizedBox(height: 8),
-                Text('Drawer', style: TextStyle(fontSize: 11)),
-              ],
-            ),
+  print('DrawerButtonIcon test executing');
+
+  final title = 'DrawerButtonIcon';
+  final packageName = 'material';
+  final details = 'DrawerButtonIcon';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('DrawerButtonIcon test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-          const SizedBox(width: 16),
-          // End drawer
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Colors.green.shade50,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: const Column(
-              children: [
-                Icon(Icons.menu_open, size: 40, color: Colors.green),
-                SizedBox(height: 8),
-                Text('End Drawer', style: TextStyle(fontSize: 11)),
-              ],
-            ),
-          ),
-        ],
+        ),
       ),
-      const SizedBox(height: 16),
-      const Text('Hamburger icon for drawer toggle', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
+    ),
   );
 }

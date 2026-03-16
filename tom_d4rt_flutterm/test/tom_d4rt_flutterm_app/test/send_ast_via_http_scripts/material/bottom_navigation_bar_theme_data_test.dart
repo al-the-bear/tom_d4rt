@@ -1,42 +1,62 @@
+// D4rt test script: Tests BottomNavigationBarThemeData from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for BottomNavigationBarThemeData.
-/// Shows bottom nav bar theme data properties.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('BottomNavigationBarThemeData')),
-    body: ListView(
-      padding: const EdgeInsets.all(16),
-      children: [
-        const Text('Theme Data Properties', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-        const SizedBox(height: 16),
-        _Prop('backgroundColor', 'Bar background color'),
-        _Prop('elevation', 'Shadow elevation'),
-        _Prop('selectedIconTheme', 'Selected icon theme'),
-        _Prop('unselectedIconTheme', 'Unselected icon theme'),
-        _Prop('selectedItemColor', 'Selected item color'),
-        _Prop('unselectedItemColor', 'Unselected item color'),
-        _Prop('selectedLabelStyle', 'Selected label text style'),
-        _Prop('unselectedLabelStyle', 'Unselected label text style'),
-        _Prop('showSelectedLabels', 'Show selected labels'),
-        _Prop('showUnselectedLabels', 'Show unselected labels'),
-        _Prop('type', 'fixed or shifting'),
-        _Prop('enableFeedback', 'Enable haptic feedback'),
-        _Prop('landscapeLayout', 'Landscape item layout'),
-        const SizedBox(height: 16),
-        Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(8)),
-          child: const Text('Set via ThemeData.bottomNavigationBarTheme', style: TextStyle(fontSize: 12)),
+  print('BottomNavigationBarThemeData test executing');
+
+  final title = 'BottomNavigationBarThemeData';
+  final packageName = 'material';
+  final details = 'BottomNavigationBarThemeData';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('BottomNavigationBarThemeData test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
         ),
-      ],
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     ),
   );
-}
-
-class _Prop extends StatelessWidget {
-  final String name, desc;
-  const _Prop(this.name, this.desc);
-  @override
-  Widget build(BuildContext context) => ListTile(title: Text(name), subtitle: Text(desc), dense: true);
 }

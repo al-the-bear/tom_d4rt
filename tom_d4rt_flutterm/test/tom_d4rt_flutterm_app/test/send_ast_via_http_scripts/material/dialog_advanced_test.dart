@@ -1,54 +1,100 @@
+// D4rt test script: Tests SimpleDialog, SimpleDialogOption, DialogTheme,
+// AlertDialog advanced properties
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for SimpleDialog - dialog with simple choices.
-/// Shows list-style option selection in a dialog.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
+  print('Dialog advanced test executing');
+
+  // ========== SimpleDialogOption ==========
+  print('--- SimpleDialogOption Tests ---');
+  final option1 = SimpleDialogOption(
+    onPressed: () => print('Option 1 selected'),
+    padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 24.0),
+    child: Text('Account 1'),
+  );
+  print('SimpleDialogOption created');
+
+  // ========== SimpleDialog ==========
+  print('--- SimpleDialog Tests ---');
+  final simpleDialog = SimpleDialog(
+    title: Text('Select Account'),
+    titlePadding: EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 0.0),
+    contentPadding: EdgeInsets.fromLTRB(0.0, 12.0, 0.0, 16.0),
+    elevation: 24.0,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
+    backgroundColor: Colors.white,
     children: [
-      const Text('SimpleDialog Demo', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-      const SizedBox(height: 16),
-      // Dialog mockup
-      Container(
-        width: 240,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 12)],
-        ),
+      option1,
+      SimpleDialogOption(onPressed: () {}, child: Text('Account 2')),
+      SimpleDialogOption(onPressed: () {}, child: Text('Add Account')),
+    ],
+  );
+  print('SimpleDialog created with 3 options');
+
+  // ========== DialogTheme ==========
+  print('--- DialogTheme Tests ---');
+  final dialogTheme = DialogThemeData(
+    backgroundColor: Colors.white,
+    elevation: 24.0,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
+    titleTextStyle: TextStyle(
+      fontSize: 20.0,
+      fontWeight: FontWeight.bold,
+      color: Colors.black,
+    ),
+    contentTextStyle: TextStyle(fontSize: 16.0, color: Colors.black87),
+    alignment: Alignment.center,
+    actionsPadding: EdgeInsets.all(8.0),
+  );
+  print('DialogThemeData created');
+  print('  elevation: ${dialogTheme.elevation}');
+
+  // ========== AlertDialog advanced ==========
+  print('--- AlertDialog advanced Tests ---');
+  final alertDialog = AlertDialog(
+    title: Text('Alert'),
+    content: Text('This is an advanced alert dialog'),
+    titlePadding: EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 0.0),
+    contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 0.0),
+    actionsPadding: EdgeInsets.all(8.0),
+    actionsAlignment: MainAxisAlignment.spaceBetween,
+    actionsOverflowDirection: VerticalDirection.down,
+    actionsOverflowButtonSpacing: 8.0,
+    clipBehavior: Clip.antiAlias,
+    scrollable: false,
+    elevation: 24.0,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
+    icon: Icon(Icons.warning, color: Colors.orange),
+    iconPadding: EdgeInsets.only(top: 16.0),
+    iconColor: Colors.orange,
+    actions: [
+      TextButton(onPressed: () {}, child: Text('Cancel')),
+      ElevatedButton(onPressed: () {}, child: Text('OK')),
+    ],
+  );
+  print('Advanced AlertDialog created');
+  print('  scrollable: false');
+  print('  with icon');
+
+  print('All dialog advanced tests passed');
+
+  // ========== RETURN WIDGET ==========
+  return MaterialApp(
+    theme: ThemeData(dialogTheme: dialogTheme),
+    home: Scaffold(
+      body: Center(
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Padding(
-              padding: EdgeInsets.all(16),
-              child: Text('Select an option', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+            Text(
+              'Dialog Advanced Test',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
             ),
-            const Divider(height: 1),
-            _DialogOption(Icons.photo, 'Gallery', Colors.blue),
-            _DialogOption(Icons.camera_alt, 'Camera', Colors.green),
-            _DialogOption(Icons.folder, 'Files', Colors.orange),
-            const SizedBox(height: 8),
+            SizedBox(height: 16.0),
+            simpleDialog,
           ],
         ),
       ),
-      const SizedBox(height: 12),
-      const Text('Use for simple selection lists', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
+    ),
   );
-}
-
-class _DialogOption extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final Color color;
-  const _DialogOption(this.icon, this.label, this.color);
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      leading: Icon(icon, color: color),
-      title: Text(label),
-      dense: true,
-      onTap: () {},
-    );
-  }
 }

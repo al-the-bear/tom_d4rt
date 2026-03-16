@@ -1,61 +1,53 @@
-import 'dart:ui';
+// D4rt test script: Tests OpacityEngineLayer via SceneBuilder
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for OpacityEngineLayer - opacity transformation layer.
-/// Demonstrates applying opacity to child layers.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('OpacityEngineLayer Demo')),
-    body: Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('Opacity Engine Layer', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 24),
-          Expanded(
-            child: Row(
-              children: [
-                Expanded(child: _buildOpacityDemo(1.0, 'alpha: 255')),
-                const SizedBox(width: 12),
-                Expanded(child: _buildOpacityDemo(0.7, 'alpha: 178')),
-                const SizedBox(width: 12),
-                Expanded(child: _buildOpacityDemo(0.4, 'alpha: 102')),
-                const SizedBox(width: 12),
-                Expanded(child: _buildOpacityDemo(0.1, 'alpha: 25')),
-              ],
-            ),
-          ),
-          const SizedBox(height: 24),
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(color: Colors.purple.shade50, borderRadius: BorderRadius.circular(8)),
-            child: const Text('OpacityEngineLayer applies alpha to all child layers in the compositing tree.', textAlign: TextAlign.center),
-          ),
-        ],
-      ),
-    ),
-  );
-}
+  print('OpacityEngineLayer test executing');
 
-Widget _buildOpacityDemo(double opacity, String label) {
+  final builder = ui.SceneBuilder();
+
+  // Full opacity
+  final layer1 = builder.pushOpacity(255);
+  print('pushOpacity(255): ${layer1.runtimeType}');
+  print('is EngineLayer: ${layer1 is ui.EngineLayer}');
+  builder.pop();
+
+  // Half opacity
+  final layer2 = builder.pushOpacity(128);
+  print('pushOpacity(128): ${layer2.runtimeType}');
+  builder.pop();
+
+  // Zero opacity (fully transparent)
+  final layer3 = builder.pushOpacity(0);
+  print('pushOpacity(0): ${layer3.runtimeType}');
+  builder.pop();
+
+  // With offset
+  final layer4 = builder.pushOpacity(200, offset: Offset(10.0, 20.0));
+  print('pushOpacity with offset: ${layer4.runtimeType}');
+  builder.pop();
+
+  // Various alpha values
+  for (final alpha in [25, 50, 75, 100, 150, 200]) {
+    final l = builder.pushOpacity(alpha);
+    print('pushOpacity($alpha): OK');
+    builder.pop();
+  }
+
+  final scene = builder.build();
+  scene.dispose();
+
+  print('OpacityEngineLayer test completed');
   return Column(
+    mainAxisSize: MainAxisSize.min,
     children: [
-      Expanded(
-        child: Opacity(
-          opacity: opacity,
-          child: Container(
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(colors: [Colors.blue, Colors.purple]),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: const Center(child: Icon(Icons.star, color: Colors.white, size: 40)),
-          ),
-        ),
-      ),
-      const SizedBox(height: 8),
-      Text('\${(opacity * 100).toInt()}%', style: const TextStyle(fontWeight: FontWeight.bold)),
-      Text(label, style: TextStyle(fontSize: 10, color: Colors.grey.shade600)),
+      Text('OpacityEngineLayer Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      SizedBox(height: 8),
+      Text('Type: ${layer1.runtimeType}'),
+      Text('Alpha 0, 128, 255 tested'),
+      Text('With offset supported'),
+      Text('6 additional alpha values tested'),
     ],
   );
 }

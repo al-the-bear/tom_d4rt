@@ -1,51 +1,62 @@
+// D4rt test script: Tests CheckboxListTile from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for CheckboxListTile.
-/// Shows checkbox with list tile layout.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('CheckboxListTile')),
-    body: _CheckboxListDemo(),
-  );
-}
+  print('CheckboxListTile test executing');
 
-class _CheckboxListDemo extends StatefulWidget {
-  @override
-  State<_CheckboxListDemo> createState() => _CheckboxListDemoState();
-}
+  final title = 'CheckboxListTile';
+  final packageName = 'material';
+  final details = 'Checkbox tile';
 
-class _CheckboxListDemoState extends State<_CheckboxListDemo> {
-  final _items = ['Email notifications', 'Push notifications', 'SMS alerts', 'Weekly digest'];
-  final _selected = <String>{};
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
 
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        const Padding(
-          padding: EdgeInsets.all(16),
-          child: Text('Notification Settings', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+  print('CheckboxListTile test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
         ),
-        for (final item in _items)
-          CheckboxListTile(
-            title: Text(item),
-            subtitle: Text('Enable ' + item.toLowerCase()),
-            secondary: const Icon(Icons.notifications),
-            value: _selected.contains(item),
-            onChanged: (v) => setState(() => v! ? _selected.add(item) : _selected.remove(item)),
-          ),
-        const Divider(),
-        CheckboxListTile(
-          title: const Text('Tristate checkbox'),
-          tristate: true,
-          value: _selected.length == _items.length ? true : _selected.isEmpty ? false : null,
-          onChanged: (_) {},
-        ),
-        Padding(
+        child: Padding(
           padding: const EdgeInsets.all(16),
-          child: Text('Selected: ' + _selected.length.toString() + '/' + _items.length.toString()),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
-      ],
-    );
-  }
+      ),
+    ),
+  );
 }

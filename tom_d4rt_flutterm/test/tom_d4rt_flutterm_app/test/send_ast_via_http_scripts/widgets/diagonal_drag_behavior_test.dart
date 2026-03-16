@@ -1,19 +1,29 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests DiagonalDragBehavior from widgets
+import 'package:flutter/widgets.dart';
 
-/// Deep visual demo for DiagonalDragBehavior
 dynamic build(BuildContext context) {
-  return Scaffold(appBar: AppBar(title: Text('DiagonalDragBehavior')), body: Padding(padding: EdgeInsets.all(16), child: Column(children: [
-    Text('DiagonalDragBehavior', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-    SizedBox(height: 8),
-    Text('Configure diagonal drag handling', style: TextStyle(fontSize: 12, color: Colors.grey)),
-    SizedBox(height: 16),
-    Expanded(child: Container(padding: EdgeInsets.all(16), decoration: BoxDecoration(color: Colors.orange.shade50, borderRadius: BorderRadius.circular(12)),
-      child: Center(child: Column(mainAxisSize: MainAxisSize.min, children: [
-        Icon(Icons.widgets, size: 48, color: Colors.orange),
-        SizedBox(height: 12),
-        Text('DiagonalDragBehavior Demo', style: TextStyle(fontWeight: FontWeight.bold)),
-      ])))),
-    Container(padding: EdgeInsets.all(8), decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
-      child: Text('Widget from widgets library', style: TextStyle(fontSize: 10))),
-  ])));
+  print('DiagonalDragBehavior test executing');
+
+  // Enumerate all DiagonalDragBehavior values
+  print('DiagonalDragBehavior values:');
+  for (final value in DiagonalDragBehavior.values) {
+    print('  ${value.name}: $value');
+  }
+  print('DiagonalDragBehavior has ${ DiagonalDragBehavior.values.length} values');
+
+  final first = DiagonalDragBehavior.values.first;
+  final last = DiagonalDragBehavior.values.last;
+  print('First: $first, Last: $last');
+  print('First index: ${first.index}, Last index: ${last.index}');
+
+  print('DiagonalDragBehavior test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('DiagonalDragBehavior Tests'),
+      Text('Values: ${ DiagonalDragBehavior.values.length}'),
+      Text('First: $first'),
+      Text('Last: $last'),
+    ],
+  );
 }

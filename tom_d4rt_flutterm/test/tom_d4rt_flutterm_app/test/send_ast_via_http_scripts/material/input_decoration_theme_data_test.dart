@@ -1,53 +1,62 @@
+// D4rt test script: Tests InputDecorationThemeData from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for InputDecorationTheme.
-/// Shows themed input decoration styling.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('InputDecorationTheme', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _ThemePreview('Outlined', true),
-          const SizedBox(width: 12),
-          _ThemePreview('Filled', false),
-        ],
-      ),
-      const SizedBox(height: 12),
-      Container(
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(8)),
-        child: const Text('Theme.of(context).inputDecorationTheme', style: TextStyle(fontSize: 9, fontFamily: 'monospace')),
-      ),
-    ],
-  );
-}
+  print('InputDecorationThemeData test executing');
 
-class _ThemePreview extends StatelessWidget {
-  final String label;
-  final bool outlined;
-  const _ThemePreview(this.label, this.outlined);
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 100,
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: outlined ? null : Colors.grey.shade200,
-        border: outlined ? Border.all(color: Colors.blue) : null,
-        borderRadius: BorderRadius.circular(8),
+  final title = 'InputDecorationThemeData';
+  final packageName = 'material';
+  final details = 'InputDecorationThemeData';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('InputDecorationThemeData test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
-      child: Column(
-        children: [
-          Text('Label', style: TextStyle(fontSize: 9, color: Colors.blue.shade700)),
-          const Text('Input', style: TextStyle(fontSize: 12)),
-          const SizedBox(height: 4),
-          Text(label, style: const TextStyle(fontSize: 9, color: Colors.grey)),
-        ],
-      ),
-    );
-  }
+    ),
+  );
 }

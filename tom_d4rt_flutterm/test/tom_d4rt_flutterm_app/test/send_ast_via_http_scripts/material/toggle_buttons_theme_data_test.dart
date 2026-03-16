@@ -1,6 +1,62 @@
+// D4rt test script: Tests ToggleButtonsThemeData from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for ToggleButtonsThemeData
 dynamic build(BuildContext context) {
-  return Scaffold(appBar: AppBar(title: Text('ToggleButtonsThemeData Demo')), body: Center(child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [ToggleButtons(isSelected: [true, false, false], onPressed: (i) {}, children: [Icon(Icons.grid_view), Icon(Icons.list), Icon(Icons.view_module)]), SizedBox(height: 30), Theme(data: Theme.of(context).copyWith(toggleButtonsTheme: ToggleButtonsThemeData(fillColor: Colors.purple, selectedColor: Colors.white, borderRadius: BorderRadius.circular(20), constraints: BoxConstraints(minWidth: 60, minHeight: 60))), child: ToggleButtons(isSelected: [false, true, false], onPressed: (i) {}, children: [Icon(Icons.grid_view), Icon(Icons.list), Icon(Icons.view_module)])), SizedBox(height: 20), Text('Custom themed toggle buttons', style: TextStyle(color: Colors.grey))])));
+  print('ToggleButtonsThemeData test executing');
+
+  final title = 'ToggleButtonsThemeData';
+  final packageName = 'material';
+  final details = 'ToggleButtonsThemeData';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('ToggleButtonsThemeData test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
 }

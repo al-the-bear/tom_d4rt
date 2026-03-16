@@ -1,67 +1,48 @@
-import 'dart:ui';
+// D4rt test script: Tests ClipRectEngineLayer via SceneBuilder
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for ClipRectEngineLayer - rectangular clipping.
-/// Demonstrates simple rectangular clip bounds.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('ClipRectEngineLayer Demo')),
-    body: Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('Rectangular Clipping', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 24),
-          Expanded(
-            child: Stack(
-              children: [
-                // Full image
-                Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Colors.blue.shade200, Colors.purple.shade200, Colors.pink.shade200],
-                    ),
-                  ),
-                  child: const Center(
-                    child: Text('Original Content', style: TextStyle(fontSize: 24, color: Colors.white70)),
-                  ),
-                ),
-                // Clipped overlay
-                Center(
-                  child: ClipRect(
-                    child: Container(
-                      width: 200,
-                      height: 150,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.white, width: 3),
-                      ),
-                      child: Container(
-                        color: Colors.black54,
-                        child: const Center(
-                          child: Text('Clipped Region', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 16),
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
-            child: const Row(
-              children: [
-                Icon(Icons.crop, color: Colors.blue),
-                SizedBox(width: 12),
-                Expanded(child: Text('ClipRectEngineLayer clips to a rectangular bounds')),
-              ],
-            ),
-          ),
-        ],
-      ),
-    ),
+  print('ClipRectEngineLayer test executing');
+
+  final builder = ui.SceneBuilder();
+  final rect = Rect.fromLTWH(10, 20, 200, 150);
+
+  final layer = builder.pushClipRect(rect);
+  print('pushClipRect returned: ${layer.runtimeType}');
+  print('is EngineLayer: ${layer is ui.EngineLayer}');
+  builder.pop();
+
+  // Different clip behaviors
+  for (final clip in [Clip.hardEdge, Clip.antiAlias, Clip.antiAliasWithSaveLayer]) {
+    final l = builder.pushClipRect(rect, clipBehavior: clip);
+    print('pushClipRect ${clip.name}: ${l.runtimeType}');
+    builder.pop();
+  }
+
+  // Different rects
+  final smallRect = Rect.fromLTWH(0, 0, 10, 10);
+  final layer2 = builder.pushClipRect(smallRect);
+  print('pushClipRect small: ${layer2.runtimeType}');
+  builder.pop();
+
+  final largeRect = Rect.fromLTWH(-100, -100, 1000, 1000);
+  final layer3 = builder.pushClipRect(largeRect);
+  print('pushClipRect large: ${layer3.runtimeType}');
+  builder.pop();
+
+  final scene = builder.build();
+  scene.dispose();
+
+  print('ClipRectEngineLayer test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('ClipRectEngineLayer Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      SizedBox(height: 8),
+      Text('Type: ${layer.runtimeType}'),
+      Text('3 clip behaviors tested'),
+      Text('Small, normal, large rects'),
+    ],
   );
 }

@@ -1,68 +1,80 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests AnimationMin from animation
+import 'dart:ui';
+import 'package:flutter/animation.dart';
+import 'package:flutter/widgets.dart';
 
-/// Demonstrates AnimationMin - combines two animations, outputting the minimum value.
 dynamic build(BuildContext context) {
-  return TweenAnimationBuilder<double>(
-    tween: Tween(begin: 0.0, end: 1.0),
-    duration: const Duration(seconds: 3),
-    builder: (context, t, _) {
-      final a = Curves.easeIn.transform(t);
-      final b = Curves.easeOut.transform(t);
-      final minVal = a < b ? a : b;
+  print('AnimationMin test executing');
 
-      return Column(
+  // ========== Basic AnimationMin ==========
+  print('--- Basic AnimationMin ---');
+  final first = AlwaysStoppedAnimation<double>(0.3);
+  final next = AlwaysStoppedAnimation<double>(0.7);
+  final animMin = AnimationMin<double>(first, next);
+  print('  first=0.3, next=0.7, min: ${animMin.value}');
+
+  // ========== Min when first < next ==========
+  print('--- Min when first < next ---');
+  final low = AlwaysStoppedAnimation<double>(0.1);
+  final high = AlwaysStoppedAnimation<double>(0.9);
+  final minLH = AnimationMin<double>(low, high);
+  print('  min(0.1, 0.9): ${minLH.value}');
+
+  // ========== Min with equal values ==========
+  print('--- Min with equal values ---');
+  final eq1 = AlwaysStoppedAnimation<double>(0.5);
+  final eq2 = AlwaysStoppedAnimation<double>(0.5);
+  final minEq = AnimationMin<double>(eq1, eq2);
+  print('  min(0.5, 0.5): ${minEq.value}');
+
+  // ========== Min with boundary values ==========
+  print('--- Min boundary values ---');
+  final zero = AlwaysStoppedAnimation<double>(0.0);
+  final one = AlwaysStoppedAnimation<double>(1.0);
+  final minBound = AnimationMin<double>(zero, one);
+  print('  min(0.0, 1.0): ${minBound.value}');
+
+  // ========== Min with negative values ==========
+  print('--- Min with negative values ---');
+  final neg = AlwaysStoppedAnimation<double>(-0.5);
+  final pos = AlwaysStoppedAnimation<double>(0.5);
+  final minNeg = AnimationMin<double>(neg, pos);
+  print('  min(-0.5, 0.5): ${minNeg.value}');
+
+  // ========== Status ==========
+  print('--- Status ---');
+  print('  status: ${animMin.status}');
+
+  print('AnimationMin test completed');
+
+  final results = [
+    ('min(0.3, 0.7)', animMin.value),
+    ('min(0.1, 0.9)', minLH.value),
+    ('min(0.5, 0.5)', minEq.value),
+    ('min(0.0, 1.0)', minBound.value),
+    ('min(-0.5, 0.5)', minNeg.value),
+  ];
+
+  return SingleChildScrollView(
+    child: Padding(
+      padding: EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text('AnimationMin Demo', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-          const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              _Bar('A', a, Colors.blue, isMin: a <= b),
-              const SizedBox(width: 8),
-              _Bar('B', b, Colors.orange, isMin: b <= a),
-              const SizedBox(width: 16),
-              _Bar('MIN', minVal, Colors.teal, isMin: true),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(color: Colors.teal.shade50, borderRadius: BorderRadius.circular(8)),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Icon(Icons.arrow_downward, color: Colors.teal, size: 18),
-                Text(' AnimationMin = ${(minVal * 100).toInt()}%', style: const TextStyle(fontWeight: FontWeight.bold)),
-              ],
+          Text('AnimationMin Tests',
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          SizedBox(height: 8.0),
+          for (final r in results)
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 2.0),
+              child: Row(children: [
+                SizedBox(width: 150.0, child: Text('${r.$1}:')),
+                Text('${r.$2.toStringAsFixed(2)}'),
+              ]),
             ),
-          ),
         ],
-      );
-    },
+      ),
+    ),
   );
-}
-
-class _Bar extends StatelessWidget {
-  final String label;
-  final double value;
-  final Color color;
-  final bool isMin;
-  const _Bar(this.label, this.value, this.color, {this.isMin = false});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        if (isMin) const Icon(Icons.check, size: 14, color: Colors.teal),
-        Container(width: 40, height: 80 * value,
-          decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(4),
-            border: isMin ? Border.all(color: Colors.teal, width: 2) : null)),
-        const SizedBox(height: 4),
-        Text(label, style: TextStyle(fontSize: 11, color: color)),
-      ],
-    );
-  }
 }

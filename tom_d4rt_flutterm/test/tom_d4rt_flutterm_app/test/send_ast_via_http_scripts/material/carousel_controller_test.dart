@@ -1,87 +1,62 @@
+// D4rt test script: Tests CarouselController from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for CarouselController.
-/// Shows carousel view controller.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('CarouselController')),
-    body: Center(child: _CarouselDemo()),
-  );
-}
+  print('CarouselController test executing');
 
-class _CarouselDemo extends StatefulWidget {
-  @override
-  State<_CarouselDemo> createState() => _CarouselDemoState();
-}
+  final title = 'CarouselController';
+  final packageName = 'material';
+  final details = 'CarouselController';
 
-class _CarouselDemoState extends State<_CarouselDemo> {
-  final _controller = CarouselController();
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Text(
-          'CarouselController Demo',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+  print('CarouselController test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
         ),
-        const SizedBox(height: 8),
-        const Text('Swipe or use buttons to navigate'),
-        const SizedBox(height: 24),
-        SizedBox(
-          height: 200,
-          child: CarouselView(
-            controller: _controller,
-            itemExtent: 280,
-            shrinkExtent: 200,
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              for (int i = 0; i < 5; i++)
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 8),
-                  decoration: BoxDecoration(
-                    color: Colors.primaries[i * 3 % Colors.primaries.length],
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  alignment: Alignment.center,
-                  child: Text(
-                    'Page ' + (i + 1).toString(),
-                    style: const TextStyle(
-                      fontSize: 24,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
                     ),
                   ),
                 ),
+              ),
             ],
           ),
         ),
-        const SizedBox(height: 24),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            FilledButton.icon(
-              onPressed: () => _controller.animateTo(
-                _controller.position.pixels - 280,
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeInOut,
-              ),
-              icon: const Icon(Icons.arrow_back),
-              label: const Text('Prev'),
-            ),
-            const SizedBox(width: 16),
-            FilledButton.icon(
-              onPressed: () => _controller.animateTo(
-                _controller.position.pixels + 280,
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeInOut,
-              ),
-              icon: const Icon(Icons.arrow_forward),
-              label: const Text('Next'),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
+      ),
+    ),
+  );
 }

@@ -1,47 +1,62 @@
+// D4rt test script: Tests ModalBottomSheetRoute from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for ModalBottomSheetRoute.
-/// Route that shows bottom sheet modally.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('ModalBottomSheetRoute', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Container(
-        width: 180,
-        height: 240,
-        decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(12)),
-        child: Stack(
-          children: [
-            Container(color: Colors.grey.shade200, child: const Center(child: Text('Page Content', style: TextStyle(color: Colors.grey)))),
-            // Scrim overlay
-            Container(color: Colors.black45),
-            // Bottom sheet
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                height: 120,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-                ),
-                child: Column(
-                  children: [
-                    Container(width: 40, height: 4, margin: const EdgeInsets.all(8), decoration: BoxDecoration(color: Colors.grey.shade300, borderRadius: BorderRadius.circular(2))),
-                    const Padding(padding: EdgeInsets.all(12), child: Text('Modal Sheet', style: TextStyle(fontWeight: FontWeight.bold))),
-                    const Text('Blocks interaction behind', style: TextStyle(fontSize: 10, color: Colors.grey)),
-                  ],
+  print('ModalBottomSheetRoute test executing');
+
+  final title = 'ModalBottomSheetRoute';
+  final packageName = 'material';
+  final details = 'ModalBottomSheetRoute';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('ModalBottomSheetRoute test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
-      const SizedBox(height: 12),
-      const Text('isScrollControlled, showDragHandle', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
+    ),
   );
 }

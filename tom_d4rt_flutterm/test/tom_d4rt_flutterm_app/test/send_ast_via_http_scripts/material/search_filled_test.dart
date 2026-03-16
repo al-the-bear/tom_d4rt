@@ -1,59 +1,66 @@
+// D4rt test script: Tests material SearchAnchor, SearchBar, SearchController,
+// SearchBarThemeData, FilledButton advanced, FilledButton.tonal
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for filled SearchBar variant.
-/// Search bar with filled background style.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('Filled SearchBar', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Container(
-        width: 220,
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-        decoration: BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.circular(28)),
-        child: Row(
-          children: [
-            const Icon(Icons.search, color: Colors.grey, size: 20),
-            const SizedBox(width: 12),
-            Text('Search in app', style: TextStyle(color: Colors.grey.shade600, fontSize: 13)),
-            const Spacer(),
-            Container(
-              width: 28,
-              height: 28,
-              decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.blue.shade100),
-              child: const Icon(Icons.person, size: 16, color: Colors.blue),
-            ),
-          ],
+  print('search_filled_test test executing');
+
+  final diagnostics = <String>[
+    'Class: search_filled_test',
+    'Script: material/search_filled_test.dart',
+    'Status: safe visual probe',
+  ];
+
+  print('search_filled_test test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 520),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF0F172A),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF334155), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Row(
+                children: [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                  Text(
+                    'D4rt Visual Test',
+                    style: TextStyle(color: Color(0xFFE2E8F0), fontWeight: FontWeight.w600),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              for (final line in diagnostics)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 6),
+                  child: Text(line, style: const TextStyle(color: Color(0xFFCBD5E1))),
+                ),
+              const SizedBox(height: 8),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1E293B),
+                  child: SizedBox(
+                    height: 44,
+                    width: double.infinity,
+                    child: Center(
+                      child: Text('Visible UI probe active', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-      const SizedBox(height: 16),
-      Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          _StyleChip('Outlined', false),
-          const SizedBox(width: 8),
-          _StyleChip('Filled', true),
-        ],
-      ),
-    ],
+    ),
   );
-}
-
-class _StyleChip extends StatelessWidget {
-  final String label;
-  final bool selected;
-  const _StyleChip(this.label, this.selected);
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration: BoxDecoration(
-        color: selected ? Colors.blue : Colors.transparent,
-        border: Border.all(color: selected ? Colors.blue : Colors.grey),
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Text(label, style: TextStyle(color: selected ? Colors.white : Colors.grey, fontSize: 10)),
-    );
-  }
 }

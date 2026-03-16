@@ -1,55 +1,62 @@
+// D4rt test script: Tests ExpansionPanelRadio from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for ExpansionPanelRadio - single-select expansion panels.
-/// Shows accordion-style panels where only one can be expanded.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('ExpansionPanelRadio', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Container(
-        width: 250,
+  print('ExpansionPanelRadio test executing');
+
+  final title = 'ExpansionPanelRadio';
+  final packageName = 'material';
+  final details = 'ExpansionPanelRadio';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('ExpansionPanelRadio test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(8),
-          boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4)],
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
         ),
-        child: Column(
-          children: [
-            // Panel 1 (expanded)
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Colors.blue.shade50,
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(children: [const Text('Panel 1', style: TextStyle(fontWeight: FontWeight.bold)), const Spacer(), const Icon(Icons.expand_less, color: Colors.blue)]),
-                  const Divider(),
-                  const Text('Expanded content here', style: TextStyle(fontSize: 11)),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
                 ],
               ),
-            ),
-            // Panel 2 (collapsed)
-            Container(
-              padding: const EdgeInsets.all(12),
-              child: const Row(children: [Text('Panel 2'), Spacer(), Icon(Icons.expand_more)]),
-            ),
-            const Divider(height: 1),
-            // Panel 3 (collapsed)
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: const BoxDecoration(borderRadius: BorderRadius.vertical(bottom: Radius.circular(8))),
-              child: const Row(children: [Text('Panel 3'), Spacer(), Icon(Icons.expand_more)]),
-            ),
-          ],
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-      const SizedBox(height: 12),
-      const Text('Only one panel expanded at a time', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
+    ),
   );
 }

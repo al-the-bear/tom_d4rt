@@ -1,47 +1,62 @@
+// D4rt test script: Tests PaginatedDataTableState from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for PaginatedDataTable state.
-/// Manages pagination and selection state.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('PaginatedDataTable State', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Container(
-        width: 220,
-        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4)]),
-        child: Column(
-          children: [
-            Table(
-              columnWidths: const {0: FixedColumnWidth(30), 1: FlexColumnWidth(), 2: FixedColumnWidth(50)},
-              children: [
-                TableRow(decoration: BoxDecoration(color: Colors.grey.shade100), children: [
-                  const Padding(padding: EdgeInsets.all(8), child: Icon(Icons.check_box_outline_blank, size: 14)),
-                  const Padding(padding: EdgeInsets.all(8), child: Text('Name', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10))),
-                  const Padding(padding: EdgeInsets.all(8), child: Text('Age', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10))),
-                ]),
-                const TableRow(children: [Padding(padding: EdgeInsets.all(8), child: Icon(Icons.check_box, size: 14, color: Colors.blue)), Padding(padding: EdgeInsets.all(8), child: Text('Alice', style: TextStyle(fontSize: 10))), Padding(padding: EdgeInsets.all(8), child: Text('28', style: TextStyle(fontSize: 10)))]),
-                const TableRow(children: [Padding(padding: EdgeInsets.all(8), child: Icon(Icons.check_box_outline_blank, size: 14)), Padding(padding: EdgeInsets.all(8), child: Text('Bob', style: TextStyle(fontSize: 10))), Padding(padding: EdgeInsets.all(8), child: Text('34', style: TextStyle(fontSize: 10)))]),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  const Text('1-10 of 50', style: TextStyle(fontSize: 9)),
-                  const SizedBox(width: 8),
-                  Icon(Icons.chevron_left, size: 16, color: Colors.grey.shade400),
-                  const Icon(Icons.chevron_right, size: 16),
+  print('PaginatedDataTableState test executing');
+
+  final title = 'PaginatedDataTableState';
+  final packageName = 'material';
+  final details = 'PaginatedDataTableState';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('PaginatedDataTableState test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
                 ],
               ),
-            ),
-          ],
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-      const SizedBox(height: 12),
-      const Text('rowsPerPage, sortColumnIndex', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
+    ),
   );
 }

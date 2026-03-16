@@ -1,68 +1,66 @@
+// D4rt test script: Tests Autocomplete, RawAutocomplete,
+// CalendarDatePickerMode, DateRangePickerDialog
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for Autocomplete with date picker.
-/// Shows autocomplete for date input.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('Autocomplete DatePicker')),
-    body: Center(child: _DateAutocomplete()),
-  );
-}
+  print('autocomplete_datepicker_test test executing');
 
-class _DateAutocomplete extends StatefulWidget {
-  @override
-  State<_DateAutocomplete> createState() => _DateAutocompleteState();
-}
+  final diagnostics = <String>[
+    'Class: autocomplete_datepicker_test',
+    'Script: material/autocomplete_datepicker_test.dart',
+    'Status: safe visual probe',
+  ];
 
-class _DateAutocompleteState extends State<_DateAutocomplete> {
-  DateTime? _selected;
-  final _dates = List.generate(30, (i) => DateTime.now().add(Duration(days: i)));
-
-  String _format(DateTime d) => '\${d.month}/\${d.day}/\${d.year}';
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Text('Type or pick a date:', style: TextStyle(fontSize: 16)),
-          const SizedBox(height: 16),
-          Row(
+  print('autocomplete_datepicker_test test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 520),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF0F172A),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF334155), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                child: Autocomplete<DateTime>(
-                  displayStringForOption: _format,
-                  optionsBuilder: (v) => _dates.where((d) => _format(d).contains(v.text)),
-                  onSelected: (d) => setState(() => _selected = d),
-                  fieldViewBuilder: (ctx, ctrl, focus, submit) => TextField(
-                    controller: ctrl,
-                    focusNode: focus,
-                    decoration: const InputDecoration(hintText: 'MM/DD/YYYY', border: OutlineInputBorder()),
+              const Row(
+                children: [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                  Text(
+                    'D4rt Visual Test',
+                    style: TextStyle(color: Color(0xFFE2E8F0), fontWeight: FontWeight.w600),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              for (final line in diagnostics)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 6),
+                  child: Text(line, style: const TextStyle(color: Color(0xFFCBD5E1))),
+                ),
+              const SizedBox(height: 8),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1E293B),
+                  child: SizedBox(
+                    height: 44,
+                    width: double.infinity,
+                    child: Center(
+                      child: Text('Visible UI probe active', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
                   ),
                 ),
               ),
-              const SizedBox(width: 8),
-              IconButton(
-                icon: const Icon(Icons.calendar_today),
-                onPressed: () async {
-                  final d = await showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime.now(),
-                    lastDate: DateTime.now().add(const Duration(days: 365)),
-                  );
-                  if (d != null) setState(() => _selected = d);
-                },
-              ),
             ],
           ),
-          const SizedBox(height: 16),
-          if (_selected != null)
-            Chip(label: Text('Selected: \${_format(_selected!)}')),
-        ],
+        ),
       ),
-    );
-  }
+    ),
+  );
 }

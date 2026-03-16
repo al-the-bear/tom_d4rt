@@ -1,71 +1,77 @@
-import 'dart:ui';
+// D4rt test script: Tests PathMetrics (Iterable<PathMetric>) from dart:ui
+// NOTE: PathMetrics doesn't support .first/.length/.isEmpty through bridge.
+// Must use iterator.moveNext() + iterator.current pattern.
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for PathMetrics - iterable of path contour metrics.
-/// Demonstrates accessing metrics for each contour in a path.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('PathMetrics Demo')),
-    body: Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('PathMetrics', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 8),
-          const Text('Iterable of PathMetric for all contours', style: TextStyle(color: Colors.grey)),
-          const SizedBox(height: 24),
-          SizedBox(
-            height: 180,
-            child: CustomPaint(
-              painter: _MetricsPainter(),
-              size: const Size(double.infinity, 180),
-            ),
-          ),
-          const SizedBox(height: 16),
-          _buildMetricCard('Contour 1', 'Circle: ~188px', Colors.blue),
-          _buildMetricCard('Contour 2', 'Square: ~200px', Colors.green),
-          _buildMetricCard('Contour 3', 'Triangle: ~174px', Colors.orange),
-        ],
-      ),
-    ),
-  );
-}
+  print('PathMetrics test executing');
 
-Widget _buildMetricCard(String name, String length, Color color) {
-  return Container(
-    margin: const EdgeInsets.symmetric(vertical: 4),
-    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-    decoration: BoxDecoration(color: color.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8)),
-    child: Row(children: [
-      Container(width: 12, height: 12, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
-      const SizedBox(width: 12),
-      Text(name, style: const TextStyle(fontWeight: FontWeight.bold)),
-      const Spacer(),
-      Text(length, style: TextStyle(color: color, fontFamily: 'monospace')),
-    ]),
-  );
-}
+  // Single contour - use iterator pattern
+  final path1 = Path()..addRect(Rect.fromLTWH(0, 0, 100, 50));
+  final metrics1 = path1.computeMetrics();
+  final iter1 = metrics1.iterator;
+  final hasFirst = iter1.moveNext();
+  print('Single contour hasFirst: $hasFirst');
+  if (hasFirst) {
+    print('first length: ${iter1.current.length.toStringAsFixed(1)}');
+    print('first isClosed: ${iter1.current.isClosed}');
+  }
+  final hasSecond = iter1.moveNext();
+  print('hasSecond: $hasSecond');
 
-class _MetricsPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    void drawShape(Path path, Color color, double x) {
-      canvas.save();
-      canvas.translate(x, 0);
-      canvas.drawPath(path, Paint()..color = color..style = PaintingStyle.stroke..strokeWidth = 3);
-      canvas.restore();
-    }
-    
-    final circle = Path()..addOval(const Rect.fromLTWH(0, 40, 60, 60));
-    final square = Path()..addRect(const Rect.fromLTWH(0, 40, 50, 50));
-    final triangle = Path()..moveTo(30, 40)..lineTo(60, 100)..lineTo(0, 100)..close();
-    
-    drawShape(circle, Colors.blue, 30);
-    drawShape(square, Colors.green, 130);
-    drawShape(triangle, Colors.orange, 230);
+  // Multiple contours
+  final path2 = Path()
+    ..addRect(Rect.fromLTWH(0, 0, 100, 50))
+    ..addOval(Rect.fromCircle(center: Offset(200, 50), radius: 30))
+    ..moveTo(300, 0)
+    ..lineTo(400, 100);
+  final metrics2 = path2.computeMetrics();
+  final iter2 = metrics2.iterator;
+
+  // Count contours using iterator
+  var count = 0;
+  final lengths = <String>[];
+  final closedFlags = <bool>[];
+  while (iter2.moveNext()) {
+    final m = iter2.current;
+    lengths.add(m.length.toStringAsFixed(1));
+    closedFlags.add(m.isClosed);
+    count++;
+  }
+  print('Multi contour count: $count');
+  for (var i = 0; i < count; i++) {
+    print('contour $i: length=${lengths[i]}, closed=${closedFlags[i]}');
   }
 
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+  // Empty path
+  final emptyPath = Path();
+  final emptyMetrics = emptyPath.computeMetrics();
+  final emptyIter = emptyMetrics.iterator;
+  final emptyHasFirst = emptyIter.moveNext();
+  print('Empty path hasFirst: $emptyHasFirst');
+
+  // for-in loop (Iterable iteration)
+  final path3 = Path()
+    ..addRect(Rect.fromLTWH(0, 0, 50, 50))
+    ..addRect(Rect.fromLTWH(100, 0, 50, 50));
+  var forInCount = 0;
+  for (final m in path3.computeMetrics()) {
+    print('for-in contour $forInCount: length=${m.length.toStringAsFixed(1)}');
+    forInCount++;
+  }
+  print('for-in total: $forInCount');
+
+  print('PathMetrics test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('PathMetrics Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      SizedBox(height: 8),
+      Text('Single contour OK'),
+      Text('Multi contour: $count'),
+      Text('Empty path: no contours'),
+      Text('for-in iteration: $forInCount contours'),
+    ],
+  );
 }

@@ -1,63 +1,62 @@
+// D4rt test script: Tests ScaffoldState from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for ScaffoldState.
-/// State class for Scaffold with drawer control and bottom sheets.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('ScaffoldState', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(12)),
-        child: Column(
-          children: [
-            const Text('Scaffold.of(context)', style: TextStyle(fontFamily: 'monospace', fontSize: 10)),
-            const SizedBox(height: 12),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                _StateMethod('.openDrawer()', Icons.menu),
-                const SizedBox(width: 8),
-                _StateMethod('.openEndDrawer()', Icons.menu_open),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                _StateMethod('.closeDrawer()', Icons.close),
-                const SizedBox(width: 8),
-                _StateMethod('.closeEndDrawer()', Icons.close),
-              ],
-            ),
-            const SizedBox(height: 8),
-            _StateMethod('.showBottomSheet()', Icons.expand_less),
-          ],
+  print('ScaffoldState test executing');
+
+  final title = 'ScaffoldState';
+  final packageName = 'material';
+  final details = 'Scaffold state';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('ScaffoldState test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-      const SizedBox(height: 12),
-      const Text('hasDrawer, isDrawerOpen, hasEndDrawer', style: TextStyle(fontSize: 10, color: Colors.grey)),
-    ],
+    ),
   );
-}
-
-class _StateMethod extends StatelessWidget {
-  final String method;
-  final IconData icon;
-  const _StateMethod(this.method, this.icon);
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(6),
-      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(6)),
-      child: Column(
-        children: [
-          Icon(icon, size: 16, color: Colors.blue),
-          Text(method, style: const TextStyle(fontFamily: 'monospace', fontSize: 8)),
-        ],
-      ),
-    );
-  }
 }

@@ -1,68 +1,162 @@
-import 'dart:ui';
+// D4rt test script: Tests dart:ui Canvas operations, Paint extensions,
+// BlendMode, FilterQuality, StrokeCap, StrokeJoin, PathFillType,
+// BlurStyle, TileMode, Clip, PointMode
 import 'package:flutter/material.dart';
+import 'dart:ui' as ui;
 
-/// Deep visual demo for dart:ui Paint and Canvas operations.
-/// Demonstrates drawing with Paint styles and Canvas methods.
 dynamic build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: const Text('Paint & Canvas Demo')),
-    body: Column(
-      children: [
-        Expanded(
-          flex: 2,
-          child: CustomPaint(
-            painter: _PaintCanvasPainter(),
-            size: const Size(double.infinity, double.infinity),
-          ),
-        ),
-        Expanded(
-          child: Container(
-            padding: const EdgeInsets.all(16),
-            color: Colors.grey.shade100,
-            child: GridView.count(
-              crossAxisCount: 4,
-              mainAxisSpacing: 8,
-              crossAxisSpacing: 8,
-              children: [
-                _buildStyleChip('Fill', Colors.blue),
-                _buildStyleChip('Stroke', Colors.green),
-                _buildStyleChip('Gradient', Colors.orange),
-                _buildStyleChip('Shadow', Colors.purple),
-              ],
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-}
+  print('dart:ui paint/canvas test executing');
 
-Widget _buildStyleChip(String label, Color color) {
-  return Container(
-    decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(8)),
-    child: Center(child: Text(label, style: const TextStyle(color: Colors.white, fontSize: 12))),
-  );
-}
-
-class _PaintCanvasPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final fillPaint = Paint()..color = Colors.blue..style = PaintingStyle.fill;
-    final strokePaint = Paint()..color = Colors.green..style = PaintingStyle.stroke..strokeWidth = 4;
-    
-    canvas.drawRect(Rect.fromLTWH(20, 20, 100, 60), fillPaint);
-    canvas.drawRect(Rect.fromLTWH(140, 20, 100, 60), strokePaint);
-    canvas.drawCircle(Offset(70, 130), 40, fillPaint);
-    canvas.drawOval(Rect.fromLTWH(140, 100, 100, 60), strokePaint);
-    
-    final path = Path()
-      ..moveTo(20, 200)
-      ..lineTo(70, 240)
-      ..lineTo(120, 200)
-      ..close();
-    canvas.drawPath(path, Paint()..color = Colors.orange);
+  // ========== BlendMode ==========
+  print('--- BlendMode Tests ---');
+  final blendModes = [
+    ui.BlendMode.srcOver,
+    ui.BlendMode.srcIn,
+    ui.BlendMode.srcOut,
+    ui.BlendMode.dstOver,
+    ui.BlendMode.dstIn,
+    ui.BlendMode.clear,
+    ui.BlendMode.multiply,
+    ui.BlendMode.screen,
+    ui.BlendMode.overlay,
+    ui.BlendMode.darken,
+    ui.BlendMode.lighten,
+    ui.BlendMode.colorDodge,
+    ui.BlendMode.colorBurn,
+    ui.BlendMode.softLight,
+    ui.BlendMode.hardLight,
+    ui.BlendMode.difference,
+    ui.BlendMode.exclusion,
+    ui.BlendMode.hue,
+    ui.BlendMode.saturation,
+    ui.BlendMode.color,
+    ui.BlendMode.luminosity,
+  ];
+  print('BlendMode values: ${blendModes.length} tested');
+  for (final mode in blendModes.take(5)) {
+    print('  BlendMode: ${mode.name}');
   }
 
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+  // ========== FilterQuality ==========
+  print('--- FilterQuality Tests ---');
+  for (final q in ui.FilterQuality.values) {
+    print('FilterQuality: ${q.name}');
+  }
+
+  // ========== StrokeCap ==========
+  print('--- StrokeCap Tests ---');
+  for (final cap in ui.StrokeCap.values) {
+    print('StrokeCap: ${cap.name}');
+  }
+
+  // ========== StrokeJoin ==========
+  print('--- StrokeJoin Tests ---');
+  for (final join in ui.StrokeJoin.values) {
+    print('StrokeJoin: ${join.name}');
+  }
+
+  // ========== PathFillType ==========
+  print('--- PathFillType Tests ---');
+  for (final fill in ui.PathFillType.values) {
+    print('PathFillType: ${fill.name}');
+  }
+
+  // ========== BlurStyle ==========
+  print('--- BlurStyle Tests ---');
+  for (final style in ui.BlurStyle.values) {
+    print('BlurStyle: ${style.name}');
+  }
+
+  // ========== TileMode ==========
+  print('--- TileMode Tests ---');
+  for (final mode in ui.TileMode.values) {
+    print('TileMode: ${mode.name}');
+  }
+
+  // ========== Clip ==========
+  print('--- Clip Tests ---');
+  for (final clip in ui.Clip.values) {
+    print('Clip: ${clip.name}');
+  }
+
+  // ========== PointMode ==========
+  print('--- PointMode Tests ---');
+  for (final pm in ui.PointMode.values) {
+    print('PointMode: ${pm.name}');
+  }
+
+  // ========== PaintingStyle ==========
+  print('--- PaintingStyle Tests ---');
+  for (final ps in ui.PaintingStyle.values) {
+    print('PaintingStyle: ${ps.name}');
+  }
+
+  // ========== Paint advanced ==========
+  print('--- Paint advanced Tests ---');
+  final paint = Paint()
+    ..color = Colors.blue
+    ..strokeWidth = 2.0
+    ..style = PaintingStyle.stroke
+    ..strokeCap = StrokeCap.round
+    ..strokeJoin = StrokeJoin.round
+    ..blendMode = BlendMode.srcOver
+    ..filterQuality = FilterQuality.high
+    ..isAntiAlias = true
+    ..strokeMiterLimit = 4.0
+    ..invertColors = false;
+  print('Paint configured:');
+  print('  color: ${paint.color}');
+  print('  strokeWidth: ${paint.strokeWidth}');
+  print('  style: ${paint.style}');
+  print('  strokeCap: ${paint.strokeCap}');
+  print('  strokeJoin: ${paint.strokeJoin}');
+  print('  blendMode: ${paint.blendMode}');
+  print('  filterQuality: ${paint.filterQuality}');
+  print('  isAntiAlias: ${paint.isAntiAlias}');
+
+  // ========== MaskFilter ==========
+  print('--- MaskFilter Tests ---');
+  final maskFilter = MaskFilter.blur(BlurStyle.normal, 5.0);
+  print('MaskFilter.blur: ${maskFilter}');
+
+  // ========== Path advanced ==========
+  print('--- Path advanced Tests ---');
+  final path = Path()
+    ..moveTo(0, 0)
+    ..lineTo(100, 0)
+    ..lineTo(100, 100)
+    ..lineTo(0, 100)
+    ..close();
+  final bounds = path.getBounds();
+  print('Path bounds: $bounds');
+
+  final path2 = Path()
+    ..addOval(Rect.fromCircle(center: Offset(50, 50), radius: 30));
+  print('Oval path bounds: ${path2.getBounds()}');
+  print('Contains (50,50): ${path2.contains(Offset(50, 50))}');
+
+  print('All dart:ui paint/canvas tests passed');
+
+  // ========== RETURN WIDGET ==========
+  return MaterialApp(
+    home: Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'dart:ui Paint/Canvas Test',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
+            SizedBox(height: 16.0),
+            Text('BlendMode: ${blendModes.length} modes'),
+            Text('FilterQuality, StrokeCap, StrokeJoin'),
+            Text('PathFillType, BlurStyle, TileMode'),
+            Text('Paint advanced configuration'),
+            Text('MaskFilter, Path operations'),
+          ],
+        ),
+      ),
+    ),
+  );
 }

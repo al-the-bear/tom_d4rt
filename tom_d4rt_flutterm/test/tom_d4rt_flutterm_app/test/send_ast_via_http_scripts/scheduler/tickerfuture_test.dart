@@ -1,34 +1,135 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests TickerFuture, TickerCanceled from package:flutter/scheduler.dart
+import 'dart:ui';
+import 'package:flutter/widgets.dart';
+import 'package:flutter/scheduler.dart';
 
-/// Deep visual demo for TickerFuture
 dynamic build(BuildContext context) {
-  return Scaffold(appBar: AppBar(title: Text('TickerFuture')), body: Padding(padding: EdgeInsets.all(16), child: Column(children: [
-    Icon(Icons.timer, size: 60, color: Colors.blue),
-    SizedBox(height: 16),
-    Text('TickerFuture', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-    SizedBox(height: 8),
-    Text('Future that completes when animation ends', style: TextStyle(color: Colors.grey)),
-    SizedBox(height: 24),
-    Container(padding: EdgeInsets.all(16), decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(12)),
-      child: Column(children: [
-        Text('Completion States', style: TextStyle(fontWeight: FontWeight.bold)),
-        SizedBox(height: 12),
-        _StateRow(Icons.check_circle, 'orCancel', 'Completes or cancels gracefully', Colors.green),
-        _StateRow(Icons.cancel, 'whenCompleteOrCancel', 'Callback for either outcome', Colors.orange),
-      ])),
-    SizedBox(height: 16),
-    Container(padding: EdgeInsets.all(12), decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text('Usage:', style: TextStyle(fontWeight: FontWeight.bold)),
-        Text('final future = controller.forward();', style: TextStyle(fontSize: 11, fontFamily: 'monospace')),
-        Text('await future.orCancel;', style: TextStyle(fontSize: 11, fontFamily: 'monospace')),
-      ]))
-  ])));
-}
+  print('Scheduler ticker future test executing');
 
-class _StateRow extends StatelessWidget {
-  final IconData icon; final String name; final String desc; final Color color;
-  const _StateRow(this.icon, this.name, this.desc, this.color);
-  @override Widget build(BuildContext context) => Padding(padding: EdgeInsets.symmetric(vertical: 4),
-    child: Row(children: [Icon(icon, color: color, size: 20), SizedBox(width: 8), Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(name, style: TextStyle(fontWeight: FontWeight.bold)), Text(desc, style: TextStyle(fontSize: 11))]))]));
+  // ========== TICKERFUTURE ==========
+  print('--- TickerFuture Tests ---');
+
+  // TickerFuture.complete
+  final completedFuture = TickerFuture.complete();
+  print('TickerFuture.complete() created');
+  print('  runtimeType: ${completedFuture.runtimeType}');
+
+  // orCancel returns a future that completes normally or throws TickerCanceled
+  final orCancelFuture = completedFuture.orCancel;
+  print('  orCancel: ${orCancelFuture.runtimeType}');
+
+  // whenCompleteOrCancel
+  completedFuture.whenCompleteOrCancel(() {
+    print('  TickerFuture completed or canceled callback');
+  });
+  print('  whenCompleteOrCancel callback registered');
+
+  // TickerFuture is typically created by Ticker.start()
+  print('TickerFuture is typically created by:');
+  print('  Ticker.start() - returns TickerFuture');
+  print('  AnimationController.forward() - returns TickerFuture');
+  print('  AnimationController.reverse() - returns TickerFuture');
+  print('  AnimationController.repeat() - returns TickerFuture');
+  print('  AnimationController.animateTo() - returns TickerFuture');
+
+  // ========== TICKERCANCELED ==========
+  print('--- TickerCanceled Tests ---');
+
+  // TickerCanceled with ticker
+  final canceledNoTicker = TickerCanceled();
+  print('TickerCanceled() created');
+  print('  runtimeType: ${canceledNoTicker.runtimeType}');
+  print('  toString: $canceledNoTicker');
+
+  // TickerCanceled is thrown when a ticker is canceled
+  print('TickerCanceled is thrown when:');
+  print('  - Ticker.stop(canceled: true) is called');
+  print('  - AnimationController is disposed while active');
+  print('  - Widget is removed while animation is running');
+
+  // ========== TICKER LIFECYCLE ==========
+  print('--- Ticker Lifecycle ---');
+
+  print('Typical Ticker lifecycle:');
+  print('  1. Create via TickerProvider (mixin on State)');
+  print('  2. Start: TickerFuture = ticker.start()');
+  print('  3. Running: onTick callback fires each frame');
+  print('  4. Stop: ticker.stop() or dispose()');
+  print('  5. Future completes or throws TickerCanceled');
+
+  // ========== SCHEDULERBINDING INTEGRATION ==========
+  print('--- SchedulerBinding Integration ---');
+
+  // Access current frame info
+  print('SchedulerBinding.instance available');
+  print('  currentFrameTimeStamp - time of current frame');
+  print('  currentSystemFrameTimeStamp - system time');
+  print('  transientCallbackCount - pending callbacks');
+
+  // Frame callbacks
+  print('Frame callback types:');
+  print('  scheduleFrameCallback - one-shot');
+  print('  addTimingsCallback - frame timing');
+  print('  addPostFrameCallback - after frame');
+  print('  addPersistentFrameCallback - every frame');
+
+  // ========== PRIORITY ==========
+  print('--- Priority Tests ---');
+
+  print('Priority.idle: ${Priority.idle.value}');
+  print('Priority.animation: ${Priority.animation.value}');
+  print('Priority.touch: ${Priority.touch.value}');
+  print('Priority.kMaxOffset: ${Priority.kMaxOffset}');
+
+  // ========== RETURN WIDGET ==========
+  print('Scheduler ticker future test completed');
+
+  return SingleChildScrollView(
+    child: Padding(
+      padding: EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Scheduler TickerFuture Test',
+            style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 16.0),
+
+          Text(
+            'Classes Tested:',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 8.0),
+          Text('• TickerFuture - animation completion future'),
+          Text('• TickerCanceled - cancellation exception'),
+          Text('• Priority - scheduling priority'),
+          SizedBox(height: 16.0),
+
+          Text(
+            'Bridge Availability:',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 8.0),
+          Container(
+            padding: EdgeInsets.all(8.0),
+            color: Color(0xFFF3E5F5),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('TickerFuture.complete(): available'),
+                Text('TickerCanceled(): available'),
+                Text('Priority.idle: ${Priority.idle.value}'),
+                Text('Priority.animation: ${Priority.animation.value}'),
+                Text('Priority.touch: ${Priority.touch.value}'),
+                SizedBox(height: 8.0),
+                Text('Note: Full Ticker creation requires'),
+                Text('a TickerProvider (State mixin)'),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
 }

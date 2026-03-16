@@ -1,79 +1,103 @@
+// D4rt test script: Tests showTimePicker from material
 import 'package:flutter/material.dart';
-import 'dart:math';
 
-/// Deep visual demo for showTimePicker function.
-/// Shows a Material time picker dialog.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('showTimePicker()', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Container(
-        width: 180,
-        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16), boxShadow: [const BoxShadow(color: Colors.black12, blurRadius: 8)]),
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            const Text('Select time', style: TextStyle(fontSize: 10, color: Colors.grey)),
-            const SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                  decoration: BoxDecoration(color: Colors.blue.shade100, borderRadius: BorderRadius.circular(8)),
-                  child: const Text('10', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.blue)),
-                ),
-                const Text(' : ', style: TextStyle(fontSize: 24)),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                  decoration: BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.circular(8)),
-                  child: const Text('30', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-                ),
-                const SizedBox(width: 8),
-                Column(
-                  children: [
-                    Container(padding: const EdgeInsets.all(4), decoration: BoxDecoration(color: Colors.blue.shade100, borderRadius: BorderRadius.circular(4)), child: const Text('AM', style: TextStyle(fontSize: 10, color: Colors.blue))),
-                    const SizedBox(height: 2),
-                    const Text('PM', style: TextStyle(fontSize: 10, color: Colors.grey)),
-                  ],
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            Container(
-              width: 100,
-              height: 100,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.grey.shade100,
-              ),
-              child: CustomPaint(painter: _ClockPainter()),
-            ),
-          ],
-        ),
-      ),
-    ],
-  );
-}
+  print('showTimePicker test executing');
 
-class _ClockPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final center = Offset(size.width / 2, size.height / 2);
-    final radius = size.width / 2;
-    for (var i = 1; i <= 12; i++) {
-      final angle = (i * 30 - 90) * pi / 180;
-      final pos = center + Offset(cos(angle) * (radius - 12), sin(angle) * (radius - 12));
-      final textPainter = TextPainter(text: TextSpan(text: '\$i', style: TextStyle(fontSize: 10, color: i == 10 ? Colors.white : Colors.black54)), textDirection: TextDirection.ltr);
-      textPainter.layout();
-      if (i == 10) {
-        canvas.drawCircle(pos, 12, Paint()..color = Colors.blue);
+  // Schedule showTimePicker via Future.microtask
+  Future.microtask(() {
+    showTimePicker(
+      context: context,
+      initialTime: TimeOfDay(hour: 10, minute: 30),
+      helpText: 'Select time',
+      cancelText: 'Cancel',
+      confirmText: 'OK',
+      hourLabelText: 'Hour',
+      minuteLabelText: 'Minute',
+      initialEntryMode: TimePickerEntryMode.dial,
+    ).then((selectedTime) {
+      print('showTimePicker result: $selectedTime');
+      if (selectedTime != null) {
+        print('  hour: ${selectedTime.hour}');
+        print('  minute: ${selectedTime.minute}');
+        print('  period: ${selectedTime.period}');
+        print('  hourOfPeriod: ${selectedTime.hourOfPeriod}');
+        print('  format: ${selectedTime.format(context)}');
       }
-      textPainter.paint(canvas, pos - Offset(textPainter.width / 2, textPainter.height / 2));
-    }
-  }
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+    });
+    print('showTimePicker called');
+  });
+
+  // Test TimeOfDay constructors and properties
+  final time1 = TimeOfDay(hour: 14, minute: 30);
+  print('TimeOfDay(14:30): $time1');
+  print('  hour: ${time1.hour}');
+  print('  minute: ${time1.minute}');
+  print('  period: ${time1.period}');
+  print('  hourOfPeriod: ${time1.hourOfPeriod}');
+  print('  format: ${time1.format(context)}');
+
+  final timeNow = TimeOfDay.now();
+  print('TimeOfDay.now(): $timeNow');
+  print('  hour: ${timeNow.hour}');
+  print('  minute: ${timeNow.minute}');
+
+  // TimeOfDay.hoursPerDay and minutesPerHour
+  print('TimeOfDay.hoursPerDay: ${TimeOfDay.hoursPerDay}');
+  print('TimeOfDay.hoursPerPeriod: ${TimeOfDay.hoursPerPeriod}');
+  print('TimeOfDay.minutesPerHour: ${TimeOfDay.minutesPerHour}');
+
+  // Test replacing
+  final time2 = time1.replacing(hour: 9);
+  print('replacing(hour: 9): $time2');
+  final time3 = time1.replacing(minute: 0);
+  print('replacing(minute: 0): $time3');
+
+  return Container(
+    padding: EdgeInsets.all(16.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('showTimePicker scheduled'),
+        SizedBox(height: 8.0),
+        Text('Time picker should appear as overlay'),
+        SizedBox(height: 8.0),
+        Text('TimeOfDay(14:30): $time1'),
+        Text('TimeOfDay.now(): $timeNow'),
+        Text('format: ${time1.format(context)}'),
+        SizedBox(height: 16.0),
+        // Button for input-mode time picker
+        ElevatedButton(
+          onPressed: () {
+            showTimePicker(
+              context: context,
+              initialTime: TimeOfDay(hour: 8, minute: 0),
+              initialEntryMode: TimePickerEntryMode.input,
+              helpText: 'Enter time',
+            ).then((time) {
+              print('Input-mode time picker result: $time');
+            });
+            print('showTimePicker (input mode) called');
+          },
+          child: Text('Show Time Input'),
+        ),
+        SizedBox(height: 8.0),
+        // Button for dial-mode time picker
+        ElevatedButton(
+          onPressed: () {
+            showTimePicker(
+              context: context,
+              initialTime: TimeOfDay(hour: 16, minute: 45),
+              initialEntryMode: TimePickerEntryMode.dialOnly,
+              helpText: 'Dial only',
+            ).then((time) {
+              print('Dial-only time picker result: $time');
+            });
+            print('showTimePicker (dialOnly) called');
+          },
+          child: Text('Show Dial Only'),
+        ),
+      ],
+    ),
+  );
 }

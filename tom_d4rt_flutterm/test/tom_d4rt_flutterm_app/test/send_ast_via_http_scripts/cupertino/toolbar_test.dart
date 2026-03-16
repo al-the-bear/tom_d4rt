@@ -1,87 +1,191 @@
+// D4rt test script: Tests CupertinoAdaptiveTextSelectionToolbar, CupertinoTextSelectionToolbar, CupertinoTextSelectionToolbarButton, CupertinoDesktopTextSelectionToolbar, CupertinoDesktopTextSelectionToolbarButton from cupertino
 import 'package:flutter/cupertino.dart';
 
-/// Deep visual demo for CupertinoAdaptiveTextSelectionToolbar - iOS text selection actions.
-/// Demonstrates context menu with cut, copy, paste, and select all actions.
 dynamic build(BuildContext context) {
-  return CupertinoPageScaffold(
-    navigationBar: const CupertinoNavigationBar(
-      middle: Text('Selection Toolbar Demo'),
-    ),
-    child: SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const Text(
-              'CupertinoAdaptiveTextSelectionToolbar',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-            ),
-            const SizedBox(height: 8),
-            const Text(
-              'The toolbar adapts to the platform and provides text editing actions.',
-              style: TextStyle(color: CupertinoColors.secondaryLabel),
-            ),
-            const SizedBox(height: 24),
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: CupertinoColors.white,
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: CupertinoColors.systemGrey4),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text('Toolbar Actions:', style: TextStyle(fontWeight: FontWeight.w600)),
-                  const SizedBox(height: 16),
-                  _buildActionRow(CupertinoIcons.scissors, 'Cut', 'Remove selected text'),
-                  const SizedBox(height: 12),
-                  _buildActionRow(CupertinoIcons.doc_on_doc, 'Copy', 'Copy to clipboard'),
-                  const SizedBox(height: 12),
-                  _buildActionRow(CupertinoIcons.doc_on_clipboard, 'Paste', 'Paste from clipboard'),
-                  const SizedBox(height: 12),
-                  _buildActionRow(CupertinoIcons.textformat_size, 'Select All', 'Select all text'),
-                ],
-              ),
-            ),
-            const SizedBox(height: 24),
-            const Text('Try selecting text below:', style: TextStyle(color: CupertinoColors.secondaryLabel)),
-            const SizedBox(height: 8),
-            CupertinoTextField(
-              controller: TextEditingController(text: 'Select this text to see the toolbar'),
-              maxLines: 3,
-              padding: const EdgeInsets.all(12),
-            ),
-          ],
-        ),
-      ),
-    ),
-  );
-}
+  print('Cupertino toolbar test executing');
 
-Widget _buildActionRow(IconData icon, String title, String subtitle) {
-  return Row(
+  // ========== CUPERTINOTEXTSELECTIONTOOLBARBUTTON ==========
+  print('--- CupertinoTextSelectionToolbarButton Tests ---');
+
+  // Test basic CupertinoTextSelectionToolbarButton
+  final basicToolbarButton = CupertinoTextSelectionToolbarButton(
+    child: Text('Copy'),
+    onPressed: () {
+      print('Copy pressed');
+    },
+  );
+  print('Basic CupertinoTextSelectionToolbarButton created');
+
+  // Test CupertinoTextSelectionToolbarButton with text
+  final textToolbarButton = CupertinoTextSelectionToolbarButton.text(
+    text: 'Paste',
+    onPressed: () {
+      print('Paste pressed');
+    },
+  );
+  print('CupertinoTextSelectionToolbarButton.text created');
+
+  // Test disabled CupertinoTextSelectionToolbarButton
+  final disabledToolbarButton = CupertinoTextSelectionToolbarButton(
+    child: Text('Disabled'),
+    onPressed: null,
+  );
+  print('Disabled CupertinoTextSelectionToolbarButton created');
+
+  // ========== CUPERTINOTEXTSELECTIONTOOLBAR ==========
+  print('--- CupertinoTextSelectionToolbar Tests ---');
+
+  // Test CupertinoTextSelectionToolbar with buttons
+  final toolbar = CupertinoTextSelectionToolbar(
+    anchorAbove: Offset(100.0, 50.0),
+    anchorBelow: Offset(100.0, 80.0),
     children: [
-      Container(
-        width: 36,
-        height: 36,
-        decoration: BoxDecoration(
-          color: CupertinoColors.systemIndigo.withValues(alpha: 0.1),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Icon(icon, size: 18, color: CupertinoColors.systemIndigo),
-      ),
-      const SizedBox(width: 12),
-      Expanded(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(title, style: const TextStyle(fontWeight: FontWeight.w500)),
-            Text(subtitle, style: const TextStyle(fontSize: 12, color: CupertinoColors.secondaryLabel)),
-          ],
-        ),
+      CupertinoTextSelectionToolbarButton.text(text: 'Cut', onPressed: () {}),
+      CupertinoTextSelectionToolbarButton.text(text: 'Copy', onPressed: () {}),
+      CupertinoTextSelectionToolbarButton.text(text: 'Paste', onPressed: () {}),
+      CupertinoTextSelectionToolbarButton.text(
+        text: 'Select All',
+        onPressed: () {},
       ),
     ],
+  );
+  print('CupertinoTextSelectionToolbar created');
+
+  // ========== CUPERTINOADAPTIVETEXTSELECTIONTOOLBAR ==========
+  print('--- CupertinoAdaptiveTextSelectionToolbar Tests ---');
+
+  // Test CupertinoAdaptiveTextSelectionToolbar
+  final adaptiveToolbar = CupertinoAdaptiveTextSelectionToolbar(
+    anchors: TextSelectionToolbarAnchors(primaryAnchor: Offset(150.0, 100.0)),
+    children: [
+      CupertinoTextSelectionToolbarButton.text(text: 'Cut', onPressed: () {}),
+      CupertinoTextSelectionToolbarButton.text(text: 'Copy', onPressed: () {}),
+      CupertinoTextSelectionToolbarButton.text(text: 'Paste', onPressed: () {}),
+    ],
+  );
+  print('CupertinoAdaptiveTextSelectionToolbar created');
+
+  // ========== CUPERTINODESKTOPTEXTSELECTIONTOOLBAR ==========
+  print('--- CupertinoDesktopTextSelectionToolbar Tests ---');
+
+  // Test CupertinoDesktopTextSelectionToolbar
+  final desktopToolbar = CupertinoDesktopTextSelectionToolbar(
+    anchor: Offset(200.0, 100.0),
+    children: [
+      CupertinoDesktopTextSelectionToolbarButton(
+        child: Text('Cut'),
+        onPressed: () {},
+      ),
+      CupertinoDesktopTextSelectionToolbarButton(
+        child: Text('Copy'),
+        onPressed: () {},
+      ),
+      CupertinoDesktopTextSelectionToolbarButton(
+        child: Text('Paste'),
+        onPressed: () {},
+      ),
+    ],
+  );
+  print('CupertinoDesktopTextSelectionToolbar created');
+
+  // ========== CUPERTINODESKTOPTEXTSELECTIONTOOLBARBUTTON ==========
+  print('--- CupertinoDesktopTextSelectionToolbarButton Tests ---');
+
+  // Test basic CupertinoDesktopTextSelectionToolbarButton
+  final desktopButton = CupertinoDesktopTextSelectionToolbarButton(
+    child: Text('Select All'),
+    onPressed: () {
+      print('Select All pressed');
+    },
+  );
+  print('Basic CupertinoDesktopTextSelectionToolbarButton created');
+
+  // Test CupertinoDesktopTextSelectionToolbarButton.text
+  final desktopTextButton = CupertinoDesktopTextSelectionToolbarButton.text(
+    text: 'Look Up',
+    onPressed: () {
+      print('Look Up pressed');
+    },
+  );
+  print('CupertinoDesktopTextSelectionToolbarButton.text created');
+
+  // Test multiple desktop toolbar buttons
+  final multiDesktopToolbar = CupertinoDesktopTextSelectionToolbar(
+    anchor: Offset(200.0, 150.0),
+    children: [
+      CupertinoDesktopTextSelectionToolbarButton.text(
+        text: 'Cut',
+        onPressed: () {},
+      ),
+      CupertinoDesktopTextSelectionToolbarButton.text(
+        text: 'Copy',
+        onPressed: () {},
+      ),
+      CupertinoDesktopTextSelectionToolbarButton.text(
+        text: 'Paste',
+        onPressed: () {},
+      ),
+      CupertinoDesktopTextSelectionToolbarButton.text(
+        text: 'Select All',
+        onPressed: () {},
+      ),
+      CupertinoDesktopTextSelectionToolbarButton.text(
+        text: 'Look Up',
+        onPressed: () {},
+      ),
+    ],
+  );
+  print('Multi-button CupertinoDesktopTextSelectionToolbar created');
+
+  print('All Cupertino toolbar tests passed');
+
+  // ========== RETURN WIDGET ==========
+  return CupertinoApp(
+    home: CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(middle: Text('Toolbar Test')),
+      child: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Cupertino Text Selection Toolbars:',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+              ),
+              SizedBox(height: 16.0),
+              Text('Toolbar buttons:'),
+              SizedBox(height: 8.0),
+              Row(
+                children: [
+                  SizedBox(width: 120.0, child: basicToolbarButton),
+                  SizedBox(width: 120.0, child: textToolbarButton),
+                ],
+              ),
+              SizedBox(height: 16.0),
+              Text('Desktop toolbar buttons:'),
+              SizedBox(height: 8.0),
+              Row(
+                children: [
+                  SizedBox(width: 120.0, child: desktopButton),
+                  SizedBox(width: 120.0, child: desktopTextButton),
+                ],
+              ),
+              SizedBox(height: 24.0),
+              Text(
+                'Tests Completed:',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+              ),
+              SizedBox(height: 8.0),
+              Text('• CupertinoTextSelectionToolbar'),
+              Text('• CupertinoTextSelectionToolbarButton'),
+              Text('• CupertinoAdaptiveTextSelectionToolbar'),
+              Text('• CupertinoDesktopTextSelectionToolbar'),
+              Text('• CupertinoDesktopTextSelectionToolbarButton'),
+            ],
+          ),
+        ),
+      ),
+    ),
   );
 }

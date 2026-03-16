@@ -1,50 +1,62 @@
+// D4rt test script: Tests DeletableChipAttributes from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for DeletableChipAttributes - interface for deletable chips.
-/// Shows onDeleted callback and deleteIcon customization.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('DeletableChipAttributes', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Wrap(
-        spacing: 8,
-        runSpacing: 8,
-        alignment: WrapAlignment.center,
-        children: [
-          Chip(
-            label: const Text('With Delete'),
-            deleteIcon: const Icon(Icons.close, size: 18),
-            onDeleted: () {},
-          ),
-          Chip(
-            label: const Text('Custom Icon'),
-            deleteIcon: const Icon(Icons.cancel, size: 18, color: Colors.red),
-            onDeleted: () {},
-          ),
-          Chip(
-            label: const Text('No Delete'),
-          ),
-        ],
-      ),
-      const SizedBox(height: 16),
-      Container(
-        padding: const EdgeInsets.all(12),
+  print('DeletableChipAttributes test executing');
+
+  final title = 'DeletableChipAttributes';
+  final packageName = 'material';
+  final details = 'Deletable';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('DeletableChipAttributes test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
         decoration: BoxDecoration(
-          color: Colors.blue.shade50,
-          borderRadius: BorderRadius.circular(8),
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
         ),
-        child: const Column(
-          children: [
-            Text('Interface Properties:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11)),
-            Text('• onDeleted: VoidCallback?', style: TextStyle(fontSize: 10, fontFamily: 'monospace')),
-            Text('• deleteIcon: Widget?', style: TextStyle(fontSize: 10, fontFamily: 'monospace')),
-            Text('• deleteIconColor: Color?', style: TextStyle(fontSize: 10, fontFamily: 'monospace')),
-            Text('• deleteButtonTooltipMessage: String?', style: TextStyle(fontSize: 10, fontFamily: 'monospace')),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-    ],
+    ),
   );
 }

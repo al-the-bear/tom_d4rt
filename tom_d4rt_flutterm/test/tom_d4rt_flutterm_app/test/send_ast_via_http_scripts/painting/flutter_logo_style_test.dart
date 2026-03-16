@@ -1,6 +1,30 @@
-import 'package:flutter/material.dart';
+// D4rt test script: Tests FlutterLogoStyle from painting
+import 'package:flutter/painting.dart';
+import 'package:flutter/widgets.dart';
 
-/// Deep visual demo for FlutterLogoStyle
 dynamic build(BuildContext context) {
-  return Scaffold(appBar: AppBar(title: Text('FlutterLogoStyle Demo')), body: Center(child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [Row(mainAxisAlignment: MainAxisAlignment.center, children: [Column(children: [FlutterLogo(size: 60, style: FlutterLogoStyle.markOnly), Text('markOnly', style: TextStyle(fontSize: 11))]), SizedBox(width: 30), Column(children: [FlutterLogo(size: 60, style: FlutterLogoStyle.horizontal), Text('horizontal', style: TextStyle(fontSize: 11))]), SizedBox(width: 30), Column(children: [FlutterLogo(size: 60, style: FlutterLogoStyle.stacked), Text('stacked', style: TextStyle(fontSize: 11))])])])));
+  print('FlutterLogoStyle test executing');
+
+  // Enumerate all FlutterLogoStyle values
+  print('FlutterLogoStyle values:');
+  for (final value in FlutterLogoStyle.values) {
+    print('  ${value.name}: $value');
+  }
+  print('FlutterLogoStyle has ${ FlutterLogoStyle.values.length} values');
+
+  final first = FlutterLogoStyle.values.first;
+  final last = FlutterLogoStyle.values.last;
+  print('First: $first, Last: $last');
+  print('First index: ${first.index}, Last index: ${last.index}');
+
+  print('FlutterLogoStyle test completed');
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('FlutterLogoStyle Tests'),
+      Text('Values: ${ FlutterLogoStyle.values.length}'),
+      Text('First: $first'),
+      Text('Last: $last'),
+    ],
+  );
 }

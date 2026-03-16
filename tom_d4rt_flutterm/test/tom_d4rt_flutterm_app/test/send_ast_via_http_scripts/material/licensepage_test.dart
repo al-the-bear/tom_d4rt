@@ -1,73 +1,63 @@
+// D4rt test script: Tests LicensePage from Flutter material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for LicensePage widget.
-/// Shows page displaying open-source licenses.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('LicensePage', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Container(
-        width: 200,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 8)],
-        ),
-        child: Column(
-          children: [
-            // App bar
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Colors.blue.shade700,
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
-              ),
-              child: Row(
-                children: const [
-                  Icon(Icons.arrow_back, color: Colors.white, size: 18),
-                  SizedBox(width: 8),
-                  Text('Licenses', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                ],
-              ),
-            ),
-            // License entries
-            Padding(
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                children: [
-                  _LicenseEntry('flutter', '3 licenses'),
-                  _LicenseEntry('collection', '1 license'),
-                  _LicenseEntry('meta', '1 license'),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-      const SizedBox(height: 12),
-      const Text('Shows package licenses', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
-  );
-}
+  print('LicensePage test executing');
 
-class _LicenseEntry extends StatelessWidget {
-  final String pkg;
-  final String count;
-  const _LicenseEntry(this.pkg, this.count);
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Row(
-        children: [
-          const Icon(Icons.description, size: 16, color: Colors.grey),
-          const SizedBox(width: 8),
-          Expanded(child: Text(pkg, style: const TextStyle(fontSize: 12))),
-          Text(count, style: const TextStyle(fontSize: 10, color: Colors.grey)),
-        ],
-      ),
-    );
-  }
+  // Variation 1: Basic LicensePage with applicationName
+  final widget1 = LicensePage(applicationName: 'Test App');
+  print('LicensePage(applicationName) created');
+
+  // Variation 2: LicensePage with applicationVersion
+  final widget2 = LicensePage(
+    applicationName: 'Test App',
+    applicationVersion: '1.0.0',
+  );
+  print('LicensePage(applicationName, applicationVersion) created');
+
+  // Variation 3: LicensePage with applicationIcon
+  final widget3 = LicensePage(
+    applicationName: 'Icon App',
+    applicationVersion: '2.0.0',
+    applicationIcon: Padding(
+      padding: EdgeInsets.all(8.0),
+      child: FlutterLogo(size: 48),
+    ),
+  );
+  print('LicensePage(applicationIcon: FlutterLogo) created');
+
+  // Variation 4: LicensePage with applicationLegalese
+  final widget4 = LicensePage(
+    applicationName: 'Legal App',
+    applicationVersion: '3.0.0',
+    applicationLegalese: 'Copyright 2025 Test Corp. All rights reserved.',
+  );
+  print('LicensePage(applicationLegalese) created');
+
+  // Variation 5: LicensePage with all properties
+  final widget5 = LicensePage(
+    applicationName: 'Full App',
+    applicationVersion: '4.0.0',
+    applicationIcon: Padding(
+      padding: EdgeInsets.all(12.0),
+      child: FlutterLogo(size: 64),
+    ),
+    applicationLegalese:
+        'Copyright 2025 Full Corp.\nBuilt with Flutter and D4rt.',
+  );
+  print('LicensePage(all properties) created');
+
+  print('LicensePage test completed');
+  return SingleChildScrollView(
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SizedBox(height: 600.0, child: widget1),
+        SizedBox(height: 600.0, child: widget2),
+        SizedBox(height: 600.0, child: widget3),
+        SizedBox(height: 600.0, child: widget4),
+        SizedBox(height: 600.0, child: widget5),
+      ],
+    ),
+  );
 }

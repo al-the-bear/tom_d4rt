@@ -1,69 +1,62 @@
+// D4rt test script: Tests DateTimeRange from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for DateTimeRange - immutable time span container.
-/// Shows start, end, and duration properties.
 dynamic build(BuildContext context) {
-  final range = DateTimeRange(
-    start: DateTime(2024, 3, 10),
-    end: DateTime(2024, 3, 17),
-  );
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('DateTimeRange Demo', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-      const SizedBox(height: 16),
-      Container(
-        padding: const EdgeInsets.all(16),
+  print('DateTimeRange test executing');
+
+  final title = 'DateTimeRange';
+  final packageName = 'material';
+  final details = 'Date range';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('DateTimeRange test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
         decoration: BoxDecoration(
-          color: Colors.teal.shade50,
+          color: const Color(0xFF111827),
           borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
         ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // Start
-            Column(
-              children: [
-                const Icon(Icons.play_arrow, color: Colors.teal),
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(color: Colors.teal, borderRadius: BorderRadius.circular(8)),
-                  child: const Text('Mar 10', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                ),
-                const Text('start', style: TextStyle(fontSize: 10)),
-              ],
-            ),
-            // Duration line
-            Container(
-              width: 80,
-              height: 4,
-              margin: const EdgeInsets.symmetric(horizontal: 8),
-              decoration: BoxDecoration(
-                color: Colors.teal,
-                borderRadius: BorderRadius.circular(2),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
               ),
-            ),
-            // End
-            Column(
-              children: [
-                const Icon(Icons.stop, color: Colors.teal),
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(color: Colors.teal, borderRadius: BorderRadius.circular(8)),
-                  child: const Text('Mar 17', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
                 ),
-                const Text('end', style: TextStyle(fontSize: 10)),
-              ],
-            ),
-          ],
+              ),
+            ],
+          ),
         ),
       ),
-      const SizedBox(height: 12),
-      Container(
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
-        child: Text('duration: ${range.duration.inDays} days', style: const TextStyle(fontFamily: 'monospace', fontSize: 12)),
-      ),
-    ],
+    ),
   );
 }

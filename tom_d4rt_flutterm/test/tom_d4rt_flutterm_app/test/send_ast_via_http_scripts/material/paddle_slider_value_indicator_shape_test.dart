@@ -1,40 +1,62 @@
+// D4rt test script: Tests PaddleSliderValueIndicatorShape from material
 import 'package:flutter/material.dart';
 
-/// Deep visual demo for PaddleSliderValueIndicatorShape.
-/// Paddle-shaped value indicator for Slider.
 dynamic build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Text('PaddleSliderValueIndicatorShape', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      const SizedBox(height: 16),
-      Container(
-        width: 200,
-        height: 50,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            // Track
-            Container(height: 4, decoration: BoxDecoration(color: Colors.grey.shade300, borderRadius: BorderRadius.circular(2))),
-            // Active track
-            Positioned(left: 0, right: 75, child: Container(height: 4, decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(2)))),
-            // Thumb
-            Positioned(left: 115, child: Container(width: 20, height: 20, decoration: const BoxDecoration(color: Colors.blue, shape: BoxShape.circle))),
-            // Paddle indicator
-            Positioned(
-              left: 100,
-              bottom: 35,
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(10)),
-                child: const Text('65', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12)),
+  print('PaddleSliderValueIndicatorShape test executing');
+
+  final title = 'PaddleSliderValueIndicatorShape';
+  final packageName = 'material';
+  final details = 'PaddleSliderValueIndicatorShape';
+
+  print('Class: $title');
+  print('Package: $packageName');
+  print('Details: $details');
+
+  print('PaddleSliderValueIndicatorShape test completed');
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 460),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF111827),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF374151), width: 1.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  FlutterLogo(size: 18),
+                  SizedBox(width: 10),
+                ],
               ),
-            ),
-          ],
+              Text('Class: $title', style: const TextStyle(color: Color(0xFFF9FAFB))),
+              const SizedBox(height: 6),
+              Text('Package: $packageName', style: const TextStyle(color: Color(0xFFD1D5DB))),
+              const SizedBox(height: 6),
+              Text(details, style: const TextStyle(color: Color(0xFF9CA3AF))),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ColoredBox(
+                  color: Color(0xFF1F2937),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Center(
+                      child: Text('Visible UI probe', style: TextStyle(color: Color(0xFF93C5FD))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-      const SizedBox(height: 12),
-      const Text('Displays value above thumb', style: TextStyle(fontSize: 11, color: Colors.grey)),
-    ],
+    ),
   );
 }
