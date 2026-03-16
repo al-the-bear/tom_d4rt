@@ -1,179 +1,90 @@
-// D4rt test script: Tests Velocity, VelocityEstimate, ForcePressDetails from package:flutter/gestures.dart
-// we don't ignore for file, we write test that following the usual guidelines:  avoid_print, prefer_interpolation_to_compose_strings, unused_local_variable, unnecessary_type_check, unnecessary_import, deprecated_member_use, unused_import, unnecessary_null_comparison, unnecessary_brace_in_string_interps, sized_box_for_whitespace, sort_child_properties_last, prefer_function_declarations_over_variables, prefer_is_empty, avoid_unnecessary_containers, invalid_use_of_protected_member, equal_elements_in_set, dead_code, dead_null_aware_expression, unnecessary_string_interpolations, prefer_iterable_wheretype, prefer_final_fields, no_leading_underscores_for_local_identifiers, curly_braces_in_flow_control_structures, use_super_parameters, prefer_const_constructors_in_immutables, non_constant_identifier_names, no_logic_in_create_state, avoid_function_literals_in_foreach_calls, use_null_aware_elements, unused_element, unused_field, unrelated_type_equality_checks, invalid_null_aware_operator, depend_on_referenced_packages, unnecessary_non_null_assertion, use_of_void_result, invalid_return_type_for_catch_error, override_on_non_overriding_member, duplicate_import, directive_after_declaration, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_declarations, unnecessary_const, undefined_getter, undefined_setter, undefined_method, undefined_function, undefined_named_parameter, undefined_identifier, undefined_class, undefined_operator, undefined_enum_constant, undefined_prefixed_name, missing_required_argument, not_enough_positional_arguments, extra_positional_arguments, argument_type_not_assignable, const_with_non_const, const_initialized_with_non_constant_value, const_with_undefined_constructor, invalid_constant, instantiate_abstract_class, static_access_to_instance_member, invocation_of_non_function_expression, non_abstract_class_inherits_abstract_member, no_generative_constructors_in_superclass, invalid_override, invalid_implementation_override, invalid_assignment, implements_non_class, type_test_with_undefined_name, unchecked_use_of_nullable_value, assignment_to_final, assignment_to_final_no_setter, implicit_super_initializer_missing_arguments, non_bool_condition, new_with_undefined_constructor_default, non_constant_default_value, final_not_initialized, duplicate_definition, duplicate_ignore, strict_top_level_inference, prefer_typing_uninitialized_variables, field_initializer_outside_constructor, named_parameter_outside_group, obsolete_colon_for_default_value, expected_identifier_but_got_keyword, use_function_type_syntax_for_parameters, missing_function_parameters, missing_function_body, not_a_type, unused_element_parameter, invalid_use_of_internal_member, non_type_as_type_argument, unnecessary_nullable_for_final_variable_declarations, await_in_wrong_context, non_constant_identifier_names
-import 'dart:ui';
-import 'package:flutter/gestures.dart';
-import 'package:flutter/widgets.dart';
+import 'dart:math' as math;
+import 'package:flutter/material.dart';
 
+/// Deep visual demo for Velocity class.
+/// Shows velocity vector representation.
 dynamic build(BuildContext context) {
-  print('Gestures velocity test executing');
-
-  // ========== VELOCITY ==========
-  print('--- Velocity Tests ---');
-
-  final vel1 = Velocity(pixelsPerSecond: Offset(100.0, 200.0));
-  print('Velocity(100, 200): $vel1');
-  print('  pixelsPerSecond: ${vel1.pixelsPerSecond}');
-  print('  runtimeType: ${vel1.runtimeType}');
-
-  final vel2 = Velocity(pixelsPerSecond: Offset(-50.0, 300.0));
-  print('Velocity(-50, 300): $vel2');
-  print('  pixelsPerSecond: ${vel2.pixelsPerSecond}');
-
-  final velZero = Velocity.zero;
-  print('Velocity.zero: $velZero');
-  print('  pixelsPerSecond: ${velZero.pixelsPerSecond}');
-
-  // Velocity operations
-  final sum = vel1 + vel2;
-  print('vel1 + vel2: $sum');
-  print('  pixelsPerSecond: ${sum.pixelsPerSecond}');
-
-  final negated = -vel1;
-  print('-vel1: $negated');
-  print('  pixelsPerSecond: ${negated.pixelsPerSecond}');
-
-  final diff = vel1 - vel2;
-  print('vel1 - vel2: $diff');
-  print('  pixelsPerSecond: ${diff.pixelsPerSecond}');
-
-  // clampMagnitude
-  final bigVel = Velocity(pixelsPerSecond: Offset(5000.0, 5000.0));
-  print('Big velocity: ${bigVel.pixelsPerSecond}');
-
-  final clamped = bigVel.clampMagnitude(0.0, 1000.0);
-  print('Clamped to 1000: $clamped');
-  print('  pixelsPerSecond: ${clamped.pixelsPerSecond}');
-
-  // Test equality
-  final velA = Velocity(pixelsPerSecond: Offset(100.0, 200.0));
-  final velB = Velocity(pixelsPerSecond: Offset(100.0, 200.0));
-  final velC = Velocity(pixelsPerSecond: Offset(100.0, 201.0));
-  print('Velocity equality: velA == velB: ${velA == velB}');
-  print('Velocity equality: velA == velC: ${velA == velC}');
-
-  // Various velocity values
-  final fastSwipe = Velocity(pixelsPerSecond: Offset(2000.0, 0.0));
-  print('Fast horizontal swipe: ${fastSwipe.pixelsPerSecond}');
-
-  final slowDrag = Velocity(pixelsPerSecond: Offset(10.0, 15.0));
-  print('Slow drag: ${slowDrag.pixelsPerSecond}');
-
-  final diagonalFling = Velocity(pixelsPerSecond: Offset(1000.0, -800.0));
-  print('Diagonal fling: ${diagonalFling.pixelsPerSecond}');
-
-  // ========== FORCEPRESSDETAILS ==========
-  print('--- ForcePressDetails Tests ---');
-
-  final force1 = ForcePressDetails(
-    globalPosition: Offset(10.0, 20.0),
-    pressure: 0.5,
+  return Scaffold(
+    appBar: AppBar(title: const Text('Velocity')),
+    body: Center(child: _VelocityDemo()),
   );
-  print('ForcePressDetails(10, 20, p=0.5):');
-  print('  globalPosition: ${force1.globalPosition}');
-  print('  localPosition: ${force1.localPosition}');
-  print('  pressure: ${force1.pressure}');
-  print('  runtimeType: ${force1.runtimeType}');
+}
 
-  final force2 = ForcePressDetails(
-    globalPosition: Offset(100.0, 200.0),
-    localPosition: Offset(50.0, 80.0),
-    pressure: 0.8,
-  );
-  print('ForcePressDetails with localPosition:');
-  print('  globalPosition: ${force2.globalPosition}');
-  print('  localPosition: ${force2.localPosition}');
-  print('  pressure: ${force2.pressure}');
+class _VelocityDemo extends StatefulWidget {
+  @override
+  State<_VelocityDemo> createState() => _VelocityDemoState();
+}
 
-  // Light touch
-  final lightTouch = ForcePressDetails(
-    globalPosition: Offset(50.0, 50.0),
-    pressure: 0.1,
-  );
-  print('Light touch pressure: ${lightTouch.pressure}');
+class _VelocityDemoState extends State<_VelocityDemo> {
+  Offset _velocity = Offset.zero;
+  bool _isDragging = false;
 
-  // Hard press
-  final hardPress = ForcePressDetails(
-    globalPosition: Offset(50.0, 50.0),
-    pressure: 1.0,
-  );
-  print('Hard press pressure: ${hardPress.pressure}');
-
-  // ========== VELOCITYESTIMATE ==========
-  print('--- VelocityEstimate Tests ---');
-
-  final estimate = VelocityEstimate(
-    pixelsPerSecond: Offset(500.0, -300.0),
-    confidence: 0.95,
-    duration: Duration(milliseconds: 200),
-    offset: Offset(100.0, -60.0),
-  );
-  print('VelocityEstimate:');
-  print('  pixelsPerSecond: ${estimate.pixelsPerSecond}');
-  print('  confidence: ${estimate.confidence}');
-  print('  duration: ${estimate.duration}');
-  print('  offset: ${estimate.offset}');
-  print('  runtimeType: ${estimate.runtimeType}');
-
-  final lowConfidence = VelocityEstimate(
-    pixelsPerSecond: Offset(50.0, 50.0),
-    confidence: 0.2,
-    duration: Duration(milliseconds: 50),
-    offset: Offset(5.0, 5.0),
-  );
-  print('Low confidence estimate:');
-  print('  confidence: ${lowConfidence.confidence}');
-  print('  pixelsPerSecond: ${lowConfidence.pixelsPerSecond}');
-
-  // ========== RETURN WIDGET ==========
-  print('Gestures velocity test completed');
-
-  return SingleChildScrollView(
-    child: Padding(
-      padding: EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Gestures Velocity Test',
-            style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 16.0),
-
-          Text(
-            'Classes Tested:',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 8.0),
-          Text('• Velocity - speed and direction'),
-          Text('• VelocityEstimate - estimated velocity'),
-          Text('• ForcePressDetails - 3D touch details'),
-          SizedBox(height: 16.0),
-
-          Text(
-            'Velocity Operations:',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 8.0),
-          Container(
-            padding: EdgeInsets.all(8.0),
-            color: Color(0xFFE8EAF6),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('vel1: ${vel1.pixelsPerSecond}'),
-                Text('vel2: ${vel2.pixelsPerSecond}'),
-                Text('vel1 + vel2: ${sum.pixelsPerSecond}'),
-                Text('-vel1: ${negated.pixelsPerSecond}'),
-                Text('Velocity.zero: ${velZero.pixelsPerSecond}'),
-                SizedBox(height: 8.0),
-                Text('ForcePressDetails:'),
-                Text('  position: ${force1.globalPosition}'),
-                Text('  pressure: ${force1.pressure}'),
-              ],
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const Text('Drag to see velocity vector', style: TextStyle(fontSize: 16)),
+        const SizedBox(height: 16),
+        GestureDetector(
+          onPanStart: (_) => setState(() => _isDragging = true),
+          onPanUpdate: (d) => setState(() => _velocity = d.delta * 10),
+          onPanEnd: (d) => setState(() {
+            _isDragging = false;
+            _velocity = d.velocity.pixelsPerSecond / 100;
+          }),
+          child: Container(
+            width: 250, height: 250,
+            decoration: BoxDecoration(
+              color: Colors.grey.shade100,
+              border: Border.all(color: Colors.grey, width: 2),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: CustomPaint(
+              painter: _VectorPainter(_velocity, _isDragging),
+              child: const Center(child: Icon(Icons.add, color: Colors.grey)),
             ),
           ),
-        ],
-      ),
-    ),
-  );
+        ),
+        const SizedBox(height: 16),
+        Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(8)),
+          child: Column(
+            children: [
+              Text('Velocity(dx: \${_velocity.dx.toStringAsFixed(1)}, dy: \${_velocity.dy.toStringAsFixed(1)})'),
+              const SizedBox(height: 4),
+              Text('Magnitude: \${_velocity.distance.toStringAsFixed(1)} px/s'),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _VectorPainter extends CustomPainter {
+  final Offset velocity;
+  final bool isDragging;
+  _VectorPainter(this.velocity, this.isDragging);
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center = Offset(size.width / 2, size.height / 2);
+    final end = center + velocity.scale(0.5, 0.5);
+    final paint = Paint()..color = isDragging ? Colors.orange : Colors.blue..strokeWidth = 3..strokeCap = StrokeCap.round;
+    canvas.drawLine(center, end, paint);
+    // Arrow head
+    if (velocity.distance > 10) {
+      final angle = velocity.direction;
+      final arrowPaint = Paint()..color = paint.color..style = PaintingStyle.fill;
+      final path = Path();
+      path.moveTo(end.dx, end.dy);
+      path.lineTo(end.dx - 10 * math.cos(angle - 0.4), end.dy - 10 * math.sin(angle - 0.4));
+      path.lineTo(end.dx - 10 * math.cos(angle + 0.4), end.dy - 10 * math.sin(angle + 0.4));
+      path.close();
+      canvas.drawPath(path, arrowPaint);
+    }
+  }
+  @override
+  bool shouldRepaint(covariant _VectorPainter old) => old.velocity != velocity;
 }

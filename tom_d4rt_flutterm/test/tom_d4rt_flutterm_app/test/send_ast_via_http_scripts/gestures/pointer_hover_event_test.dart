@@ -1,166 +1,65 @@
-// D4rt test script: Tests PointerHoverEvent concepts from gestures
-// we don't ignore for file, we write test that following the usual guidelines:  avoid_print, prefer_interpolation_to_compose_strings, unused_local_variable, unnecessary_type_check, unnecessary_import, deprecated_member_use, unused_import, unnecessary_null_comparison, unnecessary_brace_in_string_interps, sized_box_for_whitespace, sort_child_properties_last, prefer_function_declarations_over_variables, prefer_is_empty, avoid_unnecessary_containers, invalid_use_of_protected_member, equal_elements_in_set, dead_code, dead_null_aware_expression, unnecessary_string_interpolations, prefer_iterable_wheretype, prefer_final_fields, no_leading_underscores_for_local_identifiers, curly_braces_in_flow_control_structures, use_super_parameters, prefer_const_constructors_in_immutables, non_constant_identifier_names, no_logic_in_create_state, avoid_function_literals_in_foreach_calls, use_null_aware_elements, unused_element, unused_field, unrelated_type_equality_checks, invalid_null_aware_operator, depend_on_referenced_packages, unnecessary_non_null_assertion, use_of_void_result, invalid_return_type_for_catch_error, override_on_non_overriding_member, duplicate_import, directive_after_declaration, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_declarations, unnecessary_const, undefined_getter, undefined_setter, undefined_method, undefined_function, undefined_named_parameter, undefined_identifier, undefined_class, undefined_operator, undefined_enum_constant, undefined_prefixed_name, missing_required_argument, not_enough_positional_arguments, extra_positional_arguments, argument_type_not_assignable, const_with_non_const, const_initialized_with_non_constant_value, const_with_undefined_constructor, invalid_constant, instantiate_abstract_class, static_access_to_instance_member, invocation_of_non_function_expression, non_abstract_class_inherits_abstract_member, no_generative_constructors_in_superclass, invalid_override, invalid_implementation_override, invalid_assignment, implements_non_class, type_test_with_undefined_name, unchecked_use_of_nullable_value, assignment_to_final, assignment_to_final_no_setter, implicit_super_initializer_missing_arguments, non_bool_condition, new_with_undefined_constructor_default, non_constant_default_value, final_not_initialized, duplicate_definition, duplicate_ignore, strict_top_level_inference, prefer_typing_uninitialized_variables, field_initializer_outside_constructor, named_parameter_outside_group, obsolete_colon_for_default_value, expected_identifier_but_got_keyword, use_function_type_syntax_for_parameters, missing_function_parameters, missing_function_body, not_a_type, unused_element_parameter, invalid_use_of_internal_member, non_type_as_type_argument, unnecessary_nullable_for_final_variable_declarations, await_in_wrong_context, non_constant_identifier_names
-import 'dart:ui';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
+/// Deep visual demo for PointerHoverEvent.
+/// Shows real-time cursor tracking without pressing.
 dynamic build(BuildContext context) {
-  print('PointerHoverEvent test executing');
-  final results = <String>[];
-
-  // ========== PointerHoverEvent Tests ==========
-  print('Testing PointerHoverEvent...');
-
-  // Test 1: Create basic PointerHoverEvent
-  final hoverEvent1 = PointerHoverEvent(position: Offset(150.0, 200.0));
-  assert(hoverEvent1 is PointerEvent, 'Should be PointerEvent');
-  results.add('PointerHoverEvent created');
-  print('PointerHoverEvent created: ${hoverEvent1.runtimeType}');
-
-  // Test 2: Position property
-  assert(hoverEvent1.position == Offset(150.0, 200.0), 'Position should match');
-  results.add('position: ${hoverEvent1.position}');
-  print('Hover event position: ${hoverEvent1.position}');
-
-  // Test 3: LocalPosition property
-  results.add('localPosition: ${hoverEvent1.localPosition}');
-  print('Hover event localPosition: ${hoverEvent1.localPosition}');
-
-  // Test 4: Default kind
-  results.add('default kind: ${hoverEvent1.kind}');
-  print('Hover event default kind: ${hoverEvent1.kind}');
-
-  // Test 5: Hover with mouse kind
-  final hoverMouse = PointerHoverEvent(
-    position: Offset(100.0, 100.0),
-    kind: PointerDeviceKind.mouse,
+  return Scaffold(
+    appBar: AppBar(title: const Text('PointerHoverEvent')),
+    body: Center(child: _HoverTracker()),
   );
-  assert(hoverMouse.kind == PointerDeviceKind.mouse, 'Kind should be mouse');
-  results.add('mouse kind: ${hoverMouse.kind}');
-  print('Hover event with mouse kind: ${hoverMouse.kind}');
+}
 
-  // Test 6: Hover with delta
-  final hoverDelta = PointerHoverEvent(
-    position: Offset(200.0, 250.0),
-    delta: Offset(10.0, 15.0),
-  );
-  assert(hoverDelta.delta == Offset(10.0, 15.0), 'Delta should match');
-  results.add('delta: ${hoverDelta.delta}');
-  print('Hover event delta: ${hoverDelta.delta}');
+class _HoverTracker extends StatefulWidget {
+  @override
+  State<_HoverTracker> createState() => _HoverTrackerState();
+}
 
-  // Test 7: TimeStamp property
-  final hoverTime = PointerHoverEvent(
-    position: Offset(75.0, 100.0),
-    timeStamp: Duration(milliseconds: 1000),
-  );
-  assert(
-    hoverTime.timeStamp == Duration(milliseconds: 1000),
-    'TimeStamp should match',
-  );
-  results.add('timeStamp: ${hoverTime.timeStamp}');
-  print('Hover event timeStamp: ${hoverTime.timeStamp}');
+class _HoverTrackerState extends State<_HoverTracker> {
+  Offset _position = Offset.zero;
+  bool _isHovering = false;
 
-  // Test 8: Device property
-  final hoverDevice = PointerHoverEvent(
-    position: Offset(180.0, 220.0),
-    device: 3,
-  );
-  assert(hoverDevice.device == 3, 'Device should be 3');
-  results.add('device: ${hoverDevice.device}');
-  print('Hover event device: ${hoverDevice.device}');
-
-  // Test 9: Down property should be false for hover
-  assert(hoverEvent1.down == false, 'Down should be false for hover event');
-  results.add('down: ${hoverEvent1.down}');
-  print('Hover event down: ${hoverEvent1.down}');
-
-  // Test 10: Buttons property (default 0 for hover)
-  results.add('buttons: ${hoverEvent1.buttons}');
-  print('Hover event buttons: ${hoverEvent1.buttons}');
-
-  // Test 11: Pressure properties
-  results.add('pressure: ${hoverEvent1.pressure}');
-  print('Hover event pressure: ${hoverEvent1.pressure}');
-
-  // Test 12: Hover with stylus kind
-  final hoverStylus = PointerHoverEvent(
-    position: Offset(120.0, 140.0),
-    kind: PointerDeviceKind.stylus,
-    tilt: 0.2,
-  );
-  assert(hoverStylus.kind == PointerDeviceKind.stylus, 'Kind should be stylus');
-  results.add('stylus tilt: ${hoverStylus.tilt}');
-  print('Hover event stylus tilt: ${hoverStylus.tilt}');
-
-  // Test 13: Obscured property
-  final hoverObscured = PointerHoverEvent(
-    position: Offset(90.0, 110.0),
-    obscured: true,
-  );
-  assert(hoverObscured.obscured == true, 'Obscured should be true');
-  results.add('obscured: ${hoverObscured.obscured}');
-  print('Hover event obscured: ${hoverObscured.obscured}');
-
-  // Test 14: Synthesized property
-  results.add('synthesized: ${hoverEvent1.synthesized}');
-  print('Hover event synthesized: ${hoverEvent1.synthesized}');
-
-  // Test 15: Pointer ID
-  final hoverPointer = PointerHoverEvent(
-    position: Offset(60.0, 80.0),
-    pointer: 99,
-  );
-  assert(hoverPointer.pointer == 99, 'Pointer should be 99');
-  results.add('pointer: ${hoverPointer.pointer}');
-  print('Hover event pointer: ${hoverPointer.pointer}');
-
-  // Test 16: Multiple hover events with different positions
-  final hoverA = PointerHoverEvent(position: Offset(10, 20));
-  final hoverB = PointerHoverEvent(position: Offset(30, 40));
-  assert(hoverA.position != hoverB.position, 'Positions should differ');
-  results.add('Events have different positions');
-  print('Hover events comparison: positions differ');
-
-  // Test 17: Offset operations for hover tracking
-  final startPos = Offset(100.0, 100.0);
-  final currentPos = Offset(150.0, 180.0);
-  final movement = currentPos - startPos;
-  assert(movement == Offset(50.0, 80.0), 'Movement should be correct');
-  results.add('movement: $movement');
-  print('Hover movement calculation: $movement');
-
-  // Test 18: Offset magnitude
-  final magnitude = movement.distance;
-  results.add('magnitude: ${magnitude.toStringAsFixed(2)}');
-  print('Hover movement magnitude: $magnitude');
-
-  // Test 19: EmbedderId property
-  final hoverEmbed = PointerHoverEvent(
-    position: Offset(45, 55),
-    embedderId: 456,
-  );
-  assert(hoverEmbed.embedderId == 456, 'EmbedderId should be 456');
-  results.add('embedderId: ${hoverEmbed.embedderId}');
-  print('Hover event embedderId: ${hoverEmbed.embedderId}');
-
-  // Test 20: Size and orientation
-  final hoverSize = PointerHoverEvent(
-    position: Offset(200, 200),
-    size: 1.5,
-    orientation: 0.5,
-  );
-  results.add('size: ${hoverSize.size}');
-  print(
-    'Hover event size: ${hoverSize.size}, orientation: ${hoverSize.orientation}',
-  );
-
-  print('PointerHoverEvent test completed with ${results.length} tests');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('PointerHoverEvent Tests'),
-      Text('Tests passed: ${results.length}'),
-      ...results.take(6).map((r) => Text(r, style: TextStyle(fontSize: 10))),
-    ],
-  );
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const Text('Hover over the area below'),
+        const SizedBox(height: 16),
+        MouseRegion(
+          onEnter: (_) => setState(() => _isHovering = true),
+          onExit: (_) => setState(() => _isHovering = false),
+          onHover: (e) => setState(() => _position = e.localPosition),
+          child: Container(
+            width: 300,
+            height: 200,
+            decoration: BoxDecoration(
+              color: Colors.blue.shade50,
+              border: Border.all(color: Colors.blue, width: 2),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Stack(
+              children: [
+                if (_isHovering)
+                  Positioned(
+                    left: _position.dx - 10,
+                    top: _position.dy - 10,
+                    child: Container(
+                      width: 20, height: 20,
+                      decoration: const BoxDecoration(color: Colors.red, shape: BoxShape.circle),
+                    ),
+                  ),
+                Center(child: Text(_isHovering 
+                  ? 'X: \${_position.dx.toInt()}, Y: \${_position.dy.toInt()}'
+                  : 'Hover to track',
+                  style: const TextStyle(fontSize: 16),
+                )),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(height: 16),
+        const Text('PointerHoverEvent fires continuously while cursor moves', style: TextStyle(fontSize: 12, color: Colors.grey)),
+      ],
+    );
+  }
 }

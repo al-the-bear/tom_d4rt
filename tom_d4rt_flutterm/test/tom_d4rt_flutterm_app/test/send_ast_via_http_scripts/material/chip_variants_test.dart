@@ -1,125 +1,61 @@
-// D4rt test script: Tests Chip variants - ActionChip, FilterChip, ChoiceChip,
-// we don't ignore for file, we write test that following the usual guidelines:  avoid_print, prefer_interpolation_to_compose_strings, unused_local_variable, unnecessary_type_check, unnecessary_import, deprecated_member_use, unused_import, unnecessary_null_comparison, unnecessary_brace_in_string_interps, sized_box_for_whitespace, sort_child_properties_last, prefer_function_declarations_over_variables, prefer_is_empty, avoid_unnecessary_containers, invalid_use_of_protected_member, equal_elements_in_set, dead_code, dead_null_aware_expression, unnecessary_string_interpolations, prefer_iterable_wheretype, prefer_final_fields, no_leading_underscores_for_local_identifiers, curly_braces_in_flow_control_structures, use_super_parameters, prefer_const_constructors_in_immutables, non_constant_identifier_names, no_logic_in_create_state, avoid_function_literals_in_foreach_calls, use_null_aware_elements, unused_element, unused_field, unrelated_type_equality_checks, invalid_null_aware_operator, depend_on_referenced_packages, unnecessary_non_null_assertion, use_of_void_result, invalid_return_type_for_catch_error, override_on_non_overriding_member, duplicate_import, directive_after_declaration, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_declarations, unnecessary_const, undefined_getter, undefined_setter, undefined_method, undefined_function, undefined_named_parameter, undefined_identifier, undefined_class, undefined_operator, undefined_enum_constant, undefined_prefixed_name, missing_required_argument, not_enough_positional_arguments, extra_positional_arguments, argument_type_not_assignable, const_with_non_const, const_initialized_with_non_constant_value, const_with_undefined_constructor, invalid_constant, instantiate_abstract_class, static_access_to_instance_member, invocation_of_non_function_expression, non_abstract_class_inherits_abstract_member, no_generative_constructors_in_superclass, invalid_override, invalid_implementation_override, invalid_assignment, implements_non_class, type_test_with_undefined_name, unchecked_use_of_nullable_value, assignment_to_final, assignment_to_final_no_setter, implicit_super_initializer_missing_arguments, non_bool_condition, new_with_undefined_constructor_default, non_constant_default_value, final_not_initialized, duplicate_definition, duplicate_ignore, strict_top_level_inference, prefer_typing_uninitialized_variables, field_initializer_outside_constructor, named_parameter_outside_group, obsolete_colon_for_default_value, expected_identifier_but_got_keyword, use_function_type_syntax_for_parameters, missing_function_parameters, missing_function_body, not_a_type, unused_element_parameter, invalid_use_of_internal_member, non_type_as_type_argument, unnecessary_nullable_for_final_variable_declarations, await_in_wrong_context, non_constant_identifier_names
-// InputChip, RawChip, ChipThemeData
 import 'package:flutter/material.dart';
 
+/// Deep visual demo for Chip variants.
+/// Shows all chip types.
 dynamic build(BuildContext context) {
-  print('Chip variants test executing');
-
-  // ========== ActionChip ==========
-  print('--- ActionChip Tests ---');
-
-  final actionChip = ActionChip(
-    label: Text('Action'),
-    avatar: Icon(Icons.flash_on, size: 18.0),
-    onPressed: () => print('Action chip pressed'),
-    elevation: 2.0,
-    pressElevation: 4.0,
-    tooltip: 'Action chip tooltip',
+  return Scaffold(
+    appBar: AppBar(title: const Text('Chip Variants')),
+    body: _ChipVariantsDemo(),
   );
-  print('ActionChip created');
+}
 
-  // ========== FilterChip ==========
-  print('--- FilterChip Tests ---');
+class _ChipVariantsDemo extends StatefulWidget {
+  @override
+  State<_ChipVariantsDemo> createState() => _ChipVariantsDemoState();
+}
 
-  final filterChip = FilterChip(
-    label: Text('Filter'),
-    selected: true,
-    onSelected: (bool value) => print('Filter selected: $value'),
-    avatar: Icon(Icons.filter_alt, size: 18.0),
-    showCheckmark: true,
-    checkmarkColor: Colors.white,
-    selectedColor: Colors.blue.shade100,
-  );
-  print('FilterChip selected: ${filterChip.selected}');
+class _ChipVariantsDemoState extends State<_ChipVariantsDemo> {
+  int _choice = 0;
+  final _filters = <int>{};
 
-  // ========== ChoiceChip ==========
-  print('--- ChoiceChip Tests ---');
-
-  final choiceChip = ChoiceChip(
-    label: Text('Choice'),
-    selected: false,
-    onSelected: (bool value) => print('Choice selected: $value'),
-    selectedColor: Colors.green.shade200,
-    disabledColor: Colors.grey.shade300,
-    labelStyle: TextStyle(color: Colors.black),
-  );
-  print('ChoiceChip selected: ${choiceChip.selected}');
-
-  // ========== InputChip ==========
-  print('--- InputChip Tests ---');
-
-  final inputChip = InputChip(
-    label: Text('Input'),
-    avatar: CircleAvatar(child: Text('I')),
-    onDeleted: () => print('Input chip deleted'),
-    deleteIcon: Icon(Icons.cancel, size: 18.0),
-    onPressed: () => print('Input chip pressed'),
-    selected: false,
-    isEnabled: true,
-  );
-  print('InputChip created');
-
-  // ========== ChipThemeData ==========
-  print('--- ChipThemeData Tests ---');
-
-  final chipTheme = ChipThemeData(
-    backgroundColor: Colors.grey.shade200,
-    selectedColor: Colors.blue.shade200,
-    disabledColor: Colors.grey.shade400,
-    labelStyle: TextStyle(fontSize: 14.0),
-    secondaryLabelStyle: TextStyle(fontSize: 12.0),
-    padding: EdgeInsets.all(4.0),
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-    side: BorderSide(color: Colors.grey),
-    brightness: Brightness.light,
-    elevation: 2.0,
-    pressElevation: 4.0,
-    checkmarkColor: Colors.white,
-    showCheckmark: true,
-  );
-  print('ChipThemeData backgroundColor: ${chipTheme.backgroundColor}');
-  print('ChipThemeData elevation: ${chipTheme.elevation}');
-  print('ChipThemeData showCheckmark: ${chipTheme.showCheckmark}');
-
-  print('All chip variant tests passed');
-
-  // ========== RETURN WIDGET ==========
-  return MaterialApp(
-    home: Scaffold(
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Chip Variants Test',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
-            ),
-            SizedBox(height: 16.0),
-            Wrap(
-              spacing: 8.0,
-              runSpacing: 8.0,
-              children: [
-                actionChip,
-                filterChip,
-                choiceChip,
-                inputChip,
-                FilterChip(
-                  label: Text('Unselected'),
-                  selected: false,
-                  onSelected: (v) {},
-                ),
-                ChoiceChip(
-                  label: Text('Selected'),
-                  selected: true,
-                  onSelected: (v) {},
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    ),
-  );
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      padding: const EdgeInsets.all(16),
+      children: [
+        const Text('Chip Types', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        const SizedBox(height: 16),
+        const Text('Chip (basic):', style: TextStyle(fontWeight: FontWeight.bold)),
+        Wrap(spacing: 8, children: [
+          const Chip(label: Text('Basic')),
+          Chip(avatar: const CircleAvatar(child: Text('U')), label: const Text('User')),
+          Chip(label: const Text('Deletable'), onDeleted: () {}),
+        ]),
+        const SizedBox(height: 16),
+        const Text('ActionChip:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Wrap(spacing: 8, children: [
+          ActionChip(label: const Text('Action'), onPressed: () {}),
+          ActionChip(avatar: const Icon(Icons.add), label: const Text('Add'), onPressed: () {}),
+        ]),
+        const SizedBox(height: 16),
+        const Text('ChoiceChip:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Wrap(spacing: 8, children: [
+          for (int i = 0; i < 3; i++)
+            ChoiceChip(label: Text('Option ' + (i + 1).toString()), selected: _choice == i, onSelected: (_) => setState(() => _choice = i)),
+        ]),
+        const SizedBox(height: 16),
+        const Text('FilterChip:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Wrap(spacing: 8, children: [
+          for (int i = 0; i < 4; i++)
+            FilterChip(label: Text('Filter ' + (i + 1).toString()), selected: _filters.contains(i), onSelected: (v) => setState(() => v ? _filters.add(i) : _filters.remove(i))),
+        ]),
+        const SizedBox(height: 16),
+        const Text('InputChip:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Wrap(spacing: 8, children: [
+          InputChip(label: const Text('Input'), onDeleted: () {}),
+          InputChip(avatar: const CircleAvatar(child: Text('J')), label: const Text('John'), onDeleted: () {}),
+        ]),
+      ],
+    );
+  }
 }

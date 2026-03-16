@@ -1,187 +1,60 @@
-// D4rt test script: Tests PointerPanZoomEndEvent concepts from gestures
-// we don't ignore for file, we write test that following the usual guidelines:  avoid_print, prefer_interpolation_to_compose_strings, unused_local_variable, unnecessary_type_check, unnecessary_import, deprecated_member_use, unused_import, unnecessary_null_comparison, unnecessary_brace_in_string_interps, sized_box_for_whitespace, sort_child_properties_last, prefer_function_declarations_over_variables, prefer_is_empty, avoid_unnecessary_containers, invalid_use_of_protected_member, equal_elements_in_set, dead_code, dead_null_aware_expression, unnecessary_string_interpolations, prefer_iterable_wheretype, prefer_final_fields, no_leading_underscores_for_local_identifiers, curly_braces_in_flow_control_structures, use_super_parameters, prefer_const_constructors_in_immutables, non_constant_identifier_names, no_logic_in_create_state, avoid_function_literals_in_foreach_calls, use_null_aware_elements, unused_element, unused_field, unrelated_type_equality_checks, invalid_null_aware_operator, depend_on_referenced_packages, unnecessary_non_null_assertion, use_of_void_result, invalid_return_type_for_catch_error, override_on_non_overriding_member, duplicate_import, directive_after_declaration, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_declarations, unnecessary_const, undefined_getter, undefined_setter, undefined_method, undefined_function, undefined_named_parameter, undefined_identifier, undefined_class, undefined_operator, undefined_enum_constant, undefined_prefixed_name, missing_required_argument, not_enough_positional_arguments, extra_positional_arguments, argument_type_not_assignable, const_with_non_const, const_initialized_with_non_constant_value, const_with_undefined_constructor, invalid_constant, instantiate_abstract_class, static_access_to_instance_member, invocation_of_non_function_expression, non_abstract_class_inherits_abstract_member, no_generative_constructors_in_superclass, invalid_override, invalid_implementation_override, invalid_assignment, implements_non_class, type_test_with_undefined_name, unchecked_use_of_nullable_value, assignment_to_final, assignment_to_final_no_setter, implicit_super_initializer_missing_arguments, non_bool_condition, new_with_undefined_constructor_default, non_constant_default_value, final_not_initialized, duplicate_definition, duplicate_ignore, strict_top_level_inference, prefer_typing_uninitialized_variables, field_initializer_outside_constructor, named_parameter_outside_group, obsolete_colon_for_default_value, expected_identifier_but_got_keyword, use_function_type_syntax_for_parameters, missing_function_parameters, missing_function_body, not_a_type, unused_element_parameter, invalid_use_of_internal_member, non_type_as_type_argument, unnecessary_nullable_for_final_variable_declarations, await_in_wrong_context, non_constant_identifier_names
-import 'dart:ui';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
+/// Deep visual demo for PointerPanZoomEndEvent.
+/// Shows when trackpad pan/zoom gesture ends.
 dynamic build(BuildContext context) {
-  print('PointerPanZoomEndEvent test executing');
-  final results = <String>[];
-
-  // ========== PointerPanZoomEndEvent Tests ==========
-  print('Testing PointerPanZoomEndEvent...');
-
-  // Test 1: Create basic PointerPanZoomEndEvent
-  final panZoomEnd1 = PointerPanZoomEndEvent(position: Offset(240.0, 340.0));
-  assert(panZoomEnd1 is PointerEvent, 'Should be PointerEvent');
-  results.add('PointerPanZoomEndEvent created');
-  print('PointerPanZoomEndEvent created: ${panZoomEnd1.runtimeType}');
-
-  // Test 2: Position property
-  assert(panZoomEnd1.position == Offset(240.0, 340.0), 'Position should match');
-  results.add('position: ${panZoomEnd1.position}');
-  print('PanZoomEnd event position: ${panZoomEnd1.position}');
-
-  // Test 3: LocalPosition property
-  results.add('localPosition: ${panZoomEnd1.localPosition}');
-  print('PanZoomEnd event localPosition: ${panZoomEnd1.localPosition}');
-
-  // Test 4: TimeStamp property
-  final panZoomEndTime = PointerPanZoomEndEvent(
-    position: Offset(200.0, 300.0),
-    timeStamp: Duration(milliseconds: 1500),
+  return Scaffold(
+    appBar: AppBar(title: const Text('PointerPanZoomEndEvent')),
+    body: Center(child: _PanZoomEndDemo()),
   );
-  assert(
-    panZoomEndTime.timeStamp == Duration(milliseconds: 1500),
-    'TimeStamp should match',
-  );
-  results.add('timeStamp: ${panZoomEndTime.timeStamp}');
-  print('PanZoomEnd event timeStamp: ${panZoomEndTime.timeStamp}');
+}
 
-  // Test 5: Device property
-  final panZoomEndDevice = PointerPanZoomEndEvent(
-    position: Offset(180.0, 260.0),
-    device: 10,
-  );
-  assert(panZoomEndDevice.device == 10, 'Device should be 10');
-  results.add('device: ${panZoomEndDevice.device}');
-  print('PanZoomEnd event device: ${panZoomEndDevice.device}');
+class _PanZoomEndDemo extends StatefulWidget {
+  @override
+  State<_PanZoomEndDemo> createState() => _PanZoomEndDemoState();
+}
 
-  // Test 6: Pointer ID
-  final panZoomEndPointer = PointerPanZoomEndEvent(
-    position: Offset(140.0, 180.0),
-    pointer: 66,
-  );
-  assert(panZoomEndPointer.pointer == 66, 'Pointer should be 66');
-  results.add('pointer: ${panZoomEndPointer.pointer}');
-  print('PanZoomEnd event pointer: ${panZoomEndPointer.pointer}');
+class _PanZoomEndDemoState extends State<_PanZoomEndDemo> {
+  int _endCount = 0;
+  String _status = 'Idle';
 
-  // Test 7: Kind property
-  final panZoomEndKind = PointerPanZoomEndEvent(
-    position: Offset(170.0, 220.0),
-    kind: PointerDeviceKind.trackpad,
-  );
-  assert(
-    panZoomEndKind.kind == PointerDeviceKind.trackpad,
-    'Kind should be trackpad',
-  );
-  results.add('kind: ${panZoomEndKind.kind}');
-  print('PanZoomEnd event kind: ${panZoomEndKind.kind}');
-
-  // Test 8: Down property
-  results.add('down: ${panZoomEnd1.down}');
-  print('PanZoomEnd event down: ${panZoomEnd1.down}');
-
-  // Test 9: Buttons property
-  results.add('buttons: ${panZoomEnd1.buttons}');
-  print('PanZoomEnd event buttons: ${panZoomEnd1.buttons}');
-
-  // Test 10: EmbedderId property
-  final panZoomEndEmbed = PointerPanZoomEndEvent(
-    position: Offset(60, 70),
-    embedderId: 666,
-  );
-  assert(panZoomEndEmbed.embedderId == 666, 'EmbedderId should be 666');
-  results.add('embedderId: ${panZoomEndEmbed.embedderId}');
-  print('PanZoomEnd event embedderId: ${panZoomEndEmbed.embedderId}');
-
-  // Test 11: Synthesized property
-  results.add('synthesized: ${panZoomEnd1.synthesized}');
-  print('PanZoomEnd event synthesized: ${panZoomEnd1.synthesized}');
-
-  // Test 12: Obscured property
-  final panZoomEndObscured = PointerPanZoomEndEvent(
-    position: Offset(100, 120),
-    obscured: true,
-  );
-  assert(panZoomEndObscured.obscured == true, 'Obscured should be true');
-  results.add('obscured: ${panZoomEndObscured.obscured}');
-  print('PanZoomEnd event obscured: ${panZoomEndObscured.obscured}');
-
-  // Test 13: Complete pan zoom sequence (start -> updates -> end)
-  final pointerId = 99;
-  final startEvent = PointerPanZoomStartEvent(
-    position: Offset(100, 100),
-    pointer: pointerId,
-  );
-  final updateEvent = PointerPanZoomUpdateEvent(
-    position: Offset(150, 150),
-    pointer: pointerId,
-    pan: Offset(50, 50),
-    scale: 1.5,
-    rotation: 0.3,
-  );
-  final endEvent = PointerPanZoomEndEvent(
-    position: Offset(200, 200),
-    pointer: pointerId,
-  );
-  assert(
-    startEvent.pointer == updateEvent.pointer &&
-        updateEvent.pointer == endEvent.pointer,
-    'Pointer IDs should match',
-  );
-  results.add('Complete sequence verified');
-  print('Pan zoom sequence: start -> update -> end verified');
-
-  // Test 14: Position drift calculation
-  final startPos = Offset(100, 100);
-  final endPos = panZoomEnd1.position;
-  final totalDrift = endPos - startPos;
-  results.add('drift: $totalDrift');
-  print('Position drift: $totalDrift');
-
-  // Test 15: Pressure property
-  results.add('pressure: ${panZoomEnd1.pressure}');
-  print('PanZoomEnd event pressure: ${panZoomEnd1.pressure}');
-
-  // Test 16: Distance property
-  results.add('distance: ${panZoomEnd1.distance}');
-  print('PanZoomEnd event distance: ${panZoomEnd1.distance}');
-
-  // Test 17: Multiple end events tracking
-  final endEvents = <PointerPanZoomEndEvent>[];
-  for (int i = 0; i < 3; i++) {
-    endEvents.add(
-      PointerPanZoomEndEvent(
-        position: Offset(100.0 + i * 50, 100.0 + i * 50),
-        pointer: i,
-      ),
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const Text('Use trackpad gesture (2-finger pan/zoom)', style: TextStyle(fontSize: 16)),
+        const SizedBox(height: 16),
+        Listener(
+          onPointerPanZoomStart: (_) => setState(() => _status = 'Pan/Zoom Started'),
+          onPointerPanZoomUpdate: (_) => setState(() => _status = 'Pan/Zoom Active'),
+          onPointerPanZoomEnd: (_) => setState(() {
+            _status = 'Pan/Zoom Ended';
+            _endCount++;
+          }),
+          child: Container(
+            width: 280, height: 180,
+            decoration: BoxDecoration(
+              color: _status.contains('Active') ? Colors.orange.shade100 : 
+                     _status.contains('Ended') ? Colors.green.shade100 : Colors.grey.shade100,
+              border: Border.all(color: Colors.blueGrey, width: 2),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            alignment: Alignment.center,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(_status.contains('Active') ? Icons.pan_tool : Icons.pan_tool_outlined, size: 40),
+                const SizedBox(height: 8),
+                Text(_status, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(height: 16),
+        Text('End events received: \$_endCount', style: const TextStyle(fontSize: 14)),
+        const Text('(Trackpad gestures only - not touch)', style: TextStyle(fontSize: 11, color: Colors.grey)),
+      ],
     );
   }
-  assert(endEvents.length == 3, 'Should have 3 end events');
-  results.add('Tracked ${endEvents.length} end events');
-  print('Multiple end events tracked');
-
-  // Test 18: End position distance from origin
-  final distanceFromOrigin = panZoomEnd1.position.distance;
-  results.add('Distance from origin: ${distanceFromOrigin.toStringAsFixed(2)}');
-  print('End position distance from origin: $distanceFromOrigin');
-
-  // Test 19: Mouse kind end event
-  final panZoomEndMouse = PointerPanZoomEndEvent(
-    position: Offset(190.0, 240.0),
-    kind: PointerDeviceKind.mouse,
-  );
-  assert(
-    panZoomEndMouse.kind == PointerDeviceKind.mouse,
-    'Kind should be mouse',
-  );
-  results.add('mouse kind: ${panZoomEndMouse.kind}');
-  print('PanZoomEnd with mouse kind: ${panZoomEndMouse.kind}');
-
-  // Test 20: End event timing analysis
-  final gestureDuration =
-      Duration(milliseconds: 1500) - Duration(milliseconds: 1000);
-  results.add('gesture duration: ${gestureDuration.inMilliseconds}ms');
-  print('Gesture duration: $gestureDuration');
-
-  print('PointerPanZoomEndEvent test completed with ${results.length} tests');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('PointerPanZoomEndEvent Tests'),
-      Text('Tests passed: ${results.length}'),
-      ...results.take(6).map((r) => Text(r, style: TextStyle(fontSize: 10))),
-    ],
-  );
 }

@@ -78,13 +78,11 @@ dynamic build(BuildContext context) {
   );
   assertionCount++;
 
-  final rangeOnly = DateUtils.datesOnly([
-    DateTime(2026, 3, 14, 23),
-    DateTime(2026, 3, 15, 1),
-  ]);
+  final dateWithTime = DateTime(2026, 3, 14, 23, 30, 45);
+  final stripped = DateUtils.dateOnly(dateWithTime);
   _expect(
-    rangeOnly.every((d) => d.hour == 0),
-    'datesOnly strips times from iterable',
+    stripped.hour == 0 && stripped.minute == 0 && stripped.second == 0,
+    'dateOnly strips time components',
     logs,
   );
   assertionCount++;

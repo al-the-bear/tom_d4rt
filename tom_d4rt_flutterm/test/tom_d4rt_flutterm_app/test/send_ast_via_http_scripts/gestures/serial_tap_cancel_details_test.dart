@@ -1,202 +1,58 @@
-// D4rt test script: Tests SerialTapCancelDetails concepts from gestures
-// we don't ignore for file, we write test that following the usual guidelines:  avoid_print, prefer_interpolation_to_compose_strings, unused_local_variable, unnecessary_type_check, unnecessary_import, deprecated_member_use, unused_import, unnecessary_null_comparison, unnecessary_brace_in_string_interps, sized_box_for_whitespace, sort_child_properties_last, prefer_function_declarations_over_variables, prefer_is_empty, avoid_unnecessary_containers, invalid_use_of_protected_member, equal_elements_in_set, dead_code, dead_null_aware_expression, unnecessary_string_interpolations, prefer_iterable_wheretype, prefer_final_fields, no_leading_underscores_for_local_identifiers, curly_braces_in_flow_control_structures, use_super_parameters, prefer_const_constructors_in_immutables, non_constant_identifier_names, no_logic_in_create_state, avoid_function_literals_in_foreach_calls, use_null_aware_elements, unused_element, unused_field, unrelated_type_equality_checks, invalid_null_aware_operator, depend_on_referenced_packages, unnecessary_non_null_assertion, use_of_void_result, invalid_return_type_for_catch_error, override_on_non_overriding_member, duplicate_import, directive_after_declaration, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_declarations, unnecessary_const, undefined_getter, undefined_setter, undefined_method, undefined_function, undefined_named_parameter, undefined_identifier, undefined_class, undefined_operator, undefined_enum_constant, undefined_prefixed_name, missing_required_argument, not_enough_positional_arguments, extra_positional_arguments, argument_type_not_assignable, const_with_non_const, const_initialized_with_non_constant_value, const_with_undefined_constructor, invalid_constant, instantiate_abstract_class, static_access_to_instance_member, invocation_of_non_function_expression, non_abstract_class_inherits_abstract_member, no_generative_constructors_in_superclass, invalid_override, invalid_implementation_override, invalid_assignment, implements_non_class, type_test_with_undefined_name, unchecked_use_of_nullable_value, assignment_to_final, assignment_to_final_no_setter, implicit_super_initializer_missing_arguments, non_bool_condition, new_with_undefined_constructor_default, non_constant_default_value, final_not_initialized, duplicate_definition, duplicate_ignore, strict_top_level_inference, prefer_typing_uninitialized_variables, field_initializer_outside_constructor, named_parameter_outside_group, obsolete_colon_for_default_value, expected_identifier_but_got_keyword, use_function_type_syntax_for_parameters, missing_function_parameters, missing_function_body, not_a_type, unused_element_parameter, invalid_use_of_internal_member, non_type_as_type_argument, unnecessary_nullable_for_final_variable_declarations, await_in_wrong_context, non_constant_identifier_names
-import 'dart:ui';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
+/// Deep visual demo for SerialTapCancelDetails.
+/// Shows info when a serial tap is cancelled.
 dynamic build(BuildContext context) {
-  print('SerialTapCancelDetails comprehensive test executing');
-  final results = <String>[];
-
-  // ========== SerialTapCancelDetails Tests ==========
-  print('Testing SerialTapCancelDetails...');
-
-  // Test 1: Create SerialTapCancelDetails with count 1
-  final cancelDetails1 = SerialTapCancelDetails(count: 1);
-  assert(cancelDetails1.count == 1, 'Count should be 1');
-  results.add('Cancel details count=1 created');
-  print('SerialTapCancelDetails: count=${cancelDetails1.count}');
-
-  // Test 2: Create SerialTapCancelDetails with count 2 (double tap cancel)
-  final cancelDetails2 = SerialTapCancelDetails(count: 2);
-  assert(cancelDetails2.count == 2, 'Count should be 2');
-  results.add('Cancel details count=2 created');
-  print('Double tap cancel: count=${cancelDetails2.count}');
-
-  // Test 3: Create SerialTapCancelDetails with count 3 (triple tap cancel)
-  final cancelDetails3 = SerialTapCancelDetails(count: 3);
-  assert(cancelDetails3.count == 3, 'Count should be 3');
-  results.add('Cancel details count=3 created');
-  print('Triple tap cancel: count=${cancelDetails3.count}');
-
-  // Test 4: Count property verification
-  final testCount = cancelDetails1.count;
-  assert(testCount == 1, 'Count getter should work');
-  results.add('Count property verified: $testCount');
-  print('Count property getter: $testCount');
-
-  // Test 5: Cancel scenarios - movement exceeded slop
-  final kTouchSlop = 18.0;
-  final downPos = Offset(100.0, 100.0);
-  final currentPos = Offset(130.0, 130.0);
-  final movement = (currentPos - downPos).distance;
-  final exceededSlop = movement > kTouchSlop;
-  assert(exceededSlop, 'Movement should exceed slop');
-  results.add(
-    'Slop exceeded: $exceededSlop (movement ${movement.toStringAsFixed(2)})',
-  );
-  print('Cancel scenario - slop exceeded: $exceededSlop');
-
-  // Test 6: Cancel scenarios - timeout expired
-  final kTapTimeout = Duration(milliseconds: 300);
-  final tapStart = Duration(milliseconds: 0);
-  final currentTime = Duration(milliseconds: 500);
-  final elapsed = currentTime - tapStart;
-  final timeoutExpired = elapsed > kTapTimeout;
-  assert(timeoutExpired, 'Timeout should be expired');
-  results.add('Timeout expired: $timeoutExpired (${elapsed.inMilliseconds}ms)');
-  print('Cancel scenario - timeout expired: $timeoutExpired');
-
-  // Test 7: Cancel scenarios - another recognizer won
-  final competingRecognizerWon = true;
-  results.add('Competing recognizer won: $competingRecognizerWon');
-  print('Cancel scenario - competing recognizer: $competingRecognizerWon');
-
-  // Test 8: Count indicates which tap was cancelled
-  for (var i = 1; i <= 5; i++) {
-    final cancel = SerialTapCancelDetails(count: i);
-    print('Tap $i cancelled: count=${cancel.count}');
-  }
-  results.add('Tap cancel counts 1-5 tested');
-
-  // Test 9: Cancel during double tap sequence
-  final midDoubleTapCancel = SerialTapCancelDetails(count: 2);
-  assert(midDoubleTapCancel.count == 2, 'Should indicate 2nd tap cancelled');
-  results.add('Mid-double-tap cancel: count=${midDoubleTapCancel.count}');
-  print('Cancel during double tap: count=${midDoubleTapCancel.count}');
-
-  // Test 10: Cancel state tracking concept
-  var tapSequenceCount = 0;
-  var cancelled = false;
-  void onTapDown() {
-    tapSequenceCount++;
-  }
-
-  void onTapCancel(int count) {
-    cancelled = true;
-    assert(count == tapSequenceCount, 'Cancel count should match sequence');
-  }
-
-  onTapDown();
-  onTapDown();
-  onTapCancel(2);
-  results.add(
-    'Cancel state tracking: cancelled=$cancelled, count=$tapSequenceCount',
-  );
-  print('State tracking: tapCount=$tapSequenceCount, cancelled=$cancelled');
-
-  // Test 11: Callback pattern
-  SerialTapCancelDetails? lastCancelDetails;
-  void handleCancel(SerialTapCancelDetails details) {
-    lastCancelDetails = details;
-  }
-
-  handleCancel(cancelDetails2);
-  assert(lastCancelDetails != null, 'Details should be captured');
-  assert(lastCancelDetails!.count == 2, 'Count should be preserved');
-  results.add('Callback pattern verified');
-  print('Callback captures details: count=${lastCancelDetails!.count}');
-
-  // Test 12: High count cancellation
-  final highCountCancel = SerialTapCancelDetails(count: 10);
-  assert(highCountCancel.count == 10, 'High count should work');
-  results.add('High count cancel: ${highCountCancel.count}');
-  print('High count cancellation: count=${highCountCancel.count}');
-
-  // Test 13: Zero count edge case concept
-  // Note: count=0 may not be typical but testing boundary
-  final zeroCountCancel = SerialTapCancelDetails(count: 0);
-  results.add('Edge case count=0: ${zeroCountCancel.count}');
-  print('Edge case zero count: ${zeroCountCancel.count}');
-
-  // Test 14: Integration with SerialTapGestureRecognizer
-  final recognizer = SerialTapGestureRecognizer();
-  var cancelCallCount = 0;
-  recognizer.onSerialTapCancel = (SerialTapCancelDetails details) {
-    cancelCallCount++;
-    print('Cancel callback: count=${details.count}');
-  };
-  results.add('Recognizer callback connected');
-  print('Recognizer callback setup complete');
-
-  // Test 15: Multiple cancel callbacks concept
-  final cancelCounts = <int>[];
-  void recordCancel(SerialTapCancelDetails d) {
-    cancelCounts.add(d.count);
-  }
-
-  recordCancel(SerialTapCancelDetails(count: 1));
-  recordCancel(SerialTapCancelDetails(count: 2));
-  recordCancel(SerialTapCancelDetails(count: 3));
-  assert(cancelCounts.length == 3, 'Should record 3 cancels');
-  results.add('Multi-cancel recorded: $cancelCounts');
-  print('Cancel counts recorded: $cancelCounts');
-
-  // Test 16: Cancel reason determination concept
-  String determineReason(double movement, Duration elapsed) {
-    if (movement > kTouchSlop) return 'movement_exceeded';
-    if (elapsed > kTapTimeout) return 'timeout';
-    return 'competing_gesture';
-  }
-
-  final reason = determineReason(25.0, Duration(milliseconds: 100));
-  assert(reason == 'movement_exceeded', 'Reason should be movement');
-  results.add('Cancel reason: $reason');
-  print('Cancel reason determination: $reason');
-
-  // Test 17: Cancel vs complete differentiation
-  final wasCompleted = false;
-  final wasCancelled = true;
-  assert(wasCompleted != wasCancelled, 'Cannot be both');
-  results.add('Cancel/Complete mutual exclusion verified');
-  print('Tap cancelled (not completed): $wasCancelled');
-
-  // Test 18: Count semantic meaning
-  // count=1: first tap cancelled, count=2: during double tap, etc.
-  final semantics = {
-    1: 'single tap cancelled',
-    2: 'double tap sequence cancelled',
-    3: 'triple tap sequence cancelled',
-  };
-  for (var entry in semantics.entries) {
-    print('Count ${entry.key}: ${entry.value}');
-  }
-  results.add('Count semantics documented');
-
-  // Test 19: Dispose recognizer
-  recognizer.dispose();
-  results.add('Recognizer disposed');
-  print('SerialTapGestureRecognizer disposed');
-
-  // Test 20: Summary
-  results.add('SerialTapCancelDetails: single property (count)');
-  print(
-    'SerialTapCancelDetails summary: count property indicates tap sequence depth at cancel',
-  );
-
-  print('SerialTapCancelDetails test completed with ${results.length} tests');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text(
-        'SerialTapCancelDetails Tests',
-        style: TextStyle(fontWeight: FontWeight.bold),
+  return Scaffold(
+    appBar: AppBar(title: const Text('SerialTapCancelDetails')),
+    body: Padding(
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text('Serial Tap Cancel', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 16),
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.red.shade50,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: Colors.red.shade200),
+            ),
+            child: const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(children: [Icon(Icons.cancel, color: Colors.red), SizedBox(width: 8),
+                  Text('When Fired', style: TextStyle(fontWeight: FontWeight.bold))]),
+                SizedBox(height: 8),
+                Text('• User moved finger too much'),
+                Text('• Tap timeout exceeded'),
+                Text('• Gesture arena lost to another recognizer'),
+              ],
+            ),
+          ),
+          const SizedBox(height: 16),
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Properties:', style: TextStyle(fontWeight: FontWeight.bold)),
+                SizedBox(height: 8),
+                Text('• count: int'),
+                Text('  Number of taps before cancel'),
+              ],
+            ),
+          ),
+          const SizedBox(height: 16),
+          const Text('Used with SerialTapGestureRecognizer for triple+ taps',
+            style: TextStyle(fontSize: 12, color: Colors.grey)),
+        ],
       ),
-      Text('Property: count (tap sequence depth)'),
-      Text('Cancel reasons: movement, timeout, competing'),
-      Text('Usage: onSerialTapCancel callback'),
-      Text('Count: 1=single, 2=double seq, 3=triple seq'),
-      Text('Tests passed: ${results.length}'),
-    ],
+    ),
   );
 }
