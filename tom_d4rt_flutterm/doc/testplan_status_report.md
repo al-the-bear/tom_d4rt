@@ -107,9 +107,9 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [list_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/list_test.dart) | List | No | Yes | No |
 | [localization_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/localization_test.dart) | DefaultCupertinoLocalizations | No | Yes | No |
 | [magnifier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/magnifier_test.dart) | CupertinoMagnifier | No | Yes | No |
-| [navigation_bar_bottom_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/navigation_bar_bottom_mode_test.dart) | NavigationBarBottomMode | No | No | Yes |
+| [navigation_bar_bottom_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/navigation_bar_bottom_mode_test.dart) | NavigationBarBottomMode | No | Yes | No | Created on 2026-03-17 at 17:00 |
 | [obstructing_preferred_size_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/obstructing_preferred_size_widget_test.dart) | ObstructingPreferredSizeWidget | No | Yes | No |
-| [overlay_visibility_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/overlay_visibility_mode_test.dart) | OverlayVisibilityMode | No | No | Yes |
+| [overlay_visibility_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/overlay_visibility_mode_test.dart) | OverlayVisibilityMode | No | Yes | No | Created on 2026-03-17 at 17:08 |
 | [picker_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/picker_test.dart) | CupertinoPicker | No | Yes | No |
 | [refresh_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/refresh_test.dart) | CupertinoSliverRefreshControl | No | Yes | No |
 | [restorable_cupertino_tab_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/restorable_cupertino_tab_controller_test.dart) | RestorableCupertinoTabController | No | Yes | No |
@@ -117,7 +117,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [scaffold_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/scaffold_test.dart) | CupertinoPageScaffold | No | Yes | No |
 | [segmented_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/segmented_test.dart) | Segmented | No | Yes | No |
 | [tab_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/tab_test.dart) | CupertinoTabController | No | Yes | No |
-| [textfield_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/textfield_test.dart) | Textfield | No | No | Yes |
+| [textfield_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/textfield_test.dart) | Textfield | No | Yes | No | Created on 2026-03-17 at 17:14 |
 | [theme_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/theme_test.dart) | CupertinoTheme | No | Yes | No |
 | [toolbar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/toolbar_test.dart) | CupertinoAdaptiveTextSelectionToolbar | No | No | Yes |
 ## dart_ui/ (131 files)
