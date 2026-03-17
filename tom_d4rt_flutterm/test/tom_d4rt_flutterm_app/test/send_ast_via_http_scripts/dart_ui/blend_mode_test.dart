@@ -5,33 +5,43 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  print('═══════════════════════════════════════════════════════════════════════════');
-  print('                         BLENDMODE DEEP DEMO                               ');
-  print('═══════════════════════════════════════════════════════════════════════════');
+  print(
+    '═══════════════════════════════════════════════════════════════════════════',
+  );
+  print(
+    '                         BLENDMODE DEEP DEMO                               ',
+  );
+  print(
+    '═══════════════════════════════════════════════════════════════════════════',
+  );
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // SECTION 1: BlendMode Fundamentals
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 1: BlendMode Fundamentals');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   print('BlendMode defines how pixels are combined during drawing operations:');
   print('- Source (src): The color being drawn');
   print('- Destination (dst): The existing color on canvas');
   print('- Result: The computed output color');
   print('');
-  print('All ${ BlendMode.values.length} blend modes:');
+  print('All ${BlendMode.values.length} blend modes:');
   for (final mode in BlendMode.values) {
-    print('  [${ mode.index.toString().padLeft(2)}] ${ mode.name}');
+    print('  [${mode.index.toString().padLeft(2)}] ${mode.name}');
   }
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // SECTION 2: Basic Blending Modes (Porter-Duff)
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 2: Porter-Duff Modes');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   print('Classic compositing operations:');
   print('');
-  
+
   final porterDuff = [
     ('clear', BlendMode.clear, 'Result = 0 (transparent)'),
     ('src', BlendMode.src, 'Result = Source'),
@@ -46,28 +56,30 @@ dynamic build(BuildContext context) {
     ('dstATop', BlendMode.dstATop, 'Destination atop source'),
     ('xor', BlendMode.xor, 'XOR - non-overlapping parts'),
   ];
-  
+
   for (final (name, mode, desc) in porterDuff) {
-    print('${ mode.name.padRight(10)} (index ${ mode.index}): $desc');
+    print('${mode.name.padRight(10)} (index ${mode.index}): $desc');
   }
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // SECTION 3: Mathematical Blend Modes
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 3: Mathematical Modes');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   print('Modes that perform mathematical operations on colors:');
   print('');
-  
+
   final mathematical = [
     ('plus', BlendMode.plus, 'Add colors (src + dst)'),
     ('modulate', BlendMode.modulate, 'Multiply colors (src × dst)'),
   ];
-  
+
   for (final (name, mode, desc) in mathematical) {
-    print('${ mode.name.padRight(10)} (index ${ mode.index}): $desc');
+    print('${mode.name.padRight(10)} (index ${mode.index}): $desc');
   }
-  
+
   print('');
   print('Color addition example (plus):');
   print('  Red (255,0,0) + Blue (0,0,255) = Magenta (255,0,255)');
@@ -80,19 +92,21 @@ dynamic build(BuildContext context) {
   // SECTION 4: Screen and Overlay Family
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 4: Screen and Overlay');
-  print('─────────────────────────────────────────────────────────────────────────');
-  
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
+
   final screenOverlay = [
     ('screen', BlendMode.screen, 'Lightens: 1 - (1-src)×(1-dst)'),
     ('overlay', BlendMode.overlay, 'Multiply or screen based on dest'),
     ('softLight', BlendMode.softLight, 'Softer version of overlay'),
     ('hardLight', BlendMode.hardLight, 'Multiply or screen based on src'),
   ];
-  
+
   for (final (name, mode, desc) in screenOverlay) {
-    print('${ mode.name.padRight(10)} (index ${ mode.index}): $desc');
+    print('${mode.name.padRight(10)} (index ${mode.index}): $desc');
   }
-  
+
   print('');
   print('Screen is like projecting two slides onto a screen');
   print('Overlay combines multiply and screen for contrast');
@@ -101,34 +115,38 @@ dynamic build(BuildContext context) {
   // SECTION 5: Darken and Lighten Modes
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 5: Darken/Lighten Modes');
-  print('─────────────────────────────────────────────────────────────────────────');
-  
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
+
   final darkenLighten = [
     ('darken', BlendMode.darken, 'Keep darker of src/dst per channel'),
     ('lighten', BlendMode.lighten, 'Keep lighter of src/dst per channel'),
     ('colorDodge', BlendMode.colorDodge, 'Brighten dest based on src'),
     ('colorBurn', BlendMode.colorBurn, 'Darken dest based on src'),
   ];
-  
+
   for (final (name, mode, desc) in darkenLighten) {
-    print('${ mode.name.padRight(12)} (index ${ mode.index}): $desc');
+    print('${mode.name.padRight(12)} (index ${mode.index}): $desc');
   }
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // SECTION 6: Difference Modes
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 6: Difference Modes');
-  print('─────────────────────────────────────────────────────────────────────────');
-  
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
+
   final difference = [
     ('difference', BlendMode.difference, 'Absolute difference |src - dst|'),
     ('exclusion', BlendMode.exclusion, 'Softer difference'),
   ];
-  
+
   for (final (name, mode, desc) in difference) {
-    print('${ mode.name.padRight(10)} (index ${ mode.index}): $desc');
+    print('${mode.name.padRight(10)} (index ${mode.index}): $desc');
   }
-  
+
   print('');
   print('Difference mode:');
   print('  Same colors → Black (difference is zero)');
@@ -138,21 +156,31 @@ dynamic build(BuildContext context) {
   // SECTION 7: HSL Component Modes
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 7: HSL Component Modes');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   print('Modes that work with Hue, Saturation, Luminosity:');
   print('');
-  
+
   final hsl = [
     ('hue', BlendMode.hue, 'Use src hue, dst saturation/luminosity'),
-    ('saturation', BlendMode.saturation, 'Use src saturation, dst hue/luminosity'),
+    (
+      'saturation',
+      BlendMode.saturation,
+      'Use src saturation, dst hue/luminosity',
+    ),
     ('color', BlendMode.color, 'Use src hue+saturation, dst luminosity'),
-    ('luminosity', BlendMode.luminosity, 'Use src luminosity, dst hue+saturation'),
+    (
+      'luminosity',
+      BlendMode.luminosity,
+      'Use src luminosity, dst hue+saturation',
+    ),
   ];
-  
+
   for (final (name, mode, desc) in hsl) {
-    print('${ mode.name.padRight(12)} (index ${ mode.index}): $desc');
+    print('${mode.name.padRight(12)} (index ${mode.index}): $desc');
   }
-  
+
   print('');
   print('Use cases:');
   print('  hue: Colorize grayscale images');
@@ -164,19 +192,21 @@ dynamic build(BuildContext context) {
   // SECTION 8: BlendMode with Paint
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 8: Using with Paint');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   print('Setting blendMode on Paint object:');
   print('');
-  
+
   final paint1 = Paint()..blendMode = BlendMode.srcOver;
   print('paint.blendMode = BlendMode.srcOver (default)');
-  print('  paint.blendMode: ${ paint1.blendMode}');
-  
+  print('  paint.blendMode: ${paint1.blendMode}');
+
   final paint2 = Paint()..blendMode = BlendMode.multiply;
   print('');
   print('paint.blendMode = BlendMode.multiply');
-  print('  paint.blendMode: ${ paint2.blendMode}');
-  
+  print('  paint.blendMode: ${paint2.blendMode}');
+
   print('');
   print('Code example:');
   print('''
@@ -191,19 +221,24 @@ dynamic build(BuildContext context) {
   // SECTION 9: BlendMode with ColorFilter
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 9: ColorFilter Usage');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   print('Creating ColorFilter with BlendMode:');
   print('');
-  
+
   final filter1 = ColorFilter.mode(Colors.red, BlendMode.multiply);
   print('ColorFilter.mode(Colors.red, BlendMode.multiply)');
   print('  → Tints image with red using multiply');
-  
-  final filter2 = ColorFilter.mode(Colors.blue.withOpacity(0.5), BlendMode.srcATop);
+
+  final filter2 = ColorFilter.mode(
+    Colors.blue.withOpacity(0.5),
+    BlendMode.srcATop,
+  );
   print('');
   print('ColorFilter.mode(Colors.blue.withOpacity(0.5), BlendMode.srcATop)');
   print('  → Semi-transparent blue overlay');
-  
+
   print('');
   print('Common ColorFilter patterns:');
   print('  Grayscale: ColorFilter.matrix([...grayscale matrix...])');
@@ -214,7 +249,9 @@ dynamic build(BuildContext context) {
   // SECTION 10: Performance Considerations
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 10: Performance');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   print('BlendMode performance tiers:');
   print('');
   print('┌──────────────────┬─────────────┬────────────────────────┐');
@@ -234,7 +271,9 @@ dynamic build(BuildContext context) {
   // SECTION 11: Common Patterns
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 11: Common Patterns');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   print('Recommended modes for common effects:');
   print('');
   print('Photo Effects:');
@@ -252,9 +291,15 @@ dynamic build(BuildContext context) {
   print('  • Knockout: dstOut or srcOut');
   print('  • Intersection: srcIn');
 
-  print('\n═══════════════════════════════════════════════════════════════════════════');
-  print('                      BLENDMODE DEEP DEMO COMPLETE                         ');
-  print('═══════════════════════════════════════════════════════════════════════════');
+  print(
+    '\n═══════════════════════════════════════════════════════════════════════════',
+  );
+  print(
+    '                      BLENDMODE DEEP DEMO COMPLETE                         ',
+  );
+  print(
+    '═══════════════════════════════════════════════════════════════════════════',
+  );
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // VISUAL DEMONSTRATION UI
@@ -302,7 +347,7 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 Text(
-                  '${ BlendMode.values.length} Color Compositing Operations',
+                  '${BlendMode.values.length} Color Compositing Operations',
                   style: TextStyle(
                     fontSize: 14,
                     color: Colors.white.withOpacity(0.9),
@@ -311,9 +356,9 @@ dynamic build(BuildContext context) {
               ],
             ),
           ),
-          
+
           SizedBox(height: 24),
-          
+
           // Blend Mode Categories
           Text(
             'Blend Mode Categories',
@@ -324,56 +369,60 @@ dynamic build(BuildContext context) {
             ),
           ),
           SizedBox(height: 12),
-          
-          _buildCategoryCard(
-            'Porter-Duff',
-            'Classic compositing',
-            ['clear', 'src', 'dst', 'srcOver', 'dstOver', 'srcIn', 'dstIn', 'srcOut', 'dstOut', 'srcATop', 'dstATop', 'xor'],
-            Colors.blue,
-          ),
+
+          _buildCategoryCard('Porter-Duff', 'Classic compositing', [
+            'clear',
+            'src',
+            'dst',
+            'srcOver',
+            'dstOver',
+            'srcIn',
+            'dstIn',
+            'srcOut',
+            'dstOut',
+            'srcATop',
+            'dstATop',
+            'xor',
+          ], Colors.blue),
           SizedBox(height: 12),
-          
-          _buildCategoryCard(
-            'Mathematical',
-            'Color math operations',
-            ['plus', 'modulate'],
-            Colors.green,
-          ),
+
+          _buildCategoryCard('Mathematical', 'Color math operations', [
+            'plus',
+            'modulate',
+          ], Colors.green),
           SizedBox(height: 12),
-          
-          _buildCategoryCard(
-            'Screen & Overlay',
-            'Contrast effects',
-            ['screen', 'overlay', 'softLight', 'hardLight'],
-            Colors.orange,
-          ),
+
+          _buildCategoryCard('Screen & Overlay', 'Contrast effects', [
+            'screen',
+            'overlay',
+            'softLight',
+            'hardLight',
+          ], Colors.orange),
           SizedBox(height: 12),
-          
-          _buildCategoryCard(
-            'Darken & Lighten',
-            'Brightness comparison',
-            ['darken', 'lighten', 'colorDodge', 'colorBurn'],
-            Colors.teal,
-          ),
+
+          _buildCategoryCard('Darken & Lighten', 'Brightness comparison', [
+            'darken',
+            'lighten',
+            'colorDodge',
+            'colorBurn',
+          ], Colors.teal),
           SizedBox(height: 12),
-          
-          _buildCategoryCard(
-            'Difference',
-            'Color difference',
-            ['difference', 'exclusion'],
-            Colors.red,
-          ),
+
+          _buildCategoryCard('Difference', 'Color difference', [
+            'difference',
+            'exclusion',
+          ], Colors.red),
           SizedBox(height: 12),
-          
-          _buildCategoryCard(
-            'HSL Component',
-            'Hue/Saturation/Luminosity',
-            ['hue', 'saturation', 'color', 'luminosity'],
-            Colors.purple,
-          ),
-          
+
+          _buildCategoryCard('HSL Component', 'Hue/Saturation/Luminosity', [
+            'hue',
+            'saturation',
+            'color',
+            'luminosity',
+          ], Colors.purple),
+
           SizedBox(height: 24),
-          
+
           // Visual Blend Mode Demo
           Text(
             'Visual Blend Demo',
@@ -384,7 +433,7 @@ dynamic build(BuildContext context) {
             ),
           ),
           SizedBox(height: 12),
-          
+
           Container(
             padding: EdgeInsets.all(16),
             decoration: BoxDecoration(
@@ -393,10 +442,12 @@ dynamic build(BuildContext context) {
             ),
             child: Column(
               children: [
-                Text('Source (Red) + Destination (Blue)',
-                  style: TextStyle(fontWeight: FontWeight.bold)),
+                Text(
+                  'Source (Red) + Destination (Blue)',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 SizedBox(height: 12),
-                
+
                 Wrap(
                   spacing: 8,
                   runSpacing: 8,
@@ -414,9 +465,9 @@ dynamic build(BuildContext context) {
               ],
             ),
           ),
-          
+
           SizedBox(height: 24),
-          
+
           // Use Cases
           Text(
             'Common Use Cases',
@@ -427,16 +478,16 @@ dynamic build(BuildContext context) {
             ),
           ),
           SizedBox(height: 12),
-          
+
           _buildUseCaseRow('Photo tinting', 'multiply', Icons.photo_filter),
           _buildUseCaseRow('Highlight glow', 'screen', Icons.wb_sunny),
           _buildUseCaseRow('Shape mask', 'srcIn/dstIn', Icons.crop_free),
           _buildUseCaseRow('High contrast', 'overlay', Icons.contrast),
           _buildUseCaseRow('Colorize B&W', 'color', Icons.palette),
           _buildUseCaseRow('Shadow overlay', 'multiply', Icons.wb_shade),
-          
+
           SizedBox(height: 24),
-          
+
           // Performance Guide
           Text(
             'Performance Guide',
@@ -447,7 +498,7 @@ dynamic build(BuildContext context) {
             ),
           ),
           SizedBox(height: 12),
-          
+
           Container(
             padding: EdgeInsets.all(12),
             decoration: BoxDecoration(
@@ -458,14 +509,18 @@ dynamic build(BuildContext context) {
               children: [
                 _buildPerfIndicator('Porter-Duff', '🟢 Fast', Colors.green),
                 _buildPerfIndicator('Mathematical', '🟢 Fast', Colors.green),
-                _buildPerfIndicator('Screen/Overlay', '🟡 Medium', Colors.orange),
+                _buildPerfIndicator(
+                  'Screen/Overlay',
+                  '🟡 Medium',
+                  Colors.orange,
+                ),
                 _buildPerfIndicator('HSL Component', '🔴 Slower', Colors.red),
               ],
             ),
           ),
-          
+
           SizedBox(height: 32),
-          
+
           // Footer
           Center(
             child: Container(
@@ -489,7 +544,12 @@ dynamic build(BuildContext context) {
   );
 }
 
-Widget _buildCategoryCard(String title, String subtitle, List<String> modes, Color color) {
+Widget _buildCategoryCard(
+  String title,
+  String subtitle,
+  List<String> modes,
+  Color color,
+) {
   return Container(
     padding: EdgeInsets.all(14),
     decoration: BoxDecoration(
@@ -514,8 +574,14 @@ Widget _buildCategoryCard(String title, String subtitle, List<String> modes, Col
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: TextStyle(fontWeight: FontWeight.bold, color: color)),
-                Text(subtitle, style: TextStyle(fontSize: 11, color: Colors.grey)),
+                Text(
+                  title,
+                  style: TextStyle(fontWeight: FontWeight.bold, color: color),
+                ),
+                Text(
+                  subtitle,
+                  style: TextStyle(fontSize: 11, color: Colors.grey),
+                ),
               ],
             ),
           ],
@@ -524,14 +590,18 @@ Widget _buildCategoryCard(String title, String subtitle, List<String> modes, Col
         Wrap(
           spacing: 6,
           runSpacing: 4,
-          children: modes.map((m) => Container(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-            decoration: BoxDecoration(
-              color: color.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Text(m, style: TextStyle(fontSize: 10, color: color)),
-          )).toList(),
+          children: modes
+              .map(
+                (m) => Container(
+                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                  decoration: BoxDecoration(
+                    color: color.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(m, style: TextStyle(fontSize: 10, color: color)),
+                ),
+              )
+              .toList(),
         ),
       ],
     ),
@@ -546,9 +616,7 @@ Widget _buildBlendPreview(String name, BlendMode mode) {
         Container(
           width: 50,
           height: 50,
-          child: CustomPaint(
-            painter: _BlendDemoPainter(mode),
-          ),
+          child: CustomPaint(painter: _BlendDemoPainter(mode)),
         ),
         SizedBox(height: 4),
         Text(name, style: TextStyle(fontSize: 9), textAlign: TextAlign.center),
@@ -560,15 +628,12 @@ Widget _buildBlendPreview(String name, BlendMode mode) {
 class _BlendDemoPainter extends CustomPainter {
   final BlendMode mode;
   _BlendDemoPainter(this.mode);
-  
+
   @override
   void paint(Canvas canvas, Size size) {
     // Draw blue destination
-    canvas.drawRect(
-      Rect.fromLTWH(0, 10, 35, 35),
-      Paint()..color = Colors.blue,
-    );
-    
+    canvas.drawRect(Rect.fromLTWH(0, 10, 35, 35), Paint()..color = Colors.blue);
+
     // Draw red source with blend mode
     canvas.drawRect(
       Rect.fromLTWH(15, 5, 35, 35),
@@ -577,7 +642,7 @@ class _BlendDemoPainter extends CustomPainter {
         ..blendMode = mode,
     );
   }
-  
+
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
@@ -603,7 +668,10 @@ Widget _buildUseCaseRow(String useCase, String mode, IconData icon) {
             color: Colors.purple.shade50,
             borderRadius: BorderRadius.circular(12),
           ),
-          child: Text(mode, style: TextStyle(fontSize: 11, color: Colors.purple.shade700)),
+          child: Text(
+            mode,
+            style: TextStyle(fontSize: 11, color: Colors.purple.shade700),
+          ),
         ),
       ],
     ),

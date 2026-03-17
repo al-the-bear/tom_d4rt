@@ -5,15 +5,23 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  print('═══════════════════════════════════════════════════════════════════════════');
-  print('                 BACKDROPFILTERENGINELAYER DEEP DEMO                       ');
-  print('═══════════════════════════════════════════════════════════════════════════');
+  print(
+    '═══════════════════════════════════════════════════════════════════════════',
+  );
+  print(
+    '                 BACKDROPFILTERENGINELAYER DEEP DEMO                       ',
+  );
+  print(
+    '═══════════════════════════════════════════════════════════════════════════',
+  );
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // SECTION 1: BackdropFilterEngineLayer Fundamentals
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 1: Fundamentals');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   print('BackdropFilterEngineLayer is a compositing layer that:');
   print('- Applies ImageFilter effects to backdrop content');
   print('- Created via SceneBuilder.pushBackdropFilter()');
@@ -30,22 +38,24 @@ dynamic build(BuildContext context) {
   // SECTION 2: Creating BackdropFilterEngineLayer
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 2: Creating BackdropFilterEngineLayer');
-  print('─────────────────────────────────────────────────────────────────────────');
-  
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
+
   final builder1 = ui.SceneBuilder();
   print('Created SceneBuilder instance');
-  
+
   // Create a blur filter
   final blurFilter = ui.ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0);
   print('Created blur filter with sigma 5.0x5.0');
-  
+
   // Push backdrop filter - returns BackdropFilterEngineLayer
   final layer1 = builder1.pushBackdropFilter(blurFilter);
   print('');
   print('pushBackdropFilter() result:');
-  print('  Type: ${ layer1.runtimeType}');
-  print('  Is EngineLayer: ${ layer1 is ui.EngineLayer}');
-  
+  print('  Type: ${layer1.runtimeType}');
+  print('  Is EngineLayer: ${layer1 is ui.EngineLayer}');
+
   builder1.pop();
   final scene1 = builder1.build();
   scene1.dispose();
@@ -54,18 +64,29 @@ dynamic build(BuildContext context) {
   // SECTION 3: Different Blur Configurations
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 3: Blur Configurations');
-  print('─────────────────────────────────────────────────────────────────────────');
-  
-  void testBlurConfig(String name, double sigmaX, double sigmaY, ui.TileMode tileMode) {
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
+
+  void testBlurConfig(
+    String name,
+    double sigmaX,
+    double sigmaY,
+    ui.TileMode tileMode,
+  ) {
     final builder = ui.SceneBuilder();
-    final filter = ui.ImageFilter.blur(sigmaX: sigmaX, sigmaY: sigmaY, tileMode: tileMode);
+    final filter = ui.ImageFilter.blur(
+      sigmaX: sigmaX,
+      sigmaY: sigmaY,
+      tileMode: tileMode,
+    );
     final layer = builder.pushBackdropFilter(filter);
-    print('$name: sigmaX=$sigmaX, sigmaY=$sigmaY, tileMode=${ tileMode.name}');
-    print('  → Layer type: ${ layer.runtimeType}');
+    print('$name: sigmaX=$sigmaX, sigmaY=$sigmaY, tileMode=${tileMode.name}');
+    print('  → Layer type: ${layer.runtimeType}');
     builder.pop();
     builder.build().dispose();
   }
-  
+
   print('Testing various blur configurations:');
   testBlurConfig('Light blur', 2.0, 2.0, ui.TileMode.clamp);
   testBlurConfig('Medium blur', 8.0, 8.0, ui.TileMode.clamp);
@@ -81,8 +102,10 @@ dynamic build(BuildContext context) {
   // SECTION 4: BlendMode with Backdrop Filter
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 4: BlendMode Options');
-  print('─────────────────────────────────────────────────────────────────────────');
-  
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
+
   final blendModes = [
     BlendMode.srcOver,
     BlendMode.multiply,
@@ -93,13 +116,13 @@ dynamic build(BuildContext context) {
     BlendMode.colorDodge,
     BlendMode.colorBurn,
   ];
-  
+
   print('Testing backdrop filter with different blend modes:');
   for (final mode in blendModes) {
     final builder = ui.SceneBuilder();
     final filter = ui.ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0);
     final layer = builder.pushBackdropFilter(filter, blendMode: mode);
-    print('  BlendMode.${ mode.name} → ${ layer.runtimeType}');
+    print('  BlendMode.${mode.name} → ${layer.runtimeType}');
     builder.pop();
     builder.build().dispose();
   }
@@ -108,35 +131,37 @@ dynamic build(BuildContext context) {
   // SECTION 5: Layer Hierarchy with Backdrop Filter
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 5: Layer Hierarchy');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   print('BackdropFilterEngineLayer in scene tree:');
   print('');
-  
+
   final builder2 = ui.SceneBuilder();
-  
+
   // Push transform layer
   final transformLayer = builder2.pushTransform(Matrix4.identity().storage);
-  print('Pushed TransformEngineLayer: ${ transformLayer.runtimeType}');
-  
+  print('Pushed TransformEngineLayer: ${transformLayer.runtimeType}');
+
   // Push offset layer
   final offsetLayer = builder2.pushOffset(10.0, 10.0);
-  print('  Pushed OffsetEngineLayer: ${ offsetLayer.runtimeType}');
-  
+  print('  Pushed OffsetEngineLayer: ${offsetLayer.runtimeType}');
+
   // Push backdrop filter layer
   final backdropLayer = builder2.pushBackdropFilter(
-    ui.ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0)
+    ui.ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
   );
-  print('    Pushed BackdropFilterEngineLayer: ${ backdropLayer.runtimeType}');
-  
+  print('    Pushed BackdropFilterEngineLayer: ${backdropLayer.runtimeType}');
+
   // Push opacity layer inside backdrop
   final opacityLayer = builder2.pushOpacity(200);
-  print('      Pushed OpacityEngineLayer: ${ opacityLayer.runtimeType}');
-  
+  print('      Pushed OpacityEngineLayer: ${opacityLayer.runtimeType}');
+
   builder2.pop(); // opacity
   builder2.pop(); // backdrop
   builder2.pop(); // offset
   builder2.pop(); // transform
-  
+
   final scene2 = builder2.build();
   print('');
   print('Scene hierarchy built with nested layers');
@@ -146,41 +171,75 @@ dynamic build(BuildContext context) {
   // SECTION 6: Matrix Filter Alternative
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 6: Matrix Filter');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   print('BackdropFilter can also use matrix-based filters:');
   print('');
-  
+
   // Identity matrix (no change)
   final identityMatrix = Float64List.fromList([
-    1, 0, 0, 0, 0,
-    0, 1, 0, 0, 0,
-    0, 0, 1, 0, 0,
-    0, 0, 0, 1, 0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
   ]);
   final matrixFilter = ui.ColorFilter.matrix(identityMatrix);
   print('Matrix filter (identity): $matrixFilter');
-  
+
   // Grayscale conversion matrix
   final grayscaleMatrix = Float64List.fromList([
-    0.2126, 0.7152, 0.0722, 0, 0,
-    0.2126, 0.7152, 0.0722, 0, 0,
-    0.2126, 0.7152, 0.0722, 0, 0,
-    0, 0, 0, 1, 0,
+    0.2126,
+    0.7152,
+    0.0722,
+    0,
+    0,
+    0.2126,
+    0.7152,
+    0.0722,
+    0,
+    0,
+    0.2126,
+    0.7152,
+    0.0722,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
   ]);
   final grayscaleFilter = ui.ColorFilter.matrix(grayscaleMatrix);
   print('Grayscale matrix filter: Created');
-  
+
   // Note: ColorFilter can be composed with blur
   final composedFilter = ui.ImageFilter.compose(
     outer: ui.ImageFilter.blur(sigmaX: 3, sigmaY: 3),
     inner: ui.ColorFilter.mode(Colors.blue.withOpacity(0.3), BlendMode.overlay),
   );
   print('Composed filter (blur + color): Created');
-  
+
   // Test in SceneBuilder
   final builder3 = ui.SceneBuilder();
   final composedLayer = builder3.pushBackdropFilter(composedFilter);
-  print('pushBackdropFilter with composed: ${ composedLayer.runtimeType}');
+  print('pushBackdropFilter with composed: ${composedLayer.runtimeType}');
   builder3.pop();
   builder3.build().dispose();
 
@@ -188,27 +247,29 @@ dynamic build(BuildContext context) {
   // SECTION 7: OldLayer Reuse Pattern
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 7: Layer Reuse (oldLayer)');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   print('BackdropFilterEngineLayer supports reuse via oldLayer parameter:');
   print('');
-  
+
   // First frame
   final builderA = ui.SceneBuilder();
   final filterA = ui.ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0);
   final layerA = builderA.pushBackdropFilter(filterA);
-  print('Frame 1: Created new layer → ${ layerA.runtimeType}');
+  print('Frame 1: Created new layer → ${layerA.runtimeType}');
   builderA.pop();
   builderA.build().dispose();
-  
+
   // Second frame - reuse layer
   final builderB = ui.SceneBuilder();
   final filterB = ui.ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0);
   final layerB = builderB.pushBackdropFilter(filterB, oldLayer: layerA);
-  print('Frame 2: Reused layer → ${ layerB.runtimeType}');
-  print('  Same instance: ${ identical(layerA, layerB)}');
+  print('Frame 2: Reused layer → ${layerB.runtimeType}');
+  print('  Same instance: ${identical(layerA, layerB)}');
   builderB.pop();
   builderB.build().dispose();
-  
+
   print('');
   print('Benefits of oldLayer reuse:');
   print('  • Reduces layer allocation');
@@ -219,7 +280,9 @@ dynamic build(BuildContext context) {
   // SECTION 8: Performance Considerations
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 8: Performance');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   print('BackdropFilterEngineLayer performance tips:');
   print('');
   print('GPU Cost:');
@@ -248,7 +311,9 @@ dynamic build(BuildContext context) {
   // SECTION 9: Comparison with BackdropFilter Widget
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 9: Widget vs Engine Layer');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   print('BackdropFilter widget vs BackdropFilterEngineLayer:');
   print('');
   print('BackdropFilter Widget (high-level):');
@@ -279,7 +344,9 @@ dynamic build(BuildContext context) {
   // SECTION 10: Real-World Use Cases
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 10: Use Cases');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   print('Common backdrop filter applications:');
   print('');
   print('1. iOS-style Frosted Glass:');
@@ -302,9 +369,15 @@ dynamic build(BuildContext context) {
   print('   • Focus indicators');
   print('   • Z-depth simulation');
 
-  print('\n═══════════════════════════════════════════════════════════════════════════');
-  print('              BACKDROPFILTERENGINELAYER DEEP DEMO COMPLETE                 ');
-  print('═══════════════════════════════════════════════════════════════════════════');
+  print(
+    '\n═══════════════════════════════════════════════════════════════════════════',
+  );
+  print(
+    '              BACKDROPFILTERENGINELAYER DEEP DEMO COMPLETE                 ',
+  );
+  print(
+    '═══════════════════════════════════════════════════════════════════════════',
+  );
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // VISUAL DEMONSTRATION UI
@@ -361,9 +434,9 @@ dynamic build(BuildContext context) {
               ],
             ),
           ),
-          
+
           SizedBox(height: 24),
-          
+
           // Blur Effect Showcase
           Text(
             'Blur Effect Demonstration',
@@ -374,7 +447,7 @@ dynamic build(BuildContext context) {
             ),
           ),
           SizedBox(height: 12),
-          
+
           // Background with blur overlays
           Container(
             height: 200,
@@ -404,26 +477,34 @@ dynamic build(BuildContext context) {
                         decoration: BoxDecoration(
                           color: Colors.white.withOpacity(0.3),
                           borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: Colors.white.withOpacity(0.2)),
+                          border: Border.all(
+                            color: Colors.white.withOpacity(0.2),
+                          ),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Frosted Glass', style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            )),
-                            Text('sigma: 10.0', style: TextStyle(
-                              color: Colors.white.withOpacity(0.8),
-                              fontSize: 12,
-                            )),
+                            Text(
+                              'Frosted Glass',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              'sigma: 10.0',
+                              style: TextStyle(
+                                color: Colors.white.withOpacity(0.8),
+                                fontSize: 12,
+                              ),
+                            ),
                           ],
                         ),
                       ),
                     ),
                   ),
                 ),
-                
+
                 // Medium blur circle
                 Positioned(
                   right: 60,
@@ -439,16 +520,19 @@ dynamic build(BuildContext context) {
                           shape: BoxShape.circle,
                         ),
                         child: Center(
-                          child: Text('σ=20', style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          )),
+                          child: Text(
+                            'σ=20',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
-                
+
                 // Light blur bar
                 Positioned(
                   bottom: 0,
@@ -478,9 +562,9 @@ dynamic build(BuildContext context) {
               ],
             ),
           ),
-          
+
           SizedBox(height: 24),
-          
+
           // Blur Sigma Comparison
           Text(
             'Blur Sigma Comparison',
@@ -491,7 +575,7 @@ dynamic build(BuildContext context) {
             ),
           ),
           SizedBox(height: 12),
-          
+
           Row(
             children: [
               _buildBlurCard('No Blur', 0, Colors.grey),
@@ -503,9 +587,9 @@ dynamic build(BuildContext context) {
               _buildBlurCard('σ = 25', 25, Colors.indigo),
             ],
           ),
-          
+
           SizedBox(height: 24),
-          
+
           // Performance Guide
           Text(
             'Performance Guide',
@@ -516,34 +600,51 @@ dynamic build(BuildContext context) {
             ),
           ),
           SizedBox(height: 12),
-          
+
           Container(
             padding: EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
-                  blurRadius: 8,
-                ),
+                BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 8),
               ],
             ),
             child: Column(
               children: [
-                _buildPerfRow('Sigma 1-5', 'Subtle', '🟢 Low GPU cost', Colors.green),
+                _buildPerfRow(
+                  'Sigma 1-5',
+                  'Subtle',
+                  '🟢 Low GPU cost',
+                  Colors.green,
+                ),
                 Divider(),
-                _buildPerfRow('Sigma 5-15', 'Medium', '🟡 Moderate cost', Colors.orange),
+                _buildPerfRow(
+                  'Sigma 5-15',
+                  'Medium',
+                  '🟡 Moderate cost',
+                  Colors.orange,
+                ),
                 Divider(),
-                _buildPerfRow('Sigma 15-30', 'Heavy', '🟠 High cost', Colors.deepOrange),
+                _buildPerfRow(
+                  'Sigma 15-30',
+                  'Heavy',
+                  '🟠 High cost',
+                  Colors.deepOrange,
+                ),
                 Divider(),
-                _buildPerfRow('Sigma 30+', 'Extreme', '🔴 Very high cost', Colors.red),
+                _buildPerfRow(
+                  'Sigma 30+',
+                  'Extreme',
+                  '🔴 Very high cost',
+                  Colors.red,
+                ),
               ],
             ),
           ),
-          
+
           SizedBox(height: 24),
-          
+
           // Layer Hierarchy
           Text(
             'Scene Layer Hierarchy',
@@ -554,7 +655,7 @@ dynamic build(BuildContext context) {
             ),
           ),
           SizedBox(height: 12),
-          
+
           Container(
             padding: EdgeInsets.all(16),
             decoration: BoxDecoration(
@@ -573,9 +674,9 @@ dynamic build(BuildContext context) {
               ],
             ),
           ),
-          
+
           SizedBox(height: 24),
-          
+
           // Use Cases
           Text(
             'Common Use Cases',
@@ -586,7 +687,7 @@ dynamic build(BuildContext context) {
             ),
           ),
           SizedBox(height: 12),
-          
+
           Wrap(
             spacing: 8,
             runSpacing: 8,
@@ -599,9 +700,9 @@ dynamic build(BuildContext context) {
               _buildUseCaseChip('Depth Effects', Icons.layers),
             ],
           ),
-          
+
           SizedBox(height: 32),
-          
+
           // Footer
           Center(
             child: Container(
@@ -680,13 +781,12 @@ Widget _buildPerfRow(String sigma, String quality, String cost, Color color) {
         Container(
           width: 8,
           height: 8,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         SizedBox(width: 12),
-        Expanded(child: Text(sigma, style: TextStyle(fontWeight: FontWeight.w600))),
+        Expanded(
+          child: Text(sigma, style: TextStyle(fontWeight: FontWeight.w600)),
+        ),
         Expanded(child: Text(quality)),
         Expanded(child: Text(cost, style: TextStyle(fontSize: 12))),
       ],
@@ -701,11 +801,14 @@ Widget _buildLayerNode(String name, IconData icon, int depth) {
       children: [
         Icon(icon, size: 18, color: Colors.cyan.shade600),
         SizedBox(width: 8),
-        Text(name, style: TextStyle(
-          fontSize: 13,
-          fontWeight: depth == 3 ? FontWeight.bold : FontWeight.normal,
-          color: depth == 3 ? Colors.cyan.shade800 : Colors.grey.shade700,
-        )),
+        Text(
+          name,
+          style: TextStyle(
+            fontSize: 13,
+            fontWeight: depth == 3 ? FontWeight.bold : FontWeight.normal,
+            color: depth == 3 ? Colors.cyan.shade800 : Colors.grey.shade700,
+          ),
+        ),
       ],
     ),
   );
@@ -724,7 +827,10 @@ Widget _buildUseCaseChip(String label, IconData icon) {
       children: [
         Icon(icon, size: 16, color: Colors.cyan.shade600),
         SizedBox(width: 6),
-        Text(label, style: TextStyle(fontSize: 12, color: Colors.cyan.shade800)),
+        Text(
+          label,
+          style: TextStyle(fontSize: 12, color: Colors.cyan.shade800),
+        ),
       ],
     ),
   );

@@ -6,34 +6,46 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 dynamic build(BuildContext context) {
-  print('═══════════════════════════════════════════════════════════════════════════');
-  print('                    APPEXITTYPE DEEP DEMO                                   ');
-  print('═══════════════════════════════════════════════════════════════════════════');
+  print(
+    '═══════════════════════════════════════════════════════════════════════════',
+  );
+  print(
+    '                    APPEXITTYPE DEEP DEMO                                   ',
+  );
+  print(
+    '═══════════════════════════════════════════════════════════════════════════',
+  );
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // SECTION 1: AppExitType Fundamentals
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 1: AppExitType Fundamentals');
-  print('─────────────────────────────────────────────────────────────────────────');
-  print('AppExitType is an enum that classifies exit requests by their nature:');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
+  print(
+    'AppExitType is an enum that classifies exit requests by their nature:',
+  );
   print('- cancelable: User-initiated exit that can be prevented');
   print('- required: System-mandated exit that cannot be blocked');
   print('');
   print('Available values:');
   for (final value in AppExitType.values) {
-    print('  [${ value.index}] ${ value.name}');
+    print('  [${value.index}] ${value.name}');
   }
-  print('Total: ${ AppExitType.values.length} exit types');
+  print('Total: ${AppExitType.values.length} exit types');
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // SECTION 2: Cancelable Exit Type Analysis
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 2: Cancelable Exit Type');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   final cancelable = AppExitType.cancelable;
   print('Type: $cancelable');
-  print('Name: ${ cancelable.name}');
-  print('Index: ${ cancelable.index}');
+  print('Name: ${cancelable.name}');
+  print('Index: ${cancelable.index}');
   print('');
   print('Use cases for cancelable exits:');
   print('  • User clicks close button');
@@ -50,11 +62,13 @@ dynamic build(BuildContext context) {
   // SECTION 3: Required Exit Type Analysis
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 3: Required Exit Type');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   final required = AppExitType.required;
   print('Type: $required');
-  print('Name: ${ required.name}');
-  print('Index: ${ required.index}');
+  print('Name: ${required.name}');
+  print('Index: ${required.index}');
   print('');
   print('Use cases for required exits:');
   print('  • System shutdown in progress');
@@ -71,7 +85,9 @@ dynamic build(BuildContext context) {
   // SECTION 4: Exit Type Comparison
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 4: Exit Type Comparison');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   print('Comparing the two exit types:');
   print('');
   print('┌─────────────┬────────────────┬────────────────┐');
@@ -85,25 +101,27 @@ dynamic build(BuildContext context) {
   print('└─────────────┴────────────────┴────────────────┘');
   print('');
   print('Equality checks:');
-  print('cancelable == cancelable: ${ cancelable == AppExitType.cancelable}');
-  print('required == required: ${ required == AppExitType.required}');
-  print('cancelable == required: ${ cancelable == required}');
+  print('cancelable == cancelable: ${cancelable == AppExitType.cancelable}');
+  print('required == required: ${required == AppExitType.required}');
+  print('cancelable == required: ${cancelable == required}');
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // SECTION 5: Enum Operations
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 5: Enum Operations');
-  print('─────────────────────────────────────────────────────────────────────────');
-  print('First value: ${ AppExitType.values.first}');
-  print('Last value: ${ AppExitType.values.last}');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
+  print('First value: ${AppExitType.values.first}');
+  print('Last value: ${AppExitType.values.last}');
   print('');
-  
+
   // Index to value mapping
   print('Index to value mapping:');
   for (var i = 0; i < AppExitType.values.length; i++) {
-    print('  AppExitType.values[$i] = ${ AppExitType.values[i]}');
+    print('  AppExitType.values[$i] = ${AppExitType.values[i]}');
   }
-  
+
   // Check by name
   print('');
   print('Lookup by name:');
@@ -116,7 +134,9 @@ dynamic build(BuildContext context) {
   // SECTION 6: Exit Handler Pattern
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 6: Exit Handler Pattern');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   print('Typical exit handler implementation:');
   print('');
   print('''
@@ -145,7 +165,9 @@ dynamic build(BuildContext context) {
   // SECTION 7: Platform Behavior Comparison
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 7: Platform Behavior');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   print('How exit types map to platform events:');
   print('');
   print('Windows:');
@@ -167,7 +189,9 @@ dynamic build(BuildContext context) {
   // SECTION 8: Integration with ServicesBinding
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 8: ServicesBinding Integration');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   print('AppExitType is passed to exit request handlers:');
   print('');
   print('Registration pattern:');
@@ -186,7 +210,9 @@ dynamic build(BuildContext context) {
   // SECTION 9: Decision Flow Visualization
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 9: Decision Flow');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   print('Exit request decision flow:');
   print('');
   print('  ┌─────────────────────┐');
@@ -217,13 +243,17 @@ dynamic build(BuildContext context) {
   // SECTION 10: Practical Use Case Scenarios
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 10: Practical Scenarios');
-  print('─────────────────────────────────────────────────────────────────────────');
-  
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
+
   // Scenario simulation
   void simulateExitHandling(AppExitType exitType, bool hasUnsavedWork) {
     print('');
-    print('Scenario: exitType=${ exitType.name}, hasUnsavedWork=$hasUnsavedWork');
-    
+    print(
+      'Scenario: exitType=${exitType.name}, hasUnsavedWork=$hasUnsavedWork',
+    );
+
     switch (exitType) {
       case AppExitType.cancelable:
         if (hasUnsavedWork) {
@@ -244,15 +274,21 @@ dynamic build(BuildContext context) {
         break;
     }
   }
-  
+
   simulateExitHandling(AppExitType.cancelable, true);
   simulateExitHandling(AppExitType.cancelable, false);
   simulateExitHandling(AppExitType.required, true);
   simulateExitHandling(AppExitType.required, false);
 
-  print('\n═══════════════════════════════════════════════════════════════════════════');
-  print('                    APPEXITTYPE DEEP DEMO COMPLETE                          ');
-  print('═══════════════════════════════════════════════════════════════════════════');
+  print(
+    '\n═══════════════════════════════════════════════════════════════════════════',
+  );
+  print(
+    '                    APPEXITTYPE DEEP DEMO COMPLETE                          ',
+  );
+  print(
+    '═══════════════════════════════════════════════════════════════════════════',
+  );
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // VISUAL DEMONSTRATION UI
@@ -309,9 +345,9 @@ dynamic build(BuildContext context) {
               ],
             ),
           ),
-          
+
           SizedBox(height: 24),
-          
+
           // Exit Types Grid
           Text(
             'Exit Types',
@@ -322,7 +358,7 @@ dynamic build(BuildContext context) {
             ),
           ),
           SizedBox(height: 12),
-          
+
           Row(
             children: [
               // Cancelable card
@@ -342,8 +378,11 @@ dynamic build(BuildContext context) {
                           color: Colors.green.shade100,
                           shape: BoxShape.circle,
                         ),
-                        child: Icon(Icons.cancel_outlined, 
-                          size: 32, color: Colors.green.shade700),
+                        child: Icon(
+                          Icons.cancel_outlined,
+                          size: 32,
+                          color: Colors.green.shade700,
+                        ),
                       ),
                       SizedBox(height: 12),
                       Text(
@@ -374,9 +413,9 @@ dynamic build(BuildContext context) {
                   ),
                 ),
               ),
-              
+
               SizedBox(width: 12),
-              
+
               // Required card
               Expanded(
                 child: Container(
@@ -394,8 +433,11 @@ dynamic build(BuildContext context) {
                           color: Colors.red.shade100,
                           shape: BoxShape.circle,
                         ),
-                        child: Icon(Icons.power_settings_new, 
-                          size: 32, color: Colors.red.shade700),
+                        child: Icon(
+                          Icons.power_settings_new,
+                          size: 32,
+                          color: Colors.red.shade700,
+                        ),
                       ),
                       SizedBox(height: 12),
                       Text(
@@ -428,9 +470,9 @@ dynamic build(BuildContext context) {
               ),
             ],
           ),
-          
+
           SizedBox(height: 24),
-          
+
           // Behavior Matrix
           Text(
             'Behavior Matrix',
@@ -441,7 +483,7 @@ dynamic build(BuildContext context) {
             ),
           ),
           SizedBox(height: 12),
-          
+
           Container(
             padding: EdgeInsets.all(16),
             decoration: BoxDecoration(
@@ -467,9 +509,9 @@ dynamic build(BuildContext context) {
               ],
             ),
           ),
-          
+
           SizedBox(height: 24),
-          
+
           // Decision Flow
           Text(
             'Exit Decision Flow',
@@ -480,7 +522,7 @@ dynamic build(BuildContext context) {
             ),
           ),
           SizedBox(height: 12),
-          
+
           Container(
             padding: EdgeInsets.all(16),
             decoration: BoxDecoration(
@@ -489,9 +531,17 @@ dynamic build(BuildContext context) {
             ),
             child: Column(
               children: [
-                _buildFlowStep('Exit Requested', Icons.notification_important, Colors.blue),
+                _buildFlowStep(
+                  'Exit Requested',
+                  Icons.notification_important,
+                  Colors.blue,
+                ),
                 _buildFlowArrow(),
-                _buildFlowStep('Check AppExitType', Icons.question_mark, Colors.purple),
+                _buildFlowStep(
+                  'Check AppExitType',
+                  Icons.question_mark,
+                  Colors.purple,
+                ),
                 _buildFlowArrow(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -503,9 +553,9 @@ dynamic build(BuildContext context) {
               ],
             ),
           ),
-          
+
           SizedBox(height: 24),
-          
+
           // Platform mapping
           Text(
             'Platform Mapping',
@@ -516,29 +566,29 @@ dynamic build(BuildContext context) {
             ),
           ),
           SizedBox(height: 12),
-          
+
           _buildPlatformCard('Windows', [
             'WM_CLOSE → cancelable',
             'WM_ENDSESSION → required',
             'Task Manager → required',
           ], Icons.window),
           SizedBox(height: 8),
-          
+
           _buildPlatformCard('macOS', [
             'Cmd+Q → cancelable',
             'Force Quit → required',
             'Shutdown → varies',
           ], Icons.apple),
           SizedBox(height: 8),
-          
+
           _buildPlatformCard('Linux', [
             'SIGTERM → cancelable',
             'SIGKILL → required',
             'X button → cancelable',
           ], Icons.computer),
-          
+
           SizedBox(height: 32),
-          
+
           // Footer
           Center(
             child: Container(
@@ -562,20 +612,31 @@ dynamic build(BuildContext context) {
   );
 }
 
-Widget _buildMatrixRow(String feature, String cancelable, String required, bool isHeader) {
+Widget _buildMatrixRow(
+  String feature,
+  String cancelable,
+  String required,
+  bool isHeader,
+) {
   final style = TextStyle(
     fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
     fontSize: isHeader ? 14 : 13,
     color: Colors.grey.shade800,
   );
-  
+
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 8),
     child: Row(
       children: [
         Expanded(flex: 2, child: Text(feature, style: style)),
-        Expanded(flex: 2, child: Text(cancelable, style: style, textAlign: TextAlign.center)),
-        Expanded(flex: 2, child: Text(required, style: style, textAlign: TextAlign.center)),
+        Expanded(
+          flex: 2,
+          child: Text(cancelable, style: style, textAlign: TextAlign.center),
+        ),
+        Expanded(
+          flex: 2,
+          child: Text(required, style: style, textAlign: TextAlign.center),
+        ),
       ],
     ),
   );
@@ -594,7 +655,10 @@ Widget _buildFlowStep(String label, IconData icon, Color color) {
       children: [
         Icon(icon, size: 18, color: color),
         SizedBox(width: 8),
-        Text(label, style: TextStyle(color: color, fontWeight: FontWeight.w600)),
+        Text(
+          label,
+          style: TextStyle(color: color, fontWeight: FontWeight.w600),
+        ),
       ],
     ),
   );
@@ -617,7 +681,10 @@ Widget _buildFlowBranch(String type, String action, Color color) {
     ),
     child: Column(
       children: [
-        Text(type, style: TextStyle(fontWeight: FontWeight.bold, color: color)),
+        Text(
+          type,
+          style: TextStyle(fontWeight: FontWeight.bold, color: color),
+        ),
         SizedBox(height: 4),
         Text(action, style: TextStyle(fontSize: 11, color: color)),
       ],
@@ -625,7 +692,11 @@ Widget _buildFlowBranch(String type, String action, Color color) {
   );
 }
 
-Widget _buildPlatformCard(String platform, List<String> mappings, IconData icon) {
+Widget _buildPlatformCard(
+  String platform,
+  List<String> mappings,
+  IconData icon,
+) {
   return Container(
     padding: EdgeInsets.all(12),
     decoration: BoxDecoration(
@@ -649,7 +720,12 @@ Widget _buildPlatformCard(String platform, List<String> mappings, IconData icon)
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(platform, style: TextStyle(fontWeight: FontWeight.bold)),
-              ...mappings.map((m) => Text(m, style: TextStyle(fontSize: 12, color: Colors.grey.shade600))),
+              ...mappings.map(
+                (m) => Text(
+                  m,
+                  style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+                ),
+              ),
             ],
           ),
         ),

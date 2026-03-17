@@ -5,15 +5,23 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  print('═══════════════════════════════════════════════════════════════════════════');
-  print('                         BLURSTYLE DEEP DEMO                               ');
-  print('═══════════════════════════════════════════════════════════════════════════');
+  print(
+    '═══════════════════════════════════════════════════════════════════════════',
+  );
+  print(
+    '                         BLURSTYLE DEEP DEMO                               ',
+  );
+  print(
+    '═══════════════════════════════════════════════════════════════════════════',
+  );
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // SECTION 1: BlurStyle Fundamentals
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 1: BlurStyle Fundamentals');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   print('BlurStyle controls how blur is rendered for MaskFilter:');
   print('- Affects shadow and glow appearance');
   print('- Used with MaskFilter.blur()');
@@ -21,19 +29,21 @@ dynamic build(BuildContext context) {
   print('');
   print('All blur styles:');
   for (final style in BlurStyle.values) {
-    print('  [${ style.index}] ${ style.name}');
+    print('  [${style.index}] ${style.name}');
   }
-  print('Total: ${ BlurStyle.values.length} styles');
+  print('Total: ${BlurStyle.values.length} styles');
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // SECTION 2: Normal Blur Style
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 2: Normal Blur');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   final normal = BlurStyle.normal;
   print('Style: $normal');
-  print('Name: ${ normal.name}');
-  print('Index: ${ normal.index}');
+  print('Name: ${normal.name}');
+  print('Index: ${normal.index}');
   print('');
   print('Characteristics:');
   print('  • Blur extends in all directions');
@@ -51,11 +61,13 @@ dynamic build(BuildContext context) {
   // SECTION 3: Solid Blur Style
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 3: Solid Blur');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   final solid = BlurStyle.solid;
   print('Style: $solid');
-  print('Name: ${ solid.name}');
-  print('Index: ${ solid.index}');
+  print('Name: ${solid.name}');
+  print('Index: ${solid.index}');
   print('');
   print('Characteristics:');
   print('  • Shape interior remains solid/opaque');
@@ -73,11 +85,13 @@ dynamic build(BuildContext context) {
   // SECTION 4: Outer Blur Style
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 4: Outer Blur');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   final outer = BlurStyle.outer;
   print('Style: $outer');
-  print('Name: ${ outer.name}');
-  print('Index: ${ outer.index}');
+  print('Name: ${outer.name}');
+  print('Index: ${outer.index}');
   print('');
   print('Characteristics:');
   print('  • Blur only OUTSIDE the shape');
@@ -95,11 +109,13 @@ dynamic build(BuildContext context) {
   // SECTION 5: Inner Blur Style
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 5: Inner Blur');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   final inner = BlurStyle.inner;
   print('Style: $inner');
-  print('Name: ${ inner.name}');
-  print('Index: ${ inner.index}');
+  print('Name: ${inner.name}');
+  print('Index: ${inner.index}');
   print('');
   print('Characteristics:');
   print('  • Blur only INSIDE the shape');
@@ -117,7 +133,9 @@ dynamic build(BuildContext context) {
   // SECTION 6: BlurStyle Comparison
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 6: Style Comparison');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   print('Visual comparison of blur styles:');
   print('');
   print('┌─────────────┬───────────┬───────────┬──────────────┐');
@@ -130,33 +148,35 @@ dynamic build(BuildContext context) {
   print('└─────────────┴───────────┴───────────┴──────────────┘');
   print('');
   print('Equality checks:');
-  print('normal == solid: ${ normal == solid}');
-  print('outer == inner: ${ outer == inner}');
+  print('normal == solid: ${normal == solid}');
+  print('outer == inner: ${outer == inner}');
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // SECTION 7: Creating MaskFilter with BlurStyle
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 7: MaskFilter Usage');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   print('Creating MaskFilter with different blur styles:');
   print('');
-  
+
   final sigma = 10.0;
-  
+
   final normalFilter = MaskFilter.blur(BlurStyle.normal, sigma);
   print('MaskFilter.blur(BlurStyle.normal, $sigma)');
   print('  → $normalFilter');
-  
+
   final solidFilter = MaskFilter.blur(BlurStyle.solid, sigma);
   print('');
   print('MaskFilter.blur(BlurStyle.solid, $sigma)');
   print('  → $solidFilter');
-  
+
   final outerFilter = MaskFilter.blur(BlurStyle.outer, sigma);
   print('');
   print('MaskFilter.blur(BlurStyle.outer, $sigma)');
   print('  → $outerFilter');
-  
+
   final innerFilter = MaskFilter.blur(BlurStyle.inner, sigma);
   print('');
   print('MaskFilter.blur(BlurStyle.inner, $sigma)');
@@ -166,14 +186,16 @@ dynamic build(BuildContext context) {
   // SECTION 8: Paint Integration
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 8: Paint Integration');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   print('Applying MaskFilter to Paint:');
   print('');
-  
+
   final paint = Paint()
     ..color = Colors.black
     ..maskFilter = MaskFilter.blur(BlurStyle.normal, 8.0);
-  
+
   print('''
   final paint = Paint()
     ..color = Colors.black
@@ -181,15 +203,17 @@ dynamic build(BuildContext context) {
   
   canvas.drawRect(rect, paint);
   ''');
-  
+
   print('');
-  print('Paint.maskFilter: ${ paint.maskFilter}');
+  print('Paint.maskFilter: ${paint.maskFilter}');
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // SECTION 9: BoxShadow Widget Equivalent
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 9: Widget Level Usage');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   print('BlurStyle equivalents at widget level:');
   print('');
   print('BoxShadow (uses similar blur concept):');
@@ -215,7 +239,9 @@ dynamic build(BuildContext context) {
   // SECTION 10: Sigma Value Impact
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 10: Sigma Values');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   print('Sigma controls blur intensity for all styles:');
   print('');
   print('┌────────────┬─────────────────┬─────────────────────┐');
@@ -234,7 +260,9 @@ dynamic build(BuildContext context) {
   // SECTION 11: Practical Examples
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 11: Practical Examples');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   print('Common blur style applications:');
   print('');
   print('Drop Shadow (outer):');
@@ -257,9 +285,15 @@ dynamic build(BuildContext context) {
   print('  + Solid interior');
   print('  + Soft edge transition');
 
-  print('\n═══════════════════════════════════════════════════════════════════════════');
-  print('                      BLURSTYLE DEEP DEMO COMPLETE                         ');
-  print('═══════════════════════════════════════════════════════════════════════════');
+  print(
+    '\n═══════════════════════════════════════════════════════════════════════════',
+  );
+  print(
+    '                      BLURSTYLE DEEP DEMO COMPLETE                         ',
+  );
+  print(
+    '═══════════════════════════════════════════════════════════════════════════',
+  );
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // VISUAL DEMONSTRATION UI
@@ -316,9 +350,9 @@ dynamic build(BuildContext context) {
               ],
             ),
           ),
-          
+
           SizedBox(height: 24),
-          
+
           // Blur Style Visual Comparison
           Text(
             'Blur Style Comparison',
@@ -329,7 +363,7 @@ dynamic build(BuildContext context) {
             ),
           ),
           SizedBox(height: 12),
-          
+
           Row(
             children: [
               _buildBlurDemo('normal', BlurStyle.normal, Colors.blue),
@@ -345,9 +379,9 @@ dynamic build(BuildContext context) {
               _buildBlurDemo('inner', BlurStyle.inner, Colors.purple),
             ],
           ),
-          
+
           SizedBox(height: 24),
-          
+
           // Characteristics Table
           Text(
             'Style Characteristics',
@@ -358,33 +392,36 @@ dynamic build(BuildContext context) {
             ),
           ),
           SizedBox(height: 12),
-          
+
           Container(
             padding: EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
-                  blurRadius: 8,
-                ),
+                BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 8),
               ],
             ),
             child: Column(
               children: [
                 _buildCharRow('Style', 'Inside', 'Outside', 'Fill', true),
                 Divider(),
-                _buildCharRow('normal', '🌫️ Blur', '🌫️ Blur', 'Blurred', false),
+                _buildCharRow(
+                  'normal',
+                  '🌫️ Blur',
+                  '🌫️ Blur',
+                  'Blurred',
+                  false,
+                ),
                 _buildCharRow('solid', '⬛ Solid', '🌫️ Blur', 'Yes', false),
                 _buildCharRow('outer', '⬜ Empty', '🌫️ Blur', 'No', false),
                 _buildCharRow('inner', '🌫️ Blur', '⬜ Empty', 'Blurred', false),
               ],
             ),
           ),
-          
+
           SizedBox(height: 24),
-          
+
           // Use Cases
           Text(
             'Common Use Cases',
@@ -395,7 +432,7 @@ dynamic build(BuildContext context) {
             ),
           ),
           SizedBox(height: 12),
-          
+
           _buildUseCaseCard(
             'Drop Shadow',
             'BlurStyle.outer',
@@ -427,9 +464,9 @@ dynamic build(BuildContext context) {
             Icons.crop_square,
             Colors.teal,
           ),
-          
+
           SizedBox(height: 24),
-          
+
           // Sigma Guide
           Text(
             'Sigma Values',
@@ -440,7 +477,7 @@ dynamic build(BuildContext context) {
             ),
           ),
           SizedBox(height: 12),
-          
+
           Container(
             padding: EdgeInsets.all(12),
             decoration: BoxDecoration(
@@ -456,9 +493,9 @@ dynamic build(BuildContext context) {
               ],
             ),
           ),
-          
+
           SizedBox(height: 24),
-          
+
           // Code Example
           Text(
             'Code Example',
@@ -469,7 +506,7 @@ dynamic build(BuildContext context) {
             ),
           ),
           SizedBox(height: 12),
-          
+
           Container(
             padding: EdgeInsets.all(16),
             decoration: BoxDecoration(
@@ -481,34 +518,52 @@ dynamic build(BuildContext context) {
               children: [
                 Text(
                   'final paint = Paint()',
-                  style: TextStyle(color: Colors.lightBlue.shade200, fontFamily: 'monospace'),
+                  style: TextStyle(
+                    color: Colors.lightBlue.shade200,
+                    fontFamily: 'monospace',
+                  ),
                 ),
                 Text(
                   '  ..color = Colors.black54',
-                  style: TextStyle(color: Colors.lightBlue.shade200, fontFamily: 'monospace'),
+                  style: TextStyle(
+                    color: Colors.lightBlue.shade200,
+                    fontFamily: 'monospace',
+                  ),
                 ),
                 Text(
                   '  ..maskFilter = MaskFilter.blur(',
-                  style: TextStyle(color: Colors.lightBlue.shade200, fontFamily: 'monospace'),
+                  style: TextStyle(
+                    color: Colors.lightBlue.shade200,
+                    fontFamily: 'monospace',
+                  ),
                 ),
                 Text(
                   '    BlurStyle.outer, // Style',
-                  style: TextStyle(color: Colors.green.shade300, fontFamily: 'monospace'),
+                  style: TextStyle(
+                    color: Colors.green.shade300,
+                    fontFamily: 'monospace',
+                  ),
                 ),
                 Text(
                   '    8.0,            // Sigma',
-                  style: TextStyle(color: Colors.orange.shade300, fontFamily: 'monospace'),
+                  style: TextStyle(
+                    color: Colors.orange.shade300,
+                    fontFamily: 'monospace',
+                  ),
                 ),
                 Text(
                   '  );',
-                  style: TextStyle(color: Colors.lightBlue.shade200, fontFamily: 'monospace'),
+                  style: TextStyle(
+                    color: Colors.lightBlue.shade200,
+                    fontFamily: 'monospace',
+                  ),
                 ),
               ],
             ),
           ),
-          
+
           SizedBox(height: 32),
-          
+
           // Footer
           Center(
             child: Container(
@@ -551,10 +606,7 @@ Widget _buildBlurDemo(String name, BlurStyle style, Color color) {
           SizedBox(height: 8),
           Text(
             name,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: color,
-            ),
+            style: TextStyle(fontWeight: FontWeight.bold, color: color),
           ),
         ],
       ),
@@ -566,41 +618,62 @@ class _BlurStylePainter extends CustomPainter {
   final BlurStyle style;
   final Color color;
   _BlurStylePainter(this.style, this.color);
-  
+
   @override
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, size.height / 2);
     final paint = Paint()
       ..color = color
       ..maskFilter = MaskFilter.blur(style, 6.0);
-    
+
     canvas.drawCircle(center, 18, paint);
   }
-  
+
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
 
-Widget _buildCharRow(String style, String inside, String outside, String fill, bool isHeader) {
+Widget _buildCharRow(
+  String style,
+  String inside,
+  String outside,
+  String fill,
+  bool isHeader,
+) {
   final textStyle = TextStyle(
     fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
     fontSize: 12,
   );
-  
+
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 8),
     child: Row(
       children: [
         Expanded(flex: 2, child: Text(style, style: textStyle)),
-        Expanded(flex: 2, child: Text(inside, style: textStyle, textAlign: TextAlign.center)),
-        Expanded(flex: 2, child: Text(outside, style: textStyle, textAlign: TextAlign.center)),
-        Expanded(flex: 2, child: Text(fill, style: textStyle, textAlign: TextAlign.center)),
+        Expanded(
+          flex: 2,
+          child: Text(inside, style: textStyle, textAlign: TextAlign.center),
+        ),
+        Expanded(
+          flex: 2,
+          child: Text(outside, style: textStyle, textAlign: TextAlign.center),
+        ),
+        Expanded(
+          flex: 2,
+          child: Text(fill, style: textStyle, textAlign: TextAlign.center),
+        ),
       ],
     ),
   );
 }
 
-Widget _buildUseCaseCard(String title, String style, String desc, IconData icon, Color color) {
+Widget _buildUseCaseCard(
+  String title,
+  String style,
+  String desc,
+  IconData icon,
+  Color color,
+) {
   return Container(
     padding: EdgeInsets.all(12),
     decoration: BoxDecoration(
@@ -624,7 +697,10 @@ Widget _buildUseCaseCard(String title, String style, String desc, IconData icon,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
-              Text(desc, style: TextStyle(fontSize: 11, color: Colors.grey.shade600)),
+              Text(
+                desc,
+                style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+              ),
             ],
           ),
         ),
@@ -634,7 +710,14 @@ Widget _buildUseCaseCard(String title, String style, String desc, IconData icon,
             color: color.withOpacity(0.1),
             borderRadius: BorderRadius.circular(12),
           ),
-          child: Text(style, style: TextStyle(fontSize: 10, color: color, fontWeight: FontWeight.w600)),
+          child: Text(
+            style,
+            style: TextStyle(
+              fontSize: 10,
+              color: color,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
       ],
     ),
@@ -645,12 +728,12 @@ Widget _buildSigmaPreview(double sigma, String label) {
   return Expanded(
     child: Column(
       children: [
-        CustomPaint(
-          size: Size(40, 40),
-          painter: _SigmaDemoPainter(sigma),
-        ),
+        CustomPaint(size: Size(40, 40), painter: _SigmaDemoPainter(sigma)),
         SizedBox(height: 4),
-        Text('σ=${ sigma.toInt()}', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)),
+        Text(
+          'σ=${sigma.toInt()}',
+          style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+        ),
         Text(label, style: TextStyle(fontSize: 9, color: Colors.grey)),
       ],
     ),
@@ -660,17 +743,17 @@ Widget _buildSigmaPreview(double sigma, String label) {
 class _SigmaDemoPainter extends CustomPainter {
   final double sigma;
   _SigmaDemoPainter(this.sigma);
-  
+
   @override
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, size.height / 2);
     final paint = Paint()
       ..color = Colors.blueGrey
       ..maskFilter = MaskFilter.blur(BlurStyle.normal, sigma);
-    
+
     canvas.drawCircle(center, 12, paint);
   }
-  
+
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

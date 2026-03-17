@@ -5,15 +5,23 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  print('═══════════════════════════════════════════════════════════════════════════');
-  print('                    APPLIFECYCLESTATE DEEP DEMO                            ');
-  print('═══════════════════════════════════════════════════════════════════════════');
+  print(
+    '═══════════════════════════════════════════════════════════════════════════',
+  );
+  print(
+    '                    APPLIFECYCLESTATE DEEP DEMO                            ',
+  );
+  print(
+    '═══════════════════════════════════════════════════════════════════════════',
+  );
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // SECTION 1: AppLifecycleState Fundamentals
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 1: AppLifecycleState Fundamentals');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   print('AppLifecycleState represents the current state of an application:');
   print('- Determines what the app can/should do');
   print('- Affects resource allocation');
@@ -21,19 +29,21 @@ dynamic build(BuildContext context) {
   print('');
   print('All lifecycle states:');
   for (final state in AppLifecycleState.values) {
-    print('  [${ state.index}] ${ state.name}');
+    print('  [${state.index}] ${state.name}');
   }
-  print('Total: ${ AppLifecycleState.values.length} states');
+  print('Total: ${AppLifecycleState.values.length} states');
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // SECTION 2: Resumed State
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 2: Resumed State');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   final resumed = AppLifecycleState.resumed;
   print('State: $resumed');
-  print('Name: ${ resumed.name}');
-  print('Index: ${ resumed.index}');
+  print('Name: ${resumed.name}');
+  print('Index: ${resumed.index}');
   print('');
   print('Characteristics:');
   print('  • App is visible and has focus');
@@ -51,11 +61,13 @@ dynamic build(BuildContext context) {
   // SECTION 3: Inactive State
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 3: Inactive State');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   final inactive = AppLifecycleState.inactive;
   print('State: $inactive');
-  print('Name: ${ inactive.name}');
-  print('Index: ${ inactive.index}');
+  print('Name: ${inactive.name}');
+  print('Index: ${inactive.index}');
   print('');
   print('Characteristics:');
   print('  • App is visible but lost focus');
@@ -78,11 +90,13 @@ dynamic build(BuildContext context) {
   // SECTION 4: Paused State
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 4: Paused State');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   final paused = AppLifecycleState.paused;
   print('State: $paused');
-  print('Name: ${ paused.name}');
-  print('Index: ${ paused.index}');
+  print('Name: ${paused.name}');
+  print('Index: ${paused.index}');
   print('');
   print('Characteristics:');
   print('  • App is not visible');
@@ -106,11 +120,13 @@ dynamic build(BuildContext context) {
   // SECTION 5: Hidden State
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 5: Hidden State');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   final hidden = AppLifecycleState.hidden;
   print('State: $hidden');
-  print('Name: ${ hidden.name}');
-  print('Index: ${ hidden.index}');
+  print('Name: ${hidden.name}');
+  print('Index: ${hidden.index}');
   print('');
   print('Characteristics:');
   print('  • All views are hidden');
@@ -132,11 +148,13 @@ dynamic build(BuildContext context) {
   // SECTION 6: Detached State
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 6: Detached State');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   final detached = AppLifecycleState.detached;
   print('State: $detached');
-  print('Name: ${ detached.name}');
-  print('Index: ${ detached.index}');
+  print('Name: ${detached.name}');
+  print('Index: ${detached.index}');
   print('');
   print('Characteristics:');
   print('  • App is running in Flutter engine');
@@ -157,7 +175,9 @@ dynamic build(BuildContext context) {
   // SECTION 7: State Transitions
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 7: State Transitions');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   print('Common lifecycle transitions:');
   print('');
   print('App Launch:');
@@ -179,7 +199,9 @@ dynamic build(BuildContext context) {
   // SECTION 8: Platform Differences
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 8: Platform Differences');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   print('Mobile (iOS/Android):');
   print('  • Uses all states');
   print('  • paused = app in background');
@@ -199,7 +221,9 @@ dynamic build(BuildContext context) {
   // SECTION 9: WidgetsBindingObserver Implementation
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 9: Observer Implementation');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   print('To respond to lifecycle changes, implement WidgetsBindingObserver:');
   print('');
   print('''
@@ -248,7 +272,9 @@ dynamic build(BuildContext context) {
   // SECTION 10: Resource Management Guidelines
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 10: Resource Management');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   print('Resource management by state:');
   print('');
   print('┌──────────────┬───────────┬────────────┬──────────┬───────────┐');
@@ -266,18 +292,28 @@ dynamic build(BuildContext context) {
   // SECTION 11: State Comparison
   // ═══════════════════════════════════════════════════════════════════════════════
   print('\n📌 SECTION 11: State Comparison');
-  print('─────────────────────────────────────────────────────────────────────────');
+  print(
+    '─────────────────────────────────────────────────────────────────────────',
+  );
   print('Comparing all states:');
   final states = AppLifecycleState.values;
   for (var i = 0; i < states.length; i++) {
     for (var j = i + 1; j < states.length; j++) {
-      print('${ states[i].name} == ${ states[j].name}: ${ states[i] == states[j]}');
+      print(
+        '${states[i].name} == ${states[j].name}: ${states[i] == states[j]}',
+      );
     }
   }
 
-  print('\n═══════════════════════════════════════════════════════════════════════════');
-  print('                    APPLIFECYCLESTATE DEEP DEMO COMPLETE                   ');
-  print('═══════════════════════════════════════════════════════════════════════════');
+  print(
+    '\n═══════════════════════════════════════════════════════════════════════════',
+  );
+  print(
+    '                    APPLIFECYCLESTATE DEEP DEMO COMPLETE                   ',
+  );
+  print(
+    '═══════════════════════════════════════════════════════════════════════════',
+  );
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // VISUAL DEMONSTRATION UI
@@ -334,9 +370,9 @@ dynamic build(BuildContext context) {
               ],
             ),
           ),
-          
+
           SizedBox(height: 24),
-          
+
           // State Cards
           Text(
             'Lifecycle States',
@@ -347,7 +383,7 @@ dynamic build(BuildContext context) {
             ),
           ),
           SizedBox(height: 12),
-          
+
           _buildStateCard(
             'resumed',
             'App is visible, has focus, user interacting',
@@ -356,7 +392,7 @@ dynamic build(BuildContext context) {
             ['Animations run', 'Full resources', 'User input active'],
           ),
           SizedBox(height: 10),
-          
+
           _buildStateCard(
             'inactive',
             'Visible but lost focus - transitional',
@@ -365,7 +401,7 @@ dynamic build(BuildContext context) {
             ['System dialog shown', 'Phone call incoming', 'Switching apps'],
           ),
           SizedBox(height: 10),
-          
+
           _buildStateCard(
             'hidden',
             'All views hidden, still running',
@@ -374,7 +410,7 @@ dynamic build(BuildContext context) {
             ['Window minimized', 'Desktop platforms', 'Background tasks ok'],
           ),
           SizedBox(height: 10),
-          
+
           _buildStateCard(
             'paused',
             'Not visible, running in background',
@@ -383,7 +419,7 @@ dynamic build(BuildContext context) {
             ['In background', 'Save state now', 'May be killed'],
           ),
           SizedBox(height: 10),
-          
+
           _buildStateCard(
             'detached',
             'Engine running, no host views',
@@ -391,9 +427,9 @@ dynamic build(BuildContext context) {
             Colors.grey,
             ['App starting/stopping', 'No UI possible', 'Minimal operations'],
           ),
-          
+
           SizedBox(height: 24),
-          
+
           // Lifecycle Flow
           Text(
             'Lifecycle Flow',
@@ -404,17 +440,14 @@ dynamic build(BuildContext context) {
             ),
           ),
           SizedBox(height: 12),
-          
+
           Container(
             padding: EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
-                  blurRadius: 8,
-                ),
+                BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 8),
               ],
             ),
             child: Column(
@@ -422,19 +455,28 @@ dynamic build(BuildContext context) {
               children: [
                 _buildFlowRow('📲 App Launch:', 'detached → resumed'),
                 Divider(),
-                _buildFlowRow('📴 To Background:', 'resumed → inactive → hidden → paused'),
+                _buildFlowRow(
+                  '📴 To Background:',
+                  'resumed → inactive → hidden → paused',
+                ),
                 Divider(),
-                _buildFlowRow('📲 To Foreground:', 'paused → hidden → inactive → resumed'),
+                _buildFlowRow(
+                  '📲 To Foreground:',
+                  'paused → hidden → inactive → resumed',
+                ),
                 Divider(),
                 _buildFlowRow('📞 Phone Call:', 'resumed → inactive → resumed'),
                 Divider(),
-                _buildFlowRow('❌ App Close:', 'resumed → inactive → paused → detached'),
+                _buildFlowRow(
+                  '❌ App Close:',
+                  'resumed → inactive → paused → detached',
+                ),
               ],
             ),
           ),
-          
+
           SizedBox(height: 24),
-          
+
           // Resource Management Matrix
           Text(
             'Resource Management',
@@ -445,7 +487,7 @@ dynamic build(BuildContext context) {
             ),
           ),
           SizedBox(height: 12),
-          
+
           Container(
             padding: EdgeInsets.all(12),
             decoration: BoxDecoration(
@@ -454,19 +496,43 @@ dynamic build(BuildContext context) {
             ),
             child: Column(
               children: [
-                _buildResourceRow('Resource', ['resumed', 'inactive', 'paused'], true),
+                _buildResourceRow('Resource', [
+                  'resumed',
+                  'inactive',
+                  'paused',
+                ], true),
                 Divider(height: 1),
-                _buildResourceRow('Animations', ['▶️ Run', '⏸️ Pause', '⏹️ Stop'], false),
-                _buildResourceRow('Audio', ['🔊 Play', '🔉 Pause', '🔇 Stop'], false),
-                _buildResourceRow('Camera', ['📷 Active', '❌ Release', '❌ Release'], false),
-                _buildResourceRow('Network', ['🌐 Active', '🌐 Active', '📉 Reduce'], false),
-                _buildResourceRow('Location', ['📍 Active', '📍 Active', '❌ Stop'], false),
+                _buildResourceRow('Animations', [
+                  '▶️ Run',
+                  '⏸️ Pause',
+                  '⏹️ Stop',
+                ], false),
+                _buildResourceRow('Audio', [
+                  '🔊 Play',
+                  '🔉 Pause',
+                  '🔇 Stop',
+                ], false),
+                _buildResourceRow('Camera', [
+                  '📷 Active',
+                  '❌ Release',
+                  '❌ Release',
+                ], false),
+                _buildResourceRow('Network', [
+                  '🌐 Active',
+                  '🌐 Active',
+                  '📉 Reduce',
+                ], false),
+                _buildResourceRow('Location', [
+                  '📍 Active',
+                  '📍 Active',
+                  '❌ Stop',
+                ], false),
               ],
             ),
           ),
-          
+
           SizedBox(height: 24),
-          
+
           // Platform Comparison
           Text(
             'Platform Behavior',
@@ -477,7 +543,7 @@ dynamic build(BuildContext context) {
             ),
           ),
           SizedBox(height: 12),
-          
+
           Row(
             children: [
               Expanded(
@@ -499,18 +565,17 @@ dynamic build(BuildContext context) {
               ),
               SizedBox(width: 8),
               Expanded(
-                child: _buildPlatformBox(
-                  'Web',
-                  Icons.web,
-                  Colors.orange,
-                  ['Limited support', 'Tab visibility', 'Page API'],
-                ),
+                child: _buildPlatformBox('Web', Icons.web, Colors.orange, [
+                  'Limited support',
+                  'Tab visibility',
+                  'Page API',
+                ]),
               ),
             ],
           ),
-          
+
           SizedBox(height: 32),
-          
+
           // Footer
           Center(
             child: Container(
@@ -534,7 +599,13 @@ dynamic build(BuildContext context) {
   );
 }
 
-Widget _buildStateCard(String name, String description, IconData icon, Color color, List<String> points) {
+Widget _buildStateCard(
+  String name,
+  String description,
+  IconData icon,
+  Color color,
+  List<String> points,
+) {
   return Container(
     padding: EdgeInsets.all(14),
     decoration: BoxDecoration(
@@ -581,14 +652,24 @@ Widget _buildStateCard(String name, String description, IconData icon, Color col
               Wrap(
                 spacing: 6,
                 runSpacing: 4,
-                children: points.map((p) => Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                  decoration: BoxDecoration(
-                    color: color.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Text(p, style: TextStyle(fontSize: 10, color: color)),
-                )).toList(),
+                children: points
+                    .map(
+                      (p) => Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 2,
+                        ),
+                        decoration: BoxDecoration(
+                          color: color.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Text(
+                          p,
+                          style: TextStyle(fontSize: 10, color: color),
+                        ),
+                      ),
+                    )
+                    .toList(),
               ),
             ],
           ),
@@ -631,22 +712,29 @@ Widget _buildResourceRow(String resource, List<String> values, bool isHeader) {
             ),
           ),
         ),
-        ...values.map((v) => Expanded(
-          child: Text(
-            v,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-              fontSize: 11,
+        ...values.map(
+          (v) => Expanded(
+            child: Text(
+              v,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
+                fontSize: 11,
+              ),
             ),
           ),
-        )),
+        ),
       ],
     ),
   );
 }
 
-Widget _buildPlatformBox(String platform, IconData icon, Color color, List<String> features) {
+Widget _buildPlatformBox(
+  String platform,
+  IconData icon,
+  Color color,
+  List<String> features,
+) {
   return Container(
     padding: EdgeInsets.all(12),
     decoration: BoxDecoration(
@@ -660,14 +748,20 @@ Widget _buildPlatformBox(String platform, IconData icon, Color color, List<Strin
         SizedBox(height: 6),
         Text(
           platform,
-          style: TextStyle(fontWeight: FontWeight.bold, color: color, fontSize: 12),
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: color,
+            fontSize: 12,
+          ),
         ),
         SizedBox(height: 6),
-        ...features.map((f) => Text(
-          f,
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 9, color: Colors.grey.shade700),
-        )),
+        ...features.map(
+          (f) => Text(
+            f,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 9, color: Colors.grey.shade700),
+          ),
+        ),
       ],
     ),
   );
