@@ -40,9 +40,9 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [curve_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/curve_tween_test.dart) | CurveTween | No | Yes | No | Created on 2026-03-17 at 14:35 |
 | [curves_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/curves_test.dart) | Curves | No | Yes | No |
 | [elastic_in_curve_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/elastic_in_curve_test.dart) | ElasticInCurve | No | Yes | No | Created on 2026-03-17 at 14:40 |
-| [elastic_in_out_curve_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/elastic_in_out_curve_test.dart) | ElasticInOutCurve | No | No | Yes |
-| [elastic_out_curve_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/elastic_out_curve_test.dart) | ElasticOutCurve | No | No | Yes |
-| [flipped_curve_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/flipped_curve_test.dart) | FlippedCurve | No | No | Yes |
+| [elastic_in_out_curve_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/elastic_in_out_curve_test.dart) | ElasticInOutCurve | No | Yes | No | Created on 2026-03-17 at 14:52 |
+| [elastic_out_curve_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/elastic_out_curve_test.dart) | ElasticOutCurve | No | Yes | No | Created on 2026-03-17 at 14:58 |
+| [flipped_curve_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/flipped_curve_test.dart) | FlippedCurve | No | Yes | No | Created on 2026-03-17 at 15:05 |
 | [int_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/int_tween_test.dart) | IntTween | No | No | Yes |
 | [interval_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/interval_test.dart) | Interval | No | No | Yes |
 | [parametric_curve_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/parametric_curve_test.dart) | ParametricCurve | No | No | Yes |
