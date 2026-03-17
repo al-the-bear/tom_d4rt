@@ -18,28 +18,28 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [animation_behavior_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/animation_behavior_test.dart) | AnimationBehavior | No | Yes | No | Created on 2026-03-16 at 22:30 |
 | [animation_eager_listener_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/animation_eager_listener_mixin_test.dart) | AnimationEagerListenerMixin | No | Yes | No | Created on 2026-03-16 at 22:30 |
 | [animation_lazy_listener_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/animation_lazy_listener_mixin_test.dart) | AnimationLazyListenerMixin | No | Yes | No | Created on 2026-03-16 at 22:30 |
-| [animation_local_listeners_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/animation_local_listeners_mixin_test.dart) | AnimationLocalListenersMixin | No | No | Yes |
-| [animation_local_status_listeners_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/animation_local_status_listeners_mixin_test.dart) | AnimationLocalStatusListenersMixin | No | No | Yes |
+| [animation_local_listeners_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/animation_local_listeners_mixin_test.dart) | AnimationLocalListenersMixin | No | Yes | No | Created on 2025-01-21 at 14:30 |
+| [animation_local_status_listeners_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/animation_local_status_listeners_mixin_test.dart) | AnimationLocalStatusListenersMixin | No | Yes | No | Created on 2025-01-21 at 14:32 |
 | [animation_max_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/animation_max_test.dart) | AnimationMax | No | Yes | No |
-| [animation_mean_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/animation_mean_test.dart) | AnimationMean | No | No | Yes |
+| [animation_mean_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/animation_mean_test.dart) | AnimationMean | No | Yes | No | Created on 2025-01-21 at 14:35 |
 | [animation_min_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/animation_min_test.dart) | AnimationMin | No | Yes | No |
 | [animation_misc_adv_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/animation_misc_adv_test.dart) | AnimationStatusListener | No | Yes | No |
 | [animation_status_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/animation_status_test.dart) | AnimationStatus | No | Yes | No |
-| [animation_with_parent_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/animation_with_parent_mixin_test.dart) | AnimationWithParentMixin | No | No | Yes |
+| [animation_with_parent_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/animation_with_parent_mixin_test.dart) | AnimationWithParentMixin | No | Yes | No | Created on 2025-01-21 at 14:40 |
 | [animationstyle_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/animationstyle_test.dart) | AnimationStyle | No | Yes | No |
-| [catmull_rom_curve_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/catmull_rom_curve_test.dart) | CatmullRomCurve | No | No | Yes |
-| [catmull_rom_spline_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/catmull_rom_spline_test.dart) | CatmullRomSpline | No | No | Yes |
-| [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/class_test.dart) | Class | No | No | Yes |
+| [catmull_rom_curve_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/catmull_rom_curve_test.dart) | CatmullRomCurve | No | Yes | No | Created on 2025-01-21 at 14:41 |
+| [catmull_rom_spline_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/catmull_rom_spline_test.dart) | CatmullRomSpline | No | Yes | No | Already converted |
+| [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/class_test.dart) | Class | No | Yes | No | Already converted |
 | [color_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/color_tween_test.dart) | ColorTween | No | Yes | No |
 | [compoundanimation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/compoundanimation_test.dart) | ProxyAnimation | No | Yes | No |
-| [constant_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/constant_tween_test.dart) | ConstantTween | No | No | Yes |
+| [constant_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/constant_tween_test.dart) | ConstantTween | No | Yes | No | Already converted |
 | [cubic_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/cubic_test.dart) | Cubic | No | Yes | No |
-| [curve2_d_sample_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/curve2_d_sample_test.dart) | Curve2DSample | No | No | Yes |
-| [curve2_d_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/curve2_d_test.dart) | Curve2D | No | No | Yes |
+| [curve2_d_sample_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/curve2_d_sample_test.dart) | Curve2DSample | No | Yes | No | Already converted |
+| [curve2_d_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/curve2_d_test.dart) | Curve2D | No | Yes | No | Created on 2026-03-17 at 14:30 |
 | [curve_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/curve_test.dart) | Curve | No | Yes | No |
-| [curve_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/curve_tween_test.dart) | CurveTween | No | No | Yes |
+| [curve_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/curve_tween_test.dart) | CurveTween | No | Yes | No | Created on 2026-03-17 at 14:35 |
 | [curves_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/curves_test.dart) | Curves | No | Yes | No |
-| [elastic_in_curve_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/elastic_in_curve_test.dart) | ElasticInCurve | No | No | Yes |
+| [elastic_in_curve_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/elastic_in_curve_test.dart) | ElasticInCurve | No | Yes | No | Created on 2026-03-17 at 14:40 |
 | [elastic_in_out_curve_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/elastic_in_out_curve_test.dart) | ElasticInOutCurve | No | No | Yes |
 | [elastic_out_curve_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/elastic_out_curve_test.dart) | ElasticOutCurve | No | No | Yes |
 | [flipped_curve_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/flipped_curve_test.dart) | FlippedCurve | No | No | Yes |

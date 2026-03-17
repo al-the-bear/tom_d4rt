@@ -14,7 +14,7 @@ dynamic build(BuildContext context) {
   print('=== Section 1: Lazy Listener Mixin Overview ===');
 
   final conceptCards = <Widget>[];
-  
+
   // Concept 1: What is Lazy Listener
   conceptCards.add(
     Container(
@@ -158,11 +158,23 @@ dynamic build(BuildContext context) {
                     ),
                   ),
                   SizedBox(height: 8.0),
-                  _buildCompareRow('Created', Icons.play_circle_filled, Colors.green),
+                  _buildCompareRow(
+                    'Created',
+                    Icons.play_circle_filled,
+                    Colors.green,
+                  ),
                   SizedBox(height: 4.0),
-                  _buildCompareRow('Connected', Icons.check_circle, Colors.green),
+                  _buildCompareRow(
+                    'Connected',
+                    Icons.check_circle,
+                    Colors.green,
+                  ),
                   SizedBox(height: 4.0),
-                  _buildCompareRow('Listening', Icons.check_circle, Colors.green),
+                  _buildCompareRow(
+                    'Listening',
+                    Icons.check_circle,
+                    Colors.green,
+                  ),
                 ],
               ),
             ),
@@ -194,11 +206,23 @@ dynamic build(BuildContext context) {
                     ),
                   ),
                   SizedBox(height: 8.0),
-                  _buildCompareRow('Created', Icons.play_circle_filled, Colors.green),
+                  _buildCompareRow(
+                    'Created',
+                    Icons.play_circle_filled,
+                    Colors.green,
+                  ),
                   SizedBox(height: 4.0),
-                  _buildCompareRow('Connected', Icons.pause_circle_outline, Colors.grey),
+                  _buildCompareRow(
+                    'Connected',
+                    Icons.pause_circle_outline,
+                    Colors.grey,
+                  ),
                   SizedBox(height: 4.0),
-                  _buildCompareRow('Listening', Icons.pause_circle_outline, Colors.grey),
+                  _buildCompareRow(
+                    'Listening',
+                    Icons.pause_circle_outline,
+                    Colors.grey,
+                  ),
                 ],
               ),
             ),
@@ -214,7 +238,11 @@ dynamic build(BuildContext context) {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.info_outline, color: Colors.amber.shade800, size: 20.0),
+              Icon(
+                Icons.info_outline,
+                color: Colors.amber.shade800,
+                size: 20.0,
+              ),
               SizedBox(width: 8.0),
               Text(
                 'Lazy connects only when first listener is added',
@@ -257,9 +285,9 @@ dynamic build(BuildContext context) {
     final proxy = ProxyAnimation(entry['source'] as Animation<double>);
     final value = entry['value'] as double;
     final label = entry['label'] as String;
-    
+
     print('ProxyAnimation wrapping ${label}: value=${proxy.value}');
-    
+
     proxyWidgets.add(
       Container(
         width: 70.0,
@@ -341,14 +369,14 @@ dynamic build(BuildContext context) {
 
   final proxy = ProxyAnimation(source1);
   final parentSwitchSteps = <Map<String, dynamic>>[];
-  
+
   parentSwitchSteps.add({
     'step': 'Initial',
     'parent': 'source1 (0.0)',
     'value': proxy.value,
     'color': Colors.blue,
   });
-  
+
   proxy.parent = source3;
   parentSwitchSteps.add({
     'step': 'Switch to 50%',
@@ -356,7 +384,7 @@ dynamic build(BuildContext context) {
     'value': proxy.value,
     'color': Colors.green,
   });
-  
+
   proxy.parent = source5;
   parentSwitchSteps.add({
     'step': 'Switch to 100%',
@@ -364,7 +392,7 @@ dynamic build(BuildContext context) {
     'value': proxy.value,
     'color': Colors.purple,
   });
-  
+
   proxy.parent = source2;
   parentSwitchSteps.add({
     'step': 'Switch to 25%',
@@ -378,9 +406,9 @@ dynamic build(BuildContext context) {
     final step = parentSwitchSteps[i];
     final color = step['color'] as Color;
     final isLast = i == parentSwitchSteps.length - 1;
-    
+
     print('Parent switch: ${step['step']} -> value: ${step['value']}');
-    
+
     parentSwitchWidgets.add(
       Container(
         margin: EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
@@ -390,10 +418,7 @@ dynamic build(BuildContext context) {
             Container(
               width: 32.0,
               height: 32.0,
-              decoration: BoxDecoration(
-                color: color,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
               child: Center(
                 child: Text(
                   '${i + 1}',
@@ -429,12 +454,18 @@ dynamic build(BuildContext context) {
                         ),
                         Text(
                           'Parent: ${step['parent']}',
-                          style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600),
+                          style: TextStyle(
+                            fontSize: 10.0,
+                            color: Colors.grey.shade600,
+                          ),
                         ),
                       ],
                     ),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 12.0,
+                        vertical: 6.0,
+                      ),
                       decoration: BoxDecoration(
                         color: color,
                         borderRadius: BorderRadius.circular(16.0),
@@ -456,7 +487,7 @@ dynamic build(BuildContext context) {
         ),
       ),
     );
-    
+
     if (!isLast) {
       parentSwitchWidgets.add(
         Container(
@@ -476,7 +507,9 @@ dynamic build(BuildContext context) {
   print('=== Section 5: Null Parent Behavior ===');
 
   final emptyProxy = ProxyAnimation();
-  print('Empty ProxyAnimation: value=${emptyProxy.value}, status=${emptyProxy.status}');
+  print(
+    'Empty ProxyAnimation: value=${emptyProxy.value}, status=${emptyProxy.status}',
+  );
 
   final nullBehaviorWidget = Container(
     margin: EdgeInsets.all(16.0),
@@ -525,10 +558,7 @@ dynamic build(BuildContext context) {
           child: Text(
             'ProxyAnimation with null parent defaults to 0.0 and dismissed status',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 11.0,
-              color: Colors.red.shade900,
-            ),
+            style: TextStyle(fontSize: 11.0, color: Colors.red.shade900),
           ),
         ),
       ],
@@ -585,7 +615,7 @@ dynamic build(BuildContext context) {
     final color = step['color'] as Color;
     final connected = step['connected'] as bool;
     final isLast = i == timelineSteps.length - 1;
-    
+
     timelineWidgets.add(
       Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -607,7 +637,11 @@ dynamic build(BuildContext context) {
                     ),
                   ],
                 ),
-                child: Icon(step['icon'] as IconData, color: Colors.white, size: 22.0),
+                child: Icon(
+                  step['icon'] as IconData,
+                  color: Colors.white,
+                  size: 22.0,
+                ),
               ),
               if (!isLast)
                 Container(
@@ -648,7 +682,10 @@ dynamic build(BuildContext context) {
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 8.0,
+                          vertical: 2.0,
+                        ),
                         decoration: BoxDecoration(
                           color: connected ? Colors.green : Colors.grey,
                           borderRadius: BorderRadius.circular(10.0),
@@ -678,7 +715,10 @@ dynamic build(BuildContext context) {
                   SizedBox(height: 4.0),
                   Text(
                     step['desc'] as String,
-                    style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700),
+                    style: TextStyle(
+                      fontSize: 11.0,
+                      color: Colors.grey.shade700,
+                    ),
                   ),
                 ],
               ),
@@ -799,13 +839,33 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 16.0),
-        _buildSummaryRow(Icons.hourglass_empty, 'Deferred Connection', 'Resources allocated only when needed', Colors.orange),
+        _buildSummaryRow(
+          Icons.hourglass_empty,
+          'Deferred Connection',
+          'Resources allocated only when needed',
+          Colors.orange,
+        ),
         SizedBox(height: 8.0),
-        _buildSummaryRow(Icons.swap_horiz, 'Dynamic Parents', 'Can switch parent animation at runtime', Colors.purple),
+        _buildSummaryRow(
+          Icons.swap_horiz,
+          'Dynamic Parents',
+          'Can switch parent animation at runtime',
+          Colors.purple,
+        ),
         SizedBox(height: 8.0),
-        _buildSummaryRow(Icons.battery_saver, 'Memory Efficient', 'No overhead until listeners are added', Colors.green),
+        _buildSummaryRow(
+          Icons.battery_saver,
+          'Memory Efficient',
+          'No overhead until listeners are added',
+          Colors.green,
+        ),
         SizedBox(height: 8.0),
-        _buildSummaryRow(Icons.block, 'Null Safe', 'Handles null parent gracefully (value=0)', Colors.red),
+        _buildSummaryRow(
+          Icons.block,
+          'Null Safe',
+          'Handles null parent gracefully (value=0)',
+          Colors.red,
+        ),
       ],
     ),
   );
@@ -846,16 +906,13 @@ dynamic build(BuildContext context) {
               ),
               Text(
                 'Deferred Connection Pattern',
-                style: TextStyle(
-                  fontSize: 14.0,
-                  color: Colors.white70,
-                ),
+                style: TextStyle(fontSize: 14.0, color: Colors.white70),
               ),
             ],
           ),
         ),
         SizedBox(height: 24.0),
-        
+
         // Section 1: Concepts
         Text(
           '1. Understanding Lazy Listeners',
@@ -867,7 +924,7 @@ dynamic build(BuildContext context) {
           children: conceptCards,
         ),
         SizedBox(height: 32.0),
-        
+
         // Section 2: Comparison
         Text(
           '2. Eager vs Lazy Comparison',
@@ -875,19 +932,16 @@ dynamic build(BuildContext context) {
         ),
         comparisonWidget,
         SizedBox(height: 32.0),
-        
+
         // Section 3: ProxyAnimation
         Text(
           '3. ProxyAnimation Values',
           style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 12.0),
-        Wrap(
-          alignment: WrapAlignment.center,
-          children: proxyWidgets,
-        ),
+        Wrap(alignment: WrapAlignment.center, children: proxyWidgets),
         SizedBox(height: 32.0),
-        
+
         // Section 4: Parent Switching
         Text(
           '4. Dynamic Parent Switching',
@@ -896,7 +950,7 @@ dynamic build(BuildContext context) {
         SizedBox(height: 12.0),
         ...parentSwitchWidgets,
         SizedBox(height: 32.0),
-        
+
         // Section 5: Null Parent
         Text(
           '5. Null Parent Behavior',
@@ -904,7 +958,7 @@ dynamic build(BuildContext context) {
         ),
         nullBehaviorWidget,
         SizedBox(height: 32.0),
-        
+
         // Section 6: Timeline
         Text(
           '6. Registration Timeline',
@@ -916,7 +970,7 @@ dynamic build(BuildContext context) {
           child: Column(children: timelineWidgets),
         ),
         SizedBox(height: 32.0),
-        
+
         // Section 7: Code
         Text(
           '7. Code Examples',
@@ -924,7 +978,7 @@ dynamic build(BuildContext context) {
         ),
         codeExamples,
         SizedBox(height: 32.0),
-        
+
         // Section 8: Summary
         Text(
           '8. Summary',
@@ -960,7 +1014,10 @@ Widget _buildPropertyCard(String label, String value, Color color) {
     ),
     child: Column(
       children: [
-        Text(label, style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600)),
+        Text(
+          label,
+          style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600),
+        ),
         SizedBox(height: 4.0),
         Text(
           value,
@@ -998,8 +1055,14 @@ Widget _buildSummaryRow(IconData icon, String title, String desc, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: TextStyle(fontWeight: FontWeight.bold, color: color)),
-              Text(desc, style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700)),
+              Text(
+                title,
+                style: TextStyle(fontWeight: FontWeight.bold, color: color),
+              ),
+              Text(
+                desc,
+                style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700),
+              ),
             ],
           ),
         ),

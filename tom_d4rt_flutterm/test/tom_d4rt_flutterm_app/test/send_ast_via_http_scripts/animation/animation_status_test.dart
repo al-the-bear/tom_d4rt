@@ -48,7 +48,7 @@ dynamic build(BuildContext context) {
     final status = data['status'] as AnimationStatus;
     final color = data['color'] as Color;
     print('AnimationStatus.${status.name} - index: ${status.index}');
-    
+
     statusCards.add(
       Container(
         width: 150.0,
@@ -223,13 +223,20 @@ dynamic build(BuildContext context) {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // Dismissed state
-            _buildStateNode('DISMISSED', Colors.grey, Icons.stop_circle_outlined),
+            _buildStateNode(
+              'DISMISSED',
+              Colors.grey,
+              Icons.stop_circle_outlined,
+            ),
             SizedBox(width: 12.0),
             // Forward arrow
             Column(
               children: [
                 Icon(Icons.arrow_forward, color: Colors.green, size: 28.0),
-                Text('forward()', style: TextStyle(fontSize: 10.0, color: Colors.green)),
+                Text(
+                  'forward()',
+                  style: TextStyle(fontSize: 10.0, color: Colors.green),
+                ),
               ],
             ),
             SizedBox(width: 12.0),
@@ -260,7 +267,10 @@ dynamic build(BuildContext context) {
             Column(
               children: [
                 Icon(Icons.arrow_back, color: Colors.red, size: 28.0),
-                Text('reverse()', style: TextStyle(fontSize: 10.0, color: Colors.red)),
+                Text(
+                  'reverse()',
+                  style: TextStyle(fontSize: 10.0, color: Colors.red),
+                ),
               ],
             ),
             SizedBox(width: 12.0),
@@ -296,7 +306,7 @@ dynamic build(BuildContext context) {
       AlwaysStoppedAnimation<double>(v2),
     );
     print('AnimationMax($v1, $v2) = ${animMax.value}');
-    
+
     maxWidgets.add(
       Container(
         margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
@@ -354,7 +364,7 @@ dynamic build(BuildContext context) {
       AlwaysStoppedAnimation<double>(v2),
     );
     print('AnimationMin($v1, $v2) = ${animMin.value}');
-    
+
     minWidgets.add(
       Container(
         margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
@@ -420,7 +430,7 @@ dynamic build(BuildContext context) {
       right: AlwaysStoppedAnimation<double>(right),
     );
     print('AnimationMean($left, $right) = ${animMean.value}');
-    
+
     meanWidgets.add(
       Container(
         margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
@@ -619,28 +629,22 @@ dynamic build(BuildContext context) {
               ),
               Text(
                 'Status, Max, Min & Mean',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  color: Colors.white70,
-                ),
+                style: TextStyle(fontSize: 16.0, color: Colors.white70),
               ),
             ],
           ),
         ),
         SizedBox(height: 24.0),
-        
+
         // Section 1: Status Cards
         Text(
           '1. AnimationStatus Values',
           style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 12.0),
-        Wrap(
-          alignment: WrapAlignment.center,
-          children: statusCards,
-        ),
+        Wrap(alignment: WrapAlignment.center, children: statusCards),
         SizedBox(height: 32.0),
-        
+
         // Section 2: Properties Matrix
         Text(
           '2. Status Properties',
@@ -648,7 +652,7 @@ dynamic build(BuildContext context) {
         ),
         propertiesMatrix,
         SizedBox(height: 32.0),
-        
+
         // Section 3: State Machine
         Text(
           '3. State Transitions',
@@ -656,7 +660,7 @@ dynamic build(BuildContext context) {
         ),
         stateMachine,
         SizedBox(height: 32.0),
-        
+
         // Section 7: Comparison Overview (moved up for context)
         Text(
           '4. Animation Comparison',
@@ -664,7 +668,7 @@ dynamic build(BuildContext context) {
         ),
         comparisonOverview,
         SizedBox(height: 32.0),
-        
+
         // Section 4: AnimationMax
         Text(
           '5. AnimationMax Examples',
@@ -673,7 +677,7 @@ dynamic build(BuildContext context) {
         SizedBox(height: 8.0),
         ...maxWidgets.take(3),
         SizedBox(height: 32.0),
-        
+
         // Section 5: AnimationMin
         Text(
           '6. AnimationMin Examples',
@@ -682,7 +686,7 @@ dynamic build(BuildContext context) {
         SizedBox(height: 8.0),
         ...minWidgets.take(3),
         SizedBox(height: 32.0),
-        
+
         // Section 6: AnimationMean
         Text(
           '7. AnimationMean Examples',
@@ -691,7 +695,7 @@ dynamic build(BuildContext context) {
         SizedBox(height: 8.0),
         ...meanWidgets.take(3),
         SizedBox(height: 32.0),
-        
+
         // Section 8: Code Examples
         Text(
           '8. Code Examples',
@@ -816,7 +820,12 @@ Widget _buildAnimValueBar(String label, double value, Color color) {
 }
 
 // Helper: Build comparison card
-Widget _buildComparisonCard(String title, String formula, IconData icon, Color color) {
+Widget _buildComparisonCard(
+  String title,
+  String formula,
+  IconData icon,
+  Color color,
+) {
   return Container(
     width: 100.0,
     padding: EdgeInsets.all(12.0),

@@ -14,7 +14,7 @@ dynamic build(BuildContext context) {
   print('=== Section 1: Eager Listener Mixin Overview ===');
 
   final conceptCards = <Widget>[];
-  
+
   // Concept 1: What is AnimationEagerListenerMixin
   conceptCards.add(
     Container(
@@ -88,14 +88,26 @@ dynamic build(BuildContext context) {
               Column(
                 children: [
                   Icon(Icons.bolt, size: 32.0, color: Colors.orange),
-                  Text('EAGER', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.orange)),
+                  Text(
+                    'EAGER',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.orange,
+                    ),
+                  ),
                 ],
               ),
               Text('vs', style: TextStyle(color: Colors.grey)),
               Column(
                 children: [
                   Icon(Icons.hourglass_empty, size: 32.0, color: Colors.grey),
-                  Text('LAZY', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey)),
+                  Text(
+                    'LAZY',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey,
+                    ),
+                  ),
                 ],
               ),
             ],
@@ -119,19 +131,19 @@ dynamic build(BuildContext context) {
 
   // Create various AlwaysStoppedAnimation instances
   final animations = <Map<String, dynamic>>[];
-  
+
   final anim0 = AlwaysStoppedAnimation<double>(0.0);
   animations.add({'value': 0.0, 'anim': anim0, 'label': 'Start'});
-  
+
   final anim25 = AlwaysStoppedAnimation<double>(0.25);
   animations.add({'value': 0.25, 'anim': anim25, 'label': 'Quarter'});
-  
+
   final anim50 = AlwaysStoppedAnimation<double>(0.5);
   animations.add({'value': 0.5, 'anim': anim50, 'label': 'Half'});
-  
+
   final anim75 = AlwaysStoppedAnimation<double>(0.75);
   animations.add({'value': 0.75, 'anim': anim75, 'label': 'Three-Quarter'});
-  
+
   final anim100 = AlwaysStoppedAnimation<double>(1.0);
   animations.add({'value': 1.0, 'anim': anim100, 'label': 'Complete'});
 
@@ -140,9 +152,9 @@ dynamic build(BuildContext context) {
     final value = entry['value'] as double;
     final label = entry['label'] as String;
     final anim = entry['anim'] as AlwaysStoppedAnimation<double>;
-    
+
     print('AlwaysStoppedAnimation($value) - status: ${anim.status}');
-    
+
     animationWidgets.add(
       Container(
         width: 100.0,
@@ -220,7 +232,7 @@ dynamic build(BuildContext context) {
 
   // Track listener operations
   final listenerOps = <Map<String, dynamic>>[];
-  
+
   final testAnim = AlwaysStoppedAnimation<double>(0.5);
   var listenerCallCount = 0;
   var statusListenerCallCount = 0;
@@ -321,7 +333,11 @@ dynamic build(BuildContext context) {
               ),
             ),
             SizedBox(width: 12.0),
-            Icon(op['icon'] as IconData, color: op['color'] as Color, size: 24.0),
+            Icon(
+              op['icon'] as IconData,
+              color: op['color'] as Color,
+              size: 24.0,
+            ),
             SizedBox(width: 12.0),
             Expanded(
               child: Column(
@@ -336,7 +352,10 @@ dynamic build(BuildContext context) {
                   ),
                   Text(
                     'Listeners: ${op['listenerCount']} | Status: ${op['statusCount']}',
-                    style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600),
+                    style: TextStyle(
+                      fontSize: 11.0,
+                      color: Colors.grey.shade600,
+                    ),
                   ),
                 ],
               ),
@@ -489,7 +508,7 @@ dynamic build(BuildContext context) {
     final step = timelineSteps[i];
     final color = step['color'] as Color;
     final isLast = i == timelineSteps.length - 1;
-    
+
     timelineWidgets.add(
       Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -511,7 +530,11 @@ dynamic build(BuildContext context) {
                     ),
                   ],
                 ),
-                child: Icon(step['icon'] as IconData, color: Colors.white, size: 20.0),
+                child: Icon(
+                  step['icon'] as IconData,
+                  color: Colors.white,
+                  size: 20.0,
+                ),
               ),
               if (!isLast)
                 Container(
@@ -537,15 +560,15 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     step['step'] as String,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: color,
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.bold, color: color),
                   ),
                   SizedBox(height: 4.0),
                   Text(
                     step['desc'] as String,
-                    style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      color: Colors.grey.shade700,
+                    ),
                   ),
                 ],
               ),
@@ -731,16 +754,13 @@ dynamic build(BuildContext context) {
               ),
               Text(
                 'Immediate Listener Registration',
-                style: TextStyle(
-                  fontSize: 14.0,
-                  color: Colors.white70,
-                ),
+                style: TextStyle(fontSize: 14.0, color: Colors.white70),
               ),
             ],
           ),
         ),
         SizedBox(height: 24.0),
-        
+
         // Section 1: Concepts
         Text(
           '1. Understanding Eager Listeners',
@@ -752,19 +772,16 @@ dynamic build(BuildContext context) {
           children: conceptCards,
         ),
         SizedBox(height: 32.0),
-        
+
         // Section 2: Animation Values
         Text(
           '2. AlwaysStoppedAnimation Values',
           style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 12.0),
-        Wrap(
-          alignment: WrapAlignment.center,
-          children: animationWidgets,
-        ),
+        Wrap(alignment: WrapAlignment.center, children: animationWidgets),
         SizedBox(height: 32.0),
-        
+
         // Section 3: Listener Operations
         Text(
           '3. Listener Operations',
@@ -773,19 +790,16 @@ dynamic build(BuildContext context) {
         SizedBox(height: 12.0),
         ...listenerWidgets,
         SizedBox(height: 32.0),
-        
+
         // Section 4: Generic Types
         Text(
           '4. Generic Type Support',
           style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 12.0),
-        Wrap(
-          alignment: WrapAlignment.center,
-          children: typeWidgets,
-        ),
+        Wrap(alignment: WrapAlignment.center, children: typeWidgets),
         SizedBox(height: 32.0),
-        
+
         // Section 5: Timeline
         Text(
           '5. Mixin Behavior Timeline',
@@ -797,7 +811,7 @@ dynamic build(BuildContext context) {
           child: Column(children: timelineWidgets),
         ),
         SizedBox(height: 32.0),
-        
+
         // Section 6: Code Examples
         Text(
           '6. Code Examples',
@@ -805,7 +819,7 @@ dynamic build(BuildContext context) {
         ),
         codeExamples,
         SizedBox(height: 32.0),
-        
+
         // Section 7: Summary
         Text(
           '7. Summary',
@@ -818,7 +832,12 @@ dynamic build(BuildContext context) {
 }
 
 // Helper: Build summary item
-Widget _buildSummaryItem(IconData icon, String title, String desc, Color color) {
+Widget _buildSummaryItem(
+  IconData icon,
+  String title,
+  String desc,
+  Color color,
+) {
   return Container(
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
@@ -843,10 +862,7 @@ Widget _buildSummaryItem(IconData icon, String title, String desc, Color color) 
             children: [
               Text(
                 title,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: color,
-                ),
+                style: TextStyle(fontWeight: FontWeight.bold, color: color),
               ),
               Text(
                 desc,

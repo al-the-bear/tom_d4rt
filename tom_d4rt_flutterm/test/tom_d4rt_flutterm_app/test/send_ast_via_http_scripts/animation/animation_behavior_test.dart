@@ -10,7 +10,7 @@ dynamic build(BuildContext context) {
   // SECTION 1: AnimationBehavior Enum Values Overview
   // ============================================================
   print('=== Section 1: AnimationBehavior Enum Overview ===');
-  
+
   // Display all AnimationBehavior values with visual cards
   final behaviorCards = <Widget>[];
   for (final behavior in AnimationBehavior.values) {
@@ -20,13 +20,13 @@ dynamic build(BuildContext context) {
         margin: EdgeInsets.all(8.0),
         padding: EdgeInsets.all(16.0),
         decoration: BoxDecoration(
-          color: behavior == AnimationBehavior.normal 
-              ? Colors.blue.shade100 
+          color: behavior == AnimationBehavior.normal
+              ? Colors.blue.shade100
               : Colors.orange.shade100,
           borderRadius: BorderRadius.circular(12.0),
           border: Border.all(
-            color: behavior == AnimationBehavior.normal 
-                ? Colors.blue 
+            color: behavior == AnimationBehavior.normal
+                ? Colors.blue
                 : Colors.orange,
             width: 2.0,
           ),
@@ -41,12 +41,12 @@ dynamic build(BuildContext context) {
         child: Column(
           children: [
             Icon(
-              behavior == AnimationBehavior.normal 
-                  ? Icons.animation 
+              behavior == AnimationBehavior.normal
+                  ? Icons.animation
                   : Icons.lock_clock,
               size: 48.0,
-              color: behavior == AnimationBehavior.normal 
-                  ? Colors.blue 
+              color: behavior == AnimationBehavior.normal
+                  ? Colors.blue
                   : Colors.orange,
             ),
             SizedBox(height: 8.0),
@@ -55,8 +55,8 @@ dynamic build(BuildContext context) {
               style: TextStyle(
                 fontSize: 16.0,
                 fontWeight: FontWeight.bold,
-                color: behavior == AnimationBehavior.normal 
-                    ? Colors.blue.shade900 
+                color: behavior == AnimationBehavior.normal
+                    ? Colors.blue.shade900
                     : Colors.orange.shade900,
               ),
             ),
@@ -134,7 +134,10 @@ dynamic build(BuildContext context) {
                   SizedBox(height: 4.0),
                   Text(
                     'System accessible',
-                    style: TextStyle(fontSize: 10.0, color: Colors.blue.shade700),
+                    style: TextStyle(
+                      fontSize: 10.0,
+                      color: Colors.blue.shade700,
+                    ),
                   ),
                   SizedBox(height: 8.0),
                   Container(
@@ -185,7 +188,10 @@ dynamic build(BuildContext context) {
                   SizedBox(height: 4.0),
                   Text(
                     'Always animate',
-                    style: TextStyle(fontSize: 10.0, color: Colors.orange.shade700),
+                    style: TextStyle(
+                      fontSize: 10.0,
+                      color: Colors.orange.shade700,
+                    ),
                   ),
                   SizedBox(height: 8.0),
                   Container(
@@ -259,7 +265,7 @@ dynamic build(BuildContext context) {
   for (final scenario in scenarios) {
     final isPreserve = scenario['behavior'] == AnimationBehavior.preserve;
     final color = scenario['color'] as Color;
-    
+
     scenarioWidgets.add(
       Container(
         margin: EdgeInsets.symmetric(vertical: 6.0, horizontal: 12.0),
@@ -277,7 +283,11 @@ dynamic build(BuildContext context) {
                 color: color.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(8.0),
               ),
-              child: Icon(scenario['icon'] as IconData, color: color, size: 28.0),
+              child: Icon(
+                scenario['icon'] as IconData,
+                color: color,
+                size: 28.0,
+              ),
             ),
             SizedBox(width: 12.0),
             Expanded(
@@ -295,7 +305,10 @@ dynamic build(BuildContext context) {
                   SizedBox(height: 2.0),
                   Text(
                     scenario['description'] as String,
-                    style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600),
+                    style: TextStyle(
+                      fontSize: 11.0,
+                      color: Colors.grey.shade600,
+                    ),
                   ),
                 ],
               ),
@@ -390,7 +403,10 @@ dynamic build(BuildContext context) {
               child: Column(
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 12.0,
+                      vertical: 4.0,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.green,
                       borderRadius: BorderRadius.circular(4.0),
@@ -429,7 +445,10 @@ dynamic build(BuildContext context) {
               child: Column(
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 12.0,
+                      vertical: 4.0,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.red,
                       borderRadius: BorderRadius.circular(4.0),
@@ -575,9 +594,19 @@ dynamic build(BuildContext context) {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            _buildStatCard('Total Values', '$totalValues', Icons.format_list_numbered, Colors.purple),
+            _buildStatCard(
+              'Total Values',
+              '$totalValues',
+              Icons.format_list_numbered,
+              Colors.purple,
+            ),
             _buildStatCard('Default', 'normal', Icons.settings, Colors.blue),
-            _buildStatCard('Alternative', 'preserve', Icons.movie, Colors.orange),
+            _buildStatCard(
+              'Alternative',
+              'preserve',
+              Icons.movie,
+              Colors.orange,
+            ),
           ],
         ),
         SizedBox(height: 16.0),
@@ -663,16 +692,13 @@ dynamic build(BuildContext context) {
               ),
               Text(
                 'Deep Demo - Flutter Animation Library',
-                style: TextStyle(
-                  fontSize: 14.0,
-                  color: Colors.white70,
-                ),
+                style: TextStyle(fontSize: 14.0, color: Colors.white70),
               ),
             ],
           ),
         ),
         SizedBox(height: 16.0),
-        
+
         // Section 1: Enum values
         Text(
           '1. Enum Values',
@@ -684,7 +710,7 @@ dynamic build(BuildContext context) {
           children: behaviorCards,
         ),
         SizedBox(height: 24.0),
-        
+
         // Section 2: Comparison
         Text(
           '2. Comparison',
@@ -692,7 +718,7 @@ dynamic build(BuildContext context) {
         ),
         comparisonPanel,
         SizedBox(height: 24.0),
-        
+
         // Section 3: Use Cases
         Text(
           '3. Use Case Scenarios',
@@ -701,7 +727,7 @@ dynamic build(BuildContext context) {
         SizedBox(height: 8.0),
         ...scenarioWidgets,
         SizedBox(height: 24.0),
-        
+
         // Section 4: Decision Tree
         Text(
           '4. Decision Guide',
@@ -709,7 +735,7 @@ dynamic build(BuildContext context) {
         ),
         decisionTree,
         SizedBox(height: 24.0),
-        
+
         // Section 5: Code Examples
         Text(
           '5. Code Examples',
@@ -717,7 +743,7 @@ dynamic build(BuildContext context) {
         ),
         codeExamples,
         SizedBox(height: 24.0),
-        
+
         // Section 6: Summary
         Text(
           '6. Summary',
