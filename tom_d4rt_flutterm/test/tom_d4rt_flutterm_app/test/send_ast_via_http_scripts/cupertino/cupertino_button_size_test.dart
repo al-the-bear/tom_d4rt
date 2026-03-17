@@ -4,19 +4,35 @@
 import 'package:flutter/cupertino.dart';
 
 dynamic build(BuildContext context) {
-  print('╔════════════════════════════════════════════════════════════════════╗');
-  print('║               CUPERTINO BUTTON SIZE DEEP DEMO                     ║');
-  print('║           iOS-style Button Sizing for Cupertino Design            ║');
-  print('╚════════════════════════════════════════════════════════════════════╝');
+  print(
+    '╔════════════════════════════════════════════════════════════════════╗',
+  );
+  print(
+    '║               CUPERTINO BUTTON SIZE DEEP DEMO                     ║',
+  );
+  print(
+    '║           iOS-style Button Sizing for Cupertino Design            ║',
+  );
+  print(
+    '╚════════════════════════════════════════════════════════════════════╝',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 1: CUPERTINO BUTTON SIZE FUNDAMENTALS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 1: CUPERTINO BUTTON SIZE FUNDAMENTALS                     │');
-  print('│ Understanding iOS button size specifications                      │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 1: CUPERTINO BUTTON SIZE FUNDAMENTALS                     │',
+  );
+  print(
+    '│ Understanding iOS button size specifications                      │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('CupertinoButtonSize enum provides:');
@@ -29,20 +45,34 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 2: ALL ENUM VALUES
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 2: ALL ENUM VALUES                                        │');
-  print('│ Complete list of CupertinoButtonSize options                      │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 2: ALL ENUM VALUES                                        │',
+  );
+  print(
+    '│ Complete list of CupertinoButtonSize options                      │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final allValues = CupertinoButtonSize.values;
   final valueResults = <Map<String, dynamic>>[];
-  
+
   print('CupertinoButtonSize enum values:');
-  print('┌──────────┬───────────────┬────────────────────────────────────────────┐');
-  print('│  Index   │     Name      │   Description                              │');
-  print('├──────────┼───────────────┼────────────────────────────────────────────┤');
-  
+  print(
+    '┌──────────┬───────────────┬────────────────────────────────────────────┐',
+  );
+  print(
+    '│  Index   │     Name      │   Description                              │',
+  );
+  print(
+    '├──────────┼───────────────┼────────────────────────────────────────────┤',
+  );
+
   for (final size in allValues) {
     String description;
     switch (size) {
@@ -56,10 +86,19 @@ dynamic build(BuildContext context) {
         description = 'Prominent size for primary actions';
         break;
     }
-    valueResults.add({'size': size, 'index': size.index, 'name': size.name, 'description': description});
-    print('│    ${size.index}     │  ${size.name.padRight(11)} │ ${description.padRight(38)} │');
+    valueResults.add({
+      'size': size,
+      'index': size.index,
+      'name': size.name,
+      'description': description,
+    });
+    print(
+      '│    ${size.index}     │  ${size.name.padRight(11)} │ ${description.padRight(38)} │',
+    );
   }
-  print('└──────────┴───────────────┴────────────────────────────────────────────┘');
+  print(
+    '└──────────┴───────────────┴────────────────────────────────────────────┘',
+  );
   print('');
   print('Total values: ${allValues.length}');
   print('');
@@ -67,10 +106,18 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 3: SMALL SIZE ANALYSIS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 3: SMALL SIZE ANALYSIS                                    │');
-  print('│ Compact button for space-constrained UIs                          │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 3: SMALL SIZE ANALYSIS                                    │',
+  );
+  print(
+    '│ Compact button for space-constrained UIs                          │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final smallSize = CupertinoButtonSize.small;
@@ -90,10 +137,18 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 4: MEDIUM SIZE ANALYSIS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 4: MEDIUM SIZE ANALYSIS                                   │');
-  print('│ Default button size for most use cases                            │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 4: MEDIUM SIZE ANALYSIS                                   │',
+  );
+  print(
+    '│ Default button size for most use cases                            │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final mediumSize = CupertinoButtonSize.medium;
@@ -113,10 +168,18 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 5: LARGE SIZE ANALYSIS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 5: LARGE SIZE ANALYSIS                                    │');
-  print('│ Prominent button for primary actions                              │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 5: LARGE SIZE ANALYSIS                                    │',
+  );
+  print(
+    '│ Prominent button for primary actions                              │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final largeSize = CupertinoButtonSize.large;
@@ -136,33 +199,67 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 6: ENUM COMPARISON
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 6: ENUM COMPARISON                                        │');
-  print('│ Comparing enum values                                             │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 6: ENUM COMPARISON                                        │',
+  );
+  print(
+    '│ Comparing enum values                                             │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('Equality and ordering:');
-  print('┌─────────────────────────────────┬───────────────────────────────────┐');
-  print('│          Comparison             │           Result                  │');
-  print('├─────────────────────────────────┼───────────────────────────────────┤');
-  
+  print(
+    '┌─────────────────────────────────┬───────────────────────────────────┐',
+  );
+  print(
+    '│          Comparison             │           Result                  │',
+  );
+  print(
+    '├─────────────────────────────────┼───────────────────────────────────┤',
+  );
+
   // Equality comparisons
-  print('│ small == small                  │ ${smallSize == CupertinoButtonSize.small}                              │');
-  print('│ small == medium                 │ ${smallSize == mediumSize}                             │');
-  print('│ small.index < medium.index      │ ${smallSize.index < mediumSize.index}                              │');
-  print('│ medium.index < large.index      │ ${mediumSize.index < largeSize.index}                              │');
-  print('│ small.index < large.index       │ ${smallSize.index < largeSize.index}                              │');
-  print('└─────────────────────────────────┴───────────────────────────────────┘');
+  print(
+    '│ small == small                  │ ${smallSize == CupertinoButtonSize.small}                              │',
+  );
+  print(
+    '│ small == medium                 │ ${smallSize == mediumSize}                             │',
+  );
+  print(
+    '│ small.index < medium.index      │ ${smallSize.index < mediumSize.index}                              │',
+  );
+  print(
+    '│ medium.index < large.index      │ ${mediumSize.index < largeSize.index}                              │',
+  );
+  print(
+    '│ small.index < large.index       │ ${smallSize.index < largeSize.index}                              │',
+  );
+  print(
+    '└─────────────────────────────────┴───────────────────────────────────┘',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 7: ITERATION PATTERNS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 7: ITERATION PATTERNS                                     │');
-  print('│ Working with enum collections                                     │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 7: ITERATION PATTERNS                                     │',
+  );
+  print(
+    '│ Working with enum collections                                     │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('Forward iteration:');
@@ -186,37 +283,65 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 8: NAME PARSING
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 8: NAME PARSING                                           │');
-  print('│ Converting strings to enum values                                 │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 8: NAME PARSING                                           │',
+  );
+  print(
+    '│ Converting strings to enum values                                 │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final testNames = ['small', 'medium', 'large', 'SMALL', 'Medium'];
-  
+
   print('Parsing string names:');
-  print('┌─────────────────┬──────────────────┬──────────────────────────────┐');
-  print('│   Input String  │   Parsed Value   │   Method                     │');
-  print('├─────────────────┼──────────────────┼──────────────────────────────┤');
-  
+  print(
+    '┌─────────────────┬──────────────────┬──────────────────────────────┐',
+  );
+  print(
+    '│   Input String  │   Parsed Value   │   Method                     │',
+  );
+  print(
+    '├─────────────────┼──────────────────┼──────────────────────────────┤',
+  );
+
   for (final name in testNames) {
     try {
       final parsed = CupertinoButtonSize.values.byName(name.toLowerCase());
-      print('│ "${name.padRight(12)}" │ ${parsed.name.padRight(14)} │ byName(lowercase)            │');
+      print(
+        '│ "${name.padRight(12)}" │ ${parsed.name.padRight(14)} │ byName(lowercase)            │',
+      );
     } catch (e) {
-      print('│ "${name.padRight(12)}" │ Error            │ Not found                    │');
+      print(
+        '│ "${name.padRight(12)}" │ Error            │ Not found                    │',
+      );
     }
   }
-  print('└─────────────────┴──────────────────┴──────────────────────────────┘');
+  print(
+    '└─────────────────┴──────────────────┴──────────────────────────────┘',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 9: WITH CUPERTINO BUTTON
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 9: WITH CUPERTINO BUTTON                                  │');
-  print('│ Using size enum with actual buttons                               │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 9: WITH CUPERTINO BUTTON                                  │',
+  );
+  print(
+    '│ Using size enum with actual buttons                               │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('CupertinoButton size parameter usage:');
@@ -243,10 +368,18 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 10: PRACTICAL USE CASES
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 10: PRACTICAL USE CASES                                   │');
-  print('│ Real-world button size decisions                                  │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 10: PRACTICAL USE CASES                                   │',
+  );
+  print(
+    '│ Real-world button size decisions                                  │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('1. Navigation Bars → small');
@@ -275,9 +408,15 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SUMMARY
   // ═══════════════════════════════════════════════════════════════════════════
-  print('╔════════════════════════════════════════════════════════════════════╗');
-  print('║              CUPERTINO BUTTON SIZE SUMMARY                        ║');
-  print('╚════════════════════════════════════════════════════════════════════╝');
+  print(
+    '╔════════════════════════════════════════════════════════════════════╗',
+  );
+  print(
+    '║              CUPERTINO BUTTON SIZE SUMMARY                        ║',
+  );
+  print(
+    '╚════════════════════════════════════════════════════════════════════╝',
+  );
   print('');
   print('CupertinoButtonSize key features:');
   print('  • 3 standard sizes: small, medium, large');
@@ -325,10 +464,7 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 8.0),
                 Text(
                   'iOS-style Button Sizing',
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    color: Color(0xFFFFF8E1),
-                  ),
+                  style: TextStyle(fontSize: 14.0, color: Color(0xFFFFF8E1)),
                 ),
               ],
             ),
@@ -411,9 +547,21 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 SizedBox(height: 12.0),
-                _buildRecommendation('small', 'Toolbars, nav bars', CupertinoColors.systemBlue),
-                _buildRecommendation('medium', 'Forms, content', CupertinoColors.systemGreen),
-                _buildRecommendation('large', 'CTAs, primary', CupertinoColors.systemOrange),
+                _buildRecommendation(
+                  'small',
+                  'Toolbars, nav bars',
+                  CupertinoColors.systemBlue,
+                ),
+                _buildRecommendation(
+                  'medium',
+                  'Forms, content',
+                  CupertinoColors.systemGreen,
+                ),
+                _buildRecommendation(
+                  'large',
+                  'CTAs, primary',
+                  CupertinoColors.systemOrange,
+                ),
               ],
             ),
           ),
@@ -504,7 +652,7 @@ Widget _buildEnumRow(Map<String, dynamic> r) {
   final size = r['size'] as CupertinoButtonSize;
   final name = r['name'] as String;
   final description = r['description'] as String;
-  
+
   Color color;
   switch (size) {
     case CupertinoButtonSize.small:
@@ -517,7 +665,7 @@ Widget _buildEnumRow(Map<String, dynamic> r) {
       color = CupertinoColors.systemOrange;
       break;
   }
-  
+
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
@@ -529,10 +677,24 @@ Widget _buildEnumRow(Map<String, dynamic> r) {
             color: color,
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Center(child: Text(name, style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: CupertinoColors.white))),
+          child: Center(
+            child: Text(
+              name,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.bold,
+                color: CupertinoColors.white,
+              ),
+            ),
+          ),
         ),
         SizedBox(width: 12),
-        Expanded(child: Text(description, style: TextStyle(fontSize: 11, color: Color(0xFF616161)))),
+        Expanded(
+          child: Text(
+            description,
+            style: TextStyle(fontSize: 11, color: Color(0xFF616161)),
+          ),
+        ),
       ],
     ),
   );
@@ -541,7 +703,10 @@ Widget _buildEnumRow(Map<String, dynamic> r) {
 Widget _buildButtonSizeDemo(String label, CupertinoButtonSize size) {
   return Row(
     children: [
-      SizedBox(width: 60, child: Text(label, style: TextStyle(fontWeight: FontWeight.w500))),
+      SizedBox(
+        width: 60,
+        child: Text(label, style: TextStyle(fontWeight: FontWeight.w500)),
+      ),
       Expanded(
         child: CupertinoButton(
           sizeStyle: size,
@@ -566,7 +731,16 @@ Widget _buildRecommendation(String size, String useCase, Color color) {
             color: color,
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Center(child: Text(size, style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: CupertinoColors.white))),
+          child: Center(
+            child: Text(
+              size,
+              style: TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+                color: CupertinoColors.white,
+              ),
+            ),
+          ),
         ),
         SizedBox(width: 12),
         Icon(CupertinoIcons.arrow_right, size: 12, color: Color(0xFF616161)),
@@ -587,10 +761,21 @@ Widget _buildSizeCompareBox(String label, double size, Color color) {
           color: color,
           borderRadius: BorderRadius.circular(8),
         ),
-        child: Center(child: Text(label, style: TextStyle(color: CupertinoColors.white, fontWeight: FontWeight.bold))),
+        child: Center(
+          child: Text(
+            label,
+            style: TextStyle(
+              color: CupertinoColors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
       ),
       SizedBox(height: 4),
-      Text('${size.toInt()}pt', style: TextStyle(fontSize: 10, color: Color(0xFF90A4AE))),
+      Text(
+        '${size.toInt()}pt',
+        style: TextStyle(fontSize: 10, color: Color(0xFF90A4AE)),
+      ),
     ],
   );
 }
@@ -606,13 +791,7 @@ Widget _buildSummaryStat(String label, String value) {
           color: Color(0xFF4DD0E1),
         ),
       ),
-      Text(
-        label,
-        style: TextStyle(
-          fontSize: 10.0,
-          color: Color(0xFF90A4AE),
-        ),
-      ),
+      Text(label, style: TextStyle(fontSize: 10.0, color: Color(0xFF90A4AE))),
     ],
   );
 }

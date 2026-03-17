@@ -5,19 +5,35 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  print('╔════════════════════════════════════════════════════════════════════╗');
-  print('║            ACCESSIBILITY FEATURES DEEP DEMO                       ║');
-  print('║       Platform Accessibility Settings for Adaptive UI             ║');
-  print('╚════════════════════════════════════════════════════════════════════╝');
+  print(
+    '╔════════════════════════════════════════════════════════════════════╗',
+  );
+  print(
+    '║            ACCESSIBILITY FEATURES DEEP DEMO                       ║',
+  );
+  print(
+    '║       Platform Accessibility Settings for Adaptive UI             ║',
+  );
+  print(
+    '╚════════════════════════════════════════════════════════════════════╝',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 1: ACCESSIBILITY FEATURES FUNDAMENTALS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 1: ACCESSIBILITY FEATURES FUNDAMENTALS                    │');
-  print('│ Understanding platform accessibility settings                     │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 1: ACCESSIBILITY FEATURES FUNDAMENTALS                    │',
+  );
+  print(
+    '│ Understanding platform accessibility settings                     │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('AccessibilityFeatures provides:');
@@ -37,15 +53,23 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 2: PLATFORM DISPATCHER ACCESS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 2: PLATFORM DISPATCHER ACCESS                             │');
-  print('│ Getting features via PlatformDispatcher                           │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 2: PLATFORM DISPATCHER ACCESS                             │',
+  );
+  print(
+    '│ Getting features via PlatformDispatcher                           │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final dispatcher = ui.PlatformDispatcher.instance;
   final features = dispatcher.accessibilityFeatures;
-  
+
   print('Access pattern:');
   print('  final dispatcher = PlatformDispatcher.instance;');
   print('  final features = dispatcher.accessibilityFeatures;');
@@ -59,46 +83,98 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 3: ALL FEATURE FLAGS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 3: ALL FEATURE FLAGS                                      │');
-  print('│ Complete list of accessibility features                           │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 3: ALL FEATURE FLAGS                                      │',
+  );
+  print(
+    '│ Complete list of accessibility features                           │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final featureData = <Map<String, dynamic>>[
-    {'name': 'accessibleNavigation', 'value': features.accessibleNavigation, 'description': 'Screen reader active'},
-    {'name': 'invertColors', 'value': features.invertColors, 'description': 'Color inversion enabled'},
-    {'name': 'disableAnimations', 'value': features.disableAnimations, 'description': 'Animations disabled'},
-    {'name': 'boldText', 'value': features.boldText, 'description': 'Bold text requested'},
-    {'name': 'reduceMotion', 'value': features.reduceMotion, 'description': 'Reduced motion preference'},
-    {'name': 'highContrast', 'value': features.highContrast, 'description': 'High contrast mode'},
-    {'name': 'onOffSwitchLabels', 'value': features.onOffSwitchLabels, 'description': 'Show on/off labels'},
+    {
+      'name': 'accessibleNavigation',
+      'value': features.accessibleNavigation,
+      'description': 'Screen reader active',
+    },
+    {
+      'name': 'invertColors',
+      'value': features.invertColors,
+      'description': 'Color inversion enabled',
+    },
+    {
+      'name': 'disableAnimations',
+      'value': features.disableAnimations,
+      'description': 'Animations disabled',
+    },
+    {
+      'name': 'boldText',
+      'value': features.boldText,
+      'description': 'Bold text requested',
+    },
+    {
+      'name': 'reduceMotion',
+      'value': features.reduceMotion,
+      'description': 'Reduced motion preference',
+    },
+    {
+      'name': 'highContrast',
+      'value': features.highContrast,
+      'description': 'High contrast mode',
+    },
+    {
+      'name': 'onOffSwitchLabels',
+      'value': features.onOffSwitchLabels,
+      'description': 'Show on/off labels',
+    },
   ];
-  
+
   print('Feature flags from platform:');
-  print('┌─────────────────────────┬─────────┬───────────────────────────────────┐');
-  print('│       Feature           │  Value  │   Description                     │');
-  print('├─────────────────────────┼─────────┼───────────────────────────────────┤');
+  print(
+    '┌─────────────────────────┬─────────┬───────────────────────────────────┐',
+  );
+  print(
+    '│       Feature           │  Value  │   Description                     │',
+  );
+  print(
+    '├─────────────────────────┼─────────┼───────────────────────────────────┤',
+  );
   for (final data in featureData) {
     final name = (data['name'] as String).padRight(23);
     final value = (data['value'] as bool ? 'Yes' : 'No').padRight(7);
     final desc = (data['description'] as String).padRight(33);
     print('│ $name │ $value │ $desc │');
   }
-  print('└─────────────────────────┴─────────┴───────────────────────────────────┘');
+  print(
+    '└─────────────────────────┴─────────┴───────────────────────────────────┘',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 4: MEDIAQUERY ACCESS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 4: MEDIAQUERY ACCESS                                      │');
-  print('│ Accessing features through MediaQuery                             │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 4: MEDIAQUERY ACCESS                                      │',
+  );
+  print(
+    '│ Accessing features through MediaQuery                             │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final mq = MediaQuery.of(context);
-  
+
   print('MediaQuery accessibility properties:');
   print('  • accessibleNavigation: ${mq.accessibleNavigation}');
   print('  • boldText: ${mq.boldText}');
@@ -118,10 +194,18 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 5: VISUAL ACCESSIBILITY
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 5: VISUAL ACCESSIBILITY                                   │');
-  print('│ Color and contrast settings                                       │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 5: VISUAL ACCESSIBILITY                                   │',
+  );
+  print(
+    '│ Color and contrast settings                                       │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('Visual features:');
@@ -148,10 +232,18 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 6: MOTION ACCESSIBILITY
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 6: MOTION ACCESSIBILITY                                   │');
-  print('│ Animation and motion preferences                                  │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 6: MOTION ACCESSIBILITY                                   │',
+  );
+  print(
+    '│ Animation and motion preferences                                  │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('Motion features:');
@@ -179,10 +271,18 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 7: NAVIGATION ACCESSIBILITY
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 7: NAVIGATION ACCESSIBILITY                               │');
-  print('│ Screen reader and navigation settings                             │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 7: NAVIGATION ACCESSIBILITY                               │',
+  );
+  print(
+    '│ Screen reader and navigation settings                             │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('Navigation features:');
@@ -209,10 +309,18 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 8: INTERACTION ACCESSIBILITY
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 8: INTERACTION ACCESSIBILITY                              │');
-  print('│ Switch and label preferences                                      │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 8: INTERACTION ACCESSIBILITY                              │',
+  );
+  print(
+    '│ Switch and label preferences                                      │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('Interaction features:');
@@ -236,10 +344,18 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 9: LISTENING FOR CHANGES
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 9: LISTENING FOR CHANGES                                  │');
-  print('│ Reacting to accessibility changes                                 │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 9: LISTENING FOR CHANGES                                  │',
+  );
+  print(
+    '│ Reacting to accessibility changes                                 │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('Platform change listener:');
@@ -258,10 +374,18 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 10: PRACTICAL USE CASES
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 10: PRACTICAL USE CASES                                   │');
-  print('│ Implementing accessible UIs                                       │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 10: PRACTICAL USE CASES                                   │',
+  );
+  print(
+    '│ Implementing accessible UIs                                       │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('1. Auto-hiding Elements');
@@ -287,9 +411,15 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SUMMARY
   // ═══════════════════════════════════════════════════════════════════════════
-  print('╔════════════════════════════════════════════════════════════════════╗');
-  print('║           ACCESSIBILITY FEATURES SUMMARY                          ║');
-  print('╚════════════════════════════════════════════════════════════════════╝');
+  print(
+    '╔════════════════════════════════════════════════════════════════════╗',
+  );
+  print(
+    '║           ACCESSIBILITY FEATURES SUMMARY                          ║',
+  );
+  print(
+    '╚════════════════════════════════════════════════════════════════════╝',
+  );
   print('');
   print('AccessibilityFeatures key features:');
   print('  • 7 boolean feature flags');
@@ -331,7 +461,11 @@ dynamic build(BuildContext context) {
                 padding: EdgeInsets.all(24.0),
                 child: Column(
                   children: [
-                    Icon(Icons.accessibility_new, size: 48, color: Colors.white),
+                    Icon(
+                      Icons.accessibility_new,
+                      size: 48,
+                      color: Colors.white,
+                    ),
                     SizedBox(height: 12),
                     Text(
                       'AccessibilityFeatures',
@@ -363,11 +497,13 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    ...featureData.map((data) => _buildFeatureRow(
-                      data['name'] as String,
-                      data['value'] as bool,
-                      data['description'] as String,
-                    )),
+                    ...featureData.map(
+                      (data) => _buildFeatureRow(
+                        data['name'] as String,
+                        data['value'] as bool,
+                        data['description'] as String,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -379,9 +515,23 @@ dynamic build(BuildContext context) {
                 margin: EdgeInsets.symmetric(horizontal: 16.0),
                 child: Row(
                   children: [
-                    Expanded(child: _buildCategoryCard('Visual', Icons.visibility, Color(0xFF7C4DFF), 3)),
+                    Expanded(
+                      child: _buildCategoryCard(
+                        'Visual',
+                        Icons.visibility,
+                        Color(0xFF7C4DFF),
+                        3,
+                      ),
+                    ),
                     SizedBox(width: 12),
-                    Expanded(child: _buildCategoryCard('Motion', Icons.animation, Color(0xFFFF5722), 2)),
+                    Expanded(
+                      child: _buildCategoryCard(
+                        'Motion',
+                        Icons.animation,
+                        Color(0xFFFF5722),
+                        2,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -390,9 +540,23 @@ dynamic build(BuildContext context) {
                 margin: EdgeInsets.symmetric(horizontal: 16.0),
                 child: Row(
                   children: [
-                    Expanded(child: _buildCategoryCard('Navigation', Icons.navigation, Color(0xFF4CAF50), 1)),
+                    Expanded(
+                      child: _buildCategoryCard(
+                        'Navigation',
+                        Icons.navigation,
+                        Color(0xFF4CAF50),
+                        1,
+                      ),
+                    ),
                     SizedBox(width: 12),
-                    Expanded(child: _buildCategoryCard('Interaction', Icons.touch_app, Color(0xFF00BCD4), 1)),
+                    Expanded(
+                      child: _buildCategoryCard(
+                        'Interaction',
+                        Icons.touch_app,
+                        Color(0xFF00BCD4),
+                        1,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -460,7 +624,10 @@ dynamic build(BuildContext context) {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         _buildSummaryStat('Features', '7'),
-                        _buildSummaryStat('Active', '${featureData.where((d) => d['value'] as bool).length}'),
+                        _buildSummaryStat(
+                          'Active',
+                          '${featureData.where((d) => d['value'] as bool).length}',
+                        ),
                         _buildSummaryStat('Sections', '10'),
                       ],
                     ),
@@ -531,8 +698,14 @@ Widget _buildFeatureRow(String name, bool value, String description) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(name, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
-              Text(description, style: TextStyle(fontSize: 11, color: Colors.grey[600])),
+              Text(
+                name,
+                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+              ),
+              Text(
+                description,
+                style: TextStyle(fontSize: 11, color: Colors.grey[600]),
+              ),
             ],
           ),
         ),
@@ -552,8 +725,14 @@ Widget _buildCategoryCard(String title, IconData icon, Color color, int count) {
       children: [
         Icon(icon, color: color, size: 24),
         SizedBox(height: 8),
-        Text(title, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500)),
-        Text('$count features', style: TextStyle(fontSize: 10, color: Colors.grey[600])),
+        Text(
+          title,
+          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+        ),
+        Text(
+          '$count features',
+          style: TextStyle(fontSize: 10, color: Colors.grey[600]),
+        ),
       ],
     ),
   );
@@ -568,7 +747,11 @@ Widget _buildActiveChip(String name) {
     ),
     child: Text(
       name,
-      style: TextStyle(fontSize: 11, color: Colors.white, fontWeight: FontWeight.w500),
+      style: TextStyle(
+        fontSize: 11,
+        color: Colors.white,
+        fontWeight: FontWeight.w500,
+      ),
     ),
   );
 }
@@ -584,13 +767,7 @@ Widget _buildSummaryStat(String label, String value) {
           color: Color(0xFF4DD0E1),
         ),
       ),
-      Text(
-        label,
-        style: TextStyle(
-          fontSize: 10.0,
-          color: Color(0xFF90A4AE),
-        ),
-      ),
+      Text(label, style: TextStyle(fontSize: 10.0, color: Color(0xFF90A4AE))),
     ],
   );
 }

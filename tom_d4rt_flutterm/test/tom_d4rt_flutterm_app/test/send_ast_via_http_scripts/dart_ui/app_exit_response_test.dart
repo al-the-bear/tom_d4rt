@@ -5,19 +5,35 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  print('╔════════════════════════════════════════════════════════════════════╗');
-  print('║               APP EXIT RESPONSE DEEP DEMO                         ║');
-  print('║        Application Exit Request Response Handling                 ║');
-  print('╚════════════════════════════════════════════════════════════════════╝');
+  print(
+    '╔════════════════════════════════════════════════════════════════════╗',
+  );
+  print(
+    '║               APP EXIT RESPONSE DEEP DEMO                         ║',
+  );
+  print(
+    '║        Application Exit Request Response Handling                 ║',
+  );
+  print(
+    '╚════════════════════════════════════════════════════════════════════╝',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 1: APP EXIT RESPONSE FUNDAMENTALS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 1: APP EXIT RESPONSE FUNDAMENTALS                         │');
-  print('│ Understanding app exit response types                             │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 1: APP EXIT RESPONSE FUNDAMENTALS                         │',
+  );
+  print(
+    '│ Understanding app exit response types                             │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('AppExitResponse enum:');
@@ -43,20 +59,34 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 2: ALL ENUM VALUES
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 2: ALL ENUM VALUES                                        │');
-  print('│ Complete list of exit response options                            │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 2: ALL ENUM VALUES                                        │',
+  );
+  print(
+    '│ Complete list of exit response options                            │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final allValues = AppExitResponse.values;
   final valueResults = <Map<String, dynamic>>[];
-  
+
   print('AppExitResponse enum values:');
-  print('┌──────────┬───────────────┬────────────────────────────────────────────┐');
-  print('│  Index   │     Name      │   Description                              │');
-  print('├──────────┼───────────────┼────────────────────────────────────────────┤');
-  
+  print(
+    '┌──────────┬───────────────┬────────────────────────────────────────────┐',
+  );
+  print(
+    '│  Index   │     Name      │   Description                              │',
+  );
+  print(
+    '├──────────┼───────────────┼────────────────────────────────────────────┤',
+  );
+
   for (final response in allValues) {
     String description;
     switch (response) {
@@ -67,10 +97,19 @@ dynamic build(BuildContext context) {
         description = 'Cancel exit request';
         break;
     }
-    valueResults.add({'response': response, 'index': response.index, 'name': response.name, 'description': description});
-    print('│    ${response.index}     │ ${response.name.padRight(13)} │ ${description.padRight(42)} │');
+    valueResults.add({
+      'response': response,
+      'index': response.index,
+      'name': response.name,
+      'description': description,
+    });
+    print(
+      '│    ${response.index}     │ ${response.name.padRight(13)} │ ${description.padRight(42)} │',
+    );
   }
-  print('└──────────┴───────────────┴────────────────────────────────────────────┘');
+  print(
+    '└──────────┴───────────────┴────────────────────────────────────────────┘',
+  );
   print('');
   print('Total values: ${allValues.length}');
   print('');
@@ -78,10 +117,18 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 3: EXIT RESPONSE ANALYSIS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 3: EXIT RESPONSE ANALYSIS                                 │');
-  print('│ AppExitResponse.exit - Allow exit                                 │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 3: EXIT RESPONSE ANALYSIS                                 │',
+  );
+  print(
+    '│ AppExitResponse.exit - Allow exit                                 │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final exitResponse = AppExitResponse.exit;
@@ -106,10 +153,18 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 4: CANCEL RESPONSE ANALYSIS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 4: CANCEL RESPONSE ANALYSIS                               │');
-  print('│ AppExitResponse.cancel - Prevent exit                             │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 4: CANCEL RESPONSE ANALYSIS                               │',
+  );
+  print(
+    '│ AppExitResponse.cancel - Prevent exit                             │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final cancelResponse = AppExitResponse.cancel;
@@ -134,36 +189,70 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 5: COMPARISON
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 5: COMPARISON                                             │');
-  print('│ exit vs cancel behavior                                           │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 5: COMPARISON                                             │',
+  );
+  print(
+    '│ exit vs cancel behavior                                           │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('Response comparison:');
-  print('┌───────────────────┬──────────────────────┬──────────────────────────┐');
-  print('│     Feature       │        exit          │         cancel           │');
-  print('├───────────────────┼──────────────────────┼──────────────────────────┤');
-  print('│ App continues     │        No            │          Yes             │');
-  print('│ Window closes     │        Yes           │          No              │');
-  print('│ Cleanup runs      │        Yes           │          No              │');
-  print('│ User sees app     │        No            │          Yes             │');
-  print('└───────────────────┴──────────────────────┴──────────────────────────┘');
+  print(
+    '┌───────────────────┬──────────────────────┬──────────────────────────┐',
+  );
+  print(
+    '│     Feature       │        exit          │         cancel           │',
+  );
+  print(
+    '├───────────────────┼──────────────────────┼──────────────────────────┤',
+  );
+  print(
+    '│ App continues     │        No            │          Yes             │',
+  );
+  print(
+    '│ Window closes     │        Yes           │          No              │',
+  );
+  print(
+    '│ Cleanup runs      │        Yes           │          No              │',
+  );
+  print(
+    '│ User sees app     │        No            │          Yes             │',
+  );
+  print(
+    '└───────────────────┴──────────────────────┴──────────────────────────┘',
+  );
   print('');
 
   print('Equality test:');
   print('  exit == exit: ${exitResponse == AppExitResponse.exit}');
   print('  exit == cancel: ${exitResponse == cancelResponse}');
-  print('  exit.index < cancel.index: ${exitResponse.index < cancelResponse.index}');
+  print(
+    '  exit.index < cancel.index: ${exitResponse.index < cancelResponse.index}',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 6: WITH SERVICES BINDING
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 6: WITH SERVICES BINDING                                  │');
-  print('│ Implementing exit handling                                        │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 6: WITH SERVICES BINDING                                  │',
+  );
+  print(
+    '│ Implementing exit handling                                        │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('Implementation pattern:');
@@ -197,10 +286,18 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 7: EXIT DIALOG EXAMPLE
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 7: EXIT DIALOG EXAMPLE                                    │');
-  print('│ Showing confirmation before exit                                  │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 7: EXIT DIALOG EXAMPLE                                    │',
+  );
+  print(
+    '│ Showing confirmation before exit                                  │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('Exit confirmation dialog:');
@@ -228,31 +325,65 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 8: PLATFORM BEHAVIOR
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 8: PLATFORM BEHAVIOR                                      │');
-  print('│ How exit handling works on different platforms                    │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 8: PLATFORM BEHAVIOR                                      │',
+  );
+  print(
+    '│ How exit handling works on different platforms                    │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('Platform triggers for exit request:');
-  print('┌───────────────────┬──────────────────────────────────────────────────┐');
-  print('│     Platform      │   Exit Trigger                                   │');
-  print('├───────────────────┼──────────────────────────────────────────────────┤');
-  print('│ macOS             │ Cmd+Q, close button, quit menu                   │');
-  print('│ Windows           │ Alt+F4, close button, taskbar close              │');
-  print('│ Linux             │ Alt+F4, close button                             │');
-  print('│ Android           │ Back button (root), recent apps swipe            │');
-  print('│ iOS               │ App switcher swipe                               │');
-  print('└───────────────────┴──────────────────────────────────────────────────┘');
+  print(
+    '┌───────────────────┬──────────────────────────────────────────────────┐',
+  );
+  print(
+    '│     Platform      │   Exit Trigger                                   │',
+  );
+  print(
+    '├───────────────────┼──────────────────────────────────────────────────┤',
+  );
+  print(
+    '│ macOS             │ Cmd+Q, close button, quit menu                   │',
+  );
+  print(
+    '│ Windows           │ Alt+F4, close button, taskbar close              │',
+  );
+  print(
+    '│ Linux             │ Alt+F4, close button                             │',
+  );
+  print(
+    '│ Android           │ Back button (root), recent apps swipe            │',
+  );
+  print(
+    '│ iOS               │ App switcher swipe                               │',
+  );
+  print(
+    '└───────────────────┴──────────────────────────────────────────────────┘',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 9: ENUM ITERATION
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 9: ENUM ITERATION                                         │');
-  print('│ Working with AppExitResponse values                               │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 9: ENUM ITERATION                                         │',
+  );
+  print(
+    '│ Working with AppExitResponse values                               │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('Iterating through values:');
@@ -270,10 +401,18 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 10: PRACTICAL USE CASES
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 10: PRACTICAL USE CASES                                   │');
-  print('│ When to use exit vs cancel                                        │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 10: PRACTICAL USE CASES                                   │',
+  );
+  print(
+    '│ When to use exit vs cancel                                        │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('Use exit:');
@@ -300,9 +439,15 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SUMMARY
   // ═══════════════════════════════════════════════════════════════════════════
-  print('╔════════════════════════════════════════════════════════════════════╗');
-  print('║           APP EXIT RESPONSE SUMMARY                               ║');
-  print('╚════════════════════════════════════════════════════════════════════╝');
+  print(
+    '╔════════════════════════════════════════════════════════════════════╗',
+  );
+  print(
+    '║           APP EXIT RESPONSE SUMMARY                               ║',
+  );
+  print(
+    '╚════════════════════════════════════════════════════════════════════╝',
+  );
   print('');
   print('AppExitResponse key features:');
   print('  • 2 response types: exit, cancel');
@@ -386,9 +531,23 @@ dynamic build(BuildContext context) {
                 margin: EdgeInsets.symmetric(horizontal: 16.0),
                 child: Row(
                   children: [
-                    Expanded(child: _buildResponseCard('exit', 'Allow Exit', Colors.green, Icons.check_circle)),
+                    Expanded(
+                      child: _buildResponseCard(
+                        'exit',
+                        'Allow Exit',
+                        Colors.green,
+                        Icons.check_circle,
+                      ),
+                    ),
                     SizedBox(width: 12),
-                    Expanded(child: _buildResponseCard('cancel', 'Stay Open', Colors.orange, Icons.cancel)),
+                    Expanded(
+                      child: _buildResponseCard(
+                        'cancel',
+                        'Stay Open',
+                        Colors.orange,
+                        Icons.cancel,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -415,9 +574,17 @@ dynamic build(BuildContext context) {
                     ),
                     SizedBox(height: 16),
                     _buildFlowStep('User closes app', Icons.close),
-                    Icon(Icons.arrow_downward, color: Colors.grey[400], size: 20),
+                    Icon(
+                      Icons.arrow_downward,
+                      color: Colors.grey[400],
+                      size: 20,
+                    ),
                     _buildFlowStep('didRequestAppExit()', Icons.code),
-                    Icon(Icons.arrow_downward, color: Colors.grey[400], size: 20),
+                    Icon(
+                      Icons.arrow_downward,
+                      color: Colors.grey[400],
+                      size: 20,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -505,7 +672,7 @@ Widget _buildEnumRow(Map<String, dynamic> r) {
   final description = r['description'] as String;
   final response = r['response'] as AppExitResponse;
   final color = response == AppExitResponse.exit ? Colors.green : Colors.orange;
-  
+
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 8.0),
     child: Row(
@@ -520,20 +687,32 @@ Widget _buildEnumRow(Map<String, dynamic> r) {
           child: Center(
             child: Text(
               name,
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white),
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
           ),
         ),
         SizedBox(width: 12),
         Expanded(
-          child: Text(description, style: TextStyle(fontSize: 12, color: Colors.grey[700])),
+          child: Text(
+            description,
+            style: TextStyle(fontSize: 12, color: Colors.grey[700]),
+          ),
         ),
       ],
     ),
   );
 }
 
-Widget _buildResponseCard(String name, String label, Color color, IconData icon) {
+Widget _buildResponseCard(
+  String name,
+  String label,
+  Color color,
+  IconData icon,
+) {
   return Container(
     padding: EdgeInsets.all(16),
     decoration: BoxDecoration(
@@ -544,7 +723,14 @@ Widget _buildResponseCard(String name, String label, Color color, IconData icon)
       children: [
         Icon(icon, color: color, size: 32),
         SizedBox(height: 8),
-        Text(name, style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: color)),
+        Text(
+          name,
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            color: color,
+          ),
+        ),
         Text(label, style: TextStyle(fontSize: 11, color: Colors.grey[600])),
       ],
     ),
@@ -576,7 +762,14 @@ Widget _buildFlowResult(String label, Color color) {
       color: color,
       borderRadius: BorderRadius.circular(16),
     ),
-    child: Text(label, style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Colors.white)),
+    child: Text(
+      label,
+      style: TextStyle(
+        fontSize: 11,
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+      ),
+    ),
   );
 }
 
@@ -591,13 +784,7 @@ Widget _buildSummaryStat(String label, String value) {
           color: Color(0xFF4DD0E1),
         ),
       ),
-      Text(
-        label,
-        style: TextStyle(
-          fontSize: 10.0,
-          color: Color(0xFF90A4AE),
-        ),
-      ),
+      Text(label, style: TextStyle(fontSize: 10.0, color: Color(0xFF90A4AE))),
     ],
   );
 }

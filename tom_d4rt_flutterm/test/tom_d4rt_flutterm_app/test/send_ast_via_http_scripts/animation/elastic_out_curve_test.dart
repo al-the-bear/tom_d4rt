@@ -7,21 +7,37 @@ import 'package:flutter/animation.dart';
 import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {
-  print('╔════════════════════════════════════════════════════════════════════╗');
-  print('║                 ELASTICOUTCURVE DEEP DEMO                         ║');
-  print('║          Spring-Like Overshoot Animation at End                   ║');
-  print('╚════════════════════════════════════════════════════════════════════╝');
+  print(
+    '╔════════════════════════════════════════════════════════════════════╗',
+  );
+  print(
+    '║                 ELASTICOUTCURVE DEEP DEMO                         ║',
+  );
+  print(
+    '║          Spring-Like Overshoot Animation at End                   ║',
+  );
+  print(
+    '╚════════════════════════════════════════════════════════════════════╝',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 1: ELASTICOUTCURVE FUNDAMENTALS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 1: ELASTICOUTCURVE FUNDAMENTALS                           │');
-  print('│ Understanding the spring overshoot animation curve                │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 1: ELASTICOUTCURVE FUNDAMENTALS                           │',
+  );
+  print(
+    '│ Understanding the spring overshoot animation curve                │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
-  
+
   print('ElasticOutCurve characteristics:');
   print('  • Starts fast (value rises quickly from 0)');
   print('  • Overshoots past 1.0 target');
@@ -39,118 +55,216 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 2: DEFAULT TRANSFORM BEHAVIOR
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 2: DEFAULT TRANSFORM BEHAVIOR                             │');
-  print('│ Transform values across the full parameter range                  │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 2: DEFAULT TRANSFORM BEHAVIOR                             │',
+  );
+  print(
+    '│ Transform values across the full parameter range                  │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
-  final tValues = <double>[0.0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0];
+  final tValues = <double>[
+    0.0,
+    0.05,
+    0.1,
+    0.15,
+    0.2,
+    0.25,
+    0.3,
+    0.35,
+    0.4,
+    0.45,
+    0.5,
+    0.55,
+    0.6,
+    0.65,
+    0.7,
+    0.75,
+    0.8,
+    0.85,
+    0.9,
+    0.95,
+    1.0,
+  ];
   final defaultResults = <Map<String, dynamic>>[];
-  
+
   print('Default ElasticOutCurve transform:');
-  print('┌─────────┬─────────────────┬────────────────────────────────────────┐');
-  print('│    t    │      value      │   visualization (above 1.0 = green)    │');
-  print('├─────────┼─────────────────┼────────────────────────────────────────┤');
-  
+  print(
+    '┌─────────┬─────────────────┬────────────────────────────────────────┐',
+  );
+  print(
+    '│    t    │      value      │   visualization (above 1.0 = green)    │',
+  );
+  print(
+    '├─────────┼─────────────────┼────────────────────────────────────────┤',
+  );
+
   for (final t in tValues) {
     final value = defaultCurve.transform(t);
     defaultResults.add({'t': t, 'value': value});
-    
+
     // Create a simple ASCII visualization
     final normalized = (value * 30).round().clamp(0, 40);
-    final bar = '│' + '=' * math.min(normalized, 30) + (value > 1.0 ? '+' * math.min((value - 1.0) * 100, 10).round() : '') + ' ' * math.max(0, 39 - normalized);
-    print('│  ${t.toStringAsFixed(2)}   │  ${value.toStringAsFixed(8).padLeft(12)}   │$bar│');
+    final bar =
+        '│' +
+        '=' * math.min(normalized, 30) +
+        (value > 1.0 ? '+' * math.min((value - 1.0) * 100, 10).round() : '') +
+        ' ' * math.max(0, 39 - normalized);
+    print(
+      '│  ${t.toStringAsFixed(2)}   │  ${value.toStringAsFixed(8).padLeft(12)}   │$bar│',
+    );
   }
-  print('└─────────┴─────────────────┴────────────────────────────────────────┘');
+  print(
+    '└─────────┴─────────────────┴────────────────────────────────────────┘',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 3: MIRROR RELATIONSHIP WITH ELASTICIN
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 3: MIRROR RELATIONSHIP WITH ELASTICIN                     │');
-  print('│ Verifying f_out(t) = 1 - f_in(1-t)                                │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 3: MIRROR RELATIONSHIP WITH ELASTICIN                     │',
+  );
+  print(
+    '│ Verifying f_out(t) = 1 - f_in(1-t)                                │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final elasticIn = ElasticInCurve();
   final mirrorResults = <Map<String, dynamic>>[];
-  
+
   print('Mirror relationship verification:');
-  print('┌─────────┬─────────────────┬─────────────────┬─────────────────┬──────────────┐');
-  print('│    t    │   f_out(t)      │   f_in(1-t)     │ 1 - f_in(1-t)   │   Diff       │');
-  print('├─────────┼─────────────────┼─────────────────┼─────────────────┼──────────────┤');
-  
+  print(
+    '┌─────────┬─────────────────┬─────────────────┬─────────────────┬──────────────┐',
+  );
+  print(
+    '│    t    │   f_out(t)      │   f_in(1-t)     │ 1 - f_in(1-t)   │   Diff       │',
+  );
+  print(
+    '├─────────┼─────────────────┼─────────────────┼─────────────────┼──────────────┤',
+  );
+
   for (final t in [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]) {
     final fOut = defaultCurve.transform(t);
     final fIn1t = elasticIn.transform(1.0 - t);
     final mirror = 1.0 - fIn1t;
     final diff = (fOut - mirror).abs();
     mirrorResults.add({'t': t, 'fOut': fOut, 'mirror': mirror, 'diff': diff});
-    print('│  ${t.toStringAsFixed(2)}   │  ${fOut.toStringAsFixed(8).padLeft(12)}   │  ${fIn1t.toStringAsFixed(8).padLeft(12)}   │  ${mirror.toStringAsFixed(8).padLeft(12)}   │  ${diff.toStringAsFixed(10).padLeft(10)}  │');
+    print(
+      '│  ${t.toStringAsFixed(2)}   │  ${fOut.toStringAsFixed(8).padLeft(12)}   │  ${fIn1t.toStringAsFixed(8).padLeft(12)}   │  ${mirror.toStringAsFixed(8).padLeft(12)}   │  ${diff.toStringAsFixed(10).padLeft(10)}  │',
+    );
   }
-  print('└─────────┴─────────────────┴─────────────────┴─────────────────┴──────────────┘');
+  print(
+    '└─────────┴─────────────────┴─────────────────┴─────────────────┴──────────────┘',
+  );
   print('');
-  
-  final mirrorError = mirrorResults.map((r) => r['diff'] as double).reduce(math.max);
+
+  final mirrorError = mirrorResults
+      .map((r) => r['diff'] as double)
+      .reduce(math.max);
   print('Maximum mirror error: ${mirrorError.toStringAsFixed(12)}');
-  print('${mirrorError < 1e-10 ? "✓ Perfect mirror relationship verified" : "⚠ Small numerical difference detected"}');
+  print(
+    '${mirrorError < 1e-10 ? "✓ Perfect mirror relationship verified" : "⚠ Small numerical difference detected"}',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 4: PERIOD VARIATIONS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 4: PERIOD VARIATIONS                                      │');
-  print('│ Effect of period parameter on overshoot behavior                  │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 4: PERIOD VARIATIONS                                      │',
+  );
+  print(
+    '│ Effect of period parameter on overshoot behavior                  │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final periods = <double>[0.1, 0.2, 0.4, 0.6, 0.8, 1.0];
   final periodCurves = <double, ElasticOutCurve>{};
   final periodResults = <Map<String, dynamic>>[];
-  
+
   for (final period in periods) {
     periodCurves[period] = ElasticOutCurve(period);
   }
-  
+
   print('Period comparison at key t values:');
-  print('┌─────────┬───────────┬───────────┬───────────┬───────────┬───────────┬───────────┐');
-  print('│    t    │  p=0.1    │  p=0.2    │  p=0.4    │  p=0.6    │  p=0.8    │  p=1.0    │');
-  print('├─────────┼───────────┼───────────┼───────────┼───────────┼───────────┼───────────┤');
-  
+  print(
+    '┌─────────┬───────────┬───────────┬───────────┬───────────┬───────────┬───────────┐',
+  );
+  print(
+    '│    t    │  p=0.1    │  p=0.2    │  p=0.4    │  p=0.6    │  p=0.8    │  p=1.0    │',
+  );
+  print(
+    '├─────────┼───────────┼───────────┼───────────┼───────────┼───────────┼───────────┤',
+  );
+
   for (final t in [0.0, 0.2, 0.4, 0.5, 0.6, 0.8, 1.0]) {
     final values = <double, double>{};
     for (final entry in periodCurves.entries) {
       values[entry.key] = entry.value.transform(t);
     }
     periodResults.add({'t': t, 'values': values});
-    print('│  ${t.toStringAsFixed(2)}   │ ${values[0.1]!.toStringAsFixed(4).padLeft(8)} │ ${values[0.2]!.toStringAsFixed(4).padLeft(8)} │ ${values[0.4]!.toStringAsFixed(4).padLeft(8)} │ ${values[0.6]!.toStringAsFixed(4).padLeft(8)} │ ${values[0.8]!.toStringAsFixed(4).padLeft(8)} │ ${values[1.0]!.toStringAsFixed(4).padLeft(8)} │');
+    print(
+      '│  ${t.toStringAsFixed(2)}   │ ${values[0.1]!.toStringAsFixed(4).padLeft(8)} │ ${values[0.2]!.toStringAsFixed(4).padLeft(8)} │ ${values[0.4]!.toStringAsFixed(4).padLeft(8)} │ ${values[0.6]!.toStringAsFixed(4).padLeft(8)} │ ${values[0.8]!.toStringAsFixed(4).padLeft(8)} │ ${values[1.0]!.toStringAsFixed(4).padLeft(8)} │',
+    );
   }
-  print('└─────────┴───────────┴───────────┴───────────┴───────────┴───────────┴───────────┘');
+  print(
+    '└─────────┴───────────┴───────────┴───────────┴───────────┴───────────┴───────────┘',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 5: OVERSHOOT ANALYSIS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 5: OVERSHOOT ANALYSIS                                     │');
-  print('│ Maximum overshoot for each period                                 │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 5: OVERSHOOT ANALYSIS                                     │',
+  );
+  print(
+    '│ Maximum overshoot for each period                                 │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final overshootAnalysis = <Map<String, dynamic>>[];
-  
+
   print('Maximum overshoot analysis:');
-  print('┌────────────┬──────────────────┬──────────────────┬──────────────────┐');
-  print('│   Period   │    Max Value     │  Overshoot (%)   │  Overshoot At t  │');
-  print('├────────────┼──────────────────┼──────────────────┼──────────────────┤');
-  
+  print(
+    '┌────────────┬──────────────────┬──────────────────┬──────────────────┐',
+  );
+  print(
+    '│   Period   │    Max Value     │  Overshoot (%)   │  Overshoot At t  │',
+  );
+  print(
+    '├────────────┼──────────────────┼──────────────────┼──────────────────┤',
+  );
+
   for (final period in periods) {
     double maxVal = 0.0;
     double maxT = 0.0;
-    
+
     for (var i = 0; i <= 200; i++) {
       final t = i / 200;
       final v = periodCurves[period]!.transform(t);
@@ -159,39 +273,58 @@ dynamic build(BuildContext context) {
         maxT = t;
       }
     }
-    
+
     final overshootPercent = (maxVal - 1.0) * 100;
-    overshootAnalysis.add({'period': period, 'max': maxVal, 'overshoot': overshootPercent, 'peakT': maxT});
-    print('│    ${period.toStringAsFixed(1)}     │  ${maxVal.toStringAsFixed(8).padLeft(14)}  │  ${overshootPercent.toStringAsFixed(4).padLeft(14)}  │  ${maxT.toStringAsFixed(3).padLeft(14)}  │');
+    overshootAnalysis.add({
+      'period': period,
+      'max': maxVal,
+      'overshoot': overshootPercent,
+      'peakT': maxT,
+    });
+    print(
+      '│    ${period.toStringAsFixed(1)}     │  ${maxVal.toStringAsFixed(8).padLeft(14)}  │  ${overshootPercent.toStringAsFixed(4).padLeft(14)}  │  ${maxT.toStringAsFixed(3).padLeft(14)}  │',
+    );
   }
-  print('└────────────┴──────────────────┴──────────────────┴──────────────────┘');
+  print(
+    '└────────────┴──────────────────┴──────────────────┴──────────────────┘',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 6: ELASTIC FAMILY COMPARISON
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 6: ELASTIC CURVE FAMILY COMPARISON                        │');
-  print('│ ElasticIn vs ElasticOut vs ElasticInOut                           │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 6: ELASTIC CURVE FAMILY COMPARISON                        │',
+  );
+  print(
+    '│ ElasticIn vs ElasticOut vs ElasticInOut                           │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final elasticOut = ElasticOutCurve();
   final elasticInOut = ElasticInOutCurve();
-  
+
   final familyResults = <Map<String, dynamic>>[];
-  
+
   print('Elastic curve family comparison:');
   print('┌─────────┬─────────────────┬─────────────────┬─────────────────┐');
   print('│    t    │   ElasticIn     │   ElasticOut    │  ElasticInOut   │');
   print('├─────────┼─────────────────┼─────────────────┼─────────────────┤');
-  
+
   for (final t in [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]) {
     final vIn = elasticIn.transform(t);
     final vOut = elasticOut.transform(t);
     final vInOut = elasticInOut.transform(t);
     familyResults.add({'t': t, 'in': vIn, 'out': vOut, 'inOut': vInOut});
-    print('│  ${t.toStringAsFixed(2)}   │  ${vIn.toStringAsFixed(8).padLeft(12)}   │  ${vOut.toStringAsFixed(8).padLeft(12)}   │  ${vInOut.toStringAsFixed(8).padLeft(12)}   │');
+    print(
+      '│  ${t.toStringAsFixed(2)}   │  ${vIn.toStringAsFixed(8).padLeft(12)}   │  ${vOut.toStringAsFixed(8).padLeft(12)}   │  ${vInOut.toStringAsFixed(8).padLeft(12)}   │',
+    );
   }
   print('└─────────┴─────────────────┴─────────────────┴─────────────────┘');
   print('');
@@ -206,10 +339,18 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 7: VELOCITY ANALYSIS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 7: VELOCITY ANALYSIS                                      │');
-  print('│ Rate of change at different points                                │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 7: VELOCITY ANALYSIS                                      │',
+  );
+  print(
+    '│ Rate of change at different points                                │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   double calculateDerivative(Curve curve, double t, double dt) {
@@ -219,27 +360,46 @@ dynamic build(BuildContext context) {
     if (actualDt == 0) return 0;
     return (curve.transform(high) - curve.transform(low)) / actualDt;
   }
-  
+
   final velocityResults = <Map<String, dynamic>>[];
-  
+
   print('Velocity (dy/dt) at key points:');
-  print('┌─────────┬─────────────────┬───────────────────────────────────────┐');
-  print('│    t    │   Velocity      │   Interpretation                      │');
-  print('├─────────┼─────────────────┼───────────────────────────────────────┤');
-  
+  print(
+    '┌─────────┬─────────────────┬───────────────────────────────────────┐',
+  );
+  print(
+    '│    t    │   Velocity      │   Interpretation                      │',
+  );
+  print(
+    '├─────────┼─────────────────┼───────────────────────────────────────┤',
+  );
+
   for (final t in [0.05, 0.15, 0.3, 0.5, 0.7, 0.9]) {
     final velocity = calculateDerivative(defaultCurve, t, 0.01);
     String interpretation;
-    if (velocity > 5.0) interpretation = 'Very fast start';
-    else if (velocity > 2.0) interpretation = 'Fast motion';
-    else if (velocity > 0.5) interpretation = 'Moderate speed';
-    else if (velocity > 0) interpretation = 'Settling';
-    else interpretation = 'Moving backward (bounce)';
-    
-    velocityResults.add({'t': t, 'velocity': velocity, 'interpretation': interpretation});
-    print('│  ${t.toStringAsFixed(2)}   │  ${velocity.toStringAsFixed(8).padLeft(12)}   │ ${interpretation.padRight(37)} │');
+    if (velocity > 5.0)
+      interpretation = 'Very fast start';
+    else if (velocity > 2.0)
+      interpretation = 'Fast motion';
+    else if (velocity > 0.5)
+      interpretation = 'Moderate speed';
+    else if (velocity > 0)
+      interpretation = 'Settling';
+    else
+      interpretation = 'Moving backward (bounce)';
+
+    velocityResults.add({
+      't': t,
+      'velocity': velocity,
+      'interpretation': interpretation,
+    });
+    print(
+      '│  ${t.toStringAsFixed(2)}   │  ${velocity.toStringAsFixed(8).padLeft(12)}   │ ${interpretation.padRight(37)} │',
+    );
   }
-  print('└─────────┴─────────────────┴───────────────────────────────────────┘');
+  print(
+    '└─────────┴─────────────────┴───────────────────────────────────────┘',
+  );
   print('');
 
   // Peak velocity at start
@@ -251,33 +411,61 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 8: SETTLING BEHAVIOR
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 8: SETTLING BEHAVIOR                                      │');
-  print('│ How the curve settles to 1.0                                      │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 8: SETTLING BEHAVIOR                                      │',
+  );
+  print(
+    '│ How the curve settles to 1.0                                      │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final settlingResults = <Map<String, dynamic>>[];
-  
+
   print('Deviation from target (1.0) over time:');
-  print('┌─────────┬─────────────────┬─────────────────┬─────────────────────┐');
-  print('│    t    │      Value      │   Deviation     │  Status             │');
-  print('├─────────┼─────────────────┼─────────────────┼─────────────────────┤');
-  
+  print(
+    '┌─────────┬─────────────────┬─────────────────┬─────────────────────┐',
+  );
+  print(
+    '│    t    │      Value      │   Deviation     │  Status             │',
+  );
+  print(
+    '├─────────┼─────────────────┼─────────────────┼─────────────────────┤',
+  );
+
   for (final t in [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]) {
     final value = defaultCurve.transform(t);
     final deviation = value - 1.0;
     String status;
-    if (deviation > 0.05) status = 'Significant overshoot';
-    else if (deviation > 0.01) status = 'Minor overshoot';
-    else if (deviation > 0) status = 'Slight overshoot';
-    else if (deviation > -0.01) status = 'At target';
-    else status = 'Undershoot';
-    
-    settlingResults.add({'t': t, 'value': value, 'deviation': deviation, 'status': status});
-    print('│  ${t.toStringAsFixed(2)}   │  ${value.toStringAsFixed(8).padLeft(12)}   │  ${deviation.toStringAsFixed(8).padLeft(12)}   │ ${status.padRight(19)} │');
+    if (deviation > 0.05)
+      status = 'Significant overshoot';
+    else if (deviation > 0.01)
+      status = 'Minor overshoot';
+    else if (deviation > 0)
+      status = 'Slight overshoot';
+    else if (deviation > -0.01)
+      status = 'At target';
+    else
+      status = 'Undershoot';
+
+    settlingResults.add({
+      't': t,
+      'value': value,
+      'deviation': deviation,
+      'status': status,
+    });
+    print(
+      '│  ${t.toStringAsFixed(2)}   │  ${value.toStringAsFixed(8).padLeft(12)}   │  ${deviation.toStringAsFixed(8).padLeft(12)}   │ ${status.padRight(19)} │',
+    );
   }
-  print('└─────────┴─────────────────┴─────────────────┴─────────────────────┘');
+  print(
+    '└─────────┴─────────────────┴─────────────────┴─────────────────────┘',
+  );
   print('');
 
   // One crossings
@@ -287,22 +475,33 @@ dynamic build(BuildContext context) {
   for (var i = 1; i <= 200; i++) {
     final t = i / 200;
     final value = defaultCurve.transform(t);
-    if ((prevValue < 1.0 && value >= 1.0) || (prevValue >= 1.0 && value < 1.0)) {
+    if ((prevValue < 1.0 && value >= 1.0) ||
+        (prevValue >= 1.0 && value < 1.0)) {
       oneCrossings.add(t);
     }
     prevValue = value;
   }
   print('  Number of 1.0 crossings: ${oneCrossings.length}');
-  print('  Crossing points: t ≈ ${oneCrossings.map((t) => t.toStringAsFixed(2)).join(', ')}');
+  print(
+    '  Crossing points: t ≈ ${oneCrossings.map((t) => t.toStringAsFixed(2)).join(', ')}',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 9: ANIMATION EXAMPLES
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 9: ANIMATION EXAMPLES                                     │');
-  print('│ Practical applications of ElasticOutCurve                         │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 9: ANIMATION EXAMPLES                                     │',
+  );
+  print(
+    '│ Practical applications of ElasticOutCurve                         │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   // Slide in animation
@@ -312,9 +511,13 @@ dynamic build(BuildContext context) {
     final curveValue = defaultCurve.transform(t);
     final position = -100 + curveValue * 100;
     slideResults.add({'t': t, 'curveValue': curveValue, 'position': position});
-    print('  t=${t.toStringAsFixed(2)}: curve=${curveValue.toStringAsFixed(4)} → position=${position.toStringAsFixed(1)}px');
+    print(
+      '  t=${t.toStringAsFixed(2)}: curve=${curveValue.toStringAsFixed(4)} → position=${position.toStringAsFixed(1)}px',
+    );
   }
-  print('  Note: Positive values mean overshoot past 0 (slight visible bounce)');
+  print(
+    '  Note: Positive values mean overshoot past 0 (slight visible bounce)',
+  );
   print('');
 
   // Scale up with bounce
@@ -335,33 +538,53 @@ dynamic build(BuildContext context) {
     final curveValue = defaultCurve.transform(t);
     final opacity = curveValue.clamp(0.0, 1.0);
     fadeResults.add({'t': t, 'raw': curveValue, 'opacity': opacity});
-    print('  t=${t.toStringAsFixed(2)}: raw=${curveValue.toStringAsFixed(4)} → clamped=${opacity.toStringAsFixed(3)}');
+    print(
+      '  t=${t.toStringAsFixed(2)}: raw=${curveValue.toStringAsFixed(4)} → clamped=${opacity.toStringAsFixed(3)}',
+    );
   }
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 10: COMPARISON WITH CURVES.ELASTICOUT
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 10: CURVES.ELASTICOUT COMPARISON                          │');
-  print('│ Verifying equivalence with predefined constant                    │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 10: CURVES.ELASTICOUT COMPARISON                          │',
+  );
+  print(
+    '│ Verifying equivalence with predefined constant                    │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final curvesElasticOut = Curves.elasticOut;
-  
+
   print('Comparison with Curves.elasticOut:');
-  print('┌─────────┬─────────────────────┬─────────────────────┬────────────────┐');
-  print('│    t    │  ElasticOutCurve()  │   Curves.elasticOut │   Difference   │');
-  print('├─────────┼─────────────────────┼─────────────────────┼────────────────┤');
-  
+  print(
+    '┌─────────┬─────────────────────┬─────────────────────┬────────────────┐',
+  );
+  print(
+    '│    t    │  ElasticOutCurve()  │   Curves.elasticOut │   Difference   │',
+  );
+  print(
+    '├─────────┼─────────────────────┼─────────────────────┼────────────────┤',
+  );
+
   for (final t in [0.0, 0.25, 0.5, 0.75, 1.0]) {
     final v1 = defaultCurve.transform(t);
     final v2 = curvesElasticOut.transform(t);
     final diff = (v1 - v2).abs();
-    print('│  ${t.toStringAsFixed(2)}   │  ${v1.toStringAsFixed(12).padLeft(17)}  │  ${v2.toStringAsFixed(12).padLeft(17)}  │  ${diff.toStringAsFixed(12).padLeft(12)}  │');
+    print(
+      '│  ${t.toStringAsFixed(2)}   │  ${v1.toStringAsFixed(12).padLeft(17)}  │  ${v2.toStringAsFixed(12).padLeft(17)}  │  ${diff.toStringAsFixed(12).padLeft(12)}  │',
+    );
   }
-  print('└─────────┴─────────────────────┴─────────────────────┴────────────────┘');
+  print(
+    '└─────────┴─────────────────────┴─────────────────────┴────────────────┘',
+  );
   print('');
   print('✓ ElasticOutCurve() is equivalent to Curves.elasticOut');
   print('');
@@ -369,9 +592,15 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SUMMARY
   // ═══════════════════════════════════════════════════════════════════════════
-  print('╔════════════════════════════════════════════════════════════════════╗');
-  print('║                  ELASTICOUTCURVE SUMMARY                          ║');
-  print('╚════════════════════════════════════════════════════════════════════╝');
+  print(
+    '╔════════════════════════════════════════════════════════════════════╗',
+  );
+  print(
+    '║                  ELASTICOUTCURVE SUMMARY                          ║',
+  );
+  print(
+    '╚════════════════════════════════════════════════════════════════════╝',
+  );
   print('');
   print('ElasticOutCurve key features:');
   print('  • Fast start - high velocity at beginning');
@@ -425,10 +654,7 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 8.0),
                 Text(
                   'Spring Overshoot Animation',
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    color: Color(0xFFB2DFDB),
-                  ),
+                  style: TextStyle(fontSize: 16.0, color: Color(0xFFB2DFDB)),
                 ),
               ],
             ),
@@ -455,27 +681,60 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 SizedBox(height: 12.0),
-                ...mirrorResults.map((r) => Padding(
-                  padding: EdgeInsets.symmetric(vertical: 2.0),
-                  child: Row(
-                    children: [
-                      Container(width: 50, child: Text('t=${(r['t'] as double).toStringAsFixed(1)}', style: TextStyle(fontSize: 11))),
-                      Expanded(child: Text('out=${(r['fOut'] as double).toStringAsFixed(4)}', style: TextStyle(fontSize: 11, fontFamily: 'monospace'))),
-                      Expanded(child: Text('mirror=${(r['mirror'] as double).toStringAsFixed(4)}', style: TextStyle(fontSize: 11, fontFamily: 'monospace'))),
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                        decoration: BoxDecoration(
-                          color: (r['diff'] as double) < 0.0001 ? Color(0xFF4CAF50) : Color(0xFFFF5722),
-                          borderRadius: BorderRadius.circular(4),
+                ...mirrorResults.map(
+                  (r) => Padding(
+                    padding: EdgeInsets.symmetric(vertical: 2.0),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 50,
+                          child: Text(
+                            't=${(r['t'] as double).toStringAsFixed(1)}',
+                            style: TextStyle(fontSize: 11),
+                          ),
                         ),
-                        child: Text(
-                          'Δ=${(r['diff'] as double).toStringAsFixed(6)}',
-                          style: TextStyle(fontSize: 10, color: Color(0xFFFFFFFF), fontWeight: FontWeight.bold),
+                        Expanded(
+                          child: Text(
+                            'out=${(r['fOut'] as double).toStringAsFixed(4)}',
+                            style: TextStyle(
+                              fontSize: 11,
+                              fontFamily: 'monospace',
+                            ),
+                          ),
                         ),
-                      ),
-                    ],
+                        Expanded(
+                          child: Text(
+                            'mirror=${(r['mirror'] as double).toStringAsFixed(4)}',
+                            style: TextStyle(
+                              fontSize: 11,
+                              fontFamily: 'monospace',
+                            ),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 6,
+                            vertical: 2,
+                          ),
+                          decoration: BoxDecoration(
+                            color: (r['diff'] as double) < 0.0001
+                                ? Color(0xFF4CAF50)
+                                : Color(0xFFFF5722),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: Text(
+                            'Δ=${(r['diff'] as double).toStringAsFixed(6)}',
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: Color(0xFFFFFFFF),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                )),
+                ),
               ],
             ),
           ),
@@ -507,35 +766,76 @@ dynamic build(BuildContext context) {
                   ],
                 ),
                 SizedBox(height: 12.0),
-                ...overshootAnalysis.take(4).map((r) => Padding(
-                  padding: EdgeInsets.symmetric(vertical: 2.0),
-                  child: Row(
-                    children: [
-                      Container(width: 60, child: Text('p=${(r['period'] as double).toStringAsFixed(1)}', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500))),
-                      Expanded(
+                ...overshootAnalysis
+                    .take(4)
+                    .map(
+                      (r) => Padding(
+                        padding: EdgeInsets.symmetric(vertical: 2.0),
                         child: Row(
                           children: [
                             Container(
-                              padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                              decoration: BoxDecoration(color: Color(0xFFEF5350), borderRadius: BorderRadius.circular(4)),
-                              child: Text('Max: ${(r['max'] as double).toStringAsFixed(3)}', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 10)),
+                              width: 60,
+                              child: Text(
+                                'p=${(r['period'] as double).toStringAsFixed(1)}',
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
                             ),
-                            SizedBox(width: 8),
-                            Container(
-                              padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                              decoration: BoxDecoration(color: Color(0xFFFF7043), borderRadius: BorderRadius.circular(4)),
-                              child: Text('+${(r['overshoot'] as double).toStringAsFixed(1)}%', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 10)),
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 6,
+                                      vertical: 2,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFFEF5350),
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                    child: Text(
+                                      'Max: ${(r['max'] as double).toStringAsFixed(3)}',
+                                      style: TextStyle(
+                                        color: Color(0xFFFFFFFF),
+                                        fontSize: 10,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(width: 8),
+                                  Container(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 6,
+                                      vertical: 2,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFFFF7043),
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                    child: Text(
+                                      '+${(r['overshoot'] as double).toStringAsFixed(1)}%',
+                                      style: TextStyle(
+                                        color: Color(0xFFFFFFFF),
+                                        fontSize: 10,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
                       ),
-                    ],
-                  ),
-                )),
+                    ),
                 SizedBox(height: 8),
                 Text(
                   'Values exceed 1.0 during animation!',
-                  style: TextStyle(fontSize: 11, color: Color(0xFF795548), fontStyle: FontStyle.italic),
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: Color(0xFF795548),
+                    fontStyle: FontStyle.italic,
+                  ),
                 ),
               ],
             ),
@@ -563,10 +863,17 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 SizedBox(height: 12.0),
-                ...defaultResults.where((r) => [0.0, 0.2, 0.4, 0.5, 0.6, 0.8, 1.0].contains(r['t'])).map((r) => _buildValueRow(
-                  't=${(r['t'] as double).toStringAsFixed(2)}',
-                  r['value'] as double,
-                )),
+                ...defaultResults
+                    .where(
+                      (r) =>
+                          [0.0, 0.2, 0.4, 0.5, 0.6, 0.8, 1.0].contains(r['t']),
+                    )
+                    .map(
+                      (r) => _buildValueRow(
+                        't=${(r['t'] as double).toStringAsFixed(2)}',
+                        r['value'] as double,
+                      ),
+                    ),
               ],
             ),
           ),
@@ -595,15 +902,31 @@ dynamic build(BuildContext context) {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    _buildFamilyCard('ElasticIn', elasticIn.transform(0.3), Color(0xFF7B1FA2)),
-                    _buildFamilyCard('ElasticOut', elasticOut.transform(0.3), Color(0xFF00897B)),
-                    _buildFamilyCard('ElasticInOut', elasticInOut.transform(0.3), Color(0xFF1565C0)),
+                    _buildFamilyCard(
+                      'ElasticIn',
+                      elasticIn.transform(0.3),
+                      Color(0xFF7B1FA2),
+                    ),
+                    _buildFamilyCard(
+                      'ElasticOut',
+                      elasticOut.transform(0.3),
+                      Color(0xFF00897B),
+                    ),
+                    _buildFamilyCard(
+                      'ElasticInOut',
+                      elasticInOut.transform(0.3),
+                      Color(0xFF1565C0),
+                    ),
                   ],
                 ),
                 SizedBox(height: 8),
                 Text(
                   'ElasticOut is ahead - it starts fast and settles slowly',
-                  style: TextStyle(fontSize: 10, fontStyle: FontStyle.italic, color: Color(0xFF5C6BC0)),
+                  style: TextStyle(
+                    fontSize: 10,
+                    fontStyle: FontStyle.italic,
+                    color: Color(0xFF5C6BC0),
+                  ),
                 ),
               ],
             ),
@@ -635,11 +958,15 @@ dynamic build(BuildContext context) {
                   style: TextStyle(fontSize: 11, color: Color(0xFF795548)),
                 ),
                 SizedBox(height: 12.0),
-                ...velocityResults.take(4).map((r) => _buildVelocityRow(
-                  't=${(r['t'] as double).toStringAsFixed(2)}',
-                  r['velocity'] as double,
-                  r['interpretation'] as String,
-                )),
+                ...velocityResults
+                    .take(4)
+                    .map(
+                      (r) => _buildVelocityRow(
+                        't=${(r['t'] as double).toStringAsFixed(2)}',
+                        r['velocity'] as double,
+                        r['interpretation'] as String,
+                      ),
+                    ),
               ],
             ),
           ),
@@ -665,23 +992,40 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 SizedBox(height: 12.0),
-                ...settlingResults.where((r) => [0.4, 0.6, 0.8, 1.0].contains(r['t'])).map((r) => Padding(
-                  padding: EdgeInsets.symmetric(vertical: 2.0),
-                  child: Row(
-                    children: [
-                      Container(width: 50, child: Text('t=${(r['t'] as double).toStringAsFixed(1)}', style: TextStyle(fontSize: 11))),
-                      Expanded(child: Text('${r['status']}', style: TextStyle(fontSize: 11))),
-                      Text(
-                        'dev: ${(r['deviation'] as double) >= 0 ? '+' : ''}${(r['deviation'] as double).toStringAsFixed(4)}',
-                        style: TextStyle(
-                          fontSize: 10, 
-                          fontFamily: 'monospace',
-                          color: (r['deviation'] as double).abs() < 0.01 ? Color(0xFF4CAF50) : Color(0xFFFF9800),
+                ...settlingResults
+                    .where((r) => [0.4, 0.6, 0.8, 1.0].contains(r['t']))
+                    .map(
+                      (r) => Padding(
+                        padding: EdgeInsets.symmetric(vertical: 2.0),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 50,
+                              child: Text(
+                                't=${(r['t'] as double).toStringAsFixed(1)}',
+                                style: TextStyle(fontSize: 11),
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                '${r['status']}',
+                                style: TextStyle(fontSize: 11),
+                              ),
+                            ),
+                            Text(
+                              'dev: ${(r['deviation'] as double) >= 0 ? '+' : ''}${(r['deviation'] as double).toStringAsFixed(4)}',
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontFamily: 'monospace',
+                                color: (r['deviation'] as double).abs() < 0.01
+                                    ? Color(0xFF4CAF50)
+                                    : Color(0xFFFF9800),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                )),
+                    ),
                 SizedBox(height: 8),
                 Text(
                   '1.0 crossings: ${oneCrossings.length} at t ≈ ${oneCrossings.map((t) => t.toStringAsFixed(2)).join(", ")}',
@@ -712,9 +1056,18 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 SizedBox(height: 12.0),
-                _buildAnimExample('Slide in (-100→0)', '${slideResults.last['position']!.toStringAsFixed(1)}px'),
-                _buildAnimExample('Scale up (0→1)', '${scaleResults.last['scale']!.toStringAsFixed(3)}x'),
-                _buildAnimExample('Fade in (clamped)', fadeResults.last['opacity']!.toStringAsFixed(3)),
+                _buildAnimExample(
+                  'Slide in (-100→0)',
+                  '${slideResults.last['position']!.toStringAsFixed(1)}px',
+                ),
+                _buildAnimExample(
+                  'Scale up (0→1)',
+                  '${scaleResults.last['scale']!.toStringAsFixed(3)}x',
+                ),
+                _buildAnimExample(
+                  'Fade in (clamped)',
+                  fadeResults.last['opacity']!.toStringAsFixed(3),
+                ),
               ],
             ),
           ),
@@ -745,9 +1098,18 @@ dynamic build(BuildContext context) {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('t=0 (fast start)', style: TextStyle(fontSize: 10, color: Color(0xFF00897B))),
-                    Text('overshoot zone', style: TextStyle(fontSize: 10, color: Color(0xFFEF5350))),
-                    Text('t=1 (settled)', style: TextStyle(fontSize: 10, color: Color(0xFF4CAF50))),
+                    Text(
+                      't=0 (fast start)',
+                      style: TextStyle(fontSize: 10, color: Color(0xFF00897B)),
+                    ),
+                    Text(
+                      'overshoot zone',
+                      style: TextStyle(fontSize: 10, color: Color(0xFFEF5350)),
+                    ),
+                    Text(
+                      't=1 (settled)',
+                      style: TextStyle(fontSize: 10, color: Color(0xFF4CAF50)),
+                    ),
                   ],
                 ),
               ],
@@ -812,16 +1174,28 @@ dynamic build(BuildContext context) {
                   children: [
                     _buildSummaryStat('Test Points', '${tValues.length}'),
                     _buildSummaryStat('Period Tests', '${periods.length}'),
-                    _buildSummaryStat('1.0 Crossings', '${oneCrossings.length}'),
+                    _buildSummaryStat(
+                      '1.0 Crossings',
+                      '${oneCrossings.length}',
+                    ),
                   ],
                 ),
                 SizedBox(height: 12.0),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    _buildSummaryStat('Max Value', overshootAnalysis.first['max'].toStringAsFixed(3)),
-                    _buildSummaryStat('Peak Overshoot', '+${overshootAnalysis.first['overshoot'].toStringAsFixed(1)}%'),
-                    _buildSummaryStat('Init Velocity', peakVelocity.toStringAsFixed(1)),
+                    _buildSummaryStat(
+                      'Max Value',
+                      overshootAnalysis.first['max'].toStringAsFixed(3),
+                    ),
+                    _buildSummaryStat(
+                      'Peak Overshoot',
+                      '+${overshootAnalysis.first['overshoot'].toStringAsFixed(1)}%',
+                    ),
+                    _buildSummaryStat(
+                      'Init Velocity',
+                      peakVelocity.toStringAsFixed(1),
+                    ),
                   ],
                 ),
               ],
@@ -849,12 +1223,18 @@ dynamic build(BuildContext context) {
 Widget _buildValueRow(String label, double value) {
   final isOvershoot = value > 1.0;
   final normalized = (value / 1.2).clamp(0.0, 1.0);
-  
+
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(width: 60, child: Text(label, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500))),
+        Container(
+          width: 60,
+          child: Text(
+            label,
+            style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500),
+          ),
+        ),
         Expanded(
           child: Container(
             height: 18,
@@ -865,7 +1245,14 @@ Widget _buildValueRow(String label, double value) {
             child: Stack(
               children: [
                 // 1.0 marker
-                Positioned(left: 1.0 / 1.2 * 200, child: Container(width: 1, height: 18, color: Color(0xFF4CAF50))),
+                Positioned(
+                  left: 1.0 / 1.2 * 200,
+                  child: Container(
+                    width: 1,
+                    height: 18,
+                    color: Color(0xFF4CAF50),
+                  ),
+                ),
                 // Value bar
                 Positioned(
                   left: 0,
@@ -873,7 +1260,9 @@ Widget _buildValueRow(String label, double value) {
                     width: normalized * 200,
                     height: 18,
                     decoration: BoxDecoration(
-                      color: isOvershoot ? Color(0xFFEF5350) : Color(0xFF00897B),
+                      color: isOvershoot
+                          ? Color(0xFFEF5350)
+                          : Color(0xFF00897B),
                       borderRadius: BorderRadius.circular(4),
                     ),
                   ),
@@ -909,9 +1298,23 @@ Widget _buildFamilyCard(String name, double value, Color color) {
     ),
     child: Column(
       children: [
-        Text(name, style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: color)),
+        Text(
+          name,
+          style: TextStyle(
+            fontSize: 10,
+            fontWeight: FontWeight.bold,
+            color: color,
+          ),
+        ),
         SizedBox(height: 4),
-        Text(value.toStringAsFixed(4), style: TextStyle(fontSize: 12, fontFamily: 'monospace', fontWeight: FontWeight.bold)),
+        Text(
+          value.toStringAsFixed(4),
+          style: TextStyle(
+            fontSize: 12,
+            fontFamily: 'monospace',
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ],
     ),
   );
@@ -920,12 +1323,18 @@ Widget _buildFamilyCard(String name, double value, Color color) {
 Widget _buildVelocityRow(String label, double velocity, String interpretation) {
   final normalizedVelocity = (velocity.abs() / 10).clamp(0.0, 1.0);
   final isNegative = velocity < 0;
-  
+
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(width: 50, child: Text(label, style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500))),
+        Container(
+          width: 50,
+          child: Text(
+            label,
+            style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
+          ),
+        ),
         Expanded(
           child: Container(
             height: 14,
@@ -948,7 +1357,10 @@ Widget _buildVelocityRow(String label, double velocity, String interpretation) {
         Container(
           width: 100,
           alignment: Alignment.centerRight,
-          child: Text(interpretation, style: TextStyle(fontSize: 9, color: Color(0xFF795548))),
+          child: Text(
+            interpretation,
+            style: TextStyle(fontSize: 9, color: Color(0xFF795548)),
+          ),
         ),
       ],
     ),
@@ -963,7 +1375,14 @@ Widget _buildAnimExample(String title, String value) {
         Icon(Icons.play_circle_outline, size: 16, color: Color(0xFF2E7D32)),
         SizedBox(width: 8),
         Expanded(child: Text(title, style: TextStyle(fontSize: 12))),
-        Text('Final: $value', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Color(0xFF2E7D32))),
+        Text(
+          'Final: $value',
+          style: TextStyle(
+            fontSize: 11,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF2E7D32),
+          ),
+        ),
       ],
     ),
   );
@@ -979,7 +1398,7 @@ Widget _buildCurveVisualization(Curve curve) {
         final value = curve.transform(t);
         final normalizedHeight = (value / 1.15 * 70).clamp(0.0, 80.0);
         final isOvershoot = value > 1.0;
-        
+
         return Expanded(
           child: Container(
             height: normalizedHeight,
@@ -1001,12 +1420,28 @@ Widget _buildKeyPoint(String title, String description) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('• ', style: TextStyle(color: Color(0xFF80CBC4), fontWeight: FontWeight.bold)),
+        Text(
+          '• ',
+          style: TextStyle(
+            color: Color(0xFF80CBC4),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title, style: TextStyle(color: Color(0xFFB2DFDB), fontWeight: FontWeight.bold, fontSize: 12)),
-            Text(description, style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 11)),
+            Text(
+              title,
+              style: TextStyle(
+                color: Color(0xFFB2DFDB),
+                fontWeight: FontWeight.bold,
+                fontSize: 12,
+              ),
+            ),
+            Text(
+              description,
+              style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 11),
+            ),
           ],
         ),
       ],
@@ -1025,13 +1460,7 @@ Widget _buildSummaryStat(String label, String value) {
           color: Color(0xFF4DD0E1),
         ),
       ),
-      Text(
-        label,
-        style: TextStyle(
-          fontSize: 9.0,
-          color: Color(0xFF90A4AE),
-        ),
-      ),
+      Text(label, style: TextStyle(fontSize: 9.0, color: Color(0xFF90A4AE))),
     ],
   );
 }

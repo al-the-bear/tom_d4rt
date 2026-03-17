@@ -7,21 +7,37 @@ import 'package:flutter/animation.dart';
 import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {
-  print('╔════════════════════════════════════════════════════════════════════╗');
-  print('║               ELASTICINOUTCURVE DEEP DEMO                         ║');
-  print('║        Spring-Like Animation at Both Boundaries                   ║');
-  print('╚════════════════════════════════════════════════════════════════════╝');
+  print(
+    '╔════════════════════════════════════════════════════════════════════╗',
+  );
+  print(
+    '║               ELASTICINOUTCURVE DEEP DEMO                         ║',
+  );
+  print(
+    '║        Spring-Like Animation at Both Boundaries                   ║',
+  );
+  print(
+    '╚════════════════════════════════════════════════════════════════════╝',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 1: ELASTICINOUTCURVE FUNDAMENTALS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 1: ELASTICINOUTCURVE FUNDAMENTALS                         │');
-  print('│ Understanding the symmetric elastic animation curve               │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 1: ELASTICINOUTCURVE FUNDAMENTALS                         │',
+  );
+  print(
+    '│ Understanding the symmetric elastic animation curve               │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
-  
+
   print('ElasticInOutCurve characteristics:');
   print('  • Combines ElasticIn and ElasticOut behavior');
   print('  • Oscillates below zero at start (pull-back)');
@@ -39,156 +55,265 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 2: DEFAULT TRANSFORM BEHAVIOR
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 2: DEFAULT TRANSFORM BEHAVIOR                             │');
-  print('│ Transform values across the full parameter range                  │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 2: DEFAULT TRANSFORM BEHAVIOR                             │',
+  );
+  print(
+    '│ Transform values across the full parameter range                  │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
-  final tValues = <double>[0.0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0];
+  final tValues = <double>[
+    0.0,
+    0.05,
+    0.1,
+    0.15,
+    0.2,
+    0.25,
+    0.3,
+    0.35,
+    0.4,
+    0.45,
+    0.5,
+    0.55,
+    0.6,
+    0.65,
+    0.7,
+    0.75,
+    0.8,
+    0.85,
+    0.9,
+    0.95,
+    1.0,
+  ];
   final defaultResults = <Map<String, dynamic>>[];
-  
+
   print('Default ElasticInOutCurve transform:');
-  print('┌─────────┬─────────────────┬────────────────────────────────────────┐');
-  print('│    t    │      value      │   visualization                        │');
-  print('├─────────┼─────────────────┼────────────────────────────────────────┤');
-  
+  print(
+    '┌─────────┬─────────────────┬────────────────────────────────────────┐',
+  );
+  print(
+    '│    t    │      value      │   visualization                        │',
+  );
+  print(
+    '├─────────┼─────────────────┼────────────────────────────────────────┤',
+  );
+
   for (final t in tValues) {
     final value = defaultCurve.transform(t);
     defaultResults.add({'t': t, 'value': value});
-    
+
     // Create a simple ASCII visualization
     final normalized = ((value + 0.2) * 25).round().clamp(0, 40);
-    final bar = '│' + ' ' * math.max(0, normalized - 1) + '*' + ' ' * math.max(0, 39 - normalized);
-    print('│  ${t.toStringAsFixed(2)}   │  ${value.toStringAsFixed(8).padLeft(12)}   │$bar│');
+    final bar =
+        '│' +
+        ' ' * math.max(0, normalized - 1) +
+        '*' +
+        ' ' * math.max(0, 39 - normalized);
+    print(
+      '│  ${t.toStringAsFixed(2)}   │  ${value.toStringAsFixed(8).padLeft(12)}   │$bar│',
+    );
   }
-  print('└─────────┴─────────────────┴────────────────────────────────────────┘');
+  print(
+    '└─────────┴─────────────────┴────────────────────────────────────────┘',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 3: SYMMETRY VERIFICATION
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 3: SYMMETRY VERIFICATION                                  │');
-  print('│ Verifying f(t) + f(1-t) = 1.0                                     │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 3: SYMMETRY VERIFICATION                                  │',
+  );
+  print(
+    '│ Verifying f(t) + f(1-t) = 1.0                                     │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final symmetryResults = <Map<String, dynamic>>[];
-  
+
   print('Point symmetry check (should sum to 1.0):');
   print('┌─────────┬─────────────────┬─────────────────┬──────────────────┐');
   print('│    t    │      f(t)       │     f(1-t)      │       Sum        │');
   print('├─────────┼─────────────────┼─────────────────┼──────────────────┤');
-  
+
   for (final t in [0.0, 0.1, 0.2, 0.3, 0.4, 0.5]) {
     final ft = defaultCurve.transform(t);
     final f1t = defaultCurve.transform(1.0 - t);
     final sum = ft + f1t;
     symmetryResults.add({'t': t, 'ft': ft, 'f1t': f1t, 'sum': sum});
-    print('│  ${t.toStringAsFixed(2)}   │  ${ft.toStringAsFixed(8).padLeft(12)}   │  ${f1t.toStringAsFixed(8).padLeft(12)}   │  ${sum.toStringAsFixed(8).padLeft(13)}   │');
+    print(
+      '│  ${t.toStringAsFixed(2)}   │  ${ft.toStringAsFixed(8).padLeft(12)}   │  ${f1t.toStringAsFixed(8).padLeft(12)}   │  ${sum.toStringAsFixed(8).padLeft(13)}   │',
+    );
   }
   print('└─────────┴─────────────────┴─────────────────┴──────────────────┘');
   print('');
-  
-  final symmetryError = symmetryResults.map((r) => ((r['sum'] as double) - 1.0).abs()).reduce(math.max);
+
+  final symmetryError = symmetryResults
+      .map((r) => ((r['sum'] as double) - 1.0).abs())
+      .reduce(math.max);
   print('Maximum symmetry error: ${symmetryError.toStringAsFixed(12)}');
-  print('${symmetryError < 1e-10 ? "✓ Perfect symmetry verified" : "⚠ Slight asymmetry detected"}');
+  print(
+    '${symmetryError < 1e-10 ? "✓ Perfect symmetry verified" : "⚠ Slight asymmetry detected"}',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 4: PERIOD VARIATIONS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 4: PERIOD VARIATIONS                                      │');
-  print('│ Effect of period parameter on oscillation                         │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 4: PERIOD VARIATIONS                                      │',
+  );
+  print(
+    '│ Effect of period parameter on oscillation                         │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final periods = <double>[0.1, 0.2, 0.4, 0.6, 0.8, 1.0];
   final periodCurves = <double, ElasticInOutCurve>{};
   final periodResults = <Map<String, dynamic>>[];
-  
+
   for (final period in periods) {
     periodCurves[period] = ElasticInOutCurve(period);
   }
-  
+
   print('Period comparison at key t values:');
-  print('┌─────────┬───────────┬───────────┬───────────┬───────────┬───────────┬───────────┐');
-  print('│    t    │  p=0.1    │  p=0.2    │  p=0.4    │  p=0.6    │  p=0.8    │  p=1.0    │');
-  print('├─────────┼───────────┼───────────┼───────────┼───────────┼───────────┼───────────┤');
-  
+  print(
+    '┌─────────┬───────────┬───────────┬───────────┬───────────┬───────────┬───────────┐',
+  );
+  print(
+    '│    t    │  p=0.1    │  p=0.2    │  p=0.4    │  p=0.6    │  p=0.8    │  p=1.0    │',
+  );
+  print(
+    '├─────────┼───────────┼───────────┼───────────┼───────────┼───────────┼───────────┤',
+  );
+
   for (final t in [0.0, 0.2, 0.4, 0.5, 0.6, 0.8, 1.0]) {
     final values = <double, double>{};
     for (final entry in periodCurves.entries) {
       values[entry.key] = entry.value.transform(t);
     }
     periodResults.add({'t': t, 'values': values});
-    print('│  ${t.toStringAsFixed(2)}   │ ${values[0.1]!.toStringAsFixed(4).padLeft(8)} │ ${values[0.2]!.toStringAsFixed(4).padLeft(8)} │ ${values[0.4]!.toStringAsFixed(4).padLeft(8)} │ ${values[0.6]!.toStringAsFixed(4).padLeft(8)} │ ${values[0.8]!.toStringAsFixed(4).padLeft(8)} │ ${values[1.0]!.toStringAsFixed(4).padLeft(8)} │');
+    print(
+      '│  ${t.toStringAsFixed(2)}   │ ${values[0.1]!.toStringAsFixed(4).padLeft(8)} │ ${values[0.2]!.toStringAsFixed(4).padLeft(8)} │ ${values[0.4]!.toStringAsFixed(4).padLeft(8)} │ ${values[0.6]!.toStringAsFixed(4).padLeft(8)} │ ${values[0.8]!.toStringAsFixed(4).padLeft(8)} │ ${values[1.0]!.toStringAsFixed(4).padLeft(8)} │',
+    );
   }
-  print('└─────────┴───────────┴───────────┴───────────┴───────────┴───────────┴───────────┘');
+  print(
+    '└─────────┴───────────┴───────────┴───────────┴───────────┴───────────┴───────────┘',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 5: VALUE RANGE ANALYSIS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 5: VALUE RANGE ANALYSIS                                   │');
-  print('│ Understanding min/max values for each period                      │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 5: VALUE RANGE ANALYSIS                                   │',
+  );
+  print(
+    '│ Understanding min/max values for each period                      │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final rangeAnalysis = <Map<String, dynamic>>[];
-  
+
   print('Value range for different periods:');
-  print('┌────────────┬──────────────────┬──────────────────┬──────────────────┐');
-  print('│   Period   │    Min Value     │    Max Value     │   Range Width    │');
-  print('├────────────┼──────────────────┼──────────────────┼──────────────────┤');
-  
+  print(
+    '┌────────────┬──────────────────┬──────────────────┬──────────────────┐',
+  );
+  print(
+    '│   Period   │    Min Value     │    Max Value     │   Range Width    │',
+  );
+  print(
+    '├────────────┼──────────────────┼──────────────────┼──────────────────┤',
+  );
+
   for (final period in periods) {
     double minVal = double.infinity;
     double maxVal = double.negativeInfinity;
-    
+
     for (var i = 0; i <= 200; i++) {
       final t = i / 200;
       final v = periodCurves[period]!.transform(t);
       if (v < minVal) minVal = v;
       if (v > maxVal) maxVal = v;
     }
-    
+
     final rangeWidth = maxVal - minVal;
-    rangeAnalysis.add({'period': period, 'min': minVal, 'max': maxVal, 'range': rangeWidth});
-    print('│    ${period.toStringAsFixed(1)}     │  ${minVal.toStringAsFixed(8).padLeft(14)}  │  ${maxVal.toStringAsFixed(8).padLeft(14)}  │  ${rangeWidth.toStringAsFixed(8).padLeft(14)}  │');
+    rangeAnalysis.add({
+      'period': period,
+      'min': minVal,
+      'max': maxVal,
+      'range': rangeWidth,
+    });
+    print(
+      '│    ${period.toStringAsFixed(1)}     │  ${minVal.toStringAsFixed(8).padLeft(14)}  │  ${maxVal.toStringAsFixed(8).padLeft(14)}  │  ${rangeWidth.toStringAsFixed(8).padLeft(14)}  │',
+    );
   }
-  print('└────────────┴──────────────────┴──────────────────┴──────────────────┘');
+  print(
+    '└────────────┴──────────────────┴──────────────────┴──────────────────┘',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 6: ELASTIC FAMILY COMPARISON
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 6: ELASTIC CURVE FAMILY COMPARISON                        │');
-  print('│ ElasticIn vs ElasticOut vs ElasticInOut                           │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 6: ELASTIC CURVE FAMILY COMPARISON                        │',
+  );
+  print(
+    '│ ElasticIn vs ElasticOut vs ElasticInOut                           │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final elasticIn = ElasticInCurve();
   final elasticOut = ElasticOutCurve();
   final elasticInOut = ElasticInOutCurve();
-  
+
   final familyResults = <Map<String, dynamic>>[];
-  
+
   print('Elastic curve family comparison:');
   print('┌─────────┬─────────────────┬─────────────────┬─────────────────┐');
   print('│    t    │   ElasticIn     │   ElasticOut    │  ElasticInOut   │');
   print('├─────────┼─────────────────┼─────────────────┼─────────────────┤');
-  
+
   for (final t in [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]) {
     final vIn = elasticIn.transform(t);
     final vOut = elasticOut.transform(t);
     final vInOut = elasticInOut.transform(t);
     familyResults.add({'t': t, 'in': vIn, 'out': vOut, 'inOut': vInOut});
-    print('│  ${t.toStringAsFixed(2)}   │  ${vIn.toStringAsFixed(8).padLeft(12)}   │  ${vOut.toStringAsFixed(8).padLeft(12)}   │  ${vInOut.toStringAsFixed(8).padLeft(12)}   │');
+    print(
+      '│  ${t.toStringAsFixed(2)}   │  ${vIn.toStringAsFixed(8).padLeft(12)}   │  ${vOut.toStringAsFixed(8).padLeft(12)}   │  ${vInOut.toStringAsFixed(8).padLeft(12)}   │',
+    );
   }
   print('└─────────┴─────────────────┴─────────────────┴─────────────────┘');
   print('');
@@ -202,10 +327,18 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 7: VELOCITY ANALYSIS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 7: VELOCITY ANALYSIS                                      │');
-  print('│ Rate of change at different points                                │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 7: VELOCITY ANALYSIS                                      │',
+  );
+  print(
+    '│ Rate of change at different points                                │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   double calculateDerivative(Curve curve, double t, double dt) {
@@ -215,27 +348,46 @@ dynamic build(BuildContext context) {
     if (actualDt == 0) return 0;
     return (curve.transform(high) - curve.transform(low)) / actualDt;
   }
-  
+
   final velocityResults = <Map<String, dynamic>>[];
-  
+
   print('Velocity (dy/dt) at key points:');
-  print('┌─────────┬─────────────────┬───────────────────────────────────────┐');
-  print('│    t    │   Velocity      │   Interpretation                      │');
-  print('├─────────┼─────────────────┼───────────────────────────────────────┤');
-  
+  print(
+    '┌─────────┬─────────────────┬───────────────────────────────────────┐',
+  );
+  print(
+    '│    t    │   Velocity      │   Interpretation                      │',
+  );
+  print(
+    '├─────────┼─────────────────┼───────────────────────────────────────┤',
+  );
+
   for (final t in [0.1, 0.25, 0.5, 0.75, 0.9]) {
     final velocity = calculateDerivative(defaultCurve, t, 0.01);
     String interpretation;
-    if (velocity < -1.0) interpretation = 'Strong backward motion';
-    else if (velocity < 0) interpretation = 'Backward motion';
-    else if (velocity < 1.0) interpretation = 'Slow forward';
-    else if (velocity < 3.0) interpretation = 'Moderate acceleration';
-    else interpretation = 'Rapid motion';
-    
-    velocityResults.add({'t': t, 'velocity': velocity, 'interpretation': interpretation});
-    print('│  ${t.toStringAsFixed(2)}   │  ${velocity.toStringAsFixed(8).padLeft(12)}   │ ${interpretation.padRight(37)} │');
+    if (velocity < -1.0)
+      interpretation = 'Strong backward motion';
+    else if (velocity < 0)
+      interpretation = 'Backward motion';
+    else if (velocity < 1.0)
+      interpretation = 'Slow forward';
+    else if (velocity < 3.0)
+      interpretation = 'Moderate acceleration';
+    else
+      interpretation = 'Rapid motion';
+
+    velocityResults.add({
+      't': t,
+      'velocity': velocity,
+      'interpretation': interpretation,
+    });
+    print(
+      '│  ${t.toStringAsFixed(2)}   │  ${velocity.toStringAsFixed(8).padLeft(12)}   │ ${interpretation.padRight(37)} │',
+    );
   }
-  print('└─────────┴─────────────────┴───────────────────────────────────────┘');
+  print(
+    '└─────────┴─────────────────┴───────────────────────────────────────┘',
+  );
   print('');
 
   // Peak velocity at midpoint
@@ -247,10 +399,18 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 8: ANIMATION EXAMPLES
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 8: ANIMATION EXAMPLES                                     │');
-  print('│ Practical applications of ElasticInOutCurve                       │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 8: ANIMATION EXAMPLES                                     │',
+  );
+  print(
+    '│ Practical applications of ElasticInOutCurve                       │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   // Scale animation
@@ -260,7 +420,9 @@ dynamic build(BuildContext context) {
     final curveValue = defaultCurve.transform(t);
     final scale = 0.8 + curveValue * 0.4;
     scaleResults.add({'t': t, 'curveValue': curveValue, 'scale': scale});
-    print('  t=${t.toStringAsFixed(2)}: curve=${curveValue.toStringAsFixed(4)} → scale=${scale.toStringAsFixed(4)}x');
+    print(
+      '  t=${t.toStringAsFixed(2)}: curve=${curveValue.toStringAsFixed(4)} → scale=${scale.toStringAsFixed(4)}x',
+    );
   }
   print('');
 
@@ -271,7 +433,9 @@ dynamic build(BuildContext context) {
     final curveValue = defaultCurve.transform(t);
     final position = curveValue * 100;
     positionResults.add({'t': t, 'position': position});
-    print('  t=${t.toStringAsFixed(2)}: position=${position.toStringAsFixed(2)}px');
+    print(
+      '  t=${t.toStringAsFixed(2)}: position=${position.toStringAsFixed(2)}px',
+    );
   }
   print('  Note: Position can go negative at start and >100 at end');
   print('');
@@ -283,28 +447,42 @@ dynamic build(BuildContext context) {
     final curveValue = defaultCurve.transform(t);
     final rotation = curveValue * 360;
     rotationResults.add({'t': t, 'rotation': rotation});
-    print('  t=${t.toStringAsFixed(2)}: rotation=${rotation.toStringAsFixed(1)}°');
+    print(
+      '  t=${t.toStringAsFixed(2)}: rotation=${rotation.toStringAsFixed(1)}°',
+    );
   }
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 9: BOUNDARY BEHAVIOR
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 9: BOUNDARY BEHAVIOR                                      │');
-  print('│ Values near t=0 and t=1                                           │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 9: BOUNDARY BEHAVIOR                                      │',
+  );
+  print(
+    '│ Values near t=0 and t=1                                           │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('Near-zero behavior:');
   for (final t in [0.0, 0.001, 0.01, 0.05, 0.1]) {
-    print('  f(${t.toString().padRight(5)}) = ${defaultCurve.transform(t).toStringAsFixed(8)}');
+    print(
+      '  f(${t.toString().padRight(5)}) = ${defaultCurve.transform(t).toStringAsFixed(8)}',
+    );
   }
   print('');
 
   print('Near-one behavior:');
   for (final t in [0.9, 0.95, 0.99, 0.999, 1.0]) {
-    print('  f(${t.toString().padRight(5)}) = ${defaultCurve.transform(t).toStringAsFixed(8)}');
+    print(
+      '  f(${t.toString().padRight(5)}) = ${defaultCurve.transform(t).toStringAsFixed(8)}',
+    );
   }
   print('');
 
@@ -323,33 +501,55 @@ dynamic build(BuildContext context) {
     }
     prevValue = value;
   }
-  print('  Zero crossings: ${crossings['zero']!.length} at t ≈ ${crossings['zero']!.map((t) => t.toStringAsFixed(2)).join(', ')}');
-  print('  One crossings: ${crossings['one']!.length} at t ≈ ${crossings['one']!.map((t) => t.toStringAsFixed(2)).join(', ')}');
+  print(
+    '  Zero crossings: ${crossings['zero']!.length} at t ≈ ${crossings['zero']!.map((t) => t.toStringAsFixed(2)).join(', ')}',
+  );
+  print(
+    '  One crossings: ${crossings['one']!.length} at t ≈ ${crossings['one']!.map((t) => t.toStringAsFixed(2)).join(', ')}',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 10: COMPARISON WITH CURVES.ELASTICINOUT
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 10: CURVES.ELASTICINOUT COMPARISON                        │');
-  print('│ Verifying equivalence with predefined constant                    │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 10: CURVES.ELASTICINOUT COMPARISON                        │',
+  );
+  print(
+    '│ Verifying equivalence with predefined constant                    │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final curvesElasticInOut = Curves.elasticInOut;
-  
+
   print('Comparison with Curves.elasticInOut:');
-  print('┌─────────┬─────────────────────┬─────────────────────┬────────────────┐');
-  print('│    t    │ ElasticInOutCurve() │  Curves.elasticInOut│   Difference   │');
-  print('├─────────┼─────────────────────┼─────────────────────┼────────────────┤');
-  
+  print(
+    '┌─────────┬─────────────────────┬─────────────────────┬────────────────┐',
+  );
+  print(
+    '│    t    │ ElasticInOutCurve() │  Curves.elasticInOut│   Difference   │',
+  );
+  print(
+    '├─────────┼─────────────────────┼─────────────────────┼────────────────┤',
+  );
+
   for (final t in [0.0, 0.25, 0.5, 0.75, 1.0]) {
     final v1 = defaultCurve.transform(t);
     final v2 = curvesElasticInOut.transform(t);
     final diff = (v1 - v2).abs();
-    print('│  ${t.toStringAsFixed(2)}   │  ${v1.toStringAsFixed(12).padLeft(17)}  │  ${v2.toStringAsFixed(12).padLeft(17)}  │  ${diff.toStringAsFixed(12).padLeft(12)}  │');
+    print(
+      '│  ${t.toStringAsFixed(2)}   │  ${v1.toStringAsFixed(12).padLeft(17)}  │  ${v2.toStringAsFixed(12).padLeft(17)}  │  ${diff.toStringAsFixed(12).padLeft(12)}  │',
+    );
   }
-  print('└─────────┴─────────────────────┴─────────────────────┴────────────────┘');
+  print(
+    '└─────────┴─────────────────────┴─────────────────────┴────────────────┘',
+  );
   print('');
   print('✓ ElasticInOutCurve() is equivalent to Curves.elasticInOut');
   print('');
@@ -357,9 +557,15 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SUMMARY
   // ═══════════════════════════════════════════════════════════════════════════
-  print('╔════════════════════════════════════════════════════════════════════╗');
-  print('║               ELASTICINOUTCURVE SUMMARY                           ║');
-  print('╚════════════════════════════════════════════════════════════════════╝');
+  print(
+    '╔════════════════════════════════════════════════════════════════════╗',
+  );
+  print(
+    '║               ELASTICINOUTCURVE SUMMARY                           ║',
+  );
+  print(
+    '╚════════════════════════════════════════════════════════════════════╝',
+  );
   print('');
   print('ElasticInOutCurve key features:');
   print('  • Spring effect at BOTH start and end');
@@ -413,10 +619,7 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 8.0),
                 Text(
                   'Spring Animation at Both Boundaries',
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    color: Color(0xFFD1C4E9),
-                  ),
+                  style: TextStyle(fontSize: 16.0, color: Color(0xFFD1C4E9)),
                 ),
               ],
             ),
@@ -443,27 +646,60 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 SizedBox(height: 12.0),
-                ...symmetryResults.map((r) => Padding(
-                  padding: EdgeInsets.symmetric(vertical: 2.0),
-                  child: Row(
-                    children: [
-                      Container(width: 50, child: Text('t=${(r['t'] as double).toStringAsFixed(1)}', style: TextStyle(fontSize: 11))),
-                      Expanded(child: Text('f(t)=${(r['ft'] as double).toStringAsFixed(4)}', style: TextStyle(fontSize: 11, fontFamily: 'monospace'))),
-                      Expanded(child: Text('f(1-t)=${(r['f1t'] as double).toStringAsFixed(4)}', style: TextStyle(fontSize: 11, fontFamily: 'monospace'))),
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                        decoration: BoxDecoration(
-                          color: ((r['sum'] as double) - 1.0).abs() < 0.0001 ? Color(0xFF4CAF50) : Color(0xFFFF5722),
-                          borderRadius: BorderRadius.circular(4),
+                ...symmetryResults.map(
+                  (r) => Padding(
+                    padding: EdgeInsets.symmetric(vertical: 2.0),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 50,
+                          child: Text(
+                            't=${(r['t'] as double).toStringAsFixed(1)}',
+                            style: TextStyle(fontSize: 11),
+                          ),
                         ),
-                        child: Text(
-                          'Σ=${(r['sum'] as double).toStringAsFixed(4)}',
-                          style: TextStyle(fontSize: 10, color: Color(0xFFFFFFFF), fontWeight: FontWeight.bold),
+                        Expanded(
+                          child: Text(
+                            'f(t)=${(r['ft'] as double).toStringAsFixed(4)}',
+                            style: TextStyle(
+                              fontSize: 11,
+                              fontFamily: 'monospace',
+                            ),
+                          ),
                         ),
-                      ),
-                    ],
+                        Expanded(
+                          child: Text(
+                            'f(1-t)=${(r['f1t'] as double).toStringAsFixed(4)}',
+                            style: TextStyle(
+                              fontSize: 11,
+                              fontFamily: 'monospace',
+                            ),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 6,
+                            vertical: 2,
+                          ),
+                          decoration: BoxDecoration(
+                            color: ((r['sum'] as double) - 1.0).abs() < 0.0001
+                                ? Color(0xFF4CAF50)
+                                : Color(0xFFFF5722),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: Text(
+                            'Σ=${(r['sum'] as double).toStringAsFixed(4)}',
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: Color(0xFFFFFFFF),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                )),
+                ),
               ],
             ),
           ),
@@ -490,10 +726,17 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 SizedBox(height: 12.0),
-                ...defaultResults.where((r) => [0.0, 0.2, 0.4, 0.5, 0.6, 0.8, 1.0].contains(r['t'])).map((r) => _buildValueRow(
-                  't=${(r['t'] as double).toStringAsFixed(2)}',
-                  r['value'] as double,
-                )),
+                ...defaultResults
+                    .where(
+                      (r) =>
+                          [0.0, 0.2, 0.4, 0.5, 0.6, 0.8, 1.0].contains(r['t']),
+                    )
+                    .map(
+                      (r) => _buildValueRow(
+                        't=${(r['t'] as double).toStringAsFixed(2)}',
+                        r['value'] as double,
+                      ),
+                    ),
               ],
             ),
           ),
@@ -511,7 +754,11 @@ dynamic build(BuildContext context) {
               children: [
                 Row(
                   children: [
-                    Icon(Icons.warning_amber, color: Color(0xFFC62828), size: 20),
+                    Icon(
+                      Icons.warning_amber,
+                      color: Color(0xFFC62828),
+                      size: 20,
+                    ),
                     SizedBox(width: 8),
                     Text(
                       'VALUE RANGE WARNING',
@@ -525,35 +772,76 @@ dynamic build(BuildContext context) {
                   ],
                 ),
                 SizedBox(height: 12.0),
-                ...rangeAnalysis.take(3).map((r) => Padding(
-                  padding: EdgeInsets.symmetric(vertical: 2.0),
-                  child: Row(
-                    children: [
-                      Container(width: 60, child: Text('p=${(r['period'] as double).toStringAsFixed(1)}', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500))),
-                      Expanded(
+                ...rangeAnalysis
+                    .take(3)
+                    .map(
+                      (r) => Padding(
+                        padding: EdgeInsets.symmetric(vertical: 2.0),
                         child: Row(
                           children: [
                             Container(
-                              padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                              decoration: BoxDecoration(color: Color(0xFFEF5350), borderRadius: BorderRadius.circular(4)),
-                              child: Text('Min: ${(r['min'] as double).toStringAsFixed(3)}', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 10)),
+                              width: 60,
+                              child: Text(
+                                'p=${(r['period'] as double).toStringAsFixed(1)}',
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
                             ),
-                            SizedBox(width: 8),
-                            Container(
-                              padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                              decoration: BoxDecoration(color: Color(0xFF4CAF50), borderRadius: BorderRadius.circular(4)),
-                              child: Text('Max: ${(r['max'] as double).toStringAsFixed(3)}', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 10)),
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 6,
+                                      vertical: 2,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFFEF5350),
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                    child: Text(
+                                      'Min: ${(r['min'] as double).toStringAsFixed(3)}',
+                                      style: TextStyle(
+                                        color: Color(0xFFFFFFFF),
+                                        fontSize: 10,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(width: 8),
+                                  Container(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 6,
+                                      vertical: 2,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFF4CAF50),
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                    child: Text(
+                                      'Max: ${(r['max'] as double).toStringAsFixed(3)}',
+                                      style: TextStyle(
+                                        color: Color(0xFFFFFFFF),
+                                        fontSize: 10,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
                       ),
-                    ],
-                  ),
-                )),
+                    ),
                 SizedBox(height: 8),
                 Text(
                   'Values go BELOW 0 at start and ABOVE 1 at end!',
-                  style: TextStyle(fontSize: 11, color: Color(0xFF795548), fontStyle: FontStyle.italic),
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: Color(0xFF795548),
+                    fontStyle: FontStyle.italic,
+                  ),
                 ),
               ],
             ),
@@ -583,9 +871,21 @@ dynamic build(BuildContext context) {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    _buildFamilyCard('ElasticIn', elasticIn.transform(0.5), Color(0xFF00897B)),
-                    _buildFamilyCard('ElasticOut', elasticOut.transform(0.5), Color(0xFF1565C0)),
-                    _buildFamilyCard('ElasticInOut', elasticInOut.transform(0.5), Color(0xFF7B1FA2)),
+                    _buildFamilyCard(
+                      'ElasticIn',
+                      elasticIn.transform(0.5),
+                      Color(0xFF00897B),
+                    ),
+                    _buildFamilyCard(
+                      'ElasticOut',
+                      elasticOut.transform(0.5),
+                      Color(0xFF1565C0),
+                    ),
+                    _buildFamilyCard(
+                      'ElasticInOut',
+                      elasticInOut.transform(0.5),
+                      Color(0xFF7B1FA2),
+                    ),
                   ],
                 ),
               ],
@@ -618,11 +918,13 @@ dynamic build(BuildContext context) {
                   style: TextStyle(fontSize: 11, color: Color(0xFF795548)),
                 ),
                 SizedBox(height: 12.0),
-                ...velocityResults.map((r) => _buildVelocityRow(
-                  't=${(r['t'] as double).toStringAsFixed(2)}',
-                  r['velocity'] as double,
-                  r['interpretation'] as String,
-                )),
+                ...velocityResults.map(
+                  (r) => _buildVelocityRow(
+                    't=${(r['t'] as double).toStringAsFixed(2)}',
+                    r['velocity'] as double,
+                    r['interpretation'] as String,
+                  ),
+                ),
               ],
             ),
           ),
@@ -648,9 +950,18 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 SizedBox(height: 12.0),
-                _buildAnimExample('Scale (0.8x→1.2x)', scaleResults.last['scale']!.toStringAsFixed(3) + 'x'),
-                _buildAnimExample('Position (0→100px)', positionResults.last['position']!.toStringAsFixed(1) + 'px'),
-                _buildAnimExample('Rotation (0°→360°)', rotationResults.last['rotation']!.toStringAsFixed(0) + '°'),
+                _buildAnimExample(
+                  'Scale (0.8x→1.2x)',
+                  scaleResults.last['scale']!.toStringAsFixed(3) + 'x',
+                ),
+                _buildAnimExample(
+                  'Position (0→100px)',
+                  positionResults.last['position']!.toStringAsFixed(1) + 'px',
+                ),
+                _buildAnimExample(
+                  'Rotation (0°→360°)',
+                  rotationResults.last['rotation']!.toStringAsFixed(0) + '°',
+                ),
               ],
             ),
           ),
@@ -681,9 +992,18 @@ dynamic build(BuildContext context) {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('t=0 (pull back)', style: TextStyle(fontSize: 10, color: Color(0xFFEF5350))),
-                    Text('t=0.5 (fastest)', style: TextStyle(fontSize: 10, color: Color(0xFF7B1FA2))),
-                    Text('t=1 (overshoot)', style: TextStyle(fontSize: 10, color: Color(0xFF4CAF50))),
+                    Text(
+                      't=0 (pull back)',
+                      style: TextStyle(fontSize: 10, color: Color(0xFFEF5350)),
+                    ),
+                    Text(
+                      't=0.5 (fastest)',
+                      style: TextStyle(fontSize: 10, color: Color(0xFF7B1FA2)),
+                    ),
+                    Text(
+                      't=1 (overshoot)',
+                      style: TextStyle(fontSize: 10, color: Color(0xFF4CAF50)),
+                    ),
                   ],
                 ),
               ],
@@ -748,16 +1068,28 @@ dynamic build(BuildContext context) {
                   children: [
                     _buildSummaryStat('Test Points', '${tValues.length}'),
                     _buildSummaryStat('Period Tests', '${periods.length}'),
-                    _buildSummaryStat('Zero Crossings', '${crossings['zero']!.length}'),
+                    _buildSummaryStat(
+                      'Zero Crossings',
+                      '${crossings['zero']!.length}',
+                    ),
                   ],
                 ),
                 SizedBox(height: 12.0),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    _buildSummaryStat('Min Value', rangeAnalysis.first['min'].toStringAsFixed(3)),
-                    _buildSummaryStat('Max Value', rangeAnalysis.first['max'].toStringAsFixed(3)),
-                    _buildSummaryStat('Peak Velocity', peakVelocity.toStringAsFixed(1)),
+                    _buildSummaryStat(
+                      'Min Value',
+                      rangeAnalysis.first['min'].toStringAsFixed(3),
+                    ),
+                    _buildSummaryStat(
+                      'Max Value',
+                      rangeAnalysis.first['max'].toStringAsFixed(3),
+                    ),
+                    _buildSummaryStat(
+                      'Peak Velocity',
+                      peakVelocity.toStringAsFixed(1),
+                    ),
                   ],
                 ),
               ],
@@ -786,12 +1118,18 @@ Widget _buildValueRow(String label, double value) {
   final isNegative = value < 0;
   final isOvershoot = value > 1.0;
   final normalized = ((value + 0.2) / 1.4).clamp(0.0, 1.0);
-  
+
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(width: 60, child: Text(label, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500))),
+        Container(
+          width: 60,
+          child: Text(
+            label,
+            style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500),
+          ),
+        ),
         Expanded(
           child: Container(
             height: 18,
@@ -802,8 +1140,22 @@ Widget _buildValueRow(String label, double value) {
             child: Stack(
               children: [
                 // Zero and one markers
-                Positioned(left: 0.2 / 1.4 * 200, child: Container(width: 1, height: 18, color: Color(0xFF9E9E9E))),
-                Positioned(left: 1.2 / 1.4 * 200, child: Container(width: 1, height: 18, color: Color(0xFF9E9E9E))),
+                Positioned(
+                  left: 0.2 / 1.4 * 200,
+                  child: Container(
+                    width: 1,
+                    height: 18,
+                    color: Color(0xFF9E9E9E),
+                  ),
+                ),
+                Positioned(
+                  left: 1.2 / 1.4 * 200,
+                  child: Container(
+                    width: 1,
+                    height: 18,
+                    color: Color(0xFF9E9E9E),
+                  ),
+                ),
                 // Value bar
                 Positioned(
                   left: 0,
@@ -811,7 +1163,11 @@ Widget _buildValueRow(String label, double value) {
                     width: normalized * 200,
                     height: 18,
                     decoration: BoxDecoration(
-                      color: isNegative ? Color(0xFFEF5350) : (isOvershoot ? Color(0xFF4CAF50) : Color(0xFF7B1FA2)),
+                      color: isNegative
+                          ? Color(0xFFEF5350)
+                          : (isOvershoot
+                                ? Color(0xFF4CAF50)
+                                : Color(0xFF7B1FA2)),
                       borderRadius: BorderRadius.circular(4),
                     ),
                   ),
@@ -828,7 +1184,9 @@ Widget _buildValueRow(String label, double value) {
             style: TextStyle(
               fontFamily: 'monospace',
               fontSize: 10,
-              color: isNegative ? Color(0xFFC62828) : (isOvershoot ? Color(0xFF2E7D32) : Color(0xFF424242)),
+              color: isNegative
+                  ? Color(0xFFC62828)
+                  : (isOvershoot ? Color(0xFF2E7D32) : Color(0xFF424242)),
             ),
           ),
         ),
@@ -847,9 +1205,23 @@ Widget _buildFamilyCard(String name, double value, Color color) {
     ),
     child: Column(
       children: [
-        Text(name, style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: color)),
+        Text(
+          name,
+          style: TextStyle(
+            fontSize: 10,
+            fontWeight: FontWeight.bold,
+            color: color,
+          ),
+        ),
         SizedBox(height: 4),
-        Text(value.toStringAsFixed(4), style: TextStyle(fontSize: 12, fontFamily: 'monospace', fontWeight: FontWeight.bold)),
+        Text(
+          value.toStringAsFixed(4),
+          style: TextStyle(
+            fontSize: 12,
+            fontFamily: 'monospace',
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ],
     ),
   );
@@ -858,12 +1230,18 @@ Widget _buildFamilyCard(String name, double value, Color color) {
 Widget _buildVelocityRow(String label, double velocity, String interpretation) {
   final normalizedVelocity = (velocity.abs() / 5).clamp(0.0, 1.0);
   final isBackward = velocity < 0;
-  
+
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(width: 50, child: Text(label, style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500))),
+        Container(
+          width: 50,
+          child: Text(
+            label,
+            style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
+          ),
+        ),
         Expanded(
           child: Container(
             height: 14,
@@ -886,7 +1264,10 @@ Widget _buildVelocityRow(String label, double velocity, String interpretation) {
         Container(
           width: 100,
           alignment: Alignment.centerRight,
-          child: Text(interpretation, style: TextStyle(fontSize: 9, color: Color(0xFF795548))),
+          child: Text(
+            interpretation,
+            style: TextStyle(fontSize: 9, color: Color(0xFF795548)),
+          ),
         ),
       ],
     ),
@@ -901,7 +1282,14 @@ Widget _buildAnimExample(String title, String value) {
         Icon(Icons.play_circle_outline, size: 16, color: Color(0xFF2E7D32)),
         SizedBox(width: 8),
         Expanded(child: Text(title, style: TextStyle(fontSize: 12))),
-        Text('Final: $value', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Color(0xFF2E7D32))),
+        Text(
+          'Final: $value',
+          style: TextStyle(
+            fontSize: 11,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF2E7D32),
+          ),
+        ),
       ],
     ),
   );
@@ -918,13 +1306,15 @@ Widget _buildCurveVisualization(Curve curve) {
         final normalizedHeight = ((value + 0.15) / 1.3 * 70).clamp(0.0, 80.0);
         final isNegative = value < 0;
         final isOvershoot = value > 1.0;
-        
+
         return Expanded(
           child: Container(
             height: normalizedHeight,
             margin: EdgeInsets.symmetric(horizontal: 0.5),
             decoration: BoxDecoration(
-              color: isNegative ? Color(0xFFEF5350) : (isOvershoot ? Color(0xFF4CAF50) : Color(0xFF7B1FA2)),
+              color: isNegative
+                  ? Color(0xFFEF5350)
+                  : (isOvershoot ? Color(0xFF4CAF50) : Color(0xFF7B1FA2)),
               borderRadius: BorderRadius.vertical(top: Radius.circular(1)),
             ),
           ),
@@ -940,12 +1330,28 @@ Widget _buildKeyPoint(String title, String description) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('• ', style: TextStyle(color: Color(0xFFB39DDB), fontWeight: FontWeight.bold)),
+        Text(
+          '• ',
+          style: TextStyle(
+            color: Color(0xFFB39DDB),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title, style: TextStyle(color: Color(0xFFD1C4E9), fontWeight: FontWeight.bold, fontSize: 12)),
-            Text(description, style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 11)),
+            Text(
+              title,
+              style: TextStyle(
+                color: Color(0xFFD1C4E9),
+                fontWeight: FontWeight.bold,
+                fontSize: 12,
+              ),
+            ),
+            Text(
+              description,
+              style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 11),
+            ),
           ],
         ),
       ],
@@ -964,13 +1370,7 @@ Widget _buildSummaryStat(String label, String value) {
           color: Color(0xFF4DD0E1),
         ),
       ),
-      Text(
-        label,
-        style: TextStyle(
-          fontSize: 9.0,
-          color: Color(0xFF90A4AE),
-        ),
-      ),
+      Text(label, style: TextStyle(fontSize: 9.0, color: Color(0xFF90A4AE))),
     ],
   );
 }

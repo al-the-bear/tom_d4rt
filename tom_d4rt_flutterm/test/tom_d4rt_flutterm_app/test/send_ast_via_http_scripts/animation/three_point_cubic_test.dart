@@ -7,21 +7,37 @@ import 'package:flutter/animation.dart';
 import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {
-  print('╔════════════════════════════════════════════════════════════════════╗');
-  print('║                THREE POINT CUBIC DEEP DEMO                        ║');
-  print('║         Complex Curve with Three Control Regions                  ║');
-  print('╚════════════════════════════════════════════════════════════════════╝');
+  print(
+    '╔════════════════════════════════════════════════════════════════════╗',
+  );
+  print(
+    '║                THREE POINT CUBIC DEEP DEMO                        ║',
+  );
+  print(
+    '║         Complex Curve with Three Control Regions                  ║',
+  );
+  print(
+    '╚════════════════════════════════════════════════════════════════════╝',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 1: THREE POINT CUBIC FUNDAMENTALS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 1: THREE POINT CUBIC FUNDAMENTALS                         │');
-  print('│ Understanding the five-offset curve definition                    │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 1: THREE POINT CUBIC FUNDAMENTALS                         │',
+  );
+  print(
+    '│ Understanding the five-offset curve definition                    │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
-  
+
   print('ThreePointCubic characteristics:');
   print('  • Uses 5 control offsets to define the curve');
   print('  • a1: First part\'s first control point');
@@ -48,90 +64,160 @@ dynamic build(BuildContext context) {
   print('  b2: (0.25, 1.0)');
   print('');
 
-  final tValues = <double>[0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0];
+  final tValues = <double>[
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4,
+    0.5,
+    0.6,
+    0.7,
+    0.8,
+    0.9,
+    1.0,
+  ];
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 2: FULL CURVE TRANSFORMATION
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 2: FULL CURVE TRANSFORMATION                              │');
-  print('│ Seeing the complex curve behavior                                 │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 2: FULL CURVE TRANSFORMATION                              │',
+  );
+  print(
+    '│ Seeing the complex curve behavior                                 │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final emphasisResults = <Map<String, dynamic>>[];
-  
+
   print('Material Emphasis ThreePointCubic values:');
-  print('┌───────┬─────────────────┬───────────────────────────────────────────┐');
-  print('│   t   │     Output      │   Curve Shape                             │');
-  print('├───────┼─────────────────┼───────────────────────────────────────────┤');
-  
+  print(
+    '┌───────┬─────────────────┬───────────────────────────────────────────┐',
+  );
+  print(
+    '│   t   │     Output      │   Curve Shape                             │',
+  );
+  print(
+    '├───────┼─────────────────┼───────────────────────────────────────────┤',
+  );
+
   for (final t in tValues) {
     final out = emphasisCurve.transform(t);
     emphasisResults.add({'t': t, 'out': out});
-    
+
     final barWidth = (out * 35).round().clamp(0, 35);
     final bar = '█' * barWidth + '░' * (35 - barWidth);
-    print('│ ${t.toStringAsFixed(1)}   │     ${out.toStringAsFixed(4).padLeft(6)}      │ $bar │');
+    print(
+      '│ ${t.toStringAsFixed(1)}   │     ${out.toStringAsFixed(4).padLeft(6)}      │ $bar │',
+    );
   }
-  print('└───────┴─────────────────┴───────────────────────────────────────────┘');
+  print(
+    '└───────┴─────────────────┴───────────────────────────────────────────┘',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 3: FINE-GRAINED ANALYSIS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 3: FINE-GRAINED ANALYSIS                                  │');
-  print('│ Examining the curve at higher resolution                          │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 3: FINE-GRAINED ANALYSIS                                  │',
+  );
+  print(
+    '│ Examining the curve at higher resolution                          │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final fineResults = <Map<String, dynamic>>[];
-  
+
   print('Fine-grained curve values (20 steps):');
-  print('┌───────┬─────────────────┬───────────────────────────────────────────┐');
-  print('│   t   │     Output      │   Progress                                │');
-  print('├───────┼─────────────────┼───────────────────────────────────────────┤');
-  
+  print(
+    '┌───────┬─────────────────┬───────────────────────────────────────────┐',
+  );
+  print(
+    '│   t   │     Output      │   Progress                                │',
+  );
+  print(
+    '├───────┼─────────────────┼───────────────────────────────────────────┤',
+  );
+
   for (var i = 0; i <= 20; i++) {
     final t = i / 20;
     final out = emphasisCurve.transform(t);
     fineResults.add({'t': t, 'out': out});
-    
+
     final barWidth = (out * 35).round().clamp(0, 35);
     final bar = '▓' * barWidth + '░' * (35 - barWidth);
-    print('│ ${t.toStringAsFixed(2)}  │     ${out.toStringAsFixed(4).padLeft(6)}      │ $bar │');
+    print(
+      '│ ${t.toStringAsFixed(2)}  │     ${out.toStringAsFixed(4).padLeft(6)}      │ $bar │',
+    );
   }
-  print('└───────┴─────────────────┴───────────────────────────────────────────┘');
+  print(
+    '└───────┴─────────────────┴───────────────────────────────────────────┘',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 4: BOUNDARY CONDITIONS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 4: BOUNDARY CONDITIONS                                    │');
-  print('│ Start and end behavior                                            │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 4: BOUNDARY CONDITIONS                                    │',
+  );
+  print(
+    '│ Start and end behavior                                            │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final boundaryResults = <Map<String, dynamic>>[];
-  
+
   print('Values near boundaries:');
-  print('┌───────────┬─────────────────┬───────────────────────────────────────┐');
-  print('│     t     │     Output      │   Status                              │');
-  print('├───────────┼─────────────────┼───────────────────────────────────────┤');
-  
+  print(
+    '┌───────────┬─────────────────┬───────────────────────────────────────┐',
+  );
+  print(
+    '│     t     │     Output      │   Status                              │',
+  );
+  print(
+    '├───────────┼─────────────────┼───────────────────────────────────────┤',
+  );
+
   for (final t in [0.0, 0.01, 0.02, 0.05, 0.95, 0.98, 0.99, 1.0]) {
     final out = emphasisCurve.transform(t);
     String status;
-    if (t == 0.0) status = 'Start (must be 0)';
-    else if (t == 1.0) status = 'End (must be 1)';
-    else if (t < 0.1) status = 'Early acceleration';
-    else status = 'Late deceleration';
+    if (t == 0.0)
+      status = 'Start (must be 0)';
+    else if (t == 1.0)
+      status = 'End (must be 1)';
+    else if (t < 0.1)
+      status = 'Early acceleration';
+    else
+      status = 'Late deceleration';
     boundaryResults.add({'t': t, 'out': out, 'status': status});
-    print('│   ${t.toStringAsFixed(2).padLeft(5)}   │     ${out.toStringAsFixed(4).padLeft(6)}      │ ${status.padRight(33)} │');
+    print(
+      '│   ${t.toStringAsFixed(2).padLeft(5)}   │     ${out.toStringAsFixed(4).padLeft(6)}      │ ${status.padRight(33)} │',
+    );
   }
-  print('└───────────┴─────────────────┴───────────────────────────────────────┘');
+  print(
+    '└───────────┴─────────────────┴───────────────────────────────────────┘',
+  );
   print('');
   print('✓ Curve correctly starts at 0.0 and ends at 1.0');
   print('');
@@ -139,28 +225,46 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 5: FLIPPED CURVE
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 5: FLIPPED CURVE                                          │');
-  print('│ Reversed curve behavior                                           │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 5: FLIPPED CURVE                                          │',
+  );
+  print(
+    '│ Reversed curve behavior                                           │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final flipped = emphasisCurve.flipped;
   final flippedResults = <Map<String, dynamic>>[];
-  
+
   print('Original vs Flipped comparison:');
-  print('┌───────┬─────────────────┬─────────────────┬───────────────────────┐');
-  print('│   t   │    Original     │    Flipped      │   Difference          │');
-  print('├───────┼─────────────────┼─────────────────┼───────────────────────┤');
-  
+  print(
+    '┌───────┬─────────────────┬─────────────────┬───────────────────────┐',
+  );
+  print(
+    '│   t   │    Original     │    Flipped      │   Difference          │',
+  );
+  print(
+    '├───────┼─────────────────┼─────────────────┼───────────────────────┤',
+  );
+
   for (final t in tValues) {
     final orig = emphasisCurve.transform(t);
     final flip = flipped.transform(t);
     final diff = (orig - flip).abs();
     flippedResults.add({'t': t, 'orig': orig, 'flip': flip, 'diff': diff});
-    print('│ ${t.toStringAsFixed(1)}   │     ${orig.toStringAsFixed(4).padLeft(6)}      │     ${flip.toStringAsFixed(4).padLeft(6)}      │      ${diff.toStringAsFixed(4).padLeft(6)}       │');
+    print(
+      '│ ${t.toStringAsFixed(1)}   │     ${orig.toStringAsFixed(4).padLeft(6)}      │     ${flip.toStringAsFixed(4).padLeft(6)}      │      ${diff.toStringAsFixed(4).padLeft(6)}       │',
+    );
   }
-  print('└───────┴─────────────────┴─────────────────┴───────────────────────┘');
+  print(
+    '└───────┴─────────────────┴─────────────────┴───────────────────────┘',
+  );
   print('');
   print('Note: flipped(t) = 1 - original(1 - t)');
   print('');
@@ -168,31 +272,49 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 6: VELOCITY ANALYSIS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 6: VELOCITY ANALYSIS                                      │');
-  print('│ How fast the curve changes                                        │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 6: VELOCITY ANALYSIS                                      │',
+  );
+  print(
+    '│ How fast the curve changes                                        │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final velocityResults = <Map<String, dynamic>>[];
-  
+
   print('Approximate velocity (derivative):');
-  print('┌───────┬─────────────────┬──────────────────────────────────────────┐');
-  print('│   t   │   Velocity      │   Speed Indicator                        │');
-  print('├───────┼─────────────────┼──────────────────────────────────────────┤');
-  
+  print(
+    '┌───────┬─────────────────┬──────────────────────────────────────────┐',
+  );
+  print(
+    '│   t   │   Velocity      │   Speed Indicator                        │',
+  );
+  print(
+    '├───────┼─────────────────┼──────────────────────────────────────────┤',
+  );
+
   for (var i = 1; i < 20; i++) {
     final t = i / 20;
     final prev = emphasisCurve.transform((i - 1) / 20);
     final curr = emphasisCurve.transform(t);
     final velocity = (curr - prev) * 20; // Approximate derivative
     velocityResults.add({'t': t, 'vel': velocity});
-    
+
     final barWidth = (velocity / 3 * 30).round().clamp(0, 30);
     final bar = '▸' * barWidth + '░' * (30 - barWidth);
-    print('│ ${t.toStringAsFixed(2)}  │      ${velocity.toStringAsFixed(3).padLeft(6)}      │ $bar │');
+    print(
+      '│ ${t.toStringAsFixed(2)}  │      ${velocity.toStringAsFixed(3).padLeft(6)}      │ $bar │',
+    );
   }
-  print('└───────┴─────────────────┴──────────────────────────────────────────┘');
+  print(
+    '└───────┴─────────────────┴──────────────────────────────────────────┘',
+  );
   print('');
   print('Note: Higher velocity = faster change');
   print('');
@@ -200,39 +322,68 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 7: MIDPOINT REGION
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 7: MIDPOINT REGION                                        │');
-  print('│ Behavior around the midpoint (0.166666, 0.4)                      │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 7: MIDPOINT REGION                                        │',
+  );
+  print(
+    '│ Behavior around the midpoint (0.166666, 0.4)                      │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final midpointResults = <Map<String, dynamic>>[];
   final midX = 0.166666;
-  
+
   print('Values around midpoint (t ≈ 0.167):');
-  print('┌───────────┬─────────────────┬─────────────────────────────────────┐');
-  print('│     t     │     Output      │   Position                          │');
-  print('├───────────┼─────────────────┼─────────────────────────────────────┤');
-  
+  print(
+    '┌───────────┬─────────────────┬─────────────────────────────────────┐',
+  );
+  print(
+    '│     t     │     Output      │   Position                          │',
+  );
+  print(
+    '├───────────┼─────────────────┼─────────────────────────────────────┤',
+  );
+
   for (final t in [0.10, 0.12, 0.14, 0.16, 0.167, 0.18, 0.20, 0.22]) {
     final out = emphasisCurve.transform(t);
     String pos;
-    if (t < midX - 0.02) pos = 'Before midpoint';
-    else if (t > midX + 0.02) pos = 'After midpoint';
-    else pos = '← Near midpoint transition';
+    if (t < midX - 0.02)
+      pos = 'Before midpoint';
+    else if (t > midX + 0.02)
+      pos = 'After midpoint';
+    else
+      pos = '← Near midpoint transition';
     midpointResults.add({'t': t, 'out': out, 'pos': pos});
-    print('│   ${t.toStringAsFixed(3).padLeft(5)}   │     ${out.toStringAsFixed(4).padLeft(6)}      │ ${pos.padRight(31)} │');
+    print(
+      '│   ${t.toStringAsFixed(3).padLeft(5)}   │     ${out.toStringAsFixed(4).padLeft(6)}      │ ${pos.padRight(31)} │',
+    );
   }
-  print('└───────────┴─────────────────┴─────────────────────────────────────┘');
+  print(
+    '└───────────┴─────────────────┴─────────────────────────────────────┘',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 8: CUSTOM THREE POINT CUBIC
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 8: CUSTOM THREE POINT CUBIC                               │');
-  print('│ Creating different curve shapes                                   │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 8: CUSTOM THREE POINT CUBIC                               │',
+  );
+  print(
+    '│ Creating different curve shapes                                   │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   // More aggressive start
@@ -243,7 +394,7 @@ dynamic build(BuildContext context) {
     Offset(0.4, 0.9),
     Offset(0.5, 1.0),
   );
-  
+
   // Slower start, aggressive end
   final customCurve2 = ThreePointCubic(
     Offset(0.2, 0.0),
@@ -252,20 +403,22 @@ dynamic build(BuildContext context) {
     Offset(0.6, 0.7),
     Offset(0.8, 1.0),
   );
-  
+
   final customResults = <Map<String, dynamic>>[];
-  
+
   print('Custom curve comparison at key points:');
   print('┌───────┬─────────────────┬─────────────────┬─────────────────┐');
   print('│   t   │   Emphasis      │   Custom1       │    Custom2      │');
   print('├───────┼─────────────────┼─────────────────┼─────────────────┤');
-  
+
   for (final t in [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]) {
     final emp = emphasisCurve.transform(t);
     final c1 = customCurve1.transform(t);
     final c2 = customCurve2.transform(t);
     customResults.add({'t': t, 'emp': emp, 'c1': c1, 'c2': c2});
-    print('│ ${t.toStringAsFixed(1)}   │     ${emp.toStringAsFixed(4).padLeft(6)}      │     ${c1.toStringAsFixed(4).padLeft(6)}      │     ${c2.toStringAsFixed(4).padLeft(6)}      │');
+    print(
+      '│ ${t.toStringAsFixed(1)}   │     ${emp.toStringAsFixed(4).padLeft(6)}      │     ${c1.toStringAsFixed(4).padLeft(6)}      │     ${c2.toStringAsFixed(4).padLeft(6)}      │',
+    );
   }
   print('└───────┴─────────────────┴─────────────────┴─────────────────┘');
   print('');
@@ -273,36 +426,62 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 9: COMPARISON WITH STANDARD CURVES
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 9: COMPARISON WITH STANDARD CURVES                        │');
-  print('│ ThreePointCubic vs Curves.easeInOut                               │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 9: COMPARISON WITH STANDARD CURVES                        │',
+  );
+  print(
+    '│ ThreePointCubic vs Curves.easeInOut                               │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final compResults = <Map<String, dynamic>>[];
-  
+
   print('ThreePointCubic vs easeInOut:');
-  print('┌───────┬─────────────────┬─────────────────┬───────────────────────┐');
-  print('│   t   │ ThreePointCubic │   easeInOut     │   Difference          │');
-  print('├───────┼─────────────────┼─────────────────┼───────────────────────┤');
-  
+  print(
+    '┌───────┬─────────────────┬─────────────────┬───────────────────────┐',
+  );
+  print(
+    '│   t   │ ThreePointCubic │   easeInOut     │   Difference          │',
+  );
+  print(
+    '├───────┼─────────────────┼─────────────────┼───────────────────────┤',
+  );
+
   for (final t in tValues) {
     final tpc = emphasisCurve.transform(t);
     final eio = Curves.easeInOut.transform(t);
     final diff = tpc - eio;
     compResults.add({'t': t, 'tpc': tpc, 'eio': eio, 'diff': diff});
-    print('│ ${t.toStringAsFixed(1)}   │     ${tpc.toStringAsFixed(4).padLeft(6)}      │     ${eio.toStringAsFixed(4).padLeft(6)}      │     ${diff >= 0 ? '+' : ''}${diff.toStringAsFixed(4).padLeft(6)}       │');
+    print(
+      '│ ${t.toStringAsFixed(1)}   │     ${tpc.toStringAsFixed(4).padLeft(6)}      │     ${eio.toStringAsFixed(4).padLeft(6)}      │     ${diff >= 0 ? '+' : ''}${diff.toStringAsFixed(4).padLeft(6)}       │',
+    );
   }
-  print('└───────┴─────────────────┴─────────────────┴───────────────────────┘');
+  print(
+    '└───────┴─────────────────┴─────────────────┴───────────────────────┘',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 10: PRACTICAL USE CASES
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 10: PRACTICAL USE CASES                                   │');
-  print('│ When to use ThreePointCubic                                       │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 10: PRACTICAL USE CASES                                   │',
+  );
+  print(
+    '│ When to use ThreePointCubic                                       │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('1. Material Design Emphasis:');
@@ -333,9 +512,15 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SUMMARY
   // ═══════════════════════════════════════════════════════════════════════════
-  print('╔════════════════════════════════════════════════════════════════════╗');
-  print('║                  THREE POINT CUBIC SUMMARY                        ║');
-  print('╚════════════════════════════════════════════════════════════════════╝');
+  print(
+    '╔════════════════════════════════════════════════════════════════════╗',
+  );
+  print(
+    '║                  THREE POINT CUBIC SUMMARY                        ║',
+  );
+  print(
+    '╚════════════════════════════════════════════════════════════════════╝',
+  );
   print('');
   print('ThreePointCubic key features:');
   print('  • Five control offsets define the curve');
@@ -384,10 +569,7 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 8.0),
                 Text(
                   'Complex Curve with Three Control Regions',
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    color: Color(0xFFFCE4EC),
-                  ),
+                  style: TextStyle(fontSize: 14.0, color: Color(0xFFFCE4EC)),
                 ),
               ],
             ),
@@ -417,7 +599,11 @@ dynamic build(BuildContext context) {
                 _buildControlPointRow('a1', '(0.05, 0.0)', 'First curve start'),
                 _buildControlPointRow('b1', '(0.133, 0.06)', 'First curve end'),
                 _buildControlPointRow('mid', '(0.167, 0.4)', 'Junction point'),
-                _buildControlPointRow('a2', '(0.208, 0.82)', 'Second curve start'),
+                _buildControlPointRow(
+                  'a2',
+                  '(0.208, 0.82)',
+                  'Second curve start',
+                ),
                 _buildControlPointRow('b2', '(0.25, 1.0)', 'Second curve end'),
               ],
             ),
@@ -455,9 +641,18 @@ dynamic build(BuildContext context) {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('t = 0', style: TextStyle(color: Colors.white70, fontSize: 10)),
-                    Text('midpoint', style: TextStyle(color: Color(0xFFE91E63), fontSize: 10)),
-                    Text('t = 1', style: TextStyle(color: Colors.white70, fontSize: 10)),
+                    Text(
+                      't = 0',
+                      style: TextStyle(color: Colors.white70, fontSize: 10),
+                    ),
+                    Text(
+                      'midpoint',
+                      style: TextStyle(color: Color(0xFFE91E63), fontSize: 10),
+                    ),
+                    Text(
+                      't = 1',
+                      style: TextStyle(color: Colors.white70, fontSize: 10),
+                    ),
                   ],
                 ),
               ],
@@ -485,7 +680,11 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 SizedBox(height: 12.0),
-                ...emphasisResults.where((r) => [0.0, 0.2, 0.4, 0.6, 0.8, 1.0].contains(r['t'])).map((r) => _buildValueRow(r)),
+                ...emphasisResults
+                    .where(
+                      (r) => [0.0, 0.2, 0.4, 0.6, 0.8, 1.0].contains(r['t']),
+                    )
+                    .map((r) => _buildValueRow(r)),
               ],
             ),
           ),
@@ -511,7 +710,9 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 SizedBox(height: 12.0),
-                ...compResults.where((r) => [0.0, 0.25, 0.5, 0.75, 1.0].contains(r['t'])).map((r) => _buildCompRow(r)),
+                ...compResults
+                    .where((r) => [0.0, 0.25, 0.5, 0.75, 1.0].contains(r['t']))
+                    .map((r) => _buildCompRow(r)),
               ],
             ),
           ),
@@ -537,10 +738,16 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 SizedBox(height: 12.0),
-                _buildUseCaseItem('Material Emphasis', 'Quick start, smooth settle'),
+                _buildUseCaseItem(
+                  'Material Emphasis',
+                  'Quick start, smooth settle',
+                ),
                 _buildUseCaseItem('Precise Control', 'Fine-tune acceleration'),
                 _buildUseCaseItem('Brand Motion', 'Unique animation feel'),
-                _buildUseCaseItem('Complex Transitions', 'Page and modal effects'),
+                _buildUseCaseItem(
+                  'Complex Transitions',
+                  'Page and modal effects',
+                ),
               ],
             ),
           ),
@@ -577,9 +784,18 @@ dynamic build(BuildContext context) {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    _buildSummaryStat('at 0.2', emphasisCurve.transform(0.2).toStringAsFixed(2)),
-                    _buildSummaryStat('at 0.5', emphasisCurve.transform(0.5).toStringAsFixed(2)),
-                    _buildSummaryStat('at 0.8', emphasisCurve.transform(0.8).toStringAsFixed(2)),
+                    _buildSummaryStat(
+                      'at 0.2',
+                      emphasisCurve.transform(0.2).toStringAsFixed(2),
+                    ),
+                    _buildSummaryStat(
+                      'at 0.5',
+                      emphasisCurve.transform(0.5).toStringAsFixed(2),
+                    ),
+                    _buildSummaryStat(
+                      'at 0.8',
+                      emphasisCurve.transform(0.8).toStringAsFixed(2),
+                    ),
                   ],
                 ),
               ],
@@ -616,11 +832,31 @@ Widget _buildControlPointRow(String name, String value, String description) {
             color: Color(0xFFC2185B),
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Center(child: Text(name, style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white))),
+          child: Center(
+            child: Text(
+              name,
+              style: TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+          ),
         ),
         SizedBox(width: 8),
-        Container(width: 80, child: Text(value, style: TextStyle(fontSize: 11, fontFamily: 'monospace'))),
-        Expanded(child: Text(description, style: TextStyle(fontSize: 11, color: Color(0xFF757575)))),
+        Container(
+          width: 80,
+          child: Text(
+            value,
+            style: TextStyle(fontSize: 11, fontFamily: 'monospace'),
+          ),
+        ),
+        Expanded(
+          child: Text(
+            description,
+            style: TextStyle(fontSize: 11, color: Color(0xFF757575)),
+          ),
+        ),
       ],
     ),
   );
@@ -628,36 +864,40 @@ Widget _buildControlPointRow(String name, String value, String description) {
 
 class ThreePointCubicPainter extends CustomPainter {
   final ThreePointCubic curve;
-  
+
   ThreePointCubicPainter(this.curve);
-  
+
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
       ..color = Color(0xFFE91E63)
       ..strokeWidth = 3
       ..style = PaintingStyle.stroke;
-    
+
     final path = Path();
     path.moveTo(0, size.height);
-    
+
     for (var i = 0; i <= 100; i++) {
       final t = i / 100;
       final value = curve.transform(t);
       path.lineTo(t * size.width, size.height - value * (size.height - 8));
     }
-    
+
     canvas.drawPath(path, paint);
-    
+
     // Draw midpoint marker
     final midPaint = Paint()
       ..color = Color(0xFFFFEB3B)
       ..style = PaintingStyle.fill;
     final midT = 0.167;
     final midY = curve.transform(midT);
-    canvas.drawCircle(Offset(midT * size.width, size.height - midY * (size.height - 8)), 4, midPaint);
+    canvas.drawCircle(
+      Offset(midT * size.width, size.height - midY * (size.height - 8)),
+      4,
+      midPaint,
+    );
   }
-  
+
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
@@ -665,12 +905,18 @@ class ThreePointCubicPainter extends CustomPainter {
 Widget _buildValueRow(Map<String, dynamic> r) {
   final t = r['t'] as double;
   final out = r['out'] as double;
-  
+
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(width: 45, child: Text('t=${t.toStringAsFixed(1)}', style: TextStyle(fontSize: 11))),
+        Container(
+          width: 45,
+          child: Text(
+            't=${t.toStringAsFixed(1)}',
+            style: TextStyle(fontSize: 11),
+          ),
+        ),
         Container(
           width: 55,
           padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
@@ -678,7 +924,16 @@ Widget _buildValueRow(Map<String, dynamic> r) {
             color: Color(0xFF4CAF50),
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Center(child: Text(out.toStringAsFixed(3), style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white))),
+          child: Center(
+            child: Text(
+              out.toStringAsFixed(3),
+              style: TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+          ),
         ),
         SizedBox(width: 8),
         Expanded(
@@ -709,17 +964,29 @@ Widget _buildCompRow(Map<String, dynamic> r) {
   final tpc = r['tpc'] as double;
   final eio = r['eio'] as double;
   final diff = r['diff'] as double;
-  
+
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(width: 45, child: Text('t=${(r['t'] as double).toStringAsFixed(2)}', style: TextStyle(fontSize: 11))),
+        Container(
+          width: 45,
+          child: Text(
+            't=${(r['t'] as double).toStringAsFixed(2)}',
+            style: TextStyle(fontSize: 11),
+          ),
+        ),
         _buildSmallValue(tpc.toStringAsFixed(2), Color(0xFFE91E63)),
         SizedBox(width: 8),
         _buildSmallValue(eio.toStringAsFixed(2), Color(0xFF2196F3)),
         SizedBox(width: 8),
-        Text('${diff >= 0 ? '+' : ''}${diff.toStringAsFixed(2)}', style: TextStyle(fontSize: 10, color: diff.abs() > 0.05 ? Colors.orange : Colors.grey)),
+        Text(
+          '${diff >= 0 ? '+' : ''}${diff.toStringAsFixed(2)}',
+          style: TextStyle(
+            fontSize: 10,
+            color: diff.abs() > 0.05 ? Colors.orange : Colors.grey,
+          ),
+        ),
       ],
     ),
   );
@@ -732,7 +999,10 @@ Widget _buildSmallValue(String value, Color color) {
       color: color.withOpacity(0.2),
       borderRadius: BorderRadius.circular(4),
     ),
-    child: Text(value, style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: color)),
+    child: Text(
+      value,
+      style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: color),
+    ),
   );
 }
 
@@ -743,9 +1013,15 @@ Widget _buildUseCaseItem(String title, String description) {
       children: [
         Icon(Icons.check_circle, size: 14, color: Color(0xFFE65100)),
         SizedBox(width: 8),
-        Text(title, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 12)),
+        Text(
+          title,
+          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
+        ),
         SizedBox(width: 8),
-        Text(description, style: TextStyle(fontSize: 11, color: Color(0xFF757575))),
+        Text(
+          description,
+          style: TextStyle(fontSize: 11, color: Color(0xFF757575)),
+        ),
       ],
     ),
   );
@@ -762,13 +1038,7 @@ Widget _buildSummaryStat(String label, String value) {
           color: Color(0xFF4DD0E1),
         ),
       ),
-      Text(
-        label,
-        style: TextStyle(
-          fontSize: 9.0,
-          color: Color(0xFF90A4AE),
-        ),
-      ),
+      Text(label, style: TextStyle(fontSize: 9.0, color: Color(0xFF90A4AE))),
     ],
   );
 }

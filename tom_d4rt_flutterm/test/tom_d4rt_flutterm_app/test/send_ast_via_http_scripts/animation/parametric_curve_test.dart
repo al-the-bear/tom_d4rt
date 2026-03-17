@@ -7,21 +7,37 @@ import 'package:flutter/animation.dart';
 import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {
-  print('╔════════════════════════════════════════════════════════════════════╗');
-  print('║                  PARAMETRIC CURVE DEEP DEMO                       ║');
-  print('║            Base Class for All Animation Curves                    ║');
-  print('╚════════════════════════════════════════════════════════════════════╝');
+  print(
+    '╔════════════════════════════════════════════════════════════════════╗',
+  );
+  print(
+    '║                  PARAMETRIC CURVE DEEP DEMO                       ║',
+  );
+  print(
+    '║            Base Class for All Animation Curves                    ║',
+  );
+  print(
+    '╚════════════════════════════════════════════════════════════════════╝',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 1: PARAMETRIC CURVE FUNDAMENTALS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 1: PARAMETRIC CURVE FUNDAMENTALS                          │');
-  print('│ Understanding the base class for all curves                       │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 1: PARAMETRIC CURVE FUNDAMENTALS                          │',
+  );
+  print(
+    '│ Understanding the base class for all curves                       │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
-  
+
   print('ParametricCurve characteristics:');
   print('  • Abstract base class for animation curves');
   print('  • Input: t ∈ [0, 1] (animation progress)');
@@ -41,99 +57,171 @@ dynamic build(BuildContext context) {
   print('✓ Created various ParametricCurve implementations');
   print('');
 
-  final tValues = <double>[0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0];
+  final tValues = <double>[
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4,
+    0.5,
+    0.6,
+    0.7,
+    0.8,
+    0.9,
+    1.0,
+  ];
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 2: LINEAR CURVE (IDENTITY)
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 2: LINEAR CURVE (IDENTITY)                                │');
-  print('│ transform(t) = t - the simplest curve                             │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 2: LINEAR CURVE (IDENTITY)                                │',
+  );
+  print(
+    '│ transform(t) = t - the simplest curve                             │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final linearResults = <Map<String, dynamic>>[];
-  
+
   print('Curves.linear (baseline reference):');
-  print('┌─────────┬─────────────────┬───────────────────────────────────────────┐');
-  print('│    t    │     Output      │   Visualization                           │');
-  print('├─────────┼─────────────────┼───────────────────────────────────────────┤');
-  
+  print(
+    '┌─────────┬─────────────────┬───────────────────────────────────────────┐',
+  );
+  print(
+    '│    t    │     Output      │   Visualization                           │',
+  );
+  print(
+    '├─────────┼─────────────────┼───────────────────────────────────────────┤',
+  );
+
   for (final t in tValues) {
     final out = linear.transform(t);
     linearResults.add({'t': t, 'out': out});
-    
+
     final barWidth = (out * 35).round();
     final bar = '█' * barWidth + '░' * (35 - barWidth);
-    print('│  ${t.toStringAsFixed(2)}   │     ${out.toStringAsFixed(4).padLeft(6)}      │ $bar │');
+    print(
+      '│  ${t.toStringAsFixed(2)}   │     ${out.toStringAsFixed(4).padLeft(6)}      │ $bar │',
+    );
   }
-  print('└─────────┴─────────────────┴───────────────────────────────────────────┘');
+  print(
+    '└─────────┴─────────────────┴───────────────────────────────────────────┘',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 3: CUBIC BEZIER CURVES
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 3: CUBIC BEZIER CURVES                                    │');
-  print('│ Defined by 4 control points (2 implicit: start/end)               │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 3: CUBIC BEZIER CURVES                                    │',
+  );
+  print(
+    '│ Defined by 4 control points (2 implicit: start/end)               │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final cubicResults = <Map<String, dynamic>>[];
-  
+
   print('Cubic(0.25, 0.1, 0.25, 1.0):');
   print('  Control points: (0,0) → (0.25,0.1) → (0.25,1.0) → (1,1)');
   print('');
-  print('┌─────────┬─────────────────┬───────────────────────────────────────────┐');
-  print('│    t    │     Output      │   Comparison to Linear                    │');
-  print('├─────────┼─────────────────┼───────────────────────────────────────────┤');
-  
+  print(
+    '┌─────────┬─────────────────┬───────────────────────────────────────────┐',
+  );
+  print(
+    '│    t    │     Output      │   Comparison to Linear                    │',
+  );
+  print(
+    '├─────────┼─────────────────┼───────────────────────────────────────────┤',
+  );
+
   for (final t in tValues) {
     final out = cubic.transform(t);
     final diff = out - t;
     cubicResults.add({'t': t, 'out': out, 'diff': diff});
-    
-    final diffStr = diff >= 0 ? '+${diff.toStringAsFixed(3)}' : diff.toStringAsFixed(3);
+
+    final diffStr = diff >= 0
+        ? '+${diff.toStringAsFixed(3)}'
+        : diff.toStringAsFixed(3);
     final barWidth = (out * 25).round();
     final linearBar = (t * 25).round();
     String bar = '';
     for (var i = 0; i <= 25; i++) {
-      if (i == barWidth && i == linearBar) bar += '▓';
-      else if (i == barWidth) bar += '█';
-      else if (i == linearBar) bar += '│';
-      else bar += '░';
+      if (i == barWidth && i == linearBar)
+        bar += '▓';
+      else if (i == barWidth)
+        bar += '█';
+      else if (i == linearBar)
+        bar += '│';
+      else
+        bar += '░';
     }
-    print('│  ${t.toStringAsFixed(2)}   │     ${out.toStringAsFixed(4).padLeft(6)}      │ $bar ($diffStr) │');
+    print(
+      '│  ${t.toStringAsFixed(2)}   │     ${out.toStringAsFixed(4).padLeft(6)}      │ $bar ($diffStr) │',
+    );
   }
-  print('└─────────┴─────────────────┴───────────────────────────────────────────┘');
+  print(
+    '└─────────┴─────────────────┴───────────────────────────────────────────┘',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 4: EASE IN vs EASE OUT
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 4: EASE IN vs EASE OUT                                    │');
-  print('│ Slow start vs slow finish behaviors                               │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 4: EASE IN vs EASE OUT                                    │',
+  );
+  print(
+    '│ Slow start vs slow finish behaviors                               │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final easeResults = <Map<String, dynamic>>[];
-  
+
   print('EaseIn vs EaseOut comparison:');
-  print('┌─────────┬───────────────┬───────────────┬───────────────────────────┐');
-  print('│    t    │    EaseIn     │    EaseOut    │   Visual Comparison       │');
-  print('├─────────┼───────────────┼───────────────┼───────────────────────────┤');
-  
+  print(
+    '┌─────────┬───────────────┬───────────────┬───────────────────────────┐',
+  );
+  print(
+    '│    t    │    EaseIn     │    EaseOut    │   Visual Comparison       │',
+  );
+  print(
+    '├─────────┼───────────────┼───────────────┼───────────────────────────┤',
+  );
+
   for (final t in tValues) {
     final inVal = easeIn.transform(t);
     final outVal = easeOut.transform(t);
     easeResults.add({'t': t, 'inVal': inVal, 'outVal': outVal});
-    
+
     final inBar = '█' * (inVal * 10).round().clamp(0, 10);
     final outBar = '▓' * (outVal * 10).round().clamp(0, 10);
-    print('│  ${t.toStringAsFixed(2)}   │    ${inVal.toStringAsFixed(4).padLeft(6)}     │    ${outVal.toStringAsFixed(4).padLeft(6)}     │ ${inBar.padRight(10)}${outBar.padLeft(10)} │');
+    print(
+      '│  ${t.toStringAsFixed(2)}   │    ${inVal.toStringAsFixed(4).padLeft(6)}     │    ${outVal.toStringAsFixed(4).padLeft(6)}     │ ${inBar.padRight(10)}${outBar.padLeft(10)} │',
+    );
   }
-  print('└─────────┴───────────────┴───────────────┴───────────────────────────┘');
+  print(
+    '└─────────┴───────────────┴───────────────┴───────────────────────────┘',
+  );
   print('');
   print('█ = EaseIn (slow start, fast end)');
   print('▓ = EaseOut (fast start, slow end)');
@@ -142,28 +230,38 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 5: SAWTOOTH CURVE
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 5: SAWTOOTH CURVE                                         │');
-  print('│ Repeating linear pattern                                          │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 5: SAWTOOTH CURVE                                         │',
+  );
+  print(
+    '│ Repeating linear pattern                                          │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final sawtoothResults = <Map<String, dynamic>>[];
-  
+
   print('SawTooth(4) - 4 complete cycles:');
   print('┌─────────┬─────────────────┬──────────────────────────────────────┐');
   print('│    t    │     Output      │   Pattern                            │');
   print('├─────────┼─────────────────┼──────────────────────────────────────┤');
-  
+
   for (var i = 0; i <= 20; i++) {
     final t = i / 20;
     final out = sawTooth.transform(t);
     final cycle = (t * 4).floor();
     sawtoothResults.add({'t': t, 'out': out, 'cycle': cycle});
-    
+
     final pos = (out * 8).round();
     final pattern = '░' * pos + '█' + '░' * (8 - pos);
-    print('│  ${t.toStringAsFixed(2)}   │     ${out.toStringAsFixed(4).padLeft(6)}      │ Cycle $cycle: $pattern │');
+    print(
+      '│  ${t.toStringAsFixed(2)}   │     ${out.toStringAsFixed(4).padLeft(6)}      │ Cycle $cycle: $pattern │',
+    );
   }
   print('└─────────┴─────────────────┴──────────────────────────────────────┘');
   print('');
@@ -171,83 +269,134 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 6: THRESHOLD CURVE
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 6: THRESHOLD CURVE                                        │');
-  print('│ Binary step function                                              │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 6: THRESHOLD CURVE                                        │',
+  );
+  print(
+    '│ Binary step function                                              │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final thresholdResults = <Map<String, dynamic>>[];
-  
+
   print('Threshold(0.5) - step at 50%:');
-  print('┌─────────┬─────────────────┬───────────────────────────────────────────┐');
-  print('│    t    │     Output      │   State                                   │');
-  print('├─────────┼─────────────────┼───────────────────────────────────────────┤');
-  
+  print(
+    '┌─────────┬─────────────────┬───────────────────────────────────────────┐',
+  );
+  print(
+    '│    t    │     Output      │   State                                   │',
+  );
+  print(
+    '├─────────┼─────────────────┼───────────────────────────────────────────┤',
+  );
+
   for (final t in tValues) {
     final out = threshold.transform(t);
-    final state = out == 0.0 ? 'Before threshold (OFF)' : 'After threshold (ON)';
+    final state = out == 0.0
+        ? 'Before threshold (OFF)'
+        : 'After threshold (ON)';
     thresholdResults.add({'t': t, 'out': out, 'state': state});
-    
+
     final visual = out == 0.0 ? '░░░░░░░░░░' : '██████████';
-    print('│  ${t.toStringAsFixed(2)}   │     ${out.toStringAsFixed(4).padLeft(6)}      │ $visual ${state.padRight(30)} │');
+    print(
+      '│  ${t.toStringAsFixed(2)}   │     ${out.toStringAsFixed(4).padLeft(6)}      │ $visual ${state.padRight(30)} │',
+    );
   }
-  print('└─────────┴─────────────────┴───────────────────────────────────────────┘');
+  print(
+    '└─────────┴─────────────────┴───────────────────────────────────────────┘',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 7: INTERVAL CURVE
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 7: INTERVAL CURVE                                         │');
-  print('│ Time remapping for portions of animation                          │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 7: INTERVAL CURVE                                         │',
+  );
+  print(
+    '│ Time remapping for portions of animation                          │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final intervalResults = <Map<String, dynamic>>[];
-  
+
   print('Interval(0.25, 0.75) - middle 50%:');
-  print('┌─────────┬─────────────────┬──────────────────────────────────────────┐');
-  print('│    t    │     Output      │   Status                                 │');
-  print('├─────────┼─────────────────┼──────────────────────────────────────────┤');
-  
+  print(
+    '┌─────────┬─────────────────┬──────────────────────────────────────────┐',
+  );
+  print(
+    '│    t    │     Output      │   Status                                 │',
+  );
+  print(
+    '├─────────┼─────────────────┼──────────────────────────────────────────┤',
+  );
+
   for (final t in tValues) {
     final out = interval.transform(t);
     String status;
-    if (t < 0.25) status = '░░░░░ Waiting';
-    else if (t > 0.75) status = '█████ Complete';
-    else status = '▓▓▓▓▓ Active (${(out * 100).round()}%)';
+    if (t < 0.25)
+      status = '░░░░░ Waiting';
+    else if (t > 0.75)
+      status = '█████ Complete';
+    else
+      status = '▓▓▓▓▓ Active (${(out * 100).round()}%)';
     intervalResults.add({'t': t, 'out': out, 'status': status});
-    print('│  ${t.toStringAsFixed(2)}   │     ${out.toStringAsFixed(4).padLeft(6)}      │ ${status.padRight(40)} │');
+    print(
+      '│  ${t.toStringAsFixed(2)}   │     ${out.toStringAsFixed(4).padLeft(6)}      │ ${status.padRight(40)} │',
+    );
   }
-  print('└─────────┴─────────────────┴──────────────────────────────────────────┘');
+  print(
+    '└─────────┴─────────────────┴──────────────────────────────────────────┘',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 8: FLIPPED CURVES
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 8: FLIPPED CURVES                                         │');
-  print('│ Using .flipped getter to reverse a curve                          │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 8: FLIPPED CURVES                                         │',
+  );
+  print(
+    '│ Using .flipped getter to reverse a curve                          │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final flippedCubic = cubic.flipped;
   final flippedResults = <Map<String, dynamic>>[];
-  
+
   print('Original Cubic vs Flipped:');
   print('  Flipped formula: flipped(t) = 1 - curve(1 - t)');
   print('');
   print('┌─────────┬───────────────┬───────────────┬───────────────┐');
   print('│    t    │   Original    │    Flipped    │   Difference  │');
   print('├─────────┼───────────────┼───────────────┼───────────────┤');
-  
+
   for (final t in tValues) {
     final orig = cubic.transform(t);
     final flip = flippedCubic.transform(t);
     final diff = flip - orig;
     flippedResults.add({'t': t, 'orig': orig, 'flip': flip, 'diff': diff});
-    print('│  ${t.toStringAsFixed(2)}   │    ${orig.toStringAsFixed(4).padLeft(6)}     │    ${flip.toStringAsFixed(4).padLeft(6)}     │   ${diff.toStringAsFixed(4).padLeft(8)}    │');
+    print(
+      '│  ${t.toStringAsFixed(2)}   │    ${orig.toStringAsFixed(4).padLeft(6)}     │    ${flip.toStringAsFixed(4).padLeft(6)}     │   ${diff.toStringAsFixed(4).padLeft(8)}    │',
+    );
   }
   print('└─────────┴───────────────┴───────────────┴───────────────┘');
   print('');
@@ -260,18 +409,30 @@ dynamic build(BuildContext context) {
     final expected = 1.0 - cubic.transform(1.0 - t);
     final diff = (flip - expected).abs();
     if (diff > 0.0001) flippedValid = false;
-    print('  t=$t: flipped=${flip.toStringAsFixed(4)}, 1-orig(1-t)=${expected.toStringAsFixed(4)}, diff=${diff.toStringAsFixed(6)}');
+    print(
+      '  t=$t: flipped=${flip.toStringAsFixed(4)}, 1-orig(1-t)=${expected.toStringAsFixed(4)}, diff=${diff.toStringAsFixed(6)}',
+    );
   }
-  print('  Result: ${flippedValid ? '✓ Formula verified' : '✗ Mismatch detected'}');
+  print(
+    '  Result: ${flippedValid ? '✓ Formula verified' : '✗ Mismatch detected'}',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 9: CURVE COMPARISON
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 9: CURVE COMPARISON                                       │');
-  print('│ All ParametricCurve implementations at t=0.5                      │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 9: CURVE COMPARISON                                       │',
+  );
+  print(
+    '│ All ParametricCurve implementations at t=0.5                      │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final curves = <String, Curve>{
@@ -284,26 +445,36 @@ dynamic build(BuildContext context) {
     'Bounce': Curves.bounceOut,
     'Elastic': Curves.elasticOut,
   };
-  
+
   final comparisonResults = <Map<String, dynamic>>[];
-  
+
   print('All curves at t=0.5:');
-  print('┌───────────────┬─────────────────┬──────────────────────────────────┐');
-  print('│   Curve       │   Output (0.5)  │   Bar                            │');
-  print('├───────────────┼─────────────────┼──────────────────────────────────┤');
-  
+  print(
+    '┌───────────────┬─────────────────┬──────────────────────────────────┐',
+  );
+  print(
+    '│   Curve       │   Output (0.5)  │   Bar                            │',
+  );
+  print(
+    '├───────────────┼─────────────────┼──────────────────────────────────┤',
+  );
+
   for (final entry in curves.entries) {
     final out = entry.value.transform(0.5);
     comparisonResults.add({'name': entry.key, 'out': out});
-    
+
     // Handle values outside 0-1 range for elastic/bounce
     final clampedOut = out.clamp(0.0, 1.0);
     final barWidth = (clampedOut * 28).round();
     final bar = '█' * barWidth + '░' * (28 - barWidth);
     final overshoot = out > 1.0 ? ' ↑' : (out < 0.0 ? ' ↓' : '');
-    print('│ ${entry.key.padRight(13)} │     ${out.toStringAsFixed(4).padRight(10)}  │ $bar$overshoot│');
+    print(
+      '│ ${entry.key.padRight(13)} │     ${out.toStringAsFixed(4).padRight(10)}  │ $bar$overshoot│',
+    );
   }
-  print('└───────────────┴─────────────────┴──────────────────────────────────┘');
+  print(
+    '└───────────────┴─────────────────┴──────────────────────────────────┘',
+  );
   print('');
   print('Note: Elastic/Bounce may overshoot 0-1 range');
   print('');
@@ -311,35 +482,64 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 10: BOUNDARY CONDITIONS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 10: BOUNDARY CONDITIONS                                   │');
-  print('│ Verifying transform(0)≈0 and transform(1)≈1                       │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 10: BOUNDARY CONDITIONS                                   │',
+  );
+  print(
+    '│ Verifying transform(0)≈0 and transform(1)≈1                       │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final boundaryResults = <Map<String, dynamic>>[];
-  
+
   print('Boundary condition check:');
-  print('┌───────────────┬─────────────────┬─────────────────┬───────────────┐');
-  print('│   Curve       │  transform(0)   │  transform(1)   │   Valid?      │');
-  print('├───────────────┼─────────────────┼─────────────────┼───────────────┤');
-  
+  print(
+    '┌───────────────┬─────────────────┬─────────────────┬───────────────┐',
+  );
+  print(
+    '│   Curve       │  transform(0)   │  transform(1)   │   Valid?      │',
+  );
+  print(
+    '├───────────────┼─────────────────┼─────────────────┼───────────────┤',
+  );
+
   for (final entry in curves.entries) {
     final t0 = entry.value.transform(0.0);
     final t1 = entry.value.transform(1.0);
     final valid = (t0 - 0.0).abs() < 0.01 && (t1 - 1.0).abs() < 0.01;
-    boundaryResults.add({'name': entry.key, 't0': t0, 't1': t1, 'valid': valid});
-    print('│ ${entry.key.padRight(13)} │     ${t0.toStringAsFixed(6).padRight(10)} │     ${t1.toStringAsFixed(6).padRight(10)} │ ${valid ? '    ✓        ' : '    ✗        '} │');
+    boundaryResults.add({
+      'name': entry.key,
+      't0': t0,
+      't1': t1,
+      'valid': valid,
+    });
+    print(
+      '│ ${entry.key.padRight(13)} │     ${t0.toStringAsFixed(6).padRight(10)} │     ${t1.toStringAsFixed(6).padRight(10)} │ ${valid ? '    ✓        ' : '    ✗        '} │',
+    );
   }
-  print('└───────────────┴─────────────────┴─────────────────┴───────────────┘');
+  print(
+    '└───────────────┴─────────────────┴─────────────────┴───────────────┘',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SUMMARY
   // ═══════════════════════════════════════════════════════════════════════════
-  print('╔════════════════════════════════════════════════════════════════════╗');
-  print('║                  PARAMETRIC CURVE SUMMARY                         ║');
-  print('╚════════════════════════════════════════════════════════════════════╝');
+  print(
+    '╔════════════════════════════════════════════════════════════════════╗',
+  );
+  print(
+    '║                  PARAMETRIC CURVE SUMMARY                         ║',
+  );
+  print(
+    '╚════════════════════════════════════════════════════════════════════╝',
+  );
   print('');
   print('ParametricCurve implementations tested:');
   print('  • Linear - identity: f(t) = t');
@@ -390,10 +590,7 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 8.0),
                 Text(
                   'Base Class for All Animation Curves',
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    color: Color(0xFFBBDEFB),
-                  ),
+                  style: TextStyle(fontSize: 16.0, color: Color(0xFFBBDEFB)),
                 ),
               ],
             ),
@@ -430,9 +627,21 @@ dynamic build(BuildContext context) {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Input: t ∈ [0, 1] (animation progress)', style: TextStyle(fontSize: 12)),
-                      Text('Output: value (typically 0-1)', style: TextStyle(fontSize: 12)),
-                      Text('Requirement: f(0) ≈ 0, f(1) ≈ 1', style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic)),
+                      Text(
+                        'Input: t ∈ [0, 1] (animation progress)',
+                        style: TextStyle(fontSize: 12),
+                      ),
+                      Text(
+                        'Output: value (typically 0-1)',
+                        style: TextStyle(fontSize: 12),
+                      ),
+                      Text(
+                        'Requirement: f(0) ≈ 0, f(1) ≈ 1',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -500,7 +709,9 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 SizedBox(height: 12.0),
-                ...comparisonResults.take(6).map((r) => _buildComparisonRow(r['name'], r['out'])),
+                ...comparisonResults
+                    .take(6)
+                    .map((r) => _buildComparisonRow(r['name'], r['out'])),
               ],
             ),
           ),
@@ -526,11 +737,15 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 SizedBox(height: 12.0),
-                ...easeResults.where((r) => [0.0, 0.25, 0.5, 0.75, 1.0].contains(r['t'])).map((r) => _buildEaseRow(
-                  't=${(r['t'] as double).toStringAsFixed(2)}',
-                  r['inVal'] as double,
-                  r['outVal'] as double,
-                )),
+                ...easeResults
+                    .where((r) => [0.0, 0.25, 0.5, 0.75, 1.0].contains(r['t']))
+                    .map(
+                      (r) => _buildEaseRow(
+                        't=${(r['t'] as double).toStringAsFixed(2)}',
+                        r['inVal'] as double,
+                        r['outVal'] as double,
+                      ),
+                    ),
               ],
             ),
           ),
@@ -556,13 +771,20 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 SizedBox(height: 8),
-                Text('flipped(t) = 1 - curve(1 - t)', style: TextStyle(fontFamily: 'monospace', fontSize: 12)),
+                Text(
+                  'flipped(t) = 1 - curve(1 - t)',
+                  style: TextStyle(fontFamily: 'monospace', fontSize: 12),
+                ),
                 SizedBox(height: 12.0),
-                ...flippedResults.where((r) => [0.0, 0.25, 0.5, 0.75, 1.0].contains(r['t'])).map((r) => _buildFlippedRow(
-                  't=${(r['t'] as double).toStringAsFixed(2)}',
-                  r['orig'] as double,
-                  r['flip'] as double,
-                )),
+                ...flippedResults
+                    .where((r) => [0.0, 0.25, 0.5, 0.75, 1.0].contains(r['t']))
+                    .map(
+                      (r) => _buildFlippedRow(
+                        't=${(r['t'] as double).toStringAsFixed(2)}',
+                        r['orig'] as double,
+                        r['flip'] as double,
+                      ),
+                    ),
               ],
             ),
           ),
@@ -630,16 +852,28 @@ dynamic build(BuildContext context) {
                   children: [
                     _buildSummaryStat('Curves Tested', '${curves.length}'),
                     _buildSummaryStat('Test Points', '${tValues.length}'),
-                    _buildSummaryStat('Flipped Valid', flippedValid ? 'Yes' : 'No'),
+                    _buildSummaryStat(
+                      'Flipped Valid',
+                      flippedValid ? 'Yes' : 'No',
+                    ),
                   ],
                 ),
                 SizedBox(height: 12.0),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    _buildSummaryStat('Cubic t=0.5', cubic.transform(0.5).toStringAsFixed(2)),
-                    _buildSummaryStat('EaseIn t=0.5', easeIn.transform(0.5).toStringAsFixed(2)),
-                    _buildSummaryStat('EaseOut t=0.5', easeOut.transform(0.5).toStringAsFixed(2)),
+                    _buildSummaryStat(
+                      'Cubic t=0.5',
+                      cubic.transform(0.5).toStringAsFixed(2),
+                    ),
+                    _buildSummaryStat(
+                      'EaseIn t=0.5',
+                      easeIn.transform(0.5).toStringAsFixed(2),
+                    ),
+                    _buildSummaryStat(
+                      'EaseOut t=0.5',
+                      easeOut.transform(0.5).toStringAsFixed(2),
+                    ),
                   ],
                 ),
               ],
@@ -671,13 +905,20 @@ Widget _buildCurveChip(String label, Color color) {
       color: color,
       borderRadius: BorderRadius.circular(16),
     ),
-    child: Text(label, style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w500)),
+    child: Text(
+      label,
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 11,
+        fontWeight: FontWeight.w500,
+      ),
+    ),
   );
 }
 
 Widget _buildComparisonRow(String name, double value) {
   final clampedValue = value.clamp(0.0, 1.0);
-  
+
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
@@ -705,7 +946,10 @@ Widget _buildComparisonRow(String name, double value) {
         Container(
           width: 50,
           alignment: Alignment.centerRight,
-          child: Text(value.toStringAsFixed(3), style: TextStyle(fontSize: 10, fontFamily: 'monospace')),
+          child: Text(
+            value.toStringAsFixed(3),
+            style: TextStyle(fontSize: 10, fontFamily: 'monospace'),
+          ),
         ),
       ],
     ),
@@ -717,18 +961,29 @@ Widget _buildEaseRow(String label, double easeIn, double easeOut) {
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(width: 50, child: Text(label, style: TextStyle(fontSize: 11))),
+        Container(
+          width: 50,
+          child: Text(label, style: TextStyle(fontSize: 11)),
+        ),
         Expanded(
           child: Row(
             children: [
               Expanded(
                 child: Container(
                   height: 14,
-                  decoration: BoxDecoration(color: Color(0xFFC5CAE9), borderRadius: BorderRadius.circular(2)),
+                  decoration: BoxDecoration(
+                    color: Color(0xFFC5CAE9),
+                    borderRadius: BorderRadius.circular(2),
+                  ),
                   child: FractionallySizedBox(
                     alignment: Alignment.centerLeft,
                     widthFactor: easeIn.clamp(0.0, 1.0),
-                    child: Container(decoration: BoxDecoration(color: Color(0xFF3949AB), borderRadius: BorderRadius.circular(2))),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Color(0xFF3949AB),
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -736,11 +991,19 @@ Widget _buildEaseRow(String label, double easeIn, double easeOut) {
               Expanded(
                 child: Container(
                   height: 14,
-                  decoration: BoxDecoration(color: Color(0xFFC5CAE9), borderRadius: BorderRadius.circular(2)),
+                  decoration: BoxDecoration(
+                    color: Color(0xFFC5CAE9),
+                    borderRadius: BorderRadius.circular(2),
+                  ),
                   child: FractionallySizedBox(
                     alignment: Alignment.centerLeft,
                     widthFactor: easeOut.clamp(0.0, 1.0),
-                    child: Container(decoration: BoxDecoration(color: Color(0xFF7986CB), borderRadius: BorderRadius.circular(2))),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Color(0xFF7986CB),
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -752,9 +1015,15 @@ Widget _buildEaseRow(String label, double easeIn, double easeOut) {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Text('${easeIn.toStringAsFixed(2)}', style: TextStyle(fontSize: 9, color: Color(0xFF3949AB))),
+              Text(
+                '${easeIn.toStringAsFixed(2)}',
+                style: TextStyle(fontSize: 9, color: Color(0xFF3949AB)),
+              ),
               Text(' / ', style: TextStyle(fontSize: 9)),
-              Text('${easeOut.toStringAsFixed(2)}', style: TextStyle(fontSize: 9, color: Color(0xFF7986CB))),
+              Text(
+                '${easeOut.toStringAsFixed(2)}',
+                style: TextStyle(fontSize: 9, color: Color(0xFF7986CB)),
+              ),
             ],
           ),
         ),
@@ -768,18 +1037,29 @@ Widget _buildFlippedRow(String label, double orig, double flipped) {
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(width: 50, child: Text(label, style: TextStyle(fontSize: 11))),
+        Container(
+          width: 50,
+          child: Text(label, style: TextStyle(fontSize: 11)),
+        ),
         Expanded(
           child: Row(
             children: [
               Expanded(
                 child: Container(
                   height: 14,
-                  decoration: BoxDecoration(color: Color(0xFFE1BEE7), borderRadius: BorderRadius.circular(2)),
+                  decoration: BoxDecoration(
+                    color: Color(0xFFE1BEE7),
+                    borderRadius: BorderRadius.circular(2),
+                  ),
                   child: FractionallySizedBox(
                     alignment: Alignment.centerLeft,
                     widthFactor: orig.clamp(0.0, 1.0),
-                    child: Container(decoration: BoxDecoration(color: Color(0xFF7B1FA2), borderRadius: BorderRadius.circular(2))),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Color(0xFF7B1FA2),
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -787,11 +1067,19 @@ Widget _buildFlippedRow(String label, double orig, double flipped) {
               Expanded(
                 child: Container(
                   height: 14,
-                  decoration: BoxDecoration(color: Color(0xFFE1BEE7), borderRadius: BorderRadius.circular(2)),
+                  decoration: BoxDecoration(
+                    color: Color(0xFFE1BEE7),
+                    borderRadius: BorderRadius.circular(2),
+                  ),
                   child: FractionallySizedBox(
                     alignment: Alignment.centerLeft,
                     widthFactor: flipped.clamp(0.0, 1.0),
-                    child: Container(decoration: BoxDecoration(color: Color(0xFFAB47BC), borderRadius: BorderRadius.circular(2))),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Color(0xFFAB47BC),
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -803,9 +1091,15 @@ Widget _buildFlippedRow(String label, double orig, double flipped) {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Text('${orig.toStringAsFixed(2)}', style: TextStyle(fontSize: 9, color: Color(0xFF7B1FA2))),
+              Text(
+                '${orig.toStringAsFixed(2)}',
+                style: TextStyle(fontSize: 9, color: Color(0xFF7B1FA2)),
+              ),
               Text(' / ', style: TextStyle(fontSize: 9)),
-              Text('${flipped.toStringAsFixed(2)}', style: TextStyle(fontSize: 9, color: Color(0xFFAB47BC))),
+              Text(
+                '${flipped.toStringAsFixed(2)}',
+                style: TextStyle(fontSize: 9, color: Color(0xFFAB47BC)),
+              ),
             ],
           ),
         ),
@@ -825,13 +1119,7 @@ Widget _buildSummaryStat(String label, String value) {
           color: Color(0xFF4DD0E1),
         ),
       ),
-      Text(
-        label,
-        style: TextStyle(
-          fontSize: 9.0,
-          color: Color(0xFF90A4AE),
-        ),
-      ),
+      Text(label, style: TextStyle(fontSize: 9.0, color: Color(0xFF90A4AE))),
     ],
   );
 }
@@ -839,28 +1127,28 @@ Widget _buildSummaryStat(String label, String value) {
 class SawtoothPainter extends CustomPainter {
   final SawTooth sawTooth;
   final int count;
-  
+
   SawtoothPainter(this.sawTooth, this.count);
-  
+
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
       ..color = Color(0xFF00838F)
       ..strokeWidth = 2
       ..style = PaintingStyle.stroke;
-    
+
     final path = Path();
     path.moveTo(0, size.height);
-    
+
     for (var i = 0; i <= 100; i++) {
       final t = i / 100;
       final value = sawTooth.transform(t);
       path.lineTo(t * size.width, size.height - value * (size.height - 10));
     }
-    
+
     canvas.drawPath(path, paint);
   }
-  
+
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

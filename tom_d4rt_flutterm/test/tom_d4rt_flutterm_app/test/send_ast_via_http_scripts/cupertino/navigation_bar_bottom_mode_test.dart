@@ -4,19 +4,35 @@
 import 'package:flutter/cupertino.dart';
 
 dynamic build(BuildContext context) {
-  print('╔════════════════════════════════════════════════════════════════════╗');
-  print('║           NAVIGATION BAR BOTTOM MODE DEEP DEMO                    ║');
-  print('║     Bottom Edge Behavior for Cupertino Navigation Bars            ║');
-  print('╚════════════════════════════════════════════════════════════════════╝');
+  print(
+    '╔════════════════════════════════════════════════════════════════════╗',
+  );
+  print(
+    '║           NAVIGATION BAR BOTTOM MODE DEEP DEMO                    ║',
+  );
+  print(
+    '║     Bottom Edge Behavior for Cupertino Navigation Bars            ║',
+  );
+  print(
+    '╚════════════════════════════════════════════════════════════════════╝',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 1: NAVIGATION BAR BOTTOM MODE FUNDAMENTALS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 1: NAVIGATION BAR BOTTOM MODE FUNDAMENTALS                │');
-  print('│ Understanding nav bar bottom edge behavior                        │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 1: NAVIGATION BAR BOTTOM MODE FUNDAMENTALS                │',
+  );
+  print(
+    '│ Understanding nav bar bottom edge behavior                        │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('NavigationBarBottomMode defines:');
@@ -29,20 +45,34 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 2: ALL ENUM VALUES
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 2: ALL ENUM VALUES                                        │');
-  print('│ Complete list of bottom mode options                              │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 2: ALL ENUM VALUES                                        │',
+  );
+  print(
+    '│ Complete list of bottom mode options                              │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final allValues = NavigationBarBottomMode.values;
   final valueResults = <Map<String, dynamic>>[];
-  
+
   print('NavigationBarBottomMode enum values:');
-  print('┌──────────┬───────────────┬────────────────────────────────────────────┐');
-  print('│  Index   │     Name      │   Description                              │');
-  print('├──────────┼───────────────┼────────────────────────────────────────────┤');
-  
+  print(
+    '┌──────────┬───────────────┬────────────────────────────────────────────┐',
+  );
+  print(
+    '│  Index   │     Name      │   Description                              │',
+  );
+  print(
+    '├──────────┼───────────────┼────────────────────────────────────────────┤',
+  );
+
   for (final mode in allValues) {
     String description;
     switch (mode) {
@@ -56,10 +86,19 @@ dynamic build(BuildContext context) {
         description = 'Never show bottom border';
         break;
     }
-    valueResults.add({'mode': mode, 'index': mode.index, 'name': mode.name, 'description': description});
-    print('│    ${mode.index}     │ ${mode.name.padRight(13)} │ ${description.padRight(38)} │');
+    valueResults.add({
+      'mode': mode,
+      'index': mode.index,
+      'name': mode.name,
+      'description': description,
+    });
+    print(
+      '│    ${mode.index}     │ ${mode.name.padRight(13)} │ ${description.padRight(38)} │',
+    );
   }
-  print('└──────────┴───────────────┴────────────────────────────────────────────┘');
+  print(
+    '└──────────┴───────────────┴────────────────────────────────────────────┘',
+  );
   print('');
   print('Total values: ${allValues.length}');
   print('');
@@ -67,10 +106,18 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 3: AUTOMATIC MODE ANALYSIS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 3: AUTOMATIC MODE ANALYSIS                                │');
-  print('│ System-determined border visibility                               │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 3: AUTOMATIC MODE ANALYSIS                                │',
+  );
+  print(
+    '│ System-determined border visibility                               │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final automaticMode = NavigationBarBottomMode.automatic;
@@ -103,10 +150,18 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 4: ALWAYS MODE ANALYSIS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 4: ALWAYS MODE ANALYSIS                                   │');
-  print('│ Permanent bottom border                                           │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 4: ALWAYS MODE ANALYSIS                                   │',
+  );
+  print(
+    '│ Permanent bottom border                                           │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final alwaysMode = NavigationBarBottomMode.always;
@@ -139,10 +194,18 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 5: NEVER MODE ANALYSIS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 5: NEVER MODE ANALYSIS                                    │');
-  print('│ No bottom border                                                  │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 5: NEVER MODE ANALYSIS                                    │',
+  );
+  print(
+    '│ No bottom border                                                  │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final neverMode = NavigationBarBottomMode.never;
@@ -176,10 +239,18 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 6: VISUAL COMPARISON
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 6: VISUAL COMPARISON                                      │');
-  print('│ All three modes side by side                                      │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 6: VISUAL COMPARISON                                      │',
+  );
+  print(
+    '│ All three modes side by side                                      │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('AUTOMATIC            ALWAYS              NEVER');
@@ -195,30 +266,62 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 7: ENUM COMPARISON
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 7: ENUM COMPARISON                                        │');
-  print('│ Equality and ordering                                             │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 7: ENUM COMPARISON                                        │',
+  );
+  print(
+    '│ Equality and ordering                                             │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('Equality comparisons:');
-  print('┌─────────────────────────────────────┬─────────────────────────────┐');
-  print('│          Comparison                 │         Result              │');
-  print('├─────────────────────────────────────┼─────────────────────────────┤');
-  print('│ automatic == automatic              │ ${automaticMode == NavigationBarBottomMode.automatic}                        │');
-  print('│ automatic == always                 │ ${automaticMode == alwaysMode}                       │');
-  print('│ automatic.index < always.index      │ ${automaticMode.index < alwaysMode.index}                        │');
-  print('│ always.index < never.index          │ ${alwaysMode.index < neverMode.index}                        │');
-  print('└─────────────────────────────────────┴─────────────────────────────┘');
+  print(
+    '┌─────────────────────────────────────┬─────────────────────────────┐',
+  );
+  print(
+    '│          Comparison                 │         Result              │',
+  );
+  print(
+    '├─────────────────────────────────────┼─────────────────────────────┤',
+  );
+  print(
+    '│ automatic == automatic              │ ${automaticMode == NavigationBarBottomMode.automatic}                        │',
+  );
+  print(
+    '│ automatic == always                 │ ${automaticMode == alwaysMode}                       │',
+  );
+  print(
+    '│ automatic.index < always.index      │ ${automaticMode.index < alwaysMode.index}                        │',
+  );
+  print(
+    '│ always.index < never.index          │ ${alwaysMode.index < neverMode.index}                        │',
+  );
+  print(
+    '└─────────────────────────────────────┴─────────────────────────────┘',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 8: ITERATION PATTERNS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 8: ITERATION PATTERNS                                     │');
-  print('│ Working with enum collections                                     │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 8: ITERATION PATTERNS                                     │',
+  );
+  print(
+    '│ Working with enum collections                                     │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('Forward iteration:');
@@ -236,10 +339,18 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 9: WITH CUPERTINO NAVIGATION BAR
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 9: WITH CUPERTINO NAVIGATION BAR                          │');
-  print('│ Using bottom mode in navigation bars                              │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 9: WITH CUPERTINO NAVIGATION BAR                          │',
+  );
+  print(
+    '│ Using bottom mode in navigation bars                              │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('CupertinoNavigationBar usage:');
@@ -266,10 +377,18 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 10: PRACTICAL USE CASES
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 10: PRACTICAL USE CASES                                   │');
-  print('│ When to use each bottom mode                                      │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 10: PRACTICAL USE CASES                                   │',
+  );
+  print(
+    '│ When to use each bottom mode                                      │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('1. Scrollable Lists → automatic');
@@ -301,9 +420,15 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SUMMARY
   // ═══════════════════════════════════════════════════════════════════════════
-  print('╔════════════════════════════════════════════════════════════════════╗');
-  print('║        NAVIGATION BAR BOTTOM MODE SUMMARY                         ║');
-  print('╚════════════════════════════════════════════════════════════════════╝');
+  print(
+    '╔════════════════════════════════════════════════════════════════════╗',
+  );
+  print(
+    '║        NAVIGATION BAR BOTTOM MODE SUMMARY                         ║',
+  );
+  print(
+    '╚════════════════════════════════════════════════════════════════════╝',
+  );
   print('');
   print('NavigationBarBottomMode key features:');
   print('  • 3 modes: automatic, always, never');
@@ -443,8 +568,14 @@ dynamic build(BuildContext context) {
                     ),
                   ),
                   SizedBox(height: 12.0),
-                  _buildRecommendation('automatic', 'Scrollable lists, standard apps'),
-                  _buildRecommendation('always', 'Static forms, explicit separation'),
+                  _buildRecommendation(
+                    'automatic',
+                    'Scrollable lists, standard apps',
+                  ),
+                  _buildRecommendation(
+                    'always',
+                    'Static forms, explicit separation',
+                  ),
                   _buildRecommendation('never', 'Hero content, minimal design'),
                 ],
               ),
@@ -508,7 +639,7 @@ Widget _buildEnumRow(Map<String, dynamic> r) {
   final mode = r['mode'] as NavigationBarBottomMode;
   final name = r['name'] as String;
   final description = r['description'] as String;
-  
+
   Color color;
   switch (mode) {
     case NavigationBarBottomMode.automatic:
@@ -521,7 +652,7 @@ Widget _buildEnumRow(Map<String, dynamic> r) {
       color = CupertinoColors.systemRed;
       break;
   }
-  
+
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
@@ -533,10 +664,24 @@ Widget _buildEnumRow(Map<String, dynamic> r) {
             color: color,
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Center(child: Text(name, style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: CupertinoColors.white))),
+          child: Center(
+            child: Text(
+              name,
+              style: TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+                color: CupertinoColors.white,
+              ),
+            ),
+          ),
         ),
         SizedBox(width: 12),
-        Expanded(child: Text(description, style: TextStyle(fontSize: 11, color: CupertinoColors.systemGrey))),
+        Expanded(
+          child: Text(
+            description,
+            style: TextStyle(fontSize: 11, color: CupertinoColors.systemGrey),
+          ),
+        ),
       ],
     ),
   );
@@ -551,7 +696,14 @@ Widget _buildModeVisual(String mode, bool hasBorder, String description) {
         decoration: BoxDecoration(
           color: CupertinoColors.systemGrey5,
           borderRadius: BorderRadius.circular(6),
-          border: hasBorder ? Border(bottom: BorderSide(color: CupertinoColors.separator, width: 1)) : null,
+          border: hasBorder
+              ? Border(
+                  bottom: BorderSide(
+                    color: CupertinoColors.separator,
+                    width: 1,
+                  ),
+                )
+              : null,
         ),
         child: Column(
           children: [
@@ -561,15 +713,30 @@ Widget _buildModeVisual(String mode, bool hasBorder, String description) {
                 color: CupertinoColors.systemGrey4,
                 borderRadius: BorderRadius.vertical(top: Radius.circular(6)),
               ),
-              child: Center(child: Text('Nav', style: TextStyle(fontSize: 8, color: CupertinoColors.label))),
+              child: Center(
+                child: Text(
+                  'Nav',
+                  style: TextStyle(fontSize: 8, color: CupertinoColors.label),
+                ),
+              ),
             ),
             Spacer(),
           ],
         ),
       ),
       SizedBox(height: 4),
-      Text(mode, style: TextStyle(fontSize: 9, fontWeight: FontWeight.w500, color: Color(0xFF90A4AE))),
-      Text(description, style: TextStyle(fontSize: 8, color: Color(0xFF607D8B))),
+      Text(
+        mode,
+        style: TextStyle(
+          fontSize: 9,
+          fontWeight: FontWeight.w500,
+          color: Color(0xFF90A4AE),
+        ),
+      ),
+      Text(
+        description,
+        style: TextStyle(fontSize: 8, color: Color(0xFF607D8B)),
+      ),
     ],
   );
 }
@@ -586,10 +753,23 @@ Widget _buildRecommendation(String mode, String useCase) {
             color: Color(0xFF8E24AA),
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Center(child: Text(mode, style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: CupertinoColors.white))),
+          child: Center(
+            child: Text(
+              mode,
+              style: TextStyle(
+                fontSize: 9,
+                fontWeight: FontWeight.bold,
+                color: CupertinoColors.white,
+              ),
+            ),
+          ),
         ),
         SizedBox(width: 12),
-        Icon(CupertinoIcons.arrow_right, size: 12, color: CupertinoColors.systemGrey),
+        Icon(
+          CupertinoIcons.arrow_right,
+          size: 12,
+          color: CupertinoColors.systemGrey,
+        ),
         SizedBox(width: 8),
         Expanded(child: Text(useCase, style: TextStyle(fontSize: 11))),
       ],
@@ -608,13 +788,7 @@ Widget _buildSummaryStat(String label, String value) {
           color: Color(0xFF4DD0E1),
         ),
       ),
-      Text(
-        label,
-        style: TextStyle(
-          fontSize: 10.0,
-          color: Color(0xFF90A4AE),
-        ),
-      ),
+      Text(label, style: TextStyle(fontSize: 10.0, color: Color(0xFF90A4AE))),
     ],
   );
 }

@@ -4,19 +4,35 @@
 import 'package:flutter/cupertino.dart';
 
 dynamic build(BuildContext context) {
-  print('╔════════════════════════════════════════════════════════════════════╗');
-  print('║           CUPERTINO LIST SECTION TYPE DEEP DEMO                   ║');
-  print('║        iOS-style List Section Styling for Settings UI             ║');
-  print('╚════════════════════════════════════════════════════════════════════╝');
+  print(
+    '╔════════════════════════════════════════════════════════════════════╗',
+  );
+  print(
+    '║           CUPERTINO LIST SECTION TYPE DEEP DEMO                   ║',
+  );
+  print(
+    '║        iOS-style List Section Styling for Settings UI             ║',
+  );
+  print(
+    '╚════════════════════════════════════════════════════════════════════╝',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 1: LIST SECTION TYPE FUNDAMENTALS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 1: LIST SECTION TYPE FUNDAMENTALS                         │');
-  print('│ Understanding iOS list section visual styles                      │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 1: LIST SECTION TYPE FUNDAMENTALS                         │',
+  );
+  print(
+    '│ Understanding iOS list section visual styles                      │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('CupertinoListSectionType defines:');
@@ -29,20 +45,34 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 2: ALL ENUM VALUES
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 2: ALL ENUM VALUES                                        │');
-  print('│ Complete list of section type options                             │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 2: ALL ENUM VALUES                                        │',
+  );
+  print(
+    '│ Complete list of section type options                             │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final allValues = CupertinoListSectionType.values;
   final valueResults = <Map<String, dynamic>>[];
-  
+
   print('CupertinoListSectionType enum values:');
-  print('┌──────────┬───────────────┬────────────────────────────────────────────┐');
-  print('│  Index   │     Name      │   Description                              │');
-  print('├──────────┼───────────────┼────────────────────────────────────────────┤');
-  
+  print(
+    '┌──────────┬───────────────┬────────────────────────────────────────────┐',
+  );
+  print(
+    '│  Index   │     Name      │   Description                              │',
+  );
+  print(
+    '├──────────┼───────────────┼────────────────────────────────────────────┤',
+  );
+
   for (final type in allValues) {
     String description;
     switch (type) {
@@ -53,10 +83,19 @@ dynamic build(BuildContext context) {
         description = 'Rounded corners with side margins';
         break;
     }
-    valueResults.add({'type': type, 'index': type.index, 'name': type.name, 'description': description});
-    print('│    ${type.index}     │ ${type.name.padRight(13)} │ ${description.padRight(38)} │');
+    valueResults.add({
+      'type': type,
+      'index': type.index,
+      'name': type.name,
+      'description': description,
+    });
+    print(
+      '│    ${type.index}     │ ${type.name.padRight(13)} │ ${description.padRight(38)} │',
+    );
   }
-  print('└──────────┴───────────────┴────────────────────────────────────────────┘');
+  print(
+    '└──────────┴───────────────┴────────────────────────────────────────────┘',
+  );
   print('');
   print('Total values: ${allValues.length}');
   print('');
@@ -64,10 +103,18 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 3: BASE STYLE ANALYSIS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 3: BASE STYLE ANALYSIS                                    │');
-  print('│ Full-width list section styling                                   │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 3: BASE STYLE ANALYSIS                                    │',
+  );
+  print(
+    '│ Full-width list section styling                                   │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final baseType = CupertinoListSectionType.base;
@@ -92,10 +139,18 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 4: INSET GROUPED STYLE ANALYSIS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 4: INSET GROUPED STYLE ANALYSIS                           │');
-  print('│ Rounded, inset list section styling                               │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 4: INSET GROUPED STYLE ANALYSIS                           │',
+  );
+  print(
+    '│ Rounded, inset list section styling                               │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final insetGroupedType = CupertinoListSectionType.insetGrouped;
@@ -120,10 +175,18 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 5: VISUAL COMPARISON
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 5: VISUAL COMPARISON                                      │');
-  print('│ Side-by-side style differences                                    │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 5: VISUAL COMPARISON                                      │',
+  );
+  print(
+    '│ Side-by-side style differences                                    │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('VISUAL STYLE COMPARISON:');
@@ -145,29 +208,59 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 6: ENUM COMPARISON
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 6: ENUM COMPARISON                                        │');
-  print('│ Equality and ordering                                             │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 6: ENUM COMPARISON                                        │',
+  );
+  print(
+    '│ Equality and ordering                                             │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('Equality comparisons:');
-  print('┌─────────────────────────────────────┬─────────────────────────────┐');
-  print('│          Comparison                 │         Result              │');
-  print('├─────────────────────────────────────┼─────────────────────────────┤');
-  print('│ base == base                        │ ${baseType == CupertinoListSectionType.base}                        │');
-  print('│ base == insetGrouped                │ ${baseType == insetGroupedType}                       │');
-  print('│ base.index < insetGrouped.index     │ ${baseType.index < insetGroupedType.index}                        │');
-  print('└─────────────────────────────────────┴─────────────────────────────┘');
+  print(
+    '┌─────────────────────────────────────┬─────────────────────────────┐',
+  );
+  print(
+    '│          Comparison                 │         Result              │',
+  );
+  print(
+    '├─────────────────────────────────────┼─────────────────────────────┤',
+  );
+  print(
+    '│ base == base                        │ ${baseType == CupertinoListSectionType.base}                        │',
+  );
+  print(
+    '│ base == insetGrouped                │ ${baseType == insetGroupedType}                       │',
+  );
+  print(
+    '│ base.index < insetGrouped.index     │ ${baseType.index < insetGroupedType.index}                        │',
+  );
+  print(
+    '└─────────────────────────────────────┴─────────────────────────────┘',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 7: ITERATION PATTERNS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 7: ITERATION PATTERNS                                     │');
-  print('│ Working with enum collections                                     │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 7: ITERATION PATTERNS                                     │',
+  );
+  print(
+    '│ Working with enum collections                                     │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('Forward iteration:');
@@ -185,39 +278,67 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 8: NAME PARSING
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 8: NAME PARSING                                           │');
-  print('│ Converting strings to enum values                                 │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 8: NAME PARSING                                           │',
+  );
+  print(
+    '│ Converting strings to enum values                                 │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final testNames = ['base', 'insetGrouped', 'Base', 'insetgrouped'];
-  
+
   print('Parsing string names:');
-  print('┌─────────────────────┬──────────────────┬────────────────────────────┐');
-  print('│   Input String      │   Parsed Value   │   Method                   │');
-  print('├─────────────────────┼──────────────────┼────────────────────────────┤');
-  
+  print(
+    '┌─────────────────────┬──────────────────┬────────────────────────────┐',
+  );
+  print(
+    '│   Input String      │   Parsed Value   │   Method                   │',
+  );
+  print(
+    '├─────────────────────┼──────────────────┼────────────────────────────┤',
+  );
+
   for (final name in testNames) {
     try {
       final parsed = CupertinoListSectionType.values.firstWhere(
         (e) => e.name.toLowerCase() == name.toLowerCase(),
       );
-      print('│ "${name.padRight(17)}" │ ${parsed.name.padRight(14)} │ case-insensitive match     │');
+      print(
+        '│ "${name.padRight(17)}" │ ${parsed.name.padRight(14)} │ case-insensitive match     │',
+      );
     } catch (e) {
-      print('│ "${name.padRight(17)}" │ Error            │ Not found                  │');
+      print(
+        '│ "${name.padRight(17)}" │ Error            │ Not found                  │',
+      );
     }
   }
-  print('└─────────────────────┴──────────────────┴────────────────────────────┘');
+  print(
+    '└─────────────────────┴──────────────────┴────────────────────────────┘',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 9: WITH CUPERTINO LIST SECTION
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 9: WITH CUPERTINO LIST SECTION                            │');
-  print('│ Using section type in list sections                               │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 9: WITH CUPERTINO LIST SECTION                            │',
+  );
+  print(
+    '│ Using section type in list sections                               │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('CupertinoListSection usage:');
@@ -243,10 +364,18 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 10: PRACTICAL USE CASES
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 10: PRACTICAL USE CASES                                   │');
-  print('│ When to use each section type                                     │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 10: PRACTICAL USE CASES                                   │',
+  );
+  print(
+    '│ When to use each section type                                     │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('1. Settings Screens → insetGrouped');
@@ -276,9 +405,15 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SUMMARY
   // ═══════════════════════════════════════════════════════════════════════════
-  print('╔════════════════════════════════════════════════════════════════════╗');
-  print('║           CUPERTINO LIST SECTION TYPE SUMMARY                     ║');
-  print('╚════════════════════════════════════════════════════════════════════╝');
+  print(
+    '╔════════════════════════════════════════════════════════════════════╗',
+  );
+  print(
+    '║           CUPERTINO LIST SECTION TYPE SUMMARY                     ║',
+  );
+  print(
+    '╚════════════════════════════════════════════════════════════════════╝',
+  );
   print('');
   print('CupertinoListSectionType key features:');
   print('  • 2 styles: base and insetGrouped');
@@ -366,7 +501,14 @@ dynamic build(BuildContext context) {
             // Base Style Demo
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text('BASE STYLE', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: CupertinoColors.systemGrey)),
+              child: Text(
+                'BASE STYLE',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: CupertinoColors.systemGrey,
+                ),
+              ),
             ),
             CupertinoListSection(
               header: Text('Base Section'),
@@ -380,7 +522,14 @@ dynamic build(BuildContext context) {
             // Inset Grouped Style Demo
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text('INSET GROUPED STYLE', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: CupertinoColors.systemGrey)),
+              child: Text(
+                'INSET GROUPED STYLE',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: CupertinoColors.systemGrey,
+                ),
+              ),
             ),
             CupertinoListSection.insetGrouped(
               header: Text('Inset Grouped Section'),
@@ -413,7 +562,10 @@ dynamic build(BuildContext context) {
                   ),
                   SizedBox(height: 12.0),
                   _buildRecommendation('base', 'Action menus, dense lists'),
-                  _buildRecommendation('insetGrouped', 'Settings, forms, preferences'),
+                  _buildRecommendation(
+                    'insetGrouped',
+                    'Settings, forms, preferences',
+                  ),
                 ],
               ),
             ),
@@ -475,11 +627,11 @@ Widget _buildEnumRow(Map<String, dynamic> r) {
   final type = r['type'] as CupertinoListSectionType;
   final name = r['name'] as String;
   final description = r['description'] as String;
-  
-  Color color = type == CupertinoListSectionType.base 
-    ? Color(0xFF007AFF) 
-    : Color(0xFF5856D6);
-  
+
+  Color color = type == CupertinoListSectionType.base
+      ? Color(0xFF007AFF)
+      : Color(0xFF5856D6);
+
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
@@ -491,10 +643,24 @@ Widget _buildEnumRow(Map<String, dynamic> r) {
             color: color,
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Center(child: Text(name, style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: CupertinoColors.white))),
+          child: Center(
+            child: Text(
+              name,
+              style: TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+                color: CupertinoColors.white,
+              ),
+            ),
+          ),
         ),
         SizedBox(width: 12),
-        Expanded(child: Text(description, style: TextStyle(fontSize: 11, color: CupertinoColors.systemGrey))),
+        Expanded(
+          child: Text(
+            description,
+            style: TextStyle(fontSize: 11, color: CupertinoColors.systemGrey),
+          ),
+        ),
       ],
     ),
   );
@@ -512,10 +678,23 @@ Widget _buildRecommendation(String style, String useCase) {
             color: Color(0xFF5856D6),
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Center(child: Text(style, style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: CupertinoColors.white))),
+          child: Center(
+            child: Text(
+              style,
+              style: TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+                color: CupertinoColors.white,
+              ),
+            ),
+          ),
         ),
         SizedBox(width: 12),
-        Icon(CupertinoIcons.arrow_right, size: 12, color: CupertinoColors.systemGrey),
+        Icon(
+          CupertinoIcons.arrow_right,
+          size: 12,
+          color: CupertinoColors.systemGrey,
+        ),
         SizedBox(width: 8),
         Expanded(child: Text(useCase, style: TextStyle(fontSize: 11))),
       ],
@@ -534,13 +713,7 @@ Widget _buildSummaryStat(String label, String value) {
           color: Color(0xFF4DD0E1),
         ),
       ),
-      Text(
-        label,
-        style: TextStyle(
-          fontSize: 10.0,
-          color: Color(0xFF90A4AE),
-        ),
-      ),
+      Text(label, style: TextStyle(fontSize: 10.0, color: Color(0xFF90A4AE))),
     ],
   );
 }

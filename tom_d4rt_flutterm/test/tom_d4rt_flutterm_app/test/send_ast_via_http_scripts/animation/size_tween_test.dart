@@ -7,25 +7,43 @@ import 'package:flutter/animation.dart';
 import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {
-  print('╔════════════════════════════════════════════════════════════════════╗');
-  print('║                    SIZE TWEEN DEEP DEMO                           ║');
-  print('║              Width and Height Interpolation                       ║');
-  print('╚════════════════════════════════════════════════════════════════════╝');
+  print(
+    '╔════════════════════════════════════════════════════════════════════╗',
+  );
+  print(
+    '║                    SIZE TWEEN DEEP DEMO                           ║',
+  );
+  print(
+    '║              Width and Height Interpolation                       ║',
+  );
+  print(
+    '╚════════════════════════════════════════════════════════════════════╝',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 1: SIZE TWEEN FUNDAMENTALS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 1: SIZE TWEEN FUNDAMENTALS                                │');
-  print('│ Understanding width and height interpolation                      │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 1: SIZE TWEEN FUNDAMENTALS                                │',
+  );
+  print(
+    '│ Understanding width and height interpolation                      │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
-  
+
   print('SizeTween characteristics:');
   print('  • Interpolates between two Size values');
   print('  • Width and height interpolate independently');
-  print('  • Formula: Size(w_begin + t*(w_end-w_begin), h_begin + t*(h_end-h_begin))');
+  print(
+    '  • Formula: Size(w_begin + t*(w_end-w_begin), h_begin + t*(h_end-h_begin))',
+  );
   print('  • Area changes non-linearly unless dimensions scale equally');
   print('  • Perfect for grow/shrink animations');
   print('');
@@ -40,69 +58,131 @@ dynamic build(BuildContext context) {
   print('  end: ${basicTween.end}');
   print('');
 
-  final tValues = <double>[0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0];
+  final tValues = <double>[
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4,
+    0.5,
+    0.6,
+    0.7,
+    0.8,
+    0.9,
+    1.0,
+  ];
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 2: FULL INTERPOLATION
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 2: FULL INTERPOLATION                                     │');
-  print('│ Size values at each t step                                        │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 2: FULL INTERPOLATION                                     │',
+  );
+  print(
+    '│ Size values at each t step                                        │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final interpResults = <Map<String, dynamic>>[];
-  
+
   print('Interpolation from (50x50) to (200x100):');
-  print('┌───────┬─────────────┬─────────────┬────────────────┬──────────────────────────┐');
-  print('│   t   │    Width    │   Height    │     Area       │   Aspect Ratio           │');
-  print('├───────┼─────────────┼─────────────┼────────────────┼──────────────────────────┤');
-  
+  print(
+    '┌───────┬─────────────┬─────────────┬────────────────┬──────────────────────────┐',
+  );
+  print(
+    '│   t   │    Width    │   Height    │     Area       │   Aspect Ratio           │',
+  );
+  print(
+    '├───────┼─────────────┼─────────────┼────────────────┼──────────────────────────┤',
+  );
+
   for (final t in tValues) {
     final s = basicTween.lerp(t)!;
     final area = s.width * s.height;
     final aspectRatio = s.width / s.height;
-    interpResults.add({'t': t, 'w': s.width, 'h': s.height, 'area': area, 'ar': aspectRatio});
-    print('│ ${t.toStringAsFixed(1)}   │   ${s.width.toStringAsFixed(1).padLeft(6)}    │   ${s.height.toStringAsFixed(1).padLeft(6)}    │   ${area.toStringAsFixed(0).padLeft(8)}     │   ${aspectRatio.toStringAsFixed(3).padLeft(6)}               │');
+    interpResults.add({
+      't': t,
+      'w': s.width,
+      'h': s.height,
+      'area': area,
+      'ar': aspectRatio,
+    });
+    print(
+      '│ ${t.toStringAsFixed(1)}   │   ${s.width.toStringAsFixed(1).padLeft(6)}    │   ${s.height.toStringAsFixed(1).padLeft(6)}    │   ${area.toStringAsFixed(0).padLeft(8)}     │   ${aspectRatio.toStringAsFixed(3).padLeft(6)}               │',
+    );
   }
-  print('└───────┴─────────────┴─────────────┴────────────────┴──────────────────────────┘');
+  print(
+    '└───────┴─────────────┴─────────────┴────────────────┴──────────────────────────┘',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 3: ZERO TO FULL SIZE
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 3: ZERO TO FULL SIZE                                      │');
-  print('│ Growing from nothing                                              │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 3: ZERO TO FULL SIZE                                      │',
+  );
+  print(
+    '│ Growing from nothing                                              │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final zeroTween = SizeTween(begin: Size.zero, end: Size(300.0, 200.0));
   final zeroResults = <Map<String, dynamic>>[];
-  
+
   print('Zero to Size(300x200):');
-  print('┌───────┬─────────────┬─────────────┬─────────────────────────────────┐');
-  print('│   t   │    Width    │   Height    │   Visualization                 │');
-  print('├───────┼─────────────┼─────────────┼─────────────────────────────────┤');
-  
+  print(
+    '┌───────┬─────────────┬─────────────┬─────────────────────────────────┐',
+  );
+  print(
+    '│   t   │    Width    │   Height    │   Visualization                 │',
+  );
+  print(
+    '├───────┼─────────────┼─────────────┼─────────────────────────────────┤',
+  );
+
   for (final t in tValues) {
     final s = zeroTween.lerp(t)!;
     zeroResults.add({'t': t, 'w': s.width, 'h': s.height});
-    
+
     final barWidth = (s.width / 300 * 25).round().clamp(0, 25);
     final bar = '█' * barWidth + '░' * (25 - barWidth);
-    print('│ ${t.toStringAsFixed(1)}   │   ${s.width.toStringAsFixed(0).padLeft(6)}    │   ${s.height.toStringAsFixed(0).padLeft(6)}    │ $bar │');
+    print(
+      '│ ${t.toStringAsFixed(1)}   │   ${s.width.toStringAsFixed(0).padLeft(6)}    │   ${s.height.toStringAsFixed(0).padLeft(6)}    │ $bar │',
+    );
   }
-  print('└───────┴─────────────┴─────────────┴─────────────────────────────────┘');
+  print(
+    '└───────┴─────────────┴─────────────┴─────────────────────────────────┘',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 4: SQUARE TO RECTANGLE TRANSFORMATION
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 4: SQUARE TO RECTANGLE TRANSFORMATION                     │');
-  print('│ Shape morphing animation                                          │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 4: SQUARE TO RECTANGLE TRANSFORMATION                     │',
+  );
+  print(
+    '│ Shape morphing animation                                          │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final shapeTween = SizeTween(
@@ -110,22 +190,28 @@ dynamic build(BuildContext context) {
     end: Size(300.0, 50.0),
   );
   final shapeResults = <Map<String, dynamic>>[];
-  
+
   print('Square (100x100) to wide rectangle (300x50):');
   print('┌───────┬────────────────────┬────────────────┬────────────────────┐');
   print('│   t   │       Size         │   Aspect Ratio │   Shape            │');
   print('├───────┼────────────────────┼────────────────┼────────────────────┤');
-  
+
   for (final t in tValues) {
     final s = shapeTween.lerp(t)!;
     final ar = s.width / s.height;
     String shape;
-    if (ar < 1.2) shape = 'Square';
-    else if (ar < 2.0) shape = 'Rectangle';
-    else if (ar < 4.0) shape = 'Wide rect';
-    else shape = 'Very wide';
+    if (ar < 1.2)
+      shape = 'Square';
+    else if (ar < 2.0)
+      shape = 'Rectangle';
+    else if (ar < 4.0)
+      shape = 'Wide rect';
+    else
+      shape = 'Very wide';
     shapeResults.add({'t': t, 'size': s, 'ar': ar, 'shape': shape});
-    print('│ ${t.toStringAsFixed(1)}   │  ${s.width.toStringAsFixed(0).padLeft(3)} x ${s.height.toStringAsFixed(0).padLeft(3)}         │     ${ar.toStringAsFixed(2).padLeft(5)}      │ ${shape.padRight(16)} │');
+    print(
+      '│ ${t.toStringAsFixed(1)}   │  ${s.width.toStringAsFixed(0).padLeft(3)} x ${s.height.toStringAsFixed(0).padLeft(3)}         │     ${ar.toStringAsFixed(2).padLeft(5)}      │ ${shape.padRight(16)} │',
+    );
   }
   print('└───────┴────────────────────┴────────────────┴────────────────────┘');
   print('');
@@ -133,10 +219,18 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 5: AREA ANALYSIS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 5: AREA ANALYSIS                                          │');
-  print('│ Area changes non-linearly!                                        │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 5: AREA ANALYSIS                                          │',
+  );
+  print(
+    '│ Area changes non-linearly!                                        │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('IMPORTANT: Area interpolation is NOT linear!');
@@ -144,24 +238,23 @@ dynamic build(BuildContext context) {
   print('  the area follows a more complex curve.');
   print('');
 
-  final areaTween = SizeTween(
-    begin: Size(50.0, 50.0),
-    end: Size(150.0, 150.0),
-  );
+  final areaTween = SizeTween(begin: Size(50.0, 50.0), end: Size(150.0, 150.0));
   final areaResults = <Map<String, dynamic>>[];
-  
+
   print('Uniform scaling (50x50) to (150x150):');
   print('┌───────┬──────────────┬────────────────┬────────────────────┐');
   print('│   t   │    Size      │     Area       │   Area Change %    │');
   print('├───────┼──────────────┼────────────────┼────────────────────┤');
-  
+
   final beginArea = 50.0 * 50.0;
   for (final t in tValues) {
     final s = areaTween.lerp(t)!;
     final area = s.width * s.height;
     final areaPercent = (area / beginArea * 100) - 100;
     areaResults.add({'t': t, 'size': s, 'area': area, 'percent': areaPercent});
-    print('│ ${t.toStringAsFixed(1)}   │ ${s.width.toStringAsFixed(0).padLeft(3)}x${s.height.toStringAsFixed(0).padLeft(3)}       │   ${area.toStringAsFixed(0).padLeft(8)}     │   ${areaPercent >= 0 ? '+' : ''}${areaPercent.toStringAsFixed(0).padLeft(4)}%            │');
+    print(
+      '│ ${t.toStringAsFixed(1)}   │ ${s.width.toStringAsFixed(0).padLeft(3)}x${s.height.toStringAsFixed(0).padLeft(3)}       │   ${area.toStringAsFixed(0).padLeft(8)}     │   ${areaPercent >= 0 ? '+' : ''}${areaPercent.toStringAsFixed(0).padLeft(4)}%            │',
+    );
   }
   print('└───────┴──────────────┴────────────────┴────────────────────┘');
   print('');
@@ -172,52 +265,64 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 6: WIDTH-ONLY AND HEIGHT-ONLY CHANGES
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 6: WIDTH-ONLY AND HEIGHT-ONLY CHANGES                     │');
-  print('│ Single dimension animations                                       │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 6: WIDTH-ONLY AND HEIGHT-ONLY CHANGES                     │',
+  );
+  print(
+    '│ Single dimension animations                                       │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final widthOnlyTween = SizeTween(
     begin: Size(50.0, 100.0),
     end: Size(250.0, 100.0),
   );
-  
+
   final heightOnlyTween = SizeTween(
     begin: Size(100.0, 30.0),
     end: Size(100.0, 150.0),
   );
-  
+
   final singleDimResults = <Map<String, dynamic>>[];
-  
+
   print('Width-only change (height constant at 100):');
   print('┌───────┬──────────────┬──────────────────────────────────────────┐');
   print('│   t   │    Size      │   Width Bar                              │');
   print('├───────┼──────────────┼──────────────────────────────────────────┤');
-  
+
   for (final t in [0.0, 0.25, 0.5, 0.75, 1.0]) {
     final s = widthOnlyTween.lerp(t)!;
     singleDimResults.add({'type': 'width', 't': t, 'size': s});
-    
+
     final barWidth = (s.width / 250 * 32).round().clamp(0, 32);
     final bar = '▓' * barWidth + '░' * (32 - barWidth);
-    print('│ ${t.toStringAsFixed(2)}  │ ${s.width.toStringAsFixed(0).padLeft(3)}x${s.height.toStringAsFixed(0).padLeft(3)}     │ $bar │');
+    print(
+      '│ ${t.toStringAsFixed(2)}  │ ${s.width.toStringAsFixed(0).padLeft(3)}x${s.height.toStringAsFixed(0).padLeft(3)}     │ $bar │',
+    );
   }
   print('└───────┴──────────────┴──────────────────────────────────────────┘');
   print('');
-  
+
   print('Height-only change (width constant at 100):');
   print('┌───────┬──────────────┬──────────────────────────────────────────┐');
   print('│   t   │    Size      │   Height Bar                             │');
   print('├───────┼──────────────┼──────────────────────────────────────────┤');
-  
+
   for (final t in [0.0, 0.25, 0.5, 0.75, 1.0]) {
     final s = heightOnlyTween.lerp(t)!;
     singleDimResults.add({'type': 'height', 't': t, 'size': s});
-    
+
     final barHeight = (s.height / 150 * 32).round().clamp(0, 32);
     final bar = '▓' * barHeight + '░' * (32 - barHeight);
-    print('│ ${t.toStringAsFixed(2)}  │ ${s.width.toStringAsFixed(0).padLeft(3)}x${s.height.toStringAsFixed(0).padLeft(3)}     │ $bar │');
+    print(
+      '│ ${t.toStringAsFixed(2)}  │ ${s.width.toStringAsFixed(0).padLeft(3)}x${s.height.toStringAsFixed(0).padLeft(3)}     │ $bar │',
+    );
   }
   print('└───────┴──────────────┴──────────────────────────────────────────┘');
   print('');
@@ -225,10 +330,18 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 7: SHRINKING ANIMATION
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 7: SHRINKING ANIMATION                                    │');
-  print('│ Collapse from large to small                                      │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 7: SHRINKING ANIMATION                                    │',
+  );
+  print(
+    '│ Collapse from large to small                                      │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final shrinkTween = SizeTween(
@@ -236,85 +349,162 @@ dynamic build(BuildContext context) {
     end: Size(20.0, 15.0),
   );
   final shrinkResults = <Map<String, dynamic>>[];
-  
+
   print('Shrinking from (200x150) to (20x15):');
-  print('┌───────┬──────────────────┬─────────────────┬───────────────────────┐');
-  print('│   t   │      Size        │    Scale %      │   Visual              │');
-  print('├───────┼──────────────────┼─────────────────┼───────────────────────┤');
-  
+  print(
+    '┌───────┬──────────────────┬─────────────────┬───────────────────────┐',
+  );
+  print(
+    '│   t   │      Size        │    Scale %      │   Visual              │',
+  );
+  print(
+    '├───────┼──────────────────┼─────────────────┼───────────────────────┤',
+  );
+
   for (final t in tValues) {
     final s = shrinkTween.lerp(t)!;
     final scale = s.width / 200.0 * 100;
     shrinkResults.add({'t': t, 'size': s, 'scale': scale});
-    
+
     final barWidth = ((1.0 - t) * 15).round().clamp(0, 15);
     final bar = '█' * barWidth + '░' * (15 - barWidth);
-    print('│ ${t.toStringAsFixed(1)}   │  ${s.width.toStringAsFixed(0).padLeft(5)} x ${s.height.toStringAsFixed(0).padLeft(5)}   │     ${scale.toStringAsFixed(0).padLeft(3)}%       │ $bar │');
+    print(
+      '│ ${t.toStringAsFixed(1)}   │  ${s.width.toStringAsFixed(0).padLeft(5)} x ${s.height.toStringAsFixed(0).padLeft(5)}   │     ${scale.toStringAsFixed(0).padLeft(3)}%       │ $bar │',
+    );
   }
-  print('└───────┴──────────────────┴─────────────────┴───────────────────────┘');
+  print(
+    '└───────┴──────────────────┴─────────────────┴───────────────────────┘',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 8: MULTIPLE SIZE TWEENS COMPARISON
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 8: MULTIPLE SIZE TWEENS COMPARISON                        │');
-  print('│ Different transformation behaviors                                │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 8: MULTIPLE SIZE TWEENS COMPARISON                        │',
+  );
+  print(
+    '│ Different transformation behaviors                                │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
-  final tweenA = SizeTween(begin: Size(100, 100), end: Size(200, 200)); // Uniform grow
-  final tweenB = SizeTween(begin: Size(100, 100), end: Size(200, 100)); // Width only
-  final tweenC = SizeTween(begin: Size(100, 100), end: Size(100, 200)); // Height only
-  final tweenD = SizeTween(begin: Size(100, 100), end: Size(200, 50));  // Width up, height down
-  
+  final tweenA = SizeTween(
+    begin: Size(100, 100),
+    end: Size(200, 200),
+  ); // Uniform grow
+  final tweenB = SizeTween(
+    begin: Size(100, 100),
+    end: Size(200, 100),
+  ); // Width only
+  final tweenC = SizeTween(
+    begin: Size(100, 100),
+    end: Size(100, 200),
+  ); // Height only
+  final tweenD = SizeTween(
+    begin: Size(100, 100),
+    end: Size(200, 50),
+  ); // Width up, height down
+
   final compareResults = <Map<String, dynamic>>[];
-  
+
   print('Size comparison at t=0.5:');
-  print('┌──────────────────────┬──────────────────┬──────────────────┬─────────────┐');
-  print('│ Tween Type           │ Begin            │ End              │ At t=0.5    │');
-  print('├──────────────────────┼──────────────────┼──────────────────┼─────────────┤');
-  
+  print(
+    '┌──────────────────────┬──────────────────┬──────────────────┬─────────────┐',
+  );
+  print(
+    '│ Tween Type           │ Begin            │ End              │ At t=0.5    │',
+  );
+  print(
+    '├──────────────────────┼──────────────────┼──────────────────┼─────────────┤',
+  );
+
   final sA = tweenA.lerp(0.5)!;
   final sB = tweenB.lerp(0.5)!;
   final sC = tweenC.lerp(0.5)!;
   final sD = tweenD.lerp(0.5)!;
-  
-  compareResults.add({'name': 'Uniform grow', 'begin': Size(100, 100), 'end': Size(200, 200), 'mid': sA});
-  compareResults.add({'name': 'Width only', 'begin': Size(100, 100), 'end': Size(200, 100), 'mid': sB});
-  compareResults.add({'name': 'Height only', 'begin': Size(100, 100), 'end': Size(100, 200), 'mid': sC});
-  compareResults.add({'name': 'W up, H down', 'begin': Size(100, 100), 'end': Size(200, 50), 'mid': sD});
-  
-  print('│ Uniform grow         │ 100x100          │ 200x200          │ ${sA.width.toStringAsFixed(0)}x${sA.height.toStringAsFixed(0)}     │');
-  print('│ Width only           │ 100x100          │ 200x100          │ ${sB.width.toStringAsFixed(0)}x${sB.height.toStringAsFixed(0)}     │');
-  print('│ Height only          │ 100x100          │ 100x200          │ ${sC.width.toStringAsFixed(0)}x${sC.height.toStringAsFixed(0)}     │');
-  print('│ W up, H down         │ 100x100          │ 200x50           │ ${sD.width.toStringAsFixed(0)}x${sD.height.toStringAsFixed(0)}      │');
-  print('└──────────────────────┴──────────────────┴──────────────────┴─────────────┘');
+
+  compareResults.add({
+    'name': 'Uniform grow',
+    'begin': Size(100, 100),
+    'end': Size(200, 200),
+    'mid': sA,
+  });
+  compareResults.add({
+    'name': 'Width only',
+    'begin': Size(100, 100),
+    'end': Size(200, 100),
+    'mid': sB,
+  });
+  compareResults.add({
+    'name': 'Height only',
+    'begin': Size(100, 100),
+    'end': Size(100, 200),
+    'mid': sC,
+  });
+  compareResults.add({
+    'name': 'W up, H down',
+    'begin': Size(100, 100),
+    'end': Size(200, 50),
+    'mid': sD,
+  });
+
+  print(
+    '│ Uniform grow         │ 100x100          │ 200x200          │ ${sA.width.toStringAsFixed(0)}x${sA.height.toStringAsFixed(0)}     │',
+  );
+  print(
+    '│ Width only           │ 100x100          │ 200x100          │ ${sB.width.toStringAsFixed(0)}x${sB.height.toStringAsFixed(0)}     │',
+  );
+  print(
+    '│ Height only          │ 100x100          │ 100x200          │ ${sC.width.toStringAsFixed(0)}x${sC.height.toStringAsFixed(0)}     │',
+  );
+  print(
+    '│ W up, H down         │ 100x100          │ 200x50           │ ${sD.width.toStringAsFixed(0)}x${sD.height.toStringAsFixed(0)}      │',
+  );
+  print(
+    '└──────────────────────┴──────────────────┴──────────────────┴─────────────┘',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 9: EVALUATE WITH ANIMATION
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 9: EVALUATE WITH ANIMATION                                │');
-  print('│ Using evaluate() method                                           │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 9: EVALUATE WITH ANIMATION                                │',
+  );
+  print(
+    '│ Using evaluate() method                                           │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final evalResults = <Map<String, dynamic>>[];
-  
+
   print('evaluate() vs lerp() comparison:');
   print('┌───────┬─────────────────┬─────────────────┬───────────────────┐');
   print('│   t   │    lerp(t)      │   evaluate()    │    Match?         │');
   print('├───────┼─────────────────┼─────────────────┼───────────────────┤');
-  
+
   for (final t in [0.0, 0.25, 0.5, 0.75, 1.0]) {
     final lerpVal = basicTween.lerp(t)!;
     final anim = AlwaysStoppedAnimation<double>(t);
     final evalVal = basicTween.evaluate(anim)!;
-    final match = lerpVal.width == evalVal.width && lerpVal.height == evalVal.height;
+    final match =
+        lerpVal.width == evalVal.width && lerpVal.height == evalVal.height;
     evalResults.add({'t': t, 'lerp': lerpVal, 'eval': evalVal, 'match': match});
-    print('│ ${t.toStringAsFixed(2)}  │ ${lerpVal.width.toStringAsFixed(0)}x${lerpVal.height.toStringAsFixed(0).padLeft(3)}         │ ${evalVal.width.toStringAsFixed(0)}x${evalVal.height.toStringAsFixed(0).padLeft(3)}         │       ${match ? '✓' : '✗'}         │');
+    print(
+      '│ ${t.toStringAsFixed(2)}  │ ${lerpVal.width.toStringAsFixed(0)}x${lerpVal.height.toStringAsFixed(0).padLeft(3)}         │ ${evalVal.width.toStringAsFixed(0)}x${evalVal.height.toStringAsFixed(0).padLeft(3)}         │       ${match ? '✓' : '✗'}         │',
+    );
   }
   print('└───────┴─────────────────┴─────────────────┴───────────────────┘');
   print('');
@@ -322,10 +512,18 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 10: PRACTICAL USE CASES
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 10: PRACTICAL USE CASES                                   │');
-  print('│ Common SizeTween applications                                     │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 10: PRACTICAL USE CASES                                   │',
+  );
+  print(
+    '│ Common SizeTween applications                                     │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('1. Modal Dialog Grow:');
@@ -356,9 +554,15 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SUMMARY
   // ═══════════════════════════════════════════════════════════════════════════
-  print('╔════════════════════════════════════════════════════════════════════╗');
-  print('║                     SIZE TWEEN SUMMARY                            ║');
-  print('╚════════════════════════════════════════════════════════════════════╝');
+  print(
+    '╔════════════════════════════════════════════════════════════════════╗',
+  );
+  print(
+    '║                     SIZE TWEEN SUMMARY                            ║',
+  );
+  print(
+    '╚════════════════════════════════════════════════════════════════════╝',
+  );
   print('');
   print('SizeTween key features:');
   print('  • Interpolates width and height independently');
@@ -407,10 +611,7 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 8.0),
                 Text(
                   'Width and Height Interpolation',
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    color: Color(0xFFD7CCC8),
-                  ),
+                  style: TextStyle(fontSize: 16.0, color: Color(0xFFD7CCC8)),
                 ),
               ],
             ),
@@ -437,7 +638,10 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 SizedBox(height: 12.0),
-                Text('From 50×50 to 200×100:', style: TextStyle(fontSize: 12, color: Color(0xFF757575))),
+                Text(
+                  'From 50×50 to 200×100:',
+                  style: TextStyle(fontSize: 12, color: Color(0xFF757575)),
+                ),
                 SizedBox(height: 12.0),
                 Wrap(
                   spacing: 8.0,
@@ -472,7 +676,9 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 SizedBox(height: 12.0),
-                ...areaResults.where((r) => [0.0, 0.25, 0.5, 0.75, 1.0].contains(r['t'])).map((r) => _buildAreaRow(r)),
+                ...areaResults
+                    .where((r) => [0.0, 0.25, 0.5, 0.75, 1.0].contains(r['t']))
+                    .map((r) => _buildAreaRow(r)),
               ],
             ),
           ),
@@ -498,7 +704,10 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 SizedBox(height: 12.0),
-                Text('Square to wide rectangle:', style: TextStyle(fontSize: 12, color: Color(0xFF757575))),
+                Text(
+                  'Square to wide rectangle:',
+                  style: TextStyle(fontSize: 12, color: Color(0xFF757575)),
+                ),
                 SizedBox(height: 12.0),
                 Wrap(
                   spacing: 8.0,
@@ -642,12 +851,19 @@ Widget _buildSizeBox(Size size, double t, Color color) {
         child: Center(
           child: Text(
             't=${t.toStringAsFixed(1)}',
-            style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: color),
+            style: TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
           ),
         ),
       ),
       SizedBox(height: 4),
-      Text('${size.width.toStringAsFixed(0)}×${size.height.toStringAsFixed(0)}', style: TextStyle(fontSize: 9, color: Color(0xFF757575))),
+      Text(
+        '${size.width.toStringAsFixed(0)}×${size.height.toStringAsFixed(0)}',
+        style: TextStyle(fontSize: 9, color: Color(0xFF757575)),
+      ),
     ],
   );
 }
@@ -656,13 +872,25 @@ Widget _buildAreaRow(Map<String, dynamic> r) {
   final size = r['size'] as Size;
   final area = r['area'] as double;
   final percent = r['percent'] as double;
-  
+
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(width: 45, child: Text('t=${(r['t'] as double).toStringAsFixed(1)}', style: TextStyle(fontSize: 11))),
-        Container(width: 55, child: Text('${size.width.toStringAsFixed(0)}×${size.height.toStringAsFixed(0)}', style: TextStyle(fontSize: 11, fontFamily: 'monospace'))),
+        Container(
+          width: 45,
+          child: Text(
+            't=${(r['t'] as double).toStringAsFixed(1)}',
+            style: TextStyle(fontSize: 11),
+          ),
+        ),
+        Container(
+          width: 55,
+          child: Text(
+            '${size.width.toStringAsFixed(0)}×${size.height.toStringAsFixed(0)}',
+            style: TextStyle(fontSize: 11, fontFamily: 'monospace'),
+          ),
+        ),
         Expanded(
           child: Container(
             height: 16,
@@ -685,7 +913,15 @@ Widget _buildAreaRow(Map<String, dynamic> r) {
         Container(
           width: 60,
           alignment: Alignment.centerRight,
-          child: Text('${percent >= 0 ? '+' : ''}${percent.toStringAsFixed(0)}%', style: TextStyle(fontSize: 10, fontFamily: 'monospace', fontWeight: FontWeight.bold, color: Color(0xFF2E7D32))),
+          child: Text(
+            '${percent >= 0 ? '+' : ''}${percent.toStringAsFixed(0)}%',
+            style: TextStyle(
+              fontSize: 10,
+              fontFamily: 'monospace',
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF2E7D32),
+            ),
+          ),
         ),
       ],
     ),
@@ -697,7 +933,7 @@ Widget _buildShapeBox(Size size, double t) {
   final maxHeight = 50.0;
   final scaleW = maxWidth / 300;
   final scaleH = maxHeight / 100;
-  
+
   return Column(
     children: [
       Container(
@@ -711,10 +947,22 @@ Widget _buildShapeBox(Size size, double t) {
           ),
           borderRadius: BorderRadius.circular(4),
         ),
-        child: Center(child: Text('${t.toStringAsFixed(1)}', style: TextStyle(fontSize: 9, color: Colors.white, fontWeight: FontWeight.bold))),
+        child: Center(
+          child: Text(
+            '${t.toStringAsFixed(1)}',
+            style: TextStyle(
+              fontSize: 9,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
       ),
       SizedBox(height: 4),
-      Text('${(size.width / size.height).toStringAsFixed(1)}:1', style: TextStyle(fontSize: 9, color: Color(0xFF757575))),
+      Text(
+        '${(size.width / size.height).toStringAsFixed(1)}:1',
+        style: TextStyle(fontSize: 9, color: Color(0xFF757575)),
+      ),
     ],
   );
 }
@@ -725,14 +973,27 @@ Widget _buildCompareRow(Map<String, dynamic> r) {
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(width: 80, child: Text(r['name'] as String, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500))),
+        Container(
+          width: 80,
+          child: Text(
+            r['name'] as String,
+            style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500),
+          ),
+        ),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           decoration: BoxDecoration(
             color: Color(0xFFE1BEE7),
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Text('${mid.width.toStringAsFixed(0)}×${mid.height.toStringAsFixed(0)}', style: TextStyle(fontSize: 10, fontFamily: 'monospace', fontWeight: FontWeight.bold)),
+          child: Text(
+            '${mid.width.toStringAsFixed(0)}×${mid.height.toStringAsFixed(0)}',
+            style: TextStyle(
+              fontSize: 10,
+              fontFamily: 'monospace',
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
         SizedBox(width: 8),
         Expanded(
@@ -763,9 +1024,15 @@ Widget _buildUseCaseRow(String title, String description) {
       children: [
         Icon(Icons.check_circle, size: 14, color: Color(0xFF1565C0)),
         SizedBox(width: 8),
-        Text(title, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500)),
+        Text(
+          title,
+          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+        ),
         SizedBox(width: 8),
-        Text(description, style: TextStyle(fontSize: 11, color: Color(0xFF757575))),
+        Text(
+          description,
+          style: TextStyle(fontSize: 11, color: Color(0xFF757575)),
+        ),
       ],
     ),
   );
@@ -782,13 +1049,7 @@ Widget _buildSummaryStat(String label, String value) {
           color: Color(0xFF4DD0E1),
         ),
       ),
-      Text(
-        label,
-        style: TextStyle(
-          fontSize: 10.0,
-          color: Color(0xFF90A4AE),
-        ),
-      ),
+      Text(label, style: TextStyle(fontSize: 10.0, color: Color(0xFF90A4AE))),
     ],
   );
 }

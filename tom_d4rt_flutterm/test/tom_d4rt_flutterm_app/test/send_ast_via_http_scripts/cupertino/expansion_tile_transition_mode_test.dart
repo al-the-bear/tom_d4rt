@@ -4,19 +4,35 @@
 import 'package:flutter/cupertino.dart';
 
 dynamic build(BuildContext context) {
-  print('╔════════════════════════════════════════════════════════════════════╗');
-  print('║          EXPANSION TILE TRANSITION MODE DEEP DEMO                 ║');
-  print('║      Animation Control for Expandable Cupertino Tiles             ║');
-  print('╚════════════════════════════════════════════════════════════════════╝');
+  print(
+    '╔════════════════════════════════════════════════════════════════════╗',
+  );
+  print(
+    '║          EXPANSION TILE TRANSITION MODE DEEP DEMO                 ║',
+  );
+  print(
+    '║      Animation Control for Expandable Cupertino Tiles             ║',
+  );
+  print(
+    '╚════════════════════════════════════════════════════════════════════╝',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 1: TRANSITION MODE FUNDAMENTALS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 1: TRANSITION MODE FUNDAMENTALS                           │');
-  print('│ Understanding expansion tile animation options                    │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 1: TRANSITION MODE FUNDAMENTALS                           │',
+  );
+  print(
+    '│ Understanding expansion tile animation options                    │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('ExpansionTileTransitionMode defines:');
@@ -29,20 +45,34 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 2: ALL ENUM VALUES
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 2: ALL ENUM VALUES                                        │');
-  print('│ Complete list of transition mode options                          │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 2: ALL ENUM VALUES                                        │',
+  );
+  print(
+    '│ Complete list of transition mode options                          │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final allValues = ExpansionTileTransitionMode.values;
   final valueResults = <Map<String, dynamic>>[];
-  
+
   print('ExpansionTileTransitionMode enum values:');
-  print('┌──────────┬───────────────────┬──────────────────────────────────────┐');
-  print('│  Index   │       Name        │   Description                        │');
-  print('├──────────┼───────────────────┼──────────────────────────────────────┤');
-  
+  print(
+    '┌──────────┬───────────────────┬──────────────────────────────────────┐',
+  );
+  print(
+    '│  Index   │       Name        │   Description                        │',
+  );
+  print(
+    '├──────────┼───────────────────┼──────────────────────────────────────┤',
+  );
+
   for (final mode in allValues) {
     String description;
     switch (mode) {
@@ -53,10 +83,19 @@ dynamic build(BuildContext context) {
         description = 'Animate via opacity (fades)';
         break;
     }
-    valueResults.add({'mode': mode, 'index': mode.index, 'name': mode.name, 'description': description});
-    print('│    ${mode.index}     │ ${mode.name.padRight(17)} │ ${description.padRight(32)} │');
+    valueResults.add({
+      'mode': mode,
+      'index': mode.index,
+      'name': mode.name,
+      'description': description,
+    });
+    print(
+      '│    ${mode.index}     │ ${mode.name.padRight(17)} │ ${description.padRight(32)} │',
+    );
   }
-  print('└──────────┴───────────────────┴──────────────────────────────────────┘');
+  print(
+    '└──────────┴───────────────────┴──────────────────────────────────────┘',
+  );
   print('');
   print('Total values: ${allValues.length}');
   print('');
@@ -64,10 +103,18 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 3: HEIGHT FACTOR MODE ANALYSIS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 3: HEIGHT FACTOR MODE ANALYSIS                            │');
-  print('│ Revealing content by animating height                             │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 3: HEIGHT FACTOR MODE ANALYSIS                            │',
+  );
+  print(
+    '│ Revealing content by animating height                             │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final heightFactorMode = ExpansionTileTransitionMode.heightFactor;
@@ -105,10 +152,18 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 4: OPACITY MODE ANALYSIS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 4: OPACITY MODE ANALYSIS                                  │');
-  print('│ Fading content in/out                                             │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 4: OPACITY MODE ANALYSIS                                  │',
+  );
+  print(
+    '│ Fading content in/out                                             │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final opacityMode = ExpansionTileTransitionMode.opacity;
@@ -147,10 +202,18 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 5: VISUAL COMPARISON
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 5: VISUAL COMPARISON                                      │');
-  print('│ Side-by-side animation differences                                │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 5: VISUAL COMPARISON                                      │',
+  );
+  print(
+    '│ Side-by-side animation differences                                │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('HEIGHT FACTOR vs OPACITY at 50% expansion:');
@@ -168,22 +231,33 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 6: ANIMATION TIMELINE
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 6: ANIMATION TIMELINE                                     │');
-  print('│ Tracking animation progress                                       │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 6: ANIMATION TIMELINE                                     │',
+  );
+  print(
+    '│ Tracking animation progress                                       │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('Animation progress simulation:');
   print('┌──────────┬─────────────────────────┬─────────────────────────┐');
   print('│ Progress │    Height Factor        │    Opacity              │');
   print('├──────────┼─────────────────────────┼─────────────────────────┤');
-  
+
   for (final progress in [0.0, 0.25, 0.5, 0.75, 1.0]) {
-    final hfBar = '█' * (progress * 20).round() + '░' * (20 - (progress * 20).round());
+    final hfBar =
+        '█' * (progress * 20).round() + '░' * (20 - (progress * 20).round());
     final opBar = '▓' * 20; // Always full width
     final opAlpha = (progress * 100).round();
-    print('│   ${(progress * 100).toStringAsFixed(0).padLeft(3)}%   │ Height: $hfBar │ Opacity: ${opAlpha.toString().padLeft(3)}% ($opBar) │');
+    print(
+      '│   ${(progress * 100).toStringAsFixed(0).padLeft(3)}%   │ Height: $hfBar │ Opacity: ${opAlpha.toString().padLeft(3)}% ($opBar) │',
+    );
   }
   print('└──────────┴─────────────────────────┴─────────────────────────┘');
   print('');
@@ -191,29 +265,51 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 7: ENUM COMPARISON
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 7: ENUM COMPARISON                                        │');
-  print('│ Equality and ordering                                             │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 7: ENUM COMPARISON                                        │',
+  );
+  print(
+    '│ Equality and ordering                                             │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('Equality comparisons:');
   print('┌───────────────────────────────────────┬─────────────────────────┐');
   print('│           Comparison                  │         Result          │');
   print('├───────────────────────────────────────┼─────────────────────────┤');
-  print('│ heightFactor == heightFactor          │ ${heightFactorMode == ExpansionTileTransitionMode.heightFactor}                    │');
-  print('│ heightFactor == opacity               │ ${heightFactorMode == opacityMode}                   │');
-  print('│ heightFactor.index < opacity.index    │ ${heightFactorMode.index < opacityMode.index}                    │');
+  print(
+    '│ heightFactor == heightFactor          │ ${heightFactorMode == ExpansionTileTransitionMode.heightFactor}                    │',
+  );
+  print(
+    '│ heightFactor == opacity               │ ${heightFactorMode == opacityMode}                   │',
+  );
+  print(
+    '│ heightFactor.index < opacity.index    │ ${heightFactorMode.index < opacityMode.index}                    │',
+  );
   print('└───────────────────────────────────────┴─────────────────────────┘');
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 8: ITERATION PATTERNS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 8: ITERATION PATTERNS                                     │');
-  print('│ Working with enum collections                                     │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 8: ITERATION PATTERNS                                     │',
+  );
+  print(
+    '│ Working with enum collections                                     │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('Forward iteration:');
@@ -231,10 +327,18 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 9: WITH CUPERTINO EXPANSION TILE
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 9: WITH CUPERTINO EXPANSION TILE                          │');
-  print('│ Using transition mode in expansion tiles                          │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 9: WITH CUPERTINO EXPANSION TILE                          │',
+  );
+  print(
+    '│ Using transition mode in expansion tiles                          │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('CupertinoExpansionTile usage:');
@@ -257,10 +361,18 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 10: PRACTICAL USE CASES
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 10: PRACTICAL USE CASES                                   │');
-  print('│ When to use each transition mode                                  │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 10: PRACTICAL USE CASES                                   │',
+  );
+  print(
+    '│ When to use each transition mode                                  │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('1. FAQ Sections → heightFactor');
@@ -292,9 +404,15 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SUMMARY
   // ═══════════════════════════════════════════════════════════════════════════
-  print('╔════════════════════════════════════════════════════════════════════╗');
-  print('║          EXPANSION TILE TRANSITION MODE SUMMARY                   ║');
-  print('╚════════════════════════════════════════════════════════════════════╝');
+  print(
+    '╔════════════════════════════════════════════════════════════════════╗',
+  );
+  print(
+    '║          EXPANSION TILE TRANSITION MODE SUMMARY                   ║',
+  );
+  print(
+    '╚════════════════════════════════════════════════════════════════════╝',
+  );
   print('');
   print('ExpansionTileTransitionMode key features:');
   print('  • 2 modes: heightFactor and opacity');
@@ -382,7 +500,14 @@ dynamic build(BuildContext context) {
             // Height Factor Demo
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text('HEIGHT FACTOR MODE', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: CupertinoColors.systemGrey)),
+              child: Text(
+                'HEIGHT FACTOR MODE',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: CupertinoColors.systemGrey,
+                ),
+              ),
             ),
             SizedBox(height: 8),
             CupertinoListSection.insetGrouped(
@@ -402,7 +527,14 @@ dynamic build(BuildContext context) {
             // Opacity Demo
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text('OPACITY MODE', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: CupertinoColors.systemGrey)),
+              child: Text(
+                'OPACITY MODE',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: CupertinoColors.systemGrey,
+                ),
+              ),
             ),
             SizedBox(height: 8),
             CupertinoListSection.insetGrouped(
@@ -442,8 +574,16 @@ dynamic build(BuildContext context) {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      _buildModeVisual('Height', 'Reveals', CupertinoColors.activeBlue),
-                      _buildModeVisual('Opacity', 'Fades', CupertinoColors.activeGreen),
+                      _buildModeVisual(
+                        'Height',
+                        'Reveals',
+                        CupertinoColors.activeBlue,
+                      ),
+                      _buildModeVisual(
+                        'Opacity',
+                        'Fades',
+                        CupertinoColors.activeGreen,
+                      ),
                     ],
                   ),
                 ],
@@ -472,7 +612,10 @@ dynamic build(BuildContext context) {
                   ),
                   SizedBox(height: 12.0),
                   _buildRecommendation('heightFactor', 'Accordions, FAQs'),
-                  _buildRecommendation('opacity', 'Smooth fades, fixed layouts'),
+                  _buildRecommendation(
+                    'opacity',
+                    'Smooth fades, fixed layouts',
+                  ),
                 ],
               ),
             ),
@@ -535,11 +678,11 @@ Widget _buildEnumRow(Map<String, dynamic> r) {
   final mode = r['mode'] as ExpansionTileTransitionMode;
   final name = r['name'] as String;
   final description = r['description'] as String;
-  
-  Color color = mode == ExpansionTileTransitionMode.heightFactor 
-    ? CupertinoColors.activeBlue 
-    : CupertinoColors.activeGreen;
-  
+
+  Color color = mode == ExpansionTileTransitionMode.heightFactor
+      ? CupertinoColors.activeBlue
+      : CupertinoColors.activeGreen;
+
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
@@ -551,10 +694,24 @@ Widget _buildEnumRow(Map<String, dynamic> r) {
             color: color,
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Center(child: Text(name, style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: CupertinoColors.white))),
+          child: Center(
+            child: Text(
+              name,
+              style: TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+                color: CupertinoColors.white,
+              ),
+            ),
+          ),
         ),
         SizedBox(width: 12),
-        Expanded(child: Text(description, style: TextStyle(fontSize: 11, color: CupertinoColors.systemGrey))),
+        Expanded(
+          child: Text(
+            description,
+            style: TextStyle(fontSize: 11, color: CupertinoColors.systemGrey),
+          ),
+        ),
       ],
     ),
   );
@@ -573,7 +730,10 @@ Widget _buildModeVisual(String mode, String action, Color color) {
         child: Center(
           child: Text(
             mode,
-            style: TextStyle(color: CupertinoColors.white, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              color: CupertinoColors.white,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),
@@ -595,10 +755,23 @@ Widget _buildRecommendation(String mode, String useCase) {
             color: Color(0xFF00BCD4),
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Center(child: Text(mode, style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: CupertinoColors.white))),
+          child: Center(
+            child: Text(
+              mode,
+              style: TextStyle(
+                fontSize: 9,
+                fontWeight: FontWeight.bold,
+                color: CupertinoColors.white,
+              ),
+            ),
+          ),
         ),
         SizedBox(width: 12),
-        Icon(CupertinoIcons.arrow_right, size: 12, color: CupertinoColors.systemGrey),
+        Icon(
+          CupertinoIcons.arrow_right,
+          size: 12,
+          color: CupertinoColors.systemGrey,
+        ),
         SizedBox(width: 8),
         Expanded(child: Text(useCase, style: TextStyle(fontSize: 11))),
       ],
@@ -617,13 +790,7 @@ Widget _buildSummaryStat(String label, String value) {
           color: Color(0xFF4DD0E1),
         ),
       ),
-      Text(
-        label,
-        style: TextStyle(
-          fontSize: 10.0,
-          color: Color(0xFF90A4AE),
-        ),
-      ),
+      Text(label, style: TextStyle(fontSize: 10.0, color: Color(0xFF90A4AE))),
     ],
   );
 }

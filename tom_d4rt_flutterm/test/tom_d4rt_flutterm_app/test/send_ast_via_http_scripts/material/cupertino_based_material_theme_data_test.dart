@@ -5,19 +5,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 dynamic build(BuildContext context) {
-  print('╔════════════════════════════════════════════════════════════════════╗');
-  print('║      CUPERTINO BASED MATERIAL THEME DATA DEEP DEMO                ║');
-  print('║    Bridge Material Themes to Cupertino Widget Styling             ║');
-  print('╚════════════════════════════════════════════════════════════════════╝');
+  print(
+    '╔════════════════════════════════════════════════════════════════════╗',
+  );
+  print(
+    '║      CUPERTINO BASED MATERIAL THEME DATA DEEP DEMO                ║',
+  );
+  print(
+    '║    Bridge Material Themes to Cupertino Widget Styling             ║',
+  );
+  print(
+    '╚════════════════════════════════════════════════════════════════════╝',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 1: THEME BRIDGING FUNDAMENTALS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 1: THEME BRIDGING FUNDAMENTALS                            │');
-  print('│ Understanding Material to Cupertino theme mapping                 │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 1: THEME BRIDGING FUNDAMENTALS                            │',
+  );
+  print(
+    '│ Understanding Material to Cupertino theme mapping                 │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('Theme bridging concept:');
@@ -43,10 +59,18 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 2: MATERIAL THEME DATA
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 2: MATERIAL THEME DATA                                    │');
-  print('│ Base Material theme configuration                                 │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 2: MATERIAL THEME DATA                                    │',
+  );
+  print(
+    '│ Base Material theme configuration                                 │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final materialTheme = ThemeData(
@@ -56,70 +80,136 @@ dynamic build(BuildContext context) {
     ),
     useMaterial3: true,
   );
-  
+
   print('ThemeData properties:');
-  print('┌────────────────────────────┬─────────────────────────────────────────┐');
-  print('│       Property             │   Value                                 │');
-  print('├────────────────────────────┼─────────────────────────────────────────┤');
-  print('│ primaryColor               │ ${materialTheme.primaryColor}           │');
-  print('│ brightness                 │ ${materialTheme.brightness}             │');
-  print('│ colorScheme.primary        │ ${materialTheme.colorScheme.primary}    │');
-  print('│ colorScheme.secondary      │ ${materialTheme.colorScheme.secondary}  │');
-  print('│ useMaterial3               │ ${materialTheme.useMaterial3}           │');
-  print('└────────────────────────────┴─────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────┬─────────────────────────────────────────┐',
+  );
+  print(
+    '│       Property             │   Value                                 │',
+  );
+  print(
+    '├────────────────────────────┼─────────────────────────────────────────┤',
+  );
+  print(
+    '│ primaryColor               │ ${materialTheme.primaryColor}           │',
+  );
+  print(
+    '│ brightness                 │ ${materialTheme.brightness}             │',
+  );
+  print(
+    '│ colorScheme.primary        │ ${materialTheme.colorScheme.primary}    │',
+  );
+  print(
+    '│ colorScheme.secondary      │ ${materialTheme.colorScheme.secondary}  │',
+  );
+  print(
+    '│ useMaterial3               │ ${materialTheme.useMaterial3}           │',
+  );
+  print(
+    '└────────────────────────────┴─────────────────────────────────────────┘',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 3: CUPERTINO THEME FROM MATERIAL
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 3: CUPERTINO THEME FROM MATERIAL                          │');
-  print('│ Deriving CupertinoThemeData from Material                         │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 3: CUPERTINO THEME FROM MATERIAL                          │',
+  );
+  print(
+    '│ Deriving CupertinoThemeData from Material                         │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final cupertinoTheme = MaterialBasedCupertinoThemeData(
     materialTheme: materialTheme,
   );
-  
+
   print('MaterialBasedCupertinoThemeData:');
   print('  • runtimeType: ${cupertinoTheme.runtimeType}');
   print('  • primaryColor: ${cupertinoTheme.primaryColor}');
-  print('  • primaryContrastingColor: ${cupertinoTheme.primaryContrastingColor}');
+  print(
+    '  • primaryContrastingColor: ${cupertinoTheme.primaryContrastingColor}',
+  );
   print('  • brightness: ${cupertinoTheme.brightness}');
-  print('  • scaffoldBackgroundColor: ${cupertinoTheme.scaffoldBackgroundColor}');
+  print(
+    '  • scaffoldBackgroundColor: ${cupertinoTheme.scaffoldBackgroundColor}',
+  );
   print('  • barBackgroundColor: ${cupertinoTheme.barBackgroundColor}');
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 4: COLOR MAPPING
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 4: COLOR MAPPING                                          │');
-  print('│ How Material colors map to Cupertino                              │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 4: COLOR MAPPING                                          │',
+  );
+  print(
+    '│ How Material colors map to Cupertino                              │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('Color mapping table:');
-  print('┌─────────────────────────────┬───────────────────────────────────────┐');
-  print('│     Material Property       │     Cupertino Property                │');
-  print('├─────────────────────────────┼───────────────────────────────────────┤');
-  print('│ colorScheme.primary         │ primaryColor                          │');
-  print('│ colorScheme.onPrimary       │ primaryContrastingColor               │');
-  print('│ colorScheme.surface         │ scaffoldBackgroundColor               │');
-  print('│ colorScheme.surfaceVariant  │ barBackgroundColor                    │');
-  print('│ brightness                  │ brightness (direct)                   │');
-  print('│ textTheme                   │ textTheme (converted)                 │');
-  print('└─────────────────────────────┴───────────────────────────────────────┘');
+  print(
+    '┌─────────────────────────────┬───────────────────────────────────────┐',
+  );
+  print(
+    '│     Material Property       │     Cupertino Property                │',
+  );
+  print(
+    '├─────────────────────────────┼───────────────────────────────────────┤',
+  );
+  print(
+    '│ colorScheme.primary         │ primaryColor                          │',
+  );
+  print(
+    '│ colorScheme.onPrimary       │ primaryContrastingColor               │',
+  );
+  print(
+    '│ colorScheme.surface         │ scaffoldBackgroundColor               │',
+  );
+  print(
+    '│ colorScheme.surfaceVariant  │ barBackgroundColor                    │',
+  );
+  print(
+    '│ brightness                  │ brightness (direct)                   │',
+  );
+  print(
+    '│ textTheme                   │ textTheme (converted)                 │',
+  );
+  print(
+    '└─────────────────────────────┴───────────────────────────────────────┘',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 5: DARK THEME MAPPING
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 5: DARK THEME MAPPING                                     │');
-  print('│ Material dark theme to Cupertino conversion                       │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 5: DARK THEME MAPPING                                     │',
+  );
+  print(
+    '│ Material dark theme to Cupertino conversion                       │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final darkMaterialTheme = ThemeData(
@@ -129,41 +219,71 @@ dynamic build(BuildContext context) {
     ),
     useMaterial3: true,
   );
-  
+
   final darkCupertinoTheme = MaterialBasedCupertinoThemeData(
     materialTheme: darkMaterialTheme,
   );
-  
+
   print('Dark theme conversion:');
   print('  Material dark theme:');
   print('    • brightness: ${darkMaterialTheme.brightness}');
-  print('    • scaffoldBackgroundColor: ${darkMaterialTheme.scaffoldBackgroundColor}');
+  print(
+    '    • scaffoldBackgroundColor: ${darkMaterialTheme.scaffoldBackgroundColor}',
+  );
   print('');
   print('  Resulting Cupertino theme:');
   print('    • brightness: ${darkCupertinoTheme.brightness}');
-  print('    • scaffoldBackgroundColor: ${darkCupertinoTheme.scaffoldBackgroundColor}');
+  print(
+    '    • scaffoldBackgroundColor: ${darkCupertinoTheme.scaffoldBackgroundColor}',
+  );
   print('    • barBackgroundColor: ${darkCupertinoTheme.barBackgroundColor}');
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 6: TYPOGRAPHY MAPPING
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 6: TYPOGRAPHY MAPPING                                     │');
-  print('│ Text styles from Material to Cupertino                            │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 6: TYPOGRAPHY MAPPING                                     │',
+  );
+  print(
+    '│ Text styles from Material to Cupertino                            │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('Text style mapping:');
-  print('┌─────────────────────────────┬───────────────────────────────────────┐');
-  print('│     Material TextStyle      │     Cupertino TextStyle               │');
-  print('├─────────────────────────────┼───────────────────────────────────────┤');
-  print('│ headlineLarge               │ navLargeTitleTextStyle                │');
-  print('│ titleLarge                  │ navTitleTextStyle                     │');
-  print('│ bodyLarge                   │ textStyle                             │');
-  print('│ bodyMedium                  │ actionTextStyle                       │');
-  print('│ labelLarge                  │ tabLabelTextStyle                     │');
-  print('└─────────────────────────────┴───────────────────────────────────────┘');
+  print(
+    '┌─────────────────────────────┬───────────────────────────────────────┐',
+  );
+  print(
+    '│     Material TextStyle      │     Cupertino TextStyle               │',
+  );
+  print(
+    '├─────────────────────────────┼───────────────────────────────────────┤',
+  );
+  print(
+    '│ headlineLarge               │ navLargeTitleTextStyle                │',
+  );
+  print(
+    '│ titleLarge                  │ navTitleTextStyle                     │',
+  );
+  print(
+    '│ bodyLarge                   │ textStyle                             │',
+  );
+  print(
+    '│ bodyMedium                  │ actionTextStyle                       │',
+  );
+  print(
+    '│ labelLarge                  │ tabLabelTextStyle                     │',
+  );
+  print(
+    '└─────────────────────────────┴───────────────────────────────────────┘',
+  );
   print('');
 
   final textTheme = cupertinoTheme.textTheme;
@@ -171,16 +291,26 @@ dynamic build(BuildContext context) {
   print('  • textStyle: ${textTheme.textStyle.fontSize}pt');
   print('  • actionTextStyle: ${textTheme.actionTextStyle.fontSize}pt');
   print('  • navTitleTextStyle: ${textTheme.navTitleTextStyle.fontSize}pt');
-  print('  • navLargeTitleTextStyle: ${textTheme.navLargeTitleTextStyle.fontSize}pt');
+  print(
+    '  • navLargeTitleTextStyle: ${textTheme.navLargeTitleTextStyle.fontSize}pt',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 7: USING IN MATERIAL APP
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 7: USING IN MATERIAL APP                                  │');
-  print('│ Integrating Cupertino widgets in Material apps                    │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 7: USING IN MATERIAL APP                                  │',
+  );
+  print(
+    '│ Integrating Cupertino widgets in Material apps                    │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('Integration pattern:');
@@ -209,10 +339,18 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 8: CUSTOM OVERRIDES
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 8: CUSTOM OVERRIDES                                       │');
-  print('│ Customizing the bridged theme                                     │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 8: CUSTOM OVERRIDES                                       │',
+  );
+  print(
+    '│ Customizing the bridged theme                                     │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('Override specific Cupertino properties:');
@@ -237,31 +375,65 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 9: COMPARISON
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 9: COMPARISON                                             │');
-  print('│ MaterialBasedCupertinoThemeData vs CupertinoThemeData             │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 9: COMPARISON                                             │',
+  );
+  print(
+    '│ MaterialBasedCupertinoThemeData vs CupertinoThemeData             │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('Feature comparison:');
-  print('┌────────────────────────┬──────────────────────┬──────────────────────┐');
-  print('│       Feature          │  CupertinoThemeData  │  MaterialBased...    │');
-  print('├────────────────────────┼──────────────────────┼──────────────────────┤');
-  print('│ Source                 │ Explicit definition  │ Derived from Material│');
-  print('│ Color sync             │ Manual               │ Automatic            │');
-  print('│ Dark mode              │ Separate themes      │ Inherits brightness  │');
-  print('│ Typography             │ iOS defaults         │ Material to iOS map  │');
-  print('│ Use case               │ Cupertino-only apps  │ Mixed Material+iOS   │');
-  print('└────────────────────────┴──────────────────────┴──────────────────────┘');
+  print(
+    '┌────────────────────────┬──────────────────────┬──────────────────────┐',
+  );
+  print(
+    '│       Feature          │  CupertinoThemeData  │  MaterialBased...    │',
+  );
+  print(
+    '├────────────────────────┼──────────────────────┼──────────────────────┤',
+  );
+  print(
+    '│ Source                 │ Explicit definition  │ Derived from Material│',
+  );
+  print(
+    '│ Color sync             │ Manual               │ Automatic            │',
+  );
+  print(
+    '│ Dark mode              │ Separate themes      │ Inherits brightness  │',
+  );
+  print(
+    '│ Typography             │ iOS defaults         │ Material to iOS map  │',
+  );
+  print(
+    '│ Use case               │ Cupertino-only apps  │ Mixed Material+iOS   │',
+  );
+  print(
+    '└────────────────────────┴──────────────────────┴──────────────────────┘',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 10: PRACTICAL USE CASES
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 10: PRACTICAL USE CASES                                   │');
-  print('│ When to use MaterialBasedCupertinoThemeData                       │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 10: PRACTICAL USE CASES                                   │',
+  );
+  print(
+    '│ When to use MaterialBasedCupertinoThemeData                       │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('1. Cross-Platform Apps');
@@ -287,9 +459,15 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SUMMARY
   // ═══════════════════════════════════════════════════════════════════════════
-  print('╔════════════════════════════════════════════════════════════════════╗');
-  print('║      CUPERTINO BASED MATERIAL THEME DATA SUMMARY                  ║');
-  print('╚════════════════════════════════════════════════════════════════════╝');
+  print(
+    '╔════════════════════════════════════════════════════════════════════╗',
+  );
+  print(
+    '║      CUPERTINO BASED MATERIAL THEME DATA SUMMARY                  ║',
+  );
+  print(
+    '╚════════════════════════════════════════════════════════════════════╝',
+  );
   print('');
   print('MaterialBasedCupertinoThemeData key features:');
   print('  • Bridges Material to Cupertino styling');
@@ -363,11 +541,23 @@ dynamic build(BuildContext context) {
                 padding: EdgeInsets.all(16.0),
                 child: Column(
                   children: [
-                    _buildThemeFlowItem('ThemeData', 'Material Design', Colors.blue),
+                    _buildThemeFlowItem(
+                      'ThemeData',
+                      'Material Design',
+                      Colors.blue,
+                    ),
                     Icon(Icons.arrow_downward, color: Colors.grey),
-                    _buildThemeFlowItem('MaterialBasedCupertinoThemeData', 'Bridge', Colors.purple),
+                    _buildThemeFlowItem(
+                      'MaterialBasedCupertinoThemeData',
+                      'Bridge',
+                      Colors.purple,
+                    ),
                     Icon(Icons.arrow_downward, color: Colors.grey),
-                    _buildThemeFlowItem('CupertinoThemeData', 'iOS Style', Colors.orange),
+                    _buildThemeFlowItem(
+                      'CupertinoThemeData',
+                      'iOS Style',
+                      Colors.orange,
+                    ),
                   ],
                 ),
               ),
@@ -387,11 +577,26 @@ dynamic build(BuildContext context) {
                     Expanded(
                       child: Column(
                         children: [
-                          Text('Material', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold)),
+                          Text(
+                            'Material',
+                            style: TextStyle(
+                              fontSize: 11,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                           SizedBox(height: 8),
-                          _buildColorChip('Primary', materialTheme.colorScheme.primary),
-                          _buildColorChip('Secondary', materialTheme.colorScheme.secondary),
-                          _buildColorChip('Surface', materialTheme.colorScheme.surface),
+                          _buildColorChip(
+                            'Primary',
+                            materialTheme.colorScheme.primary,
+                          ),
+                          _buildColorChip(
+                            'Secondary',
+                            materialTheme.colorScheme.secondary,
+                          ),
+                          _buildColorChip(
+                            'Surface',
+                            materialTheme.colorScheme.surface,
+                          ),
                         ],
                       ),
                     ),
@@ -399,11 +604,26 @@ dynamic build(BuildContext context) {
                     Expanded(
                       child: Column(
                         children: [
-                          Text('Cupertino', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold)),
+                          Text(
+                            'Cupertino',
+                            style: TextStyle(
+                              fontSize: 11,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                           SizedBox(height: 8),
-                          _buildColorChip('Primary', cupertinoTheme.primaryColor),
-                          _buildColorChip('Contrasting', cupertinoTheme.primaryContrastingColor),
-                          _buildColorChip('Scaffold', cupertinoTheme.scaffoldBackgroundColor),
+                          _buildColorChip(
+                            'Primary',
+                            cupertinoTheme.primaryColor,
+                          ),
+                          _buildColorChip(
+                            'Contrasting',
+                            cupertinoTheme.primaryContrastingColor,
+                          ),
+                          _buildColorChip(
+                            'Scaffold',
+                            cupertinoTheme.scaffoldBackgroundColor,
+                          ),
                         ],
                       ),
                     ),
@@ -425,7 +645,10 @@ dynamic build(BuildContext context) {
                   data: cupertinoTheme,
                   child: Column(
                     children: [
-                      Text('Cupertino widgets using Material colors:', style: TextStyle(fontSize: 12, color: Colors.grey[600])),
+                      Text(
+                        'Cupertino widgets using Material colors:',
+                        style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                      ),
                       SizedBox(height: 12),
                       CupertinoButton.filled(
                         child: Text('CupertinoButton.filled'),
@@ -464,9 +687,13 @@ dynamic build(BuildContext context) {
                     SizedBox(height: 12),
                     Row(
                       children: [
-                        Expanded(child: _buildBrightnessBox('Light', Brightness.light)),
+                        Expanded(
+                          child: _buildBrightnessBox('Light', Brightness.light),
+                        ),
                         SizedBox(width: 12),
-                        Expanded(child: _buildBrightnessBox('Dark', Brightness.dark)),
+                        Expanded(
+                          child: _buildBrightnessBox('Dark', Brightness.dark),
+                        ),
                       ],
                     ),
                   ],
@@ -553,7 +780,14 @@ Widget _buildThemeFlowItem(String title, String subtitle, Color color) {
     ),
     child: Column(
       children: [
-        Text(title, style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: color)),
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: 11,
+            fontWeight: FontWeight.bold,
+            color: color,
+          ),
+        ),
         Text(subtitle, style: TextStyle(fontSize: 10, color: Colors.grey[600])),
       ],
     ),
@@ -623,13 +857,7 @@ Widget _buildSummaryStat(String label, String value) {
           color: Color(0xFF4DD0E1),
         ),
       ),
-      Text(
-        label,
-        style: TextStyle(
-          fontSize: 10.0,
-          color: Color(0xFF90A4AE),
-        ),
-      ),
+      Text(label, style: TextStyle(fontSize: 10.0, color: Color(0xFF90A4AE))),
     ],
   );
 }
