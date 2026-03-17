@@ -124,8 +124,8 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 
 | Filename | Class to Test | Fully Implemented in backup | Fully implemented in send_ast | Dummy |
 |----------|---------------|------------------------------|-------------------------------|-------|
-| [accessibility_features_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/accessibility_features_test.dart) | AccessibilityFeatures | No | No | Yes |
-| [app_exit_response_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/app_exit_response_test.dart) | AppExitResponse | No | No | Yes |
+| [accessibility_features_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/accessibility_features_test.dart) | AccessibilityFeatures | No | Yes | No | Created on 2026-03-17 at 17:38 |
+| [app_exit_response_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/app_exit_response_test.dart) | AppExitResponse | No | Yes | No | Created on 2026-03-17 at 17:45 |
 | [app_exit_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/app_exit_type_test.dart) | AppExitType | No | No | Yes |
 | [app_lifecycle_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/app_lifecycle_state_test.dart) | AppLifecycleState | No | No | Yes |
 | [backdrop_filter_engine_layer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/backdrop_filter_engine_layer_test.dart) | BackdropFilterEngineLayer | No | No | Yes |
