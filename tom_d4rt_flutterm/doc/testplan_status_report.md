@@ -64,7 +64,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/class_test.dart) | Class | No | Yes | No |
 | [contextmenu_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/contextmenu_test.dart) | Contextmenu | No | Yes | No |
 | [controls_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/controls_test.dart) | Controls | No | Yes | No |
-| [cupertino_button_size_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/cupertino_button_size_test.dart) | CupertinoButtonSize | No | No | Yes |
+| [cupertino_button_size_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/cupertino_button_size_test.dart) | CupertinoButtonSize | No | Yes | No | Created on 2026-03-17 at 16:38 |
 | [cupertino_colors_system_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/cupertino_colors_system_test.dart) | CupertinoColors | No | Yes | No |
 | [cupertino_controls_advanced_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/cupertino_controls_advanced_test.dart) | CupertinoSwitch | No | Yes | No |
 | [cupertino_desktop_text_selection_controls_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/cupertino_desktop_text_selection_controls_test.dart) | CupertinoDesktopTextSelectionControls | No | Yes | No |
@@ -72,7 +72,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [cupertino_focus_halo_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/cupertino_focus_halo_test.dart) | CupertinoFocusHalo | No | Yes | No |
 | [cupertino_form_scroll_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/cupertino_form_scroll_test.dart) | CupertinoTextFormFieldRow | No | Yes | No |
 | [cupertino_linear_activity_indicator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/cupertino_linear_activity_indicator_test.dart) | CupertinoLinearActivityIndicator | No | Yes | No |
-| [cupertino_list_section_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/cupertino_list_section_type_test.dart) | CupertinoListSectionType | No | No | Yes |
+| [cupertino_list_section_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/cupertino_list_section_type_test.dart) | CupertinoListSectionType | No | Yes | No | Created on 2026-03-17 at 16:45 |
 | [cupertino_list_tile_chevron_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/cupertino_list_tile_chevron_test.dart) | CupertinoListTileChevron | No | Yes | No |
 | [cupertino_misc_adv_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/cupertino_misc_adv_test.dart) | CupertinoLocalizations | No | Yes | No |
 | [cupertino_nav_segmented_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/cupertino_nav_segmented_test.dart) | CupertinoSliverNavigationBar | No | Yes | No |
@@ -100,7 +100,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [cupertinoapp_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/cupertinoapp_test.dart) | CupertinoApp | No | Yes | No |
 | [datepicker_modes_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/datepicker_modes_test.dart) | CupertinoDatePicker | No | Yes | No |
 | [dialog_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/dialog_test.dart) | CupertinoAlertDialog | No | Yes | No |
-| [expansion_tile_transition_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/expansion_tile_transition_mode_test.dart) | ExpansionTileTransitionMode | No | No | Yes |
+| [expansion_tile_transition_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/expansion_tile_transition_mode_test.dart) | ExpansionTileTransitionMode | No | Yes | No | Created on 2026-03-17 at 16:53 |
 | [form_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/form_test.dart) | CupertinoFormSection | No | Yes | No |
 | [icons_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/icons_test.dart) | CupertinoIcons | No | Yes | No |
 | [inherited_cupertino_theme_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/inherited_cupertino_theme_test.dart) | InheritedCupertinoTheme | No | Yes | No |
