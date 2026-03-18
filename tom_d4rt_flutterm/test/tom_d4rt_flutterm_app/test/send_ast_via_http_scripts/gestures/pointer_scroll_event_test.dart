@@ -80,5 +80,6 @@ class _ScrollDemoState extends State<_ScrollDemo> {
   }
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) => 'ScrollDemoState(totalX: $_totalX, totalY: $_totalY, eventCount: $_eventCount)';
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) =>
+      'ScrollDemoState(totalX: $_totalX, totalY: $_totalY, eventCount: $_eventCount)';
 }

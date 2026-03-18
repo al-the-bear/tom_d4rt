@@ -45,7 +45,8 @@ class _PositionDemoState extends State<_PositionDemo> {
                     left: _localPos.dx - 8,
                     top: _localPos.dy - 8,
                     child: Container(
-                      width: 16, height: 16,
+                      width: 16,
+                      height: 16,
                       decoration: BoxDecoration(
                         color: Colors.red,
                         shape: BoxShape.circle,
@@ -53,7 +54,9 @@ class _PositionDemoState extends State<_PositionDemo> {
                       ),
                     ),
                   ),
-                const Center(child: Text('Tap here', style: TextStyle(color: Colors.grey))),
+                const Center(
+                  child: Text('Tap here', style: TextStyle(color: Colors.grey)),
+                ),
               ],
             ),
           ),
@@ -61,7 +64,10 @@ class _PositionDemoState extends State<_PositionDemo> {
         const SizedBox(height: 16),
         Container(
           padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
+          decoration: BoxDecoration(
+            color: Colors.grey.shade100,
+            borderRadius: BorderRadius.circular(8),
+          ),
           child: Column(
             children: [
               Row(
@@ -69,7 +75,9 @@ class _PositionDemoState extends State<_PositionDemo> {
                 children: [
                   const Icon(Icons.public, size: 16, color: Colors.blue),
                   const SizedBox(width: 8),
-                  Text('globalPosition: (\${_globalPos.dx.toInt()}, \${_globalPos.dy.toInt()})'),
+                  Text(
+                    'globalPosition: (\${_globalPos.dx.toInt()}, \${_globalPos.dy.toInt()})',
+                  ),
                 ],
               ),
               const SizedBox(height: 8),
@@ -78,7 +86,9 @@ class _PositionDemoState extends State<_PositionDemo> {
                 children: [
                   const Icon(Icons.crop_free, size: 16, color: Colors.green),
                   const SizedBox(width: 8),
-                  Text('localPosition: (\${_localPos.dx.toInt()}, \${_localPos.dy.toInt()})'),
+                  Text(
+                    'localPosition: (\${_localPos.dx.toInt()}, \${_localPos.dy.toInt()})',
+                  ),
                 ],
               ),
             ],
@@ -89,5 +99,6 @@ class _PositionDemoState extends State<_PositionDemo> {
   }
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) => 'PositionDemoState(globalPos: $_globalPos)';
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) =>
+      'PositionDemoState(globalPos: $_globalPos)';
 }

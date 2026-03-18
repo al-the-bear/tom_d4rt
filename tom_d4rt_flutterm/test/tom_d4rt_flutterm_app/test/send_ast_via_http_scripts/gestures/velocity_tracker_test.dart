@@ -25,7 +25,10 @@ class _TrackerDemoState extends State<_TrackerDemo> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        const Text('Drag to track velocity samples', style: TextStyle(fontSize: 16)),
+        const Text(
+          'Drag to track velocity samples',
+          style: TextStyle(fontSize: 16),
+        ),
         const SizedBox(height: 16),
         Listener(
           onPointerDown: (e) {
@@ -47,7 +50,8 @@ class _TrackerDemoState extends State<_TrackerDemo> {
             setState(() => _velocity = vel.pixelsPerSecond);
           },
           child: Container(
-            width: 280, height: 180,
+            width: 280,
+            height: 180,
             decoration: BoxDecoration(
               color: Colors.green.shade50,
               border: Border.all(color: Colors.green, width: 2),
@@ -67,15 +71,32 @@ class _TrackerDemoState extends State<_TrackerDemo> {
         const SizedBox(height: 16),
         Container(
           padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
+          decoration: BoxDecoration(
+            color: Colors.grey.shade100,
+            borderRadius: BorderRadius.circular(8),
+          ),
           child: Column(
             children: [
-              Text('Velocity: (\${_velocity.dx.toStringAsFixed(0)}, \${_velocity.dy.toStringAsFixed(0)}) px/s'),
+              Text(
+                'Velocity: (\${_velocity.dx.toStringAsFixed(0)}, \${_velocity.dy.toStringAsFixed(0)}) px/s',
+              ),
               const SizedBox(height: 8),
-              const Text('VelocityTracker API:', style: TextStyle(fontWeight: FontWeight.bold)),
-              const Text('• addPosition(time, position)', style: TextStyle(fontSize: 11)),
-              const Text('• getVelocity() → Velocity', style: TextStyle(fontSize: 11)),
-              const Text('• getVelocityEstimate() → VelocityEstimate?', style: TextStyle(fontSize: 11)),
+              const Text(
+                'VelocityTracker API:',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              const Text(
+                '• addPosition(time, position)',
+                style: TextStyle(fontSize: 11),
+              ),
+              const Text(
+                '• getVelocity() → Velocity',
+                style: TextStyle(fontSize: 11),
+              ),
+              const Text(
+                '• getVelocityEstimate() → VelocityEstimate?',
+                style: TextStyle(fontSize: 11),
+              ),
             ],
           ),
         ),
@@ -84,5 +105,6 @@ class _TrackerDemoState extends State<_TrackerDemo> {
   }
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) => 'TrackerDemoState(velocity: $_velocity, sampleCount: $_sampleCount)';
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) =>
+      'TrackerDemoState(velocity: $_velocity, sampleCount: $_sampleCount)';
 }

@@ -44,7 +44,10 @@ dynamic build(BuildContext context) {
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('LocaleStringAttribute Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      Text(
+        'LocaleStringAttribute Tests',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
       SizedBox(height: 8),
       Text('en_US: range=${attr1.range}'),
       Text('de_DE: range=${attr2.range}'),

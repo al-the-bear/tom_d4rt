@@ -42,7 +42,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('Basic CupertinoTabBar created [${basicTabBar.hashCode }]');
+  print('Basic CupertinoTabBar created [${basicTabBar.hashCode}]');
 
   // Test CupertinoTabBar with currentIndex
   final indexedTabBar = CupertinoTabBar(
@@ -59,7 +59,9 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('CupertinoTabBar with currentIndex=1 created [${indexedTabBar.hashCode }]');
+  print(
+    'CupertinoTabBar with currentIndex=1 created [${indexedTabBar.hashCode}]',
+  );
 
   // Test CupertinoTabBar with backgroundColor
   final bgTabBar = CupertinoTabBar(
@@ -72,7 +74,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('CupertinoTabBar with backgroundColor created [${bgTabBar.hashCode }]');
+  print('CupertinoTabBar with backgroundColor created [${bgTabBar.hashCode}]');
 
   // Test CupertinoTabBar with activeColor and inactiveColor
   final coloredTabBar = CupertinoTabBar(
@@ -87,7 +89,9 @@ dynamic build(BuildContext context) {
       BottomNavigationBarItem(icon: Icon(CupertinoIcons.cloud), label: 'Cloud'),
     ],
   );
-  print('CupertinoTabBar with activeColor/inactiveColor created [${coloredTabBar.hashCode }]');
+  print(
+    'CupertinoTabBar with activeColor/inactiveColor created [${coloredTabBar.hashCode}]',
+  );
 
   // Test CupertinoTabBar with iconSize
   final iconSizeTabBar = CupertinoTabBar(
@@ -97,7 +101,7 @@ dynamic build(BuildContext context) {
       BottomNavigationBarItem(icon: Icon(CupertinoIcons.mail), label: 'Mail'),
     ],
   );
-  print('CupertinoTabBar with iconSize created [${iconSizeTabBar.hashCode }]');
+  print('CupertinoTabBar with iconSize created [${iconSizeTabBar.hashCode}]');
 
   // Test CupertinoTabBar with onTap
   final tappableTabBar = CupertinoTabBar(
@@ -180,7 +184,9 @@ dynamic build(BuildContext context) {
       );
     },
   );
-  print('CupertinoTabScaffold with controller created [${controllerTabScaffold.hashCode}]');
+  print(
+    'CupertinoTabScaffold with controller created [${controllerTabScaffold.hashCode}]',
+  );
 
   // Test CupertinoTabScaffold with backgroundColor
   final bgTabScaffold = CupertinoTabScaffold(
@@ -202,7 +208,9 @@ dynamic build(BuildContext context) {
       );
     },
   );
-  print('CupertinoTabScaffold with backgroundColor created [${bgTabScaffold.hashCode }]');
+  print(
+    'CupertinoTabScaffold with backgroundColor created [${bgTabScaffold.hashCode}]',
+  );
 
   // Test CupertinoTabScaffold with resizeToAvoidBottomInset
   final resizeTabScaffold = CupertinoTabScaffold(
@@ -223,7 +231,9 @@ dynamic build(BuildContext context) {
       return Center(child: Text('Tab $index'));
     },
   );
-  print('CupertinoTabScaffold with resizeToAvoidBottomInset created [${resizeTabScaffold.hashCode }]');
+  print(
+    'CupertinoTabScaffold with resizeToAvoidBottomInset created [${resizeTabScaffold.hashCode}]',
+  );
 
   // ========== CUPERTINOTABVIEW ==========
   print('--- CupertinoTabView Tests ---');
@@ -234,7 +244,7 @@ dynamic build(BuildContext context) {
       return Center(child: Text('Tab View Content'));
     },
   );
-  print('Basic CupertinoTabView created [${basicTabView.hashCode }]');
+  print('Basic CupertinoTabView created [${basicTabView.hashCode}]');
 
   // Test CupertinoTabView with defaultTitle
   final titledTabView = CupertinoTabView(
@@ -243,7 +253,9 @@ dynamic build(BuildContext context) {
       return Center(child: Text('Titled Tab View'));
     },
   );
-  print('CupertinoTabView with defaultTitle created [${titledTabView.hashCode }]');
+  print(
+    'CupertinoTabView with defaultTitle created [${titledTabView.hashCode}]',
+  );
 
   print('All Cupertino tab tests passed');
 

@@ -86,7 +86,9 @@ dynamic build(BuildContext context) {
       ),
       SizedBox(height: 8),
       Container(width: 50, height: 20, color: c1),
-      Text('ARGB: ${(c1.a * 255).round()}, ${(c1.r * 255).round()}, ${(c1.g * 255).round()}, ${(c1.b * 255).round()}'),
+      Text(
+        'ARGB: ${(c1.a * 255).round()}, ${(c1.r * 255).round()}, ${(c1.g * 255).round()}, ${(c1.b * 255).round()}',
+      ),
       Text('Luminance: ${c1.computeLuminance().toStringAsFixed(2)}'),
       Text('Purpose: ARGB colors'),
     ],

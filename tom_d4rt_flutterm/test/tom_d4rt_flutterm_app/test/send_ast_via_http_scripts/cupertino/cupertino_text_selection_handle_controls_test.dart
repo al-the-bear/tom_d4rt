@@ -41,8 +41,14 @@ dynamic build(BuildContext context) {
   print('  fullControls size@16: $fullSize16');
   print('  sizes match: ${handleSize16 == fullSize16}');
 
-  final handleAnchorLeft = handleControls.getHandleAnchor(TextSelectionHandleType.left, 16.0);
-  final fullAnchorLeft = fullControls.getHandleAnchor(TextSelectionHandleType.left, 16.0);
+  final handleAnchorLeft = handleControls.getHandleAnchor(
+    TextSelectionHandleType.left,
+    16.0,
+  );
+  final fullAnchorLeft = fullControls.getHandleAnchor(
+    TextSelectionHandleType.left,
+    16.0,
+  );
   print('  handleControls anchor left: $handleAnchorLeft');
   print('  fullControls anchor left: $fullAnchorLeft');
 
@@ -59,16 +65,18 @@ dynamic build(BuildContext context) {
   final editableFields = <Widget>[];
   final labels = ['Name', 'Email', 'Phone', 'Address'];
   for (final label in labels) {
-    editableFields.add(Padding(
-      padding: EdgeInsets.only(bottom: 8.0),
-      child: CupertinoTextField(
-        placeholder: label,
-        prefix: Padding(
-          padding: EdgeInsets.only(left: 8.0),
-          child: Text('$label:'),
+    editableFields.add(
+      Padding(
+        padding: EdgeInsets.only(bottom: 8.0),
+        child: CupertinoTextField(
+          placeholder: label,
+          prefix: Padding(
+            padding: EdgeInsets.only(left: 8.0),
+            child: Text('$label:'),
+          ),
         ),
       ),
-    ));
+    );
   }
   print('  ${editableFields.length} editable fields created');
 
@@ -90,7 +98,10 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Handle Controls Test', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+              Text(
+                'Handle Controls Test',
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+              ),
               SizedBox(height: 8.0),
               Text('Type: ${handleControls.runtimeType}'),
               SizedBox(height: 8.0),
@@ -98,7 +109,10 @@ dynamic build(BuildContext context) {
               for (final fs in sizes)
                 Text('  ${fs}px: ${handleControls.getHandleSize(fs)}'),
               SizedBox(height: 16.0),
-              Text('Select text in fields:', style: TextStyle(fontWeight: FontWeight.bold)),
+              Text(
+                'Select text in fields:',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
               SizedBox(height: 8.0),
               textField,
               SizedBox(height: 12.0),

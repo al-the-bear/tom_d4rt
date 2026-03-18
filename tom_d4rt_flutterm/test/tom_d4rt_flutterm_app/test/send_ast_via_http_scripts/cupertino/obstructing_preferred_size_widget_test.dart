@@ -8,12 +8,12 @@ dynamic build(BuildContext context) {
 
   // ===== 1. CupertinoNavigationBar implements ObstructingPreferredSizeWidget =====
   print('--- CupertinoNavigationBar as ObstructingPreferredSizeWidget ---');
-  final navBar = CupertinoNavigationBar(
-    middle: Text('Title'),
-  );
+  final navBar = CupertinoNavigationBar(middle: Text('Title'));
   print('  navBar type: ${navBar.runtimeType}');
   print('  preferredSize: ${navBar.preferredSize}');
-  print('  is ObstructingPreferredSizeWidget: true (CupertinoNavigationBar implements it)');
+  print(
+    '  is ObstructingPreferredSizeWidget: true (CupertinoNavigationBar implements it)',
+  );
 
   // ===== 2. shouldFullyObstruct =====
   print('--- shouldFullyObstruct ---');
@@ -22,13 +22,17 @@ dynamic build(BuildContext context) {
     backgroundColor: CupertinoColors.white,
   );
   print('  opaque bar preferredSize: ${opaqueBar.preferredSize}');
-  print('  opaque bar shouldFullyObstruct: ${opaqueBar.shouldFullyObstruct(context)}');
+  print(
+    '  opaque bar shouldFullyObstruct: ${opaqueBar.shouldFullyObstruct(context)}',
+  );
 
   final translucentBar = CupertinoNavigationBar(
     middle: Text('Translucent'),
     backgroundColor: CupertinoColors.systemGrey.withValues(alpha: 0.5),
   );
-  print('  translucent bar shouldFullyObstruct: ${translucentBar.shouldFullyObstruct(context)}');
+  print(
+    '  translucent bar shouldFullyObstruct: ${translucentBar.shouldFullyObstruct(context)}',
+  );
 
   // ===== 3. preferredSize dimensions =====
   print('--- preferredSize ---');
@@ -36,16 +40,32 @@ dynamic build(BuildContext context) {
     CupertinoNavigationBar(middle: Text('Default')),
     CupertinoNavigationBar(
       middle: Text('With leading'),
-      leading: CupertinoButton(padding: EdgeInsets.zero, child: Text('Back'), onPressed: () {}),
+      leading: CupertinoButton(
+        padding: EdgeInsets.zero,
+        child: Text('Back'),
+        onPressed: () {},
+      ),
     ),
     CupertinoNavigationBar(
       middle: Text('With trailing'),
-      trailing: CupertinoButton(padding: EdgeInsets.zero, child: Icon(CupertinoIcons.add), onPressed: () {}),
+      trailing: CupertinoButton(
+        padding: EdgeInsets.zero,
+        child: Icon(CupertinoIcons.add),
+        onPressed: () {},
+      ),
     ),
     CupertinoNavigationBar(
       middle: Text('Full'),
-      leading: CupertinoButton(padding: EdgeInsets.zero, child: Text('Cancel'), onPressed: () {}),
-      trailing: CupertinoButton(padding: EdgeInsets.zero, child: Text('Done'), onPressed: () {}),
+      leading: CupertinoButton(
+        padding: EdgeInsets.zero,
+        child: Text('Cancel'),
+        onPressed: () {},
+      ),
+      trailing: CupertinoButton(
+        padding: EdgeInsets.zero,
+        child: Text('Done'),
+        onPressed: () {},
+      ),
     ),
   ];
   for (final bar in bars) {
@@ -72,13 +92,16 @@ dynamic build(BuildContext context) {
       middle: Text(entry.key),
       backgroundColor: entry.value,
     );
-    print('  ${entry.key}: shouldFullyObstruct=${bar.shouldFullyObstruct(context)}');
+    print(
+      '  ${entry.key}: shouldFullyObstruct=${bar.shouldFullyObstruct(context)}',
+    );
   }
 
   // ===== 6. PreferredSizeWidget comparison =====
   print('--- PreferredSizeWidget check ---');
   const isPreferred = true; // CupertinoNavigationBar is PreferredSizeWidget
-  const isObstructing = true; // CupertinoNavigationBar is ObstructingPreferredSizeWidget
+  const isObstructing =
+      true; // CupertinoNavigationBar is ObstructingPreferredSizeWidget
   print('  is PreferredSizeWidget: $isPreferred');
   print('  is ObstructingPreferredSizeWidget: $isObstructing');
 
@@ -92,17 +115,26 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('ObstructingPreferredSizeWidget', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+              Text(
+                'ObstructingPreferredSizeWidget',
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+              ),
               SizedBox(height: 8.0),
               Text('Tested via CupertinoNavigationBar'),
               SizedBox(height: 8.0),
               Text('preferredSize: ${navBar.preferredSize}'),
-              Text('shouldFullyObstruct (opaque): ${opaqueBar.shouldFullyObstruct(context)}'),
-              Text('shouldFullyObstruct (translucent): ${translucentBar.shouldFullyObstruct(context)}'),
+              Text(
+                'shouldFullyObstruct (opaque): ${opaqueBar.shouldFullyObstruct(context)}',
+              ),
+              Text(
+                'shouldFullyObstruct (translucent): ${translucentBar.shouldFullyObstruct(context)}',
+              ),
               SizedBox(height: 16.0),
               Text('Background variations:'),
               for (final entry in backgrounds.entries)
-                Text('  ${entry.key}: obstruct=${CupertinoNavigationBar(middle: Text(""), backgroundColor: entry.value).shouldFullyObstruct(context)}'),
+                Text(
+                  '  ${entry.key}: obstruct=${CupertinoNavigationBar(middle: Text(""), backgroundColor: entry.value).shouldFullyObstruct(context)}',
+                ),
             ],
           ),
         ),

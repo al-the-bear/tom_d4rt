@@ -20,11 +20,20 @@ dynamic build(BuildContext context) {
 
   // ========== Handle anchor ==========
   print('--- Handle anchor ---');
-  final anchorLeft = controls.getHandleAnchor(TextSelectionHandleType.left, 14.0);
+  final anchorLeft = controls.getHandleAnchor(
+    TextSelectionHandleType.left,
+    14.0,
+  );
   print('  anchor(left, 14.0): $anchorLeft');
-  final anchorRight = controls.getHandleAnchor(TextSelectionHandleType.right, 14.0);
+  final anchorRight = controls.getHandleAnchor(
+    TextSelectionHandleType.right,
+    14.0,
+  );
   print('  anchor(right, 14.0): $anchorRight');
-  final anchorCollapsed = controls.getHandleAnchor(TextSelectionHandleType.collapsed, 14.0);
+  final anchorCollapsed = controls.getHandleAnchor(
+    TextSelectionHandleType.collapsed,
+    14.0,
+  );
   print('  anchor(collapsed, 14.0): $anchorCollapsed');
 
   // ========== Capability methods ==========
@@ -45,14 +54,19 @@ dynamic build(BuildContext context) {
   print('CupertinoDesktopTextSelectionControls test completed');
   return CupertinoApp(
     home: CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(middle: Text('Desktop Text Selection')),
+      navigationBar: CupertinoNavigationBar(
+        middle: Text('Desktop Text Selection'),
+      ),
       child: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('CupertinoDesktopTextSelectionControls', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
+              Text(
+                'CupertinoDesktopTextSelectionControls',
+                style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+              ),
               SizedBox(height: 8.0),
               Text('Handle Sizes:'),
               Text('  14pt: $handleSize'),

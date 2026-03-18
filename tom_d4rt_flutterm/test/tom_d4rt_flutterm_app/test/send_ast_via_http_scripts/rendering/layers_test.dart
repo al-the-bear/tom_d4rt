@@ -67,7 +67,9 @@ dynamic build(BuildContext context) {
       Radius.circular(10.0),
     ),
   );
-  print('ClipRRectLayer created with rounded rect [${clipRRectLayer.hashCode }]');
+  print(
+    'ClipRRectLayer created with rounded rect [${clipRRectLayer.hashCode}]',
+  );
 
   // ========== CLIP PATH LAYER ==========
   print('--- ClipPathLayer Tests ---');
@@ -81,7 +83,7 @@ dynamic build(BuildContext context) {
     ..close();
 
   final clipPathLayer = ClipPathLayer(clipPath: path);
-  print('ClipPathLayer created with pentagon path [${clipPathLayer.hashCode }]');
+  print('ClipPathLayer created with pentagon path [${clipPathLayer.hashCode}]');
 
   // ========== OPACITY LAYER ==========
   print('--- OpacityLayer Tests ---');
@@ -113,7 +115,9 @@ dynamic build(BuildContext context) {
       ..translateByDouble(50.0, 50.0, 0, 1)
       ..rotateZ(0.785),
   );
-  print('TransformLayer created with rotation transform [${transformLayer.hashCode }]');
+  print(
+    'TransformLayer created with rotation transform [${transformLayer.hashCode}]',
+  );
 
   // ========== LEADER LAYER & FOLLOWER LAYER ==========
   print('--- LeaderLayer / FollowerLayer Tests ---');
@@ -140,7 +144,9 @@ dynamic build(BuildContext context) {
   final backdropFilterLayer = BackdropFilterLayer(
     filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
   );
-  print('BackdropFilterLayer created with blur filter [${backdropFilterLayer.hashCode }]');
+  print(
+    'BackdropFilterLayer created with blur filter [${backdropFilterLayer.hashCode}]',
+  );
 
   // Test with blend mode
   final backdropWithBlend = BackdropFilterLayer(
@@ -155,7 +161,9 @@ dynamic build(BuildContext context) {
   final colorFilterLayer = ColorFilterLayer(
     colorFilter: ColorFilter.mode(Color(0x80FF0000), BlendMode.srcOver),
   );
-  print('ColorFilterLayer created with red tint [${colorFilterLayer.hashCode }]');
+  print(
+    'ColorFilterLayer created with red tint [${colorFilterLayer.hashCode}]',
+  );
 
   final grayscaleFilter = ColorFilterLayer(
     colorFilter: ColorFilter.matrix([
@@ -181,7 +189,7 @@ dynamic build(BuildContext context) {
       0.0,
     ]),
   );
-  print('ColorFilterLayer with grayscale matrix [${grayscaleFilter.hashCode }]');
+  print('ColorFilterLayer with grayscale matrix [${grayscaleFilter.hashCode}]');
 
   // ========== IMAGE FILTER LAYER ==========
   print('--- ImageFilterLayer Tests ---');
@@ -189,7 +197,7 @@ dynamic build(BuildContext context) {
   final imageFilterLayer = ImageFilterLayer(
     imageFilter: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
   );
-  print('ImageFilterLayer with blur [${imageFilterLayer.hashCode }]');
+  print('ImageFilterLayer with blur [${imageFilterLayer.hashCode}]');
 
   // ========== SHADER MASK LAYER ==========
   print('--- ShaderMaskLayer Tests ---');
@@ -202,7 +210,9 @@ dynamic build(BuildContext context) {
     maskRect: Rect.fromLTWH(0.0, 0.0, 100.0, 100.0),
     blendMode: BlendMode.dstIn,
   );
-  print('ShaderMaskLayer created with gradient mask [${shaderMaskLayer.hashCode }]');
+  print(
+    'ShaderMaskLayer created with gradient mask [${shaderMaskLayer.hashCode}]',
+  );
 
   print('Rendering layers test completed');
 

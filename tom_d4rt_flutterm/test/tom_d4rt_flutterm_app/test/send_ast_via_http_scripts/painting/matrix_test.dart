@@ -43,7 +43,9 @@ dynamic build(BuildContext context) {
           width: 80.0,
           height: 40.0,
           color: Colors.blue.shade100,
-          child: Center(child: Text('Identity', style: TextStyle(fontSize: 11.0))),
+          child: Center(
+            child: Text('Identity', style: TextStyle(fontSize: 11.0)),
+          ),
         ),
       ),
       SizedBox(height: 16.0),
@@ -54,7 +56,9 @@ dynamic build(BuildContext context) {
           width: 80.0,
           height: 40.0,
           color: Colors.red.shade100,
-          child: Center(child: Text('Rotate 45°', style: TextStyle(fontSize: 11.0))),
+          child: Center(
+            child: Text('Rotate 45°', style: TextStyle(fontSize: 11.0)),
+          ),
         ),
       ),
       SizedBox(height: 16.0),
@@ -64,7 +68,9 @@ dynamic build(BuildContext context) {
           width: 80.0,
           height: 40.0,
           color: Colors.green.shade100,
-          child: Center(child: Text('Translate', style: TextStyle(fontSize: 11.0))),
+          child: Center(
+            child: Text('Translate', style: TextStyle(fontSize: 11.0)),
+          ),
         ),
       ),
       SizedBox(height: 16.0),

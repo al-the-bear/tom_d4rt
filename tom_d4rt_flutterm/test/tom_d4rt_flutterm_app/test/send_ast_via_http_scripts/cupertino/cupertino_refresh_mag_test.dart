@@ -113,7 +113,7 @@ dynamic build(BuildContext context) {
     routes: {'/detail': (context) => Center(child: Text('Detail'))},
     defaultTitle: 'Tab',
   );
-  print('CupertinoTabView created [${tabView.hashCode }]');
+  print('CupertinoTabView created [${tabView.hashCode}]');
 
   print('All cupertino refresh/magnifier tests passed');
 
