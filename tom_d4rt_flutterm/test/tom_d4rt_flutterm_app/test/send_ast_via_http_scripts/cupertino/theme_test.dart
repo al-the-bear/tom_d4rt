@@ -289,7 +289,7 @@ dynamic build(BuildContext context) {
       brightness: Brightness.light,
       primaryColor: CupertinoColors.systemOrange,
       primaryContrastingColor: CupertinoColors.black,
-      barBackgroundColor: CupertinoColors.systemGrey5.withOpacity(0.8),
+      barBackgroundColor: CupertinoColors.systemGrey5.withValues(alpha: 0.8),
       scaffoldBackgroundColor: CupertinoColors.extraLightBackgroundGray,
       textTheme: CupertinoTextThemeData(
         primaryColor: CupertinoColors.systemOrange,

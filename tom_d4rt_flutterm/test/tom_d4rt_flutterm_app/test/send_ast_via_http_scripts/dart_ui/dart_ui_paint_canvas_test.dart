@@ -117,7 +117,7 @@ dynamic build(BuildContext context) {
   // ========== MaskFilter ==========
   print('--- MaskFilter Tests ---');
   final maskFilter = MaskFilter.blur(BlurStyle.normal, 5.0);
-  print('MaskFilter.blur: ${maskFilter}');
+  print('MaskFilter.blur: $maskFilter');
 
   // ========== Path advanced ==========
   print('--- Path advanced Tests ---');

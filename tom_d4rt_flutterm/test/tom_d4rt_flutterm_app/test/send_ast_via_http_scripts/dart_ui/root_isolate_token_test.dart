@@ -68,7 +68,7 @@ dynamic build(BuildContext context) {
   print('- Platform channel enablement');
   print('- BackgroundIsolateBinaryMessenger');
 
-  print('\n' + '=' * 50);
+  print('\n${'=' * 50}');
   print('RootIsolateToken test completed');
   return Column(
     mainAxisSize: MainAxisSize.min,

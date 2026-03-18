@@ -32,7 +32,7 @@ dynamic build(BuildContext context) {
     selectedColor: CupertinoColors.systemGreen,
     unselectedColor: CupertinoColors.white,
     borderColor: CupertinoColors.systemGreen,
-    pressedColor: CupertinoColors.systemGreen.withOpacity(0.2),
+    pressedColor: CupertinoColors.systemGreen.withValues(alpha: 0.2),
   );
   print('  colored segmented (green theme) created');
 

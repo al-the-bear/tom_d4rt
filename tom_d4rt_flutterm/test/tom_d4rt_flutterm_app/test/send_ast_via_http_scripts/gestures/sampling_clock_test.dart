@@ -8,7 +8,7 @@ dynamic build(BuildContext context) {
   // SamplingClock provides time for input resampling
   // Default implementation uses system clock
   print('SamplingClock: Interface for resampling time source');
-  print('Type: ${SamplingClock}');
+  print('Type: $SamplingClock');
 
   // Get default/system clock via GestureBinding
   print('\nDefault clock usage:');

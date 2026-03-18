@@ -1,6 +1,7 @@
 // D4rt test script: Tests HitTestDispatcher from gestures
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart' show BoxHitTestResult;
 
 dynamic build(BuildContext context) {
   print('HitTestDispatcher test executing');

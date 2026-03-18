@@ -10,7 +10,6 @@ dynamic build(BuildContext context) {
   final event = PointerMoveEvent(
     pointer: 1,
     position: Offset(200.0, 300.0),
-    localPosition: Offset(100.0, 150.0),
     delta: Offset(10.0, 15.0),
     buttons: kPrimaryButton,
     pressure: 0.8,
@@ -26,7 +25,6 @@ dynamic build(BuildContext context) {
   // Test position properties
   print('\nPosition properties:');
   print('position: ${event.position}');
-  print('localPosition: ${event.localPosition}');
   print('delta: ${event.delta}');
   print('localDelta: ${event.localDelta}');
 

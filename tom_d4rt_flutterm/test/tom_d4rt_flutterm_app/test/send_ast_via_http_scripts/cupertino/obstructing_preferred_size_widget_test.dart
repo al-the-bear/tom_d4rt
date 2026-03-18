@@ -26,7 +26,7 @@ dynamic build(BuildContext context) {
 
   final translucentBar = CupertinoNavigationBar(
     middle: Text('Translucent'),
-    backgroundColor: CupertinoColors.systemGrey.withOpacity(0.5),
+    backgroundColor: CupertinoColors.systemGrey.withValues(alpha: 0.5),
   );
   print('  translucent bar shouldFullyObstruct: ${translucentBar.shouldFullyObstruct(context)}');
 

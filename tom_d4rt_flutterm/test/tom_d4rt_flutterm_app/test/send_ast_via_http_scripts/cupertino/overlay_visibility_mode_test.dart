@@ -198,7 +198,7 @@ dynamic build(BuildContext context) {
 
   print('Use cases for always:');
   print('  • Field type indicators (@ for email)');
-  print('  • Currency symbols ($)');
+  print('  • Currency symbols (\$)');
   print('  • Unit prefix/suffix (kg, %)');
   print('  • Consistent UI elements');
   print('');
@@ -298,7 +298,7 @@ dynamic build(BuildContext context) {
   print('');
 
   print('5. Currency Fields → always');
-  print('   "$" prefix always visible');
+  print('   "\$" prefix always visible');
   print('');
 
   print('6. Validation Icons → notEditing');
@@ -322,7 +322,7 @@ dynamic build(BuildContext context) {
   print('  • never: Disabled overlays');
   print('  • editing: Clear buttons (default)');
   print('  • notEditing: Status indicators');
-  print('  • always: Type prefixes (@ $ %)');
+  print('  • always: Type prefixes (@ \$ %)');
   print('');
   print('OverlayVisibilityMode Deep Demo completed');
 

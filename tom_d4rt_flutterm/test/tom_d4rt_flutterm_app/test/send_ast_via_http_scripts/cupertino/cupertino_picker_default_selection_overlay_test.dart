@@ -13,12 +13,12 @@ dynamic build(BuildContext context) {
   // ===== 2. Custom background color =====
   print('--- Custom background ---');
   final blueOverlay = CupertinoPickerDefaultSelectionOverlay(
-    background: CupertinoColors.systemBlue.withOpacity(0.15),
+    background: CupertinoColors.systemBlue.withValues(alpha: 0.15),
   );
   print('  blue background overlay created');
 
   final redOverlay = CupertinoPickerDefaultSelectionOverlay(
-    background: CupertinoColors.systemRed.withOpacity(0.1),
+    background: CupertinoColors.systemRed.withValues(alpha: 0.1),
   );
   print('  red background overlay created');
 
@@ -56,7 +56,7 @@ dynamic build(BuildContext context) {
   // ===== 4. Combined: custom background + cap settings =====
   print('--- Combined customization ---');
   final combined = CupertinoPickerDefaultSelectionOverlay(
-    background: CupertinoColors.systemGreen.withOpacity(0.2),
+    background: CupertinoColors.systemGreen.withValues(alpha: 0.2),
     capStartEdge: false,
     capEndEdge: true,
   );
@@ -78,7 +78,7 @@ dynamic build(BuildContext context) {
     itemExtent: 40.0,
     onSelectedItemChanged: (index) {},
     selectionOverlay: CupertinoPickerDefaultSelectionOverlay(
-      background: CupertinoColors.systemIndigo.withOpacity(0.12),
+      background: CupertinoColors.systemIndigo.withValues(alpha: 0.12),
       capStartEdge: true,
       capEndEdge: true,
     ),

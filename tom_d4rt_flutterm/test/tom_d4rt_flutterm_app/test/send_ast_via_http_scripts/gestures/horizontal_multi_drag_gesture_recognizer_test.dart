@@ -19,8 +19,7 @@ dynamic build(BuildContext context) {
   // Test debugOwner
   print('\nDebug properties:');
   print('debugOwner: ${recognizer.debugOwner}');
-  recognizer.debugOwner = 'TestOwner';
-  print('debugOwner after set: ${recognizer.debugOwner}');
+  // debugOwner is now final and cannot be set after construction
 
   // Test gestureSettings
   print('\nGesture settings:');

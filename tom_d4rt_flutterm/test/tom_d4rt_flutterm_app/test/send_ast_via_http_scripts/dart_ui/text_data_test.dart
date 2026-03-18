@@ -1,5 +1,4 @@
 // D4rt test script: Tests TextBox, TextDecoration, TextHeightBehavior, TextPosition, TextRange from dart:ui
-import 'dart:ui';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {

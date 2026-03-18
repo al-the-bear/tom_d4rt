@@ -10,8 +10,7 @@ dynamic build(BuildContext context) {
     child: Text('Show Sheet'),
     onPressed: () {
       showCupertinoSheet(
-        context: context,
-        pageBuilder: (sheetContext) => CupertinoPageScaffold(
+        context: context, builder: (sheetContext) => CupertinoPageScaffold(
           navigationBar: CupertinoNavigationBar(
             middle: Text('Sheet'),
             trailing: CupertinoButton(
@@ -52,8 +51,7 @@ dynamic build(BuildContext context) {
     child: Text('Sheet with Handle'),
     onPressed: () {
       showCupertinoSheet(
-        context: context,
-        pageBuilder: (ctx) => CupertinoPageScaffold(
+        context: context, builder: (ctx) => CupertinoPageScaffold(
           navigationBar: CupertinoNavigationBar(middle: Text('Drag Handle')),
           child: Center(child: Text('Has drag handle')),
         ),
@@ -68,16 +66,14 @@ dynamic build(BuildContext context) {
     child: Text('Nested Sheet'),
     onPressed: () {
       showCupertinoSheet(
-        context: context,
-        pageBuilder: (ctx1) => CupertinoPageScaffold(
+        context: context, builder: (ctx1) => CupertinoPageScaffold(
           navigationBar: CupertinoNavigationBar(middle: Text('Sheet 1')),
           child: Center(
             child: CupertinoButton(
               child: Text('Open Sheet 2'),
               onPressed: () {
                 showCupertinoSheet(
-                  context: ctx1,
-                  pageBuilder: (ctx2) => CupertinoPageScaffold(
+                  context: ctx1, builder: (ctx2) => CupertinoPageScaffold(
                     navigationBar: CupertinoNavigationBar(middle: Text('Sheet 2')),
                     child: Center(child: Text('Nested sheet content')),
                   ),
@@ -97,8 +93,7 @@ dynamic build(BuildContext context) {
     child: Text('List Sheet'),
     onPressed: () {
       showCupertinoSheet(
-        context: context,
-        pageBuilder: (ctx) => CupertinoPageScaffold(
+        context: context, builder: (ctx) => CupertinoPageScaffold(
           navigationBar: CupertinoNavigationBar(middle: Text('Options')),
           child: SafeArea(
             child: CupertinoListSection.insetGrouped(

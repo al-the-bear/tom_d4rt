@@ -76,11 +76,11 @@ dynamic build(BuildContext context) {
   for (final mode in allValues) {
     String description;
     switch (mode) {
-      case ExpansionTileTransitionMode.heightFactor:
+      case ExpansionTileTransitionMode.scroll:
         description = 'Animate via height factor (reveals)';
         break;
-      case ExpansionTileTransitionMode.opacity:
-        description = 'Animate via opacity (fades)';
+      case ExpansionTileTransitionMode.fade:
+        description = 'Animate via fade (fades)';
         break;
     }
     valueResults.add({
@@ -117,11 +117,11 @@ dynamic build(BuildContext context) {
   );
   print('');
 
-  final heightFactorMode = ExpansionTileTransitionMode.heightFactor;
-  print('ExpansionTileTransitionMode.heightFactor properties:');
-  print('  • name: ${heightFactorMode.name}');
-  print('  • index: ${heightFactorMode.index}');
-  print('  • toString: $heightFactorMode');
+  final scrollMode = ExpansionTileTransitionMode.scroll;
+  print('ExpansionTileTransitionMode.scroll properties:');
+  print('  • name: ${scrollMode.name}');
+  print('  • index: ${scrollMode.index}');
+  print('  • toString: $scrollMode');
   print('');
   print('Animation characteristics:');
   print('  • Content slides/reveals from top');
@@ -142,7 +142,7 @@ dynamic build(BuildContext context) {
   print('             └──────────────────┘');
   print('');
 
-  print('Use cases for heightFactor:');
+  print('Use cases for scroll:');
   print('  • Standard accordions');
   print('  • Form field groups');
   print('  • Navigation menus');
@@ -166,11 +166,11 @@ dynamic build(BuildContext context) {
   );
   print('');
 
-  final opacityMode = ExpansionTileTransitionMode.opacity;
-  print('ExpansionTileTransitionMode.opacity properties:');
-  print('  • name: ${opacityMode.name}');
-  print('  • index: ${opacityMode.index}');
-  print('  • toString: $opacityMode');
+  final fadeMode = ExpansionTileTransitionMode.fade;
+  print('ExpansionTileTransitionMode.fade properties:');
+  print('  • name: ${fadeMode.name}');
+  print('  • index: ${fadeMode.index}');
+  print('  • toString: $fadeMode');
   print('');
   print('Animation characteristics:');
   print('  • Content fades in/out');
@@ -186,13 +186,13 @@ dynamic build(BuildContext context) {
   print('                    ↓ animate');
   print('  Expanding: ┌──────────────────┐');
   print('             │ Title            │');
-  print('             │ Content fades    │  opacity: 0.3');
-  print('             │ in gradually     │  opacity: 0.6');
-  print('             │ ...visible       │  opacity: 1.0');
+  print('             │ Content fades    │  fade: 0.3');
+  print('             │ in gradually     │  fade: 0.6');
+  print('             │ ...visible       │  fade: 1.0');
   print('             └──────────────────┘');
   print('');
 
-  print('Use cases for opacity:');
+  print('Use cases for fade:');
   print('  • Smooth content reveals');
   print('  • Fixed-size containers');
   print('  • Avoiding layout jumps');
@@ -284,13 +284,13 @@ dynamic build(BuildContext context) {
   print('│           Comparison                  │         Result          │');
   print('├───────────────────────────────────────┼─────────────────────────┤');
   print(
-    '│ heightFactor == heightFactor          │ ${heightFactorMode == ExpansionTileTransitionMode.heightFactor}                    │',
+    '│ scroll == scroll          │ ${scrollMode == ExpansionTileTransitionMode.scroll}                    │',
   );
   print(
-    '│ heightFactor == opacity               │ ${heightFactorMode == opacityMode}                   │',
+    '│ scroll == fade               │ ${scrollMode == fadeMode}                   │',
   );
   print(
-    '│ heightFactor.index < opacity.index    │ ${heightFactorMode.index < opacityMode.index}                    │',
+    '│ scroll.index < fade.index    │ ${scrollMode.index < fadeMode.index}                    │',
   );
   print('└───────────────────────────────────────┴─────────────────────────┘');
   print('');
@@ -319,9 +319,9 @@ dynamic build(BuildContext context) {
   print('');
 
   print('Using forEach:');
-  allValues.forEach((mode) {
+  for (var mode in allValues) {
     print('  Processing: ${mode.name}');
-  });
+  }
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -345,14 +345,14 @@ dynamic build(BuildContext context) {
   print('');
   print('  // Height factor mode (default)');
   print('  CupertinoExpansionTile(');
-  print('    transitionMode: ExpansionTileTransitionMode.heightFactor,');
+  print('    transitionMode: ExpansionTileTransitionMode.scroll,');
   print('    title: Text("Expand Me"),');
   print('    children: [...],');
   print('  )');
   print('');
   print('  // Opacity mode');
   print('  CupertinoExpansionTile(');
-  print('    transitionMode: ExpansionTileTransitionMode.opacity,');
+  print('    transitionMode: ExpansionTileTransitionMode.fade,');
   print('    title: Text("Fade Me"),');
   print('    children: [...],');
   print('  )');
@@ -375,30 +375,30 @@ dynamic build(BuildContext context) {
   );
   print('');
 
-  print('1. FAQ Sections → heightFactor');
+  print('1. FAQ Sections → scroll');
   print('   Traditional accordion behavior');
   print('');
 
-  print('2. Settings Groups → heightFactor');
+  print('2. Settings Groups → scroll');
   print('   Revealing options progressively');
   print('');
 
-  print('3. Image Galleries → opacity');
+  print('3. Image Galleries → fade');
   print('   Smooth fade without layout shift');
   print('');
 
-  print('4. Fixed-height Cards → opacity');
+  print('4. Fixed-height Cards → fade');
   print('   When space is already reserved');
   print('');
 
   print('5. Performance Considerations:');
-  print('   • heightFactor: More layout recalculation');
-  print('   • opacity: Less layout work, smoother');
+  print('   • scroll: More layout recalculation');
+  print('   • fade: Less layout work, smoother');
   print('');
 
   print('6. User Experience:');
-  print('   • heightFactor: Familiar accordion feel');
-  print('   • opacity: Modern, elegant transitions');
+  print('   • scroll: Familiar accordion feel');
+  print('   • fade: Modern, elegant transitions');
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -415,14 +415,14 @@ dynamic build(BuildContext context) {
   );
   print('');
   print('ExpansionTileTransitionMode key features:');
-  print('  • 2 modes: heightFactor and opacity');
+  print('  • 2 modes: scroll and fade');
   print('  • Controls expand/collapse animation');
   print('  • Different visual and performance traits');
   print('  • Simple enum-based selection');
   print('');
   print('Mode recommendations:');
-  print('  • heightFactor: Accordions, standard expansion');
-  print('  • opacity: Smooth fades, fixed layouts');
+  print('  • scroll: Accordions, standard expansion');
+  print('  • fade: Smooth fades, fixed layouts');
   print('');
   print('ExpansionTileTransitionMode Deep Demo completed');
 
@@ -513,13 +513,15 @@ dynamic build(BuildContext context) {
             CupertinoListSection.insetGrouped(
               children: [
                 CupertinoExpansionTile(
-                  transitionMode: ExpansionTileTransitionMode.heightFactor,
+                  transitionMode: ExpansionTileTransitionMode.scroll,
                   title: Text('Tap to Expand (Height)'),
-                  children: [
-                    CupertinoListTile(title: Text('Revealed Item 1')),
-                    CupertinoListTile(title: Text('Revealed Item 2')),
-                    CupertinoListTile(title: Text('Revealed Item 3')),
-                  ],
+                  child: Column(
+                    children: [
+                      CupertinoListTile(title: Text('Revealed Item 1')),
+                      CupertinoListTile(title: Text('Revealed Item 2')),
+                      CupertinoListTile(title: Text('Revealed Item 3')),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -540,13 +542,15 @@ dynamic build(BuildContext context) {
             CupertinoListSection.insetGrouped(
               children: [
                 CupertinoExpansionTile(
-                  transitionMode: ExpansionTileTransitionMode.opacity,
+                  transitionMode: ExpansionTileTransitionMode.fade,
                   title: Text('Tap to Expand (Opacity)'),
-                  children: [
-                    CupertinoListTile(title: Text('Faded Item 1')),
-                    CupertinoListTile(title: Text('Faded Item 2')),
-                    CupertinoListTile(title: Text('Faded Item 3')),
-                  ],
+                  child: Column(
+                    children: [
+                      CupertinoListTile(title: Text('Faded Item 1')),
+                      CupertinoListTile(title: Text('Faded Item 2')),
+                      CupertinoListTile(title: Text('Faded Item 3')),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -611,9 +615,9 @@ dynamic build(BuildContext context) {
                     ),
                   ),
                   SizedBox(height: 12.0),
-                  _buildRecommendation('heightFactor', 'Accordions, FAQs'),
+                  _buildRecommendation('scroll', 'Accordions, FAQs'),
                   _buildRecommendation(
-                    'opacity',
+                    'fade',
                     'Smooth fades, fixed layouts',
                   ),
                 ],
@@ -679,7 +683,7 @@ Widget _buildEnumRow(Map<String, dynamic> r) {
   final name = r['name'] as String;
   final description = r['description'] as String;
 
-  Color color = mode == ExpansionTileTransitionMode.heightFactor
+  Color color = mode == ExpansionTileTransitionMode.scroll
       ? CupertinoColors.activeBlue
       : CupertinoColors.activeGreen;
 

@@ -73,7 +73,7 @@ dynamic build(BuildContext context) {
   print('- Used in AttributedString');
   print('- Extends StringAttribute');
 
-  print('\n' + '=' * 50);
+  print('\n${'=' * 50}');
   print('SpellOutStringAttribute test completed');
   return Column(
     mainAxisSize: MainAxisSize.min,

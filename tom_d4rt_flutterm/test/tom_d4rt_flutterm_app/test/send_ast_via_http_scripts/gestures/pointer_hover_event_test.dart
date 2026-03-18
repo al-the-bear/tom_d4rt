@@ -10,7 +10,6 @@ dynamic build(BuildContext context) {
   final event = PointerHoverEvent(
     pointer: 1,
     position: Offset(150.0, 250.0),
-    localPosition: Offset(75.0, 125.0),
     delta: Offset(5.0, 3.0),
     device: 0,
     kind: ui.PointerDeviceKind.mouse,
@@ -22,7 +21,6 @@ dynamic build(BuildContext context) {
   // Test position properties
   print('\nPosition properties:');
   print('position: ${event.position}');
-  print('localPosition: ${event.localPosition}');
   print('delta: ${event.delta}');
   print('localDelta: ${event.localDelta}');
 

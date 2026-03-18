@@ -136,7 +136,7 @@ dynamic build(BuildContext context) {
     scriptCode: 'Hans',
     countryCode: 'CN',
   );
-  print('Locale zh_Hans_CN: ${locale3}');
+  print('Locale zh_Hans_CN: $locale3');
 
   print('All dart:ui enum tests passed');
 
@@ -153,7 +153,7 @@ dynamic build(BuildContext context) {
             ),
             Text('BlendMode values: ${BlendMode.values.length}'),
             Text('Brightness: ${Brightness.light}'),
-            Text('Locale: ${locale1}'),
+            Text('Locale: $locale1'),
           ],
         ),
       ),

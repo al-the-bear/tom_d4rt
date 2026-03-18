@@ -1,6 +1,5 @@
 // D4rt test script: Tests CupertinoPicker, CupertinoTimerPicker,
 // CupertinoDatePicker modes, CupertinoDialogRoute
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 dynamic build(BuildContext context) {

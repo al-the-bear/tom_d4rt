@@ -1,6 +1,5 @@
 // D4rt test script: Tests CupertinoColors extended, CupertinoTheme,
 // CupertinoThemeData, CupTextThemeData, CupertinoIconThemeData
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 dynamic build(BuildContext context) {

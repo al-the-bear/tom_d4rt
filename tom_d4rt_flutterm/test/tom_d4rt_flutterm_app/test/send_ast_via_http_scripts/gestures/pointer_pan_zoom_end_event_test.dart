@@ -1,5 +1,4 @@
 // D4rt test script: Tests PointerPanZoomEndEvent from gestures
-import 'dart:ui' as ui;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 

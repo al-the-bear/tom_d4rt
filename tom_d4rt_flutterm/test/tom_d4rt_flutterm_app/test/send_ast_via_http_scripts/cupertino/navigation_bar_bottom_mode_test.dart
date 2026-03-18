@@ -82,9 +82,6 @@ dynamic build(BuildContext context) {
       case NavigationBarBottomMode.always:
         description = 'Always show bottom border';
         break;
-      case NavigationBarBottomMode.never:
-        description = 'Never show bottom border';
-        break;
     }
     valueResults.add({
       'mode': mode,
@@ -208,11 +205,11 @@ dynamic build(BuildContext context) {
   );
   print('');
 
-  final neverMode = NavigationBarBottomMode.never;
-  print('NavigationBarBottomMode.never properties:');
-  print('  • name: ${neverMode.name}');
-  print('  • index: ${neverMode.index}');
-  print('  • toString: $neverMode');
+  final automaticMode2 = NavigationBarBottomMode.automatic;
+  print('NavigationBarBottomMode.automatic properties:');
+  print('  • name: ${automaticMode2.name}');
+  print('  • index: ${automaticMode2.index}');
+  print('  • toString: $automaticMode2');
   print('');
   print('Behavior characteristics:');
   print('  • Border never visible');
@@ -300,7 +297,7 @@ dynamic build(BuildContext context) {
     '│ automatic.index < always.index      │ ${automaticMode.index < alwaysMode.index}                        │',
   );
   print(
-    '│ always.index < never.index          │ ${alwaysMode.index < neverMode.index}                        │',
+    '│ always.index < never.index          │ ${alwaysMode.index < automaticMode2.index}                        │',
   );
   print(
     '└─────────────────────────────────────┴─────────────────────────────┘',
@@ -331,9 +328,9 @@ dynamic build(BuildContext context) {
   print('');
 
   print('Using forEach:');
-  allValues.forEach((mode) {
+  for (var mode in allValues) {
     print('  Processing: ${mode.name}');
-  });
+  }
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -369,7 +366,7 @@ dynamic build(BuildContext context) {
   print('');
   print('  // Never show border');
   print('  CupertinoNavigationBar(');
-  print('    bottomMode: NavigationBarBottomMode.never,');
+  print('    bottomMode: NavigationBarBottomMode.automatic,');
   print('    middle: Text("Title"),');
   print('  )');
   print('');
@@ -647,9 +644,6 @@ Widget _buildEnumRow(Map<String, dynamic> r) {
       break;
     case NavigationBarBottomMode.always:
       color = CupertinoColors.activeGreen;
-      break;
-    case NavigationBarBottomMode.never:
-      color = CupertinoColors.systemRed;
       break;
   }
 

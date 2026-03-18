@@ -92,9 +92,9 @@ dynamic build(BuildContext context) {
             ),
           ],
           cancelButton: CupertinoActionSheetAction(
-            child: Text('Cancel'),
             isDefaultAction: true,
             onPressed: () => Navigator.of(ctx).pop(),
+            child: Text('Cancel'),
           ),
         ),
       );
@@ -130,8 +130,7 @@ dynamic build(BuildContext context) {
     child: Text('Show Sheet'),
     onPressed: () {
       showCupertinoSheet(
-        context: context,
-        pageBuilder: (ctx) => CupertinoPageScaffold(
+        context: context, builder: (ctx) => CupertinoPageScaffold(
           navigationBar: CupertinoNavigationBar(middle: Text('Sheet')),
           child: Center(child: Text('Sheet page')),
         ),

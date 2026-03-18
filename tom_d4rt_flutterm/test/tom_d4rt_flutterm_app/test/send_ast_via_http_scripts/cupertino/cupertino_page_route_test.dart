@@ -48,21 +48,21 @@ dynamic build(BuildContext context) {
     content: Text('This is an important message.'),
     actions: [
       CupertinoDialogAction(
-        child: Text('Cancel'),
         isDefaultAction: false,
         isDestructiveAction: false,
         onPressed: () => print('  Cancel pressed'),
+        child: Text('Cancel'),
       ),
       CupertinoDialogAction(
-        child: Text('Delete'),
         isDefaultAction: false,
         isDestructiveAction: true,
         onPressed: () => print('  Delete pressed'),
+        child: Text('Delete'),
       ),
       CupertinoDialogAction(
-        child: Text('OK'),
         isDefaultAction: true,
         onPressed: () => print('  OK pressed'),
+        child: Text('OK'),
       ),
     ],
     insetAnimationDuration: Duration(milliseconds: 100),
@@ -115,20 +115,20 @@ dynamic build(BuildContext context) {
   final contextMenu = CupertinoContextMenu(
     actions: [
       CupertinoContextMenuAction(
-        child: Text('Copy'),
         trailingIcon: CupertinoIcons.doc_on_doc,
         onPressed: () => print('  Copy context'),
+        child: Text('Copy'),
       ),
       CupertinoContextMenuAction(
-        child: Text('Share'),
         trailingIcon: CupertinoIcons.share,
         onPressed: () => print('  Share context'),
+        child: Text('Share'),
       ),
       CupertinoContextMenuAction(
-        child: Text('Delete'),
         trailingIcon: CupertinoIcons.delete,
         isDestructiveAction: true,
         onPressed: () => print('  Delete context'),
+        child: Text('Delete'),
       ),
     ],
     child: Container(
@@ -145,11 +145,11 @@ dynamic build(BuildContext context) {
   // ========== CupertinoContextMenuAction ==========
   print('--- CupertinoContextMenuAction Tests ---');
   final contextAction = CupertinoContextMenuAction(
-    child: Text('Action Item'),
     trailingIcon: CupertinoIcons.add,
     isDefaultAction: true,
     isDestructiveAction: false,
     onPressed: () {},
+    child: Text('Action Item'),
   );
   print('CupertinoContextMenuAction created');
 

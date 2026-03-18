@@ -12,7 +12,6 @@ dynamic build(BuildContext context) {
 
   // Create a test scroll event
   final scrollEvent = PointerScrollEvent(
-    pointer: 0,
     position: Offset(100.0, 200.0),
     scrollDelta: Offset(0.0, -20.0),
     device: 0,

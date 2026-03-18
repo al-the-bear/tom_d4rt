@@ -70,7 +70,7 @@ dynamic build(BuildContext context) {
   print('- Extends Color');
   print('- platformProvidesSystemColors static');
 
-  print('\n' + '=' * 50);
+  print('\n${'=' * 50}');
   print('SystemColor test completed');
   return Column(
     mainAxisSize: MainAxisSize.min,

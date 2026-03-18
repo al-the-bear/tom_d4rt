@@ -26,16 +26,16 @@ dynamic build(BuildContext context) {
 
   // Test CupertinoButton disabled
   final disabledButton = CupertinoButton(
-    child: Text('Disabled Button'),
     onPressed: null,
+    child: Text('Disabled Button'),
   );
   print('CupertinoButton disabled created');
 
   // Test CupertinoButton with disabledColor
   final disabledColorButton = CupertinoButton(
     disabledColor: CupertinoColors.systemGrey3,
-    child: Text('Custom Disabled'),
     onPressed: null,
+    child: Text('Custom Disabled'),
   );
   print('CupertinoButton with disabledColor created');
 
@@ -49,9 +49,8 @@ dynamic build(BuildContext context) {
 
   // Test CupertinoButton with minSize
   final minSizeButton = CupertinoButton(
-    minSize: 60.0,
+    onPressed: () {}, minimumSize: Size(60.0, 60.0),
     child: Text('Min Size'),
-    onPressed: () {},
   );
   print('CupertinoButton with minSize created');
 
@@ -107,16 +106,16 @@ dynamic build(BuildContext context) {
 
   // Test CupertinoButton.filled disabled
   final filledDisabledButton = CupertinoButton.filled(
-    child: Text('Filled Disabled'),
     onPressed: null,
+    child: Text('Filled Disabled'),
   );
   print('CupertinoButton.filled disabled created');
 
   // Test CupertinoButton.filled with disabledColor
   final filledDisabledColorButton = CupertinoButton.filled(
     disabledColor: CupertinoColors.systemGrey,
-    child: Text('Custom Disabled'),
     onPressed: null,
+    child: Text('Custom Disabled'),
   );
   print('CupertinoButton.filled with disabledColor created');
 

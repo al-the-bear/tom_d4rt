@@ -3,7 +3,6 @@
 // CupertinoIconThemeData, CupertinoSystemColors, CupertinoSlidingSegmentedControl,
 // CupertinoSegmentedControl
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print('Cupertino colors and system test executing');

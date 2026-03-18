@@ -8,7 +8,6 @@ dynamic build(BuildContext context) {
 
   // Create PointerScrollInertiaCancelEvent
   final event = PointerScrollInertiaCancelEvent(
-    pointer: 0,
     position: Offset(100.0, 200.0),
     device: 0,
     kind: ui.PointerDeviceKind.trackpad,
@@ -24,7 +23,6 @@ dynamic build(BuildContext context) {
 
   // Test pointer identification
   print('\nPointer identification:');
-  print('pointer: ${event.pointer}');
   print('device: ${event.device}');
   print('kind: ${event.kind}');
 

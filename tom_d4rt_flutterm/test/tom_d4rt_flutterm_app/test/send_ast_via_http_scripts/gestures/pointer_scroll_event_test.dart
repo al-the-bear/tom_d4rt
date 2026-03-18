@@ -34,8 +34,8 @@ class _ScrollDemoState extends State<_ScrollDemo> {
           onPointerSignal: (e) {
             if (e is PointerScrollEvent) {
               setState(() {
-                _totalX += (e as PointerScrollEvent).scrollDelta.dx;
-                _totalY += (e as PointerScrollEvent).scrollDelta.dy;
+                _totalX += (e).scrollDelta.dx;
+                _totalY += (e).scrollDelta.dy;
                 _eventCount++;
               });
             }

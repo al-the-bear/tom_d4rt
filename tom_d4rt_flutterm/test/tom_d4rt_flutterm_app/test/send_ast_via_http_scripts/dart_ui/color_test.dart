@@ -75,7 +75,7 @@ dynamic build(BuildContext context) {
   print('- with* methods for modification');
   print('- computeLuminance for contrast');
 
-  print('\n' + '=' * 50);
+  print('\n${'=' * 50}');
   print('Color test completed');
   return Column(
     mainAxisSize: MainAxisSize.min,

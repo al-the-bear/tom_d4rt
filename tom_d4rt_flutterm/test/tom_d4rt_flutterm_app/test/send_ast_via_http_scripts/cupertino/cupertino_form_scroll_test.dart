@@ -1,6 +1,5 @@
 // D4rt test script: Tests CupertinoTextFormFieldRow, CupertinoListTileChevron,
 // CupertinoScrollbar, CupertinoPopupSurface, CupertinoContextMenuAction
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 dynamic build(BuildContext context) {
@@ -69,21 +68,21 @@ dynamic build(BuildContext context) {
   // ========== CupertinoContextMenuAction ==========
   print('--- CupertinoContextMenuAction Tests ---');
   final ctxAction = CupertinoContextMenuAction(
-    child: Text('Copy'),
     trailingIcon: CupertinoIcons.doc_on_clipboard,
     isDefaultAction: true,
     isDestructiveAction: false,
     onPressed: () => print('Context action pressed'),
+    child: Text('Copy'),
   );
   print('CupertinoContextMenuAction created');
   print('  isDefaultAction: true');
   print('  isDestructiveAction: false');
 
   final destructiveAction = CupertinoContextMenuAction(
-    child: Text('Delete'),
     trailingIcon: CupertinoIcons.delete,
     isDestructiveAction: true,
     onPressed: () {},
+    child: Text('Delete'),
   );
   print('Destructive CupertinoContextMenuAction created');
 

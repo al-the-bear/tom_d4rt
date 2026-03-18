@@ -1,6 +1,5 @@
 // D4rt test script: Tests CupertinoSwitch, CupertinoSlider,
 // CupertinoActivityIndicator, CupertinoSearchTextField
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 dynamic build(BuildContext context) {
@@ -11,8 +10,8 @@ dynamic build(BuildContext context) {
   final cupertinoSwitch = CupertinoSwitch(
     value: true,
     onChanged: (bool value) => print('Switch: $value'),
-    activeColor: CupertinoColors.activeGreen,
-    trackColor: CupertinoColors.systemGrey4,
+    activeTrackColor: CupertinoColors.activeGreen,
+    inactiveTrackColor: CupertinoColors.systemGrey4,
     thumbColor: CupertinoColors.white,
   );
   print('CupertinoSwitch created: value=true');

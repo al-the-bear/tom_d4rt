@@ -1,6 +1,4 @@
 // D4rt test script: Tests PointerEventConverter from gestures
-import 'dart:ui' as ui;
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {

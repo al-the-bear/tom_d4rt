@@ -1,5 +1,4 @@
 // D4rt test script: Tests gesture recognizer classes from package:flutter/gestures.dart
-import 'dart:ui';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
 

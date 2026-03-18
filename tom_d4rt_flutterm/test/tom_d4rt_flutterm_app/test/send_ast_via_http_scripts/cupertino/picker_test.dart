@@ -104,7 +104,7 @@ dynamic build(BuildContext context) {
   final overlayPicker = CupertinoPicker(
     itemExtent: 32.0,
     selectionOverlay: CupertinoPickerDefaultSelectionOverlay(
-      background: CupertinoColors.systemBlue.withOpacity(0.1),
+      background: CupertinoColors.systemBlue.withValues(alpha: 0.1),
     ),
     onSelectedItemChanged: (index) {},
     children: [

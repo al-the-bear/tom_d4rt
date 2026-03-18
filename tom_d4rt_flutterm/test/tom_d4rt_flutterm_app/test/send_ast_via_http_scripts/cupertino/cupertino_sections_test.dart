@@ -1,7 +1,6 @@
 // D4rt test script: Tests CupertinoFormSection, CupertinoListSection,
 // CupertinoListTile.notched, CupertinoListTileLeadingWidget,
 // CupertinoFullscreenDialogTransition
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 dynamic build(BuildContext context) {

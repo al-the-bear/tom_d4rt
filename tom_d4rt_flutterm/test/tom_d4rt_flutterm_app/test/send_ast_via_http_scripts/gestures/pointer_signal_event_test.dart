@@ -8,7 +8,6 @@ dynamic build(BuildContext context) {
 
   // PointerSignalEvent is abstract, use concrete subtype
   final scrollEvent = PointerScrollEvent(
-    pointer: 0,
     position: Offset(100.0, 200.0),
     scrollDelta: Offset(0.0, -20.0),
     device: 0,
@@ -31,7 +30,6 @@ dynamic build(BuildContext context) {
 
   // Test pointer identification
   print('\nPointer identification (inherited):');
-  print('pointer: ${scrollEvent.pointer}');
   print('device: ${scrollEvent.device}');
   print('kind: ${scrollEvent.kind}');
 

@@ -270,9 +270,9 @@ dynamic build(BuildContext context) {
   print('');
 
   print('Using forEach:');
-  allValues.forEach((type) {
+  for (var type in allValues) {
     print('  Processing: ${type.name}');
-  });
+  }
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════

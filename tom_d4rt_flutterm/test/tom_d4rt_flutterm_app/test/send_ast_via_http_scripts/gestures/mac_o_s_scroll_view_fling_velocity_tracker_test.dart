@@ -21,6 +21,6 @@ dynamic build(BuildContext context) {
   return Column(mainAxisSize: MainAxisSize.min, children: [
     Text('MacOSScrollViewFlingVelocityTracker', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
     Text('macOS-like trackpad fling'),
-    Text('estimate: ${estimate?.pixelsPerSecond}'),
+    Text('estimate: ${estimate.pixelsPerSecond}'),
   ]);
 }

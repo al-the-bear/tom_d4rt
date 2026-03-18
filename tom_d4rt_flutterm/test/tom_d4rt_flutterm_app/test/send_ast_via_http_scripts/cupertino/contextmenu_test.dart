@@ -22,9 +22,9 @@ dynamic build(BuildContext context) {
         onPressed: () { print('Share pressed'); },
       ),
       CupertinoContextMenuAction(
-        child: Text('Delete'),
         isDestructiveAction: true,
         onPressed: () { print('Delete pressed'); },
+        child: Text('Delete'),
       ),
     ],
     child: Container(
@@ -62,8 +62,8 @@ dynamic build(BuildContext context) {
 
   final destructiveAction = CupertinoContextMenuAction(
     isDestructiveAction: true,
-    child: Text('Destructive Action'),
     trailingIcon: CupertinoIcons.trash,
+    child: Text('Destructive Action'),
   );
   print('  destructive.isDestructiveAction: ${destructiveAction.isDestructiveAction}');
   print('  destructive.trailingIcon: ${destructiveAction.trailingIcon}');
@@ -71,9 +71,9 @@ dynamic build(BuildContext context) {
   // ========== Action with icon ==========
   print('--- Action with trailing icon ---');
   final iconAction = CupertinoContextMenuAction(
-    child: Text('Share'),
     trailingIcon: CupertinoIcons.share,
     onPressed: () { print('share'); },
+    child: Text('Share'),
   );
   print('  trailingIcon: ${iconAction.trailingIcon}');
 
@@ -93,9 +93,9 @@ dynamic build(BuildContext context) {
               SizedBox(height: 16.0),
               Text('Context Menu Actions', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
               SizedBox(height: 8.0),
-              CupertinoContextMenuAction(child: Text('Default'), isDefaultAction: true),
-              CupertinoContextMenuAction(child: Text('Destructive'), isDestructiveAction: true),
-              CupertinoContextMenuAction(child: Text('With Icon'), trailingIcon: CupertinoIcons.share),
+              CupertinoContextMenuAction(isDefaultAction: true, child: Text('Default')),
+              CupertinoContextMenuAction(isDestructiveAction: true, child: Text('Destructive')),
+              CupertinoContextMenuAction(trailingIcon: CupertinoIcons.share, child: Text('With Icon')),
               SizedBox(height: 8.0),
               Text('kOpenBorderRadius: ${CupertinoContextMenu.kOpenBorderRadius}'),
               Text('animationOpensAt: ${CupertinoContextMenu.animationOpensAt}'),

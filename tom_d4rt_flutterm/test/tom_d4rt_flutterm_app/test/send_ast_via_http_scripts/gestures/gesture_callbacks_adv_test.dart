@@ -8,26 +8,25 @@ dynamic build(BuildContext context) {
   // ========== GestureScaleEndCallback ==========
   print('--- GestureScaleEndCallback Tests ---');
   // GestureScaleEndCallback = void Function(ScaleEndDetails)
-  final GestureScaleEndCallback scaleEndCallback = (ScaleEndDetails details) {
+  void scaleEndCallback(ScaleEndDetails details) {
     print('Scale ended with velocity: ${details.velocity}');
-  };
+  }
   print('GestureScaleEndCallback type: ${scaleEndCallback.runtimeType}');
 
   // ========== GestureLongPressCallback ==========
   print('--- GestureLongPressCallback Tests ---');
   // GestureLongPressCallback = void Function()
-  final GestureLongPressCallback longPressCallback = () {
+  void longPressCallback() {
     print('Long press detected');
-  };
+  }
   print('GestureLongPressCallback type: ${longPressCallback.runtimeType}');
 
   // ========== GestureLongPressStartCallback ==========
   print('--- GestureLongPressStartCallback Tests ---');
   // GestureLongPressStartCallback = void Function(LongPressStartDetails)
-  final GestureLongPressStartCallback longPressStartCallback =
-      (LongPressStartDetails details) {
+  void longPressStartCallback(LongPressStartDetails details) {
         print('Long press started at: ${details.globalPosition}');
-      };
+      }
   print(
     'GestureLongPressStartCallback type: ${longPressStartCallback.runtimeType}',
   );
@@ -35,10 +34,9 @@ dynamic build(BuildContext context) {
   // ========== GestureLongPressMoveUpdateCallback ==========
   print('--- GestureLongPressMoveUpdateCallback Tests ---');
   // GestureLongPressMoveUpdateCallback = void Function(LongPressMoveUpdateDetails)
-  final GestureLongPressMoveUpdateCallback longPressMoveCallback =
-      (LongPressMoveUpdateDetails details) {
+  void longPressMoveCallback(LongPressMoveUpdateDetails details) {
         print('Long press move to: ${details.globalPosition}');
-      };
+      }
   print(
     'GestureLongPressMoveUpdateCallback type: ${longPressMoveCallback.runtimeType}',
   );
@@ -46,10 +44,9 @@ dynamic build(BuildContext context) {
   // ========== GestureLongPressEndCallback ==========
   print('--- GestureLongPressEndCallback Tests ---');
   // GestureLongPressEndCallback = void Function(LongPressEndDetails)
-  final GestureLongPressEndCallback longPressEndCallback =
-      (LongPressEndDetails details) {
+  void longPressEndCallback(LongPressEndDetails details) {
         print('Long press ended at: ${details.globalPosition}');
-      };
+      }
   print(
     'GestureLongPressEndCallback type: ${longPressEndCallback.runtimeType}',
   );

@@ -2,7 +2,6 @@
 // CupertinoTextField is an iOS-style text input widget
 // Provides text entry with iOS styling and behavior
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print('╔════════════════════════════════════════════════════════════════════╗');
@@ -187,7 +186,7 @@ dynamic build(BuildContext context) {
   print('');
   print('  Currency field:');
   print('  ┌─────────────────────────────────┬───┐');
-  print('  │ 123.45                          │ $ │');
+  print('  │ 123.45                          │ \$ │');
   print('  └─────────────────────────────────┴───┘');
   print('                                   suffix');
   print('');

@@ -2,6 +2,7 @@
 // Tests CupertinoTextSelectionToolbar, CupertinoAdaptiveTextSelectionToolbar,
 // CupertinoDesktopTextSelectionToolbar, and related button widgets
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart' show Divider;
 
 dynamic build(BuildContext context) {
   print(
@@ -167,8 +168,8 @@ dynamic build(BuildContext context) {
   print('');
 
   final disabledButton = CupertinoTextSelectionToolbarButton(
-    child: Text('Paste'),
     onPressed: null,
+    child: Text('Paste'),
   );
 
   print('Disabled button configuration:');

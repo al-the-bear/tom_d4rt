@@ -1,6 +1,5 @@
 // D4rt test script: Tests PointerUpEvent from gestures
 import 'dart:ui' as ui;
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
@@ -10,7 +9,6 @@ dynamic build(BuildContext context) {
   final event = PointerUpEvent(
     pointer: 1,
     position: Offset(150.0, 250.0),
-    localPosition: Offset(75.0, 125.0),
     device: 0,
     kind: ui.PointerDeviceKind.touch,
     pressure: 0.0, // Typically 0 when released
@@ -22,7 +20,6 @@ dynamic build(BuildContext context) {
   // Test position properties
   print('\nPosition properties:');
   print('position: ${event.position}');
-  print('localPosition: ${event.localPosition}');
   print('delta: ${event.delta}');
 
   // Test pointer identification

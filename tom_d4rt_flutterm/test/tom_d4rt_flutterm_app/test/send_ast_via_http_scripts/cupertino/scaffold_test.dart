@@ -105,7 +105,7 @@ dynamic build(BuildContext context) {
 
   // Test CupertinoNavigationBar with backgroundColor
   final bgNavBar = CupertinoNavigationBar(
-    backgroundColor: CupertinoColors.systemBlue.withOpacity(0.8),
+    backgroundColor: CupertinoColors.systemBlue.withValues(alpha: 0.8),
     middle: Text('Colored Nav', style: TextStyle(color: CupertinoColors.white)),
   );
   print('CupertinoNavigationBar with backgroundColor created');

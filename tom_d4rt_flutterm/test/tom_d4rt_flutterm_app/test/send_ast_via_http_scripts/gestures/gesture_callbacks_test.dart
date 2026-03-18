@@ -8,61 +8,57 @@ dynamic build(BuildContext context) {
   // ========== GestureDragStartCallback ==========
   print('--- GestureDragStartCallback Tests ---');
   // GestureDragStartCallback = void Function(DragStartDetails)
-  final GestureDragStartCallback dragStartCallback =
-      (DragStartDetails details) {
+  void dragStartCallback(DragStartDetails details) {
         print('Drag started at: ${details.globalPosition}');
-      };
+      }
   print('GestureDragStartCallback type: ${dragStartCallback.runtimeType}');
 
   // ========== GestureDragUpdateCallback ==========
   print('--- GestureDragUpdateCallback Tests ---');
   // GestureDragUpdateCallback = void Function(DragUpdateDetails)
-  final GestureDragUpdateCallback dragUpdateCallback =
-      (DragUpdateDetails details) {
+  void dragUpdateCallback(DragUpdateDetails details) {
         print('Drag update delta: ${details.delta}');
-      };
+      }
   print('GestureDragUpdateCallback type: ${dragUpdateCallback.runtimeType}');
 
   // ========== GestureDragEndCallback ==========
   print('--- GestureDragEndCallback Tests ---');
   // GestureDragEndCallback = void Function(DragEndDetails)
-  final GestureDragEndCallback dragEndCallback = (DragEndDetails details) {
+  void dragEndCallback(DragEndDetails details) {
     print('Drag ended with velocity: ${details.velocity}');
-  };
+  }
   print('GestureDragEndCallback type: ${dragEndCallback.runtimeType}');
 
   // ========== GestureDragCancelCallback ==========
   print('--- GestureDragCancelCallback Tests ---');
   // GestureDragCancelCallback = void Function()
-  final GestureDragCancelCallback dragCancelCallback = () {
+  void dragCancelCallback() {
     print('Drag cancelled');
-  };
+  }
   print('GestureDragCancelCallback type: ${dragCancelCallback.runtimeType}');
 
   // ========== GestureDragDownCallback ==========
   print('--- GestureDragDownCallback Tests ---');
   // GestureDragDownCallback = void Function(DragDownDetails)
-  final GestureDragDownCallback dragDownCallback = (DragDownDetails details) {
+  void dragDownCallback(DragDownDetails details) {
     print('Drag down at: ${details.globalPosition}');
-  };
+  }
   print('GestureDragDownCallback type: ${dragDownCallback.runtimeType}');
 
   // ========== GestureScaleStartCallback ==========
   print('--- GestureScaleStartCallback Tests ---');
   // GestureScaleStartCallback = void Function(ScaleStartDetails)
-  final GestureScaleStartCallback scaleStartCallback =
-      (ScaleStartDetails details) {
+  void scaleStartCallback(ScaleStartDetails details) {
         print('Scale started, pointers: ${details.pointerCount}');
-      };
+      }
   print('GestureScaleStartCallback type: ${scaleStartCallback.runtimeType}');
 
   // ========== GestureScaleUpdateCallback ==========
   print('--- GestureScaleUpdateCallback Tests ---');
   // GestureScaleUpdateCallback = void Function(ScaleUpdateDetails)
-  final GestureScaleUpdateCallback scaleUpdateCallback =
-      (ScaleUpdateDetails details) {
+  void scaleUpdateCallback(ScaleUpdateDetails details) {
         print('Scale update, scale: ${details.scale}');
-      };
+      }
   print('GestureScaleUpdateCallback type: ${scaleUpdateCallback.runtimeType}');
 
   // ========== GestureRecognizerCallback ==========
@@ -71,7 +67,7 @@ dynamic build(BuildContext context) {
   // GestureRecognizerFactoryWithHandlers uses callbacks to initialize recognizers
   final tapRecognizer = TapGestureRecognizer();
   print('TapGestureRecognizer type: ${tapRecognizer.runtimeType}');
-  print('GestureRecognizer base type: ${GestureRecognizer}');
+  print('GestureRecognizer base type: $GestureRecognizer');
   // Reference the factory pattern that uses recognizer callbacks
   final factory = GestureRecognizerFactoryWithHandlers<TapGestureRecognizer>(
     () => TapGestureRecognizer(),

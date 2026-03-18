@@ -1,7 +1,5 @@
 // D4rt test script: Tests CupertinoTextMagnifier from cupertino
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {
   print('CupertinoTextMagnifier test executing');

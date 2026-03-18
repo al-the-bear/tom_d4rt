@@ -143,8 +143,8 @@ dynamic build(BuildContext context) {
 
   // Test CupertinoDialogAction disabled
   final disabledAction = CupertinoDialogAction(
-    child: Text('Disabled'),
     onPressed: null,
+    child: Text('Disabled'),
   );
   print('CupertinoDialogAction disabled created');
 

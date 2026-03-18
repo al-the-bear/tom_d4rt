@@ -17,15 +17,13 @@ dynamic build(BuildContext context) {
 
   final estimate = tracker.getVelocityEstimate();
   print('Velocity estimate: $estimate');
-  if (estimate != null) {
-    print('pixelsPerSecond: ${estimate.pixelsPerSecond}');
-    print('confidence: ${estimate.confidence}');
-  }
+  print('pixelsPerSecond: ${estimate.pixelsPerSecond}');
+  print('confidence: ${estimate.confidence}');
 
   print('IOSScrollViewFlingVelocityTracker test completed');
   return Column(mainAxisSize: MainAxisSize.min, children: [
     Text('IOSScrollViewFlingVelocityTracker', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
     Text('iOS-like fling physics'),
-    Text('estimate: ${estimate?.pixelsPerSecond}'),
+    Text('estimate: ${estimate.pixelsPerSecond}'),
   ]);
 }

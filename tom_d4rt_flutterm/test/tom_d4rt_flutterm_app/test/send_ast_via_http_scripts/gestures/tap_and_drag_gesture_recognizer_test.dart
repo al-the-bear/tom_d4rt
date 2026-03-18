@@ -19,7 +19,6 @@ dynamic build(BuildContext context) {
   print('\nCallback properties:');
   print('onTapDown: ${recognizer.onTapDown}');
   print('onTapUp: ${recognizer.onTapUp}');
-  print('onTapCancel: ${recognizer.onTapCancel}');
   print('onDragStart: ${recognizer.onDragStart}');
   print('onDragUpdate: ${recognizer.onDragUpdate}');
   print('onDragEnd: ${recognizer.onDragEnd}');

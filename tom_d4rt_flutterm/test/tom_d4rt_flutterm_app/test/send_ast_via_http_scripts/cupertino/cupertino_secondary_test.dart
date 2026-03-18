@@ -2,7 +2,6 @@
 // CupertinoDialogAction, CupertinoActionSheetAction, CupertinoPopupSurface,
 // CupertinoFormRow, CupertinoScrollbar, CupertinoListTileChevron
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print('Cupertino secondary widgets test executing');
@@ -65,10 +64,10 @@ dynamic build(BuildContext context) {
   print('--- CupertinoDialogAction Tests ---');
 
   final dialogAction = CupertinoDialogAction(
-    child: Text('OK'),
     isDefaultAction: true,
     isDestructiveAction: false,
     onPressed: () => print('OK pressed'),
+    child: Text('OK'),
   );
   print(
     'CupertinoDialogAction isDefaultAction: ${dialogAction.isDefaultAction}',
@@ -78,10 +77,10 @@ dynamic build(BuildContext context) {
   );
 
   final destructiveAction = CupertinoDialogAction(
-    child: Text('Delete'),
     isDefaultAction: false,
     isDestructiveAction: true,
     onPressed: () => print('Delete pressed'),
+    child: Text('Delete'),
   );
   print(
     'CupertinoDialogAction destructive: ${destructiveAction.isDestructiveAction}',
@@ -91,10 +90,10 @@ dynamic build(BuildContext context) {
   print('--- CupertinoActionSheetAction Tests ---');
 
   final actionSheetAction = CupertinoActionSheetAction(
-    child: Text('Share'),
     isDefaultAction: true,
     isDestructiveAction: false,
     onPressed: () => print('Share pressed'),
+    child: Text('Share'),
   );
   print(
     'CupertinoActionSheetAction isDefaultAction: ${actionSheetAction.isDefaultAction}',
