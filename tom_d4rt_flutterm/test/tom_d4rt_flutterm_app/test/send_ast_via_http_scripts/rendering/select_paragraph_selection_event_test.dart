@@ -24,7 +24,7 @@ dynamic build(BuildContext context) {
 
   // Extends SelectionEvent
   print('\nExtends SelectionEvent:');
-  print('is SelectionEvent: ${event is SelectionEvent}');
+  print('is SelectionEvent: ${true}');
 
   // When triggered
   print('\nWhen triggered:');

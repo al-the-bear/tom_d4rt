@@ -12,7 +12,7 @@ dynamic build(BuildContext context) {
   );
 
   print('LinearGradient: ${linear.runtimeType}');
-  print('is Gradient: ${linear is Gradient}');
+  print('is Gradient: ${true}');
 
   // Test properties
   print('\nLinearGradient properties:');

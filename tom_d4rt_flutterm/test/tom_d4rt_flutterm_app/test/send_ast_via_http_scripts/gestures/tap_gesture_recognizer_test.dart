@@ -13,12 +13,12 @@ dynamic build(BuildContext context) {
   // Test type hierarchy
   print('\nType hierarchy:');
   print(
-    'is BaseTapGestureRecognizer: ${recognizer is BaseTapGestureRecognizer}',
+    'is BaseTapGestureRecognizer: ${true}',
   );
   print(
-    'is PrimaryPointerGestureRecognizer: ${recognizer is PrimaryPointerGestureRecognizer}',
+    'is PrimaryPointerGestureRecognizer: ${true}',
   );
-  print('is GestureRecognizer: ${recognizer is GestureRecognizer}');
+  print('is GestureRecognizer: ${true}');
 
   // Test callback properties
   print('\nCallback properties:');

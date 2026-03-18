@@ -23,7 +23,7 @@ dynamic build(BuildContext context) {
   print('--- LeaderLayer Tests ---');
   final link = LayerLink();
   final leaderLayer = LeaderLayer(link: link, offset: Offset.zero);
-  print('LeaderLayer created with LayerLink');
+  print('LeaderLayer created with LayerLink [${leaderLayer.hashCode }]');
 
   // ========== FollowerLayer ==========
   print('--- FollowerLayer Tests ---');

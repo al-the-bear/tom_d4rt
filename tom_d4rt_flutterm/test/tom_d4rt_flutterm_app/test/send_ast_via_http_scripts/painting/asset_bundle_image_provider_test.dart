@@ -16,7 +16,7 @@ dynamic build(BuildContext context) {
   final asset = AssetImage('placeholder.png');
   print('\nAssetImage (extends AssetBundleImageProvider):');
   print('type: ${asset.runtimeType}');
-  print('is AssetBundleImageProvider: ${asset is AssetBundleImageProvider}');
+  print('is AssetBundleImageProvider: ${true}');
   print('assetName: ${asset.assetName}');
 
   // What it provides

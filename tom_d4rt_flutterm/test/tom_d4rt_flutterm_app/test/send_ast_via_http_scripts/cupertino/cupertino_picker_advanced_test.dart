@@ -60,7 +60,7 @@ dynamic build(BuildContext context) {
     minuteInterval: 5,
     backgroundColor: CupertinoColors.systemBackground,
     onDateTimeChanged: (DateTime dt) {
-      print('Date: $dt');
+      print('Date: $dt [${datePicker.hashCode }]');
     },
   );
   print('CupertinoDatePicker dateAndTime created');
@@ -72,7 +72,7 @@ dynamic build(BuildContext context) {
     capStartEdge: true,
     capEndEdge: true,
   );
-  print('CupertinoPickerDefaultSelectionOverlay created');
+  print('CupertinoPickerDefaultSelectionOverlay created [${overlay.hashCode }]');
 
   print('All cupertino picker tests passed');
 

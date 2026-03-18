@@ -17,7 +17,7 @@ dynamic build(BuildContext context) {
   final systemRed = CupertinoColors.systemRed;
   final systemTeal = CupertinoColors.systemTeal;
   final systemYellow = CupertinoColors.systemYellow;
-  print('System colors accessed');
+  print('System colors accessed [${systemYellow.hashCode }] [${systemTeal.hashCode }] [${systemRed.hashCode }] [${systemPurple.hashCode }] [${systemPink.hashCode }] [${systemOrange.hashCode }] [${systemIndigo.hashCode }] [${systemGreen.hashCode }] [${systemBlue.hashCode }]');
 
   // Test grey colors
   final grey = CupertinoColors.systemGrey;
@@ -26,42 +26,42 @@ dynamic build(BuildContext context) {
   final grey4 = CupertinoColors.systemGrey4;
   final grey5 = CupertinoColors.systemGrey5;
   final grey6 = CupertinoColors.systemGrey6;
-  print('System grey colors accessed');
+  print('System grey colors accessed [${grey6.hashCode }] [${grey5.hashCode }] [${grey4.hashCode }] [${grey3.hashCode }] [${grey2.hashCode }] [${grey.hashCode }]');
 
   // Test label colors
   final label = CupertinoColors.label;
   final secondaryLabel = CupertinoColors.secondaryLabel;
   final tertiaryLabel = CupertinoColors.tertiaryLabel;
   final quaternaryLabel = CupertinoColors.quaternaryLabel;
-  print('Label colors accessed');
+  print('Label colors accessed [${quaternaryLabel.hashCode }] [${tertiaryLabel.hashCode }] [${secondaryLabel.hashCode }] [${label.hashCode }]');
 
   // Test fill colors
   final systemFill = CupertinoColors.systemFill;
   final secondarySystemFill = CupertinoColors.secondarySystemFill;
   final tertiarySystemFill = CupertinoColors.tertiarySystemFill;
   final quaternarySystemFill = CupertinoColors.quaternarySystemFill;
-  print('System fill colors accessed');
+  print('System fill colors accessed [${quaternarySystemFill.hashCode }] [${tertiarySystemFill.hashCode }] [${secondarySystemFill.hashCode }] [${systemFill.hashCode }]');
 
   // Test background colors
   final systemBackground = CupertinoColors.systemBackground;
   final secondaryBackground = CupertinoColors.secondarySystemBackground;
   final tertiaryBackground = CupertinoColors.tertiarySystemBackground;
-  print('System background colors accessed');
+  print('System background colors accessed [${tertiaryBackground.hashCode }] [${secondaryBackground.hashCode }] [${systemBackground.hashCode }]');
 
   // Test grouped background colors
   final groupedBackground = CupertinoColors.systemGroupedBackground;
   final secondaryGroupedBg = CupertinoColors.secondarySystemGroupedBackground;
   final tertiaryGroupedBg = CupertinoColors.tertiarySystemGroupedBackground;
-  print('System grouped background colors accessed');
+  print('System grouped background colors accessed [${tertiaryGroupedBg.hashCode }] [${secondaryGroupedBg.hashCode }] [${groupedBackground.hashCode }]');
 
   // Test separator colors
   final separator = CupertinoColors.separator;
   final opaqueSeparator = CupertinoColors.opaqueSeparator;
-  print('Separator colors accessed');
+  print('Separator colors accessed [${opaqueSeparator.hashCode }] [${separator.hashCode }]');
 
   // Test link color
   final link = CupertinoColors.link;
-  print('Link color accessed');
+  print('Link color accessed [${link.hashCode }]');
 
   // Test basic colors
   final white = CupertinoColors.white;
@@ -74,7 +74,7 @@ dynamic build(BuildContext context) {
   final activeBlue = CupertinoColors.activeBlue;
   final activeGreen = CupertinoColors.activeGreen;
   final activeOrange = CupertinoColors.activeOrange;
-  print('Basic colors accessed');
+  print('Basic colors accessed [${activeOrange.hashCode }] [${activeGreen.hashCode }] [${activeBlue.hashCode }] [${destructiveRed.hashCode }] [${inactiveGray.hashCode }] [${darkBackgroundGray.hashCode }] [${extraLightBackgroundGray.hashCode }] [${lightBackgroundGray.hashCode }] [${black.hashCode }] [${white.hashCode }]');
 
   // ========== CUPERTINODYNAMICCOLOR ==========
   print('--- CupertinoDynamicColor Tests ---');
@@ -84,7 +84,7 @@ dynamic build(BuildContext context) {
     color: CupertinoColors.black,
     darkColor: CupertinoColors.white,
   );
-  print('CupertinoDynamicColor.withBrightness created');
+  print('CupertinoDynamicColor.withBrightness created [${dynamicColor.hashCode }]');
 
   // Test CupertinoDynamicColor full constructor
   final fullDynamicColor = CupertinoDynamicColor(
@@ -97,7 +97,7 @@ dynamic build(BuildContext context) {
     highContrastElevatedColor: Color(0xFF222222),
     darkHighContrastElevatedColor: Color(0xFFDDDDDD),
   );
-  print('CupertinoDynamicColor full constructor created');
+  print('CupertinoDynamicColor full constructor created [${fullDynamicColor.hashCode }]');
 
   // Test CupertinoDynamicColor.withBrightnessAndContrast
   final contrastDynamicColor = CupertinoDynamicColor.withBrightnessAndContrast(
@@ -106,7 +106,7 @@ dynamic build(BuildContext context) {
     highContrastColor: Color(0xFF0040DD),
     darkHighContrastColor: Color(0xFF409CFF),
   );
-  print('CupertinoDynamicColor.withBrightnessAndContrast created');
+  print('CupertinoDynamicColor.withBrightnessAndContrast created [${contrastDynamicColor.hashCode }]');
 
   // Test CupertinoDynamicColor.resolve
   // Note: resolve requires context
@@ -123,13 +123,13 @@ dynamic build(BuildContext context) {
   final primaryColorTextTheme = CupertinoTextThemeData(
     primaryColor: CupertinoColors.systemBlue,
   );
-  print('CupertinoTextThemeData with primaryColor created');
+  print('CupertinoTextThemeData with primaryColor created [${primaryColorTextTheme.hashCode }]');
 
   // Test CupertinoTextThemeData with textStyle
   final customTextTheme = CupertinoTextThemeData(
     textStyle: TextStyle(fontSize: 16.0, color: CupertinoColors.label),
   );
-  print('CupertinoTextThemeData with textStyle created');
+  print('CupertinoTextThemeData with textStyle created [${customTextTheme.hashCode }]');
 
   // Test CupertinoTextThemeData with actionTextStyle
   final actionTextTheme = CupertinoTextThemeData(
@@ -138,7 +138,7 @@ dynamic build(BuildContext context) {
       color: CupertinoColors.activeBlue,
     ),
   );
-  print('CupertinoTextThemeData with actionTextStyle created');
+  print('CupertinoTextThemeData with actionTextStyle created [${actionTextTheme.hashCode }]');
 
   // Test CupertinoTextThemeData with tabLabelTextStyle
   final tabLabelTextTheme = CupertinoTextThemeData(
@@ -147,13 +147,13 @@ dynamic build(BuildContext context) {
       color: CupertinoColors.inactiveGray,
     ),
   );
-  print('CupertinoTextThemeData with tabLabelTextStyle created');
+  print('CupertinoTextThemeData with tabLabelTextStyle created [${tabLabelTextTheme.hashCode }]');
 
   // Test CupertinoTextThemeData with navTitleTextStyle
   final navTitleTextTheme = CupertinoTextThemeData(
     navTitleTextStyle: TextStyle(fontSize: 17.0, fontWeight: FontWeight.w600),
   );
-  print('CupertinoTextThemeData with navTitleTextStyle created');
+  print('CupertinoTextThemeData with navTitleTextStyle created [${navTitleTextTheme.hashCode }]');
 
   // Test CupertinoTextThemeData with navLargeTitleTextStyle
   final navLargeTitleTextTheme = CupertinoTextThemeData(
@@ -162,7 +162,7 @@ dynamic build(BuildContext context) {
       fontWeight: FontWeight.bold,
     ),
   );
-  print('CupertinoTextThemeData with navLargeTitleTextStyle created');
+  print('CupertinoTextThemeData with navLargeTitleTextStyle created [${navLargeTitleTextTheme.hashCode }]');
 
   // Test CupertinoTextThemeData with navActionTextStyle
   final navActionTextTheme = CupertinoTextThemeData(
@@ -171,25 +171,25 @@ dynamic build(BuildContext context) {
       color: CupertinoColors.activeBlue,
     ),
   );
-  print('CupertinoTextThemeData with navActionTextStyle created');
+  print('CupertinoTextThemeData with navActionTextStyle created [${navActionTextTheme.hashCode }]');
 
   // Test CupertinoTextThemeData with pickerTextStyle
   final pickerTextTheme = CupertinoTextThemeData(
     pickerTextStyle: TextStyle(fontSize: 21.0),
   );
-  print('CupertinoTextThemeData with pickerTextStyle created');
+  print('CupertinoTextThemeData with pickerTextStyle created [${pickerTextTheme.hashCode }]');
 
   // Test CupertinoTextThemeData with dateTimePickerTextStyle
   final datePickerTextTheme = CupertinoTextThemeData(
     dateTimePickerTextStyle: TextStyle(fontSize: 21.0),
   );
-  print('CupertinoTextThemeData with dateTimePickerTextStyle created');
+  print('CupertinoTextThemeData with dateTimePickerTextStyle created [${datePickerTextTheme.hashCode }]');
 
   // Test CupertinoTextThemeData copyWith
   final copiedTextTheme = basicTextTheme.copyWith(
     primaryColor: CupertinoColors.systemPurple,
   );
-  print('CupertinoTextThemeData copyWith created');
+  print('CupertinoTextThemeData copyWith created [${copiedTextTheme.hashCode }]');
 
   // ========== CUPERTINOTHEMEDATA ==========
   print('--- CupertinoThemeData Tests ---');
@@ -200,22 +200,22 @@ dynamic build(BuildContext context) {
 
   // Test CupertinoThemeData with brightness
   final lightThemeData = CupertinoThemeData(brightness: Brightness.light);
-  print('CupertinoThemeData with brightness: light created');
+  print('CupertinoThemeData with brightness: light created [${lightThemeData.hashCode }]');
 
   final darkThemeData = CupertinoThemeData(brightness: Brightness.dark);
-  print('CupertinoThemeData with brightness: dark created');
+  print('CupertinoThemeData with brightness: dark created [${darkThemeData.hashCode }]');
 
   // Test CupertinoThemeData with primaryColor
   final primaryColorThemeData = CupertinoThemeData(
     primaryColor: CupertinoColors.systemPurple,
   );
-  print('CupertinoThemeData with primaryColor created');
+  print('CupertinoThemeData with primaryColor created [${primaryColorThemeData.hashCode }]');
 
   // Test CupertinoThemeData with primaryContrastingColor
   final contrastThemeData = CupertinoThemeData(
     primaryContrastingColor: CupertinoColors.white,
   );
-  print('CupertinoThemeData with primaryContrastingColor created');
+  print('CupertinoThemeData with primaryContrastingColor created [${contrastThemeData.hashCode }]');
 
   // Test CupertinoThemeData with textTheme
   final textThemeData = CupertinoThemeData(
@@ -223,33 +223,33 @@ dynamic build(BuildContext context) {
       textStyle: TextStyle(fontFamily: 'SF Pro'),
     ),
   );
-  print('CupertinoThemeData with textTheme created');
+  print('CupertinoThemeData with textTheme created [${textThemeData.hashCode }]');
 
   // Test CupertinoThemeData with barBackgroundColor
   final barBgThemeData = CupertinoThemeData(
     barBackgroundColor: CupertinoColors.systemGrey6,
   );
-  print('CupertinoThemeData with barBackgroundColor created');
+  print('CupertinoThemeData with barBackgroundColor created [${barBgThemeData.hashCode }]');
 
   // Test CupertinoThemeData with scaffoldBackgroundColor
   final scaffoldBgThemeData = CupertinoThemeData(
     scaffoldBackgroundColor: CupertinoColors.systemGroupedBackground,
   );
-  print('CupertinoThemeData with scaffoldBackgroundColor created');
+  print('CupertinoThemeData with scaffoldBackgroundColor created [${scaffoldBgThemeData.hashCode }]');
 
   // Test CupertinoThemeData with applyThemeToAll
   final applyAllThemeData = CupertinoThemeData(
     applyThemeToAll: true,
     primaryColor: CupertinoColors.systemOrange,
   );
-  print('CupertinoThemeData with applyThemeToAll created');
+  print('CupertinoThemeData with applyThemeToAll created [${applyAllThemeData.hashCode }]');
 
   // Test CupertinoThemeData copyWith
   final copiedThemeData = basicThemeData.copyWith(
     primaryColor: CupertinoColors.systemTeal,
     brightness: Brightness.dark,
   );
-  print('CupertinoThemeData copyWith created');
+  print('CupertinoThemeData copyWith created [${copiedThemeData.hashCode }]');
 
   // Test CupertinoThemeData with all properties
   final fullThemeData = CupertinoThemeData(
@@ -261,7 +261,7 @@ dynamic build(BuildContext context) {
     scaffoldBackgroundColor: CupertinoColors.systemBackground,
     applyThemeToAll: false,
   );
-  print('CupertinoThemeData with all properties created');
+  print('CupertinoThemeData with all properties created [${fullThemeData.hashCode }]');
 
   // ========== CUPERTINOTHEME WIDGET ==========
   print('--- CupertinoTheme Widget Tests ---');
@@ -271,7 +271,7 @@ dynamic build(BuildContext context) {
     data: CupertinoThemeData(primaryColor: CupertinoColors.systemRed),
     child: Text('Themed content'),
   );
-  print('Basic CupertinoTheme widget created');
+  print('Basic CupertinoTheme widget created [${basicTheme.hashCode }]');
 
   // Test CupertinoTheme with dark mode
   final darkTheme = CupertinoTheme(
@@ -281,7 +281,7 @@ dynamic build(BuildContext context) {
     ),
     child: Text('Dark themed content'),
   );
-  print('CupertinoTheme with dark mode created');
+  print('CupertinoTheme with dark mode created [${darkTheme.hashCode }]');
 
   // Test CupertinoTheme with full customization
   final fullTheme = CupertinoTheme(
@@ -297,7 +297,7 @@ dynamic build(BuildContext context) {
     ),
     child: Text('Fully themed content'),
   );
-  print('CupertinoTheme with full customization created');
+  print('CupertinoTheme with full customization created [${fullTheme.hashCode }]');
 
   // Test CupertinoTheme.of
   // Note: CupertinoTheme.of(context) requires actual widget tree

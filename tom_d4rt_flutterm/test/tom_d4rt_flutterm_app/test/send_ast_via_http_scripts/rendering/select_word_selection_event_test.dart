@@ -7,32 +7,32 @@ dynamic build(BuildContext context) {
 
   // SelectWordSelectionEvent - Selection event for selecting a word
   // Triggered by double-tap gesture in text selection
-  
+
   // Create a SelectWordSelectionEvent at a specific position
   final event = SelectWordSelectionEvent(
     globalPosition: const Offset(150.0, 200.0),
   );
-  
+
   print('SelectWordSelectionEvent created: $event');
   print('globalPosition: ${event.globalPosition}');
   print('type: ${event.type}');
-  
+
   // SelectionEventType enum values
   print('\nSelectionEventType values:');
   for (final eventType in SelectionEventType.values) {
     print('- $eventType');
   }
-  
+
   // SelectWordSelectionEvent properties
   print('\nglobalPosition: ${event.globalPosition}');
   print('type: ${event.type}');
   print('Word selection is typically a discrete selection event');
-  
+
   // Type hierarchy
   print('\nType hierarchy:');
   print('SelectWordSelectionEvent extends SelectionEvent');
   print('SelectionEvent is the base class for all selection events');
-  
+
   // Compare with other selection events
   print('\nRelated selection events:');
   print('- SelectAllSelectionEvent: Selects all selectable content');
@@ -40,7 +40,7 @@ dynamic build(BuildContext context) {
   print('- SelectParagraphSelectionEvent: Selects entire paragraph');
   print('- GranularlyExtendSelectionEvent: Extends by granularity');
   print('- DirectionallyExtendSelectionEvent: Extends directionally');
-  
+
   // Use case description
   print('\nUse cases:');
   print('- Double-tap to select word in text');

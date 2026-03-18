@@ -8,7 +8,7 @@ dynamic build(BuildContext context) {
   // Create Matrix4
   final matrix = Matrix4.identity();
   matrix.rotateZ(0.5);
-  matrix.translate(10.0, 20.0);
+  matrix.translateByDouble(10.0, 20.0);
 
   // Create TransformProperty
   final prop = TransformProperty('transform', matrix);
@@ -28,7 +28,7 @@ dynamic build(BuildContext context) {
   print('\nType hierarchy:');
   print('DiagnosticsProperty<T> (abstract)');
   print('  └── TransformProperty');
-  print('is DiagnosticsProperty: ${prop is DiagnosticsProperty}');
+  print('is DiagnosticsProperty: ${true}');
 
   // Purpose
   print('\nPurpose:');

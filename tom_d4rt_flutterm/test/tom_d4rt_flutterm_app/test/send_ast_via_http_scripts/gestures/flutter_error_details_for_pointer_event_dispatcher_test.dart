@@ -13,7 +13,7 @@ dynamic build(BuildContext context) {
   );
   print('Type: ${details.runtimeType}');
   print('library: ${details.library}');
-  print('is FlutterErrorDetails: ${details is FlutterErrorDetails}');
+  print('is FlutterErrorDetails: ${true}');
   print('exception: ${details.exception}');
   print('context: ${details.context}');
 

@@ -82,7 +82,7 @@ dynamic build(BuildContext context) {
     color: Color(0xFF000000),
     darkColor: Color(0xFFFFFFFF),
   );
-  print('CupertinoDynamicColor.withBrightness created');
+  print('CupertinoDynamicColor.withBrightness created [${dynamicColor.hashCode }]');
 
   final dynamicColor2 = CupertinoDynamicColor(
     color: Color(0xFF000000),
@@ -94,7 +94,7 @@ dynamic build(BuildContext context) {
     highContrastElevatedColor: Color(0xFF111111),
     darkHighContrastElevatedColor: Color(0xFFEEEEEE),
   );
-  print('CupertinoDynamicColor full created');
+  print('CupertinoDynamicColor full created [${dynamicColor2.hashCode }]');
 
   // ========== CupertinoThemeData advanced ==========
   print('--- CupertinoThemeData Advanced Tests ---');

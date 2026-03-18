@@ -10,7 +10,7 @@ dynamic build(BuildContext context) {
   // Test basic CupertinoSliverRefreshControl
   final basicRefreshControl = CupertinoSliverRefreshControl(
     onRefresh: () async {
-      print('Refreshing...');
+      print('Refreshing... [${basicRefreshControl.hashCode }]');
     },
   );
   print('Basic CupertinoSliverRefreshControl created');
@@ -19,7 +19,7 @@ dynamic build(BuildContext context) {
   final triggerRefreshControl = CupertinoSliverRefreshControl(
     refreshTriggerPullDistance: 150.0,
     onRefresh: () async {
-      print('Custom trigger refresh');
+      print('Custom trigger refresh [${triggerRefreshControl.hashCode }]');
     },
   );
   print(
@@ -30,7 +30,7 @@ dynamic build(BuildContext context) {
   final extentRefreshControl = CupertinoSliverRefreshControl(
     refreshIndicatorExtent: 80.0,
     onRefresh: () async {
-      print('Custom extent refresh');
+      print('Custom extent refresh [${extentRefreshControl.hashCode }]');
     },
   );
   print('CupertinoSliverRefreshControl with refreshIndicatorExtent created');
@@ -40,7 +40,7 @@ dynamic build(BuildContext context) {
     refreshTriggerPullDistance: 120.0,
     refreshIndicatorExtent: 60.0,
     onRefresh: () async {
-      print('Custom distances refresh');
+      print('Custom distances refresh [${customRefreshControl.hashCode }]');
     },
   );
   print('CupertinoSliverRefreshControl with custom distances created');
@@ -48,7 +48,7 @@ dynamic build(BuildContext context) {
   // Test CupertinoSliverRefreshControl with custom builder
   final builderRefreshControl = CupertinoSliverRefreshControl(
     onRefresh: () async {
-      print('Builder refresh');
+      print('Builder refresh [${builderRefreshControl.hashCode }]');
     },
     builder:
         (
@@ -65,7 +65,7 @@ dynamic build(BuildContext context) {
 
   // Test CupertinoSliverRefreshControl without onRefresh (display only)
   final displayOnlyRefreshControl = CupertinoSliverRefreshControl();
-  print('CupertinoSliverRefreshControl without onRefresh created');
+  print('CupertinoSliverRefreshControl without onRefresh created [${displayOnlyRefreshControl.hashCode }]');
 
   print('All CupertinoSliverRefreshControl construction tests passed');
 

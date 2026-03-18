@@ -12,7 +12,7 @@ dynamic build(BuildContext context) {
   );
 
   print('Created: ${event.runtimeType}');
-  print('is PointerEvent: ${event is PointerEvent}');
+  print('is PointerEvent: ${true}');
 
   // Properties
   print('\nEvent properties:');

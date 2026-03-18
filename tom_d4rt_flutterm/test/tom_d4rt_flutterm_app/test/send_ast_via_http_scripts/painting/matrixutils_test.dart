@@ -65,8 +65,8 @@ dynamic build(BuildContext context) {
 
   // Test combining transforms
   final combined = Matrix4.identity()
-    ..translate(50.0, 50.0)
-    ..scale(2.0, 2.0);
+    ..translateByDouble(50.0, 50.0)
+    ..scaleByDouble(2.0, 2.0);
   final combinedPoint = MatrixUtils.transformPoint(
     combined,
     Offset(10.0, 10.0),

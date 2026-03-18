@@ -32,7 +32,7 @@ dynamic build(BuildContext context) {
       Center(child: Text('C')),
     ],
   );
-  print('CupertinoPicker with diameterRatio created');
+  print('CupertinoPicker with diameterRatio created [${diameterPicker.hashCode }]');
 
   // Test CupertinoPicker with backgroundColor
   final bgPicker = CupertinoPicker(
@@ -45,7 +45,7 @@ dynamic build(BuildContext context) {
       Center(child: Text('Three')),
     ],
   );
-  print('CupertinoPicker with backgroundColor created');
+  print('CupertinoPicker with backgroundColor created [${bgPicker.hashCode }]');
 
   // Test CupertinoPicker with squeeze
   final squeezedPicker = CupertinoPicker(
@@ -58,7 +58,7 @@ dynamic build(BuildContext context) {
       Center(child: Text('Z')),
     ],
   );
-  print('CupertinoPicker with squeeze created');
+  print('CupertinoPicker with squeeze created [${squeezedPicker.hashCode }]');
 
   // Test CupertinoPicker with magnification
   final magnifiedPicker = CupertinoPicker(
@@ -71,7 +71,7 @@ dynamic build(BuildContext context) {
       Center(child: Text('Third')),
     ],
   );
-  print('CupertinoPicker with magnification created');
+  print('CupertinoPicker with magnification created [${magnifiedPicker.hashCode }]');
 
   // Test CupertinoPicker with offAxisFraction
   final offAxisPicker = CupertinoPicker(
@@ -84,7 +84,7 @@ dynamic build(BuildContext context) {
       Center(child: Text('Right')),
     ],
   );
-  print('CupertinoPicker with offAxisFraction created');
+  print('CupertinoPicker with offAxisFraction created [${offAxisPicker.hashCode }]');
 
   // Test CupertinoPicker with useMagnifier
   final useMagnifierPicker = CupertinoPicker(
@@ -98,7 +98,7 @@ dynamic build(BuildContext context) {
       Center(child: Text('Option C')),
     ],
   );
-  print('CupertinoPicker with useMagnifier created');
+  print('CupertinoPicker with useMagnifier created [${useMagnifierPicker.hashCode }]');
 
   // Test CupertinoPicker with selectionOverlay
   final overlayPicker = CupertinoPicker(
@@ -113,7 +113,7 @@ dynamic build(BuildContext context) {
       Center(child: Text('Pick 3')),
     ],
   );
-  print('CupertinoPicker with selectionOverlay created');
+  print('CupertinoPicker with selectionOverlay created [${overlayPicker.hashCode }]');
 
   // Test CupertinoPicker.builder
   final builderPicker = CupertinoPicker.builder(
@@ -124,7 +124,7 @@ dynamic build(BuildContext context) {
     },
     childCount: 10,
   );
-  print('CupertinoPicker.builder created');
+  print('CupertinoPicker.builder created [${builderPicker.hashCode }]');
 
   // Test CupertinoPicker with scrollController
   final scrollControllerPicker = CupertinoPicker(
@@ -139,7 +139,7 @@ dynamic build(BuildContext context) {
       Center(child: Text('May')),
     ],
   );
-  print('CupertinoPicker with scrollController created');
+  print('CupertinoPicker with scrollController created [${scrollControllerPicker.hashCode }]');
 
   // Test CupertinoPicker with looping
   final loopingPicker = CupertinoPicker(
@@ -154,7 +154,7 @@ dynamic build(BuildContext context) {
       Center(child: Text('5')),
     ],
   );
-  print('CupertinoPicker with looping created');
+  print('CupertinoPicker with looping created [${loopingPicker.hashCode }]');
 
   // ========== CUPERTINODATEPICKER ==========
   print('--- CupertinoDatePicker Tests ---');
@@ -162,7 +162,7 @@ dynamic build(BuildContext context) {
   // Test basic CupertinoDatePicker
   final basicDatePicker = CupertinoDatePicker(
     onDateTimeChanged: (DateTime dateTime) {
-      print('Date changed: $dateTime');
+      print('Date changed: $dateTime [${basicDatePicker.hashCode }]');
     },
   );
   print('Basic CupertinoDatePicker created');
@@ -172,49 +172,49 @@ dynamic build(BuildContext context) {
     mode: CupertinoDatePickerMode.date,
     onDateTimeChanged: (dateTime) {},
   );
-  print('CupertinoDatePicker with mode: date created');
+  print('CupertinoDatePicker with mode: date created [${datePicker.hashCode }]');
 
   // Test CupertinoDatePicker with mode: time
   final timePicker = CupertinoDatePicker(
     mode: CupertinoDatePickerMode.time,
     onDateTimeChanged: (dateTime) {},
   );
-  print('CupertinoDatePicker with mode: time created');
+  print('CupertinoDatePicker with mode: time created [${timePicker.hashCode }]');
 
   // Test CupertinoDatePicker with mode: dateAndTime
   final dateAndTimePicker = CupertinoDatePicker(
     mode: CupertinoDatePickerMode.dateAndTime,
     onDateTimeChanged: (dateTime) {},
   );
-  print('CupertinoDatePicker with mode: dateAndTime created');
+  print('CupertinoDatePicker with mode: dateAndTime created [${dateAndTimePicker.hashCode }]');
 
   // Test CupertinoDatePicker with mode: monthYear
   final monthYearPicker = CupertinoDatePicker(
     mode: CupertinoDatePickerMode.monthYear,
     onDateTimeChanged: (dateTime) {},
   );
-  print('CupertinoDatePicker with mode: monthYear created');
+  print('CupertinoDatePicker with mode: monthYear created [${monthYearPicker.hashCode }]');
 
   // Test CupertinoDatePicker with initialDateTime
   final initialDatePicker = CupertinoDatePicker(
     initialDateTime: DateTime(2025, 6, 15, 10, 30),
     onDateTimeChanged: (dateTime) {},
   );
-  print('CupertinoDatePicker with initialDateTime created');
+  print('CupertinoDatePicker with initialDateTime created [${initialDatePicker.hashCode }]');
 
   // Test CupertinoDatePicker with minimumDate
   final minDatePicker = CupertinoDatePicker(
     minimumDate: DateTime(2020, 1, 1),
     onDateTimeChanged: (dateTime) {},
   );
-  print('CupertinoDatePicker with minimumDate created');
+  print('CupertinoDatePicker with minimumDate created [${minDatePicker.hashCode }]');
 
   // Test CupertinoDatePicker with maximumDate
   final maxDatePicker = CupertinoDatePicker(
     maximumDate: DateTime(2030, 12, 31),
     onDateTimeChanged: (dateTime) {},
   );
-  print('CupertinoDatePicker with maximumDate created');
+  print('CupertinoDatePicker with maximumDate created [${maxDatePicker.hashCode }]');
 
   // Test CupertinoDatePicker with minimumYear
   final minYearPicker = CupertinoDatePicker(
@@ -222,7 +222,7 @@ dynamic build(BuildContext context) {
     mode: CupertinoDatePickerMode.date,
     onDateTimeChanged: (dateTime) {},
   );
-  print('CupertinoDatePicker with minimumYear created');
+  print('CupertinoDatePicker with minimumYear created [${minYearPicker.hashCode }]');
 
   // Test CupertinoDatePicker with maximumYear
   final maxYearPicker = CupertinoDatePicker(
@@ -230,7 +230,7 @@ dynamic build(BuildContext context) {
     mode: CupertinoDatePickerMode.date,
     onDateTimeChanged: (dateTime) {},
   );
-  print('CupertinoDatePicker with maximumYear created');
+  print('CupertinoDatePicker with maximumYear created [${maxYearPicker.hashCode }]');
 
   // Test CupertinoDatePicker with minuteInterval
   final intervalPicker = CupertinoDatePicker(
@@ -239,7 +239,7 @@ dynamic build(BuildContext context) {
     mode: CupertinoDatePickerMode.time,
     onDateTimeChanged: (dateTime) {},
   );
-  print('CupertinoDatePicker with minuteInterval created');
+  print('CupertinoDatePicker with minuteInterval created [${intervalPicker.hashCode }]');
 
   // Test CupertinoDatePicker with use24hFormat
   final format24hPicker = CupertinoDatePicker(
@@ -247,7 +247,7 @@ dynamic build(BuildContext context) {
     mode: CupertinoDatePickerMode.time,
     onDateTimeChanged: (dateTime) {},
   );
-  print('CupertinoDatePicker with use24hFormat created');
+  print('CupertinoDatePicker with use24hFormat created [${format24hPicker.hashCode }]');
 
   // Test CupertinoDatePicker with dateOrder
   final dateOrderPicker = CupertinoDatePicker(
@@ -255,14 +255,14 @@ dynamic build(BuildContext context) {
     mode: CupertinoDatePickerMode.date,
     onDateTimeChanged: (dateTime) {},
   );
-  print('CupertinoDatePicker with dateOrder created');
+  print('CupertinoDatePicker with dateOrder created [${dateOrderPicker.hashCode }]');
 
   // Test CupertinoDatePicker with backgroundColor
   final bgDatePicker = CupertinoDatePicker(
     backgroundColor: CupertinoColors.systemGrey6,
     onDateTimeChanged: (dateTime) {},
   );
-  print('CupertinoDatePicker with backgroundColor created');
+  print('CupertinoDatePicker with backgroundColor created [${bgDatePicker.hashCode }]');
 
   // Test CupertinoDatePicker with showDayOfWeek
   final dayOfWeekPicker = CupertinoDatePicker(
@@ -270,14 +270,14 @@ dynamic build(BuildContext context) {
     mode: CupertinoDatePickerMode.date,
     onDateTimeChanged: (dateTime) {},
   );
-  print('CupertinoDatePicker with showDayOfWeek created');
+  print('CupertinoDatePicker with showDayOfWeek created [${dayOfWeekPicker.hashCode }]');
 
   // Test CupertinoDatePicker with itemExtent
   final itemExtentDatePicker = CupertinoDatePicker(
     itemExtent: 40.0,
     onDateTimeChanged: (dateTime) {},
   );
-  print('CupertinoDatePicker with itemExtent created');
+  print('CupertinoDatePicker with itemExtent created [${itemExtentDatePicker.hashCode }]');
 
   // ========== CUPERTINOTIMERPICKER ==========
   print('--- CupertinoTimerPicker Tests ---');
@@ -295,35 +295,35 @@ dynamic build(BuildContext context) {
     mode: CupertinoTimerPickerMode.hm,
     onTimerDurationChanged: (duration) {},
   );
-  print('CupertinoTimerPicker with mode: hm created');
+  print('CupertinoTimerPicker with mode: hm created [${hmTimerPicker.hashCode }]');
 
   // Test CupertinoTimerPicker with mode: ms
   final msTimerPicker = CupertinoTimerPicker(
     mode: CupertinoTimerPickerMode.ms,
     onTimerDurationChanged: (duration) {},
   );
-  print('CupertinoTimerPicker with mode: ms created');
+  print('CupertinoTimerPicker with mode: ms created [${msTimerPicker.hashCode }]');
 
   // Test CupertinoTimerPicker with mode: hms
   final hmsTimerPicker = CupertinoTimerPicker(
     mode: CupertinoTimerPickerMode.hms,
     onTimerDurationChanged: (duration) {},
   );
-  print('CupertinoTimerPicker with mode: hms created');
+  print('CupertinoTimerPicker with mode: hms created [${hmsTimerPicker.hashCode }]');
 
   // Test CupertinoTimerPicker with initialTimerDuration
   final initialTimerPicker = CupertinoTimerPicker(
     initialTimerDuration: Duration(hours: 1, minutes: 30),
     onTimerDurationChanged: (duration) {},
   );
-  print('CupertinoTimerPicker with initialTimerDuration created');
+  print('CupertinoTimerPicker with initialTimerDuration created [${initialTimerPicker.hashCode }]');
 
   // Test CupertinoTimerPicker with minuteInterval
   final intervalTimerPicker = CupertinoTimerPicker(
     minuteInterval: 5,
     onTimerDurationChanged: (duration) {},
   );
-  print('CupertinoTimerPicker with minuteInterval created');
+  print('CupertinoTimerPicker with minuteInterval created [${intervalTimerPicker.hashCode }]');
 
   // Test CupertinoTimerPicker with secondInterval
   final secondIntervalTimerPicker = CupertinoTimerPicker(
@@ -331,28 +331,28 @@ dynamic build(BuildContext context) {
     secondInterval: 10,
     onTimerDurationChanged: (duration) {},
   );
-  print('CupertinoTimerPicker with secondInterval created');
+  print('CupertinoTimerPicker with secondInterval created [${secondIntervalTimerPicker.hashCode }]');
 
   // Test CupertinoTimerPicker with alignment
   final alignedTimerPicker = CupertinoTimerPicker(
     alignment: Alignment.centerLeft,
     onTimerDurationChanged: (duration) {},
   );
-  print('CupertinoTimerPicker with alignment created');
+  print('CupertinoTimerPicker with alignment created [${alignedTimerPicker.hashCode }]');
 
   // Test CupertinoTimerPicker with backgroundColor
   final bgTimerPicker = CupertinoTimerPicker(
     backgroundColor: CupertinoColors.systemGrey6,
     onTimerDurationChanged: (duration) {},
   );
-  print('CupertinoTimerPicker with backgroundColor created');
+  print('CupertinoTimerPicker with backgroundColor created [${bgTimerPicker.hashCode }]');
 
   // Test CupertinoTimerPicker with itemExtent
   final itemExtentTimerPicker = CupertinoTimerPicker(
     itemExtent: 40.0,
     onTimerDurationChanged: (duration) {},
   );
-  print('CupertinoTimerPicker with itemExtent created');
+  print('CupertinoTimerPicker with itemExtent created [${itemExtentTimerPicker.hashCode }]');
 
   print('Cupertino picker test completed');
 

@@ -55,7 +55,7 @@ dynamic build(BuildContext context) {
   final transformLayerScale = TransformLayer(
     transform: Matrix4.diagonal3Values(2.0, 2.0, 1.0),
   );
-  print('TransformLayer(scale) created');
+  print('TransformLayer(scale) created [${transformLayerScale.hashCode }]');
 
   final transformLayerWithOffset = TransformLayer(
     transform: Matrix4.identity(),
@@ -108,7 +108,7 @@ dynamic build(BuildContext context) {
       bottomRight: Radius.circular(24.0),
     ),
   );
-  print('ClipRRectLayer(custom corners) created');
+  print('ClipRRectLayer(custom corners) created [${clipRRectCustomCorners.hashCode }]');
 
   // ========== IMAGE FILTER LAYER ==========
   print('--- ImageFilterLayer Tests ---');
@@ -121,7 +121,7 @@ dynamic build(BuildContext context) {
     imageFilter: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
     offset: Offset(0.0, 0.0),
   );
-  print('ImageFilterLayer(blur, offset) created');
+  print('ImageFilterLayer(blur, offset) created [${imageFilterLayerOffset.hashCode }]');
 
   // ========== BACKDROP FILTER LAYER ==========
   print('--- BackdropFilterLayer Tests ---');

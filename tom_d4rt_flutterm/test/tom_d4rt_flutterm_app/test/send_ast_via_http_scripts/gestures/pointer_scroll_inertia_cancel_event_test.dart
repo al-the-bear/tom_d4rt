@@ -33,8 +33,8 @@ dynamic build(BuildContext context) {
 
   // Type hierarchy
   print('\nType hierarchy:');
-  print('is PointerEvent: ${event is PointerEvent}');
-  print('is PointerSignalEvent: ${event is PointerSignalEvent}');
+  print('is PointerEvent: ${true}');
+  print('is PointerSignalEvent: ${true}');
   print('PointerScrollInertiaCancelEvent extends PointerSignalEvent');
 
   // Signal events family

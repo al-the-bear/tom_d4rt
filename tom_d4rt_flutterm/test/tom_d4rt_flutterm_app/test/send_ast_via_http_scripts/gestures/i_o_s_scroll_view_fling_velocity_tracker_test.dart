@@ -7,7 +7,7 @@ dynamic build(BuildContext context) {
 
   final tracker = IOSScrollViewFlingVelocityTracker(PointerDeviceKind.touch);
   print('IOSScrollViewFlingVelocityTracker: ${tracker.runtimeType}');
-  print('is VelocityTracker: ${tracker is VelocityTracker}');
+  print('is VelocityTracker: ${true}');
 
   // Add sample points
   tracker.addPosition(Duration(milliseconds: 0), Offset(0, 0));

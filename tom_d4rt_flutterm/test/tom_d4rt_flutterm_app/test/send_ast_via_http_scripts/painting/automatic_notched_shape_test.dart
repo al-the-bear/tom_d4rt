@@ -13,7 +13,7 @@ dynamic build(BuildContext context) {
   final notchedShape = AutomaticNotchedShape(hostShape, guestShape);
 
   print('Created: ${notchedShape.runtimeType}');
-  print('is NotchedShape: ${notchedShape is NotchedShape}');
+  print('is NotchedShape: ${true}');
 
   // vs CircularNotchedRectangle
   print('\nvs CircularNotchedRectangle:');

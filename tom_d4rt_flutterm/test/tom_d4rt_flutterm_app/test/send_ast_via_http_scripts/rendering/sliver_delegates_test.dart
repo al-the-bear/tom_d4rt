@@ -116,7 +116,7 @@ dynamic build(BuildContext context) {
   print('IntrinsicColumnWidth() created: ${intrinsicCol.runtimeType}');
 
   final intrinsicColFlex = IntrinsicColumnWidth(flex: 1.0);
-  print('IntrinsicColumnWidth(flex=1) created');
+  print('IntrinsicColumnWidth(flex=1) created [${intrinsicColFlex.hashCode }]');
 
   // ========== TABLE WITH COLUMN WIDTHS ==========
   print('--- Table with column widths ---');

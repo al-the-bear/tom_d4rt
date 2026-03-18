@@ -66,12 +66,12 @@ dynamic build(BuildContext context) {
   final textTheme = CupertinoTextThemeData(
     primaryColor: CupertinoColors.activeBlue,
   );
-  print('CupertinoTextThemeData created');
+  print('CupertinoTextThemeData created [${textTheme.hashCode }]');
 
   // ========== CupertinoTheme widget ==========
   print('--- CupertinoTheme widget Tests ---');
   final themeWidget = CupertinoTheme(data: themeData, child: Text('Themed'));
-  print('CupertinoTheme widget created');
+  print('CupertinoTheme widget created [${themeWidget.hashCode }]');
 
   // ========== CupertinoIconThemeData ==========
   print('--- CupertinoIconThemeData Tests ---');

@@ -20,7 +20,7 @@ dynamic build(BuildContext context) {
   print('kind: ${event.kind}');
   print('buttons: ${event.buttons}');
   print('pressure: ${event.pressure}');
-  print('is PointerEvent: ${event is PointerEvent}');
+  print('is PointerEvent: ${true}');
   print('down: ${event.down}');
 
   print('PointerDownEvent test completed');

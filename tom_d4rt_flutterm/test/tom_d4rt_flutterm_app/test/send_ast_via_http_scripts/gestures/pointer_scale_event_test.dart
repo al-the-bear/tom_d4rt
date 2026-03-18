@@ -82,4 +82,7 @@ class _ScaleDemoState extends State<_ScaleDemo> {
       ],
     );
   }
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) => 'ScaleDemoState(eventCount: $_eventCount)';
 }

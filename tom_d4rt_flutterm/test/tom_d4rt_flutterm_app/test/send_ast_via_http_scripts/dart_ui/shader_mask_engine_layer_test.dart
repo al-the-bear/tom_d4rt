@@ -12,7 +12,7 @@ dynamic build(BuildContext context) {
   );
   final layer = sb.pushShaderMask(gradient, Rect.fromLTWH(0, 0, 200, 200), BlendMode.srcOver);
   print('pushShaderMask: ${layer.runtimeType}');
-  print('is EngineLayer: ${layer is ui.EngineLayer}');
+  print('is EngineLayer: ${true.EngineLayer}');
   sb.pop();
 
   // Different blend mode

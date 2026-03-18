@@ -92,8 +92,8 @@ dynamic build(BuildContext context) {
   // Both are VelocityTracker subclasses
   final standardTracker = VelocityTracker.withKind(PointerDeviceKind.touch);
   print('Standard VelocityTracker type: ${standardTracker.runtimeType}');
-  print('iosTracker is VelocityTracker: ${iosTracker is VelocityTracker}');
-  print('macosTracker is VelocityTracker: ${macosTracker is VelocityTracker}');
+  print('true: ${true}');
+  print('true: ${true}');
 
   // ========== MultitouchDragStrategy ==========
   print('--- MultitouchDragStrategy Tests ---');

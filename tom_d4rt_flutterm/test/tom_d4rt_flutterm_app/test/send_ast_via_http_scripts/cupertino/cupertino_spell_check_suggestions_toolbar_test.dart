@@ -42,7 +42,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('single-suggestion toolbar created');
+  print('single-suggestion toolbar created [${singleToolbar.hashCode }]');
 
   // Max 3 suggestions (the internal limit is _kMaxSuggestions = 3)
   final threeItems = <ContextMenuButtonItem>[
@@ -56,7 +56,7 @@ dynamic build(BuildContext context) {
     ),
     buttonItems: threeItems,
   );
-  print('3-suggestion toolbar created (max allowed)');
+  print('3-suggestion toolbar created (max allowed) [${maxToolbar.hashCode }]');
 
   // With secondary anchor
   final dualAnchor = TextSelectionToolbarAnchors(
@@ -67,7 +67,7 @@ dynamic build(BuildContext context) {
     anchors: dualAnchor,
     buttonItems: buttonItems,
   );
-  print('toolbar with secondary anchor: ${dualAnchor.secondaryAnchor}');
+  print('toolbar with secondary anchor: ${dualAnchor.secondaryAnchor} [${dualToolbar.hashCode }]');
 
   // ContextMenuButtonItem types
   final typedItems = <ContextMenuButtonItem>[

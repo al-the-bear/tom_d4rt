@@ -23,12 +23,12 @@ dynamic build(BuildContext context) {
     fullscreenDialog: false,
     allowSnapshotting: true,
   );
-  print('CupertinoPageRoute created');
+  print('CupertinoPageRoute created [${pageRoute.hashCode }]');
 
   // ========== CupertinoPageTransitionsBuilder ==========
   print('--- CupertinoPageTransitionsBuilder Tests ---');
   final transitionsBuilder = CupertinoPageTransitionsBuilder();
-  print('CupertinoPageTransitionsBuilder created');
+  print('CupertinoPageTransitionsBuilder created [${transitionsBuilder.hashCode }]');
 
   // ========== CupertinoPopupSurface ==========
   print('--- CupertinoPopupSurface Tests ---');
@@ -68,6 +68,7 @@ dynamic build(BuildContext context) {
     insetAnimationDuration: Duration(milliseconds: 100),
     insetAnimationCurve: Curves.decelerate,
   );
+  print('alertDialog: ${alertDialog.runtimeType}');
   print('CupertinoAlertDialog created');
 
   // ========== CupertinoDialogAction ==========
@@ -79,7 +80,7 @@ dynamic build(BuildContext context) {
     textStyle: TextStyle(fontSize: 17),
     child: Text('Confirm'),
   );
-  print('CupertinoDialogAction created');
+  print('CupertinoDialogAction created [${dialogAction.hashCode }]');
 
   // ========== CupertinoActionSheet ==========
   print('--- CupertinoActionSheet Tests ---');
@@ -108,6 +109,7 @@ dynamic build(BuildContext context) {
       child: Text('Cancel'),
     ),
   );
+  print('actionSheet: ${actionSheet.runtimeType}');
   print('CupertinoActionSheet created');
 
   // ========== CupertinoContextMenu ==========
@@ -151,7 +153,7 @@ dynamic build(BuildContext context) {
     onPressed: () {},
     child: Text('Action Item'),
   );
-  print('CupertinoContextMenuAction created');
+  print('CupertinoContextMenuAction created [${contextAction.hashCode }]');
 
   print('All cupertino page route tests passed');
 

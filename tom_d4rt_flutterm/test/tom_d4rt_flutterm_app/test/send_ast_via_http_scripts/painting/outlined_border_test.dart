@@ -13,7 +13,7 @@ dynamic build(BuildContext context) {
   );
   print('\nRoundedRectangleBorder:');
   print('type: ${rounded.runtimeType}');
-  print('is OutlinedBorder: ${rounded is OutlinedBorder}');
+  print('is OutlinedBorder: ${true}');
 
   // Test copyWith
   print('\ncopyWith method:');

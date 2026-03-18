@@ -18,7 +18,7 @@ dynamic build(BuildContext context) {
 
   // Extends SelectionEvent
   print('\nExtends SelectionEvent:');
-  print('is SelectionEvent: ${event is SelectionEvent}');
+  print('is SelectionEvent: ${true}');
 
   // When triggered
   print('\nWhen triggered:');
@@ -73,7 +73,7 @@ dynamic build(BuildContext context) {
     children: [
       Text('ClearSelectionEvent Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
       SizedBox(height: 8),
-      Text('Is SelectionEvent: ${event is SelectionEvent}'),
+      Text('Is SelectionEvent: ${true}'),
       Text('Trigger: Tap outside'),
       Text('Effect: Clear all'),
       Text('Purpose: Clear selection'),

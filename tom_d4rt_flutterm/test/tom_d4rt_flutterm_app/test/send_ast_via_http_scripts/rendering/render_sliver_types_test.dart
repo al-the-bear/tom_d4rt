@@ -42,7 +42,7 @@ dynamic build(BuildContext context) {
     pinned: false,
     floating: true,
   );
-  print('SliverPersistentHeader created (floating)');
+  print('SliverPersistentHeader created (floating) [${floatingHeader.hashCode }]');
 
   // ========== SliverAppBar advanced ==========
   print('--- SliverAppBar Advanced Tests ---');
@@ -128,7 +128,7 @@ dynamic build(BuildContext context) {
     leading: IconButton(icon: Icon(Icons.arrow_back), onPressed: () {}),
     actions: [IconButton(icon: Icon(Icons.search), onPressed: () {})],
   );
-  print('SliverAppBar.medium created');
+  print('SliverAppBar.medium created [${mediumAppBar.hashCode }]');
 
   // ========== SliverAppBar.large ==========
   print('--- SliverAppBar.large Tests ---');
@@ -137,7 +137,7 @@ dynamic build(BuildContext context) {
     leading: IconButton(icon: Icon(Icons.arrow_back), onPressed: () {}),
     actions: [IconButton(icon: Icon(Icons.search), onPressed: () {})],
   );
-  print('SliverAppBar.large created');
+  print('SliverAppBar.large created [${largeAppBar.hashCode }]');
 
   // ========== SliverLayoutBuilder ==========
   print('--- SliverLayoutBuilder Tests ---');

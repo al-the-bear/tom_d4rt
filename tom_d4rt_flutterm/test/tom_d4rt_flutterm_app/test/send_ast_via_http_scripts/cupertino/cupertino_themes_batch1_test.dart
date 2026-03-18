@@ -77,13 +77,13 @@ dynamic build(BuildContext context) {
 
   // Test basic CupertinoTextThemeData
   final basicTextTheme = CupertinoTextThemeData();
-  print('Basic CupertinoTextThemeData created');
+  print('Basic CupertinoTextThemeData created [${basicTextTheme.hashCode }]');
 
   // Test CupertinoTextThemeData with primaryColor
   final coloredTextTheme = CupertinoTextThemeData(
     primaryColor: CupertinoColors.systemBlue,
   );
-  print('CupertinoTextThemeData with primaryColor created');
+  print('CupertinoTextThemeData with primaryColor created [${coloredTextTheme.hashCode }]');
 
   // Test CupertinoTextThemeData with custom text styles
   final customTextTheme = CupertinoTextThemeData(

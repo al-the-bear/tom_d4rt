@@ -103,7 +103,7 @@ dynamic build(BuildContext context) {
     ),
     trailing: CupertinoListTileChevron(),
   );
-  print('CupertinoListTile.notched created');
+  print('CupertinoListTile.notched created [${notchedTile.hashCode }]');
 
   print('All cupertino sections tests passed');
 

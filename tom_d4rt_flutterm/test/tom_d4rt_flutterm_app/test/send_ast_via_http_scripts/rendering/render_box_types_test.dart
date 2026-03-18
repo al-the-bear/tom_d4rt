@@ -12,7 +12,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(16.0),
     textDirection: TextDirection.ltr,
   );
-  print('RenderPadding created: padding=16.0');
+  print('RenderPadding created: padding=16.0 [${renderPadding.hashCode }]');
 
   // ========== RenderPositionedBox ==========
   print('--- RenderPositionedBox Tests ---');
@@ -22,7 +22,7 @@ dynamic build(BuildContext context) {
     heightFactor: null,
     textDirection: TextDirection.ltr,
   );
-  print('RenderPositionedBox created: alignment=center');
+  print('RenderPositionedBox created: alignment=center [${renderPositioned.hashCode }]');
 
   // ========== RenderConstrainedBox ==========
   print('--- RenderConstrainedBox Tests ---');
@@ -34,7 +34,7 @@ dynamic build(BuildContext context) {
       maxHeight: 200.0,
     ),
   );
-  print('RenderConstrainedBox created');
+  print('RenderConstrainedBox created [${renderConstrained.hashCode }]');
   print('  min: 100x50');
   print('  max: 300x200');
 
@@ -73,7 +73,7 @@ dynamic build(BuildContext context) {
     verticalDirection: VerticalDirection.down,
     clipBehavior: Clip.none,
   );
-  print('RenderFlex created: direction=vertical');
+  print('RenderFlex created: direction=vertical [${renderFlex.hashCode }]');
 
   // ========== ContainerBoxParentData ==========
   print('--- ParentData Tests ---');

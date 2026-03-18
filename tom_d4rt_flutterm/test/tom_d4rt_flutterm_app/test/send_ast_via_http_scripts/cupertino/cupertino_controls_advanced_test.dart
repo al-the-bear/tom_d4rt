@@ -17,7 +17,7 @@ dynamic build(BuildContext context) {
   print('CupertinoSwitch created: value=true');
 
   final offSwitch = CupertinoSwitch(value: false, onChanged: (v) {});
-  print('CupertinoSwitch off created');
+  print('CupertinoSwitch off created [${offSwitch.hashCode }]');
 
   // ========== CupertinoSlider ==========
   print('--- CupertinoSlider Tests ---');

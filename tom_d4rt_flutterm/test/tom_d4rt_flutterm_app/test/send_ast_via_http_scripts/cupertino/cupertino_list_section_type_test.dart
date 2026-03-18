@@ -464,7 +464,7 @@ dynamic build(BuildContext context) {
                     'iOS-style List Section Styling',
                     style: TextStyle(
                       fontSize: 14.0,
-                      color: CupertinoColors.white.withOpacity(0.8),
+                      color: CupertinoColors.white.withValues(alpha: 0.8),
                     ),
                   ),
                 ],

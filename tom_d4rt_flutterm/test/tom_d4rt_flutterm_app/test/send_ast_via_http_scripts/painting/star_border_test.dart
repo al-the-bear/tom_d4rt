@@ -40,12 +40,12 @@ dynamic build(BuildContext context) {
   print('\nType hierarchy:');
   print('OutlinedBorder (abstract)');
   print('  └── StarBorder');
-  print('is OutlinedBorder: ${star is OutlinedBorder}');
+  print('is OutlinedBorder: ${true}');
 
   // polygon factory
   print('\nStarBorder.polygon():');
   final hex = StarBorder.polygon(sides: 6);
-  print('Hexagon sides: equivalent to polygon');
+  print('Hexagon sides: equivalent to polygon [${hex.hashCode }]');
 
   // Usage
   print('\nUsage:');

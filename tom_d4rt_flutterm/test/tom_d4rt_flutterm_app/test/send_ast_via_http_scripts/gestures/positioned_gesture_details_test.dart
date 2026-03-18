@@ -87,4 +87,7 @@ class _PositionDemoState extends State<_PositionDemo> {
       ],
     );
   }
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) => 'PositionDemoState(globalPos: $_globalPos)';
 }

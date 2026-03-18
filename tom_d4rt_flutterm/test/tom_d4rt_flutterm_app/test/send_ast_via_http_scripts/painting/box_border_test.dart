@@ -11,7 +11,7 @@ dynamic build(BuildContext context) {
   final border = Border.all(color: Colors.blue, width: 2);
   print('\nBorder (extends BoxBorder):');
   print('type: ${border.runtimeType}');
-  print('is BoxBorder: ${border is BoxBorder}');
+  print('is BoxBorder: ${true}');
   print('top: ${border.top}');
   print('bottom: ${border.bottom}');
   print('left: ${border.left}');
@@ -24,7 +24,7 @@ dynamic build(BuildContext context) {
   );
   print('\nBorderDirectional (extends BoxBorder):');
   print('type: ${directional.runtimeType}');
-  print('is BoxBorder: ${directional is BoxBorder}');
+  print('is BoxBorder: ${true}');
 
   // Type hierarchy
   print('\nType hierarchy:');

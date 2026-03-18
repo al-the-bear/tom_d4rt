@@ -37,7 +37,7 @@ dynamic build(BuildContext context) {
     onPressed: null,
     child: Text('Custom Disabled'),
   );
-  print('CupertinoButton with disabledColor created');
+  print('CupertinoButton with disabledColor created [${disabledColorButton.hashCode }]');
 
   // Test CupertinoButton with padding
   final paddedButton = CupertinoButton(
@@ -52,7 +52,7 @@ dynamic build(BuildContext context) {
     onPressed: () {}, minimumSize: Size(60.0, 60.0),
     child: Text('Min Size'),
   );
-  print('CupertinoButton with minSize created');
+  print('CupertinoButton with minSize created [${minSizeButton.hashCode }]');
 
   // Test CupertinoButton with pressedOpacity
   final opacityButton = CupertinoButton(
@@ -60,7 +60,7 @@ dynamic build(BuildContext context) {
     child: Text('Custom Opacity'),
     onPressed: () {},
   );
-  print('CupertinoButton with pressedOpacity created');
+  print('CupertinoButton with pressedOpacity created [${opacityButton.hashCode }]');
 
   // Test CupertinoButton with borderRadius
   final roundedButton = CupertinoButton(
@@ -77,7 +77,7 @@ dynamic build(BuildContext context) {
     child: Text('Left Aligned'),
     onPressed: () {},
   );
-  print('CupertinoButton with alignment created');
+  print('CupertinoButton with alignment created [${alignedButton.hashCode }]');
 
   // Test CupertinoButton with Icon
   final iconButton = CupertinoButton(
@@ -117,15 +117,15 @@ dynamic build(BuildContext context) {
     onPressed: null,
     child: Text('Custom Disabled'),
   );
-  print('CupertinoButton.filled with disabledColor created');
+  print('CupertinoButton.filled with disabledColor created [${filledDisabledColorButton.hashCode }]');
 
-  // Test CupertinoButton.filled with minSize
+  // Test CupertinoButton.filled with minimumSize
   final filledMinSizeButton = CupertinoButton.filled(
-    minSize: 50.0,
+    minimumSize: Size(50.0, 50.0),
     child: Text('Small'),
     onPressed: () {},
   );
-  print('CupertinoButton.filled with minSize created');
+  print('CupertinoButton.filled with minSize created [${filledMinSizeButton.hashCode }]');
 
   // Test CupertinoButton.filled with pressedOpacity
   final filledOpacityButton = CupertinoButton.filled(
@@ -133,7 +133,7 @@ dynamic build(BuildContext context) {
     child: Text('Half Opacity'),
     onPressed: () {},
   );
-  print('CupertinoButton.filled with pressedOpacity created');
+  print('CupertinoButton.filled with pressedOpacity created [${filledOpacityButton.hashCode }]');
 
   // Test CupertinoButton.filled with borderRadius
   final filledRoundedButton = CupertinoButton.filled(
@@ -149,14 +149,14 @@ dynamic build(BuildContext context) {
     child: Text('Centered'),
     onPressed: () {},
   );
-  print('CupertinoButton.filled with alignment created');
+  print('CupertinoButton.filled with alignment created [${filledAlignedButton.hashCode }]');
 
   // Test different colored filled buttons
   final redFilledButton = CupertinoButton.filled(
     child: Text('Red Filled'),
     onPressed: () {},
   );
-  print('Various colored CupertinoButton.filled created');
+  print('Various colored CupertinoButton.filled created [${redFilledButton.hashCode }]');
 
   print('CupertinoButton test completed');
 

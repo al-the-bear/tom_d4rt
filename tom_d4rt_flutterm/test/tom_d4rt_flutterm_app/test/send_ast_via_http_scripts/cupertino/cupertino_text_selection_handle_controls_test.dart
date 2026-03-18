@@ -7,9 +7,9 @@ import 'package:flutter/cupertino.dart';
 dynamic build(BuildContext context) {
   print('CupertinoTextSelectionHandleControls test executing');
 
-  // ===== 1. Create instance (handle-only controls, no toolbar) =====
-  print('--- CupertinoTextSelectionHandleControls ---');
-  final handleControls = CupertinoTextSelectionHandleControls();
+  // ===== 1. Create instance (CupertinoTextSelectionControls, replaces deprecated HandleControls) =====
+  print('--- CupertinoTextSelectionControls ---');
+  final handleControls = CupertinoTextSelectionControls();
   print('  created: ${handleControls.runtimeType}');
 
   // ===== 2. getHandleSize =====

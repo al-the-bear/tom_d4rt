@@ -33,7 +33,7 @@ dynamic build(BuildContext context) {
     width: 200,
     height: 150,
   );
-  print('ResizeImage: created with width 200, height 150');
+  print('ResizeImage: created with width 200, height 150 [${resizeImageBoth.hashCode }]');
 
   // ========== ResizeImageKey ==========
   print('--- ResizeImageKey Tests ---');

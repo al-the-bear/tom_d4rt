@@ -140,7 +140,7 @@ dynamic build(BuildContext context) {
   final controller1 = TextEditingController(text: 'Initial value');
   final controlledField = CupertinoTextField(controller: controller1);
   
-  print('TextEditingController usage:');
+  print('TextEditingController usage: [${controlledField.hashCode }]');
   print('  • Initial text: "${controller1.text}"');
   print('  • Get text: controller.text');
   print('  • Set text: controller.text = "new value"');
@@ -387,7 +387,7 @@ dynamic build(BuildContext context) {
                     'iOS-Style Text Input Widget',
                     style: TextStyle(
                       fontSize: 14.0,
-                      color: CupertinoColors.white.withOpacity(0.8),
+                      color: CupertinoColors.white.withValues(alpha: 0.8),
                     ),
                   ),
                 ],

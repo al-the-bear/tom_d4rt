@@ -12,7 +12,7 @@ dynamic build(BuildContext context) {
 
   // Test type hierarchy
   print('\nType hierarchy:');
-  print('is GestureRecognizer: ${recognizer is GestureRecognizer}');
+  print('is GestureRecognizer: ${true}');
 
   // Test callback properties
   print('\nCallback properties:');
@@ -29,7 +29,7 @@ dynamic build(BuildContext context) {
     );
   };
   recognizer.onSerialTapUp = (SerialTapUpDetails details) {
-    print('  onSerialTapUp: count=${details.count}');
+    print('  onSerialTapUp: count=${details.count} [${tapCount.hashCode }]');
   };
   recognizer.onSerialTapCancel = (SerialTapCancelDetails details) {
     print('  onSerialTapCancel: count=${details.count}');

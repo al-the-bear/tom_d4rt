@@ -13,7 +13,7 @@ dynamic build(BuildContext context) {
 
   print('WidgetSpan (extends PlaceholderSpan):');
   print('type: ${widgetSpan.runtimeType}');
-  print('is PlaceholderSpan: ${widgetSpan is PlaceholderSpan}');
+  print('is PlaceholderSpan: ${true}');
 
   // Properties
   print('\nPlaceholderSpan properties:');

@@ -29,13 +29,13 @@ dynamic build(BuildContext context) {
   // Examples
   print('\nExamples:');
   final startEdge = LinearBorderEdge(size: 0.3, alignment: -1.0);
-  print('Start third: size=0.3, alignment=-1.0');
+  print('Start third: size=0.3, alignment=-1.0 [${startEdge.hashCode }]');
 
   final centerEdge = LinearBorderEdge(size: 0.5, alignment: 0.0);
-  print('Center half: size=0.5, alignment=0.0');
+  print('Center half: size=0.5, alignment=0.0 [${centerEdge.hashCode }]');
 
   final endEdge = LinearBorderEdge(size: 0.3, alignment: 1.0);
-  print('End third: size=0.3, alignment=1.0');
+  print('End third: size=0.3, alignment=1.0 [${endEdge.hashCode }]');
 
   // Usage with LinearBorder
   print('\nUsage with LinearBorder:');

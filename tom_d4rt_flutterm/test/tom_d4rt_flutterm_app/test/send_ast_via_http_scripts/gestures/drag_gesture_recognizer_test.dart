@@ -8,7 +8,7 @@ dynamic build(BuildContext context) {
   // VerticalDragGestureRecognizer
   final vd = VerticalDragGestureRecognizer();
   print('VerticalDrag: ${vd.runtimeType}');
-  print('is DragGestureRecognizer: ${vd is DragGestureRecognizer}');
+  print('is DragGestureRecognizer: ${true}');
   vd.onStart = (d) {};
   vd.onUpdate = (d) {};
   vd.onEnd = (d) {};

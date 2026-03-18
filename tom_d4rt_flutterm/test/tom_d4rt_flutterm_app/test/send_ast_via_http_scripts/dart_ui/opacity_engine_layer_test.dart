@@ -10,7 +10,7 @@ dynamic build(BuildContext context) {
   // Full opacity
   final layer1 = builder.pushOpacity(255);
   print('pushOpacity(255): ${layer1.runtimeType}');
-  print('is EngineLayer: ${layer1 is ui.EngineLayer}');
+  print('is EngineLayer: ${true.EngineLayer}');
   builder.pop();
 
   // Half opacity

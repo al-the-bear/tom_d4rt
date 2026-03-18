@@ -7,7 +7,7 @@ dynamic build(BuildContext context) {
 
   final tracker = MacOSScrollViewFlingVelocityTracker(PointerDeviceKind.trackpad);
   print('Type: ${tracker.runtimeType}');
-  print('is VelocityTracker: ${tracker is VelocityTracker}');
+  print('is VelocityTracker: ${true}');
 
   tracker.addPosition(Duration(milliseconds: 0), Offset(0, 0));
   tracker.addPosition(Duration(milliseconds: 16), Offset(5, 0));

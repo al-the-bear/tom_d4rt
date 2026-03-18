@@ -29,10 +29,8 @@ dynamic build(BuildContext context) {
 
   // ========== Capability methods ==========
   print('--- Capability methods ---');
-  print('  canCut: ${controls.canCut}');
-  print('  canCopy: ${controls.canCopy}');
-  print('  canPaste: ${controls.canPaste}');
-  print('  canSelectAll: ${controls.canSelectAll}');
+  print('  Note: canCut/canCopy/canPaste/canSelectAll are deprecated');
+  print('  Use contextMenuBuilder instead');
 
   // ========== Compare with mobile controls ==========
   print('--- Compare with mobile controls ---');

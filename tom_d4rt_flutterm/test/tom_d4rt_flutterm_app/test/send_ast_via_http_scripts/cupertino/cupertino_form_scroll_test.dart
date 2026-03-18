@@ -32,7 +32,7 @@ dynamic build(BuildContext context) {
   // ========== CupertinoListTileChevron ==========
   print('--- CupertinoListTileChevron Tests ---');
   final chevron = CupertinoListTileChevron();
-  print('CupertinoListTileChevron created');
+  print('CupertinoListTileChevron created [${chevron.hashCode }]');
 
   // ========== CupertinoScrollbar ==========
   print('--- CupertinoScrollbar Tests ---');
@@ -50,7 +50,7 @@ dynamic build(BuildContext context) {
       itemBuilder: (ctx, i) => CupertinoListTile(title: Text('Item $i')),
     ),
   );
-  print('CupertinoScrollbar created');
+  print('CupertinoScrollbar created [${cupertinoScrollbar.hashCode }]');
   print('  thickness: 6.0');
   print('  thicknessWhileDragging: 10.0');
 
@@ -63,7 +63,7 @@ dynamic build(BuildContext context) {
       child: Text('Popup Surface Content'),
     ),
   );
-  print('CupertinoPopupSurface created');
+  print('CupertinoPopupSurface created [${popupSurface.hashCode }]');
 
   // ========== CupertinoContextMenuAction ==========
   print('--- CupertinoContextMenuAction Tests ---');
@@ -74,7 +74,7 @@ dynamic build(BuildContext context) {
     onPressed: () => print('Context action pressed'),
     child: Text('Copy'),
   );
-  print('CupertinoContextMenuAction created');
+  print('CupertinoContextMenuAction created [${ctxAction.hashCode }]');
   print('  isDefaultAction: true');
   print('  isDestructiveAction: false');
 
@@ -84,7 +84,7 @@ dynamic build(BuildContext context) {
     onPressed: () {},
     child: Text('Delete'),
   );
-  print('Destructive CupertinoContextMenuAction created');
+  print('Destructive CupertinoContextMenuAction created [${destructiveAction.hashCode }]');
 
   print('All cupertino form/scroll tests passed');
 

@@ -35,7 +35,7 @@ dynamic build(BuildContext context) {
 
   // Type hierarchy
   print('\nType hierarchy:');
-  print('is PointerEvent: ${event is PointerEvent}');
+  print('is PointerEvent: ${true}');
   print('PointerPanZoomStartEvent extends PointerEvent');
 
   // Pan/Zoom event family

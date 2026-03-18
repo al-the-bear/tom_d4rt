@@ -111,7 +111,7 @@ dynamic build(BuildContext context) {
     child: Container(),
   );
 
-  print('All gesture callback tests passed');
+  print('All gesture callback tests passed [${scaleDetector.hashCode }]');
 
   // ========== RETURN WIDGET ==========
   return MaterialApp(

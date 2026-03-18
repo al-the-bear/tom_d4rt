@@ -14,14 +14,14 @@ dynamic build(BuildContext context) {
       child: Center(child: Text('Hello Cupertino')),
     ),
   );
-  print('Basic CupertinoApp created');
+  print('Basic CupertinoApp created [${basicApp.hashCode }]');
 
   // Test CupertinoApp with title
   final titledApp = CupertinoApp(
     title: 'My Cupertino App',
     home: Center(child: Text('App with title')),
   );
-  print('CupertinoApp with title created');
+  print('CupertinoApp with title created [${titledApp.hashCode }]');
 
   // Test CupertinoApp with theme
   final themedApp = CupertinoApp(
@@ -31,7 +31,7 @@ dynamic build(BuildContext context) {
     ),
     home: Center(child: Text('Themed app')),
   );
-  print('CupertinoApp with theme created');
+  print('CupertinoApp with theme created [${themedApp.hashCode }]');
 
   // Test CupertinoApp with dark theme
   final darkApp = CupertinoApp(
@@ -41,49 +41,49 @@ dynamic build(BuildContext context) {
     ),
     home: Center(child: Text('Dark app')),
   );
-  print('CupertinoApp with dark theme created');
+  print('CupertinoApp with dark theme created [${darkApp.hashCode }]');
 
   // Test CupertinoApp with color
   final coloredApp = CupertinoApp(
     color: CupertinoColors.systemOrange,
     home: Center(child: Text('Colored app')),
   );
-  print('CupertinoApp with color created');
+  print('CupertinoApp with color created [${coloredApp.hashCode }]');
 
   // Test CupertinoApp with localizationsDelegates
   final localizedApp = CupertinoApp(
     localizationsDelegates: [DefaultCupertinoLocalizations.delegate],
     home: Center(child: Text('Localized app')),
   );
-  print('CupertinoApp with localizationsDelegates created');
+  print('CupertinoApp with localizationsDelegates created [${localizedApp.hashCode }]');
 
   // Test CupertinoApp with supportedLocales
   final multiLocaleApp = CupertinoApp(
     supportedLocales: [Locale('en', 'US'), Locale('es', 'ES')],
     home: Center(child: Text('Multi-locale app')),
   );
-  print('CupertinoApp with supportedLocales created');
+  print('CupertinoApp with supportedLocales created [${multiLocaleApp.hashCode }]');
 
   // Test CupertinoApp with debugShowCheckedModeBanner
   final noBannerApp = CupertinoApp(
     debugShowCheckedModeBanner: false,
     home: Center(child: Text('No debug banner')),
   );
-  print('CupertinoApp with debugShowCheckedModeBanner=false created');
+  print('CupertinoApp with debugShowCheckedModeBanner=false created [${noBannerApp.hashCode }]');
 
   // Test CupertinoApp with showPerformanceOverlay
   final perfOverlayApp = CupertinoApp(
     showPerformanceOverlay: false,
     home: Center(child: Text('Performance overlay app')),
   );
-  print('CupertinoApp with showPerformanceOverlay created');
+  print('CupertinoApp with showPerformanceOverlay created [${perfOverlayApp.hashCode }]');
 
   // Test CupertinoApp with showSemanticsDebugger
   final semanticsApp = CupertinoApp(
     showSemanticsDebugger: false,
     home: Center(child: Text('Semantics debugger app')),
   );
-  print('CupertinoApp with showSemanticsDebugger created');
+  print('CupertinoApp with showSemanticsDebugger created [${semanticsApp.hashCode }]');
 
   // Test CupertinoApp with routes
   final routedApp = CupertinoApp(
@@ -93,7 +93,7 @@ dynamic build(BuildContext context) {
       '/second': (context) => Center(child: Text('Second')),
     },
   );
-  print('CupertinoApp with routes created');
+  print('CupertinoApp with routes created [${routedApp.hashCode }]');
 
   // Test CupertinoApp with onGenerateRoute
   final generatedRouteApp = CupertinoApp(
@@ -105,7 +105,7 @@ dynamic build(BuildContext context) {
     },
     initialRoute: '/generated',
   );
-  print('CupertinoApp with onGenerateRoute created');
+  print('CupertinoApp with onGenerateRoute created [${generatedRouteApp.hashCode }]');
 
   // Test CupertinoApp with onUnknownRoute
   final unknownRouteApp = CupertinoApp(
@@ -116,21 +116,21 @@ dynamic build(BuildContext context) {
     },
     home: Center(child: Text('App with unknown route handler')),
   );
-  print('CupertinoApp with onUnknownRoute created');
+  print('CupertinoApp with onUnknownRoute created [${unknownRouteApp.hashCode }]');
 
   // Test CupertinoApp with navigatorKey
   final navigatorKeyApp = CupertinoApp(
     navigatorKey: GlobalKey<NavigatorState>(),
     home: Center(child: Text('App with navigator key')),
   );
-  print('CupertinoApp with navigatorKey created');
+  print('CupertinoApp with navigatorKey created [${navigatorKeyApp.hashCode }]');
 
   // Test CupertinoApp with navigatorObservers
   final observedApp = CupertinoApp(
     navigatorObservers: [],
     home: Center(child: Text('App with observers')),
   );
-  print('CupertinoApp with navigatorObservers created');
+  print('CupertinoApp with navigatorObservers created [${observedApp.hashCode }]');
 
   // Test CupertinoApp with builder
   final builderApp = CupertinoApp(
@@ -144,14 +144,14 @@ dynamic build(BuildContext context) {
     },
     home: Center(child: Text('App with builder')),
   );
-  print('CupertinoApp with builder created');
+  print('CupertinoApp with builder created [${builderApp.hashCode }]');
 
   // Test CupertinoApp with scrollBehavior
   final scrollApp = CupertinoApp(
     scrollBehavior: CupertinoScrollBehavior(),
     home: Center(child: Text('App with scroll behavior')),
   );
-  print('CupertinoApp with scrollBehavior created');
+  print('CupertinoApp with scrollBehavior created [${scrollApp.hashCode }]');
 
   // Test CupertinoApp.router
   // Note: CupertinoApp.router requires RouterConfig

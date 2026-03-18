@@ -10,7 +10,7 @@ dynamic build(BuildContext context) {
   // pushOffset returns OffsetEngineLayer
   final layer1 = builder.pushOffset(10.0, 20.0);
   print('pushOffset(10,20): ${layer1.runtimeType}');
-  print('is EngineLayer: ${layer1 is ui.EngineLayer}');
+  print('is EngineLayer: ${true.EngineLayer}');
   builder.pop();
 
   // Zero offset

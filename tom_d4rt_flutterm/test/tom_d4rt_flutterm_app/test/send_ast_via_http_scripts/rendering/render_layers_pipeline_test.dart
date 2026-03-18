@@ -11,7 +11,7 @@ dynamic build(BuildContext context) {
     value: 42,
     child: SizedBox(width: 100.0, height: 100.0),
   );
-  print('RenderAnnotatedRegion: referenced via AnnotatedRegion widget');
+  print('RenderAnnotatedRegion: referenced via AnnotatedRegion widget [${annotatedRegion.hashCode }]');
   print('AnnotatedRegion value: 42');
   print('Type: RenderAnnotatedRegion');
 
@@ -25,7 +25,7 @@ dynamic build(BuildContext context) {
   print(
     'RenderFollowerLayer: referenced via CompositedTransformFollower widget',
   );
-  print('LayerLink: ${layerLink.runtimeType}');
+  print('LayerLink: ${layerLink.runtimeType} [${follower.hashCode }]');
   print('Type: RenderFollowerLayer');
 
   // ========== RenderLeaderLayer ==========
@@ -34,7 +34,7 @@ dynamic build(BuildContext context) {
     link: layerLink,
     child: SizedBox(width: 50.0, height: 50.0),
   );
-  print('RenderLeaderLayer: referenced via CompositedTransformTarget widget');
+  print('RenderLeaderLayer: referenced via CompositedTransformTarget widget [${leader.hashCode }]');
   print('Type: RenderLeaderLayer');
 
   // ========== PipelineManifold ==========
@@ -61,7 +61,7 @@ dynamic build(BuildContext context) {
     filter: ui.ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
     child: SizedBox(width: 100.0, height: 100.0),
   );
-  print('ImageFilterLayer: referenced via BackdropFilter widget');
+  print('ImageFilterLayer: referenced via BackdropFilter widget [${backdropFilter.hashCode }]');
   print('ImageFilter blur sigmaX: 5.0, sigmaY: 5.0');
   print('Type: ImageFilterLayer');
 
@@ -72,7 +72,7 @@ dynamic build(BuildContext context) {
     colorFilter: ColorFilter.mode(Colors.red, BlendMode.colorBurn),
     child: SizedBox(width: 50.0, height: 50.0),
   );
-  print('ColorFilterLayer: referenced via ColorFiltered widget');
+  print('ColorFilterLayer: referenced via ColorFiltered widget [${colorFiltered.hashCode }]');
   print('ColorFilter mode: colorBurn with red');
   print('Type: ColorFilterLayer');
 

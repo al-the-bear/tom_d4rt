@@ -363,7 +363,7 @@ dynamic build(BuildContext context) {
                     'Text Field Overlay Visibility',
                     style: TextStyle(
                       fontSize: 14.0,
-                      color: CupertinoColors.white.withOpacity(0.8),
+                      color: CupertinoColors.white.withValues(alpha: 0.8),
                     ),
                   ),
                 ],

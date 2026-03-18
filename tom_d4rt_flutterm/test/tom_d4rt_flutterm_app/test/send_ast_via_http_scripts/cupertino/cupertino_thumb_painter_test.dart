@@ -14,17 +14,17 @@ dynamic build(BuildContext context) {
   final bluePainter = CupertinoThumbPainter(
     color: CupertinoColors.activeBlue,
   );
-  print('  blue painter created');
+  print('  blue painter created [${bluePainter.hashCode }]');
 
   final redPainter = CupertinoThumbPainter(
     color: CupertinoColors.systemRed,
   );
-  print('  red painter created');
+  print('  red painter created [${redPainter.hashCode }]');
 
   final grayPainter = CupertinoThumbPainter(
     color: CupertinoColors.systemGrey,
   );
-  print('  gray painter created');
+  print('  gray painter created [${grayPainter.hashCode }]');
 
   // ===== 3. With custom shadows =====
   print('--- Custom shadows ---');
@@ -37,12 +37,12 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('  custom shadows painter created');
+  print('  custom shadows painter created [${customShadows.hashCode }]');
 
   final noShadows = CupertinoThumbPainter(
     shadows: [],
   );
-  print('  no-shadow painter created');
+  print('  no-shadow painter created [${noShadows.hashCode }]');
 
   final heavyShadows = CupertinoThumbPainter(
     shadows: [
@@ -58,7 +58,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('  heavy shadows painter created (2 shadows)');
+  print('  heavy shadows painter created (2 shadows) [${heavyShadows.hashCode }]');
 
   // ===== 4. switchThumb named constructor =====
   print('--- CupertinoThumbPainter.switchThumb ---');
@@ -68,7 +68,7 @@ dynamic build(BuildContext context) {
   final switchColored = CupertinoThumbPainter.switchThumb(
     color: CupertinoColors.systemGreen,
   );
-  print('  switch thumb green created');
+  print('  switch thumb green created [${switchColored.hashCode }]');
 
   final switchCustom = CupertinoThumbPainter.switchThumb(
     color: CupertinoColors.white,
@@ -80,7 +80,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('  switch thumb custom created');
+  print('  switch thumb custom created [${switchCustom.hashCode }]');
 
   // ===== 5. Static properties =====
   print('--- Static properties ---');
@@ -99,7 +99,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('  combined painter created');
+  print('  combined painter created [${combined.hashCode }]');
 
   // ===== 7. Visual demo with CupertinoSwitch and CupertinoSlider =====
   print('--- Usage context ---');

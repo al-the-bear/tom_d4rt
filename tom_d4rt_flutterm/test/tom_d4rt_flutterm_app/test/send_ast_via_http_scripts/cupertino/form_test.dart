@@ -14,7 +14,7 @@ dynamic build(BuildContext context) {
       CupertinoTextFormFieldRow(placeholder: 'Email'),
     ],
   );
-  print('Basic CupertinoFormSection created');
+  print('Basic CupertinoFormSection created [${basicFormSection.hashCode }]');
 
   // Test CupertinoFormSection with header
   final headerFormSection = CupertinoFormSection(
@@ -24,28 +24,28 @@ dynamic build(BuildContext context) {
       CupertinoTextFormFieldRow(placeholder: 'Last Name'),
     ],
   );
-  print('CupertinoFormSection with header created');
+  print('CupertinoFormSection with header created [${headerFormSection.hashCode }]');
 
   // Test CupertinoFormSection with footer
   final footerFormSection = CupertinoFormSection(
     footer: Text('Enter your contact details'),
     children: [CupertinoTextFormFieldRow(placeholder: 'Phone')],
   );
-  print('CupertinoFormSection with footer created');
+  print('CupertinoFormSection with footer created [${footerFormSection.hashCode }]');
 
   // Test CupertinoFormSection with margin
   final marginFormSection = CupertinoFormSection(
     margin: EdgeInsets.all(20.0),
     children: [CupertinoTextFormFieldRow(placeholder: 'Address')],
   );
-  print('CupertinoFormSection with margin created');
+  print('CupertinoFormSection with margin created [${marginFormSection.hashCode }]');
 
   // Test CupertinoFormSection with backgroundColor
   final bgFormSection = CupertinoFormSection(
     backgroundColor: CupertinoColors.systemGrey6,
     children: [CupertinoTextFormFieldRow(placeholder: 'City')],
   );
-  print('CupertinoFormSection with backgroundColor created');
+  print('CupertinoFormSection with backgroundColor created [${bgFormSection.hashCode }]');
 
   // Test CupertinoFormSection with decoration
   final decoratedFormSection = CupertinoFormSection(
@@ -56,14 +56,14 @@ dynamic build(BuildContext context) {
     ),
     children: [CupertinoTextFormFieldRow(placeholder: 'Country')],
   );
-  print('CupertinoFormSection with decoration created');
+  print('CupertinoFormSection with decoration created [${decoratedFormSection.hashCode }]');
 
   // Test CupertinoFormSection with clipBehavior
   final clippedFormSection = CupertinoFormSection(
     clipBehavior: Clip.antiAlias,
     children: [CupertinoTextFormFieldRow(placeholder: 'Zip Code')],
   );
-  print('CupertinoFormSection with clipBehavior created');
+  print('CupertinoFormSection with clipBehavior created [${clippedFormSection.hashCode }]');
 
   // Test CupertinoFormSection.insetGrouped
   final insetGroupedSection = CupertinoFormSection.insetGrouped(
@@ -80,7 +80,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('CupertinoFormSection.insetGrouped created');
+  print('CupertinoFormSection.insetGrouped created [${insetGroupedSection.hashCode }]');
 
   // ========== CUPERTINOFORMROW ==========
   print('--- CupertinoFormRow Tests ---');
@@ -90,7 +90,7 @@ dynamic build(BuildContext context) {
     prefix: Text('Label'),
     child: CupertinoSwitch(value: true, onChanged: (value) {}),
   );
-  print('Basic CupertinoFormRow created');
+  print('Basic CupertinoFormRow created [${basicFormRow.hashCode }]');
 
   // Test CupertinoFormRow with helper text
   final helperFormRow = CupertinoFormRow(
@@ -98,7 +98,7 @@ dynamic build(BuildContext context) {
     helper: Text('This controls something'),
     child: CupertinoSwitch(value: false, onChanged: (value) {}),
   );
-  print('CupertinoFormRow with helper created');
+  print('CupertinoFormRow with helper created [${helperFormRow.hashCode }]');
 
   // Test CupertinoFormRow with error
   final errorFormRow = CupertinoFormRow(
@@ -109,7 +109,7 @@ dynamic build(BuildContext context) {
     ),
     child: CupertinoTextField(placeholder: 'Enter value'),
   );
-  print('CupertinoFormRow with error created');
+  print('CupertinoFormRow with error created [${errorFormRow.hashCode }]');
 
   // Test CupertinoFormRow with padding
   final paddedFormRow = CupertinoFormRow(
@@ -117,35 +117,35 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
     child: CupertinoSwitch(value: true, onChanged: (value) {}),
   );
-  print('CupertinoFormRow with padding created');
+  print('CupertinoFormRow with padding created [${paddedFormRow.hashCode }]');
 
   // ========== CUPERTINOTEXTFORMFIELDROW ==========
   print('--- CupertinoTextFormFieldRow Tests ---');
 
   // Test basic CupertinoTextFormFieldRow
   final basicTextFormRow = CupertinoTextFormFieldRow(placeholder: 'Enter text');
-  print('Basic CupertinoTextFormFieldRow created');
+  print('Basic CupertinoTextFormFieldRow created [${basicTextFormRow.hashCode }]');
 
   // Test CupertinoTextFormFieldRow with prefix
   final prefixTextFormRow = CupertinoTextFormFieldRow(
     prefix: Text('Email'),
     placeholder: 'example@email.com',
   );
-  print('CupertinoTextFormFieldRow with prefix created');
+  print('CupertinoTextFormFieldRow with prefix created [${prefixTextFormRow.hashCode }]');
 
   // Test CupertinoTextFormFieldRow with controller
   final controllerTextFormRow = CupertinoTextFormFieldRow(
     controller: TextEditingController(text: 'Initial value'),
     placeholder: 'Type here',
   );
-  print('CupertinoTextFormFieldRow with controller created');
+  print('CupertinoTextFormFieldRow with controller created [${controllerTextFormRow.hashCode }]');
 
   // Test CupertinoTextFormFieldRow with initialValue
   final initialTextFormRow = CupertinoTextFormFieldRow(
     initialValue: 'Default text',
     placeholder: 'Initial value',
   );
-  print('CupertinoTextFormFieldRow with initialValue created');
+  print('CupertinoTextFormFieldRow with initialValue created [${initialTextFormRow.hashCode }]');
 
   // Test CupertinoTextFormFieldRow with obscureText
   final obscureTextFormRow = CupertinoTextFormFieldRow(
@@ -153,7 +153,7 @@ dynamic build(BuildContext context) {
     placeholder: 'Enter password',
     obscureText: true,
   );
-  print('CupertinoTextFormFieldRow with obscureText created');
+  print('CupertinoTextFormFieldRow with obscureText created [${obscureTextFormRow.hashCode }]');
 
   // Test CupertinoTextFormFieldRow with keyboardType
   final keyboardTextFormRow = CupertinoTextFormFieldRow(
@@ -161,21 +161,21 @@ dynamic build(BuildContext context) {
     placeholder: '123-456-7890',
     keyboardType: TextInputType.phone,
   );
-  print('CupertinoTextFormFieldRow with keyboardType created');
+  print('CupertinoTextFormFieldRow with keyboardType created [${keyboardTextFormRow.hashCode }]');
 
   // Test CupertinoTextFormFieldRow with textInputAction
   final actionTextFormRow = CupertinoTextFormFieldRow(
     placeholder: 'Search',
     textInputAction: TextInputAction.search,
   );
-  print('CupertinoTextFormFieldRow with textInputAction created');
+  print('CupertinoTextFormFieldRow with textInputAction created [${actionTextFormRow.hashCode }]');
 
   // Test CupertinoTextFormFieldRow with textCapitalization
   final capitalTextFormRow = CupertinoTextFormFieldRow(
     placeholder: 'Name',
     textCapitalization: TextCapitalization.words,
   );
-  print('CupertinoTextFormFieldRow with textCapitalization created');
+  print('CupertinoTextFormFieldRow with textCapitalization created [${capitalTextFormRow.hashCode }]');
 
   // Test CupertinoTextFormFieldRow with validator
   final validatorTextFormRow = CupertinoTextFormFieldRow(
@@ -188,13 +188,13 @@ dynamic build(BuildContext context) {
       return null;
     },
   );
-  print('CupertinoTextFormFieldRow with validator created');
+  print('CupertinoTextFormFieldRow with validator created [${validatorTextFormRow.hashCode }]');
 
   // Test CupertinoTextFormFieldRow with onSaved
   final savedTextFormRow = CupertinoTextFormFieldRow(
     placeholder: 'Saved field',
     onSaved: (value) {
-      print('Saved: $value');
+      print('Saved: $value [${savedTextFormRow.hashCode }]');
     },
   );
   print('CupertinoTextFormFieldRow with onSaved created');
@@ -203,7 +203,7 @@ dynamic build(BuildContext context) {
   final changedTextFormRow = CupertinoTextFormFieldRow(
     placeholder: 'Type to change',
     onChanged: (value) {
-      print('Changed: $value');
+      print('Changed: $value [${changedTextFormRow.hashCode }]');
     },
   );
   print('CupertinoTextFormFieldRow with onChanged created');
@@ -213,14 +213,14 @@ dynamic build(BuildContext context) {
     placeholder: 'Max 10 chars',
     maxLength: 10,
   );
-  print('CupertinoTextFormFieldRow with maxLength created');
+  print('CupertinoTextFormFieldRow with maxLength created [${maxLengthTextFormRow.hashCode }]');
 
   // Test CupertinoTextFormFieldRow with maxLines
   final maxLinesTextFormRow = CupertinoTextFormFieldRow(
     placeholder: 'Multi-line',
     maxLines: 3,
   );
-  print('CupertinoTextFormFieldRow with maxLines created');
+  print('CupertinoTextFormFieldRow with maxLines created [${maxLinesTextFormRow.hashCode }]');
 
   // Test CupertinoTextFormFieldRow with minLines
   final minLinesTextFormRow = CupertinoTextFormFieldRow(
@@ -228,21 +228,21 @@ dynamic build(BuildContext context) {
     minLines: 2,
     maxLines: 5,
   );
-  print('CupertinoTextFormFieldRow with minLines created');
+  print('CupertinoTextFormFieldRow with minLines created [${minLinesTextFormRow.hashCode }]');
 
   // Test CupertinoTextFormFieldRow with autocorrect
   final autocorrectTextFormRow = CupertinoTextFormFieldRow(
     placeholder: 'No autocorrect',
     autocorrect: false,
   );
-  print('CupertinoTextFormFieldRow with autocorrect created');
+  print('CupertinoTextFormFieldRow with autocorrect created [${autocorrectTextFormRow.hashCode }]');
 
   // Test CupertinoTextFormFieldRow with autofocus
   final autofocusTextFormRow = CupertinoTextFormFieldRow(
     placeholder: 'Auto focus',
     autofocus: false,
   );
-  print('CupertinoTextFormFieldRow with autofocus created');
+  print('CupertinoTextFormFieldRow with autofocus created [${autofocusTextFormRow.hashCode }]');
 
   // Test CupertinoTextFormFieldRow with enabled
   final disabledTextFormRow = CupertinoTextFormFieldRow(
@@ -250,7 +250,7 @@ dynamic build(BuildContext context) {
     placeholder: 'Cannot edit',
     enabled: false,
   );
-  print('CupertinoTextFormFieldRow with enabled=false created');
+  print('CupertinoTextFormFieldRow with enabled=false created [${disabledTextFormRow.hashCode }]');
 
   // Test CupertinoTextFormFieldRow with readOnly
   final readOnlyTextFormRow = CupertinoTextFormFieldRow(
@@ -258,14 +258,14 @@ dynamic build(BuildContext context) {
     initialValue: 'Read only value',
     readOnly: true,
   );
-  print('CupertinoTextFormFieldRow with readOnly created');
+  print('CupertinoTextFormFieldRow with readOnly created [${readOnlyTextFormRow.hashCode }]');
 
   // Test CupertinoTextFormFieldRow with textAlign
   final alignedTextFormRow = CupertinoTextFormFieldRow(
     placeholder: 'Right aligned',
     textAlign: TextAlign.right,
   );
-  print('CupertinoTextFormFieldRow with textAlign created');
+  print('CupertinoTextFormFieldRow with textAlign created [${alignedTextFormRow.hashCode }]');
 
   // Test CupertinoTextFormFieldRow with style
   final styledTextFormRow = CupertinoTextFormFieldRow(
@@ -276,7 +276,7 @@ dynamic build(BuildContext context) {
       color: CupertinoColors.systemBlue,
     ),
   );
-  print('CupertinoTextFormFieldRow with style created');
+  print('CupertinoTextFormFieldRow with style created [${styledTextFormRow.hashCode }]');
 
   // Test CupertinoTextFormFieldRow with placeholderStyle
   final placeholderStyledTextFormRow = CupertinoTextFormFieldRow(
@@ -286,14 +286,14 @@ dynamic build(BuildContext context) {
       fontStyle: FontStyle.italic,
     ),
   );
-  print('CupertinoTextFormFieldRow with placeholderStyle created');
+  print('CupertinoTextFormFieldRow with placeholderStyle created [${placeholderStyledTextFormRow.hashCode }]');
 
   // Test CupertinoTextFormFieldRow with padding
   final paddedTextFormRow = CupertinoTextFormFieldRow(
     placeholder: 'Padded input',
     padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
   );
-  print('CupertinoTextFormFieldRow with padding created');
+  print('CupertinoTextFormFieldRow with padding created [${paddedTextFormRow.hashCode }]');
 
   print('Cupertino form test completed');
 

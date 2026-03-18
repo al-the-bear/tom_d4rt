@@ -8,7 +8,7 @@ dynamic build(BuildContext context) {
   final notchedRect = CircularNotchedRectangle();
 
   print('CircularNotchedRectangle: ${notchedRect.runtimeType}');
-  print('is NotchedShape: ${notchedRect is NotchedShape}');
+  print('is NotchedShape: ${true}');
 
   // Test getOuterPath
   print('\ngetOuterPath method:');

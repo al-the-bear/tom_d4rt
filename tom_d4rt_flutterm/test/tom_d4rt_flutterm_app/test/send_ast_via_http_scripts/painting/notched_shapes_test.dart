@@ -27,20 +27,20 @@ dynamic build(BuildContext context) {
   // Test with different FAB positions
   final guestLeft = Rect.fromCircle(center: Offset(50.0, 0.0), radius: 28.0);
   final pathLeft = notchedShape.getOuterPath(hostRect, guestLeft);
-  print('getOuterPath with left guest created');
+  print('getOuterPath with left guest created [${pathLeft.hashCode }]');
 
   final guestRight = Rect.fromCircle(center: Offset(350.0, 0.0), radius: 28.0);
   final pathRight = notchedShape.getOuterPath(hostRect, guestRight);
-  print('getOuterPath with right guest created');
+  print('getOuterPath with right guest created [${pathRight.hashCode }]');
 
   // Test with different notch sizes
   final smallGuest = Rect.fromCircle(center: Offset(200.0, 0.0), radius: 14.0);
   final pathSmall = notchedShape.getOuterPath(hostRect, smallGuest);
-  print('getOuterPath with small notch created');
+  print('getOuterPath with small notch created [${pathSmall.hashCode }]');
 
   final largeGuest = Rect.fromCircle(center: Offset(200.0, 0.0), radius: 40.0);
   final pathLarge = notchedShape.getOuterPath(hostRect, largeGuest);
-  print('getOuterPath with large notch created');
+  print('getOuterPath with large notch created [${pathLarge.hashCode }]');
 
   print('All CircularNotchedRectangle tests passed');
 

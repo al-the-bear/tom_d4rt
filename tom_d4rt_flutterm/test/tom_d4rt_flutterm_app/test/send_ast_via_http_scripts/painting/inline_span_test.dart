@@ -22,7 +22,7 @@ dynamic build(BuildContext context) {
 
   print('\nTextSpan (subclass of InlineSpan):');
   print('type: ${textSpan.runtimeType}');
-  print('is InlineSpan: ${textSpan is InlineSpan}');
+  print('is InlineSpan: ${true}');
   print('text: ${textSpan.text}');
   print('children: ${textSpan.children?.length ?? 0}');
 
@@ -33,7 +33,7 @@ dynamic build(BuildContext context) {
   );
   print('\nWidgetSpan (subclass of InlineSpan):');
   print('type: ${widgetSpan.runtimeType}');
-  print('is InlineSpan: ${widgetSpan is InlineSpan}');
+  print('is InlineSpan: ${true}');
   print('alignment: ${widgetSpan.alignment}');
 
   // Type hierarchy

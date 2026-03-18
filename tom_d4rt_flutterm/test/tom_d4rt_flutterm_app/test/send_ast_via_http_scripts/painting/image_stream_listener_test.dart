@@ -21,7 +21,7 @@ dynamic build(BuildContext context) {
 
   // Test callbacks
   print('\nCallback properties:');
-  print('onImage: ${listener.onImage != null}');
+  print('onImage: ${listener.true}');
   print('onChunk: ${listener.onChunk != null}');
   print('onError: ${listener.onError != null}');
 

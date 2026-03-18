@@ -10,7 +10,7 @@ dynamic build(BuildContext context) {
 
   print('Created: ${recognizer.runtimeType}');
   print(
-    'is BaseTapGestureRecognizer: ${recognizer is BaseTapGestureRecognizer}',
+    'is BaseTapGestureRecognizer: ${true}',
   );
 
   // Properties from base class

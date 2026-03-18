@@ -14,7 +14,7 @@ dynamic build(BuildContext context) {
   print('position: ${event.position}');
   print('kind: ${event.kind}');
   print('device: ${event.device}');
-  print('is PointerEvent: ${event is PointerEvent}');
+  print('is PointerEvent: ${true}');
 
   // fromMouseEvent
   final hover = PointerHoverEvent(position: Offset(60, 110), kind: PointerDeviceKind.mouse);

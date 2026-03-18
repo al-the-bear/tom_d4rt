@@ -13,38 +13,38 @@ dynamic build(BuildContext context) {
   // Constructor
   final c1 = Color(0xFF42A5F5);
   print('\nColor(0xFF42A5F5):');
-  print('value: ${c1.value.toRadixString(16).toUpperCase()}');
-  print('alpha: ${c1.alpha}');
-  print('red: ${c1.red}');
-  print('green: ${c1.green}');
-  print('blue: ${c1.blue}');
+  print('value: ${c1.toARGB32().toRadixString(16).toUpperCase()}');
+  print('alpha: ${(c1.a * 255).round()}');
+  print('red: ${(c1.r * 255).round()}');
+  print('green: ${(c1.g * 255).round()}');
+  print('blue: ${(c1.b * 255).round()}');
 
   // fromARGB
   final c2 = Color.fromARGB(255, 255, 100, 50);
   print('\nColor.fromARGB(255, 255, 100, 50):');
-  print('value: ${c2.value.toRadixString(16).toUpperCase()}');
-  print('red: ${c2.red}');
-  print('green: ${c2.green}');
-  print('blue: ${c2.blue}');
+  print('value: ${c2.toARGB32().toRadixString(16).toUpperCase()}');
+  print('red: ${(c2.r * 255).round()}');
+  print('green: ${(c2.g * 255).round()}');
+  print('blue: ${(c2.b * 255).round()}');
 
   // fromRGBO
   final c3 = Color.fromRGBO(100, 150, 200, 0.5);
   print('\nColor.fromRGBO(100, 150, 200, 0.5):');
-  print('alpha: ${c3.alpha}');
-  print('opacity: ${c3.opacity.toStringAsFixed(2)}');
+  print('alpha: ${(c3.a * 255).round()}');
+  print('opacity: ${c3.a.toStringAsFixed(2)}');
 
   // withAlpha/withOpacity
   print('\nwithAlpha/withOpacity:');
   final c4 = c1.withAlpha(128);
-  print('withAlpha(128).alpha: ${c4.alpha}');
-  final c5 = c1.withOpacity(0.5);
-  print('withOpacity(0.5).opacity: ${c5.opacity.toStringAsFixed(2)}');
+  print('withAlpha(128).alpha: ${(c4.a * 255).round()}');
+  final c5 = c1.withValues(alpha: 0.5);
+  print('withOpacity(0.5).opacity: ${c5.a.toStringAsFixed(2)}');
 
   // withRed/withGreen/withBlue
   print('\nwith component methods:');
-  print('withRed(0).red: ${c1.withRed(0).red}');
-  print('withGreen(0).green: ${c1.withGreen(0).green}');
-  print('withBlue(0).blue: ${c1.withBlue(0).blue}');
+  print('withRed(0).red: ${(c1.withRed(0).r * 255).round()}');
+  print('withGreen(0).green: ${(c1.withGreen(0).g * 255).round()}');
+  print('withBlue(0).blue: ${(c1.withBlue(0).b * 255).round()}');
 
   // computeLuminance
   print('\ncomputeLuminance:');
@@ -86,7 +86,7 @@ dynamic build(BuildContext context) {
       ),
       SizedBox(height: 8),
       Container(width: 50, height: 20, color: c1),
-      Text('ARGB: ${c1.alpha}, ${c1.red}, ${c1.green}, ${c1.blue}'),
+      Text('ARGB: ${(c1.a * 255).round()}, ${(c1.r * 255).round()}, ${(c1.g * 255).round()}, ${(c1.b * 255).round()}'),
       Text('Luminance: ${c1.computeLuminance().toStringAsFixed(2)}'),
       Text('Purpose: ARGB colors'),
     ],

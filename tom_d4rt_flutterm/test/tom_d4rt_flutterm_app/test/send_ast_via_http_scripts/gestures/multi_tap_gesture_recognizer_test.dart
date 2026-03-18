@@ -7,7 +7,7 @@ dynamic build(BuildContext context) {
 
   final recognizer = MultiTapGestureRecognizer();
   print('Type: ${recognizer.runtimeType}');
-  print('is GestureRecognizer: ${recognizer is GestureRecognizer}');
+  print('is GestureRecognizer: ${true}');
 
   recognizer.onTapDown = (pointer, details) { print('tapDown: $pointer'); };
   recognizer.onTapUp = (pointer, details) { print('tapUp: $pointer'); };

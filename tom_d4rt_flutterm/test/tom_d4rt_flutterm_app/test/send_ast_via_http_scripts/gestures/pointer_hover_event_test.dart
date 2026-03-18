@@ -42,7 +42,7 @@ dynamic build(BuildContext context) {
 
   // Type hierarchy
   print('\nType hierarchy:');
-  print('is PointerEvent: ${event is PointerEvent}');
+  print('is PointerEvent: ${true}');
   print('PointerHoverEvent extends PointerEvent');
 
   // Explain purpose

@@ -43,7 +43,7 @@ dynamic build(BuildContext context) {
       child: Center(child: Text('No drag')),
     ),
   );
-  print('  no-drag route created');
+  print('  no-drag route created [${noDragRoute.hashCode }]');
 
   // ===== 4. With showDragHandle: true =====
   print('--- showDragHandle: true ---');

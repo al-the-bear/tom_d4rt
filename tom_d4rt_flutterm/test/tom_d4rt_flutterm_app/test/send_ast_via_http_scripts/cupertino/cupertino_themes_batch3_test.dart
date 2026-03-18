@@ -39,7 +39,7 @@ dynamic build(BuildContext context) {
 
   // Test IconThemeData construction for Cupertino usage
   final defaultIconTheme = IconThemeData();
-  print('Default IconThemeData created');
+  print('Default IconThemeData created [${defaultIconTheme.hashCode }]');
 
   final coloredIconTheme = IconThemeData(color: CupertinoColors.systemBlue);
   print('IconThemeData with color created');

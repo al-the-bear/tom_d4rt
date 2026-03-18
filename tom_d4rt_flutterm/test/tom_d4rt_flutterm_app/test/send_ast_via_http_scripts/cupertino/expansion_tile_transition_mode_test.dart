@@ -463,7 +463,7 @@ dynamic build(BuildContext context) {
                     'Animate Expansion Tiles',
                     style: TextStyle(
                       fontSize: 14.0,
-                      color: CupertinoColors.white.withOpacity(0.8),
+                      color: CupertinoColors.white.withValues(alpha: 0.8),
                     ),
                   ),
                 ],
@@ -616,10 +616,7 @@ dynamic build(BuildContext context) {
                   ),
                   SizedBox(height: 12.0),
                   _buildRecommendation('scroll', 'Accordions, FAQs'),
-                  _buildRecommendation(
-                    'fade',
-                    'Smooth fades, fixed layouts',
-                  ),
+                  _buildRecommendation('fade', 'Smooth fades, fixed layouts'),
                 ],
               ),
             ),

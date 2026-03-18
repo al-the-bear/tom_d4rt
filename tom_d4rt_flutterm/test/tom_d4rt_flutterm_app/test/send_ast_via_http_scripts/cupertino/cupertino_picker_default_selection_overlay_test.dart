@@ -25,7 +25,7 @@ dynamic build(BuildContext context) {
   final transparentOverlay = CupertinoPickerDefaultSelectionOverlay(
     background: Color(0x00000000),
   );
-  print('  transparent overlay created');
+  print('  transparent overlay created [${transparentOverlay.hashCode }]');
 
   // ===== 3. Cap edge options =====
   print('--- Cap edge variations ---');
@@ -33,7 +33,7 @@ dynamic build(BuildContext context) {
     capStartEdge: true,
     capEndEdge: true,
   );
-  print('  both edges capped (default)');
+  print('  both edges capped (default) [${bothCapped.hashCode }]');
 
   final noCaps = CupertinoPickerDefaultSelectionOverlay(
     capStartEdge: false,
@@ -45,13 +45,13 @@ dynamic build(BuildContext context) {
     capStartEdge: true,
     capEndEdge: false,
   );
-  print('  start cap only');
+  print('  start cap only [${startOnly.hashCode }]');
 
   final endOnly = CupertinoPickerDefaultSelectionOverlay(
     capStartEdge: false,
     capEndEdge: true,
   );
-  print('  end cap only');
+  print('  end cap only [${endOnly.hashCode }]');
 
   // ===== 4. Combined: custom background + cap settings =====
   print('--- Combined customization ---');

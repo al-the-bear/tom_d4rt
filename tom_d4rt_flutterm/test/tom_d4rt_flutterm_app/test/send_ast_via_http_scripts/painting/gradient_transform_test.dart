@@ -54,14 +54,14 @@ dynamic build(BuildContext context) {
     colors: [Colors.yellow, Colors.green],
     transform: GradientRotation(math.pi / 3),
   );
-  print('RadialGradient with GradientRotation created');
+  print('RadialGradient with GradientRotation created [${radialGradient.hashCode }]');
 
   // Test SweepGradient with transform
   final sweepGradient = SweepGradient(
     colors: [Colors.purple, Colors.orange, Colors.purple],
     transform: GradientRotation(math.pi / 6),
   );
-  print('SweepGradient with GradientRotation created');
+  print('SweepGradient with GradientRotation created [${sweepGradient.hashCode }]');
 
   print('All GradientTransform tests passed');
 

@@ -17,7 +17,7 @@ dynamic build(BuildContext context) {
   final clearIcon = Icon(CupertinoIcons.clear);
   final clearCircleIcon = Icon(CupertinoIcons.clear_circled);
   final clearCircleFillIcon = Icon(CupertinoIcons.clear_circled_solid);
-  print('Action icons created');
+  print('Action icons created [${clearCircleFillIcon.hashCode }] [${clearCircleIcon.hashCode }] [${clearIcon.hashCode }] [${minusCircleIcon.hashCode }] [${minusIcon.hashCode }] [${addCircleFillIcon.hashCode }] [${addCircleIcon.hashCode }] [${addIcon.hashCode }]');
 
   // Test navigation icons
   print('Navigation icons:');
@@ -31,7 +31,7 @@ dynamic build(BuildContext context) {
   final arrowRightIcon = Icon(CupertinoIcons.arrow_right);
   final arrowUpIcon = Icon(CupertinoIcons.arrow_up);
   final arrowDownIcon = Icon(CupertinoIcons.arrow_down);
-  print('Navigation icons created');
+  print('Navigation icons created [${arrowDownIcon.hashCode }] [${arrowUpIcon.hashCode }] [${arrowRightIcon.hashCode }] [${arrowLeftIcon.hashCode }] [${chevronDownIcon.hashCode }] [${chevronUpIcon.hashCode }] [${chevronRightIcon.hashCode }] [${chevronLeftIcon.hashCode }] [${forwardIcon.hashCode }] [${backIcon.hashCode }]');
 
   // Test common UI icons
   print('Common UI icons:');
@@ -43,7 +43,7 @@ dynamic build(BuildContext context) {
   final infoIcon = Icon(CupertinoIcons.info);
   final questionIcon = Icon(CupertinoIcons.question);
   final exclamationIcon = Icon(CupertinoIcons.exclamationmark);
-  print('Common UI icons created');
+  print('Common UI icons created [${exclamationIcon.hashCode }] [${questionIcon.hashCode }] [${infoIcon.hashCode }] [${shareIcon.hashCode }] [${searchIcon.hashCode }] [${gearIcon.hashCode }] [${settingsIcon.hashCode }] [${homeIcon.hashCode }]');
 
   // Test communication icons
   print('Communication icons:');
@@ -55,7 +55,7 @@ dynamic build(BuildContext context) {
   final chatFillIcon = Icon(CupertinoIcons.chat_bubble_fill);
   final chat2Icon = Icon(CupertinoIcons.chat_bubble_2);
   final chat2FillIcon = Icon(CupertinoIcons.chat_bubble_2_fill);
-  print('Communication icons created');
+  print('Communication icons created [${chat2FillIcon.hashCode }] [${chat2Icon.hashCode }] [${chatFillIcon.hashCode }] [${chatIcon.hashCode }] [${phoneFillIcon.hashCode }] [${phoneIcon.hashCode }] [${mailFillIcon.hashCode }] [${mailIcon.hashCode }]');
 
   // Test media icons
   print('Media icons:');
@@ -71,7 +71,7 @@ dynamic build(BuildContext context) {
   final volumeDownIcon = Icon(CupertinoIcons.volume_down);
   final volumeMuteIcon = Icon(CupertinoIcons.volume_mute);
   final volumeOffIcon = Icon(CupertinoIcons.volume_off);
-  print('Media icons created');
+  print('Media icons created [${volumeOffIcon.hashCode }] [${volumeMuteIcon.hashCode }] [${volumeDownIcon.hashCode }] [${volumeUpIcon.hashCode }] [${fastforwardIcon.hashCode }] [${rewindIcon.hashCode }] [${stopFillIcon.hashCode }] [${stopIcon.hashCode }] [${pauseFillIcon.hashCode }] [${pauseIcon.hashCode }] [${playFillIcon.hashCode }] [${playIcon.hashCode }]');
 
   // Test editing icons
   print('Editing icons:');
@@ -86,7 +86,7 @@ dynamic build(BuildContext context) {
   final folderFillIcon = Icon(CupertinoIcons.folder_fill);
   final copyIcon = Icon(CupertinoIcons.doc_on_doc);
   final pasteIcon = Icon(CupertinoIcons.doc_on_clipboard);
-  print('Editing icons created');
+  print('Editing icons created [${pasteIcon.hashCode }] [${copyIcon.hashCode }] [${folderFillIcon.hashCode }] [${folderIcon.hashCode }] [${docTextFillIcon.hashCode }] [${docTextIcon.hashCode }] [${docFillIcon.hashCode }] [${docIcon.hashCode }] [${trashFillIcon.hashCode }] [${trashIcon.hashCode }] [${pencilIcon.hashCode }]');
 
   // Test personal icons
   print('Personal icons:');
@@ -98,7 +98,7 @@ dynamic build(BuildContext context) {
   final person2FillIcon = Icon(CupertinoIcons.person_2_fill);
   final person3Icon = Icon(CupertinoIcons.person_3);
   final person3FillIcon = Icon(CupertinoIcons.person_3_fill);
-  print('Personal icons created');
+  print('Personal icons created [${person3FillIcon.hashCode }] [${person3Icon.hashCode }] [${person2FillIcon.hashCode }] [${person2Icon.hashCode }] [${personCircleFillIcon.hashCode }] [${personCircleIcon.hashCode }] [${personFillIcon.hashCode }] [${personIcon.hashCode }]');
 
   // Test weather/time icons
   print('Weather/time icons:');
@@ -112,7 +112,7 @@ dynamic build(BuildContext context) {
   final clockFillIcon = Icon(CupertinoIcons.clock_fill);
   final timerIcon = Icon(CupertinoIcons.timer);
   final calendarIcon = Icon(CupertinoIcons.calendar);
-  print('Weather/time icons created');
+  print('Weather/time icons created [${calendarIcon.hashCode }] [${timerIcon.hashCode }] [${clockFillIcon.hashCode }] [${clockIcon.hashCode }] [${cloudFillIcon.hashCode }] [${cloudIcon.hashCode }] [${moonFillIcon.hashCode }] [${moonIcon.hashCode }] [${sunFillIcon.hashCode }] [${sunIcon.hashCode }]');
 
   // Test status icons
   print('Status icons:');
@@ -126,7 +126,7 @@ dynamic build(BuildContext context) {
   final bellFillIcon = Icon(CupertinoIcons.bell_fill);
   final bellSlashIcon = Icon(CupertinoIcons.bell_slash);
   final bellSlashFillIcon = Icon(CupertinoIcons.bell_slash_fill);
-  print('Status icons created');
+  print('Status icons created [${bellSlashFillIcon.hashCode }] [${bellSlashIcon.hashCode }] [${bellFillIcon.hashCode }] [${bellIcon.hashCode }] [${xmarkCircleFillIcon.hashCode }] [${xmarkCircleIcon.hashCode }] [${xmarkIcon.hashCode }] [${checkmarkCircleFillIcon.hashCode }] [${checkmarkCircleIcon.hashCode }] [${checkmarkIcon.hashCode }]');
 
   // Test favorite icons
   print('Favorite icons:');
@@ -138,7 +138,7 @@ dynamic build(BuildContext context) {
   final bookmarkFillIcon = Icon(CupertinoIcons.bookmark_fill);
   final flagIcon = Icon(CupertinoIcons.flag);
   final flagFillIcon = Icon(CupertinoIcons.flag_fill);
-  print('Favorite icons created');
+  print('Favorite icons created [${flagFillIcon.hashCode }] [${flagIcon.hashCode }] [${bookmarkFillIcon.hashCode }] [${bookmarkIcon.hashCode }] [${starFillIcon.hashCode }] [${starIcon.hashCode }] [${heartFillIcon.hashCode }] [${heartIcon.hashCode }]');
 
   // Test device icons
   print('Device icons:');
@@ -150,7 +150,7 @@ dynamic build(BuildContext context) {
   final batteryFullIcon = Icon(CupertinoIcons.battery_full);
   final batteryEmptyIcon = Icon(CupertinoIcons.battery_empty);
   final battery25Icon = Icon(CupertinoIcons.battery_25);
-  print('Device icons created');
+  print('Device icons created [${battery25Icon.hashCode }] [${batteryEmptyIcon.hashCode }] [${batteryFullIcon.hashCode }] [${bluetoothIcon.hashCode }] [${wifiIcon.hashCode }] [${deviceDesktopIcon.hashCode }] [${deviceTabletIcon.hashCode }] [${devicePhoneIcon.hashCode }]');
 
   // Test misc icons
   print('Misc icons:');
@@ -164,7 +164,7 @@ dynamic build(BuildContext context) {
   final photoFillIcon = Icon(CupertinoIcons.photo_fill);
   final qrcodeIcon = Icon(CupertinoIcons.qrcode);
   final barcodeIcon = Icon(CupertinoIcons.barcode);
-  print('Misc icons created');
+  print('Misc icons created [${barcodeIcon.hashCode }] [${qrcodeIcon.hashCode }] [${photoFillIcon.hashCode }] [${photoIcon.hashCode }] [${cameraFillIcon.hashCode }] [${cameraIcon.hashCode }] [${mapFillIcon.hashCode }] [${mapIcon.hashCode }] [${locationFillIcon.hashCode }] [${locationIcon.hashCode }]');
 
   // Test text formatting icons
   print('Text formatting icons:');
@@ -178,7 +178,7 @@ dynamic build(BuildContext context) {
   final textJustifyIcon = Icon(CupertinoIcons.text_justify);
   final listBulletIcon = Icon(CupertinoIcons.list_bullet);
   final listNumberIcon = Icon(CupertinoIcons.list_number);
-  print('Text formatting icons created');
+  print('Text formatting icons created [${listNumberIcon.hashCode }] [${listBulletIcon.hashCode }] [${textJustifyIcon.hashCode }] [${textRightIcon.hashCode }] [${textCenterIcon.hashCode }] [${textLeftIcon.hashCode }] [${strikethroughIcon.hashCode }] [${underlineIcon.hashCode }] [${italicIcon.hashCode }] [${boldIcon.hashCode }]');
 
   // Test transport icons
   print('Transport icons:');
@@ -187,7 +187,7 @@ dynamic build(BuildContext context) {
   final airplaneIcon = Icon(CupertinoIcons.airplane);
   final busIcon = Icon(CupertinoIcons.bus);
   final tramIcon = Icon(CupertinoIcons.tram_fill);
-  print('Transport icons created');
+  print('Transport icons created [${tramIcon.hashCode }] [${busIcon.hashCode }] [${airplaneIcon.hashCode }] [${carFillIcon.hashCode }] [${carIcon.hashCode }]');
 
   // Test commerce icons
   print('Commerce icons:');
@@ -199,7 +199,7 @@ dynamic build(BuildContext context) {
   final creditcardFillIcon = Icon(CupertinoIcons.creditcard_fill);
   final tagIcon = Icon(CupertinoIcons.tag);
   final tagFillIcon = Icon(CupertinoIcons.tag_fill);
-  print('Commerce icons created');
+  print('Commerce icons created [${tagFillIcon.hashCode }] [${tagIcon.hashCode }] [${creditcardFillIcon.hashCode }] [${creditcardIcon.hashCode }] [${bagFillIcon.hashCode }] [${bagIcon.hashCode }] [${cartFillIcon.hashCode }] [${cartIcon.hashCode }]');
 
   print('Cupertino icons test completed');
 

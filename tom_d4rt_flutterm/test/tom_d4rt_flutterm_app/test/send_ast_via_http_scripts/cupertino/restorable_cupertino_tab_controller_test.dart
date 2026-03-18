@@ -12,13 +12,13 @@ dynamic build(BuildContext context) {
   // ===== 2. With custom initialIndex =====
   print('--- Custom initialIndex ---');
   final ctrl1 = RestorableCupertinoTabController(initialIndex: 1);
-  print('  initialIndex: 1 controller created');
+  print('  initialIndex: 1 controller created [${ctrl1.hashCode }]');
 
   final ctrl2 = RestorableCupertinoTabController(initialIndex: 2);
-  print('  initialIndex: 2 controller created');
+  print('  initialIndex: 2 controller created [${ctrl2.hashCode }]');
 
   final ctrl3 = RestorableCupertinoTabController(initialIndex: 3);
-  print('  initialIndex: 3 controller created');
+  print('  initialIndex: 3 controller created [${ctrl3.hashCode }]');
 
   // ===== 3. CupertinoTabScaffold with default controller =====
   print('--- CupertinoTabScaffold integration ---');
@@ -45,7 +45,7 @@ dynamic build(BuildContext context) {
     items: tabItems,
     currentIndex: 0,
   );
-  print('  tab bar created with ${tabItems.length} items');
+  print('  tab bar created with ${tabItems.length} items [${tabBar.hashCode }]');
 
   // ===== 6. Multiple tab configurations =====
   print('--- Multiple tab configurations ---');
@@ -60,7 +60,7 @@ dynamic build(BuildContext context) {
     BottomNavigationBarItem(icon: Icon(CupertinoIcons.cart), label: 'Cart'),
     BottomNavigationBarItem(icon: Icon(CupertinoIcons.person), label: 'Account'),
   ];
-  print('  2-tab config created');
+  print('  2-tab config created [${fiveTabs.hashCode }] [${twoTabs.hashCode }]');
   print('  5-tab config created');
 
   // ===== 7. Tab scaffold with explicit controller =====
@@ -75,7 +75,7 @@ dynamic build(BuildContext context) {
   regularCtrl.dispose();
   regularCtrl2.dispose();
 
-  print('RestorableCupertinoTabController test completed');
+  print('RestorableCupertinoTabController test completed [${tabPages.hashCode }]');
   return CupertinoApp(
     home: CupertinoTabScaffold(
       tabBar: CupertinoTabBar(items: tabItems),

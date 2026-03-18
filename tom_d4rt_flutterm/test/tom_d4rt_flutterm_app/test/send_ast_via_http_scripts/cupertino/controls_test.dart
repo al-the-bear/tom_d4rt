@@ -85,7 +85,7 @@ dynamic build(BuildContext context) {
   // ========== CupertinoListTile variants ==========
   print('--- CupertinoListTile variants ---');
   final basicTile = CupertinoListTile(title: Text('Basic'));
-  print('  basic tile created');
+  print('  basic tile created [${basicTile.hashCode }]');
 
   final notchedTile = CupertinoListTile.notched(
     title: Text('Notched Tile'),
@@ -93,7 +93,7 @@ dynamic build(BuildContext context) {
     subtitle: Text('A notched variant'),
     trailing: CupertinoListTileChevron(),
   );
-  print('  notched tile created');
+  print('  notched tile created [${notchedTile.hashCode }]');
 
   print('Cupertino controls test completed');
   return CupertinoApp(

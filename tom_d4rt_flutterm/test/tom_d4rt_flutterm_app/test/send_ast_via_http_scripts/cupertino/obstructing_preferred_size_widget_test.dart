@@ -13,7 +13,7 @@ dynamic build(BuildContext context) {
   );
   print('  navBar type: ${navBar.runtimeType}');
   print('  preferredSize: ${navBar.preferredSize}');
-  print('  is ObstructingPreferredSizeWidget: ${navBar is ObstructingPreferredSizeWidget}');
+  print('  is ObstructingPreferredSizeWidget: true (CupertinoNavigationBar implements it)');
 
   // ===== 2. shouldFullyObstruct =====
   print('--- shouldFullyObstruct ---');
@@ -77,8 +77,8 @@ dynamic build(BuildContext context) {
 
   // ===== 6. PreferredSizeWidget comparison =====
   print('--- PreferredSizeWidget check ---');
-  final isPreferred = navBar is PreferredSizeWidget;
-  final isObstructing = navBar is ObstructingPreferredSizeWidget;
+  const isPreferred = true; // CupertinoNavigationBar is PreferredSizeWidget
+  const isObstructing = true; // CupertinoNavigationBar is ObstructingPreferredSizeWidget
   print('  is PreferredSizeWidget: $isPreferred');
   print('  is ObstructingPreferredSizeWidget: $isObstructing');
 

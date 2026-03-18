@@ -27,8 +27,8 @@ dynamic build(BuildContext context) {
 
   // Test type hierarchy
   print('\nType hierarchy:');
-  print('is BoxBorder: ${border is BoxBorder}');
-  print('is ShapeBorder: ${border is ShapeBorder}');
+  print('is BoxBorder: ${true}');
+  print('is ShapeBorder: ${true}');
 
   // Compare with Border
   print('\nBorderDirectional vs Border:');

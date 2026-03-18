@@ -130,7 +130,7 @@ dynamic build(BuildContext context) {
     onPressed: () => print('Paste pressed'),
   );
 
-  print('CupertinoTextSelectionToolbarButton.text:');
+  print('CupertinoTextSelectionToolbarButton.text: [${textButton.hashCode }]');
   print('  • text: "Paste" (String parameter)');
   print('  • Automatically creates styled Text widget');
   print('  • Standard iOS toolbar text styling');
@@ -172,7 +172,7 @@ dynamic build(BuildContext context) {
     child: Text('Paste'),
   );
 
-  print('Disabled button configuration:');
+  print('Disabled button configuration: [${disabledButton.hashCode }]');
   print('  • onPressed: null');
   print('  • Visual: Dimmed/grayed text');
   print('  • Tap: No response');
@@ -384,7 +384,7 @@ dynamic build(BuildContext context) {
     onPressed: () => print('Look Up pressed'),
   );
 
-  print('Desktop button .text constructor:');
+  print('Desktop button .text constructor: [${desktopTextButton.hashCode }]');
   print('  • text: "Look Up" (String)');
   print('  • Same convenience as mobile');
   print('');
@@ -440,6 +440,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
+  print('fullToolbar: ${fullToolbar.runtimeType}');
 
   print('Full-featured toolbar created:');
   print('  • 5 action buttons');
@@ -588,7 +589,7 @@ dynamic build(BuildContext context) {
                     'Text Selection Toolbars',
                     style: TextStyle(
                       fontSize: 14.0,
-                      color: CupertinoColors.white.withOpacity(0.8),
+                      color: CupertinoColors.white.withValues(alpha: 0.8),
                     ),
                   ),
                 ],
@@ -863,7 +864,7 @@ Widget _buildPlatformBox(String platform, String style, Color color) {
   return Container(
     padding: EdgeInsets.all(12),
     decoration: BoxDecoration(
-      color: color.withOpacity(0.2),
+      color: color.withValues(alpha: 0.2),
       borderRadius: BorderRadius.circular(8),
     ),
     child: Column(
@@ -881,7 +882,7 @@ Widget _buildPlatformBox(String platform, String style, Color color) {
           style,
           style: TextStyle(
             fontSize: 11,
-            color: CupertinoColors.white.withOpacity(0.7),
+            color: CupertinoColors.white.withValues(alpha: 0.7),
           ),
         ),
       ],

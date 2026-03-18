@@ -11,28 +11,28 @@ dynamic build(BuildContext context) {
   final basicScaffold = CupertinoPageScaffold(
     child: Center(child: Text('Basic scaffold')),
   );
-  print('Basic CupertinoPageScaffold created');
+  print('Basic CupertinoPageScaffold created [${basicScaffold.hashCode }]');
 
   // Test CupertinoPageScaffold with navigationBar
   final navBarScaffold = CupertinoPageScaffold(
     navigationBar: CupertinoNavigationBar(middle: Text('Page Title')),
     child: Center(child: Text('Content')),
   );
-  print('CupertinoPageScaffold with navigationBar created');
+  print('CupertinoPageScaffold with navigationBar created [${navBarScaffold.hashCode }]');
 
   // Test CupertinoPageScaffold with backgroundColor
   final bgColorScaffold = CupertinoPageScaffold(
     backgroundColor: CupertinoColors.systemGroupedBackground,
     child: Center(child: Text('Custom background')),
   );
-  print('CupertinoPageScaffold with backgroundColor created');
+  print('CupertinoPageScaffold with backgroundColor created [${bgColorScaffold.hashCode }]');
 
   // Test CupertinoPageScaffold with resizeToAvoidBottomInset
   final resizeScaffold = CupertinoPageScaffold(
     resizeToAvoidBottomInset: true,
     child: Center(child: Text('Resizes for keyboard')),
   );
-  print('CupertinoPageScaffold with resizeToAvoidBottomInset created');
+  print('CupertinoPageScaffold with resizeToAvoidBottomInset created [${resizeScaffold.hashCode }]');
 
   // Test CupertinoPageScaffold with full navigation bar
   final fullNavScaffold = CupertinoPageScaffold(
@@ -51,14 +51,14 @@ dynamic build(BuildContext context) {
     ),
     child: Center(child: Text('Full navigation bar')),
   );
-  print('CupertinoPageScaffold with full navigationBar created');
+  print('CupertinoPageScaffold with full navigationBar created [${fullNavScaffold.hashCode }]');
 
   // ========== CUPERTINONAVIGATIONBAR ==========
   print('--- CupertinoNavigationBar Tests ---');
 
   // Test basic CupertinoNavigationBar
   final basicNavBar = CupertinoNavigationBar(middle: Text('Title'));
-  print('Basic CupertinoNavigationBar created');
+  print('Basic CupertinoNavigationBar created [${basicNavBar.hashCode }]');
 
   // Test CupertinoNavigationBar with leading
   final leadingNavBar = CupertinoNavigationBar(
@@ -69,7 +69,7 @@ dynamic build(BuildContext context) {
     ),
     middle: Text('With Leading'),
   );
-  print('CupertinoNavigationBar with leading created');
+  print('CupertinoNavigationBar with leading created [${leadingNavBar.hashCode }]');
 
   // Test CupertinoNavigationBar with trailing
   final trailingNavBar = CupertinoNavigationBar(
@@ -80,35 +80,35 @@ dynamic build(BuildContext context) {
       onPressed: () {},
     ),
   );
-  print('CupertinoNavigationBar with trailing created');
+  print('CupertinoNavigationBar with trailing created [${trailingNavBar.hashCode }]');
 
   // Test CupertinoNavigationBar with automaticallyImplyLeading
   final noImplyNavBar = CupertinoNavigationBar(
     automaticallyImplyLeading: false,
     middle: Text('No Auto Leading'),
   );
-  print('CupertinoNavigationBar with automaticallyImplyLeading=false created');
+  print('CupertinoNavigationBar with automaticallyImplyLeading=false created [${noImplyNavBar.hashCode }]');
 
   // Test CupertinoNavigationBar with automaticallyImplyMiddle
   final noImplyMiddleNavBar = CupertinoNavigationBar(
     automaticallyImplyMiddle: false,
     leading: Text('Custom'),
   );
-  print('CupertinoNavigationBar with automaticallyImplyMiddle=false created');
+  print('CupertinoNavigationBar with automaticallyImplyMiddle=false created [${noImplyMiddleNavBar.hashCode }]');
 
   // Test CupertinoNavigationBar with previousPageTitle
   final prevPageNavBar = CupertinoNavigationBar(
     previousPageTitle: 'Settings',
     middle: Text('Details'),
   );
-  print('CupertinoNavigationBar with previousPageTitle created');
+  print('CupertinoNavigationBar with previousPageTitle created [${prevPageNavBar.hashCode }]');
 
   // Test CupertinoNavigationBar with backgroundColor
   final bgNavBar = CupertinoNavigationBar(
     backgroundColor: CupertinoColors.systemBlue.withValues(alpha: 0.8),
     middle: Text('Colored Nav', style: TextStyle(color: CupertinoColors.white)),
   );
-  print('CupertinoNavigationBar with backgroundColor created');
+  print('CupertinoNavigationBar with backgroundColor created [${bgNavBar.hashCode }]');
 
   // Test CupertinoNavigationBar with brightness
   final brightnessNavBar = CupertinoNavigationBar(
@@ -116,7 +116,7 @@ dynamic build(BuildContext context) {
     backgroundColor: CupertinoColors.black,
     middle: Text('Dark Nav', style: TextStyle(color: CupertinoColors.white)),
   );
-  print('CupertinoNavigationBar with brightness created');
+  print('CupertinoNavigationBar with brightness created [${brightnessNavBar.hashCode }]');
 
   // Test CupertinoNavigationBar with border
   final borderNavBar = CupertinoNavigationBar(
@@ -125,21 +125,21 @@ dynamic build(BuildContext context) {
     ),
     middle: Text('Custom Border'),
   );
-  print('CupertinoNavigationBar with border created');
+  print('CupertinoNavigationBar with border created [${borderNavBar.hashCode }]');
 
   // Test CupertinoNavigationBar with padding
   final paddedNavBar = CupertinoNavigationBar(
     padding: EdgeInsetsDirectional.only(start: 16.0, end: 16.0),
     middle: Text('Padded'),
   );
-  print('CupertinoNavigationBar with padding created');
+  print('CupertinoNavigationBar with padding created [${paddedNavBar.hashCode }]');
 
   // Test CupertinoNavigationBar with transitionBetweenRoutes
   final noTransitionNavBar = CupertinoNavigationBar(
     transitionBetweenRoutes: false,
     middle: Text('No Transition'),
   );
-  print('CupertinoNavigationBar with transitionBetweenRoutes=false created');
+  print('CupertinoNavigationBar with transitionBetweenRoutes=false created [${noTransitionNavBar.hashCode }]');
 
   // ========== CUPERTINOSLIVERSNAVIGATIONBAR ==========
   print('--- CupertinoSliverNavigationBar Tests ---');
@@ -148,7 +148,7 @@ dynamic build(BuildContext context) {
   final basicSliverNav = CupertinoSliverNavigationBar(
     largeTitle: Text('Large Title'),
   );
-  print('Basic CupertinoSliverNavigationBar created');
+  print('Basic CupertinoSliverNavigationBar created [${basicSliverNav.hashCode }]');
 
   // Test CupertinoSliverNavigationBar with leading
   final leadingSliverNav = CupertinoSliverNavigationBar(
@@ -159,7 +159,7 @@ dynamic build(BuildContext context) {
     ),
     largeTitle: Text('With Leading'),
   );
-  print('CupertinoSliverNavigationBar with leading created');
+  print('CupertinoSliverNavigationBar with leading created [${leadingSliverNav.hashCode }]');
 
   // Test CupertinoSliverNavigationBar with trailing
   final trailingSliverNav = CupertinoSliverNavigationBar(
@@ -170,14 +170,14 @@ dynamic build(BuildContext context) {
       onPressed: () {},
     ),
   );
-  print('CupertinoSliverNavigationBar with trailing created');
+  print('CupertinoSliverNavigationBar with trailing created [${trailingSliverNav.hashCode }]');
 
   // Test CupertinoSliverNavigationBar with middle
   final middleSliverNav = CupertinoSliverNavigationBar(
     middle: Text('Small Title'),
     largeTitle: Text('Large Title'),
   );
-  print('CupertinoSliverNavigationBar with middle created');
+  print('CupertinoSliverNavigationBar with middle created [${middleSliverNav.hashCode }]');
 
   // Test CupertinoSliverNavigationBar with alwaysShowMiddle
   final alwaysMiddleSliverNav = CupertinoSliverNavigationBar(
@@ -185,21 +185,21 @@ dynamic build(BuildContext context) {
     middle: Text('Always Shown'),
     largeTitle: Text('Large'),
   );
-  print('CupertinoSliverNavigationBar with alwaysShowMiddle created');
+  print('CupertinoSliverNavigationBar with alwaysShowMiddle created [${alwaysMiddleSliverNav.hashCode }]');
 
   // Test CupertinoSliverNavigationBar with stretch
   final stretchSliverNav = CupertinoSliverNavigationBar(
     stretch: true,
     largeTitle: Text('Stretchy'),
   );
-  print('CupertinoSliverNavigationBar with stretch created');
+  print('CupertinoSliverNavigationBar with stretch created [${stretchSliverNav.hashCode }]');
 
   // Test CupertinoSliverNavigationBar with backgroundColor
   final bgSliverNav = CupertinoSliverNavigationBar(
     backgroundColor: CupertinoColors.systemIndigo,
     largeTitle: Text('Colored', style: TextStyle(color: CupertinoColors.white)),
   );
-  print('CupertinoSliverNavigationBar with backgroundColor created');
+  print('CupertinoSliverNavigationBar with backgroundColor created [${bgSliverNav.hashCode }]');
 
   // ========== CUPERTINOTABSCAFFOLD ==========
   print('--- CupertinoTabScaffold Tests ---');
@@ -219,7 +219,7 @@ dynamic build(BuildContext context) {
       return CupertinoPageScaffold(child: Center(child: Text('Tab $index')));
     },
   );
-  print('Basic CupertinoTabScaffold created');
+  print('Basic CupertinoTabScaffold created [${basicTabScaffold.hashCode }]');
 
   // Test CupertinoTabScaffold with controller
   final controlledTabScaffold = CupertinoTabScaffold(
@@ -237,7 +237,7 @@ dynamic build(BuildContext context) {
       return Center(child: Text('Tab $index'));
     },
   );
-  print('CupertinoTabScaffold with controller created');
+  print('CupertinoTabScaffold with controller created [${controlledTabScaffold.hashCode }]');
 
   // Test CupertinoTabScaffold with backgroundColor
   final bgTabScaffold = CupertinoTabScaffold(
@@ -255,7 +255,7 @@ dynamic build(BuildContext context) {
       return Center(child: Text('Tab $index'));
     },
   );
-  print('CupertinoTabScaffold with backgroundColor created');
+  print('CupertinoTabScaffold with backgroundColor created [${bgTabScaffold.hashCode }]');
 
   // Test CupertinoTabScaffold with resizeToAvoidBottomInset
   final resizeTabScaffold = CupertinoTabScaffold(
@@ -270,7 +270,7 @@ dynamic build(BuildContext context) {
       return Center(child: Text('No resize'));
     },
   );
-  print('CupertinoTabScaffold with resizeToAvoidBottomInset=false created');
+  print('CupertinoTabScaffold with resizeToAvoidBottomInset=false created [${resizeTabScaffold.hashCode }]');
 
   // ========== CUPERTINOTABBAR ==========
   print('--- CupertinoTabBar Tests ---');
@@ -289,7 +289,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('Basic CupertinoTabBar created');
+  print('Basic CupertinoTabBar created [${basicTabBar.hashCode }]');
 
   // Test CupertinoTabBar with currentIndex
   final indexedTabBar = CupertinoTabBar(
@@ -302,7 +302,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('CupertinoTabBar with currentIndex created');
+  print('CupertinoTabBar with currentIndex created [${indexedTabBar.hashCode }]');
 
   // Test CupertinoTabBar with onTap
   final tappableTabBar = CupertinoTabBar(
@@ -314,14 +314,14 @@ dynamic build(BuildContext context) {
       ),
     ],
     onTap: (index) {
-      print('Tab $index tapped');
+      print('Tab $index tapped [${tappableTabBar.hashCode }]');
     },
   );
   print('CupertinoTabBar with onTap created');
 
   // Test CupertinoTabBar with backgroundColor
   final bgTabBar = CupertinoTabBar(
-    backgroundColor: CupertinoColors.black.withOpacity(0.9),
+    backgroundColor: CupertinoColors.black.withValues(alpha: 0.9),
     items: [
       BottomNavigationBarItem(icon: Icon(CupertinoIcons.home), label: 'Home'),
       BottomNavigationBarItem(
@@ -330,7 +330,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('CupertinoTabBar with backgroundColor created');
+  print('CupertinoTabBar with backgroundColor created [${bgTabBar.hashCode }]');
 
   // Test CupertinoTabBar with activeColor
   final activeColorTabBar = CupertinoTabBar(
@@ -343,7 +343,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('CupertinoTabBar with activeColor created');
+  print('CupertinoTabBar with activeColor created [${activeColorTabBar.hashCode }]');
 
   // Test CupertinoTabBar with inactiveColor
   final inactiveColorTabBar = CupertinoTabBar(
@@ -356,7 +356,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('CupertinoTabBar with inactiveColor created');
+  print('CupertinoTabBar with inactiveColor created [${inactiveColorTabBar.hashCode }]');
 
   // Test CupertinoTabBar with iconSize
   final sizedIconTabBar = CupertinoTabBar(
@@ -369,7 +369,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('CupertinoTabBar with iconSize created');
+  print('CupertinoTabBar with iconSize created [${sizedIconTabBar.hashCode }]');
 
   // Test CupertinoTabBar with height
   final heightTabBar = CupertinoTabBar(
@@ -382,7 +382,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('CupertinoTabBar with height created');
+  print('CupertinoTabBar with height created [${heightTabBar.hashCode }]');
 
   // Test CupertinoTabBar with border
   final borderTabBar = CupertinoTabBar(
@@ -397,7 +397,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('CupertinoTabBar with border created');
+  print('CupertinoTabBar with border created [${borderTabBar.hashCode }]');
 
   // ========== CUPERTINOTABVIEW ==========
   print('--- CupertinoTabView Tests ---');
@@ -407,7 +407,7 @@ dynamic build(BuildContext context) {
     builder: (context) =>
         CupertinoPageScaffold(child: Center(child: Text('Tab View Content'))),
   );
-  print('Basic CupertinoTabView created');
+  print('Basic CupertinoTabView created [${basicTabView.hashCode }]');
 
   // Test CupertinoTabView with routes
   final routedTabView = CupertinoTabView(
@@ -416,7 +416,7 @@ dynamic build(BuildContext context) {
       '/details': (context) => Center(child: Text('Details')),
     },
   );
-  print('CupertinoTabView with routes created');
+  print('CupertinoTabView with routes created [${routedTabView.hashCode }]');
 
   // Test CupertinoTabView with onGenerateRoute
   final generatedTabView = CupertinoTabView(
@@ -428,14 +428,14 @@ dynamic build(BuildContext context) {
     },
     builder: (context) => Center(child: Text('Default')),
   );
-  print('CupertinoTabView with onGenerateRoute created');
+  print('CupertinoTabView with onGenerateRoute created [${generatedTabView.hashCode }]');
 
   // Test CupertinoTabView with navigatorKey
   final keyedTabView = CupertinoTabView(
     navigatorKey: GlobalKey<NavigatorState>(),
     builder: (context) => Center(child: Text('Keyed Tab View')),
   );
-  print('CupertinoTabView with navigatorKey created');
+  print('CupertinoTabView with navigatorKey created [${keyedTabView.hashCode }]');
 
   print('Cupertino scaffold test completed');
 

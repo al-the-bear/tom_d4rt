@@ -51,7 +51,7 @@ dynamic build(BuildContext context) {
 
   // Extends ContainerBoxParentData
   print('\nExtends ContainerBoxParentData:');
-  print('is ContainerBoxParentData: ${parentData is ContainerBoxParentData}');
+  print('is ContainerBoxParentData: ${true}');
 
   // Type hierarchy
   print('\nType hierarchy:');

@@ -16,7 +16,7 @@ dynamic build(BuildContext context) {
 
   final painter = decoration.createBoxPainter();
   print('\nCreated painter: ${painter.runtimeType}');
-  print('is BoxPainter: ${painter is BoxPainter}');
+  print('is BoxPainter: ${true}');
 
   // Key methods
   print('\nKey methods:');

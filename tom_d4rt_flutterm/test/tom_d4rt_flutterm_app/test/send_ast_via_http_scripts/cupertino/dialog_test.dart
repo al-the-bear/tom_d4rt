@@ -24,7 +24,7 @@ dynamic build(BuildContext context) {
       CupertinoDialogAction(child: Text('Confirm'), onPressed: () {}),
     ],
   );
-  print('CupertinoAlertDialog with multiple actions created');
+  print('CupertinoAlertDialog with multiple actions created [${multiActionDialog.hashCode }]');
 
   // Test CupertinoAlertDialog with destructive action
   final destructiveDialog = CupertinoAlertDialog(
@@ -54,7 +54,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('CupertinoAlertDialog with default action created');
+  print('CupertinoAlertDialog with default action created [${defaultActionDialog.hashCode }]');
 
   // Test CupertinoAlertDialog with scrollable content
   final scrollableDialog = CupertinoAlertDialog(
@@ -71,21 +71,21 @@ dynamic build(BuildContext context) {
       CupertinoDialogAction(child: Text('Accept'), onPressed: () {}),
     ],
   );
-  print('CupertinoAlertDialog with scrollable content created');
+  print('CupertinoAlertDialog with scrollable content created [${scrollableDialog.hashCode }]');
 
   // Test CupertinoAlertDialog without title
   final noTitleDialog = CupertinoAlertDialog(
     content: Text('Message without title'),
     actions: [CupertinoDialogAction(child: Text('OK'), onPressed: () {})],
   );
-  print('CupertinoAlertDialog without title created');
+  print('CupertinoAlertDialog without title created [${noTitleDialog.hashCode }]');
 
   // Test CupertinoAlertDialog without content
   final noContentDialog = CupertinoAlertDialog(
     title: Text('Notification'),
     actions: [CupertinoDialogAction(child: Text('Dismiss'), onPressed: () {})],
   );
-  print('CupertinoAlertDialog without content created');
+  print('CupertinoAlertDialog without content created [${noContentDialog.hashCode }]');
 
   // Test CupertinoAlertDialog with insetAnimationDuration
   final animatedDialog = CupertinoAlertDialog(
@@ -94,7 +94,7 @@ dynamic build(BuildContext context) {
     content: Text('With custom animation duration'),
     actions: [CupertinoDialogAction(child: Text('OK'), onPressed: () {})],
   );
-  print('CupertinoAlertDialog with insetAnimationDuration created');
+  print('CupertinoAlertDialog with insetAnimationDuration created [${animatedDialog.hashCode }]');
 
   // Test CupertinoAlertDialog with insetAnimationCurve
   final curvedDialog = CupertinoAlertDialog(
@@ -103,7 +103,7 @@ dynamic build(BuildContext context) {
     content: Text('With custom animation curve'),
     actions: [CupertinoDialogAction(child: Text('OK'), onPressed: () {})],
   );
-  print('CupertinoAlertDialog with insetAnimationCurve created');
+  print('CupertinoAlertDialog with insetAnimationCurve created [${curvedDialog.hashCode }]');
 
   // ========== CUPERTINODIALOGACTION ==========
   print('--- CupertinoDialogAction Tests ---');
@@ -112,7 +112,7 @@ dynamic build(BuildContext context) {
   final basicAction = CupertinoDialogAction(
     child: Text('Action'),
     onPressed: () {
-      print('Action pressed');
+      print('Action pressed [${basicAction.hashCode }]');
     },
   );
   print('Basic CupertinoDialogAction created');
@@ -123,7 +123,7 @@ dynamic build(BuildContext context) {
     child: Text('Default'),
     onPressed: () {},
   );
-  print('CupertinoDialogAction with isDefaultAction created');
+  print('CupertinoDialogAction with isDefaultAction created [${defaultAction.hashCode }]');
 
   // Test CupertinoDialogAction with isDestructiveAction
   final destructiveAction = CupertinoDialogAction(
@@ -131,7 +131,7 @@ dynamic build(BuildContext context) {
     child: Text('Delete'),
     onPressed: () {},
   );
-  print('CupertinoDialogAction with isDestructiveAction created');
+  print('CupertinoDialogAction with isDestructiveAction created [${destructiveAction.hashCode }]');
 
   // Test CupertinoDialogAction with textStyle
   final styledAction = CupertinoDialogAction(
@@ -139,14 +139,14 @@ dynamic build(BuildContext context) {
     child: Text('Styled'),
     onPressed: () {},
   );
-  print('CupertinoDialogAction with textStyle created');
+  print('CupertinoDialogAction with textStyle created [${styledAction.hashCode }]');
 
   // Test CupertinoDialogAction disabled
   final disabledAction = CupertinoDialogAction(
     onPressed: null,
     child: Text('Disabled'),
   );
-  print('CupertinoDialogAction disabled created');
+  print('CupertinoDialogAction disabled created [${disabledAction.hashCode }]');
 
   // ========== CUPERTINOACTIONSHEET ==========
   print('--- CupertinoActionSheet Tests ---');
@@ -158,7 +158,7 @@ dynamic build(BuildContext context) {
       CupertinoActionSheetAction(child: Text('Action 2'), onPressed: () {}),
     ],
   );
-  print('Basic CupertinoActionSheet created');
+  print('Basic CupertinoActionSheet created [${basicActionSheet.hashCode }]');
 
   // Test CupertinoActionSheet with title
   final titledActionSheet = CupertinoActionSheet(
@@ -168,7 +168,7 @@ dynamic build(BuildContext context) {
       CupertinoActionSheetAction(child: Text('Option 2'), onPressed: () {}),
     ],
   );
-  print('CupertinoActionSheet with title created');
+  print('CupertinoActionSheet with title created [${titledActionSheet.hashCode }]');
 
   // Test CupertinoActionSheet with message
   final messageActionSheet = CupertinoActionSheet(
@@ -186,7 +186,7 @@ dynamic build(BuildContext context) {
       CupertinoActionSheetAction(child: Text('Copy Link'), onPressed: () {}),
     ],
   );
-  print('CupertinoActionSheet with message created');
+  print('CupertinoActionSheet with message created [${messageActionSheet.hashCode }]');
 
   // Test CupertinoActionSheet with cancelButton
   final cancelButtonActionSheet = CupertinoActionSheet(
@@ -218,7 +218,7 @@ dynamic build(BuildContext context) {
       onPressed: () {},
     ),
   );
-  print('CupertinoActionSheet with destructive action created');
+  print('CupertinoActionSheet with destructive action created [${destructiveActionSheet.hashCode }]');
 
   // Test CupertinoActionSheet with default action
   final defaultActionSheet = CupertinoActionSheet(
@@ -236,7 +236,7 @@ dynamic build(BuildContext context) {
       onPressed: () {},
     ),
   );
-  print('CupertinoActionSheet with default action created');
+  print('CupertinoActionSheet with default action created [${defaultActionSheet.hashCode }]');
 
   // ========== CUPERTINOACTIONSHEETACTION ==========
   print('--- CupertinoActionSheetAction Tests ---');
@@ -245,7 +245,7 @@ dynamic build(BuildContext context) {
   final basicSheetAction = CupertinoActionSheetAction(
     child: Text('Action'),
     onPressed: () {
-      print('Sheet action pressed');
+      print('Sheet action pressed [${basicSheetAction.hashCode }]');
     },
   );
   print('Basic CupertinoActionSheetAction created');
@@ -256,7 +256,7 @@ dynamic build(BuildContext context) {
     child: Text('Default Action'),
     onPressed: () {},
   );
-  print('CupertinoActionSheetAction with isDefaultAction created');
+  print('CupertinoActionSheetAction with isDefaultAction created [${defaultSheetAction.hashCode }]');
 
   // Test CupertinoActionSheetAction with isDestructiveAction
   final destructiveSheetAction = CupertinoActionSheetAction(
@@ -264,7 +264,7 @@ dynamic build(BuildContext context) {
     child: Text('Delete'),
     onPressed: () {},
   );
-  print('CupertinoActionSheetAction with isDestructiveAction created');
+  print('CupertinoActionSheetAction with isDestructiveAction created [${destructiveSheetAction.hashCode }]');
 
   // ========== CUPERTINOPOPUPSURFACE ==========
   print('--- CupertinoPopupSurface Tests ---');
@@ -273,7 +273,7 @@ dynamic build(BuildContext context) {
   final basicPopupSurface = CupertinoPopupSurface(
     child: Padding(padding: EdgeInsets.all(16.0), child: Text('Popup content')),
   );
-  print('Basic CupertinoPopupSurface created');
+  print('Basic CupertinoPopupSurface created [${basicPopupSurface.hashCode }]');
 
   // Test CupertinoPopupSurface with isSurfacePainted
   final paintedPopupSurface = CupertinoPopupSurface(
@@ -293,7 +293,7 @@ dynamic build(BuildContext context) {
       child: Text('Unpainted surface'),
     ),
   );
-  print('CupertinoPopupSurface with isSurfacePainted=false created');
+  print('CupertinoPopupSurface with isSurfacePainted=false created [${unpaintedPopupSurface.hashCode }]');
 
   print('Cupertino dialog test completed');
 

@@ -10,24 +10,24 @@ dynamic build(BuildContext context) {
   // ========== ImageFilter ==========
   print('--- ImageFilter Tests ---');
   final blur = ui.ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0);
-  print('ImageFilter.blur: sigmaX=5, sigmaY=5');
+  print('ImageFilter.blur: sigmaX=5, sigmaY=5 [${blur.hashCode }]');
 
   final matrix = ui.ImageFilter.matrix(
     Matrix4.identity().storage,
     filterQuality: FilterQuality.high,
   );
-  print('ImageFilter.matrix: identity');
+  print('ImageFilter.matrix: identity [${matrix.hashCode }]');
 
   final compose = ui.ImageFilter.compose(
     outer: ui.ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
     inner: ui.ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
   );
-  print('ImageFilter.compose: outer+inner blur');
+  print('ImageFilter.compose: outer+inner blur [${compose.hashCode }]');
 
   // ========== ColorFilter ==========
   print('--- ColorFilter Tests ---');
   final modeFilter = ColorFilter.mode(Colors.red, BlendMode.srcATop);
-  print('ColorFilter.mode: red srcATop');
+  print('ColorFilter.mode: red srcATop [${modeFilter.hashCode }]');
 
   final matrixFilter = ColorFilter.matrix(<double>[
     1,
@@ -51,13 +51,13 @@ dynamic build(BuildContext context) {
     1,
     0,
   ]);
-  print('ColorFilter.matrix: identity');
+  print('ColorFilter.matrix: identity [${matrixFilter.hashCode }]');
 
   final saturationFilter = ColorFilter.linearToSrgbGamma();
-  print('ColorFilter.linearToSrgbGamma created');
+  print('ColorFilter.linearToSrgbGamma created [${saturationFilter.hashCode }]');
 
   final invGamma = ColorFilter.srgbToLinearGamma();
-  print('ColorFilter.srgbToLinearGamma created');
+  print('ColorFilter.srgbToLinearGamma created [${invGamma.hashCode }]');
 
   // ========== SweepGradient ==========
   print('--- SweepGradient Tests ---');

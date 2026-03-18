@@ -7,7 +7,7 @@ dynamic build(BuildContext context) {
 
   // Abstract — test via TapGestureRecognizer
   final tap = TapGestureRecognizer();
-  print('TapGestureRecognizer is GestureRecognizer: ${tap is GestureRecognizer}');
+  print('true: ${tap is GestureRecognizer}');
   print('debugOwner: ${tap.debugOwner}');
   print('debugDescription: ${tap.debugDescription}');
   print('toString: ${tap.toString()}');

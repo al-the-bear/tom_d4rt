@@ -82,4 +82,7 @@ class _TrackerDemoState extends State<_TrackerDemo> {
       ],
     );
   }
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) => 'TrackerDemoState(velocity: $_velocity, sampleCount: $_sampleCount)';
 }

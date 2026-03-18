@@ -59,7 +59,7 @@ dynamic build(BuildContext context) {
       ),
     ),
   );
-  print('NoDefaultCupertinoThemeData with only textTheme created');
+  print('NoDefaultCupertinoThemeData with only textTheme created [${textOnlyNoDefault.hashCode }]');
 
   // Test NoDefaultCupertinoThemeData with copyWith
   final copiedNoDefault = fullNoDefault.copyWith(
@@ -84,7 +84,7 @@ dynamic build(BuildContext context) {
     child: Builder(
       builder: (BuildContext ctx) {
         final theme = CupertinoTheme.of(ctx);
-        print('NoDefault properties via CupertinoTheme.of:');
+        print('NoDefault properties via CupertinoTheme.of: [${noDefaultThemeWidget.hashCode }]');
         print('  primaryColor: ${theme.primaryColor}');
         return Text('NoDefault themed text');
       },

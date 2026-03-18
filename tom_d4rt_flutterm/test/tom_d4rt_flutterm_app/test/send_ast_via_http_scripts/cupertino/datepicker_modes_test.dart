@@ -32,7 +32,7 @@ dynamic build(BuildContext context) {
     mode: CupertinoDatePickerMode.dateAndTime,
     initialDateTime: DateTime(2025, 6, 15, 14, 30),
     onDateTimeChanged: (DateTime dt) {
-      print('DateTime changed: $dt');
+      print('DateTime changed: $dt [${dateAndTimePicker.hashCode }]');
     },
   );
   print('CupertinoDatePicker mode=dateAndTime created');
@@ -42,7 +42,7 @@ dynamic build(BuildContext context) {
     mode: CupertinoDatePickerMode.monthYear,
     initialDateTime: DateTime(2025, 6, 1),
     onDateTimeChanged: (DateTime dt) {
-      print('MonthYear changed: $dt');
+      print('MonthYear changed: $dt [${monthYearPicker.hashCode }]');
     },
   );
   print('CupertinoDatePicker mode=monthYear created');
@@ -54,7 +54,7 @@ dynamic build(BuildContext context) {
     minimumDate: DateTime(2020, 1, 1),
     maximumDate: DateTime(2030, 12, 31),
     onDateTimeChanged: (DateTime dt) {
-      print('Bounded date changed: $dt');
+      print('Bounded date changed: $dt [${boundedDatePicker.hashCode }]');
     },
   );
   print('CupertinoDatePicker with min/max dates created');
@@ -66,7 +66,7 @@ dynamic build(BuildContext context) {
     minimumYear: 2000,
     maximumYear: 2050,
     onDateTimeChanged: (DateTime dt) {
-      print('Year-bounded date changed: $dt');
+      print('Year-bounded date changed: $dt [${yearBoundedPicker.hashCode }]');
     },
   );
   print('CupertinoDatePicker with min/max years created');
@@ -77,7 +77,7 @@ dynamic build(BuildContext context) {
     initialDateTime: DateTime(2025, 6, 15, 14, 30),
     use24hFormat: true,
     onDateTimeChanged: (DateTime dt) {
-      print('24h time changed: $dt');
+      print('24h time changed: $dt [${format24hPicker.hashCode }]');
     },
   );
   print('CupertinoDatePicker with use24hFormat created');
@@ -88,7 +88,7 @@ dynamic build(BuildContext context) {
     initialDateTime: DateTime(2025, 6, 15, 14, 0),
     minuteInterval: 15,
     onDateTimeChanged: (DateTime dt) {
-      print('Interval time changed: $dt');
+      print('Interval time changed: $dt [${intervalPicker.hashCode }]');
     },
   );
   print('CupertinoDatePicker with minuteInterval created');
@@ -100,7 +100,7 @@ dynamic build(BuildContext context) {
     backgroundColor: CupertinoColors.systemGroupedBackground,
     onDateTimeChanged: (DateTime dt) {},
   );
-  print('CupertinoDatePicker with backgroundColor created');
+  print('CupertinoDatePicker with backgroundColor created [${bgDatePicker.hashCode }]');
 
   // ========== CUPERTINOTIMERPPICKER MODES ==========
   print('--- CupertinoTimerPicker Mode Tests ---');
@@ -110,7 +110,7 @@ dynamic build(BuildContext context) {
     mode: CupertinoTimerPickerMode.hms,
     initialTimerDuration: Duration(hours: 1, minutes: 30, seconds: 45),
     onTimerDurationChanged: (Duration d) {
-      print('HMS timer changed: $d');
+      print('HMS timer changed: $d [${hmsTimer.hashCode }]');
     },
   );
   print('CupertinoTimerPicker mode=hms created');
@@ -130,7 +130,7 @@ dynamic build(BuildContext context) {
     mode: CupertinoTimerPickerMode.ms,
     initialTimerDuration: Duration(minutes: 5, seconds: 30),
     onTimerDurationChanged: (Duration d) {
-      print('MS timer changed: $d');
+      print('MS timer changed: $d [${msTimer.hashCode }]');
     },
   );
   print('CupertinoTimerPicker mode=ms created');
@@ -141,7 +141,7 @@ dynamic build(BuildContext context) {
     minuteInterval: 5,
     initialTimerDuration: Duration(hours: 1, minutes: 30),
     onTimerDurationChanged: (Duration d) {
-      print('Interval timer changed: $d');
+      print('Interval timer changed: $d [${intervalTimer.hashCode }]');
     },
   );
   print('CupertinoTimerPicker with minuteInterval created');
@@ -152,7 +152,7 @@ dynamic build(BuildContext context) {
     secondInterval: 10,
     initialTimerDuration: Duration(hours: 0, minutes: 10, seconds: 30),
     onTimerDurationChanged: (Duration d) {
-      print('Sec interval timer changed: $d');
+      print('Sec interval timer changed: $d [${secIntervalTimer.hashCode }]');
     },
   );
   print('CupertinoTimerPicker with secondInterval created');
@@ -164,7 +164,7 @@ dynamic build(BuildContext context) {
     initialTimerDuration: Duration(hours: 0, minutes: 45),
     onTimerDurationChanged: (Duration d) {},
   );
-  print('CupertinoTimerPicker with alignment created');
+  print('CupertinoTimerPicker with alignment created [${alignedTimer.hashCode }]');
 
   // Test CupertinoTimerPicker with backgroundColor
   final bgTimer = CupertinoTimerPicker(
@@ -173,7 +173,7 @@ dynamic build(BuildContext context) {
     initialTimerDuration: Duration(hours: 0, minutes: 15, seconds: 0),
     onTimerDurationChanged: (Duration d) {},
   );
-  print('CupertinoTimerPicker with backgroundColor created');
+  print('CupertinoTimerPicker with backgroundColor created [${bgTimer.hashCode }]');
 
   print('All date/timer picker mode tests passed');
 

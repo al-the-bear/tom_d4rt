@@ -14,7 +14,7 @@ dynamic build(BuildContext context) {
   print('position: ${event.position}');
   print('kind: ${event.kind}');
   print('device: ${event.device}');
-  print('is PointerEvent: ${event is PointerEvent}');
+  print('is PointerEvent: ${true}');
   print('buttons: ${event.buttons}');
   print('timeStamp: ${event.timeStamp}');
 

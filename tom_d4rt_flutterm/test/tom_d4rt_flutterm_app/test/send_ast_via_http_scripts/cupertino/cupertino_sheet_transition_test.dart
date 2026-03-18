@@ -106,7 +106,7 @@ dynamic build(BuildContext context) {
     linearTransition: false,
     child: Center(child: Text('Being pushed back')),
   );
-  print('  secondary-active transition created');
+  print('  secondary-active transition created [${secondaryActive.hashCode }]');
 
   primaryAnim.dispose();
   secondaryAnim.dispose();

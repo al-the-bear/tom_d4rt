@@ -45,7 +45,7 @@ dynamic build(BuildContext context) {
       top: BorderSide(color: CupertinoColors.separator, width: 0.5),
     ),
   );
-  print('CupertinoTabBar advanced created');
+  print('CupertinoTabBar advanced created [${tabBar.hashCode}]');
 
   // ========== CupertinoScrollbar ==========
   print('--- CupertinoScrollbar Tests ---');
@@ -63,7 +63,7 @@ dynamic build(BuildContext context) {
       ),
     ),
   );
-  print('CupertinoScrollbar created');
+  print('CupertinoScrollbar created [${scrollbar.hashCode }]');
 
   // ========== CupertinoListSection ==========
   print('--- CupertinoListSection Tests ---');
@@ -142,7 +142,7 @@ dynamic build(BuildContext context) {
     backgroundColor: CupertinoColors.systemBackground,
     backgroundColorActivated: CupertinoColors.systemGrey5,
   );
-  print('CupertinoListTile created');
+  print('CupertinoListTile created [${listTile.hashCode }]');
 
   // ========== CupertinoListTile.notched ==========
   print('--- CupertinoListTile.notched Tests ---');
@@ -152,7 +152,7 @@ dynamic build(BuildContext context) {
     leading: Icon(CupertinoIcons.bell),
     trailing: CupertinoListTileChevron(),
   );
-  print('CupertinoListTile.notched created');
+  print('CupertinoListTile.notched created [${notchedTile.hashCode }]');
 
   // ========== CupertinoFormSection ==========
   print('--- CupertinoFormSection Tests ---');

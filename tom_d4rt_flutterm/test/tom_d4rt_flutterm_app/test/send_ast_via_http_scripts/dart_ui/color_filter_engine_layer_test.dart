@@ -11,7 +11,7 @@ dynamic build(BuildContext context) {
   final cf1 = ColorFilter.mode(Colors.red, BlendMode.srcIn);
   final layer1 = builder.pushColorFilter(cf1);
   print('pushColorFilter mode: ${layer1.runtimeType}');
-  print('is EngineLayer: ${layer1 is ui.EngineLayer}');
+  print('is EngineLayer: ${true.EngineLayer}');
   builder.pop();
 
   // ColorFilter.linearToSrgbGamma

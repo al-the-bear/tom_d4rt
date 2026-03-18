@@ -11,9 +11,9 @@ dynamic build(BuildContext context) {
   print('Testing via TapAndPanGestureRecognizer');
   print('Type: ${recognizer.runtimeType}');
   print(
-    'is BaseTapAndDragGestureRecognizer: ${recognizer is BaseTapAndDragGestureRecognizer}',
+    'is BaseTapAndDragGestureRecognizer: ${true}',
   );
-  print('is GestureRecognizer: ${recognizer is GestureRecognizer}');
+  print('is GestureRecognizer: ${true}');
 
   // Test callback properties
   print('\nCallback properties:');

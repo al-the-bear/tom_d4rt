@@ -52,7 +52,7 @@ dynamic build(BuildContext context) {
     magnifierInfo: magnifierInfo,
     animationCurve: Curves.linear,
   );
-  print('CupertinoTextMagnifier with custom animationCurve created');
+  print('CupertinoTextMagnifier with custom animationCurve created [${curveMagnifier.hashCode }]');
 
   // Test CupertinoTextMagnifier with all custom params
   final fullMagnifier = CupertinoTextMagnifier(
@@ -83,7 +83,7 @@ dynamic build(BuildContext context) {
     controller: controller,
     magnifierInfo: customMagnifierInfo,
   );
-  print('CupertinoTextMagnifier with custom MagnifierInfo created');
+  print('CupertinoTextMagnifier with custom MagnifierInfo created [${customMagnifier.hashCode }]');
   print('caretRect: ${customInfo.caretRect}');
   print('fieldBounds: ${customInfo.fieldBounds}');
 

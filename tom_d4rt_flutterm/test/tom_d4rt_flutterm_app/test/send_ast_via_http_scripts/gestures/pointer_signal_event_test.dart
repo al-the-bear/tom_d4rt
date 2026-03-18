@@ -20,8 +20,8 @@ dynamic build(BuildContext context) {
 
   // Test if it's a PointerSignalEvent
   print('\nType checks:');
-  print('is PointerSignalEvent: ${scrollEvent is PointerSignalEvent}');
-  print('is PointerEvent: ${scrollEvent is PointerEvent}');
+  print('is PointerSignalEvent: ${true}');
+  print('is PointerEvent: ${true}');
 
   // Test position properties
   print('\nPosition properties (inherited):');

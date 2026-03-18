@@ -27,7 +27,7 @@ dynamic build(BuildContext context) {
   final insetsMagnifier = CupertinoMagnifier(
     additionalFocalPointOffset: Offset(0.0, -10.0),
   );
-  print('CupertinoMagnifier with additionalFocalPointOffset created');
+  print('CupertinoMagnifier with additionalFocalPointOffset created [${insetsMagnifier.hashCode }]');
 
   // Test CupertinoMagnifier with all params
   final fullMagnifier = CupertinoMagnifier(
@@ -49,13 +49,13 @@ dynamic build(BuildContext context) {
     size: Size(200.0, 100.0),
     borderRadius: BorderRadius.circular(24.0),
   );
-  print('Large CupertinoMagnifier created');
+  print('Large CupertinoMagnifier created [${largeMagnifier.hashCode }]');
 
   // Test CupertinoMagnifier with zero offset
   final zeroOffsetMagnifier = CupertinoMagnifier(
     additionalFocalPointOffset: Offset.zero,
   );
-  print('CupertinoMagnifier with zero offset created');
+  print('CupertinoMagnifier with zero offset created [${zeroOffsetMagnifier.hashCode }]');
 
   print('All CupertinoMagnifier tests passed');
 

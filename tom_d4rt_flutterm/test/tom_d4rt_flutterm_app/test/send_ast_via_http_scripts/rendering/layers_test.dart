@@ -67,7 +67,7 @@ dynamic build(BuildContext context) {
       Radius.circular(10.0),
     ),
   );
-  print('ClipRRectLayer created with rounded rect');
+  print('ClipRRectLayer created with rounded rect [${clipRRectLayer.hashCode }]');
 
   // ========== CLIP PATH LAYER ==========
   print('--- ClipPathLayer Tests ---');
@@ -81,7 +81,7 @@ dynamic build(BuildContext context) {
     ..close();
 
   final clipPathLayer = ClipPathLayer(clipPath: path);
-  print('ClipPathLayer created with pentagon path');
+  print('ClipPathLayer created with pentagon path [${clipPathLayer.hashCode }]');
 
   // ========== OPACITY LAYER ==========
   print('--- OpacityLayer Tests ---');
@@ -113,7 +113,7 @@ dynamic build(BuildContext context) {
       ..translate(50.0, 50.0)
       ..rotateZ(0.785),
   );
-  print('TransformLayer created with rotation transform');
+  print('TransformLayer created with rotation transform [${transformLayer.hashCode }]');
 
   // ========== LEADER LAYER & FOLLOWER LAYER ==========
   print('--- LeaderLayer / FollowerLayer Tests ---');
@@ -140,7 +140,7 @@ dynamic build(BuildContext context) {
   final backdropFilterLayer = BackdropFilterLayer(
     filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
   );
-  print('BackdropFilterLayer created with blur filter');
+  print('BackdropFilterLayer created with blur filter [${backdropFilterLayer.hashCode }]');
 
   // Test with blend mode
   final backdropWithBlend = BackdropFilterLayer(
@@ -155,7 +155,7 @@ dynamic build(BuildContext context) {
   final colorFilterLayer = ColorFilterLayer(
     colorFilter: ColorFilter.mode(Color(0x80FF0000), BlendMode.srcOver),
   );
-  print('ColorFilterLayer created with red tint');
+  print('ColorFilterLayer created with red tint [${colorFilterLayer.hashCode }]');
 
   final grayscaleFilter = ColorFilterLayer(
     colorFilter: ColorFilter.matrix([
@@ -181,7 +181,7 @@ dynamic build(BuildContext context) {
       0.0,
     ]),
   );
-  print('ColorFilterLayer with grayscale matrix');
+  print('ColorFilterLayer with grayscale matrix [${grayscaleFilter.hashCode }]');
 
   // ========== IMAGE FILTER LAYER ==========
   print('--- ImageFilterLayer Tests ---');
@@ -189,7 +189,7 @@ dynamic build(BuildContext context) {
   final imageFilterLayer = ImageFilterLayer(
     imageFilter: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
   );
-  print('ImageFilterLayer with blur');
+  print('ImageFilterLayer with blur [${imageFilterLayer.hashCode }]');
 
   // ========== SHADER MASK LAYER ==========
   print('--- ShaderMaskLayer Tests ---');
@@ -202,7 +202,7 @@ dynamic build(BuildContext context) {
     maskRect: Rect.fromLTWH(0.0, 0.0, 100.0, 100.0),
     blendMode: BlendMode.dstIn,
   );
-  print('ShaderMaskLayer created with gradient mask');
+  print('ShaderMaskLayer created with gradient mask [${shaderMaskLayer.hashCode }]');
 
   print('Rendering layers test completed');
 
@@ -231,7 +231,7 @@ dynamic build(BuildContext context) {
                 Container(
                   width: 60.0,
                   height: 60.0,
-                  color: Color(0xFF2196F3).withOpacity(1.0),
+                  color: Color(0xFF2196F3).withValues(alpha: 1.0),
                   child: Center(
                     child: Text(
                       '100%',
@@ -246,7 +246,7 @@ dynamic build(BuildContext context) {
                 Container(
                   width: 60.0,
                   height: 60.0,
-                  color: Color(0xFF2196F3).withOpacity(0.75),
+                  color: Color(0xFF2196F3).withValues(alpha: 0.75),
                   child: Center(
                     child: Text(
                       '75%',
@@ -261,7 +261,7 @@ dynamic build(BuildContext context) {
                 Container(
                   width: 60.0,
                   height: 60.0,
-                  color: Color(0xFF2196F3).withOpacity(0.5),
+                  color: Color(0xFF2196F3).withValues(alpha: 0.5),
                   child: Center(
                     child: Text(
                       '50%',
@@ -276,7 +276,7 @@ dynamic build(BuildContext context) {
                 Container(
                   width: 60.0,
                   height: 60.0,
-                  color: Color(0xFF2196F3).withOpacity(0.25),
+                  color: Color(0xFF2196F3).withValues(alpha: 0.25),
                   child: Center(
                     child: Text(
                       '25%',

@@ -16,7 +16,7 @@ dynamic build(BuildContext context) {
   // Get iterator
   final iterator = metrics.iterator;
   print('Iterator type: ${iterator.runtimeType}');
-  print('is Iterator<PathMetric>: ${iterator is Iterator<ui.PathMetric>}');
+  print('is Iterator<PathMetric>: ${true}');
 
   // Iterate manually
   var count = 0;

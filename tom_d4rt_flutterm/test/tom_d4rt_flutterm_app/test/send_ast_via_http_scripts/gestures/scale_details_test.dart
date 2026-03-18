@@ -77,4 +77,7 @@ class _ScaleDetailsDemoState extends State<_ScaleDetailsDemo> {
       ],
     );
   }
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) => 'ScaleDetailsDemoState(focalPoint: $_focalPoint, pointers: $_pointers)';
 }

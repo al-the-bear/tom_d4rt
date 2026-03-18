@@ -16,7 +16,7 @@ dynamic build(BuildContext context) {
   print(
     'RenderObjectWithChildMixin: referenced via DecoratedBox (single-child render objects)',
   );
-  print('Type: RenderObjectWithChildMixin is a mixin on RenderObject');
+  print('Type: RenderObjectWithChildMixin is a mixin on RenderObject [${decoratedBox.hashCode }]');
 
   // ========== ContainerRenderObjectMixin ==========
   print('--- ContainerRenderObjectMixin Tests ---');
@@ -39,7 +39,7 @@ dynamic build(BuildContext context) {
   print(
     'ContainerRenderObjectMixin: referenced via Stack/RenderStack (multi-child render objects)',
   );
-  print('Type: ContainerRenderObjectMixin is a mixin on RenderObject');
+  print('Type: ContainerRenderObjectMixin is a mixin on RenderObject [${stack.hashCode }]');
 
   // ========== ContainerParentDataMixin ==========
   print('--- ContainerParentDataMixin Tests ---');
@@ -59,7 +59,7 @@ dynamic build(BuildContext context) {
       SizedBox(width: 200.0, height: 200.0),
     ],
   );
-  print('RenderIndexedStack: referenced via IndexedStack widget');
+  print('RenderIndexedStack: referenced via IndexedStack widget [${indexedStack.hashCode }]');
   print('Type: $RenderStack');
   print('IndexedStack index: 0');
 
@@ -78,7 +78,7 @@ dynamic build(BuildContext context) {
     label: 'test label',
     child: SizedBox(width: 50.0, height: 50.0),
   );
-  print('RenderSemanticsAnnotations: referenced via Semantics widget');
+  print('RenderSemanticsAnnotations: referenced via Semantics widget [${semanticsWidget.hashCode }]');
   print('Semantics label: test label');
   print('Type: RenderSemanticsAnnotations');
 
@@ -88,7 +88,7 @@ dynamic build(BuildContext context) {
     blocking: true,
     child: SizedBox(width: 50.0, height: 50.0),
   );
-  print('RenderBlockSemantics: referenced via BlockSemantics widget');
+  print('RenderBlockSemantics: referenced via BlockSemantics widget [${blockSemanticsWidget.hashCode }]');
   print('BlockSemantics blocking: true');
   print('Type: RenderBlockSemantics');
 
@@ -98,7 +98,7 @@ dynamic build(BuildContext context) {
     excluding: true,
     child: SizedBox(width: 50.0, height: 50.0),
   );
-  print('RenderExcludeSemantics: referenced via ExcludeSemantics widget');
+  print('RenderExcludeSemantics: referenced via ExcludeSemantics widget [${excludeSemanticsWidget.hashCode }]');
   print('ExcludeSemantics excluding: true');
   print('Type: RenderExcludeSemantics');
 
@@ -107,7 +107,7 @@ dynamic build(BuildContext context) {
   final mergeSemanticsWidget = MergeSemantics(
     child: SizedBox(width: 50.0, height: 50.0),
   );
-  print('RenderMergeSemantics: referenced via MergeSemantics widget');
+  print('RenderMergeSemantics: referenced via MergeSemantics widget [${mergeSemanticsWidget.hashCode }]');
   print('Type: RenderMergeSemantics');
 
   print('All render mixins and semantics render object tests passed');

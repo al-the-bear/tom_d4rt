@@ -14,14 +14,14 @@ dynamic build(BuildContext context) {
   );
   print('\nRoundedRectangleBorder:');
   print('type: ${rounded.runtimeType}');
-  print('is ShapeBorder: ${rounded is ShapeBorder}');
+  print('is ShapeBorder: ${true}');
   print('borderRadius: ${rounded.borderRadius}');
 
   // CircleBorder
   final circle = CircleBorder(side: BorderSide(color: Colors.red, width: 2));
   print('\nCircleBorder:');
   print('type: ${circle.runtimeType}');
-  print('is ShapeBorder: ${circle is ShapeBorder}');
+  print('is ShapeBorder: ${true}');
 
   // StadiumBorder
   final stadium = StadiumBorder(

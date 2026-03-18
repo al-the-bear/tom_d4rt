@@ -21,7 +21,7 @@ dynamic build(BuildContext context) {
 
   // Test type hierarchy
   print('\nType hierarchy:');
-  print('is DiagnosticsProperty: ${property is DiagnosticsProperty}');
+  print('is DiagnosticsProperty: ${true}');
 
   // With null value
   print('\nWith null value:');

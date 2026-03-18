@@ -31,7 +31,7 @@ dynamic build(BuildContext context) {
   final oct = localizations.datePickerMonth(10);
   final nov = localizations.datePickerMonth(11);
   final dec = localizations.datePickerMonth(12);
-  print('datePickerMonth(1): $jan');
+  print('datePickerMonth(1): $jan [${nov.hashCode }] [${oct.hashCode }] [${sep.hashCode }] [${aug.hashCode }] [${jul.hashCode }] [${may.hashCode }] [${apr.hashCode }] [${mar.hashCode }] [${feb.hashCode }]');
   print('datePickerMonth(6): $jun');
   print('datePickerMonth(12): $dec');
 

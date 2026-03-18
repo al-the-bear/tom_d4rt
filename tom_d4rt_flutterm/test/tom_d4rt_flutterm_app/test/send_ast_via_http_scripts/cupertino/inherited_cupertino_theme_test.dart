@@ -48,7 +48,7 @@ dynamic build(BuildContext context) {
   final customTheme = CupertinoThemeData(
     textTheme: customTextTheme,
   );
-  print('  custom text theme created with primaryColor override');
+  print('  custom text theme created with primaryColor override [${customTheme.hashCode }]');
 
   // ===== 6. Nested themes (theme overrides) =====
   print('--- Nested themes ---');
