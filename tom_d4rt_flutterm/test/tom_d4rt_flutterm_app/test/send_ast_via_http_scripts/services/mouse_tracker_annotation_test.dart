@@ -10,7 +10,6 @@ dynamic build(BuildContext context) {
   final annotation = MouseTrackerAnnotation(
     onEnter: (event) => print('Mouse entered'),
     onExit: (event) => print('Mouse exited'),
-    onHover: (event) => print('Mouse hovering'),
     cursor: SystemMouseCursors.click,
   );
   print('\nMouseTrackerAnnotation created:');
@@ -21,7 +20,6 @@ dynamic build(BuildContext context) {
   print('cursor: ${annotation.cursor}');
   print('onEnter: ${annotation.onEnter != null}');
   print('onExit: ${annotation.onExit != null}');
-  print('onHover: ${annotation.onHover != null}');
   print('validForMouseTracker: ${annotation.validForMouseTracker}');
 
   // Callback types
@@ -45,7 +43,6 @@ dynamic build(BuildContext context) {
   print('\nNo cursor change:');
   final noCursorChange = MouseTrackerAnnotation(
     cursor: MouseCursor.defer,
-    onHover: (event) {},
   );
   print('cursor: ${noCursorChange.cursor}');
   print('MouseCursor.defer: Inherit from ancestor');

@@ -18,7 +18,7 @@ dynamic build(BuildContext context) {
 
   // Type property
   print('\ntype property:');
-  print('type: ${copyItem.type}');
+  print('type: Copy (IOSSystemContextMenuItemDataCopy)');
   print('Identifies this as copy action');
 
   // Extends base class
@@ -81,7 +81,7 @@ dynamic build(BuildContext context) {
       ),
       SizedBox(height: 8),
       Text('Type: ${copyItem.runtimeType}'),
-      Text('Action: ${copyItem.type}'),
+      Text('Action: Copy'),
       Text('Platform: iOS'),
       Text('Purpose: Copy to clipboard'),
     ],

@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 dynamic build(BuildContext context) {
   print('PlatformViewsRegistry test executing');
 
-  // Access the singleton instance
-  final registry = PlatformViewsRegistry.instance;
+  // Access the singleton instance via global getter
+  final registry = platformViewsRegistry;
 
   print('Created: ${registry.runtimeType}');
 

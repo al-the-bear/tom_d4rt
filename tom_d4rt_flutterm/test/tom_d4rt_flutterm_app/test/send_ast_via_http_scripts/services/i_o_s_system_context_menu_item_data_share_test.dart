@@ -6,7 +6,7 @@ dynamic build(BuildContext context) {
   print('IOSSystemContextMenuItemDataShare test executing');
 
   // Create the share action
-  const item = IOSSystemContextMenuItemDataShare();
+  const item = IOSSystemContextMenuItemDataShare(title: 'Share');
 
   print('Created: ${item.runtimeType}');
 

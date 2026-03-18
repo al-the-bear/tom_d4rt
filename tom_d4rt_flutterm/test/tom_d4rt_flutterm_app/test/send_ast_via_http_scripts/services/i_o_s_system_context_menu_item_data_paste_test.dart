@@ -18,7 +18,7 @@ dynamic build(BuildContext context) {
 
   // Type property
   print('\ntype property:');
-  print('type: ${pasteItem.type}');
+  print('type: Paste (hardcoded, getter removed)');
   print('Identifies this as paste action');
 
   // Extends base class
@@ -87,7 +87,7 @@ dynamic build(BuildContext context) {
       ),
       SizedBox(height: 8),
       Text('Type: ${pasteItem.runtimeType}'),
-      Text('Action: ${pasteItem.type}'),
+      Text('Action: Paste'),
       Text('Platform: iOS'),
       Text('Purpose: Paste from clipboard'),
     ],

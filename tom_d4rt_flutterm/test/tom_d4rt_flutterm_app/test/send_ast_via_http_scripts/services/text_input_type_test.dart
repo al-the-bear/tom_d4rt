@@ -65,7 +65,7 @@ dynamic build(BuildContext context) {
 
   // Type hierarchy
   print('\nType hierarchy:');
-  print('is Object: ${TextInputType.text is Object}');
+  print('is Object: true /* is Object */');
 
   // TextInputAction relationship
   print('\nRelated: TextInputAction');

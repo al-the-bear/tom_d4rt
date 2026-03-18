@@ -6,71 +6,54 @@ dynamic build(BuildContext context) {
   print('FlutterVersion test executing');
   print('=' * 50);
 
-  // Create FlutterVersion with version components
-  final version = FlutterVersion(
-    frameworkRevision: 'abc123',
-    channel: 'stable',
-  );
-  print('\nFlutterVersion created:');
-  print('runtimeType: ${version.runtimeType}');
-  print('frameworkRevision: ${version.frameworkRevision}');
-  print('channel: ${version.channel}');
+  // FlutterVersion provides static access to version info
+  print('\nFlutterVersion static properties:');
+  print('runtimeType: FlutterVersion');
+  print('frameworkRevision: ${FlutterVersion.frameworkRevision}');
+  print('channel: ${FlutterVersion.channel}');
 
-  // Create for different channels
-  print('\nDifferent channels:');
-  final stable = FlutterVersion(
-    frameworkRevision: 'stable123',
-    channel: 'stable',
-  );
-  final beta = FlutterVersion(frameworkRevision: 'beta456', channel: 'beta');
-  final dev = FlutterVersion(frameworkRevision: 'dev789', channel: 'dev');
-  final master = FlutterVersion(
-    frameworkRevision: 'master000',
-    channel: 'master',
-  );
-  print('Stable: ${stable.channel}');
-  print('Beta: ${beta.channel}');
-  print('Dev: ${dev.channel}');
-  print('Master: ${master.channel}');
+  // Test framework revision format
+  print('\nFramework revision format:');
+  final revision = FlutterVersion.frameworkRevision;
+  if (revision != null) {
+    print('Full hash length: ${revision.length}');
+    if (revision.length >= 7) {
+      print('Short hash: ${revision.substring(0, 7)}');
+    }
+  } else {
+    print('Framework revision: null (not available)');
+  }
 
-  // Test frameworkRevision patterns
-  print('\nFramework revision patterns:');
-  print('Git commit hash: ${version.frameworkRevision}');
-  print('Stable revision: ${stable.frameworkRevision}');
+  // Test channel information
+  print('\nChannel information:');
+  final channel = FlutterVersion.channel;
+  print('Current channel: $channel');
 
-  // Test type hierarchy
-  print('\nType hierarchy:');
-  print('is Object: true /* version is Object */');
-
-  // Channel stability comparison
+  // Channel stability reference
   print('\nChannel stability order:');
   print('1. stable - Most stable, production ready');
   print('2. beta - Pre-release testing');
   print('3. dev - Development builds');
   print('4. master - Bleeding edge');
 
-  // Compare versions
-  print('\nVersion comparison:');
-  final v1 = FlutterVersion(frameworkRevision: 'rev1', channel: 'stable');
-  final v2 = FlutterVersion(frameworkRevision: 'rev2', channel: 'stable');
-  print('v1 == v2: ${v1 == v2}');
-  print('Same channel: ${v1.channel == v2.channel}');
-  print('Different revision: ${v1.frameworkRevision != v2.frameworkRevision}');
+  // Practical use cases
+  print('\nPractical use cases:');
+  print('- Check current Flutter version');
+  print('- Log version in crash reports');
+  print('- Conditional features by channel');
+  print('- Debug version-specific issues');
 
-  // Real revision format
-  print('\nReal revision format example:');
-  final realVersion = FlutterVersion(
-    frameworkRevision: 'f468f3366c26a5092eb964a230ce7892fda8f2f8',
-    channel: 'stable',
-  );
-  print('Full hash length: ${realVersion.frameworkRevision.length}');
-  print('Short hash: ${realVersion.frameworkRevision.substring(0, 7)}');
+  // Example conditional logic
+  print('\nExample conditional logic:');
+  print('if (FlutterVersion.channel == "stable") {');
+  print('  // Use stable features');
+  print('}');
 
   // Explain purpose
   print('\nFlutterVersion purpose:');
   print('- Represents Flutter SDK version information');
-  print('- frameworkRevision: Git commit hash');
-  print('- channel: stable/beta/dev/master');
+  print('- frameworkRevision: Git commit hash (static)');
+  print('- channel: stable/beta/dev/master (static)');
   print('- Used for version tracking and debugging');
   print('- Helps identify SDK version in crash reports');
 
@@ -84,9 +67,9 @@ dynamic build(BuildContext context) {
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
       ),
       SizedBox(height: 8),
-      Text('Type: ${version.runtimeType}'),
-      Text('channel: ${version.channel}'),
-      Text('revision: ${version.frameworkRevision}'),
+      Text('Type: FlutterVersion (static API)'),
+      Text('channel: ${FlutterVersion.channel}'),
+      Text('revision: ${FlutterVersion.frameworkRevision ?? "null"}'),
       Text('Purpose: SDK version information'),
     ],
   );

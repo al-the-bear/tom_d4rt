@@ -18,7 +18,7 @@ dynamic build(BuildContext context) {
 
   // Type property
   print('\ntype property:');
-  print('type: ${cutItem.type}');
+  print('type: Cut (hardcoded, getter removed)');
   print('Identifies this as cut action');
 
   // Extends base class
@@ -83,7 +83,7 @@ dynamic build(BuildContext context) {
       ),
       SizedBox(height: 8),
       Text('Type: ${cutItem.runtimeType}'),
-      Text('Action: ${cutItem.type}'),
+      Text('Action: Cut'),
       Text('Platform: iOS'),
       Text('Purpose: Cut to clipboard'),
     ],

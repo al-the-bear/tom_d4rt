@@ -7,7 +7,7 @@ dynamic build(BuildContext context) {
   print('=' * 50);
 
   // Create ProcessTextAction
-  final action1 = ProcessTextAction(id: 'copy', label: 'Copy');
+  final action1 = ProcessTextAction('copy', 'Copy');
   print('\nProcessTextAction created:');
   print('runtimeType: ${action1.runtimeType}');
   print('id: ${action1.id}');
@@ -15,32 +15,26 @@ dynamic build(BuildContext context) {
 
   // Create different actions
   print('\nDifferent process text actions:');
-  final translateAction = ProcessTextAction(
-    id: 'translate',
-    label: 'Translate',
-  );
-  final defineAction = ProcessTextAction(id: 'define', label: 'Define');
-  final searchAction = ProcessTextAction(id: 'search', label: 'Search');
+  final translateAction = ProcessTextAction('translate', 'Translate');
+  final defineAction = ProcessTextAction('define', 'Define');
+  final searchAction = ProcessTextAction('search', 'Search');
   print('Translate: id=${translateAction.id}, label=${translateAction.label}');
   print('Define: id=${defineAction.id}, label=${defineAction.label}');
   print('Search: id=${searchAction.id}, label=${searchAction.label}');
 
   // Create with custom IDs
   print('\nCustom action IDs:');
-  final customAction = ProcessTextAction(
-    id: 'com.myapp.share',
-    label: 'Share with friends',
-  );
+  final customAction = ProcessTextAction('com.myapp.share', 'Share with friends');
   print('Custom id: ${customAction.id}');
   print('Custom label: ${customAction.label}');
 
   // Test action collection
   print('\nAction collection:');
   final actions = [
-    ProcessTextAction(id: 'copy', label: 'Copy'),
-    ProcessTextAction(id: 'paste', label: 'Paste'),
-    ProcessTextAction(id: 'share', label: 'Share'),
-    ProcessTextAction(id: 'translate', label: 'Translate'),
+    ProcessTextAction('copy', 'Copy'),
+    ProcessTextAction('paste', 'Paste'),
+    ProcessTextAction('share', 'Share'),
+    ProcessTextAction('translate', 'Translate'),
   ];
   print('Total actions: ${actions.length}');
   for (final action in actions) {
@@ -53,8 +47,8 @@ dynamic build(BuildContext context) {
 
   // Compare actions
   print('\nAction comparison:');
-  final sameAction1 = ProcessTextAction(id: 'test', label: 'Test');
-  final sameAction2 = ProcessTextAction(id: 'test', label: 'Test');
+  final sameAction1 = ProcessTextAction('test', 'Test');
+  final sameAction2 = ProcessTextAction('test', 'Test');
   print('sameAction1 == sameAction2: ${sameAction1 == sameAction2}');
   print('Same ID: ${sameAction1.id == sameAction2.id}');
 

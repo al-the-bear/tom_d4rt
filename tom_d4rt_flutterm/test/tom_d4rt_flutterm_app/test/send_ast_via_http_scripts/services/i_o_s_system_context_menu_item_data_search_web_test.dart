@@ -6,7 +6,7 @@ dynamic build(BuildContext context) {
   print('IOSSystemContextMenuItemDataSearchWeb test executing');
 
   // Create the search web action
-  const item = IOSSystemContextMenuItemDataSearchWeb();
+  const item = IOSSystemContextMenuItemDataSearchWeb(title: 'Search Web');
 
   print('Created: ${item.runtimeType}');
 

@@ -93,7 +93,8 @@ dynamic build(BuildContext context) {
   print('  meta: ${activator1.meta}');
   print('  includeRepeats: ${activator1.includeRepeats}');
 
-  final activator2 = SingleActivator(
+  // ignore: unused_local_variable
+  final _activator2 = SingleActivator(
     LogicalKeyboardKey.keyS,
     control: true,
     shift: true,

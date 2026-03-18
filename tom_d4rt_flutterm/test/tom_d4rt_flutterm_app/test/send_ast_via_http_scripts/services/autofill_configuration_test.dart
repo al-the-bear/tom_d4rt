@@ -10,6 +10,7 @@ dynamic build(BuildContext context) {
   final usernameConfig = AutofillConfiguration(
     uniqueIdentifier: 'username_field',
     autofillHints: [AutofillHints.username],
+    currentEditingValue: TextEditingValue.empty,
     hintText: 'Enter username',
   );
   print('\nUsername AutofillConfiguration:');
@@ -22,6 +23,7 @@ dynamic build(BuildContext context) {
   final passwordConfig = AutofillConfiguration(
     uniqueIdentifier: 'password_field',
     autofillHints: [AutofillHints.password],
+    currentEditingValue: TextEditingValue.empty,
     hintText: 'Enter password',
   );
   print('\nPassword config:');
@@ -32,6 +34,7 @@ dynamic build(BuildContext context) {
   final emailConfig = AutofillConfiguration(
     uniqueIdentifier: 'email_field',
     autofillHints: [AutofillHints.email],
+    currentEditingValue: TextEditingValue.empty,
     hintText: 'Enter email address',
   );
   print('\nEmail config:');
@@ -41,6 +44,7 @@ dynamic build(BuildContext context) {
   final multiHintConfig = AutofillConfiguration(
     uniqueIdentifier: 'name_field',
     autofillHints: [AutofillHints.name, AutofillHints.givenName],
+    currentEditingValue: TextEditingValue.empty,
     hintText: 'Full name',
   );
   print('\nMultiple hints:');
@@ -69,6 +73,7 @@ dynamic build(BuildContext context) {
   final addressConfig = AutofillConfiguration(
     uniqueIdentifier: 'street_address',
     autofillHints: [AutofillHints.streetAddressLine1],
+    currentEditingValue: TextEditingValue.empty,
     hintText: 'Street address',
   );
   print('\nAddress config:');

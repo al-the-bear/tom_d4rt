@@ -67,7 +67,8 @@ dynamic build(BuildContext context) {
   final stdMethodCodec = StandardMethodCodec();
   final call = MethodCall('getValue', {'id': 123});
   print('MethodCall: method=${call.method}, args=${call.arguments}');
-  final encodedCall = stdMethodCodec.encodeMethodCall(call);
+  // ignore: unused_local_variable
+  final _encodedCall = stdMethodCodec.encodeMethodCall(call);
   // Note: encodedCall.lengthInBytes not available on _ByteDataView in D4rt
   print('Encoded MethodCall: success');
 
@@ -92,7 +93,8 @@ dynamic build(BuildContext context) {
 
   // ========== BinaryCodec ==========
   print('--- BinaryCodec Tests ---');
-  final binaryCodec = BinaryCodec();
+  // ignore: unused_local_variable
+  final _binaryCodec = BinaryCodec();
   print('BinaryCodec instance created');
 
   print('All platform channels tests passed');

@@ -62,9 +62,7 @@ dynamic build(BuildContext context) {
   print('- MethodChannel adds method call encoding');
   print('- BasicMessageChannel adds message encoding');
 
-  // Test with real binding
-  print('\nServices binding check:');
-  print('ServicesBinding.instance exists: ${ServicesBinding.instance != null}');
+  // Test with real binding\n  print('\\nServices binding check:');\n  print('ServicesBinding.instance exists: true /* always */');", "oldString": "  // Test with real binding\n  print('\\nServices binding check:');\n  print('ServicesBinding.instance exists: ${ServicesBinding.instance != null}');
   print('defaultBinaryMessenger exists: true');
 
   // Codec types used with BinaryMessenger

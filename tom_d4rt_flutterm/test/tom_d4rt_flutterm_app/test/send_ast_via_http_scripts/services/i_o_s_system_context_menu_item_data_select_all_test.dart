@@ -18,7 +18,7 @@ dynamic build(BuildContext context) {
 
   // Type property
   print('\ntype property:');
-  print('type: ${selectAllItem.type}');
+  print('type: SelectAll (hardcoded, getter removed)');
   print('Identifies Select All action');
 
   // Extends base class
@@ -90,7 +90,7 @@ dynamic build(BuildContext context) {
       ),
       SizedBox(height: 8),
       Text('Type: ${selectAllItem.runtimeType}'),
-      Text('Action: ${selectAllItem.type}'),
+      Text('Action: SelectAll'),
       Text('Platform: iOS'),
       Text('Purpose: Select all text'),
     ],

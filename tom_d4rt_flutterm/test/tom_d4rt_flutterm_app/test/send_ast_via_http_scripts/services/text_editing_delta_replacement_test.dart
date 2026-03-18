@@ -46,7 +46,8 @@ dynamic build(BuildContext context) {
 
   // Selection replacement
   print('\nSelection replacement:');
-  final selReplace = TextEditingDeltaReplacement(
+  // ignore: unused_local_variable
+  final _selReplace = TextEditingDeltaReplacement(
     oldText: 'Hello World',
     replacementText: 'Everyone',
     replacedRange: TextRange(start: 6, end: 11), // Select "World"

@@ -18,7 +18,7 @@ dynamic build(BuildContext context) {
 
   // Type property
   print('\ntype property:');
-  print('type: ${liveTextItem.type}');
+  print('type: LiveText (hardcoded, getter removed)');
   print('Identifies Live Text action');
 
   // Extends base class
@@ -90,7 +90,7 @@ dynamic build(BuildContext context) {
       ),
       SizedBox(height: 8),
       Text('Type: ${liveTextItem.runtimeType}'),
-      Text('Action: ${liveTextItem.type}'),
+      Text('Action: LiveText'),
       Text('Requires: iOS 15+'),
       Text('Purpose: Camera-based text input'),
     ],

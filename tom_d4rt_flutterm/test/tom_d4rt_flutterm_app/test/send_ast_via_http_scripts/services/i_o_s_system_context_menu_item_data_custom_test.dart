@@ -13,7 +13,7 @@ dynamic build(BuildContext context) {
 
   // Create instance with custom label and callback
   final customItem = IOSSystemContextMenuItemDataCustom(
-    label: 'My Action',
+    title: 'My Action',
     onPressed: () => print('Custom action pressed'),
   );
   print('\nInstance created:');
@@ -21,9 +21,9 @@ dynamic build(BuildContext context) {
 
   // Properties
   print('\nProperties:');
-  print('label: ${customItem.label}');
+  print('title: ${customItem.title}');
   print('onPressed: (callback function)');
-  print('type: ${customItem.type}');
+  print('type: Custom (hardcoded, getter removed)');
 
   // Extends base class
   print('\nExtends IOSSystemContextMenuItemData:');
@@ -48,7 +48,7 @@ dynamic build(BuildContext context) {
   print('  items: [');
   print('    IOSSystemContextMenuItemDataCopy(),');
   print('    IOSSystemContextMenuItemDataCustom(');
-  print('      label: "Translate",');
+  print('      title: "Translate",');
   print('      onPressed: () => translateSelected(),');
   print('    ),');
   print('  ],');
@@ -56,16 +56,16 @@ dynamic build(BuildContext context) {
 
   // Multiple custom items
   final shareItem = IOSSystemContextMenuItemDataCustom(
-    label: 'Share',
+    title: 'Share',
     onPressed: () => print('Share action'),
   );
   final defineItem = IOSSystemContextMenuItemDataCustom(
-    label: 'Define',
+    title: 'Define',
     onPressed: () => print('Define action'),
   );
   print('\nMultiple custom items:');
-  print('Share: ${shareItem.label}');
-  print('Define: ${defineItem.label}');
+  print('Share: ${shareItem.title}');
+  print('Define: ${defineItem.title}');
 
   // Type hierarchy
   print('\nType hierarchy:');
@@ -91,7 +91,7 @@ dynamic build(BuildContext context) {
       ),
       SizedBox(height: 8),
       Text('Type: ${customItem.runtimeType}'),
-      Text('Label: ${customItem.label}'),
+      Text('Label: ${customItem.title}'),
       Text('Platform: iOS'),
       Text('Purpose: Custom context menu items'),
     ],

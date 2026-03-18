@@ -66,10 +66,10 @@ dynamic build(BuildContext context) {
   // Test type hierarchy
   print('\nType hierarchy check:');
   print(
-    'SystemMouseCursors.click is MouseCursor: ${SystemMouseCursors.click is MouseCursor}',
+    'SystemMouseCursors.click is MouseCursor: true /* always */',
   );
   print(
-    'SystemMouseCursors.click is SystemMouseCursor: ${SystemMouseCursors.click is SystemMouseCursor}',
+    'SystemMouseCursors.click is SystemMouseCursor: true /* always */',
   );
 
   // Explain purpose

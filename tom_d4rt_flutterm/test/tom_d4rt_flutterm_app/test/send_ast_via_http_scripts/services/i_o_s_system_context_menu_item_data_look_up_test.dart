@@ -6,7 +6,7 @@ dynamic build(BuildContext context) {
   print('IOSSystemContextMenuItemDataLookUp test executing');
 
   // Create the look up action
-  const item = IOSSystemContextMenuItemDataLookUp();
+  const item = IOSSystemContextMenuItemDataLookUp(title: 'Look Up');
 
   print('Created: ${item.runtimeType}');
 

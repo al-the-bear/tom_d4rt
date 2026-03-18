@@ -100,7 +100,8 @@ dynamic build(BuildContext context) {
   final filterFormatter = FilteringTextInputFormatter.allow(RegExp(r'[0-9]'));
   print('FilteringTextInputFormatter: digits only');
 
-  final denyFilter = FilteringTextInputFormatter.deny(RegExp(r'[<>]'));
+  // ignore: unused_local_variable
+  final _denyFilter = FilteringTextInputFormatter.deny(RegExp(r'[<>]'));
   print('FilteringTextInputFormatter.deny: no angle brackets');
 
   // ========== MaxLengthEnforcement ==========
