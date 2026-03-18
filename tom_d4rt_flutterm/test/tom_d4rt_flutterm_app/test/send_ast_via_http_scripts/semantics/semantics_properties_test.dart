@@ -19,7 +19,6 @@ dynamic build(BuildContext context) {
     button: true,
     header: false,
     link: false,
-    focusable: true,
     focused: false,
     hidden: false,
     slider: false,
@@ -36,7 +35,7 @@ dynamic build(BuildContext context) {
   print('SemanticsProperties enabled: ${props.enabled}');
   print('SemanticsProperties checked: ${props.checked}');
   print('SemanticsProperties button: ${props.button}');
-  print('SemanticsProperties focusable: ${props.focusable}');
+  print('SemanticsProperties focused: ${props.focused}');
   print('SemanticsProperties textDirection: ${props.textDirection}');
 
   // ========== CustomSemanticsAction ==========

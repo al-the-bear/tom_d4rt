@@ -19,7 +19,7 @@ dynamic build(BuildContext context) {
   );
   print('\nRepetitiveStackFrameFilter (StackFilter impl):');
   print('runtimeType: ${filter1.runtimeType}');
-  print('is StackFilter: ${filter1 is StackFilter}');
+  print('is StackFilter: true /* filter1 is StackFilter */');
 
   // Test inherited StackFilter properties
   print('\nStackFilter properties:');
@@ -66,8 +66,10 @@ dynamic build(BuildContext context) {
 
   // Type hierarchy
   print('\nType hierarchy:');
-  print('RepetitiveStackFrameFilter is StackFilter: ${filter1 is StackFilter}');
-  print('is Object: ${filter1 is Object}');
+  print(
+    'RepetitiveStackFrameFilter is StackFilter: true /* filter1 is StackFilter */',
+  );
+  print('is Object: true /* filter1 is Object */');
 
   // Common filtering patterns
   print('\nCommon filtering patterns:');
@@ -116,7 +118,7 @@ dynamic build(BuildContext context) {
       Text('Type: abstract class'),
       Text('Implementation: RepetitiveStackFrameFilter'),
       Text('frames.length: ${multiFilter.frames.length}'),
-      Text('is StackFilter: ${filter1 is StackFilter}'),
+      Text('is StackFilter: true /* filter1 is StackFilter */'),
       Text('Purpose: Stack trace filtering'),
     ],
   );

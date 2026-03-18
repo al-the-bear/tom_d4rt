@@ -13,17 +13,31 @@ dynamic build(BuildContext context) {
   print('timedBlocks count: ${timings.timedBlocks.length}');
 
   // Test AggregatedTimedBlock separately
-  final block1 = AggregatedTimedBlock(name: 'build', duration: 2000.0, count: 3);
-  final block2 = AggregatedTimedBlock(name: 'layout', duration: 1500.0, count: 2);
+  final block1 = AggregatedTimedBlock(
+    name: 'build',
+    duration: 2000.0,
+    count: 3,
+  );
+  final block2 = AggregatedTimedBlock(
+    name: 'layout',
+    duration: 1500.0,
+    count: 2,
+  );
   print('block1 name: ${block1.name}');
   print('block1 duration: ${block1.duration}');
   print('block1 count: ${block1.count}');
   print('block2 name: ${block2.name}');
 
   print('AggregatedTimings test completed');
-  return Column(mainAxisSize: MainAxisSize.min, children: [
-    Text('AggregatedTimings Tests', style: TextStyle(fontWeight: FontWeight.bold)),
-    Text('Empty timings: ${timings.timedBlocks.length}'),
-    Text('block1: ${block1.name} ${block1.duration}'),
-  ]);
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text(
+        'AggregatedTimings Tests',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+      Text('Empty timings: ${timings.timedBlocks.length}'),
+      Text('block1: ${block1.name} ${block1.duration}'),
+    ],
+  );
 }

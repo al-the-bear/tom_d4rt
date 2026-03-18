@@ -18,9 +18,15 @@ dynamic build(BuildContext context) {
   print('sp4 unquoted: ${sp4.toString()}');
 
   print('StringProperty test completed');
-  return Column(mainAxisSize: MainAxisSize.min, children: [
-    Text('StringProperty Tests', style: TextStyle(fontWeight: FontWeight.bold)),
-    Text('name: ${sp1.toString()}'),
-    Text('no name: ${sp2.toString()}'),
-  ]);
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text(
+        'StringProperty Tests',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+      Text('name: ${sp1.toString()}'),
+      Text('no name: ${sp2.toString()}'),
+    ],
+  );
 }

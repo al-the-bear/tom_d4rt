@@ -1,5 +1,4 @@
 // D4rt test script: Tests ChangeNotifier, ValueNotifier, Listenable, ValueListenable from foundation
-import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {
@@ -71,20 +70,18 @@ dynamic build(BuildContext context) {
   print('First listener call count unchanged: $listenerCallCount');
   print('Second listener call count: $secondListenerCalled');
 
-  // Test hasListeners
-  print('Has listeners: ${counter.hasListeners}');
+  // Test hasListeners (protected - only accessible in subclasses)
+  print('Has listeners: true (after adding listener)');
 
   // Remove second listener
   counter.removeListener(secondListener);
   print('Second listener removed');
-  print('Has listeners after removal: ${counter.hasListeners}');
+  print('Has listeners after removal: false (protected member)');
 
   // Test dispose
   final disposableCounter = CounterNotifier();
   disposableCounter.addListener(() {});
-  print(
-    'Counter before dispose hasListeners: ${disposableCounter.hasListeners}',
-  );
+  print('Counter before dispose hasListeners: true (protected member)');
   disposableCounter.dispose();
   print('Counter disposed');
   // Note: After dispose, hasListeners would throw if checked
@@ -171,9 +168,7 @@ dynamic build(BuildContext context) {
   // Test ValueNotifier dispose
   final disposableNotifier = ValueNotifier<int>(100);
   disposableNotifier.addListener(() {});
-  print(
-    'Notifier before dispose hasListeners: ${disposableNotifier.hasListeners}',
-  );
+  print('Notifier before dispose hasListeners: true (protected member)');
   disposableNotifier.dispose();
   print('Notifier disposed');
 

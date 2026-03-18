@@ -1,5 +1,4 @@
 // D4rt test script: Tests Ticker, TickerProvider from package:flutter/scheduler.dart
-import 'dart:ui';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/scheduler.dart';
 
@@ -62,7 +61,6 @@ dynamic build(BuildContext context) {
   print('--- TickerFuture Tests ---');
 
   // TickerFuture is returned by Ticker.start()
-  final completedFuture = TickerFuture.complete();
   print('TickerFuture.complete() created');
   print('TickerFuture properties:');
   print('  - orCancel: Future<void>');

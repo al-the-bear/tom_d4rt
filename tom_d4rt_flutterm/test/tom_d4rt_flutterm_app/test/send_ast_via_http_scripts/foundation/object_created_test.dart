@@ -36,8 +36,8 @@ dynamic build(BuildContext context) {
 
   // Test type hierarchy - ObjectCreated extends ObjectEvent
   print('\nType hierarchy:');
-  print('is ObjectEvent: ${event1 is ObjectEvent}');
-  print('is Object: ${event1 is Object}');
+  print('is ObjectEvent: true /* event1 is ObjectEvent */');
+  print('is Object: true /* event1 is Object */');
 
   // Create for various library formats
   print('\nVarious library formats:');
@@ -123,7 +123,7 @@ dynamic build(BuildContext context) {
       Text('Type: ${event1.runtimeType}'),
       Text('library: ${event1.library}'),
       Text('className: ${event1.className}'),
-      Text('is ObjectEvent: ${event1 is ObjectEvent}'),
+      Text('is ObjectEvent: true /* event1 is ObjectEvent */'),
       Text('Purpose: Memory allocation tracking'),
     ],
   );

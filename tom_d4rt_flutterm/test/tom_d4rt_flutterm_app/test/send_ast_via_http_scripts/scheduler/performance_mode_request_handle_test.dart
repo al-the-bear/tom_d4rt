@@ -1,5 +1,5 @@
 // D4rt test script: Tests PerformanceModeRequestHandle from scheduler
-import 'package:flutter/scheduler.dart';
+import 'dart:ui' show DartPerformanceMode;
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {

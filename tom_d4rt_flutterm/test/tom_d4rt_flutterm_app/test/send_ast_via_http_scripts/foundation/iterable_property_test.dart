@@ -19,9 +19,15 @@ dynamic build(BuildContext context) {
   print('ip4 null: ${ip4.toString()}');
 
   print('IterableProperty test completed');
-  return Column(mainAxisSize: MainAxisSize.min, children: [
-    Text('IterableProperty Tests', style: TextStyle(fontWeight: FontWeight.bold)),
-    Text('items: ${ip1.toString()}'),
-    Text('empty: ${ip3.toString()}'),
-  ]);
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text(
+        'IterableProperty Tests',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+      Text('items: ${ip1.toString()}'),
+      Text('empty: ${ip3.toString()}'),
+    ],
+  );
 }

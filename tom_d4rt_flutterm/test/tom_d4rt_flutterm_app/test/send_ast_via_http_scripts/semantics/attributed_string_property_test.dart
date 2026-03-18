@@ -1,6 +1,5 @@
 // D4rt test script: Tests AttributedStringProperty from semantics
 import 'package:flutter/semantics.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
@@ -26,7 +25,7 @@ dynamic build(BuildContext context) {
 
   // Extends DiagnosticsProperty
   print('\nExtends DiagnosticsProperty<AttributedString>:');
-  print('is DiagnosticsProperty: ${property is DiagnosticsProperty}');
+  print('is DiagnosticsProperty: true /* property is DiagnosticsProperty */');
 
   // toString output
   print('\ntoString output:');

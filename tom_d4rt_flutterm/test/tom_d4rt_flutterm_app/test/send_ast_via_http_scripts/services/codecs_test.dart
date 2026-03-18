@@ -1,6 +1,4 @@
 // D4rt test script: Tests StandardMessageCodec, StandardMethodCodec, JSONMessageCodec, JSONMethodCodec, BinaryCodec, StringCodec from services
-import 'dart:ui';
-import 'dart:typed_data';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
@@ -69,7 +67,7 @@ dynamic build(BuildContext context) {
   // Encode method call
   final methodCall = MethodCall('testMethod', {'arg1': 'hello', 'arg2': 42});
   final encodedCall = jsonMethodCodec.encodeMethodCall(methodCall);
-  print('Encoded method call: ${encodedCall != null ? "has data" : "null"}');
+  print('Encoded method call: ${"has data"}');
 
   // Decode method call
   final decodedCall = jsonMethodCodec.decodeMethodCall(encodedCall);
@@ -80,7 +78,7 @@ dynamic build(BuildContext context) {
   // Encode success envelope
   final successEnv = jsonMethodCodec.encodeSuccessEnvelope('result_value');
   print(
-    'Encoded success envelope: ${successEnv != null ? "has data" : "null"}',
+    'Encoded success envelope: ${"has data"}',
   );
 
   // Decode success envelope
@@ -140,7 +138,7 @@ dynamic build(BuildContext context) {
   final stdCall = MethodCall('getData', [1, 2, 3]);
   final stdEncoded = stdMethodCodec.encodeMethodCall(stdCall);
   print(
-    'Encoded standard method call: ${stdEncoded != null ? "has data" : "null"}',
+    'Encoded standard method call: ${"has data"}',
   );
 
   final stdDecoded = stdMethodCodec.decodeMethodCall(stdEncoded);

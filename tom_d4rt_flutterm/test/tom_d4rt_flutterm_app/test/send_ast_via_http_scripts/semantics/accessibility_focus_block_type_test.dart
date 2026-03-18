@@ -10,7 +10,9 @@ dynamic build(BuildContext context) {
   for (final value in AccessibilityFocusBlockType.values) {
     print('  ${value.name}: $value');
   }
-  print('AccessibilityFocusBlockType has ${ AccessibilityFocusBlockType.values.length} values');
+  print(
+    'AccessibilityFocusBlockType has ${AccessibilityFocusBlockType.values.length} values',
+  );
 
   final first = AccessibilityFocusBlockType.values.first;
   final last = AccessibilityFocusBlockType.values.last;
@@ -22,7 +24,7 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('AccessibilityFocusBlockType Tests'),
-      Text('Values: ${ AccessibilityFocusBlockType.values.length}'),
+      Text('Values: ${AccessibilityFocusBlockType.values.length}'),
       Text('First: $first'),
       Text('Last: $last'),
     ],

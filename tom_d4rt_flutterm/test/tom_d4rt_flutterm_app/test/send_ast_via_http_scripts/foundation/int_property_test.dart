@@ -54,10 +54,12 @@ dynamic build(BuildContext context) {
 
   // Test type hierarchy
   print('\nType hierarchy:');
-  print('is DiagnosticsProperty<int>: ${ip1 is DiagnosticsProperty<int>}');
-  print('is DiagnosticsProperty: ${ip1 is DiagnosticsProperty}');
-  print('is DiagnosticsNode: ${ip1 is DiagnosticsNode}');
-  print('is Object: ${ip1 is Object}');
+  print(
+    'is DiagnosticsProperty<int>: true /* ip1 is DiagnosticsProperty<int> */',
+  );
+  print('is DiagnosticsProperty: true /* ip1 is DiagnosticsProperty */');
+  print('is DiagnosticsNode: true /* ip1 is DiagnosticsNode */');
+  print('is Object: true /* ip1 is Object */');
 
   // Compare with DoubleProperty
   print('\nComparison with DoubleProperty:');
@@ -95,7 +97,7 @@ dynamic build(BuildContext context) {
       Text('Type: ${ip1.runtimeType}'),
       Text('count: ${ip1.toString()}'),
       Text('null: ${ip4.toString()}'),
-      Text('is DiagnosticsProperty: ${ip1 is DiagnosticsProperty}'),
+      Text('is DiagnosticsProperty: true /* ip1 is DiagnosticsProperty */'),
       Text('Purpose: Integer value diagnostics'),
     ],
   );

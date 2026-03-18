@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 /// Deep visual demo for CachingIterable - lazily caches iterable elements.
@@ -11,8 +10,10 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Lazy Caching Visualization',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          const Text(
+            'Lazy Caching Visualization',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 16),
           Container(
             padding: const EdgeInsets.all(16),
@@ -23,7 +24,10 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Cache State:', style: TextStyle(fontWeight: FontWeight.bold)),
+                const Text(
+                  'Cache State:',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 const SizedBox(height: 12),
                 Row(
                   children: [
@@ -50,7 +54,10 @@ dynamic build(BuildContext context) {
             child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Benefits:', style: TextStyle(fontWeight: FontWeight.bold)),
+                Text(
+                  'Benefits:',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 SizedBox(height: 8),
                 Text('• Elements computed only when accessed'),
                 Text('• Cached values reused on repeat access'),
@@ -68,7 +75,11 @@ class _CacheSlot extends StatelessWidget {
   final int index;
   final bool isCached;
   final String value;
-  const _CacheSlot({required this.index, required this.isCached, required this.value});
+  const _CacheSlot({
+    required this.index,
+    required this.isCached,
+    required this.value,
+  });
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -81,15 +92,24 @@ class _CacheSlot extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Text('[\$index]', style: const TextStyle(fontSize: 10, color: Colors.grey)),
+          Text(
+            '[\$index]',
+            style: const TextStyle(fontSize: 10, color: Colors.grey),
+          ),
           const SizedBox(height: 4),
-          Icon(isCached ? Icons.check_circle : Icons.hourglass_empty, 
-            size: 16, color: isCached ? Colors.green : Colors.grey),
+          Icon(
+            isCached ? Icons.check_circle : Icons.hourglass_empty,
+            size: 16,
+            color: isCached ? Colors.green : Colors.grey,
+          ),
           const SizedBox(height: 4),
-          Text(value, style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: isCached ? Colors.green.shade700 : Colors.grey,
-          )),
+          Text(
+            value,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: isCached ? Colors.green.shade700 : Colors.grey,
+            ),
+          ),
         ],
       ),
     );

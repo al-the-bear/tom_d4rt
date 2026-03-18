@@ -1,7 +1,6 @@
 // D4rt test script: Tests MessageCodec from services
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-import 'dart:typed_data';
 
 dynamic build(BuildContext context) {
   print('MessageCodec test executing');

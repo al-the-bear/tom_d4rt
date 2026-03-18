@@ -10,7 +10,9 @@ dynamic build(BuildContext context) {
   for (final value in FoundationServiceExtensions.values) {
     print('  ${value.name}: $value');
   }
-  print('FoundationServiceExtensions has ${ FoundationServiceExtensions.values.length} values');
+  print(
+    'FoundationServiceExtensions has ${FoundationServiceExtensions.values.length} values',
+  );
 
   final first = FoundationServiceExtensions.values.first;
   final last = FoundationServiceExtensions.values.last;
@@ -22,7 +24,7 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('FoundationServiceExtensions Tests'),
-      Text('Values: ${ FoundationServiceExtensions.values.length}'),
+      Text('Values: ${FoundationServiceExtensions.values.length}'),
       Text('First: $first'),
       Text('Last: $last'),
     ],

@@ -1,5 +1,4 @@
 // D4rt test script: Tests SpellCheckResults, SuggestionSpan concepts from services
-import 'dart:ui';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 

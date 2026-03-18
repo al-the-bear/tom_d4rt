@@ -9,7 +9,10 @@ dynamic build(BuildContext context) {
   print('FlutterMemoryAllocations: ${fma.runtimeType}');
 
   var eventCount = 0;
-  void listener(ObjectEvent event) { eventCount++; }
+  void listener(ObjectEvent event) {
+    eventCount++;
+  }
+
   fma.addListener(listener);
   print('Listener added');
 
@@ -18,9 +21,15 @@ dynamic build(BuildContext context) {
   print('Events received: $eventCount');
 
   print('FlutterMemoryAllocations test completed');
-  return Column(mainAxisSize: MainAxisSize.min, children: [
-    Text('FlutterMemoryAllocations Tests', style: TextStyle(fontWeight: FontWeight.bold)),
-    Text('Singleton instance'),
-    Text('addListener/removeListener OK'),
-  ]);
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text(
+        'FlutterMemoryAllocations Tests',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+      Text('Singleton instance'),
+      Text('addListener/removeListener OK'),
+    ],
+  );
 }

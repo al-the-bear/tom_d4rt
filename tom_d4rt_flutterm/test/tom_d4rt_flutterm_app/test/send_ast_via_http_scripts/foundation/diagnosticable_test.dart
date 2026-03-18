@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 /// Deep visual demo for Diagnosticable - base class for debug output.
@@ -11,8 +10,10 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Debug Output Methods',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          const Text(
+            'Debug Output Methods',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 16),
           _OutputCard(
             method: 'toStringShort()',
@@ -37,12 +38,19 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 16),
           Container(
             padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(color: Colors.amber.shade50, borderRadius: BorderRadius.circular(8)),
+            decoration: BoxDecoration(
+              color: Colors.amber.shade50,
+              borderRadius: BorderRadius.circular(8),
+            ),
             child: const Row(
               children: [
                 Icon(Icons.lightbulb, color: Colors.amber),
                 SizedBox(width: 8),
-                Expanded(child: Text('Override debugFillProperties() to add custom properties')),
+                Expanded(
+                  child: Text(
+                    'Override debugFillProperties() to add custom properties',
+                  ),
+                ),
               ],
             ),
           ),
@@ -57,24 +65,49 @@ class _OutputCard extends StatelessWidget {
   final String output;
   final String description;
   final Color color;
-  const _OutputCard({required this.method, required this.output, required this.description, required this.color});
+  const _OutputCard({
+    required this.method,
+    required this.output,
+    required this.description,
+    required this.color,
+  });
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(color: color.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8), border: Border.all(color: color.withValues(alpha: 0.3))),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: color.withValues(alpha: 0.3)),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(method, style: TextStyle(fontFamily: 'monospace', fontWeight: FontWeight.bold, color: color)),
+          Text(
+            method,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
           const SizedBox(height: 8),
           Container(
             padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(4)),
-            child: Text(output, style: const TextStyle(fontFamily: 'monospace', fontSize: 12)),
+            decoration: BoxDecoration(
+              color: Colors.grey.shade100,
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Text(
+              output,
+              style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
+            ),
           ),
           const SizedBox(height: 4),
-          Text(description, style: const TextStyle(fontSize: 12, color: Colors.grey)),
+          Text(
+            description,
+            style: const TextStyle(fontSize: 12, color: Colors.grey),
+          ),
         ],
       ),
     );

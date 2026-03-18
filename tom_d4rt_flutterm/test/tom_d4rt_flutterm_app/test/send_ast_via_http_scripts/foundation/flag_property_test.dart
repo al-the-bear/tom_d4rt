@@ -11,16 +11,30 @@ dynamic build(BuildContext context) {
   final fp2 = FlagProperty('visible', value: false, ifFalse: 'HIDDEN');
   print('FlagProperty false: ${fp2.toString()}');
 
-  final fp3 = FlagProperty('active', value: true, ifTrue: 'active', ifFalse: 'inactive');
+  final fp3 = FlagProperty(
+    'active',
+    value: true,
+    ifTrue: 'active',
+    ifFalse: 'inactive',
+  );
   print('fp3: ${fp3.toString()}');
 
-  final fp4 = FlagProperty('check', value: false, ifTrue: 'yes', ifFalse: 'no', showName: true);
+  final fp4 = FlagProperty(
+    'check',
+    value: false,
+    ifTrue: 'yes',
+    ifFalse: 'no',
+    showName: true,
+  );
   print('fp4 showName: ${fp4.toString()}');
 
   print('FlagProperty test completed');
-  return Column(mainAxisSize: MainAxisSize.min, children: [
-    Text('FlagProperty Tests', style: TextStyle(fontWeight: FontWeight.bold)),
-    Text('True: ${fp1.toString()}'),
-    Text('False: ${fp2.toString()}'),
-  ]);
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('FlagProperty Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      Text('True: ${fp1.toString()}'),
+      Text('False: ${fp2.toString()}'),
+    ],
+  );
 }

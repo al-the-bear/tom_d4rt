@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 /// Deep visual demo for BitField - efficient storage of boolean flags.
@@ -11,8 +10,10 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Bit Field Visualization',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          const Text(
+            'Bit Field Visualization',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 16),
           Container(
             padding: const EdgeInsets.all(16),
@@ -23,21 +24,42 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('8-bit Field: 10110101', 
-                  style: TextStyle(fontFamily: 'monospace', fontSize: 18, fontWeight: FontWeight.bold)),
+                const Text(
+                  '8-bit Field: 10110101',
+                  style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 const SizedBox(height: 16),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     for (int i = 7; i >= 0; i--)
-                      _BitDisplay(index: i, isSet: [true, false, true, true, false, true, false, true][7-i]),
+                      _BitDisplay(
+                        index: i,
+                        isSet: [
+                          true,
+                          false,
+                          true,
+                          true,
+                          false,
+                          true,
+                          false,
+                          true,
+                        ][7 - i],
+                      ),
                   ],
                 ),
               ],
             ),
           ),
           const SizedBox(height: 16),
-          const Text('Flag Meanings:', style: TextStyle(fontWeight: FontWeight.bold)),
+          const Text(
+            'Flag Meanings:',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 8),
           _FlagRow(bit: 7, label: 'Feature A', isSet: true),
           _FlagRow(bit: 6, label: 'Feature B', isSet: false),
@@ -59,17 +81,26 @@ class _BitDisplay extends StatelessWidget {
     return Column(
       children: [
         Container(
-          width: 32, height: 32,
+          width: 32,
+          height: 32,
           decoration: BoxDecoration(
             color: isSet ? Colors.indigo : Colors.grey.shade300,
             borderRadius: BorderRadius.circular(4),
           ),
           alignment: Alignment.center,
-          child: Text(isSet ? '1' : '0', 
-            style: TextStyle(color: isSet ? Colors.white : Colors.grey, fontWeight: FontWeight.bold)),
+          child: Text(
+            isSet ? '1' : '0',
+            style: TextStyle(
+              color: isSet ? Colors.white : Colors.grey,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
         const SizedBox(height: 4),
-        Text('\$index', style: const TextStyle(fontSize: 10, color: Colors.grey)),
+        Text(
+          '\$index',
+          style: const TextStyle(fontSize: 10, color: Colors.grey),
+        ),
       ],
     );
   }
@@ -87,12 +118,17 @@ class _FlagRow extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            width: 24, height: 24,
+            width: 24,
+            height: 24,
             decoration: BoxDecoration(
               color: isSet ? Colors.green : Colors.red.shade100,
               borderRadius: BorderRadius.circular(4),
             ),
-            child: Icon(isSet ? Icons.check : Icons.close, size: 16, color: isSet ? Colors.white : Colors.red),
+            child: Icon(
+              isSet ? Icons.check : Icons.close,
+              size: 16,
+              color: isSet ? Colors.white : Colors.red,
+            ),
           ),
           const SizedBox(width: 12),
           Text('Bit \$bit: \$label'),

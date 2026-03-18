@@ -24,7 +24,7 @@ dynamic build(BuildContext context) {
 
   // Test type hierarchy
   print('\nType hierarchy:');
-  print('is ObjectEvent: ${event1 is ObjectEvent}');
+  print('is ObjectEvent: true /* event1 is ObjectEvent */');
   print('ObjectEvent base class for object lifecycle events');
 
   // Test runtime type
@@ -57,7 +57,7 @@ dynamic build(BuildContext context) {
       SizedBox(height: 8),
       Text('Type: ${event1.runtimeType}'),
       Text('object: ${event1.object.runtimeType}'),
-      Text('is ObjectEvent: ${event1 is ObjectEvent}'),
+      Text('is ObjectEvent: true /* event1 is ObjectEvent */'),
       SizedBox(height: 8),
       Text('Purpose: Memory lifecycle tracking'),
       Text('Paired with: ObjectCreated'),

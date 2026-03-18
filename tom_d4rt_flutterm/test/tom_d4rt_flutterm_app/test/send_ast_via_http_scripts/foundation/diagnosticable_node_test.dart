@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 /// Deep visual demo for DiagnosticableNode - wraps values for diagnostics tree.
@@ -11,8 +10,10 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Debug Tree Node Structure',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          const Text(
+            'Debug Tree Node Structure',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 16),
           Container(
             padding: const EdgeInsets.all(16),
@@ -51,7 +52,10 @@ dynamic build(BuildContext context) {
             child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('DiagnosticableNode wraps:', style: TextStyle(fontWeight: FontWeight.bold)),
+                Text(
+                  'DiagnosticableNode wraps:',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 SizedBox(height: 4),
                 Text('• name - node identifier'),
                 Text('• value - the wrapped object'),
@@ -69,7 +73,11 @@ class _NodeDisplay extends StatelessWidget {
   final String name;
   final int depth;
   final List<String> properties;
-  const _NodeDisplay({required this.name, required this.depth, required this.properties});
+  const _NodeDisplay({
+    required this.name,
+    required this.depth,
+    required this.properties,
+  });
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -84,9 +92,20 @@ class _NodeDisplay extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(name, style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.teal)),
+            Text(
+              name,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.teal,
+              ),
+            ),
             const SizedBox(height: 4),
-            ...properties.map((p) => Text('  \$p', style: const TextStyle(fontSize: 12, fontFamily: 'monospace'))),
+            ...properties.map(
+              (p) => Text(
+                '  \$p',
+                style: const TextStyle(fontSize: 12, fontFamily: 'monospace'),
+              ),
+            ),
           ],
         ),
       ),

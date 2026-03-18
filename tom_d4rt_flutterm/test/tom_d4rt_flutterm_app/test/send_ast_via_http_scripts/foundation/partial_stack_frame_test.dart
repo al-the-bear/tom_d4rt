@@ -25,16 +25,23 @@ dynamic build(BuildContext context) {
     packagePath: 'src/widgets/framework.dart',
     className: 'Element',
     method: 'rebuild',
-    source: '#0      Element.rebuild (package:flutter/src/widgets/framework.dart:100:1)',
+    source:
+        '#0      Element.rebuild (package:flutter/src/widgets/framework.dart:100:1)',
   );
   final matches = psf.matches(frame);
   print('matches frame: $matches');
 
   print('PartialStackFrame test completed');
-  return Column(mainAxisSize: MainAxisSize.min, children: [
-    Text('PartialStackFrame Tests', style: TextStyle(fontWeight: FontWeight.bold)),
-    Text('package: ${psf.package}'),
-    Text('className: ${psf.className}'),
-    Text('method: ${psf.method}'),
-  ]);
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text(
+        'PartialStackFrame Tests',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+      Text('package: ${psf.package}'),
+      Text('className: ${psf.className}'),
+      Text('method: ${psf.method}'),
+    ],
+  );
 }

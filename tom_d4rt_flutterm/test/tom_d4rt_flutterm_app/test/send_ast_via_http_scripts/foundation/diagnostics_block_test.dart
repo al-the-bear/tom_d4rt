@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 /// Deep visual demo for DiagnosticsBlock - groups diagnostic properties.
@@ -11,8 +10,10 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Diagnostic Property Grouping',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          const Text(
+            'Diagnostic Property Grouping',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 16),
           _DiagBlock(
             title: 'Layout Properties',
@@ -45,22 +46,39 @@ class _DiagBlock extends StatelessWidget {
   final IconData icon;
   final Color color;
   final List<String> props;
-  const _DiagBlock({required this.title, required this.icon, required this.color, required this.props});
+  const _DiagBlock({
+    required this.title,
+    required this.icon,
+    required this.color,
+    required this.props,
+  });
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(color: color.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8), border: Border.all(color: color.withValues(alpha: 0.3))),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: color.withValues(alpha: 0.3)),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(color: color.withValues(alpha: 0.2), borderRadius: const BorderRadius.vertical(top: Radius.circular(7))),
+            decoration: BoxDecoration(
+              color: color.withValues(alpha: 0.2),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(7),
+              ),
+            ),
             child: Row(
               children: [
                 Icon(icon, color: color, size: 20),
                 const SizedBox(width: 8),
-                Text(title, style: TextStyle(fontWeight: FontWeight.bold, color: color)),
+                Text(
+                  title,
+                  style: TextStyle(fontWeight: FontWeight.bold, color: color),
+                ),
               ],
             ),
           ),
@@ -68,10 +86,20 @@ class _DiagBlock extends StatelessWidget {
             padding: const EdgeInsets.all(12),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: props.map((p) => Padding(
-                padding: const EdgeInsets.symmetric(vertical: 2),
-                child: Text(p, style: const TextStyle(fontFamily: 'monospace', fontSize: 12)),
-              )).toList(),
+              children: props
+                  .map(
+                    (p) => Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 2),
+                      child: Text(
+                        p,
+                        style: const TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                  )
+                  .toList(),
             ),
           ),
         ],

@@ -1,7 +1,6 @@
 // D4rt test script: Tests MouseTrackerAnnotation from services
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/gestures.dart';
 
 dynamic build(BuildContext context) {
   print('MouseTrackerAnnotation test executing');

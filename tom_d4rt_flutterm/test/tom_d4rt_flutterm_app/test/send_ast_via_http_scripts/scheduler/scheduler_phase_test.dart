@@ -10,7 +10,7 @@ dynamic build(BuildContext context) {
   for (final value in SchedulerPhase.values) {
     print('  ${value.name}: $value');
   }
-  print('SchedulerPhase has ${ SchedulerPhase.values.length} values');
+  print('SchedulerPhase has ${SchedulerPhase.values.length} values');
 
   final first = SchedulerPhase.values.first;
   final last = SchedulerPhase.values.last;
@@ -22,7 +22,7 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('SchedulerPhase Tests'),
-      Text('Values: ${ SchedulerPhase.values.length}'),
+      Text('Values: ${SchedulerPhase.values.length}'),
       Text('First: $first'),
       Text('Last: $last'),
     ],

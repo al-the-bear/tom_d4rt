@@ -10,7 +10,9 @@ dynamic build(BuildContext context) {
   for (final value in DebugSemanticsDumpOrder.values) {
     print('  ${value.name}: $value');
   }
-  print('DebugSemanticsDumpOrder has ${ DebugSemanticsDumpOrder.values.length} values');
+  print(
+    'DebugSemanticsDumpOrder has ${DebugSemanticsDumpOrder.values.length} values',
+  );
 
   final first = DebugSemanticsDumpOrder.values.first;
   final last = DebugSemanticsDumpOrder.values.last;
@@ -22,7 +24,7 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('DebugSemanticsDumpOrder Tests'),
-      Text('Values: ${ DebugSemanticsDumpOrder.values.length}'),
+      Text('Values: ${DebugSemanticsDumpOrder.values.length}'),
       Text('First: $first'),
       Text('Last: $last'),
     ],

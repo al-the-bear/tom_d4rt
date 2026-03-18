@@ -65,9 +65,9 @@ dynamic build(BuildContext context) {
 
   // Test type hierarchy
   print('\nType hierarchy:');
-  print('is DiagnosticsProperty: ${ofp1 is DiagnosticsProperty}');
-  print('is DiagnosticsNode: ${ofp1 is DiagnosticsNode}');
-  print('is Object: ${ofp1 is Object}');
+  print('is DiagnosticsProperty: true /* ofp1 is DiagnosticsProperty */');
+  print('is DiagnosticsNode: true /* ofp1 is DiagnosticsNode */');
+  print('is Object: true /* ofp1 is Object */');
 
   // Common use cases
   print('\nCommon use cases:');

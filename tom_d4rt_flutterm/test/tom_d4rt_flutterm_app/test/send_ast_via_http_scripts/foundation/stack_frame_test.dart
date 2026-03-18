@@ -36,9 +36,12 @@ dynamic build(BuildContext context) {
   }
 
   print('StackFrame test completed');
-  return Column(mainAxisSize: MainAxisSize.min, children: [
-    Text('StackFrame Tests', style: TextStyle(fontWeight: FontWeight.bold)),
-    Text('line=${frame.line}, col=${frame.column}'),
-    Text('${frame.className}.${frame.method}'),
-  ]);
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('StackFrame Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      Text('line=${frame.line}, col=${frame.column}'),
+      Text('${frame.className}.${frame.method}'),
+    ],
+  );
 }

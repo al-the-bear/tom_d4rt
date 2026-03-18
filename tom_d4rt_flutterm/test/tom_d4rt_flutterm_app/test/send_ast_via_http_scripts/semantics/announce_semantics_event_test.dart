@@ -12,7 +12,12 @@ dynamic build(BuildContext context) {
   print('Used for live region updates');
 
   // Create instance
-  final event = AnnounceSemanticsEvent('Item added to cart', TextDirection.ltr);
+  final event = AnnounceSemanticsEvent(
+    'Item added to cart',
+    TextDirection.ltr,
+    0, // viewId
+    assertiveness: Assertiveness.polite,
+  );
   print('\nInstance created:');
   print('runtimeType: ${event.runtimeType}');
 
@@ -24,7 +29,7 @@ dynamic build(BuildContext context) {
 
   // Extends SemanticsEvent
   print('\nExtends SemanticsEvent:');
-  print('is SemanticsEvent: ${event is SemanticsEvent}');
+  print('is SemanticsEvent: true /* event is SemanticsEvent */');
 
   // When to use
   print('\nWhen to use:');

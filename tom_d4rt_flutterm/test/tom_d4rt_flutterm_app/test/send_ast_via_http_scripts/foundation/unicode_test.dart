@@ -20,9 +20,12 @@ dynamic build(BuildContext context) {
   print('Unicode.ALM: ${Unicode.ALM}');
 
   print('Unicode test completed');
-  return Column(mainAxisSize: MainAxisSize.min, children: [
-    Text('Unicode Tests', style: TextStyle(fontWeight: FontWeight.bold)),
-    Text('12 bidirectional constants tested'),
-    Text('LRE: 0x${Unicode.LRE.codeUnitAt(0).toRadixString(16)}'),
-  ]);
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('Unicode Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      Text('12 bidirectional constants tested'),
+      Text('LRE: 0x${Unicode.LRE.codeUnitAt(0).toRadixString(16)}'),
+    ],
+  );
 }

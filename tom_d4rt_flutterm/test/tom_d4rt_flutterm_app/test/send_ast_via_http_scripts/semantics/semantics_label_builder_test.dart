@@ -1,5 +1,4 @@
 // D4rt test script: Tests SemanticsLabelBuilder from semantics
-import 'package:flutter/semantics.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
@@ -42,7 +41,7 @@ dynamic build(BuildContext context) {
   print('');
   print('State indicator:');
   print(
-    'labelBuilder: (label) => "\$label, ${isActive ? "active" : "inactive"}"',
+    'labelBuilder: (label) => "\$label, \${isActive ? "active" : "inactive"}"',
   );
   print('');
   print('Position context:');

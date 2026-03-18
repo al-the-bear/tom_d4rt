@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 /// Deep visual demo for AggregatedTimedBlock - aggregates timing data.
@@ -11,8 +10,10 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Aggregated Timing Visualization',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          const Text(
+            'Aggregated Timing Visualization',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 16),
           _TimingBar(label: 'Build Phase', duration: 45, color: Colors.blue),
           _TimingBar(label: 'Layout Phase', duration: 23, color: Colors.green),
@@ -32,12 +33,19 @@ dynamic build(BuildContext context) {
                   children: [
                     Icon(Icons.timer, color: Colors.blue),
                     SizedBox(width: 8),
-                    Text('Total Aggregated: 147ms', 
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                    Text(
+                      'Total Aggregated: 147ms',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
                   ],
                 ),
                 SizedBox(height: 8),
-                Text('AggregatedTimedBlock combines timing from multiple operations'),
+                Text(
+                  'AggregatedTimedBlock combines timing from multiple operations',
+                ),
               ],
             ),
           ),
@@ -51,7 +59,11 @@ class _TimingBar extends StatelessWidget {
   final String label;
   final int duration;
   final Color color;
-  const _TimingBar({required this.label, required this.duration, required this.color});
+  const _TimingBar({
+    required this.label,
+    required this.duration,
+    required this.color,
+  });
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -76,8 +88,10 @@ class _TimingBar extends StatelessWidget {
                   ),
                   alignment: Alignment.centerRight,
                   padding: const EdgeInsets.only(right: 8),
-                  child: Text('\${duration}ms', 
-                    style: const TextStyle(color: Colors.white, fontSize: 12)),
+                  child: Text(
+                    '\${duration}ms',
+                    style: const TextStyle(color: Colors.white, fontSize: 12),
+                  ),
                 ),
               ),
             ),

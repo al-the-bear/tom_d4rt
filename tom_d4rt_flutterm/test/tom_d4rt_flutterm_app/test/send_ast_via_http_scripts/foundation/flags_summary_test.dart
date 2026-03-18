@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 dynamic build(BuildContext context) {
   print('FlagsSummary test executing');
 
-  final fs = FlagsSummary<bool>(
-    'options',
-    {'scrollable': true, 'draggable': false, 'resizable': true},
-    ifEmpty: 'none',
-  );
+  final fs = FlagsSummary<bool>('options', {
+    'scrollable': true,
+    'draggable': false,
+    'resizable': true,
+  }, ifEmpty: 'none');
   print('FlagsSummary: ${fs.runtimeType}');
   print('toString: ${fs.toString()}');
   print('value: ${fs.value}');
@@ -18,9 +18,12 @@ dynamic build(BuildContext context) {
   print('Empty: ${fs2.toString()}');
 
   print('FlagsSummary test completed');
-  return Column(mainAxisSize: MainAxisSize.min, children: [
-    Text('FlagsSummary Tests', style: TextStyle(fontWeight: FontWeight.bold)),
-    Text('Result: ${fs.toString()}'),
-    Text('Empty: ${fs2.toString()}'),
-  ]);
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('FlagsSummary Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      Text('Result: ${fs.toString()}'),
+      Text('Empty: ${fs2.toString()}'),
+    ],
+  );
 }

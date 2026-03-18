@@ -10,7 +10,9 @@ dynamic build(BuildContext context) {
   for (final value in DiagnosticsTreeStyle.values) {
     print('  ${value.name}: $value');
   }
-  print('DiagnosticsTreeStyle has ${ DiagnosticsTreeStyle.values.length} values');
+  print(
+    'DiagnosticsTreeStyle has ${DiagnosticsTreeStyle.values.length} values',
+  );
 
   final first = DiagnosticsTreeStyle.values.first;
   final last = DiagnosticsTreeStyle.values.last;
@@ -22,7 +24,7 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('DiagnosticsTreeStyle Tests'),
-      Text('Values: ${ DiagnosticsTreeStyle.values.length}'),
+      Text('Values: ${DiagnosticsTreeStyle.values.length}'),
       Text('First: $first'),
       Text('Last: $last'),
     ],

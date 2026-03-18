@@ -1,6 +1,4 @@
 // D4rt test script: Tests ChildSemanticsConfigurationsResultBuilder from semantics
-import 'package:flutter/semantics.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {

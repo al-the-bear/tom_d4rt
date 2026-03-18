@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 /// Deep visual demo for DiagnosticableTreeNode - node wrapper with children.
@@ -11,8 +10,10 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Tree Node with Children',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          const Text(
+            'Tree Node with Children',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 16),
           _TreeNodeCard(
             name: 'Container',
@@ -25,11 +26,17 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 16),
           Container(
             padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(color: Colors.teal.shade50, borderRadius: BorderRadius.circular(8)),
+            decoration: BoxDecoration(
+              color: Colors.teal.shade50,
+              borderRadius: BorderRadius.circular(8),
+            ),
             child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('DiagnosticableTreeNode:', style: TextStyle(fontWeight: FontWeight.bold)),
+                Text(
+                  'DiagnosticableTreeNode:',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 SizedBox(height: 8),
                 Text('• Wraps Diagnosticable objects'),
                 Text('• Provides child enumeration'),
@@ -47,12 +54,20 @@ class _TreeNodeCard extends StatelessWidget {
   final String name;
   final List<String> properties;
   final List<_ChildNode> children;
-  const _TreeNodeCard({required this.name, required this.properties, required this.children});
+  const _TreeNodeCard({
+    required this.name,
+    required this.properties,
+    required this.children,
+  });
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(12), border: Border.all(color: Colors.blue.shade200)),
+      decoration: BoxDecoration(
+        color: Colors.blue.shade50,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.blue.shade200),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -60,14 +75,31 @@ class _TreeNodeCard extends StatelessWidget {
             children: [
               const Icon(Icons.account_tree, color: Colors.blue),
               const SizedBox(width: 8),
-              Text(name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+              Text(
+                name,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
             ],
           ),
           const Divider(),
-          const Text('Properties:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-          ...properties.map((p) => Text('  \$p', style: const TextStyle(fontFamily: 'monospace', fontSize: 12))),
+          const Text(
+            'Properties:',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+          ),
+          ...properties.map(
+            (p) => Text(
+              '  \$p',
+              style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
+            ),
+          ),
           const SizedBox(height: 12),
-          const Text('Children:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+          const Text(
+            'Children:',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+          ),
           ...children,
         ],
       ),

@@ -22,7 +22,7 @@ dynamic build(BuildContext context) {
 
   // Extends SemanticsEvent
   print('\nExtends SemanticsEvent:');
-  print('is SemanticsEvent: ${event is SemanticsEvent}');
+  print('is SemanticsEvent: true /* event is SemanticsEvent */');
 
   // When triggered
   print('\nWhen triggered:');

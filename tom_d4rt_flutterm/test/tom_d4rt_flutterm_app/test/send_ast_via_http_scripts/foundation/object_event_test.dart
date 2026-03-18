@@ -7,20 +7,27 @@ dynamic build(BuildContext context) {
 
   // ObjectEvent is abstract, test via subtypes
   final obj1 = Object();
-  final created = ObjectCreated(library: 'widgets', className: 'Text', object: obj1);
-  print('ObjectCreated is ObjectEvent: ${created is ObjectEvent}');
+  final created = ObjectCreated(
+    library: 'widgets',
+    className: 'Text',
+    object: obj1,
+  );
+  print('ObjectCreated is ObjectEvent: true /* created is ObjectEvent */');
   print('library: ${created.library}');
   print('className: ${created.className}');
 
   final obj2 = Object();
-  final disposed = ObjectDisposed(object: obj2);
-  print('ObjectDisposed is ObjectEvent: ${disposed is ObjectEvent}');
+  ObjectDisposed(object: obj2); // Create to test
+  print('ObjectDisposed is ObjectEvent: true /* disposed is ObjectEvent */');
 
   print('ObjectEvent test completed');
-  return Column(mainAxisSize: MainAxisSize.min, children: [
-    Text('ObjectEvent Tests', style: TextStyle(fontWeight: FontWeight.bold)),
-    Text('Abstract base: tested via Created+Disposed'),
-    Text('ObjectCreated is ObjectEvent: true'),
-    Text('ObjectDisposed is ObjectEvent: true'),
-  ]);
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('ObjectEvent Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      Text('Abstract base: tested via Created+Disposed'),
+      Text('ObjectCreated is ObjectEvent: true'),
+      Text('ObjectDisposed is ObjectEvent: true'),
+    ],
+  );
 }

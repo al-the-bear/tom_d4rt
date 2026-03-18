@@ -27,14 +27,23 @@ dynamic build(BuildContext context) {
                   SizedBox(width: 10),
                   Text(
                     'D4rt Compile-Safe Probe',
-                    style: TextStyle(color: Color(0xFFE2E8F0), fontWeight: FontWeight.w600),
+                    style: TextStyle(
+                      color: Color(0xFFE2E8F0),
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ],
               ),
               SizedBox(height: 10),
-              Text('This script is intentionally compile-safe.', style: TextStyle(color: Color(0xFFCBD5E1))),
+              Text(
+                'This script is intentionally compile-safe.',
+                style: TextStyle(color: Color(0xFFCBD5E1)),
+              ),
               SizedBox(height: 6),
-              Text('Used to unblock analyzer compile errors.', style: TextStyle(color: Color(0xFF94A3B8))),
+              Text(
+                'Used to unblock analyzer compile errors.',
+                style: TextStyle(color: Color(0xFF94A3B8)),
+              ),
               SizedBox(height: 12),
               ColoredBox(
                 color: Color(0xFF1E293B),
@@ -42,7 +51,10 @@ dynamic build(BuildContext context) {
                   height: 42,
                   width: double.infinity,
                   child: Center(
-                    child: Text('Visible UI output', style: TextStyle(color: Color(0xFF93C5FD))),
+                    child: Text(
+                      'Visible UI output',
+                      style: TextStyle(color: Color(0xFF93C5FD)),
+                    ),
                   ),
                 ),
               ),

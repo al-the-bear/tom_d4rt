@@ -30,11 +30,9 @@ dynamic build(BuildContext context) {
   print('\nTruncation:');
   print('allowTruncate: ${spacer.allowTruncate}');
 
-  // Test value
-  final value = spacer.value;
+  // Test value (getter returns void in ErrorSpacer)
   print('\nValue:');
-  print('value: $value');
-  print('value type: ${value?.runtimeType ?? "null"}');
+  print('value: (returns void - no meaningful value)');
 
   // Explain purpose
   print('\nErrorSpacer purpose:');

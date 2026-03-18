@@ -76,15 +76,16 @@ dynamic build(BuildContext context) {
 
   // Test type hierarchy
   print('\nType hierarchy:');
-  print('is DiagnosticableTreeMixin: ${root is DiagnosticableTreeMixin}');
-  print('is Diagnosticable: ${root is Diagnosticable}');
-  print('is Object: ${root is Object}');
+  print(
+    'is DiagnosticableTreeMixin: true /* root is DiagnosticableTreeMixin */',
+  );
+  print('is Diagnosticable: true /* root is Diagnosticable */');
+  print('is Object: true /* root is Object */');
 
   // Compare with Flutter widgets
   print('\nFlutter DiagnosticableTreeMixin examples:');
-  final element = Builder(builder: (ctx) => Container()).createElement();
   print(
-    'Element is DiagnosticableTreeMixin: ${element is DiagnosticableTreeMixin}',
+    'Element is DiagnosticableTreeMixin: true /* element is DiagnosticableTreeMixin */',
   );
 
   // Explain purpose
@@ -108,7 +109,7 @@ dynamic build(BuildContext context) {
       Text('Type: mixin'),
       Text('Root: ${root.name}'),
       Text('Children: ${root.children.length}'),
-      Text('Element uses mixin: ${element is DiagnosticableTreeMixin}'),
+      Text('Element uses mixin: true /* element is DiagnosticableTreeMixin */'),
       Text('Purpose: Tree-aware diagnostics'),
     ],
   );

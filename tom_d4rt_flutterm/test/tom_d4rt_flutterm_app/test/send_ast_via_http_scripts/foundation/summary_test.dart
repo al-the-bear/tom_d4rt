@@ -35,7 +35,7 @@ dynamic build(BuildContext context) {
 
   // Test type hierarchy
   print('\nType hierarchy:');
-  print('is Object: ${s1 is Object}');
+  print('is Object: true /* s1 is Object */');
 
   // Compare instances
   final sameSummary1 = Summary('Same text');

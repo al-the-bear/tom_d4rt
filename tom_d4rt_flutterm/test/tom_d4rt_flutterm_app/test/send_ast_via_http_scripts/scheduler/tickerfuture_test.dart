@@ -1,5 +1,4 @@
 // D4rt test script: Tests TickerFuture, TickerCanceled from package:flutter/scheduler.dart
-import 'dart:ui';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/scheduler.dart';
 

@@ -20,10 +20,16 @@ dynamic build(BuildContext context) {
   print('dp4 isFiltered(info): ${dp4.isFiltered(DiagnosticLevel.info)}');
 
   print('DoubleProperty test completed');
-  return Column(mainAxisSize: MainAxisSize.min, children: [
-    Text('DoubleProperty Tests', style: TextStyle(fontWeight: FontWeight.bold)),
-    Text('width: ${dp1.toString()}'),
-    Text('opacity: ${dp2.toString()}'),
-    Text('null: ${dp3.toString()}'),
-  ]);
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text(
+        'DoubleProperty Tests',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+      Text('width: ${dp1.toString()}'),
+      Text('opacity: ${dp2.toString()}'),
+      Text('null: ${dp3.toString()}'),
+    ],
+  );
 }

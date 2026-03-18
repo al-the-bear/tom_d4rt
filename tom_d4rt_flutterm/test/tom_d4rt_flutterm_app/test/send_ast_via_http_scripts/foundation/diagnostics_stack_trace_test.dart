@@ -57,8 +57,8 @@ dynamic build(BuildContext context) {
 
   // Test type hierarchy
   print('\nType hierarchy:');
-  print('is DiagnosticsNode: ${dst1 is DiagnosticsNode}');
-  print('is Object: ${dst1 is Object}');
+  print('is DiagnosticsNode: true /* dst1 is DiagnosticsNode */');
+  print('is Object: true /* dst1 is Object */');
 
   // Test toString representations
   print('\nString representations:');

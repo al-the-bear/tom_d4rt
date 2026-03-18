@@ -21,10 +21,16 @@ dynamic build(BuildContext context) {
   print('dp2 toString: ${dp2.toString()}');
 
   print('DiagnosticsProperty test completed');
-  return Column(mainAxisSize: MainAxisSize.min, children: [
-    Text('DiagnosticsProperty Tests', style: TextStyle(fontWeight: FontWeight.bold)),
-    Text('String: ${dp1.toString()}'),
-    Text('Int: ${dp2.toString()}'),
-    Text('Null: ${dp3.toString()}'),
-  ]);
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text(
+        'DiagnosticsProperty Tests',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+      Text('String: ${dp1.toString()}'),
+      Text('Int: ${dp2.toString()}'),
+      Text('Null: ${dp3.toString()}'),
+    ],
+  );
 }

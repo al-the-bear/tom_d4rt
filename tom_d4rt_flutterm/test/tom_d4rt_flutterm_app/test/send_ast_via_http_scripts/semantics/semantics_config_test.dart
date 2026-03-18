@@ -33,7 +33,10 @@ dynamic build(BuildContext context) {
                   SizedBox(width: 10),
                   Text(
                     'D4rt Visual Test',
-                    style: TextStyle(color: Color(0xFFE2E8F0), fontWeight: FontWeight.w600),
+                    style: TextStyle(
+                      color: Color(0xFFE2E8F0),
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ],
               ),
@@ -41,7 +44,10 @@ dynamic build(BuildContext context) {
               for (final line in diagnostics)
                 Padding(
                   padding: const EdgeInsets.only(bottom: 6),
-                  child: Text(line, style: const TextStyle(color: Color(0xFFCBD5E1))),
+                  child: Text(
+                    line,
+                    style: const TextStyle(color: Color(0xFFCBD5E1)),
+                  ),
                 ),
               const SizedBox(height: 8),
               ClipRRect(
@@ -52,7 +58,10 @@ dynamic build(BuildContext context) {
                     height: 44,
                     width: double.infinity,
                     child: Center(
-                      child: Text('Visible UI probe active', style: TextStyle(color: Color(0xFF93C5FD))),
+                      child: Text(
+                        'Visible UI probe active',
+                        style: TextStyle(color: Color(0xFF93C5FD)),
+                      ),
                     ),
                   ),
                 ),

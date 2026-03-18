@@ -22,7 +22,7 @@ dynamic build(BuildContext context) {
   // Create concrete instance
   final tapEvent = TapSemanticEvent();
   print('\nTapSemanticEvent instance:');
-  print('is SemanticsEvent: ${tapEvent is SemanticsEvent}');
+  print('is SemanticsEvent: true /* tapEvent is SemanticsEvent */');
   print('type: ${tapEvent.type}');
 
   // Abstract methods

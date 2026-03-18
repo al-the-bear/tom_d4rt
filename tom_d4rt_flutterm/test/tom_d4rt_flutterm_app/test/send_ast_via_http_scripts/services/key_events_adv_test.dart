@@ -1,5 +1,4 @@
 // D4rt test script: Tests TextInputConnection, TextInput, RawKeyEventData, KeyData, BrowserContextMenu, LiveText, LiveTextInputStatusNotifier
-import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {

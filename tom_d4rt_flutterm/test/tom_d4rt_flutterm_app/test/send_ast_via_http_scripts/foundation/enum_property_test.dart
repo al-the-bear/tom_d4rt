@@ -15,14 +15,21 @@ dynamic build(BuildContext context) {
   final ep3 = EnumProperty<TextDirection>('dir', null, defaultValue: null);
   print('ep3 null: ${ep3.toString()}');
 
-  final ep4 = EnumProperty<MainAxisAlignment>('main', MainAxisAlignment.center, level: DiagnosticLevel.fine);
+  final ep4 = EnumProperty<MainAxisAlignment>(
+    'main',
+    MainAxisAlignment.center,
+    level: DiagnosticLevel.fine,
+  );
   print('ep4 level: ${ep4.level}');
 
   print('EnumProperty test completed');
-  return Column(mainAxisSize: MainAxisSize.min, children: [
-    Text('EnumProperty Tests', style: TextStyle(fontWeight: FontWeight.bold)),
-    Text('textAlign: ${ep1.toString()}'),
-    Text('axis: ${ep2.toString()}'),
-    Text('null: ${ep3.toString()}'),
-  ]);
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('EnumProperty Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      Text('textAlign: ${ep1.toString()}'),
+      Text('axis: ${ep2.toString()}'),
+      Text('null: ${ep3.toString()}'),
+    ],
+  );
 }

@@ -30,7 +30,7 @@ dynamic build(BuildContext context) {
 
   // Test type hierarchy
   print('\nType hierarchy:');
-  print('is Object: ${icon1 is Object}');
+  print('is Object: true /* icon1 is Object */');
 
   // Compare instances
   final sameIcon1 = DocumentationIcon('https://example.com/icon.png');

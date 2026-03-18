@@ -18,10 +18,16 @@ dynamic build(BuildContext context) {
   print('pp4 null: ${pp4.toString()}');
 
   print('PercentProperty test completed');
-  return Column(mainAxisSize: MainAxisSize.min, children: [
-    Text('PercentProperty Tests', style: TextStyle(fontWeight: FontWeight.bold)),
-    Text('75%: ${pp1.toString()}'),
-    Text('100%: ${pp2.toString()}'),
-    Text('0%: ${pp3.toString()}'),
-  ]);
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text(
+        'PercentProperty Tests',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+      Text('75%: ${pp1.toString()}'),
+      Text('100%: ${pp2.toString()}'),
+      Text('0%: ${pp3.toString()}'),
+    ],
+  );
 }

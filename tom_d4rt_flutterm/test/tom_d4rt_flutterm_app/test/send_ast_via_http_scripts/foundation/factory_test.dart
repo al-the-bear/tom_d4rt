@@ -17,10 +17,13 @@ dynamic build(BuildContext context) {
   print('String factory: ${factory2.constructor()}');
 
   print('Factory test completed');
-  return Column(mainAxisSize: MainAxisSize.min, children: [
-    Text('Factory Tests', style: TextStyle(fontWeight: FontWeight.bold)),
-    Text('Creates new instances each call'),
-    Text('Result: $result1'),
-    Text('Not same: ${!identical(result1, result2)}'),
-  ]);
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('Factory Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      Text('Creates new instances each call'),
+      Text('Result: $result1'),
+      Text('Not same: ${!identical(result1, result2)}'),
+    ],
+  );
 }

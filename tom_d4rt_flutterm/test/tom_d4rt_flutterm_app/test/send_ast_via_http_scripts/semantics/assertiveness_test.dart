@@ -10,7 +10,7 @@ dynamic build(BuildContext context) {
   for (final value in Assertiveness.values) {
     print('  ${value.name}: $value');
   }
-  print('Assertiveness has ${ Assertiveness.values.length} values');
+  print('Assertiveness has ${Assertiveness.values.length} values');
 
   final first = Assertiveness.values.first;
   final last = Assertiveness.values.last;
@@ -22,7 +22,7 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('Assertiveness Tests'),
-      Text('Values: ${ Assertiveness.values.length}'),
+      Text('Values: ${Assertiveness.values.length}'),
       Text('First: $first'),
       Text('Last: $last'),
     ],

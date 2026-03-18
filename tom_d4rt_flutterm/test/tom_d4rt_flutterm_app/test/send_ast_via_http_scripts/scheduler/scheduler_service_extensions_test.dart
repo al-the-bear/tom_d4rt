@@ -10,7 +10,9 @@ dynamic build(BuildContext context) {
   for (final value in SchedulerServiceExtensions.values) {
     print('  ${value.name}: $value');
   }
-  print('SchedulerServiceExtensions has ${ SchedulerServiceExtensions.values.length} values');
+  print(
+    'SchedulerServiceExtensions has ${SchedulerServiceExtensions.values.length} values',
+  );
 
   final first = SchedulerServiceExtensions.values.first;
   final last = SchedulerServiceExtensions.values.last;
@@ -22,7 +24,7 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('SchedulerServiceExtensions Tests'),
-      Text('Values: ${ SchedulerServiceExtensions.values.length}'),
+      Text('Values: ${SchedulerServiceExtensions.values.length}'),
       Text('First: $first'),
       Text('Last: $last'),
     ],
