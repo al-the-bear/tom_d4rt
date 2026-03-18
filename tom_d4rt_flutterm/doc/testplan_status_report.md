@@ -1262,6 +1262,28 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [undo_direction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/undo_direction_test.dart) | UndoDirection | No | No | Yes |
 | [undo_manager_client_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/undo_manager_client_test.dart) | UndoManagerClient | No | No | Yes |
 | [undo_manager_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/undo_manager_test.dart) | UndoManager | No | No | Yes |
+
+### Deprecated API Test Files (Intentional)
+
+The following files test **intentionally deprecated Flutter APIs** that still exist for backward compatibility. These tests are documented to show the deprecated API behavior and provide migration guidance. They generate `info`-level deprecation notices, which is expected:
+
+| File | Deprecated API | Migration Target | Reason for Testing |
+|------|---------------|------------------|-------------------|
+| key_data_transit_mode_test.dart | `KeyDataTransitMode` | N/A (removed) | Documents enum values before removal |
+| key_helper_test.dart | `KeyHelper` | N/A | Documents platform key helper patterns |
+| key_message_test.dart | `KeyMessage` | `KeyEvent` | Shows migration path from legacy to modern |
+| keyboard_side_test.dart | `KeyboardSide` | N/A | Documents modifier key side identification |
+| modifier_key_test.dart | `ModifierKey` | `HardwareKeyboard` | Documents modifier key enum |
+| raw_key_event_data_android_test.dart | `RawKeyEventDataAndroid` | `KeyEvent` | Platform-specific legacy key data |
+| raw_key_event_data_fuchsia_test.dart | `RawKeyEventDataFuchsia` | `KeyEvent` | Platform-specific legacy key data |
+| raw_key_event_data_ios_test.dart | `RawKeyEventDataIos` | `KeyEvent` | Platform-specific legacy key data |
+| raw_key_event_data_linux_test.dart | `RawKeyEventDataLinux` | `KeyEvent` | Platform-specific legacy key data |
+| raw_key_event_data_web_test.dart | `RawKeyEventDataWeb` | `KeyEvent` | Platform-specific legacy key data |
+| raw_key_event_data_windows_test.dart | `RawKeyEventDataWindows` | `KeyEvent` | Platform-specific legacy key data |
+| raw_keyboard_test.dart | `RawKeyboard` | `HardwareKeyboard` | Legacy keyboard state management |
+
+> **Note:** These files print API documentation output. Deprecation warnings are expected and should not be treated as issues. The tests serve as D4rt-executable reference documentation for legacy APIs.
+
 ## widgets/ (777 files)
 
 | Filename | Class to Test | Fully Implemented in backup | Fully implemented in send_ast | Dummy |
