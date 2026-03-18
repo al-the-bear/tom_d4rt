@@ -2,7 +2,6 @@
 // RenderPhysicalModel, RenderPhysicalShape, RenderAnimatedOpacity,
 // RenderEditable concepts
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 dynamic build(BuildContext context) {
   print('Render composite test executing');
@@ -34,7 +33,7 @@ dynamic build(BuildContext context) {
     shape: BoxShape.rectangle,
     borderRadius: BorderRadius.circular(8.0),
     clipBehavior: Clip.antiAlias,
-    child: Container(
+    child: SizedBox(
       width: 100,
       height: 100,
       child: Center(child: Text('Physical')),

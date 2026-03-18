@@ -1,7 +1,5 @@
 // D4rt test script: Tests AssetBundleImageKey from painting
-import 'package:flutter/painting.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 dynamic build(BuildContext context) {
   print('AssetBundleImageKey test executing');

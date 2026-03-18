@@ -1,7 +1,6 @@
 // D4rt test script: Tests TransformProperty from painting
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'dart:typed_data';
 
 dynamic build(BuildContext context) {
   print('TransformProperty test executing');
@@ -23,7 +22,7 @@ dynamic build(BuildContext context) {
 
   // To string
   print('\ntoString:');
-  print('${prop.toDescription()}');
+  print(prop.toDescription());
 
   // Type hierarchy
   print('\nType hierarchy:');

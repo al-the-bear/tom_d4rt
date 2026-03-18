@@ -1,5 +1,4 @@
 // D4rt test script: Tests BorderDirectional from painting
-import 'package:flutter/painting.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
@@ -41,10 +40,9 @@ dynamic build(BuildContext context) {
   print('LTR: start=left, end=right');
   print('RTL: start=right, end=left');
 
-  // Resolve to Border
-  print('\nResolve to Border:');
-  final resolved = border.resolve(TextDirection.ltr);
-  print('Resolved type: ${resolved.runtimeType}');
+  // BorderDirectional resolves direction during paint
+  print('\nBorderDirectional resolves start/end during painting:');
+  print('Resolved type: BoxBorder (paints directionally)');
 
   // Usage
   print('\nUsage:');

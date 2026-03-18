@@ -66,7 +66,7 @@ dynamic build(BuildContext context) {
   print('- Extends SelectionEvent');
   print('- Part of selection system');
 
-  print('\n' + '=' * 50);
+  print('\n${'=' * 50}');
   print('ClearSelectionEvent test completed');
   return Column(
     mainAxisSize: MainAxisSize.min,

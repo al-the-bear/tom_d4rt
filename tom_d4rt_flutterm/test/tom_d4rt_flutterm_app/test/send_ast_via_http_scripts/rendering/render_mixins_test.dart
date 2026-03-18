@@ -60,7 +60,7 @@ dynamic build(BuildContext context) {
     ],
   );
   print('RenderIndexedStack: referenced via IndexedStack widget');
-  print('Type: ${RenderStack}');
+  print('Type: $RenderStack');
   print('IndexedStack index: 0');
 
   // ========== RenderBoxAdapter (SliverToBoxAdapter) ==========

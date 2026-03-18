@@ -1,5 +1,4 @@
 // D4rt test script: Tests RenderUiKitView from rendering
-import 'package:flutter/rendering.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
@@ -66,7 +65,7 @@ dynamic build(BuildContext context) {
   print('- Hit test behavior control');
   print('- Gesture recognizer handling');
 
-  print('\n' + '=' * 50);
+  print('\n${'=' * 50}');
   print('RenderUiKitView test completed');
   return Column(
     mainAxisSize: MainAxisSize.min,

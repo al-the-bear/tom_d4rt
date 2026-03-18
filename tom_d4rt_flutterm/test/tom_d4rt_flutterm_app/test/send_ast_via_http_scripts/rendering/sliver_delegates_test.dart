@@ -1,6 +1,5 @@
 // D4rt test script: Tests SliverGridDelegateWithFixedCrossAxisCount, SliverGridDelegateWithMaxCrossAxisExtent, ColumnWidth classes
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 dynamic build(BuildContext context) {
   print('Sliver delegates test executing');

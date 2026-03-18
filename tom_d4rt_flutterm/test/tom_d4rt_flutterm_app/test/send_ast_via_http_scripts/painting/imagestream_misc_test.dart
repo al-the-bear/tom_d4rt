@@ -1,9 +1,7 @@
 // D4rt test script: Tests painting ImageStream, ImageStreamListener,
 // ImageStreamCompleter, ImageInfo, ImageChunkEvent, PlaceholderDimensions,
 // InlineSpanSemanticsInformation, Accumulator
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 
 dynamic build(BuildContext context) {
   print('Painting image stream and misc test executing');

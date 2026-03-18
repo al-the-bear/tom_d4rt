@@ -1,23 +1,22 @@
 // D4rt test script: Tests WordBoundary from painting
-import 'package:flutter/painting.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print('WordBoundary test executing');
 
-  // Create WordBoundary
-  final boundary = WordBoundary(
-    TextRange(start: 0, end: 5),
-    true, // isDropped
-  );
+  // WordBoundary is created internally by TextPainter
+  // It extends TextBoundary and has a private constructor
+  print('WordBoundary overview:');
+  print('- Extends TextBoundary');
+  print('- Created internally by TextPainter.wordBoundaries');
+  print('- Private constructor: WordBoundary._()');
 
-  print('Created: ${boundary.runtimeType}');
-
-  // Test properties
-  print('\nWordBoundary properties:');
-  print('range: ${boundary.range}');
-  print('range.start: ${boundary.range.start}');
-  print('range.end: ${boundary.range.end}');
+  // Test TextRange which WordBoundary uses internally
+  const wordRange = TextRange(start: 0, end: 5);
+  print('\nTextRange (used by WordBoundary):');
+  print('range: $wordRange');
+  print('range.start: ${wordRange.start}');
+  print('range.end: ${wordRange.end}');
 
   // What it represents
   print('\nWhat it represents:');
@@ -33,8 +32,9 @@ dynamic build(BuildContext context) {
 
   // TextPainter integration
   print('\nTextPainter integration:');
-  print('textPainter.getWordBoundary(position)');
-  print('- Returns TextRange');
+  print('textPainter.wordBoundaries');
+  print('- Returns WordBoundary');
+  print('- getTextBoundaryAt(position) → TextRange');
   print('- Based on Unicode rules');
 
   // Unicode word boundaries
@@ -59,7 +59,7 @@ dynamic build(BuildContext context) {
       ),
       SizedBox(height: 8),
       Text('Word extent in text'),
-      Text('range: ${boundary.range}'),
+      Text('range: $wordRange'),
       Text('For: word selection'),
     ],
   );

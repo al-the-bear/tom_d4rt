@@ -1,5 +1,4 @@
 // D4rt test script: Tests AlignmentTween from rendering
-import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {
@@ -27,7 +26,7 @@ dynamic build(BuildContext context) {
   print('lerp(1.0): ${tween.lerp(1.0)}');
   
   // Test with directional alignment (RTL-aware)
-  final directionalTween = AlignmentTween(
+  final directionalTween = AlignmentGeometryTween(
     begin: AlignmentDirectional.topStart,
     end: AlignmentDirectional.bottomEnd,
   );

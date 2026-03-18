@@ -2,7 +2,6 @@
 // RenderMouseRegion, RenderPointerListener, RenderRepaintBoundary,
 // RenderOffstage
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 dynamic build(BuildContext context) {
   print('render_pointer_test test executing');

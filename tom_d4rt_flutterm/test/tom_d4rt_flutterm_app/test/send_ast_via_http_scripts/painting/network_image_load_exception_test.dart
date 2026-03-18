@@ -46,7 +46,7 @@ dynamic build(BuildContext context) {
   print('  url,');
   print('  errorBuilder: (ctx, error, stack) {');
   print('    if (error is NetworkImageLoadException) {');
-  print('      return Text("Error ${error.statusCode}");');
+  print('      return Text("Error \${error.statusCode}");');
   print('    }');
   print('    return Icon(Icons.error);');
   print('  },');

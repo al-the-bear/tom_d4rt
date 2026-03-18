@@ -23,8 +23,9 @@ dynamic build(BuildContext context) {
     print('- $eventType');
   }
   
-  // Test isEnd property (word selection is a discrete event)
-  print('\nisEnd: ${event.isEnd}');
+  // SelectWordSelectionEvent properties
+  print('\nglobalPosition: ${event.globalPosition}');
+  print('type: ${event.type}');
   print('Word selection is typically a discrete selection event');
   
   // Type hierarchy

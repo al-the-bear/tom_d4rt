@@ -1,5 +1,4 @@
 // D4rt test script: Tests ResizeImage from painting
-import 'package:flutter/painting.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {

@@ -68,7 +68,7 @@ dynamic build(BuildContext context) {
   print('- Custom positioning per child');
   print('- Extends ContainerBoxParentData');
 
-  print('\n' + '=' * 50);
+  print('\n${'=' * 50}');
   print('FlowParentData test completed');
   return Column(
     mainAxisSize: MainAxisSize.min,

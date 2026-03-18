@@ -1,6 +1,4 @@
 // D4rt test script: Tests TextPainter from rendering
-import 'dart:ui';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {
@@ -181,7 +179,7 @@ dynamic build(BuildContext context) {
     TextPosition(offset: 5),
     Rect.zero,
   );
-  print('getFullHeightForCaret(offset=5): ${caretHeight}');
+  print('getFullHeightForCaret(offset=5): $caretHeight');
 
   // Test getBoxesForSelection
   final boxes = basicPainter.getBoxesForSelection(

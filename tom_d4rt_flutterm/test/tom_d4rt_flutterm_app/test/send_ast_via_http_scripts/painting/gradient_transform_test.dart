@@ -1,6 +1,5 @@
 // D4rt test script: Tests GradientTransform, GradientRotation from painting
 import 'dart:math' as math;
-import 'package:flutter/painting.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {

@@ -1,7 +1,6 @@
 // D4rt test script: Tests AnnotationEntry from rendering
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'dart:ui' as ui;
 
 dynamic build(BuildContext context) {
   print('AnnotationEntry test executing');

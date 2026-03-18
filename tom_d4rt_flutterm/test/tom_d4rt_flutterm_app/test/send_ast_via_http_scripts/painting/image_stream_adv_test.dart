@@ -1,5 +1,4 @@
 // D4rt test script: Tests BeveledRectangleBorder, ResizeImage, ResizeImageKey, OneFrameImageStreamCompleter, MultiFrameImageStreamCompleter, ImageErrorListener, ImageCacheStatus, ImageInfo
-import 'package:flutter/painting.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {

@@ -17,7 +17,7 @@ dynamic build(BuildContext context) {
 
   // Test toString
   print('\ntoStringDeep:');
-  print('${property.toDescription()}');
+  print(property.toDescription());
 
   // Test type hierarchy
   print('\nType hierarchy:');

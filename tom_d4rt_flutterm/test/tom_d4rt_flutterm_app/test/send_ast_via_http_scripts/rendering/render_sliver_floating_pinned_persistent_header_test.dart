@@ -1,5 +1,4 @@
 // D4rt test script: Tests RenderSliverFloatingPinnedPersistentHeader from rendering
-import 'package:flutter/rendering.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
@@ -70,7 +69,7 @@ dynamic build(BuildContext context) {
   print('- Best UX for headers');
   print('- Extends floating header');
 
-  print('\n' + '=' * 50);
+  print('\n${'=' * 50}');
   print('RenderSliverFloatingPinnedPersistentHeader test completed');
   return Column(
     mainAxisSize: MainAxisSize.min,

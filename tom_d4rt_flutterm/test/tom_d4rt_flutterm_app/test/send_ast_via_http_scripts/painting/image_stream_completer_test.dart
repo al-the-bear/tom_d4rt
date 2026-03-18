@@ -44,7 +44,7 @@ dynamic build(BuildContext context) {
   print('\nListener example:');
   print('ImageStreamListener(');
   print('  (info, sync) => setState(() => _image = info),');
-  print('  onError: (e, s) => print("Error: $e"),');
+  print('  onError: (e, s) => print("Error: \$e"),');
   print('  onChunk: (event) => print("Progress..."),');
   print(')');
 

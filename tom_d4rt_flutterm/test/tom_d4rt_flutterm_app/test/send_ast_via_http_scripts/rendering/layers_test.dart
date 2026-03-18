@@ -376,7 +376,7 @@ dynamic build(BuildContext context) {
                   color: Color(0xFFFFFFFF),
                   elevation: 1.0,
                   borderRadius: BorderRadius.circular(4.0),
-                  child: Container(
+                  child: SizedBox(
                     width: 60.0,
                     height: 60.0,
                     child: Center(
@@ -389,7 +389,7 @@ dynamic build(BuildContext context) {
                   color: Color(0xFFFFFFFF),
                   elevation: 4.0,
                   borderRadius: BorderRadius.circular(4.0),
-                  child: Container(
+                  child: SizedBox(
                     width: 60.0,
                     height: 60.0,
                     child: Center(
@@ -402,7 +402,7 @@ dynamic build(BuildContext context) {
                   color: Color(0xFFFFFFFF),
                   elevation: 8.0,
                   borderRadius: BorderRadius.circular(4.0),
-                  child: Container(
+                  child: SizedBox(
                     width: 60.0,
                     height: 60.0,
                     child: Center(
@@ -415,7 +415,7 @@ dynamic build(BuildContext context) {
                   color: Color(0xFFFFFFFF),
                   elevation: 16.0,
                   borderRadius: BorderRadius.circular(4.0),
-                  child: Container(
+                  child: SizedBox(
                     width: 60.0,
                     height: 60.0,
                     child: Center(

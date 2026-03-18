@@ -1,8 +1,5 @@
 // D4rt test script: Tests OneFrameImageStreamCompleter from painting
-import 'package:flutter/painting.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
-import 'dart:ui' as ui;
 
 dynamic build(BuildContext context) {
   print('OneFrameImageStreamCompleter test executing');

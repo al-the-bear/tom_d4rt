@@ -1,5 +1,4 @@
 // D4rt test script: Tests RenderCustomPaint from rendering
-import 'package:flutter/rendering.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
@@ -76,7 +75,7 @@ dynamic build(BuildContext context) {
   print('- shouldRepaint optimization');
   print('- Canvas access for drawing');
 
-  print('\n' + '=' * 50);
+  print('\n${'=' * 50}');
   print('RenderCustomPaint test completed');
   return Column(
     mainAxisSize: MainAxisSize.min,

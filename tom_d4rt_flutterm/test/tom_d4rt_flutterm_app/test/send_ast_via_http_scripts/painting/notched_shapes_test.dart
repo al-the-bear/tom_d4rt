@@ -1,5 +1,4 @@
 // D4rt test script: Tests CircularNotchedRectangle from painting
-import 'package:flutter/painting.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
@@ -64,8 +63,8 @@ dynamic build(BuildContext context) {
               child: Scaffold(
                 floatingActionButton: FloatingActionButton(
                   onPressed: () {},
-                  child: Icon(Icons.add),
                   mini: true,
+                  child: Icon(Icons.add),
                 ),
                 floatingActionButtonLocation:
                     FloatingActionButtonLocation.centerDocked,

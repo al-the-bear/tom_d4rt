@@ -1,5 +1,4 @@
 // D4rt test script: Tests viewport and scroll related rendering classes
-import 'dart:ui';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
@@ -252,7 +251,7 @@ dynamic build(BuildContext context) {
               'Scrollable Viewport Demo:',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Container(
+            SizedBox(
               height: 100.0,
               child: ListView(
                 scrollDirection: Axis.horizontal,

@@ -62,7 +62,7 @@ dynamic build(BuildContext context) {
   print('- Tooltip/dropdown support');
   print('- Compositing layer');
 
-  print('\n' + '=' * 50);
+  print('\n${'=' * 50}');
   print('FollowerLayer test completed');
   return Column(
     mainAxisSize: MainAxisSize.min,

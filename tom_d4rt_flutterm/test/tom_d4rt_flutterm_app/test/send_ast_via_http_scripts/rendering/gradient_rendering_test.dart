@@ -1,7 +1,5 @@
 // D4rt test script: Tests LinearGradient, RadialGradient, SweepGradient in rendering context with createShader
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 dynamic build(BuildContext context) {
   print('Gradient rendering test executing');

@@ -1,6 +1,4 @@
 // D4rt test script: Tests LinearGradient, BoxShadow from painting
-import 'dart:ui';
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {

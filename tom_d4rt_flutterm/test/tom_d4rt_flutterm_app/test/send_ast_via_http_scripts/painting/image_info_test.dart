@@ -1,7 +1,5 @@
 // D4rt test script: Tests ImageInfo from painting
-import 'package:flutter/painting.dart';
 import 'package:flutter/material.dart';
-import 'dart:ui' as ui;
 
 dynamic build(BuildContext context) {
   print('ImageInfo test executing');

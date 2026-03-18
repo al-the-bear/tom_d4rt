@@ -1,5 +1,4 @@
 // D4rt test script: Tests RendererBinding from rendering
-import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {

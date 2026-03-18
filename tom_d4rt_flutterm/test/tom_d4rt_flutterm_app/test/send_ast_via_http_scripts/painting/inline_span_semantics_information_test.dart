@@ -1,7 +1,5 @@
 // D4rt test script: Tests InlineSpanSemanticsInformation from painting
-import 'package:flutter/painting.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/gestures.dart';
 
 dynamic build(BuildContext context) {
   print('InlineSpanSemanticsInformation test executing');
