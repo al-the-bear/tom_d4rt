@@ -1,7 +1,6 @@
 // D4rt test script: Tests PathMetrics (Iterable<PathMetric>) from dart:ui
 // NOTE: PathMetrics doesn't support .first/.length/.isEmpty through bridge.
 // Must use iterator.moveNext() + iterator.current pattern.
-import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {

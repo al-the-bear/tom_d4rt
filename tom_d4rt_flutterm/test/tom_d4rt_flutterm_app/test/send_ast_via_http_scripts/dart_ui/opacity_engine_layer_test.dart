@@ -31,7 +31,7 @@ dynamic build(BuildContext context) {
   // Various alpha values
   for (final alpha in [25, 50, 75, 100, 150, 200]) {
     final l = builder.pushOpacity(alpha);
-    print('pushOpacity($alpha): OK');
+    print('pushOpacity($alpha): ${l.runtimeType}');
     builder.pop();
   }
 
@@ -42,7 +42,10 @@ dynamic build(BuildContext context) {
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('OpacityEngineLayer Tests', style: TextStyle(fontWeight: FontWeight.bold)),
+      Text(
+        'OpacityEngineLayer Tests',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
       SizedBox(height: 8),
       Text('Type: ${layer1.runtimeType}'),
       Text('Alpha 0, 128, 255 tested'),

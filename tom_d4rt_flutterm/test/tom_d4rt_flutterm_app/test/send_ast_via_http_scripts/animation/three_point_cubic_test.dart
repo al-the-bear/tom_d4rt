@@ -1,10 +1,7 @@
 // D4rt test script: Deep Demo for ThreePointCubic from animation
 // ThreePointCubic defines a curve through 3 control point regions
 // Used for Material Design emphasis curves with precise control
-import 'dart:ui';
-import 'dart:math' as math;
-import 'package:flutter/animation.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print(
@@ -202,9 +199,9 @@ dynamic build(BuildContext context) {
   for (final t in [0.0, 0.01, 0.02, 0.05, 0.95, 0.98, 0.99, 1.0]) {
     final out = emphasisCurve.transform(t);
     String status;
-    if (t == 0.0)
+    if (t == 0.0) {
       status = 'Start (must be 0)';
-    else if (t == 1.0)
+    } else if (t == 1.0)
       status = 'End (must be 1)';
     else if (t < 0.1)
       status = 'Early acceleration';
@@ -353,9 +350,9 @@ dynamic build(BuildContext context) {
   for (final t in [0.10, 0.12, 0.14, 0.16, 0.167, 0.18, 0.20, 0.22]) {
     final out = emphasisCurve.transform(t);
     String pos;
-    if (t < midX - 0.02)
+    if (t < midX - 0.02) {
       pos = 'Before midpoint';
-    else if (t > midX + 0.02)
+    } else if (t > midX + 0.02)
       pos = 'After midpoint';
     else
       pos = '← Near midpoint transition';
@@ -630,7 +627,7 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 SizedBox(height: 12.0),
-                Container(
+                SizedBox(
                   height: 120,
                   child: CustomPaint(
                     painter: ThreePointCubicPainter(emphasisCurve),
@@ -844,7 +841,7 @@ Widget _buildControlPointRow(String name, String value, String description) {
           ),
         ),
         SizedBox(width: 8),
-        Container(
+        SizedBox(
           width: 80,
           child: Text(
             value,
@@ -910,7 +907,7 @@ Widget _buildValueRow(Map<String, dynamic> r) {
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 45,
           child: Text(
             't=${t.toStringAsFixed(1)}',
@@ -969,7 +966,7 @@ Widget _buildCompRow(Map<String, dynamic> r) {
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 45,
           child: Text(
             't=${(r['t'] as double).toStringAsFixed(2)}',
@@ -996,7 +993,7 @@ Widget _buildSmallValue(String value, Color color) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
     decoration: BoxDecoration(
-      color: color.withOpacity(0.2),
+      color: color.withValues(alpha: 0.2),
       borderRadius: BorderRadius.circular(4),
     ),
     child: Text(

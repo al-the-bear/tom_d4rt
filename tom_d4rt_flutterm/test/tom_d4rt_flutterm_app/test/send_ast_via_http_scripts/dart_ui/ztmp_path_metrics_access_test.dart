@@ -1,5 +1,4 @@
 // D4rt test script: Quick check if .first works on PathMetrics
-import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {

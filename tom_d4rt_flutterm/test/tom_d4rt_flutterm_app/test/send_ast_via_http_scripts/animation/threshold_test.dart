@@ -1,10 +1,7 @@
 // D4rt test script: Deep Demo for Threshold from animation
 // Threshold is a step function curve - outputs 0 before threshold, 1 at/after
 // Useful for binary state changes in animations
-import 'dart:ui';
-import 'dart:math' as math;
-import 'package:flutter/animation.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print(
@@ -315,9 +312,9 @@ dynamic build(BuildContext context) {
   for (final t in [0.49, 0.499, 0.4999, 0.5, 0.5001, 0.501, 0.51]) {
     final out = threshold50.transform(t);
     String analysis;
-    if (t < 0.5)
+    if (t < 0.5) {
       analysis = 'Before threshold → OFF';
-    else if (t == 0.5)
+    } else if (t == 0.5)
       analysis = 'AT threshold → ON ←';
     else
       analysis = 'After threshold → ON';
@@ -634,7 +631,7 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 SizedBox(height: 12.0),
-                Container(
+                SizedBox(
                   height: 80,
                   child: CustomPaint(
                     painter: ThresholdPainter(0.5),
@@ -881,14 +878,13 @@ class ThresholdPainter extends CustomPainter {
 
 Widget _buildStateRow(Map<String, dynamic> r) {
   final t = r['t'] as double;
-  final out = r['out'] as double;
   final state = r['state'] as String;
 
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 50,
           child: Text(
             't=${t.toStringAsFixed(2)}',
@@ -960,7 +956,7 @@ Widget _buildRevealRow(Map<String, dynamic> r) {
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 45,
           child: Text(
             't=${t.toStringAsFixed(1)}',

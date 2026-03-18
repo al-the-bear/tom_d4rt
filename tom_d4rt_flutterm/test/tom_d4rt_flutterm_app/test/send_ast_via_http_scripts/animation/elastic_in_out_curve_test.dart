@@ -1,10 +1,8 @@
 // D4rt test script: Deep Demo for ElasticInOutCurve from animation
 // ElasticInOutCurve provides spring-like animation at both start and end
 // Creates a symmetric "pull-back and overshoot" effect
-import 'dart:ui';
 import 'dart:math' as math;
-import 'package:flutter/animation.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print(
@@ -112,10 +110,7 @@ dynamic build(BuildContext context) {
     // Create a simple ASCII visualization
     final normalized = ((value + 0.2) * 25).round().clamp(0, 40);
     final bar =
-        '│' +
-        ' ' * math.max(0, normalized - 1) +
-        '*' +
-        ' ' * math.max(0, 39 - normalized);
+        '│${' ' * math.max(0, normalized - 1)}*${' ' * math.max(0, 39 - normalized)}';
     print(
       '│  ${t.toStringAsFixed(2)}   │  ${value.toStringAsFixed(8).padLeft(12)}   │$bar│',
     );
@@ -166,7 +161,9 @@ dynamic build(BuildContext context) {
       .reduce(math.max);
   print('Maximum symmetry error: ${symmetryError.toStringAsFixed(12)}');
   print(
-    '${symmetryError < 1e-10 ? "✓ Perfect symmetry verified" : "⚠ Slight asymmetry detected"}',
+    symmetryError < 1e-10
+        ? "✓ Perfect symmetry verified"
+        : "⚠ Slight asymmetry detected",
   );
   print('');
 
@@ -365,9 +362,9 @@ dynamic build(BuildContext context) {
   for (final t in [0.1, 0.25, 0.5, 0.75, 0.9]) {
     final velocity = calculateDerivative(defaultCurve, t, 0.01);
     String interpretation;
-    if (velocity < -1.0)
+    if (velocity < -1.0) {
       interpretation = 'Strong backward motion';
-    else if (velocity < 0)
+    } else if (velocity < 0)
       interpretation = 'Backward motion';
     else if (velocity < 1.0)
       interpretation = 'Slow forward';
@@ -651,7 +648,7 @@ dynamic build(BuildContext context) {
                     padding: EdgeInsets.symmetric(vertical: 2.0),
                     child: Row(
                       children: [
-                        Container(
+                        SizedBox(
                           width: 50,
                           child: Text(
                             't=${(r['t'] as double).toStringAsFixed(1)}',
@@ -779,7 +776,7 @@ dynamic build(BuildContext context) {
                         padding: EdgeInsets.symmetric(vertical: 2.0),
                         child: Row(
                           children: [
-                            Container(
+                            SizedBox(
                               width: 60,
                               child: Text(
                                 'p=${(r['period'] as double).toStringAsFixed(1)}',
@@ -952,15 +949,15 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 12.0),
                 _buildAnimExample(
                   'Scale (0.8x→1.2x)',
-                  scaleResults.last['scale']!.toStringAsFixed(3) + 'x',
+                  '${scaleResults.last['scale']!.toStringAsFixed(3)}x',
                 ),
                 _buildAnimExample(
                   'Position (0→100px)',
-                  positionResults.last['position']!.toStringAsFixed(1) + 'px',
+                  '${positionResults.last['position']!.toStringAsFixed(1)}px',
                 ),
                 _buildAnimExample(
                   'Rotation (0°→360°)',
-                  rotationResults.last['rotation']!.toStringAsFixed(0) + '°',
+                  '${rotationResults.last['rotation']!.toStringAsFixed(0)}°',
                 ),
               ],
             ),
@@ -1123,7 +1120,7 @@ Widget _buildValueRow(String label, double value) {
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 60,
           child: Text(
             label,
@@ -1199,9 +1196,9 @@ Widget _buildFamilyCard(String name, double value, Color color) {
   return Container(
     padding: EdgeInsets.all(12),
     decoration: BoxDecoration(
-      color: color.withOpacity(0.15),
+      color: color.withValues(alpha: 0.15),
       borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: color.withOpacity(0.5)),
+      border: Border.all(color: color.withValues(alpha: 0.5)),
     ),
     child: Column(
       children: [
@@ -1235,7 +1232,7 @@ Widget _buildVelocityRow(String label, double velocity, String interpretation) {
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 50,
           child: Text(
             label,
@@ -1296,7 +1293,7 @@ Widget _buildAnimExample(String title, String value) {
 }
 
 Widget _buildCurveVisualization(Curve curve) {
-  return Container(
+  return SizedBox(
     height: 80,
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.end,

@@ -1,7 +1,5 @@
 // D4rt test script: Deep Demo - CatmullRomCurve from animation
 // Comprehensive demonstration of Catmull-Rom spline interpolation for smooth curves
-import 'dart:ui';
-import 'package:flutter/animation.dart';
 import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {
@@ -313,7 +311,7 @@ dynamic build(BuildContext context) {
                     padding: EdgeInsets.only(bottom: 4.0),
                     child: Row(
                       children: [
-                        Container(
+                        SizedBox(
                           width: 45.0,
                           child: Text(
                             't=${result['t']}',
@@ -346,7 +344,7 @@ dynamic build(BuildContext context) {
                           ),
                         ),
                         SizedBox(width: 8.0),
-                        Container(
+                        SizedBox(
                           width: 55.0,
                           child: Text(
                             (result['value'] as double).toStringAsFixed(3),
@@ -401,7 +399,7 @@ dynamic build(BuildContext context) {
                     padding: EdgeInsets.only(bottom: 4.0),
                     child: Row(
                       children: [
-                        Container(
+                        SizedBox(
                           width: 45.0,
                           child: Text(
                             't=${result['t']}',
@@ -434,7 +432,7 @@ dynamic build(BuildContext context) {
                           ),
                         ),
                         SizedBox(width: 8.0),
-                        Container(
+                        SizedBox(
                           width: 55.0,
                           child: Text(
                             (result['value'] as double).toStringAsFixed(3),
@@ -489,7 +487,7 @@ dynamic build(BuildContext context) {
                     padding: EdgeInsets.only(bottom: 4.0),
                     child: Row(
                       children: [
-                        Container(
+                        SizedBox(
                           width: 45.0,
                           child: Text(
                             't=${result['t']}',
@@ -522,7 +520,7 @@ dynamic build(BuildContext context) {
                           ),
                         ),
                         SizedBox(width: 8.0),
-                        Container(
+                        SizedBox(
                           width: 55.0,
                           child: Text(
                             (result['value'] as double).toStringAsFixed(3),
@@ -577,7 +575,7 @@ dynamic build(BuildContext context) {
                     padding: EdgeInsets.only(bottom: 4.0),
                     child: Row(
                       children: [
-                        Container(
+                        SizedBox(
                           width: 45.0,
                           child: Text(
                             't=${result['t']}',
@@ -610,7 +608,7 @@ dynamic build(BuildContext context) {
                           ),
                         ),
                         SizedBox(width: 8.0),
-                        Container(
+                        SizedBox(
                           width: 55.0,
                           child: Text(
                             (result['value'] as double).toStringAsFixed(3),
@@ -665,7 +663,7 @@ dynamic build(BuildContext context) {
                     padding: EdgeInsets.only(bottom: 4.0),
                     child: Row(
                       children: [
-                        Container(
+                        SizedBox(
                           width: 45.0,
                           child: Text(
                             't=${result['t']}',
@@ -698,7 +696,7 @@ dynamic build(BuildContext context) {
                           ),
                         ),
                         SizedBox(width: 8.0),
-                        Container(
+                        SizedBox(
                           width: 55.0,
                           child: Text(
                             (result['value'] as double).toStringAsFixed(3),
@@ -749,7 +747,7 @@ dynamic build(BuildContext context) {
                     padding: EdgeInsets.only(bottom: 4.0),
                     child: Row(
                       children: [
-                        Container(
+                        SizedBox(
                           width: 45.0,
                           child: Text(
                             't=${result['t']}',
@@ -782,7 +780,7 @@ dynamic build(BuildContext context) {
                           ),
                         ),
                         SizedBox(width: 8.0),
-                        Container(
+                        SizedBox(
                           width: 55.0,
                           child: Text(
                             (result['value'] as double).toStringAsFixed(3),
@@ -942,7 +940,8 @@ dynamic build(BuildContext context) {
                         Expanded(
                           flex: 1,
                           child: Text(
-                            '${(fineGrainedResults[i]['t'] as double).toStringAsFixed(2)}',
+                            (fineGrainedResults[i]['t'] as double)
+                                .toStringAsFixed(2),
                             style: TextStyle(
                               fontSize: 10.0,
                               fontFamily: 'monospace',
@@ -952,7 +951,8 @@ dynamic build(BuildContext context) {
                         Expanded(
                           flex: 2,
                           child: Text(
-                            '${(fineGrainedResults[i]['basic'] as double).toStringAsFixed(3)}',
+                            (fineGrainedResults[i]['basic'] as double)
+                                .toStringAsFixed(3),
                             style: TextStyle(
                               fontSize: 10.0,
                               fontFamily: 'monospace',
@@ -962,7 +962,8 @@ dynamic build(BuildContext context) {
                         Expanded(
                           flex: 2,
                           child: Text(
-                            '${(fineGrainedResults[i]['sCurve'] as double).toStringAsFixed(3)}',
+                            (fineGrainedResults[i]['sCurve'] as double)
+                                .toStringAsFixed(3),
                             style: TextStyle(
                               fontSize: 10.0,
                               fontFamily: 'monospace',

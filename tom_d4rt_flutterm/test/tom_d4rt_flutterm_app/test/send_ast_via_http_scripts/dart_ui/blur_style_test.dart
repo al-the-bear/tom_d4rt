@@ -1,299 +1,33 @@
 // D4rt Deep Demo: BlurStyle - Shadow Blur Rendering Styles
 // This demo comprehensively explores BlurStyle enum which controls
 // how blur is applied to MaskFilter for shadow and blur effects.
-import 'dart:ui';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  print(
-    '═══════════════════════════════════════════════════════════════════════════',
-  );
-  print(
-    '                         BLURSTYLE DEEP DEMO                               ',
-  );
-  print(
-    '═══════════════════════════════════════════════════════════════════════════',
-  );
-
   // ═══════════════════════════════════════════════════════════════════════════════
   // SECTION 1: BlurStyle Fundamentals
   // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 1: BlurStyle Fundamentals');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-  print('BlurStyle controls how blur is rendered for MaskFilter:');
-  print('- Affects shadow and glow appearance');
-  print('- Used with MaskFilter.blur()');
-  print('- Different styles for different visual effects');
-  print('');
-  print('All blur styles:');
-  for (final style in BlurStyle.values) {
-    print('  [${style.index}] ${style.name}');
-  }
-  print('Total: ${BlurStyle.values.length} styles');
-
   // ═══════════════════════════════════════════════════════════════════════════════
-  // SECTION 2: Normal Blur Style
-  // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 2: Normal Blur');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-  final normal = BlurStyle.normal;
-  print('Style: $normal');
-  print('Name: ${normal.name}');
-  print('Index: ${normal.index}');
-  print('');
-  print('Characteristics:');
-  print('  • Blur extends in all directions');
-  print('  • Affects both inside and outside shape edge');
-  print('  • Standard Gaussian blur');
-  print('  • Most common blur style');
-  print('');
-  print('Use cases:');
-  print('  • General shadows');
-  print('  • Soft glow effects');
-  print('  • Background blur');
-  print('  • Text shadows');
-
-  // ═══════════════════════════════════════════════════════════════════════════════
-  // SECTION 3: Solid Blur Style
-  // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 3: Solid Blur');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-  final solid = BlurStyle.solid;
-  print('Style: $solid');
-  print('Name: ${solid.name}');
-  print('Index: ${solid.index}');
-  print('');
-  print('Characteristics:');
-  print('  • Shape interior remains solid/opaque');
-  print('  • Only outer edge is blurred');
-  print('  • Preserves crisp center');
-  print('  • Blur fades outward only');
-  print('');
-  print('Use cases:');
-  print('  • Soft-edge shapes with solid fill');
-  print('  • Buttons with soft borders');
-  print('  • Cards with feathered edges');
-  print('  • Vignette effects');
-
-  // ═══════════════════════════════════════════════════════════════════════════════
-  // SECTION 4: Outer Blur Style
-  // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 4: Outer Blur');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-  final outer = BlurStyle.outer;
-  print('Style: $outer');
-  print('Name: ${outer.name}');
-  print('Index: ${outer.index}');
-  print('');
-  print('Characteristics:');
-  print('  • Blur only OUTSIDE the shape');
-  print('  • Interior is completely empty/transparent');
-  print('  • Creates halo/glow around shapes');
-  print('  • No fill, only shadow');
-  print('');
-  print('Use cases:');
-  print('  • Glow effects behind elements');
-  print('  • Drop shadows (classic shadow)');
-  print('  • Neon glow effects');
-  print('  • Light halos');
-
-  // ═══════════════════════════════════════════════════════════════════════════════
-  // SECTION 5: Inner Blur Style
-  // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 5: Inner Blur');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-  final inner = BlurStyle.inner;
-  print('Style: $inner');
-  print('Name: ${inner.name}');
-  print('Index: ${inner.index}');
-  print('');
-  print('Characteristics:');
-  print('  • Blur only INSIDE the shape');
-  print('  • Exterior is empty/transparent');
-  print('  • Creates inset shadow effect');
-  print('  • Blur fades inward from edge');
-  print('');
-  print('Use cases:');
-  print('  • Inset shadows (pressed buttons)');
-  print('  • Inner glow effects');
-  print('  • Embossed/debossed look');
-  print('  • Cut-out effects');
-
-  // ═══════════════════════════════════════════════════════════════════════════════
-  // SECTION 6: BlurStyle Comparison
-  // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 6: Style Comparison');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-  print('Visual comparison of blur styles:');
-  print('');
-  print('┌─────────────┬───────────┬───────────┬──────────────┐');
-  print('│   Style     │  Inside   │  Outside  │   Fill       │');
-  print('├─────────────┼───────────┼───────────┼──────────────┤');
-  print('│   normal    │   Blur    │   Blur    │   Blurred    │');
-  print('│   solid     │   Solid   │   Blur    │   Yes        │');
-  print('│   outer     │   Empty   │   Blur    │   No         │');
-  print('│   inner     │   Blur    │   Empty   │   Blurred    │');
-  print('└─────────────┴───────────┴───────────┴──────────────┘');
-  print('');
-  print('Equality checks:');
-  print('normal == solid: ${normal == solid}');
-  print('outer == inner: ${outer == inner}');
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // SECTION 7: Creating MaskFilter with BlurStyle
   // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 7: MaskFilter Usage');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-  print('Creating MaskFilter with different blur styles:');
-  print('');
-
-  final sigma = 10.0;
-
-  final normalFilter = MaskFilter.blur(BlurStyle.normal, sigma);
-  print('MaskFilter.blur(BlurStyle.normal, $sigma)');
-  print('  → $normalFilter');
-
-  final solidFilter = MaskFilter.blur(BlurStyle.solid, sigma);
-  print('');
-  print('MaskFilter.blur(BlurStyle.solid, $sigma)');
-  print('  → $solidFilter');
-
-  final outerFilter = MaskFilter.blur(BlurStyle.outer, sigma);
-  print('');
-  print('MaskFilter.blur(BlurStyle.outer, $sigma)');
-  print('  → $outerFilter');
-
-  final innerFilter = MaskFilter.blur(BlurStyle.inner, sigma);
-  print('');
-  print('MaskFilter.blur(BlurStyle.inner, $sigma)');
-  print('  → $innerFilter');
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // SECTION 8: Paint Integration
   // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 8: Paint Integration');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-  print('Applying MaskFilter to Paint:');
-  print('');
-
-  final paint = Paint()
-    ..color = Colors.black
-    ..maskFilter = MaskFilter.blur(BlurStyle.normal, 8.0);
-
-  print('''
-  final paint = Paint()
-    ..color = Colors.black
-    ..maskFilter = MaskFilter.blur(BlurStyle.normal, 8.0);
-  
-  canvas.drawRect(rect, paint);
-  ''');
-
-  print('');
-  print('Paint.maskFilter: ${paint.maskFilter}');
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // SECTION 9: BoxShadow Widget Equivalent
   // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 9: Widget Level Usage');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-  print('BlurStyle equivalents at widget level:');
-  print('');
-  print('BoxShadow (uses similar blur concept):');
-  print('''
-  Container(
-    decoration: BoxDecoration(
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withOpacity(0.3),
-          blurRadius: 10.0,  // Similar to sigma
-          spreadRadius: 2.0, // Expands/contracts shadow
-          offset: Offset(4, 4),
-        ),
-      ],
-    ),
-  )
-  ''');
-  print('');
-  print('Note: BoxShadow doesn\'t expose BlurStyle directly');
-  print('For custom blur styles, use CustomPainter with MaskFilter');
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // SECTION 10: Sigma Value Impact
   // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 10: Sigma Values');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-  print('Sigma controls blur intensity for all styles:');
-  print('');
-  print('┌────────────┬─────────────────┬─────────────────────┐');
-  print('│   Sigma    │   Appearance    │   Pixel Spread      │');
-  print('├────────────┼─────────────────┼─────────────────────┤');
-  print('│   0.5-2    │   Very subtle   │   ~2-6 pixels       │');
-  print('│   3-5      │   Light blur    │   ~9-15 pixels      │');
-  print('│   6-10     │   Medium blur   │   ~18-30 pixels     │');
-  print('│   11-20    │   Heavy blur    │   ~33-60 pixels     │');
-  print('│   20+      │   Very heavy    │   60+ pixels        │');
-  print('└────────────┴─────────────────┴─────────────────────┘');
-  print('');
-  print('Approximate rule: Blur spread ≈ 3 × sigma');
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // SECTION 11: Practical Examples
   // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 11: Practical Examples');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-  print('Common blur style applications:');
-  print('');
-  print('Drop Shadow (outer):');
-  print('  MaskFilter.blur(BlurStyle.outer, 8.0)');
-  print('  + Offset for direction');
-  print('  + Semi-transparent black');
-  print('');
-  print('Text Glow (normal):');
-  print('  MaskFilter.blur(BlurStyle.normal, 4.0)');
-  print('  + Bright color');
-  print('  + Draw text twice (glow + crisp)');
-  print('');
-  print('Button Press (inner):');
-  print('  MaskFilter.blur(BlurStyle.inner, 6.0)');
-  print('  + Dark color');
-  print('  + Creates inset appearance');
-  print('');
-  print('Soft Button (solid):');
-  print('  MaskFilter.blur(BlurStyle.solid, 3.0)');
-  print('  + Solid interior');
-  print('  + Soft edge transition');
-
-  print(
-    '\n═══════════════════════════════════════════════════════════════════════════',
-  );
-  print(
-    '                      BLURSTYLE DEEP DEMO COMPLETE                         ',
-  );
-  print(
-    '═══════════════════════════════════════════════════════════════════════════',
-  );
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // VISUAL DEMONSTRATION UI
@@ -322,7 +56,7 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.blueGrey.withOpacity(0.4),
+                  color: Colors.blueGrey.withValues(alpha: 0.4),
                   blurRadius: 15,
                   offset: Offset(0, 8),
                 ),
@@ -344,7 +78,7 @@ dynamic build(BuildContext context) {
                   'Shadow & Blur Rendering Modes',
                   style: TextStyle(
                     fontSize: 14,
-                    color: Colors.white.withOpacity(0.9),
+                    color: Colors.white.withValues(alpha: 0.9),
                   ),
                 ),
               ],
@@ -399,7 +133,10 @@ dynamic build(BuildContext context) {
               color: Colors.white,
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
-                BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 8),
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.05),
+                  blurRadius: 8,
+                ),
               ],
             ),
             child: Column(
@@ -587,7 +324,7 @@ dynamic build(BuildContext context) {
   );
 }
 
-Widget _buildBlurDemo(String name, BlurStyle style, Color color) {
+Widget _buildBlurDemo(String name, BlurStyle style, MaterialColor color) {
   return Expanded(
     child: Container(
       height: 100,
@@ -616,7 +353,7 @@ Widget _buildBlurDemo(String name, BlurStyle style, Color color) {
 
 class _BlurStylePainter extends CustomPainter {
   final BlurStyle style;
-  final Color color;
+  final MaterialColor color;
   _BlurStylePainter(this.style, this.color);
 
   @override
@@ -679,14 +416,14 @@ Widget _buildUseCaseCard(
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(10),
-      border: Border.all(color: color.withOpacity(0.3)),
+      border: Border.all(color: color.withValues(alpha: 0.3)),
     ),
     child: Row(
       children: [
         Container(
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: color.withOpacity(0.1),
+            color: color.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Icon(icon, color: color, size: 24),
@@ -707,7 +444,7 @@ Widget _buildUseCaseCard(
         Container(
           padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           decoration: BoxDecoration(
-            color: color.withOpacity(0.1),
+            color: color.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Text(

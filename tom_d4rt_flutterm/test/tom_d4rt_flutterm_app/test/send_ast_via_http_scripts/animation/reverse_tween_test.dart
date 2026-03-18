@@ -1,10 +1,7 @@
 // D4rt test script: Deep Demo for ReverseTween from animation
 // ReverseTween creates a reversed version of any tween
 // Swaps begin and end without modifying the original
-import 'dart:ui';
-import 'dart:math' as math;
-import 'package:flutter/animation.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print(
@@ -100,8 +97,8 @@ dynamic build(BuildContext context) {
   );
 
   for (final t in tValues) {
-    final orig = doubleTween.lerp(t);
-    final rev = reversedDouble.lerp(t);
+    final orig = doubleTween.transform(t);
+    final rev = reversedDouble.transform(t);
     doubleResults.add({'t': t, 'orig': orig, 'rev': rev});
 
     final origBar = '█' * (orig / 100 * 12).round().clamp(0, 12);
@@ -143,8 +140,8 @@ dynamic build(BuildContext context) {
   print('├───────┼──────────────┼──────────────┼──────────────┼─────────┤');
 
   for (final t in tValues) {
-    final revVal = reversedDouble.lerp(t);
-    final origComplement = doubleTween.lerp(1.0 - t);
+    final revVal = reversedDouble.transform(t);
+    final origComplement = doubleTween.transform(1.0 - t);
     final diff = (revVal - origComplement).abs();
     final match = diff < 0.001;
     if (!match) allMatch = false;
@@ -200,8 +197,8 @@ dynamic build(BuildContext context) {
   );
 
   for (final t in [0.0, 0.25, 0.5, 0.75, 1.0]) {
-    final orig = negativeTween.lerp(t);
-    final rev = reversedNegative.lerp(t);
+    final orig = negativeTween.transform(t);
+    final rev = reversedNegative.transform(t);
     negResults.add({'t': t, 'orig': orig, 'rev': rev});
 
     // Number line visualization
@@ -257,14 +254,14 @@ dynamic build(BuildContext context) {
   print('├───────┼──────────────────────────┼──────────────────────────┤');
 
   for (final t in [0.0, 0.25, 0.5, 0.75, 1.0]) {
-    final origColor = colorTween.lerp(t)!;
-    final revColor = reversedColor.lerp(t)!;
+    final origColor = colorTween.transform(t)!;
+    final revColor = reversedColor.transform(t)!;
     colorResults.add({'t': t, 'orig': origColor, 'rev': revColor});
 
     final origHex =
-        '#${origColor.value.toRadixString(16).padLeft(8, '0').substring(2).toUpperCase()}';
+        '#${origColor.toARGB32().toRadixString(16).padLeft(8, '0').substring(2).toUpperCase()}';
     final revHex =
-        '#${revColor.value.toRadixString(16).padLeft(8, '0').substring(2).toUpperCase()}';
+        '#${revColor.toARGB32().toRadixString(16).padLeft(8, '0').substring(2).toUpperCase()}';
     print(
       '│ ${t.toStringAsFixed(2)}  │ ${origHex.padRight(24)} │ ${revHex.padRight(24)} │',
     );
@@ -306,17 +303,13 @@ dynamic build(BuildContext context) {
   );
 
   for (final t in tValues) {
-    final orig = intTween.lerp(t);
-    final rev = reversedInt.lerp(t);
+    final orig = intTween.transform(t);
+    final rev = reversedInt.transform(t);
     intResults.add({'t': t, 'orig': orig, 'rev': rev});
 
     final origIndicator = List.generate(
       11,
       (i) => i == orig ? '█' : '░',
-    ).join('');
-    final revIndicator = List.generate(
-      11,
-      (i) => i == rev ? '▓' : '─',
     ).join('');
     print(
       '│ ${t.toStringAsFixed(1)}   │      ${orig.toString().padLeft(2)}      │      ${rev.toString().padLeft(2)}      │ $origIndicator │',
@@ -367,8 +360,8 @@ dynamic build(BuildContext context) {
   );
 
   for (final t in [0.0, 0.25, 0.5, 0.75, 1.0]) {
-    final orig = rectTween.lerp(t)!;
-    final rev = reversedRect.lerp(t)!;
+    final orig = rectTween.transform(t)!;
+    final rev = reversedRect.transform(t)!;
     rectResults.add({'t': t, 'orig': orig, 'rev': rev});
 
     final origStr =
@@ -422,8 +415,8 @@ dynamic build(BuildContext context) {
 
   for (var i = 0; i <= 10; i++) {
     final t = i / 10;
-    final forwardVal = doubleTween.lerp(t);
-    final backwardVal = reversedDouble.lerp(t);
+    final forwardVal = doubleTween.transform(t);
+    final backwardVal = reversedDouble.transform(t);
 
     final fBar = '█' * (forwardVal / 100 * 20).round().clamp(0, 20);
     final bBar = '▓' * (backwardVal / 100 * 20).round().clamp(0, 20);
@@ -857,15 +850,15 @@ dynamic build(BuildContext context) {
                   children: [
                     _buildSummaryStat(
                       'Orig(0.5)',
-                      '${doubleTween.lerp(0.5).toInt()}',
+                      '${doubleTween.transform(0.5).toInt()}',
                     ),
                     _buildSummaryStat(
                       'Rev(0.5)',
-                      '${reversedDouble.lerp(0.5).toInt()}',
+                      '${reversedDouble.transform(0.5).toInt()}',
                     ),
                     _buildSummaryStat(
                       'Sum',
-                      '${(doubleTween.lerp(0.5) + reversedDouble.lerp(0.5)).toInt()}',
+                      '${(doubleTween.transform(0.5) + reversedDouble.transform(0.5)).toInt()}',
                     ),
                   ],
                 ),
@@ -896,10 +889,7 @@ Widget _buildDoubleRow(String label, double orig, double rev) {
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(
-          width: 50,
-          child: Text(label, style: TextStyle(fontSize: 11)),
-        ),
+        SizedBox(width: 50, child: Text(label, style: TextStyle(fontSize: 11))),
         Expanded(
           child: Row(
             children: [
@@ -945,7 +935,7 @@ Widget _buildDoubleRow(String label, double orig, double rev) {
             ],
           ),
         ),
-        Container(
+        SizedBox(
           width: 80,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -980,10 +970,7 @@ Widget _buildColorRow(String label, Color orig, Color rev) {
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(
-          width: 50,
-          child: Text(label, style: TextStyle(fontSize: 11)),
-        ),
+        SizedBox(width: 50, child: Text(label, style: TextStyle(fontSize: 11))),
         Expanded(
           child: Row(
             children: [

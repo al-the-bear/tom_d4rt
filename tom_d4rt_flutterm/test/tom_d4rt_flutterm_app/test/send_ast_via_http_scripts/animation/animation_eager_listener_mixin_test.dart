@@ -1,9 +1,6 @@
 // D4rt test script: Tests AnimationEagerListenerMixin from animation
 // Deep Demo: Visual demonstration of eager listener mixin behavior
-import 'dart:ui';
-import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {
   print('AnimationEagerListenerMixin Deep Demo executing');
@@ -30,7 +27,7 @@ dynamic build(BuildContext context) {
         border: Border.all(color: Colors.blue.shade300, width: 2.0),
         boxShadow: [
           BoxShadow(
-            color: Colors.blue.withOpacity(0.2),
+            color: Colors.blue.withValues(alpha: 0.2),
             blurRadius: 8.0,
             offset: Offset(0, 4),
           ),
@@ -74,7 +71,7 @@ dynamic build(BuildContext context) {
         border: Border.all(color: Colors.orange.shade300, width: 2.0),
         boxShadow: [
           BoxShadow(
-            color: Colors.orange.withOpacity(0.2),
+            color: Colors.orange.withValues(alpha: 0.2),
             blurRadius: 8.0,
             offset: Offset(0, 4),
           ),
@@ -161,10 +158,10 @@ dynamic build(BuildContext context) {
         margin: EdgeInsets.all(8.0),
         padding: EdgeInsets.all(12.0),
         decoration: BoxDecoration(
-          color: Colors.green.withOpacity(value * 0.3 + 0.1),
+          color: Colors.green.withValues(alpha: value * 0.3 + 0.1),
           borderRadius: BorderRadius.circular(10.0),
           border: Border.all(
-            color: Colors.green.withOpacity(value * 0.5 + 0.3),
+            color: Colors.green.withValues(alpha: value * 0.5 + 0.3),
             width: 2.0,
           ),
         ),
@@ -306,10 +303,10 @@ dynamic build(BuildContext context) {
         margin: EdgeInsets.symmetric(vertical: 6.0, horizontal: 16.0),
         padding: EdgeInsets.all(12.0),
         decoration: BoxDecoration(
-          color: (op['color'] as Color).withOpacity(0.1),
+          color: (op['color'] as Color).withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(8.0),
           border: Border.all(
-            color: (op['color'] as Color).withOpacity(0.5),
+            color: (op['color'] as Color).withValues(alpha: 0.5),
             width: 1.5,
           ),
         ),
@@ -319,7 +316,7 @@ dynamic build(BuildContext context) {
               width: 32.0,
               height: 32.0,
               decoration: BoxDecoration(
-                color: (op['color'] as Color).withOpacity(0.2),
+                color: (op['color'] as Color).withValues(alpha: 0.2),
                 shape: BoxShape.circle,
               ),
               child: Center(
@@ -431,9 +428,9 @@ dynamic build(BuildContext context) {
         margin: EdgeInsets.all(6.0),
         padding: EdgeInsets.all(12.0),
         decoration: BoxDecoration(
-          color: color.withOpacity(0.1),
+          color: color.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(color: color.withOpacity(0.5), width: 1.5),
+          border: Border.all(color: color.withValues(alpha: 0.5), width: 1.5),
         ),
         child: Column(
           children: [
@@ -442,7 +439,7 @@ dynamic build(BuildContext context) {
             Container(
               padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
               decoration: BoxDecoration(
-                color: color.withOpacity(0.2),
+                color: color.withValues(alpha: 0.2),
                 borderRadius: BorderRadius.circular(4.0),
               ),
               child: Text(
@@ -524,7 +521,7 @@ dynamic build(BuildContext context) {
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
-                      color: color.withOpacity(0.4),
+                      color: color.withValues(alpha: 0.4),
                       blurRadius: 6.0,
                       offset: Offset(0, 2),
                     ),
@@ -540,7 +537,7 @@ dynamic build(BuildContext context) {
                 Container(
                   width: 3.0,
                   height: 40.0,
-                  color: color.withOpacity(0.5),
+                  color: color.withValues(alpha: 0.5),
                 ),
             ],
           ),
@@ -551,9 +548,12 @@ dynamic build(BuildContext context) {
               margin: EdgeInsets.only(bottom: isLast ? 0 : 16.0),
               padding: EdgeInsets.all(12.0),
               decoration: BoxDecoration(
-                color: color.withOpacity(0.1),
+                color: color.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8.0),
-                border: Border.all(color: color.withOpacity(0.3), width: 1.0),
+                border: Border.all(
+                  color: color.withValues(alpha: 0.3),
+                  width: 1.0,
+                ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -841,16 +841,16 @@ Widget _buildSummaryItem(
   return Container(
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
-      color: Colors.white.withOpacity(0.7),
+      color: Colors.white.withValues(alpha: 0.7),
       borderRadius: BorderRadius.circular(8.0),
-      border: Border.all(color: color.withOpacity(0.3), width: 1.0),
+      border: Border.all(color: color.withValues(alpha: 0.3), width: 1.0),
     ),
     child: Row(
       children: [
         Container(
           padding: EdgeInsets.all(8.0),
           decoration: BoxDecoration(
-            color: color.withOpacity(0.2),
+            color: color.withValues(alpha: 0.2),
             shape: BoxShape.circle,
           ),
           child: Icon(icon, color: color, size: 20.0),

@@ -11,12 +11,12 @@ dynamic build(BuildContext context) {
   final emptyData = Uint8List(0);
   // ImmutableBuffer.fromUint8List returns Future<ImmutableBuffer>, not sync
   final bufferFuture = ui.ImmutableBuffer.fromUint8List(emptyData);
-  print('type: Future<ImmutableBuffer>');
+  print('type: ${bufferFuture.runtimeType}');
   print('ImmutableBuffer: created future from empty Uint8List');
   final dataBufferFuture = ui.ImmutableBuffer.fromUint8List(
     Uint8List.fromList([1, 2, 3, 4]),
   );
-  print('dataBuffer type: Future<ImmutableBuffer>');
+  print('dataBuffer type: ${dataBufferFuture.runtimeType}');
   print('ImmutableBuffer: created future from Uint8List([1, 2, 3, 4])');
   print('ImmutableBuffer tests passed');
 

@@ -1,10 +1,8 @@
 // D4rt test script: Deep Demo for Curve2D from animation
 // Curve2D is an abstract class representing 2D parametric curves
 // This comprehensive test exercises curve behavior through its concrete implementation
-import 'dart:ui';
 import 'dart:math' as math;
-import 'package:flutter/animation.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print(
@@ -148,7 +146,7 @@ dynamic build(BuildContext context) {
   print('');
 
   // Default sampling
-  final defaultSamples = basicCurve.generateSamples();
+  final defaultSamples = basicCurve.generateSamples().toList();
   print('Default sample generation:');
   print('  • Sample count: ${defaultSamples.length}');
   print('  • Uses default tolerance for adaptive sampling');
@@ -347,14 +345,18 @@ dynamic build(BuildContext context) {
   Offset minBound = Offset(double.infinity, double.infinity);
   Offset maxBound = Offset(double.negativeInfinity, double.negativeInfinity);
   for (final sample in defaultSamples) {
-    if (sample.value.dx < minBound.dx)
+    if (sample.value.dx < minBound.dx) {
       minBound = Offset(sample.value.dx, minBound.dy);
-    if (sample.value.dy < minBound.dy)
+    }
+    if (sample.value.dy < minBound.dy) {
       minBound = Offset(minBound.dx, sample.value.dy);
-    if (sample.value.dx > maxBound.dx)
+    }
+    if (sample.value.dx > maxBound.dx) {
       maxBound = Offset(sample.value.dx, maxBound.dy);
-    if (sample.value.dy > maxBound.dy)
+    }
+    if (sample.value.dy > maxBound.dy) {
       maxBound = Offset(maxBound.dx, sample.value.dy);
+    }
   }
 
   print('Bounding box analysis:');
@@ -650,7 +652,7 @@ dynamic build(BuildContext context) {
                         padding: EdgeInsets.symmetric(vertical: 4.0),
                         child: Row(
                           children: [
-                            Container(
+                            SizedBox(
                               width: 60,
                               child: Text(
                                 't=${(r['t'] as double).toStringAsFixed(2)}',
@@ -707,7 +709,7 @@ dynamic build(BuildContext context) {
                     padding: EdgeInsets.symmetric(vertical: 2.0),
                     child: Row(
                       children: [
-                        Container(
+                        SizedBox(
                           width: 80,
                           child: Text(
                             'tol=${(r['tolerance'] as double).toStringAsFixed(3)}',
@@ -718,7 +720,7 @@ dynamic build(BuildContext context) {
                           child: Container(
                             height: 16,
                             decoration: BoxDecoration(
-                              color: Color(0xFF1565C0).withOpacity(0.2),
+                              color: Color(0xFF1565C0).withValues(alpha: 0.2),
                               borderRadius: BorderRadius.circular(4.0),
                             ),
                             child: FractionallySizedBox(
@@ -922,7 +924,7 @@ dynamic build(BuildContext context) {
                     padding: EdgeInsets.symmetric(vertical: 4.0),
                     child: Row(
                       children: [
-                        Container(
+                        SizedBox(
                           width: 50,
                           child: Text(
                             't=${(d['t'] as double).toStringAsFixed(2)}',

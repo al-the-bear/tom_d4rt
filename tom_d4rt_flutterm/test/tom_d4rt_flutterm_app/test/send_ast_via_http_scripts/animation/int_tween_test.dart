@@ -1,10 +1,7 @@
 // D4rt test script: Deep Demo for IntTween from animation
 // IntTween interpolates between integers with proper rounding
 // Useful for discrete animations like counters, steps, indices
-import 'dart:ui';
-import 'dart:math' as math;
-import 'package:flutter/animation.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print(
@@ -105,7 +102,7 @@ dynamic build(BuildContext context) {
   );
 
   for (final t in tValues) {
-    final intVal = basicTween.lerp(t);
+    final intVal = basicTween.transform(t);
     final floatVal = 0 + (100 - 0) * t;
     basicResults.add({'t': t, 'int': intVal, 'float': floatVal});
 
@@ -155,7 +152,7 @@ dynamic build(BuildContext context) {
   for (var i = 0; i <= 20; i++) {
     final t = i / 20;
     final floatVal = t * 10;
-    final intVal = smallTween.lerp(t);
+    final intVal = smallTween.transform(t);
     final changed = intVal != prevVal;
     roundingResults.add({
       't': t,
@@ -214,7 +211,7 @@ dynamic build(BuildContext context) {
 
   for (final entry in ranges.entries) {
     final tween = entry.value;
-    final mid = tween.lerp(0.5);
+    final mid = tween.transform(0.5);
     rangeResults.add({
       'name': entry.key,
       'begin': tween.begin,
@@ -260,7 +257,7 @@ dynamic build(BuildContext context) {
   );
 
   for (final t in [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]) {
-    final intVal = reverseTween.lerp(t);
+    final intVal = reverseTween.transform(t);
     reverseResults.add({'t': t, 'value': intVal});
 
     final barWidth = (intVal / 100 * 30).round();
@@ -306,12 +303,12 @@ dynamic build(BuildContext context) {
   );
 
   for (final t in [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]) {
-    final intVal = negTween.lerp(t);
+    final intVal = negTween.transform(t);
     negResults.add({'t': t, 'value': intVal});
 
     // Create a number line visualization centered at 0
     final normalizedPos = ((intVal + 50) / 100 * 38).round().clamp(0, 38);
-    final line = '-' * 19 + '│' + '-' * 19;
+    final line = '${'-' * 19}│${'-' * 19}';
     final lineChars = line.split('');
     lineChars[normalizedPos] = '*';
     print(
@@ -355,8 +352,8 @@ dynamic build(BuildContext context) {
   );
 
   for (final t in [0.0, 0.25, 0.5, 0.75, 1.0]) {
-    final intVal = basicTween.lerp(t);
-    final dblVal = doubleTween.lerp(t);
+    final intVal = basicTween.transform(t);
+    final dblVal = doubleTween.transform(t);
     final truncVal = dblVal.toInt();
     final match = intVal == dblVal.round();
     comparisonResults.add({
@@ -433,7 +430,7 @@ dynamic build(BuildContext context) {
   final counterTween = IntTween(begin: 0, end: 1000);
   print('1. Counter Animation (0 → 1000):');
   for (final t in [0.0, 0.25, 0.5, 0.75, 1.0]) {
-    print('  t=${t.toStringAsFixed(2)}: ${counterTween.lerp(t)}');
+    print('  t=${t.toStringAsFixed(2)}: ${counterTween.transform(t)}');
   }
   print('');
 
@@ -441,7 +438,7 @@ dynamic build(BuildContext context) {
   final pageTween = IntTween(begin: 0, end: 4);
   print('2. Page Indicator (5 pages, index 0-4):');
   for (final t in [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]) {
-    final page = pageTween.lerp(t);
+    final page = pageTween.transform(t);
     final dots = List.generate(5, (i) => i == page ? '●' : '○').join(' ');
     print('  t=${t.toStringAsFixed(2)}: page $page  [$dots]');
   }
@@ -451,7 +448,7 @@ dynamic build(BuildContext context) {
   final colorTween = IntTween(begin: 0, end: 255);
   print('3. Color Component (0 → 255 RGB):');
   for (final t in [0.0, 0.33, 0.67, 1.0]) {
-    final val = colorTween.lerp(t);
+    final val = colorTween.transform(t);
     print(
       '  t=${t.toStringAsFixed(2)}: ${val.toString().padLeft(3)} → Color(0xFF${val.toRadixString(16).padLeft(2, '0').toUpperCase()}0000)',
     );
@@ -462,7 +459,7 @@ dynamic build(BuildContext context) {
   final starTween = IntTween(begin: 0, end: 5);
   print('4. Star Rating (0 → 5 stars):');
   for (final t in [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]) {
-    final stars = starTween.lerp(t);
+    final stars = starTween.transform(t);
     final display = '★' * stars + '☆' * (5 - stars);
     print('  t=${t.toStringAsFixed(2)}: $stars stars  $display');
   }
@@ -489,7 +486,7 @@ dynamic build(BuildContext context) {
   final sameTween = IntTween(begin: 50, end: 50);
   print('1. Same begin and end (IntTween(50, 50)):');
   for (final t in [0.0, 0.5, 1.0]) {
-    print('  t=${t.toStringAsFixed(1)}: ${sameTween.lerp(t)}');
+    print('  t=${t.toStringAsFixed(1)}: ${sameTween.transform(t)}');
   }
   print('');
 
@@ -498,7 +495,7 @@ dynamic build(BuildContext context) {
   print('2. Single step range (0 → 1):');
   for (var i = 0; i <= 10; i++) {
     final t = i / 10;
-    print('  t=${t.toStringAsFixed(1)}: ${singleStep.lerp(t)}');
+    print('  t=${t.toStringAsFixed(1)}: ${singleStep.transform(t)}');
   }
   print('');
 
@@ -507,7 +504,7 @@ dynamic build(BuildContext context) {
   print('3. Large range (0 → 1,000,000):');
   for (final t in [0.0, 0.001, 0.01, 0.1, 0.5, 0.9, 0.99, 0.999, 1.0]) {
     print(
-      '  t=${t.toString().padRight(5)}: ${largeRange.lerp(t).toString().padLeft(7)}',
+      '  t=${t.toString().padRight(5)}: ${largeRange.transform(t).toString().padLeft(7)}',
     );
   }
   print('');
@@ -676,7 +673,7 @@ dynamic build(BuildContext context) {
                     padding: EdgeInsets.symmetric(vertical: 4.0),
                     child: Row(
                       children: [
-                        Container(
+                        SizedBox(
                           width: 80,
                           child: Text(
                             r['name'],
@@ -857,15 +854,23 @@ dynamic build(BuildContext context) {
                 _buildUseCase(
                   'Counter',
                   '0 → 1000',
-                  '${counterTween.lerp(0.5)}',
+                  '${counterTween.transform(0.5)}',
                 ),
-                _buildUseCase('Page Index', '0 → 4', '${pageTween.lerp(0.5)}'),
+                _buildUseCase(
+                  'Page Index',
+                  '0 → 4',
+                  '${pageTween.transform(0.5)}',
+                ),
                 _buildUseCase(
                   'Color (RGB)',
                   '0 → 255',
-                  '${colorTween.lerp(0.5)}',
+                  '${colorTween.transform(0.5)}',
                 ),
-                _buildUseCase('Star Rating', '0 → 5', '${starTween.lerp(0.6)}'),
+                _buildUseCase(
+                  'Star Rating',
+                  '0 → 5',
+                  '${starTween.transform(0.6)}',
+                ),
               ],
             ),
           ),
@@ -892,12 +897,12 @@ dynamic build(BuildContext context) {
                 ),
                 SizedBox(height: 12.0),
                 ...[0.0, 0.2, 0.4, 0.6, 0.8, 1.0].map((t) {
-                  final stars = starTween.lerp(t);
+                  final stars = starTween.transform(t);
                   return Padding(
                     padding: EdgeInsets.symmetric(vertical: 4.0),
                     child: Row(
                       children: [
-                        Container(
+                        SizedBox(
                           width: 50,
                           child: Text(
                             't=${t.toStringAsFixed(1)}',
@@ -993,14 +998,17 @@ dynamic build(BuildContext context) {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    _buildSummaryStat('Basic (0.5)', '${basicTween.lerp(0.5)}'),
+                    _buildSummaryStat(
+                      'Basic (0.5)',
+                      '${basicTween.transform(0.5)}',
+                    ),
                     _buildSummaryStat(
                       'Reverse (0.5)',
-                      '${reverseTween.lerp(0.5)}',
+                      '${reverseTween.transform(0.5)}',
                     ),
                     _buildSummaryStat(
                       'Negative (0.5)',
-                      '${negTween.lerp(0.5)}',
+                      '${negTween.transform(0.5)}',
                     ),
                   ],
                 ),
@@ -1033,7 +1041,7 @@ Widget _buildIntValueRow(String label, int value, int max) {
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 60,
           child: Text(
             label,
@@ -1077,13 +1085,13 @@ Widget _buildIntValueRow(String label, int value, int max) {
 }
 
 Widget _buildStepVisualization(IntTween tween) {
-  return Container(
+  return SizedBox(
     height: 50,
     child: Row(
       children: List.generate(21, (i) {
         final t = i / 20;
-        final value = tween.lerp(t);
-        final prevValue = i > 0 ? tween.lerp((i - 1) / 20) : -1;
+        final value = tween.transform(t);
+        final prevValue = i > 0 ? tween.transform((i - 1) / 20) : -1;
         final changed = value != prevValue;
 
         return Expanded(
@@ -1120,7 +1128,7 @@ Widget _buildReverseRow(String label, int value) {
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 60,
           child: Text(
             label,
@@ -1167,14 +1175,14 @@ Widget _buildReverseRow(String label, int value) {
 Widget _buildNumberLine(IntTween tween) {
   return Column(
     children: [0.0, 0.25, 0.5, 0.75, 1.0].map((t) {
-      final value = tween.lerp(t);
+      final value = tween.transform(t);
       final normalized = (value + 50) / 100; // -50 to 50 → 0 to 1
 
       return Padding(
         padding: EdgeInsets.symmetric(vertical: 4.0),
         child: Row(
           children: [
-            Container(
+            SizedBox(
               width: 50,
               child: Text(
                 't=${t.toStringAsFixed(2)}',

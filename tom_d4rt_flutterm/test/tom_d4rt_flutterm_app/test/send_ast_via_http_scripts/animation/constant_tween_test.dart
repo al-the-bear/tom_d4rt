@@ -1,8 +1,7 @@
 // D4rt test script: Deep Demo - ConstantTween from animation
 // Comprehensive demonstration of tweens that return constant values
-import 'dart:ui';
-import 'package:flutter/animation.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   // ============================================================================
@@ -14,7 +13,11 @@ dynamic build(BuildContext context) {
 
   final tValues = [0.0, 0.1, 0.25, 0.5, 0.75, 0.9, 1.0];
   for (final t in tValues) {
-    doubleResults.add({'t': t, 'value': doubleTween.lerp(t), 'expected': 42.0});
+    doubleResults.add({
+      't': t,
+      'value': doubleTween.transform(t),
+      'expected': 42.0,
+    });
   }
 
   // ============================================================================
@@ -25,7 +28,7 @@ dynamic build(BuildContext context) {
   final stringResults = <Map<String, dynamic>>[];
 
   for (final t in tValues) {
-    stringResults.add({'t': t, 'value': stringTween.lerp(t)});
+    stringResults.add({'t': t, 'value': stringTween.transform(t)});
   }
 
   // ============================================================================
@@ -36,7 +39,7 @@ dynamic build(BuildContext context) {
   final intResults = <Map<String, dynamic>>[];
 
   for (final t in tValues) {
-    intResults.add({'t': t, 'value': intTween.lerp(t)});
+    intResults.add({'t': t, 'value': intTween.transform(t)});
   }
 
   // ============================================================================
@@ -47,7 +50,7 @@ dynamic build(BuildContext context) {
   final colorResults = <Map<String, dynamic>>[];
 
   for (final t in tValues) {
-    colorResults.add({'t': t, 'value': colorTween.lerp(t)});
+    colorResults.add({'t': t, 'value': colorTween.transform(t)});
   }
 
   // ============================================================================
@@ -109,16 +112,20 @@ dynamic build(BuildContext context) {
   final emptyStringTween = ConstantTween<String>('');
 
   final variousResults = <Map<String, dynamic>>[
-    {'name': 'Zero', 'value': '${zeroTween.lerp(0.5)}', 'constant': 0.0},
+    {'name': 'Zero', 'value': '${zeroTween.transform(0.5)}', 'constant': 0.0},
     {
       'name': 'Negative',
-      'value': '${negativeTween.lerp(0.5)}',
+      'value': '${negativeTween.transform(0.5)}',
       'constant': -50.0,
     },
-    {'name': 'Large', 'value': '${largeTween.lerp(0.5)}', 'constant': 9999.99},
+    {
+      'name': 'Large',
+      'value': '${largeTween.transform(0.5)}',
+      'constant': 9999.99,
+    },
     {
       'name': 'Empty String',
-      'value': '"${emptyStringTween.lerp(0.5)}"',
+      'value': '"${emptyStringTween.transform(0.5)}"',
       'constant': '""',
     },
   ];
@@ -134,8 +141,8 @@ dynamic build(BuildContext context) {
   for (final t in tValues) {
     comparisonResults.add({
       't': t,
-      'regular': regularTween.lerp(t),
-      'constant': constantCompare.lerp(t),
+      'regular': regularTween.transform(t),
+      'constant': constantCompare.transform(t),
     });
   }
 
@@ -298,7 +305,7 @@ dynamic build(BuildContext context) {
                     padding: EdgeInsets.only(bottom: 6.0),
                     child: Row(
                       children: [
-                        Container(
+                        SizedBox(
                           width: 50.0,
                           child: Text(
                             't=${result['t']}',
@@ -381,7 +388,7 @@ dynamic build(BuildContext context) {
                     padding: EdgeInsets.only(bottom: 6.0),
                     child: Row(
                       children: [
-                        Container(
+                        SizedBox(
                           width: 50.0,
                           child: Text(
                             't=${result['t']}',
@@ -511,7 +518,7 @@ dynamic build(BuildContext context) {
                     padding: EdgeInsets.only(bottom: 6.0),
                     child: Row(
                       children: [
-                        Container(
+                        SizedBox(
                           width: 50.0,
                           child: Text(
                             't=${result['t']}',
@@ -857,7 +864,7 @@ dynamic build(BuildContext context) {
                     padding: EdgeInsets.only(bottom: 8.0),
                     child: Row(
                       children: [
-                        Container(
+                        SizedBox(
                           width: 45.0,
                           child: Text(
                             't=${comp['t']}',
@@ -913,20 +920,20 @@ dynamic build(BuildContext context) {
                           ),
                         ),
                         SizedBox(width: 8.0),
-                        Container(
+                        SizedBox(
                           width: 70.0,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text(
-                                '${(comp['regular'] as double).toStringAsFixed(0)}',
+                                (comp['regular'] as double).toStringAsFixed(0),
                                 style: TextStyle(
                                   fontSize: 9.0,
                                   color: Color(0xFFFF9800),
                                 ),
                               ),
                               Text(
-                                '${(comp['constant'] as double).toStringAsFixed(0)}',
+                                (comp['constant'] as double).toStringAsFixed(0),
                                 style: TextStyle(
                                   fontSize: 9.0,
                                   color: Color(0xFF9C27B0),
@@ -1019,9 +1026,9 @@ dynamic build(BuildContext context) {
                   'final color = ConstantTween<Color>(Colors.blue);\n'
                   '\n'
                   '// lerp always returns same value\n'
-                  'opacity.lerp(0.0);  // 1.0\n'
-                  'opacity.lerp(0.5);  // 1.0\n'
-                  'opacity.lerp(1.0);  // 1.0\n'
+                  'opacity.transform(0.0);  // 1.0\n'
+                  'opacity.transform(0.5);  // 1.0\n'
+                  'opacity.transform(1.0);  // 1.0\n'
                   '\n'
                   '// Useful in animation chains\n'
                   'final chain = TweenSequence([\n'

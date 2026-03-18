@@ -1,10 +1,8 @@
 // D4rt test script: Deep Demo for ElasticInCurve from animation
 // ElasticInCurve provides spring-like animation with initial overshoot
 // Creates a "pull-back" effect at the start of animations
-import 'dart:ui';
 import 'dart:math' as math;
-import 'package:flutter/animation.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print(
@@ -111,10 +109,7 @@ dynamic build(BuildContext context) {
     // Create a simple ASCII visualization
     final normalized = ((value + 0.5) * 20).round().clamp(0, 40);
     final bar =
-        '│' +
-        ' ' * math.max(0, normalized - 1) +
-        '*' +
-        ' ' * math.max(0, 39 - normalized);
+        '│${' ' * math.max(0, normalized - 1)}*${' ' * math.max(0, 39 - normalized)}';
     print(
       '│  ${t.toStringAsFixed(2)}   │  ${value.toStringAsFixed(8).padLeft(12)}   │$bar│',
     );
@@ -333,9 +328,9 @@ dynamic build(BuildContext context) {
   for (final t in [0.1, 0.25, 0.5, 0.75, 0.9]) {
     final velocity = calculateDerivative(defaultCurve, t, 0.01);
     String interpretation;
-    if (velocity < -0.5)
+    if (velocity < -0.5) {
       interpretation = 'Strong backward motion';
-    else if (velocity < 0)
+    } else if (velocity < 0)
       interpretation = 'Backward motion';
     else if (velocity < 0.5)
       interpretation = 'Slow forward motion';
@@ -749,7 +744,7 @@ dynamic build(BuildContext context) {
                         padding: EdgeInsets.symmetric(vertical: 4.0),
                         child: Row(
                           children: [
-                            Container(
+                            SizedBox(
                               width: 70,
                               child: Text(
                                 'p=${(r['period'] as double).toStringAsFixed(1)}',
@@ -821,7 +816,7 @@ dynamic build(BuildContext context) {
                         padding: EdgeInsets.symmetric(vertical: 4.0),
                         child: Row(
                           children: [
-                            Container(
+                            SizedBox(
                               width: 50,
                               child: Text(
                                 't=${(r['t'] as double).toStringAsFixed(2)}',
@@ -882,7 +877,7 @@ dynamic build(BuildContext context) {
                     padding: EdgeInsets.symmetric(vertical: 4.0),
                     child: Row(
                       children: [
-                        Container(
+                        SizedBox(
                           width: 50,
                           child: Text(
                             't=${(r['t'] as double).toStringAsFixed(2)}',
@@ -892,7 +887,7 @@ dynamic build(BuildContext context) {
                             ),
                           ),
                         ),
-                        Container(
+                        SizedBox(
                           width: 80,
                           child: Text(
                             'v=${(r['velocity'] as double).toStringAsFixed(3)}',
@@ -1108,7 +1103,7 @@ Widget _buildTransformRow(String label, double value, Color color) {
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 60,
           child: Text(
             label,
@@ -1171,7 +1166,7 @@ Widget _buildPeriodRow(double period, double value) {
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 70,
           child: Text(
             'p=${period.toStringAsFixed(1)}',
@@ -1215,7 +1210,7 @@ Widget _buildFamilyValue(String label, double value, Color color) {
     child: Container(
       padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.15),
+        color: color.withValues(alpha: 0.15),
         borderRadius: BorderRadius.circular(4),
       ),
       child: Column(
@@ -1265,7 +1260,7 @@ Widget _buildUseCaseItem(String title, String description, Color color) {
 }
 
 Widget _buildCurveVisualization(Curve curve) {
-  return Container(
+  return SizedBox(
     height: 100,
     child: Row(
       children: List.generate(40, (i) {

@@ -1,10 +1,8 @@
 // D4rt test script: Deep Demo for ElasticOutCurve from animation
 // ElasticOutCurve provides spring-like overshoot animation at the end
 // Starts fast and oscillates past target, settling back
-import 'dart:ui';
 import 'dart:math' as math;
-import 'package:flutter/animation.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print(
@@ -112,10 +110,7 @@ dynamic build(BuildContext context) {
     // Create a simple ASCII visualization
     final normalized = (value * 30).round().clamp(0, 40);
     final bar =
-        '│' +
-        '=' * math.min(normalized, 30) +
-        (value > 1.0 ? '+' * math.min((value - 1.0) * 100, 10).round() : '') +
-        ' ' * math.max(0, 39 - normalized);
+        '│${'=' * math.min(normalized, 30)}${value > 1.0 ? '+' * math.min((value - 1.0) * 100, 10).round() : ''}${' ' * math.max(0, 39 - normalized)}';
     print(
       '│  ${t.toStringAsFixed(2)}   │  ${value.toStringAsFixed(8).padLeft(12)}   │$bar│',
     );
@@ -176,7 +171,9 @@ dynamic build(BuildContext context) {
       .reduce(math.max);
   print('Maximum mirror error: ${mirrorError.toStringAsFixed(12)}');
   print(
-    '${mirrorError < 1e-10 ? "✓ Perfect mirror relationship verified" : "⚠ Small numerical difference detected"}',
+    mirrorError < 1e-10
+        ? "✓ Perfect mirror relationship verified"
+        : "⚠ Small numerical difference detected",
   );
   print('');
 
@@ -377,9 +374,9 @@ dynamic build(BuildContext context) {
   for (final t in [0.05, 0.15, 0.3, 0.5, 0.7, 0.9]) {
     final velocity = calculateDerivative(defaultCurve, t, 0.01);
     String interpretation;
-    if (velocity > 5.0)
+    if (velocity > 5.0) {
       interpretation = 'Very fast start';
-    else if (velocity > 2.0)
+    } else if (velocity > 2.0)
       interpretation = 'Fast motion';
     else if (velocity > 0.5)
       interpretation = 'Moderate speed';
@@ -442,9 +439,9 @@ dynamic build(BuildContext context) {
     final value = defaultCurve.transform(t);
     final deviation = value - 1.0;
     String status;
-    if (deviation > 0.05)
+    if (deviation > 0.05) {
       status = 'Significant overshoot';
-    else if (deviation > 0.01)
+    } else if (deviation > 0.01)
       status = 'Minor overshoot';
     else if (deviation > 0)
       status = 'Slight overshoot';
@@ -686,7 +683,7 @@ dynamic build(BuildContext context) {
                     padding: EdgeInsets.symmetric(vertical: 2.0),
                     child: Row(
                       children: [
-                        Container(
+                        SizedBox(
                           width: 50,
                           child: Text(
                             't=${(r['t'] as double).toStringAsFixed(1)}',
@@ -773,7 +770,7 @@ dynamic build(BuildContext context) {
                         padding: EdgeInsets.symmetric(vertical: 2.0),
                         child: Row(
                           children: [
-                            Container(
+                            SizedBox(
                               width: 60,
                               child: Text(
                                 'p=${(r['period'] as double).toStringAsFixed(1)}',
@@ -999,7 +996,7 @@ dynamic build(BuildContext context) {
                         padding: EdgeInsets.symmetric(vertical: 2.0),
                         child: Row(
                           children: [
-                            Container(
+                            SizedBox(
                               width: 50,
                               child: Text(
                                 't=${(r['t'] as double).toStringAsFixed(1)}',
@@ -1228,7 +1225,7 @@ Widget _buildValueRow(String label, double value) {
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 60,
           child: Text(
             label,
@@ -1292,9 +1289,9 @@ Widget _buildFamilyCard(String name, double value, Color color) {
   return Container(
     padding: EdgeInsets.all(12),
     decoration: BoxDecoration(
-      color: color.withOpacity(0.15),
+      color: color.withValues(alpha: 0.15),
       borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: color.withOpacity(0.5)),
+      border: Border.all(color: color.withValues(alpha: 0.5)),
     ),
     child: Column(
       children: [
@@ -1328,7 +1325,7 @@ Widget _buildVelocityRow(String label, double velocity, String interpretation) {
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 50,
           child: Text(
             label,
@@ -1389,7 +1386,7 @@ Widget _buildAnimExample(String title, String value) {
 }
 
 Widget _buildCurveVisualization(Curve curve) {
-  return Container(
+  return SizedBox(
     height: 80,
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.end,

@@ -1,5 +1,4 @@
 // D4rt test script: Tests SpringSimulation, ScrollSpringSimulation, FrictionSimulation from physics
-import 'dart:ui';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/physics.dart';
 

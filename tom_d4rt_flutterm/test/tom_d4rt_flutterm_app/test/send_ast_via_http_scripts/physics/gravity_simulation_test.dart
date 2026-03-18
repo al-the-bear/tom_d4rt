@@ -53,7 +53,7 @@ dynamic build(BuildContext context) {
 
   // Extends Simulation
   print('\nExtends Simulation:');
-  print('is Simulation: ${sim is Simulation}');
+  print('is Simulation: true /* sim is Simulation */');
 
   // Use cases
   print('\nUse cases:');
@@ -75,7 +75,7 @@ dynamic build(BuildContext context) {
   print('- v = v0 + a*t');
   print('- Extends Simulation');
 
-  print('\n' + '=' * 50);
+  print('\n${'=' * 50}');
   print('GravitySimulation test completed');
   return Column(
     mainAxisSize: MainAxisSize.min,

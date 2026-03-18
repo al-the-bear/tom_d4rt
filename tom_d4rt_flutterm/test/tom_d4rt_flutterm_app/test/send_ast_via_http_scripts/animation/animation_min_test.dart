@@ -1,6 +1,4 @@
 // D4rt test script: Tests AnimationMin from animation
-import 'dart:ui';
-import 'package:flutter/animation.dart';
 import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {
@@ -62,16 +60,20 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('AnimationMin Tests',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          Text(
+            'AnimationMin Tests',
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           for (final r in results)
             Padding(
               padding: EdgeInsets.symmetric(vertical: 2.0),
-              child: Row(children: [
-                SizedBox(width: 150.0, child: Text('${r.$1}:')),
-                Text('${r.$2.toStringAsFixed(2)}'),
-              ]),
+              child: Row(
+                children: [
+                  SizedBox(width: 150.0, child: Text('${r.$1}:')),
+                  Text(r.$2.toStringAsFixed(2)),
+                ],
+              ),
             ),
         ],
       ),

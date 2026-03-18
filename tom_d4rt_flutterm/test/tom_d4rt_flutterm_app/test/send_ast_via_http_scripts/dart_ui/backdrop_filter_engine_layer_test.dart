@@ -5,380 +5,6 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  print(
-    '═══════════════════════════════════════════════════════════════════════════',
-  );
-  print(
-    '                 BACKDROPFILTERENGINELAYER DEEP DEMO                       ',
-  );
-  print(
-    '═══════════════════════════════════════════════════════════════════════════',
-  );
-
-  // ═══════════════════════════════════════════════════════════════════════════════
-  // SECTION 1: BackdropFilterEngineLayer Fundamentals
-  // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 1: Fundamentals');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-  print('BackdropFilterEngineLayer is a compositing layer that:');
-  print('- Applies ImageFilter effects to backdrop content');
-  print('- Created via SceneBuilder.pushBackdropFilter()');
-  print('- Used for blur effects behind UI elements');
-  print('- Part of Flutter\'s low-level rendering system');
-  print('');
-  print('Key characteristics:');
-  print('- Extends EngineLayer base class');
-  print('- Applied to content BEHIND the layer, not in front');
-  print('- Supports various ImageFilter types');
-  print('- GPU-accelerated for performance');
-
-  // ═══════════════════════════════════════════════════════════════════════════════
-  // SECTION 2: Creating BackdropFilterEngineLayer
-  // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 2: Creating BackdropFilterEngineLayer');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-
-  final builder1 = ui.SceneBuilder();
-  print('Created SceneBuilder instance');
-
-  // Create a blur filter
-  final blurFilter = ui.ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0);
-  print('Created blur filter with sigma 5.0x5.0');
-
-  // Push backdrop filter - returns BackdropFilterEngineLayer
-  final layer1 = builder1.pushBackdropFilter(blurFilter);
-  print('');
-  print('pushBackdropFilter() result:');
-  print('  Type: ${layer1.runtimeType}');
-  print('  Is EngineLayer: ${layer1 is ui.EngineLayer}');
-
-  builder1.pop();
-  final scene1 = builder1.build();
-  scene1.dispose();
-
-  // ═══════════════════════════════════════════════════════════════════════════════
-  // SECTION 3: Different Blur Configurations
-  // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 3: Blur Configurations');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-
-  void testBlurConfig(
-    String name,
-    double sigmaX,
-    double sigmaY,
-    ui.TileMode tileMode,
-  ) {
-    final builder = ui.SceneBuilder();
-    final filter = ui.ImageFilter.blur(
-      sigmaX: sigmaX,
-      sigmaY: sigmaY,
-      tileMode: tileMode,
-    );
-    final layer = builder.pushBackdropFilter(filter);
-    print('$name: sigmaX=$sigmaX, sigmaY=$sigmaY, tileMode=${tileMode.name}');
-    print('  → Layer type: ${layer.runtimeType}');
-    builder.pop();
-    builder.build().dispose();
-  }
-
-  print('Testing various blur configurations:');
-  testBlurConfig('Light blur', 2.0, 2.0, ui.TileMode.clamp);
-  testBlurConfig('Medium blur', 8.0, 8.0, ui.TileMode.clamp);
-  testBlurConfig('Heavy blur', 20.0, 20.0, ui.TileMode.clamp);
-  testBlurConfig('Horizontal only', 10.0, 0.0, ui.TileMode.clamp);
-  testBlurConfig('Vertical only', 0.0, 10.0, ui.TileMode.clamp);
-  testBlurConfig('Asymmetric', 15.0, 5.0, ui.TileMode.clamp);
-  testBlurConfig('With repeat', 5.0, 5.0, ui.TileMode.repeated);
-  testBlurConfig('With mirror', 5.0, 5.0, ui.TileMode.mirror);
-  testBlurConfig('With decal', 5.0, 5.0, ui.TileMode.decal);
-
-  // ═══════════════════════════════════════════════════════════════════════════════
-  // SECTION 4: BlendMode with Backdrop Filter
-  // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 4: BlendMode Options');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-
-  final blendModes = [
-    BlendMode.srcOver,
-    BlendMode.multiply,
-    BlendMode.screen,
-    BlendMode.overlay,
-    BlendMode.darken,
-    BlendMode.lighten,
-    BlendMode.colorDodge,
-    BlendMode.colorBurn,
-  ];
-
-  print('Testing backdrop filter with different blend modes:');
-  for (final mode in blendModes) {
-    final builder = ui.SceneBuilder();
-    final filter = ui.ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0);
-    final layer = builder.pushBackdropFilter(filter, blendMode: mode);
-    print('  BlendMode.${mode.name} → ${layer.runtimeType}');
-    builder.pop();
-    builder.build().dispose();
-  }
-
-  // ═══════════════════════════════════════════════════════════════════════════════
-  // SECTION 5: Layer Hierarchy with Backdrop Filter
-  // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 5: Layer Hierarchy');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-  print('BackdropFilterEngineLayer in scene tree:');
-  print('');
-
-  final builder2 = ui.SceneBuilder();
-
-  // Push transform layer
-  final transformLayer = builder2.pushTransform(Matrix4.identity().storage);
-  print('Pushed TransformEngineLayer: ${transformLayer.runtimeType}');
-
-  // Push offset layer
-  final offsetLayer = builder2.pushOffset(10.0, 10.0);
-  print('  Pushed OffsetEngineLayer: ${offsetLayer.runtimeType}');
-
-  // Push backdrop filter layer
-  final backdropLayer = builder2.pushBackdropFilter(
-    ui.ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
-  );
-  print('    Pushed BackdropFilterEngineLayer: ${backdropLayer.runtimeType}');
-
-  // Push opacity layer inside backdrop
-  final opacityLayer = builder2.pushOpacity(200);
-  print('      Pushed OpacityEngineLayer: ${opacityLayer.runtimeType}');
-
-  builder2.pop(); // opacity
-  builder2.pop(); // backdrop
-  builder2.pop(); // offset
-  builder2.pop(); // transform
-
-  final scene2 = builder2.build();
-  print('');
-  print('Scene hierarchy built with nested layers');
-  scene2.dispose();
-
-  // ═══════════════════════════════════════════════════════════════════════════════
-  // SECTION 6: Matrix Filter Alternative
-  // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 6: Matrix Filter');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-  print('BackdropFilter can also use matrix-based filters:');
-  print('');
-
-  // Identity matrix (no change)
-  final identityMatrix = Float64List.fromList([
-    1,
-    0,
-    0,
-    0,
-    0,
-    0,
-    1,
-    0,
-    0,
-    0,
-    0,
-    0,
-    1,
-    0,
-    0,
-    0,
-    0,
-    0,
-    1,
-    0,
-  ]);
-  final matrixFilter = ui.ColorFilter.matrix(identityMatrix);
-  print('Matrix filter (identity): $matrixFilter');
-
-  // Grayscale conversion matrix
-  final grayscaleMatrix = Float64List.fromList([
-    0.2126,
-    0.7152,
-    0.0722,
-    0,
-    0,
-    0.2126,
-    0.7152,
-    0.0722,
-    0,
-    0,
-    0.2126,
-    0.7152,
-    0.0722,
-    0,
-    0,
-    0,
-    0,
-    0,
-    1,
-    0,
-  ]);
-  final grayscaleFilter = ui.ColorFilter.matrix(grayscaleMatrix);
-  print('Grayscale matrix filter: Created');
-
-  // Note: ColorFilter can be composed with blur
-  final composedFilter = ui.ImageFilter.compose(
-    outer: ui.ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-    inner: ui.ColorFilter.mode(Colors.blue.withOpacity(0.3), BlendMode.overlay),
-  );
-  print('Composed filter (blur + color): Created');
-
-  // Test in SceneBuilder
-  final builder3 = ui.SceneBuilder();
-  final composedLayer = builder3.pushBackdropFilter(composedFilter);
-  print('pushBackdropFilter with composed: ${composedLayer.runtimeType}');
-  builder3.pop();
-  builder3.build().dispose();
-
-  // ═══════════════════════════════════════════════════════════════════════════════
-  // SECTION 7: OldLayer Reuse Pattern
-  // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 7: Layer Reuse (oldLayer)');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-  print('BackdropFilterEngineLayer supports reuse via oldLayer parameter:');
-  print('');
-
-  // First frame
-  final builderA = ui.SceneBuilder();
-  final filterA = ui.ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0);
-  final layerA = builderA.pushBackdropFilter(filterA);
-  print('Frame 1: Created new layer → ${layerA.runtimeType}');
-  builderA.pop();
-  builderA.build().dispose();
-
-  // Second frame - reuse layer
-  final builderB = ui.SceneBuilder();
-  final filterB = ui.ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0);
-  final layerB = builderB.pushBackdropFilter(filterB, oldLayer: layerA);
-  print('Frame 2: Reused layer → ${layerB.runtimeType}');
-  print('  Same instance: ${identical(layerA, layerB)}');
-  builderB.pop();
-  builderB.build().dispose();
-
-  print('');
-  print('Benefits of oldLayer reuse:');
-  print('  • Reduces layer allocation');
-  print('  • Improves frame performance');
-  print('  • Maintains render cache');
-
-  // ═══════════════════════════════════════════════════════════════════════════════
-  // SECTION 8: Performance Considerations
-  // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 8: Performance');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-  print('BackdropFilterEngineLayer performance tips:');
-  print('');
-  print('GPU Cost:');
-  print('  • Backdrop filter is expensive (full screen read)');
-  print('  • Cost increases with blur sigma');
-  print('  • Multiple overlapping filters compound cost');
-  print('');
-  print('Optimization strategies:');
-  print('  • Minimize blur radius (sigma)');
-  print('  • Use RepaintBoundary to isolate regions');
-  print('  • Avoid animating blur sigma');
-  print('  • Prefer pre-blurred images for static content');
-  print('  • Use cacheExtent wisely');
-  print('');
-  print('Blur sigma performance tiers:');
-  print('┌─────────────┬────────────────┬──────────────┐');
-  print('│   Sigma     │   Quality      │    Cost      │');
-  print('├─────────────┼────────────────┼──────────────┤');
-  print('│   1-5       │   Subtle       │    Low       │');
-  print('│   5-15      │   Medium       │    Medium    │');
-  print('│   15-30     │   Heavy        │    High      │');
-  print('│   30+       │   Extreme      │    Very High │');
-  print('└─────────────┴────────────────┴──────────────┘');
-
-  // ═══════════════════════════════════════════════════════════════════════════════
-  // SECTION 9: Comparison with BackdropFilter Widget
-  // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 9: Widget vs Engine Layer');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-  print('BackdropFilter widget vs BackdropFilterEngineLayer:');
-  print('');
-  print('BackdropFilter Widget (high-level):');
-  print('  • Easy to use in widget tree');
-  print('  • Automatically manages layer');
-  print('  • Includes clip bounds');
-  print('  • Handles layer caching');
-  print('');
-  print('BackdropFilterEngineLayer (low-level):');
-  print('  • Direct scene graph control');
-  print('  • Used by custom RenderObjects');
-  print('  • Manual layer lifecycle');
-  print('  • Maximum flexibility');
-  print('');
-  print('Widget implementation (simplified):');
-  print('''
-  // BackdropFilter creates BackdropFilterEngineLayer internally
-  BackdropFilter(
-    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-    child: Container(
-      color: Colors.white.withOpacity(0.5),
-      child: Text('Frosted glass effect'),
-    ),
-  )
-  ''');
-
-  // ═══════════════════════════════════════════════════════════════════════════════
-  // SECTION 10: Real-World Use Cases
-  // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 10: Use Cases');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-  print('Common backdrop filter applications:');
-  print('');
-  print('1. iOS-style Frosted Glass:');
-  print('   • Navigation bars');
-  print('   • Tab bars');
-  print('   • Modal sheets');
-  print('');
-  print('2. Dialog/Modal Backgrounds:');
-  print('   • Blur content behind dialogs');
-  print('   • Focus user attention');
-  print('   • Privacy blur');
-  print('');
-  print('3. Image Overlays:');
-  print('   • Text readability on images');
-  print('   • Card overlays');
-  print('   • Hero image headers');
-  print('');
-  print('4. Depth Effects:');
-  print('   • Tilt-shift photography');
-  print('   • Focus indicators');
-  print('   • Z-depth simulation');
-
-  print(
-    '\n═══════════════════════════════════════════════════════════════════════════',
-  );
-  print(
-    '              BACKDROPFILTERENGINELAYER DEEP DEMO COMPLETE                 ',
-  );
-  print(
-    '═══════════════════════════════════════════════════════════════════════════',
-  );
-
   // ═══════════════════════════════════════════════════════════════════════════════
   // VISUAL DEMONSTRATION UI
   // ═══════════════════════════════════════════════════════════════════════════════
@@ -406,7 +32,7 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.cyan.withOpacity(0.3),
+                  color: Colors.cyan.withValues(alpha: 0.3),
                   blurRadius: 12,
                   offset: Offset(0, 6),
                 ),
@@ -428,7 +54,7 @@ dynamic build(BuildContext context) {
                   'GPU-Accelerated Backdrop Blur',
                   style: TextStyle(
                     fontSize: 14,
-                    color: Colors.white.withOpacity(0.9),
+                    color: Colors.white.withValues(alpha: 0.9),
                   ),
                 ),
               ],
@@ -456,7 +82,7 @@ dynamic build(BuildContext context) {
               image: DecorationImage(
                 image: NetworkImage('https://picsum.photos/800/400?blur=0'),
                 fit: BoxFit.cover,
-                onError: (_, __) {},
+                onError: (_, _) {},
               ),
               gradient: LinearGradient(
                 colors: [Colors.purple, Colors.orange, Colors.pink],
@@ -475,10 +101,10 @@ dynamic build(BuildContext context) {
                       child: Container(
                         padding: EdgeInsets.all(16),
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.3),
+                          color: Colors.white.withValues(alpha: 0.3),
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
-                            color: Colors.white.withOpacity(0.2),
+                            color: Colors.white.withValues(alpha: 0.2),
                           ),
                         ),
                         child: Column(
@@ -494,7 +120,7 @@ dynamic build(BuildContext context) {
                             Text(
                               'sigma: 10.0',
                               style: TextStyle(
-                                color: Colors.white.withOpacity(0.8),
+                                color: Colors.white.withValues(alpha: 0.8),
                                 fontSize: 12,
                               ),
                             ),
@@ -516,7 +142,7 @@ dynamic build(BuildContext context) {
                         width: 80,
                         height: 80,
                         decoration: BoxDecoration(
-                          color: Colors.blue.withOpacity(0.2),
+                          color: Colors.blue.withValues(alpha: 0.2),
                           shape: BoxShape.circle,
                         ),
                         child: Center(
@@ -548,7 +174,7 @@ dynamic build(BuildContext context) {
                       child: Container(
                         padding: EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.2),
+                          color: Colors.black.withValues(alpha: 0.2),
                         ),
                         child: Text(
                           'Light blur navigation bar (sigma: 5)',
@@ -607,7 +233,10 @@ dynamic build(BuildContext context) {
               color: Colors.white,
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
-                BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 8),
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.05),
+                  blurRadius: 8,
+                ),
               ],
             ),
             child: Column(
@@ -742,7 +371,7 @@ Widget _buildBlurCard(String label, double sigma, Color color) {
             ? BackdropFilter(
                 filter: ui.ImageFilter.blur(sigmaX: sigma, sigmaY: sigma),
                 child: Container(
-                  color: Colors.white.withOpacity(0.1),
+                  color: Colors.white.withValues(alpha: 0.1),
                   child: Center(
                     child: Text(
                       label,
@@ -756,15 +385,13 @@ Widget _buildBlurCard(String label, double sigma, Color color) {
                   ),
                 ),
               )
-            : Container(
-                child: Center(
-                  child: Text(
-                    label,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 11,
-                    ),
+            : Center(
+                child: Text(
+                  label,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 11,
                   ),
                 ),
               ),

@@ -1,6 +1,4 @@
 // D4rt test script: Tests AnimationStyle from animation
-import 'dart:ui';
-import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {

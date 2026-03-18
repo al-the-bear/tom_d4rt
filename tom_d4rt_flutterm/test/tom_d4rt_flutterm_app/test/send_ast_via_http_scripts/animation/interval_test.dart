@@ -1,10 +1,7 @@
 // D4rt test script: Deep Demo for Interval from animation
 // Interval remaps a portion of the animation timeline to 0-1
 // Essential for staggered and sequential animations
-import 'dart:ui';
-import 'dart:math' as math;
-import 'package:flutter/animation.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print(
@@ -148,15 +145,14 @@ dynamic build(BuildContext context) {
   for (final t in tValues) {
     final out = firstHalf.transform(t);
     String status;
-    if (t <= 0.0)
+    if (t <= 0.0) {
       status = 'Not started';
-    else if (t >= 0.5)
+    } else if (t >= 0.5)
       status = 'Complete';
     else
       status = 'In progress';
     firstHalfResults.add({'t': t, 'out': out, 'status': status});
 
-    final marker = t <= 0.5 ? '▌' : ' ';
     final timeline =
         '[${'█' * ((t * 20).round().clamp(0, 10))}${'░' * (10 - (t * 20).round().clamp(0, 10))}|${'░' * 10}]';
     print(
@@ -201,9 +197,9 @@ dynamic build(BuildContext context) {
   for (final t in tValues) {
     final out = secondHalf.transform(t);
     String status;
-    if (t < 0.5)
+    if (t < 0.5) {
       status = 'Waiting';
-    else if (t >= 1.0)
+    } else if (t >= 1.0)
       status = 'Complete';
     else
       status = 'In progress';
@@ -264,26 +260,13 @@ dynamic build(BuildContext context) {
     String timeline;
     if (t < 0.25) {
       timeline =
-          '░' * beforeActive +
-          '|' +
-          '░' * activeWidth +
-          '|' +
-          '░' * afterActive;
+          '${'░' * beforeActive}|${'░' * activeWidth}|${'░' * afterActive}';
     } else if (t > 0.75) {
       timeline =
-          '░' * beforeActive +
-          '|' +
-          '█' * activeWidth +
-          '|' +
-          '░' * afterActive;
+          '${'░' * beforeActive}|${'█' * activeWidth}|${'░' * afterActive}';
     } else {
       timeline =
-          '░' * beforeActive +
-          '|' +
-          '█' * pos +
-          '░' * (activeWidth - pos) +
-          '|' +
-          '░' * afterActive;
+          '${'░' * beforeActive}|${'█' * pos}${'░' * (activeWidth - pos)}|${'░' * afterActive}';
     }
 
     print(
@@ -424,9 +407,9 @@ dynamic build(BuildContext context) {
   for (final t in [0.0, 0.4, 0.45, 0.475, 0.5, 0.525, 0.55, 0.6, 1.0]) {
     final out = tiny.transform(t);
     String status;
-    if (t < 0.45)
+    if (t < 0.45) {
       status = 'Before interval (waiting)';
-    else if (t > 0.55)
+    } else if (t > 0.55)
       status = 'After interval (complete)';
     else
       status = 'In interval (${((t - 0.45) / 0.1 * 100).round()}% progress)';
@@ -895,7 +878,7 @@ Widget _buildIntervalDisplay(
 
   return Row(
     children: [
-      Container(
+      SizedBox(
         width: 80,
         child: Text(
           name,
@@ -949,7 +932,7 @@ Widget _buildStaggeredDisplay(Interval item1, Interval item2, Interval item3) {
         padding: EdgeInsets.symmetric(vertical: 4.0),
         child: Row(
           children: [
-            Container(
+            SizedBox(
               width: 50,
               child: Text(
                 't=${t.toStringAsFixed(1)}',
@@ -984,7 +967,7 @@ Widget _buildStaggerBar(String label, double value, Color color) {
           child: Container(
             height: 12,
             decoration: BoxDecoration(
-              color: color.withOpacity(0.2),
+              color: color.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(2),
             ),
             child: FractionallySizedBox(
@@ -1009,10 +992,7 @@ Widget _buildCurveComparisonRow(String label, double linear, double eased) {
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(
-          width: 50,
-          child: Text(label, style: TextStyle(fontSize: 11)),
-        ),
+        SizedBox(width: 50, child: Text(label, style: TextStyle(fontSize: 11))),
         Expanded(
           child: Row(
             children: [
@@ -1058,18 +1038,18 @@ Widget _buildCurveComparisonRow(String label, double linear, double eased) {
             ],
           ),
         ),
-        Container(
+        SizedBox(
           width: 80,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text(
-                '${linear.toStringAsFixed(2)}',
+                linear.toStringAsFixed(2),
                 style: TextStyle(fontSize: 9, color: Color(0xFF757575)),
               ),
               Text(' / ', style: TextStyle(fontSize: 9)),
               Text(
-                '${eased.toStringAsFixed(2)}',
+                eased.toStringAsFixed(2),
                 style: TextStyle(
                   fontSize: 9,
                   color: Color(0xFFF57C00),
@@ -1087,9 +1067,9 @@ Widget _buildCurveComparisonRow(String label, double linear, double eased) {
 Widget _buildTimeline(String label, double begin, double end) {
   return Row(
     children: [
-      Container(width: 80, child: Text(label, style: TextStyle(fontSize: 11))),
+      SizedBox(width: 80, child: Text(label, style: TextStyle(fontSize: 11))),
       Expanded(
-        child: Container(
+        child: SizedBox(
           height: 16,
           child: Stack(
             children: [
@@ -1116,14 +1096,14 @@ Widget _buildTimeline(String label, double begin, double end) {
               Positioned(
                 left: begin * 180 + 4,
                 child: Text(
-                  '${begin.toStringAsFixed(1)}',
+                  begin.toStringAsFixed(1),
                   style: TextStyle(fontSize: 8, color: Colors.white),
                 ),
               ),
               Positioned(
                 left: end * 180 - 20,
                 child: Text(
-                  '${end.toStringAsFixed(1)}',
+                  end.toStringAsFixed(1),
                   style: TextStyle(fontSize: 8, color: Colors.white),
                 ),
               ),

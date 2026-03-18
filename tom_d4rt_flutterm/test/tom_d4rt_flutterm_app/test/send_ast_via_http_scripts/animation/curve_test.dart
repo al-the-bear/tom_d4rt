@@ -1,6 +1,4 @@
 // D4rt test script: Tests Curve and CurvedAnimation from animation
-import 'dart:ui';
-import 'package:flutter/animation.dart';
 import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {
@@ -240,12 +238,12 @@ dynamic build(BuildContext context) {
                 padding: EdgeInsets.symmetric(vertical: 2.0),
                 child: Row(
                   children: [
-                    Container(
+                    SizedBox(
                       width: 80.0,
                       child: Text(name, style: TextStyle(fontSize: 12.0)),
                     ),
                     Expanded(
-                      child: Container(
+                      child: SizedBox(
                         height: 20.0,
                         child: Stack(
                           children: [
@@ -265,7 +263,7 @@ dynamic build(BuildContext context) {
                         ),
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       width: 50.0,
                       child: Text(
                         value.toStringAsFixed(2),
@@ -357,7 +355,7 @@ dynamic build(BuildContext context) {
 
             Text('SawTooth(3):', style: TextStyle(fontWeight: FontWeight.bold)),
             SizedBox(height: 8.0),
-            Container(
+            SizedBox(
               width: 210.0,
               height: 40.0,
               child: Row(

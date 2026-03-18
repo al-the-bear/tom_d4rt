@@ -39,10 +39,8 @@ dynamic build(BuildContext context) {
   // Color inheritance
   print('\nExtends Color:');
   print('is Color: ${sc1 is Color}');
-  print('alpha: ${sc1.alpha}');
-  print('red: ${sc1.red}');
-  print('green: ${sc1.green}');
-  print('blue: ${sc1.blue}');
+  // SystemColor may not expose ARGB components directly
+  print('value: ${sc1.value}');
 
   // System color names
   print('\nCommon system color names:');

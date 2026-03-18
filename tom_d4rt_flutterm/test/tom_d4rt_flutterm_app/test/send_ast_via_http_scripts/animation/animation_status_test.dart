@@ -1,7 +1,6 @@
 // D4rt test script: Tests AnimationStatus enum, AnimationMax, AnimationMin,
 // AnimationMean from animation
 // Deep Demo: Visual demonstration of animation status states and comparison operators
-import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
@@ -56,7 +55,10 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(16.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [color.withOpacity(0.1), color.withOpacity(0.2)],
+            colors: [
+              color.withValues(alpha: 0.1),
+              color.withValues(alpha: 0.2),
+            ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -64,7 +66,7 @@ dynamic build(BuildContext context) {
           border: Border.all(color: color, width: 2.0),
           boxShadow: [
             BoxShadow(
-              color: color.withOpacity(0.3),
+              color: color.withValues(alpha: 0.3),
               blurRadius: 8.0,
               offset: Offset(0.0, 4.0),
             ),
@@ -91,7 +93,7 @@ dynamic build(BuildContext context) {
             Container(
               padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
               decoration: BoxDecoration(
-                color: color.withOpacity(0.2),
+                color: color.withValues(alpha: 0.2),
                 borderRadius: BorderRadius.circular(4.0),
               ),
               child: Text(
@@ -739,7 +741,7 @@ Widget _buildDataCell(String text, double width, Color color) {
 
 // Helper: Build boolean indicator cell
 Widget _buildBoolCell(bool value, double width) {
-  return Container(
+  return SizedBox(
     width: width,
     child: Icon(
       value ? Icons.check_circle : Icons.cancel,
@@ -755,7 +757,7 @@ Widget _buildStateNode(String label, Color color, IconData icon) {
     width: 80.0,
     padding: EdgeInsets.all(8.0),
     decoration: BoxDecoration(
-      color: color.withOpacity(0.2),
+      color: color.withValues(alpha: 0.2),
       borderRadius: BorderRadius.circular(8.0),
       border: Border.all(color: color, width: 2.0),
     ),
@@ -778,7 +780,7 @@ Widget _buildStateNode(String label, Color color, IconData icon) {
 
 // Helper: Build animation value bar
 Widget _buildAnimValueBar(String label, double value, Color color) {
-  return Container(
+  return SizedBox(
     width: 80.0,
     child: Column(
       children: [
@@ -830,9 +832,9 @@ Widget _buildComparisonCard(
     width: 100.0,
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
-      color: color.withOpacity(0.1),
+      color: color.withValues(alpha: 0.1),
       borderRadius: BorderRadius.circular(12.0),
-      border: Border.all(color: color.withOpacity(0.5), width: 1.5),
+      border: Border.all(color: color.withValues(alpha: 0.5), width: 1.5),
     ),
     child: Column(
       children: [
@@ -850,7 +852,7 @@ Widget _buildComparisonCard(
         Container(
           padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
           decoration: BoxDecoration(
-            color: color.withOpacity(0.2),
+            color: color.withValues(alpha: 0.2),
             borderRadius: BorderRadius.circular(4.0),
           ),
           child: Text(

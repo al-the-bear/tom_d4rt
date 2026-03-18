@@ -1,7 +1,5 @@
 // D4rt test script: Deep Demo - AnimationMean from animation
 // Comprehensive demonstration of the AnimationMean class for averaging two animations
-import 'dart:ui';
-import 'package:flutter/animation.dart';
 import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {
@@ -573,7 +571,7 @@ dynamic build(BuildContext context) {
                         ),
                         Expanded(
                           child: Text(
-                            '${(test['actual'] as double).toStringAsFixed(4)}',
+                            (test['actual'] as double).toStringAsFixed(4),
                             style: TextStyle(
                               fontSize: 12.0,
                               fontFamily: 'monospace',

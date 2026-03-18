@@ -1,7 +1,5 @@
 // D4rt test script: Deep Demo - AnimationLocalListenersMixin from animation
 // Comprehensive demonstration of value listener management in Flutter animations
-import 'dart:ui';
-import 'package:flutter/animation.dart';
 import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {
@@ -16,7 +14,6 @@ dynamic build(BuildContext context) {
   void listenerBeta() => listenerCallLog.add('Beta');
   void listenerGamma() => listenerCallLog.add('Gamma');
   void listenerDelta() => listenerCallLog.add('Delta');
-  void listenerEpsilon() => listenerCallLog.add('Epsilon');
 
   // Test basic registration
   basicAnim.addListener(listenerAlpha);

@@ -10,7 +10,7 @@ dynamic build(BuildContext context) {
   for (final value in SpringType.values) {
     print('  ${value.name}: $value');
   }
-  print('SpringType has ${ SpringType.values.length} values');
+  print('SpringType has ${SpringType.values.length} values');
 
   final first = SpringType.values.first;
   final last = SpringType.values.last;
@@ -22,7 +22,7 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('SpringType Tests'),
-      Text('Values: ${ SpringType.values.length}'),
+      Text('Values: ${SpringType.values.length}'),
       Text('First: $first'),
       Text('Last: $last'),
     ],

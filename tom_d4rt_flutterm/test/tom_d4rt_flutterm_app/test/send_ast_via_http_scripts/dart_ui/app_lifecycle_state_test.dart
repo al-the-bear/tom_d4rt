@@ -1,319 +1,40 @@
 // D4rt Deep Demo: AppLifecycleState - Application Lifecycle States
 // This demo comprehensively explores AppLifecycleState enum which represents
 // the various states an application can be in during its lifecycle.
-import 'dart:ui';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  print(
-    '═══════════════════════════════════════════════════════════════════════════',
-  );
-  print(
-    '                    APPLIFECYCLESTATE DEEP DEMO                            ',
-  );
-  print(
-    '═══════════════════════════════════════════════════════════════════════════',
-  );
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // SECTION 1: AppLifecycleState Fundamentals
   // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 1: AppLifecycleState Fundamentals');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-  print('AppLifecycleState represents the current state of an application:');
-  print('- Determines what the app can/should do');
-  print('- Affects resource allocation');
-  print('- Guides animation and processing decisions');
-  print('');
-  print('All lifecycle states:');
-  for (final state in AppLifecycleState.values) {
-    print('  [${state.index}] ${state.name}');
-  }
-  print('Total: ${AppLifecycleState.values.length} states');
-
   // ═══════════════════════════════════════════════════════════════════════════════
-  // SECTION 2: Resumed State
-  // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 2: Resumed State');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-  final resumed = AppLifecycleState.resumed;
-  print('State: $resumed');
-  print('Name: ${resumed.name}');
-  print('Index: ${resumed.index}');
-  print('');
-  print('Characteristics:');
-  print('  • App is visible and has focus');
-  print('  • User can interact with the app');
-  print('  • Animations should run smoothly');
-  print('  • Full resources available');
-  print('');
-  print('Actions in resumed state:');
-  print('  • Start animations');
-  print('  • Resume playback (video/audio)');
-  print('  • Fetch/sync data');
-  print('  • Track user engagement');
-
-  // ═══════════════════════════════════════════════════════════════════════════════
-  // SECTION 3: Inactive State
-  // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 3: Inactive State');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-  final inactive = AppLifecycleState.inactive;
-  print('State: $inactive');
-  print('Name: ${inactive.name}');
-  print('Index: ${inactive.index}');
-  print('');
-  print('Characteristics:');
-  print('  • App is visible but lost focus');
-  print('  • May be obscured by system UI');
-  print('  • User cannot interact');
-  print('  • Transitional state');
-  print('');
-  print('Triggers:');
-  print('  • Phone call incoming');
-  print('  • System dialog displayed');
-  print('  • App switching in progress');
-  print('  • Control Center / notification shade');
-  print('');
-  print('Actions in inactive state:');
-  print('  • Pause interactions');
-  print('  • Consider pausing animations');
-  print('  • Prepare for potential pause/resume');
-
-  // ═══════════════════════════════════════════════════════════════════════════════
-  // SECTION 4: Paused State
-  // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 4: Paused State');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-  final paused = AppLifecycleState.paused;
-  print('State: $paused');
-  print('Name: ${paused.name}');
-  print('Index: ${paused.index}');
-  print('');
-  print('Characteristics:');
-  print('  • App is not visible');
-  print('  • Running in background');
-  print('  • Limited CPU time');
-  print('  • Memory may be reclaimed');
-  print('');
-  print('Triggers:');
-  print('  • User switched to another app');
-  print('  • User pressed home button');
-  print('  • Screen locked');
-  print('');
-  print('Actions in paused state:');
-  print('  • Save state immediately');
-  print('  • Stop animations');
-  print('  • Release expensive resources');
-  print('  • Pause audio/video playback');
-  print('  • Cancel network requests');
-
-  // ═══════════════════════════════════════════════════════════════════════════════
-  // SECTION 5: Hidden State
-  // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 5: Hidden State');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-  final hidden = AppLifecycleState.hidden;
-  print('State: $hidden');
-  print('Name: ${hidden.name}');
-  print('Index: ${hidden.index}');
-  print('');
-  print('Characteristics:');
-  print('  • All views are hidden');
-  print('  • App still running');
-  print('  • Desktop: window minimized/hidden');
-  print('  • Used on desktop platforms primarily');
-  print('');
-  print('Triggers:');
-  print('  • Window minimized');
-  print('  • Window moved to hidden desktop');
-  print('  • All windows closed (but app running)');
-  print('');
-  print('Actions in hidden state:');
-  print('  • Similar to paused');
-  print('  • May continue background work');
-  print('  • Keep service connections alive');
-
-  // ═══════════════════════════════════════════════════════════════════════════════
-  // SECTION 6: Detached State
-  // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 6: Detached State');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-  final detached = AppLifecycleState.detached;
-  print('State: $detached');
-  print('Name: ${detached.name}');
-  print('Index: ${detached.index}');
-  print('');
-  print('Characteristics:');
-  print('  • App is running in Flutter engine');
-  print('  • No host views attached');
-  print('  • Startup or shutdown phase');
-  print('');
-  print('When this occurs:');
-  print('  • Just after engine starts (before first frame)');
-  print('  • During engine teardown');
-  print('  • Background isolate scenarios');
-  print('');
-  print('Actions in detached state:');
-  print('  • Minimal operations only');
-  print('  • Initialize/cleanup resources');
-  print('  • Avoid UI-related code');
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // SECTION 7: State Transitions
   // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 7: State Transitions');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-  print('Common lifecycle transitions:');
-  print('');
-  print('App Launch:');
-  print('  detached → resumed');
-  print('');
-  print('To Background (mobile):');
-  print('  resumed → inactive → hidden → paused');
-  print('');
-  print('To Foreground:');
-  print('  paused → hidden → inactive → resumed');
-  print('');
-  print('Phone Call:');
-  print('  resumed → inactive → resumed');
-  print('');
-  print('App Termination:');
-  print('  resumed → inactive → paused → detached');
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // SECTION 8: Platform Differences
   // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 8: Platform Differences');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-  print('Mobile (iOS/Android):');
-  print('  • Uses all states');
-  print('  • paused = app in background');
-  print('  • May be killed anytime when paused');
-  print('');
-  print('Desktop (Windows/macOS/Linux):');
-  print('  • hidden more relevant than paused');
-  print('  • Window minimize → hidden');
-  print('  • Apps rarely truly "paused"');
-  print('');
-  print('Web:');
-  print('  • Limited lifecycle support');
-  print('  • Tab switch → inactive/paused');
-  print('  • Page visibility API maps to states');
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // SECTION 9: WidgetsBindingObserver Implementation
   // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 9: Observer Implementation');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-  print('To respond to lifecycle changes, implement WidgetsBindingObserver:');
-  print('');
-  print('''
-  class MyApp extends StatefulWidget {
-    @override
-    State<MyApp> createState() => _MyAppState();
-  }
-  
-  class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
-    @override
-    void initState() {
-      super.initState();
-      WidgetsBinding.instance.addObserver(this);
-    }
-    
-    @override
-    void dispose() {
-      WidgetsBinding.instance.removeObserver(this);
-      super.dispose();
-    }
-    
-    @override
-    void didChangeAppLifecycleState(AppLifecycleState state) {
-      switch (state) {
-        case AppLifecycleState.resumed:
-          // App is in foreground
-          break;
-        case AppLifecycleState.inactive:
-          // App is transitioning
-          break;
-        case AppLifecycleState.paused:
-          // App is in background
-          break;
-        case AppLifecycleState.hidden:
-          // All views hidden
-          break;
-        case AppLifecycleState.detached:
-          // Engine running, no views
-          break;
-      }
-    }
-  }
-  ''');
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // SECTION 10: Resource Management Guidelines
   // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 10: Resource Management');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-  print('Resource management by state:');
-  print('');
-  print('┌──────────────┬───────────┬────────────┬──────────┬───────────┐');
-  print('│   Resource   │  resumed  │  inactive  │  paused  │  hidden   │');
-  print('├──────────────┼───────────┼────────────┼──────────┼───────────┤');
-  print('│ Animations   │    Run    │   Pause    │   Stop   │   Stop    │');
-  print('│ Audio/Video  │    Play   │   Pause    │   Stop   │   Stop    │');
-  print('│ GPS          │  Active   │   Active   │   Stop   │   Stop    │');
-  print('│ Camera       │  Active   │   Release  │ Release  │  Release  │');
-  print('│ Network      │  Active   │   Active   │  Reduce  │  Reduce   │');
-  print('│ Sensors      │  Active   │   Active   │   Stop   │   Stop    │');
-  print('└──────────────┴───────────┴────────────┴──────────┴───────────┘');
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // SECTION 11: State Comparison
   // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 11: State Comparison');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-  print('Comparing all states:');
   final states = AppLifecycleState.values;
   for (var i = 0; i < states.length; i++) {
     for (var j = i + 1; j < states.length; j++) {
-      print(
-        '${states[i].name} == ${states[j].name}: ${states[i] == states[j]}',
-      );
     }
   }
 
-  print(
-    '\n═══════════════════════════════════════════════════════════════════════════',
-  );
-  print(
-    '                    APPLIFECYCLESTATE DEEP DEMO COMPLETE                   ',
-  );
-  print(
-    '═══════════════════════════════════════════════════════════════════════════',
-  );
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // VISUAL DEMONSTRATION UI
@@ -342,7 +63,7 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.indigo.withOpacity(0.3),
+                  color: Colors.indigo.withValues(alpha: 0.3),
                   blurRadius: 12,
                   offset: Offset(0, 6),
                 ),
@@ -364,7 +85,7 @@ dynamic build(BuildContext context) {
                   'Application Lifecycle Management',
                   style: TextStyle(
                     fontSize: 14,
-                    color: Colors.white.withOpacity(0.9),
+                    color: Colors.white.withValues(alpha: 0.9),
                   ),
                 ),
               ],
@@ -447,7 +168,7 @@ dynamic build(BuildContext context) {
               color: Colors.white,
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
-                BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 8),
+                BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 8),
               ],
             ),
             child: Column(
@@ -611,10 +332,10 @@ Widget _buildStateCard(
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: color.withOpacity(0.3)),
+      border: Border.all(color: color.withValues(alpha: 0.3)),
       boxShadow: [
         BoxShadow(
-          color: color.withOpacity(0.1),
+          color: color.withValues(alpha: 0.1),
           blurRadius: 8,
           offset: Offset(0, 2),
         ),
@@ -625,7 +346,7 @@ Widget _buildStateCard(
         Container(
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: color.withOpacity(0.1),
+            color: color.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Icon(icon, color: color, size: 28),
@@ -660,7 +381,7 @@ Widget _buildStateCard(
                           vertical: 2,
                         ),
                         decoration: BoxDecoration(
-                          color: color.withOpacity(0.1),
+                          color: color.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Text(
@@ -738,9 +459,9 @@ Widget _buildPlatformBox(
   return Container(
     padding: EdgeInsets.all(12),
     decoration: BoxDecoration(
-      color: color.withOpacity(0.1),
+      color: color.withValues(alpha: 0.1),
       borderRadius: BorderRadius.circular(10),
-      border: Border.all(color: color.withOpacity(0.3)),
+      border: Border.all(color: color.withValues(alpha: 0.3)),
     ),
     child: Column(
       children: [

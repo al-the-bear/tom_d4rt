@@ -1,6 +1,5 @@
 // D4rt test script: Tests AnimationBehavior from animation
 // Deep Demo: Visual demonstration of AnimationBehavior enum and its effects
-import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
@@ -271,16 +270,16 @@ dynamic build(BuildContext context) {
         margin: EdgeInsets.symmetric(vertical: 6.0, horizontal: 12.0),
         padding: EdgeInsets.all(12.0),
         decoration: BoxDecoration(
-          color: color.withOpacity(0.1),
+          color: color.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(color: color.withOpacity(0.5), width: 1.0),
+          border: Border.all(color: color.withValues(alpha: 0.5), width: 1.0),
         ),
         child: Row(
           children: [
             Container(
               padding: EdgeInsets.all(8.0),
               decoration: BoxDecoration(
-                color: color.withOpacity(0.2),
+                color: color.withValues(alpha: 0.2),
                 borderRadius: BorderRadius.circular(8.0),
               ),
               child: Icon(
@@ -299,7 +298,7 @@ dynamic build(BuildContext context) {
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 14.0,
-                      color: color.withOpacity(0.9),
+                      color: color.withValues(alpha: 0.9),
                     ),
                   ),
                   SizedBox(height: 2.0),
@@ -565,8 +564,6 @@ dynamic build(BuildContext context) {
   print('=== Section 6: Summary Statistics ===');
 
   final totalValues = AnimationBehavior.values.length;
-  final normalBehavior = AnimationBehavior.normal;
-  final preserveBehavior = AnimationBehavior.preserve;
 
   final summaryStats = Container(
     margin: EdgeInsets.all(16.0),
@@ -613,7 +610,7 @@ dynamic build(BuildContext context) {
         Container(
           padding: EdgeInsets.all(12.0),
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.7),
+            color: Colors.white.withValues(alpha: 0.7),
             borderRadius: BorderRadius.circular(8.0),
           ),
           child: Column(
@@ -761,9 +758,9 @@ Widget _buildStatCard(String label, String value, IconData icon, Color color) {
     width: 90.0,
     padding: EdgeInsets.all(8.0),
     decoration: BoxDecoration(
-      color: color.withOpacity(0.1),
+      color: color.withValues(alpha: 0.1),
       borderRadius: BorderRadius.circular(8.0),
-      border: Border.all(color: color.withOpacity(0.5), width: 1.0),
+      border: Border.all(color: color.withValues(alpha: 0.5), width: 1.0),
     ),
     child: Column(
       children: [

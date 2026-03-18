@@ -1,5 +1,4 @@
 // D4rt test script: Tests AnimationStatusListener, AnimatedValue (Tween), AnimatedEvaluation, SpringDescription, BoundedFrictionSimulation, Priority, SchedulerPhase
-import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 import 'package:flutter/scheduler.dart';
@@ -9,9 +8,10 @@ dynamic build(BuildContext context) {
 
   // ========== AnimationStatusListener ==========
   print('--- AnimationStatusListener Tests ---');
-  final AnimationStatusListener listener = (AnimationStatus status) {
+  void listener(AnimationStatus status) {
     print('Status changed to: $status');
-  };
+  }
+
   print('AnimationStatusListener type: ${listener.runtimeType}');
   print('AnimationStatusListener is typedef: void Function(AnimationStatus)');
   listener(AnimationStatus.completed);
@@ -28,14 +28,14 @@ dynamic build(BuildContext context) {
   print('Tween type: ${tween.runtimeType}');
   print('begin: ${tween.begin}');
   print('end: ${tween.end}');
-  print('lerp(0.5): ${tween.lerp(0.5)}');
+  print('lerp(0.5): ${tween.transform(0.5)}');
   print('transform(0.25): ${tween.transform(0.25)}');
   final intTween = IntTween(begin: 0, end: 100);
   print('IntTween type: ${intTween.runtimeType}');
-  print('IntTween lerp(0.5): ${intTween.lerp(0.5)}');
+  print('IntTween lerp(0.5): ${intTween.transform(0.5)}');
   final colorTween = ColorTween(begin: Colors.red, end: Colors.blue);
   print('ColorTween type: ${colorTween.runtimeType}');
-  print('ColorTween lerp(0.5): ${colorTween.lerp(0.5)}');
+  print('ColorTween lerp(0.5): ${colorTween.transform(0.5)}');
   print('AnimatedValue (Tween) tests passed');
 
   // ========== AnimatedEvaluation ==========

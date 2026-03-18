@@ -1,7 +1,5 @@
 // D4rt test script: Deep Demo - AnimationLocalStatusListenersMixin from animation
 // Comprehensive demonstration of status listener management in Flutter animations
-import 'dart:ui';
-import 'package:flutter/animation.dart';
 import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {
@@ -20,8 +18,6 @@ dynamic build(BuildContext context) {
       statusCallLog.add('Gamma: ${status.name}');
   void statusListenerDelta(AnimationStatus status) =>
       statusCallLog.add('Delta: ${status.name}');
-  void statusListenerEpsilon(AnimationStatus status) =>
-      statusCallLog.add('Epsilon: ${status.name}');
 
   // Test basic registration
   basicAnim.addStatusListener(statusListenerAlpha);

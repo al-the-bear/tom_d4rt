@@ -1,10 +1,7 @@
 // D4rt test script: Deep Demo for SizeTween from animation
 // SizeTween interpolates between two Size values
 // Perfect for size animations, grow/shrink effects
-import 'dart:ui';
-import 'dart:math' as math;
-import 'package:flutter/animation.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print(
@@ -103,7 +100,7 @@ dynamic build(BuildContext context) {
   );
 
   for (final t in tValues) {
-    final s = basicTween.lerp(t)!;
+    final s = basicTween.transform(t)!;
     final area = s.width * s.height;
     final aspectRatio = s.width / s.height;
     interpResults.add({
@@ -154,7 +151,7 @@ dynamic build(BuildContext context) {
   );
 
   for (final t in tValues) {
-    final s = zeroTween.lerp(t)!;
+    final s = zeroTween.transform(t)!;
     zeroResults.add({'t': t, 'w': s.width, 'h': s.height});
 
     final barWidth = (s.width / 300 * 25).round().clamp(0, 25);
@@ -197,12 +194,12 @@ dynamic build(BuildContext context) {
   print('├───────┼────────────────────┼────────────────┼────────────────────┤');
 
   for (final t in tValues) {
-    final s = shapeTween.lerp(t)!;
+    final s = shapeTween.transform(t)!;
     final ar = s.width / s.height;
     String shape;
-    if (ar < 1.2)
+    if (ar < 1.2) {
       shape = 'Square';
-    else if (ar < 2.0)
+    } else if (ar < 2.0)
       shape = 'Rectangle';
     else if (ar < 4.0)
       shape = 'Wide rect';
@@ -248,7 +245,7 @@ dynamic build(BuildContext context) {
 
   final beginArea = 50.0 * 50.0;
   for (final t in tValues) {
-    final s = areaTween.lerp(t)!;
+    final s = areaTween.transform(t)!;
     final area = s.width * s.height;
     final areaPercent = (area / beginArea * 100) - 100;
     areaResults.add({'t': t, 'size': s, 'area': area, 'percent': areaPercent});
@@ -297,7 +294,7 @@ dynamic build(BuildContext context) {
   print('├───────┼──────────────┼──────────────────────────────────────────┤');
 
   for (final t in [0.0, 0.25, 0.5, 0.75, 1.0]) {
-    final s = widthOnlyTween.lerp(t)!;
+    final s = widthOnlyTween.transform(t)!;
     singleDimResults.add({'type': 'width', 't': t, 'size': s});
 
     final barWidth = (s.width / 250 * 32).round().clamp(0, 32);
@@ -315,7 +312,7 @@ dynamic build(BuildContext context) {
   print('├───────┼──────────────┼──────────────────────────────────────────┤');
 
   for (final t in [0.0, 0.25, 0.5, 0.75, 1.0]) {
-    final s = heightOnlyTween.lerp(t)!;
+    final s = heightOnlyTween.transform(t)!;
     singleDimResults.add({'type': 'height', 't': t, 'size': s});
 
     final barHeight = (s.height / 150 * 32).round().clamp(0, 32);
@@ -362,7 +359,7 @@ dynamic build(BuildContext context) {
   );
 
   for (final t in tValues) {
-    final s = shrinkTween.lerp(t)!;
+    final s = shrinkTween.transform(t)!;
     final scale = s.width / 200.0 * 100;
     shrinkResults.add({'t': t, 'size': s, 'scale': scale});
 
@@ -424,10 +421,10 @@ dynamic build(BuildContext context) {
     '├──────────────────────┼──────────────────┼──────────────────┼─────────────┤',
   );
 
-  final sA = tweenA.lerp(0.5)!;
-  final sB = tweenB.lerp(0.5)!;
-  final sC = tweenC.lerp(0.5)!;
-  final sD = tweenD.lerp(0.5)!;
+  final sA = tweenA.transform(0.5)!;
+  final sB = tweenB.transform(0.5)!;
+  final sC = tweenC.transform(0.5)!;
+  final sD = tweenD.transform(0.5)!;
 
   compareResults.add({
     'name': 'Uniform grow',
@@ -496,7 +493,7 @@ dynamic build(BuildContext context) {
   print('├───────┼─────────────────┼─────────────────┼───────────────────┤');
 
   for (final t in [0.0, 0.25, 0.5, 0.75, 1.0]) {
-    final lerpVal = basicTween.lerp(t)!;
+    final lerpVal = basicTween.transform(t)!;
     final anim = AlwaysStoppedAnimation<double>(t);
     final evalVal = basicTween.evaluate(anim)!;
     final match =
@@ -532,22 +529,18 @@ dynamic build(BuildContext context) {
   print('');
 
   print('2. Image Zoom:');
-  final zoomTween = SizeTween(begin: Size(100, 75), end: Size(400, 300));
   print('   From thumbnail to fullsize');
   print('');
 
   print('3. Collapse Animation:');
-  final collapseTween = SizeTween(begin: Size(200, 100), end: Size(200, 0));
   print('   Height collapses while width stays');
   print('');
 
   print('4. Expand/Collapse Container:');
-  final expandTween = SizeTween(begin: Size(48, 48), end: Size(200, 150));
   print('   FAB to expanded panel');
   print('');
 
   print('5. Card Resize:');
-  final cardTween = SizeTween(begin: Size(300, 200), end: Size(350, 250));
   print('   Subtle emphasis effect');
   print('');
 
@@ -648,7 +641,11 @@ dynamic build(BuildContext context) {
                   runSpacing: 8.0,
                   children: [
                     for (final t in [0.0, 0.25, 0.5, 0.75, 1.0])
-                      _buildSizeBox(basicTween.lerp(t)!, t, Color(0xFF795548)),
+                      _buildSizeBox(
+                        basicTween.transform(t)!,
+                        t,
+                        Color(0xFF795548),
+                      ),
                   ],
                 ),
               ],
@@ -715,7 +712,7 @@ dynamic build(BuildContext context) {
                   alignment: WrapAlignment.center,
                   children: [
                     for (final t in [0.0, 0.25, 0.5, 0.75, 1.0])
-                      _buildShapeBox(shapeTween.lerp(t)!, t),
+                      _buildShapeBox(shapeTween.transform(t)!, t),
                   ],
                 ),
               ],
@@ -844,7 +841,7 @@ Widget _buildSizeBox(Size size, double t, Color color) {
         width: size.width * scale,
         height: size.height * scale,
         decoration: BoxDecoration(
-          color: color.withOpacity(0.3 + t * 0.7),
+          color: color.withValues(alpha: 0.3 + t * 0.7),
           border: Border.all(color: color, width: 2),
           borderRadius: BorderRadius.circular(4),
         ),
@@ -877,14 +874,14 @@ Widget _buildAreaRow(Map<String, dynamic> r) {
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 45,
           child: Text(
             't=${(r['t'] as double).toStringAsFixed(1)}',
             style: TextStyle(fontSize: 11),
           ),
         ),
-        Container(
+        SizedBox(
           width: 55,
           child: Text(
             '${size.width.toStringAsFixed(0)}×${size.height.toStringAsFixed(0)}',
@@ -949,7 +946,7 @@ Widget _buildShapeBox(Size size, double t) {
         ),
         child: Center(
           child: Text(
-            '${t.toStringAsFixed(1)}',
+            t.toStringAsFixed(1),
             style: TextStyle(
               fontSize: 9,
               color: Colors.white,
@@ -973,7 +970,7 @@ Widget _buildCompareRow(Map<String, dynamic> r) {
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 80,
           child: Text(
             r['name'] as String,

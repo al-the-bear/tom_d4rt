@@ -1,7 +1,5 @@
 // D4rt test script: Deep Demo - CatmullRomSpline from animation
 // Comprehensive demonstration of 2D Catmull-Rom spline interpolation
-import 'dart:ui';
-import 'package:flutter/animation.dart';
 import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {
@@ -315,7 +313,7 @@ dynamic build(BuildContext context) {
                     padding: EdgeInsets.only(bottom: 6.0),
                     child: Row(
                       children: [
-                        Container(
+                        SizedBox(
                           width: 40.0,
                           child: Text(
                             't=${result['t']}',
@@ -351,7 +349,7 @@ dynamic build(BuildContext context) {
                           ),
                         ),
                         SizedBox(width: 8.0),
-                        Container(
+                        SizedBox(
                           width: 100.0,
                           child: Text(
                             '(${(result['x'] as double).toStringAsFixed(2)}, ${(result['y'] as double).toStringAsFixed(2)})',
@@ -426,7 +424,7 @@ dynamic build(BuildContext context) {
                           ),
                         ),
                         SizedBox(width: 12.0),
-                        Container(
+                        SizedBox(
                           width: 60.0,
                           child: Text(
                             '${analysis['count']} pts',
@@ -582,7 +580,7 @@ dynamic build(BuildContext context) {
                     padding: EdgeInsets.only(bottom: 4.0),
                     child: Row(
                       children: [
-                        Container(
+                        SizedBox(
                           width: 40.0,
                           child: Text(
                             't=${result['t']}',
@@ -615,7 +613,7 @@ dynamic build(BuildContext context) {
                           ),
                         ),
                         SizedBox(width: 8.0),
-                        Container(
+                        SizedBox(
                           width: 80.0,
                           child: Text(
                             '(${(result['x'] as double).toStringAsFixed(2)}, ${(result['y'] as double).toStringAsFixed(2)})',
@@ -666,7 +664,7 @@ dynamic build(BuildContext context) {
                     padding: EdgeInsets.only(bottom: 4.0),
                     child: Row(
                       children: [
-                        Container(
+                        SizedBox(
                           width: 40.0,
                           child: Text(
                             't=${result['t']}',
@@ -699,7 +697,7 @@ dynamic build(BuildContext context) {
                           ),
                         ),
                         SizedBox(width: 8.0),
-                        Container(
+                        SizedBox(
                           width: 80.0,
                           child: Text(
                             'y=${(result['y'] as double).toStringAsFixed(2)}',
@@ -750,7 +748,7 @@ dynamic build(BuildContext context) {
                     padding: EdgeInsets.only(bottom: 4.0),
                     child: Row(
                       children: [
-                        Container(
+                        SizedBox(
                           width: 40.0,
                           child: Text(
                             't=${result['t']}',
@@ -786,7 +784,7 @@ dynamic build(BuildContext context) {
                           ),
                         ),
                         SizedBox(width: 8.0),
-                        Container(
+                        SizedBox(
                           width: 80.0,
                           child: Text(
                             '(${(result['x'] as double).toStringAsFixed(2)}, ${(result['y'] as double).toStringAsFixed(2)})',

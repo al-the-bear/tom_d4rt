@@ -1,10 +1,7 @@
 // D4rt test script: Deep Demo for StepTween from animation
 // StepTween interpolates integers using floor (truncation)
 // Perfect for discrete value animations like page numbers, counts
-import 'dart:ui';
-import 'dart:math' as math;
-import 'package:flutter/animation.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print(
@@ -99,10 +96,10 @@ dynamic build(BuildContext context) {
 
   for (final t in tValues) {
     final continuous = t * 10;
-    final stepped = basicTween.lerp(t);
+    final stepped = basicTween.transform(t);
     stepResults.add({'t': t, 'cont': continuous, 'step': stepped});
 
-    final stepBar = '█' * (stepped ?? 0) + '░' * (10 - (stepped ?? 0));
+    final stepBar = '█' * stepped + '░' * (10 - stepped);
     print(
       '│ ${t.toStringAsFixed(1)}   │      ${continuous.toStringAsFixed(1).padLeft(5)}     │      ${stepped.toString().padLeft(2)}      │ $stepBar │',
     );
@@ -157,7 +154,7 @@ dynamic build(BuildContext context) {
     1.0,
   ]) {
     final cont = t * 5;
-    final stepped = step5.lerp(t);
+    final stepped = step5.transform(t);
     final wasJust = (t % 0.2 < 0.01 && t > 0.0);
     String status = wasJust ? '← Just stepped!' : '';
     floorResults.add({'t': t, 'cont': cont, 'step': stepped, 'just': wasJust});
@@ -204,11 +201,11 @@ dynamic build(BuildContext context) {
   );
 
   for (final t in tValues) {
-    final stepped = largeTween.lerp(t);
-    final percent = (stepped ?? 0) / 100.0 * 100;
+    final stepped = largeTween.transform(t);
+    final percent = stepped / 100.0 * 100;
     largeResults.add({'t': t, 'step': stepped, 'percent': percent});
 
-    final barWidth = ((stepped ?? 0) / 100 * 25).round().clamp(0, 25);
+    final barWidth = (stepped / 100 * 25).round().clamp(0, 25);
     final bar = '█' * barWidth + '░' * (25 - barWidth);
     print(
       '│ ${t.toStringAsFixed(1)}   │      ${stepped.toString().padLeft(3)}     │    ${percent.toStringAsFixed(0).padLeft(3)}%     │ $bar │',
@@ -251,10 +248,10 @@ dynamic build(BuildContext context) {
   );
 
   for (final t in tValues) {
-    final stepped = reverseTween.lerp(t);
+    final stepped = reverseTween.transform(t);
     reverseResults.add({'t': t, 'step': stepped});
 
-    final barWidth = (stepped ?? 0).clamp(0, 10);
+    final barWidth = stepped.clamp(0, 10);
     final bar = '█' * barWidth + '░' * (10 - barWidth);
     print(
       '│ ${t.toStringAsFixed(1)}   │      ${stepped.toString().padLeft(2)}      │ $bar ${stepped.toString().padLeft(2)} remaining │',
@@ -283,7 +280,6 @@ dynamic build(BuildContext context) {
   print('');
 
   final negativeTween = StepTween(begin: -5, end: 5);
-  final negToPos = StepTween(begin: -10, end: 0);
   final negativeResults = <Map<String, dynamic>>[];
 
   print('StepTween(-5, 5) - crossing zero:');
@@ -298,15 +294,15 @@ dynamic build(BuildContext context) {
   );
 
   for (final t in tValues) {
-    final stepped = negativeTween.lerp(t);
+    final stepped = negativeTween.transform(t);
     negativeResults.add({'t': t, 'step': stepped});
 
     // Create number line visualization
-    final position = ((stepped ?? 0) + 5);
+    final position = (stepped + 5);
     final before = '░' * position.clamp(0, 10);
     final after = '░' * (10 - position).clamp(0, 10);
     print(
-      '│ ${t.toStringAsFixed(1)}   │      ${stepped.toString().padLeft(3)}     │ ${before}█${after} │',
+      '│ ${t.toStringAsFixed(1)}   │      ${stepped.toString().padLeft(3)}     │ $before█$after │',
     );
   }
   print(
@@ -341,12 +337,12 @@ dynamic build(BuildContext context) {
   print('├───────┼──────────────┼──────────────┼────────────────────┤');
 
   for (final t in tValues) {
-    final stepVal = stepTw.lerp(t);
-    final intVal = intTw.lerp(t);
-    final diff = (stepVal ?? 0) - (intVal ?? 0);
+    final stepVal = stepTw.transform(t);
+    final intVal = intTw.transform(t);
+    final diff = stepVal - intVal;
     compResults.add({'t': t, 'step': stepVal, 'int': intVal, 'diff': diff});
     print(
-      '│ ${t.toStringAsFixed(1)}   │      ${stepVal.toString().padLeft(2)}      │      ${intVal.toString().padLeft(2)}      │        ${diff >= 0 ? ' ' : ''}${diff}        │',
+      '│ ${t.toStringAsFixed(1)}   │      ${stepVal.toString().padLeft(2)}      │      ${intVal.toString().padLeft(2)}      │        ${diff >= 0 ? ' ' : ''}$diff        │',
     );
   }
   print('└───────┴──────────────┴──────────────┴────────────────────┘');
@@ -388,7 +384,7 @@ dynamic build(BuildContext context) {
 
   for (var i = 0; i <= 20; i++) {
     final t = i / 20;
-    final page = pageTween.lerp(t) ?? 0;
+    final page = pageTween.transform(t);
     pageResults.add({'t': t, 'page': page});
 
     var indicators = '';
@@ -429,7 +425,7 @@ dynamic build(BuildContext context) {
   print('├───────┼──────────────┼──────────────┼────────────────────┤');
 
   for (final t in [0.0, 0.25, 0.33, 0.5, 0.67, 0.75, 1.0]) {
-    final lerpVal = basicTween.lerp(t);
+    final lerpVal = basicTween.transform(t);
     final anim = AlwaysStoppedAnimation<double>(t);
     final evalVal = basicTween.evaluate(anim);
     final match = lerpVal == evalVal;
@@ -745,17 +741,17 @@ Widget _buildStepRow(Map<String, dynamic> r) {
     padding: EdgeInsets.symmetric(vertical: 2.0),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 40,
           child: Text(
             't=${t.toStringAsFixed(1)}',
             style: TextStyle(fontSize: 10),
           ),
         ),
-        Container(
+        SizedBox(
           width: 45,
           child: Text(
-            '${cont.toStringAsFixed(1)}',
+            cont.toStringAsFixed(1),
             style: TextStyle(fontSize: 10, color: Color(0xFF757575)),
           ),
         ),
@@ -811,7 +807,7 @@ Widget _buildCompRow(Map<String, dynamic> r) {
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 45,
           child: Text(
             't=${(r['t'] as double).toStringAsFixed(1)}',
@@ -838,7 +834,7 @@ Widget _buildValueChip(String value, Color color) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
     decoration: BoxDecoration(
-      color: color.withOpacity(0.2),
+      color: color.withValues(alpha: 0.2),
       borderRadius: BorderRadius.circular(4),
       border: Border.all(color: color),
     ),
@@ -857,7 +853,7 @@ Widget _buildPageRow(Map<String, dynamic> r, int pages) {
     padding: EdgeInsets.symmetric(vertical: 6.0),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 50,
           child: Text(
             't=${t.toStringAsFixed(2)}',

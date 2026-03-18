@@ -1,10 +1,7 @@
 // D4rt test script: Deep Demo for Split from animation
 // Split applies two different curves before and after a threshold
 // Perfect for multi-phase animations with distinct behaviors
-import 'dart:ui';
-import 'dart:math' as math;
-import 'package:flutter/animation.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print(
@@ -329,9 +326,9 @@ dynamic build(BuildContext context) {
     final out = split50.transform(t);
     final curve = t < 0.5 ? 'easeIn' : 'easeOut';
     String status;
-    if (t == 0.5)
+    if (t == 0.5) {
       status = '← Split point!';
-    else if ((t - 0.5).abs() < 0.03)
+    } else if ((t - 0.5).abs() < 0.03)
       status = 'Near boundary';
     else
       status = '';
@@ -922,7 +919,7 @@ Widget _buildSplitGraph(
 ) {
   return Row(
     children: [
-      Container(
+      SizedBox(
         width: 75,
         child: Text(
           label,
@@ -930,7 +927,7 @@ Widget _buildSplitGraph(
         ),
       ),
       Expanded(
-        child: Container(
+        child: SizedBox(
           height: 30,
           child: CustomPaint(
             painter: SplitCurvePainter(split, threshold, color),
@@ -988,7 +985,7 @@ Widget _buildThresholdRow(Map<String, dynamic> r) {
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 50,
           child: Text(
             '${(th * 100).toStringAsFixed(0)}%',
@@ -1050,7 +1047,7 @@ Widget _buildComboRow(Map<String, dynamic> r) {
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 70,
           child: Text(
             r['name'] as String,
@@ -1080,7 +1077,7 @@ Widget _buildSmallValue(String value, Color color) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
     decoration: BoxDecoration(
-      color: color.withOpacity(0.2),
+      color: color.withValues(alpha: 0.2),
       borderRadius: BorderRadius.circular(4),
     ),
     child: Text(

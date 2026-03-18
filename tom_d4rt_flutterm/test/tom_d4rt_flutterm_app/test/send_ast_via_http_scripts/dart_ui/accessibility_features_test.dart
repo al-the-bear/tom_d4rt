@@ -5,97 +5,24 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  print(
-    '╔════════════════════════════════════════════════════════════════════╗',
-  );
-  print(
-    '║            ACCESSIBILITY FEATURES DEEP DEMO                       ║',
-  );
-  print(
-    '║       Platform Accessibility Settings for Adaptive UI             ║',
-  );
-  print(
-    '╚════════════════════════════════════════════════════════════════════╝',
-  );
-  print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 1: ACCESSIBILITY FEATURES FUNDAMENTALS
   // ═══════════════════════════════════════════════════════════════════════════
-  print(
-    '┌────────────────────────────────────────────────────────────────────┐',
-  );
-  print(
-    '│ SECTION 1: ACCESSIBILITY FEATURES FUNDAMENTALS                    │',
-  );
-  print(
-    '│ Understanding platform accessibility settings                     │',
-  );
-  print(
-    '└────────────────────────────────────────────────────────────────────┘',
-  );
-  print('');
 
-  print('AccessibilityFeatures provides:');
-  print('  • Platform accessibility settings');
-  print('  • User preference flags');
-  print('  • Adaptive UI information');
-  print('  • System-level configurations');
-  print('');
 
-  print('Accessibility categories:');
-  print('  • Visual (contrast, colors)');
-  print('  • Motion (animations)');
-  print('  • Navigation (screen readers)');
-  print('  • Interaction (switches, focus)');
-  print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 2: PLATFORM DISPATCHER ACCESS
   // ═══════════════════════════════════════════════════════════════════════════
-  print(
-    '┌────────────────────────────────────────────────────────────────────┐',
-  );
-  print(
-    '│ SECTION 2: PLATFORM DISPATCHER ACCESS                             │',
-  );
-  print(
-    '│ Getting features via PlatformDispatcher                           │',
-  );
-  print(
-    '└────────────────────────────────────────────────────────────────────┘',
-  );
-  print('');
 
   final dispatcher = ui.PlatformDispatcher.instance;
   final features = dispatcher.accessibilityFeatures;
 
-  print('Access pattern:');
-  print('  final dispatcher = PlatformDispatcher.instance;');
-  print('  final features = dispatcher.accessibilityFeatures;');
-  print('');
-  print('Object info:');
-  print('  • runtimeType: ${features.runtimeType}');
-  print('  • hashCode: ${features.hashCode}');
-  print('  • toString: ${features.toString()}');
-  print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 3: ALL FEATURE FLAGS
   // ═══════════════════════════════════════════════════════════════════════════
-  print(
-    '┌────────────────────────────────────────────────────────────────────┐',
-  );
-  print(
-    '│ SECTION 3: ALL FEATURE FLAGS                                      │',
-  );
-  print(
-    '│ Complete list of accessibility features                           │',
-  );
-  print(
-    '└────────────────────────────────────────────────────────────────────┘',
-  );
-  print('');
 
   final featureData = <Map<String, dynamic>>[
     {
@@ -135,305 +62,38 @@ dynamic build(BuildContext context) {
     },
   ];
 
-  print('Feature flags from platform:');
-  print(
-    '┌─────────────────────────┬─────────┬───────────────────────────────────┐',
-  );
-  print(
-    '│       Feature           │  Value  │   Description                     │',
-  );
-  print(
-    '├─────────────────────────┼─────────┼───────────────────────────────────┤',
-  );
-  for (final data in featureData) {
-    final name = (data['name'] as String).padRight(23);
-    final value = (data['value'] as bool ? 'Yes' : 'No').padRight(7);
-    final desc = (data['description'] as String).padRight(33);
-    print('│ $name │ $value │ $desc │');
-  }
-  print(
-    '└─────────────────────────┴─────────┴───────────────────────────────────┘',
-  );
-  print('');
-
-  // ═══════════════════════════════════════════════════════════════════════════
-  // SECTION 4: MEDIAQUERY ACCESS
-  // ═══════════════════════════════════════════════════════════════════════════
-  print(
-    '┌────────────────────────────────────────────────────────────────────┐',
-  );
-  print(
-    '│ SECTION 4: MEDIAQUERY ACCESS                                      │',
-  );
-  print(
-    '│ Accessing features through MediaQuery                             │',
-  );
-  print(
-    '└────────────────────────────────────────────────────────────────────┘',
-  );
-  print('');
-
-  final mq = MediaQuery.of(context);
-
-  print('MediaQuery accessibility properties:');
-  print('  • accessibleNavigation: ${mq.accessibleNavigation}');
-  print('  • boldText: ${mq.boldText}');
-  print('  • disableAnimations: ${mq.disableAnimations}');
-  print('  • invertColors: ${mq.invertColors}');
-  print('  • highContrast: ${mq.highContrast}');
-  print('');
-
-  print('Recommended access pattern:');
-  print('  // In a widget build method:');
-  print('  final mq = MediaQuery.of(context);');
-  print('  if (mq.disableAnimations) {');
-  print('    // Skip animations');
-  print('  }');
-  print('');
-
-  // ═══════════════════════════════════════════════════════════════════════════
-  // SECTION 5: VISUAL ACCESSIBILITY
-  // ═══════════════════════════════════════════════════════════════════════════
-  print(
-    '┌────────────────────────────────────────────────────────────────────┐',
-  );
-  print(
-    '│ SECTION 5: VISUAL ACCESSIBILITY                                   │',
-  );
-  print(
-    '│ Color and contrast settings                                       │',
-  );
-  print(
-    '└────────────────────────────────────────────────────────────────────┘',
-  );
-  print('');
-
-  print('Visual features:');
-  print('');
-  print('  invertColors: ${features.invertColors}');
-  print('    → Inverts all colors on screen');
-  print('    → Use: Adjust images that shouldn\'t be inverted');
-  print('');
-  print('  highContrast: ${features.highContrast}');
-  print('    → High contrast mode enabled');
-  print('    → Use: Increase text/background contrast');
-  print('');
-  print('  boldText: ${features.boldText}');
-  print('    → User prefers bold text');
-  print('    → Use: Increase font weights');
-  print('');
-
-  print('Adaptive example:');
-  print('  final fontWeight = features.boldText');
-  print('    ? FontWeight.bold');
-  print('    : FontWeight.normal;');
-  print('');
-
-  // ═══════════════════════════════════════════════════════════════════════════
-  // SECTION 6: MOTION ACCESSIBILITY
-  // ═══════════════════════════════════════════════════════════════════════════
-  print(
-    '┌────────────────────────────────────────────────────────────────────┐',
-  );
-  print(
-    '│ SECTION 6: MOTION ACCESSIBILITY                                   │',
-  );
-  print(
-    '│ Animation and motion preferences                                  │',
-  );
-  print(
-    '└────────────────────────────────────────────────────────────────────┘',
-  );
-  print('');
-
-  print('Motion features:');
-  print('');
-  print('  disableAnimations: ${features.disableAnimations}');
-  print('    → Animations completely disabled');
-  print('    → Use: Skip all animations');
-  print('');
-  print('  reduceMotion: ${features.reduceMotion}');
-  print('    → Reduce animation intensity');
-  print('    → Use: Simpler/shorter animations');
-  print('');
-
-  print('Motion-aware animation:');
-  print('  final duration = features.reduceMotion');
-  print('    ? Duration.zero');
-  print('    : Duration(milliseconds: 300);');
-  print('');
-  print('  AnimatedContainer(');
-  print('    duration: duration,');
-  print('    // ...');
-  print('  )');
-  print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 7: NAVIGATION ACCESSIBILITY
   // ═══════════════════════════════════════════════════════════════════════════
-  print(
-    '┌────────────────────────────────────────────────────────────────────┐',
-  );
-  print(
-    '│ SECTION 7: NAVIGATION ACCESSIBILITY                               │',
-  );
-  print(
-    '│ Screen reader and navigation settings                             │',
-  );
-  print(
-    '└────────────────────────────────────────────────────────────────────┘',
-  );
-  print('');
 
-  print('Navigation features:');
-  print('');
-  print('  accessibleNavigation: ${features.accessibleNavigation}');
-  print('    → Screen reader is active');
-  print('    → VoiceOver (iOS), TalkBack (Android)');
-  print('');
 
-  print('Screen reader adaptations:');
-  print('  • Add semantic labels');
-  print('  • Ensure focus order is logical');
-  print('  • Avoid time-limited interactions');
-  print('  • Provide text alternatives for images');
-  print('');
 
-  print('Example:');
-  print('  Semantics(');
-  print('    label: "Profile picture of John",');
-  print('    child: Image.asset("profile.png"),');
-  print('  )');
-  print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 8: INTERACTION ACCESSIBILITY
   // ═══════════════════════════════════════════════════════════════════════════
-  print(
-    '┌────────────────────────────────────────────────────────────────────┐',
-  );
-  print(
-    '│ SECTION 8: INTERACTION ACCESSIBILITY                              │',
-  );
-  print(
-    '│ Switch and label preferences                                      │',
-  );
-  print(
-    '└────────────────────────────────────────────────────────────────────┘',
-  );
-  print('');
 
-  print('Interaction features:');
-  print('');
-  print('  onOffSwitchLabels: ${features.onOffSwitchLabels}');
-  print('    → Show text labels on switches');
-  print('    → Display "ON"/"OFF" text');
-  print('');
 
-  print('Adaptive switch example:');
-  print('  if (features.onOffSwitchLabels) {');
-  print('    return SwitchListTile(');
-  print('      title: Text("Notifications"),');
-  print('      subtitle: Text(isOn ? "ON" : "OFF"),');
-  print('      value: isOn,');
-  print('      onChanged: ...,');
-  print('    );');
-  print('  }');
-  print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 9: LISTENING FOR CHANGES
   // ═══════════════════════════════════════════════════════════════════════════
-  print(
-    '┌────────────────────────────────────────────────────────────────────┐',
-  );
-  print(
-    '│ SECTION 9: LISTENING FOR CHANGES                                  │',
-  );
-  print(
-    '│ Reacting to accessibility changes                                 │',
-  );
-  print(
-    '└────────────────────────────────────────────────────────────────────┘',
-  );
-  print('');
 
-  print('Platform change listener:');
-  print('  PlatformDispatcher.instance.onAccessibilityFeaturesChanged = () {');
-  print('    final newFeatures = PlatformDispatcher.instance');
-  print('        .accessibilityFeatures;');
-  print('    // Rebuild UI with new settings');
-  print('  };');
-  print('');
 
-  print('In widget tree (recommended):');
-  print('  MediaQuery automatically propagates changes');
-  print('  Widgets rebuild when settings change');
-  print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 10: PRACTICAL USE CASES
   // ═══════════════════════════════════════════════════════════════════════════
-  print(
-    '┌────────────────────────────────────────────────────────────────────┐',
-  );
-  print(
-    '│ SECTION 10: PRACTICAL USE CASES                                   │',
-  );
-  print(
-    '│ Implementing accessible UIs                                       │',
-  );
-  print(
-    '└────────────────────────────────────────────────────────────────────┘',
-  );
-  print('');
 
-  print('1. Auto-hiding Elements');
-  print('   Don\'t auto-hide if accessibleNavigation is true');
-  print('');
 
-  print('2. Parallax Effects');
-  print('   Disable parallax if reduceMotion is true');
-  print('');
 
-  print('3. Animated Backgrounds');
-  print('   Static background if disableAnimations is true');
-  print('');
 
-  print('4. Color Schemes');
-  print('   Higher contrast palette if highContrast is true');
-  print('');
 
-  print('5. Text Sizes');
-  print('   Larger/bolder text if boldText is true');
-  print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SUMMARY
   // ═══════════════════════════════════════════════════════════════════════════
-  print(
-    '╔════════════════════════════════════════════════════════════════════╗',
-  );
-  print(
-    '║           ACCESSIBILITY FEATURES SUMMARY                          ║',
-  );
-  print(
-    '╚════════════════════════════════════════════════════════════════════╝',
-  );
-  print('');
-  print('AccessibilityFeatures key features:');
-  print('  • 7 boolean feature flags');
-  print('  • Platform-provided settings');
-  print('  • MediaQuery integration');
-  print('  • Change notification support');
-  print('');
-  print('Best practices:');
-  print('  • Use MediaQuery.of(context) in widgets');
-  print('  • Respect reduceMotion for animations');
-  print('  • Support high contrast when requested');
-  print('  • Add semantic labels for screen readers');
-  print('');
-  print('AccessibilityFeatures Deep Demo completed');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // VISUAL DISPLAY
@@ -480,7 +140,7 @@ dynamic build(BuildContext context) {
                       'Platform Accessibility Settings',
                       style: TextStyle(
                         fontSize: 14.0,
-                        color: Colors.white.withOpacity(0.8),
+                        color: Colors.white.withValues(alpha: 0.8),
                       ),
                     ),
                   ],

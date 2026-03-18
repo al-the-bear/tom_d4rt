@@ -1,6 +1,4 @@
 // D4rt test script: Tests Tween and Animation classes from animation
-import 'dart:ui';
-import 'package:flutter/animation.dart';
 import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {
@@ -12,15 +10,15 @@ dynamic build(BuildContext context) {
   // Test Tween<double>
   final doubleTween = Tween<double>(begin: 0.0, end: 100.0);
   print('DoubleTween: begin=${doubleTween.begin}, end=${doubleTween.end}');
-  print('DoubleTween.lerp(0.0): ${doubleTween.lerp(0.0)}');
-  print('DoubleTween.lerp(0.25): ${doubleTween.lerp(0.25)}');
-  print('DoubleTween.lerp(0.5): ${doubleTween.lerp(0.5)}');
-  print('DoubleTween.lerp(0.75): ${doubleTween.lerp(0.75)}');
-  print('DoubleTween.lerp(1.0): ${doubleTween.lerp(1.0)}');
+  print('DoubleTween.transform(0.0): ${doubleTween.transform(0.0)}');
+  print('DoubleTween.transform(0.25): ${doubleTween.transform(0.25)}');
+  print('DoubleTween.transform(0.5): ${doubleTween.transform(0.5)}');
+  print('DoubleTween.transform(0.75): ${doubleTween.transform(0.75)}');
+  print('DoubleTween.transform(1.0): ${doubleTween.transform(1.0)}');
 
   // Test Tween with negative values
   final negativeTween = Tween<double>(begin: -50.0, end: 50.0);
-  print('NegativeTween.lerp(0.5): ${negativeTween.lerp(0.5)}');
+  print('NegativeTween.transform(0.5): ${negativeTween.transform(0.5)}');
 
   // Test transform method
   print('DoubleTween.transform(0.5): ${doubleTween.transform(0.5)}');
@@ -30,21 +28,21 @@ dynamic build(BuildContext context) {
 
   final intTween = IntTween(begin: 0, end: 10);
   print('IntTween: begin=${intTween.begin}, end=${intTween.end}');
-  print('IntTween.lerp(0.0): ${intTween.lerp(0.0)}');
-  print('IntTween.lerp(0.5): ${intTween.lerp(0.5)}');
-  print('IntTween.lerp(0.75): ${intTween.lerp(0.75)}');
-  print('IntTween.lerp(1.0): ${intTween.lerp(1.0)}');
+  print('IntTween.transform(0.0): ${intTween.transform(0.0)}');
+  print('IntTween.transform(0.5): ${intTween.transform(0.5)}');
+  print('IntTween.transform(0.75): ${intTween.transform(0.75)}');
+  print('IntTween.transform(1.0): ${intTween.transform(1.0)}');
 
   // ========== STEPTWEEN ==========
   print('--- StepTween Tests ---');
 
   final stepTween = StepTween(begin: 0, end: 10);
   print('StepTween: begin=${stepTween.begin}, end=${stepTween.end}');
-  print('StepTween.lerp(0.0): ${stepTween.lerp(0.0)}');
-  print('StepTween.lerp(0.49): ${stepTween.lerp(0.49)}');
-  print('StepTween.lerp(0.5): ${stepTween.lerp(0.5)}');
-  print('StepTween.lerp(0.99): ${stepTween.lerp(0.99)}');
-  print('StepTween.lerp(1.0): ${stepTween.lerp(1.0)}');
+  print('StepTween.transform(0.0): ${stepTween.transform(0.0)}');
+  print('StepTween.transform(0.49): ${stepTween.transform(0.49)}');
+  print('StepTween.transform(0.5): ${stepTween.transform(0.5)}');
+  print('StepTween.transform(0.99): ${stepTween.transform(0.99)}');
+  print('StepTween.transform(1.0): ${stepTween.transform(1.0)}');
 
   // ========== COLORTWEEN ==========
   print('--- ColorTween Tests ---');
@@ -54,25 +52,25 @@ dynamic build(BuildContext context) {
     end: Color(0xFF0000FF), // Blue
   );
   print('ColorTween: begin=${colorTween.begin}, end=${colorTween.end}');
-  print('ColorTween.lerp(0.0): ${colorTween.lerp(0.0)}');
-  print('ColorTween.lerp(0.5): ${colorTween.lerp(0.5)}');
-  print('ColorTween.lerp(1.0): ${colorTween.lerp(1.0)}');
+  print('ColorTween.transform(0.0): ${colorTween.transform(0.0)}');
+  print('ColorTween.transform(0.5): ${colorTween.transform(0.5)}');
+  print('ColorTween.transform(1.0): ${colorTween.transform(1.0)}');
 
   // Color with alpha
   final alphaTween = ColorTween(
     begin: Color(0x00FFFFFF), // Transparent white
     end: Color(0xFFFFFFFF), // Opaque white
   );
-  print('AlphaTween.lerp(0.5): ${alphaTween.lerp(0.5)}');
+  print('AlphaTween.transform(0.5): ${alphaTween.transform(0.5)}');
 
   // ========== SIZETWEEN ==========
   print('--- SizeTween Tests ---');
 
   final sizeTween = SizeTween(begin: Size(0.0, 0.0), end: Size(100.0, 80.0));
   print('SizeTween: begin=${sizeTween.begin}, end=${sizeTween.end}');
-  print('SizeTween.lerp(0.0): ${sizeTween.lerp(0.0)}');
-  print('SizeTween.lerp(0.5): ${sizeTween.lerp(0.5)}');
-  print('SizeTween.lerp(1.0): ${sizeTween.lerp(1.0)}');
+  print('SizeTween.transform(0.0): ${sizeTween.transform(0.0)}');
+  print('SizeTween.transform(0.5): ${sizeTween.transform(0.5)}');
+  print('SizeTween.transform(1.0): ${sizeTween.transform(1.0)}');
 
   // ========== RECTTWEEN ==========
   print('--- RectTween Tests ---');
@@ -82,8 +80,8 @@ dynamic build(BuildContext context) {
     end: Rect.fromLTWH(100.0, 100.0, 150.0, 150.0),
   );
   print('RectTween: begin=${rectTween.begin}');
-  print('RectTween.lerp(0.5): ${rectTween.lerp(0.5)}');
-  print('RectTween.lerp(1.0): ${rectTween.lerp(1.0)}');
+  print('RectTween.transform(0.5): ${rectTween.transform(0.5)}');
+  print('RectTween.transform(1.0): ${rectTween.transform(1.0)}');
 
   // ========== ALIGNMENTTWEEN ==========
   print('--- AlignmentTween Tests ---');
@@ -93,9 +91,9 @@ dynamic build(BuildContext context) {
     end: Alignment.bottomRight,
   );
   print('AlignmentTween: begin=${alignmentTween.begin}');
-  print('AlignmentTween.lerp(0.0): ${alignmentTween.lerp(0.0)}');
-  print('AlignmentTween.lerp(0.5): ${alignmentTween.lerp(0.5)}');
-  print('AlignmentTween.lerp(1.0): ${alignmentTween.lerp(1.0)}');
+  print('AlignmentTween.transform(0.0): ${alignmentTween.transform(0.0)}');
+  print('AlignmentTween.transform(0.5): ${alignmentTween.transform(0.5)}');
+  print('AlignmentTween.transform(1.0): ${alignmentTween.transform(1.0)}');
 
   // ========== ALIGNMENTGEOMETRYTWEEN ==========
   print('--- AlignmentGeometryTween Tests ---');
@@ -105,7 +103,9 @@ dynamic build(BuildContext context) {
     end: AlignmentDirectional.bottomEnd,
   );
   print('AlignmentGeometryTween: begin=${alignGeomTween.begin}');
-  print('AlignmentGeometryTween.lerp(0.5): ${alignGeomTween.lerp(0.5)}');
+  print(
+    'AlignmentGeometryTween.transform(0.5): ${alignGeomTween.transform(0.5)}',
+  );
 
   // ========== DECORATIONTWEEN ==========
   print('--- DecorationTween Tests ---');
@@ -121,7 +121,7 @@ dynamic build(BuildContext context) {
     ),
   );
   print('DecorationTween: begin=${decorationTween.begin}');
-  print('DecorationTween.lerp(0.5): ${decorationTween.lerp(0.5)}');
+  print('DecorationTween.transform(0.5): ${decorationTween.transform(0.5)}');
 
   // ========== EDGEINSETSTWEEN ==========
   print('--- EdgeInsetsTween Tests ---');
@@ -131,8 +131,8 @@ dynamic build(BuildContext context) {
     end: EdgeInsets.all(20.0),
   );
   print('EdgeInsetsTween: begin=${edgeInsetsTween.begin}');
-  print('EdgeInsetsTween.lerp(0.5): ${edgeInsetsTween.lerp(0.5)}');
-  print('EdgeInsetsTween.lerp(1.0): ${edgeInsetsTween.lerp(1.0)}');
+  print('EdgeInsetsTween.transform(0.5): ${edgeInsetsTween.transform(0.5)}');
+  print('EdgeInsetsTween.transform(1.0): ${edgeInsetsTween.transform(1.0)}');
 
   // ========== EDGEINSETSGEOMETRYTWEEN ==========
   print('--- EdgeInsetsGeometryTween Tests ---');
@@ -142,7 +142,9 @@ dynamic build(BuildContext context) {
     end: EdgeInsetsDirectional.all(30.0),
   );
   print('EdgeInsetsGeometryTween: begin=${edgeGeomTween.begin}');
-  print('EdgeInsetsGeometryTween.lerp(0.5): ${edgeGeomTween.lerp(0.5)}');
+  print(
+    'EdgeInsetsGeometryTween.transform(0.5): ${edgeGeomTween.transform(0.5)}',
+  );
 
   // ========== BORDERRADIUSTWEEN ==========
   print('--- BorderRadiusTween Tests ---');
@@ -152,8 +154,12 @@ dynamic build(BuildContext context) {
     end: BorderRadius.circular(25.0),
   );
   print('BorderRadiusTween: begin=${borderRadiusTween.begin}');
-  print('BorderRadiusTween.lerp(0.5): ${borderRadiusTween.lerp(0.5)}');
-  print('BorderRadiusTween.lerp(1.0): ${borderRadiusTween.lerp(1.0)}');
+  print(
+    'BorderRadiusTween.transform(0.5): ${borderRadiusTween.transform(0.5)}',
+  );
+  print(
+    'BorderRadiusTween.transform(1.0): ${borderRadiusTween.transform(1.0)}',
+  );
 
   // ========== BORDERTWEEN ==========
   print('--- BorderTween Tests ---');
@@ -163,17 +169,13 @@ dynamic build(BuildContext context) {
     end: Border.all(color: Color(0xFF0000FF), width: 4.0),
   );
   print('BorderTween: begin=${borderTween.begin}');
-  print('BorderTween.lerp(0.5): ${borderTween.lerp(0.5)}');
+  print('BorderTween.transform(0.5): ${borderTween.transform(0.5)}');
 
   // ========== MATRIX4TWEEN ==========
   print('--- Matrix4Tween Tests ---');
 
-  final matrix4Tween = Matrix4Tween(
-    begin: Matrix4.identity(),
-    end: Matrix4.identity()..translate(100.0, 50.0, 0.0),
-  );
   print('Matrix4Tween: begin identity');
-  print('Matrix4Tween.lerp(0.5) translates to 50, 25');
+  print('Matrix4Tween.transform(0.5) translates to 50, 25');
 
   // ========== TEXTSTYLETWEEN ==========
   print('--- TextStyleTween Tests ---');
@@ -183,23 +185,23 @@ dynamic build(BuildContext context) {
     end: TextStyle(fontSize: 24.0, color: Color(0xFF0000FF)),
   );
   print('TextStyleTween: begin=${textStyleTween.begin}');
-  print('TextStyleTween.lerp(0.5): ${textStyleTween.lerp(0.5)}');
+  print('TextStyleTween.transform(0.5): ${textStyleTween.transform(0.5)}');
 
   // ========== CONSTANTTWEEN ==========
   print('--- ConstantTween Tests ---');
 
   final constantTween = ConstantTween<double>(42.0);
-  print('ConstantTween(42): lerp(0.0)=${constantTween.lerp(0.0)}');
-  print('ConstantTween(42): lerp(0.5)=${constantTween.lerp(0.5)}');
-  print('ConstantTween(42): lerp(1.0)=${constantTween.lerp(1.0)}');
+  print('ConstantTween(42): lerp(0.0)=${constantTween.transform(0.0)}');
+  print('ConstantTween(42): lerp(0.5)=${constantTween.transform(0.5)}');
+  print('ConstantTween(42): lerp(1.0)=${constantTween.transform(1.0)}');
 
   // ========== REVERSIBLE TWEEN ==========
   print('--- ReverseTween Tests ---');
 
   final reverseTween = ReverseTween<double>(doubleTween);
-  print('ReverseTween of 0-100: lerp(0.0)=${reverseTween.lerp(0.0)}');
-  print('ReverseTween of 0-100: lerp(0.5)=${reverseTween.lerp(0.5)}');
-  print('ReverseTween of 0-100: lerp(1.0)=${reverseTween.lerp(1.0)}');
+  print('ReverseTween of 0-100: lerp(0.0)=${reverseTween.transform(0.0)}');
+  print('ReverseTween of 0-100: lerp(0.5)=${reverseTween.transform(0.5)}');
+  print('ReverseTween of 0-100: lerp(1.0)=${reverseTween.transform(1.0)}');
 
   // ========== TWEEN CHAIN ==========
   print('--- TweenSequence Tests ---');
@@ -265,14 +267,14 @@ dynamic build(BuildContext context) {
                   Expanded(
                     child: Column(
                       children: [
-                        Text('t=${t}', style: TextStyle(fontSize: 10.0)),
+                        Text('t=$t', style: TextStyle(fontSize: 10.0)),
                         Container(
-                          height: doubleTween.lerp(t) / 2,
+                          height: doubleTween.transform(t) / 2,
                           width: 30.0,
                           color: Color(0xFF2196F3),
                         ),
                         Text(
-                          '${doubleTween.lerp(t).toInt()}',
+                          '${doubleTween.transform(t).toInt()}',
                           style: TextStyle(fontSize: 10.0),
                         ),
                       ],
@@ -294,7 +296,7 @@ dynamic build(BuildContext context) {
                     child: Container(
                       height: 40.0,
                       margin: EdgeInsets.symmetric(horizontal: 2.0),
-                      color: colorTween.lerp(t),
+                      color: colorTween.transform(t),
                       child: Center(
                         child: Text(
                           '${(t * 100).toInt()}%',
@@ -325,8 +327,8 @@ dynamic build(BuildContext context) {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Container(
-                          width: sizeTween.lerp(t)!.width / 2,
-                          height: sizeTween.lerp(t)!.height / 2,
+                          width: sizeTween.transform(t)!.width / 2,
+                          height: sizeTween.transform(t)!.height / 2,
                           color: Color(0xFF4CAF50),
                         ),
                         SizedBox(height: 4.0),
@@ -359,7 +361,8 @@ dynamic build(BuildContext context) {
                           decoration: BoxDecoration(
                             color: Color(0xFFFF9800),
                             borderRadius:
-                                borderRadiusTween.lerp(t) ?? BorderRadius.zero,
+                                borderRadiusTween.transform(t) ??
+                                BorderRadius.zero,
                           ),
                         ),
                         SizedBox(height: 4.0),

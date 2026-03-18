@@ -1,5 +1,4 @@
 // D4rt test script: Tests SpringDescription, Tolerance, and physics simulation classes
-import 'dart:ui';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/physics.dart';
 

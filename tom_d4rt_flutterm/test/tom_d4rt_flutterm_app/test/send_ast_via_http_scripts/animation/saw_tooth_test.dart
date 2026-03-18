@@ -1,10 +1,7 @@
 // D4rt test script: Deep Demo for SawTooth from animation
 // SawTooth creates a repeating linear sawtooth pattern
 // Perfect for looping animations and progress indicators
-import 'dart:ui';
-import 'dart:math' as math;
-import 'package:flutter/animation.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print(
@@ -346,9 +343,9 @@ dynamic build(BuildContext context) {
   ]) {
     final out = saw4.transform(t);
     String status;
-    if ((t * 4) % 1.0 < 0.1)
+    if ((t * 4) % 1.0 < 0.1) {
       status = '↓ Just reset';
-    else if ((t * 4) % 1.0 > 0.9)
+    } else if ((t * 4) % 1.0 > 0.9)
       status = '↑ About to reset';
     else
       status = '  Mid-cycle';
@@ -793,7 +790,7 @@ dynamic build(BuildContext context) {
 Widget _buildSawtoothGraph(String label, SawTooth curve, Color color) {
   return Row(
     children: [
-      Container(
+      SizedBox(
         width: 65,
         child: Text(
           label,
@@ -801,7 +798,7 @@ Widget _buildSawtoothGraph(String label, SawTooth curve, Color color) {
         ),
       ),
       Expanded(
-        child: Container(
+        child: SizedBox(
           height: 30,
           child: CustomPaint(
             painter: SawtoothLinePainter(curve, color),
@@ -847,7 +844,7 @@ Widget _buildComparisonRow(Map<String, dynamic> r) {
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 45,
           child: Text(
             't=${(r['t'] as double).toStringAsFixed(2)}',
@@ -890,7 +887,7 @@ Widget _buildSmallValue(String value, Color color) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
     decoration: BoxDecoration(
-      color: color.withOpacity(0.2),
+      color: color.withValues(alpha: 0.2),
       borderRadius: BorderRadius.circular(4),
     ),
     child: Text(
@@ -905,7 +902,7 @@ Widget _buildFrequencyRow(Map<String, dynamic> r) {
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 60,
           child: Text(
             'Count: ${r['count']}',

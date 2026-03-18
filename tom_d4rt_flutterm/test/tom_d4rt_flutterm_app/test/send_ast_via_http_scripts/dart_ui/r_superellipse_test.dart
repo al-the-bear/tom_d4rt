@@ -1,5 +1,4 @@
 // D4rt test script: Tests RSuperellipse from dart:ui
-import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {

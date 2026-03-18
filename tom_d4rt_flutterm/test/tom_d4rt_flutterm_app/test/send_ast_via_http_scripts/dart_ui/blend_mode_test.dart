@@ -1,305 +1,52 @@
 // D4rt Deep Demo: BlendMode - Advanced Color Compositing Operations
 // This demo comprehensively explores BlendMode enum which defines how colors
 // are combined when drawing one element over another.
-import 'dart:ui';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  print(
-    '═══════════════════════════════════════════════════════════════════════════',
-  );
-  print(
-    '                         BLENDMODE DEEP DEMO                               ',
-  );
-  print(
-    '═══════════════════════════════════════════════════════════════════════════',
-  );
-
   // ═══════════════════════════════════════════════════════════════════════════════
   // SECTION 1: BlendMode Fundamentals
   // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 1: BlendMode Fundamentals');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-  print('BlendMode defines how pixels are combined during drawing operations:');
-  print('- Source (src): The color being drawn');
-  print('- Destination (dst): The existing color on canvas');
-  print('- Result: The computed output color');
-  print('');
-  print('All ${BlendMode.values.length} blend modes:');
-  for (final mode in BlendMode.values) {
-    print('  [${mode.index.toString().padLeft(2)}] ${mode.name}');
-  }
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // SECTION 2: Basic Blending Modes (Porter-Duff)
   // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 2: Porter-Duff Modes');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-  print('Classic compositing operations:');
-  print('');
-
-  final porterDuff = [
-    ('clear', BlendMode.clear, 'Result = 0 (transparent)'),
-    ('src', BlendMode.src, 'Result = Source'),
-    ('dst', BlendMode.dst, 'Result = Destination'),
-    ('srcOver', BlendMode.srcOver, 'Source over destination (default)'),
-    ('dstOver', BlendMode.dstOver, 'Destination over source'),
-    ('srcIn', BlendMode.srcIn, 'Source where both overlap'),
-    ('dstIn', BlendMode.dstIn, 'Destination where both overlap'),
-    ('srcOut', BlendMode.srcOut, 'Source where dest is transparent'),
-    ('dstOut', BlendMode.dstOut, 'Destination where src is transparent'),
-    ('srcATop', BlendMode.srcATop, 'Source atop destination'),
-    ('dstATop', BlendMode.dstATop, 'Destination atop source'),
-    ('xor', BlendMode.xor, 'XOR - non-overlapping parts'),
-  ];
-
-  for (final (name, mode, desc) in porterDuff) {
-    print('${mode.name.padRight(10)} (index ${mode.index}): $desc');
-  }
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // SECTION 3: Mathematical Blend Modes
   // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 3: Mathematical Modes');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-  print('Modes that perform mathematical operations on colors:');
-  print('');
-
-  final mathematical = [
-    ('plus', BlendMode.plus, 'Add colors (src + dst)'),
-    ('modulate', BlendMode.modulate, 'Multiply colors (src × dst)'),
-  ];
-
-  for (final (name, mode, desc) in mathematical) {
-    print('${mode.name.padRight(10)} (index ${mode.index}): $desc');
-  }
-
-  print('');
-  print('Color addition example (plus):');
-  print('  Red (255,0,0) + Blue (0,0,255) = Magenta (255,0,255)');
-  print('');
-  print('Color multiplication example (modulate):');
-  print('  White (1,1,1) × Red (1,0,0) = Red (1,0,0)');
-  print('  Gray (0.5,0.5,0.5) × Red (1,0,0) = Dark Red (0.5,0,0)');
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // SECTION 4: Screen and Overlay Family
   // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 4: Screen and Overlay');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-
-  final screenOverlay = [
-    ('screen', BlendMode.screen, 'Lightens: 1 - (1-src)×(1-dst)'),
-    ('overlay', BlendMode.overlay, 'Multiply or screen based on dest'),
-    ('softLight', BlendMode.softLight, 'Softer version of overlay'),
-    ('hardLight', BlendMode.hardLight, 'Multiply or screen based on src'),
-  ];
-
-  for (final (name, mode, desc) in screenOverlay) {
-    print('${mode.name.padRight(10)} (index ${mode.index}): $desc');
-  }
-
-  print('');
-  print('Screen is like projecting two slides onto a screen');
-  print('Overlay combines multiply and screen for contrast');
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // SECTION 5: Darken and Lighten Modes
   // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 5: Darken/Lighten Modes');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-
-  final darkenLighten = [
-    ('darken', BlendMode.darken, 'Keep darker of src/dst per channel'),
-    ('lighten', BlendMode.lighten, 'Keep lighter of src/dst per channel'),
-    ('colorDodge', BlendMode.colorDodge, 'Brighten dest based on src'),
-    ('colorBurn', BlendMode.colorBurn, 'Darken dest based on src'),
-  ];
-
-  for (final (name, mode, desc) in darkenLighten) {
-    print('${mode.name.padRight(12)} (index ${mode.index}): $desc');
-  }
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // SECTION 6: Difference Modes
   // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 6: Difference Modes');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-
-  final difference = [
-    ('difference', BlendMode.difference, 'Absolute difference |src - dst|'),
-    ('exclusion', BlendMode.exclusion, 'Softer difference'),
-  ];
-
-  for (final (name, mode, desc) in difference) {
-    print('${mode.name.padRight(10)} (index ${mode.index}): $desc');
-  }
-
-  print('');
-  print('Difference mode:');
-  print('  Same colors → Black (difference is zero)');
-  print('  Inverse colors → White (maximum difference)');
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // SECTION 7: HSL Component Modes
   // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 7: HSL Component Modes');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-  print('Modes that work with Hue, Saturation, Luminosity:');
-  print('');
-
-  final hsl = [
-    ('hue', BlendMode.hue, 'Use src hue, dst saturation/luminosity'),
-    (
-      'saturation',
-      BlendMode.saturation,
-      'Use src saturation, dst hue/luminosity',
-    ),
-    ('color', BlendMode.color, 'Use src hue+saturation, dst luminosity'),
-    (
-      'luminosity',
-      BlendMode.luminosity,
-      'Use src luminosity, dst hue+saturation',
-    ),
-  ];
-
-  for (final (name, mode, desc) in hsl) {
-    print('${mode.name.padRight(12)} (index ${mode.index}): $desc');
-  }
-
-  print('');
-  print('Use cases:');
-  print('  hue: Colorize grayscale images');
-  print('  saturation: Adjust color intensity');
-  print('  color: Apply color tint');
-  print('  luminosity: Match brightness only');
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // SECTION 8: BlendMode with Paint
   // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 8: Using with Paint');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-  print('Setting blendMode on Paint object:');
-  print('');
-
-  final paint1 = Paint()..blendMode = BlendMode.srcOver;
-  print('paint.blendMode = BlendMode.srcOver (default)');
-  print('  paint.blendMode: ${paint1.blendMode}');
-
-  final paint2 = Paint()..blendMode = BlendMode.multiply;
-  print('');
-  print('paint.blendMode = BlendMode.multiply');
-  print('  paint.blendMode: ${paint2.blendMode}');
-
-  print('');
-  print('Code example:');
-  print('''
-  final paint = Paint()
-    ..color = Colors.red
-    ..blendMode = BlendMode.multiply;
-  
-  canvas.drawRect(rect, paint);
-  ''');
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // SECTION 9: BlendMode with ColorFilter
   // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 9: ColorFilter Usage');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-  print('Creating ColorFilter with BlendMode:');
-  print('');
-
-  final filter1 = ColorFilter.mode(Colors.red, BlendMode.multiply);
-  print('ColorFilter.mode(Colors.red, BlendMode.multiply)');
-  print('  → Tints image with red using multiply');
-
-  final filter2 = ColorFilter.mode(
-    Colors.blue.withOpacity(0.5),
-    BlendMode.srcATop,
-  );
-  print('');
-  print('ColorFilter.mode(Colors.blue.withOpacity(0.5), BlendMode.srcATop)');
-  print('  → Semi-transparent blue overlay');
-
-  print('');
-  print('Common ColorFilter patterns:');
-  print('  Grayscale: ColorFilter.matrix([...grayscale matrix...])');
-  print('  Sepia: Apply warm color overlay with multiply');
-  print('  Tint: Use srcATop with semi-transparent color');
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // SECTION 10: Performance Considerations
   // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 10: Performance');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-  print('BlendMode performance tiers:');
-  print('');
-  print('┌──────────────────┬─────────────┬────────────────────────┐');
-  print('│     Category     │    Cost     │       Examples         │');
-  print('├──────────────────┼─────────────┼────────────────────────┤');
-  print('│ Porter-Duff      │    Low      │ srcOver, src, dst      │');
-  print('│ Mathematical     │    Low      │ plus, modulate         │');
-  print('│ Darken/Lighten   │   Medium    │ darken, lighten        │');
-  print('│ Dodge/Burn       │   Medium    │ colorDodge, colorBurn  │');
-  print('│ Overlay Family   │   Medium    │ overlay, hardLight     │');
-  print('│ HSL Component    │    High     │ hue, saturation, color │');
-  print('└──────────────────┴─────────────┴────────────────────────┘');
-  print('');
-  print('Note: HSL modes require color space conversion');
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // SECTION 11: Common Patterns
   // ═══════════════════════════════════════════════════════════════════════════════
-  print('\n📌 SECTION 11: Common Patterns');
-  print(
-    '─────────────────────────────────────────────────────────────────────────',
-  );
-  print('Recommended modes for common effects:');
-  print('');
-  print('Photo Effects:');
-  print('  • Vintage: screen + sepia color');
-  print('  • High contrast: overlay');
-  print('  • Desaturate: saturation with gray');
-  print('');
-  print('UI Effects:');
-  print('  • Tinted glass: multiply with semi-transparent');
-  print('  • Highlight: screen or colorDodge');
-  print('  • Shadow overlay: multiply with dark color');
-  print('');
-  print('Mask Operations:');
-  print('  • Shape mask: dstIn or srcIn');
-  print('  • Knockout: dstOut or srcOut');
-  print('  • Intersection: srcIn');
-
-  print(
-    '\n═══════════════════════════════════════════════════════════════════════════',
-  );
-  print(
-    '                      BLENDMODE DEEP DEMO COMPLETE                         ',
-  );
-  print(
-    '═══════════════════════════════════════════════════════════════════════════',
-  );
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // VISUAL DEMONSTRATION UI
@@ -328,7 +75,7 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.pink.withOpacity(0.3),
+                  color: Colors.pink.withValues(alpha: 0.3),
                   blurRadius: 12,
                   offset: Offset(0, 6),
                 ),
@@ -336,7 +83,7 @@ dynamic build(BuildContext context) {
             ),
             child: Column(
               children: [
-                Icon(Icons.blend, size: 48, color: Colors.white),
+                Icon(Icons.gradient, size: 48, color: Colors.white),
                 SizedBox(height: 12),
                 Text(
                   'BlendMode',
@@ -350,7 +97,7 @@ dynamic build(BuildContext context) {
                   '${BlendMode.values.length} Color Compositing Operations',
                   style: TextStyle(
                     fontSize: 14,
-                    color: Colors.white.withOpacity(0.9),
+                    color: Colors.white.withValues(alpha: 0.9),
                   ),
                 ),
               ],
@@ -555,7 +302,7 @@ Widget _buildCategoryCard(
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: color.withOpacity(0.3)),
+      border: Border.all(color: color.withValues(alpha: 0.3)),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -595,7 +342,7 @@ Widget _buildCategoryCard(
                 (m) => Container(
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                   decoration: BoxDecoration(
-                    color: color.withOpacity(0.1),
+                    color: color.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(m, style: TextStyle(fontSize: 10, color: color)),
@@ -609,11 +356,11 @@ Widget _buildCategoryCard(
 }
 
 Widget _buildBlendPreview(String name, BlendMode mode) {
-  return Container(
+  return SizedBox(
     width: 70,
     child: Column(
       children: [
-        Container(
+        SizedBox(
           width: 50,
           height: 50,
           child: CustomPaint(painter: _BlendDemoPainter(mode)),

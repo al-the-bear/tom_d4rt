@@ -1,27 +1,41 @@
 // D4rt test script: Deep Demo for RectTween from animation
 // RectTween interpolates between two Rect objects
 // Perfect for animating widget positions and sizes
-import 'dart:ui';
 import 'dart:math' as math;
-import 'package:flutter/animation.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  print('╔════════════════════════════════════════════════════════════════════╗');
-  print('║                    RECT TWEEN DEEP DEMO                           ║');
-  print('║            Interpolating Rectangle Position & Size                ║');
-  print('╚════════════════════════════════════════════════════════════════════╝');
+  print(
+    '╔════════════════════════════════════════════════════════════════════╗',
+  );
+  print(
+    '║                    RECT TWEEN DEEP DEMO                           ║',
+  );
+  print(
+    '║            Interpolating Rectangle Position & Size                ║',
+  );
+  print(
+    '╚════════════════════════════════════════════════════════════════════╝',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 1: RECT TWEEN FUNDAMENTALS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 1: RECT TWEEN FUNDAMENTALS                                │');
-  print('│ Understanding rectangle interpolation                             │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 1: RECT TWEEN FUNDAMENTALS                                │',
+  );
+  print(
+    '│ Understanding rectangle interpolation                             │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
-  
+
   print('RectTween characteristics:');
   print('  • Interpolates all 4 Rect properties: left, top, right, bottom');
   print('  • Effectively animates position AND size simultaneously');
@@ -40,258 +54,454 @@ dynamic build(BuildContext context) {
   print('  End: ${basicTween.end}');
   print('');
 
-  final tValues = <double>[0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0];
+  final tValues = <double>[
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4,
+    0.5,
+    0.6,
+    0.7,
+    0.8,
+    0.9,
+    1.0,
+  ];
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 2: FULL INTERPOLATION
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 2: FULL INTERPOLATION                                     │');
-  print('│ Position and size changing together                               │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 2: FULL INTERPOLATION                                     │',
+  );
+  print(
+    '│ Position and size changing together                               │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final fullResults = <Map<String, dynamic>>[];
-  
+
   print('Complete interpolation path:');
-  print('┌───────┬──────────────┬──────────────┬──────────────┬──────────────┐');
-  print('│   t   │     Left     │     Top      │    Width     │    Height    │');
-  print('├───────┼──────────────┼──────────────┼──────────────┼──────────────┤');
-  
+  print(
+    '┌───────┬──────────────┬──────────────┬──────────────┬──────────────┐',
+  );
+  print(
+    '│   t   │     Left     │     Top      │    Width     │    Height    │',
+  );
+  print(
+    '├───────┼──────────────┼──────────────┼──────────────┼──────────────┤',
+  );
+
   for (final t in tValues) {
-    final r = basicTween.lerp(t)!;
-    fullResults.add({'t': t, 'rect': r, 'left': r.left, 'top': r.top, 'width': r.width, 'height': r.height});
-    print('│ ${t.toStringAsFixed(1)}   │    ${r.left.toStringAsFixed(1).padLeft(6)}    │    ${r.top.toStringAsFixed(1).padLeft(6)}    │    ${r.width.toStringAsFixed(1).padLeft(6)}    │    ${r.height.toStringAsFixed(1).padLeft(6)}    │');
+    final r = basicTween.transform(t)!;
+    fullResults.add({
+      't': t,
+      'rect': r,
+      'left': r.left,
+      'top': r.top,
+      'width': r.width,
+      'height': r.height,
+    });
+    print(
+      '│ ${t.toStringAsFixed(1)}   │    ${r.left.toStringAsFixed(1).padLeft(6)}    │    ${r.top.toStringAsFixed(1).padLeft(6)}    │    ${r.width.toStringAsFixed(1).padLeft(6)}    │    ${r.height.toStringAsFixed(1).padLeft(6)}    │',
+    );
   }
-  print('└───────┴──────────────┴──────────────┴──────────────┴──────────────┘');
+  print(
+    '└───────┴──────────────┴──────────────┴──────────────┴──────────────┘',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 3: POSITION ONLY ANIMATION
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 3: POSITION ONLY ANIMATION                                │');
-  print('│ Moving rectangle without changing size                            │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 3: POSITION ONLY ANIMATION                                │',
+  );
+  print(
+    '│ Moving rectangle without changing size                            │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final positionTween = RectTween(
     begin: Rect.fromLTWH(0.0, 0.0, 100.0, 80.0),
     end: Rect.fromLTWH(200.0, 150.0, 100.0, 80.0),
   );
-  
+
   final posResults = <Map<String, dynamic>>[];
-  
+
   print('Position-only tween (size constant 100x80):');
-  print('┌───────┬──────────────┬──────────────┬──────────────────────────────┐');
-  print('│   t   │     Left     │     Top      │   Position Visualization     │');
-  print('├───────┼──────────────┼──────────────┼──────────────────────────────┤');
-  
+  print(
+    '┌───────┬──────────────┬──────────────┬──────────────────────────────┐',
+  );
+  print(
+    '│   t   │     Left     │     Top      │   Position Visualization     │',
+  );
+  print(
+    '├───────┼──────────────┼──────────────┼──────────────────────────────┤',
+  );
+
   for (final t in [0.0, 0.25, 0.5, 0.75, 1.0]) {
-    final r = positionTween.lerp(t)!;
-    posResults.add({'t': t, 'left': r.left, 'top': r.top, 'width': r.width, 'height': r.height});
-    
+    final r = positionTween.transform(t)!;
+    posResults.add({
+      't': t,
+      'left': r.left,
+      'top': r.top,
+      'width': r.width,
+      'height': r.height,
+    });
+
     // Visual position indicator
-    final xPos = (r.left / 200 * 20).round().clamp(0, 20);
-    final yPos = (r.top / 150 * 5).round().clamp(0, 5);
-    final vis = 'X=${r.left.toStringAsFixed(0).padLeft(3)} Y=${r.top.toStringAsFixed(0).padLeft(3)}';
-    print('│ ${t.toStringAsFixed(2)}  │    ${r.left.toStringAsFixed(1).padLeft(6)}    │    ${r.top.toStringAsFixed(1).padLeft(6)}    │ $vis │');
+    final vis =
+        'X=${r.left.toStringAsFixed(0).padLeft(3)} Y=${r.top.toStringAsFixed(0).padLeft(3)}';
+    print(
+      '│ ${t.toStringAsFixed(2)}  │    ${r.left.toStringAsFixed(1).padLeft(6)}    │    ${r.top.toStringAsFixed(1).padLeft(6)}    │ $vis │',
+    );
   }
-  print('└───────┴──────────────┴──────────────┴──────────────────────────────┘');
+  print(
+    '└───────┴──────────────┴──────────────┴──────────────────────────────┘',
+  );
   print('');
   print('Size verification:');
   for (final r in posResults) {
-    print('  t=${r['t']}: width=${r['width']}, height=${r['height']} (constant ✓)');
+    print(
+      '  t=${r['t']}: width=${r['width']}, height=${r['height']} (constant ✓)',
+    );
   }
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 4: SIZE ONLY ANIMATION
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 4: SIZE ONLY ANIMATION                                    │');
-  print('│ Growing/shrinking rectangle at fixed position                     │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 4: SIZE ONLY ANIMATION                                    │',
+  );
+  print(
+    '│ Growing/shrinking rectangle at fixed position                     │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final sizeTween = RectTween(
     begin: Rect.fromLTWH(50.0, 50.0, 50.0, 50.0),
     end: Rect.fromLTWH(50.0, 50.0, 200.0, 150.0),
   );
-  
+
   final sizeResults = <Map<String, dynamic>>[];
-  
+
   print('Size-only tween (position constant at 50,50):');
-  print('┌───────┬──────────────┬──────────────┬──────────────────────────────┐');
-  print('│   t   │    Width     │    Height    │   Size Visualization         │');
-  print('├───────┼──────────────┼──────────────┼──────────────────────────────┤');
-  
+  print(
+    '┌───────┬──────────────┬──────────────┬──────────────────────────────┐',
+  );
+  print(
+    '│   t   │    Width     │    Height    │   Size Visualization         │',
+  );
+  print(
+    '├───────┼──────────────┼──────────────┼──────────────────────────────┤',
+  );
+
   for (final t in [0.0, 0.25, 0.5, 0.75, 1.0]) {
-    final r = sizeTween.lerp(t)!;
-    sizeResults.add({'t': t, 'left': r.left, 'top': r.top, 'width': r.width, 'height': r.height});
-    
+    final r = sizeTween.transform(t)!;
+    sizeResults.add({
+      't': t,
+      'left': r.left,
+      'top': r.top,
+      'width': r.width,
+      'height': r.height,
+    });
+
     final wBar = '█' * (r.width / 200 * 15).round().clamp(0, 15);
-    final hBar = '▓' * (r.height / 150 * 10).round().clamp(0, 10);
-    print('│ ${t.toStringAsFixed(2)}  │    ${r.width.toStringAsFixed(1).padLeft(6)}    │    ${r.height.toStringAsFixed(1).padLeft(6)}    │ W:${wBar.padRight(15)} │');
+    print(
+      '│ ${t.toStringAsFixed(2)}  │    ${r.width.toStringAsFixed(1).padLeft(6)}    │    ${r.height.toStringAsFixed(1).padLeft(6)}    │ W:${wBar.padRight(15)} │',
+    );
   }
-  print('└───────┴──────────────┴──────────────┴──────────────────────────────┘');
+  print(
+    '└───────┴──────────────┴──────────────┴──────────────────────────────┘',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 5: CENTER-BASED GROWTH
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 5: CENTER-BASED GROWTH                                    │');
-  print('│ Scaling from center point                                         │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 5: CENTER-BASED GROWTH                                    │',
+  );
+  print(
+    '│ Scaling from center point                                         │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   // To scale from center, start and end must have same center
   final centerX = 150.0;
   final centerY = 100.0;
   final centerTween = RectTween(
-    begin: Rect.fromCenter(center: Offset(centerX, centerY), width: 50.0, height: 50.0),
-    end: Rect.fromCenter(center: Offset(centerX, centerY), width: 200.0, height: 150.0),
+    begin: Rect.fromCenter(
+      center: Offset(centerX, centerY),
+      width: 50.0,
+      height: 50.0,
+    ),
+    end: Rect.fromCenter(
+      center: Offset(centerX, centerY),
+      width: 200.0,
+      height: 150.0,
+    ),
   );
-  
+
   final centerResults = <Map<String, dynamic>>[];
-  
+
   print('Center-based growth (center at 150,100):');
-  print('┌───────┬──────────────┬──────────────┬──────────────┬──────────────┐');
-  print('│   t   │   Center X   │   Center Y   │    Width     │    Height    │');
-  print('├───────┼──────────────┼──────────────┼──────────────┼──────────────┤');
-  
+  print(
+    '┌───────┬──────────────┬──────────────┬──────────────┬──────────────┐',
+  );
+  print(
+    '│   t   │   Center X   │   Center Y   │    Width     │    Height    │',
+  );
+  print(
+    '├───────┼──────────────┼──────────────┼──────────────┼──────────────┤',
+  );
+
   for (final t in [0.0, 0.25, 0.5, 0.75, 1.0]) {
-    final r = centerTween.lerp(t)!;
+    final r = centerTween.transform(t)!;
     final cx = r.left + r.width / 2;
     final cy = r.top + r.height / 2;
-    centerResults.add({'t': t, 'cx': cx, 'cy': cy, 'width': r.width, 'height': r.height});
-    print('│ ${t.toStringAsFixed(2)}  │    ${cx.toStringAsFixed(1).padLeft(6)}    │    ${cy.toStringAsFixed(1).padLeft(6)}    │    ${r.width.toStringAsFixed(1).padLeft(6)}    │    ${r.height.toStringAsFixed(1).padLeft(6)}    │');
+    centerResults.add({
+      't': t,
+      'cx': cx,
+      'cy': cy,
+      'width': r.width,
+      'height': r.height,
+    });
+    print(
+      '│ ${t.toStringAsFixed(2)}  │    ${cx.toStringAsFixed(1).padLeft(6)}    │    ${cy.toStringAsFixed(1).padLeft(6)}    │    ${r.width.toStringAsFixed(1).padLeft(6)}    │    ${r.height.toStringAsFixed(1).padLeft(6)}    │',
+    );
   }
-  print('└───────┴──────────────┴──────────────┴──────────────┴──────────────┘');
+  print(
+    '└───────┴──────────────┴──────────────┴──────────────┴──────────────┘',
+  );
   print('');
   print('Center verification (should remain constant):');
   for (final r in centerResults) {
-    final cxMatch = (r['cx'] as double - 150.0).abs() < 0.01;
-    final cyMatch = (r['cy'] as double - 100.0).abs() < 0.01;
-    print('  t=${r['t']}: center=(${(r['cx'] as double).toStringAsFixed(1)},${(r['cy'] as double).toStringAsFixed(1)}) ${cxMatch && cyMatch ? '✓' : '✗'}');
+    final cxMatch = ((r['cx'] as double) - 150.0).abs() < 0.01;
+    final cyMatch = ((r['cy'] as double) - 100.0).abs() < 0.01;
+    print(
+      '  t=${r['t']}: center=(${(r['cx'] as double).toStringAsFixed(1)},${(r['cy'] as double).toStringAsFixed(1)}) ${cxMatch && cyMatch ? '✓' : '✗'}',
+    );
   }
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 6: AREA CALCULATION
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 6: AREA CALCULATION                                       │');
-  print('│ How area changes during interpolation                             │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 6: AREA CALCULATION                                       │',
+  );
+  print(
+    '│ How area changes during interpolation                             │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final areaResults = <Map<String, dynamic>>[];
   final beginArea = basicTween.begin!.width * basicTween.begin!.height;
   final endArea = basicTween.end!.width * basicTween.end!.height;
-  
+
   print('Area interpolation analysis:');
   print('  Begin area: ${beginArea.toStringAsFixed(0)}');
   print('  End area: ${endArea.toStringAsFixed(0)}');
   print('  Note: Area does NOT interpolate linearly!');
   print('');
-  print('┌───────┬──────────────┬──────────────┬───────────────────────────────┐');
-  print('│   t   │     Area     │  Linear Est  │   Difference (non-linear)     │');
-  print('├───────┼──────────────┼──────────────┼───────────────────────────────┤');
-  
+  print(
+    '┌───────┬──────────────┬──────────────┬───────────────────────────────┐',
+  );
+  print(
+    '│   t   │     Area     │  Linear Est  │   Difference (non-linear)     │',
+  );
+  print(
+    '├───────┼──────────────┼──────────────┼───────────────────────────────┤',
+  );
+
   for (final t in tValues) {
-    final r = basicTween.lerp(t)!;
+    final r = basicTween.transform(t)!;
     final actualArea = r.width * r.height;
-    final linearArea = beginArea + (endArea - beginArea) * t;  // What linear area would be
+    final linearArea =
+        beginArea + (endArea - beginArea) * t; // What linear area would be
     final diff = actualArea - linearArea;
-    areaResults.add({'t': t, 'actual': actualArea, 'linear': linearArea, 'diff': diff});
-    
+    areaResults.add({
+      't': t,
+      'actual': actualArea,
+      'linear': linearArea,
+      'diff': diff,
+    });
+
     final sign = diff >= 0 ? '+' : '';
-    print('│ ${t.toStringAsFixed(1)}   │  ${actualArea.toStringAsFixed(0).padLeft(8)}    │  ${linearArea.toStringAsFixed(0).padLeft(8)}    │ ${sign}${diff.toStringAsFixed(1).padLeft(10)} (${((diff/linearArea)*100).abs().toStringAsFixed(1)}%) │');
+    print(
+      '│ ${t.toStringAsFixed(1)}   │  ${actualArea.toStringAsFixed(0).padLeft(8)}    │  ${linearArea.toStringAsFixed(0).padLeft(8)}    │ $sign${diff.toStringAsFixed(1).padLeft(10)} (${((diff / linearArea) * 100).abs().toStringAsFixed(1)}%) │',
+    );
   }
-  print('└───────┴──────────────┴──────────────┴───────────────────────────────┘');
+  print(
+    '└───────┴──────────────┴──────────────┴───────────────────────────────┘',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 7: DIAGONAL MOVEMENT
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 7: DIAGONAL MOVEMENT                                      │');
-  print('│ Moving from corner to corner                                      │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 7: DIAGONAL MOVEMENT                                      │',
+  );
+  print(
+    '│ Moving from corner to corner                                      │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final diagTween = RectTween(
     begin: Rect.fromLTWH(0.0, 0.0, 80.0, 60.0),
     end: Rect.fromLTWH(220.0, 140.0, 80.0, 60.0),
   );
-  
+
   final diagResults = <Map<String, dynamic>>[];
-  
+
   print('Diagonal movement (top-left to bottom-right):');
-  print('┌───────┬──────────────┬──────────────┬──────────────────────────────────┐');
-  print('│   t   │     Left     │     Top      │   Path Visualization             │');
-  print('├───────┼──────────────┼──────────────┼──────────────────────────────────┤');
-  
+  print(
+    '┌───────┬──────────────┬──────────────┬──────────────────────────────────┐',
+  );
+  print(
+    '│   t   │     Left     │     Top      │   Path Visualization             │',
+  );
+  print(
+    '├───────┼──────────────┼──────────────┼──────────────────────────────────┤',
+  );
+
   for (final t in tValues) {
-    final r = diagTween.lerp(t)!;
+    final r = diagTween.transform(t)!;
     diagResults.add({'t': t, 'left': r.left, 'top': r.top});
-    
+
     // Calculate distance from origin
     final dist = math.sqrt(r.left * r.left + r.top * r.top);
     final maxDist = math.sqrt(220.0 * 220.0 + 140.0 * 140.0);
     final progress = (dist / maxDist * 25).round().clamp(0, 25);
-    final path = '░' * progress + '█' + '░' * (25 - progress);
-    print('│ ${t.toStringAsFixed(1)}   │    ${r.left.toStringAsFixed(1).padLeft(6)}    │    ${r.top.toStringAsFixed(1).padLeft(6)}    │ $path │');
+    final path = '${'░' * progress}█${'░' * (25 - progress)}';
+    print(
+      '│ ${t.toStringAsFixed(1)}   │    ${r.left.toStringAsFixed(1).padLeft(6)}    │    ${r.top.toStringAsFixed(1).padLeft(6)}    │ $path │',
+    );
   }
-  print('└───────┴──────────────┴──────────────┴──────────────────────────────────┘');
+  print(
+    '└───────┴──────────────┴──────────────┴──────────────────────────────────┘',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 8: ASPECT RATIO CHANGES
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 8: ASPECT RATIO CHANGES                                   │');
-  print('│ Square to wide rectangle transition                               │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 8: ASPECT RATIO CHANGES                                   │',
+  );
+  print(
+    '│ Square to wide rectangle transition                               │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final aspectTween = RectTween(
-    begin: Rect.fromLTWH(0.0, 0.0, 100.0, 100.0),  // 1:1 aspect ratio
-    end: Rect.fromLTWH(0.0, 0.0, 200.0, 50.0),     // 4:1 aspect ratio
+    begin: Rect.fromLTWH(0.0, 0.0, 100.0, 100.0), // 1:1 aspect ratio
+    end: Rect.fromLTWH(0.0, 0.0, 200.0, 50.0), // 4:1 aspect ratio
   );
-  
+
   final aspectResults = <Map<String, dynamic>>[];
-  
+
   print('Square (1:1) to Wide (4:1) transition:');
-  print('┌───────┬──────────────┬──────────────┬──────────────┬─────────────────┐');
-  print('│   t   │    Width     │    Height    │ Aspect Ratio │  Shape          │');
-  print('├───────┼──────────────┼──────────────┼──────────────┼─────────────────┤');
-  
+  print(
+    '┌───────┬──────────────┬──────────────┬──────────────┬─────────────────┐',
+  );
+  print(
+    '│   t   │    Width     │    Height    │ Aspect Ratio │  Shape          │',
+  );
+  print(
+    '├───────┼──────────────┼──────────────┼──────────────┼─────────────────┤',
+  );
+
   for (final t in tValues) {
-    final r = aspectTween.lerp(t)!;
+    final r = aspectTween.transform(t)!;
     final aspect = r.width / r.height;
-    aspectResults.add({'t': t, 'width': r.width, 'height': r.height, 'aspect': aspect});
-    
+    aspectResults.add({
+      't': t,
+      'width': r.width,
+      'height': r.height,
+      'aspect': aspect,
+    });
+
     String shape;
-    if (aspect < 1.2) shape = '■ Square';
-    else if (aspect < 2.0) shape = '▬ Wide';
-    else if (aspect < 3.0) shape = '▬▬ Wider';
-    else shape = '▬▬▬ Very Wide';
-    
-    print('│ ${t.toStringAsFixed(1)}   │    ${r.width.toStringAsFixed(1).padLeft(6)}    │    ${r.height.toStringAsFixed(1).padLeft(6)}    │    ${aspect.toStringAsFixed(2).padLeft(6)}    │ ${shape.padRight(15)} │');
+    if (aspect < 1.2) {
+      shape = '■ Square';
+    } else if (aspect < 2.0)
+      shape = '▬ Wide';
+    else if (aspect < 3.0)
+      shape = '▬▬ Wider';
+    else
+      shape = '▬▬▬ Very Wide';
+
+    print(
+      '│ ${t.toStringAsFixed(1)}   │    ${r.width.toStringAsFixed(1).padLeft(6)}    │    ${r.height.toStringAsFixed(1).padLeft(6)}    │    ${aspect.toStringAsFixed(2).padLeft(6)}    │ ${shape.padRight(15)} │',
+    );
   }
-  print('└───────┴──────────────┴──────────────┴──────────────┴─────────────────┘');
+  print(
+    '└───────┴──────────────┴──────────────┴──────────────┴─────────────────┘',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 9: PRACTICAL EXAMPLES
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 9: PRACTICAL EXAMPLES                                     │');
-  print('│ Common RectTween use cases                                        │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 9: PRACTICAL EXAMPLES                                     │',
+  );
+  print(
+    '│ Common RectTween use cases                                        │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('1. Card Expansion:');
@@ -301,7 +511,7 @@ dynamic build(BuildContext context) {
   );
   print('   Collapsed: ${cardTween.begin}');
   print('   Expanded: ${cardTween.end}');
-  print('   Mid-expansion: ${cardTween.lerp(0.5)}');
+  print('   Mid-expansion: ${cardTween.transform(0.5)}');
   print('');
 
   print('2. List Item to Detail:');
@@ -311,7 +521,7 @@ dynamic build(BuildContext context) {
   );
   print('   List item: ${listTween.begin}');
   print('   Detail view: ${listTween.end}');
-  print('   Transition: ${listTween.lerp(0.5)}');
+  print('   Transition: ${listTween.transform(0.5)}');
   print('');
 
   print('3. FAB to Dialog:');
@@ -321,23 +531,31 @@ dynamic build(BuildContext context) {
   );
   print('   FAB: ${fabTween.begin}');
   print('   Dialog: ${fabTween.end}');
-  print('   Mid-morph: ${fabTween.lerp(0.5)}');
+  print('   Mid-morph: ${fabTween.transform(0.5)}');
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 10: USING WITH ANIMATEDBUILDER
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 10: USING WITH ANIMATEDBUILDER                            │');
-  print('│ Integration with animation controllers                            │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 10: USING WITH ANIMATEDBUILDER                            │',
+  );
+  print(
+    '│ Integration with animation controllers                            │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('Common integration pattern:');
   print('```');
   print('final animation = controller.drive(RectTween(');
   print('  begin: smallRect,');
-  print('  end: largeRect,'));
+  print('  end: largeRect,');
   print(').chain(CurveTween(curve: Curves.easeInOut)));');
   print('');
   print('AnimatedBuilder(');
@@ -360,9 +578,15 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SUMMARY
   // ═══════════════════════════════════════════════════════════════════════════
-  print('╔════════════════════════════════════════════════════════════════════╗');
-  print('║                     RECT TWEEN SUMMARY                            ║');
-  print('╚════════════════════════════════════════════════════════════════════╝');
+  print(
+    '╔════════════════════════════════════════════════════════════════════╗',
+  );
+  print(
+    '║                     RECT TWEEN SUMMARY                            ║',
+  );
+  print(
+    '╚════════════════════════════════════════════════════════════════════╝',
+  );
   print('');
   print('RectTween key features:');
   print('  • Interpolates position and size simultaneously');
@@ -410,10 +634,7 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 8.0),
                 Text(
                   'Rectangle Position & Size Interpolation',
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    color: Color(0xFFB2DFDB),
-                  ),
+                  style: TextStyle(fontSize: 16.0, color: Color(0xFFB2DFDB)),
                 ),
               ],
             ),
@@ -474,7 +695,7 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 SizedBox(height: 12.0),
-                Container(
+                SizedBox(
                   height: 150,
                   child: Stack(
                     children: [
@@ -486,10 +707,21 @@ dynamic build(BuildContext context) {
                           width: 60,
                           height: 60,
                           decoration: BoxDecoration(
-                            color: Color(0xFF26A69A).withOpacity(0.3),
-                            border: Border.all(color: Color(0xFF26A69A), width: 2),
+                            color: Color(0xFF26A69A).withValues(alpha: 0.3),
+                            border: Border.all(
+                              color: Color(0xFF26A69A),
+                              width: 2,
+                            ),
                           ),
-                          child: Center(child: Text('Begin', style: TextStyle(color: Color(0xFF26A69A), fontSize: 10))),
+                          child: Center(
+                            child: Text(
+                              'Begin',
+                              style: TextStyle(
+                                color: Color(0xFF26A69A),
+                                fontSize: 10,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                       // Mid rect
@@ -500,10 +732,22 @@ dynamic build(BuildContext context) {
                           width: 90,
                           height: 75,
                           decoration: BoxDecoration(
-                            color: Color(0xFF80CBC4).withOpacity(0.3),
-                            border: Border.all(color: Color(0xFF80CBC4), width: 2, strokeAlign: BorderSide.strokeAlignInside),
+                            color: Color(0xFF80CBC4).withValues(alpha: 0.3),
+                            border: Border.all(
+                              color: Color(0xFF80CBC4),
+                              width: 2,
+                              strokeAlign: BorderSide.strokeAlignInside,
+                            ),
                           ),
-                          child: Center(child: Text('t=0.5', style: TextStyle(color: Color(0xFF80CBC4), fontSize: 10))),
+                          child: Center(
+                            child: Text(
+                              't=0.5',
+                              style: TextStyle(
+                                color: Color(0xFF80CBC4),
+                                fontSize: 10,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                       // End rect
@@ -514,10 +758,21 @@ dynamic build(BuildContext context) {
                           width: 120,
                           height: 90,
                           decoration: BoxDecoration(
-                            color: Color(0xFF4DB6AC).withOpacity(0.3),
-                            border: Border.all(color: Color(0xFF4DB6AC), width: 2),
+                            color: Color(0xFF4DB6AC).withValues(alpha: 0.3),
+                            border: Border.all(
+                              color: Color(0xFF4DB6AC),
+                              width: 2,
+                            ),
                           ),
-                          child: Center(child: Text('End', style: TextStyle(color: Color(0xFF4DB6AC), fontSize: 10))),
+                          child: Center(
+                            child: Text(
+                              'End',
+                              style: TextStyle(
+                                color: Color(0xFF4DB6AC),
+                                fontSize: 10,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     ],
@@ -548,7 +803,9 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 SizedBox(height: 12.0),
-                ...fullResults.where((r) => [0.0, 0.25, 0.5, 0.75, 1.0].contains(r['t'])).map((r) => _buildRectRow(r)),
+                ...fullResults
+                    .where((r) => [0.0, 0.25, 0.5, 0.75, 1.0].contains(r['t']))
+                    .map((r) => _buildRectRow(r)),
               ],
             ),
           ),
@@ -574,9 +831,14 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 SizedBox(height: 8),
-                Text('Area does NOT interpolate linearly!', style: TextStyle(fontSize: 11, fontStyle: FontStyle.italic)),
+                Text(
+                  'Area does NOT interpolate linearly!',
+                  style: TextStyle(fontSize: 11, fontStyle: FontStyle.italic),
+                ),
                 SizedBox(height: 12.0),
-                ...areaResults.where((r) => [0.0, 0.5, 1.0].contains(r['t'])).map((r) => _buildAreaRow(r)),
+                ...areaResults
+                    .where((r) => [0.0, 0.5, 1.0].contains(r['t']))
+                    .map((r) => _buildAreaRow(r)),
               ],
             ),
           ),
@@ -602,10 +864,16 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 SizedBox(height: 12.0),
-                _buildUseCaseItem('Hero animations', 'Smooth transition between screens'),
+                _buildUseCaseItem(
+                  'Hero animations',
+                  'Smooth transition between screens',
+                ),
                 _buildUseCaseItem('Card expansion', 'List item to full card'),
                 _buildUseCaseItem('Modal morphing', 'FAB to dialog transition'),
-                _buildUseCaseItem('Layout animations', 'Responsive layout changes'),
+                _buildUseCaseItem(
+                  'Layout animations',
+                  'Responsive layout changes',
+                ),
               ],
             ),
           ),
@@ -643,7 +911,10 @@ dynamic build(BuildContext context) {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     _buildSummaryStat('Begin Area', '${beginArea.toInt()}'),
-                    _buildSummaryStat('Mid Area', '${(fullResults[5]['rect'] as Rect).width.toInt() * (fullResults[5]['rect'] as Rect).height.toInt()}'),
+                    _buildSummaryStat(
+                      'Mid Area',
+                      '${(fullResults[5]['rect'] as Rect).width.toInt() * (fullResults[5]['rect'] as Rect).height.toInt()}',
+                    ),
                     _buildSummaryStat('End Area', '${endArea.toInt()}'),
                   ],
                 ),
@@ -676,18 +947,31 @@ Widget _buildPropertyChip(String label, Color color) {
       color: color,
       borderRadius: BorderRadius.circular(16),
     ),
-    child: Text(label, style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w500)),
+    child: Text(
+      label,
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 11,
+        fontWeight: FontWeight.w500,
+      ),
+    ),
   );
 }
 
 Widget _buildRectRow(Map<String, dynamic> r) {
   final rect = r['rect'] as Rect;
-  
+
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(width: 45, child: Text('t=${(r['t'] as double).toStringAsFixed(2)}', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500))),
+        SizedBox(
+          width: 45,
+          child: Text(
+            't=${(r['t'] as double).toStringAsFixed(2)}',
+            style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500),
+          ),
+        ),
         Expanded(
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -698,10 +982,22 @@ Widget _buildRectRow(Map<String, dynamic> r) {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('L:${rect.left.toInt()}', style: TextStyle(fontSize: 10, fontFamily: 'monospace')),
-                Text('T:${rect.top.toInt()}', style: TextStyle(fontSize: 10, fontFamily: 'monospace')),
-                Text('W:${rect.width.toInt()}', style: TextStyle(fontSize: 10, fontFamily: 'monospace')),
-                Text('H:${rect.height.toInt()}', style: TextStyle(fontSize: 10, fontFamily: 'monospace')),
+                Text(
+                  'L:${rect.left.toInt()}',
+                  style: TextStyle(fontSize: 10, fontFamily: 'monospace'),
+                ),
+                Text(
+                  'T:${rect.top.toInt()}',
+                  style: TextStyle(fontSize: 10, fontFamily: 'monospace'),
+                ),
+                Text(
+                  'W:${rect.width.toInt()}',
+                  style: TextStyle(fontSize: 10, fontFamily: 'monospace'),
+                ),
+                Text(
+                  'H:${rect.height.toInt()}',
+                  style: TextStyle(fontSize: 10, fontFamily: 'monospace'),
+                ),
               ],
             ),
           ),
@@ -716,7 +1012,13 @@ Widget _buildAreaRow(Map<String, dynamic> r) {
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(width: 45, child: Text('t=${(r['t'] as double).toStringAsFixed(1)}', style: TextStyle(fontSize: 11))),
+        SizedBox(
+          width: 45,
+          child: Text(
+            't=${(r['t'] as double).toStringAsFixed(1)}',
+            style: TextStyle(fontSize: 11),
+          ),
+        ),
         Expanded(
           child: Row(
             children: [
@@ -729,7 +1031,10 @@ Widget _buildAreaRow(Map<String, dynamic> r) {
                   ),
                   child: FractionallySizedBox(
                     alignment: Alignment.centerLeft,
-                    widthFactor: ((r['actual'] as double) / 30000).clamp(0.0, 1.0),
+                    widthFactor: ((r['actual'] as double) / 30000).clamp(
+                      0.0,
+                      1.0,
+                    ),
                     child: Container(
                       decoration: BoxDecoration(
                         color: Color(0xFFF57C00),
@@ -740,7 +1045,10 @@ Widget _buildAreaRow(Map<String, dynamic> r) {
                 ),
               ),
               SizedBox(width: 8),
-              Text('${(r['actual'] as double).toInt()}', style: TextStyle(fontSize: 10, fontFamily: 'monospace')),
+              Text(
+                '${(r['actual'] as double).toInt()}',
+                style: TextStyle(fontSize: 10, fontFamily: 'monospace'),
+              ),
             ],
           ),
         ),
@@ -755,13 +1063,25 @@ Widget _buildUseCaseItem(String title, String description) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('• ', style: TextStyle(color: Color(0xFF3949AB), fontWeight: FontWeight.bold)),
+        Text(
+          '• ',
+          style: TextStyle(
+            color: Color(0xFF3949AB),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 12)),
-              Text(description, style: TextStyle(fontSize: 11, color: Color(0xFF757575))),
+              Text(
+                title,
+                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
+              ),
+              Text(
+                description,
+                style: TextStyle(fontSize: 11, color: Color(0xFF757575)),
+              ),
             ],
           ),
         ),
@@ -781,13 +1101,7 @@ Widget _buildSummaryStat(String label, String value) {
           color: Color(0xFF4DD0E1),
         ),
       ),
-      Text(
-        label,
-        style: TextStyle(
-          fontSize: 9.0,
-          color: Color(0xFF90A4AE),
-        ),
-      ),
+      Text(label, style: TextStyle(fontSize: 9.0, color: Color(0xFF90A4AE))),
     ],
   );
 }

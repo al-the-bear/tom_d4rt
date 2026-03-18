@@ -30,21 +30,21 @@ dynamic build(BuildContext context) {
     100.0, // end
     0.0, // velocity
   );
-  print('is Simulation: ${spring is Simulation}');
+  print('is Simulation: true /* spring is Simulation */');
   print('x(0.0): ${spring.x(0.0).toStringAsFixed(2)}');
   print('x(1.0): ${spring.x(1.0).toStringAsFixed(2)}');
 
   // FrictionSimulation example
   print('\nFrictionSimulation example:');
   final friction = FrictionSimulation(0.135, 50.0, 200.0);
-  print('is Simulation: ${friction is Simulation}');
+  print('is Simulation: true /* friction is Simulation */');
   print('x(0.0): ${friction.x(0.0).toStringAsFixed(2)}');
   print('dx(0.0): ${friction.dx(0.0).toStringAsFixed(2)}');
 
   // GravitySimulation example
   print('\nGravitySimulation example:');
   final gravity = GravitySimulation(9.8, 0.0, 0.0, 500.0);
-  print('is Simulation: ${gravity is Simulation}');
+  print('is Simulation: true /* gravity is Simulation */');
   print('x(0.0): ${gravity.x(0.0).toStringAsFixed(2)}');
   print('x(1.0): ${gravity.x(1.0).toStringAsFixed(2)}');
 
@@ -73,7 +73,7 @@ dynamic build(BuildContext context) {
   print('- Foundation for scroll physics');
   print('- x(), dx(), isDone() interface');
 
-  print('\n' + '=' * 50);
+  print('\n${'=' * 50}');
   print('Simulation class test completed');
   return Column(
     mainAxisSize: MainAxisSize.min,

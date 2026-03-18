@@ -1,7 +1,5 @@
 // D4rt test script: Deep Demo - Curve2DSample from animation
 // Comprehensive demonstration of 2D curve sample points
-import 'dart:ui';
-import 'package:flutter/animation.dart';
 import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {
@@ -461,7 +459,7 @@ dynamic build(BuildContext context) {
                           ),
                         ),
                         SizedBox(width: 8.0),
-                        Container(
+                        SizedBox(
                           width: 60.0,
                           child: Text(
                             't=${(sample['t'] as double).toStringAsFixed(3)}',
@@ -500,7 +498,7 @@ dynamic build(BuildContext context) {
                           ),
                         ),
                         SizedBox(width: 8.0),
-                        Container(
+                        SizedBox(
                           width: 80.0,
                           child: Text(
                             '(${(sample['x'] as double).toStringAsFixed(2)},${(sample['y'] as double).toStringAsFixed(2)})',
@@ -551,7 +549,7 @@ dynamic build(BuildContext context) {
                     padding: EdgeInsets.only(bottom: 4.0),
                     child: Row(
                       children: [
-                        Container(
+                        SizedBox(
                           width: 35.0,
                           child: Text(
                             '#${sample['index']}',
@@ -584,7 +582,7 @@ dynamic build(BuildContext context) {
                           ),
                         ),
                         SizedBox(width: 8.0),
-                        Container(
+                        SizedBox(
                           width: 50.0,
                           child: Text(
                             't=${(sample['t'] as double).toStringAsFixed(2)}',
@@ -721,7 +719,7 @@ dynamic build(BuildContext context) {
                     padding: EdgeInsets.only(bottom: 4.0),
                     child: Row(
                       children: [
-                        Container(
+                        SizedBox(
                           width: 50.0,
                           child: Text(
                             '${spacing['from']}→${spacing['to']}',
@@ -752,7 +750,7 @@ dynamic build(BuildContext context) {
                           ),
                         ),
                         SizedBox(width: 8.0),
-                        Container(
+                        SizedBox(
                           width: 60.0,
                           child: Text(
                             'Δ=${(spacing['delta'] as double).toStringAsFixed(4)}',
@@ -878,7 +876,7 @@ dynamic build(BuildContext context) {
                     padding: EdgeInsets.only(bottom: 4.0),
                     child: Row(
                       children: [
-                        Container(
+                        SizedBox(
                           width: 35.0,
                           child: Text(
                             '#${sample['index']}',
@@ -911,7 +909,7 @@ dynamic build(BuildContext context) {
                           ),
                         ),
                         SizedBox(width: 8.0),
-                        Container(
+                        SizedBox(
                           width: 50.0,
                           child: Text(
                             'y=${(sample['y'] as double).toStringAsFixed(2)}',

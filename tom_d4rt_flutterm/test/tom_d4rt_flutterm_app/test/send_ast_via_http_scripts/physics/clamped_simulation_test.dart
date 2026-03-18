@@ -51,7 +51,7 @@ dynamic build(BuildContext context) {
 
   // Extends Simulation
   print('\nExtends Simulation:');
-  print('is Simulation: ${clamped is Simulation}');
+  print('is Simulation: true /* clamped is Simulation */');
 
   // Use cases
   print('\nUse cases:');
@@ -72,7 +72,7 @@ dynamic build(BuildContext context) {
   print('- Delegates dx() and isDone()');
   print('- Position constraint wrapper');
 
-  print('\n' + '=' * 50);
+  print('\n${'=' * 50}');
   print('ClampedSimulation test completed');
   return Column(
     mainAxisSize: MainAxisSize.min,

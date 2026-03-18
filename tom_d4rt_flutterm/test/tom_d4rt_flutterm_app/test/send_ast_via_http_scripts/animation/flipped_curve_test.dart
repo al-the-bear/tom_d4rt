@@ -1,10 +1,8 @@
 // D4rt test script: Deep Demo for FlippedCurve from animation
 // FlippedCurve transforms any curve by flipping it around both axes
 // Formula: flipped(t) = 1 - original(1 - t)
-import 'dart:ui';
 import 'dart:math' as math;
-import 'package:flutter/animation.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print(
@@ -112,7 +110,9 @@ dynamic build(BuildContext context) {
       .reduce(math.max);
   print('Maximum formula error: ${maxDiff.toStringAsFixed(12)}');
   print(
-    '${maxDiff < 1e-10 ? "✓ Formula perfectly verified" : "⚠ Small numerical error detected"}',
+    maxDiff < 1e-10
+        ? "✓ Formula perfectly verified"
+        : "⚠ Small numerical error detected",
   );
   print('');
 
@@ -150,9 +150,9 @@ dynamic build(BuildContext context) {
     final orig = easeIn.transform(t);
     final flip = flippedEaseIn.transform(t);
     String relationship;
-    if (t == 0.0)
+    if (t == 0.0) {
       relationship = 'Start both 0→1';
-    else if (t == 1.0)
+    } else if (t == 1.0)
       relationship = 'End both at 1';
     else if (t == 0.5)
       relationship = 'Meet at midpoint';
@@ -280,7 +280,9 @@ dynamic build(BuildContext context) {
       .reduce(math.max);
   print('Maximum symmetry error: ${symError.toStringAsFixed(12)}');
   print(
-    '${symError < 1e-10 ? "✓ Perfect symmetry verified" : "⚠ Small numerical error"}',
+    symError < 1e-10
+        ? "✓ Perfect symmetry verified"
+        : "⚠ Small numerical error",
   );
   print('');
 
@@ -326,7 +328,9 @@ dynamic build(BuildContext context) {
       .reduce(math.max);
   print('Maximum double-flip error: ${doubleError.toStringAsFixed(12)}');
   print(
-    '${doubleError < 1e-10 ? "✓ Double flip equals original" : "⚠ Small numerical error"}',
+    doubleError < 1e-10
+        ? "✓ Double flip equals original"
+        : "⚠ Small numerical error",
   );
   print('');
 
@@ -466,9 +470,9 @@ dynamic build(BuildContext context) {
     final vOrig = calculateDerivative(easeIn, t, 0.01);
     final vFlip = calculateDerivative(flippedEaseIn, t, 0.01);
     String interpretation;
-    if (vFlip > vOrig)
+    if (vFlip > vOrig) {
       interpretation = 'Flipped faster';
-    else if (vFlip < vOrig)
+    } else if (vFlip < vOrig)
       interpretation = 'Original faster';
     else
       interpretation = 'Equal speed';
@@ -793,7 +797,7 @@ dynamic build(BuildContext context) {
                         padding: EdgeInsets.symmetric(vertical: 2.0),
                         child: Row(
                           children: [
-                            Container(
+                            SizedBox(
                               width: 50,
                               child: Text(
                                 't=${(r['t'] as double).toStringAsFixed(2)}',
@@ -1047,7 +1051,7 @@ Widget _buildComparisonRow(String label, double orig, double flip) {
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 60,
           child: Text(
             label,
@@ -1092,13 +1096,13 @@ Widget _buildComparisonRow(String label, double orig, double flip) {
             ],
           ),
         ),
-        Container(
+        SizedBox(
           width: 90,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                '${orig.toStringAsFixed(3)}',
+                orig.toStringAsFixed(3),
                 style: TextStyle(
                   fontSize: 9,
                   color: Color(0xFF1565C0),
@@ -1106,7 +1110,7 @@ Widget _buildComparisonRow(String label, double orig, double flip) {
                 ),
               ),
               Text(
-                '${flip.toStringAsFixed(3)}',
+                flip.toStringAsFixed(3),
                 style: TextStyle(
                   fontSize: 9,
                   color: Color(0xFFAD1457),
@@ -1122,7 +1126,7 @@ Widget _buildComparisonRow(String label, double orig, double flip) {
 }
 
 Widget _buildDualCurveVisualization(Curve curve1, Curve curve2) {
-  return Container(
+  return SizedBox(
     height: 80,
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.end,
@@ -1141,7 +1145,7 @@ Widget _buildDualCurveVisualization(Curve curve1, Curve curve2) {
                 height: h1,
                 margin: EdgeInsets.only(right: 2),
                 decoration: BoxDecoration(
-                  color: Color(0xFF1565C0).withOpacity(0.5),
+                  color: Color(0xFF1565C0).withValues(alpha: 0.5),
                   borderRadius: BorderRadius.vertical(top: Radius.circular(1)),
                 ),
               ),
@@ -1149,7 +1153,7 @@ Widget _buildDualCurveVisualization(Curve curve1, Curve curve2) {
                 height: h2,
                 margin: EdgeInsets.only(left: 2),
                 decoration: BoxDecoration(
-                  color: Color(0xFFAD1457).withOpacity(0.5),
+                  color: Color(0xFFAD1457).withValues(alpha: 0.5),
                   borderRadius: BorderRadius.vertical(top: Radius.circular(1)),
                 ),
               ),
@@ -1172,7 +1176,7 @@ Widget _buildRelationshipRow(String left, String op, String right) {
             style: TextStyle(fontSize: 11, fontFamily: 'monospace'),
           ),
         ),
-        Container(
+        SizedBox(
           width: 30,
           child: Text(
             op,
@@ -1202,7 +1206,7 @@ Widget _buildVelocityRow(String label, double vOrig, double vFlip) {
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 50,
           child: Text(
             label,
@@ -1252,7 +1256,7 @@ Widget _buildVelocityRow(String label, double vOrig, double vFlip) {
             ],
           ),
         ),
-        Container(
+        SizedBox(
           width: 70,
           child: Text(
             vFlip > vOrig ? 'flip faster' : 'orig faster',

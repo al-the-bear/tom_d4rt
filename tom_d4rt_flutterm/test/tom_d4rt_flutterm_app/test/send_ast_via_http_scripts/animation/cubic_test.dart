@@ -1,6 +1,4 @@
 // D4rt test script: Tests Cubic from animation
-import 'dart:ui';
-import 'package:flutter/animation.dart';
 import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {
@@ -56,28 +54,32 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('Cubic Tests',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          Text(
+            'Cubic Tests',
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           Text('Ease curve visualization:'),
           for (var i = 0; i < tValues.length; i++)
             Padding(
               padding: EdgeInsets.symmetric(vertical: 1.0),
-              child: Row(children: [
-                SizedBox(width: 50.0, child: Text('t=${tValues[i]}')),
-                Expanded(
-                  child: Container(
-                    height: 14.0,
-                    child: FractionallySizedBox(
-                      alignment: Alignment.centerLeft,
-                      widthFactor: results[i].clamp(0.0, 1.0),
-                      child: Container(color: Color(0xFF9C27B0)),
+              child: Row(
+                children: [
+                  SizedBox(width: 50.0, child: Text('t=${tValues[i]}')),
+                  Expanded(
+                    child: SizedBox(
+                      height: 14.0,
+                      child: FractionallySizedBox(
+                        alignment: Alignment.centerLeft,
+                        widthFactor: results[i].clamp(0.0, 1.0),
+                        child: Container(color: Color(0xFF9C27B0)),
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(width: 6.0),
-                Text(results[i].toStringAsFixed(3)),
-              ]),
+                  SizedBox(width: 6.0),
+                  Text(results[i].toStringAsFixed(3)),
+                ],
+              ),
             ),
         ],
       ),

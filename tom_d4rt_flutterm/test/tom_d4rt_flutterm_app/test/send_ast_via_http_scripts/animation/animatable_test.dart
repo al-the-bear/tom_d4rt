@@ -1,6 +1,4 @@
 // D4rt test script: Tests Animatable concepts using Tween, chain(), evaluate() from animation
-import 'dart:ui';
-import 'package:flutter/animation.dart';
 import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {

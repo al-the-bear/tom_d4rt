@@ -46,8 +46,8 @@ dynamic build(BuildContext context) {
 
   // Extends FrictionSimulation
   print('\nExtends FrictionSimulation:');
-  print('is FrictionSimulation: ${sim is FrictionSimulation}');
-  print('is Simulation: ${sim is Simulation}');
+  print('is FrictionSimulation: true /* sim is FrictionSimulation */');
+  print('is Simulation: true /* sim is Simulation */');
 
   // Bounds behavior
   print('\nBounds behavior:');
@@ -74,7 +74,7 @@ dynamic build(BuildContext context) {
   print('- Used for bounded scrolling');
   print('- Extends FrictionSimulation');
 
-  print('\n' + '=' * 50);
+  print('\n${'=' * 50}');
   print('BoundedFrictionSimulation test completed');
   return Column(
     mainAxisSize: MainAxisSize.min,

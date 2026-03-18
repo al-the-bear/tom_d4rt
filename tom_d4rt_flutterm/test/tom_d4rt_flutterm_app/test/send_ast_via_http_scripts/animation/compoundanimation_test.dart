@@ -1,6 +1,4 @@
 // D4rt test script: Tests ProxyAnimation, ReverseAnimation, and animation composition from animation
-import 'dart:ui';
-import 'package:flutter/animation.dart';
 import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {
@@ -310,7 +308,7 @@ Widget _valueBar(String label, double value, Color color) {
         child: Text(label, style: TextStyle(fontSize: 11.0)),
       ),
       Expanded(
-        child: Container(
+        child: SizedBox(
           height: 16.0,
           child: FractionallySizedBox(
             alignment: Alignment.centerLeft,

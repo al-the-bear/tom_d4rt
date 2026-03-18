@@ -1,10 +1,7 @@
 // D4rt test script: Deep Demo for ParametricCurve from animation
 // ParametricCurve is the base class for all animation curves
 // Maps time [0,1] to value [0,1] with various mathematical functions
-import 'dart:ui';
-import 'dart:math' as math;
-import 'package:flutter/animation.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print(
@@ -160,9 +157,9 @@ dynamic build(BuildContext context) {
     final linearBar = (t * 25).round();
     String bar = '';
     for (var i = 0; i <= 25; i++) {
-      if (i == barWidth && i == linearBar)
+      if (i == barWidth && i == linearBar) {
         bar += '▓';
-      else if (i == barWidth)
+      } else if (i == barWidth)
         bar += '█';
       else if (i == linearBar)
         bar += '│';
@@ -258,7 +255,7 @@ dynamic build(BuildContext context) {
     sawtoothResults.add({'t': t, 'out': out, 'cycle': cycle});
 
     final pos = (out * 8).round();
-    final pattern = '░' * pos + '█' + '░' * (8 - pos);
+    final pattern = '${'░' * pos}█${'░' * (8 - pos)}';
     print(
       '│  ${t.toStringAsFixed(2)}   │     ${out.toStringAsFixed(4).padLeft(6)}      │ Cycle $cycle: $pattern │',
     );
@@ -346,9 +343,9 @@ dynamic build(BuildContext context) {
   for (final t in tValues) {
     final out = interval.transform(t);
     String status;
-    if (t < 0.25)
+    if (t < 0.25) {
       status = '░░░░░ Waiting';
-    else if (t > 0.75)
+    } else if (t > 0.75)
       status = '█████ Complete';
     else
       status = '▓▓▓▓▓ Active (${(out * 100).round()}%)';
@@ -923,7 +920,7 @@ Widget _buildComparisonRow(String name, double value) {
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(width: 80, child: Text(name, style: TextStyle(fontSize: 11))),
+        SizedBox(width: 80, child: Text(name, style: TextStyle(fontSize: 11))),
         Expanded(
           child: Container(
             height: 16,
@@ -961,10 +958,7 @@ Widget _buildEaseRow(String label, double easeIn, double easeOut) {
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(
-          width: 50,
-          child: Text(label, style: TextStyle(fontSize: 11)),
-        ),
+        SizedBox(width: 50, child: Text(label, style: TextStyle(fontSize: 11))),
         Expanded(
           child: Row(
             children: [
@@ -1010,18 +1004,18 @@ Widget _buildEaseRow(String label, double easeIn, double easeOut) {
             ],
           ),
         ),
-        Container(
+        SizedBox(
           width: 80,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text(
-                '${easeIn.toStringAsFixed(2)}',
+                easeIn.toStringAsFixed(2),
                 style: TextStyle(fontSize: 9, color: Color(0xFF3949AB)),
               ),
               Text(' / ', style: TextStyle(fontSize: 9)),
               Text(
-                '${easeOut.toStringAsFixed(2)}',
+                easeOut.toStringAsFixed(2),
                 style: TextStyle(fontSize: 9, color: Color(0xFF7986CB)),
               ),
             ],
@@ -1037,10 +1031,7 @@ Widget _buildFlippedRow(String label, double orig, double flipped) {
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(
-          width: 50,
-          child: Text(label, style: TextStyle(fontSize: 11)),
-        ),
+        SizedBox(width: 50, child: Text(label, style: TextStyle(fontSize: 11))),
         Expanded(
           child: Row(
             children: [
@@ -1086,18 +1077,18 @@ Widget _buildFlippedRow(String label, double orig, double flipped) {
             ],
           ),
         ),
-        Container(
+        SizedBox(
           width: 80,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text(
-                '${orig.toStringAsFixed(2)}',
+                orig.toStringAsFixed(2),
                 style: TextStyle(fontSize: 9, color: Color(0xFF7B1FA2)),
               ),
               Text(' / ', style: TextStyle(fontSize: 9)),
               Text(
-                '${flipped.toStringAsFixed(2)}',
+                flipped.toStringAsFixed(2),
                 style: TextStyle(fontSize: 9, color: Color(0xFFAB47BC)),
               ),
             ],

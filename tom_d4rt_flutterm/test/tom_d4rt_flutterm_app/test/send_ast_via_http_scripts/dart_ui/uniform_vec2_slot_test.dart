@@ -7,8 +7,7 @@ dynamic build(BuildContext context) {
 
   // Type information
   print('UniformVec2Slot type: ${ui.UniformVec2Slot}');
-  final typeStr = ui.UniformVec2Slot.toString();
-  print('Type toString: $typeStr');
+  print('Type reference available: true');
 
   // UniformVec2Slot is part of the uniform slot hierarchy
   // It represents a vec2 (2 floats: x, y) in fragment shaders

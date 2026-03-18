@@ -1,14 +1,12 @@
 // D4rt test script: Tests PathMetric from dart:ui
 // Uses for-in pattern to iterate PathMetrics (same as path_metric_iterator_test)
-import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print('PathMetric test executing');
 
   // Create a simple rectangular path and iterate with for-in
-  final path = Path()
-    ..addRect(Rect.fromLTWH(0, 0, 100, 50));
+  final path = Path()..addRect(Rect.fromLTWH(0, 0, 100, 50));
 
   var rectLength = 0.0;
   var rectClosed = false;
@@ -21,11 +19,16 @@ dynamic build(BuildContext context) {
     print('length: ${metric.length}');
     print('isClosed: ${metric.isClosed}');
     print('contourIndex: ${metric.contourIndex}');
+    print(
+      'Captured values: length=$rectLength, closed=$rectClosed, index=$rectIndex',
+    );
 
     // getTangentForOffset
     final tangent0 = metric.getTangentForOffset(0.0);
     if (tangent0 != null) {
-      print('Tangent at 0: pos=${tangent0.position}, vec=${tangent0.vector}, angle=${tangent0.angle}');
+      print(
+        'Tangent at 0: pos=${tangent0.position}, vec=${tangent0.vector}, angle=${tangent0.angle}',
+      );
     }
 
     final tangentMid = metric.getTangentForOffset(metric.length / 2.0);
@@ -44,7 +47,10 @@ dynamic build(BuildContext context) {
     final subBounds = subPath.getBounds();
     print('subPath bounds: $subBounds');
 
-    final subPath2 = metric.extractPath(metric.length / 4.0, metric.length / 2.0);
+    final subPath2 = metric.extractPath(
+      metric.length / 4.0,
+      metric.length / 2.0,
+    );
     print('extractPath(len/4, len/2) bounds: ${subPath2.getBounds()}');
   }
 
@@ -59,6 +65,7 @@ dynamic build(BuildContext context) {
     print('Circle length: ${circleMetric.length.toStringAsFixed(1)}');
     print('Circle isClosed: ${circleMetric.isClosed}');
   }
+  print('Captured circle values: length=$circleLen, closed=$circleClosed');
 
   print('PathMetric test completed');
   return Column(

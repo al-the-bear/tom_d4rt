@@ -1,9 +1,6 @@
 // D4rt test script: Tests AnimationLazyListenerMixin from animation
 // Deep Demo: Visual demonstration of lazy listener mixin deferred registration
-import 'dart:ui';
-import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {
   print('AnimationLazyListenerMixin Deep Demo executing');
@@ -31,7 +28,7 @@ dynamic build(BuildContext context) {
         border: Border.all(color: Colors.orange.shade300, width: 2.0),
         boxShadow: [
           BoxShadow(
-            color: Colors.orange.withOpacity(0.2),
+            color: Colors.orange.withValues(alpha: 0.2),
             blurRadius: 8.0,
             offset: Offset(0, 4),
           ),
@@ -76,7 +73,7 @@ dynamic build(BuildContext context) {
         border: Border.all(color: Colors.green.shade300, width: 2.0),
         boxShadow: [
           BoxShadow(
-            color: Colors.green.withOpacity(0.2),
+            color: Colors.green.withValues(alpha: 0.2),
             blurRadius: 8.0,
             offset: Offset(0, 4),
           ),
@@ -286,7 +283,7 @@ dynamic build(BuildContext context) {
     final value = entry['value'] as double;
     final label = entry['label'] as String;
 
-    print('ProxyAnimation wrapping ${label}: value=${proxy.value}');
+    print('ProxyAnimation wrapping $label: value=${proxy.value}');
 
     proxyWidgets.add(
       Container(
@@ -296,15 +293,15 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Colors.purple.withOpacity(0.1 + value * 0.3),
-              Colors.indigo.withOpacity(0.1 + value * 0.3),
+              Colors.purple.withValues(alpha: 0.1 + value * 0.3),
+              Colors.indigo.withValues(alpha: 0.1 + value * 0.3),
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
           borderRadius: BorderRadius.circular(10.0),
           border: Border.all(
-            color: Colors.purple.withOpacity(0.3 + value * 0.4),
+            color: Colors.purple.withValues(alpha: 0.3 + value * 0.4),
             width: 2.0,
           ),
         ),
@@ -328,7 +325,7 @@ dynamic build(BuildContext context) {
                 gradient: SweepGradient(
                   colors: [
                     Colors.purple,
-                    Colors.purple.withOpacity(value),
+                    Colors.purple.withValues(alpha: value),
                     Colors.grey.shade300,
                   ],
                   stops: [0.0, value, value + 0.01],
@@ -435,9 +432,12 @@ dynamic build(BuildContext context) {
               child: Container(
                 padding: EdgeInsets.all(12.0),
                 decoration: BoxDecoration(
-                  color: color.withOpacity(0.1),
+                  color: color.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(8.0),
-                  border: Border.all(color: color.withOpacity(0.3), width: 1.0),
+                  border: Border.all(
+                    color: color.withValues(alpha: 0.3),
+                    width: 1.0,
+                  ),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -494,7 +494,7 @@ dynamic build(BuildContext context) {
           margin: EdgeInsets.only(left: 31.0),
           height: 20.0,
           width: 2.0,
-          color: color.withOpacity(0.3),
+          color: color.withValues(alpha: 0.3),
         ),
       );
     }
@@ -631,7 +631,7 @@ dynamic build(BuildContext context) {
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
-                      color: color.withOpacity(0.4),
+                      color: color.withValues(alpha: 0.4),
                       blurRadius: 8.0,
                       offset: Offset(0, 2),
                     ),
@@ -664,9 +664,12 @@ dynamic build(BuildContext context) {
               margin: EdgeInsets.only(bottom: isLast ? 0 : 12.0),
               padding: EdgeInsets.all(12.0),
               decoration: BoxDecoration(
-                color: color.withOpacity(0.1),
+                color: color.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(10.0),
-                border: Border.all(color: color.withOpacity(0.3), width: 1.0),
+                border: Border.all(
+                  color: color.withValues(alpha: 0.3),
+                  width: 1.0,
+                ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -1008,9 +1011,9 @@ Widget _buildPropertyCard(String label, String value, Color color) {
     width: 100.0,
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
-      color: color.withOpacity(0.1),
+      color: color.withValues(alpha: 0.1),
       borderRadius: BorderRadius.circular(8.0),
-      border: Border.all(color: color.withOpacity(0.3), width: 1.0),
+      border: Border.all(color: color.withValues(alpha: 0.3), width: 1.0),
     ),
     child: Column(
       children: [
@@ -1037,7 +1040,7 @@ Widget _buildSummaryRow(IconData icon, String title, String desc, Color color) {
   return Container(
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
-      color: Colors.white.withOpacity(0.7),
+      color: Colors.white.withValues(alpha: 0.7),
       borderRadius: BorderRadius.circular(8.0),
     ),
     child: Row(
@@ -1045,7 +1048,7 @@ Widget _buildSummaryRow(IconData icon, String title, String desc, Color color) {
         Container(
           padding: EdgeInsets.all(8.0),
           decoration: BoxDecoration(
-            color: color.withOpacity(0.2),
+            color: color.withValues(alpha: 0.2),
             shape: BoxShape.circle,
           ),
           child: Icon(icon, color: color, size: 20.0),

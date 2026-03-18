@@ -1,6 +1,5 @@
 // D4rt test script: Tests ImageDescriptor from dart:ui (async — type reference)
 import 'dart:ui' as ui;
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {

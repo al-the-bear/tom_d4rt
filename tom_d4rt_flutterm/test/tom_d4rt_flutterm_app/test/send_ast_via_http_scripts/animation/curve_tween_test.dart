@@ -1,10 +1,8 @@
 // D4rt test script: Deep Demo for CurveTween from animation
 // CurveTween applies a curve transformation to animation values
 // Converts linear 0-1 input to curved output using specified Curve
-import 'dart:ui';
 import 'dart:math' as math;
-import 'package:flutter/animation.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print(
@@ -201,9 +199,9 @@ dynamic build(BuildContext context) {
   for (final entry in extendedCurves.entries) {
     final value = entry.value.transform(0.5);
     String behavior;
-    if (value < 0.4)
+    if (value < 0.4) {
       behavior = 'Slow mid-phase';
-    else if (value > 0.6)
+    } else if (value > 0.6)
       behavior = 'Fast mid-phase';
     else if (value < 0)
       behavior = 'Overshoot negative';
@@ -727,7 +725,7 @@ dynamic build(BuildContext context) {
                         padding: EdgeInsets.symmetric(vertical: 4.0),
                         child: Row(
                           children: [
-                            Container(
+                            SizedBox(
                               width: 60,
                               child: Text(
                                 't=${(r['t'] as double).toStringAsFixed(2)}',
@@ -784,7 +782,7 @@ dynamic build(BuildContext context) {
                         padding: EdgeInsets.symmetric(vertical: 4.0),
                         child: Row(
                           children: [
-                            Container(
+                            SizedBox(
                               width: 60,
                               child: Text(
                                 't=${(r['t'] as double).toStringAsFixed(2)}',
@@ -860,7 +858,7 @@ dynamic build(BuildContext context) {
                     padding: EdgeInsets.symmetric(vertical: 2.0),
                     child: Row(
                       children: [
-                        Container(
+                        SizedBox(
                           width: 50,
                           child: Text(
                             't=${(r['t'] as double).toStringAsFixed(2)}',
@@ -986,7 +984,7 @@ dynamic build(BuildContext context) {
                         padding: EdgeInsets.symmetric(vertical: 4.0),
                         child: Row(
                           children: [
-                            Container(
+                            SizedBox(
                               width: 50,
                               child: Text(
                                 '${((r['t'] as double) * 100).toInt()}%',
@@ -1161,7 +1159,7 @@ Widget _buildCurveComparisonRow(
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 60,
           child: Text(
             label,
@@ -1184,7 +1182,7 @@ Widget _buildMiniBar(double value, Color color) {
   return Container(
     height: 16,
     decoration: BoxDecoration(
-      color: color.withOpacity(0.2),
+      color: color.withValues(alpha: 0.2),
       borderRadius: BorderRadius.circular(3),
     ),
     child: FractionallySizedBox(
@@ -1203,7 +1201,7 @@ Widget _buildMiniBar(double value, Color color) {
 Widget _buildCurveProgressBar(String name, CurveTween tween, Color color) {
   return Row(
     children: [
-      Container(
+      SizedBox(
         width: 70,
         child: Text(
           name,
@@ -1211,7 +1209,7 @@ Widget _buildCurveProgressBar(String name, CurveTween tween, Color color) {
         ),
       ),
       Expanded(
-        child: Container(
+        child: SizedBox(
           height: 24,
           child: Row(
             children: List.generate(20, (i) {
@@ -1221,7 +1219,7 @@ Widget _buildCurveProgressBar(String name, CurveTween tween, Color color) {
                 child: Container(
                   margin: EdgeInsets.symmetric(horizontal: 1),
                   decoration: BoxDecoration(
-                    color: color.withOpacity(0.2 + value * 0.8),
+                    color: color.withValues(alpha: 0.2 + value * 0.8),
                     borderRadius: BorderRadius.circular(2),
                   ),
                 ),
@@ -1238,9 +1236,9 @@ Widget _buildValueChip(String value, Color color) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
     decoration: BoxDecoration(
-      color: color.withOpacity(0.15),
+      color: color.withValues(alpha: 0.15),
       borderRadius: BorderRadius.circular(4),
-      border: Border.all(color: color.withOpacity(0.5)),
+      border: Border.all(color: color.withValues(alpha: 0.5)),
     ),
     child: Text(
       value,
@@ -1265,7 +1263,7 @@ Widget _buildVelocityIndicator(double velocity, String label, Color color) {
           child: Container(
             height: 10,
             decoration: BoxDecoration(
-              color: color.withOpacity(0.2),
+              color: color.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(2),
             ),
             child: FractionallySizedBox(

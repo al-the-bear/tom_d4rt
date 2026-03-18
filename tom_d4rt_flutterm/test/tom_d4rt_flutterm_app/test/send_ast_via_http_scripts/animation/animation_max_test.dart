@@ -1,6 +1,4 @@
 // D4rt test script: Tests AnimationMax from animation
-import 'dart:ui';
-import 'package:flutter/animation.dart';
 import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {
@@ -64,29 +62,31 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('AnimationMax Tests',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          Text(
+            'AnimationMax Tests',
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8.0),
           for (final r in results)
             Padding(
               padding: EdgeInsets.symmetric(vertical: 2.0),
-              child: Row(children: [
-                SizedBox(
-                    width: 150.0,
-                    child: Text('${r.$1}:')),
-                Expanded(
-                  child: Container(
-                    height: 20.0,
-                    child: FractionallySizedBox(
-                      alignment: Alignment.centerLeft,
-                      widthFactor: r.$2.clamp(0.0, 1.0),
-                      child: Container(color: Color(0xFF4CAF50)),
+              child: Row(
+                children: [
+                  SizedBox(width: 150.0, child: Text('${r.$1}:')),
+                  Expanded(
+                    child: SizedBox(
+                      height: 20.0,
+                      child: FractionallySizedBox(
+                        alignment: Alignment.centerLeft,
+                        widthFactor: r.$2.clamp(0.0, 1.0),
+                        child: Container(color: Color(0xFF4CAF50)),
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(width: 8.0),
-                Text('${r.$2.toStringAsFixed(2)}'),
-              ]),
+                  SizedBox(width: 8.0),
+                  Text(r.$2.toStringAsFixed(2)),
+                ],
+              ),
             ),
         ],
       ),
