@@ -91,9 +91,14 @@ dynamic build(BuildContext context) {
     '9:16': [1080, 1920],
   };
   for (final entry in ratios.entries) {
-    final ts = ui.TargetImageSize(width: entry.value[0], height: entry.value[1]);
+    final ts = ui.TargetImageSize(
+      width: entry.value[0],
+      height: entry.value[1],
+    );
     final ratio = ts.width! / ts.height!;
-    print('${entry.key}: ${ts.width}x${ts.height} = ${ratio.toStringAsFixed(3)}');
+    print(
+      '${entry.key}: ${ts.width}x${ts.height} = ${ratio.toStringAsFixed(3)}',
+    );
   }
 
   print('Codec and TargetImageSize demo complete');
@@ -124,7 +129,8 @@ dynamic build(BuildContext context) {
                   boxShadow: [
                     BoxShadow(
                       color: Colors.purple.withValues(alpha: 0.3),
-                      blurRadius: 12, offset: Offset(0, 6),
+                      blurRadius: 12,
+                      offset: Offset(0, 6),
                     ),
                   ],
                 ),
@@ -133,13 +139,22 @@ dynamic build(BuildContext context) {
                   children: [
                     Icon(Icons.image, size: 48, color: Colors.white),
                     SizedBox(height: 12),
-                    Text('Codec & TargetImageSize',
-                      style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold,
-                        color: Colors.white)),
+                    Text(
+                      'Codec & TargetImageSize',
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
                     SizedBox(height: 6),
-                    Text('Image decoding & dimension targeting',
-                      style: TextStyle(fontSize: 14,
-                        color: Colors.white.withValues(alpha: 0.8))),
+                    Text(
+                      'Image decoding & dimension targeting',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.white.withValues(alpha: 0.8),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -157,18 +172,33 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _apiItem(Icons.layers, 'frameCount',
-                      'Number of frames in image', Color(0xFF4A148C)),
+                    _apiItem(
+                      Icons.layers,
+                      'frameCount',
+                      'Number of frames in image',
+                      Color(0xFF4A148C),
+                    ),
                     Divider(height: 16),
-                    _apiItem(Icons.repeat, 'repetitionCount',
-                      '-1 = infinite loop, 0 = play once', Color(0xFF6A1B9A)),
+                    _apiItem(
+                      Icons.repeat,
+                      'repetitionCount',
+                      '-1 = infinite loop, 0 = play once',
+                      Color(0xFF6A1B9A),
+                    ),
                     Divider(height: 16),
-                    _apiItem(Icons.skip_next, 'getNextFrame()',
+                    _apiItem(
+                      Icons.skip_next,
+                      'getNextFrame()',
                       'Returns Future<FrameInfo> with image + duration',
-                      Color(0xFF7B1FA2)),
+                      Color(0xFF7B1FA2),
+                    ),
                     Divider(height: 16),
-                    _apiItem(Icons.delete_outline, 'dispose()',
-                      'Release native resources', Color(0xFF8E24AA)),
+                    _apiItem(
+                      Icons.delete_outline,
+                      'dispose()',
+                      'Release native resources',
+                      Color(0xFF8E24AA),
+                    ),
                     SizedBox(height: 12),
                     Container(
                       padding: EdgeInsets.all(12),
@@ -180,7 +210,10 @@ dynamic build(BuildContext context) {
                         'Note: Codec has no public constructor. '
                         'Obtained via ImageDescriptor.instantiateCodec() '
                         'or ui.instantiateImageCodec().',
-                        style: TextStyle(fontSize: 12, color: Color(0xFF4A148C)),
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Color(0xFF4A148C),
+                        ),
                       ),
                     ),
                   ],
@@ -199,13 +232,23 @@ dynamic build(BuildContext context) {
                 child: Row(
                   children: [
                     Expanded(
-                      child: _frameInfoCard('image', 'ui.Image',
-                        'Decoded pixel data', Icons.photo, Color(0xFF1565C0)),
+                      child: _frameInfoCard(
+                        'image',
+                        'ui.Image',
+                        'Decoded pixel data',
+                        Icons.photo,
+                        Color(0xFF1565C0),
+                      ),
                     ),
                     SizedBox(width: 12),
                     Expanded(
-                      child: _frameInfoCard('duration', 'Duration',
-                        'Frame display time', Icons.timer, Color(0xFF00695C)),
+                      child: _frameInfoCard(
+                        'duration',
+                        'Duration',
+                        'Frame display time',
+                        Icons.timer,
+                        Color(0xFF00695C),
+                      ),
                     ),
                   ],
                 ),
@@ -222,14 +265,54 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _targetSizeRow('No args', ts1.width, ts1.height, Color(0xFF616161)),
-                    _targetSizeRow('200 x 300', ts2.width, ts2.height, Color(0xFF1565C0)),
-                    _targetSizeRow('w:150 only', ts3.width, ts3.height, Color(0xFF00695C)),
-                    _targetSizeRow('h:250 only', ts4.width, ts4.height, Color(0xFF6A1B9A)),
-                    _targetSizeRow('1080p', ts5.width, ts5.height, Color(0xFFE65100)),
-                    _targetSizeRow('4K', ts6.width, ts6.height, Color(0xFFC62828)),
-                    _targetSizeRow('64x64 icon', ts7.width, ts7.height, Color(0xFF2E7D32)),
-                    _targetSizeRow('1x1 pixel', ts8.width, ts8.height, Color(0xFF00838F)),
+                    _targetSizeRow(
+                      'No args',
+                      ts1.width,
+                      ts1.height,
+                      Color(0xFF616161),
+                    ),
+                    _targetSizeRow(
+                      '200 x 300',
+                      ts2.width,
+                      ts2.height,
+                      Color(0xFF1565C0),
+                    ),
+                    _targetSizeRow(
+                      'w:150 only',
+                      ts3.width,
+                      ts3.height,
+                      Color(0xFF00695C),
+                    ),
+                    _targetSizeRow(
+                      'h:250 only',
+                      ts4.width,
+                      ts4.height,
+                      Color(0xFF6A1B9A),
+                    ),
+                    _targetSizeRow(
+                      '1080p',
+                      ts5.width,
+                      ts5.height,
+                      Color(0xFFE65100),
+                    ),
+                    _targetSizeRow(
+                      '4K',
+                      ts6.width,
+                      ts6.height,
+                      Color(0xFFC62828),
+                    ),
+                    _targetSizeRow(
+                      '64x64 icon',
+                      ts7.width,
+                      ts7.height,
+                      Color(0xFF2E7D32),
+                    ),
+                    _targetSizeRow(
+                      '1x1 pixel',
+                      ts8.width,
+                      ts8.height,
+                      Color(0xFF00838F),
+                    ),
                   ],
                 ),
               ),
@@ -248,37 +331,68 @@ dynamic build(BuildContext context) {
                   children: [
                     // 4K (scaled to fit)
                     Positioned(
-                      left: 10, top: 10,
-                      child: _sizeRect(280, 157, '4K (3840x2160)',
-                        Color(0xFFC62828).withValues(alpha: 0.15), Color(0xFFC62828)),
+                      left: 10,
+                      top: 10,
+                      child: _sizeRect(
+                        280,
+                        157,
+                        '4K (3840x2160)',
+                        Color(0xFFC62828).withValues(alpha: 0.15),
+                        Color(0xFFC62828),
+                      ),
                     ),
                     // 1080p
                     Positioned(
-                      left: 10, top: 10,
-                      child: _sizeRect(140, 79, '1080p',
-                        Color(0xFF1565C0).withValues(alpha: 0.2), Color(0xFF1565C0)),
+                      left: 10,
+                      top: 10,
+                      child: _sizeRect(
+                        140,
+                        79,
+                        '1080p',
+                        Color(0xFF1565C0).withValues(alpha: 0.2),
+                        Color(0xFF1565C0),
+                      ),
                     ),
                     // 720p
                     Positioned(
-                      left: 10, top: 10,
-                      child: _sizeRect(93, 52, '720p',
-                        Color(0xFF2E7D32).withValues(alpha: 0.25), Color(0xFF2E7D32)),
+                      left: 10,
+                      top: 10,
+                      child: _sizeRect(
+                        93,
+                        52,
+                        '720p',
+                        Color(0xFF2E7D32).withValues(alpha: 0.25),
+                        Color(0xFF2E7D32),
+                      ),
                     ),
                     // 480p
                     Positioned(
-                      left: 10, top: 10,
-                      child: _sizeRect(62, 35, '480p',
-                        Color(0xFFE65100).withValues(alpha: 0.3), Color(0xFFE65100)),
+                      left: 10,
+                      top: 10,
+                      child: _sizeRect(
+                        62,
+                        35,
+                        '480p',
+                        Color(0xFFE65100).withValues(alpha: 0.3),
+                        Color(0xFFE65100),
+                      ),
                     ),
                     // Thumbnail
                     Positioned(
-                      left: 10, top: 10,
-                      child: _sizeRect(10, 10, '',
-                        Color(0xFF6A1B9A).withValues(alpha: 0.5), Color(0xFF6A1B9A)),
+                      left: 10,
+                      top: 10,
+                      child: _sizeRect(
+                        10,
+                        10,
+                        '',
+                        Color(0xFF6A1B9A).withValues(alpha: 0.5),
+                        Color(0xFF6A1B9A),
+                      ),
                     ),
                     // Legend
                     Positioned(
-                      left: 10, top: 180,
+                      left: 10,
+                      top: 180,
                       child: Row(
                         children: [
                           _legendDot(Color(0xFFC62828), '4K'),
@@ -294,9 +408,12 @@ dynamic build(BuildContext context) {
                       ),
                     ),
                     Positioned(
-                      left: 10, top: 210,
-                      child: Text('Nested rectangles show proportional size differences',
-                        style: TextStyle(fontSize: 10, color: Colors.grey)),
+                      left: 10,
+                      top: 210,
+                      child: Text(
+                        'Nested rectangles show proportional size differences',
+                        style: TextStyle(fontSize: 10, color: Colors.grey),
+                      ),
                     ),
                   ],
                 ),
@@ -332,20 +449,45 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _pipelineStep(1, 'Load bytes', 'Read image data from asset/network',
-                      Icons.download, Color(0xFF1565C0)),
+                    _pipelineStep(
+                      1,
+                      'Load bytes',
+                      'Read image data from asset/network',
+                      Icons.download,
+                      Color(0xFF1565C0),
+                    ),
                     _pipelineArrow(),
-                    _pipelineStep(2, 'instantiateCodec', 'Create Codec from bytes + TargetImageSize',
-                      Icons.build, Color(0xFF6A1B9A)),
+                    _pipelineStep(
+                      2,
+                      'instantiateCodec',
+                      'Create Codec from bytes + TargetImageSize',
+                      Icons.build,
+                      Color(0xFF6A1B9A),
+                    ),
                     _pipelineArrow(),
-                    _pipelineStep(3, 'getNextFrame()', 'Decode frame → FrameInfo',
-                      Icons.image, Color(0xFF00695C)),
+                    _pipelineStep(
+                      3,
+                      'getNextFrame()',
+                      'Decode frame → FrameInfo',
+                      Icons.image,
+                      Color(0xFF00695C),
+                    ),
                     _pipelineArrow(),
-                    _pipelineStep(4, 'FrameInfo.image', 'Access decoded ui.Image',
-                      Icons.photo, Color(0xFFE65100)),
+                    _pipelineStep(
+                      4,
+                      'FrameInfo.image',
+                      'Access decoded ui.Image',
+                      Icons.photo,
+                      Color(0xFFE65100),
+                    ),
                     _pipelineArrow(),
-                    _pipelineStep(5, 'dispose()', 'Release Codec & Image resources',
-                      Icons.delete_sweep, Color(0xFFC62828)),
+                    _pipelineStep(
+                      5,
+                      'dispose()',
+                      'Release Codec & Image resources',
+                      Icons.delete_sweep,
+                      Color(0xFFC62828),
+                    ),
                   ],
                 ),
               ),
@@ -373,10 +515,13 @@ dynamic build(BuildContext context) {
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 16.0),
                 child: Wrap(
-                  spacing: 8, runSpacing: 8,
+                  spacing: 8,
+                  runSpacing: 8,
                   children: presets.entries.map((entry) {
-                    return _presetChip(entry.key,
-                      '${entry.value.width}x${entry.value.height}');
+                    return _presetChip(
+                      entry.key,
+                      '${entry.value.width}x${entry.value.height}',
+                    );
                   }).toList(),
                 ),
               ),
@@ -394,10 +539,15 @@ dynamic build(BuildContext context) {
 Widget _sectionTitle(String title) {
   return Padding(
     padding: EdgeInsets.fromLTRB(16, 20, 16, 8),
-    child: Text(title, style: TextStyle(
-      fontSize: 13, fontWeight: FontWeight.w700,
-      color: Color(0xFF455A64), letterSpacing: 1.0,
-    )),
+    child: Text(
+      title,
+      style: TextStyle(
+        fontSize: 13,
+        fontWeight: FontWeight.w700,
+        color: Color(0xFF455A64),
+        letterSpacing: 1.0,
+      ),
+    ),
   );
 }
 
@@ -405,7 +555,8 @@ Widget _apiItem(IconData icon, String name, String description, Color color) {
   return Row(
     children: [
       Container(
-        width: 36, height: 36,
+        width: 36,
+        height: 36,
         decoration: BoxDecoration(
           color: color.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(8),
@@ -417,8 +568,14 @@ Widget _apiItem(IconData icon, String name, String description, Color color) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-            Text(description, style: TextStyle(fontSize: 12, color: Colors.grey[600])),
+            Text(
+              name,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+            ),
+            Text(
+              description,
+              style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+            ),
           ],
         ),
       ),
@@ -426,7 +583,13 @@ Widget _apiItem(IconData icon, String name, String description, Color color) {
   );
 }
 
-Widget _frameInfoCard(String prop, String type, String desc, IconData icon, Color color) {
+Widget _frameInfoCard(
+  String prop,
+  String type,
+  String desc,
+  IconData icon,
+  Color color,
+) {
   return Container(
     padding: EdgeInsets.all(16),
     decoration: BoxDecoration(
@@ -438,11 +601,21 @@ Widget _frameInfoCard(String prop, String type, String desc, IconData icon, Colo
       children: [
         Icon(icon, size: 32, color: color),
         SizedBox(height: 8),
-        Text(prop, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: color)),
+        Text(
+          prop,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 14,
+            color: color,
+          ),
+        ),
         Text(type, style: TextStyle(fontSize: 12, fontFamily: 'monospace')),
         SizedBox(height: 4),
-        Text(desc, style: TextStyle(fontSize: 11, color: Colors.grey[600]),
-          textAlign: TextAlign.center),
+        Text(
+          desc,
+          style: TextStyle(fontSize: 11, color: Colors.grey[600]),
+          textAlign: TextAlign.center,
+        ),
       ],
     ),
   );
@@ -455,13 +628,21 @@ Widget _targetSizeRow(String label, int? width, int? height, Color color) {
       children: [
         Container(
           width: 100,
-          child: Text(label, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
+          child: Text(
+            label,
+            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+          ),
         ),
-        Container(width: 8, height: 8,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+        Container(
+          width: 8,
+          height: 8,
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+        ),
         SizedBox(width: 8),
-        Text('w=${width ?? "null"}, h=${height ?? "null"}',
-          style: TextStyle(fontSize: 13, fontFamily: 'monospace')),
+        Text(
+          'w=${width ?? "null"}, h=${height ?? "null"}',
+          style: TextStyle(fontSize: 13, fontFamily: 'monospace'),
+        ),
         Spacer(),
         if (width != null && height != null)
           Container(
@@ -480,17 +661,18 @@ Widget _targetSizeRow(String label, int? width, int? height, Color color) {
 
 Widget _sizeRect(double w, double h, String label, Color fill, Color border) {
   return Container(
-    width: w, height: h,
+    width: w,
+    height: h,
     decoration: BoxDecoration(
       color: fill,
       border: Border.all(color: border, width: 1),
     ),
     child: label.isNotEmpty
-      ? Padding(
-          padding: EdgeInsets.all(2),
-          child: Text(label, style: TextStyle(fontSize: 8, color: border)),
-        )
-      : null,
+        ? Padding(
+            padding: EdgeInsets.all(2),
+            child: Text(label, style: TextStyle(fontSize: 8, color: border)),
+          )
+        : null,
   );
 }
 
@@ -498,8 +680,11 @@ Widget _legendDot(Color color, String label) {
   return Row(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Container(width: 10, height: 10,
-        decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+      Container(
+        width: 10,
+        height: 10,
+        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+      ),
       SizedBox(width: 4),
       Text(label, style: TextStyle(fontSize: 10)),
     ],
@@ -513,9 +698,15 @@ Widget _aspectRatioRow(String label, int w, int h, double ratio) {
       children: [
         Container(
           width: 60,
-          child: Text(label, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+          child: Text(
+            label,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+          ),
         ),
-        Text('${w}x$h', style: TextStyle(fontSize: 12, fontFamily: 'monospace')),
+        Text(
+          '${w}x$h',
+          style: TextStyle(fontSize: 12, fontFamily: 'monospace'),
+        ),
         Spacer(),
         Container(
           width: (ratio * 30).clamp(20.0, 100.0),
@@ -527,8 +718,14 @@ Widget _aspectRatioRow(String label, int w, int h, double ratio) {
             borderRadius: BorderRadius.circular(4),
           ),
           child: Center(
-            child: Text(ratio.toStringAsFixed(2),
-              style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)),
+            child: Text(
+              ratio.toStringAsFixed(2),
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
       ],
@@ -536,15 +733,28 @@ Widget _aspectRatioRow(String label, int w, int h, double ratio) {
   );
 }
 
-Widget _pipelineStep(int step, String title, String desc, IconData icon, Color color) {
+Widget _pipelineStep(
+  int step,
+  String title,
+  String desc,
+  IconData icon,
+  Color color,
+) {
   return Row(
     children: [
       Container(
-        width: 36, height: 36,
+        width: 36,
+        height: 36,
         decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         child: Center(
-          child: Text('$step', style: TextStyle(
-            color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
+          child: Text(
+            '$step',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
         ),
       ),
       SizedBox(width: 12),
@@ -552,7 +762,10 @@ Widget _pipelineStep(int step, String title, String desc, IconData icon, Color c
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+            Text(
+              title,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+            ),
             Text(desc, style: TextStyle(fontSize: 11, color: Colors.grey[600])),
           ],
         ),
@@ -572,8 +785,11 @@ Widget _pipelineArrow() {
 Widget _equalityRow(String label, bool result, bool expected) {
   return Row(
     children: [
-      Icon(result == expected ? Icons.check_circle : Icons.cancel,
-        color: result == expected ? Colors.green : Colors.red, size: 20),
+      Icon(
+        result == expected ? Icons.check_circle : Icons.cancel,
+        color: result == expected ? Colors.green : Colors.red,
+        size: 20,
+      ),
       SizedBox(width: 8),
       Text(label, style: TextStyle(fontSize: 13, fontFamily: 'monospace')),
       Spacer(),
@@ -583,10 +799,14 @@ Widget _equalityRow(String label, bool result, bool expected) {
           color: result ? Color(0xFFE8F5E9) : Color(0xFFFFEBEE),
           borderRadius: BorderRadius.circular(12),
         ),
-        child: Text('$result', style: TextStyle(
-          fontWeight: FontWeight.bold, fontSize: 12,
-          color: result ? Color(0xFF2E7D32) : Color(0xFFC62828),
-        )),
+        child: Text(
+          '$result',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 12,
+            color: result ? Color(0xFF2E7D32) : Color(0xFFC62828),
+          ),
+        ),
       ),
     ],
   );
@@ -599,13 +819,22 @@ Widget _presetChip(String name, String size) {
       color: Colors.white,
       borderRadius: BorderRadius.circular(20),
       border: Border.all(color: Color(0xFFE0E0E0)),
-      boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 2, offset: Offset(0, 1))],
+      boxShadow: [
+        BoxShadow(color: Colors.black12, blurRadius: 2, offset: Offset(0, 1)),
+      ],
     ),
     child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-        Text(size, style: TextStyle(fontSize: 10, color: Colors.grey[600], fontFamily: 'monospace')),
+        Text(
+          size,
+          style: TextStyle(
+            fontSize: 10,
+            color: Colors.grey[600],
+            fontFamily: 'monospace',
+          ),
+        ),
       ],
     ),
   );

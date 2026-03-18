@@ -75,14 +75,21 @@ dynamic build(BuildContext context) {
                 margin: EdgeInsets.all(16.0),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [Color(0xFF1A237E), Color(0xFF7C4DFF), Color(0xFFE040FB)],
+                    colors: [
+                      Color(0xFF1A237E),
+                      Color(0xFF7C4DFF),
+                      Color(0xFFE040FB),
+                    ],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
                   borderRadius: BorderRadius.circular(16.0),
                   boxShadow: [
-                    BoxShadow(color: Colors.deepPurple.withValues(alpha: 0.3),
-                      blurRadius: 12, offset: Offset(0, 6)),
+                    BoxShadow(
+                      color: Colors.deepPurple.withValues(alpha: 0.3),
+                      blurRadius: 12,
+                      offset: Offset(0, 6),
+                    ),
                   ],
                 ),
                 padding: EdgeInsets.all(24.0),
@@ -90,13 +97,22 @@ dynamic build(BuildContext context) {
                   children: [
                     Icon(Icons.color_lens, size: 48, color: Colors.white),
                     SizedBox(height: 12),
-                    Text('ColorSpace Deep Demo',
-                      style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold,
-                        color: Colors.white)),
+                    Text(
+                      'ColorSpace Deep Demo',
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
                     SizedBox(height: 6),
-                    Text('Color gamuts for rendering & display',
-                      style: TextStyle(fontSize: 14,
-                        color: Colors.white.withValues(alpha: 0.85))),
+                    Text(
+                      'Color gamuts for rendering & display',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.white.withValues(alpha: 0.85),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -112,21 +128,32 @@ dynamic build(BuildContext context) {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(12.0),
                     border: Border.all(color: info['color'] as Color, width: 2),
-                    boxShadow: [BoxShadow(
-                      color: (info['color'] as Color).withValues(alpha: 0.15),
-                      blurRadius: 6, offset: Offset(0, 3))],
+                    boxShadow: [
+                      BoxShadow(
+                        color: (info['color'] as Color).withValues(alpha: 0.15),
+                        blurRadius: 6,
+                        offset: Offset(0, 3),
+                      ),
+                    ],
                   ),
                   child: Row(
                     children: [
                       Container(
-                        width: 48, height: 48,
+                        width: 48,
+                        height: 48,
                         decoration: BoxDecoration(
                           color: info['color'] as Color,
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Center(
-                          child: Text('${cs.index}', style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20)),
+                          child: Text(
+                            '${cs.index}',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
                         ),
                       ),
                       SizedBox(width: 16),
@@ -134,11 +161,21 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('ColorSpace.${cs.name}', style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 15)),
+                            Text(
+                              'ColorSpace.${cs.name}',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                              ),
+                            ),
                             SizedBox(height: 4),
-                            Text(info['description'] as String,
-                              style: TextStyle(fontSize: 12, color: Colors.grey[600])),
+                            Text(
+                              info['description'] as String,
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.grey[600],
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -162,11 +199,16 @@ dynamic build(BuildContext context) {
                   children: [
                     // Display P3 (outermost)
                     Positioned(
-                      left: 30, top: 20,
+                      left: 30,
+                      top: 20,
                       child: Container(
-                        width: 260, height: 200,
+                        width: 260,
+                        height: 200,
                         decoration: BoxDecoration(
-                          border: Border.all(color: Color(0xFFE040FB), width: 2),
+                          border: Border.all(
+                            color: Color(0xFFE040FB),
+                            width: 2,
+                          ),
                           borderRadius: BorderRadius.circular(100),
                           color: Color(0xFFE040FB).withValues(alpha: 0.05),
                         ),
@@ -174,19 +216,30 @@ dynamic build(BuildContext context) {
                           alignment: Alignment.topCenter,
                           child: Padding(
                             padding: EdgeInsets.only(top: 8),
-                            child: Text('Display P3', style: TextStyle(
-                              fontSize: 12, color: Color(0xFFE040FB), fontWeight: FontWeight.bold)),
+                            child: Text(
+                              'Display P3',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Color(0xFFE040FB),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         ),
                       ),
                     ),
                     // Extended sRGB (middle)
                     Positioned(
-                      left: 55, top: 45,
+                      left: 55,
+                      top: 45,
                       child: Container(
-                        width: 210, height: 155,
+                        width: 210,
+                        height: 155,
                         decoration: BoxDecoration(
-                          border: Border.all(color: Color(0xFF7C4DFF), width: 2),
+                          border: Border.all(
+                            color: Color(0xFF7C4DFF),
+                            width: 2,
+                          ),
                           borderRadius: BorderRadius.circular(80),
                           color: Color(0xFF7C4DFF).withValues(alpha: 0.05),
                         ),
@@ -194,33 +247,53 @@ dynamic build(BuildContext context) {
                           alignment: Alignment.topCenter,
                           child: Padding(
                             padding: EdgeInsets.only(top: 8),
-                            child: Text('Extended sRGB', style: TextStyle(
-                              fontSize: 11, color: Color(0xFF7C4DFF), fontWeight: FontWeight.bold)),
+                            child: Text(
+                              'Extended sRGB',
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: Color(0xFF7C4DFF),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         ),
                       ),
                     ),
                     // sRGB (innermost)
                     Positioned(
-                      left: 85, top: 70,
+                      left: 85,
+                      top: 70,
                       child: Container(
-                        width: 150, height: 110,
+                        width: 150,
+                        height: 110,
                         decoration: BoxDecoration(
-                          border: Border.all(color: Color(0xFF1A237E), width: 2),
+                          border: Border.all(
+                            color: Color(0xFF1A237E),
+                            width: 2,
+                          ),
                           borderRadius: BorderRadius.circular(55),
                           color: Color(0xFF1A237E).withValues(alpha: 0.08),
                         ),
                         child: Center(
-                          child: Text('sRGB', style: TextStyle(
-                            fontSize: 14, color: Color(0xFF1A237E), fontWeight: FontWeight.bold)),
+                          child: Text(
+                            'sRGB',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Color(0xFF1A237E),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ),
                     ),
                     // Legend
                     Positioned(
-                      left: 30, bottom: 8,
-                      child: Text('Nested regions show gamut inclusiveness',
-                        style: TextStyle(fontSize: 10, color: Colors.grey)),
+                      left: 30,
+                      bottom: 8,
+                      child: Text(
+                        'Nested regions show gamut inclusiveness',
+                        style: TextStyle(fontSize: 10, color: Colors.grey),
+                      ),
                     ),
                   ],
                 ),
@@ -253,8 +326,10 @@ dynamic build(BuildContext context) {
                       ],
                     ),
                     SizedBox(height: 12),
-                    Text('All colors above are within sRGB gamut',
-                      style: TextStyle(fontSize: 11, color: Colors.grey)),
+                    Text(
+                      'All colors above are within sRGB gamut',
+                      style: TextStyle(fontSize: 11, color: Colors.grey),
+                    ),
                   ],
                 ),
               ),
@@ -270,13 +345,29 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _techRow('sRGB', 'Standard', 'IEC 61966-2-1', 'D65', Color(0xFF1A237E)),
+                    _techRow(
+                      'sRGB',
+                      'Standard',
+                      'IEC 61966-2-1',
+                      'D65',
+                      Color(0xFF1A237E),
+                    ),
                     Divider(height: 16),
-                    _techRow('extendedSRGB', 'Extended', 'Same primaries, -∞ to +∞ range',
-                      'D65', Color(0xFF7C4DFF)),
+                    _techRow(
+                      'extendedSRGB',
+                      'Extended',
+                      'Same primaries, -∞ to +∞ range',
+                      'D65',
+                      Color(0xFF7C4DFF),
+                    ),
                     Divider(height: 16),
-                    _techRow('displayP3', 'Wide Gamut', 'DCI-P3 primaries', 'D65',
-                      Color(0xFFE040FB)),
+                    _techRow(
+                      'displayP3',
+                      'Wide Gamut',
+                      'DCI-P3 primaries',
+                      'D65',
+                      Color(0xFFE040FB),
+                    ),
                   ],
                 ),
               ),
@@ -300,8 +391,10 @@ dynamic build(BuildContext context) {
                     SizedBox(height: 12),
                     _gamutBar('Human Vision', 1.0, Color(0xFF455A64)),
                     SizedBox(height: 8),
-                    Text('Fraction of visible spectrum covered (approximate)',
-                      style: TextStyle(fontSize: 10, color: Colors.grey)),
+                    Text(
+                      'Fraction of visible spectrum covered (approximate)',
+                      style: TextStyle(fontSize: 10, color: Colors.grey),
+                    ),
                   ],
                 ),
               ),
@@ -317,7 +410,11 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _equalityRow('sRGB == sRGB', srgb == ui.ColorSpace.sRGB, true),
+                    _equalityRow(
+                      'sRGB == sRGB',
+                      srgb == ui.ColorSpace.sRGB,
+                      true,
+                    ),
                     SizedBox(height: 8),
                     _equalityRow('sRGB == displayP3', srgb == displayP3, false),
                     SizedBox(height: 12),
@@ -326,17 +423,30 @@ dynamic build(BuildContext context) {
                         padding: EdgeInsets.symmetric(vertical: 2),
                         child: Row(
                           children: [
-                            Text('${cs.name}', style: TextStyle(
-                              fontWeight: FontWeight.w600, fontSize: 13)),
+                            Text(
+                              '${cs.name}',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 13,
+                              ),
+                            ),
                             Spacer(),
                             Container(
-                              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 12,
+                                vertical: 4,
+                              ),
                               decoration: BoxDecoration(
                                 color: Color(0xFFF5F5F5),
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              child: Text('index: ${cs.index}',
-                                style: TextStyle(fontSize: 12, fontFamily: 'monospace')),
+                              child: Text(
+                                'index: ${cs.index}',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontFamily: 'monospace',
+                                ),
+                              ),
                             ),
                           ],
                         ),
@@ -357,17 +467,33 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _usageRow(Icons.phone_android, 'Standard displays',
-                      'sRGB (most screens)', Color(0xFF1A237E)),
+                    _usageRow(
+                      Icons.phone_android,
+                      'Standard displays',
+                      'sRGB (most screens)',
+                      Color(0xFF1A237E),
+                    ),
                     Divider(height: 16),
-                    _usageRow(Icons.hdr_on, 'HDR content',
-                      'extendedSRGB (>1.0 values)', Color(0xFF7C4DFF)),
+                    _usageRow(
+                      Icons.hdr_on,
+                      'HDR content',
+                      'extendedSRGB (>1.0 values)',
+                      Color(0xFF7C4DFF),
+                    ),
                     Divider(height: 16),
-                    _usageRow(Icons.tablet_mac, 'Apple/Pro displays',
-                      'displayP3 (wider gamut)', Color(0xFFE040FB)),
+                    _usageRow(
+                      Icons.tablet_mac,
+                      'Apple/Pro displays',
+                      'displayP3 (wider gamut)',
+                      Color(0xFFE040FB),
+                    ),
                     Divider(height: 16),
-                    _usageRow(Icons.camera, 'Photography',
-                      'displayP3 (vibrant colors)', Color(0xFFE040FB)),
+                    _usageRow(
+                      Icons.camera,
+                      'Photography',
+                      'displayP3 (vibrant colors)',
+                      Color(0xFFE040FB),
+                    ),
                   ],
                 ),
               ),
@@ -385,10 +511,15 @@ dynamic build(BuildContext context) {
 Widget _sectionTitle(String title) {
   return Padding(
     padding: EdgeInsets.fromLTRB(16, 20, 16, 8),
-    child: Text(title, style: TextStyle(
-      fontSize: 13, fontWeight: FontWeight.w700,
-      color: Color(0xFF455A64), letterSpacing: 1.0,
-    )),
+    child: Text(
+      title,
+      style: TextStyle(
+        fontSize: 13,
+        fontWeight: FontWeight.w700,
+        color: Color(0xFF455A64),
+        letterSpacing: 1.0,
+      ),
+    ),
   );
 }
 
@@ -402,12 +533,14 @@ Map<String, dynamic> _colorSpaceInfo(ui.ColorSpace cs) {
     case ui.ColorSpace.extendedSRGB:
       return {
         'color': Color(0xFF7C4DFF),
-        'description': 'Extended sRGB — same primaries, allows values outside 0-1 range for HDR',
+        'description':
+            'Extended sRGB — same primaries, allows values outside 0-1 range for HDR',
       };
     case ui.ColorSpace.displayP3:
       return {
         'color': Color(0xFFE040FB),
-        'description': 'Display P3 — wider gamut used by Apple displays and modern screens',
+        'description':
+            'Display P3 — wider gamut used by Apple displays and modern screens',
       };
   }
 }
@@ -417,14 +550,21 @@ Widget _colorDot(Color color, String label) {
     child: Column(
       children: [
         Container(
-          width: 48, height: 48,
+          width: 48,
+          height: 48,
           decoration: BoxDecoration(
-            color: color, shape: BoxShape.circle,
-            boxShadow: [BoxShadow(color: color.withValues(alpha: 0.4), blurRadius: 6)],
+            color: color,
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(color: color.withValues(alpha: 0.4), blurRadius: 6),
+            ],
           ),
         ),
         SizedBox(height: 4),
-        Text(label, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600)),
+        Text(
+          label,
+          style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
+        ),
       ],
     ),
   );
@@ -433,8 +573,14 @@ Widget _colorDot(Color color, String label) {
 Widget _techRow(String name, String type, String spec, String wp, Color color) {
   return Row(
     children: [
-      Container(width: 6, height: 40,
-        decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(3))),
+      Container(
+        width: 6,
+        height: 40,
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(3),
+        ),
+      ),
       SizedBox(width: 12),
       Expanded(
         child: Column(
@@ -442,7 +588,10 @@ Widget _techRow(String name, String type, String spec, String wp, Color color) {
           children: [
             Row(
               children: [
-                Text(name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                Text(
+                  name,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                ),
                 SizedBox(width: 8),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
@@ -450,12 +599,17 @@ Widget _techRow(String name, String type, String spec, String wp, Color color) {
                     color: color.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Text(type, style: TextStyle(fontSize: 10, color: color)),
+                  child: Text(
+                    type,
+                    style: TextStyle(fontSize: 10, color: color),
+                  ),
                 ),
               ],
             ),
-            Text('$spec • White point: $wp',
-              style: TextStyle(fontSize: 11, color: Colors.grey[600])),
+            Text(
+              '$spec • White point: $wp',
+              style: TextStyle(fontSize: 11, color: Colors.grey[600]),
+            ),
           ],
         ),
       ),
@@ -468,7 +622,10 @@ Widget _gamutBar(String label, double fraction, Color color) {
     children: [
       Container(
         width: 100,
-        child: Text(label, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12)),
+        child: Text(
+          label,
+          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+        ),
       ),
       Expanded(
         child: Container(
@@ -483,15 +640,19 @@ Widget _gamutBar(String label, double fraction, Color color) {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                gradient: LinearGradient(colors: [color, color.withValues(alpha: 0.6)]),
+                gradient: LinearGradient(
+                  colors: [color, color.withValues(alpha: 0.6)],
+                ),
               ),
             ),
           ),
         ),
       ),
       SizedBox(width: 8),
-      Text('${(fraction * 100).round()}%',
-        style: TextStyle(fontSize: 11, fontFamily: 'monospace')),
+      Text(
+        '${(fraction * 100).round()}%',
+        style: TextStyle(fontSize: 11, fontFamily: 'monospace'),
+      ),
     ],
   );
 }
@@ -499,8 +660,11 @@ Widget _gamutBar(String label, double fraction, Color color) {
 Widget _equalityRow(String label, bool result, bool expected) {
   return Row(
     children: [
-      Icon(result == expected ? Icons.check_circle : Icons.cancel,
-        color: result == expected ? Colors.green : Colors.red, size: 20),
+      Icon(
+        result == expected ? Icons.check_circle : Icons.cancel,
+        color: result == expected ? Colors.green : Colors.red,
+        size: 20,
+      ),
       SizedBox(width: 8),
       Text(label, style: TextStyle(fontSize: 13, fontFamily: 'monospace')),
       Spacer(),
@@ -510,10 +674,14 @@ Widget _equalityRow(String label, bool result, bool expected) {
           color: result ? Color(0xFFE8F5E9) : Color(0xFFFFEBEE),
           borderRadius: BorderRadius.circular(12),
         ),
-        child: Text('$result', style: TextStyle(
-          fontWeight: FontWeight.bold, fontSize: 12,
-          color: result ? Color(0xFF2E7D32) : Color(0xFFC62828),
-        )),
+        child: Text(
+          '$result',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 12,
+            color: result ? Color(0xFF2E7D32) : Color(0xFFC62828),
+          ),
+        ),
       ),
     ],
   );
@@ -523,7 +691,8 @@ Widget _usageRow(IconData icon, String title, String desc, Color color) {
   return Row(
     children: [
       Container(
-        width: 36, height: 36,
+        width: 36,
+        height: 36,
         decoration: BoxDecoration(
           color: color.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(8),
@@ -535,7 +704,10 @@ Widget _usageRow(IconData icon, String title, String desc, Color color) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
+            Text(
+              title,
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+            ),
             Text(desc, style: TextStyle(fontSize: 11, color: Colors.grey[600])),
           ],
         ),

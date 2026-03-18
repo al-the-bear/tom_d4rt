@@ -1,282 +1,533 @@
-// D4rt test script: Tests Brightness from dart_ui
-// Brightness enum defines light and dark color schemes
-// Fundamental to theming in Flutter
+// D4rt test script: Deep Demo for Brightness from dart:ui
+// Brightness enum defines light/dark schemes — fundamental to theming
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
+  print('=== Brightness Deep Demo ===');
+
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 1: Brightness Fundamentals
   // ═══════════════════════════════════════════════════════════════════════════
 
+  print('Brightness defines whether surfaces are light or dark');
+  print('Values: ${ui.Brightness.values}');
+  print('Count: ${ui.Brightness.values.length}');
+
   // ═══════════════════════════════════════════════════════════════════════════
-  // SECTION 2: All Brightness Values
+  // SECTION 2: All Values
   // ═══════════════════════════════════════════════════════════════════════════
+
+  final light = ui.Brightness.light;
+  final dark = ui.Brightness.dark;
+  print('light: name=${light.name}, index=${light.index}');
+  print('dark: name=${dark.name}, index=${dark.index}');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 3: Brightness.light
   // ═══════════════════════════════════════════════════════════════════════════
 
+  print('\nBrightness.light:');
+  print('  Background: white or light colors');
+  print('  Foreground: dark text for readability');
+  print('  Status bar: dark icons on light background');
+  print('  Default for most apps');
+
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 4: Brightness.dark
   // ═══════════════════════════════════════════════════════════════════════════
 
-  // ═══════════════════════════════════════════════════════════════════════════
-  // SECTION 5: Brightness in ThemeData
-  // ═══════════════════════════════════════════════════════════════════════════
+  print('\nBrightness.dark:');
+  print('  Background: dark gray or black');
+  print('  Foreground: light text for readability');
+  print('  Status bar: light icons on dark background');
+  print('  Reduces eye strain in low light, saves OLED battery');
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // SECTION 6: MaterialApp Theme Mode
+  // SECTION 5: ThemeData usage
   // ═══════════════════════════════════════════════════════════════════════════
 
-  // ═══════════════════════════════════════════════════════════════════════════
-  // SECTION 7: Platform Brightness Detection
-  // ═══════════════════════════════════════════════════════════════════════════
+  print('\n--- ThemeData usage ---');
+  print('ThemeData(brightness: Brightness.light)');
+  print('ThemeData(brightness: Brightness.dark)');
+  print('ThemeData.light() / ThemeData.dark() factory constructors');
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // SECTION 8: Brightness in ColorScheme
+  // SECTION 6: ColorScheme
   // ═══════════════════════════════════════════════════════════════════════════
 
-  // ═══════════════════════════════════════════════════════════════════════════
-  // SECTION 9: Status Bar and System UI
-  // ═══════════════════════════════════════════════════════════════════════════
+  print('\n--- ColorScheme ---');
+  print('ColorScheme.light() → brightness: Brightness.light');
+  print('ColorScheme.dark() → brightness: Brightness.dark');
+  print('ColorScheme.fromSeed(brightness: ...)');
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // SECTION 10: Cupertino Brightness
+  // SECTION 7: Platform Detection
   // ═══════════════════════════════════════════════════════════════════════════
 
-  // ═══════════════════════════════════════════════════════════════════════════
-  // SECTION 11: Conditional Styling
-  // ═══════════════════════════════════════════════════════════════════════════
+  print('\n--- Platform brightness ---');
+  print('MediaQuery.of(context).platformBrightness');
+  print('WidgetsBinding.instance.platformDispatcher.platformBrightness');
+  print('Reflects OS-level light/dark mode setting');
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // SECTION 12: Brightness Transitions
+  // SECTION 8: Equality
   // ═══════════════════════════════════════════════════════════════════════════
 
-  // ═══════════════════════════════════════════════════════════════════════════
-  // SECTION 13: Dark Mode Best Practices
-  // ═══════════════════════════════════════════════════════════════════════════
+  print('\n--- Equality ---');
+  print('light == light: ${light == ui.Brightness.light}');
+  print('dark == dark: ${dark == ui.Brightness.dark}');
+  print('light == dark: ${light == dark}');
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // SECTION 14: Testing Brightness Scenarios
+  // VISUAL HELPERS
   // ═══════════════════════════════════════════════════════════════════════════
 
-  // ═══════════════════════════════════════════════════════════════════════════
-  // SECTION 15: Summary
-  // ═══════════════════════════════════════════════════════════════════════════
-
-  // Return visual UI demonstrating both brightness modes
-  return Container(
-    padding: EdgeInsets.all(24),
-    decoration: BoxDecoration(
-      gradient: LinearGradient(
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-        colors: [Colors.grey.shade200, Colors.grey.shade400],
+  Widget brightnessPanel(ui.Brightness brightness) {
+    final isDark = brightness == ui.Brightness.dark;
+    final bg = isDark ? Color(0xFF1E1E1E) : Colors.white;
+    final fg = isDark ? Colors.white : Color(0xFF1E1E1E);
+    final secondary = isDark ? Colors.grey[400]! : Colors.grey[600]!;
+    final accent = isDark ? Colors.blue[300]! : Colors.blue;
+    final surface = isDark ? Color(0xFF2D2D2D) : Colors.grey[50]!;
+    return Container(
+      padding: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: bg,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(
+          color: isDark ? Colors.grey[700]! : Colors.grey[300]!,
+        ),
+        boxShadow: [
+          BoxShadow(color: Colors.black26, blurRadius: 6, offset: Offset(0, 3)),
+        ],
       ),
-    ),
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Header
-        Row(
-          children: ui.Brightness.values.map((brightness) {
-            final isDark = brightness == ui.Brightness.dark;
-            return Expanded(
-              child: Container(
-                margin: EdgeInsets.only(right: isDark ? 0 : 12),
-                padding: EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: isDark ? Colors.grey.shade900 : Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 8,
-                      offset: Offset(0, 4),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    Icon(
-                      isDark ? Icons.dark_mode : Icons.light_mode,
-                      size: 48,
-                      color: isDark ? Colors.amber : Colors.orange,
-                    ),
-                    SizedBox(height: 12),
-                    Text(
-                      brightness.name.toUpperCase(),
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: isDark ? Colors.white : Colors.grey.shade800,
-                      ),
-                    ),
-                    Text(
-                      'Brightness.${brightness.name}',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'monospace',
-                        color: isDark
-                            ? Colors.grey.shade400
-                            : Colors.grey.shade600,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      'index: ${brightness.index}',
-                      style: TextStyle(
-                        fontSize: 11,
-                        color: isDark
-                            ? Colors.grey.shade500
-                            : Colors.grey.shade500,
-                      ),
-                    ),
-                  ],
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Mode icon + label
+          Row(
+            children: [
+              Icon(
+                isDark ? Icons.dark_mode : Icons.light_mode,
+                color: isDark ? Colors.amber : Colors.orange,
+                size: 28,
+              ),
+              SizedBox(width: 8),
+              Text(
+                brightness.name.toUpperCase(),
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: fg,
                 ),
               ),
-            );
-          }).toList(),
-        ),
-        SizedBox(height: 24),
-
-        // Theme comparison
-        Text(
-          'Theme Comparison',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.grey.shade800,
+            ],
           ),
-        ),
-        SizedBox(height: 12),
-        Row(
-          children: ui.Brightness.values.map((brightness) {
-            final isDark = brightness == ui.Brightness.dark;
-            return Expanded(
-              child: Container(
-                margin: EdgeInsets.only(right: isDark ? 0 : 12),
-                padding: EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: isDark ? Colors.grey.shade900 : Colors.white,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                    color: isDark ? Colors.grey.shade700 : Colors.grey.shade300,
+          SizedBox(height: 4),
+          Text(
+            'index: ${brightness.index}',
+            style: TextStyle(
+              fontSize: 10,
+              fontFamily: 'monospace',
+              color: secondary,
+            ),
+          ),
+          SizedBox(height: 10),
+          // Simulated app bar
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+            decoration: BoxDecoration(
+              color: accent,
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Row(
+              children: [
+                Icon(Icons.menu, color: Colors.white, size: 14),
+                SizedBox(width: 6),
+                Text(
+                  'App Title',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 11,
                   ),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+              ],
+            ),
+          ),
+          SizedBox(height: 8),
+          // Content
+          Container(
+            padding: EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: surface,
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Primary text', style: TextStyle(color: fg, fontSize: 11)),
+                Text(
+                  'Secondary text',
+                  style: TextStyle(color: secondary, fontSize: 10),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 6),
+          // Button
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+            decoration: BoxDecoration(
+              color: accent,
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Text(
+              'Action',
+              style: TextStyle(color: Colors.white, fontSize: 10),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget themeProperty(String prop, String lightVal, String darkVal) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 3),
+      child: Row(
+        children: [
+          SizedBox(
+            width: 100,
+            child: Text(
+              prop,
+              style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+            ),
+          ),
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+              decoration: BoxDecoration(
+                color: Colors.amber.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(3),
+              ),
+              child: Text(lightVal, style: TextStyle(fontSize: 9)),
+            ),
+          ),
+          SizedBox(width: 4),
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+              decoration: BoxDecoration(
+                color: Colors.indigo.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(3),
+              ),
+              child: Text(darkVal, style: TextStyle(fontSize: 9)),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget usageTile(IconData icon, String title, String code, Color color) {
+    return Container(
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: color.withValues(alpha: 0.3)),
+      ),
+      child: Column(
+        children: [
+          Icon(icon, color: color, size: 20),
+          SizedBox(height: 4),
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
+          Text(
+            code,
+            style: TextStyle(
+              fontSize: 8,
+              fontFamily: 'monospace',
+              color: Colors.grey[600],
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // BUILD LAYOUT
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  return SingleChildScrollView(
+    padding: EdgeInsets.all(16),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Title banner
+        Container(
+          width: double.infinity,
+          padding: EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.grey[800]!, Colors.amber[600]!],
+            ),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.light_mode, color: Colors.amber[200], size: 28),
+                  SizedBox(width: 12),
+                  Icon(Icons.dark_mode, color: Colors.grey[300], size: 28),
+                ],
+              ),
+              SizedBox(height: 8),
+              Text(
+                'Brightness Deep Demo',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                'Light and Dark color scheme foundation',
+                style: TextStyle(color: Colors.white70, fontSize: 13),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: 16),
+
+        // Side-by-side panels
+        Text(
+          '1. Light vs Dark Mode',
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 8),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(child: brightnessPanel(light)),
+            SizedBox(width: 12),
+            Expanded(child: brightnessPanel(dark)),
+          ],
+        ),
+        SizedBox(height: 16),
+
+        // Theme properties comparison
+        Text(
+          '2. Theme Property Comparison',
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 8),
+        Card(
+          child: Padding(
+            padding: EdgeInsets.all(12),
+            child: Column(
+              children: [
+                Row(
                   children: [
-                    // Sample app bar
-                    Container(
-                      padding: EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: isDark ? Colors.blue.shade700 : Colors.blue,
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(Icons.menu, color: Colors.white, size: 16),
-                          SizedBox(width: 8),
-                          Text(
-                            'App Title',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    // Sample content
-                    Text(
-                      'Sample content',
-                      style: TextStyle(
-                        color: isDark ? Colors.white : Colors.grey.shade800,
-                        fontSize: 12,
-                      ),
-                    ),
-                    SizedBox(height: 4),
-                    Text(
-                      'Secondary text',
-                      style: TextStyle(
-                        color: isDark
-                            ? Colors.grey.shade400
-                            : Colors.grey.shade600,
-                        fontSize: 10,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    // Sample button
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 6,
-                      ),
-                      decoration: BoxDecoration(
-                        color: isDark ? Colors.blue.shade400 : Colors.blue,
-                        borderRadius: BorderRadius.circular(4),
-                      ),
+                    SizedBox(width: 100),
+                    Expanded(
                       child: Text(
-                        'Button',
+                        'Light',
+                        textAlign: TextAlign.center,
                         style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 11,
-                          fontWeight: FontWeight.w500,
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.amber[700],
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 4),
+                    Expanded(
+                      child: Text(
+                        'Dark',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.indigo,
                         ),
                       ),
                     ),
                   ],
                 ),
-              ),
-            );
-          }).toList(),
-        ),
-        SizedBox(height: 24),
-
-        // Usage examples
-        Text(
-          'Common Usage',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.grey.shade800,
+                Divider(height: 8),
+                themeProperty(
+                  'Background',
+                  'White (#FFFFFF)',
+                  'Dark gray (#1E1E1E)',
+                ),
+                themeProperty('Foreground', 'Black text', 'White text'),
+                themeProperty('Primary', 'Saturated blue', 'Lighter blue'),
+                themeProperty('Surface', 'Light gray', 'Dark gray'),
+                themeProperty('Status bar', 'Dark icons', 'Light icons'),
+                themeProperty('Shadow', 'Visible', 'Subtle/none'),
+                themeProperty('Elevation', 'Shadow-based', 'Overlay-based'),
+              ],
+            ),
           ),
         ),
-        SizedBox(height: 12),
+        SizedBox(height: 16),
+
+        // Usage
+        Text(
+          '3. Common Usage Patterns',
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 8),
         Row(
           children: [
             Expanded(
-              child: _UsageCard(
-                icon: Icons.palette,
-                title: 'ThemeData',
-                code: 'brightness:',
-                color: Colors.purple,
+              child: usageTile(
+                Icons.palette,
+                'ThemeData',
+                'brightness:\nBrightness.light',
+                Colors.purple,
               ),
             ),
-            SizedBox(width: 8),
+            SizedBox(width: 6),
             Expanded(
-              child: _UsageCard(
-                icon: Icons.color_lens,
-                title: 'ColorScheme',
-                code: '.light() / .dark()',
-                color: Colors.orange,
+              child: usageTile(
+                Icons.color_lens,
+                'ColorScheme',
+                'ColorScheme\n.light() / .dark()',
+                Colors.orange,
               ),
             ),
-            SizedBox(width: 8),
+            SizedBox(width: 6),
             Expanded(
-              child: _UsageCard(
-                icon: Icons.phone_android,
-                title: 'System',
-                code: 'platformBrightness',
-                color: Colors.green,
+              child: usageTile(
+                Icons.phone_android,
+                'Platform',
+                'platformBrightness\n(OS setting)',
+                Colors.green,
               ),
             ),
           ],
+        ),
+        SizedBox(height: 16),
+
+        // Dark mode best practices
+        Text(
+          '4. Dark Mode Best Practices',
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 8),
+        Container(
+          padding: EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.grey[900],
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              for (final tip in [
+                MapEntry(
+                  Icons.opacity,
+                  'Use dark gray (#121212) not pure black',
+                ),
+                MapEntry(
+                  Icons.text_fields,
+                  'Reduce text opacity for hierarchy',
+                ),
+                MapEntry(Icons.contrast, 'Maintain 4.5:1 contrast ratio'),
+                MapEntry(
+                  Icons.layers,
+                  'Express elevation via surface overlays',
+                ),
+                MapEntry(Icons.color_lens, 'Desaturate primary colors'),
+              ])
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 3),
+                  child: Row(
+                    children: [
+                      Icon(tip.key, color: Colors.amber[300], size: 16),
+                      SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          tip.value,
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Colors.grey[300],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+            ],
+          ),
+        ),
+        SizedBox(height: 16),
+
+        // Equality
+        Text(
+          '5. Equality',
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 8),
+        Card(
+          child: Padding(
+            padding: EdgeInsets.all(12),
+            child: Column(
+              children: [
+                for (final pair in [
+                  MapEntry('light == light', '${light == ui.Brightness.light}'),
+                  MapEntry('dark == dark', '${dark == ui.Brightness.dark}'),
+                  MapEntry('light == dark', '${light == dark}'),
+                ])
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 2),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(pair.key, style: TextStyle(fontSize: 11)),
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 6,
+                            vertical: 1,
+                          ),
+                          decoration: BoxDecoration(
+                            color: pair.value == 'true'
+                                ? Colors.green.withValues(alpha: 0.15)
+                                : Colors.red.withValues(alpha: 0.15),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: Text(
+                            pair.value,
+                            style: TextStyle(
+                              fontSize: 11,
+                              fontWeight: FontWeight.bold,
+                              color: pair.value == 'true'
+                                  ? Colors.green
+                                  : Colors.red,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+              ],
+            ),
+          ),
         ),
         SizedBox(height: 16),
 
@@ -284,73 +535,25 @@ dynamic build(BuildContext context) {
         Container(
           padding: EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Colors.grey.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: Colors.grey.shade300),
+            border: Border.all(color: Colors.grey.withValues(alpha: 0.3)),
           ),
           child: Row(
             children: [
-              Icon(Icons.info_outline, color: Colors.grey.shade600, size: 20),
+              Icon(Icons.info_outline, color: Colors.grey[600], size: 20),
               SizedBox(width: 8),
               Expanded(
                 child: Text(
-                  '${ui.Brightness.values.length} values • Core theme property • Used by Material, Cupertino, and custom themes',
-                  style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+                  '${ui.Brightness.values.length} values: light, dark • Core theme property • Drives Material, Cupertino, and custom theming',
+                  style: TextStyle(fontSize: 11, color: Colors.grey[700]),
                 ),
               ),
             ],
           ),
         ),
+        SizedBox(height: 24),
       ],
     ),
   );
-}
-
-// Helper widget for usage cards
-class _UsageCard extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final String code;
-  final MaterialColor color;
-
-  const _UsageCard({
-    required this.icon,
-    required this.title,
-    required this.code,
-    required this.color, // MaterialColor for shade access
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: color.shade50,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: color.shade200),
-      ),
-      child: Column(
-        children: [
-          Icon(icon, color: color.shade600, size: 20),
-          SizedBox(height: 4),
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.bold,
-              color: color.shade700,
-            ),
-          ),
-          Text(
-            code,
-            style: TextStyle(
-              fontSize: 9,
-              fontFamily: 'monospace',
-              color: color.shade500,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 }

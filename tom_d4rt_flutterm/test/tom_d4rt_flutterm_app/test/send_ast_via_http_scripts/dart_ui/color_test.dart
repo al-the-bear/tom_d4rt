@@ -80,7 +80,9 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
 
   final alphaSteps = [255, 200, 150, 100, 50, 0];
-  final alphaColors = alphaSteps.map((a) => Color.fromARGB(a, 33, 150, 243)).toList();
+  final alphaColors = alphaSteps
+      .map((a) => Color.fromARGB(a, 33, 150, 243))
+      .toList();
   for (var i = 0; i < alphaSteps.length; i++) {
     print('alpha=${alphaSteps[i]}: ${alphaColors[i]}');
   }
@@ -130,14 +132,21 @@ dynamic build(BuildContext context) {
                 margin: EdgeInsets.all(16.0),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [Color(0xFFE91E63), Color(0xFFFF5722), Color(0xFFFF9800)],
+                    colors: [
+                      Color(0xFFE91E63),
+                      Color(0xFFFF5722),
+                      Color(0xFFFF9800),
+                    ],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
                   borderRadius: BorderRadius.circular(16.0),
                   boxShadow: [
-                    BoxShadow(color: Colors.pink.withValues(alpha: 0.3),
-                      blurRadius: 12, offset: Offset(0, 6)),
+                    BoxShadow(
+                      color: Colors.pink.withValues(alpha: 0.3),
+                      blurRadius: 12,
+                      offset: Offset(0, 6),
+                    ),
                   ],
                 ),
                 padding: EdgeInsets.all(24.0),
@@ -145,13 +154,22 @@ dynamic build(BuildContext context) {
                   children: [
                     Icon(Icons.palette, size: 48, color: Colors.white),
                     SizedBox(height: 12),
-                    Text('Color Deep Demo',
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold,
-                        color: Colors.white)),
+                    Text(
+                      'Color Deep Demo',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
                     SizedBox(height: 6),
-                    Text('ARGB color in sRGB space',
-                      style: TextStyle(fontSize: 14,
-                        color: Colors.white.withValues(alpha: 0.85))),
+                    Text(
+                      'ARGB color in sRGB space',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.white.withValues(alpha: 0.85),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -171,7 +189,10 @@ dynamic build(BuildContext context) {
                     _colorConstructorRow('fromARGB(255,66,165,245)', fromArgb),
                     _colorConstructorRow('fromRGBO(66,165,245,1.0)', fromRgbo),
                     _colorConstructorRow('transparent', transparent),
-                    _colorConstructorRow('semi-transparent red', semiTransparent),
+                    _colorConstructorRow(
+                      'semi-transparent red',
+                      semiTransparent,
+                    ),
                   ],
                 ),
               ),
@@ -203,7 +224,8 @@ dynamic build(BuildContext context) {
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 16.0),
                 child: Wrap(
-                  spacing: 8, runSpacing: 8,
+                  spacing: 8,
+                  runSpacing: 8,
                   children: colors.entries.map((entry) {
                     return _colorSwatch(entry.key, entry.value);
                   }).toList(),
@@ -232,14 +254,20 @@ dynamic build(BuildContext context) {
                                 decoration: BoxDecoration(
                                   color: entry.value,
                                   borderRadius: BorderRadius.circular(8),
-                                  boxShadow: [BoxShadow(
-                                    color: entry.value.withValues(alpha: 0.4),
-                                    blurRadius: 4, offset: Offset(0, 2))],
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: entry.value.withValues(alpha: 0.4),
+                                      blurRadius: 4,
+                                      offset: Offset(0, 2),
+                                    ),
+                                  ],
                                 ),
                               ),
                               SizedBox(height: 4),
-                              Text('${lerpSteps[entry.key]}',
-                                style: TextStyle(fontSize: 10)),
+                              Text(
+                                '${lerpSteps[entry.key]}',
+                                style: TextStyle(fontSize: 10),
+                              ),
                             ],
                           ),
                         );
@@ -283,11 +311,15 @@ dynamic build(BuildContext context) {
                               decoration: BoxDecoration(
                                 color: entry.value,
                                 borderRadius: entry.key == 0
-                                  ? BorderRadius.only(topLeft: Radius.circular(8),
-                                      bottomLeft: Radius.circular(8))
-                                  : entry.key == alphaColors.length - 1
-                                    ? BorderRadius.only(topRight: Radius.circular(8),
-                                        bottomRight: Radius.circular(8))
+                                    ? BorderRadius.only(
+                                        topLeft: Radius.circular(8),
+                                        bottomLeft: Radius.circular(8),
+                                      )
+                                    : entry.key == alphaColors.length - 1
+                                    ? BorderRadius.only(
+                                        topRight: Radius.circular(8),
+                                        bottomRight: Radius.circular(8),
+                                      )
                                     : null,
                               ),
                             ),
@@ -298,12 +330,17 @@ dynamic build(BuildContext context) {
                     SizedBox(height: 8),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: alphaSteps.map((a) =>
-                        Text('$a', style: TextStyle(fontSize: 10))).toList(),
+                      children: alphaSteps
+                          .map(
+                            (a) => Text('$a', style: TextStyle(fontSize: 10)),
+                          )
+                          .toList(),
                     ),
                     SizedBox(height: 4),
-                    Text('Alpha values from 255 (opaque) to 0 (transparent)',
-                      style: TextStyle(fontSize: 11, color: Colors.grey)),
+                    Text(
+                      'Alpha values from 255 (opaque) to 0 (transparent)',
+                      style: TextStyle(fontSize: 11, color: Colors.grey),
+                    ),
                   ],
                 ),
               ),
@@ -330,7 +367,10 @@ dynamic build(BuildContext context) {
                       ),
                       child: Text(
                         'withValues() creates a new Color with modified channels',
-                        style: TextStyle(fontSize: 12, color: Color(0xFF4A148C)),
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Color(0xFF4A148C),
+                        ),
                       ),
                     ),
                   ],
@@ -348,11 +388,19 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _equalityRow('Color(0xFF42A5F5) == fromARGB', eq1 == eq2, true),
+                    _equalityRow(
+                      'Color(0xFF42A5F5) == fromARGB',
+                      eq1 == eq2,
+                      true,
+                    ),
                     SizedBox(height: 8),
                     _equalityRow('0xFF42A5F5 == 0xFF42A5F6', eq1 == eq3, false),
                     SizedBox(height: 8),
-                    _equalityRow('hashCode match', eq1.hashCode == eq2.hashCode, true),
+                    _equalityRow(
+                      'hashCode match',
+                      eq1.hashCode == eq2.hashCode,
+                      true,
+                    ),
                   ],
                 ),
               ),
@@ -381,10 +429,15 @@ dynamic build(BuildContext context) {
 Widget _sectionTitle(String title) {
   return Padding(
     padding: EdgeInsets.fromLTRB(16, 20, 16, 8),
-    child: Text(title, style: TextStyle(
-      fontSize: 13, fontWeight: FontWeight.w700,
-      color: Color(0xFF455A64), letterSpacing: 1.0,
-    )),
+    child: Text(
+      title,
+      style: TextStyle(
+        fontSize: 13,
+        fontWeight: FontWeight.w700,
+        color: Color(0xFF455A64),
+        letterSpacing: 1.0,
+      ),
+    ),
   );
 }
 
@@ -394,18 +447,27 @@ Widget _colorConstructorRow(String label, Color color) {
     child: Row(
       children: [
         Container(
-          width: 32, height: 32,
+          width: 32,
+          height: 32,
           decoration: BoxDecoration(
             color: color,
             borderRadius: BorderRadius.circular(8),
             border: Border.all(color: Color(0xFFE0E0E0)),
-            boxShadow: [BoxShadow(color: color.withValues(alpha: 0.3),
-              blurRadius: 4, offset: Offset(0, 2))],
+            boxShadow: [
+              BoxShadow(
+                color: color.withValues(alpha: 0.3),
+                blurRadius: 4,
+                offset: Offset(0, 2),
+              ),
+            ],
           ),
         ),
         SizedBox(width: 12),
         Expanded(
-          child: Text(label, style: TextStyle(fontSize: 12, fontFamily: 'monospace')),
+          child: Text(
+            label,
+            style: TextStyle(fontSize: 12, fontFamily: 'monospace'),
+          ),
         ),
       ],
     ),
@@ -417,7 +479,10 @@ Widget _componentBar(String label, double value, Color color) {
     children: [
       Container(
         width: 50,
-        child: Text(label, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12)),
+        child: Text(
+          label,
+          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+        ),
       ),
       Expanded(
         child: Container(
@@ -441,9 +506,11 @@ Widget _componentBar(String label, double value, Color color) {
       SizedBox(width: 8),
       Container(
         width: 40,
-        child: Text('${(value * 255).round()}',
+        child: Text(
+          '${(value * 255).round()}',
           style: TextStyle(fontSize: 12, fontFamily: 'monospace'),
-          textAlign: TextAlign.right),
+          textAlign: TextAlign.right,
+        ),
       ),
     ],
   );
@@ -457,16 +524,21 @@ Widget _colorSwatch(String name, Color color) {
       color: Colors.white,
       borderRadius: BorderRadius.circular(12),
       border: Border.all(color: Color(0xFFE0E0E0)),
-      boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 2, offset: Offset(0, 1))],
+      boxShadow: [
+        BoxShadow(color: Colors.black12, blurRadius: 2, offset: Offset(0, 1)),
+      ],
     ),
     child: Column(
       children: [
         Container(
-          width: 48, height: 48,
+          width: 48,
+          height: 48,
           decoration: BoxDecoration(
             color: color,
             shape: BoxShape.circle,
-            boxShadow: [BoxShadow(color: color.withValues(alpha: 0.4), blurRadius: 6)],
+            boxShadow: [
+              BoxShadow(color: color.withValues(alpha: 0.4), blurRadius: 6),
+            ],
           ),
         ),
         SizedBox(height: 6),
@@ -480,8 +552,11 @@ Widget _miniSwatch(String label, Color color) {
   return Row(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Container(width: 16, height: 16,
-        decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+      Container(
+        width: 16,
+        height: 16,
+        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+      ),
       SizedBox(width: 4),
       Text(label, style: TextStyle(fontSize: 11)),
     ],
@@ -494,7 +569,8 @@ Widget _colorCompareRow(String label, Color color) {
     child: Row(
       children: [
         Container(
-          width: 40, height: 40,
+          width: 40,
+          height: 40,
           decoration: BoxDecoration(
             color: color,
             borderRadius: BorderRadius.circular(8),
@@ -504,8 +580,10 @@ Widget _colorCompareRow(String label, Color color) {
         SizedBox(width: 12),
         Text(label, style: TextStyle(fontWeight: FontWeight.w600)),
         Spacer(),
-        Text('a=${color.a.toStringAsFixed(2)}',
-          style: TextStyle(fontSize: 11, fontFamily: 'monospace')),
+        Text(
+          'a=${color.a.toStringAsFixed(2)}',
+          style: TextStyle(fontSize: 11, fontFamily: 'monospace'),
+        ),
       ],
     ),
   );
@@ -514,11 +592,17 @@ Widget _colorCompareRow(String label, Color color) {
 Widget _equalityRow(String label, bool result, bool expected) {
   return Row(
     children: [
-      Icon(result == expected ? Icons.check_circle : Icons.cancel,
-        color: result == expected ? Colors.green : Colors.red, size: 20),
+      Icon(
+        result == expected ? Icons.check_circle : Icons.cancel,
+        color: result == expected ? Colors.green : Colors.red,
+        size: 20,
+      ),
       SizedBox(width: 8),
       Expanded(
-        child: Text(label, style: TextStyle(fontSize: 12, fontFamily: 'monospace')),
+        child: Text(
+          label,
+          style: TextStyle(fontSize: 12, fontFamily: 'monospace'),
+        ),
       ),
       Container(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
@@ -526,10 +610,14 @@ Widget _equalityRow(String label, bool result, bool expected) {
           color: result ? Color(0xFFE8F5E9) : Color(0xFFFFEBEE),
           borderRadius: BorderRadius.circular(12),
         ),
-        child: Text('$result', style: TextStyle(
-          fontWeight: FontWeight.bold, fontSize: 12,
-          color: result ? Color(0xFF2E7D32) : Color(0xFFC62828),
-        )),
+        child: Text(
+          '$result',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 12,
+            color: result ? Color(0xFF2E7D32) : Color(0xFFC62828),
+          ),
+        ),
       ),
     ],
   );
@@ -547,7 +635,8 @@ Widget _specialValueRow(String name, Color color) {
     child: Row(
       children: [
         Container(
-          width: 36, height: 36,
+          width: 36,
+          height: 36,
           decoration: BoxDecoration(
             color: color,
             borderRadius: BorderRadius.circular(8),
@@ -559,9 +648,18 @@ Widget _specialValueRow(String name, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(name, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
-              Text('0x${color.value.toRadixString(16).padLeft(8, '0').toUpperCase()}',
-                style: TextStyle(fontSize: 11, fontFamily: 'monospace', color: Colors.grey[600])),
+              Text(
+                name,
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+              ),
+              Text(
+                '0x${color.value.toRadixString(16).padLeft(8, '0').toUpperCase()}',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontFamily: 'monospace',
+                  color: Colors.grey[600],
+                ),
+              ),
             ],
           ),
         ),

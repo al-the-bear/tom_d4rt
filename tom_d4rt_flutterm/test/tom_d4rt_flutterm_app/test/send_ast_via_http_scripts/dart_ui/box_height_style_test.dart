@@ -1,396 +1,545 @@
-// D4rt test script: Tests BoxHeightStyle from dart_ui
+// D4rt test script: Deep Demo for BoxHeightStyle from dart:ui
 // BoxHeightStyle controls how text selection rectangles are calculated vertically
 // Used in Paragraph.getBoxesForRange() and TextPainter
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
+  print('=== BoxHeightStyle Deep Demo ===');
+
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 1: BoxHeightStyle Fundamentals
   // ═══════════════════════════════════════════════════════════════════════════
 
+  print('BoxHeightStyle controls the vertical extent of selection rectangles');
+  print('All values: ${ui.BoxHeightStyle.values}');
+  print('Count: ${ui.BoxHeightStyle.values.length}');
+
   // ═══════════════════════════════════════════════════════════════════════════
-  // SECTION 2: All BoxHeightStyle Values
+  // SECTION 2: All BoxHeightStyle Values with Details
   // ═══════════════════════════════════════════════════════════════════════════
+
+  final styleDetails = <ui.BoxHeightStyle, String>{
+    ui.BoxHeightStyle.tight: 'Hugs the glyph bounds tightly',
+    ui.BoxHeightStyle.max: 'Uses maximum line metrics height',
+    ui.BoxHeightStyle.strut: 'Uses strut metrics for consistent height',
+    ui.BoxHeightStyle.includeLineSpacingTop: 'Adds line spacing at top',
+    ui.BoxHeightStyle.includeLineSpacingMiddle: 'Splits line spacing evenly',
+    ui.BoxHeightStyle.includeLineSpacingBottom: 'Adds line spacing at bottom',
+  };
+
+  for (final e in styleDetails.entries) {
+    print('${e.key.name} (index ${e.key.index}): ${e.value}');
+  }
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 3: BoxHeightStyle.tight
   // ═══════════════════════════════════════════════════════════════════════════
 
+  final tight = ui.BoxHeightStyle.tight;
+  print('\ntight: ${tight.name}, index=${tight.index}');
+  print('tight is the default: fits exactly around glyph bounds');
+  print('Best for: inline highlighting, badges, chips');
+
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 4: BoxHeightStyle.max
   // ═══════════════════════════════════════════════════════════════════════════
+
+  final maxStyle = ui.BoxHeightStyle.max;
+  print('\nmax: ${maxStyle.name}, index=${maxStyle.index}');
+  print('Uses the full line height from font metrics');
+  print('Best for: block-level selections, full line highlighting');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 5: BoxHeightStyle.strut
   // ═══════════════════════════════════════════════════════════════════════════
 
-  // ═══════════════════════════════════════════════════════════════════════════
-  // SECTION 6: BoxHeightStyle.includeLineSpacingTop
-  // ═══════════════════════════════════════════════════════════════════════════
+  final strut = ui.BoxHeightStyle.strut;
+  print('\nstrut: ${strut.name}, index=${strut.index}');
+  print('Uses StrutStyle metrics for consistent height across mixed fonts');
+  print('Best for: code editors, uniform line height across mixed-size text');
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // SECTION 7: BoxHeightStyle.includeLineSpacingMiddle
+  // SECTION 6: includeLineSpacingTop
   // ═══════════════════════════════════════════════════════════════════════════
 
-  // ═══════════════════════════════════════════════════════════════════════════
-  // SECTION 8: BoxHeightStyle.includeLineSpacingBottom
-  // ═══════════════════════════════════════════════════════════════════════════
+  final spacingTop = ui.BoxHeightStyle.includeLineSpacingTop;
+  print('\nincludeLineSpacingTop: index=${spacingTop.index}');
+  print('Extends selection upward to include line spacing');
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // SECTION 9: Comparing Height Styles
+  // SECTION 7: includeLineSpacingMiddle
   // ═══════════════════════════════════════════════════════════════════════════
 
-  // ═══════════════════════════════════════════════════════════════════════════
-  // SECTION 10: Usage with Paragraph
-  // ═══════════════════════════════════════════════════════════════════════════
+  final spacingMiddle = ui.BoxHeightStyle.includeLineSpacingMiddle;
+  print('\nincludeLineSpacingMiddle: index=${spacingMiddle.index}');
+  print('Splits line spacing 50/50 between top and bottom');
+  print('Creates seamless selection for multi-line text');
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // SECTION 11: Usage with TextPainter
+  // SECTION 8: includeLineSpacingBottom
   // ═══════════════════════════════════════════════════════════════════════════
 
-  // ═══════════════════════════════════════════════════════════════════════════
-  // SECTION 12: Multi-Line Selection Considerations
-  // ═══════════════════════════════════════════════════════════════════════════
+  final spacingBottom = ui.BoxHeightStyle.includeLineSpacingBottom;
+  print('\nincludeLineSpacingBottom: index=${spacingBottom.index}');
+  print('Extends selection downward to include line spacing');
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // SECTION 13: Platform-Specific Behavior
+  // SECTION 9: Equality & Comparison
   // ═══════════════════════════════════════════════════════════════════════════
 
-  // ═══════════════════════════════════════════════════════════════════════════
-  // SECTION 14: Practical Selection Implementation
-  // ═══════════════════════════════════════════════════════════════════════════
-
-  // ═══════════════════════════════════════════════════════════════════════════
-  // SECTION 15: Summary
-  // ═══════════════════════════════════════════════════════════════════════════
-
-  // Return visual UI
-  return Container(
-    padding: EdgeInsets.all(24),
-    decoration: BoxDecoration(
-      gradient: LinearGradient(
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-        colors: [Colors.blue.shade50, Colors.indigo.shade50],
-      ),
-    ),
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Header
-        Container(
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Colors.indigo.shade600,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Row(
-            children: [
-              Icon(Icons.height, color: Colors.white, size: 32),
-              SizedBox(width: 12),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'BoxHeightStyle',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                  Text(
-                    'Text Selection Vertical Height Control',
-                    style: TextStyle(fontSize: 14, color: Colors.white70),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: 24),
-
-        // Values grid
-        Text(
-          'All BoxHeightStyle Values',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.indigo.shade800,
-          ),
-        ),
-        SizedBox(height: 12),
-        Wrap(
-          spacing: 12,
-          runSpacing: 12,
-          children: ui.BoxHeightStyle.values.map((style) {
-            final colors = {
-              ui.BoxHeightStyle.tight: Colors.green,
-              ui.BoxHeightStyle.max: Colors.blue,
-              ui.BoxHeightStyle.strut: Colors.purple,
-              ui.BoxHeightStyle.includeLineSpacingTop: Colors.orange,
-              ui.BoxHeightStyle.includeLineSpacingMiddle: Colors.teal,
-              ui.BoxHeightStyle.includeLineSpacingBottom: Colors.pink,
-            };
-            return Container(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              decoration: BoxDecoration(
-                color: colors[style]?.shade100 ?? Colors.grey.shade100,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  color: colors[style]?.shade400 ?? Colors.grey.shade400,
-                  width: 2,
-                ),
-              ),
-              child: Column(
-                children: [
-                  Text(
-                    style.name,
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: colors[style]?.shade700 ?? Colors.grey.shade700,
-                    ),
-                  ),
-                  Text(
-                    'index: ${style.index}',
-                    style: TextStyle(
-                      fontSize: 10,
-                      color: colors[style]?.shade500 ?? Colors.grey.shade500,
-                    ),
-                  ),
-                ],
-              ),
-            );
-          }).toList(),
-        ),
-        SizedBox(height: 24),
-
-        // Visual comparison
-        Text(
-          'Height Style Comparison',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.indigo.shade800,
-          ),
-        ),
-        SizedBox(height: 12),
-        Container(
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black12,
-                blurRadius: 4,
-                offset: Offset(0, 2),
-              ),
-            ],
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _HeightStyleVisual(
-                label: 'tight',
-                description: 'Hugs glyphs',
-                topPadding: 0,
-                bottomPadding: 0,
-                color: Colors.green,
-              ),
-              SizedBox(height: 16),
-              _HeightStyleVisual(
-                label: 'max',
-                description: 'Full line metrics',
-                topPadding: 4,
-                bottomPadding: 4,
-                color: Colors.blue,
-              ),
-              SizedBox(height: 16),
-              _HeightStyleVisual(
-                label: 'includeLineSpacingMiddle',
-                description: 'Balanced spacing',
-                topPadding: 8,
-                bottomPadding: 8,
-                color: Colors.teal,
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: 24),
-
-        // Info cards
-        Row(
-          children: [
-            Expanded(
-              child: _InfoCard(
-                icon: Icons.format_size,
-                title: 'Primary Use',
-                content: 'Paragraph.getBoxesForRange()',
-                color: Colors.blue,
-              ),
-            ),
-            SizedBox(width: 12),
-            Expanded(
-              child: _InfoCard(
-                icon: Icons.select_all,
-                title: 'Affects',
-                content: 'Selection box height',
-                color: Colors.green,
-              ),
-            ),
-            SizedBox(width: 12),
-            Expanded(
-              child: _InfoCard(
-                icon: Icons.text_fields,
-                title: 'Related',
-                content: 'BoxWidthStyle',
-                color: Colors.orange,
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 16),
-
-        // Bottom summary
-        Container(
-          padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Colors.indigo.shade50,
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: Colors.indigo.shade200),
-          ),
-          child: Row(
-            children: [
-              Icon(Icons.info_outline, color: Colors.indigo.shade600, size: 20),
-              SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  '${ui.BoxHeightStyle.values.length} styles available • Use with TextPainter or Paragraph • Most relevant for multi-line text',
-                  style: TextStyle(fontSize: 12, color: Colors.indigo.shade700),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
+  print('\n--- Equality Tests ---');
+  print('tight == tight: ${tight == ui.BoxHeightStyle.tight}');
+  print('tight == max: ${tight == maxStyle}');
+  print('strut == strut: ${strut == ui.BoxHeightStyle.strut}');
+  print(
+    'index ordering: ${ui.BoxHeightStyle.values.map((v) => '${v.name}=${v.index}').join(', ')}',
   );
-}
 
-// Helper widget to visualize height styles
-class _HeightStyleVisual extends StatelessWidget {
-  final String label;
-  final String description;
-  final double topPadding;
-  final double bottomPadding;
-  final MaterialColor color;
+  // ═══════════════════════════════════════════════════════════════════════════
+  // SECTION 10: Platform Behavior Notes
+  // ═══════════════════════════════════════════════════════════════════════════
 
-  const _HeightStyleVisual({
-    required this.label,
-    required this.description,
-    required this.topPadding,
-    required this.bottomPadding,
-    required this.color, // MaterialColor for shade access
-  });
+  print('\n--- Platform Notes ---');
+  print('Android: respects all styles');
+  print('iOS: tight is default for selection');
+  print('Web: behavior depends on rendering backend');
 
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        SizedBox(
-          width: 180,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                label,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: color.shade700,
+  // ═══════════════════════════════════════════════════════════════════════════
+  // VISUAL HELPERS
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  Widget styleCard(
+    ui.BoxHeightStyle style,
+    String desc,
+    Color color,
+    double topPad,
+    double bottomPad,
+  ) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 4),
+      padding: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: color.withValues(alpha: 0.3)),
+      ),
+      child: Row(
+        children: [
+          SizedBox(
+            width: 130,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  style.name,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                    color: color,
+                  ),
                 ),
-              ),
-              Text(
-                description,
-                style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
-              ),
-            ],
-          ),
-        ),
-        Expanded(
-          child: Container(
-            padding: EdgeInsets.only(top: topPadding, bottom: bottomPadding),
-            decoration: BoxDecoration(
-              color: color.shade100,
-              border: Border.all(color: color.shade300),
-              borderRadius: BorderRadius.circular(4),
+                Text(
+                  'index ${style.index}',
+                  style: TextStyle(fontSize: 10, color: Colors.grey[600]),
+                ),
+                SizedBox(height: 2),
+                Text(
+                  desc,
+                  style: TextStyle(fontSize: 10, color: Colors.grey[700]),
+                ),
+              ],
             ),
+          ),
+          SizedBox(width: 8),
+          Expanded(
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              padding: EdgeInsets.only(top: topPad, bottom: bottomPad),
               decoration: BoxDecoration(
-                color: color.shade200,
-                borderRadius: BorderRadius.circular(2),
+                color: color.withValues(alpha: 0.1),
+                border: Border.all(color: color.withValues(alpha: 0.3)),
+                borderRadius: BorderRadius.circular(4),
               ),
-              child: Text(
-                'Selected Text',
-                style: TextStyle(
-                  color: color.shade800,
-                  fontWeight: FontWeight.w500,
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: color.withValues(alpha: 0.25),
+                  borderRadius: BorderRadius.circular(2),
+                ),
+                child: Text(
+                  'Selected Text',
+                  style: TextStyle(
+                    color: color,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 12,
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
-}
 
-// Helper widget for info cards
-class _InfoCard extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final String content;
-  final MaterialColor color;
-
-  const _InfoCard({
-    required this.icon,
-    required this.title,
-    required this.content,
-    required this.color, // MaterialColor for shade access
-  });
-
-  @override
-  Widget build(BuildContext context) {
+  Widget infoCard(IconData icon, String title, String content, Color color) {
     return Container(
       padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: color.shade50,
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: color.shade200),
+        border: Border.all(color: color.withValues(alpha: 0.3)),
       ),
       child: Column(
         children: [
-          Icon(icon, color: color.shade600, size: 24),
-          SizedBox(height: 8),
+          Icon(icon, color: color, size: 24),
+          SizedBox(height: 6),
           Text(
             title,
             style: TextStyle(
-              fontSize: 12,
+              fontSize: 11,
               fontWeight: FontWeight.bold,
-              color: color.shade700,
+              color: color,
             ),
           ),
           Text(
             content,
-            style: TextStyle(fontSize: 10, color: color.shade600),
+            style: TextStyle(fontSize: 10, color: Colors.grey[700]),
             textAlign: TextAlign.center,
           ),
         ],
       ),
     );
   }
+
+  Widget comparisonRow(String label, double height, Color color) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 3),
+      child: Row(
+        children: [
+          SizedBox(
+            width: 100,
+            child: Text(label, style: TextStyle(fontSize: 10)),
+          ),
+          Container(
+            width: 140,
+            height: height,
+            decoration: BoxDecoration(
+              color: color.withValues(alpha: 0.3),
+              border: Border.all(color: color),
+              borderRadius: BorderRadius.circular(2),
+            ),
+            child: Center(
+              child: Text(
+                '${height.toInt()}px',
+                style: TextStyle(fontSize: 9, color: color),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // BUILD LAYOUT
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  return SingleChildScrollView(
+    padding: EdgeInsets.all(16),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Title banner
+        Container(
+          width: double.infinity,
+          padding: EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.indigo, Colors.deepPurple],
+            ),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Column(
+            children: [
+              Icon(Icons.height, color: Colors.white, size: 36),
+              SizedBox(height: 8),
+              Text(
+                'BoxHeightStyle Deep Demo',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                'Vertical text selection rectangle control',
+                style: TextStyle(color: Colors.white70, fontSize: 13),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: 16),
+
+        // Values overview
+        Text(
+          '1. All BoxHeightStyle Values',
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 8),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: [
+            for (final e in styleDetails.entries)
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                decoration: BoxDecoration(
+                  color: [
+                    Colors.green,
+                    Colors.blue,
+                    Colors.purple,
+                    Colors.orange,
+                    Colors.teal,
+                    Colors.pink,
+                  ][e.key.index].withValues(alpha: 0.15),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    color: [
+                      Colors.green,
+                      Colors.blue,
+                      Colors.purple,
+                      Colors.orange,
+                      Colors.teal,
+                      Colors.pink,
+                    ][e.key.index].withValues(alpha: 0.5),
+                    width: 1.5,
+                  ),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      e.key.name,
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      'index: ${e.key.index}',
+                      style: TextStyle(fontSize: 9, color: Colors.grey[600]),
+                    ),
+                  ],
+                ),
+              ),
+          ],
+        ),
+        SizedBox(height: 16),
+
+        // Visual comparison of each style
+        Text(
+          '2. Visual Height Comparison',
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 4),
+        Text(
+          'How each style affects the selection box height',
+          style: TextStyle(fontSize: 11, color: Colors.grey[600]),
+        ),
+        SizedBox(height: 8),
+        styleCard(tight, 'Hugs glyphs tightly', Colors.green, 0, 0),
+        styleCard(maxStyle, 'Full line height', Colors.blue, 4, 4),
+        styleCard(strut, 'Strut metrics', Colors.purple, 6, 6),
+        styleCard(spacingTop, 'Spacing at top', Colors.orange, 12, 0),
+        styleCard(spacingMiddle, 'Split spacing', Colors.teal, 6, 6),
+        styleCard(spacingBottom, 'Spacing at bottom', Colors.pink, 0, 12),
+        SizedBox(height: 16),
+
+        // Height comparison bars
+        Text(
+          '3. Relative Heights',
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 8),
+        comparisonRow('tight', 20, Colors.green),
+        comparisonRow('max', 28, Colors.blue),
+        comparisonRow('strut', 32, Colors.purple),
+        comparisonRow('spacingTop', 32, Colors.orange),
+        comparisonRow('spacingMiddle', 32, Colors.teal),
+        comparisonRow('spacingBottom', 32, Colors.pink),
+        SizedBox(height: 16),
+
+        // Multi-line scenario
+        Text(
+          '4. Multi-Line Selection Scenario',
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 8),
+        Container(
+          padding: EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.grey[50],
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: Colors.grey[300]!),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'When selecting across multiple lines:',
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+              ),
+              SizedBox(height: 8),
+              for (final pair in [
+                MapEntry('tight', 'Gaps may appear between lines'),
+                MapEntry('max', 'No gaps, uses maximum line metrics'),
+                MapEntry('strut', 'Consistent height regardless of font size'),
+                MapEntry(
+                  'spacingMiddle',
+                  'Seamless selection with shared spacing',
+                ),
+              ])
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 2),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: 6,
+                        height: 6,
+                        margin: EdgeInsets.only(top: 4, right: 8),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.indigo,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 100,
+                        child: Text(
+                          pair.key,
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          pair.value,
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Colors.grey[700],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+            ],
+          ),
+        ),
+        SizedBox(height: 16),
+
+        // Info cards
+        Text(
+          '5. Usage Context',
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 8),
+        Row(
+          children: [
+            Expanded(
+              child: infoCard(
+                Icons.format_size,
+                'Primary Use',
+                'Paragraph\n.getBoxesForRange()',
+                Colors.blue,
+              ),
+            ),
+            SizedBox(width: 8),
+            Expanded(
+              child: infoCard(
+                Icons.select_all,
+                'Affects',
+                'Selection box\nvertical extent',
+                Colors.green,
+              ),
+            ),
+            SizedBox(width: 8),
+            Expanded(
+              child: infoCard(
+                Icons.text_fields,
+                'Related',
+                'BoxWidthStyle\nfor horizontal',
+                Colors.orange,
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 16),
+
+        // Platform notes
+        Text(
+          '6. Platform Behavior',
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 8),
+        for (final p in [
+          MapEntry('Android', 'Respects all styles'),
+          MapEntry('iOS', 'tight is default for text selection'),
+          MapEntry('Web', 'Depends on HTML/CanvasKit renderer'),
+        ])
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 2),
+            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            decoration: BoxDecoration(
+              color: Colors.grey[100],
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: Row(
+              children: [
+                Container(
+                  width: 70,
+                  child: Text(
+                    p.key,
+                    style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    p.value,
+                    style: TextStyle(fontSize: 11, color: Colors.grey[700]),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        SizedBox(height: 16),
+
+        // Summary
+        Container(
+          padding: EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.indigo.withValues(alpha: 0.08),
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: Colors.indigo.withValues(alpha: 0.3)),
+          ),
+          child: Row(
+            children: [
+              Icon(Icons.info_outline, color: Colors.indigo, size: 20),
+              SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  '${ui.BoxHeightStyle.values.length} styles • Use with TextPainter or Paragraph • Most relevant for multi-line text selection',
+                  style: TextStyle(fontSize: 11, color: Colors.indigo),
+                ),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: 24),
+      ],
+    ),
+  );
 }

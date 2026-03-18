@@ -77,8 +77,11 @@ dynamic build(BuildContext context) {
                   ),
                   borderRadius: BorderRadius.circular(16.0),
                   boxShadow: [
-                    BoxShadow(color: Colors.blueGrey.withValues(alpha: 0.3),
-                      blurRadius: 12, offset: Offset(0, 6)),
+                    BoxShadow(
+                      color: Colors.blueGrey.withValues(alpha: 0.3),
+                      blurRadius: 12,
+                      offset: Offset(0, 6),
+                    ),
                   ],
                 ),
                 padding: EdgeInsets.all(24.0),
@@ -86,13 +89,22 @@ dynamic build(BuildContext context) {
                   children: [
                     Icon(Icons.speed, size: 48, color: Colors.white),
                     SizedBox(height: 12),
-                    Text('DartPerformanceMode',
-                      style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold,
-                        color: Colors.white)),
+                    Text(
+                      'DartPerformanceMode',
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
                     SizedBox(height: 6),
-                    Text('Dart VM runtime performance tuning',
-                      style: TextStyle(fontSize: 14,
-                        color: Colors.white.withValues(alpha: 0.85))),
+                    Text(
+                      'Dart VM runtime performance tuning',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.white.withValues(alpha: 0.85),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -100,30 +112,38 @@ dynamic build(BuildContext context) {
               // ── Demo 1: Mode Cards ──
               _sectionTitle('1. PERFORMANCE MODES'),
               _modeCard(
-                balanced, 'balanced',
+                balanced,
+                'balanced',
                 'Default mode. VM balances latency, throughput, and memory.',
-                Icons.balance, Color(0xFF00695C),
+                Icons.balance,
+                Color(0xFF00695C),
                 {'Latency': 0.5, 'Throughput': 0.5, 'Memory': 0.5},
               ),
               _modeCard(
-                latency, 'latency',
+                latency,
+                'latency',
                 'Optimizes for low-latency responses. Reduces GC pauses, '
-                'smaller heap, more frequent collections.',
-                Icons.flash_on, Color(0xFFE65100),
+                    'smaller heap, more frequent collections.',
+                Icons.flash_on,
+                Color(0xFFE65100),
                 {'Latency': 0.9, 'Throughput': 0.3, 'Memory': 0.4},
               ),
               _modeCard(
-                throughput, 'throughput',
+                throughput,
+                'throughput',
                 'Optimizes for maximum throughput. Larger heap, less frequent '
-                'GC, longer pauses acceptable.',
-                Icons.trending_up, Color(0xFF1565C0),
+                    'GC, longer pauses acceptable.',
+                Icons.trending_up,
+                Color(0xFF1565C0),
                 {'Latency': 0.3, 'Throughput': 0.9, 'Memory': 0.3},
               ),
               _modeCard(
-                memory, 'memory',
+                memory,
+                'memory',
                 'Optimizes for low memory usage. Aggressive GC, smaller heap, '
-                'may reduce throughput.',
-                Icons.memory, Color(0xFF6A1B9A),
+                    'may reduce throughput.',
+                Icons.memory,
+                Color(0xFF6A1B9A),
                 {'Latency': 0.4, 'Throughput': 0.3, 'Memory': 0.9},
               ),
 
@@ -140,9 +160,21 @@ dynamic build(BuildContext context) {
                   children: [
                     _comparisonHeader(),
                     SizedBox(height: 8),
-                    _comparisonRow('balanced', 0.5, 0.5, 0.5, Color(0xFF00695C)),
+                    _comparisonRow(
+                      'balanced',
+                      0.5,
+                      0.5,
+                      0.5,
+                      Color(0xFF00695C),
+                    ),
                     _comparisonRow('latency', 0.9, 0.3, 0.4, Color(0xFFE65100)),
-                    _comparisonRow('throughput', 0.3, 0.9, 0.3, Color(0xFF1565C0)),
+                    _comparisonRow(
+                      'throughput',
+                      0.3,
+                      0.9,
+                      0.3,
+                      Color(0xFF1565C0),
+                    ),
                     _comparisonRow('memory', 0.4, 0.3, 0.9, Color(0xFF6A1B9A)),
                   ],
                 ),
@@ -159,23 +191,47 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _useCaseRow(Icons.animation, 'UI Animations',
-                      'latency — smooth 60fps rendering', Color(0xFFE65100)),
+                    _useCaseRow(
+                      Icons.animation,
+                      'UI Animations',
+                      'latency — smooth 60fps rendering',
+                      Color(0xFFE65100),
+                    ),
                     Divider(height: 20),
-                    _useCaseRow(Icons.import_export, 'Data Processing',
-                      'throughput — batch operations', Color(0xFF1565C0)),
+                    _useCaseRow(
+                      Icons.import_export,
+                      'Data Processing',
+                      'throughput — batch operations',
+                      Color(0xFF1565C0),
+                    ),
                     Divider(height: 20),
-                    _useCaseRow(Icons.phone_android, 'Low-end Devices',
-                      'memory — constrained resources', Color(0xFF6A1B9A)),
+                    _useCaseRow(
+                      Icons.phone_android,
+                      'Low-end Devices',
+                      'memory — constrained resources',
+                      Color(0xFF6A1B9A),
+                    ),
                     Divider(height: 20),
-                    _useCaseRow(Icons.apps, 'General App',
-                      'balanced — good default', Color(0xFF00695C)),
+                    _useCaseRow(
+                      Icons.apps,
+                      'General App',
+                      'balanced — good default',
+                      Color(0xFF00695C),
+                    ),
                     Divider(height: 20),
-                    _useCaseRow(Icons.videogame_asset, 'Games',
-                      'latency — consistent frame times', Color(0xFFE65100)),
+                    _useCaseRow(
+                      Icons.videogame_asset,
+                      'Games',
+                      'latency — consistent frame times',
+                      Color(0xFFE65100),
+                    ),
                     Divider(height: 20),
-                    _useCaseRow(Icons.cloud_download, 'Background Sync',
-                      'throughput — max data rate', Color(0xFF1565C0)),
+                    _useCaseRow(
+                      Icons.cloud_download,
+                      'Background Sync',
+                      'throughput — max data rate',
+                      Color(0xFF1565C0),
+                    ),
                   ],
                 ),
               ),
@@ -196,27 +252,47 @@ dynamic build(BuildContext context) {
                       child: Row(
                         children: [
                           Container(
-                            width: 32, height: 32,
+                            width: 32,
+                            height: 32,
                             decoration: BoxDecoration(
                               color: _modeColor(mode),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Center(
-                              child: Text('${mode.index}', style: TextStyle(
-                                color: Colors.white, fontWeight: FontWeight.bold)),
+                              child: Text(
+                                '${mode.index}',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
                           ),
                           SizedBox(width: 12),
-                          Text(mode.name, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
+                          Text(
+                            mode.name,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                            ),
+                          ),
                           Spacer(),
                           Container(
-                            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 4,
+                            ),
                             decoration: BoxDecoration(
                               color: Color(0xFFF5F5F5),
                               borderRadius: BorderRadius.circular(8),
                             ),
-                            child: Text('index: ${mode.index}',
-                              style: TextStyle(fontSize: 12, fontFamily: 'monospace')),
+                            child: Text(
+                              'index: ${mode.index}',
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontFamily: 'monospace',
+                              ),
+                            ),
                           ),
                         ],
                       ),
@@ -236,11 +312,23 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _equalityRow('balanced == balanced', balanced == ui.DartPerformanceMode.balanced, true),
+                    _equalityRow(
+                      'balanced == balanced',
+                      balanced == ui.DartPerformanceMode.balanced,
+                      true,
+                    ),
                     SizedBox(height: 8),
-                    _equalityRow('balanced == latency', balanced == latency, false),
+                    _equalityRow(
+                      'balanced == latency',
+                      balanced == latency,
+                      false,
+                    ),
                     SizedBox(height: 8),
-                    _equalityRow('latency == latency', latency == ui.DartPerformanceMode.latency, true),
+                    _equalityRow(
+                      'latency == latency',
+                      latency == ui.DartPerformanceMode.latency,
+                      true,
+                    ),
                   ],
                 ),
               ),
@@ -290,24 +378,39 @@ dynamic build(BuildContext context) {
 Widget _sectionTitle(String title) {
   return Padding(
     padding: EdgeInsets.fromLTRB(16, 20, 16, 8),
-    child: Text(title, style: TextStyle(
-      fontSize: 13, fontWeight: FontWeight.w700,
-      color: Color(0xFF455A64), letterSpacing: 1.0,
-    )),
+    child: Text(
+      title,
+      style: TextStyle(
+        fontSize: 13,
+        fontWeight: FontWeight.w700,
+        color: Color(0xFF455A64),
+        letterSpacing: 1.0,
+      ),
+    ),
   );
 }
 
 Color _modeColor(ui.DartPerformanceMode mode) {
   switch (mode) {
-    case ui.DartPerformanceMode.balanced: return Color(0xFF00695C);
-    case ui.DartPerformanceMode.latency: return Color(0xFFE65100);
-    case ui.DartPerformanceMode.throughput: return Color(0xFF1565C0);
-    case ui.DartPerformanceMode.memory: return Color(0xFF6A1B9A);
+    case ui.DartPerformanceMode.balanced:
+      return Color(0xFF00695C);
+    case ui.DartPerformanceMode.latency:
+      return Color(0xFFE65100);
+    case ui.DartPerformanceMode.throughput:
+      return Color(0xFF1565C0);
+    case ui.DartPerformanceMode.memory:
+      return Color(0xFF6A1B9A);
   }
 }
 
-Widget _modeCard(ui.DartPerformanceMode mode, String name, String desc,
-    IconData icon, Color color, Map<String, double> metrics) {
+Widget _modeCard(
+  ui.DartPerformanceMode mode,
+  String name,
+  String desc,
+  IconData icon,
+  Color color,
+  Map<String, double> metrics,
+) {
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
     padding: EdgeInsets.all(16),
@@ -322,8 +425,12 @@ Widget _modeCard(ui.DartPerformanceMode mode, String name, String desc,
         Row(
           children: [
             Container(
-              width: 40, height: 40,
-              decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(10)),
+              width: 40,
+              height: 40,
+              decoration: BoxDecoration(
+                color: color,
+                borderRadius: BorderRadius.circular(10),
+              ),
               child: Icon(icon, color: Colors.white, size: 24),
             ),
             SizedBox(width: 12),
@@ -331,9 +438,18 @@ Widget _modeCard(ui.DartPerformanceMode mode, String name, String desc,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                  Text('index: ${mode.index}',
-                    style: TextStyle(fontSize: 11, fontFamily: 'monospace', color: Colors.grey)),
+                  Text(
+                    name,
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
+                  Text(
+                    'index: ${mode.index}',
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontFamily: 'monospace',
+                      color: Colors.grey,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -382,15 +498,45 @@ Widget _modeCard(ui.DartPerformanceMode mode, String name, String desc,
 Widget _comparisonHeader() {
   return Row(
     children: [
-      Container(width: 90, child: Text('Mode', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
-      Expanded(child: Text('Latency', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold), textAlign: TextAlign.center)),
-      Expanded(child: Text('Throughput', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold), textAlign: TextAlign.center)),
-      Expanded(child: Text('Memory', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold), textAlign: TextAlign.center)),
+      Container(
+        width: 90,
+        child: Text(
+          'Mode',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+        ),
+      ),
+      Expanded(
+        child: Text(
+          'Latency',
+          style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Expanded(
+        child: Text(
+          'Throughput',
+          style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Expanded(
+        child: Text(
+          'Memory',
+          style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+          textAlign: TextAlign.center,
+        ),
+      ),
     ],
   );
 }
 
-Widget _comparisonRow(String name, double lat, double tp, double mem, Color color) {
+Widget _comparisonRow(
+  String name,
+  double lat,
+  double tp,
+  double mem,
+  Color color,
+) {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 4),
     child: Row(
@@ -399,10 +545,16 @@ Widget _comparisonRow(String name, double lat, double tp, double mem, Color colo
           width: 90,
           child: Row(
             children: [
-              Container(width: 8, height: 8,
-                decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+              Container(
+                width: 8,
+                height: 8,
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+              ),
               SizedBox(width: 6),
-              Text(name, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+              Text(
+                name,
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+              ),
             ],
           ),
         ),
@@ -440,7 +592,8 @@ Widget _useCaseRow(IconData icon, String title, String desc, Color color) {
   return Row(
     children: [
       Container(
-        width: 36, height: 36,
+        width: 36,
+        height: 36,
         decoration: BoxDecoration(
           color: color.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(8),
@@ -452,7 +605,10 @@ Widget _useCaseRow(IconData icon, String title, String desc, Color color) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
+            Text(
+              title,
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+            ),
             Text(desc, style: TextStyle(fontSize: 11, color: Colors.grey[600])),
           ],
         ),
@@ -464,8 +620,11 @@ Widget _useCaseRow(IconData icon, String title, String desc, Color color) {
 Widget _equalityRow(String label, bool result, bool expected) {
   return Row(
     children: [
-      Icon(result == expected ? Icons.check_circle : Icons.cancel,
-        color: result == expected ? Colors.green : Colors.red, size: 20),
+      Icon(
+        result == expected ? Icons.check_circle : Icons.cancel,
+        color: result == expected ? Colors.green : Colors.red,
+        size: 20,
+      ),
       SizedBox(width: 8),
       Text(label, style: TextStyle(fontSize: 13, fontFamily: 'monospace')),
       Spacer(),
@@ -475,22 +634,34 @@ Widget _equalityRow(String label, bool result, bool expected) {
           color: result ? Color(0xFFE8F5E9) : Color(0xFFFFEBEE),
           borderRadius: BorderRadius.circular(12),
         ),
-        child: Text('$result', style: TextStyle(
-          fontWeight: FontWeight.bold, fontSize: 12,
-          color: result ? Color(0xFF2E7D32) : Color(0xFFC62828),
-        )),
+        child: Text(
+          '$result',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 12,
+            color: result ? Color(0xFF2E7D32) : Color(0xFFC62828),
+          ),
+        ),
       ),
     ],
   );
 }
 
 Widget _gcRow(String label, List<double> values) {
-  final colors = [Color(0xFF00695C), Color(0xFFE65100), Color(0xFF1565C0), Color(0xFF6A1B9A)];
+  final colors = [
+    Color(0xFF00695C),
+    Color(0xFFE65100),
+    Color(0xFF1565C0),
+    Color(0xFF6A1B9A),
+  ];
   return Row(
     children: [
       Container(
         width: 130,
-        child: Text(label, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600)),
+        child: Text(
+          label,
+          style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
+        ),
       ),
       ...values.asMap().entries.map((entry) {
         return Expanded(
@@ -514,8 +685,11 @@ Widget _legendDot(Color color, String label) {
   return Row(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Container(width: 8, height: 8,
-        decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+      Container(
+        width: 8,
+        height: 8,
+        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+      ),
       SizedBox(width: 4),
       Text(label, style: TextStyle(fontSize: 9)),
     ],

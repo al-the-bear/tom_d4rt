@@ -39,18 +39,24 @@ dynamic build(BuildContext context) {
   print('fold == fold: ${fold == fold}');
   print('fold == hinge: ${fold == hinge}');
   print('hinge == cutout: ${hinge == cutout}');
-  print('identical(fold, DisplayFeatureType.fold): ${identical(fold, ui.DisplayFeatureType.fold)}');
+  print(
+    'identical(fold, DisplayFeatureType.fold): ${identical(fold, ui.DisplayFeatureType.fold)}',
+  );
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 4: FEATURE CHARACTERISTICS
   // ═══════════════════════════════════════════════════════════════════════════
 
   for (final type in allTypes) {
-    final obstructsContent = type == ui.DisplayFeatureType.hinge ||
-                             type == ui.DisplayFeatureType.cutout;
-    final separatesScreens = type == ui.DisplayFeatureType.fold ||
-                              type == ui.DisplayFeatureType.hinge;
-    print('${type.name}: obstructs=$obstructsContent, separates=$separatesScreens');
+    final obstructsContent =
+        type == ui.DisplayFeatureType.hinge ||
+        type == ui.DisplayFeatureType.cutout;
+    final separatesScreens =
+        type == ui.DisplayFeatureType.fold ||
+        type == ui.DisplayFeatureType.hinge;
+    print(
+      '${type.name}: obstructs=$obstructsContent, separates=$separatesScreens',
+    );
   }
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -58,7 +64,9 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
 
   for (final type in allTypes) {
-    print('${type.name}: toString=${type.toString()}, hashCode=${type.hashCode}');
+    print(
+      '${type.name}: toString=${type.toString()}, hashCode=${type.hashCode}',
+    );
   }
 
   print('DisplayFeatureType demo complete');
@@ -81,7 +89,8 @@ dynamic build(BuildContext context) {
     _TypeInfo(
       type: fold,
       label: 'fold',
-      description: 'A flexible fold in the display surface itself — content can render across it',
+      description:
+          'A flexible fold in the display surface itself — content can render across it',
       icon: Icons.auto_stories,
       color: Color(0xFF1565C0),
       obstructs: false,
@@ -91,7 +100,8 @@ dynamic build(BuildContext context) {
     _TypeInfo(
       type: hinge,
       label: 'hinge',
-      description: 'A physical hinge with a gap between two separate display panels',
+      description:
+          'A physical hinge with a gap between two separate display panels',
       icon: Icons.menu_book,
       color: Color(0xFF6A1B9A),
       obstructs: true,
@@ -101,7 +111,8 @@ dynamic build(BuildContext context) {
     _TypeInfo(
       type: cutout,
       label: 'cutout',
-      description: 'A display cutout (notch, hole-punch) where content cannot be rendered',
+      description:
+          'A display cutout (notch, hole-punch) where content cannot be rendered',
       icon: Icons.crop_free,
       color: Color(0xFFE65100),
       obstructs: true,
@@ -130,8 +141,11 @@ dynamic build(BuildContext context) {
                   ),
                   borderRadius: BorderRadius.circular(16.0),
                   boxShadow: [
-                    BoxShadow(color: Colors.blue.withValues(alpha: 0.3),
-                      blurRadius: 12, offset: Offset(0, 6)),
+                    BoxShadow(
+                      color: Colors.blue.withValues(alpha: 0.3),
+                      blurRadius: 12,
+                      offset: Offset(0, 6),
+                    ),
                   ],
                 ),
                 padding: EdgeInsets.all(24.0),
@@ -139,22 +153,36 @@ dynamic build(BuildContext context) {
                   children: [
                     Icon(Icons.devices, size: 48, color: Colors.white),
                     SizedBox(height: 12),
-                    Text('DisplayFeatureType',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,
-                        color: Colors.white)),
+                    Text(
+                      'DisplayFeatureType',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
                     SizedBox(height: 6),
-                    Text('Physical display feature categories',
-                      style: TextStyle(fontSize: 14,
-                        color: Colors.white.withValues(alpha: 0.85))),
+                    Text(
+                      'Physical display feature categories',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.white.withValues(alpha: 0.85),
+                      ),
+                    ),
                     SizedBox(height: 8),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 4,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.white.withValues(alpha: 0.2),
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: Text('${allTypes.length} values',
-                        style: TextStyle(fontSize: 12, color: Colors.white)),
+                      child: Text(
+                        '${allTypes.length} values',
+                        style: TextStyle(fontSize: 12, color: Colors.white),
+                      ),
                     ),
                   ],
                 ),
@@ -178,18 +206,59 @@ dynamic build(BuildContext context) {
                     // Header row
                     Row(
                       children: [
-                        SizedBox(width: 80, child: Text('Feature',
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                        Expanded(child: Center(child: Text('Obstructs',
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11)))),
-                        Expanded(child: Center(child: Text('Separates',
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11)))),
-                        Expanded(child: Center(child: Text('Flexible',
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11)))),
+                        SizedBox(
+                          width: 80,
+                          child: Text(
+                            'Feature',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 11,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Center(
+                            child: Text(
+                              'Obstructs',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 11,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Center(
+                            child: Text(
+                              'Separates',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 11,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Center(
+                            child: Text(
+                              'Flexible',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 11,
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                     Divider(height: 16),
-                    _matrixRow('unknown', false, false, false, Color(0xFF757575)),
+                    _matrixRow(
+                      'unknown',
+                      false,
+                      false,
+                      false,
+                      Color(0xFF757575),
+                    ),
                     _matrixRow('fold', false, true, true, Color(0xFF1565C0)),
                     _matrixRow('hinge', true, true, false, Color(0xFF6A1B9A)),
                     _matrixRow('cutout', true, false, false, Color(0xFFE65100)),
@@ -208,11 +277,23 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _crossSection('Fold', Color(0xFF1565C0), _foldCrossSection()),
+                    _crossSection(
+                      'Fold',
+                      Color(0xFF1565C0),
+                      _foldCrossSection(),
+                    ),
                     SizedBox(height: 16),
-                    _crossSection('Hinge', Color(0xFF6A1B9A), _hingeCrossSection()),
+                    _crossSection(
+                      'Hinge',
+                      Color(0xFF6A1B9A),
+                      _hingeCrossSection(),
+                    ),
                     SizedBox(height: 16),
-                    _crossSection('Cutout', Color(0xFFE65100), _cutoutCrossSection()),
+                    _crossSection(
+                      'Cutout',
+                      Color(0xFFE65100),
+                      _cutoutCrossSection(),
+                    ),
                   ],
                 ),
               ),
@@ -228,21 +309,33 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _implicationRow('fold',
+                    _implicationRow(
+                      'fold',
                       'Content CAN span the fold area. Visual crease may be visible.',
-                      Icons.check_circle, Color(0xFF1565C0)),
+                      Icons.check_circle,
+                      Color(0xFF1565C0),
+                    ),
                     Divider(height: 20),
-                    _implicationRow('hinge',
+                    _implicationRow(
+                      'hinge',
                       'Content CANNOT span the gap. Must split into two panes.',
-                      Icons.cancel, Color(0xFF6A1B9A)),
+                      Icons.cancel,
+                      Color(0xFF6A1B9A),
+                    ),
                     Divider(height: 20),
-                    _implicationRow('cutout',
+                    _implicationRow(
+                      'cutout',
                       'Content CANNOT render behind cutout. Use SafeArea to avoid.',
-                      Icons.cancel, Color(0xFFE65100)),
+                      Icons.cancel,
+                      Color(0xFFE65100),
+                    ),
                     Divider(height: 20),
-                    _implicationRow('unknown',
+                    _implicationRow(
+                      'unknown',
                       'Treat conservatively — assume content may be affected.',
-                      Icons.warning, Color(0xFF757575)),
+                      Icons.warning,
+                      Color(0xFF757575),
+                    ),
                   ],
                 ),
               ),
@@ -279,17 +372,33 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _codeStep(1, 'Get display features',
-                      'MediaQuery.displayFeatures', Color(0xFF1565C0)),
+                    _codeStep(
+                      1,
+                      'Get display features',
+                      'MediaQuery.displayFeatures',
+                      Color(0xFF1565C0),
+                    ),
                     SizedBox(height: 10),
-                    _codeStep(2, 'Check type of each',
-                      'feature.type == DisplayFeatureType.hinge', Color(0xFF6A1B9A)),
+                    _codeStep(
+                      2,
+                      'Check type of each',
+                      'feature.type == DisplayFeatureType.hinge',
+                      Color(0xFF6A1B9A),
+                    ),
                     SizedBox(height: 10),
-                    _codeStep(3, 'Access bounds',
-                      'feature.bounds → Rect of the feature area', Color(0xFF2E7D32)),
+                    _codeStep(
+                      3,
+                      'Access bounds',
+                      'feature.bounds → Rect of the feature area',
+                      Color(0xFF2E7D32),
+                    ),
                     SizedBox(height: 10),
-                    _codeStep(4, 'Adapt layout',
-                      'Split panes around hinge, avoid cutouts', Color(0xFFE65100)),
+                    _codeStep(
+                      4,
+                      'Adapt layout',
+                      'Split panes around hinge, avoid cutouts',
+                      Color(0xFFE65100),
+                    ),
                     SizedBox(height: 16),
                     Container(
                       padding: EdgeInsets.all(10),
@@ -300,7 +409,10 @@ dynamic build(BuildContext context) {
                       child: Text(
                         'TwoPane and similar widgets use DisplayFeatureType '
                         'to automatically compute split positions.',
-                        style: TextStyle(fontSize: 11, color: Color(0xFF1565C0)),
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: Color(0xFF1565C0),
+                        ),
                       ),
                     ),
                   ],
@@ -318,16 +430,36 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _deviceRow('Galaxy Z Fold', 'fold', Color(0xFF1565C0),
-                      'Single flexible OLED with center crease'),
-                    _deviceRow('Surface Duo', 'hinge', Color(0xFF6A1B9A),
-                      'Two separate OLED panels with 360° hinge'),
-                    _deviceRow('iPhone 14 Pro', 'cutout', Color(0xFFE65100),
-                      'Dynamic Island pill-shaped camera cutout'),
-                    _deviceRow('Pixel 8', 'cutout', Color(0xFFE65100),
-                      'Hole-punch front camera cutout'),
-                    _deviceRow('Standard phone', 'none', Color(0xFF757575),
-                      'No display features reported'),
+                    _deviceRow(
+                      'Galaxy Z Fold',
+                      'fold',
+                      Color(0xFF1565C0),
+                      'Single flexible OLED with center crease',
+                    ),
+                    _deviceRow(
+                      'Surface Duo',
+                      'hinge',
+                      Color(0xFF6A1B9A),
+                      'Two separate OLED panels with 360° hinge',
+                    ),
+                    _deviceRow(
+                      'iPhone 14 Pro',
+                      'cutout',
+                      Color(0xFFE65100),
+                      'Dynamic Island pill-shaped camera cutout',
+                    ),
+                    _deviceRow(
+                      'Pixel 8',
+                      'cutout',
+                      Color(0xFFE65100),
+                      'Hole-punch front camera cutout',
+                    ),
+                    _deviceRow(
+                      'Standard phone',
+                      'none',
+                      Color(0xFF757575),
+                      'No display features reported',
+                    ),
                   ],
                 ),
               ),
@@ -369,10 +501,15 @@ class _TypeInfo {
 Widget _sectionTitle(String title) {
   return Padding(
     padding: EdgeInsets.fromLTRB(16, 20, 16, 8),
-    child: Text(title, style: TextStyle(
-      fontSize: 13, fontWeight: FontWeight.w700,
-      color: Color(0xFF455A64), letterSpacing: 1.0,
-    )),
+    child: Text(
+      title,
+      style: TextStyle(
+        fontSize: 13,
+        fontWeight: FontWeight.w700,
+        color: Color(0xFF455A64),
+        letterSpacing: 1.0,
+      ),
+    ),
   );
 }
 
@@ -388,7 +525,8 @@ Widget _typeCard(_TypeInfo info) {
     child: Row(
       children: [
         Container(
-          width: 48, height: 48,
+          width: 48,
+          height: 48,
           decoration: BoxDecoration(
             color: info.color.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(10),
@@ -402,8 +540,10 @@ Widget _typeCard(_TypeInfo info) {
             children: [
               Row(
                 children: [
-                  Text(info.label, style: TextStyle(
-                    fontWeight: FontWeight.bold, fontSize: 14)),
+                  Text(
+                    info.label,
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                  ),
                   SizedBox(width: 8),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
@@ -411,33 +551,54 @@ Widget _typeCard(_TypeInfo info) {
                       color: info.color.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(6),
                     ),
-                    child: Text('idx ${info.type.index}',
-                      style: TextStyle(fontSize: 9, color: info.color)),
+                    child: Text(
+                      'idx ${info.type.index}',
+                      style: TextStyle(fontSize: 9, color: info.color),
+                    ),
                   ),
                   SizedBox(width: 4),
                   if (info.obstructs)
                     Container(
                       padding: EdgeInsets.symmetric(horizontal: 5, vertical: 1),
                       decoration: BoxDecoration(
-                        color: Color(0xFFFFEBEE), borderRadius: BorderRadius.circular(4)),
-                      child: Text('obstructs', style: TextStyle(fontSize: 8, color: Color(0xFFC62828))),
+                        color: Color(0xFFFFEBEE),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        'obstructs',
+                        style: TextStyle(fontSize: 8, color: Color(0xFFC62828)),
+                      ),
                     ),
                   if (info.separates) ...[
                     SizedBox(width: 4),
                     Container(
                       padding: EdgeInsets.symmetric(horizontal: 5, vertical: 1),
                       decoration: BoxDecoration(
-                        color: Color(0xFFE3F2FD), borderRadius: BorderRadius.circular(4)),
-                      child: Text('separates', style: TextStyle(fontSize: 8, color: Color(0xFF1565C0))),
+                        color: Color(0xFFE3F2FD),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        'separates',
+                        style: TextStyle(fontSize: 8, color: Color(0xFF1565C0)),
+                      ),
                     ),
                   ],
                 ],
               ),
               SizedBox(height: 3),
-              Text(info.description, style: TextStyle(fontSize: 11, color: Colors.grey[600])),
+              Text(
+                info.description,
+                style: TextStyle(fontSize: 11, color: Colors.grey[600]),
+              ),
               SizedBox(height: 2),
-              Text(info.example, style: TextStyle(fontSize: 10,
-                fontStyle: FontStyle.italic, color: Colors.grey[500])),
+              Text(
+                info.example,
+                style: TextStyle(
+                  fontSize: 10,
+                  fontStyle: FontStyle.italic,
+                  color: Colors.grey[500],
+                ),
+              ),
             ],
           ),
         ),
@@ -446,13 +607,28 @@ Widget _typeCard(_TypeInfo info) {
   );
 }
 
-Widget _matrixRow(String label, bool obstructs, bool separates, bool flexible, Color color) {
+Widget _matrixRow(
+  String label,
+  bool obstructs,
+  bool separates,
+  bool flexible,
+  Color color,
+) {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 4),
     child: Row(
       children: [
-        SizedBox(width: 80,
-          child: Text(label, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: color))),
+        SizedBox(
+          width: 80,
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: color,
+            ),
+          ),
+        ),
         Expanded(child: Center(child: _boolIcon(obstructs))),
         Expanded(child: Center(child: _boolIcon(separates))),
         Expanded(child: Center(child: _boolIcon(flexible))),
@@ -473,7 +649,14 @@ Widget _crossSection(String label, Color color, Widget diagram) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text(label, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: color)),
+      Text(
+        label,
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 13,
+          color: color,
+        ),
+      ),
       SizedBox(height: 8),
       diagram,
     ],
@@ -483,9 +666,7 @@ Widget _crossSection(String label, Color color, Widget diagram) {
 Widget _foldCrossSection() {
   return Container(
     height: 50,
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(8),
-    ),
+    decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
     child: Row(
       children: [
         Expanded(
@@ -493,24 +674,37 @@ Widget _foldCrossSection() {
             decoration: BoxDecoration(
               color: Color(0xFFBBDEFB),
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(8), bottomLeft: Radius.circular(8)),
+                topLeft: Radius.circular(8),
+                bottomLeft: Radius.circular(8),
+              ),
             ),
-            child: Center(child: Text('Screen A', style: TextStyle(fontSize: 10))),
+            child: Center(
+              child: Text('Screen A', style: TextStyle(fontSize: 10)),
+            ),
           ),
         ),
         Container(
           width: 4,
           color: Color(0xFF1565C0),
-          child: Center(child: Text('┃', style: TextStyle(fontSize: 10, color: Colors.white))),
+          child: Center(
+            child: Text(
+              '┃',
+              style: TextStyle(fontSize: 10, color: Colors.white),
+            ),
+          ),
         ),
         Expanded(
           child: Container(
             decoration: BoxDecoration(
               color: Color(0xFFBBDEFB),
               borderRadius: BorderRadius.only(
-                topRight: Radius.circular(8), bottomRight: Radius.circular(8)),
+                topRight: Radius.circular(8),
+                bottomRight: Radius.circular(8),
+              ),
             ),
-            child: Center(child: Text('Screen B', style: TextStyle(fontSize: 10))),
+            child: Center(
+              child: Text('Screen B', style: TextStyle(fontSize: 10)),
+            ),
           ),
         ),
       ],
@@ -528,9 +722,13 @@ Widget _hingeCrossSection() {
             decoration: BoxDecoration(
               color: Color(0xFFE1BEE7),
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(8), bottomLeft: Radius.circular(8)),
+                topLeft: Radius.circular(8),
+                bottomLeft: Radius.circular(8),
+              ),
             ),
-            child: Center(child: Text('Panel A', style: TextStyle(fontSize: 10))),
+            child: Center(
+              child: Text('Panel A', style: TextStyle(fontSize: 10)),
+            ),
           ),
         ),
         Container(
@@ -538,18 +736,28 @@ Widget _hingeCrossSection() {
           decoration: BoxDecoration(
             color: Color(0xFF6A1B9A).withValues(alpha: 0.3),
             border: Border.symmetric(
-              vertical: BorderSide(color: Color(0xFF6A1B9A), width: 2)),
+              vertical: BorderSide(color: Color(0xFF6A1B9A), width: 2),
+            ),
           ),
-          child: Center(child: Text('Gap', style: TextStyle(fontSize: 9, color: Color(0xFF6A1B9A)))),
+          child: Center(
+            child: Text(
+              'Gap',
+              style: TextStyle(fontSize: 9, color: Color(0xFF6A1B9A)),
+            ),
+          ),
         ),
         Expanded(
           child: Container(
             decoration: BoxDecoration(
               color: Color(0xFFE1BEE7),
               borderRadius: BorderRadius.only(
-                topRight: Radius.circular(8), bottomRight: Radius.circular(8)),
+                topRight: Radius.circular(8),
+                bottomRight: Radius.circular(8),
+              ),
             ),
-            child: Center(child: Text('Panel B', style: TextStyle(fontSize: 10))),
+            child: Center(
+              child: Text('Panel B', style: TextStyle(fontSize: 10)),
+            ),
           ),
         ),
       ],
@@ -571,14 +779,25 @@ Widget _cutoutCrossSection() {
         Positioned(
           top: 0,
           child: Container(
-            width: 60, height: 18,
+            width: 60,
+            height: 18,
             decoration: BoxDecoration(
               color: Color(0xFFE65100),
               borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)),
+                bottomLeft: Radius.circular(10),
+                bottomRight: Radius.circular(10),
+              ),
             ),
-            child: Center(child: Text('Cutout', style: TextStyle(
-              fontSize: 9, color: Colors.white, fontWeight: FontWeight.bold))),
+            child: Center(
+              child: Text(
+                'Cutout',
+                style: TextStyle(
+                  fontSize: 9,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
           ),
         ),
       ],
@@ -591,9 +810,12 @@ Widget _implicationRow(String label, String desc, IconData icon, Color color) {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       Container(
-        width: 30, height: 30,
+        width: 30,
+        height: 30,
         decoration: BoxDecoration(
-          color: color.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(6)),
+          color: color.withValues(alpha: 0.1),
+          borderRadius: BorderRadius.circular(6),
+        ),
         child: Icon(icon, color: color, size: 18),
       ),
       SizedBox(width: 12),
@@ -601,7 +823,14 @@ Widget _implicationRow(String label, String desc, IconData icon, Color color) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(label, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: color)),
+            Text(
+              label,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 13,
+                color: color,
+              ),
+            ),
             Text(desc, style: TextStyle(fontSize: 11, color: Colors.grey[600])),
           ],
         ),
@@ -615,16 +844,26 @@ Widget _equalityRow(String expression, bool result) {
     padding: EdgeInsets.symmetric(vertical: 3),
     child: Row(
       children: [
-        Expanded(child: Text(expression, style: TextStyle(fontSize: 12, fontFamily: 'monospace'))),
+        Expanded(
+          child: Text(
+            expression,
+            style: TextStyle(fontSize: 12, fontFamily: 'monospace'),
+          ),
+        ),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
           decoration: BoxDecoration(
             color: result ? Color(0xFFE8F5E9) : Color(0xFFFFEBEE),
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(result ? 'true' : 'false',
-            style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold,
-              color: result ? Color(0xFF2E7D32) : Color(0xFFC62828))),
+          child: Text(
+            result ? 'true' : 'false',
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.bold,
+              color: result ? Color(0xFF2E7D32) : Color(0xFFC62828),
+            ),
+          ),
         ),
       ],
     ),
@@ -635,19 +874,37 @@ Widget _codeStep(int step, String label, String code, Color color) {
   return Row(
     children: [
       Container(
-        width: 24, height: 24,
+        width: 24,
+        height: 24,
         decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-        child: Center(child: Text('$step', style: TextStyle(
-          color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12))),
+        child: Center(
+          child: Text(
+            '$step',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
+            ),
+          ),
+        ),
       ),
       SizedBox(width: 10),
       Expanded(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(label, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12)),
-            Text(code, style: TextStyle(fontSize: 10, fontFamily: 'monospace',
-              color: Colors.grey[600])),
+            Text(
+              label,
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+            ),
+            Text(
+              code,
+              style: TextStyle(
+                fontSize: 10,
+                fontFamily: 'monospace',
+                color: Colors.grey[600],
+              ),
+            ),
           ],
         ),
       ),
@@ -666,15 +923,28 @@ Widget _deviceRow(String device, String type, Color color, String detail) {
             color: color.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Text(type, style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: color)),
+          child: Text(
+            type,
+            style: TextStyle(
+              fontSize: 9,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
         ),
         SizedBox(width: 10),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(device, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12)),
-              Text(detail, style: TextStyle(fontSize: 10, color: Colors.grey[600])),
+              Text(
+                device,
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+              ),
+              Text(
+                detail,
+                style: TextStyle(fontSize: 10, color: Colors.grey[600]),
+              ),
             ],
           ),
         ),

@@ -16,7 +16,11 @@ dynamic build(BuildContext context) {
   final fromLTWH = Rect.fromLTWH(10, 20, 200, 100);
   print('fromLTWH(10,20,200,100): $fromLTWH');
 
-  final fromCenter = Rect.fromCenter(center: Offset(100, 60), width: 200, height: 100);
+  final fromCenter = Rect.fromCenter(
+    center: Offset(100, 60),
+    width: 200,
+    height: 100,
+  );
   print('fromCenter(c:(100,60), w:200, h:100): $fromCenter');
 
   final fromCircle = Rect.fromCircle(center: Offset(100, 100), radius: 50);
@@ -115,8 +119,11 @@ dynamic build(BuildContext context) {
                   ),
                   borderRadius: BorderRadius.circular(16.0),
                   boxShadow: [
-                    BoxShadow(color: Colors.teal.withValues(alpha: 0.3),
-                      blurRadius: 12, offset: Offset(0, 6)),
+                    BoxShadow(
+                      color: Colors.teal.withValues(alpha: 0.3),
+                      blurRadius: 12,
+                      offset: Offset(0, 6),
+                    ),
                   ],
                 ),
                 padding: EdgeInsets.all(24.0),
@@ -124,13 +131,22 @@ dynamic build(BuildContext context) {
                   children: [
                     Icon(Icons.crop_square, size: 48, color: Colors.white),
                     SizedBox(height: 12),
-                    Text('Rect Deep Demo',
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold,
-                        color: Colors.white)),
+                    Text(
+                      'Rect Deep Demo',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
                     SizedBox(height: 6),
-                    Text('Rectangle: left, top, right, bottom',
-                      style: TextStyle(fontSize: 14,
-                        color: Colors.white.withValues(alpha: 0.85))),
+                    Text(
+                      'Rectangle: left, top, right, bottom',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.white.withValues(alpha: 0.85),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -150,15 +166,19 @@ dynamic build(BuildContext context) {
                     _rectWidget(fromLTRB, 'fromLTRB', Color(0xFF1565C0)),
                     _rectWidget(fromCircle, 'fromCircle', Color(0xFF6A1B9A)),
                     _rectWidget(
-                      Rect.fromLTWH(120, 80, 80, 60), 'fromLTWH',
-                      Color(0xFFE65100)),
+                      Rect.fromLTWH(120, 80, 80, 60),
+                      'fromLTWH',
+                      Color(0xFFE65100),
+                    ),
                   ],
                 ),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-                child: Text('Overlapping rects from different constructors',
-                  style: TextStyle(fontSize: 11, color: Colors.grey)),
+                child: Text(
+                  'Overlapping rects from different constructors',
+                  style: TextStyle(fontSize: 11, color: Colors.grey),
+                ),
               ),
 
               // ── Demo 2: Properties ──
@@ -172,14 +192,34 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _propRow('left / top', '${r.left} / ${r.top}', Color(0xFF1565C0)),
-                    _propRow('right / bottom', '${r.right} / ${r.bottom}', Color(0xFF00695C)),
-                    _propRow('width / height', '${r.width} / ${r.height}', Color(0xFF6A1B9A)),
+                    _propRow(
+                      'left / top',
+                      '${r.left} / ${r.top}',
+                      Color(0xFF1565C0),
+                    ),
+                    _propRow(
+                      'right / bottom',
+                      '${r.right} / ${r.bottom}',
+                      Color(0xFF00695C),
+                    ),
+                    _propRow(
+                      'width / height',
+                      '${r.width} / ${r.height}',
+                      Color(0xFF6A1B9A),
+                    ),
                     _propRow('center', '${r.center}', Color(0xFFE65100)),
                     _propRow('size', '${r.size}', Color(0xFF2E7D32)),
                     Divider(),
-                    _propRow('shortestSide', '${r.shortestSide}', Color(0xFF00838F)),
-                    _propRow('longestSide', '${r.longestSide}', Color(0xFFC62828)),
+                    _propRow(
+                      'shortestSide',
+                      '${r.shortestSide}',
+                      Color(0xFF00838F),
+                    ),
+                    _propRow(
+                      'longestSide',
+                      '${r.longestSide}',
+                      Color(0xFFC62828),
+                    ),
                     _propRow('isEmpty', '${r.isEmpty}', Color(0xFF455A64)),
                     _propRow('isFinite', '${r.isFinite}', Color(0xFF455A64)),
                   ],
@@ -200,10 +240,16 @@ dynamic build(BuildContext context) {
                   children: [
                     // The rect
                     Positioned(
-                      left: 40, top: 30, width: 240, height: 120,
+                      left: 40,
+                      top: 30,
+                      width: 240,
+                      height: 120,
                       child: Container(
                         decoration: BoxDecoration(
-                          border: Border.all(color: Color(0xFF00695C), width: 2),
+                          border: Border.all(
+                            color: Color(0xFF00695C),
+                            width: 2,
+                          ),
                           color: Color(0xFF00695C).withValues(alpha: 0.05),
                         ),
                       ),
@@ -236,14 +282,30 @@ dynamic build(BuildContext context) {
                 ),
                 child: Stack(
                   children: [
-                    _rectBox(r.left * 0.8, r.top * 0.8, r.width * 0.8, r.height * 0.8,
-                      'original', Color(0xFF1565C0)),
-                    _rectBox(shifted.left * 0.8, shifted.top * 0.8,
-                      shifted.width * 0.8, shifted.height * 0.8,
-                      'shifted', Color(0xFF6A1B9A)),
-                    _rectBox(translated.left * 0.8, translated.top * 0.8,
-                      translated.width * 0.8, translated.height * 0.8,
-                      'translated', Color(0xFF2E7D32)),
+                    _rectBox(
+                      r.left * 0.8,
+                      r.top * 0.8,
+                      r.width * 0.8,
+                      r.height * 0.8,
+                      'original',
+                      Color(0xFF1565C0),
+                    ),
+                    _rectBox(
+                      shifted.left * 0.8,
+                      shifted.top * 0.8,
+                      shifted.width * 0.8,
+                      shifted.height * 0.8,
+                      'shifted',
+                      Color(0xFF6A1B9A),
+                    ),
+                    _rectBox(
+                      translated.left * 0.8,
+                      translated.top * 0.8,
+                      translated.width * 0.8,
+                      translated.height * 0.8,
+                      'translated',
+                      Color(0xFF2E7D32),
+                    ),
                   ],
                 ),
               ),
@@ -260,15 +322,30 @@ dynamic build(BuildContext context) {
                 ),
                 child: Stack(
                   children: [
-                    _rectBox(inflated.left * 0.5 + 20, inflated.top * 0.5 + 10,
-                      inflated.width * 0.5, inflated.height * 0.5,
-                      'inflated', Color(0xFFC62828).withValues(alpha: 0.3)),
-                    _rectBox(r.left * 0.5 + 20, r.top * 0.5 + 10,
-                      r.width * 0.5, r.height * 0.5,
-                      'original', Color(0xFF1565C0)),
-                    _rectBox(deflated.left * 0.5 + 20, deflated.top * 0.5 + 10,
-                      deflated.width * 0.5, deflated.height * 0.5,
-                      'deflated', Color(0xFF2E7D32)),
+                    _rectBox(
+                      inflated.left * 0.5 + 20,
+                      inflated.top * 0.5 + 10,
+                      inflated.width * 0.5,
+                      inflated.height * 0.5,
+                      'inflated',
+                      Color(0xFFC62828).withValues(alpha: 0.3),
+                    ),
+                    _rectBox(
+                      r.left * 0.5 + 20,
+                      r.top * 0.5 + 10,
+                      r.width * 0.5,
+                      r.height * 0.5,
+                      'original',
+                      Color(0xFF1565C0),
+                    ),
+                    _rectBox(
+                      deflated.left * 0.5 + 20,
+                      deflated.top * 0.5 + 10,
+                      deflated.width * 0.5,
+                      deflated.height * 0.5,
+                      'deflated',
+                      Color(0xFF2E7D32),
+                    ),
                   ],
                 ),
               ),
@@ -285,17 +362,33 @@ dynamic build(BuildContext context) {
                 ),
                 child: Stack(
                   children: [
-                    _rectBox(r.left * 0.5, r.top * 0.5 + 10,
-                      r.width * 0.5, r.height * 0.5,
-                      'rect1', Color(0xFF1565C0).withValues(alpha: 0.3)),
-                    _rectBox(r2.left * 0.5, r2.top * 0.5 + 10,
-                      r2.width * 0.5, r2.height * 0.5,
-                      'rect2', Color(0xFF6A1B9A).withValues(alpha: 0.3)),
-                    _rectBox(intersection.left * 0.5, intersection.top * 0.5 + 10,
-                      intersection.width * 0.5, intersection.height * 0.5,
-                      'intersect', Color(0xFFE65100)),
+                    _rectBox(
+                      r.left * 0.5,
+                      r.top * 0.5 + 10,
+                      r.width * 0.5,
+                      r.height * 0.5,
+                      'rect1',
+                      Color(0xFF1565C0).withValues(alpha: 0.3),
+                    ),
+                    _rectBox(
+                      r2.left * 0.5,
+                      r2.top * 0.5 + 10,
+                      r2.width * 0.5,
+                      r2.height * 0.5,
+                      'rect2',
+                      Color(0xFF6A1B9A).withValues(alpha: 0.3),
+                    ),
+                    _rectBox(
+                      intersection.left * 0.5,
+                      intersection.top * 0.5 + 10,
+                      intersection.width * 0.5,
+                      intersection.height * 0.5,
+                      'intersect',
+                      Color(0xFFE65100),
+                    ),
                     Positioned(
-                      left: 10, top: 150,
+                      left: 10,
+                      top: 150,
                       child: Text(
                         'overlaps: ${r.overlaps(r2)} | intersection: ${intersection.width.toStringAsFixed(0)}x${intersection.height.toStringAsFixed(0)}',
                         style: TextStyle(fontSize: 10, color: Colors.grey[600]),
@@ -318,10 +411,16 @@ dynamic build(BuildContext context) {
                 child: Stack(
                   children: [
                     Positioned(
-                      left: 30, top: 20, width: 200, height: 90,
+                      left: 30,
+                      top: 20,
+                      width: 200,
+                      height: 90,
                       child: Container(
                         decoration: BoxDecoration(
-                          border: Border.all(color: Color(0xFF00695C), width: 2),
+                          border: Border.all(
+                            color: Color(0xFF00695C),
+                            width: 2,
+                          ),
                           color: Color(0xFF00695C).withValues(alpha: 0.08),
                         ),
                       ),
@@ -346,16 +445,31 @@ dynamic build(BuildContext context) {
                 ),
                 child: Stack(
                   children: [
-                    _rectBox(r.left * 0.4, r.top * 0.4 + 5,
-                      r.width * 0.4, r.height * 0.4,
-                      't=0', Color(0xFF1565C0).withValues(alpha: 0.4)),
+                    _rectBox(
+                      r.left * 0.4,
+                      r.top * 0.4 + 5,
+                      r.width * 0.4,
+                      r.height * 0.4,
+                      't=0',
+                      Color(0xFF1565C0).withValues(alpha: 0.4),
+                    ),
                     if (lerpResult != null)
-                      _rectBox(lerpResult.left * 0.4, lerpResult.top * 0.4 + 5,
-                        lerpResult.width * 0.4, lerpResult.height * 0.4,
-                        't=0.5', Color(0xFF6A1B9A)),
-                    _rectBox(r2.left * 0.4, r2.top * 0.4 + 5,
-                      r2.width * 0.4, r2.height * 0.4,
-                      't=1', Color(0xFFC62828).withValues(alpha: 0.4)),
+                      _rectBox(
+                        lerpResult.left * 0.4,
+                        lerpResult.top * 0.4 + 5,
+                        lerpResult.width * 0.4,
+                        lerpResult.height * 0.4,
+                        't=0.5',
+                        Color(0xFF6A1B9A),
+                      ),
+                    _rectBox(
+                      r2.left * 0.4,
+                      r2.top * 0.4 + 5,
+                      r2.width * 0.4,
+                      r2.height * 0.4,
+                      't=1',
+                      Color(0xFFC62828).withValues(alpha: 0.4),
+                    ),
                   ],
                 ),
               ),
@@ -371,7 +485,11 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _equalityRow('fromLTWH == fromLTRB (same)', eq1 == eq2, true),
+                    _equalityRow(
+                      'fromLTWH == fromLTRB (same)',
+                      eq1 == eq2,
+                      true,
+                    ),
                     SizedBox(height: 8),
                     _equalityRow('different height', eq1 == eq3, false),
                   ],
@@ -391,16 +509,22 @@ dynamic build(BuildContext context) {
 Widget _sectionTitle(String title) {
   return Padding(
     padding: EdgeInsets.fromLTRB(16, 20, 16, 8),
-    child: Text(title, style: TextStyle(
-      fontSize: 13, fontWeight: FontWeight.w700,
-      color: Color(0xFF455A64), letterSpacing: 1.0,
-    )),
+    child: Text(
+      title,
+      style: TextStyle(
+        fontSize: 13,
+        fontWeight: FontWeight.w700,
+        color: Color(0xFF455A64),
+        letterSpacing: 1.0,
+      ),
+    ),
   );
 }
 
 Widget _rectWidget(Rect rect, String label, Color color) {
   return Positioned(
-    left: rect.left, top: rect.top,
+    left: rect.left,
+    top: rect.top,
     child: Container(
       width: rect.width.clamp(20.0, 300.0),
       height: rect.height.clamp(20.0, 200.0),
@@ -410,7 +534,14 @@ Widget _rectWidget(Rect rect, String label, Color color) {
       ),
       child: Padding(
         padding: EdgeInsets.all(4),
-        child: Text(label, style: TextStyle(fontSize: 10, color: color, fontWeight: FontWeight.bold)),
+        child: Text(
+          label,
+          style: TextStyle(
+            fontSize: 10,
+            color: color,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
     ),
   );
@@ -421,15 +552,24 @@ Widget _propRow(String label, String value, Color color) {
     padding: EdgeInsets.symmetric(vertical: 4),
     child: Row(
       children: [
-        Container(width: 8, height: 8,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+        Container(
+          width: 8,
+          height: 8,
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+        ),
         SizedBox(width: 8),
         Container(
           width: 120,
-          child: Text(label, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
+          child: Text(
+            label,
+            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+          ),
         ),
         Expanded(
-          child: Text(value, style: TextStyle(fontSize: 12, fontFamily: 'monospace')),
+          child: Text(
+            value,
+            style: TextStyle(fontSize: 12, fontFamily: 'monospace'),
+          ),
         ),
       ],
     ),
@@ -438,21 +578,41 @@ Widget _propRow(String label, String value, Color color) {
 
 Widget _cornerDot(double x, double y, String label, Color color) {
   return Positioned(
-    left: x - 12, top: y - 12,
+    left: x - 12,
+    top: y - 12,
     child: Container(
-      width: 24, height: 24,
-      decoration: BoxDecoration(color: color, shape: BoxShape.circle,
-        border: Border.all(color: Colors.white, width: 2)),
+      width: 24,
+      height: 24,
+      decoration: BoxDecoration(
+        color: color,
+        shape: BoxShape.circle,
+        border: Border.all(color: Colors.white, width: 2),
+      ),
       child: Center(
-        child: Text(label, style: TextStyle(color: Colors.white, fontSize: 8, fontWeight: FontWeight.bold)),
+        child: Text(
+          label,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 8,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
     ),
   );
 }
 
-Widget _rectBox(double x, double y, double w, double h, String label, Color color) {
+Widget _rectBox(
+  double x,
+  double y,
+  double w,
+  double h,
+  String label,
+  Color color,
+) {
   return Positioned(
-    left: x, top: y,
+    left: x,
+    top: y,
     child: Container(
       width: w.clamp(10.0, 250.0),
       height: h.clamp(10.0, 150.0),
@@ -462,7 +622,14 @@ Widget _rectBox(double x, double y, double w, double h, String label, Color colo
       ),
       child: Padding(
         padding: EdgeInsets.all(2),
-        child: Text(label, style: TextStyle(fontSize: 9, color: color, fontWeight: FontWeight.bold)),
+        child: Text(
+          label,
+          style: TextStyle(
+            fontSize: 9,
+            color: color,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
     ),
   );
@@ -471,16 +638,27 @@ Widget _rectBox(double x, double y, double w, double h, String label, Color colo
 Widget _pointDot(double x, double y, bool inside, String label) {
   final color = inside ? Color(0xFF2E7D32) : Color(0xFFC62828);
   return Positioned(
-    left: x - 10, top: y - 10,
+    left: x - 10,
+    top: y - 10,
     child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
-          width: 20, height: 20,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle,
-            boxShadow: [BoxShadow(color: color.withValues(alpha: 0.4), blurRadius: 4)]),
+          width: 20,
+          height: 20,
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(color: color.withValues(alpha: 0.4), blurRadius: 4),
+            ],
+          ),
           child: Center(
-            child: Icon(inside ? Icons.check : Icons.close, size: 12, color: Colors.white),
+            child: Icon(
+              inside ? Icons.check : Icons.close,
+              size: 12,
+              color: Colors.white,
+            ),
           ),
         ),
         Text(label, style: TextStyle(fontSize: 9, color: color)),
@@ -492,11 +670,17 @@ Widget _pointDot(double x, double y, bool inside, String label) {
 Widget _equalityRow(String label, bool result, bool expected) {
   return Row(
     children: [
-      Icon(result == expected ? Icons.check_circle : Icons.cancel,
-        color: result == expected ? Colors.green : Colors.red, size: 20),
+      Icon(
+        result == expected ? Icons.check_circle : Icons.cancel,
+        color: result == expected ? Colors.green : Colors.red,
+        size: 20,
+      ),
       SizedBox(width: 8),
       Expanded(
-        child: Text(label, style: TextStyle(fontSize: 12, fontFamily: 'monospace')),
+        child: Text(
+          label,
+          style: TextStyle(fontSize: 12, fontFamily: 'monospace'),
+        ),
       ),
       Container(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
@@ -504,10 +688,14 @@ Widget _equalityRow(String label, bool result, bool expected) {
           color: result ? Color(0xFFE8F5E9) : Color(0xFFFFEBEE),
           borderRadius: BorderRadius.circular(12),
         ),
-        child: Text('$result', style: TextStyle(
-          fontWeight: FontWeight.bold, fontSize: 12,
-          color: result ? Color(0xFF2E7D32) : Color(0xFFC62828),
-        )),
+        child: Text(
+          '$result',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 12,
+            color: result ? Color(0xFF2E7D32) : Color(0xFFC62828),
+          ),
+        ),
       ),
     ],
   );

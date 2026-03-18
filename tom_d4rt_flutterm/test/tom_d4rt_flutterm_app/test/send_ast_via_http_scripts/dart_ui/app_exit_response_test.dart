@@ -1,26 +1,66 @@
 // D4rt test script: Deep Demo for AppExitResponse from dart:ui
-// AppExitResponse represents the response to an app exit request
-// Used to control whether an app should exit or cancel the exit
+// AppExitResponse enum controls whether an app should exit or cancel exit
 import 'dart:ui';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
+  print('=== AppExitResponse Deep Demo ===');
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // SECTION 1: Fundamentals
+  // ═══════════════════════════════════════════════════════════════════════════
+
   final allValues = AppExitResponse.values;
-  final valueResults = <Map<String, dynamic>>[];
-  for (final response in allValues) {
-    String description;
-    switch (response) {
-      case AppExitResponse.exit:
-        description = 'Allow app to exit';
-      case AppExitResponse.cancel:
-        description = 'Cancel exit request';
-    }
-    valueResults.add({
-      'response': response,
-      'index': response.index,
-      'name': response.name,
-      'description': description,
-    });
+  print('AppExitResponse values: $allValues');
+  print('Count: ${allValues.length}');
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // SECTION 2: Each Value
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  final exitVal = AppExitResponse.exit;
+  final cancelVal = AppExitResponse.cancel;
+  print('exit: name=${exitVal.name}, index=${exitVal.index}');
+  print('cancel: name=${cancelVal.name}, index=${cancelVal.index}');
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // SECTION 3: Equality & Identity
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  print('\n--- Equality ---');
+  print('exit == exit: ${exitVal == AppExitResponse.exit}');
+  print('cancel == cancel: ${cancelVal == AppExitResponse.cancel}');
+  print('exit == cancel: ${exitVal == cancelVal}');
+  print('identical(exit, exit): ${identical(exitVal, AppExitResponse.exit)}');
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // SECTION 4: Purpose & Lifecycle
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  print('\n--- Lifecycle ---');
+  print('1. System or user initiates app close');
+  print('2. WidgetsBindingObserver.didRequestAppExit() called');
+  print('3. Return AppExitResponse.exit → allow closing');
+  print('4. Return AppExitResponse.cancel → prevent closing');
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // SECTION 5: Use Cases
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  print('\n--- Use Cases ---');
+  print('exit: Normal shutdown, no unsaved data');
+  print('cancel: Unsaved changes dialog, background tasks incomplete');
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // SECTION 6: Switch Pattern
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  for (final val in allValues) {
+    final desc = switch (val) {
+      AppExitResponse.exit => 'Allow app to exit immediately',
+      AppExitResponse.cancel => 'Cancel the exit, keep app running',
+    };
+    print('switch ${val.name}: $desc');
   }
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -81,7 +121,18 @@ dynamic build(BuildContext context) {
                 ),
                 padding: EdgeInsets.all(16.0),
                 child: Column(
-                  children: valueResults.map((r) => _buildEnumRow(r)).toList(),
+                  children: [
+                    {
+                      'name': 'exit',
+                      'description': 'Allow app to exit immediately',
+                      'response': AppExitResponse.exit,
+                    },
+                    {
+                      'name': 'cancel',
+                      'description': 'Cancel exit and keep app running',
+                      'response': AppExitResponse.cancel,
+                    },
+                  ].map((r) => _buildEnumRow(r)).toList(),
                 ),
               ),
               SizedBox(height: 16.0),

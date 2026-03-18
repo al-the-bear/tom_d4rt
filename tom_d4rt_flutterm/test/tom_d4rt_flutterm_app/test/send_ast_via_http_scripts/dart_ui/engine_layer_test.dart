@@ -39,27 +39,30 @@ dynamic build(BuildContext context) {
   builder.pop();
 
   final clipRRectLayer = builder.pushClipRRect(
-    RRect.fromRectAndRadius(Rect.fromLTWH(0, 0, 200, 200), Radius.circular(16)));
+    RRect.fromRectAndRadius(Rect.fromLTWH(0, 0, 200, 200), Radius.circular(16)),
+  );
   print('pushClipRRect → ${clipRRectLayer.runtimeType}');
   builder.pop();
 
-  final transformLayer = builder.pushTransform(
-    Matrix4.identity().storage);
+  final transformLayer = builder.pushTransform(Matrix4.identity().storage);
   print('pushTransform → ${transformLayer.runtimeType}');
   builder.pop();
 
   final colorFilterLayer = builder.pushColorFilter(
-    ColorFilter.mode(Colors.red, BlendMode.colorBurn));
+    ColorFilter.mode(Colors.red, BlendMode.colorBurn),
+  );
   print('pushColorFilter → ${colorFilterLayer.runtimeType}');
   builder.pop();
 
   final imageFilterLayer = builder.pushImageFilter(
-    ui.ImageFilter.blur(sigmaX: 5, sigmaY: 5));
+    ui.ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+  );
   print('pushImageFilter → ${imageFilterLayer.runtimeType}');
   builder.pop();
 
   final backdropFilterLayer = builder.pushBackdropFilter(
-    ui.ImageFilter.blur(sigmaX: 10, sigmaY: 10));
+    ui.ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+  );
   print('pushBackdropFilter → ${backdropFilterLayer.runtimeType}');
   builder.pop();
 
@@ -77,7 +80,9 @@ dynamic build(BuildContext context) {
 
   print('Retained rendering with oldLayer:');
   print('  1. First frame: layer = builder.pushOffset(x, y)');
-  print('  2. Next frame: newLayer = builder.pushOffset(x, y, oldLayer: layer)');
+  print(
+    '  2. Next frame: newLayer = builder.pushOffset(x, y, oldLayer: layer)',
+  );
   print('  3. Engine reuses GPU resources for unchanged subtree');
   print('  4. If no longer needed: layer.dispose()');
 
@@ -100,26 +105,76 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
 
   final layerTypes = <_LayerType>[
-    _LayerType('OffsetEngineLayer', 'pushOffset(dx, dy)', 'Translates child content',
-      Icons.open_with, Color(0xFF0D47A1)),
-    _LayerType('TransformEngineLayer', 'pushTransform(matrix4)', 'Applies 4×4 matrix transform',
-      Icons.transform, Color(0xFF2E7D32)),
-    _LayerType('OpacityEngineLayer', 'pushOpacity(alpha)', 'Applies alpha transparency',
-      Icons.opacity, Color(0xFF6A1B9A)),
-    _LayerType('ClipRectEngineLayer', 'pushClipRect(rect)', 'Clips to a rectangle',
-      Icons.crop_square, Color(0xFFBF360C)),
-    _LayerType('ClipRRectEngineLayer', 'pushClipRRect(rrect)', 'Clips to a rounded rectangle',
-      Icons.rounded_corner, Color(0xFF00695C)),
-    _LayerType('ClipPathEngineLayer', 'pushClipPath(path)', 'Clips to an arbitrary path',
-      Icons.gesture, Color(0xFF4E342E)),
-    _LayerType('ColorFilterEngineLayer', 'pushColorFilter(filter)', 'Applies color filter to subtree',
-      Icons.filter_vintage, Color(0xFFC62828)),
-    _LayerType('ImageFilterEngineLayer', 'pushImageFilter(filter)', 'Applies image filter (blur etc)',
-      Icons.blur_on, Color(0xFF1565C0)),
-    _LayerType('BackdropFilterEngineLayer', 'pushBackdropFilter(filter)', 'Filters content behind layer',
-      Icons.filter_hdr, Color(0xFF558B2F)),
-    _LayerType('ShaderMaskEngineLayer', 'pushShaderMask(shader)', 'Applies shader mask gradient',
-      Icons.gradient, Color(0xFF7B1FA2)),
+    _LayerType(
+      'OffsetEngineLayer',
+      'pushOffset(dx, dy)',
+      'Translates child content',
+      Icons.open_with,
+      Color(0xFF0D47A1),
+    ),
+    _LayerType(
+      'TransformEngineLayer',
+      'pushTransform(matrix4)',
+      'Applies 4×4 matrix transform',
+      Icons.transform,
+      Color(0xFF2E7D32),
+    ),
+    _LayerType(
+      'OpacityEngineLayer',
+      'pushOpacity(alpha)',
+      'Applies alpha transparency',
+      Icons.opacity,
+      Color(0xFF6A1B9A),
+    ),
+    _LayerType(
+      'ClipRectEngineLayer',
+      'pushClipRect(rect)',
+      'Clips to a rectangle',
+      Icons.crop_square,
+      Color(0xFFBF360C),
+    ),
+    _LayerType(
+      'ClipRRectEngineLayer',
+      'pushClipRRect(rrect)',
+      'Clips to a rounded rectangle',
+      Icons.rounded_corner,
+      Color(0xFF00695C),
+    ),
+    _LayerType(
+      'ClipPathEngineLayer',
+      'pushClipPath(path)',
+      'Clips to an arbitrary path',
+      Icons.gesture,
+      Color(0xFF4E342E),
+    ),
+    _LayerType(
+      'ColorFilterEngineLayer',
+      'pushColorFilter(filter)',
+      'Applies color filter to subtree',
+      Icons.filter_vintage,
+      Color(0xFFC62828),
+    ),
+    _LayerType(
+      'ImageFilterEngineLayer',
+      'pushImageFilter(filter)',
+      'Applies image filter (blur etc)',
+      Icons.blur_on,
+      Color(0xFF1565C0),
+    ),
+    _LayerType(
+      'BackdropFilterEngineLayer',
+      'pushBackdropFilter(filter)',
+      'Filters content behind layer',
+      Icons.filter_hdr,
+      Color(0xFF558B2F),
+    ),
+    _LayerType(
+      'ShaderMaskEngineLayer',
+      'pushShaderMask(shader)',
+      'Applies shader mask gradient',
+      Icons.gradient,
+      Color(0xFF7B1FA2),
+    ),
   ];
 
   return MaterialApp(
@@ -142,8 +197,11 @@ dynamic build(BuildContext context) {
                   ),
                   borderRadius: BorderRadius.circular(16.0),
                   boxShadow: [
-                    BoxShadow(color: Colors.blueGrey.withValues(alpha: 0.3),
-                      blurRadius: 12, offset: Offset(0, 6)),
+                    BoxShadow(
+                      color: Colors.blueGrey.withValues(alpha: 0.3),
+                      blurRadius: 12,
+                      offset: Offset(0, 6),
+                    ),
                   ],
                 ),
                 padding: EdgeInsets.all(24.0),
@@ -151,22 +209,34 @@ dynamic build(BuildContext context) {
                   children: [
                     Icon(Icons.layers, size: 48, color: Colors.white),
                     SizedBox(height: 12),
-                    Text('EngineLayer',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,
-                        color: Colors.white)),
+                    Text(
+                      'EngineLayer',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
                     SizedBox(height: 6),
-                    Text('Abstract base class for all SceneBuilder push layers',
+                    Text(
+                      'Abstract base class for all SceneBuilder push layers',
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 13,
-                        color: Colors.white.withValues(alpha: 0.85))),
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Colors.white.withValues(alpha: 0.85),
+                      ),
+                    ),
                     SizedBox(height: 8),
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                      _headerChip('abstract'),
-                      SizedBox(width: 6),
-                      _headerChip('dispose()'),
-                      SizedBox(width: 6),
-                      _headerChip('oldLayer'),
-                    ]),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        _headerChip('abstract'),
+                        SizedBox(width: 6),
+                        _headerChip('dispose()'),
+                        SizedBox(width: 6),
+                        _headerChip('oldLayer'),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -183,9 +253,15 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _hierarchyNode('EngineLayer (abstract)', 0, Color(0xFF263238), true),
-                    ...layerTypes.map((lt) =>
-                      _hierarchyNode(lt.name, 1, lt.color, false)),
+                    _hierarchyNode(
+                      'EngineLayer (abstract)',
+                      0,
+                      Color(0xFF263238),
+                      true,
+                    ),
+                    ...layerTypes.map(
+                      (lt) => _hierarchyNode(lt.name, 1, lt.color, false),
+                    ),
                   ],
                 ),
               ),
@@ -205,36 +281,56 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _pipelineStep(1, 'Build Scene',
+                    _pipelineStep(
+                      1,
+                      'Build Scene',
                       'layer = builder.pushOffset(dx, dy)',
-                      Color(0xFF0D47A1)),
+                      Color(0xFF0D47A1),
+                    ),
                     _pipelineArrow(),
-                    _pipelineStep(2, 'Store Reference',
+                    _pipelineStep(
+                      2,
+                      'Store Reference',
                       'Save EngineLayer for next frame',
-                      Color(0xFF2E7D32)),
+                      Color(0xFF2E7D32),
+                    ),
                     _pipelineArrow(),
-                    _pipelineStep(3, 'Rebuild with oldLayer',
+                    _pipelineStep(
+                      3,
+                      'Rebuild with oldLayer',
                       'builder.pushOffset(dx, dy, oldLayer: layer)',
-                      Color(0xFFE65100)),
+                      Color(0xFFE65100),
+                    ),
                     _pipelineArrow(),
-                    _pipelineStep(4, 'Engine Reuses GPU State',
+                    _pipelineStep(
+                      4,
+                      'Engine Reuses GPU State',
                       'Unchanged subtree not re-rasterized',
-                      Color(0xFF6A1B9A)),
+                      Color(0xFF6A1B9A),
+                    ),
                     _pipelineArrow(),
-                    _pipelineStep(5, 'Dispose when done',
+                    _pipelineStep(
+                      5,
+                      'Dispose when done',
                       'layer.dispose() releases native resources',
-                      Color(0xFFC62828)),
+                      Color(0xFFC62828),
+                    ),
                     SizedBox(height: 12),
                     Container(
                       padding: EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         color: Color(0xFFE8EAF6),
-                        borderRadius: BorderRadius.circular(8)),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                       child: Text(
                         'Retained rendering dramatically reduces GPU work for '
                         'static subtrees. The engine skips re-rasterization when '
                         'an oldLayer is provided and the subtree has not changed.',
-                        style: TextStyle(fontSize: 10, color: Color(0xFF1A237E))),
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: Color(0xFF1A237E),
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -266,17 +362,19 @@ dynamic build(BuildContext context) {
                       'final scene = builder.build();',
                     ]),
                     SizedBox(height: 10),
-                    Row(children: [
-                      _tagChip('push', Color(0xFF0D47A1)),
-                      SizedBox(width: 4),
-                      Icon(Icons.arrow_forward, size: 12, color: Colors.grey),
-                      SizedBox(width: 4),
-                      _tagChip('children', Color(0xFF2E7D32)),
-                      SizedBox(width: 4),
-                      Icon(Icons.arrow_forward, size: 12, color: Colors.grey),
-                      SizedBox(width: 4),
-                      _tagChip('pop', Color(0xFFC62828)),
-                    ]),
+                    Row(
+                      children: [
+                        _tagChip('push', Color(0xFF0D47A1)),
+                        SizedBox(width: 4),
+                        Icon(Icons.arrow_forward, size: 12, color: Colors.grey),
+                        SizedBox(width: 4),
+                        _tagChip('children', Color(0xFF2E7D32)),
+                        SizedBox(width: 4),
+                        Icon(Icons.arrow_forward, size: 12, color: Colors.grey),
+                        SizedBox(width: 4),
+                        _tagChip('pop', Color(0xFFC62828)),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -292,41 +390,93 @@ dynamic build(BuildContext context) {
                 ),
                 child: Row(
                   children: [
-                    Expanded(child: Container(
-                      padding: EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: Color(0xFFE3F2FD), borderRadius: BorderRadius.circular(10)),
-                      child: Column(children: [
-                        Icon(Icons.layers, color: Color(0xFF0D47A1), size: 24),
-                        SizedBox(height: 6),
-                        Text('EngineLayer', style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 12, color: Color(0xFF0D47A1))),
-                        SizedBox(height: 4),
-                        Text('dart:ui level', style: TextStyle(fontSize: 9)),
-                        Text('Scene graph', style: TextStyle(fontSize: 9)),
-                        Text('GPU compositing', style: TextStyle(fontSize: 9)),
-                        Text('Native resources', style: TextStyle(fontSize: 9)),
-                      ]),
-                    )),
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: Color(0xFFE3F2FD),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          children: [
+                            Icon(
+                              Icons.layers,
+                              color: Color(0xFF0D47A1),
+                              size: 24,
+                            ),
+                            SizedBox(height: 6),
+                            Text(
+                              'EngineLayer',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                                color: Color(0xFF0D47A1),
+                              ),
+                            ),
+                            SizedBox(height: 4),
+                            Text(
+                              'dart:ui level',
+                              style: TextStyle(fontSize: 9),
+                            ),
+                            Text('Scene graph', style: TextStyle(fontSize: 9)),
+                            Text(
+                              'GPU compositing',
+                              style: TextStyle(fontSize: 9),
+                            ),
+                            Text(
+                              'Native resources',
+                              style: TextStyle(fontSize: 9),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 6),
-                      child: Icon(Icons.compare_arrows, color: Colors.grey[400], size: 18)),
-                    Expanded(child: Container(
-                      padding: EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: Color(0xFFFFF3E0), borderRadius: BorderRadius.circular(10)),
-                      child: Column(children: [
-                        Icon(Icons.account_tree, color: Color(0xFFE65100), size: 24),
-                        SizedBox(height: 6),
-                        Text('RenderObject', style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 12, color: Color(0xFFE65100))),
-                        SizedBox(height: 4),
-                        Text('Framework level', style: TextStyle(fontSize: 9)),
-                        Text('Layout tree', style: TextStyle(fontSize: 9)),
-                        Text('Hit testing', style: TextStyle(fontSize: 9)),
-                        Text('Creates layers', style: TextStyle(fontSize: 9)),
-                      ]),
-                    )),
+                      child: Icon(
+                        Icons.compare_arrows,
+                        color: Colors.grey[400],
+                        size: 18,
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: Color(0xFFFFF3E0),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          children: [
+                            Icon(
+                              Icons.account_tree,
+                              color: Color(0xFFE65100),
+                              size: 24,
+                            ),
+                            SizedBox(height: 6),
+                            Text(
+                              'RenderObject',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                                color: Color(0xFFE65100),
+                              ),
+                            ),
+                            SizedBox(height: 4),
+                            Text(
+                              'Framework level',
+                              style: TextStyle(fontSize: 9),
+                            ),
+                            Text('Layout tree', style: TextStyle(fontSize: 9)),
+                            Text('Hit testing', style: TextStyle(fontSize: 9)),
+                            Text(
+                              'Creates layers',
+                              style: TextStyle(fontSize: 9),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -355,10 +505,15 @@ class _LayerType {
 Widget _sectionTitle(String title) {
   return Padding(
     padding: EdgeInsets.fromLTRB(16, 20, 16, 8),
-    child: Text(title, style: TextStyle(
-      fontSize: 13, fontWeight: FontWeight.w700,
-      color: Color(0xFF455A64), letterSpacing: 1.0,
-    )),
+    child: Text(
+      title,
+      style: TextStyle(
+        fontSize: 13,
+        fontWeight: FontWeight.w700,
+        color: Color(0xFF455A64),
+        letterSpacing: 1.0,
+      ),
+    ),
   );
 }
 
@@ -367,7 +522,8 @@ Widget _headerChip(String label) {
     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
     decoration: BoxDecoration(
       color: Colors.white.withValues(alpha: 0.2),
-      borderRadius: BorderRadius.circular(6)),
+      borderRadius: BorderRadius.circular(6),
+    ),
     child: Text(label, style: TextStyle(fontSize: 10, color: Colors.white)),
   );
 }
@@ -378,18 +534,24 @@ Widget _hierarchyNode(String name, int indent, Color color, bool isBase) {
     child: Row(
       children: [
         Container(
-          width: 10, height: 10,
+          width: 10,
+          height: 10,
           decoration: BoxDecoration(
             color: isBase ? color : color.withValues(alpha: 0.2),
             shape: BoxShape.circle,
-            border: Border.all(color: color, width: 1.5)),
+            border: Border.all(color: color, width: 1.5),
+          ),
         ),
         SizedBox(width: 8),
-        Text(name, style: TextStyle(
-          fontWeight: isBase ? FontWeight.bold : FontWeight.w500,
-          fontSize: isBase ? 13 : 11,
-          fontStyle: isBase ? FontStyle.italic : FontStyle.normal,
-          color: color)),
+        Text(
+          name,
+          style: TextStyle(
+            fontWeight: isBase ? FontWeight.bold : FontWeight.w500,
+            fontSize: isBase ? 13 : 11,
+            fontStyle: isBase ? FontStyle.italic : FontStyle.normal,
+            color: color,
+          ),
+        ),
       ],
     ),
   );
@@ -407,21 +569,42 @@ Widget _layerTypeCard(_LayerType lt) {
     child: Row(
       children: [
         Container(
-          width: 34, height: 34,
+          width: 34,
+          height: 34,
           decoration: BoxDecoration(
             color: lt.color.withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(8)),
+            borderRadius: BorderRadius.circular(8),
+          ),
           child: Icon(lt.icon, size: 18, color: lt.color),
         ),
         SizedBox(width: 12),
-        Expanded(child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(lt.name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: lt.color)),
-            Text(lt.api, style: TextStyle(fontSize: 10, fontFamily: 'monospace', color: Colors.grey[600])),
-            Text(lt.desc, style: TextStyle(fontSize: 10, color: Colors.grey[500])),
-          ],
-        )),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                lt.name,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                  color: lt.color,
+                ),
+              ),
+              Text(
+                lt.api,
+                style: TextStyle(
+                  fontSize: 10,
+                  fontFamily: 'monospace',
+                  color: Colors.grey[600],
+                ),
+              ),
+              Text(
+                lt.desc,
+                style: TextStyle(fontSize: 10, color: Colors.grey[500]),
+              ),
+            ],
+          ),
+        ),
       ],
     ),
   );
@@ -431,19 +614,40 @@ Widget _pipelineStep(int step, String label, String detail, Color color) {
   return Row(
     children: [
       Container(
-        width: 26, height: 26,
+        width: 26,
+        height: 26,
         decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-        child: Center(child: Text('$step', style: TextStyle(
-          color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11))),
+        child: Center(
+          child: Text(
+            '$step',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 11,
+            ),
+          ),
+        ),
       ),
       SizedBox(width: 10),
-      Expanded(child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(label, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-          Text(detail, style: TextStyle(fontSize: 10, fontFamily: 'monospace', color: Colors.grey[600])),
-        ],
-      )),
+      Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              label,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+            ),
+            Text(
+              detail,
+              style: TextStyle(
+                fontSize: 10,
+                fontFamily: 'monospace',
+                color: Colors.grey[600],
+              ),
+            ),
+          ],
+        ),
+      ),
     ],
   );
 }
@@ -461,11 +665,17 @@ Widget _codeBlock(List<String> lines) {
     padding: EdgeInsets.all(12),
     decoration: BoxDecoration(
       color: Color(0xFF263238),
-      borderRadius: BorderRadius.circular(8)),
+      borderRadius: BorderRadius.circular(8),
+    ),
     child: Text(
       lines.join('\n'),
-      style: TextStyle(fontFamily: 'monospace', fontSize: 10,
-        color: Color(0xFF80CBC4), height: 1.5)),
+      style: TextStyle(
+        fontFamily: 'monospace',
+        fontSize: 10,
+        color: Color(0xFF80CBC4),
+        height: 1.5,
+      ),
+    ),
   );
 }
 
@@ -474,7 +684,11 @@ Widget _tagChip(String label, Color color) {
     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
     decoration: BoxDecoration(
       color: color.withValues(alpha: 0.1),
-      borderRadius: BorderRadius.circular(6)),
-    child: Text(label, style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: color)),
+      borderRadius: BorderRadius.circular(6),
+    ),
+    child: Text(
+      label,
+      style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: color),
+    ),
   );
 }

@@ -39,10 +39,10 @@ dynamic build(BuildContext context) {
     ..strokeJoin = ui.StrokeJoin.round;
 
   final gradientPaint = ui.Paint()
-    ..shader = ui.Gradient.linear(
-      Offset(0, 0), Offset(200, 0),
-      [Color(0xFF4CAF50), Color(0xFF2196F3)],
-    );
+    ..shader = ui.Gradient.linear(Offset(0, 0), Offset(200, 0), [
+      Color(0xFF4CAF50),
+      Color(0xFF2196F3),
+    ]);
 
   final blurPaint = ui.Paint()
     ..color = Color(0xFF6A1B9A)
@@ -101,8 +101,11 @@ dynamic build(BuildContext context) {
                   ),
                   borderRadius: BorderRadius.circular(16.0),
                   boxShadow: [
-                    BoxShadow(color: Colors.blue.withValues(alpha: 0.3),
-                      blurRadius: 12, offset: Offset(0, 6)),
+                    BoxShadow(
+                      color: Colors.blue.withValues(alpha: 0.3),
+                      blurRadius: 12,
+                      offset: Offset(0, 6),
+                    ),
                   ],
                 ),
                 padding: EdgeInsets.all(24.0),
@@ -110,13 +113,22 @@ dynamic build(BuildContext context) {
                   children: [
                     Icon(Icons.brush, size: 48, color: Colors.white),
                     SizedBox(height: 12),
-                    Text('Paint & Canvas',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,
-                        color: Colors.white)),
+                    Text(
+                      'Paint & Canvas',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
                     SizedBox(height: 6),
-                    Text('Drawing operations with Paint configuration',
-                      style: TextStyle(fontSize: 14,
-                        color: Colors.white.withValues(alpha: 0.85))),
+                    Text(
+                      'Drawing operations with Paint configuration',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.white.withValues(alpha: 0.85),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -132,14 +144,25 @@ dynamic build(BuildContext context) {
                 ),
                 child: Row(
                   children: [
-                    Expanded(child: _paintStyleBox('Fill', ui.PaintingStyle.fill,
-                      Color(0xFF2196F3))),
+                    Expanded(
+                      child: _paintStyleBox(
+                        'Fill',
+                        ui.PaintingStyle.fill,
+                        Color(0xFF2196F3),
+                      ),
+                    ),
                     SizedBox(width: 12),
-                    Expanded(child: _paintStyleBox('Stroke', ui.PaintingStyle.stroke,
-                      Color(0xFFF44336))),
+                    Expanded(
+                      child: _paintStyleBox(
+                        'Stroke',
+                        ui.PaintingStyle.stroke,
+                        Color(0xFFF44336),
+                      ),
+                    ),
                     SizedBox(width: 12),
-                    Expanded(child: _paintStyleBox('Both', null,
-                      Color(0xFF4CAF50))),
+                    Expanded(
+                      child: _paintStyleBox('Both', null, Color(0xFF4CAF50)),
+                    ),
                   ],
                 ),
               ),
@@ -175,9 +198,21 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _capRow('butt', 'Flat end at line endpoint', Color(0xFF1565C0)),
-                    _capRow('round', 'Semicircle at line endpoint', Color(0xFF2E7D32)),
-                    _capRow('square', 'Square extends past endpoint', Color(0xFFE65100)),
+                    _capRow(
+                      'butt',
+                      'Flat end at line endpoint',
+                      Color(0xFF1565C0),
+                    ),
+                    _capRow(
+                      'round',
+                      'Semicircle at line endpoint',
+                      Color(0xFF2E7D32),
+                    ),
+                    _capRow(
+                      'square',
+                      'Square extends past endpoint',
+                      Color(0xFFE65100),
+                    ),
                   ],
                 ),
               ),
@@ -251,7 +286,8 @@ dynamic build(BuildContext context) {
                   borderRadius: BorderRadius.circular(12.0),
                 ),
                 child: Wrap(
-                  spacing: 6, runSpacing: 6,
+                  spacing: 6,
+                  runSpacing: 6,
                   children: BlendMode.values.take(18).map((mode) {
                     return _blendChip(mode.name);
                   }).toList(),
@@ -269,14 +305,31 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _shaderRow('Gradient.linear',
-                      LinearGradient(colors: [Color(0xFF2196F3), Color(0xFFF44336)])),
+                    _shaderRow(
+                      'Gradient.linear',
+                      LinearGradient(
+                        colors: [Color(0xFF2196F3), Color(0xFFF44336)],
+                      ),
+                    ),
                     SizedBox(height: 10),
-                    _shaderRow('Gradient.radial',
-                      RadialGradient(colors: [Color(0xFF4CAF50), Color(0xFF1565C0)])),
+                    _shaderRow(
+                      'Gradient.radial',
+                      RadialGradient(
+                        colors: [Color(0xFF4CAF50), Color(0xFF1565C0)],
+                      ),
+                    ),
                     SizedBox(height: 10),
-                    _shaderRow('Gradient.sweep',
-                      SweepGradient(colors: [Color(0xFFF44336), Color(0xFF2196F3), Color(0xFF4CAF50), Color(0xFFF44336)])),
+                    _shaderRow(
+                      'Gradient.sweep',
+                      SweepGradient(
+                        colors: [
+                          Color(0xFFF44336),
+                          Color(0xFF2196F3),
+                          Color(0xFF4CAF50),
+                          Color(0xFFF44336),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -292,9 +345,21 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _filterRow('MaskFilter.blur(normal, 2)', 2.0, Color(0xFF6A1B9A)),
-                    _filterRow('MaskFilter.blur(normal, 5)', 5.0, Color(0xFF2E7D32)),
-                    _filterRow('MaskFilter.blur(normal, 10)', 10.0, Color(0xFF1565C0)),
+                    _filterRow(
+                      'MaskFilter.blur(normal, 2)',
+                      2.0,
+                      Color(0xFF6A1B9A),
+                    ),
+                    _filterRow(
+                      'MaskFilter.blur(normal, 5)',
+                      5.0,
+                      Color(0xFF2E7D32),
+                    ),
+                    _filterRow(
+                      'MaskFilter.blur(normal, 10)',
+                      10.0,
+                      Color(0xFF1565C0),
+                    ),
                     SizedBox(height: 16),
                     _filterRow('No filter', 0.0, Color(0xFFBF360C)),
                   ],
@@ -314,10 +379,15 @@ dynamic build(BuildContext context) {
 Widget _sectionTitle(String title) {
   return Padding(
     padding: EdgeInsets.fromLTRB(16, 20, 16, 8),
-    child: Text(title, style: TextStyle(
-      fontSize: 13, fontWeight: FontWeight.w700,
-      color: Color(0xFF455A64), letterSpacing: 1.0,
-    )),
+    child: Text(
+      title,
+      style: TextStyle(
+        fontSize: 13,
+        fontWeight: FontWeight.w700,
+        color: Color(0xFF455A64),
+        letterSpacing: 1.0,
+      ),
+    ),
   );
 }
 
@@ -325,21 +395,27 @@ Widget _paintStyleBox(String label, ui.PaintingStyle? style, Color color) {
   return Column(
     children: [
       Container(
-        width: 80, height: 80,
+        width: 80,
+        height: 80,
         decoration: BoxDecoration(
           color: style == ui.PaintingStyle.fill || style == null
-            ? color.withValues(alpha: 0.2) : Colors.transparent,
+              ? color.withValues(alpha: 0.2)
+              : Colors.transparent,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
             color: style == ui.PaintingStyle.stroke || style == null
-              ? color : Colors.transparent,
-            width: 3),
+                ? color
+                : Colors.transparent,
+            width: 3,
+          ),
         ),
       ),
       SizedBox(height: 6),
       Text(label, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-      Text(style?.name ?? 'fill+stroke',
-        style: TextStyle(fontSize: 10, color: Colors.grey[600])),
+      Text(
+        style?.name ?? 'fill+stroke',
+        style: TextStyle(fontSize: 10, color: Colors.grey[600]),
+      ),
     ],
   );
 }
@@ -349,13 +425,20 @@ Widget _strokeWidthRow(double width, Color color) {
     padding: EdgeInsets.symmetric(vertical: 6),
     child: Row(
       children: [
-        SizedBox(width: 50,
-          child: Text('${width}px', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+        SizedBox(
+          width: 50,
+          child: Text(
+            '${width}px',
+            style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
+          ),
+        ),
         Expanded(
           child: Container(
             height: width,
             decoration: BoxDecoration(
-              color: color, borderRadius: BorderRadius.circular(width / 2)),
+              color: color,
+              borderRadius: BorderRadius.circular(width / 2),
+            ),
           ),
         ),
       ],
@@ -369,12 +452,13 @@ Widget _capRow(String name, String desc, Color color) {
     child: Row(
       children: [
         Container(
-          width: 60, height: 24,
+          width: 60,
+          height: 24,
           decoration: BoxDecoration(
             color: color,
             borderRadius: name == 'round'
-              ? BorderRadius.circular(12)
-              : name == 'square'
+                ? BorderRadius.circular(12)
+                : name == 'square'
                 ? BorderRadius.circular(0)
                 : BorderRadius.circular(0),
           ),
@@ -384,8 +468,14 @@ Widget _capRow(String name, String desc, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-              Text(desc, style: TextStyle(fontSize: 10, color: Colors.grey[600])),
+              Text(
+                name,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+              ),
+              Text(
+                desc,
+                style: TextStyle(fontSize: 10, color: Colors.grey[600]),
+              ),
             ],
           ),
         ),
@@ -400,12 +490,13 @@ Widget _joinRow(String name, String desc, Color color) {
     child: Row(
       children: [
         Container(
-          width: 36, height: 36,
+          width: 36,
+          height: 36,
           decoration: BoxDecoration(
             border: Border.all(color: color, width: 3),
             borderRadius: name == 'round'
-              ? BorderRadius.circular(8)
-              : name == 'bevel'
+                ? BorderRadius.circular(8)
+                : name == 'bevel'
                 ? BorderRadius.circular(4)
                 : BorderRadius.circular(0),
           ),
@@ -415,8 +506,14 @@ Widget _joinRow(String name, String desc, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-              Text(desc, style: TextStyle(fontSize: 10, color: Colors.grey[600])),
+              Text(
+                name,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+              ),
+              Text(
+                desc,
+                style: TextStyle(fontSize: 10, color: Colors.grey[600]),
+              ),
             ],
           ),
         ),
@@ -436,7 +533,14 @@ Widget _canvasOpGroup(String title, List<Widget> ops, Color color) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: color)),
+        Text(
+          title,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 12,
+            color: color,
+          ),
+        ),
         SizedBox(height: 6),
         ...ops,
       ],
@@ -449,10 +553,21 @@ Widget _canvasOp(String name, String desc) {
     padding: EdgeInsets.symmetric(vertical: 2),
     child: Row(
       children: [
-        Text('  • $name', style: TextStyle(fontSize: 11, fontFamily: 'monospace',
-          fontWeight: FontWeight.w600)),
+        Text(
+          '  • $name',
+          style: TextStyle(
+            fontSize: 11,
+            fontFamily: 'monospace',
+            fontWeight: FontWeight.w600,
+          ),
+        ),
         SizedBox(width: 6),
-        Expanded(child: Text(desc, style: TextStyle(fontSize: 10, color: Colors.grey[600]))),
+        Expanded(
+          child: Text(
+            desc,
+            style: TextStyle(fontSize: 10, color: Colors.grey[600]),
+          ),
+        ),
       ],
     ),
   );
@@ -462,8 +577,10 @@ Widget _blendChip(String name) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
     decoration: BoxDecoration(
-      color: Color(0xFFF5F5F5), borderRadius: BorderRadius.circular(6),
-      border: Border.all(color: Colors.grey[300]!)),
+      color: Color(0xFFF5F5F5),
+      borderRadius: BorderRadius.circular(6),
+      border: Border.all(color: Colors.grey[300]!),
+    ),
     child: Text(name, style: TextStyle(fontSize: 9, fontFamily: 'monospace')),
   );
 }
@@ -471,13 +588,20 @@ Widget _blendChip(String name) {
 Widget _shaderRow(String name, Gradient gradient) {
   return Row(
     children: [
-      SizedBox(width: 110,
-        child: Text(name, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600))),
+      SizedBox(
+        width: 110,
+        child: Text(
+          name,
+          style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
+        ),
+      ),
       Expanded(
         child: Container(
           height: 28,
           decoration: BoxDecoration(
-            gradient: gradient, borderRadius: BorderRadius.circular(6)),
+            gradient: gradient,
+            borderRadius: BorderRadius.circular(6),
+          ),
         ),
       ),
     ],
@@ -490,17 +614,28 @@ Widget _filterRow(String name, double sigma, Color color) {
     child: Row(
       children: [
         Container(
-          width: 40, height: 40,
+          width: 40,
+          height: 40,
           decoration: BoxDecoration(
             color: color,
             borderRadius: BorderRadius.circular(8),
             boxShadow: sigma > 0
-              ? [BoxShadow(color: color.withValues(alpha: 0.5), blurRadius: sigma * 2)]
-              : null,
+                ? [
+                    BoxShadow(
+                      color: color.withValues(alpha: 0.5),
+                      blurRadius: sigma * 2,
+                    ),
+                  ]
+                : null,
           ),
         ),
         SizedBox(width: 12),
-        Expanded(child: Text(name, style: TextStyle(fontSize: 11, fontFamily: 'monospace'))),
+        Expanded(
+          child: Text(
+            name,
+            style: TextStyle(fontSize: 11, fontFamily: 'monospace'),
+          ),
+        ),
       ],
     ),
   );

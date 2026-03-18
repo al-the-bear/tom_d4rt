@@ -16,7 +16,9 @@ dynamic build(BuildContext context) {
 
   print('Image type: ${ui.Image}');
   print('Image is abstract — no public constructor');
-  print('Obtain via: instantiateImageCodec, decodeImageFromPixels, Codec.getNextFrame');
+  print(
+    'Obtain via: instantiateImageCodec, decodeImageFromPixels, Codec.getNextFrame',
+  );
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 2: CREATING AN IMAGE FROM PIXELS
@@ -98,8 +100,11 @@ dynamic build(BuildContext context) {
                   ),
                   borderRadius: BorderRadius.circular(16.0),
                   boxShadow: [
-                    BoxShadow(color: Colors.deepOrange.withValues(alpha: 0.3),
-                      blurRadius: 12, offset: Offset(0, 6)),
+                    BoxShadow(
+                      color: Colors.deepOrange.withValues(alpha: 0.3),
+                      blurRadius: 12,
+                      offset: Offset(0, 6),
+                    ),
                   ],
                 ),
                 padding: EdgeInsets.all(24.0),
@@ -107,13 +112,22 @@ dynamic build(BuildContext context) {
                   children: [
                     Icon(Icons.image, size: 48, color: Colors.white),
                     SizedBox(height: 12),
-                    Text('Image & Codec APIs',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,
-                        color: Colors.white)),
+                    Text(
+                      'Image & Codec APIs',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
                     SizedBox(height: 6),
-                    Text('Raster image decoding pipeline',
-                      style: TextStyle(fontSize: 14,
-                        color: Colors.white.withValues(alpha: 0.85))),
+                    Text(
+                      'Raster image decoding pipeline',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.white.withValues(alpha: 0.85),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -129,14 +143,28 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _propRow('Type', 'Abstract class (no public constructor)', Color(0xFFBF360C)),
+                    _propRow(
+                      'Type',
+                      'Abstract class (no public constructor)',
+                      Color(0xFFBF360C),
+                    ),
                     _propRow('Source', 'dart:ui', Color(0xFF1565C0)),
-                    _propRow('Purpose', 'Represents a decoded raster image in GPU memory', Color(0xFF2E7D32)),
-                    _propRow('Creation', 'Via Codec, decodeImageFromPixels, or Picture', Color(0xFF6A1B9A)),
+                    _propRow(
+                      'Purpose',
+                      'Represents a decoded raster image in GPU memory',
+                      Color(0xFF2E7D32),
+                    ),
+                    _propRow(
+                      'Creation',
+                      'Via Codec, decodeImageFromPixels, or Picture',
+                      Color(0xFF6A1B9A),
+                    ),
                     SizedBox(height: 12),
-                    _infoBox('Image objects hold native GPU resources. Always call dispose() '
+                    _infoBox(
+                      'Image objects hold native GPU resources. Always call dispose() '
                       'when no longer needed to avoid memory leaks.',
-                      Color(0xFFBF360C)),
+                      Color(0xFFBF360C),
+                    ),
                   ],
                 ),
               ),
@@ -152,13 +180,48 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _apiEntry('width', 'int', 'Pixel width of the image', Icons.straighten),
-                    _apiEntry('height', 'int', 'Pixel height of the image', Icons.height),
-                    _apiEntry('colorSpace', 'ColorSpace', 'Image color space', Icons.palette),
-                    _apiEntry('toByteData(format)', 'Future<ByteData?>', 'Export pixel data', Icons.data_array),
-                    _apiEntry('dispose()', 'void', 'Release GPU resources', Icons.delete),
-                    _apiEntry('clone()', 'Image', 'Create image copy', Icons.copy),
-                    _apiEntry('isCloneOf(other)', 'bool', 'Check clone relationship', Icons.compare),
+                    _apiEntry(
+                      'width',
+                      'int',
+                      'Pixel width of the image',
+                      Icons.straighten,
+                    ),
+                    _apiEntry(
+                      'height',
+                      'int',
+                      'Pixel height of the image',
+                      Icons.height,
+                    ),
+                    _apiEntry(
+                      'colorSpace',
+                      'ColorSpace',
+                      'Image color space',
+                      Icons.palette,
+                    ),
+                    _apiEntry(
+                      'toByteData(format)',
+                      'Future<ByteData?>',
+                      'Export pixel data',
+                      Icons.data_array,
+                    ),
+                    _apiEntry(
+                      'dispose()',
+                      'void',
+                      'Release GPU resources',
+                      Icons.delete,
+                    ),
+                    _apiEntry(
+                      'clone()',
+                      'Image',
+                      'Create image copy',
+                      Icons.copy,
+                    ),
+                    _apiEntry(
+                      'isCloneOf(other)',
+                      'bool',
+                      'Check clone relationship',
+                      Icons.compare,
+                    ),
                   ],
                 ),
               ),
@@ -183,21 +246,35 @@ dynamic build(BuildContext context) {
                           children: List.generate(width, (x) {
                             final offset = (y * width + x) * 4;
                             final color = Color.fromARGB(
-                              pixels[offset + 3], pixels[offset],
-                              pixels[offset + 1], pixels[offset + 2]);
+                              pixels[offset + 3],
+                              pixels[offset],
+                              pixels[offset + 1],
+                              pixels[offset + 2],
+                            );
                             return Container(
                               margin: EdgeInsets.symmetric(horizontal: 2),
-                              width: 50, height: 50,
+                              width: 50,
+                              height: 50,
                               decoration: BoxDecoration(
                                 color: color,
                                 borderRadius: BorderRadius.circular(6),
                                 border: Border.all(color: Colors.grey[300]!),
                               ),
                               child: Center(
-                                child: Text('${x},${y}',
-                                  style: TextStyle(fontSize: 9, color: Colors.white,
+                                child: Text(
+                                  '${x},${y}',
+                                  style: TextStyle(
+                                    fontSize: 9,
+                                    color: Colors.white,
                                     fontWeight: FontWeight.bold,
-                                    shadows: [Shadow(color: Colors.black54, blurRadius: 2)])),
+                                    shadows: [
+                                      Shadow(
+                                        color: Colors.black54,
+                                        blurRadius: 2,
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
                             );
                           }),
@@ -205,9 +282,14 @@ dynamic build(BuildContext context) {
                       );
                     }),
                     SizedBox(height: 12),
-                    Text('R=x*64, G=y*64, B=128, A=255',
-                      style: TextStyle(fontSize: 11, fontFamily: 'monospace',
-                        color: Colors.grey[600])),
+                    Text(
+                      'R=x*64, G=y*64, B=128, A=255',
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontFamily: 'monospace',
+                        color: Colors.grey[600],
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -223,14 +305,30 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _formatRow('rawRgba', 'Raw RGBA pixels (4 bytes/pixel)',
-                      Color(0xFFBF360C), 1.0),
-                    _formatRow('rawStraightRgba', 'Straight (non-premultiplied) RGBA',
-                      Color(0xFF1565C0), 0.9),
-                    _formatRow('rawUnmodified', 'Raw pixels in native format',
-                      Color(0xFF2E7D32), 0.85),
-                    _formatRow('png', 'Compressed PNG encoding',
-                      Color(0xFF6A1B9A), 0.3),
+                    _formatRow(
+                      'rawRgba',
+                      'Raw RGBA pixels (4 bytes/pixel)',
+                      Color(0xFFBF360C),
+                      1.0,
+                    ),
+                    _formatRow(
+                      'rawStraightRgba',
+                      'Straight (non-premultiplied) RGBA',
+                      Color(0xFF1565C0),
+                      0.9,
+                    ),
+                    _formatRow(
+                      'rawUnmodified',
+                      'Raw pixels in native format',
+                      Color(0xFF2E7D32),
+                      0.85,
+                    ),
+                    _formatRow(
+                      'png',
+                      'Compressed PNG encoding',
+                      Color(0xFF6A1B9A),
+                      0.3,
+                    ),
                   ],
                 ),
               ),
@@ -246,20 +344,45 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _pipelineStep(1, 'Load Bytes', 'rootBundle / http / file',
-                      Icons.cloud_download, Color(0xFF1565C0)),
+                    _pipelineStep(
+                      1,
+                      'Load Bytes',
+                      'rootBundle / http / file',
+                      Icons.cloud_download,
+                      Color(0xFF1565C0),
+                    ),
                     _pipelineArrow(),
-                    _pipelineStep(2, 'Create Codec', 'instantiateImageCodec(data)',
-                      Icons.code, Color(0xFF6A1B9A)),
+                    _pipelineStep(
+                      2,
+                      'Create Codec',
+                      'instantiateImageCodec(data)',
+                      Icons.code,
+                      Color(0xFF6A1B9A),
+                    ),
                     _pipelineArrow(),
-                    _pipelineStep(3, 'Get Frame', 'codec.getNextFrame()',
-                      Icons.filter_frames, Color(0xFF2E7D32)),
+                    _pipelineStep(
+                      3,
+                      'Get Frame',
+                      'codec.getNextFrame()',
+                      Icons.filter_frames,
+                      Color(0xFF2E7D32),
+                    ),
                     _pipelineArrow(),
-                    _pipelineStep(4, 'Access Image', 'frameInfo.image',
-                      Icons.image, Color(0xFFBF360C)),
+                    _pipelineStep(
+                      4,
+                      'Access Image',
+                      'frameInfo.image',
+                      Icons.image,
+                      Color(0xFFBF360C),
+                    ),
                     _pipelineArrow(),
-                    _pipelineStep(5, 'Use & Dispose', 'canvas.drawImage() → image.dispose()',
-                      Icons.delete_sweep, Color(0xFF455A64)),
+                    _pipelineStep(
+                      5,
+                      'Use & Dispose',
+                      'canvas.drawImage() → image.dispose()',
+                      Icons.delete_sweep,
+                      Color(0xFF455A64),
+                    ),
                   ],
                 ),
               ),
@@ -275,16 +398,31 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _pathRow('instantiateImageCodec', 'Decode encoded image bytes (PNG, JPEG, etc.)',
-                      Color(0xFF1565C0)),
-                    _pathRow('decodeImageFromPixels', 'Create Image from raw RGBA pixel data',
-                      Color(0xFF2E7D32)),
-                    _pathRow('Picture.toImage', 'Rasterize a Picture to an Image',
-                      Color(0xFF6A1B9A)),
-                    _pathRow('ImageDescriptor', 'Advanced: manual codec with target size',
-                      Color(0xFFBF360C)),
-                    _pathRow('ImmutableBuffer', 'Zero-copy byte transfer from assets',
-                      Color(0xFFE65100)),
+                    _pathRow(
+                      'instantiateImageCodec',
+                      'Decode encoded image bytes (PNG, JPEG, etc.)',
+                      Color(0xFF1565C0),
+                    ),
+                    _pathRow(
+                      'decodeImageFromPixels',
+                      'Create Image from raw RGBA pixel data',
+                      Color(0xFF2E7D32),
+                    ),
+                    _pathRow(
+                      'Picture.toImage',
+                      'Rasterize a Picture to an Image',
+                      Color(0xFF6A1B9A),
+                    ),
+                    _pathRow(
+                      'ImageDescriptor',
+                      'Advanced: manual codec with target size',
+                      Color(0xFFBF360C),
+                    ),
+                    _pathRow(
+                      'ImmutableBuffer',
+                      'Zero-copy byte transfer from assets',
+                      Color(0xFFE65100),
+                    ),
                   ],
                 ),
               ),
@@ -300,20 +438,42 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _lifecyclePhase('Allocated', 'Image decoded in GPU texture memory',
-                      Color(0xFF2E7D32), 1.0),
-                    _lifecyclePhase('In Use', 'Referenced by widgets/canvas ops',
-                      Color(0xFF1565C0), 0.75),
-                    _lifecyclePhase('Cloned', 'clone() shares GPU texture, ref-counted',
-                      Color(0xFF6A1B9A), 0.5),
-                    _lifecyclePhase('Disposed', 'dispose() decrements ref count',
-                      Color(0xFFE65100), 0.25),
-                    _lifecyclePhase('Freed', 'Last ref disposed → GPU memory freed',
-                      Color(0xFFC62828), 0.0),
+                    _lifecyclePhase(
+                      'Allocated',
+                      'Image decoded in GPU texture memory',
+                      Color(0xFF2E7D32),
+                      1.0,
+                    ),
+                    _lifecyclePhase(
+                      'In Use',
+                      'Referenced by widgets/canvas ops',
+                      Color(0xFF1565C0),
+                      0.75,
+                    ),
+                    _lifecyclePhase(
+                      'Cloned',
+                      'clone() shares GPU texture, ref-counted',
+                      Color(0xFF6A1B9A),
+                      0.5,
+                    ),
+                    _lifecyclePhase(
+                      'Disposed',
+                      'dispose() decrements ref count',
+                      Color(0xFFE65100),
+                      0.25,
+                    ),
+                    _lifecyclePhase(
+                      'Freed',
+                      'Last ref disposed → GPU memory freed',
+                      Color(0xFFC62828),
+                      0.0,
+                    ),
                     SizedBox(height: 12),
-                    _infoBox('Always dispose images when done. Failing to dispose causes '
+                    _infoBox(
+                      'Always dispose images when done. Failing to dispose causes '
                       'GPU memory leaks that can crash large apps.',
-                      Color(0xFFC62828)),
+                      Color(0xFFC62828),
+                    ),
                   ],
                 ),
               ),
@@ -331,10 +491,15 @@ dynamic build(BuildContext context) {
 Widget _sectionTitle(String title) {
   return Padding(
     padding: EdgeInsets.fromLTRB(16, 20, 16, 8),
-    child: Text(title, style: TextStyle(
-      fontSize: 13, fontWeight: FontWeight.w700,
-      color: Color(0xFF455A64), letterSpacing: 1.0,
-    )),
+    child: Text(
+      title,
+      style: TextStyle(
+        fontSize: 13,
+        fontWeight: FontWeight.w700,
+        color: Color(0xFF455A64),
+        letterSpacing: 1.0,
+      ),
+    ),
   );
 }
 
@@ -346,8 +511,17 @@ Widget _propRow(String label, String value, Color color) {
         Container(
           padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
           decoration: BoxDecoration(
-            color: color.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(6)),
-          child: Text(label, style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: color)),
+            color: color.withValues(alpha: 0.1),
+            borderRadius: BorderRadius.circular(6),
+          ),
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
         ),
         SizedBox(width: 10),
         Expanded(child: Text(value, style: TextStyle(fontSize: 12))),
@@ -368,7 +542,9 @@ Widget _infoBox(String text, Color color) {
       children: [
         Icon(Icons.warning_amber, color: color, size: 16),
         SizedBox(width: 8),
-        Expanded(child: Text(text, style: TextStyle(fontSize: 11, color: color))),
+        Expanded(
+          child: Text(text, style: TextStyle(fontSize: 11, color: color)),
+        ),
       ],
     ),
   );
@@ -385,13 +561,27 @@ Widget _apiEntry(String name, String type, String desc, IconData icon) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(children: [
-                Text(name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12,
-                  fontFamily: 'monospace')),
-                SizedBox(width: 6),
-                Text('→ $type', style: TextStyle(fontSize: 10, color: Colors.grey[500])),
-              ]),
-              Text(desc, style: TextStyle(fontSize: 10, color: Colors.grey[600])),
+              Row(
+                children: [
+                  Text(
+                    name,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                      fontFamily: 'monospace',
+                    ),
+                  ),
+                  SizedBox(width: 6),
+                  Text(
+                    '→ $type',
+                    style: TextStyle(fontSize: 10, color: Colors.grey[500]),
+                  ),
+                ],
+              ),
+              Text(
+                desc,
+                style: TextStyle(fontSize: 10, color: Colors.grey[600]),
+              ),
             ],
           ),
         ),
@@ -408,7 +598,14 @@ Widget _formatRow(String name, String desc, Color color, double sizeRatio) {
       children: [
         Row(
           children: [
-            Text(name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: color)),
+            Text(
+              name,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 12,
+                color: color,
+              ),
+            ),
             Spacer(),
             Text(desc, style: TextStyle(fontSize: 10, color: Colors.grey[600])),
           ],
@@ -417,12 +614,17 @@ Widget _formatRow(String name, String desc, Color color, double sizeRatio) {
         Container(
           height: 8,
           decoration: BoxDecoration(
-            color: Colors.grey[200], borderRadius: BorderRadius.circular(4)),
+            color: Colors.grey[200],
+            borderRadius: BorderRadius.circular(4),
+          ),
           child: FractionallySizedBox(
             widthFactor: sizeRatio,
             alignment: Alignment.centerLeft,
             child: Container(
-              decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(4)),
+              decoration: BoxDecoration(
+                color: color,
+                borderRadius: BorderRadius.circular(4),
+              ),
             ),
           ),
         ),
@@ -431,23 +633,47 @@ Widget _formatRow(String name, String desc, Color color, double sizeRatio) {
   );
 }
 
-Widget _pipelineStep(int step, String label, String desc, IconData icon, Color color) {
+Widget _pipelineStep(
+  int step,
+  String label,
+  String desc,
+  IconData icon,
+  Color color,
+) {
   return Row(
     children: [
       Container(
-        width: 28, height: 28,
+        width: 28,
+        height: 28,
         decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-        child: Center(child: Text('$step', style: TextStyle(
-          color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12))),
+        child: Center(
+          child: Text(
+            '$step',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
+            ),
+          ),
+        ),
       ),
       SizedBox(width: 12),
       Expanded(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(label, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-            Text(desc, style: TextStyle(fontSize: 10, fontFamily: 'monospace',
-              color: Colors.grey[600])),
+            Text(
+              label,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+            ),
+            Text(
+              desc,
+              style: TextStyle(
+                fontSize: 10,
+                fontFamily: 'monospace',
+                color: Colors.grey[600],
+              ),
+            ),
           ],
         ),
       ),
@@ -468,16 +694,29 @@ Widget _pathRow(String name, String desc, Color color) {
     padding: EdgeInsets.symmetric(vertical: 5),
     child: Row(
       children: [
-        Container(width: 8, height: 8,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+        Container(
+          width: 8,
+          height: 8,
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+        ),
         SizedBox(width: 10),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12,
-                fontFamily: 'monospace', color: color)),
-              Text(desc, style: TextStyle(fontSize: 10, color: Colors.grey[600])),
+              Text(
+                name,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                  fontFamily: 'monospace',
+                  color: color,
+                ),
+              ),
+              Text(
+                desc,
+                style: TextStyle(fontSize: 10, color: Colors.grey[600]),
+              ),
             ],
           ),
         ),
@@ -491,26 +730,44 @@ Widget _lifecyclePhase(String phase, String desc, Color color, double bar) {
     padding: EdgeInsets.symmetric(vertical: 4),
     child: Row(
       children: [
-        SizedBox(width: 70,
-          child: Text(phase, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 11, color: color))),
+        SizedBox(
+          width: 70,
+          child: Text(
+            phase,
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 11,
+              color: color,
+            ),
+          ),
+        ),
         Expanded(
           child: Container(
             height: 14,
             decoration: BoxDecoration(
-              color: Colors.grey[200], borderRadius: BorderRadius.circular(7)),
+              color: Colors.grey[200],
+              borderRadius: BorderRadius.circular(7),
+            ),
             child: FractionallySizedBox(
               widthFactor: bar.clamp(0.05, 1.0),
               alignment: Alignment.centerLeft,
               child: Container(
                 decoration: BoxDecoration(
-                  color: color, borderRadius: BorderRadius.circular(7)),
+                  color: color,
+                  borderRadius: BorderRadius.circular(7),
+                ),
               ),
             ),
           ),
         ),
         SizedBox(width: 8),
-        SizedBox(width: 140,
-          child: Text(desc, style: TextStyle(fontSize: 9, color: Colors.grey[600]))),
+        SizedBox(
+          width: 140,
+          child: Text(
+            desc,
+            style: TextStyle(fontSize: 9, color: Colors.grey[600]),
+          ),
+        ),
       ],
     ),
   );

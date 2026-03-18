@@ -36,7 +36,9 @@ dynamic build(BuildContext context) {
     ..color = Color(0xFFC62828)
     ..style = PaintingStyle.stroke
     ..strokeWidth = 4.0;
-  print('Stroke paint: style=${strokePaint.style}, width=${strokePaint.strokeWidth}');
+  print(
+    'Stroke paint: style=${strokePaint.style}, width=${strokePaint.strokeWidth}',
+  );
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 3: STROKE PROPERTIES
@@ -64,10 +66,18 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
 
   final blendModes = [
-    BlendMode.srcOver, BlendMode.srcIn, BlendMode.srcOut,
-    BlendMode.dstOver, BlendMode.dstIn, BlendMode.multiply,
-    BlendMode.screen, BlendMode.overlay, BlendMode.darken,
-    BlendMode.lighten, BlendMode.colorDodge, BlendMode.colorBurn,
+    BlendMode.srcOver,
+    BlendMode.srcIn,
+    BlendMode.srcOut,
+    BlendMode.dstOver,
+    BlendMode.dstIn,
+    BlendMode.multiply,
+    BlendMode.screen,
+    BlendMode.overlay,
+    BlendMode.darken,
+    BlendMode.lighten,
+    BlendMode.colorDodge,
+    BlendMode.colorBurn,
   ];
   for (final mode in blendModes) {
     print('BlendMode.$mode');
@@ -86,10 +96,10 @@ dynamic build(BuildContext context) {
   // SECTION 6: SHADER & MASK FILTER
   // ═══════════════════════════════════════════════════════════════════════════
 
-  final gradientShader = ui.Gradient.linear(
-    Offset(0, 0), Offset(200, 0),
-    [Color(0xFF1565C0), Color(0xFFE91E63)],
-  );
+  final gradientShader = ui.Gradient.linear(Offset(0, 0), Offset(200, 0), [
+    Color(0xFF1565C0),
+    Color(0xFFE91E63),
+  ]);
   final shaderPaint = Paint()..shader = gradientShader;
   print('Shader paint: shader=${shaderPaint.shader != null}');
 
@@ -131,8 +141,11 @@ dynamic build(BuildContext context) {
                   ),
                   borderRadius: BorderRadius.circular(16.0),
                   boxShadow: [
-                    BoxShadow(color: Colors.deepOrange.withValues(alpha: 0.3),
-                      blurRadius: 12, offset: Offset(0, 6)),
+                    BoxShadow(
+                      color: Colors.deepOrange.withValues(alpha: 0.3),
+                      blurRadius: 12,
+                      offset: Offset(0, 6),
+                    ),
                   ],
                 ),
                 padding: EdgeInsets.all(24.0),
@@ -140,13 +153,22 @@ dynamic build(BuildContext context) {
                   children: [
                     Icon(Icons.brush, size: 48, color: Colors.white),
                     SizedBox(height: 12),
-                    Text('Paint Deep Demo',
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold,
-                        color: Colors.white)),
+                    Text(
+                      'Paint Deep Demo',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
                     SizedBox(height: 6),
-                    Text('How shapes are drawn on Canvas',
-                      style: TextStyle(fontSize: 14,
-                        color: Colors.white.withValues(alpha: 0.85))),
+                    Text(
+                      'How shapes are drawn on Canvas',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.white.withValues(alpha: 0.85),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -162,22 +184,54 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _paintPropRow('color', '${defaultPaint.color}', Icons.color_lens,
-                      Color(0xFF1565C0)),
-                    _paintPropRow('style', '${defaultPaint.style}', Icons.format_paint,
-                      Color(0xFF6A1B9A)),
-                    _paintPropRow('strokeWidth', '${defaultPaint.strokeWidth}', Icons.line_weight,
-                      Color(0xFFE65100)),
-                    _paintPropRow('strokeCap', '${defaultPaint.strokeCap}', Icons.linear_scale,
-                      Color(0xFF00695C)),
-                    _paintPropRow('strokeJoin', '${defaultPaint.strokeJoin}', Icons.call_merge,
-                      Color(0xFFC62828)),
-                    _paintPropRow('isAntiAlias', '${defaultPaint.isAntiAlias}', Icons.grain,
-                      Color(0xFF2E7D32)),
-                    _paintPropRow('blendMode', '${defaultPaint.blendMode}', Icons.layers,
-                      Color(0xFF00838F)),
-                    _paintPropRow('filterQuality', '${defaultPaint.filterQuality}', Icons.tune,
-                      Color(0xFF455A64)),
+                    _paintPropRow(
+                      'color',
+                      '${defaultPaint.color}',
+                      Icons.color_lens,
+                      Color(0xFF1565C0),
+                    ),
+                    _paintPropRow(
+                      'style',
+                      '${defaultPaint.style}',
+                      Icons.format_paint,
+                      Color(0xFF6A1B9A),
+                    ),
+                    _paintPropRow(
+                      'strokeWidth',
+                      '${defaultPaint.strokeWidth}',
+                      Icons.line_weight,
+                      Color(0xFFE65100),
+                    ),
+                    _paintPropRow(
+                      'strokeCap',
+                      '${defaultPaint.strokeCap}',
+                      Icons.linear_scale,
+                      Color(0xFF00695C),
+                    ),
+                    _paintPropRow(
+                      'strokeJoin',
+                      '${defaultPaint.strokeJoin}',
+                      Icons.call_merge,
+                      Color(0xFFC62828),
+                    ),
+                    _paintPropRow(
+                      'isAntiAlias',
+                      '${defaultPaint.isAntiAlias}',
+                      Icons.grain,
+                      Color(0xFF2E7D32),
+                    ),
+                    _paintPropRow(
+                      'blendMode',
+                      '${defaultPaint.blendMode}',
+                      Icons.layers,
+                      Color(0xFF00838F),
+                    ),
+                    _paintPropRow(
+                      'filterQuality',
+                      '${defaultPaint.filterQuality}',
+                      Icons.tune,
+                      Color(0xFF455A64),
+                    ),
                   ],
                 ),
               ),
@@ -197,16 +251,25 @@ dynamic build(BuildContext context) {
                       child: Column(
                         children: [
                           Container(
-                            width: 100, height: 80,
+                            width: 100,
+                            height: 80,
                             decoration: BoxDecoration(
                               color: Color(0xFF1565C0),
                               borderRadius: BorderRadius.circular(8),
                             ),
                           ),
                           SizedBox(height: 8),
-                          Text('PaintingStyle.fill',
-                            style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold)),
-                          Text('Solid interior', style: TextStyle(fontSize: 10, color: Colors.grey)),
+                          Text(
+                            'PaintingStyle.fill',
+                            style: TextStyle(
+                              fontSize: 11,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            'Solid interior',
+                            style: TextStyle(fontSize: 10, color: Colors.grey),
+                          ),
                         ],
                       ),
                     ),
@@ -215,16 +278,28 @@ dynamic build(BuildContext context) {
                       child: Column(
                         children: [
                           Container(
-                            width: 100, height: 80,
+                            width: 100,
+                            height: 80,
                             decoration: BoxDecoration(
-                              border: Border.all(color: Color(0xFFC62828), width: 4),
+                              border: Border.all(
+                                color: Color(0xFFC62828),
+                                width: 4,
+                              ),
                               borderRadius: BorderRadius.circular(8),
                             ),
                           ),
                           SizedBox(height: 8),
-                          Text('PaintingStyle.stroke',
-                            style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold)),
-                          Text('Outline only', style: TextStyle(fontSize: 10, color: Colors.grey)),
+                          Text(
+                            'PaintingStyle.stroke',
+                            style: TextStyle(
+                              fontSize: 11,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            'Outline only',
+                            style: TextStyle(fontSize: 10, color: Colors.grey),
+                          ),
                         ],
                       ),
                     ),
@@ -249,8 +324,13 @@ dynamic build(BuildContext context) {
                         children: [
                           Container(
                             width: 60,
-                            child: Text('${w}px', style: TextStyle(
-                              fontWeight: FontWeight.w600, fontSize: 12)),
+                            child: Text(
+                              '${w}px',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 12,
+                              ),
+                            ),
                           ),
                           Expanded(
                             child: Container(
@@ -279,8 +359,15 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: StrokeCap.values.asMap().entries.map((entry) {
-                    final colors = [Color(0xFF1565C0), Color(0xFF6A1B9A), Color(0xFF00695C)];
-                    return _strokeCapRow(entry.value.name, colors[entry.key % 3]);
+                    final colors = [
+                      Color(0xFF1565C0),
+                      Color(0xFF6A1B9A),
+                      Color(0xFF00695C),
+                    ];
+                    return _strokeCapRow(
+                      entry.value.name,
+                      colors[entry.key % 3],
+                    );
                   }).toList(),
                 ),
               ),
@@ -296,8 +383,15 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: StrokeJoin.values.asMap().entries.map((entry) {
-                    final colors = [Color(0xFFBF360C), Color(0xFFC62828), Color(0xFFE65100)];
-                    return _strokeJoinRow(entry.value.name, colors[entry.key % 3]);
+                    final colors = [
+                      Color(0xFFBF360C),
+                      Color(0xFFC62828),
+                      Color(0xFFE65100),
+                    ];
+                    return _strokeJoinRow(
+                      entry.value.name,
+                      colors[entry.key % 3],
+                    );
                   }).toList(),
                 ),
               ),
@@ -307,10 +401,16 @@ dynamic build(BuildContext context) {
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 16.0),
                 child: Wrap(
-                  spacing: 8, runSpacing: 8,
+                  spacing: 8,
+                  runSpacing: 8,
                   children: blendModes.asMap().entries.map((entry) {
                     final hue = (entry.key * 30.0) % 360;
-                    final color = HSVColor.fromAHSV(1.0, hue, 0.7, 0.85).toColor();
+                    final color = HSVColor.fromAHSV(
+                      1.0,
+                      hue,
+                      0.7,
+                      0.85,
+                    ).toColor();
                     return _blendModeChip(entry.value.name, color);
                   }).toList(),
                 ),
@@ -343,13 +443,22 @@ dynamic build(BuildContext context) {
                   ),
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
-                    BoxShadow(color: Colors.blue.withValues(alpha: 0.3),
-                      blurRadius: 8, offset: Offset(0, 4)),
+                    BoxShadow(
+                      color: Colors.blue.withValues(alpha: 0.3),
+                      blurRadius: 8,
+                      offset: Offset(0, 4),
+                    ),
                   ],
                 ),
                 child: Center(
-                  child: Text('Paint.shader = Gradient.linear',
-                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
+                  child: Text(
+                    'Paint.shader = Gradient.linear',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
                 ),
               ),
 
@@ -368,20 +477,25 @@ dynamic build(BuildContext context) {
                     return Column(
                       children: [
                         Container(
-                          width: 50, height: 50,
+                          width: 50,
+                          height: 50,
                           decoration: BoxDecoration(
                             color: Color(0xFF1565C0),
                             borderRadius: BorderRadius.circular(8),
-                            boxShadow: [BoxShadow(
-                              color: Color(0xFF1565C0).withValues(alpha: 0.6),
-                              blurRadius: sigma,
-                              spreadRadius: sigma / 3,
-                            )],
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color(0xFF1565C0).withValues(alpha: 0.6),
+                                blurRadius: sigma,
+                                spreadRadius: sigma / 3,
+                              ),
+                            ],
                           ),
                         ),
                         SizedBox(height: 8),
-                        Text('σ=${sigma.toStringAsFixed(0)}',
-                          style: TextStyle(fontSize: 10)),
+                        Text(
+                          'σ=${sigma.toStringAsFixed(0)}',
+                          style: TextStyle(fontSize: 10),
+                        ),
                       ],
                     );
                   }).toList(),
@@ -400,30 +514,42 @@ dynamic build(BuildContext context) {
                 child: Row(
                   children: [
                     Container(
-                      width: 60, height: 60,
+                      width: 60,
+                      height: 60,
                       decoration: BoxDecoration(
                         color: Color(0xFF2196F3),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: Center(child: Text('Before', style: TextStyle(
-                        color: Colors.white, fontSize: 10))),
+                      child: Center(
+                        child: Text(
+                          'Before',
+                          style: TextStyle(color: Colors.white, fontSize: 10),
+                        ),
+                      ),
                     ),
                     SizedBox(width: 16),
                     Icon(Icons.arrow_forward, color: Colors.grey),
                     SizedBox(width: 16),
                     Container(
-                      width: 60, height: 60,
+                      width: 60,
+                      height: 60,
                       decoration: BoxDecoration(
                         color: Color(0xFF4CAF50),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: Center(child: Text('After', style: TextStyle(
-                        color: Colors.white, fontSize: 10))),
+                      child: Center(
+                        child: Text(
+                          'After',
+                          style: TextStyle(color: Colors.white, fontSize: 10),
+                        ),
+                      ),
                     ),
                     SizedBox(width: 16),
                     Expanded(
-                      child: Text('ColorFilter.mode\n(green, srcATop)',
-                        style: TextStyle(fontSize: 11, color: Colors.grey[600])),
+                      child: Text(
+                        'ColorFilter.mode\n(green, srcATop)',
+                        style: TextStyle(fontSize: 11, color: Colors.grey[600]),
+                      ),
                     ),
                   ],
                 ),
@@ -442,10 +568,15 @@ dynamic build(BuildContext context) {
 Widget _sectionTitle(String title) {
   return Padding(
     padding: EdgeInsets.fromLTRB(16, 20, 16, 8),
-    child: Text(title, style: TextStyle(
-      fontSize: 13, fontWeight: FontWeight.w700,
-      color: Color(0xFF455A64), letterSpacing: 1.0,
-    )),
+    child: Text(
+      title,
+      style: TextStyle(
+        fontSize: 13,
+        fontWeight: FontWeight.w700,
+        color: Color(0xFF455A64),
+        letterSpacing: 1.0,
+      ),
+    ),
   );
 }
 
@@ -455,7 +586,8 @@ Widget _paintPropRow(String name, String value, IconData icon, Color color) {
     child: Row(
       children: [
         Container(
-          width: 32, height: 32,
+          width: 32,
+          height: 32,
           decoration: BoxDecoration(
             color: color.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(6),
@@ -465,11 +597,17 @@ Widget _paintPropRow(String name, String value, IconData icon, Color color) {
         SizedBox(width: 10),
         Container(
           width: 110,
-          child: Text(name, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12)),
+          child: Text(
+            name,
+            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+          ),
         ),
         Expanded(
-          child: Text(value, style: TextStyle(fontSize: 11, fontFamily: 'monospace'),
-            overflow: TextOverflow.ellipsis),
+          child: Text(
+            value,
+            style: TextStyle(fontSize: 11, fontFamily: 'monospace'),
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
       ],
     ),
@@ -483,25 +621,33 @@ Widget _strokeCapRow(String name, Color color) {
       children: [
         Container(
           width: 80,
-          child: Text(name, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
+          child: Text(
+            name,
+            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+          ),
         ),
         SizedBox(width: 8),
         Container(
-          width: 140, height: 12,
+          width: 140,
+          height: 12,
           decoration: BoxDecoration(
             color: color,
             borderRadius: name == 'round'
-              ? BorderRadius.circular(6)
-              : name == 'square'
+                ? BorderRadius.circular(6)
+                : name == 'square'
                 ? BorderRadius.circular(0)
                 : BorderRadius.circular(1),
           ),
         ),
         Spacer(),
-        Text(name == 'butt' ? 'Ends at endpoint'
-          : name == 'round' ? 'Rounded ends'
-          : 'Square extends past',
-          style: TextStyle(fontSize: 10, color: Colors.grey[600])),
+        Text(
+          name == 'butt'
+              ? 'Ends at endpoint'
+              : name == 'round'
+              ? 'Rounded ends'
+              : 'Square extends past',
+          style: TextStyle(fontSize: 10, color: Colors.grey[600]),
+        ),
       ],
     ),
   );
@@ -514,27 +660,35 @@ Widget _strokeJoinRow(String name, Color color) {
       children: [
         Container(
           width: 80,
-          child: Text(name, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
+          child: Text(
+            name,
+            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+          ),
         ),
         SizedBox(width: 8),
         // Visual join representation
         Container(
-          width: 40, height: 30,
+          width: 40,
+          height: 30,
           decoration: BoxDecoration(
             border: Border(
               top: BorderSide(color: color, width: 3),
               left: BorderSide(color: color, width: 3),
             ),
             borderRadius: name == 'round'
-              ? BorderRadius.only(topLeft: Radius.circular(8))
-              : BorderRadius.zero,
+                ? BorderRadius.only(topLeft: Radius.circular(8))
+                : BorderRadius.zero,
           ),
         ),
         Spacer(),
-        Text(name == 'miter' ? 'Sharp corner'
-          : name == 'round' ? 'Rounded corner'
-          : 'Beveled corner',
-          style: TextStyle(fontSize: 10, color: Colors.grey[600])),
+        Text(
+          name == 'miter'
+              ? 'Sharp corner'
+              : name == 'round'
+              ? 'Rounded corner'
+              : 'Beveled corner',
+          style: TextStyle(fontSize: 10, color: Colors.grey[600]),
+        ),
       ],
     ),
   );
@@ -548,20 +702,30 @@ Widget _blendModeChip(String name, Color color) {
       borderRadius: BorderRadius.circular(16),
       border: Border.all(color: color.withValues(alpha: 0.4)),
     ),
-    child: Text(name, style: TextStyle(fontSize: 11, color: color, fontWeight: FontWeight.w600)),
+    child: Text(
+      name,
+      style: TextStyle(fontSize: 11, color: color, fontWeight: FontWeight.w600),
+    ),
   );
 }
 
 Widget _filterQualityRow(String name, int index) {
   final qualityPercent = (index / 3.0);
-  final color = Color.lerp(Color(0xFFC62828), Color(0xFF2E7D32), qualityPercent)!;
+  final color = Color.lerp(
+    Color(0xFFC62828),
+    Color(0xFF2E7D32),
+    qualityPercent,
+  )!;
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 6),
     child: Row(
       children: [
         Container(
           width: 80,
-          child: Text(name, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12)),
+          child: Text(
+            name,
+            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+          ),
         ),
         Expanded(
           child: Container(
@@ -583,8 +747,10 @@ Widget _filterQualityRow(String name, int index) {
           ),
         ),
         SizedBox(width: 8),
-        Text('${(qualityPercent * 100).round()}%',
-          style: TextStyle(fontSize: 11, fontFamily: 'monospace')),
+        Text(
+          '${(qualityPercent * 100).round()}%',
+          style: TextStyle(fontSize: 11, fontFamily: 'monospace'),
+        ),
       ],
     ),
   );

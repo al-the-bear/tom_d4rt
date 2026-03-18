@@ -71,8 +71,11 @@ dynamic build(BuildContext context) {
                   ),
                   borderRadius: BorderRadius.circular(16.0),
                   boxShadow: [
-                    BoxShadow(color: Colors.pink.withValues(alpha: 0.3),
-                      blurRadius: 12, offset: Offset(0, 6)),
+                    BoxShadow(
+                      color: Colors.pink.withValues(alpha: 0.3),
+                      blurRadius: 12,
+                      offset: Offset(0, 6),
+                    ),
                   ],
                 ),
                 padding: EdgeInsets.all(24.0),
@@ -80,22 +83,34 @@ dynamic build(BuildContext context) {
                   children: [
                     Icon(Icons.speed, size: 48, color: Colors.white),
                     SizedBox(height: 12),
-                    Text('FrameTiming',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,
-                        color: Colors.white)),
+                    Text(
+                      'FrameTiming',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
                     SizedBox(height: 6),
-                    Text('Per-frame performance data with microsecond timestamps',
+                    Text(
+                      'Per-frame performance data with microsecond timestamps',
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 13,
-                        color: Colors.white.withValues(alpha: 0.85))),
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Colors.white.withValues(alpha: 0.85),
+                      ),
+                    ),
                     SizedBox(height: 8),
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                      _headerChip('buildDuration'),
-                      SizedBox(width: 4),
-                      _headerChip('rasterDuration'),
-                      SizedBox(width: 4),
-                      _headerChip('totalSpan'),
-                    ]),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        _headerChip('buildDuration'),
+                        SizedBox(width: 4),
+                        _headerChip('rasterDuration'),
+                        SizedBox(width: 4),
+                        _headerChip('totalSpan'),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -104,25 +119,55 @@ dynamic build(BuildContext context) {
               _sectionTitle('1. FRAMETIMING PROPERTIES'),
               Card(
                 margin: EdgeInsets.symmetric(horizontal: 16.0),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
                 child: Padding(
                   padding: EdgeInsets.all(16),
                   child: Column(
                     children: [
-                      _propRow('buildDuration', 'Duration', 'Build phase time',
-                        Color(0xFF1565C0)),
-                      _propRow('rasterDuration', 'Duration', 'Raster phase time',
-                        Color(0xFFE65100)),
-                      _propRow('vsyncOverhead', 'Duration', 'Idle before build',
-                        Color(0xFF9E9E9E)),
-                      _propRow('totalSpan', 'Duration', 'Full frame time',
-                        Color(0xFF880E4F)),
-                      _propRow('frameNumber', 'int', 'Sequential frame ID',
-                        Color(0xFF2E7D32)),
-                      _propRow('layerCacheCount', 'int', 'Cached layer count',
-                        Color(0xFF4A148C)),
-                      _propRow('layerCacheMegabytes', 'double', 'Cache memory MB',
-                        Color(0xFF00695C)),
+                      _propRow(
+                        'buildDuration',
+                        'Duration',
+                        'Build phase time',
+                        Color(0xFF1565C0),
+                      ),
+                      _propRow(
+                        'rasterDuration',
+                        'Duration',
+                        'Raster phase time',
+                        Color(0xFFE65100),
+                      ),
+                      _propRow(
+                        'vsyncOverhead',
+                        'Duration',
+                        'Idle before build',
+                        Color(0xFF9E9E9E),
+                      ),
+                      _propRow(
+                        'totalSpan',
+                        'Duration',
+                        'Full frame time',
+                        Color(0xFF880E4F),
+                      ),
+                      _propRow(
+                        'frameNumber',
+                        'int',
+                        'Sequential frame ID',
+                        Color(0xFF2E7D32),
+                      ),
+                      _propRow(
+                        'layerCacheCount',
+                        'int',
+                        'Cached layer count',
+                        Color(0xFF4A148C),
+                      ),
+                      _propRow(
+                        'layerCacheMegabytes',
+                        'double',
+                        'Cache memory MB',
+                        Color(0xFF00695C),
+                      ),
                     ],
                   ),
                 ),
@@ -186,12 +231,17 @@ dynamic build(BuildContext context) {
                       padding: EdgeInsets.all(8),
                       decoration: BoxDecoration(
                         color: Color(0xFFE8F5E9),
-                        borderRadius: BorderRadius.circular(8)),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                       child: Text(
                         'Engine layer caching reuses layers across frames. '
                         'Higher cache counts reduce raster work but use more memory. '
                         'layerCacheMegabytes tracks the GPU memory cost.',
-                        style: TextStyle(fontSize: 10, color: Color(0xFF2E7D32))),
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: Color(0xFF2E7D32),
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -252,18 +302,27 @@ dynamic build(BuildContext context) {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     _apiNode('SchedulerBinding', 0, Color(0xFF455A64)),
-                    _apiNode('addTimingsCallback(List<FrameTiming>)', 1,
-                      Color(0xFF880E4F)),
+                    _apiNode(
+                      'addTimingsCallback(List<FrameTiming>)',
+                      1,
+                      Color(0xFF880E4F),
+                    ),
                     _apiNode('FrameTiming', 2, Color(0xFF1565C0)),
                     _apiNode('.buildDuration', 3, Color(0xFF1565C0)),
                     _apiNode('.rasterDuration', 3, Color(0xFFE65100)),
                     _apiNode('.totalSpan', 3, Color(0xFF880E4F)),
                     _apiNode('.frameNumber', 3, Color(0xFF2E7D32)),
-                    _apiNode('.timestampInMicroseconds(FramePhase)', 3,
-                      Color(0xFF4A148C)),
+                    _apiNode(
+                      '.timestampInMicroseconds(FramePhase)',
+                      3,
+                      Color(0xFF4A148C),
+                    ),
                     _apiNode('FramePhase', 2, Color(0xFF00695C)),
-                    _apiNode('.vsyncStart / .buildStart / .rasterFinish ...', 3,
-                      Color(0xFF00695C)),
+                    _apiNode(
+                      '.vsyncStart / .buildStart / .rasterFinish ...',
+                      3,
+                      Color(0xFF00695C),
+                    ),
                   ],
                 ),
               ),
@@ -288,8 +347,17 @@ class _SimTiming {
   final int cacheCount;
   final double cacheMB;
   final bool janky;
-  _SimTiming(this.frame, this.vsyncUs, this.buildStartUs, this.buildFinishUs,
-    this.rasterStartUs, this.rasterFinishUs, this.cacheCount, this.cacheMB, this.janky);
+  _SimTiming(
+    this.frame,
+    this.vsyncUs,
+    this.buildStartUs,
+    this.buildFinishUs,
+    this.rasterStartUs,
+    this.rasterFinishUs,
+    this.cacheCount,
+    this.cacheMB,
+    this.janky,
+  );
 
   double get buildMs => (buildFinishUs - buildStartUs) / 1000.0;
   double get rasterMs => (rasterFinishUs - rasterStartUs) / 1000.0;
@@ -302,10 +370,15 @@ class _SimTiming {
 Widget _sectionTitle(String title) {
   return Padding(
     padding: EdgeInsets.fromLTRB(16, 20, 16, 8),
-    child: Text(title, style: TextStyle(
-      fontSize: 13, fontWeight: FontWeight.w700,
-      color: Color(0xFF455A64), letterSpacing: 1.0,
-    )),
+    child: Text(
+      title,
+      style: TextStyle(
+        fontSize: 13,
+        fontWeight: FontWeight.w700,
+        color: Color(0xFF455A64),
+        letterSpacing: 1.0,
+      ),
+    ),
   );
 }
 
@@ -314,7 +387,8 @@ Widget _headerChip(String label) {
     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
     decoration: BoxDecoration(
       color: Colors.white.withValues(alpha: 0.2),
-      borderRadius: BorderRadius.circular(6)),
+      borderRadius: BorderRadius.circular(6),
+    ),
     child: Text(label, style: TextStyle(fontSize: 10, color: Colors.white)),
   );
 }
@@ -324,22 +398,39 @@ Widget _propRow(String name, String type, String desc, Color color) {
     padding: EdgeInsets.symmetric(vertical: 3),
     child: Row(
       children: [
-        Container(width: 6, height: 6,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+        Container(
+          width: 6,
+          height: 6,
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+        ),
         SizedBox(width: 8),
-        SizedBox(width: 110, child: Text('.$name',
-          style: TextStyle(fontFamily: 'monospace', fontWeight: FontWeight.bold,
-            fontSize: 10, color: color))),
+        SizedBox(
+          width: 110,
+          child: Text(
+            '.$name',
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontWeight: FontWeight.bold,
+              fontSize: 10,
+              color: color,
+            ),
+          ),
+        ),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 4, vertical: 1),
           decoration: BoxDecoration(
             color: color.withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(3)),
+            borderRadius: BorderRadius.circular(3),
+          ),
           child: Text(type, style: TextStyle(fontSize: 9, color: color)),
         ),
         SizedBox(width: 6),
-        Expanded(child: Text(desc,
-          style: TextStyle(fontSize: 9, color: Colors.grey[600]))),
+        Expanded(
+          child: Text(
+            desc,
+            style: TextStyle(fontSize: 9, color: Colors.grey[600]),
+          ),
+        ),
       ],
     ),
   );
@@ -356,8 +447,17 @@ Widget _frameTimeline(_SimTiming t) {
     padding: EdgeInsets.symmetric(vertical: 2),
     child: Row(
       children: [
-        SizedBox(width: 18, child: Text('#${t.frame}',
-          style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: color))),
+        SizedBox(
+          width: 18,
+          child: Text(
+            '#${t.frame}',
+            style: TextStyle(
+              fontSize: 9,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
+        ),
         Expanded(
           child: Container(
             height: 12,
@@ -366,7 +466,9 @@ Widget _frameTimeline(_SimTiming t) {
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.grey[100],
-                    borderRadius: BorderRadius.circular(3))),
+                    borderRadius: BorderRadius.circular(3),
+                  ),
+                ),
                 // Idle
                 FractionallySizedBox(
                   widthFactor: idleFrac.clamp(0, 1),
@@ -375,7 +477,10 @@ Widget _frameTimeline(_SimTiming t) {
                       color: Color(0xFF9E9E9E).withValues(alpha: 0.3),
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(3),
-                        bottomLeft: Radius.circular(3)))),
+                        bottomLeft: Radius.circular(3),
+                      ),
+                    ),
+                  ),
                 ),
                 // Build
                 Positioned(
@@ -386,21 +491,29 @@ Widget _frameTimeline(_SimTiming t) {
                       height: 12,
                       decoration: BoxDecoration(
                         color: Color(0xFF1565C0).withValues(alpha: 0.6),
-                        borderRadius: BorderRadius.circular(3)),
+                        borderRadius: BorderRadius.circular(3),
+                      ),
                     ),
                   ),
                 ),
                 // Full frame overlay
                 FractionallySizedBox(
-                  widthFactor: ((idleFrac + buildFrac + rasterFrac) * 0.7 + 0.05).clamp(0, 1),
+                  widthFactor:
+                      ((idleFrac + buildFrac + rasterFrac) * 0.7 + 0.05).clamp(
+                        0,
+                        1,
+                      ),
                   child: Container(
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(colors: [
-                        Color(0xFF9E9E9E).withValues(alpha: 0.2),
-                        Color(0xFF1565C0).withValues(alpha: 0.5),
-                        Color(0xFFE65100).withValues(alpha: 0.5),
-                      ]),
-                      borderRadius: BorderRadius.circular(3)),
+                      gradient: LinearGradient(
+                        colors: [
+                          Color(0xFF9E9E9E).withValues(alpha: 0.2),
+                          Color(0xFF1565C0).withValues(alpha: 0.5),
+                          Color(0xFFE65100).withValues(alpha: 0.5),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.circular(3),
+                    ),
                   ),
                 ),
               ],
@@ -408,12 +521,24 @@ Widget _frameTimeline(_SimTiming t) {
           ),
         ),
         SizedBox(width: 6),
-        SizedBox(width: 40, child: Text('${total.toStringAsFixed(1)}ms',
-          textAlign: TextAlign.right,
-          style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: color))),
+        SizedBox(
+          width: 40,
+          child: Text(
+            '${total.toStringAsFixed(1)}ms',
+            textAlign: TextAlign.right,
+            style: TextStyle(
+              fontSize: 9,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
+        ),
         SizedBox(width: 3),
-        Icon(t.janky ? Icons.warning : Icons.check_circle,
-          size: 10, color: color),
+        Icon(
+          t.janky ? Icons.warning : Icons.check_circle,
+          size: 10,
+          color: color,
+        ),
       ],
     ),
   );
@@ -426,41 +551,60 @@ Widget _dualBar(_SimTiming t) {
     padding: EdgeInsets.symmetric(vertical: 2),
     child: Row(
       children: [
-        SizedBox(width: 18, child: Text('#${t.frame}',
-          style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: color))),
-        Expanded(child: Column(
-          children: [
-            Container(
-              height: 6,
-              child: FractionallySizedBox(
-                alignment: Alignment.centerLeft,
-                widthFactor: (t.buildMs / maxMs).clamp(0, 1),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Color(0xFF1565C0),
-                    borderRadius: BorderRadius.circular(2))),
-              ),
+        SizedBox(
+          width: 18,
+          child: Text(
+            '#${t.frame}',
+            style: TextStyle(
+              fontSize: 9,
+              fontWeight: FontWeight.bold,
+              color: color,
             ),
-            SizedBox(height: 1),
-            Container(
-              height: 6,
-              child: FractionallySizedBox(
-                alignment: Alignment.centerLeft,
-                widthFactor: (t.rasterMs / maxMs).clamp(0, 1),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Color(0xFFE65100),
-                    borderRadius: BorderRadius.circular(2))),
+          ),
+        ),
+        Expanded(
+          child: Column(
+            children: [
+              Container(
+                height: 6,
+                child: FractionallySizedBox(
+                  alignment: Alignment.centerLeft,
+                  widthFactor: (t.buildMs / maxMs).clamp(0, 1),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Color(0xFF1565C0),
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
+                ),
               ),
-            ),
-          ],
-        )),
+              SizedBox(height: 1),
+              Container(
+                height: 6,
+                child: FractionallySizedBox(
+                  alignment: Alignment.centerLeft,
+                  widthFactor: (t.rasterMs / maxMs).clamp(0, 1),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Color(0xFFE65100),
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
         SizedBox(width: 4),
-        Text('${t.buildMs.toStringAsFixed(1)}',
-          style: TextStyle(fontSize: 8, color: Color(0xFF1565C0))),
+        Text(
+          '${t.buildMs.toStringAsFixed(1)}',
+          style: TextStyle(fontSize: 8, color: Color(0xFF1565C0)),
+        ),
         Text('/', style: TextStyle(fontSize: 8, color: Colors.grey)),
-        Text('${t.rasterMs.toStringAsFixed(1)}',
-          style: TextStyle(fontSize: 8, color: Color(0xFFE65100))),
+        Text(
+          '${t.rasterMs.toStringAsFixed(1)}',
+          style: TextStyle(fontSize: 8, color: Color(0xFFE65100)),
+        ),
       ],
     ),
   );
@@ -473,32 +617,56 @@ Widget _cacheRow(_SimTiming t) {
     padding: EdgeInsets.symmetric(vertical: 2),
     child: Row(
       children: [
-        SizedBox(width: 18, child: Text('#${t.frame}',
-          style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold))),
+        SizedBox(
+          width: 18,
+          child: Text(
+            '#${t.frame}',
+            style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold),
+          ),
+        ),
         // Cache count dots
-        SizedBox(width: 60, child: Row(
-          children: List.generate(t.cacheCount.clamp(0, maxCache), (_) =>
-            Container(width: 6, height: 6, margin: EdgeInsets.only(right: 1),
-              decoration: BoxDecoration(
-                color: Color(0xFF4A148C), shape: BoxShape.circle))),
-        )),
-        // MB bar
-        Expanded(child: Container(
-          height: 10,
-          child: FractionallySizedBox(
-            alignment: Alignment.centerLeft,
-            widthFactor: (t.cacheMB / maxMB).clamp(0, 1),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Color(0xFF00695C),
-                borderRadius: BorderRadius.circular(3)),
+        SizedBox(
+          width: 60,
+          child: Row(
+            children: List.generate(
+              t.cacheCount.clamp(0, maxCache),
+              (_) => Container(
+                width: 6,
+                height: 6,
+                margin: EdgeInsets.only(right: 1),
+                decoration: BoxDecoration(
+                  color: Color(0xFF4A148C),
+                  shape: BoxShape.circle,
+                ),
+              ),
             ),
           ),
-        )),
+        ),
+        // MB bar
+        Expanded(
+          child: Container(
+            height: 10,
+            child: FractionallySizedBox(
+              alignment: Alignment.centerLeft,
+              widthFactor: (t.cacheMB / maxMB).clamp(0, 1),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Color(0xFF00695C),
+                  borderRadius: BorderRadius.circular(3),
+                ),
+              ),
+            ),
+          ),
+        ),
         SizedBox(width: 4),
-        Text('${t.cacheMB}MB',
-          style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold,
-            color: Color(0xFF00695C))),
+        Text(
+          '${t.cacheMB}MB',
+          style: TextStyle(
+            fontSize: 9,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF00695C),
+          ),
+        ),
       ],
     ),
   );
@@ -521,19 +689,34 @@ Widget _buildStatsSummary(List<_SimTiming> timings) {
         children: [
           _statBadge('${timings.length}', 'frames', Color(0xFF455A64)),
           _statBadge('$janky', 'janky', Color(0xFFC62828)),
-          _statBadge('${(janky / timings.length * 100).toStringAsFixed(0)}%', 'jank rate',
-            Color(0xFFE65100)),
+          _statBadge(
+            '${(janky / timings.length * 100).toStringAsFixed(0)}%',
+            'jank rate',
+            Color(0xFFE65100),
+          ),
         ],
       ),
       SizedBox(height: 12),
-      _statRow('Build avg', '${(builds.reduce((a, b) => a + b) / builds.length).toStringAsFixed(1)}ms',
-        Color(0xFF1565C0)),
-      _statRow('Build p95', '${builds[(builds.length * 0.95).floor().clamp(0, builds.length - 1)].toStringAsFixed(1)}ms',
-        Color(0xFF1565C0)),
-      _statRow('Raster avg', '${(rasters.reduce((a, b) => a + b) / rasters.length).toStringAsFixed(1)}ms',
-        Color(0xFFE65100)),
-      _statRow('Total avg', '${(totals.reduce((a, b) => a + b) / totals.length).toStringAsFixed(1)}ms',
-        Color(0xFF880E4F)),
+      _statRow(
+        'Build avg',
+        '${(builds.reduce((a, b) => a + b) / builds.length).toStringAsFixed(1)}ms',
+        Color(0xFF1565C0),
+      ),
+      _statRow(
+        'Build p95',
+        '${builds[(builds.length * 0.95).floor().clamp(0, builds.length - 1)].toStringAsFixed(1)}ms',
+        Color(0xFF1565C0),
+      ),
+      _statRow(
+        'Raster avg',
+        '${(rasters.reduce((a, b) => a + b) / rasters.length).toStringAsFixed(1)}ms',
+        Color(0xFFE65100),
+      ),
+      _statRow(
+        'Total avg',
+        '${(totals.reduce((a, b) => a + b) / totals.length).toStringAsFixed(1)}ms',
+        Color(0xFF880E4F),
+      ),
     ],
   );
 }
@@ -543,11 +726,21 @@ Widget _statBadge(String value, String label, Color color) {
     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
     decoration: BoxDecoration(
       color: color.withValues(alpha: 0.1),
-      borderRadius: BorderRadius.circular(8)),
-    child: Column(children: [
-      Text(value, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: color)),
-      Text(label, style: TextStyle(fontSize: 9, color: color)),
-    ]),
+      borderRadius: BorderRadius.circular(8),
+    ),
+    child: Column(
+      children: [
+        Text(
+          value,
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: color,
+          ),
+        ),
+        Text(label, style: TextStyle(fontSize: 9, color: color)),
+      ],
+    ),
   );
 }
 
@@ -556,38 +749,70 @@ Widget _statRow(String label, String value, Color color) {
     padding: EdgeInsets.symmetric(vertical: 2),
     child: Row(
       children: [
-        Container(width: 6, height: 6,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+        Container(
+          width: 6,
+          height: 6,
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+        ),
         SizedBox(width: 8),
-        SizedBox(width: 80, child: Text(label,
-          style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold))),
-        Text(value, style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: color)),
+        SizedBox(
+          width: 80,
+          child: Text(
+            label,
+            style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+          ),
+        ),
+        Text(
+          value,
+          style: TextStyle(
+            fontSize: 10,
+            fontWeight: FontWeight.bold,
+            color: color,
+          ),
+        ),
       ],
     ),
   );
 }
 
 Widget _legendDot(String label, Color color) {
-  return Row(children: [
-    Container(width: 8, height: 8,
-      decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
-    SizedBox(width: 4),
-    Text(label, style: TextStyle(fontSize: 9, color: color)),
-  ]);
+  return Row(
+    children: [
+      Container(
+        width: 8,
+        height: 8,
+        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+      ),
+      SizedBox(width: 4),
+      Text(label, style: TextStyle(fontSize: 9, color: color)),
+    ],
+  );
 }
 
 Widget _apiNode(String name, int indent, Color color) {
   return Padding(
     padding: EdgeInsets.only(left: indent * 16.0, top: 2, bottom: 2),
-    child: Row(children: [
-      Container(width: 6, height: 6,
-        decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
-      SizedBox(width: 6),
-      Flexible(child: Text(name, style: TextStyle(
-        fontFamily: 'monospace', fontSize: 10,
-        fontWeight: indent < 2 ? FontWeight.bold : FontWeight.w500,
-        color: color))),
-    ]),
+    child: Row(
+      children: [
+        Container(
+          width: 6,
+          height: 6,
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+        ),
+        SizedBox(width: 6),
+        Flexible(
+          child: Text(
+            name,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 10,
+              fontWeight: indent < 2 ? FontWeight.bold : FontWeight.w500,
+              color: color,
+            ),
+          ),
+        ),
+      ],
+    ),
   );
 }
 
@@ -597,10 +822,16 @@ Widget _codeBlock(List<String> lines) {
     padding: EdgeInsets.all(12),
     decoration: BoxDecoration(
       color: Color(0xFF263238),
-      borderRadius: BorderRadius.circular(8)),
+      borderRadius: BorderRadius.circular(8),
+    ),
     child: Text(
       lines.join('\n'),
-      style: TextStyle(fontFamily: 'monospace', fontSize: 10,
-        color: Color(0xFFF06292), height: 1.4)),
+      style: TextStyle(
+        fontFamily: 'monospace',
+        fontSize: 10,
+        color: Color(0xFFF06292),
+        height: 1.4,
+      ),
+    ),
   );
 }

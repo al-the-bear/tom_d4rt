@@ -91,8 +91,11 @@ dynamic build(BuildContext context) {
                   ),
                   borderRadius: BorderRadius.circular(16.0),
                   boxShadow: [
-                    BoxShadow(color: Colors.green.withValues(alpha: 0.3),
-                      blurRadius: 12, offset: Offset(0, 6)),
+                    BoxShadow(
+                      color: Colors.green.withValues(alpha: 0.3),
+                      blurRadius: 12,
+                      offset: Offset(0, 6),
+                    ),
                   ],
                 ),
                 padding: EdgeInsets.all(24.0),
@@ -100,13 +103,22 @@ dynamic build(BuildContext context) {
                   children: [
                     Icon(Icons.filter, size: 48, color: Colors.white),
                     SizedBox(height: 12),
-                    Text('ColorFilterEngineLayer',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,
-                        color: Colors.white)),
+                    Text(
+                      'ColorFilterEngineLayer',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
                     SizedBox(height: 6),
-                    Text('Retained color filter scene layer',
-                      style: TextStyle(fontSize: 14,
-                        color: Colors.white.withValues(alpha: 0.85))),
+                    Text(
+                      'Retained color filter scene layer',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.white.withValues(alpha: 0.85),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -122,11 +134,19 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _hierarchyLevel(0, 'EngineLayer', 'Abstract base for all retained layers',
-                      Color(0xFF455A64)),
+                    _hierarchyLevel(
+                      0,
+                      'EngineLayer',
+                      'Abstract base for all retained layers',
+                      Color(0xFF455A64),
+                    ),
                     _hierarchyArrow(),
-                    _hierarchyLevel(1, 'ColorFilterEngineLayer',
-                      'Retained handle for pushColorFilter', Color(0xFF1B5E20)),
+                    _hierarchyLevel(
+                      1,
+                      'ColorFilterEngineLayer',
+                      'Retained handle for pushColorFilter',
+                      Color(0xFF1B5E20),
+                    ),
                     SizedBox(height: 16),
                     Container(
                       padding: EdgeInsets.all(12),
@@ -136,7 +156,10 @@ dynamic build(BuildContext context) {
                       ),
                       child: Text(
                         'No public constructor. Obtained from SceneBuilder.pushColorFilter().',
-                        style: TextStyle(fontSize: 12, color: Color(0xFF33691E)),
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Color(0xFF33691E),
+                        ),
                       ),
                     ),
                   ],
@@ -154,25 +177,45 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _pipelineStep(1, 'Create ColorFilter',
+                    _pipelineStep(
+                      1,
+                      'Create ColorFilter',
                       'ColorFilter.mode(color, blendMode)',
-                      Icons.color_lens, Color(0xFF1565C0)),
+                      Icons.color_lens,
+                      Color(0xFF1565C0),
+                    ),
                     _pipelineArrow(),
-                    _pipelineStep(2, 'Create SceneBuilder',
+                    _pipelineStep(
+                      2,
+                      'Create SceneBuilder',
                       'SceneBuilder()',
-                      Icons.build, Color(0xFF6A1B9A)),
+                      Icons.build,
+                      Color(0xFF6A1B9A),
+                    ),
                     _pipelineArrow(),
-                    _pipelineStep(3, 'pushColorFilter',
+                    _pipelineStep(
+                      3,
+                      'pushColorFilter',
                       'builder.pushColorFilter(filter) → layer',
-                      Icons.layers, Color(0xFF1B5E20)),
+                      Icons.layers,
+                      Color(0xFF1B5E20),
+                    ),
                     _pipelineArrow(),
-                    _pipelineStep(4, 'Add children & pop',
+                    _pipelineStep(
+                      4,
+                      'Add children & pop',
                       'Add content inside the filter layer',
-                      Icons.add, Color(0xFFE65100)),
+                      Icons.add,
+                      Color(0xFFE65100),
+                    ),
                     _pipelineArrow(),
-                    _pipelineStep(5, 'Build scene',
+                    _pipelineStep(
+                      5,
+                      'Build scene',
                       'builder.build() → Scene',
-                      Icons.check_circle, Color(0xFF00695C)),
+                      Icons.check_circle,
+                      Color(0xFF00695C),
+                    ),
                   ],
                 ),
               ),
@@ -195,14 +238,22 @@ dynamic build(BuildContext context) {
                         Icon(Icons.arrow_forward, color: Colors.grey),
                         SizedBox(width: 8),
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 8,
+                          ),
                           decoration: BoxDecoration(
                             color: Color(0xFFFFF3E0),
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(color: Color(0xFFE65100)),
                           ),
-                          child: Text('Save layer ref',
-                            style: TextStyle(fontSize: 11, color: Color(0xFFE65100))),
+                          child: Text(
+                            'Save layer ref',
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: Color(0xFFE65100),
+                            ),
+                          ),
                         ),
                         SizedBox(width: 8),
                         Icon(Icons.arrow_forward, color: Colors.grey),
@@ -220,13 +271,23 @@ dynamic build(BuildContext context) {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('pushColorFilter(filter, oldLayer: prevLayer)',
-                            style: TextStyle(fontSize: 12, fontFamily: 'monospace',
-                              fontWeight: FontWeight.bold)),
+                          Text(
+                            'pushColorFilter(filter, oldLayer: prevLayer)',
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontFamily: 'monospace',
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                           SizedBox(height: 4),
-                          Text('Reusing oldLayer enables the engine to skip rebuilding '
+                          Text(
+                            'Reusing oldLayer enables the engine to skip rebuilding '
                             'unchanged parts of the scene tree.',
-                            style: TextStyle(fontSize: 11, color: Colors.grey[700])),
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: Colors.grey[700],
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -271,12 +332,42 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _siblingRow('ColorFilterEngineLayer', Icons.filter, Color(0xFF1B5E20), true),
-                    _siblingRow('OffsetEngineLayer', Icons.open_with, Color(0xFF1565C0), false),
-                    _siblingRow('OpacityEngineLayer', Icons.opacity, Color(0xFF6A1B9A), false),
-                    _siblingRow('TransformEngineLayer', Icons.transform, Color(0xFFE65100), false),
-                    _siblingRow('ShaderMaskEngineLayer', Icons.gradient, Color(0xFF00695C), false),
-                    _siblingRow('ImageFilterEngineLayer', Icons.filter_hdr, Color(0xFFC62828), false),
+                    _siblingRow(
+                      'ColorFilterEngineLayer',
+                      Icons.filter,
+                      Color(0xFF1B5E20),
+                      true,
+                    ),
+                    _siblingRow(
+                      'OffsetEngineLayer',
+                      Icons.open_with,
+                      Color(0xFF1565C0),
+                      false,
+                    ),
+                    _siblingRow(
+                      'OpacityEngineLayer',
+                      Icons.opacity,
+                      Color(0xFF6A1B9A),
+                      false,
+                    ),
+                    _siblingRow(
+                      'TransformEngineLayer',
+                      Icons.transform,
+                      Color(0xFFE65100),
+                      false,
+                    ),
+                    _siblingRow(
+                      'ShaderMaskEngineLayer',
+                      Icons.gradient,
+                      Color(0xFF00695C),
+                      false,
+                    ),
+                    _siblingRow(
+                      'ImageFilterEngineLayer',
+                      Icons.filter_hdr,
+                      Color(0xFFC62828),
+                      false,
+                    ),
                   ],
                 ),
               ),
@@ -292,14 +383,26 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _benefitRow(Icons.speed, 'Scene tree caching',
-                      'Engine reuses unchanged subtrees', Color(0xFF1B5E20)),
+                    _benefitRow(
+                      Icons.speed,
+                      'Scene tree caching',
+                      'Engine reuses unchanged subtrees',
+                      Color(0xFF1B5E20),
+                    ),
                     Divider(height: 16),
-                    _benefitRow(Icons.memory, 'Reduced allocation',
-                      'GPU resources shared across frames', Color(0xFF1565C0)),
+                    _benefitRow(
+                      Icons.memory,
+                      'Reduced allocation',
+                      'GPU resources shared across frames',
+                      Color(0xFF1565C0),
+                    ),
                     Divider(height: 16),
-                    _benefitRow(Icons.flash_on, 'Faster compositing',
-                      'Incremental scene updates only', Color(0xFFE65100)),
+                    _benefitRow(
+                      Icons.flash_on,
+                      'Faster compositing',
+                      'Incremental scene updates only',
+                      Color(0xFFE65100),
+                    ),
                   ],
                 ),
               ),
@@ -317,10 +420,15 @@ dynamic build(BuildContext context) {
 Widget _sectionTitle(String title) {
   return Padding(
     padding: EdgeInsets.fromLTRB(16, 20, 16, 8),
-    child: Text(title, style: TextStyle(
-      fontSize: 13, fontWeight: FontWeight.w700,
-      color: Color(0xFF455A64), letterSpacing: 1.0,
-    )),
+    child: Text(
+      title,
+      style: TextStyle(
+        fontSize: 13,
+        fontWeight: FontWeight.w700,
+        color: Color(0xFF455A64),
+        letterSpacing: 1.0,
+      ),
+    ),
   );
 }
 
@@ -337,17 +445,26 @@ Widget _hierarchyLevel(int depth, String name, String desc, Color color) {
       child: Row(
         children: [
           Container(
-            width: 24, height: 24,
+            width: 24,
+            height: 24,
             decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-            child: Center(child: Icon(Icons.code, size: 14, color: Colors.white)),
+            child: Center(
+              child: Icon(Icons.code, size: 14, color: Colors.white),
+            ),
           ),
           SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-                Text(desc, style: TextStyle(fontSize: 11, color: Colors.grey[600])),
+                Text(
+                  name,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                ),
+                Text(
+                  desc,
+                  style: TextStyle(fontSize: 11, color: Colors.grey[600]),
+                ),
               ],
             ),
           ),
@@ -364,23 +481,47 @@ Widget _hierarchyArrow() {
   );
 }
 
-Widget _pipelineStep(int step, String title, String desc, IconData icon, Color color) {
+Widget _pipelineStep(
+  int step,
+  String title,
+  String desc,
+  IconData icon,
+  Color color,
+) {
   return Row(
     children: [
       Container(
-        width: 32, height: 32,
+        width: 32,
+        height: 32,
         decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-        child: Center(child: Text('$step', style: TextStyle(
-          color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14))),
+        child: Center(
+          child: Text(
+            '$step',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+            ),
+          ),
+        ),
       ),
       SizedBox(width: 12),
       Expanded(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
-            Text(desc, style: TextStyle(fontSize: 11, fontFamily: 'monospace',
-              color: Colors.grey[600])),
+            Text(
+              title,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+            ),
+            Text(
+              desc,
+              style: TextStyle(
+                fontSize: 11,
+                fontFamily: 'monospace',
+                color: Colors.grey[600],
+              ),
+            ),
           ],
         ),
       ),
@@ -404,7 +545,10 @@ Widget _buildPhaseBox(String label, Color color) {
       borderRadius: BorderRadius.circular(8),
       border: Border.all(color: color),
     ),
-    child: Text(label, style: TextStyle(fontSize: 11, color: color, fontWeight: FontWeight.bold)),
+    child: Text(
+      label,
+      style: TextStyle(fontSize: 11, color: color, fontWeight: FontWeight.bold),
+    ),
   );
 }
 
@@ -427,13 +571,22 @@ Widget _filterRow(String name, Color color) {
     ),
     child: Row(
       children: [
-        Container(width: 24, height: 24,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+        Container(
+          width: 24,
+          height: 24,
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+        ),
         SizedBox(width: 12),
         Text(name, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
         Spacer(),
-        Text('→ ColorFilterEngineLayer',
-          style: TextStyle(fontSize: 10, color: Colors.grey[600], fontFamily: 'monospace')),
+        Text(
+          '→ ColorFilterEngineLayer',
+          style: TextStyle(
+            fontSize: 10,
+            color: Colors.grey[600],
+            fontFamily: 'monospace',
+          ),
+        ),
       ],
     ),
   );
@@ -443,16 +596,21 @@ Widget _filterDemo(String label, Color? color) {
   return Column(
     children: [
       Container(
-        width: 56, height: 56,
+        width: 56,
+        height: 56,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           gradient: LinearGradient(
             colors: color != null
-              ? [color, color.withValues(alpha: 0.5)]
-              : [Color(0xFF2196F3), Color(0xFFF44336)],
+                ? [color, color.withValues(alpha: 0.5)]
+                : [Color(0xFF2196F3), Color(0xFFF44336)],
           ),
         ),
-        child: Icon(Icons.image, color: Colors.white.withValues(alpha: 0.8), size: 28),
+        child: Icon(
+          Icons.image,
+          color: Colors.white.withValues(alpha: 0.8),
+          size: 28,
+        ),
       ),
       SizedBox(height: 4),
       Text(label, style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)),
@@ -466,7 +624,8 @@ Widget _siblingRow(String name, IconData icon, Color color, bool current) {
     child: Row(
       children: [
         Container(
-          width: 28, height: 28,
+          width: 28,
+          height: 28,
           decoration: BoxDecoration(
             color: current ? color : color.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(6),
@@ -474,9 +633,14 @@ Widget _siblingRow(String name, IconData icon, Color color, bool current) {
           child: Icon(icon, color: current ? Colors.white : color, size: 16),
         ),
         SizedBox(width: 10),
-        Text(name, style: TextStyle(
-          fontWeight: current ? FontWeight.bold : FontWeight.w500,
-          fontSize: 13, color: current ? color : Colors.grey[700])),
+        Text(
+          name,
+          style: TextStyle(
+            fontWeight: current ? FontWeight.bold : FontWeight.w500,
+            fontSize: 13,
+            color: current ? color : Colors.grey[700],
+          ),
+        ),
         if (current) ...[
           Spacer(),
           Container(
@@ -485,7 +649,10 @@ Widget _siblingRow(String name, IconData icon, Color color, bool current) {
               color: color.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Text('current', style: TextStyle(fontSize: 10, color: color)),
+            child: Text(
+              'current',
+              style: TextStyle(fontSize: 10, color: color),
+            ),
           ),
         ],
       ],
@@ -497,9 +664,12 @@ Widget _benefitRow(IconData icon, String title, String desc, Color color) {
   return Row(
     children: [
       Container(
-        width: 36, height: 36,
+        width: 36,
+        height: 36,
         decoration: BoxDecoration(
-          color: color.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8)),
+          color: color.withValues(alpha: 0.1),
+          borderRadius: BorderRadius.circular(8),
+        ),
         child: Icon(icon, color: color, size: 20),
       ),
       SizedBox(width: 12),
@@ -507,7 +677,10 @@ Widget _benefitRow(IconData icon, String title, String desc, Color color) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
+            Text(
+              title,
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+            ),
             Text(desc, style: TextStyle(fontSize: 11, color: Colors.grey[600])),
           ],
         ),
