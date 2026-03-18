@@ -112,10 +112,10 @@ dynamic build(BuildContext context) {
   final basicAction = CupertinoDialogAction(
     child: Text('Action'),
     onPressed: () {
-      print('Action pressed [${basicAction.hashCode }]');
+      print('Action pressed');
     },
   );
-  print('Basic CupertinoDialogAction created');
+  print('Basic CupertinoDialogAction created [${basicAction.hashCode}]');
 
   // Test CupertinoDialogAction with isDefaultAction
   final defaultAction = CupertinoDialogAction(
@@ -245,10 +245,10 @@ dynamic build(BuildContext context) {
   final basicSheetAction = CupertinoActionSheetAction(
     child: Text('Action'),
     onPressed: () {
-      print('Sheet action pressed [${basicSheetAction.hashCode }]');
+      print('Sheet action pressed');
     },
   );
-  print('Basic CupertinoActionSheetAction created');
+  print('Basic CupertinoActionSheetAction created [${basicSheetAction.hashCode}]');
 
   // Test CupertinoActionSheetAction with isDefaultAction
   final defaultSheetAction = CupertinoActionSheetAction(

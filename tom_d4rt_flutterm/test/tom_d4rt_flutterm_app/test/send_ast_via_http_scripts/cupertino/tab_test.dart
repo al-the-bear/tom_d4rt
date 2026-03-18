@@ -102,7 +102,7 @@ dynamic build(BuildContext context) {
   // Test CupertinoTabBar with onTap
   final tappableTabBar = CupertinoTabBar(
     onTap: (int index) {
-      print('Tab tapped: $index [${tappableTabBar.hashCode }]');
+      print('Tab tapped: $index');
     },
     items: [
       BottomNavigationBarItem(icon: Icon(CupertinoIcons.home), label: 'Home'),
@@ -112,7 +112,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('CupertinoTabBar with onTap created');
+  print('CupertinoTabBar with onTap created [${tappableTabBar.hashCode}]');
 
   // ========== CUPERTINOTABSCAFFOLD ==========
   print('--- CupertinoTabScaffold Tests ---');
@@ -170,7 +170,6 @@ dynamic build(BuildContext context) {
     ),
     tabBuilder: (BuildContext context, int index) {
       final titles = ['Library', 'Music', 'Video', 'Photos'];
-  print('controllerTabScaffold: ${controllerTabScaffold.runtimeType}');
       return CupertinoTabView(
         builder: (BuildContext context) {
           return CupertinoPageScaffold(
@@ -181,7 +180,7 @@ dynamic build(BuildContext context) {
       );
     },
   );
-  print('CupertinoTabScaffold with controller created');
+  print('CupertinoTabScaffold with controller created [${controllerTabScaffold.hashCode}]');
 
   // Test CupertinoTabScaffold with backgroundColor
   final bgTabScaffold = CupertinoTabScaffold(

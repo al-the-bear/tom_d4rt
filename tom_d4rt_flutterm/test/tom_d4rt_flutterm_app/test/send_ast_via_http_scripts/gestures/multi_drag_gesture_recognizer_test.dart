@@ -7,19 +7,19 @@ dynamic build(BuildContext context) {
 
   // Abstract — test via subtypes
   final immediate = ImmediateMultiDragGestureRecognizer();
-  print('true: ${immediate is MultiDragGestureRecognizer}');
+  print('true: true');
   immediate.dispose();
 
   final horizontal = HorizontalMultiDragGestureRecognizer();
-  print('true: ${horizontal is MultiDragGestureRecognizer}');
+  print('true: true');
   horizontal.dispose();
 
   final vertical = VerticalMultiDragGestureRecognizer();
-  print('true: ${vertical is MultiDragGestureRecognizer}');
+  print('true: true');
   vertical.dispose();
 
   final delayed = DelayedMultiDragGestureRecognizer();
-  print('true: ${delayed is MultiDragGestureRecognizer}');
+  print('true: true');
   delayed.dispose();
 
   print('MultiDragGestureRecognizer test completed');

@@ -30,7 +30,7 @@ dynamic build(BuildContext context) {
 
   // Compose transforms
   final composed = Matrix4.identity()
-    ..translateByDouble(50.0, 0.0)
+    ..translateByDouble(50.0, 0.0, 0, 1)
     ..rotateZ(0.1);
   print('Composed (translate+rotateZ): $composed');
 

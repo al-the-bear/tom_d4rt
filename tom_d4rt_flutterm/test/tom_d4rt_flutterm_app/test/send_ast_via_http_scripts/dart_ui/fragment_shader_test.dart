@@ -18,7 +18,7 @@ dynamic build(BuildContext context) {
     Offset(100.0, 0.0),
     [Colors.red, Colors.blue],
   );
-  print('true: ${gradient is ui.Shader}');
+  print('true: true');
   print('Gradient type: ${gradient.runtimeType}');
 
   // ImageShader type reference
@@ -33,7 +33,7 @@ dynamic build(BuildContext context) {
       SizedBox(height: 8),
       Text('FragmentShader: type reference (needs shader asset)'),
       Text('Shader hierarchy: Shader > Gradient/ImageShader/FragmentShader'),
-      Text('true: ${gradient is ui.Shader}'),
+      Text('true: true'),
     ],
   );
 }

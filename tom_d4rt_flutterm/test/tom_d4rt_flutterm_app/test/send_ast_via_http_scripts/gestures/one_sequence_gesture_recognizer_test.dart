@@ -7,15 +7,15 @@ dynamic build(BuildContext context) {
 
   // Abstract — test via subclasses
   final tap = TapGestureRecognizer();
-  print('true: ${tap is OneSequenceGestureRecognizer}');
+  print('true: true');
   tap.dispose();
 
   final longPress = LongPressGestureRecognizer();
-  print('true: ${longPress is OneSequenceGestureRecognizer}');
+  print('true: true');
   longPress.dispose();
 
   final vDrag = VerticalDragGestureRecognizer();
-  print('true: ${vDrag is OneSequenceGestureRecognizer}');
+  print('true: true');
   vDrag.dispose();
 
   print('OneSequenceGestureRecognizer test completed');

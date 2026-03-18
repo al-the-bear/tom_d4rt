@@ -194,19 +194,19 @@ dynamic build(BuildContext context) {
   final savedTextFormRow = CupertinoTextFormFieldRow(
     placeholder: 'Saved field',
     onSaved: (value) {
-      print('Saved: $value [${savedTextFormRow.hashCode }]');
+      print('Saved: $value');
     },
   );
-  print('CupertinoTextFormFieldRow with onSaved created');
+  print('CupertinoTextFormFieldRow with onSaved created [${savedTextFormRow.hashCode}]');
 
   // Test CupertinoTextFormFieldRow with onChanged
   final changedTextFormRow = CupertinoTextFormFieldRow(
     placeholder: 'Type to change',
     onChanged: (value) {
-      print('Changed: $value [${changedTextFormRow.hashCode }]');
+      print('Changed: $value');
     },
   );
-  print('CupertinoTextFormFieldRow with onChanged created');
+  print('CupertinoTextFormFieldRow with onChanged created [${changedTextFormRow.hashCode}]');
 
   // Test CupertinoTextFormFieldRow with maxLength
   final maxLengthTextFormRow = CupertinoTextFormFieldRow(

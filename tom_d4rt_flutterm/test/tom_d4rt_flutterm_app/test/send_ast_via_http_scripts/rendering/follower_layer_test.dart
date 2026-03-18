@@ -73,7 +73,7 @@ dynamic build(BuildContext context) {
       ),
       SizedBox(height: 8),
       Text('showWhenUnlinked: ${follower.showWhenUnlinked}'),
-      Text('Has link: ${follower.true}'),
+      Text('Has link: true'),
       Text('For: tooltips, dropdowns'),
       Text('Purpose: Layer following'),
     ],

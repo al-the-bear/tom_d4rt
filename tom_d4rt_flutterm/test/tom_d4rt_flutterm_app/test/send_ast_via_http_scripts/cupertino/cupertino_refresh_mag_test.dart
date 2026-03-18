@@ -104,7 +104,7 @@ dynamic build(BuildContext context) {
     backgroundColor: CupertinoColors.systemBackground,
     resizeToAvoidBottomInset: true,
   );
-  print('CupertinoTabScaffold created');
+  print('CupertinoTabScaffold created [${tabScaffold.hashCode}]');
 
   // ========== CupertinoTabView ==========
   print('--- CupertinoTabView Tests ---');

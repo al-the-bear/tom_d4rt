@@ -19,9 +19,8 @@ dynamic build(BuildContext context) {
   print('- Stored in child.parentData');
   print('- Detached when child removed from parent');
   
-  // Calling detach
-  parentData.detach();
-  print('\nAfter detach(): ParentData cleaned up');
+  // Note: detach() is @protected - can only be called from subclasses
+  print('\ndetach() is protected; called by framework during child removal');
   
   // Common subclasses
   print('\nCommon ParentData subclasses:');

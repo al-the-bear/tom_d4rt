@@ -262,7 +262,7 @@ dynamic build(BuildContext context) {
                     margin: EdgeInsets.all(4.0),
                     color: Color(
                       0xFF2196F3,
-                    ).withOpacity(0.5 + (index % 5) * 0.1),
+                    ).withValues(alpha: 0.5 + (index % 5) * 0.1),
                     child: Center(
                       child: Text(
                         'Item $index',

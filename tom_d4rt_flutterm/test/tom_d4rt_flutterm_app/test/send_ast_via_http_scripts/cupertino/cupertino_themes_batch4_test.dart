@@ -84,13 +84,13 @@ dynamic build(BuildContext context) {
     child: Builder(
       builder: (BuildContext ctx) {
         final theme = CupertinoTheme.of(ctx);
-        print('NoDefault properties via CupertinoTheme.of: [${noDefaultThemeWidget.hashCode }]');
+        print('NoDefault properties via CupertinoTheme.of:');
         print('  primaryColor: ${theme.primaryColor}');
         return Text('NoDefault themed text');
       },
     ),
   );
-  print('NoDefaultCupertinoThemeData properties applied via CupertinoTheme');
+  print('NoDefaultCupertinoThemeData properties applied via CupertinoTheme [${noDefaultThemeWidget.hashCode}]');
 
   // ========== MATERIALBASEDCUPERTINOTHEMEDATA ==========
   print('--- MaterialBasedCupertinoThemeData Tests ---');

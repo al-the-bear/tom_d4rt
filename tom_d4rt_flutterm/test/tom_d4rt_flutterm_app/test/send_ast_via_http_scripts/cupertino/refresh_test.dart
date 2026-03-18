@@ -10,16 +10,16 @@ dynamic build(BuildContext context) {
   // Test basic CupertinoSliverRefreshControl
   final basicRefreshControl = CupertinoSliverRefreshControl(
     onRefresh: () async {
-      print('Refreshing... [${basicRefreshControl.hashCode }]');
+      print('Refreshing...');
     },
   );
-  print('Basic CupertinoSliverRefreshControl created');
+  print('Basic CupertinoSliverRefreshControl created [${basicRefreshControl.hashCode}]');
 
   // Test CupertinoSliverRefreshControl with refreshTriggerPullDistance
   final triggerRefreshControl = CupertinoSliverRefreshControl(
     refreshTriggerPullDistance: 150.0,
     onRefresh: () async {
-      print('Custom trigger refresh [${triggerRefreshControl.hashCode }]');
+      print('Custom trigger refresh');
     },
   );
   print(
@@ -30,25 +30,25 @@ dynamic build(BuildContext context) {
   final extentRefreshControl = CupertinoSliverRefreshControl(
     refreshIndicatorExtent: 80.0,
     onRefresh: () async {
-      print('Custom extent refresh [${extentRefreshControl.hashCode }]');
+      print('Custom extent refresh [${triggerRefreshControl.hashCode}]');
     },
   );
-  print('CupertinoSliverRefreshControl with refreshIndicatorExtent created');
+  print('CupertinoSliverRefreshControl with refreshIndicatorExtent created [${extentRefreshControl.hashCode}]');
 
   // Test CupertinoSliverRefreshControl with both distances
   final customRefreshControl = CupertinoSliverRefreshControl(
     refreshTriggerPullDistance: 120.0,
     refreshIndicatorExtent: 60.0,
     onRefresh: () async {
-      print('Custom distances refresh [${customRefreshControl.hashCode }]');
+      print('Custom distances refresh');
     },
   );
-  print('CupertinoSliverRefreshControl with custom distances created');
+  print('CupertinoSliverRefreshControl with custom distances created [${customRefreshControl.hashCode}]');
 
   // Test CupertinoSliverRefreshControl with custom builder
   final builderRefreshControl = CupertinoSliverRefreshControl(
     onRefresh: () async {
-      print('Builder refresh [${builderRefreshControl.hashCode }]');
+      print('Builder refresh');
     },
     builder:
         (
@@ -61,7 +61,7 @@ dynamic build(BuildContext context) {
           return Center(child: CupertinoActivityIndicator());
         },
   );
-  print('CupertinoSliverRefreshControl with custom builder created');
+  print('CupertinoSliverRefreshControl with custom builder created [${builderRefreshControl.hashCode}]');
 
   // Test CupertinoSliverRefreshControl without onRefresh (display only)
   final displayOnlyRefreshControl = CupertinoSliverRefreshControl();

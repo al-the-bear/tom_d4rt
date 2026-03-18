@@ -168,5 +168,5 @@ dynamic build(BuildContext context) {
   );
 
   print('Layers data test completed');
-  return Container(child: Text('Layers data test passed'));
+  return Text('Layers data test passed');
 }

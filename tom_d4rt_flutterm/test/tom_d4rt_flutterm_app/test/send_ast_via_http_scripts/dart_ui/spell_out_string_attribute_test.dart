@@ -30,7 +30,7 @@ dynamic build(BuildContext context) {
 
   // Extends StringAttribute
   print('\nExtends StringAttribute:');
-  print('is StringAttribute: ${true.StringAttribute}');
+  print('is StringAttribute: true');
 
   // When to use
   print('\nWhen to use:');
@@ -84,7 +84,7 @@ dynamic build(BuildContext context) {
       ),
       SizedBox(height: 8),
       Text('Range: ${attr1.range}'),
-      Text('Is StringAttribute: ${true.StringAttribute}'),
+      Text('Is StringAttribute: true'),
       Text('For: abbreviations, codes'),
       Text('Purpose: Spell out text'),
     ],

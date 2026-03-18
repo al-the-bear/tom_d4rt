@@ -160,5 +160,5 @@ dynamic build(BuildContext context) {
   // (static methods on abstract Gradient class). Skip for now.
 
   print('Gradient rendering test completed');
-  return Container(child: Text('Gradient rendering test passed'));
+  return Text('Gradient rendering test passed');
 }

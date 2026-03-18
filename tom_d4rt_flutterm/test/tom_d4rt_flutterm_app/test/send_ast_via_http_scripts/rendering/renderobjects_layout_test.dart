@@ -140,5 +140,5 @@ dynamic build(BuildContext context) {
   print('Note: render objects not laid out - no parent render tree attached');
 
   print('RenderObjects layout test completed');
-  return Container(child: Text('RenderObjects layout test passed'));
+  return Text('RenderObjects layout test passed');
 }

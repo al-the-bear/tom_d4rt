@@ -137,5 +137,5 @@ dynamic build(BuildContext context) {
   print('Note: render objects not laid out - no parent render tree attached');
 
   print('RenderObjects sliver test completed');
-  return Container(child: Text('RenderObjects sliver test passed'));
+  return Text('RenderObjects sliver test passed');
 }

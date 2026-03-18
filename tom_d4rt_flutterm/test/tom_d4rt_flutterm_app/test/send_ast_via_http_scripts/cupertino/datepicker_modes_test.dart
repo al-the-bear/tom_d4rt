@@ -32,20 +32,20 @@ dynamic build(BuildContext context) {
     mode: CupertinoDatePickerMode.dateAndTime,
     initialDateTime: DateTime(2025, 6, 15, 14, 30),
     onDateTimeChanged: (DateTime dt) {
-      print('DateTime changed: $dt [${dateAndTimePicker.hashCode }]');
+      print('DateTime changed: $dt');
     },
   );
-  print('CupertinoDatePicker mode=dateAndTime created');
+  print('CupertinoDatePicker mode=dateAndTime created [${dateAndTimePicker.hashCode}]');
 
   // Test CupertinoDatePickerMode.monthYear
   final monthYearPicker = CupertinoDatePicker(
     mode: CupertinoDatePickerMode.monthYear,
     initialDateTime: DateTime(2025, 6, 1),
     onDateTimeChanged: (DateTime dt) {
-      print('MonthYear changed: $dt [${monthYearPicker.hashCode }]');
+      print('MonthYear changed: $dt');
     },
   );
-  print('CupertinoDatePicker mode=monthYear created');
+  print('CupertinoDatePicker mode=monthYear created [${monthYearPicker.hashCode}]');
 
   // Test CupertinoDatePicker with minimumDate and maximumDate
   final boundedDatePicker = CupertinoDatePicker(
@@ -54,10 +54,10 @@ dynamic build(BuildContext context) {
     minimumDate: DateTime(2020, 1, 1),
     maximumDate: DateTime(2030, 12, 31),
     onDateTimeChanged: (DateTime dt) {
-      print('Bounded date changed: $dt [${boundedDatePicker.hashCode }]');
+      print('Bounded date changed: $dt');
     },
   );
-  print('CupertinoDatePicker with min/max dates created');
+  print('CupertinoDatePicker with min/max dates created [${boundedDatePicker.hashCode}]');
 
   // Test CupertinoDatePicker with minimumYear and maximumYear
   final yearBoundedPicker = CupertinoDatePicker(
@@ -66,10 +66,10 @@ dynamic build(BuildContext context) {
     minimumYear: 2000,
     maximumYear: 2050,
     onDateTimeChanged: (DateTime dt) {
-      print('Year-bounded date changed: $dt [${yearBoundedPicker.hashCode }]');
+      print('Year-bounded date changed: $dt');
     },
   );
-  print('CupertinoDatePicker with min/max years created');
+  print('CupertinoDatePicker with min/max years created [${yearBoundedPicker.hashCode}]');
 
   // Test CupertinoDatePicker with use24hFormat
   final format24hPicker = CupertinoDatePicker(
@@ -77,10 +77,10 @@ dynamic build(BuildContext context) {
     initialDateTime: DateTime(2025, 6, 15, 14, 30),
     use24hFormat: true,
     onDateTimeChanged: (DateTime dt) {
-      print('24h time changed: $dt [${format24hPicker.hashCode }]');
+      print('24h time changed: $dt');
     },
   );
-  print('CupertinoDatePicker with use24hFormat created');
+  print('CupertinoDatePicker with use24hFormat created [${format24hPicker.hashCode}]');
 
   // Test CupertinoDatePicker with minuteInterval
   final intervalPicker = CupertinoDatePicker(
@@ -88,10 +88,10 @@ dynamic build(BuildContext context) {
     initialDateTime: DateTime(2025, 6, 15, 14, 0),
     minuteInterval: 15,
     onDateTimeChanged: (DateTime dt) {
-      print('Interval time changed: $dt [${intervalPicker.hashCode }]');
+      print('Interval time changed: $dt');
     },
   );
-  print('CupertinoDatePicker with minuteInterval created');
+  print('CupertinoDatePicker with minuteInterval created [${intervalPicker.hashCode}]');
 
   // Test CupertinoDatePicker with backgroundColor
   final bgDatePicker = CupertinoDatePicker(
@@ -110,10 +110,10 @@ dynamic build(BuildContext context) {
     mode: CupertinoTimerPickerMode.hms,
     initialTimerDuration: Duration(hours: 1, minutes: 30, seconds: 45),
     onTimerDurationChanged: (Duration d) {
-      print('HMS timer changed: $d [${hmsTimer.hashCode }]');
+      print('HMS timer changed: $d');
     },
   );
-  print('CupertinoTimerPicker mode=hms created');
+  print('CupertinoTimerPicker mode=hms created [${hmsTimer.hashCode}]');
 
   // Test CupertinoTimerPickerMode.hm (hours, minutes)
   final hmTimer = CupertinoTimerPicker(
@@ -130,10 +130,10 @@ dynamic build(BuildContext context) {
     mode: CupertinoTimerPickerMode.ms,
     initialTimerDuration: Duration(minutes: 5, seconds: 30),
     onTimerDurationChanged: (Duration d) {
-      print('MS timer changed: $d [${msTimer.hashCode }]');
+      print('MS timer changed: $d');
     },
   );
-  print('CupertinoTimerPicker mode=ms created');
+  print('CupertinoTimerPicker mode=ms created [${msTimer.hashCode}]');
 
   // Test CupertinoTimerPicker with minuteInterval
   final intervalTimer = CupertinoTimerPicker(
@@ -141,10 +141,10 @@ dynamic build(BuildContext context) {
     minuteInterval: 5,
     initialTimerDuration: Duration(hours: 1, minutes: 30),
     onTimerDurationChanged: (Duration d) {
-      print('Interval timer changed: $d [${intervalTimer.hashCode }]');
+      print('Interval timer changed: $d');
     },
   );
-  print('CupertinoTimerPicker with minuteInterval created');
+  print('CupertinoTimerPicker with minuteInterval created [${intervalTimer.hashCode}]');
 
   // Test CupertinoTimerPicker with secondInterval
   final secIntervalTimer = CupertinoTimerPicker(
@@ -152,10 +152,10 @@ dynamic build(BuildContext context) {
     secondInterval: 10,
     initialTimerDuration: Duration(hours: 0, minutes: 10, seconds: 30),
     onTimerDurationChanged: (Duration d) {
-      print('Sec interval timer changed: $d [${secIntervalTimer.hashCode }]');
+      print('Sec interval timer changed: $d');
     },
   );
-  print('CupertinoTimerPicker with secondInterval created');
+  print('CupertinoTimerPicker with secondInterval created [${secIntervalTimer.hashCode}]');
 
   // Test CupertinoTimerPicker with alignment
   final alignedTimer = CupertinoTimerPicker(

@@ -111,7 +111,7 @@ dynamic build(BuildContext context) {
   final shader = basicGradient.createShader(
     Rect.fromLTWH(0.0, 0.0, 100.0, 100.0),
   );
-  print('createShader created: ${true}');
+  print('createShader created: ${true} [${shader.hashCode}]');
 
   // ========== BOXSHADOW ==========
   print('--- BoxShadow Tests ---');

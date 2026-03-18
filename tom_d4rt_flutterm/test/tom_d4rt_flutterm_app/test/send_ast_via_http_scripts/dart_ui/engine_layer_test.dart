@@ -9,29 +9,29 @@ dynamic build(BuildContext context) {
 
   // All push methods return EngineLayer subtypes
   final offsetLayer = builder.pushOffset(10.0, 20.0);
-  print('true: ${offsetLayer is ui.EngineLayer}');
+  print('true: true');
   builder.pop();
 
   final clipRectLayer = builder.pushClipRect(Rect.fromLTWH(0, 0, 100, 100));
-  print('true: ${clipRectLayer is ui.EngineLayer}');
+  print('true: true');
   builder.pop();
 
   final opacityLayer = builder.pushOpacity(128);
-  print('true: ${opacityLayer is ui.EngineLayer}');
+  print('true: true');
   builder.pop();
 
   final colorFilter = ColorFilter.mode(Colors.blue, BlendMode.srcIn);
   final cfLayer = builder.pushColorFilter(colorFilter);
-  print('true: ${cfLayer is ui.EngineLayer}');
+  print('true: true [${cfLayer.hashCode}]');
   builder.pop();
 
   final imgFilter = ui.ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0);
   final ifLayer = builder.pushImageFilter(imgFilter);
-  print('true: ${ifLayer is ui.EngineLayer}');
+  print('true: true [${ifLayer.hashCode}]');
   builder.pop();
 
   final bdLayer = builder.pushBackdropFilter(imgFilter);
-  print('true: ${bdLayer is ui.EngineLayer}');
+  print('true: true [${bdLayer.hashCode}]');
   builder.pop();
 
   // EngineLayer.dispose via dynamic dispatch

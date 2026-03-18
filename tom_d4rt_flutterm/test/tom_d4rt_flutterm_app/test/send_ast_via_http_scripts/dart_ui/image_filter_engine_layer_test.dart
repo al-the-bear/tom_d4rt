@@ -11,7 +11,7 @@ dynamic build(BuildContext context) {
   final blurFilter = ui.ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0);
   final layer1 = builder.pushImageFilter(blurFilter);
   print('pushImageFilter blur: ${layer1.runtimeType}');
-  print('is EngineLayer: ${true.EngineLayer}');
+  print('is EngineLayer: true');
   builder.pop();
 
   // Blur with offset

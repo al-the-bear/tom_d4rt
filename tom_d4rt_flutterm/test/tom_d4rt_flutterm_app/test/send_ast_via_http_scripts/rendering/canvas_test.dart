@@ -148,5 +148,5 @@ dynamic build(BuildContext context) {
   print('PaintingStyle.stroke: ${PaintingStyle.stroke}');
 
   print('Canvas test completed');
-  return Container(child: Text('Canvas test passed'));
+  return Text('Canvas test passed');
 }

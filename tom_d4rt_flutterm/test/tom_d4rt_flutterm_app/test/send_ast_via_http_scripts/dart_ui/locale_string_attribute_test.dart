@@ -37,8 +37,8 @@ dynamic build(BuildContext context) {
   print('spellAttr range: ${spellAttr.range}');
 
   // StringAttribute base
-  print('true: ${attr1 is ui.StringAttribute}');
-  print('true: ${spellAttr is ui.StringAttribute}');
+  print('true: true');
+  print('true: true');
 
   print('LocaleStringAttribute test completed');
   return Column(

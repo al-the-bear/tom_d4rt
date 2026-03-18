@@ -9,7 +9,7 @@ dynamic build(BuildContext context) {
 
   // Create a transform
   final matrix = Matrix4.identity();
-  matrix.translateByDouble(100.0, 50.0);
+  matrix.translateByDouble(100.0, 50.0, 0, 1);
   matrix.rotateZ(0.5);
 
   // transformPoint

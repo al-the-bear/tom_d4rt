@@ -314,10 +314,10 @@ dynamic build(BuildContext context) {
       ),
     ],
     onTap: (index) {
-      print('Tab $index tapped [${tappableTabBar.hashCode }]');
+      print('Tab $index tapped');
     },
   );
-  print('CupertinoTabBar with onTap created');
+  print('CupertinoTabBar with onTap created [${tappableTabBar.hashCode}]');
 
   // Test CupertinoTabBar with backgroundColor
   final bgTabBar = CupertinoTabBar(

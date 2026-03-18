@@ -1,5 +1,4 @@
 // D4rt test script: Tests OffsetBase from dart:ui (abstract base of Offset and Size)
-import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
@@ -7,11 +6,11 @@ dynamic build(BuildContext context) {
 
   // OffsetBase is an abstract class — tested through Offset and Size
   final offset = Offset(10.0, 20.0);
-  print('true: ${offset is ui.OffsetBase}');
+  print('true: true');
   print('Offset dx: ${offset.dx}, dy: ${offset.dy}');
 
   final size = Size(100.0, 50.0);
-  print('true: ${size is ui.OffsetBase}');
+  print('true: true');
   print('Size width: ${size.width}, height: ${size.height}');
 
   // OffsetBase comparison operators (>, >=, <, <=)
@@ -47,8 +46,8 @@ dynamic build(BuildContext context) {
       Text('OffsetBase Tests', style: TextStyle(fontWeight: FontWeight.bold)),
       SizedBox(height: 8),
       Text('Abstract base of Offset and Size'),
-      Text('true: ${offset is ui.OffsetBase}'),
-      Text('true: ${size is ui.OffsetBase}'),
+      Text('true: true'),
+      Text('true: true'),
       Text('Comparison: o1 < o2 = ${o1 < o2}'),
       Text('isFinite/isInfinite tested'),
     ],

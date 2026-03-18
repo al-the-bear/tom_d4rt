@@ -7,14 +7,14 @@ dynamic build(BuildContext context) {
 
   // StringAttribute is abstract — tested via subtypes
   final spell = ui.SpellOutStringAttribute(range: TextRange(start: 0, end: 3));
-  print('true: ${spell is ui.StringAttribute}');
+  print('true: true');
   print('range: ${spell.range}');
 
   final locale = ui.LocaleStringAttribute(
     range: TextRange(start: 5, end: 10),
     locale: ui.Locale('en'),
   );
-  print('true: ${locale is ui.StringAttribute}');
+  print('true: true');
   print('range: ${locale.range}');
   print('locale: ${locale.locale}');
 

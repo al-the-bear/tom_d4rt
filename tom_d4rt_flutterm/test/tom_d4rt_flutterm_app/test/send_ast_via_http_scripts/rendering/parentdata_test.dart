@@ -186,5 +186,5 @@ dynamic build(BuildContext context) {
   print('  height: ${positioned.height}');
 
   print('ParentData test completed');
-  return Container(child: Text('ParentData test passed'));
+  return Text('ParentData test passed');
 }

@@ -110,7 +110,7 @@ dynamic build(BuildContext context) {
 
   final transformLayer = TransformLayer(
     transform: Matrix4.identity()
-      ..translate(50.0, 50.0)
+      ..translateByDouble(50.0, 50.0, 0, 1)
       ..rotateZ(0.785),
   );
   print('TransformLayer created with rotation transform [${transformLayer.hashCode }]');

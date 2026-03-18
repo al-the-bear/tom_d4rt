@@ -122,5 +122,5 @@ dynamic build(BuildContext context) {
   print('Note: render objects not laid out - no parent render tree attached');
 
   print('RenderObjects sizing test completed');
-  return Container(child: Text('RenderObjects sizing test passed'));
+  return Text('RenderObjects sizing test passed');
 }

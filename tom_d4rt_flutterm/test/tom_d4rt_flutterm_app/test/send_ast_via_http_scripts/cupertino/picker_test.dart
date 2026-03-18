@@ -162,10 +162,10 @@ dynamic build(BuildContext context) {
   // Test basic CupertinoDatePicker
   final basicDatePicker = CupertinoDatePicker(
     onDateTimeChanged: (DateTime dateTime) {
-      print('Date changed: $dateTime [${basicDatePicker.hashCode }]');
+      print('Date changed: $dateTime');
     },
   );
-  print('Basic CupertinoDatePicker created');
+  print('Basic CupertinoDatePicker created [${basicDatePicker.hashCode}]');
 
   // Test CupertinoDatePicker with mode: date
   final datePicker = CupertinoDatePicker(

@@ -155,5 +155,5 @@ dynamic build(BuildContext context) {
   print('FractionColumnWidth(0.25) value: ${fractionCol25.value}');
 
   print('Sliver delegates test completed');
-  return Container(child: Text('Sliver delegates test passed'));
+  return Text('Sliver delegates test passed');
 }
