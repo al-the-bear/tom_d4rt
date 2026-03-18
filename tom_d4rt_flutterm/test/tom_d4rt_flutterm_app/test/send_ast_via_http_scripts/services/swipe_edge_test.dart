@@ -10,7 +10,7 @@ dynamic build(BuildContext context) {
   for (final value in SwipeEdge.values) {
     print('  ${value.name}: $value');
   }
-  print('SwipeEdge has ${ SwipeEdge.values.length} values');
+  print('SwipeEdge has ${SwipeEdge.values.length} values');
 
   final first = SwipeEdge.values.first;
   final last = SwipeEdge.values.last;
@@ -22,7 +22,7 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('SwipeEdge Tests'),
-      Text('Values: ${ SwipeEdge.values.length}'),
+      Text('Values: ${SwipeEdge.values.length}'),
       Text('First: $first'),
       Text('Last: $last'),
     ],

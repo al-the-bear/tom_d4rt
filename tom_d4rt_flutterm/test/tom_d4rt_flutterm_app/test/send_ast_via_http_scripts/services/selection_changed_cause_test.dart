@@ -9,7 +9,9 @@ dynamic build(BuildContext context) {
   for (final value in SelectionChangedCause.values) {
     print('  ${value.name}: $value');
   }
-  print('SelectionChangedCause has ${ SelectionChangedCause.values.length} values');
+  print(
+    'SelectionChangedCause has ${SelectionChangedCause.values.length} values',
+  );
 
   final first = SelectionChangedCause.values.first;
   final last = SelectionChangedCause.values.last;
@@ -21,7 +23,7 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('SelectionChangedCause Tests'),
-      Text('Values: ${ SelectionChangedCause.values.length}'),
+      Text('Values: ${SelectionChangedCause.values.length}'),
       Text('First: $first'),
       Text('Last: $last'),
     ],

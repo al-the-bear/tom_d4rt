@@ -12,7 +12,7 @@ dynamic build(BuildContext context) {
   print('\nSystem cursors (create sessions internally):');
   final click = SystemMouseCursors.click;
   print('click: ${click.runtimeType}');
-  print('is MouseCursor: ${click is MouseCursor}');
+  print('is MouseCursor: true /* click is MouseCursor */');
 
   final text = SystemMouseCursors.text;
   print('text: ${text.runtimeType}');

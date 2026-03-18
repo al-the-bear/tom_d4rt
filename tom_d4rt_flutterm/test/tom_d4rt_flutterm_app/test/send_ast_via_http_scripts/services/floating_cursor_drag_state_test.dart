@@ -10,7 +10,9 @@ dynamic build(BuildContext context) {
   for (final value in FloatingCursorDragState.values) {
     print('  ${value.name}: $value');
   }
-  print('FloatingCursorDragState has ${ FloatingCursorDragState.values.length} values');
+  print(
+    'FloatingCursorDragState has ${FloatingCursorDragState.values.length} values',
+  );
 
   final first = FloatingCursorDragState.values.first;
   final last = FloatingCursorDragState.values.last;
@@ -22,7 +24,7 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('FloatingCursorDragState Tests'),
-      Text('Values: ${ FloatingCursorDragState.values.length}'),
+      Text('Values: ${FloatingCursorDragState.values.length}'),
       Text('First: $first'),
       Text('Last: $last'),
     ],

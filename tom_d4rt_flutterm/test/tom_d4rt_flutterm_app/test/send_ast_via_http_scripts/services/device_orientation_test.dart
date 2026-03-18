@@ -10,7 +10,7 @@ dynamic build(BuildContext context) {
   for (final value in DeviceOrientation.values) {
     print('  ${value.name}: $value');
   }
-  print('DeviceOrientation has ${ DeviceOrientation.values.length} values');
+  print('DeviceOrientation has ${DeviceOrientation.values.length} values');
 
   final first = DeviceOrientation.values.first;
   final last = DeviceOrientation.values.last;
@@ -22,7 +22,7 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('DeviceOrientation Tests'),
-      Text('Values: ${ DeviceOrientation.values.length}'),
+      Text('Values: ${DeviceOrientation.values.length}'),
       Text('First: $first'),
       Text('Last: $last'),
     ],

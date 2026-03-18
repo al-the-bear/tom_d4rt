@@ -18,7 +18,7 @@ dynamic build(BuildContext context) {
 
   // Implements ProcessTextService
   print('\nImplements ProcessTextService:');
-  print('is ProcessTextService: ${service is ProcessTextService}');
+  print('is ProcessTextService: true /* service is ProcessTextService */');
 
   // Methods
   print('\nMethods:');

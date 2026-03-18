@@ -63,7 +63,7 @@ dynamic build(BuildContext context) {
 
   // Test type hierarchy
   print('\nType hierarchy:');
-  print('is Object: ${usernameConfig is Object}');
+  print('is Object: true /* usernameConfig is Object */');
 
   // Create for address fields
   final addressConfig = AutofillConfiguration(

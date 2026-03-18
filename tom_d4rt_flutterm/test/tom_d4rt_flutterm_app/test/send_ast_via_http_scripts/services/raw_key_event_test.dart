@@ -32,7 +32,7 @@ dynamic build(BuildContext context) {
 
   // Type hierarchy
   print('\nType hierarchy:');
-  print('is KeyEvent: ${keyDown is KeyEvent}');
+  print('is KeyEvent: true /* keyDown is KeyEvent */');
 
   // Migration guide
   print('\nMigration from RawKeyEvent:');

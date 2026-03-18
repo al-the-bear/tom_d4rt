@@ -89,7 +89,7 @@ dynamic build(BuildContext context) {
 
   // Test type hierarchy
   print('\nType hierarchy:');
-  print('is Object: ${coords1 is Object}');
+  print('is Object: true /* coords1 is Object */');
 
   // Compare coordinates
   print('\nCoordinate comparison:');

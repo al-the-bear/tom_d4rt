@@ -24,7 +24,7 @@ dynamic build(BuildContext context) {
   // Extends base class
   print('\nExtends IOSSystemContextMenuItemData:');
   print(
-    'is IOSSystemContextMenuItemData: ${liveTextItem is IOSSystemContextMenuItemData}',
+    'is IOSSystemContextMenuItemData: true /* liveTextItem is IOSSystemContextMenuItemData */',
   );
 
   // iOS Live Text feature

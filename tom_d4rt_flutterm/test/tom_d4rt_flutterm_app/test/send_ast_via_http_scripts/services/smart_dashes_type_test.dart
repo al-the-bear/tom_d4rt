@@ -9,7 +9,7 @@ dynamic build(BuildContext context) {
   for (final value in SmartDashesType.values) {
     print('  ${value.name}: $value');
   }
-  print('SmartDashesType has ${ SmartDashesType.values.length} values');
+  print('SmartDashesType has ${SmartDashesType.values.length} values');
 
   final first = SmartDashesType.values.first;
   final last = SmartDashesType.values.last;
@@ -21,7 +21,7 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('SmartDashesType Tests'),
-      Text('Values: ${ SmartDashesType.values.length}'),
+      Text('Values: ${SmartDashesType.values.length}'),
       Text('First: $first'),
       Text('Last: $last'),
     ],

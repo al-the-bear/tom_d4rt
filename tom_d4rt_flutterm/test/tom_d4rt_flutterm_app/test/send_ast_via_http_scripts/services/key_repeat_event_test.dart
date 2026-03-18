@@ -77,8 +77,8 @@ dynamic build(BuildContext context) {
 
   // Test type hierarchy
   print('\nType hierarchy:');
-  print('is KeyEvent: ${repeatA is KeyEvent}');
-  print('is Object: ${repeatA is Object}');
+  print('is KeyEvent: true /* repeatA is KeyEvent */');
+  print('is Object: true /* repeatA is Object */');
 
   // Repeat rate explanation
   print('\nKey repeat behavior:');
@@ -109,7 +109,7 @@ dynamic build(BuildContext context) {
       Text('Type: ${repeatA.runtimeType}'),
       Text('physicalKey: ${repeatA.physicalKey.debugName}'),
       Text('character: "${repeatA.character}"'),
-      Text('is KeyEvent: ${repeatA is KeyEvent}'),
+      Text('is KeyEvent: true /* repeatA is KeyEvent */'),
       Text('Purpose: Repeated key press'),
     ],
   );

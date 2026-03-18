@@ -50,13 +50,17 @@ dynamic build(BuildContext context) {
   print('--- JSONMessageCodec Tests ---');
   final jsonCodec = JSONMessageCodec();
   final jsonEncoded = jsonCodec.encodeMessage({'key': 'value', 'count': 42});
-  print('JSONMessageCodec encoded: ${jsonEncoded != null ? "success" : "null"}');
+  print(
+    'JSONMessageCodec encoded: ${jsonEncoded != null ? "success" : "null"}',
+  );
 
   // ========== StandardMessageCodec ==========
   print('--- StandardMessageCodec Tests ---');
   final stdCodec = StandardMessageCodec();
   final stdEncoded = stdCodec.encodeMessage([1, 2, 'three']);
-  print('StandardMessageCodec encoded: ${stdEncoded != null ? "success" : "null"}');
+  print(
+    'StandardMessageCodec encoded: ${stdEncoded != null ? "success" : "null"}',
+  );
 
   // ========== StandardMethodCodec ==========
   print('--- StandardMethodCodec Tests ---');

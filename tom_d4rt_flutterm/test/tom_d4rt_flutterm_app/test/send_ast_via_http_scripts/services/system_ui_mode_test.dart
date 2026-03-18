@@ -10,7 +10,7 @@ dynamic build(BuildContext context) {
   for (final value in SystemUiMode.values) {
     print('  ${value.name}: $value');
   }
-  print('SystemUiMode has ${ SystemUiMode.values.length} values');
+  print('SystemUiMode has ${SystemUiMode.values.length} values');
 
   final first = SystemUiMode.values.first;
   final last = SystemUiMode.values.last;
@@ -22,7 +22,7 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('SystemUiMode Tests'),
-      Text('Values: ${ SystemUiMode.values.length}'),
+      Text('Values: ${SystemUiMode.values.length}'),
       Text('First: $first'),
       Text('Last: $last'),
     ],

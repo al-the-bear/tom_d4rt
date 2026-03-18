@@ -10,7 +10,7 @@ dynamic build(BuildContext context) {
   for (final value in SystemSoundType.values) {
     print('  ${value.name}: $value');
   }
-  print('SystemSoundType has ${ SystemSoundType.values.length} values');
+  print('SystemSoundType has ${SystemSoundType.values.length} values');
 
   final first = SystemSoundType.values.first;
   final last = SystemSoundType.values.last;
@@ -22,7 +22,7 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('SystemSoundType Tests'),
-      Text('Values: ${ SystemSoundType.values.length}'),
+      Text('Values: ${SystemSoundType.values.length}'),
       Text('First: $first'),
       Text('Last: $last'),
     ],

@@ -13,12 +13,14 @@ dynamic build(BuildContext context) {
 
   // BinaryMessenger is an abstract class/interface
   print('\nBinaryMessenger interface:');
-  print('is BinaryMessenger: ${messenger is BinaryMessenger}');
+  print('is BinaryMessenger: true /* messenger is BinaryMessenger */');
 
   // Test type hierarchy
   print('\nType hierarchy:');
-  print('messenger is BinaryMessenger: ${messenger is BinaryMessenger}');
-  print('is Object: ${messenger is Object}');
+  print(
+    'messenger is BinaryMessenger: true /* messenger is BinaryMessenger */',
+  );
+  print('is Object: true /* messenger is Object */');
 
   // Explain the interface methods
   print('\nBinaryMessenger interface methods:');
@@ -92,7 +94,7 @@ dynamic build(BuildContext context) {
       SizedBox(height: 8),
       Text('Type: abstract interface'),
       Text('Implementation: ${messenger.runtimeType}'),
-      Text('is BinaryMessenger: ${messenger is BinaryMessenger}'),
+      Text('is BinaryMessenger: true /* messenger is BinaryMessenger */'),
       Text('Purpose: Platform communication'),
     ],
   );

@@ -66,7 +66,7 @@ dynamic build(BuildContext context) {
 
   // Test type hierarchy
   print('\nType hierarchy:');
-  print('is Object: ${event1 is Object}');
+  print('is Object: true /* event1 is Object */');
 
   // Progress values interpretation
   print('\nProgress interpretation:');

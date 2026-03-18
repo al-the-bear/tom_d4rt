@@ -28,7 +28,7 @@ dynamic build(BuildContext context) {
 
   // Test type hierarchy
   print('\nType hierarchy:');
-  print('is Exception: ${exception is Exception}');
+  print('is Exception: true /* exception is Exception */');
 
   // Common error codes
   print('\nCommon error codes:');

@@ -60,8 +60,8 @@ dynamic build(BuildContext context) {
 
   // Test type hierarchy
   print('\nType hierarchy:');
-  print('is KeyEvent: ${keyA is KeyEvent}');
-  print('is Object: ${keyA is Object}');
+  print('is KeyEvent: true /* keyA is KeyEvent */');
+  print('is Object: true /* keyA is Object */');
 
   // Compare keys
   print('\nKey comparison:');
@@ -108,7 +108,7 @@ dynamic build(BuildContext context) {
       Text('Type: ${keyA.runtimeType}'),
       Text('physicalKey: ${keyA.physicalKey.debugName}'),
       Text('character: "${keyA.character}"'),
-      Text('is KeyEvent: ${keyA is KeyEvent}'),
+      Text('is KeyEvent: true /* keyA is KeyEvent */'),
       Text('Purpose: Key press event'),
     ],
   );

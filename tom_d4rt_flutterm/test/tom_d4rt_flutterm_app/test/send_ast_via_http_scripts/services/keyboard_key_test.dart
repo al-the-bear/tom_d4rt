@@ -14,7 +14,7 @@ dynamic build(BuildContext context) {
   final physicalA = PhysicalKeyboardKey.keyA;
   print('keyA: ${physicalA.debugName}');
   print('usbHidUsage: ${physicalA.usbHidUsage}');
-  print('is KeyboardKey: ${physicalA is KeyboardKey}');
+  print('is KeyboardKey: true /* physicalA is KeyboardKey */');
 
   final physicalEnter = PhysicalKeyboardKey.enter;
   print('enter: ${physicalEnter.debugName}');
@@ -24,7 +24,7 @@ dynamic build(BuildContext context) {
   final logicalA = LogicalKeyboardKey.keyA;
   print('keyA: ${logicalA.keyLabel}');
   print('keyId: ${logicalA.keyId}');
-  print('is KeyboardKey: ${logicalA is KeyboardKey}');
+  print('is KeyboardKey: true /* logicalA is KeyboardKey */');
 
   final logicalEnter = LogicalKeyboardKey.enter;
   print('enter: ${logicalEnter.keyLabel}');

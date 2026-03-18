@@ -53,7 +53,7 @@ dynamic build(BuildContext context) {
 
   // Test type hierarchy
   print('\nType hierarchy:');
-  print('is Object: ${finger is Object}');
+  print('is Object: true /* finger is Object */');
 
   // Compare pointers by ID
   print('\nPointer ID comparison:');

@@ -10,7 +10,9 @@ dynamic build(BuildContext context) {
   for (final value in MaxLengthEnforcement.values) {
     print('  ${value.name}: $value');
   }
-  print('MaxLengthEnforcement has ${ MaxLengthEnforcement.values.length} values');
+  print(
+    'MaxLengthEnforcement has ${MaxLengthEnforcement.values.length} values',
+  );
 
   final first = MaxLengthEnforcement.values.first;
   final last = MaxLengthEnforcement.values.last;
@@ -22,7 +24,7 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('MaxLengthEnforcement Tests'),
-      Text('Values: ${ MaxLengthEnforcement.values.length}'),
+      Text('Values: ${MaxLengthEnforcement.values.length}'),
       Text('First: $first'),
       Text('Last: $last'),
     ],

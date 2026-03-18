@@ -10,7 +10,7 @@ dynamic build(BuildContext context) {
   for (final value in KeyboardSide.values) {
     print('  ${value.name}: $value');
   }
-  print('KeyboardSide has ${ KeyboardSide.values.length} values');
+  print('KeyboardSide has ${KeyboardSide.values.length} values');
 
   final first = KeyboardSide.values.first;
   final last = KeyboardSide.values.last;
@@ -22,7 +22,7 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('KeyboardSide Tests'),
-      Text('Values: ${ KeyboardSide.values.length}'),
+      Text('Values: ${KeyboardSide.values.length}'),
       Text('First: $first'),
       Text('Last: $last'),
     ],

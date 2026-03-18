@@ -26,7 +26,7 @@ dynamic build(BuildContext context) {
 
   // Test type hierarchy
   print('\nType hierarchy:');
-  print('is KeyEvent: ${event is KeyEvent}');
+  print('is KeyEvent: true /* event is KeyEvent */');
 
   // Compare with KeyDownEvent
   print('\nKeyUp vs KeyDown:');

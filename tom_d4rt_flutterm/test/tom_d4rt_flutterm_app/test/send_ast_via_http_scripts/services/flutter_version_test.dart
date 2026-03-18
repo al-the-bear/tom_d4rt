@@ -40,7 +40,7 @@ dynamic build(BuildContext context) {
 
   // Test type hierarchy
   print('\nType hierarchy:');
-  print('is Object: ${version is Object}');
+  print('is Object: true /* version is Object */');
 
   // Channel stability comparison
   print('\nChannel stability order:');

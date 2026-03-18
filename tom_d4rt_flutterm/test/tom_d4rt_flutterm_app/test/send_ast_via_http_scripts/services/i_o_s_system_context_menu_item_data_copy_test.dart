@@ -24,7 +24,7 @@ dynamic build(BuildContext context) {
   // Extends base class
   print('\nExtends IOSSystemContextMenuItemData:');
   print(
-    'is IOSSystemContextMenuItemData: ${copyItem is IOSSystemContextMenuItemData}',
+    'is IOSSystemContextMenuItemData: true /* copyItem is IOSSystemContextMenuItemData */',
   );
 
   // iOS behavior

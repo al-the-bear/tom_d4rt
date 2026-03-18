@@ -11,9 +11,6 @@ dynamic build(BuildContext context) {
   print('Class test completed');
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('Class Tests'),
-      Text('Description'),
-    ],
+    children: [Text('Class Tests'), Text('Description')],
   );
 }

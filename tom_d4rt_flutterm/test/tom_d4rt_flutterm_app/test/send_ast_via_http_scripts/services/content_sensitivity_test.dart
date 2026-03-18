@@ -10,7 +10,7 @@ dynamic build(BuildContext context) {
   for (final value in ContentSensitivity.values) {
     print('  ${value.name}: $value');
   }
-  print('ContentSensitivity has ${ ContentSensitivity.values.length} values');
+  print('ContentSensitivity has ${ContentSensitivity.values.length} values');
 
   final first = ContentSensitivity.values.first;
   final last = ContentSensitivity.values.last;
@@ -22,7 +22,7 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('ContentSensitivity Tests'),
-      Text('Values: ${ ContentSensitivity.values.length}'),
+      Text('Values: ${ContentSensitivity.values.length}'),
       Text('First: $first'),
       Text('Last: $last'),
     ],

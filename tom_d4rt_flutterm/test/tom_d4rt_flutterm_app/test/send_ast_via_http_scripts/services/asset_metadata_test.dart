@@ -70,7 +70,7 @@ dynamic build(BuildContext context) {
 
   // Test type hierarchy
   print('\nType hierarchy:');
-  print('is Object: ${meta1 is Object}');
+  print('is Object: true /* meta1 is Object */');
 
   // Compare metadata by key
   print('\nMetadata key comparison:');

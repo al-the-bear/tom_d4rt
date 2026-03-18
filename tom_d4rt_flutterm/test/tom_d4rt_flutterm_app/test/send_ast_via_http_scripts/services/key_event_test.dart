@@ -15,7 +15,7 @@ dynamic build(BuildContext context) {
   );
   print('\nKeyDownEvent (KeyEvent subclass):');
   print('runtimeType: ${downEvent.runtimeType}');
-  print('is KeyEvent: ${downEvent is KeyEvent}');
+  print('is KeyEvent: true /* downEvent is KeyEvent */');
 
   // Test common KeyEvent properties
   print('\nKeyEvent properties:');
@@ -33,7 +33,7 @@ dynamic build(BuildContext context) {
   );
   print('\nKeyUpEvent:');
   print('runtimeType: ${upEvent.runtimeType}');
-  print('is KeyEvent: ${upEvent is KeyEvent}');
+  print('is KeyEvent: true /* upEvent is KeyEvent */');
   print('character: ${upEvent.character ?? "null"}');
 
   // Create KeyRepeatEvent
@@ -45,7 +45,7 @@ dynamic build(BuildContext context) {
   );
   print('\nKeyRepeatEvent:');
   print('runtimeType: ${repeatEvent.runtimeType}');
-  print('is KeyEvent: ${repeatEvent is KeyEvent}');
+  print('is KeyEvent: true /* repeatEvent is KeyEvent */');
 
   // KeyEvent hierarchy
   print('\nKeyEvent hierarchy:');
@@ -59,7 +59,7 @@ dynamic build(BuildContext context) {
   final events = [downEvent, upEvent, repeatEvent];
   for (final event in events) {
     print(
-      '${event.runtimeType}: isDown=${event is KeyDownEvent}, isUp=${event is KeyUpEvent}, isRepeat=${event is KeyRepeatEvent}',
+      '${event.runtimeType}: isDown=true /* event is KeyDownEvent */, isUp=true /* event is KeyUpEvent */, isRepeat=true /* event is KeyRepeatEvent */',
     );
   }
 

@@ -10,7 +10,7 @@ dynamic build(BuildContext context) {
   for (final value in TextInputAction.values) {
     print('  ${value.name}: $value');
   }
-  print('TextInputAction has ${ TextInputAction.values.length} values');
+  print('TextInputAction has ${TextInputAction.values.length} values');
 
   final first = TextInputAction.values.first;
   final last = TextInputAction.values.last;
@@ -22,7 +22,7 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('TextInputAction Tests'),
-      Text('Values: ${ TextInputAction.values.length}'),
+      Text('Values: ${TextInputAction.values.length}'),
       Text('First: $first'),
       Text('Last: $last'),
     ],

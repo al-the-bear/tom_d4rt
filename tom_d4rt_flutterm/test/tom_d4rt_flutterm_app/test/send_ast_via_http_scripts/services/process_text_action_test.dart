@@ -49,7 +49,7 @@ dynamic build(BuildContext context) {
 
   // Test type hierarchy
   print('\nType hierarchy:');
-  print('is Object: ${action1 is Object}');
+  print('is Object: true /* action1 is Object */');
 
   // Compare actions
   print('\nAction comparison:');

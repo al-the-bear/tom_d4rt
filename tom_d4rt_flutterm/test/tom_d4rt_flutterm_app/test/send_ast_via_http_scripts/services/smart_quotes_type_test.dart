@@ -9,7 +9,7 @@ dynamic build(BuildContext context) {
   for (final value in SmartQuotesType.values) {
     print('  ${value.name}: $value');
   }
-  print('SmartQuotesType has ${ SmartQuotesType.values.length} values');
+  print('SmartQuotesType has ${SmartQuotesType.values.length} values');
 
   final first = SmartQuotesType.values.first;
   final last = SmartQuotesType.values.last;
@@ -21,7 +21,7 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('SmartQuotesType Tests'),
-      Text('Values: ${ SmartQuotesType.values.length}'),
+      Text('Values: ${SmartQuotesType.values.length}'),
       Text('First: $first'),
       Text('Last: $last'),
     ],

@@ -10,7 +10,7 @@ dynamic build(BuildContext context) {
   for (final value in KeyboardLockMode.values) {
     print('  ${value.name}: $value');
   }
-  print('KeyboardLockMode has ${ KeyboardLockMode.values.length} values');
+  print('KeyboardLockMode has ${KeyboardLockMode.values.length} values');
 
   final first = KeyboardLockMode.values.first;
   final last = KeyboardLockMode.values.last;
@@ -22,7 +22,7 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('KeyboardLockMode Tests'),
-      Text('Values: ${ KeyboardLockMode.values.length}'),
+      Text('Values: ${KeyboardLockMode.values.length}'),
       Text('First: $first'),
       Text('Last: $last'),
     ],

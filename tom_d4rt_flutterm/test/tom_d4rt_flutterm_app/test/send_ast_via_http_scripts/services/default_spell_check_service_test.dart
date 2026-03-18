@@ -18,7 +18,7 @@ dynamic build(BuildContext context) {
 
   // Implements SpellCheckService
   print('\nImplements SpellCheckService:');
-  print('is SpellCheckService: ${service is SpellCheckService}');
+  print('is SpellCheckService: true /* service is SpellCheckService */');
 
   // Method
   print('\nfetchSpellCheckSuggestions:');

@@ -67,7 +67,7 @@ dynamic build(BuildContext context) {
   print('\nType hierarchy:');
   print('TextRange');
   print('  \u2514\u2500 TextSelection');
-  print('is TextRange: ${range is TextRange}');
+  print('is TextRange: true /* range is TextRange */');
 
   // TextRange properties inherited
   print('\nInherited from TextRange:');

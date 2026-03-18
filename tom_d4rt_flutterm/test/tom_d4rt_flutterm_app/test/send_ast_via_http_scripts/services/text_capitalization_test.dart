@@ -10,7 +10,7 @@ dynamic build(BuildContext context) {
   for (final value in TextCapitalization.values) {
     print('  ${value.name}: $value');
   }
-  print('TextCapitalization has ${ TextCapitalization.values.length} values');
+  print('TextCapitalization has ${TextCapitalization.values.length} values');
 
   final first = TextCapitalization.values.first;
   final last = TextCapitalization.values.last;
@@ -22,7 +22,7 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('TextCapitalization Tests'),
-      Text('Values: ${ TextCapitalization.values.length}'),
+      Text('Values: ${TextCapitalization.values.length}'),
       Text('First: $first'),
       Text('Last: $last'),
     ],

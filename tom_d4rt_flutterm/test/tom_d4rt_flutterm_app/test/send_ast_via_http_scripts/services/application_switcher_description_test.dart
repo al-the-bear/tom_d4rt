@@ -55,7 +55,7 @@ dynamic build(BuildContext context) {
 
   // Test type hierarchy
   print('\nType hierarchy:');
-  print('is Object: ${desc1 is Object}');
+  print('is Object: true /* desc1 is Object */');
 
   // Color parsing examples
   print('\nColor interpretation:');

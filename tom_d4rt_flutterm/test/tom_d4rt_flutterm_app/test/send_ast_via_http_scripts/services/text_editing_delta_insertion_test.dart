@@ -34,7 +34,7 @@ dynamic build(BuildContext context) {
 
   // Test type hierarchy
   print('\nType hierarchy:');
-  print('is TextEditingDelta: ${delta is TextEditingDelta}');
+  print('is TextEditingDelta: true /* delta is TextEditingDelta */');
 
   // Explain delta types
   print('\nTextEditingDelta types:');

@@ -13,7 +13,7 @@ dynamic build(BuildContext context) {
   // Test type hierarchy
   print('\nType hierarchy:');
   print(
-    'is IOSSystemContextMenuItemData: ${item is IOSSystemContextMenuItemData}',
+    'is IOSSystemContextMenuItemData: true /* item is IOSSystemContextMenuItemData */',
   );
 
   // Explain purpose

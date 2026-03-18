@@ -10,7 +10,7 @@ dynamic build(BuildContext context) {
   for (final value in ModifierKey.values) {
     print('  ${value.name}: $value');
   }
-  print('ModifierKey has ${ ModifierKey.values.length} values');
+  print('ModifierKey has ${ModifierKey.values.length} values');
 
   final first = ModifierKey.values.first;
   final last = ModifierKey.values.last;
@@ -22,7 +22,7 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('ModifierKey Tests'),
-      Text('Values: ${ ModifierKey.values.length}'),
+      Text('Values: ${ModifierKey.values.length}'),
       Text('First: $first'),
       Text('Last: $last'),
     ],

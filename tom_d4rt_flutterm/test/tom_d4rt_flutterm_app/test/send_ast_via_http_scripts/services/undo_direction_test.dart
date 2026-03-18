@@ -10,7 +10,7 @@ dynamic build(BuildContext context) {
   for (final value in UndoDirection.values) {
     print('  ${value.name}: $value');
   }
-  print('UndoDirection has ${ UndoDirection.values.length} values');
+  print('UndoDirection has ${UndoDirection.values.length} values');
 
   final first = UndoDirection.values.first;
   final last = UndoDirection.values.last;
@@ -22,7 +22,7 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('UndoDirection Tests'),
-      Text('Values: ${ UndoDirection.values.length}'),
+      Text('Values: ${UndoDirection.values.length}'),
       Text('First: $first'),
       Text('Last: $last'),
     ],

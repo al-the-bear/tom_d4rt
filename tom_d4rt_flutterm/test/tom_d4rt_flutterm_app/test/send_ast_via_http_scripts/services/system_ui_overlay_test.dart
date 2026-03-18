@@ -10,7 +10,7 @@ dynamic build(BuildContext context) {
   for (final value in SystemUiOverlay.values) {
     print('  ${value.name}: $value');
   }
-  print('SystemUiOverlay has ${ SystemUiOverlay.values.length} values');
+  print('SystemUiOverlay has ${SystemUiOverlay.values.length} values');
 
   final first = SystemUiOverlay.values.first;
   final last = SystemUiOverlay.values.last;
@@ -22,7 +22,7 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('SystemUiOverlay Tests'),
-      Text('Values: ${ SystemUiOverlay.values.length}'),
+      Text('Values: ${SystemUiOverlay.values.length}'),
       Text('First: $first'),
       Text('Last: $last'),
     ],

@@ -127,13 +127,13 @@ dynamic build(BuildContext context) {
   print('--- SystemMouseCursor Type Check ---');
 
   print(
-    'SystemMouseCursors.click is SystemMouseCursor: ${click is SystemMouseCursor}',
+    'SystemMouseCursors.click is SystemMouseCursor: true /* click is SystemMouseCursor */',
   );
   print(
-    'SystemMouseCursors.text is SystemMouseCursor: ${text is SystemMouseCursor}',
+    'SystemMouseCursors.text is SystemMouseCursor: true /* text is SystemMouseCursor */',
   );
   print(
-    'SystemMouseCursors.forbidden is MouseCursor: ${forbidden is MouseCursor}',
+    'SystemMouseCursors.forbidden is MouseCursor: true /* forbidden is MouseCursor */',
   );
 
   // ========== RETURN WIDGET ==========

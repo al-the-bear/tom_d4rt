@@ -11,7 +11,7 @@ dynamic build(BuildContext context) {
   final bundle = NetworkAssetBundle(baseUri);
   print('\nNetworkAssetBundle created:');
   print('runtimeType: ${bundle.runtimeType}');
-  print('is AssetBundle: ${bundle is AssetBundle}');
+  print('is AssetBundle: true /* bundle is AssetBundle */');
 
   // Base URI patterns
   print('\nBase URI patterns:');

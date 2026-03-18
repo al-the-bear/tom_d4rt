@@ -10,7 +10,7 @@ dynamic build(BuildContext context) {
   for (final value in KeyDataTransitMode.values) {
     print('  ${value.name}: $value');
   }
-  print('KeyDataTransitMode has ${ KeyDataTransitMode.values.length} values');
+  print('KeyDataTransitMode has ${KeyDataTransitMode.values.length} values');
 
   final first = KeyDataTransitMode.values.first;
   final last = KeyDataTransitMode.values.last;
@@ -22,7 +22,7 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('KeyDataTransitMode Tests'),
-      Text('Values: ${ KeyDataTransitMode.values.length}'),
+      Text('Values: ${KeyDataTransitMode.values.length}'),
       Text('First: $first'),
       Text('Last: $last'),
     ],

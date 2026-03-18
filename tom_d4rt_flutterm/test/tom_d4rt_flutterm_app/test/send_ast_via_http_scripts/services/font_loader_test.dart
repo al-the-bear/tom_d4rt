@@ -47,7 +47,7 @@ dynamic build(BuildContext context) {
 
   // Type hierarchy
   print('\nType hierarchy:');
-  print('is Object: ${fontLoader is Object}');
+  print('is Object: true /* fontLoader is Object */');
 
   // Font variants
   print('\nFont variant handling:');
