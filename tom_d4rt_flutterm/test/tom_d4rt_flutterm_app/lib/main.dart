@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'dart:ui' show Color;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -61,12 +60,16 @@ class _BuildResult {
   };
 }
 
-class _D4rtTestPageState extends State<D4rtTestPage> {
+class _D4rtTestPageState extends State<D4rtTestPage>
+    with TickerProviderStateMixin {
   final FlutterD4rt _d4rt = FlutterD4rt();
   HttpServer? _server;
   final List<String> _logs = [];
   Widget? _d4rtWidget;
   String? _lastError;
+
+  /// Tab controller for the Widget / Source tabs.
+  late TabController _tabController;
 
   // Pending build state
   AstBundle? _pendingBundle;
@@ -80,6 +83,9 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
 
   // Results log (file + result + judgment) — holds up to 4000 entries
   final List<String> _resultsLog = [];
+
+  /// Source code of the current script (extracted from the bundle).
+  String? _currentSourceCode;
 
   /// Framework errors captured by [FlutterError.onError] during a build cycle.
   /// These indicate red error screens (ErrorWidget) rendered by Flutter.
@@ -97,6 +103,7 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
   @override
   void initState() {
     super.initState();
+    _tabController = TabController(length: 2, vsync: this);
     // Store the original handler so we can still call it for logging.
     _originalFlutterErrorHandler = FlutterError.onError;
     // Install our custom handler that captures framework errors during builds.
@@ -130,6 +137,7 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
 
   @override
   void dispose() {
+    _tabController.dispose();
     FlutterError.onError = _originalFlutterErrorHandler;
     _server?.close(force: true);
     super.dispose();
@@ -338,6 +346,13 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
       final bundle = AstBundle.fromJson(
         jsonDecode(body) as Map<String, dynamic>,
       );
+
+      // Extract source code if included in the bundle
+      if (bundle.sources != null && bundle.sources!.isNotEmpty) {
+        _currentSourceCode = bundle.sources!.values.first;
+      } else {
+        _currentSourceCode = null;
+      }
 
       // Set up completer to wait for build result (completed after frame).
       final completer = Completer<_BuildResult>();
@@ -600,15 +615,38 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
           // Control bar
           _buildControlBar(),
 
-          // D4rt widget display area
+          // Tab bar for Widget / Source views
+          Container(
+            color: Colors.grey.shade200,
+            child: TabBar(
+              controller: _tabController,
+              labelColor: Colors.teal.shade800,
+              unselectedLabelColor: Colors.grey.shade600,
+              indicatorColor: Colors.teal,
+              tabs: const [
+                Tab(text: 'Widget', icon: Icon(Icons.widgets, size: 16)),
+                Tab(text: 'Source', icon: Icon(Icons.code, size: 16)),
+              ],
+            ),
+          ),
+
+          // Tabbed content: Widget display + Source viewer
           Expanded(
             flex: 3,
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey.shade300),
-              ),
-              margin: const EdgeInsets.all(8),
-              child: _buildD4rtWidget(context),
+            child: TabBarView(
+              controller: _tabController,
+              children: [
+                // Tab 0: D4rt widget display area
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey.shade300),
+                  ),
+                  margin: const EdgeInsets.all(8),
+                  child: _buildD4rtWidget(context),
+                ),
+                // Tab 1: Source code viewer
+                _buildSourceViewer(),
+              ],
             ),
           ),
 
@@ -859,6 +897,318 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
       ),
     );
   }
+
+  // ===========================================================================
+  // Source Code Viewer
+  // ===========================================================================
+
+  Widget _buildSourceViewer() {
+    if (_currentSourceCode == null) {
+      return Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.code_off, size: 48, color: Colors.grey.shade400),
+            const SizedBox(height: 16),
+            Text(
+              'No source available',
+              style: TextStyle(color: Colors.grey.shade600, fontSize: 16),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Source bundling is disabled or no script loaded yet',
+              style: TextStyle(color: Colors.grey.shade500, fontSize: 12),
+            ),
+          ],
+        ),
+      );
+    }
+
+    final lines = _currentSourceCode!.split('\n');
+    return Container(
+      margin: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        color: const Color(0xFF1E1E1E),
+        borderRadius: BorderRadius.circular(4),
+        border: Border.all(color: Colors.grey.shade700),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          // Header bar
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            decoration: BoxDecoration(
+              color: const Color(0xFF2D2D2D),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(4),
+              ),
+            ),
+            child: Row(
+              children: [
+                const Icon(Icons.code, size: 14, color: Colors.white54),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    _currentTestFile ?? 'source',
+                    style: const TextStyle(
+                      color: Colors.white70,
+                      fontSize: 12,
+                      fontFamily: 'monospace',
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                Text(
+                  '${lines.length} lines',
+                  style: const TextStyle(
+                    color: Colors.white38,
+                    fontSize: 11,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                InkWell(
+                  onTap: () {
+                    Clipboard.setData(
+                      ClipboardData(text: _currentSourceCode!),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Source copied to clipboard'),
+                        duration: Duration(seconds: 2),
+                      ),
+                    );
+                  },
+                  child: const Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.copy, size: 12, color: Colors.white54),
+                      SizedBox(width: 4),
+                      Text(
+                        'Copy',
+                        style: TextStyle(color: Colors.white54, fontSize: 11),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          // Source code with line numbers and syntax highlighting
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(8),
+              child: SelectableText.rich(
+                TextSpan(
+                  children: _buildHighlightedSource(lines),
+                  style: const TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 12,
+                    height: 1.5,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Builds syntax-highlighted [TextSpan] children for the given source lines.
+  List<TextSpan> _buildHighlightedSource(List<String> lines) {
+    final spans = <TextSpan>[];
+    final lineNumWidth = lines.length.toString().length;
+
+    for (var i = 0; i < lines.length; i++) {
+      // Line number (dim grey)
+      final lineNum = '${(i + 1).toString().padLeft(lineNumWidth)}  ';
+      spans.add(
+        TextSpan(
+          text: lineNum,
+          style: const TextStyle(color: Color(0xFF5A5A5A)),
+        ),
+      );
+
+      // Syntax-highlighted line content
+      spans.addAll(_highlightLine(lines[i]));
+      spans.add(const TextSpan(text: '\n'));
+    }
+
+    return spans;
+  }
+
+  /// Tokenizes and highlights a single line of Dart source code.
+  static List<TextSpan> _highlightLine(String line) {
+    if (line.isEmpty) return const [];
+
+    final spans = <TextSpan>[];
+    var pos = 0;
+
+    while (pos < line.length) {
+      // Single-line comment
+      if (pos < line.length - 1 &&
+          line[pos] == '/' &&
+          line[pos + 1] == '/') {
+        spans.add(
+          TextSpan(
+            text: line.substring(pos),
+            style: const TextStyle(color: Color(0xFF6A9955)),
+          ),
+        );
+        return spans;
+      }
+
+      // String literals (single and double quoted)
+      if (line[pos] == "'" || line[pos] == '"') {
+        final quote = line[pos];
+        // Check for triple-quote
+        if (pos + 2 < line.length &&
+            line[pos + 1] == quote &&
+            line[pos + 2] == quote) {
+          // Triple-quoted string — consume to end of line (may span lines)
+          final end = line.indexOf('$quote$quote$quote', pos + 3);
+          final endPos = end >= 0 ? end + 3 : line.length;
+          spans.add(
+            TextSpan(
+              text: line.substring(pos, endPos),
+              style: const TextStyle(color: Color(0xFFCE9178)),
+            ),
+          );
+          pos = endPos;
+        } else {
+          // Regular string — find matching close quote
+          var end = pos + 1;
+          while (end < line.length) {
+            if (line[end] == '\\' && end + 1 < line.length) {
+              end += 2; // skip escape sequence
+            } else if (line[end] == quote) {
+              end++;
+              break;
+            } else {
+              end++;
+            }
+          }
+          spans.add(
+            TextSpan(
+              text: line.substring(pos, end),
+              style: const TextStyle(color: Color(0xFFCE9178)),
+            ),
+          );
+          pos = end;
+        }
+        continue;
+      }
+
+      // Numbers
+      if (_isDigit(line[pos]) ||
+          (line[pos] == '.' &&
+              pos + 1 < line.length &&
+              _isDigit(line[pos + 1]))) {
+        var end = pos;
+        while (end < line.length &&
+            (_isDigit(line[end]) || line[end] == '.')) {
+          end++;
+        }
+        spans.add(
+          TextSpan(
+            text: line.substring(pos, end),
+            style: const TextStyle(color: Color(0xFFB5CEA8)),
+          ),
+        );
+        pos = end;
+        continue;
+      }
+
+      // Annotations (@override, @required, etc.)
+      if (line[pos] == '@') {
+        var end = pos + 1;
+        while (end < line.length && _isIdentChar(line[end])) {
+          end++;
+        }
+        spans.add(
+          TextSpan(
+            text: line.substring(pos, end),
+            style: const TextStyle(color: Color(0xFFDCDCAA)),
+          ),
+        );
+        pos = end;
+        continue;
+      }
+
+      // Identifiers and keywords
+      if (_isIdentStart(line[pos])) {
+        var end = pos + 1;
+        while (end < line.length && _isIdentChar(line[end])) {
+          end++;
+        }
+        final word = line.substring(pos, end);
+
+        Color color;
+        if (_keywords.contains(word)) {
+          color = const Color(0xFF569CD6);
+        } else if (_typeKeywords.contains(word)) {
+          color = const Color(0xFF4EC9B0);
+        } else if (_builtinConstants.contains(word)) {
+          color = const Color(0xFF569CD6);
+        } else {
+          color = const Color(0xFFD4D4D4);
+        }
+
+        spans.add(TextSpan(text: word, style: TextStyle(color: color)));
+        pos = end;
+        continue;
+      }
+
+      // Punctuation and operators — default color
+      spans.add(
+        TextSpan(
+          text: line[pos],
+          style: const TextStyle(color: Color(0xFFD4D4D4)),
+        ),
+      );
+      pos++;
+    }
+
+    return spans;
+  }
+
+  static bool _isDigit(String c) => c.codeUnitAt(0) >= 48 && c.codeUnitAt(0) <= 57;
+  static bool _isIdentStart(String c) {
+    final code = c.codeUnitAt(0);
+    return (code >= 65 && code <= 90) ||
+        (code >= 97 && code <= 122) ||
+        c == '_' ||
+        c == r'$';
+  }
+
+  static bool _isIdentChar(String c) => _isIdentStart(c) || _isDigit(c);
+
+  static const _keywords = <String>{
+    'abstract', 'as', 'assert', 'async', 'await', 'break', 'case', 'catch',
+    'class', 'const', 'continue', 'covariant', 'default', 'deferred', 'do',
+    'dynamic', 'else', 'enum', 'export', 'extends', 'extension', 'external',
+    'factory', 'final', 'finally', 'for', 'Function', 'get', 'hide', 'if',
+    'implements', 'import', 'in', 'interface', 'is', 'late', 'library',
+    'mixin', 'new', 'on', 'operator', 'part', 'required', 'rethrow',
+    'return', 'sealed', 'set', 'show', 'static', 'super', 'switch',
+    'sync', 'this', 'throw', 'try', 'typedef', 'var', 'void', 'while',
+    'with', 'yield',
+  };
+
+  static const _typeKeywords = <String>{
+    'bool', 'double', 'int', 'num', 'String', 'List', 'Map', 'Set',
+    'Future', 'Stream', 'Iterable', 'Object', 'Never', 'Null', 'Type',
+    'Widget', 'BuildContext', 'State', 'StatelessWidget', 'StatefulWidget',
+    'Key', 'Color', 'Size', 'Offset', 'Rect', 'EdgeInsets', 'TextStyle',
+    'BoxDecoration', 'BorderRadius', 'Alignment', 'Container', 'Column',
+    'Row', 'Expanded', 'SizedBox', 'Text', 'Icon', 'Padding', 'Center',
+    'Scaffold', 'AppBar', 'MaterialApp',
+  };
+
+  static const _builtinConstants = <String>{
+    'true', 'false', 'null',
+  };
 }
 
 class _WaitingDisplay extends StatelessWidget {

@@ -606,11 +606,15 @@ class SendTestRunner {
   /// The test app must be running on [host]:[port].
   ///
   /// If [clearFirst] is true (default), clears the app UI before sending.
+  ///
+  /// If [includeSource] is true, the original Dart source code is included
+  /// in the bundle alongside the compiled AST. Disabled by default.
   static Future<SendResult> send(
     String scriptPath, {
     String host = defaultHost,
     int port = defaultPort,
     bool clearFirst = true,
+    bool includeSource = false,
   }) async {
     final packageRoot = Directory.current.path;
     final fullPath = p.join(packageRoot, scriptsPath, scriptPath);
@@ -627,7 +631,17 @@ class SendTestRunner {
 
     // Build bundle from script source
     final source = await file.readAsString();
-    final bundle = await d4rt.interpreter.createBundleFromSource(source);
+    var bundle = await d4rt.interpreter.createBundleFromSource(source);
+
+    // Optionally include source code alongside the AST
+    if (includeSource) {
+      bundle = AstBundle(
+        entryPointUri: bundle.entryPointUri,
+        modules: bundle.modules,
+        sources: {bundle.entryPointUri: source},
+      );
+    }
+
     final bundleJson = jsonEncode(bundle.toJson());
 
     // Send bundle to app (pass filename for display in test app UI)
@@ -832,7 +846,10 @@ void main() {
       print('\n--- Running: $relativePath ---');
 
       try {
-        final result = await SendTestRunner.send(relativePath);
+        final result = await SendTestRunner.send(
+          relativePath,
+          includeSource: true,
+        );
 
         // Display captured output from the script
         if (result.output.isNotEmpty) {

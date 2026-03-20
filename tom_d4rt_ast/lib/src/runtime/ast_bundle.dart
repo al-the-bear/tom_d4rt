@@ -46,6 +46,12 @@ abstract final class AstBundleFormat {
   /// Key for the modules map in the JSON serialization.
   static const String keyModules = 'modules';
 
+  /// Key for the optional source code map.
+  static const String keySources = 'sources';
+
+  /// File extension suffix for Dart source entries within the archive.
+  static const String sourceDartSuffix = '.src.dart';
+
   // ── Magic Bytes for Format Detection ──
 
   /// ZIP file signature bytes (`PK\x03\x04`).
@@ -86,10 +92,17 @@ class AstBundleManifest {
   /// Mapping from archive file name (e.g. `0.ast.json`) to module URI.
   final Map<String, String> files;
 
+  /// Optional mapping from source file name (e.g. `0.src.dart`) to module URI.
+  ///
+  /// When present, the archive contains Dart source code alongside the
+  /// compiled AST modules. This is opt-in and `null` by default.
+  final Map<String, String>? sourceFiles;
+
   const AstBundleManifest({
     required this.version,
     required this.entryPoint,
     required this.files,
+    this.sourceFiles,
   });
 
   /// Serializes this manifest to a JSON-compatible map.
@@ -97,6 +110,7 @@ class AstBundleManifest {
     AstBundleFormat.keyVersion: version,
     AstBundleFormat.keyEntryPoint: entryPoint,
     AstBundleFormat.keyFiles: files,
+    if (sourceFiles != null) AstBundleFormat.keySources: sourceFiles,
   };
 
   /// Deserializes a manifest from a JSON map.
@@ -128,10 +142,18 @@ class AstBundleManifest {
       );
     }
 
+    // Parse optional sources mapping
+    Map<String, String>? sourceFiles;
+    final sourcesJson = json[AstBundleFormat.keySources];
+    if (sourcesJson is Map<String, dynamic>) {
+      sourceFiles = sourcesJson.map((k, v) => MapEntry(k, v.toString()));
+    }
+
     return AstBundleManifest(
       version: version,
       entryPoint: entryPoint,
       files: filesJson.map((k, v) => MapEntry(k, v.toString())),
+      sourceFiles: sourceFiles,
     );
   }
 
@@ -183,11 +205,25 @@ class AstBundle {
   /// All modules in this bundle, keyed by their URI.
   final Map<String, SCompilationUnit> modules;
 
+  /// Optional Dart source code for each module, keyed by URI.
+  ///
+  /// When non-null, the source code is included alongside the compiled
+  /// AST in both JSON and ZIP serialization formats. This is opt-in
+  /// and disabled by default (`null`).
+  final Map<String, String>? sources;
+
   /// Creates an [AstBundle] with the given entry point and modules.
+  ///
+  /// Optionally includes [sources] — a map from module URI to Dart source
+  /// code. When `null` (the default), no source is bundled.
   ///
   /// Throws [ArgumentD4rtException] if [entryPointUri] is not present
   /// in [modules].
-  AstBundle({required this.entryPointUri, required this.modules}) {
+  AstBundle({
+    required this.entryPointUri,
+    required this.modules,
+    this.sources,
+  }) {
     if (!modules.containsKey(entryPointUri)) {
       throw ArgumentD4rtException(
         'Entry point "$entryPointUri" not found in modules. '
@@ -212,13 +248,15 @@ class AstBundle {
   /// Serializes this bundle to a JSON-compatible map.
   ///
   /// The resulting map includes format version, entry point URI,
-  /// and all module ASTs keyed by their URI.
+  /// and all module ASTs keyed by their URI. When [sources] is non-null,
+  /// the map also includes source code keyed by module URI.
   Map<String, dynamic> toJson() => {
     AstBundleFormat.keyVersion: AstBundleFormat.version,
     AstBundleFormat.keyEntryPoint: entryPointUri,
     AstBundleFormat.keyModules: modules.map(
       (uri, cu) => MapEntry(uri, cu.toJson()),
     ),
+    if (sources != null) AstBundleFormat.keySources: sources,
   };
 
   /// Deserializes a bundle from a JSON map.
@@ -254,7 +292,18 @@ class AstBundle {
       );
     }
 
-    return AstBundle(entryPointUri: entryPointUri, modules: modules);
+    // Parse optional sources
+    Map<String, String>? sources;
+    final sourcesJson = json[AstBundleFormat.keySources];
+    if (sourcesJson is Map<String, dynamic>) {
+      sources = sourcesJson.map((k, v) => MapEntry(k, v.toString()));
+    }
+
+    return AstBundle(
+      entryPointUri: entryPointUri,
+      modules: modules,
+      sources: sources,
+    );
   }
 
   // ===========================================================================
@@ -298,6 +347,7 @@ class AstBundle {
   /// The archive follows the `.ast` bundle specification:
   /// - `manifest.json` — plain JSON with metadata and file-to-URI mapping
   /// - `N.ast.json` — gzip-compressed JSON for each module
+  /// - `N.src.dart` — plain-text source code (only when [sources] is non-null)
   ///
   /// Module entries are pre-compressed with gzip and stored without
   /// additional ZIP-level compression, allowing individual modules
@@ -316,11 +366,24 @@ class AstBundle {
       index++;
     }
 
+    // Build optional source file mapping
+    Map<String, String>? sourceFileToUri;
+    if (sources != null && sources!.isNotEmpty) {
+      sourceFileToUri = <String, String>{};
+      var srcIndex = 0;
+      for (final uri in sources!.keys) {
+        final srcFileName = '$srcIndex${AstBundleFormat.sourceDartSuffix}';
+        sourceFileToUri[srcFileName] = uri;
+        srcIndex++;
+      }
+    }
+
     // Write manifest (uncompressed, human-readable)
     final manifest = AstBundleManifest(
       version: AstBundleFormat.version,
       entryPoint: entryPointUri,
       files: fileToUri,
+      sourceFiles: sourceFileToUri,
     );
     final manifestJson = const JsonEncoder.withIndent('  ').convert(
       manifest.toJson(),
@@ -338,6 +401,22 @@ class AstBundle {
       archive.addFile(
         ArchiveFile.noCompress(fileName, compressed.length, compressed),
       );
+    }
+
+    // Write source files (plain text, uncompressed for readability)
+    if (sources != null && sourceFileToUri != null) {
+      final uriToSrcFileName = <String, String>{};
+      for (final entry in sourceFileToUri.entries) {
+        uriToSrcFileName[entry.value] = entry.key;
+      }
+      for (final entry in sources!.entries) {
+        final srcFileName = uriToSrcFileName[entry.key];
+        if (srcFileName != null) {
+          archive.addFile(
+            ArchiveFile.string(srcFileName, entry.value),
+          );
+        }
+      }
     }
 
     return ZipEncoder().encode(archive);
@@ -393,7 +472,26 @@ class AstBundle {
       modules[uri] = SCompilationUnit.fromJson(moduleJson);
     }
 
-    return AstBundle(entryPointUri: manifest.entryPoint, modules: modules);
+    // Load optional source files referenced by the manifest
+    Map<String, String>? sources;
+    if (manifest.sourceFiles != null && manifest.sourceFiles!.isNotEmpty) {
+      sources = <String, String>{};
+      for (final entry in manifest.sourceFiles!.entries) {
+        final srcFileName = entry.key;
+        final uri = entry.value;
+        final srcFile = archive.findFile(srcFileName);
+        if (srcFile != null) {
+          sources[uri] = utf8.decode(srcFile.content);
+        }
+      }
+      if (sources.isEmpty) sources = null;
+    }
+
+    return AstBundle(
+      entryPointUri: manifest.entryPoint,
+      modules: modules,
+      sources: sources,
+    );
   }
 
   // ===========================================================================
@@ -503,5 +601,7 @@ class AstBundle {
 
   @override
   String toString() =>
-      'AstBundle(entryPoint: $entryPointUri, modules: $moduleCount)';
+      'AstBundle(entryPoint: $entryPointUri, '
+      'modules: $moduleCount'
+      '${sources != null ? ', sources: ${sources!.length}' : ''})';
 }
