@@ -10,7 +10,7 @@ dynamic build(BuildContext context) {
   for (final value in KeyEventDeviceType.values) {
     print('  ${value.name}: $value');
   }
-  print('KeyEventDeviceType has ${ KeyEventDeviceType.values.length} values');
+  print('KeyEventDeviceType has ${KeyEventDeviceType.values.length} values');
 
   final first = KeyEventDeviceType.values.first;
   final last = KeyEventDeviceType.values.last;
@@ -22,7 +22,7 @@ dynamic build(BuildContext context) {
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('KeyEventDeviceType Tests'),
-      Text('Values: ${ KeyEventDeviceType.values.length}'),
+      Text('Values: ${KeyEventDeviceType.values.length}'),
       Text('First: $first'),
       Text('Last: $last'),
     ],

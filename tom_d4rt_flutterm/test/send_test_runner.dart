@@ -817,28 +817,35 @@ void main() {
     // Run each script
     var passedCount = 0;
     var failedCount = 0;
+    final failedScripts = <String>[];
 
     for (final script in scripts) {
       final relativePath = SendTestRunner.getRelativePath(script);
       print('\n--- Running: $relativePath ---');
 
-      final result = await SendTestRunner.send(relativePath);
+      try {
+        final result = await SendTestRunner.send(relativePath);
 
-      // Display captured output from the script
-      if (result.output.isNotEmpty) {
-        print('  Script output:');
-        for (final line in result.output) {
-          print('    > $line');
+        // Display captured output from the script
+        if (result.output.isNotEmpty) {
+          print('  Script output:');
+          for (final line in result.output) {
+            print('    > $line');
+          }
         }
-      }
 
-      if (result.success) {
-        print('  ✓ Widget rendered: ${result.widgetType}');
-        passedCount++;
-      } else {
-        print('  ✗ Build failed: ${result.error}');
+        if (result.success) {
+          print('  ✓ Widget rendered: ${result.widgetType}');
+          passedCount++;
+        } else {
+          print('  ✗ Build failed: ${result.error}');
+          failedCount++;
+          failedScripts.add('$relativePath: ${result.error}');
+        }
+      } catch (e) {
+        print('  ✗ Exception: $e');
         failedCount++;
-        fail('Script $relativePath failed: ${result.error}');
+        failedScripts.add('$relativePath: EXCEPTION - $e');
       }
     }
 
@@ -846,8 +853,17 @@ void main() {
     if (failedCount == 0) {
       print('All ${scripts.length} scripts executed successfully!');
     } else {
-      print('Results: $passedCount passed, $failedCount failed');
+      print('Results: $passedCount passed, $failedCount failed '
+          'out of ${scripts.length}');
+      print('\nFailed scripts:');
+      for (final s in failedScripts) {
+        print('  ✗ $s');
+      }
     }
     print('${'=' * 60}\n');
+
+    if (failedCount > 0) {
+      fail('$failedCount of ${scripts.length} scripts failed');
+    }
   });
 }
