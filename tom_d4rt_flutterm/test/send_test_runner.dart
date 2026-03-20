@@ -843,13 +843,11 @@ void main() {
         }
 
         if (result.success) {
-          final jLabel =
-              result.judgment != null ? ' [${result.judgment}]' : '';
+          final jLabel = result.judgment != null ? ' [${result.judgment}]' : '';
           print('  ✓ Widget rendered: ${result.widgetType}$jLabel');
           passedCount++;
         } else {
-          final jLabel =
-              result.judgment != null ? ' [${result.judgment}]' : '';
+          final jLabel = result.judgment != null ? ' [${result.judgment}]' : '';
           print('  ✗ Build failed: ${result.error}$jLabel');
           failedCount++;
           failedScripts.add('$relativePath: ${result.error}');

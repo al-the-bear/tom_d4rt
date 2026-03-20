@@ -213,8 +213,7 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
   void _addJudgmentToResults(String judgment) {
     if (_resultsLog.isNotEmpty) {
       setState(() {
-        _resultsLog[_resultsLog.length - 1] =
-            '${_resultsLog.last} | $judgment';
+        _resultsLog[_resultsLog.length - 1] = '${_resultsLog.last} | $judgment';
       });
     }
   }
@@ -655,8 +654,7 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.green.shade100,
               foregroundColor: Colors.green.shade800,
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
               minimumSize: Size.zero,
             ),
             onPressed: _isWaitingForUser ? _onGood : null,
@@ -668,8 +666,7 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.red.shade100,
               foregroundColor: Colors.red.shade800,
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
               minimumSize: Size.zero,
             ),
             onPressed: _isWaitingForUser ? _onBad : null,
@@ -677,43 +674,33 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
           const Spacer(),
           if (_isWaitingForUser)
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
               decoration: BoxDecoration(
                 color: Colors.amber.shade100,
                 borderRadius: BorderRadius.circular(4),
               ),
               child: const Text(
                 'Waiting for input\u2026',
-                style:
-                    TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
               ),
             )
           else if (!_isPaused)
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
               decoration: BoxDecoration(
                 color: Colors.green.shade100,
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: const Text(
-                'Auto-running',
-                style: TextStyle(fontSize: 11),
-              ),
+              child: const Text('Auto-running', style: TextStyle(fontSize: 11)),
             )
           else
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
               decoration: BoxDecoration(
                 color: Colors.orange.shade100,
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: const Text(
-                'Paused',
-                style: TextStyle(fontSize: 11),
-              ),
+              child: const Text('Paused', style: TextStyle(fontSize: 11)),
             ),
         ],
       ),
@@ -731,8 +718,7 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: BoxDecoration(
               color: Colors.grey.shade800,
               borderRadius: const BorderRadius.vertical(
@@ -750,10 +736,7 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
                   onTap: () => setState(() => _logs.clear()),
                   child: const Text(
                     'Clear',
-                    style: TextStyle(
-                      color: Colors.white54,
-                      fontSize: 11,
-                    ),
+                    style: TextStyle(color: Colors.white54, fontSize: 11),
                   ),
                 ),
               ],
@@ -769,10 +752,9 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
                 return Text(
                   log,
                   style: TextStyle(
-                    color:
-                        log.contains('error') || log.contains('Error')
-                            ? Colors.red.shade300
-                            : Colors.green.shade200,
+                    color: log.contains('error') || log.contains('Error')
+                        ? Colors.red.shade300
+                        : Colors.green.shade200,
                     fontSize: 11,
                     fontFamily: 'monospace',
                   ),
@@ -796,8 +778,7 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: BoxDecoration(
               color: Colors.grey.shade800,
               borderRadius: const BorderRadius.vertical(
@@ -808,18 +789,14 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
               children: [
                 Text(
                   'Results (${_resultsLog.length})',
-                  style:
-                      const TextStyle(color: Colors.white70, fontSize: 12),
+                  style: const TextStyle(color: Colors.white70, fontSize: 12),
                 ),
                 const Spacer(),
                 InkWell(
                   onTap: () => setState(() => _resultsLog.clear()),
                   child: const Text(
                     'Clear',
-                    style: TextStyle(
-                      color: Colors.white54,
-                      fontSize: 11,
-                    ),
+                    style: TextStyle(color: Colors.white54, fontSize: 11),
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -840,18 +817,11 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
                   child: const Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(
-                        Icons.copy,
-                        size: 12,
-                        color: Colors.white54,
-                      ),
+                      Icon(Icons.copy, size: 12, color: Colors.white54),
                       SizedBox(width: 4),
                       Text(
                         'Copy',
-                        style: TextStyle(
-                          color: Colors.white54,
-                          fontSize: 11,
-                        ),
+                        style: TextStyle(color: Colors.white54, fontSize: 11),
                       ),
                     ],
                   ),
@@ -865,8 +835,7 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
               padding: const EdgeInsets.all(8),
               itemCount: _resultsLog.length,
               itemBuilder: (_, index) {
-                final entry =
-                    _resultsLog[_resultsLog.length - 1 - index];
+                final entry = _resultsLog[_resultsLog.length - 1 - index];
                 Color color = Colors.green.shade200;
                 if (entry.contains('| FAIL')) {
                   color = Colors.red.shade300;
