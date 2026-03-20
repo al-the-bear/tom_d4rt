@@ -463,8 +463,8 @@ class SendTestRunner {
     final device = Platform.isMacOS
         ? 'macos'
         : Platform.isWindows
-            ? 'windows'
-            : 'linux';
+        ? 'windows'
+        : 'linux';
 
     _testAppProcess = await Process.start(
       flutterExecutable,
@@ -853,8 +853,10 @@ void main() {
     if (failedCount == 0) {
       print('All ${scripts.length} scripts executed successfully!');
     } else {
-      print('Results: $passedCount passed, $failedCount failed '
-          'out of ${scripts.length}');
+      print(
+        'Results: $passedCount passed, $failedCount failed '
+        'out of ${scripts.length}',
+      );
       print('\nFailed scripts:');
       for (final s in failedScripts) {
         print('  ✗ $s');
