@@ -4,6 +4,7 @@ import 'dart:io';
 import 'dart:ui' show Color;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:tom_d4rt_flutterm/tom_d4rt_flutterm.dart';
 
 void main() {
@@ -71,6 +72,14 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
   AstBundle? _pendingBundle;
   Completer<_BuildResult>? _buildCompleter;
   List<String> _capturedOutput = [];
+
+  // Test execution control
+  bool _isPaused = false;
+  String? _currentTestFile;
+  Completer<String>? _userActionCompleter;
+
+  // Results log (file + result + judgment) — holds up to 4000 entries
+  final List<String> _resultsLog = [];
 
   /// Framework errors captured by [FlutterError.onError] during a build cycle.
   /// These indicate red error screens (ErrorWidget) rendered by Flutter.
@@ -151,6 +160,63 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) setState(() {});
     });
+  }
+
+  /// Whether we are waiting for the user to click next/good/bad.
+  bool get _isWaitingForUser =>
+      _userActionCompleter != null && !_userActionCompleter!.isCompleted;
+
+  void _completeUserAction(String action) {
+    if (_userActionCompleter != null && !_userActionCompleter!.isCompleted) {
+      _userActionCompleter!.complete(action);
+    }
+  }
+
+  void _onPausePlay() {
+    setState(() {
+      _isPaused = !_isPaused;
+    });
+    if (!_isPaused) {
+      // Resuming — complete any pending wait so the HTTP response is sent.
+      _completeUserAction('play');
+    }
+  }
+
+  void _onNext() {
+    _completeUserAction('next');
+  }
+
+  void _onGood() {
+    _addJudgmentToResults('good');
+    _completeUserAction('good');
+  }
+
+  void _onBad() {
+    _addJudgmentToResults('needs rewrite');
+    _completeUserAction('bad');
+  }
+
+  void _addResultEntry(String? filename, _BuildResult result) {
+    final name = filename ?? 'unknown';
+    final status = result.success ? 'OK' : 'FAIL';
+    final fwErr = result.frameworkErrors.isNotEmpty
+        ? ' (${result.frameworkErrors.length} framework error(s))'
+        : '';
+    setState(() {
+      _resultsLog.add('$name | $status$fwErr');
+      if (_resultsLog.length > 4000) {
+        _resultsLog.removeRange(0, _resultsLog.length - 4000);
+      }
+    });
+  }
+
+  void _addJudgmentToResults(String judgment) {
+    if (_resultsLog.isNotEmpty) {
+      setState(() {
+        _resultsLog[_resultsLog.length - 1] =
+            '${_resultsLog.last} | $judgment';
+      });
+    }
   }
 
   Future<void> _startServer() async {
@@ -253,8 +319,21 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
       return;
     }
 
+    final filenameParam = request.uri.queryParameters['filename'];
+    final filename = filenameParam != null
+        ? Uri.decodeComponent(filenameParam)
+        : null;
+    if (filename != null && mounted) {
+      setState(() {
+        _currentTestFile = filename;
+      });
+    }
+
     final body = await utf8.decoder.bind(request).join();
-    _addLogEntry('Building widget (${body.length} bytes)');
+    _addLogEntry(
+      'Building widget${filename != null ? ' [$filename]' : ''}'
+      ' (${body.length} bytes)',
+    );
 
     try {
       final bundle = AstBundle.fromJson(
@@ -297,9 +376,28 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
                   '${result.frameworkErrors.isNotEmpty ? ' (${result.frameworkErrors.length} framework error(s))' : ''}'
             : 'Build failed: ${result.error}',
       );
+      _addResultEntry(filename, result);
       _scheduleLogRefresh();
 
-      _respond(request, result.success ? 200 : 400, result.toJson());
+      // If paused, wait for user action before responding.
+      String? judgment;
+      if (_isPaused) {
+        _userActionCompleter = Completer<String>();
+        _scheduleLogRefresh();
+        final action = await _userActionCompleter!.future;
+        _userActionCompleter = null;
+        if (action == 'good') {
+          judgment = 'good';
+        } else if (action == 'bad') {
+          judgment = 'needs rewrite';
+        }
+      }
+
+      final responseJson = result.toJson();
+      if (judgment != null) {
+        responseJson['judgment'] = judgment;
+      }
+      _respond(request, result.success ? 200 : 400, responseJson);
     } on FormatException catch (e) {
       _capturingFrameworkErrors = false;
       _log('JSON parse error: $e');
@@ -443,7 +541,24 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('D4rt Flutter Bridge Test'),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'D4rt Flutter Bridge Test',
+              style: TextStyle(fontSize: 16),
+            ),
+            if (_currentTestFile != null)
+              Text(
+                _currentTestFile!,
+                style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.normal,
+                ),
+                overflow: TextOverflow.ellipsis,
+              ),
+          ],
+        ),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         actions: [
           IconButton(
@@ -483,6 +598,9 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
             ),
           ),
 
+          // Control bar
+          _buildControlBar(),
+
           // D4rt widget display area
           Expanded(
             flex: 3,
@@ -495,72 +613,277 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
             ),
           ),
 
-          // Log panel
+          // Log panels (side by side)
           Expanded(
             flex: 2,
-            child: Container(
-              margin: const EdgeInsets.fromLTRB(8, 0, 8, 8),
+            child: Row(
+              children: [
+                Expanded(child: _buildExecutionLog()),
+                const SizedBox(width: 4),
+                Expanded(child: _buildResultsLog(context)),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildControlBar() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      color: Colors.grey.shade200,
+      child: Row(
+        children: [
+          IconButton(
+            icon: Icon(_isPaused ? Icons.play_arrow : Icons.pause),
+            tooltip: _isPaused ? 'Resume' : 'Pause',
+            color: _isPaused ? Colors.green : Colors.orange,
+            onPressed: _onPausePlay,
+            visualDensity: VisualDensity.compact,
+          ),
+          IconButton(
+            icon: const Icon(Icons.skip_next),
+            tooltip: 'Play next',
+            onPressed: _isWaitingForUser ? _onNext : null,
+            visualDensity: VisualDensity.compact,
+          ),
+          const SizedBox(width: 8),
+          ElevatedButton.icon(
+            icon: const Icon(Icons.thumb_up, size: 16),
+            label: const Text('Good'),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.green.shade100,
+              foregroundColor: Colors.green.shade800,
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+              minimumSize: Size.zero,
+            ),
+            onPressed: _isWaitingForUser ? _onGood : null,
+          ),
+          const SizedBox(width: 6),
+          ElevatedButton.icon(
+            icon: const Icon(Icons.thumb_down, size: 16),
+            label: const Text('Bad'),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red.shade100,
+              foregroundColor: Colors.red.shade800,
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+              minimumSize: Size.zero,
+            ),
+            onPressed: _isWaitingForUser ? _onBad : null,
+          ),
+          const Spacer(),
+          if (_isWaitingForUser)
+            Container(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
               decoration: BoxDecoration(
-                color: Colors.grey.shade900,
+                color: Colors.amber.shade100,
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 4,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade800,
-                      borderRadius: const BorderRadius.vertical(
-                        top: Radius.circular(4),
-                      ),
-                    ),
-                    child: Row(
-                      children: [
-                        const Text(
-                          'Logs',
-                          style: TextStyle(color: Colors.white70, fontSize: 12),
-                        ),
-                        const Spacer(),
-                        InkWell(
-                          onTap: () => setState(() => _logs.clear()),
-                          child: const Text(
-                            'Clear',
-                            style: TextStyle(
-                              color: Colors.white54,
-                              fontSize: 11,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: ListView.builder(
-                      reverse: true,
-                      padding: const EdgeInsets.all(8),
-                      itemCount: _logs.length,
-                      itemBuilder: (_, index) {
-                        final log = _logs[_logs.length - 1 - index];
-                        return Text(
-                          log,
-                          style: TextStyle(
-                            color:
-                                log.contains('error') || log.contains('Error')
-                                ? Colors.red.shade300
-                                : Colors.green.shade200,
-                            fontSize: 11,
-                            fontFamily: 'monospace',
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ],
+              child: const Text(
+                'Waiting for input\u2026',
+                style:
+                    TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
               ),
+            )
+          else if (!_isPaused)
+            Container(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+              decoration: BoxDecoration(
+                color: Colors.green.shade100,
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: const Text(
+                'Auto-running',
+                style: TextStyle(fontSize: 11),
+              ),
+            )
+          else
+            Container(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+              decoration: BoxDecoration(
+                color: Colors.orange.shade100,
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: const Text(
+                'Paused',
+                style: TextStyle(fontSize: 11),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildExecutionLog() {
+    return Container(
+      margin: const EdgeInsets.fromLTRB(8, 0, 0, 8),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade900,
+        borderRadius: BorderRadius.circular(4),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Container(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            decoration: BoxDecoration(
+              color: Colors.grey.shade800,
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(4),
+              ),
+            ),
+            child: Row(
+              children: [
+                const Text(
+                  'Execution Log',
+                  style: TextStyle(color: Colors.white70, fontSize: 12),
+                ),
+                const Spacer(),
+                InkWell(
+                  onTap: () => setState(() => _logs.clear()),
+                  child: const Text(
+                    'Clear',
+                    style: TextStyle(
+                      color: Colors.white54,
+                      fontSize: 11,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              reverse: true,
+              padding: const EdgeInsets.all(8),
+              itemCount: _logs.length,
+              itemBuilder: (_, index) {
+                final log = _logs[_logs.length - 1 - index];
+                return Text(
+                  log,
+                  style: TextStyle(
+                    color:
+                        log.contains('error') || log.contains('Error')
+                            ? Colors.red.shade300
+                            : Colors.green.shade200,
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildResultsLog(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.fromLTRB(0, 0, 8, 8),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade900,
+        borderRadius: BorderRadius.circular(4),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Container(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            decoration: BoxDecoration(
+              color: Colors.grey.shade800,
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(4),
+              ),
+            ),
+            child: Row(
+              children: [
+                Text(
+                  'Results (${_resultsLog.length})',
+                  style:
+                      const TextStyle(color: Colors.white70, fontSize: 12),
+                ),
+                const Spacer(),
+                InkWell(
+                  onTap: () => setState(() => _resultsLog.clear()),
+                  child: const Text(
+                    'Clear',
+                    style: TextStyle(
+                      color: Colors.white54,
+                      fontSize: 11,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                InkWell(
+                  onTap: () {
+                    final text = _resultsLog.join('\n');
+                    Clipboard.setData(ClipboardData(text: text));
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          'Copied ${_resultsLog.length} result(s) to '
+                          'clipboard',
+                        ),
+                        duration: const Duration(seconds: 2),
+                      ),
+                    );
+                  },
+                  child: const Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.copy,
+                        size: 12,
+                        color: Colors.white54,
+                      ),
+                      SizedBox(width: 4),
+                      Text(
+                        'Copy',
+                        style: TextStyle(
+                          color: Colors.white54,
+                          fontSize: 11,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              reverse: true,
+              padding: const EdgeInsets.all(8),
+              itemCount: _resultsLog.length,
+              itemBuilder: (_, index) {
+                final entry =
+                    _resultsLog[_resultsLog.length - 1 - index];
+                Color color = Colors.green.shade200;
+                if (entry.contains('| FAIL')) {
+                  color = Colors.red.shade300;
+                } else if (entry.contains('| needs rewrite')) {
+                  color = Colors.orange.shade300;
+                } else if (entry.contains('| good')) {
+                  color = Colors.lightGreen.shade300;
+                }
+                return Text(
+                  entry,
+                  style: TextStyle(
+                    color: color,
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                  ),
+                );
+              },
             ),
           ),
         ],

@@ -51,6 +51,9 @@ class SendResult {
   /// was rendered even though the D4rt build itself may have succeeded.
   final List<String> frameworkErrors;
 
+  /// User judgment from the test app UI ('good' or 'needs rewrite').
+  final String? judgment;
+
   const SendResult({
     required this.success,
     this.widgetType,
@@ -58,6 +61,7 @@ class SendResult {
     required this.output,
     required this.statusCode,
     this.frameworkErrors = const [],
+    this.judgment,
   });
 
   /// Whether a Flutter red error screen was detected after layout/paint.
@@ -626,10 +630,11 @@ class SendTestRunner {
     final bundle = await d4rt.interpreter.createBundleFromSource(source);
     final bundleJson = jsonEncode(bundle.toJson());
 
-    // Send bundle to app
+    // Send bundle to app (pass filename for display in test app UI)
+    final encodedPath = Uri.encodeComponent(scriptPath);
     final response = await _httpPost(
       client,
-      '/build',
+      '/build?filename=$encodedPath',
       bundleJson,
       host: host,
       port: port,
@@ -640,6 +645,7 @@ class SendTestRunner {
     final httpStatus = response['_httpStatus'] as int? ?? 200;
     final frameworkErrors =
         (response['frameworkErrors'] as List?)?.cast<String>() ?? [];
+    final judgment = response['judgment'] as String?;
 
     // Log framework errors (red error screens) prominently so they are
     // visible in test output even when the D4rt build itself succeeded.
@@ -664,6 +670,7 @@ class SendTestRunner {
         output: output,
         statusCode: httpStatus,
         frameworkErrors: frameworkErrors,
+        judgment: judgment,
       );
     } else {
       return SendResult(
@@ -672,6 +679,7 @@ class SendTestRunner {
         output: output,
         statusCode: httpStatus,
         frameworkErrors: frameworkErrors,
+        judgment: judgment,
       );
     }
   }
@@ -835,10 +843,14 @@ void main() {
         }
 
         if (result.success) {
-          print('  ✓ Widget rendered: ${result.widgetType}');
+          final jLabel =
+              result.judgment != null ? ' [${result.judgment}]' : '';
+          print('  ✓ Widget rendered: ${result.widgetType}$jLabel');
           passedCount++;
         } else {
-          print('  ✗ Build failed: ${result.error}');
+          final jLabel =
+              result.judgment != null ? ' [${result.judgment}]' : '';
+          print('  ✗ Build failed: ${result.error}$jLabel');
           failedCount++;
           failedScripts.add('$relativePath: ${result.error}');
         }
