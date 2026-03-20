@@ -343,10 +343,7 @@ Widget buildComponentShowcase(ThemeData theme, String themeName) {
                       onChanged: (int? v) {},
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Radio(value: 1),
-                          Radio(value: 2),
-                        ],
+                        children: [Radio(value: 1), Radio(value: 2)],
                       ),
                     ),
                   ],

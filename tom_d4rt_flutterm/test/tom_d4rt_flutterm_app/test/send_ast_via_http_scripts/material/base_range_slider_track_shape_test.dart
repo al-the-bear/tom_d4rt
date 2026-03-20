@@ -511,7 +511,9 @@ Widget buildTrackHeightRow(
 
 dynamic build(BuildContext context) {
   debugPrint('=== BaseRangeSliderTrackShape Test Script ===');
-  debugPrint('Testing range sliders with different track shapes and configurations');
+  debugPrint(
+    'Testing range sliders with different track shapes and configurations',
+  );
   debugPrint('Demonstrates RangeSlider with custom SliderThemeData');
 
   return SingleChildScrollView(

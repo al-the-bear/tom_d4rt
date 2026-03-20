@@ -7,23 +7,33 @@ Widget buildSectionHeader(String title, IconData icon, Color color) {
     margin: EdgeInsets.fromLTRB(8, 16, 8, 8),
     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
     decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: [color, color.withValues(alpha: 0.7)],
-      ),
+      gradient: LinearGradient(colors: [color, color.withValues(alpha: 0.7)]),
       borderRadius: BorderRadius.circular(8),
     ),
     child: Row(
       children: [
         Icon(icon, color: Colors.white, size: 20),
         SizedBox(width: 8),
-        Text(title, style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+        Text(
+          title,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ],
     ),
   );
 }
 
 // Helper for theme data property display card
-Widget buildThemePropertyCard(String propertyName, String value, Color indicatorColor, IconData icon) {
+Widget buildThemePropertyCard(
+  String propertyName,
+  String value,
+  Color indicatorColor,
+  IconData icon,
+) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 3, horizontal: 8),
     padding: EdgeInsets.all(10),
@@ -32,7 +42,11 @@ Widget buildThemePropertyCard(String propertyName, String value, Color indicator
       borderRadius: BorderRadius.circular(8),
       border: Border.all(color: Colors.grey.shade200),
       boxShadow: [
-        BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 2, offset: Offset(0, 1)),
+        BoxShadow(
+          color: Colors.black.withValues(alpha: 0.05),
+          blurRadius: 2,
+          offset: Offset(0, 1),
+        ),
       ],
     ),
     child: Row(
@@ -51,8 +65,14 @@ Widget buildThemePropertyCard(String propertyName, String value, Color indicator
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(propertyName, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-              Text(value, style: TextStyle(fontSize: 11, color: Colors.grey.shade600)),
+              Text(
+                propertyName,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+              ),
+              Text(
+                value,
+                style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+              ),
             ],
           ),
         ),
@@ -62,8 +82,16 @@ Widget buildThemePropertyCard(String propertyName, String value, Color indicator
 }
 
 // Helper for a complete theme showcase
-Widget buildThemeShowcase(String title, Color primaryColor, Color bgColor, Color itemColor,
-    Color textColor, double elevation, double borderRadius, double itemExtent) {
+Widget buildThemeShowcase(
+  String title,
+  Color primaryColor,
+  Color bgColor,
+  Color itemColor,
+  Color textColor,
+  double elevation,
+  double borderRadius,
+  double itemExtent,
+) {
   return Container(
     margin: EdgeInsets.all(8),
     padding: EdgeInsets.all(12),
@@ -83,10 +111,23 @@ Widget buildThemeShowcase(String title, Color primaryColor, Color bgColor, Color
                 color: primaryColor,
                 borderRadius: BorderRadius.circular(6),
               ),
-              child: Text(title, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12)),
+              child: Text(
+                title,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                ),
+              ),
             ),
             Spacer(),
-            Text('elevation: $elevation', style: TextStyle(fontSize: 10, color: textColor.withValues(alpha: 0.6))),
+            Text(
+              'elevation: $elevation',
+              style: TextStyle(
+                fontSize: 10,
+                color: textColor.withValues(alpha: 0.6),
+              ),
+            ),
           ],
         ),
         SizedBox(height: 8),
@@ -108,7 +149,14 @@ Widget buildThemeShowcase(String title, Color primaryColor, Color bgColor, Color
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(Icons.image, color: textColor, size: 20),
-                        Text('${i + 1}', style: TextStyle(color: textColor, fontSize: 12, fontWeight: FontWeight.bold)),
+                        Text(
+                          '${i + 1}',
+                          style: TextStyle(
+                            color: textColor,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -120,9 +168,21 @@ Widget buildThemeShowcase(String title, Color primaryColor, Color bgColor, Color
         SizedBox(height: 6),
         Row(
           children: [
-            Text('itemExtent: $itemExtent', style: TextStyle(fontSize: 10, color: textColor.withValues(alpha: 0.5))),
+            Text(
+              'itemExtent: $itemExtent',
+              style: TextStyle(
+                fontSize: 10,
+                color: textColor.withValues(alpha: 0.5),
+              ),
+            ),
             SizedBox(width: 12),
-            Text('borderRadius: $borderRadius', style: TextStyle(fontSize: 10, color: textColor.withValues(alpha: 0.5))),
+            Text(
+              'borderRadius: $borderRadius',
+              style: TextStyle(
+                fontSize: 10,
+                color: textColor.withValues(alpha: 0.5),
+              ),
+            ),
           ],
         ),
       ],
@@ -137,7 +197,10 @@ Widget buildElevationStrip(String label, Color color, List<double> elevations) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+        Text(
+          label,
+          style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 4),
         Row(
           children: elevations.map((e) {
@@ -151,7 +214,14 @@ Widget buildElevationStrip(String label, Color color, List<double> elevations) {
                   child: SizedBox(
                     height: 50,
                     child: Center(
-                      child: Text('e:${e.toInt()}', style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold)),
+                      child: Text(
+                        'e:${e.toInt()}',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 11,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -170,7 +240,13 @@ Widget buildShapeComparison(String label, Color color, double radius) {
     margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
     child: Row(
       children: [
-        SizedBox(width: 80, child: Text(label, style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+        SizedBox(
+          width: 80,
+          child: Text(
+            label,
+            style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
+          ),
+        ),
         Expanded(
           child: SizedBox(
             height: 50,
@@ -186,7 +262,14 @@ Widget buildShapeComparison(String label, Color color, double radius) {
                     borderRadius: BorderRadius.circular(radius),
                   ),
                   child: Center(
-                    child: Text('r:${radius.toInt()}', style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)),
+                    child: Text(
+                      'r:${radius.toInt()}',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 );
               },
@@ -250,7 +333,11 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             // Section 1: Theme Data Properties Overview
-            buildSectionHeader('Theme Data Properties', Icons.palette, Colors.deepOrange),
+            buildSectionHeader(
+              'Theme Data Properties',
+              Icons.palette,
+              Colors.deepOrange,
+            ),
             Padding(
               padding: EdgeInsets.all(8),
               child: Text(
@@ -258,27 +345,100 @@ dynamic build(BuildContext context) {
                 style: TextStyle(fontSize: 13, color: Colors.grey.shade600),
               ),
             ),
-            buildThemePropertyCard('backgroundColor', 'Background color for carousel items', Colors.blue, Icons.format_color_fill),
-            buildThemePropertyCard('elevation', 'Shadow depth for carousel items (0-24)', Colors.grey, Icons.layers),
-            buildThemePropertyCard('shape', 'Shape decoration (border radius, clips)', Colors.green, Icons.crop_square),
-            buildThemePropertyCard('overlayColor', 'Color when user interacts with items', Colors.orange, Icons.touch_app),
-            buildThemePropertyCard('itemExtent', 'Width of each carousel item', Colors.purple, Icons.width_normal),
+            buildThemePropertyCard(
+              'backgroundColor',
+              'Background color for carousel items',
+              Colors.blue,
+              Icons.format_color_fill,
+            ),
+            buildThemePropertyCard(
+              'elevation',
+              'Shadow depth for carousel items (0-24)',
+              Colors.grey,
+              Icons.layers,
+            ),
+            buildThemePropertyCard(
+              'shape',
+              'Shape decoration (border radius, clips)',
+              Colors.green,
+              Icons.crop_square,
+            ),
+            buildThemePropertyCard(
+              'overlayColor',
+              'Color when user interacts with items',
+              Colors.orange,
+              Icons.touch_app,
+            ),
+            buildThemePropertyCard(
+              'itemExtent',
+              'Width of each carousel item',
+              Colors.purple,
+              Icons.width_normal,
+            ),
 
             // Section 2: Background Color Themes
-            buildSectionHeader('Background Color Themes', Icons.color_lens, Colors.blue),
-            buildThemeShowcase('Light Theme', Colors.blue, Colors.blue.shade50,
-                Colors.blue.shade100, Colors.blue.shade900, 2, 12, 100),
-            buildThemeShowcase('Dark Theme', Colors.grey.shade800, Colors.grey.shade900,
-                Colors.grey.shade700, Colors.white, 4, 12, 100),
-            buildThemeShowcase('Warm Theme', Colors.orange, Colors.orange.shade50,
-                Colors.orange.shade200, Colors.brown.shade800, 3, 12, 100),
-            buildThemeShowcase('Cool Theme', Colors.teal, Colors.teal.shade50,
-                Colors.teal.shade200, Colors.teal.shade900, 2, 12, 100),
-            buildThemeShowcase('Purple Theme', Colors.deepPurple, Colors.deepPurple.shade50,
-                Colors.deepPurple.shade200, Colors.deepPurple.shade900, 3, 12, 100),
+            buildSectionHeader(
+              'Background Color Themes',
+              Icons.color_lens,
+              Colors.blue,
+            ),
+            buildThemeShowcase(
+              'Light Theme',
+              Colors.blue,
+              Colors.blue.shade50,
+              Colors.blue.shade100,
+              Colors.blue.shade900,
+              2,
+              12,
+              100,
+            ),
+            buildThemeShowcase(
+              'Dark Theme',
+              Colors.grey.shade800,
+              Colors.grey.shade900,
+              Colors.grey.shade700,
+              Colors.white,
+              4,
+              12,
+              100,
+            ),
+            buildThemeShowcase(
+              'Warm Theme',
+              Colors.orange,
+              Colors.orange.shade50,
+              Colors.orange.shade200,
+              Colors.brown.shade800,
+              3,
+              12,
+              100,
+            ),
+            buildThemeShowcase(
+              'Cool Theme',
+              Colors.teal,
+              Colors.teal.shade50,
+              Colors.teal.shade200,
+              Colors.teal.shade900,
+              2,
+              12,
+              100,
+            ),
+            buildThemeShowcase(
+              'Purple Theme',
+              Colors.deepPurple,
+              Colors.deepPurple.shade50,
+              Colors.deepPurple.shade200,
+              Colors.deepPurple.shade900,
+              3,
+              12,
+              100,
+            ),
 
             // Section 3: Elevation Comparison
-            buildSectionHeader('Elevation Levels', Icons.layers, Colors.grey.shade700),
+            buildSectionHeader(
+              'Elevation Levels',
+              Icons.layers,
+              Colors.grey.shade700,
+            ),
             Padding(
               padding: EdgeInsets.all(8),
               child: Text(
@@ -290,12 +450,28 @@ dynamic build(BuildContext context) {
             SizedBox(height: 8),
             buildElevationStrip('Green items', Colors.green, [0, 1, 3, 6, 12]),
             SizedBox(height: 8),
-            buildElevationStrip('Orange items', Colors.orange, [0, 2, 6, 10, 20]),
+            buildElevationStrip('Orange items', Colors.orange, [
+              0,
+              2,
+              6,
+              10,
+              20,
+            ]),
             SizedBox(height: 8),
-            buildElevationStrip('Purple items', Colors.purple, [0, 3, 6, 9, 12]),
+            buildElevationStrip('Purple items', Colors.purple, [
+              0,
+              3,
+              6,
+              9,
+              12,
+            ]),
 
             // Section 4: Shape Decoration
-            buildSectionHeader('Shape Decoration', Icons.crop_square, Colors.green),
+            buildSectionHeader(
+              'Shape Decoration',
+              Icons.crop_square,
+              Colors.green,
+            ),
             Padding(
               padding: EdgeInsets.all(8),
               child: Text(
@@ -311,7 +487,11 @@ dynamic build(BuildContext context) {
             buildShapeComparison('Circle (40)', Colors.pink, 40),
 
             // Section 5: Item Extent
-            buildSectionHeader('Item Extent Values', Icons.straighten, Colors.purple),
+            buildSectionHeader(
+              'Item Extent Values',
+              Icons.straighten,
+              Colors.purple,
+            ),
             Padding(
               padding: EdgeInsets.all(8),
               child: Text(
@@ -319,17 +499,53 @@ dynamic build(BuildContext context) {
                 style: TextStyle(fontSize: 13, color: Colors.grey.shade600),
               ),
             ),
-            buildThemeShowcase('Small Extent (60px)', Colors.red, Colors.red.shade50,
-                Colors.red.shade200, Colors.red.shade900, 2, 8, 60),
-            buildThemeShowcase('Medium Extent (100px)', Colors.green, Colors.green.shade50,
-                Colors.green.shade200, Colors.green.shade900, 2, 8, 100),
-            buildThemeShowcase('Large Extent (150px)', Colors.blue, Colors.blue.shade50,
-                Colors.blue.shade200, Colors.blue.shade900, 2, 8, 150),
-            buildThemeShowcase('Extra Large (200px)', Colors.purple, Colors.purple.shade50,
-                Colors.purple.shade200, Colors.purple.shade900, 2, 8, 200),
+            buildThemeShowcase(
+              'Small Extent (60px)',
+              Colors.red,
+              Colors.red.shade50,
+              Colors.red.shade200,
+              Colors.red.shade900,
+              2,
+              8,
+              60,
+            ),
+            buildThemeShowcase(
+              'Medium Extent (100px)',
+              Colors.green,
+              Colors.green.shade50,
+              Colors.green.shade200,
+              Colors.green.shade900,
+              2,
+              8,
+              100,
+            ),
+            buildThemeShowcase(
+              'Large Extent (150px)',
+              Colors.blue,
+              Colors.blue.shade50,
+              Colors.blue.shade200,
+              Colors.blue.shade900,
+              2,
+              8,
+              150,
+            ),
+            buildThemeShowcase(
+              'Extra Large (200px)',
+              Colors.purple,
+              Colors.purple.shade50,
+              Colors.purple.shade200,
+              Colors.purple.shade900,
+              2,
+              8,
+              200,
+            ),
 
             // Section 6: Combined Theme Configurations
-            buildSectionHeader('Combined Themes', Icons.auto_awesome, Colors.amber.shade800),
+            buildSectionHeader(
+              'Combined Themes',
+              Icons.auto_awesome,
+              Colors.amber.shade800,
+            ),
             Padding(
               padding: EdgeInsets.all(8),
               child: Text(
@@ -350,7 +566,10 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Material 3 Style', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                  Text(
+                    'Material 3 Style',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                  ),
                   SizedBox(height: 8),
                   SizedBox(
                     height: 100,
@@ -358,7 +577,14 @@ dynamic build(BuildContext context) {
                       scrollDirection: Axis.horizontal,
                       itemCount: 6,
                       itemBuilder: (ctx, i) {
-                        var colors = [Colors.blue, Colors.purple, Colors.teal, Colors.orange, Colors.pink, Colors.indigo];
+                        var colors = [
+                          Colors.blue,
+                          Colors.purple,
+                          Colors.teal,
+                          Colors.orange,
+                          Colors.pink,
+                          Colors.indigo,
+                        ];
                         return Container(
                           width: 140,
                           margin: EdgeInsets.symmetric(horizontal: 4),
@@ -369,15 +595,28 @@ dynamic build(BuildContext context) {
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(16),
-                                border: Border.all(color: colors[i].withValues(alpha: 0.2)),
+                                border: Border.all(
+                                  color: colors[i].withValues(alpha: 0.2),
+                                ),
                               ),
                               child: Center(
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(Icons.view_carousel, color: colors[i], size: 28),
+                                    Icon(
+                                      Icons.view_carousel,
+                                      color: colors[i],
+                                      size: 28,
+                                    ),
                                     SizedBox(height: 4),
-                                    Text('M3 Item', style: TextStyle(color: colors[i], fontWeight: FontWeight.bold, fontSize: 12)),
+                                    Text(
+                                      'M3 Item',
+                                      style: TextStyle(
+                                        color: colors[i],
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -402,7 +641,10 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('iOS Cupertino Style', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                  Text(
+                    'iOS Cupertino Style',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                  ),
                   SizedBox(height: 8),
                   SizedBox(
                     height: 100,
@@ -426,9 +668,19 @@ dynamic build(BuildContext context) {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(Icons.phone_iphone, color: Colors.grey.shade700, size: 28),
+                                    Icon(
+                                      Icons.phone_iphone,
+                                      color: Colors.grey.shade700,
+                                      size: 28,
+                                    ),
                                     SizedBox(height: 4),
-                                    Text('iOS ${i + 1}', style: TextStyle(color: Colors.grey.shade800, fontSize: 12)),
+                                    Text(
+                                      'iOS ${i + 1}',
+                                      style: TextStyle(
+                                        color: Colors.grey.shade800,
+                                        fontSize: 12,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -453,7 +705,14 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Bold Vivid Style', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.white)),
+                  Text(
+                    'Bold Vivid Style',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                      color: Colors.white,
+                    ),
+                  ),
                   SizedBox(height: 8),
                   SizedBox(
                     height: 100,
@@ -461,8 +720,14 @@ dynamic build(BuildContext context) {
                       scrollDirection: Axis.horizontal,
                       itemCount: 6,
                       itemBuilder: (ctx, i) {
-                        var vivid = [Colors.redAccent, Colors.yellowAccent, Colors.greenAccent,
-                            Colors.cyanAccent, Colors.purpleAccent, Colors.orangeAccent];
+                        var vivid = [
+                          Colors.redAccent,
+                          Colors.yellowAccent,
+                          Colors.greenAccent,
+                          Colors.cyanAccent,
+                          Colors.purpleAccent,
+                          Colors.orangeAccent,
+                        ];
                         return Container(
                           width: 110,
                           margin: EdgeInsets.symmetric(horizontal: 4),
@@ -474,9 +739,20 @@ dynamic build(BuildContext context) {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Icon(Icons.flash_on, color: Colors.black, size: 28),
+                                  Icon(
+                                    Icons.flash_on,
+                                    color: Colors.black,
+                                    size: 28,
+                                  ),
                                   SizedBox(height: 4),
-                                  Text('Bold ${i + 1}', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 12)),
+                                  Text(
+                                    'Bold ${i + 1}',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12,
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
@@ -490,7 +766,11 @@ dynamic build(BuildContext context) {
             ),
 
             // Section 7: Color Swatches Used in Themes
-            buildSectionHeader('Theme Color Palette', Icons.palette, Colors.pink),
+            buildSectionHeader(
+              'Theme Color Palette',
+              Icons.palette,
+              Colors.pink,
+            ),
             buildColorSwatch('Primary Blue', Colors.blue),
             buildColorSwatch('Deep Purple', Colors.deepPurple),
             buildColorSwatch('Teal', Colors.teal),
@@ -501,7 +781,11 @@ dynamic build(BuildContext context) {
             buildColorSwatch('Cyan', Colors.cyan),
 
             // Section 8: Theme Merge Visualization
-            buildSectionHeader('Theme Merging', Icons.merge_type, Colors.indigo),
+            buildSectionHeader(
+              'Theme Merging',
+              Icons.merge_type,
+              Colors.indigo,
+            ),
             Container(
               margin: EdgeInsets.all(8),
               padding: EdgeInsets.all(12),
@@ -512,7 +796,10 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Theme Priority (lowest to highest):', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+                  Text(
+                    'Theme Priority (lowest to highest):',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+                  ),
                   SizedBox(height: 8),
                   Row(
                     children: [
@@ -525,8 +812,20 @@ dynamic build(BuildContext context) {
                           ),
                           child: Column(
                             children: [
-                              Text('Default', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11)),
-                              Text('Fallback values', style: TextStyle(fontSize: 10, color: Colors.grey)),
+                              Text(
+                                'Default',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 11,
+                                ),
+                              ),
+                              Text(
+                                'Fallback values',
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  color: Colors.grey,
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -541,8 +840,20 @@ dynamic build(BuildContext context) {
                           ),
                           child: Column(
                             children: [
-                              Text('Theme', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11)),
-                              Text('App theme data', style: TextStyle(fontSize: 10, color: Colors.grey)),
+                              Text(
+                                'Theme',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 11,
+                                ),
+                              ),
+                              Text(
+                                'App theme data',
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  color: Colors.grey,
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -557,8 +868,20 @@ dynamic build(BuildContext context) {
                           ),
                           child: Column(
                             children: [
-                              Text('Local', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11)),
-                              Text('Widget overrides', style: TextStyle(fontSize: 10, color: Colors.grey)),
+                              Text(
+                                'Local',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 11,
+                                ),
+                              ),
+                              Text(
+                                'Widget overrides',
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  color: Colors.grey,
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -582,18 +905,54 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Theme Data Properties Demonstrated:', style: TextStyle(fontWeight: FontWeight.bold)),
+                  Text(
+                    'Theme Data Properties Demonstrated:',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                   SizedBox(height: 6),
                   Wrap(
                     spacing: 6,
                     runSpacing: 6,
                     children: [
-                      Chip(label: Text('Background Color', style: TextStyle(fontSize: 10)), backgroundColor: Colors.blue.shade100),
-                      Chip(label: Text('Elevation', style: TextStyle(fontSize: 10)), backgroundColor: Colors.grey.shade200),
-                      Chip(label: Text('Shape', style: TextStyle(fontSize: 10)), backgroundColor: Colors.green.shade100),
-                      Chip(label: Text('Item Extent', style: TextStyle(fontSize: 10)), backgroundColor: Colors.purple.shade100),
-                      Chip(label: Text('Color Themes', style: TextStyle(fontSize: 10)), backgroundColor: Colors.orange.shade100),
-                      Chip(label: Text('Theme Merge', style: TextStyle(fontSize: 10)), backgroundColor: Colors.indigo.shade100),
+                      Chip(
+                        label: Text(
+                          'Background Color',
+                          style: TextStyle(fontSize: 10),
+                        ),
+                        backgroundColor: Colors.blue.shade100,
+                      ),
+                      Chip(
+                        label: Text(
+                          'Elevation',
+                          style: TextStyle(fontSize: 10),
+                        ),
+                        backgroundColor: Colors.grey.shade200,
+                      ),
+                      Chip(
+                        label: Text('Shape', style: TextStyle(fontSize: 10)),
+                        backgroundColor: Colors.green.shade100,
+                      ),
+                      Chip(
+                        label: Text(
+                          'Item Extent',
+                          style: TextStyle(fontSize: 10),
+                        ),
+                        backgroundColor: Colors.purple.shade100,
+                      ),
+                      Chip(
+                        label: Text(
+                          'Color Themes',
+                          style: TextStyle(fontSize: 10),
+                        ),
+                        backgroundColor: Colors.orange.shade100,
+                      ),
+                      Chip(
+                        label: Text(
+                          'Theme Merge',
+                          style: TextStyle(fontSize: 10),
+                        ),
+                        backgroundColor: Colors.indigo.shade100,
+                      ),
                     ],
                   ),
                 ],

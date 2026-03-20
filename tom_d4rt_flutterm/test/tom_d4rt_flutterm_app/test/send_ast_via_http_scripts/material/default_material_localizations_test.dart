@@ -68,11 +68,18 @@ Widget buildInfoRow(String label, String value) {
           width: 180,
           child: Text(
             label,
-            style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13, color: Color(0xFF616161)),
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 13,
+              color: Color(0xFF616161),
+            ),
           ),
         ),
         Expanded(
-          child: Text(value, style: TextStyle(fontSize: 13, color: Color(0xFF212121))),
+          child: Text(
+            value,
+            style: TextStyle(fontSize: 13, color: Color(0xFF212121)),
+          ),
         ),
       ],
     ),
@@ -99,7 +106,14 @@ Widget buildLocalizedString(String getter, String value, Color accentColor) {
         SizedBox(width: 8),
         Expanded(
           flex: 3,
-          child: Text(getter, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xFF424242))),
+          child: Text(
+            getter,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFF424242),
+            ),
+          ),
         ),
         Expanded(
           flex: 2,
@@ -111,7 +125,11 @@ Widget buildLocalizedString(String getter, String value, Color accentColor) {
             ),
             child: Text(
               value,
-              style: TextStyle(fontSize: 12, color: Color(0xFFFFFFFF), fontWeight: FontWeight.w500),
+              style: TextStyle(
+                fontSize: 12,
+                color: Color(0xFFFFFFFF),
+                fontWeight: FontWeight.w500,
+              ),
               textAlign: TextAlign.center,
             ),
           ),
@@ -133,19 +151,39 @@ Widget buildFormatExample(String method, String params, String result) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(method, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Color(0xFF004D40))),
+        Text(
+          method,
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF004D40),
+          ),
+        ),
         SizedBox(height: 2),
-        Text('Input: $params', style: TextStyle(fontSize: 11, color: Color(0xFF616161))),
+        Text(
+          'Input: $params',
+          style: TextStyle(fontSize: 11, color: Color(0xFF616161)),
+        ),
         Row(
           children: [
-            Text('Output: ', style: TextStyle(fontSize: 11, color: Color(0xFF616161))),
+            Text(
+              'Output: ',
+              style: TextStyle(fontSize: 11, color: Color(0xFF616161)),
+            ),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
               decoration: BoxDecoration(
                 color: Color(0xFF004D40),
                 borderRadius: BorderRadius.circular(3),
               ),
-              child: Text(result, style: TextStyle(fontSize: 11, color: Color(0xFFFFFFFF), fontWeight: FontWeight.bold)),
+              child: Text(
+                result,
+                style: TextStyle(
+                  fontSize: 11,
+                  color: Color(0xFFFFFFFF),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ],
         ),
@@ -168,7 +206,11 @@ Widget buildDayNameRow(List<String> names, Color color) {
           ),
           child: Text(
             name,
-            style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 12, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              color: Color(0xFFFFFFFF),
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+            ),
             textAlign: TextAlign.center,
           ),
         ),
@@ -195,7 +237,11 @@ Widget buildMonthGrid(List<String> months, Color color) {
             ),
             child: Text(
               idx < months.length ? months[idx] : '',
-              style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 12, fontWeight: FontWeight.w600),
+              style: TextStyle(
+                color: Color(0xFFFFFFFF),
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+              ),
               textAlign: TextAlign.center,
             ),
           ),
@@ -225,8 +271,18 @@ Widget buildSemanticLabel(String widget, String label) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(widget, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xFF424242))),
-              Text(label, style: TextStyle(fontSize: 11, color: Color(0xFF757575))),
+              Text(
+                widget,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF424242),
+                ),
+              ),
+              Text(
+                label,
+                style: TextStyle(fontSize: 11, color: Color(0xFF757575)),
+              ),
             ],
           ),
         ),
@@ -244,7 +300,14 @@ Widget buildScriptBadge(String scriptName, Color color) {
       color: color,
       borderRadius: BorderRadius.circular(16),
     ),
-    child: Text(scriptName, style: TextStyle(fontSize: 12, color: Color(0xFFFFFFFF), fontWeight: FontWeight.w600)),
+    child: Text(
+      scriptName,
+      style: TextStyle(
+        fontSize: 12,
+        color: Color(0xFFFFFFFF),
+        fontWeight: FontWeight.w600,
+      ),
+    ),
   );
 }
 
@@ -262,8 +325,20 @@ Widget buildTooltipEntry(String key, String value) {
       children: [
         Icon(Icons.info_outline, size: 14, color: Color(0xFF004D40)),
         SizedBox(width: 6),
-        Expanded(child: Text(key, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500))),
-        Text(value, style: TextStyle(fontSize: 12, color: Color(0xFF004D40), fontWeight: FontWeight.w600)),
+        Expanded(
+          child: Text(
+            key,
+            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+          ),
+        ),
+        Text(
+          value,
+          style: TextStyle(
+            fontSize: 12,
+            color: Color(0xFF004D40),
+            fontWeight: FontWeight.w600,
+          ),
+        ),
       ],
     ),
   );
@@ -271,7 +346,9 @@ Widget buildTooltipEntry(String key, String value) {
 
 dynamic build(BuildContext context) {
   debugPrint('=== DefaultMaterialLocalizations Deep Demo ===');
-  debugPrint('Testing localized strings, date/time formats, and accessibility labels');
+  debugPrint(
+    'Testing localized strings, date/time formats, and accessibility labels',
+  );
 
   return MaterialApp(
     debugShowCheckedModeBanner: false,
@@ -294,13 +371,19 @@ dynamic build(BuildContext context) {
                 children: [
                   buildInfoRow('Class', 'DefaultMaterialLocalizations'),
                   buildInfoRow('Locale', 'US English (en_US)'),
-                  buildInfoRow('Purpose', 'Provides localized strings for Material widgets'),
+                  buildInfoRow(
+                    'Purpose',
+                    'Provides localized strings for Material widgets',
+                  ),
                   buildInfoRow('Extends', 'MaterialLocalizations'),
                   buildInfoRow('Usage', 'MaterialLocalizations.of(context)'),
                 ],
               ),
             ),
-            Text('Section 1: Overview displayed', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 1: Overview displayed',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 2: Button Labels
             buildSectionHeader('2. Button Labels'),
@@ -308,21 +391,68 @@ dynamic build(BuildContext context) {
               'Standard button text strings',
               Column(
                 children: [
-                  buildLocalizedString('okButtonLabel', 'OK', Color(0xFF004D40)),
-                  buildLocalizedString('cancelButtonLabel', 'Cancel', Color(0xFF004D40)),
-                  buildLocalizedString('closeButtonLabel', 'Close', Color(0xFF004D40)),
-                  buildLocalizedString('continueButtonLabel', 'Continue', Color(0xFF004D40)),
-                  buildLocalizedString('copyButtonLabel', 'Copy', Color(0xFF00695C)),
-                  buildLocalizedString('cutButtonLabel', 'Cut', Color(0xFF00695C)),
-                  buildLocalizedString('pasteButtonLabel', 'Paste', Color(0xFF00695C)),
-                  buildLocalizedString('selectAllButtonLabel', 'Select all', Color(0xFF00695C)),
-                  buildLocalizedString('viewLicensesButtonLabel', 'View licenses', Color(0xFF00796B)),
-                  buildLocalizedString('anteMeridiemAbbreviation', 'AM', Color(0xFF00796B)),
-                  buildLocalizedString('postMeridiemAbbreviation', 'PM', Color(0xFF00796B)),
+                  buildLocalizedString(
+                    'okButtonLabel',
+                    'OK',
+                    Color(0xFF004D40),
+                  ),
+                  buildLocalizedString(
+                    'cancelButtonLabel',
+                    'Cancel',
+                    Color(0xFF004D40),
+                  ),
+                  buildLocalizedString(
+                    'closeButtonLabel',
+                    'Close',
+                    Color(0xFF004D40),
+                  ),
+                  buildLocalizedString(
+                    'continueButtonLabel',
+                    'Continue',
+                    Color(0xFF004D40),
+                  ),
+                  buildLocalizedString(
+                    'copyButtonLabel',
+                    'Copy',
+                    Color(0xFF00695C),
+                  ),
+                  buildLocalizedString(
+                    'cutButtonLabel',
+                    'Cut',
+                    Color(0xFF00695C),
+                  ),
+                  buildLocalizedString(
+                    'pasteButtonLabel',
+                    'Paste',
+                    Color(0xFF00695C),
+                  ),
+                  buildLocalizedString(
+                    'selectAllButtonLabel',
+                    'Select all',
+                    Color(0xFF00695C),
+                  ),
+                  buildLocalizedString(
+                    'viewLicensesButtonLabel',
+                    'View licenses',
+                    Color(0xFF00796B),
+                  ),
+                  buildLocalizedString(
+                    'anteMeridiemAbbreviation',
+                    'AM',
+                    Color(0xFF00796B),
+                  ),
+                  buildLocalizedString(
+                    'postMeridiemAbbreviation',
+                    'PM',
+                    Color(0xFF00796B),
+                  ),
                 ],
               ),
             ),
-            Text('Section 2: Button labels displayed', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 2: Button labels displayed',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 3: Navigation Labels
             buildSectionHeader('3. Navigation Labels'),
@@ -330,22 +460,73 @@ dynamic build(BuildContext context) {
               'Drawer, popup, and navigation strings',
               Column(
                 children: [
-                  buildLocalizedString('openAppDrawerTooltip', 'Open navigation menu', Color(0xFF004D40)),
-                  buildLocalizedString('backButtonTooltip', 'Back', Color(0xFF004D40)),
-                  buildLocalizedString('closeButtonTooltip', 'Close', Color(0xFF004D40)),
-                  buildLocalizedString('deleteButtonTooltip', 'Delete', Color(0xFF00695C)),
-                  buildLocalizedString('moreButtonTooltip', 'More', Color(0xFF00695C)),
-                  buildLocalizedString('nextMonthTooltip', 'Next month', Color(0xFF00796B)),
-                  buildLocalizedString('previousMonthTooltip', 'Previous month', Color(0xFF00796B)),
-                  buildLocalizedString('nextPageTooltip', 'Next page', Color(0xFF00897B)),
-                  buildLocalizedString('previousPageTooltip', 'Previous page', Color(0xFF00897B)),
-                  buildLocalizedString('firstPageTooltip', 'First page', Color(0xFF26A69A)),
-                  buildLocalizedString('lastPageTooltip', 'Last page', Color(0xFF26A69A)),
-                  buildLocalizedString('showMenuTooltip', 'Show menu', Color(0xFF4DB6AC)),
+                  buildLocalizedString(
+                    'openAppDrawerTooltip',
+                    'Open navigation menu',
+                    Color(0xFF004D40),
+                  ),
+                  buildLocalizedString(
+                    'backButtonTooltip',
+                    'Back',
+                    Color(0xFF004D40),
+                  ),
+                  buildLocalizedString(
+                    'closeButtonTooltip',
+                    'Close',
+                    Color(0xFF004D40),
+                  ),
+                  buildLocalizedString(
+                    'deleteButtonTooltip',
+                    'Delete',
+                    Color(0xFF00695C),
+                  ),
+                  buildLocalizedString(
+                    'moreButtonTooltip',
+                    'More',
+                    Color(0xFF00695C),
+                  ),
+                  buildLocalizedString(
+                    'nextMonthTooltip',
+                    'Next month',
+                    Color(0xFF00796B),
+                  ),
+                  buildLocalizedString(
+                    'previousMonthTooltip',
+                    'Previous month',
+                    Color(0xFF00796B),
+                  ),
+                  buildLocalizedString(
+                    'nextPageTooltip',
+                    'Next page',
+                    Color(0xFF00897B),
+                  ),
+                  buildLocalizedString(
+                    'previousPageTooltip',
+                    'Previous page',
+                    Color(0xFF00897B),
+                  ),
+                  buildLocalizedString(
+                    'firstPageTooltip',
+                    'First page',
+                    Color(0xFF26A69A),
+                  ),
+                  buildLocalizedString(
+                    'lastPageTooltip',
+                    'Last page',
+                    Color(0xFF26A69A),
+                  ),
+                  buildLocalizedString(
+                    'showMenuTooltip',
+                    'Show menu',
+                    Color(0xFF4DB6AC),
+                  ),
                 ],
               ),
             ),
-            Text('Section 3: Navigation labels displayed', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 3: Navigation labels displayed',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 4: Dialog and Alert Strings
             buildSectionHeader('4. Dialog Strings'),
@@ -353,24 +534,67 @@ dynamic build(BuildContext context) {
               'Dialog-related localized strings',
               Column(
                 children: [
-                  buildLocalizedString('alertDialogLabel', 'Alert', Color(0xFF004D40)),
-                  buildLocalizedString('dialogLabel', 'Dialog', Color(0xFF004D40)),
-                  buildLocalizedString('drawerLabel', 'Navigation menu', Color(0xFF00695C)),
-                  buildLocalizedString('popupMenuLabel', 'Popup menu', Color(0xFF00695C)),
-                  buildLocalizedString('menuBarMenuLabel', 'Menu bar menu', Color(0xFF00796B)),
-                  buildLocalizedString('bottomSheetLabel', 'Bottom sheet', Color(0xFF00796B)),
-                  buildLocalizedString('modalBarrierDismissLabel', 'Dismiss', Color(0xFF00897B)),
-                  buildLocalizedString('searchFieldLabel', 'Search', Color(0xFF00897B)),
+                  buildLocalizedString(
+                    'alertDialogLabel',
+                    'Alert',
+                    Color(0xFF004D40),
+                  ),
+                  buildLocalizedString(
+                    'dialogLabel',
+                    'Dialog',
+                    Color(0xFF004D40),
+                  ),
+                  buildLocalizedString(
+                    'drawerLabel',
+                    'Navigation menu',
+                    Color(0xFF00695C),
+                  ),
+                  buildLocalizedString(
+                    'popupMenuLabel',
+                    'Popup menu',
+                    Color(0xFF00695C),
+                  ),
+                  buildLocalizedString(
+                    'menuBarMenuLabel',
+                    'Menu bar menu',
+                    Color(0xFF00796B),
+                  ),
+                  buildLocalizedString(
+                    'bottomSheetLabel',
+                    'Bottom sheet',
+                    Color(0xFF00796B),
+                  ),
+                  buildLocalizedString(
+                    'modalBarrierDismissLabel',
+                    'Dismiss',
+                    Color(0xFF00897B),
+                  ),
+                  buildLocalizedString(
+                    'searchFieldLabel',
+                    'Search',
+                    Color(0xFF00897B),
+                  ),
                 ],
               ),
             ),
-            Text('Section 4: Dialog strings displayed', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 4: Dialog strings displayed',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 5: Day Names
             buildSectionHeader('5. Day Names'),
             buildDemoCard(
               'Narrow weekday names (Mo, Tu, etc.)',
-              buildDayNameRow(['S', 'M', 'T', 'W', 'T', 'F', 'S'], Color(0xFF004D40)),
+              buildDayNameRow([
+                'S',
+                'M',
+                'T',
+                'W',
+                'T',
+                'F',
+                'S',
+              ], Color(0xFF004D40)),
             ),
             buildDemoCard(
               'Full weekday names',
@@ -379,26 +603,53 @@ dynamic build(BuildContext context) {
                   buildLocalizedString('Sunday', 'Sunday', Color(0xFFC62828)),
                   buildLocalizedString('Monday', 'Monday', Color(0xFF004D40)),
                   buildLocalizedString('Tuesday', 'Tuesday', Color(0xFF004D40)),
-                  buildLocalizedString('Wednesday', 'Wednesday', Color(0xFF004D40)),
-                  buildLocalizedString('Thursday', 'Thursday', Color(0xFF004D40)),
+                  buildLocalizedString(
+                    'Wednesday',
+                    'Wednesday',
+                    Color(0xFF004D40),
+                  ),
+                  buildLocalizedString(
+                    'Thursday',
+                    'Thursday',
+                    Color(0xFF004D40),
+                  ),
                   buildLocalizedString('Friday', 'Friday', Color(0xFF004D40)),
-                  buildLocalizedString('Saturday', 'Saturday', Color(0xFFC62828)),
+                  buildLocalizedString(
+                    'Saturday',
+                    'Saturday',
+                    Color(0xFFC62828),
+                  ),
                 ],
               ),
             ),
-            Text('Section 5: Day names displayed', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 5: Day names displayed',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 6: Month Names
             buildSectionHeader('6. Month Names'),
             buildDemoCard(
               'All twelve months',
-              buildMonthGrid(
-                ['January', 'February', 'March', 'April', 'May', 'June',
-                 'July', 'August', 'September', 'October', 'November', 'December'],
-                Color(0xFF004D40),
-              ),
+              buildMonthGrid([
+                'January',
+                'February',
+                'March',
+                'April',
+                'May',
+                'June',
+                'July',
+                'August',
+                'September',
+                'October',
+                'November',
+                'December',
+              ], Color(0xFF004D40)),
             ),
-            Text('Section 6: Month names displayed', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 6: Month names displayed',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 7: Date Formatting
             buildSectionHeader('7. Date Formatting Methods'),
@@ -406,17 +657,48 @@ dynamic build(BuildContext context) {
               'formatYear, formatMediumDate, etc.',
               Column(
                 children: [
-                  buildFormatExample('formatYear()', 'DateTime(2025, 6, 15)', '2025'),
-                  buildFormatExample('formatMonthYear()', 'DateTime(2025, 6, 15)', 'June 2025'),
-                  buildFormatExample('formatMediumDate()', 'DateTime(2025, 6, 15)', 'Sun, Jun 15'),
-                  buildFormatExample('formatFullDate()', 'DateTime(2025, 6, 15)', 'Sunday, June 15, 2025'),
-                  buildFormatExample('formatCompactDate()', 'DateTime(2025, 6, 15)', '06/15/2025'),
-                  buildFormatExample('formatShortDate()', 'DateTime(2025, 6, 15)', '6/15/2025'),
-                  buildFormatExample('formatShortMonthDay()', 'DateTime(2025, 6, 15)', 'Jun 15'),
+                  buildFormatExample(
+                    'formatYear()',
+                    'DateTime(2025, 6, 15)',
+                    '2025',
+                  ),
+                  buildFormatExample(
+                    'formatMonthYear()',
+                    'DateTime(2025, 6, 15)',
+                    'June 2025',
+                  ),
+                  buildFormatExample(
+                    'formatMediumDate()',
+                    'DateTime(2025, 6, 15)',
+                    'Sun, Jun 15',
+                  ),
+                  buildFormatExample(
+                    'formatFullDate()',
+                    'DateTime(2025, 6, 15)',
+                    'Sunday, June 15, 2025',
+                  ),
+                  buildFormatExample(
+                    'formatCompactDate()',
+                    'DateTime(2025, 6, 15)',
+                    '06/15/2025',
+                  ),
+                  buildFormatExample(
+                    'formatShortDate()',
+                    'DateTime(2025, 6, 15)',
+                    '6/15/2025',
+                  ),
+                  buildFormatExample(
+                    'formatShortMonthDay()',
+                    'DateTime(2025, 6, 15)',
+                    'Jun 15',
+                  ),
                 ],
               ),
             ),
-            Text('Section 7: Date formatting displayed', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 7: Date formatting displayed',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 8: Time Formatting
             buildSectionHeader('8. Time Formatting'),
@@ -424,15 +706,38 @@ dynamic build(BuildContext context) {
               'Time-of-day formatting with AM/PM',
               Column(
                 children: [
-                  buildFormatExample('formatTimeOfDay()', 'TimeOfDay(9, 30)', '9:30 AM'),
-                  buildFormatExample('formatTimeOfDay()', 'TimeOfDay(14, 0)', '2:00 PM'),
-                  buildFormatExample('formatTimeOfDay()', 'TimeOfDay(0, 0)', '12:00 AM'),
-                  buildFormatExample('formatTimeOfDay()', 'TimeOfDay(12, 0)', '12:00 PM'),
-                  buildFormatExample('formatTimeOfDay()', 'TimeOfDay(23, 59)', '11:59 PM'),
+                  buildFormatExample(
+                    'formatTimeOfDay()',
+                    'TimeOfDay(9, 30)',
+                    '9:30 AM',
+                  ),
+                  buildFormatExample(
+                    'formatTimeOfDay()',
+                    'TimeOfDay(14, 0)',
+                    '2:00 PM',
+                  ),
+                  buildFormatExample(
+                    'formatTimeOfDay()',
+                    'TimeOfDay(0, 0)',
+                    '12:00 AM',
+                  ),
+                  buildFormatExample(
+                    'formatTimeOfDay()',
+                    'TimeOfDay(12, 0)',
+                    '12:00 PM',
+                  ),
+                  buildFormatExample(
+                    'formatTimeOfDay()',
+                    'TimeOfDay(23, 59)',
+                    '11:59 PM',
+                  ),
                 ],
               ),
             ),
-            Text('Section 8: Time formatting displayed', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 8: Time formatting displayed',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 9: Semantic / Accessibility Labels
             buildSectionHeader('9. Accessibility Labels'),
@@ -441,17 +746,35 @@ dynamic build(BuildContext context) {
               Column(
                 children: [
                   buildSemanticLabel('AppBar', 'Back button reads "Back"'),
-                  buildSemanticLabel('Drawer', 'Open reads "Open navigation menu"'),
+                  buildSemanticLabel(
+                    'Drawer',
+                    'Open reads "Open navigation menu"',
+                  ),
                   buildSemanticLabel('SnackBar', 'Dismiss reads "Dismiss"'),
-                  buildSemanticLabel('Tooltip', 'Shows tooltip text on long press'),
+                  buildSemanticLabel(
+                    'Tooltip',
+                    'Shows tooltip text on long press',
+                  ),
                   buildSemanticLabel('TabBar', 'Tab N of M format'),
-                  buildSemanticLabel('Dialog', 'Announced as "Alert" or "Dialog"'),
-                  buildSemanticLabel('DatePicker', 'Navigation reads month/year'),
-                  buildSemanticLabel('TimePicker', 'AM/PM and hour:minute labels'),
+                  buildSemanticLabel(
+                    'Dialog',
+                    'Announced as "Alert" or "Dialog"',
+                  ),
+                  buildSemanticLabel(
+                    'DatePicker',
+                    'Navigation reads month/year',
+                  ),
+                  buildSemanticLabel(
+                    'TimePicker',
+                    'AM/PM and hour:minute labels',
+                  ),
                 ],
               ),
             ),
-            Text('Section 9: Accessibility labels displayed', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 9: Accessibility labels displayed',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 10: Pagination and Range Strings
             buildSectionHeader('10. Pagination Strings'),
@@ -459,11 +782,31 @@ dynamic build(BuildContext context) {
               'Page and item range descriptions',
               Column(
                 children: [
-                  buildLocalizedString('pageRowsInfoTitle', '1-10 of 100', Color(0xFF004D40)),
-                  buildLocalizedString('pageRowsInfoTitle (approx)', '1-10 of about 100', Color(0xFF00695C)),
-                  buildLocalizedString('rowsPerPageTitle', 'Rows per page:', Color(0xFF00796B)),
-                  buildLocalizedString('selectedRowCountTitle (1)', '1 item selected', Color(0xFF00897B)),
-                  buildLocalizedString('selectedRowCountTitle (5)', '5 items selected', Color(0xFF26A69A)),
+                  buildLocalizedString(
+                    'pageRowsInfoTitle',
+                    '1-10 of 100',
+                    Color(0xFF004D40),
+                  ),
+                  buildLocalizedString(
+                    'pageRowsInfoTitle (approx)',
+                    '1-10 of about 100',
+                    Color(0xFF00695C),
+                  ),
+                  buildLocalizedString(
+                    'rowsPerPageTitle',
+                    'Rows per page:',
+                    Color(0xFF00796B),
+                  ),
+                  buildLocalizedString(
+                    'selectedRowCountTitle (1)',
+                    '1 item selected',
+                    Color(0xFF00897B),
+                  ),
+                  buildLocalizedString(
+                    'selectedRowCountTitle (5)',
+                    '5 items selected',
+                    Color(0xFF26A69A),
+                  ),
                 ],
               ),
             ),
@@ -478,29 +821,51 @@ dynamic build(BuildContext context) {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Rows per page:', style: TextStyle(fontSize: 13, color: Color(0xFF424242))),
+                    Text(
+                      'Rows per page:',
+                      style: TextStyle(fontSize: 13, color: Color(0xFF424242)),
+                    ),
                     Container(
                       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
                         border: Border.all(color: Color(0xFF004D40)),
                         borderRadius: BorderRadius.circular(4),
                       ),
-                      child: Text('10', style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
+                      child: Text(
+                        '10',
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
-                    Text('1-10 of 100', style: TextStyle(fontSize: 13, color: Color(0xFF616161))),
+                    Text(
+                      '1-10 of 100',
+                      style: TextStyle(fontSize: 13, color: Color(0xFF616161)),
+                    ),
                     Row(
                       children: [
                         IconButton(
                           icon: Icon(Icons.chevron_left, size: 20),
-                          onPressed: () { debugPrint('Previous page'); },
+                          onPressed: () {
+                            debugPrint('Previous page');
+                          },
                           padding: EdgeInsets.zero,
-                          constraints: BoxConstraints(minWidth: 32, minHeight: 32),
+                          constraints: BoxConstraints(
+                            minWidth: 32,
+                            minHeight: 32,
+                          ),
                         ),
                         IconButton(
                           icon: Icon(Icons.chevron_right, size: 20),
-                          onPressed: () { debugPrint('Next page'); },
+                          onPressed: () {
+                            debugPrint('Next page');
+                          },
                           padding: EdgeInsets.zero,
-                          constraints: BoxConstraints(minWidth: 32, minHeight: 32),
+                          constraints: BoxConstraints(
+                            minWidth: 32,
+                            minHeight: 32,
+                          ),
                         ),
                       ],
                     ),
@@ -508,7 +873,10 @@ dynamic build(BuildContext context) {
                 ),
               ),
             ),
-            Text('Section 10: Pagination strings displayed', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 10: Pagination strings displayed',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 11: Script Direction and Misc
             buildSectionHeader('11. Script Direction and Misc'),
@@ -521,7 +889,14 @@ dynamic build(BuildContext context) {
                   buildInfoRow('textDirection', 'TextDirection.ltr'),
                   buildInfoRow('firstDayOfWeekIndex', '0 (Sunday)'),
                   SizedBox(height: 8),
-                  Text('Script categories:', style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Color(0xFF424242))),
+                  Text(
+                    'Script categories:',
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF424242),
+                    ),
+                  ),
                   SizedBox(height: 4),
                   Wrap(
                     children: [
@@ -546,7 +921,10 @@ dynamic build(BuildContext context) {
                 ],
               ),
             ),
-            Text('Section 11: Script and misc displayed', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 11: Script and misc displayed',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Summary
             buildSectionHeader('Summary'),
@@ -569,7 +947,10 @@ dynamic build(BuildContext context) {
                 ],
               ),
             ),
-            Text('=== DefaultMaterialLocalizations Deep Demo Complete ===', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              '=== DefaultMaterialLocalizations Deep Demo Complete ===',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             SizedBox(height: 40),
           ],

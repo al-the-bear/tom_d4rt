@@ -19,7 +19,11 @@ Widget buildCarouselCard(int index, Color color, String label, IconData icon) {
         SizedBox(height: 8),
         Text(
           label,
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 14,
+          ),
         ),
         SizedBox(height: 4),
         Container(
@@ -44,23 +48,34 @@ Widget buildSectionHeader(String title, IconData icon, Color color) {
     margin: EdgeInsets.fromLTRB(8, 16, 8, 8),
     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
     decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: [color, color.withValues(alpha: 0.7)],
-      ),
+      gradient: LinearGradient(colors: [color, color.withValues(alpha: 0.7)]),
       borderRadius: BorderRadius.circular(8),
     ),
     child: Row(
       children: [
         Icon(icon, color: Colors.white, size: 20),
         SizedBox(width: 8),
-        Text(title, style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+        Text(
+          title,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ],
     ),
   );
 }
 
 // Helper for a simulated carousel strip
-Widget buildCarouselStrip(String label, double itemWidth, double height, List<Color> colors, List<IconData> icons) {
+Widget buildCarouselStrip(
+  String label,
+  double itemWidth,
+  double height,
+  List<Color> colors,
+  List<IconData> icons,
+) {
   return Container(
     margin: EdgeInsets.all(8),
     child: Column(
@@ -68,7 +83,10 @@ Widget buildCarouselStrip(String label, double itemWidth, double height, List<Co
       children: [
         Padding(
           padding: EdgeInsets.only(left: 4, bottom: 4),
-          child: Text(label, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+          child: Text(
+            label,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+          ),
         ),
         SizedBox(
           height: height,
@@ -84,17 +102,35 @@ Widget buildCarouselStrip(String label, double itemWidth, double height, List<Co
                   color: colors[i % colors.length],
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
-                    BoxShadow(color: Colors.black12, blurRadius: 3, offset: Offset(0, 2)),
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 3,
+                      offset: Offset(0, 2),
+                    ),
                   ],
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(icons[i % icons.length], color: Colors.white, size: 28),
+                    Icon(
+                      icons[i % icons.length],
+                      color: Colors.white,
+                      size: 28,
+                    ),
                     SizedBox(height: 6),
-                    Text('Item $i', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13)),
+                    Text(
+                      'Item $i',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                      ),
+                    ),
                     SizedBox(height: 2),
-                    Text('${itemWidth.toInt()}w', style: TextStyle(color: Colors.white70, fontSize: 11)),
+                    Text(
+                      '${itemWidth.toInt()}w',
+                      style: TextStyle(color: Colors.white70, fontSize: 11),
+                    ),
                   ],
                 ),
               );
@@ -114,7 +150,10 @@ Widget buildExtentComparison(String label, double extent, Color color) {
       children: [
         SizedBox(
           width: 80,
-          child: Text(label, style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold)),
+          child: Text(
+            label,
+            style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
+          ),
         ),
         Expanded(
           child: SizedBox(
@@ -131,7 +170,13 @@ Widget buildExtentComparison(String label, double extent, Color color) {
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: Center(
-                    child: Text('$i', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)),
+                    child: Text(
+                      '$i',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 );
               },
@@ -150,7 +195,10 @@ Widget buildFlexWeightRow(String label, List<int> weights, List<Color> colors) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold)),
+        Text(
+          label,
+          style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 4),
         SizedBox(
           height: 50,
@@ -167,7 +215,11 @@ Widget buildFlexWeightRow(String label, List<int> weights, List<Color> colors) {
                   child: Center(
                     child: Text(
                       'flex:${weights[i]}',
-                      style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
@@ -181,7 +233,12 @@ Widget buildFlexWeightRow(String label, List<int> weights, List<Color> colors) {
 }
 
 // Helper for a controller position indicator
-Widget buildControllerPosition(String label, int currentIndex, int totalItems, Color color) {
+Widget buildControllerPosition(
+  String label,
+  int currentIndex,
+  int totalItems,
+  Color color,
+) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
     padding: EdgeInsets.all(8),
@@ -193,7 +250,10 @@ Widget buildControllerPosition(String label, int currentIndex, int totalItems, C
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+        Text(
+          label,
+          style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 4),
         Row(
           children: List.generate(totalItems, (i) {
@@ -213,7 +273,9 @@ Widget buildControllerPosition(String label, int currentIndex, int totalItems, C
                     style: TextStyle(
                       color: isActive ? Colors.white : color,
                       fontSize: 10,
-                      fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
+                      fontWeight: isActive
+                          ? FontWeight.bold
+                          : FontWeight.normal,
                     ),
                   ),
                 ),
@@ -222,7 +284,10 @@ Widget buildControllerPosition(String label, int currentIndex, int totalItems, C
           }),
         ),
         SizedBox(height: 4),
-        Text('Current: $currentIndex / ${totalItems - 1}', style: TextStyle(fontSize: 10, color: Colors.grey)),
+        Text(
+          'Current: $currentIndex / ${totalItems - 1}',
+          style: TextStyle(fontSize: 10, color: Colors.grey),
+        ),
       ],
     ),
   );
@@ -237,7 +302,10 @@ Widget buildOverlapCarousel(String title, List<Color> colors) {
       children: [
         Padding(
           padding: EdgeInsets.only(left: 4, bottom: 4),
-          child: Text(title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+          child: Text(
+            title,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+          ),
         ),
         SizedBox(
           height: 80,
@@ -258,7 +326,14 @@ Widget buildOverlapCarousel(String title, List<Color> colors) {
                     ],
                   ),
                   child: Center(
-                    child: Text('${i + 1}', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20)),
+                    child: Text(
+                      '${i + 1}',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
                   ),
                 ),
               );
@@ -279,14 +354,29 @@ dynamic build(BuildContext context) {
   debugPrint('Controllers created: $controller1, $controller2');
 
   var cardColors = [
-    Colors.blue, Colors.red, Colors.green, Colors.orange, Colors.purple,
-    Colors.teal, Colors.pink, Colors.indigo, Colors.amber, Colors.cyan,
+    Colors.blue,
+    Colors.red,
+    Colors.green,
+    Colors.orange,
+    Colors.purple,
+    Colors.teal,
+    Colors.pink,
+    Colors.indigo,
+    Colors.amber,
+    Colors.cyan,
   ];
 
   var cardIcons = [
-    Icons.image, Icons.music_note, Icons.video_library, Icons.article,
-    Icons.photo_album, Icons.podcasts, Icons.movie, Icons.book,
-    Icons.favorite, Icons.star,
+    Icons.image,
+    Icons.music_note,
+    Icons.video_library,
+    Icons.article,
+    Icons.photo_album,
+    Icons.podcasts,
+    Icons.movie,
+    Icons.book,
+    Icons.favorite,
+    Icons.star,
   ];
 
   debugPrint('Starting carousel demonstrations...');
@@ -305,7 +395,11 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             // Section 1: Basic Carousel Strip
-            buildSectionHeader('Basic Carousel', Icons.view_carousel, Colors.deepPurple),
+            buildSectionHeader(
+              'Basic Carousel',
+              Icons.view_carousel,
+              Colors.deepPurple,
+            ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
               child: Text(
@@ -313,10 +407,20 @@ dynamic build(BuildContext context) {
                 style: TextStyle(fontSize: 13, color: Colors.grey.shade600),
               ),
             ),
-            buildCarouselStrip('Standard Width (120px)', 120, 140, cardColors, cardIcons),
+            buildCarouselStrip(
+              'Standard Width (120px)',
+              120,
+              140,
+              cardColors,
+              cardIcons,
+            ),
 
             // Section 2: Different Item Extents
-            buildSectionHeader('Item Extent Variations', Icons.width_normal, Colors.blue),
+            buildSectionHeader(
+              'Item Extent Variations',
+              Icons.width_normal,
+              Colors.blue,
+            ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
               child: Text(
@@ -331,7 +435,11 @@ dynamic build(BuildContext context) {
             buildExtentComparison('120px', 120, Colors.red),
 
             // Section 3: Flex Weight Layout
-            buildSectionHeader('Flex Weight Distribution', Icons.view_column, Colors.teal),
+            buildSectionHeader(
+              'Flex Weight Distribution',
+              Icons.view_column,
+              Colors.teal,
+            ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
               child: Text(
@@ -339,39 +447,101 @@ dynamic build(BuildContext context) {
                 style: TextStyle(fontSize: 13, color: Colors.grey.shade600),
               ),
             ),
-            buildFlexWeightRow('Equal (1:1:1:1)', [1, 1, 1, 1],
-                [Colors.blue, Colors.red, Colors.green, Colors.orange]),
-            buildFlexWeightRow('Weighted (2:1:1:2)', [2, 1, 1, 2],
-                [Colors.purple, Colors.teal, Colors.cyan, Colors.pink]),
-            buildFlexWeightRow('Dominant (3:1:1:1)', [3, 1, 1, 1],
-                [Colors.indigo, Colors.amber, Colors.lime, Colors.brown]),
-            buildFlexWeightRow('Growing (1:2:3:4)', [1, 2, 3, 4],
-                [Colors.red, Colors.orange, Colors.green, Colors.blue]),
+            buildFlexWeightRow(
+              'Equal (1:1:1:1)',
+              [1, 1, 1, 1],
+              [Colors.blue, Colors.red, Colors.green, Colors.orange],
+            ),
+            buildFlexWeightRow(
+              'Weighted (2:1:1:2)',
+              [2, 1, 1, 2],
+              [Colors.purple, Colors.teal, Colors.cyan, Colors.pink],
+            ),
+            buildFlexWeightRow(
+              'Dominant (3:1:1:1)',
+              [3, 1, 1, 1],
+              [Colors.indigo, Colors.amber, Colors.lime, Colors.brown],
+            ),
+            buildFlexWeightRow(
+              'Growing (1:2:3:4)',
+              [1, 2, 3, 4],
+              [Colors.red, Colors.orange, Colors.green, Colors.blue],
+            ),
 
             // Section 4: Wider Carousel Items
-            buildSectionHeader('Wide Carousel Items', Icons.panorama_wide_angle, Colors.orange),
-            buildCarouselStrip('Large Items (200px)', 200, 160, [
-              Colors.deepPurple, Colors.deepOrange, Colors.teal,
-              Colors.pink, Colors.indigo, Colors.brown,
-            ], [
-              Icons.landscape, Icons.beach_access, Icons.park,
-              Icons.villa, Icons.castle, Icons.cabin,
-            ]),
+            buildSectionHeader(
+              'Wide Carousel Items',
+              Icons.panorama_wide_angle,
+              Colors.orange,
+            ),
+            buildCarouselStrip(
+              'Large Items (200px)',
+              200,
+              160,
+              [
+                Colors.deepPurple,
+                Colors.deepOrange,
+                Colors.teal,
+                Colors.pink,
+                Colors.indigo,
+                Colors.brown,
+              ],
+              [
+                Icons.landscape,
+                Icons.beach_access,
+                Icons.park,
+                Icons.villa,
+                Icons.castle,
+                Icons.cabin,
+              ],
+            ),
 
             // Section 5: Compact Items
-            buildSectionHeader('Compact Carousel', Icons.view_comfy, Colors.green),
-            buildCarouselStrip('Small Items (70px)', 70, 80, [
-              Colors.red, Colors.blue, Colors.green, Colors.amber,
-              Colors.purple, Colors.cyan, Colors.pink, Colors.teal,
-              Colors.indigo, Colors.orange, Colors.lime, Colors.brown,
-            ], [
-              Icons.circle, Icons.square, Icons.hexagon, Icons.star,
-              Icons.favorite, Icons.diamond, Icons.circle, Icons.square,
-              Icons.hexagon, Icons.star, Icons.favorite, Icons.diamond,
-            ]),
+            buildSectionHeader(
+              'Compact Carousel',
+              Icons.view_comfy,
+              Colors.green,
+            ),
+            buildCarouselStrip(
+              'Small Items (70px)',
+              70,
+              80,
+              [
+                Colors.red,
+                Colors.blue,
+                Colors.green,
+                Colors.amber,
+                Colors.purple,
+                Colors.cyan,
+                Colors.pink,
+                Colors.teal,
+                Colors.indigo,
+                Colors.orange,
+                Colors.lime,
+                Colors.brown,
+              ],
+              [
+                Icons.circle,
+                Icons.square,
+                Icons.hexagon,
+                Icons.star,
+                Icons.favorite,
+                Icons.diamond,
+                Icons.circle,
+                Icons.square,
+                Icons.hexagon,
+                Icons.star,
+                Icons.favorite,
+                Icons.diamond,
+              ],
+            ),
 
             // Section 6: Controller Positions
-            buildSectionHeader('Controller Positions', Icons.control_camera, Colors.red),
+            buildSectionHeader(
+              'Controller Positions',
+              Icons.control_camera,
+              Colors.red,
+            ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
               child: Text(
@@ -388,17 +558,31 @@ dynamic build(BuildContext context) {
             // Section 7: Overlapping Cards
             buildSectionHeader('Overlap Effect', Icons.layers, Colors.indigo),
             buildOverlapCarousel('Overlapping Circles (6 items)', [
-              Colors.red, Colors.orange, Colors.yellow.shade700,
-              Colors.green, Colors.blue, Colors.purple,
+              Colors.red,
+              Colors.orange,
+              Colors.yellow.shade700,
+              Colors.green,
+              Colors.blue,
+              Colors.purple,
             ]),
             SizedBox(height: 8),
             buildOverlapCarousel('More Overlapping Items (8)', [
-              Colors.pink, Colors.deepPurple, Colors.indigo, Colors.cyan,
-              Colors.teal, Colors.lime.shade700, Colors.amber, Colors.deepOrange,
+              Colors.pink,
+              Colors.deepPurple,
+              Colors.indigo,
+              Colors.cyan,
+              Colors.teal,
+              Colors.lime.shade700,
+              Colors.amber,
+              Colors.deepOrange,
             ]),
 
             // Section 8: Numbered Card Carousel
-            buildSectionHeader('Numbered Cards', Icons.format_list_numbered, Colors.brown),
+            buildSectionHeader(
+              'Numbered Cards',
+              Icons.format_list_numbered,
+              Colors.brown,
+            ),
             Container(
               height: 100,
               margin: EdgeInsets.all(8),
@@ -415,13 +599,21 @@ dynamic build(BuildContext context) {
                       color: cardColors[i % cardColors.length],
                       borderRadius: BorderRadius.circular(15),
                       boxShadow: [
-                        BoxShadow(color: Colors.black12, blurRadius: 2, offset: Offset(0, 1)),
+                        BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 2,
+                          offset: Offset(0, 1),
+                        ),
                       ],
                     ),
                     child: Center(
                       child: Text(
                         '${i + 1}',
-                        style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   );
@@ -430,7 +622,11 @@ dynamic build(BuildContext context) {
             ),
 
             // Section 9: Multi-Row Carousel
-            buildSectionHeader('Multi-Row Layout', Icons.grid_view, Colors.cyan),
+            buildSectionHeader(
+              'Multi-Row Layout',
+              Icons.grid_view,
+              Colors.cyan,
+            ),
             Container(
               margin: EdgeInsets.all(8),
               child: Column(
@@ -438,7 +634,13 @@ dynamic build(BuildContext context) {
                 children: [
                   Padding(
                     padding: EdgeInsets.only(left: 4, bottom: 4),
-                    child: Text('Row 1: Featured', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+                    child: Text(
+                      'Row 1: Featured',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
                   ),
                   SizedBox(
                     height: 120,
@@ -452,7 +654,10 @@ dynamic build(BuildContext context) {
                           margin: EdgeInsets.symmetric(horizontal: 4),
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
-                              colors: [cardColors[i % cardColors.length], cardColors[(i + 1) % cardColors.length]],
+                              colors: [
+                                cardColors[i % cardColors.length],
+                                cardColors[(i + 1) % cardColors.length],
+                              ],
                             ),
                             borderRadius: BorderRadius.circular(12),
                           ),
@@ -460,8 +665,18 @@ dynamic build(BuildContext context) {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(Icons.featured_play_list, color: Colors.white, size: 30),
-                                Text('Featured ${i + 1}', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                                Icon(
+                                  Icons.featured_play_list,
+                                  color: Colors.white,
+                                  size: 30,
+                                ),
+                                Text(
+                                  'Featured ${i + 1}',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -472,7 +687,13 @@ dynamic build(BuildContext context) {
                   SizedBox(height: 8),
                   Padding(
                     padding: EdgeInsets.only(left: 4, bottom: 4),
-                    child: Text('Row 2: Recent', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+                    child: Text(
+                      'Row 2: Recent',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
                   ),
                   SizedBox(
                     height: 90,
@@ -485,15 +706,26 @@ dynamic build(BuildContext context) {
                           width: 130,
                           margin: EdgeInsets.symmetric(horizontal: 4),
                           decoration: BoxDecoration(
-                            color: cardColors[(i + 3) % cardColors.length].withValues(alpha: 0.8),
+                            color: cardColors[(i + 3) % cardColors.length]
+                                .withValues(alpha: 0.8),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Center(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(Icons.access_time, color: Colors.white, size: 22),
-                                Text('Recent ${i + 1}', style: TextStyle(color: Colors.white, fontSize: 12)),
+                                Icon(
+                                  Icons.access_time,
+                                  color: Colors.white,
+                                  size: 22,
+                                ),
+                                Text(
+                                  'Recent ${i + 1}',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 12,
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -504,7 +736,13 @@ dynamic build(BuildContext context) {
                   SizedBox(height: 8),
                   Padding(
                     padding: EdgeInsets.only(left: 4, bottom: 4),
-                    child: Text('Row 3: Trending', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+                    child: Text(
+                      'Row 3: Trending',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
                   ),
                   SizedBox(
                     height: 70,
@@ -517,15 +755,26 @@ dynamic build(BuildContext context) {
                           width: 100,
                           margin: EdgeInsets.symmetric(horizontal: 3),
                           decoration: BoxDecoration(
-                            color: cardColors[(i + 5) % cardColors.length].withValues(alpha: 0.6),
+                            color: cardColors[(i + 5) % cardColors.length]
+                                .withValues(alpha: 0.6),
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: Center(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(Icons.trending_up, color: Colors.white, size: 18),
-                                Text('#${i + 1}', style: TextStyle(color: Colors.white, fontSize: 11)),
+                                Icon(
+                                  Icons.trending_up,
+                                  color: Colors.white,
+                                  size: 18,
+                                ),
+                                Text(
+                                  '#${i + 1}',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 11,
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -538,7 +787,11 @@ dynamic build(BuildContext context) {
             ),
 
             // Section 10: Page Indicator Style
-            buildSectionHeader('Page Indicators', Icons.radio_button_checked, Colors.pink),
+            buildSectionHeader(
+              'Page Indicators',
+              Icons.radio_button_checked,
+              Colors.pink,
+            ),
             Container(
               margin: EdgeInsets.all(8),
               padding: EdgeInsets.all(12),
@@ -560,14 +813,24 @@ dynamic build(BuildContext context) {
                           margin: EdgeInsets.symmetric(horizontal: 4),
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
-                              colors: [cardColors[i * 2], cardColors[i * 2 + 1]],
+                              colors: [
+                                cardColors[i * 2],
+                                cardColors[i * 2 + 1],
+                              ],
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
                             ),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Center(
-                            child: Text('Page ${i + 1}', style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold)),
+                            child: Text(
+                              'Page ${i + 1}',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         );
                       },
@@ -582,7 +845,9 @@ dynamic build(BuildContext context) {
                         height: 10,
                         margin: EdgeInsets.symmetric(horizontal: 3),
                         decoration: BoxDecoration(
-                          color: i == 0 ? Colors.pink : Colors.pink.withValues(alpha: 0.3),
+                          color: i == 0
+                              ? Colors.pink
+                              : Colors.pink.withValues(alpha: 0.3),
                           borderRadius: BorderRadius.circular(5),
                         ),
                       );
@@ -593,7 +858,11 @@ dynamic build(BuildContext context) {
             ),
 
             // Section 11: Vertical Carousel
-            buildSectionHeader('Vertical Carousel', Icons.swap_vert, Colors.amber.shade800),
+            buildSectionHeader(
+              'Vertical Carousel',
+              Icons.swap_vert,
+              Colors.amber.shade800,
+            ),
             Container(
               margin: EdgeInsets.all(8),
               height: 200,
@@ -609,23 +878,39 @@ dynamic build(BuildContext context) {
                     height: 60,
                     margin: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                     decoration: BoxDecoration(
-                      color: cardColors[i % cardColors.length].withValues(alpha: 0.8),
+                      color: cardColors[i % cardColors.length].withValues(
+                        alpha: 0.8,
+                      ),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Row(
                       children: [
                         SizedBox(width: 12),
-                        Icon(cardIcons[i % cardIcons.length], color: Colors.white, size: 24),
+                        Icon(
+                          cardIcons[i % cardIcons.length],
+                          color: Colors.white,
+                          size: 24,
+                        ),
                         SizedBox(width: 12),
                         Expanded(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('Vertical Item ${i + 1}',
-                                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                              Text('Scrolls vertically',
-                                  style: TextStyle(color: Colors.white70, fontSize: 12)),
+                              Text(
+                                'Vertical Item ${i + 1}',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                'Scrolls vertically',
+                                style: TextStyle(
+                                  color: Colors.white70,
+                                  fontSize: 12,
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -649,20 +934,65 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('CarouselView Features Demonstrated:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                  Text(
+                    'CarouselView Features Demonstrated:',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                  ),
                   SizedBox(height: 8),
                   Wrap(
                     spacing: 6,
                     runSpacing: 6,
                     children: [
-                      Chip(label: Text('Item Extent', style: TextStyle(fontSize: 11)), backgroundColor: Colors.blue.shade100),
-                      Chip(label: Text('Flex Weights', style: TextStyle(fontSize: 11)), backgroundColor: Colors.teal.shade100),
-                      Chip(label: Text('Controller', style: TextStyle(fontSize: 11)), backgroundColor: Colors.red.shade100),
-                      Chip(label: Text('Horizontal', style: TextStyle(fontSize: 11)), backgroundColor: Colors.orange.shade100),
-                      Chip(label: Text('Vertical', style: TextStyle(fontSize: 11)), backgroundColor: Colors.amber.shade100),
-                      Chip(label: Text('Multi-Row', style: TextStyle(fontSize: 11)), backgroundColor: Colors.cyan.shade100),
-                      Chip(label: Text('Paging', style: TextStyle(fontSize: 11)), backgroundColor: Colors.pink.shade100),
-                      Chip(label: Text('Overlapping', style: TextStyle(fontSize: 11)), backgroundColor: Colors.indigo.shade100),
+                      Chip(
+                        label: Text(
+                          'Item Extent',
+                          style: TextStyle(fontSize: 11),
+                        ),
+                        backgroundColor: Colors.blue.shade100,
+                      ),
+                      Chip(
+                        label: Text(
+                          'Flex Weights',
+                          style: TextStyle(fontSize: 11),
+                        ),
+                        backgroundColor: Colors.teal.shade100,
+                      ),
+                      Chip(
+                        label: Text(
+                          'Controller',
+                          style: TextStyle(fontSize: 11),
+                        ),
+                        backgroundColor: Colors.red.shade100,
+                      ),
+                      Chip(
+                        label: Text(
+                          'Horizontal',
+                          style: TextStyle(fontSize: 11),
+                        ),
+                        backgroundColor: Colors.orange.shade100,
+                      ),
+                      Chip(
+                        label: Text('Vertical', style: TextStyle(fontSize: 11)),
+                        backgroundColor: Colors.amber.shade100,
+                      ),
+                      Chip(
+                        label: Text(
+                          'Multi-Row',
+                          style: TextStyle(fontSize: 11),
+                        ),
+                        backgroundColor: Colors.cyan.shade100,
+                      ),
+                      Chip(
+                        label: Text('Paging', style: TextStyle(fontSize: 11)),
+                        backgroundColor: Colors.pink.shade100,
+                      ),
+                      Chip(
+                        label: Text(
+                          'Overlapping',
+                          style: TextStyle(fontSize: 11),
+                        ),
+                        backgroundColor: Colors.indigo.shade100,
+                      ),
                     ],
                   ),
                 ],

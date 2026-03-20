@@ -385,9 +385,9 @@ class AstBundle {
       files: fileToUri,
       sourceFiles: sourceFileToUri,
     );
-    final manifestJson = const JsonEncoder.withIndent('  ').convert(
-      manifest.toJson(),
-    );
+    final manifestJson = const JsonEncoder.withIndent(
+      '  ',
+    ).convert(manifest.toJson());
     archive.addFile(
       ArchiveFile.string(AstBundleFormat.manifestFileName, manifestJson),
     );
@@ -412,9 +412,7 @@ class AstBundle {
       for (final entry in sources!.entries) {
         final srcFileName = uriToSrcFileName[entry.key];
         if (srcFileName != null) {
-          archive.addFile(
-            ArchiveFile.string(srcFileName, entry.value),
-          );
+          archive.addFile(ArchiveFile.string(srcFileName, entry.value));
         }
       }
     }
@@ -545,9 +543,7 @@ class AstBundle {
       // Fall through to error
     }
 
-    throw ArgumentD4rtException(
-      'Unrecognized bundle format in file: $path',
-    );
+    throw ArgumentD4rtException('Unrecognized bundle format in file: $path');
   }
 
   // ===========================================================================
@@ -583,9 +579,7 @@ class AstBundle {
   ) {
     final value = json[key] as String?;
     if (value == null) {
-      throw ArgumentD4rtException(
-        'Invalid $context: missing "$key"',
-      );
+      throw ArgumentD4rtException('Invalid $context: missing "$key"');
     }
     return value;
   }

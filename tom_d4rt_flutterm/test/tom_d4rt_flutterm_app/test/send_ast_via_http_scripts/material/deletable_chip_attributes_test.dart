@@ -68,11 +68,18 @@ Widget buildInfoRow(String label, String value) {
           width: 150,
           child: Text(
             label,
-            style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13, color: Color(0xFF616161)),
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 13,
+              color: Color(0xFF616161),
+            ),
           ),
         ),
         Expanded(
-          child: Text(value, style: TextStyle(fontSize: 13, color: Color(0xFF212121))),
+          child: Text(
+            value,
+            style: TextStyle(fontSize: 13, color: Color(0xFF212121)),
+          ),
         ),
       ],
     ),
@@ -80,7 +87,15 @@ Widget buildInfoRow(String label, String value) {
 }
 
 // Helper: chip with delete button
-Widget buildDeletableChip(String label, Color bgColor, Color fgColor, Color deleteIconColor, IconData deleteIcon, bool useAvatar, IconData avatarIcon) {
+Widget buildDeletableChip(
+  String label,
+  Color bgColor,
+  Color fgColor,
+  Color deleteIconColor,
+  IconData deleteIcon,
+  bool useAvatar,
+  IconData avatarIcon,
+) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 4, horizontal: 4),
     child: Chip(
@@ -93,14 +108,21 @@ Widget buildDeletableChip(String label, Color bgColor, Color fgColor, Color dele
       label: Text(label, style: TextStyle(color: fgColor, fontSize: 13)),
       backgroundColor: bgColor,
       deleteIcon: Icon(deleteIcon, size: 18, color: deleteIconColor),
-      onDeleted: () { debugPrint('Deleted chip: $label'); },
+      onDeleted: () {
+        debugPrint('Deleted chip: $label');
+      },
       deleteButtonTooltipMessage: 'Remove $label',
     ),
   );
 }
 
 // Helper: input chip with delete
-Widget buildInputChip(String label, Color bgColor, Color fgColor, bool isSelected) {
+Widget buildInputChip(
+  String label,
+  Color bgColor,
+  Color fgColor,
+  bool isSelected,
+) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 4, horizontal: 4),
     child: InputChip(
@@ -109,8 +131,12 @@ Widget buildInputChip(String label, Color bgColor, Color fgColor, bool isSelecte
       selected: isSelected,
       selectedColor: Color(0xFFBBDEFB),
       deleteIcon: Icon(Icons.cancel, size: 18),
-      onDeleted: () { debugPrint('Input chip deleted: $label'); },
-      onSelected: (v) { debugPrint('Input chip selected: $label = $v'); },
+      onDeleted: () {
+        debugPrint('Input chip deleted: $label');
+      },
+      onSelected: (v) {
+        debugPrint('Input chip selected: $label = $v');
+      },
     ),
   );
 }
@@ -124,24 +150,49 @@ Widget buildFilterChipRow(String label, bool isSelected, Color color) {
       selected: isSelected,
       selectedColor: color,
       checkmarkColor: Color(0xFFFFFFFF),
-      onSelected: (v) { debugPrint('Filter: $label = $v'); },
+      onSelected: (v) {
+        debugPrint('Filter: $label = $v');
+      },
     ),
   );
 }
 
 // Helper: chip size demo
-Widget buildChipSizeDemo(String sizeLabel, double padding, double fontSize, Color color) {
+Widget buildChipSizeDemo(
+  String sizeLabel,
+  double padding,
+  double fontSize,
+  Color color,
+) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 4),
     child: Row(
       children: [
-        SizedBox(width: 60, child: Text(sizeLabel, style: TextStyle(fontSize: 12, color: Color(0xFF757575)))),
+        SizedBox(
+          width: 60,
+          child: Text(
+            sizeLabel,
+            style: TextStyle(fontSize: 12, color: Color(0xFF757575)),
+          ),
+        ),
         Chip(
-          label: Text('Sample Chip', style: TextStyle(fontSize: fontSize, color: Color(0xFFFFFFFF))),
+          label: Text(
+            'Sample Chip',
+            style: TextStyle(fontSize: fontSize, color: Color(0xFFFFFFFF)),
+          ),
           backgroundColor: color,
-          padding: EdgeInsets.symmetric(horizontal: padding, vertical: padding / 2),
-          deleteIcon: Icon(Icons.close, size: fontSize + 2, color: Color(0xB3FFFFFF)),
-          onDeleted: () { debugPrint('Size $sizeLabel deleted'); },
+          padding: EdgeInsets.symmetric(
+            horizontal: padding,
+            vertical: padding / 2,
+          ),
+          deleteIcon: Icon(
+            Icons.close,
+            size: fontSize + 2,
+            color: Color(0xB3FFFFFF),
+          ),
+          onDeleted: () {
+            debugPrint('Size $sizeLabel deleted');
+          },
         ),
       ],
     ),
@@ -149,14 +200,24 @@ Widget buildChipSizeDemo(String sizeLabel, double padding, double fontSize, Colo
 }
 
 // Helper: chip with custom delete icon
-Widget buildCustomDeleteChip(String label, IconData icon, Color chipColor, Color iconColor) {
+Widget buildCustomDeleteChip(
+  String label,
+  IconData icon,
+  Color chipColor,
+  Color iconColor,
+) {
   return Container(
     margin: EdgeInsets.all(4),
     child: Chip(
-      label: Text(label, style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 13)),
+      label: Text(
+        label,
+        style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 13),
+      ),
       backgroundColor: chipColor,
       deleteIcon: Icon(icon, size: 18, color: iconColor),
-      onDeleted: () { debugPrint('Custom delete: $label'); },
+      onDeleted: () {
+        debugPrint('Custom delete: $label');
+      },
     ),
   );
 }
@@ -173,10 +234,19 @@ Widget buildTagChip(String tag, Color color) {
     child: Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(tag, style: TextStyle(fontSize: 12, color: Color(0xFFFFFFFF), fontWeight: FontWeight.w500)),
+        Text(
+          tag,
+          style: TextStyle(
+            fontSize: 12,
+            color: Color(0xFFFFFFFF),
+            fontWeight: FontWeight.w500,
+          ),
+        ),
         SizedBox(width: 6),
         GestureDetector(
-          onTap: () { debugPrint('Remove tag: $tag'); },
+          onTap: () {
+            debugPrint('Remove tag: $tag');
+          },
           child: Container(
             width: 16,
             height: 16,
@@ -199,18 +269,30 @@ Widget buildEmailChip(String name, String email, Color avatarColor) {
     child: Chip(
       avatar: CircleAvatar(
         backgroundColor: avatarColor,
-        child: Text(name.substring(0, 1), style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 14, fontWeight: FontWeight.bold)),
+        child: Text(
+          name.substring(0, 1),
+          style: TextStyle(
+            color: Color(0xFFFFFFFF),
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       label: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(name, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+          Text(
+            name,
+            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+          ),
           Text(email, style: TextStyle(fontSize: 10, color: Color(0xFF757575))),
         ],
       ),
       deleteIcon: Icon(Icons.cancel, size: 18, color: Color(0xFF757575)),
-      onDeleted: () { debugPrint('Remove email: $email'); },
+      onDeleted: () {
+        debugPrint('Remove email: $email');
+      },
       backgroundColor: Color(0xFFF5F5F5),
       padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
     ),
@@ -218,7 +300,12 @@ Widget buildEmailChip(String name, String email, Color avatarColor) {
 }
 
 // Helper: chip state display
-Widget buildChipStateRow(String state, bool isEnabled, bool hasDeleteIcon, Color color) {
+Widget buildChipStateRow(
+  String state,
+  bool isEnabled,
+  bool hasDeleteIcon,
+  Color color,
+) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 3),
     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -232,21 +319,33 @@ Widget buildChipStateRow(String state, bool isEnabled, bool hasDeleteIcon, Color
         Container(
           width: 10,
           height: 10,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         SizedBox(width: 8),
         Expanded(
-          child: Text(state, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: isEnabled ? Color(0xFF424242) : Color(0xFFBDBDBD))),
+          child: Text(
+            state,
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+              color: isEnabled ? Color(0xFF424242) : Color(0xFFBDBDBD),
+            ),
+          ),
         ),
         if (hasDeleteIcon)
-          Icon(Icons.cancel, size: 16, color: isEnabled ? color : Color(0xFFBDBDBD)),
+          Icon(
+            Icons.cancel,
+            size: 16,
+            color: isEnabled ? color : Color(0xFFBDBDBD),
+          ),
         SizedBox(width: 8),
         Text(
           isEnabled ? 'Enabled' : 'Disabled',
-          style: TextStyle(fontSize: 11, color: isEnabled ? Color(0xFF4CAF50) : Color(0xFFBDBDBD), fontWeight: FontWeight.w600),
+          style: TextStyle(
+            fontSize: 11,
+            color: isEnabled ? Color(0xFF4CAF50) : Color(0xFFBDBDBD),
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ],
     ),
@@ -276,17 +375,35 @@ dynamic build(BuildContext context) {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  buildInfoRow('onDeleted', 'Callback when delete icon is tapped'),
-                  buildInfoRow('deleteIcon', 'Custom icon widget for delete button'),
+                  buildInfoRow(
+                    'onDeleted',
+                    'Callback when delete icon is tapped',
+                  ),
+                  buildInfoRow(
+                    'deleteIcon',
+                    'Custom icon widget for delete button',
+                  ),
                   buildInfoRow('deleteIconColor', 'Color of the delete icon'),
-                  buildInfoRow('deleteButtonTooltipMessage', 'Tooltip shown on long press'),
-                  buildInfoRow('useDeleteButtonTooltip', 'Whether to show the tooltip'),
+                  buildInfoRow(
+                    'deleteButtonTooltipMessage',
+                    'Tooltip shown on long press',
+                  ),
+                  buildInfoRow(
+                    'useDeleteButtonTooltip',
+                    'Whether to show the tooltip',
+                  ),
                   SizedBox(height: 8),
-                  Text('Implemented by: Chip, InputChip, FilterChip (selected only)', style: TextStyle(fontSize: 12, color: Color(0xFF757575))),
+                  Text(
+                    'Implemented by: Chip, InputChip, FilterChip (selected only)',
+                    style: TextStyle(fontSize: 12, color: Color(0xFF757575)),
+                  ),
                 ],
               ),
             ),
-            Text('Section 1: Overview displayed', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 1: Overview displayed',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 2: Basic Deletable Chips
             buildSectionHeader('2. Basic Deletable Chips'),
@@ -294,15 +411,58 @@ dynamic build(BuildContext context) {
               'Simple chips with delete icons',
               Wrap(
                 children: [
-                  buildDeletableChip('Flutter', Color(0xFF1565C0), Color(0xFFFFFFFF), Color(0xB3FFFFFF), Icons.cancel, false, Icons.code),
-                  buildDeletableChip('Dart', Color(0xFF00695C), Color(0xFFFFFFFF), Color(0xB3FFFFFF), Icons.cancel, false, Icons.code),
-                  buildDeletableChip('Firebase', Color(0xFFE65100), Color(0xFFFFFFFF), Color(0xB3FFFFFF), Icons.cancel, false, Icons.code),
-                  buildDeletableChip('Material', Color(0xFF6A1B9A), Color(0xFFFFFFFF), Color(0xB3FFFFFF), Icons.cancel, false, Icons.code),
-                  buildDeletableChip('Cupertino', Color(0xFF37474F), Color(0xFFFFFFFF), Color(0xB3FFFFFF), Icons.cancel, false, Icons.code),
+                  buildDeletableChip(
+                    'Flutter',
+                    Color(0xFF1565C0),
+                    Color(0xFFFFFFFF),
+                    Color(0xB3FFFFFF),
+                    Icons.cancel,
+                    false,
+                    Icons.code,
+                  ),
+                  buildDeletableChip(
+                    'Dart',
+                    Color(0xFF00695C),
+                    Color(0xFFFFFFFF),
+                    Color(0xB3FFFFFF),
+                    Icons.cancel,
+                    false,
+                    Icons.code,
+                  ),
+                  buildDeletableChip(
+                    'Firebase',
+                    Color(0xFFE65100),
+                    Color(0xFFFFFFFF),
+                    Color(0xB3FFFFFF),
+                    Icons.cancel,
+                    false,
+                    Icons.code,
+                  ),
+                  buildDeletableChip(
+                    'Material',
+                    Color(0xFF6A1B9A),
+                    Color(0xFFFFFFFF),
+                    Color(0xB3FFFFFF),
+                    Icons.cancel,
+                    false,
+                    Icons.code,
+                  ),
+                  buildDeletableChip(
+                    'Cupertino',
+                    Color(0xFF37474F),
+                    Color(0xFFFFFFFF),
+                    Color(0xB3FFFFFF),
+                    Icons.cancel,
+                    false,
+                    Icons.code,
+                  ),
                 ],
               ),
             ),
-            Text('Section 2: Basic chips rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 2: Basic chips rendered',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 3: Chips with Avatars
             buildSectionHeader('3. Chips with Avatars and Delete'),
@@ -310,14 +470,49 @@ dynamic build(BuildContext context) {
               'Chips with both avatar and delete icon',
               Wrap(
                 children: [
-                  buildDeletableChip('Alice', Color(0xFFE3F2FD), Color(0xFF1565C0), Color(0xFF1565C0), Icons.close, true, Icons.person),
-                  buildDeletableChip('Bob', Color(0xFFE8F5E9), Color(0xFF2E7D32), Color(0xFF2E7D32), Icons.close, true, Icons.person),
-                  buildDeletableChip('Carol', Color(0xFFFCE4EC), Color(0xFFC62828), Color(0xFFC62828), Icons.close, true, Icons.person),
-                  buildDeletableChip('David', Color(0xFFF3E5F5), Color(0xFF6A1B9A), Color(0xFF6A1B9A), Icons.close, true, Icons.person),
+                  buildDeletableChip(
+                    'Alice',
+                    Color(0xFFE3F2FD),
+                    Color(0xFF1565C0),
+                    Color(0xFF1565C0),
+                    Icons.close,
+                    true,
+                    Icons.person,
+                  ),
+                  buildDeletableChip(
+                    'Bob',
+                    Color(0xFFE8F5E9),
+                    Color(0xFF2E7D32),
+                    Color(0xFF2E7D32),
+                    Icons.close,
+                    true,
+                    Icons.person,
+                  ),
+                  buildDeletableChip(
+                    'Carol',
+                    Color(0xFFFCE4EC),
+                    Color(0xFFC62828),
+                    Color(0xFFC62828),
+                    Icons.close,
+                    true,
+                    Icons.person,
+                  ),
+                  buildDeletableChip(
+                    'David',
+                    Color(0xFFF3E5F5),
+                    Color(0xFF6A1B9A),
+                    Color(0xFF6A1B9A),
+                    Icons.close,
+                    true,
+                    Icons.person,
+                  ),
                 ],
               ),
             ),
-            Text('Section 3: Avatars + delete rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 3: Avatars + delete rendered',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 4: Custom Delete Icons
             buildSectionHeader('4. Custom Delete Icons'),
@@ -325,16 +520,49 @@ dynamic build(BuildContext context) {
               'Different delete icon styles',
               Wrap(
                 children: [
-                  buildCustomDeleteChip('Cancel icon', Icons.cancel, Color(0xFF1565C0), Color(0xB3FFFFFF)),
-                  buildCustomDeleteChip('Close icon', Icons.close, Color(0xFF2E7D32), Color(0xB3FFFFFF)),
-                  buildCustomDeleteChip('Remove circle', Icons.remove_circle, Color(0xFFC62828), Color(0xB3FFFFFF)),
-                  buildCustomDeleteChip('Delete outline', Icons.delete_outline, Color(0xFFE65100), Color(0xB3FFFFFF)),
-                  buildCustomDeleteChip('Clear icon', Icons.clear, Color(0xFF6A1B9A), Color(0xB3FFFFFF)),
-                  buildCustomDeleteChip('Backspace', Icons.backspace, Color(0xFF37474F), Color(0xB3FFFFFF)),
+                  buildCustomDeleteChip(
+                    'Cancel icon',
+                    Icons.cancel,
+                    Color(0xFF1565C0),
+                    Color(0xB3FFFFFF),
+                  ),
+                  buildCustomDeleteChip(
+                    'Close icon',
+                    Icons.close,
+                    Color(0xFF2E7D32),
+                    Color(0xB3FFFFFF),
+                  ),
+                  buildCustomDeleteChip(
+                    'Remove circle',
+                    Icons.remove_circle,
+                    Color(0xFFC62828),
+                    Color(0xB3FFFFFF),
+                  ),
+                  buildCustomDeleteChip(
+                    'Delete outline',
+                    Icons.delete_outline,
+                    Color(0xFFE65100),
+                    Color(0xB3FFFFFF),
+                  ),
+                  buildCustomDeleteChip(
+                    'Clear icon',
+                    Icons.clear,
+                    Color(0xFF6A1B9A),
+                    Color(0xB3FFFFFF),
+                  ),
+                  buildCustomDeleteChip(
+                    'Backspace',
+                    Icons.backspace,
+                    Color(0xFF37474F),
+                    Color(0xB3FFFFFF),
+                  ),
                 ],
               ),
             ),
-            Text('Section 4: Custom delete icons rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 4: Custom delete icons rendered',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 5: InputChip with Delete
             buildSectionHeader('5. InputChip with Delete'),
@@ -342,15 +570,43 @@ dynamic build(BuildContext context) {
               'InputChips respond to both selection and deletion',
               Wrap(
                 children: [
-                  buildInputChip('Python', Color(0xFFF5F5F5), Color(0xFF424242), false),
-                  buildInputChip('JavaScript', Color(0xFFF5F5F5), Color(0xFF424242), true),
-                  buildInputChip('Kotlin', Color(0xFFF5F5F5), Color(0xFF424242), false),
-                  buildInputChip('Swift', Color(0xFFF5F5F5), Color(0xFF424242), true),
-                  buildInputChip('Rust', Color(0xFFF5F5F5), Color(0xFF424242), false),
+                  buildInputChip(
+                    'Python',
+                    Color(0xFFF5F5F5),
+                    Color(0xFF424242),
+                    false,
+                  ),
+                  buildInputChip(
+                    'JavaScript',
+                    Color(0xFFF5F5F5),
+                    Color(0xFF424242),
+                    true,
+                  ),
+                  buildInputChip(
+                    'Kotlin',
+                    Color(0xFFF5F5F5),
+                    Color(0xFF424242),
+                    false,
+                  ),
+                  buildInputChip(
+                    'Swift',
+                    Color(0xFFF5F5F5),
+                    Color(0xFF424242),
+                    true,
+                  ),
+                  buildInputChip(
+                    'Rust',
+                    Color(0xFFF5F5F5),
+                    Color(0xFF424242),
+                    false,
+                  ),
                 ],
               ),
             ),
-            Text('Section 5: InputChip with delete rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 5: InputChip with delete rendered',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 6: Filter Chips (selection only)
             buildSectionHeader('6. Filter Chips (No Delete)'),
@@ -381,14 +637,20 @@ dynamic build(BuildContext context) {
                     Flexible(
                       child: Text(
                         'FilterChip uses onSelected callback, not onDeleted. Use InputChip or Chip for delete functionality.',
-                        style: TextStyle(fontSize: 12, color: Color(0xFFBF360C)),
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Color(0xFFBF360C),
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
             ),
-            Text('Section 6: Filter chips rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 6: Filter chips rendered',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 7: Tag Cloud with Delete
             buildSectionHeader('7. Tag Cloud Pattern'),
@@ -408,7 +670,10 @@ dynamic build(BuildContext context) {
                 ],
               ),
             ),
-            Text('Section 7: Tag cloud rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 7: Tag cloud rendered',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 8: Email-Style Chips
             buildSectionHeader('8. Email Recipient Chips'),
@@ -416,14 +681,33 @@ dynamic build(BuildContext context) {
               'Deletable chips for email recipients',
               Column(
                 children: [
-                  buildEmailChip('Alice Johnson', 'alice@example.com', Color(0xFF1565C0)),
-                  buildEmailChip('Bob Smith', 'bob@example.com', Color(0xFF2E7D32)),
-                  buildEmailChip('Carol White', 'carol@example.com', Color(0xFFC62828)),
-                  buildEmailChip('David Brown', 'david@example.com', Color(0xFF6A1B9A)),
+                  buildEmailChip(
+                    'Alice Johnson',
+                    'alice@example.com',
+                    Color(0xFF1565C0),
+                  ),
+                  buildEmailChip(
+                    'Bob Smith',
+                    'bob@example.com',
+                    Color(0xFF2E7D32),
+                  ),
+                  buildEmailChip(
+                    'Carol White',
+                    'carol@example.com',
+                    Color(0xFFC62828),
+                  ),
+                  buildEmailChip(
+                    'David Brown',
+                    'david@example.com',
+                    Color(0xFF6A1B9A),
+                  ),
                 ],
               ),
             ),
-            Text('Section 8: Email chips rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 8: Email chips rendered',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 9: Chip Sizes
             buildSectionHeader('9. Chip Size Variations'),
@@ -438,7 +722,10 @@ dynamic build(BuildContext context) {
                 ],
               ),
             ),
-            Text('Section 9: Chip sizes rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 9: Chip sizes rendered',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 10: Chip States
             buildSectionHeader('10. Chip Delete States'),
@@ -446,16 +733,34 @@ dynamic build(BuildContext context) {
               'Various chip interaction states',
               Column(
                 children: [
-                  buildChipStateRow('Normal (deletable)', true, true, Color(0xFF37474F)),
+                  buildChipStateRow(
+                    'Normal (deletable)',
+                    true,
+                    true,
+                    Color(0xFF37474F),
+                  ),
                   buildChipStateRow('Hovered', true, true, Color(0xFF1976D2)),
                   buildChipStateRow('Pressed', true, true, Color(0xFF0D47A1)),
-                  buildChipStateRow('Selected + Deletable', true, true, Color(0xFF4CAF50)),
+                  buildChipStateRow(
+                    'Selected + Deletable',
+                    true,
+                    true,
+                    Color(0xFF4CAF50),
+                  ),
                   buildChipStateRow('Disabled', false, true, Color(0xFFBDBDBD)),
-                  buildChipStateRow('No delete icon', true, false, Color(0xFF757575)),
+                  buildChipStateRow(
+                    'No delete icon',
+                    true,
+                    false,
+                    Color(0xFF757575),
+                  ),
                 ],
               ),
             ),
-            Text('Section 10: Chip states rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 10: Chip states rendered',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 11: Color Themed Chip Sets
             buildSectionHeader('11. Themed Chip Collections'),
@@ -463,9 +768,33 @@ dynamic build(BuildContext context) {
               'Blue theme chip set',
               Wrap(
                 children: [
-                  buildDeletableChip('Primary', Color(0xFF1565C0), Color(0xFFFFFFFF), Color(0xB3FFFFFF), Icons.cancel, false, Icons.code),
-                  buildDeletableChip('Light', Color(0xFFBBDEFB), Color(0xFF0D47A1), Color(0xFF0D47A1), Icons.cancel, false, Icons.code),
-                  buildDeletableChip('Outline', Color(0xFFFFFFFF), Color(0xFF1565C0), Color(0xFF1565C0), Icons.close, false, Icons.code),
+                  buildDeletableChip(
+                    'Primary',
+                    Color(0xFF1565C0),
+                    Color(0xFFFFFFFF),
+                    Color(0xB3FFFFFF),
+                    Icons.cancel,
+                    false,
+                    Icons.code,
+                  ),
+                  buildDeletableChip(
+                    'Light',
+                    Color(0xFFBBDEFB),
+                    Color(0xFF0D47A1),
+                    Color(0xFF0D47A1),
+                    Icons.cancel,
+                    false,
+                    Icons.code,
+                  ),
+                  buildDeletableChip(
+                    'Outline',
+                    Color(0xFFFFFFFF),
+                    Color(0xFF1565C0),
+                    Color(0xFF1565C0),
+                    Icons.close,
+                    false,
+                    Icons.code,
+                  ),
                 ],
               ),
             ),
@@ -473,9 +802,33 @@ dynamic build(BuildContext context) {
               'Green theme chip set',
               Wrap(
                 children: [
-                  buildDeletableChip('Primary', Color(0xFF2E7D32), Color(0xFFFFFFFF), Color(0xB3FFFFFF), Icons.cancel, false, Icons.code),
-                  buildDeletableChip('Light', Color(0xFFC8E6C9), Color(0xFF1B5E20), Color(0xFF1B5E20), Icons.cancel, false, Icons.code),
-                  buildDeletableChip('Outline', Color(0xFFFFFFFF), Color(0xFF2E7D32), Color(0xFF2E7D32), Icons.close, false, Icons.code),
+                  buildDeletableChip(
+                    'Primary',
+                    Color(0xFF2E7D32),
+                    Color(0xFFFFFFFF),
+                    Color(0xB3FFFFFF),
+                    Icons.cancel,
+                    false,
+                    Icons.code,
+                  ),
+                  buildDeletableChip(
+                    'Light',
+                    Color(0xFFC8E6C9),
+                    Color(0xFF1B5E20),
+                    Color(0xFF1B5E20),
+                    Icons.cancel,
+                    false,
+                    Icons.code,
+                  ),
+                  buildDeletableChip(
+                    'Outline',
+                    Color(0xFFFFFFFF),
+                    Color(0xFF2E7D32),
+                    Color(0xFF2E7D32),
+                    Icons.close,
+                    false,
+                    Icons.code,
+                  ),
                 ],
               ),
             ),
@@ -483,13 +836,40 @@ dynamic build(BuildContext context) {
               'Red theme chip set',
               Wrap(
                 children: [
-                  buildDeletableChip('Primary', Color(0xFFC62828), Color(0xFFFFFFFF), Color(0xB3FFFFFF), Icons.cancel, false, Icons.code),
-                  buildDeletableChip('Light', Color(0xFFFFCDD2), Color(0xFFB71C1C), Color(0xFFB71C1C), Icons.cancel, false, Icons.code),
-                  buildDeletableChip('Outline', Color(0xFFFFFFFF), Color(0xFFC62828), Color(0xFFC62828), Icons.close, false, Icons.code),
+                  buildDeletableChip(
+                    'Primary',
+                    Color(0xFFC62828),
+                    Color(0xFFFFFFFF),
+                    Color(0xB3FFFFFF),
+                    Icons.cancel,
+                    false,
+                    Icons.code,
+                  ),
+                  buildDeletableChip(
+                    'Light',
+                    Color(0xFFFFCDD2),
+                    Color(0xFFB71C1C),
+                    Color(0xFFB71C1C),
+                    Icons.cancel,
+                    false,
+                    Icons.code,
+                  ),
+                  buildDeletableChip(
+                    'Outline',
+                    Color(0xFFFFFFFF),
+                    Color(0xFFC62828),
+                    Color(0xFFC62828),
+                    Icons.close,
+                    false,
+                    Icons.code,
+                  ),
                 ],
               ),
             ),
-            Text('Section 11: Themed chip sets rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 11: Themed chip sets rendered',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Summary
             buildSectionHeader('Summary'),
@@ -512,7 +892,10 @@ dynamic build(BuildContext context) {
                 ],
               ),
             ),
-            Text('=== DeletableChipAttributes Deep Demo Complete ===', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              '=== DeletableChipAttributes Deep Demo Complete ===',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             SizedBox(height: 40),
           ],

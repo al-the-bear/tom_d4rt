@@ -68,11 +68,18 @@ Widget buildInfoRow(String label, String value) {
           width: 130,
           child: Text(
             label,
-            style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13, color: Color(0xFF616161)),
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 13,
+              color: Color(0xFF616161),
+            ),
           ),
         ),
         Expanded(
-          child: Text(value, style: TextStyle(fontSize: 13, color: Color(0xFF212121))),
+          child: Text(
+            value,
+            style: TextStyle(fontSize: 13, color: Color(0xFF212121)),
+          ),
         ),
       ],
     ),
@@ -84,8 +91,8 @@ Widget buildStepCircle(int number, bool isActive, bool isCompleted) {
   Color bgColor = isCompleted
       ? Color(0xFF4CAF50)
       : isActive
-          ? Color(0xFF1976D2)
-          : Color(0xFFBDBDBD);
+      ? Color(0xFF1976D2)
+      : Color(0xFFBDBDBD);
   return Container(
     width: 36,
     height: 36,
@@ -93,7 +100,13 @@ Widget buildStepCircle(int number, bool isActive, bool isCompleted) {
       color: bgColor,
       shape: BoxShape.circle,
       boxShadow: isActive
-          ? [BoxShadow(color: Color(0x4D1976D2), blurRadius: 6, offset: Offset(0, 2))]
+          ? [
+              BoxShadow(
+                color: Color(0x4D1976D2),
+                blurRadius: 6,
+                offset: Offset(0, 2),
+              ),
+            ]
           : [],
     ),
     child: Center(
@@ -121,7 +134,11 @@ Widget buildStepConnector(bool isCompleted) {
 }
 
 // Helper: horizontal stepper visualization
-Widget buildHorizontalStepper(int currentStep, int totalSteps, List<String> labels) {
+Widget buildHorizontalStepper(
+  int currentStep,
+  int totalSteps,
+  List<String> labels,
+) {
   List<Widget> children = [];
   for (int i = 0; i < totalSteps; i++) {
     bool isCompleted = i < currentStep;
@@ -151,14 +168,18 @@ Widget buildHorizontalStepper(int currentStep, int totalSteps, List<String> labe
       );
     }
   }
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: children,
-  );
+  return Row(mainAxisAlignment: MainAxisAlignment.center, children: children);
 }
 
 // Helper: vertical step item
-Widget buildVerticalStepItem(int number, String title, String subtitle, bool isActive, bool isCompleted, bool isLast) {
+Widget buildVerticalStepItem(
+  int number,
+  String title,
+  String subtitle,
+  bool isActive,
+  bool isCompleted,
+  bool isLast,
+) {
   return Row(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -166,7 +187,11 @@ Widget buildVerticalStepItem(int number, String title, String subtitle, bool isA
         children: [
           buildStepCircle(number, isActive, isCompleted),
           if (!isLast)
-            Container(width: 3, height: 50, color: isCompleted ? Color(0xFF4CAF50) : Color(0xFFBDBDBD)),
+            Container(
+              width: 3,
+              height: 50,
+              color: isCompleted ? Color(0xFF4CAF50) : Color(0xFFBDBDBD),
+            ),
         ],
       ),
       SizedBox(width: 12),
@@ -185,7 +210,10 @@ Widget buildVerticalStepItem(int number, String title, String subtitle, bool isA
                 ),
               ),
               SizedBox(height: 2),
-              Text(subtitle, style: TextStyle(fontSize: 12, color: Color(0xFF757575))),
+              Text(
+                subtitle,
+                style: TextStyle(fontSize: 12, color: Color(0xFF757575)),
+              ),
               if (isActive) ...[
                 SizedBox(height: 8),
                 Container(
@@ -198,17 +226,27 @@ Widget buildVerticalStepItem(int number, String title, String subtitle, bool isA
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Step content area', style: TextStyle(fontSize: 13, color: Color(0xFF616161))),
+                      Text(
+                        'Step content area',
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: Color(0xFF616161),
+                        ),
+                      ),
                       SizedBox(height: 8),
                       Row(
                         children: [
                           ElevatedButton(
-                            onPressed: () { debugPrint('Continue from step $number'); },
+                            onPressed: () {
+                              debugPrint('Continue from step $number');
+                            },
                             child: Text('Continue'),
                           ),
                           SizedBox(width: 8),
                           TextButton(
-                            onPressed: () { debugPrint('Cancel at step $number'); },
+                            onPressed: () {
+                              debugPrint('Cancel at step $number');
+                            },
                             child: Text('Cancel'),
                           ),
                         ],
@@ -226,7 +264,12 @@ Widget buildVerticalStepItem(int number, String title, String subtitle, bool isA
 }
 
 // Helper: controls details info display
-Widget buildControlsDetailsDisplay(int currentStep, int stepIndex, bool hasContinue, bool hasCancel) {
+Widget buildControlsDetailsDisplay(
+  int currentStep,
+  int stepIndex,
+  bool hasContinue,
+  bool hasCancel,
+) {
   return Container(
     padding: EdgeInsets.all(12),
     margin: EdgeInsets.symmetric(vertical: 4),
@@ -243,32 +286,68 @@ Widget buildControlsDetailsDisplay(int currentStep, int stepIndex, bool hasConti
             Container(
               padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
-                color: currentStep == stepIndex ? Color(0xFF1976D2) : Color(0xFF757575),
+                color: currentStep == stepIndex
+                    ? Color(0xFF1976D2)
+                    : Color(0xFF757575),
                 borderRadius: BorderRadius.circular(4),
               ),
               child: Text(
                 'Step $stepIndex',
-                style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 12, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  color: Color(0xFFFFFFFF),
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
             SizedBox(width: 8),
             if (currentStep == stepIndex)
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(color: Color(0xFF4CAF50), borderRadius: BorderRadius.circular(4)),
-                child: Text('ACTIVE', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 10, fontWeight: FontWeight.bold)),
+                decoration: BoxDecoration(
+                  color: Color(0xFF4CAF50),
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: Text(
+                  'ACTIVE',
+                  style: TextStyle(
+                    color: Color(0xFFFFFFFF),
+                    fontSize: 10,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             if (stepIndex < currentStep)
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(color: Color(0xFF00796B), borderRadius: BorderRadius.circular(4)),
-                child: Text('COMPLETED', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 10, fontWeight: FontWeight.bold)),
+                decoration: BoxDecoration(
+                  color: Color(0xFF00796B),
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: Text(
+                  'COMPLETED',
+                  style: TextStyle(
+                    color: Color(0xFFFFFFFF),
+                    fontSize: 10,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             if (stepIndex > currentStep)
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(color: Color(0xFFBDBDBD), borderRadius: BorderRadius.circular(4)),
-                child: Text('PENDING', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 10, fontWeight: FontWeight.bold)),
+                decoration: BoxDecoration(
+                  color: Color(0xFFBDBDBD),
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: Text(
+                  'PENDING',
+                  style: TextStyle(
+                    color: Color(0xFFFFFFFF),
+                    fontSize: 10,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
           ],
         ),
@@ -282,14 +361,23 @@ Widget buildControlsDetailsDisplay(int currentStep, int stepIndex, bool hasConti
           children: [
             if (hasContinue)
               ElevatedButton(
-                onPressed: () { debugPrint('ControlsDetails: Continue from step $stepIndex'); },
-                style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF1976D2)),
-                child: Text('Continue', style: TextStyle(color: Color(0xFFFFFFFF))),
+                onPressed: () {
+                  debugPrint('ControlsDetails: Continue from step $stepIndex');
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFF1976D2),
+                ),
+                child: Text(
+                  'Continue',
+                  style: TextStyle(color: Color(0xFFFFFFFF)),
+                ),
               ),
             if (hasContinue) SizedBox(width: 8),
             if (hasCancel)
               OutlinedButton(
-                onPressed: () { debugPrint('ControlsDetails: Cancel at step $stepIndex'); },
+                onPressed: () {
+                  debugPrint('ControlsDetails: Cancel at step $stepIndex');
+                },
                 child: Text('Cancel'),
               ),
           ],
@@ -300,7 +388,12 @@ Widget buildControlsDetailsDisplay(int currentStep, int stepIndex, bool hasConti
 }
 
 // Helper: build a step state icon
-Widget buildStepStateIcon(String state, String label, IconData iconData, Color color) {
+Widget buildStepStateIcon(
+  String state,
+  String label,
+  IconData iconData,
+  Color color,
+) {
   return Column(
     children: [
       Container(
@@ -323,10 +416,14 @@ Widget buildStepProgressBar(int currentStep, int totalSteps) {
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('Step ${currentStep + 1} of $totalSteps',
-              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
-          Text('${(progress * 100).toInt()}%',
-              style: TextStyle(fontSize: 13, color: Color(0xFF757575))),
+          Text(
+            'Step ${currentStep + 1} of $totalSteps',
+            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+          ),
+          Text(
+            '${(progress * 100).toInt()}%',
+            style: TextStyle(fontSize: 13, color: Color(0xFF757575)),
+          ),
         ],
       ),
       SizedBox(height: 6),
@@ -352,7 +449,13 @@ Widget buildStepProgressBar(int currentStep, int totalSteps) {
 }
 
 // Helper: matrix row
-Widget buildMatrixRow(String position, bool hasContinue, bool hasCancel, String state, Color bgColor) {
+Widget buildMatrixRow(
+  String position,
+  bool hasContinue,
+  bool hasCancel,
+  String state,
+  Color bgColor,
+) {
   return Container(
     padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
     decoration: BoxDecoration(
@@ -361,7 +464,10 @@ Widget buildMatrixRow(String position, bool hasContinue, bool hasCancel, String 
     ),
     child: Row(
       children: [
-        Expanded(flex: 2, child: Text(position, style: TextStyle(fontSize: 12))),
+        Expanded(
+          flex: 2,
+          child: Text(position, style: TextStyle(fontSize: 12)),
+        ),
         Expanded(
           flex: 2,
           child: Icon(
@@ -385,14 +491,22 @@ Widget buildMatrixRow(String position, bool hasContinue, bool hasCancel, String 
 }
 
 // Helper: error step item
-Widget buildErrorStepItem(int step, String title, bool hasError, String message) {
+Widget buildErrorStepItem(
+  int step,
+  String title,
+  bool hasError,
+  String message,
+) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 4),
     padding: EdgeInsets.all(12),
     decoration: BoxDecoration(
       color: hasError ? Color(0xFFFFEBEE) : Color(0xFFFFFFFF),
       borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: hasError ? Color(0xFFEF9A9A) : Color(0xFFE0E0E0), width: 1),
+      border: Border.all(
+        color: hasError ? Color(0xFFEF9A9A) : Color(0xFFE0E0E0),
+        width: 1,
+      ),
     ),
     child: Row(
       children: [
@@ -422,7 +536,10 @@ Widget buildErrorStepItem(int step, String title, bool hasError, String message)
                   color: hasError ? Color(0xFFC62828) : Color(0xFF424242),
                 ),
               ),
-              Text(message, style: TextStyle(fontSize: 12, color: Color(0xFF757575))),
+              Text(
+                message,
+                style: TextStyle(fontSize: 12, color: Color(0xFF757575)),
+              ),
             ],
           ),
         ),
@@ -444,8 +561,8 @@ Widget buildDotStepper(int current, int total) {
           color: i == current
               ? Color(0xFF1976D2)
               : i < current
-                  ? Color(0xFF4CAF50)
-                  : Color(0xFFBDBDBD),
+              ? Color(0xFF4CAF50)
+              : Color(0xFFBDBDBD),
           borderRadius: BorderRadius.circular(5),
         ),
       ),
@@ -477,14 +594,29 @@ dynamic build(BuildContext context) {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  buildInfoRow('currentStep', 'The index of the currently active step'),
-                  buildInfoRow('stepIndex', 'The index of the step this control belongs to'),
-                  buildInfoRow('onStepContinue', 'Callback when user taps continue'),
-                  buildInfoRow('onStepCancel', 'Callback when user taps cancel'),
+                  buildInfoRow(
+                    'currentStep',
+                    'The index of the currently active step',
+                  ),
+                  buildInfoRow(
+                    'stepIndex',
+                    'The index of the step this control belongs to',
+                  ),
+                  buildInfoRow(
+                    'onStepContinue',
+                    'Callback when user taps continue',
+                  ),
+                  buildInfoRow(
+                    'onStepCancel',
+                    'Callback when user taps cancel',
+                  ),
                 ],
               ),
             ),
-            Text('Section 1: ControlsDetails properties displayed', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 1: ControlsDetails properties displayed',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 2: Step States
             buildSectionHeader('2. Step States'),
@@ -493,27 +625,86 @@ dynamic build(BuildContext context) {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  buildStepStateIcon('indexed', 'indexed', Icons.looks_one, Color(0xFF1976D2)),
-                  buildStepStateIcon('editing', 'editing', Icons.edit, Color(0xFFF57C00)),
-                  buildStepStateIcon('complete', 'complete', Icons.check_circle, Color(0xFF4CAF50)),
-                  buildStepStateIcon('disabled', 'disabled', Icons.block, Color(0xFFBDBDBD)),
-                  buildStepStateIcon('error', 'error', Icons.error, Color(0xFFD32F2F)),
+                  buildStepStateIcon(
+                    'indexed',
+                    'indexed',
+                    Icons.looks_one,
+                    Color(0xFF1976D2),
+                  ),
+                  buildStepStateIcon(
+                    'editing',
+                    'editing',
+                    Icons.edit,
+                    Color(0xFFF57C00),
+                  ),
+                  buildStepStateIcon(
+                    'complete',
+                    'complete',
+                    Icons.check_circle,
+                    Color(0xFF4CAF50),
+                  ),
+                  buildStepStateIcon(
+                    'disabled',
+                    'disabled',
+                    Icons.block,
+                    Color(0xFFBDBDBD),
+                  ),
+                  buildStepStateIcon(
+                    'error',
+                    'error',
+                    Icons.error,
+                    Color(0xFFD32F2F),
+                  ),
                 ],
               ),
             ),
-            Text('Section 2: Step states rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 2: Step states rendered',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 3: Horizontal Stepper Visualization
             buildSectionHeader('3. Horizontal Stepper Visualizations'),
-            buildDemoCard('Step 1 Active (of 4)',
-              buildHorizontalStepper(0, 4, ['Account', 'Details', 'Review', 'Submit'])),
-            buildDemoCard('Step 2 Active (of 4)',
-              buildHorizontalStepper(1, 4, ['Account', 'Details', 'Review', 'Submit'])),
-            buildDemoCard('Step 3 Active (of 4)',
-              buildHorizontalStepper(2, 4, ['Account', 'Details', 'Review', 'Submit'])),
-            buildDemoCard('Step 4 Active (of 4)',
-              buildHorizontalStepper(3, 4, ['Account', 'Details', 'Review', 'Submit'])),
-            Text('Section 3: Horizontal steppers rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            buildDemoCard(
+              'Step 1 Active (of 4)',
+              buildHorizontalStepper(0, 4, [
+                'Account',
+                'Details',
+                'Review',
+                'Submit',
+              ]),
+            ),
+            buildDemoCard(
+              'Step 2 Active (of 4)',
+              buildHorizontalStepper(1, 4, [
+                'Account',
+                'Details',
+                'Review',
+                'Submit',
+              ]),
+            ),
+            buildDemoCard(
+              'Step 3 Active (of 4)',
+              buildHorizontalStepper(2, 4, [
+                'Account',
+                'Details',
+                'Review',
+                'Submit',
+              ]),
+            ),
+            buildDemoCard(
+              'Step 4 Active (of 4)',
+              buildHorizontalStepper(3, 4, [
+                'Account',
+                'Details',
+                'Review',
+                'Submit',
+              ]),
+            ),
+            Text(
+              'Section 3: Horizontal steppers rendered',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 4: ControlsDetails for Each Step
             buildSectionHeader('4. ControlsDetails Per Step'),
@@ -528,7 +719,10 @@ dynamic build(BuildContext context) {
                 ],
               ),
             ),
-            Text('Section 4: ControlsDetails per step rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 4: ControlsDetails per step rendered',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 5: Vertical Stepper
             buildSectionHeader('5. Vertical Stepper Visualization'),
@@ -536,14 +730,45 @@ dynamic build(BuildContext context) {
               'Form wizard - step 2 active',
               Column(
                 children: [
-                  buildVerticalStepItem(1, 'Personal Info', 'Name, email, phone', false, true, false),
-                  buildVerticalStepItem(2, 'Address', 'Street, city, zip code', true, false, false),
-                  buildVerticalStepItem(3, 'Payment', 'Card number, expiry', false, false, false),
-                  buildVerticalStepItem(4, 'Confirmation', 'Review and submit', false, false, true),
+                  buildVerticalStepItem(
+                    1,
+                    'Personal Info',
+                    'Name, email, phone',
+                    false,
+                    true,
+                    false,
+                  ),
+                  buildVerticalStepItem(
+                    2,
+                    'Address',
+                    'Street, city, zip code',
+                    true,
+                    false,
+                    false,
+                  ),
+                  buildVerticalStepItem(
+                    3,
+                    'Payment',
+                    'Card number, expiry',
+                    false,
+                    false,
+                    false,
+                  ),
+                  buildVerticalStepItem(
+                    4,
+                    'Confirmation',
+                    'Review and submit',
+                    false,
+                    false,
+                    true,
+                  ),
                 ],
               ),
             ),
-            Text('Section 5: Vertical stepper rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 5: Vertical stepper rendered',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 6: Step Progress Bars
             buildSectionHeader('6. Step Progress Indicators'),
@@ -563,7 +788,10 @@ dynamic build(BuildContext context) {
                 ],
               ),
             ),
-            Text('Section 6: Progress bars rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 6: Progress bars rendered',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 7: Controls Availability Matrix
             buildSectionHeader('7. Controls Availability Matrix'),
@@ -576,27 +804,108 @@ dynamic build(BuildContext context) {
                     decoration: BoxDecoration(
                       color: Color(0xFF37474F),
                       borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(8), topRight: Radius.circular(8)),
+                        topLeft: Radius.circular(8),
+                        topRight: Radius.circular(8),
+                      ),
                     ),
                     child: Row(
                       children: [
-                        Expanded(flex: 2, child: Text('Position', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 12, fontWeight: FontWeight.bold))),
-                        Expanded(flex: 2, child: Text('Continue', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 12, fontWeight: FontWeight.bold))),
-                        Expanded(flex: 2, child: Text('Cancel', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 12, fontWeight: FontWeight.bold))),
-                        Expanded(flex: 2, child: Text('State', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 12, fontWeight: FontWeight.bold))),
+                        Expanded(
+                          flex: 2,
+                          child: Text(
+                            'Position',
+                            style: TextStyle(
+                              color: Color(0xFFFFFFFF),
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: Text(
+                            'Continue',
+                            style: TextStyle(
+                              color: Color(0xFFFFFFFF),
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: Text(
+                            'Cancel',
+                            style: TextStyle(
+                              color: Color(0xFFFFFFFF),
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: Text(
+                            'State',
+                            style: TextStyle(
+                              color: Color(0xFFFFFFFF),
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
-                  buildMatrixRow('First step', true, false, 'Active', Color(0xFFE3F2FD)),
-                  buildMatrixRow('Middle step', true, true, 'Active', Color(0xFFFFFFFF)),
-                  buildMatrixRow('Last step', false, true, 'Active', Color(0xFFE3F2FD)),
-                  buildMatrixRow('Completed', true, true, 'Done', Color(0xFFFFFFFF)),
-                  buildMatrixRow('Disabled', false, false, 'Disabled', Color(0xFFE3F2FD)),
-                  buildMatrixRow('Error step', true, true, 'Error', Color(0xFFFFFFFF)),
+                  buildMatrixRow(
+                    'First step',
+                    true,
+                    false,
+                    'Active',
+                    Color(0xFFE3F2FD),
+                  ),
+                  buildMatrixRow(
+                    'Middle step',
+                    true,
+                    true,
+                    'Active',
+                    Color(0xFFFFFFFF),
+                  ),
+                  buildMatrixRow(
+                    'Last step',
+                    false,
+                    true,
+                    'Active',
+                    Color(0xFFE3F2FD),
+                  ),
+                  buildMatrixRow(
+                    'Completed',
+                    true,
+                    true,
+                    'Done',
+                    Color(0xFFFFFFFF),
+                  ),
+                  buildMatrixRow(
+                    'Disabled',
+                    false,
+                    false,
+                    'Disabled',
+                    Color(0xFFE3F2FD),
+                  ),
+                  buildMatrixRow(
+                    'Error step',
+                    true,
+                    true,
+                    'Error',
+                    Color(0xFFFFFFFF),
+                  ),
                 ],
               ),
             ),
-            Text('Section 7: Controls availability matrix rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 7: Controls availability matrix rendered',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 8: Different Stepper Types
             buildSectionHeader('8. Stepper Types'),
@@ -604,12 +913,36 @@ dynamic build(BuildContext context) {
               'StepperType.vertical',
               Container(
                 padding: EdgeInsets.all(12),
-                decoration: BoxDecoration(color: Color(0xFFF5F5F5), borderRadius: BorderRadius.circular(8)),
+                decoration: BoxDecoration(
+                  color: Color(0xFFF5F5F5),
+                  borderRadius: BorderRadius.circular(8),
+                ),
                 child: Column(
                   children: [
-                    buildVerticalStepItem(1, 'Select Product', 'Choose from catalog', false, true, false),
-                    buildVerticalStepItem(2, 'Configure', 'Set options and preferences', true, false, false),
-                    buildVerticalStepItem(3, 'Checkout', 'Review and pay', false, false, true),
+                    buildVerticalStepItem(
+                      1,
+                      'Select Product',
+                      'Choose from catalog',
+                      false,
+                      true,
+                      false,
+                    ),
+                    buildVerticalStepItem(
+                      2,
+                      'Configure',
+                      'Set options and preferences',
+                      true,
+                      false,
+                      false,
+                    ),
+                    buildVerticalStepItem(
+                      3,
+                      'Checkout',
+                      'Review and pay',
+                      false,
+                      false,
+                      true,
+                    ),
                   ],
                 ),
               ),
@@ -618,11 +951,21 @@ dynamic build(BuildContext context) {
               'StepperType.horizontal',
               Container(
                 padding: EdgeInsets.all(12),
-                decoration: BoxDecoration(color: Color(0xFFF5F5F5), borderRadius: BorderRadius.circular(8)),
-                child: buildHorizontalStepper(1, 3, ['Select', 'Configure', 'Checkout']),
+                decoration: BoxDecoration(
+                  color: Color(0xFFF5F5F5),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: buildHorizontalStepper(1, 3, [
+                  'Select',
+                  'Configure',
+                  'Checkout',
+                ]),
               ),
             ),
-            Text('Section 8: Stepper types rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 8: Stepper types rendered',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 9: Multi-Phase Process
             buildSectionHeader('9. Multi-Phase Process'),
@@ -630,7 +973,13 @@ dynamic build(BuildContext context) {
               'Build and Deploy Pipeline (5 steps)',
               Column(
                 children: [
-                  buildHorizontalStepper(2, 5, ['Code', 'Build', 'Test', 'Stage', 'Deploy']),
+                  buildHorizontalStepper(2, 5, [
+                    'Code',
+                    'Build',
+                    'Test',
+                    'Stage',
+                    'Deploy',
+                  ]),
                   SizedBox(height: 16),
                   Container(
                     padding: EdgeInsets.all(12),
@@ -641,9 +990,22 @@ dynamic build(BuildContext context) {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Current Phase: Test', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Color(0xFF1565C0))),
+                        Text(
+                          'Current Phase: Test',
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF1565C0),
+                          ),
+                        ),
                         SizedBox(height: 4),
-                        Text('Running automated test suite...', style: TextStyle(fontSize: 13, color: Color(0xFF616161))),
+                        Text(
+                          'Running automated test suite...',
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: Color(0xFF616161),
+                          ),
+                        ),
                         SizedBox(height: 8),
                         buildStepProgressBar(2, 5),
                       ],
@@ -652,7 +1014,10 @@ dynamic build(BuildContext context) {
                 ],
               ),
             ),
-            Text('Section 9: Multi-phase process rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 9: Multi-phase process rendered',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 10: Step Error Handling
             buildSectionHeader('10. Step Error Handling'),
@@ -661,13 +1026,21 @@ dynamic build(BuildContext context) {
               Column(
                 children: [
                   buildErrorStepItem(1, 'Validate Input', false, 'Passed'),
-                  buildErrorStepItem(2, 'Check Dependencies', true, 'Missing package: flutter_svg'),
+                  buildErrorStepItem(
+                    2,
+                    'Check Dependencies',
+                    true,
+                    'Missing package: flutter_svg',
+                  ),
                   buildErrorStepItem(3, 'Run Tests', false, 'Waiting'),
                   buildErrorStepItem(4, 'Deploy', false, 'Waiting'),
                 ],
               ),
             ),
-            Text('Section 10: Error handling rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 10: Error handling rendered',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 11: Compact Stepper
             buildSectionHeader('11. Compact Stepper Indicator'),
@@ -685,7 +1058,10 @@ dynamic build(BuildContext context) {
                 ],
               ),
             ),
-            Text('Section 11: Compact stepper rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 11: Compact stepper rendered',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Summary
             buildSectionHeader('Summary'),
@@ -708,7 +1084,10 @@ dynamic build(BuildContext context) {
                 ],
               ),
             ),
-            Text('=== ControlsDetails Deep Demo Complete ===', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              '=== ControlsDetails Deep Demo Complete ===',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             SizedBox(height: 40),
           ],

@@ -2,7 +2,12 @@
 import 'package:flutter/material.dart';
 
 // Helper to build a physics indicator bar
-Widget buildPhysicsBar(String label, Color color, double fillPercent, String description) {
+Widget buildPhysicsBar(
+  String label,
+  Color color,
+  double fillPercent,
+  String description,
+) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
     padding: EdgeInsets.all(12),
@@ -19,13 +24,13 @@ Widget buildPhysicsBar(String label, Color color, double fillPercent, String des
             Container(
               width: 16,
               height: 16,
-              decoration: BoxDecoration(
-                color: color,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
             ),
             SizedBox(width: 8),
-            Text(label, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+            Text(
+              label,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+            ),
           ],
         ),
         SizedBox(height: 6),
@@ -47,14 +52,21 @@ Widget buildPhysicsBar(String label, Color color, double fillPercent, String des
           ),
         ),
         SizedBox(height: 4),
-        Text(description, style: TextStyle(fontSize: 12, color: Colors.grey.shade700)),
+        Text(
+          description,
+          style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+        ),
       ],
     ),
   );
 }
 
 // Helper to build a scroll position display
-Widget buildScrollPositionDisplay(String title, Color primaryColor, List<Map<String, dynamic>> positions) {
+Widget buildScrollPositionDisplay(
+  String title,
+  Color primaryColor,
+  List<Map<String, dynamic>> positions,
+) {
   return Container(
     margin: EdgeInsets.all(8),
     padding: EdgeInsets.all(12),
@@ -74,7 +86,10 @@ Widget buildScrollPositionDisplay(String title, Color primaryColor, List<Map<Str
             color: primaryColor,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(title, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+          child: Text(
+            title,
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
         ),
         SizedBox(height: 8),
         ...positions.map((pos) {
@@ -99,7 +114,11 @@ Widget buildScrollPositionDisplay(String title, Color primaryColor, List<Map<Str
                 ),
                 Text(
                   pos['value'] as String,
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: primaryColor),
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: primaryColor,
+                  ),
                 ),
               ],
             ),
@@ -111,13 +130,22 @@ Widget buildScrollPositionDisplay(String title, Color primaryColor, List<Map<Str
 }
 
 // Helper to build a simulated scroll track
-Widget buildScrollTrack(String label, Color trackColor, Color thumbColor, double thumbPosition, double thumbSize) {
+Widget buildScrollTrack(
+  String label,
+  Color trackColor,
+  Color thumbColor,
+  double thumbPosition,
+  double thumbSize,
+) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+        Text(
+          label,
+          style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 4),
         Container(
           height: 20,
@@ -130,7 +158,9 @@ Widget buildScrollTrack(String label, Color trackColor, Color thumbColor, double
               return Stack(
                 children: [
                   Positioned(
-                    left: (constraints.maxWidth - thumbSize) * thumbPosition.clamp(0.0, 1.0),
+                    left:
+                        (constraints.maxWidth - thumbSize) *
+                        thumbPosition.clamp(0.0, 1.0),
                     top: 2,
                     child: Container(
                       width: thumbSize,
@@ -152,7 +182,12 @@ Widget buildScrollTrack(String label, Color trackColor, Color thumbColor, double
 }
 
 // Helper to build bounce zone visualization
-Widget buildBounceZone(String title, Color color, bool topBounce, bool bottomBounce) {
+Widget buildBounceZone(
+  String title,
+  Color color,
+  bool topBounce,
+  bool bottomBounce,
+) {
   return Container(
     margin: EdgeInsets.all(8),
     width: 120,
@@ -166,7 +201,9 @@ Widget buildBounceZone(String title, Color color, bool topBounce, bool bottomBou
         Container(
           height: 30,
           decoration: BoxDecoration(
-            color: topBounce ? color.withValues(alpha: 0.3) : Colors.transparent,
+            color: topBounce
+                ? color.withValues(alpha: 0.3)
+                : Colors.transparent,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(6),
               topRight: Radius.circular(6),
@@ -175,7 +212,11 @@ Widget buildBounceZone(String title, Color color, bool topBounce, bool bottomBou
           child: Center(
             child: Text(
               topBounce ? 'BOUNCE' : 'CLAMP',
-              style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: color),
+              style: TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+                color: color,
+              ),
             ),
           ),
         ),
@@ -188,7 +229,10 @@ Widget buildBounceZone(String title, Color color, bool topBounce, bool bottomBou
                 children: [
                   Icon(Icons.swap_vert, color: color, size: 24),
                   SizedBox(height: 4),
-                  Text(title, style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold)),
+                  Text(
+                    title,
+                    style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
+                  ),
                 ],
               ),
             ),
@@ -197,7 +241,9 @@ Widget buildBounceZone(String title, Color color, bool topBounce, bool bottomBou
         Container(
           height: 30,
           decoration: BoxDecoration(
-            color: bottomBounce ? color.withValues(alpha: 0.3) : Colors.transparent,
+            color: bottomBounce
+                ? color.withValues(alpha: 0.3)
+                : Colors.transparent,
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(6),
               bottomRight: Radius.circular(6),
@@ -206,7 +252,11 @@ Widget buildBounceZone(String title, Color color, bool topBounce, bool bottomBou
           child: Center(
             child: Text(
               bottomBounce ? 'BOUNCE' : 'CLAMP',
-              style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: color),
+              style: TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+                color: color,
+              ),
             ),
           ),
         ),
@@ -222,7 +272,10 @@ Widget buildVelocityDecay(String label, Color color, int steps) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+        Text(
+          label,
+          style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 4),
         Row(
           children: List.generate(steps, (i) {
@@ -258,7 +311,14 @@ Widget buildSpringResponse(String label, Color color, List<double> amplitudes) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: color)),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
+            color: color,
+          ),
+        ),
         SizedBox(height: 8),
         SizedBox(
           height: 60,
@@ -300,16 +360,21 @@ Widget buildSectionHeader(String title, IconData icon, Color color) {
     margin: EdgeInsets.fromLTRB(8, 16, 8, 8),
     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
     decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: [color, color.withValues(alpha: 0.7)],
-      ),
+      gradient: LinearGradient(colors: [color, color.withValues(alpha: 0.7)]),
       borderRadius: BorderRadius.circular(8),
     ),
     child: Row(
       children: [
         Icon(icon, color: Colors.white, size: 20),
         SizedBox(width: 8),
-        Text(title, style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+        Text(
+          title,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ],
     ),
   );
@@ -346,9 +411,13 @@ dynamic build(BuildContext context) {
 
   // Section 6: Physics chains
   debugPrint('Section 6: Chained physics');
-  var chainedBounce = BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics());
+  var chainedBounce = BouncingScrollPhysics(
+    parent: AlwaysScrollableScrollPhysics(),
+  );
   debugPrint('Chained bouncing+always: $chainedBounce');
-  var chainedClamp = ClampingScrollPhysics(parent: AlwaysScrollableScrollPhysics());
+  var chainedClamp = ClampingScrollPhysics(
+    parent: AlwaysScrollableScrollPhysics(),
+  );
   debugPrint('Chained clamping+always: $chainedClamp');
 
   return MaterialApp(
@@ -365,7 +434,11 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             // Section 1: Physics Types Overview
-            buildSectionHeader('Scroll Physics Types', Icons.speed, Colors.indigo),
+            buildSectionHeader(
+              'Scroll Physics Types',
+              Icons.speed,
+              Colors.indigo,
+            ),
             Padding(
               padding: EdgeInsets.all(8),
               child: Text(
@@ -375,19 +448,43 @@ dynamic build(BuildContext context) {
             ),
 
             // Physics type cards
-            buildPhysicsBar('BouncingScrollPhysics', Colors.blue, 0.85,
-                'iOS-style: allows scrolling past edges with spring-back effect'),
-            buildPhysicsBar('ClampingScrollPhysics', Colors.green, 0.75,
-                'Android-style: stops at edges with overscroll glow effect'),
-            buildPhysicsBar('NeverScrollableScrollPhysics', Colors.red, 0.0,
-                'Completely disables scrolling - content stays fixed'),
-            buildPhysicsBar('AlwaysScrollableScrollPhysics', Colors.orange, 1.0,
-                'Always allows scrolling even when content fits viewport'),
-            buildPhysicsBar('PageScrollPhysics', Colors.purple, 0.65,
-                'Snaps to page boundaries - used in PageView'),
+            buildPhysicsBar(
+              'BouncingScrollPhysics',
+              Colors.blue,
+              0.85,
+              'iOS-style: allows scrolling past edges with spring-back effect',
+            ),
+            buildPhysicsBar(
+              'ClampingScrollPhysics',
+              Colors.green,
+              0.75,
+              'Android-style: stops at edges with overscroll glow effect',
+            ),
+            buildPhysicsBar(
+              'NeverScrollableScrollPhysics',
+              Colors.red,
+              0.0,
+              'Completely disables scrolling - content stays fixed',
+            ),
+            buildPhysicsBar(
+              'AlwaysScrollableScrollPhysics',
+              Colors.orange,
+              1.0,
+              'Always allows scrolling even when content fits viewport',
+            ),
+            buildPhysicsBar(
+              'PageScrollPhysics',
+              Colors.purple,
+              0.65,
+              'Snaps to page boundaries - used in PageView',
+            ),
 
             // Section 2: Bounce Zone Comparison
-            buildSectionHeader('Bounce Zone Behavior', Icons.unfold_more, Colors.teal),
+            buildSectionHeader(
+              'Bounce Zone Behavior',
+              Icons.unfold_more,
+              Colors.teal,
+            ),
             Padding(
               padding: EdgeInsets.all(8),
               child: Text(
@@ -409,45 +506,185 @@ dynamic build(BuildContext context) {
             ),
 
             // Section 3: Scroll Position Displays
-            buildSectionHeader('Scroll Position States', Icons.location_on, Colors.deepPurple),
-            buildScrollPositionDisplay('Bouncing Physics Positions', Colors.blue, [
-              {'label': 'Resting position', 'value': '0.0', 'color': Colors.blue},
-              {'label': 'Over-scroll top', 'value': '-50.0', 'color': Colors.blue.shade300},
-              {'label': 'Mid content', 'value': '250.0', 'color': Colors.blue.shade600},
-              {'label': 'Near bottom', 'value': '480.0', 'color': Colors.blue.shade700},
-              {'label': 'Over-scroll bottom', 'value': '550.0', 'color': Colors.blue.shade300},
-            ]),
-            buildScrollPositionDisplay('Clamping Physics Positions', Colors.green, [
-              {'label': 'Min extent', 'value': '0.0', 'color': Colors.green},
-              {'label': 'Quarter scroll', 'value': '125.0', 'color': Colors.green.shade400},
-              {'label': 'Half scroll', 'value': '250.0', 'color': Colors.green.shade600},
-              {'label': 'Three-quarter', 'value': '375.0', 'color': Colors.green.shade700},
-              {'label': 'Max extent', 'value': '500.0', 'color': Colors.green.shade800},
-            ]),
-            buildScrollPositionDisplay('Page Physics Positions', Colors.purple, [
-              {'label': 'Page 0', 'value': '0.0', 'color': Colors.purple.shade300},
-              {'label': 'Page 1', 'value': '375.0', 'color': Colors.purple.shade400},
-              {'label': 'Page 2', 'value': '750.0', 'color': Colors.purple.shade500},
-              {'label': 'Page 3', 'value': '1125.0', 'color': Colors.purple.shade600},
-              {'label': 'Page 4', 'value': '1500.0', 'color': Colors.purple.shade700},
-            ]),
+            buildSectionHeader(
+              'Scroll Position States',
+              Icons.location_on,
+              Colors.deepPurple,
+            ),
+            buildScrollPositionDisplay(
+              'Bouncing Physics Positions',
+              Colors.blue,
+              [
+                {
+                  'label': 'Resting position',
+                  'value': '0.0',
+                  'color': Colors.blue,
+                },
+                {
+                  'label': 'Over-scroll top',
+                  'value': '-50.0',
+                  'color': Colors.blue.shade300,
+                },
+                {
+                  'label': 'Mid content',
+                  'value': '250.0',
+                  'color': Colors.blue.shade600,
+                },
+                {
+                  'label': 'Near bottom',
+                  'value': '480.0',
+                  'color': Colors.blue.shade700,
+                },
+                {
+                  'label': 'Over-scroll bottom',
+                  'value': '550.0',
+                  'color': Colors.blue.shade300,
+                },
+              ],
+            ),
+            buildScrollPositionDisplay(
+              'Clamping Physics Positions',
+              Colors.green,
+              [
+                {'label': 'Min extent', 'value': '0.0', 'color': Colors.green},
+                {
+                  'label': 'Quarter scroll',
+                  'value': '125.0',
+                  'color': Colors.green.shade400,
+                },
+                {
+                  'label': 'Half scroll',
+                  'value': '250.0',
+                  'color': Colors.green.shade600,
+                },
+                {
+                  'label': 'Three-quarter',
+                  'value': '375.0',
+                  'color': Colors.green.shade700,
+                },
+                {
+                  'label': 'Max extent',
+                  'value': '500.0',
+                  'color': Colors.green.shade800,
+                },
+              ],
+            ),
+            buildScrollPositionDisplay(
+              'Page Physics Positions',
+              Colors.purple,
+              [
+                {
+                  'label': 'Page 0',
+                  'value': '0.0',
+                  'color': Colors.purple.shade300,
+                },
+                {
+                  'label': 'Page 1',
+                  'value': '375.0',
+                  'color': Colors.purple.shade400,
+                },
+                {
+                  'label': 'Page 2',
+                  'value': '750.0',
+                  'color': Colors.purple.shade500,
+                },
+                {
+                  'label': 'Page 3',
+                  'value': '1125.0',
+                  'color': Colors.purple.shade600,
+                },
+                {
+                  'label': 'Page 4',
+                  'value': '1500.0',
+                  'color': Colors.purple.shade700,
+                },
+              ],
+            ),
 
             // Section 4: Scroll Track Visualizations
-            buildSectionHeader('Scroll Track Positions', Icons.linear_scale, Colors.brown),
-            buildScrollTrack('Bouncing - At start', Colors.blue.shade100, Colors.blue, 0.0, 40),
-            buildScrollTrack('Bouncing - Mid', Colors.blue.shade100, Colors.blue, 0.5, 40),
-            buildScrollTrack('Bouncing - At end', Colors.blue.shade100, Colors.blue, 1.0, 40),
-            buildScrollTrack('Clamping - At start', Colors.green.shade100, Colors.green, 0.0, 50),
-            buildScrollTrack('Clamping - Mid', Colors.green.shade100, Colors.green, 0.5, 50),
-            buildScrollTrack('Clamping - At end', Colors.green.shade100, Colors.green, 1.0, 50),
-            buildScrollTrack('Page - Page 0', Colors.purple.shade100, Colors.purple, 0.0, 60),
-            buildScrollTrack('Page - Page 1', Colors.purple.shade100, Colors.purple, 0.33, 60),
-            buildScrollTrack('Page - Page 2', Colors.purple.shade100, Colors.purple, 0.66, 60),
-            buildScrollTrack('Page - Page 3', Colors.purple.shade100, Colors.purple, 1.0, 60),
+            buildSectionHeader(
+              'Scroll Track Positions',
+              Icons.linear_scale,
+              Colors.brown,
+            ),
+            buildScrollTrack(
+              'Bouncing - At start',
+              Colors.blue.shade100,
+              Colors.blue,
+              0.0,
+              40,
+            ),
+            buildScrollTrack(
+              'Bouncing - Mid',
+              Colors.blue.shade100,
+              Colors.blue,
+              0.5,
+              40,
+            ),
+            buildScrollTrack(
+              'Bouncing - At end',
+              Colors.blue.shade100,
+              Colors.blue,
+              1.0,
+              40,
+            ),
+            buildScrollTrack(
+              'Clamping - At start',
+              Colors.green.shade100,
+              Colors.green,
+              0.0,
+              50,
+            ),
+            buildScrollTrack(
+              'Clamping - Mid',
+              Colors.green.shade100,
+              Colors.green,
+              0.5,
+              50,
+            ),
+            buildScrollTrack(
+              'Clamping - At end',
+              Colors.green.shade100,
+              Colors.green,
+              1.0,
+              50,
+            ),
+            buildScrollTrack(
+              'Page - Page 0',
+              Colors.purple.shade100,
+              Colors.purple,
+              0.0,
+              60,
+            ),
+            buildScrollTrack(
+              'Page - Page 1',
+              Colors.purple.shade100,
+              Colors.purple,
+              0.33,
+              60,
+            ),
+            buildScrollTrack(
+              'Page - Page 2',
+              Colors.purple.shade100,
+              Colors.purple,
+              0.66,
+              60,
+            ),
+            buildScrollTrack(
+              'Page - Page 3',
+              Colors.purple.shade100,
+              Colors.purple,
+              1.0,
+              60,
+            ),
             SizedBox(height: 8),
 
             // Section 5: Velocity Decay Patterns
-            buildSectionHeader('Velocity Decay Patterns', Icons.trending_down, Colors.deepOrange),
+            buildSectionHeader(
+              'Velocity Decay Patterns',
+              Icons.trending_down,
+              Colors.deepOrange,
+            ),
             Padding(
               padding: EdgeInsets.all(8),
               child: Text(
@@ -462,7 +699,11 @@ dynamic build(BuildContext context) {
             buildVelocityDecay('Page (Snap)', Colors.purple, 8),
 
             // Section 6: Spring Response Visualization
-            buildSectionHeader('Spring Response Curves', Icons.show_chart, Colors.cyan),
+            buildSectionHeader(
+              'Spring Response Curves',
+              Icons.show_chart,
+              Colors.cyan,
+            ),
             Padding(
               padding: EdgeInsets.all(8),
               child: Text(
@@ -470,15 +711,79 @@ dynamic build(BuildContext context) {
                 style: TextStyle(fontSize: 13, color: Colors.grey.shade600),
               ),
             ),
-            buildSpringResponse('Under-damped (iOS-like)', Colors.blue,
-                [1.0, 0.8, 0.5, 0.1, -0.3, -0.5, -0.3, 0.0, 0.2, 0.3, 0.2, 0.0, -0.1, -0.15, -0.1, 0.0, 0.05, 0.08, 0.04, 0.0]),
-            buildSpringResponse('Critically Damped', Colors.green,
-                [1.0, 0.7, 0.45, 0.25, 0.12, 0.05, 0.02, 0.01, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]),
-            buildSpringResponse('Over-damped', Colors.orange,
-                [1.0, 0.85, 0.72, 0.6, 0.5, 0.42, 0.35, 0.28, 0.22, 0.17, 0.13, 0.1, 0.07, 0.05, 0.03, 0.02, 0.01, 0.005, 0.0, 0.0]),
+            buildSpringResponse('Under-damped (iOS-like)', Colors.blue, [
+              1.0,
+              0.8,
+              0.5,
+              0.1,
+              -0.3,
+              -0.5,
+              -0.3,
+              0.0,
+              0.2,
+              0.3,
+              0.2,
+              0.0,
+              -0.1,
+              -0.15,
+              -0.1,
+              0.0,
+              0.05,
+              0.08,
+              0.04,
+              0.0,
+            ]),
+            buildSpringResponse('Critically Damped', Colors.green, [
+              1.0,
+              0.7,
+              0.45,
+              0.25,
+              0.12,
+              0.05,
+              0.02,
+              0.01,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+            ]),
+            buildSpringResponse('Over-damped', Colors.orange, [
+              1.0,
+              0.85,
+              0.72,
+              0.6,
+              0.5,
+              0.42,
+              0.35,
+              0.28,
+              0.22,
+              0.17,
+              0.13,
+              0.1,
+              0.07,
+              0.05,
+              0.03,
+              0.02,
+              0.01,
+              0.005,
+              0.0,
+              0.0,
+            ]),
 
             // Section 7: Live Physics Demo
-            buildSectionHeader('Live Scroll Physics Demo', Icons.touch_app, Colors.pink),
+            buildSectionHeader(
+              'Live Scroll Physics Demo',
+              Icons.touch_app,
+              Colors.pink,
+            ),
             Padding(
               padding: EdgeInsets.all(8),
               child: Text(
@@ -504,8 +809,14 @@ dynamic build(BuildContext context) {
                       children: [
                         Icon(Icons.arrow_upward, color: Colors.white, size: 14),
                         SizedBox(width: 4),
-                        Text('BouncingScrollPhysics - Try scrolling!',
-                            style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold)),
+                        Text(
+                          'BouncingScrollPhysics - Try scrolling!',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -516,12 +827,22 @@ dynamic build(BuildContext context) {
                       itemBuilder: (ctx, i) {
                         return Container(
                           height: 36,
-                          margin: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                          margin: EdgeInsets.symmetric(
+                            horizontal: 4,
+                            vertical: 2,
+                          ),
                           decoration: BoxDecoration(
-                            color: Colors.blue.withValues(alpha: 0.1 + (i % 5) * 0.15),
+                            color: Colors.blue.withValues(
+                              alpha: 0.1 + (i % 5) * 0.15,
+                            ),
                             borderRadius: BorderRadius.circular(4),
                           ),
-                          child: Center(child: Text('Bouncing Item $i', style: TextStyle(fontSize: 12))),
+                          child: Center(
+                            child: Text(
+                              'Bouncing Item $i',
+                              style: TextStyle(fontSize: 12),
+                            ),
+                          ),
                         );
                       },
                     ),
@@ -547,8 +868,14 @@ dynamic build(BuildContext context) {
                       children: [
                         Icon(Icons.arrow_upward, color: Colors.white, size: 14),
                         SizedBox(width: 4),
-                        Text('ClampingScrollPhysics - Try scrolling!',
-                            style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold)),
+                        Text(
+                          'ClampingScrollPhysics - Try scrolling!',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -559,12 +886,22 @@ dynamic build(BuildContext context) {
                       itemBuilder: (ctx, i) {
                         return Container(
                           height: 36,
-                          margin: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                          margin: EdgeInsets.symmetric(
+                            horizontal: 4,
+                            vertical: 2,
+                          ),
                           decoration: BoxDecoration(
-                            color: Colors.green.withValues(alpha: 0.1 + (i % 5) * 0.15),
+                            color: Colors.green.withValues(
+                              alpha: 0.1 + (i % 5) * 0.15,
+                            ),
                             borderRadius: BorderRadius.circular(4),
                           ),
-                          child: Center(child: Text('Clamping Item $i', style: TextStyle(fontSize: 12))),
+                          child: Center(
+                            child: Text(
+                              'Clamping Item $i',
+                              style: TextStyle(fontSize: 12),
+                            ),
+                          ),
                         );
                       },
                     ),
@@ -590,8 +927,14 @@ dynamic build(BuildContext context) {
                       children: [
                         Icon(Icons.block, color: Colors.white, size: 14),
                         SizedBox(width: 4),
-                        Text('NeverScrollableScrollPhysics - Cannot scroll!',
-                            style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold)),
+                        Text(
+                          'NeverScrollableScrollPhysics - Cannot scroll!',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -602,12 +945,22 @@ dynamic build(BuildContext context) {
                       itemBuilder: (ctx, i) {
                         return Container(
                           height: 36,
-                          margin: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                          margin: EdgeInsets.symmetric(
+                            horizontal: 4,
+                            vertical: 2,
+                          ),
                           decoration: BoxDecoration(
-                            color: Colors.red.withValues(alpha: 0.1 + (i % 5) * 0.15),
+                            color: Colors.red.withValues(
+                              alpha: 0.1 + (i % 5) * 0.15,
+                            ),
                             borderRadius: BorderRadius.circular(4),
                           ),
-                          child: Center(child: Text('Locked Item $i', style: TextStyle(fontSize: 12))),
+                          child: Center(
+                            child: Text(
+                              'Locked Item $i',
+                              style: TextStyle(fontSize: 12),
+                            ),
+                          ),
                         );
                       },
                     ),
@@ -617,7 +970,11 @@ dynamic build(BuildContext context) {
             ),
 
             // Section 8: Physics Chaining
-            buildSectionHeader('Physics Chaining', Icons.link, Colors.amber.shade800),
+            buildSectionHeader(
+              'Physics Chaining',
+              Icons.link,
+              Colors.amber.shade800,
+            ),
             Padding(
               padding: EdgeInsets.all(8),
               child: Text(
@@ -646,11 +1003,23 @@ dynamic build(BuildContext context) {
                           ),
                           child: Column(
                             children: [
-                              Text('Bouncing', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+                              Text(
+                                'Bouncing',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
+                                ),
+                              ),
                               Icon(Icons.arrow_downward, size: 16),
                               Text('Always', style: TextStyle(fontSize: 11)),
                               SizedBox(height: 4),
-                              Text('iOS + always scrollable', style: TextStyle(fontSize: 10, color: Colors.grey)),
+                              Text(
+                                'iOS + always scrollable',
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  color: Colors.grey,
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -665,11 +1034,23 @@ dynamic build(BuildContext context) {
                           ),
                           child: Column(
                             children: [
-                              Text('Clamping', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+                              Text(
+                                'Clamping',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
+                                ),
+                              ),
                               Icon(Icons.arrow_downward, size: 16),
                               Text('Always', style: TextStyle(fontSize: 11)),
                               SizedBox(height: 4),
-                              Text('Android + always scrollable', style: TextStyle(fontSize: 10, color: Colors.grey)),
+                              Text(
+                                'Android + always scrollable',
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  color: Colors.grey,
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -684,11 +1065,23 @@ dynamic build(BuildContext context) {
                           ),
                           child: Column(
                             children: [
-                              Text('Page', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+                              Text(
+                                'Page',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
+                                ),
+                              ),
                               Icon(Icons.arrow_downward, size: 16),
                               Text('Bouncing', style: TextStyle(fontSize: 11)),
                               SizedBox(height: 4),
-                              Text('Page snap + iOS bounce', style: TextStyle(fontSize: 10, color: Colors.grey)),
+                              Text(
+                                'Page snap + iOS bounce',
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  color: Colors.grey,
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -700,7 +1093,11 @@ dynamic build(BuildContext context) {
             ),
 
             // Section 9: Tolerance Values Table
-            buildSectionHeader('Physics Tolerance Values', Icons.tune, Colors.blueGrey),
+            buildSectionHeader(
+              'Physics Tolerance Values',
+              Icons.tune,
+              Colors.blueGrey,
+            ),
             Container(
               margin: EdgeInsets.all(8),
               child: Table(
@@ -715,30 +1112,108 @@ dynamic build(BuildContext context) {
                   TableRow(
                     decoration: BoxDecoration(color: Colors.blueGrey.shade100),
                     children: [
-                      Padding(padding: EdgeInsets.all(6), child: Text('Physics', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                      Padding(padding: EdgeInsets.all(6), child: Text('Distance', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                      Padding(padding: EdgeInsets.all(6), child: Text('Velocity', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                      Padding(padding: EdgeInsets.all(6), child: Text('Time', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                      Padding(
+                        padding: EdgeInsets.all(6),
+                        child: Text(
+                          'Physics',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 11,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(6),
+                        child: Text(
+                          'Distance',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 11,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(6),
+                        child: Text(
+                          'Velocity',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 11,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(6),
+                        child: Text(
+                          'Time',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 11,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
-                  TableRow(children: [
-                    Padding(padding: EdgeInsets.all(6), child: Text('Bouncing', style: TextStyle(fontSize: 11))),
-                    Padding(padding: EdgeInsets.all(6), child: Text('0.01', style: TextStyle(fontSize: 11))),
-                    Padding(padding: EdgeInsets.all(6), child: Text('0.01', style: TextStyle(fontSize: 11))),
-                    Padding(padding: EdgeInsets.all(6), child: Text('0.01', style: TextStyle(fontSize: 11))),
-                  ]),
-                  TableRow(children: [
-                    Padding(padding: EdgeInsets.all(6), child: Text('Clamping', style: TextStyle(fontSize: 11))),
-                    Padding(padding: EdgeInsets.all(6), child: Text('0.01', style: TextStyle(fontSize: 11))),
-                    Padding(padding: EdgeInsets.all(6), child: Text('0.01', style: TextStyle(fontSize: 11))),
-                    Padding(padding: EdgeInsets.all(6), child: Text('0.01', style: TextStyle(fontSize: 11))),
-                  ]),
-                  TableRow(children: [
-                    Padding(padding: EdgeInsets.all(6), child: Text('Page', style: TextStyle(fontSize: 11))),
-                    Padding(padding: EdgeInsets.all(6), child: Text('0.01', style: TextStyle(fontSize: 11))),
-                    Padding(padding: EdgeInsets.all(6), child: Text('0.01', style: TextStyle(fontSize: 11))),
-                    Padding(padding: EdgeInsets.all(6), child: Text('0.01', style: TextStyle(fontSize: 11))),
-                  ]),
+                  TableRow(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.all(6),
+                        child: Text('Bouncing', style: TextStyle(fontSize: 11)),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(6),
+                        child: Text('0.01', style: TextStyle(fontSize: 11)),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(6),
+                        child: Text('0.01', style: TextStyle(fontSize: 11)),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(6),
+                        child: Text('0.01', style: TextStyle(fontSize: 11)),
+                      ),
+                    ],
+                  ),
+                  TableRow(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.all(6),
+                        child: Text('Clamping', style: TextStyle(fontSize: 11)),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(6),
+                        child: Text('0.01', style: TextStyle(fontSize: 11)),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(6),
+                        child: Text('0.01', style: TextStyle(fontSize: 11)),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(6),
+                        child: Text('0.01', style: TextStyle(fontSize: 11)),
+                      ),
+                    ],
+                  ),
+                  TableRow(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.all(6),
+                        child: Text('Page', style: TextStyle(fontSize: 11)),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(6),
+                        child: Text('0.01', style: TextStyle(fontSize: 11)),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(6),
+                        child: Text('0.01', style: TextStyle(fontSize: 11)),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(6),
+                        child: Text('0.01', style: TextStyle(fontSize: 11)),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -757,37 +1232,75 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Key Takeaways:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                  Text(
+                    'Key Takeaways:',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                  ),
                   SizedBox(height: 8),
-                  Row(children: [
-                    Icon(Icons.check_circle, color: Colors.blue, size: 16),
-                    SizedBox(width: 8),
-                    Expanded(child: Text('BouncingScrollPhysics: overscrolls with spring-back', style: TextStyle(fontSize: 12))),
-                  ]),
+                  Row(
+                    children: [
+                      Icon(Icons.check_circle, color: Colors.blue, size: 16),
+                      SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          'BouncingScrollPhysics: overscrolls with spring-back',
+                          style: TextStyle(fontSize: 12),
+                        ),
+                      ),
+                    ],
+                  ),
                   SizedBox(height: 4),
-                  Row(children: [
-                    Icon(Icons.check_circle, color: Colors.green, size: 16),
-                    SizedBox(width: 8),
-                    Expanded(child: Text('ClampingScrollPhysics: hard stop at edges', style: TextStyle(fontSize: 12))),
-                  ]),
+                  Row(
+                    children: [
+                      Icon(Icons.check_circle, color: Colors.green, size: 16),
+                      SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          'ClampingScrollPhysics: hard stop at edges',
+                          style: TextStyle(fontSize: 12),
+                        ),
+                      ),
+                    ],
+                  ),
                   SizedBox(height: 4),
-                  Row(children: [
-                    Icon(Icons.check_circle, color: Colors.red, size: 16),
-                    SizedBox(width: 8),
-                    Expanded(child: Text('NeverScrollable: no scrolling allowed', style: TextStyle(fontSize: 12))),
-                  ]),
+                  Row(
+                    children: [
+                      Icon(Icons.check_circle, color: Colors.red, size: 16),
+                      SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          'NeverScrollable: no scrolling allowed',
+                          style: TextStyle(fontSize: 12),
+                        ),
+                      ),
+                    ],
+                  ),
                   SizedBox(height: 4),
-                  Row(children: [
-                    Icon(Icons.check_circle, color: Colors.orange, size: 16),
-                    SizedBox(width: 8),
-                    Expanded(child: Text('AlwaysScrollable: scrolls even when content fits', style: TextStyle(fontSize: 12))),
-                  ]),
+                  Row(
+                    children: [
+                      Icon(Icons.check_circle, color: Colors.orange, size: 16),
+                      SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          'AlwaysScrollable: scrolls even when content fits',
+                          style: TextStyle(fontSize: 12),
+                        ),
+                      ),
+                    ],
+                  ),
                   SizedBox(height: 4),
-                  Row(children: [
-                    Icon(Icons.check_circle, color: Colors.purple, size: 16),
-                    SizedBox(width: 8),
-                    Expanded(child: Text('PageScrollPhysics: snaps to page boundaries', style: TextStyle(fontSize: 12))),
-                  ]),
+                  Row(
+                    children: [
+                      Icon(Icons.check_circle, color: Colors.purple, size: 16),
+                      SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          'PageScrollPhysics: snaps to page boundaries',
+                          style: TextStyle(fontSize: 12),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),

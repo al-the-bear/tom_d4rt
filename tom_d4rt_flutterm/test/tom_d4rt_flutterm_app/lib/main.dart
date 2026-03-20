@@ -961,17 +961,12 @@ class _D4rtTestPageState extends State<D4rtTestPage>
                 ),
                 Text(
                   '${lines.length} lines',
-                  style: const TextStyle(
-                    color: Colors.white38,
-                    fontSize: 11,
-                  ),
+                  style: const TextStyle(color: Colors.white38, fontSize: 11),
                 ),
                 const SizedBox(width: 12),
                 InkWell(
                   onTap: () {
-                    Clipboard.setData(
-                      ClipboardData(text: _currentSourceCode!),
-                    );
+                    Clipboard.setData(ClipboardData(text: _currentSourceCode!));
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text('Source copied to clipboard'),
@@ -1047,9 +1042,7 @@ class _D4rtTestPageState extends State<D4rtTestPage>
 
     while (pos < line.length) {
       // Single-line comment
-      if (pos < line.length - 1 &&
-          line[pos] == '/' &&
-          line[pos + 1] == '/') {
+      if (pos < line.length - 1 && line[pos] == '/' && line[pos + 1] == '/') {
         spans.add(
           TextSpan(
             text: line.substring(pos),
@@ -1106,8 +1099,7 @@ class _D4rtTestPageState extends State<D4rtTestPage>
               pos + 1 < line.length &&
               _isDigit(line[pos + 1]))) {
         var end = pos;
-        while (end < line.length &&
-            (_isDigit(line[end]) || line[end] == '.')) {
+        while (end < line.length && (_isDigit(line[end]) || line[end] == '.')) {
           end++;
         }
         spans.add(
@@ -1155,7 +1147,12 @@ class _D4rtTestPageState extends State<D4rtTestPage>
           color = const Color(0xFFD4D4D4);
         }
 
-        spans.add(TextSpan(text: word, style: TextStyle(color: color)));
+        spans.add(
+          TextSpan(
+            text: word,
+            style: TextStyle(color: color),
+          ),
+        );
         pos = end;
         continue;
       }
@@ -1173,7 +1170,8 @@ class _D4rtTestPageState extends State<D4rtTestPage>
     return spans;
   }
 
-  static bool _isDigit(String c) => c.codeUnitAt(0) >= 48 && c.codeUnitAt(0) <= 57;
+  static bool _isDigit(String c) =>
+      c.codeUnitAt(0) >= 48 && c.codeUnitAt(0) <= 57;
   static bool _isIdentStart(String c) {
     final code = c.codeUnitAt(0);
     return (code >= 65 && code <= 90) ||
@@ -1185,30 +1183,115 @@ class _D4rtTestPageState extends State<D4rtTestPage>
   static bool _isIdentChar(String c) => _isIdentStart(c) || _isDigit(c);
 
   static const _keywords = <String>{
-    'abstract', 'as', 'assert', 'async', 'await', 'break', 'case', 'catch',
-    'class', 'const', 'continue', 'covariant', 'default', 'deferred', 'do',
-    'dynamic', 'else', 'enum', 'export', 'extends', 'extension', 'external',
-    'factory', 'final', 'finally', 'for', 'Function', 'get', 'hide', 'if',
-    'implements', 'import', 'in', 'interface', 'is', 'late', 'library',
-    'mixin', 'new', 'on', 'operator', 'part', 'required', 'rethrow',
-    'return', 'sealed', 'set', 'show', 'static', 'super', 'switch',
-    'sync', 'this', 'throw', 'try', 'typedef', 'var', 'void', 'while',
-    'with', 'yield',
+    'abstract',
+    'as',
+    'assert',
+    'async',
+    'await',
+    'break',
+    'case',
+    'catch',
+    'class',
+    'const',
+    'continue',
+    'covariant',
+    'default',
+    'deferred',
+    'do',
+    'dynamic',
+    'else',
+    'enum',
+    'export',
+    'extends',
+    'extension',
+    'external',
+    'factory',
+    'final',
+    'finally',
+    'for',
+    'Function',
+    'get',
+    'hide',
+    'if',
+    'implements',
+    'import',
+    'in',
+    'interface',
+    'is',
+    'late',
+    'library',
+    'mixin',
+    'new',
+    'on',
+    'operator',
+    'part',
+    'required',
+    'rethrow',
+    'return',
+    'sealed',
+    'set',
+    'show',
+    'static',
+    'super',
+    'switch',
+    'sync',
+    'this',
+    'throw',
+    'try',
+    'typedef',
+    'var',
+    'void',
+    'while',
+    'with',
+    'yield',
   };
 
   static const _typeKeywords = <String>{
-    'bool', 'double', 'int', 'num', 'String', 'List', 'Map', 'Set',
-    'Future', 'Stream', 'Iterable', 'Object', 'Never', 'Null', 'Type',
-    'Widget', 'BuildContext', 'State', 'StatelessWidget', 'StatefulWidget',
-    'Key', 'Color', 'Size', 'Offset', 'Rect', 'EdgeInsets', 'TextStyle',
-    'BoxDecoration', 'BorderRadius', 'Alignment', 'Container', 'Column',
-    'Row', 'Expanded', 'SizedBox', 'Text', 'Icon', 'Padding', 'Center',
-    'Scaffold', 'AppBar', 'MaterialApp',
+    'bool',
+    'double',
+    'int',
+    'num',
+    'String',
+    'List',
+    'Map',
+    'Set',
+    'Future',
+    'Stream',
+    'Iterable',
+    'Object',
+    'Never',
+    'Null',
+    'Type',
+    'Widget',
+    'BuildContext',
+    'State',
+    'StatelessWidget',
+    'StatefulWidget',
+    'Key',
+    'Color',
+    'Size',
+    'Offset',
+    'Rect',
+    'EdgeInsets',
+    'TextStyle',
+    'BoxDecoration',
+    'BorderRadius',
+    'Alignment',
+    'Container',
+    'Column',
+    'Row',
+    'Expanded',
+    'SizedBox',
+    'Text',
+    'Icon',
+    'Padding',
+    'Center',
+    'Scaffold',
+    'AppBar',
+    'MaterialApp',
   };
 
-  static const _builtinConstants = <String>{
-    'true', 'false', 'null',
-  };
+  static const _builtinConstants = <String>{'true', 'false', 'null'};
 }
 
 class _WaitingDisplay extends StatelessWidget {

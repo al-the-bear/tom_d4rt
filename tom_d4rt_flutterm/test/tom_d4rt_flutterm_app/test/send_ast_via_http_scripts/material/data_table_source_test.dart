@@ -68,11 +68,18 @@ Widget buildInfoRow(String label, String value) {
           width: 140,
           child: Text(
             label,
-            style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13, color: Color(0xFF616161)),
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 13,
+              color: Color(0xFF616161),
+            ),
           ),
         ),
         Expanded(
-          child: Text(value, style: TextStyle(fontSize: 13, color: Color(0xFF212121))),
+          child: Text(
+            value,
+            style: TextStyle(fontSize: 13, color: Color(0xFF212121)),
+          ),
         ),
       ],
     ),
@@ -113,7 +120,12 @@ Widget buildTableHeader(List<String> columns, List<int> flexes) {
 }
 
 // Helper: table data row
-Widget buildTableRow(List<String> values, List<int> flexes, bool isEven, bool isSelected) {
+Widget buildTableRow(
+  List<String> values,
+  List<int> flexes,
+  bool isEven,
+  bool isSelected,
+) {
   List<Widget> cells = [];
   for (int i = 0; i < values.length; i++) {
     cells.add(
@@ -134,8 +146,8 @@ Widget buildTableRow(List<String> values, List<int> flexes, bool isEven, bool is
       color: isSelected
           ? Color(0xFFE8EAF6)
           : isEven
-              ? Color(0xFFF5F5F5)
-              : Color(0xFFFFFFFF),
+          ? Color(0xFFF5F5F5)
+          : Color(0xFFFFFFFF),
       border: Border(bottom: BorderSide(color: Color(0xFFE0E0E0), width: 0.5)),
     ),
     child: Row(children: cells),
@@ -143,7 +155,12 @@ Widget buildTableRow(List<String> values, List<int> flexes, bool isEven, bool is
 }
 
 // Helper: selectable table row with checkbox
-Widget buildSelectableRow(List<String> values, List<int> flexes, bool isEven, bool isSelected) {
+Widget buildSelectableRow(
+  List<String> values,
+  List<int> flexes,
+  bool isEven,
+  bool isSelected,
+) {
   List<Widget> rowChildren = [
     Container(
       width: 40,
@@ -154,7 +171,10 @@ Widget buildSelectableRow(List<String> values, List<int> flexes, bool isEven, bo
           height: 20,
           decoration: BoxDecoration(
             color: isSelected ? Color(0xFF4527A0) : Color(0xFFFFFFFF),
-            border: Border.all(color: isSelected ? Color(0xFF4527A0) : Color(0xFFBDBDBD), width: 2),
+            border: Border.all(
+              color: isSelected ? Color(0xFF4527A0) : Color(0xFFBDBDBD),
+              width: 2,
+            ),
             borderRadius: BorderRadius.circular(3),
           ),
           child: isSelected
@@ -170,7 +190,10 @@ Widget buildSelectableRow(List<String> values, List<int> flexes, bool isEven, bo
         flex: i < flexes.length ? flexes[i] : 1,
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
-          child: Text(values[i], style: TextStyle(fontSize: 13, color: Color(0xFF212121))),
+          child: Text(
+            values[i],
+            style: TextStyle(fontSize: 13, color: Color(0xFF212121)),
+          ),
         ),
       ),
     );
@@ -180,8 +203,8 @@ Widget buildSelectableRow(List<String> values, List<int> flexes, bool isEven, bo
       color: isSelected
           ? Color(0xFFE8EAF6)
           : isEven
-              ? Color(0xFFF5F5F5)
-              : Color(0xFFFFFFFF),
+          ? Color(0xFFF5F5F5)
+          : Color(0xFFFFFFFF),
       border: Border(bottom: BorderSide(color: Color(0xFFE0E0E0), width: 0.5)),
     ),
     child: Row(children: rowChildren),
@@ -193,7 +216,14 @@ Widget buildSortableHeader(String label, bool isSorted, bool isAscending) {
   return Row(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text(label, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Color(0xFFFFFFFF))),
+      Text(
+        label,
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 13,
+          color: Color(0xFFFFFFFF),
+        ),
+      ),
       if (isSorted)
         Padding(
           padding: EdgeInsets.only(left: 4),
@@ -220,7 +250,11 @@ Widget buildNumericCell(String value, Color textColor) {
 }
 
 // Helper: pagination controls
-Widget buildPaginationControls(int currentPage, int totalPages, int rowsPerPage) {
+Widget buildPaginationControls(
+  int currentPage,
+  int totalPages,
+  int rowsPerPage,
+) {
   return Container(
     padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
     decoration: BoxDecoration(
@@ -240,14 +274,20 @@ Widget buildPaginationControls(int currentPage, int totalPages, int rowsPerPage)
         ),
         Row(
           children: [
-            Text('Rows per page: ', style: TextStyle(fontSize: 12, color: Color(0xFF757575))),
+            Text(
+              'Rows per page: ',
+              style: TextStyle(fontSize: 12, color: Color(0xFF757575)),
+            ),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
               decoration: BoxDecoration(
                 border: Border.all(color: Color(0xFFBDBDBD)),
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: Text(rowsPerPage.toString(), style: TextStyle(fontSize: 12)),
+              child: Text(
+                rowsPerPage.toString(),
+                style: TextStyle(fontSize: 12),
+              ),
             ),
           ],
         ),
@@ -255,25 +295,33 @@ Widget buildPaginationControls(int currentPage, int totalPages, int rowsPerPage)
           children: [
             IconButton(
               icon: Icon(Icons.first_page, size: 20),
-              onPressed: () { debugPrint('First page'); },
+              onPressed: () {
+                debugPrint('First page');
+              },
               padding: EdgeInsets.zero,
               constraints: BoxConstraints(minWidth: 32, minHeight: 32),
             ),
             IconButton(
               icon: Icon(Icons.chevron_left, size: 20),
-              onPressed: () { debugPrint('Previous page'); },
+              onPressed: () {
+                debugPrint('Previous page');
+              },
               padding: EdgeInsets.zero,
               constraints: BoxConstraints(minWidth: 32, minHeight: 32),
             ),
             IconButton(
               icon: Icon(Icons.chevron_right, size: 20),
-              onPressed: () { debugPrint('Next page'); },
+              onPressed: () {
+                debugPrint('Next page');
+              },
               padding: EdgeInsets.zero,
               constraints: BoxConstraints(minWidth: 32, minHeight: 32),
             ),
             IconButton(
               icon: Icon(Icons.last_page, size: 20),
-              onPressed: () { debugPrint('Last page'); },
+              onPressed: () {
+                debugPrint('Last page');
+              },
               padding: EdgeInsets.zero,
               constraints: BoxConstraints(minWidth: 32, minHeight: 32),
             ),
@@ -294,7 +342,11 @@ Widget buildCellWithIcon(IconData icon, String text, Color iconColor) {
         Icon(icon, size: 16, color: iconColor),
         SizedBox(width: 6),
         Flexible(
-          child: Text(text, style: TextStyle(fontSize: 13, color: Color(0xFF212121)), overflow: TextOverflow.ellipsis),
+          child: Text(
+            text,
+            style: TextStyle(fontSize: 13, color: Color(0xFF212121)),
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
       ],
     ),
@@ -309,7 +361,10 @@ Widget buildStatusChip(String label, Color bg, Color fg) {
       color: bg,
       borderRadius: BorderRadius.circular(12),
     ),
-    child: Text(label, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: fg)),
+    child: Text(
+      label,
+      style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: fg),
+    ),
   );
 }
 
@@ -327,10 +382,20 @@ Widget buildRowStateIndicator(String state, Color color) {
         Container(
           width: 10,
           height: 10,
-          decoration: BoxDecoration(color: Color(0xFFFFFFFF), shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: Color(0xFFFFFFFF),
+            shape: BoxShape.circle,
+          ),
         ),
         SizedBox(width: 8),
-        Text(state, style: TextStyle(fontSize: 13, color: Color(0xFFFFFFFF), fontWeight: FontWeight.w500)),
+        Text(
+          state,
+          style: TextStyle(
+            fontSize: 13,
+            color: Color(0xFFFFFFFF),
+            fontWeight: FontWeight.w500,
+          ),
+        ),
       ],
     ),
   );
@@ -359,15 +424,33 @@ dynamic build(BuildContext context) {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  buildInfoRow('rowCount', 'Total number of rows in the data source'),
-                  buildInfoRow('isRowCountApprox', 'Whether rowCount is approximate'),
-                  buildInfoRow('selectedRowCount', 'Number of currently selected rows'),
-                  buildInfoRow('getRow(index)', 'Returns DataRow for the given index'),
-                  buildInfoRow('notifyListeners', 'Notifies table to rebuild rows'),
+                  buildInfoRow(
+                    'rowCount',
+                    'Total number of rows in the data source',
+                  ),
+                  buildInfoRow(
+                    'isRowCountApprox',
+                    'Whether rowCount is approximate',
+                  ),
+                  buildInfoRow(
+                    'selectedRowCount',
+                    'Number of currently selected rows',
+                  ),
+                  buildInfoRow(
+                    'getRow(index)',
+                    'Returns DataRow for the given index',
+                  ),
+                  buildInfoRow(
+                    'notifyListeners',
+                    'Notifies table to rebuild rows',
+                  ),
                 ],
               ),
             ),
-            Text('Section 1: DataTableSource properties displayed', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 1: DataTableSource properties displayed',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 2: Basic Data Table
             buildSectionHeader('2. Basic Data Table'),
@@ -375,17 +458,58 @@ dynamic build(BuildContext context) {
               'Employee directory table',
               Column(
                 children: [
-                  buildTableHeader(['ID', 'Name', 'Department', 'Email'], [1, 2, 2, 3]),
-                  buildTableRow(['001', 'Alice Johnson', 'Engineering', 'alice@example.com'], [1, 2, 2, 3], false, false),
-                  buildTableRow(['002', 'Bob Smith', 'Marketing', 'bob@example.com'], [1, 2, 2, 3], true, false),
-                  buildTableRow(['003', 'Carol White', 'Design', 'carol@example.com'], [1, 2, 2, 3], false, false),
-                  buildTableRow(['004', 'David Brown', 'Sales', 'david@example.com'], [1, 2, 2, 3], true, false),
-                  buildTableRow(['005', 'Eve Davis', 'Engineering', 'eve@example.com'], [1, 2, 2, 3], false, false),
-                  buildTableRow(['006', 'Frank Miller', 'HR', 'frank@example.com'], [1, 2, 2, 3], true, false),
+                  buildTableHeader(
+                    ['ID', 'Name', 'Department', 'Email'],
+                    [1, 2, 2, 3],
+                  ),
+                  buildTableRow(
+                    [
+                      '001',
+                      'Alice Johnson',
+                      'Engineering',
+                      'alice@example.com',
+                    ],
+                    [1, 2, 2, 3],
+                    false,
+                    false,
+                  ),
+                  buildTableRow(
+                    ['002', 'Bob Smith', 'Marketing', 'bob@example.com'],
+                    [1, 2, 2, 3],
+                    true,
+                    false,
+                  ),
+                  buildTableRow(
+                    ['003', 'Carol White', 'Design', 'carol@example.com'],
+                    [1, 2, 2, 3],
+                    false,
+                    false,
+                  ),
+                  buildTableRow(
+                    ['004', 'David Brown', 'Sales', 'david@example.com'],
+                    [1, 2, 2, 3],
+                    true,
+                    false,
+                  ),
+                  buildTableRow(
+                    ['005', 'Eve Davis', 'Engineering', 'eve@example.com'],
+                    [1, 2, 2, 3],
+                    false,
+                    false,
+                  ),
+                  buildTableRow(
+                    ['006', 'Frank Miller', 'HR', 'frank@example.com'],
+                    [1, 2, 2, 3],
+                    true,
+                    false,
+                  ),
                 ],
               ),
             ),
-            Text('Section 2: Basic data table rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 2: Basic data table rendered',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 3: Selectable Rows
             buildSectionHeader('3. Selectable Rows'),
@@ -394,12 +518,42 @@ dynamic build(BuildContext context) {
               Column(
                 children: [
                   buildTableHeader(['Name', 'Role', 'Status'], [2, 2, 1]),
-                  buildSelectableRow(['Alice Johnson', 'Lead Engineer', 'Active'], [2, 2, 1], false, true),
-                  buildSelectableRow(['Bob Smith', 'Designer', 'Active'], [2, 2, 1], true, false),
-                  buildSelectableRow(['Carol White', 'Manager', 'Away'], [2, 2, 1], false, true),
-                  buildSelectableRow(['David Brown', 'Analyst', 'Active'], [2, 2, 1], true, false),
-                  buildSelectableRow(['Eve Davis', 'Developer', 'Offline'], [2, 2, 1], false, true),
-                  buildSelectableRow(['Frank Miller', 'Tester', 'Active'], [2, 2, 1], true, false),
+                  buildSelectableRow(
+                    ['Alice Johnson', 'Lead Engineer', 'Active'],
+                    [2, 2, 1],
+                    false,
+                    true,
+                  ),
+                  buildSelectableRow(
+                    ['Bob Smith', 'Designer', 'Active'],
+                    [2, 2, 1],
+                    true,
+                    false,
+                  ),
+                  buildSelectableRow(
+                    ['Carol White', 'Manager', 'Away'],
+                    [2, 2, 1],
+                    false,
+                    true,
+                  ),
+                  buildSelectableRow(
+                    ['David Brown', 'Analyst', 'Active'],
+                    [2, 2, 1],
+                    true,
+                    false,
+                  ),
+                  buildSelectableRow(
+                    ['Eve Davis', 'Developer', 'Offline'],
+                    [2, 2, 1],
+                    false,
+                    true,
+                  ),
+                  buildSelectableRow(
+                    ['Frank Miller', 'Tester', 'Active'],
+                    [2, 2, 1],
+                    true,
+                    false,
+                  ),
                 ],
               ),
             ),
@@ -410,26 +564,68 @@ dynamic build(BuildContext context) {
                 children: [
                   Column(
                     children: [
-                      Text('6', style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Color(0xFF4527A0))),
-                      Text('Total Rows', style: TextStyle(fontSize: 12, color: Color(0xFF757575))),
+                      Text(
+                        '6',
+                        style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF4527A0),
+                        ),
+                      ),
+                      Text(
+                        'Total Rows',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Color(0xFF757575),
+                        ),
+                      ),
                     ],
                   ),
                   Column(
                     children: [
-                      Text('3', style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Color(0xFF1976D2))),
-                      Text('Selected', style: TextStyle(fontSize: 12, color: Color(0xFF757575))),
+                      Text(
+                        '3',
+                        style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF1976D2),
+                        ),
+                      ),
+                      Text(
+                        'Selected',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Color(0xFF757575),
+                        ),
+                      ),
                     ],
                   ),
                   Column(
                     children: [
-                      Text('50%', style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Color(0xFF388E3C))),
-                      Text('Percentage', style: TextStyle(fontSize: 12, color: Color(0xFF757575))),
+                      Text(
+                        '50%',
+                        style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF388E3C),
+                        ),
+                      ),
+                      Text(
+                        'Percentage',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Color(0xFF757575),
+                        ),
+                      ),
                     ],
                   ),
                 ],
               ),
             ),
-            Text('Section 3: Selectable rows rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 3: Selectable rows rendered',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 4: Sortable Columns
             buildSectionHeader('4. Sortable Columns'),
@@ -448,9 +644,18 @@ dynamic build(BuildContext context) {
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
                     child: Row(
                       children: [
-                        Expanded(flex: 2, child: buildSortableHeader('Name', true, true)),
-                        Expanded(flex: 2, child: buildSortableHeader('Score', false, true)),
-                        Expanded(flex: 1, child: buildSortableHeader('Grade', false, true)),
+                        Expanded(
+                          flex: 2,
+                          child: buildSortableHeader('Name', true, true),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: buildSortableHeader('Score', false, true),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: buildSortableHeader('Grade', false, true),
+                        ),
                       ],
                     ),
                   ),
@@ -477,9 +682,18 @@ dynamic build(BuildContext context) {
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
                     child: Row(
                       children: [
-                        Expanded(flex: 2, child: buildSortableHeader('Name', false, true)),
-                        Expanded(flex: 2, child: buildSortableHeader('Score', true, false)),
-                        Expanded(flex: 1, child: buildSortableHeader('Grade', false, true)),
+                        Expanded(
+                          flex: 2,
+                          child: buildSortableHeader('Name', false, true),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: buildSortableHeader('Score', true, false),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: buildSortableHeader('Grade', false, true),
+                        ),
                       ],
                     ),
                   ),
@@ -491,7 +705,10 @@ dynamic build(BuildContext context) {
                 ],
               ),
             ),
-            Text('Section 4: Sortable columns rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 4: Sortable columns rendered',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 5: Numeric Data Table
             buildSectionHeader('5. Numeric Data Table'),
@@ -499,17 +716,49 @@ dynamic build(BuildContext context) {
               'Financial data with numeric alignment',
               Column(
                 children: [
-                  buildTableHeader(['Product', 'Units', 'Revenue', 'Profit'], [3, 1, 2, 2]),
+                  buildTableHeader(
+                    ['Product', 'Units', 'Revenue', 'Profit'],
+                    [3, 1, 2, 2],
+                  ),
                   Container(
                     decoration: BoxDecoration(
-                      border: Border(bottom: BorderSide(color: Color(0xFFE0E0E0), width: 0.5)),
+                      border: Border(
+                        bottom: BorderSide(
+                          color: Color(0xFFE0E0E0),
+                          width: 0.5,
+                        ),
+                      ),
                     ),
                     child: Row(
                       children: [
-                        Expanded(flex: 3, child: Container(padding: EdgeInsets.all(10), child: Text('Widget Pro', style: TextStyle(fontSize: 13)))),
-                        Expanded(flex: 1, child: buildNumericCell('1,245', Color(0xFF212121))),
-                        Expanded(flex: 2, child: buildNumericCell('\$124,500', Color(0xFF2E7D32))),
-                        Expanded(flex: 2, child: buildNumericCell('\$45,200', Color(0xFF2E7D32))),
+                        Expanded(
+                          flex: 3,
+                          child: Container(
+                            padding: EdgeInsets.all(10),
+                            child: Text(
+                              'Widget Pro',
+                              style: TextStyle(fontSize: 13),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: buildNumericCell('1,245', Color(0xFF212121)),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: buildNumericCell(
+                            '\$124,500',
+                            Color(0xFF2E7D32),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: buildNumericCell(
+                            '\$45,200',
+                            Color(0xFF2E7D32),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -517,29 +766,95 @@ dynamic build(BuildContext context) {
                     color: Color(0xFFF5F5F5),
                     child: Row(
                       children: [
-                        Expanded(flex: 3, child: Container(padding: EdgeInsets.all(10), child: Text('Gadget X', style: TextStyle(fontSize: 13)))),
-                        Expanded(flex: 1, child: buildNumericCell('892', Color(0xFF212121))),
-                        Expanded(flex: 2, child: buildNumericCell('\$89,200', Color(0xFF2E7D32))),
-                        Expanded(flex: 2, child: buildNumericCell('\$31,700', Color(0xFF2E7D32))),
+                        Expanded(
+                          flex: 3,
+                          child: Container(
+                            padding: EdgeInsets.all(10),
+                            child: Text(
+                              'Gadget X',
+                              style: TextStyle(fontSize: 13),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: buildNumericCell('892', Color(0xFF212121)),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: buildNumericCell(
+                            '\$89,200',
+                            Color(0xFF2E7D32),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: buildNumericCell(
+                            '\$31,700',
+                            Color(0xFF2E7D32),
+                          ),
+                        ),
                       ],
                     ),
                   ),
                   Row(
-                      children: [
-                        Expanded(flex: 3, child: Container(padding: EdgeInsets.all(10), child: Text('Service Plus', style: TextStyle(fontSize: 13)))),
-                        Expanded(flex: 1, child: buildNumericCell('3,421', Color(0xFF212121))),
-                        Expanded(flex: 2, child: buildNumericCell('\$342,100', Color(0xFF2E7D32))),
-                        Expanded(flex: 2, child: buildNumericCell('-\$12,300', Color(0xFFC62828))),
-                      ],
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child: Container(
+                          padding: EdgeInsets.all(10),
+                          child: Text(
+                            'Service Plus',
+                            style: TextStyle(fontSize: 13),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: buildNumericCell('3,421', Color(0xFF212121)),
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: buildNumericCell('\$342,100', Color(0xFF2E7D32)),
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: buildNumericCell('-\$12,300', Color(0xFFC62828)),
+                      ),
+                    ],
                   ),
                   Container(
                     color: Color(0xFFF5F5F5),
                     child: Row(
                       children: [
-                        Expanded(flex: 3, child: Container(padding: EdgeInsets.all(10), child: Text('Bundle Deal', style: TextStyle(fontSize: 13)))),
-                        Expanded(flex: 1, child: buildNumericCell('567', Color(0xFF212121))),
-                        Expanded(flex: 2, child: buildNumericCell('\$56,700', Color(0xFF2E7D32))),
-                        Expanded(flex: 2, child: buildNumericCell('\$22,400', Color(0xFF2E7D32))),
+                        Expanded(
+                          flex: 3,
+                          child: Container(
+                            padding: EdgeInsets.all(10),
+                            child: Text(
+                              'Bundle Deal',
+                              style: TextStyle(fontSize: 13),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: buildNumericCell('567', Color(0xFF212121)),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: buildNumericCell(
+                            '\$56,700',
+                            Color(0xFF2E7D32),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: buildNumericCell(
+                            '\$22,400',
+                            Color(0xFF2E7D32),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -554,17 +869,44 @@ dynamic build(BuildContext context) {
                     ),
                     child: Row(
                       children: [
-                        Expanded(flex: 3, child: Text('Total', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13))),
-                        Expanded(flex: 1, child: buildNumericCell('6,125', Color(0xFF4527A0))),
-                        Expanded(flex: 2, child: buildNumericCell('\$612,500', Color(0xFF4527A0))),
-                        Expanded(flex: 2, child: buildNumericCell('\$87,000', Color(0xFF4527A0))),
+                        Expanded(
+                          flex: 3,
+                          child: Text(
+                            'Total',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: buildNumericCell('6,125', Color(0xFF4527A0)),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: buildNumericCell(
+                            '\$612,500',
+                            Color(0xFF4527A0),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: buildNumericCell(
+                            '\$87,000',
+                            Color(0xFF4527A0),
+                          ),
+                        ),
                       ],
                     ),
                   ),
                 ],
               ),
             ),
-            Text('Section 5: Numeric data table rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 5: Numeric data table rendered',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 6: Pagination
             buildSectionHeader('6. Paginated DataTable'),
@@ -572,12 +914,40 @@ dynamic build(BuildContext context) {
               'Table with pagination controls',
               Column(
                 children: [
-                  buildTableHeader(['#', 'Item', 'Quantity', 'Price'], [1, 3, 1, 2]),
-                  buildTableRow(['11', 'Laptop Stand', '15', '\$29.99'], [1, 3, 1, 2], false, false),
-                  buildTableRow(['12', 'USB-C Hub', '42', '\$49.99'], [1, 3, 1, 2], true, false),
-                  buildTableRow(['13', 'Wireless Mouse', '103', '\$19.99'], [1, 3, 1, 2], false, false),
-                  buildTableRow(['14', 'Mechanical KB', '28', '\$89.99'], [1, 3, 1, 2], true, false),
-                  buildTableRow(['15', 'Monitor Arm', '7', '\$129.99'], [1, 3, 1, 2], false, false),
+                  buildTableHeader(
+                    ['#', 'Item', 'Quantity', 'Price'],
+                    [1, 3, 1, 2],
+                  ),
+                  buildTableRow(
+                    ['11', 'Laptop Stand', '15', '\$29.99'],
+                    [1, 3, 1, 2],
+                    false,
+                    false,
+                  ),
+                  buildTableRow(
+                    ['12', 'USB-C Hub', '42', '\$49.99'],
+                    [1, 3, 1, 2],
+                    true,
+                    false,
+                  ),
+                  buildTableRow(
+                    ['13', 'Wireless Mouse', '103', '\$19.99'],
+                    [1, 3, 1, 2],
+                    false,
+                    false,
+                  ),
+                  buildTableRow(
+                    ['14', 'Mechanical KB', '28', '\$89.99'],
+                    [1, 3, 1, 2],
+                    true,
+                    false,
+                  ),
+                  buildTableRow(
+                    ['15', 'Monitor Arm', '7', '\$129.99'],
+                    [1, 3, 1, 2],
+                    false,
+                    false,
+                  ),
                   buildPaginationControls(2, 10, 5),
                 ],
               ),
@@ -586,24 +956,38 @@ dynamic build(BuildContext context) {
               'Rows per page options',
               Row(
                 children: [
-                  Text('Rows per page: ', style: TextStyle(fontSize: 13, color: Color(0xFF616161))),
+                  Text(
+                    'Rows per page: ',
+                    style: TextStyle(fontSize: 13, color: Color(0xFF616161)),
+                  ),
                   SizedBox(width: 8),
                   ...[5, 10, 25, 50, 100].map((v) {
                     bool isActive = v == 10;
                     return Container(
                       margin: EdgeInsets.symmetric(horizontal: 4),
-                      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 6,
+                      ),
                       decoration: BoxDecoration(
                         color: isActive ? Color(0xFF4527A0) : Color(0xFFFFFFFF),
-                        border: Border.all(color: isActive ? Color(0xFF4527A0) : Color(0xFFBDBDBD)),
+                        border: Border.all(
+                          color: isActive
+                              ? Color(0xFF4527A0)
+                              : Color(0xFFBDBDBD),
+                        ),
                         borderRadius: BorderRadius.circular(4),
                       ),
                       child: Text(
                         v.toString(),
                         style: TextStyle(
                           fontSize: 12,
-                          color: isActive ? Color(0xFFFFFFFF) : Color(0xFF616161),
-                          fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
+                          color: isActive
+                              ? Color(0xFFFFFFFF)
+                              : Color(0xFF616161),
+                          fontWeight: isActive
+                              ? FontWeight.bold
+                              : FontWeight.normal,
                         ),
                       ),
                     );
@@ -611,7 +995,10 @@ dynamic build(BuildContext context) {
                 ],
               ),
             ),
-            Text('Section 6: Paginated table rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 6: Paginated table rendered',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 7: Mixed Cell Types
             buildSectionHeader('7. Mixed Cell Types'),
@@ -619,17 +1006,55 @@ dynamic build(BuildContext context) {
               'Table with icons, chips, and custom cell content',
               Column(
                 children: [
-                  buildTableHeader(['App', 'Status', 'Users', 'Health'], [2, 2, 1, 1]),
+                  buildTableHeader(
+                    ['App', 'Status', 'Users', 'Health'],
+                    [2, 2, 1, 1],
+                  ),
                   Container(
                     decoration: BoxDecoration(
-                      border: Border(bottom: BorderSide(color: Color(0xFFE0E0E0), width: 0.5)),
+                      border: Border(
+                        bottom: BorderSide(
+                          color: Color(0xFFE0E0E0),
+                          width: 0.5,
+                        ),
+                      ),
                     ),
                     child: Row(
                       children: [
-                        Expanded(flex: 2, child: buildCellWithIcon(Icons.cloud, 'Cloud API', Color(0xFF1976D2))),
-                        Expanded(flex: 2, child: Padding(padding: EdgeInsets.all(8), child: buildStatusChip('Running', Color(0xFFE8F5E9), Color(0xFF2E7D32)))),
-                        Expanded(flex: 1, child: buildNumericCell('12.4k', Color(0xFF212121))),
-                        Expanded(flex: 1, child: Padding(padding: EdgeInsets.all(8), child: Icon(Icons.check_circle, color: Color(0xFF4CAF50), size: 20))),
+                        Expanded(
+                          flex: 2,
+                          child: buildCellWithIcon(
+                            Icons.cloud,
+                            'Cloud API',
+                            Color(0xFF1976D2),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: Padding(
+                            padding: EdgeInsets.all(8),
+                            child: buildStatusChip(
+                              'Running',
+                              Color(0xFFE8F5E9),
+                              Color(0xFF2E7D32),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: buildNumericCell('12.4k', Color(0xFF212121)),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: Padding(
+                            padding: EdgeInsets.all(8),
+                            child: Icon(
+                              Icons.check_circle,
+                              color: Color(0xFF4CAF50),
+                              size: 20,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -637,36 +1062,129 @@ dynamic build(BuildContext context) {
                     color: Color(0xFFF5F5F5),
                     child: Row(
                       children: [
-                        Expanded(flex: 2, child: buildCellWithIcon(Icons.storage, 'Database', Color(0xFFF57C00))),
-                        Expanded(flex: 2, child: Padding(padding: EdgeInsets.all(8), child: buildStatusChip('Warning', Color(0xFFFFF3E0), Color(0xFFE65100)))),
-                        Expanded(flex: 1, child: buildNumericCell('8.2k', Color(0xFF212121))),
-                        Expanded(flex: 1, child: Padding(padding: EdgeInsets.all(8), child: Icon(Icons.warning, color: Color(0xFFF57C00), size: 20))),
+                        Expanded(
+                          flex: 2,
+                          child: buildCellWithIcon(
+                            Icons.storage,
+                            'Database',
+                            Color(0xFFF57C00),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: Padding(
+                            padding: EdgeInsets.all(8),
+                            child: buildStatusChip(
+                              'Warning',
+                              Color(0xFFFFF3E0),
+                              Color(0xFFE65100),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: buildNumericCell('8.2k', Color(0xFF212121)),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: Padding(
+                            padding: EdgeInsets.all(8),
+                            child: Icon(
+                              Icons.warning,
+                              color: Color(0xFFF57C00),
+                              size: 20,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
                   Row(
-                      children: [
-                        Expanded(flex: 2, child: buildCellWithIcon(Icons.web, 'Web Portal', Color(0xFF7B1FA2))),
-                        Expanded(flex: 2, child: Padding(padding: EdgeInsets.all(8), child: buildStatusChip('Stopped', Color(0xFFFFEBEE), Color(0xFFC62828)))),
-                        Expanded(flex: 1, child: buildNumericCell('0', Color(0xFFBDBDBD))),
-                        Expanded(flex: 1, child: Padding(padding: EdgeInsets.all(8), child: Icon(Icons.cancel, color: Color(0xFFD32F2F), size: 20))),
-                      ],
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: buildCellWithIcon(
+                          Icons.web,
+                          'Web Portal',
+                          Color(0xFF7B1FA2),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: buildStatusChip(
+                            'Stopped',
+                            Color(0xFFFFEBEE),
+                            Color(0xFFC62828),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: buildNumericCell('0', Color(0xFFBDBDBD)),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Icon(
+                            Icons.cancel,
+                            color: Color(0xFFD32F2F),
+                            size: 20,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   Container(
                     color: Color(0xFFF5F5F5),
                     child: Row(
                       children: [
-                        Expanded(flex: 2, child: buildCellWithIcon(Icons.memory, 'ML Pipeline', Color(0xFF00695C))),
-                        Expanded(flex: 2, child: Padding(padding: EdgeInsets.all(8), child: buildStatusChip('Running', Color(0xFFE8F5E9), Color(0xFF2E7D32)))),
-                        Expanded(flex: 1, child: buildNumericCell('3.1k', Color(0xFF212121))),
-                        Expanded(flex: 1, child: Padding(padding: EdgeInsets.all(8), child: Icon(Icons.check_circle, color: Color(0xFF4CAF50), size: 20))),
+                        Expanded(
+                          flex: 2,
+                          child: buildCellWithIcon(
+                            Icons.memory,
+                            'ML Pipeline',
+                            Color(0xFF00695C),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: Padding(
+                            padding: EdgeInsets.all(8),
+                            child: buildStatusChip(
+                              'Running',
+                              Color(0xFFE8F5E9),
+                              Color(0xFF2E7D32),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: buildNumericCell('3.1k', Color(0xFF212121)),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: Padding(
+                            padding: EdgeInsets.all(8),
+                            child: Icon(
+                              Icons.check_circle,
+                              color: Color(0xFF4CAF50),
+                              size: 20,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
                 ],
               ),
             ),
-            Text('Section 7: Mixed cell types rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 7: Mixed cell types rendered',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 8: Row States
             buildSectionHeader('8. DataRow States'),
@@ -695,7 +1213,10 @@ dynamic build(BuildContext context) {
                 ],
               ),
             ),
-            Text('Section 8: Row states rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 8: Row states rendered',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 9: Large Dataset Simulation
             buildSectionHeader('9. Large Dataset Info'),
@@ -713,7 +1234,14 @@ dynamic build(BuildContext context) {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Dataset Statistics', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Color(0xFF4527A0))),
+                        Text(
+                          'Dataset Statistics',
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF4527A0),
+                          ),
+                        ),
                         SizedBox(height: 8),
                         buildInfoRow('Total Rows', '10,000'),
                         buildInfoRow('Visible Rows', '25 (per page)'),
@@ -737,11 +1265,24 @@ dynamic build(BuildContext context) {
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Center(
-                              child: Text('10K', style: TextStyle(color: Color(0xFFFFFFFF), fontWeight: FontWeight.bold, fontSize: 16)),
+                              child: Text(
+                                '10K',
+                                style: TextStyle(
+                                  color: Color(0xFFFFFFFF),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
                             ),
                           ),
                           SizedBox(height: 4),
-                          Text('Rows', style: TextStyle(fontSize: 11, color: Color(0xFF757575))),
+                          Text(
+                            'Rows',
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: Color(0xFF757575),
+                            ),
+                          ),
                         ],
                       ),
                       Column(
@@ -754,11 +1295,24 @@ dynamic build(BuildContext context) {
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Center(
-                              child: Text('15', style: TextStyle(color: Color(0xFFFFFFFF), fontWeight: FontWeight.bold, fontSize: 16)),
+                              child: Text(
+                                '15',
+                                style: TextStyle(
+                                  color: Color(0xFFFFFFFF),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
                             ),
                           ),
                           SizedBox(height: 4),
-                          Text('Cols', style: TextStyle(fontSize: 11, color: Color(0xFF757575))),
+                          Text(
+                            'Cols',
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: Color(0xFF757575),
+                            ),
+                          ),
                         ],
                       ),
                       Column(
@@ -771,11 +1325,24 @@ dynamic build(BuildContext context) {
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Center(
-                              child: Text('150K', style: TextStyle(color: Color(0xFFFFFFFF), fontWeight: FontWeight.bold, fontSize: 16)),
+                              child: Text(
+                                '150K',
+                                style: TextStyle(
+                                  color: Color(0xFFFFFFFF),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
                             ),
                           ),
                           SizedBox(height: 4),
-                          Text('Cells', style: TextStyle(fontSize: 11, color: Color(0xFF757575))),
+                          Text(
+                            'Cells',
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: Color(0xFF757575),
+                            ),
+                          ),
                         ],
                       ),
                     ],
@@ -783,7 +1350,10 @@ dynamic build(BuildContext context) {
                 ],
               ),
             ),
-            Text('Section 9: Large dataset info rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 9: Large dataset info rendered',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Summary
             buildSectionHeader('Summary'),
@@ -804,7 +1374,10 @@ dynamic build(BuildContext context) {
                 ],
               ),
             ),
-            Text('=== DataTableSource Deep Demo Complete ===', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              '=== DataTableSource Deep Demo Complete ===',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             SizedBox(height: 40),
           ],

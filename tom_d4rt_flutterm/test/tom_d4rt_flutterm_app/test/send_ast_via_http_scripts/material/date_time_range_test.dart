@@ -68,11 +68,18 @@ Widget buildInfoRow(String label, String value) {
           width: 130,
           child: Text(
             label,
-            style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13, color: Color(0xFF616161)),
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 13,
+              color: Color(0xFF616161),
+            ),
           ),
         ),
         Expanded(
-          child: Text(value, style: TextStyle(fontSize: 13, color: Color(0xFF212121))),
+          child: Text(
+            value,
+            style: TextStyle(fontSize: 13, color: Color(0xFF212121)),
+          ),
         ),
       ],
     ),
@@ -80,8 +87,27 @@ Widget buildInfoRow(String label, String value) {
 }
 
 // Helper: date display card
-Widget buildDateCard(String label, int year, int month, int day, Color accentColor) {
-  List<String> monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+Widget buildDateCard(
+  String label,
+  int year,
+  int month,
+  int day,
+  Color accentColor,
+) {
+  List<String> monthNames = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
   List<String> dayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   String monthStr = month > 0 && month <= 12 ? monthNames[month - 1] : '???';
   return Container(
@@ -91,7 +117,13 @@ Widget buildDateCard(String label, int year, int month, int day, Color accentCol
       color: Color(0xFFFFFFFF),
       borderRadius: BorderRadius.circular(8),
       border: Border.all(color: accentColor, width: 2),
-      boxShadow: [BoxShadow(color: Color(0x1A000000), blurRadius: 3, offset: Offset(0, 1))],
+      boxShadow: [
+        BoxShadow(
+          color: Color(0x1A000000),
+          blurRadius: 3,
+          offset: Offset(0, 1),
+        ),
+      ],
     ),
     child: Column(
       children: [
@@ -100,19 +132,46 @@ Widget buildDateCard(String label, int year, int month, int day, Color accentCol
           padding: EdgeInsets.symmetric(vertical: 4),
           decoration: BoxDecoration(
             color: accentColor,
-            borderRadius: BorderRadius.only(topLeft: Radius.circular(6), topRight: Radius.circular(6)),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(6),
+              topRight: Radius.circular(6),
+            ),
           ),
           child: Text(
             label,
-            style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 10, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              color: Color(0xFFFFFFFF),
+              fontSize: 10,
+              fontWeight: FontWeight.bold,
+            ),
             textAlign: TextAlign.center,
           ),
         ),
         SizedBox(height: 4),
-        Text(monthStr, style: TextStyle(fontSize: 12, color: accentColor, fontWeight: FontWeight.w600)),
-        Text(day.toString(), style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Color(0xFF212121))),
-        Text(year.toString(), style: TextStyle(fontSize: 12, color: Color(0xFF757575))),
-        Text(dayNames[day % 7], style: TextStyle(fontSize: 10, color: Color(0xFF9E9E9E))),
+        Text(
+          monthStr,
+          style: TextStyle(
+            fontSize: 12,
+            color: accentColor,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        Text(
+          day.toString(),
+          style: TextStyle(
+            fontSize: 28,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF212121),
+          ),
+        ),
+        Text(
+          year.toString(),
+          style: TextStyle(fontSize: 12, color: Color(0xFF757575)),
+        ),
+        Text(
+          dayNames[day % 7],
+          style: TextStyle(fontSize: 10, color: Color(0xFF9E9E9E)),
+        ),
         SizedBox(height: 4),
       ],
     ),
@@ -158,7 +217,15 @@ Widget buildRangeBar(String label, double start, double end, Color color) {
 }
 
 // Helper: calendar mini-month
-Widget buildMiniMonth(String monthName, int year, int startDay, int daysInMonth, int highlightStart, int highlightEnd, Color highlightColor) {
+Widget buildMiniMonth(
+  String monthName,
+  int year,
+  int startDay,
+  int daysInMonth,
+  int highlightStart,
+  int highlightEnd,
+  Color highlightColor,
+) {
   List<Widget> dayWidgets = [];
   List<String> weekdays = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
   for (int i = 0; i < weekdays.length; i++) {
@@ -167,7 +234,14 @@ Widget buildMiniMonth(String monthName, int year, int startDay, int daysInMonth,
         width: 28,
         height: 20,
         alignment: Alignment.center,
-        child: Text(weekdays[i], style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Color(0xFF757575))),
+        child: Text(
+          weekdays[i],
+          style: TextStyle(
+            fontSize: 10,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF757575),
+          ),
+        ),
       ),
     );
   }
@@ -204,7 +278,14 @@ Widget buildMiniMonth(String monthName, int year, int startDay, int daysInMonth,
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('$monthName $year', style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Color(0xFF424242))),
+      Text(
+        '$monthName $year',
+        style: TextStyle(
+          fontSize: 13,
+          fontWeight: FontWeight.bold,
+          color: Color(0xFF424242),
+        ),
+      ),
       SizedBox(height: 4),
       Wrap(children: dayWidgets),
     ],
@@ -223,7 +304,14 @@ Widget buildDurationDisplay(String label, int days, Color color) {
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(label, style: TextStyle(fontSize: 13, color: Color(0xFFFFFFFF), fontWeight: FontWeight.w500)),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 13,
+            color: Color(0xFFFFFFFF),
+            fontWeight: FontWeight.w500,
+          ),
+        ),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
           decoration: BoxDecoration(
@@ -232,7 +320,11 @@ Widget buildDurationDisplay(String label, int days, Color color) {
           ),
           child: Text(
             '$days days',
-            style: TextStyle(fontSize: 13, color: Color(0xFFFFFFFF), fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 13,
+              color: Color(0xFFFFFFFF),
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ],
@@ -241,7 +333,12 @@ Widget buildDurationDisplay(String label, int days, Color color) {
 }
 
 // Helper: timeline marker
-Widget buildTimelineMarker(String label, String date, bool isStart, Color color) {
+Widget buildTimelineMarker(
+  String label,
+  String date,
+  bool isStart,
+  Color color,
+) {
   return Row(
     children: [
       Column(
@@ -263,7 +360,14 @@ Widget buildTimelineMarker(String label, String date, bool isStart, Color color)
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label, style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Color(0xFF424242))),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF424242),
+            ),
+          ),
           Text(date, style: TextStyle(fontSize: 12, color: Color(0xFF757575))),
         ],
       ),
@@ -272,14 +376,22 @@ Widget buildTimelineMarker(String label, String date, bool isStart, Color color)
 }
 
 // Helper: overlap visualization
-Widget buildOverlapRow(String label, double startPct, double endPct, Color color) {
+Widget buildOverlapRow(
+  String label,
+  double startPct,
+  double endPct,
+  Color color,
+) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 3),
     child: Row(
       children: [
         SizedBox(
           width: 80,
-          child: Text(label, style: TextStyle(fontSize: 11, color: Color(0xFF424242))),
+          child: Text(
+            label,
+            style: TextStyle(fontSize: 11, color: Color(0xFF424242)),
+          ),
         ),
         Expanded(
           child: Container(
@@ -326,7 +438,10 @@ Widget buildComparisonChip(String text, Color bg, Color fg) {
       color: bg,
       borderRadius: BorderRadius.circular(16),
     ),
-    child: Text(text, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: fg)),
+    child: Text(
+      text,
+      style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: fg),
+    ),
   );
 }
 
@@ -362,7 +477,10 @@ dynamic build(BuildContext context) {
                 ],
               ),
             ),
-            Text('Section 1: Properties displayed', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 1: Properties displayed',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 2: Date Range Visualization
             buildSectionHeader('2. Date Range Visualization'),
@@ -376,8 +494,19 @@ dynamic build(BuildContext context) {
                     padding: EdgeInsets.symmetric(horizontal: 8),
                     child: Column(
                       children: [
-                        Icon(Icons.arrow_forward, color: Color(0xFF880E4F), size: 24),
-                        Text('15 days', style: TextStyle(fontSize: 11, color: Color(0xFF880E4F), fontWeight: FontWeight.bold)),
+                        Icon(
+                          Icons.arrow_forward,
+                          color: Color(0xFF880E4F),
+                          size: 24,
+                        ),
+                        Text(
+                          '15 days',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Color(0xFF880E4F),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -395,8 +524,19 @@ dynamic build(BuildContext context) {
                     padding: EdgeInsets.symmetric(horizontal: 8),
                     child: Column(
                       children: [
-                        Icon(Icons.arrow_forward, color: Color(0xFF4527A0), size: 24),
-                        Text('122 days', style: TextStyle(fontSize: 11, color: Color(0xFF4527A0), fontWeight: FontWeight.bold)),
+                        Icon(
+                          Icons.arrow_forward,
+                          color: Color(0xFF4527A0),
+                          size: 24,
+                        ),
+                        Text(
+                          '122 days',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Color(0xFF4527A0),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -404,7 +544,10 @@ dynamic build(BuildContext context) {
                 ],
               ),
             ),
-            Text('Section 2: Date ranges visualized', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 2: Date ranges visualized',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 3: Calendar Highlight
             buildSectionHeader('3. Calendar Range Highlight'),
@@ -416,7 +559,10 @@ dynamic build(BuildContext context) {
               'Range highlighted on mini calendar: Feb 5-14',
               buildMiniMonth('February', 2025, 6, 28, 5, 14, Color(0xFF4527A0)),
             ),
-            Text('Section 3: Calendar ranges rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 3: Calendar ranges rendered',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 4: Duration Display
             buildSectionHeader('4. Duration Calculations'),
@@ -424,9 +570,21 @@ dynamic build(BuildContext context) {
               'Duration of various date ranges',
               Column(
                 children: [
-                  buildDurationDisplay('Weekend (Sat-Sun)', 2, Color(0xFF880E4F)),
-                  buildDurationDisplay('Work Week (Mon-Fri)', 5, Color(0xFFAD1457)),
-                  buildDurationDisplay('Sprint (2 weeks)', 14, Color(0xFFC2185B)),
+                  buildDurationDisplay(
+                    'Weekend (Sat-Sun)',
+                    2,
+                    Color(0xFF880E4F),
+                  ),
+                  buildDurationDisplay(
+                    'Work Week (Mon-Fri)',
+                    5,
+                    Color(0xFFAD1457),
+                  ),
+                  buildDurationDisplay(
+                    'Sprint (2 weeks)',
+                    14,
+                    Color(0xFFC2185B),
+                  ),
                   buildDurationDisplay('Month (Jan)', 31, Color(0xFFD81B60)),
                   buildDurationDisplay('Quarter (Q1)', 90, Color(0xFFE91E63)),
                   buildDurationDisplay('Half Year', 183, Color(0xFFEC407A)),
@@ -434,7 +592,10 @@ dynamic build(BuildContext context) {
                 ],
               ),
             ),
-            Text('Section 4: Durations displayed', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 4: Durations displayed',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 5: Range Timeline
             buildSectionHeader('5. Range Timeline'),
@@ -448,33 +609,56 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    buildTimelineMarker('Project Start', 'January 15, 2025', false, Color(0xFF4CAF50)),
+                    buildTimelineMarker(
+                      'Project Start',
+                      'January 15, 2025',
+                      false,
+                      Color(0xFF4CAF50),
+                    ),
                     Container(
                       margin: EdgeInsets.only(left: 7),
                       width: 2,
                       height: 30,
                       color: Color(0xFFBDBDBD),
                     ),
-                    buildTimelineMarker('Phase 1 Complete', 'February 28, 2025', false, Color(0xFF1976D2)),
+                    buildTimelineMarker(
+                      'Phase 1 Complete',
+                      'February 28, 2025',
+                      false,
+                      Color(0xFF1976D2),
+                    ),
                     Container(
                       margin: EdgeInsets.only(left: 7),
                       width: 2,
                       height: 30,
                       color: Color(0xFFBDBDBD),
                     ),
-                    buildTimelineMarker('Phase 2 Complete', 'April 15, 2025', false, Color(0xFFF57C00)),
+                    buildTimelineMarker(
+                      'Phase 2 Complete',
+                      'April 15, 2025',
+                      false,
+                      Color(0xFFF57C00),
+                    ),
                     Container(
                       margin: EdgeInsets.only(left: 7),
                       width: 2,
                       height: 30,
                       color: Color(0xFFBDBDBD),
                     ),
-                    buildTimelineMarker('Project End', 'June 30, 2025', true, Color(0xFFD32F2F)),
+                    buildTimelineMarker(
+                      'Project End',
+                      'June 30, 2025',
+                      true,
+                      Color(0xFFD32F2F),
+                    ),
                   ],
                 ),
               ),
             ),
-            Text('Section 5: Timeline rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 5: Timeline rendered',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 6: Overlapping Ranges
             buildSectionHeader('6. Overlapping Ranges'),
@@ -488,14 +672,25 @@ dynamic build(BuildContext context) {
                   SizedBox(height: 8),
                   Row(
                     children: [
-                      buildComparisonChip('A overlaps B', Color(0xFFFCE4EC), Color(0xFF880E4F)),
-                      buildComparisonChip('B overlaps C', Color(0xFFEDE7F6), Color(0xFF4527A0)),
+                      buildComparisonChip(
+                        'A overlaps B',
+                        Color(0xFFFCE4EC),
+                        Color(0xFF880E4F),
+                      ),
+                      buildComparisonChip(
+                        'B overlaps C',
+                        Color(0xFFEDE7F6),
+                        Color(0xFF4527A0),
+                      ),
                     ],
                   ),
                 ],
               ),
             ),
-            Text('Section 6: Overlapping ranges rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 6: Overlapping ranges rendered',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 7: Range Comparison
             buildSectionHeader('7. Range Comparison'),
@@ -514,7 +709,14 @@ dynamic build(BuildContext context) {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Range A', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Color(0xFF880E4F))),
+                        Text(
+                          'Range A',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13,
+                            color: Color(0xFF880E4F),
+                          ),
+                        ),
                         buildInfoRow('start', '2025-01-01'),
                         buildInfoRow('end', '2025-01-31'),
                         buildInfoRow('duration', '30 days'),
@@ -531,7 +733,14 @@ dynamic build(BuildContext context) {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Range B', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Color(0xFF4527A0))),
+                        Text(
+                          'Range B',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13,
+                            color: Color(0xFF4527A0),
+                          ),
+                        ),
                         buildInfoRow('start', '2025-01-01'),
                         buildInfoRow('end', '2025-01-31'),
                         buildInfoRow('duration', '30 days'),
@@ -546,16 +755,29 @@ dynamic build(BuildContext context) {
                     ),
                     child: Row(
                       children: [
-                        Icon(Icons.check_circle, color: Color(0xFF4CAF50), size: 20),
+                        Icon(
+                          Icons.check_circle,
+                          color: Color(0xFF4CAF50),
+                          size: 20,
+                        ),
                         SizedBox(width: 8),
-                        Text('A == B: true (same start and end)', style: TextStyle(fontSize: 13, color: Color(0xFF2E7D32))),
+                        Text(
+                          'A == B: true (same start and end)',
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: Color(0xFF2E7D32),
+                          ),
+                        ),
                       ],
                     ),
                   ),
                 ],
               ),
             ),
-            Text('Section 7: Comparison rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 7: Comparison rendered',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 8: Range Use Cases
             buildSectionHeader('8. Common Use Cases'),
@@ -570,7 +792,14 @@ dynamic build(BuildContext context) {
                     child: Column(
                       children: [
                         Icon(Icons.hotel, color: Color(0xFF757575), size: 24),
-                        Text('3 nights', style: TextStyle(fontSize: 11, color: Color(0xFF757575), fontWeight: FontWeight.bold)),
+                        Text(
+                          '3 nights',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Color(0xFF757575),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -586,18 +815,29 @@ dynamic build(BuildContext context) {
                   buildDateCard('DAY 1', 2025, 9, 15, Color(0xFF1565C0)),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 6),
-                    child: Icon(Icons.arrow_forward, size: 16, color: Color(0xFFBDBDBD)),
+                    child: Icon(
+                      Icons.arrow_forward,
+                      size: 16,
+                      color: Color(0xFFBDBDBD),
+                    ),
                   ),
                   buildDateCard('DAY 2', 2025, 9, 16, Color(0xFF1976D2)),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 6),
-                    child: Icon(Icons.arrow_forward, size: 16, color: Color(0xFFBDBDBD)),
+                    child: Icon(
+                      Icons.arrow_forward,
+                      size: 16,
+                      color: Color(0xFFBDBDBD),
+                    ),
                   ),
                   buildDateCard('DAY 3', 2025, 9, 17, Color(0xFF1E88E5)),
                 ],
               ),
             ),
-            Text('Section 8: Use cases rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 8: Use cases rendered',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 9: Range Arithmetic
             buildSectionHeader('9. Range Arithmetic'),
@@ -617,7 +857,10 @@ dynamic build(BuildContext context) {
                 ],
               ),
             ),
-            Text('Section 9: Arithmetic displayed', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 9: Arithmetic displayed',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 10: Range Bar Chart
             buildSectionHeader('10. Range Duration Bar Chart'),
@@ -630,11 +873,19 @@ dynamic build(BuildContext context) {
                   buildRangeBar('Sprint 3 (14d)', 0.0, 0.14, Color(0xFFC2185B)),
                   buildRangeBar('Month (30d)', 0.0, 0.30, Color(0xFFD81B60)),
                   buildRangeBar('Quarter (90d)', 0.0, 0.90, Color(0xFFE91E63)),
-                  buildRangeBar('Full Year (365d)', 0.0, 1.0, Color(0xFFF06292)),
+                  buildRangeBar(
+                    'Full Year (365d)',
+                    0.0,
+                    1.0,
+                    Color(0xFFF06292),
+                  ),
                 ],
               ),
             ),
-            Text('Section 10: Bar chart rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 10: Bar chart rendered',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Section 11: Range Formatting
             buildSectionHeader('11. Range Formatting'),
@@ -649,11 +900,17 @@ dynamic build(BuildContext context) {
                   buildInfoRow('Compact', '15/01 - 30/01/25'),
                   buildInfoRow('Relative', 'In 15 days (starts in 5)'),
                   buildInfoRow('Duration only', '15 days'),
-                  buildInfoRow('toString()', 'DateTimeRange(2025-01-15 - 2025-01-30)'),
+                  buildInfoRow(
+                    'toString()',
+                    'DateTimeRange(2025-01-15 - 2025-01-30)',
+                  ),
                 ],
               ),
             ),
-            Text('Section 11: Formatting displayed', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Section 11: Formatting displayed',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             // Summary
             buildSectionHeader('Summary'),
@@ -676,7 +933,10 @@ dynamic build(BuildContext context) {
                 ],
               ),
             ),
-            Text('=== DateTimeRange Deep Demo Complete ===', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              '=== DateTimeRange Deep Demo Complete ===',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
 
             SizedBox(height: 40),
           ],
