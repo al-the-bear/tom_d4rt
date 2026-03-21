@@ -87,7 +87,7 @@ Widget _buildBasicTextItems() {
             isExpanded: true,
             underline: SizedBox(),
             items: items,
-            onChanged: (String value) {
+            onChanged: (String? value) {
               debugPrint('Selected: $value');
             },
           ),
@@ -144,7 +144,7 @@ Widget _buildIconAndTextItems() {
             isExpanded: true,
             underline: SizedBox(),
             items: items,
-            onChanged: (String value) {
+            onChanged: (String? value) {
               debugPrint('Selected location: $value');
             },
           ),
@@ -218,7 +218,7 @@ Widget _buildCustomChildItems() {
             isExpanded: true,
             underline: SizedBox(),
             items: items,
-            onChanged: (String value) {
+            onChanged: (String? value) {
               debugPrint('Selected person: $value');
             },
           ),
@@ -273,7 +273,7 @@ Widget _buildEnabledDisabledComparison() {
             isExpanded: true,
             underline: SizedBox(),
             items: items,
-            onChanged: (String value) {
+            onChanged: (String? value) {
               debugPrint('Selected: $value');
             },
           ),
@@ -348,7 +348,7 @@ Widget _buildCustomAlignmentItems() {
             isExpanded: true,
             underline: SizedBox(),
             items: items,
-            onChanged: (String value) {
+            onChanged: (String? value) {
               debugPrint('Aligned selection: $value');
             },
           ),
@@ -405,7 +405,7 @@ Widget _buildDifferentHeightItems() {
             isExpanded: true,
             underline: SizedBox(),
             items: items,
-            onChanged: (String value) {
+            onChanged: (String? value) {
               debugPrint('Size selected: $value');
             },
           ),
@@ -486,7 +486,7 @@ Widget _buildColoredBackgroundItems() {
             isExpanded: true,
             underline: SizedBox(),
             items: items,
-            onChanged: (String value) {
+            onChanged: (String? value) {
               debugPrint('Color selected: $value');
             },
           ),
@@ -563,7 +563,7 @@ Widget _buildPaddingVariationItems() {
             isExpanded: true,
             underline: SizedBox(),
             items: items,
-            onChanged: (String value) {
+            onChanged: (String? value) {
               debugPrint('Padding option: $value');
             },
           ),

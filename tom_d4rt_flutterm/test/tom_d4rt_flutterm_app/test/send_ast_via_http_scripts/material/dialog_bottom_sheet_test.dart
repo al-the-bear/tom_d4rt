@@ -136,6 +136,7 @@ dynamic build(BuildContext context) {
     ],
   );
   print('AboutDialog created');
+  print('  Type: $aboutDialog');
 
   // ========== LicensePage ==========
   print('--- LicensePage Tests ---');
@@ -146,6 +147,7 @@ dynamic build(BuildContext context) {
     applicationLegalese: '© 2024 Test Company',
   );
   print('LicensePage created');
+  print('  Type: $licensePage');
 
   // ========== OverflowBarAlignment ==========
   print('--- OverflowBarAlignment Tests ---');
@@ -208,6 +210,7 @@ dynamic build(BuildContext context) {
     initialEntryMode: DatePickerEntryMode.calendar,
   );
   print('DatePickerDialog created');
+  print('  Type: $datePicker');
 
   print('All dialog / bottom sheet tests passed');
 

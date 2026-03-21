@@ -67,7 +67,7 @@ Widget _buildInfoCard(String title, String description) {
   );
 }
 
-Widget _buildLabeledRow(String label, Widget child) {
+Widget buildLabeledRow(String label, Widget child) {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 6),
     child: Row(

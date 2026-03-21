@@ -1059,7 +1059,7 @@ dynamic build(BuildContext context) {
       subtitle: 'Zero borderRadius for a strictly rectangular look',
       decorTheme: squareTheme,
       labelText: 'Terminal Input',
-      hintText: '$ command...',
+      hintText: 'command...',
     ),
   );
   sections.add(

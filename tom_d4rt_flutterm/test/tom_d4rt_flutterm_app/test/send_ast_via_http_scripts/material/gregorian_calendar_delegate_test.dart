@@ -428,14 +428,16 @@ dynamic build(BuildContext context) {
   print('Oct: $octDays, Nov: $novDays, Dec: $decDays');
   print('Feb 2024 (leap): $febLeapDays');
 
-  print('--- DateUtils.firstDayOfMonth / lastDayOfMonth ---');
-  DateTime firstMarch = DateUtils.firstDayOfMonth(DateTime(2025, 3, 15));
-  DateTime lastMarch = DateUtils.lastDayOfMonth(DateTime(2025, 3, 15));
+  print('--- First/Last day of month calculations ---');
+  DateTime marchDate = DateTime(2025, 3, 15);
+  DateTime firstMarch = DateTime(marchDate.year, marchDate.month, 1);
+  DateTime lastMarch = DateTime(marchDate.year, marchDate.month + 1, 0);
   print('First of March 2025: $firstMarch');
   print('Last of March 2025: $lastMarch');
 
-  DateTime firstFeb = DateUtils.firstDayOfMonth(DateTime(2024, 2, 10));
-  DateTime lastFeb = DateUtils.lastDayOfMonth(DateTime(2024, 2, 10));
+  DateTime febDate = DateTime(2024, 2, 10);
+  DateTime firstFeb = DateTime(febDate.year, febDate.month, 1);
+  DateTime lastFeb = DateTime(febDate.year, febDate.month + 1, 0);
   print('First of Feb 2024: $firstFeb');
   print('Last of Feb 2024 (leap): $lastFeb');
 

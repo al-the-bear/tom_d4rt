@@ -219,7 +219,7 @@ Widget _buildDividerLine() {
   );
 }
 
-Widget _buildStatusBadge(String text, Color bgColor) {
+Widget buildStatusBadge(String text, Color bgColor) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
     decoration: BoxDecoration(

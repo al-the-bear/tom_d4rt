@@ -35,6 +35,7 @@ dynamic build(BuildContext context) {
     onDeleted: () {},
   );
   print('Chip with deleteIconColor created');
+  print('  Type: $deleteColorChip');
 
   // Test Chip with backgroundColor
   final bgColorChip = Chip(
@@ -58,6 +59,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(8.0),
   );
   print('Chip with padding created');
+  print('  Type: $paddedChip');
 
   // Test Chip with shape
   final shapedChip = Chip(
@@ -120,6 +122,7 @@ dynamic build(BuildContext context) {
     },
   );
   print('InputChip with onSelected created');
+  print('  Type: $selectableInputChip');
 
   // Test InputChip with onDeleted
   final deletableInputChip = InputChip(
@@ -203,6 +206,7 @@ dynamic build(BuildContext context) {
     onSelected: (selected) {},
   );
   print('FilterChip with backgroundColor created');
+  print('  Type: $bgFilterChip');
 
   // Test FilterChip with showCheckmark
   final noCheckFilterChip = FilterChip(
@@ -238,6 +242,7 @@ dynamic build(BuildContext context) {
     onSelected: (selected) {},
   );
   print('FilterChip with elevation created');
+  print('  Type: $elevatedFilterChip');
 
   // Test FilterChip with pressElevation
   final pressFilterChip = FilterChip(
@@ -247,6 +252,7 @@ dynamic build(BuildContext context) {
     onSelected: (selected) {},
   );
   print('FilterChip with pressElevation created');
+  print('  Type: $pressFilterChip');
 
   // ========== CHOICECHIP ==========
   print('--- ChoiceChip Tests ---');
@@ -304,6 +310,7 @@ dynamic build(BuildContext context) {
     onSelected: (selected) {},
   );
   print('ChoiceChip with labelStyle created');
+  print('  Type: $styleChoiceChip');
 
   // Test ChoiceChip with elevation
   final elevatedChoiceChip = ChoiceChip(
@@ -313,6 +320,7 @@ dynamic build(BuildContext context) {
     onSelected: (selected) {},
   );
   print('ChoiceChip with elevation created');
+  print('  Type: $elevatedChoiceChip');
 
   // Test ChoiceChip with shape
   final shapedChoiceChip = ChoiceChip(
@@ -366,6 +374,7 @@ dynamic build(BuildContext context) {
     onPressed: () {},
   );
   print('ActionChip with labelStyle created');
+  print('  Type: $styleActionChip');
 
   // Test ActionChip disabled
   final disabledActionChip = ActionChip(
@@ -381,6 +390,7 @@ dynamic build(BuildContext context) {
     onPressed: () {},
   );
   print('ActionChip with elevation created');
+  print('  Type: $elevatedActionChip');
 
   // Test ActionChip with pressElevation
   final pressActionChip = ActionChip(
@@ -389,6 +399,7 @@ dynamic build(BuildContext context) {
     onPressed: () {},
   );
   print('ActionChip with pressElevation created');
+  print('  Type: $pressActionChip');
 
   // Test ActionChip with side
   final sideActionChip = ActionChip(

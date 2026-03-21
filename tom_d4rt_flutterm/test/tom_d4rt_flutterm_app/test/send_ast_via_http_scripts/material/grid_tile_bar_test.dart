@@ -64,7 +64,7 @@ Widget _buildInfoCard(String label, String description) {
   );
 }
 
-Widget _buildSubHeader(String title) {
+Widget buildSubHeader(String title) {
   return Padding(
     padding: EdgeInsets.only(top: 12, bottom: 6),
     child: Row(
@@ -119,7 +119,7 @@ Widget _buildPropertyRow(String name, String value) {
   );
 }
 
-Widget _buildDemoContainer(String label, Widget child) {
+Widget buildDemoContainer(String label, Widget child) {
   return Container(
     width: double.infinity,
     margin: EdgeInsets.only(bottom: 12),
@@ -992,6 +992,7 @@ dynamic build(BuildContext context) {
     String name = colorNames[colorIndex];
     GridTileBar testBar = GridTileBar(backgroundColor: c, title: Text(name));
     print('  Created bar with $name background');
+    print('  Type: $testBar');
     colorIndex = colorIndex + 1;
   }
 
@@ -1002,6 +1003,7 @@ dynamic build(BuildContext context) {
     title: Text('Avatar leading'),
   );
   print('  Bar with CircleAvatar leading created');
+  print('  Type: $barWithCircleAvatar');
 
   final barWithRowTitle = GridTileBar(
     title: Row(
@@ -1013,6 +1015,7 @@ dynamic build(BuildContext context) {
     ),
   );
   print('  Bar with Row as title created');
+  print('  Type: $barWithRowTitle');
 
   final barWithTrailingRow = GridTileBar(
     title: Text('Multi trailing'),
@@ -1026,6 +1029,7 @@ dynamic build(BuildContext context) {
     ),
   );
   print('  Bar with Row as trailing created');
+  print('  Type: $barWithTrailingRow');
 
   print('');
   print('--- GridTile with Header and Footer ---');
@@ -1041,6 +1045,7 @@ dynamic build(BuildContext context) {
     child: Container(color: Colors.blue),
   );
   print('  GridTile with header and footer bar created');
+  print('  Type: $tileWithBoth');
 
   final tileFooterOnly = GridTile(
     footer: GridTileBar(
@@ -1051,6 +1056,7 @@ dynamic build(BuildContext context) {
     child: Container(color: Colors.green),
   );
   print('  GridTile with footer only created');
+  print('  Type: $tileFooterOnly');
 
   final tileHeaderOnly = GridTile(
     header: GridTileBar(
@@ -1061,6 +1067,7 @@ dynamic build(BuildContext context) {
     child: Container(color: Colors.orange),
   );
   print('  GridTile with header only created');
+  print('  Type: $tileHeaderOnly');
 
   print('');
   print('--- Standalone GridTileBar Rendering ---');

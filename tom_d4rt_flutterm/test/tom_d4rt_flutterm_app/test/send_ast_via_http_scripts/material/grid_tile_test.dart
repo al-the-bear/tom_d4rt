@@ -64,7 +64,7 @@ Widget _buildInfoCard(String label, String description) {
   );
 }
 
-Widget _buildSubHeader(String title) {
+Widget buildSubHeader(String title) {
   return Padding(
     padding: EdgeInsets.only(top: 12, bottom: 6),
     child: Row(
@@ -1414,6 +1414,7 @@ dynamic build(BuildContext context) {
     child: Container(color: Colors.teal),
   );
   print('  Standalone tile with overlays created');
+  print('  Type: $standaloneWithOverlays');
 
   print('');
   print('--- Header/Footer Flexibility ---');
@@ -1429,6 +1430,7 @@ dynamic build(BuildContext context) {
     child: Container(color: Color(0xFF8D6E63)),
   );
   print('  Custom container as header created');
+  print('  Type: $customHeaderTile');
 
   final customFooterTile = GridTile(
     footer: Container(
@@ -1443,6 +1445,7 @@ dynamic build(BuildContext context) {
     child: Container(color: Color(0xFF5D4037)),
   );
   print('  Custom gradient footer created');
+  print('  Type: $customFooterTile');
 
   print('');
   print('========================================');

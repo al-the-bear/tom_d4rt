@@ -919,7 +919,7 @@ void printIconDebugInfo() {
   int homeCode = Icons.home.codePoint;
   print('Icons.home codePoint: $homeCode');
 
-  String homeFontFamily = Icons.home.fontFamily;
+  String? homeFontFamily = Icons.home.fontFamily;
   print('Icons.home fontFamily: $homeFontFamily');
 
   bool homeMatchDirection = Icons.home.matchTextDirection;
@@ -967,7 +967,7 @@ void printIconDebugInfo() {
   int closeCode = Icons.close.codePoint;
   print('Icons.close codePoint: $closeCode');
 
-  String fontPkg = Icons.home.fontPackage;
+  String? fontPkg = Icons.home.fontPackage;
   print('Icons.home fontPackage: $fontPkg');
 
   print('=== End Icons Debug Info ===');

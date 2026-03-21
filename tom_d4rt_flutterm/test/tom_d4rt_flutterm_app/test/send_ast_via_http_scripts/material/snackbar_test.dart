@@ -7,6 +7,7 @@ dynamic build(BuildContext context) {
   // Variation 1: Basic SnackBar
   final widget1 = SnackBar(content: Text('Hello snackbar'));
   print('SnackBar(basic) created');
+  print('  Type: $widget1');
 
   // Variation 2: SnackBar with action
   final widget2 = SnackBar(
@@ -19,6 +20,7 @@ dynamic build(BuildContext context) {
     ),
   );
   print('SnackBar(with action) created');
+  print('  Type: $widget2');
 
   // Variation 3: SnackBar with background color
   final widget3 = SnackBar(
@@ -26,6 +28,7 @@ dynamic build(BuildContext context) {
     backgroundColor: Colors.green,
   );
   print('SnackBar(backgroundColor: green) created');
+  print('  Type: $widget3');
 
   // Variation 4: SnackBar with custom duration
   final widget4 = SnackBar(
@@ -33,6 +36,7 @@ dynamic build(BuildContext context) {
     duration: Duration(seconds: 5),
   );
   print('SnackBar(duration: 5s) created');
+  print('  Type: $widget4');
 
   // Variation 5: SnackBar with floating behavior
   final widget5 = SnackBar(
@@ -40,6 +44,7 @@ dynamic build(BuildContext context) {
     behavior: SnackBarBehavior.floating,
   );
   print('SnackBar(behavior: floating) created');
+  print('  Type: $widget5');
 
   // Variation 6: SnackBar with custom shape
   final widget6 = SnackBar(
@@ -47,6 +52,7 @@ dynamic build(BuildContext context) {
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
   );
   print('SnackBar(shape: RoundedRectangleBorder) created');
+  print('  Type: $widget6');
 
   print('SnackBar test completed');
   return Column(
