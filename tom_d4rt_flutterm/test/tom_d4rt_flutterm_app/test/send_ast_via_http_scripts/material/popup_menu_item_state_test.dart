@@ -348,10 +348,7 @@ Widget buildPopupMenuWithItems(
           },
           itemBuilder: (BuildContext context) {
             return items.map((String item) {
-              return PopupMenuItem<String>(
-                value: item,
-                child: Text(item),
-              );
+              return PopupMenuItem<String>(value: item, child: Text(item));
             }).toList();
           },
         ),
@@ -360,11 +357,7 @@ Widget buildPopupMenuWithItems(
   );
 }
 
-Widget buildTapHandlerDemo(
-  String label,
-  String tapAction,
-  Color color,
-) {
+Widget buildTapHandlerDemo(String label, String tapAction, Color color) {
   print('Building tap handler demo: $label');
   return Container(
     margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
@@ -422,11 +415,7 @@ Widget buildTapHandlerDemo(
   );
 }
 
-Widget buildContextAccessCard(
-  String contextType,
-  String usage,
-  Color color,
-) {
+Widget buildContextAccessCard(String contextType, String usage, Color color) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
     padding: EdgeInsets.all(12),
@@ -505,7 +494,11 @@ Widget buildWidgetReferenceCard(
             ],
           ),
         ),
-        Icon(Icons.arrow_forward_ios, color: color.withValues(alpha: 0.5), size: 14),
+        Icon(
+          Icons.arrow_forward_ios,
+          color: color.withValues(alpha: 0.5),
+          size: 14,
+        ),
       ],
     ),
   );
@@ -692,11 +685,13 @@ Widget buildMultipleItemStateRow(
       children: items.asMap().entries.map((entry) {
         int index = entry.key;
         Map<String, dynamic> item = entry.value;
-        Color itemColor = Color.lerp(
-          baseColor,
-          baseColor.withValues(alpha: 0.5),
-          index / items.length,
-        ) ?? baseColor;
+        Color itemColor =
+            Color.lerp(
+              baseColor,
+              baseColor.withValues(alpha: 0.5),
+              index / items.length,
+            ) ??
+            baseColor;
         return Expanded(
           child: Container(
             margin: EdgeInsets.only(right: index < items.length - 1 ? 4 : 0),
@@ -708,11 +703,7 @@ Widget buildMultipleItemStateRow(
             ),
             child: Column(
               children: [
-                Icon(
-                  item['icon'] as IconData,
-                  color: itemColor,
-                  size: 20,
-                ),
+                Icon(item['icon'] as IconData, color: itemColor, size: 20),
                 SizedBox(height: 4),
                 Text(
                   item['label'] as String,
@@ -805,11 +796,7 @@ Widget buildInteractiveShowcase(
   );
 }
 
-Widget buildEnabledDisabledDemo(
-  String label,
-  bool enabled,
-  Color color,
-) {
+Widget buildEnabledDisabledDemo(String label, bool enabled, Color color) {
   print('Building enabled/disabled demo: $label, enabled=$enabled');
   return Container(
     margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
@@ -852,7 +839,10 @@ Widget buildEnabledDisabledDemo(
           ),
         ),
         PopupMenuButton<String>(
-          icon: Icon(Icons.more_vert, color: enabled ? color : Colors.grey.shade400),
+          icon: Icon(
+            Icons.more_vert,
+            color: enabled ? color : Colors.grey.shade400,
+          ),
           onSelected: (String value) {
             print('Selected: $value');
           },
@@ -899,7 +889,11 @@ Widget buildHeightPaddingDemo(
             children: [
               Text(
                 'H: ${height.toInt()}',
-                style: TextStyle(fontSize: 10, color: color, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 10,
+                  color: color,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               Text(
                 'P: ${padding.horizontal.toInt()}',
@@ -1277,16 +1271,8 @@ dynamic build(BuildContext context) {
             'padding: EdgeInsets.symmetric(horizontal: 24)',
             Colors.pink,
           ),
-          buildEnabledDisabledDemo(
-            'Active Item',
-            true,
-            Colors.pink,
-          ),
-          buildEnabledDisabledDemo(
-            'Inactive Item',
-            false,
-            Colors.pink,
-          ),
+          buildEnabledDisabledDemo('Active Item', true, Colors.pink),
+          buildEnabledDisabledDemo('Inactive Item', false, Colors.pink),
           buildHeightPaddingDemo(
             'Standard Height',
             48.0,
@@ -1359,33 +1345,24 @@ dynamic build(BuildContext context) {
             Icons.grid_view,
             Colors.brown,
           ),
-          buildMultipleItemStateRow(
-            [
-              {'icon': Icons.add, 'label': 'Add'},
-              {'icon': Icons.remove, 'label': 'Remove'},
-              {'icon': Icons.edit, 'label': 'Edit'},
-              {'icon': Icons.delete, 'label': 'Delete'},
-            ],
-            Colors.brown,
-          ),
-          buildMultipleItemStateRow(
-            [
-              {'icon': Icons.home, 'label': 'Home'},
-              {'icon': Icons.work, 'label': 'Work'},
-              {'icon': Icons.favorite, 'label': 'Favorites'},
-            ],
-            Colors.teal,
-          ),
-          buildMultipleItemStateRow(
-            [
-              {'icon': Icons.folder, 'label': 'Folder'},
-              {'icon': Icons.file_copy, 'label': 'File'},
-              {'icon': Icons.cloud, 'label': 'Cloud'},
-              {'icon': Icons.devices, 'label': 'Device'},
-              {'icon': Icons.share, 'label': 'Share'},
-            ],
-            Colors.indigo,
-          ),
+          buildMultipleItemStateRow([
+            {'icon': Icons.add, 'label': 'Add'},
+            {'icon': Icons.remove, 'label': 'Remove'},
+            {'icon': Icons.edit, 'label': 'Edit'},
+            {'icon': Icons.delete, 'label': 'Delete'},
+          ], Colors.brown),
+          buildMultipleItemStateRow([
+            {'icon': Icons.home, 'label': 'Home'},
+            {'icon': Icons.work, 'label': 'Work'},
+            {'icon': Icons.favorite, 'label': 'Favorites'},
+          ], Colors.teal),
+          buildMultipleItemStateRow([
+            {'icon': Icons.folder, 'label': 'Folder'},
+            {'icon': Icons.file_copy, 'label': 'File'},
+            {'icon': Icons.cloud, 'label': 'Cloud'},
+            {'icon': Icons.devices, 'label': 'Device'},
+            {'icon': Icons.share, 'label': 'Share'},
+          ], Colors.indigo),
           buildPopupMenuWithItems(
             'Sort By',
             ['Name', 'Date', 'Size', 'Type', 'Modified'],
@@ -1489,7 +1466,11 @@ dynamic build(BuildContext context) {
                   value: 'settings',
                   child: Row(
                     children: [
-                      Icon(Icons.settings, color: Colors.grey.shade700, size: 20),
+                      Icon(
+                        Icons.settings,
+                        color: Colors.grey.shade700,
+                        size: 20,
+                      ),
                       SizedBox(width: 12),
                       Text('Settings'),
                     ],
@@ -1623,7 +1604,11 @@ dynamic build(BuildContext context) {
                   value: 'view_month',
                   child: Row(
                     children: [
-                      Icon(Icons.calendar_view_month, color: Colors.indigo, size: 20),
+                      Icon(
+                        Icons.calendar_view_month,
+                        color: Colors.indigo,
+                        size: 20,
+                      ),
                       SizedBox(width: 12),
                       Text('Month View'),
                     ],
@@ -1672,11 +1657,7 @@ dynamic build(BuildContext context) {
           ),
 
           // Summary section
-          buildSectionHeader(
-            'Summary',
-            Icons.summarize,
-            Colors.blueGrey,
-          ),
+          buildSectionHeader('Summary', Icons.summarize, Colors.blueGrey),
           buildInfoCard(
             'Key Takeaways',
             'PopupMenuItemState manages the internal state of each menu item including tap handling, enabled state, and build lifecycle',

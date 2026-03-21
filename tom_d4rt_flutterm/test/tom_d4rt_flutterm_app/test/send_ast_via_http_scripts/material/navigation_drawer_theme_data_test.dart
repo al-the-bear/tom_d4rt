@@ -570,7 +570,11 @@ Widget buildLabelTextStyleDemo() {
 
 Widget buildTileHeightDemo() {
   print('Building tile height demo');
-  List<String> heightLabels = ['Compact (40px)', 'Default (56px)', 'Spacious (72px)'];
+  List<String> heightLabels = [
+    'Compact (40px)',
+    'Default (56px)',
+    'Spacious (72px)',
+  ];
   List<double> heights = [40.0, 56.0, 72.0];
   List<Color> colors = [Colors.green, Colors.indigo, Colors.purple];
 
@@ -995,14 +999,8 @@ Widget buildThemeInheritanceDemo() {
           ),
         ),
         SizedBox(height: 16),
-        buildInfoCard(
-          'Access',
-          'NavigationDrawerTheme.of(context)',
-        ),
-        buildInfoCard(
-          'Override',
-          'Wrap with NavigationDrawerTheme widget',
-        ),
+        buildInfoCard('Access', 'NavigationDrawerTheme.of(context)'),
+        buildInfoCard('Override', 'Wrap with NavigationDrawerTheme widget'),
         buildInfoCard(
           'Fallback',
           'Uses defaults from NavigationDrawerThemeData()',
@@ -1077,10 +1075,7 @@ Widget buildPropertyReferenceGrid() {
               width: 100,
               child: Text(
                 propTypes[p],
-                style: TextStyle(
-                  fontSize: 11,
-                  color: Colors.teal.shade700,
-                ),
+                style: TextStyle(fontSize: 11, color: Colors.teal.shade700),
               ),
             ),
             Expanded(
@@ -1219,10 +1214,7 @@ dynamic build(BuildContext context) {
               'Tip 2',
               'Use WidgetStateProperty for state-based styles',
             ),
-            buildInfoCard(
-              'Tip 3',
-              'indicatorShape defaults to StadiumBorder',
-            ),
+            buildInfoCard('Tip 3', 'indicatorShape defaults to StadiumBorder'),
             buildInfoCard(
               'Tip 4',
               'Combine with NavigationRail for responsive layouts',

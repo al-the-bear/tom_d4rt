@@ -629,10 +629,7 @@ Widget buildMultiplePageSizesDemo() {
         ),
         Padding(
           padding: EdgeInsets.all(12),
-          child: Wrap(
-            spacing: 8,
-            children: _buildPageSizeChips(pageSizes),
-          ),
+          child: Wrap(spacing: 8, children: _buildPageSizeChips(pageSizes)),
         ),
       ],
     ),
@@ -784,10 +781,26 @@ Widget buildDataSourceIntegration() {
           ],
         ),
         SizedBox(height: 12),
-        _buildSourceProperty('rowCount', 'int', 'Total number of rows in data source'),
-        _buildSourceProperty('isRowCountApproximate', 'bool', 'Whether row count is exact or estimated'),
-        _buildSourceProperty('selectedRowCount', 'int', 'Number of currently selected rows'),
-        _buildSourceProperty('getRow(int index)', 'DataRow', 'Returns DataRow for given index'),
+        _buildSourceProperty(
+          'rowCount',
+          'int',
+          'Total number of rows in data source',
+        ),
+        _buildSourceProperty(
+          'isRowCountApproximate',
+          'bool',
+          'Whether row count is exact or estimated',
+        ),
+        _buildSourceProperty(
+          'selectedRowCount',
+          'int',
+          'Number of currently selected rows',
+        ),
+        _buildSourceProperty(
+          'getRow(int index)',
+          'DataRow',
+          'Returns DataRow for given index',
+        ),
         SizedBox(height: 12),
         Container(
           padding: EdgeInsets.all(12),
@@ -939,7 +952,11 @@ Widget buildStateAccessPatterns() {
 }
 
 Widget _buildPatternCard(
-    String title, String description, IconData icon, MaterialColor color) {
+  String title,
+  String description,
+  IconData icon,
+  MaterialColor color,
+) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 4),
     padding: EdgeInsets.all(12),
@@ -1043,11 +1060,23 @@ Widget buildPaginatedStateOverview() {
           ],
         ),
         SizedBox(height: 16),
-        buildPropertyRow('source', 'DataTableSource', 'Data provider for table rows'),
-        buildPropertyRow('rowsPerPage', 'int', 'Number of rows displayed per page'),
+        buildPropertyRow(
+          'source',
+          'DataTableSource',
+          'Data provider for table rows',
+        ),
+        buildPropertyRow(
+          'rowsPerPage',
+          'int',
+          'Number of rows displayed per page',
+        ),
         buildPropertyRow('sortColumnIndex', 'int?', 'Index of sorted column'),
         buildPropertyRow('sortAscending', 'bool', 'Sort direction flag'),
-        buildPropertyRow('onPageChanged', 'Function', 'Callback when page changes'),
+        buildPropertyRow(
+          'onPageChanged',
+          'Function',
+          'Callback when page changes',
+        ),
       ],
     ),
   );

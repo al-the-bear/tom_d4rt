@@ -96,7 +96,10 @@ Widget buildIndicatorOverview() {
                     ),
                     Text(
                       'Shows active item',
-                      style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.grey.shade600,
+                      ),
                     ),
                   ],
                 ),
@@ -124,7 +127,10 @@ Widget buildIndicatorOverview() {
                     ),
                     Text(
                       'Pill-shaped design',
-                      style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.grey.shade600,
+                      ),
                     ),
                   ],
                 ),
@@ -152,7 +158,10 @@ Widget buildIndicatorOverview() {
                     ),
                     Text(
                       'Smooth transitions',
-                      style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.grey.shade600,
+                      ),
                     ),
                   ],
                 ),
@@ -165,7 +174,11 @@ Widget buildIndicatorOverview() {
   );
 }
 
-Widget buildBasicIndicator(String label, Color indicatorColor, bool isSelected) {
+Widget buildBasicIndicator(
+  String label,
+  Color indicatorColor,
+  bool isSelected,
+) {
   print('Building basic indicator: $label');
   return Container(
     margin: EdgeInsets.symmetric(vertical: 6),
@@ -345,11 +358,7 @@ Widget buildStadiumShapeDemo() {
               borderRadius: BorderRadius.circular(heights[i] / 2),
             ),
             child: Center(
-              child: Icon(
-                Icons.circle,
-                size: 12,
-                color: Colors.white,
-              ),
+              child: Icon(Icons.circle, size: 12, color: Colors.white),
             ),
           ),
           SizedBox(height: 8),
@@ -391,10 +400,7 @@ Widget buildStadiumShapeDemo() {
           style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
         ),
         SizedBox(height: 16),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: shapes,
-        ),
+        Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: shapes),
         SizedBox(height: 16),
         Container(
           padding: EdgeInsets.all(12),
@@ -483,7 +489,10 @@ Widget buildDimensionsDemo() {
                     ),
                     Text(
                       'Horizontal pill',
-                      style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.grey.shade600,
+                      ),
                     ),
                   ],
                 ),
@@ -528,7 +537,10 @@ Widget buildDimensionsDemo() {
                     ),
                     Text(
                       'Compact pill',
-                      style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.grey.shade600,
+                      ),
                     ),
                   ],
                 ),
@@ -593,7 +605,10 @@ Widget buildDimensionsDemo() {
                     ),
                     Text(
                       'Text + icon',
-                      style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.grey.shade600,
+                      ),
                     ),
                   ],
                 ),
@@ -609,8 +624,18 @@ Widget buildDimensionsDemo() {
 Widget buildAnimatedIndicatorDemo() {
   print('Building animated indicator demonstration');
   List<int> positions = [0, 1, 2, 3];
-  List<String> stages = ['Position 1', 'Position 2', 'Position 3', 'Position 4'];
-  List<IconData> icons = [Icons.home, Icons.search, Icons.favorite, Icons.person];
+  List<String> stages = [
+    'Position 1',
+    'Position 2',
+    'Position 3',
+    'Position 4',
+  ];
+  List<IconData> icons = [
+    Icons.home,
+    Icons.search,
+    Icons.favorite,
+    Icons.person,
+  ];
 
   List<Widget> rows = [];
   int p = 0;
@@ -754,7 +779,9 @@ Widget buildMultipleIndicatorsRow() {
                 child: Icon(
                   icons[i],
                   size: 20,
-                  color: selected[i] ? colors[i].shade700 : Colors.grey.shade500,
+                  color: selected[i]
+                      ? colors[i].shade700
+                      : Colors.grey.shade500,
                 ),
               ),
             ),
@@ -1040,11 +1067,7 @@ Widget buildCustomIndicatorStyling() {
                 ),
               ),
               child: Center(
-                child: Icon(
-                  Icons.star,
-                  size: 18,
-                  color: iconColors[i],
-                ),
+                child: Icon(Icons.star, size: 18, color: iconColors[i]),
               ),
             ),
             SizedBox(width: 16),
@@ -1129,10 +1152,7 @@ Widget buildIndicatorProperties() {
         ),
         SizedBox(height: 16),
         Table(
-          columnWidths: {
-            0: FlexColumnWidth(1),
-            1: FlexColumnWidth(2),
-          },
+          columnWidths: {0: FlexColumnWidth(1), 1: FlexColumnWidth(2)},
           border: TableBorder.all(
             color: Colors.grey.shade300,
             borderRadius: BorderRadius.circular(8),

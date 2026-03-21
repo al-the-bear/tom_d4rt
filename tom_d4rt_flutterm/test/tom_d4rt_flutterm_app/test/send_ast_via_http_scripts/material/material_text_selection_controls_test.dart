@@ -84,7 +84,11 @@ Widget buildDescriptionCard(String title, String description) {
         SizedBox(height: 8),
         Text(
           description,
-          style: TextStyle(fontSize: 14, color: Colors.grey.shade700, height: 1.4),
+          style: TextStyle(
+            fontSize: 14,
+            color: Colors.grey.shade700,
+            height: 1.4,
+          ),
         ),
       ],
     ),
@@ -199,7 +203,11 @@ Widget buildTextFieldDemo(String label, String hint, Color accentColor) {
   );
 }
 
-Widget buildStyledSelectableText(String text, TextStyle style, String description) {
+Widget buildStyledSelectableText(
+  String text,
+  TextStyle style,
+  String description,
+) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 6),
     padding: EdgeInsets.all(14),
@@ -215,14 +223,22 @@ Widget buildStyledSelectableText(String text, TextStyle style, String descriptio
         SizedBox(height: 8),
         Text(
           description,
-          style: TextStyle(fontSize: 11, color: Colors.grey.shade600, fontStyle: FontStyle.italic),
+          style: TextStyle(
+            fontSize: 11,
+            color: Colors.grey.shade600,
+            fontStyle: FontStyle.italic,
+          ),
         ),
       ],
     ),
   );
 }
 
-Widget buildColoredSelectionDemo(String title, Color containerColor, Color textColor) {
+Widget buildColoredSelectionDemo(
+  String title,
+  Color containerColor,
+  Color textColor,
+) {
   print('Building colored selection demo: $title');
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
@@ -275,7 +291,12 @@ Widget buildColoredSelectionDemo(String title, Color containerColor, Color textC
   );
 }
 
-Widget buildSelectionToolbarConceptCard(String toolName, IconData icon, Color color, String desc) {
+Widget buildSelectionToolbarConceptCard(
+  String toolName,
+  IconData icon,
+  Color color,
+  String desc,
+) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 4),
     padding: EdgeInsets.all(12),
@@ -346,9 +367,7 @@ Widget buildHandleShapeCard(String shapeName, Color color, String description) {
             color: color.withAlpha(30),
             borderRadius: BorderRadius.circular(8),
           ),
-          child: CustomPaint(
-            painter: _HandleShapePainter(color),
-          ),
+          child: CustomPaint(painter: _HandleShapePainter(color)),
         ),
         SizedBox(width: 14),
         Expanded(
@@ -366,7 +385,11 @@ Widget buildHandleShapeCard(String shapeName, Color color, String description) {
               SizedBox(height: 4),
               Text(
                 description,
-                style: TextStyle(fontSize: 12, color: Colors.grey.shade600, height: 1.3),
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Colors.grey.shade600,
+                  height: 1.3,
+                ),
               ),
             ],
           ),
@@ -483,7 +506,11 @@ Widget buildInteractiveTextDemo() {
                 color: Colors.indigo.shade100,
                 shape: BoxShape.circle,
               ),
-              child: Icon(Icons.touch_app, color: Colors.indigo.shade600, size: 20),
+              child: Icon(
+                Icons.touch_app,
+                color: Colors.indigo.shade600,
+                size: 20,
+              ),
             ),
             SizedBox(width: 12),
             Text(
@@ -623,7 +650,11 @@ Widget buildControlsOverviewGrid() {
           children: [
             Row(
               children: [
-                Icon(item['icon'] as IconData, color: item['color'] as Color, size: 18),
+                Icon(
+                  item['icon'] as IconData,
+                  color: item['color'] as Color,
+                  size: 18,
+                ),
                 SizedBox(width: 6),
                 Expanded(
                   child: Text(
@@ -649,11 +680,7 @@ Widget buildControlsOverviewGrid() {
     );
   }
 
-  return Wrap(
-    spacing: 8,
-    runSpacing: 8,
-    children: gridItems,
-  );
+  return Wrap(spacing: 8, runSpacing: 8, children: gridItems);
 }
 
 Widget buildRichTextSelectionDemo() {
@@ -671,7 +698,11 @@ Widget buildRichTextSelectionDemo() {
       children: [
         Row(
           children: [
-            Icon(Icons.format_color_text, color: Colors.teal.shade600, size: 20),
+            Icon(
+              Icons.format_color_text,
+              color: Colors.teal.shade600,
+              size: 20,
+            ),
             SizedBox(width: 8),
             Text(
               'Rich Text Selection',
@@ -781,8 +812,8 @@ dynamic build(BuildContext context) {
             buildDescriptionCard(
               'MaterialTextSelectionControls',
               'MaterialTextSelectionControls is the Material Design implementation of TextSelectionControls. '
-              'It provides the teardrop-shaped selection handles and the toolbar with cut, copy, paste, and select all actions. '
-              'This class is used by default in Material widgets like TextField and SelectableText.',
+                  'It provides the teardrop-shaped selection handles and the toolbar with cut, copy, paste, and select all actions. '
+                  'This class is used by default in Material widgets like TextField and SelectableText.',
             ),
             buildInfoCard('Package', 'package:flutter/material.dart'),
             buildInfoCard('Extends', 'TextSelectionControls'),
@@ -798,25 +829,45 @@ dynamic build(BuildContext context) {
             buildSelectableTextDemo(
               'Multi-line Selection',
               'MaterialTextSelectionControls handles multi-line text selection seamlessly. '
-              'The selection can span multiple lines and the handles remain properly positioned '
-              'at the start and end of the selection.',
+                  'The selection can span multiple lines and the handles remain properly positioned '
+                  'at the start and end of the selection.',
               Colors.blue.shade50,
             ),
 
             buildSectionHeader('3. TextField with Selection'),
-            buildTextFieldDemo('Primary TextField', 'Type here to test selection...', Colors.blue),
-            buildTextFieldDemo('Secondary TextField', 'Another input field example', Colors.green),
-            buildTextFieldDemo('Accent TextField', 'Custom accent color styling', Colors.purple),
+            buildTextFieldDemo(
+              'Primary TextField',
+              'Type here to test selection...',
+              Colors.blue,
+            ),
+            buildTextFieldDemo(
+              'Secondary TextField',
+              'Another input field example',
+              Colors.green,
+            ),
+            buildTextFieldDemo(
+              'Accent TextField',
+              'Custom accent color styling',
+              Colors.purple,
+            ),
 
             buildSectionHeader('4. Multiple SelectableText Widgets'),
             buildStyledSelectableText(
               'Bold Selection Text',
-              TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey.shade800),
+              TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey.shade800,
+              ),
               'FontWeight.bold applied',
             ),
             buildStyledSelectableText(
               'Italic Selection Text',
-              TextStyle(fontSize: 16, fontStyle: FontStyle.italic, color: Colors.grey.shade700),
+              TextStyle(
+                fontSize: 16,
+                fontStyle: FontStyle.italic,
+                color: Colors.grey.shade700,
+              ),
               'FontStyle.italic applied',
             ),
             buildStyledSelectableText(
@@ -826,7 +877,11 @@ dynamic build(BuildContext context) {
             ),
             buildStyledSelectableText(
               'Letter Spaced Selection',
-              TextStyle(fontSize: 16, letterSpacing: 2.0, color: Colors.teal.shade700),
+              TextStyle(
+                fontSize: 16,
+                letterSpacing: 2.0,
+                color: Colors.teal.shade700,
+              ),
               'Letter spacing: 2.0',
             ),
             buildStyledSelectableText(
@@ -836,10 +891,26 @@ dynamic build(BuildContext context) {
             ),
 
             buildSectionHeader('5. Colored Container Selection'),
-            buildColoredSelectionDemo('Light Blue Container', Colors.blue.shade100, Colors.blue.shade900),
-            buildColoredSelectionDemo('Amber Container', Colors.amber.shade100, Colors.amber.shade900),
-            buildColoredSelectionDemo('Green Container', Colors.green.shade100, Colors.green.shade900),
-            buildColoredSelectionDemo('Purple Container', Colors.purple.shade100, Colors.purple.shade900),
+            buildColoredSelectionDemo(
+              'Light Blue Container',
+              Colors.blue.shade100,
+              Colors.blue.shade900,
+            ),
+            buildColoredSelectionDemo(
+              'Amber Container',
+              Colors.amber.shade100,
+              Colors.amber.shade900,
+            ),
+            buildColoredSelectionDemo(
+              'Green Container',
+              Colors.green.shade100,
+              Colors.green.shade900,
+            ),
+            buildColoredSelectionDemo(
+              'Purple Container',
+              Colors.purple.shade100,
+              Colors.purple.shade900,
+            ),
 
             buildSectionHeader('6. RichText with Selectable Content'),
             buildRichTextSelectionDemo(),
@@ -856,23 +927,41 @@ dynamic build(BuildContext context) {
                   children: [
                     TextSpan(
                       text: 'Different Styles: ',
-                      style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.orange.shade800),
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.orange.shade800,
+                      ),
                     ),
                     TextSpan(
                       text: 'Normal ',
-                      style: TextStyle(fontSize: 14, color: Colors.grey.shade700),
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey.shade700,
+                      ),
                     ),
                     TextSpan(
                       text: 'Bold ',
-                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey.shade800),
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey.shade800,
+                      ),
                     ),
                     TextSpan(
                       text: 'Italic ',
-                      style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic, color: Colors.grey.shade700),
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontStyle: FontStyle.italic,
+                        color: Colors.grey.shade700,
+                      ),
                     ),
                     TextSpan(
                       text: 'Colored',
-                      style: TextStyle(fontSize: 14, color: Colors.deepOrange.shade700),
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.deepOrange.shade700,
+                      ),
                     ),
                   ],
                 ),
@@ -905,13 +994,25 @@ dynamic build(BuildContext context) {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('- Wraps multiple Text widgets', style: TextStyle(fontSize: 13)),
+                        Text(
+                          '- Wraps multiple Text widgets',
+                          style: TextStyle(fontSize: 13),
+                        ),
                         SizedBox(height: 4),
-                        Text('- Uses MaterialTextSelectionControls', style: TextStyle(fontSize: 13)),
+                        Text(
+                          '- Uses MaterialTextSelectionControls',
+                          style: TextStyle(fontSize: 13),
+                        ),
                         SizedBox(height: 4),
-                        Text('- Enables cross-widget selection', style: TextStyle(fontSize: 13)),
+                        Text(
+                          '- Enables cross-widget selection',
+                          style: TextStyle(fontSize: 13),
+                        ),
                         SizedBox(height: 4),
-                        Text('- Provides unified toolbar', style: TextStyle(fontSize: 13)),
+                        Text(
+                          '- Provides unified toolbar',
+                          style: TextStyle(fontSize: 13),
+                        ),
                       ],
                     ),
                   ),
@@ -942,10 +1043,30 @@ dynamic build(BuildContext context) {
             ),
 
             buildSectionHeader('9. Selection Toolbar Concepts'),
-            buildSelectionToolbarConceptCard('Cut', Icons.content_cut, Colors.red, 'Removes selected text and copies to clipboard'),
-            buildSelectionToolbarConceptCard('Copy', Icons.content_copy, Colors.blue, 'Copies selected text to clipboard'),
-            buildSelectionToolbarConceptCard('Paste', Icons.content_paste, Colors.green, 'Inserts clipboard content at cursor'),
-            buildSelectionToolbarConceptCard('Select All', Icons.select_all, Colors.orange, 'Selects all text in the field'),
+            buildSelectionToolbarConceptCard(
+              'Cut',
+              Icons.content_cut,
+              Colors.red,
+              'Removes selected text and copies to clipboard',
+            ),
+            buildSelectionToolbarConceptCard(
+              'Copy',
+              Icons.content_copy,
+              Colors.blue,
+              'Copies selected text to clipboard',
+            ),
+            buildSelectionToolbarConceptCard(
+              'Paste',
+              Icons.content_paste,
+              Colors.green,
+              'Inserts clipboard content at cursor',
+            ),
+            buildSelectionToolbarConceptCard(
+              'Select All',
+              Icons.select_all,
+              Colors.orange,
+              'Selects all text in the field',
+            ),
             Container(
               margin: EdgeInsets.symmetric(vertical: 8),
               padding: EdgeInsets.all(14),
@@ -956,12 +1077,19 @@ dynamic build(BuildContext context) {
               ),
               child: Row(
                 children: [
-                  Icon(Icons.info_outline, color: Colors.grey.shade600, size: 18),
+                  Icon(
+                    Icons.info_outline,
+                    color: Colors.grey.shade600,
+                    size: 18,
+                  ),
                   SizedBox(width: 10),
                   Expanded(
                     child: Text(
                       'Toolbar appears above or below selection based on available space',
-                      style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey.shade700,
+                      ),
                     ),
                   ),
                 ],
@@ -1018,7 +1146,11 @@ dynamic build(BuildContext context) {
                   Text(
                     'MaterialTextSelectionControls is the foundation for text selection in Material Flutter apps. '
                     'It provides consistent selection handles and toolbar actions across TextField, SelectableText, and SelectionArea widgets.',
-                    style: TextStyle(fontSize: 14, color: Colors.grey.shade300, height: 1.5),
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey.shade300,
+                      height: 1.5,
+                    ),
                   ),
                 ],
               ),
@@ -1052,7 +1184,12 @@ class _HandleShapePainter extends CustomPainter {
 
     Path path = Path();
     path.moveTo(cx - radius * 0.8, cy + radius * 0.3);
-    path.quadraticBezierTo(cx, size.height * 0.85, cx + radius * 0.8, cy + radius * 0.3);
+    path.quadraticBezierTo(
+      cx,
+      size.height * 0.85,
+      cx + radius * 0.8,
+      cy + radius * 0.3,
+    );
     path.close();
     canvas.drawPath(path, paint);
   }

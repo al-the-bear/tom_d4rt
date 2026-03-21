@@ -411,10 +411,7 @@ Widget buildColorThemingSection() {
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              primaryColors[t].shade50,
-              primaryColors[t].shade100,
-            ],
+            colors: [primaryColors[t].shade50, primaryColors[t].shade100],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -678,7 +675,9 @@ Widget buildSizeVariationsSection() {
                   fontWeight: FontWeight.bold,
                 ),
                 trackHeight: trackHeights[s],
-                thumbShape: RoundSliderThumbShape(enabledThumbRadius: thumbRadii[s]),
+                thumbShape: RoundSliderThumbShape(
+                  enabledThumbRadius: thumbRadii[s],
+                ),
               ),
               child: Slider(
                 value: sizeValues[s],
@@ -724,11 +723,7 @@ Widget buildSizeVariationsSection() {
 
 Widget buildShapeComparisonSection() {
   print('Building shape comparison section');
-  List<String> shapeNames = [
-    'Paddle Shape',
-    'Drop Shape',
-    'Rectangular Shape',
-  ];
+  List<String> shapeNames = ['Paddle Shape', 'Drop Shape', 'Rectangular Shape'];
   List<String> shapeDescriptions = [
     'Extended oval with pointed bottom, classic slider look',
     'Teardrop shape pointing downward toward thumb',
@@ -792,7 +787,10 @@ Widget buildShapeComparisonSection() {
                       SizedBox(height: 2),
                       Text(
                         shapeDescriptions[i],
-                        style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: Colors.grey.shade600,
+                        ),
                       ),
                     ],
                   ),
@@ -902,11 +900,7 @@ Widget buildInteractiveSlidersSection() {
                 color: controlColors[c].shade100,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(
-                controlIcons[c],
-                color: controlColors[c],
-                size: 20,
-              ),
+              child: Icon(controlIcons[c], color: controlColors[c], size: 20),
             ),
             SizedBox(width: 12),
             SizedBox(
@@ -1080,10 +1074,7 @@ Widget buildUsageSummarySection() {
                   children: [
                     Icon(Icons.check_circle, color: Colors.green, size: 24),
                     SizedBox(height: 4),
-                    Text(
-                      'Pros',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
+                    Text('Pros', style: TextStyle(fontWeight: FontWeight.bold)),
                     SizedBox(height: 4),
                     Text(
                       'Classic look\nClear labels\nFamiliar shape',

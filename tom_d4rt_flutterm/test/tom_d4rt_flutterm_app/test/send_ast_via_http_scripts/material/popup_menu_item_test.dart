@@ -104,11 +104,7 @@ Widget buildMenuItemDemo(
           ),
         ),
         if (enabled)
-          Icon(
-            Icons.chevron_right,
-            color: Colors.grey.shade400,
-            size: 20,
-          ),
+          Icon(Icons.chevron_right, color: Colors.grey.shade400, size: 20),
         if (!enabled)
           Container(
             padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
@@ -128,15 +124,30 @@ Widget buildMenuItemDemo(
 
 Widget buildValuePropertySection() {
   print('Building value property section');
-  List<String> valueLabels = ['String Value', 'Int Value', 'Object Value', 'Enum Value'];
+  List<String> valueLabels = [
+    'String Value',
+    'Int Value',
+    'Object Value',
+    'Enum Value',
+  ];
   List<String> valueDescs = [
     '"option_copy" - String identifier',
     '42 - Numeric identifier',
     'UserAction(id: 1) - Custom object',
     'Actions.delete - Enum value',
   ];
-  List<IconData> valueIcons = [Icons.text_fields, Icons.numbers, Icons.data_object, Icons.list];
-  List<MaterialColor> valueColors = [Colors.blue, Colors.green, Colors.orange, Colors.purple];
+  List<IconData> valueIcons = [
+    Icons.text_fields,
+    Icons.numbers,
+    Icons.data_object,
+    Icons.list,
+  ];
+  List<MaterialColor> valueColors = [
+    Colors.blue,
+    Colors.green,
+    Colors.orange,
+    Colors.purple,
+  ];
 
   List<Widget> items = [];
   int i = 0;
@@ -159,7 +170,11 @@ Widget buildValuePropertySection() {
                 color: valueColors[i].shade100,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(valueIcons[i], color: valueColors[i].shade700, size: 22),
+              child: Icon(
+                valueIcons[i],
+                color: valueColors[i].shade700,
+                size: 22,
+              ),
             ),
             SizedBox(width: 12),
             Expanded(
@@ -217,7 +232,13 @@ Widget buildValuePropertySection() {
 
 Widget buildOnTapCallbackSection() {
   print('Building onTap callback section');
-  List<String> tapLabels = ['Show Dialog', 'Copy Text', 'Navigate', 'Update State', 'Show Snackbar'];
+  List<String> tapLabels = [
+    'Show Dialog',
+    'Copy Text',
+    'Navigate',
+    'Update State',
+    'Show Snackbar',
+  ];
   List<String> tapDescs = [
     'Opens a confirmation dialog',
     'Copies content to clipboard',
@@ -225,8 +246,20 @@ Widget buildOnTapCallbackSection() {
     'Modifies app state',
     'Displays feedback message',
   ];
-  List<IconData> tapIcons = [Icons.open_in_new, Icons.copy, Icons.navigation, Icons.refresh, Icons.message];
-  List<MaterialColor> tapColors = [Colors.indigo, Colors.teal, Colors.amber, Colors.pink, Colors.green];
+  List<IconData> tapIcons = [
+    Icons.open_in_new,
+    Icons.copy,
+    Icons.navigation,
+    Icons.refresh,
+    Icons.message,
+  ];
+  List<MaterialColor> tapColors = [
+    Colors.indigo,
+    Colors.teal,
+    Colors.amber,
+    Colors.pink,
+    Colors.green,
+  ];
 
   List<Widget> callbacks = [];
   int c = 0;
@@ -352,7 +385,11 @@ Widget buildEnabledStateSection() {
                 ),
                 child: Column(
                   children: [
-                    Icon(Icons.check_circle, color: Colors.green.shade600, size: 32),
+                    Icon(
+                      Icons.check_circle,
+                      color: Colors.green.shade600,
+                      size: 32,
+                    ),
                     SizedBox(height: 8),
                     Text(
                       'enabled: true',
@@ -365,15 +402,24 @@ Widget buildEnabledStateSection() {
                     SizedBox(height: 4),
                     Text(
                       'Interactive',
-                      style: TextStyle(fontSize: 11, color: Colors.green.shade600),
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.green.shade600,
+                      ),
                     ),
                     Text(
                       'Full opacity',
-                      style: TextStyle(fontSize: 11, color: Colors.green.shade600),
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.green.shade600,
+                      ),
                     ),
                     Text(
                       'Triggers onTap',
-                      style: TextStyle(fontSize: 11, color: Colors.green.shade600),
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.green.shade600,
+                      ),
                     ),
                   ],
                 ),
@@ -403,15 +449,24 @@ Widget buildEnabledStateSection() {
                     SizedBox(height: 4),
                     Text(
                       'Non-interactive',
-                      style: TextStyle(fontSize: 11, color: Colors.grey.shade500),
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.grey.shade500,
+                      ),
                     ),
                     Text(
                       'Reduced opacity',
-                      style: TextStyle(fontSize: 11, color: Colors.grey.shade500),
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.grey.shade500,
+                      ),
                     ),
                     Text(
                       'No callback',
-                      style: TextStyle(fontSize: 11, color: Colors.grey.shade500),
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.grey.shade500,
+                      ),
                     ),
                   ],
                 ),
@@ -420,10 +475,34 @@ Widget buildEnabledStateSection() {
           ],
         ),
         SizedBox(height: 16),
-        buildMenuItemDemo('Edit Document', 'Modify the current file', Icons.edit, Colors.blue, true),
-        buildMenuItemDemo('Delete Document', 'Requires admin permissions', Icons.delete, Colors.red, false),
-        buildMenuItemDemo('Share Document', 'Available action', Icons.share, Colors.green, true),
-        buildMenuItemDemo('Archive Document', 'Premium feature only', Icons.archive, Colors.orange, false),
+        buildMenuItemDemo(
+          'Edit Document',
+          'Modify the current file',
+          Icons.edit,
+          Colors.blue,
+          true,
+        ),
+        buildMenuItemDemo(
+          'Delete Document',
+          'Requires admin permissions',
+          Icons.delete,
+          Colors.red,
+          false,
+        ),
+        buildMenuItemDemo(
+          'Share Document',
+          'Available action',
+          Icons.share,
+          Colors.green,
+          true,
+        ),
+        buildMenuItemDemo(
+          'Archive Document',
+          'Premium feature only',
+          Icons.archive,
+          Colors.orange,
+          false,
+        ),
       ],
     ),
   );
@@ -450,7 +529,11 @@ Widget buildChildWidgetSection() {
               color: Colors.blue.shade100,
               borderRadius: BorderRadius.circular(6),
             ),
-            child: Icon(Icons.text_fields, color: Colors.blue.shade700, size: 20),
+            child: Icon(
+              Icons.text_fields,
+              color: Colors.blue.shade700,
+              size: 20,
+            ),
           ),
           SizedBox(width: 12),
           Expanded(
@@ -490,7 +573,11 @@ Widget buildChildWidgetSection() {
               color: Colors.purple.shade100,
               borderRadius: BorderRadius.circular(6),
             ),
-            child: Icon(Icons.view_column, color: Colors.purple.shade700, size: 20),
+            child: Icon(
+              Icons.view_column,
+              color: Colors.purple.shade700,
+              size: 20,
+            ),
           ),
           SizedBox(width: 12),
           Expanded(
@@ -570,7 +657,11 @@ Widget buildChildWidgetSection() {
               color: Colors.orange.shade100,
               borderRadius: BorderRadius.circular(6),
             ),
-            child: Icon(Icons.dashboard, color: Colors.orange.shade700, size: 20),
+            child: Icon(
+              Icons.dashboard,
+              color: Colors.orange.shade700,
+              size: 20,
+            ),
           ),
           SizedBox(width: 12),
           Expanded(
@@ -623,8 +714,20 @@ Widget buildChildWidgetSection() {
 Widget buildHeightCustomizationSection() {
   print('Building height customization section');
   List<double> heights = [32.0, 48.0, 56.0, 64.0, 72.0];
-  List<String> heightLabels = ['Compact (32)', 'Standard (48)', 'Default (56)', 'Large (64)', 'Extra Large (72)'];
-  List<MaterialColor> heightColors = [Colors.blue, Colors.green, Colors.orange, Colors.purple, Colors.pink];
+  List<String> heightLabels = [
+    'Compact (32)',
+    'Standard (48)',
+    'Default (56)',
+    'Large (64)',
+    'Extra Large (72)',
+  ];
+  List<MaterialColor> heightColors = [
+    Colors.blue,
+    Colors.green,
+    Colors.orange,
+    Colors.purple,
+    Colors.pink,
+  ];
 
   List<Widget> heightItems = [];
   int h = 0;
@@ -733,14 +836,33 @@ Widget buildHeightCustomizationSection() {
 
 Widget buildTextStyleThemingSection() {
   print('Building text style theming section');
-  List<String> styleNames = ['Default', 'Bold', 'Italic', 'Large', 'Small', 'Colored'];
+  List<String> styleNames = [
+    'Default',
+    'Bold',
+    'Italic',
+    'Large',
+    'Small',
+    'Colored',
+  ];
   List<TextStyle> styles = [
     TextStyle(fontSize: 14, color: Colors.grey.shade800),
-    TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey.shade800),
-    TextStyle(fontSize: 14, fontStyle: FontStyle.italic, color: Colors.grey.shade700),
+    TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.bold,
+      color: Colors.grey.shade800,
+    ),
+    TextStyle(
+      fontSize: 14,
+      fontStyle: FontStyle.italic,
+      color: Colors.grey.shade700,
+    ),
     TextStyle(fontSize: 18, color: Colors.grey.shade800),
     TextStyle(fontSize: 12, color: Colors.grey.shade600),
-    TextStyle(fontSize: 14, color: Colors.indigo.shade700, fontWeight: FontWeight.w600),
+    TextStyle(
+      fontSize: 14,
+      color: Colors.indigo.shade700,
+      fontWeight: FontWeight.w600,
+    ),
   ];
   List<MaterialColor> styleBgColors = [
     Colors.grey,
@@ -890,7 +1012,16 @@ Widget buildIconsAndLeadingSection() {
     Icons.save,
     Icons.settings,
   ];
-  List<String> menuLabels = ['Copy', 'Paste', 'Cut', 'Delete', 'Share', 'Print', 'Save', 'Settings'];
+  List<String> menuLabels = [
+    'Copy',
+    'Paste',
+    'Cut',
+    'Delete',
+    'Share',
+    'Print',
+    'Save',
+    'Settings',
+  ];
   List<MaterialColor> menuColors = [
     Colors.blue,
     Colors.green,
@@ -923,7 +1054,11 @@ Widget buildIconsAndLeadingSection() {
                 color: menuColors[m].shade100,
                 borderRadius: BorderRadius.circular(6),
               ),
-              child: Icon(menuIcons[m], color: menuColors[m].shade700, size: 18),
+              child: Icon(
+                menuIcons[m],
+                color: menuColors[m].shade700,
+                size: 18,
+              ),
             ),
             SizedBox(width: 12),
             Expanded(
@@ -966,7 +1101,11 @@ Widget buildIconsAndLeadingSection() {
       children: [
         Row(
           children: [
-            Icon(Icons.dashboard_customize, color: Colors.indigo.shade600, size: 24),
+            Icon(
+              Icons.dashboard_customize,
+              color: Colors.indigo.shade600,
+              size: 24,
+            ),
             SizedBox(width: 8),
             Text(
               'With Icons and Leading Widgets',
@@ -1015,7 +1154,14 @@ Widget buildIconsAndLeadingSection() {
 
 Widget buildMultipleMenuItemsSection() {
   print('Building multiple menu items section');
-  List<String> fileActions = ['New File', 'Open File', 'Save', 'Save As', 'Export', 'Close'];
+  List<String> fileActions = [
+    'New File',
+    'Open File',
+    'Save',
+    'Save As',
+    'Export',
+    'Close',
+  ];
   List<IconData> fileIcons = [
     Icons.create_new_folder,
     Icons.folder_open,
@@ -1024,7 +1170,14 @@ Widget buildMultipleMenuItemsSection() {
     Icons.upload,
     Icons.close,
   ];
-  List<String> editActions = ['Undo', 'Redo', 'Cut', 'Copy', 'Paste', 'Select All'];
+  List<String> editActions = [
+    'Undo',
+    'Redo',
+    'Cut',
+    'Copy',
+    'Paste',
+    'Select All',
+  ];
   List<IconData> editIcons = [
     Icons.undo,
     Icons.redo,
@@ -1033,10 +1186,27 @@ Widget buildMultipleMenuItemsSection() {
     Icons.content_paste,
     Icons.select_all,
   ];
-  List<String> viewActions = ['Zoom In', 'Zoom Out', 'Full Screen', 'Split View', 'Dark Mode'];
-  List<IconData> viewIcons = [Icons.zoom_in, Icons.zoom_out, Icons.fullscreen, Icons.vertical_split, Icons.dark_mode];
+  List<String> viewActions = [
+    'Zoom In',
+    'Zoom Out',
+    'Full Screen',
+    'Split View',
+    'Dark Mode',
+  ];
+  List<IconData> viewIcons = [
+    Icons.zoom_in,
+    Icons.zoom_out,
+    Icons.fullscreen,
+    Icons.vertical_split,
+    Icons.dark_mode,
+  ];
 
-  Widget buildMenuGroup(String title, List<String> actions, List<IconData> icons, MaterialColor color) {
+  Widget buildMenuGroup(
+    String title,
+    List<String> actions,
+    List<IconData> icons,
+    MaterialColor color,
+  ) {
     List<Widget> items = [];
     int a = 0;
     for (a = 0; a < actions.length; a = a + 1) {
@@ -1046,7 +1216,9 @@ Widget buildMultipleMenuItemsSection() {
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(
-                color: a < actions.length - 1 ? Colors.grey.shade200 : Colors.transparent,
+                color: a < actions.length - 1
+                    ? Colors.grey.shade200
+                    : Colors.transparent,
               ),
             ),
           ),
@@ -1259,7 +1431,9 @@ Widget _buildShowcaseItem(
     decoration: BoxDecoration(
       color: enabled ? Colors.white : Colors.grey.shade100,
       borderRadius: BorderRadius.circular(10),
-      border: Border.all(color: enabled ? color.shade200 : Colors.grey.shade300),
+      border: Border.all(
+        color: enabled ? color.shade200 : Colors.grey.shade300,
+      ),
     ),
     child: Row(
       children: [
@@ -1413,9 +1587,7 @@ Widget buildPropertiesTable() {
         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
         decoration: BoxDecoration(
           color: p % 2 == 0 ? Colors.grey.shade50 : Colors.white,
-          border: Border(
-            bottom: BorderSide(color: Colors.grey.shade200),
-          ),
+          border: Border(bottom: BorderSide(color: Colors.grey.shade200)),
         ),
         child: Row(
           children: [
@@ -1439,10 +1611,7 @@ Widget buildPropertiesTable() {
               ),
               child: Text(
                 propTypes[p],
-                style: TextStyle(
-                  fontSize: 11,
-                  color: Colors.blue.shade700,
-                ),
+                style: TextStyle(fontSize: 11, color: Colors.blue.shade700),
               ),
             ),
             SizedBox(width: 8),
@@ -1599,7 +1768,13 @@ Widget buildRelatedWidgets() {
     Icons.article,
     Icons.open_in_browser,
   ];
-  List<MaterialColor> widgetColors = [Colors.blue, Colors.grey, Colors.green, Colors.purple, Colors.orange];
+  List<MaterialColor> widgetColors = [
+    Colors.blue,
+    Colors.grey,
+    Colors.green,
+    Colors.purple,
+    Colors.orange,
+  ];
 
   List<Widget> widgetCards = [];
   int w = 0;
@@ -1622,7 +1797,11 @@ Widget buildRelatedWidgets() {
                 color: widgetColors[w].shade100,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(widgetIcons[w], color: widgetColors[w].shade700, size: 20),
+              child: Icon(
+                widgetIcons[w],
+                color: widgetColors[w].shade700,
+                size: 20,
+              ),
             ),
             SizedBox(width: 12),
             Expanded(
@@ -1699,7 +1878,11 @@ dynamic build(BuildContext context) {
                   value: 'refresh',
                   child: Row(
                     children: [
-                      Icon(Icons.refresh, color: Colors.grey.shade700, size: 20),
+                      Icon(
+                        Icons.refresh,
+                        color: Colors.grey.shade700,
+                        size: 20,
+                      ),
                       SizedBox(width: 12),
                       Text('Refresh'),
                     ],
@@ -1709,7 +1892,11 @@ dynamic build(BuildContext context) {
                   value: 'settings',
                   child: Row(
                     children: [
-                      Icon(Icons.settings, color: Colors.grey.shade700, size: 20),
+                      Icon(
+                        Icons.settings,
+                        color: Colors.grey.shade700,
+                        size: 20,
+                      ),
                       SizedBox(width: 12),
                       Text('Settings'),
                     ],
@@ -1741,7 +1928,10 @@ dynamic build(BuildContext context) {
             buildInfoCard('Purpose', 'An item in a Material Design popup menu'),
             buildInfoCard('Parent', 'PopupMenuEntry<T>'),
             buildInfoCard('Used With', 'PopupMenuButton, showMenu()'),
-            buildInfoCard('Generic', 'T represents the value type for selection'),
+            buildInfoCard(
+              'Generic',
+              'T represents the value type for selection',
+            ),
 
             buildSectionHeader('2. Value Property'),
             buildValuePropertySection(),

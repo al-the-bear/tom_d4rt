@@ -501,7 +501,9 @@ Widget buildSemanticLabelDemo() {
                 semanticsLabel: 'File download progress',
                 semanticsValue: '67%',
                 backgroundColor: Colors.green.shade100,
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.green.shade600),
+                valueColor: AlwaysStoppedAnimation<Color>(
+                  Colors.green.shade600,
+                ),
                 minHeight: 6,
               ),
               SizedBox(height: 6),
@@ -579,7 +581,9 @@ Widget buildSemanticLabelDemo() {
                   semanticsLabel: 'Installation progress',
                   semanticsValue: '85%',
                   backgroundColor: Colors.orange.shade100,
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.orange.shade700),
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    Colors.orange.shade700,
+                  ),
                   strokeWidth: 4,
                 ),
               ),
@@ -597,7 +601,10 @@ Widget buildSemanticLabelDemo() {
                     ),
                     Text(
                       'Circular with semantic label: 85%',
-                      style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.grey.shade600,
+                      ),
                     ),
                   ],
                 ),
@@ -875,7 +882,9 @@ Widget buildIndeterminateDemo() {
               SizedBox(height: 8),
               LinearProgressIndicator(
                 backgroundColor: Colors.purple.shade100,
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.purple.shade600),
+                valueColor: AlwaysStoppedAnimation<Color>(
+                  Colors.purple.shade600,
+                ),
                 minHeight: 6,
               ),
               SizedBox(height: 6),
@@ -1123,7 +1132,11 @@ Widget buildAnimationBehaviorDemo() {
             children: [
               Row(
                 children: [
-                  Icon(Icons.rotate_right, color: Colors.deepPurple.shade700, size: 20),
+                  Icon(
+                    Icons.rotate_right,
+                    color: Colors.deepPurple.shade700,
+                    size: 20,
+                  ),
                   SizedBox(width: 8),
                   Text(
                     'Indeterminate Animation',
@@ -1141,7 +1154,9 @@ Widget buildAnimationBehaviorDemo() {
                     width: 30,
                     height: 30,
                     child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurple),
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        Colors.deepPurple,
+                      ),
                       strokeWidth: 3,
                     ),
                   ),
@@ -1149,7 +1164,9 @@ Widget buildAnimationBehaviorDemo() {
                   Expanded(
                     child: LinearProgressIndicator(
                       backgroundColor: Colors.deepPurple.shade100,
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurple),
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        Colors.deepPurple,
+                      ),
                       minHeight: 6,
                     ),
                   ),
@@ -1164,8 +1181,14 @@ Widget buildAnimationBehaviorDemo() {
           ),
         ),
         SizedBox(height: 12),
-        buildInfoCard('Tip', 'Use AnimationController for custom color transitions'),
-        buildInfoCard('Note', 'Indeterminate indicators run continuously until disposed'),
+        buildInfoCard(
+          'Tip',
+          'Use AnimationController for custom color transitions',
+        ),
+        buildInfoCard(
+          'Note',
+          'Indeterminate indicators run continuously until disposed',
+        ),
       ],
     ),
   );
@@ -1237,11 +1260,17 @@ Widget buildInteractiveShowcase() {
                 children: [
                   Text(
                     '73% complete',
-                    style: TextStyle(color: Colors.white.withAlpha(220), fontSize: 13),
+                    style: TextStyle(
+                      color: Colors.white.withAlpha(220),
+                      fontSize: 13,
+                    ),
                   ),
                   Text(
                     '7.3 MB / 10 MB',
-                    style: TextStyle(color: Colors.white.withAlpha(220), fontSize: 13),
+                    style: TextStyle(
+                      color: Colors.white.withAlpha(220),
+                      fontSize: 13,
+                    ),
                   ),
                 ],
               ),
@@ -1270,7 +1299,9 @@ Widget buildInteractiveShowcase() {
                           child: CircularProgressIndicator(
                             value: 0.88,
                             backgroundColor: Colors.green.shade100,
-                            valueColor: AlwaysStoppedAnimation<Color>(Colors.green.shade600),
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              Colors.green.shade600,
+                            ),
                             strokeWidth: 7,
                           ),
                         ),
@@ -1316,7 +1347,9 @@ Widget buildInteractiveShowcase() {
                           child: CircularProgressIndicator(
                             value: 0.45,
                             backgroundColor: Colors.orange.shade100,
-                            valueColor: AlwaysStoppedAnimation<Color>(Colors.orange.shade600),
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              Colors.orange.shade600,
+                            ),
                             strokeWidth: 7,
                           ),
                         ),
@@ -1358,7 +1391,9 @@ Widget buildInteractiveShowcase() {
                 width: 30,
                 height: 30,
                 child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.grey.shade700),
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    Colors.grey.shade700,
+                  ),
                   strokeWidth: 3,
                 ),
               ),
@@ -1376,7 +1411,10 @@ Widget buildInteractiveShowcase() {
                     ),
                     Text(
                       'Indeterminate progress indicator',
-                      style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.grey.shade600,
+                      ),
                     ),
                   ],
                 ),
@@ -1444,8 +1482,11 @@ Widget buildProgressStepsDemo() {
               style: TextStyle(
                 fontSize: 10,
                 fontWeight: isCurrent ? FontWeight.bold : FontWeight.normal,
-                color: isCompleted ? Colors.green.shade700 : 
-                       isCurrent ? Colors.blue.shade700 : Colors.grey.shade500,
+                color: isCompleted
+                    ? Colors.green.shade700
+                    : isCurrent
+                    ? Colors.blue.shade700
+                    : Colors.grey.shade500,
               ),
               textAlign: TextAlign.center,
             ),
@@ -1462,7 +1503,9 @@ Widget buildProgressStepsDemo() {
               SizedBox(height: 17),
               Container(
                 height: 2,
-                color: st < currentStep ? Colors.green.shade400 : Colors.grey.shade300,
+                color: st < currentStep
+                    ? Colors.green.shade400
+                    : Colors.grey.shade300,
               ),
               SizedBox(height: 12),
             ],
@@ -1592,7 +1635,10 @@ Widget buildRefreshIndicatorDemo() {
           ],
         ),
         SizedBox(height: 12),
-        buildInfoCard('Note', 'RefreshProgressIndicator is used by RefreshIndicator widget'),
+        buildInfoCard(
+          'Note',
+          'RefreshProgressIndicator is used by RefreshIndicator widget',
+        ),
       ],
     ),
   );
@@ -1612,9 +1658,7 @@ Widget buildLoadingOverlayDemo() {
       children: [
         Container(
           padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Colors.white,
-          ),
+          decoration: BoxDecoration(color: Colors.white),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -1673,9 +1717,17 @@ Widget buildLoadingOverlayDemo() {
                             ],
                           ),
                           SizedBox(height: 12),
-                          Container(height: 10, width: double.infinity, color: Colors.grey.shade300),
+                          Container(
+                            height: 10,
+                            width: double.infinity,
+                            color: Colors.grey.shade300,
+                          ),
                           SizedBox(height: 4),
-                          Container(height: 10, width: 200, color: Colors.grey.shade300),
+                          Container(
+                            height: 10,
+                            width: 200,
+                            color: Colors.grey.shade300,
+                          ),
                         ],
                       ),
                     ),
@@ -1692,7 +1744,9 @@ Widget buildLoadingOverlayDemo() {
                               width: 40,
                               height: 40,
                               child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  Colors.blue,
+                                ),
                                 strokeWidth: 4,
                               ),
                             ),
@@ -1723,8 +1777,18 @@ Widget buildLoadingOverlayDemo() {
 Widget buildProgressWithText() {
   print('Building progress with text demonstration');
   List<double> progressValues = [0.15, 0.45, 0.78, 0.95];
-  List<String> statusLabels = ['Starting', 'Processing', 'Finalizing', 'Almost done'];
-  List<MaterialColor> progressColors = [Colors.red, Colors.orange, Colors.blue, Colors.green];
+  List<String> statusLabels = [
+    'Starting',
+    'Processing',
+    'Finalizing',
+    'Almost done',
+  ];
+  List<MaterialColor> progressColors = [
+    Colors.red,
+    Colors.orange,
+    Colors.blue,
+    Colors.green,
+  ];
 
   List<Widget> items = [];
   int p = 0;
@@ -1764,7 +1828,9 @@ Widget buildProgressWithText() {
             LinearProgressIndicator(
               value: progressValues[p],
               backgroundColor: progressColors[p].shade100,
-              valueColor: AlwaysStoppedAnimation<Color>(progressColors[p].shade600),
+              valueColor: AlwaysStoppedAnimation<Color>(
+                progressColors[p].shade600,
+              ),
               minHeight: 8,
             ),
           ],
@@ -1913,10 +1979,7 @@ dynamic build(BuildContext context) {
               'Key Property',
               'value: null for indeterminate, 0.0-1.0 for determinate',
             ),
-            buildInfoCard(
-              'Package',
-              'package:flutter/material.dart',
-            ),
+            buildInfoCard('Package', 'package:flutter/material.dart'),
 
             buildSectionHeader('2. Value Property (0.0-1.0)'),
             buildValuePropertyDemo(),
@@ -1950,7 +2013,12 @@ dynamic build(BuildContext context) {
             buildCircularProgressShowcase(),
             buildCircularProgressBasic('Download', 0.72, Colors.indigo, 5.0),
             buildCircularProgressBasic('Upload', 0.45, Colors.teal, 4.0),
-            buildCircularProgressBasic('Processing', 0.58, Colors.deepOrange, 6.0),
+            buildCircularProgressBasic(
+              'Processing',
+              0.58,
+              Colors.deepOrange,
+              6.0,
+            ),
 
             buildSectionHeader('7. Indeterminate vs Determinate'),
             buildIndeterminateDemo(),

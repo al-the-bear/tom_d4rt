@@ -102,7 +102,10 @@ Widget buildOverviewSection() {
         buildInfoCard('Type', 'InheritedWidget'),
         buildInfoCard('Data Type', 'MenuButtonThemeData'),
         buildInfoCard('Access Method', 'MenuButtonTheme.of(context)'),
-        buildInfoCard('Purpose', 'Propagate menu button styles down the widget tree'),
+        buildInfoCard(
+          'Purpose',
+          'Propagate menu button styles down the widget tree',
+        ),
       ],
     ),
   );
@@ -172,7 +175,10 @@ Widget buildBasicThemeWrappingSection() {
                   onPressed: () {
                     print('Wrapped item 3 pressed');
                   },
-                  leadingIcon: Icon(Icons.video_library, color: Colors.teal.shade700),
+                  leadingIcon: Icon(
+                    Icons.video_library,
+                    color: Colors.teal.shade700,
+                  ),
                   child: Text('Videos'),
                 ),
               ],
@@ -400,7 +406,10 @@ Widget buildMultipleThemedSectionsSection() {
                 children: [
                   Text(
                     'File Menu',
-                    style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green.shade800),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.green.shade800,
+                    ),
                   ),
                   SizedBox(height: 8),
                   MenuButtonTheme(
@@ -444,7 +453,10 @@ Widget buildMultipleThemedSectionsSection() {
                 children: [
                   Text(
                     'Edit Menu',
-                    style: TextStyle(fontWeight: FontWeight.bold, color: Colors.purple.shade800),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.purple.shade800,
+                    ),
                   ),
                   SizedBox(height: 8),
                   MenuButtonTheme(
@@ -488,7 +500,10 @@ Widget buildMultipleThemedSectionsSection() {
                 children: [
                   Text(
                     'View Menu',
-                    style: TextStyle(fontWeight: FontWeight.bold, color: Colors.cyan.shade800),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.cyan.shade800,
+                    ),
                   ),
                   SizedBox(height: 8),
                   MenuButtonTheme(
@@ -629,7 +644,10 @@ Widget buildInheritanceDemonstrationSection() {
                         onPressed: () {
                           print('Nested level 1 item');
                         },
-                        leadingIcon: Icon(Icons.folder, color: Colors.deepPurple),
+                        leadingIcon: Icon(
+                          Icons.folder,
+                          color: Colors.deepPurple,
+                        ),
                         child: Text('Nested Item 1'),
                       ),
                       SizedBox(height: 8),
@@ -655,7 +673,10 @@ Widget buildInheritanceDemonstrationSection() {
                               onPressed: () {
                                 print('Nested level 2 item');
                               },
-                              leadingIcon: Icon(Icons.description, color: Colors.deepPurple),
+                              leadingIcon: Icon(
+                                Icons.description,
+                                color: Colors.deepPurple,
+                              ),
                               child: Text('Deeply Nested'),
                             ),
                           ],
@@ -931,17 +952,16 @@ Widget buildInteractiveThemedMenusSection() {
 Widget buildThemeComparisonGridSection() {
   print('Building theme comparison grid section');
   List<Map<String, dynamic>> themeVariants = [
-    {
-      'name': 'Default',
-      'style': ButtonStyle(),
-    },
+    {'name': 'Default', 'style': ButtonStyle()},
     {
       'name': 'Rounded',
       'style': ButtonStyle(
         shape: WidgetStateProperty.all(
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         ),
-        padding: WidgetStateProperty.all(EdgeInsets.symmetric(horizontal: 20, vertical: 12)),
+        padding: WidgetStateProperty.all(
+          EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        ),
       ),
     },
     {
@@ -955,7 +975,9 @@ Widget buildThemeComparisonGridSection() {
     {
       'name': 'Compact',
       'style': ButtonStyle(
-        padding: WidgetStateProperty.all(EdgeInsets.symmetric(horizontal: 8, vertical: 4)),
+        padding: WidgetStateProperty.all(
+          EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        ),
         minimumSize: WidgetStateProperty.all(Size(0, 32)),
       ),
     },
@@ -1051,11 +1073,7 @@ Widget buildThemeComparisonGridSection() {
           style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
         ),
         SizedBox(height: 16),
-        Wrap(
-          spacing: 8,
-          runSpacing: 8,
-          children: themeCards,
-        ),
+        Wrap(spacing: 8, runSpacing: 8, children: themeCards),
         SizedBox(height: 12),
         buildInfoCard('Variants', '6 different theme styles'),
         buildInfoCard('Purpose', 'Visual comparison of style options'),
@@ -1077,7 +1095,9 @@ Widget buildFullMenuWithThemedStylingSection() {
       return Colors.teal.shade100;
     }),
     foregroundColor: WidgetStateProperty.all(Colors.teal.shade900),
-    padding: WidgetStateProperty.all(EdgeInsets.symmetric(horizontal: 16, vertical: 12)),
+    padding: WidgetStateProperty.all(
+      EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+    ),
     textStyle: WidgetStateProperty.all(
       TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
     ),
@@ -1091,7 +1111,9 @@ Widget buildFullMenuWithThemedStylingSection() {
       return Colors.white;
     }),
     foregroundColor: WidgetStateProperty.all(Colors.grey.shade800),
-    padding: WidgetStateProperty.all(EdgeInsets.symmetric(horizontal: 12, vertical: 10)),
+    padding: WidgetStateProperty.all(
+      EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+    ),
   );
 
   ButtonStyle actionStyle = ButtonStyle(
@@ -1171,7 +1193,10 @@ Widget buildFullMenuWithThemedStylingSection() {
                         onPressed: () {
                           print('Dashboard selected');
                         },
-                        leadingIcon: Icon(Icons.dashboard, color: Colors.teal.shade700),
+                        leadingIcon: Icon(
+                          Icons.dashboard,
+                          color: Colors.teal.shade700,
+                        ),
                         trailingIcon: Icon(Icons.arrow_forward_ios, size: 14),
                         child: Text('Dashboard'),
                       ),
@@ -1179,7 +1204,10 @@ Widget buildFullMenuWithThemedStylingSection() {
                         onPressed: () {
                           print('Projects selected');
                         },
-                        leadingIcon: Icon(Icons.folder_open, color: Colors.teal.shade700),
+                        leadingIcon: Icon(
+                          Icons.folder_open,
+                          color: Colors.teal.shade700,
+                        ),
                         trailingIcon: Icon(Icons.arrow_forward_ios, size: 14),
                         child: Text('Projects'),
                       ),
@@ -1187,7 +1215,10 @@ Widget buildFullMenuWithThemedStylingSection() {
                         onPressed: () {
                           print('Reports selected');
                         },
-                        leadingIcon: Icon(Icons.assessment, color: Colors.teal.shade700),
+                        leadingIcon: Icon(
+                          Icons.assessment,
+                          color: Colors.teal.shade700,
+                        ),
                         trailingIcon: Icon(Icons.arrow_forward_ios, size: 14),
                         child: Text('Reports'),
                       ),

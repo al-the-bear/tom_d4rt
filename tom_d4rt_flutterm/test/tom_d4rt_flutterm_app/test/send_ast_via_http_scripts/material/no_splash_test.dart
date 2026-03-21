@@ -6,10 +6,7 @@ import 'package:flutter/material.dart';
 dynamic build(BuildContext context) {
   return MaterialApp(
     title: 'NoSplash Demo',
-    theme: ThemeData(
-      primarySwatch: Colors.blue,
-      useMaterial3: true,
-    ),
+    theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: true),
     home: NoSplashDemoPage(),
   );
 }
@@ -77,27 +74,19 @@ class _NoSplashDemoPageState extends State<NoSplashDemoPage>
           padding: EdgeInsets.zero,
           children: [
             DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
+              decoration: BoxDecoration(color: Colors.blue),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
                     'NoSplash Sections',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                    ),
+                    style: TextStyle(color: Colors.white, fontSize: 24),
                   ),
                   SizedBox(height: 8),
                   Text(
                     'Tap count: $_tapCount',
-                    style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 14,
-                    ),
+                    style: TextStyle(color: Colors.white70, fontSize: 14),
                   ),
                 ],
               ),
@@ -120,10 +109,7 @@ class _NoSplashDemoPageState extends State<NoSplashDemoPage>
         ListTile(
           leading: CircleAvatar(
             backgroundColor: _selectedSection == i ? Colors.blue : Colors.grey,
-            child: Text(
-              '${i + 1}',
-              style: TextStyle(color: Colors.white),
-            ),
+            child: Text('${i + 1}', style: TextStyle(color: Colors.white)),
           ),
           title: Text(_sections[i]),
           selected: _selectedSection == i,
@@ -217,9 +203,7 @@ class _NoSplashDemoPageState extends State<NoSplashDemoPage>
                 children: [
                   Icon(Icons.touch_app, color: Colors.blue),
                   SizedBox(width: 12),
-                  Expanded(
-                    child: Text('Tap me - uses NoSplash.splashFactory'),
-                  ),
+                  Expanded(child: Text('Tap me - uses NoSplash.splashFactory')),
                 ],
               ),
             ),
@@ -548,9 +532,7 @@ class _NoSplashDemoPageState extends State<NoSplashDemoPage>
           Material(
             color: Colors.transparent,
             child: IconButton(
-              style: ButtonStyle(
-                splashFactory: NoSplash.splashFactory,
-              ),
+              style: ButtonStyle(splashFactory: NoSplash.splashFactory),
               icon: Icon(Icons.favorite, color: Colors.red, size: 32),
               onPressed: () => _logTap('IconButton NoSplash'),
             ),
@@ -612,9 +594,9 @@ class _NoSplashDemoPageState extends State<NoSplashDemoPage>
         ),
         SizedBox(height: 8),
         Theme(
-          data: Theme.of(context).copyWith(
-            splashFactory: NoSplash.splashFactory,
-          ),
+          data: Theme.of(
+            context,
+          ).copyWith(splashFactory: NoSplash.splashFactory),
           child: Card(
             child: Column(
               children: [
@@ -647,10 +629,7 @@ class _NoSplashDemoPageState extends State<NoSplashDemoPage>
                   ),
                   title: Text('Notifications'),
                   subtitle: Text('No ripple effect'),
-                  trailing: Switch(
-                    value: true,
-                    onChanged: (v) {},
-                  ),
+                  trailing: Switch(value: true, onChanged: (v) {}),
                   onTap: () => _logTap('ListTile Notifications'),
                 ),
               ],
@@ -674,10 +653,7 @@ class _NoSplashDemoPageState extends State<NoSplashDemoPage>
                 leading: Icon(Icons.star, color: Colors.amber),
                 title: Text('Favorites'),
                 subtitle: Text('Wrapped in InkWell with NoSplash'),
-                trailing: Badge(
-                  label: Text('5'),
-                  child: Icon(Icons.bookmark),
-                ),
+                trailing: Badge(label: Text('5'), child: Icon(Icons.bookmark)),
               ),
             ),
           ),
@@ -790,9 +766,7 @@ class _NoSplashDemoPageState extends State<NoSplashDemoPage>
               SizedBox(width: 8),
               Expanded(
                 child: ElevatedButton(
-                  style: ButtonStyle(
-                    splashFactory: InkRipple.splashFactory,
-                  ),
+                  style: ButtonStyle(splashFactory: InkRipple.splashFactory),
                   onPressed: () => _logTap('Splash (overridden)'),
                   child: Text('With Splash'),
                 ),
@@ -953,10 +927,7 @@ class _NoSplashDemoPageState extends State<NoSplashDemoPage>
         SizedBox(height: 8),
         _buildButtonGrid(withSplash: true),
         SizedBox(height: 24),
-        Text(
-          'With NoSplash:',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
+        Text('With NoSplash:', style: TextStyle(fontWeight: FontWeight.bold)),
         SizedBox(height: 8),
         _buildButtonGrid(withSplash: false),
         SizedBox(height: 16),
@@ -991,8 +962,9 @@ class _NoSplashDemoPageState extends State<NoSplashDemoPage>
           color: (item['color'] as Color).withOpacity(0.1),
           borderRadius: BorderRadius.circular(12),
           child: InkWell(
-            splashFactory:
-                withSplash ? InkRipple.splashFactory : NoSplash.splashFactory,
+            splashFactory: withSplash
+                ? InkRipple.splashFactory
+                : NoSplash.splashFactory,
             highlightColor: (item['color'] as Color).withOpacity(0.2),
             borderRadius: BorderRadius.circular(12),
             onTap: () => _logTap(
@@ -1009,10 +981,7 @@ class _NoSplashDemoPageState extends State<NoSplashDemoPage>
                 SizedBox(height: 8),
                 Text(
                   item['label'] as String,
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: item['color'] as Color,
-                  ),
+                  style: TextStyle(fontSize: 12, color: item['color'] as Color),
                 ),
               ],
             ),
@@ -1033,25 +1002,13 @@ class _NoSplashDemoPageState extends State<NoSplashDemoPage>
           style: TextStyle(fontSize: 16),
         ),
         SizedBox(height: 16),
-        _buildHighlightDemo(
-          'Blue Highlight',
-          Colors.blue,
-        ),
+        _buildHighlightDemo('Blue Highlight', Colors.blue),
         SizedBox(height: 12),
-        _buildHighlightDemo(
-          'Green Highlight',
-          Colors.green,
-        ),
+        _buildHighlightDemo('Green Highlight', Colors.green),
         SizedBox(height: 12),
-        _buildHighlightDemo(
-          'Orange Highlight',
-          Colors.orange,
-        ),
+        _buildHighlightDemo('Orange Highlight', Colors.orange),
         SizedBox(height: 12),
-        _buildHighlightDemo(
-          'Purple Highlight',
-          Colors.purple,
-        ),
+        _buildHighlightDemo('Purple Highlight', Colors.purple),
         SizedBox(height: 24),
         Text(
           'Highlight Opacity Variations:',
@@ -1060,21 +1017,13 @@ class _NoSplashDemoPageState extends State<NoSplashDemoPage>
         SizedBox(height: 8),
         Row(
           children: [
-            Expanded(
-              child: _buildOpacityDemo('10%', 0.1),
-            ),
+            Expanded(child: _buildOpacityDemo('10%', 0.1)),
             SizedBox(width: 8),
-            Expanded(
-              child: _buildOpacityDemo('20%', 0.2),
-            ),
+            Expanded(child: _buildOpacityDemo('20%', 0.2)),
             SizedBox(width: 8),
-            Expanded(
-              child: _buildOpacityDemo('30%', 0.3),
-            ),
+            Expanded(child: _buildOpacityDemo('30%', 0.3)),
             SizedBox(width: 8),
-            Expanded(
-              child: _buildOpacityDemo('40%', 0.4),
-            ),
+            Expanded(child: _buildOpacityDemo('40%', 0.4)),
           ],
         ),
         SizedBox(height: 16),
@@ -1099,21 +1048,12 @@ class _NoSplashDemoPageState extends State<NoSplashDemoPage>
               Container(
                 width: 24,
                 height: 24,
-                decoration: BoxDecoration(
-                  color: color,
-                  shape: BoxShape.circle,
-                ),
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
               ),
               SizedBox(width: 12),
-              Text(
-                label,
-                style: TextStyle(fontSize: 16),
-              ),
+              Text(label, style: TextStyle(fontSize: 16)),
               Spacer(),
-              Text(
-                'Tap to see',
-                style: TextStyle(color: Colors.grey),
-              ),
+              Text('Tap to see', style: TextStyle(color: Colors.grey)),
             ],
           ),
         ),
@@ -1133,10 +1073,7 @@ class _NoSplashDemoPageState extends State<NoSplashDemoPage>
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 24),
           alignment: Alignment.center,
-          child: Text(
-            label,
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
+          child: Text(label, style: TextStyle(fontWeight: FontWeight.bold)),
         ),
       ),
     );
@@ -1190,10 +1127,7 @@ class _NoSplashDemoPageState extends State<NoSplashDemoPage>
           ),
         ),
         SizedBox(height: 16),
-        Text(
-          'Color Picker:',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
+        Text('Color Picker:', style: TextStyle(fontWeight: FontWeight.bold)),
         SizedBox(height: 8),
         Wrap(
           spacing: 8,
@@ -1208,10 +1142,7 @@ class _NoSplashDemoPageState extends State<NoSplashDemoPage>
           ],
         ),
         SizedBox(height: 24),
-        Text(
-          'Test Area:',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
+        Text('Test Area:', style: TextStyle(fontWeight: FontWeight.bold)),
         SizedBox(height: 8),
         Container(
           decoration: BoxDecoration(
@@ -1225,8 +1156,9 @@ class _NoSplashDemoPageState extends State<NoSplashDemoPage>
               splashFactory: _showSplash
                   ? InkRipple.splashFactory
                   : NoSplash.splashFactory,
-              highlightColor:
-                  _highlightEnabled ? _highlightColor : Colors.transparent,
+              highlightColor: _highlightEnabled
+                  ? _highlightColor
+                  : Colors.transparent,
               borderRadius: BorderRadius.circular(12),
               onTap: () => _logTap('Test Area'),
               child: Container(
@@ -1327,8 +1259,7 @@ class _NoSplashDemoPageState extends State<NoSplashDemoPage>
   }
 
   Widget _buildColorOption(Color color) {
-    bool isSelected =
-        _highlightColor.value == color.withOpacity(0.2).value;
+    bool isSelected = _highlightColor.value == color.withOpacity(0.2).value;
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -1341,9 +1272,7 @@ class _NoSplashDemoPageState extends State<NoSplashDemoPage>
         decoration: BoxDecoration(
           color: color,
           shape: BoxShape.circle,
-          border: isSelected
-              ? Border.all(color: Colors.black, width: 3)
-              : null,
+          border: isSelected ? Border.all(color: Colors.black, width: 3) : null,
           boxShadow: isSelected
               ? [
                   BoxShadow(
@@ -1354,9 +1283,7 @@ class _NoSplashDemoPageState extends State<NoSplashDemoPage>
                 ]
               : null,
         ),
-        child: isSelected
-            ? Icon(Icons.check, color: Colors.white)
-            : null,
+        child: isSelected ? Icon(Icons.check, color: Colors.white) : null,
       ),
     );
   }
@@ -1475,26 +1402,25 @@ class _NoSplashDemoPageState extends State<NoSplashDemoPage>
           if (_tapLog.isEmpty)
             Text(
               'No taps yet...',
-              style: TextStyle(
-                color: Colors.grey,
-                fontStyle: FontStyle.italic,
-              ),
+              style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),
             )
           else
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: _tapLog
-                  .map((log) => Padding(
-                        padding: EdgeInsets.symmetric(vertical: 2),
-                        child: Text(
-                          log,
-                          style: TextStyle(
-                            fontSize: 13,
-                            fontFamily: 'monospace',
-                            color: Colors.grey.shade800,
-                          ),
+                  .map(
+                    (log) => Padding(
+                      padding: EdgeInsets.symmetric(vertical: 2),
+                      child: Text(
+                        log,
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontFamily: 'monospace',
+                          color: Colors.grey.shade800,
                         ),
-                      ))
+                      ),
+                    ),
+                  )
                   .toList(),
             ),
         ],

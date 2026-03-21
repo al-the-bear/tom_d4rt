@@ -101,7 +101,10 @@ Widget buildOverviewSection() {
         SizedBox(height: 12),
         buildInfoCard('Type', 'Immutable styling class'),
         buildInfoCard('Used By', 'MenuAnchor, DropdownMenu, MenuBar'),
-        buildInfoCard('Properties', 'WidgetStateProperty-based for state handling'),
+        buildInfoCard(
+          'Properties',
+          'WidgetStateProperty-based for state handling',
+        ),
         buildInfoCard('Purpose', 'Define visual styling for popup menus'),
       ],
     ),
@@ -110,7 +113,7 @@ Widget buildOverviewSection() {
 
 Widget buildBackgroundColorSection() {
   print('Building MenuStyle backgroundColor section');
-  
+
   MenuStyle lightStyle = MenuStyle(
     backgroundColor: WidgetStateProperty.all(Colors.white),
     elevation: WidgetStateProperty.all(4.0),
@@ -118,7 +121,7 @@ Widget buildBackgroundColorSection() {
       RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     ),
   );
-  
+
   MenuStyle blueStyle = MenuStyle(
     backgroundColor: WidgetStateProperty.all(Colors.blue.shade50),
     elevation: WidgetStateProperty.all(4.0),
@@ -126,7 +129,7 @@ Widget buildBackgroundColorSection() {
       RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     ),
   );
-  
+
   MenuStyle darkStyle = MenuStyle(
     backgroundColor: WidgetStateProperty.all(Colors.grey.shade900),
     elevation: WidgetStateProperty.all(4.0),
@@ -226,7 +229,10 @@ Widget buildBackgroundColorSection() {
                   children: [
                     Icon(Icons.dark_mode, color: Colors.white),
                     SizedBox(height: 8),
-                    Text('Dark', style: TextStyle(fontSize: 12, color: Colors.white)),
+                    Text(
+                      'Dark',
+                      style: TextStyle(fontSize: 12, color: Colors.white),
+                    ),
                   ],
                 ),
               ),
@@ -244,9 +250,9 @@ Widget buildBackgroundColorSection() {
 
 Widget buildElevationSection() {
   print('Building MenuStyle elevation section');
-  
+
   List<double> elevations = [0, 4, 8, 16];
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -281,16 +287,16 @@ Widget buildElevationSection() {
                     borderRadius: BorderRadius.circular(8),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.15 + (elevation * 0.01)),
+                        color: Colors.black.withValues(
+                          alpha: 0.15 + (elevation * 0.01),
+                        ),
                         blurRadius: elevation,
                         spreadRadius: elevation / 4,
                         offset: Offset(0, elevation / 2),
                       ),
                     ],
                   ),
-                  child: Center(
-                    child: Icon(Icons.menu, color: Colors.indigo),
-                  ),
+                  child: Center(child: Icon(Icons.menu, color: Colors.indigo)),
                 ),
                 SizedBox(height: 8),
                 Text(
@@ -316,7 +322,7 @@ Widget buildElevationSection() {
 
 Widget buildPaddingSection() {
   print('Building MenuStyle padding section');
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -355,12 +361,16 @@ Widget buildPaddingSection() {
                         Container(
                           height: 30,
                           color: Colors.indigo.shade100,
-                          child: Center(child: Text('Item', style: TextStyle(fontSize: 11))),
+                          child: Center(
+                            child: Text('Item', style: TextStyle(fontSize: 11)),
+                          ),
                         ),
                         Container(
                           height: 30,
                           color: Colors.indigo.shade200,
-                          child: Center(child: Text('Item', style: TextStyle(fontSize: 11))),
+                          child: Center(
+                            child: Text('Item', style: TextStyle(fontSize: 11)),
+                          ),
                         ),
                       ],
                     ),
@@ -386,12 +396,16 @@ Widget buildPaddingSection() {
                         Container(
                           height: 30,
                           color: Colors.indigo.shade100,
-                          child: Center(child: Text('Item', style: TextStyle(fontSize: 11))),
+                          child: Center(
+                            child: Text('Item', style: TextStyle(fontSize: 11)),
+                          ),
                         ),
                         Container(
                           height: 30,
                           color: Colors.indigo.shade200,
-                          child: Center(child: Text('Item', style: TextStyle(fontSize: 11))),
+                          child: Center(
+                            child: Text('Item', style: TextStyle(fontSize: 11)),
+                          ),
                         ),
                       ],
                     ),
@@ -417,12 +431,16 @@ Widget buildPaddingSection() {
                         Container(
                           height: 30,
                           color: Colors.indigo.shade100,
-                          child: Center(child: Text('Item', style: TextStyle(fontSize: 11))),
+                          child: Center(
+                            child: Text('Item', style: TextStyle(fontSize: 11)),
+                          ),
                         ),
                         Container(
                           height: 30,
                           color: Colors.indigo.shade200,
-                          child: Center(child: Text('Item', style: TextStyle(fontSize: 11))),
+                          child: Center(
+                            child: Text('Item', style: TextStyle(fontSize: 11)),
+                          ),
                         ),
                       ],
                     ),
@@ -445,7 +463,7 @@ Widget buildPaddingSection() {
 
 Widget buildShapeBorderRadiusSection() {
   print('Building MenuStyle shape/borderRadius section');
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -480,7 +498,9 @@ Widget buildShapeBorderRadiusSection() {
                     borderRadius: BorderRadius.circular(0),
                     border: Border.all(color: Colors.indigo.shade400),
                   ),
-                  child: Center(child: Icon(Icons.crop_square, color: Colors.indigo)),
+                  child: Center(
+                    child: Icon(Icons.crop_square, color: Colors.indigo),
+                  ),
                 ),
                 SizedBox(height: 8),
                 Text('0 radius', style: TextStyle(fontSize: 11)),
@@ -496,7 +516,9 @@ Widget buildShapeBorderRadiusSection() {
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(color: Colors.indigo.shade400),
                   ),
-                  child: Center(child: Icon(Icons.rounded_corner, color: Colors.indigo)),
+                  child: Center(
+                    child: Icon(Icons.rounded_corner, color: Colors.indigo),
+                  ),
                 ),
                 SizedBox(height: 8),
                 Text('8 radius', style: TextStyle(fontSize: 11)),
@@ -512,7 +534,9 @@ Widget buildShapeBorderRadiusSection() {
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(color: Colors.indigo.shade400),
                   ),
-                  child: Center(child: Icon(Icons.panorama_fish_eye, color: Colors.indigo)),
+                  child: Center(
+                    child: Icon(Icons.panorama_fish_eye, color: Colors.indigo),
+                  ),
                 ),
                 SizedBox(height: 8),
                 Text('20 radius', style: TextStyle(fontSize: 11)),
@@ -528,7 +552,9 @@ Widget buildShapeBorderRadiusSection() {
                     shape: BoxShape.circle,
                     border: Border.all(color: Colors.indigo.shade400),
                   ),
-                  child: Center(child: Icon(Icons.circle, color: Colors.indigo)),
+                  child: Center(
+                    child: Icon(Icons.circle, color: Colors.indigo),
+                  ),
                 ),
                 SizedBox(height: 8),
                 Text('Stadium', style: TextStyle(fontSize: 11)),
@@ -539,7 +565,10 @@ Widget buildShapeBorderRadiusSection() {
         SizedBox(height: 16),
         buildInfoCard('Property', 'shape'),
         buildInfoCard('Type', 'WidgetStateProperty<OutlinedBorder?>'),
-        buildInfoCard('Options', 'RoundedRectangleBorder, StadiumBorder, CircleBorder'),
+        buildInfoCard(
+          'Options',
+          'RoundedRectangleBorder, StadiumBorder, CircleBorder',
+        ),
       ],
     ),
   );
@@ -547,7 +576,7 @@ Widget buildShapeBorderRadiusSection() {
 
 Widget buildShadowColorSection() {
   print('Building MenuStyle shadowColor section');
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -673,7 +702,7 @@ Widget buildShadowColorSection() {
 
 Widget buildSurfaceTintColorSection() {
   print('Building MenuStyle surfaceTintColor section');
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -751,7 +780,10 @@ Widget buildSurfaceTintColorSection() {
                     border: Border.all(color: Colors.indigo.shade200),
                   ),
                   child: Center(
-                    child: Text('Medium', style: TextStyle(fontSize: 11, color: Colors.white)),
+                    child: Text(
+                      'Medium',
+                      style: TextStyle(fontSize: 11, color: Colors.white),
+                    ),
                   ),
                 ),
                 SizedBox(height: 8),
@@ -771,7 +803,7 @@ Widget buildSurfaceTintColorSection() {
 
 Widget buildMenuAnchorSection() {
   print('Building MenuAnchor using MenuStyle section');
-  
+
   MenuStyle customMenuStyle = MenuStyle(
     backgroundColor: WidgetStateProperty.all(Colors.indigo.shade50),
     elevation: WidgetStateProperty.all(8.0),
@@ -780,7 +812,7 @@ Widget buildMenuAnchorSection() {
     ),
     padding: WidgetStateProperty.all(EdgeInsets.symmetric(vertical: 8)),
   );
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -863,7 +895,10 @@ Widget buildMenuAnchorSection() {
                     SizedBox(height: 4),
                     Text(
                       'Click to open menu',
-                      style: TextStyle(fontSize: 10, color: Colors.grey.shade600),
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: Colors.grey.shade600,
+                      ),
                     ),
                   ],
                 ),
@@ -922,7 +957,7 @@ Widget buildMenuAnchorSection() {
 
 Widget buildDropdownMenuSection() {
   print('Building DropdownMenu using MenuStyle section');
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -1000,7 +1035,10 @@ Widget buildDropdownMenuSection() {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Select option', style: TextStyle(color: Colors.grey.shade600)),
+                    Text(
+                      'Select option',
+                      style: TextStyle(color: Colors.grey.shade600),
+                    ),
                     Icon(Icons.arrow_drop_down, color: Colors.grey),
                   ],
                 ),
@@ -1054,7 +1092,7 @@ Widget buildDropdownMenuSection() {
 
 Widget buildMultipleMenusComparisonSection() {
   print('Building multiple styled menus comparison section');
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -1208,7 +1246,10 @@ Widget buildMultipleMenusComparisonSection() {
         ),
         SizedBox(height: 16),
         buildInfoCard('Comparison', '3 different MenuStyle configurations'),
-        buildInfoCard('Key Differences', 'elevation, shape, background, borders'),
+        buildInfoCard(
+          'Key Differences',
+          'elevation, shape, background, borders',
+        ),
       ],
     ),
   );
@@ -1238,7 +1279,7 @@ Widget _buildStyledMenuItem(String text, MaterialColor color) {
 
 Widget buildPropertiesGridSection() {
   print('Building MenuStyle properties grid section');
-  
+
   List<Map<String, String>> properties = [
     {'name': 'backgroundColor', 'type': 'Color?', 'desc': 'Surface color'},
     {'name': 'shadowColor', 'type': 'Color?', 'desc': 'Shadow color'},
@@ -1249,9 +1290,13 @@ Widget buildPropertiesGridSection() {
     {'name': 'maximumSize', 'type': 'Size?', 'desc': 'Maximum dimensions'},
     {'name': 'side', 'type': 'BorderSide?', 'desc': 'Border styling'},
     {'name': 'shape', 'type': 'OutlinedBorder?', 'desc': 'Shape/corners'},
-    {'name': 'alignment', 'type': 'AlignmentGeometry?', 'desc': 'Content align'},
+    {
+      'name': 'alignment',
+      'type': 'AlignmentGeometry?',
+      'desc': 'Content align',
+    },
   ];
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -1366,7 +1411,10 @@ Widget buildPropertiesGridSection() {
                         flex: 3,
                         child: Text(
                           prop['desc']!,
-                          style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Colors.grey.shade600,
+                          ),
                         ),
                       ),
                     ],
@@ -1389,7 +1437,7 @@ Widget buildPropertiesGridSection() {
 
 Widget buildCopyWithSection() {
   print('Building MenuStyle.copyWith section');
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -1480,7 +1528,10 @@ Widget buildCopyWithSection() {
                 ),
                 child: Column(
                   children: [
-                    Text('Modified', style: TextStyle(fontWeight: FontWeight.bold)),
+                    Text(
+                      'Modified',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                     SizedBox(height: 8),
                     Icon(Icons.menu, color: Colors.blue),
                     Text('elevation: 8', style: TextStyle(fontSize: 10)),
@@ -1501,7 +1552,7 @@ Widget buildCopyWithSection() {
 
 Widget buildMergeSection() {
   print('Building MenuStyle.merge section');
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -1567,7 +1618,13 @@ Widget buildMergeSection() {
                 ),
                 child: Column(
                   children: [
-                    Text('Theme', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold)),
+                    Text(
+                      'Theme',
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     Container(
                       margin: EdgeInsets.only(top: 4),
                       height: 30,
@@ -1591,7 +1648,13 @@ Widget buildMergeSection() {
                 ),
                 child: Column(
                   children: [
-                    Text('Custom', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold)),
+                    Text(
+                      'Custom',
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     Container(
                       margin: EdgeInsets.only(top: 4),
                       height: 30,
@@ -1622,7 +1685,13 @@ Widget buildMergeSection() {
                 ),
                 child: Column(
                   children: [
-                    Text('Merged', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold)),
+                    Text(
+                      'Merged',
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     Container(
                       margin: EdgeInsets.only(top: 4),
                       height: 30,

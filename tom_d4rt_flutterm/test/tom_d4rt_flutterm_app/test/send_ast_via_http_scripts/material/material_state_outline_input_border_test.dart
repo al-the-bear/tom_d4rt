@@ -221,7 +221,10 @@ Widget _buildBasicStateResolvingDemo() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('State Resolution Examples:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'State Resolution Examples:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 12),
         Row(
           children: [
@@ -236,7 +239,10 @@ Widget _buildBasicStateResolvingDemo() {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey.shade400, width: 1),
+                      borderSide: BorderSide(
+                        color: Colors.grey.shade400,
+                        width: 1,
+                      ),
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
@@ -258,7 +264,10 @@ Widget _buildBasicStateResolvingDemo() {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey.shade400, width: 1),
+                      borderSide: BorderSide(
+                        color: Colors.grey.shade400,
+                        width: 1,
+                      ),
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
@@ -295,7 +304,10 @@ Widget _buildFocusStateDemo() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Focus State Transitions:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Focus State Transitions:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 12),
         TextField(
           decoration: InputDecoration(
@@ -352,7 +364,10 @@ Widget _buildErrorStateDemo() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Error State Styling:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Error State Styling:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 12),
         TextField(
           decoration: InputDecoration(
@@ -421,7 +436,10 @@ Widget _buildDisabledStateDemo() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Disabled State Appearance:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Disabled State Appearance:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 12),
         Row(
           children: [
@@ -452,7 +470,10 @@ Widget _buildDisabledStateDemo() {
                     filled: true,
                     fillColor: Colors.grey.shade100,
                     disabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey.shade300, width: 1),
+                      borderSide: BorderSide(
+                        color: Colors.grey.shade300,
+                        width: 1,
+                      ),
                     ),
                   ),
                 ),
@@ -470,7 +491,11 @@ Widget _buildDisabledStateDemo() {
             filled: true,
             fillColor: Colors.grey.shade50,
             disabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey.shade300, width: 1, style: BorderStyle.solid),
+              borderSide: BorderSide(
+                color: Colors.grey.shade300,
+                width: 1,
+                style: BorderStyle.solid,
+              ),
               borderRadius: BorderRadius.circular(8),
             ),
           ),
@@ -491,7 +516,10 @@ Widget _buildMultipleConfigurationsDemo() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Various Configuration Styles:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Various Configuration Styles:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 12),
         _buildLabeledField(
           'Indigo Theme',
@@ -570,7 +598,10 @@ Widget _buildBorderWidthDemo() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Border Width Variations:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Border Width Variations:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 12),
         Row(
           children: [
@@ -581,7 +612,10 @@ Widget _buildBorderWidthDemo() {
                   decoration: InputDecoration(
                     labelText: 'Focus to see thick border',
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey.shade400, width: 1),
+                      borderSide: BorderSide(
+                        color: Colors.grey.shade400,
+                        width: 1,
+                      ),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.blue, width: 3),
@@ -598,7 +632,10 @@ Widget _buildBorderWidthDemo() {
                   decoration: InputDecoration(
                     labelText: 'Extra thick focus',
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey.shade400, width: 1.5),
+                      borderSide: BorderSide(
+                        color: Colors.grey.shade400,
+                        width: 1.5,
+                      ),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.purple, width: 4),
@@ -664,7 +701,10 @@ Widget _buildBorderRadiusDemo() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Border Radius Changes Per State:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Border Radius Changes Per State:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 12),
         _buildLabeledField(
           'Sharp corners, rounded on focus',
@@ -710,7 +750,10 @@ Widget _buildBorderRadiusDemo() {
           TextField(
             decoration: InputDecoration(
               labelText: 'Pill-shaped field',
-              contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 16,
+              ),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey.shade400, width: 1),
                 borderRadius: BorderRadius.circular(30),
@@ -738,7 +781,10 @@ Widget _buildComparisonDemo() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Static vs Dynamic Border Comparison:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Static vs Dynamic Border Comparison:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 16),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -754,9 +800,18 @@ Widget _buildComparisonDemo() {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Static OutlineInputBorder', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey.shade700)),
+                    Text(
+                      'Static OutlineInputBorder',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey.shade700,
+                      ),
+                    ),
                     SizedBox(height: 4),
-                    Text('Same border always', style: TextStyle(fontSize: 12, color: Colors.grey)),
+                    Text(
+                      'Same border always',
+                      style: TextStyle(fontSize: 12, color: Colors.grey),
+                    ),
                     SizedBox(height: 12),
                     TextField(
                       decoration: InputDecoration(
@@ -782,15 +837,27 @@ Widget _buildComparisonDemo() {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('WidgetState Border', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.cyan.shade700)),
+                    Text(
+                      'WidgetState Border',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.cyan.shade700,
+                      ),
+                    ),
                     SizedBox(height: 4),
-                    Text('Changes with state', style: TextStyle(fontSize: 12, color: Colors.grey)),
+                    Text(
+                      'Changes with state',
+                      style: TextStyle(fontSize: 12, color: Colors.grey),
+                    ),
                     SizedBox(height: 12),
                     TextField(
                       decoration: InputDecoration(
                         labelText: 'Dynamic border',
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey.shade400, width: 1),
+                          borderSide: BorderSide(
+                            color: Colors.grey.shade400,
+                            width: 1,
+                          ),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.cyan, width: 2),
@@ -832,17 +899,29 @@ Widget _buildFormDemo() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Complete Form Example:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Complete Form Example:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 16),
         _buildFormField('Full Name', Icons.person, null),
         SizedBox(height: 12),
-        _buildFormField('Email Address', Icons.email, 'Please enter a valid email'),
+        _buildFormField(
+          'Email Address',
+          Icons.email,
+          'Please enter a valid email',
+        ),
         SizedBox(height: 12),
         _buildFormField('Phone Number', Icons.phone, null),
         SizedBox(height: 12),
         _buildFormField('Password', Icons.lock, null, isPassword: true),
         SizedBox(height: 12),
-        _buildFormField('Confirm Password', Icons.lock_outline, 'Passwords do not match', isPassword: true),
+        _buildFormField(
+          'Confirm Password',
+          Icons.lock_outline,
+          'Passwords do not match',
+          isPassword: true,
+        ),
         SizedBox(height: 16),
         SizedBox(
           width: double.infinity,
@@ -860,7 +939,12 @@ Widget _buildFormDemo() {
   );
 }
 
-Widget _buildFormField(String label, IconData icon, String? errorText, {bool isPassword = false}) {
+Widget _buildFormField(
+  String label,
+  IconData icon,
+  String? errorText, {
+  bool isPassword = false,
+}) {
   return TextField(
     obscureText: isPassword,
     decoration: InputDecoration(
@@ -902,14 +986,37 @@ Widget _buildStateSummaryGrid() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Widget States Reference:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Widget States Reference:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 16),
-        _buildStateRow('Normal / Enabled', Colors.grey.shade400, 1.0, 'Default idle state'),
+        _buildStateRow(
+          'Normal / Enabled',
+          Colors.grey.shade400,
+          1.0,
+          'Default idle state',
+        ),
         _buildStateRow('Focused', Colors.blue, 2.0, 'Active input focus'),
-        _buildStateRow('Hovered', Colors.blue.shade300, 1.5, 'Mouse hover (desktop)'),
+        _buildStateRow(
+          'Hovered',
+          Colors.blue.shade300,
+          1.5,
+          'Mouse hover (desktop)',
+        ),
         _buildStateRow('Error', Colors.red, 2.0, 'Validation failed'),
-        _buildStateRow('Focused + Error', Colors.red.shade800, 2.5, 'Error with focus'),
-        _buildStateRow('Disabled', Colors.grey.shade300, 1.0, 'Non-interactive'),
+        _buildStateRow(
+          'Focused + Error',
+          Colors.red.shade800,
+          2.5,
+          'Error with focus',
+        ),
+        _buildStateRow(
+          'Disabled',
+          Colors.grey.shade300,
+          1.0,
+          'Non-interactive',
+        ),
         _buildStateRow('Pressed', Colors.indigo, 2.5, 'Being pressed'),
         _buildStateRow('Selected', Colors.green, 2.0, 'Item selected'),
       ],
@@ -917,7 +1024,12 @@ Widget _buildStateSummaryGrid() {
   );
 }
 
-Widget _buildStateRow(String stateName, Color borderColor, double width, String description) {
+Widget _buildStateRow(
+  String stateName,
+  Color borderColor,
+  double width,
+  String description,
+) {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 8),
     child: Row(
@@ -935,8 +1047,14 @@ Widget _buildStateRow(String stateName, Color borderColor, double width, String 
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(stateName, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
-              Text(description, style: TextStyle(fontSize: 11, color: Colors.grey.shade600)),
+              Text(
+                stateName,
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+              ),
+              Text(
+                description,
+                style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+              ),
             ],
           ),
         ),
@@ -956,7 +1074,10 @@ Widget _buildCombinedStatesDemo() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Combined State Handling:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Combined State Handling:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 12),
         Text(
           'States can combine: a field can be both focused AND in error state. '
@@ -974,7 +1095,10 @@ Widget _buildCombinedStatesDemo() {
                     labelText: 'Error state',
                     errorText: 'Validation error',
                     errorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.red.shade300, width: 2),
+                      borderSide: BorderSide(
+                        color: Colors.red.shade300,
+                        width: 2,
+                      ),
                     ),
                   ),
                 ),
@@ -990,10 +1114,16 @@ Widget _buildCombinedStatesDemo() {
                     labelText: 'Focus me (error)',
                     errorText: 'Error persists on focus',
                     errorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.red.shade300, width: 2),
+                      borderSide: BorderSide(
+                        color: Colors.red.shade300,
+                        width: 2,
+                      ),
                     ),
                     focusedErrorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.red.shade700, width: 3),
+                      borderSide: BorderSide(
+                        color: Colors.red.shade700,
+                        width: 3,
+                      ),
                     ),
                   ),
                 ),
@@ -1011,7 +1141,10 @@ Widget _buildCombinedStatesDemo() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('State Priority Order:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+              Text(
+                'State Priority Order:',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+              ),
               SizedBox(height: 6),
               Text('1. Disabled (highest)', style: TextStyle(fontSize: 12)),
               Text('2. Error + Focused', style: TextStyle(fontSize: 12)),
@@ -1038,7 +1171,10 @@ Widget _buildInteractiveShowcase() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Try These Interactive Fields:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Try These Interactive Fields:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 16),
         _buildLabeledField(
           'Type something here',
@@ -1085,10 +1221,16 @@ Widget _buildInteractiveShowcase() {
               hintText: 'Write multiple lines here...',
               alignLabelWithHint: true,
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.blueGrey.shade200, width: 1),
+                borderSide: BorderSide(
+                  color: Colors.blueGrey.shade200,
+                  width: 1,
+                ),
               ),
               focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.blueGrey.shade600, width: 2),
+                borderSide: BorderSide(
+                  color: Colors.blueGrey.shade600,
+                  width: 2,
+                ),
               ),
             ),
           ),

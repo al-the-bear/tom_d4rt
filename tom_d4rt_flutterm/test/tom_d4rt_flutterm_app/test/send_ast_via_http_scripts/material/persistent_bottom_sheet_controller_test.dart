@@ -236,11 +236,7 @@ Widget buildControllerMethodsDemo() {
                 color: methodColors[i].withAlpha(30),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(
-                methodIcons[i],
-                color: methodColors[i],
-                size: 24,
-              ),
+              child: Icon(methodIcons[i], color: methodColors[i], size: 24),
             ),
             SizedBox(width: 12),
             Expanded(
@@ -402,10 +398,7 @@ Widget buildScrollableContentDemo() {
               ),
             ),
             SizedBox(width: 12),
-            Text(
-              items[i],
-              style: TextStyle(fontSize: 13),
-            ),
+            Text(items[i], style: TextStyle(fontSize: 13)),
           ],
         ),
       ),
@@ -698,10 +691,7 @@ Widget buildSheetActionsDemo() {
               SizedBox(height: 16),
               Text(
                 'Choose an Action',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 16),
               Row(children: actionButtons),
@@ -788,10 +778,7 @@ Widget buildMultipleSheetExamples() {
                 ],
               ),
             ),
-            Icon(
-              Icons.chevron_right,
-              color: sheetColors[e].shade400,
-            ),
+            Icon(Icons.chevron_right, color: sheetColors[e].shade400),
           ],
         ),
       ),
@@ -971,7 +958,10 @@ Widget buildInteractiveDemoSection() {
                 ),
               ),
               SizedBox(height: 8),
-              _buildStepItem(1, 'Get ScaffoldState via GlobalKey or Scaffold.of()'),
+              _buildStepItem(
+                1,
+                'Get ScaffoldState via GlobalKey or Scaffold.of()',
+              ),
               _buildStepItem(2, 'Call showBottomSheet() with a builder'),
               _buildStepItem(3, 'Store the returned controller'),
               _buildStepItem(4, 'Use controller.setState() to update content'),
@@ -1113,18 +1103,10 @@ Widget buildControllerLifecycleDemo() {
                   shape: BoxShape.circle,
                   border: Border.all(color: phaseColors[p], width: 2),
                 ),
-                child: Icon(
-                  phaseIcons[p],
-                  color: phaseColors[p],
-                  size: 20,
-                ),
+                child: Icon(phaseIcons[p], color: phaseColors[p], size: 20),
               ),
               if (p < phases.length - 1)
-                Container(
-                  width: 2,
-                  height: 30,
-                  color: Colors.grey.shade300,
-                ),
+                Container(width: 2, height: 30, color: Colors.grey.shade300),
             ],
           ),
           SizedBox(width: 12),
@@ -1227,11 +1209,7 @@ Widget buildBestPractices() {
                 color: Colors.green.shade100,
                 borderRadius: BorderRadius.circular(6),
               ),
-              child: Icon(
-                tipIcons[t],
-                color: Colors.green.shade700,
-                size: 18,
-              ),
+              child: Icon(tipIcons[t], color: Colors.green.shade700, size: 18),
             ),
             SizedBox(width: 12),
             Expanded(

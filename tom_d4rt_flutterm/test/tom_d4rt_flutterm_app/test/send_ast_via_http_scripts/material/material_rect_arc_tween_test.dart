@@ -271,13 +271,9 @@ Widget _buildLinearVsArcComparison() {
     final Rect? linR = linearTween.lerp(t);
     final Rect arcR = arcTween.lerp(t);
     if (linR != null) {
-      linearRects.add(
-        _buildRectBox(linR, Color(0xFF1565C0)),
-      );
+      linearRects.add(_buildRectBox(linR, Color(0xFF1565C0)));
     }
-    arcRects.add(
-      _buildRectBox(arcR, Color(0xFFC62828)),
-    );
+    arcRects.add(_buildRectBox(arcR, Color(0xFFC62828)));
   }
 
   return Column(
@@ -356,14 +352,8 @@ Widget _buildArcProperties() {
         'endArc (bottom-right corner)',
         'From ${endArc?.begin} to ${endArc?.end}',
       ),
-      _buildInfoCard(
-        'begin rect',
-        _fmtRect(begin),
-      ),
-      _buildInfoCard(
-        'end rect',
-        _fmtRect(end),
-      ),
+      _buildInfoCard('begin rect', _fmtRect(begin)),
+      _buildInfoCard('end rect', _fmtRect(end)),
       SizedBox(height: 8),
       // Visualize the two corner arcs
       Container(
@@ -381,9 +371,11 @@ Widget _buildArcProperties() {
             // End rect outline
             _buildRectBox(end, Color(0xFF2E7D32), label: 'end'),
             // Sample beginArc points (top-left corner path)
-            if (beginArc != null) ..._buildPointDots(beginArc, Color(0xFFE65100), 10),
+            if (beginArc != null)
+              ..._buildPointDots(beginArc, Color(0xFFE65100), 10),
             // Sample endArc points (bottom-right corner path)
-            if (endArc != null) ..._buildPointDots(endArc, Color(0xFF6A1B9A), 10),
+            if (endArc != null)
+              ..._buildPointDots(endArc, Color(0xFF6A1B9A), 10),
           ],
         ),
       ),
@@ -416,10 +408,7 @@ List<Widget> _buildPointDots(
         child: Container(
           width: 8,
           height: 8,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
       ),
     );
@@ -472,7 +461,9 @@ Widget _buildDifferentConfigurations() {
       rects.add(_buildRectBox(r, cfg.color));
     }
 
-    debugPrint('  ${cfg.name}: begin=${_fmtRect(cfg.begin)}, end=${_fmtRect(cfg.end)}');
+    debugPrint(
+      '  ${cfg.name}: begin=${_fmtRect(cfg.begin)}, end=${_fmtRect(cfg.end)}',
+    );
 
     configWidgets.add(
       Column(
@@ -549,9 +540,7 @@ Widget _buildHeroExpansion() {
 
   for (int i = 0; i < tSteps.length; i++) {
     final Rect r = heroTween.lerp(tSteps[i]);
-    frames.add(
-      _buildRectBox(r, gradient[i], label: 't=${tSteps[i]}'),
-    );
+    frames.add(_buildRectBox(r, gradient[i], label: 't=${tSteps[i]}'));
     debugPrint('  hero t=${tSteps[i]} -> ${_fmtRect(r)}');
   }
 
@@ -590,10 +579,7 @@ Widget _buildFineGrainedSampling() {
   final Rect begin = Rect.fromLTWH(15, 10, 50, 50);
   final Rect end = Rect.fromLTWH(200, 130, 100, 80);
 
-  final MaterialRectArcTween tw = MaterialRectArcTween(
-    begin: begin,
-    end: end,
-  );
+  final MaterialRectArcTween tw = MaterialRectArcTween(begin: begin, end: end);
 
   final int totalSteps = 12;
   List<Widget> stackItems = [];
@@ -607,9 +593,7 @@ Widget _buildFineGrainedSampling() {
     final int blueVal = (255 * (1 - t)).round();
     final Color c = Color.fromARGB(255, redVal, 60, blueVal);
     stackItems.add(_buildRectBox(r, c));
-    infoItems.add(
-      _buildInfoCard('t=${t.toStringAsFixed(3)}', _fmtRect(r)),
-    );
+    infoItems.add(_buildInfoCard('t=${t.toStringAsFixed(3)}', _fmtRect(r)));
     debugPrint('  step $i: t=${t.toStringAsFixed(3)} -> ${_fmtRect(r)}');
   }
 
@@ -648,10 +632,7 @@ Widget _buildCornerArcPaths() {
   final Rect begin = Rect.fromLTWH(20, 20, 70, 50);
   final Rect end = Rect.fromLTWH(180, 130, 120, 90);
 
-  final MaterialRectArcTween tw = MaterialRectArcTween(
-    begin: begin,
-    end: end,
-  );
+  final MaterialRectArcTween tw = MaterialRectArcTween(begin: begin, end: end);
 
   final MaterialPointArcTween? topLeftArc = tw.beginArc;
   final MaterialPointArcTween? bottomRightArc = tw.endArc;
@@ -869,22 +850,10 @@ Widget _buildEdgeCases() {
         style: TextStyle(fontSize: 13, color: Color(0xFF546E7A)),
       ),
       SizedBox(height: 8),
-      _buildInfoCard(
-        'Same rect (t=0.5)',
-        _fmtRect(sameMid),
-      ),
-      _buildInfoCard(
-        'Near rects begin',
-        _fmtRect(nearBegin),
-      ),
-      _buildInfoCard(
-        'Near rects end',
-        _fmtRect(nearEnd),
-      ),
-      _buildInfoCard(
-        'Near rects (t=0.5)',
-        _fmtRect(nearMid),
-      ),
+      _buildInfoCard('Same rect (t=0.5)', _fmtRect(sameMid)),
+      _buildInfoCard('Near rects begin', _fmtRect(nearBegin)),
+      _buildInfoCard('Near rects end', _fmtRect(nearEnd)),
+      _buildInfoCard('Near rects (t=0.5)', _fmtRect(nearMid)),
       SizedBox(height: 8),
       Text(
         'Zero-size begin expanding to normal rect:',
@@ -917,13 +886,11 @@ Widget _buildSummary() {
   debugPrint('Building summary');
 
   List<Map<String, String>> summaryItems = [
-    {
-      'label': 'Class',
-      'value': 'MaterialRectArcTween extends RectTween',
-    },
+    {'label': 'Class', 'value': 'MaterialRectArcTween extends RectTween'},
     {
       'label': 'Purpose',
-      'value': 'Interpolates Rects along arc paths for Material hero '
+      'value':
+          'Interpolates Rects along arc paths for Material hero '
           'animations',
     },
     {
@@ -932,12 +899,14 @@ Widget _buildSummary() {
     },
     {
       'label': 'Corner Behavior',
-      'value': 'Top-left and bottom-right corners each follow independent '
+      'value':
+          'Top-left and bottom-right corners each follow independent '
           'circular arcs',
     },
     {
       'label': 'vs RectTween',
-      'value': 'RectTween interpolates linearly; MaterialRectArcTween curves '
+      'value':
+          'RectTween interpolates linearly; MaterialRectArcTween curves '
           'outward like Material Design motion',
     },
     {
@@ -946,12 +915,14 @@ Widget _buildSummary() {
     },
     {
       'label': 'Same-size Rects',
-      'value': 'With equal-size begin/end, it becomes a pure arc-based '
+      'value':
+          'With equal-size begin/end, it becomes a pure arc-based '
           'translation',
     },
     {
       'label': 'Sections Shown',
-      'value': '10 comprehensive sections covering basic usage, comparison, '
+      'value':
+          '10 comprehensive sections covering basic usage, comparison, '
           'arc properties, configurations, hero expansion, fine sampling, '
           'corner arcs, translation, and edge cases',
     },

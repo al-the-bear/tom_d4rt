@@ -101,7 +101,10 @@ Widget buildAcceleratorOverview() {
         ),
         SizedBox(height: 16),
         buildInfoCard('Type', 'InheritedWidget'),
-        buildInfoCard('Purpose', 'Bind keyboard accelerators to menu callbacks'),
+        buildInfoCard(
+          'Purpose',
+          'Bind keyboard accelerators to menu callbacks',
+        ),
         buildInfoCard('Key Feature', 'Alt+key navigation for menu items'),
         buildInfoCard('Usage', 'Wrap MenuBar or menu item tree'),
       ],
@@ -168,28 +171,41 @@ Widget buildBasicMenuBarDemo() {
             SubmenuButton(
               menuChildren: [
                 MenuItemButton(
-                  shortcut: SingleActivator(LogicalKeyboardKey.keyN, control: true),
+                  shortcut: SingleActivator(
+                    LogicalKeyboardKey.keyN,
+                    control: true,
+                  ),
                   onPressed: () {
                     print('New file');
                   },
                   child: Text('New'),
                 ),
                 MenuItemButton(
-                  shortcut: SingleActivator(LogicalKeyboardKey.keyO, control: true),
+                  shortcut: SingleActivator(
+                    LogicalKeyboardKey.keyO,
+                    control: true,
+                  ),
                   onPressed: () {
                     print('Open file');
                   },
                   child: Text('Open'),
                 ),
                 MenuItemButton(
-                  shortcut: SingleActivator(LogicalKeyboardKey.keyS, control: true),
+                  shortcut: SingleActivator(
+                    LogicalKeyboardKey.keyS,
+                    control: true,
+                  ),
                   onPressed: () {
                     print('Save file');
                   },
                   child: Text('Save'),
                 ),
                 MenuItemButton(
-                  shortcut: SingleActivator(LogicalKeyboardKey.keyS, control: true, shift: true),
+                  shortcut: SingleActivator(
+                    LogicalKeyboardKey.keyS,
+                    control: true,
+                    shift: true,
+                  ),
                   onPressed: () {
                     print('Save As');
                   },
@@ -201,14 +217,20 @@ Widget buildBasicMenuBarDemo() {
             SubmenuButton(
               menuChildren: [
                 MenuItemButton(
-                  shortcut: SingleActivator(LogicalKeyboardKey.keyZ, control: true),
+                  shortcut: SingleActivator(
+                    LogicalKeyboardKey.keyZ,
+                    control: true,
+                  ),
                   onPressed: () {
                     print('Undo');
                   },
                   child: Text('Undo'),
                 ),
                 MenuItemButton(
-                  shortcut: SingleActivator(LogicalKeyboardKey.keyY, control: true),
+                  shortcut: SingleActivator(
+                    LogicalKeyboardKey.keyY,
+                    control: true,
+                  ),
                   onPressed: () {
                     print('Redo');
                   },
@@ -226,9 +248,19 @@ Widget buildBasicMenuBarDemo() {
         ),
         SizedBox(height: 8),
         buildMenuItemWithShortcut('New', 'Ctrl+N', Icons.add, Colors.blue),
-        buildMenuItemWithShortcut('Open', 'Ctrl+O', Icons.folder_open, Colors.orange),
+        buildMenuItemWithShortcut(
+          'Open',
+          'Ctrl+O',
+          Icons.folder_open,
+          Colors.orange,
+        ),
         buildMenuItemWithShortcut('Save', 'Ctrl+S', Icons.save, Colors.green),
-        buildMenuItemWithShortcut('Save As...', 'Ctrl+Shift+S', Icons.save_as, Colors.teal),
+        buildMenuItemWithShortcut(
+          'Save As...',
+          'Ctrl+Shift+S',
+          Icons.save_as,
+          Colors.teal,
+        ),
       ],
     ),
   );
@@ -360,19 +392,44 @@ Widget buildEditMenuWithShortcuts() {
         ),
         SizedBox(height: 12),
         buildMenuItemWithShortcut('Undo', 'Ctrl+Z', Icons.undo, Colors.blue),
-        buildMenuItemWithShortcut('Redo', 'Ctrl+Y', Icons.redo, Colors.blue.shade700),
+        buildMenuItemWithShortcut(
+          'Redo',
+          'Ctrl+Y',
+          Icons.redo,
+          Colors.blue.shade700,
+        ),
         SizedBox(height: 8),
         Divider(color: Colors.grey.shade300),
         SizedBox(height: 8),
-        buildMenuItemWithShortcut('Cut', 'Ctrl+X', Icons.content_cut, Colors.orange),
-        buildMenuItemWithShortcut('Copy', 'Ctrl+C', Icons.copy, Colors.orange.shade700),
+        buildMenuItemWithShortcut(
+          'Cut',
+          'Ctrl+X',
+          Icons.content_cut,
+          Colors.orange,
+        ),
+        buildMenuItemWithShortcut(
+          'Copy',
+          'Ctrl+C',
+          Icons.copy,
+          Colors.orange.shade700,
+        ),
         buildMenuItemWithShortcut('Paste', 'Ctrl+V', Icons.paste, Colors.green),
         SizedBox(height: 8),
         Divider(color: Colors.grey.shade300),
         SizedBox(height: 8),
-        buildMenuItemWithShortcut('Select All', 'Ctrl+A', Icons.select_all, Colors.purple),
+        buildMenuItemWithShortcut(
+          'Select All',
+          'Ctrl+A',
+          Icons.select_all,
+          Colors.purple,
+        ),
         buildMenuItemWithShortcut('Find', 'Ctrl+F', Icons.search, Colors.teal),
-        buildMenuItemWithShortcut('Replace', 'Ctrl+H', Icons.find_replace, Colors.indigo),
+        buildMenuItemWithShortcut(
+          'Replace',
+          'Ctrl+H',
+          Icons.find_replace,
+          Colors.indigo,
+        ),
       ],
     ),
   );
@@ -408,21 +465,30 @@ Widget buildSubmenuWithAccelerators() {
                 SubmenuButton(
                   menuChildren: [
                     MenuItemButton(
-                      shortcut: SingleActivator(LogicalKeyboardKey.digit1, control: true),
+                      shortcut: SingleActivator(
+                        LogicalKeyboardKey.digit1,
+                        control: true,
+                      ),
                       onPressed: () {
                         print('Recent 1');
                       },
                       child: Text('Document 1'),
                     ),
                     MenuItemButton(
-                      shortcut: SingleActivator(LogicalKeyboardKey.digit2, control: true),
+                      shortcut: SingleActivator(
+                        LogicalKeyboardKey.digit2,
+                        control: true,
+                      ),
                       onPressed: () {
                         print('Recent 2');
                       },
                       child: Text('Document 2'),
                     ),
                     MenuItemButton(
-                      shortcut: SingleActivator(LogicalKeyboardKey.digit3, control: true),
+                      shortcut: SingleActivator(
+                        LogicalKeyboardKey.digit3,
+                        control: true,
+                      ),
                       onPressed: () {
                         print('Recent 3');
                       },
@@ -449,7 +515,10 @@ Widget buildSubmenuWithAccelerators() {
                   child: Text('New'),
                 ),
                 MenuItemButton(
-                  shortcut: SingleActivator(LogicalKeyboardKey.keyW, control: true),
+                  shortcut: SingleActivator(
+                    LogicalKeyboardKey.keyW,
+                    control: true,
+                  ),
                   onPressed: () {
                     print('Close');
                   },
@@ -508,7 +577,12 @@ Widget buildAcceleratorHintDemo() {
   print('Building accelerator hint demo');
   List<String> menuLabels = ['File', 'Edit', 'View', 'Help'];
   List<String> underlinePositions = ['F', 'E', 'V', 'H'];
-  List<MaterialColor> menuColors = [Colors.blue, Colors.green, Colors.orange, Colors.purple];
+  List<MaterialColor> menuColors = [
+    Colors.blue,
+    Colors.green,
+    Colors.orange,
+    Colors.purple,
+  ];
 
   List<Widget> items = [];
   int i = 0;
@@ -579,9 +653,7 @@ Widget buildAcceleratorHintDemo() {
           style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
         ),
         SizedBox(height: 16),
-        Row(
-          children: items,
-        ),
+        Row(children: items),
         SizedBox(height: 16),
         Container(
           padding: EdgeInsets.all(10),
@@ -917,7 +989,10 @@ Widget buildInteractiveMenuDemo() {
             SubmenuButton(
               menuChildren: [
                 MenuItemButton(
-                  shortcut: SingleActivator(LogicalKeyboardKey.keyN, control: true),
+                  shortcut: SingleActivator(
+                    LogicalKeyboardKey.keyN,
+                    control: true,
+                  ),
                   leadingIcon: Icon(Icons.add, size: 18),
                   onPressed: () {
                     print('New');
@@ -925,7 +1000,10 @@ Widget buildInteractiveMenuDemo() {
                   child: Text('New'),
                 ),
                 MenuItemButton(
-                  shortcut: SingleActivator(LogicalKeyboardKey.keyO, control: true),
+                  shortcut: SingleActivator(
+                    LogicalKeyboardKey.keyO,
+                    control: true,
+                  ),
                   leadingIcon: Icon(Icons.folder_open, size: 18),
                   onPressed: () {
                     print('Open');
@@ -933,7 +1011,10 @@ Widget buildInteractiveMenuDemo() {
                   child: Text('Open'),
                 ),
                 MenuItemButton(
-                  shortcut: SingleActivator(LogicalKeyboardKey.keyS, control: true),
+                  shortcut: SingleActivator(
+                    LogicalKeyboardKey.keyS,
+                    control: true,
+                  ),
                   leadingIcon: Icon(Icons.save, size: 18),
                   onPressed: () {
                     print('Save');
@@ -942,7 +1023,10 @@ Widget buildInteractiveMenuDemo() {
                 ),
                 Divider(),
                 MenuItemButton(
-                  shortcut: SingleActivator(LogicalKeyboardKey.keyQ, control: true),
+                  shortcut: SingleActivator(
+                    LogicalKeyboardKey.keyQ,
+                    control: true,
+                  ),
                   leadingIcon: Icon(Icons.exit_to_app, size: 18),
                   onPressed: () {
                     print('Exit');
@@ -955,7 +1039,10 @@ Widget buildInteractiveMenuDemo() {
             SubmenuButton(
               menuChildren: [
                 MenuItemButton(
-                  shortcut: SingleActivator(LogicalKeyboardKey.keyZ, control: true),
+                  shortcut: SingleActivator(
+                    LogicalKeyboardKey.keyZ,
+                    control: true,
+                  ),
                   leadingIcon: Icon(Icons.undo, size: 18),
                   onPressed: () {
                     print('Undo');
@@ -963,7 +1050,10 @@ Widget buildInteractiveMenuDemo() {
                   child: Text('Undo'),
                 ),
                 MenuItemButton(
-                  shortcut: SingleActivator(LogicalKeyboardKey.keyY, control: true),
+                  shortcut: SingleActivator(
+                    LogicalKeyboardKey.keyY,
+                    control: true,
+                  ),
                   leadingIcon: Icon(Icons.redo, size: 18),
                   onPressed: () {
                     print('Redo');
@@ -972,7 +1062,10 @@ Widget buildInteractiveMenuDemo() {
                 ),
                 Divider(),
                 MenuItemButton(
-                  shortcut: SingleActivator(LogicalKeyboardKey.keyX, control: true),
+                  shortcut: SingleActivator(
+                    LogicalKeyboardKey.keyX,
+                    control: true,
+                  ),
                   leadingIcon: Icon(Icons.content_cut, size: 18),
                   onPressed: () {
                     print('Cut');
@@ -980,7 +1073,10 @@ Widget buildInteractiveMenuDemo() {
                   child: Text('Cut'),
                 ),
                 MenuItemButton(
-                  shortcut: SingleActivator(LogicalKeyboardKey.keyC, control: true),
+                  shortcut: SingleActivator(
+                    LogicalKeyboardKey.keyC,
+                    control: true,
+                  ),
                   leadingIcon: Icon(Icons.copy, size: 18),
                   onPressed: () {
                     print('Copy');
@@ -988,7 +1084,10 @@ Widget buildInteractiveMenuDemo() {
                   child: Text('Copy'),
                 ),
                 MenuItemButton(
-                  shortcut: SingleActivator(LogicalKeyboardKey.keyV, control: true),
+                  shortcut: SingleActivator(
+                    LogicalKeyboardKey.keyV,
+                    control: true,
+                  ),
                   leadingIcon: Icon(Icons.paste, size: 18),
                   onPressed: () {
                     print('Paste');
@@ -1105,7 +1204,11 @@ Widget buildBindingInheritance() {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildTreeNode('MaterialApp', 0, Colors.blue),
-              _buildTreeNode('MenuAcceleratorCallbackBinding', 1, Colors.indigo),
+              _buildTreeNode(
+                'MenuAcceleratorCallbackBinding',
+                1,
+                Colors.indigo,
+              ),
               _buildTreeNode('Scaffold', 2, Colors.blue),
               _buildTreeNode('MenuBar', 3, Colors.green),
               _buildTreeNode('SubmenuButton (File)', 4, Colors.green),

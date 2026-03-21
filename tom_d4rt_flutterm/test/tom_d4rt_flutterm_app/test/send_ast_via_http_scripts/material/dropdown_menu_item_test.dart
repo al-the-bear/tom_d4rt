@@ -73,8 +73,14 @@ Widget _buildBasicTextItems() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Basic Text DropdownMenuItems',
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.teal.shade800)),
+        Text(
+          'Basic Text DropdownMenuItems',
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+            color: Colors.teal.shade800,
+          ),
+        ),
         SizedBox(height: 12),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 12),
@@ -93,8 +99,10 @@ Widget _buildBasicTextItems() {
           ),
         ),
         SizedBox(height: 8),
-        Text('Five fruit options in a simple text dropdown',
-          style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
+        Text(
+          'Five fruit options in a simple text dropdown',
+          style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+        ),
       ],
     ),
   );
@@ -103,8 +111,20 @@ Widget _buildBasicTextItems() {
 Widget _buildIconAndTextItems() {
   debugPrint('Building icon+text dropdown items');
   List<String> labels = ['Home', 'Work', 'School', 'Gym', 'Park'];
-  List<IconData> icons = [Icons.home, Icons.work, Icons.school, Icons.fitness_center, Icons.park];
-  List<Color> iconColors = [Colors.blue, Colors.orange, Colors.green, Colors.red, Colors.teal];
+  List<IconData> icons = [
+    Icons.home,
+    Icons.work,
+    Icons.school,
+    Icons.fitness_center,
+    Icons.park,
+  ];
+  List<Color> iconColors = [
+    Colors.blue,
+    Colors.orange,
+    Colors.green,
+    Colors.red,
+    Colors.teal,
+  ];
   List<DropdownMenuItem<String>> items = [];
   for (int i = 0; i < labels.length; i = i + 1) {
     items.add(
@@ -130,8 +150,14 @@ Widget _buildIconAndTextItems() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Icon + Text DropdownMenuItems',
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.teal.shade800)),
+        Text(
+          'Icon + Text DropdownMenuItems',
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+            color: Colors.teal.shade800,
+          ),
+        ),
         SizedBox(height: 12),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 12),
@@ -150,8 +176,10 @@ Widget _buildIconAndTextItems() {
           ),
         ),
         SizedBox(height: 8),
-        Text('Each item has an icon and label',
-          style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
+        Text(
+          'Each item has an icon and label',
+          style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+        ),
       ],
     ),
   );
@@ -174,18 +202,24 @@ Widget _buildCustomChildItems() {
               CircleAvatar(
                 radius: 16,
                 backgroundColor: avatarColors[i],
-                child: Text(names[i].substring(0, 1),
-                  style: TextStyle(color: Colors.white, fontSize: 14)),
+                child: Text(
+                  names[i].substring(0, 1),
+                  style: TextStyle(color: Colors.white, fontSize: 14),
+                ),
               ),
               SizedBox(width: 12),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(names[i],
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-                  Text(roles[i],
-                    style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
+                  Text(
+                    names[i],
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                  ),
+                  Text(
+                    roles[i],
+                    style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+                  ),
                 ],
               ),
             ],
@@ -204,8 +238,14 @@ Widget _buildCustomChildItems() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Custom Rich Child Items',
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.teal.shade800)),
+        Text(
+          'Custom Rich Child Items',
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+            color: Colors.teal.shade800,
+          ),
+        ),
         SizedBox(height: 12),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 12),
@@ -224,8 +264,10 @@ Widget _buildCustomChildItems() {
           ),
         ),
         SizedBox(height: 8),
-        Text('Each item shows avatar, name, and role',
-          style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
+        Text(
+          'Each item shows avatar, name, and role',
+          style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+        ),
       ],
     ),
   );
@@ -233,7 +275,13 @@ Widget _buildCustomChildItems() {
 
 Widget _buildEnabledDisabledComparison() {
   debugPrint('Building enabled/disabled items comparison');
-  List<String> options = ['Active A', 'Disabled B', 'Active C', 'Disabled D', 'Active E'];
+  List<String> options = [
+    'Active A',
+    'Disabled B',
+    'Active C',
+    'Disabled D',
+    'Active E',
+  ];
   List<bool> enabledStates = [true, false, true, false, true];
   List<DropdownMenuItem<String>> items = [];
   for (int i = 0; i < options.length; i = i + 1) {
@@ -241,11 +289,13 @@ Widget _buildEnabledDisabledComparison() {
       DropdownMenuItem<String>(
         value: options[i],
         enabled: enabledStates[i],
-        child: Text(options[i],
+        child: Text(
+          options[i],
           style: TextStyle(
             fontSize: 15,
             color: enabledStates[i] ? Colors.black : Colors.grey.shade400,
-          )),
+          ),
+        ),
       ),
     );
   }
@@ -259,8 +309,14 @@ Widget _buildEnabledDisabledComparison() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Enabled vs Disabled Items',
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.teal.shade800)),
+        Text(
+          'Enabled vs Disabled Items',
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+            color: Colors.teal.shade800,
+          ),
+        ),
         SizedBox(height: 12),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 12),
@@ -300,11 +356,22 @@ Widget _buildStatusRow(String label, bool enabled) {
           color: enabled ? Colors.green : Colors.red.shade300,
         ),
         SizedBox(width: 8),
-        Text(label,
-          style: TextStyle(fontSize: 13, color: enabled ? Colors.black : Colors.grey.shade400)),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 13,
+            color: enabled ? Colors.black : Colors.grey.shade400,
+          ),
+        ),
         SizedBox(width: 8),
-        Text(enabled ? 'enabled' : 'disabled',
-          style: TextStyle(fontSize: 11, fontStyle: FontStyle.italic, color: Colors.grey.shade500)),
+        Text(
+          enabled ? 'enabled' : 'disabled',
+          style: TextStyle(
+            fontSize: 11,
+            fontStyle: FontStyle.italic,
+            color: Colors.grey.shade500,
+          ),
+        ),
       ],
     ),
   );
@@ -312,8 +379,16 @@ Widget _buildStatusRow(String label, bool enabled) {
 
 Widget _buildCustomAlignmentItems() {
   debugPrint('Building custom alignment items');
-  List<String> alignLabels = ['Left Aligned', 'Center Aligned', 'Right Aligned'];
-  List<Alignment> alignments = [Alignment.centerLeft, Alignment.center, Alignment.centerRight];
+  List<String> alignLabels = [
+    'Left Aligned',
+    'Center Aligned',
+    'Right Aligned',
+  ];
+  List<Alignment> alignments = [
+    Alignment.centerLeft,
+    Alignment.center,
+    Alignment.centerRight,
+  ];
   List<DropdownMenuItem<String>> items = [];
   for (int i = 0; i < alignLabels.length; i = i + 1) {
     items.add(
@@ -334,8 +409,14 @@ Widget _buildCustomAlignmentItems() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Custom Alignment DropdownMenuItems',
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.teal.shade800)),
+        Text(
+          'Custom Alignment DropdownMenuItems',
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+            color: Colors.teal.shade800,
+          ),
+        ),
         SizedBox(height: 12),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 12),
@@ -354,8 +435,10 @@ Widget _buildCustomAlignmentItems() {
           ),
         ),
         SizedBox(height: 8),
-        Text('Items have different alignment within the dropdown',
-          style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
+        Text(
+          'Items have different alignment within the dropdown',
+          style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+        ),
       ],
     ),
   );
@@ -365,7 +448,12 @@ Widget _buildDifferentHeightItems() {
   debugPrint('Building different height items');
   List<String> sizes = ['Small', 'Medium', 'Large', 'Extra Large'];
   List<double> heights = [36.0, 48.0, 64.0, 80.0];
-  List<Color> colors = [Colors.blue.shade100, Colors.green.shade100, Colors.orange.shade100, Colors.purple.shade100];
+  List<Color> colors = [
+    Colors.blue.shade100,
+    Colors.green.shade100,
+    Colors.orange.shade100,
+    Colors.purple.shade100,
+  ];
   List<DropdownMenuItem<String>> items = [];
   for (int i = 0; i < sizes.length; i = i + 1) {
     items.add(
@@ -391,8 +479,14 @@ Widget _buildDifferentHeightItems() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Items with Different Heights',
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.teal.shade800)),
+        Text(
+          'Items with Different Heights',
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+            color: Colors.teal.shade800,
+          ),
+        ),
         SizedBox(height: 12),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 12),
@@ -411,7 +505,10 @@ Widget _buildDifferentHeightItems() {
           ),
         ),
         SizedBox(height: 12),
-        Text('Height catalog:', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
+        Text(
+          'Height catalog:',
+          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+        ),
         SizedBox(height: 4),
         _buildHeightIndicator('Small', 36.0, Colors.blue.shade200),
         _buildHeightIndicator('Medium', 48.0, Colors.green.shade200),
@@ -430,11 +527,16 @@ Widget _buildHeightIndicator(String label, double height, Color color) {
         Container(
           width: height,
           height: 14,
-          decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(3)),
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(3),
+          ),
         ),
         SizedBox(width: 8),
-        Text('$label - ${height.toInt()}px',
-          style: TextStyle(fontSize: 12, color: Colors.grey.shade700)),
+        Text(
+          '$label - ${height.toInt()}px',
+          style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+        ),
       ],
     ),
   );
@@ -443,8 +545,22 @@ Widget _buildHeightIndicator(String label, double height, Color color) {
 Widget _buildColoredBackgroundItems() {
   debugPrint('Building colored background items');
   List<String> colorNames = ['Red', 'Green', 'Blue', 'Amber', 'Teal', 'Purple'];
-  List<Color> bgColors = [Colors.red.shade50, Colors.green.shade50, Colors.blue.shade50, Colors.amber.shade50, Colors.teal.shade50, Colors.purple.shade50];
-  List<Color> textColors = [Colors.red.shade800, Colors.green.shade800, Colors.blue.shade800, Colors.amber.shade800, Colors.teal.shade800, Colors.purple.shade800];
+  List<Color> bgColors = [
+    Colors.red.shade50,
+    Colors.green.shade50,
+    Colors.blue.shade50,
+    Colors.amber.shade50,
+    Colors.teal.shade50,
+    Colors.purple.shade50,
+  ];
+  List<Color> textColors = [
+    Colors.red.shade800,
+    Colors.green.shade800,
+    Colors.blue.shade800,
+    Colors.amber.shade800,
+    Colors.teal.shade800,
+    Colors.purple.shade800,
+  ];
   List<DropdownMenuItem<String>> items = [];
   for (int i = 0; i < colorNames.length; i = i + 1) {
     items.add(
@@ -456,8 +572,14 @@ Widget _buildColoredBackgroundItems() {
             color: bgColors[i],
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(colorNames[i],
-            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: textColors[i])),
+          child: Text(
+            colorNames[i],
+            style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
+              color: textColors[i],
+            ),
+          ),
         ),
       ),
     );
@@ -472,8 +594,14 @@ Widget _buildColoredBackgroundItems() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Colored Background Items',
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.teal.shade800)),
+        Text(
+          'Colored Background Items',
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+            color: Colors.teal.shade800,
+          ),
+        ),
         SizedBox(height: 12),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 12),
@@ -493,11 +621,23 @@ Widget _buildColoredBackgroundItems() {
         ),
         SizedBox(height: 12),
         _buildColorSwatchRow('Red', Colors.red.shade50, Colors.red.shade800),
-        _buildColorSwatchRow('Green', Colors.green.shade50, Colors.green.shade800),
+        _buildColorSwatchRow(
+          'Green',
+          Colors.green.shade50,
+          Colors.green.shade800,
+        ),
         _buildColorSwatchRow('Blue', Colors.blue.shade50, Colors.blue.shade800),
-        _buildColorSwatchRow('Amber', Colors.amber.shade50, Colors.amber.shade800),
+        _buildColorSwatchRow(
+          'Amber',
+          Colors.amber.shade50,
+          Colors.amber.shade800,
+        ),
         _buildColorSwatchRow('Teal', Colors.teal.shade50, Colors.teal.shade800),
-        _buildColorSwatchRow('Purple', Colors.purple.shade50, Colors.purple.shade800),
+        _buildColorSwatchRow(
+          'Purple',
+          Colors.purple.shade50,
+          Colors.purple.shade800,
+        ),
       ],
     ),
   );
@@ -509,8 +649,13 @@ Widget _buildColorSwatchRow(String label, Color bg, Color fg) {
     child: Row(
       children: [
         Container(
-          width: 24, height: 14,
-          decoration: BoxDecoration(color: bg, border: Border.all(color: fg, width: 1), borderRadius: BorderRadius.circular(3)),
+          width: 24,
+          height: 14,
+          decoration: BoxDecoration(
+            color: bg,
+            border: Border.all(color: fg, width: 1),
+            borderRadius: BorderRadius.circular(3),
+          ),
         ),
         SizedBox(width: 8),
         Text(label, style: TextStyle(fontSize: 12, color: fg)),
@@ -521,8 +666,18 @@ Widget _buildColorSwatchRow(String label, Color bg, Color fg) {
 
 Widget _buildPaddingVariationItems() {
   debugPrint('Building padding variation items');
-  List<String> paddingLabels = ['No Padding', 'Small Padding', 'Medium Padding', 'Large Padding'];
-  List<EdgeInsets> paddings = [EdgeInsets.zero, EdgeInsets.all(4), EdgeInsets.all(12), EdgeInsets.all(20)];
+  List<String> paddingLabels = [
+    'No Padding',
+    'Small Padding',
+    'Medium Padding',
+    'Large Padding',
+  ];
+  List<EdgeInsets> paddings = [
+    EdgeInsets.zero,
+    EdgeInsets.all(4),
+    EdgeInsets.all(12),
+    EdgeInsets.all(20),
+  ];
   List<DropdownMenuItem<String>> items = [];
   for (int i = 0; i < paddingLabels.length; i = i + 1) {
     items.add(
@@ -549,8 +704,14 @@ Widget _buildPaddingVariationItems() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Items with Padding Variations',
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.teal.shade800)),
+        Text(
+          'Items with Padding Variations',
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+            color: Colors.teal.shade800,
+          ),
+        ),
         SizedBox(height: 12),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 12),
@@ -569,8 +730,10 @@ Widget _buildPaddingVariationItems() {
           ),
         ),
         SizedBox(height: 8),
-        Text('Each item has different internal padding',
-          style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
+        Text(
+          'Each item has different internal padding',
+          style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+        ),
       ],
     ),
   );
@@ -586,7 +749,13 @@ Widget _buildPropertiesSummary() {
     'How the child is aligned within the item',
     'Callback when the item is tapped',
   ];
-  List<IconData> propIcons = [Icons.data_object, Icons.widgets, Icons.toggle_on, Icons.format_align_left, Icons.touch_app];
+  List<IconData> propIcons = [
+    Icons.data_object,
+    Icons.widgets,
+    Icons.toggle_on,
+    Icons.format_align_left,
+    Icons.touch_app,
+  ];
   List<Widget> rows = [];
   for (int i = 0; i < propNames.length; i = i + 1) {
     rows.add(
@@ -607,11 +776,19 @@ Widget _buildPropertiesSummary() {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(propNames[i],
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.teal.shade800)),
+                  Text(
+                    propNames[i],
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                      color: Colors.teal.shade800,
+                    ),
+                  ),
                   SizedBox(height: 2),
-                  Text(propDescs[i],
-                    style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
+                  Text(
+                    propDescs[i],
+                    style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+                  ),
                 ],
               ),
             ),
@@ -627,10 +804,7 @@ Widget _buildPropertiesSummary() {
       borderRadius: BorderRadius.circular(12),
       border: Border.all(color: Colors.teal.shade200),
     ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: rows,
-    ),
+    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: rows),
   );
 }
 
@@ -678,8 +852,14 @@ dynamic build(BuildContext context) {
             SizedBox(height: 32),
             _buildInfoCard('Widget', 'DropdownMenuItem<T>'),
             _buildInfoCard('Package', 'package:flutter/material.dart'),
-            _buildInfoCard('Purpose', 'An item in a menu created by a DropdownButton'),
-            _buildInfoCard('Key Properties', 'value, child, enabled, alignment, onTap'),
+            _buildInfoCard(
+              'Purpose',
+              'An item in a menu created by a DropdownButton',
+            ),
+            _buildInfoCard(
+              'Key Properties',
+              'value, child, enabled, alignment, onTap',
+            ),
             SizedBox(height: 32),
           ],
         ),

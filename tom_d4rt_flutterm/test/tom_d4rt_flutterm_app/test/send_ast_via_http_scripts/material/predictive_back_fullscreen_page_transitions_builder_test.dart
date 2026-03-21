@@ -605,11 +605,7 @@ Widget buildFullscreenTransitionsSection() {
           'Smooth easing',
           Icons.trending_up,
         ),
-        _buildCharacteristicRow(
-          'Gesture',
-          'Edge-triggered',
-          Icons.touch_app,
-        ),
+        _buildCharacteristicRow('Gesture', 'Edge-triggered', Icons.touch_app),
         SizedBox(height: 16),
         Container(
           width: double.infinity,
@@ -648,7 +644,11 @@ Widget buildFullscreenTransitionsSection() {
   );
 }
 
-Widget _buildTransitionPhaseCard(String label, double progress, MaterialColor color) {
+Widget _buildTransitionPhaseCard(
+  String label,
+  double progress,
+  MaterialColor color,
+) {
   return Expanded(
     child: Container(
       padding: EdgeInsets.all(12),
@@ -742,10 +742,30 @@ Widget buildPredictiveBackGestureSection() {
           style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
         ),
         SizedBox(height: 16),
-        _buildGestureStage('Start', 'User begins edge swipe', Icons.touch_app, 1),
-        _buildGestureStage('Preview', 'Previous screen becomes visible', Icons.visibility, 2),
-        _buildGestureStage('Commit', 'User completes the gesture', Icons.check_circle, 3),
-        _buildGestureStage('Cancel', 'User cancels mid-gesture', Icons.cancel, 4),
+        _buildGestureStage(
+          'Start',
+          'User begins edge swipe',
+          Icons.touch_app,
+          1,
+        ),
+        _buildGestureStage(
+          'Preview',
+          'Previous screen becomes visible',
+          Icons.visibility,
+          2,
+        ),
+        _buildGestureStage(
+          'Commit',
+          'User completes the gesture',
+          Icons.check_circle,
+          3,
+        ),
+        _buildGestureStage(
+          'Cancel',
+          'User cancels mid-gesture',
+          Icons.cancel,
+          4,
+        ),
         SizedBox(height: 16),
         Container(
           padding: EdgeInsets.all(12),
@@ -801,7 +821,12 @@ Widget buildPredictiveBackGestureSection() {
   );
 }
 
-Widget _buildGestureStage(String title, String description, IconData icon, int number) {
+Widget _buildGestureStage(
+  String title,
+  String description,
+  IconData icon,
+  int number,
+) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 4),
     child: Row(
@@ -890,7 +915,9 @@ Widget buildComparisonSection() {
           color: isHighlighted ? Colors.indigo.shade50 : Colors.grey.shade50,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-            color: isHighlighted ? Colors.indigo.shade400 : Colors.grey.shade300,
+            color: isHighlighted
+                ? Colors.indigo.shade400
+                : Colors.grey.shade300,
             width: isHighlighted ? 2 : 1,
           ),
         ),
@@ -922,7 +949,10 @@ Widget buildComparisonSection() {
                       if (isHighlighted)
                         Container(
                           margin: EdgeInsets.only(left: 8),
-                          padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 6,
+                            vertical: 2,
+                          ),
                           decoration: BoxDecoration(
                             color: Colors.indigo,
                             borderRadius: BorderRadius.circular(4),
@@ -1012,37 +1042,29 @@ Widget buildPlatformConsiderationsSection() {
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 16),
-        _buildPlatformCard(
-          'Android 14+',
-          Icons.android,
-          Colors.green,
-          ['Full predictive back support', 'Native gesture integration', 'Fullscreen preview'],
-          true,
-        ),
+        _buildPlatformCard('Android 14+', Icons.android, Colors.green, [
+          'Full predictive back support',
+          'Native gesture integration',
+          'Fullscreen preview',
+        ], true),
         SizedBox(height: 8),
-        _buildPlatformCard(
-          'Android < 14',
-          Icons.android,
-          Colors.orange,
-          ['Falls back to standard transition', 'No gesture preview', 'Uses system back'],
-          false,
-        ),
+        _buildPlatformCard('Android < 14', Icons.android, Colors.orange, [
+          'Falls back to standard transition',
+          'No gesture preview',
+          'Uses system back',
+        ], false),
         SizedBox(height: 8),
-        _buildPlatformCard(
-          'iOS / macOS',
-          Icons.apple,
-          Colors.grey,
-          ['Not applicable', 'Use CupertinoPageTransitionsBuilder', 'Native swipe-back'],
-          false,
-        ),
+        _buildPlatformCard('iOS / macOS', Icons.apple, Colors.grey, [
+          'Not applicable',
+          'Use CupertinoPageTransitionsBuilder',
+          'Native swipe-back',
+        ], false),
         SizedBox(height: 8),
-        _buildPlatformCard(
-          'Web / Desktop',
-          Icons.computer,
-          Colors.blue,
-          ['Standard transitions apply', 'No gesture support', 'Button/keyboard navigation'],
-          false,
-        ),
+        _buildPlatformCard('Web / Desktop', Icons.computer, Colors.blue, [
+          'Standard transitions apply',
+          'No gesture support',
+          'Button/keyboard navigation',
+        ], false),
       ],
     ),
   );
@@ -1193,9 +1215,7 @@ Widget buildAnimationCurvesSection() {
                 color: curveColors[i].shade50,
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: CustomPaint(
-                painter: _CurvePainter(curveColors[i]),
-              ),
+              child: CustomPaint(painter: _CurvePainter(curveColors[i])),
             ),
             SizedBox(width: 12),
             Expanded(
@@ -1283,12 +1303,7 @@ class _CurvePainter extends CustomPainter {
 
     Path path = Path();
     path.moveTo(0, size.height);
-    path.quadraticBezierTo(
-      size.width * 0.3,
-      size.height * 0.1,
-      size.width,
-      0,
-    );
+    path.quadraticBezierTo(size.width * 0.3, size.height * 0.1, size.width, 0);
     canvas.drawPath(path, paint);
   }
 
@@ -1536,10 +1551,7 @@ Widget _buildGestureLabel(String label, IconData icon, MaterialColor color) {
     children: [
       Icon(icon, color: color.shade500, size: 18),
       SizedBox(height: 4),
-      Text(
-        label,
-        style: TextStyle(fontSize: 10, color: color.shade700),
-      ),
+      Text(label, style: TextStyle(fontSize: 10, color: color.shade700)),
     ],
   );
 }
@@ -1567,19 +1579,9 @@ Widget _buildTransitionTimeline() {
         Row(
           children: [
             _buildTimelinePoint('0ms', 'Start', true),
-            Expanded(
-              child: Container(
-                height: 2,
-                color: Colors.teal.shade300,
-              ),
-            ),
+            Expanded(child: Container(height: 2, color: Colors.teal.shade300)),
             _buildTimelinePoint('150ms', 'Mid', true),
-            Expanded(
-              child: Container(
-                height: 2,
-                color: Colors.teal.shade300,
-              ),
-            ),
+            Expanded(child: Container(height: 2, color: Colors.teal.shade300)),
             _buildTimelinePoint('300ms', 'End', true),
           ],
         ),
@@ -1615,16 +1617,15 @@ Widget _buildTimelinePoint(String time, String label, bool active) {
           color: Colors.teal.shade700,
         ),
       ),
-      Text(
-        label,
-        style: TextStyle(fontSize: 8, color: Colors.teal.shade500),
-      ),
+      Text(label, style: TextStyle(fontSize: 8, color: Colors.teal.shade500)),
     ],
   );
 }
 
 dynamic build(BuildContext context) {
-  print('PredictiveBackFullscreenPageTransitionsBuilder deep demo test executing');
+  print(
+    'PredictiveBackFullscreenPageTransitionsBuilder deep demo test executing',
+  );
 
   return SingleChildScrollView(
     padding: EdgeInsets.all(16),

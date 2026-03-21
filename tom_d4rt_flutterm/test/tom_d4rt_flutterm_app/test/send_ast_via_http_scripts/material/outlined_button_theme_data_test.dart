@@ -101,7 +101,10 @@ Widget buildOverviewSection() {
         buildInfoCard('Widget', 'OutlinedButton'),
         buildInfoCard('Theme Wrapper', 'OutlinedButtonTheme'),
         buildInfoCard('Purpose', 'Consistent outlined button styling'),
-        buildInfoCard('Usage', 'ThemeData.outlinedButtonTheme or OutlinedButtonTheme'),
+        buildInfoCard(
+          'Usage',
+          'ThemeData.outlinedButtonTheme or OutlinedButtonTheme',
+        ),
         buildInfoCard('Key Properties', 'style (ButtonStyle)'),
       ],
     ),
@@ -148,10 +151,7 @@ Widget buildDefaultOutlinedButton() {
               icon: Icon(Icons.send),
               label: Text('Send'),
             ),
-            OutlinedButton(
-              onPressed: null,
-              child: Text('Disabled'),
-            ),
+            OutlinedButton(onPressed: null, child: Text('Disabled')),
           ],
         ),
         SizedBox(height: 16),
@@ -190,7 +190,9 @@ Widget buildBorderColorWidthTheming() {
       foregroundColor: WidgetStateProperty.all(borderColor),
     );
 
-    OutlinedButtonThemeData themeData = OutlinedButtonThemeData(style: borderStyle);
+    OutlinedButtonThemeData themeData = OutlinedButtonThemeData(
+      style: borderStyle,
+    );
 
     buttons.add(
       OutlinedButtonTheme(
@@ -226,11 +228,7 @@ Widget buildBorderColorWidthTheming() {
           style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
         ),
         SizedBox(height: 16),
-        Wrap(
-          spacing: 12,
-          runSpacing: 12,
-          children: buttons,
-        ),
+        Wrap(spacing: 12, runSpacing: 12, children: buttons),
         SizedBox(height: 16),
         buildInfoCard('Property', 'side in ButtonStyle'),
         buildInfoCard('BorderSide', 'color, width configuration'),
@@ -301,11 +299,7 @@ Widget buildForegroundColorTheming() {
           style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
         ),
         SizedBox(height: 16),
-        Wrap(
-          spacing: 12,
-          runSpacing: 12,
-          children: buttons,
-        ),
+        Wrap(spacing: 12, runSpacing: 12, children: buttons),
         SizedBox(height: 16),
         buildInfoCard('Property', 'foregroundColor, iconColor in ButtonStyle'),
         buildInfoCard('Effect', 'Text and icon take the configured color'),
@@ -339,7 +333,9 @@ Widget buildPaddingTheming() {
       ),
     );
 
-    OutlinedButtonThemeData themeData = OutlinedButtonThemeData(style: paddingStyle);
+    OutlinedButtonThemeData themeData = OutlinedButtonThemeData(
+      style: paddingStyle,
+    );
 
     buttons.add(
       OutlinedButtonTheme(
@@ -375,11 +371,7 @@ Widget buildPaddingTheming() {
           style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
         ),
         SizedBox(height: 16),
-        Wrap(
-          spacing: 12,
-          runSpacing: 12,
-          children: buttons,
-        ),
+        Wrap(spacing: 12, runSpacing: 12, children: buttons),
         SizedBox(height: 16),
         buildInfoCard('Property', 'padding in ButtonStyle'),
         buildInfoCard('Effect', 'Controls internal spacing around content'),
@@ -398,7 +390,13 @@ Widget buildShapeBorderRadiusTheming() {
     StadiumBorder(),
     BeveledRectangleBorder(borderRadius: BorderRadius.circular(8)),
   ];
-  List<String> shapeLabels = ['Square', 'Rounded 8', 'Rounded 20', 'Stadium', 'Beveled'];
+  List<String> shapeLabels = [
+    'Square',
+    'Rounded 8',
+    'Rounded 20',
+    'Stadium',
+    'Beveled',
+  ];
 
   List<Widget> buttons = [];
   int m = 0;
@@ -417,7 +415,9 @@ Widget buildShapeBorderRadiusTheming() {
       ),
     );
 
-    OutlinedButtonThemeData themeData = OutlinedButtonThemeData(style: shapeStyle);
+    OutlinedButtonThemeData themeData = OutlinedButtonThemeData(
+      style: shapeStyle,
+    );
 
     buttons.add(
       OutlinedButtonTheme(
@@ -453,14 +453,13 @@ Widget buildShapeBorderRadiusTheming() {
           style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
         ),
         SizedBox(height: 16),
-        Wrap(
-          spacing: 12,
-          runSpacing: 12,
-          children: buttons,
-        ),
+        Wrap(spacing: 12, runSpacing: 12, children: buttons),
         SizedBox(height: 16),
         buildInfoCard('Property', 'shape in ButtonStyle'),
-        buildInfoCard('Options', 'RoundedRectangleBorder, StadiumBorder, BeveledRectangleBorder'),
+        buildInfoCard(
+          'Options',
+          'RoundedRectangleBorder, StadiumBorder, BeveledRectangleBorder',
+        ),
       ],
     ),
   );
@@ -473,7 +472,11 @@ Widget buildTextStyleTheming() {
     TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
     TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
     TextStyle(fontSize: 14, fontWeight: FontWeight.w600, letterSpacing: 1.5),
-    TextStyle(fontSize: 18, fontWeight: FontWeight.w300, fontStyle: FontStyle.italic),
+    TextStyle(
+      fontSize: 18,
+      fontWeight: FontWeight.w300,
+      fontStyle: FontStyle.italic,
+    ),
   ];
   List<String> labels = ['Small', 'Bold', 'Spaced', 'Italic'];
   List<Color> colors = [
@@ -499,7 +502,9 @@ Widget buildTextStyleTheming() {
       ),
     );
 
-    OutlinedButtonThemeData themeData = OutlinedButtonThemeData(style: textThemeStyle);
+    OutlinedButtonThemeData themeData = OutlinedButtonThemeData(
+      style: textThemeStyle,
+    );
 
     buttons.add(
       OutlinedButtonTheme(
@@ -535,14 +540,13 @@ Widget buildTextStyleTheming() {
           style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
         ),
         SizedBox(height: 16),
-        Wrap(
-          spacing: 12,
-          runSpacing: 12,
-          children: buttons,
-        ),
+        Wrap(spacing: 12, runSpacing: 12, children: buttons),
         SizedBox(height: 16),
         buildInfoCard('Property', 'textStyle in ButtonStyle'),
-        buildInfoCard('Options', 'fontSize, fontWeight, letterSpacing, fontStyle'),
+        buildInfoCard(
+          'Options',
+          'fontSize, fontWeight, letterSpacing, fontStyle',
+        ),
       ],
     ),
   );
@@ -602,7 +606,9 @@ Widget buildStateBasedStyling() {
     ),
   );
 
-  OutlinedButtonThemeData themeData = OutlinedButtonThemeData(style: stateStyle);
+  OutlinedButtonThemeData themeData = OutlinedButtonThemeData(
+    style: stateStyle,
+  );
 
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
@@ -643,10 +649,7 @@ Widget buildStateBasedStyling() {
                 },
                 child: Text('Press Me'),
               ),
-              OutlinedButton(
-                onPressed: null,
-                child: Text('Disabled'),
-              ),
+              OutlinedButton(onPressed: null, child: Text('Disabled')),
             ],
           ),
         ),
@@ -664,30 +667,54 @@ Widget buildMultipleThemedButtonsComparison() {
 
   ButtonStyle primaryStyle = ButtonStyle(
     foregroundColor: WidgetStateProperty.all(Colors.blue.shade700),
-    side: WidgetStateProperty.all(BorderSide(color: Colors.blue.shade400, width: 2)),
-    padding: WidgetStateProperty.all(EdgeInsets.symmetric(horizontal: 20, vertical: 12)),
-    shape: WidgetStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+    side: WidgetStateProperty.all(
+      BorderSide(color: Colors.blue.shade400, width: 2),
+    ),
+    padding: WidgetStateProperty.all(
+      EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+    ),
+    shape: WidgetStateProperty.all(
+      RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+    ),
   );
 
   ButtonStyle secondaryStyle = ButtonStyle(
     foregroundColor: WidgetStateProperty.all(Colors.grey.shade700),
-    side: WidgetStateProperty.all(BorderSide(color: Colors.grey.shade400, width: 1.5)),
-    padding: WidgetStateProperty.all(EdgeInsets.symmetric(horizontal: 20, vertical: 12)),
-    shape: WidgetStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+    side: WidgetStateProperty.all(
+      BorderSide(color: Colors.grey.shade400, width: 1.5),
+    ),
+    padding: WidgetStateProperty.all(
+      EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+    ),
+    shape: WidgetStateProperty.all(
+      RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+    ),
   );
 
   ButtonStyle dangerStyle = ButtonStyle(
     foregroundColor: WidgetStateProperty.all(Colors.red.shade700),
-    side: WidgetStateProperty.all(BorderSide(color: Colors.red.shade400, width: 2)),
-    padding: WidgetStateProperty.all(EdgeInsets.symmetric(horizontal: 20, vertical: 12)),
-    shape: WidgetStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+    side: WidgetStateProperty.all(
+      BorderSide(color: Colors.red.shade400, width: 2),
+    ),
+    padding: WidgetStateProperty.all(
+      EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+    ),
+    shape: WidgetStateProperty.all(
+      RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+    ),
   );
 
   ButtonStyle successStyle = ButtonStyle(
     foregroundColor: WidgetStateProperty.all(Colors.green.shade700),
-    side: WidgetStateProperty.all(BorderSide(color: Colors.green.shade400, width: 2)),
-    padding: WidgetStateProperty.all(EdgeInsets.symmetric(horizontal: 20, vertical: 12)),
-    shape: WidgetStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+    side: WidgetStateProperty.all(
+      BorderSide(color: Colors.green.shade400, width: 2),
+    ),
+    padding: WidgetStateProperty.all(
+      EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+    ),
+    shape: WidgetStateProperty.all(
+      RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+    ),
   );
 
   return Container(
@@ -727,7 +754,10 @@ Widget buildMultipleThemedButtonsComparison() {
                     ),
                   ),
                   SizedBox(height: 4),
-                  Text('Primary', style: TextStyle(fontSize: 11, color: Colors.grey.shade600)),
+                  Text(
+                    'Primary',
+                    style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+                  ),
                 ],
               ),
             ),
@@ -744,7 +774,10 @@ Widget buildMultipleThemedButtonsComparison() {
                     ),
                   ),
                   SizedBox(height: 4),
-                  Text('Secondary', style: TextStyle(fontSize: 11, color: Colors.grey.shade600)),
+                  Text(
+                    'Secondary',
+                    style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+                  ),
                 ],
               ),
             ),
@@ -767,7 +800,10 @@ Widget buildMultipleThemedButtonsComparison() {
                     ),
                   ),
                   SizedBox(height: 4),
-                  Text('Danger', style: TextStyle(fontSize: 11, color: Colors.grey.shade600)),
+                  Text(
+                    'Danger',
+                    style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+                  ),
                 ],
               ),
             ),
@@ -784,7 +820,10 @@ Widget buildMultipleThemedButtonsComparison() {
                     ),
                   ),
                   SizedBox(height: 4),
-                  Text('Success', style: TextStyle(fontSize: 11, color: Colors.grey.shade600)),
+                  Text(
+                    'Success',
+                    style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+                  ),
                 ],
               ),
             ),
@@ -829,7 +868,9 @@ Widget buildOutlinedButtonThemeWrapping() {
     }),
   );
 
-  OutlinedButtonThemeData wrappedThemeData = OutlinedButtonThemeData(style: wrappedStyle);
+  OutlinedButtonThemeData wrappedThemeData = OutlinedButtonThemeData(
+    style: wrappedStyle,
+  );
 
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
@@ -844,7 +885,11 @@ Widget buildOutlinedButtonThemeWrapping() {
       children: [
         Text(
           'OutlinedButtonTheme Wrapping Demonstration',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.indigo.shade800),
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.indigo.shade800,
+          ),
         ),
         SizedBox(height: 8),
         Text(
@@ -1028,7 +1073,10 @@ Widget buildAdvancedCombinedTheming() {
           ),
         ),
         SizedBox(height: 16),
-        buildInfoCard('Combined Properties', 'foreground, background, side, padding, shape, textStyle'),
+        buildInfoCard(
+          'Combined Properties',
+          'foreground, background, side, padding, shape, textStyle',
+        ),
         buildInfoCard('Animation', '200ms transition for smooth effects'),
       ],
     ),

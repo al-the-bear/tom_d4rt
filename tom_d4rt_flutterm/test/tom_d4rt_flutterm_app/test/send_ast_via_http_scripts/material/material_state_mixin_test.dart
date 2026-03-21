@@ -170,10 +170,7 @@ Widget buildDemoCard({
             ],
           ),
         ),
-        Padding(
-          padding: EdgeInsets.all(12),
-          child: child,
-        ),
+        Padding(padding: EdgeInsets.all(12), child: child),
       ],
     ),
   );
@@ -214,20 +211,22 @@ Widget buildResolvedColorRow(String stateLabel, Color resolvedColor) {
 
 dynamic build(BuildContext context) {
   debugPrint('=== MaterialStateMixin / WidgetStateMixin Deep Demo ===');
-  debugPrint('Demonstrating WidgetState, WidgetStateProperty, and state-driven styling');
+  debugPrint(
+    'Demonstrating WidgetState, WidgetStateProperty, and state-driven styling',
+  );
 
   // Define a WidgetStateProperty<Color> using resolveWith
   WidgetStateProperty<Color> stateColorProperty =
       WidgetStateProperty.resolveWith<Color>((Set<WidgetState> states) {
-    if (states.contains(WidgetState.error)) return Colors.red.shade600;
-    if (states.contains(WidgetState.disabled)) return Colors.grey.shade400;
-    if (states.contains(WidgetState.pressed)) return Colors.indigo.shade800;
-    if (states.contains(WidgetState.dragged)) return Colors.orange.shade600;
-    if (states.contains(WidgetState.selected)) return Colors.green.shade600;
-    if (states.contains(WidgetState.focused)) return Colors.blue.shade600;
-    if (states.contains(WidgetState.hovered)) return Colors.purple.shade400;
-    return Colors.indigo.shade400;
-  });
+        if (states.contains(WidgetState.error)) return Colors.red.shade600;
+        if (states.contains(WidgetState.disabled)) return Colors.grey.shade400;
+        if (states.contains(WidgetState.pressed)) return Colors.indigo.shade800;
+        if (states.contains(WidgetState.dragged)) return Colors.orange.shade600;
+        if (states.contains(WidgetState.selected)) return Colors.green.shade600;
+        if (states.contains(WidgetState.focused)) return Colors.blue.shade600;
+        if (states.contains(WidgetState.hovered)) return Colors.purple.shade400;
+        return Colors.indigo.shade400;
+      });
 
   // Resolve colors for each state
   Color colorNone = stateColorProperty.resolve({});
@@ -314,10 +313,22 @@ dynamic build(BuildContext context) {
             runSpacing: 8,
             children: [
               buildStateChip('hovered', Colors.purple.shade400, Icons.mouse),
-              buildStateChip('focused', Colors.blue.shade600, Icons.center_focus_strong),
-              buildStateChip('pressed', Colors.indigo.shade800, Icons.touch_app),
+              buildStateChip(
+                'focused',
+                Colors.blue.shade600,
+                Icons.center_focus_strong,
+              ),
+              buildStateChip(
+                'pressed',
+                Colors.indigo.shade800,
+                Icons.touch_app,
+              ),
               buildStateChip('dragged', Colors.orange.shade600, Icons.pan_tool),
-              buildStateChip('selected', Colors.green.shade600, Icons.check_circle),
+              buildStateChip(
+                'selected',
+                Colors.green.shade600,
+                Icons.check_circle,
+              ),
               buildStateChip('disabled', Colors.grey.shade500, Icons.block),
               buildStateChip('error', Colors.red.shade600, Icons.error),
             ],
@@ -339,22 +350,46 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Example: focused + hovered', style: TextStyle(fontSize: 13)),
+              Text(
+                'Example: focused + hovered',
+                style: TextStyle(fontSize: 13),
+              ),
               SizedBox(height: 8),
               Row(
                 children: [
-                  buildStateChip('focused', Colors.blue.shade600, Icons.center_focus_strong),
-                  Text(' + ', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                  buildStateChip('hovered', Colors.purple.shade400, Icons.mouse),
+                  buildStateChip(
+                    'focused',
+                    Colors.blue.shade600,
+                    Icons.center_focus_strong,
+                  ),
+                  Text(
+                    ' + ',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  buildStateChip(
+                    'hovered',
+                    Colors.purple.shade400,
+                    Icons.mouse,
+                  ),
                 ],
               ),
               SizedBox(height: 12),
-              Text('Example: selected + disabled', style: TextStyle(fontSize: 13)),
+              Text(
+                'Example: selected + disabled',
+                style: TextStyle(fontSize: 13),
+              ),
               SizedBox(height: 8),
               Row(
                 children: [
-                  buildStateChip('selected', Colors.green.shade600, Icons.check_circle),
-                  Text(' + ', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  buildStateChip(
+                    'selected',
+                    Colors.green.shade600,
+                    Icons.check_circle,
+                  ),
+                  Text(
+                    ' + ',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
                   buildStateChip('disabled', Colors.grey.shade500, Icons.block),
                 ],
               ),
@@ -393,15 +428,24 @@ dynamic build(BuildContext context) {
             children: [
               buildResolvedColorRow(
                 'pressed + hovered',
-                stateColorProperty.resolve({WidgetState.pressed, WidgetState.hovered}),
+                stateColorProperty.resolve({
+                  WidgetState.pressed,
+                  WidgetState.hovered,
+                }),
               ),
               buildResolvedColorRow(
                 'error + focused',
-                stateColorProperty.resolve({WidgetState.error, WidgetState.focused}),
+                stateColorProperty.resolve({
+                  WidgetState.error,
+                  WidgetState.focused,
+                }),
               ),
               buildResolvedColorRow(
                 'disabled + selected',
-                stateColorProperty.resolve({WidgetState.disabled, WidgetState.selected}),
+                stateColorProperty.resolve({
+                  WidgetState.disabled,
+                  WidgetState.selected,
+                }),
               ),
               buildResolvedColorRow(
                 'focused + hovered + pressed',
@@ -504,17 +548,17 @@ dynamic build(BuildContext context) {
               ElevatedButton(
                 onPressed: () {},
                 style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.resolveWith<Color>(
-                    (Set<WidgetState> states) {
-                      if (states.contains(WidgetState.pressed)) {
-                        return Colors.deepPurple.shade800;
-                      }
-                      if (states.contains(WidgetState.hovered)) {
-                        return Colors.deepPurple.shade600;
-                      }
-                      return Colors.deepPurple.shade400;
-                    },
-                  ),
+                  backgroundColor: WidgetStateProperty.resolveWith<Color>((
+                    Set<WidgetState> states,
+                  ) {
+                    if (states.contains(WidgetState.pressed)) {
+                      return Colors.deepPurple.shade800;
+                    }
+                    if (states.contains(WidgetState.hovered)) {
+                      return Colors.deepPurple.shade600;
+                    }
+                    return Colors.deepPurple.shade400;
+                  }),
                   foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
                   padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
                     EdgeInsets.symmetric(horizontal: 32, vertical: 16),
@@ -549,7 +593,11 @@ dynamic build(BuildContext context) {
               ),
               _buildTextStyleRow(
                 'Hovered',
-                TextStyle(fontSize: 16, color: Colors.purple.shade400, fontWeight: FontWeight.w500),
+                TextStyle(
+                  fontSize: 16,
+                  color: Colors.purple.shade400,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
               _buildTextStyleRow(
                 'Focused',
@@ -562,11 +610,19 @@ dynamic build(BuildContext context) {
               ),
               _buildTextStyleRow(
                 'Pressed',
-                TextStyle(fontSize: 16, color: Colors.indigo.shade800, fontWeight: FontWeight.w900),
+                TextStyle(
+                  fontSize: 16,
+                  color: Colors.indigo.shade800,
+                  fontWeight: FontWeight.w900,
+                ),
               ),
               _buildTextStyleRow(
                 'Disabled',
-                TextStyle(fontSize: 16, color: Colors.grey.shade400, fontStyle: FontStyle.italic),
+                TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey.shade400,
+                  fontStyle: FontStyle.italic,
+                ),
               ),
               _buildTextStyleRow(
                 'Error',
@@ -592,12 +648,30 @@ dynamic build(BuildContext context) {
           description: 'Different border widths and colors for each state',
           child: Column(
             children: [
-              _buildBorderSideRow('Default', BorderSide(color: Colors.indigo.shade400, width: 1)),
-              _buildBorderSideRow('Hovered', BorderSide(color: Colors.purple.shade400, width: 2)),
-              _buildBorderSideRow('Focused', BorderSide(color: Colors.blue.shade600, width: 3)),
-              _buildBorderSideRow('Pressed', BorderSide(color: Colors.indigo.shade800, width: 3)),
-              _buildBorderSideRow('Disabled', BorderSide(color: Colors.grey.shade300, width: 1)),
-              _buildBorderSideRow('Error', BorderSide(color: Colors.red.shade600, width: 2)),
+              _buildBorderSideRow(
+                'Default',
+                BorderSide(color: Colors.indigo.shade400, width: 1),
+              ),
+              _buildBorderSideRow(
+                'Hovered',
+                BorderSide(color: Colors.purple.shade400, width: 2),
+              ),
+              _buildBorderSideRow(
+                'Focused',
+                BorderSide(color: Colors.blue.shade600, width: 3),
+              ),
+              _buildBorderSideRow(
+                'Pressed',
+                BorderSide(color: Colors.indigo.shade800, width: 3),
+              ),
+              _buildBorderSideRow(
+                'Disabled',
+                BorderSide(color: Colors.grey.shade300, width: 1),
+              ),
+              _buildBorderSideRow(
+                'Error',
+                BorderSide(color: Colors.red.shade600, width: 2),
+              ),
             ],
           ),
         ),
@@ -611,25 +685,25 @@ dynamic build(BuildContext context) {
               OutlinedButton(
                 onPressed: () {},
                 style: ButtonStyle(
-                  side: WidgetStateProperty.resolveWith<BorderSide>(
-                    (Set<WidgetState> states) {
-                      if (states.contains(WidgetState.pressed)) {
-                        return BorderSide(color: Colors.teal.shade800, width: 3);
-                      }
-                      if (states.contains(WidgetState.hovered)) {
-                        return BorderSide(color: Colors.teal.shade600, width: 2);
-                      }
-                      return BorderSide(color: Colors.teal.shade300, width: 1);
-                    },
-                  ),
-                  foregroundColor: WidgetStateProperty.resolveWith<Color>(
-                    (Set<WidgetState> states) {
-                      if (states.contains(WidgetState.pressed)) {
-                        return Colors.teal.shade800;
-                      }
-                      return Colors.teal.shade600;
-                    },
-                  ),
+                  side: WidgetStateProperty.resolveWith<BorderSide>((
+                    Set<WidgetState> states,
+                  ) {
+                    if (states.contains(WidgetState.pressed)) {
+                      return BorderSide(color: Colors.teal.shade800, width: 3);
+                    }
+                    if (states.contains(WidgetState.hovered)) {
+                      return BorderSide(color: Colors.teal.shade600, width: 2);
+                    }
+                    return BorderSide(color: Colors.teal.shade300, width: 1);
+                  }),
+                  foregroundColor: WidgetStateProperty.resolveWith<Color>((
+                    Set<WidgetState> states,
+                  ) {
+                    if (states.contains(WidgetState.pressed)) {
+                      return Colors.teal.shade800;
+                    }
+                    return Colors.teal.shade600;
+                  }),
                   padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
                     EdgeInsets.symmetric(horizontal: 24, vertical: 14),
                   ),
@@ -723,59 +797,59 @@ dynamic build(BuildContext context) {
               ElevatedButton(
                 onPressed: () {},
                 style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.resolveWith<Color>(
-                    (Set<WidgetState> states) {
-                      if (states.contains(WidgetState.disabled)) {
-                        return Colors.grey.shade300;
-                      }
-                      if (states.contains(WidgetState.pressed)) {
-                        return Colors.deepPurple.shade900;
-                      }
-                      if (states.contains(WidgetState.hovered)) {
-                        return Colors.deepPurple.shade600;
-                      }
-                      return Colors.deepPurple.shade400;
-                    },
-                  ),
-                  foregroundColor: WidgetStateProperty.resolveWith<Color>(
-                    (Set<WidgetState> states) {
-                      if (states.contains(WidgetState.disabled)) {
-                        return Colors.grey.shade500;
-                      }
-                      return Colors.white;
-                    },
-                  ),
-                  elevation: WidgetStateProperty.resolveWith<double>(
-                    (Set<WidgetState> states) {
-                      if (states.contains(WidgetState.pressed)) return 0;
-                      if (states.contains(WidgetState.hovered)) return 8;
-                      return 4;
-                    },
-                  ),
-                  overlayColor: WidgetStateProperty.resolveWith<Color>(
-                    (Set<WidgetState> states) {
-                      if (states.contains(WidgetState.pressed)) {
-                        return Colors.white.withAlpha(30);
-                      }
-                      return Colors.white.withAlpha(15);
-                    },
-                  ),
-                  side: WidgetStateProperty.resolveWith<BorderSide>(
-                    (Set<WidgetState> states) {
-                      if (states.contains(WidgetState.focused)) {
-                        return BorderSide(color: Colors.amber, width: 2);
-                      }
-                      return BorderSide.none;
-                    },
-                  ),
-                  padding: WidgetStateProperty.resolveWith<EdgeInsetsGeometry>(
-                    (Set<WidgetState> states) {
-                      if (states.contains(WidgetState.pressed)) {
-                        return EdgeInsets.symmetric(horizontal: 28, vertical: 10);
-                      }
-                      return EdgeInsets.symmetric(horizontal: 32, vertical: 14);
-                    },
-                  ),
+                  backgroundColor: WidgetStateProperty.resolveWith<Color>((
+                    Set<WidgetState> states,
+                  ) {
+                    if (states.contains(WidgetState.disabled)) {
+                      return Colors.grey.shade300;
+                    }
+                    if (states.contains(WidgetState.pressed)) {
+                      return Colors.deepPurple.shade900;
+                    }
+                    if (states.contains(WidgetState.hovered)) {
+                      return Colors.deepPurple.shade600;
+                    }
+                    return Colors.deepPurple.shade400;
+                  }),
+                  foregroundColor: WidgetStateProperty.resolveWith<Color>((
+                    Set<WidgetState> states,
+                  ) {
+                    if (states.contains(WidgetState.disabled)) {
+                      return Colors.grey.shade500;
+                    }
+                    return Colors.white;
+                  }),
+                  elevation: WidgetStateProperty.resolveWith<double>((
+                    Set<WidgetState> states,
+                  ) {
+                    if (states.contains(WidgetState.pressed)) return 0;
+                    if (states.contains(WidgetState.hovered)) return 8;
+                    return 4;
+                  }),
+                  overlayColor: WidgetStateProperty.resolveWith<Color>((
+                    Set<WidgetState> states,
+                  ) {
+                    if (states.contains(WidgetState.pressed)) {
+                      return Colors.white.withAlpha(30);
+                    }
+                    return Colors.white.withAlpha(15);
+                  }),
+                  side: WidgetStateProperty.resolveWith<BorderSide>((
+                    Set<WidgetState> states,
+                  ) {
+                    if (states.contains(WidgetState.focused)) {
+                      return BorderSide(color: Colors.amber, width: 2);
+                    }
+                    return BorderSide.none;
+                  }),
+                  padding: WidgetStateProperty.resolveWith<EdgeInsetsGeometry>((
+                    Set<WidgetState> states,
+                  ) {
+                    if (states.contains(WidgetState.pressed)) {
+                      return EdgeInsets.symmetric(horizontal: 28, vertical: 10);
+                    }
+                    return EdgeInsets.symmetric(horizontal: 32, vertical: 14);
+                  }),
                   shape: WidgetStateProperty.all<OutlinedBorder>(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
@@ -785,10 +859,22 @@ dynamic build(BuildContext context) {
                 child: Text('Full State-Aware Style'),
               ),
               SizedBox(height: 12),
-              _buildPropertyRow('backgroundColor', 'resolveWith: disabled/pressed/hovered/default'),
-              _buildPropertyRow('foregroundColor', 'resolveWith: disabled/default'),
-              _buildPropertyRow('elevation', 'resolveWith: pressed=0, hovered=8, default=4'),
-              _buildPropertyRow('overlayColor', 'resolveWith: pressed/default alpha'),
+              _buildPropertyRow(
+                'backgroundColor',
+                'resolveWith: disabled/pressed/hovered/default',
+              ),
+              _buildPropertyRow(
+                'foregroundColor',
+                'resolveWith: disabled/default',
+              ),
+              _buildPropertyRow(
+                'elevation',
+                'resolveWith: pressed=0, hovered=8, default=4',
+              ),
+              _buildPropertyRow(
+                'overlayColor',
+                'resolveWith: pressed/default alpha',
+              ),
               _buildPropertyRow('side', 'resolveWith: focused => amber border'),
               _buildPropertyRow('padding', 'resolveWith: pressed => smaller'),
               _buildPropertyRow('shape', 'all: RoundedRectangleBorder(12)'),
@@ -803,22 +889,22 @@ dynamic build(BuildContext context) {
           child: ElevatedButton(
             onPressed: null,
             style: ButtonStyle(
-              backgroundColor: WidgetStateProperty.resolveWith<Color>(
-                (Set<WidgetState> states) {
-                  if (states.contains(WidgetState.disabled)) {
-                    return Colors.grey.shade300;
-                  }
-                  return Colors.deepPurple.shade400;
-                },
-              ),
-              foregroundColor: WidgetStateProperty.resolveWith<Color>(
-                (Set<WidgetState> states) {
-                  if (states.contains(WidgetState.disabled)) {
-                    return Colors.grey.shade500;
-                  }
-                  return Colors.white;
-                },
-              ),
+              backgroundColor: WidgetStateProperty.resolveWith<Color>((
+                Set<WidgetState> states,
+              ) {
+                if (states.contains(WidgetState.disabled)) {
+                  return Colors.grey.shade300;
+                }
+                return Colors.deepPurple.shade400;
+              }),
+              foregroundColor: WidgetStateProperty.resolveWith<Color>((
+                Set<WidgetState> states,
+              ) {
+                if (states.contains(WidgetState.disabled)) {
+                  return Colors.grey.shade500;
+                }
+                return Colors.white;
+              }),
               padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
                 EdgeInsets.symmetric(horizontal: 32, vertical: 14),
               ),
@@ -838,7 +924,8 @@ dynamic build(BuildContext context) {
 
         buildDemoCard(
           title: 'Checkbox - Selected/Unselected States',
-          description: 'Checkbox uses the mixin for hover, focus, press, selected',
+          description:
+              'Checkbox uses the mixin for hover, focus, press, selected',
           accentColor: Colors.green,
           child: Column(
             children: [
@@ -860,28 +947,34 @@ dynamic build(BuildContext context) {
                 children: [
                   Checkbox(value: null, tristate: true, onChanged: (v) {}),
                   SizedBox(width: 8),
-                  Text('Tristate (indeterminate)', style: TextStyle(fontSize: 14)),
+                  Text(
+                    'Tristate (indeterminate)',
+                    style: TextStyle(fontSize: 14),
+                  ),
                 ],
               ),
               Row(
                 children: [
                   Checkbox(value: true, onChanged: null),
                   SizedBox(width: 8),
-                  Text('Disabled selected', style: TextStyle(fontSize: 14, color: Colors.grey)),
+                  Text(
+                    'Disabled selected',
+                    style: TextStyle(fontSize: 14, color: Colors.grey),
+                  ),
                 ],
               ),
               SizedBox(height: 8),
               Checkbox(
                 value: true,
                 onChanged: (v) {},
-                fillColor: WidgetStateProperty.resolveWith<Color>(
-                  (Set<WidgetState> states) {
-                    if (states.contains(WidgetState.selected)) {
-                      return Colors.green.shade600;
-                    }
-                    return Colors.grey.shade400;
-                  },
-                ),
+                fillColor: WidgetStateProperty.resolveWith<Color>((
+                  Set<WidgetState> states,
+                ) {
+                  if (states.contains(WidgetState.selected)) {
+                    return Colors.green.shade600;
+                  }
+                  return Colors.grey.shade400;
+                }),
                 checkColor: Colors.white,
               ),
               Text(
@@ -894,7 +987,8 @@ dynamic build(BuildContext context) {
 
         buildDemoCard(
           title: 'Switch - On/Off States',
-          description: 'Switch tracks selected, disabled, hovered, focused states',
+          description:
+              'Switch tracks selected, disabled, hovered, focused states',
           accentColor: Colors.orange,
           child: Column(
             children: [
@@ -916,29 +1010,32 @@ dynamic build(BuildContext context) {
                 children: [
                   Switch(value: true, onChanged: null),
                   SizedBox(width: 8),
-                  Text('Disabled on', style: TextStyle(fontSize: 14, color: Colors.grey)),
+                  Text(
+                    'Disabled on',
+                    style: TextStyle(fontSize: 14, color: Colors.grey),
+                  ),
                 ],
               ),
               SizedBox(height: 8),
               Switch(
                 value: true,
                 onChanged: (v) {},
-                thumbColor: WidgetStateProperty.resolveWith<Color>(
-                  (Set<WidgetState> states) {
-                    if (states.contains(WidgetState.selected)) {
-                      return Colors.orange.shade800;
-                    }
-                    return Colors.grey.shade400;
-                  },
-                ),
-                trackColor: WidgetStateProperty.resolveWith<Color>(
-                  (Set<WidgetState> states) {
-                    if (states.contains(WidgetState.selected)) {
-                      return Colors.orange.shade200;
-                    }
-                    return Colors.grey.shade300;
-                  },
-                ),
+                thumbColor: WidgetStateProperty.resolveWith<Color>((
+                  Set<WidgetState> states,
+                ) {
+                  if (states.contains(WidgetState.selected)) {
+                    return Colors.orange.shade800;
+                  }
+                  return Colors.grey.shade400;
+                }),
+                trackColor: WidgetStateProperty.resolveWith<Color>((
+                  Set<WidgetState> states,
+                ) {
+                  if (states.contains(WidgetState.selected)) {
+                    return Colors.orange.shade200;
+                  }
+                  return Colors.grey.shade300;
+                }),
               ),
               Text(
                 'Custom thumb/track via WidgetStateProperty',
@@ -963,7 +1060,10 @@ dynamic build(BuildContext context) {
                       children: [
                         Radio<int>(value: 1),
                         SizedBox(width: 8),
-                        Text('Selected (value matches groupValue)', style: TextStyle(fontSize: 14)),
+                        Text(
+                          'Selected (value matches groupValue)',
+                          style: TextStyle(fontSize: 14),
+                        ),
                       ],
                     ),
                     Row(
@@ -980,7 +1080,10 @@ dynamic build(BuildContext context) {
                 children: [
                   Radio<int>(value: 1, toggleable: true),
                   SizedBox(width: 8),
-                  Text('Standalone (no group)', style: TextStyle(fontSize: 14, color: Colors.grey)),
+                  Text(
+                    'Standalone (no group)',
+                    style: TextStyle(fontSize: 14, color: Colors.grey),
+                  ),
                 ],
               ),
               SizedBox(height: 8),
@@ -989,14 +1092,14 @@ dynamic build(BuildContext context) {
                 onChanged: (int? v) {},
                 child: Radio<int>(
                   value: 1,
-                  fillColor: WidgetStateProperty.resolveWith<Color>(
-                    (Set<WidgetState> states) {
-                      if (states.contains(WidgetState.selected)) {
-                        return Colors.blue.shade700;
-                      }
-                      return Colors.grey.shade500;
-                    },
-                  ),
+                  fillColor: WidgetStateProperty.resolveWith<Color>((
+                    Set<WidgetState> states,
+                  ) {
+                    if (states.contains(WidgetState.selected)) {
+                      return Colors.blue.shade700;
+                    }
+                    return Colors.grey.shade500;
+                  }),
                 ),
               ),
               Text(
@@ -1009,31 +1112,38 @@ dynamic build(BuildContext context) {
 
         // Section 10: WidgetStateMouseCursor
         buildSectionHeader('10. WidgetStateMouseCursor Demonstration'),
-        buildDescription(
-          'Mouse cursor changes based on widget state',
-        ),
+        buildDescription('Mouse cursor changes based on widget state'),
 
         buildDemoCard(
           title: 'Mouse Cursor per State',
-          description: 'WidgetStateMouseCursor.clickable / WidgetStateMouseCursor.textable',
+          description:
+              'WidgetStateMouseCursor.clickable / WidgetStateMouseCursor.textable',
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildCursorRow('WidgetStateMouseCursor.clickable', 'click for enabled, forbidden for disabled'),
-              _buildCursorRow('WidgetStateMouseCursor.textable', 'text for enabled, forbidden for disabled'),
+              _buildCursorRow(
+                'WidgetStateMouseCursor.clickable',
+                'click for enabled, forbidden for disabled',
+              ),
+              _buildCursorRow(
+                'WidgetStateMouseCursor.textable',
+                'text for enabled, forbidden for disabled',
+              ),
               SizedBox(height: 12),
               ElevatedButton(
                 onPressed: () {},
                 style: ButtonStyle(
-                  mouseCursor: WidgetStateProperty.resolveWith<MouseCursor>(
-                    (Set<WidgetState> states) {
-                      if (states.contains(WidgetState.disabled)) {
-                        return SystemMouseCursors.forbidden;
-                      }
-                      return SystemMouseCursors.click;
-                    },
+                  mouseCursor: WidgetStateProperty.resolveWith<MouseCursor>((
+                    Set<WidgetState> states,
+                  ) {
+                    if (states.contains(WidgetState.disabled)) {
+                      return SystemMouseCursors.forbidden;
+                    }
+                    return SystemMouseCursors.click;
+                  }),
+                  backgroundColor: WidgetStateProperty.all<Color>(
+                    Colors.indigo.shade400,
                   ),
-                  backgroundColor: WidgetStateProperty.all<Color>(Colors.indigo.shade400),
                   foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
                   padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
                     EdgeInsets.symmetric(horizontal: 24, vertical: 12),
@@ -1045,14 +1155,14 @@ dynamic build(BuildContext context) {
               ElevatedButton(
                 onPressed: null,
                 style: ButtonStyle(
-                  mouseCursor: WidgetStateProperty.resolveWith<MouseCursor>(
-                    (Set<WidgetState> states) {
-                      if (states.contains(WidgetState.disabled)) {
-                        return SystemMouseCursors.forbidden;
-                      }
-                      return SystemMouseCursors.click;
-                    },
-                  ),
+                  mouseCursor: WidgetStateProperty.resolveWith<MouseCursor>((
+                    Set<WidgetState> states,
+                  ) {
+                    if (states.contains(WidgetState.disabled)) {
+                      return SystemMouseCursors.forbidden;
+                    }
+                    return SystemMouseCursors.click;
+                  }),
                   padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
                     EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                   ),
@@ -1075,13 +1185,48 @@ dynamic build(BuildContext context) {
           accentColor: Colors.blueGrey,
           child: Column(
             children: [
-              _buildHierarchyRow(1, 'error', Colors.red.shade600, 'Highest priority'),
-              _buildHierarchyRow(2, 'disabled', Colors.grey.shade500, 'Blocks interaction'),
-              _buildHierarchyRow(3, 'pressed', Colors.indigo.shade800, 'Active touch/click'),
-              _buildHierarchyRow(4, 'dragged', Colors.orange.shade600, 'Being moved'),
-              _buildHierarchyRow(5, 'selected', Colors.green.shade600, 'Toggled on'),
-              _buildHierarchyRow(6, 'focused', Colors.blue.shade600, 'Keyboard focus'),
-              _buildHierarchyRow(7, 'hovered', Colors.purple.shade400, 'Mouse over'),
+              _buildHierarchyRow(
+                1,
+                'error',
+                Colors.red.shade600,
+                'Highest priority',
+              ),
+              _buildHierarchyRow(
+                2,
+                'disabled',
+                Colors.grey.shade500,
+                'Blocks interaction',
+              ),
+              _buildHierarchyRow(
+                3,
+                'pressed',
+                Colors.indigo.shade800,
+                'Active touch/click',
+              ),
+              _buildHierarchyRow(
+                4,
+                'dragged',
+                Colors.orange.shade600,
+                'Being moved',
+              ),
+              _buildHierarchyRow(
+                5,
+                'selected',
+                Colors.green.shade600,
+                'Toggled on',
+              ),
+              _buildHierarchyRow(
+                6,
+                'focused',
+                Colors.blue.shade600,
+                'Keyboard focus',
+              ),
+              _buildHierarchyRow(
+                7,
+                'hovered',
+                Colors.purple.shade400,
+                'Mouse over',
+              ),
             ],
           ),
         ),
@@ -1093,13 +1238,34 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildSummaryItem('Buttons', 'ElevatedButton, TextButton, OutlinedButton, FilledButton'),
-              _buildSummaryItem('Toggles', 'Checkbox, Switch, Radio, ToggleButtons'),
-              _buildSummaryItem('Input', 'TextField overlayColor, cursor, border states'),
-              _buildSummaryItem('Navigation', 'NavigationBar, NavigationRail indicators'),
-              _buildSummaryItem('Properties', 'WidgetStateProperty<T> for any type'),
-              _buildSummaryItem('Controller', 'WidgetStatesController for external access'),
-              _buildSummaryItem('Cursor', 'WidgetStateMouseCursor for cursor changes'),
+              _buildSummaryItem(
+                'Buttons',
+                'ElevatedButton, TextButton, OutlinedButton, FilledButton',
+              ),
+              _buildSummaryItem(
+                'Toggles',
+                'Checkbox, Switch, Radio, ToggleButtons',
+              ),
+              _buildSummaryItem(
+                'Input',
+                'TextField overlayColor, cursor, border states',
+              ),
+              _buildSummaryItem(
+                'Navigation',
+                'NavigationBar, NavigationRail indicators',
+              ),
+              _buildSummaryItem(
+                'Properties',
+                'WidgetStateProperty<T> for any type',
+              ),
+              _buildSummaryItem(
+                'Controller',
+                'WidgetStatesController for external access',
+              ),
+              _buildSummaryItem(
+                'Cursor',
+                'WidgetStateMouseCursor for cursor changes',
+              ),
               SizedBox(height: 12),
               Container(
                 width: double.infinity,
@@ -1131,7 +1297,11 @@ dynamic build(BuildContext context) {
 
 // Private helpers
 
-Widget _buildAllVsResolveRow(String stateLabel, Color allColor, Color resolveColor) {
+Widget _buildAllVsResolveRow(
+  String stateLabel,
+  Color allColor,
+  Color resolveColor,
+) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 3),
     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
@@ -1139,7 +1309,10 @@ Widget _buildAllVsResolveRow(String stateLabel, Color allColor, Color resolveCol
       children: [
         SizedBox(
           width: 80,
-          child: Text(stateLabel, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500)),
+          child: Text(
+            stateLabel,
+            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+          ),
         ),
         SizedBox(width: 8),
         Container(
@@ -1148,15 +1321,24 @@ Widget _buildAllVsResolveRow(String stateLabel, Color allColor, Color resolveCol
           decoration: BoxDecoration(color: allColor, shape: BoxShape.circle),
         ),
         SizedBox(width: 4),
-        Text('.all', style: TextStyle(fontSize: 11, color: Colors.grey.shade600)),
+        Text(
+          '.all',
+          style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+        ),
         SizedBox(width: 16),
         Container(
           width: 20,
           height: 20,
-          decoration: BoxDecoration(color: resolveColor, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: resolveColor,
+            shape: BoxShape.circle,
+          ),
         ),
         SizedBox(width: 4),
-        Text('.resolveWith', style: TextStyle(fontSize: 11, color: Colors.grey.shade600)),
+        Text(
+          '.resolveWith',
+          style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+        ),
       ],
     ),
   );
@@ -1174,7 +1356,10 @@ Widget _buildTextStyleRow(String label, TextStyle style) {
       children: [
         SizedBox(
           width: 80,
-          child: Text(label, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+          child: Text(
+            label,
+            style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+          ),
         ),
         Text('Sample Text', style: style),
       ],
@@ -1192,7 +1377,10 @@ Widget _buildBorderSideRow(String label, BorderSide side) {
     ),
     child: Row(
       children: [
-        Text(label, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
+        Text(
+          label,
+          style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+        ),
         Spacer(),
         Text(
           'width: ${side.width.toStringAsFixed(0)}',
@@ -1237,7 +1425,11 @@ Widget _buildPropertyRow(String property, String description) {
           ),
           child: Text(
             property,
-            style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Colors.deepPurple),
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.bold,
+              color: Colors.deepPurple,
+            ),
           ),
         ),
         SizedBox(width: 8),
@@ -1264,13 +1456,21 @@ Widget _buildCursorRow(String name, String description) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(name, style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
-        Text(description, style: TextStyle(fontSize: 11, color: Colors.grey.shade600)),
+        Text(
+          description,
+          style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+        ),
       ],
     ),
   );
 }
 
-Widget _buildHierarchyRow(int priority, String state, Color color, String note) {
+Widget _buildHierarchyRow(
+  int priority,
+  String state,
+  Color color,
+  String note,
+) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 3),
     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -1284,14 +1484,15 @@ Widget _buildHierarchyRow(int priority, String state, Color color, String note) 
         Container(
           width: 28,
           height: 28,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           child: Center(
             child: Text(
               '$priority',
-              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13),
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 13,
+              ),
             ),
           ),
         ),
@@ -1300,7 +1501,11 @@ Widget _buildHierarchyRow(int priority, String state, Color color, String note) 
           width: 80,
           child: Text(
             state,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: color),
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+              color: color,
+            ),
           ),
         ),
         Expanded(
@@ -1326,11 +1531,18 @@ Widget _buildSummaryItem(String category, String details) {
           width: 90,
           child: Text(
             category,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Colors.indigo.shade600),
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 13,
+              color: Colors.indigo.shade600,
+            ),
           ),
         ),
         Expanded(
-          child: Text(details, style: TextStyle(fontSize: 12, color: Colors.grey.shade700)),
+          child: Text(
+            details,
+            style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+          ),
         ),
       ],
     ),

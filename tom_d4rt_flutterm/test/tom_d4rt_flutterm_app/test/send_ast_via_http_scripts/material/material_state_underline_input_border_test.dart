@@ -21,7 +21,9 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildSectionHeader('1. Basic WidgetStateUnderlineInputBorder State Resolution'),
+            _buildSectionHeader(
+              '1. Basic WidgetStateUnderlineInputBorder State Resolution',
+            ),
             _buildInfoCard(
               'WidgetStateUnderlineInputBorder resolves to different underline borders based on widget state. '
               'It implements WidgetStateProperty<InputBorder> interface for dynamic border styling.',
@@ -57,7 +59,9 @@ dynamic build(BuildContext context) {
             _buildDisabledStateDemo(),
             SizedBox(height: 24),
 
-            _buildSectionHeader('5. Multiple TextFields with Different Underline Configurations'),
+            _buildSectionHeader(
+              '5. Multiple TextFields with Different Underline Configurations',
+            ),
             _buildInfoCard(
               'Different TextFields can have entirely different underline configurations, '
               'creating varied visual behaviors within the same form.',
@@ -75,7 +79,9 @@ dynamic build(BuildContext context) {
             _buildBorderSideDemo(),
             SizedBox(height: 24),
 
-            _buildSectionHeader('7. Regular UnderlineInputBorder vs WidgetStateUnderlineInputBorder'),
+            _buildSectionHeader(
+              '7. Regular UnderlineInputBorder vs WidgetStateUnderlineInputBorder',
+            ),
             _buildInfoCard(
               'Comparing static UnderlineInputBorder with dynamic WidgetStateUnderlineInputBorder '
               'shows the flexibility advantage of state-responsive borders.',
@@ -84,7 +90,9 @@ dynamic build(BuildContext context) {
             _buildComparisonDemo(),
             SizedBox(height: 24),
 
-            _buildSectionHeader('8. Form with Multiple Underline-Decorated Fields'),
+            _buildSectionHeader(
+              '8. Form with Multiple Underline-Decorated Fields',
+            ),
             _buildInfoCard(
               'A complete form using state-responsive underlines on all fields, '
               'demonstrating cohesive form styling with consistent behavior.',
@@ -210,10 +218,11 @@ Widget _buildColorIndicator(Color color, String label) {
 }
 
 String _colorToHex(Color color) {
-  int argb = ((color.a * 255).round() << 24) |
-             ((color.r * 255).round() << 16) |
-             ((color.g * 255).round() << 8) |
-             (color.b * 255).round();
+  int argb =
+      ((color.a * 255).round() << 24) |
+      ((color.r * 255).round() << 16) |
+      ((color.g * 255).round() << 8) |
+      (color.b * 255).round();
   return '#${argb.toRadixString(16).toUpperCase().padLeft(8, '0')}';
 }
 
@@ -228,7 +237,10 @@ Widget _buildBasicStateResolvingDemo() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('State Resolution Examples:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'State Resolution Examples:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 12),
         Row(
           children: [
@@ -240,7 +252,10 @@ Widget _buildBasicStateResolvingDemo() {
                     labelText: 'Normal',
                     hintText: 'Grey underline',
                     enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey.shade400, width: 1),
+                      borderSide: BorderSide(
+                        color: Colors.grey.shade400,
+                        width: 1,
+                      ),
                     ),
                   ),
                 ),
@@ -255,7 +270,10 @@ Widget _buildBasicStateResolvingDemo() {
                     labelText: 'Focus me',
                     hintText: 'Teal underline on focus',
                     enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey.shade400, width: 1),
+                      borderSide: BorderSide(
+                        color: Colors.grey.shade400,
+                        width: 1,
+                      ),
                     ),
                     focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: Colors.teal, width: 2),
@@ -294,7 +312,10 @@ Widget _buildFocusStateDemo() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Focus State Transitions:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Focus State Transitions:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 12),
         TextField(
           decoration: InputDecoration(
@@ -364,7 +385,10 @@ Widget _buildErrorStateDemo() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Error State Underline Styling:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Error State Underline Styling:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 12),
         TextField(
           decoration: InputDecoration(
@@ -454,7 +478,10 @@ Widget _buildDisabledStateDemo() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Disabled State Underlines:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Disabled State Underlines:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 12),
         TextField(
           enabled: false,
@@ -522,7 +549,10 @@ Widget _buildMultipleConfigurationsDemo() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Various Underline Configurations:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Various Underline Configurations:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 16),
         Row(
           children: [
@@ -531,10 +561,16 @@ Widget _buildMultipleConfigurationsDemo() {
                 decoration: InputDecoration(
                   labelText: 'Blue Theme',
                   enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blue.shade200, width: 1),
+                    borderSide: BorderSide(
+                      color: Colors.blue.shade200,
+                      width: 1,
+                    ),
                   ),
                   focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blue.shade700, width: 2),
+                    borderSide: BorderSide(
+                      color: Colors.blue.shade700,
+                      width: 2,
+                    ),
                   ),
                 ),
               ),
@@ -545,10 +581,16 @@ Widget _buildMultipleConfigurationsDemo() {
                 decoration: InputDecoration(
                   labelText: 'Green Theme',
                   enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.green.shade200, width: 1),
+                    borderSide: BorderSide(
+                      color: Colors.green.shade200,
+                      width: 1,
+                    ),
                   ),
                   focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.green.shade700, width: 2),
+                    borderSide: BorderSide(
+                      color: Colors.green.shade700,
+                      width: 2,
+                    ),
                   ),
                 ),
               ),
@@ -563,10 +605,16 @@ Widget _buildMultipleConfigurationsDemo() {
                 decoration: InputDecoration(
                   labelText: 'Orange Theme',
                   enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.orange.shade200, width: 1),
+                    borderSide: BorderSide(
+                      color: Colors.orange.shade200,
+                      width: 1,
+                    ),
                   ),
                   focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.orange.shade700, width: 2),
+                    borderSide: BorderSide(
+                      color: Colors.orange.shade700,
+                      width: 2,
+                    ),
                   ),
                 ),
               ),
@@ -577,10 +625,16 @@ Widget _buildMultipleConfigurationsDemo() {
                 decoration: InputDecoration(
                   labelText: 'Purple Theme',
                   enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.purple.shade200, width: 1),
+                    borderSide: BorderSide(
+                      color: Colors.purple.shade200,
+                      width: 1,
+                    ),
                   ),
                   focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.purple.shade700, width: 2),
+                    borderSide: BorderSide(
+                      color: Colors.purple.shade700,
+                      width: 2,
+                    ),
                   ),
                 ),
               ),
@@ -595,10 +649,16 @@ Widget _buildMultipleConfigurationsDemo() {
                 decoration: InputDecoration(
                   labelText: 'Pink Theme',
                   enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.pink.shade200, width: 1),
+                    borderSide: BorderSide(
+                      color: Colors.pink.shade200,
+                      width: 1,
+                    ),
                   ),
                   focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.pink.shade700, width: 2),
+                    borderSide: BorderSide(
+                      color: Colors.pink.shade700,
+                      width: 2,
+                    ),
                   ),
                 ),
               ),
@@ -609,10 +669,16 @@ Widget _buildMultipleConfigurationsDemo() {
                 decoration: InputDecoration(
                   labelText: 'Teal Theme',
                   enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.teal.shade200, width: 1),
+                    borderSide: BorderSide(
+                      color: Colors.teal.shade200,
+                      width: 1,
+                    ),
                   ),
                   focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.teal.shade700, width: 2),
+                    borderSide: BorderSide(
+                      color: Colors.teal.shade700,
+                      width: 2,
+                    ),
                   ),
                 ),
               ),
@@ -635,7 +701,10 @@ Widget _buildBorderSideDemo() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('BorderSide Width Variations:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'BorderSide Width Variations:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 12),
         _buildLabeledField(
           'Width: 1px (thin)',
@@ -735,7 +804,10 @@ Widget _buildComparisonDemo() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Regular UnderlineInputBorder', style: TextStyle(fontWeight: FontWeight.w600)),
+              Text(
+                'Regular UnderlineInputBorder',
+                style: TextStyle(fontWeight: FontWeight.w600),
+              ),
               SizedBox(height: 8),
               TextField(
                 decoration: InputDecoration(
@@ -759,14 +831,20 @@ Widget _buildComparisonDemo() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('WidgetStateUnderlineInputBorder', style: TextStyle(fontWeight: FontWeight.w600)),
+              Text(
+                'WidgetStateUnderlineInputBorder',
+                style: TextStyle(fontWeight: FontWeight.w600),
+              ),
               SizedBox(height: 8),
               TextField(
                 decoration: InputDecoration(
                   labelText: 'Dynamic border',
                   hintText: 'Changes based on state',
                   enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey.shade400, width: 1),
+                    borderSide: BorderSide(
+                      color: Colors.grey.shade400,
+                      width: 1,
+                    ),
                   ),
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.teal, width: 2.5),
@@ -775,7 +853,10 @@ Widget _buildComparisonDemo() {
                     borderSide: BorderSide(color: Colors.red, width: 2),
                   ),
                   disabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey.shade300, width: 0.5),
+                    borderSide: BorderSide(
+                      color: Colors.grey.shade300,
+                      width: 0.5,
+                    ),
                   ),
                 ),
               ),
@@ -796,7 +877,10 @@ Widget _buildComparisonDemo() {
                   children: [
                     Icon(Icons.remove, color: Colors.grey),
                     Text('Static', style: TextStyle(fontSize: 12)),
-                    Text('No state changes', style: TextStyle(fontSize: 10, color: Colors.grey)),
+                    Text(
+                      'No state changes',
+                      style: TextStyle(fontSize: 10, color: Colors.grey),
+                    ),
                   ],
                 ),
               ),
@@ -813,7 +897,10 @@ Widget _buildComparisonDemo() {
                   children: [
                     Icon(Icons.auto_awesome, color: Colors.teal),
                     Text('Dynamic', style: TextStyle(fontSize: 12)),
-                    Text('State-responsive', style: TextStyle(fontSize: 10, color: Colors.teal)),
+                    Text(
+                      'State-responsive',
+                      style: TextStyle(fontSize: 10, color: Colors.teal),
+                    ),
                   ],
                 ),
               ),
@@ -840,7 +927,10 @@ Widget _buildFormDemo() {
           children: [
             Icon(Icons.assignment, color: Colors.green.shade700),
             SizedBox(width: 8),
-            Text('Registration Form', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+            Text(
+              'Registration Form',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            ),
           ],
         ),
         SizedBox(height: 20),
@@ -942,7 +1032,10 @@ Widget _buildStateVariationsGrid() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('State Reference Grid:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'State Reference Grid:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 16),
         Table(
           border: TableBorder.all(color: Colors.grey.shade300),
@@ -957,15 +1050,24 @@ Widget _buildStateVariationsGrid() {
               children: [
                 Padding(
                   padding: EdgeInsets.all(8),
-                  child: Text('State', style: TextStyle(fontWeight: FontWeight.bold)),
+                  child: Text(
+                    'State',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.all(8),
-                  child: Text('Underline Color', style: TextStyle(fontWeight: FontWeight.bold)),
+                  child: Text(
+                    'Underline Color',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.all(8),
-                  child: Text('Width', style: TextStyle(fontWeight: FontWeight.bold)),
+                  child: Text(
+                    'Width',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
               ],
             ),
@@ -1055,7 +1157,10 @@ Widget _buildInteractiveShowcase() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Interactive Fields:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Interactive Fields:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 8),
         Text(
           'Click, hover, and type in these fields to see underline changes',
@@ -1156,7 +1261,10 @@ Widget _buildGapPaddingDemo() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('UnderlineInputBorder Gap Padding:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'UnderlineInputBorder Gap Padding:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 16),
         _buildLabeledField(
           'borderGap: 4.0 (default)',
@@ -1194,7 +1302,10 @@ Widget _buildGapPaddingDemo() {
           TextField(
             decoration: InputDecoration(
               labelText: 'Padded Field',
-              contentPadding: EdgeInsets.symmetric(vertical: 20, horizontal: 12),
+              contentPadding: EdgeInsets.symmetric(
+                vertical: 20,
+                horizontal: 12,
+              ),
               enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.indigo.shade400, width: 1),
               ),
@@ -1236,7 +1347,10 @@ Widget _buildThemedUnderlineDemo() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Themed Input Fields:', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Themed Input Fields:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 8),
         Text(
           'Using InputDecorationTheme for consistent styling',
@@ -1247,10 +1361,16 @@ Widget _buildThemedUnderlineDemo() {
           data: ThemeData(
             inputDecorationTheme: InputDecorationTheme(
               enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.deepOrange.shade300, width: 1),
+                borderSide: BorderSide(
+                  color: Colors.deepOrange.shade300,
+                  width: 1,
+                ),
               ),
               focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.deepOrange.shade700, width: 2.5),
+                borderSide: BorderSide(
+                  color: Colors.deepOrange.shade700,
+                  width: 2.5,
+                ),
               ),
               errorBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.red.shade600, width: 2),
@@ -1316,7 +1436,10 @@ Widget _buildThemedUnderlineDemo() {
               Expanded(
                 child: Text(
                   'All fields inherit underline styling from InputDecorationTheme',
-                  style: TextStyle(fontSize: 12, color: Colors.deepOrange.shade800),
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.deepOrange.shade800,
+                  ),
                 ),
               ),
             ],

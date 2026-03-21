@@ -48,7 +48,11 @@ Widget buildInfoCard(String label, String value) {
   );
 }
 
-Widget buildIconShowcase(String label, IconData materialIcon, IconData cupertinoIcon) {
+Widget buildIconShowcase(
+  String label,
+  IconData materialIcon,
+  IconData cupertinoIcon,
+) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 6),
     padding: EdgeInsets.all(12),
@@ -71,7 +75,10 @@ Widget buildIconShowcase(String label, IconData materialIcon, IconData cupertino
             children: [
               Icon(materialIcon, size: 28, color: Colors.green.shade700),
               SizedBox(height: 4),
-              Text('Android', style: TextStyle(fontSize: 10, color: Colors.grey.shade600)),
+              Text(
+                'Android',
+                style: TextStyle(fontSize: 10, color: Colors.grey.shade600),
+              ),
             ],
           ),
         ),
@@ -80,7 +87,10 @@ Widget buildIconShowcase(String label, IconData materialIcon, IconData cupertino
             children: [
               Icon(cupertinoIcon, size: 28, color: Colors.blue.shade700),
               SizedBox(height: 4),
-              Text('iOS', style: TextStyle(fontSize: 10, color: Colors.grey.shade600)),
+              Text(
+                'iOS',
+                style: TextStyle(fontSize: 10, color: Colors.grey.shade600),
+              ),
             ],
           ),
         ),
@@ -358,7 +368,11 @@ Widget buildInteractiveIconShowcase(
                 color: Colors.purple.shade100,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(secondaryIcon, size: 24, color: Colors.purple.shade700),
+              child: Icon(
+                secondaryIcon,
+                size: 24,
+                color: Colors.purple.shade700,
+              ),
             ),
           ],
         ),
@@ -367,7 +381,10 @@ Widget buildInteractiveIconShowcase(
   );
 }
 
-Widget buildPlatformDetectionConcept(String platform, List<Map<String, dynamic>> icons) {
+Widget buildPlatformDetectionConcept(
+  String platform,
+  List<Map<String, dynamic>> icons,
+) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(14),
@@ -375,7 +392,9 @@ Widget buildPlatformDetectionConcept(String platform, List<Map<String, dynamic>>
       color: platform == 'Android' ? Colors.green.shade50 : Colors.blue.shade50,
       borderRadius: BorderRadius.circular(10),
       border: Border.all(
-        color: platform == 'Android' ? Colors.green.shade300 : Colors.blue.shade300,
+        color: platform == 'Android'
+            ? Colors.green.shade300
+            : Colors.blue.shade300,
       ),
     ),
     child: Column(
@@ -386,7 +405,9 @@ Widget buildPlatformDetectionConcept(String platform, List<Map<String, dynamic>>
             Icon(
               platform == 'Android' ? Icons.android : Icons.apple,
               size: 24,
-              color: platform == 'Android' ? Colors.green.shade700 : Colors.grey.shade700,
+              color: platform == 'Android'
+                  ? Colors.green.shade700
+                  : Colors.grey.shade700,
             ),
             SizedBox(width: 8),
             Text(
@@ -394,7 +415,9 @@ Widget buildPlatformDetectionConcept(String platform, List<Map<String, dynamic>>
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: platform == 'Android' ? Colors.green.shade800 : Colors.blue.shade800,
+                color: platform == 'Android'
+                    ? Colors.green.shade800
+                    : Colors.blue.shade800,
               ),
             ),
           ],
@@ -418,10 +441,7 @@ Widget buildPlatformDetectionConcept(String platform, List<Map<String, dynamic>>
                 children: [
                   Icon(iconValue, size: 20),
                   SizedBox(width: 6),
-                  Text(
-                    labelValue,
-                    style: TextStyle(fontSize: 12),
-                  ),
+                  Text(labelValue, style: TextStyle(fontSize: 12)),
                 ],
               ),
             );
@@ -449,11 +469,26 @@ dynamic build(BuildContext context) {
         children: [
           // Section 1: Overview
           buildSectionHeader('1. Platform-Adaptive Icons Overview'),
-          buildInfoCard('Concept', 'Icons that automatically adapt to platform conventions'),
-          buildInfoCard('Android', 'Uses Material Design icons with sharp, geometric shapes'),
-          buildInfoCard('iOS', 'Uses Cupertino-style icons with rounded, softer appearance'),
-          buildInfoCard('Benefit', 'Consistent UX across platforms without manual switching'),
-          buildInfoCard('Implementation', 'Uses Theme.of(context).platform for detection'),
+          buildInfoCard(
+            'Concept',
+            'Icons that automatically adapt to platform conventions',
+          ),
+          buildInfoCard(
+            'Android',
+            'Uses Material Design icons with sharp, geometric shapes',
+          ),
+          buildInfoCard(
+            'iOS',
+            'Uses Cupertino-style icons with rounded, softer appearance',
+          ),
+          buildInfoCard(
+            'Benefit',
+            'Consistent UX across platforms without manual switching',
+          ),
+          buildInfoCard(
+            'Implementation',
+            'Uses Theme.of(context).platform for detection',
+          ),
           Container(
             margin: EdgeInsets.symmetric(vertical: 8),
             padding: EdgeInsets.all(12),
@@ -469,7 +504,10 @@ dynamic build(BuildContext context) {
                 Expanded(
                   child: Text(
                     'Platform-adaptive icons improve user familiarity and perceived quality',
-                    style: TextStyle(fontSize: 13, color: Colors.amber.shade800),
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Colors.amber.shade800,
+                    ),
                   ),
                 ),
               ],
@@ -506,7 +544,10 @@ dynamic build(BuildContext context) {
             Colors.orange,
             28,
           ),
-          buildInfoCard('Design Note', 'Android uses full arrows, iOS uses chevrons'),
+          buildInfoCard(
+            'Design Note',
+            'Android uses full arrows, iOS uses chevrons',
+          ),
 
           // Section 3: Share Icon Adaptation
           buildSectionHeader('3. Share Icon Adaptation'),
@@ -525,9 +566,19 @@ dynamic build(BuildContext context) {
             28,
           ),
           buildIconShowcase('Share Primary', Icons.share, Icons.ios_share),
-          buildIconShowcase('Share Alt', Icons.share_outlined, Icons.ios_share_outlined),
-          buildInfoCard('Android Share', 'Three connected dots forming a share network'),
-          buildInfoCard('iOS Share', 'Box with upward arrow representing export'),
+          buildIconShowcase(
+            'Share Alt',
+            Icons.share_outlined,
+            Icons.ios_share_outlined,
+          ),
+          buildInfoCard(
+            'Android Share',
+            'Three connected dots forming a share network',
+          ),
+          buildInfoCard(
+            'iOS Share',
+            'Box with upward arrow representing export',
+          ),
 
           // Section 4: More Icon Adaptation
           buildSectionHeader('4. More Icon (Vertical/Horizontal Dots)'),
@@ -546,7 +597,11 @@ dynamic build(BuildContext context) {
             28,
           ),
           buildIconShowcase('More Vertical', Icons.more_vert, Icons.more_horiz),
-          buildIconShowcase('More Rounded', Icons.more_vert_rounded, Icons.more_horiz_rounded),
+          buildIconShowcase(
+            'More Rounded',
+            Icons.more_vert_rounded,
+            Icons.more_horiz_rounded,
+          ),
           Container(
             margin: EdgeInsets.symmetric(vertical: 8),
             padding: EdgeInsets.all(12),
@@ -557,7 +612,10 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Platform Conventions:', style: TextStyle(fontWeight: FontWeight.bold)),
+                Text(
+                  'Platform Conventions:',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 SizedBox(height: 8),
                 Row(
                   children: [
@@ -601,20 +659,46 @@ dynamic build(BuildContext context) {
             Colors.amber.shade700,
             28,
           ),
-          buildIconShowcase('Flip Camera', Icons.flip_camera_android, Icons.flip_camera_ios),
-          buildInfoCard('Usage', 'Common in camera apps for selfie/rear camera switching'),
+          buildIconShowcase(
+            'Flip Camera',
+            Icons.flip_camera_android,
+            Icons.flip_camera_ios,
+          ),
+          buildInfoCard(
+            'Usage',
+            'Common in camera apps for selfie/rear camera switching',
+          ),
 
           // Section 6: Icon Comparison Grid
           buildSectionHeader('6. Icon Comparison Grid'),
-          buildIconComparisonRow('Back', Icons.arrow_back, Icons.arrow_back_ios),
-          buildIconComparisonRow('Forward', Icons.arrow_forward, Icons.arrow_forward_ios),
+          buildIconComparisonRow(
+            'Back',
+            Icons.arrow_back,
+            Icons.arrow_back_ios,
+          ),
+          buildIconComparisonRow(
+            'Forward',
+            Icons.arrow_forward,
+            Icons.arrow_forward_ios,
+          ),
           buildIconComparisonRow('Share', Icons.share, Icons.ios_share),
           buildIconComparisonRow('More', Icons.more_vert, Icons.more_horiz),
-          buildIconComparisonRow('Flip', Icons.flip_camera_android, Icons.flip_camera_ios),
-          buildIconComparisonRow('Settings', Icons.settings, Icons.settings_outlined),
+          buildIconComparisonRow(
+            'Flip',
+            Icons.flip_camera_android,
+            Icons.flip_camera_ios,
+          ),
+          buildIconComparisonRow(
+            'Settings',
+            Icons.settings,
+            Icons.settings_outlined,
+          ),
           buildIconComparisonRow('Search', Icons.search, Icons.search_outlined),
           buildIconComparisonRow('Home', Icons.home, Icons.home_outlined),
-          buildInfoCard('Legend', 'Left: Material (Android) / Right: Cupertino (iOS)'),
+          buildInfoCard(
+            'Legend',
+            'Left: Material (Android) / Right: Cupertino (iOS)',
+          ),
 
           // Section 7: Themed Adaptive Icons
           buildSectionHeader('7. Themed Adaptive Icons'),
@@ -623,12 +707,48 @@ dynamic build(BuildContext context) {
             child: Wrap(
               alignment: WrapAlignment.center,
               children: [
-                buildThemedAdaptiveIcon('Primary', Icons.home, Colors.blue.shade600, Colors.white, 28),
-                buildThemedAdaptiveIcon('Success', Icons.check_circle, Colors.green.shade600, Colors.white, 28),
-                buildThemedAdaptiveIcon('Warning', Icons.warning, Colors.orange.shade600, Colors.white, 28),
-                buildThemedAdaptiveIcon('Error', Icons.error, Colors.red.shade600, Colors.white, 28),
-                buildThemedAdaptiveIcon('Info', Icons.info, Colors.cyan.shade600, Colors.white, 28),
-                buildThemedAdaptiveIcon('Neutral', Icons.help, Colors.grey.shade600, Colors.white, 28),
+                buildThemedAdaptiveIcon(
+                  'Primary',
+                  Icons.home,
+                  Colors.blue.shade600,
+                  Colors.white,
+                  28,
+                ),
+                buildThemedAdaptiveIcon(
+                  'Success',
+                  Icons.check_circle,
+                  Colors.green.shade600,
+                  Colors.white,
+                  28,
+                ),
+                buildThemedAdaptiveIcon(
+                  'Warning',
+                  Icons.warning,
+                  Colors.orange.shade600,
+                  Colors.white,
+                  28,
+                ),
+                buildThemedAdaptiveIcon(
+                  'Error',
+                  Icons.error,
+                  Colors.red.shade600,
+                  Colors.white,
+                  28,
+                ),
+                buildThemedAdaptiveIcon(
+                  'Info',
+                  Icons.info,
+                  Colors.cyan.shade600,
+                  Colors.white,
+                  28,
+                ),
+                buildThemedAdaptiveIcon(
+                  'Neutral',
+                  Icons.help,
+                  Colors.grey.shade600,
+                  Colors.white,
+                  28,
+                ),
               ],
             ),
           ),
@@ -637,9 +757,27 @@ dynamic build(BuildContext context) {
             child: Wrap(
               alignment: WrapAlignment.center,
               children: [
-                buildThemedAdaptiveIcon('Dark', Icons.dark_mode, Colors.grey.shade800, Colors.white, 28),
-                buildThemedAdaptiveIcon('Light', Icons.light_mode, Colors.amber.shade400, Colors.white, 28),
-                buildThemedAdaptiveIcon('Auto', Icons.brightness_auto, Colors.purple.shade400, Colors.white, 28),
+                buildThemedAdaptiveIcon(
+                  'Dark',
+                  Icons.dark_mode,
+                  Colors.grey.shade800,
+                  Colors.white,
+                  28,
+                ),
+                buildThemedAdaptiveIcon(
+                  'Light',
+                  Icons.light_mode,
+                  Colors.amber.shade400,
+                  Colors.white,
+                  28,
+                ),
+                buildThemedAdaptiveIcon(
+                  'Auto',
+                  Icons.brightness_auto,
+                  Colors.purple.shade400,
+                  Colors.white,
+                  28,
+                ),
               ],
             ),
           ),
@@ -670,8 +808,14 @@ dynamic build(BuildContext context) {
               ],
             ),
           ),
-          buildInfoCard('Size Guidelines', 'Use 24px for standard UI, 48px for touch targets'),
-          buildInfoCard('Accessibility', 'Minimum touch target should be 48x48 logical pixels'),
+          buildInfoCard(
+            'Size Guidelines',
+            'Use 24px for standard UI, 48px for touch targets',
+          ),
+          buildInfoCard(
+            'Accessibility',
+            'Minimum touch target should be 48x48 logical pixels',
+          ),
 
           // Section 9: Interactive Icon Showcase
           buildSectionHeader('9. Interactive Icon Showcase'),
@@ -703,25 +847,22 @@ dynamic build(BuildContext context) {
           // Section 10: Platform Detection Concept
           buildSectionHeader('10. Platform Detection Concept'),
           buildInfoCard('Detection Method', 'Theme.of(context).platform'),
-          buildInfoCard('Platforms', 'TargetPlatform.android, TargetPlatform.iOS, etc.'),
-          buildPlatformDetectionConcept(
-            'Android',
-            [
-              {'icon': Icons.arrow_back, 'label': 'Back'},
-              {'icon': Icons.share, 'label': 'Share'},
-              {'icon': Icons.more_vert, 'label': 'More'},
-              {'icon': Icons.flip_camera_android, 'label': 'Flip'},
-            ],
+          buildInfoCard(
+            'Platforms',
+            'TargetPlatform.android, TargetPlatform.iOS, etc.',
           ),
-          buildPlatformDetectionConcept(
-            'iOS',
-            [
-              {'icon': Icons.arrow_back_ios, 'label': 'Back'},
-              {'icon': Icons.ios_share, 'label': 'Share'},
-              {'icon': Icons.more_horiz, 'label': 'More'},
-              {'icon': Icons.flip_camera_ios, 'label': 'Flip'},
-            ],
-          ),
+          buildPlatformDetectionConcept('Android', [
+            {'icon': Icons.arrow_back, 'label': 'Back'},
+            {'icon': Icons.share, 'label': 'Share'},
+            {'icon': Icons.more_vert, 'label': 'More'},
+            {'icon': Icons.flip_camera_android, 'label': 'Flip'},
+          ]),
+          buildPlatformDetectionConcept('iOS', [
+            {'icon': Icons.arrow_back_ios, 'label': 'Back'},
+            {'icon': Icons.ios_share, 'label': 'Share'},
+            {'icon': Icons.more_horiz, 'label': 'More'},
+            {'icon': Icons.flip_camera_ios, 'label': 'Flip'},
+          ]),
           Container(
             margin: EdgeInsets.symmetric(vertical: 12),
             padding: EdgeInsets.all(14),
@@ -795,7 +936,11 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 12),
                 Row(
                   children: [
-                    Icon(Icons.check_circle, color: Colors.greenAccent, size: 20),
+                    Icon(
+                      Icons.check_circle,
+                      color: Colors.greenAccent,
+                      size: 20,
+                    ),
                     SizedBox(width: 8),
                     Expanded(
                       child: Text(
@@ -808,7 +953,11 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 6),
                 Row(
                   children: [
-                    Icon(Icons.check_circle, color: Colors.greenAccent, size: 20),
+                    Icon(
+                      Icons.check_circle,
+                      color: Colors.greenAccent,
+                      size: 20,
+                    ),
                     SizedBox(width: 8),
                     Expanded(
                       child: Text(
@@ -821,7 +970,11 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 6),
                 Row(
                   children: [
-                    Icon(Icons.check_circle, color: Colors.greenAccent, size: 20),
+                    Icon(
+                      Icons.check_circle,
+                      color: Colors.greenAccent,
+                      size: 20,
+                    ),
                     SizedBox(width: 8),
                     Expanded(
                       child: Text(
@@ -834,7 +987,11 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 6),
                 Row(
                   children: [
-                    Icon(Icons.check_circle, color: Colors.greenAccent, size: 20),
+                    Icon(
+                      Icons.check_circle,
+                      color: Colors.greenAccent,
+                      size: 20,
+                    ),
                     SizedBox(width: 8),
                     Expanded(
                       child: Text(

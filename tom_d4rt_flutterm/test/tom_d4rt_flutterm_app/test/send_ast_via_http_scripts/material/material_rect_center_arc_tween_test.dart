@@ -174,20 +174,13 @@ Widget _buildDot(Offset pt, Color color, {double size = 8.0}) {
     child: Container(
       width: size,
       height: size,
-      decoration: BoxDecoration(
-        color: color,
-        shape: BoxShape.circle,
-      ),
+      decoration: BoxDecoration(color: color, shape: BoxShape.circle),
     ),
   );
 }
 
 // Samples a MaterialPointArcTween and returns small circle Positioned widgets
-List<Widget> _buildArcDots(
-  MaterialPointArcTween arc,
-  Color color,
-  int count,
-) {
+List<Widget> _buildArcDots(MaterialPointArcTween arc, Color color, int count) {
   List<Widget> dots = [];
   for (int i = 0; i <= count; i++) {
     final double t = i / count;
@@ -216,8 +209,10 @@ Widget _buildBasicCenterArcTween() {
   final Rect begin = Rect.fromLTWH(10, 10, 60, 60);
   final Rect end = Rect.fromLTWH(140, 120, 160, 120);
 
-  final MaterialRectCenterArcTween centerArcTween =
-      MaterialRectCenterArcTween(begin: begin, end: end);
+  final MaterialRectCenterArcTween centerArcTween = MaterialRectCenterArcTween(
+    begin: begin,
+    end: end,
+  );
 
   final List<double> tValues = [0.0, 0.25, 0.5, 0.75, 1.0];
   final List<Color> colors = [
@@ -313,8 +308,10 @@ Widget _buildThreeWayComparison() {
     begin: begin,
     end: end,
   );
-  final MaterialRectCenterArcTween centerArcTween =
-      MaterialRectCenterArcTween(begin: begin, end: end);
+  final MaterialRectCenterArcTween centerArcTween = MaterialRectCenterArcTween(
+    begin: begin,
+    end: end,
+  );
 
   List<Widget> linearRects = [];
   List<Widget> cornerArcRects = [];
@@ -439,12 +436,12 @@ Widget _buildThreeWayComparison() {
       _buildInfoCard(
         'MaterialRectArcTween',
         'Corners follow independent arcs. Center path is derived from '
-        'corner positions (not a pure arc).',
+            'corner positions (not a pure arc).',
       ),
       _buildInfoCard(
         'MaterialRectCenterArcTween',
         'Center explicitly follows a circular arc. Size interpolates '
-        'linearly. This produces a clean, predictable arc for the center.',
+            'linearly. This produces a clean, predictable arc for the center.',
       ),
     ],
   );
@@ -460,8 +457,10 @@ Widget _buildCenterArcProperty() {
   final Rect begin = Rect.fromLTWH(20, 20, 60, 60);
   final Rect end = Rect.fromLTWH(180, 140, 120, 80);
 
-  final MaterialRectCenterArcTween tween =
-      MaterialRectCenterArcTween(begin: begin, end: end);
+  final MaterialRectCenterArcTween tween = MaterialRectCenterArcTween(
+    begin: begin,
+    end: end,
+  );
 
   final MaterialPointArcTween? cArc = tween.centerArc;
 
@@ -491,9 +490,7 @@ Widget _buildCenterArcProperty() {
         _buildRectBox(r, Color(0xFF00897B).withValues(alpha: 0.6)),
       );
       // Mark center with a small bright dot
-      centerMarkers.add(
-        _buildDot(r.center, Color(0xFFD50000), size: 6.0),
-      );
+      centerMarkers.add(_buildDot(r.center, Color(0xFFD50000), size: 6.0));
     }
   }
 
@@ -545,7 +542,7 @@ Widget _buildCenterArcProperty() {
       _buildInfoCard(
         'Key insight',
         'The orange arc dots and red center dots overlap, confirming '
-        'the center of the rect precisely follows the MaterialPointArcTween arc.',
+            'the center of the rect precisely follows the MaterialPointArcTween arc.',
       ),
     ],
   );
@@ -561,8 +558,10 @@ Widget _buildSameSizeArcTranslation() {
   final Rect beginR = Rect.fromLTWH(10, 130, 70, 50);
   final Rect endR = Rect.fromLTWH(230, 10, 70, 50);
 
-  final MaterialRectCenterArcTween tw =
-      MaterialRectCenterArcTween(begin: beginR, end: endR);
+  final MaterialRectCenterArcTween tw = MaterialRectCenterArcTween(
+    begin: beginR,
+    end: endR,
+  );
 
   // Also build linear for comparison
   final RectTween linearTw = RectTween(begin: beginR, end: endR);
@@ -650,7 +649,7 @@ Widget _buildSameSizeArcTranslation() {
       _buildInfoCard(
         'Observation',
         'With identical sizes, MaterialRectCenterArcTween produces a clean '
-        'curved sweep, while the linear variant cuts straight across.',
+            'curved sweep, while the linear variant cuts straight across.',
       ),
     ],
   );
@@ -688,8 +687,10 @@ Widget _buildDifferentSizeArcScaling() {
   List<Widget> configWidgets = [];
 
   for (final cfg in configs) {
-    final MaterialRectCenterArcTween tw =
-        MaterialRectCenterArcTween(begin: cfg.begin, end: cfg.end);
+    final MaterialRectCenterArcTween tw = MaterialRectCenterArcTween(
+      begin: cfg.begin,
+      end: cfg.end,
+    );
 
     List<Widget> rects = [];
     for (int i = 0; i <= 6; i++) {
@@ -755,7 +756,7 @@ Widget _buildDifferentSizeArcScaling() {
       _buildInfoCard(
         'Size interpolation',
         'Width and height change linearly from begin to end values. '
-        'Only the center position follows the arc path.',
+            'Only the center position follows the arc path.',
       ),
     ],
   );
@@ -771,8 +772,10 @@ Widget _buildCenterVsCornersPath() {
   final Rect begin = Rect.fromLTWH(15, 120, 60, 50);
   final Rect end = Rect.fromLTWH(200, 10, 100, 80);
 
-  final MaterialRectCenterArcTween tw =
-      MaterialRectCenterArcTween(begin: begin, end: end);
+  final MaterialRectCenterArcTween tw = MaterialRectCenterArcTween(
+    begin: begin,
+    end: end,
+  );
 
   List<Widget> items = [];
 
@@ -854,14 +857,14 @@ Widget _buildCenterVsCornersPath() {
       _buildInfoCard(
         'Corner behavior',
         'Corners shift together with the center arc and spread apart '
-        '(or contract) linearly as size changes. In MaterialRectArcTween, '
-        'each corner follows its OWN independent arc instead.',
+            '(or contract) linearly as size changes. In MaterialRectArcTween, '
+            'each corner follows its OWN independent arc instead.',
       ),
       _buildInfoCard(
         'Visual result',
         'Center-arc gives a more "rigid body" feel: the rect shape moves '
-        'as a unit along the arc. Corner-arc allows the shape to deform '
-        'more during transition.',
+            'as a unit along the arc. Corner-arc allows the shape to deform '
+            'more during transition.',
       ),
     ],
   );
@@ -878,13 +881,13 @@ Widget _buildHeroExpansion() {
   final Rect iconRect = Rect.fromLTWH(20, 150, 48, 48);
   final Rect cardRect = Rect.fromLTWH(10, 5, 300, 180);
 
-  final MaterialRectCenterArcTween heroTween =
-      MaterialRectCenterArcTween(begin: iconRect, end: cardRect);
+  final MaterialRectCenterArcTween heroTween = MaterialRectCenterArcTween(
+    begin: iconRect,
+    end: cardRect,
+  );
 
   List<Widget> frames = [];
-  List<double> tSteps = [
-    0.0, 0.08, 0.16, 0.25, 0.35, 0.5, 0.65, 0.8, 0.9, 1.0,
-  ];
+  List<double> tSteps = [0.0, 0.08, 0.16, 0.25, 0.35, 0.5, 0.65, 0.8, 0.9, 1.0];
 
   List<Color> gradient = [
     Color(0xFF004D40),
@@ -902,9 +905,7 @@ Widget _buildHeroExpansion() {
   for (int i = 0; i < tSteps.length; i++) {
     final Rect? r = heroTween.lerp(tSteps[i]);
     if (r != null) {
-      frames.add(
-        _buildRectBox(r, gradient[i], label: 't=${tSteps[i]}'),
-      );
+      frames.add(_buildRectBox(r, gradient[i], label: 't=${tSteps[i]}'));
       print('  hero t=${tSteps[i]} -> ${_fmtRect(r)}');
     }
   }
@@ -943,7 +944,7 @@ Widget _buildHeroExpansion() {
       _buildInfoCard(
         'Effect',
         'The icon slides along an arc toward the card position, expanding '
-        'smoothly. The arc path creates natural Material motion.',
+            'smoothly. The arc path creates natural Material motion.',
       ),
     ],
   );
@@ -959,8 +960,10 @@ Widget _buildFineGrainedSampling() {
   final Rect begin = Rect.fromLTWH(10, 140, 50, 40);
   final Rect end = Rect.fromLTWH(220, 10, 90, 70);
 
-  final MaterialRectCenterArcTween tw =
-      MaterialRectCenterArcTween(begin: begin, end: end);
+  final MaterialRectCenterArcTween tw = MaterialRectCenterArcTween(
+    begin: begin,
+    end: end,
+  );
 
   final int totalSteps = 16;
   List<Widget> stackItems = [];
@@ -976,9 +979,7 @@ Widget _buildFineGrainedSampling() {
       final int blueVal = (128 + (127 * t)).round();
       final Color c = Color.fromARGB(255, redVal, greenVal, blueVal);
       stackItems.add(_buildRectBox(r, c));
-      infoItems.add(
-        _buildInfoCard('t=${t.toStringAsFixed(3)}', _fmtRect(r)),
-      );
+      infoItems.add(_buildInfoCard('t=${t.toStringAsFixed(3)}', _fmtRect(r)));
       print('  step $i: t=${t.toStringAsFixed(3)} -> ${_fmtRect(r)}');
     }
   }
@@ -988,9 +989,7 @@ Widget _buildFineGrainedSampling() {
   if (cArc != null) {
     for (int i = 0; i <= 40; i++) {
       final double t = i / 40;
-      stackItems.add(
-        _buildDot(cArc.lerp(t), Color(0xFFFFD600), size: 3.0),
-      );
+      stackItems.add(_buildDot(cArc.lerp(t), Color(0xFFFFD600), size: 3.0));
     }
   }
 
@@ -1029,22 +1028,28 @@ Widget _buildEdgeCases() {
 
   // --- Identical rects ---
   final Rect sameRect = Rect.fromLTWH(50, 50, 80, 80);
-  final MaterialRectCenterArcTween sameTween =
-      MaterialRectCenterArcTween(begin: sameRect, end: sameRect);
+  final MaterialRectCenterArcTween sameTween = MaterialRectCenterArcTween(
+    begin: sameRect,
+    end: sameRect,
+  );
   final Rect? sameMid = sameTween.lerp(0.5);
 
   // --- Very close rects ---
   final Rect nearBegin = Rect.fromLTWH(100, 100, 60, 60);
   final Rect nearEnd = Rect.fromLTWH(103, 98, 62, 61);
-  final MaterialRectCenterArcTween nearTween =
-      MaterialRectCenterArcTween(begin: nearBegin, end: nearEnd);
+  final MaterialRectCenterArcTween nearTween = MaterialRectCenterArcTween(
+    begin: nearBegin,
+    end: nearEnd,
+  );
   final Rect? nearMid = nearTween.lerp(0.5);
 
   // --- Horizontal only movement ---
   final Rect horizBegin = Rect.fromLTWH(10, 60, 50, 50);
   final Rect horizEnd = Rect.fromLTWH(250, 60, 50, 50);
-  final MaterialRectCenterArcTween horizTween =
-      MaterialRectCenterArcTween(begin: horizBegin, end: horizEnd);
+  final MaterialRectCenterArcTween horizTween = MaterialRectCenterArcTween(
+    begin: horizBegin,
+    end: horizEnd,
+  );
 
   List<Widget> horizStack = [];
   for (int i = 0; i <= 8; i++) {
@@ -1052,9 +1057,7 @@ Widget _buildEdgeCases() {
     final Rect? r = horizTween.lerp(t);
     if (r != null) {
       horizStack.add(
-        _buildRectBox(
-          r, Color(0xFF0277BD), label: 't=${t.toStringAsFixed(2)}',
-        ),
+        _buildRectBox(r, Color(0xFF0277BD), label: 't=${t.toStringAsFixed(2)}'),
       );
     }
   }
@@ -1062,8 +1065,10 @@ Widget _buildEdgeCases() {
   // --- Vertical only movement ---
   final Rect vertBegin = Rect.fromLTWH(130, 5, 50, 40);
   final Rect vertEnd = Rect.fromLTWH(130, 140, 50, 40);
-  final MaterialRectCenterArcTween vertTween =
-      MaterialRectCenterArcTween(begin: vertBegin, end: vertEnd);
+  final MaterialRectCenterArcTween vertTween = MaterialRectCenterArcTween(
+    begin: vertBegin,
+    end: vertEnd,
+  );
 
   List<Widget> vertStack = [];
   for (int i = 0; i <= 8; i++) {
@@ -1071,9 +1076,7 @@ Widget _buildEdgeCases() {
     final Rect? r = vertTween.lerp(t);
     if (r != null) {
       vertStack.add(
-        _buildRectBox(
-          r, Color(0xFF558B2F), label: 't=${t.toStringAsFixed(2)}',
-        ),
+        _buildRectBox(r, Color(0xFF558B2F), label: 't=${t.toStringAsFixed(2)}'),
       );
     }
   }
@@ -1081,8 +1084,10 @@ Widget _buildEdgeCases() {
   // --- Zero-size begin ---
   final Rect zeroBegin = Rect.fromLTWH(150, 100, 0, 0);
   final Rect normalEnd = Rect.fromLTWH(50, 20, 120, 90);
-  final MaterialRectCenterArcTween zeroTween =
-      MaterialRectCenterArcTween(begin: zeroBegin, end: normalEnd);
+  final MaterialRectCenterArcTween zeroTween = MaterialRectCenterArcTween(
+    begin: zeroBegin,
+    end: normalEnd,
+  );
 
   List<Widget> zeroStack = [];
   for (int i = 0; i <= 6; i++) {
@@ -1090,11 +1095,7 @@ Widget _buildEdgeCases() {
     final Rect? r = zeroTween.lerp(t);
     if (r != null) {
       zeroStack.add(
-        _buildRectBox(
-          r,
-          Color(0xFF4527A0),
-          label: 't=${t.toStringAsFixed(2)}',
-        ),
+        _buildRectBox(r, Color(0xFF4527A0), label: 't=${t.toStringAsFixed(2)}'),
       );
     }
   }
@@ -1150,10 +1151,7 @@ Widget _buildEdgeCases() {
       SizedBox(height: 4),
       _buildInfoCard('begin', _fmtRect(nearBegin)),
       _buildInfoCard('end', _fmtRect(nearEnd)),
-      _buildInfoCard(
-        't=0.5',
-        nearMid != null ? _fmtRect(nearMid) : 'null',
-      ),
+      _buildInfoCard('t=0.5', nearMid != null ? _fmtRect(nearMid) : 'null'),
       SizedBox(height: 12),
 
       // Horizontal only
@@ -1180,7 +1178,7 @@ Widget _buildEdgeCases() {
       _buildInfoCard(
         'Horizontal note',
         'With same Y position, the arc degenerates to a straight line, '
-        'or shows minimal curvature depending on the diagonal offset.',
+            'or shows minimal curvature depending on the diagonal offset.',
       ),
       SizedBox(height: 12),
 
@@ -1208,7 +1206,7 @@ Widget _buildEdgeCases() {
       _buildInfoCard(
         'Vertical note',
         'With same X position, the center arc follows a vertical line '
-        'or shows only minor horizontal deviation.',
+            'or shows only minor horizontal deviation.',
       ),
       SizedBox(height: 12),
 
@@ -1236,7 +1234,7 @@ Widget _buildEdgeCases() {
       _buildInfoCard(
         'Zero-size note',
         'Starting from a zero-size rect (a point), the rect expands along '
-        'the arc path while growing linearly in size.',
+            'the arc path while growing linearly in size.',
       ),
     ],
   );
@@ -1250,13 +1248,11 @@ Widget _buildSummary() {
   print('Building summary');
 
   List<Map<String, String>> summaryItems = [
-    {
-      'label': 'Class',
-      'value': 'MaterialRectCenterArcTween extends RectTween',
-    },
+    {'label': 'Class', 'value': 'MaterialRectCenterArcTween extends RectTween'},
     {
       'label': 'Purpose',
-      'value': 'Interpolates Rects where the center follows a circular arc, '
+      'value':
+          'Interpolates Rects where the center follows a circular arc, '
           'while size changes linearly. Used in Material hero animations.',
     },
     {
@@ -1273,12 +1269,14 @@ Widget _buildSummary() {
     },
     {
       'label': 'vs RectTween',
-      'value': 'RectTween interpolates everything linearly. '
+      'value':
+          'RectTween interpolates everything linearly. '
           'MaterialRectCenterArcTween adds arc curvature to the center path.',
     },
     {
       'label': 'vs MaterialRectArcTween',
-      'value': 'MaterialRectArcTween has CORNERS following independent arcs '
+      'value':
+          'MaterialRectArcTween has CORNERS following independent arcs '
           '(via beginArc/endArc). MaterialRectCenterArcTween has the CENTER '
           'following a single arc. Center-arc gives a "rigid body" sweep, '
           'corner-arc allows shape deformation.',
@@ -1295,7 +1293,8 @@ Widget _buildSummary() {
     },
     {
       'label': 'Sections Shown',
-      'value': '10 sections covering basic usage, three-way comparison, '
+      'value':
+          '10 sections covering basic usage, three-way comparison, '
           'centerArc property, same-size translation, size scaling, '
           'center vs corner paths, hero expansion, fine-grained sampling, '
           'edge cases, and this summary.',
@@ -1311,8 +1310,10 @@ Widget _buildSummary() {
     begin: cmpBegin,
     end: cmpEnd,
   );
-  final MaterialRectCenterArcTween centerTw =
-      MaterialRectCenterArcTween(begin: cmpBegin, end: cmpEnd);
+  final MaterialRectCenterArcTween centerTw = MaterialRectCenterArcTween(
+    begin: cmpBegin,
+    end: cmpEnd,
+  );
 
   List<Widget> cmpDots = [];
   for (int i = 0; i <= 30; i++) {
@@ -1321,17 +1322,11 @@ Widget _buildSummary() {
     final Rect cornerR = cornerTw.lerp(t);
     final Rect? centerR = centerTw.lerp(t);
     if (linR != null) {
-      cmpDots.add(
-        _buildDot(linR.center, Color(0xFF1565C0), size: 5.0),
-      );
+      cmpDots.add(_buildDot(linR.center, Color(0xFF1565C0), size: 5.0));
     }
-    cmpDots.add(
-      _buildDot(cornerR.center, Color(0xFFC62828), size: 5.0),
-    );
+    cmpDots.add(_buildDot(cornerR.center, Color(0xFFC62828), size: 5.0));
     if (centerR != null) {
-      cmpDots.add(
-        _buildDot(centerR.center, Color(0xFF2E7D32), size: 5.0),
-      );
+      cmpDots.add(_buildDot(centerR.center, Color(0xFF2E7D32), size: 5.0));
     }
   }
 

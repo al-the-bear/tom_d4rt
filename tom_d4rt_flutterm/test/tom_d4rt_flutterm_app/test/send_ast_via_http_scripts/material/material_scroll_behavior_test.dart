@@ -112,10 +112,7 @@ Widget buildScrollableBox(
             ),
           ),
         ),
-        SizedBox(
-          height: height,
-          child: child,
-        ),
+        SizedBox(height: height, child: child),
       ],
     ),
   );
@@ -222,10 +219,7 @@ Widget buildMaterialScrollListSection() {
         Colors.blue.shade700,
         ScrollConfiguration(
           behavior: MaterialScrollBehavior(),
-          child: ListView(
-            padding: EdgeInsets.all(8),
-            children: items,
-          ),
+          child: ListView(padding: EdgeInsets.all(8), children: items),
         ),
         300,
       ),
@@ -343,8 +337,7 @@ Widget buildNestedScrollSection() {
             Container(
               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               decoration: BoxDecoration(
-                color: Colors.primaries[i % Colors.primaries.length]
-                    .shade700,
+                color: Colors.primaries[i % Colors.primaries.length].shade700,
                 borderRadius: BorderRadius.circular(6),
               ),
               child: Text(
@@ -388,10 +381,7 @@ Widget buildNestedScrollSection() {
         Colors.brown.shade700,
         ScrollConfiguration(
           behavior: MaterialScrollBehavior(),
-          child: ListView(
-            padding: EdgeInsets.all(8),
-            children: outerItems,
-          ),
+          child: ListView(padding: EdgeInsets.all(8), children: outerItems),
         ),
         350,
       ),
@@ -526,14 +516,10 @@ Widget buildCustomScrollViewSection() {
                     'Sliver Header',
                     style: TextStyle(fontSize: 14, color: Colors.white),
                   ),
-                  background: Container(
-                    color: Colors.deepOrange.shade400,
-                  ),
+                  background: Container(color: Colors.deepOrange.shade400),
                 ),
               ),
-              SliverList(
-                delegate: SliverChildListDelegate(sliverItems),
-              ),
+              SliverList(delegate: SliverChildListDelegate(sliverItems)),
             ],
           ),
         ),
@@ -548,8 +534,7 @@ Widget buildGridViewSection() {
   print('=== Section 8: GridView with MaterialScrollBehavior ===');
   List<Widget> gridItems = [];
   for (int i = 0; i < 24; i++) {
-    Color cellColor =
-        Colors.primaries[i % Colors.primaries.length].shade400;
+    Color cellColor = Colors.primaries[i % Colors.primaries.length].shade400;
     gridItems.add(
       Container(
         decoration: BoxDecoration(
@@ -567,11 +552,7 @@ Widget buildGridViewSection() {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(
-                Icons.grid_view,
-                color: Colors.white,
-                size: 24,
-              ),
+              Icon(Icons.grid_view, color: Colors.white, size: 24),
               SizedBox(height: 4),
               Text(
                 'Cell ${i + 1}',
@@ -643,10 +624,7 @@ Widget buildPageViewSection() {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [
-              pageColors[i].shade300,
-              pageColors[i].shade700,
-            ],
+            colors: [pageColors[i].shade300, pageColors[i].shade700],
           ),
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
@@ -661,11 +639,7 @@ Widget buildPageViewSection() {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(
-                Icons.swipe,
-                color: Colors.white,
-                size: 48,
-              ),
+              Icon(Icons.swipe, color: Colors.white, size: 48),
               SizedBox(height: 12),
               Text(
                 pageLabels[i],
@@ -713,9 +687,7 @@ Widget buildPageViewSection() {
         Colors.pink.shade700,
         ScrollConfiguration(
           behavior: MaterialScrollBehavior(),
-          child: PageView(
-            children: pages,
-          ),
+          child: PageView(children: pages),
         ),
         220,
       ),

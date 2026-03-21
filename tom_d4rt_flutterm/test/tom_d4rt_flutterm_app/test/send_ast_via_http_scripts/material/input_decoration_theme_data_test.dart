@@ -176,12 +176,8 @@ Widget buildThemedTextField({
         ),
         SizedBox(height: 10),
         Theme(
-          data: ThemeData(
-            inputDecorationTheme: decorTheme,
-          ),
-          child: TextField(
-            decoration: decoration,
-          ),
+          data: ThemeData(inputDecorationTheme: decorTheme),
+          child: TextField(decoration: decoration),
         ),
       ],
     ),
@@ -345,7 +341,11 @@ Widget buildNestedThemeDemo({
 }
 
 // Helper to build a property reference row
-Widget buildPropertyRow(String property, String description, String defaultVal) {
+Widget buildPropertyRow(
+  String property,
+  String description,
+  String defaultVal,
+) {
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 3),
     child: Row(
@@ -464,7 +464,10 @@ dynamic build(BuildContext context) {
       borderRadius: BorderRadius.circular(12),
       borderSide: BorderSide(color: Colors.red.shade400, width: 1.5),
     ),
-    labelStyle: TextStyle(color: Colors.teal.shade700, fontWeight: FontWeight.w500),
+    labelStyle: TextStyle(
+      color: Colors.teal.shade700,
+      fontWeight: FontWeight.w500,
+    ),
     hintStyle: TextStyle(color: Colors.teal.shade200),
   );
   print('Created: outlineTheme (rounded outline borders)');
@@ -502,18 +505,13 @@ dynamic build(BuildContext context) {
       fontWeight: FontWeight.w600,
       color: Colors.red.shade700,
     ),
-    helperStyle: TextStyle(
-      fontSize: 11,
-      color: Colors.green.shade600,
-    ),
+    helperStyle: TextStyle(fontSize: 11, color: Colors.green.shade600),
     floatingLabelStyle: TextStyle(
       fontSize: 18,
       fontWeight: FontWeight.w700,
       color: Colors.deepOrange,
     ),
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(8),
-    ),
+    border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
   );
   print('Created: styledTextTheme (custom label/hint/error styles)');
 
@@ -553,11 +551,12 @@ dynamic build(BuildContext context) {
   // 8. Floating label auto theme
   InputDecorationTheme floatAutoTheme = InputDecorationTheme(
     floatingLabelBehavior: FloatingLabelBehavior.auto,
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(8),
-    ),
+    border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
     labelStyle: TextStyle(color: Colors.cyan.shade700),
-    floatingLabelStyle: TextStyle(color: Colors.cyan.shade900, fontWeight: FontWeight.bold),
+    floatingLabelStyle: TextStyle(
+      color: Colors.cyan.shade900,
+      fontWeight: FontWeight.bold,
+    ),
     filled: true,
     fillColor: Colors.cyan.shade50,
   );
@@ -566,11 +565,12 @@ dynamic build(BuildContext context) {
   // 9. Floating label always theme
   InputDecorationTheme floatAlwaysTheme = InputDecorationTheme(
     floatingLabelBehavior: FloatingLabelBehavior.always,
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(8),
-    ),
+    border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
     labelStyle: TextStyle(color: Colors.amber.shade800),
-    floatingLabelStyle: TextStyle(color: Colors.amber.shade900, fontWeight: FontWeight.bold),
+    floatingLabelStyle: TextStyle(
+      color: Colors.amber.shade900,
+      fontWeight: FontWeight.bold,
+    ),
     filled: true,
     fillColor: Colors.amber.shade50,
   );
@@ -579,9 +579,7 @@ dynamic build(BuildContext context) {
   // 10. Floating label never theme
   InputDecorationTheme floatNeverTheme = InputDecorationTheme(
     floatingLabelBehavior: FloatingLabelBehavior.never,
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(8),
-    ),
+    border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
     labelStyle: TextStyle(color: Colors.pink.shade700),
     filled: true,
     fillColor: Colors.pink.shade50,
@@ -645,7 +643,10 @@ dynamic build(BuildContext context) {
       borderRadius: BorderRadius.circular(12),
       borderSide: BorderSide(color: Colors.blue.shade700, width: 3),
     ),
-    labelStyle: TextStyle(color: Colors.blue.shade700, fontWeight: FontWeight.bold),
+    labelStyle: TextStyle(
+      color: Colors.blue.shade700,
+      fontWeight: FontWeight.bold,
+    ),
   );
   print('Created: outerNestTheme (for nesting demo)');
 
@@ -661,7 +662,10 @@ dynamic build(BuildContext context) {
       borderRadius: BorderRadius.circular(4),
       borderSide: BorderSide(color: Colors.red.shade700, width: 3),
     ),
-    labelStyle: TextStyle(color: Colors.red.shade700, fontWeight: FontWeight.bold),
+    labelStyle: TextStyle(
+      color: Colors.red.shade700,
+      fontWeight: FontWeight.bold,
+    ),
   );
   print('Created: innerNestTheme (for nesting demo)');
 
@@ -704,7 +708,11 @@ dynamic build(BuildContext context) {
         ),
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
-          BoxShadow(color: Colors.indigo.withAlpha(60), blurRadius: 12, offset: Offset(0, 4)),
+          BoxShadow(
+            color: Colors.indigo.withAlpha(60),
+            blurRadius: 12,
+            offset: Offset(0, 4),
+          ),
         ],
       ),
       child: Column(
@@ -742,10 +750,16 @@ dynamic build(BuildContext context) {
   // --- Section 1: Default TextField ---
   print('Building: Section 1 - Default TextField');
   sections.add(
-    buildSectionHeader('1. Default TextField', Icons.text_snippet, Colors.grey.shade700),
+    buildSectionHeader(
+      '1. Default TextField',
+      Icons.text_snippet,
+      Colors.grey.shade700,
+    ),
   );
   sections.add(
-    buildDescription('A TextField with no InputDecorationTheme applied, showing Flutter defaults.'),
+    buildDescription(
+      'A TextField with no InputDecorationTheme applied, showing Flutter defaults.',
+    ),
   );
   sections.add(
     buildThemedTextField(
@@ -767,10 +781,16 @@ dynamic build(BuildContext context) {
   // --- Section 2: Filled Style ---
   print('Building: Section 2 - Filled Style');
   sections.add(
-    buildSectionHeader('2. Filled Style Theme', Icons.format_color_fill, Colors.blue),
+    buildSectionHeader(
+      '2. Filled Style Theme',
+      Icons.format_color_fill,
+      Colors.blue,
+    ),
   );
   sections.add(
-    buildDescription('Setting filled: true and fillColor creates solid-background fields with no visible underline.'),
+    buildDescription(
+      'Setting filled: true and fillColor creates solid-background fields with no visible underline.',
+    ),
   );
   sections.add(
     buildThemedTextField(
@@ -802,10 +822,16 @@ dynamic build(BuildContext context) {
   // --- Section 3: Outline Border Style ---
   print('Building: Section 3 - Outline Border Style');
   sections.add(
-    buildSectionHeader('3. Outline Border Style', Icons.crop_square, Colors.teal),
+    buildSectionHeader(
+      '3. Outline Border Style',
+      Icons.crop_square,
+      Colors.teal,
+    ),
   );
   sections.add(
-    buildDescription('OutlineInputBorder draws a rounded rectangle around the field with configurable radius.'),
+    buildDescription(
+      'OutlineInputBorder draws a rounded rectangle around the field with configurable radius.',
+    ),
   );
   sections.add(
     buildThemedTextField(
@@ -840,10 +866,16 @@ dynamic build(BuildContext context) {
   // --- Section 4: Underline Border Style ---
   print('Building: Section 4 - Underline Border Style');
   sections.add(
-    buildSectionHeader('4. Underline Border Style', Icons.horizontal_rule, Colors.purple),
+    buildSectionHeader(
+      '4. Underline Border Style',
+      Icons.horizontal_rule,
+      Colors.purple,
+    ),
   );
   sections.add(
-    buildDescription('UnderlineInputBorder shows only a bottom line. Good for minimal, Material Design 2 style inputs.'),
+    buildDescription(
+      'UnderlineInputBorder shows only a bottom line. Good for minimal, Material Design 2 style inputs.',
+    ),
   );
   sections.add(
     buildThemedTextField(
@@ -868,10 +900,16 @@ dynamic build(BuildContext context) {
   // --- Section 5: Custom Label/Hint/Error Styles ---
   print('Building: Section 5 - Custom Text Styles');
   sections.add(
-    buildSectionHeader('5. Custom Text Styles', Icons.text_format, Colors.deepOrange),
+    buildSectionHeader(
+      '5. Custom Text Styles',
+      Icons.text_format,
+      Colors.deepOrange,
+    ),
   );
   sections.add(
-    buildDescription('Customize labelStyle, hintStyle, errorStyle, helperStyle, and floatingLabelStyle.'),
+    buildDescription(
+      'Customize labelStyle, hintStyle, errorStyle, helperStyle, and floatingLabelStyle.',
+    ),
   );
   sections.add(
     buildThemedTextField(
@@ -906,10 +944,16 @@ dynamic build(BuildContext context) {
   // --- Section 6: Content Padding Variations ---
   print('Building: Section 6 - Content Padding');
   sections.add(
-    buildSectionHeader('6. Content Padding Variations', Icons.padding, Colors.green),
+    buildSectionHeader(
+      '6. Content Padding Variations',
+      Icons.padding,
+      Colors.green,
+    ),
   );
   sections.add(
-    buildDescription('contentPadding and isDense control the inner spacing of the field.'),
+    buildDescription(
+      'contentPadding and isDense control the inner spacing of the field.',
+    ),
   );
   sections.add(
     buildComparisonRow(
@@ -952,7 +996,9 @@ dynamic build(BuildContext context) {
     buildSectionHeader('7. Floating Label Behavior', Icons.label, Colors.cyan),
   );
   sections.add(
-    buildDescription('FloatingLabelBehavior controls when the label floats above the field.'),
+    buildDescription(
+      'FloatingLabelBehavior controls when the label floats above the field.',
+    ),
   );
   sections.add(
     buildThemedTextField(
@@ -992,10 +1038,16 @@ dynamic build(BuildContext context) {
   // --- Section 8: Side-by-Side Comparison ---
   print('Building: Section 8 - Side-by-Side Comparison');
   sections.add(
-    buildSectionHeader('8. Style Comparisons', Icons.compare, Colors.deepPurple),
+    buildSectionHeader(
+      '8. Style Comparisons',
+      Icons.compare,
+      Colors.deepPurple,
+    ),
   );
   sections.add(
-    buildDescription('Comparing different InputDecorationTheme configurations side by side.'),
+    buildDescription(
+      'Comparing different InputDecorationTheme configurations side by side.',
+    ),
   );
   sections.add(
     buildComparisonRow(
@@ -1028,10 +1080,16 @@ dynamic build(BuildContext context) {
   // --- Section 9: Border Radius and Decorations ---
   print('Building: Section 9 - Border Radius and Decorations');
   sections.add(
-    buildSectionHeader('9. Border Radius Variations', Icons.rounded_corner, Colors.indigo),
+    buildSectionHeader(
+      '9. Border Radius Variations',
+      Icons.rounded_corner,
+      Colors.indigo,
+    ),
   );
   sections.add(
-    buildDescription('Different borderRadius values dramatically change the field appearance.'),
+    buildDescription(
+      'Different borderRadius values dramatically change the field appearance.',
+    ),
   );
   sections.add(
     buildThemedTextField(
@@ -1083,10 +1141,16 @@ dynamic build(BuildContext context) {
   // --- Section 10: Nested Themes ---
   print('Building: Section 10 - Nested Themes');
   sections.add(
-    buildSectionHeader('10. Nested Theme Overrides', Icons.layers, Colors.deepPurple),
+    buildSectionHeader(
+      '10. Nested Theme Overrides',
+      Icons.layers,
+      Colors.deepPurple,
+    ),
   );
   sections.add(
-    buildDescription('Inner Theme overrides properties from the outer Theme for its subtree.'),
+    buildDescription(
+      'Inner Theme overrides properties from the outer Theme for its subtree.',
+    ),
   );
   sections.add(
     buildNestedThemeDemo(
@@ -1115,47 +1179,97 @@ dynamic build(BuildContext context) {
   // --- Section 11: Property Reference ---
   print('Building: Section 11 - Property Reference');
   sections.add(
-    buildSectionHeader('11. Property Reference', Icons.menu_book, Colors.blueGrey),
+    buildSectionHeader(
+      '11. Property Reference',
+      Icons.menu_book,
+      Colors.blueGrey,
+    ),
   );
   sections.add(
-    buildDescription('Quick reference of all InputDecorationTheme properties with defaults.'),
+    buildDescription(
+      'Quick reference of all InputDecorationTheme properties with defaults.',
+    ),
   );
   sections.add(SizedBox(height: 4));
   sections.add(
-    buildPropertyRow('labelStyle', 'TextStyle for the input label text', 'null (theme default)'),
+    buildPropertyRow(
+      'labelStyle',
+      'TextStyle for the input label text',
+      'null (theme default)',
+    ),
   );
   sections.add(
-    buildPropertyRow('floatingLabelStyle', 'TextStyle when the label is floating', 'null (falls back to labelStyle)'),
+    buildPropertyRow(
+      'floatingLabelStyle',
+      'TextStyle when the label is floating',
+      'null (falls back to labelStyle)',
+    ),
   );
   sections.add(
-    buildPropertyRow('hintStyle', 'TextStyle for hint text shown when empty', 'null (theme default)'),
+    buildPropertyRow(
+      'hintStyle',
+      'TextStyle for hint text shown when empty',
+      'null (theme default)',
+    ),
   );
   sections.add(
-    buildPropertyRow('errorStyle', 'TextStyle for error message below field', 'null (theme default)'),
+    buildPropertyRow(
+      'errorStyle',
+      'TextStyle for error message below field',
+      'null (theme default)',
+    ),
   );
   sections.add(
-    buildPropertyRow('helperStyle', 'TextStyle for helper text below field', 'null (theme default)'),
+    buildPropertyRow(
+      'helperStyle',
+      'TextStyle for helper text below field',
+      'null (theme default)',
+    ),
   );
   sections.add(
-    buildPropertyRow('helperMaxLines', 'Max lines for helper text', 'null (unlimited)'),
+    buildPropertyRow(
+      'helperMaxLines',
+      'Max lines for helper text',
+      'null (unlimited)',
+    ),
   );
   sections.add(
-    buildPropertyRow('errorMaxLines', 'Max lines for error text', 'null (unlimited)'),
+    buildPropertyRow(
+      'errorMaxLines',
+      'Max lines for error text',
+      'null (unlimited)',
+    ),
   );
   sections.add(
-    buildPropertyRow('contentPadding', 'Inner padding of the input area', 'varies by border type'),
+    buildPropertyRow(
+      'contentPadding',
+      'Inner padding of the input area',
+      'varies by border type',
+    ),
   );
   sections.add(
     buildPropertyRow('isDense', 'Reduces the height and padding', 'false'),
   );
   sections.add(
-    buildPropertyRow('isCollapsed', 'Removes extra space for label/error', 'false'),
+    buildPropertyRow(
+      'isCollapsed',
+      'Removes extra space for label/error',
+      'false',
+    ),
   );
   sections.add(
-    buildPropertyRow('filled', 'Whether to fill background with fillColor', 'false'),
+    buildPropertyRow(
+      'filled',
+      'Whether to fill background with fillColor',
+      'false',
+    ),
   );
   sections.add(
-    buildPropertyRow('fillColor', 'Background color when filled is true', 'null (theme default)'),
+    buildPropertyRow(
+      'fillColor',
+      'Background color when filled is true',
+      'null (theme default)',
+    ),
   );
   sections.add(
     buildPropertyRow('focusColor', 'Fill color override when focused', 'null'),
@@ -1164,28 +1278,60 @@ dynamic build(BuildContext context) {
     buildPropertyRow('hoverColor', 'Fill color override when hovered', 'null'),
   );
   sections.add(
-    buildPropertyRow('border', 'InputBorder for all states (base)', 'UnderlineInputBorder'),
+    buildPropertyRow(
+      'border',
+      'InputBorder for all states (base)',
+      'UnderlineInputBorder',
+    ),
   );
   sections.add(
-    buildPropertyRow('focusedBorder', 'InputBorder when the field is focused', 'null (uses border)'),
+    buildPropertyRow(
+      'focusedBorder',
+      'InputBorder when the field is focused',
+      'null (uses border)',
+    ),
   );
   sections.add(
-    buildPropertyRow('enabledBorder', 'InputBorder when enabled but not focused', 'null (uses border)'),
+    buildPropertyRow(
+      'enabledBorder',
+      'InputBorder when enabled but not focused',
+      'null (uses border)',
+    ),
   );
   sections.add(
-    buildPropertyRow('errorBorder', 'InputBorder when error is present', 'null (uses border)'),
+    buildPropertyRow(
+      'errorBorder',
+      'InputBorder when error is present',
+      'null (uses border)',
+    ),
   );
   sections.add(
-    buildPropertyRow('focusedErrorBorder', 'InputBorder when focused + error', 'null (uses border)'),
+    buildPropertyRow(
+      'focusedErrorBorder',
+      'InputBorder when focused + error',
+      'null (uses border)',
+    ),
   );
   sections.add(
-    buildPropertyRow('disabledBorder', 'InputBorder when the field is disabled', 'null (uses border)'),
+    buildPropertyRow(
+      'disabledBorder',
+      'InputBorder when the field is disabled',
+      'null (uses border)',
+    ),
   );
   sections.add(
-    buildPropertyRow('floatingLabelBehavior', 'auto, always, or never', 'FloatingLabelBehavior.auto'),
+    buildPropertyRow(
+      'floatingLabelBehavior',
+      'auto, always, or never',
+      'FloatingLabelBehavior.auto',
+    ),
   );
   sections.add(
-    buildPropertyRow('floatingLabelAlignment', 'Horizontal alignment of float label', 'FloatingLabelAlignment.start'),
+    buildPropertyRow(
+      'floatingLabelAlignment',
+      'Horizontal alignment of float label',
+      'FloatingLabelAlignment.start',
+    ),
   );
   sections.add(
     buildPropertyRow('iconColor', 'Color for the leading icon', 'null'),
@@ -1206,10 +1352,18 @@ dynamic build(BuildContext context) {
     buildPropertyRow('counterStyle', 'TextStyle for counter text', 'null'),
   );
   sections.add(
-    buildPropertyRow('alignLabelWithHint', 'Aligns label with hint text position', 'null'),
+    buildPropertyRow(
+      'alignLabelWithHint',
+      'Aligns label with hint text position',
+      'null',
+    ),
   );
   sections.add(
-    buildPropertyRow('constraints', 'BoxConstraints for the input field', 'null'),
+    buildPropertyRow(
+      'constraints',
+      'BoxConstraints for the input field',
+      'null',
+    ),
   );
 
   // --- Section 12: Property chips overview ---
@@ -1218,7 +1372,9 @@ dynamic build(BuildContext context) {
     buildSectionHeader('12. Property Categories', Icons.category, Colors.teal),
   );
   sections.add(
-    buildDescription('Visual grouping of InputDecorationTheme property categories.'),
+    buildDescription(
+      'Visual grouping of InputDecorationTheme property categories.',
+    ),
   );
   sections.add(
     Container(
@@ -1234,7 +1390,11 @@ dynamic build(BuildContext context) {
         children: [
           Text(
             'Text Styles',
-            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.blue.shade700),
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: Colors.blue.shade700,
+            ),
           ),
           SizedBox(height: 6),
           Wrap(
@@ -1252,7 +1412,11 @@ dynamic build(BuildContext context) {
           SizedBox(height: 12),
           Text(
             'Borders',
-            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.teal.shade700),
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: Colors.teal.shade700,
+            ),
           ),
           SizedBox(height: 6),
           Wrap(
@@ -1268,7 +1432,11 @@ dynamic build(BuildContext context) {
           SizedBox(height: 12),
           Text(
             'Fill and Color',
-            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.orange.shade700),
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: Colors.orange.shade700,
+            ),
           ),
           SizedBox(height: 6),
           Wrap(
@@ -1285,7 +1453,11 @@ dynamic build(BuildContext context) {
           SizedBox(height: 12),
           Text(
             'Layout',
-            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.purple.shade700),
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: Colors.purple.shade700,
+            ),
           ),
           SizedBox(height: 6),
           Wrap(
@@ -1299,7 +1471,11 @@ dynamic build(BuildContext context) {
           SizedBox(height: 12),
           Text(
             'Floating Label',
-            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.green.shade700),
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: Colors.green.shade700,
+            ),
           ),
           SizedBox(height: 6),
           Wrap(
@@ -1318,7 +1494,9 @@ dynamic build(BuildContext context) {
   print('');
   print('--- Theme Summary ---');
   print('Total themes created: 15');
-  print('Themes: default, filled, outline, underline, styledText, dense, spacious');
+  print(
+    'Themes: default, filled, outline, underline, styledText, dense, spacious',
+  );
   print('Themes: floatAuto, floatAlways, floatNever, pill, square');
   print('Themes: outerNest, innerNest, iconColor');
   print('');

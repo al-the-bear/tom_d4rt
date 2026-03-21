@@ -242,7 +242,8 @@ dynamic build(BuildContext context) {
 
   // Retrieve context theme for debug output
   ThemeData contextTheme = Theme.of(context);
-  InputDecorationThemeData currentInputTheme = contextTheme.inputDecorationTheme;
+  InputDecorationThemeData currentInputTheme =
+      contextTheme.inputDecorationTheme;
   print(
     'Context inputDecorationTheme filled: ' +
         currentInputTheme.filled.toString(),

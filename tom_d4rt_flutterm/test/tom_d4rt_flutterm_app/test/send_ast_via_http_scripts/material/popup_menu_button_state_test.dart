@@ -344,11 +344,7 @@ Widget buildPositionedPopupDemo(
   );
 }
 
-Widget buildOffsetPopupDemo(
-  String label,
-  Offset offset,
-  Color color,
-) {
+Widget buildOffsetPopupDemo(String label, Offset offset, Color color) {
   print('Building offset popup: $label with $offset');
   return Container(
     margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
@@ -368,7 +364,11 @@ Widget buildOffsetPopupDemo(
           ),
           child: Text(
             'dx:${offset.dx.toInt()}\ndy:${offset.dy.toInt()}',
-            style: TextStyle(fontSize: 10, color: color, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 10,
+              color: color,
+              fontWeight: FontWeight.bold,
+            ),
             textAlign: TextAlign.center,
           ),
         ),
@@ -456,11 +456,7 @@ Widget buildConstrainedPopupDemo(
   );
 }
 
-Widget buildTooltipPopupDemo(
-  String label,
-  String tooltip,
-  Color color,
-) {
+Widget buildTooltipPopupDemo(String label, String tooltip, Color color) {
   print('Building tooltip popup: $label');
   return Container(
     margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
@@ -510,11 +506,7 @@ Widget buildTooltipPopupDemo(
   );
 }
 
-Widget buildEnabledStateDemo(
-  String label,
-  bool enabled,
-  Color color,
-) {
+Widget buildEnabledStateDemo(String label, bool enabled, Color color) {
   print('Building enabled state demo: $label enabled=$enabled');
   return Container(
     margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
@@ -668,9 +660,18 @@ Widget buildItemBuilderShowcase(Color themeColor) {
                 Colors.blue,
                 (BuildContext ctx) {
                   return [
-                    PopupMenuItem<String>(value: 's1', child: Text('Simple One')),
-                    PopupMenuItem<String>(value: 's2', child: Text('Simple Two')),
-                    PopupMenuItem<String>(value: 's3', child: Text('Simple Three')),
+                    PopupMenuItem<String>(
+                      value: 's1',
+                      child: Text('Simple One'),
+                    ),
+                    PopupMenuItem<String>(
+                      value: 's2',
+                      child: Text('Simple Two'),
+                    ),
+                    PopupMenuItem<String>(
+                      value: 's3',
+                      child: Text('Simple Three'),
+                    ),
                   ];
                 },
               ),
@@ -1460,8 +1461,16 @@ Widget buildMenuPositioningSection(Color color) {
           style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
         ),
         SizedBox(height: 16),
-        buildPositionedPopupDemo('Over Position', PopupMenuPosition.over, Colors.blue),
-        buildPositionedPopupDemo('Under Position', PopupMenuPosition.under, Colors.green),
+        buildPositionedPopupDemo(
+          'Over Position',
+          PopupMenuPosition.over,
+          Colors.blue,
+        ),
+        buildPositionedPopupDemo(
+          'Under Position',
+          PopupMenuPosition.under,
+          Colors.green,
+        ),
         SizedBox(height: 12),
         Container(
           padding: EdgeInsets.all(12),
@@ -1477,8 +1486,16 @@ Widget buildMenuPositioningSection(Color color) {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
               ),
               SizedBox(height: 8),
-              _buildEnumRow('over', 'Menu appears over the button', Colors.blue),
-              _buildEnumRow('under', 'Menu appears below the button', Colors.green),
+              _buildEnumRow(
+                'over',
+                'Menu appears over the button',
+                Colors.blue,
+              ),
+              _buildEnumRow(
+                'under',
+                'Menu appears below the button',
+                Colors.green,
+              ),
             ],
           ),
         ),
@@ -1647,11 +1664,26 @@ Widget buildIconChildSection(Color color) {
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
         ),
         SizedBox(height: 8),
-        buildCustomIconDemo('More Vertical', Icons.more_vert, 24, Colors.grey.shade700),
-        buildCustomIconDemo('More Horizontal', Icons.more_horiz, 24, Colors.blue),
+        buildCustomIconDemo(
+          'More Vertical',
+          Icons.more_vert,
+          24,
+          Colors.grey.shade700,
+        ),
+        buildCustomIconDemo(
+          'More Horizontal',
+          Icons.more_horiz,
+          24,
+          Colors.blue,
+        ),
         buildCustomIconDemo('Menu Icon', Icons.menu, 24, Colors.green),
         buildCustomIconDemo('Large Icon', Icons.settings, 32, Colors.purple),
-        buildCustomIconDemo('Small Icon', Icons.arrow_drop_down, 20, Colors.orange),
+        buildCustomIconDemo(
+          'Small Icon',
+          Icons.arrow_drop_down,
+          20,
+          Colors.orange,
+        ),
         SizedBox(height: 16),
         Text(
           'Child Property (replaces icon):',
@@ -1668,7 +1700,10 @@ Widget buildIconChildSection(Color color) {
             ),
             child: Text(
               'Open Menu',
-              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           Colors.blue,
@@ -1702,7 +1737,13 @@ Widget buildIconChildSection(Color color) {
             children: [
               Icon(Icons.add_circle, color: Colors.orange),
               SizedBox(width: 4),
-              Text('Add', style: TextStyle(color: Colors.orange, fontWeight: FontWeight.bold)),
+              Text(
+                'Add',
+                style: TextStyle(
+                  color: Colors.orange,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               Icon(Icons.arrow_drop_down, color: Colors.orange),
             ],
           ),
@@ -1710,7 +1751,10 @@ Widget buildIconChildSection(Color color) {
           (BuildContext ctx) {
             return [
               PopupMenuItem<String>(value: 'new_file', child: Text('New File')),
-              PopupMenuItem<String>(value: 'new_folder', child: Text('New Folder')),
+              PopupMenuItem<String>(
+                value: 'new_folder',
+                child: Text('New Folder'),
+              ),
               PopupMenuItem<String>(value: 'import', child: Text('Import...')),
             ];
           },
@@ -1741,7 +1785,10 @@ dynamic build(BuildContext context) {
             itemBuilder: (BuildContext ctx) {
               return [
                 PopupMenuItem<String>(value: 'refresh', child: Text('Refresh')),
-                PopupMenuItem<String>(value: 'settings', child: Text('Settings')),
+                PopupMenuItem<String>(
+                  value: 'settings',
+                  child: Text('Settings'),
+                ),
                 PopupMenuDivider(),
                 PopupMenuItem<String>(value: 'about', child: Text('About')),
               ];
@@ -1755,11 +1802,7 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildSectionHeader('1. Overview', Icons.info, primaryColor),
-            buildInfoCard(
-              'Class',
-              'PopupMenuButtonState<T>',
-              primaryColor,
-            ),
+            buildInfoCard('Class', 'PopupMenuButtonState<T>', primaryColor),
             buildInfoCard(
               'Purpose',
               'State class for PopupMenuButton that manages menu lifecycle and provides showButtonMenu()',
@@ -1777,31 +1820,67 @@ dynamic build(BuildContext context) {
             ),
             buildStateOverview(primaryColor),
 
-            buildSectionHeader('2. showButtonMenu() Method', Icons.play_arrow, Colors.green),
+            buildSectionHeader(
+              '2. showButtonMenu() Method',
+              Icons.play_arrow,
+              Colors.green,
+            ),
             buildShowButtonMenuSection(Colors.green),
 
-            buildSectionHeader('3. Menu Item Callbacks', Icons.touch_app, Colors.blue),
+            buildSectionHeader(
+              '3. Menu Item Callbacks',
+              Icons.touch_app,
+              Colors.blue,
+            ),
             buildCallbackShowcase(Colors.blue),
 
-            buildSectionHeader('4. Menu Positioning', Icons.place, Colors.orange),
+            buildSectionHeader(
+              '4. Menu Positioning',
+              Icons.place,
+              Colors.orange,
+            ),
             buildMenuPositioningSection(Colors.orange),
 
-            buildSectionHeader('5. Custom Item Builders', Icons.build, Colors.purple),
+            buildSectionHeader(
+              '5. Custom Item Builders',
+              Icons.build,
+              Colors.purple,
+            ),
             buildItemBuilderShowcase(Colors.purple),
 
-            buildSectionHeader('6. Icon & Child Customization', Icons.palette, Colors.teal),
+            buildSectionHeader(
+              '6. Icon & Child Customization',
+              Icons.palette,
+              Colors.teal,
+            ),
             buildIconChildSection(Colors.teal),
 
-            buildSectionHeader('7. Offset & Constraints', Icons.open_with, Colors.indigo),
+            buildSectionHeader(
+              '7. Offset & Constraints',
+              Icons.open_with,
+              Colors.indigo,
+            ),
             buildOffsetConstraintsSection(Colors.indigo),
 
-            buildSectionHeader('8. Tooltip & Enabled States', Icons.accessibility, Colors.brown),
+            buildSectionHeader(
+              '8. Tooltip & Enabled States',
+              Icons.accessibility,
+              Colors.brown,
+            ),
             buildTooltipEnabledSection(Colors.brown),
 
-            buildSectionHeader('9. Multiple Popup Menus', Icons.apps, Colors.pink),
+            buildSectionHeader(
+              '9. Multiple Popup Menus',
+              Icons.apps,
+              Colors.pink,
+            ),
             buildMultiplePopupsShowcase(),
 
-            buildSectionHeader('10. Interactive Showcase', Icons.star, Colors.amber.shade700),
+            buildSectionHeader(
+              '10. Interactive Showcase',
+              Icons.star,
+              Colors.amber.shade700,
+            ),
             buildInteractiveShowcase(Colors.amber.shade700),
 
             SizedBox(height: 16),
@@ -1831,13 +1910,34 @@ dynamic build(BuildContext context) {
                     ],
                   ),
                   SizedBox(height: 12),
-                  _buildTipRow('Use GlobalKey to access PopupMenuButtonState', primaryColor),
-                  _buildTipRow('Call showButtonMenu() for programmatic menu control', primaryColor),
-                  _buildTipRow('itemBuilder runs each time menu opens', primaryColor),
-                  _buildTipRow('Use position for over/under placement', primaryColor),
-                  _buildTipRow('Combine offset with position for fine control', primaryColor),
-                  _buildTipRow('Set constraints to control menu dimensions', primaryColor),
-                  _buildTipRow('Use child instead of icon for custom button appearance', primaryColor),
+                  _buildTipRow(
+                    'Use GlobalKey to access PopupMenuButtonState',
+                    primaryColor,
+                  ),
+                  _buildTipRow(
+                    'Call showButtonMenu() for programmatic menu control',
+                    primaryColor,
+                  ),
+                  _buildTipRow(
+                    'itemBuilder runs each time menu opens',
+                    primaryColor,
+                  ),
+                  _buildTipRow(
+                    'Use position for over/under placement',
+                    primaryColor,
+                  ),
+                  _buildTipRow(
+                    'Combine offset with position for fine control',
+                    primaryColor,
+                  ),
+                  _buildTipRow(
+                    'Set constraints to control menu dimensions',
+                    primaryColor,
+                  ),
+                  _buildTipRow(
+                    'Use child instead of icon for custom button appearance',
+                    primaryColor,
+                  ),
                 ],
               ),
             ),

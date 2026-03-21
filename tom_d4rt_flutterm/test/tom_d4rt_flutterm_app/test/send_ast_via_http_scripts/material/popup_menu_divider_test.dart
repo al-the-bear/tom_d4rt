@@ -289,9 +289,7 @@ Widget buildThemedDividerDemo(
         Theme(
           data: ThemeData(
             dividerColor: primaryColor,
-            popupMenuTheme: PopupMenuThemeData(
-              color: backgroundColor,
-            ),
+            popupMenuTheme: PopupMenuThemeData(color: backgroundColor),
           ),
           child: PopupMenuButton<String>(
             icon: Icon(Icons.arrow_drop_down, color: primaryColor),
@@ -302,12 +300,18 @@ Widget buildThemedDividerDemo(
               return [
                 PopupMenuItem<String>(
                   value: 'theme_opt1',
-                  child: Text('Theme Option 1', style: TextStyle(color: primaryColor)),
+                  child: Text(
+                    'Theme Option 1',
+                    style: TextStyle(color: primaryColor),
+                  ),
                 ),
                 PopupMenuDivider(height: dividerHeight),
                 PopupMenuItem<String>(
                   value: 'theme_opt2',
-                  child: Text('Theme Option 2', style: TextStyle(color: primaryColor)),
+                  child: Text(
+                    'Theme Option 2',
+                    style: TextStyle(color: primaryColor),
+                  ),
                 ),
               ];
             },
@@ -482,10 +486,9 @@ Widget buildInteractiveMenuTile(
         itemBuilder: (BuildContext ctx) {
           List<PopupMenuEntry<String>> items = [];
           for (int i = 0; i < options.length; i++) {
-            items.add(PopupMenuItem<String>(
-              value: options[i],
-              child: Text(options[i]),
-            ));
+            items.add(
+              PopupMenuItem<String>(value: options[i], child: Text(options[i])),
+            );
             if (i < options.length - 1 && (i + 1) % 3 == 0) {
               items.add(PopupMenuDivider());
             }
@@ -497,11 +500,7 @@ Widget buildInteractiveMenuTile(
   );
 }
 
-Widget buildDividerThicknessDemo(
-  String label,
-  double height,
-  Color color,
-) {
+Widget buildDividerThicknessDemo(String label, double height, Color color) {
   print('Building divider thickness demo: $label ($height px)');
   return Container(
     margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
@@ -729,23 +728,11 @@ dynamic build(BuildContext context) {
               Colors.teal,
               (BuildContext ctx) {
                 return [
-                  PopupMenuItem<String>(
-                    value: 'new',
-                    child: Text('New File'),
-                  ),
-                  PopupMenuItem<String>(
-                    value: 'open',
-                    child: Text('Open...'),
-                  ),
-                  PopupMenuItem<String>(
-                    value: 'save',
-                    child: Text('Save'),
-                  ),
+                  PopupMenuItem<String>(value: 'new', child: Text('New File')),
+                  PopupMenuItem<String>(value: 'open', child: Text('Open...')),
+                  PopupMenuItem<String>(value: 'save', child: Text('Save')),
                   PopupMenuDivider(),
-                  PopupMenuItem<String>(
-                    value: 'close',
-                    child: Text('Close'),
-                  ),
+                  PopupMenuItem<String>(value: 'close', child: Text('Close')),
                 ];
               },
               Icons.insert_drive_file,
@@ -764,10 +751,26 @@ dynamic build(BuildContext context) {
               Colors.orange,
             ),
             buildDividerThicknessDemo('Thin Divider (8px)', 8.0, Colors.orange),
-            buildDividerThicknessDemo('Default Divider (16px)', 16.0, Colors.orange),
-            buildDividerThicknessDemo('Medium Divider (24px)', 24.0, Colors.orange),
-            buildDividerThicknessDemo('Thick Divider (32px)', 32.0, Colors.orange),
-            buildDividerThicknessDemo('Extra Thick (48px)', 48.0, Colors.orange),
+            buildDividerThicknessDemo(
+              'Default Divider (16px)',
+              16.0,
+              Colors.orange,
+            ),
+            buildDividerThicknessDemo(
+              'Medium Divider (24px)',
+              24.0,
+              Colors.orange,
+            ),
+            buildDividerThicknessDemo(
+              'Thick Divider (32px)',
+              32.0,
+              Colors.orange,
+            ),
+            buildDividerThicknessDemo(
+              'Extra Thick (48px)',
+              48.0,
+              Colors.orange,
+            ),
             buildInfoCard(
               'Height Parameter',
               'PopupMenuDivider(height: value) sets the total height of the divider entry. '
@@ -794,7 +797,10 @@ dynamic build(BuildContext context) {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text('Undo'),
-                        Text('Ctrl+Z', style: TextStyle(color: Colors.grey, fontSize: 12)),
+                        Text(
+                          'Ctrl+Z',
+                          style: TextStyle(color: Colors.grey, fontSize: 12),
+                        ),
                       ],
                     ),
                   ),
@@ -804,7 +810,10 @@ dynamic build(BuildContext context) {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text('Redo'),
-                        Text('Ctrl+Y', style: TextStyle(color: Colors.grey, fontSize: 12)),
+                        Text(
+                          'Ctrl+Y',
+                          style: TextStyle(color: Colors.grey, fontSize: 12),
+                        ),
                       ],
                     ),
                   ),
@@ -815,7 +824,10 @@ dynamic build(BuildContext context) {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text('Cut'),
-                        Text('Ctrl+X', style: TextStyle(color: Colors.grey, fontSize: 12)),
+                        Text(
+                          'Ctrl+X',
+                          style: TextStyle(color: Colors.grey, fontSize: 12),
+                        ),
                       ],
                     ),
                   ),
@@ -825,7 +837,10 @@ dynamic build(BuildContext context) {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text('Copy'),
-                        Text('Ctrl+C', style: TextStyle(color: Colors.grey, fontSize: 12)),
+                        Text(
+                          'Ctrl+C',
+                          style: TextStyle(color: Colors.grey, fontSize: 12),
+                        ),
                       ],
                     ),
                   ),
@@ -835,7 +850,10 @@ dynamic build(BuildContext context) {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text('Paste'),
-                        Text('Ctrl+V', style: TextStyle(color: Colors.grey, fontSize: 12)),
+                        Text(
+                          'Ctrl+V',
+                          style: TextStyle(color: Colors.grey, fontSize: 12),
+                        ),
                       ],
                     ),
                   ),
@@ -846,7 +864,10 @@ dynamic build(BuildContext context) {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text('Select All'),
-                        Text('Ctrl+A', style: TextStyle(color: Colors.grey, fontSize: 12)),
+                        Text(
+                          'Ctrl+A',
+                          style: TextStyle(color: Colors.grey, fontSize: 12),
+                        ),
                       ],
                     ),
                   ),
@@ -867,7 +888,11 @@ dynamic build(BuildContext context) {
                         CircleAvatar(
                           radius: 12,
                           backgroundColor: Colors.purple.shade100,
-                          child: Icon(Icons.person, size: 16, color: Colors.purple),
+                          child: Icon(
+                            Icons.person,
+                            size: 16,
+                            color: Colors.purple,
+                          ),
                         ),
                         SizedBox(width: 8),
                         Text('Profile'),
@@ -878,7 +903,11 @@ dynamic build(BuildContext context) {
                     value: 'account',
                     child: Row(
                       children: [
-                        Icon(Icons.account_circle, size: 24, color: Colors.grey),
+                        Icon(
+                          Icons.account_circle,
+                          size: 24,
+                          color: Colors.grey,
+                        ),
                         SizedBox(width: 8),
                         Text('Account Settings'),
                       ],
@@ -987,19 +1016,10 @@ dynamic build(BuildContext context) {
                     value: 'display',
                     child: Text('Display Settings'),
                   ),
-                  PopupMenuItem<String>(
-                    value: 'theme',
-                    child: Text('Theme'),
-                  ),
+                  PopupMenuItem<String>(value: 'theme', child: Text('Theme')),
                   PopupMenuDivider(),
-                  PopupMenuItem<String>(
-                    value: 'audio',
-                    child: Text('Audio'),
-                  ),
-                  PopupMenuItem<String>(
-                    value: 'video',
-                    child: Text('Video'),
-                  ),
+                  PopupMenuItem<String>(value: 'audio', child: Text('Audio')),
+                  PopupMenuItem<String>(value: 'video', child: Text('Video')),
                   PopupMenuDivider(),
                   PopupMenuItem<String>(
                     value: 'network',
@@ -1010,10 +1030,7 @@ dynamic build(BuildContext context) {
                     child: Text('Privacy'),
                   ),
                   PopupMenuDivider(),
-                  PopupMenuItem<String>(
-                    value: 'about',
-                    child: Text('About'),
-                  ),
+                  PopupMenuItem<String>(value: 'about', child: Text('About')),
                 ];
               },
               Icons.settings,
@@ -1080,7 +1097,11 @@ dynamic build(BuildContext context) {
                     value: 'export',
                     child: Row(
                       children: [
-                        Icon(Icons.file_download, size: 18, color: Colors.indigo),
+                        Icon(
+                          Icons.file_download,
+                          size: 18,
+                          color: Colors.indigo,
+                        ),
                         SizedBox(width: 8),
                         Text('Export'),
                       ],
@@ -1216,10 +1237,7 @@ dynamic build(BuildContext context) {
                       ),
                     ),
                   ),
-                  PopupMenuItem<String>(
-                    value: 'home',
-                    child: Text('Home'),
-                  ),
+                  PopupMenuItem<String>(value: 'home', child: Text('Home')),
                   PopupMenuItem<String>(
                     value: 'dashboard',
                     child: Text('Dashboard'),
@@ -1237,10 +1255,7 @@ dynamic build(BuildContext context) {
                       ),
                     ),
                   ),
-                  PopupMenuItem<String>(
-                    value: 'editor',
-                    child: Text('Editor'),
-                  ),
+                  PopupMenuItem<String>(value: 'editor', child: Text('Editor')),
                   PopupMenuItem<String>(
                     value: 'analyzer',
                     child: Text('Analyzer'),
@@ -1258,14 +1273,8 @@ dynamic build(BuildContext context) {
                       ),
                     ),
                   ),
-                  PopupMenuItem<String>(
-                    value: 'run',
-                    child: Text('Run'),
-                  ),
-                  PopupMenuItem<String>(
-                    value: 'build',
-                    child: Text('Build'),
-                  ),
+                  PopupMenuItem<String>(value: 'run', child: Text('Run')),
+                  PopupMenuItem<String>(value: 'build', child: Text('Build')),
                 ];
               },
               Icons.menu_book,
@@ -1286,9 +1295,17 @@ dynamic build(BuildContext context) {
             buildDividerThicknessDemo('Ultra Thin (4px)', 4.0, Colors.blueGrey),
             buildDividerThicknessDemo('Slim (8px)', 8.0, Colors.blueGrey),
             buildDividerThicknessDemo('Standard (16px)', 16.0, Colors.blueGrey),
-            buildDividerThicknessDemo('Comfortable (20px)', 20.0, Colors.blueGrey),
+            buildDividerThicknessDemo(
+              'Comfortable (20px)',
+              20.0,
+              Colors.blueGrey,
+            ),
             buildDividerThicknessDemo('Spacious (28px)', 28.0, Colors.blueGrey),
-            buildDividerThicknessDemo('Very Spacious (36px)', 36.0, Colors.blueGrey),
+            buildDividerThicknessDemo(
+              'Very Spacious (36px)',
+              36.0,
+              Colors.blueGrey,
+            ),
             buildInfoCard(
               'Height Guidelines',
               'Use thinner dividers (8-12px) for compact menus with many items. '
@@ -1339,20 +1356,36 @@ dynamic build(BuildContext context) {
               'Task Manager',
               Icons.task_alt,
               Colors.green,
-              ['View Tasks', 'Add Task', 'Filter', 'Sort by Date', 'Sort by Priority', 'Archive Completed'],
+              [
+                'View Tasks',
+                'Add Task',
+                'Filter',
+                'Sort by Date',
+                'Sort by Priority',
+                'Archive Completed',
+              ],
             ),
             buildInteractiveMenuTile(
               'Calendar Events',
               Icons.calendar_month,
               Colors.blue,
-              ['Today', 'This Week', 'This Month', 'Add Event', 'Reminders', 'Settings'],
+              [
+                'Today',
+                'This Week',
+                'This Month',
+                'Add Event',
+                'Reminders',
+                'Settings',
+              ],
             ),
-            buildInteractiveMenuTile(
-              'Messages',
-              Icons.message,
-              Colors.purple,
-              ['Inbox', 'Sent', 'Drafts', 'Compose', 'Search', 'Archive'],
-            ),
+            buildInteractiveMenuTile('Messages', Icons.message, Colors.purple, [
+              'Inbox',
+              'Sent',
+              'Drafts',
+              'Compose',
+              'Search',
+              'Archive',
+            ]),
             buildInteractiveMenuTile(
               'Media Library',
               Icons.photo_library,
@@ -1375,7 +1408,11 @@ dynamic build(BuildContext context) {
                             color: Colors.green.shade100,
                             borderRadius: BorderRadius.circular(4),
                           ),
-                          child: Icon(Icons.flash_on, size: 16, color: Colors.green),
+                          child: Icon(
+                            Icons.flash_on,
+                            size: 16,
+                            color: Colors.green,
+                          ),
                         ),
                         SizedBox(width: 8),
                         Text('Quick Action'),
@@ -1390,7 +1427,11 @@ dynamic build(BuildContext context) {
                         Icon(Icons.grid_view, size: 18),
                         SizedBox(width: 8),
                         Expanded(child: Text('View All')),
-                        Icon(Icons.arrow_forward_ios, size: 12, color: Colors.grey),
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          size: 12,
+                          color: Colors.grey,
+                        ),
                       ],
                     ),
                   ),
@@ -1402,7 +1443,10 @@ dynamic build(BuildContext context) {
                         SizedBox(width: 8),
                         Expanded(child: Text('Favorites')),
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 6,
+                            vertical: 2,
+                          ),
                           decoration: BoxDecoration(
                             color: Colors.amber.shade100,
                             borderRadius: BorderRadius.circular(10),
@@ -1420,7 +1464,10 @@ dynamic build(BuildContext context) {
                         SizedBox(width: 8),
                         Expanded(child: Text('Recent')),
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 6,
+                            vertical: 2,
+                          ),
                           decoration: BoxDecoration(
                             color: Colors.blue.shade100,
                             borderRadius: BorderRadius.circular(10),
@@ -1562,7 +1609,10 @@ dynamic build(BuildContext context) {
                       children: [
                         Icon(Icons.delete_forever, color: Colors.red, size: 18),
                         SizedBox(width: 8),
-                        Text('Delete Permanently', style: TextStyle(color: Colors.red)),
+                        Text(
+                          'Delete Permanently',
+                          style: TextStyle(color: Colors.red),
+                        ),
                       ],
                     ),
                   ),
@@ -1590,7 +1640,13 @@ dynamic build(BuildContext context) {
                           ),
                         ),
                         SizedBox(width: 8),
-                        Text('ACTIVE', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)),
+                        Text(
+                          'ACTIVE',
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -1617,7 +1673,13 @@ dynamic build(BuildContext context) {
                           ),
                         ),
                         SizedBox(width: 8),
-                        Text('PENDING', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)),
+                        Text(
+                          'PENDING',
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -1640,7 +1702,13 @@ dynamic build(BuildContext context) {
                           ),
                         ),
                         SizedBox(width: 8),
-                        Text('COMPLETED', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)),
+                        Text(
+                          'COMPLETED',
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -1658,11 +1726,7 @@ dynamic build(BuildContext context) {
             ),
 
             // Summary section
-            buildSectionHeader(
-              'Summary',
-              Icons.summarize,
-              Colors.indigo,
-            ),
+            buildSectionHeader('Summary', Icons.summarize, Colors.indigo),
             buildInfoCard(
               'Key Takeaways',
               'PopupMenuDivider creates horizontal separators in popup menus. '

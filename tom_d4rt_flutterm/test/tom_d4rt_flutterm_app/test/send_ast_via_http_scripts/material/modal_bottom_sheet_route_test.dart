@@ -582,7 +582,9 @@ Widget buildBarrierColorDemo() {
                   height: 20,
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(4)),
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(4),
+                    ),
                   ),
                 ),
               ),
@@ -753,9 +755,7 @@ Widget buildActionsSheetDemo() {
             borderRadius: BorderRadius.circular(8),
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-              ),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
               child: Row(
                 children: [
                   Container(
@@ -777,7 +777,11 @@ Widget buildActionsSheetDemo() {
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                   ),
                   Spacer(),
-                  Icon(Icons.chevron_right, color: Colors.grey.shade400, size: 20),
+                  Icon(
+                    Icons.chevron_right,
+                    color: Colors.grey.shade400,
+                    size: 20,
+                  ),
                 ],
               ),
             ),
@@ -885,8 +889,8 @@ Widget buildMultiStepFlowDemo() {
     Color stepColor = status == 'completed'
         ? Colors.green
         : status == 'current'
-            ? Colors.blue
-            : Colors.grey;
+        ? Colors.blue
+        : Colors.grey;
     bool isCompleted = status == 'completed';
     bool isCurrent = status == 'current';
 
@@ -943,11 +947,7 @@ Widget buildMultiStepFlowDemo() {
                 ],
               ),
             ),
-            Icon(
-              step['icon'] as IconData,
-              color: stepColor,
-              size: 20,
-            ),
+            Icon(step['icon'] as IconData, color: stepColor, size: 20),
           ],
         ),
       ),
@@ -1012,22 +1012,50 @@ Widget buildMultiStepFlowDemo() {
 Widget buildRouteParametersTable() {
   print('Building route parameters table');
   List<Map<String, String>> params = [
-    {'name': 'builder', 'type': 'WidgetBuilder', 'desc': 'Builds the sheet content'},
-    {'name': 'capturedThemes', 'type': 'CapturedThemes?', 'desc': 'Inherited themes'},
-    {'name': 'isScrollControlled', 'type': 'bool', 'desc': 'Full height sheets'},
+    {
+      'name': 'builder',
+      'type': 'WidgetBuilder',
+      'desc': 'Builds the sheet content',
+    },
+    {
+      'name': 'capturedThemes',
+      'type': 'CapturedThemes?',
+      'desc': 'Inherited themes',
+    },
+    {
+      'name': 'isScrollControlled',
+      'type': 'bool',
+      'desc': 'Full height sheets',
+    },
     {'name': 'barrierLabel', 'type': 'String?', 'desc': 'Accessibility label'},
-    {'name': 'barrierOnTapHint', 'type': 'String?', 'desc': 'Tap hint for a11y'},
+    {
+      'name': 'barrierOnTapHint',
+      'type': 'String?',
+      'desc': 'Tap hint for a11y',
+    },
     {'name': 'backgroundColor', 'type': 'Color?', 'desc': 'Sheet background'},
     {'name': 'elevation', 'type': 'double?', 'desc': 'Shadow elevation'},
     {'name': 'shape', 'type': 'ShapeBorder?', 'desc': 'Sheet shape'},
     {'name': 'clipBehavior', 'type': 'Clip?', 'desc': 'Clipping behavior'},
-    {'name': 'constraints', 'type': 'BoxConstraints?', 'desc': 'Size constraints'},
-    {'name': 'modalBarrierColor', 'type': 'Color?', 'desc': 'Barrier overlay color'},
+    {
+      'name': 'constraints',
+      'type': 'BoxConstraints?',
+      'desc': 'Size constraints',
+    },
+    {
+      'name': 'modalBarrierColor',
+      'type': 'Color?',
+      'desc': 'Barrier overlay color',
+    },
     {'name': 'isDismissible', 'type': 'bool', 'desc': 'Can dismiss by tapping'},
     {'name': 'enableDrag', 'type': 'bool', 'desc': 'Can dismiss by dragging'},
     {'name': 'showDragHandle', 'type': 'bool?', 'desc': 'Show drag handle'},
     {'name': 'settings', 'type': 'RouteSettings?', 'desc': 'Route settings'},
-    {'name': 'transitionAnimationController', 'type': 'AnimationController?', 'desc': 'Custom animation'},
+    {
+      'name': 'transitionAnimationController',
+      'type': 'AnimationController?',
+      'desc': 'Custom animation',
+    },
     {'name': 'anchorPoint', 'type': 'Offset?', 'desc': 'Anchor for animation'},
     {'name': 'useSafeArea', 'type': 'bool', 'desc': 'Respect safe area insets'},
   ];
@@ -1141,7 +1169,9 @@ Widget buildRouteParametersTable() {
 
 dynamic build(BuildContext context) {
   print('ModalBottomSheetRoute deep demo test executing');
-  print('Testing ModalBottomSheetRoute - Route for showing modal bottom sheets');
+  print(
+    'Testing ModalBottomSheetRoute - Route for showing modal bottom sheets',
+  );
 
   return Scaffold(
     backgroundColor: Colors.grey.shade200,
@@ -1165,7 +1195,10 @@ dynamic build(BuildContext context) {
           buildInfoCard('Class', 'ModalBottomSheetRoute<T>'),
           buildInfoCard('Extends', 'PopupRoute<T>'),
           buildInfoCard('Package', 'package:flutter/material.dart'),
-          buildInfoCard('Primary Use', 'Displaying modal bottom sheets with customizable behavior'),
+          buildInfoCard(
+            'Primary Use',
+            'Displaying modal bottom sheets with customizable behavior',
+          ),
 
           buildSectionHeader('2. Bottom Sheet Appearance'),
           buildBottomSheetPreview(
@@ -1200,12 +1233,18 @@ dynamic build(BuildContext context) {
           buildSectionHeader('5. Sheet Background Color'),
           buildBackgroundColorDemo(),
           buildInfoCard('Parameter', 'backgroundColor: Color?'),
-          buildInfoCard('Default', 'Theme bottomSheetTheme.backgroundColor or Surface'),
+          buildInfoCard(
+            'Default',
+            'Theme bottomSheetTheme.backgroundColor or Surface',
+          ),
 
           buildSectionHeader('6. Sheet Shape / Border Radius'),
           buildShapeDemo(),
           buildInfoCard('Parameter', 'shape: ShapeBorder?'),
-          buildInfoCard('Common', 'RoundedRectangleBorder with BorderRadius.vertical'),
+          buildInfoCard(
+            'Common',
+            'RoundedRectangleBorder with BorderRadius.vertical',
+          ),
 
           buildSectionHeader('7. Barrier Color Demonstration'),
           buildBarrierColorDemo(),

@@ -157,9 +157,7 @@ Widget buildPaddleAppearanceDemo() {
               Container(
                 width: 56,
                 height: 64,
-                child: CustomPaint(
-                  painter: _PaddleShapePainter(Colors.indigo),
-                ),
+                child: CustomPaint(painter: _PaddleShapePainter(Colors.indigo)),
               ),
               SizedBox(height: 8),
               Text(
@@ -365,14 +363,7 @@ Widget buildColorCustomization() {
     Colors.pink,
     Colors.cyan,
   ];
-  List<String> colorNames = [
-    'Red',
-    'Green',
-    'Blue',
-    'Amber',
-    'Pink',
-    'Cyan',
-  ];
+  List<String> colorNames = ['Red', 'Green', 'Blue', 'Amber', 'Pink', 'Cyan'];
 
   List<Widget> colorCards = [];
   int c = 0;
@@ -432,10 +423,7 @@ Widget buildColorCustomization() {
                 min: 0,
                 max: 100,
                 divisions: 20,
-                labels: RangeLabels(
-                  '${(20 + c * 5)}',
-                  '${(60 + c * 5)}',
-                ),
+                labels: RangeLabels('${(20 + c * 5)}', '${(60 + c * 5)}'),
                 onChanged: (RangeValues vals) {},
               ),
             ),
@@ -884,9 +872,7 @@ Widget _buildInteractiveSliderCard(
             rangeValueIndicatorShape: PaddleRangeSliderValueIndicatorShape(),
             activeTrackColor: color,
             inactiveTrackColor: color.withAlpha(50),
-            rangeThumbShape: RoundRangeSliderThumbShape(
-              enabledThumbRadius: 9,
-            ),
+            rangeThumbShape: RoundRangeSliderThumbShape(enabledThumbRadius: 9),
             overlayColor: color.withAlpha(30),
             valueIndicatorColor: color,
             valueIndicatorTextStyle: TextStyle(
@@ -953,11 +939,7 @@ Widget buildSummaryGrid() {
           children: [
             Row(
               children: [
-                Icon(
-                  summaryIcons[g],
-                  size: 18,
-                  color: Colors.indigo.shade700,
-                ),
+                Icon(summaryIcons[g], size: 18, color: Colors.indigo.shade700),
                 SizedBox(width: 6),
                 Text(
                   summaryLabels[g],

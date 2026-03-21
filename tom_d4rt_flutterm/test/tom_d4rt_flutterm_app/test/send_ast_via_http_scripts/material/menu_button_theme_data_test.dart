@@ -346,7 +346,12 @@ Widget buildForegroundTextColorTheming() {
     Colors.pink.shade800,
   ];
   List<String> menuLabels = ['Premium', 'Eco-Friendly', 'Classic', 'Trendy'];
-  List<IconData> menuIcons = [Icons.star, Icons.eco, Icons.style, Icons.trending_up];
+  List<IconData> menuIcons = [
+    Icons.star,
+    Icons.eco,
+    Icons.style,
+    Icons.trending_up,
+  ];
 
   List<Widget> items = [];
   int j = 0;
@@ -1086,12 +1091,18 @@ Widget buildSideBySideThemeComparison() {
                         children: [
                           MenuItemButton(
                             onPressed: () {},
-                            leadingIcon: Icon(Icons.home, color: Colors.grey.shade300),
+                            leadingIcon: Icon(
+                              Icons.home,
+                              color: Colors.grey.shade300,
+                            ),
                             child: Text('Home'),
                           ),
                           MenuItemButton(
                             onPressed: () {},
-                            leadingIcon: Icon(Icons.search, color: Colors.grey.shade300),
+                            leadingIcon: Icon(
+                              Icons.search,
+                              color: Colors.grey.shade300,
+                            ),
                             child: Text('Search'),
                           ),
                         ],
@@ -1139,12 +1150,18 @@ Widget buildSideBySideThemeComparison() {
                         children: [
                           MenuItemButton(
                             onPressed: () {},
-                            leadingIcon: Icon(Icons.home, color: Colors.teal.shade700),
+                            leadingIcon: Icon(
+                              Icons.home,
+                              color: Colors.teal.shade700,
+                            ),
                             child: Text('Home'),
                           ),
                           MenuItemButton(
                             onPressed: () {},
-                            leadingIcon: Icon(Icons.search, color: Colors.teal.shade700),
+                            leadingIcon: Icon(
+                              Icons.search,
+                              color: Colors.teal.shade700,
+                            ),
                             child: Text('Search'),
                           ),
                         ],
@@ -1168,13 +1185,41 @@ Widget buildPropertySummary() {
   print('Building property summary section');
 
   List<Map<String, String>> properties = [
-    {'name': 'style', 'type': 'ButtonStyle?', 'desc': 'Visual styling for menu buttons'},
-    {'name': 'backgroundColor', 'type': 'WidgetStateProperty<Color?>', 'desc': 'Background fill color'},
-    {'name': 'foregroundColor', 'type': 'WidgetStateProperty<Color?>', 'desc': 'Text and icon color'},
-    {'name': 'padding', 'type': 'WidgetStateProperty<EdgeInsetsGeometry?>', 'desc': 'Inner spacing'},
-    {'name': 'shape', 'type': 'WidgetStateProperty<OutlinedBorder?>', 'desc': 'Border shape'},
-    {'name': 'textStyle', 'type': 'WidgetStateProperty<TextStyle?>', 'desc': 'Text appearance'},
-    {'name': 'iconColor', 'type': 'WidgetStateProperty<Color?>', 'desc': 'Icon fill color'},
+    {
+      'name': 'style',
+      'type': 'ButtonStyle?',
+      'desc': 'Visual styling for menu buttons',
+    },
+    {
+      'name': 'backgroundColor',
+      'type': 'WidgetStateProperty<Color?>',
+      'desc': 'Background fill color',
+    },
+    {
+      'name': 'foregroundColor',
+      'type': 'WidgetStateProperty<Color?>',
+      'desc': 'Text and icon color',
+    },
+    {
+      'name': 'padding',
+      'type': 'WidgetStateProperty<EdgeInsetsGeometry?>',
+      'desc': 'Inner spacing',
+    },
+    {
+      'name': 'shape',
+      'type': 'WidgetStateProperty<OutlinedBorder?>',
+      'desc': 'Border shape',
+    },
+    {
+      'name': 'textStyle',
+      'type': 'WidgetStateProperty<TextStyle?>',
+      'desc': 'Text appearance',
+    },
+    {
+      'name': 'iconColor',
+      'type': 'WidgetStateProperty<Color?>',
+      'desc': 'Icon fill color',
+    },
   ];
 
   List<Widget> propCards = [];

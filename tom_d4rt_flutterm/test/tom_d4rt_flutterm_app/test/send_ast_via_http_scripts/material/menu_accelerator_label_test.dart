@@ -128,10 +128,7 @@ Widget buildBasicAcceleratorLabel(String label, String description) {
                   SizedBox(height: 4),
                   Text(
                     description,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey.shade600,
-                    ),
+                    style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
                   ),
                 ],
               ),
@@ -196,10 +193,7 @@ Widget buildAcceleratorComparison() {
                   SizedBox(height: 6),
                   Text(
                     item['desc']!,
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: Colors.grey.shade600,
-                    ),
+                    style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
                   ),
                 ],
               ),
@@ -242,13 +236,21 @@ Widget buildMenuItemContext() {
           ),
           child: Column(
             children: [
-              _buildSimulatedMenuItem(Icons.insert_drive_file, '&New', 'Ctrl+N'),
+              _buildSimulatedMenuItem(
+                Icons.insert_drive_file,
+                '&New',
+                'Ctrl+N',
+              ),
               Divider(height: 1, color: Colors.grey.shade300),
               _buildSimulatedMenuItem(Icons.folder_open, '&Open', 'Ctrl+O'),
               Divider(height: 1, color: Colors.grey.shade300),
               _buildSimulatedMenuItem(Icons.save, '&Save', 'Ctrl+S'),
               Divider(height: 1, color: Colors.grey.shade300),
-              _buildSimulatedMenuItem(Icons.save_as, 'Save &As...', 'Ctrl+Shift+S'),
+              _buildSimulatedMenuItem(
+                Icons.save_as,
+                'Save &As...',
+                'Ctrl+Shift+S',
+              ),
               Divider(height: 1, color: Colors.grey.shade300),
               _buildSimulatedMenuItem(Icons.print, '&Print', 'Ctrl+P'),
               Divider(height: 1, color: Colors.grey.shade300),
@@ -268,9 +270,7 @@ Widget _buildSimulatedMenuItem(IconData icon, String label, String shortcut) {
       children: [
         Icon(icon, size: 18, color: Colors.grey.shade700),
         SizedBox(width: 12),
-        Expanded(
-          child: MenuAcceleratorLabel(label),
-        ),
+        Expanded(child: MenuAcceleratorLabel(label)),
         Text(
           shortcut,
           style: TextStyle(
@@ -309,7 +309,13 @@ Widget buildStyledLabels() {
         SizedBox(height: 12),
         _buildStyledLabel('&Bold Text', Colors.blue, FontWeight.bold, 16),
         SizedBox(height: 8),
-        _buildStyledLabel('&Italic Style', Colors.purple, FontWeight.normal, 16, isItalic: true),
+        _buildStyledLabel(
+          '&Italic Style',
+          Colors.purple,
+          FontWeight.normal,
+          16,
+          isItalic: true,
+        ),
         SizedBox(height: 8),
         _buildStyledLabel('&Large Font', Colors.teal, FontWeight.w500, 20),
         SizedBox(height: 8),
@@ -363,8 +369,16 @@ Widget buildParsingDemonstration() {
   List<Map<String, String>> examples = [
     {'input': '&File', 'output': 'File', 'note': 'F is underlined'},
     {'input': 'E&dit', 'output': 'Edit', 'note': 'd is underlined'},
-    {'input': '&&Ampersand', 'output': '&Ampersand', 'note': '&& displays literal &'},
-    {'input': 'No Accelerator', 'output': 'No Accelerator', 'note': 'No & means no underline'},
+    {
+      'input': '&&Ampersand',
+      'output': '&Ampersand',
+      'note': '&& displays literal &',
+    },
+    {
+      'input': 'No Accelerator',
+      'output': 'No Accelerator',
+      'note': 'No & means no underline',
+    },
     {'input': 'End&', 'output': 'End', 'note': 'Trailing & is ignored'},
     {'input': '&', 'output': '', 'note': 'Just & produces empty'},
   ];
@@ -425,7 +439,11 @@ Widget buildParsingDemonstration() {
   );
 }
 
-Widget _buildTableCell(String text, {bool isHeader = false, bool isCode = false}) {
+Widget _buildTableCell(
+  String text, {
+  bool isHeader = false,
+  bool isCode = false,
+}) {
   return Container(
     padding: EdgeInsets.all(8),
     child: Text(
@@ -578,13 +596,25 @@ Widget buildUnderlineStyles() {
         SizedBox(height: 12),
         _buildUnderlineExample('Standard Underline', '&Standard'),
         SizedBox(height: 12),
-        _buildUnderlineExample('In Bold Context', '&Bold Example', isBold: true),
+        _buildUnderlineExample(
+          'In Bold Context',
+          '&Bold Example',
+          isBold: true,
+        ),
         SizedBox(height: 12),
         _buildUnderlineExample('Large Text', '&Large', fontSize: 22),
         SizedBox(height: 12),
-        _buildUnderlineExample('Colored Text', '&Colored', textColor: Colors.purple),
+        _buildUnderlineExample(
+          'Colored Text',
+          '&Colored',
+          textColor: Colors.purple,
+        ),
         SizedBox(height: 12),
-        _buildUnderlineExample('With Background', '&Background', bgColor: Colors.amber.shade100),
+        _buildUnderlineExample(
+          'With Background',
+          '&Background',
+          bgColor: Colors.amber.shade100,
+        ),
       ],
     ),
   );
@@ -609,10 +639,7 @@ Widget _buildUnderlineExample(
       children: [
         Text(
           title,
-          style: TextStyle(
-            fontSize: 12,
-            color: Colors.grey.shade600,
-          ),
+          style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
         ),
         SizedBox(width: 16),
         Spacer(),
@@ -691,24 +718,19 @@ Widget buildAcceleratorGrid() {
         Wrap(
           spacing: 8,
           runSpacing: 8,
-          children: [
-            'C&opy',
-            'Pa&ste',
-            'Cu&t',
-            'Sele&ct All',
-            'Un&do',
-            'Re&do',
-          ].map((item) {
-            return Container(
-              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-              decoration: BoxDecoration(
-                color: Colors.orange.shade50,
-                borderRadius: BorderRadius.circular(6),
-                border: Border.all(color: Colors.orange.shade200),
-              ),
-              child: MenuAcceleratorLabel(item),
-            );
-          }).toList(),
+          children: ['C&opy', 'Pa&ste', 'Cu&t', 'Sele&ct All', 'Un&do', 'Re&do']
+              .map((item) {
+                return Container(
+                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: Colors.orange.shade50,
+                    borderRadius: BorderRadius.circular(6),
+                    border: Border.all(color: Colors.orange.shade200),
+                  ),
+                  child: MenuAcceleratorLabel(item),
+                );
+              })
+              .toList(),
         ),
       ],
     ),
@@ -807,19 +829,14 @@ Widget _buildMenuColumn(String title, List<Map<String, dynamic>> items) {
           ),
           child: Text(
             title,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
         ),
         ...items.map((item) {
           return Container(
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
             decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(color: Colors.grey.shade200),
-              ),
+              border: Border(bottom: BorderSide(color: Colors.grey.shade200)),
             ),
             child: Row(
               children: [
@@ -829,9 +846,7 @@ Widget _buildMenuColumn(String title, List<Map<String, dynamic>> items) {
                   color: Colors.grey.shade600,
                 ),
                 SizedBox(width: 8),
-                Expanded(
-                  child: MenuAcceleratorLabel(item['label'] as String),
-                ),
+                Expanded(child: MenuAcceleratorLabel(item['label'] as String)),
                 if ((item['shortcut'] as String).isNotEmpty)
                   Text(
                     item['shortcut'] as String,
@@ -927,18 +942,24 @@ dynamic build(BuildContext context) {
   sections.add(buildOverview());
 
   sections.add(buildSectionHeader('2. Basic Accelerator Labels'));
-  sections.add(buildBasicAcceleratorLabel(
-    '&File',
-    'The ampersand before F marks it as the accelerator - F will be underlined',
-  ));
-  sections.add(buildBasicAcceleratorLabel(
-    'E&dit',
-    'Placing & in the middle underlines the following character (d)',
-  ));
-  sections.add(buildBasicAcceleratorLabel(
-    '&Help',
-    'Common menu item with H as the accelerator key',
-  ));
+  sections.add(
+    buildBasicAcceleratorLabel(
+      '&File',
+      'The ampersand before F marks it as the accelerator - F will be underlined',
+    ),
+  );
+  sections.add(
+    buildBasicAcceleratorLabel(
+      'E&dit',
+      'Placing & in the middle underlines the following character (d)',
+    ),
+  );
+  sections.add(
+    buildBasicAcceleratorLabel(
+      '&Help',
+      'Common menu item with H as the accelerator key',
+    ),
+  );
 
   sections.add(buildSectionHeader('3. Multiple Label Positions'));
   sections.add(buildAcceleratorComparison());
@@ -968,26 +989,33 @@ dynamic build(BuildContext context) {
   sections.add(buildColoredAccelerators());
 
   sections.add(buildSectionHeader('12. Usage Tips'));
-  sections.add(buildInfoCard(
-    'Tip 1',
-    'Use & before the character you want as the accelerator key',
-  ));
-  sections.add(buildInfoCard(
-    'Tip 2',
-    'Use && to display a literal ampersand character',
-  ));
-  sections.add(buildInfoCard(
-    'Tip 3',
-    'The accelerator character is typically underlined in the UI',
-  ));
-  sections.add(buildInfoCard(
-    'Tip 4',
-    'Choose accelerator keys that are unique within the menu',
-  ));
-  sections.add(buildInfoCard(
-    'Tip 5',
-    'Common patterns: &File, &Edit, &View, &Help for main menus',
-  ));
+  sections.add(
+    buildInfoCard(
+      'Tip 1',
+      'Use & before the character you want as the accelerator key',
+    ),
+  );
+  sections.add(
+    buildInfoCard('Tip 2', 'Use && to display a literal ampersand character'),
+  );
+  sections.add(
+    buildInfoCard(
+      'Tip 3',
+      'The accelerator character is typically underlined in the UI',
+    ),
+  );
+  sections.add(
+    buildInfoCard(
+      'Tip 4',
+      'Choose accelerator keys that are unique within the menu',
+    ),
+  );
+  sections.add(
+    buildInfoCard(
+      'Tip 5',
+      'Common patterns: &File, &Edit, &View, &Help for main menus',
+    ),
+  );
 
   sections.add(SizedBox(height: 32));
 

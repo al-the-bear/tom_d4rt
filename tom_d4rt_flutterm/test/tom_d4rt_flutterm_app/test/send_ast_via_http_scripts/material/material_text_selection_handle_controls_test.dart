@@ -86,14 +86,22 @@ Widget buildDescriptionCard(String title, String description) {
         SizedBox(height: 8),
         Text(
           description,
-          style: TextStyle(fontSize: 14, color: Colors.grey.shade700, height: 1.4),
+          style: TextStyle(
+            fontSize: 14,
+            color: Colors.grey.shade700,
+            height: 1.4,
+          ),
         ),
       ],
     ),
   );
 }
 
-Widget buildSelectableTextWithHandles(String label, String content, Color bgColor) {
+Widget buildSelectableTextWithHandles(
+  String label,
+  String content,
+  Color bgColor,
+) {
   print('Building SelectableText with handle controls: $label');
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
@@ -210,7 +218,12 @@ Widget buildTextFieldWithHandles(String label, String hint, Color accentColor) {
   );
 }
 
-Widget buildHandleShapeCard(String shapeName, Color color, String description, IconData icon) {
+Widget buildHandleShapeCard(
+  String shapeName,
+  Color color,
+  String description,
+  IconData icon,
+) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 6),
     padding: EdgeInsets.all(14),
@@ -235,9 +248,7 @@ Widget buildHandleShapeCard(String shapeName, Color color, String description, I
             color: color.withAlpha(30),
             borderRadius: BorderRadius.circular(8),
           ),
-          child: CustomPaint(
-            painter: _TeardropHandlePainter(color),
-          ),
+          child: CustomPaint(painter: _TeardropHandlePainter(color)),
         ),
         SizedBox(width: 14),
         Expanded(
@@ -263,7 +274,11 @@ Widget buildHandleShapeCard(String shapeName, Color color, String description, I
               SizedBox(height: 4),
               Text(
                 description,
-                style: TextStyle(fontSize: 12, color: Colors.grey.shade600, height: 1.3),
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Colors.grey.shade600,
+                  height: 1.3,
+                ),
               ),
             ],
           ),
@@ -273,7 +288,11 @@ Widget buildHandleShapeCard(String shapeName, Color color, String description, I
   );
 }
 
-Widget buildThemeHandleColorDemo(String themeName, Color handleColor, Color backgroundColor) {
+Widget buildThemeHandleColorDemo(
+  String themeName,
+  Color handleColor,
+  Color backgroundColor,
+) {
   print('Building theme handle color demo: $themeName');
   return Container(
     margin: EdgeInsets.symmetric(vertical: 6),
@@ -295,9 +314,7 @@ Widget buildThemeHandleColorDemo(String themeName, Color handleColor, Color back
                 color: handleColor,
                 borderRadius: BorderRadius.circular(14),
               ),
-              child: CustomPaint(
-                painter: _SmallTeardropPainter(Colors.white),
-              ),
+              child: CustomPaint(painter: _SmallTeardropPainter(Colors.white)),
             ),
             SizedBox(width: 12),
             Text(
@@ -317,9 +334,7 @@ Widget buildThemeHandleColorDemo(String themeName, Color handleColor, Color back
             hintStyle: TextStyle(color: Colors.grey.shade400),
             filled: true,
             fillColor: Colors.white,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
             contentPadding: EdgeInsets.symmetric(horizontal: 14, vertical: 10),
           ),
           style: TextStyle(fontSize: 14),
@@ -382,7 +397,11 @@ Widget buildSelectionAreaWithHandles() {
             children: [
               Text(
                 'MaterialTextSelectionHandleControls is used here',
-                style: TextStyle(fontSize: 14, color: Colors.grey.shade800, fontWeight: FontWeight.w500),
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.grey.shade800,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
               SizedBox(height: 8),
               Text(
@@ -453,7 +472,11 @@ Widget buildTextScaleDemo(String scaleName, double textScale, Color color) {
               ),
               child: Text(
                 'Scale: ${textScale}x',
-                style: TextStyle(fontSize: 11, color: color, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 11,
+                  color: color,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ],
@@ -485,7 +508,12 @@ Widget buildTextScaleDemo(String scaleName, double textScale, Color color) {
   );
 }
 
-Widget buildComparisonCard(String controlType, bool hasToolbar, Color color, List<String> features) {
+Widget buildComparisonCard(
+  String controlType,
+  bool hasToolbar,
+  Color color,
+  List<String> features,
+) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 6),
     padding: EdgeInsets.all(14),
@@ -518,7 +546,9 @@ Widget buildComparisonCard(String controlType, bool hasToolbar, Color color, Lis
             Container(
               padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
               decoration: BoxDecoration(
-                color: hasToolbar ? Colors.green.shade100 : Colors.orange.shade100,
+                color: hasToolbar
+                    ? Colors.green.shade100
+                    : Colors.orange.shade100,
                 borderRadius: BorderRadius.circular(4),
               ),
               child: Text(
@@ -526,7 +556,9 @@ Widget buildComparisonCard(String controlType, bool hasToolbar, Color color, Lis
                 style: TextStyle(
                   fontSize: 10,
                   fontWeight: FontWeight.bold,
-                  color: hasToolbar ? Colors.green.shade800 : Colors.orange.shade800,
+                  color: hasToolbar
+                      ? Colors.green.shade800
+                      : Colors.orange.shade800,
                 ),
               ),
             ),
@@ -592,7 +624,11 @@ Widget buildInteractiveSelectionDemo() {
                 color: Colors.cyan.shade100,
                 shape: BoxShape.circle,
               ),
-              child: Icon(Icons.touch_app, color: Colors.cyan.shade600, size: 20),
+              child: Icon(
+                Icons.touch_app,
+                color: Colors.cyan.shade600,
+                size: 20,
+              ),
             ),
             SizedBox(width: 12),
             Text(
@@ -733,7 +769,11 @@ Widget buildHandleMethodsGrid() {
           children: [
             Row(
               children: [
-                Icon(method['icon'] as IconData, color: method['color'] as Color, size: 16),
+                Icon(
+                  method['icon'] as IconData,
+                  color: method['color'] as Color,
+                  size: 16,
+                ),
                 SizedBox(width: 6),
                 Expanded(
                   child: Text(
@@ -759,9 +799,7 @@ Widget buildHandleMethodsGrid() {
     );
   }
 
-  return Wrap(
-    children: gridItems,
-  );
+  return Wrap(children: gridItems);
 }
 
 Widget buildMultiFieldDemo() {
@@ -873,39 +911,42 @@ dynamic build(BuildContext context) {
             buildDescriptionCard(
               'MaterialTextSelectionHandleControls',
               'MaterialTextSelectionHandleControls is a variant of text selection controls that '
-              'provides only the selection handles without the selection toolbar. Unlike '
-              'MaterialTextSelectionControls which includes cut, copy, and paste buttons, '
-              'this class focuses solely on the visual selection indicators - the teardrop-shaped '
-              'handles that allow users to adjust text selection boundaries.',
+                  'provides only the selection handles without the selection toolbar. Unlike '
+                  'MaterialTextSelectionControls which includes cut, copy, and paste buttons, '
+                  'this class focuses solely on the visual selection indicators - the teardrop-shaped '
+                  'handles that allow users to adjust text selection boundaries.',
             ),
             buildInfoCard('Package', 'package:flutter/material.dart'),
             buildInfoCard('Extends', 'TextSelectionControls'),
             buildInfoCard('Key Feature', 'Handles only - no toolbar overlay'),
-            buildInfoCard('Use Case', 'Read-only display with visual selection feedback'),
+            buildInfoCard(
+              'Use Case',
+              'Read-only display with visual selection feedback',
+            ),
 
             buildSectionHeader('2. SelectableText with Handles'),
             buildSelectableTextWithHandles(
               'Basic SelectableText',
               'This text demonstrates MaterialTextSelectionHandleControls in action. '
-              'When you select this text by long-pressing and dragging, you will see '
-              'the teardrop-shaped selection handles appear at the selection boundaries. '
-              'Notice that no toolbar with cut/copy/paste appears.',
+                  'When you select this text by long-pressing and dragging, you will see '
+                  'the teardrop-shaped selection handles appear at the selection boundaries. '
+                  'Notice that no toolbar with cut/copy/paste appears.',
               Colors.white,
             ),
             buildSelectableTextWithHandles(
               'Paragraph Text Selection',
               'MaterialTextSelectionHandleControls is particularly useful for scenarios '
-              'where you want users to be able to visually select text but do not need '
-              'clipboard operations. This creates a cleaner user experience when selection '
-              'is primarily for visual feedback or read-only content.',
+                  'where you want users to be able to visually select text but do not need '
+                  'clipboard operations. This creates a cleaner user experience when selection '
+                  'is primarily for visual feedback or read-only content.',
               Colors.grey.shade50,
             ),
             buildSelectableTextWithHandles(
               'Rich Content Display',
               'In content-heavy applications, using handle-only controls reduces visual '
-              'clutter. The handles provide clear indication of selection boundaries while '
-              'keeping the interface minimal. The Material Design teardrop shape is instantly '
-              'recognizable to users.',
+                  'clutter. The handles provide clear indication of selection boundaries while '
+                  'keeping the interface minimal. The Material Design teardrop shape is instantly '
+                  'recognizable to users.',
               Colors.teal.shade50,
             ),
 
@@ -930,12 +971,19 @@ dynamic build(BuildContext context) {
               ),
               child: Row(
                 children: [
-                  Icon(Icons.lightbulb_outline, color: Colors.amber.shade700, size: 18),
+                  Icon(
+                    Icons.lightbulb_outline,
+                    color: Colors.amber.shade700,
+                    size: 18,
+                  ),
                   SizedBox(width: 10),
                   Expanded(
                     child: Text(
                       'Selection handles appear when you select text within the field',
-                      style: TextStyle(fontSize: 12, color: Colors.amber.shade800),
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.amber.shade800,
+                      ),
                     ),
                   ),
                 ],
@@ -972,12 +1020,28 @@ dynamic build(BuildContext context) {
             buildDescriptionCard(
               'Theme-Based Customization',
               'Handle color is controlled through TextSelectionThemeData.selectionHandleColor. '
-              'This ensures consistent styling across all text selection interactions in your app.',
+                  'This ensures consistent styling across all text selection interactions in your app.',
             ),
-            buildThemeHandleColorDemo('Teal Theme', Colors.teal, Colors.teal.shade50),
-            buildThemeHandleColorDemo('Blue Theme', Colors.blue, Colors.blue.shade50),
-            buildThemeHandleColorDemo('Deep Purple Theme', Colors.deepPurple, Colors.deepPurple.shade50),
-            buildThemeHandleColorDemo('Pink Theme', Colors.pink, Colors.pink.shade50),
+            buildThemeHandleColorDemo(
+              'Teal Theme',
+              Colors.teal,
+              Colors.teal.shade50,
+            ),
+            buildThemeHandleColorDemo(
+              'Blue Theme',
+              Colors.blue,
+              Colors.blue.shade50,
+            ),
+            buildThemeHandleColorDemo(
+              'Deep Purple Theme',
+              Colors.deepPurple,
+              Colors.deepPurple.shade50,
+            ),
+            buildThemeHandleColorDemo(
+              'Pink Theme',
+              Colors.pink,
+              Colors.pink.shade50,
+            ),
 
             buildSectionHeader('6. Multiple Fields with Different Styles'),
             buildMultiFieldDemo(),
@@ -1006,8 +1070,13 @@ dynamic build(BuildContext context) {
                       labelText: 'Username',
                       filled: true,
                       fillColor: Colors.grey.shade50,
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-                      contentPadding: EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      contentPadding: EdgeInsets.symmetric(
+                        horizontal: 14,
+                        vertical: 12,
+                      ),
                     ),
                   ),
                   SizedBox(height: 10),
@@ -1016,8 +1085,13 @@ dynamic build(BuildContext context) {
                       labelText: 'Password',
                       filled: true,
                       fillColor: Colors.grey.shade50,
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-                      contentPadding: EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      contentPadding: EdgeInsets.symmetric(
+                        horizontal: 14,
+                        vertical: 12,
+                      ),
                     ),
                     obscureText: true,
                   ),
@@ -1027,8 +1101,13 @@ dynamic build(BuildContext context) {
                       labelText: 'Notes',
                       filled: true,
                       fillColor: Colors.grey.shade50,
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-                      contentPadding: EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      contentPadding: EdgeInsets.symmetric(
+                        horizontal: 14,
+                        vertical: 12,
+                      ),
                     ),
                     maxLines: 3,
                   ),
@@ -1068,11 +1147,26 @@ dynamic build(BuildContext context) {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Header text in selection area', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+                        Text(
+                          'Header text in selection area',
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                         SizedBox(height: 6),
-                        Text('Body text that can also be selected along with the header.', style: TextStyle(fontSize: 13)),
+                        Text(
+                          'Body text that can also be selected along with the header.',
+                          style: TextStyle(fontSize: 13),
+                        ),
                         SizedBox(height: 6),
-                        Text('Footer text completing the selectable region.', style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic)),
+                        Text(
+                          'Footer text completing the selectable region.',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontStyle: FontStyle.italic,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -1084,7 +1178,7 @@ dynamic build(BuildContext context) {
             buildDescriptionCard(
               'Accessibility - Text Scaling',
               'Handle sizes automatically adjust based on text scale factor, ensuring '
-              'that selection handles remain proportional and accessible at larger text sizes.',
+                  'that selection handles remain proportional and accessible at larger text sizes.',
             ),
             buildTextScaleDemo('Small (0.8x)', 0.8, Colors.blue),
             buildTextScaleDemo('Normal (1.0x)', 1.0, Colors.teal),
@@ -1095,7 +1189,7 @@ dynamic build(BuildContext context) {
             buildDescriptionCard(
               'Comparison',
               'Understanding when to use MaterialTextSelectionHandleControls vs '
-              'MaterialTextSelectionControls helps create the right user experience.',
+                  'MaterialTextSelectionControls helps create the right user experience.',
             ),
             buildComparisonCard(
               'MaterialTextSelectionHandleControls',
@@ -1131,12 +1225,19 @@ dynamic build(BuildContext context) {
               ),
               child: Row(
                 children: [
-                  Icon(Icons.compare_arrows, color: Colors.grey.shade600, size: 20),
+                  Icon(
+                    Icons.compare_arrows,
+                    color: Colors.grey.shade600,
+                    size: 20,
+                  ),
                   SizedBox(width: 10),
                   Expanded(
                     child: Text(
                       'Choose based on whether clipboard actions are needed',
-                      style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey.shade700,
+                      ),
                     ),
                   ),
                 ],
@@ -1194,7 +1295,11 @@ dynamic build(BuildContext context) {
                     'MaterialTextSelectionHandleControls provides selection handles without the toolbar. '
                     'It uses the same Material Design teardrop handles but omits cut/copy/paste actions. '
                     'Ideal for read-only content, visual selection feedback, and minimal UI requirements.',
-                    style: TextStyle(fontSize: 14, color: Colors.grey.shade300, height: 1.5),
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey.shade300,
+                      height: 1.5,
+                    ),
                   ),
                 ],
               ),
@@ -1229,7 +1334,12 @@ class _TeardropHandlePainter extends CustomPainter {
 
     Path path = Path();
     path.moveTo(cx - radius * 0.8, cy + radius * 0.3);
-    path.quadraticBezierTo(cx, size.height * 0.85, cx + radius * 0.8, cy + radius * 0.3);
+    path.quadraticBezierTo(
+      cx,
+      size.height * 0.85,
+      cx + radius * 0.8,
+      cy + radius * 0.3,
+    );
     path.close();
     canvas.drawPath(path, paint);
   }
@@ -1258,7 +1368,12 @@ class _SmallTeardropPainter extends CustomPainter {
 
     Path path = Path();
     path.moveTo(cx - radius * 0.7, cy + radius * 0.2);
-    path.quadraticBezierTo(cx, size.height * 0.8, cx + radius * 0.7, cy + radius * 0.2);
+    path.quadraticBezierTo(
+      cx,
+      size.height * 0.8,
+      cx + radius * 0.7,
+      cy + radius * 0.2,
+    );
     path.close();
     canvas.drawPath(path, paint);
   }
@@ -1288,7 +1403,12 @@ class _ScaledHandlePainter extends CustomPainter {
 
     Path path = Path();
     path.moveTo(cx - radius * 0.8, cy + radius * 0.3);
-    path.quadraticBezierTo(cx, size.height * 0.85, cx + radius * 0.8, cy + radius * 0.3);
+    path.quadraticBezierTo(
+      cx,
+      size.height * 0.85,
+      cx + radius * 0.8,
+      cy + radius * 0.3,
+    );
     path.close();
     canvas.drawPath(path, paint);
   }

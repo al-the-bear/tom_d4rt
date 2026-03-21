@@ -102,10 +102,7 @@ Widget buildMergeableDemo(String title, Widget demo) {
             ),
           ),
         ),
-        Padding(
-          padding: EdgeInsets.all(12),
-          child: demo,
-        ),
+        Padding(padding: EdgeInsets.all(12), child: demo),
       ],
     ),
   );
@@ -123,12 +120,14 @@ dynamic build(BuildContext context) {
 
   sections.add(buildSectionHeader('1. Overview of MergeableMaterialItem'));
 
-  sections.add(buildDescriptionBox(
-    'MergeableMaterialItem is an abstract interface for items that can be '
-    'merged together within a MergeableMaterial widget. The two concrete '
-    'implementations are MaterialSlice (for content) and MaterialGap (for '
-    'spacing). Items animate smoothly when added, removed, or reordered.',
-  ));
+  sections.add(
+    buildDescriptionBox(
+      'MergeableMaterialItem is an abstract interface for items that can be '
+      'merged together within a MergeableMaterial widget. The two concrete '
+      'implementations are MaterialSlice (for content) and MaterialGap (for '
+      'spacing). Items animate smoothly when added, removed, or reordered.',
+    ),
+  );
 
   sections.add(buildInfoCard('Abstract Class', 'MergeableMaterialItem'));
   sections.add(buildInfoCard('Implementations', 'MaterialSlice, MaterialGap'));
@@ -147,7 +146,9 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  sections.add(buildMergeableDemo('Basic MergeableMaterialItem Usage', overviewDemo1));
+  sections.add(
+    buildMergeableDemo('Basic MergeableMaterialItem Usage', overviewDemo1),
+  );
   print('Overview section created');
 
   // ============================================================
@@ -157,11 +158,13 @@ dynamic build(BuildContext context) {
 
   sections.add(buildSectionHeader('2. MaterialSlice as MergeableMaterialItem'));
 
-  sections.add(buildDescriptionBox(
-    'MaterialSlice is the primary content holder in MergeableMaterial. Each '
-    'slice wraps a child widget and can have optional color styling. Slices '
-    'merge visually when adjacent, creating a unified material surface.',
-  ));
+  sections.add(
+    buildDescriptionBox(
+      'MaterialSlice is the primary content holder in MergeableMaterial. Each '
+      'slice wraps a child widget and can have optional color styling. Slices '
+      'merge visually when adjacent, creating a unified material surface.',
+    ),
+  );
 
   sections.add(buildInfoCard('Class', 'MaterialSlice'));
   sections.add(buildInfoCard('Key Property', 'LocalKey key (required)'));
@@ -225,17 +228,16 @@ dynamic build(BuildContext context) {
                   ],
                 ),
               ),
-              IconButton(
-                icon: Icon(Icons.more_vert),
-                onPressed: () {},
-              ),
+              IconButton(icon: Icon(Icons.more_vert), onPressed: () {}),
             ],
           ),
         ),
       ),
     ],
   );
-  sections.add(buildMergeableDemo('MaterialSlice with Rich Content', sliceDemo3));
+  sections.add(
+    buildMergeableDemo('MaterialSlice with Rich Content', sliceDemo3),
+  );
   print('MaterialSlice section created');
 
   // ============================================================
@@ -245,11 +247,13 @@ dynamic build(BuildContext context) {
 
   sections.add(buildSectionHeader('3. MaterialGap as MergeableMaterialItem'));
 
-  sections.add(buildDescriptionBox(
-    'MaterialGap creates visual separation between MaterialSlice items. It '
-    'breaks the merged material surface, creating distinct groups. The size '
-    'property controls the gap height and defaults to 16.0 logical pixels.',
-  ));
+  sections.add(
+    buildDescriptionBox(
+      'MaterialGap creates visual separation between MaterialSlice items. It '
+      'breaks the merged material surface, creating distinct groups. The size '
+      'property controls the gap height and defaults to 16.0 logical pixels.',
+    ),
+  );
 
   sections.add(buildInfoCard('Class', 'MaterialGap'));
   sections.add(buildInfoCard('Key Property', 'LocalKey key (required)'));
@@ -315,11 +319,13 @@ dynamic build(BuildContext context) {
 
   sections.add(buildSectionHeader('4. MergeableMaterial with Slices'));
 
-  sections.add(buildDescriptionBox(
-    'MergeableMaterial is the container widget that manages MergeableMaterialItem '
-    'children. Adjacent MaterialSlice items merge into a single material surface, '
-    'while MaterialGap items create visual breaks between groups.',
-  ));
+  sections.add(
+    buildDescriptionBox(
+      'MergeableMaterial is the container widget that manages MergeableMaterialItem '
+      'children. Adjacent MaterialSlice items merge into a single material surface, '
+      'while MaterialGap items create visual breaks between groups.',
+    ),
+  );
 
   sections.add(buildInfoCard('Widget', 'MergeableMaterial'));
   sections.add(buildInfoCard('Children Type', 'List<MergeableMaterialItem>'));
@@ -373,7 +379,9 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  sections.add(buildMergeableDemo('MergeableMaterial with Elevation', mergeDemo2));
+  sections.add(
+    buildMergeableDemo('MergeableMaterial with Elevation', mergeDemo2),
+  );
   print('MergeableMaterial slices section created');
 
   // ============================================================
@@ -383,11 +391,13 @@ dynamic build(BuildContext context) {
 
   sections.add(buildSectionHeader('5. Animated Merging/Unmerging'));
 
-  sections.add(buildDescriptionBox(
-    'MergeableMaterial animates changes to its children. When items are added, '
-    'removed, or reordered, the widget smoothly transitions between states. '
-    'This creates a polished user experience for dynamic lists.',
-  ));
+  sections.add(
+    buildDescriptionBox(
+      'MergeableMaterial animates changes to its children. When items are added, '
+      'removed, or reordered, the widget smoothly transitions between states. '
+      'This creates a polished user experience for dynamic lists.',
+    ),
+  );
 
   sections.add(buildInfoCard('Animation', 'Automatic on child changes'));
   sections.add(buildInfoCard('Merge Animation', 'Slices join smoothly'));
@@ -483,7 +493,9 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  sections.add(buildMergeableDemo('Animation Concept Visualization', animDemo2));
+  sections.add(
+    buildMergeableDemo('Animation Concept Visualization', animDemo2),
+  );
   print('Animation section created');
 
   // ============================================================
@@ -493,13 +505,17 @@ dynamic build(BuildContext context) {
 
   sections.add(buildSectionHeader('6. Grouped Items with Dividers'));
 
-  sections.add(buildDescriptionBox(
-    'MergeableMaterial supports automatic dividers between slices. The hasDividers '
-    'property enables/disables dividers, while dividerColor customizes their '
-    'appearance. Dividers help visually separate items within a merged group.',
-  ));
+  sections.add(
+    buildDescriptionBox(
+      'MergeableMaterial supports automatic dividers between slices. The hasDividers '
+      'property enables/disables dividers, while dividerColor customizes their '
+      'appearance. Dividers help visually separate items within a merged group.',
+    ),
+  );
 
-  sections.add(buildInfoCard('Has Dividers', 'bool hasDividers (default: true)'));
+  sections.add(
+    buildInfoCard('Has Dividers', 'bool hasDividers (default: true)'),
+  );
   sections.add(buildInfoCard('Divider Color', 'Color? dividerColor'));
   sections.add(buildInfoCard('Default Divider', 'Theme divider color'));
   sections.add(buildInfoCard('Divider Position', 'Between adjacent slices'));
@@ -590,11 +606,13 @@ dynamic build(BuildContext context) {
 
   sections.add(buildSectionHeader('7. Leading/Trailing Animations'));
 
-  sections.add(buildDescriptionBox(
-    'When MergeableMaterialItem instances are added or removed, leading and '
-    'trailing edges animate. The first and last items have special treatment '
-    'for rounded corners. Middle items have flat edges that merge seamlessly.',
-  ));
+  sections.add(
+    buildDescriptionBox(
+      'When MergeableMaterialItem instances are added or removed, leading and '
+      'trailing edges animate. The first and last items have special treatment '
+      'for rounded corners. Middle items have flat edges that merge seamlessly.',
+    ),
+  );
 
   sections.add(buildInfoCard('Leading Edge', 'Top-rounded on first slice'));
   sections.add(buildInfoCard('Trailing Edge', 'Bottom-rounded on last slice'));
@@ -639,7 +657,9 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  sections.add(buildMergeableDemo('Leading and Trailing Items', leadTrailDemo1));
+  sections.add(
+    buildMergeableDemo('Leading and Trailing Items', leadTrailDemo1),
+  );
 
   Widget leadTrailDemo2 = MergeableMaterial(
     children: [
@@ -688,11 +708,13 @@ dynamic build(BuildContext context) {
 
   sections.add(buildSectionHeader('8. Multiple Items in a List'));
 
-  sections.add(buildDescriptionBox(
-    'MergeableMaterial excels at displaying lists of items that need visual '
-    'grouping. Common use cases include settings screens, contact lists, '
-    'and expandable panels where items group and separate dynamically.',
-  ));
+  sections.add(
+    buildDescriptionBox(
+      'MergeableMaterial excels at displaying lists of items that need visual '
+      'grouping. Common use cases include settings screens, contact lists, '
+      'and expandable panels where items group and separate dynamically.',
+    ),
+  );
 
   sections.add(buildInfoCard('Use Case', 'Settings screens'));
   sections.add(buildInfoCard('Use Case', 'Contact lists'));
@@ -800,11 +822,13 @@ dynamic build(BuildContext context) {
 
   sections.add(buildSectionHeader('9. Item Key Usage'));
 
-  sections.add(buildDescriptionBox(
-    'Each MergeableMaterialItem requires a unique LocalKey. Keys enable Flutter '
-    'to track items across rebuilds, animate changes correctly, and maintain '
-    'state. ValueKey and ObjectKey are commonly used key types.',
-  ));
+  sections.add(
+    buildDescriptionBox(
+      'Each MergeableMaterialItem requires a unique LocalKey. Keys enable Flutter '
+      'to track items across rebuilds, animate changes correctly, and maintain '
+      'state. ValueKey and ObjectKey are commonly used key types.',
+    ),
+  );
 
   sections.add(buildInfoCard('Key Type', 'LocalKey (required)'));
   sections.add(buildInfoCard('Common Keys', 'ValueKey, ObjectKey, UniqueKey'));
@@ -901,11 +925,13 @@ dynamic build(BuildContext context) {
 
   sections.add(buildSectionHeader('10. Slice Styling Variations'));
 
-  sections.add(buildDescriptionBox(
-    'MaterialSlice supports various styling approaches through its color '
-    'property and child widget customization. Combine with MergeableMaterial '
-    'properties like elevation and dividerColor for complete control.',
-  ));
+  sections.add(
+    buildDescriptionBox(
+      'MaterialSlice supports various styling approaches through its color '
+      'property and child widget customization. Combine with MergeableMaterial '
+      'properties like elevation and dividerColor for complete control.',
+    ),
+  );
 
   sections.add(buildInfoCard('Slice Color', 'Background color per slice'));
   sections.add(buildInfoCard('Child Styling', 'Full widget customization'));
@@ -996,10 +1022,7 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     'Custom Container',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                   ),
                   Text(
                     'Rich child widget styling',
@@ -1025,10 +1048,7 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     'Gradient Effect',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                   ),
                   Text(
                     'Using progressively darker colors',
@@ -1081,41 +1101,40 @@ dynamic build(BuildContext context) {
   print('--- Building final layout ---');
 
   sections.add(SizedBox(height: 24));
-  sections.add(Container(
-    width: double.infinity,
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: [Colors.teal.shade600, Colors.teal.shade800],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
+  sections.add(
+    Container(
+      width: double.infinity,
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Colors.teal.shade600, Colors.teal.shade800],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(12),
       ),
-      borderRadius: BorderRadius.circular(12),
-    ),
-    child: Column(
-      children: [
-        Icon(Icons.check_circle, color: Colors.white, size: 48),
-        SizedBox(height: 12),
-        Text(
-          'MergeableMaterialItem Demo Complete',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
+      child: Column(
+        children: [
+          Icon(Icons.check_circle, color: Colors.white, size: 48),
+          SizedBox(height: 12),
+          Text(
+            'MergeableMaterialItem Demo Complete',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
           ),
-        ),
-        SizedBox(height: 8),
-        Text(
-          '10 sections covering MaterialSlice, MaterialGap, and MergeableMaterial',
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.teal.shade100,
+          SizedBox(height: 8),
+          Text(
+            '10 sections covering MaterialSlice, MaterialGap, and MergeableMaterial',
+            style: TextStyle(fontSize: 14, color: Colors.teal.shade100),
+            textAlign: TextAlign.center,
           ),
-          textAlign: TextAlign.center,
-        ),
-      ],
+        ],
+      ),
     ),
-  ));
+  );
 
   print('MergeableMaterialItem deep demo test completed');
 
