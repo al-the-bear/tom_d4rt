@@ -208,20 +208,20 @@ Widget _buildEmphasizedEasings() {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       _buildCurveVisualization(
-        'Easing.emphasized',
-        Easing.emphasized,
+        'Curves.easeInOutCubicEmphasized',
+        Curves.easeInOutCubicEmphasized,
         Colors.purple.shade600,
         'More dramatic version of standard - stronger deceleration at end',
       ),
       _buildCurveVisualization(
-        'Easing.emphasizedAccelerate',
-        Easing.emphasizedAccelerate,
+        'Curves.easeInCubic',
+        Curves.easeInCubic,
         Colors.purple.shade400,
         'Dramatic exit - elements leave with strong acceleration',
       ),
       _buildCurveVisualization(
-        'Easing.emphasizedDecelerate',
-        Easing.emphasizedDecelerate,
+        'Curves.easeOutCubic',
+        Curves.easeOutCubic,
         Colors.purple.shade800,
         'Dramatic entry - elements arrive with strong deceleration',
       ),
@@ -348,12 +348,12 @@ Widget _buildComparisonGrid() {
   debugPrint('Building comparison grid');
   List<String> names = [
     'standard', 'standardAccelerate', 'standardDecelerate',
-    'emphasized', 'emphasizedAccelerate', 'emphasizedDecelerate',
+    'easeInOutCubicEmphasized', 'easeInCubic', 'easeOutCubic',
     'linear', 'legacy', 'legacyAccelerate', 'legacyDecelerate',
   ];
   List<Curve> curves = [
     Easing.standard, Easing.standardAccelerate, Easing.standardDecelerate,
-    Easing.emphasized, Easing.emphasizedAccelerate, Easing.emphasizedDecelerate,
+    Curves.easeInOutCubicEmphasized, Curves.easeInCubic, Curves.easeOutCubic,
     Easing.linear, Easing.legacy, Easing.legacyAccelerate, Easing.legacyDecelerate,
   ];
   List<Color> colors = [
@@ -428,8 +428,8 @@ Widget _buildComparisonGrid() {
 
 Widget _buildMotionBars() {
   debugPrint('Building motion bars');
-  List<String> names = ['standard', 'emphasized', 'linear', 'legacy'];
-  List<Curve> curves = [Easing.standard, Easing.emphasized, Easing.linear, Easing.legacy];
+  List<String> names = ['standard', 'easeInOutCubicEmphasized', 'linear', 'legacy'];
+  List<Curve> curves = [Easing.standard, Curves.easeInOutCubicEmphasized, Easing.linear, Easing.legacy];
   List<Color> colors = [Colors.blue.shade600, Colors.purple.shade600, Colors.grey.shade600, Colors.orange.shade600];
 
   List<Widget> bars = [];
@@ -538,7 +538,7 @@ dynamic build(BuildContext context) {
             _buildSectionHeader('7. Sample Values: Standard'),
             _buildSampleValuesTable('Easing.standard', Easing.standard, Colors.blue.shade600),
             SizedBox(height: 8),
-            _buildSampleValuesTable('Easing.emphasized', Easing.emphasized, Colors.purple.shade600),
+            _buildSampleValuesTable('Curves.easeInOutCubicEmphasized', Curves.easeInOutCubicEmphasized, Colors.purple.shade600),
             SizedBox(height: 8),
             _buildSampleValuesTable('Easing.linear', Easing.linear, Colors.grey.shade600),
             SizedBox(height: 8),

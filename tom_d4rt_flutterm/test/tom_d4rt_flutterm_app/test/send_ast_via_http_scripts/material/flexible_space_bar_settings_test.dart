@@ -524,7 +524,7 @@ Widget _buildCurrentExtentProgression() {
     double fraction = i / (steps - 1);
     double currentExtent = maxExtent - ((maxExtent - minExtent) * fraction);
     double collapseRatio = (maxExtent - currentExtent) / (maxExtent - minExtent);
-    Color barColor = Color.lerp(Color(0xFF2E7D32), Color(0xFFD32F2F), fraction);
+    Color barColor = Color.lerp(Color(0xFF2E7D32), Color(0xFFD32F2F), fraction) ?? Color(0xFF2E7D32);
 
     print('  CurrentExtent step $i: ${currentExtent.toStringAsFixed(1)}');
 
