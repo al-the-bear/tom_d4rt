@@ -578,176 +578,177 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [material_rect_center_arc_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/material_rect_center_arc_tween_test.dart) | MaterialRectCenterArcTween | No | Yes | No | Created on 2026-03-21 at 09:34 |
 | [material_scroll_behavior_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/material_scroll_behavior_test.dart) | MaterialScrollBehavior | No | Yes | No | Created on 2026-03-21 at 09:34 |
 | [material_state_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/material_state_mixin_test.dart) | MaterialStateMixin | No | Yes | No | Created on 2026-03-21 at 09:34 |
-| [material_state_outline_input_border_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/material_state_outline_input_border_test.dart) | MaterialStateOutlineInputBorder | No | No | Yes | Checked. |
-| [material_state_underline_input_border_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/material_state_underline_input_border_test.dart) | MaterialStateUnderlineInputBorder | No | No | Yes | Checked. |
+| [material_state_outline_input_border_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/material_state_outline_input_border_test.dart) | MaterialStateOutlineInputBorder | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [material_state_underline_input_border_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/material_state_underline_input_border_test.dart) | MaterialStateUnderlineInputBorder | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [material_tap_target_size_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/material_tap_target_size_test.dart) | MaterialTapTargetSize | No | Yes | No | Checked. |
-| [material_text_selection_controls_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/material_text_selection_controls_test.dart) | MaterialTextSelectionControls | No | No | Yes | Checked. |
-| [material_text_selection_handle_controls_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/material_text_selection_handle_controls_test.dart) | MaterialTextSelectionHandleControls | No | No | Yes | Checked. |
+| [material_text_selection_controls_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/material_text_selection_controls_test.dart) | MaterialTextSelectionControls | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [material_text_selection_handle_controls_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/material_text_selection_handle_controls_test.dart) | MaterialTextSelectionHandleControls | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [material_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/material_type_test.dart) | MaterialType | No | Yes | No | Checked. |
 | [material_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/material_widget_test.dart) | Material | No | Yes | No |
 | [materialapp_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/materialapp_test.dart) | MaterialApp | No | Yes | No |
 | [materialbanner_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/materialbanner_test.dart) | MaterialBanner | No | Yes | No |
 | [materialcolor_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/materialcolor_test.dart) | MaterialColor | No | Yes | No |
-| [menu_accelerator_callback_binding_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/menu_accelerator_callback_binding_test.dart) | MenuAcceleratorCallbackBinding | No | No | Yes | Checked. |
-| [menu_accelerator_label_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/menu_accelerator_label_test.dart) | MenuAcceleratorLabel | No | No | Yes | Checked. |
+| [menu_accelerator_callback_binding_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/menu_accelerator_callback_binding_test.dart) | MenuAcceleratorCallbackBinding | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [menu_accelerator_label_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/menu_accelerator_label_test.dart) | MenuAcceleratorLabel | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [menu_advanced_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/menu_advanced_test.dart) | MenuStyle | No | Yes | No |
-| [menu_button_theme_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/menu_button_theme_data_test.dart) | MenuButtonThemeData | No | No | Yes | Checked. |
-| [menu_button_theme_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/menu_button_theme_test.dart) | MenuButtonTheme | No | No | Yes | Checked. |
-| [menu_style_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/menu_style_test.dart) | MenuStyle | No | No | Yes | Checked. |
+| [menu_button_theme_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/menu_button_theme_data_test.dart) | MenuButtonThemeData | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [menu_button_theme_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/menu_button_theme_test.dart) | MenuButtonTheme | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [menu_style_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/menu_style_test.dart) | MenuStyle | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [menu_themes_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/menu_themes_test.dart) | MenuTheme | No | Yes | No | Checked. |
 | [menuanchor_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/menuanchor_test.dart) | MenuAnchor | No | Yes | No |
 | [menubar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/menubar_test.dart) | MenuBar | No | Yes | No |
-| [mergeable_material_item_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/mergeable_material_item_test.dart) | MergeableMaterialItem | No | No | Yes | Checked. |
+| [mergeable_material_item_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/mergeable_material_item_test.dart) | MergeableMaterialItem | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [mergeable_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/mergeable_test.dart) | MergeableMaterial | No | Yes | No |
 | [misc_themes_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/misc_themes_test.dart) | ExpansionTileTheme | No | Yes | No | Checked. |
-| [modal_bottom_sheet_route_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/modal_bottom_sheet_route_test.dart) | ModalBottomSheetRoute | No | No | Yes | Checked. |
+| [modal_bottom_sheet_route_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/modal_bottom_sheet_route_test.dart) | ModalBottomSheetRoute | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [nav_badge_advanced_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/nav_badge_advanced_test.dart) | material | No | Yes | No |
 | [nav_destinations_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/nav_destinations_test.dart) | NavigationDestination | No | Yes | No |
 | [navigation_destination_label_behavior_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/navigation_destination_label_behavior_test.dart) | NavigationDestinationLabelBehavior | No | Yes | No | Checked. |
-| [navigation_drawer_theme_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/navigation_drawer_theme_data_test.dart) | NavigationDrawerThemeData | No | No | Yes | Checked. |
-| [navigation_drawer_theme_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/navigation_drawer_theme_test.dart) | NavigationDrawerTheme | No | No | Yes | Checked. |
-| [navigation_indicator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/navigation_indicator_test.dart) | NavigationIndicator | No | No | Yes | Checked. |
+| [navigation_drawer_theme_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/navigation_drawer_theme_data_test.dart) | NavigationDrawerThemeData | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [navigation_drawer_theme_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/navigation_drawer_theme_test.dart) | NavigationDrawerTheme | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [navigation_indicator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/navigation_indicator_test.dart) | NavigationIndicator | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [navigation_rail_label_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/navigation_rail_label_type_test.dart) | NavigationRailLabelType | No | Yes | No | Checked. |
 | [navigation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/navigation_test.dart) | Drawer | No | Yes | No |
 | [navigation_themes_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/navigation_themes_test.dart) | NavigationBarTheme | No | Yes | No | Checked. |
-| [no_splash_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/no_splash_test.dart) | YesSplash | No | No | Yes | Checked. |
-| [outlined_button_theme_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/outlined_button_theme_data_test.dart) | OutlinedButtonThemeData | No | No | Yes | Checked. |
-| [paddle_range_slider_value_indicator_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/paddle_range_slider_value_indicator_shape_test.dart) | PaddleRangeSliderValueIndicatorShape | No | No | Yes | Checked. |
-| [paddle_slider_value_indicator_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/paddle_slider_value_indicator_shape_test.dart) | PaddleSliderValueIndicatorShape | No | No | Yes | Checked. |
+| [no_splash_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/no_splash_test.dart) | YesSplash | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [outlined_button_theme_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/outlined_button_theme_data_test.dart) | OutlinedButtonThemeData | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [paddle_range_slider_value_indicator_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/paddle_range_slider_value_indicator_shape_test.dart) | PaddleRangeSliderValueIndicatorShape | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [paddle_slider_value_indicator_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/paddle_slider_value_indicator_shape_test.dart) | PaddleSliderValueIndicatorShape | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [pageroute_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/pageroute_test.dart) | MaterialPageRoute | No | Yes | No | Checked. |
-| [paginated_data_table_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/paginated_data_table_state_test.dart) | PaginatedDataTableState | No | No | Yes | Checked. |
-| [persistent_bottom_sheet_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/persistent_bottom_sheet_controller_test.dart) | PersistentBottomSheetController | No | No | Yes | Checked. |
+| [paginated_data_table_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/paginated_data_table_state_test.dart) | PaginatedDataTableState | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [persistent_bottom_sheet_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/persistent_bottom_sheet_controller_test.dart) | PersistentBottomSheetController | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [picker_themes_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/picker_themes_test.dart) | DatePickerTheme | No | Yes | No | Checked. |
 | [platform_adaptive_icons_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/platform_adaptive_icons_test.dart) | PlatformAdaptiveIcons | No | No | Yes | Checked. |
 | [popup_advanced_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/popup_advanced_test.dart) | CheckedPopupMenuItem | No | Yes | No | Checked. |
 | [popup_menu_button_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/popup_menu_button_state_test.dart) | PopupMenuButtonState | No | No | Yes | Checked. |
-| [popup_menu_divider_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/popup_menu_divider_test.dart) | PopupMenuDivider | No | No | Yes | Checked. |
+| [popup_menu_divider_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/popup_menu_divider_test.dart) | PopupMenuDivider | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [popup_menu_entry_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/popup_menu_entry_test.dart) | PopupMenuEntry | No | No | Yes | Checked. |
-| [popup_menu_item_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/popup_menu_item_state_test.dart) | PopupMenuItemState | No | No | Yes | Checked. |
+| [popup_menu_item_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/popup_menu_item_state_test.dart) | PopupMenuItemState | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [popup_menu_item_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/popup_menu_item_test.dart) | PopupMenuItem | No | No | Yes | Checked. |
 | [popup_menu_position_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/popup_menu_position_test.dart) | PopupMenuPosition | No | Yes | No | Checked. |
 | [predictive_back_fullscreen_page_transitions_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/predictive_back_fullscreen_page_transitions_builder_test.dart) | PredictiveBackFullscreenPageTransitionsBuilder | No | No | Yes | Checked. |
-| [progress_indicator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/progress_indicator_test.dart) | ProgressIndicator | No | No | Yes | Checked. |
+| [progress_indicator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/progress_indicator_test.dart) | ProgressIndicator | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [progress_sheet_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/progress_sheet_test.dart) | LinearProgressIndicator | No | Yes | No |
 | [progress_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/progress_test.dart) | CircularProgressIndicator | No | Yes | No |
-| [radio_list_tile_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/radio_list_tile_test.dart) | RadioListTile | No | No | Yes | Checked. |
-| [range_labels_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/range_labels_test.dart) | RangeLabels | No | No | Yes | Checked. |
-| [range_slider_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/range_slider_test.dart) | RangeSlider | No | No | Yes | Checked. |
-| [range_slider_thumb_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/range_slider_thumb_shape_test.dart) | RangeSliderThumbShape | No | No | Yes | Checked. |
-| [range_slider_tick_mark_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/range_slider_tick_mark_shape_test.dart) | RangeSliderTickMarkShape | No | No | Yes | Checked. |
-| [range_slider_track_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/range_slider_track_shape_test.dart) | RangeSliderTrackShape | No | No | Yes | Checked. |
-| [range_slider_value_indicator_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/range_slider_value_indicator_shape_test.dart) | RangeSliderValueIndicatorShape | No | No | Yes | Checked. |
-| [range_values_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/range_values_test.dart) | RangeValues | No | No | Yes | Checked. |
-| [raw_chip_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/raw_chip_test.dart) | RawChip | No | No | Yes | Checked. |
-| [raw_material_button_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/raw_material_button_test.dart) | RawMaterialButton | No | No | Yes | Checked. |
+| [radio_list_tile_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/radio_list_tile_test.dart) | RadioListTile | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [range_labels_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/range_labels_test.dart) | RangeLabels | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [range_slider_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/range_slider_test.dart) | RangeSlider | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [range_slider_thumb_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/range_slider_thumb_shape_test.dart) | RangeSliderThumbShape | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [range_slider_tick_mark_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/range_slider_tick_mark_shape_test.dart) | RangeSliderTickMarkShape | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [range_slider_track_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/range_slider_track_shape_test.dart) | RangeSliderTrackShape | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [range_slider_value_indicator_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/range_slider_value_indicator_shape_test.dart) | RangeSliderValueIndicatorShape | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [range_values_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/range_values_test.dart) | RangeValues | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [raw_chip_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/raw_chip_test.dart) | RawChip | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [raw_material_button_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/raw_material_button_test.dart) | RawMaterialButton | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [rawscrollbar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/rawscrollbar_test.dart) | RawScrollbar | No | Yes | No |
-| [rectangular_range_slider_track_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/rectangular_range_slider_track_shape_test.dart) | RectangularRangeSliderTrackShape | No | No | Yes | Checked. |
-| [rectangular_range_slider_value_indicator_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/rectangular_range_slider_value_indicator_shape_test.dart) | RectangularRangeSliderValueIndicatorShape | No | No | Yes | Checked. |
-| [rectangular_slider_track_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/rectangular_slider_track_shape_test.dart) | RectangularSliderTrackShape | No | No | Yes | Checked. |
-| [rectangular_slider_value_indicator_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/rectangular_slider_value_indicator_shape_test.dart) | RectangularSliderValueIndicatorShape | No | No | Yes | Checked. |
-| [refresh_indicator_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/refresh_indicator_state_test.dart) | RefreshIndicatorState | No | No | Yes | Checked. |
+| [rectangular_range_slider_track_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/rectangular_range_slider_track_shape_test.dart) | RectangularRangeSliderTrackShape | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [rectangular_range_slider_value_indicator_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/rectangular_range_slider_value_indicator_shape_test.dart) | RectangularRangeSliderValueIndicatorShape | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [rectangular_slider_track_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/rectangular_slider_track_shape_test.dart) | RectangularSliderTrackShape | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [rectangular_slider_value_indicator_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/rectangular_slider_value_indicator_shape_test.dart) | RectangularSliderValueIndicatorShape | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [refresh_indicator_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/refresh_indicator_state_test.dart) | RefreshIndicatorState | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [refresh_indicator_status_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/refresh_indicator_status_test.dart) | RefreshIndicatorStatus | No | Yes | No | Checked. |
 | [refresh_indicator_trigger_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/refresh_indicator_trigger_mode_test.dart) | RefreshIndicatorTriggerMode | No | Yes | No | Checked. |
-| [refresh_progress_indicator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/refresh_progress_indicator_test.dart) | RefreshProgressIndicator | No | No | Yes | Checked. |
+| [refresh_progress_indicator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/refresh_progress_indicator_test.dart) | RefreshProgressIndicator | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [refreshindicator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/refreshindicator_test.dart) | RefreshIndicator | No | Yes | No |
 | [reorderable_material_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/reorderable_material_test.dart) | ReorderableListView | No | Yes | No |
-| [restorable_time_of_day_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/restorable_time_of_day_test.dart) | RestorableTimeOfDay | No | No | Yes | Checked. |
-| [round_range_slider_thumb_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/round_range_slider_thumb_shape_test.dart) | RoundRangeSliderThumbShape | No | No | Yes | Checked. |
-| [round_range_slider_tick_mark_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/round_range_slider_tick_mark_shape_test.dart) | RoundRangeSliderTickMarkShape | No | No | Yes | Checked. |
-| [round_slider_overlay_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/round_slider_overlay_shape_test.dart) | RoundSliderOverlayShape | No | No | Yes | Checked. |
-| [round_slider_thumb_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/round_slider_thumb_shape_test.dart) | RoundSliderThumbShape | No | No | Yes | Checked. |
-| [round_slider_tick_mark_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/round_slider_tick_mark_shape_test.dart) | RoundSliderTickMarkShape | No | No | Yes | Checked. |
-| [rounded_rect_range_slider_track_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/rounded_rect_range_slider_track_shape_test.dart) | RoundedRectRangeSliderTrackShape | No | No | Yes | Checked. |
-| [rounded_rect_range_slider_value_indicator_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/rounded_rect_range_slider_value_indicator_shape_test.dart) | RoundedRectRangeSliderValueIndicatorShape | No | No | Yes | Checked. |
-| [rounded_rect_slider_track_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/rounded_rect_slider_track_shape_test.dart) | RoundedRectSliderTrackShape | No | No | Yes | Checked. |
-| [rounded_rect_slider_value_indicator_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/rounded_rect_slider_value_indicator_shape_test.dart) | RoundedRectSliderValueIndicatorShape | No | No | Yes | Checked. |
+| [restorable_time_of_day_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/restorable_time_of_day_test.dart) | RestorableTimeOfDay | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [round_range_slider_thumb_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/round_range_slider_thumb_shape_test.dart) | RoundRangeSliderThumbShape | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [round_range_slider_tick_mark_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/round_range_slider_tick_mark_shape_test.dart) | RoundRangeSliderTickMarkShape | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [round_slider_overlay_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/round_slider_overlay_shape_test.dart) | RoundSliderOverlayShape | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [round_slider_thumb_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/round_slider_thumb_shape_test.dart) | RoundSliderThumbShape | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [round_slider_tick_mark_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/round_slider_tick_mark_shape_test.dart) | RoundSliderTickMarkShape | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [rounded_rect_range_slider_track_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/rounded_rect_range_slider_track_shape_test.dart) | RoundedRectRangeSliderTrackShape | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [rounded_rect_range_slider_value_indicator_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/rounded_rect_range_slider_value_indicator_shape_test.dart) | RoundedRectRangeSliderValueIndicatorShape | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [rounded_rect_slider_track_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/rounded_rect_slider_track_shape_test.dart) | RoundedRectSliderTrackShape | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [rounded_rect_slider_value_indicator_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/rounded_rect_slider_value_indicator_shape_test.dart) | RoundedRectSliderValueIndicatorShape | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [scaffold_advanced_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/scaffold_advanced_test.dart) | ScaffoldGeometry | Yes | Yes | No |
 | [scaffold_fab_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/scaffold_fab_test.dart) | ScaffoldFeatureController | No | Yes | No | Checked. |
-| [scaffold_feature_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/scaffold_feature_controller_test.dart) | ScaffoldFeatureController | No | No | Yes | Checked. |
-| [scaffold_geometry_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/scaffold_geometry_test.dart) | ScaffoldGeometry | No | No | Yes | Checked. |
-| [scaffold_internals_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/scaffold_internals_test.dart) | ScaffoldState | No | No | Yes | Checked. |
-| [scaffold_messenger_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/scaffold_messenger_state_test.dart) | ScaffoldMessengerState | No | No | Yes | Checked. |
-| [scaffold_messenger_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/scaffold_messenger_test.dart) | ScaffoldMessenger | No | No | Yes | Checked. |
-| [scaffold_prelayout_geometry_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/scaffold_prelayout_geometry_test.dart) | ScaffoldPrelayoutGeometry | No | No | Yes | Checked. |
-| [scaffold_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/scaffold_state_test.dart) | ScaffoldState | No | No | Yes | Checked. |
+| [scaffold_feature_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/scaffold_feature_controller_test.dart) | ScaffoldFeatureController | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [scaffold_geometry_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/scaffold_geometry_test.dart) | ScaffoldGeometry | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [scaffold_internals_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/scaffold_internals_test.dart) | ScaffoldState | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [scaffold_messenger_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/scaffold_messenger_state_test.dart) | ScaffoldMessengerState | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [scaffold_messenger_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/scaffold_messenger_test.dart) | ScaffoldMessenger | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [scaffold_prelayout_geometry_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/scaffold_prelayout_geometry_test.dart) | ScaffoldPrelayoutGeometry | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [scaffold_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/scaffold_state_test.dart) | ScaffoldState | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [scaffold_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/scaffold_test.dart) | Scaffold | No | Yes | No |
 | [script_category_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/script_category_test.dart) | ScriptCategory | No | Yes | No | Checked. |
 | [scrollbar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/scrollbar_test.dart) | Scrollbar | No | Yes | No |
-| [scrollbar_theme_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/scrollbar_theme_data_test.dart) | ScrollbarThemeData | No | No | Yes | Checked. |
-| [search_anchor_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/search_anchor_test.dart) | SearchAnchor | No | No | Yes | Checked. |
-| [search_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/search_controller_test.dart) | SearchController | No | No | Yes | Checked. |
-| [search_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/search_delegate_test.dart) | SearchDelegate | No | No | Yes | Checked. |
-| [search_filled_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/search_filled_test.dart) | material | No | No | Yes | Checked. |
+| [scrollbar_theme_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/scrollbar_theme_data_test.dart) | ScrollbarThemeData | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [search_anchor_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/search_anchor_test.dart) | SearchAnchor | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [search_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/search_controller_test.dart) | SearchController | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [search_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/search_delegate_test.dart) | SearchDelegate | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [search_filled_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/search_filled_test.dart) | material | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [search_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/search_test.dart) | SearchBar | No | Yes | No |
-| [segmented_button_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/segmented_button_state_test.dart) | SegmentedButtonState | No | No | Yes | Checked. |
+| [segmented_button_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/segmented_button_state_test.dart) | SegmentedButtonState | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [segmentedbutton_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/segmentedbutton_test.dart) | SegmentedButton | No | Yes | No |
 | [selectable_chip_attributes_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/selectable_chip_attributes_test.dart) | SelectableChipAttributes | Yes | Yes | No |
 | [selectabletext_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/selectabletext_test.dart) | SelectableText | No | Yes | No |
-| [selection_area_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/selection_area_state_test.dart) | SelectionAreaState | No | No | Yes | Checked. |
-| [selection_area_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/selection_area_test.dart) | SelectionArea | No | No | Yes | Checked. |
-| [shape_border_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/shape_border_tween_test.dart) | ShapeBorderTween | No | No | Yes | Checked. |
+| [selection_area_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/selection_area_state_test.dart) | SelectionAreaState | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [selection_area_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/selection_area_test.dart) | SelectionArea | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [shape_border_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/shape_border_tween_test.dart) | ShapeBorderTween | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [show_value_indicator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/show_value_indicator_test.dart) | ShowValueIndicator | No | Yes | No | Checked. |
 | [showbottomsheet_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/showbottomsheet_test.dart) | showModalBottomSheet | No | Yes | No |
 | [showdatepicker_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/showdatepicker_test.dart) | showDatePicker | No | Yes | No |
 | [showdialog_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/showdialog_test.dart) | showDialog | No | Yes | No |
 | [showmenu_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/showmenu_test.dart) | showMenu | No | Yes | No |
 | [showtimepicker_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/showtimepicker_test.dart) | showTimePicker | No | Yes | No |
-| [simple_dialog_option_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/simple_dialog_option_test.dart) | SimpleDialogOption | No | No | Yes | Checked. |
-| [slider_component_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/slider_component_shape_test.dart) | SliderComponentShape | No | No | Yes | Checked. |
+| [simple_dialog_option_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/simple_dialog_option_test.dart) | SimpleDialogOption | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [slider_component_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/slider_component_shape_test.dart) | SliderComponentShape | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [slider_interaction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/slider_interaction_test.dart) | SliderInteraction | No | Yes | No | Checked. |
-| [slider_tick_mark_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/slider_tick_mark_shape_test.dart) | SliderTickMarkShape | No | No | Yes | Checked. |
-| [slider_track_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/slider_track_shape_test.dart) | SliderTrackShape | No | No | Yes | Checked. |
+| [slider_tick_mark_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/slider_tick_mark_shape_test.dart) | SliderTickMarkShape | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [slider_track_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/slider_track_shape_test.dart) | SliderTrackShape | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [sliverappbar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/sliverappbar_test.dart) | SliverAppBar | No | Yes | No |
-| [snack_bar_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/snack_bar_action_test.dart) | SnackBarAction | No | No | Yes | Checked. |
+| [snack_bar_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/snack_bar_action_test.dart) | SnackBarAction | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [snack_bar_behavior_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/snack_bar_behavior_test.dart) | SnackBarBehavior | No | Yes | No | Checked. |
 | [snack_bar_closed_reason_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/snack_bar_closed_reason_test.dart) | SnackBarClosedReason | No | Yes | No | Checked. |
-| [snack_bar_theme_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/snack_bar_theme_data_test.dart) | SnackBarThemeData | No | No | Yes | Checked. |
+| [snack_bar_theme_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/snack_bar_theme_data_test.dart) | SnackBarThemeData | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [snackbar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/snackbar_test.dart) | SnackBar | No | Yes | No |
-| [spell_check_suggestions_toolbar_layout_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/spell_check_suggestions_toolbar_layout_delegate_test.dart) | SpellCheckSuggestionsToolbarLayoutDelegate | No | No | Yes | Checked. |
-| [spell_check_suggestions_toolbar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/spell_check_suggestions_toolbar_test.dart) | SpellCheckSuggestionsToolbar | No | No | Yes | Checked. |
-| [standard_fab_location_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/standard_fab_location_test.dart) | StandardFabLocation | No | No | Yes | Checked. |
-| [step_style_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/step_style_test.dart) | StepStyle | No | No | Yes | Checked. |
+| [spell_check_suggestions_toolbar_layout_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/spell_check_suggestions_toolbar_layout_delegate_test.dart) | SpellCheckSuggestionsToolbarLayoutDelegate | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [spell_check_suggestions_toolbar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/spell_check_suggestions_toolbar_test.dart) | SpellCheckSuggestionsToolbar | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [standard_fab_location_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/standard_fab_location_test.dart) | StandardFabLocation | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [step_style_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/step_style_test.dart) | StepStyle | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [stepper_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/stepper_test.dart) | Stepper | No | Yes | No |
 | [stepper_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/stepper_type_test.dart) | StepperType | No | Yes | No | Checked. |
+| [stepper_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/stepper_state_test.dart) | StepperState | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [stretch_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/stretch_mode_test.dart) | StretchMode | No | Yes | No | Checked. |
-| [switch_list_tile_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/switch_list_tile_test.dart) | SwitchListTile | No | No | Yes | Checked. |
+| [switch_list_tile_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/switch_list_tile_test.dart) | SwitchListTile | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [tab_alignment_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/tab_alignment_test.dart) | TabAlignment | No | Yes | No | Checked. |
 | [tab_bar_indicator_size_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/tab_bar_indicator_size_test.dart) | TabBarIndicatorSize | No | Yes | No | Checked. |
-| [tab_bar_theme_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/tab_bar_theme_data_test.dart) | TabBarThemeData | No | No | Yes | Checked. |
+| [tab_bar_theme_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/tab_bar_theme_data_test.dart) | TabBarThemeData | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [tab_indicator_animation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/tab_indicator_animation_test.dart) | TabIndicatorAnimation | No | Yes | No | Checked. |
 | [tab_indicator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/tab_indicator_test.dart) | UnderlineTabIndicator | No | Yes | No |
-| [tab_page_selector_indicator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/tab_page_selector_indicator_test.dart) | TabPageSelectorIndicator | No | No | Yes | Checked. |
-| [tab_page_selector_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/tab_page_selector_test.dart) | TabPageSelector | No | No | Yes | Checked. |
-| [table_row_ink_well_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/table_row_ink_well_test.dart) | TableRowInkWell | No | No | Yes | Checked. |
-| [tabs_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/tabs_test.dart) | Tabs | No | No | Yes | Checked. |
-| [tappable_chip_attributes_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/tappable_chip_attributes_test.dart) | TappableChipAttributes | No | No | Yes | Checked. |
+| [tab_page_selector_indicator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/tab_page_selector_indicator_test.dart) | TabPageSelectorIndicator | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [tab_page_selector_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/tab_page_selector_test.dart) | TabPageSelector | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [table_row_ink_well_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/table_row_ink_well_test.dart) | TableRowInkWell | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [tabs_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/tabs_test.dart) | Tabs | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [tappable_chip_attributes_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/tappable_chip_attributes_test.dart) | TappableChipAttributes | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [text_button_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/text_button_test.dart) | TextButton | No | Yes | No | Checked. |
-| [text_button_theme_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/text_button_theme_data_test.dart) | TextButtonThemeData | No | No | Yes | Checked. |
+| [text_button_theme_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/text_button_theme_data_test.dart) | TextButtonThemeData | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [text_field_theme_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/text_field_theme_test.dart) | InputDecorationTheme | No | Yes | No | Checked. |
-| [text_magnifier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/text_magnifier_test.dart) | TextMagnifier | No | No | Yes | Checked. |
-| [text_selection_toolbar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/text_selection_toolbar_test.dart) | TextSelectionToolbar | No | No | Yes | Checked. |
-| [text_selection_toolbar_text_button_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/text_selection_toolbar_text_button_test.dart) | TextSelectionToolbarTextButton | No | No | Yes | Checked. |
+| [text_magnifier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/text_magnifier_test.dart) | TextMagnifier | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [text_selection_toolbar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/text_selection_toolbar_test.dart) | TextSelectionToolbar | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [text_selection_toolbar_text_button_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/text_selection_toolbar_text_button_test.dart) | TextSelectionToolbarTextButton | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [texttheme_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/texttheme_test.dart) | TextTheme | No | Yes | No |
-| [themadata_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/themadata_test.dart) | Themadata | No | No | Yes | Checked. |
-| [theme_data_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/theme_data_tween_test.dart) | ThemeDataTween | No | No | Yes | Checked. |
-| [theme_extension_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/theme_extension_test.dart) | ThemeExtension | No | No | Yes | Checked. |
+| [themadata_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/themadata_test.dart) | Themadata | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [theme_data_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/theme_data_tween_test.dart) | ThemeDataTween | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [theme_extension_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/theme_extension_test.dart) | ThemeExtension | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [theme_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/theme_mode_test.dart) | ThemeMode | No | Yes | No | Checked. |
 | [theme_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/theme_test.dart) | Theme | No | Yes | No |
-| [themes_advanced_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/themes_advanced_test.dart) | material | No | No | Yes | Checked. |
+| [themes_advanced_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/themes_advanced_test.dart) | material | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [thumb_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/thumb_test.dart) | Thumb | No | Yes | No | Checked. |
 | [time_of_day_format_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/time_of_day_format_test.dart) | TimeOfDayFormat | No | Yes | No | Checked. |
 | [time_picker_entry_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/time_picker_entry_mode_test.dart) | TimePickerEntryMode | No | Yes | No | Checked. |
 | [timeofday_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/timeofday_test.dart) | TimeOfDay | No | Yes | No | Checked. |
 | [timepicker_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/timepicker_widget_test.dart) | TimePickerDialog | No | Yes | No | Checked. |
-| [toggle_buttons_theme_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/toggle_buttons_theme_data_test.dart) | ToggleButtonsThemeData | No | No | Yes | Checked. |
-| [toggle_buttons_theme_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/toggle_buttons_theme_test.dart) | ToggleButtonsTheme | No | No | Yes | Checked. |
+| [toggle_buttons_theme_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/toggle_buttons_theme_data_test.dart) | ToggleButtonsThemeData | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [toggle_buttons_theme_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/toggle_buttons_theme_test.dart) | ToggleButtonsTheme | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [toggle_segmented_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/toggle_segmented_test.dart) | ToggleButtons | No | Yes | No |
 | [togglebuttons_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/togglebuttons_test.dart) | ToggleButtons | No | Yes | No |
 | [tooltip_badge_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/tooltip_badge_test.dart) | Tooltip | No | Yes | No |
 | [tooltip_feedback_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/tooltip_feedback_test.dart) | Tooltip | No | Yes | No | Checked. |
-| [tooltip_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/tooltip_state_test.dart) | TooltipState | No | No | Yes | Checked. |
-| [tooltip_visibility_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/tooltip_visibility_test.dart) | TooltipVisibility | No | No | Yes | Checked. |
-| [typography_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/typography_test.dart) | Typography | No | No | Yes | Checked. |
+| [tooltip_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/tooltip_state_test.dart) | TooltipState | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [tooltip_visibility_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/tooltip_visibility_test.dart) | TooltipVisibility | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [typography_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/typography_test.dart) | Typography | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [underline_tab_indicator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/underline_tab_indicator_test.dart) | UnderlineTabIndicator | No | No | Yes | Checked. |
 | [vertical_divider_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/vertical_divider_test.dart) | VerticalDivider | No | No | Yes | Checked. |
 | [visual_density_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/visual_density_test.dart) | VisualDensity | No | No | Yes | Checked. |
@@ -1720,7 +1721,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [raw_menu_overlay_info_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_menu_overlay_info_test.dart) | RawMenuOverlayInfo | No | No | Yes | Checked. |
 | [raw_radio_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_radio_test.dart) | RawRadio | No | No | Yes | Checked. |
 | [raw_scrollbar_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_scrollbar_state_test.dart) | RawScrollbarState | No | No | Yes | Checked. |
-| [raw_tooltip_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_tooltip_state_test.dart) | RawTooltipState | No | No | Yes | Checked. |
+| [raw_tooltip_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_tooltip_state_test.dart) | RawTooltipState | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [raw_tooltip_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_tooltip_test.dart) | RawTooltip | No | No | Yes | Checked. |
 | [raw_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_view_test.dart) | RawView | No | No | Yes | Checked. |
 | [raw_web_image_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_web_image_test.dart) | RawWebImage | No | No | Yes | Checked. |
