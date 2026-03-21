@@ -29,7 +29,12 @@ Widget _buildSectionHeader(String title, Color bgColor) {
   );
 }
 
-Widget _buildInfoCard(String title, String description, IconData icon, Color accentColor) {
+Widget _buildInfoCard(
+  String title,
+  String description,
+  IconData icon,
+  Color accentColor,
+) {
   return Container(
     margin: EdgeInsets.only(bottom: 10),
     padding: EdgeInsets.all(14),
@@ -96,11 +101,7 @@ Widget _buildLabeledBox(String label, Color color) {
     ),
     child: Text(
       label,
-      style: TextStyle(
-        fontSize: 11,
-        fontWeight: FontWeight.w600,
-        color: color,
-      ),
+      style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: color),
     ),
   );
 }
@@ -124,10 +125,7 @@ Widget _buildColorSwatch(String label, Color color) {
         ),
       ),
       SizedBox(height: 4),
-      Text(
-        label,
-        style: TextStyle(fontSize: 9, color: Color(0xFF757575)),
-      ),
+      Text(label, style: TextStyle(fontSize: 9, color: Color(0xFF757575))),
     ],
   );
 }
@@ -140,10 +138,7 @@ Widget _buildPropertyRow(String name, String value, Color color) {
         Container(
           width: 8,
           height: 8,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         SizedBox(width: 8),
         Expanded(
@@ -237,7 +232,11 @@ Widget _buildDefaultSliderSection() {
           ),
           child: Text(
             'The default thumb uses RoundSliderThumbShape with enabledThumbRadius of 10.0 and disabledThumbRadius of null (which defaults to enabledThumbRadius).',
-            style: TextStyle(fontSize: 11, color: Color(0xFF616161), fontStyle: FontStyle.italic),
+            style: TextStyle(
+              fontSize: 11,
+              color: Color(0xFF616161),
+              fontStyle: FontStyle.italic,
+            ),
           ),
         ),
       ],
@@ -271,7 +270,11 @@ Widget _buildCustomThumbRadiusSection() {
       children: [
         Row(
           children: [
-            Icon(Icons.radio_button_checked, color: Color(0xFF388E3C), size: 22),
+            Icon(
+              Icons.radio_button_checked,
+              color: Color(0xFF388E3C),
+              size: 22,
+            ),
             SizedBox(width: 8),
             Expanded(
               child: Text(
@@ -293,9 +296,7 @@ Widget _buildCustomThumbRadiusSection() {
         SizedBox(height: 12),
         SliderTheme(
           data: SliderThemeData(
-            thumbShape: RoundSliderThumbShape(
-              enabledThumbRadius: 16,
-            ),
+            thumbShape: RoundSliderThumbShape(enabledThumbRadius: 16),
             activeTrackColor: Color(0xFF388E3C),
             inactiveTrackColor: Color(0xFFA5D6A7),
             thumbColor: Color(0xFF1B5E20),
@@ -342,12 +343,42 @@ Widget _buildThumbSizeComparisonSection() {
   print('Building thumb size comparison - tiny to large');
 
   List<Map<String, dynamic>> sizes = [
-    {'label': 'Tiny (4)', 'radius': 4.0, 'value': 0.3, 'color': Color(0xFF0288D1)},
-    {'label': 'Small (7)', 'radius': 7.0, 'value': 0.4, 'color': Color(0xFF00796B)},
-    {'label': 'Default (10)', 'radius': 10.0, 'value': 0.5, 'color': Color(0xFF7B1FA2)},
-    {'label': 'Medium (14)', 'radius': 14.0, 'value': 0.6, 'color': Color(0xFFC62828)},
-    {'label': 'Large (18)', 'radius': 18.0, 'value': 0.7, 'color': Color(0xFFE65100)},
-    {'label': 'Extra Large (24)', 'radius': 24.0, 'value': 0.8, 'color': Color(0xFF283593)},
+    {
+      'label': 'Tiny (4)',
+      'radius': 4.0,
+      'value': 0.3,
+      'color': Color(0xFF0288D1),
+    },
+    {
+      'label': 'Small (7)',
+      'radius': 7.0,
+      'value': 0.4,
+      'color': Color(0xFF00796B),
+    },
+    {
+      'label': 'Default (10)',
+      'radius': 10.0,
+      'value': 0.5,
+      'color': Color(0xFF7B1FA2),
+    },
+    {
+      'label': 'Medium (14)',
+      'radius': 14.0,
+      'value': 0.6,
+      'color': Color(0xFFC62828),
+    },
+    {
+      'label': 'Large (18)',
+      'radius': 18.0,
+      'value': 0.7,
+      'color': Color(0xFFE65100),
+    },
+    {
+      'label': 'Extra Large (24)',
+      'radius': 24.0,
+      'value': 0.8,
+      'color': Color(0xFF283593),
+    },
   ];
 
   List<Widget> sliderWidgets = [];
@@ -385,7 +416,11 @@ Widget _buildThumbSizeComparisonSection() {
                   ),
                   child: Text(
                     'r=$radius',
-                    style: TextStyle(fontSize: 10, color: color, fontWeight: FontWeight.w500),
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: color,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
               ],
@@ -393,9 +428,7 @@ Widget _buildThumbSizeComparisonSection() {
             SizedBox(height: 4),
             SliderTheme(
               data: SliderThemeData(
-                thumbShape: RoundSliderThumbShape(
-                  enabledThumbRadius: radius,
-                ),
+                thumbShape: RoundSliderThumbShape(enabledThumbRadius: radius),
                 activeTrackColor: color,
                 inactiveTrackColor: color.withValues(alpha: 0.25),
                 thumbColor: color,
@@ -522,7 +555,10 @@ Widget _buildColoredThumbSection() {
         decoration: BoxDecoration(
           color: Color(0xFFFAFAFA),
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: activeTrack.withValues(alpha: 0.3), width: 1),
+          border: Border.all(
+            color: activeTrack.withValues(alpha: 0.3),
+            width: 1,
+          ),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -550,9 +586,7 @@ Widget _buildColoredThumbSection() {
             SizedBox(height: 8),
             SliderTheme(
               data: SliderThemeData(
-                thumbShape: RoundSliderThumbShape(
-                  enabledThumbRadius: radius,
-                ),
+                thumbShape: RoundSliderThumbShape(enabledThumbRadius: radius),
                 activeTrackColor: activeTrack,
                 inactiveTrackColor: inactiveTrack,
                 thumbColor: thumb,
@@ -739,12 +773,7 @@ Widget _buildEnabledVsDisabledSection() {
                   disabledInactiveTrackColor: Color(0xFFD7CCC8),
                   disabledThumbColor: Color(0xFF795548),
                 ),
-                child: Slider(
-                  value: 0.65,
-                  min: 0.0,
-                  max: 1.0,
-                  onChanged: null,
-                ),
+                child: Slider(value: 0.65, min: 0.0, max: 1.0, onChanged: null),
               ),
               SizedBox(height: 4),
               Row(
@@ -767,12 +796,20 @@ Widget _buildEnabledVsDisabledSection() {
             children: [
               Text(
                 'Key difference:',
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xFF424242)),
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF424242),
+                ),
               ),
               SizedBox(height: 4),
               Text(
                 'When disabled (onChanged is null), the thumb shrinks from radius 14 to radius 8. This provides a visual hint that the slider is not interactive.',
-                style: TextStyle(fontSize: 11, color: Color(0xFF616161), fontStyle: FontStyle.italic),
+                style: TextStyle(
+                  fontSize: 11,
+                  color: Color(0xFF616161),
+                  fontStyle: FontStyle.italic,
+                ),
               ),
             ],
           ),
@@ -786,12 +823,48 @@ Widget _buildElevationSection() {
   print('Building thumb elevation section');
 
   List<Map<String, dynamic>> elevations = [
-    {'label': 'No elevation (0)', 'elevation': 0.0, 'pressed': 0.0, 'color': Color(0xFF37474F), 'value': 0.3},
-    {'label': 'Subtle (1)', 'elevation': 1.0, 'pressed': 4.0, 'color': Color(0xFF00695C), 'value': 0.4},
-    {'label': 'Default (1)', 'elevation': 1.0, 'pressed': 6.0, 'color': Color(0xFF1565C0), 'value': 0.5},
-    {'label': 'Medium (4)', 'elevation': 4.0, 'pressed': 8.0, 'color': Color(0xFF6A1B9A), 'value': 0.6},
-    {'label': 'High (8)', 'elevation': 8.0, 'pressed': 12.0, 'color': Color(0xFFD84315), 'value': 0.7},
-    {'label': 'Very High (12)', 'elevation': 12.0, 'pressed': 16.0, 'color': Color(0xFFC62828), 'value': 0.8},
+    {
+      'label': 'No elevation (0)',
+      'elevation': 0.0,
+      'pressed': 0.0,
+      'color': Color(0xFF37474F),
+      'value': 0.3,
+    },
+    {
+      'label': 'Subtle (1)',
+      'elevation': 1.0,
+      'pressed': 4.0,
+      'color': Color(0xFF00695C),
+      'value': 0.4,
+    },
+    {
+      'label': 'Default (1)',
+      'elevation': 1.0,
+      'pressed': 6.0,
+      'color': Color(0xFF1565C0),
+      'value': 0.5,
+    },
+    {
+      'label': 'Medium (4)',
+      'elevation': 4.0,
+      'pressed': 8.0,
+      'color': Color(0xFF6A1B9A),
+      'value': 0.6,
+    },
+    {
+      'label': 'High (8)',
+      'elevation': 8.0,
+      'pressed': 12.0,
+      'color': Color(0xFFD84315),
+      'value': 0.7,
+    },
+    {
+      'label': 'Very High (12)',
+      'elevation': 12.0,
+      'pressed': 16.0,
+      'color': Color(0xFFC62828),
+      'value': 0.8,
+    },
   ];
 
   List<Widget> elevationWidgets = [];
@@ -926,7 +999,11 @@ Widget _buildElevationSection() {
           ),
           child: Text(
             'elevation is the shadow at rest. pressedElevation is the shadow when the user presses the thumb. Higher values produce a more prominent shadow.',
-            style: TextStyle(fontSize: 11, color: Color(0xFF616161), fontStyle: FontStyle.italic),
+            style: TextStyle(
+              fontSize: 11,
+              color: Color(0xFF616161),
+              fontStyle: FontStyle.italic,
+            ),
           ),
         ),
       ],
@@ -1018,7 +1095,10 @@ Widget _buildMultipleThemedSlidersSection() {
         decoration: BoxDecoration(
           color: Color(0xFFFFFFFF),
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: activeColor.withValues(alpha: 0.4), width: 1),
+          border: Border.all(
+            color: activeColor.withValues(alpha: 0.4),
+            width: 1,
+          ),
           boxShadow: [
             BoxShadow(
               color: Color(0x0D000000),
@@ -1138,7 +1218,11 @@ Widget _buildPositionShowcaseSection() {
     {'label': 'Start (0.0)', 'value': 0.0, 'color': Color(0xFF1565C0)},
     {'label': 'Quarter (0.25)', 'value': 0.25, 'color': Color(0xFF2E7D32)},
     {'label': 'Half (0.5)', 'value': 0.5, 'color': Color(0xFFF57F17)},
-    {'label': 'Three-Quarter (0.75)', 'value': 0.75, 'color': Color(0xFFE65100)},
+    {
+      'label': 'Three-Quarter (0.75)',
+      'value': 0.75,
+      'color': Color(0xFFE65100),
+    },
     {'label': 'End (1.0)', 'value': 1.0, 'color': Color(0xFFC62828)},
   ];
 
@@ -1302,16 +1386,36 @@ Widget _buildPropertyReferenceSection() {
             children: [
               Text(
                 'Constructor Parameters',
-                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Color(0xFF1565C0)),
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF1565C0),
+                ),
               ),
               SizedBox(height: 8),
-              _buildPropertyRow('enabledThumbRadius', 'double (default: 10.0)', Color(0xFF2E7D32)),
+              _buildPropertyRow(
+                'enabledThumbRadius',
+                'double (default: 10.0)',
+                Color(0xFF2E7D32),
+              ),
               Divider(color: Color(0xFFE0E0E0), height: 12),
-              _buildPropertyRow('disabledThumbRadius', 'double? (default: null)', Color(0xFFE65100)),
+              _buildPropertyRow(
+                'disabledThumbRadius',
+                'double? (default: null)',
+                Color(0xFFE65100),
+              ),
               Divider(color: Color(0xFFE0E0E0), height: 12),
-              _buildPropertyRow('elevation', 'double (default: 1.0)', Color(0xFF1565C0)),
+              _buildPropertyRow(
+                'elevation',
+                'double (default: 1.0)',
+                Color(0xFF1565C0),
+              ),
               Divider(color: Color(0xFFE0E0E0), height: 12),
-              _buildPropertyRow('pressedElevation', 'double (default: 6.0)', Color(0xFFC62828)),
+              _buildPropertyRow(
+                'pressedElevation',
+                'double (default: 6.0)',
+                Color(0xFFC62828),
+              ),
             ],
           ),
         ),
@@ -1353,7 +1457,11 @@ Widget _buildPropertyReferenceSection() {
             children: [
               Text(
                 'Usage via SliderThemeData',
-                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Color(0xFF1565C0)),
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF1565C0),
+                ),
               ),
               SizedBox(height: 6),
               Text(
@@ -1392,16 +1500,48 @@ Widget _buildPropertyReferenceSection() {
             children: [
               Text(
                 'Additional SliderThemeData Properties',
-                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Color(0xFFE65100)),
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFFE65100),
+                ),
               ),
               SizedBox(height: 8),
-              _buildPropertyRow('thumbColor', 'Color - thumb fill', Color(0xFFE65100)),
-              _buildPropertyRow('activeTrackColor', 'Color - left of thumb', Color(0xFF2E7D32)),
-              _buildPropertyRow('inactiveTrackColor', 'Color - right of thumb', Color(0xFF757575)),
-              _buildPropertyRow('overlayColor', 'Color - press ripple', Color(0xFF1565C0)),
-              _buildPropertyRow('disabledThumbColor', 'Color - disabled fill', Color(0xFF9E9E9E)),
-              _buildPropertyRow('disabledActiveTrackColor', 'Color - disabled left', Color(0xFF9E9E9E)),
-              _buildPropertyRow('disabledInactiveTrackColor', 'Color - disabled right', Color(0xFF9E9E9E)),
+              _buildPropertyRow(
+                'thumbColor',
+                'Color - thumb fill',
+                Color(0xFFE65100),
+              ),
+              _buildPropertyRow(
+                'activeTrackColor',
+                'Color - left of thumb',
+                Color(0xFF2E7D32),
+              ),
+              _buildPropertyRow(
+                'inactiveTrackColor',
+                'Color - right of thumb',
+                Color(0xFF757575),
+              ),
+              _buildPropertyRow(
+                'overlayColor',
+                'Color - press ripple',
+                Color(0xFF1565C0),
+              ),
+              _buildPropertyRow(
+                'disabledThumbColor',
+                'Color - disabled fill',
+                Color(0xFF9E9E9E),
+              ),
+              _buildPropertyRow(
+                'disabledActiveTrackColor',
+                'Color - disabled left',
+                Color(0xFF9E9E9E),
+              ),
+              _buildPropertyRow(
+                'disabledInactiveTrackColor',
+                'Color - disabled right',
+                Color(0xFF9E9E9E),
+              ),
             ],
           ),
         ),
@@ -1422,7 +1562,9 @@ Widget _buildDebugOutputSection() {
   print('Elevation values demonstrated: 0, 1, 2, 3, 4, 8, 12');
   print('PressedElevation values demonstrated: 0, 3, 4, 5, 6, 8, 10, 12, 16');
   print('Color themes: Deep Ocean, Crimson Fire, Royal Purple, Golden Amber');
-  print('Themed configs: Compact Teal, Bold Red, Soft Lavender, Warm Amber, Steel Blue');
+  print(
+    'Themed configs: Compact Teal, Bold Red, Soft Lavender, Warm Amber, Steel Blue',
+  );
   print('Positions shown: 0.0, 0.25, 0.5, 0.75, 1.0');
   print('=== End Debug Output ===');
 
@@ -1492,7 +1634,9 @@ Widget _buildDebugOutputSection() {
 dynamic build(BuildContext context) {
   print('=== Slider Thumb Shape Demo ===');
   print('Testing RoundSliderThumbShape and thumb customization');
-  print('Properties: enabledThumbRadius, disabledThumbRadius, elevation, pressedElevation');
+  print(
+    'Properties: enabledThumbRadius, disabledThumbRadius, elevation, pressedElevation',
+  );
 
   return MaterialApp(
     debugShowCheckedModeBanner: false,
@@ -1507,7 +1651,10 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Section 1: Introduction info cards
-            _buildSectionHeader('Slider Thumb Shape Overview', Color(0xFF1565C0)),
+            _buildSectionHeader(
+              'Slider Thumb Shape Overview',
+              Color(0xFF1565C0),
+            ),
             SizedBox(height: 10),
             _buildInfoCard(
               'RoundSliderThumbShape',
@@ -1542,19 +1689,28 @@ dynamic build(BuildContext context) {
             SizedBox(height: 20),
 
             // Section 4: Thumb Size Comparison
-            _buildSectionHeader('Thumb Size Comparison (Tiny to Large)', Color(0xFF424242)),
+            _buildSectionHeader(
+              'Thumb Size Comparison (Tiny to Large)',
+              Color(0xFF424242),
+            ),
             SizedBox(height: 10),
             _buildThumbSizeComparisonSection(),
             SizedBox(height: 20),
 
             // Section 5: Custom thumb + track colors
-            _buildSectionHeader('Custom Thumb + Track Colors', Color(0xFF6A1B9A)),
+            _buildSectionHeader(
+              'Custom Thumb + Track Colors',
+              Color(0xFF6A1B9A),
+            ),
             SizedBox(height: 10),
             _buildColoredThumbSection(),
             SizedBox(height: 20),
 
             // Section 6: Enabled vs Disabled Thumb Radius
-            _buildSectionHeader('Enabled vs Disabled Thumb Radius', Color(0xFF546E7A)),
+            _buildSectionHeader(
+              'Enabled vs Disabled Thumb Radius',
+              Color(0xFF546E7A),
+            ),
             SizedBox(height: 10),
             _buildEnabledVsDisabledSection(),
             SizedBox(height: 20),
@@ -1566,13 +1722,19 @@ dynamic build(BuildContext context) {
             SizedBox(height: 20),
 
             // Section 8: Multiple themed sliders
-            _buildSectionHeader('Multiple Themed Configurations', Color(0xFF455A64)),
+            _buildSectionHeader(
+              'Multiple Themed Configurations',
+              Color(0xFF455A64),
+            ),
             SizedBox(height: 10),
             _buildMultipleThemedSlidersSection(),
             SizedBox(height: 20),
 
             // Section 9: Sliders at different positions
-            _buildSectionHeader('Thumb at Different Positions', Color(0xFFE65100)),
+            _buildSectionHeader(
+              'Thumb at Different Positions',
+              Color(0xFFE65100),
+            ),
             SizedBox(height: 10),
             _buildPositionShowcaseSection(),
             SizedBox(height: 20),

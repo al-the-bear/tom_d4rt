@@ -10,7 +10,14 @@ Widget buildSectionHeader(String title) {
       color: Colors.indigo.shade700,
       borderRadius: BorderRadius.circular(8),
     ),
-    child: Text(title, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)),
+    child: Text(
+      title,
+      style: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+      ),
+    ),
   );
 }
 
@@ -23,15 +30,30 @@ Widget buildInfoCard(String label, String value) {
       borderRadius: BorderRadius.circular(8),
       border: Border.all(color: Colors.grey.shade300),
     ),
-    child: Row(children: [
-      Text(label, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      SizedBox(width: 8),
-      Expanded(child: Text(value, style: TextStyle(fontSize: 14, color: Colors.grey.shade700))),
-    ]),
+    child: Row(
+      children: [
+        Text(
+          label,
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+        ),
+        SizedBox(width: 8),
+        Expanded(
+          child: Text(
+            value,
+            style: TextStyle(fontSize: 14, color: Colors.grey.shade700),
+          ),
+        ),
+      ],
+    ),
   );
 }
 
-Widget buildDropdownWithUnderline(String label, List<String> items, String selectedValue, Color accentColor) {
+Widget buildDropdownWithUnderline(
+  String label,
+  List<String> items,
+  String selectedValue,
+  Color accentColor,
+) {
   print('Building dropdown WITH underline: $label');
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
@@ -52,10 +74,20 @@ Widget buildDropdownWithUnderline(String label, List<String> items, String selec
                 color: Colors.orange.shade100,
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: Text('WITH underline', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Colors.orange.shade800)),
+              child: Text(
+                'WITH underline',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.orange.shade800,
+                ),
+              ),
             ),
             SizedBox(width: 8),
-            Text(label, style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+            Text(
+              label,
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+            ),
           ],
         ),
         SizedBox(height: 12),
@@ -75,7 +107,10 @@ Widget buildDropdownWithUnderline(String label, List<String> items, String selec
           children: [
             Icon(Icons.visibility, size: 14, color: Colors.orange.shade600),
             SizedBox(width: 4),
-            Text('Default underline is visible', style: TextStyle(fontSize: 12, color: Colors.orange.shade700)),
+            Text(
+              'Default underline is visible',
+              style: TextStyle(fontSize: 12, color: Colors.orange.shade700),
+            ),
           ],
         ),
       ],
@@ -83,7 +118,12 @@ Widget buildDropdownWithUnderline(String label, List<String> items, String selec
   );
 }
 
-Widget buildDropdownHidden(String label, List<String> items, String selectedValue, Color accentColor) {
+Widget buildDropdownHidden(
+  String label,
+  List<String> items,
+  String selectedValue,
+  Color accentColor,
+) {
   print('Building dropdown WITHOUT underline: $label');
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
@@ -104,10 +144,20 @@ Widget buildDropdownHidden(String label, List<String> items, String selectedValu
                 color: Colors.green.shade100,
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: Text('HIDDEN underline', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Colors.green.shade800)),
+              child: Text(
+                'HIDDEN underline',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.green.shade800,
+                ),
+              ),
             ),
             SizedBox(width: 8),
-            Text(label, style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+            Text(
+              label,
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+            ),
           ],
         ),
         SizedBox(height: 12),
@@ -129,7 +179,10 @@ Widget buildDropdownHidden(String label, List<String> items, String selectedValu
           children: [
             Icon(Icons.visibility_off, size: 14, color: Colors.green.shade600),
             SizedBox(width: 4),
-            Text('Underline hidden via DropdownButtonHideUnderline', style: TextStyle(fontSize: 12, color: Colors.green.shade700)),
+            Text(
+              'Underline hidden via DropdownButtonHideUnderline',
+              style: TextStyle(fontSize: 12, color: Colors.green.shade700),
+            ),
           ],
         ),
       ],
@@ -141,15 +194,17 @@ List<DropdownMenuItem> _buildDropdownItems(List<String> items) {
   List<DropdownMenuItem> menuItems = [];
   int i = 0;
   for (i = 0; i < items.length; i = i + 1) {
-    menuItems.add(DropdownMenuItem(
-      value: items[i],
-      child: Text(items[i]),
-    ));
+    menuItems.add(DropdownMenuItem(value: items[i], child: Text(items[i])));
   }
   return menuItems;
 }
 
-Widget buildComparisonPanel(String title, List<String> items, String selected, Color color) {
+Widget buildComparisonPanel(
+  String title,
+  List<String> items,
+  String selected,
+  Color color,
+) {
   print('Building comparison panel: $title');
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
@@ -162,7 +217,10 @@ Widget buildComparisonPanel(String title, List<String> items, String selected, C
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        Text(
+          title,
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 16),
         Row(
           children: [
@@ -178,13 +236,23 @@ Widget buildComparisonPanel(String title, List<String> items, String selected, C
                     ),
                     child: Column(
                       children: [
-                        Text('With Underline', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.orange.shade700)),
+                        Text(
+                          'With Underline',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.orange.shade700,
+                          ),
+                        ),
                         SizedBox(height: 8),
                         DropdownButton(
                           value: selected,
                           isExpanded: true,
                           icon: Icon(Icons.arrow_drop_down, size: 20),
-                          style: TextStyle(fontSize: 13, color: Colors.grey.shade800),
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: Colors.grey.shade800,
+                          ),
                           items: _buildDropdownItems(items),
                           onChanged: (dynamic val) {},
                         ),
@@ -207,14 +275,24 @@ Widget buildComparisonPanel(String title, List<String> items, String selected, C
                     ),
                     child: Column(
                       children: [
-                        Text('Hidden Underline', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.green.shade700)),
+                        Text(
+                          'Hidden Underline',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.green.shade700,
+                          ),
+                        ),
                         SizedBox(height: 8),
                         DropdownButtonHideUnderline(
                           child: DropdownButton(
                             value: selected,
                             isExpanded: true,
                             icon: Icon(Icons.arrow_drop_down, size: 20),
-                            style: TextStyle(fontSize: 13, color: Colors.grey.shade800),
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.grey.shade800,
+                            ),
                             items: _buildDropdownItems(items),
                             onChanged: (dynamic val) {},
                           ),
@@ -232,7 +310,12 @@ Widget buildComparisonPanel(String title, List<String> items, String selected, C
   );
 }
 
-Widget buildInCardContext(String label, List<String> items, String selected, Color cardColor) {
+Widget buildInCardContext(
+  String label,
+  List<String> items,
+  String selected,
+  Color cardColor,
+) {
   print('Building dropdown in card context: $label');
   return Card(
     margin: EdgeInsets.symmetric(vertical: 8),
@@ -247,7 +330,10 @@ Widget buildInCardContext(String label, List<String> items, String selected, Col
             children: [
               Icon(Icons.credit_card, color: cardColor),
               SizedBox(width: 8),
-              Text(label, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              Text(
+                label,
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
             ],
           ),
           SizedBox(height: 12),
@@ -270,7 +356,10 @@ Widget buildInCardContext(String label, List<String> items, String selected, Col
             ),
           ),
           SizedBox(height: 8),
-          Text('Clean dropdown in card — no underline', style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
+          Text(
+            'Clean dropdown in card — no underline',
+            style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+          ),
         ],
       ),
     ),
@@ -309,7 +398,10 @@ Widget buildInAppBarContext() {
                         value: 'Dashboard',
                         isExpanded: true,
                         dropdownColor: Colors.indigo.shade700,
-                        icon: Icon(Icons.arrow_drop_down, color: Colors.white70),
+                        icon: Icon(
+                          Icons.arrow_drop_down,
+                          color: Colors.white70,
+                        ),
                         style: TextStyle(fontSize: 16, color: Colors.white),
                         items: _buildDropdownItems(navItems),
                         onChanged: (dynamic val) {},
@@ -326,7 +418,10 @@ Widget buildInAppBarContext() {
             height: 100,
             color: Colors.grey.shade100,
             child: Center(
-              child: Text('Page Content Area', style: TextStyle(color: Colors.grey.shade400)),
+              child: Text(
+                'Page Content Area',
+                style: TextStyle(color: Colors.grey.shade400),
+              ),
             ),
           ),
         ],
@@ -342,60 +437,83 @@ Widget buildStyledContainerDropdowns() {
   List<String> priorities = ['Low', 'Normal', 'High', 'Urgent'];
 
   List<MaterialColor> containerColors = [Colors.blue, Colors.teal, Colors.red];
-  List<String> containerLabels = ['Category Selector', 'Size Filter', 'Priority Level'];
+  List<String> containerLabels = [
+    'Category Selector',
+    'Size Filter',
+    'Priority Level',
+  ];
   List<List<String>> containerItems = [fruits, sizes, priorities];
   List<String> containerSelected = ['Apple', 'Medium', 'Normal'];
-  List<IconData> containerIcons = [Icons.category, Icons.straighten, Icons.flag];
+  List<IconData> containerIcons = [
+    Icons.category,
+    Icons.straighten,
+    Icons.flag,
+  ];
 
   List<Widget> containers = [];
   int c = 0;
   for (c = 0; c < containerLabels.length; c = c + 1) {
-    containers.add(Container(
-      margin: EdgeInsets.symmetric(vertical: 6),
-      padding: EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [containerColors[c].shade50, containerColors[c].shade100],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
+    containers.add(
+      Container(
+        margin: EdgeInsets.symmetric(vertical: 6),
+        padding: EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [containerColors[c].shade50, containerColors[c].shade100],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: containerColors[c].shade200),
         ),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: containerColors[c].shade200),
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 40,
-            height: 40,
-            decoration: BoxDecoration(
-              color: containerColors[c].shade600,
-              borderRadius: BorderRadius.circular(8),
+        child: Row(
+          children: [
+            Container(
+              width: 40,
+              height: 40,
+              decoration: BoxDecoration(
+                color: containerColors[c].shade600,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Icon(containerIcons[c], color: Colors.white, size: 22),
             ),
-            child: Icon(containerIcons[c], color: Colors.white, size: 22),
-          ),
-          SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(containerLabels[c], style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: containerColors[c].shade800)),
-                SizedBox(height: 2),
-                DropdownButtonHideUnderline(
-                  child: DropdownButton(
-                    value: containerSelected[c],
-                    isExpanded: true,
-                    icon: Icon(Icons.arrow_drop_down, color: containerColors[c]),
-                    style: TextStyle(fontSize: 14, color: Colors.grey.shade800),
-                    items: _buildDropdownItems(containerItems[c]),
-                    onChanged: (dynamic val) {},
+            SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    containerLabels[c],
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: containerColors[c].shade800,
+                    ),
                   ),
-                ),
-              ],
+                  SizedBox(height: 2),
+                  DropdownButtonHideUnderline(
+                    child: DropdownButton(
+                      value: containerSelected[c],
+                      isExpanded: true,
+                      icon: Icon(
+                        Icons.arrow_drop_down,
+                        color: containerColors[c],
+                      ),
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey.shade800,
+                      ),
+                      items: _buildDropdownItems(containerItems[c]),
+                      onChanged: (dynamic val) {},
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ));
+    );
   }
 
   return Container(
@@ -409,9 +527,15 @@ Widget buildStyledContainerDropdowns() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Styled Container Dropdowns', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        Text(
+          'Styled Container Dropdowns',
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 4),
-        Text('DropdownButtonHideUnderline in custom containers', style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
+        Text(
+          'DropdownButtonHideUnderline in custom containers',
+          style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+        ),
         SizedBox(height: 12),
         Column(children: containers),
       ],
@@ -439,18 +563,27 @@ Widget buildWidgetTreeDiagram() {
   int l = 0;
   for (l = 0; l < layers.length; l = l + 1) {
     double indent = l * 16.0;
-    layerWidgets.add(Container(
-      margin: EdgeInsets.symmetric(vertical: 2),
-      padding: EdgeInsets.only(left: indent),
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        decoration: BoxDecoration(
-          color: layerColors[l],
-          borderRadius: BorderRadius.circular(6),
+    layerWidgets.add(
+      Container(
+        margin: EdgeInsets.symmetric(vertical: 2),
+        padding: EdgeInsets.only(left: indent),
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          decoration: BoxDecoration(
+            color: layerColors[l],
+            borderRadius: BorderRadius.circular(6),
+          ),
+          child: Text(
+            layers[l],
+            style: TextStyle(
+              fontSize: 13,
+              color: Colors.white,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
         ),
-        child: Text(layers[l], style: TextStyle(fontSize: 13, color: Colors.white, fontWeight: FontWeight.w500)),
       ),
-    ));
+    );
   }
 
   return Container(
@@ -464,11 +597,20 @@ Widget buildWidgetTreeDiagram() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Widget Tree Diagram', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        Text(
+          'Widget Tree Diagram',
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 4),
-        Text('How DropdownButtonHideUnderline works internally', style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
+        Text(
+          'How DropdownButtonHideUnderline works internally',
+          style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+        ),
         SizedBox(height: 12),
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: layerWidgets),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: layerWidgets,
+        ),
       ],
     ),
   );
@@ -476,7 +618,11 @@ Widget buildWidgetTreeDiagram() {
 
 Widget buildHideUnderlineProperties() {
   print('Building properties table');
-  List<String> propNames = ['child', 'DropdownButtonHideUnderline.of()', 'Behavior'];
+  List<String> propNames = [
+    'child',
+    'DropdownButtonHideUnderline.of()',
+    'Behavior',
+  ];
   List<String> propDescs = [
     'The DropdownButton widget to wrap',
     'Static method to check if underline should be hidden in context',
@@ -486,20 +632,34 @@ Widget buildHideUnderlineProperties() {
   int p = 0;
   for (p = 0; p < propNames.length; p = p + 1) {
     Color bg = (p % 2 == 0) ? Colors.indigo.shade50 : Colors.white;
-    rows.add(Container(
-      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-      color: bg,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 200,
-            child: Text(propNames[p], style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Colors.indigo.shade800)),
-          ),
-          Expanded(child: Text(propDescs[p], style: TextStyle(fontSize: 13, color: Colors.grey.shade700))),
-        ],
+    rows.add(
+      Container(
+        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        color: bg,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: 200,
+              child: Text(
+                propNames[p],
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.indigo.shade800,
+                ),
+              ),
+            ),
+            Expanded(
+              child: Text(
+                propDescs[p],
+                style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
+              ),
+            ),
+          ],
+        ),
       ),
-    ));
+    );
   }
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
@@ -516,9 +676,15 @@ Widget buildHideUnderlineProperties() {
           padding: EdgeInsets.all(12),
           decoration: BoxDecoration(
             color: Colors.indigo.shade50,
-            borderRadius: BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12)),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(12),
+              topRight: Radius.circular(12),
+            ),
           ),
-          child: Text('DropdownButtonHideUnderline API', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          child: Text(
+            'DropdownButtonHideUnderline API',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
         ),
         Column(children: rows),
       ],
@@ -531,7 +697,13 @@ dynamic build(BuildContext context) {
 
   List<String> colorItems = ['Red', 'Blue', 'Green', 'Yellow', 'Purple'];
   List<String> countryItems = ['USA', 'UK', 'Germany', 'France', 'Japan'];
-  List<String> fontItems = ['Roboto', 'Arial', 'Helvetica', 'Georgia', 'Courier'];
+  List<String> fontItems = [
+    'Roboto',
+    'Arial',
+    'Helvetica',
+    'Georgia',
+    'Courier',
+  ];
 
   Widget result = MaterialApp(
     debugShowCheckedModeBanner: false,
@@ -548,25 +720,69 @@ dynamic build(BuildContext context) {
           children: [
             buildSectionHeader('1. Overview'),
             buildInfoCard('Class', 'DropdownButtonHideUnderline'),
-            buildInfoCard('Purpose', 'An InheritedWidget to hide the underline of DropdownButton descendants'),
-            buildInfoCard('Typical Use', 'Wrap DropdownButton to remove its default underline'),
-            buildInfoCard('Mechanism', 'Propagates a flag via InheritedWidget context'),
+            buildInfoCard(
+              'Purpose',
+              'An InheritedWidget to hide the underline of DropdownButton descendants',
+            ),
+            buildInfoCard(
+              'Typical Use',
+              'Wrap DropdownButton to remove its default underline',
+            ),
+            buildInfoCard(
+              'Mechanism',
+              'Propagates a flag via InheritedWidget context',
+            ),
 
             buildSectionHeader('2. With Underline (Default)'),
-            buildDropdownWithUnderline('Color Selection', colorItems, 'Red', Colors.red),
-            buildDropdownWithUnderline('Country Selection', countryItems, 'USA', Colors.blue),
+            buildDropdownWithUnderline(
+              'Color Selection',
+              colorItems,
+              'Red',
+              Colors.red,
+            ),
+            buildDropdownWithUnderline(
+              'Country Selection',
+              countryItems,
+              'USA',
+              Colors.blue,
+            ),
 
             buildSectionHeader('3. Hidden Underline'),
-            buildDropdownHidden('Color Selection', colorItems, 'Red', Colors.red),
-            buildDropdownHidden('Country Selection', countryItems, 'USA', Colors.blue),
+            buildDropdownHidden(
+              'Color Selection',
+              colorItems,
+              'Red',
+              Colors.red,
+            ),
+            buildDropdownHidden(
+              'Country Selection',
+              countryItems,
+              'USA',
+              Colors.blue,
+            ),
 
             buildSectionHeader('4. Side-by-Side Comparison'),
-            buildComparisonPanel('Color Dropdown Comparison', colorItems, 'Red', Colors.red),
-            buildComparisonPanel('Font Dropdown Comparison', fontItems, 'Roboto', Colors.purple),
+            buildComparisonPanel(
+              'Color Dropdown Comparison',
+              colorItems,
+              'Red',
+              Colors.red,
+            ),
+            buildComparisonPanel(
+              'Font Dropdown Comparison',
+              fontItems,
+              'Roboto',
+              Colors.purple,
+            ),
 
             buildSectionHeader('5. In Card Context'),
             buildInCardContext('Color Theme', colorItems, 'Blue', Colors.blue),
-            buildInCardContext('Font Family', fontItems, 'Arial', Colors.purple),
+            buildInCardContext(
+              'Font Family',
+              fontItems,
+              'Arial',
+              Colors.purple,
+            ),
 
             buildSectionHeader('6. In AppBar Context'),
             buildInAppBarContext(),
@@ -581,11 +797,26 @@ dynamic build(BuildContext context) {
             buildHideUnderlineProperties(),
 
             buildSectionHeader('10. Usage Tips'),
-            buildInfoCard('Tip 1', 'Always wrap DropdownButton — not DropdownButtonFormField'),
-            buildInfoCard('Tip 2', 'Works via InheritedWidget — must be an ancestor'),
-            buildInfoCard('Tip 3', 'Useful in Cards and AppBars for cleaner look'),
-            buildInfoCard('Tip 4', 'Does not affect DropdownMenu or other dropdown types'),
-            buildInfoCard('Tip 5', 'Combine with custom Container borders for styled dropdowns'),
+            buildInfoCard(
+              'Tip 1',
+              'Always wrap DropdownButton — not DropdownButtonFormField',
+            ),
+            buildInfoCard(
+              'Tip 2',
+              'Works via InheritedWidget — must be an ancestor',
+            ),
+            buildInfoCard(
+              'Tip 3',
+              'Useful in Cards and AppBars for cleaner look',
+            ),
+            buildInfoCard(
+              'Tip 4',
+              'Does not affect DropdownMenu or other dropdown types',
+            ),
+            buildInfoCard(
+              'Tip 5',
+              'Combine with custom Container borders for styled dropdowns',
+            ),
 
             SizedBox(height: 32),
           ],

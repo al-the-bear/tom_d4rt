@@ -57,11 +57,7 @@ Widget _buildInfoCard(String label, String description) {
         SizedBox(height: 4),
         Text(
           description,
-          style: TextStyle(
-            fontSize: 13,
-            color: Color(0xFF00695C),
-            height: 1.4,
-          ),
+          style: TextStyle(fontSize: 13, color: Color(0xFF00695C), height: 1.4),
         ),
       ],
     ),
@@ -115,10 +111,7 @@ Widget _buildPropertyRow(String name, String value) {
         Expanded(
           child: Text(
             value,
-            style: TextStyle(
-              fontSize: 13,
-              color: Color(0xFF37474F),
-            ),
+            style: TextStyle(fontSize: 13, color: Color(0xFF37474F)),
           ),
         ),
       ],
@@ -156,9 +149,7 @@ Widget _buildDemoContainer(String label, Widget child) {
 
 Widget _buildBasicTitleSection() {
   print('Building basic GridTileBar with title only...');
-  final bar = GridTileBar(
-    title: Text('Basic Title'),
-  );
+  final bar = GridTileBar(title: Text('Basic Title'));
   print('  Created bar with title only');
 
   return Container(
@@ -185,16 +176,11 @@ Widget _buildBasicTitleSection() {
           style: TextStyle(fontSize: 13, color: Color(0xFF388E3C)),
         ),
         SizedBox(height: 12),
-        Container(
-          color: Color(0xFF424242),
-          child: bar,
-        ),
+        Container(color: Color(0xFF424242), child: bar),
         SizedBox(height: 12),
         Container(
           color: Color(0xFF1B5E20),
-          child: GridTileBar(
-            title: Text('Green Background Title'),
-          ),
+          child: GridTileBar(title: Text('Green Background Title')),
         ),
         SizedBox(height: 8),
         Container(
@@ -549,7 +535,11 @@ Widget _buildGridTileHeaderFooterSection() {
             child: Container(
               color: Color(0xFFFF8A65),
               child: Center(
-                child: Icon(Icons.play_circle_outline, color: Colors.white, size: 54),
+                child: Icon(
+                  Icons.play_circle_outline,
+                  color: Colors.white,
+                  size: 54,
+                ),
               ),
             ),
           ),
@@ -750,10 +740,7 @@ Widget _buildTextStylesSection() {
           ),
           subtitle: Text(
             'Small subtitle beneath',
-            style: TextStyle(
-              fontSize: 10,
-              color: Color(0xFFA5D6A7),
-            ),
+            style: TextStyle(fontSize: 10, color: Color(0xFFA5D6A7)),
           ),
         ),
         SizedBox(height: 8),
@@ -769,10 +756,7 @@ Widget _buildTextStylesSection() {
           ),
           subtitle: Text(
             'Different colored subtitle',
-            style: TextStyle(
-              fontSize: 12,
-              color: Color(0xFFE1BEE7),
-            ),
+            style: TextStyle(fontSize: 12, color: Color(0xFFE1BEE7)),
           ),
         ),
         SizedBox(height: 8),
@@ -794,10 +778,7 @@ Widget _buildTextStylesSection() {
           ),
           subtitle: Text(
             'Title can be any widget',
-            style: TextStyle(
-              fontSize: 11,
-              color: Color(0xFF80CBC4),
-            ),
+            style: TextStyle(fontSize: 11, color: Color(0xFF80CBC4)),
           ),
         ),
       ],
@@ -836,7 +817,11 @@ Widget _buildStandaloneSection() {
           leading: Icon(Icons.folder, color: Colors.white),
           title: Text('Documents'),
           subtitle: Text('42 files'),
-          trailing: Icon(Icons.arrow_forward_ios, color: Colors.white70, size: 16),
+          trailing: Icon(
+            Icons.arrow_forward_ios,
+            color: Colors.white70,
+            size: 16,
+          ),
         ),
         SizedBox(height: 8),
         GridTileBar(
@@ -915,11 +900,23 @@ Widget _buildPropertyReferenceSection() {
           ),
         ),
         SizedBox(height: 12),
-        _buildPropertyRow('backgroundColor', 'Color? - The background color of the bar'),
-        _buildPropertyRow('leading', 'Widget? - Widget to place before the title'),
+        _buildPropertyRow(
+          'backgroundColor',
+          'Color? - The background color of the bar',
+        ),
+        _buildPropertyRow(
+          'leading',
+          'Widget? - Widget to place before the title',
+        ),
         _buildPropertyRow('title', 'Widget? - The primary content of the bar'),
-        _buildPropertyRow('subtitle', 'Widget? - Additional content below the title'),
-        _buildPropertyRow('trailing', 'Widget? - Widget to place after the title'),
+        _buildPropertyRow(
+          'subtitle',
+          'Widget? - Additional content below the title',
+        ),
+        _buildPropertyRow(
+          'trailing',
+          'Widget? - Widget to place after the title',
+        ),
         SizedBox(height: 16),
         Text(
           'Usage Notes',
@@ -937,7 +934,10 @@ Widget _buildPropertyReferenceSection() {
         _buildPropertyRow('Subtitle style', 'Slightly smaller, muted color'),
         _buildPropertyRow('Leading size', 'Constrained to fit bar height'),
         _buildPropertyRow('Trailing size', 'Constrained to fit bar height'),
-        _buildPropertyRow('Layout', 'Row layout: leading - title/subtitle - trailing'),
+        _buildPropertyRow(
+          'Layout',
+          'Row layout: leading - title/subtitle - trailing',
+        ),
       ],
     ),
   );
@@ -952,9 +952,7 @@ dynamic build(BuildContext context) {
   // Debug output for property verification
   print('');
   print('--- Basic GridTileBar Construction ---');
-  final basicBar = GridTileBar(
-    title: Text('Test Title'),
-  );
+  final basicBar = GridTileBar(title: Text('Test Title'));
   print('  Basic bar created successfully');
   print('  Type: $basicBar');
 
@@ -992,10 +990,7 @@ dynamic build(BuildContext context) {
   while (colorIndex < bgColors.length) {
     Color c = bgColors[colorIndex];
     String name = colorNames[colorIndex];
-    GridTileBar testBar = GridTileBar(
-      backgroundColor: c,
-      title: Text(name),
-    );
+    GridTileBar testBar = GridTileBar(backgroundColor: c, title: Text(name));
     print('  Created bar with $name background');
     colorIndex = colorIndex + 1;
   }
@@ -1003,10 +998,7 @@ dynamic build(BuildContext context) {
   print('');
   print('--- GridTileBar with Various Widget Types ---');
   final barWithCircleAvatar = GridTileBar(
-    leading: CircleAvatar(
-      backgroundColor: Colors.teal,
-      child: Text('A'),
-    ),
+    leading: CircleAvatar(backgroundColor: Colors.teal, child: Text('A')),
     title: Text('Avatar leading'),
   );
   print('  Bar with CircleAvatar leading created');
@@ -1127,10 +1119,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 6),
               Text(
                 'Material Design widget for GridTile headers and footers',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Color(0xFFB2DFDB),
-                ),
+                style: TextStyle(fontSize: 14, color: Color(0xFFB2DFDB)),
               ),
               SizedBox(height: 4),
               Text(
@@ -1149,17 +1138,17 @@ dynamic build(BuildContext context) {
         _buildInfoCard(
           'Overview',
           'GridTileBar is a material design widget that provides a title area '
-          'for a GridTile. It is typically used as the header or footer of a '
-          'GridTile widget, displaying a title, subtitle, leading widget, and '
-          'trailing widget on a colored background.',
+              'for a GridTile. It is typically used as the header or footer of a '
+              'GridTile widget, displaying a title, subtitle, leading widget, and '
+              'trailing widget on a colored background.',
         ),
         _buildInfoCard(
           'Key Properties',
           'backgroundColor: Background color of the bar\n'
-          'leading: Widget placed before the title area\n'
-          'title: Primary content widget of the bar\n'
-          'subtitle: Secondary content widget below the title\n'
-          'trailing: Widget placed after the title area',
+              'leading: Widget placed before the title area\n'
+              'title: Primary content widget of the bar\n'
+              'subtitle: Secondary content widget below the title\n'
+              'trailing: Widget placed after the title area',
         ),
 
         // Section 1: Basic title
@@ -1203,26 +1192,26 @@ dynamic build(BuildContext context) {
         _buildInfoCard(
           'GridTileBar in Practice',
           'GridTileBar is most commonly used with GridTile to create photo '
-          'galleries, card grids, and tile-based layouts. It provides a '
-          'convenient way to overlay text and icons on tile content. The '
-          'backgroundColor property is crucial for readability when placed '
-          'over images.',
+              'galleries, card grids, and tile-based layouts. It provides a '
+              'convenient way to overlay text and icons on tile content. The '
+              'backgroundColor property is crucial for readability when placed '
+              'over images.',
         ),
         _buildInfoCard(
           'Layout Behavior',
           'GridTileBar uses a Row layout internally:\n'
-          '- leading is placed first (left side)\n'
-          '- title and subtitle stack vertically in the center\n'
-          '- trailing is placed last (right side)\n'
-          'The bar stretches to fill the available width.',
+              '- leading is placed first (left side)\n'
+              '- title and subtitle stack vertically in the center\n'
+              '- trailing is placed last (right side)\n'
+              'The bar stretches to fill the available width.',
         ),
         _buildInfoCard(
           'Best Practices',
           '- Always set backgroundColor for overlays on images\n'
-          '- Use semi-transparent black (0xAA000000 or 0xCC000000) for legibility\n'
-          '- Keep title text concise for narrow tiles\n'
-          '- Use leading for avatars or icons, trailing for actions\n'
-          '- Test with different tile sizes to ensure text fits',
+              '- Use semi-transparent black (0xAA000000 or 0xCC000000) for legibility\n'
+              '- Keep title text concise for narrow tiles\n'
+              '- Use leading for avatars or icons, trailing for actions\n'
+              '- Test with different tile sizes to ensure text fits',
         ),
 
         SizedBox(height: 24),

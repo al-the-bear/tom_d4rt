@@ -165,10 +165,7 @@ Widget _buildDefaultIconButtons() {
               },
             ),
             SizedBox(width: 8),
-            IconButton(
-              icon: Icon(Icons.delete),
-              onPressed: null,
-            ),
+            IconButton(icon: Icon(Icons.delete), onPressed: null),
           ],
         ),
         SizedBox(height: 4),
@@ -436,7 +433,10 @@ Widget _buildIconSizeVariations() {
               },
             ),
           ),
-          Text('${sInt}px', style: TextStyle(fontSize: 11, color: Color(0xFF757575))),
+          Text(
+            '${sInt}px',
+            style: TextStyle(fontSize: 11, color: Color(0xFF757575)),
+          ),
         ],
       ),
     );
@@ -461,10 +461,7 @@ Widget _buildIconSizeVariations() {
           style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
         ),
         SizedBox(height: 8),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: items,
-        ),
+        Row(crossAxisAlignment: CrossAxisAlignment.end, children: items),
       ],
     ),
   );
@@ -500,7 +497,10 @@ Widget _buildPaddingVariations() {
               },
             ),
           ),
-          Text('${pInt}px', style: TextStyle(fontSize: 11, color: Color(0xFF757575))),
+          Text(
+            '${pInt}px',
+            style: TextStyle(fontSize: 11, color: Color(0xFF757575)),
+          ),
         ],
       ),
     );
@@ -525,10 +525,7 @@ Widget _buildPaddingVariations() {
           style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
         ),
         SizedBox(height: 8),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: items,
-        ),
+        Row(crossAxisAlignment: CrossAxisAlignment.end, children: items),
       ],
     ),
   );
@@ -622,7 +619,9 @@ Widget _buildShapeStadium() {
     foregroundColor: WidgetStateProperty.all(Colors.white),
     backgroundColor: WidgetStateProperty.all(Color(0xFF7B1FA2)),
     shape: WidgetStateProperty.all(StadiumBorder()),
-    padding: WidgetStateProperty.all(EdgeInsets.symmetric(horizontal: 16, vertical: 12)),
+    padding: WidgetStateProperty.all(
+      EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+    ),
     iconSize: WidgetStateProperty.all(28.0),
   );
   IconButtonThemeData data = IconButtonThemeData(style: style);
@@ -735,7 +734,10 @@ Widget _buildNestedThemes() {
             children: [
               Row(
                 children: [
-                  Text('Outer: ', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500)),
+                  Text(
+                    'Outer: ',
+                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+                  ),
                   IconButton(
                     icon: Icon(Icons.thumb_up),
                     onPressed: () {
@@ -761,7 +763,13 @@ Widget _buildNestedThemes() {
                 data: innerTheme,
                 child: Row(
                   children: [
-                    Text('Inner: ', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500)),
+                    Text(
+                      'Inner: ',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
                     IconButton(
                       icon: Icon(Icons.check_circle),
                       onPressed: () {
@@ -897,7 +905,10 @@ Widget _buildStandardVariant() {
     data: data,
     child: Row(
       children: [
-        Text('Standard: ', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500)),
+        Text(
+          'Standard: ',
+          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+        ),
         IconButton(
           icon: Icon(Icons.add),
           onPressed: () {
@@ -938,7 +949,10 @@ Widget _buildFilledVariant() {
     data: data,
     child: Row(
       children: [
-        Text('Filled: ', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500)),
+        Text(
+          'Filled: ',
+          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+        ),
         SizedBox(width: 8),
         IconButton(
           icon: Icon(Icons.add),
@@ -982,7 +996,10 @@ Widget _buildFilledTonalVariant() {
     data: data,
     child: Row(
       children: [
-        Text('Tonal: ', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500)),
+        Text(
+          'Tonal: ',
+          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+        ),
         SizedBox(width: 8),
         IconButton(
           icon: Icon(Icons.add),
@@ -1029,7 +1046,10 @@ Widget _buildOutlinedVariant() {
     data: data,
     child: Row(
       children: [
-        Text('Outlined: ', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500)),
+        Text(
+          'Outlined: ',
+          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+        ),
         SizedBox(width: 8),
         IconButton(
           icon: Icon(Icons.add),
@@ -1113,39 +1133,39 @@ Widget _buildPropertyReference() {
         _buildInfoCard(
           'style (ButtonStyle?)',
           'The ButtonStyle applied to all descendant IconButtons. '
-          'Controls foreground, background, icon size, padding, shape, '
-          'elevation, overlay color, shadow color, and more.',
+              'Controls foreground, background, icon size, padding, shape, '
+              'elevation, overlay color, shadow color, and more.',
         ),
         _buildInfoCard(
           'IconButtonTheme Widget',
           'An InheritedWidget that propagates IconButtonThemeData '
-          'to all descendant IconButton widgets. Wrap a subtree '
-          'with IconButtonTheme to apply a consistent style.',
+              'to all descendant IconButton widgets. Wrap a subtree '
+              'with IconButtonTheme to apply a consistent style.',
         ),
         _buildInfoCard(
           'Merge Behavior',
           'When nested, the inner IconButtonThemeData fully replaces '
-          'the outer one. There is no automatic merging of properties. '
-          'To merge, manually combine styles before passing to the theme.',
+              'the outer one. There is no automatic merging of properties. '
+              'To merge, manually combine styles before passing to the theme.',
         ),
         _buildInfoCard(
           'ButtonStyle Properties Used',
           'foregroundColor, backgroundColor, overlayColor, shadowColor, '
-          'surfaceTintColor, elevation, padding, minimumSize, maximumSize, '
-          'iconSize, side, shape, mouseCursor, visualDensity, tapTargetSize, '
-          'animationDuration, enableFeedback, alignment, splashFactory.',
+              'surfaceTintColor, elevation, padding, minimumSize, maximumSize, '
+              'iconSize, side, shape, mouseCursor, visualDensity, tapTargetSize, '
+              'animationDuration, enableFeedback, alignment, splashFactory.',
         ),
         _buildInfoCard(
           'WidgetStateProperty',
           'Style properties use WidgetStateProperty to resolve values '
-          'based on button states: hovered, focused, pressed, disabled, '
-          'selected, and more. Use WidgetStateProperty.all() for uniform '
-          'values or WidgetStateProperty.resolveWith() for state-based logic.',
+              'based on button states: hovered, focused, pressed, disabled, '
+              'selected, and more. Use WidgetStateProperty.all() for uniform '
+              'values or WidgetStateProperty.resolveWith() for state-based logic.',
         ),
         _buildInfoCard(
           'Usage Pattern',
           'Create ButtonStyle -> Wrap in IconButtonThemeData -> '
-          'Pass to IconButtonTheme widget -> All child IconButtons inherit style.',
+              'Pass to IconButtonTheme widget -> All child IconButtons inherit style.',
         ),
       ],
     ),
@@ -1289,11 +1309,26 @@ Widget _buildDebugOutput() {
           style: TextStyle(fontSize: 13),
         ),
         SizedBox(height: 4),
-        Text('- Theme creation logs for each section', style: TextStyle(fontSize: 12, color: Color(0xFF616161))),
-        Text('- Button press callbacks', style: TextStyle(fontSize: 12, color: Color(0xFF616161))),
-        Text('- Style property values', style: TextStyle(fontSize: 12, color: Color(0xFF616161))),
-        Text('- Equality and hash code checks', style: TextStyle(fontSize: 12, color: Color(0xFF616161))),
-        Text('- Empty and null style comparisons', style: TextStyle(fontSize: 12, color: Color(0xFF616161))),
+        Text(
+          '- Theme creation logs for each section',
+          style: TextStyle(fontSize: 12, color: Color(0xFF616161)),
+        ),
+        Text(
+          '- Button press callbacks',
+          style: TextStyle(fontSize: 12, color: Color(0xFF616161)),
+        ),
+        Text(
+          '- Style property values',
+          style: TextStyle(fontSize: 12, color: Color(0xFF616161)),
+        ),
+        Text(
+          '- Equality and hash code checks',
+          style: TextStyle(fontSize: 12, color: Color(0xFF616161)),
+        ),
+        Text(
+          '- Empty and null style comparisons',
+          style: TextStyle(fontSize: 12, color: Color(0xFF616161)),
+        ),
       ],
     ),
   );
@@ -1302,7 +1337,9 @@ Widget _buildDebugOutput() {
 dynamic build(BuildContext context) {
   print('=== IconButtonThemeData Visual Demo ===');
   print('Demonstrating IconButtonThemeData and IconButtonTheme usage');
-  print('IconButtonThemeData customizes IconButton appearance via IconButtonTheme');
+  print(
+    'IconButtonThemeData customizes IconButton appearance via IconButtonTheme',
+  );
 
   return MaterialApp(
     debugShowCheckedModeBanner: false,

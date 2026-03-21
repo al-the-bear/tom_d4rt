@@ -29,7 +29,12 @@ Widget _buildSectionHeader(String title, Color bgColor) {
   );
 }
 
-Widget _buildInfoCard(String title, String description, IconData icon, Color accentColor) {
+Widget _buildInfoCard(
+  String title,
+  String description,
+  IconData icon,
+  Color accentColor,
+) {
   return Container(
     margin: EdgeInsets.only(bottom: 10),
     padding: EdgeInsets.all(14),
@@ -96,11 +101,7 @@ Widget _buildLabeledBox(String label, Color color) {
     ),
     child: Text(
       label,
-      style: TextStyle(
-        fontSize: 11,
-        fontWeight: FontWeight.w600,
-        color: color,
-      ),
+      style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: color),
     ),
   );
 }
@@ -124,10 +125,7 @@ Widget _buildColorSwatch(String label, Color color) {
         ),
       ),
       SizedBox(height: 4),
-      Text(
-        label,
-        style: TextStyle(fontSize: 9, color: Color(0xFF757575)),
-      ),
+      Text(label, style: TextStyle(fontSize: 9, color: Color(0xFF757575))),
     ],
   );
 }
@@ -200,7 +198,11 @@ Widget _buildDefaultSliderSection() {
           ),
           child: Text(
             'This default Slider uses RoundedRectSliderTrackShape. No gap is visible around the thumb. Compare with the gapped version below.',
-            style: TextStyle(fontSize: 11, color: Color(0xFF616161), fontStyle: FontStyle.italic),
+            style: TextStyle(
+              fontSize: 11,
+              color: Color(0xFF616161),
+              fontStyle: FontStyle.italic,
+            ),
           ),
         ),
       ],
@@ -260,9 +262,7 @@ Widget _buildGappedTrackSection() {
             activeTrackColor: Color(0xFF7B1FA2),
             inactiveTrackColor: Color(0xFFCE93D8),
             overlayColor: Color(0x297B1FA2),
-            thumbShape: RoundSliderThumbShape(
-              enabledThumbRadius: 12,
-            ),
+            thumbShape: RoundSliderThumbShape(enabledThumbRadius: 12),
           ),
           child: Slider(
             value: gappedVal,
@@ -461,12 +461,42 @@ Widget _buildTrackHeightsSection() {
   print('Building varying track heights section');
 
   List<Map<String, dynamic>> heights = [
-    {'label': 'Thin (2px)', 'height': 2.0, 'value': 0.4, 'color': Color(0xFF00897B)},
-    {'label': 'Default (4px)', 'height': 4.0, 'value': 0.5, 'color': Color(0xFF5C6BC0)},
-    {'label': 'Medium (8px)', 'height': 8.0, 'value': 0.6, 'color': Color(0xFFEF6C00)},
-    {'label': 'Thick (12px)', 'height': 12.0, 'value': 0.7, 'color': Color(0xFFAD1457)},
-    {'label': 'Extra Thick (16px)', 'height': 16.0, 'value': 0.55, 'color': Color(0xFF6A1B9A)},
-    {'label': 'Maximum (24px)', 'height': 24.0, 'value': 0.65, 'color': Color(0xFF1565C0)},
+    {
+      'label': 'Thin (2px)',
+      'height': 2.0,
+      'value': 0.4,
+      'color': Color(0xFF00897B),
+    },
+    {
+      'label': 'Default (4px)',
+      'height': 4.0,
+      'value': 0.5,
+      'color': Color(0xFF5C6BC0),
+    },
+    {
+      'label': 'Medium (8px)',
+      'height': 8.0,
+      'value': 0.6,
+      'color': Color(0xFFEF6C00),
+    },
+    {
+      'label': 'Thick (12px)',
+      'height': 12.0,
+      'value': 0.7,
+      'color': Color(0xFFAD1457),
+    },
+    {
+      'label': 'Extra Thick (16px)',
+      'height': 16.0,
+      'value': 0.55,
+      'color': Color(0xFF6A1B9A),
+    },
+    {
+      'label': 'Maximum (24px)',
+      'height': 24.0,
+      'value': 0.65,
+      'color': Color(0xFF1565C0),
+    },
   ];
 
   return Container(
@@ -534,9 +564,13 @@ Widget _buildTrackHeightsSection() {
                       trackShape: GappedSliderTrackShape(),
                       trackHeight: h['height'] as double,
                       activeTrackColor: h['color'] as Color,
-                      inactiveTrackColor: (h['color'] as Color).withValues(alpha: 0.3),
+                      inactiveTrackColor: (h['color'] as Color).withValues(
+                        alpha: 0.3,
+                      ),
                       thumbColor: h['color'] as Color,
-                      overlayColor: (h['color'] as Color).withValues(alpha: 0.15),
+                      overlayColor: (h['color'] as Color).withValues(
+                        alpha: 0.15,
+                      ),
                       thumbShape: RoundSliderThumbShape(enabledThumbRadius: 10),
                     ),
                     child: Slider(
@@ -638,7 +672,11 @@ Widget _buildComparisonSection() {
               SizedBox(height: 4),
               Text(
                 'Track is continuous under the thumb. No gap visible.',
-                style: TextStyle(fontSize: 11, color: Color(0xFF004D40), fontStyle: FontStyle.italic),
+                style: TextStyle(
+                  fontSize: 11,
+                  color: Color(0xFF004D40),
+                  fontStyle: FontStyle.italic,
+                ),
               ),
             ],
           ),
@@ -684,7 +722,11 @@ Widget _buildComparisonSection() {
               SizedBox(height: 4),
               Text(
                 'Track has a gap at the thumb position. Track segments are visually separated.',
-                style: TextStyle(fontSize: 11, color: Color(0xFFB71C1C), fontStyle: FontStyle.italic),
+                style: TextStyle(
+                  fontSize: 11,
+                  color: Color(0xFFB71C1C),
+                  fontStyle: FontStyle.italic,
+                ),
               ),
             ],
           ),
@@ -756,7 +798,11 @@ Widget _buildComparisonSection() {
               SizedBox(height: 6),
               Text(
                 'The gap effect is much more visible with thicker tracks. Both sliders are at the same 0.5 value.',
-                style: TextStyle(fontSize: 11, color: Color(0xFF616161), fontStyle: FontStyle.italic),
+                style: TextStyle(
+                  fontSize: 11,
+                  color: Color(0xFF616161),
+                  fontStyle: FontStyle.italic,
+                ),
               ),
             ],
           ),
@@ -846,9 +892,13 @@ Widget _buildDifferentValuesSection() {
                       trackShape: GappedSliderTrackShape(),
                       trackHeight: 6.0,
                       activeTrackColor: p['color'] as Color,
-                      inactiveTrackColor: (p['color'] as Color).withValues(alpha: 0.25),
+                      inactiveTrackColor: (p['color'] as Color).withValues(
+                        alpha: 0.25,
+                      ),
                       thumbColor: p['color'] as Color,
-                      overlayColor: (p['color'] as Color).withValues(alpha: 0.12),
+                      overlayColor: (p['color'] as Color).withValues(
+                        alpha: 0.12,
+                      ),
                       thumbShape: RoundSliderThumbShape(enabledThumbRadius: 9),
                     ),
                     child: Slider(
@@ -985,12 +1035,7 @@ Widget _buildDisabledAndEnabledSection() {
                   disabledThumbColor: Color(0xFF9E9E9E),
                   thumbShape: RoundSliderThumbShape(enabledThumbRadius: 10),
                 ),
-                child: Slider(
-                  value: 0.6,
-                  min: 0.0,
-                  max: 1.0,
-                  onChanged: null,
-                ),
+                child: Slider(value: 0.6, min: 0.0, max: 1.0, onChanged: null),
               ),
             ],
           ),
@@ -998,7 +1043,11 @@ Widget _buildDisabledAndEnabledSection() {
         SizedBox(height: 8),
         Text(
           'Disabled sliders still show the gap but with muted colors and no interaction.',
-          style: TextStyle(fontSize: 11, color: Color(0xFF757575), fontStyle: FontStyle.italic),
+          style: TextStyle(
+            fontSize: 11,
+            color: Color(0xFF757575),
+            fontStyle: FontStyle.italic,
+          ),
         ),
       ],
     ),
@@ -1182,11 +1231,36 @@ Widget _buildDivisionsShowcaseSection() {
   print('Building divisions showcase section');
 
   List<Map<String, dynamic>> divisionSets = [
-    {'label': 'No Divisions (Continuous)', 'divisions': 0, 'value': 0.47, 'color': Color(0xFF1565C0)},
-    {'label': '5 Divisions', 'divisions': 5, 'value': 0.4, 'color': Color(0xFF00838F)},
-    {'label': '10 Divisions', 'divisions': 10, 'value': 0.5, 'color': Color(0xFF2E7D32)},
-    {'label': '20 Divisions', 'divisions': 20, 'value': 0.55, 'color': Color(0xFFEF6C00)},
-    {'label': '50 Divisions', 'divisions': 50, 'value': 0.62, 'color': Color(0xFFC62828)},
+    {
+      'label': 'No Divisions (Continuous)',
+      'divisions': 0,
+      'value': 0.47,
+      'color': Color(0xFF1565C0),
+    },
+    {
+      'label': '5 Divisions',
+      'divisions': 5,
+      'value': 0.4,
+      'color': Color(0xFF00838F),
+    },
+    {
+      'label': '10 Divisions',
+      'divisions': 10,
+      'value': 0.5,
+      'color': Color(0xFF2E7D32),
+    },
+    {
+      'label': '20 Divisions',
+      'divisions': 20,
+      'value': 0.55,
+      'color': Color(0xFFEF6C00),
+    },
+    {
+      'label': '50 Divisions',
+      'divisions': 50,
+      'value': 0.62,
+      'color': Color(0xFFC62828),
+    },
   ];
 
   return Container(
@@ -1247,7 +1321,9 @@ Widget _buildDivisionsShowcaseSection() {
                       trackShape: GappedSliderTrackShape(),
                       trackHeight: 6.0,
                       activeTrackColor: d['color'] as Color,
-                      inactiveTrackColor: (d['color'] as Color).withValues(alpha: 0.25),
+                      inactiveTrackColor: (d['color'] as Color).withValues(
+                        alpha: 0.25,
+                      ),
                       thumbColor: d['color'] as Color,
                       thumbShape: RoundSliderThumbShape(enabledThumbRadius: 9),
                     ),
@@ -1279,7 +1355,9 @@ Widget _buildDebugOutputSection() {
   print('Works with regular Slider widget');
   print('Respects trackHeight, activeTrackColor, inactiveTrackColor');
   print('Gap position moves with the thumb value');
-  print('Disabled state uses disabledActiveTrackColor and disabledInactiveTrackColor');
+  print(
+    'Disabled state uses disabledActiveTrackColor and disabledInactiveTrackColor',
+  );
   print('Compared to RoundedRectSliderTrackShape: adds visible gap');
   print('Compared to GappedRangeSliderTrackShape: for Slider not RangeSlider');
   print('=== End Debug Output ===');
@@ -1326,32 +1404,56 @@ Widget _buildDebugOutputSection() {
               SizedBox(height: 6),
               Text(
                 '> GappedSliderTrackShape extends SliderTrackShape',
-                style: TextStyle(fontSize: 11, color: Color(0xFF58A6FF), fontFamily: 'monospace'),
+                style: TextStyle(
+                  fontSize: 11,
+                  color: Color(0xFF58A6FF),
+                  fontFamily: 'monospace',
+                ),
               ),
               SizedBox(height: 2),
               Text(
                 '> Paints gap at thumb position',
-                style: TextStyle(fontSize: 11, color: Color(0xFF58A6FF), fontFamily: 'monospace'),
+                style: TextStyle(
+                  fontSize: 11,
+                  color: Color(0xFF58A6FF),
+                  fontFamily: 'monospace',
+                ),
               ),
               SizedBox(height: 2),
               Text(
                 '> Configured via SliderThemeData.trackShape',
-                style: TextStyle(fontSize: 11, color: Color(0xFF58A6FF), fontFamily: 'monospace'),
+                style: TextStyle(
+                  fontSize: 11,
+                  color: Color(0xFF58A6FF),
+                  fontFamily: 'monospace',
+                ),
               ),
               SizedBox(height: 2),
               Text(
                 '> Works with Slider, not RangeSlider',
-                style: TextStyle(fontSize: 11, color: Color(0xFF58A6FF), fontFamily: 'monospace'),
+                style: TextStyle(
+                  fontSize: 11,
+                  color: Color(0xFF58A6FF),
+                  fontFamily: 'monospace',
+                ),
               ),
               SizedBox(height: 2),
               Text(
                 '> Gap moves with thumb value',
-                style: TextStyle(fontSize: 11, color: Color(0xFF58A6FF), fontFamily: 'monospace'),
+                style: TextStyle(
+                  fontSize: 11,
+                  color: Color(0xFF58A6FF),
+                  fontFamily: 'monospace',
+                ),
               ),
               SizedBox(height: 2),
               Text(
                 '> Respects trackHeight and track colors',
-                style: TextStyle(fontSize: 11, color: Color(0xFF58A6FF), fontFamily: 'monospace'),
+                style: TextStyle(
+                  fontSize: 11,
+                  color: Color(0xFF58A6FF),
+                  fontFamily: 'monospace',
+                ),
               ),
             ],
           ),
@@ -1378,15 +1480,24 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildSectionHeader('1. Default Slider Reference', Color(0xFF1976D2)),
+            _buildSectionHeader(
+              '1. Default Slider Reference',
+              Color(0xFF1976D2),
+            ),
             SizedBox(height: 10),
             _buildDefaultSliderSection(),
             SizedBox(height: 24),
-            _buildSectionHeader('2. GappedSliderTrackShape Applied', Color(0xFF7B1FA2)),
+            _buildSectionHeader(
+              '2. GappedSliderTrackShape Applied',
+              Color(0xFF7B1FA2),
+            ),
             SizedBox(height: 10),
             _buildGappedTrackSection(),
             SizedBox(height: 24),
-            _buildSectionHeader('3. Color Themed Gapped Sliders', Color(0xFF00695C)),
+            _buildSectionHeader(
+              '3. Color Themed Gapped Sliders',
+              Color(0xFF00695C),
+            ),
             SizedBox(height: 10),
             _buildColorThemedSlidersSection(),
             SizedBox(height: 24),
@@ -1398,7 +1509,10 @@ dynamic build(BuildContext context) {
             SizedBox(height: 10),
             _buildComparisonSection(),
             SizedBox(height: 24),
-            _buildSectionHeader('6. Gap at Different Positions', Color(0xFF1565C0)),
+            _buildSectionHeader(
+              '6. Gap at Different Positions',
+              Color(0xFF1565C0),
+            ),
             SizedBox(height: 10),
             _buildDifferentValuesSection(),
             SizedBox(height: 24),

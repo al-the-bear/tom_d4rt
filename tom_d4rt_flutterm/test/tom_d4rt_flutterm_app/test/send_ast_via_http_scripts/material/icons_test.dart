@@ -76,10 +76,7 @@ Widget buildInfoCard(String label, String value) {
         Expanded(
           child: Text(
             value,
-            style: TextStyle(
-              fontSize: 13,
-              color: Color(0xFF757575),
-            ),
+            style: TextStyle(fontSize: 13, color: Color(0xFF757575)),
           ),
         ),
       ],
@@ -88,7 +85,12 @@ Widget buildInfoCard(String label, String value) {
 }
 
 // Helper: icon display card with label
-Widget buildIconCard(IconData iconData, String label, {Color iconColor = Colors.black87, double iconSize = 28}) {
+Widget buildIconCard(
+  IconData iconData,
+  String label, {
+  Color iconColor = Colors.black87,
+  double iconSize = 28,
+}) {
   return Container(
     width: 90,
     padding: EdgeInsets.symmetric(vertical: 8, horizontal: 4),
@@ -123,7 +125,12 @@ Widget buildIconCard(IconData iconData, String label, {Color iconColor = Colors.
 }
 
 // Helper: colored icon display
-Widget buildColoredIconCard(IconData iconData, String label, Color bgColor, Color fgColor) {
+Widget buildColoredIconCard(
+  IconData iconData,
+  String label,
+  Color bgColor,
+  Color fgColor,
+) {
   return Container(
     width: 80,
     height: 80,
@@ -242,11 +249,7 @@ Widget buildCategoryTile(String category, List<Widget> iconWidgets) {
           ),
         ),
         SizedBox(height: 8),
-        Wrap(
-          spacing: 4,
-          runSpacing: 4,
-          children: iconWidgets,
-        ),
+        Wrap(spacing: 4, runSpacing: 4, children: iconWidgets),
       ],
     ),
   );
@@ -266,10 +269,7 @@ Widget buildMiniIconChip(IconData iconData, String label) {
       children: [
         Icon(iconData, size: 14, color: Color(0xFF3F51B5)),
         SizedBox(width: 4),
-        Text(
-          label,
-          style: TextStyle(fontSize: 10, color: Color(0xFF283593)),
-        ),
+        Text(label, style: TextStyle(fontSize: 10, color: Color(0xFF283593))),
       ],
     ),
   );
@@ -516,14 +516,54 @@ Widget buildColorVariations() {
         spacing: 6,
         runSpacing: 6,
         children: [
-          buildColoredIconCard(Icons.favorite, 'Red', Color(0xFFFFEBEE), Color(0xFFE53935)),
-          buildColoredIconCard(Icons.star, 'Amber', Color(0xFFFFF8E1), Color(0xFFFFB300)),
-          buildColoredIconCard(Icons.eco, 'Green', Color(0xFFE8F5E9), Color(0xFF43A047)),
-          buildColoredIconCard(Icons.water_drop, 'Blue', Color(0xFFE3F2FD), Color(0xFF1E88E5)),
-          buildColoredIconCard(Icons.palette, 'Purple', Color(0xFFF3E5F5), Color(0xFF8E24AA)),
-          buildColoredIconCard(Icons.bolt, 'Orange', Color(0xFFFFF3E0), Color(0xFFF57C00)),
-          buildColoredIconCard(Icons.ac_unit, 'Cyan', Color(0xFFE0F7FA), Color(0xFF00ACC1)),
-          buildColoredIconCard(Icons.local_fire_department, 'Deep Or', Color(0xFFFBE9E7), Color(0xFFE64A19)),
+          buildColoredIconCard(
+            Icons.favorite,
+            'Red',
+            Color(0xFFFFEBEE),
+            Color(0xFFE53935),
+          ),
+          buildColoredIconCard(
+            Icons.star,
+            'Amber',
+            Color(0xFFFFF8E1),
+            Color(0xFFFFB300),
+          ),
+          buildColoredIconCard(
+            Icons.eco,
+            'Green',
+            Color(0xFFE8F5E9),
+            Color(0xFF43A047),
+          ),
+          buildColoredIconCard(
+            Icons.water_drop,
+            'Blue',
+            Color(0xFFE3F2FD),
+            Color(0xFF1E88E5),
+          ),
+          buildColoredIconCard(
+            Icons.palette,
+            'Purple',
+            Color(0xFFF3E5F5),
+            Color(0xFF8E24AA),
+          ),
+          buildColoredIconCard(
+            Icons.bolt,
+            'Orange',
+            Color(0xFFFFF3E0),
+            Color(0xFFF57C00),
+          ),
+          buildColoredIconCard(
+            Icons.ac_unit,
+            'Cyan',
+            Color(0xFFE0F7FA),
+            Color(0xFF00ACC1),
+          ),
+          buildColoredIconCard(
+            Icons.local_fire_department,
+            'Deep Or',
+            Color(0xFFFBE9E7),
+            Color(0xFFE64A19),
+          ),
         ],
       ),
       SizedBox(height: 16),
@@ -532,14 +572,54 @@ Widget buildColorVariations() {
         spacing: 6,
         runSpacing: 6,
         children: [
-          buildColoredIconCard(Icons.diamond, 'Diamond', Color(0xFF263238), Color(0xFF80DEEA)),
-          buildColoredIconCard(Icons.light_mode, 'Sun', Color(0xFF1A237E), Color(0xFFFFD54F)),
-          buildColoredIconCard(Icons.dark_mode, 'Moon', Color(0xFF0D47A1), Color(0xFFB0BEC5)),
-          buildColoredIconCard(Icons.forest, 'Forest', Color(0xFF1B5E20), Color(0xFFA5D6A7)),
-          buildColoredIconCard(Icons.rocket_launch, 'Rocket', Color(0xFF311B92), Color(0xFFFF8A65)),
-          buildColoredIconCard(Icons.auto_awesome, 'Sparkle', Color(0xFF4A148C), Color(0xFFFFEB3B)),
-          buildColoredIconCard(Icons.nightlight, 'Night', Color(0xFF0D47A1), Color(0xFFE1F5FE)),
-          buildColoredIconCard(Icons.sunny, 'Sunny', Color(0xFFF57F17), Color(0xFFFFFFFF)),
+          buildColoredIconCard(
+            Icons.diamond,
+            'Diamond',
+            Color(0xFF263238),
+            Color(0xFF80DEEA),
+          ),
+          buildColoredIconCard(
+            Icons.light_mode,
+            'Sun',
+            Color(0xFF1A237E),
+            Color(0xFFFFD54F),
+          ),
+          buildColoredIconCard(
+            Icons.dark_mode,
+            'Moon',
+            Color(0xFF0D47A1),
+            Color(0xFFB0BEC5),
+          ),
+          buildColoredIconCard(
+            Icons.forest,
+            'Forest',
+            Color(0xFF1B5E20),
+            Color(0xFFA5D6A7),
+          ),
+          buildColoredIconCard(
+            Icons.rocket_launch,
+            'Rocket',
+            Color(0xFF311B92),
+            Color(0xFFFF8A65),
+          ),
+          buildColoredIconCard(
+            Icons.auto_awesome,
+            'Sparkle',
+            Color(0xFF4A148C),
+            Color(0xFFFFEB3B),
+          ),
+          buildColoredIconCard(
+            Icons.nightlight,
+            'Night',
+            Color(0xFF0D47A1),
+            Color(0xFFE1F5FE),
+          ),
+          buildColoredIconCard(
+            Icons.sunny,
+            'Sunny',
+            Color(0xFFF57F17),
+            Color(0xFFFFFFFF),
+          ),
         ],
       ),
       SizedBox(height: 16),
@@ -548,11 +628,36 @@ Widget buildColorVariations() {
         spacing: 6,
         runSpacing: 6,
         children: [
-          buildColoredIconCard(Icons.circle, '100%', Color(0xFFFFFFFF), Color(0xFF000000)),
-          buildColoredIconCard(Icons.circle, '87%', Color(0xFFFFFFFF), Color(0xDD000000)),
-          buildColoredIconCard(Icons.circle, '60%', Color(0xFFFFFFFF), Color(0x99000000)),
-          buildColoredIconCard(Icons.circle, '38%', Color(0xFFFFFFFF), Color(0x61000000)),
-          buildColoredIconCard(Icons.circle, '12%', Color(0xFFFFFFFF), Color(0x1F000000)),
+          buildColoredIconCard(
+            Icons.circle,
+            '100%',
+            Color(0xFFFFFFFF),
+            Color(0xFF000000),
+          ),
+          buildColoredIconCard(
+            Icons.circle,
+            '87%',
+            Color(0xFFFFFFFF),
+            Color(0xDD000000),
+          ),
+          buildColoredIconCard(
+            Icons.circle,
+            '60%',
+            Color(0xFFFFFFFF),
+            Color(0x99000000),
+          ),
+          buildColoredIconCard(
+            Icons.circle,
+            '38%',
+            Color(0xFFFFFFFF),
+            Color(0x61000000),
+          ),
+          buildColoredIconCard(
+            Icons.circle,
+            '12%',
+            Color(0xFFFFFFFF),
+            Color(0x1F000000),
+          ),
         ],
       ),
     ],
@@ -660,10 +765,7 @@ Widget buildIconsInContext() {
           spacing: 8,
           runSpacing: 8,
           children: [
-            Chip(
-              avatar: Icon(Icons.face, size: 18),
-              label: Text('Profile'),
-            ),
+            Chip(avatar: Icon(Icons.face, size: 18), label: Text('Profile')),
             Chip(
               avatar: Icon(Icons.location_on, size: 18),
               label: Text('Location'),
@@ -672,10 +774,7 @@ Widget buildIconsInContext() {
               avatar: Icon(Icons.access_time, size: 18),
               label: Text('Schedule'),
             ),
-            Chip(
-              avatar: Icon(Icons.label, size: 18),
-              label: Text('Tagged'),
-            ),
+            Chip(avatar: Icon(Icons.label, size: 18), label: Text('Tagged')),
           ],
         ),
       ),
@@ -955,22 +1054,86 @@ dynamic build(BuildContext context) {
               spacing: 8,
               runSpacing: 8,
               children: [
-                buildIconCard(Icons.visibility, 'visible', iconColor: Color(0xFF1976D2)),
-                buildIconCard(Icons.visibility_off, 'hidden', iconColor: Color(0xFF9E9E9E)),
-                buildIconCard(Icons.lock, 'locked', iconColor: Color(0xFFD32F2F)),
-                buildIconCard(Icons.lock_open, 'unlocked', iconColor: Color(0xFF388E3C)),
-                buildIconCard(Icons.volume_up, 'sound on', iconColor: Color(0xFF1976D2)),
-                buildIconCard(Icons.volume_off, 'muted', iconColor: Color(0xFF9E9E9E)),
-                buildIconCard(Icons.star, 'starred', iconColor: Color(0xFFFFC107)),
-                buildIconCard(Icons.star_border, 'unstarred', iconColor: Color(0xFF9E9E9E)),
-                buildIconCard(Icons.toggle_on, 'on', iconColor: Color(0xFF43A047)),
-                buildIconCard(Icons.toggle_off, 'off', iconColor: Color(0xFFBDBDBD)),
-                buildIconCard(Icons.check_box, 'checked', iconColor: Color(0xFF1976D2)),
-                buildIconCard(Icons.check_box_outline_blank, 'unchecked', iconColor: Color(0xFF757575)),
-                buildIconCard(Icons.radio_button_checked, 'selected', iconColor: Color(0xFF1976D2)),
-                buildIconCard(Icons.radio_button_unchecked, 'deselected', iconColor: Color(0xFF757575)),
-                buildIconCard(Icons.expand_more, 'expand', iconColor: Color(0xFF455A64)),
-                buildIconCard(Icons.expand_less, 'collapse', iconColor: Color(0xFF455A64)),
+                buildIconCard(
+                  Icons.visibility,
+                  'visible',
+                  iconColor: Color(0xFF1976D2),
+                ),
+                buildIconCard(
+                  Icons.visibility_off,
+                  'hidden',
+                  iconColor: Color(0xFF9E9E9E),
+                ),
+                buildIconCard(
+                  Icons.lock,
+                  'locked',
+                  iconColor: Color(0xFFD32F2F),
+                ),
+                buildIconCard(
+                  Icons.lock_open,
+                  'unlocked',
+                  iconColor: Color(0xFF388E3C),
+                ),
+                buildIconCard(
+                  Icons.volume_up,
+                  'sound on',
+                  iconColor: Color(0xFF1976D2),
+                ),
+                buildIconCard(
+                  Icons.volume_off,
+                  'muted',
+                  iconColor: Color(0xFF9E9E9E),
+                ),
+                buildIconCard(
+                  Icons.star,
+                  'starred',
+                  iconColor: Color(0xFFFFC107),
+                ),
+                buildIconCard(
+                  Icons.star_border,
+                  'unstarred',
+                  iconColor: Color(0xFF9E9E9E),
+                ),
+                buildIconCard(
+                  Icons.toggle_on,
+                  'on',
+                  iconColor: Color(0xFF43A047),
+                ),
+                buildIconCard(
+                  Icons.toggle_off,
+                  'off',
+                  iconColor: Color(0xFFBDBDBD),
+                ),
+                buildIconCard(
+                  Icons.check_box,
+                  'checked',
+                  iconColor: Color(0xFF1976D2),
+                ),
+                buildIconCard(
+                  Icons.check_box_outline_blank,
+                  'unchecked',
+                  iconColor: Color(0xFF757575),
+                ),
+                buildIconCard(
+                  Icons.radio_button_checked,
+                  'selected',
+                  iconColor: Color(0xFF1976D2),
+                ),
+                buildIconCard(
+                  Icons.radio_button_unchecked,
+                  'deselected',
+                  iconColor: Color(0xFF757575),
+                ),
+                buildIconCard(
+                  Icons.expand_more,
+                  'expand',
+                  iconColor: Color(0xFF455A64),
+                ),
+                buildIconCard(
+                  Icons.expand_less,
+                  'collapse',
+                  iconColor: Color(0xFF455A64),
+                ),
               ],
             ),
 
@@ -980,22 +1143,70 @@ dynamic build(BuildContext context) {
               spacing: 4,
               runSpacing: 4,
               children: [
-                buildIconCard(Icons.wb_sunny, 'sunny', iconColor: Color(0xFFFFA000)),
-                buildIconCard(Icons.cloud, 'cloudy', iconColor: Color(0xFF78909C)),
-                buildIconCard(Icons.water_drop, 'rain', iconColor: Color(0xFF42A5F5)),
-                buildIconCard(Icons.ac_unit, 'snow', iconColor: Color(0xFF90CAF9)),
-                buildIconCard(Icons.bolt, 'thunder', iconColor: Color(0xFFFFC107)),
+                buildIconCard(
+                  Icons.wb_sunny,
+                  'sunny',
+                  iconColor: Color(0xFFFFA000),
+                ),
+                buildIconCard(
+                  Icons.cloud,
+                  'cloudy',
+                  iconColor: Color(0xFF78909C),
+                ),
+                buildIconCard(
+                  Icons.water_drop,
+                  'rain',
+                  iconColor: Color(0xFF42A5F5),
+                ),
+                buildIconCard(
+                  Icons.ac_unit,
+                  'snow',
+                  iconColor: Color(0xFF90CAF9),
+                ),
+                buildIconCard(
+                  Icons.bolt,
+                  'thunder',
+                  iconColor: Color(0xFFFFC107),
+                ),
                 buildIconCard(Icons.air, 'wind', iconColor: Color(0xFF80CBC4)),
-                buildIconCard(Icons.thermostat, 'temp', iconColor: Color(0xFFEF5350)),
-                buildIconCard(Icons.waves, 'waves', iconColor: Color(0xFF29B6F6)),
+                buildIconCard(
+                  Icons.thermostat,
+                  'temp',
+                  iconColor: Color(0xFFEF5350),
+                ),
+                buildIconCard(
+                  Icons.waves,
+                  'waves',
+                  iconColor: Color(0xFF29B6F6),
+                ),
                 buildIconCard(Icons.park, 'park', iconColor: Color(0xFF66BB6A)),
-                buildIconCard(Icons.forest, 'forest', iconColor: Color(0xFF2E7D32)),
-                buildIconCard(Icons.grass, 'grass', iconColor: Color(0xFF4CAF50)),
+                buildIconCard(
+                  Icons.forest,
+                  'forest',
+                  iconColor: Color(0xFF2E7D32),
+                ),
+                buildIconCard(
+                  Icons.grass,
+                  'grass',
+                  iconColor: Color(0xFF4CAF50),
+                ),
                 buildIconCard(Icons.eco, 'eco', iconColor: Color(0xFF43A047)),
                 buildIconCard(Icons.pets, 'pets', iconColor: Color(0xFF8D6E63)),
-                buildIconCard(Icons.terrain, 'terrain', iconColor: Color(0xFF795548)),
-                buildIconCard(Icons.landscape, 'landscape', iconColor: Color(0xFF558B2F)),
-                buildIconCard(Icons.nightlight, 'night', iconColor: Color(0xFF5C6BC0)),
+                buildIconCard(
+                  Icons.terrain,
+                  'terrain',
+                  iconColor: Color(0xFF795548),
+                ),
+                buildIconCard(
+                  Icons.landscape,
+                  'landscape',
+                  iconColor: Color(0xFF558B2F),
+                ),
+                buildIconCard(
+                  Icons.nightlight,
+                  'night',
+                  iconColor: Color(0xFF5C6BC0),
+                ),
               ],
             ),
 
@@ -1006,7 +1217,10 @@ dynamic build(BuildContext context) {
             buildInfoCard('Semantic label:', 'Optional accessibility label'),
             buildInfoCard('Text direction:', 'Some icons are direction-aware'),
             buildInfoCard('Color:', 'Inherits from IconTheme or explicit'),
-            buildInfoCard('Opacity:', 'Controlled via color alpha or Opacity widget'),
+            buildInfoCard(
+              'Opacity:',
+              'Controlled via color alpha or Opacity widget',
+            ),
 
             SizedBox(height: 32),
           ],

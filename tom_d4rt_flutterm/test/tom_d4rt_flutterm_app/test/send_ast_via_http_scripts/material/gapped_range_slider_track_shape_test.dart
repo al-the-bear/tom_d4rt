@@ -29,7 +29,12 @@ Widget _buildSectionHeader(String title, Color bgColor) {
   );
 }
 
-Widget _buildInfoCard(String title, String description, IconData icon, Color accentColor) {
+Widget _buildInfoCard(
+  String title,
+  String description,
+  IconData icon,
+  Color accentColor,
+) {
   return Container(
     margin: EdgeInsets.only(bottom: 10),
     padding: EdgeInsets.all(14),
@@ -96,11 +101,7 @@ Widget _buildLabeledBox(String label, Color color) {
     ),
     child: Text(
       label,
-      style: TextStyle(
-        fontSize: 11,
-        fontWeight: FontWeight.w600,
-        color: color,
-      ),
+      style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: color),
     ),
   );
 }
@@ -124,10 +125,7 @@ Widget _buildColorSwatch(String label, Color color) {
         ),
       ),
       SizedBox(height: 4),
-      Text(
-        label,
-        style: TextStyle(fontSize: 9, color: Color(0xFF757575)),
-      ),
+      Text(label, style: TextStyle(fontSize: 9, color: Color(0xFF757575))),
     ],
   );
 }
@@ -200,7 +198,11 @@ Widget _buildDefaultRangeSliderSection() {
           ),
           child: Text(
             'This default RangeSlider uses the platform track shape. Compare with the gapped version below.',
-            style: TextStyle(fontSize: 11, color: Color(0xFF616161), fontStyle: FontStyle.italic),
+            style: TextStyle(
+              fontSize: 11,
+              color: Color(0xFF616161),
+              fontStyle: FontStyle.italic,
+            ),
           ),
         ),
       ],
@@ -260,9 +262,7 @@ Widget _buildGappedTrackSection() {
             activeTrackColor: Color(0xFF7B1FA2),
             inactiveTrackColor: Color(0xFFCE93D8),
             overlayColor: Color(0x297B1FA2),
-            rangeThumbShape: RoundRangeSliderThumbShape(
-              enabledThumbRadius: 12,
-            ),
+            rangeThumbShape: RoundRangeSliderThumbShape(enabledThumbRadius: 12),
           ),
           child: RangeSlider(
             values: gappedRange,
@@ -432,12 +432,36 @@ Widget _buildColorSchemeSliders() {
 Widget _buildTrackHeightSliders() {
   print('Building track height variations');
   List<Map<String, dynamic>> heights = [
-    {'label': 'Thin Track (2px)', 'height': 2.0, 'values': RangeValues(0.2, 0.7)},
-    {'label': 'Default Track (4px)', 'height': 4.0, 'values': RangeValues(0.25, 0.75)},
-    {'label': 'Medium Track (8px)', 'height': 8.0, 'values': RangeValues(0.3, 0.8)},
-    {'label': 'Thick Track (12px)', 'height': 12.0, 'values': RangeValues(0.15, 0.65)},
-    {'label': 'Extra Thick (16px)', 'height': 16.0, 'values': RangeValues(0.1, 0.9)},
-    {'label': 'Massive Track (24px)', 'height': 24.0, 'values': RangeValues(0.35, 0.85)},
+    {
+      'label': 'Thin Track (2px)',
+      'height': 2.0,
+      'values': RangeValues(0.2, 0.7),
+    },
+    {
+      'label': 'Default Track (4px)',
+      'height': 4.0,
+      'values': RangeValues(0.25, 0.75),
+    },
+    {
+      'label': 'Medium Track (8px)',
+      'height': 8.0,
+      'values': RangeValues(0.3, 0.8),
+    },
+    {
+      'label': 'Thick Track (12px)',
+      'height': 12.0,
+      'values': RangeValues(0.15, 0.65),
+    },
+    {
+      'label': 'Extra Thick (16px)',
+      'height': 16.0,
+      'values': RangeValues(0.1, 0.9),
+    },
+    {
+      'label': 'Massive Track (24px)',
+      'height': 24.0,
+      'values': RangeValues(0.35, 0.85),
+    },
   ];
 
   List<Widget> items = [];
@@ -599,7 +623,11 @@ Widget _buildComparisonSection() {
               SizedBox(height: 4),
               Text(
                 'Standard track: continuous fill between thumbs, no gap.',
-                style: TextStyle(fontSize: 10, color: Color(0xFF546E7A), fontStyle: FontStyle.italic),
+                style: TextStyle(
+                  fontSize: 10,
+                  color: Color(0xFF546E7A),
+                  fontStyle: FontStyle.italic,
+                ),
               ),
             ],
           ),
@@ -658,7 +686,11 @@ Widget _buildComparisonSection() {
               SizedBox(height: 4),
               Text(
                 'Gapped track: visible gap in the track between the two thumbs.',
-                style: TextStyle(fontSize: 10, color: Color(0xFFC62828), fontStyle: FontStyle.italic),
+                style: TextStyle(
+                  fontSize: 10,
+                  color: Color(0xFFC62828),
+                  fontStyle: FontStyle.italic,
+                ),
               ),
             ],
           ),
@@ -791,7 +823,11 @@ Widget _buildAdditionalDemoSliders() {
         SizedBox(height: 12),
         Text(
           'Narrow range with tight gap',
-          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xFF795548)),
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            color: Color(0xFF795548),
+          ),
         ),
         SizedBox(height: 4),
         SliderTheme(
@@ -800,9 +836,7 @@ Widget _buildAdditionalDemoSliders() {
             trackHeight: 6.0,
             activeTrackColor: Color(0xFFFF6F00),
             inactiveTrackColor: Color(0xFFFFE0B2),
-            rangeThumbShape: RoundRangeSliderThumbShape(
-              enabledThumbRadius: 9,
-            ),
+            rangeThumbShape: RoundRangeSliderThumbShape(enabledThumbRadius: 9),
           ),
           child: RangeSlider(
             values: RangeValues(0.45, 0.55),
@@ -817,7 +851,11 @@ Widget _buildAdditionalDemoSliders() {
         SizedBox(height: 12),
         Text(
           'Wide range with large gap',
-          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xFF795548)),
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            color: Color(0xFF795548),
+          ),
         ),
         SizedBox(height: 4),
         SliderTheme(
@@ -826,9 +864,7 @@ Widget _buildAdditionalDemoSliders() {
             trackHeight: 10.0,
             activeTrackColor: Color(0xFF4527A0),
             inactiveTrackColor: Color(0xFFD1C4E9),
-            rangeThumbShape: RoundRangeSliderThumbShape(
-              enabledThumbRadius: 12,
-            ),
+            rangeThumbShape: RoundRangeSliderThumbShape(enabledThumbRadius: 12),
           ),
           child: RangeSlider(
             values: RangeValues(0.1, 0.9),
@@ -843,7 +879,11 @@ Widget _buildAdditionalDemoSliders() {
         SizedBox(height: 12),
         Text(
           'Left-biased range',
-          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xFF795548)),
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            color: Color(0xFF795548),
+          ),
         ),
         SizedBox(height: 4),
         SliderTheme(
@@ -852,9 +892,7 @@ Widget _buildAdditionalDemoSliders() {
             trackHeight: 6.0,
             activeTrackColor: Color(0xFF00838F),
             inactiveTrackColor: Color(0xFFB2EBF2),
-            rangeThumbShape: RoundRangeSliderThumbShape(
-              enabledThumbRadius: 10,
-            ),
+            rangeThumbShape: RoundRangeSliderThumbShape(enabledThumbRadius: 10),
           ),
           child: RangeSlider(
             values: RangeValues(0.05, 0.35),
@@ -868,7 +906,11 @@ Widget _buildAdditionalDemoSliders() {
         SizedBox(height: 12),
         Text(
           'Right-biased range',
-          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xFF795548)),
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            color: Color(0xFF795548),
+          ),
         ),
         SizedBox(height: 4),
         SliderTheme(
@@ -877,9 +919,7 @@ Widget _buildAdditionalDemoSliders() {
             trackHeight: 6.0,
             activeTrackColor: Color(0xFFAD1457),
             inactiveTrackColor: Color(0xFFF8BBD0),
-            rangeThumbShape: RoundRangeSliderThumbShape(
-              enabledThumbRadius: 10,
-            ),
+            rangeThumbShape: RoundRangeSliderThumbShape(enabledThumbRadius: 10),
           ),
           child: RangeSlider(
             values: RangeValues(0.65, 0.95),
@@ -893,7 +933,11 @@ Widget _buildAdditionalDemoSliders() {
         SizedBox(height: 12),
         Text(
           'Overlapping thumbs (minimum gap)',
-          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xFF795548)),
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            color: Color(0xFF795548),
+          ),
         ),
         SizedBox(height: 4),
         SliderTheme(
@@ -902,9 +946,7 @@ Widget _buildAdditionalDemoSliders() {
             trackHeight: 8.0,
             activeTrackColor: Color(0xFF37474F),
             inactiveTrackColor: Color(0xFFB0BEC5),
-            rangeThumbShape: RoundRangeSliderThumbShape(
-              enabledThumbRadius: 11,
-            ),
+            rangeThumbShape: RoundRangeSliderThumbShape(enabledThumbRadius: 11),
           ),
           child: RangeSlider(
             values: RangeValues(0.49, 0.51),
@@ -1006,7 +1048,9 @@ Widget _buildDebugLine(String key, String value) {
 
 dynamic build(BuildContext context) {
   print('=== GappedRangeSliderTrackShape Visual Demo ===');
-  print('Demonstrating the gapped range slider track shape with multiple configurations');
+  print(
+    'Demonstrating the gapped range slider track shape with multiple configurations',
+  );
   print('Widget: GappedRangeSliderTrackShape');
   print('Category: material / SliderTrackShape');
 
@@ -1024,12 +1068,18 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildSectionHeader('1. Default RangeSlider Reference', Color(0xFF1565C0)),
+            _buildSectionHeader(
+              '1. Default RangeSlider Reference',
+              Color(0xFF1565C0),
+            ),
             SizedBox(height: 10),
             _buildDefaultRangeSliderSection(),
             SizedBox(height: 24),
 
-            _buildSectionHeader('2. GappedRangeSliderTrackShape', Color(0xFF7B1FA2)),
+            _buildSectionHeader(
+              '2. GappedRangeSliderTrackShape',
+              Color(0xFF7B1FA2),
+            ),
             SizedBox(height: 10),
             _buildGappedTrackSection(),
             SizedBox(height: 24),
@@ -1039,7 +1089,10 @@ dynamic build(BuildContext context) {
             _buildColorSchemeSliders(),
             SizedBox(height: 24),
 
-            _buildSectionHeader('4. Track Height Variations', Color(0xFF3F51B5)),
+            _buildSectionHeader(
+              '4. Track Height Variations',
+              Color(0xFF3F51B5),
+            ),
             SizedBox(height: 10),
             _buildTrackHeightSliders(),
             SizedBox(height: 24),
@@ -1049,7 +1102,10 @@ dynamic build(BuildContext context) {
             _buildComparisonSection(),
             SizedBox(height: 24),
 
-            _buildSectionHeader('6. Additional Configurations', Color(0xFFF57F17)),
+            _buildSectionHeader(
+              '6. Additional Configurations',
+              Color(0xFFF57F17),
+            ),
             SizedBox(height: 10),
             _buildAdditionalDemoSliders(),
             SizedBox(height: 24),

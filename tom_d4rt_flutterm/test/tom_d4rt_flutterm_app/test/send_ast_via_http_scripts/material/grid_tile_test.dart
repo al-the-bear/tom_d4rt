@@ -57,11 +57,7 @@ Widget _buildInfoCard(String label, String description) {
         SizedBox(height: 4),
         Text(
           description,
-          style: TextStyle(
-            fontSize: 13,
-            color: Color(0xFF1565C0),
-            height: 1.4,
-          ),
+          style: TextStyle(fontSize: 13, color: Color(0xFF1565C0), height: 1.4),
         ),
       ],
     ),
@@ -115,10 +111,7 @@ Widget _buildPropertyRow(String name, String value) {
         Expanded(
           child: Text(
             value,
-            style: TextStyle(
-              fontSize: 13,
-              color: Color(0xFF37474F),
-            ),
+            style: TextStyle(fontSize: 13, color: Color(0xFF37474F)),
           ),
         ),
       ],
@@ -239,10 +232,7 @@ Widget _buildBasicChildSection() {
                     SizedBox(height: 8),
                     Text(
                       'Image Placeholder',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                      ),
+                      style: TextStyle(color: Colors.white, fontSize: 14),
                     ),
                   ],
                 ),
@@ -458,7 +448,11 @@ Widget _buildFooterSection() {
                   ),
                 ),
                 child: Center(
-                  child: Icon(Icons.headphones, color: Color(0xFFFFD54F), size: 56),
+                  child: Icon(
+                    Icons.headphones,
+                    color: Color(0xFFFFD54F),
+                    size: 56,
+                  ),
                 ),
               ),
             ),
@@ -514,7 +508,11 @@ Widget _buildHeaderFooterSection() {
               child: Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [Color(0xFF4CAF50), Color(0xFF81C784), Color(0xFFC8E6C9)],
+                    colors: [
+                      Color(0xFF4CAF50),
+                      Color(0xFF81C784),
+                      Color(0xFFC8E6C9),
+                    ],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                   ),
@@ -550,7 +548,11 @@ Widget _buildHeaderFooterSection() {
               child: Container(
                 color: Color(0xFF283593),
                 child: Center(
-                  child: Icon(Icons.play_circle_outline, color: Colors.white70, size: 64),
+                  child: Icon(
+                    Icons.play_circle_outline,
+                    color: Colors.white70,
+                    size: 64,
+                  ),
                 ),
               ),
             ),
@@ -574,7 +576,11 @@ Widget _buildHeaderFooterSection() {
               child: Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [Color(0xFFFF6F00), Color(0xFFFF8F00), Color(0xFFFFCA28)],
+                    colors: [
+                      Color(0xFFFF6F00),
+                      Color(0xFFFF8F00),
+                      Color(0xFFFFCA28),
+                    ],
                     begin: Alignment.bottomCenter,
                     end: Alignment.topCenter,
                   ),
@@ -702,7 +708,11 @@ Widget _buildGridViewSection() {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Center(
-                    child: Icon(Icons.brightness_3, color: Colors.white38, size: 36),
+                    child: Icon(
+                      Icons.brightness_3,
+                      color: Colors.white38,
+                      size: 36,
+                    ),
                   ),
                 ),
               ),
@@ -869,7 +879,11 @@ Widget _buildDiverseContentSection() {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Icon(Icons.settings, color: Color(0xFF00695C), size: 32),
+                        Icon(
+                          Icons.settings,
+                          color: Color(0xFF00695C),
+                          size: 32,
+                        ),
                         Icon(Icons.camera, color: Color(0xFF00695C), size: 32),
                         Icon(Icons.map, color: Color(0xFF00695C), size: 32),
                       ],
@@ -973,7 +987,11 @@ Widget _buildVaryingStylesSection() {
               child: Container(
                 color: Color(0xFFFCE4EC),
                 child: Center(
-                  child: Icon(Icons.favorite, color: Color(0xFFE91E63), size: 48),
+                  child: Icon(
+                    Icons.favorite,
+                    color: Color(0xFFE91E63),
+                    size: 48,
+                  ),
                 ),
               ),
             ),
@@ -992,12 +1010,7 @@ Widget _buildVaryingStylesSection() {
                     color: Color(0xFF1B5E20),
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
-                    shadows: [
-                      Shadow(
-                        color: Colors.white,
-                        blurRadius: 4,
-                      ),
-                    ],
+                    shadows: [Shadow(color: Colors.white, blurRadius: 4)],
                   ),
                 ),
               ),
@@ -1039,7 +1052,11 @@ Widget _buildVaryingStylesSection() {
                   children: [
                     Icon(Icons.share, color: Colors.white60, size: 18),
                     SizedBox(width: 6),
-                    Icon(Icons.bookmark_border, color: Colors.white60, size: 18),
+                    Icon(
+                      Icons.bookmark_border,
+                      color: Colors.white60,
+                      size: 18,
+                    ),
                   ],
                 ),
               ),
@@ -1127,7 +1144,11 @@ Widget _buildStandaloneSection() {
               child: Container(
                 color: Color(0xFF00ACC1),
                 child: Center(
-                  child: Icon(Icons.check_circle_outline, color: Colors.white70, size: 48),
+                  child: Icon(
+                    Icons.check_circle_outline,
+                    color: Colors.white70,
+                    size: 48,
+                  ),
                 ),
               ),
             ),
@@ -1145,7 +1166,11 @@ Widget _buildStandaloneSection() {
               ),
               footer: GridTileBar(
                 backgroundColor: Color(0xCC006064),
-                leading: Icon(Icons.calendar_today, color: Colors.white70, size: 18),
+                leading: Icon(
+                  Icons.calendar_today,
+                  color: Colors.white70,
+                  size: 18,
+                ),
                 title: Text('March 2026'),
               ),
               child: Container(
@@ -1203,9 +1228,18 @@ Widget _buildPropertyReferenceSection() {
           ),
         ),
         SizedBox(height: 12),
-        _buildPropertyRow('header', 'Widget? - Widget overlaid on top of the tile'),
-        _buildPropertyRow('footer', 'Widget? - Widget overlaid on bottom of the tile'),
-        _buildPropertyRow('child', 'Widget - The main content of the tile (required)'),
+        _buildPropertyRow(
+          'header',
+          'Widget? - Widget overlaid on top of the tile',
+        ),
+        _buildPropertyRow(
+          'footer',
+          'Widget? - Widget overlaid on bottom of the tile',
+        ),
+        _buildPropertyRow(
+          'child',
+          'Widget - The main content of the tile (required)',
+        ),
         SizedBox(height: 16),
         Text(
           'Usage Notes',
@@ -1217,13 +1251,28 @@ Widget _buildPropertyReferenceSection() {
         ),
         SizedBox(height: 8),
         _buildPropertyRow('Typical use', 'Inside a GridView as a grid cell'),
-        _buildPropertyRow('Standalone', 'Can also render outside of a GridView'),
-        _buildPropertyRow('Header widget', 'Typically a GridTileBar, but any widget works'),
-        _buildPropertyRow('Footer widget', 'Typically a GridTileBar, but any widget works'),
+        _buildPropertyRow(
+          'Standalone',
+          'Can also render outside of a GridView',
+        ),
+        _buildPropertyRow(
+          'Header widget',
+          'Typically a GridTileBar, but any widget works',
+        ),
+        _buildPropertyRow(
+          'Footer widget',
+          'Typically a GridTileBar, but any widget works',
+        ),
         _buildPropertyRow('Child required', 'The child property is required'),
-        _buildPropertyRow('Overlay layout', 'Header/footer use Stack to overlay child'),
+        _buildPropertyRow(
+          'Overlay layout',
+          'Header/footer use Stack to overlay child',
+        ),
         _buildPropertyRow('Sizing', 'Sizes to fill available space in grid'),
-        _buildPropertyRow('Content area', 'Child fills entire tile, header/footer overlay on top'),
+        _buildPropertyRow(
+          'Content area',
+          'Child fills entire tile, header/footer overlay on top',
+        ),
         SizedBox(height: 16),
         Text(
           'Common Patterns',
@@ -1235,10 +1284,19 @@ Widget _buildPropertyReferenceSection() {
         ),
         SizedBox(height: 8),
         _buildPropertyRow('Image tile', 'Image child with GridTileBar footer'),
-        _buildPropertyRow('Gallery tile', 'Image child with header title and footer actions'),
+        _buildPropertyRow(
+          'Gallery tile',
+          'Image child with header title and footer actions',
+        ),
         _buildPropertyRow('Info tile', 'Colored child with footer label'),
-        _buildPropertyRow('Action tile', 'Child content with header containing action icons'),
-        _buildPropertyRow('Profile tile', 'Avatar child with footer name and subtitle'),
+        _buildPropertyRow(
+          'Action tile',
+          'Child content with header containing action icons',
+        ),
+        _buildPropertyRow(
+          'Profile tile',
+          'Avatar child with footer name and subtitle',
+        ),
       ],
     ),
   );
@@ -1253,9 +1311,7 @@ dynamic build(BuildContext context) {
   // Debug output for basic construction
   print('');
   print('--- Basic GridTile Construction ---');
-  final basicTile = GridTile(
-    child: Container(color: Colors.blue),
-  );
+  final basicTile = GridTile(child: Container(color: Colors.blue));
   print('  Basic tile created (child only)');
   print('  Type: $basicTile');
 
@@ -1382,10 +1438,7 @@ dynamic build(BuildContext context) {
           colors: [Color(0xCC000000), Color(0x00000000)],
         ),
       ),
-      child: Text(
-        'Gradient Footer',
-        style: TextStyle(color: Colors.white),
-      ),
+      child: Text('Gradient Footer', style: TextStyle(color: Colors.white)),
     ),
     child: Container(color: Color(0xFF5D4037)),
   );
@@ -1436,10 +1489,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 6),
               Text(
                 'A tile in a Material Design grid list',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Color(0xFFBBDEFB),
-                ),
+                style: TextStyle(fontSize: 14, color: Color(0xFFBBDEFB)),
               ),
               SizedBox(height: 4),
               Text(
@@ -1458,20 +1508,20 @@ dynamic build(BuildContext context) {
         _buildInfoCard(
           'Overview',
           'GridTile is a material design widget representing a single tile in a '
-          'GridView. It accepts a child widget as its main content, and optional '
-          'header and footer widgets that overlay the child using a Stack layout.',
+              'GridView. It accepts a child widget as its main content, and optional '
+              'header and footer widgets that overlay the child using a Stack layout.',
         ),
         _buildInfoCard(
           'Key Properties',
           'header: Widget overlaid on top of the tile\n'
-          'footer: Widget overlaid on bottom of the tile\n'
-          'child: The main content widget (required)',
+              'footer: Widget overlaid on bottom of the tile\n'
+              'child: The main content widget (required)',
         ),
         _buildInfoCard(
           'Typical Usage',
           'GridTile is designed to be used inside GridView. The header and footer '
-          'are typically GridTileBar widgets, but can be any widget. The child fills '
-          'the entire tile, with header/footer overlaid on top.',
+              'are typically GridTileBar widgets, but can be any widget. The child fills '
+              'the entire tile, with header/footer overlaid on top.',
         ),
 
         // Section 1: Basic child

@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print('=== FabFloatOffsetY Visual Demo ===');
-  print('Demonstrating FAB floating Y offset above BottomNavigationBar or BottomAppBar');
+  print(
+    'Demonstrating FAB floating Y offset above BottomNavigationBar or BottomAppBar',
+  );
 
   return MaterialApp(
     debugShowCheckedModeBanner: false,
@@ -73,7 +75,14 @@ Widget buildSectionHeader(String title) {
       color: Colors.teal.shade700,
       borderRadius: BorderRadius.circular(8),
     ),
-    child: Text(title, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)),
+    child: Text(
+      title,
+      style: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+      ),
+    ),
   );
 }
 
@@ -86,11 +95,21 @@ Widget buildInfoCard(String label, String value) {
       borderRadius: BorderRadius.circular(8),
       border: Border.all(color: Colors.grey.shade300),
     ),
-    child: Row(children: [
-      Text(label, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      SizedBox(width: 8),
-      Expanded(child: Text(value, style: TextStyle(fontSize: 14, color: Colors.grey.shade700))),
-    ]),
+    child: Row(
+      children: [
+        Text(
+          label,
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+        ),
+        SizedBox(width: 8),
+        Expanded(
+          child: Text(
+            value,
+            style: TextStyle(fontSize: 14, color: Colors.grey.shade700),
+          ),
+        ),
+      ],
+    ),
   );
 }
 
@@ -106,11 +125,15 @@ Widget _buildFloatConcept() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('How Floating Y-Offset Works',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+        Text(
+          'How Floating Y-Offset Works',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+        ),
         SizedBox(height: 12),
-        Text('The float Y-offset determines how high the FAB hovers above the bottom navigation bar. Unlike docked FABs that overlap the bar, floating FABs maintain a gap between the FAB and the bar.',
-            style: TextStyle(fontSize: 13, color: Color(0xFF37474F))),
+        Text(
+          'The float Y-offset determines how high the FAB hovers above the bottom navigation bar. Unlike docked FABs that overlap the bar, floating FABs maintain a gap between the FAB and the bar.',
+          style: TextStyle(fontSize: 13, color: Color(0xFF37474F)),
+        ),
         SizedBox(height: 16),
         _buildFloatDiagram(0.0, 'Default gap (0.0)', Color(0xFFBF360C)),
         SizedBox(height: 12),
@@ -118,7 +141,10 @@ Widget _buildFloatConcept() {
         SizedBox(height: 12),
         _buildFloatDiagram(12.0, 'Higher above bar (+12.0)', Color(0xFF00695C)),
         SizedBox(height: 12),
-        buildInfoCard('Mixin:', 'FabFloatOffsetY provides getFloatY() for vertical positioning'),
+        buildInfoCard(
+          'Mixin:',
+          'FabFloatOffsetY provides getFloatY() for vertical positioning',
+        ),
       ],
     ),
   );
@@ -139,7 +165,8 @@ Widget _buildFloatDiagram(double offset, String label, Color fabColor) {
     child: Row(
       children: [
         Container(
-          width: 120, height: 100,
+          width: 120,
+          height: 100,
           decoration: BoxDecoration(
             color: Color(0xFFF5F5F5),
             borderRadius: BorderRadius.circular(6),
@@ -148,7 +175,10 @@ Widget _buildFloatDiagram(double offset, String label, Color fabColor) {
           child: Stack(
             children: [
               Positioned(
-                top: 0, left: 0, right: 0, height: 18,
+                top: 0,
+                left: 0,
+                right: 0,
+                height: 18,
                 child: Container(
                   decoration: BoxDecoration(
                     color: Color(0xFF455A64),
@@ -157,11 +187,19 @@ Widget _buildFloatDiagram(double offset, String label, Color fabColor) {
                       topRight: Radius.circular(5),
                     ),
                   ),
-                  child: Center(child: Text('AppBar', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 7))),
+                  child: Center(
+                    child: Text(
+                      'AppBar',
+                      style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 7),
+                    ),
+                  ),
                 ),
               ),
               Positioned(
-                bottom: 0, left: 0, right: 0, height: 22,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                height: 22,
                 child: Container(
                   decoration: BoxDecoration(
                     color: Color(0xFF78909C),
@@ -170,18 +208,27 @@ Widget _buildFloatDiagram(double offset, String label, Color fabColor) {
                       bottomRight: Radius.circular(5),
                     ),
                   ),
-                  child: Center(child: Text('BottomNav', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 7))),
+                  child: Center(
+                    child: Text(
+                      'BottomNav',
+                      style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 7),
+                    ),
+                  ),
                 ),
               ),
               Positioned(
-                bottom: 22.0 + gapSize, right: 10,
+                bottom: 22.0 + gapSize,
+                right: 10,
                 child: Container(
-                  width: 28, height: 28,
+                  width: 28,
+                  height: 28,
                   decoration: BoxDecoration(
                     color: fabColor,
                     shape: BoxShape.circle,
                   ),
-                  child: Center(child: Icon(Icons.add, color: Color(0xFFFFFFFF), size: 14)),
+                  child: Center(
+                    child: Icon(Icons.add, color: Color(0xFFFFFFFF), size: 14),
+                  ),
                 ),
               ),
             ],
@@ -192,10 +239,23 @@ Widget _buildFloatDiagram(double offset, String label, Color fabColor) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(label, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: fabColor)),
+              Text(
+                label,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                  color: fabColor,
+                ),
+              ),
               SizedBox(height: 4),
-              Text('Y offset adjustment: $offset px',
-                  style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: Color(0xFF616161))),
+              Text(
+                'Y offset adjustment: $offset px',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 11,
+                  color: Color(0xFF616161),
+                ),
+              ),
               SizedBox(height: 4),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
@@ -203,8 +263,14 @@ Widget _buildFloatDiagram(double offset, String label, Color fabColor) {
                   color: fabColor.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(4),
                 ),
-                child: Text('Gap: ~${gapSize.toStringAsFixed(0)}px visible',
-                    style: TextStyle(fontFamily: 'monospace', fontSize: 9, color: fabColor)),
+                child: Text(
+                  'Gap: ~${gapSize.toStringAsFixed(0)}px visible',
+                  style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 9,
+                    color: fabColor,
+                  ),
+                ),
               ),
             ],
           ),
@@ -245,15 +311,22 @@ Widget _buildFloatHeightComparison() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Float Y-Offset Values (-16 to +32)',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+        Text(
+          'Float Y-Offset Values (-16 to +32)',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+        ),
         SizedBox(height: 4),
-        Text('Negative = closer to bar, Positive = higher above bar',
-            style: TextStyle(fontSize: 12, color: Color(0xFF795548))),
+        Text(
+          'Negative = closer to bar, Positive = higher above bar',
+          style: TextStyle(fontSize: 12, color: Color(0xFF795548)),
+        ),
         SizedBox(height: 16),
         Column(children: items),
         SizedBox(height: 12),
-        buildInfoCard('Default:', 'Float offset of 0.0 gives a standard gap above the bar'),
+        buildInfoCard(
+          'Default:',
+          'Float offset of 0.0 gives a standard gap above the bar',
+        ),
       ],
     ),
   );
@@ -276,7 +349,15 @@ Widget _buildHeightBar(double val, Color color) {
       children: [
         Container(
           width: 60,
-          child: Text(label, style: TextStyle(fontFamily: 'monospace', fontSize: 12, fontWeight: FontWeight.bold, color: color)),
+          child: Text(
+            label,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
         ),
         Expanded(
           child: Container(
@@ -326,10 +407,18 @@ Widget _buildFloatingVsDocked() {
             ),
             child: Column(
               children: [
-                Text('Float Y', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Color(0xFFBF360C))),
+                Text(
+                  'Float Y',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                    color: Color(0xFFBF360C),
+                  ),
+                ),
                 SizedBox(height: 12),
                 Container(
-                  height: 120, width: double.infinity,
+                  height: 120,
+                  width: double.infinity,
                   decoration: BoxDecoration(
                     color: Color(0xFFF5F5F5),
                     borderRadius: BorderRadius.circular(6),
@@ -338,7 +427,10 @@ Widget _buildFloatingVsDocked() {
                   child: Stack(
                     children: [
                       Positioned(
-                        bottom: 0, left: 0, right: 0, height: 28,
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        height: 28,
                         child: Container(
                           decoration: BoxDecoration(
                             color: Color(0xFF78909C),
@@ -350,18 +442,28 @@ Widget _buildFloatingVsDocked() {
                         ),
                       ),
                       Positioned(
-                        bottom: 40, right: 12,
+                        bottom: 40,
+                        right: 12,
                         child: Container(
-                          width: 36, height: 36,
+                          width: 36,
+                          height: 36,
                           decoration: BoxDecoration(
                             color: Color(0xFFBF360C),
                             shape: BoxShape.circle,
                           ),
-                          child: Center(child: Icon(Icons.add, color: Color(0xFFFFFFFF), size: 18)),
+                          child: Center(
+                            child: Icon(
+                              Icons.add,
+                              color: Color(0xFFFFFFFF),
+                              size: 18,
+                            ),
+                          ),
                         ),
                       ),
                       Positioned(
-                        bottom: 28, right: 0, left: 0,
+                        bottom: 28,
+                        right: 0,
+                        left: 0,
                         child: Center(
                           child: Container(
                             height: 8,
@@ -370,7 +472,15 @@ Widget _buildFloatingVsDocked() {
                               color: Color(0xFFFFEB3B).withValues(alpha: 0.5),
                               borderRadius: BorderRadius.circular(2),
                             ),
-                            child: Center(child: Text('gap', style: TextStyle(fontSize: 5, color: Color(0xFF795548)))),
+                            child: Center(
+                              child: Text(
+                                'gap',
+                                style: TextStyle(
+                                  fontSize: 5,
+                                  color: Color(0xFF795548),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -378,8 +488,14 @@ Widget _buildFloatingVsDocked() {
                   ),
                 ),
                 SizedBox(height: 8),
-                Text('FAB floats with visible gap', style: TextStyle(fontSize: 11, color: Color(0xFF616161))),
-                Text('Uses FabFloatOffsetY', style: TextStyle(fontSize: 11, color: Color(0xFF9E9E9E))),
+                Text(
+                  'FAB floats with visible gap',
+                  style: TextStyle(fontSize: 11, color: Color(0xFF616161)),
+                ),
+                Text(
+                  'Uses FabFloatOffsetY',
+                  style: TextStyle(fontSize: 11, color: Color(0xFF9E9E9E)),
+                ),
               ],
             ),
           ),
@@ -395,10 +511,18 @@ Widget _buildFloatingVsDocked() {
             ),
             child: Column(
               children: [
-                Text('Docked Y', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Color(0xFF00695C))),
+                Text(
+                  'Docked Y',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                    color: Color(0xFF00695C),
+                  ),
+                ),
                 SizedBox(height: 12),
                 Container(
-                  height: 120, width: double.infinity,
+                  height: 120,
+                  width: double.infinity,
                   decoration: BoxDecoration(
                     color: Color(0xFFF5F5F5),
                     borderRadius: BorderRadius.circular(6),
@@ -407,7 +531,10 @@ Widget _buildFloatingVsDocked() {
                   child: Stack(
                     children: [
                       Positioned(
-                        bottom: 0, left: 0, right: 0, height: 28,
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        height: 28,
                         child: Container(
                           decoration: BoxDecoration(
                             color: Color(0xFF546E7A),
@@ -419,23 +546,40 @@ Widget _buildFloatingVsDocked() {
                         ),
                       ),
                       Positioned(
-                        bottom: 10, right: 12,
+                        bottom: 10,
+                        right: 12,
                         child: Container(
-                          width: 36, height: 36,
+                          width: 36,
+                          height: 36,
                           decoration: BoxDecoration(
                             color: Color(0xFF00695C),
                             shape: BoxShape.circle,
-                            border: Border.all(color: Color(0xFFFFFFFF), width: 3),
+                            border: Border.all(
+                              color: Color(0xFFFFFFFF),
+                              width: 3,
+                            ),
                           ),
-                          child: Center(child: Icon(Icons.add, color: Color(0xFFFFFFFF), size: 18)),
+                          child: Center(
+                            child: Icon(
+                              Icons.add,
+                              color: Color(0xFFFFFFFF),
+                              size: 18,
+                            ),
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
                 SizedBox(height: 8),
-                Text('FAB overlaps into the bar', style: TextStyle(fontSize: 11, color: Color(0xFF616161))),
-                Text('Uses FabDockedOffsetY', style: TextStyle(fontSize: 11, color: Color(0xFF9E9E9E))),
+                Text(
+                  'FAB overlaps into the bar',
+                  style: TextStyle(fontSize: 11, color: Color(0xFF616161)),
+                ),
+                Text(
+                  'Uses FabDockedOffsetY',
+                  style: TextStyle(fontSize: 11, color: Color(0xFF9E9E9E)),
+                ),
               ],
             ),
           ),
@@ -457,11 +601,14 @@ Widget _buildFloatWithBottomNav() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Floating FAB Above BottomNavigationBar',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+        Text(
+          'Floating FAB Above BottomNavigationBar',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+        ),
         SizedBox(height: 16),
         Container(
-          height: 200, width: double.infinity,
+          height: 200,
+          width: double.infinity,
           decoration: BoxDecoration(
             color: Color(0xFFF5F5F5),
             borderRadius: BorderRadius.circular(8),
@@ -470,25 +617,54 @@ Widget _buildFloatWithBottomNav() {
           child: Stack(
             children: [
               Positioned(
-                top: 0, left: 0, right: 0, height: 36,
+                top: 0,
+                left: 0,
+                right: 0,
+                height: 36,
                 child: Container(
                   decoration: BoxDecoration(
                     color: Color(0xFFBF360C),
-                    borderRadius: BorderRadius.only(topLeft: Radius.circular(6), topRight: Radius.circular(6)),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(6),
+                      topRight: Radius.circular(6),
+                    ),
                   ),
-                  child: Center(child: Text('My App', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 12, fontWeight: FontWeight.bold))),
+                  child: Center(
+                    child: Text(
+                      'My App',
+                      style: TextStyle(
+                        color: Color(0xFFFFFFFF),
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                 ),
               ),
               Positioned(
-                top: 36, left: 0, right: 0, bottom: 44,
-                child: Center(child: Text('Content Area', style: TextStyle(color: Color(0xFF9E9E9E), fontSize: 11))),
+                top: 36,
+                left: 0,
+                right: 0,
+                bottom: 44,
+                child: Center(
+                  child: Text(
+                    'Content Area',
+                    style: TextStyle(color: Color(0xFF9E9E9E), fontSize: 11),
+                  ),
+                ),
               ),
               Positioned(
-                bottom: 0, left: 0, right: 0, height: 44,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                height: 44,
                 child: Container(
                   decoration: BoxDecoration(
                     color: Color(0xFFFFFFFF),
-                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(6), bottomRight: Radius.circular(6)),
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(6),
+                      bottomRight: Radius.circular(6),
+                    ),
                     border: Border(top: BorderSide(color: Color(0xFFE0E0E0))),
                   ),
                   child: Row(
@@ -503,22 +679,32 @@ Widget _buildFloatWithBottomNav() {
                 ),
               ),
               Positioned(
-                bottom: 56, right: 16,
+                bottom: 56,
+                right: 16,
                 child: Container(
-                  width: 52, height: 52,
+                  width: 52,
+                  height: 52,
                   decoration: BoxDecoration(
                     color: Color(0xFFBF360C),
                     shape: BoxShape.circle,
                   ),
-                  child: Center(child: Icon(Icons.add, color: Color(0xFFFFFFFF), size: 28)),
+                  child: Center(
+                    child: Icon(Icons.add, color: Color(0xFFFFFFFF), size: 28),
+                  ),
                 ),
               ),
             ],
           ),
         ),
         SizedBox(height: 12),
-        buildInfoCard('Gap:', '12-16dp standard gap between FAB and BottomNavigationBar'),
-        buildInfoCard('Float Y:', 'Positions FAB bottom edge above the bar top edge'),
+        buildInfoCard(
+          'Gap:',
+          '12-16dp standard gap between FAB and BottomNavigationBar',
+        ),
+        buildInfoCard(
+          'Float Y:',
+          'Positions FAB bottom edge above the bar top edge',
+        ),
       ],
     ),
   );
@@ -529,8 +715,18 @@ Widget _buildNavItem(IconData icon, String label, bool active) {
     mainAxisSize: MainAxisSize.min,
     children: [
       SizedBox(height: 4),
-      Icon(icon, size: 20, color: active ? Color(0xFFBF360C) : Color(0xFF9E9E9E)),
-      Text(label, style: TextStyle(fontSize: 9, color: active ? Color(0xFFBF360C) : Color(0xFF9E9E9E))),
+      Icon(
+        icon,
+        size: 20,
+        color: active ? Color(0xFFBF360C) : Color(0xFF9E9E9E),
+      ),
+      Text(
+        label,
+        style: TextStyle(
+          fontSize: 9,
+          color: active ? Color(0xFFBF360C) : Color(0xFF9E9E9E),
+        ),
+      ),
     ],
   );
 }
@@ -547,8 +743,10 @@ Widget _buildCalculationFormula() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('getFloatY Calculation',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+        Text(
+          'getFloatY Calculation',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+        ),
         SizedBox(height: 16),
         Container(
           width: double.infinity,
@@ -560,38 +758,108 @@ Widget _buildCalculationFormula() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('// FabFloatOffsetY.getFloatY() calculation:',
-                  style: TextStyle(fontFamily: 'monospace', fontSize: 10, color: Color(0xFF78909C))),
+              Text(
+                '// FabFloatOffsetY.getFloatY() calculation:',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 10,
+                  color: Color(0xFF78909C),
+                ),
+              ),
               SizedBox(height: 6),
-              Text('fabY = contentBottom - fabHeight - bottomBarGap',
-                  style: TextStyle(fontFamily: 'monospace', fontSize: 13, color: Color(0xFF80CBC4))),
+              Text(
+                'fabY = contentBottom - fabHeight - bottomBarGap',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 13,
+                  color: Color(0xFF80CBC4),
+                ),
+              ),
               SizedBox(height: 8),
-              Text('// Where:',
-                  style: TextStyle(fontFamily: 'monospace', fontSize: 10, color: Color(0xFF78909C))),
-              Text('// contentBottom = scaffoldHeight - bottomBarHeight',
-                  style: TextStyle(fontFamily: 'monospace', fontSize: 10, color: Color(0xFF78909C))),
-              Text('// bottomBarGap = standard padding (16dp)',
-                  style: TextStyle(fontFamily: 'monospace', fontSize: 10, color: Color(0xFF78909C))),
+              Text(
+                '// Where:',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 10,
+                  color: Color(0xFF78909C),
+                ),
+              ),
+              Text(
+                '// contentBottom = scaffoldHeight - bottomBarHeight',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 10,
+                  color: Color(0xFF78909C),
+                ),
+              ),
+              Text(
+                '// bottomBarGap = standard padding (16dp)',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 10,
+                  color: Color(0xFF78909C),
+                ),
+              ),
               SizedBox(height: 8),
-              Text('// Example: scaffold=800, bar=56, fab=56, gap=16:',
-                  style: TextStyle(fontFamily: 'monospace', fontSize: 10, color: Color(0xFF78909C))),
-              Text('fabY = (800 - 56) - 56 - 16 = 672.0',
-                  style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: Color(0xFFFFCC80))),
+              Text(
+                '// Example: scaffold=800, bar=56, fab=56, gap=16:',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 10,
+                  color: Color(0xFF78909C),
+                ),
+              ),
+              Text(
+                'fabY = (800 - 56) - 56 - 16 = 672.0',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 11,
+                  color: Color(0xFFFFCC80),
+                ),
+              ),
             ],
           ),
         ),
         SizedBox(height: 16),
-        _buildCalcRow('scaffoldHeight', '800.0', 'Total scaffold height', Color(0xFFBF360C)),
+        _buildCalcRow(
+          'scaffoldHeight',
+          '800.0',
+          'Total scaffold height',
+          Color(0xFFBF360C),
+        ),
         SizedBox(height: 4),
-        _buildCalcRow('bottomBarHeight', '56.0', 'BottomNavigationBar height', Color(0xFF1565C0)),
+        _buildCalcRow(
+          'bottomBarHeight',
+          '56.0',
+          'BottomNavigationBar height',
+          Color(0xFF1565C0),
+        ),
         SizedBox(height: 4),
-        _buildCalcRow('fabHeight', '56.0', 'Standard FAB height', Color(0xFF00695C)),
+        _buildCalcRow(
+          'fabHeight',
+          '56.0',
+          'Standard FAB height',
+          Color(0xFF00695C),
+        ),
         SizedBox(height: 4),
-        _buildCalcRow('bottomBarGap', '16.0', 'Standard gap above bar', Color(0xFF6A1B9A)),
+        _buildCalcRow(
+          'bottomBarGap',
+          '16.0',
+          'Standard gap above bar',
+          Color(0xFF6A1B9A),
+        ),
         SizedBox(height: 4),
-        _buildCalcRow('fabY result', '672.0', 'FAB top-left Y position', Color(0xFFD84315)),
+        _buildCalcRow(
+          'fabY result',
+          '672.0',
+          'FAB top-left Y position',
+          Color(0xFFD84315),
+        ),
         SizedBox(height: 8),
-        buildInfoCard('Key:', 'Float Y ensures a gap between the FAB and the bottom bar'),
+        buildInfoCard(
+          'Key:',
+          'Float Y ensures a gap between the FAB and the bottom bar',
+        ),
       ],
     ),
   );
@@ -607,12 +875,36 @@ Widget _buildCalcRow(String name, String val, String desc, Color color) {
     ),
     child: Row(
       children: [
-        Expanded(flex: 3, child: Text(name, style: TextStyle(fontFamily: 'monospace', fontSize: 11, fontWeight: FontWeight.bold, color: color))),
+        Expanded(
+          flex: 3,
+          child: Text(
+            name,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 11,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
+        ),
         Container(
           width: 60,
-          child: Text(val, style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: Color(0xFF616161))),
+          child: Text(
+            val,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 11,
+              color: Color(0xFF616161),
+            ),
+          ),
         ),
-        Expanded(flex: 4, child: Text(desc, style: TextStyle(fontSize: 11, color: Color(0xFF757575)))),
+        Expanded(
+          flex: 4,
+          child: Text(
+            desc,
+            style: TextStyle(fontSize: 11, color: Color(0xFF757575)),
+          ),
+        ),
       ],
     ),
   );
@@ -622,15 +914,50 @@ Widget _buildDifferentFloatHeights() {
   print('Building different float heights');
   List<Widget> cards = [];
 
-  cards.add(_buildFloatHeightCard(0.0, 'Default height', 'Standard gap above bottom bar', Color(0xFFBF360C)));
+  cards.add(
+    _buildFloatHeightCard(
+      0.0,
+      'Default height',
+      'Standard gap above bottom bar',
+      Color(0xFFBF360C),
+    ),
+  );
   cards.add(SizedBox(height: 8));
-  cards.add(_buildFloatHeightCard(8.0, 'Slightly higher', 'More breathing room above bar', Color(0xFF00695C)));
+  cards.add(
+    _buildFloatHeightCard(
+      8.0,
+      'Slightly higher',
+      'More breathing room above bar',
+      Color(0xFF00695C),
+    ),
+  );
   cards.add(SizedBox(height: 8));
-  cards.add(_buildFloatHeightCard(24.0, 'Much higher', 'Large gap, FAB stands out more', Color(0xFF1565C0)));
+  cards.add(
+    _buildFloatHeightCard(
+      24.0,
+      'Much higher',
+      'Large gap, FAB stands out more',
+      Color(0xFF1565C0),
+    ),
+  );
   cards.add(SizedBox(height: 8));
-  cards.add(_buildFloatHeightCard(-8.0, 'Slightly lower', 'Closer to bar, almost touching', Color(0xFF6A1B9A)));
+  cards.add(
+    _buildFloatHeightCard(
+      -8.0,
+      'Slightly lower',
+      'Closer to bar, almost touching',
+      Color(0xFF6A1B9A),
+    ),
+  );
   cards.add(SizedBox(height: 8));
-  cards.add(_buildFloatHeightCard(40.0, 'Very high', 'FAB far above bar, disconnected feel', Color(0xFFD84315)));
+  cards.add(
+    _buildFloatHeightCard(
+      40.0,
+      'Very high',
+      'FAB far above bar, disconnected feel',
+      Color(0xFFD84315),
+    ),
+  );
 
   return Container(
     padding: EdgeInsets.all(16),
@@ -642,18 +969,28 @@ Widget _buildDifferentFloatHeights() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Visual Impact of Different Float Heights',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+        Text(
+          'Visual Impact of Different Float Heights',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+        ),
         SizedBox(height: 16),
         Column(children: cards),
         SizedBox(height: 12),
-        buildInfoCard('Best practice:', 'Keep float offset small (0 to 16) for a balanced look'),
+        buildInfoCard(
+          'Best practice:',
+          'Keep float offset small (0 to 16) for a balanced look',
+        ),
       ],
     ),
   );
 }
 
-Widget _buildFloatHeightCard(double offset, String title, String desc, Color color) {
+Widget _buildFloatHeightCard(
+  double offset,
+  String title,
+  String desc,
+  Color color,
+) {
   String sign = '';
   if (offset > 0) {
     sign = '+';
@@ -672,7 +1009,8 @@ Widget _buildFloatHeightCard(double offset, String title, String desc, Color col
     child: Row(
       children: [
         Container(
-          width: 80, height: 70,
+          width: 80,
+          height: 70,
           decoration: BoxDecoration(
             color: Color(0xFFF5F5F5),
             borderRadius: BorderRadius.circular(6),
@@ -681,7 +1019,10 @@ Widget _buildFloatHeightCard(double offset, String title, String desc, Color col
           child: Stack(
             children: [
               Positioned(
-                bottom: 0, left: 0, right: 0, height: 18,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                height: 18,
                 child: Container(
                   decoration: BoxDecoration(
                     color: Color(0xFF78909C),
@@ -693,14 +1034,18 @@ Widget _buildFloatHeightCard(double offset, String title, String desc, Color col
                 ),
               ),
               Positioned(
-                bottom: 18.0 + gapHeight * 0.5, right: 8,
+                bottom: 18.0 + gapHeight * 0.5,
+                right: 8,
                 child: Container(
-                  width: 24, height: 24,
+                  width: 24,
+                  height: 24,
                   decoration: BoxDecoration(
                     color: color,
                     shape: BoxShape.circle,
                   ),
-                  child: Center(child: Icon(Icons.add, color: Color(0xFFFFFFFF), size: 12)),
+                  child: Center(
+                    child: Icon(Icons.add, color: Color(0xFFFFFFFF), size: 12),
+                  ),
                 ),
               ),
             ],
@@ -711,10 +1056,26 @@ Widget _buildFloatHeightCard(double offset, String title, String desc, Color col
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: color)),
-              Text('Offset: $sign${offset.toStringAsFixed(1)}px',
-                  style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: Color(0xFF616161))),
-              Text(desc, style: TextStyle(fontSize: 10, color: Color(0xFF9E9E9E))),
+              Text(
+                title,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13,
+                  color: color,
+                ),
+              ),
+              Text(
+                'Offset: $sign${offset.toStringAsFixed(1)}px',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 11,
+                  color: Color(0xFF616161),
+                ),
+              ),
+              Text(
+                desc,
+                style: TextStyle(fontSize: 10, color: Color(0xFF9E9E9E)),
+              ),
             ],
           ),
         ),
@@ -735,22 +1096,39 @@ Widget _buildFloatWithLargeFab() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('FAB Size Impact on Float Y',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+        Text(
+          'FAB Size Impact on Float Y',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+        ),
         SizedBox(height: 16),
         Row(
           children: [
-            Expanded(child: _buildSizeFloatCard('Mini', 40.0, Color(0xFF6A1B9A))),
+            Expanded(
+              child: _buildSizeFloatCard('Mini', 40.0, Color(0xFF6A1B9A)),
+            ),
             SizedBox(width: 8),
-            Expanded(child: _buildSizeFloatCard('Standard', 56.0, Color(0xFFBF360C))),
+            Expanded(
+              child: _buildSizeFloatCard('Standard', 56.0, Color(0xFFBF360C)),
+            ),
             SizedBox(width: 8),
-            Expanded(child: _buildSizeFloatCard('Large', 96.0, Color(0xFF00695C))),
+            Expanded(
+              child: _buildSizeFloatCard('Large', 96.0, Color(0xFF00695C)),
+            ),
           ],
         ),
         SizedBox(height: 16),
-        buildInfoCard('Mini FAB:', 'Less vertical space consumed, higher apparent gap'),
-        buildInfoCard('Large FAB:', 'More vertical space consumed, closer to content'),
-        buildInfoCard('Formula:', 'All sizes use contentBottom - fabHeight - gap'),
+        buildInfoCard(
+          'Mini FAB:',
+          'Less vertical space consumed, higher apparent gap',
+        ),
+        buildInfoCard(
+          'Large FAB:',
+          'More vertical space consumed, closer to content',
+        ),
+        buildInfoCard(
+          'Formula:',
+          'All sizes use contentBottom - fabHeight - gap',
+        ),
       ],
     ),
   );
@@ -767,7 +1145,8 @@ Widget _buildSizeFloatCard(String label, double size, Color color) {
     child: Column(
       children: [
         Container(
-          height: 80, width: double.infinity,
+          height: 80,
+          width: double.infinity,
           decoration: BoxDecoration(
             color: Color(0xFFF5F5F5),
             borderRadius: BorderRadius.circular(6),
@@ -776,7 +1155,10 @@ Widget _buildSizeFloatCard(String label, double size, Color color) {
           child: Stack(
             children: [
               Positioned(
-                bottom: 0, left: 0, right: 0, height: 20,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                height: 20,
                 child: Container(
                   decoration: BoxDecoration(
                     color: Color(0xFF78909C),
@@ -788,15 +1170,24 @@ Widget _buildSizeFloatCard(String label, double size, Color color) {
                 ),
               ),
               Positioned(
-                bottom: 26, left: 0, right: 0,
+                bottom: 26,
+                left: 0,
+                right: 0,
                 child: Center(
                   child: Container(
-                    width: size * 0.45, height: size * 0.45,
+                    width: size * 0.45,
+                    height: size * 0.45,
                     decoration: BoxDecoration(
                       color: color,
                       shape: BoxShape.circle,
                     ),
-                    child: Center(child: Icon(Icons.add, color: Color(0xFFFFFFFF), size: size * 0.2)),
+                    child: Center(
+                      child: Icon(
+                        Icons.add,
+                        color: Color(0xFFFFFFFF),
+                        size: size * 0.2,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -804,8 +1195,18 @@ Widget _buildSizeFloatCard(String label, double size, Color color) {
           ),
         ),
         SizedBox(height: 8),
-        Text(label, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: color)),
-        Text('${size.toInt()}px', style: TextStyle(fontSize: 10, color: Color(0xFF757575))),
+        Text(
+          label,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 12,
+            color: color,
+          ),
+        ),
+        Text(
+          '${size.toInt()}px',
+          style: TextStyle(fontSize: 10, color: Color(0xFF757575)),
+        ),
       ],
     ),
   );
@@ -823,18 +1224,43 @@ Widget _buildBarTypeComparison() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Float Y Behavior with Different Bottom Bars',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+        Text(
+          'Float Y Behavior with Different Bottom Bars',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+        ),
         SizedBox(height: 16),
-        _buildBarTypeRow('BottomNavigationBar', '56dp', 'Standard tab nav, FAB floats above', Color(0xFFBF360C)),
+        _buildBarTypeRow(
+          'BottomNavigationBar',
+          '56dp',
+          'Standard tab nav, FAB floats above',
+          Color(0xFFBF360C),
+        ),
         SizedBox(height: 8),
-        _buildBarTypeRow('BottomAppBar', '56dp', 'Action bar, FAB floats above (or docked)', Color(0xFF1565C0)),
+        _buildBarTypeRow(
+          'BottomAppBar',
+          '56dp',
+          'Action bar, FAB floats above (or docked)',
+          Color(0xFF1565C0),
+        ),
         SizedBox(height: 8),
-        _buildBarTypeRow('NavigationBar (M3)', '80dp', 'Material 3 nav, taller bar shifts FAB higher', Color(0xFF00695C)),
+        _buildBarTypeRow(
+          'NavigationBar (M3)',
+          '80dp',
+          'Material 3 nav, taller bar shifts FAB higher',
+          Color(0xFF00695C),
+        ),
         SizedBox(height: 8),
-        _buildBarTypeRow('No bottom bar', '0dp', 'FAB floats above scaffold bottom edge', Color(0xFF6A1B9A)),
+        _buildBarTypeRow(
+          'No bottom bar',
+          '0dp',
+          'FAB floats above scaffold bottom edge',
+          Color(0xFF6A1B9A),
+        ),
         SizedBox(height: 12),
-        buildInfoCard('Adapts:', 'Float Y adjusts based on actual bottom bar height'),
+        buildInfoCard(
+          'Adapts:',
+          'Float Y adjusts based on actual bottom bar height',
+        ),
       ],
     ),
   );
@@ -851,7 +1277,8 @@ Widget _buildBarTypeRow(String name, String height, String desc, Color color) {
     child: Row(
       children: [
         Container(
-          width: 48, height: 48,
+          width: 48,
+          height: 48,
           decoration: BoxDecoration(
             color: color.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(8),
@@ -861,7 +1288,14 @@ Widget _buildBarTypeRow(String name, String height, String desc, Color color) {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(Icons.horizontal_rule, size: 16, color: color),
-                Text(height, style: TextStyle(fontSize: 8, fontWeight: FontWeight.bold, color: color)),
+                Text(
+                  height,
+                  style: TextStyle(
+                    fontSize: 8,
+                    fontWeight: FontWeight.bold,
+                    color: color,
+                  ),
+                ),
               ],
             ),
           ),
@@ -871,8 +1305,18 @@ Widget _buildBarTypeRow(String name, String height, String desc, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: color)),
-              Text(desc, style: TextStyle(fontSize: 11, color: Color(0xFF757575))),
+              Text(
+                name,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13,
+                  color: color,
+                ),
+              ),
+              Text(
+                desc,
+                style: TextStyle(fontSize: 11, color: Color(0xFF757575)),
+              ),
             ],
           ),
         ),
@@ -893,11 +1337,14 @@ Widget _buildVisualSpacingGuide() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Visual Spacing Between FAB and Bar',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+        Text(
+          'Visual Spacing Between FAB and Bar',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+        ),
         SizedBox(height: 16),
         Container(
-          height: 180, width: double.infinity,
+          height: 180,
+          width: double.infinity,
           padding: EdgeInsets.all(8),
           decoration: BoxDecoration(
             color: Color(0xFFFFFFFF),
@@ -907,7 +1354,10 @@ Widget _buildVisualSpacingGuide() {
           child: Stack(
             children: [
               Positioned(
-                bottom: 0, left: 0, right: 0, height: 36,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                height: 36,
                 child: Container(
                   decoration: BoxDecoration(
                     color: Color(0xFF546E7A),
@@ -916,48 +1366,83 @@ Widget _buildVisualSpacingGuide() {
                       bottomRight: Radius.circular(6),
                     ),
                   ),
-                  child: Center(child: Text('BottomNavigationBar (56dp)', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 9))),
+                  child: Center(
+                    child: Text(
+                      'BottomNavigationBar (56dp)',
+                      style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 9),
+                    ),
+                  ),
                 ),
               ),
               Positioned(
-                bottom: 36, left: 0, right: 0, height: 20,
+                bottom: 36,
+                left: 0,
+                right: 0,
+                height: 20,
                 child: Container(
                   color: Color(0xFFFFEB3B).withValues(alpha: 0.3),
-                  child: Center(child: Text('Float gap (16dp default)', style: TextStyle(fontSize: 8, color: Color(0xFF795548)))),
+                  child: Center(
+                    child: Text(
+                      'Float gap (16dp default)',
+                      style: TextStyle(fontSize: 8, color: Color(0xFF795548)),
+                    ),
+                  ),
                 ),
               ),
               Positioned(
-                bottom: 56, right: 20,
+                bottom: 56,
+                right: 20,
                 child: Container(
-                  width: 48, height: 48,
+                  width: 48,
+                  height: 48,
                   decoration: BoxDecoration(
                     color: Color(0xFFBF360C),
                     shape: BoxShape.circle,
                   ),
-                  child: Center(child: Icon(Icons.add, color: Color(0xFFFFFFFF), size: 24)),
+                  child: Center(
+                    child: Icon(Icons.add, color: Color(0xFFFFFFFF), size: 24),
+                  ),
                 ),
               ),
               Positioned(
-                bottom: 108, right: 16,
-                child: Text('fabY', style: TextStyle(fontFamily: 'monospace', fontSize: 9, fontWeight: FontWeight.bold, color: Color(0xFFBF360C))),
-              ),
-              Positioned(
-                left: 8, bottom: 44, top: 0,
-                child: Container(
-                  width: 1,
-                  color: Color(0xFF90CAF9),
+                bottom: 108,
+                right: 16,
+                child: Text(
+                  'fabY',
+                  style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 9,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFFBF360C),
+                  ),
                 ),
               ),
               Positioned(
-                left: 4, top: 8,
-                child: Text('scaffoldHeight', style: TextStyle(fontSize: 7, color: Color(0xFF1565C0))),
+                left: 8,
+                bottom: 44,
+                top: 0,
+                child: Container(width: 1, color: Color(0xFF90CAF9)),
+              ),
+              Positioned(
+                left: 4,
+                top: 8,
+                child: Text(
+                  'scaffoldHeight',
+                  style: TextStyle(fontSize: 7, color: Color(0xFF1565C0)),
+                ),
               ),
             ],
           ),
         ),
         SizedBox(height: 12),
-        buildInfoCard('Structure:', 'Content > Gap > BottomBar from top to bottom'),
-        buildInfoCard('FAB position:', 'FAB bottom edge sits at top of gap area'),
+        buildInfoCard(
+          'Structure:',
+          'Content > Gap > BottomBar from top to bottom',
+        ),
+        buildInfoCard(
+          'FAB position:',
+          'FAB bottom edge sits at top of gap area',
+        ),
       ],
     ),
   );
@@ -966,12 +1451,54 @@ Widget _buildVisualSpacingGuide() {
 Widget _buildPropertiesAndApi() {
   print('Building properties and API');
   List<Widget> rows = [];
-  rows.add(_buildApiRow('getFloatY', 'double', 'Returns Y offset for floating FAB', Color(0xFFBF360C)));
-  rows.add(_buildApiRow('scaffoldGeometry', 'ScaffoldPrelayoutGeometry', 'Input: scaffold layout data', Color(0xFF1565C0)));
-  rows.add(_buildApiRow('adjustment', 'double', 'Additional Y offset adjustment', Color(0xFF00695C)));
-  rows.add(_buildApiRow('contentBottom', 'double', 'Bottom edge of content area', Color(0xFF6A1B9A)));
-  rows.add(_buildApiRow('fabHeight', 'double', 'FAB height for position calc', Color(0xFFD84315)));
-  rows.add(_buildApiRow('bottomBarGap', 'double', 'Gap between FAB and bottom bar', Color(0xFFC62828)));
+  rows.add(
+    _buildApiRow(
+      'getFloatY',
+      'double',
+      'Returns Y offset for floating FAB',
+      Color(0xFFBF360C),
+    ),
+  );
+  rows.add(
+    _buildApiRow(
+      'scaffoldGeometry',
+      'ScaffoldPrelayoutGeometry',
+      'Input: scaffold layout data',
+      Color(0xFF1565C0),
+    ),
+  );
+  rows.add(
+    _buildApiRow(
+      'adjustment',
+      'double',
+      'Additional Y offset adjustment',
+      Color(0xFF00695C),
+    ),
+  );
+  rows.add(
+    _buildApiRow(
+      'contentBottom',
+      'double',
+      'Bottom edge of content area',
+      Color(0xFF6A1B9A),
+    ),
+  );
+  rows.add(
+    _buildApiRow(
+      'fabHeight',
+      'double',
+      'FAB height for position calc',
+      Color(0xFFD84315),
+    ),
+  );
+  rows.add(
+    _buildApiRow(
+      'bottomBarGap',
+      'double',
+      'Gap between FAB and bottom bar',
+      Color(0xFFC62828),
+    ),
+  );
 
   return Container(
     padding: EdgeInsets.all(16),
@@ -984,9 +1511,27 @@ Widget _buildPropertiesAndApi() {
       children: [
         Row(
           children: [
-            Expanded(flex: 3, child: Text('Name', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
-            Expanded(flex: 3, child: Text('Type', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
-            Expanded(flex: 4, child: Text('Description', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
+            Expanded(
+              flex: 3,
+              child: Text(
+                'Name',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+              ),
+            ),
+            Expanded(
+              flex: 3,
+              child: Text(
+                'Type',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+              ),
+            ),
+            Expanded(
+              flex: 4,
+              child: Text(
+                'Description',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+              ),
+            ),
           ],
         ),
         Divider(color: Color(0xFFBDBDBD)),
@@ -1004,9 +1549,36 @@ Widget _buildApiRow(String name, String type, String desc, Color color) {
     ),
     child: Row(
       children: [
-        Expanded(flex: 3, child: Text(name, style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: color, fontWeight: FontWeight.bold))),
-        Expanded(flex: 3, child: Text(type, style: TextStyle(fontFamily: 'monospace', fontSize: 10, color: Color(0xFF616161)))),
-        Expanded(flex: 4, child: Text(desc, style: TextStyle(fontSize: 11, color: Color(0xFF757575)))),
+        Expanded(
+          flex: 3,
+          child: Text(
+            name,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 11,
+              color: color,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 3,
+          child: Text(
+            type,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 10,
+              color: Color(0xFF616161),
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 4,
+          child: Text(
+            desc,
+            style: TextStyle(fontSize: 11, color: Color(0xFF757575)),
+          ),
+        ),
       ],
     ),
   );

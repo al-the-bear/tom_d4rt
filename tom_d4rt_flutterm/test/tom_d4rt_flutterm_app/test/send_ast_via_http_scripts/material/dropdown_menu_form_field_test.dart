@@ -10,7 +10,14 @@ Widget buildSectionHeader(String title) {
       color: Colors.amber.shade800,
       borderRadius: BorderRadius.circular(8),
     ),
-    child: Text(title, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)),
+    child: Text(
+      title,
+      style: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+      ),
+    ),
   );
 }
 
@@ -23,11 +30,21 @@ Widget buildInfoCard(String label, String value) {
       borderRadius: BorderRadius.circular(8),
       border: Border.all(color: Colors.grey.shade300),
     ),
-    child: Row(children: [
-      Text(label, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      SizedBox(width: 8),
-      Expanded(child: Text(value, style: TextStyle(fontSize: 14, color: Colors.grey.shade700))),
-    ]),
+    child: Row(
+      children: [
+        Text(
+          label,
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+        ),
+        SizedBox(width: 8),
+        Expanded(
+          child: Text(
+            value,
+            style: TextStyle(fontSize: 14, color: Colors.grey.shade700),
+          ),
+        ),
+      ],
+    ),
   );
 }
 
@@ -40,20 +57,31 @@ List<DropdownMenuEntry<String>> buildStringEntries(List<String> labels) {
   return entries;
 }
 
-List<DropdownMenuEntry<String>> buildIconEntries(List<String> labels, List<IconData> icons, List<Color> colors) {
+List<DropdownMenuEntry<String>> buildIconEntries(
+  List<String> labels,
+  List<IconData> icons,
+  List<Color> colors,
+) {
   List<DropdownMenuEntry<String>> entries = [];
   int i = 0;
   for (i = 0; i < labels.length; i = i + 1) {
-    entries.add(DropdownMenuEntry(
-      value: labels[i],
-      label: labels[i],
-      leadingIcon: Icon(icons[i], color: colors[i], size: 20),
-    ));
+    entries.add(
+      DropdownMenuEntry(
+        value: labels[i],
+        label: labels[i],
+        leadingIcon: Icon(icons[i], color: colors[i], size: 20),
+      ),
+    );
   }
   return entries;
 }
 
-Widget buildBasicFormField(String label, String hint, List<String> items, String initialValue) {
+Widget buildBasicFormField(
+  String label,
+  String hint,
+  List<String> items,
+  String initialValue,
+) {
   print('Building basic form field: $label');
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
@@ -66,7 +94,10 @@ Widget buildBasicFormField(String label, String hint, List<String> items, String
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+        Text(
+          label,
+          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 4),
         Text(hint, style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
         SizedBox(height: 12),
@@ -82,7 +113,11 @@ Widget buildBasicFormField(String label, String hint, List<String> items, String
   );
 }
 
-Widget buildFormFieldWithDecoration(String label, Color borderColor, Color fillColor) {
+Widget buildFormFieldWithDecoration(
+  String label,
+  Color borderColor,
+  Color fillColor,
+) {
   print('Building form field with decoration: $label');
   List<String> items = ['Option A', 'Option B', 'Option C', 'Option D'];
   return Container(
@@ -96,9 +131,15 @@ Widget buildFormFieldWithDecoration(String label, Color borderColor, Color fillC
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+        Text(
+          label,
+          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 4),
-        Text('Custom border and fill decoration', style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
+        Text(
+          'Custom border and fill decoration',
+          style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+        ),
         SizedBox(height: 12),
         DropdownMenu(
           initialSelection: 'Option A',
@@ -129,9 +170,21 @@ Widget buildFormFieldWithDecoration(String label, Color borderColor, Color fillC
 
 Widget buildFormWithMultipleFields() {
   print('Building form with multiple dropdown fields');
-  List<String> countries = ['United States', 'United Kingdom', 'Germany', 'France', 'Japan'];
+  List<String> countries = [
+    'United States',
+    'United Kingdom',
+    'Germany',
+    'France',
+    'Japan',
+  ];
   List<String> cities = ['New York', 'London', 'Berlin', 'Paris', 'Tokyo'];
-  List<String> languages = ['English', 'French', 'German', 'Japanese', 'Spanish'];
+  List<String> languages = [
+    'English',
+    'French',
+    'German',
+    'Japanese',
+    'Spanish',
+  ];
   List<String> currencies = ['USD', 'GBP', 'EUR', 'JPY', 'MXN'];
 
   return Container(
@@ -146,9 +199,15 @@ Widget buildFormWithMultipleFields() {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('User Profile Form', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          Text(
+            'User Profile Form',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 4),
-          Text('Multiple DropdownMenu form fields in a Form context', style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
+          Text(
+            'Multiple DropdownMenu form fields in a Form context',
+            style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+          ),
           SizedBox(height: 16),
           DropdownMenu(
             initialSelection: 'United States',
@@ -186,9 +245,14 @@ Widget buildFormWithMultipleFields() {
                 backgroundColor: Colors.amber.shade800,
                 foregroundColor: Colors.white,
                 padding: EdgeInsets.symmetric(vertical: 14),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
               ),
-              child: Text('Save Profile', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              child: Text(
+                'Save Profile',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
             ),
           ),
         ],
@@ -200,8 +264,18 @@ Widget buildFormWithMultipleFields() {
 Widget buildThemedFormSection(String title, MaterialColor themeColor) {
   print('Building themed form section: $title');
   List<String> items = ['Primary', 'Secondary', 'Tertiary', 'Default'];
-  List<IconData> icons = [Icons.looks_one, Icons.looks_two, Icons.looks_3, Icons.looks_4];
-  List<Color> iconColors = [themeColor, themeColor.shade400, themeColor.shade300, Colors.grey];
+  List<IconData> icons = [
+    Icons.looks_one,
+    Icons.looks_two,
+    Icons.looks_3,
+    Icons.looks_4,
+  ];
+  List<Color> iconColors = [
+    themeColor,
+    themeColor.shade400,
+    themeColor.shade300,
+    Colors.grey,
+  ];
 
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
@@ -225,7 +299,14 @@ Widget buildThemedFormSection(String title, MaterialColor themeColor) {
               ),
             ),
             SizedBox(width: 12),
-            Text(title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: themeColor.shade800)),
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: themeColor.shade800,
+              ),
+            ),
           ],
         ),
         SizedBox(height: 16),
@@ -261,50 +342,74 @@ Widget buildFormFieldsComparison() {
     'Simple underline decoration',
     'Compact form with dense padding',
   ];
-  List<MaterialColor> fieldColors = [Colors.blue, Colors.teal, Colors.orange, Colors.purple];
+  List<MaterialColor> fieldColors = [
+    Colors.blue,
+    Colors.teal,
+    Colors.orange,
+    Colors.purple,
+  ];
 
   List<Widget> fieldCards = [];
   int f = 0;
   for (f = 0; f < fieldTypes.length; f = f + 1) {
-    fieldCards.add(Container(
-      margin: EdgeInsets.symmetric(vertical: 6),
-      padding: EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: fieldColors[f].shade50,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: fieldColors[f].shade200),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                width: 28,
-                height: 28,
-                decoration: BoxDecoration(
-                  color: fieldColors[f],
-                  borderRadius: BorderRadius.circular(6),
+    fieldCards.add(
+      Container(
+        margin: EdgeInsets.symmetric(vertical: 6),
+        padding: EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: fieldColors[f].shade50,
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: fieldColors[f].shade200),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Container(
+                  width: 28,
+                  height: 28,
+                  decoration: BoxDecoration(
+                    color: fieldColors[f],
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Center(
+                    child: Text(
+                      '${f + 1}',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                      ),
+                    ),
+                  ),
                 ),
-                child: Center(
-                  child: Text('${f + 1}', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13)),
+                SizedBox(width: 10),
+                Text(
+                  fieldTypes[f],
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                 ),
-              ),
-              SizedBox(width: 10),
-              Text(fieldTypes[f], style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-            ],
-          ),
-          SizedBox(height: 4),
-          Text(fieldDescs[f], style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
-          SizedBox(height: 10),
-          DropdownMenu(
-            initialSelection: 'Choice 1',
-            dropdownMenuEntries: buildStringEntries(['Choice 1', 'Choice 2', 'Choice 3']),
-            expandedInsets: EdgeInsets.zero,
-          ),
-        ],
+              ],
+            ),
+            SizedBox(height: 4),
+            Text(
+              fieldDescs[f],
+              style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+            ),
+            SizedBox(height: 10),
+            DropdownMenu(
+              initialSelection: 'Choice 1',
+              dropdownMenuEntries: buildStringEntries([
+                'Choice 1',
+                'Choice 2',
+                'Choice 3',
+              ]),
+              expandedInsets: EdgeInsets.zero,
+            ),
+          ],
+        ),
       ),
-    ));
+    );
   }
 
   return Container(
@@ -318,9 +423,15 @@ Widget buildFormFieldsComparison() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Form Field Decoration Styles', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        Text(
+          'Form Field Decoration Styles',
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 4),
-        Text('Different InputDecorationTheme configurations', style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
+        Text(
+          'Different InputDecorationTheme configurations',
+          style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+        ),
         SizedBox(height: 12),
         Column(children: fieldCards),
       ],
@@ -331,8 +442,18 @@ Widget buildFormFieldsComparison() {
 Widget buildValidationStatesShowcase() {
   print('Building validation states showcase');
   List<String> states = ['Default', 'Focused', 'Error', 'Disabled'];
-  List<Color> stateColors = [Colors.grey, Colors.blue, Colors.red, Colors.grey.shade400];
-  List<IconData> stateIcons = [Icons.radio_button_unchecked, Icons.radio_button_checked, Icons.error, Icons.block];
+  List<Color> stateColors = [
+    Colors.grey,
+    Colors.blue,
+    Colors.red,
+    Colors.grey.shade400,
+  ];
+  List<IconData> stateIcons = [
+    Icons.radio_button_unchecked,
+    Icons.radio_button_checked,
+    Icons.error,
+    Icons.block,
+  ];
   List<String> stateDescs = [
     'Normal idle state with standard border',
     'Active input with highlighted border',
@@ -343,30 +464,42 @@ Widget buildValidationStatesShowcase() {
   List<Widget> stateWidgets = [];
   int s = 0;
   for (s = 0; s < states.length; s = s + 1) {
-    stateWidgets.add(Container(
-      margin: EdgeInsets.symmetric(vertical: 6),
-      padding: EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: stateColors[s].withAlpha(15),
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: stateColors[s].withAlpha(80), width: 2),
-      ),
-      child: Row(
-        children: [
-          Icon(stateIcons[s], color: stateColors[s], size: 28),
-          SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(states[s], style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: stateColors[s])),
-                Text(stateDescs[s], style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
-              ],
+    stateWidgets.add(
+      Container(
+        margin: EdgeInsets.symmetric(vertical: 6),
+        padding: EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: stateColors[s].withAlpha(15),
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: stateColors[s].withAlpha(80), width: 2),
+        ),
+        child: Row(
+          children: [
+            Icon(stateIcons[s], color: stateColors[s], size: 28),
+            SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    states[s],
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: stateColors[s],
+                    ),
+                  ),
+                  Text(
+                    stateDescs[s],
+                    style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ));
+    );
   }
 
   return Container(
@@ -380,9 +513,15 @@ Widget buildValidationStatesShowcase() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Form Field Validation States', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        Text(
+          'Form Field Validation States',
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 4),
-        Text('Visual representation of different field states', style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
+        Text(
+          'Visual representation of different field states',
+          style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+        ),
         SizedBox(height: 12),
         Column(children: stateWidgets),
       ],
@@ -408,14 +547,22 @@ Widget buildFormLayoutPattern() {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Registration Form Pattern', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          Text(
+            'Registration Form Pattern',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 4),
-          Text('Common form layout with dropdown fields', style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
+          Text(
+            'Common form layout with dropdown fields',
+            style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+          ),
           SizedBox(height: 20),
           TextFormField(
             decoration: InputDecoration(
               labelText: 'Full Name',
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
               prefixIcon: Icon(Icons.person),
             ),
           ),
@@ -423,7 +570,9 @@ Widget buildFormLayoutPattern() {
           TextFormField(
             decoration: InputDecoration(
               labelText: 'Email Address',
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
               prefixIcon: Icon(Icons.email),
             ),
           ),
@@ -460,7 +609,9 @@ Widget buildFormLayoutPattern() {
                   style: OutlinedButton.styleFrom(
                     side: BorderSide(color: Colors.grey.shade400),
                     padding: EdgeInsets.symmetric(vertical: 14),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                   ),
                   child: Text('Cancel', style: TextStyle(fontSize: 15)),
                 ),
@@ -473,9 +624,14 @@ Widget buildFormLayoutPattern() {
                     backgroundColor: Colors.amber.shade800,
                     foregroundColor: Colors.white,
                     padding: EdgeInsets.symmetric(vertical: 14),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                   ),
-                  child: Text('Register', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+                  child: Text(
+                    'Register',
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
             ],
@@ -488,7 +644,20 @@ Widget buildFormLayoutPattern() {
 
 Widget buildFormFieldProperties() {
   print('Building properties table');
-  List<String> propNames = ['initialSelection', 'dropdownMenuEntries', 'onSelected', 'label', 'hintText', 'helperText', 'errorText', 'inputDecorationTheme', 'leadingIcon', 'trailingIcon', 'expandedInsets', 'enabled'];
+  List<String> propNames = [
+    'initialSelection',
+    'dropdownMenuEntries',
+    'onSelected',
+    'label',
+    'hintText',
+    'helperText',
+    'errorText',
+    'inputDecorationTheme',
+    'leadingIcon',
+    'trailingIcon',
+    'expandedInsets',
+    'enabled',
+  ];
   List<String> propDescs = [
     'The initially selected value',
     'List of DropdownMenuEntry items to display',
@@ -508,20 +677,34 @@ Widget buildFormFieldProperties() {
   int p = 0;
   for (p = 0; p < propNames.length; p = p + 1) {
     Color bg = (p % 2 == 0) ? Colors.amber.shade50 : Colors.white;
-    rows.add(Container(
-      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-      color: bg,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 160,
-            child: Text(propNames[p], style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Colors.amber.shade900)),
-          ),
-          Expanded(child: Text(propDescs[p], style: TextStyle(fontSize: 13, color: Colors.grey.shade700))),
-        ],
+    rows.add(
+      Container(
+        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        color: bg,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: 160,
+              child: Text(
+                propNames[p],
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.amber.shade900,
+                ),
+              ),
+            ),
+            Expanded(
+              child: Text(
+                propDescs[p],
+                style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
+              ),
+            ),
+          ],
+        ),
       ),
-    ));
+    );
   }
 
   return Container(
@@ -539,9 +722,15 @@ Widget buildFormFieldProperties() {
           padding: EdgeInsets.all(12),
           decoration: BoxDecoration(
             color: Colors.amber.shade50,
-            borderRadius: BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12)),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(12),
+              topRight: Radius.circular(12),
+            ),
           ),
-          child: Text('DropdownMenu Form Field Properties', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          child: Text(
+            'DropdownMenu Form Field Properties',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
         ),
         Column(children: rows),
       ],
@@ -567,19 +756,58 @@ dynamic build(BuildContext context) {
           children: [
             buildSectionHeader('1. Overview'),
             buildInfoCard('Class', 'DropdownMenuFormField'),
-            buildInfoCard('Purpose', 'A FormField that wraps DropdownMenu for form integration'),
-            buildInfoCard('Key Feature', 'Participates in Form validation and state management'),
-            buildInfoCard('Related To', 'DropdownMenu, DropdownMenuEntry, FormField'),
+            buildInfoCard(
+              'Purpose',
+              'A FormField that wraps DropdownMenu for form integration',
+            ),
+            buildInfoCard(
+              'Key Feature',
+              'Participates in Form validation and state management',
+            ),
+            buildInfoCard(
+              'Related To',
+              'DropdownMenu, DropdownMenuEntry, FormField',
+            ),
 
             buildSectionHeader('2. Basic Form Fields'),
-            buildBasicFormField('Country', 'Select your country', ['USA', 'UK', 'Germany', 'France', 'Japan'], 'USA'),
-            buildBasicFormField('Language', 'Choose preferred language', ['English', 'French', 'German', 'Spanish', 'Japanese'], 'English'),
-            buildBasicFormField('Timezone', 'Select timezone', ['UTC-8', 'UTC-5', 'UTC+0', 'UTC+1', 'UTC+9'], 'UTC+0'),
+            buildBasicFormField('Country', 'Select your country', [
+              'USA',
+              'UK',
+              'Germany',
+              'France',
+              'Japan',
+            ], 'USA'),
+            buildBasicFormField('Language', 'Choose preferred language', [
+              'English',
+              'French',
+              'German',
+              'Spanish',
+              'Japanese',
+            ], 'English'),
+            buildBasicFormField('Timezone', 'Select timezone', [
+              'UTC-8',
+              'UTC-5',
+              'UTC+0',
+              'UTC+1',
+              'UTC+9',
+            ], 'UTC+0'),
 
             buildSectionHeader('3. Decorated Form Fields'),
-            buildFormFieldWithDecoration('Blue Theme', Colors.blue, Colors.blue.shade50),
-            buildFormFieldWithDecoration('Teal Theme', Colors.teal, Colors.teal.shade50),
-            buildFormFieldWithDecoration('Pink Theme', Colors.pink, Colors.pink.shade50),
+            buildFormFieldWithDecoration(
+              'Blue Theme',
+              Colors.blue,
+              Colors.blue.shade50,
+            ),
+            buildFormFieldWithDecoration(
+              'Teal Theme',
+              Colors.teal,
+              Colors.teal.shade50,
+            ),
+            buildFormFieldWithDecoration(
+              'Pink Theme',
+              Colors.pink,
+              Colors.pink.shade50,
+            ),
 
             buildSectionHeader('4. Complete Profile Form'),
             buildFormWithMultipleFields(),
@@ -602,12 +830,30 @@ dynamic build(BuildContext context) {
             buildFormFieldProperties(),
 
             buildSectionHeader('10. Usage Tips'),
-            buildInfoCard('Tip 1', 'Wrap in Form widget for validation support'),
-            buildInfoCard('Tip 2', 'Use InputDecorationTheme for consistent styling'),
-            buildInfoCard('Tip 3', 'Set expandedInsets for dropdown width control'),
-            buildInfoCard('Tip 4', 'Combine with TextFormField for mixed input forms'),
-            buildInfoCard('Tip 5', 'Use leadingIcon for visual context in the field'),
-            buildInfoCard('Tip 6', 'Always provide initialSelection for default state'),
+            buildInfoCard(
+              'Tip 1',
+              'Wrap in Form widget for validation support',
+            ),
+            buildInfoCard(
+              'Tip 2',
+              'Use InputDecorationTheme for consistent styling',
+            ),
+            buildInfoCard(
+              'Tip 3',
+              'Set expandedInsets for dropdown width control',
+            ),
+            buildInfoCard(
+              'Tip 4',
+              'Combine with TextFormField for mixed input forms',
+            ),
+            buildInfoCard(
+              'Tip 5',
+              'Use leadingIcon for visual context in the field',
+            ),
+            buildInfoCard(
+              'Tip 6',
+              'Always provide initialSelection for default state',
+            ),
 
             SizedBox(height: 32),
           ],

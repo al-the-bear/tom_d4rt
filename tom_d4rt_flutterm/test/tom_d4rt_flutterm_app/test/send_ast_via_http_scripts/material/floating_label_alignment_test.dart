@@ -57,11 +57,7 @@ Widget _buildInfoCard(String label, String description) {
         SizedBox(height: 4),
         Text(
           description,
-          style: TextStyle(
-            fontSize: 13,
-            color: Color(0xFF6A1B9A),
-            height: 1.4,
-          ),
+          style: TextStyle(fontSize: 13, color: Color(0xFF6A1B9A), height: 1.4),
         ),
       ],
     ),
@@ -109,7 +105,11 @@ Widget _buildStartAlignmentSection() {
       children: [
         Row(
           children: [
-            Icon(Icons.align_horizontal_left, color: Color(0xFF2E7D32), size: 22),
+            Icon(
+              Icons.align_horizontal_left,
+              color: Color(0xFF2E7D32),
+              size: 22,
+            ),
             SizedBox(width: 8),
             Text(
               'FloatingLabelAlignment.start',
@@ -169,7 +169,11 @@ Widget _buildStartAlignmentSection() {
         SizedBox(height: 8),
         Text(
           'Notice the label stays pinned to the left edge.',
-          style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic, color: Color(0xFF558B2F)),
+          style: TextStyle(
+            fontSize: 12,
+            fontStyle: FontStyle.italic,
+            color: Color(0xFF558B2F),
+          ),
         ),
       ],
     ),
@@ -190,7 +194,11 @@ Widget _buildCenterAlignmentSection() {
       children: [
         Row(
           children: [
-            Icon(Icons.align_horizontal_center, color: Color(0xFF1565C0), size: 22),
+            Icon(
+              Icons.align_horizontal_center,
+              color: Color(0xFF1565C0),
+              size: 22,
+            ),
             SizedBox(width: 8),
             Text(
               'FloatingLabelAlignment.center',
@@ -250,7 +258,11 @@ Widget _buildCenterAlignmentSection() {
         SizedBox(height: 8),
         Text(
           'The label floats to the horizontal center of the field.',
-          style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic, color: Color(0xFF42A5F5)),
+          style: TextStyle(
+            fontSize: 12,
+            fontStyle: FontStyle.italic,
+            color: Color(0xFF42A5F5),
+          ),
         ),
       ],
     ),
@@ -311,7 +323,10 @@ Widget _buildSideBySideComparison() {
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       border: OutlineInputBorder(),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFF4CAF50), width: 2),
+                        borderSide: BorderSide(
+                          color: Color(0xFF4CAF50),
+                          width: 2,
+                        ),
                       ),
                       floatingLabelStyle: TextStyle(color: Color(0xFF4CAF50)),
                     ),
@@ -346,7 +361,10 @@ Widget _buildSideBySideComparison() {
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       border: OutlineInputBorder(),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFF2196F3), width: 2),
+                        borderSide: BorderSide(
+                          color: Color(0xFF2196F3),
+                          width: 2,
+                        ),
                       ),
                       floatingLabelStyle: TextStyle(color: Color(0xFF2196F3)),
                     ),
@@ -385,7 +403,10 @@ Widget _buildSideBySideComparison() {
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       border: OutlineInputBorder(),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFF4CAF50), width: 2),
+                        borderSide: BorderSide(
+                          color: Color(0xFF4CAF50),
+                          width: 2,
+                        ),
                       ),
                       floatingLabelStyle: TextStyle(color: Color(0xFF4CAF50)),
                     ),
@@ -420,7 +441,10 @@ Widget _buildSideBySideComparison() {
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       border: OutlineInputBorder(),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFF2196F3), width: 2),
+                        borderSide: BorderSide(
+                          color: Color(0xFF2196F3),
+                          width: 2,
+                        ),
                       ),
                       floatingLabelStyle: TextStyle(color: Color(0xFF2196F3)),
                     ),
@@ -459,7 +483,10 @@ Widget _buildSideBySideComparison() {
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       border: OutlineInputBorder(),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFF4CAF50), width: 2),
+                        borderSide: BorderSide(
+                          color: Color(0xFF4CAF50),
+                          width: 2,
+                        ),
                       ),
                       floatingLabelStyle: TextStyle(color: Color(0xFF4CAF50)),
                     ),
@@ -494,7 +521,10 @@ Widget _buildSideBySideComparison() {
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       border: OutlineInputBorder(),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFF2196F3), width: 2),
+                        borderSide: BorderSide(
+                          color: Color(0xFF2196F3),
+                          width: 2,
+                        ),
                       ),
                       floatingLabelStyle: TextStyle(color: Color(0xFF2196F3)),
                     ),
@@ -541,9 +571,7 @@ Widget _buildOutlinedVsFilled() {
             labelText: 'Outlined Start',
             floatingLabelAlignment: FloatingLabelAlignment.start,
             floatingLabelBehavior: FloatingLabelBehavior.always,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
               borderSide: BorderSide(color: Color(0xFF9C27B0), width: 1),
@@ -562,9 +590,7 @@ Widget _buildOutlinedVsFilled() {
             labelText: 'Outlined Center',
             floatingLabelAlignment: FloatingLabelAlignment.center,
             floatingLabelBehavior: FloatingLabelBehavior.always,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
               borderSide: BorderSide(color: Color(0xFF7B1FA2), width: 1),
@@ -621,9 +647,7 @@ Widget _buildOutlinedVsFilled() {
             labelText: 'Rounded Start',
             floatingLabelAlignment: FloatingLabelAlignment.start,
             floatingLabelBehavior: FloatingLabelBehavior.always,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(24),
-            ),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(24)),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(24),
               borderSide: BorderSide(color: Color(0xFFAB47BC), width: 1),
@@ -643,9 +667,7 @@ Widget _buildOutlinedVsFilled() {
             labelText: 'Rounded Center',
             floatingLabelAlignment: FloatingLabelAlignment.center,
             floatingLabelBehavior: FloatingLabelBehavior.always,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(24),
-            ),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(24)),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(24),
               borderSide: BorderSide(color: Color(0xFF7E57C2), width: 1),
@@ -1401,7 +1423,10 @@ Widget _buildFormExample() {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
               ),
             ),
-            child: Text('Register', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+            child: Text(
+              'Register',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            ),
           ),
         ),
       ],
@@ -1412,19 +1437,52 @@ Widget _buildFormExample() {
 Widget _buildPropertiesReference() {
   print('Building properties reference...');
   List<Map<String, String>> properties = [
-    {'name': 'FloatingLabelAlignment.start', 'desc': 'Aligns the floating label to the start edge (default)'},
-    {'name': 'FloatingLabelAlignment.center', 'desc': 'Aligns the floating label to the horizontal center'},
-    {'name': 'floatingLabelBehavior', 'desc': 'Controls when the label floats: auto, always, never'},
-    {'name': 'floatingLabelStyle', 'desc': 'TextStyle applied when the label is floating'},
+    {
+      'name': 'FloatingLabelAlignment.start',
+      'desc': 'Aligns the floating label to the start edge (default)',
+    },
+    {
+      'name': 'FloatingLabelAlignment.center',
+      'desc': 'Aligns the floating label to the horizontal center',
+    },
+    {
+      'name': 'floatingLabelBehavior',
+      'desc': 'Controls when the label floats: auto, always, never',
+    },
+    {
+      'name': 'floatingLabelStyle',
+      'desc': 'TextStyle applied when the label is floating',
+    },
     {'name': 'labelText', 'desc': 'The text to display as the label'},
-    {'name': 'helperText', 'desc': 'Optional text below the input that provides context'},
-    {'name': 'hintText', 'desc': 'Placeholder text shown when the field is empty'},
-    {'name': 'errorText', 'desc': 'Error message that replaces helper text when present'},
-    {'name': 'prefixIcon', 'desc': 'Icon widget at the start of the input field'},
+    {
+      'name': 'helperText',
+      'desc': 'Optional text below the input that provides context',
+    },
+    {
+      'name': 'hintText',
+      'desc': 'Placeholder text shown when the field is empty',
+    },
+    {
+      'name': 'errorText',
+      'desc': 'Error message that replaces helper text when present',
+    },
+    {
+      'name': 'prefixIcon',
+      'desc': 'Icon widget at the start of the input field',
+    },
     {'name': 'suffixIcon', 'desc': 'Icon widget at the end of the input field'},
-    {'name': 'filled', 'desc': 'Whether the input field has a filled background'},
-    {'name': 'contentPadding', 'desc': 'Inner padding of the input content area'},
-    {'name': 'isDense', 'desc': 'Whether the input is rendered in a compact layout'},
+    {
+      'name': 'filled',
+      'desc': 'Whether the input field has a filled background',
+    },
+    {
+      'name': 'contentPadding',
+      'desc': 'Inner padding of the input content area',
+    },
+    {
+      'name': 'isDense',
+      'desc': 'Whether the input is rendered in a compact layout',
+    },
   ];
 
   List<Widget> rows = [];
@@ -1438,7 +1496,9 @@ Widget _buildPropertiesReference() {
         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
         decoration: BoxDecoration(
           color: bgColor,
-          border: Border(bottom: BorderSide(color: Color(0xFFD1C4E9), width: 0.5)),
+          border: Border(
+            bottom: BorderSide(color: Color(0xFFD1C4E9), width: 0.5),
+          ),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1539,7 +1599,10 @@ Widget _buildSummaryCard() {
         SizedBox(height: 6),
         _buildSummaryRow('Used in', 'InputDecoration.floatingLabelAlignment'),
         SizedBox(height: 6),
-        _buildSummaryRow('Purpose', 'Controls horizontal position of the floating label'),
+        _buildSummaryRow(
+          'Purpose',
+          'Controls horizontal position of the floating label',
+        ),
         SizedBox(height: 6),
         _buildSummaryRow('Related', 'FloatingLabelBehavior, InputDecoration'),
       ],
@@ -1574,7 +1637,9 @@ Widget _buildSummaryRow(String label, String value) {
 
 dynamic build(BuildContext context) {
   print('=== FloatingLabelAlignment Visual Demo ===');
-  print('Demonstrating FloatingLabelAlignment.start and .center with various TextField configurations');
+  print(
+    'Demonstrating FloatingLabelAlignment.start and .center with various TextField configurations',
+  );
   print('Package: material');
   print('Class: FloatingLabelAlignment');
 
@@ -1595,13 +1660,13 @@ dynamic build(BuildContext context) {
             _buildInfoCard(
               'What is FloatingLabelAlignment?',
               'FloatingLabelAlignment controls the horizontal positioning of the floating label '
-              'text in an InputDecoration when used with a TextField. The two built-in alignments '
-              'are .start (default, left-aligned in LTR) and .center (horizontally centered).',
+                  'text in an InputDecoration when used with a TextField. The two built-in alignments '
+                  'are .start (default, left-aligned in LTR) and .center (horizontally centered).',
             ),
             _buildInfoCard(
               'When to use center alignment',
               'Center-aligned labels work well for short input fields (like PIN codes or short names), '
-              'centered forms, and login screens where visual symmetry is desired.',
+                  'centered forms, and login screens where visual symmetry is desired.',
             ),
             SizedBox(height: 8),
             _buildSectionHeader('1. Start Alignment (Default)'),

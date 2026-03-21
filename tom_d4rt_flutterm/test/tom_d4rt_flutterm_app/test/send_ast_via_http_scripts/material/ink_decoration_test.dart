@@ -68,11 +68,7 @@ Widget _buildInfoCard(String title, String description) {
         SizedBox(height: 4),
         Text(
           description,
-          style: TextStyle(
-            fontSize: 13,
-            color: Color(0xFF616161),
-            height: 1.4,
-          ),
+          style: TextStyle(fontSize: 13, color: Color(0xFF616161), height: 1.4),
         ),
       ],
     ),
@@ -110,10 +106,7 @@ Widget _buildPropertyRow(String property, String type, String description) {
         Expanded(
           child: Text(
             description,
-            style: TextStyle(
-              fontSize: 13,
-              color: Color(0xFF424242),
-            ),
+            style: TextStyle(fontSize: 13, color: Color(0xFF424242)),
           ),
         ),
       ],
@@ -182,8 +175,8 @@ Widget _buildBasicInkDecorations() {
       _buildInfoCard(
         'Ink with BoxDecoration',
         'The Ink widget paints a Decoration on a Material widget. '
-        'Unlike Container decorations, Ink decorations allow ink splashes '
-        'to render correctly on top of them.',
+            'Unlike Container decorations, Ink decorations allow ink splashes '
+            'to render correctly on top of them.',
       ),
       _buildLabeledInk(
         'Simple color fill with border radius',
@@ -234,9 +227,7 @@ Widget _buildBasicInkDecorations() {
         Material(
           color: Colors.transparent,
           child: Ink(
-            decoration: BoxDecoration(
-              color: Color(0xFFFCE4EC),
-            ),
+            decoration: BoxDecoration(color: Color(0xFFFCE4EC)),
             width: double.infinity,
             height: 50,
             child: Center(
@@ -279,7 +270,7 @@ Widget _buildGradientInkDecorations() {
       _buildInfoCard(
         'Ink with Gradients',
         'Ink supports all standard gradient types in BoxDecoration: '
-        'LinearGradient, RadialGradient, and SweepGradient.',
+            'LinearGradient, RadialGradient, and SweepGradient.',
       ),
       _buildLabeledInk(
         'Linear gradient (left to right)',
@@ -299,7 +290,11 @@ Widget _buildGradientInkDecorations() {
             child: Center(
               child: Text(
                 'Linear Gradient',
-                style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 15, fontWeight: FontWeight.w500),
+                style: TextStyle(
+                  color: Color(0xFFFFFFFF),
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
           ),
@@ -312,7 +307,11 @@ Widget _buildGradientInkDecorations() {
           child: Ink(
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xFFE91E63), Color(0xFF9C27B0), Color(0xFF3F51B5)],
+                colors: [
+                  Color(0xFFE91E63),
+                  Color(0xFF9C27B0),
+                  Color(0xFF3F51B5),
+                ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -323,7 +322,11 @@ Widget _buildGradientInkDecorations() {
             child: Center(
               child: Text(
                 'Three-Color Gradient',
-                style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 15, fontWeight: FontWeight.w500),
+                style: TextStyle(
+                  color: Color(0xFFFFFFFF),
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
           ),
@@ -336,7 +339,11 @@ Widget _buildGradientInkDecorations() {
           child: Ink(
             decoration: BoxDecoration(
               gradient: RadialGradient(
-                colors: [Color(0xFFFFEB3B), Color(0xFFFF9800), Color(0xFFF44336)],
+                colors: [
+                  Color(0xFFFFEB3B),
+                  Color(0xFFFF9800),
+                  Color(0xFFF44336),
+                ],
                 center: Alignment.center,
                 radius: 0.8,
               ),
@@ -347,7 +354,11 @@ Widget _buildGradientInkDecorations() {
             child: Center(
               child: Text(
                 'Radial Gradient',
-                style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 15, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  color: Color(0xFFFFFFFF),
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
@@ -384,7 +395,11 @@ Widget _buildGradientInkDecorations() {
                     shape: BoxShape.circle,
                   ),
                   child: Center(
-                    child: Icon(Icons.palette, color: Color(0xFF616161), size: 28),
+                    child: Icon(
+                      Icons.palette,
+                      color: Color(0xFF616161),
+                      size: 28,
+                    ),
                   ),
                 ),
               ),
@@ -399,7 +414,11 @@ Widget _buildGradientInkDecorations() {
           child: Ink(
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xFF00BCD4), Color(0xFF00BCD4), Color(0xFFB2EBF2)],
+                colors: [
+                  Color(0xFF00BCD4),
+                  Color(0xFF00BCD4),
+                  Color(0xFFB2EBF2),
+                ],
                 stops: [0.0, 0.6, 1.0],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
@@ -429,7 +448,7 @@ Widget _buildBorderAndShadowInk() {
       _buildInfoCard(
         'Ink with Borders and Shadows',
         'BoxDecoration on Ink supports border and boxShadow properties '
-        'for visual depth and framing effects.',
+            'for visual depth and framing effects.',
       ),
       _buildLabeledInk(
         'Thin border',
@@ -467,7 +486,11 @@ Widget _buildBorderAndShadowInk() {
             child: Center(
               child: Text(
                 'Thick Orange Border',
-                style: TextStyle(color: Color(0xFFE65100), fontSize: 14, fontWeight: FontWeight.w500),
+                style: TextStyle(
+                  color: Color(0xFFE65100),
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
           ),
@@ -580,8 +603,8 @@ Widget _buildInkWithInkWell() {
       _buildInfoCard(
         'Ink + InkWell Splash Rendering',
         'The primary purpose of Ink is to ensure that ink splash effects '
-        'from InkWell render ON TOP of the decoration. Without Ink, a '
-        'Container decoration would paint over the splash.',
+            'from InkWell render ON TOP of the decoration. Without Ink, a '
+            'Container decoration would paint over the splash.',
       ),
       _buildNoteBox(
         'Tap these items to see the ink splash render correctly on top of the decoration.',
@@ -646,7 +669,11 @@ Widget _buildInkWithInkWell() {
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
                   children: [
-                    Icon(Icons.check_circle, color: Color(0xFFFFFFFF), size: 22),
+                    Icon(
+                      Icons.check_circle,
+                      color: Color(0xFFFFFFFF),
+                      size: 22,
+                    ),
                     SizedBox(width: 12),
                     Text(
                       'Green Ink with splash',
@@ -682,7 +709,11 @@ Widget _buildInkWithInkWell() {
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
                   children: [
-                    Icon(Icons.warning_amber, color: Color(0xFFF57F17), size: 22),
+                    Icon(
+                      Icons.warning_amber,
+                      color: Color(0xFFF57F17),
+                      size: 22,
+                    ),
                     SizedBox(width: 12),
                     Text(
                       'Bordered Ink with amber splash',
@@ -714,7 +745,11 @@ Widget _buildInkWithInkWell() {
                 customBorder: CircleBorder(),
                 splashColor: Color(0x40FFFFFF),
                 child: Center(
-                  child: Icon(Icons.favorite, color: Color(0xFFFFFFFF), size: 32),
+                  child: Icon(
+                    Icons.favorite,
+                    color: Color(0xFFFFFFFF),
+                    size: 32,
+                  ),
                 ),
               ),
             ),
@@ -733,7 +768,7 @@ Widget _buildContainerVsInkComparison() {
       _buildInfoCard(
         'Container vs Ink Comparison',
         'Container with BoxDecoration paints the decoration OVER the ink splash. '
-        'Ink paints the decoration as part of the Material, so splashes render on top.',
+            'Ink paints the decoration as part of the Material, so splashes render on top.',
       ),
       _buildNoteBox(
         'Side-by-side comparison: Top uses Container (splash hidden behind decoration), '
@@ -744,7 +779,9 @@ Widget _buildContainerVsInkComparison() {
         color: Colors.transparent,
         child: InkWell(
           onTap: () {
-            print('    Tapped Container side - splash is hidden behind decoration');
+            print(
+              '    Tapped Container side - splash is hidden behind decoration',
+            );
           },
           child: Container(
             width: double.infinity,
@@ -864,7 +901,7 @@ Widget _buildShapesAndSizes() {
       _buildInfoCard(
         'Ink Shapes and Sizes',
         'Ink supports explicit width and height, plus BoxShape for circle vs rectangle. '
-        'The decoration shape is controlled by the BoxDecoration shape property.',
+            'The decoration shape is controlled by the BoxDecoration shape property.',
       ),
       _buildSubSectionHeader('Various sizes'),
       Row(
@@ -880,7 +917,10 @@ Widget _buildShapesAndSizes() {
               width: 60,
               height: 40,
               child: Center(
-                child: Text('60x40', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 11)),
+                child: Text(
+                  '60x40',
+                  style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 11),
+                ),
               ),
             ),
           ),
@@ -894,7 +934,10 @@ Widget _buildShapesAndSizes() {
               width: 80,
               height: 60,
               child: Center(
-                child: Text('80x60', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 11)),
+                child: Text(
+                  '80x60',
+                  style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 11),
+                ),
               ),
             ),
           ),
@@ -908,7 +951,10 @@ Widget _buildShapesAndSizes() {
               width: 100,
               height: 80,
               child: Center(
-                child: Text('100x80', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 11)),
+                child: Text(
+                  '100x80',
+                  style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 11),
+                ),
               ),
             ),
           ),
@@ -929,7 +975,14 @@ Widget _buildShapesAndSizes() {
               width: 50,
               height: 50,
               child: Center(
-                child: Text('S', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 16, fontWeight: FontWeight.bold)),
+                child: Text(
+                  'S',
+                  style: TextStyle(
+                    color: Color(0xFFFFFFFF),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ),
           ),
@@ -943,7 +996,14 @@ Widget _buildShapesAndSizes() {
               width: 70,
               height: 70,
               child: Center(
-                child: Text('M', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 20, fontWeight: FontWeight.bold)),
+                child: Text(
+                  'M',
+                  style: TextStyle(
+                    color: Color(0xFFFFFFFF),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ),
           ),
@@ -957,7 +1017,14 @@ Widget _buildShapesAndSizes() {
               width: 90,
               height: 90,
               child: Center(
-                child: Text('L', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 24, fontWeight: FontWeight.bold)),
+                child: Text(
+                  'L',
+                  style: TextStyle(
+                    color: Color(0xFFFFFFFF),
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ),
           ),
@@ -1018,7 +1085,7 @@ Widget _buildPaddingAndChildren() {
       _buildInfoCard(
         'Ink with Padding and Children',
         'Ink accepts a padding property that insets the child within the decoration. '
-        'Children can be any widget, including complex layouts.',
+            'Children can be any widget, including complex layouts.',
       ),
       _buildLabeledInk(
         'Ink with padding: 16',
@@ -1101,7 +1168,11 @@ Widget _buildPaddingAndChildren() {
                     shape: BoxShape.circle,
                   ),
                   child: Center(
-                    child: Icon(Icons.person, color: Color(0xFFFFFFFF), size: 28),
+                    child: Icon(
+                      Icons.person,
+                      color: Color(0xFFFFFFFF),
+                      size: 28,
+                    ),
                   ),
                 ),
                 SizedBox(width: 16),
@@ -1165,16 +1236,36 @@ Widget _buildPaddingAndChildren() {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Temperature', style: TextStyle(fontSize: 13, color: Color(0xFF795548))),
-                    Text('24 C', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Color(0xFFE65100))),
+                    Text(
+                      'Temperature',
+                      style: TextStyle(fontSize: 13, color: Color(0xFF795548)),
+                    ),
+                    Text(
+                      '24 C',
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFFE65100),
+                      ),
+                    ),
                   ],
                 ),
                 SizedBox(height: 4),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Humidity', style: TextStyle(fontSize: 13, color: Color(0xFF795548))),
-                    Text('65%', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Color(0xFFE65100))),
+                    Text(
+                      'Humidity',
+                      style: TextStyle(fontSize: 13, color: Color(0xFF795548)),
+                    ),
+                    Text(
+                      '65%',
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFFE65100),
+                      ),
+                    ),
                   ],
                 ),
               ],
@@ -1213,7 +1304,11 @@ Widget _buildGridDecorationStyles() {
         color: Color(0xFFFFFFFF),
         borderRadius: BorderRadius.circular(8),
         boxShadow: [
-          BoxShadow(color: Color(0x40000000), blurRadius: 6, offset: Offset(0, 3)),
+          BoxShadow(
+            color: Color(0x40000000),
+            blurRadius: 6,
+            offset: Offset(0, 3),
+          ),
         ],
       ),
     },
@@ -1294,7 +1389,14 @@ Widget _buildGridDecorationStyles() {
             width: 70,
             height: 70,
             child: Center(
-              child: Text(label, style: TextStyle(color: textCol, fontSize: 11, fontWeight: FontWeight.w500)),
+              child: Text(
+                label,
+                style: TextStyle(
+                  color: textCol,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
             ),
           ),
         );
@@ -1306,7 +1408,14 @@ Widget _buildGridDecorationStyles() {
             width: 100,
             height: 70,
             child: Center(
-              child: Text(label, style: TextStyle(color: textCol, fontSize: 11, fontWeight: FontWeight.w500)),
+              child: Text(
+                label,
+                style: TextStyle(
+                  color: textCol,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
             ),
           ),
         );
@@ -1372,32 +1481,72 @@ Widget _buildPropertyReference() {
                   width: 100,
                   child: Text(
                     'Property',
-                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Color(0xFF212121)),
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF212121),
+                    ),
                   ),
                 ),
                 Container(
                   width: 80,
                   child: Text(
                     'Type',
-                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Color(0xFF212121)),
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF212121),
+                    ),
                   ),
                 ),
                 Expanded(
                   child: Text(
                     'Description',
-                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Color(0xFF212121)),
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF212121),
+                    ),
                   ),
                 ),
               ],
             ),
             Divider(color: Color(0xFFBDBDBD)),
-            _buildPropertyRow('child', 'Widget', 'The widget below this widget in the tree'),
-            _buildPropertyRow('decoration', 'Decoration', 'The decoration to paint (typically BoxDecoration)'),
-            _buildPropertyRow('width', 'double', 'The explicit width for the Ink'),
-            _buildPropertyRow('height', 'double', 'The explicit height for the Ink'),
-            _buildPropertyRow('padding', 'EdgeInsets', 'Empty space to inscribe inside the decoration'),
-            _buildPropertyRow('color', 'Color', 'Convenience for BoxDecoration color property'),
-            _buildPropertyRow('image', 'DecorationImage', 'Image to paint inside the decoration'),
+            _buildPropertyRow(
+              'child',
+              'Widget',
+              'The widget below this widget in the tree',
+            ),
+            _buildPropertyRow(
+              'decoration',
+              'Decoration',
+              'The decoration to paint (typically BoxDecoration)',
+            ),
+            _buildPropertyRow(
+              'width',
+              'double',
+              'The explicit width for the Ink',
+            ),
+            _buildPropertyRow(
+              'height',
+              'double',
+              'The explicit height for the Ink',
+            ),
+            _buildPropertyRow(
+              'padding',
+              'EdgeInsets',
+              'Empty space to inscribe inside the decoration',
+            ),
+            _buildPropertyRow(
+              'color',
+              'Color',
+              'Convenience for BoxDecoration color property',
+            ),
+            _buildPropertyRow(
+              'image',
+              'DecorationImage',
+              'Image to paint inside the decoration',
+            ),
           ],
         ),
       ),
@@ -1414,13 +1563,41 @@ Widget _buildPropertyReference() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildPropertyRow('color', 'Color', 'Background color of the decoration'),
-            _buildPropertyRow('gradient', 'Gradient', 'Linear, radial, or sweep gradient fill'),
-            _buildPropertyRow('border', 'Border', 'Border lines around the decoration'),
-            _buildPropertyRow('borderRadius', 'BorderRadius', 'Corner rounding for rectangle shapes'),
-            _buildPropertyRow('boxShadow', 'List', 'Shadow effects beneath the decoration'),
-            _buildPropertyRow('shape', 'BoxShape', 'BoxShape.rectangle or BoxShape.circle'),
-            _buildPropertyRow('image', 'DecorationImage', 'Background image for the decoration'),
+            _buildPropertyRow(
+              'color',
+              'Color',
+              'Background color of the decoration',
+            ),
+            _buildPropertyRow(
+              'gradient',
+              'Gradient',
+              'Linear, radial, or sweep gradient fill',
+            ),
+            _buildPropertyRow(
+              'border',
+              'Border',
+              'Border lines around the decoration',
+            ),
+            _buildPropertyRow(
+              'borderRadius',
+              'BorderRadius',
+              'Corner rounding for rectangle shapes',
+            ),
+            _buildPropertyRow(
+              'boxShadow',
+              'List',
+              'Shadow effects beneath the decoration',
+            ),
+            _buildPropertyRow(
+              'shape',
+              'BoxShape',
+              'BoxShape.rectangle or BoxShape.circle',
+            ),
+            _buildPropertyRow(
+              'image',
+              'DecorationImage',
+              'Background image for the decoration',
+            ),
           ],
         ),
       ),
@@ -1505,18 +1682,18 @@ Widget _buildDebugSection() {
           '> Section: Property Reference\n'
           '> Section: Debug Output\n'
           '> Ink Decoration Test completed',
-          style: TextStyle(
-            color: Color(0xFF80CBC4),
-            fontSize: 11,
-            height: 1.5,
-          ),
+          style: TextStyle(color: Color(0xFF80CBC4), fontSize: 11, height: 1.5),
         ),
         SizedBox(height: 10),
         Divider(color: Color(0xFF455A64)),
         SizedBox(height: 6),
         Text(
           'Ink widget key facts:',
-          style: TextStyle(color: Color(0xFFFFCC80), fontSize: 12, fontWeight: FontWeight.w600),
+          style: TextStyle(
+            color: Color(0xFFFFCC80),
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+          ),
         ),
         SizedBox(height: 4),
         Text(
@@ -1527,11 +1704,7 @@ Widget _buildDebugSection() {
           '- InkWell/InkResponse splashes render on top of Ink\n'
           '- Container decorations paint over splashes (incorrect)\n'
           '- Supports all BoxDecoration features: gradients, borders, shadows',
-          style: TextStyle(
-            color: Color(0xFFB0BEC5),
-            fontSize: 11,
-            height: 1.5,
-          ),
+          style: TextStyle(color: Color(0xFFB0BEC5), fontSize: 11, height: 1.5),
         ),
       ],
     ),
@@ -1558,9 +1731,9 @@ dynamic build(BuildContext context) {
             _buildInfoCard(
               'Ink Widget Overview',
               'The Ink widget paints a Decoration (typically BoxDecoration) '
-              'on a Material widget. This ensures that ink splashes and highlights '
-              'from InkWell or InkResponse render correctly ON TOP of the decoration, '
-              'rather than being hidden behind it as with a Container.',
+                  'on a Material widget. This ensures that ink splashes and highlights '
+                  'from InkWell or InkResponse render correctly ON TOP of the decoration, '
+                  'rather than being hidden behind it as with a Container.',
             ),
             _buildNoteBox(
               'Ink must always be a descendant of a Material widget. The decoration '

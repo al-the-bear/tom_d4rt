@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print('=== FabMiniOffsetAdjustment Visual Demo ===');
-  print('Demonstrating how mini FABs get different offset adjustments than standard FABs');
+  print(
+    'Demonstrating how mini FABs get different offset adjustments than standard FABs',
+  );
 
   return MaterialApp(
     debugShowCheckedModeBanner: false,
@@ -73,7 +75,14 @@ Widget buildSectionHeader(String title) {
       color: Colors.teal.shade700,
       borderRadius: BorderRadius.circular(8),
     ),
-    child: Text(title, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)),
+    child: Text(
+      title,
+      style: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+      ),
+    ),
   );
 }
 
@@ -86,11 +95,21 @@ Widget buildInfoCard(String label, String value) {
       borderRadius: BorderRadius.circular(8),
       border: Border.all(color: Colors.grey.shade300),
     ),
-    child: Row(children: [
-      Text(label, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      SizedBox(width: 8),
-      Expanded(child: Text(value, style: TextStyle(fontSize: 14, color: Colors.grey.shade700))),
-    ]),
+    child: Row(
+      children: [
+        Text(
+          label,
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+        ),
+        SizedBox(width: 8),
+        Expanded(
+          child: Text(
+            value,
+            style: TextStyle(fontSize: 14, color: Colors.grey.shade700),
+          ),
+        ),
+      ],
+    ),
   );
 }
 
@@ -106,8 +125,10 @@ Widget _buildSizeComparison() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Standard vs Mini FAB Dimensions',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+        Text(
+          'Standard vs Mini FAB Dimensions',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+        ),
         SizedBox(height: 16),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -118,8 +139,14 @@ Widget _buildSizeComparison() {
           ],
         ),
         SizedBox(height: 16),
-        buildInfoCard('Size delta:', 'Mini is 16px smaller than standard (56 - 40 = 16)'),
-        buildInfoCard('Adjustment:', 'Offset compensation = (standardSize - miniSize) / 2 = 8px'),
+        buildInfoCard(
+          'Size delta:',
+          'Mini is 16px smaller than standard (56 - 40 = 16)',
+        ),
+        buildInfoCard(
+          'Adjustment:',
+          'Offset compensation = (standardSize - miniSize) / 2 = 8px',
+        ),
       ],
     ),
   );
@@ -129,16 +156,30 @@ Widget _buildFabSizeDisplay(String label, double size, Color color) {
   return Column(
     children: [
       Container(
-        width: size, height: size,
-        decoration: BoxDecoration(
-          color: color,
-          shape: BoxShape.circle,
+        width: size,
+        height: size,
+        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+        child: Center(
+          child: Icon(Icons.add, color: Color(0xFFFFFFFF), size: size * 0.5),
         ),
-        child: Center(child: Icon(Icons.add, color: Color(0xFFFFFFFF), size: size * 0.5)),
       ),
       SizedBox(height: 8),
-      Text(label, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: color)),
-      Text('${size.toInt()}x${size.toInt()} dp', style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: Color(0xFF757575))),
+      Text(
+        label,
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 13,
+          color: color,
+        ),
+      ),
+      Text(
+        '${size.toInt()}x${size.toInt()} dp',
+        style: TextStyle(
+          fontFamily: 'monospace',
+          fontSize: 11,
+          color: Color(0xFF757575),
+        ),
+      ),
     ],
   );
 }
@@ -155,11 +196,15 @@ Widget _buildAdjustmentConcept() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Why Mini FABs Need Offset Adjustment',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+        Text(
+          'Why Mini FABs Need Offset Adjustment',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+        ),
         SizedBox(height: 12),
-        Text('When a mini FAB replaces a standard FAB, the smaller size means the offset calculation from standard locations would place it incorrectly. The adjustment compensates for the size difference.',
-            style: TextStyle(fontSize: 13, color: Color(0xFF37474F))),
+        Text(
+          'When a mini FAB replaces a standard FAB, the smaller size means the offset calculation from standard locations would place it incorrectly. The adjustment compensates for the size difference.',
+          style: TextStyle(fontSize: 13, color: Color(0xFF37474F)),
+        ),
         SizedBox(height: 16),
         Container(
           width: double.infinity,
@@ -171,22 +216,55 @@ Widget _buildAdjustmentConcept() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('// Without adjustment (wrong for mini):',
-                  style: TextStyle(fontFamily: 'monospace', fontSize: 10, color: Color(0xFF78909C))),
-              Text('x = (scaffoldWidth - 56) / 2   // uses standard size',
-                  style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: Color(0xFFEF9A9A))),
+              Text(
+                '// Without adjustment (wrong for mini):',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 10,
+                  color: Color(0xFF78909C),
+                ),
+              ),
+              Text(
+                'x = (scaffoldWidth - 56) / 2   // uses standard size',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 11,
+                  color: Color(0xFFEF9A9A),
+                ),
+              ),
               SizedBox(height: 8),
-              Text('// With mini offset adjustment:',
-                  style: TextStyle(fontFamily: 'monospace', fontSize: 10, color: Color(0xFF78909C))),
-              Text('adjustment = (56 - 40) / 2 = 8.0',
-                  style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: Color(0xFFA5D6A7))),
-              Text('x = (scaffoldWidth - 40) / 2   // correct for mini',
-                  style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: Color(0xFF80CBC4))),
+              Text(
+                '// With mini offset adjustment:',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 10,
+                  color: Color(0xFF78909C),
+                ),
+              ),
+              Text(
+                'adjustment = (56 - 40) / 2 = 8.0',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 11,
+                  color: Color(0xFFA5D6A7),
+                ),
+              ),
+              Text(
+                'x = (scaffoldWidth - 40) / 2   // correct for mini',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 11,
+                  color: Color(0xFF80CBC4),
+                ),
+              ),
             ],
           ),
         ),
         SizedBox(height: 12),
-        buildInfoCard('Key:', 'The adjustment shifts the offset to account for the smaller FAB radius'),
+        buildInfoCard(
+          'Key:',
+          'The adjustment shifts the offset to account for the smaller FAB radius',
+        ),
       ],
     ),
   );
@@ -204,12 +282,15 @@ Widget _buildVisualSizeDifference() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Visual Size Comparison Overlay',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+        Text(
+          'Visual Size Comparison Overlay',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+        ),
         SizedBox(height: 16),
         Center(
           child: Container(
-            width: 200, height: 200,
+            width: 200,
+            height: 200,
             decoration: BoxDecoration(
               color: Color(0xFFFFFFFF),
               borderRadius: BorderRadius.circular(12),
@@ -219,38 +300,59 @@ Widget _buildVisualSizeDifference() {
               children: [
                 Center(
                   child: Container(
-                    width: 120, height: 120,
+                    width: 120,
+                    height: 120,
                     decoration: BoxDecoration(
                       color: Color(0xFF283593).withValues(alpha: 0.15),
                       shape: BoxShape.circle,
                       border: Border.all(color: Color(0xFF283593), width: 2),
                     ),
-                    child: Center(child: Text('Large\n96dp', textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 10, color: Color(0xFF283593)))),
+                    child: Center(
+                      child: Text(
+                        'Large\n96dp',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: Color(0xFF283593),
+                        ),
+                      ),
+                    ),
                   ),
                 ),
                 Center(
                   child: Container(
-                    width: 70, height: 70,
+                    width: 70,
+                    height: 70,
                     decoration: BoxDecoration(
                       color: Color(0xFFD84315).withValues(alpha: 0.2),
                       shape: BoxShape.circle,
                       border: Border.all(color: Color(0xFFD84315), width: 2),
                     ),
-                    child: Center(child: Text('Std\n56dp', textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 9, color: Color(0xFFD84315)))),
+                    child: Center(
+                      child: Text(
+                        'Std\n56dp',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 9, color: Color(0xFFD84315)),
+                      ),
+                    ),
                   ),
                 ),
                 Center(
                   child: Container(
-                    width: 50, height: 50,
+                    width: 50,
+                    height: 50,
                     decoration: BoxDecoration(
                       color: Color(0xFF6A1B9A).withValues(alpha: 0.25),
                       shape: BoxShape.circle,
                       border: Border.all(color: Color(0xFF6A1B9A), width: 2),
                     ),
-                    child: Center(child: Text('Mini\n40dp', textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 8, color: Color(0xFF6A1B9A)))),
+                    child: Center(
+                      child: Text(
+                        'Mini\n40dp',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 8, color: Color(0xFF6A1B9A)),
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -276,11 +378,9 @@ Widget _buildLegendItem(String text, Color color) {
     mainAxisSize: MainAxisSize.min,
     children: [
       Container(
-        width: 12, height: 12,
-        decoration: BoxDecoration(
-          color: color,
-          shape: BoxShape.circle,
-        ),
+        width: 12,
+        height: 12,
+        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
       ),
       SizedBox(width: 4),
       Text(text, style: TextStyle(fontSize: 10, color: color)),
@@ -314,12 +414,17 @@ Widget _buildMiniOffsetXAdjustments() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('X-Axis Offset Adjustments (scaffold=400, padding=16)',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+        Text(
+          'X-Axis Offset Adjustments (scaffold=400, padding=16)',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+        ),
         SizedBox(height: 12),
         Column(children: items),
         SizedBox(height: 12),
-        buildInfoCard('Note:', 'Center positions shift by (56-40)/2 = 8px for mini'),
+        buildInfoCard(
+          'Note:',
+          'Center positions shift by (56-40)/2 = 8px for mini',
+        ),
       ],
     ),
   );
@@ -337,19 +442,33 @@ Widget _buildXAdjustmentRow(String name, double standardX, Color color) {
     child: Row(
       children: [
         Container(
-          width: 20, height: 20,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
+          width: 20,
+          height: 20,
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          child: Center(
+            child: Icon(Icons.add, color: Color(0xFFFFFFFF), size: 10),
           ),
-          child: Center(child: Icon(Icons.add, color: Color(0xFFFFFFFF), size: 10)),
         ),
         SizedBox(width: 8),
         Expanded(
-          child: Text(name, style: TextStyle(fontFamily: 'monospace', fontSize: 12, fontWeight: FontWeight.bold, color: color)),
+          child: Text(
+            name,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
         ),
-        Text('x = ${standardX.toStringAsFixed(1)}',
-            style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: Color(0xFF616161))),
+        Text(
+          'x = ${standardX.toStringAsFixed(1)}',
+          style: TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 11,
+            color: Color(0xFF616161),
+          ),
+        ),
       ],
     ),
   );
@@ -359,13 +478,41 @@ Widget _buildMiniOffsetYAdjustments() {
   print('Building mini offset Y adjustments');
   List<Widget> items = [];
 
-  items.add(_buildYAdjustmentRow('centerFloat Y', 672.0, 'Standard FAB float Y', Color(0xFFD84315)));
+  items.add(
+    _buildYAdjustmentRow(
+      'centerFloat Y',
+      672.0,
+      'Standard FAB float Y',
+      Color(0xFFD84315),
+    ),
+  );
   items.add(SizedBox(height: 6));
-  items.add(_buildYAdjustmentRow('miniCenterFloat Y', 680.0, 'Mini FAB adjusted float Y', Color(0xFF283593)));
+  items.add(
+    _buildYAdjustmentRow(
+      'miniCenterFloat Y',
+      680.0,
+      'Mini FAB adjusted float Y',
+      Color(0xFF283593),
+    ),
+  );
   items.add(SizedBox(height: 6));
-  items.add(_buildYAdjustmentRow('centerDocked Y', 716.0, 'Standard FAB docked Y', Color(0xFFD84315)));
+  items.add(
+    _buildYAdjustmentRow(
+      'centerDocked Y',
+      716.0,
+      'Standard FAB docked Y',
+      Color(0xFFD84315),
+    ),
+  );
   items.add(SizedBox(height: 6));
-  items.add(_buildYAdjustmentRow('miniCenterDocked Y', 724.0, 'Mini FAB adjusted docked Y', Color(0xFF283593)));
+  items.add(
+    _buildYAdjustmentRow(
+      'miniCenterDocked Y',
+      724.0,
+      'Mini FAB adjusted docked Y',
+      Color(0xFF283593),
+    ),
+  );
 
   return Container(
     padding: EdgeInsets.all(16),
@@ -377,18 +524,28 @@ Widget _buildMiniOffsetYAdjustments() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Y-Axis Offset Adjustments (scaffold=800, bar=56)',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+        Text(
+          'Y-Axis Offset Adjustments (scaffold=800, bar=56)',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+        ),
         SizedBox(height: 12),
         Column(children: items),
         SizedBox(height: 12),
-        buildInfoCard('Delta:', 'Mini Y offsets differ by 8px from standard (half the size delta)'),
+        buildInfoCard(
+          'Delta:',
+          'Mini Y offsets differ by 8px from standard (half the size delta)',
+        ),
       ],
     ),
   );
 }
 
-Widget _buildYAdjustmentRow(String name, double yVal, String desc, Color color) {
+Widget _buildYAdjustmentRow(
+  String name,
+  double yVal,
+  String desc,
+  Color color,
+) {
   bool isMini = name.indexOf('mini') >= 0;
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
@@ -402,24 +559,44 @@ Widget _buildYAdjustmentRow(String name, double yVal, String desc, Color color) 
         Container(
           width: isMini ? 16 : 22,
           height: isMini ? 16 : 22,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          child: Center(
+            child: Icon(
+              Icons.add,
+              color: Color(0xFFFFFFFF),
+              size: isMini ? 8 : 11,
+            ),
           ),
-          child: Center(child: Icon(Icons.add, color: Color(0xFFFFFFFF), size: isMini ? 8 : 11)),
         ),
         SizedBox(width: 8),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(name, style: TextStyle(fontFamily: 'monospace', fontSize: 12, fontWeight: FontWeight.bold, color: color)),
-              Text(desc, style: TextStyle(fontSize: 10, color: Color(0xFF757575))),
+              Text(
+                name,
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: color,
+                ),
+              ),
+              Text(
+                desc,
+                style: TextStyle(fontSize: 10, color: Color(0xFF757575)),
+              ),
             ],
           ),
         ),
-        Text('y = ${yVal.toStringAsFixed(1)}',
-            style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: Color(0xFF616161))),
+        Text(
+          'y = ${yVal.toStringAsFixed(1)}',
+          style: TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 11,
+            color: Color(0xFF616161),
+          ),
+        ),
       ],
     ),
   );
@@ -429,23 +606,77 @@ Widget _buildAllMiniLocations() {
   print('Building all mini FAB locations');
   List<Widget> locations = [];
 
-  locations.add(_buildMiniLocationRow('miniStartFloat', 'Start X, floating, mini size', Color(0xFF00695C)));
+  locations.add(
+    _buildMiniLocationRow(
+      'miniStartFloat',
+      'Start X, floating, mini size',
+      Color(0xFF00695C),
+    ),
+  );
   locations.add(SizedBox(height: 4));
-  locations.add(_buildMiniLocationRow('miniStartDocked', 'Start X, docked, mini size', Color(0xFF1565C0)));
+  locations.add(
+    _buildMiniLocationRow(
+      'miniStartDocked',
+      'Start X, docked, mini size',
+      Color(0xFF1565C0),
+    ),
+  );
   locations.add(SizedBox(height: 4));
-  locations.add(_buildMiniLocationRow('miniStartTop', 'Start X, top, mini size', Color(0xFF6A1B9A)));
+  locations.add(
+    _buildMiniLocationRow(
+      'miniStartTop',
+      'Start X, top, mini size',
+      Color(0xFF6A1B9A),
+    ),
+  );
   locations.add(SizedBox(height: 4));
-  locations.add(_buildMiniLocationRow('miniCenterFloat', 'Center X, floating, mini size', Color(0xFFD84315)));
+  locations.add(
+    _buildMiniLocationRow(
+      'miniCenterFloat',
+      'Center X, floating, mini size',
+      Color(0xFFD84315),
+    ),
+  );
   locations.add(SizedBox(height: 4));
-  locations.add(_buildMiniLocationRow('miniCenterDocked', 'Center X, docked, mini size', Color(0xFF283593)));
+  locations.add(
+    _buildMiniLocationRow(
+      'miniCenterDocked',
+      'Center X, docked, mini size',
+      Color(0xFF283593),
+    ),
+  );
   locations.add(SizedBox(height: 4));
-  locations.add(_buildMiniLocationRow('miniCenterTop', 'Center X, top, mini size', Color(0xFF00897B)));
+  locations.add(
+    _buildMiniLocationRow(
+      'miniCenterTop',
+      'Center X, top, mini size',
+      Color(0xFF00897B),
+    ),
+  );
   locations.add(SizedBox(height: 4));
-  locations.add(_buildMiniLocationRow('miniEndFloat', 'End X, floating, mini size', Color(0xFFC62828)));
+  locations.add(
+    _buildMiniLocationRow(
+      'miniEndFloat',
+      'End X, floating, mini size',
+      Color(0xFFC62828),
+    ),
+  );
   locations.add(SizedBox(height: 4));
-  locations.add(_buildMiniLocationRow('miniEndDocked', 'End X, docked, mini size', Color(0xFF4527A0)));
+  locations.add(
+    _buildMiniLocationRow(
+      'miniEndDocked',
+      'End X, docked, mini size',
+      Color(0xFF4527A0),
+    ),
+  );
   locations.add(SizedBox(height: 4));
-  locations.add(_buildMiniLocationRow('miniEndTop', 'End X, top, mini size', Color(0xFF795548)));
+  locations.add(
+    _buildMiniLocationRow(
+      'miniEndTop',
+      'End X, top, mini size',
+      Color(0xFF795548),
+    ),
+  );
 
   return Container(
     padding: EdgeInsets.all(16),
@@ -457,8 +688,10 @@ Widget _buildAllMiniLocations() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('All Mini FAB Location Variants',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+        Text(
+          'All Mini FAB Location Variants',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+        ),
         SizedBox(height: 12),
         Column(children: locations),
       ],
@@ -477,21 +710,42 @@ Widget _buildMiniLocationRow(String name, String desc, Color color) {
     child: Row(
       children: [
         Container(
-          width: 18, height: 18,
+          width: 18,
+          height: 18,
           decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-          child: Center(child: Icon(Icons.add, color: Color(0xFFFFFFFF), size: 9)),
+          child: Center(
+            child: Icon(Icons.add, color: Color(0xFFFFFFFF), size: 9),
+          ),
         ),
         SizedBox(width: 8),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(name, style: TextStyle(fontFamily: 'monospace', fontSize: 12, fontWeight: FontWeight.bold, color: color)),
-              Text(desc, style: TextStyle(fontSize: 10, color: Color(0xFF757575))),
+              Text(
+                name,
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: color,
+                ),
+              ),
+              Text(
+                desc,
+                style: TextStyle(fontSize: 10, color: Color(0xFF757575)),
+              ),
             ],
           ),
         ),
-        Text('mini', style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: color)),
+        Text(
+          'mini',
+          style: TextStyle(
+            fontSize: 9,
+            fontWeight: FontWeight.bold,
+            color: color,
+          ),
+        ),
       ],
     ),
   );
@@ -509,8 +763,10 @@ Widget _buildAdjustmentCalculation() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Mini Offset Adjustment Formula',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+        Text(
+          'Mini Offset Adjustment Formula',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+        ),
         SizedBox(height: 16),
         Container(
           width: double.infinity,
@@ -522,37 +778,108 @@ Widget _buildAdjustmentCalculation() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('// FabMiniOffsetAdjustment calculation:',
-                  style: TextStyle(fontFamily: 'monospace', fontSize: 10, color: Color(0xFF78909C))),
+              Text(
+                '// FabMiniOffsetAdjustment calculation:',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 10,
+                  color: Color(0xFF78909C),
+                ),
+              ),
               SizedBox(height: 6),
-              Text('standardFabSize = 56.0',
-                  style: TextStyle(fontFamily: 'monospace', fontSize: 12, color: Color(0xFF80CBC4))),
-              Text('miniFabSize = 40.0',
-                  style: TextStyle(fontFamily: 'monospace', fontSize: 12, color: Color(0xFF80CBC4))),
-              Text('adjustment = (standardFabSize - miniFabSize) / 2.0',
-                  style: TextStyle(fontFamily: 'monospace', fontSize: 12, color: Color(0xFFA5D6A7))),
-              Text('// adjustment = (56 - 40) / 2 = 8.0',
-                  style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: Color(0xFFFFCC80))),
+              Text(
+                'standardFabSize = 56.0',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 12,
+                  color: Color(0xFF80CBC4),
+                ),
+              ),
+              Text(
+                'miniFabSize = 40.0',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 12,
+                  color: Color(0xFF80CBC4),
+                ),
+              ),
+              Text(
+                'adjustment = (standardFabSize - miniFabSize) / 2.0',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 12,
+                  color: Color(0xFFA5D6A7),
+                ),
+              ),
+              Text(
+                '// adjustment = (56 - 40) / 2 = 8.0',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 11,
+                  color: Color(0xFFFFCC80),
+                ),
+              ),
               SizedBox(height: 10),
-              Text('// Applied to base offset:',
-                  style: TextStyle(fontFamily: 'monospace', fontSize: 10, color: Color(0xFF78909C))),
-              Text('miniOffsetX = baseOffsetX + adjustment',
-                  style: TextStyle(fontFamily: 'monospace', fontSize: 12, color: Color(0xFF80CBC4))),
-              Text('miniOffsetY = baseOffsetY + adjustment',
-                  style: TextStyle(fontFamily: 'monospace', fontSize: 12, color: Color(0xFF80CBC4))),
+              Text(
+                '// Applied to base offset:',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 10,
+                  color: Color(0xFF78909C),
+                ),
+              ),
+              Text(
+                'miniOffsetX = baseOffsetX + adjustment',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 12,
+                  color: Color(0xFF80CBC4),
+                ),
+              ),
+              Text(
+                'miniOffsetY = baseOffsetY + adjustment',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 12,
+                  color: Color(0xFF80CBC4),
+                ),
+              ),
             ],
           ),
         ),
         SizedBox(height: 16),
-        _buildCalcRow('standardFabSize', '56.0', 'Standard FAB diameter', Color(0xFFD84315)),
+        _buildCalcRow(
+          'standardFabSize',
+          '56.0',
+          'Standard FAB diameter',
+          Color(0xFFD84315),
+        ),
         SizedBox(height: 4),
-        _buildCalcRow('miniFabSize', '40.0', 'Mini FAB diameter', Color(0xFF283593)),
+        _buildCalcRow(
+          'miniFabSize',
+          '40.0',
+          'Mini FAB diameter',
+          Color(0xFF283593),
+        ),
         SizedBox(height: 4),
-        _buildCalcRow('sizeDelta', '16.0', 'Difference in diameters', Color(0xFF00695C)),
+        _buildCalcRow(
+          'sizeDelta',
+          '16.0',
+          'Difference in diameters',
+          Color(0xFF00695C),
+        ),
         SizedBox(height: 4),
-        _buildCalcRow('adjustment', '8.0', 'Half of size delta', Color(0xFF6A1B9A)),
+        _buildCalcRow(
+          'adjustment',
+          '8.0',
+          'Half of size delta',
+          Color(0xFF6A1B9A),
+        ),
         SizedBox(height: 8),
-        buildInfoCard('Purpose:', 'Adjustment ensures mini FAB appears at the same visual center as standard'),
+        buildInfoCard(
+          'Purpose:',
+          'Adjustment ensures mini FAB appears at the same visual center as standard',
+        ),
       ],
     ),
   );
@@ -568,12 +895,36 @@ Widget _buildCalcRow(String name, String val, String desc, Color color) {
     ),
     child: Row(
       children: [
-        Expanded(flex: 3, child: Text(name, style: TextStyle(fontFamily: 'monospace', fontSize: 11, fontWeight: FontWeight.bold, color: color))),
+        Expanded(
+          flex: 3,
+          child: Text(
+            name,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 11,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
+        ),
         Container(
           width: 60,
-          child: Text(val, style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: Color(0xFF616161))),
+          child: Text(
+            val,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 11,
+              color: Color(0xFF616161),
+            ),
+          ),
         ),
-        Expanded(flex: 4, child: Text(desc, style: TextStyle(fontSize: 11, color: Color(0xFF757575)))),
+        Expanded(
+          flex: 4,
+          child: Text(
+            desc,
+            style: TextStyle(fontSize: 11, color: Color(0xFF757575)),
+          ),
+        ),
       ],
     ),
   );
@@ -591,11 +942,14 @@ Widget _buildMiniInScaffold() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Mini FAB in Full Scaffold Layout',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+        Text(
+          'Mini FAB in Full Scaffold Layout',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+        ),
         SizedBox(height: 16),
         Container(
-          height: 200, width: double.infinity,
+          height: 200,
+          width: double.infinity,
           decoration: BoxDecoration(
             color: Color(0xFFF5F5F5),
             borderRadius: BorderRadius.circular(8),
@@ -604,33 +958,63 @@ Widget _buildMiniInScaffold() {
           child: Stack(
             children: [
               Positioned(
-                top: 0, left: 0, right: 0, height: 36,
+                top: 0,
+                left: 0,
+                right: 0,
+                height: 36,
                 child: Container(
                   decoration: BoxDecoration(
                     color: Color(0xFF283593),
-                    borderRadius: BorderRadius.only(topLeft: Radius.circular(6), topRight: Radius.circular(6)),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(6),
+                      topRight: Radius.circular(6),
+                    ),
                   ),
-                  child: Center(child: Text('Mini FAB App', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 12, fontWeight: FontWeight.bold))),
+                  child: Center(
+                    child: Text(
+                      'Mini FAB App',
+                      style: TextStyle(
+                        color: Color(0xFFFFFFFF),
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                 ),
               ),
               Positioned(
-                top: 36, left: 0, right: 0, bottom: 44,
+                top: 36,
+                left: 0,
+                right: 0,
+                bottom: 44,
                 child: Center(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(Icons.touch_app, color: Color(0xFF9E9E9E), size: 32),
-                      Text('Tap the mini FAB', style: TextStyle(color: Color(0xFF9E9E9E), fontSize: 11)),
+                      Text(
+                        'Tap the mini FAB',
+                        style: TextStyle(
+                          color: Color(0xFF9E9E9E),
+                          fontSize: 11,
+                        ),
+                      ),
                     ],
                   ),
                 ),
               ),
               Positioned(
-                bottom: 0, left: 0, right: 0, height: 44,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                height: 44,
                 child: Container(
                   decoration: BoxDecoration(
                     color: Color(0xFFFFFFFF),
-                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(6), bottomRight: Radius.circular(6)),
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(6),
+                      bottomRight: Radius.circular(6),
+                    ),
                     border: Border(top: BorderSide(color: Color(0xFFE0E0E0))),
                   ),
                   child: Row(
@@ -645,22 +1029,32 @@ Widget _buildMiniInScaffold() {
                 ),
               ),
               Positioned(
-                bottom: 56, right: 16,
+                bottom: 56,
+                right: 16,
                 child: Container(
-                  width: 40, height: 40,
+                  width: 40,
+                  height: 40,
                   decoration: BoxDecoration(
                     color: Color(0xFF283593),
                     shape: BoxShape.circle,
                   ),
-                  child: Center(child: Icon(Icons.edit, color: Color(0xFFFFFFFF), size: 20)),
+                  child: Center(
+                    child: Icon(Icons.edit, color: Color(0xFFFFFFFF), size: 20),
+                  ),
                 ),
               ),
             ],
           ),
         ),
         SizedBox(height: 12),
-        buildInfoCard('Mini FAB:', 'Compact 40dp button, ideal for secondary actions'),
-        buildInfoCard('Offset adjusted:', 'Position accounts for smaller size via FabMiniOffsetAdjustment'),
+        buildInfoCard(
+          'Mini FAB:',
+          'Compact 40dp button, ideal for secondary actions',
+        ),
+        buildInfoCard(
+          'Offset adjusted:',
+          'Position accounts for smaller size via FabMiniOffsetAdjustment',
+        ),
       ],
     ),
   );
@@ -678,17 +1072,33 @@ Widget _buildSideBySidePositioning() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Standard vs Mini at Same Location',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+        Text(
+          'Standard vs Mini at Same Location',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+        ),
         SizedBox(height: 16),
         _buildPositionCompare('endFloat', Color(0xFFD84315), Color(0xFF283593)),
         SizedBox(height: 12),
-        _buildPositionCompare('centerFloat', Color(0xFFD84315), Color(0xFF283593)),
+        _buildPositionCompare(
+          'centerFloat',
+          Color(0xFFD84315),
+          Color(0xFF283593),
+        ),
         SizedBox(height: 12),
-        _buildPositionCompare('centerDocked', Color(0xFFD84315), Color(0xFF283593)),
+        _buildPositionCompare(
+          'centerDocked',
+          Color(0xFFD84315),
+          Color(0xFF283593),
+        ),
         SizedBox(height: 12),
-        buildInfoCard('Visual center:', 'Both sizes share the same visual center point'),
-        buildInfoCard('Offset shift:', 'Mini offset is adjusted so center overlaps with standard center'),
+        buildInfoCard(
+          'Visual center:',
+          'Both sizes share the same visual center point',
+        ),
+        buildInfoCard(
+          'Offset shift:',
+          'Mini offset is adjusted so center overlaps with standard center',
+        ),
       ],
     ),
   );
@@ -704,14 +1114,23 @@ Widget _buildPositionCompare(String location, Color stdColor, Color miniColor) {
     ),
     child: Row(
       children: [
-        Text(location, style: TextStyle(fontFamily: 'monospace', fontWeight: FontWeight.bold, fontSize: 12, color: Color(0xFF37474F))),
+        Text(
+          location,
+          style: TextStyle(
+            fontFamily: 'monospace',
+            fontWeight: FontWeight.bold,
+            fontSize: 12,
+            color: Color(0xFF37474F),
+          ),
+        ),
         Expanded(child: SizedBox()),
         Column(
           children: [
             Text('Standard', style: TextStyle(fontSize: 9, color: stdColor)),
             SizedBox(height: 2),
             Container(
-              width: 36, height: 36,
+              width: 36,
+              height: 36,
               decoration: BoxDecoration(
                 color: stdColor.withValues(alpha: 0.3),
                 shape: BoxShape.circle,
@@ -727,7 +1146,8 @@ Widget _buildPositionCompare(String location, Color stdColor, Color miniColor) {
             Text('Mini', style: TextStyle(fontSize: 9, color: miniColor)),
             SizedBox(height: 2),
             Container(
-              width: 26, height: 26,
+              width: 26,
+              height: 26,
               decoration: BoxDecoration(
                 color: miniColor.withValues(alpha: 0.3),
                 shape: BoxShape.circle,
@@ -740,10 +1160,14 @@ Widget _buildPositionCompare(String location, Color stdColor, Color miniColor) {
         SizedBox(width: 16),
         Column(
           children: [
-            Text('Overlap', style: TextStyle(fontSize: 9, color: Color(0xFF757575))),
+            Text(
+              'Overlap',
+              style: TextStyle(fontSize: 9, color: Color(0xFF757575)),
+            ),
             SizedBox(height: 2),
             Container(
-              width: 36, height: 36,
+              width: 36,
+              height: 36,
               decoration: BoxDecoration(
                 color: Color(0xFFF5F5F5),
                 shape: BoxShape.circle,
@@ -752,7 +1176,8 @@ Widget _buildPositionCompare(String location, Color stdColor, Color miniColor) {
                 children: [
                   Center(
                     child: Container(
-                      width: 30, height: 30,
+                      width: 30,
+                      height: 30,
                       decoration: BoxDecoration(
                         color: stdColor.withValues(alpha: 0.2),
                         shape: BoxShape.circle,
@@ -761,7 +1186,8 @@ Widget _buildPositionCompare(String location, Color stdColor, Color miniColor) {
                   ),
                   Center(
                     child: Container(
-                      width: 22, height: 22,
+                      width: 22,
+                      height: 22,
                       decoration: BoxDecoration(
                         color: miniColor.withValues(alpha: 0.3),
                         shape: BoxShape.circle,
@@ -781,12 +1207,54 @@ Widget _buildPositionCompare(String location, Color stdColor, Color miniColor) {
 Widget _buildPropertiesAndApi() {
   print('Building properties and API');
   List<Widget> rows = [];
-  rows.add(_buildApiRow('getOffsetAdjustment', 'double', 'Returns offset adjustment for mini size', Color(0xFF283593)));
-  rows.add(_buildApiRow('standardSize', 'double', 'Standard FAB diameter (56dp)', Color(0xFFD84315)));
-  rows.add(_buildApiRow('miniSize', 'double', 'Mini FAB diameter (40dp)', Color(0xFF6A1B9A)));
-  rows.add(_buildApiRow('isMini', 'bool', 'Whether current FAB is mini variant', Color(0xFF00695C)));
-  rows.add(_buildApiRow('adjustment', 'double', 'Computed offset shift value', Color(0xFFC62828)));
-  rows.add(_buildApiRow('fabSize', 'Size', 'Actual FAB size used for layout', Color(0xFF00897B)));
+  rows.add(
+    _buildApiRow(
+      'getOffsetAdjustment',
+      'double',
+      'Returns offset adjustment for mini size',
+      Color(0xFF283593),
+    ),
+  );
+  rows.add(
+    _buildApiRow(
+      'standardSize',
+      'double',
+      'Standard FAB diameter (56dp)',
+      Color(0xFFD84315),
+    ),
+  );
+  rows.add(
+    _buildApiRow(
+      'miniSize',
+      'double',
+      'Mini FAB diameter (40dp)',
+      Color(0xFF6A1B9A),
+    ),
+  );
+  rows.add(
+    _buildApiRow(
+      'isMini',
+      'bool',
+      'Whether current FAB is mini variant',
+      Color(0xFF00695C),
+    ),
+  );
+  rows.add(
+    _buildApiRow(
+      'adjustment',
+      'double',
+      'Computed offset shift value',
+      Color(0xFFC62828),
+    ),
+  );
+  rows.add(
+    _buildApiRow(
+      'fabSize',
+      'Size',
+      'Actual FAB size used for layout',
+      Color(0xFF00897B),
+    ),
+  );
 
   return Container(
     padding: EdgeInsets.all(16),
@@ -799,9 +1267,27 @@ Widget _buildPropertiesAndApi() {
       children: [
         Row(
           children: [
-            Expanded(flex: 3, child: Text('Name', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
-            Expanded(flex: 3, child: Text('Type', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
-            Expanded(flex: 4, child: Text('Description', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
+            Expanded(
+              flex: 3,
+              child: Text(
+                'Name',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+              ),
+            ),
+            Expanded(
+              flex: 3,
+              child: Text(
+                'Type',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+              ),
+            ),
+            Expanded(
+              flex: 4,
+              child: Text(
+                'Description',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+              ),
+            ),
           ],
         ),
         Divider(color: Color(0xFFBDBDBD)),
@@ -819,9 +1305,36 @@ Widget _buildApiRow(String name, String type, String desc, Color color) {
     ),
     child: Row(
       children: [
-        Expanded(flex: 3, child: Text(name, style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: color, fontWeight: FontWeight.bold))),
-        Expanded(flex: 3, child: Text(type, style: TextStyle(fontFamily: 'monospace', fontSize: 10, color: Color(0xFF616161)))),
-        Expanded(flex: 4, child: Text(desc, style: TextStyle(fontSize: 11, color: Color(0xFF757575)))),
+        Expanded(
+          flex: 3,
+          child: Text(
+            name,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 11,
+              color: color,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 3,
+          child: Text(
+            type,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 10,
+              color: Color(0xFF616161),
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 4,
+          child: Text(
+            desc,
+            style: TextStyle(fontSize: 11, color: Color(0xFF757575)),
+          ),
+        ),
       ],
     ),
   );

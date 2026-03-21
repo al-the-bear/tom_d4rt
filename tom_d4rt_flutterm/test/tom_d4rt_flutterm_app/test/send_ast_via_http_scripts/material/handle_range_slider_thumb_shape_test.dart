@@ -68,10 +68,7 @@ Widget buildInfoCard(String label, String detail) {
         Expanded(
           child: Text(
             detail,
-            style: TextStyle(
-              fontSize: 13.0,
-              color: Color(0xFF616161),
-            ),
+            style: TextStyle(fontSize: 13.0, color: Color(0xFF616161)),
           ),
         ),
       ],
@@ -116,10 +113,7 @@ Widget buildPropertyRow(String property, String value, String description) {
         Expanded(
           child: Text(
             description,
-            style: TextStyle(
-              fontSize: 11.0,
-              color: Color(0xFF757575),
-            ),
+            style: TextStyle(fontSize: 11.0, color: Color(0xFF757575)),
           ),
         ),
       ],
@@ -142,10 +136,7 @@ Widget buildColorSwatch(Color color, String label) {
           ),
         ),
         SizedBox(height: 4.0),
-        Text(
-          label,
-          style: TextStyle(fontSize: 10.0, color: Color(0xFF616161)),
-        ),
+        Text(label, style: TextStyle(fontSize: 10.0, color: Color(0xFF616161))),
       ],
     ),
   );
@@ -212,10 +203,7 @@ Widget buildNoteBox(String text, Color bgColor) {
     ),
     child: Text(
       text,
-      style: TextStyle(
-        fontSize: 12.0,
-        color: Color(0xFF424242),
-      ),
+      style: TextStyle(fontSize: 12.0, color: Color(0xFF424242)),
     ),
   );
 }
@@ -385,23 +373,13 @@ dynamic build(BuildContext context) {
           buildDemoLabel('Default range slider at low values'),
           buildRangeSliderCard(
             'Low Range (0.1 - 0.3)',
-            RangeSlider(
-              values: lowRange,
-              min: 0.0,
-              max: 1.0,
-              onChanged: null,
-            ),
+            RangeSlider(values: lowRange, min: 0.0, max: 1.0, onChanged: null),
             Color(0xFF1565C0),
           ),
           buildDemoLabel('Default range slider at high values'),
           buildRangeSliderCard(
             'High Range (0.7 - 0.9)',
-            RangeSlider(
-              values: highRange,
-              min: 0.0,
-              max: 1.0,
-              onChanged: null,
-            ),
+            RangeSlider(values: highRange, min: 0.0, max: 1.0, onChanged: null),
             Color(0xFF1565C0),
           ),
           buildInfoCard('Default Thumb Radius', '10.0 logical pixels'),
@@ -472,8 +450,14 @@ dynamic build(BuildContext context) {
             Color(0xFF6A1B9A),
           ),
           buildInfoCard('thumbColor', 'Sets the color of both range thumbs'),
-          buildInfoCard('activeTrackColor', 'Color of the track between the two thumbs'),
-          buildInfoCard('inactiveTrackColor', 'Color of the track outside the two thumbs'),
+          buildInfoCard(
+            'activeTrackColor',
+            'Color of the track between the two thumbs',
+          ),
+          buildInfoCard(
+            'inactiveTrackColor',
+            'Color of the track outside the two thumbs',
+          ),
 
           // Section 3: Different thumb radius via RoundRangeSliderThumbShape
           buildSectionHeader('3. Different Thumb Radius Configurations'),
@@ -694,8 +678,14 @@ dynamic build(BuildContext context) {
             ),
             Color(0xFF1565C0),
           ),
-          buildInfoCard('overlayColor', 'Semi-transparent color shown on thumb press'),
-          buildInfoCard('overlappingShapeStrokeColor', 'Stroke color when thumbs overlap or are close'),
+          buildInfoCard(
+            'overlayColor',
+            'Semi-transparent color shown on thumb press',
+          ),
+          buildInfoCard(
+            'overlappingShapeStrokeColor',
+            'Stroke color when thumbs overlap or are close',
+          ),
 
           // Section 6: Comparison of enabledThumbRadius and disabledThumbRadius
           buildSectionHeader('6. Enabled vs Disabled Thumb Radius Comparison'),
@@ -705,8 +695,16 @@ dynamic build(BuildContext context) {
             Color(0xFFE0F7FA),
           ),
           buildSubHeader('Tiny Thumb Configuration'),
-          buildPropertyRow('enabledThumbRadius', '5.0', 'Very small active thumb'),
-          buildPropertyRow('disabledThumbRadius', '3.0', 'Even smaller when disabled'),
+          buildPropertyRow(
+            'enabledThumbRadius',
+            '5.0',
+            'Very small active thumb',
+          ),
+          buildPropertyRow(
+            'disabledThumbRadius',
+            '3.0',
+            'Even smaller when disabled',
+          ),
           buildRangeSliderCard(
             'Tiny Thumb Disabled State',
             SliderTheme(
@@ -721,8 +719,16 @@ dynamic build(BuildContext context) {
             Color(0xFF00695C),
           ),
           buildSubHeader('Medium Thumb Configuration'),
-          buildPropertyRow('enabledThumbRadius', '12.0', 'Slightly larger than default'),
-          buildPropertyRow('disabledThumbRadius', '8.0', 'Shrinks noticeably when disabled'),
+          buildPropertyRow(
+            'enabledThumbRadius',
+            '12.0',
+            'Slightly larger than default',
+          ),
+          buildPropertyRow(
+            'disabledThumbRadius',
+            '8.0',
+            'Shrinks noticeably when disabled',
+          ),
           buildRangeSliderCard(
             'Medium Thumb Disabled State',
             SliderTheme(
@@ -737,8 +743,16 @@ dynamic build(BuildContext context) {
             Color(0xFF6A1B9A),
           ),
           buildSubHeader('Huge Thumb Configuration'),
-          buildPropertyRow('enabledThumbRadius', '20.0', 'Very large active thumb'),
-          buildPropertyRow('disabledThumbRadius', '14.0', 'Still prominent when disabled'),
+          buildPropertyRow(
+            'enabledThumbRadius',
+            '20.0',
+            'Very large active thumb',
+          ),
+          buildPropertyRow(
+            'disabledThumbRadius',
+            '14.0',
+            'Still prominent when disabled',
+          ),
           buildRangeSliderCard(
             'Huge Thumb Disabled State',
             SliderTheme(
@@ -753,8 +767,16 @@ dynamic build(BuildContext context) {
             Color(0xFFC62828),
           ),
           buildSubHeader('Default Thumb (no explicit disabled radius)'),
-          buildPropertyRow('enabledThumbRadius', '10.0', 'Standard default size'),
-          buildPropertyRow('disabledThumbRadius', 'null', 'Falls back to enabledThumbRadius'),
+          buildPropertyRow(
+            'enabledThumbRadius',
+            '10.0',
+            'Standard default size',
+          ),
+          buildPropertyRow(
+            'disabledThumbRadius',
+            'null',
+            'Falls back to enabledThumbRadius',
+          ),
           buildRangeSliderCard(
             'Default Thumb Disabled State',
             SliderTheme(
@@ -950,34 +972,114 @@ dynamic build(BuildContext context) {
             Color(0xFFE8EAF6),
           ),
           buildSubHeader('RoundRangeSliderThumbShape Properties'),
-          buildPropertyRow('enabledThumbRadius', 'double', 'Radius of the thumb when the slider is enabled (default: 10.0)'),
-          buildPropertyRow('disabledThumbRadius', 'double?', 'Radius when disabled; defaults to enabledThumbRadius if null'),
-          buildPropertyRow('elevation', '1.0', 'Default elevation of the thumb shadow'),
-          buildPropertyRow('pressedElevation', '6.0', 'Elevation when the thumb is pressed'),
+          buildPropertyRow(
+            'enabledThumbRadius',
+            'double',
+            'Radius of the thumb when the slider is enabled (default: 10.0)',
+          ),
+          buildPropertyRow(
+            'disabledThumbRadius',
+            'double?',
+            'Radius when disabled; defaults to enabledThumbRadius if null',
+          ),
+          buildPropertyRow(
+            'elevation',
+            '1.0',
+            'Default elevation of the thumb shadow',
+          ),
+          buildPropertyRow(
+            'pressedElevation',
+            '6.0',
+            'Elevation when the thumb is pressed',
+          ),
 
           buildSubHeader('SliderThemeData Thumb Properties'),
-          buildPropertyRow('rangeThumbShape', 'RangeSliderThumbShape', 'Shape used for range slider thumbs'),
-          buildPropertyRow('thumbColor', 'Color', 'Fill color of the thumb circle'),
-          buildPropertyRow('overlayColor', 'Color', 'Semi-transparent overlay on press'),
-          buildPropertyRow('overlappingShapeStrokeColor', 'Color', 'Stroke when thumbs overlap'),
+          buildPropertyRow(
+            'rangeThumbShape',
+            'RangeSliderThumbShape',
+            'Shape used for range slider thumbs',
+          ),
+          buildPropertyRow(
+            'thumbColor',
+            'Color',
+            'Fill color of the thumb circle',
+          ),
+          buildPropertyRow(
+            'overlayColor',
+            'Color',
+            'Semi-transparent overlay on press',
+          ),
+          buildPropertyRow(
+            'overlappingShapeStrokeColor',
+            'Color',
+            'Stroke when thumbs overlap',
+          ),
 
           buildSubHeader('SliderThemeData Track Properties'),
-          buildPropertyRow('activeTrackColor', 'Color', 'Track color between the two thumbs'),
-          buildPropertyRow('inactiveTrackColor', 'Color', 'Track color outside the two thumbs'),
-          buildPropertyRow('trackHeight', 'double', 'Height of the slider track (default: 2.0)'),
+          buildPropertyRow(
+            'activeTrackColor',
+            'Color',
+            'Track color between the two thumbs',
+          ),
+          buildPropertyRow(
+            'inactiveTrackColor',
+            'Color',
+            'Track color outside the two thumbs',
+          ),
+          buildPropertyRow(
+            'trackHeight',
+            'double',
+            'Height of the slider track (default: 2.0)',
+          ),
 
           buildSubHeader('SliderThemeData Tick Mark Properties'),
-          buildPropertyRow('activeTickMarkColor', 'Color', 'Tick mark color in active region'),
-          buildPropertyRow('inactiveTickMarkColor', 'Color', 'Tick mark color in inactive region'),
-          buildPropertyRow('rangeTickMarkShape', 'RangeSliderTickMarkShape', 'Shape of tick marks for range sliders'),
+          buildPropertyRow(
+            'activeTickMarkColor',
+            'Color',
+            'Tick mark color in active region',
+          ),
+          buildPropertyRow(
+            'inactiveTickMarkColor',
+            'Color',
+            'Tick mark color in inactive region',
+          ),
+          buildPropertyRow(
+            'rangeTickMarkShape',
+            'RangeSliderTickMarkShape',
+            'Shape of tick marks for range sliders',
+          ),
 
           buildSubHeader('RangeSlider Widget Properties'),
-          buildPropertyRow('values', 'RangeValues', 'Current start and end values of the range'),
-          buildPropertyRow('min', 'double', 'Minimum allowed value (default: 0.0)'),
-          buildPropertyRow('max', 'double', 'Maximum allowed value (default: 1.0)'),
-          buildPropertyRow('divisions', 'int?', 'Number of discrete intervals for snapping'),
-          buildPropertyRow('labels', 'RangeLabels?', 'Text labels shown above thumbs'),
-          buildPropertyRow('onChanged', 'ValueChanged?', 'Callback when range changes; null disables slider'),
+          buildPropertyRow(
+            'values',
+            'RangeValues',
+            'Current start and end values of the range',
+          ),
+          buildPropertyRow(
+            'min',
+            'double',
+            'Minimum allowed value (default: 0.0)',
+          ),
+          buildPropertyRow(
+            'max',
+            'double',
+            'Maximum allowed value (default: 1.0)',
+          ),
+          buildPropertyRow(
+            'divisions',
+            'int?',
+            'Number of discrete intervals for snapping',
+          ),
+          buildPropertyRow(
+            'labels',
+            'RangeLabels?',
+            'Text labels shown above thumbs',
+          ),
+          buildPropertyRow(
+            'onChanged',
+            'ValueChanged?',
+            'Callback when range changes; null disables slider',
+          ),
 
           buildSubHeader('Color Reference Swatches'),
           Padding(
@@ -1011,11 +1113,23 @@ dynamic build(BuildContext context) {
           buildInfoCard('Default Radius', '10.0 logical pixels'),
           buildInfoCard('Theme Wrapper', 'SliderTheme with SliderThemeData'),
           buildInfoCard('Range Type', 'RangeValues(start, end)'),
-          buildInfoCard('Disabled Behavior', 'Uses disabledThumbRadius or falls back to enabledThumbRadius'),
-          buildInfoCard('Overlay Effect', 'Semi-transparent circle on touch/press via overlayColor'),
+          buildInfoCard(
+            'Disabled Behavior',
+            'Uses disabledThumbRadius or falls back to enabledThumbRadius',
+          ),
+          buildInfoCard(
+            'Overlay Effect',
+            'Semi-transparent circle on touch/press via overlayColor',
+          ),
           buildInfoCard('Elevation', 'Subtle shadow that increases on press'),
-          buildInfoCard('Customization Scope', 'Shape, size, color, overlay, track, tick marks'),
-          buildInfoCard('Use Cases', 'Price range filters, time range selection, data range picking'),
+          buildInfoCard(
+            'Customization Scope',
+            'Shape, size, color, overlay, track, tick marks',
+          ),
+          buildInfoCard(
+            'Use Cases',
+            'Price range filters, time range selection, data range picking',
+          ),
           buildNoteBox(
             'Note: HandleRangeSliderThumbShape is not a standard Flutter class. '
             'This demo uses RoundRangeSliderThumbShape which is the built-in implementation '

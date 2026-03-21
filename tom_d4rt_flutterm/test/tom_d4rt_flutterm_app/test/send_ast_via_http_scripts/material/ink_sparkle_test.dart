@@ -68,11 +68,7 @@ Widget _buildInfoCard(String title, String description) {
         SizedBox(height: 4),
         Text(
           description,
-          style: TextStyle(
-            fontSize: 13,
-            color: Color(0xFF616161),
-            height: 1.4,
-          ),
+          style: TextStyle(fontSize: 13, color: Color(0xFF616161), height: 1.4),
         ),
       ],
     ),
@@ -110,10 +106,7 @@ Widget _buildPropertyRow(String property, String type, String description) {
         Expanded(
           child: Text(
             description,
-            style: TextStyle(
-              fontSize: 13,
-              color: Color(0xFF424242),
-            ),
+            style: TextStyle(fontSize: 13, color: Color(0xFF424242)),
           ),
         ),
       ],
@@ -203,9 +196,9 @@ Widget _buildDefaultSplash() {
       _buildInfoCard(
         'InkSplash - Default Splash',
         'InkSplash is the default splash factory used by InkWell. '
-        'It creates a spreading circular ink splash animation when '
-        'the user taps on the widget. This is the classic Material '
-        'Design splash effect.',
+            'It creates a spreading circular ink splash animation when '
+            'the user taps on the widget. This is the classic Material '
+            'Design splash effect.',
       ),
       _buildLabeledDemo(
         'Default InkSplash (tap to see effect)',
@@ -274,9 +267,9 @@ Widget _buildRippleSplash() {
       _buildInfoCard(
         'InkRipple - Ripple Effect',
         'InkRipple creates a ripple animation that spreads outward from '
-        'the tap point. It is similar to InkSplash but with a different '
-        'animation curve, producing a more fluid ripple motion. Often used '
-        'as an alternative Material Design splash.',
+            'the tap point. It is similar to InkSplash but with a different '
+            'animation curve, producing a more fluid ripple motion. Often used '
+            'as an alternative Material Design splash.',
       ),
       _buildLabeledDemo(
         'InkRipple splash (tap to see ripple)',
@@ -343,9 +336,9 @@ Widget _buildSparkleSplash() {
       _buildInfoCard(
         'InkSparkle - Material 3 Sparkle',
         'InkSparkle is the Material 3 splash effect that creates a sparkle '
-        'animation radiating from the tap point. It uses a custom shader to '
-        'produce a glittering, particle-like effect. This is the recommended '
-        'splash for Material 3 designs.',
+            'animation radiating from the tap point. It uses a custom shader to '
+            'produce a glittering, particle-like effect. This is the recommended '
+            'splash for Material 3 designs.',
       ),
       _buildNoteBox(
         'InkSparkle requires GPU shader support. It produces a visually '
@@ -505,9 +498,9 @@ Widget _buildSplashComparison() {
       _buildInfoCard(
         'Splash Type Comparison',
         'Flutter provides three built-in splash factories. Each produces a '
-        'different visual effect when the user taps. InkSplash is the classic '
-        'Material 2 default, InkRipple is a smoother alternative, and '
-        'InkSparkle is the Material 3 sparkle.',
+            'different visual effect when the user taps. InkSplash is the classic '
+            'Material 2 default, InkRipple is a smoother alternative, and '
+            'InkSparkle is the Material 3 sparkle.',
       ),
       _buildSubSectionHeader('Side-by-Side Comparison'),
       _buildSplashComparisonCard(
@@ -576,8 +569,8 @@ Widget _buildCustomSplashColors() {
       _buildInfoCard(
         'Custom Splash Colors',
         'InkWell allows customization of splashColor and highlightColor. '
-        'The splashColor controls the color of the expanding splash animation '
-        'and highlightColor controls the solid overlay during long press.',
+            'The splashColor controls the color of the expanding splash animation '
+            'and highlightColor controls the solid overlay during long press.',
       ),
       _buildLabeledDemo(
         'Red splash on white background',
@@ -682,8 +675,8 @@ Widget _buildHighlightAndSplash() {
       _buildInfoCard(
         'Highlight vs Splash',
         'highlightColor is the solid overlay that appears on long press. '
-        'splashColor is the expanding circular animation on tap. Both can '
-        'be customized independently for different visual feedback.',
+            'splashColor is the expanding circular animation on tap. Both can '
+            'be customized independently for different visual feedback.',
       ),
       _buildLabeledDemo(
         'Strong highlight, subtle splash',
@@ -776,9 +769,9 @@ Widget _buildInkResponseComparison() {
       _buildInfoCard(
         'InkResponse vs InkWell',
         'InkWell is a rectangular area that responds to touch with ink splash. '
-        'InkResponse is its parent class with more flexibility - it can have '
-        'a non-rectangular splash, highlight shape, and containedInkWell control. '
-        'InkWell is essentially an InkResponse with rectangular defaults.',
+            'InkResponse is its parent class with more flexibility - it can have '
+            'a non-rectangular splash, highlight shape, and containedInkWell control. '
+            'InkWell is essentially an InkResponse with rectangular defaults.',
       ),
       _buildSubSectionHeader('InkWell (Rectangular Splash)'),
       _buildLabeledDemo(
@@ -906,9 +899,9 @@ Widget _buildThemedInkEffects() {
       _buildInfoCard(
         'ThemeData.splashFactory',
         'Instead of setting splashFactory on each InkWell individually, '
-        'you can configure it globally via ThemeData.splashFactory. All '
-        'InkWell and InkResponse widgets will use the theme factory unless '
-        'they override it locally.',
+            'you can configure it globally via ThemeData.splashFactory. All '
+            'InkWell and InkResponse widgets will use the theme factory unless '
+            'they override it locally.',
       ),
       _buildSubSectionHeader('Theme with InkSparkle (Material 3)'),
       Theme(
@@ -1061,20 +1054,12 @@ Widget _buildCircleInkButton(IconData icon, Color color, String label) {
               color: color.withValues(alpha: 0.12),
               shape: BoxShape.circle,
             ),
-            child: Center(
-              child: Icon(icon, color: color, size: 24),
-            ),
+            child: Center(child: Icon(icon, color: color, size: 24)),
           ),
         ),
       ),
       SizedBox(height: 4),
-      Text(
-        label,
-        style: TextStyle(
-          fontSize: 11,
-          color: Color(0xFF616161),
-        ),
-      ),
+      Text(label, style: TextStyle(fontSize: 11, color: Color(0xFF616161))),
     ],
   );
 }
@@ -1087,8 +1072,8 @@ Widget _buildInkWellShapes() {
       _buildInfoCard(
         'InkWell with Various Shapes',
         'InkWell clips its splash to the widget shape using customBorder '
-        'or borderRadius. This enables circular, rounded, stadium, and '
-        'other shaped splash areas.',
+            'or borderRadius. This enables circular, rounded, stadium, and '
+            'other shaped splash areas.',
       ),
       _buildSubSectionHeader('Circle Shape'),
       _buildLabeledDemo(
@@ -1110,7 +1095,11 @@ Widget _buildInkWellShapes() {
                   shape: BoxShape.circle,
                 ),
                 child: Center(
-                  child: Icon(Icons.auto_awesome, color: Color(0xFF6200EA), size: 36),
+                  child: Icon(
+                    Icons.auto_awesome,
+                    color: Color(0xFF6200EA),
+                    size: 36,
+                  ),
                 ),
               ),
             ),
@@ -1293,8 +1282,8 @@ Widget _buildPropertyReference() {
       _buildInfoCard(
         'InkWell Properties',
         'Key properties of InkWell that control ink effects. '
-        'All splash factories (InkSplash, InkRipple, InkSparkle) '
-        'respond to these properties.',
+            'All splash factories (InkSplash, InkRipple, InkSparkle) '
+            'respond to these properties.',
       ),
       Container(
         width: double.infinity,
@@ -1307,29 +1296,73 @@ Widget _buildPropertyReference() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildPropertyRow('splashFactory', 'InkFeatureFactory', 'Factory for creating splash effects'),
+            _buildPropertyRow(
+              'splashFactory',
+              'InkFeatureFactory',
+              'Factory for creating splash effects',
+            ),
             Divider(color: Color(0xFFEEEEEE)),
-            _buildPropertyRow('splashColor', 'Color', 'Color of the splash animation'),
+            _buildPropertyRow(
+              'splashColor',
+              'Color',
+              'Color of the splash animation',
+            ),
             Divider(color: Color(0xFFEEEEEE)),
-            _buildPropertyRow('highlightColor', 'Color', 'Color of the highlight overlay on press'),
+            _buildPropertyRow(
+              'highlightColor',
+              'Color',
+              'Color of the highlight overlay on press',
+            ),
             Divider(color: Color(0xFFEEEEEE)),
-            _buildPropertyRow('hoverColor', 'Color', 'Color overlay when pointer hovers'),
+            _buildPropertyRow(
+              'hoverColor',
+              'Color',
+              'Color overlay when pointer hovers',
+            ),
             Divider(color: Color(0xFFEEEEEE)),
-            _buildPropertyRow('focusColor', 'Color', 'Color overlay when focused via keyboard'),
+            _buildPropertyRow(
+              'focusColor',
+              'Color',
+              'Color overlay when focused via keyboard',
+            ),
             Divider(color: Color(0xFFEEEEEE)),
-            _buildPropertyRow('borderRadius', 'BorderRadius', 'Clips splash to rounded rectangle'),
+            _buildPropertyRow(
+              'borderRadius',
+              'BorderRadius',
+              'Clips splash to rounded rectangle',
+            ),
             Divider(color: Color(0xFFEEEEEE)),
-            _buildPropertyRow('customBorder', 'ShapeBorder', 'Clips splash to arbitrary shape'),
+            _buildPropertyRow(
+              'customBorder',
+              'ShapeBorder',
+              'Clips splash to arbitrary shape',
+            ),
             Divider(color: Color(0xFFEEEEEE)),
             _buildPropertyRow('onTap', 'VoidCallback', 'Called when tapped'),
             Divider(color: Color(0xFFEEEEEE)),
-            _buildPropertyRow('onLongPress', 'VoidCallback', 'Called on long press'),
+            _buildPropertyRow(
+              'onLongPress',
+              'VoidCallback',
+              'Called on long press',
+            ),
             Divider(color: Color(0xFFEEEEEE)),
-            _buildPropertyRow('onDoubleTap', 'VoidCallback', 'Called on double tap'),
+            _buildPropertyRow(
+              'onDoubleTap',
+              'VoidCallback',
+              'Called on double tap',
+            ),
             Divider(color: Color(0xFFEEEEEE)),
-            _buildPropertyRow('enableFeedback', 'bool', 'Whether to play sound/haptic on tap'),
+            _buildPropertyRow(
+              'enableFeedback',
+              'bool',
+              'Whether to play sound/haptic on tap',
+            ),
             Divider(color: Color(0xFFEEEEEE)),
-            _buildPropertyRow('excludeFromSemantics', 'bool', 'Whether to exclude from accessibility'),
+            _buildPropertyRow(
+              'excludeFromSemantics',
+              'bool',
+              'Whether to exclude from accessibility',
+            ),
           ],
         ),
       ),
@@ -1349,13 +1382,29 @@ Widget _buildPropertyReference() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildPropertyRow('InkSplash.splashFactory', 'Factory', 'Classic circular splash (Material 2 default)'),
+            _buildPropertyRow(
+              'InkSplash.splashFactory',
+              'Factory',
+              'Classic circular splash (Material 2 default)',
+            ),
             Divider(color: Color(0xFFEEEEEE)),
-            _buildPropertyRow('InkRipple.splashFactory', 'Factory', 'Smooth ripple spreading outward'),
+            _buildPropertyRow(
+              'InkRipple.splashFactory',
+              'Factory',
+              'Smooth ripple spreading outward',
+            ),
             Divider(color: Color(0xFFEEEEEE)),
-            _buildPropertyRow('InkSparkle.splashFactory', 'Factory', 'Sparkle/shimmer effect (Material 3)'),
+            _buildPropertyRow(
+              'InkSparkle.splashFactory',
+              'Factory',
+              'Sparkle/shimmer effect (Material 3)',
+            ),
             Divider(color: Color(0xFFEEEEEE)),
-            _buildPropertyRow('NoSplash.splashFactory', 'Factory', 'Disables splash entirely'),
+            _buildPropertyRow(
+              'NoSplash.splashFactory',
+              'Factory',
+              'Disables splash entirely',
+            ),
           ],
         ),
       ),
@@ -1375,13 +1424,29 @@ Widget _buildPropertyReference() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildPropertyRow('containedInkWell', 'bool', 'Whether splash is clipped to bounds'),
+            _buildPropertyRow(
+              'containedInkWell',
+              'bool',
+              'Whether splash is clipped to bounds',
+            ),
             Divider(color: Color(0xFFEEEEEE)),
-            _buildPropertyRow('highlightShape', 'BoxShape', 'Shape of the highlight overlay'),
+            _buildPropertyRow(
+              'highlightShape',
+              'BoxShape',
+              'Shape of the highlight overlay',
+            ),
             Divider(color: Color(0xFFEEEEEE)),
-            _buildPropertyRow('radius', 'double', 'Radius of the unbounded splash'),
+            _buildPropertyRow(
+              'radius',
+              'double',
+              'Radius of the unbounded splash',
+            ),
             Divider(color: Color(0xFFEEEEEE)),
-            _buildPropertyRow('splashFactory', 'Factory', 'Override per-widget splash factory'),
+            _buildPropertyRow(
+              'splashFactory',
+              'Factory',
+              'Override per-widget splash factory',
+            ),
           ],
         ),
       ),
@@ -1452,11 +1517,7 @@ Widget _buildDebugSection() {
           '> Section: 10. Property Reference\n'
           '> Section: 11. Debug Output\n'
           '> InkSparkle Test completed',
-          style: TextStyle(
-            color: Color(0xFF80CBC4),
-            fontSize: 11,
-            height: 1.5,
-          ),
+          style: TextStyle(color: Color(0xFF80CBC4), fontSize: 11, height: 1.5),
         ),
         SizedBox(height: 10),
         Divider(color: Color(0xFF455A64)),
@@ -1483,11 +1544,7 @@ Widget _buildDebugSection() {
           '- highlightColor controls the solid overlay during press\n'
           '- customBorder clips splash to CircleBorder, StadiumBorder, etc.\n'
           '- borderRadius clips splash to rounded rectangle',
-          style: TextStyle(
-            color: Color(0xFFB0BEC5),
-            fontSize: 11,
-            height: 1.5,
-          ),
+          style: TextStyle(color: Color(0xFFB0BEC5), fontSize: 11, height: 1.5),
         ),
       ],
     ),
@@ -1514,10 +1571,10 @@ dynamic build(BuildContext context) {
             _buildInfoCard(
               'InkSparkle Overview',
               'InkSparkle is the Material 3 splash effect for InkWell and '
-              'InkResponse. It creates a sparkle/shimmer animation using a '
-              'custom fragment shader. Compared to InkSplash (classic circular) '
-              'and InkRipple (smooth ripple), InkSparkle produces a glittering '
-              'particle effect that is the recommended choice for Material 3.',
+                  'InkResponse. It creates a sparkle/shimmer animation using a '
+                  'custom fragment shader. Compared to InkSplash (classic circular) '
+                  'and InkRipple (smooth ripple), InkSparkle produces a glittering '
+                  'particle effect that is the recommended choice for Material 3.',
             ),
             _buildNoteBox(
               'InkSparkle requires GPU shader support. Set it via '

@@ -226,10 +226,7 @@ Widget _buildStatusBadge(String text, Color bgColor) {
       color: bgColor,
       borderRadius: BorderRadius.circular(12),
     ),
-    child: Text(
-      text,
-      style: TextStyle(color: Colors.white, fontSize: 11),
-    ),
+    child: Text(text, style: TextStyle(color: Colors.white, fontSize: 11)),
   );
 }
 
@@ -381,10 +378,7 @@ dynamic build(BuildContext context) {
 
   return MaterialApp(
     debugShowCheckedModeBanner: false,
-    theme: ThemeData(
-      colorSchemeSeed: Color(0xFF1565C0),
-      useMaterial3: true,
-    ),
+    theme: ThemeData(colorSchemeSeed: Color(0xFF1565C0), useMaterial3: true),
     home: Scaffold(
       appBar: AppBar(
         title: Text('InputDatePickerFormField Demo'),
@@ -404,14 +398,14 @@ dynamic build(BuildContext context) {
             _buildInfoCard(
               'InputDatePickerFormField',
               'A text form field for entering a date manually via text input. '
-              'It validates the date against firstDate and lastDate, and supports '
-              'custom formatting hints, error messages, and form integration.',
+                  'It validates the date against firstDate and lastDate, and supports '
+                  'custom formatting hints, error messages, and form integration.',
             ),
             _buildInfoCard(
               'When to Use',
               'Use this when users need to type a date rather than picking from '
-              'a calendar. Ideal for forms where keyboard input is preferred or '
-              'when the date is known exactly by the user.',
+                  'a calendar. Ideal for forms where keyboard input is preferred or '
+                  'when the date is known exactly by the user.',
             ),
             _buildNoteBox(
               'InputDatePickerFormField is part of the Material date picker '
@@ -427,15 +421,12 @@ dynamic build(BuildContext context) {
             _buildInfoCard(
               'Minimal Setup',
               'At minimum, InputDatePickerFormField requires firstDate and '
-              'lastDate to define the valid date range.',
+                  'lastDate to define the valid date range.',
             ),
             _buildLabeledDatePicker(
               'Default Date Picker Field',
               'Uses current year range with no initial date',
-              InputDatePickerFormField(
-                firstDate: yearStart,
-                lastDate: yearEnd,
-              ),
+              InputDatePickerFormField(firstDate: yearStart, lastDate: yearEnd),
             ),
             SizedBox(height: 8),
             _buildLabeledDatePicker(
@@ -471,7 +462,7 @@ dynamic build(BuildContext context) {
             _buildInfoCard(
               'Date Range Control',
               'firstDate and lastDate define the valid date window. '
-              'Any entered date outside this range triggers a validation error.',
+                  'Any entered date outside this range triggers a validation error.',
             ),
             _buildDateRangeIndicator(
               'Current Month Only',
@@ -525,12 +516,14 @@ dynamic build(BuildContext context) {
             // ========================================
             // Section 4: Multiple Fields with Different Dates
             // ========================================
-            _buildSectionHeader('4. Multiple Fields with Different Initial Dates'),
+            _buildSectionHeader(
+              '4. Multiple Fields with Different Initial Dates',
+            ),
             SizedBox(height: 8),
             _buildInfoCard(
               'Side by Side Comparison',
               'Multiple InputDatePickerFormField widgets each initialized '
-              'with a different date to demonstrate independent state.',
+                  'with a different date to demonstrate independent state.',
             ),
             _buildLabeledDatePicker(
               'New Years Day',
@@ -587,15 +580,12 @@ dynamic build(BuildContext context) {
             _buildInfoCard(
               'Field Customization',
               'fieldLabelText and fieldHintText allow custom labels and '
-              'placeholder text for the date input field.',
+                  'placeholder text for the date input field.',
             ),
             _buildLabeledDatePicker(
               'Default Label/Hint',
               'No custom label or hint text specified',
-              InputDatePickerFormField(
-                firstDate: yearStart,
-                lastDate: yearEnd,
-              ),
+              InputDatePickerFormField(firstDate: yearStart, lastDate: yearEnd),
             ),
             SizedBox(height: 8),
             _buildLabeledDatePicker(
@@ -653,8 +643,8 @@ dynamic build(BuildContext context) {
             _buildInfoCard(
               'Error Message Customization',
               'errorFormatText specifies the message shown when the date '
-              'format is wrong. errorInvalidText is shown when the date '
-              'is outside the valid range.',
+                  'format is wrong. errorInvalidText is shown when the date '
+                  'is outside the valid range.',
             ),
             _buildLabeledDatePicker(
               'Custom Format Error',
@@ -714,8 +704,8 @@ dynamic build(BuildContext context) {
             _buildInfoCard(
               'Form Integration',
               'InputDatePickerFormField works with Form widgets. '
-              'onDateSaved is called when Form.save() is invoked, and '
-              'the field participates in form validation.',
+                  'onDateSaved is called when Form.save() is invoked, and '
+                  'the field participates in form validation.',
             ),
             _buildSubSectionHeader('Form A: Event Registration'),
             SizedBox(height: 8),
@@ -874,7 +864,7 @@ dynamic build(BuildContext context) {
             _buildInfoCard(
               'Range Comparison',
               'Different firstDate/lastDate configurations side by side '
-              'to illustrate how date restrictions affect user input.',
+                  'to illustrate how date restrictions affect user input.',
             ),
             _buildDateRangeIndicator(
               'Full Decade',
@@ -970,7 +960,7 @@ dynamic build(BuildContext context) {
             _buildInfoCard(
               'Autofocus Property',
               'When autofocus is true, the field requests focus when first built. '
-              'Useful when the date field is the primary input on a page.',
+                  'Useful when the date field is the primary input on a page.',
             ),
             _buildLabeledDatePicker(
               'Autofocus Disabled (default)',
@@ -1007,7 +997,7 @@ dynamic build(BuildContext context) {
             _buildInfoCard(
               'All Properties',
               'Complete list of InputDatePickerFormField properties, types, '
-              'and descriptions.',
+                  'and descriptions.',
             ),
             Card(
               elevation: 2,
@@ -1140,9 +1130,15 @@ dynamic build(BuildContext context) {
             _buildInfoCard(
               'Debug Information',
               'The following section displays all debug print output '
-              'generated during widget construction.',
+                  'generated during widget construction.',
             ),
-            _buildPrintDebugSection(now, yearStart, yearEnd, monthStart, monthEnd),
+            _buildPrintDebugSection(
+              now,
+              yearStart,
+              yearEnd,
+              monthStart,
+              monthEnd,
+            ),
             SizedBox(height: 24),
 
             // ========================================
@@ -1153,7 +1149,7 @@ dynamic build(BuildContext context) {
             _buildInfoCard(
               'keyboardType Property',
               'Controls the keyboard layout shown on mobile devices. '
-              'Defaults to TextInputType.datetime.',
+                  'Defaults to TextInputType.datetime.',
             ),
             _buildLabeledDatePicker(
               'Default Keyboard (datetime)',
@@ -1196,7 +1192,7 @@ dynamic build(BuildContext context) {
             _buildInfoCard(
               'acceptEmptyDate Property',
               'When true, an empty field value is considered valid and will not '
-              'trigger a validation error. Useful for optional date fields.',
+                  'trigger a validation error. Useful for optional date fields.',
             ),
             _buildLabeledDatePicker(
               'Required Date (default)',
@@ -1235,7 +1231,7 @@ dynamic build(BuildContext context) {
             _buildInfoCard(
               'onDateSubmitted and onDateSaved',
               'onDateSubmitted is called when the user presses enter with a valid date. '
-              'onDateSaved is called when the enclosing Form calls save().',
+                  'onDateSaved is called when the enclosing Form calls save().',
             ),
             _buildLabeledDatePicker(
               'Submit Callback',
@@ -1318,7 +1314,8 @@ dynamic build(BuildContext context) {
                 fieldLabelText: 'Appointment Date',
                 fieldHintText: 'Select available date',
                 errorFormatText: 'Invalid date format',
-                errorInvalidText: 'Appointments must be this year and in the future',
+                errorInvalidText:
+                    'Appointments must be this year and in the future',
                 onDateSubmitted: (date) {
                   print('Appointment date selected: $date');
                 },

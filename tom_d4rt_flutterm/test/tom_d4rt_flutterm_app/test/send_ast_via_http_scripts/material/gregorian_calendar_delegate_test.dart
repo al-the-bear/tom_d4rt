@@ -451,7 +451,10 @@ dynamic build(BuildContext context) {
   print('addDaysToDate(Mar 5, -5) = $minusFive');
 
   print('--- DateUtils.addMonthsToMonthDate ---');
-  DateTime plus3Months = DateUtils.addMonthsToMonthDate(DateTime(2025, 1, 15), 3);
+  DateTime plus3Months = DateUtils.addMonthsToMonthDate(
+    DateTime(2025, 1, 15),
+    3,
+  );
   print('addMonthsToMonthDate(Jan 15, +3) = $plus3Months');
 
   print('--- DateTimeRange ---');
@@ -491,7 +494,6 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             // Section 1: isSameDay / isSameMonth comparisons
             buildSectionHeader('1. Date Comparisons (isSameDay / isSameMonth)'),
             buildDemoCard(
@@ -859,51 +861,56 @@ dynamic build(BuildContext context) {
             buildSectionHeader('7. Visual Monthly Grids'),
             buildDemoCard(
               'March 2025 (highlight first & last)',
-              buildMiniCalendar(
-                'March', 2025, 6, 31,
-                [1, 31],
-                Color(0xFF1565C0),
-              ),
+              buildMiniCalendar('March', 2025, 6, 31, [
+                1,
+                31,
+              ], Color(0xFF1565C0)),
             ),
             buildDemoCard(
               'February 2024 (leap year, highlight 29th)',
-              buildMiniCalendar(
-                'February', 2024, 4, 29,
-                [1, 29],
-                Color(0xFF4CAF50),
-              ),
+              buildMiniCalendar('February', 2024, 4, 29, [
+                1,
+                29,
+              ], Color(0xFF4CAF50)),
             ),
             buildDemoCard(
               'January 2025 (highlight weekends)',
-              buildMiniCalendar(
-                'January', 2025, 3, 31,
-                [4, 5, 11, 12, 18, 19, 25, 26],
-                Color(0xFFFF6F00),
-              ),
+              buildMiniCalendar('January', 2025, 3, 31, [
+                4,
+                5,
+                11,
+                12,
+                18,
+                19,
+                25,
+                26,
+              ], Color(0xFFFF6F00)),
             ),
             buildDemoCard(
               'June 2025 (highlight mid-month)',
-              buildMiniCalendar(
-                'June', 2025, 7, 30,
-                [14, 15, 16, 17, 18],
-                Color(0xFF7B1FA2),
-              ),
+              buildMiniCalendar('June', 2025, 7, 30, [
+                14,
+                15,
+                16,
+                17,
+                18,
+              ], Color(0xFF7B1FA2)),
             ),
             buildDemoCard(
               'December 2025 (highlight holidays)',
-              buildMiniCalendar(
-                'December', 2025, 1, 31,
-                [24, 25, 26, 31],
-                Color(0xFFD32F2F),
-              ),
+              buildMiniCalendar('December', 2025, 1, 31, [
+                24,
+                25,
+                26,
+                31,
+              ], Color(0xFFD32F2F)),
             ),
             buildDemoCard(
               'September 2025',
-              buildMiniCalendar(
-                'September', 2025, 1, 30,
-                [1, 30],
-                Color(0xFF00695C),
-              ),
+              buildMiniCalendar('September', 2025, 1, 30, [
+                1,
+                30,
+              ], Color(0xFF00695C)),
             ),
             Text(
               'Section 7: Mini calendars rendered',

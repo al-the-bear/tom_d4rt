@@ -137,10 +137,7 @@ Widget buildPropertyRow(String name, String value, Color dotColor) {
           margin: EdgeInsets.only(top: 6),
           width: 8,
           height: 8,
-          decoration: BoxDecoration(
-            color: dotColor,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: dotColor, shape: BoxShape.circle),
         ),
         SizedBox(width: 8),
         SizedBox(
@@ -157,10 +154,7 @@ Widget buildPropertyRow(String name, String value, Color dotColor) {
         Expanded(
           child: Text(
             value,
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.grey.shade600,
-            ),
+            style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
           ),
         ),
       ],
@@ -170,11 +164,12 @@ Widget buildPropertyRow(String name, String value, Color dotColor) {
 
 // Helper: build a themed form card that wraps children in a Theme
 Widget buildThemedFormCard(
-    String title,
-    String subtitle,
-    InputDecorationTheme inputTheme,
-    Color headerColor,
-    List<Widget> fields) {
+  String title,
+  String subtitle,
+  InputDecorationTheme inputTheme,
+  Color headerColor,
+  List<Widget> fields,
+) {
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
     decoration: BoxDecoration(
@@ -215,7 +210,10 @@ Widget buildThemedFormCard(
               SizedBox(height: 2),
               Text(
                 subtitle,
-                style: TextStyle(fontSize: 11, color: headerColor.withAlpha(180)),
+                style: TextStyle(
+                  fontSize: 11,
+                  color: headerColor.withAlpha(180),
+                ),
               ),
             ],
           ),
@@ -224,9 +222,7 @@ Widget buildThemedFormCard(
           padding: EdgeInsets.all(16),
           child: Theme(
             data: ThemeData(inputDecorationTheme: inputTheme),
-            child: Column(
-              children: fields,
-            ),
+            child: Column(children: fields),
           ),
         ),
       ],
@@ -247,8 +243,14 @@ dynamic build(BuildContext context) {
   // Retrieve context theme for debug output
   ThemeData contextTheme = Theme.of(context);
   InputDecorationTheme currentInputTheme = contextTheme.inputDecorationTheme;
-  print('Context inputDecorationTheme filled: ' + currentInputTheme.filled.toString());
-  print('Context inputDecorationTheme floatingLabelBehavior: ' + currentInputTheme.floatingLabelBehavior.toString());
+  print(
+    'Context inputDecorationTheme filled: ' +
+        currentInputTheme.filled.toString(),
+  );
+  print(
+    'Context inputDecorationTheme floatingLabelBehavior: ' +
+        currentInputTheme.floatingLabelBehavior.toString(),
+  );
   print('');
 
   // Define reusable theme configurations
@@ -650,7 +652,10 @@ dynamic build(BuildContext context) {
                         SizedBox(height: 2),
                         Text(
                           'Blue accent on dark background',
-                          style: TextStyle(fontSize: 11, color: Color(0xFF78909C)),
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Color(0xFF78909C),
+                          ),
                         ),
                       ],
                     ),
@@ -983,9 +988,7 @@ dynamic build(BuildContext context) {
                 ],
               ),
               child: Theme(
-                data: ThemeData(
-                  inputDecorationTheme: registrationTheme,
-                ),
+                data: ThemeData(inputDecorationTheme: registrationTheme),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -1000,7 +1003,10 @@ dynamic build(BuildContext context) {
                     SizedBox(height: 14),
                     Text(
                       'TextField:',
-                      style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey.shade600,
+                      ),
                     ),
                     SizedBox(height: 6),
                     TextField(
@@ -1013,7 +1019,10 @@ dynamic build(BuildContext context) {
                     SizedBox(height: 16),
                     Text(
                       'TextFormField:',
-                      style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey.shade600,
+                      ),
                     ),
                     SizedBox(height: 6),
                     TextFormField(
@@ -1026,7 +1035,10 @@ dynamic build(BuildContext context) {
                     SizedBox(height: 16),
                     Text(
                       'DropdownButtonFormField:',
-                      style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey.shade600,
+                      ),
                     ),
                     SizedBox(height: 6),
                     DropdownButtonFormField(
@@ -1035,9 +1047,18 @@ dynamic build(BuildContext context) {
                         prefixIcon: Icon(Icons.arrow_drop_down_circle),
                       ),
                       items: [
-                        DropdownMenuItem(value: 'opt1', child: Text('Option One')),
-                        DropdownMenuItem(value: 'opt2', child: Text('Option Two')),
-                        DropdownMenuItem(value: 'opt3', child: Text('Option Three')),
+                        DropdownMenuItem(
+                          value: 'opt1',
+                          child: Text('Option One'),
+                        ),
+                        DropdownMenuItem(
+                          value: 'opt2',
+                          child: Text('Option Two'),
+                        ),
+                        DropdownMenuItem(
+                          value: 'opt3',
+                          child: Text('Option Three'),
+                        ),
                       ],
                       onChanged: (value) {},
                     ),
@@ -1081,10 +1102,26 @@ dynamic build(BuildContext context) {
                     ),
                   ),
                   SizedBox(height: 8),
-                  buildPropertyRow('filled', 'Whether inputs have a fill color', Color(0xFF8D6E63)),
-                  buildPropertyRow('fillColor', 'Background fill color', Color(0xFF8D6E63)),
-                  buildPropertyRow('hoverColor', 'Fill color on hover', Color(0xFF8D6E63)),
-                  buildPropertyRow('focusColor', 'Fill color when focused', Color(0xFF8D6E63)),
+                  buildPropertyRow(
+                    'filled',
+                    'Whether inputs have a fill color',
+                    Color(0xFF8D6E63),
+                  ),
+                  buildPropertyRow(
+                    'fillColor',
+                    'Background fill color',
+                    Color(0xFF8D6E63),
+                  ),
+                  buildPropertyRow(
+                    'hoverColor',
+                    'Fill color on hover',
+                    Color(0xFF8D6E63),
+                  ),
+                  buildPropertyRow(
+                    'focusColor',
+                    'Fill color when focused',
+                    Color(0xFF8D6E63),
+                  ),
                   SizedBox(height: 16),
                   Text(
                     'Borders',
@@ -1095,12 +1132,36 @@ dynamic build(BuildContext context) {
                     ),
                   ),
                   SizedBox(height: 8),
-                  buildPropertyRow('border', 'Default border shape', Color(0xFFA1887F)),
-                  buildPropertyRow('enabledBorder', 'Border when enabled', Color(0xFFA1887F)),
-                  buildPropertyRow('focusedBorder', 'Border when focused', Color(0xFFA1887F)),
-                  buildPropertyRow('errorBorder', 'Border when error', Color(0xFFA1887F)),
-                  buildPropertyRow('focusedErrorBorder', 'Border on focused error', Color(0xFFA1887F)),
-                  buildPropertyRow('disabledBorder', 'Border when disabled', Color(0xFFA1887F)),
+                  buildPropertyRow(
+                    'border',
+                    'Default border shape',
+                    Color(0xFFA1887F),
+                  ),
+                  buildPropertyRow(
+                    'enabledBorder',
+                    'Border when enabled',
+                    Color(0xFFA1887F),
+                  ),
+                  buildPropertyRow(
+                    'focusedBorder',
+                    'Border when focused',
+                    Color(0xFFA1887F),
+                  ),
+                  buildPropertyRow(
+                    'errorBorder',
+                    'Border when error',
+                    Color(0xFFA1887F),
+                  ),
+                  buildPropertyRow(
+                    'focusedErrorBorder',
+                    'Border on focused error',
+                    Color(0xFFA1887F),
+                  ),
+                  buildPropertyRow(
+                    'disabledBorder',
+                    'Border when disabled',
+                    Color(0xFFA1887F),
+                  ),
                   SizedBox(height: 16),
                   Text(
                     'Labels & Text Styles',
@@ -1111,14 +1172,46 @@ dynamic build(BuildContext context) {
                     ),
                   ),
                   SizedBox(height: 8),
-                  buildPropertyRow('labelStyle', 'Style for label text', Color(0xFFBCAAA4)),
-                  buildPropertyRow('floatingLabelStyle', 'Style when label floats', Color(0xFFBCAAA4)),
-                  buildPropertyRow('hintStyle', 'Style for hint text', Color(0xFFBCAAA4)),
-                  buildPropertyRow('helperStyle', 'Style for helper text', Color(0xFFBCAAA4)),
-                  buildPropertyRow('errorStyle', 'Style for error text', Color(0xFFBCAAA4)),
-                  buildPropertyRow('prefixStyle', 'Style for prefix text', Color(0xFFBCAAA4)),
-                  buildPropertyRow('suffixStyle', 'Style for suffix text', Color(0xFFBCAAA4)),
-                  buildPropertyRow('counterStyle', 'Style for counter text', Color(0xFFBCAAA4)),
+                  buildPropertyRow(
+                    'labelStyle',
+                    'Style for label text',
+                    Color(0xFFBCAAA4),
+                  ),
+                  buildPropertyRow(
+                    'floatingLabelStyle',
+                    'Style when label floats',
+                    Color(0xFFBCAAA4),
+                  ),
+                  buildPropertyRow(
+                    'hintStyle',
+                    'Style for hint text',
+                    Color(0xFFBCAAA4),
+                  ),
+                  buildPropertyRow(
+                    'helperStyle',
+                    'Style for helper text',
+                    Color(0xFFBCAAA4),
+                  ),
+                  buildPropertyRow(
+                    'errorStyle',
+                    'Style for error text',
+                    Color(0xFFBCAAA4),
+                  ),
+                  buildPropertyRow(
+                    'prefixStyle',
+                    'Style for prefix text',
+                    Color(0xFFBCAAA4),
+                  ),
+                  buildPropertyRow(
+                    'suffixStyle',
+                    'Style for suffix text',
+                    Color(0xFFBCAAA4),
+                  ),
+                  buildPropertyRow(
+                    'counterStyle',
+                    'Style for counter text',
+                    Color(0xFFBCAAA4),
+                  ),
                   SizedBox(height: 16),
                   Text(
                     'Layout & Behavior',
@@ -1129,12 +1222,36 @@ dynamic build(BuildContext context) {
                     ),
                   ),
                   SizedBox(height: 8),
-                  buildPropertyRow('contentPadding', 'Inner padding of field', Color(0xFFD7CCC8)),
-                  buildPropertyRow('isDense', 'Reduces vertical spacing', Color(0xFFD7CCC8)),
-                  buildPropertyRow('isCollapsed', 'Removes default padding', Color(0xFFD7CCC8)),
-                  buildPropertyRow('floatingLabelBehavior', 'When label floats up', Color(0xFFD7CCC8)),
-                  buildPropertyRow('floatingLabelAlignment', 'Horizontal label alignment', Color(0xFFD7CCC8)),
-                  buildPropertyRow('alignLabelWithHint', 'Align label to hint baseline', Color(0xFFD7CCC8)),
+                  buildPropertyRow(
+                    'contentPadding',
+                    'Inner padding of field',
+                    Color(0xFFD7CCC8),
+                  ),
+                  buildPropertyRow(
+                    'isDense',
+                    'Reduces vertical spacing',
+                    Color(0xFFD7CCC8),
+                  ),
+                  buildPropertyRow(
+                    'isCollapsed',
+                    'Removes default padding',
+                    Color(0xFFD7CCC8),
+                  ),
+                  buildPropertyRow(
+                    'floatingLabelBehavior',
+                    'When label floats up',
+                    Color(0xFFD7CCC8),
+                  ),
+                  buildPropertyRow(
+                    'floatingLabelAlignment',
+                    'Horizontal label alignment',
+                    Color(0xFFD7CCC8),
+                  ),
+                  buildPropertyRow(
+                    'alignLabelWithHint',
+                    'Align label to hint baseline',
+                    Color(0xFFD7CCC8),
+                  ),
                   SizedBox(height: 16),
                   Text(
                     'Icons',
@@ -1145,9 +1262,21 @@ dynamic build(BuildContext context) {
                     ),
                   ),
                   SizedBox(height: 8),
-                  buildPropertyRow('prefixIconColor', 'Color of prefix icon', Color(0xFF795548)),
-                  buildPropertyRow('suffixIconColor', 'Color of suffix icon', Color(0xFF795548)),
-                  buildPropertyRow('iconColor', 'Color of leading icon', Color(0xFF795548)),
+                  buildPropertyRow(
+                    'prefixIconColor',
+                    'Color of prefix icon',
+                    Color(0xFF795548),
+                  ),
+                  buildPropertyRow(
+                    'suffixIconColor',
+                    'Color of suffix icon',
+                    Color(0xFF795548),
+                  ),
+                  buildPropertyRow(
+                    'iconColor',
+                    'Color of leading icon',
+                    Color(0xFF795548),
+                  ),
                 ],
               ),
             ),
