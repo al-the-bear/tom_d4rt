@@ -1,1530 +1,1456 @@
-// Deep demo for PersistentHeaderShowOnScreenConfiguration
-// Configuration for showing persistent headers on screen with controlled expansion
+// D4rt test script: Deep demo for PersistentHeaderShowOnScreenConfiguration from rendering
+//
+// PersistentHeaderShowOnScreenConfiguration defines how persistent headers
+// reveal themselves when showOnScreen is invoked. It controls the extent
+// range that determines header visibility during programmatic scrolling.
+//
+// Key properties:
+//   - minShowOnScreenExtent: Minimum pixels to reveal
+//   - maxShowOnScreenExtent: Maximum pixels to reveal
+//   - Controls gradual header reveal behavior
+//
+// Use cases:
+//   - App bars with controlled reveal
+//   - Pinned headers in custom scroll views
+//   - Accessibility-driven header exposure
+//   - Programmatic scroll-to-item scenarios
+//
+// Related classes:
+//   - RenderSliverPersistentHeader: Uses this configuration
+//   - SliverPersistentHeader: Widget that creates the render object
+//   - SliverAppBar: Common consumer of persistent headers
+//   - RenderViewportBase: Coordinates showOnScreen calls
+//
+// This demo visualizes configuration effects on header visibility.
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_test/flutter_test.dart';
 
-void main() {
-  group('PersistentHeaderShowOnScreenConfiguration Demo', () {
-    group('Constructor and properties', () {
-      testWidgets('default configuration has infinite bounds',
-          (WidgetTester tester) async {
-        var configuration = PersistentHeaderShowOnScreenConfiguration();
+// ═══════════════════════════════════════════════════════════════════════════════
+// HELPER WIDGETS
+// ═══════════════════════════════════════════════════════════════════════════════
 
-        expect(configuration.minShowOnScreenExtent, double.negativeInfinity);
-        expect(configuration.maxShowOnScreenExtent, double.infinity);
-      });
+Widget _buildHeader(String title, String subtitle) {
+  return Container(
+    width: double.infinity,
+    padding: EdgeInsets.all(20),
+    decoration: BoxDecoration(
+      gradient: LinearGradient(
+        colors: [Color(0xFF7B1FA2), Color(0xFFBA68C8)],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      ),
+      borderRadius: BorderRadius.circular(16),
+      boxShadow: [
+        BoxShadow(
+          color: Color(0xFF7B1FA2).withAlpha(100),
+          blurRadius: 12,
+          offset: Offset(0, 6),
+        ),
+      ],
+    ),
+    child: Column(
+      children: [
+        Icon(Icons.view_day, size: 48, color: Colors.white),
+        SizedBox(height: 12),
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+          textAlign: TextAlign.center,
+        ),
+        SizedBox(height: 4),
+        Text(
+          subtitle,
+          style: TextStyle(fontSize: 14, color: Colors.white.withAlpha(200)),
+          textAlign: TextAlign.center,
+        ),
+      ],
+    ),
+  );
+}
 
-      testWidgets('custom min extent configuration',
-          (WidgetTester tester) async {
-        var configuration = PersistentHeaderShowOnScreenConfiguration(
-          minShowOnScreenExtent: 100.0,
-        );
-
-        expect(configuration.minShowOnScreenExtent, 100.0);
-        expect(configuration.maxShowOnScreenExtent, double.infinity);
-      });
-
-      testWidgets('custom max extent configuration',
-          (WidgetTester tester) async {
-        var configuration = PersistentHeaderShowOnScreenConfiguration(
-          maxShowOnScreenExtent: 250.0,
-        );
-
-        expect(configuration.minShowOnScreenExtent, double.negativeInfinity);
-        expect(configuration.maxShowOnScreenExtent, 250.0);
-      });
-
-      testWidgets('both custom extents configuration',
-          (WidgetTester tester) async {
-        var configuration = PersistentHeaderShowOnScreenConfiguration(
-          minShowOnScreenExtent: 50.0,
-          maxShowOnScreenExtent: 200.0,
-        );
-
-        expect(configuration.minShowOnScreenExtent, 50.0);
-        expect(configuration.maxShowOnScreenExtent, 200.0);
-      });
-
-      testWidgets('zero extent values are valid', (WidgetTester tester) async {
-        var configuration = PersistentHeaderShowOnScreenConfiguration(
-          minShowOnScreenExtent: 0.0,
-          maxShowOnScreenExtent: 0.0,
-        );
-
-        expect(configuration.minShowOnScreenExtent, 0.0);
-        expect(configuration.maxShowOnScreenExtent, 0.0);
-      });
-
-      testWidgets('negative min extent is valid', (WidgetTester tester) async {
-        var configuration = PersistentHeaderShowOnScreenConfiguration(
-          minShowOnScreenExtent: -100.0,
-          maxShowOnScreenExtent: 100.0,
-        );
-
-        expect(configuration.minShowOnScreenExtent, -100.0);
-        expect(configuration.maxShowOnScreenExtent, 100.0);
-      });
-
-      testWidgets('equal min and max extents are valid',
-          (WidgetTester tester) async {
-        var configuration = PersistentHeaderShowOnScreenConfiguration(
-          minShowOnScreenExtent: 150.0,
-          maxShowOnScreenExtent: 150.0,
-        );
-
-        expect(configuration.minShowOnScreenExtent, 150.0);
-        expect(configuration.maxShowOnScreenExtent, 150.0);
-      });
-
-      testWidgets('very large extent values are handled',
-          (WidgetTester tester) async {
-        var configuration = PersistentHeaderShowOnScreenConfiguration(
-          minShowOnScreenExtent: 1000000.0,
-          maxShowOnScreenExtent: 9999999.0,
-        );
-
-        expect(configuration.minShowOnScreenExtent, 1000000.0);
-        expect(configuration.maxShowOnScreenExtent, 9999999.0);
-      });
-
-      testWidgets('configuration properties are immutable',
-          (WidgetTester tester) async {
-        var configuration = PersistentHeaderShowOnScreenConfiguration(
-          minShowOnScreenExtent: 75.0,
-          maxShowOnScreenExtent: 175.0,
-        );
-
-        var minExtent = configuration.minShowOnScreenExtent;
-        var maxExtent = configuration.maxShowOnScreenExtent;
-
-        expect(minExtent, 75.0);
-        expect(maxExtent, 175.0);
-
-        expect(configuration.minShowOnScreenExtent, minExtent);
-        expect(configuration.maxShowOnScreenExtent, maxExtent);
-      });
-
-      testWidgets('multiple configurations can coexist independently',
-          (WidgetTester tester) async {
-        var config1 = PersistentHeaderShowOnScreenConfiguration(
-          minShowOnScreenExtent: 50.0,
-          maxShowOnScreenExtent: 100.0,
-        );
-
-        var config2 = PersistentHeaderShowOnScreenConfiguration(
-          minShowOnScreenExtent: 75.0,
-          maxShowOnScreenExtent: 200.0,
-        );
-
-        var config3 = PersistentHeaderShowOnScreenConfiguration(
-          minShowOnScreenExtent: 100.0,
-          maxShowOnScreenExtent: 300.0,
-        );
-
-        expect(config1.minShowOnScreenExtent, 50.0);
-        expect(config2.minShowOnScreenExtent, 75.0);
-        expect(config3.minShowOnScreenExtent, 100.0);
-
-        expect(config1.maxShowOnScreenExtent, 100.0);
-        expect(config2.maxShowOnScreenExtent, 200.0);
-        expect(config3.maxShowOnScreenExtent, 300.0);
-      });
-    });
-
-    group('minShowOnScreenExtent behavior', () {
-      testWidgets('min extent affects header expansion lower bound',
-          (WidgetTester tester) async {
-        var headerHeight = ValueNotifier<double>(60.0);
-
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: CustomScrollView(
-                slivers: [
-                  SliverPersistentHeader(
-                    pinned: false,
-                    floating: true,
-                    delegate: _FlexibleHeaderDelegate(
-                      minHeight: 50.0,
-                      maxHeight: 150.0,
-                      onHeightChanged: (height) {
-                        headerHeight.value = height;
-                      },
-                    ),
-                  ),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        return Container(
-                          height: 80.0,
-                          color: index.isEven ? Colors.blue : Colors.green,
-                          child: Center(
-                            child: Text('Item $index'),
-                          ),
-                        );
-                      },
-                      childCount: 50,
-                    ),
-                  ),
-                ],
-              ),
+Widget _buildSectionTitle(String title, IconData icon) {
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: 12),
+    child: Row(
+      children: [
+        Container(
+          padding: EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: Color(0xFFCE93D8).withAlpha(30),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Icon(icon, color: Color(0xFF7B1FA2), size: 20),
+        ),
+        SizedBox(width: 12),
+        Expanded(
+          child: Text(
+            title,
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF7B1FA2),
             ),
           ),
-        );
+        ),
+      ],
+    ),
+  );
+}
 
-        await tester.pumpAndSettle();
-
-        expect(find.text('Item 0'), findsOneWidget);
-        expect(find.byType(SliverPersistentHeader), findsOneWidget);
-      });
-
-      testWidgets('min extent with zero value constrains expansion',
-          (WidgetTester tester) async {
-        var configuration = PersistentHeaderShowOnScreenConfiguration(
-          minShowOnScreenExtent: 0.0,
-        );
-
-        expect(configuration.minShowOnScreenExtent, 0.0);
-
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: CustomScrollView(
-                slivers: [
-                  SliverPersistentHeader(
-                    floating: true,
-                    delegate: _SimpleHeaderDelegate(
-                      minExtent: 0.0,
-                      maxExtent: 120.0,
-                    ),
-                  ),
-                  SliverFillRemaining(
-                    child: Container(color: Colors.grey),
-                  ),
-                ],
-              ),
+Widget _buildInfoRow(String label, String value, {Color? valueColor}) {
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: 4),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          width: 150,
+          child: Text(
+            label,
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              color: Color(0xFF7B1FA2),
+              fontSize: 13,
             ),
           ),
-        );
-
-        await tester.pumpAndSettle();
-        expect(find.byType(CustomScrollView), findsOneWidget);
-      });
-
-      testWidgets('min extent near max extent restricts range',
-          (WidgetTester tester) async {
-        var config1 = PersistentHeaderShowOnScreenConfiguration(
-          minShowOnScreenExtent: 95.0,
-          maxShowOnScreenExtent: 100.0,
-        );
-
-        var range1 =
-            config1.maxShowOnScreenExtent - config1.minShowOnScreenExtent;
-        expect(range1, 5.0);
-
-        var config2 = PersistentHeaderShowOnScreenConfiguration(
-          minShowOnScreenExtent: 99.0,
-          maxShowOnScreenExtent: 100.0,
-        );
-
-        var range2 =
-            config2.maxShowOnScreenExtent - config2.minShowOnScreenExtent;
-        expect(range2, 1.0);
-      });
-
-      testWidgets('min extent with negative infinity allows full collapse',
-          (WidgetTester tester) async {
-        var configuration = PersistentHeaderShowOnScreenConfiguration(
-          minShowOnScreenExtent: double.negativeInfinity,
-          maxShowOnScreenExtent: 200.0,
-        );
-
-        expect(configuration.minShowOnScreenExtent, double.negativeInfinity);
-        expect(configuration.minShowOnScreenExtent.isNegative, true);
-        expect(configuration.minShowOnScreenExtent.isInfinite, true);
-      });
-
-      testWidgets('min extent calculation with various values',
-          (WidgetTester tester) async {
-        var testValues = [10.0, 25.0, 50.0, 75.0, 100.0, 150.0, 200.0];
-
-        for (var value in testValues) {
-          var config = PersistentHeaderShowOnScreenConfiguration(
-            minShowOnScreenExtent: value,
-            maxShowOnScreenExtent: 500.0,
-          );
-
-          expect(config.minShowOnScreenExtent, value);
-          expect(config.maxShowOnScreenExtent, 500.0);
-        }
-      });
-
-      testWidgets('min extent affects floating header behavior',
-          (WidgetTester tester) async {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: CustomScrollView(
-                slivers: [
-                  SliverPersistentHeader(
-                    floating: true,
-                    pinned: false,
-                    delegate: _ConfigurableHeaderDelegate(
-                      minExtent: 56.0,
-                      maxExtent: 200.0,
-                      showOnScreenConfiguration:
-                          PersistentHeaderShowOnScreenConfiguration(
-                        minShowOnScreenExtent: 56.0,
-                        maxShowOnScreenExtent: 200.0,
-                      ),
-                    ),
-                  ),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        return ListTile(title: Text('List item $index'));
-                      },
-                      childCount: 30,
-                    ),
-                  ),
-                ],
-              ),
+        ),
+        Expanded(
+          child: Text(
+            value,
+            style: TextStyle(
+              color: valueColor ?? Color(0xFF9C27B0),
+              fontSize: 13,
             ),
           ),
-        );
+        ),
+      ],
+    ),
+  );
+}
 
-        await tester.pumpAndSettle();
-        expect(find.byType(SliverPersistentHeader), findsOneWidget);
-      });
-    });
+Widget _buildDiagramBox(String label, Color color, {IconData? icon, double width = 100}) {
+  return Container(
+    width: width,
+    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+    decoration: BoxDecoration(
+      color: color.withAlpha(30),
+      borderRadius: BorderRadius.circular(10),
+      border: Border.all(color: color, width: 2),
+    ),
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (icon != null) Icon(icon, color: color, size: 20),
+        if (icon != null) SizedBox(height: 4),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 11,
+            fontWeight: FontWeight.bold,
+            color: color,
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ],
+    ),
+  );
+}
 
-    group('maxShowOnScreenExtent behavior', () {
-      testWidgets('max extent limits header expansion upper bound',
-          (WidgetTester tester) async {
-        var configuration = PersistentHeaderShowOnScreenConfiguration(
-          maxShowOnScreenExtent: 150.0,
-        );
+Widget _buildArrow({bool vertical = false, Color color = Colors.grey}) {
+  if (vertical) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(width: 2, height: 20, color: color),
+        Icon(Icons.arrow_drop_down, color: color, size: 20),
+      ],
+    );
+  }
+  return Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Container(width: 20, height: 2, color: color),
+      Icon(Icons.arrow_right, color: color, size: 20),
+    ],
+  );
+}
 
-        expect(configuration.maxShowOnScreenExtent, 150.0);
-        expect(configuration.maxShowOnScreenExtent.isFinite, true);
-      });
-
-      testWidgets('max extent with infinity allows unlimited expansion',
-          (WidgetTester tester) async {
-        var configuration = PersistentHeaderShowOnScreenConfiguration(
-          maxShowOnScreenExtent: double.infinity,
-        );
-
-        expect(configuration.maxShowOnScreenExtent, double.infinity);
-        expect(configuration.maxShowOnScreenExtent.isInfinite, true);
-      });
-
-      testWidgets('max extent boundary conditions',
-          (WidgetTester tester) async {
-        var config = PersistentHeaderShowOnScreenConfiguration(
-          minShowOnScreenExtent: 0.0,
-          maxShowOnScreenExtent: 0.1,
-        );
-
-        expect(config.maxShowOnScreenExtent, 0.1);
-        expect(config.maxShowOnScreenExtent > config.minShowOnScreenExtent,
-            true);
-      });
-
-      testWidgets('max extent with large values',
-          (WidgetTester tester) async {
-        var largeValues = [1000.0, 5000.0, 10000.0, 50000.0];
-
-        for (var value in largeValues) {
-          var config = PersistentHeaderShowOnScreenConfiguration(
-            maxShowOnScreenExtent: value,
-          );
-
-          expect(config.maxShowOnScreenExtent, value);
-        }
-      });
-
-      testWidgets('max extent affects sliver behavior in scroll view',
-          (WidgetTester tester) async {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: CustomScrollView(
-                slivers: [
-                  SliverPersistentHeader(
-                    pinned: true,
-                    delegate: _ConfigurableHeaderDelegate(
-                      minExtent: 60.0,
-                      maxExtent: 180.0,
-                      showOnScreenConfiguration:
-                          PersistentHeaderShowOnScreenConfiguration(
-                        minShowOnScreenExtent: 60.0,
-                        maxShowOnScreenExtent: 180.0,
-                      ),
-                    ),
-                  ),
-                  SliverFillRemaining(
-                    child: ListView.builder(
-                      itemCount: 20,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          height: 60.0,
-                          color: index.isEven ? Colors.red : Colors.orange,
-                          child: Center(child: Text('Nested item $index')),
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
+Widget _buildExtentIndicator(String label, double value, Color color) {
+  return Container(
+    padding: EdgeInsets.all(10),
+    decoration: BoxDecoration(
+      color: color.withAlpha(25),
+      borderRadius: BorderRadius.circular(8),
+      border: Border.all(color: color.withAlpha(100)),
+    ),
+    child: Row(
+      children: [
+        Icon(Icons.straighten, color: color, size: 18),
+        SizedBox(width: 8),
+        Text(
+          label,
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            color: color,
+            fontSize: 12,
+          ),
+        ),
+        Spacer(),
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Text(
+            '${value.toStringAsFixed(0)}px',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 11,
             ),
           ),
-        );
+        ),
+      ],
+    ),
+  );
+}
 
-        await tester.pumpAndSettle();
-        expect(find.byType(SliverPersistentHeader), findsOneWidget);
-      });
+// ═══════════════════════════════════════════════════════════════════════════════
+// SECTION 1: CONFIGURATION BASICS
+// ═══════════════════════════════════════════════════════════════════════════════
 
-      testWidgets('max extent interaction with scroll position',
-          (WidgetTester tester) async {
-        var scrollController = ScrollController();
-
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: CustomScrollView(
-                controller: scrollController,
-                slivers: [
-                  SliverPersistentHeader(
-                    floating: true,
-                    delegate: _ConfigurableHeaderDelegate(
-                      minExtent: 50.0,
-                      maxExtent: 200.0,
-                      showOnScreenConfiguration:
-                          PersistentHeaderShowOnScreenConfiguration(
-                        maxShowOnScreenExtent: 150.0,
-                      ),
-                    ),
-                  ),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        return Container(
-                          height: 100.0,
-                          color: Colors.primaries[index % Colors.primaries.length],
-                          child: Text('Item $index'),
-                        );
-                      },
-                      childCount: 50,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+Widget _buildConfigurationBasicsSection() {
+  return Container(
+    padding: EdgeInsets.all(16),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(16),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withAlpha(15),
+          blurRadius: 12,
+          offset: Offset(0, 4),
+        ),
+      ],
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildSectionTitle('Configuration Basics', Icons.settings),
+        Text(
+          'PersistentHeaderShowOnScreenConfiguration is an immutable data class '
+          'that specifies how much of a persistent header should be revealed '
+          'when showOnScreen is called. It provides fine-grained control over '
+          'the reveal animation extent range.',
+          style: TextStyle(color: Color(0xFF546E7A), fontSize: 13),
+        ),
+        SizedBox(height: 20),
+        Container(
+          padding: EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Color(0xFFF3E5F5),
+            borderRadius: BorderRadius.circular(12),
           ),
-        );
-
-        await tester.pumpAndSettle();
-
-        scrollController.jumpTo(300.0);
-        await tester.pumpAndSettle();
-
-        scrollController.jumpTo(0.0);
-        await tester.pumpAndSettle();
-
-        expect(scrollController.offset, 0.0);
-
-        scrollController.dispose();
-      });
-    });
-
-    group('Integration with SliverPersistentHeader', () {
-      testWidgets('configuration with pinned header',
-          (WidgetTester tester) async {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: CustomScrollView(
-                slivers: [
-                  SliverPersistentHeader(
-                    pinned: true,
-                    delegate: _ConfigurableHeaderDelegate(
-                      minExtent: 60.0,
-                      maxExtent: 200.0,
-                      showOnScreenConfiguration:
-                          PersistentHeaderShowOnScreenConfiguration(
-                        minShowOnScreenExtent: 60.0,
-                        maxShowOnScreenExtent: 200.0,
-                      ),
-                    ),
-                  ),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        return _ListItemWidget(index: index);
-                      },
-                      childCount: 40,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-
-        await tester.pumpAndSettle();
-        expect(find.byType(SliverPersistentHeader), findsOneWidget);
-      });
-
-      testWidgets('configuration with floating header',
-          (WidgetTester tester) async {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: CustomScrollView(
-                slivers: [
-                  SliverPersistentHeader(
-                    floating: true,
-                    delegate: _ConfigurableHeaderDelegate(
-                      minExtent: 56.0,
-                      maxExtent: 150.0,
-                      showOnScreenConfiguration:
-                          PersistentHeaderShowOnScreenConfiguration(
-                        minShowOnScreenExtent: 56.0,
-                        maxShowOnScreenExtent: 150.0,
-                      ),
-                    ),
-                  ),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        return _ListItemWidget(index: index);
-                      },
-                      childCount: 35,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-
-        await tester.pumpAndSettle();
-        expect(find.byType(SliverPersistentHeader), findsOneWidget);
-      });
-
-      testWidgets('configuration with pinned and floating header',
-          (WidgetTester tester) async {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: CustomScrollView(
-                slivers: [
-                  SliverPersistentHeader(
-                    pinned: true,
-                    floating: true,
-                    delegate: _ConfigurableHeaderDelegate(
-                      minExtent: 48.0,
-                      maxExtent: 180.0,
-                      showOnScreenConfiguration:
-                          PersistentHeaderShowOnScreenConfiguration(
-                        minShowOnScreenExtent: 48.0,
-                        maxShowOnScreenExtent: 180.0,
-                      ),
-                    ),
-                  ),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        return _ListItemWidget(index: index);
-                      },
-                      childCount: 45,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-
-        await tester.pumpAndSettle();
-        expect(find.byType(SliverPersistentHeader), findsOneWidget);
-      });
-
-      testWidgets('multiple headers with different configurations',
-          (WidgetTester tester) async {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: CustomScrollView(
-                slivers: [
-                  SliverPersistentHeader(
-                    pinned: true,
-                    delegate: _ConfigurableHeaderDelegate(
-                      minExtent: 40.0,
-                      maxExtent: 100.0,
-                      showOnScreenConfiguration:
-                          PersistentHeaderShowOnScreenConfiguration(
-                        minShowOnScreenExtent: 40.0,
-                        maxShowOnScreenExtent: 100.0,
-                      ),
-                      label: 'Header 1',
-                    ),
-                  ),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        return Container(
-                          height: 50.0,
-                          color: Colors.blue.shade100,
-                          child: Text('Section 1 - Item $index'),
-                        );
-                      },
-                      childCount: 10,
-                    ),
-                  ),
-                  SliverPersistentHeader(
-                    pinned: true,
-                    delegate: _ConfigurableHeaderDelegate(
-                      minExtent: 50.0,
-                      maxExtent: 120.0,
-                      showOnScreenConfiguration:
-                          PersistentHeaderShowOnScreenConfiguration(
-                        minShowOnScreenExtent: 50.0,
-                        maxShowOnScreenExtent: 120.0,
-                      ),
-                      label: 'Header 2',
-                    ),
-                  ),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        return Container(
-                          height: 50.0,
-                          color: Colors.green.shade100,
-                          child: Text('Section 2 - Item $index'),
-                        );
-                      },
-                      childCount: 10,
-                    ),
-                  ),
-                  SliverPersistentHeader(
-                    floating: true,
-                    delegate: _ConfigurableHeaderDelegate(
-                      minExtent: 45.0,
-                      maxExtent: 90.0,
-                      showOnScreenConfiguration:
-                          PersistentHeaderShowOnScreenConfiguration(
-                        minShowOnScreenExtent: 45.0,
-                        maxShowOnScreenExtent: 90.0,
-                      ),
-                      label: 'Header 3',
-                    ),
-                  ),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        return Container(
-                          height: 50.0,
-                          color: Colors.orange.shade100,
-                          child: Text('Section 3 - Item $index'),
-                        );
-                      },
-                      childCount: 20,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-
-        await tester.pumpAndSettle();
-        expect(find.byType(SliverPersistentHeader), findsNWidgets(3));
-      });
-
-      testWidgets('header with SliverAppBar uses configuration',
-          (WidgetTester tester) async {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: CustomScrollView(
-                slivers: [
-                  SliverAppBar(
-                    expandedHeight: 200.0,
-                    floating: true,
-                    pinned: true,
-                    flexibleSpace: FlexibleSpaceBar(
-                      title: Text('App Bar'),
-                      background: Container(color: Colors.purple),
-                    ),
-                  ),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        return _ListItemWidget(index: index);
-                      },
-                      childCount: 50,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-
-        await tester.pumpAndSettle();
-        expect(find.byType(SliverAppBar), findsOneWidget);
-      });
-
-      testWidgets('scroll interaction with configured header',
-          (WidgetTester tester) async {
-        var scrollController = ScrollController();
-
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: CustomScrollView(
-                controller: scrollController,
-                slivers: [
-                  SliverPersistentHeader(
-                    pinned: true,
-                    delegate: _ConfigurableHeaderDelegate(
-                      minExtent: 56.0,
-                      maxExtent: 200.0,
-                      showOnScreenConfiguration:
-                          PersistentHeaderShowOnScreenConfiguration(
-                        minShowOnScreenExtent: 56.0,
-                        maxShowOnScreenExtent: 200.0,
-                      ),
-                    ),
-                  ),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        return Container(
-                          height: 80.0,
-                          color: Colors.primaries[index % Colors.primaries.length],
-                          child: Center(child: Text('Item $index')),
-                        );
-                      },
-                      childCount: 100,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-
-        await tester.pumpAndSettle();
-
-        await tester.drag(find.byType(CustomScrollView), Offset(0, -500));
-        await tester.pumpAndSettle();
-
-        expect(scrollController.offset > 0, true);
-
-        await tester.drag(find.byType(CustomScrollView), Offset(0, 500));
-        await tester.pumpAndSettle();
-
-        scrollController.dispose();
-      });
-    });
-
-    group('Visual comparison of different configurations', () {
-      testWidgets('minimal configuration vs maximal configuration',
-          (WidgetTester tester) async {
-        var minimalConfig = PersistentHeaderShowOnScreenConfiguration();
-        var maximalConfig = PersistentHeaderShowOnScreenConfiguration(
-          minShowOnScreenExtent: 0.0,
-          maxShowOnScreenExtent: 1000.0,
-        );
-
-        expect(minimalConfig.minShowOnScreenExtent, double.negativeInfinity);
-        expect(maximalConfig.minShowOnScreenExtent, 0.0);
-
-        expect(minimalConfig.maxShowOnScreenExtent, double.infinity);
-        expect(maximalConfig.maxShowOnScreenExtent, 1000.0);
-      });
-
-      testWidgets('tight configuration with small range',
-          (WidgetTester tester) async {
-        var tightConfig = PersistentHeaderShowOnScreenConfiguration(
-          minShowOnScreenExtent: 55.0,
-          maxShowOnScreenExtent: 60.0,
-        );
-
-        var range =
-            tightConfig.maxShowOnScreenExtent - tightConfig.minShowOnScreenExtent;
-        expect(range, 5.0);
-
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: CustomScrollView(
-                slivers: [
-                  SliverPersistentHeader(
-                    pinned: true,
-                    delegate: _ConfigurableHeaderDelegate(
-                      minExtent: 55.0,
-                      maxExtent: 60.0,
-                      showOnScreenConfiguration: tightConfig,
-                      label: 'Tight Header',
-                    ),
-                  ),
-                  SliverFillRemaining(
-                    child: Container(color: Colors.grey.shade200),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-
-        await tester.pumpAndSettle();
-        expect(find.text('Tight Header'), findsOneWidget);
-      });
-
-      testWidgets('wide configuration with large range',
-          (WidgetTester tester) async {
-        var wideConfig = PersistentHeaderShowOnScreenConfiguration(
-          minShowOnScreenExtent: 50.0,
-          maxShowOnScreenExtent: 500.0,
-        );
-
-        var range =
-            wideConfig.maxShowOnScreenExtent - wideConfig.minShowOnScreenExtent;
-        expect(range, 450.0);
-
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: CustomScrollView(
-                slivers: [
-                  SliverPersistentHeader(
-                    floating: true,
-                    delegate: _ConfigurableHeaderDelegate(
-                      minExtent: 50.0,
-                      maxExtent: 500.0,
-                      showOnScreenConfiguration: wideConfig,
-                      label: 'Wide Header',
-                    ),
-                  ),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        return Container(
-                          height: 70.0,
-                          color: Colors.teal.shade100,
-                          child: Text('Wide content $index'),
-                        );
-                      },
-                      childCount: 30,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-
-        await tester.pumpAndSettle();
-        expect(find.text('Wide Header'), findsOneWidget);
-      });
-
-      testWidgets('comparison of pinned vs floating with same configuration',
-          (WidgetTester tester) async {
-        var sharedConfig = PersistentHeaderShowOnScreenConfiguration(
-          minShowOnScreenExtent: 48.0,
-          maxShowOnScreenExtent: 150.0,
-        );
-
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: Row(
-                children: [
-                  Expanded(
-                    child: CustomScrollView(
-                      slivers: [
-                        SliverPersistentHeader(
-                          pinned: true,
-                          delegate: _ConfigurableHeaderDelegate(
-                            minExtent: 48.0,
-                            maxExtent: 150.0,
-                            showOnScreenConfiguration: sharedConfig,
-                            label: 'Pinned',
-                            backgroundColor: Colors.blue,
-                          ),
-                        ),
-                        SliverList(
-                          delegate: SliverChildBuilderDelegate(
-                            (context, index) {
-                              return Container(
-                                height: 40.0,
-                                alignment: Alignment.centerLeft,
-                                color: Colors.blue.shade50,
-                                child: Text('P-$index'),
-                              );
-                            },
-                            childCount: 25,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: CustomScrollView(
-                      slivers: [
-                        SliverPersistentHeader(
-                          floating: true,
-                          delegate: _ConfigurableHeaderDelegate(
-                            minExtent: 48.0,
-                            maxExtent: 150.0,
-                            showOnScreenConfiguration: sharedConfig,
-                            label: 'Floating',
-                            backgroundColor: Colors.green,
-                          ),
-                        ),
-                        SliverList(
-                          delegate: SliverChildBuilderDelegate(
-                            (context, index) {
-                              return Container(
-                                height: 40.0,
-                                alignment: Alignment.centerLeft,
-                                color: Colors.green.shade50,
-                                child: Text('F-$index'),
-                              );
-                            },
-                            childCount: 25,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-
-        await tester.pumpAndSettle();
-        expect(find.text('Pinned'), findsOneWidget);
-        expect(find.text('Floating'), findsOneWidget);
-      });
-
-      testWidgets('extreme configurations boundary test',
-          (WidgetTester tester) async {
-        var extremeMin = PersistentHeaderShowOnScreenConfiguration(
-          minShowOnScreenExtent: double.negativeInfinity,
-          maxShowOnScreenExtent: 1.0,
-        );
-
-        var extremeMax = PersistentHeaderShowOnScreenConfiguration(
-          minShowOnScreenExtent: 999999.0,
-          maxShowOnScreenExtent: double.infinity,
-        );
-
-        expect(extremeMin.minShowOnScreenExtent.isInfinite, true);
-        expect(extremeMin.maxShowOnScreenExtent.isFinite, true);
-
-        expect(extremeMax.minShowOnScreenExtent.isFinite, true);
-        expect(extremeMax.maxShowOnScreenExtent.isInfinite, true);
-      });
-
-      testWidgets('visual test with colored headers showing extent ranges',
-          (WidgetTester tester) async {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: CustomScrollView(
-                slivers: [
-                  SliverPersistentHeader(
-                    pinned: true,
-                    delegate: _ColoredExtentHeaderDelegate(
-                      minExtent: 60.0,
-                      maxExtent: 120.0,
-                      collapsedColor: Colors.red.shade700,
-                      expandedColor: Colors.red.shade200,
-                      showOnScreenConfiguration:
-                          PersistentHeaderShowOnScreenConfiguration(
-                        minShowOnScreenExtent: 60.0,
-                        maxShowOnScreenExtent: 120.0,
-                      ),
-                    ),
-                  ),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        return Container(
-                          height: 60.0,
-                          margin: EdgeInsets.symmetric(
-                              vertical: 2.0, horizontal: 8.0),
-                          decoration: BoxDecoration(
-                            color: Colors.grey.shade100,
-                            borderRadius: BorderRadius.circular(4.0),
-                          ),
-                          child: Center(child: Text('Content item $index')),
-                        );
-                      },
-                      childCount: 40,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-
-        await tester.pumpAndSettle();
-        expect(find.byType(SliverPersistentHeader), findsOneWidget);
-      });
-
-      testWidgets('configuration effect on nested scroll views',
-          (WidgetTester tester) async {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: NestedScrollView(
-                headerSliverBuilder: (context, innerBoxIsScrolled) {
-                  return [
-                    SliverOverlapAbsorber(
-                      handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
-                          context),
-                      sliver: SliverPersistentHeader(
-                        pinned: true,
-                        delegate: _ConfigurableHeaderDelegate(
-                          minExtent: 56.0,
-                          maxExtent: 200.0,
-                          showOnScreenConfiguration:
-                              PersistentHeaderShowOnScreenConfiguration(
-                            minShowOnScreenExtent: 56.0,
-                            maxShowOnScreenExtent: 200.0,
-                          ),
-                          label: 'Nested Header',
-                        ),
-                      ),
-                    ),
-                  ];
-                },
-                body: Builder(
-                  builder: (context) {
-                    return CustomScrollView(
-                      slivers: [
-                        SliverOverlapInjector(
-                          handle:
-                              NestedScrollView.sliverOverlapAbsorberHandleFor(
-                                  context),
-                        ),
-                        SliverList(
-                          delegate: SliverChildBuilderDelegate(
-                            (context, index) {
-                              return Container(
-                                height: 72.0,
-                                color: index.isEven
-                                    ? Colors.amber.shade50
-                                    : Colors.amber.shade100,
-                                child: ListTile(
-                                  title: Text('Nested item $index'),
-                                  subtitle: Text('Subtitle for item $index'),
-                                ),
-                              );
-                            },
-                            childCount: 30,
-                          ),
-                        ),
-                      ],
-                    );
-                  },
+          child: Column(
+            children: [
+              Text(
+                'Configuration Structure',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF6A1B9A),
                 ),
               ),
-            ),
+              SizedBox(height: 16),
+              _buildDiagramBox(
+                'PersistentHeader\nShowOnScreenConfiguration',
+                Color(0xFF7B1FA2),
+                icon: Icons.tune,
+                width: 180,
+              ),
+              SizedBox(height: 12),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _buildArrow(vertical: true, color: Color(0xFFAB47BC)),
+                  SizedBox(width: 60),
+                  _buildArrow(vertical: true, color: Color(0xFFAB47BC)),
+                ],
+              ),
+              SizedBox(height: 4),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _buildPropertyBox('minShowOnScreen\nExtent', Color(0xFF43A047)),
+                  SizedBox(width: 20),
+                  _buildPropertyBox('maxShowOnScreen\nExtent', Color(0xFF1E88E5)),
+                ],
+              ),
+            ],
           ),
-        );
+        ),
+        SizedBox(height: 16),
+        _buildInfoRow('Class Type', 'Immutable configuration object'),
+        _buildInfoRow('Purpose', 'Controls header reveal behavior'),
+        _buildInfoRow('Default', 'minExtent=negInfinity, maxExtent=infinity'),
+        _buildInfoRow('Equality', 'Value-based equality comparison'),
+      ],
+    ),
+  );
+}
 
-        await tester.pumpAndSettle();
-        expect(find.text('Nested Header'), findsOneWidget);
-      });
+Widget _buildPropertyBox(String label, Color color) {
+  return Container(
+    width: 110,
+    padding: EdgeInsets.all(10),
+    decoration: BoxDecoration(
+      color: color.withAlpha(30),
+      borderRadius: BorderRadius.circular(8),
+      border: Border.all(color: color, width: 1.5),
+    ),
+    child: Text(
+      label,
+      style: TextStyle(
+        fontSize: 10,
+        fontWeight: FontWeight.bold,
+        color: color,
+      ),
+      textAlign: TextAlign.center,
+    ),
+  );
+}
 
-      testWidgets('visual demo with animated scroll interactions',
-          (WidgetTester tester) async {
-        var scrollController = ScrollController();
+// ═══════════════════════════════════════════════════════════════════════════════
+// SECTION 2: MIN SHOW ON SCREEN EXTENT
+// ═══════════════════════════════════════════════════════════════════════════════
 
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: CustomScrollView(
-                controller: scrollController,
-                physics: BouncingScrollPhysics(),
-                slivers: [
-                  SliverPersistentHeader(
-                    pinned: true,
-                    floating: true,
-                    delegate: _AnimatedHeaderDelegate(
-                      minExtent: 64.0,
-                      maxExtent: 256.0,
-                      showOnScreenConfiguration:
-                          PersistentHeaderShowOnScreenConfiguration(
-                        minShowOnScreenExtent: 64.0,
-                        maxShowOnScreenExtent: 256.0,
-                      ),
-                    ),
-                  ),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        return Container(
-                          height: 88.0,
-                          margin: EdgeInsets.all(4.0),
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                Colors.primaries[index % Colors.primaries.length]
-                                    .shade300,
-                                Colors.primaries[index % Colors.primaries.length]
-                                    .shade100,
-                              ],
-                            ),
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          child: Center(
-                            child: Text(
-                              'Animated item $index',
-                              style: TextStyle(
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                      childCount: 50,
+Widget _buildMinShowOnScreenExtentSection() {
+  return Container(
+    padding: EdgeInsets.all(16),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(16),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withAlpha(15),
+          blurRadius: 12,
+          offset: Offset(0, 4),
+        ),
+      ],
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildSectionTitle('minShowOnScreenExtent', Icons.vertical_align_bottom),
+        Text(
+          'The minimum number of pixels of the persistent header that must '
+          'be visible when showOnScreen is invoked. This ensures at least '
+          'this much of the header appears, providing a baseline visibility.',
+          style: TextStyle(color: Color(0xFF546E7A), fontSize: 13),
+        ),
+        SizedBox(height: 20),
+        Container(
+          padding: EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Color(0xFFE8F5E9),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(Icons.minimize, color: Color(0xFF2E7D32), size: 20),
+                  SizedBox(width: 8),
+                  Text(
+                    'Minimum Extent Behavior',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF2E7D32),
                     ),
                   ),
                 ],
               ),
-            ),
+              SizedBox(height: 16),
+              _buildMinExtentDiagram(),
+            ],
           ),
-        );
-
-        await tester.pumpAndSettle();
-
-        for (var i = 0; i < 5; i++) {
-          await tester.drag(find.byType(CustomScrollView), Offset(0, -100));
-          await tester.pump(Duration(milliseconds: 100));
-        }
-        await tester.pumpAndSettle();
-
-        for (var i = 0; i < 3; i++) {
-          await tester.drag(find.byType(CustomScrollView), Offset(0, 150));
-          await tester.pump(Duration(milliseconds: 100));
-        }
-        await tester.pumpAndSettle();
-
-        scrollController.dispose();
-      });
-
-      testWidgets('configuration comparison table visualization',
-          (WidgetTester tester) async {
-        var configurations = <String, PersistentHeaderShowOnScreenConfiguration>{
-          'Default': PersistentHeaderShowOnScreenConfiguration(),
-          'Constrained': PersistentHeaderShowOnScreenConfiguration(
-            minShowOnScreenExtent: 50.0,
-            maxShowOnScreenExtent: 100.0,
-          ),
-          'Expansive': PersistentHeaderShowOnScreenConfiguration(
-            minShowOnScreenExtent: 0.0,
-            maxShowOnScreenExtent: 500.0,
-          ),
-          'Fixed': PersistentHeaderShowOnScreenConfiguration(
-            minShowOnScreenExtent: 75.0,
-            maxShowOnScreenExtent: 75.0,
-          ),
-        };
-
-        expect(configurations.length, 4);
-
-        for (var entry in configurations.entries) {
-          var name = entry.key;
-          var config = entry.value;
-
-          if (name == 'Default') {
-            expect(config.minShowOnScreenExtent, double.negativeInfinity);
-            expect(config.maxShowOnScreenExtent, double.infinity);
-          } else if (name == 'Constrained') {
-            expect(config.minShowOnScreenExtent, 50.0);
-            expect(config.maxShowOnScreenExtent, 100.0);
-          } else if (name == 'Expansive') {
-            expect(config.minShowOnScreenExtent, 0.0);
-            expect(config.maxShowOnScreenExtent, 500.0);
-          } else if (name == 'Fixed') {
-            expect(config.minShowOnScreenExtent, 75.0);
-            expect(config.maxShowOnScreenExtent, 75.0);
-          }
-        }
-      });
-    });
-  });
-}
-
-class _FlexibleHeaderDelegate extends SliverPersistentHeaderDelegate {
-  _FlexibleHeaderDelegate({
-    required this.minHeight,
-    required this.maxHeight,
-    this.onHeightChanged,
-  });
-
-  final double minHeight;
-  final double maxHeight;
-  final void Function(double)? onHeightChanged;
-
-  @override
-  double get minExtent => minHeight;
-
-  @override
-  double get maxExtent => maxHeight;
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    var currentHeight = maxHeight - shrinkOffset;
-    if (currentHeight < minHeight) {
-      currentHeight = minHeight;
-    }
-    onHeightChanged?.call(currentHeight);
-
-    return Container(
-      height: currentHeight,
-      color: Colors.blue.shade300,
-      child: Center(
-        child: Text(
-          'Height: ${currentHeight.toStringAsFixed(1)}',
-          style: TextStyle(color: Colors.white, fontSize: 18.0),
         ),
-      ),
-    );
-  }
-
-  @override
-  bool shouldRebuild(covariant _FlexibleHeaderDelegate oldDelegate) {
-    return minHeight != oldDelegate.minHeight ||
-        maxHeight != oldDelegate.maxHeight;
-  }
-}
-
-class _SimpleHeaderDelegate extends SliverPersistentHeaderDelegate {
-  _SimpleHeaderDelegate({
-    required double minExtent,
-    required double maxExtent,
-  })  : _minExtent = minExtent,
-        _maxExtent = maxExtent;
-
-  final double _minExtent;
-  final double _maxExtent;
-
-  @override
-  double get minExtent => _minExtent;
-
-  @override
-  double get maxExtent => _maxExtent;
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Container(
-      color: Colors.teal,
-      child: Center(
-        child: Text('Simple Header'),
-      ),
-    );
-  }
-
-  @override
-  bool shouldRebuild(covariant _SimpleHeaderDelegate oldDelegate) {
-    return _minExtent != oldDelegate._minExtent ||
-        _maxExtent != oldDelegate._maxExtent;
-  }
-}
-
-class _ConfigurableHeaderDelegate extends SliverPersistentHeaderDelegate {
-  _ConfigurableHeaderDelegate({
-    required double minExtent,
-    required double maxExtent,
-    PersistentHeaderShowOnScreenConfiguration? showOnScreenConfiguration,
-    this.label,
-    this.backgroundColor,
-  })  : _minExtent = minExtent,
-        _maxExtent = maxExtent,
-        _showOnScreenConfiguration = showOnScreenConfiguration;
-
-  final double _minExtent;
-  final double _maxExtent;
-  final PersistentHeaderShowOnScreenConfiguration? _showOnScreenConfiguration;
-  final String? label;
-  final Color? backgroundColor;
-
-  @override
-  double get minExtent => _minExtent;
-
-  @override
-  double get maxExtent => _maxExtent;
-
-  @override
-  PersistentHeaderShowOnScreenConfiguration? get showOnScreenConfiguration =>
-      _showOnScreenConfiguration;
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    var progress = shrinkOffset / (maxExtent - minExtent);
-    if (progress > 1.0) progress = 1.0;
-    if (progress < 0.0) progress = 0.0;
-
-    return Container(
-      color: backgroundColor ?? Colors.indigo.shade400,
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          Positioned(
-            left: 16.0,
-            bottom: 12.0,
-            child: Text(
-              label ?? 'Header',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20.0 - (progress * 4.0),
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+        SizedBox(height: 16),
+        _buildExtentIndicator('Minimum Extent', 56, Color(0xFF43A047)),
+        SizedBox(height: 12),
+        Container(
+          padding: EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Color(0xFFFFF8E1),
+            borderRadius: BorderRadius.circular(8),
           ),
-          Positioned(
-            right: 16.0,
-            bottom: 12.0,
-            child: Text(
-              '${(progress * 100).toStringAsFixed(0)}%',
-              style: TextStyle(
-                color: Colors.white70,
-                fontSize: 14.0,
+          child: Row(
+            children: [
+              Icon(Icons.info_outline, color: Color(0xFFF57F17), size: 18),
+              SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  'Setting minShowOnScreenExtent to negativeInfinity allows the header '
+                  'to remain fully collapsed during showOnScreen calls.',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Color(0xFFF57F17),
+                  ),
+                ),
               ),
+            ],
+          ),
+        ),
+        SizedBox(height: 12),
+        _buildInfoRow('Default Value', 'double.negativeInfinity'),
+        _buildInfoRow('Type', 'double'),
+        _buildInfoRow('Constraint', 'Must be <= maxShowOnScreenExtent'),
+      ],
+    ),
+  );
+}
+
+Widget _buildMinExtentDiagram() {
+  return Column(
+    children: [
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Text(
+            'Header\nExtent',
+            style: TextStyle(fontSize: 10, color: Color(0xFF2E7D32)),
+          ),
+          SizedBox(width: 8),
+          Container(
+            width: 180,
+            height: 80,
+            decoration: BoxDecoration(
+              border: Border.all(color: Color(0xFF81C784)),
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Stack(
+              children: [
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: Container(
+                    height: 30,
+                    color: Color(0xFF43A047).withAlpha(60),
+                    child: Center(
+                      child: Text(
+                        'minExtent Zone',
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: Color(0xFF2E7D32),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 30,
+                  child: Container(
+                    height: 2,
+                    color: Color(0xFF43A047),
+                  ),
+                ),
+                Positioned(
+                  right: 4,
+                  bottom: 32,
+                  child: Text(
+                    'min threshold',
+                    style: TextStyle(
+                      fontSize: 8,
+                      color: Color(0xFF43A047),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
       ),
-    );
-  }
-
-  @override
-  bool shouldRebuild(covariant _ConfigurableHeaderDelegate oldDelegate) {
-    return _minExtent != oldDelegate._minExtent ||
-        _maxExtent != oldDelegate._maxExtent ||
-        label != oldDelegate.label ||
-        backgroundColor != oldDelegate.backgroundColor;
-  }
+    ],
+  );
 }
 
-class _ColoredExtentHeaderDelegate extends SliverPersistentHeaderDelegate {
-  _ColoredExtentHeaderDelegate({
-    required double minExtent,
-    required double maxExtent,
-    required this.collapsedColor,
-    required this.expandedColor,
-    PersistentHeaderShowOnScreenConfiguration? showOnScreenConfiguration,
-  })  : _minExtent = minExtent,
-        _maxExtent = maxExtent,
-        _showOnScreenConfiguration = showOnScreenConfiguration;
+// ═══════════════════════════════════════════════════════════════════════════════
+// SECTION 3: MAX SHOW ON SCREEN EXTENT
+// ═══════════════════════════════════════════════════════════════════════════════
 
-  final double _minExtent;
-  final double _maxExtent;
-  final Color collapsedColor;
-  final Color expandedColor;
-  final PersistentHeaderShowOnScreenConfiguration? _showOnScreenConfiguration;
+Widget _buildMaxShowOnScreenExtentSection() {
+  return Container(
+    padding: EdgeInsets.all(16),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(16),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withAlpha(15),
+          blurRadius: 12,
+          offset: Offset(0, 4),
+        ),
+      ],
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildSectionTitle('maxShowOnScreenExtent', Icons.vertical_align_top),
+        Text(
+          'The maximum number of pixels of the persistent header that will '
+          'be revealed when showOnScreen is called. This caps how much of '
+          'the header gets exposed, even if more space is available.',
+          style: TextStyle(color: Color(0xFF546E7A), fontSize: 13),
+        ),
+        SizedBox(height: 20),
+        Container(
+          padding: EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Color(0xFFE3F2FD),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(Icons.maximize, color: Color(0xFF1565C0), size: 20),
+                  SizedBox(width: 8),
+                  Text(
+                    'Maximum Extent Behavior',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF1565C0),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 16),
+              _buildMaxExtentDiagram(),
+            ],
+          ),
+        ),
+        SizedBox(height: 16),
+        _buildExtentIndicator('Maximum Extent', 200, Color(0xFF1E88E5)),
+        SizedBox(height: 12),
+        Container(
+          padding: EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Color(0xFFE8EAF6),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Row(
+            children: [
+              Icon(Icons.all_inclusive, color: Color(0xFF3949AB), size: 18),
+              SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  'Setting maxShowOnScreenExtent to double.infinity allows '
+                  'the header to fully expand when space permits.',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Color(0xFF3949AB),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: 12),
+        _buildInfoRow('Default Value', 'double.infinity'),
+        _buildInfoRow('Type', 'double'),
+        _buildInfoRow('Constraint', 'Must be >= minShowOnScreenExtent'),
+      ],
+    ),
+  );
+}
 
-  @override
-  double get minExtent => _minExtent;
+Widget _buildMaxExtentDiagram() {
+  return Column(
+    children: [
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Header\nExtent',
+            style: TextStyle(fontSize: 10, color: Color(0xFF1565C0)),
+          ),
+          SizedBox(width: 8),
+          Container(
+            width: 180,
+            height: 80,
+            decoration: BoxDecoration(
+              border: Border.all(color: Color(0xFF90CAF9)),
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Stack(
+              children: [
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  top: 0,
+                  child: Container(
+                    height: 50,
+                    color: Color(0xFF1E88E5).withAlpha(60),
+                    child: Center(
+                      child: Text(
+                        'maxExtent Zone',
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: Color(0xFF1565C0),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  top: 50,
+                  child: Container(
+                    height: 2,
+                    color: Color(0xFF1E88E5),
+                  ),
+                ),
+                Positioned(
+                  right: 4,
+                  top: 54,
+                  child: Text(
+                    'max threshold',
+                    style: TextStyle(
+                      fontSize: 8,
+                      color: Color(0xFF1E88E5),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ],
+  );
+}
 
-  @override
-  double get maxExtent => _maxExtent;
+// ═══════════════════════════════════════════════════════════════════════════════
+// SECTION 4: SHOW ON SCREEN SEMANTICS
+// ═══════════════════════════════════════════════════════════════════════════════
 
-  @override
-  PersistentHeaderShowOnScreenConfiguration? get showOnScreenConfiguration =>
-      _showOnScreenConfiguration;
+Widget _buildShowOnScreenSemanticsSection() {
+  return Container(
+    padding: EdgeInsets.all(16),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(16),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withAlpha(15),
+          blurRadius: 12,
+          offset: Offset(0, 4),
+        ),
+      ],
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildSectionTitle('showOnScreen Semantics', Icons.visibility),
+        Text(
+          'When scrollable content needs to ensure a widget is visible, '
+          'showOnScreen propagates through the render tree. For persistent '
+          'headers, this configuration determines how much of the header '
+          'is revealed during this process.',
+          style: TextStyle(color: Color(0xFF546E7A), fontSize: 13),
+        ),
+        SizedBox(height: 20),
+        Container(
+          padding: EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Color(0xFFFCE4EC),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Column(
+            children: [
+              Text(
+                'showOnScreen Call Flow',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFFC2185B),
+                ),
+              ),
+              SizedBox(height: 16),
+              _buildShowOnScreenFlowDiagram(),
+            ],
+          ),
+        ),
+        SizedBox(height: 16),
+        Container(
+          padding: EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Color(0xFFF3E5F5),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(Icons.touch_app, color: Color(0xFF6A1B9A), size: 18),
+                  SizedBox(width: 8),
+                  Text(
+                    'Trigger Scenarios',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF6A1B9A),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 12),
+              _buildTriggerRow('Focus change', 'TextField receives focus'),
+              _buildTriggerRow('Accessibility', 'Screen reader navigation'),
+              _buildTriggerRow('Programmatic', 'Scrollable.ensureVisible()'),
+              _buildTriggerRow('Semantics', 'Semantic actions request'),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
 
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    var progress = shrinkOffset / (maxExtent - minExtent);
-    if (progress > 1.0) progress = 1.0;
-    if (progress < 0.0) progress = 0.0;
+Widget _buildShowOnScreenFlowDiagram() {
+  return Column(
+    children: [
+      _buildFlowStep('RenderObject.showOnScreen()', Color(0xFFE91E63), Icons.play_arrow),
+      _buildArrow(vertical: true, color: Color(0xFFE91E63)),
+      _buildFlowStep('Viewport processes request', Color(0xFFE91E63), Icons.grid_view),
+      _buildArrow(vertical: true, color: Color(0xFFE91E63)),
+      _buildFlowStep('Header checks configuration', Color(0xFF9C27B0), Icons.settings),
+      _buildArrow(vertical: true, color: Color(0xFF9C27B0)),
+      _buildFlowStep('Clamp to [min, max] extent', Color(0xFF7B1FA2), Icons.swap_vert),
+      _buildArrow(vertical: true, color: Color(0xFF7B1FA2)),
+      _buildFlowStep('Reveal header amount', Color(0xFF4A148C), Icons.visibility),
+    ],
+  );
+}
 
-    var currentColor = Color.lerp(expandedColor, collapsedColor, progress);
+Widget _buildFlowStep(String label, Color color, IconData icon) {
+  return Container(
+    width: 200,
+    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+    decoration: BoxDecoration(
+      color: color.withAlpha(25),
+      borderRadius: BorderRadius.circular(8),
+      border: Border.all(color: color, width: 1.5),
+    ),
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(icon, color: color, size: 16),
+        SizedBox(width: 8),
+        Expanded(
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w600,
+              color: color,
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
 
-    return Container(
-      color: currentColor,
-      child: Center(
-        child: Column(
+Widget _buildTriggerRow(String trigger, String description) {
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: 3),
+    child: Row(
+      children: [
+        Container(
+          width: 6,
+          height: 6,
+          decoration: BoxDecoration(
+            color: Color(0xFF9C27B0),
+            shape: BoxShape.circle,
+          ),
+        ),
+        SizedBox(width: 8),
+        SizedBox(
+          width: 90,
+          child: Text(
+            trigger,
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 11,
+              color: Color(0xFF6A1B9A),
+            ),
+          ),
+        ),
+        Expanded(
+          child: Text(
+            description,
+            style: TextStyle(
+              fontSize: 11,
+              color: Color(0xFF8E24AA),
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// SECTION 5: CUSTOM CONFIGURATIONS
+// ═══════════════════════════════════════════════════════════════════════════════
+
+Widget _buildCustomConfigurationsSection() {
+  return Container(
+    padding: EdgeInsets.all(16),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(16),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withAlpha(15),
+          blurRadius: 12,
+          offset: Offset(0, 4),
+        ),
+      ],
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildSectionTitle('Custom Configurations', Icons.tune),
+        Text(
+          'Different app bar behaviors require different configurations. '
+          'Here are common patterns for customizing header reveal behavior '
+          'to match specific UX requirements.',
+          style: TextStyle(color: Color(0xFF546E7A), fontSize: 13),
+        ),
+        SizedBox(height: 20),
+        _buildConfigExample(
+          'Always Collapsed',
+          'Keep header minimal during showOnScreen',
+          'min: 56, max: 56',
+          Color(0xFFE65100),
+          Icons.unfold_less,
+        ),
+        SizedBox(height: 12),
+        _buildConfigExample(
+          'Always Expanded',
+          'Fully reveal header on any showOnScreen',
+          'min: 200, max: 200',
+          Color(0xFF00695C),
+          Icons.unfold_more,
+        ),
+        SizedBox(height: 12),
+        _buildConfigExample(
+          'Flexible Range',
+          'Allow partial reveal based on space',
+          'min: 56, max: 150',
+          Color(0xFF1565C0),
+          Icons.swap_vert,
+        ),
+        SizedBox(height: 12),
+        _buildConfigExample(
+          'No Constraints',
+          'Default behavior, reveal as needed',
+          'min: -inf, max: inf',
+          Color(0xFF6A1B9A),
+          Icons.all_inclusive,
+        ),
+        SizedBox(height: 16),
+        Container(
+          padding: EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Color(0xFFECEFF1),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Configuration Selection Tips',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF37474F),
+                  fontSize: 13,
+                ),
+              ),
+              SizedBox(height: 8),
+              _buildTipRow('Use fixed values for consistent UX'),
+              _buildTipRow('Match minExtent to toolbar height'),
+              _buildTipRow('Consider accessibility requirements'),
+              _buildTipRow('Test with keyboard navigation'),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildConfigExample(String name, String description, String values, Color color, IconData icon) {
+  return Container(
+    padding: EdgeInsets.all(12),
+    decoration: BoxDecoration(
+      color: color.withAlpha(15),
+      borderRadius: BorderRadius.circular(10),
+      border: Border.all(color: color.withAlpha(80)),
+    ),
+    child: Row(
+      children: [
+        Container(
+          padding: EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: color.withAlpha(30),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Icon(icon, color: color, size: 20),
+        ),
+        SizedBox(width: 12),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                name,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: color,
+                  fontSize: 13,
+                ),
+              ),
+              Text(
+                description,
+                style: TextStyle(
+                  fontSize: 11,
+                  color: Color(0xFF546E7A),
+                ),
+              ),
+            ],
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          decoration: BoxDecoration(
+            color: color.withAlpha(30),
+            borderRadius: BorderRadius.circular(4),
+          ),
+          child: Text(
+            values,
+            style: TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildTipRow(String tip) {
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: 2),
+    child: Row(
+      children: [
+        Icon(Icons.check_circle_outline, size: 14, color: Color(0xFF546E7A)),
+        SizedBox(width: 8),
+        Text(
+          tip,
+          style: TextStyle(fontSize: 12, color: Color(0xFF546E7A)),
+        ),
+      ],
+    ),
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// SECTION 6: HEADER VISIBILITY STATES
+// ═══════════════════════════════════════════════════════════════════════════════
+
+Widget _buildHeaderVisibilityStatesSection() {
+  return Container(
+    padding: EdgeInsets.all(16),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(16),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withAlpha(15),
+          blurRadius: 12,
+          offset: Offset(0, 4),
+        ),
+      ],
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildSectionTitle('Header Visibility States', Icons.layers),
+        Text(
+          'A persistent header transitions between visibility states '
+          'as the user scrolls and as showOnScreen requests are processed. '
+          'The configuration bounds determine achievable states.',
+          style: TextStyle(color: Color(0xFF546E7A), fontSize: 13),
+        ),
+        SizedBox(height: 20),
+        Container(
+          padding: EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFFE8EAF6), Color(0xFFC5CAE9)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Column(
+            children: [
+              Text(
+                'State Transition Diagram',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF283593),
+                ),
+              ),
+              SizedBox(height: 16),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _buildStateBox('Collapsed', Color(0xFFE53935), Icons.compress),
+                  _buildStateBox('Partial', Color(0xFFFB8C00), Icons.unfold_less),
+                  _buildStateBox('Expanded', Color(0xFF43A047), Icons.unfold_more),
+                ],
+              ),
+              SizedBox(height: 12),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _buildArrow(color: Color(0xFF5C6BC0)),
+                  SizedBox(width: 20),
+                  _buildArrow(color: Color(0xFF5C6BC0)),
+                ],
+              ),
+              SizedBox(height: 8),
+              Text(
+                'showOnScreen triggers state changes within configured bounds',
+                style: TextStyle(
+                  fontSize: 10,
+                  fontStyle: FontStyle.italic,
+                  color: Color(0xFF3949AB),
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: 16),
+        _buildVisibilityConstraintRow(
+          'Below minExtent',
+          'Header scrolls to minShowOnScreenExtent',
+          Color(0xFFE53935),
+        ),
+        SizedBox(height: 8),
+        _buildVisibilityConstraintRow(
+          'Within range',
+          'Header maintains current position',
+          Color(0xFFFB8C00),
+        ),
+        SizedBox(height: 8),
+        _buildVisibilityConstraintRow(
+          'Above maxExtent',
+          'Header scrolls to maxShowOnScreenExtent',
+          Color(0xFF43A047),
+        ),
+        SizedBox(height: 16),
+        Container(
+          padding: EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Color(0xFFE0F2F1),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(Icons.lightbulb_outline, color: Color(0xFF00695C), size: 18),
+                  SizedBox(width: 8),
+                  Text(
+                    'Visibility Best Practices',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF00695C),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 8),
+              Text(
+                'Consider user expectations when configuring visibility. '
+                'Most users expect app bars to remain visible during focus '
+                'changes. Test with assistive technologies to ensure '
+                'configurations work well for all users.',
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Color(0xFF00695C),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildStateBox(String label, Color color, IconData icon) {
+  return Container(
+    width: 80,
+    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(10),
+      border: Border.all(color: color, width: 2),
+      boxShadow: [
+        BoxShadow(
+          color: color.withAlpha(40),
+          blurRadius: 6,
+          offset: Offset(0, 2),
+        ),
+      ],
+    ),
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(icon, color: color, size: 22),
+        SizedBox(height: 6),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 11,
+            fontWeight: FontWeight.bold,
+            color: color,
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildVisibilityConstraintRow(String state, String behavior, Color color) {
+  return Container(
+    padding: EdgeInsets.all(10),
+    decoration: BoxDecoration(
+      color: color.withAlpha(15),
+      borderRadius: BorderRadius.circular(8),
+      border: Border.all(color: color.withAlpha(60)),
+    ),
+    child: Row(
+      children: [
+        Container(
+          width: 8,
+          height: 8,
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+          ),
+        ),
+        SizedBox(width: 10),
+        SizedBox(
+          width: 100,
+          child: Text(
+            state,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
+              color: color,
+            ),
+          ),
+        ),
+        Expanded(
+          child: Text(
+            behavior,
+            style: TextStyle(
+              fontSize: 12,
+              color: Color(0xFF546E7A),
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// MAIN WIDGET
+// ═══════════════════════════════════════════════════════════════════════════════
+
+Widget buildPersistentHeaderShowOnScreenConfigurationDemo() {
+  return Container(
+    color: Color(0xFFF5F5F5),
+    child: SingleChildScrollView(
+      padding: EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          _buildHeader(
+            'PersistentHeaderShowOnScreenConfiguration',
+            'Controls persistent header reveal behavior during showOnScreen calls',
+          ),
+          SizedBox(height: 20),
+          _buildConfigurationBasicsSection(),
+          SizedBox(height: 16),
+          _buildMinShowOnScreenExtentSection(),
+          SizedBox(height: 16),
+          _buildMaxShowOnScreenExtentSection(),
+          SizedBox(height: 16),
+          _buildShowOnScreenSemanticsSection(),
+          SizedBox(height: 16),
+          _buildCustomConfigurationsSection(),
+          SizedBox(height: 16),
+          _buildHeaderVisibilityStatesSection(),
+          SizedBox(height: 16),
+          _buildApiReferenceSection(),
+          SizedBox(height: 20),
+          _buildFooterSection(),
+        ],
+      ),
+    ),
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// API REFERENCE SECTION
+// ═══════════════════════════════════════════════════════════════════════════════
+
+Widget _buildApiReferenceSection() {
+  return Container(
+    padding: EdgeInsets.all(16),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(16),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withAlpha(15),
+          blurRadius: 12,
+          offset: Offset(0, 4),
+        ),
+      ],
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildSectionTitle('API Reference', Icons.code),
+        _buildApiCard(
+          'Constructor',
+          [
+            'PersistentHeaderShowOnScreenConfiguration({',
+            '  double minShowOnScreenExtent,',
+            '  double maxShowOnScreenExtent,',
+            '})',
+          ],
+          Color(0xFF7B1FA2),
+        ),
+        SizedBox(height: 12),
+        _buildApiCard(
+          'Properties',
+          [
+            'minShowOnScreenExtent -> double',
+            'maxShowOnScreenExtent -> double',
+          ],
+          Color(0xFF1565C0),
+        ),
+        SizedBox(height: 12),
+        _buildApiCard(
+          'Operators',
+          [
+            'operator ==(Object other) -> bool',
+            'hashCode -> int',
+          ],
+          Color(0xFF43A047),
+        ),
+        SizedBox(height: 12),
+        _buildApiCard(
+          'Usage Context',
+          [
+            'RenderSliverPersistentHeader.showOnScreenConfiguration',
+            'SliverPersistentHeaderDelegate.showOnScreenConfiguration',
+          ],
+          Color(0xFFE65100),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildApiCard(String title, List<String> items, Color color) {
+  return Container(
+    padding: EdgeInsets.all(12),
+    decoration: BoxDecoration(
+      color: color.withAlpha(12),
+      borderRadius: BorderRadius.circular(10),
+      border: Border.all(color: color.withAlpha(50)),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Container(
+              width: 10,
+              height: 10,
+              decoration: BoxDecoration(
+                color: color,
+                shape: BoxShape.circle,
+              ),
+            ),
+            SizedBox(width: 8),
+            Text(
+              title,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: color,
+                fontSize: 14,
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 10),
+        Container(
+          width: double.infinity,
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: Color(0xFF263238),
+            borderRadius: BorderRadius.circular(6),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: items.map((item) => Padding(
+              padding: EdgeInsets.symmetric(vertical: 2),
+              child: Text(
+                item,
+                style: TextStyle(
+                  fontSize: 11,
+                  fontFamily: 'monospace',
+                  color: Color(0xFFB0BEC5),
+                ),
+              ),
+            )).toList(),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// FOOTER SECTION
+// ═══════════════════════════════════════════════════════════════════════════════
+
+Widget _buildFooterSection() {
+  return Container(
+    padding: EdgeInsets.all(16),
+    decoration: BoxDecoration(
+      gradient: LinearGradient(
+        colors: [Color(0xFF6A1B9A), Color(0xFF9C27B0)],
+        begin: Alignment.centerLeft,
+        end: Alignment.centerRight,
+      ),
+      borderRadius: BorderRadius.circular(12),
+    ),
+    child: Column(
+      children: [
+        Icon(Icons.auto_awesome, color: Colors.white, size: 32),
+        SizedBox(height: 12),
+        Text(
+          'Configuration Summary',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        SizedBox(height: 8),
+        Text(
+          'PersistentHeaderShowOnScreenConfiguration provides precise control over '
+          'header visibility during programmatic scroll operations. Use it to ensure '
+          'consistent user experience across different interaction modes.',
+          style: TextStyle(
+            fontSize: 12,
+            color: Colors.white.withAlpha(220),
+          ),
+          textAlign: TextAlign.center,
+        ),
+        SizedBox(height: 16),
+        Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              'Extent Range Demo',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 4.0),
-            Text(
-              'Progress: ${(progress * 100).toStringAsFixed(1)}%',
-              style: TextStyle(color: Colors.white70, fontSize: 12.0),
-            ),
+            _buildFooterStat('2', 'Properties'),
+            SizedBox(width: 24),
+            _buildFooterStat('4', 'Use Cases'),
+            SizedBox(width: 24),
+            _buildFooterStat('3', 'States'),
           ],
         ),
-      ),
-    );
-  }
-
-  @override
-  bool shouldRebuild(covariant _ColoredExtentHeaderDelegate oldDelegate) {
-    return _minExtent != oldDelegate._minExtent ||
-        _maxExtent != oldDelegate._maxExtent ||
-        collapsedColor != oldDelegate.collapsedColor ||
-        expandedColor != oldDelegate.expandedColor;
-  }
+      ],
+    ),
+  );
 }
 
-class _AnimatedHeaderDelegate extends SliverPersistentHeaderDelegate {
-  _AnimatedHeaderDelegate({
-    required double minExtent,
-    required double maxExtent,
-    PersistentHeaderShowOnScreenConfiguration? showOnScreenConfiguration,
-  })  : _minExtent = minExtent,
-        _maxExtent = maxExtent,
-        _showOnScreenConfiguration = showOnScreenConfiguration;
-
-  final double _minExtent;
-  final double _maxExtent;
-  final PersistentHeaderShowOnScreenConfiguration? _showOnScreenConfiguration;
-
-  @override
-  double get minExtent => _minExtent;
-
-  @override
-  double get maxExtent => _maxExtent;
-
-  @override
-  PersistentHeaderShowOnScreenConfiguration? get showOnScreenConfiguration =>
-      _showOnScreenConfiguration;
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    var progress = shrinkOffset / (maxExtent - minExtent);
-    if (progress > 1.0) progress = 1.0;
-    if (progress < 0.0) progress = 0.0;
-
-    var backgroundColor = ColorTween(
-      begin: Colors.deepPurple.shade400,
-      end: Colors.deepPurple.shade900,
-    ).lerp(progress);
-
-    var iconSize = 48.0 - (progress * 24.0);
-    var titleSize = 24.0 - (progress * 8.0);
-
-    return Container(
-      color: backgroundColor,
-      child: SafeArea(
-        child: Stack(
-          children: [
-            Positioned(
-              left: 16.0 + (progress * 40.0),
-              top: 0,
-              bottom: 0,
-              child: Center(
-                child: Icon(
-                  Icons.animation,
-                  size: iconSize,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            Positioned(
-              left: 80.0 + (progress * 20.0),
-              top: 0,
-              bottom: 0,
-              child: Center(
-                child: Text(
-                  'Animated Header',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: titleSize,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-            if (progress < 0.5)
-              Positioned(
-                left: 80.0,
-                bottom: 8.0,
-                child: Opacity(
-                  opacity: 1.0 - (progress * 2.0),
-                  child: Text(
-                    'Scroll to see animation',
-                    style: TextStyle(
-                      color: Colors.white60,
-                      fontSize: 12.0,
-                    ),
-                  ),
-                ),
-              ),
-          ],
+Widget _buildFooterStat(String value, String label) {
+  return Column(
+    children: [
+      Text(
+        value,
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
         ),
       ),
-    );
-  }
-
-  @override
-  bool shouldRebuild(covariant _AnimatedHeaderDelegate oldDelegate) {
-    return _minExtent != oldDelegate._minExtent ||
-        _maxExtent != oldDelegate._maxExtent;
-  }
+      Text(
+        label,
+        style: TextStyle(
+          fontSize: 10,
+          color: Colors.white.withAlpha(180),
+        ),
+      ),
+    ],
+  );
 }
 
-class _ListItemWidget extends StatelessWidget {
-  _ListItemWidget({required this.index}) : _creationTime = DateTime.now();
+// ═══════════════════════════════════════════════════════════════════════════════
+// ENTRY POINT
+// ═══════════════════════════════════════════════════════════════════════════════
 
-  final int index;
-  final DateTime _creationTime;
-
-  @override
-  Widget build(BuildContext context) {
-    var alphaValue = ((_creationTime.millisecond % 100) / 100.0 * 0.1 + 0.9);
-    return Container(
-      height: 72.0,
-      margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-      decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: alphaValue),
-        borderRadius: BorderRadius.circular(8.0),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 4.0,
-            offset: Offset(0, 2),
-          ),
-        ],
+void main() {
+  runApp(
+    MaterialApp(
+      title: 'PersistentHeaderShowOnScreenConfiguration Demo',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        useMaterial3: true,
+        colorSchemeSeed: Color(0xFF7B1FA2),
       ),
-      child: ListTile(
-        leading: CircleAvatar(
-          backgroundColor:
-              Colors.primaries[index % Colors.primaries.length].shade200,
-          child: Text('${index + 1}'),
-        ),
-        title: Text('List Item ${index + 1}'),
-        subtitle: Text('Description for item ${index + 1}'),
-        trailing: Icon(Icons.chevron_right),
+      home: Scaffold(
+        body: buildPersistentHeaderShowOnScreenConfigurationDemo(),
       ),
-    );
-  }
+    ),
+  );
 }
