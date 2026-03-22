@@ -7,7 +7,7 @@ Widget buildSectionHeader(String title) {
     padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
     margin: EdgeInsets.only(bottom: 8, top: 16),
     decoration: BoxDecoration(
-      color: Colors.indigo.shade700,
+      color: Colors.deepPurple.shade700,
       borderRadius: BorderRadius.circular(8),
     ),
     child: Text(
@@ -21,7 +21,7 @@ Widget buildSectionHeader(String title) {
   );
 }
 
-Widget buildInfoCard(String label, String value) {
+Widget buildInfoCard(String label, String content) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 4),
     padding: EdgeInsets.all(12),
@@ -39,7 +39,7 @@ Widget buildInfoCard(String label, String value) {
         SizedBox(width: 8),
         Expanded(
           child: Text(
-            value,
+            content,
             style: TextStyle(fontSize: 14, color: Colors.grey.shade700),
           ),
         ),
@@ -48,82 +48,171 @@ Widget buildInfoCard(String label, String value) {
   );
 }
 
-Widget buildOverviewSection() {
-  print('Building overview section');
+Widget buildSubsectionTitle(String title, IconData icon, Color color) {
+  return Container(
+    margin: EdgeInsets.only(top: 12, bottom: 8),
+    child: Row(
+      children: [
+        Icon(icon, color: color, size: 22),
+        SizedBox(width: 10),
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: color,
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget buildPredictiveBackOverviewSection() {
+  print('Building predictive back overview section');
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: Colors.indigo.shade200),
+      border: Border.all(color: Colors.deepPurple.shade200, width: 2),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
-            Icon(Icons.swipe_left, color: Colors.indigo.shade700, size: 28),
-            SizedBox(width: 12),
+            Container(
+              padding: EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.deepPurple.shade100,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Icon(
+                Icons.swipe_left_alt,
+                color: Colors.deepPurple.shade700,
+                size: 32,
+              ),
+            ),
+            SizedBox(width: 16),
             Expanded(
-              child: Text(
-                'PredictiveBackFullscreenPageTransitionsBuilder',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.indigo.shade800,
-                ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Predictive Back Gesture',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.deepPurple.shade800,
+                    ),
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    'Android 14+ Navigation Feature',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey.shade600,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
         ),
-        SizedBox(height: 12),
-        Text(
-          'A specialized PageTransitionsBuilder that provides fullscreen predictive back gesture transitions for page routes.',
-          style: TextStyle(fontSize: 14, color: Colors.grey.shade700),
-        ),
-        SizedBox(height: 12),
+        SizedBox(height: 20),
         Container(
-          padding: EdgeInsets.all(12),
+          padding: EdgeInsets.all(14),
           decoration: BoxDecoration(
-            color: Colors.indigo.shade50,
-            borderRadius: BorderRadius.circular(8),
+            color: Colors.blue.shade50,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: Colors.blue.shade200),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Key Features:',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                'What is Predictive Back?',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue.shade800,
+                ),
               ),
               SizedBox(height: 8),
-              _buildFeatureItem('Fullscreen gesture-based navigation'),
-              _buildFeatureItem('Predictive back support for Android 14+'),
-              _buildFeatureItem('Smooth animated transitions'),
-              _buildFeatureItem('Integrates with PageRoute system'),
+              Text(
+                'Predictive back is a gesture navigation feature introduced in Android 14 (API level 34) '
+                'that allows users to preview the destination before completing a back navigation. '
+                'As the user swipes from the edge of the screen, they see a preview of where they will '
+                'go if they complete the gesture.',
+                style: TextStyle(fontSize: 13, color: Colors.grey.shade700, height: 1.5),
+              ),
             ],
           ),
         ),
-        SizedBox(height: 12),
-        buildInfoCard('Class Type', 'PageTransitionsBuilder'),
-        buildInfoCard('Package', 'flutter/material.dart'),
-        buildInfoCard('Platform', 'Android 14+ (API 34+)'),
-      ],
-    ),
-  );
-}
-
-Widget _buildFeatureItem(String text) {
-  return Padding(
-    padding: EdgeInsets.symmetric(vertical: 2),
-    child: Row(
-      children: [
-        Icon(Icons.check_circle, color: Colors.green.shade600, size: 16),
-        SizedBox(width: 8),
-        Expanded(
-          child: Text(
-            text,
-            style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
+        SizedBox(height: 16),
+        buildSubsectionTitle('Key Concepts', Icons.lightbulb, Colors.amber.shade700),
+        _buildConceptCard(
+          'Gesture Preview',
+          'Users see a visual preview of the previous screen as they swipe back',
+          Icons.preview,
+          Colors.green,
+        ),
+        _buildConceptCard(
+          'Cancellable Navigation',
+          'Users can cancel the back action by reversing their swipe gesture',
+          Icons.cancel,
+          Colors.orange,
+        ),
+        _buildConceptCard(
+          'System Integration',
+          'Works with system back button and gesture navigation',
+          Icons.settings_system_daydream,
+          Colors.blue,
+        ),
+        _buildConceptCard(
+          'Progressive Animation',
+          'Animation progress follows finger movement in real-time',
+          Icons.animation,
+          Colors.purple,
+        ),
+        SizedBox(height: 16),
+        buildSubsectionTitle('Platform Requirements', Icons.android, Colors.green.shade700),
+        Container(
+          padding: EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.green.shade50,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Column(
+            children: [
+              _buildRequirementRow('Minimum Android Version', 'Android 14 (API 34)'),
+              _buildRequirementRow('Navigation Mode', 'Gesture Navigation'),
+              _buildRequirementRow('Flutter Version', 'Flutter 3.16+'),
+              _buildRequirementRow('AndroidManifest Flag', 'enableOnBackInvokedCallback=true'),
+            ],
+          ),
+        ),
+        SizedBox(height: 16),
+        Container(
+          padding: EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.amber.shade50,
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: Colors.amber.shade300),
+          ),
+          child: Row(
+            children: [
+              Icon(Icons.info, color: Colors.amber.shade700, size: 24),
+              SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  'On devices without predictive back support, the builder falls back to standard page transitions.',
+                  style: TextStyle(fontSize: 12, color: Colors.amber.shade900),
+                ),
+              ),
+            ],
           ),
         ),
       ],
@@ -131,8 +220,83 @@ Widget _buildFeatureItem(String text) {
   );
 }
 
-Widget buildBuildTransitionsSection() {
-  print('Building buildTransitions section');
+Widget _buildConceptCard(String title, String description, IconData icon, MaterialColor color) {
+  return Container(
+    margin: EdgeInsets.symmetric(vertical: 4),
+    padding: EdgeInsets.all(12),
+    decoration: BoxDecoration(
+      color: color.shade50,
+      borderRadius: BorderRadius.circular(8),
+      border: Border.all(color: color.shade200),
+    ),
+    child: Row(
+      children: [
+        Container(
+          padding: EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: color.shade100,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Icon(icon, color: color.shade700, size: 20),
+        ),
+        SizedBox(width: 12),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: color.shade800,
+                ),
+              ),
+              SizedBox(height: 2),
+              Text(
+                description,
+                style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildRequirementRow(String label, String value) {
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: 4),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          label,
+          style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
+        ),
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+          decoration: BoxDecoration(
+            color: Colors.green.shade100,
+            borderRadius: BorderRadius.circular(4),
+          ),
+          child: Text(
+            value,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+              color: Colors.green.shade800,
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget buildPageTransitionsThemeSection() {
+  print('Building PageTransitionsTheme section');
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -144,136 +308,843 @@ Widget buildBuildTransitionsSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'buildTransitions Method',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        Row(
+          children: [
+            Icon(Icons.color_lens, color: Colors.indigo.shade700, size: 28),
+            SizedBox(width: 12),
+            Text(
+              'PageTransitionsTheme Configuration',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.indigo.shade800,
+              ),
+            ),
+          ],
         ),
-        SizedBox(height: 12),
+        SizedBox(height: 16),
+        Text(
+          'Configure PredictiveBackFullscreenPageTransitionsBuilder in your theme to enable '
+          'predictive back transitions for specific platforms.',
+          style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
+        ),
+        SizedBox(height: 16),
+        buildSubsectionTitle('Theme Setup Example', Icons.code, Colors.grey.shade700),
+        Container(
+          padding: EdgeInsets.all(14),
+          decoration: BoxDecoration(
+            color: Colors.grey.shade900,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildCodeLine('MaterialApp(', Colors.yellow.shade300),
+              _buildCodeLine('  theme: ThemeData(', Colors.blue.shade300),
+              _buildCodeLine('    pageTransitionsTheme: PageTransitionsTheme(', Colors.green.shade300),
+              _buildCodeLine('      builders: {', Colors.cyan.shade300),
+              _buildCodeLine('        TargetPlatform.android:', Colors.orange.shade300),
+              _buildCodeLine('          PredictiveBackFullscreenPageTransitionsBuilder(),', Colors.pink.shade300),
+              _buildCodeLine('        TargetPlatform.iOS:', Colors.orange.shade300),
+              _buildCodeLine('          CupertinoPageTransitionsBuilder(),', Colors.pink.shade300),
+              _buildCodeLine('      },', Colors.cyan.shade300),
+              _buildCodeLine('    ),', Colors.green.shade300),
+              _buildCodeLine('  ),', Colors.blue.shade300),
+              _buildCodeLine(')', Colors.yellow.shade300),
+            ],
+          ),
+        ),
+        SizedBox(height: 20),
+        buildSubsectionTitle('Platform Builder Mapping', Icons.devices, Colors.teal.shade700),
+        _buildPlatformMappingCard(
+          'Android',
+          'PredictiveBackFullscreenPageTransitionsBuilder',
+          Icons.android,
+          Colors.green,
+        ),
+        _buildPlatformMappingCard(
+          'iOS',
+          'CupertinoPageTransitionsBuilder',
+          Icons.apple,
+          Colors.grey,
+        ),
+        _buildPlatformMappingCard(
+          'Linux',
+          'FadeUpwardsPageTransitionsBuilder',
+          Icons.computer,
+          Colors.orange,
+        ),
+        _buildPlatformMappingCard(
+          'Windows',
+          'ZoomPageTransitionsBuilder',
+          Icons.desktop_windows,
+          Colors.blue,
+        ),
+        _buildPlatformMappingCard(
+          'macOS',
+          'CupertinoPageTransitionsBuilder',
+          Icons.laptop_mac,
+          Colors.purple,
+        ),
+        SizedBox(height: 16),
         Container(
           padding: EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: Colors.grey.shade900,
-            borderRadius: BorderRadius.circular(8),
+            gradient: LinearGradient(
+              colors: [Colors.indigo.shade100, Colors.purple.shade100],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(10),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Widget buildTransitions<T>(',
+                'PageTransitionsTheme Properties',
                 style: TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 12,
-                  color: Colors.green.shade300,
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.indigo.shade800,
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.only(left: 16),
-                child: Text(
-                  'PageRoute<T> route,',
-                  style: TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 12,
-                    color: Colors.blue.shade300,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 16),
-                child: Text(
-                  'BuildContext context,',
-                  style: TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 12,
-                    color: Colors.blue.shade300,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 16),
-                child: Text(
-                  'Animation<double> animation,',
-                  style: TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 12,
-                    color: Colors.blue.shade300,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 16),
-                child: Text(
-                  'Animation<double> secondaryAnimation,',
-                  style: TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 12,
-                    color: Colors.blue.shade300,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 16),
-                child: Text(
-                  'Widget child,',
-                  style: TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 12,
-                    color: Colors.blue.shade300,
-                  ),
-                ),
-              ),
-              Text(
-                ')',
-                style: TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 12,
-                  color: Colors.green.shade300,
-                ),
-              ),
+              SizedBox(height: 8),
+              buildInfoCard('builders', 'Map<TargetPlatform, PageTransitionsBuilder>'),
             ],
           ),
-        ),
-        SizedBox(height: 16),
-        _buildParameterCard(
-          'route',
-          'PageRoute<T>',
-          'The page route that owns this transition',
-          Colors.blue,
-        ),
-        _buildParameterCard(
-          'context',
-          'BuildContext',
-          'Build context for localization and theme',
-          Colors.purple,
-        ),
-        _buildParameterCard(
-          'animation',
-          'Animation<double>',
-          'Primary animation driving the transition',
-          Colors.orange,
-        ),
-        _buildParameterCard(
-          'secondaryAnimation',
-          'Animation<double>',
-          'Animation when another route is pushed on top',
-          Colors.teal,
-        ),
-        _buildParameterCard(
-          'child',
-          'Widget',
-          'The page content being transitioned',
-          Colors.pink,
         ),
       ],
     ),
   );
 }
 
-Widget _buildParameterCard(
+Widget _buildCodeLine(String code, Color color) {
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: 1),
+    child: Text(
+      code,
+      style: TextStyle(
+        fontFamily: 'monospace',
+        fontSize: 11,
+        color: color,
+      ),
+    ),
+  );
+}
+
+Widget _buildPlatformMappingCard(String platform, String builder, IconData icon, MaterialColor color) {
+  return Container(
+    margin: EdgeInsets.symmetric(vertical: 4),
+    padding: EdgeInsets.all(10),
+    decoration: BoxDecoration(
+      color: color.shade50,
+      borderRadius: BorderRadius.circular(8),
+      border: Border.all(color: color.shade200),
+    ),
+    child: Row(
+      children: [
+        Icon(icon, color: color.shade700, size: 24),
+        SizedBox(width: 12),
+        Text(
+          platform,
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            color: color.shade800,
+          ),
+        ),
+        Spacer(),
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(4),
+            border: Border.all(color: color.shade300),
+          ),
+          child: Text(
+            builder,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 9,
+              color: color.shade700,
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget buildTransitionBuildersComparisonSection() {
+  print('Building transition builders comparison section');
+  return Container(
+    margin: EdgeInsets.symmetric(vertical: 8),
+    padding: EdgeInsets.all(16),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(12),
+      border: Border.all(color: Colors.grey.shade300),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Icon(Icons.compare_arrows, color: Colors.teal.shade700, size: 28),
+            SizedBox(width: 12),
+            Text(
+              'Page Transition Builders Comparison',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.teal.shade800,
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 16),
+        Text(
+          'Flutter provides several PageTransitionsBuilder implementations. Here is a comparison '
+          'of available builders and their characteristics.',
+          style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
+        ),
+        SizedBox(height: 20),
+        _buildTransitionBuilderCard(
+          'PredictiveBackFullscreenPageTransitionsBuilder',
+          'Android predictive back gesture with fullscreen preview',
+          'Swipe preview + Scale',
+          'Android 14+',
+          Colors.deepPurple,
+          Icons.swipe_left,
+          true,
+        ),
+        _buildTransitionBuilderCard(
+          'FadeUpwardsPageTransitionsBuilder',
+          'Page fades in while sliding up from the bottom',
+          'Fade + Slide Up',
+          'Android (default), Linux',
+          Colors.blue,
+          Icons.arrow_upward,
+          false,
+        ),
+        _buildTransitionBuilderCard(
+          'OpenUpwardsPageTransitionsBuilder',
+          'Page slides up with an opening effect and fade',
+          'Open + Slide Up',
+          'Android (Material 2)',
+          Colors.green,
+          Icons.open_in_full,
+          false,
+        ),
+        _buildTransitionBuilderCard(
+          'ZoomPageTransitionsBuilder',
+          'Page zooms in from the center with fade effect',
+          'Zoom + Fade',
+          'Windows, Android (Material 3)',
+          Colors.orange,
+          Icons.zoom_in,
+          false,
+        ),
+        _buildTransitionBuilderCard(
+          'CupertinoPageTransitionsBuilder',
+          'iOS-style horizontal slide with parallax effect',
+          'Horizontal Slide',
+          'iOS, macOS',
+          Colors.grey,
+          Icons.chevron_right,
+          false,
+        ),
+        SizedBox(height: 20),
+        buildSubsectionTitle('Visual Comparison', Icons.visibility, Colors.purple.shade700),
+        Container(
+          padding: EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.purple.shade50,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Column(
+            children: [
+              _buildComparisonRow('Animation Type', ['Preview', 'Fade', 'Open', 'Zoom', 'Slide']),
+              Divider(color: Colors.purple.shade200),
+              _buildComparisonRow('Gesture Driven', ['Yes', 'No', 'No', 'No', 'Yes']),
+              Divider(color: Colors.purple.shade200),
+              _buildComparisonRow('Predictive', ['Yes', 'No', 'No', 'No', 'No']),
+              Divider(color: Colors.purple.shade200),
+              _buildComparisonRow('Duration (ms)', ['300', '300', '300', '300', '400']),
+            ],
+          ),
+        ),
+        SizedBox(height: 16),
+        Container(
+          padding: EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.teal.shade50,
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: Colors.teal.shade200),
+          ),
+          child: Row(
+            children: [
+              Icon(Icons.tips_and_updates, color: Colors.teal.shade700, size: 22),
+              SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  'PredictiveBackFullscreenPageTransitionsBuilder is the only builder that provides '
+                  'real-time gesture preview feedback to users.',
+                  style: TextStyle(fontSize: 12, color: Colors.teal.shade900),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildTransitionBuilderCard(
   String name,
-  String type,
   String description,
+  String animation,
+  String platform,
   MaterialColor color,
+  IconData icon,
+  bool isPredictive,
 ) {
+  return Container(
+    margin: EdgeInsets.symmetric(vertical: 6),
+    padding: EdgeInsets.all(12),
+    decoration: BoxDecoration(
+      color: color.shade50,
+      borderRadius: BorderRadius.circular(10),
+      border: Border.all(
+        color: isPredictive ? color.shade500 : color.shade200,
+        width: isPredictive ? 2 : 1,
+      ),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Container(
+              padding: EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: color.shade100,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Icon(icon, color: color.shade700, size: 20),
+            ),
+            SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                name,
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                  color: color.shade800,
+                ),
+              ),
+            ),
+            if (isPredictive)
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                decoration: BoxDecoration(
+                  color: Colors.amber.shade100,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  'RECOMMENDED',
+                  style: TextStyle(
+                    fontSize: 9,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.amber.shade800,
+                  ),
+                ),
+              ),
+          ],
+        ),
+        SizedBox(height: 8),
+        Text(
+          description,
+          style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+        ),
+        SizedBox(height: 8),
+        Row(
+          children: [
+            _buildBuilderTag('Animation', animation, color),
+            SizedBox(width: 8),
+            _buildBuilderTag('Platform', platform, Colors.grey),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildBuilderTag(String label, String value, MaterialColor color) {
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+    decoration: BoxDecoration(
+      color: color.shade100,
+      borderRadius: BorderRadius.circular(4),
+    ),
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          '$label: ',
+          style: TextStyle(fontSize: 10, color: color.shade600),
+        ),
+        Text(
+          value,
+          style: TextStyle(
+            fontSize: 10,
+            fontWeight: FontWeight.bold,
+            color: color.shade800,
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildComparisonRow(String label, List<String> values) {
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: 6),
+    child: Row(
+      children: [
+        SizedBox(
+          width: 100,
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.bold,
+              color: Colors.purple.shade800,
+            ),
+          ),
+        ),
+        Expanded(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: values.map((v) => Text(
+              v,
+              style: TextStyle(fontSize: 10, color: Colors.grey.shade700),
+            )).toList(),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget buildNavigatorPushDemonstrationSection() {
+  print('Building Navigator.push demonstration section');
+  return Container(
+    margin: EdgeInsets.symmetric(vertical: 8),
+    padding: EdgeInsets.all(16),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(12),
+      border: Border.all(color: Colors.grey.shade300),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Icon(Icons.navigation, color: Colors.blue.shade700, size: 28),
+            SizedBox(width: 12),
+            Text(
+              'Navigator.push Demonstrations',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.blue.shade800,
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 16),
+        Text(
+          'When PredictiveBackFullscreenPageTransitionsBuilder is configured in PageTransitionsTheme, '
+          'all navigation operations using MaterialPageRoute will automatically use predictive back transitions.',
+          style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
+        ),
+        SizedBox(height: 20),
+        buildSubsectionTitle('Basic Navigation', Icons.arrow_forward, Colors.blue.shade700),
+        _buildNavigationExample(
+          'Simple Push',
+          'Navigator.push with MaterialPageRoute',
+          'Navigator.push(\n  context,\n  MaterialPageRoute(\n    builder: (ctx) => DetailsPage(),\n  ),\n);',
+          Colors.blue,
+        ),
+        _buildNavigationExample(
+          'Named Route',
+          'Navigator.pushNamed with route registration',
+          'Navigator.pushNamed(\n  context,\n  \'/details\',\n  arguments: myData,\n);',
+          Colors.green,
+        ),
+        _buildNavigationExample(
+          'Replace Route',
+          'Navigator.pushReplacement for screen replacement',
+          'Navigator.pushReplacement(\n  context,\n  MaterialPageRoute(\n    builder: (ctx) => NewPage(),\n  ),\n);',
+          Colors.orange,
+        ),
+        SizedBox(height: 20),
+        buildSubsectionTitle('Advanced Navigation', Icons.account_tree, Colors.purple.shade700),
+        _buildNavigationExample(
+          'Push and Remove Until',
+          'Clear stack and push new route',
+          'Navigator.pushAndRemoveUntil(\n  context,\n  MaterialPageRoute(\n    builder: (ctx) => HomePage(),\n  ),\n  (route) => false,\n);',
+          Colors.purple,
+        ),
+        _buildNavigationExample(
+          'Pop Until',
+          'Pop routes until condition is met',
+          'Navigator.popUntil(\n  context,\n  ModalRoute.withName(\'/home\'),\n);',
+          Colors.teal,
+        ),
+        SizedBox(height: 20),
+        Container(
+          padding: EdgeInsets.all(14),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.blue.shade100, Colors.cyan.shade100],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Predictive Back Behavior',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue.shade800,
+                ),
+              ),
+              SizedBox(height: 10),
+              _buildBehaviorItem(
+                Icons.touch_app,
+                'Gesture Start',
+                'User begins swipe from screen edge',
+              ),
+              _buildBehaviorItem(
+                Icons.preview,
+                'Preview Display',
+                'Previous screen becomes visible behind current',
+              ),
+              _buildBehaviorItem(
+                Icons.transform,
+                'Transform Animation',
+                'Current screen scales and moves with gesture',
+              ),
+              _buildBehaviorItem(
+                Icons.check_circle,
+                'Completion',
+                'Release triggers navigation or cancellation',
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildNavigationExample(String title, String description, String code, MaterialColor color) {
+  return Container(
+    margin: EdgeInsets.symmetric(vertical: 6),
+    decoration: BoxDecoration(
+      color: color.shade50,
+      borderRadius: BorderRadius.circular(10),
+      border: Border.all(color: color.shade200),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: color.shade100,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(9),
+              topRight: Radius.circular(9),
+            ),
+          ),
+          child: Row(
+            children: [
+              Icon(Icons.code, color: color.shade700, size: 18),
+              SizedBox(width: 8),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: color.shade800,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.all(12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                description,
+                style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+              ),
+              SizedBox(height: 8),
+              Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade900,
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: Text(
+                  code,
+                  style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 10,
+                    color: Colors.green.shade300,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildBehaviorItem(IconData icon, String title, String description) {
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: 6),
+    child: Row(
+      children: [
+        Container(
+          padding: EdgeInsets.all(6),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Icon(icon, color: Colors.blue.shade600, size: 18),
+        ),
+        SizedBox(width: 12),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue.shade800,
+                ),
+              ),
+              Text(
+                description,
+                style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget buildMaterialPageRouteCustomizationSection() {
+  print('Building MaterialPageRoute customization section');
+  return Container(
+    margin: EdgeInsets.symmetric(vertical: 8),
+    padding: EdgeInsets.all(16),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(12),
+      border: Border.all(color: Colors.grey.shade300),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Icon(Icons.settings_applications, color: Colors.orange.shade700, size: 28),
+            SizedBox(width: 12),
+            Text(
+              'MaterialPageRoute Customization',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.orange.shade800,
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 16),
+        Text(
+          'MaterialPageRoute provides various customization options that work alongside '
+          'PredictiveBackFullscreenPageTransitionsBuilder.',
+          style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
+        ),
+        SizedBox(height: 20),
+        buildSubsectionTitle('Route Properties', Icons.tune, Colors.orange.shade700),
+        _buildPropertyCard(
+          'builder',
+          'WidgetBuilder',
+          'Required callback that builds the page widget',
+          Colors.blue,
+        ),
+        _buildPropertyCard(
+          'settings',
+          'RouteSettings?',
+          'Route configuration including name and arguments',
+          Colors.green,
+        ),
+        _buildPropertyCard(
+          'maintainState',
+          'bool',
+          'Whether to keep the state when route is inactive (default: true)',
+          Colors.purple,
+        ),
+        _buildPropertyCard(
+          'fullscreenDialog',
+          'bool',
+          'Whether the route is a fullscreen dialog (default: false)',
+          Colors.teal,
+        ),
+        _buildPropertyCard(
+          'allowSnapshotting',
+          'bool',
+          'Whether the route allows snapshotting for transitions',
+          Colors.amber,
+        ),
+        _buildPropertyCard(
+          'barrierDismissible',
+          'bool',
+          'Whether tapping the barrier dismisses the route',
+          Colors.pink,
+        ),
+        SizedBox(height: 20),
+        buildSubsectionTitle('Custom Route Example', Icons.code, Colors.grey.shade700),
+        Container(
+          padding: EdgeInsets.all(14),
+          decoration: BoxDecoration(
+            color: Colors.grey.shade900,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildCodeLine('MaterialPageRoute<void>(', Colors.yellow.shade300),
+              _buildCodeLine('  builder: (BuildContext context) {', Colors.blue.shade300),
+              _buildCodeLine('    return DetailsScreen(', Colors.green.shade300),
+              _buildCodeLine('      itemId: itemId,', Colors.cyan.shade300),
+              _buildCodeLine('    );', Colors.green.shade300),
+              _buildCodeLine('  },', Colors.blue.shade300),
+              _buildCodeLine('  settings: RouteSettings(', Colors.purple.shade300),
+              _buildCodeLine('    name: \'/details\',', Colors.orange.shade300),
+              _buildCodeLine('    arguments: {\'id\': itemId},', Colors.orange.shade300),
+              _buildCodeLine('  ),', Colors.purple.shade300),
+              _buildCodeLine('  maintainState: true,', Colors.pink.shade300),
+              _buildCodeLine('  fullscreenDialog: false,', Colors.pink.shade300),
+              _buildCodeLine(')', Colors.yellow.shade300),
+            ],
+          ),
+        ),
+        SizedBox(height: 20),
+        buildSubsectionTitle('Fullscreen Dialog Mode', Icons.fullscreen, Colors.indigo.shade700),
+        Container(
+          padding: EdgeInsets.all(14),
+          decoration: BoxDecoration(
+            color: Colors.indigo.shade50,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: Colors.indigo.shade200),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'When fullscreenDialog is true:',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.indigo.shade800,
+                ),
+              ),
+              SizedBox(height: 10),
+              _buildDialogBehaviorItem('AppBar shows close button instead of back arrow'),
+              _buildDialogBehaviorItem('Transition animates from bottom on iOS'),
+              _buildDialogBehaviorItem('Predictive back still works on Android 14+'),
+              _buildDialogBehaviorItem('Route blocks gestures from underlying routes'),
+            ],
+          ),
+        ),
+        SizedBox(height: 20),
+        buildSubsectionTitle('Route Transitions Override', Icons.swap_horiz, Colors.red.shade700),
+        Container(
+          padding: EdgeInsets.all(14),
+          decoration: BoxDecoration(
+            color: Colors.red.shade50,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: Colors.red.shade200),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Custom Transition with PageRouteBuilder',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.red.shade800,
+                ),
+              ),
+              SizedBox(height: 10),
+              Text(
+                'For complete control over transitions, use PageRouteBuilder instead of MaterialPageRoute:',
+                style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+              ),
+              SizedBox(height: 10),
+              Container(
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade900,
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildCodeLine('PageRouteBuilder<void>(', Colors.yellow.shade300),
+                    _buildCodeLine('  pageBuilder: (ctx, anim, anim2) => MyPage(),', Colors.blue.shade300),
+                    _buildCodeLine('  transitionsBuilder: (ctx, anim, anim2, child) {', Colors.green.shade300),
+                    _buildCodeLine('    return FadeTransition(', Colors.cyan.shade300),
+                    _buildCodeLine('      opacity: anim,', Colors.orange.shade300),
+                    _buildCodeLine('      child: child,', Colors.orange.shade300),
+                    _buildCodeLine('    );', Colors.cyan.shade300),
+                    _buildCodeLine('  },', Colors.green.shade300),
+                    _buildCodeLine(')', Colors.yellow.shade300),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildPropertyCard(String name, String type, String description, MaterialColor color) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 4),
     padding: EdgeInsets.all(10),
@@ -301,19 +1172,26 @@ Widget _buildParameterCard(
           ),
         ),
         SizedBox(width: 8),
-        Text(
-          type,
-          style: TextStyle(
-            fontSize: 11,
-            color: Colors.grey.shade600,
-            fontStyle: FontStyle.italic,
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+          decoration: BoxDecoration(
+            color: Colors.grey.shade200,
+            borderRadius: BorderRadius.circular(4),
+          ),
+          child: Text(
+            type,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 10,
+              color: Colors.grey.shade700,
+            ),
           ),
         ),
         SizedBox(width: 8),
         Expanded(
           child: Text(
             description,
-            style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+            style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
           ),
         ),
       ],
@@ -321,8 +1199,26 @@ Widget _buildParameterCard(
   );
 }
 
-Widget buildPageRouteIntegrationSection() {
-  print('Building page route integration section');
+Widget _buildDialogBehaviorItem(String text) {
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: 3),
+    child: Row(
+      children: [
+        Icon(Icons.check, color: Colors.indigo.shade600, size: 16),
+        SizedBox(width: 8),
+        Expanded(
+          child: Text(
+            text,
+            style: TextStyle(fontSize: 12, color: Colors.indigo.shade700),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget buildPredictiveBackAnimationSection() {
+  print('Building predictive back animation details section');
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -334,307 +1230,101 @@ Widget buildPageRouteIntegrationSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Page Route Integration',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-        ),
-        SizedBox(height: 12),
-        Text(
-          'The builder integrates with MaterialPageRoute and other PageRoute implementations:',
-          style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
+        Row(
+          children: [
+            Icon(Icons.animation, color: Colors.pink.shade700, size: 28),
+            SizedBox(width: 12),
+            Text(
+              'Predictive Back Animation Details',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.pink.shade800,
+              ),
+            ),
+          ],
         ),
         SizedBox(height: 16),
-        _buildIntegrationStep(
-          1,
-          'Configure PageTransitionsTheme',
-          'Set up the theme in MaterialApp',
-          Icons.settings,
-          Colors.blue,
+        Text(
+          'Understanding how the predictive back animation transforms the current and previous pages.',
+          style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
         ),
-        _buildIntegrationStep(
-          2,
-          'Use MaterialPageRoute',
-          'Routes automatically use the configured builder',
-          Icons.route,
-          Colors.green,
+        SizedBox(height: 20),
+        buildSubsectionTitle('Transform Properties', Icons.transform, Colors.pink.shade700),
+        _buildAnimationPropertyCard(
+          'Scale',
+          'Current page scales down as gesture progresses',
+          '1.0 → 0.9',
+          Colors.pink,
         ),
-        _buildIntegrationStep(
-          3,
-          'Handle Back Gesture',
-          'System detects predictive back gestures',
-          Icons.swipe_left,
-          Colors.orange,
-        ),
-        _buildIntegrationStep(
-          4,
-          'Animate Transition',
-          'Builder creates smooth fullscreen animation',
-          Icons.animation,
+        _buildAnimationPropertyCard(
+          'Translation X',
+          'Page moves horizontally following finger',
+          '0 → screen width',
           Colors.purple,
         ),
-        SizedBox(height: 16),
+        _buildAnimationPropertyCard(
+          'Opacity',
+          'Subtle fade effect during transition',
+          '1.0 → 0.8',
+          Colors.indigo,
+        ),
+        _buildAnimationPropertyCard(
+          'Corner Radius',
+          'Corners round during the gesture',
+          '0 → 16dp',
+          Colors.blue,
+        ),
+        SizedBox(height: 20),
+        buildSubsectionTitle('Animation Timeline', Icons.timeline, Colors.teal.shade700),
+        Container(
+          padding: EdgeInsets.all(14),
+          decoration: BoxDecoration(
+            color: Colors.teal.shade50,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Column(
+            children: [
+              _buildTimelineStep(0, 'Idle', 'Page at normal position and scale'),
+              _buildTimelineConnector(),
+              _buildTimelineStep(1, 'Gesture Start', 'System detects back gesture'),
+              _buildTimelineConnector(),
+              _buildTimelineStep(2, 'Preview Active', 'Previous page visible, current transforms'),
+              _buildTimelineConnector(),
+              _buildTimelineStep(3, 'Release', 'Animation completes or reverses'),
+            ],
+          ),
+        ),
+        SizedBox(height: 20),
         Container(
           padding: EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: Colors.amber.shade50,
+            color: Colors.cyan.shade50,
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: Colors.amber.shade300),
+            border: Border.all(color: Colors.cyan.shade200),
           ),
-          child: Row(
-            children: [
-              Icon(Icons.info_outline, color: Colors.amber.shade700, size: 20),
-              SizedBox(width: 12),
-              Expanded(
-                child: Text(
-                  'PageTransitionsBuilder is used by PageTransitionsTheme within ThemeData',
-                  style: TextStyle(fontSize: 12, color: Colors.amber.shade900),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildIntegrationStep(
-  int step,
-  String title,
-  String description,
-  IconData icon,
-  MaterialColor color,
-) {
-  return Container(
-    margin: EdgeInsets.symmetric(vertical: 6),
-    child: Row(
-      children: [
-        Container(
-          width: 32,
-          height: 32,
-          decoration: BoxDecoration(
-            color: color.shade100,
-            shape: BoxShape.circle,
-          ),
-          child: Center(
-            child: Text(
-              '$step',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: color.shade800,
-              ),
-            ),
-          ),
-        ),
-        SizedBox(width: 12),
-        Icon(icon, color: color.shade600, size: 24),
-        SizedBox(width: 12),
-        Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
-              ),
-              Text(
-                description,
-                style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget buildAnimationConceptsSection() {
-  print('Building animation concepts section');
-  List<String> conceptNames = [
-    'Animation Controller',
-    'Tween Animation',
-    'Curved Animation',
-    'Animation Status',
-  ];
-  List<String> conceptDescriptions = [
-    'Manages the animation lifecycle and timing',
-    'Interpolates between begin and end values',
-    'Applies easing curves to animations',
-    'Tracks forward, reverse, completed states',
-  ];
-  List<IconData> conceptIcons = [
-    Icons.play_circle_filled,
-    Icons.transform,
-    Icons.show_chart,
-    Icons.info,
-  ];
-  List<MaterialColor> conceptColors = [
-    Colors.blue,
-    Colors.green,
-    Colors.orange,
-    Colors.purple,
-  ];
-
-  List<Widget> conceptCards = [];
-  int i = 0;
-  for (i = 0; i < conceptNames.length; i = i + 1) {
-    conceptCards.add(
-      Container(
-        margin: EdgeInsets.symmetric(vertical: 6),
-        padding: EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: conceptColors[i].shade50,
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: conceptColors[i].shade200),
-        ),
-        child: Row(
-          children: [
-            Container(
-              width: 44,
-              height: 44,
-              decoration: BoxDecoration(
-                color: conceptColors[i].shade100,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Icon(
-                conceptIcons[i],
-                color: conceptColors[i].shade700,
-                size: 24,
-              ),
-            ),
-            SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Row(
                 children: [
+                  Icon(Icons.info, color: Colors.cyan.shade700, size: 20),
+                  SizedBox(width: 8),
                   Text(
-                    conceptNames[i],
+                    'Animation Curves',
                     style: TextStyle(
-                      fontWeight: FontWeight.bold,
                       fontSize: 14,
-                      color: conceptColors[i].shade800,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.cyan.shade800,
                     ),
                   ),
-                  SizedBox(height: 2),
-                  Text(
-                    conceptDescriptions[i],
-                    style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
-                  ),
                 ],
               ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  return Container(
-    margin: EdgeInsets.symmetric(vertical: 8),
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: Colors.grey.shade300),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Animation Concepts',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-        ),
-        SizedBox(height: 4),
-        Text(
-          'Core concepts used in page transitions',
-          style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
-        ),
-        SizedBox(height: 12),
-        Column(children: conceptCards),
-      ],
-    ),
-  );
-}
-
-Widget buildFullscreenTransitionsSection() {
-  print('Building fullscreen transitions section');
-  return Container(
-    margin: EdgeInsets.symmetric(vertical: 8),
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: Colors.grey.shade300),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Fullscreen Transitions',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-        ),
-        SizedBox(height: 12),
-        Row(
-          children: [
-            _buildTransitionPhaseCard('Initial', 0.0, Colors.red),
-            SizedBox(width: 8),
-            _buildTransitionPhaseCard('Mid', 0.5, Colors.orange),
-            SizedBox(width: 8),
-            _buildTransitionPhaseCard('Final', 1.0, Colors.green),
-          ],
-        ),
-        SizedBox(height: 16),
-        Text(
-          'Transition Characteristics:',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-        ),
-        SizedBox(height: 8),
-        _buildCharacteristicRow(
-          'Coverage',
-          'Full screen area',
-          Icons.fullscreen,
-        ),
-        _buildCharacteristicRow(
-          'Direction',
-          'Horizontal swipe',
-          Icons.swap_horiz,
-        ),
-        _buildCharacteristicRow(
-          'Animation',
-          'Smooth easing',
-          Icons.trending_up,
-        ),
-        _buildCharacteristicRow('Gesture', 'Edge-triggered', Icons.touch_app),
-        SizedBox(height: 16),
-        Container(
-          width: double.infinity,
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Colors.indigo.shade100, Colors.purple.shade100],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Column(
-            children: [
-              Icon(Icons.swipe, size: 32, color: Colors.indigo.shade700),
               SizedBox(height: 8),
               Text(
-                'Fullscreen Predictive Back',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                  color: Colors.indigo.shade800,
-                ),
-              ),
-              SizedBox(height: 4),
-              Text(
-                'Provides visual feedback during back gesture',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+                'The fullscreen predictive back uses linear interpolation during gesture tracking, '
+                'but switches to easeOut when completing or cancelling the animation.',
+                style: TextStyle(fontSize: 12, color: Colors.cyan.shade700),
               ),
             ],
           ),
@@ -644,952 +1334,357 @@ Widget buildFullscreenTransitionsSection() {
   );
 }
 
-Widget _buildTransitionPhaseCard(
-  String label,
-  double progress,
-  MaterialColor color,
-) {
-  return Expanded(
-    child: Container(
-      padding: EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: color.shade50,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: color.shade200),
-      ),
-      child: Column(
-        children: [
-          Text(
-            label,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 12,
-              color: color.shade800,
-            ),
-          ),
-          SizedBox(height: 4),
-          Container(
-            width: 40,
-            height: 40,
-            decoration: BoxDecoration(
-              color: color.shade100,
-              borderRadius: BorderRadius.circular(6),
-            ),
-            child: Center(
-              child: Text(
-                '${(progress * 100).toInt()}%',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 11,
-                  color: color.shade700,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
-}
-
-Widget _buildCharacteristicRow(String label, String value, IconData icon) {
-  return Padding(
-    padding: EdgeInsets.symmetric(vertical: 4),
-    child: Row(
-      children: [
-        Icon(icon, size: 18, color: Colors.indigo.shade400),
-        SizedBox(width: 8),
-        Text(
-          '$label:',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
-        ),
-        SizedBox(width: 8),
-        Text(
-          value,
-          style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget buildPredictiveBackGestureSection() {
-  print('Building predictive back gesture section');
-  return Container(
-    margin: EdgeInsets.symmetric(vertical: 8),
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: Colors.green.shade200),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Icon(Icons.gesture, color: Colors.green.shade700, size: 24),
-            SizedBox(width: 8),
-            Text(
-              'Predictive Back Gesture',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-        SizedBox(height: 12),
-        Text(
-          'Android 14 introduced predictive back gestures, allowing users to preview the previous screen during a back swipe.',
-          style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
-        ),
-        SizedBox(height: 16),
-        _buildGestureStage(
-          'Start',
-          'User begins edge swipe',
-          Icons.touch_app,
-          1,
-        ),
-        _buildGestureStage(
-          'Preview',
-          'Previous screen becomes visible',
-          Icons.visibility,
-          2,
-        ),
-        _buildGestureStage(
-          'Commit',
-          'User completes the gesture',
-          Icons.check_circle,
-          3,
-        ),
-        _buildGestureStage(
-          'Cancel',
-          'User cancels mid-gesture',
-          Icons.cancel,
-          4,
-        ),
-        SizedBox(height: 16),
-        Container(
-          padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Colors.green.shade50,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'System Requirements:',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
-              ),
-              SizedBox(height: 8),
-              Row(
-                children: [
-                  Icon(Icons.android, color: Colors.green.shade700, size: 18),
-                  SizedBox(width: 8),
-                  Text(
-                    'Android 14+ (API 34)',
-                    style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
-                  ),
-                ],
-              ),
-              SizedBox(height: 4),
-              Row(
-                children: [
-                  Icon(Icons.settings, color: Colors.green.shade700, size: 18),
-                  SizedBox(width: 8),
-                  Text(
-                    'Gesture navigation enabled',
-                    style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
-                  ),
-                ],
-              ),
-              SizedBox(height: 4),
-              Row(
-                children: [
-                  Icon(Icons.code, color: Colors.green.shade700, size: 18),
-                  SizedBox(width: 8),
-                  Text(
-                    'enablePredictiveBack: true in manifest',
-                    style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildGestureStage(
-  String title,
+Widget _buildAnimationPropertyCard(
+  String property,
   String description,
-  IconData icon,
-  int number,
+  String range,
+  MaterialColor color,
 ) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 4),
-    child: Row(
-      children: [
-        Container(
-          width: 24,
-          height: 24,
-          decoration: BoxDecoration(
-            color: Colors.green.shade100,
-            shape: BoxShape.circle,
-          ),
-          child: Center(
-            child: Text(
-              '$number',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 12,
-                color: Colors.green.shade700,
-              ),
-            ),
-          ),
-        ),
-        SizedBox(width: 12),
-        Icon(icon, color: Colors.green.shade500, size: 20),
-        SizedBox(width: 8),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
-              ),
-              Text(
-                description,
-                style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget buildComparisonSection() {
-  print('Building comparison section');
-  List<String> builderNames = [
-    'PredictiveBackFullscreen',
-    'FadeForwards',
-    'Cupertino',
-    'Zoom',
-    'Open Upwards',
-  ];
-  List<String> builderDescriptions = [
-    'Edge swipe with fullscreen preview',
-    'Fade + slide up animation',
-    'iOS-style horizontal slide',
-    'Zoom in/out effect',
-    'Slide up from bottom',
-  ];
-  List<String> builderPlatforms = [
-    'Android 14+',
-    'Android/Linux',
-    'iOS/macOS',
-    'Android 10+',
-    'Android',
-  ];
-  List<MaterialColor> builderColors = [
-    Colors.indigo,
-    Colors.blue,
-    Colors.grey,
-    Colors.orange,
-    Colors.purple,
-  ];
-
-  List<Widget> comparisonCards = [];
-  int i = 0;
-  for (i = 0; i < builderNames.length; i = i + 1) {
-    bool isHighlighted = i == 0;
-    comparisonCards.add(
-      Container(
-        margin: EdgeInsets.symmetric(vertical: 4),
-        padding: EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: isHighlighted ? Colors.indigo.shade50 : Colors.grey.shade50,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-            color: isHighlighted
-                ? Colors.indigo.shade400
-                : Colors.grey.shade300,
-            width: isHighlighted ? 2 : 1,
-          ),
-        ),
-        child: Row(
-          children: [
-            Container(
-              width: 8,
-              height: 40,
-              decoration: BoxDecoration(
-                color: builderColors[i],
-                borderRadius: BorderRadius.circular(4),
-              ),
-            ),
-            SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        builderNames[i],
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 13,
-                          color: builderColors[i].shade800,
-                        ),
-                      ),
-                      if (isHighlighted)
-                        Container(
-                          margin: EdgeInsets.only(left: 8),
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 6,
-                            vertical: 2,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.indigo,
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: Text(
-                            'Current',
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                    ],
-                  ),
-                  SizedBox(height: 2),
-                  Text(
-                    builderDescriptions[i],
-                    style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(
-                color: builderColors[i].shade100,
-                borderRadius: BorderRadius.circular(4),
-              ),
-              child: Text(
-                builderPlatforms[i],
-                style: TextStyle(
-                  fontSize: 10,
-                  color: builderColors[i].shade700,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  return Container(
-    margin: EdgeInsets.symmetric(vertical: 8),
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: Colors.grey.shade300),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Comparison with Other Builders',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-        ),
-        SizedBox(height: 4),
-        Text(
-          'Different page transition styles available in Flutter',
-          style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
-        ),
-        SizedBox(height: 12),
-        Column(children: comparisonCards),
-      ],
-    ),
-  );
-}
-
-Widget buildPlatformConsiderationsSection() {
-  print('Building platform considerations section');
-  return Container(
-    margin: EdgeInsets.symmetric(vertical: 8),
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: Colors.grey.shade300),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Platform Considerations',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-        ),
-        SizedBox(height: 16),
-        _buildPlatformCard('Android 14+', Icons.android, Colors.green, [
-          'Full predictive back support',
-          'Native gesture integration',
-          'Fullscreen preview',
-        ], true),
-        SizedBox(height: 8),
-        _buildPlatformCard('Android < 14', Icons.android, Colors.orange, [
-          'Falls back to standard transition',
-          'No gesture preview',
-          'Uses system back',
-        ], false),
-        SizedBox(height: 8),
-        _buildPlatformCard('iOS / macOS', Icons.apple, Colors.grey, [
-          'Not applicable',
-          'Use CupertinoPageTransitionsBuilder',
-          'Native swipe-back',
-        ], false),
-        SizedBox(height: 8),
-        _buildPlatformCard('Web / Desktop', Icons.computer, Colors.blue, [
-          'Standard transitions apply',
-          'No gesture support',
-          'Button/keyboard navigation',
-        ], false),
-      ],
-    ),
-  );
-}
-
-Widget _buildPlatformCard(
-  String platform,
-  IconData icon,
-  MaterialColor color,
-  List<String> features,
-  bool isRecommended,
-) {
-  List<Widget> featureWidgets = [];
-  int i = 0;
-  for (i = 0; i < features.length; i = i + 1) {
-    featureWidgets.add(
-      Padding(
-        padding: EdgeInsets.symmetric(vertical: 2),
-        child: Row(
-          children: [
-            Icon(
-              isRecommended ? Icons.check : Icons.remove,
-              size: 14,
-              color: isRecommended ? Colors.green : Colors.grey,
-            ),
-            SizedBox(width: 6),
-            Text(
-              features[i],
-              style: TextStyle(fontSize: 11, color: Colors.grey.shade700),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  return Container(
-    padding: EdgeInsets.all(12),
-    decoration: BoxDecoration(
-      color: color.shade50,
-      borderRadius: BorderRadius.circular(8),
-      border: Border.all(
-        color: isRecommended ? color.shade400 : color.shade200,
-        width: isRecommended ? 2 : 1,
-      ),
-    ),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          width: 40,
-          height: 40,
-          decoration: BoxDecoration(
-            color: color.shade100,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Icon(icon, color: color.shade700, size: 24),
-        ),
-        SizedBox(width: 12),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Text(
-                    platform,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13,
-                      color: color.shade800,
-                    ),
-                  ),
-                  if (isRecommended)
-                    Container(
-                      margin: EdgeInsets.only(left: 8),
-                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                      decoration: BoxDecoration(
-                        color: Colors.green,
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: Text(
-                        'Recommended',
-                        style: TextStyle(
-                          fontSize: 9,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                ],
-              ),
-              SizedBox(height: 6),
-              Column(children: featureWidgets),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget buildAnimationCurvesSection() {
-  print('Building animation curves section');
-  List<String> curveNames = [
-    'easeInOut',
-    'easeIn',
-    'easeOut',
-    'linear',
-    'decelerate',
-    'fastOutSlowIn',
-  ];
-  List<String> curveDescriptions = [
-    'Smooth acceleration and deceleration',
-    'Starts slow, accelerates',
-    'Starts fast, decelerates',
-    'Constant speed throughout',
-    'Quick start, gradual stop',
-    'Material Design standard curve',
-  ];
-  List<MaterialColor> curveColors = [
-    Colors.blue,
-    Colors.green,
-    Colors.orange,
-    Colors.grey,
-    Colors.purple,
-    Colors.teal,
-  ];
-
-  List<Widget> curveCards = [];
-  int i = 0;
-  for (i = 0; i < curveNames.length; i = i + 1) {
-    curveCards.add(
-      Container(
-        margin: EdgeInsets.symmetric(vertical: 4),
-        padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: curveColors[i].shade200),
-        ),
-        child: Row(
-          children: [
-            Container(
-              width: 50,
-              height: 30,
-              decoration: BoxDecoration(
-                color: curveColors[i].shade50,
-                borderRadius: BorderRadius.circular(4),
-              ),
-              child: CustomPaint(painter: _CurvePainter(curveColors[i])),
-            ),
-            SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    curveNames[i],
-                    style: TextStyle(
-                      fontFamily: 'monospace',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                      color: curveColors[i].shade800,
-                    ),
-                  ),
-                  Text(
-                    curveDescriptions[i],
-                    style: TextStyle(fontSize: 10, color: Colors.grey.shade600),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  return Container(
-    margin: EdgeInsets.symmetric(vertical: 8),
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.grey.shade50,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: Colors.grey.shade300),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Animation Curves',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-        ),
-        SizedBox(height: 4),
-        Text(
-          'Common curves used in page transitions',
-          style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
-        ),
-        SizedBox(height: 12),
-        Column(children: curveCards),
-        SizedBox(height: 12),
-        Container(
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Colors.blue.shade50,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Row(
-            children: [
-              Icon(Icons.lightbulb, color: Colors.blue.shade700, size: 18),
-              SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  'Predictive back uses easeOut for natural feel during swipe',
-                  style: TextStyle(fontSize: 11, color: Colors.blue.shade800),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-class _CurvePainter extends CustomPainter {
-  _CurvePainter(this.color);
-  MaterialColor color;
-
-  void paint(Canvas canvas, Size size) {
-    Paint paint = Paint()
-      ..color = color.shade400
-      ..strokeWidth = 2
-      ..style = PaintingStyle.stroke;
-
-    Path path = Path();
-    path.moveTo(0, size.height);
-    path.quadraticBezierTo(size.width * 0.3, size.height * 0.1, size.width, 0);
-    canvas.drawPath(path, paint);
-  }
-
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
-  }
-}
-
-Widget buildInteractiveShowcaseSection() {
-  print('Building interactive showcase section');
-  return Container(
-    margin: EdgeInsets.symmetric(vertical: 8),
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: Colors.grey.shade300),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Interactive Transition Showcase',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-        ),
-        SizedBox(height: 16),
-        _buildTransitionDemo(
-          'Forward Navigation',
-          'Page A',
-          'Page B',
-          Icons.arrow_forward,
-          Colors.blue,
-        ),
-        SizedBox(height: 16),
-        _buildTransitionDemo(
-          'Predictive Back',
-          'Page B',
-          'Page A',
-          Icons.swipe_left,
-          Colors.green,
-        ),
-        SizedBox(height: 16),
-        _buildGestureVisualization(),
-        SizedBox(height: 16),
-        _buildTransitionTimeline(),
-      ],
-    ),
-  );
-}
-
-Widget _buildTransitionDemo(
-  String title,
-  String fromPage,
-  String toPage,
-  IconData icon,
-  MaterialColor color,
-) {
-  return Container(
     padding: EdgeInsets.all(12),
     decoration: BoxDecoration(
       color: color.shade50,
       borderRadius: BorderRadius.circular(8),
       border: Border.all(color: color.shade200),
     ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    child: Row(
       children: [
-        Row(
+        Container(
+          width: 80,
+          padding: EdgeInsets.symmetric(vertical: 6),
+          decoration: BoxDecoration(
+            color: color.shade100,
+            borderRadius: BorderRadius.circular(6),
+          ),
+          child: Text(
+            property,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+              color: color.shade800,
+            ),
+          ),
+        ),
+        SizedBox(width: 12),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                description,
+                style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+              ),
+              SizedBox(height: 4),
+              Text(
+                'Range: $range',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontFamily: 'monospace',
+                  color: color.shade600,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildTimelineStep(int number, String title, String description) {
+  return Row(
+    children: [
+      Container(
+        width: 28,
+        height: 28,
+        decoration: BoxDecoration(
+          color: Colors.teal.shade600,
+          shape: BoxShape.circle,
+        ),
+        child: Center(
+          child: Text(
+            '$number',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
+            ),
+          ),
+        ),
+      ),
+      SizedBox(width: 12),
+      Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(icon, color: color.shade700, size: 20),
-            SizedBox(width: 8),
             Text(
               title,
               style: TextStyle(
-                fontWeight: FontWeight.bold,
                 fontSize: 13,
-                color: color.shade800,
+                fontWeight: FontWeight.bold,
+                color: Colors.teal.shade800,
               ),
+            ),
+            Text(
+              description,
+              style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
             ),
           ],
         ),
-        SizedBox(height: 12),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 70,
-              height: 90,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: color.shade300),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 4,
-                    offset: Offset(2, 2),
-                  ),
-                ],
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.article, color: color.shade400, size: 24),
-                  SizedBox(height: 4),
-                  Text(
-                    fromPage,
-                    style: TextStyle(fontSize: 10, color: color.shade600),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                children: [
-                  Icon(Icons.arrow_forward, color: color.shade400),
-                  Container(
-                    margin: EdgeInsets.only(top: 4),
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: color.shade100,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: Text(
-                      'Transition',
-                      style: TextStyle(
-                        fontSize: 9,
-                        fontWeight: FontWeight.bold,
-                        color: color.shade700,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              width: 70,
-              height: 90,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: color.shade500, width: 2),
-                boxShadow: [
-                  BoxShadow(
-                    color: color.shade200,
-                    blurRadius: 8,
-                    offset: Offset(0, 4),
-                  ),
-                ],
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.article, color: color.shade700, size: 24),
-                  SizedBox(height: 4),
-                  Text(
-                    toPage,
-                    style: TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold,
-                      color: color.shade800,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ],
-    ),
+      ),
+    ],
   );
 }
 
-Widget _buildGestureVisualization() {
+Widget _buildTimelineConnector() {
   return Container(
+    margin: EdgeInsets.only(left: 13),
+    height: 20,
+    width: 2,
+    color: Colors.teal.shade300,
+  );
+}
+
+Widget buildBackCompatibilitySection() {
+  print('Building backward compatibility section');
+  return Container(
+    margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
     decoration: BoxDecoration(
-      color: Colors.purple.shade50,
-      borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: Colors.purple.shade200),
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(12),
+      border: Border.all(color: Colors.grey.shade300),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Row(
+          children: [
+            Icon(Icons.history, color: Colors.amber.shade700, size: 28),
+            SizedBox(width: 12),
+            Text(
+              'Backward Compatibility',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.amber.shade800,
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 16),
         Text(
-          'Gesture Progress',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 13,
-            color: Colors.purple.shade800,
+          'PredictiveBackFullscreenPageTransitionsBuilder gracefully handles devices that do not '
+          'support predictive back gestures.',
+          style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
+        ),
+        SizedBox(height: 20),
+        buildSubsectionTitle('Fallback Behavior', Icons.alt_route, Colors.amber.shade700),
+        Container(
+          padding: EdgeInsets.all(14),
+          decoration: BoxDecoration(
+            color: Colors.amber.shade50,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Column(
+            children: [
+              _buildFallbackRow(
+                'Android 14+ with Gesture Nav',
+                'Full predictive back experience',
+                Colors.green,
+              ),
+              Divider(color: Colors.amber.shade200),
+              _buildFallbackRow(
+                'Android 14+ with Button Nav',
+                'Standard ZoomPageTransitionsBuilder',
+                Colors.blue,
+              ),
+              Divider(color: Colors.amber.shade200),
+              _buildFallbackRow(
+                'Android < 14',
+                'Standard ZoomPageTransitionsBuilder',
+                Colors.orange,
+              ),
+              Divider(color: Colors.amber.shade200),
+              _buildFallbackRow(
+                'Other Platforms',
+                'Platform-specific default transition',
+                Colors.purple,
+              ),
+            ],
           ),
         ),
-        SizedBox(height: 12),
-        Row(
-          children: [
-            Icon(Icons.touch_app, color: Colors.purple.shade400, size: 20),
-            SizedBox(width: 8),
-            Expanded(
-              child: Container(
-                height: 8,
-                decoration: BoxDecoration(
-                  color: Colors.purple.shade100,
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: FractionallySizedBox(
-                  alignment: Alignment.centerLeft,
-                  widthFactor: 0.65,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.purple.shade400,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                  ),
+        SizedBox(height: 20),
+        Container(
+          padding: EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.green.shade50,
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: Colors.green.shade200),
+          ),
+          child: Row(
+            children: [
+              Icon(Icons.check_circle, color: Colors.green.shade700, size: 22),
+              SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  'No code changes required - the builder automatically detects platform capabilities '
+                  'and selects the appropriate transition.',
+                  style: TextStyle(fontSize: 12, color: Colors.green.shade800),
                 ),
               ),
-            ),
-            SizedBox(width: 8),
-            Text(
-              '65%',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 12,
-                color: Colors.purple.shade700,
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 12),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            _buildGestureLabel('Start', Icons.arrow_back, Colors.purple),
-            _buildGestureLabel('Threshold', Icons.commit, Colors.orange),
-            _buildGestureLabel('Complete', Icons.check, Colors.green),
-          ],
+            ],
+          ),
         ),
       ],
     ),
   );
 }
 
-Widget _buildGestureLabel(String label, IconData icon, MaterialColor color) {
-  return Column(
-    children: [
-      Icon(icon, color: color.shade500, size: 18),
-      SizedBox(height: 4),
-      Text(label, style: TextStyle(fontSize: 10, color: color.shade700)),
-    ],
+Widget _buildFallbackRow(String platform, String behavior, MaterialColor color) {
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: 8),
+    child: Row(
+      children: [
+        Expanded(
+          flex: 2,
+          child: Text(
+            platform,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+              color: Colors.grey.shade800,
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 3,
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            decoration: BoxDecoration(
+              color: color.shade100,
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Text(
+              behavior,
+              style: TextStyle(fontSize: 11, color: color.shade800),
+            ),
+          ),
+        ),
+      ],
+    ),
   );
 }
 
-Widget _buildTransitionTimeline() {
+Widget buildBestPracticesSection() {
+  print('Building best practices section');
   return Container(
+    margin: EdgeInsets.symmetric(vertical: 8),
+    padding: EdgeInsets.all(16),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(12),
+      border: Border.all(color: Colors.green.shade300, width: 2),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Icon(Icons.star, color: Colors.green.shade700, size: 28),
+            SizedBox(width: 12),
+            Text(
+              'Best Practices',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.green.shade800,
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 16),
+        _buildPracticeCard(
+          'Enable in AndroidManifest',
+          'Set enableOnBackInvokedCallback to true in your AndroidManifest.xml '
+          'to enable predictive back support.',
+          Icons.android,
+          Colors.green,
+        ),
+        _buildPracticeCard(
+          'Use MaterialPageRoute',
+          'Stick to MaterialPageRoute for consistent transitions. Custom routes '
+          'may not integrate with predictive back.',
+          Icons.route,
+          Colors.blue,
+        ),
+        _buildPracticeCard(
+          'Handle Back Callbacks',
+          'Use PopScope widget to intercept back navigation when needed, ensuring '
+          'compatibility with predictive back.',
+          Icons.warning_amber,
+          Colors.orange,
+        ),
+        _buildPracticeCard(
+          'Test on Real Devices',
+          'Emulators may not fully support predictive back. Test on Android 14+ '
+          'devices with gesture navigation.',
+          Icons.phone_android,
+          Colors.purple,
+        ),
+        _buildPracticeCard(
+          'Avoid Navigation Conflicts',
+          'Ensure only one NavigatorState handles back gestures. Nested navigators '
+          'can cause unexpected behavior.',
+          Icons.layers,
+          Colors.red,
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildPracticeCard(String title, String description, IconData icon, MaterialColor color) {
+  return Container(
+    margin: EdgeInsets.symmetric(vertical: 6),
     padding: EdgeInsets.all(12),
     decoration: BoxDecoration(
-      color: Colors.teal.shade50,
-      borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: Colors.teal.shade200),
+      color: color.shade50,
+      borderRadius: BorderRadius.circular(10),
+      border: Border.all(color: color.shade200),
     ),
-    child: Column(
+    child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Transition Timeline',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 13,
-            color: Colors.teal.shade800,
+        Container(
+          padding: EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: color.shade100,
+            borderRadius: BorderRadius.circular(8),
           ),
+          child: Icon(icon, color: color.shade700, size: 22),
         ),
-        SizedBox(height: 12),
-        Row(
-          children: [
-            _buildTimelinePoint('0ms', 'Start', true),
-            Expanded(child: Container(height: 2, color: Colors.teal.shade300)),
-            _buildTimelinePoint('150ms', 'Mid', true),
-            Expanded(child: Container(height: 2, color: Colors.teal.shade300)),
-            _buildTimelinePoint('300ms', 'End', true),
-          ],
-        ),
-        SizedBox(height: 8),
-        Center(
-          child: Text(
-            'Default transition duration: 300ms',
-            style: TextStyle(fontSize: 11, color: Colors.teal.shade600),
+        SizedBox(width: 14),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: color.shade800,
+                ),
+              ),
+              SizedBox(height: 4),
+              Text(
+                description,
+                style: TextStyle(fontSize: 12, color: Colors.grey.shade700, height: 1.4),
+              ),
+            ],
           ),
         ),
       ],
@@ -1597,94 +1692,113 @@ Widget _buildTransitionTimeline() {
   );
 }
 
-Widget _buildTimelinePoint(String time, String label, bool active) {
-  return Column(
-    children: [
-      Container(
-        width: 12,
-        height: 12,
-        decoration: BoxDecoration(
-          color: active ? Colors.teal.shade500 : Colors.grey.shade300,
-          shape: BoxShape.circle,
-        ),
-      ),
-      SizedBox(height: 4),
-      Text(
-        time,
-        style: TextStyle(
-          fontSize: 9,
-          fontWeight: FontWeight.bold,
-          color: Colors.teal.shade700,
-        ),
-      ),
-      Text(label, style: TextStyle(fontSize: 8, color: Colors.teal.shade500)),
-    ],
-  );
-}
-
-dynamic build(BuildContext context) {
-  print(
-    'PredictiveBackFullscreenPageTransitionsBuilder deep demo test executing',
-  );
-
+Widget buildMainContent() {
+  print('Building main content for PredictiveBackFullscreenPageTransitionsBuilder demo');
+  
   return SingleChildScrollView(
     padding: EdgeInsets.all(16),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        buildSectionHeader('1. Overview'),
-        buildOverviewSection(),
-        buildSectionHeader('2. BuildTransitions Method'),
-        buildBuildTransitionsSection(),
-        buildSectionHeader('3. Page Route Integration'),
-        buildPageRouteIntegrationSection(),
-        buildSectionHeader('4. Animation Concepts'),
-        buildAnimationConceptsSection(),
-        buildSectionHeader('5. Fullscreen Transitions'),
-        buildFullscreenTransitionsSection(),
-        buildSectionHeader('6. Predictive Back Gesture'),
-        buildPredictiveBackGestureSection(),
-        buildSectionHeader('7. Comparison with Other Builders'),
-        buildComparisonSection(),
-        buildSectionHeader('8. Platform Considerations'),
-        buildPlatformConsiderationsSection(),
-        buildSectionHeader('9. Animation Curves'),
-        buildAnimationCurvesSection(),
-        buildSectionHeader('10. Interactive Showcase'),
-        buildInteractiveShowcaseSection(),
-        SizedBox(height: 32),
-        Center(
-          child: Container(
-            padding: EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Colors.indigo.shade50,
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Colors.indigo.shade200),
+        buildSectionHeader('Predictive Back Concept Overview'),
+        buildPredictiveBackOverviewSection(),
+        
+        buildSectionHeader('PageTransitionsTheme Configuration'),
+        buildPageTransitionsThemeSection(),
+        
+        buildSectionHeader('Transition Builders Comparison'),
+        buildTransitionBuildersComparisonSection(),
+        
+        buildSectionHeader('Navigator.push Demonstrations'),
+        buildNavigatorPushDemonstrationSection(),
+        
+        buildSectionHeader('MaterialPageRoute Customization'),
+        buildMaterialPageRouteCustomizationSection(),
+        
+        buildSectionHeader('Animation Details'),
+        buildPredictiveBackAnimationSection(),
+        
+        buildSectionHeader('Backward Compatibility'),
+        buildBackCompatibilitySection(),
+        
+        buildSectionHeader('Best Practices'),
+        buildBestPracticesSection(),
+        
+        SizedBox(height: 24),
+        Container(
+          padding: EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.deepPurple.shade100, Colors.indigo.shade100],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
             ),
-            child: Column(
-              children: [
-                Icon(Icons.swipe_left, color: Colors.indigo.shade700, size: 32),
-                SizedBox(height: 8),
-                Text(
-                  'PredictiveBackFullscreenPageTransitionsBuilder',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                    color: Colors.indigo.shade800,
-                  ),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Column(
+            children: [
+              Icon(
+                Icons.swipe_left_alt,
+                color: Colors.deepPurple.shade700,
+                size: 48,
+              ),
+              SizedBox(height: 12),
+              Text(
+                'PredictiveBackFullscreenPageTransitionsBuilder',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.deepPurple.shade800,
                 ),
-                SizedBox(height: 4),
-                Text(
-                  'Deep Demo Test Complete',
-                  style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+              ),
+              SizedBox(height: 8),
+              Text(
+                'Bringing modern Android 14+ predictive back gestures to Flutter applications '
+                'with fullscreen transition previews.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 13,
+                  color: Colors.grey.shade700,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
-        SizedBox(height: 16),
+        SizedBox(height: 20),
       ],
+    ),
+  );
+}
+
+void main() {
+  print('=== PredictiveBackFullscreenPageTransitionsBuilder Deep Demo ===');
+  print('Testing page transition builder for Android predictive back gesture');
+  
+  runApp(
+    MaterialApp(
+      title: 'PredictiveBackFullscreenPageTransitionsBuilder Demo',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.deepPurple,
+        scaffoldBackgroundColor: Colors.grey.shade200,
+        pageTransitionsTheme: PageTransitionsTheme(
+          builders: {
+            TargetPlatform.android: PredictiveBackFullscreenPageTransitionsBuilder(),
+            TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+            TargetPlatform.linux: FadeUpwardsPageTransitionsBuilder(),
+            TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
+            TargetPlatform.windows: ZoomPageTransitionsBuilder(),
+          },
+        ),
+      ),
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Predictive Back Demo'),
+          backgroundColor: Colors.deepPurple.shade700,
+        ),
+        body: buildMainContent(),
+      ),
     ),
   );
 }

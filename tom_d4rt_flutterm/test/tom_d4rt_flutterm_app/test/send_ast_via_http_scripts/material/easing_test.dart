@@ -13,7 +13,11 @@ Widget _buildSectionHeader(String title) {
     ),
     child: Text(
       title,
-      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+      style: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+      ),
     ),
   );
 }
@@ -29,17 +33,28 @@ Widget _buildInfoCard(String label, String value) {
     ),
     child: Row(
       children: [
-        Text(label, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+        Text(
+          label,
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+        ),
         SizedBox(width: 8),
         Expanded(
-          child: Text(value, style: TextStyle(fontSize: 14, color: Colors.grey.shade700)),
+          child: Text(
+            value,
+            style: TextStyle(fontSize: 14, color: Colors.grey.shade700),
+          ),
         ),
       ],
     ),
   );
 }
 
-Widget _buildCurveVisualization(String name, Curve curve, Color color, String description) {
+Widget _buildCurveVisualization(
+  String name,
+  Curve curve,
+  Color color,
+  String description,
+) {
   debugPrint('Building curve visualization: $name');
 
   List<Widget> dots = [];
@@ -55,10 +70,7 @@ Widget _buildCurveVisualization(String name, Curve curve, Color color, String de
         child: Container(
           width: 8,
           height: 8,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
       ),
     );
@@ -100,9 +112,11 @@ Widget _buildCurveVisualization(String name, Curve curve, Color color, String de
   // Background grid
   stackChildren.add(
     Positioned(
-      left: 20, top: 10,
+      left: 20,
+      top: 10,
       child: Container(
-        width: 244, height: 84,
+        width: 244,
+        height: 84,
         decoration: BoxDecoration(
           border: Border.all(color: Colors.grey.shade300),
           color: Colors.grey.shade50,
@@ -113,14 +127,16 @@ Widget _buildCurveVisualization(String name, Curve curve, Color color, String de
   // Horizontal midline
   stackChildren.add(
     Positioned(
-      left: 20, top: 50,
+      left: 20,
+      top: 50,
       child: Container(width: 244, height: 1, color: Colors.grey.shade200),
     ),
   );
   // Vertical midline
   stackChildren.add(
     Positioned(
-      left: 142, top: 10,
+      left: 142,
+      top: 10,
       child: Container(width: 1, height: 84, color: Colors.grey.shade200),
     ),
   );
@@ -145,15 +161,26 @@ Widget _buildCurveVisualization(String name, Curve curve, Color color, String de
         Row(
           children: [
             Container(
-              width: 12, height: 12,
+              width: 12,
+              height: 12,
               decoration: BoxDecoration(color: color, shape: BoxShape.circle),
             ),
             SizedBox(width: 8),
-            Text(name, style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: color)),
+            Text(
+              name,
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                color: color,
+              ),
+            ),
           ],
         ),
         SizedBox(height: 4),
-        Text(description, style: TextStyle(fontSize: 11, color: Colors.grey.shade600)),
+        Text(
+          description,
+          style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+        ),
         SizedBox(height: 8),
         SizedBox(
           width: 280,
@@ -163,11 +190,24 @@ Widget _buildCurveVisualization(String name, Curve curve, Color color, String de
         SizedBox(height: 4),
         Row(
           children: [
-            Text('0.0', style: TextStyle(fontSize: 9, color: Colors.grey.shade500)),
+            Text(
+              '0.0',
+              style: TextStyle(fontSize: 9, color: Colors.grey.shade500),
+            ),
             SizedBox(width: 100),
-            Text('t', style: TextStyle(fontSize: 9, color: Colors.grey.shade500, fontStyle: FontStyle.italic)),
+            Text(
+              't',
+              style: TextStyle(
+                fontSize: 9,
+                color: Colors.grey.shade500,
+                fontStyle: FontStyle.italic,
+              ),
+            ),
             SizedBox(width: 100),
-            Text('1.0', style: TextStyle(fontSize: 9, color: Colors.grey.shade500)),
+            Text(
+              '1.0',
+              style: TextStyle(fontSize: 9, color: Colors.grey.shade500),
+            ),
           ],
         ),
       ],
@@ -268,26 +308,62 @@ Widget _buildLinearEasing() {
 
 Widget _buildSampleValuesTable(String name, Curve curve, Color headerColor) {
   debugPrint('Building sample values for: $name');
-  List<double> timePoints = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0];
+  List<double> timePoints = [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4,
+    0.5,
+    0.6,
+    0.7,
+    0.8,
+    0.9,
+    1.0,
+  ];
 
   List<Widget> headerRow = [
     Container(
-      width: 60, height: 30,
+      width: 60,
+      height: 30,
       alignment: Alignment.center,
       color: headerColor,
-      child: Text('t', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Colors.white)),
+      child: Text(
+        't',
+        style: TextStyle(
+          fontSize: 11,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+      ),
     ),
     Container(
-      width: 80, height: 30,
+      width: 80,
+      height: 30,
       alignment: Alignment.center,
       color: headerColor,
-      child: Text('value', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Colors.white)),
+      child: Text(
+        'value',
+        style: TextStyle(
+          fontSize: 11,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+      ),
     ),
     Container(
-      width: 80, height: 30,
+      width: 80,
+      height: 30,
       alignment: Alignment.center,
       color: headerColor,
-      child: Text('% done', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Colors.white)),
+      child: Text(
+        '% done',
+        style: TextStyle(
+          fontSize: 11,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+      ),
     ),
   ];
 
@@ -303,19 +379,22 @@ Widget _buildSampleValuesTable(String name, Curve curve, Color headerColor) {
       Row(
         children: [
           Container(
-            width: 60, height: 26,
+            width: 60,
+            height: 26,
             alignment: Alignment.center,
             color: rowBg,
             child: Text('$t', style: TextStyle(fontSize: 10)),
           ),
           Container(
-            width: 80, height: 26,
+            width: 80,
+            height: 26,
             alignment: Alignment.center,
             color: rowBg,
             child: Text(val.toStringAsFixed(3), style: TextStyle(fontSize: 10)),
           ),
           Container(
-            width: 80, height: 26,
+            width: 80,
+            height: 26,
             alignment: Alignment.center,
             color: rowBg,
             child: Text('$pctDone%', style: TextStyle(fontSize: 10)),
@@ -336,7 +415,14 @@ Widget _buildSampleValuesTable(String name, Curve curve, Color headerColor) {
       children: [
         Container(
           padding: EdgeInsets.all(8),
-          child: Text(name, style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: headerColor)),
+          child: Text(
+            name,
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.bold,
+              color: headerColor,
+            ),
+          ),
         ),
         Column(children: rows),
       ],
@@ -347,24 +433,52 @@ Widget _buildSampleValuesTable(String name, Curve curve, Color headerColor) {
 Widget _buildComparisonGrid() {
   debugPrint('Building comparison grid');
   List<String> names = [
-    'standard', 'standardAccelerate', 'standardDecelerate',
-    'easeInOutCubicEmphasized', 'easeInCubic', 'easeOutCubic',
-    'linear', 'legacy', 'legacyAccelerate', 'legacyDecelerate',
+    'standard',
+    'standardAccelerate',
+    'standardDecelerate',
+    'easeInOutCubicEmphasized',
+    'easeInCubic',
+    'easeOutCubic',
+    'linear',
+    'legacy',
+    'legacyAccelerate',
+    'legacyDecelerate',
   ];
   List<Curve> curves = [
-    Easing.standard, Easing.standardAccelerate, Easing.standardDecelerate,
-    Curves.easeInOutCubicEmphasized, Curves.easeInCubic, Curves.easeOutCubic,
-    Easing.linear, Easing.legacy, Easing.legacyAccelerate, Easing.legacyDecelerate,
+    Easing.standard,
+    Easing.standardAccelerate,
+    Easing.standardDecelerate,
+    Curves.easeInOutCubicEmphasized,
+    Curves.easeInCubic,
+    Curves.easeOutCubic,
+    Easing.linear,
+    Easing.legacy,
+    Easing.legacyAccelerate,
+    Easing.legacyDecelerate,
   ];
   List<Color> colors = [
-    Colors.blue.shade600, Colors.blue.shade400, Colors.blue.shade800,
-    Colors.purple.shade600, Colors.purple.shade400, Colors.purple.shade800,
-    Colors.grey.shade600, Colors.orange.shade600, Colors.orange.shade400, Colors.orange.shade800,
+    Colors.blue.shade600,
+    Colors.blue.shade400,
+    Colors.blue.shade800,
+    Colors.purple.shade600,
+    Colors.purple.shade400,
+    Colors.purple.shade800,
+    Colors.grey.shade600,
+    Colors.orange.shade600,
+    Colors.orange.shade400,
+    Colors.orange.shade800,
   ];
   List<String> families = [
-    'Standard', 'Standard', 'Standard',
-    'Emphasized', 'Emphasized', 'Emphasized',
-    'Linear', 'Legacy', 'Legacy', 'Legacy',
+    'Standard',
+    'Standard',
+    'Standard',
+    'Emphasized',
+    'Emphasized',
+    'Emphasized',
+    'Linear',
+    'Legacy',
+    'Legacy',
+    'Legacy',
   ];
 
   List<Widget> items = [];
@@ -382,22 +496,34 @@ Widget _buildComparisonGrid() {
         child: Row(
           children: [
             Container(
-              width: 8, height: 8,
-              decoration: BoxDecoration(color: colors[i], shape: BoxShape.circle),
+              width: 8,
+              height: 8,
+              decoration: BoxDecoration(
+                color: colors[i],
+                shape: BoxShape.circle,
+              ),
             ),
             SizedBox(width: 8),
             SizedBox(
               width: 140,
-              child: Text(names[i], style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+              child: Text(
+                names[i],
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+              ),
             ),
             SizedBox(width: 8),
             SizedBox(
               width: 55,
-              child: Text(families[i], style: TextStyle(fontSize: 10, color: Colors.grey.shade500)),
+              child: Text(
+                families[i],
+                style: TextStyle(fontSize: 10, color: Colors.grey.shade500),
+              ),
             ),
             SizedBox(width: 8),
-            Text('mid: ${midVal.toStringAsFixed(2)}',
-              style: TextStyle(fontSize: 10, color: colors[i])),
+            Text(
+              'mid: ${midVal.toStringAsFixed(2)}',
+              style: TextStyle(fontSize: 10, color: colors[i]),
+            ),
           ],
         ),
       ),
@@ -414,11 +540,19 @@ Widget _buildComparisonGrid() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('All Easing Curves Overview',
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.grey.shade800)),
+        Text(
+          'All Easing Curves Overview',
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+            color: Colors.grey.shade800,
+          ),
+        ),
         SizedBox(height: 4),
-        Text('Mid-point value shows how much progress at t=0.5',
-          style: TextStyle(fontSize: 11, color: Colors.grey.shade600)),
+        Text(
+          'Mid-point value shows how much progress at t=0.5',
+          style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+        ),
         SizedBox(height: 8),
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: items),
       ],
@@ -428,9 +562,24 @@ Widget _buildComparisonGrid() {
 
 Widget _buildMotionBars() {
   debugPrint('Building motion bars');
-  List<String> names = ['standard', 'easeInOutCubicEmphasized', 'linear', 'legacy'];
-  List<Curve> curves = [Easing.standard, Curves.easeInOutCubicEmphasized, Easing.linear, Easing.legacy];
-  List<Color> colors = [Colors.blue.shade600, Colors.purple.shade600, Colors.grey.shade600, Colors.orange.shade600];
+  List<String> names = [
+    'standard',
+    'easeInOutCubicEmphasized',
+    'linear',
+    'legacy',
+  ];
+  List<Curve> curves = [
+    Easing.standard,
+    Curves.easeInOutCubicEmphasized,
+    Easing.linear,
+    Easing.legacy,
+  ];
+  List<Color> colors = [
+    Colors.blue.shade600,
+    Colors.purple.shade600,
+    Colors.grey.shade600,
+    Colors.orange.shade600,
+  ];
 
   List<Widget> bars = [];
   for (int ci = 0; ci < names.length; ci = ci + 1) {
@@ -463,15 +612,28 @@ Widget _buildMotionBars() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(names[ci], style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: colors[ci])),
+            Text(
+              names[ci],
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+                color: colors[ci],
+              ),
+            ),
             SizedBox(height: 2),
             Row(children: segments),
             SizedBox(height: 2),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('slow', style: TextStyle(fontSize: 8, color: Colors.grey.shade500)),
-                Text('fast', style: TextStyle(fontSize: 8, color: Colors.grey.shade500)),
+                Text(
+                  'slow',
+                  style: TextStyle(fontSize: 8, color: Colors.grey.shade500),
+                ),
+                Text(
+                  'fast',
+                  style: TextStyle(fontSize: 8, color: Colors.grey.shade500),
+                ),
               ],
             ),
           ],
@@ -490,11 +652,19 @@ Widget _buildMotionBars() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Motion Speed Visualization',
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.indigo.shade800)),
+        Text(
+          'Motion Speed Visualization',
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+            color: Colors.indigo.shade800,
+          ),
+        ),
         SizedBox(height: 4),
-        Text('Brighter segments = faster motion at that time point',
-          style: TextStyle(fontSize: 11, color: Colors.grey.shade600)),
+        Text(
+          'Brighter segments = faster motion at that time point',
+          style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+        ),
         SizedBox(height: 12),
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: bars),
       ],
@@ -536,18 +706,40 @@ dynamic build(BuildContext context) {
             _buildComparisonGrid(),
             SizedBox(height: 16),
             _buildSectionHeader('7. Sample Values: Standard'),
-            _buildSampleValuesTable('Easing.standard', Easing.standard, Colors.blue.shade600),
+            _buildSampleValuesTable(
+              'Easing.standard',
+              Easing.standard,
+              Colors.blue.shade600,
+            ),
             SizedBox(height: 8),
-            _buildSampleValuesTable('Curves.easeInOutCubicEmphasized', Curves.easeInOutCubicEmphasized, Colors.purple.shade600),
+            _buildSampleValuesTable(
+              'Curves.easeInOutCubicEmphasized',
+              Curves.easeInOutCubicEmphasized,
+              Colors.purple.shade600,
+            ),
             SizedBox(height: 8),
-            _buildSampleValuesTable('Easing.linear', Easing.linear, Colors.grey.shade600),
+            _buildSampleValuesTable(
+              'Easing.linear',
+              Easing.linear,
+              Colors.grey.shade600,
+            ),
             SizedBox(height: 8),
-            _buildSampleValuesTable('Easing.legacy', Easing.legacy, Colors.orange.shade600),
+            _buildSampleValuesTable(
+              'Easing.legacy',
+              Easing.legacy,
+              Colors.orange.shade600,
+            ),
             SizedBox(height: 32),
             _buildInfoCard('Class', 'Easing'),
             _buildInfoCard('Package', 'package:flutter/material.dart'),
-            _buildInfoCard('Purpose', 'Material Design 3 easing curve constants'),
-            _buildInfoCard('Families', 'Standard (3), Emphasized (3), Linear (1), Legacy (3)'),
+            _buildInfoCard(
+              'Purpose',
+              'Material Design 3 easing curve constants',
+            ),
+            _buildInfoCard(
+              'Families',
+              'Standard (3), Emphasized (3), Linear (1), Legacy (3)',
+            ),
             _buildInfoCard('Total Constants', '10 easing curves'),
             SizedBox(height: 32),
           ],
