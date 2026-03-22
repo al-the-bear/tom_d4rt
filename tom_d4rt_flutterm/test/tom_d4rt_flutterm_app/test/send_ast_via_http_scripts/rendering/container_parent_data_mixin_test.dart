@@ -1,100 +1,199 @@
-// D4rt test script: Comprehensive demo for ContainerParentDataMixin from rendering
-//
-// ContainerParentDataMixin adds sibling navigation to ParentData:
-//   - previousSibling: Link to previous child
-//   - nextSibling: Link to next child
-//   - Forms a doubly-linked list of children
-//
-// This demo shows:
-//   1. What ContainerParentDataMixin provides
-//   2. How mixins work in Dart
-//   3. Doubly-linked list navigation pattern
-//   4. Integration with RenderObject containers
-//
-// ═══════════════════════════════════════════════════════════════════════════
+// D4rt test script: Tests ContainerParentDataMixin from rendering
+// ContainerParentDataMixin adds sibling navigation to ParentData for containers
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-// ═══════════════════════════════════════════════════════════════════════════
-// CONSTANTS
-// ═══════════════════════════════════════════════════════════════════════════
+dynamic build(BuildContext context) {
+  print('ContainerParentDataMixin deep demo executing');
+  print('This mixin provides previousSibling/nextSibling for linked list traversal');
+  print('Used by ContainerRenderObjectMixin to manage child render objects');
 
-const _kPurple50 = Color(0xFFF3E5F5);
-const _kPurple100 = Color(0xFFE1BEE7);
-const _kPurple200 = Color(0xFFCE93D8);
-const _kPurple300 = Color(0xFFBA68C8);
-const _kPurple400 = Color(0xFFAB47BC);
-const _kPurple500 = Color(0xFF9C27B0);
-const _kPurple600 = Color(0xFF8E24AA);
-const _kPurple700 = Color(0xFF7B1FA2);
-const _kPurple800 = Color(0xFF6A1B9A);
-const _kPurple900 = Color(0xFF4A148C);
+  return MaterialApp(
+    debugShowCheckedModeBanner: false,
+    theme: ThemeData(
+      useMaterial3: true,
+      colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
+    ),
+    home: Scaffold(
+      appBar: AppBar(
+        title: Text('ContainerParentDataMixin Deep Demo'),
+        backgroundColor: Colors.indigo.shade100,
+        elevation: 2,
+      ),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildSectionHeader('1. ContainerParentDataMixin Concept'),
+            _buildInfoCard(
+              'ContainerParentDataMixin is a mixin on ParentData that adds sibling '
+              'pointers to enable doubly-linked list traversal of render object children. '
+              'This is essential for efficiently iterating children in both directions.',
+              Colors.indigo.shade50,
+            ),
+            _buildMixinConceptSection(),
+            SizedBox(height: 24),
 
-// ═══════════════════════════════════════════════════════════════════════════
-// HELPER WIDGETS
-// ═══════════════════════════════════════════════════════════════════════════
+            _buildSectionHeader('2. The Mixin Definition'),
+            _buildInfoCard(
+              'The mixin adds two key properties: previousSibling and nextSibling. '
+              'These nullable references point to adjacent ParentData objects in the list. '
+              'Both are managed automatically by ContainerRenderObjectMixin.',
+              Colors.blue.shade50,
+            ),
+            _buildMixinDefinitionSection(),
+            SizedBox(height: 24),
 
-/// Builds a styled section title
-Widget _buildSectionTitle(String title, IconData icon) {
-  return Padding(
-    padding: const EdgeInsets.only(bottom: 12),
-    child: Row(
-      children: [
-        Icon(icon, color: _kPurple800, size: 24),
-        const SizedBox(width: 8),
-        Text(
-          title,
-          style: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: _kPurple900,
-          ),
+            _buildSectionHeader('3. previousSibling Property'),
+            _buildInfoCard(
+              'previousSibling is a nullable reference to the ParentData of the child '
+              'that comes before this one in the container. It is null for the first child. '
+              'Used for backward iteration through children.',
+              Colors.purple.shade50,
+            ),
+            _buildPreviousSiblingSection(),
+            SizedBox(height: 24),
+
+            _buildSectionHeader('4. nextSibling Property'),
+            _buildInfoCard(
+              'nextSibling is a nullable reference to the ParentData of the child '
+              'that comes after this one in the container. It is null for the last child. '
+              'Used for forward iteration through children.',
+              Colors.teal.shade50,
+            ),
+            _buildNextSiblingSection(),
+            SizedBox(height: 24),
+
+            _buildSectionHeader('5. Linked List Structure'),
+            _buildInfoCard(
+              'Children in a container form a doubly-linked list through their ParentData. '
+              'firstChild and lastChild on the container point to the endpoints. '
+              'Each child ParentData links to its neighbors via previousSibling/nextSibling.',
+              Colors.amber.shade50,
+            ),
+            _buildLinkedListStructureSection(),
+            SizedBox(height: 24),
+
+            _buildSectionHeader('6. Linked List Visualization'),
+            _buildInfoCard(
+              'Visual representation of how children are linked together. '
+              'The doubly-linked list enables O(1) insertion and removal at any position '
+              'when combined with direct access to the node.',
+              Colors.cyan.shade50,
+            ),
+            _buildLinkedListVisualizationSection(),
+            SizedBox(height: 24),
+
+            _buildSectionHeader('7. Forward Traversal Pattern'),
+            _buildInfoCard(
+              'Starting from firstChild, follow nextSibling links until null. '
+              'This is the most common traversal pattern for layout and painting.',
+              Colors.green.shade50,
+            ),
+            _buildForwardTraversalSection(),
+            SizedBox(height: 24),
+
+            _buildSectionHeader('8. Backward Traversal Pattern'),
+            _buildInfoCard(
+              'Starting from lastChild, follow previousSibling links until null. '
+              'Useful for reverse painting order or hit testing from front to back.',
+              Colors.orange.shade50,
+            ),
+            _buildBackwardTraversalSection(),
+            SizedBox(height: 24),
+
+            _buildSectionHeader('9. Sibling Navigation Utilities'),
+            _buildInfoCard(
+              'Common utility patterns for navigating between siblings. '
+              'Includes finding nth sibling, checking position, and counting neighbors.',
+              Colors.pink.shade50,
+            ),
+            _buildSiblingNavigationUtilitiesSection(),
+            SizedBox(height: 24),
+
+            _buildSectionHeader('10. Integration with ContainerRenderObjectMixin'),
+            _buildInfoCard(
+              'ContainerRenderObjectMixin manages the linked list through insert, remove, '
+              'and move operations. It maintains firstChild, lastChild, and childCount '
+              'while updating sibling links appropriately.',
+              Colors.deepPurple.shade50,
+            ),
+            _buildContainerIntegrationSection(),
+            SizedBox(height: 24),
+
+            _buildSectionHeader('11. Custom Container Implementation'),
+            _buildInfoCard(
+              'Example of creating a custom container render object that uses '
+              'ContainerParentDataMixin for its children. Shows setupParentData, '
+              'layout iteration, and paint order.',
+              Colors.lime.shade50,
+            ),
+            _buildCustomContainerSection(),
+            SizedBox(height: 24),
+
+            _buildSectionHeader('12. Detaching and Reattaching'),
+            _buildInfoCard(
+              'When children are removed, sibling links are severed. On reattachment '
+              'to a new parent or position, links are reestablished. The detach method '
+              'sets both sibling references to null.',
+              Colors.brown.shade50,
+            ),
+            _buildDetachReattachSection(),
+            SizedBox(height: 40),
+          ],
         ),
-      ],
+      ),
     ),
   );
 }
 
-/// Builds an info card with description
-Widget _buildInfoCard(String title, String description, IconData icon) {
+Widget _buildSectionHeader(String title) {
   return Container(
-    margin: const EdgeInsets.only(bottom: 12),
-    padding: const EdgeInsets.all(16),
+    margin: EdgeInsets.only(bottom: 12, top: 8),
+    padding: EdgeInsets.symmetric(horizontal: 14, vertical: 10),
     decoration: BoxDecoration(
-      color: _kPurple50,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: _kPurple200),
+      gradient: LinearGradient(
+        colors: [Colors.indigo.shade700, Colors.indigo.shade500],
+      ),
+      borderRadius: BorderRadius.circular(8),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.indigo.withAlpha(60),
+          blurRadius: 4,
+          offset: Offset(0, 2),
+        ),
+      ],
+    ),
+    child: Text(
+      title,
+      style: TextStyle(
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+      ),
+    ),
+  );
+}
+
+Widget _buildInfoCard(String text, Color backgroundColor) {
+  return Container(
+    margin: EdgeInsets.only(bottom: 16),
+    padding: EdgeInsets.all(12),
+    decoration: BoxDecoration(
+      color: backgroundColor,
+      borderRadius: BorderRadius.circular(8),
+      border: Border.all(color: Colors.grey.shade300),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: _kPurple100,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Icon(icon, color: _kPurple800, size: 24),
-        ),
-        const SizedBox(width: 12),
+        Icon(Icons.link, color: Colors.grey.shade700, size: 20),
+        SizedBox(width: 10),
         Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: _kPurple900,
-                ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                description,
-                style: const TextStyle(fontSize: 12, color: _kPurple800),
-              ),
-            ],
+          child: Text(
+            text,
+            style: TextStyle(fontSize: 14, color: Colors.grey.shade800),
           ),
         ),
       ],
@@ -102,47 +201,39 @@ Widget _buildInfoCard(String title, String description, IconData icon) {
   );
 }
 
-/// Builds a code snippet display
-Widget _buildCodeSnippet(String title, String code) {
+Widget _buildCodeBlock(String title, String code) {
   return Container(
-    margin: const EdgeInsets.only(bottom: 16),
+    margin: EdgeInsets.only(bottom: 12),
     decoration: BoxDecoration(
-      color: _kPurple900,
-      borderRadius: BorderRadius.circular(12),
+      color: Colors.grey.shade900,
+      borderRadius: BorderRadius.circular(8),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           decoration: BoxDecoration(
-            color: _kPurple800,
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+            color: Colors.indigo.shade700,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(8)),
           ),
           child: Row(
             children: [
-              const Icon(Icons.code, color: _kPurple200, size: 16),
-              const SizedBox(width: 8),
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: _kPurple100,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+              Icon(Icons.code, color: Colors.white70, size: 16),
+              SizedBox(width: 8),
+              Text(title, style: TextStyle(color: Colors.white, fontSize: 12)),
             ],
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(16),
+          padding: EdgeInsets.all(12),
           child: Text(
             code,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'monospace',
-              fontSize: 11,
-              color: Color(0xFFF3E5F5),
-              height: 1.5,
+              fontSize: 12,
+              color: Colors.green.shade300,
+              height: 1.4,
             ),
           ),
         ),
@@ -151,209 +242,36 @@ Widget _buildCodeSnippet(String title, String code) {
   );
 }
 
-/// Mixin concept visualization
-Widget _buildMixinConceptCard() {
+Widget _buildConceptCard(String title, String description, IconData icon, Color color) {
   return Container(
-    padding: const EdgeInsets.all(16),
+    margin: EdgeInsets.only(bottom: 10),
+    padding: EdgeInsets.all(14),
     decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: _kPurple300),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'What is a Mixin?',
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: _kPurple900,
-          ),
-        ),
-        const SizedBox(height: 16),
-        Row(
-          children: [
-            Expanded(
-              child: _buildMixinDiagramItem(
-                'Base Class',
-                Icons.category,
-                _kPurple300,
-              ),
-            ),
-            const Icon(Icons.add, color: _kPurple500, size: 24),
-            Expanded(
-              child: _buildMixinDiagramItem(
-                'Mixin',
-                Icons.extension,
-                _kPurple500,
-              ),
-            ),
-            const Icon(Icons.arrow_forward, color: _kPurple700, size: 24),
-            Expanded(
-              child: _buildMixinDiagramItem(
-                'Combined',
-                Icons.merge_type,
-                _kPurple700,
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 16),
-        Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: _kPurple50,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: const Row(
-            children: [
-              Icon(Icons.lightbulb_outline, color: _kPurple700, size: 18),
-              SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  'Mixins add functionality without full inheritance - like plugins for classes!',
-                  style: TextStyle(fontSize: 11, color: _kPurple800),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildMixinDiagramItem(String label, IconData icon, Color color) {
-  return Container(
-    padding: const EdgeInsets.all(12),
-    decoration: BoxDecoration(
-      color: color.withAlpha(40),
-      borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: color),
-    ),
-    child: Column(
-      children: [
-        Icon(icon, color: color, size: 24),
-        const SizedBox(height: 4),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 10,
-            fontWeight: FontWeight.bold,
-            color: color,
-          ),
-          textAlign: TextAlign.center,
-        ),
-      ],
-    ),
-  );
-}
-
-/// Mixin properties card
-Widget _buildMixinPropertiesCard() {
-  return Container(
-    padding: const EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: _kPurple400),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'ContainerParentDataMixin Properties',
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: _kPurple900,
-          ),
-        ),
-        const SizedBox(height: 16),
-        _buildPropertyItem(
-          'previousSibling',
-          'ChildType?',
-          'Reference to previous child in linked list',
-          Icons.arrow_back,
-        ),
-        _buildPropertyItem(
-          'nextSibling',
-          'ChildType?',
-          'Reference to next child in linked list',
-          Icons.arrow_forward,
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildPropertyItem(
-  String name,
-  String type,
-  String desc,
-  IconData icon,
-) {
-  return Container(
-    margin: const EdgeInsets.only(bottom: 10),
-    padding: const EdgeInsets.all(12),
-    decoration: BoxDecoration(
-      color: _kPurple50,
-      borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: _kPurple200),
+      color: color.withAlpha(25),
+      borderRadius: BorderRadius.circular(10),
+      border: Border.all(color: color.withAlpha(80)),
     ),
     child: Row(
       children: [
         Container(
-          padding: const EdgeInsets.all(8),
+          padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: _kPurple500,
+            color: color.withAlpha(50),
             borderRadius: BorderRadius.circular(8),
           ),
-          child: Icon(icon, color: Colors.white, size: 18),
+          child: Icon(icon, color: color, size: 24),
         ),
-        const SizedBox(width: 12),
+        SizedBox(width: 14),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  Text(
-                    name,
-                    style: const TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: _kPurple900,
-                    ),
-                  ),
-                  const SizedBox(width: 6),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 6,
-                      vertical: 2,
-                    ),
-                    decoration: BoxDecoration(
-                      color: _kPurple200,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: Text(
-                      type,
-                      style: const TextStyle(
-                        fontFamily: 'monospace',
-                        fontSize: 9,
-                        color: _kPurple800,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 2),
               Text(
-                desc,
-                style: const TextStyle(fontSize: 10, color: _kPurple700),
+                title,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: color),
               ),
+              SizedBox(height: 4),
+              Text(description, style: TextStyle(fontSize: 12, color: Colors.grey.shade700)),
             ],
           ),
         ),
@@ -362,679 +280,800 @@ Widget _buildPropertyItem(
   );
 }
 
-/// Doubly linked list visualization
-Widget _buildDoublyLinkedListVisualization() {
-  return Container(
-    padding: const EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: _kPurple400),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Doubly-Linked List Structure',
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: _kPurple900,
-          ),
-        ),
-        const SizedBox(height: 16),
-        // Parent container
-        Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: _kPurple100,
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: _kPurple300),
-          ),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.folder, color: _kPurple700, size: 20),
-                  const SizedBox(width: 8),
-                  const Text(
-                    'Parent Container',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                      color: _kPurple800,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 8),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _buildPointerBox('firstChild', 'A'),
-                  _buildPointerBox('lastChild', 'C'),
-                ],
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 8),
-        const Center(
-          child: Icon(Icons.arrow_downward, color: _kPurple500, size: 24),
-        ),
-        const SizedBox(height: 8),
-        // Children chain
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _buildLinkedNode('A', null, 'B'),
-              _buildLinkArrows(),
-              _buildLinkedNode('B', 'A', 'C'),
-              _buildLinkArrows(),
-              _buildLinkedNode('C', 'B', null),
-            ],
-          ),
-        ),
-        const SizedBox(height: 12),
-        Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: _kPurple50,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: const Row(
-            children: [
-              Icon(Icons.info_outline, color: _kPurple700, size: 18),
-              SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  'Each child has both previousSibling and nextSibling references',
-                  style: TextStyle(fontSize: 11, color: _kPurple800),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildPointerBox(String label, String target) {
-  return Container(
-    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-    decoration: BoxDecoration(
-      color: _kPurple500,
-      borderRadius: BorderRadius.circular(6),
-    ),
-    child: Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(
-          label,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 10,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        const SizedBox(width: 4),
-        const Icon(Icons.arrow_forward, color: Colors.white70, size: 12),
-        const SizedBox(width: 4),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-          decoration: BoxDecoration(
-            color: Colors.white.withAlpha(50),
-            borderRadius: BorderRadius.circular(4),
-          ),
-          child: Text(
-            target,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 10,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildLinkedNode(String id, String? prev, String? next) {
-  return Container(
-    width: 80,
-    padding: const EdgeInsets.all(10),
-    decoration: BoxDecoration(
-      color: _kPurple50,
-      borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: _kPurple400, width: 2),
-    ),
-    child: Column(
-      children: [
-        Container(
-          width: 36,
-          height: 36,
-          decoration: BoxDecoration(
-            color: _kPurple600,
-            borderRadius: BorderRadius.circular(18),
-          ),
-          alignment: Alignment.center,
-          child: Text(
-            id,
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
-          ),
-        ),
-        const SizedBox(height: 6),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              prev ?? 'null',
-              style: TextStyle(
-                fontSize: 8,
-                color: prev == null ? _kPurple300 : _kPurple700,
-                fontStyle: prev == null ? FontStyle.italic : FontStyle.normal,
-              ),
-            ),
-            Text(
-              next ?? 'null',
-              style: TextStyle(
-                fontSize: 8,
-                color: next == null ? _kPurple300 : _kPurple700,
-                fontStyle: next == null ? FontStyle.italic : FontStyle.normal,
-              ),
-            ),
-          ],
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildLinkArrows() {
+Widget _buildMixinConceptSection() {
   return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Row(
-        children: [
-          Container(width: 20, height: 2, color: _kPurple500),
-          const Icon(Icons.arrow_forward_ios, size: 10, color: _kPurple500),
-        ],
+      _buildConceptCard(
+        'What is a Mixin?',
+        'A Dart mixin adds functionality to a class without inheritance. '
+        'ContainerParentDataMixin mixes into ParentData subclasses.',
+        Icons.extension,
+        Colors.indigo,
       ),
-      const SizedBox(height: 4),
-      Row(
-        children: [
-          const Icon(Icons.arrow_back_ios, size: 10, color: _kPurple400),
-          Container(width: 20, height: 2, color: _kPurple400),
-        ],
+      _buildConceptCard(
+        'ParentData Purpose',
+        'ParentData stores information about a child that is managed by its parent. '
+        'Different containers store different parent data (position, flex, etc).',
+        Icons.data_object,
+        Colors.blue,
+      ),
+      _buildConceptCard(
+        'Why Siblings?',
+        'Sibling pointers enable O(1) traversal between adjacent children. '
+        'Without them, finding the next child would require array lookup.',
+        Icons.compare_arrows,
+        Colors.purple,
+      ),
+      _buildCodeBlock(
+        'ContainerParentDataMixin Declaration',
+        'mixin ContainerParentDataMixin<ChildType extends RenderObject>\n'
+        '    on ParentData {\n'
+        '  ChildType? previousSibling;\n'
+        '  ChildType? nextSibling;\n'
+        '  \n'
+        '  void detach() {\n'
+        '    super.detach();\n'
+        '    previousSibling = null;\n'
+        '    nextSibling = null;\n'
+        '  }\n'
+        '}',
       ),
     ],
   );
 }
 
-/// Interactive navigation demo
-Widget _buildInteractiveNavigationDemo() {
-  return _InteractiveNavigationWidget();
+Widget _buildMixinDefinitionSection() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      _buildConceptCard(
+        'Type Parameter',
+        'The mixin has a type parameter ChildType extends RenderObject. '
+        'This ensures type safety when navigating between siblings.',
+        Icons.label_outline,
+        Colors.blue,
+      ),
+      _buildConceptCard(
+        'Requires ParentData',
+        'The "on ParentData" clause means this mixin can only be applied to '
+        'classes that extend ParentData. It adds sibling functionality.',
+        Icons.merge_type,
+        Colors.teal,
+      ),
+      _buildCodeBlock(
+        'BoxParentData with Container Mixin',
+        'class BoxParentData extends ParentData {\n'
+        '  Offset offset = Offset.zero;\n'
+        '}\n'
+        '\n'
+        'class ContainerBoxParentData extends BoxParentData\n'
+        '    with ContainerParentDataMixin<RenderBox> {\n'
+        '  // Now has previousSibling and nextSibling\n'
+        '  // pointing to RenderBox instances\n'
+        '}',
+      ),
+      _buildCodeBlock(
+        'Custom ParentData Example',
+        'class MyCustomParentData extends ParentData\n'
+        '    with ContainerParentDataMixin<RenderBox> {\n'
+        '  int priority = 0;\n'
+        '  bool isVisible = true;\n'
+        '  Alignment alignment = Alignment.center;\n'
+        '}',
+      ),
+    ],
+  );
 }
 
-class _InteractiveNavigationWidget extends StatefulWidget {
-  @override
-  State<_InteractiveNavigationWidget> createState() =>
-      _InteractiveNavigationWidgetState();
+Widget _buildPreviousSiblingSection() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      _buildConceptCard(
+        'Backward Link',
+        'previousSibling points to the child that was inserted before this one. '
+        'For the first child in the container, previousSibling is null.',
+        Icons.arrow_back,
+        Colors.purple,
+      ),
+      _buildConceptCard(
+        'Type Safety',
+        'previousSibling is typed as ChildType? where ChildType extends RenderObject. '
+        'This prevents mixing incompatible render object types.',
+        Icons.security,
+        Colors.green,
+      ),
+      _buildCodeBlock(
+        'Accessing previousSibling',
+        'void processChildWithPredecessor(RenderBox child) {\n'
+        '  var parentData = child.parentData\n'
+        '      as ContainerParentDataMixin<RenderBox>;\n'
+        '  \n'
+        '  RenderBox? prev = parentData.previousSibling;\n'
+        '  if (prev != null) {\n'
+        '    print("Found previous sibling");\n'
+        '    // Can access prev layout info, size, etc\n'
+        '  } else {\n'
+        '    print("This is the first child");\n'
+        '  }\n'
+        '}',
+      ),
+      _buildCodeBlock(
+        'Checking for First Child',
+        'bool isFirstChild(RenderBox child) {\n'
+        '  var parentData = child.parentData\n'
+        '      as ContainerParentDataMixin<RenderBox>;\n'
+        '  return parentData.previousSibling == null;\n'
+        '}',
+      ),
+    ],
+  );
 }
 
-class _InteractiveNavigationWidgetState
-    extends State<_InteractiveNavigationWidget> {
-  int _currentIndex = 0;
-  final _children = ['A', 'B', 'C', 'D', 'E'];
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: _kPurple400),
+Widget _buildNextSiblingSection() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      _buildConceptCard(
+        'Forward Link',
+        'nextSibling points to the child that was inserted after this one. '
+        'For the last child in the container, nextSibling is null.',
+        Icons.arrow_forward,
+        Colors.teal,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            'Interactive Navigation Demo',
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-              color: _kPurple900,
-            ),
-          ),
-          const SizedBox(height: 8),
-          const Text(
-            'Navigate through siblings using previousSibling and nextSibling:',
-            style: TextStyle(fontSize: 11, color: _kPurple700),
-          ),
-          const SizedBox(height: 16),
-          // Children visualization
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(_children.length, (i) {
-              final isSelected = i == _currentIndex;
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4),
-                child: Container(
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: isSelected ? _kPurple600 : _kPurple100,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                      color: isSelected ? _kPurple800 : _kPurple300,
-                      width: isSelected ? 3 : 1,
-                    ),
-                    boxShadow: isSelected
-                        ? [
-                            BoxShadow(
-                              color: _kPurple500.withAlpha(80),
-                              blurRadius: 8,
-                              offset: const Offset(0, 4),
-                            ),
-                          ]
-                        : null,
-                  ),
-                  alignment: Alignment.center,
-                  child: Text(
-                    _children[i],
-                    style: TextStyle(
-                      color: isSelected ? Colors.white : _kPurple800,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
-                  ),
-                ),
-              );
-            }),
-          ),
-          const SizedBox(height: 16),
-          // Navigation buttons
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _buildNavButton(
-                'previousSibling',
-                Icons.arrow_back,
-                _currentIndex > 0,
-                () => setState(() => _currentIndex--),
-              ),
-              const SizedBox(width: 20),
-              _buildNavButton(
-                'nextSibling',
-                Icons.arrow_forward,
-                _currentIndex < _children.length - 1,
-                () => setState(() => _currentIndex++),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          // Current state display
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: _kPurple50,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Column(
-              children: [
-                _buildStateRow('Current', _children[_currentIndex]),
-                _buildStateRow(
-                  'previousSibling',
-                  _currentIndex > 0 ? _children[_currentIndex - 1] : 'null',
-                ),
-                _buildStateRow(
-                  'nextSibling',
-                  _currentIndex < _children.length - 1
-                      ? _children[_currentIndex + 1]
-                      : 'null',
-                ),
-              ],
-            ),
-          ),
-        ],
+      _buildConceptCard(
+        'Traversal Endpoint',
+        'When nextSibling returns null, you have reached the end of the child list. '
+        'This is how forward iteration loops terminate.',
+        Icons.stop_circle_outlined,
+        Colors.orange,
       ),
-    );
-  }
+      _buildCodeBlock(
+        'Accessing nextSibling',
+        'void processChildWithSuccessor(RenderBox child) {\n'
+        '  var parentData = child.parentData\n'
+        '      as ContainerParentDataMixin<RenderBox>;\n'
+        '  \n'
+        '  RenderBox? next = parentData.nextSibling;\n'
+        '  if (next != null) {\n'
+        '    print("Found next sibling");\n'
+        '    // Can use next for layout dependency\n'
+        '  } else {\n'
+        '    print("This is the last child");\n'
+        '  }\n'
+        '}',
+      ),
+      _buildCodeBlock(
+        'Checking for Last Child',
+        'bool isLastChild(RenderBox child) {\n'
+        '  var parentData = child.parentData\n'
+        '      as ContainerParentDataMixin<RenderBox>;\n'
+        '  return parentData.nextSibling == null;\n'
+        '}',
+      ),
+    ],
+  );
+}
 
-  Widget _buildNavButton(
-    String label,
-    IconData icon,
-    bool enabled,
-    VoidCallback onTap,
-  ) {
-    return GestureDetector(
-      onTap: enabled ? onTap : null,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+Widget _buildLinkedListStructureSection() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      _buildConceptCard(
+        'Doubly-Linked List',
+        'The children form a doubly-linked list. Each node has forward and '
+        'backward pointers. This enables efficient bidirectional traversal.',
+        Icons.link,
+        Colors.amber,
+      ),
+      _buildConceptCard(
+        'Container Endpoints',
+        'ContainerRenderObjectMixin provides firstChild and lastChild getters. '
+        'These are the head and tail of the linked list.',
+        Icons.first_page,
+        Colors.deepOrange,
+      ),
+      _buildCodeBlock(
+        'Linked List Structure',
+        'Container (has firstChild, lastChild, childCount)\n'
+        '    │\n'
+        '    ├─ Child A (parentData.previousSibling = null)\n'
+        '    │           (parentData.nextSibling = B)\n'
+        '    │\n'
+        '    ├─ Child B (parentData.previousSibling = A)\n'
+        '    │           (parentData.nextSibling = C)\n'
+        '    │\n'
+        '    └─ Child C (parentData.previousSibling = B)\n'
+        '                (parentData.nextSibling = null)',
+      ),
+      _buildCodeBlock(
+        'Container Properties',
+        'abstract class ContainerRenderObjectMixin<\n'
+        '    ChildType extends RenderObject,\n'
+        '    ParentDataType extends ContainerParentDataMixin<ChildType>\n'
+        '> {\n'
+        '  int get childCount;\n'
+        '  ChildType? get firstChild;\n'
+        '  ChildType? get lastChild;\n'
+        '  \n'
+        '  // Methods to modify the list\n'
+        '  void insert(ChildType child, {ChildType? after});\n'
+        '  void remove(ChildType child);\n'
+        '  void move(ChildType child, {ChildType? after});\n'
+        '}',
+      ),
+    ],
+  );
+}
+
+Widget _buildLinkedListVisualizationSection() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Container(
+        padding: EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: enabled ? _kPurple600 : _kPurple200,
-          borderRadius: BorderRadius.circular(8),
+          color: Colors.grey.shade100,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: Colors.grey.shade400),
         ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
+        child: Column(
           children: [
-            Icon(icon, color: enabled ? Colors.white : _kPurple400, size: 18),
-            const SizedBox(width: 8),
             Text(
-              label,
-              style: TextStyle(
-                color: enabled ? Colors.white : _kPurple400,
-                fontSize: 11,
-                fontWeight: FontWeight.bold,
-              ),
+              'Doubly-Linked List Visualization',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
+            SizedBox(height: 16),
+            _buildLinkedListDiagram(),
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildStateRow(String label, String value) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 4),
-      child: Row(
-        children: [
-          SizedBox(
-            width: 100,
-            child: Text(
-              label,
-              style: const TextStyle(
-                fontSize: 11,
-                color: _kPurple700,
-                fontFamily: 'monospace',
-              ),
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-            decoration: BoxDecoration(
-              color: value == 'null' ? _kPurple200 : _kPurple500,
-              borderRadius: BorderRadius.circular(4),
-            ),
-            child: Text(
-              value,
-              style: TextStyle(
-                color: value == 'null' ? _kPurple500 : Colors.white,
-                fontSize: 11,
-                fontWeight: FontWeight.bold,
-                fontStyle: value == 'null'
-                    ? FontStyle.italic
-                    : FontStyle.normal,
-              ),
-            ),
-          ),
-        ],
+      SizedBox(height: 12),
+      _buildCodeBlock(
+        'Visual Legend',
+        '┌─────────┐    ┌─────────┐    ┌─────────┐\n'
+        '│ Child A │◄──►│ Child B │◄──►│ Child C │\n'
+        '└─────────┘    └─────────┘    └─────────┘\n'
+        '     ▲                              ▲\n'
+        '     │                              │\n'
+        'firstChild                     lastChild\n'
+        '\n'
+        '◄──► represents sibling links\n'
+        '──►  is nextSibling direction\n'
+        '◄──  is previousSibling direction',
       ),
-    );
-  }
+      _buildCodeBlock(
+        'Memory Relationships',
+        'Container RenderObject\n'
+        '├── firstChild ──────────────────┐\n'
+        '├── lastChild ───────────────────┼──┐\n'
+        '│                                │  │\n'
+        '│   ┌────────────────────────────┘  │\n'
+        '│   │                               │\n'
+        '│   ▼                               │\n'
+        '│ Child A.parentData                │\n'
+        '│   ├── previousSibling: null       │\n'
+        '│   └── nextSibling ──────────┐     │\n'
+        '│                             │     │\n'
+        '│   ┌─────────────────────────┘     │\n'
+        '│   │                               │\n'
+        '│   ▼                               │\n'
+        '│ Child B.parentData                │\n'
+        '│   ├── previousSibling ─────► A    │\n'
+        '│   └── nextSibling ──────────┐     │\n'
+        '│                             │     │\n'
+        '│   ┌─────────────────────────┘     │\n'
+        '│   │                               │\n'
+        '│   ▼  ◄────────────────────────────┘\n'
+        '│ Child C.parentData\n'
+        '│   ├── previousSibling ─────► B\n'
+        '│   └── nextSibling: null',
+      ),
+    ],
+  );
 }
 
-/// Type parameter explanation
-Widget _buildTypeParameterCard() {
+Widget _buildLinkedListDiagram() {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      _buildNodeBox('A', 'first', Colors.green),
+      _buildArrowBidirectional(),
+      _buildNodeBox('B', 'middle', Colors.blue),
+      _buildArrowBidirectional(),
+      _buildNodeBox('C', 'last', Colors.orange),
+    ],
+  );
+}
+
+Widget _buildNodeBox(String label, String position, Color color) {
   return Container(
-    padding: const EdgeInsets.all(16),
+    padding: EdgeInsets.all(12),
+    decoration: BoxDecoration(
+      color: color.withAlpha(50),
+      borderRadius: BorderRadius.circular(8),
+      border: Border.all(color: color, width: 2),
+    ),
+    child: Column(
+      children: [
+        Text(
+          'Child $label',
+          style: TextStyle(fontWeight: FontWeight.bold, color: color),
+        ),
+        SizedBox(height: 4),
+        Text(
+          position,
+          style: TextStyle(fontSize: 10, color: Colors.grey.shade600),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildArrowBidirectional() {
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: 8),
+    child: Row(
+      children: [
+        Icon(Icons.arrow_back, size: 16, color: Colors.grey.shade600),
+        Container(
+          width: 20,
+          height: 2,
+          color: Colors.grey.shade600,
+        ),
+        Icon(Icons.arrow_forward, size: 16, color: Colors.grey.shade600),
+      ],
+    ),
+  );
+}
+
+Widget _buildForwardTraversalSection() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      _buildConceptCard(
+        'Start at firstChild',
+        'Forward traversal begins at the firstChild property of the container. '
+        'If firstChild is null, the container has no children.',
+        Icons.play_arrow,
+        Colors.green,
+      ),
+      _buildConceptCard(
+        'Follow nextSibling',
+        'From each child, access its parentData.nextSibling to get the next child. '
+        'Continue until nextSibling is null.',
+        Icons.navigate_next,
+        Colors.blue,
+      ),
+      _buildCodeBlock(
+        'Forward Iteration Pattern',
+        'void visitChildrenForward() {\n'
+        '  RenderBox? child = firstChild;\n'
+        '  while (child != null) {\n'
+        '    // Process child here\n'
+        '    print("Visiting: child");\n'
+        '    \n'
+        '    // Move to next sibling\n'
+        '    var parentData = child.parentData\n'
+        '        as ContainerParentDataMixin<RenderBox>;\n'
+        '    child = parentData.nextSibling;\n'
+        '  }\n'
+        '}',
+      ),
+      _buildCodeBlock(
+        'Layout Children Forward',
+        'void performLayout() {\n'
+        '  var accumulatedHeight = 0.0;\n'
+        '  RenderBox? child = firstChild;\n'
+        '  \n'
+        '  while (child != null) {\n'
+        '    child.layout(constraints, parentUsesSize: true);\n'
+        '    \n'
+        '    var parentData = child.parentData as BoxParentData;\n'
+        '    parentData.offset = Offset(0, accumulatedHeight);\n'
+        '    accumulatedHeight += child.size.height;\n'
+        '    \n'
+        '    var containerData = child.parentData\n'
+        '        as ContainerParentDataMixin<RenderBox>;\n'
+        '    child = containerData.nextSibling;\n'
+        '  }\n'
+        '  \n'
+        '  size = Size(constraints.maxWidth, accumulatedHeight);\n'
+        '}',
+      ),
+    ],
+  );
+}
+
+Widget _buildBackwardTraversalSection() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      _buildConceptCard(
+        'Start at lastChild',
+        'Backward traversal begins at the lastChild property of the container. '
+        'Useful for reverse painting order or priority-based processing.',
+        Icons.last_page,
+        Colors.orange,
+      ),
+      _buildConceptCard(
+        'Follow previousSibling',
+        'From each child, access its parentData.previousSibling to get the previous child. '
+        'Continue until previousSibling is null.',
+        Icons.navigate_before,
+        Colors.red,
+      ),
+      _buildCodeBlock(
+        'Backward Iteration Pattern',
+        'void visitChildrenBackward() {\n'
+        '  RenderBox? child = lastChild;\n'
+        '  while (child != null) {\n'
+        '    // Process child here\n'
+        '    print("Visiting in reverse: child");\n'
+        '    \n'
+        '    // Move to previous sibling\n'
+        '    var parentData = child.parentData\n'
+        '        as ContainerParentDataMixin<RenderBox>;\n'
+        '    child = parentData.previousSibling;\n'
+        '  }\n'
+        '}',
+      ),
+      _buildCodeBlock(
+        'Hit Test Reverse Order',
+        'bool hitTestChildren(BoxHitTestResult result, Offset position) {\n'
+        '  // Test from front to back (last painted = front)\n'
+        '  RenderBox? child = lastChild;\n'
+        '  \n'
+        '  while (child != null) {\n'
+        '    var parentData = child.parentData as BoxParentData;\n'
+        '    var transformed = position - parentData.offset;\n'
+        '    \n'
+        '    if (child.hitTest(result, position: transformed)) {\n'
+        '      return true;\n'
+        '    }\n'
+        '    \n'
+        '    var containerData = child.parentData\n'
+        '        as ContainerParentDataMixin<RenderBox>;\n'
+        '    child = containerData.previousSibling;\n'
+        '  }\n'
+        '  return false;\n'
+        '}',
+      ),
+    ],
+  );
+}
+
+Widget _buildSiblingNavigationUtilitiesSection() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      _buildCodeBlock(
+        'Find Nth Next Sibling',
+        'RenderBox? nthNextSibling(RenderBox child, int n) {\n'
+        '  RenderBox? current = child;\n'
+        '  for (var i = 0; i < n && current != null; i++) {\n'
+        '    var parentData = current.parentData\n'
+        '        as ContainerParentDataMixin<RenderBox>;\n'
+        '    current = parentData.nextSibling;\n'
+        '  }\n'
+        '  return current;\n'
+        '}',
+      ),
+      _buildCodeBlock(
+        'Count Siblings After',
+        'int countSiblingsAfter(RenderBox child) {\n'
+        '  var count = 0;\n'
+        '  var parentData = child.parentData\n'
+        '      as ContainerParentDataMixin<RenderBox>;\n'
+        '  var sibling = parentData.nextSibling;\n'
+        '  \n'
+        '  while (sibling != null) {\n'
+        '    count++;\n'
+        '    parentData = sibling.parentData\n'
+        '        as ContainerParentDataMixin<RenderBox>;\n'
+        '    sibling = parentData.nextSibling;\n'
+        '  }\n'
+        '  return count;\n'
+        '}',
+      ),
+      _buildCodeBlock(
+        'Get Child Index',
+        'int getChildIndex(RenderBox child) {\n'
+        '  var index = 0;\n'
+        '  var parentData = child.parentData\n'
+        '      as ContainerParentDataMixin<RenderBox>;\n'
+        '  var sibling = parentData.previousSibling;\n'
+        '  \n'
+        '  while (sibling != null) {\n'
+        '    index++;\n'
+        '    parentData = sibling.parentData\n'
+        '        as ContainerParentDataMixin<RenderBox>;\n'
+        '    sibling = parentData.previousSibling;\n'
+        '  }\n'
+        '  return index;\n'
+        '}',
+      ),
+      _buildCodeBlock(
+        'Are Adjacent Siblings',
+        'bool areAdjacentSiblings(RenderBox a, RenderBox b) {\n'
+        '  var aData = a.parentData\n'
+        '      as ContainerParentDataMixin<RenderBox>;\n'
+        '  var bData = b.parentData\n'
+        '      as ContainerParentDataMixin<RenderBox>;\n'
+        '  \n'
+        '  return aData.nextSibling == b || bData.nextSibling == a;\n'
+        '}',
+      ),
+    ],
+  );
+}
+
+Widget _buildContainerIntegrationSection() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      _buildConceptCard(
+        'insert() Operation',
+        'When inserting a child, the container updates sibling links. '
+        'The optional "after" parameter specifies insertion position.',
+        Icons.add_circle_outline,
+        Colors.green,
+      ),
+      _buildConceptCard(
+        'remove() Operation',
+        'When removing a child, adjacent siblings are reconnected. '
+        'The removed childs sibling links are cleared via detach.',
+        Icons.remove_circle_outline,
+        Colors.red,
+      ),
+      _buildConceptCard(
+        'move() Operation',
+        'Moving repositions a child within the list. '
+        'Sibling links are updated for old and new positions.',
+        Icons.swap_horiz,
+        Colors.blue,
+      ),
+      _buildCodeBlock(
+        'Insert Operation Logic',
+        'void insert(ChildType child, {ChildType? after}) {\n'
+        '  adoptChild(child);\n'
+        '  \n'
+        '  var childParentData = child.parentData\n'
+        '      as ContainerParentDataMixin<ChildType>;\n'
+        '  \n'
+        '  if (after == null) {\n'
+        '    // Insert at beginning\n'
+        '    childParentData.nextSibling = _firstChild;\n'
+        '    if (_firstChild != null) {\n'
+        '      var firstData = _firstChild.parentData\n'
+        '          as ContainerParentDataMixin<ChildType>;\n'
+        '      firstData.previousSibling = child;\n'
+        '    }\n'
+        '    _firstChild = child;\n'
+        '    _lastChild ??= child;\n'
+        '  } else {\n'
+        '    // Insert after specified child\n'
+        '    var afterData = after.parentData\n'
+        '        as ContainerParentDataMixin<ChildType>;\n'
+        '    childParentData.previousSibling = after;\n'
+        '    childParentData.nextSibling = afterData.nextSibling;\n'
+        '    \n'
+        '    if (afterData.nextSibling != null) {\n'
+        '      var nextData = afterData.nextSibling.parentData\n'
+        '          as ContainerParentDataMixin<ChildType>;\n'
+        '      nextData.previousSibling = child;\n'
+        '    }\n'
+        '    afterData.nextSibling = child;\n'
+        '    \n'
+        '    if (after == _lastChild) {\n'
+        '      _lastChild = child;\n'
+        '    }\n'
+        '  }\n'
+        '  _childCount++;\n'
+        '}',
+      ),
+    ],
+  );
+}
+
+Widget _buildCustomContainerSection() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      _buildCodeBlock(
+        'Custom Container ParentData',
+        'class MyContainerParentData extends BoxParentData\n'
+        '    with ContainerParentDataMixin<RenderBox> {\n'
+        '  int zIndex = 0;\n'
+        '  bool isFloating = false;\n'
+        '  double priority = 1.0;\n'
+        '}',
+      ),
+      _buildCodeBlock(
+        'Custom Container RenderObject',
+        'class RenderMyContainer extends RenderBox\n'
+        '    with ContainerRenderObjectMixin<RenderBox, MyContainerParentData>,\n'
+        '         RenderBoxContainerDefaultsMixin<RenderBox, MyContainerParentData> {\n'
+        '  \n'
+        '  @override\n'
+        '  void setupParentData(RenderObject child) {\n'
+        '    if (child.parentData is! MyContainerParentData) {\n'
+        '      child.parentData = MyContainerParentData();\n'
+        '    }\n'
+        '  }\n'
+        '  \n'
+        '  @override\n'
+        '  void performLayout() {\n'
+        '    var child = firstChild;\n'
+        '    while (child != null) {\n'
+        '      child.layout(constraints, parentUsesSize: true);\n'
+        '      var parentData = child.parentData as MyContainerParentData;\n'
+        '      child = parentData.nextSibling;\n'
+        '    }\n'
+        '    size = constraints.biggest;\n'
+        '  }\n'
+        '  \n'
+        '  @override\n'
+        '  void paint(PaintingContext context, Offset offset) {\n'
+        '    var child = firstChild;\n'
+        '    while (child != null) {\n'
+        '      var parentData = child.parentData as MyContainerParentData;\n'
+        '      context.paintChild(child, offset + parentData.offset);\n'
+        '      child = parentData.nextSibling;\n'
+        '    }\n'
+        '  }\n'
+        '}',
+      ),
+      _buildCodeBlock(
+        'Widget Using Custom Container',
+        'class MyContainerWidget extends MultiChildRenderObjectWidget {\n'
+        '  MyContainerWidget({super.key, required super.children});\n'
+        '  \n'
+        '  @override\n'
+        '  RenderObject createRenderObject(BuildContext context) {\n'
+        '    return RenderMyContainer();\n'
+        '  }\n'
+        '}',
+      ),
+    ],
+  );
+}
+
+Widget _buildDetachReattachSection() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      _buildConceptCard(
+        'Detach Process',
+        'When a child is removed from its parent, the detach method is called. '
+        'This clears both sibling references to prevent dangling pointers.',
+        Icons.link_off,
+        Colors.red,
+      ),
+      _buildConceptCard(
+        'Link Preservation',
+        'Before detach, the containers remove operation must update adjacent '
+        'siblings to maintain list integrity.',
+        Icons.save,
+        Colors.blue,
+      ),
+      _buildConceptCard(
+        'Reattachment',
+        'When a child is added to a new parent, new sibling links are established '
+        'based on the insertion position.',
+        Icons.link,
+        Colors.green,
+      ),
+      _buildCodeBlock(
+        'Detach Implementation',
+        'mixin ContainerParentDataMixin<ChildType extends RenderObject>\n'
+        '    on ParentData {\n'
+        '  ChildType? previousSibling;\n'
+        '  ChildType? nextSibling;\n'
+        '  \n'
+        '  @override\n'
+        '  void detach() {\n'
+        '    super.detach();\n'
+        '    // Clear sibling references on detach\n'
+        '    // to prevent dangling pointers\n'
+        '    if (previousSibling != null) {\n'
+        '      // Note: Actual framework handles this\n'
+        '      // in the remove() operation before detach\n'
+        '    }\n'
+        '    previousSibling = null;\n'
+        '    nextSibling = null;\n'
+        '  }\n'
+        '}',
+      ),
+      _buildCodeBlock(
+        'Remove Operation Logic',
+        'void remove(ChildType child) {\n'
+        '  var childParentData = child.parentData\n'
+        '      as ContainerParentDataMixin<ChildType>;\n'
+        '  \n'
+        '  // Update previous sibling link\n'
+        '  if (childParentData.previousSibling != null) {\n'
+        '    var prevData = childParentData.previousSibling.parentData\n'
+        '        as ContainerParentDataMixin<ChildType>;\n'
+        '    prevData.nextSibling = childParentData.nextSibling;\n'
+        '  } else {\n'
+        '    _firstChild = childParentData.nextSibling;\n'
+        '  }\n'
+        '  \n'
+        '  // Update next sibling link\n'
+        '  if (childParentData.nextSibling != null) {\n'
+        '    var nextData = childParentData.nextSibling.parentData\n'
+        '        as ContainerParentDataMixin<ChildType>;\n'
+        '    nextData.previousSibling = childParentData.previousSibling;\n'
+        '  } else {\n'
+        '    _lastChild = childParentData.previousSibling;\n'
+        '  }\n'
+        '  \n'
+        '  _childCount--;\n'
+        '  dropChild(child);\n'
+        '  // dropChild calls child.parentData?.detach()\n'
+        '}',
+      ),
+      SizedBox(height: 16),
+      _buildSummaryCard(),
+    ],
+  );
+}
+
+Widget _buildSummaryCard() {
+  return Container(
+    padding: EdgeInsets.all(16),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [_kPurple100, _kPurple50],
+        colors: [Colors.indigo.shade100, Colors.indigo.shade50],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
       borderRadius: BorderRadius.circular(12),
+      border: Border.all(color: Colors.indigo.shade300),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Generic Type Parameter',
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: _kPurple900,
-          ),
-        ),
-        const SizedBox(height: 12),
-        Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: _kPurple300),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(6),
-                    decoration: BoxDecoration(
-                      color: _kPurple500,
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    child: const Text(
-                      '<ChildType extends RenderObject>',
-                      style: TextStyle(
-                        fontFamily: 'monospace',
-                        fontSize: 10,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                'The mixin is generic over the child type, ensuring type-safe sibling navigation.',
-                style: TextStyle(fontSize: 11, color: _kPurple700),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 12),
         Row(
           children: [
-            Expanded(child: _buildTypeExample('RenderBox', 'Box children')),
-            const SizedBox(width: 8),
-            Expanded(
-              child: _buildTypeExample('RenderSliver', 'Sliver children'),
+            Icon(Icons.summarize, color: Colors.indigo.shade700),
+            SizedBox(width: 8),
+            Text(
+              'ContainerParentDataMixin Summary',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                color: Colors.indigo.shade900,
+              ),
             ),
           ],
         ),
+        SizedBox(height: 12),
+        _buildSummaryItem('Provides previousSibling and nextSibling pointers'),
+        _buildSummaryItem('Enables doubly-linked list traversal of children'),
+        _buildSummaryItem('Type-safe with ChildType type parameter'),
+        _buildSummaryItem('Used with ContainerRenderObjectMixin'),
+        _buildSummaryItem('Siblings cleared on detach to prevent dangling refs'),
+        _buildSummaryItem('O(1) sibling access for efficient iteration'),
       ],
     ),
   );
 }
 
-Widget _buildTypeExample(String type, String desc) {
-  return Container(
-    padding: const EdgeInsets.all(10),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: _kPurple200),
-    ),
-    child: Column(
-      children: [
-        Text(
-          type,
-          style: const TextStyle(
-            fontFamily: 'monospace',
-            fontSize: 11,
-            fontWeight: FontWeight.bold,
-            color: _kPurple800,
-          ),
-        ),
-        Text(desc, style: const TextStyle(fontSize: 9, color: _kPurple600)),
-      ],
-    ),
-  );
-}
-
-/// Classes using the mixin
-Widget _buildUsersCard() {
-  return Container(
-    padding: const EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: _kPurple300),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Classes Using This Mixin',
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: _kPurple900,
-          ),
-        ),
-        const SizedBox(height: 16),
-        _buildUserItem('ContainerBoxParentData', 'For RenderBox children'),
-        _buildUserItem('SliverPhysicalParentData', 'For RenderSliver children'),
-        _buildUserItem('FlexParentData', 'For Flex layout children'),
-        _buildUserItem('StackParentData', 'For Stack layout children'),
-      ],
-    ),
-  );
-}
-
-Widget _buildUserItem(String name, String desc) {
-  return Container(
-    margin: const EdgeInsets.only(bottom: 8),
-    padding: const EdgeInsets.all(10),
-    decoration: BoxDecoration(
-      color: _kPurple50,
-      borderRadius: BorderRadius.circular(8),
-    ),
-    child: Row(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(6),
-          decoration: BoxDecoration(
-            color: _kPurple500,
-            borderRadius: BorderRadius.circular(6),
-          ),
-          child: const Icon(Icons.class_, color: Colors.white, size: 16),
-        ),
-        const SizedBox(width: 10),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                name,
-                style: const TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 11,
-                  fontWeight: FontWeight.bold,
-                  color: _kPurple800,
-                ),
-              ),
-              Text(
-                desc,
-                style: const TextStyle(fontSize: 9, color: _kPurple600),
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-/// Operations card
-Widget _buildOperationsCard() {
-  return Container(
-    padding: const EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: _kPurple400),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Common Operations',
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: _kPurple900,
-          ),
-        ),
-        const SizedBox(height: 16),
-        _buildOperationItem(
-          Icons.repeat,
-          'Forward Iteration',
-          'child = firstChild\nwhile (child != null)\n  child = child.nextSibling',
-        ),
-        _buildOperationItem(
-          Icons.repeat_one,
-          'Backward Iteration',
-          'child = lastChild\nwhile (child != null)\n  child = child.previousSibling',
-        ),
-        _buildOperationItem(
-          Icons.search,
-          'Find by Index',
-          'iterate n times from firstChild\nusing nextSibling',
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildOperationItem(IconData icon, String title, String pseudo) {
-  return Container(
-    margin: const EdgeInsets.only(bottom: 10),
-    padding: const EdgeInsets.all(10),
-    decoration: BoxDecoration(
-      color: _kPurple900,
-      borderRadius: BorderRadius.circular(8),
-    ),
+Widget _buildSummaryItem(String text) {
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: 4),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(icon, color: _kPurple200, size: 20),
-        const SizedBox(width: 10),
+        Icon(Icons.check_circle, color: Colors.green.shade600, size: 18),
+        SizedBox(width: 8),
         Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: const TextStyle(
-                  color: _kPurple100,
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                pseudo,
-                style: const TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 9,
-                  color: _kPurple200,
-                  height: 1.4,
-                ),
-              ),
-            ],
+          child: Text(
+            text,
+            style: TextStyle(fontSize: 13, color: Colors.indigo.shade800),
           ),
         ),
       ],
@@ -1042,330 +1081,109 @@ Widget _buildOperationItem(IconData icon, String title, String pseudo) {
   );
 }
 
-/// Build results card
-Widget _buildResultsCard(bool success, String className) {
-  return Container(
-    padding: const EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: success ? const Color(0xFFE8F5E9) : const Color(0xFFFFEBEE),
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(
-        color: success ? Colors.green[300]! : Colors.red[300]!,
-      ),
-    ),
-    child: Row(
-      children: [
-        Icon(
-          success ? Icons.check_circle : Icons.error,
-          color: success ? Colors.green[700] : Colors.red[700],
-          size: 32,
-        ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                success ? 'Demo Successful' : 'Demo Failed',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: success ? Colors.green[800] : Colors.red[800],
-                ),
-              ),
-              Text(
-                '$className concepts demonstrated',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: success ? Colors.green[600] : Colors.red[600],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
+void main() {
+  print('=== ContainerParentDataMixin Deep Demo ===');
+  print('');
+  print('ContainerParentDataMixin provides sibling pointers for ParentData.');
+  print('This enables efficient doubly-linked list traversal of children.');
+  print('');
+  
+  _demonstrateMixinConcept();
+  _demonstrateSiblingPointers();
+  _demonstrateLinkedListStructure();
+  _demonstrateTraversalPatterns();
+  _demonstrateContainerIntegration();
+  
+  print('');
+  print('=== Demo Complete ===');
 }
 
-Widget _buildSummaryChip(String label, IconData icon) {
-  return Container(
-    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-    decoration: BoxDecoration(
-      color: _kPurple600,
-      borderRadius: BorderRadius.circular(16),
-    ),
-    child: Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(icon, color: Colors.white, size: 14),
-        const SizedBox(width: 4),
-        Text(
-          label,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 10,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ],
-    ),
-  );
+void _demonstrateMixinConcept() {
+  print('--- Mixin Concept ---');
+  print('ContainerParentDataMixin is defined as:');
+  print('  mixin ContainerParentDataMixin<ChildType extends RenderObject>');
+  print('      on ParentData { ... }');
+  print('');
+  print('The "on ParentData" clause means it can only be mixed into');
+  print('classes that extend ParentData.');
+  print('');
+  print('The type parameter ChildType ensures type safety when');
+  print('navigating between siblings.');
+  print('');
 }
 
-// ═══════════════════════════════════════════════════════════════════════════
-// MAIN BUILD FUNCTION
-// ═══════════════════════════════════════════════════════════════════════════
+void _demonstrateSiblingPointers() {
+  print('--- Sibling Pointers ---');
+  print('The mixin provides two key properties:');
+  print('');
+  print('  ChildType? previousSibling');
+  print('    - Points to the previous child in the container');
+  print('    - null for the first child');
+  print('');
+  print('  ChildType? nextSibling');
+  print('    - Points to the next child in the container');
+  print('    - null for the last child');
+  print('');
+}
 
-dynamic build(BuildContext context) {
-  // Print information about ContainerParentDataMixin
-  print('╔══════════════════════════════════════════════════════════════════╗');
-  print('║       ContainerParentDataMixin Deep Demo                         ║');
-  print('╚══════════════════════════════════════════════════════════════════╝');
+void _demonstrateLinkedListStructure() {
+  print('--- Linked List Structure ---');
+  print('Children form a doubly-linked list:');
+  print('');
+  print('  Container');
+  print('    firstChild ──► Child A');
+  print('    lastChild ───► Child C');
+  print('');
+  print('  Child A');
+  print('    previousSibling: null');
+  print('    nextSibling: ──────► Child B');
+  print('');
+  print('  Child B');
+  print('    previousSibling: ◄── Child A');
+  print('    nextSibling: ──────► Child C');
+  print('');
+  print('  Child C');
+  print('    previousSibling: ◄── Child B');
+  print('    nextSibling: null');
+  print('');
+}
 
-  print('\n--- ContainerParentDataMixin Overview ---');
-  print('A mixin that adds sibling navigation to ParentData classes.');
-  print('Creates a doubly-linked list of children.');
+void _demonstrateTraversalPatterns() {
+  print('--- Traversal Patterns ---');
+  print('');
+  print('Forward traversal (for layout, painting):');
+  print('  var child = firstChild;');
+  print('  while (child != null) {');
+  print('    // process child');
+  print('    child = child.parentData.nextSibling;');
+  print('  }');
+  print('');
+  print('Backward traversal (for hit testing):');
+  print('  var child = lastChild;');
+  print('  while (child != null) {');
+  print('    // process child');
+  print('    child = child.parentData.previousSibling;');
+  print('  }');
+  print('');
+}
 
-  print('\n--- Key Properties ---');
-  print('previousSibling: Reference to previous child');
-  print('nextSibling: Reference to next child');
-
-  print('\n--- Type Parameter ---');
-  print('ChildType extends RenderObject');
-  print('Ensures type-safe navigation between siblings.');
-
-  print('\nContainerParentDataMixin test completed.');
-
-  // ═══════════════════════════════════════════════════════════════════════════
-  // BUILD UI
-  // ═══════════════════════════════════════════════════════════════════════════
-
-  return Container(
-    decoration: const BoxDecoration(
-      gradient: LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: [Color(0xFFF8F4FC), Color(0xFFF3E5F5)],
-      ),
-    ),
-    child: SingleChildScrollView(
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Header
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [_kPurple700, _kPurple900],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-              borderRadius: BorderRadius.circular(16),
-              boxShadow: [
-                BoxShadow(
-                  color: _kPurple800.withAlpha(80),
-                  blurRadius: 12,
-                  offset: const Offset(0, 6),
-                ),
-              ],
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withAlpha(50),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: const Icon(
-                        Icons.extension,
-                        color: Colors.white,
-                        size: 32,
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    const Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'ContainerParentDataMixin',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            'rendering library • mixin',
-                            style: TextStyle(
-                              color: Colors.white70,
-                              fontSize: 14,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withAlpha(30),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: const Text(
-                    'A mixin for ParentData that adds sibling navigation capabilities, '
-                    'forming a doubly-linked list of children for efficient traversal.',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 13,
-                      height: 1.4,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 24),
-
-          // Info cards
-          _buildInfoCard(
-            'Mixin Pattern',
-            'Adds functionality to classes without full inheritance hierarchy.',
-            Icons.extension,
-          ),
-          _buildInfoCard(
-            'Sibling Links',
-            'Enables bidirectional navigation between adjacent children.',
-            Icons.swap_horiz,
-          ),
-
-          // Mixin concept
-          _buildSectionTitle('What is a Mixin?', Icons.school),
-          _buildMixinConceptCard(),
-          const SizedBox(height: 20),
-
-          // Properties
-          _buildSectionTitle('Properties', Icons.list),
-          _buildMixinPropertiesCard(),
-          const SizedBox(height: 20),
-
-          // Doubly linked list
-          _buildSectionTitle('Linked List', Icons.link),
-          _buildDoublyLinkedListVisualization(),
-          const SizedBox(height: 20),
-
-          // Interactive demo
-          _buildSectionTitle('Navigate Siblings', Icons.navigation),
-          _buildInteractiveNavigationDemo(),
-          const SizedBox(height: 20),
-
-          // Type parameter
-          _buildSectionTitle('Type Parameter', Icons.code),
-          _buildTypeParameterCard(),
-          const SizedBox(height: 20),
-
-          // Users
-          _buildSectionTitle('Classes Using Mixin', Icons.category),
-          _buildUsersCard(),
-          const SizedBox(height: 20),
-
-          // Operations
-          _buildSectionTitle('Operations', Icons.settings),
-          _buildOperationsCard(),
-          const SizedBox(height: 20),
-
-          // Code examples
-          _buildSectionTitle('Code Examples', Icons.code),
-          _buildCodeSnippet(
-            'Mixin Definition',
-            '''mixin ContainerParentDataMixin<
-    ChildType extends RenderObject> on ParentData {
-  ChildType? previousSibling;
-  ChildType? nextSibling;
-}''',
-          ),
-          _buildCodeSnippet(
-            'Using the Mixin',
-            '''class MyParentData extends ParentData
-    with ContainerParentDataMixin<RenderBox> {
-  // previousSibling and nextSibling are available
-  // Additional custom data can be added here
-}''',
-          ),
-          _buildCodeSnippet(
-            'Traversing Children',
-            '''void visitChildren(RenderObjectVisitor visitor) {
-  RenderBox? child = firstChild;
-  while (child != null) {
-    visitor(child);
-    final pd = child.parentData as ContainerParentDataMixin;
-    child = pd.nextSibling as RenderBox?;
-  }
-}''',
-          ),
-
-          // Results
-          _buildSectionTitle('Test Results', Icons.check_circle),
-          _buildResultsCard(true, 'ContainerParentDataMixin'),
-          const SizedBox(height: 20),
-
-          // Summary
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: _kPurple100,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Column(
-              children: [
-                const Icon(Icons.summarize, color: _kPurple700, size: 32),
-                const SizedBox(height: 12),
-                const Text(
-                  'Summary',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: _kPurple900,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                const Text(
-                  'ContainerParentDataMixin adds previousSibling and nextSibling '
-                  'properties to ParentData, creating a doubly-linked list for '
-                  'efficient bidirectional child traversal in container render objects.',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: _kPurple800,
-                    height: 1.4,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 12),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _buildSummaryChip('mixin', Icons.extension),
-                    const SizedBox(width: 8),
-                    _buildSummaryChip('linked', Icons.link),
-                    const SizedBox(width: 8),
-                    _buildSummaryChip('generic', Icons.code),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 20),
-        ],
-      ),
-    ),
-  );
+void _demonstrateContainerIntegration() {
+  print('--- Container Integration ---');
+  print('');
+  print('ContainerRenderObjectMixin manages the linked list:');
+  print('');
+  print('  insert(child, {after}):');
+  print('    - Adds child to the list');
+  print('    - Updates sibling pointers');
+  print('    - Updates firstChild/lastChild');
+  print('');
+  print('  remove(child):');
+  print('    - Removes child from list');
+  print('    - Reconnects adjacent siblings');
+  print('    - Clears child sibling pointers');
+  print('');
+  print('  move(child, {after}):');
+  print('    - Repositions child in list');
+  print('    - Updates all affected links');
+  print('');
 }

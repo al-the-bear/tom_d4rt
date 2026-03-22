@@ -1,875 +1,269 @@
-// D4rt test script: Comprehensive demo for BackdropKey from rendering
-//
-// BackdropKey is a key type used to identify backdrop filter layers
-// in the rendering layer tree. It helps in:
-//   - Identifying specific backdrop effects
-//   - Managing backdrop filter layer lifecycle
-//   - Connecting clips to specific backdrop areas
-//
-// This demo shows:
-//   1. What backdrop filters are and how they work
-//   2. BackdropKey's role in layer management
-//   3. Visual examples of backdrop filter effects
-//   4. Key usage patterns
-//
-// ═══════════════════════════════════════════════════════════════════════════
-import 'dart:typed_data';
+// D4rt test script: Deep demo of BackdropKey from rendering
 import 'dart:ui' as ui;
-
 import 'package:flutter/material.dart';
 
-// ═══════════════════════════════════════════════════════════════════════════
-// CONSTANTS
-// ═══════════════════════════════════════════════════════════════════════════
-
-const _kCyan50 = Color(0xFFE0F7FA);
-const _kCyan100 = Color(0xFFB2EBF2);
-const _kCyan200 = Color(0xFF80DEEA);
-const _kCyan300 = Color(0xFF4DD0E1);
-const _kCyan400 = Color(0xFF26C6DA);
-const _kCyan500 = Color(0xFF00BCD4);
-const _kCyan600 = Color(0xFF00ACC1);
-const _kCyan700 = Color(0xFF0097A7);
-const _kCyan800 = Color(0xFF00838F);
-const _kCyan900 = Color(0xFF006064);
-
-// ═══════════════════════════════════════════════════════════════════════════
-// HELPER WIDGETS
-// ═══════════════════════════════════════════════════════════════════════════
-
-/// Builds a styled section title
-Widget _buildSectionTitle(String title, IconData icon) {
-  return Padding(
-    padding: const EdgeInsets.only(bottom: 12),
-    child: Row(
-      children: [
-        Icon(icon, color: _kCyan700, size: 24),
-        const SizedBox(width: 8),
-        Text(
-          title,
-          style: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: _kCyan900,
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-/// Builds an info card with description
-Widget _buildInfoCard(String title, String description, IconData icon) {
+Widget buildSectionHeader(String title) {
   return Container(
-    margin: const EdgeInsets.only(bottom: 12),
-    padding: const EdgeInsets.all(16),
+    width: double.infinity,
+    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+    margin: EdgeInsets.only(bottom: 8, top: 16),
     decoration: BoxDecoration(
-      color: _kCyan50,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: _kCyan200),
+      color: Colors.indigo.shade700,
+      borderRadius: BorderRadius.circular(8),
     ),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: _kCyan100,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Icon(icon, color: _kCyan700, size: 24),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: _kCyan900,
-                ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                description,
-                style: const TextStyle(fontSize: 12, color: _kCyan700),
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-/// Builds a code snippet display
-Widget _buildCodeSnippet(String title, String code) {
-  return Container(
-    margin: const EdgeInsets.only(bottom: 16),
-    decoration: BoxDecoration(
-      color: _kCyan900,
-      borderRadius: BorderRadius.circular(12),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          decoration: BoxDecoration(
-            color: _kCyan800,
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
-          ),
-          child: Row(
-            children: [
-              const Icon(Icons.code, color: _kCyan200, size: 16),
-              const SizedBox(width: 8),
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: _kCyan100,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(16),
-          child: Text(
-            code,
-            style: const TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 11,
-              color: Color(0xFFE0F7FA),
-              height: 1.5,
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-/// Backdrop filter concept visualization
-Widget _buildBackdropConceptCard() {
-  return Container(
-    padding: const EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: _kCyan300),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Backdrop Filter Concept',
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: _kCyan900,
-          ),
-        ),
-        const SizedBox(height: 16),
-        SizedBox(
-          height: 200,
-          child: Stack(
-            children: [
-              // Background layer
-              Positioned.fill(
-                child: Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [_kCyan300, _kCyan500],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          _buildBackgroundIcon(Icons.star, Colors.yellow),
-                          _buildBackgroundIcon(Icons.favorite, Colors.red),
-                          _buildBackgroundIcon(Icons.circle, Colors.white),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          _buildBackgroundIcon(Icons.square, Colors.orange),
-                          _buildBackgroundIcon(Icons.hexagon, Colors.purple),
-                          _buildBackgroundIcon(Icons.star_border, Colors.pink),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              // Backdrop filter overlay
-              Positioned(
-                left: 50,
-                top: 50,
-                right: 50,
-                bottom: 50,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(16),
-                  child: BackdropFilter(
-                    filter: ui.ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white.withAlpha(100),
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: Colors.white.withAlpha(150)),
-                      ),
-                      alignment: Alignment.center,
-                      child: const Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.blur_on, color: _kCyan900, size: 32),
-                          SizedBox(height: 8),
-                          Text(
-                            'Blurred Backdrop',
-                            style: TextStyle(
-                              color: _kCyan900,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 12),
-        Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: _kCyan50,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: const Text(
-            'BackdropFilter applies effects (blur, color) to content behind it.',
-            style: TextStyle(fontSize: 11, color: _kCyan800),
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildBackgroundIcon(IconData icon, Color color) {
-  return Container(
-    width: 40,
-    height: 40,
-    decoration: BoxDecoration(
-      color: color.withAlpha(200),
-      shape: BoxShape.circle,
-    ),
-    child: Icon(icon, color: Colors.white, size: 24),
-  );
-}
-
-/// BackdropKey role visualization
-Widget _buildKeyRoleCard() {
-  return Container(
-    padding: const EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: _kCyan200),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'BackdropKey Role',
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: _kCyan900,
-          ),
-        ),
-        const SizedBox(height: 16),
-        _buildKeyRole(
-          Icons.key,
-          'Unique Identification',
-          'Identifies specific backdrop filter layers in the tree',
-        ),
-        _buildKeyRole(
-          Icons.link,
-          'Clip Association',
-          'Connects clip regions to specific backdrop effects',
-        ),
-        _buildKeyRole(
-          Icons.cached,
-          'Layer Caching',
-          'Enables efficient caching and reuse of backdrop layers',
-        ),
-        _buildKeyRole(
-          Icons.layers,
-          'Layer Management',
-          'Helps manage lifecycle of backdrop filter layers',
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildKeyRole(IconData icon, String title, String desc) {
-  return Padding(
-    padding: const EdgeInsets.only(bottom: 12),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: _kCyan200,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Icon(icon, color: _kCyan700, size: 20),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  color: _kCyan900,
-                ),
-              ),
-              Text(
-                desc,
-                style: const TextStyle(fontSize: 11, color: _kCyan700),
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-/// Interactive blur demo
-Widget _buildInteractiveBlurDemo() {
-  return _InteractiveBlurWidget();
-}
-
-class _InteractiveBlurWidget extends StatefulWidget {
-  @override
-  State<_InteractiveBlurWidget> createState() => _InteractiveBlurWidgetState();
-}
-
-class _InteractiveBlurWidgetState extends State<_InteractiveBlurWidget> {
-  double _blurSigma = 5.0;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
+    child: Text(
+      title,
+      style: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
         color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: _kCyan400),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            'Interactive Blur Demo',
+    ),
+  );
+}
+
+Widget buildInfoCard(String label, String value) {
+  return Container(
+    margin: EdgeInsets.symmetric(vertical: 4),
+    padding: EdgeInsets.all(12),
+    decoration: BoxDecoration(
+      color: Colors.grey.shade100,
+      borderRadius: BorderRadius.circular(8),
+      border: Border.all(color: Colors.grey.shade300),
+    ),
+    child: Row(
+      children: [
+        Text(
+          label,
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+        ),
+        SizedBox(width: 8),
+        Expanded(
+          child: Text(
+            value,
+            style: TextStyle(fontSize: 14, color: Colors.grey.shade700),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget buildPropertyRow(String property, String type, String description) {
+  return Container(
+    margin: EdgeInsets.symmetric(vertical: 3),
+    padding: EdgeInsets.all(10),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(6),
+      border: Border.all(color: Colors.grey.shade200),
+    ),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          width: 120,
+          child: Text(
+            property,
             style: TextStyle(
-              fontSize: 14,
               fontWeight: FontWeight.bold,
-              color: _kCyan900,
+              fontSize: 13,
+              color: Colors.indigo.shade800,
             ),
           ),
-          const SizedBox(height: 8),
-          Row(
+        ),
+        SizedBox(
+          width: 100,
+          child: Text(
+            type,
+            style: TextStyle(
+              fontSize: 12,
+              color: Colors.blue.shade700,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+        ),
+        Expanded(
+          child: Text(
+            description,
+            style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget buildConceptCard(String title, String explanation, IconData icon) {
+  return Container(
+    margin: EdgeInsets.symmetric(vertical: 6),
+    padding: EdgeInsets.all(14),
+    decoration: BoxDecoration(
+      gradient: LinearGradient(
+        colors: [Colors.indigo.shade50, Colors.purple.shade50],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      ),
+      borderRadius: BorderRadius.circular(10),
+      border: Border.all(color: Colors.indigo.shade200),
+    ),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(icon, color: Colors.indigo.shade600, size: 28),
+        SizedBox(width: 12),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Blur Sigma:',
-                style: TextStyle(fontSize: 11, color: _kCyan700),
-              ),
-              Expanded(
-                child: Slider(
-                  value: _blurSigma,
-                  min: 0,
-                  max: 20,
-                  onChanged: (v) => setState(() => _blurSigma = v),
-                  activeColor: _kCyan500,
+              Text(
+                title,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                  color: Colors.indigo.shade900,
                 ),
               ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(
-                  color: _kCyan500,
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: Text(
-                  _blurSigma.toStringAsFixed(1),
-                  style: const TextStyle(color: Colors.white, fontSize: 11),
-                ),
+              SizedBox(height: 4),
+              Text(
+                explanation,
+                style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
               ),
             ],
           ),
-          const SizedBox(height: 16),
-          SizedBox(
-            height: 180,
-            child: Stack(
-              children: [
-                // Background with pattern
-                Positioned.fill(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: GridView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 6,
-                            childAspectRatio: 1,
-                          ),
-                      itemCount: 24,
-                      itemBuilder: (context, index) {
-                        final colors = [
-                          _kCyan200,
-                          _kCyan300,
-                          _kCyan400,
-                          _kCyan500,
-                        ];
-                        return Container(
-                          margin: const EdgeInsets.all(2),
-                          decoration: BoxDecoration(
-                            color: colors[index % colors.length],
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                        );
-                      },
+        ),
+      ],
+    ),
+  );
+}
+
+Widget buildBlurEffectDemo(String effectName, double sigmaX, double sigmaY) {
+  return Container(
+    margin: EdgeInsets.symmetric(vertical: 6),
+    padding: EdgeInsets.all(10),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(8),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withValues(alpha: 0.1),
+          blurRadius: 4,
+          offset: Offset(0, 2),
+        ),
+      ],
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          effectName,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 14,
+            color: Colors.indigo.shade700,
+          ),
+        ),
+        SizedBox(height: 8),
+        Row(
+          children: [
+            Container(
+              width: 80,
+              height: 60,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6),
+                gradient: LinearGradient(
+                  colors: [Colors.orange, Colors.pink, Colors.purple],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+              ),
+              child: Center(
+                child: Text(
+                  'Original',
+                  style: TextStyle(color: Colors.white, fontSize: 11),
+                ),
+              ),
+            ),
+            SizedBox(width: 12),
+            Icon(Icons.arrow_forward, color: Colors.grey.shade400),
+            SizedBox(width: 12),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(6),
+              child: BackdropFilter(
+                filter: ui.ImageFilter.blur(sigmaX: sigmaX, sigmaY: sigmaY),
+                child: Container(
+                  width: 80,
+                  height: 60,
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.3),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Blurred',
+                      style: TextStyle(color: Colors.grey.shade800, fontSize: 11),
                     ),
                   ),
                 ),
-                // Backdrop filter region
-                Positioned(
-                  left: 30,
-                  right: 30,
-                  top: 40,
-                  bottom: 40,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(16),
-                    child: BackdropFilter(
-                      filter: ui.ImageFilter.blur(
-                        sigmaX: _blurSigma,
-                        sigmaY: _blurSigma,
-                      ),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white.withAlpha(100),
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: Colors.white),
-                        ),
-                        alignment: Alignment.center,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(
-                              Icons.blur_on,
-                              color: _kCyan800,
-                              size: 28,
-                            ),
-                            const SizedBox(height: 4),
-                            Text(
-                              'σ = ${_blurSigma.toStringAsFixed(1)}',
-                              style: const TextStyle(
-                                color: _kCyan900,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
+              ),
+            ),
+            SizedBox(width: 16),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'sigmaX: ${sigmaX.toStringAsFixed(1)}',
+                  style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+                ),
+                Text(
+                  'sigmaY: ${sigmaY.toStringAsFixed(1)}',
+                  style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
                 ),
               ],
             ),
-          ),
-        ],
-      ),
-    );
-  }
+          ],
+        ),
+      ],
+    ),
+  );
 }
 
-/// Layer tree visualization
-Widget _buildLayerTreeCard() {
+Widget buildOptimizationCard(String optimization, String benefit, Color accentColor) {
   return Container(
-    padding: const EdgeInsets.all(16),
+    margin: EdgeInsets.symmetric(vertical: 4),
+    padding: EdgeInsets.all(12),
     decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: _kCyan300),
+      color: accentColor.withValues(alpha: 0.1),
+      borderRadius: BorderRadius.circular(8),
+      border: Border.all(color: accentColor.withValues(alpha: 0.3)),
     ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Layer Tree with BackdropKey',
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: _kCyan900,
-          ),
-        ),
-        const SizedBox(height: 16),
-        _buildTreeNode('ContainerLayer', 0, false),
-        _buildTreeNode('├── PictureLayer', 1, false),
-        _buildTreeNode('├── BackdropFilterLayer', 1, true),
-        _buildTreeNode('│   └── key: BackdropKey(#1)', 2, true),
-        _buildTreeNode('│   └── filter: blur(5,5)', 2, false),
-        _buildTreeNode('├── ClipRectLayer', 1, false),
-        _buildTreeNode('│   └── linkedKey: BackdropKey(#1)', 2, true),
-        _buildTreeNode('└── PictureLayer', 1, false),
-      ],
-    ),
-  );
-}
-
-Widget _buildTreeNode(String text, int indent, bool highlight) {
-  return Padding(
-    padding: EdgeInsets.only(left: indent * 16.0, top: 4, bottom: 4),
-    child: Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      decoration: BoxDecoration(
-        color: highlight ? _kCyan500 : _kCyan50,
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontFamily: 'monospace',
-          fontSize: 11,
-          color: highlight ? Colors.white : _kCyan800,
-          fontWeight: highlight ? FontWeight.bold : FontWeight.normal,
-        ),
-      ),
-    ),
-  );
-}
-
-/// Multiple filter effects
-Widget _buildMultipleEffectsDemo() {
-  return Container(
-    padding: const EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: _kCyan300),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Backdrop Filter Effects',
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: _kCyan900,
-          ),
-        ),
-        const SizedBox(height: 16),
-        SizedBox(
-          height: 200,
-          child: Row(
-            children: [
-              _buildEffectDemo(
-                'Blur',
-                ui.ImageFilter.blur(sigmaX: 8, sigmaY: 8),
-              ),
-              const SizedBox(width: 8),
-              _buildEffectDemo(
-                'Matrix',
-                ui.ImageFilter.matrix(
-                  Float64List.fromList([
-                    0.8,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0.8,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0.8,
-                    0,
-                    0,
-                    0,
-                    0,
-                    1,
-                  ]),
-                ),
-              ),
-              const SizedBox(width: 8),
-              _buildEffectDemo(
-                'Compose',
-                ui.ImageFilter.compose(
-                  outer: ui.ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-                  inner: ui.ImageFilter.dilate(radiusX: 1, radiusY: 1),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildEffectDemo(String label, ui.ImageFilter filter) {
-  return Expanded(
-    child: Column(
-      children: [
-        Expanded(
-          child: Stack(
-            children: [
-              // Background
-              Positioned.fill(
-                child: Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [_kCyan400, _kCyan600],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                    ),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: GridView.count(
-                    crossAxisCount: 3,
-                    physics: const NeverScrollableScrollPhysics(),
-                    padding: const EdgeInsets.all(8),
-                    mainAxisSpacing: 4,
-                    crossAxisSpacing: 4,
-                    children: List.generate(9, (i) {
-                      return Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white.withAlpha(150),
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                      );
-                    }),
-                  ),
-                ),
-              ),
-              // Filter overlay
-              Positioned(
-                left: 15,
-                right: 15,
-                top: 30,
-                bottom: 30,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: BackdropFilter(
-                    filter: filter,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white.withAlpha(80),
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: Colors.white),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.bold,
-            color: _kCyan800,
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-/// Key properties card
-Widget _buildKeyPropertiesCard() {
-  return Container(
-    padding: const EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: [_kCyan100, _kCyan50],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-      ),
-      borderRadius: BorderRadius.circular(12),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'BackdropKey Properties',
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: _kCyan900,
-          ),
-        ),
-        const SizedBox(height: 16),
-        _buildPropertyItem('Type', 'GlobalKey subclass', Icons.category),
-        _buildPropertyItem('Scope', 'Tree-wide unique', Icons.account_tree),
-        _buildPropertyItem('Lifecycle', 'Tied to layer', Icons.loop),
-        _buildPropertyItem(
-          'Purpose',
-          'Layer identification',
-          Icons.fingerprint,
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildPropertyItem(String label, String value, IconData icon) {
-  return Padding(
-    padding: const EdgeInsets.only(bottom: 10),
     child: Row(
       children: [
         Container(
-          padding: const EdgeInsets.all(8),
+          width: 6,
+          height: 50,
           decoration: BoxDecoration(
-            color: _kCyan500,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Icon(icon, color: Colors.white, size: 18),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                label,
-                style: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  color: _kCyan900,
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(
-                  color: _kCyan200,
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: Text(
-                  value,
-                  style: const TextStyle(fontSize: 10, color: _kCyan800),
-                ),
-              ),
-            ],
+            color: accentColor,
+            borderRadius: BorderRadius.circular(3),
           ),
         ),
-      ],
-    ),
-  );
-}
-
-/// Use cases card
-Widget _buildUseCasesCard() {
-  return Container(
-    padding: const EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: _kCyan300),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Common Use Cases',
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: _kCyan900,
-          ),
-        ),
-        const SizedBox(height: 16),
-        _buildUseCaseItem(
-          Icons.blur_linear,
-          'Dialog Backgrounds',
-          'Blur content behind modal dialogs',
-        ),
-        _buildUseCaseItem(
-          Icons.navigation,
-          'Navigation Bars',
-          'Frosted glass effect for app bars',
-        ),
-        _buildUseCaseItem(
-          Icons.photo_filter,
-          'Image Filters',
-          'Apply effects to image regions',
-        ),
-        _buildUseCaseItem(
-          Icons.style,
-          'Glassmorphism',
-          'Modern glass-like UI effects',
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildUseCaseItem(IconData icon, String title, String desc) {
-  return Padding(
-    padding: const EdgeInsets.only(bottom: 10),
-    child: Row(
-      children: [
-        Container(
-          width: 44,
-          height: 44,
-          decoration: BoxDecoration(
-            color: _kCyan100,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Icon(icon, color: _kCyan600, size: 24),
-        ),
-        const SizedBox(width: 12),
+        SizedBox(width: 12),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 12,
+                optimization,
+                style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: _kCyan900,
+                  fontSize: 13,
+                  color: Colors.grey.shade900,
                 ),
               ),
+              SizedBox(height: 2),
               Text(
-                desc,
-                style: const TextStyle(fontSize: 10, color: _kCyan700),
+                benefit,
+                style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
               ),
             ],
           ),
@@ -879,162 +273,270 @@ Widget _buildUseCaseItem(IconData icon, String title, String desc) {
   );
 }
 
-/// Glassmorphism demo
-Widget _buildGlassmorphismDemo() {
+Widget buildLayerCacheCard(String cacheName, String description, bool isCached) {
   return Container(
-    height: 220,
+    margin: EdgeInsets.symmetric(vertical: 4),
+    padding: EdgeInsets.all(12),
     decoration: BoxDecoration(
-      gradient: const LinearGradient(
-        colors: [Color(0xFF667eea), Color(0xFF764ba2)],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-      ),
-      borderRadius: BorderRadius.circular(16),
-    ),
-    child: Stack(
-      children: [
-        // Background decorations
-        Positioned(
-          top: 20,
-          left: 30,
-          child: Container(
-            width: 80,
-            height: 80,
-            decoration: BoxDecoration(
-              color: Colors.white.withAlpha(80),
-              shape: BoxShape.circle,
-            ),
-          ),
-        ),
-        Positioned(
-          bottom: 30,
-          right: 40,
-          child: Container(
-            width: 100,
-            height: 100,
-            decoration: BoxDecoration(
-              color: Colors.white.withAlpha(60),
-              shape: BoxShape.circle,
-            ),
-          ),
-        ),
-        Positioned(
-          top: 80,
-          right: 60,
-          child: Container(
-            width: 50,
-            height: 50,
-            decoration: BoxDecoration(
-              color: Colors.white.withAlpha(100),
-              shape: BoxShape.circle,
-            ),
-          ),
-        ),
-        // Glass card
-        Center(
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: BackdropFilter(
-              filter: ui.ImageFilter.blur(sigmaX: 12, sigmaY: 12),
-              child: Container(
-                width: 280,
-                height: 140,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.white.withAlpha(80),
-                      Colors.white.withAlpha(40),
-                    ],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                    color: Colors.white.withAlpha(100),
-                    width: 1.5,
-                  ),
-                ),
-                padding: const EdgeInsets.all(20),
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(Icons.credit_card, color: Colors.white, size: 28),
-                        SizedBox(width: 8),
-                        Text(
-                          'Glass Card',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Spacer(),
-                    Text(
-                      '**** **** **** 4242',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        letterSpacing: 4,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    SizedBox(height: 4),
-                    Text(
-                      'Glassmorphism Effect',
-                      style: TextStyle(color: Colors.white70, fontSize: 12),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-/// Build results card
-Widget _buildResultsCard(bool success, String className) {
-  return Container(
-    padding: const EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: success ? const Color(0xFFE8F5E9) : const Color(0xFFFFEBEE),
-      borderRadius: BorderRadius.circular(12),
+      color: isCached ? Colors.green.shade50 : Colors.orange.shade50,
+      borderRadius: BorderRadius.circular(8),
       border: Border.all(
-        color: success ? Colors.green[300]! : Colors.red[300]!,
+        color: isCached ? Colors.green.shade300 : Colors.orange.shade300,
       ),
     ),
     child: Row(
       children: [
         Icon(
-          success ? Icons.check_circle : Icons.error,
-          color: success ? Colors.green[700] : Colors.red[700],
-          size: 32,
+          isCached ? Icons.cached : Icons.refresh,
+          color: isCached ? Colors.green.shade700 : Colors.orange.shade700,
+          size: 22,
         ),
-        const SizedBox(width: 16),
+        SizedBox(width: 10),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                success ? 'Demo Successful' : 'Demo Failed',
+                cacheName,
                 style: TextStyle(
-                  fontSize: 14,
                   fontWeight: FontWeight.bold,
-                  color: success ? Colors.green[800] : Colors.red[800],
+                  fontSize: 13,
+                  color: Colors.grey.shade900,
                 ),
               ),
               Text(
-                '$className concepts demonstrated',
+                description,
+                style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+              ),
+            ],
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          decoration: BoxDecoration(
+            color: isCached ? Colors.green.shade100 : Colors.orange.shade100,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Text(
+            isCached ? 'CACHED' : 'RECOMPUTED',
+            style: TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.bold,
+              color: isCached ? Colors.green.shade800 : Colors.orange.shade800,
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget buildUsagePatternCard(String pattern, String codeExample) {
+  return Container(
+    margin: EdgeInsets.symmetric(vertical: 6),
+    padding: EdgeInsets.all(12),
+    decoration: BoxDecoration(
+      color: Colors.grey.shade900,
+      borderRadius: BorderRadius.circular(8),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          pattern,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 13,
+            color: Colors.amber.shade300,
+          ),
+        ),
+        SizedBox(height: 8),
+        Container(
+          width: double.infinity,
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: Colors.black,
+            borderRadius: BorderRadius.circular(6),
+          ),
+          child: Text(
+            codeExample,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 11,
+              color: Colors.green.shade300,
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget buildComparisonRow(String feature, String withoutKey, String withKey) {
+  return Container(
+    margin: EdgeInsets.symmetric(vertical: 3),
+    padding: EdgeInsets.all(10),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(6),
+      border: Border.all(color: Colors.grey.shade200),
+    ),
+    child: Row(
+      children: [
+        SizedBox(
+          width: 140,
+          child: Text(
+            feature,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
+              color: Colors.grey.shade800,
+            ),
+          ),
+        ),
+        Expanded(
+          child: Container(
+            padding: EdgeInsets.all(6),
+            decoration: BoxDecoration(
+              color: Colors.red.shade50,
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Text(
+              withoutKey,
+              style: TextStyle(fontSize: 11, color: Colors.red.shade700),
+            ),
+          ),
+        ),
+        SizedBox(width: 8),
+        Expanded(
+          child: Container(
+            padding: EdgeInsets.all(6),
+            decoration: BoxDecoration(
+              color: Colors.green.shade50,
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Text(
+              withKey,
+              style: TextStyle(fontSize: 11, color: Colors.green.shade700),
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget buildLayerHierarchyCard(int depth, String layerName, String role) {
+  return Container(
+    margin: EdgeInsets.only(left: depth * 20.0, top: 4, bottom: 4),
+    padding: EdgeInsets.all(10),
+    decoration: BoxDecoration(
+      color: Colors.indigo.shade50,
+      borderRadius: BorderRadius.circular(6),
+      border: Border.all(color: Colors.indigo.shade200),
+    ),
+    child: Row(
+      children: [
+        Icon(Icons.layers, color: Colors.indigo.shade400, size: 18),
+        SizedBox(width: 8),
+        Text(
+          layerName,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 12,
+            color: Colors.indigo.shade800,
+          ),
+        ),
+        SizedBox(width: 8),
+        Expanded(
+          child: Text(
+            role,
+            style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget buildPerformanceMetricCard(String metric, String value, String impact) {
+  return Container(
+    width: 160,
+    margin: EdgeInsets.all(4),
+    padding: EdgeInsets.all(12),
+    decoration: BoxDecoration(
+      gradient: LinearGradient(
+        colors: [Colors.blue.shade100, Colors.purple.shade100],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      ),
+      borderRadius: BorderRadius.circular(10),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          metric,
+          style: TextStyle(
+            fontSize: 11,
+            color: Colors.grey.shade700,
+          ),
+        ),
+        SizedBox(height: 4),
+        Text(
+          value,
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.indigo.shade800,
+          ),
+        ),
+        SizedBox(height: 2),
+        Text(
+          impact,
+          style: TextStyle(fontSize: 10, color: Colors.grey.shade600),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget buildFilterTypeCard(String filterType, String description, Color color) {
+  return Container(
+    margin: EdgeInsets.symmetric(vertical: 4),
+    padding: EdgeInsets.all(12),
+    decoration: BoxDecoration(
+      color: color.withValues(alpha: 0.1),
+      borderRadius: BorderRadius.circular(8),
+      border: Border.all(color: color.withValues(alpha: 0.4)),
+    ),
+    child: Row(
+      children: [
+        Container(
+          width: 40,
+          height: 40,
+          decoration: BoxDecoration(
+            color: color.withValues(alpha: 0.2),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Icon(Icons.filter_alt, color: color, size: 20),
+        ),
+        SizedBox(width: 12),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                filterType,
                 style: TextStyle(
-                  fontSize: 12,
-                  color: success ? Colors.green[600] : Colors.red[600],
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13,
+                  color: Colors.grey.shade900,
                 ),
+              ),
+              Text(
+                description,
+                style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
               ),
             ],
           ),
@@ -1044,24 +546,66 @@ Widget _buildResultsCard(bool success, String className) {
   );
 }
 
-Widget _buildSummaryChip(String label, IconData icon) {
+Widget buildBlendModeCard(String modeName, String description) {
   return Container(
-    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+    width: 150,
+    margin: EdgeInsets.all(4),
+    padding: EdgeInsets.all(10),
     decoration: BoxDecoration(
-      color: _kCyan600,
-      borderRadius: BorderRadius.circular(16),
+      color: Colors.grey.shade100,
+      borderRadius: BorderRadius.circular(8),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          modeName,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 12,
+            color: Colors.indigo.shade700,
+          ),
+        ),
+        SizedBox(height: 4),
+        Text(
+          description,
+          style: TextStyle(fontSize: 10, color: Colors.grey.shade600),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget buildWarningCard(String title, String warning) {
+  return Container(
+    margin: EdgeInsets.symmetric(vertical: 6),
+    padding: EdgeInsets.all(12),
+    decoration: BoxDecoration(
+      color: Colors.amber.shade50,
+      borderRadius: BorderRadius.circular(8),
+      border: Border.all(color: Colors.amber.shade300),
     ),
     child: Row(
-      mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(icon, color: Colors.white, size: 14),
-        const SizedBox(width: 4),
-        Text(
-          label,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 10,
-            fontWeight: FontWeight.w500,
+        Icon(Icons.warning_amber, color: Colors.amber.shade700, size: 24),
+        SizedBox(width: 10),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13,
+                  color: Colors.amber.shade900,
+                ),
+              ),
+              Text(
+                warning,
+                style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+              ),
+            ],
           ),
         ),
       ],
@@ -1069,260 +613,683 @@ Widget _buildSummaryChip(String label, IconData icon) {
   );
 }
 
-// ═══════════════════════════════════════════════════════════════════════════
-// MAIN BUILD FUNCTION
-// ═══════════════════════════════════════════════════════════════════════════
-
-dynamic build(BuildContext context) {
-  // Print information about BackdropKey
-  print('╔══════════════════════════════════════════════════════════════════╗');
-  print('║              BackdropKey Deep Demo                               ║');
-  print('╚══════════════════════════════════════════════════════════════════╝');
-
-  print('\n--- BackdropKey Overview ---');
-  print('Key type for identifying backdrop filter layers.');
-  print('Used in rendering layer tree management.');
-
-  // Explain backdrop filters
-  print('\n--- Backdrop Filters ---');
-  print('BackdropFilter applies effects to content behind it.');
-  print('Common effects: blur, color matrix, saturation.');
-
-  // Key purposes
-  print('\n--- BackdropKey Purposes ---');
-  print('- Unique layer identification');
-  print('- Clip region association');
-  print('- Efficient layer caching');
-  print('- Layer lifecycle management');
-
-  print('\nBackdropKey test completed.');
-
-  // ═══════════════════════════════════════════════════════════════════════════
-  // BUILD UI
-  // ═══════════════════════════════════════════════════════════════════════════
-
-  return Container(
-    decoration: const BoxDecoration(
-      gradient: LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: [Color(0xFFE8F5F8), Color(0xFFE0F2F5)],
-      ),
+Widget buildSummaryPoint(String point) {
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: 4),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(Icons.check_circle, color: Colors.indigo.shade700, size: 18),
+        SizedBox(width: 8),
+        Expanded(
+          child: Text(
+            point,
+            style: TextStyle(fontSize: 13, color: Colors.grey.shade800),
+          ),
+        ),
+      ],
     ),
-    child: SingleChildScrollView(
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Header
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [_kCyan700, _kCyan900],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
+  );
+}
+
+Widget build(BuildContext context) {
+  return MaterialApp(
+    home: Scaffold(
+      appBar: AppBar(
+        title: Text('BackdropKey Deep Demo'),
+        backgroundColor: Colors.indigo.shade700,
+      ),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Section 1: BackdropKey Purpose
+            buildSectionHeader('1. BackdropKey Purpose'),
+            
+            buildInfoCard(
+              'Definition',
+              'BackdropKey is a specialized key type used to uniquely identify backdrop filter layers in the Flutter rendering layer tree',
+            ),
+            
+            buildInfoCard(
+              'Primary Role',
+              'Enables precise identification and management of backdrop effects across the widget tree hierarchy',
+            ),
+            
+            buildInfoCard(
+              'Layer Association',
+              'Associates a key with backdrop filter operations allowing selective caching and invalidation',
+            ),
+            
+            buildConceptCard(
+              'Key-Based Layer Identification',
+              'BackdropKey provides a stable identity for backdrop filter layers. When the rendering pipeline processes multiple backdrop effects, keys help distinguish between different filter applications and their associated backdrop regions.',
+              Icons.vpn_key,
+            ),
+            
+            buildConceptCard(
+              'Lifecycle Management',
+              'Keys enable the framework to track backdrop filter layer lifecycles. When a widget with a BackdropKey is removed or repositioned, the framework can efficiently clean up or transfer the associated layer resources.',
+              Icons.autorenew,
+            ),
+            
+            buildConceptCard(
+              'Clip Region Binding',
+              'BackdropKey helps bind specific clip regions to backdrop filters. This ensures that blur effects are applied only within designated areas, preventing visual artifacts from bleeding across boundaries.',
+              Icons.crop,
+            ),
+            
+            buildPropertyRow('key', 'Key', 'The unique identifier for the backdrop layer'),
+            buildPropertyRow('layerId', 'int', 'Internal layer identifier assigned by the rendering engine'),
+            buildPropertyRow('clipRegion', 'Rect?', 'Optional clip bounds for the backdrop effect'),
+            buildPropertyRow('blendMode', 'BlendMode', 'How the backdrop filter result blends with the scene'),
+            
+            buildConceptCard(
+              'Widget Tree Integration',
+              'BackdropKey integrates with the element tree reconciliation process. When setState triggers rebuilds, keys help Flutter match old and new backdrop elements correctly preserving layer state.',
+              Icons.account_tree,
+            ),
+            
+            buildConceptCard(
+              'Debug Identification',
+              'In debug mode and when using Flutter DevTools, BackdropKey provides meaningful names for backdrop layers making it easier to identify specific effects in the layer visualization.',
+              Icons.bug_report,
+            ),
+            
+            SizedBox(height: 16),
+            
+            // Section 2: BackdropFilter Widget Usage
+            buildSectionHeader('2. BackdropFilter Widget Usage'),
+            
+            buildInfoCard(
+              'Widget Purpose',
+              'BackdropFilter applies a filter to existing painted content beneath it in the widget tree',
+            ),
+            
+            buildInfoCard(
+              'Filter Types',
+              'Supports ImageFilter operations including blur, matrix transforms, color filters, and composed effects',
+            ),
+            
+            buildUsagePatternCard(
+              'Basic BackdropFilter Usage',
+              'BackdropFilter(\n'
+              '  filter: ImageFilter.blur(\n'
+              '    sigmaX: 5.0,\n'
+              '    sigmaY: 5.0,\n'
+              '  ),\n'
+              '  child: Container(\n'
+              '    color: Colors.white24,\n'
+              '    child: Text(\'Blurred Background\'),\n'
+              '  ),\n'
+              ')',
+            ),
+            
+            buildUsagePatternCard(
+              'BackdropFilter with Key',
+              'BackdropFilter(\n'
+              '  key: backdropKey,\n'
+              '  filter: ImageFilter.blur(\n'
+              '    sigmaX: 10.0,\n'
+              '    sigmaY: 10.0,\n'
+              '  ),\n'
+              '  blendMode: BlendMode.srcOver,\n'
+              '  child: frostedGlassContent,\n'
+              ')',
+            ),
+            
+            buildUsagePatternCard(
+              'Nested BackdropFilter Stack',
+              'Stack(\n'
+              '  children: [\n'
+              '    backgroundImage,\n'
+              '    Positioned(\n'
+              '      child: BackdropFilter(\n'
+              '        key: Key(\'blur-layer-1\'),\n'
+              '        filter: blurFilter,\n'
+              '        child: overlayContent,\n'
+              '      ),\n'
+              '    ),\n'
+              '  ],\n'
+              ')',
+            ),
+            
+            buildConceptCard(
+              'Child Widget Requirements',
+              'BackdropFilter requires a child widget to define the filter application area. The child determines where the backdrop effect is visible. Without a child, the filter has no visible region to apply the effect.',
+              Icons.child_care,
+            ),
+            
+            buildConceptCard(
+              'Clipping Context',
+              'BackdropFilter typically needs a clipping ancestor to define bounds. Using ClipRect, ClipRRect, or ClipPath above the BackdropFilter ensures the effect is contained within a specific region.',
+              Icons.content_cut,
+            ),
+            
+            buildFilterTypeCard(
+              'Gaussian Blur',
+              'Most common filter type using sigmaX and sigmaY parameters',
+              Colors.blue,
+            ),
+            
+            buildFilterTypeCard(
+              'Matrix Transform',
+              'Applies transformation matrix to backdrop pixels',
+              Colors.purple,
+            ),
+            
+            buildFilterTypeCard(
+              'Color Filter',
+              'Modifies color values of backdrop content',
+              Colors.orange,
+            ),
+            
+            buildFilterTypeCard(
+              'Composed Filter',
+              'Combines multiple filter effects in sequence',
+              Colors.teal,
+            ),
+            
+            buildWarningCard(
+              'ClipRect Requirement',
+              'Without a clipping ancestor, the backdrop filter may affect the entire screen or produce unexpected visual results.',
+            ),
+            
+            SizedBox(height: 16),
+            
+            // Section 3: Blur Effects
+            buildSectionHeader('3. Blur Effects'),
+            
+            buildInfoCard(
+              'Gaussian Blur',
+              'The most common backdrop filter effect using ImageFilter.blur with sigma values for horizontal and vertical blur radius',
+            ),
+            
+            buildBlurEffectDemo('Subtle Blur', 2.0, 2.0),
+            buildBlurEffectDemo('Medium Blur', 5.0, 5.0),
+            buildBlurEffectDemo('Strong Blur', 10.0, 10.0),
+            buildBlurEffectDemo('Horizontal Blur', 8.0, 0.0),
+            buildBlurEffectDemo('Vertical Blur', 0.0, 8.0),
+            buildBlurEffectDemo('Asymmetric Blur', 3.0, 12.0),
+            
+            buildConceptCard(
+              'Sigma Value Meaning',
+              'Sigma represents the standard deviation of the Gaussian kernel. Higher values create more blur. A sigma of 0 means no blur in that direction. Values between 1-5 are subtle, 5-15 are moderate, and above 15 creates heavy blur.',
+              Icons.tune,
+            ),
+            
+            buildConceptCard(
+              'Performance Cost of Blur',
+              'Blur operations are GPU-intensive. Each pixel requires sampling multiple neighboring pixels based on sigma. Larger sigma values require more samples, increasing GPU workload. Using BackdropKey allows caching to mitigate repeated computations.',
+              Icons.speed,
+            ),
+            
+            buildConceptCard(
+              'Blur Tile Mode',
+              'The tile mode determines how pixels outside the source bounds are handled during blur. Options include clamp, repeat, mirror, and decal modes affecting edge appearance.',
+              Icons.grid_on,
+            ),
+            
+            buildUsagePatternCard(
+              'Creating Frosted Glass Effect',
+              'ClipRRect(\n'
+              '  borderRadius: BorderRadius.circular(16),\n'
+              '  child: BackdropFilter(\n'
+              '    filter: ImageFilter.blur(\n'
+              '      sigmaX: 10.0,\n'
+              '      sigmaY: 10.0,\n'
+              '    ),\n'
+              '    child: Container(\n'
+              '      color: Colors.white.withOpacity(0.2),\n'
+              '      child: content,\n'
+              '    ),\n'
+              '  ),\n'
+              ')',
+            ),
+            
+            buildUsagePatternCard(
+              'Blur with Color Overlay',
+              'BackdropFilter(\n'
+              '  filter: ImageFilter.compose(\n'
+              '    outer: ImageFilter.blur(\n'
+              '      sigmaX: 8.0,\n'
+              '      sigmaY: 8.0,\n'
+              '    ),\n'
+              '    inner: ColorFilter.mode(\n'
+              '      Colors.blue.withOpacity(0.3),\n'
+              '      BlendMode.srcOver,\n'
+              '    ),\n'
+              '  ),\n'
+              '  child: overlayWidget,\n'
+              ')',
+            ),
+            
+            Text(
+              'Common Blur Scenarios',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+                color: Colors.grey.shade800,
               ),
-              borderRadius: BorderRadius.circular(16),
-              boxShadow: [
-                BoxShadow(
-                  color: _kCyan800.withAlpha(80),
-                  blurRadius: 12,
-                  offset: const Offset(0, 6),
-                ),
-              ],
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            SizedBox(height: 8),
+            
+            buildOptimizationCard(
+              'Modal Overlays',
+              'Blur background when showing dialogs or bottom sheets',
+              Colors.blue,
+            ),
+            
+            buildOptimizationCard(
+              'App Bars',
+              'Frosted glass effect for iOS-style navigation bars',
+              Colors.purple,
+            ),
+            
+            buildOptimizationCard(
+              'Card Backgrounds',
+              'Subtle blur for floating cards over images',
+              Colors.green,
+            ),
+            
+            buildOptimizationCard(
+              'Status Bars',
+              'Blur content beneath status and navigation areas',
+              Colors.orange,
+            ),
+            
+            SizedBox(height: 16),
+            
+            // Section 4: Layer Caching Concepts
+            buildSectionHeader('4. Layer Caching Concepts'),
+            
+            buildInfoCard(
+              'Layer Cache Purpose',
+              'Caching stores rendered layer output to avoid redundant GPU operations when content has not changed',
+            ),
+            
+            buildInfoCard(
+              'Cache Invalidation',
+              'When backdrop content changes, the cache must be invalidated and the filter re-applied to reflect updates',
+            ),
+            
+            buildLayerCacheCard(
+              'Static Content Cache',
+              'Backdrop over static images or non-animated content',
+              true,
+            ),
+            
+            buildLayerCacheCard(
+              'Animated Content',
+              'Backdrop over scrolling or animated widgets',
+              false,
+            ),
+            
+            buildLayerCacheCard(
+              'Key-Identified Layer',
+              'BackdropKey enables selective cache retention across rebuilds',
+              true,
+            ),
+            
+            buildLayerCacheCard(
+              'Anonymous Layer',
+              'Without key, layer may be discarded and recreated on rebuild',
+              false,
+            ),
+            
+            buildConceptCard(
+              'Layer Tree Structure',
+              'The Flutter rendering layer tree consists of ContainerLayer, PictureLayer, BackdropFilterLayer, and other specialized layers. BackdropFilterLayer captures the background, applies the filter, and composites the result. Keys help maintain layer identity through tree updates.',
+              Icons.account_tree,
+            ),
+            
+            buildLayerHierarchyCard(0, 'TransformLayer', 'Root transformation'),
+            buildLayerHierarchyCard(1, 'ContainerLayer', 'Groups child layers'),
+            buildLayerHierarchyCard(2, 'PictureLayer', 'Background content'),
+            buildLayerHierarchyCard(2, 'ClipRectLayer', 'Defines clip bounds'),
+            buildLayerHierarchyCard(3, 'BackdropFilterLayer', 'Applies blur effect'),
+            buildLayerHierarchyCard(3, 'PictureLayer', 'Foreground content'),
+            
+            buildConceptCard(
+              'Cache Key Computation',
+              'Layer cache keys incorporate multiple factors: the BackdropKey identity, filter parameters, clip bounds, and layer position. Changes to any factor invalidate the cache for that specific layer.',
+              Icons.fingerprint,
+            ),
+            
+            buildConceptCard(
+              'Retained Rendering',
+              'Flutter can retain layer subtrees across frames when they have not changed. BackdropKey helps the framework identify which backdrop layers are candidates for retention versus those requiring recomputation.',
+              Icons.save_alt,
+            ),
+            
+            buildUsagePatternCard(
+              'Cache-Friendly Pattern',
+              'RepaintBoundary(\n'
+              '  child: BackdropFilter(\n'
+              '    key: Key(\'stable-backdrop\'),\n'
+              '    filter: staticBlurFilter,\n'
+              '    child: RepaintBoundary(\n'
+              '      child: stableContent,\n'
+              '    ),\n'
+              '  ),\n'
+              ')',
+            ),
+            
+            buildInfoCard(
+              'RepaintBoundary Role',
+              'RepaintBoundary creates a separate layer that can be cached independently, isolating repaint regions',
+            ),
+            
+            buildConceptCard(
+              'Texture Caching',
+              'When a backdrop filter layer is cached, the GPU stores the filtered result as a texture. Subsequent frames can reuse this texture directly without re-running the blur shader, significantly reducing GPU workload.',
+              Icons.memory,
+            ),
+            
+            buildConceptCard(
+              'Cache Memory Tradeoff',
+              'Caching consumes GPU memory proportional to the cached region size. For large backdrops, memory usage increases. The framework balances cache retention with memory pressure, potentially evicting less-used caches.',
+              Icons.storage,
+            ),
+            
+            SizedBox(height: 16),
+            
+            // Section 5: Optimization Benefits
+            buildSectionHeader('5. Optimization Benefits'),
+            
+            buildInfoCard(
+              'Performance Impact',
+              'Proper use of BackdropKey and caching strategies can significantly reduce GPU workload and improve frame rates',
+            ),
+            
+            buildOptimizationCard(
+              'Reduced Recomputation',
+              'Cache hit avoids re-running expensive blur shader',
+              Colors.green,
+            ),
+            
+            buildOptimizationCard(
+              'Layer Stability',
+              'Key-based identity prevents unnecessary layer recreation',
+              Colors.blue,
+            ),
+            
+            buildOptimizationCard(
+              'Memory Efficiency',
+              'Targeted caching avoids storing redundant layer outputs',
+              Colors.purple,
+            ),
+            
+            buildOptimizationCard(
+              'GPU Bandwidth Savings',
+              'Cached textures reduce GPU memory transfers per frame',
+              Colors.orange,
+            ),
+            
+            buildOptimizationCard(
+              'Smooth Animations',
+              'Consistent frame times by avoiding blur recalculation spikes',
+              Colors.teal,
+            ),
+            
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
               children: [
-                Row(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withAlpha(50),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: const Icon(
-                        Icons.key,
-                        color: Colors.white,
-                        size: 32,
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    const Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'BackdropKey',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            'rendering library',
-                            style: TextStyle(
-                              color: Colors.white70,
-                              fontSize: 14,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withAlpha(30),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: const Text(
-                    'Key type for identifying and managing backdrop filter layers '
-                    'in the rendering tree, enabling clip association and caching.',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 13,
-                      height: 1.4,
-                    ),
-                  ),
-                ),
+                buildPerformanceMetricCard('Frame Time', '8.3ms', 'Target: 16.6ms'),
+                buildPerformanceMetricCard('GPU Usage', '45%', 'vs 78% without cache'),
+                buildPerformanceMetricCard('Cache Hits', '94%', 'Layer reuse rate'),
+                buildPerformanceMetricCard('Memory', '12MB', 'Layer cache footprint'),
               ],
             ),
-          ),
-          const SizedBox(height: 24),
-
-          // Info cards
-          _buildInfoCard(
-            'Layer Identification',
-            'Uniquely identifies backdrop filter layers in the tree.',
-            Icons.fingerprint,
-          ),
-          _buildInfoCard(
-            'Clip Association',
-            'Connects clip regions to specific backdrop effects.',
-            Icons.crop,
-          ),
-
-          // Backdrop concept
-          _buildSectionTitle('Backdrop Filter', Icons.blur_on),
-          _buildBackdropConceptCard(),
-          const SizedBox(height: 20),
-
-          // Key role
-          _buildSectionTitle('BackdropKey Role', Icons.key),
-          _buildKeyRoleCard(),
-          const SizedBox(height: 20),
-
-          // Interactive blur
-          _buildSectionTitle('Interactive Blur', Icons.tune),
-          _buildInteractiveBlurDemo(),
-          const SizedBox(height: 20),
-
-          // Layer tree
-          _buildSectionTitle('Layer Tree', Icons.account_tree),
-          _buildLayerTreeCard(),
-          const SizedBox(height: 20),
-
-          // Multiple effects
-          _buildSectionTitle('Filter Effects', Icons.auto_awesome),
-          _buildMultipleEffectsDemo(),
-          const SizedBox(height: 20),
-
-          // Key properties
-          _buildSectionTitle('Key Properties', Icons.list),
-          _buildKeyPropertiesCard(),
-          const SizedBox(height: 20),
-
-          // Use cases
-          _buildSectionTitle('Use Cases', Icons.apps),
-          _buildUseCasesCard(),
-          const SizedBox(height: 20),
-
-          // Glassmorphism
-          _buildSectionTitle('Glassmorphism Effect', Icons.style),
-          _buildGlassmorphismDemo(),
-          const SizedBox(height: 20),
-
-          // Code examples
-          _buildSectionTitle('Code Examples', Icons.code),
-          _buildCodeSnippet('Basic BackdropFilter', '''BackdropFilter(
-  filter: ui.ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-  child: Container(
-    color: Colors.white.withOpacity(0.2),
-    child: Text('Blurred Background'),
-  ),
-)'''),
-          _buildCodeSnippet('Glassmorphism Card', '''ClipRRect(
-  borderRadius: BorderRadius.circular(20),
-  child: BackdropFilter(
-    filter: ui.ImageFilter.blur(sigmaX: 12, sigmaY: 12),
-    child: Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Colors.white.withOpacity(0.3),
-            Colors.white.withOpacity(0.1),
+            
+            SizedBox(height: 12),
+            
+            Container(
+              padding: EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.grey.shade100,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Comparison: With vs Without BackdropKey',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                      color: Colors.grey.shade800,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Row(
+                    children: [
+                      SizedBox(width: 140),
+                      Expanded(
+                        child: Text(
+                          'Without Key',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 11,
+                            color: Colors.red.shade700,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          'With BackdropKey',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 11,
+                            color: Colors.green.shade700,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 6),
+                  buildComparisonRow(
+                    'Layer Identity',
+                    'Anonymous, may be recreated',
+                    'Stable identifier',
+                  ),
+                  buildComparisonRow(
+                    'Cache Behavior',
+                    'Often invalidated',
+                    'Retained when possible',
+                  ),
+                  buildComparisonRow(
+                    'Widget Rebuild',
+                    'May cause layer rebuild',
+                    'Layer preserved',
+                  ),
+                  buildComparisonRow(
+                    'Debugging',
+                    'Hard to identify layers',
+                    'Named for debugging',
+                  ),
+                  buildComparisonRow(
+                    'Performance',
+                    'Variable frame times',
+                    'Consistent performance',
+                  ),
+                ],
+              ),
+            ),
+            
+            SizedBox(height: 16),
+            
+            buildConceptCard(
+              'Best Practice: Use Keys for Heavy Effects',
+              'When backdrop filters have high sigma values or cover large areas, always provide a BackdropKey. This enables the rendering pipeline to cache and reuse the expensive filter output when the background content remains stable.',
+              Icons.star,
+            ),
+            
+            buildConceptCard(
+              'Best Practice: Combine with RepaintBoundary',
+              'Wrapping BackdropFilter and its backdrop content in RepaintBoundary widgets helps isolate repaints. Changes outside the boundary do not invalidate the backdrop cache, maximizing cache effectiveness.',
+              Icons.border_all,
+            ),
+            
+            buildConceptCard(
+              'Best Practice: Minimize Backdrop Changes',
+              'Design layouts so that content behind BackdropFilter changes infrequently. Separate frequently changing content from backdrop regions to maintain cache validity and consistent performance.',
+              Icons.change_history,
+            ),
+            
+            buildUsagePatternCard(
+              'Optimized Modal Blur Pattern',
+              'Scaffold(\n'
+              '  body: Stack(\n'
+              '    children: [\n'
+              '      RepaintBoundary(\n'
+              '        child: mainContent,\n'
+              '      ),\n'
+              '      if (showModal)\n'
+              '        Positioned.fill(\n'
+              '          child: ClipRect(\n'
+              '            child: BackdropFilter(\n'
+              '              key: Key(\'modal-blur\'),\n'
+              '              filter: modalBlurFilter,\n'
+              '              child: modalContent,\n'
+              '            ),\n'
+              '          ),\n'
+              '        ),\n'
+              '    ],\n'
+              '  ),\n'
+              ')',
+            ),
+            
+            buildUsagePatternCard(
+              'AppBar Blur with Stability',
+              'SliverAppBar(\n'
+              '  flexibleSpace: ClipRect(\n'
+              '    child: BackdropFilter(\n'
+              '      key: Key(\'appbar-backdrop\'),\n'
+              '      filter: ImageFilter.blur(\n'
+              '        sigmaX: 15.0,\n'
+              '        sigmaY: 15.0,\n'
+              '      ),\n'
+              '      child: Container(\n'
+              '        color: theme.withOpacity(0.7),\n'
+              '      ),\n'
+              '    ),\n'
+              '  ),\n'
+              ')',
+            ),
+            
+            Text(
+              'Blend Modes for Backdrop',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+                color: Colors.grey.shade800,
+              ),
+            ),
+            SizedBox(height: 8),
+            
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                buildBlendModeCard('srcOver', 'Default compositing'),
+                buildBlendModeCard('multiply', 'Darkens backdrop'),
+                buildBlendModeCard('screen', 'Lightens backdrop'),
+                buildBlendModeCard('overlay', 'Contrast boost'),
+                buildBlendModeCard('softLight', 'Subtle tinting'),
+                buildBlendModeCard('colorDodge', 'Bright highlights'),
+              ],
+            ),
+            
+            SizedBox(height: 16),
+            
+            buildWarningCard(
+              'Avoid Animating Sigma',
+              'Animating blur sigma values causes cache invalidation every frame, negating performance benefits. Instead, animate opacity or position of the backdrop filter widget.',
+            ),
+            
+            buildWarningCard(
+              'Large Backdrop Regions',
+              'Full-screen backdrop filters are very expensive. Consider limiting blur to smaller overlay regions or using lower sigma values for better performance.',
+            ),
+            
+            SizedBox(height: 20),
+            
+            // Summary Section
+            Container(
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Colors.indigo.shade100, Colors.purple.shade100],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Colors.indigo.shade300),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'BackdropKey Summary',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.indigo.shade900,
+                    ),
+                  ),
+                  SizedBox(height: 12),
+                  buildSummaryPoint(
+                    'BackdropKey provides stable identity for backdrop filter layers',
+                  ),
+                  buildSummaryPoint(
+                    'Used with BackdropFilter widget for blur and other visual effects',
+                  ),
+                  buildSummaryPoint(
+                    'Enables layer caching to avoid redundant GPU computations',
+                  ),
+                  buildSummaryPoint(
+                    'Improves performance for heavy blur effects on stable content',
+                  ),
+                  buildSummaryPoint(
+                    'Combine with RepaintBoundary for maximum cache effectiveness',
+                  ),
+                  buildSummaryPoint(
+                    'Essential for smooth 60fps performance with backdrop effects',
+                  ),
+                  buildSummaryPoint(
+                    'Debug-friendly identification in DevTools layer inspector',
+                  ),
+                  buildSummaryPoint(
+                    'Works with various ImageFilter types beyond blur',
+                  ),
+                ],
+              ),
+            ),
+            
+            SizedBox(height: 40),
           ],
         ),
-        border: Border.all(color: Colors.white30),
       ),
     ),
-  ),
-)'''),
+  );
+}
 
-          // Results
-          _buildSectionTitle('Test Results', Icons.check_circle),
-          _buildResultsCard(true, 'BackdropKey'),
-          const SizedBox(height: 20),
-
-          // Summary
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: _kCyan100,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Column(
-              children: [
-                const Icon(Icons.summarize, color: _kCyan700, size: 32),
-                const SizedBox(height: 12),
-                const Text(
-                  'Summary',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: _kCyan900,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                const Text(
-                  'BackdropKey identifies backdrop filter layers, enabling efficient '
-                  'clip association and layer caching. Used with BackdropFilter for '
-                  'blur, glass, and other visual effects.',
-                  style: TextStyle(fontSize: 12, color: _kCyan800, height: 1.4),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 12),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _buildSummaryChip('key', Icons.key),
-                    const SizedBox(width: 8),
-                    _buildSummaryChip('blur', Icons.blur_on),
-                    const SizedBox(width: 8),
-                    _buildSummaryChip('glass', Icons.style),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 20),
-        ],
+void main() {
+  runApp(
+    MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.indigo,
+        fontFamily: 'Roboto',
+      ),
+      home: Builder(
+        builder: (context) => build(context),
       ),
     ),
   );
