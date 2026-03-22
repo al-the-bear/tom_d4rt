@@ -1,1602 +1,1794 @@
-// D4rt test script: Comprehensive demo for FloatingHeaderSnapConfiguration
+// D4rt test script: Deep demo for FloatingHeaderSnapConfiguration
+// FloatingHeaderSnapConfiguration - snapping behavior for floating headers
 //
-// FloatingHeaderSnapConfiguration controls the snapping behavior of floating
-// SliverPersistentHeader widgets. When a user scrolls and releases, the
-// floating header can snap fully open or fully closed based on this config.
+// FloatingHeaderSnapConfiguration controls how floating SliverPersistentHeader
+// widgets snap between their collapsed and expanded states when scrolling stops.
+// This class configures the animation parameters for the smooth snapping motion.
 //
-// Key properties:
-//   - vsync: TickerProvider that drives the snap animation
-//   - curve: The animation curve used for the snap transition
-//   - duration: How long the snap animation takes
-//
-// This demo shows:
-//   1. What FloatingHeaderSnapConfiguration is and its role in slivers
-//   2. Configuration properties and their effects
-//   3. Snap behavior visualization (collapsed ↔ expanded)
-//   4. Curve types and their visual impact on snapping
-//   5. Duration impact on animation speed
-//   6. SliverAppBar integration patterns
-//   7. Best practices for production use
-//
-// ═══════════════════════════════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════════════════
 import 'package:flutter/material.dart';
 
-// ═══════════════════════════════════════════════════════════════════════════
-// CONSTANTS — Warm Orange/Amber palette
-// ═══════════════════════════════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════════════════
+// SECTION 1: FloatingHeaderSnapConfiguration Constructor
+// ════════════════════════════════════════════════════════════════════════════
+//
+// The FloatingHeaderSnapConfiguration constructor accepts three parameters:
+//   - vsync: A TickerProvider that drives the snap animation
+//   - curve: The easing curve for the snap transition (defaults to Curves.ease)
+//   - duration: How long the snap animation takes (defaults to 300ms)
+//
+// Example instantiation:
+//   FloatingHeaderSnapConfiguration(
+//     vsync: tickerProvider,
+//     curve: Curves.easeOutCubic,
+//     duration: Duration(milliseconds: 250),
+//   )
+//
+// ════════════════════════════════════════════════════════════════════════════
 
-const _kAmber50 = Color(0xFFFFF8E1);
-const _kAmber100 = Color(0xFFFFECB3);
-const _kAmber200 = Color(0xFFFFE082);
-const _kAmber300 = Color(0xFFFFD54F);
-const _kAmber400 = Color(0xFFFFCA28);
-const _kAmber500 = Color(0xFFFFC107);
-const _kAmber600 = Color(0xFFFFB300);
-const _kAmber700 = Color(0xFFFFA000);
-const _kAmber800 = Color(0xFFFF8F00);
-const _kAmber900 = Color(0xFFFF6F00);
-const _kDeepOrange = Color(0xFFE65100);
-const _kCodeBg = Color(0xFF3E2723);
-const _kCodeBorder = Color(0xFF5D4037);
-const _kCodeText = Color(0xFFFFE0B2);
-const _kCardBg = Color(0xFFFFFFFF);
+class ConstructorDemoWidget extends StatefulWidget {
+  ConstructorDemoWidget({Key? key}) : super(key: key);
 
-// ═══════════════════════════════════════════════════════════════════════════
-// HELPER WIDGETS
-// ═══════════════════════════════════════════════════════════════════════════
-
-/// Builds a decorated section title with icon and label
-Widget _buildSectionTitle(String title, IconData icon) {
-  return Padding(
-    padding: const EdgeInsets.only(bottom: 12),
-    child: Row(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(6),
-          decoration: BoxDecoration(
-            color: _kAmber100,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Icon(icon, color: _kAmber900, size: 22),
-        ),
-        const SizedBox(width: 10),
-        Expanded(
-          child: Text(
-            title,
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: _kDeepOrange,
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
+  @override
+  State<ConstructorDemoWidget> createState() => _ConstructorDemoWidgetState();
 }
 
-/// Builds an informational card with icon, title, and description
-Widget _buildInfoCard(String title, String description, IconData icon) {
-  return Container(
-    margin: const EdgeInsets.only(bottom: 12),
-    padding: const EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: _kAmber50,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: _kAmber200),
-    ),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: _kAmber100,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Icon(icon, color: _kAmber800, size: 24),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: _kDeepOrange,
-                ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                description,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: _kAmber900.withAlpha(200),
-                  height: 1.4,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-}
+class _ConstructorDemoWidgetState extends State<ConstructorDemoWidget>
+    with TickerProviderStateMixin {
+  String _statusMessage = 'Ready to create configuration';
+  int _configCounter = 0;
+  String _lastConfigType = 'none';
+  Curve _lastCurve = Curves.ease;
+  Duration _lastDuration = Duration(milliseconds: 300);
 
-/// Builds a styled code snippet block with title bar
-Widget _buildCodeSnippet(String title, String code) {
-  return Container(
-    margin: const EdgeInsets.only(bottom: 16),
-    decoration: BoxDecoration(
-      color: _kCodeBg,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: _kCodeBorder),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          decoration: const BoxDecoration(
-            color: Color(0xFF4E342E),
-            borderRadius: BorderRadius.vertical(top: Radius.circular(11)),
-          ),
-          child: Row(
-            children: [
-              const Icon(Icons.code, color: _kAmber300, size: 16),
-              const SizedBox(width: 8),
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: _kAmber200,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(16),
-          child: Text(
-            code,
-            style: const TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 11,
-              color: _kCodeText,
-              height: 1.5,
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-}
+  void _createDefaultConfig() {
+    // FloatingHeaderSnapConfiguration(this) creates with defaults
+    // Just demonstrating the pattern - actual config created at scroll time
+    _configCounter++;
+    _lastConfigType = 'default';
+    _lastCurve = Curves.ease;
+    _lastDuration = Duration(milliseconds: 300);
+    setState(() {
+      _statusMessage = 'Created config #$_configCounter with defaults';
+    });
+  }
 
-/// Builds a property row with label, type, and description
-Widget _buildPropertyRow(
-  String name,
-  String type,
-  String description, {
-  Color? valueColor,
-}) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 6),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          width: 8,
-          height: 8,
-          margin: const EdgeInsets.only(top: 4, right: 8),
-          decoration: BoxDecoration(
-            color: _kAmber600,
-            borderRadius: BorderRadius.circular(4),
-          ),
-        ),
-        SizedBox(
-          width: 90,
-          child: Text(
-            name,
-            style: TextStyle(
-              fontSize: 13,
-              color: valueColor ?? _kDeepOrange,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'monospace',
-            ),
-          ),
-        ),
-        const SizedBox(width: 4),
-        SizedBox(
-          width: 100,
-          child: Text(
-            type,
-            style: TextStyle(
-              fontSize: 11,
-              color: _kAmber700.withAlpha(180),
-              fontFamily: 'monospace',
-            ),
-          ),
-        ),
-        const SizedBox(width: 4),
-        Expanded(
-          child: Text(
-            description,
-            style: TextStyle(fontSize: 12, color: _kAmber900.withAlpha(200)),
-          ),
-        ),
-      ],
-    ),
-  );
-}
+  void _createCustomConfig() {
+    // FloatingHeaderSnapConfiguration(this, curve: x, duration: y)
+    _configCounter++;
+    _lastConfigType = 'custom';
+    _lastCurve = Curves.easeOutBack;
+    _lastDuration = Duration(milliseconds: 400);
+    setState(() {
+      _statusMessage = 'Created config #$_configCounter with custom params';
+    });
+  }
 
-/// Builds the header banner for the demo
-Widget _buildHeader() {
-  return Container(
-    padding: const EdgeInsets.all(24),
-    decoration: BoxDecoration(
-      gradient: const LinearGradient(
-        colors: [_kAmber900, _kAmber700],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-      ),
-      borderRadius: BorderRadius.circular(16),
-      boxShadow: [
-        BoxShadow(
-          color: _kAmber900.withAlpha(80),
-          blurRadius: 16,
-          offset: const Offset(0, 6),
-        ),
-      ],
-    ),
-    child: Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: _kCardBg.withAlpha(30),
-            borderRadius: BorderRadius.circular(50),
-          ),
-          child: const Icon(Icons.swipe_up, color: _kCardBg, size: 40),
-        ),
-        const SizedBox(height: 16),
-        const Text(
-          'FloatingHeaderSnapConfiguration',
-          style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-            color: _kCardBg,
-          ),
-          textAlign: TextAlign.center,
-        ),
-        const SizedBox(height: 8),
-        Text(
-          'Controls snapping behavior for floating persistent headers\n'
-          'in sliver scroll views',
-          style: TextStyle(
-            fontSize: 13,
-            color: _kCardBg.withAlpha(220),
-            height: 1.4,
-          ),
-          textAlign: TextAlign.center,
-        ),
-        const SizedBox(height: 12),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _buildHeaderChip('rendering.dart'),
-            const SizedBox(width: 8),
-            _buildHeaderChip('Slivers'),
-            const SizedBox(width: 8),
-            _buildHeaderChip('Snap'),
-          ],
-        ),
-      ],
-    ),
-  );
-}
+  void _createBounceConfig() {
+    // FloatingHeaderSnapConfiguration(this, curve: x, duration: y)
+    _configCounter++;
+    _lastConfigType = 'bounce';
+    _lastCurve = Curves.bounceOut;
+    _lastDuration = Duration(milliseconds: 600);
+    setState(() {
+      _statusMessage = 'Created config #$_configCounter with bounce effect';
+    });
+  }
 
-/// Builds a small chip for the header area
-Widget _buildHeaderChip(String label) {
-  return Container(
-    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-    decoration: BoxDecoration(
-      color: _kCardBg.withAlpha(40),
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: _kCardBg.withAlpha(60)),
-    ),
-    child: Text(label, style: const TextStyle(fontSize: 11, color: _kCardBg)),
-  );
-}
-
-/// Builds the properties card showing constructor parameters
-Widget _buildPropertiesCard() {
-  return Container(
-    padding: const EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: _kCardBg,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: _kAmber200),
-      boxShadow: [
-        BoxShadow(
-          color: _kAmber300.withAlpha(40),
-          blurRadius: 8,
-          offset: const Offset(0, 2),
-        ),
-      ],
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Constructor Parameters',
-          style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-            color: _kDeepOrange,
-          ),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          'FloatingHeaderSnapConfiguration({vsync, curve, duration})',
-          style: TextStyle(
-            fontSize: 11,
-            fontFamily: 'monospace',
-            color: _kAmber800.withAlpha(180),
-          ),
-        ),
-        const SizedBox(height: 12),
-        _buildPropertyRow(
-          'vsync',
-          'TickerProvider',
-          'Provides the Ticker for the snap animation. '
-              'Typically comes from TickerProviderStateMixin.',
-        ),
-        const Divider(color: _kAmber100, height: 16),
-        _buildPropertyRow(
-          'curve',
-          'Curve',
-          'The animation curve controlling snap easing. '
-              'Defaults to Curves.ease.',
-        ),
-        const Divider(color: _kAmber100, height: 16),
-        _buildPropertyRow(
-          'duration',
-          'Duration',
-          'Total time for the snap animation. '
-              'Defaults to const Duration(milliseconds: 300).',
-        ),
-      ],
-    ),
-  );
-}
-
-/// Builds a visual snap state card (collapsed or expanded)
-Widget _buildSnapStateCard({
-  required String label,
-  required double heightFraction,
-  required String description,
-  required IconData icon,
-  required bool isExpanded,
-}) {
-  final barHeight = 20.0 + (heightFraction * 80.0);
-  return Expanded(
-    child: Container(
-      padding: const EdgeInsets.all(12),
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: _kCardBg,
+        color: Color(0xFFFFF8E1),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: isExpanded ? _kAmber500 : _kAmber200,
-          width: isExpanded ? 2 : 1,
-        ),
+        border: Border.all(color: Color(0xFFFFE082)),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, color: _kAmber800, size: 28),
-          const SizedBox(height: 8),
-          Text(
-            label,
-            style: const TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.bold,
-              color: _kDeepOrange,
+          Row(
+            children: [
+              Icon(Icons.build_circle, color: Color(0xFFFF6F00), size: 24),
+              SizedBox(width: 8),
+              Text(
+                'Constructor Demo',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFFE65100),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 16),
+          Container(
+            padding: EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Color(0xFF3E2723),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Text(
+              'FloatingHeaderSnapConfiguration(\n'
+              '  vsync: TickerProvider,\n'
+              '  curve: Curve = Curves.ease,\n'
+              '  duration: Duration = 300ms,\n'
+              ')',
+              style: TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 12,
+                color: Color(0xFFFFE0B2),
+              ),
             ),
           ),
-          const SizedBox(height: 8),
-          // Visual bar representing header height
+          SizedBox(height: 16),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              ElevatedButton.icon(
+                onPressed: _createDefaultConfig,
+                icon: Icon(Icons.settings_outlined),
+                label: Text('Default'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFFFFB300),
+                  foregroundColor: Colors.white,
+                ),
+              ),
+              ElevatedButton.icon(
+                onPressed: _createCustomConfig,
+                icon: Icon(Icons.tune),
+                label: Text('Custom'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFFFFA000),
+                  foregroundColor: Colors.white,
+                ),
+              ),
+              ElevatedButton.icon(
+                onPressed: _createBounceConfig,
+                icon: Icon(Icons.bubble_chart),
+                label: Text('Bounce'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFFFF8F00),
+                  foregroundColor: Colors.white,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 12),
           Container(
-            width: double.infinity,
+            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
-              color: _kAmber100,
+              color: Color(0xFFFFECB3),
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: Row(
+              children: [
+                Icon(Icons.info_outline, color: Color(0xFFFF6F00), size: 18),
+                SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    _statusMessage,
+                    style: TextStyle(fontSize: 13, color: Color(0xFFE65100)),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          if (_configCounter > 0)
+            Padding(
+              padding: EdgeInsets.only(top: 12),
+              child: Container(
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Color(0xFF3E2723),
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: Text(
+                  'Last Config: $_lastConfigType\n'
+                  'Curve: ${_lastCurve.toString().split(".").last}\n'
+                  'Duration: ${_lastDuration.inMilliseconds}ms',
+                  style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 11,
+                    color: Color(0xFFFFE0B2),
+                  ),
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// SECTION 2: Vsync Parameter
+// ════════════════════════════════════════════════════════════════════════════
+//
+// The vsync parameter is a TickerProvider that creates Ticker objects for
+// driving animations. In Flutter widgets, this typically comes from:
+//   - TickerProviderStateMixin (for single ticker)
+//   - SingleTickerProviderStateMixin (optimized for one ticker)
+//
+// The vsync ensures animations are synchronized with the screen refresh rate,
+// preventing jank and ensuring smooth visual transitions.
+//
+// Without a valid vsync, the snap animation cannot be driven properly.
+//
+// ════════════════════════════════════════════════════════════════════════════
+
+class VsyncDemoWidget extends StatefulWidget {
+  VsyncDemoWidget({Key? key}) : super(key: key);
+
+  @override
+  State<VsyncDemoWidget> createState() => _VsyncDemoWidgetState();
+}
+
+class _VsyncDemoWidgetState extends State<VsyncDemoWidget>
+    with TickerProviderStateMixin {
+  AnimationController? _animController;
+  double _animationValue = 0.0;
+  bool _isAnimating = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _setupAnimation();
+  }
+
+  void _setupAnimation() {
+    _animController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 500),
+    );
+    _animController!.addListener(() {
+      setState(() {
+        _animationValue = _animController!.value;
+      });
+    });
+  }
+
+  void _startAnimation() {
+    if (_animController == null) return;
+    setState(() {
+      _isAnimating = true;
+    });
+    _animController!.forward(from: 0.0).then((_) {
+      setState(() {
+        _isAnimating = false;
+      });
+    });
+  }
+
+  void _reverseAnimation() {
+    if (_animController == null) return;
+    setState(() {
+      _isAnimating = true;
+    });
+    _animController!.reverse(from: 1.0).then((_) {
+      setState(() {
+        _isAnimating = false;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _animController?.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Color(0xFFE3F2FD),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Color(0xFF90CAF9)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.sync, color: Color(0xFF1976D2), size: 24),
+              SizedBox(width: 8),
+              Text(
+                'Vsync Parameter Demo',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF0D47A1),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 12),
+          Text(
+            'The vsync parameter provides a TickerProvider that synchronizes '
+            'animations with the display refresh rate. This ensures smooth, '
+            'jank-free animation playback.',
+            style: TextStyle(fontSize: 13, color: Color(0xFF1565C0)),
+          ),
+          SizedBox(height: 16),
+          Container(
+            height: 60,
+            decoration: BoxDecoration(
+              color: Color(0xFFBBDEFB),
               borderRadius: BorderRadius.circular(8),
+            ),
+            child: Stack(
+              children: [
+                Positioned(
+                  left: 10 + (_animationValue * 200),
+                  top: 10,
+                  child: Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: Color(0xFF1976D2),
+                      borderRadius: BorderRadius.circular(8),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color(0xFF1976D2).withAlpha(80),
+                          blurRadius: 8,
+                          offset: Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: Icon(Icons.arrow_forward, color: Colors.white),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 12),
+          Row(
+            children: [
+              Expanded(
+                child: Container(
+                  height: 8,
+                  decoration: BoxDecoration(
+                    color: Color(0xFFBBDEFB),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: FractionallySizedBox(
+                    alignment: Alignment.centerLeft,
+                    widthFactor: _animationValue,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Color(0xFF1976D2),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(width: 12),
+              Text(
+                '${(_animationValue * 100).toStringAsFixed(0)}%',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF1976D2),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 16),
+          Row(
+            children: [
+              ElevatedButton.icon(
+                onPressed: _isAnimating ? null : _startAnimation,
+                icon: Icon(Icons.play_arrow),
+                label: Text('Forward'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFF1976D2),
+                  foregroundColor: Colors.white,
+                ),
+              ),
+              SizedBox(width: 12),
+              ElevatedButton.icon(
+                onPressed: _isAnimating ? null : _reverseAnimation,
+                icon: Icon(Icons.replay),
+                label: Text('Reverse'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFF42A5F5),
+                  foregroundColor: Colors.white,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 12),
+          Container(
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Color(0xFF3E2723),
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: Text(
+              'FloatingHeaderSnapConfiguration(\n'
+              '  vsync: this,  // TickerProviderStateMixin\n'
+              '  ...\n'
+              ')',
+              style: TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 11,
+                color: Color(0xFFBBDEFB),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// SECTION 3: Curve Parameter
+// ════════════════════════════════════════════════════════════════════════════
+//
+// The curve parameter defines the easing function for the snap animation.
+// Different curves create different visual effects:
+//   - Curves.ease: Smooth acceleration and deceleration
+//   - Curves.easeIn: Slow start, fast finish
+//   - Curves.easeOut: Fast start, slow finish
+//   - Curves.easeInOut: Slow start and finish
+//   - Curves.bounceOut: Bouncy effect at the end
+//   - Curves.elasticOut: Spring-like elastic effect
+//   - Curves.linear: Constant speed (no easing)
+//
+// The curve affects how the header position changes over time during the snap.
+//
+// ════════════════════════════════════════════════════════════════════════════
+
+class CurveData {
+  String name;
+  Curve curve;
+  Color color;
+  IconData icon;
+
+  CurveData({
+    required this.name,
+    required this.curve,
+    required this.color,
+    required this.icon,
+  });
+}
+
+class CurveDemoWidget extends StatefulWidget {
+  CurveDemoWidget({Key? key}) : super(key: key);
+
+  @override
+  State<CurveDemoWidget> createState() => _CurveDemoWidgetState();
+}
+
+class _CurveDemoWidgetState extends State<CurveDemoWidget>
+    with TickerProviderStateMixin {
+  AnimationController? _animController;
+  List<CurveData> _curvesList = [];
+  int _selectedCurveIndex = 0;
+  double _animProgress = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+    _initCurves();
+    _initAnimation();
+  }
+
+  void _initCurves() {
+    _curvesList = [
+      CurveData(
+        name: 'ease',
+        curve: Curves.ease,
+        color: Color(0xFF4CAF50),
+        icon: Icons.trending_flat,
+      ),
+      CurveData(
+        name: 'easeIn',
+        curve: Curves.easeIn,
+        color: Color(0xFF2196F3),
+        icon: Icons.trending_up,
+      ),
+      CurveData(
+        name: 'easeOut',
+        curve: Curves.easeOut,
+        color: Color(0xFFFF9800),
+        icon: Icons.trending_down,
+      ),
+      CurveData(
+        name: 'easeInOut',
+        curve: Curves.easeInOut,
+        color: Color(0xFF9C27B0),
+        icon: Icons.swap_vert,
+      ),
+      CurveData(
+        name: 'bounceOut',
+        curve: Curves.bounceOut,
+        color: Color(0xFFE91E63),
+        icon: Icons.sports_basketball,
+      ),
+      CurveData(
+        name: 'elasticOut',
+        curve: Curves.elasticOut,
+        color: Color(0xFF00BCD4),
+        icon: Icons.waves,
+      ),
+      CurveData(
+        name: 'linear',
+        curve: Curves.linear,
+        color: Color(0xFF607D8B),
+        icon: Icons.straighten,
+      ),
+    ];
+  }
+
+  void _initAnimation() {
+    _animController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 1000),
+    );
+    _animController!.addListener(_onAnimationTick);
+  }
+
+  void _onAnimationTick() {
+    if (_selectedCurveIndex < _curvesList.length) {
+      var curveData = _curvesList[_selectedCurveIndex];
+      var curvedValue = curveData.curve.transform(_animController!.value);
+      setState(() {
+        _animProgress = curvedValue;
+      });
+    }
+  }
+
+  void _selectCurve(int index) {
+    setState(() {
+      _selectedCurveIndex = index;
+    });
+    _animController!.reset();
+  }
+
+  void _playCurveAnimation() {
+    _animController!.forward(from: 0.0);
+  }
+
+  @override
+  void dispose() {
+    _animController?.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var selectedCurve = _curvesList.isNotEmpty && _selectedCurveIndex < _curvesList.length
+        ? _curvesList[_selectedCurveIndex]
+        : null;
+
+    return Container(
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Color(0xFFF3E5F5),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Color(0xFFCE93D8)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.show_chart, color: Color(0xFF7B1FA2), size: 24),
+              SizedBox(width: 8),
+              Text(
+                'Curve Parameter Demo',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF4A148C),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 12),
+          Text(
+            'The curve parameter controls the easing function for snap animations. '
+            'Select a curve below to see how it affects motion.',
+            style: TextStyle(fontSize: 13, color: Color(0xFF6A1B9A)),
+          ),
+          SizedBox(height: 16),
+          Wrap(
+            spacing: 6,
+            runSpacing: 6,
+            children: List.generate(_curvesList.length, (index) {
+              var curveData = _curvesList[index];
+              var isSelected = index == _selectedCurveIndex;
+              return GestureDetector(
+                onTap: () => _selectCurve(index),
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: isSelected ? curveData.color : Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: curveData.color, width: 2),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        curveData.icon,
+                        size: 16,
+                        color: isSelected ? Colors.white : curveData.color,
+                      ),
+                      SizedBox(width: 4),
+                      Text(
+                        curveData.name,
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: isSelected ? Colors.white : curveData.color,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            }),
+          ),
+          SizedBox(height: 16),
+          if (selectedCurve != null)
+            Container(
+              height: 80,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: selectedCurve.color.withAlpha(100)),
+              ),
+              child: Stack(
+                children: [
+                  Positioned(
+                    left: 20,
+                    right: 20,
+                    top: 35,
+                    child: Container(
+                      height: 4,
+                      decoration: BoxDecoration(
+                        color: selectedCurve.color.withAlpha(50),
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 20 + (_animProgress * 200),
+                    top: 20,
+                    child: Container(
+                      width: 34,
+                      height: 34,
+                      decoration: BoxDecoration(
+                        color: selectedCurve.color,
+                        borderRadius: BorderRadius.circular(17),
+                        boxShadow: [
+                          BoxShadow(
+                            color: selectedCurve.color.withAlpha(100),
+                            blurRadius: 10,
+                            offset: Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      child: Icon(
+                        selectedCurve.icon,
+                        color: Colors.white,
+                        size: 18,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          SizedBox(height: 12),
+          Center(
+            child: ElevatedButton.icon(
+              onPressed: _playCurveAnimation,
+              icon: Icon(Icons.play_circle_fill),
+              label: Text('Play Animation'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: selectedCurve?.color ?? Color(0xFF9C27B0),
+                foregroundColor: Colors.white,
+                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              ),
+            ),
+          ),
+          SizedBox(height: 12),
+          Container(
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Color(0xFF3E2723),
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: Text(
+              'FloatingHeaderSnapConfiguration(\n'
+              '  vsync: this,\n'
+              '  curve: Curves.${selectedCurve?.name ?? "ease"},\n'
+              '  ...\n'
+              ')',
+              style: TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 11,
+                color: Color(0xFFF3E5F5),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// SECTION 4: Duration Parameter
+// ════════════════════════════════════════════════════════════════════════════
+//
+// The duration parameter specifies how long the snap animation takes to complete.
+// Typical values range from 100ms to 500ms:
+//   - 100-150ms: Very fast, snappy feel
+//   - 200-300ms: Standard, balanced timing (default is 300ms)
+//   - 400-500ms: Slower, more deliberate transitions
+//   - 600ms+: Dramatic, noticeable animation
+//
+// The duration affects user perception of responsiveness and polish.
+//
+// ════════════════════════════════════════════════════════════════════════════
+
+class DurationDemoWidget extends StatefulWidget {
+  DurationDemoWidget({Key? key}) : super(key: key);
+
+  @override
+  State<DurationDemoWidget> createState() => _DurationDemoWidgetState();
+}
+
+class _DurationDemoWidgetState extends State<DurationDemoWidget>
+    with TickerProviderStateMixin {
+  AnimationController? _animController;
+  double _currentDurationMs = 300;
+  double _animValue = 0.0;
+  bool _isPlaying = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _setupController();
+  }
+
+  void _setupController() {
+    _animController?.dispose();
+    _animController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: _currentDurationMs.toInt()),
+    );
+    _animController!.addListener(() {
+      setState(() {
+        _animValue = _animController!.value;
+      });
+    });
+    _animController!.addStatusListener((status) {
+      if (status == AnimationStatus.completed ||
+          status == AnimationStatus.dismissed) {
+        setState(() {
+          _isPlaying = false;
+        });
+      }
+    });
+  }
+
+  void _updateDuration(double value) {
+    setState(() {
+      _currentDurationMs = value;
+    });
+    _setupController();
+  }
+
+  void _playAnimation() {
+    setState(() {
+      _isPlaying = true;
+    });
+    _animController!.forward(from: 0.0);
+  }
+
+  String _getDurationLabel() {
+    if (_currentDurationMs <= 150) return 'Fast';
+    if (_currentDurationMs <= 300) return 'Standard';
+    if (_currentDurationMs <= 450) return 'Moderate';
+    return 'Slow';
+  }
+
+  Color _getDurationColor() {
+    if (_currentDurationMs <= 150) return Color(0xFF4CAF50);
+    if (_currentDurationMs <= 300) return Color(0xFF2196F3);
+    if (_currentDurationMs <= 450) return Color(0xFFFF9800);
+    return Color(0xFFF44336);
+  }
+
+  @override
+  void dispose() {
+    _animController?.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var durationColor = _getDurationColor();
+    var durationLabel = _getDurationLabel();
+
+    return Container(
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Color(0xFFE8F5E9),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Color(0xFFA5D6A7)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.timer, color: Color(0xFF388E3C), size: 24),
+              SizedBox(width: 8),
+              Text(
+                'Duration Parameter Demo',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF1B5E20),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 12),
+          Text(
+            'The duration parameter controls how long the snap animation takes. '
+            'Adjust the slider to see different animation speeds.',
+            style: TextStyle(fontSize: 13, color: Color(0xFF2E7D32)),
+          ),
+          SizedBox(height: 16),
+          Row(
+            children: [
+              Text(
+                '100ms',
+                style: TextStyle(fontSize: 11, color: Color(0xFF388E3C)),
+              ),
+              Expanded(
+                child: Slider(
+                  value: _currentDurationMs,
+                  min: 100,
+                  max: 600,
+                  divisions: 10,
+                  activeColor: durationColor,
+                  inactiveColor: durationColor.withAlpha(60),
+                  onChanged: _updateDuration,
+                ),
+              ),
+              Text(
+                '600ms',
+                style: TextStyle(fontSize: 11, color: Color(0xFF388E3C)),
+              ),
+            ],
+          ),
+          SizedBox(height: 8),
+          Center(
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              decoration: BoxDecoration(
+                color: durationColor,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Text(
+                '${_currentDurationMs.toInt()}ms ($durationLabel)',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+          SizedBox(height: 16),
+          Container(
+            height: 60,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: durationColor.withAlpha(100)),
+            ),
+            child: Stack(
+              children: [
+                Positioned(
+                  left: 10,
+                  right: 10,
+                  top: 27,
+                  child: Container(
+                    height: 6,
+                    decoration: BoxDecoration(
+                      color: durationColor.withAlpha(40),
+                      borderRadius: BorderRadius.circular(3),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: 10 + (_animValue * 220),
+                  top: 15,
+                  child: Container(
+                    width: 30,
+                    height: 30,
+                    decoration: BoxDecoration(
+                      color: durationColor,
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(
+                          color: durationColor.withAlpha(100),
+                          blurRadius: 8,
+                          offset: Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: Icon(Icons.flash_on, color: Colors.white, size: 18),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 12),
+          Center(
+            child: ElevatedButton.icon(
+              onPressed: _isPlaying ? null : _playAnimation,
+              icon: Icon(Icons.play_arrow),
+              label: Text('Play'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: durationColor,
+                foregroundColor: Colors.white,
+              ),
+            ),
+          ),
+          SizedBox(height: 12),
+          Container(
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Color(0xFF3E2723),
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: Text(
+              'FloatingHeaderSnapConfiguration(\n'
+              '  vsync: this,\n'
+              '  curve: Curves.ease,\n'
+              '  duration: Duration(milliseconds: ${_currentDurationMs.toInt()}),\n'
+              ')',
+              style: TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 11,
+                color: Color(0xFFE8F5E9),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// SECTION 5: Snap Behavior Visualization
+// ════════════════════════════════════════════════════════════════════════════
+//
+// This section visualizes how FloatingHeaderSnapConfiguration affects the
+// snapping behavior of floating headers in a CustomScrollView context.
+//
+// Key concepts:
+//   - Floating headers can be in collapsed or expanded states
+//   - When scroll stops between states, snap animation activates
+//   - The configuration determines how smoothly the snap occurs
+//   - Threshold typically at 50% determines snap direction
+//
+// ════════════════════════════════════════════════════════════════════════════
+
+class SnapBehaviorVisualization extends StatefulWidget {
+  SnapBehaviorVisualization({Key? key}) : super(key: key);
+
+  @override
+  State<SnapBehaviorVisualization> createState() =>
+      _SnapBehaviorVisualizationState();
+}
+
+class _SnapBehaviorVisualizationState extends State<SnapBehaviorVisualization>
+    with TickerProviderStateMixin {
+  AnimationController? _headerAnimController;
+  double _headerExpansion = 1.0;
+  bool _isSnapping = false;
+  String _snapDirection = 'none';
+  Curve _selectedCurve = Curves.ease;
+  int _durationMs = 300;
+
+  @override
+  void initState() {
+    super.initState();
+    _initHeaderAnimation();
+  }
+
+  void _initHeaderAnimation() {
+    _headerAnimController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: _durationMs),
+    );
+    _headerAnimController!.addListener(_onHeaderAnimationTick);
+    _headerAnimController!.addStatusListener(_onHeaderAnimationStatus);
+  }
+
+  void _onHeaderAnimationTick() {
+    var curvedValue = _selectedCurve.transform(_headerAnimController!.value);
+    setState(() {
+      if (_snapDirection == 'expand') {
+        _headerExpansion = _headerExpansion + (1.0 - _headerExpansion) * curvedValue / 10;
+        if (_headerExpansion > 0.99) _headerExpansion = 1.0;
+      } else if (_snapDirection == 'collapse') {
+        _headerExpansion = _headerExpansion - _headerExpansion * curvedValue / 10;
+        if (_headerExpansion < 0.01) _headerExpansion = 0.0;
+      }
+    });
+  }
+
+  void _onHeaderAnimationStatus(AnimationStatus status) {
+    if (status == AnimationStatus.completed) {
+      setState(() {
+        _isSnapping = false;
+        _snapDirection = 'none';
+      });
+    }
+  }
+
+  void _simulateSnapToExpand() {
+    if (_isSnapping) return;
+    setState(() {
+      _headerExpansion = 0.6;
+      _isSnapping = true;
+      _snapDirection = 'expand';
+    });
+    _headerAnimController!.forward(from: 0.0);
+  }
+
+  void _simulateSnapToCollapse() {
+    if (_isSnapping) return;
+    setState(() {
+      _headerExpansion = 0.4;
+      _isSnapping = true;
+      _snapDirection = 'collapse';
+    });
+    _headerAnimController!.forward(from: 0.0);
+  }
+
+  void _setHeaderPosition(double value) {
+    if (_isSnapping) return;
+    setState(() {
+      _headerExpansion = value;
+    });
+  }
+
+  void _triggerSnap() {
+    if (_isSnapping) return;
+    setState(() {
+      _isSnapping = true;
+      _snapDirection = _headerExpansion >= 0.5 ? 'expand' : 'collapse';
+    });
+    _headerAnimController!.forward(from: 0.0);
+  }
+
+  @override
+  void dispose() {
+    _headerAnimController?.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var headerHeight = 60.0 + (_headerExpansion * 120.0);
+    var percentExpanded = (_headerExpansion * 100).toStringAsFixed(0);
+
+    return Container(
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Color(0xFFFCE4EC),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Color(0xFFF48FB1)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.swipe_vertical, color: Color(0xFFC2185B), size: 24),
+              SizedBox(width: 8),
+              Text(
+                'Snap Behavior Visualization',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF880E4F),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 12),
+          Text(
+            'This simulates how a floating header snaps to fully expanded or '
+            'collapsed based on its current position when scrolling stops.',
+            style: TextStyle(fontSize: 13, color: Color(0xFFAD1457)),
+          ),
+          SizedBox(height: 16),
+          Container(
+            height: 250,
+            decoration: BoxDecoration(
+              color: Color(0xFFF8BBD0),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: Color(0xFFF06292)),
             ),
             child: Column(
               children: [
-                Container(
-                  width: double.infinity,
-                  height: barHeight,
+                AnimatedContainer(
+                  duration: Duration(milliseconds: 16),
+                  height: headerHeight,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [_kAmber600, _kAmber400],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
+                      colors: [Color(0xFFE91E63), Color(0xFFC2185B)],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
                     ),
-                    borderRadius: const BorderRadius.vertical(
-                      top: Radius.circular(8),
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(11),
                     ),
                   ),
                   child: Center(
-                    child: Text(
-                      '${(heightFraction * 100).toInt()}%',
-                      style: const TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        color: _kCardBg,
-                      ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          _headerExpansion > 0.7
+                              ? Icons.unfold_less
+                              : Icons.unfold_more,
+                          color: Colors.white,
+                          size: 32,
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          'Header $percentExpanded%',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                        ),
+                        if (_headerExpansion > 0.5)
+                          Padding(
+                            padding: EdgeInsets.only(top: 8),
+                            child: Text(
+                              _isSnapping
+                                  ? 'Snapping to ${_snapDirection}...'
+                                  : 'Expanded State',
+                              style: TextStyle(
+                                color: Colors.white70,
+                                fontSize: 11,
+                              ),
+                            ),
+                          ),
+                      ],
                     ),
                   ),
                 ),
-                Container(
-                  width: double.infinity,
-                  height: 100 - barHeight,
-                  decoration: BoxDecoration(
-                    color: _kAmber50,
-                    borderRadius: const BorderRadius.vertical(
-                      bottom: Radius.circular(8),
-                    ),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'content',
-                      style: TextStyle(
-                        fontSize: 10,
-                        color: _kAmber300.withAlpha(180),
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.vertical(
+                        bottom: Radius.circular(11),
                       ),
+                    ),
+                    child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      itemCount: 10,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          height: 36,
+                          padding: EdgeInsets.symmetric(horizontal: 12),
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(color: Color(0xFFFCE4EC)),
+                            ),
+                          ),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: 24,
+                                height: 24,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFF8BBD0),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    '${index + 1}',
+                                    style: TextStyle(
+                                      fontSize: 11,
+                                      color: Color(0xFFC2185B),
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: 8),
+                              Text(
+                                'List item ${index + 1}',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Color(0xFF880E4F),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 8),
-          Text(
-            description,
-            style: TextStyle(
-              fontSize: 10,
-              color: _kAmber800.withAlpha(180),
-              height: 1.3,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
-    ),
-  );
-}
-
-/// Builds the snap behavior visualization showing before/after states
-Widget _buildSnapBehaviorVisualization() {
-  return Container(
-    padding: const EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: _kAmber50,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: _kAmber200),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Snap Behavior: Header snaps to nearest full state',
-          style: TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.bold,
-            color: _kDeepOrange,
-          ),
-        ),
-        const SizedBox(height: 16),
-        Row(
-          children: [
-            _buildSnapStateCard(
-              label: 'Collapsed',
-              heightFraction: 0.0,
-              description: 'Header fully hidden\nafter scroll down',
-              icon: Icons.unfold_less,
-              isExpanded: false,
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8),
-              child: Icon(Icons.compare_arrows, color: _kAmber600, size: 24),
-            ),
-            _buildSnapStateCard(
-              label: 'Mid-scroll',
-              heightFraction: 0.45,
-              description: 'User releases finger\nsnap decides direction',
-              icon: Icons.swap_vert,
-              isExpanded: false,
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8),
-              child: Icon(Icons.arrow_forward, color: _kAmber600, size: 24),
-            ),
-            _buildSnapStateCard(
-              label: 'Expanded',
-              heightFraction: 1.0,
-              description: 'Header fully visible\nafter snap open',
-              icon: Icons.unfold_more,
-              isExpanded: true,
-            ),
-          ],
-        ),
-        const SizedBox(height: 12),
-        Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: _kAmber100,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Row(
+          SizedBox(height: 12),
+          Row(
             children: [
-              const Icon(Icons.info_outline, color: _kAmber800, size: 18),
-              const SizedBox(width: 8),
+              Text(
+                'Position:',
+                style: TextStyle(fontSize: 12, color: Color(0xFFC2185B)),
+              ),
               Expanded(
-                child: Text(
-                  'When the user stops scrolling, the floating header checks its '
-                  'current extent. If > 50% visible, it snaps open; otherwise '
-                  'it snaps closed. The snap animation uses the configured curve '
-                  'and duration.',
+                child: Slider(
+                  value: _headerExpansion,
+                  min: 0.0,
+                  max: 1.0,
+                  activeColor: Color(0xFFE91E63),
+                  inactiveColor: Color(0xFFF48FB1),
+                  onChanged: _isSnapping ? null : _setHeaderPosition,
+                ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton.icon(
+                onPressed: _isSnapping ? null : _simulateSnapToExpand,
+                icon: Icon(Icons.arrow_upward, size: 16),
+                label: Text('Snap Up'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFF4CAF50),
+                  foregroundColor: Colors.white,
+                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                ),
+              ),
+              ElevatedButton.icon(
+                onPressed: _isSnapping ? null : _triggerSnap,
+                icon: Icon(Icons.flash_on, size: 16),
+                label: Text('Auto Snap'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFFE91E63),
+                  foregroundColor: Colors.white,
+                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                ),
+              ),
+              ElevatedButton.icon(
+                onPressed: _isSnapping ? null : _simulateSnapToCollapse,
+                icon: Icon(Icons.arrow_downward, size: 16),
+                label: Text('Snap Down'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFFF44336),
+                  foregroundColor: Colors.white,
+                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 12),
+          Container(
+            padding: EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Color(0xFF3E2723),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'SliverAppBar Usage Example:',
                   style: TextStyle(
                     fontSize: 11,
-                    color: _kAmber900.withAlpha(200),
+                    color: Color(0xFFF48FB1),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Text(
+                  'SliverAppBar(\n'
+                  '  floating: true,\n'
+                  '  snap: true,  // Enables snapping\n'
+                  '  expandedHeight: 180.0,\n'
+                  '  flexibleSpace: FlexibleSpaceBar(...),\n'
+                  ')\n\n'
+                  '// FloatingHeaderSnapConfiguration is\n'
+                  '// created internally by SliverAppBar',
+                  style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 10,
+                    color: Color(0xFFFCE4EC),
                     height: 1.4,
                   ),
                 ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-/// Builds a single curve demo tile showing the curve's visual shape
-Widget _buildCurveTile(String name, String description, List<double> points) {
-  return Container(
-    margin: const EdgeInsets.only(bottom: 10),
-    padding: const EdgeInsets.all(12),
-    decoration: BoxDecoration(
-      color: _kCardBg,
-      borderRadius: BorderRadius.circular(10),
-      border: Border.all(color: _kAmber200),
-    ),
-    child: Row(
-      children: [
-        // Visual curve representation
-        Container(
-          width: 60,
-          height: 50,
-          decoration: BoxDecoration(
-            color: _kAmber50,
-            borderRadius: BorderRadius.circular(6),
-          ),
-          child: CustomPaint(painter: _CurvePreviewPainter(points)),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                name,
-                style: const TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold,
-                  color: _kDeepOrange,
-                  fontFamily: 'monospace',
-                ),
-              ),
-              const SizedBox(height: 2),
-              Text(
-                description,
-                style: TextStyle(
-                  fontSize: 11,
-                  color: _kAmber800.withAlpha(190),
-                  height: 1.3,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-/// Builds the curve comparison section
-Widget _buildCurveComparisonSection() {
-  return Container(
-    padding: const EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: _kAmber50,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: _kAmber200),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Curve Types & Their Snap Feel',
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: _kDeepOrange,
-          ),
-        ),
-        const SizedBox(height: 12),
-        _buildCurveTile(
-          'Curves.ease',
-          'Default. Smooth start and end — feels natural and polished.',
-          [0.0, 0.25, 0.50, 0.75, 0.87, 0.95, 0.99, 1.0],
-        ),
-        _buildCurveTile(
-          'Curves.easeOut',
-          'Fast start, slow end — header decelerates gently into place.',
-          [0.0, 0.50, 0.72, 0.85, 0.92, 0.96, 0.99, 1.0],
-        ),
-        _buildCurveTile(
-          'Curves.easeInOut',
-          'Gentle start and end — smooth, symmetrical transition.',
-          [0.0, 0.08, 0.25, 0.50, 0.75, 0.92, 0.98, 1.0],
-        ),
-        _buildCurveTile(
-          'Curves.bounceOut',
-          'Playful bounce at the end — header overshoots then settles.',
-          [0.0, 0.55, 0.85, 1.0, 0.92, 1.0, 0.97, 1.0],
-        ),
-        _buildCurveTile(
-          'Curves.elasticOut',
-          'Springy overshoot — dramatic, good for attention-grabbing headers.',
-          [0.0, 0.65, 1.1, 0.95, 1.02, 0.99, 1.0, 1.0],
-        ),
-        _buildCurveTile(
-          'Curves.linear',
-          'Constant speed — mechanical feel, rarely ideal for UI snapping.',
-          [0.0, 0.14, 0.28, 0.43, 0.57, 0.71, 0.86, 1.0],
-        ),
-      ],
-    ),
-  );
-}
-
-/// Builds a duration comparison bar
-Widget _buildDurationBar(String label, int ms, double relativeWidth) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 4),
-    child: Row(
-      children: [
-        SizedBox(
-          width: 55,
-          child: Text(
-            label,
-            style: const TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.bold,
-              color: _kDeepOrange,
-              fontFamily: 'monospace',
+              ],
             ),
           ),
-        ),
-        const SizedBox(width: 8),
-        Expanded(
-          child: Stack(
-            children: [
-              Container(
-                height: 24,
-                decoration: BoxDecoration(
-                  color: _kAmber100,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              FractionallySizedBox(
-                widthFactor: relativeWidth,
-                child: Container(
-                  height: 24,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(colors: [_kAmber600, _kAmber400]),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Center(
-                    child: Text(
-                      '${ms}ms',
-                      style: const TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                        color: _kCardBg,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-/// Builds the duration impact visualization
-Widget _buildDurationVisualization() {
-  return Container(
-    padding: const EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: _kCardBg,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: _kAmber200),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Duration Impact on Snap Speed',
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: _kDeepOrange,
-          ),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          'Shorter = snappier feel  •  Longer = smoother feel',
-          style: TextStyle(fontSize: 11, color: _kAmber700.withAlpha(180)),
-        ),
-        const SizedBox(height: 12),
-        _buildDurationBar('100ms', 100, 0.15),
-        _buildDurationBar('200ms', 200, 0.30),
-        _buildDurationBar('300ms', 300, 0.45),
-        _buildDurationBar('500ms', 500, 0.70),
-        _buildDurationBar('800ms', 800, 1.0),
-        const SizedBox(height: 12),
-        Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: _kAmber50,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Row(
-            children: [
-              const Icon(Icons.recommend, color: _kAmber800, size: 18),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  'Recommended: 200–400ms. The default 300ms strikes a good '
-                  'balance for most use cases. Values below 150ms feel abrupt; '
-                  'above 600ms feel sluggish.',
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: _kAmber900.withAlpha(200),
-                    height: 1.3,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-/// Builds the SliverAppBar integration flow diagram
-Widget _buildSliverAppBarIntegration() {
-  return Container(
-    padding: const EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: _kAmber50,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: _kAmber200),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'SliverAppBar + Snap Integration',
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: _kDeepOrange,
-          ),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          'FloatingHeaderSnapConfiguration is used internally by '
-          'SliverAppBar when floating: true and snap: true are set. '
-          'SliverAppBar creates the configuration automatically.',
-          style: TextStyle(
-            fontSize: 12,
-            color: _kAmber900.withAlpha(200),
-            height: 1.4,
-          ),
-        ),
-        const SizedBox(height: 12),
-        // Flow diagram
-        _buildFlowStep('1', 'SliverAppBar', 'floating: true, snap: true'),
-        _buildFlowArrow(),
-        _buildFlowStep('2', 'SliverPersistentHeader', 'creates delegate'),
-        _buildFlowArrow(),
-        _buildFlowStep(
-          '3',
-          'FloatingHeaderSnapConfiguration',
-          'vsync + curve + duration',
-        ),
-        _buildFlowArrow(),
-        _buildFlowStep('4', 'Snap Animation', 'animate to 0% or 100%'),
-      ],
-    ),
-  );
-}
-
-/// Builds a numbered flow step box
-Widget _buildFlowStep(String number, String title, String subtitle) {
-  return Container(
-    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-    decoration: BoxDecoration(
-      color: _kCardBg,
-      borderRadius: BorderRadius.circular(10),
-      border: Border.all(color: _kAmber300),
-    ),
-    child: Row(
-      children: [
-        Container(
-          width: 28,
-          height: 28,
-          decoration: BoxDecoration(
-            color: _kAmber600,
-            borderRadius: BorderRadius.circular(14),
-          ),
-          child: Center(
-            child: Text(
-              number,
-              style: const TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.bold,
-                color: _kCardBg,
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold,
-                  color: _kDeepOrange,
-                ),
-              ),
-              Text(
-                subtitle,
-                style: TextStyle(
-                  fontSize: 11,
-                  color: _kAmber800.withAlpha(180),
-                  fontFamily: 'monospace',
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-/// Builds a downward arrow between flow steps
-Widget _buildFlowArrow() {
-  return const Padding(
-    padding: EdgeInsets.symmetric(vertical: 2),
-    child: Center(
-      child: Icon(Icons.arrow_downward, color: _kAmber400, size: 20),
-    ),
-  );
-}
-
-/// Builds a best practice tip card
-Widget _buildBestPracticeTip(
-  String title,
-  String description,
-  IconData icon,
-  bool doThis,
-) {
-  final color = doThis ? const Color(0xFF2E7D32) : const Color(0xFFC62828);
-  final bgColor = doThis ? const Color(0xFFE8F5E9) : const Color(0xFFFFEBEE);
-  final borderColor = doThis
-      ? const Color(0xFFA5D6A7)
-      : const Color(0xFFEF9A9A);
-  return Container(
-    margin: const EdgeInsets.only(bottom: 10),
-    padding: const EdgeInsets.all(12),
-    decoration: BoxDecoration(
-      color: bgColor,
-      borderRadius: BorderRadius.circular(10),
-      border: Border.all(color: borderColor),
-    ),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Icon(icon, color: color, size: 20),
-        const SizedBox(width: 10),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold,
-                  color: color,
-                ),
-              ),
-              const SizedBox(height: 2),
-              Text(
-                description,
-                style: TextStyle(
-                  fontSize: 11,
-                  color: color.withAlpha(200),
-                  height: 1.3,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-/// Builds the best practices section
-Widget _buildBestPracticesSection() {
-  return Container(
-    padding: const EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: _kCardBg,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: _kAmber200),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Best Practices',
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: _kDeepOrange,
-          ),
-        ),
-        const SizedBox(height: 12),
-        _buildBestPracticeTip(
-          'Use TickerProviderStateMixin',
-          'Always use TickerProviderStateMixin or '
-              'SingleTickerProviderStateMixin on the State class that '
-              'provides vsync.',
-          Icons.check_circle,
-          true,
-        ),
-        _buildBestPracticeTip(
-          'Prefer easeOut curves',
-          'Curves.easeOut gives the most natural deceleration feel when '
-              'a header snaps into place.',
-          Icons.check_circle,
-          true,
-        ),
-        _buildBestPracticeTip(
-          'Keep duration between 200–400ms',
-          'This range feels responsive without being jarring. '
-              'Match your app\'s overall animation timing.',
-          Icons.check_circle,
-          true,
-        ),
-        _buildBestPracticeTip(
-          'Avoid very long durations',
-          'Durations above 600ms make the header feel sluggish and '
-              'unresponsive to user interaction.',
-          Icons.cancel,
-          false,
-        ),
-        _buildBestPracticeTip(
-          'Don\'t mix snap with pinned without floating',
-          'snap: true requires floating: true on SliverAppBar. '
-              'Setting snap without floating throws an assertion error.',
-          Icons.cancel,
-          false,
-        ),
-        _buildBestPracticeTip(
-          'Don\'t ignore vsync lifecycle',
-          'If the TickerProvider is disposed while a snap is animating, '
-              'it causes errors. Ensure proper lifecycle management.',
-          Icons.cancel,
-          false,
-        ),
-      ],
-    ),
-  );
-}
-
-/// Builds a real-world use case card
-Widget _buildUseCaseCard(String title, String description, IconData icon) {
-  return Container(
-    margin: const EdgeInsets.only(bottom: 10),
-    padding: const EdgeInsets.all(14),
-    decoration: BoxDecoration(
-      color: _kCardBg,
-      borderRadius: BorderRadius.circular(10),
-      border: Border.all(color: _kAmber200),
-    ),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: _kAmber100,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Icon(icon, color: _kAmber800, size: 22),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold,
-                  color: _kDeepOrange,
-                ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                description,
-                style: TextStyle(
-                  fontSize: 11,
-                  color: _kAmber900.withAlpha(200),
-                  height: 1.3,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-/// Builds the real-world use cases section
-Widget _buildUseCasesSection() {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      _buildUseCaseCard(
-        'Social Media Feed',
-        'A search bar that snaps open when the user scrolls up slightly. '
-            'Uses easeOut with 250ms for a quick, responsive feel.',
-        Icons.feed,
+        ],
       ),
-      _buildUseCaseCard(
-        'E-Commerce Product Listing',
-        'Filter bar that snaps into view on upward scroll. '
-            'Uses easeInOut with 300ms for smooth reveal over product grid.',
-        Icons.shopping_bag,
-      ),
-      _buildUseCaseCard(
-        'News Reader App',
-        'Navigation toolbar with category chips. Snaps with bounceOut '
-            'at 350ms for a playful, engaging interaction.',
-        Icons.newspaper,
-      ),
-      _buildUseCaseCard(
-        'Music Player Queue',
-        'Now-playing mini bar that snaps open on scroll-up. '
-            'Uses elasticOut at 400ms for a springy, premium feel.',
-        Icons.music_note,
-      ),
-    ],
-  );
-}
-
-/// Builds the summary footer section
-Widget _buildSummaryCard() {
-  return Container(
-    padding: const EdgeInsets.all(20),
-    decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: [_kAmber100, _kAmber50],
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-      ),
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: _kAmber300),
-    ),
-    child: Column(
-      children: [
-        const Icon(Icons.summarize, color: _kAmber900, size: 32),
-        const SizedBox(height: 12),
-        const Text(
-          'Summary',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: _kDeepOrange,
-          ),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          'FloatingHeaderSnapConfiguration provides fine-grained control '
-          'over how floating persistent headers animate to their open or '
-          'closed state after scrolling. By configuring vsync, curve, and '
-          'duration, you shape the tactile feel of your scroll experience.',
-          style: TextStyle(
-            fontSize: 12,
-            color: _kAmber900.withAlpha(210),
-            height: 1.4,
-          ),
-          textAlign: TextAlign.center,
-        ),
-        const SizedBox(height: 14),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _buildSummaryChip('vsync', Icons.timer),
-            const SizedBox(width: 8),
-            _buildSummaryChip('curve', Icons.show_chart),
-            const SizedBox(width: 8),
-            _buildSummaryChip('duration', Icons.hourglass_bottom),
-          ],
-        ),
-      ],
-    ),
-  );
-}
-
-/// Small summary tag chip
-Widget _buildSummaryChip(String label, IconData icon) {
-  return Container(
-    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-    decoration: BoxDecoration(
-      color: _kAmber200,
-      borderRadius: BorderRadius.circular(16),
-    ),
-    child: Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(icon, color: _kAmber900, size: 14),
-        const SizedBox(width: 4),
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.w600,
-            color: _kDeepOrange,
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-/// Builds a test result badge
-Widget _buildResultBadge(bool passed, String label) {
-  return Container(
-    padding: const EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: passed ? const Color(0xFFE8F5E9) : const Color(0xFFFFEBEE),
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(
-        color: passed ? const Color(0xFFA5D6A7) : const Color(0xFFEF9A9A),
-      ),
-    ),
-    child: Row(
-      children: [
-        Icon(
-          passed ? Icons.check_circle : Icons.error,
-          color: passed ? const Color(0xFF2E7D32) : const Color(0xFFC62828),
-          size: 28,
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                passed ? 'All Checks Passed' : 'Issues Found',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: passed
-                      ? const Color(0xFF2E7D32)
-                      : const Color(0xFFC62828),
-                ),
-              ),
-              const SizedBox(height: 2),
-              Text(
-                label,
-                style: TextStyle(
-                  fontSize: 11,
-                  color: passed
-                      ? const Color(0xFF388E3C)
-                      : const Color(0xFFD32F2F),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-// ═══════════════════════════════════════════════════════════════════════════
-// CUSTOM PAINTER — Curve preview
-// ═══════════════════════════════════════════════════════════════════════════
-
-class _CurvePreviewPainter extends CustomPainter {
-  final List<double> points;
-  _CurvePreviewPainter(this.points);
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = _kAmber700
-      ..strokeWidth = 2.0
-      ..style = PaintingStyle.stroke
-      ..strokeCap = StrokeCap.round;
-
-    final bgPaint = Paint()
-      ..color = _kAmber200.withAlpha(80)
-      ..strokeWidth = 1.0
-      ..style = PaintingStyle.stroke;
-
-    // Draw baseline
-    canvas.drawLine(
-      Offset(4, size.height - 4),
-      Offset(size.width - 4, size.height - 4),
-      bgPaint,
-    );
-
-    if (points.length < 2) return;
-
-    final path = Path();
-    final usableWidth = size.width - 8;
-    final usableHeight = size.height - 8;
-    final step = usableWidth / (points.length - 1);
-
-    for (var i = 0; i < points.length; i++) {
-      final x = 4.0 + i * step;
-      final y = (size.height - 4) - (points[i] * usableHeight);
-      if (i == 0) {
-        path.moveTo(x, y);
-      } else {
-        path.lineTo(x, y);
-      }
-    }
-
-    canvas.drawPath(path, paint);
-
-    // Draw start and end dots
-    final dotPaint = Paint()
-      ..color = _kAmber900
-      ..style = PaintingStyle.fill;
-    canvas.drawCircle(
-      Offset(4, (size.height - 4) - (points.first * usableHeight)),
-      3,
-      dotPaint,
-    );
-    canvas.drawCircle(
-      Offset(
-        4 + (points.length - 1) * step,
-        (size.height - 4) - (points.last * usableHeight),
-      ),
-      3,
-      dotPaint,
     );
   }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
 
-// ═══════════════════════════════════════════════════════════════════════════
-// MAIN BUILD FUNCTION
-// ═══════════════════════════════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════════════════
+// ADDITIONAL DEMO: Complete Integration Example
+// ════════════════════════════════════════════════════════════════════════════
 
-dynamic build(BuildContext context) {
-  // Print information about FloatingHeaderSnapConfiguration
-  print('╔══════════════════════════════════════════════════════════════════╗');
-  print('║     FloatingHeaderSnapConfiguration Deep Demo                  ║');
-  print('╚══════════════════════════════════════════════════════════════════╝');
-
-  print('\n--- Overview ---');
-  print('FloatingHeaderSnapConfiguration controls the snapping behavior of');
-  print(
-    'floating SliverPersistentHeader widgets. When a user stops scrolling,',
-  );
-  print('the floating header animates to fully open or fully closed.');
-
-  // ═══════════════════════════════════════════════════════════════════════════
-  // SECTION 1: PROPERTIES
-  // ═══════════════════════════════════════════════════════════════════════════
-
-  print('\n--- Properties ---');
-  print('vsync (TickerProvider):');
-  print('  - Provides the Ticker object that drives the snap animation.');
-  print('  - Typically from TickerProviderStateMixin or');
-  print('    SingleTickerProviderStateMixin.');
-  print('curve (Curve):');
-  print('  - Animation curve for snap easing. Default: Curves.ease');
-  print('  - Controls acceleration profile of the snap.');
-  print('duration (Duration):');
-  print('  - Total time for the snap animation.');
-  print('  - Default: Duration(milliseconds: 300)');
-
-  // ═══════════════════════════════════════════════════════════════════════════
-  // SECTION 2: SNAP BEHAVIOR
-  // ═══════════════════════════════════════════════════════════════════════════
-
-  print('\n--- Snap Behavior ---');
-  print('1. User scrolls → floating header partially visible');
-  print('2. User lifts finger → snap evaluates current extent');
-  print('3. If extent > 50% → snap open (animate to maxExtent)');
-  print('4. If extent <= 50% → snap closed (animate to 0)');
-  print('5. Animation uses configured curve and duration');
-
-  // ═══════════════════════════════════════════════════════════════════════════
-  // SECTION 3: CURVE TYPES
-  // ═══════════════════════════════════════════════════════════════════════════
-
-  print('\n--- Curve Types ---');
-  print('Curves.ease       → Smooth start and end (default)');
-  print('Curves.easeOut    → Fast start, gentle deceleration');
-  print('Curves.easeInOut  → Symmetric gentle ease');
-  print('Curves.bounceOut  → Playful bounce effect');
-  print('Curves.elasticOut → Springy overshoot');
-  print('Curves.linear     → Constant speed (mechanical)');
-
-  // ═══════════════════════════════════════════════════════════════════════════
-  // SECTION 4: DURATION IMPACT
-  // ═══════════════════════════════════════════════════════════════════════════
-
-  print('\n--- Duration Impact ---');
-  print('100ms → Very snappy, possibly abrupt');
-  print('200ms → Quick and responsive');
-  print('300ms → Default, balanced feel');
-  print('500ms → Smooth, deliberate');
-  print('800ms → Slow, potentially sluggish');
-  print('Recommended range: 200-400ms');
-
-  // ═══════════════════════════════════════════════════════════════════════════
-  // SECTION 5: SLIVERAPPBAR INTEGRATION
-  // ═══════════════════════════════════════════════════════════════════════════
-
-  print('\n--- SliverAppBar Integration ---');
-  print('SliverAppBar(floating: true, snap: true) automatically creates');
-  print('a FloatingHeaderSnapConfiguration internally.');
-  print('The vsync comes from the State\'s TickerProviderStateMixin.');
-  print(
-    'Custom configuration requires building a custom SliverPersistentHeader.',
-  );
-
-  // ═══════════════════════════════════════════════════════════════════════════
-  // SECTION 6: BEST PRACTICES
-  // ═══════════════════════════════════════════════════════════════════════════
-
-  print('\n--- Best Practices ---');
-  print('✓ Use TickerProviderStateMixin for vsync');
-  print('✓ Prefer easeOut curves for natural feel');
-  print('✓ Keep duration between 200-400ms');
-  print('✗ Avoid durations above 600ms');
-  print('✗ Don\'t set snap:true without floating:true');
-  print('✗ Don\'t ignore vsync lifecycle management');
-
-  print('\nFloatingHeaderSnapConfiguration test completed.');
-
-  // ═══════════════════════════════════════════════════════════════════════════
-  // BUILD UI
-  // ═══════════════════════════════════════════════════════════════════════════
-
-  return SingleChildScrollView(
-    padding: const EdgeInsets.all(20),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        // ── Header ──
-        _buildHeader(),
-        const SizedBox(height: 24),
-
-        // ── Section 1: What It Is ──
-        _buildSectionTitle(
-          'What is FloatingHeaderSnapConfiguration?',
-          Icons.help_outline,
-        ),
-        _buildInfoCard(
-          'Snap Configuration Object',
-          'FloatingHeaderSnapConfiguration is a simple configuration class '
-              'from rendering.dart that defines HOW a floating persistent '
-              'header should snap after the user stops scrolling. It bundles '
-              'the TickerProvider, animation curve, and duration into one '
-              'configuration that the rendering layer uses to drive the snap.',
-          Icons.settings,
-        ),
-        _buildInfoCard(
-          'Part of the Sliver System',
-          'Slivers power scrollable layouts in Flutter. Floating persistent '
-              'headers appear when the user scrolls up. Snap makes them '
-              'animate to fully-open or fully-closed — no half-visible '
-              'header left behind.',
-          Icons.view_day,
-        ),
-        _buildInfoCard(
-          'Used Internally',
-          'You rarely create FloatingHeaderSnapConfiguration directly. '
-              'SliverAppBar with floating: true and snap: true creates '
-              'one for you. Understanding it helps debug scroll behavior '
-              'and build custom sliver headers.',
-          Icons.build_circle,
-        ),
-        const SizedBox(height: 20),
-
-        // ── Section 2: Properties ──
-        _buildSectionTitle('Configuration Properties', Icons.tune),
-        _buildPropertiesCard(),
-        const SizedBox(height: 20),
-
-        // ── Section 3: Snap Behavior Visual ──
-        _buildSectionTitle('Snap Behavior Visualization', Icons.animation),
-        _buildSnapBehaviorVisualization(),
-        const SizedBox(height: 20),
-
-        // ── Section 4: Curve Types ──
-        _buildSectionTitle('Curve Types & Effects', Icons.show_chart),
-        _buildCurveComparisonSection(),
-        const SizedBox(height: 20),
-
-        // ── Section 5: Duration Impact ──
-        _buildSectionTitle('Duration Impact', Icons.timer),
-        _buildDurationVisualization(),
-        const SizedBox(height: 20),
-
-        // ── Section 6: SliverAppBar Integration ──
-        _buildSectionTitle(
-          'SliverAppBar Integration',
-          Icons.integration_instructions,
-        ),
-        _buildSliverAppBarIntegration(),
-        const SizedBox(height: 16),
-
-        // Code examples
-        _buildCodeSnippet('Basic SliverAppBar with snap', '''Scaffold(
-  body: CustomScrollView(
-    slivers: [
-      SliverAppBar(
-        floating: true,   // Required for snap
-        snap: true,       // Enables snap behavior
-        title: Text('My App'),
-        expandedHeight: 120.0,
-      ),
-      SliverList(
-        delegate: SliverChildBuilderDelegate(
-          (context, index) => ListTile(
-            title: Text('Item \$index'),
-          ),
-          childCount: 50,
-        ),
-      ),
-    ],
-  ),
-)'''),
-        _buildCodeSnippet(
-          'Custom SliverPersistentHeader with snap',
-          '''class _MySliverDelegate
-    extends SliverPersistentHeaderDelegate {
-  @override
-  double get maxExtent => 120.0;
+class IntegrationExampleWidget extends StatefulWidget {
+  IntegrationExampleWidget({Key? key}) : super(key: key);
 
   @override
-  double get minExtent => 0.0;
-
-  @override
-  FloatingHeaderSnapConfiguration? get snapConfiguration =>
-      FloatingHeaderSnapConfiguration(
-        // vsync from TickerProviderStateMixin
-        vsync: vsync,
-        curve: Curves.easeOut,
-        duration: const Duration(milliseconds: 250),
-      );
-
-  @override
-  Widget build(BuildContext context,
-      double shrinkOffset, bool overlapsContent) {
-    return Container(
-      color: Colors.orange,
-      child: Center(child: Text('Floating Header')),
-    );
-  }
-
-  @override
-  bool shouldRebuild(covariant _MySliverDelegate old)
-      => false;
-}''',
-        ),
-        _buildCodeSnippet(
-          'Providing vsync with StatefulWidget',
-          '''class MyPage extends StatefulWidget {
-  @override
-  State<MyPage> createState() => _MyPageState();
+  State<IntegrationExampleWidget> createState() =>
+      _IntegrationExampleWidgetState();
 }
 
-class _MyPageState extends State<MyPage>
-    with TickerProviderStateMixin {
-
-  // 'this' provides the TickerProvider for vsync
-  late final snapConfig =
-      FloatingHeaderSnapConfiguration(
-        vsync: this,
-        curve: Curves.easeOut,
-        duration: const Duration(
-          milliseconds: 300,
-        ),
-      );
+class _IntegrationExampleWidgetState extends State<IntegrationExampleWidget> {
+  bool _showFloating = true;
+  bool _showSnap = true;
+  bool _showPinned = false;
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: [
-        SliverPersistentHeader(
-          floating: true,
-          delegate: MyDelegate(snapConfig),
+    return Container(
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Color(0xFFE0F7FA),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Color(0xFF80DEEA)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.integration_instructions, color: Color(0xFF00838F), size: 24),
+              SizedBox(width: 8),
+              Text(
+                'Integration Example',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF006064),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 12),
+          Text(
+            'Configure SliverAppBar properties that affect FloatingHeaderSnapConfiguration:',
+            style: TextStyle(fontSize: 13, color: Color(0xFF00838F)),
+          ),
+          SizedBox(height: 16),
+          _buildToggleRow('floating', _showFloating, (val) {
+            setState(() {
+              _showFloating = val;
+              if (!val) _showSnap = false;
+            });
+          }),
+          _buildToggleRow('snap', _showSnap, _showFloating ? (val) {
+            setState(() {
+              _showSnap = val;
+            });
+          } : null),
+          _buildToggleRow('pinned', _showPinned, (val) {
+            setState(() {
+              _showPinned = val;
+            });
+          }),
+          SizedBox(height: 16),
+          Container(
+            padding: EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Color(0xFF3E2723),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Text(
+              'SliverAppBar(\n'
+              '  floating: $_showFloating,\n'
+              '  snap: $_showSnap,\n'
+              '  pinned: $_showPinned,\n'
+              '  expandedHeight: 200.0,\n'
+              '  flexibleSpace: FlexibleSpaceBar(\n'
+              '    title: Text("App Title"),\n'
+              '    background: Image(...),\n'
+              '  ),\n'
+              ')',
+              style: TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 11,
+                color: Color(0xFFE0F7FA),
+                height: 1.4,
+              ),
+            ),
+          ),
+          SizedBox(height: 12),
+          Container(
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: _showSnap ? Color(0xFF4CAF50).withAlpha(40) : Color(0xFFFF9800).withAlpha(40),
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(
+                color: _showSnap ? Color(0xFF4CAF50) : Color(0xFFFF9800),
+              ),
+            ),
+            child: Row(
+              children: [
+                Icon(
+                  _showSnap ? Icons.check_circle : Icons.info,
+                  color: _showSnap ? Color(0xFF4CAF50) : Color(0xFFFF9800),
+                  size: 20,
+                ),
+                SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    _showSnap
+                        ? 'FloatingHeaderSnapConfiguration is active. Header will snap to expanded/collapsed state.'
+                        : 'Snap is disabled. Header will stay at current scroll position.',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: _showSnap ? Color(0xFF2E7D32) : Color(0xFFE65100),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildToggleRow(String label, bool value, void Function(bool)? onChanged) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        children: [
+          SizedBox(
+            width: 80,
+            child: Text(
+              label,
+              style: TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 13,
+                color: Color(0xFF006064),
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Switch(
+            value: value,
+            onChanged: onChanged,
+            activeColor: Color(0xFF00BCD4),
+          ),
+          SizedBox(width: 8),
+          Text(
+            value ? 'true' : 'false',
+            style: TextStyle(
+              fontSize: 12,
+              color: value ? Color(0xFF00838F) : Color(0xFF90A4AE),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// MAIN DEMO APP WIDGET
+// ════════════════════════════════════════════════════════════════════════════
+
+class FloatingHeaderSnapConfigurationDemo extends StatelessWidget {
+  FloatingHeaderSnapConfigurationDemo({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color(0xFFFAFAFA),
+      appBar: AppBar(
+        title: Text('FloatingHeaderSnapConfiguration'),
+        backgroundColor: Color(0xFFFF6F00),
+        foregroundColor: Colors.white,
+        elevation: 2,
+      ),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            _buildHeaderBanner(),
+            SizedBox(height: 20),
+            _buildSectionHeader('1. Constructor', Icons.build_circle),
+            SizedBox(height: 8),
+            ConstructorDemoWidget(),
+            SizedBox(height: 20),
+            _buildSectionHeader('2. Vsync Parameter', Icons.sync),
+            SizedBox(height: 8),
+            VsyncDemoWidget(),
+            SizedBox(height: 20),
+            _buildSectionHeader('3. Curve Parameter', Icons.show_chart),
+            SizedBox(height: 8),
+            CurveDemoWidget(),
+            SizedBox(height: 20),
+            _buildSectionHeader('4. Duration Parameter', Icons.timer),
+            SizedBox(height: 8),
+            DurationDemoWidget(),
+            SizedBox(height: 20),
+            _buildSectionHeader('5. Snap Behavior', Icons.swipe_vertical),
+            SizedBox(height: 8),
+            SnapBehaviorVisualization(),
+            SizedBox(height: 20),
+            _buildSectionHeader('6. Integration', Icons.integration_instructions),
+            SizedBox(height: 8),
+            IntegrationExampleWidget(),
+            SizedBox(height: 20),
+            _buildFooterInfo(),
+            SizedBox(height: 40),
+          ],
         ),
-        // ... sliver list
+      ),
+    );
+  }
+
+  Widget _buildHeaderBanner() {
+    return Container(
+      padding: EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Color(0xFFFF6F00), Color(0xFFFFA000)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Color(0xFFFF6F00).withAlpha(80),
+            blurRadius: 16,
+            offset: Offset(0, 6),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.white.withAlpha(40),
+              borderRadius: BorderRadius.circular(50),
+            ),
+            child: Icon(Icons.swipe_up, color: Colors.white, size: 40),
+          ),
+          SizedBox(height: 16),
+          Text(
+            'FloatingHeaderSnapConfiguration',
+            style: TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 8),
+          Text(
+            'Controls snapping behavior for floating persistent headers\n'
+            'in sliver scroll views',
+            style: TextStyle(
+              fontSize: 13,
+              color: Colors.white.withAlpha(220),
+              height: 1.4,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 12),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _buildBannerChip('rendering.dart'),
+              SizedBox(width: 8),
+              _buildBannerChip('Slivers'),
+              SizedBox(width: 8),
+              _buildBannerChip('Animation'),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildBannerChip(String label) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+      decoration: BoxDecoration(
+        color: Colors.white.withAlpha(40),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.white.withAlpha(60)),
+      ),
+      child: Text(
+        label,
+        style: TextStyle(fontSize: 11, color: Colors.white),
+      ),
+    );
+  }
+
+  Widget _buildSectionHeader(String title, IconData icon) {
+    return Row(
+      children: [
+        Container(
+          padding: EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: Color(0xFFFFECB3),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Icon(icon, color: Color(0xFFFF6F00), size: 20),
+        ),
+        SizedBox(width: 12),
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFFE65100),
+          ),
+        ),
       ],
     );
   }
-}''',
-        ),
-        const SizedBox(height: 20),
 
-        // ── Section 7: Real-World Use Cases ──
-        _buildSectionTitle('Real-World Use Cases', Icons.cases),
-        _buildUseCasesSection(),
-        const SizedBox(height: 20),
+  Widget _buildFooterInfo() {
+    return Container(
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Color(0xFFFFF8E1),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Color(0xFFFFE082)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.lightbulb_outline, color: Color(0xFFFF6F00), size: 22),
+              SizedBox(width: 8),
+              Text(
+                'Summary',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFFE65100),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 12),
+          _buildSummaryItem(
+            'FloatingHeaderSnapConfiguration is created internally by '
+            'SliverAppBar when floating and snap are both true.',
+          ),
+          _buildSummaryItem(
+            'The vsync parameter provides animation synchronization '
+            'with the display refresh rate.',
+          ),
+          _buildSummaryItem(
+            'The curve parameter controls easing (e.g., Curves.ease, '
+            'Curves.bounceOut, Curves.elasticOut).',
+          ),
+          _buildSummaryItem(
+            'The duration parameter sets animation length '
+            '(default 300ms, typical range 100-500ms).',
+          ),
+          _buildSummaryItem(
+            'When scrolling stops with header partially visible, '
+            'snap animation triggers based on threshold.',
+          ),
+        ],
+      ),
+    );
+  }
 
-        // ── Section 8: Best Practices ──
-        _buildSectionTitle('Best Practices', Icons.verified),
-        _buildBestPracticesSection(),
-        const SizedBox(height: 20),
+  Widget _buildSummaryItem(String text) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 8),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 6,
+            height: 6,
+            margin: EdgeInsets.only(top: 6, right: 8),
+            decoration: BoxDecoration(
+              color: Color(0xFFFFB300),
+              borderRadius: BorderRadius.circular(3),
+            ),
+          ),
+          Expanded(
+            child: Text(
+              text,
+              style: TextStyle(
+                fontSize: 12,
+                color: Color(0xFFE65100),
+                height: 1.4,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
 
-        // ── Test Result ──
-        _buildSectionTitle('Test Results', Icons.check_circle),
-        _buildResultBadge(
-          true,
-          'FloatingHeaderSnapConfiguration demo rendered successfully. '
-          'All visual sections displayed.',
-        ),
-        const SizedBox(height: 20),
+// ════════════════════════════════════════════════════════════════════════════
+// MAIN FUNCTION
+// ════════════════════════════════════════════════════════════════════════════
 
-        // ── Summary ──
-        _buildSummaryCard(),
-        const SizedBox(height: 20),
-      ],
+void main() {
+  runApp(MaterialApp(
+    title: 'FloatingHeaderSnapConfiguration Demo',
+    theme: ThemeData(
+      primarySwatch: Colors.orange,
+      useMaterial3: true,
     ),
-  );
+    home: FloatingHeaderSnapConfigurationDemo(),
+    debugShowCheckedModeBanner: false,
+  ));
+
+  print('');
+  print('╔═══════════════════════════════════════════════════════════════════╗');
+  print('║     FloatingHeaderSnapConfiguration Deep Demo                     ║');
+  print('╚═══════════════════════════════════════════════════════════════════╝');
+  print('');
+  print('FloatingHeaderSnapConfiguration controls the snapping behavior of');
+  print('floating SliverPersistentHeader widgets in a CustomScrollView.');
+  print('');
+  print('Key Parameters:');
+  print('  • vsync: TickerProvider for animation synchronization');
+  print('  • curve: Easing function (default: Curves.ease)');
+  print('  • duration: Animation length (default: 300ms)');
+  print('');
+  print('Usage Context:');
+  print('  - Created internally by SliverAppBar when floating=true, snap=true');
+  print('  - Used by RenderSliverFloatingPersistentHeader for snap animation');
+  print('  - Determines smooth transition between collapsed/expanded states');
+  print('');
+  print('Common Curve Options:');
+  print('  • Curves.ease         - Smooth acceleration/deceleration');
+  print('  • Curves.easeIn       - Slow start, fast finish');
+  print('  • Curves.easeOut      - Fast start, slow finish');
+  print('  • Curves.easeInOut    - Slow start and finish');
+  print('  • Curves.bounceOut    - Bouncy effect at end');
+  print('  • Curves.elasticOut   - Spring-like elastic effect');
+  print('');
+  print('Duration Recommendations:');
+  print('  • 100-150ms: Very snappy, instant feel');
+  print('  • 200-300ms: Standard, balanced (default)');
+  print('  • 400-500ms: Slower, deliberate');
+  print('  • 600ms+:    Dramatic, noticeable');
+  print('');
+  print('FloatingHeaderSnapConfiguration demo completed.');
 }
