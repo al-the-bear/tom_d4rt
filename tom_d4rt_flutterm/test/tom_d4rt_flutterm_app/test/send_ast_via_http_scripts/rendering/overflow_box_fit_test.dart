@@ -1,69 +1,181 @@
-// D4rt test script: Comprehensive demo for OverflowBoxFit from rendering
+// D4rt test script: Deep demo for OverflowBoxFit from rendering
 //
-// OverflowBoxFit is an enum that controls how OverflowBox and SizedOverflowBox
-// fit their child within the available space.
+// OverflowBoxFit is an enum that defines how an OverflowBox sizes its child
+// within the parent's constraints. This enum determines whether the child
+// should expand to fill maximum available space or size itself naturally.
 //
 // Values:
-//   - max: Child receives max constraints, fills available space
-//   - deferToChild: Child determines its own size within constraints
+//   max - Child receives maximum constraints from parent
+//   deferToChild - Child determines its own size within constraints
 //
-// This demo shows:
-//   1. OverflowBoxFit.max vs OverflowBoxFit.deferToChild demonstration
-//   2. Visual comparison with different sized children
-//   3. Use in SizedOverflowBox
-//   4. Constraint behavior visualization
+// Key characteristics:
+//   - Controls child sizing in overflow scenarios
+//   - Affects how constraints propagate to child widgets
+//   - Works with OverflowBox and SizedOverflowBox
+//   - Determines whether child fills space or shrinks to content
 //
-// ═══════════════════════════════════════════════════════════════════════════
+// Common use cases:
+//   - Creating overlays that expand to fill containers
+//   - Building content that sizes naturally within overflow bounds
+//   - Implementing floating elements with flexible sizing
+//   - Managing constraint propagation in complex layouts
+//
+// This demo visualizes the OverflowBoxFit enum behavior comprehensively.
+
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
-// ═══════════════════════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════════════════════
 // COLOR PALETTE
-// ═══════════════════════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════════════════════
 
-Color _kCyan100 = Color(0xFFCFFAFE);
-Color _kCyan400 = Color(0xFF22D3EE);
-Color _kCyan500 = Color(0xFF06B6D4);
-Color _kCyan600 = Color(0xFF0891B2);
-Color _kCyan700 = Color(0xFF0E7490);
-Color _kCyan800 = Color(0xFF155E75);
+Color _kPrimary50 = Color(0xFFEDE7F6);
+Color _kPrimary100 = Color(0xFFD1C4E9);
+Color _kPrimary200 = Color(0xFFB39DDB);
+Color _kPrimary300 = Color(0xFF9575CD);
+Color _kPrimary400 = Color(0xFF7E57C2);
+Color _kPrimary500 = Color(0xFF673AB7);
+Color _kPrimary600 = Color(0xFF5E35B1);
+Color _kPrimary700 = Color(0xFF512DA8);
+Color _kPrimary800 = Color(0xFF4527A0);
 
-Color _kOrange500 = Color(0xFFF97316);
+Color _kSecondary500 = Color(0xFF00BCD4);
+Color _kSecondary600 = Color(0xFF00ACC1);
+Color _kSecondary700 = Color(0xFF0097A7);
 
+Color _kAccent500 = Color(0xFFFF5722);
+Color _kAccent600 = Color(0xFFF4511E);
+Color _kAccent700 = Color(0xFFE64A19);
+
+Color _kSuccess500 = Color(0xFF4CAF50);
+Color _kSuccess600 = Color(0xFF43A047);
+
+Color _kWarning500 = Color(0xFFFF9800);
+Color _kWarning600 = Color(0xFFFB8C00);
+
+Color _kSlate100 = Color(0xFFF1F5F9);
+Color _kSlate200 = Color(0xFFE2E8F0);
+Color _kSlate300 = Color(0xFFCBD5E1);
+Color _kSlate400 = Color(0xFF94A3B8);
+Color _kSlate500 = Color(0xFF64748B);
 Color _kSlate600 = Color(0xFF475569);
 Color _kSlate700 = Color(0xFF334155);
 Color _kSlate800 = Color(0xFF1E293B);
 
-Color _kRose500 = Color(0xFFF43F5E);
-
-// ═══════════════════════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════════════════════
 // HELPER WIDGETS
-// ═══════════════════════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════════════════════
 
-Widget _buildSectionHeader(String title, IconData icon) {
+Widget _buildMainHeader() {
+  return Container(
+    width: double.infinity,
+    padding: EdgeInsets.all(24),
+    decoration: BoxDecoration(
+      gradient: LinearGradient(
+        colors: [_kPrimary800, _kPrimary600, _kPrimary400],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      ),
+      borderRadius: BorderRadius.circular(20),
+      boxShadow: [
+        BoxShadow(
+          color: _kPrimary800.withAlpha(120),
+          blurRadius: 20,
+          offset: Offset(0, 10),
+        ),
+      ],
+    ),
+    child: Column(
+      children: [
+        Icon(Icons.open_in_full, color: Colors.white, size: 56),
+        SizedBox(height: 16),
+        Text(
+          'OverflowBoxFit',
+          style: TextStyle(
+            fontSize: 32,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+            letterSpacing: 1.2,
+          ),
+        ),
+        SizedBox(height: 8),
+        Text(
+          'Enum for how OverflowBox sizes its child',
+          style: TextStyle(
+            fontSize: 16,
+            color: Colors.white.withAlpha(220),
+          ),
+        ),
+        SizedBox(height: 20),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _buildEnumBadge('max', Icons.fullscreen, _kSecondary500),
+            SizedBox(width: 16),
+            _buildEnumBadge('deferToChild', Icons.child_care, _kAccent500),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildEnumBadge(String label, IconData icon, Color bgColor) {
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+    decoration: BoxDecoration(
+      color: bgColor.withAlpha(180),
+      borderRadius: BorderRadius.circular(20),
+      border: Border.all(color: Colors.white.withAlpha(100), width: 1),
+    ),
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(icon, color: Colors.white, size: 18),
+        SizedBox(width: 8),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 13,
+            color: Colors.white,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildSectionHeader(String title, IconData icon, Color color) {
   return Container(
     width: double.infinity,
     margin: EdgeInsets.only(bottom: 16),
     padding: EdgeInsets.all(16),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [_kCyan700, _kCyan500],
+        colors: [color, color.withAlpha(180)],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
-      borderRadius: BorderRadius.circular(12),
+      borderRadius: BorderRadius.circular(14),
       boxShadow: [
         BoxShadow(
-          color: _kCyan700.withAlpha(80),
-          blurRadius: 8,
-          offset: Offset(0, 4),
+          color: color.withAlpha(80),
+          blurRadius: 10,
+          offset: Offset(0, 5),
         ),
       ],
     ),
     child: Row(
       children: [
-        Icon(icon, color: Colors.white, size: 28),
-        SizedBox(width: 12),
+        Container(
+          padding: EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: Colors.white.withAlpha(50),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Icon(icon, color: Colors.white, size: 26),
+        ),
+        SizedBox(width: 14),
         Expanded(
           child: Text(
             title,
@@ -79,19 +191,19 @@ Widget _buildSectionHeader(String title, IconData icon) {
   );
 }
 
-Widget _buildCard(String title, Widget content, {Color? accentColor}) {
-  Color color = accentColor ?? _kCyan500;
+Widget _buildInfoCard(String title, Widget content, {Color? accentColor}) {
+  Color color = accentColor ?? _kPrimary500;
   return Container(
     margin: EdgeInsets.only(bottom: 16),
     decoration: BoxDecoration(
       color: Colors.white,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: color.withAlpha(50), width: 2),
+      borderRadius: BorderRadius.circular(14),
+      border: Border.all(color: color.withAlpha(60), width: 2),
       boxShadow: [
         BoxShadow(
-          color: Colors.black.withAlpha(15),
-          blurRadius: 8,
-          offset: Offset(0, 2),
+          color: Colors.black.withAlpha(12),
+          blurRadius: 10,
+          offset: Offset(0, 4),
         ),
       ],
     ),
@@ -100,18 +212,18 @@ Widget _buildCard(String title, Widget content, {Color? accentColor}) {
       children: [
         Container(
           width: double.infinity,
-          padding: EdgeInsets.all(12),
+          padding: EdgeInsets.all(14),
           decoration: BoxDecoration(
-            color: color.withAlpha(25),
+            color: color.withAlpha(20),
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10),
-              topRight: Radius.circular(10),
+              topLeft: Radius.circular(12),
+              topRight: Radius.circular(12),
             ),
           ),
           child: Text(
             title,
             style: TextStyle(
-              fontSize: 16,
+              fontSize: 17,
               fontWeight: FontWeight.bold,
               color: color,
             ),
@@ -123,81 +235,217 @@ Widget _buildCard(String title, Widget content, {Color? accentColor}) {
   );
 }
 
-Widget _buildMainHeader() {
-  return Container(
-    width: double.infinity,
-    padding: EdgeInsets.all(24),
-    decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: [_kCyan800, _kCyan600, _kCyan400],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-      ),
-      borderRadius: BorderRadius.circular(16),
-      boxShadow: [
-        BoxShadow(
-          color: _kCyan800.withAlpha(100),
-          blurRadius: 16,
-          offset: Offset(0, 8),
-        ),
-      ],
-    ),
-    child: Column(
+Widget _buildInfoRow(String label, String value, {Color? valueColor}) {
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: 5),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(Icons.open_with, color: Colors.white, size: 48),
-        SizedBox(height: 12),
-        Text(
-          'OverflowBoxFit',
-          style: TextStyle(
-            fontSize: 28,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-        SizedBox(height: 8),
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-          decoration: BoxDecoration(
-            color: Colors.white.withAlpha(50),
-            borderRadius: BorderRadius.circular(20),
-          ),
+        SizedBox(
+          width: 130,
           child: Text(
-            'Control how OverflowBox fits its child',
-            style: TextStyle(fontSize: 14, color: Colors.white),
+            label,
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              color: _kSlate700,
+              fontSize: 13,
+            ),
           ),
         ),
-        SizedBox(height: 16),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _buildStatBadge('max', Icons.fullscreen),
-            SizedBox(width: 12),
-            _buildStatBadge('deferToChild', Icons.child_care),
-          ],
+        Expanded(
+          child: Text(
+            value,
+            style: TextStyle(
+              color: valueColor ?? _kSlate600,
+              fontSize: 13,
+            ),
+          ),
         ),
       ],
     ),
   );
 }
 
-Widget _buildStatBadge(String label, IconData icon) {
+Widget _buildCodeSnippet(String code, {Color? bgColor}) {
   return Container(
-    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+    width: double.infinity,
+    padding: EdgeInsets.all(14),
     decoration: BoxDecoration(
-      color: Colors.white.withAlpha(40),
-      borderRadius: BorderRadius.circular(16),
+      color: bgColor ?? _kSlate800,
+      borderRadius: BorderRadius.circular(10),
     ),
-    child: Row(
-      mainAxisSize: MainAxisSize.min,
+    child: Text(
+      code,
+      style: TextStyle(
+        fontFamily: 'monospace',
+        fontSize: 12,
+        color: Color(0xFFE2E8F0),
+        height: 1.5,
+      ),
+    ),
+  );
+}
+
+Widget _buildDiagramBox(String label, Color color, {IconData? icon, double size = 80}) {
+  return Container(
+    width: size,
+    height: size,
+    decoration: BoxDecoration(
+      color: color.withAlpha(40),
+      borderRadius: BorderRadius.circular(12),
+      border: Border.all(color: color, width: 2),
+    ),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(icon, color: Colors.white, size: 16),
-        SizedBox(width: 6),
+        if (icon != null) Icon(icon, color: color, size: 22),
+        if (icon != null) SizedBox(height: 4),
         Text(
           label,
           style: TextStyle(
             fontSize: 11,
-            color: Colors.white,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.bold,
+            color: color,
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildArrowDown(Color color) {
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Container(width: 2, height: 16, color: color),
+      Icon(Icons.arrow_drop_down, color: color, size: 20),
+    ],
+  );
+}
+
+Widget _buildArrowRight(Color color) {
+  return Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Container(width: 16, height: 2, color: color),
+      Icon(Icons.arrow_right, color: color, size: 20),
+    ],
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// SECTION 1: OVERFLOW BOX FIT OVERVIEW
+// ═══════════════════════════════════════════════════════════════════════════════
+
+Widget _buildOverviewSection() {
+  return Container(
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(16),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withAlpha(12),
+          blurRadius: 12,
+          offset: Offset(0, 4),
+        ),
+      ],
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildSectionHeader('OverflowBoxFit Overview', Icons.info_outline, _kPrimary600),
+        Padding(
+          padding: EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'OverflowBoxFit is an enumeration that controls sizing behavior '
+                'when using OverflowBox or SizedOverflowBox widgets. It determines '
+                'how the child widget receives and responds to layout constraints '
+                'from its parent container.',
+                style: TextStyle(color: _kSlate600, fontSize: 14, height: 1.6),
+              ),
+              SizedBox(height: 20),
+              _buildInfoCard(
+                'Enum Definition',
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildCodeSnippet(
+                      'enum OverflowBoxFit {\n'
+                      '  max,\n'
+                      '  deferToChild,\n'
+                      '}',
+                    ),
+                    SizedBox(height: 16),
+                    _buildInfoRow('Source', 'package:flutter/rendering.dart'),
+                    _buildInfoRow('Values', '2 (max, deferToChild)'),
+                    _buildInfoRow('Default', 'OverflowBoxFit.max'),
+                  ],
+                ),
+                accentColor: _kPrimary500,
+              ),
+              SizedBox(height: 12),
+              Container(
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: _kPrimary50,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: _kPrimary200),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(Icons.lightbulb_outline, color: _kPrimary600, size: 20),
+                        SizedBox(width: 10),
+                        Text(
+                          'Key Concept',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: _kPrimary700,
+                            fontSize: 15,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      'The fit property affects how constraints propagate from '
+                      'the OverflowBox to its child. With "max", the child is '
+                      'encouraged to fill all available space. With "deferToChild", '
+                      'the child sizes itself according to its natural dimensions.',
+                      style: TextStyle(color: _kSlate600, fontSize: 13, height: 1.5),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 20),
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildValueSummaryTile(
+                      'max',
+                      'Fills available space',
+                      Icons.fullscreen,
+                      _kSecondary600,
+                    ),
+                  ),
+                  SizedBox(width: 12),
+                  Expanded(
+                    child: _buildValueSummaryTile(
+                      'deferToChild',
+                      'Natural child size',
+                      Icons.child_care,
+                      _kAccent600,
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ],
@@ -205,69 +453,132 @@ Widget _buildStatBadge(String label, IconData icon) {
   );
 }
 
-Widget _buildEnumValueRow(
-  OverflowBoxFit value,
-  String description,
-  IconData icon,
-  Color color,
-) {
+Widget _buildValueSummaryTile(String value, String description, IconData icon, Color color) {
   return Container(
-    padding: EdgeInsets.all(12),
+    padding: EdgeInsets.all(14),
     decoration: BoxDecoration(
-      color: color.withAlpha(20),
-      borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: color.withAlpha(60)),
+      color: color.withAlpha(25),
+      borderRadius: BorderRadius.circular(12),
+      border: Border.all(color: color.withAlpha(80)),
     ),
-    child: Row(
+    child: Column(
       children: [
         Container(
-          width: 44,
-          height: 44,
+          padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
             color: color,
             borderRadius: BorderRadius.circular(10),
           ),
           child: Icon(icon, color: Colors.white, size: 24),
         ),
-        SizedBox(width: 12),
-        Expanded(
+        SizedBox(height: 10),
+        Text(
+          value,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: color,
+            fontSize: 14,
+          ),
+        ),
+        SizedBox(height: 4),
+        Text(
+          description,
+          style: TextStyle(
+            color: _kSlate600,
+            fontSize: 11,
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ],
+    ),
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// SECTION 2: MAX VALUE DEMO
+// ═══════════════════════════════════════════════════════════════════════════════
+
+Widget _buildMaxValueSection() {
+  return Container(
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(16),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withAlpha(12),
+          blurRadius: 12,
+          offset: Offset(0, 4),
+        ),
+      ],
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildSectionHeader('OverflowBoxFit.max Demo', Icons.fullscreen, _kSecondary600),
+        Padding(
+          padding: EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  Text(
-                    'OverflowBoxFit.${value.name}',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: color,
-                      fontFamily: 'monospace',
-                      fontSize: 14,
-                    ),
-                  ),
-                  SizedBox(width: 8),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                    decoration: BoxDecoration(
-                      color: color.withAlpha(30),
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: Text(
-                      'index: ${value.index}',
-                      style: TextStyle(
-                        fontSize: 10,
-                        color: color,
-                        fontFamily: 'monospace',
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 4),
               Text(
-                description,
-                style: TextStyle(fontSize: 12, color: color.withAlpha(180)),
+                'When fit is set to OverflowBoxFit.max, the child widget receives '
+                'maximum constraints. This causes the child to expand and fill '
+                'all available space within the OverflowBox boundaries.',
+                style: TextStyle(color: _kSlate600, fontSize: 14, height: 1.6),
               ),
+              SizedBox(height: 20),
+              _buildInfoCard(
+                'Behavior Characteristics',
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildBehaviorItem(
+                      'Child receives maxWidth and maxHeight',
+                      Icons.expand,
+                      _kSecondary600,
+                    ),
+                    _buildBehaviorItem(
+                      'Child fills all allocated space',
+                      Icons.crop_square,
+                      _kSecondary600,
+                    ),
+                    _buildBehaviorItem(
+                      'Similar to how Expanded works in Flex',
+                      Icons.compare_arrows,
+                      _kSecondary600,
+                    ),
+                    _buildBehaviorItem(
+                      'Default behavior for OverflowBox',
+                      Icons.star,
+                      _kSecondary600,
+                    ),
+                  ],
+                ),
+                accentColor: _kSecondary600,
+              ),
+              SizedBox(height: 16),
+              _buildInfoCard(
+                'Code Example',
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildCodeSnippet(
+                      'OverflowBox(\n'
+                      '  fit: OverflowBoxFit.max,\n'
+                      '  maxWidth: 200,\n'
+                      '  maxHeight: 150,\n'
+                      '  child: Container(\n'
+                      '    color: Colors.blue,\n'
+                      '    // Child fills 200x150\n'
+                      '  ),\n'
+                      ')',
+                    ),
+                  ],
+                ),
+                accentColor: _kSlate700,
+              ),
+              SizedBox(height: 16),
+              _buildMaxVisualDemo(),
             ],
           ),
         ),
@@ -276,381 +587,350 @@ Widget _buildEnumValueRow(
   );
 }
 
-Widget _buildCodeSnippet(String code) {
-  return Container(
-    width: double.infinity,
-    padding: EdgeInsets.all(12),
-    decoration: BoxDecoration(
-      color: Color(0xFF1E1E1E),
-      borderRadius: BorderRadius.circular(8),
-    ),
-    child: Text(
-      code,
-      style: TextStyle(
-        fontSize: 11,
-        color: Color(0xFF9CDCFE),
-        fontFamily: 'monospace',
-        height: 1.4,
-      ),
+Widget _buildBehaviorItem(String text, IconData icon, Color color) {
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: 6),
+    child: Row(
+      children: [
+        Container(
+          padding: EdgeInsets.all(6),
+          decoration: BoxDecoration(
+            color: color.withAlpha(30),
+            borderRadius: BorderRadius.circular(6),
+          ),
+          child: Icon(icon, color: color, size: 16),
+        ),
+        SizedBox(width: 12),
+        Expanded(
+          child: Text(
+            text,
+            style: TextStyle(color: _kSlate700, fontSize: 13),
+          ),
+        ),
+      ],
     ),
   );
 }
 
-// ═══════════════════════════════════════════════════════════════════════════
-// OVERFLOW BOX FIT VISUALIZATIONS
-// ═══════════════════════════════════════════════════════════════════════════
-
-Widget _buildOverflowBoxDemo(String title, OverflowBoxFit fit, Color color) {
-  return Column(
-    children: [
-      Text(
-        title,
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          color: color,
-          fontSize: 14,
+Widget _buildMaxVisualDemo() {
+  return Container(
+    padding: EdgeInsets.all(16),
+    decoration: BoxDecoration(
+      color: _kSecondary500.withAlpha(15),
+      borderRadius: BorderRadius.circular(12),
+      border: Border.all(color: _kSecondary500.withAlpha(50)),
+    ),
+    child: Column(
+      children: [
+        Text(
+          'Visual Demonstration',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: _kSecondary600,
+            fontSize: 15,
+          ),
         ),
-      ),
-      SizedBox(height: 8),
-      Container(
-        width: 150,
-        height: 100,
-        decoration: BoxDecoration(
-          color: _kSlate600.withAlpha(30),
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: _kSlate600.withAlpha(60), width: 2),
-        ),
-        child: Stack(
+        SizedBox(height: 16),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Label for parent container
-            Positioned(
-              top: 2,
-              left: 4,
-              child: Text(
-                'Parent 150×100',
-                style: TextStyle(
-                  fontSize: 8,
-                  color: _kSlate600,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            // The OverflowBox with the specified fit
-            Center(
-              child: OverflowBox(
-                fit: fit,
-                maxWidth: 100,
-                maxHeight: 60,
-                child: Container(
+            Column(
+              children: [
+                Container(
+                  width: 120,
+                  height: 100,
                   decoration: BoxDecoration(
-                    color: color,
-                    borderRadius: BorderRadius.circular(6),
+                    color: _kSlate200,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: _kSlate400, width: 2, style: BorderStyle.solid),
                   ),
                   child: Center(
-                    child: Padding(
-                      padding: EdgeInsets.all(4),
-                      child: Text(
-                        fit.name,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
+                    child: Text(
+                      'Parent\n120x100',
+                      style: TextStyle(color: _kSlate600, fontSize: 11),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 8),
+                Text('Before', style: TextStyle(color: _kSlate500, fontSize: 11)),
+              ],
+            ),
+            SizedBox(width: 20),
+            _buildArrowRight(_kSecondary500),
+            SizedBox(width: 20),
+            Column(
+              children: [
+                Container(
+                  width: 120,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    color: _kSecondary500.withAlpha(100),
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: _kSecondary600, width: 2),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Child fills\n120x100',
+                      style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 8),
+                Text('With fit: max', style: TextStyle(color: _kSecondary600, fontSize: 11, fontWeight: FontWeight.bold)),
+              ],
+            ),
+          ],
+        ),
+        SizedBox(height: 16),
+        Container(
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Text(
+            'Child expands to fill the maximum available space',
+            style: TextStyle(color: _kSlate600, fontSize: 12),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// SECTION 3: DEFER TO CHILD VALUE DEMO
+// ═══════════════════════════════════════════════════════════════════════════════
+
+Widget _buildDeferToChildSection() {
+  return Container(
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(16),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withAlpha(12),
+          blurRadius: 12,
+          offset: Offset(0, 4),
+        ),
+      ],
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildSectionHeader('OverflowBoxFit.deferToChild Demo', Icons.child_care, _kAccent600),
+        Padding(
+          padding: EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'When fit is set to OverflowBoxFit.deferToChild, the child widget '
+                'determines its own size. The OverflowBox passes constraints that '
+                'allow the child to be as small or large as it naturally wants.',
+                style: TextStyle(color: _kSlate600, fontSize: 14, height: 1.6),
+              ),
+              SizedBox(height: 20),
+              _buildInfoCard(
+                'Behavior Characteristics',
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildBehaviorItem(
+                      'Child determines its own dimensions',
+                      Icons.straighten,
+                      _kAccent600,
+                    ),
+                    _buildBehaviorItem(
+                      'Constraints allow shrinking to zero',
+                      Icons.compress,
+                      _kAccent600,
+                    ),
+                    _buildBehaviorItem(
+                      'Child uses intrinsic size when possible',
+                      Icons.center_focus_strong,
+                      _kAccent600,
+                    ),
+                    _buildBehaviorItem(
+                      'Useful for content-sized overlays',
+                      Icons.layers,
+                      _kAccent600,
+                    ),
+                  ],
+                ),
+                accentColor: _kAccent600,
+              ),
+              SizedBox(height: 16),
+              _buildInfoCard(
+                'Code Example',
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildCodeSnippet(
+                      'OverflowBox(\n'
+                      '  fit: OverflowBoxFit.deferToChild,\n'
+                      '  maxWidth: 200,\n'
+                      '  maxHeight: 150,\n'
+                      '  child: Container(\n'
+                      '    width: 80,\n'
+                      '    height: 60,\n'
+                      '    color: Colors.orange,\n'
+                      '    // Child stays 80x60\n'
+                      '  ),\n'
+                      ')',
+                    ),
+                  ],
+                ),
+                accentColor: _kSlate700,
+              ),
+              SizedBox(height: 16),
+              _buildDeferToChildVisualDemo(),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildDeferToChildVisualDemo() {
+  return Container(
+    padding: EdgeInsets.all(16),
+    decoration: BoxDecoration(
+      color: _kAccent500.withAlpha(15),
+      borderRadius: BorderRadius.circular(12),
+      border: Border.all(color: _kAccent500.withAlpha(50)),
+    ),
+    child: Column(
+      children: [
+        Text(
+          'Visual Demonstration',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: _kAccent600,
+            fontSize: 15,
+          ),
+        ),
+        SizedBox(height: 16),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Column(
+              children: [
+                Container(
+                  width: 120,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    color: _kSlate200,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: _kSlate400, width: 2, style: BorderStyle.solid),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Parent\n120x100',
+                      style: TextStyle(color: _kSlate600, fontSize: 11),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 8),
+                Text('Before', style: TextStyle(color: _kSlate500, fontSize: 11)),
+              ],
+            ),
+            SizedBox(width: 20),
+            _buildArrowRight(_kAccent500),
+            SizedBox(width: 20),
+            Column(
+              children: [
+                Container(
+                  width: 120,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    color: _kSlate100,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: _kSlate300, width: 2),
+                  ),
+                  child: Center(
+                    child: Container(
+                      width: 60,
+                      height: 45,
+                      decoration: BoxDecoration(
+                        color: _kAccent500,
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Center(
+                        child: Text(
+                          '60x45',
+                          style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
+                SizedBox(height: 8),
+                Text('With deferToChild', style: TextStyle(color: _kAccent600, fontSize: 11, fontWeight: FontWeight.bold)),
+              ],
             ),
           ],
         ),
-      ),
-      SizedBox(height: 4),
-      Container(
-        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-        decoration: BoxDecoration(
-          color: color.withAlpha(30),
-          borderRadius: BorderRadius.circular(4),
-        ),
-        child: Text(
-          'OverflowBoxFit.${fit.name}',
-          style: TextStyle(fontSize: 9, fontFamily: 'monospace', color: color),
-        ),
-      ),
-    ],
-  );
-}
-
-Widget _buildChildSizeComparison() {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        'Different sized children with each fit:',
-        style: TextStyle(fontWeight: FontWeight.bold, color: _kSlate800),
-      ),
-      SizedBox(height: 12),
-      // Small child comparison
-      _buildSizeRow('Small child (40×30)', 40.0, 30.0),
-      SizedBox(height: 12),
-      // Medium child comparison
-      _buildSizeRow('Medium child (80×50)', 80.0, 50.0),
-      SizedBox(height: 12),
-      // Large child (overflows)
-      _buildSizeRow('Large child (150×90)', 150.0, 90.0),
-    ],
-  );
-}
-
-Widget _buildSizeRow(String label, double childW, double childH) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(label, style: TextStyle(fontSize: 12, color: _kSlate700)),
-      SizedBox(height: 6),
-      Row(
-        children: [
-          _buildSizedChildDemo(OverflowBoxFit.max, childW, childH, _kCyan500),
-          SizedBox(width: 16),
-          _buildSizedChildDemo(
-            OverflowBoxFit.deferToChild,
-            childW,
-            childH,
-            _kOrange500,
-          ),
-        ],
-      ),
-    ],
-  );
-}
-
-Widget _buildSizedChildDemo(
-  OverflowBoxFit fit,
-  double childW,
-  double childH,
-  Color color,
-) {
-  return Column(
-    children: [
-      Container(
-        width: 100,
-        height: 70,
-        decoration: BoxDecoration(
-          color: _kSlate600.withAlpha(20),
-          borderRadius: BorderRadius.circular(6),
-          border: Border.all(color: _kSlate600.withAlpha(40)),
-        ),
-        clipBehavior: Clip.none,
-        child: OverflowBox(
-          fit: fit,
-          maxWidth: 120,
-          maxHeight: 80,
-          child: Container(
-            width: childW,
-            height: childH,
-            decoration: BoxDecoration(
-              color: color.withAlpha(200),
-              borderRadius: BorderRadius.circular(4),
-              border: Border.all(color: color, width: 2),
-            ),
-            child: Center(
-              child: Text(
-                '${childW.toInt()}×${childH.toInt()}',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 9,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-      SizedBox(height: 4),
-      Text(
-        fit.name,
-        style: TextStyle(fontSize: 9, color: color, fontFamily: 'monospace'),
-      ),
-    ],
-  );
-}
-
-// ═══════════════════════════════════════════════════════════════════════════
-// SIZED OVERFLOW BOX SECTION
-// ═══════════════════════════════════════════════════════════════════════════
-
-Widget _buildSizedOverflowBoxDemo() {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        'SizedOverflowBox with different fits:',
-        style: TextStyle(fontWeight: FontWeight.bold, color: _kSlate800),
-      ),
-      SizedBox(height: 8),
-      Text(
-        'SizedOverflowBox combines SizedBox sizing with OverflowBox behavior.',
-        style: TextStyle(fontSize: 12, color: _kSlate600),
-      ),
-      SizedBox(height: 16),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          _buildSizedOverflowBoxItem(OverflowBoxFit.max, _kCyan500),
-          _buildSizedOverflowBoxItem(OverflowBoxFit.deferToChild, _kOrange500),
-        ],
-      ),
-    ],
-  );
-}
-
-Widget _buildSizedOverflowBoxItem(OverflowBoxFit fit, Color color) {
-  return Column(
-    children: [
-      Container(
-        width: 120,
-        height: 80,
-        decoration: BoxDecoration(
-          color: Colors.grey.shade200,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: Colors.grey.shade400),
-        ),
-        child: Center(
-          child: SizedOverflowBox(
-            size: Size(80, 50),
-            alignment: Alignment.center,
-            child: Container(
-              width: 100,
-              height: 70,
-              decoration: BoxDecoration(
-                color: color.withAlpha(180),
-                borderRadius: BorderRadius.circular(6),
-                border: Border.all(color: color, width: 2),
-              ),
-              child: Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'Child',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 11,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      '100×70',
-                      style: TextStyle(color: Colors.white70, fontSize: 9),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-      SizedBox(height: 8),
-      Container(
-        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-        decoration: BoxDecoration(
-          color: color.withAlpha(30),
-          borderRadius: BorderRadius.circular(4),
-        ),
-        child: Text(
-          fit.name,
-          style: TextStyle(
-            fontSize: 11,
-            color: color,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'monospace',
-          ),
-        ),
-      ),
-      SizedBox(height: 4),
-      Text(
-        'Size: 80×50',
-        style: TextStyle(fontSize: 10, color: _kSlate600),
-      ),
-    ],
-  );
-}
-
-// ═══════════════════════════════════════════════════════════════════════════
-// CONSTRAINT BEHAVIOR VISUALIZATION
-// ═══════════════════════════════════════════════════════════════════════════
-
-Widget _buildConstraintVisualization() {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        'How constraints flow to child:',
-        style: TextStyle(fontWeight: FontWeight.bold, color: _kSlate800),
-      ),
-      SizedBox(height: 16),
-      // max visualization
-      _buildConstraintFlowDiagram(
-        OverflowBoxFit.max,
-        'Child receives maximum constraints\n→ Child fills available space',
-        _kCyan500,
-        Icons.fullscreen,
-      ),
-      SizedBox(height: 16),
-      // deferToChild visualization
-      _buildConstraintFlowDiagram(
-        OverflowBoxFit.deferToChild,
-        'Child determines own size\n→ Child can be smaller',
-        _kOrange500,
-        Icons.child_care,
-      ),
-    ],
-  );
-}
-
-Widget _buildConstraintFlowDiagram(
-  OverflowBoxFit fit,
-  String description,
-  Color color,
-  IconData icon,
-) {
-  return Container(
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: color.withAlpha(15),
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: color.withAlpha(40)),
-    ),
-    child: Row(
-      children: [
+        SizedBox(height: 16),
         Container(
-          width: 50,
-          height: 50,
+          padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: color,
-            borderRadius: BorderRadius.circular(10),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
           ),
-          child: Icon(icon, color: Colors.white, size: 28),
+          child: Text(
+            'Child uses its natural intrinsic size',
+            style: TextStyle(color: _kSlate600, fontSize: 12),
+            textAlign: TextAlign.center,
+          ),
         ),
-        SizedBox(width: 16),
-        Expanded(
+      ],
+    ),
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// SECTION 4: COMPARISON GRID
+// ═══════════════════════════════════════════════════════════════════════════════
+
+Widget _buildComparisonGridSection() {
+  return Container(
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(16),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withAlpha(12),
+          blurRadius: 12,
+          offset: Offset(0, 4),
+        ),
+      ],
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildSectionHeader('Comparison Grid', Icons.compare, _kPrimary600),
+        Padding(
+          padding: EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'OverflowBoxFit.${fit.name}',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: color,
-                  fontSize: 15,
-                  fontFamily: 'monospace',
-                ),
+                'Side-by-side comparison of OverflowBoxFit values showing '
+                'how each affects child sizing and constraint propagation.',
+                style: TextStyle(color: _kSlate600, fontSize: 14, height: 1.6),
               ),
-              SizedBox(height: 6),
-              Text(
-                description,
-                style: TextStyle(fontSize: 12, color: _kSlate700, height: 1.4),
-              ),
+              SizedBox(height: 20),
+              _buildComparisonTable(),
+              SizedBox(height: 20),
+              _buildSideBySideVisualization(),
+              SizedBox(height: 20),
+              _buildConstraintFlowDiagram(),
             ],
           ),
         ),
@@ -659,236 +939,910 @@ Widget _buildConstraintFlowDiagram(
   );
 }
 
-Widget _buildConstraintBoxDiagram() {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        'Visual constraint demonstration:',
-        style: TextStyle(fontWeight: FontWeight.bold, color: _kSlate800),
-      ),
-      SizedBox(height: 12),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          _buildConstraintBox(
-            'max',
-            'Child expands to fill constraints',
-            _kCyan500,
-            true,
+Widget _buildComparisonTable() {
+  return Container(
+    decoration: BoxDecoration(
+      border: Border.all(color: _kSlate300),
+      borderRadius: BorderRadius.circular(10),
+    ),
+    child: Column(
+      children: [
+        Container(
+          padding: EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: _kPrimary100,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(9),
+              topRight: Radius.circular(9),
+            ),
           ),
-          _buildConstraintBox(
-            'deferToChild',
-            'Child sizes itself naturally',
-            _kOrange500,
-            false,
+          child: Row(
+            children: [
+              Expanded(
+                flex: 2,
+                child: Text(
+                  'Property',
+                  style: TextStyle(fontWeight: FontWeight.bold, color: _kPrimary700, fontSize: 13),
+                ),
+              ),
+              Expanded(
+                flex: 3,
+                child: Text(
+                  'max',
+                  style: TextStyle(fontWeight: FontWeight.bold, color: _kSecondary600, fontSize: 13),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Expanded(
+                flex: 3,
+                child: Text(
+                  'deferToChild',
+                  style: TextStyle(fontWeight: FontWeight.bold, color: _kAccent600, fontSize: 13),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
-    ],
+        ),
+        _buildTableRow('Min constraints', '0', '0', false),
+        _buildTableRow('Max constraints', 'Parent max', 'Parent max', true),
+        _buildTableRow('Child sizing', 'Fills space', 'Intrinsic size', false),
+        _buildTableRow('Default', 'Yes', 'No', true),
+        _buildTableRow('Use case', 'Fill containers', 'Content-sized', false),
+      ],
+    ),
   );
 }
 
-Widget _buildConstraintBox(
-  String label,
-  String desc,
-  Color color,
-  bool fillsSpace,
-) {
-  return Column(
-    children: [
-      Container(
-        width: 120,
-        height: 90,
-        padding: EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              color.withAlpha(30),
-              color.withAlpha(60),
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+Widget _buildTableRow(String property, String maxValue, String deferValue, bool alternate) {
+  return Container(
+    padding: EdgeInsets.all(12),
+    decoration: BoxDecoration(
+      color: alternate ? _kSlate100 : Colors.white,
+    ),
+    child: Row(
+      children: [
+        Expanded(
+          flex: 2,
+          child: Text(
+            property,
+            style: TextStyle(fontWeight: FontWeight.w500, color: _kSlate700, fontSize: 12),
           ),
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: color, width: 2),
         ),
-        child: Stack(
+        Expanded(
+          flex: 3,
+          child: Text(
+            maxValue,
+            style: TextStyle(color: _kSecondary600, fontSize: 12),
+            textAlign: TextAlign.center,
+          ),
+        ),
+        Expanded(
+          flex: 3,
+          child: Text(
+            deferValue,
+            style: TextStyle(color: _kAccent600, fontSize: 12),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildSideBySideVisualization() {
+  return Container(
+    padding: EdgeInsets.all(16),
+    decoration: BoxDecoration(
+      color: _kSlate100,
+      borderRadius: BorderRadius.circular(12),
+    ),
+    child: Column(
+      children: [
+        Text(
+          'Side-by-Side Visual Comparison',
+          style: TextStyle(fontWeight: FontWeight.bold, color: _kSlate700, fontSize: 15),
+        ),
+        SizedBox(height: 16),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            // Constraint area marker
-            Positioned(
-              top: 0,
-              right: 0,
-              child: Icon(
-                Icons.crop_free,
-                color: color.withAlpha(100),
-                size: 16,
-              ),
-            ),
-            // Child representation
-            Center(
-              child: Container(
-                width: fillsSpace ? 100 : 60,
-                height: fillsSpace ? 70 : 40,
-                decoration: BoxDecoration(
-                  color: color,
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                child: Center(
-                  child: Text(
-                    fillsSpace ? 'FILLS' : 'SIZED',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold,
+            Column(
+              children: [
+                Container(
+                  width: 100,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    color: _kSecondary500.withAlpha(80),
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: _kSecondary600, width: 2),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'max\nFILLS',
+                      style: TextStyle(color: _kSecondary700, fontSize: 11, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
                     ),
                   ),
+                ),
+                SizedBox(height: 8),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: _kSecondary500,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    'OverflowBoxFit.max',
+                    style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                Container(
+                  width: 100,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    color: _kSlate200,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: _kSlate400, width: 2),
+                  ),
+                  child: Center(
+                    child: Container(
+                      width: 50,
+                      height: 35,
+                      decoration: BoxDecoration(
+                        color: _kAccent500,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'defer',
+                          style: TextStyle(color: Colors.white, fontSize: 9, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 8),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: _kAccent500,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    'deferToChild',
+                    style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildConstraintFlowDiagram() {
+  return _buildInfoCard(
+    'Constraint Flow Diagram',
+    Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _buildDiagramBox('Parent\nConstraints', _kPrimary600, icon: Icons.dashboard, size: 90),
+          ],
+        ),
+        _buildArrowDown(_kPrimary400),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _buildDiagramBox('OverflowBox\n(fit)', _kPrimary500, icon: Icons.open_in_full, size: 90),
+          ],
+        ),
+        SizedBox(height: 8),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Column(
+              children: [
+                _buildArrowDown(_kSecondary500),
+                SizedBox(height: 4),
+                _buildDiagramBox('max\nConstrained', _kSecondary500, size: 70),
+              ],
+            ),
+            Column(
+              children: [
+                _buildArrowDown(_kAccent500),
+                SizedBox(height: 4),
+                _buildDiagramBox('defer\nFlexible', _kAccent500, size: 70),
+              ],
+            ),
+          ],
+        ),
+      ],
+    ),
+    accentColor: _kPrimary500,
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// SECTION 5: OVERFLOW BOX USAGE EXAMPLES
+// ═══════════════════════════════════════════════════════════════════════════════
+
+Widget _buildUsageExamplesSection() {
+  return Container(
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(16),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withAlpha(12),
+          blurRadius: 12,
+          offset: Offset(0, 4),
+        ),
+      ],
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildSectionHeader('OverflowBox Usage Examples', Icons.code, _kSuccess600),
+        Padding(
+          padding: EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Practical examples demonstrating OverflowBoxFit in real-world '
+                'scenarios with OverflowBox and SizedOverflowBox widgets.',
+                style: TextStyle(color: _kSlate600, fontSize: 14, height: 1.6),
+              ),
+              SizedBox(height: 20),
+              _buildUsageExample1(),
+              SizedBox(height: 16),
+              _buildUsageExample2(),
+              SizedBox(height: 16),
+              _buildUsageExample3(),
+              SizedBox(height: 16),
+              _buildUsageExample4(),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildUsageExample1() {
+  return _buildInfoCard(
+    'Example 1: Full-Width Overlay',
+    Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Using fit: max to create an overlay that fills the container.',
+          style: TextStyle(color: _kSlate600, fontSize: 13),
+        ),
+        SizedBox(height: 12),
+        _buildCodeSnippet(
+          'Stack(\n'
+          '  children: [\n'
+          '    Image.network(imageUrl),\n'
+          '    OverflowBox(\n'
+          '      fit: OverflowBoxFit.max,\n'
+          '      alignment: Alignment.bottomCenter,\n'
+          '      maxHeight: 60,\n'
+          '      child: Container(\n'
+          '        color: Colors.black54,\n'
+          '        // Fills full width\n'
+          '        child: Text("Caption"),\n'
+          '      ),\n'
+          '    ),\n'
+          '  ],\n'
+          ')',
+        ),
+        SizedBox(height: 12),
+        Container(
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: _kSuccess500.withAlpha(20),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Row(
+            children: [
+              Icon(Icons.check_circle, color: _kSuccess600, size: 18),
+              SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  'Child fills full width regardless of content size',
+                  style: TextStyle(color: _kSuccess600, fontSize: 12),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+    accentColor: _kSuccess500,
+  );
+}
+
+Widget _buildUsageExample2() {
+  return _buildInfoCard(
+    'Example 2: Content-Sized Popup',
+    Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Using deferToChild to create a popup sized by its content.',
+          style: TextStyle(color: _kSlate600, fontSize: 13),
+        ),
+        SizedBox(height: 12),
+        _buildCodeSnippet(
+          'OverflowBox(\n'
+          '  fit: OverflowBoxFit.deferToChild,\n'
+          '  alignment: Alignment.center,\n'
+          '  child: Card(\n'
+          '    child: Padding(\n'
+          '      padding: EdgeInsets.all(16),\n'
+          '      child: Column(\n'
+          '        mainAxisSize: MainAxisSize.min,\n'
+          '        children: [\n'
+          '          Text("Alert"),\n'
+          '          Text("Message content"),\n'
+          '        ],\n'
+          '      ),\n'
+          '    ),\n'
+          '  ),\n'
+          ')',
+        ),
+        SizedBox(height: 12),
+        Container(
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: _kAccent500.withAlpha(20),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Row(
+            children: [
+              Icon(Icons.check_circle, color: _kAccent600, size: 18),
+              SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  'Popup sizes itself based on content, not container',
+                  style: TextStyle(color: _kAccent600, fontSize: 12),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+    accentColor: _kAccent500,
+  );
+}
+
+Widget _buildUsageExample3() {
+  return _buildInfoCard(
+    'Example 3: SizedOverflowBox with max',
+    Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'SizedOverflowBox specifies exact size while child uses fit behavior.',
+          style: TextStyle(color: _kSlate600, fontSize: 13),
+        ),
+        SizedBox(height: 12),
+        _buildCodeSnippet(
+          'SizedOverflowBox(\n'
+          '  size: Size(200, 150),\n'
+          '  fit: OverflowBoxFit.max,\n'
+          '  alignment: Alignment.topLeft,\n'
+          '  child: ColoredBox(\n'
+          '    color: Colors.purple,\n'
+          '    child: FlutterLogo(size: 300),\n'
+          '  ),\n'
+          ')',
+        ),
+        SizedBox(height: 12),
+        Container(
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: _kPrimary500.withAlpha(20),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Row(
+            children: [
+              Icon(Icons.info_outline, color: _kPrimary600, size: 18),
+              SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  'Box is 200x150, child can overflow with max constraints',
+                  style: TextStyle(color: _kPrimary600, fontSize: 12),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+    accentColor: _kPrimary500,
+  );
+}
+
+Widget _buildUsageExample4() {
+  return _buildInfoCard(
+    'Example 4: Dynamic Constraint Override',
+    Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Using OverflowBox to break parent constraints dynamically.',
+          style: TextStyle(color: _kSlate600, fontSize: 13),
+        ),
+        SizedBox(height: 12),
+        _buildCodeSnippet(
+          'Container(\n'
+          '  width: 100,\n'
+          '  height: 100,\n'
+          '  child: OverflowBox(\n'
+          '    fit: OverflowBoxFit.max,\n'
+          '    minWidth: 0,\n'
+          '    maxWidth: 250, // Exceeds parent\n'
+          '    minHeight: 0,\n'
+          '    maxHeight: 250,\n'
+          '    child: Container(\n'
+          '      color: Colors.red.withAlpha(128),\n'
+          '      // Renders 250x250 despite parent\n'
+          '    ),\n'
+          '  ),\n'
+          ')',
+        ),
+        SizedBox(height: 12),
+        Container(
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: _kWarning500.withAlpha(20),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Row(
+            children: [
+              Icon(Icons.warning_amber, color: _kWarning600, size: 18),
+              SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  'Child overflows parent bounds with custom constraints',
+                  style: TextStyle(color: _kWarning600, fontSize: 12),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+    accentColor: _kWarning500,
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// SECTION 6: VISUAL SIZING DEMONSTRATION
+// ═══════════════════════════════════════════════════════════════════════════════
+
+Widget _buildVisualSizingSection() {
+  return Container(
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(16),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withAlpha(12),
+          blurRadius: 12,
+          offset: Offset(0, 4),
+        ),
+      ],
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildSectionHeader('Visual Sizing Demonstration', Icons.aspect_ratio, _kPrimary700),
+        Padding(
+          padding: EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Interactive visualization showing how OverflowBoxFit affects '
+                'child sizing across different parent constraint scenarios.',
+                style: TextStyle(color: _kSlate600, fontSize: 14, height: 1.6),
+              ),
+              SizedBox(height: 20),
+              _buildSizingScenario1(),
+              SizedBox(height: 20),
+              _buildSizingScenario2(),
+              SizedBox(height: 20),
+              _buildSizingScenario3(),
+              SizedBox(height: 20),
+              _buildSizingSummary(),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildSizingScenario1() {
+  return _buildInfoCard(
+    'Scenario 1: Tight Parent Constraints',
+    Column(
+      children: [
+        Text(
+          'Parent: 150x100 | Child prefers: 80x60',
+          style: TextStyle(fontWeight: FontWeight.w500, color: _kSlate700, fontSize: 13),
+        ),
+        SizedBox(height: 16),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            _buildSizingDemoBox(
+              'fit: max',
+              150,
+              100,
+              150,
+              100,
+              _kSecondary500,
+            ),
+            _buildSizingDemoBox(
+              'deferToChild',
+              150,
+              100,
+              80,
+              60,
+              _kAccent500,
+            ),
+          ],
+        ),
+        SizedBox(height: 12),
+        Row(
+          children: [
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: _kSecondary500.withAlpha(20),
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: Text(
+                  'Child: 150x100',
+                  style: TextStyle(color: _kSecondary600, fontSize: 11),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+            SizedBox(width: 8),
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: _kAccent500.withAlpha(20),
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: Text(
+                  'Child: 80x60',
+                  style: TextStyle(color: _kAccent600, fontSize: 11),
+                  textAlign: TextAlign.center,
                 ),
               ),
             ),
           ],
         ),
-      ),
-      SizedBox(height: 8),
-      Text(
-        label,
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          color: color,
-          fontFamily: 'monospace',
-        ),
-      ),
-      SizedBox(height: 4),
-      SizedBox(
-        width: 100,
-        child: Text(
-          desc,
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 9, color: _kSlate600),
-        ),
-      ),
-    ],
+      ],
+    ),
+    accentColor: _kPrimary500,
   );
 }
 
-// ═══════════════════════════════════════════════════════════════════════════
-// PRACTICAL EXAMPLES
-// ═══════════════════════════════════════════════════════════════════════════
+Widget _buildSizingScenario2() {
+  return _buildInfoCard(
+    'Scenario 2: Unconstrained Parent',
+    Column(
+      children: [
+        Text(
+          'Parent: unbounded | Child prefers: 100x75',
+          style: TextStyle(fontWeight: FontWeight.w500, color: _kSlate700, fontSize: 13),
+        ),
+        SizedBox(height: 16),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Column(
+              children: [
+                Container(
+                  width: 130,
+                  height: 90,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: _kSlate300, width: 2, style: BorderStyle.solid),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Center(
+                    child: Container(
+                      width: 100,
+                      height: 75,
+                      decoration: BoxDecoration(
+                        color: _kSecondary500.withAlpha(100),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Center(
+                        child: Text(
+                          '100x75',
+                          style: TextStyle(color: _kSecondary700, fontSize: 10, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 6),
+                Text('max (uses child size)', style: TextStyle(color: _kSecondary600, fontSize: 10)),
+              ],
+            ),
+            Column(
+              children: [
+                Container(
+                  width: 130,
+                  height: 90,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: _kSlate300, width: 2, style: BorderStyle.solid),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Center(
+                    child: Container(
+                      width: 100,
+                      height: 75,
+                      decoration: BoxDecoration(
+                        color: _kAccent500.withAlpha(100),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Center(
+                        child: Text(
+                          '100x75',
+                          style: TextStyle(color: _kAccent700, fontSize: 10, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 6),
+                Text('deferToChild', style: TextStyle(color: _kAccent600, fontSize: 10)),
+              ],
+            ),
+          ],
+        ),
+        SizedBox(height: 12),
+        Container(
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: _kSlate100,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Text(
+            'When parent is unbounded, both fit values produce similar results',
+            style: TextStyle(color: _kSlate600, fontSize: 12),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ],
+    ),
+    accentColor: _kPrimary500,
+  );
+}
 
-Widget _buildPracticalExamples() {
+Widget _buildSizingScenario3() {
+  return _buildInfoCard(
+    'Scenario 3: Oversized Child',
+    Column(
+      children: [
+        Text(
+          'Parent: 100x80 | Child prefers: 200x150',
+          style: TextStyle(fontWeight: FontWeight.w500, color: _kSlate700, fontSize: 13),
+        ),
+        SizedBox(height: 16),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Column(
+              children: [
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Container(
+                      width: 100,
+                      height: 80,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: _kSlate400, width: 2),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    Container(
+                      width: 140,
+                      height: 100,
+                      decoration: BoxDecoration(
+                        color: _kSecondary500.withAlpha(60),
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: _kSecondary500, width: 2),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Overflows',
+                          style: TextStyle(color: _kSecondary700, fontSize: 10, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 6),
+                Text('max: fills max', style: TextStyle(color: _kSecondary600, fontSize: 10)),
+              ],
+            ),
+            Column(
+              children: [
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Container(
+                      width: 100,
+                      height: 80,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: _kSlate400, width: 2),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    Container(
+                      width: 140,
+                      height: 100,
+                      decoration: BoxDecoration(
+                        color: _kAccent500.withAlpha(60),
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: _kAccent500, width: 2),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Natural size',
+                          style: TextStyle(color: _kAccent700, fontSize: 10, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 6),
+                Text('defer: 200x150', style: TextStyle(color: _kAccent600, fontSize: 10)),
+              ],
+            ),
+          ],
+        ),
+        SizedBox(height: 12),
+        Container(
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: _kWarning500.withAlpha(20),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Row(
+            children: [
+              Icon(Icons.warning, color: _kWarning600, size: 18),
+              SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  'Both allow overflow; max constraints differ in propagation',
+                  style: TextStyle(color: _kWarning600, fontSize: 12),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+    accentColor: _kWarning500,
+  );
+}
+
+Widget _buildSizingDemoBox(
+  String label,
+  double parentW,
+  double parentH,
+  double childW,
+  double childH,
+  Color color,
+) {
+  double scale = 0.8;
   return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _buildExample(
-        'Profile Avatar Overflow',
-        'Avatar extends beyond container bounds',
-        _kCyan500,
-        _buildAvatarExample(),
+      Container(
+        width: parentW * scale,
+        height: parentH * scale,
+        decoration: BoxDecoration(
+          border: Border.all(color: _kSlate400, width: 2),
+          borderRadius: BorderRadius.circular(8),
+          color: _kSlate100,
+        ),
+        child: Center(
+          child: Container(
+            width: childW * scale,
+            height: childH * scale,
+            decoration: BoxDecoration(
+              color: color.withAlpha(100),
+              borderRadius: BorderRadius.circular(6),
+              border: Border.all(color: color, width: 2),
+            ),
+          ),
+        ),
       ),
-      SizedBox(height: 16),
-      _buildExample(
-        'Floating Badge',
-        'Badge overflows parent to overlap siblings',
-        _kRose500,
-        _buildBadgeExample(),
-      ),
-      SizedBox(height: 16),
-      _buildExample(
-        'Decorative Shadow',
-        'Shadow extends beyond widget boundaries',
-        _kOrange500,
-        _buildShadowExample(),
-      ),
+      SizedBox(height: 6),
+      Text(label, style: TextStyle(color: color, fontSize: 10, fontWeight: FontWeight.bold)),
     ],
   );
 }
 
-Widget _buildExample(String title, String desc, Color color, Widget example) {
+Widget _buildSizingSummary() {
   return Container(
-    padding: EdgeInsets.all(12),
+    padding: EdgeInsets.all(16),
     decoration: BoxDecoration(
-      color: color.withAlpha(10),
-      borderRadius: BorderRadius.circular(10),
-      border: Border.all(color: color.withAlpha(30)),
+      gradient: LinearGradient(
+        colors: [_kPrimary100, _kPrimary50],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      ),
+      borderRadius: BorderRadius.circular(12),
+      border: Border.all(color: _kPrimary300),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
-            Container(
-              width: 8,
-              height: 8,
-              decoration: BoxDecoration(
-                color: color,
-                shape: BoxShape.circle,
-              ),
-            ),
-            SizedBox(width: 8),
+            Icon(Icons.summarize, color: _kPrimary700, size: 20),
+            SizedBox(width: 10),
             Text(
-              title,
+              'Sizing Behavior Summary',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: color,
-                fontSize: 13,
+                color: _kPrimary700,
+                fontSize: 15,
               ),
             ),
           ],
         ),
-        SizedBox(height: 4),
-        Text(
-          desc,
-          style: TextStyle(fontSize: 11, color: _kSlate600),
+        SizedBox(height: 12),
+        _buildSummaryRow(
+          Icons.fullscreen,
+          'max',
+          'Child expands to fill parent constraints',
+          _kSecondary600,
+        ),
+        SizedBox(height: 8),
+        _buildSummaryRow(
+          Icons.child_care,
+          'deferToChild',
+          'Child uses its preferred intrinsic size',
+          _kAccent600,
         ),
         SizedBox(height: 12),
-        Center(child: example),
-      ],
-    ),
-  );
-}
-
-Widget _buildAvatarExample() {
-  return Container(
-    width: 80,
-    height: 60,
-    decoration: BoxDecoration(
-      color: _kCyan100,
-      borderRadius: BorderRadius.circular(8),
-    ),
-    clipBehavior: Clip.none,
-    child: Stack(
-      clipBehavior: Clip.none,
-      children: [
-        Center(
+        Container(
+          width: double.infinity,
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+          ),
           child: Text(
-            'Card',
-            style: TextStyle(
-              color: _kCyan700,
-              fontSize: 11,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ),
-        Positioned(
-          top: -15,
-          left: 0,
-          right: 0,
-          child: Center(
-            child: OverflowBox(
-              fit: OverflowBoxFit.max,
-              maxWidth: 40,
-              maxHeight: 40,
-              child: Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: _kCyan500,
-                  shape: BoxShape.circle,
-                  border: Border.all(color: Colors.white, width: 2),
-                ),
-                child: Icon(Icons.person, color: Colors.white, size: 20),
-              ),
-            ),
+            'Choose "max" when child should fill space, '
+            '"deferToChild" when child should size itself.',
+            style: TextStyle(color: _kSlate600, fontSize: 12, fontStyle: FontStyle.italic),
+            textAlign: TextAlign.center,
           ),
         ),
       ],
@@ -896,367 +1850,145 @@ Widget _buildAvatarExample() {
   );
 }
 
-Widget _buildBadgeExample() {
-  return Container(
-    width: 100,
-    height: 50,
-    decoration: BoxDecoration(
-      color: _kSlate600.withAlpha(20),
-      borderRadius: BorderRadius.circular(8),
-    ),
-    clipBehavior: Clip.none,
-    child: Stack(
-      clipBehavior: Clip.none,
-      children: [
-        Center(
-          child: Container(
-            width: 70,
-            height: 35,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(6),
-              border: Border.all(color: _kSlate600.withAlpha(40)),
-            ),
-            child: Center(
-              child: Text(
-                'Item',
-                style: TextStyle(color: _kSlate700, fontSize: 12),
-              ),
-            ),
-          ),
-        ),
-        Positioned(
-          top: 5,
-          right: 10,
-          child: OverflowBox(
-            fit: OverflowBoxFit.deferToChild,
-            maxWidth: 30,
-            maxHeight: 30,
-            child: Container(
-              width: 20,
-              height: 20,
-              decoration: BoxDecoration(
-                color: _kRose500,
-                shape: BoxShape.circle,
-              ),
-              child: Center(
-                child: Text(
-                  '3',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildShadowExample() {
-  return Container(
-    width: 100,
-    height: 60,
-    clipBehavior: Clip.none,
-    child: Stack(
-      clipBehavior: Clip.none,
-      children: [
-        // Shadow layer using OverflowBox
-        OverflowBox(
-          fit: OverflowBoxFit.max,
-          maxWidth: 120,
-          maxHeight: 80,
-          child: Container(
-            decoration: BoxDecoration(
-              color: _kOrange500.withAlpha(40),
-              borderRadius: BorderRadius.circular(12),
-            ),
-          ),
-        ),
-        // Main content
-        Center(
-          child: Container(
-            width: 80,
-            height: 45,
-            decoration: BoxDecoration(
-              color: _kOrange500,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Center(
-              child: Text(
-                'Content',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 11,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-// ═══════════════════════════════════════════════════════════════════════════
-// ENUM PROPERTIES DISPLAY
-// ═══════════════════════════════════════════════════════════════════════════
-
-Widget _buildEnumProperties() {
-  List<OverflowBoxFit> allValues = OverflowBoxFit.values;
-  OverflowBoxFit firstValue = allValues.first;
-  OverflowBoxFit lastValue = allValues.last;
-
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      _buildPropertyRow('Values count', '${allValues.length}'),
-      SizedBox(height: 8),
-      _buildPropertyRow('First value', firstValue.name),
-      SizedBox(height: 8),
-      _buildPropertyRow('Last value', lastValue.name),
-      SizedBox(height: 8),
-      _buildPropertyRow('First index', '${firstValue.index}'),
-      SizedBox(height: 8),
-      _buildPropertyRow('Last index', '${lastValue.index}'),
-    ],
-  );
-}
-
-Widget _buildPropertyRow(String label, String value) {
+Widget _buildSummaryRow(IconData icon, String value, String description, Color color) {
   return Row(
     children: [
-      Text(
-        '$label: ',
-        style: TextStyle(
-          color: _kSlate600,
-          fontSize: 13,
-        ),
-      ),
       Container(
-        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+        padding: EdgeInsets.all(6),
         decoration: BoxDecoration(
-          color: _kCyan500.withAlpha(20),
-          borderRadius: BorderRadius.circular(4),
+          color: color.withAlpha(30),
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: Icon(icon, color: color, size: 16),
+      ),
+      SizedBox(width: 10),
+      Container(
+        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(10),
         ),
         child: Text(
           value,
-          style: TextStyle(
-            color: _kCyan700,
-            fontFamily: 'monospace',
-            fontWeight: FontWeight.bold,
-            fontSize: 13,
-          ),
+          style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold),
+        ),
+      ),
+      SizedBox(width: 10),
+      Expanded(
+        child: Text(
+          description,
+          style: TextStyle(color: _kSlate600, fontSize: 12),
         ),
       ),
     ],
   );
 }
 
-// ═══════════════════════════════════════════════════════════════════════════
-// MAIN BUILD FUNCTION
-// ═══════════════════════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════════════════════
+// MAIN DEMO WIDGET
+// ═══════════════════════════════════════════════════════════════════════════════
 
-dynamic build(BuildContext context) {
-  print('OverflowBoxFit comprehensive test executing');
-
-  // Log all enum values
-  print('OverflowBoxFit values:');
-  for (OverflowBoxFit value in OverflowBoxFit.values) {
-    print('  ${value.name}: index=${value.index}');
-  }
-
-  OverflowBoxFit maxFit = OverflowBoxFit.max;
-  OverflowBoxFit deferFit = OverflowBoxFit.deferToChild;
-
-  print('max index: ${maxFit.index}');
-  print('deferToChild index: ${deferFit.index}');
-  print('max == max: ${maxFit == OverflowBoxFit.max}');
-  print('max == deferToChild: ${maxFit == OverflowBoxFit.deferToChild}');
-
-  return SingleChildScrollView(
-    padding: EdgeInsets.all(20),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildMainHeader(),
-        SizedBox(height: 24),
-
-        // Section 1: Enum Values Overview
-        _buildSectionHeader('Enum Values', Icons.list),
-        _buildCard(
-          'OverflowBoxFit Values',
-          Column(
-            children: [
-              _buildEnumValueRow(
-                OverflowBoxFit.max,
-                'Child fills maximum available space',
-                Icons.fullscreen,
-                _kCyan500,
-              ),
-              SizedBox(height: 12),
-              _buildEnumValueRow(
-                OverflowBoxFit.deferToChild,
-                'Child determines its own size',
-                Icons.child_care,
-                _kOrange500,
-              ),
-            ],
-          ),
-        ),
-
-        // Section 2: max vs deferToChild Demonstration
-        _buildSectionHeader(
-          'max vs deferToChild Demo',
-          Icons.compare_arrows,
-        ),
-        _buildCard(
-          'Visual Comparison',
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _buildOverflowBoxDemo('Max Fit', OverflowBoxFit.max, _kCyan500),
-              _buildOverflowBoxDemo(
-                'Defer to Child',
-                OverflowBoxFit.deferToChild,
-                _kOrange500,
-              ),
-            ],
-          ),
-        ),
-
-        // Section 3: Different Sized Children
-        _buildSectionHeader('Different Sized Children', Icons.photo_size_select_large),
-        _buildCard(
-          'Size Variations',
-          _buildChildSizeComparison(),
-          accentColor: _kCyan600,
-        ),
-
-        // Section 4: SizedOverflowBox Usage
-        _buildSectionHeader('SizedOverflowBox', Icons.crop_square),
-        _buildCard(
-          'SizedOverflowBox Demo',
-          _buildSizedOverflowBoxDemo(),
-          accentColor: _kOrange500,
-        ),
-
-        // Section 5: Constraint Behavior
-        _buildSectionHeader('Constraint Behavior', Icons.settings_overscan),
-        _buildCard(
-          'Constraint Flow',
-          _buildConstraintVisualization(),
-        ),
-        _buildCard(
-          'Visual Constraint Demo',
-          _buildConstraintBoxDiagram(),
-          accentColor: _kCyan600,
-        ),
-
-        // Section 6: Practical Examples
-        _buildSectionHeader('Practical Examples', Icons.lightbulb),
-        _buildCard(
-          'Real-World Use Cases',
-          _buildPracticalExamples(),
-          accentColor: _kOrange500,
-        ),
-
-        // Section 7: Code Examples
-        _buildSectionHeader('Code Examples', Icons.code),
-        _buildCard(
-          'Using OverflowBoxFit.max',
-          _buildCodeSnippet(
-            'OverflowBox(\n'
-            '  fit: OverflowBoxFit.max,\n'
-            '  maxWidth: 200,\n'
-            '  maxHeight: 150,\n'
-            '  child: Container(\n'
-            '    color: Colors.blue,\n'
-            '    child: Text("Fills space"),\n'
-            '  ),\n'
-            ')',
-          ),
-          accentColor: _kCyan500,
-        ),
-        _buildCard(
-          'Using OverflowBoxFit.deferToChild',
-          _buildCodeSnippet(
-            'OverflowBox(\n'
-            '  fit: OverflowBoxFit.deferToChild,\n'
-            '  maxWidth: 200,\n'
-            '  maxHeight: 150,\n'
-            '  child: Container(\n'
-            '    width: 100,\n'
-            '    height: 80,\n'
-            '    color: Colors.orange,\n'
-            '  ),\n'
-            ')',
-          ),
-          accentColor: _kOrange500,
-        ),
-        _buildCard(
-          'SizedOverflowBox Example',
-          _buildCodeSnippet(
-            'SizedOverflowBox(\n'
-            '  size: Size(100, 80),\n'
-            '  alignment: Alignment.center,\n'
-            '  child: Container(\n'
-            '    width: 150,\n'
-            '    height: 100,\n'
-            '    color: Colors.purple,\n'
-            '  ),\n'
-            ')',
-          ),
-          accentColor: _kRose500,
-        ),
-
-        // Section 8: Enum Properties
-        _buildSectionHeader('Enum Properties', Icons.info),
-        _buildCard(
-          'OverflowBoxFit Properties',
-          _buildEnumProperties(),
-        ),
-
-        // Footer summary
-        SizedBox(height: 16),
-        Container(
-          width: double.infinity,
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: _kSlate700,
-            borderRadius: BorderRadius.circular(12),
-          ),
+Widget build() {
+  return MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: Scaffold(
+      backgroundColor: Color(0xFFF8FAFC),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(20),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'OverflowBoxFit Demo Complete',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 8),
-              Text(
-                'Demonstrated: max and deferToChild fit behaviors,\n'
-                'visual comparisons, SizedOverflowBox usage,\n'
-                'and constraint handling patterns.',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white70,
-                  fontSize: 12,
-                ),
-              ),
+              _buildMainHeader(),
+              SizedBox(height: 24),
+              _buildOverviewSection(),
+              SizedBox(height: 24),
+              _buildMaxValueSection(),
+              SizedBox(height: 24),
+              _buildDeferToChildSection(),
+              SizedBox(height: 24),
+              _buildComparisonGridSection(),
+              SizedBox(height: 24),
+              _buildUsageExamplesSection(),
+              SizedBox(height: 24),
+              _buildVisualSizingSection(),
+              SizedBox(height: 24),
+              _buildFooter(),
             ],
           ),
         ),
-        SizedBox(height: 40),
+      ),
+    ),
+  );
+}
+
+Widget _buildFooter() {
+  return Container(
+    width: double.infinity,
+    padding: EdgeInsets.all(20),
+    decoration: BoxDecoration(
+      color: _kSlate800,
+      borderRadius: BorderRadius.circular(14),
+    ),
+    child: Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.open_in_full, color: _kPrimary300, size: 24),
+            SizedBox(width: 10),
+            Text(
+              'OverflowBoxFit Demo',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 10),
+        Text(
+          'Demonstrating enum values for OverflowBox child sizing behavior',
+          style: TextStyle(color: _kSlate300, fontSize: 12),
+          textAlign: TextAlign.center,
+        ),
+        SizedBox(height: 16),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _buildFooterBadge('max', _kSecondary500),
+            SizedBox(width: 12),
+            _buildFooterBadge('deferToChild', _kAccent500),
+          ],
+        ),
+        SizedBox(height: 16),
+        Divider(color: _kSlate600, thickness: 1),
+        SizedBox(height: 12),
+        Text(
+          'Flutter Rendering Library | OverflowBoxFit Enum',
+          style: TextStyle(color: _kSlate500, fontSize: 11),
+        ),
       ],
+    ),
+  );
+}
+
+Widget _buildFooterBadge(String text, Color color) {
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+    decoration: BoxDecoration(
+      color: color.withAlpha(50),
+      borderRadius: BorderRadius.circular(16),
+      border: Border.all(color: color.withAlpha(100)),
+    ),
+    child: Text(
+      text,
+      style: TextStyle(
+        color: color,
+        fontSize: 11,
+        fontWeight: FontWeight.w600,
+      ),
     ),
   );
 }

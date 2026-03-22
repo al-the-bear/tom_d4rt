@@ -1,74 +1,154 @@
-// D4rt test script: Comprehensive deep demo for ParentData from rendering
+// D4rt test script: Deep demo for ParentData from rendering
 //
-// ParentData is the base class for data attached to render objects:
-//   - Stored in child.parentData property
-//   - Set up by parent via setupParentData()
-//   - Contains layout information about the child
-//   - Cleaned up via detach() when child is removed
+// ParentData is the base class for render object parent data.
+// It serves as the foundation for all layout-related data that
+// a parent render object attaches to its children.
+//
+// Key characteristics:
+//   - Base class for all parent data types
+//   - Attached to child via setupParentData()
+//   - Contains detach() method for cleanup
+//   - Extended by BoxParentData, SliverParentData, etc.
+//
+// Subtypes:
+//   - BoxParentData: adds offset for positioned children
+//   - ContainerBoxParentData: adds sibling navigation
+//   - StackParentData: positioning constraints for Stack
+//   - FlexParentData: flex factor and fit for Flex layouts
 //
 // This demo covers:
-//   1. ParentData concept explanation with visuals
-//   2. Positioned widget demonstration (uses BoxParentData)
-//   3. Stack layout with StackParentData
-//   4. Flex layout with FlexParentData (via Flexible)
-//   5. detach() method visualization
+//   1. ParentData overview and concept
+//   2. detach() method and lifecycle
+//   3. Rendering layer hierarchy
+//   4. Stack/Positioned usage examples
+//   5. Flex layout demonstrations
+//   6. Custom parent data concepts
 //
-// ═══════════════════════════════════════════════════════════════════════════
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-// ═══════════════════════════════════════════════════════════════════════════
-// COLOR PALETTE
-// ═══════════════════════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════════════════════
+// COLOR PALETTE (only used colors)
+// ═══════════════════════════════════════════════════════════════════════════════
 
-Color _primaryDark = Color(0xFF1565C0);
-Color _primaryMedium = Color(0xFF1976D2);
-Color _primaryLight = Color(0xFF42A5F5);
-Color _primaryPale = Color(0xFFBBDEFB);
-Color _primaryBg = Color(0xFFE3F2FD);
+Color _indigo800 = Color(0xFF283593);
+Color _indigo700 = Color(0xFF303F9F);
+Color _indigo600 = Color(0xFF3949AB);
+Color _indigo500 = Color(0xFF3F51B5);
+Color _indigo400 = Color(0xFF5C6BC0);
+Color _indigo100 = Color(0xFFC5CAE9);
+Color _indigo50 = Color(0xFFE8EAF6);
 
-Color _accentDark = Color(0xFFC62828);
-Color _accentMedium = Color(0xFFE53935);
-Color _accentLight = Color(0xFFEF5350);
+Color _teal700 = Color(0xFF00796B);
+Color _teal600 = Color(0xFF00897B);
+Color _teal500 = Color(0xFF009688);
+Color _teal400 = Color(0xFF26A69A);
 
-Color _successDark = Color(0xFF2E7D32);
-Color _successMedium = Color(0xFF43A047);
-Color _successLight = Color(0xFF66BB6A);
-Color _successPale = Color(0xFFC8E6C9);
+Color _amber700 = Color(0xFFFFA000);
+Color _amber600 = Color(0xFFFFB300);
+Color _amber500 = Color(0xFFFFC107);
 
-Color _warnDark = Color(0xFFF57F17);
-Color _warnMedium = Color(0xFFFBC02D);
+Color _red700 = Color(0xFFD32F2F);
+Color _red600 = Color(0xFFE53935);
+Color _red500 = Color(0xFFF44336);
+Color _red400 = Color(0xFFEF5350);
 
-Color _textPrimary = Color(0xFF212121);
-Color _textSecondary = Color(0xFF757575);
-Color _bgCard = Color(0xFFFFFFFF);
+Color _green700 = Color(0xFF388E3C);
+Color _green600 = Color(0xFF43A047);
+Color _green500 = Color(0xFF4CAF50);
 
-// ═══════════════════════════════════════════════════════════════════════════
+Color _grey900 = Color(0xFF212121);
+Color _grey800 = Color(0xFF424242);
+Color _grey700 = Color(0xFF616161);
+Color _grey600 = Color(0xFF757575);
+Color _grey400 = Color(0xFFBDBDBD);
+Color _grey300 = Color(0xFFE0E0E0);
+Color _grey200 = Color(0xFFEEEEEE);
+Color _grey100 = Color(0xFFF5F5F5);
+Color _grey50 = Color(0xFFFAFAFA);
+
+Color _white = Color(0xFFFFFFFF);
+Color _black = Color(0xFF000000);
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // HELPER WIDGETS
-// ═══════════════════════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════════════════════
 
-Widget _buildSectionHeader(String title, IconData icon, Color color) {
+Widget _buildMainHeader(String title, String subtitle, IconData icon) {
   return Container(
-    margin: EdgeInsets.only(bottom: 16, top: 8),
+    width: double.infinity,
+    padding: EdgeInsets.all(24),
+    decoration: BoxDecoration(
+      gradient: LinearGradient(
+        colors: [_indigo800, _indigo600],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      ),
+      borderRadius: BorderRadius.circular(20),
+      boxShadow: [
+        BoxShadow(
+          color: _indigo800.withAlpha(80),
+          blurRadius: 16,
+          offset: Offset(0, 8),
+        ),
+      ],
+    ),
+    child: Column(
+      children: [
+        Container(
+          padding: EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: _white.withAlpha(30),
+            shape: BoxShape.circle,
+          ),
+          child: Icon(icon, size: 48, color: _white),
+        ),
+        SizedBox(height: 16),
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: 28,
+            fontWeight: FontWeight.bold,
+            color: _white,
+          ),
+          textAlign: TextAlign.center,
+        ),
+        SizedBox(height: 8),
+        Text(
+          subtitle,
+          style: TextStyle(
+            fontSize: 14,
+            color: _white.withAlpha(220),
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildSectionTitle(String title, IconData icon, Color color) {
+  return Container(
+    margin: EdgeInsets.only(top: 24, bottom: 16),
     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [color, color.withAlpha(180)],
+        colors: [color, color.withAlpha(200)],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
       borderRadius: BorderRadius.circular(12),
       boxShadow: [
         BoxShadow(
-          color: color.withAlpha(60),
+          color: color.withAlpha(50),
           blurRadius: 8,
-          offset: Offset(0, 2),
+          offset: Offset(0, 4),
         ),
       ],
     ),
     child: Row(
       children: [
-        Icon(icon, color: Colors.white, size: 24),
+        Icon(icon, color: _white, size: 24),
         SizedBox(width: 12),
         Expanded(
           child: Text(
@@ -76,7 +156,7 @@ Widget _buildSectionHeader(String title, IconData icon, Color color) {
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: _white,
             ),
           ),
         ),
@@ -85,18 +165,18 @@ Widget _buildSectionHeader(String title, IconData icon, Color color) {
   );
 }
 
-Widget _buildInfoBox(String title, String content, IconData icon, Color color) {
+Widget _buildInfoCard(String title, String content, IconData icon, Color accent) {
   return Container(
     margin: EdgeInsets.only(bottom: 12),
     padding: EdgeInsets.all(16),
     decoration: BoxDecoration(
-      color: _bgCard,
+      color: _white,
       borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: color.withAlpha(100), width: 1.5),
+      border: Border.all(color: accent.withAlpha(60), width: 1.5),
       boxShadow: [
         BoxShadow(
-          color: Colors.black.withAlpha(15),
-          blurRadius: 4,
+          color: _black.withAlpha(10),
+          blurRadius: 6,
           offset: Offset(0, 2),
         ),
       ],
@@ -107,21 +187,21 @@ Widget _buildInfoBox(String title, String content, IconData icon, Color color) {
         Row(
           children: [
             Container(
-              padding: EdgeInsets.all(8),
+              padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: color.withAlpha(30),
-                borderRadius: BorderRadius.circular(8),
+                color: accent.withAlpha(25),
+                borderRadius: BorderRadius.circular(10),
               ),
-              child: Icon(icon, color: color, size: 20),
+              child: Icon(icon, color: accent, size: 22),
             ),
-            SizedBox(width: 12),
+            SizedBox(width: 14),
             Expanded(
               child: Text(
                 title,
                 style: TextStyle(
-                  fontSize: 15,
+                  fontSize: 16,
                   fontWeight: FontWeight.w600,
-                  color: _textPrimary,
+                  color: _grey900,
                 ),
               ),
             ),
@@ -132,7 +212,7 @@ Widget _buildInfoBox(String title, String content, IconData icon, Color color) {
           content,
           style: TextStyle(
             fontSize: 13,
-            color: _textSecondary,
+            color: _grey700,
             height: 1.5,
           ),
         ),
@@ -141,12 +221,19 @@ Widget _buildInfoBox(String title, String content, IconData icon, Color color) {
   );
 }
 
-Widget _buildCodeDisplay(String title, String code, Color headerColor) {
+Widget _buildCodeBlock(String title, String code, Color headerColor) {
   return Container(
     margin: EdgeInsets.only(bottom: 16),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: headerColor.withAlpha(60)),
+      border: Border.all(color: headerColor.withAlpha(40)),
+      boxShadow: [
+        BoxShadow(
+          color: _black.withAlpha(8),
+          blurRadius: 4,
+          offset: Offset(0, 2),
+        ),
+      ],
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -175,7 +262,7 @@ Widget _buildCodeDisplay(String title, String code, Color headerColor) {
         Container(
           padding: EdgeInsets.all(14),
           decoration: BoxDecoration(
-            color: Color(0xFF263238),
+            color: Color(0xFF1E1E1E),
             borderRadius: BorderRadius.vertical(bottom: Radius.circular(11)),
           ),
           child: Text(
@@ -183,8 +270,8 @@ Widget _buildCodeDisplay(String title, String code, Color headerColor) {
             style: TextStyle(
               fontFamily: 'monospace',
               fontSize: 12,
-              color: Color(0xFFE0E0E0),
-              height: 1.6,
+              color: Color(0xFFD4D4D4),
+              height: 1.5,
             ),
           ),
         ),
@@ -193,83 +280,98 @@ Widget _buildCodeDisplay(String title, String code, Color headerColor) {
   );
 }
 
-Widget _buildDiagramBox(String title, Widget diagram) {
+Widget _buildDiagramContainer(String title, Widget diagram) {
   return Container(
     margin: EdgeInsets.only(bottom: 16),
     padding: EdgeInsets.all(16),
     decoration: BoxDecoration(
-      color: _bgCard,
+      color: _grey50,
       borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: _primaryPale),
+      border: Border.all(color: _grey300),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-            color: _primaryDark,
-          ),
+        Row(
+          children: [
+            Icon(Icons.schema, color: _indigo700, size: 20),
+            SizedBox(width: 8),
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: _indigo800,
+              ),
+            ),
+          ],
         ),
-        SizedBox(height: 12),
+        SizedBox(height: 16),
         diagram,
       ],
     ),
   );
 }
 
-
-
 Widget _buildAsciiDiagram(String ascii) {
   return Container(
-    padding: EdgeInsets.all(12),
+    width: double.infinity,
+    padding: EdgeInsets.all(14),
     decoration: BoxDecoration(
-      color: Color(0xFFF5F5F5),
+      color: _grey100,
       borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: Color(0xFFE0E0E0)),
+      border: Border.all(color: _grey300),
     ),
     child: Text(
       ascii,
       style: TextStyle(
         fontFamily: 'monospace',
         fontSize: 11,
-        color: _textPrimary,
+        color: _grey800,
         height: 1.4,
       ),
     ),
   );
 }
 
-// Helper for table rows
-Widget _buildTableRow(String type, String properties, bool alternate) {
+Widget _buildPropertyRow(String name, String type, String description) {
   return Container(
-    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
     decoration: BoxDecoration(
-      color: alternate ? _primaryBg : Colors.white,
+      border: Border(bottom: BorderSide(color: _grey200)),
     ),
     child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
-          flex: 2,
+        SizedBox(
+          width: 100,
+          child: Text(
+            name,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: _indigo700,
+              fontFamily: 'monospace',
+            ),
+          ),
+        ),
+        SizedBox(
+          width: 80,
           child: Text(
             type,
             style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-              color: _textPrimary,
+              fontSize: 11,
+              color: _teal700,
+              fontFamily: 'monospace',
             ),
           ),
         ),
         Expanded(
-          flex: 3,
           child: Text(
-            properties,
+            description,
             style: TextStyle(
-              fontSize: 11,
-              color: _textSecondary,
-              fontFamily: 'monospace',
+              fontSize: 12,
+              color: _grey700,
             ),
           ),
         ),
@@ -278,1015 +380,1315 @@ Widget _buildTableRow(String type, String properties, bool alternate) {
   );
 }
 
-// ═══════════════════════════════════════════════════════════════════════════
-// MAIN BUILD FUNCTION
-// ═══════════════════════════════════════════════════════════════════════════
-
-dynamic build(BuildContext context) {
-  print('ParentData Deep Demo - Comprehensive Test');
-  print('═' * 60);
-
-  // -------------------------------------------------------------------------
-  // SECTION 1: ParentData Concept Explanation
-  // -------------------------------------------------------------------------
-  print('\n[SECTION 1] ParentData Concept Explanation');
-  print('-' * 50);
-
-  print('\nParentData is the base class for storing layout data:');
-  print('  - Every RenderObject has a parentData property');
-  print('  - The PARENT sets up this data for its CHILD');
-  print('  - Contains information the parent needs for layout/paint');
-  print('  - Different layout protocols use different ParentData types');
-
-  print('\nConceptual Diagram:');
-  print('  ┌───────────────────────────────────────────────┐');
-  print('  │            RenderObject (Parent)              │');
-  print('  │  ┌───────────────────────────────────────┐    │');
-  print('  │  │        setupParentData(child)        │    │');
-  print('  │  │   Creates ParentData for the child   │    │');
-  print('  │  └───────────────────┬───────────────────┘    │');
-  print('  │                      │                        │');
-  print('  │                      ▼                        │');
-  print('  │  ┌───────────────────────────────────────┐    │');
-  print('  │  │         child.parentData              │    │');
-  print('  │  │   Stores layout info about child      │    │');
-  print('  │  └───────────────────────────────────────┘    │');
-  print('  └───────────────────────────────────────────────┘');
-
-  print('\nParentData class structure:');
-  print('''
-  class ParentData {
-    // Called when the child is removed from the parent
-    @protected
-    @mustCallSuper
-    void detach() {}
-  }
-  ''');
-
-  print('\nKey points about ParentData:');
-  print('  1. Base class is minimal - just has detach() method');
-  print('  2. Subclasses add specific properties (offset, flex, etc.)');
-  print('  3. Parent controls the ParentData type via setupParentData()');
-  print('  4. Child widget can influence values via ParentDataWidget');
-
-  // -------------------------------------------------------------------------
-  // SECTION 2: Type Hierarchy Visualization
-  // -------------------------------------------------------------------------
-  print('\n[SECTION 2] ParentData Type Hierarchy');
-  print('-' * 50);
-
-  print('\nParentData inheritance tree:');
-  print('''
-  ParentData (base)
-    │
-    ├── BoxParentData (adds Offset offset)
-    │     │
-    │     ├── ContainerBoxParentData<RenderBox>
-    │     │     │
-    │     │     ├── FlexParentData (flex, fit)
-    │     │     │
-    │     │     ├── StackParentData (positioning rect)
-    │     │     │
-    │     │     ├── FlowParentData
-    │     │     │
-    │     │     └── WrapParentData
-    │     │
-    │     └── Multi/CustomLayoutParentData
-    │
-    ├── SliverLogicalParentData (scroll offset)
-    │     │
-    │     └── SliverLogicalContainerParentData
-    │
-    ├── SliverPhysicalParentData (paint offset)
-    │     │
-    │     └── SliverPhysicalContainerParentData
-    │
-    └── Other specialized types...
-  ''');
-
-  // -------------------------------------------------------------------------
-  // SECTION 3: BoxParentData and Positioned
-  // -------------------------------------------------------------------------
-  print('\n[SECTION 3] BoxParentData via Positioned Widget');
-  print('-' * 50);
-
-  print('\nBoxParentData adds offset property:');
-  print('''
-  class BoxParentData extends ParentData {
-    Offset offset = Offset.zero;
-  }
-  ''');
-
-  print('\nPositioned widget sets StackParentData:');
-  print('  - Positioned extends ParentDataWidget<StackParentData>');
-  print('  - StackParentData extends BoxParentData');
-  print('  - Adds: left, top, right, bottom, width, height');
-
-  BoxParentData boxData = BoxParentData();
-  boxData.offset = Offset(50.0, 100.0);
-  print('\nBoxParentData instance:');
-  print('  offset: ${boxData.offset}');
-  print('  offset.dx: ${boxData.offset.dx}');
-  print('  offset.dy: ${boxData.offset.dy}');
-
-  print('\nPositioned usage diagram:');
-  print('''
-  Stack
-    │
-    └── Positioned(
-          left: 20,
-          top: 30,
-          child: Box
-        )
-        │
-        └── child.parentData:
-              StackParentData(
-                left: 20,
-                top: 30,
-                offset: calculated
-              )
-  ''');
-
-  // -------------------------------------------------------------------------
-  // SECTION 4: Stack Layout with StackParentData
-  // -------------------------------------------------------------------------
-  print('\n[SECTION 4] Stack Layout with StackParentData');
-  print('-' * 50);
-
-  print('\nStackParentData structure:');
-  print('''
-  class StackParentData extends ContainerBoxParentData<RenderBox> {
-    // Positioning constraints
-    double? top;
-    double? right;
-    double? bottom;
-    double? left;
-    double? width;
-    double? height;
-
-    // Whether positioned
-    bool get isPositioned => 
-      top != null || right != null || 
-      bottom != null || left != null || 
-      width != null || height != null;
-
-    // Computed positioning rect
-    RelativeRect get rect => RelativeRect.fromLTRB(
-      left ?? 0, top ?? 0, right ?? 0, bottom ?? 0
-    );
-  }
-  ''');
-
-  print('\nStack layout algorithm with ParentData:');
-  print('  1. Stack measures non-positioned children first');
-  print('  2. Determines own size from constraints + children');
-  print('  3. For each positioned child:');
-  print('     a. Reads StackParentData values');
-  print('     b. Calculates constraints from positioning');
-  print('     c. Layouts child with calculated constraints');
-  print('     d. Sets child.parentData.offset for painting');
-  print('  4. Non-positioned children centered or stretched');
-
-  print('\nStack layout visualization:');
-  print('''
-  ┌─────────────────────────────────┐
-  │           Stack (400x400)       │
-  │  ┌───────────────────────┐      │
-  │  │  Non-positioned child │      │
-  │  │    (fills vertically/ │      │
-  │  │     horizontally)     │      │
-  │  └───────────────────────┘      │
-  │                                 │
-  │      ┌──────────┐               │
-  │      │Positioned│  left:40      │
-  │      │ top:50   │  top:50       │
-  │      └──────────┘               │
-  │                                 │
-  │               ┌──────────┐      │
-  │               │Positioned│      │
-  │               │right:20  │      │
-  │               │bottom:20 │      │
-  │               └──────────┘      │
-  └─────────────────────────────────┘
-  ''');
-
-  // -------------------------------------------------------------------------
-  // SECTION 5: Flex Layout with FlexParentData
-  // -------------------------------------------------------------------------
-  print('\n[SECTION 5] Flex Layout with FlexParentData');
-  print('-' * 50);
-
-  print('\nFlexParentData structure:');
-  print('''
-  class FlexParentData extends ContainerBoxParentData<RenderBox> {
-    // How much of the free space this child takes
-    int flex = 0;
-    
-    // How the child fills its allocated space
-    FlexFit fit = FlexFit.tight;
-  }
-  ''');
-
-  print('\nFlexFit values:');
-  print('  FlexFit.tight  - Child MUST fill allocated space');
-  print('  FlexFit.loose  - Child CAN be smaller than allocated');
-
-  print('\nFlexible and Expanded widgets:');
-  print('''
-  // Expanded = Flexible with FlexFit.tight
-  Expanded(
-    flex: 2,
-    child: Container(color: Colors.red),
-  )
-  
-  // Flexible = FlexFit.loose by default  
-  Flexible(
-    flex: 1,
-    fit: FlexFit.loose,
-    child: Container(color: Colors.blue),
-  )
-  ''');
-
-  print('\nFlex layout algorithm:');
-  print('  Phase 1 - Measure inflexible children:');
-  print('    - Children with flex == 0');
-  print('    - Given unbounded constraints in main axis');
-  print('    - Sum their main axis sizes');
-  print('');
-  print('  Phase 2 - Calculate free space:');
-  print('    - freeSpace = mainAxisSize - inflexibleSize');
-  print('    - totalFlex = sum of all flex values');
-  print('    - spacePerFlex = freeSpace / totalFlex');
-  print('');
-  print('  Phase 3 - Layout flexible children:');
-  print('    - For each child with flex > 0:');
-  print('      - allocatedSpace = flex * spacePerFlex');
-  print('      - If FlexFit.tight: exact size');
-  print('      - If FlexFit.loose: max size');
-
-  print('\nFlex layout visualization:');
-  print('''
-  Row (total width: 300px)
-  ┌──────────┬────────────────────┬────────────────────┐
-  │ Fixed    │    Flexible(1)     │    Flexible(2)     │
-  │  60px    │    80px (loose)    │    160px (tight)   │
-  │          │  ┌──────────┐      │ ################## │
-  │  #####   │  │ content  │      │ ################## │
-  │          │  └──────────┘      │ ################## │
-  └──────────┴────────────────────┴────────────────────┘
-  
-  Calculation:
-    freeSpace = 300 - 60 = 240px
-    totalFlex = 1 + 2 = 3
-    spacePerFlex = 240 / 3 = 80px
-    
-    Flexible(1): 1 * 80 = 80px max
-    Flexible(2): 2 * 80 = 160px exact
-  ''');
-
-  // -------------------------------------------------------------------------
-  // SECTION 6: detach() Method Visualization
-  // -------------------------------------------------------------------------
-  print('\n[SECTION 6] detach() Method Lifecycle');
-  print('-' * 50);
-
-  print('\ndetach() is called when child is removed from parent:');
-  print('''
-  class ParentData {
-    @protected
-    @mustCallSuper
-    void detach() { }
-  }
-  ''');
-
-  print('\nWhen detach() is called:');
-  print('  1. Child is being removed from parent');
-  print('  2. Parent calls child.parentData.detach()');
-  print('  3. Cleans up any listeners or resources');
-  print('  4. Sibling links are severed (for container parent data)');
-
-  print('\nContainerParentDataMixin detach():');
-  print('''
-  mixin ContainerParentDataMixin<ChildType extends RenderObject> 
-      on ParentData {
-    
-    ChildType? previousSibling;
-    ChildType? nextSibling;
-    
-    @override
-    void detach() {
-      // Sever sibling links
-      // Allows garbage collection
-      super.detach();
-    }
-  }
-  ''');
-
-  print('\ndetach() lifecycle diagram:');
-  print('''
-  BEFORE REMOVAL:
-  ┌────────────────────────────────────────────┐
-  │            Parent RenderObject             │
-  │                                            │
-  │   Child A ←→ Child B ←→ Child C ←→ Child D │
-  │              (removing)                    │
-  └────────────────────────────────────────────┘
-  
-  DURING REMOVAL:
-  ┌────────────────────────────────────────────┐
-  │  1. Parent removes Child B from tree       │
-  │  2. childB.parentData.detach() called      │
-  │  3. Sibling links updated:                 │
-  │     - childA.next = childC                 │
-  │     - childC.previous = childA             │
-  │  4. childB references cleared              │
-  └────────────────────────────────────────────┘
-  
-  AFTER REMOVAL:
-  ┌────────────────────────────────────────────┐
-  │            Parent RenderObject             │
-  │                                            │
-  │       Child A  ←→  Child C  ←→  Child D    │
-  │                                            │
-  │       Child B (orphaned, can be GC'd)      │
-  └────────────────────────────────────────────┘
-  ''');
-
-  print('\nBest practices for detach():');
-  print('  1. Always call super.detach()');
-  print('  2. Clean up listeners registered with parent');
-  print('  3. Release any cached resources');
-  print('  4. Do not access parent after detach');
-
-  // -------------------------------------------------------------------------
-  // SECTION 7: ParentDataWidget Pattern
-  // -------------------------------------------------------------------------
-  print('\n[SECTION 7] ParentDataWidget Pattern');
-  print('-' * 50);
-
-  print('\nParentDataWidget allows widgets to set parent data:');
-  print('''
-  abstract class ParentDataWidget<T extends ParentData> 
-      extends ProxyWidget {
-    
-    // Check if this widget can apply to parent data
-    bool debugIsValidParentData(covariant ParentData parentData);
-    
-    // Apply widget configuration to parent data
-    void applyParentData(RenderObject renderObject);
-  }
-  ''');
-
-  print('\nExample: Positioned inherits ParentDataWidget:');
-  print('''
-  class Positioned extends ParentDataWidget<StackParentData> {
-    final double? left;
-    final double? top;
-    final double? right;
-    final double? bottom;
-    
-    @override
-    void applyParentData(RenderObject renderObject) {
-      final parentData = renderObject.parentData as StackParentData;
-      
-      bool needsLayout = false;
-      
-      if (parentData.left != left) {
-        parentData.left = left;
-        needsLayout = true;
-      }
-      // ... similar for top, right, bottom
-      
-      if (needsLayout) {
-        renderObject.parent?.markNeedsLayout();
-      }
-    }
-  }
-  ''');
-
-  print('\nParentDataWidget responsibilities:');
-  print('  1. Type-safe parent data access');
-  print('  2. Validate compatibility with parent');
-  print('  3. Apply data changes efficiently');
-  print('  4. Trigger relayout when data changes');
-
-  // -------------------------------------------------------------------------
-  // SECTION 8: Custom ParentData Example
-  // -------------------------------------------------------------------------
-  print('\n[SECTION 8] Creating Custom ParentData');
-  print('-' * 50);
-
-  print('\nCustom parent data for a priority-based layout:');
-  print('''
-  // Custom ParentData
-  class PriorityParentData extends ContainerBoxParentData<RenderBox> {
-    int priority = 0;
-    bool visible = true;
-  }
-  
-  // Custom ParentDataWidget  
-  class Priority extends ParentDataWidget<PriorityParentData> {
-    final int priority;
-    final bool visible;
-    
-    @override
-    void applyParentData(RenderObject renderObject) {
-      final parentData = renderObject.parentData as PriorityParentData;
-      
-      if (parentData.priority != priority) {
-        parentData.priority = priority;
-        renderObject.parent?.markNeedsLayout();
-      }
-      
-      if (parentData.visible != visible) {
-        parentData.visible = visible;
-        renderObject.parent?.markNeedsPaint();
-      }
-    }
-    
-    @override
-    bool debugIsValidParentData(ParentData parentData) {
-      return parentData is PriorityParentData;
-    }
-  }
-  
-  // Custom RenderObject
-  class RenderPriorityLayout extends RenderBox
-      with ContainerRenderObjectMixin<RenderBox, PriorityParentData> {
-    
-    @override
-    void setupParentData(RenderBox child) {
-      if (child.parentData is! PriorityParentData) {
-        child.parentData = PriorityParentData();
-      }
-    }
-    
-    @override
-    void performLayout() {
-      // Sort children by priority
-      final children = <RenderBox>[];
-      visitChildren((child) {
-        children.add(child as RenderBox);
-      });
-      children.sort((a, b) {
-        final aData = a.parentData as PriorityParentData;
-        final bData = b.parentData as PriorityParentData;
-        return bData.priority - aData.priority;
-      });
-      
-      // Layout high priority first
-      // ... layout logic
-    }
-  }
-  ''');
-
-  // -------------------------------------------------------------------------
-  // SECTION 9: Common ParentData Types Summary
-  // -------------------------------------------------------------------------
-  print('\n[SECTION 9] Common ParentData Types Summary');
-  print('-' * 50);
-
-  print('\n┌────────────────────────┬──────────────────────────────────────┐');
-  print('│ ParentData Type        │ Purpose & Properties                 │');
-  print('├────────────────────────┼──────────────────────────────────────┤');
-  print('│ BoxParentData          │ Basic offset for box children        │');
-  print('│                        │ - offset: Offset                     │');
-  print('├────────────────────────┼──────────────────────────────────────┤');
-  print('│ StackParentData        │ Positioning in Stack                 │');
-  print('│                        │ - left, top, right, bottom           │');
-  print('│                        │ - width, height                      │');
-  print('├────────────────────────┼──────────────────────────────────────┤');
-  print('│ FlexParentData         │ Flex layout (Row/Column)             │');
-  print('│                        │ - flex: int                          │');
-  print('│                        │ - fit: FlexFit                       │');
-  print('├────────────────────────┼──────────────────────────────────────┤');
-  print('│ FlowParentData         │ Flow widget layout                   │');
-  print('│                        │ - offset from FlowDelegate           │');
-  print('├────────────────────────┼──────────────────────────────────────┤');
-  print('│ WrapParentData         │ Wrap widget positioning              │');
-  print('│                        │ - offset for wrapped children        │');
-  print('├────────────────────────┼──────────────────────────────────────┤');
-  print('│ TableCellParentData    │ Table cell positioning               │');
-  print('│                        │ - verticalAlignment                  │');
-  print('├────────────────────────┼──────────────────────────────────────┤');
-  print('│ SliverLogicalParentData│ Sliver scrolling                     │');
-  print('│                        │ - layoutOffset: double               │');
-  print('├────────────────────────┼──────────────────────────────────────┤');
-  print('│ SliverPhysicalParentData│ Sliver painting                     │');
-  print('│                        │ - paintOffset: Offset                │');
-  print('└────────────────────────┴──────────────────────────────────────┘');
-
-  print('\n═' * 60);
-  print('ParentData Deep Demo completed successfully');
-  print('═' * 60);
-
-  // =========================================================================
-  // BUILD VISUAL UI
-  // =========================================================================
-
-  return SingleChildScrollView(
-    padding: EdgeInsets.all(16),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        // Title
-        Container(
-          padding: EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [_primaryDark, _primaryMedium],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: Column(
-            children: [
-              Icon(Icons.account_tree, size: 48, color: Colors.white),
-              SizedBox(height: 12),
-              Text(
-                'ParentData',
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-              SizedBox(height: 8),
-              Text(
-                'Base class for layout data attached to render objects',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.white.withAlpha(220),
-                ),
-              ),
-            ],
-          ),
-        ),
-
-        SizedBox(height: 24),
-
-        // Section 1: Concept
-        _buildSectionHeader(
-          'ParentData Concept',
-          Icons.lightbulb_outline,
-          _primaryDark,
-        ),
-
-        _buildInfoBox(
-          'What is ParentData?',
-          'ParentData is the base class for data that a parent RenderObject '
-              'stores about each of its children. The parent creates this data '
-              'via setupParentData() and uses it during layout and painting. '
-              'Different layout protocols use specialized ParentData subclasses.',
-          Icons.info_outline,
-          _primaryMedium,
-        ),
-
-        _buildDiagramBox(
-          'ParentData Flow',
-          _buildAsciiDiagram('''
-  ┌───────────────────────────────────┐
-  │     Parent RenderObject           │
-  │                                   │
-  │  setupParentData(child) {         │
-  │    child.parentData = MyData();   │
-  │  }                                │
-  │                 │                 │
-  │                 ▼                 │
-  │  ┌─────────────────────────────┐  │
-  │  │   child.parentData          │  │
-  │  │   (layout info storage)     │  │
-  │  └─────────────────────────────┘  │
-  └───────────────────────────────────┘'''),
-        ),
-
-        _buildCodeDisplay('ParentData Base Class', '''
-class ParentData {
-  // Called when child is removed from parent
-  @protected
-  @mustCallSuper
-  void detach() { }
-}''', _primaryDark),
-
-        // Section 2: Type Hierarchy
-        _buildSectionHeader(
-          'Type Hierarchy',
-          Icons.account_tree_outlined,
-          _successDark,
-        ),
-
-        _buildDiagramBox(
-          'ParentData Inheritance',
-          _buildAsciiDiagram('''
-  ParentData
-    │
-    ├── BoxParentData
-    │     ├── ContainerBoxParentData
-    │     │     ├── FlexParentData
-    │     │     ├── StackParentData
-    │     │     └── FlowParentData
-    │     └── Other box types...
-    │
-    ├── SliverLogicalParentData
-    │     └── SliverLogicalContainerParentData
-    │
-    └── SliverPhysicalParentData
-          └── SliverPhysicalContainerParentData'''),
-        ),
-
-        // Section 3: Positioned/BoxParentData
-        _buildSectionHeader(
-          'Positioned & BoxParentData',
-          Icons.place_outlined,
-          _accentDark,
-        ),
-
-        _buildInfoBox(
-          'BoxParentData',
-          'BoxParentData extends ParentData with a single property: offset. '
-              'This Offset determines where the child is painted relative to the '
-              'parent. The parent sets this during layout after determining child position.',
-          Icons.drag_indicator,
-          _accentMedium,
-        ),
-
-        _buildCodeDisplay('BoxParentData Structure', '''
-class BoxParentData extends ParentData {
-  // Position where child paints
-  Offset offset = Offset.zero;
+Widget _buildHighlightBox(String text, Color color) {
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+    decoration: BoxDecoration(
+      color: color.withAlpha(20),
+      borderRadius: BorderRadius.circular(8),
+      border: Border.all(color: color.withAlpha(100)),
+    ),
+    child: Text(
+      text,
+      style: TextStyle(
+        fontSize: 12,
+        color: color,
+        fontWeight: FontWeight.w500,
+      ),
+    ),
+  );
 }
 
-// In parent layout:
-void performLayout() {
-  child.layout(constraints, parentUsesSize: true);
-  final childData = child.parentData as BoxParentData;
-  childData.offset = Offset(20, 30);
-}''', _accentDark),
-
-        // Section 4: Stack Demo
-        _buildSectionHeader(
-          'Stack with StackParentData',
-          Icons.layers_outlined,
-          _warnDark,
-        ),
-
-        _buildInfoBox(
-          'StackParentData',
-          'StackParentData extends ContainerBoxParentData and adds positioning '
-              'properties: left, top, right, bottom, width, height. The Positioned '
-              'widget sets these values, and Stack uses them during layout.',
-          Icons.view_in_ar,
-          _warnDark,
-        ),
-
+Widget _buildNumberedStep(int number, String title, String description, Color color) {
+  return Container(
+    margin: EdgeInsets.only(bottom: 12),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
         Container(
-          height: 200,
-          margin: EdgeInsets.only(bottom: 16),
+          width: 32,
+          height: 32,
           decoration: BoxDecoration(
-            color: _primaryPale.withAlpha(100),
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: _primaryMedium),
+            color: color,
+            shape: BoxShape.circle,
           ),
-          child: Stack(
-            children: [
-              Positioned(
-                left: 16,
-                top: 16,
-                child: Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    color: _accentLight,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'left:16\ntop:16',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, fontSize: 11),
-                    ),
-                  ),
-                ),
+          child: Center(
+            child: Text(
+              '\$number',
+              style: TextStyle(
+                color: _white,
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
               ),
-              Positioned(
-                right: 16,
-                top: 16,
-                child: Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    color: _successLight,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'right:16\ntop:16',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, fontSize: 11),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 16,
-                bottom: 16,
-                child: Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    color: _primaryLight,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'left:16\nbottom:16',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, fontSize: 11),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                right: 16,
-                bottom: 16,
-                child: Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    color: _warnMedium,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'right:16\nbottom:16',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, fontSize: 11),
-                    ),
-                  ),
-                ),
-              ),
-              Center(
-                child: Container(
-                  padding: EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: _primaryMedium),
-                  ),
-                  child: Text(
-                    'Non-positioned\n(centered)',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 12, color: _textPrimary),
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
         ),
-
-        // Section 5: Flex Demo
-        _buildSectionHeader(
-          'Flex with FlexParentData',
-          Icons.view_column_outlined,
-          _successDark,
-        ),
-
-        _buildInfoBox(
-          'FlexParentData',
-          'FlexParentData stores flex factor and fit mode for Row/Column children. '
-              'The flex property determines space allocation ratio, while fit '
-              '(tight or loose) determines how child fills allocated space.',
-          Icons.compare_arrows,
-          _successDark,
-        ),
-
-        Container(
-          margin: EdgeInsets.only(bottom: 16),
-          padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: _successMedium),
-          ),
+        SizedBox(width: 12),
+        Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Row with Flexible children:',
+                title,
                 style: TextStyle(
-                  fontSize: 13,
+                  fontSize: 14,
                   fontWeight: FontWeight.w600,
-                  color: _successDark,
+                  color: _grey900,
                 ),
               ),
-              SizedBox(height: 12),
-              Row(
+              SizedBox(height: 4),
+              Text(
+                description,
+                style: TextStyle(
+                  fontSize: 12,
+                  color: _grey600,
+                  height: 1.4,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildTreeNode(String label, Color color, {List<Widget>? children, IconData? icon}) {
+  return Container(
+    margin: EdgeInsets.only(bottom: 8),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          decoration: BoxDecoration(
+            color: color.withAlpha(30),
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: color),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (icon != null) Icon(icon, color: color, size: 16),
+              if (icon != null) SizedBox(width: 6),
+              Text(
+                label,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: color,
+                  fontFamily: 'monospace',
+                ),
+              ),
+            ],
+          ),
+        ),
+        if (children != null)
+          Container(
+            margin: EdgeInsets.only(left: 20, top: 8),
+            padding: EdgeInsets.only(left: 12),
+            decoration: BoxDecoration(
+              border: Border(left: BorderSide(color: color.withAlpha(100), width: 2)),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: children,
+            ),
+          ),
+      ],
+    ),
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// SECTION 1: PARENT DATA OVERVIEW
+// ═══════════════════════════════════════════════════════════════════════════════
+
+Widget _buildOverviewSection() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      _buildSectionTitle('ParentData Overview', Icons.data_object, _indigo700),
+      _buildInfoCard(
+        'What is ParentData?',
+        'ParentData is the base class for data that a parent render object '
+        'attaches to its children. It provides a standardized way for parents '
+        'to store layout-related information about each child, such as position '
+        'offsets, flex values, or positioning constraints.',
+        Icons.info_outline,
+        _indigo600,
+      ),
+      _buildInfoCard(
+        'How ParentData Works',
+        'When a child render object is adopted by a parent, the parent calls '
+        'setupParentData() to initialize the child\'s parentData property. '
+        'The parent then uses this data during layout and painting phases to '
+        'determine how to position and render the child.',
+        Icons.settings,
+        _teal600,
+      ),
+      _buildCodeBlock(
+        'ParentData Base Class',
+        '''class ParentData {
+  // Called when the child is removed from parent
+  @protected
+  @mustCallSuper
+  void detach() { }
+  
+  // String representation for debugging
+  @override
+  String toString() => '<\\\$runtimeType>';
+}''',
+        _indigo700,
+      ),
+      _buildDiagramContainer(
+        'ParentData Lifecycle',
+        _buildAsciiDiagram('''
+  ┌─────────────────────────────────────────────────┐
+  │            Parent RenderObject                  │
+  │                                                 │
+  │  1. adoptChild(child) called                   │
+  │     ↓                                          │
+  │  2. setupParentData(child)                     │
+  │     - Creates ParentData instance              │
+  │     - Assigns to child.parentData             │
+  │     ↓                                          │
+  │  3. Layout phase                               │
+  │     - Parent reads/writes to parentData       │
+  │     - Stores offset, constraints, etc.        │
+  │     ↓                                          │
+  │  4. Paint phase                                │
+  │     - Uses parentData.offset for position     │
+  │     ↓                                          │
+  │  5. dropChild(child) called                    │
+  │     - child.parentData.detach() invoked       │
+  │     - Cleanup resources                        │
+  └─────────────────────────────────────────────────┘
+'''),
+      ),
+      _buildInfoCard(
+        'Key Responsibilities',
+        '• Store layout information set by parent\n'
+        '• Provide detach() for cleanup when removed\n'
+        '• Enable communication between parent and child\n'
+        '• Support specific layout protocols (box, sliver)',
+        Icons.checklist,
+        _green700,
+      ),
+    ],
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// SECTION 2: DETACH METHOD
+// ═══════════════════════════════════════════════════════════════════════════════
+
+Widget _buildDetachSection() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      _buildSectionTitle('detach() Method', Icons.link_off, _red700),
+      _buildInfoCard(
+        'Purpose of detach()',
+        'The detach() method is called when a child render object is being '
+        'removed from its parent. It provides an opportunity to clean up any '
+        'resources, remove listeners, or sever connections that were established '
+        'when the parent data was set up.',
+        Icons.cleaning_services,
+        _red600,
+      ),
+      _buildCodeBlock(
+        'detach() Implementation',
+        '''// Base implementation
+void detach() {
+  // Override in subclasses to cleanup
+}
+
+// ContainerParentDataMixin implementation
+mixin ContainerParentDataMixin<T extends RenderObject> 
+    on ParentData {
+  T? previousSibling;
+  T? nextSibling;
+  
+  @override
+  void detach() {
+    // Clear sibling references
+    // Allows garbage collection
+    super.detach();
+  }
+}''',
+        _red700,
+      ),
+      _buildDiagramContainer(
+        'detach() Call Sequence',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildNumberedStep(
+              1,
+              'Parent initiates removal',
+              'Parent calls dropChild(child) to remove the child from its child list',
+              _red600,
+            ),
+            _buildNumberedStep(
+              2,
+              'Sibling links updated',
+              'For container parent data, previousSibling and nextSibling are reconnected',
+              _amber700,
+            ),
+            _buildNumberedStep(
+              3,
+              'detach() called',
+              'child.parentData.detach() is invoked to clean up resources',
+              _teal600,
+            ),
+            _buildNumberedStep(
+              4,
+              'References cleared',
+              'ParentData references are cleared, allowing garbage collection',
+              _green600,
+            ),
+          ],
+        ),
+      ),
+      _buildAsciiDiagram('''
+BEFORE REMOVAL:
+┌────────────────────────────────────────────────┐
+│              Parent Container                  │
+│                                                │
+│   Child A  ←──→  Child B  ←──→  Child C       │
+│   prev:null      prev:A         prev:B        │
+│   next:B         next:C         next:null     │
+└────────────────────────────────────────────────┘
+
+AFTER REMOVING Child B:
+┌────────────────────────────────────────────────┐
+│              Parent Container                  │
+│                                                │
+│        Child A  ←───────→  Child C            │
+│        prev:null           prev:A             │
+│        next:C              next:null          │
+│                                                │
+│   Child B (orphaned)                          │
+│   - detach() called                           │
+│   - prev/next cleared                         │
+│   - Ready for GC                              │
+└────────────────────────────────────────────────┘
+'''),
+      _buildInfoCard(
+        'Best Practices',
+        '• Always call super.detach() in overrides\n'
+        '• Remove any listeners attached to parent\n'
+        '• Clear cached references to parent objects\n'
+        '• Do not access parent after detach() returns',
+        Icons.verified,
+        _green700,
+      ),
+    ],
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// SECTION 3: RENDERING LAYER HIERARCHY
+// ═══════════════════════════════════════════════════════════════════════════════
+
+Widget _buildHierarchySection() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      _buildSectionTitle('Rendering Layer Hierarchy', Icons.account_tree, _teal700),
+      _buildInfoCard(
+        'ParentData Type System',
+        'Flutter\'s rendering layer defines a hierarchy of ParentData types, '
+        'each adding specific functionality for different layout protocols. '
+        'The base ParentData class is minimal, with subclasses adding offset, '
+        'sibling navigation, flex values, and positioning constraints.',
+        Icons.layers,
+        _teal600,
+      ),
+      _buildDiagramContainer(
+        'ParentData Inheritance Tree',
+        _buildTreeNode(
+          'ParentData',
+          _indigo700,
+          icon: Icons.data_object,
+          children: [
+            _buildTreeNode(
+              'BoxParentData',
+              _teal600,
+              icon: Icons.crop_square,
+              children: [
+                _buildTreeNode(
+                  'ContainerBoxParentData<RenderBox>',
+                  _amber700,
+                  icon: Icons.view_list,
+                  children: [
+                    _buildTreeNode('FlexParentData', _green600, icon: Icons.swap_horiz),
+                    _buildTreeNode('StackParentData', _red600, icon: Icons.layers),
+                    _buildTreeNode('FlowParentData', _indigo500, icon: Icons.air),
+                    _buildTreeNode('WrapParentData', _teal500, icon: Icons.wrap_text),
+                  ],
+                ),
+                _buildTreeNode(
+                  'MultiChildLayoutParentData',
+                  _amber600,
+                  icon: Icons.dashboard,
+                ),
+              ],
+            ),
+            _buildTreeNode(
+              'SliverLogicalParentData',
+              _green700,
+              icon: Icons.view_stream,
+              children: [
+                _buildTreeNode(
+                  'SliverLogicalContainerParentData',
+                  _green500,
+                  icon: Icons.list,
+                ),
+              ],
+            ),
+            _buildTreeNode(
+              'SliverPhysicalParentData',
+              _red700,
+              icon: Icons.straighten,
+              children: [
+                _buildTreeNode(
+                  'SliverPhysicalContainerParentData',
+                  _red500,
+                  icon: Icons.grid_view,
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+      Container(
+        margin: EdgeInsets.only(bottom: 16),
+        decoration: BoxDecoration(
+          color: _white,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: _grey300),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(
+              padding: EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: _indigo50,
+                borderRadius: BorderRadius.vertical(top: Radius.circular(11)),
+              ),
+              child: Text(
+                'ParentData Properties by Type',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  color: _indigo800,
+                ),
+              ),
+            ),
+            _buildPropertyRow('ParentData', 'base', 'detach() method only'),
+            _buildPropertyRow('BoxParentData', 'Offset', 'offset for painting position'),
+            _buildPropertyRow('Container...', 'T?, T?', 'previousSibling, nextSibling'),
+            _buildPropertyRow('FlexParentData', 'int, FlexFit', 'flex factor and fit mode'),
+            _buildPropertyRow('StackParentData', 'double?*6', 'left, top, right, bottom, width, height'),
+            _buildPropertyRow('SliverLogical...', 'double', 'layoutOffset for scroll position'),
+            _buildPropertyRow('SliverPhysical...', 'Offset', 'paintOffset for painting'),
+          ],
+        ),
+      ),
+      _buildCodeBlock(
+        'BoxParentData Definition',
+        '''class BoxParentData extends ParentData {
+  // Offset at which to paint the child
+  Offset offset = Offset.zero;
+  
+  @override
+  String toString() => 
+    'offset=\\\$offset';
+}''',
+        _teal700,
+      ),
+      _buildCodeBlock(
+        'ContainerParentDataMixin',
+        '''mixin ContainerParentDataMixin<T extends RenderObject> 
+    on ParentData {
+  // Previous sibling in parent's child list
+  T? previousSibling;
+  
+  // Next sibling in parent's child list  
+  T? nextSibling;
+}
+
+// Combined type for box containers
+class ContainerBoxParentData<T extends RenderBox>
+    extends BoxParentData 
+    with ContainerParentDataMixin<T> { }''',
+        _amber700,
+      ),
+    ],
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// SECTION 4: STACK AND POSITIONED EXAMPLES
+// ═══════════════════════════════════════════════════════════════════════════════
+
+Widget _buildStackExamplesSection() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      _buildSectionTitle('Stack/Positioned Usage', Icons.layers, _amber700),
+      _buildInfoCard(
+        'StackParentData Overview',
+        'StackParentData extends ContainerBoxParentData and adds positioning '
+        'constraints: left, top, right, bottom, width, and height. The Positioned '
+        'widget is a ParentDataWidget that sets these values on StackParentData.',
+        Icons.dashboard,
+        _amber600,
+      ),
+      _buildCodeBlock(
+        'StackParentData Structure',
+        '''class StackParentData 
+    extends ContainerBoxParentData<RenderBox> {
+  // Positioning constraints
+  double? top;
+  double? right;
+  double? bottom;
+  double? left;
+  double? width;
+  double? height;
+  
+  // Check if positioned
+  bool get isPositioned =>
+    top != null || right != null ||
+    bottom != null || left != null ||
+    width != null || height != null;
+    
+  // Get positioning rect
+  RelativeRect get rect => RelativeRect.fromLTRB(
+    left ?? 0, top ?? 0, right ?? 0, bottom ?? 0
+  );
+}''',
+        _amber700,
+      ),
+      _buildDiagramContainer(
+        'Stack Layout Example',
+        Container(
+          height: 250,
+          decoration: BoxDecoration(
+            color: _grey100,
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: _grey400),
+          ),
+          child: Stack(
+            children: [
+              Container(
+                margin: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: _indigo100,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Center(
+                  child: Text(
+                    'Non-positioned\n(fills stack)',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: _indigo700, fontSize: 12),
+                  ),
+                ),
+              ),
+              Positioned(
+                left: 20,
+                top: 20,
+                child: Container(
+                  width: 80,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: _teal400,
+                    borderRadius: BorderRadius.circular(8),
+                    boxShadow: [
+                      BoxShadow(
+                        color: _teal700.withAlpha(60),
+                        blurRadius: 4,
+                        offset: Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: Center(
+                    child: Text(
+                      'left:20\ntop:20',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: _white, fontSize: 10),
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                right: 20,
+                top: 20,
+                width: 80,
+                height: 50,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: _amber500,
+                    borderRadius: BorderRadius.circular(8),
+                    boxShadow: [
+                      BoxShadow(
+                        color: _amber700.withAlpha(60),
+                        blurRadius: 4,
+                        offset: Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: Center(
+                    child: Text(
+                      'right:20\ntop:20',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: _white, fontSize: 10),
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                left: 40,
+                right: 40,
+                bottom: 20,
+                height: 60,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: _red500,
+                    borderRadius: BorderRadius.circular(8),
+                    boxShadow: [
+                      BoxShadow(
+                        color: _red700.withAlpha(60),
+                        blurRadius: 4,
+                        offset: Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: Center(
+                    child: Text(
+                      'left:40, right:40, bottom:20',
+                      style: TextStyle(color: _white, fontSize: 11),
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                left: 100,
+                top: 90,
+                child: Container(
+                  width: 100,
+                  height: 60,
+                  decoration: BoxDecoration(
+                    color: _green500,
+                    borderRadius: BorderRadius.circular(8),
+                    boxShadow: [
+                      BoxShadow(
+                        color: _green700.withAlpha(60),
+                        blurRadius: 4,
+                        offset: Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: Center(
+                    child: Text(
+                      'left:100\ntop:90',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: _white, fontSize: 10),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      _buildCodeBlock(
+        'Positioned Widget Usage',
+        '''Stack(
+  children: [
+    // Non-positioned child fills available space
+    Container(color: Colors.grey),
+    
+    // Positioned from top-left
+    Positioned(
+      left: 20,
+      top: 20,
+      child: Box(size: 80),
+    ),
+    
+    // Positioned with explicit size
+    Positioned(
+      right: 20,
+      top: 20,
+      width: 80,
+      height: 50,
+      child: Box(),
+    ),
+    
+    // Stretched horizontally
+    Positioned(
+      left: 40,
+      right: 40,
+      bottom: 20,
+      height: 60,
+      child: Box(),
+    ),
+  ],
+)''',
+        _amber700,
+      ),
+      _buildAsciiDiagram('''
+Stack Layout Algorithm:
+1. Non-positioned children given loose constraints
+2. Stack sizes itself based on constraints + children
+3. Positioned children sized based on positioning:
+   
+   left + right specified:
+     width = stackWidth - left - right
+   
+   left + width specified:
+     positioned at left, sized to width
+   
+   right + width specified:
+     positioned at stackWidth - right - width
+   
+   only left specified:
+     positioned at left, child intrinsic width
+     
+4. Child offset stored in parentData.offset
+'''),
+      _buildInfoCard(
+        'Positioned.fill Shorthand',
+        'The Positioned.fill constructor creates a child that fills the Stack '
+        'by setting left, top, right, and bottom all to 0.0. This is useful for '
+        'background layers or overlay content that should cover the entire Stack.',
+        Icons.fullscreen,
+        _teal600,
+      ),
+    ],
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// SECTION 5: FLEX LAYOUT DEMOS
+// ═══════════════════════════════════════════════════════════════════════════════
+
+Widget _buildFlexLayoutSection() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      _buildSectionTitle('Flex Layout Demos', Icons.view_column, _green700),
+      _buildInfoCard(
+        'FlexParentData Overview',
+        'FlexParentData extends ContainerBoxParentData and adds flex and fit '
+        'properties. The flex value determines how much of the remaining space '
+        'a child receives, while fit determines whether the child must fill '
+        'that space (tight) or can be smaller (loose).',
+        Icons.tune,
+        _green600,
+      ),
+      _buildCodeBlock(
+        'FlexParentData Structure',
+        '''class FlexParentData 
+    extends ContainerBoxParentData<RenderBox> {
+  // Flex factor (0 = inflexible)
+  int flex = 0;
+  
+  // How child fills allocated space
+  FlexFit fit = FlexFit.tight;
+}
+
+enum FlexFit {
+  // Child MUST fill allocated space
+  tight,
+  
+  // Child CAN be smaller than allocated
+  loose,
+}''',
+        _green700,
+      ),
+      _buildDiagramContainer(
+        'Row with Flexible Children',
+        Column(
+          children: [
+            Container(
+              height: 80,
+              decoration: BoxDecoration(
+                color: _grey100,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: _grey400),
+              ),
+              child: Row(
                 children: [
                   Container(
-                    width: 50,
-                    height: 60,
+                    width: 60,
+                    margin: EdgeInsets.all(4),
                     decoration: BoxDecoration(
-                      color: _primaryMedium,
+                      color: _indigo400,
                       borderRadius: BorderRadius.circular(6),
                     ),
                     child: Center(
                       child: Text(
-                        'Fixed\n50px',
+                        'Fixed\n60px',
                         textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.white, fontSize: 10),
+                        style: TextStyle(color: _white, fontSize: 10),
                       ),
                     ),
                   ),
-                  SizedBox(width: 8),
                   Flexible(
                     flex: 1,
                     child: Container(
-                      height: 60,
+                      margin: EdgeInsets.all(4),
                       decoration: BoxDecoration(
-                        color: _accentLight,
+                        color: _teal400,
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: Center(
                         child: Text(
                           'flex: 1',
-                          style: TextStyle(color: Colors.white, fontSize: 12),
+                          style: TextStyle(color: _white, fontSize: 11),
                         ),
                       ),
                     ),
                   ),
-                  SizedBox(width: 8),
                   Flexible(
                     flex: 2,
                     child: Container(
-                      height: 60,
+                      margin: EdgeInsets.all(4),
                       decoration: BoxDecoration(
-                        color: _successLight,
+                        color: _amber500,
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: Center(
                         child: Text(
                           'flex: 2',
-                          style: TextStyle(color: Colors.white, fontSize: 12),
+                          style: TextStyle(color: _white, fontSize: 11),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Flexible(
+                    flex: 1,
+                    child: Container(
+                      margin: EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        color: _red400,
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'flex: 1',
+                          style: TextStyle(color: _white, fontSize: 11),
                         ),
                       ),
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 8),
-              Text(
-                'flex:2 gets 2x the space of flex:1',
-                style: TextStyle(fontSize: 11, color: _textSecondary),
-              ),
-            ],
-          ),
+            ),
+            SizedBox(height: 8),
+            Row(
+              children: [
+                _buildHighlightBox('Total flex: 4', _grey700),
+                SizedBox(width: 8),
+                _buildHighlightBox('Space per flex = remaining / 4', _green600),
+              ],
+            ),
+          ],
         ),
+      ),
+      _buildAsciiDiagram('''
+Flex Layout Algorithm:
 
-        _buildCodeDisplay('FlexParentData Structure', '''
-class FlexParentData 
-    extends ContainerBoxParentData<RenderBox> {
-  
-  int flex = 0;
-  FlexFit fit = FlexFit.tight;
-}
+Phase 1: Measure inflexible children (flex == 0)
+┌────────────────────────────────────────────────────┐
+│  [Fixed 60px]                 (remaining space)   │
+└────────────────────────────────────────────────────┘
 
-// Usage via Flexible/Expanded
+Phase 2: Calculate free space
+  totalWidth = 300px
+  fixedWidth = 60px  
+  freeSpace = 300 - 60 = 240px
+  totalFlex = 1 + 2 + 1 = 4
+  spacePerFlex = 240 / 4 = 60px
+
+Phase 3: Allocate to flexible children
+┌────────┬────────────┬────────────────────────┬────────────┐
+│ Fixed  │  flex:1    │       flex:2           │   flex:1   │
+│  60px  │   60px     │       120px            │    60px    │
+└────────┴────────────┴────────────────────────┴────────────┘
+'''),
+      _buildDiagramContainer(
+        'FlexFit.tight vs FlexFit.loose',
+        Column(
+          children: [
+            Container(
+              margin: EdgeInsets.only(bottom: 8),
+              child: Row(
+                children: [
+                  Text('FlexFit.tight:', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                ],
+              ),
+            ),
+            Container(
+              height: 60,
+              decoration: BoxDecoration(
+                color: _grey100,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: _grey400),
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      margin: EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        color: _green500,
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'FILLS allocated space',
+                          style: TextStyle(color: _white, fontSize: 11),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 16),
+            Container(
+              margin: EdgeInsets.only(bottom: 8),
+              child: Row(
+                children: [
+                  Text('FlexFit.loose:', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                ],
+              ),
+            ),
+            Container(
+              height: 60,
+              decoration: BoxDecoration(
+                color: _grey100,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: _grey400),
+              ),
+              child: Row(
+                children: [
+                  Flexible(
+                    fit: FlexFit.loose,
+                    child: Container(
+                      width: 120,
+                      margin: EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        color: _amber500,
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Can be smaller',
+                          style: TextStyle(color: _white, fontSize: 11),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Spacer(),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+      _buildCodeBlock(
+        'Expanded vs Flexible',
+        '''// Expanded = Flexible with FlexFit.tight
+Row(
+  children: [
+    Expanded(
+      flex: 2,
+      child: Container(color: Colors.red),
+    ),
+    Expanded(
+      flex: 1, 
+      child: Container(color: Colors.blue),
+    ),
+  ],
+)
+
+// Flexible can use loose fit
 Row(
   children: [
     Flexible(
       flex: 1,
       fit: FlexFit.loose,
-      child: ...,
-    ),
-    Expanded(  // flex:1, fit:tight
-      flex: 2,
-      child: ...,
+      child: Text('Can shrink to fit'),
     ),
   ],
-)''', _successDark),
+)''',
+        _green700,
+      ),
+      _buildInfoCard(
+        'MainAxisSize Interaction',
+        'When a Flex (Row/Column) has MainAxisSize.min, it shrinks to fit its '
+        'children. Flexible children with loose fit will be given their intrinsic '
+        'size rather than filling remaining space. This interaction between '
+        'MainAxisSize and FlexFit is important for responsive layouts.',
+        Icons.compress,
+        _teal600,
+      ),
+    ],
+  );
+}
 
-        // Section 6: detach() visualization
-        _buildSectionHeader(
-          'detach() Method',
-          Icons.link_off,
-          _accentDark,
+// ═══════════════════════════════════════════════════════════════════════════════
+// SECTION 6: CUSTOM PARENT DATA CONCEPTS
+// ═══════════════════════════════════════════════════════════════════════════════
+
+Widget _buildCustomParentDataSection() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      _buildSectionTitle('Custom ParentData Concepts', Icons.build_circle, _indigo600),
+      _buildInfoCard(
+        'Creating Custom ParentData',
+        'You can create custom ParentData classes for specialized layout needs. '
+        'This involves defining the ParentData class, creating a ParentDataWidget '
+        'to set values, and implementing a custom RenderObject that uses the data.',
+        Icons.architecture,
+        _indigo500,
+      ),
+      _buildCodeBlock(
+        'Custom ParentData Example',
+        '''// Step 1: Define custom ParentData
+class PriorityParentData 
+    extends ContainerBoxParentData<RenderBox> {
+  int priority = 0;
+  bool visible = true;
+  double opacity = 1.0;
+}
+
+// Step 2: Create ParentDataWidget
+class PriorityBox extends ParentDataWidget<PriorityParentData> {
+  PriorityBox({
+    required Widget child,
+    this.priority = 0,
+    this.visible = true,
+    this.opacity = 1.0,
+  }) : super(child: child);
+  
+  final int priority;
+  final bool visible;
+  final double opacity;
+  
+  @override
+  void applyParentData(RenderObject renderObject) {
+    final data = 
+      renderObject.parentData as PriorityParentData;
+    
+    bool needsLayout = false;
+    bool needsPaint = false;
+    
+    if (data.priority != priority) {
+      data.priority = priority;
+      needsLayout = true;
+    }
+    if (data.visible != visible) {
+      data.visible = visible;
+      needsLayout = true;
+    }
+    if (data.opacity != opacity) {
+      data.opacity = opacity;
+      needsPaint = true;
+    }
+    
+    final parent = renderObject.parent;
+    if (parent != null && needsLayout) {
+      parent.markNeedsLayout();
+    }
+    if (parent != null && needsPaint) {
+      parent.markNeedsPaint();
+    }
+  }
+  
+  @override
+  Type get debugTypicalAncestorWidgetClass => 
+    PriorityStack;
+}''',
+        _indigo700,
+      ),
+      _buildCodeBlock(
+        'Custom RenderObject Using ParentData',
+        '''// Step 3: RenderObject that uses custom ParentData
+class RenderPriorityStack extends RenderBox
+    with ContainerRenderObjectMixin<RenderBox, 
+         PriorityParentData>,
+         RenderBoxContainerDefaultsMixin<RenderBox,
+         PriorityParentData> {
+  
+  @override
+  void setupParentData(RenderBox child) {
+    if (child.parentData is! PriorityParentData) {
+      child.parentData = PriorityParentData();
+    }
+  }
+  
+  @override
+  void performLayout() {
+    // Sort children by priority
+    List<RenderBox> children = [];
+    RenderBox? child = firstChild;
+    while (child != null) {
+      children.add(child);
+      final data = 
+        child.parentData as PriorityParentData;
+      child = data.nextSibling;
+    }
+    
+    children.sort((a, b) {
+      final dataA = 
+        a.parentData as PriorityParentData;
+      final dataB = 
+        b.parentData as PriorityParentData;
+      return dataA.priority.compareTo(dataB.priority);
+    });
+    
+    // Layout children in priority order
+    // ... layout logic using priority data
+  }
+  
+  @override
+  void paint(PaintingContext context, Offset offset) {
+    RenderBox? child = firstChild;
+    while (child != null) {
+      final data = 
+        child.parentData as PriorityParentData;
+      
+      if (data.visible) {
+        if (data.opacity < 1.0) {
+          context.pushOpacity(
+            offset + data.offset,
+            (data.opacity * 255).round(),
+            (ctx, off) => ctx.paintChild(child!, off),
+          );
+        } else {
+          context.paintChild(child, offset + data.offset);
+        }
+      }
+      
+      child = data.nextSibling;
+    }
+  }
+}''',
+        _teal700,
+      ),
+      _buildDiagramContainer(
+        'Custom ParentData Pattern',
+        _buildAsciiDiagram('''
+┌─────────────────────────────────────────────────────┐
+│              PriorityStack (Widget)                 │
+│                        │                            │
+│                        ▼                            │
+│           RenderPriorityStack                       │
+│           (calls setupParentData)                   │
+│                        │                            │
+│     ┌──────────────────┼──────────────────┐        │
+│     ▼                  ▼                  ▼        │
+│  PriorityBox       PriorityBox        PriorityBox  │
+│  priority:1        priority:3         priority:2   │
+│     │                  │                  │        │
+│     ▼                  ▼                  ▼        │
+│  RenderBox          RenderBox          RenderBox   │
+│  .parentData:       .parentData:       .parentData:│
+│  PriorityParent..   PriorityParent..   PriorityP.. │
+│  {priority:1}       {priority:3}       {priority:2}│
+└─────────────────────────────────────────────────────┘
+
+Layout order: priority 1 → priority 2 → priority 3
+'''),
+      ),
+      _buildInfoCard(
+        'Key Implementation Points',
+        '• Override setupParentData() to create your ParentData type\n'
+        '• ParentDataWidget.applyParentData() sets values on render objects\n'
+        '• Call markNeedsLayout() when layout-affecting data changes\n'
+        '• Call markNeedsPaint() when paint-only data changes\n'
+        '• Use debugTypicalAncestorWidgetClass for error messages',
+        Icons.lightbulb,
+        _amber600,
+      ),
+      _buildCodeBlock(
+        'ParentDataWidget Validation',
+        '''// Good practice: validate parent type
+class PriorityBox extends ParentDataWidget<PriorityParentData> {
+  // ...
+  
+  @override
+  bool debugIsValidAncestor(RenderObjectWidget ancestor) {
+    // Only valid as child of PriorityStack
+    return ancestor is PriorityStack;
+  }
+  
+  @override
+  Type get debugTypicalAncestorWidgetClass => PriorityStack;
+}
+
+// Usage:
+PriorityStack(
+  children: [
+    PriorityBox(
+      priority: 1,
+      child: Text('First'),
+    ),
+    PriorityBox(
+      priority: 2,
+      visible: false,
+      child: Text('Hidden'),
+    ),
+  ],
+)''',
+        _green700,
+      ),
+    ],
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// MAIN BUILD FUNCTION
+// ═══════════════════════════════════════════════════════════════════════════════
+
+dynamic build(BuildContext context) {
+  print('ParentData Deep Demo - Comprehensive Rendering Test');
+  print('=' * 60);
+
+  // Section 1: Overview
+  print('\n[SECTION 1] ParentData Overview');
+  print('-' * 50);
+  print('ParentData is the base class for render object parent data.');
+  print('Key points:');
+  print('  - Attached to child via setupParentData()');
+  print('  - Contains layout information for the parent');
+  print('  - Provides detach() for cleanup');
+  print('  - Extended by BoxParentData, SliverParentData, etc.');
+
+  // Section 2: detach() method
+  print('\n[SECTION 2] detach() Method');
+  print('-' * 50);
+  print('detach() is called when child is removed from parent:');
+  print('  1. Parent calls dropChild(child)');
+  print('  2. Sibling links updated (for container parent data)');
+  print('  3. child.parentData.detach() invoked');
+  print('  4. References cleared for garbage collection');
+
+  // Create ParentData instances for testing
+  ParentData baseParentData = ParentData();
+  print('\nParentData instance created:');
+  print('  runtimeType: ' + baseParentData.runtimeType.toString());
+  print('  toString: ' + baseParentData.toString());
+
+  BoxParentData boxParentData = BoxParentData();
+  boxParentData.offset = Offset(50.0, 75.0);
+  print('\nBoxParentData instance:');
+  print('  offset: ' + boxParentData.offset.toString());
+  print('  offset.dx: ' + boxParentData.offset.dx.toString());
+  print('  offset.dy: ' + boxParentData.offset.dy.toString());
+
+  // Section 3: Hierarchy
+  print('\n[SECTION 3] Rendering Layer Hierarchy');
+  print('-' * 50);
+  print('ParentData type hierarchy:');
+  print('  ParentData');
+  print('    ├── BoxParentData (offset)');
+  print('    │     └── ContainerBoxParentData');
+  print('    │           ├── FlexParentData (flex, fit)');
+  print('    │           ├── StackParentData (positioning)');
+  print('    │           ├── FlowParentData');
+  print('    │           └── WrapParentData');
+  print('    ├── SliverLogicalParentData');
+  print('    └── SliverPhysicalParentData');
+
+  // Section 4: Stack/Positioned
+  print('\n[SECTION 4] Stack/Positioned Usage');
+  print('-' * 50);
+  print('StackParentData properties:');
+  print('  - left, top, right, bottom: positioning');
+  print('  - width, height: explicit sizing');
+  print('  - isPositioned: true if any set');
+  print('  - rect: RelativeRect from values');
+
+  // Section 5: Flex layout
+  print('\n[SECTION 5] Flex Layout');
+  print('-' * 50);
+  print('FlexParentData properties:');
+  print('  - flex: int, how much free space to take');
+  print('  - fit: FlexFit.tight or FlexFit.loose');
+  print('FlexFit values:');
+  print('  - tight: child MUST fill allocated space');
+  print('  - loose: child CAN be smaller');
+
+  // Section 6: Custom ParentData
+  print('\n[SECTION 6] Custom ParentData');
+  print('-' * 50);
+  print('Creating custom ParentData:');
+  print('  1. Define ParentData subclass');
+  print('  2. Create ParentDataWidget');
+  print('  3. Implement RenderObject with setupParentData');
+  print('  4. Use ParentData in layout/paint');
+
+  print('\n' + '=' * 60);
+  print('ParentData Deep Demo completed successfully');
+
+  return SingleChildScrollView(
+    padding: EdgeInsets.all(16),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        _buildMainHeader(
+          'ParentData',
+          'Base class for render object parent data',
+          Icons.data_object,
         ),
-
-        _buildInfoBox(
-          'When detach() is called',
-          'The detach() method is called when a child is removed from its parent. '
-              'It cleans up resources and severs sibling links. This allows the '
-              'removed child to be garbage collected properly.',
-          Icons.delete_sweep,
-          _accentDark,
-        ),
-
-        _buildDiagramBox(
-          'detach() Lifecycle',
-          _buildAsciiDiagram('''
-  BEFORE: A ←→ B ←→ C ←→ D
-          │              │
-  parent.remove(B) called
-          │              │
-  DURING: B.parentData.detach()
-          - Clean up B references
-          - Update: A.next = C
-          - Update: C.prev = A
-          │              │
-  AFTER:  A ←────→ C ←→ D
-          
-          B (orphaned, eligible for GC)'''),
-        ),
-
-        // Summary Table
-        _buildSectionHeader(
-          'ParentData Types Summary',
-          Icons.table_chart_outlined,
-          _primaryDark,
-        ),
-
+        _buildOverviewSection(),
+        _buildDetachSection(),
+        _buildHierarchySection(),
+        _buildStackExamplesSection(),
+        _buildFlexLayoutSection(),
+        _buildCustomParentDataSection(),
+        SizedBox(height: 32),
         Container(
+          padding: EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: _primaryPale),
+            color: _grey100,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: _grey300),
           ),
           child: Column(
             children: [
-              Container(
-                padding: EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: _primaryDark,
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(11)),
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: Text(
-                        'Type',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 13,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 3,
-                      child: Text(
-                        'Properties',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 13,
-                        ),
-                      ),
-                    ),
-                  ],
+              Icon(Icons.check_circle, color: _green600, size: 48),
+              SizedBox(height: 12),
+              Text(
+                'Demo Complete',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: _grey800,
                 ),
               ),
-              _buildTableRow('BoxParentData', 'offset: Offset', false),
-              _buildTableRow('StackParentData', 'left, top, right, bottom, width, height', true),
-              _buildTableRow('FlexParentData', 'flex: int, fit: FlexFit', false),
-              _buildTableRow('FlowParentData', 'offset (delegate-controlled)', true),
-              _buildTableRow('WrapParentData', 'offset, runIndex', false),
-              _buildTableRow('TableCellParentData', 'verticalAlignment', true),
-              _buildTableRow('SliverLogicalParentData', 'layoutOffset', false),
-              _buildTableRow('SliverPhysicalParentData', 'paintOffset', true),
-            ],
-          ),
-        ),
-
-        SizedBox(height: 24),
-
-        // Footer
-        Container(
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: _successPale,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: _successMedium),
-          ),
-          child: Row(
-            children: [
-              Icon(Icons.check_circle, color: _successDark, size: 24),
-              SizedBox(width: 12),
-              Expanded(
-                child: Text(
-                  'ParentData demo completed. Covered: concept, type hierarchy, '
-                      'BoxParentData, StackParentData, FlexParentData, and detach().',
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: _successDark,
-                  ),
+              SizedBox(height: 8),
+              Text(
+                'All ParentData concepts demonstrated successfully',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: _grey600,
                 ),
+                textAlign: TextAlign.center,
               ),
             ],
           ),
         ),
+        SizedBox(height: 32),
       ],
     ),
   );

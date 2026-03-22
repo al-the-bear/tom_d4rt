@@ -1,33 +1,23 @@
 // D4rt deep demo script: GranularlyExtendSelectionEvent
+// Granular text selection extension event for Flutter rendering system
 //
-// GranularlyExtendSelectionEvent is a selection event from Flutter's rendering
-// library. It extends text selection using text granularity units like character,
-// word, line, or paragraph. This event is typically dispatched when users use
-// platform-specific keyboard shortcuts to extend selection by word or line.
-//
-// Key properties demonstrated:
-//   - isEnd: whether to extend the end (true) or start (false) of selection
-//   - forward: direction of extension (true = forward, false = backward)
-//   - granularity: TextGranularity (character, word, line, paragraph, document)
-//
-// Sections covered in this demo:
-//   1. GranularlyExtendSelectionEvent overview
-//   2. isEnd property behavior
-//   3. forward property (direction)
-//   4. granularity (character/word/line/paragraph)
-//   5. Visual selection demo
-//   6. Event creation examples
+// Sections:
+//   1. Selection event overview
+//   2. TextGranularity values (character, word, line, document)
+//   3. Forward/backward directions
+//   4. Visual selection demos
+//   5. Granularity comparison grid
 //
 // ═══════════════════════════════════════════════════════════════════════════
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 // ═══════════════════════════════════════════════════════════════════════════
-// COLOR PALETTE - Teal Selection Theme
+// COLOR PALETTE - Selection Event Theme
 // ═══════════════════════════════════════════════════════════════════════════
 
 var _kTeal50 = Color(0xFFE0F2F1);
-var _kTeal100 = Color(0xFFB2DFDB);
 var _kTeal300 = Color(0xFF4DB6AC);
 var _kTeal500 = Color(0xFF009688);
 var _kTeal600 = Color(0xFF00897B);
@@ -36,14 +26,28 @@ var _kTeal800 = Color(0xFF00695C);
 var _kTeal900 = Color(0xFF004D40);
 
 var _kCyan400 = Color(0xFF26C6DA);
-var _kCyan500 = Color(0xFF00BCD4);
 var _kCyan600 = Color(0xFF00ACC1);
-var _kCyan700 = Color(0xFF0097A7);
 
+var _kBlue400 = Color(0xFF42A5F5);
 var _kBlue500 = Color(0xFF2196F3);
 var _kBlue600 = Color(0xFF1E88E5);
 var _kBlue700 = Color(0xFF1976D2);
-var _kBlue800 = Color(0xFF1565C0);
+
+var _kIndigo400 = Color(0xFF5C6BC0);
+var _kIndigo500 = Color(0xFF3F51B5);
+var _kIndigo600 = Color(0xFF3949AB);
+
+var _kPurple400 = Color(0xFFAB47BC);
+var _kPurple500 = Color(0xFF9C27B0);
+var _kPurple600 = Color(0xFF8E24AA);
+
+var _kDeepPurple400 = Color(0xFF7E57C2);
+var _kDeepPurple500 = Color(0xFF673AB7);
+
+var _kGreen400 = Color(0xFF66BB6A);
+var _kGreen500 = Color(0xFF4CAF50);
+var _kGreen600 = Color(0xFF43A047);
+var _kGreen700 = Color(0xFF388E3C);
 
 var _kAmber400 = Color(0xFFFFCA28);
 var _kAmber500 = Color(0xFFFFC107);
@@ -53,28 +57,20 @@ var _kOrange400 = Color(0xFFFFA726);
 var _kOrange500 = Color(0xFFFF9800);
 var _kOrange600 = Color(0xFFFB8C00);
 
-var _kGreen400 = Color(0xFF66BB6A);
-var _kGreen500 = Color(0xFF4CAF50);
-var _kGreen600 = Color(0xFF43A047);
-var _kGreen700 = Color(0xFF388E3C);
-
-var _kRed400 = Color(0xFFEF5350);
 var _kRed500 = Color(0xFFF44336);
 
-var _kPurple400 = Color(0xFFAB47BC);
-var _kPurple500 = Color(0xFF9C27B0);
-var _kPurple600 = Color(0xFF8E24AA);
+var _kGrey200 = Color(0xFFEEEEEE);
+var _kGrey300 = Color(0xFFE0E0E0);
+var _kGrey600 = Color(0xFF757575);
+var _kGrey700 = Color(0xFF616161);
+var _kGrey800 = Color(0xFF424242);
 
-var _kIndigo400 = Color(0xFF5C6BC0);
-var _kIndigo500 = Color(0xFF3F51B5);
-var _kIndigo600 = Color(0xFF3949AB);
-
-var _kSurface = Color(0xFFE0F2F1);
+var _kSurface = Color(0xFFF0F4F8);
 var _kCardBg = Color(0xFFFFFFFF);
-var _kCodeBg = Color(0xFF263238);
+var _kCodeBg = Color(0xFF1E1E1E);
 
 // ═══════════════════════════════════════════════════════════════════════════
-// HELPER WIDGETS - Section Headers and Cards
+// HELPER WIDGETS - Building Blocks
 // ═══════════════════════════════════════════════════════════════════════════
 
 Widget _buildSectionHeader(String title, IconData icon, Color startColor, Color endColor) {
@@ -201,7 +197,7 @@ Widget _buildPropertyRow(String label, String value, IconData icon, Color iconCo
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
-                  color: _kTeal900,
+                  color: _kGrey800,
                 ),
               ),
               SizedBox(height: 2),
@@ -209,7 +205,7 @@ Widget _buildPropertyRow(String label, String value, IconData icon, Color iconCo
                 value,
                 style: TextStyle(
                   fontSize: 12,
-                  color: _kTeal700.withAlpha(200),
+                  color: _kGrey600,
                   fontFamily: 'monospace',
                 ),
               ),
@@ -217,6 +213,26 @@ Widget _buildPropertyRow(String label, String value, IconData icon, Color iconCo
           ),
         ),
       ],
+    ),
+  );
+}
+
+Widget _buildCodeBlock(String code) {
+  return Container(
+    width: double.infinity,
+    padding: EdgeInsets.all(14),
+    decoration: BoxDecoration(
+      color: _kCodeBg,
+      borderRadius: BorderRadius.circular(10),
+    ),
+    child: Text(
+      code,
+      style: TextStyle(
+        fontSize: 12,
+        color: Color(0xFF80CBC4),
+        fontFamily: 'monospace',
+        height: 1.5,
+      ),
     ),
   );
 }
@@ -261,34 +277,151 @@ Widget _buildGranularityBadge(String name, String description, Color color, Icon
   );
 }
 
-Widget _buildCodeBlock(String code) {
+Widget _buildTagChip(String text, Color color) {
   return Container(
-    width: double.infinity,
-    padding: EdgeInsets.all(14),
+    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
     decoration: BoxDecoration(
-      color: _kCodeBg,
-      borderRadius: BorderRadius.circular(10),
+      color: color.withAlpha(25),
+      borderRadius: BorderRadius.circular(16),
+      border: Border.all(color: color),
     ),
     child: Text(
-      code,
+      text,
       style: TextStyle(
-        fontSize: 12,
-        color: Color(0xFF80CBC4),
-        fontFamily: 'monospace',
-        height: 1.5,
+        fontSize: 11,
+        fontWeight: FontWeight.bold,
+        color: color,
       ),
+    ),
+  );
+}
+
+Widget _buildDirectionCard(String direction, String desc, IconData icon, Color color, bool isForward) {
+  return Container(
+    padding: EdgeInsets.all(16),
+    decoration: BoxDecoration(
+      color: color.withAlpha(20),
+      borderRadius: BorderRadius.circular(12),
+      border: Border.all(color: color, width: 2),
+    ),
+    child: Column(
+      children: [
+        Icon(icon, color: color, size: 32),
+        SizedBox(height: 8),
+        Text(
+          direction,
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            color: color,
+          ),
+        ),
+        SizedBox(height: 4),
+        Text(
+          desc,
+          style: TextStyle(fontSize: 11, color: _kGrey700),
+          textAlign: TextAlign.center,
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildSelectionVisualization(
+  String text,
+  int selectionStart,
+  int selectionEnd,
+  String label,
+  Color highlightColor,
+  IconData directionIcon,
+  String directionText,
+  Color directionColor,
+) {
+  var characters = text.split('');
+  return Container(
+    margin: EdgeInsets.only(bottom: 14),
+    padding: EdgeInsets.all(14),
+    decoration: BoxDecoration(
+      color: _kSurface,
+      borderRadius: BorderRadius.circular(10),
+      border: Border.all(color: highlightColor.withAlpha(80)),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.bold,
+            color: _kGrey800,
+          ),
+        ),
+        SizedBox(height: 10),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              for (var idx = 0; idx < characters.length; idx++)
+                Container(
+                  width: 22,
+                  height: 28,
+                  margin: EdgeInsets.only(right: 3),
+                  decoration: BoxDecoration(
+                    color: (idx >= selectionStart && idx < selectionEnd)
+                        ? highlightColor.withAlpha(180)
+                        : Colors.white,
+                    borderRadius: BorderRadius.circular(4),
+                    border: Border.all(
+                      color: (idx >= selectionStart && idx < selectionEnd)
+                          ? highlightColor
+                          : _kGrey300,
+                      width: (idx >= selectionStart && idx < selectionEnd) ? 2 : 1,
+                    ),
+                  ),
+                  child: Center(
+                    child: Text(
+                      characters[idx],
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold,
+                        color: (idx >= selectionStart && idx < selectionEnd)
+                            ? Colors.white
+                            : _kGrey800,
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ),
+        SizedBox(height: 8),
+        Row(
+          children: [
+            Icon(directionIcon, color: directionColor, size: 18),
+            SizedBox(width: 6),
+            Text(
+              directionText,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.bold,
+                color: directionColor,
+              ),
+            ),
+          ],
+        ),
+      ],
     ),
   );
 }
 
 Widget _buildWordSelectionVisualization(
   String text,
-  List<int> wordBoundaries,
   int selectedWordStart,
   int selectedWordEnd,
-  bool isForward,
   String label,
   Color highlightColor,
+  bool isForward,
 ) {
   var words = text.split(' ');
   return Container(
@@ -307,7 +440,7 @@ Widget _buildWordSelectionVisualization(
           style: TextStyle(
             fontSize: 13,
             fontWeight: FontWeight.bold,
-            color: _kTeal800,
+            color: _kGrey800,
           ),
         ),
         SizedBox(height: 10),
@@ -327,7 +460,7 @@ Widget _buildWordSelectionVisualization(
                     border: Border.all(
                       color: (idx >= selectedWordStart && idx < selectedWordEnd)
                           ? highlightColor
-                          : _kTeal300,
+                          : _kGrey300,
                       width: (idx >= selectedWordStart && idx < selectedWordEnd) ? 2 : 1,
                     ),
                   ),
@@ -338,7 +471,7 @@ Widget _buildWordSelectionVisualization(
                       fontWeight: FontWeight.bold,
                       color: (idx >= selectedWordStart && idx < selectedWordEnd)
                           ? Colors.white
-                          : _kTeal900,
+                          : _kGrey800,
                     ),
                   ),
                 ),
@@ -369,103 +502,13 @@ Widget _buildWordSelectionVisualization(
   );
 }
 
-Widget _buildCharacterSelectionVisualization(
-  String text,
-  int selectionStart,
-  int selectionEnd,
-  bool isForward,
-  String label,
-  Color highlightColor,
-) {
-  var characters = text.split('');
-  return Container(
-    margin: EdgeInsets.only(bottom: 14),
-    padding: EdgeInsets.all(14),
-    decoration: BoxDecoration(
-      color: _kSurface,
-      borderRadius: BorderRadius.circular(10),
-      border: Border.all(color: highlightColor.withAlpha(80)),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.bold,
-            color: _kTeal800,
-          ),
-        ),
-        SizedBox(height: 10),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              for (var idx = 0; idx < characters.length; idx++)
-                Container(
-                  width: 22,
-                  height: 28,
-                  margin: EdgeInsets.only(right: 3),
-                  decoration: BoxDecoration(
-                    color: (idx >= selectionStart && idx < selectionEnd)
-                        ? highlightColor.withAlpha(180)
-                        : Colors.white,
-                    borderRadius: BorderRadius.circular(4),
-                    border: Border.all(
-                      color: (idx >= selectionStart && idx < selectionEnd)
-                          ? highlightColor
-                          : _kTeal300,
-                      width: (idx >= selectionStart && idx < selectionEnd) ? 2 : 1,
-                    ),
-                  ),
-                  child: Center(
-                    child: Text(
-                      characters[idx],
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.bold,
-                        color: (idx >= selectionStart && idx < selectionEnd)
-                            ? Colors.white
-                            : _kTeal900,
-                      ),
-                    ),
-                  ),
-                ),
-            ],
-          ),
-        ),
-        SizedBox(height: 8),
-        Row(
-          children: [
-            Icon(
-              isForward ? Icons.arrow_forward : Icons.arrow_back,
-              color: isForward ? _kGreen500 : _kOrange500,
-              size: 18,
-            ),
-            SizedBox(width: 6),
-            Text(
-              isForward ? 'Forward Direction' : 'Backward Direction',
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.bold,
-                color: isForward ? _kGreen500 : _kOrange500,
-              ),
-            ),
-          ],
-        ),
-      ],
-    ),
-  );
-}
-
 Widget _buildLineSelectionVisualization(
   List<String> lines,
   int selectedLineStart,
   int selectedLineEnd,
-  bool isForward,
   String label,
   Color highlightColor,
+  bool isForward,
 ) {
   return Container(
     margin: EdgeInsets.only(bottom: 14),
@@ -483,7 +526,7 @@ Widget _buildLineSelectionVisualization(
           style: TextStyle(
             fontSize: 13,
             fontWeight: FontWeight.bold,
-            color: _kTeal800,
+            color: _kGrey800,
           ),
         ),
         SizedBox(height: 10),
@@ -503,7 +546,7 @@ Widget _buildLineSelectionVisualization(
                   border: Border.all(
                     color: (idx >= selectedLineStart && idx < selectedLineEnd)
                         ? highlightColor
-                        : _kTeal300,
+                        : _kGrey300,
                     width: (idx >= selectedLineStart && idx < selectedLineEnd) ? 2 : 1,
                   ),
                 ),
@@ -515,7 +558,7 @@ Widget _buildLineSelectionVisualization(
                       decoration: BoxDecoration(
                         color: (idx >= selectedLineStart && idx < selectedLineEnd)
                             ? Colors.white.withAlpha(60)
-                            : _kTeal100,
+                            : _kGrey200,
                         borderRadius: BorderRadius.circular(4),
                       ),
                       child: Center(
@@ -526,7 +569,7 @@ Widget _buildLineSelectionVisualization(
                             fontWeight: FontWeight.bold,
                             color: (idx >= selectedLineStart && idx < selectedLineEnd)
                                 ? Colors.white
-                                : _kTeal700,
+                                : _kGrey600,
                           ),
                         ),
                       ),
@@ -540,7 +583,7 @@ Widget _buildLineSelectionVisualization(
                           fontWeight: FontWeight.w500,
                           color: (idx >= selectedLineStart && idx < selectedLineEnd)
                               ? Colors.white
-                              : _kTeal900,
+                              : _kGrey800,
                           fontFamily: 'monospace',
                         ),
                       ),
@@ -574,90 +617,37 @@ Widget _buildLineSelectionVisualization(
   );
 }
 
-Widget _buildComparisonRow(String eventType, String purpose, Color accentColor) {
+Widget _buildComparisonGridCell(String granularity, String unit, String shortcut, Color color) {
   return Container(
-    margin: EdgeInsets.only(bottom: 10),
-    padding: EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-    decoration: BoxDecoration(
-      color: accentColor.withAlpha(15),
-      borderRadius: BorderRadius.circular(10),
-      border: Border.all(color: accentColor.withAlpha(50)),
-    ),
-    child: Row(
-      children: [
-        Container(
-          width: 10,
-          height: 10,
-          decoration: BoxDecoration(
-            color: accentColor,
-            shape: BoxShape.circle,
-          ),
-        ),
-        SizedBox(width: 12),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                eventType,
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold,
-                  color: accentColor,
-                ),
-              ),
-              Text(
-                purpose,
-                style: TextStyle(
-                  fontSize: 11,
-                  color: Colors.black87,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildKeyboardShortcutRow(String keys, String action, IconData arrowIcon, Color color) {
-  return Container(
-    margin: EdgeInsets.only(bottom: 8),
     padding: EdgeInsets.all(12),
     decoration: BoxDecoration(
-      color: color.withAlpha(12),
+      color: color.withAlpha(15),
       borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: color.withAlpha(40)),
+      border: Border.all(color: color.withAlpha(60)),
     ),
-    child: Row(
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-          decoration: BoxDecoration(
-            color: _kTeal800,
-            borderRadius: BorderRadius.circular(6),
-          ),
-          child: Text(
-            keys,
-            style: TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-              fontFamily: 'monospace',
-            ),
+        Text(
+          granularity,
+          style: TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.bold,
+            color: color,
           ),
         ),
-        SizedBox(width: 12),
-        Icon(arrowIcon, color: color, size: 20),
-        SizedBox(width: 8),
-        Expanded(
-          child: Text(
-            action,
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.black87,
-            ),
+        SizedBox(height: 4),
+        Text(
+          'Unit: $unit',
+          style: TextStyle(fontSize: 11, color: _kGrey700),
+        ),
+        SizedBox(height: 2),
+        Text(
+          shortcut,
+          style: TextStyle(
+            fontSize: 10,
+            color: _kGrey600,
+            fontFamily: 'monospace',
           ),
         ),
       ],
@@ -665,27 +655,8 @@ Widget _buildKeyboardShortcutRow(String keys, String action, IconData arrowIcon,
   );
 }
 
-Widget _buildTagChip(String text, Color color) {
-  return Container(
-    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-    decoration: BoxDecoration(
-      color: color.withAlpha(25),
-      borderRadius: BorderRadius.circular(16),
-      border: Border.all(color: color),
-    ),
-    child: Text(
-      text,
-      style: TextStyle(
-        fontSize: 11,
-        fontWeight: FontWeight.bold,
-        color: color,
-      ),
-    ),
-  );
-}
-
-Widget _buildGranularityCard(
-  String granularityName,
+Widget _buildGranularityDetailCard(
+  String name,
   String description,
   String example,
   IconData icon,
@@ -717,7 +688,7 @@ Widget _buildGranularityCard(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                granularityName,
+                name,
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
@@ -729,7 +700,7 @@ Widget _buildGranularityCard(
                 description,
                 style: TextStyle(
                   fontSize: 12,
-                  color: Colors.black87,
+                  color: _kGrey700,
                   height: 1.4,
                 ),
               ),
@@ -746,7 +717,7 @@ Widget _buildGranularityCard(
                   style: TextStyle(
                     fontSize: 11,
                     fontFamily: 'monospace',
-                    color: _kTeal900,
+                    color: _kGrey800,
                   ),
                 ),
               ),
@@ -766,143 +737,120 @@ dynamic build(BuildContext context) {
   print('GranularlyExtendSelectionEvent deep demo executing');
   print('=' * 70);
 
-  // Create sample event instances for demonstration
-  var characterForwardEvent = GranularlyExtendSelectionEvent(
+  // Create event instances for demonstration
+  var charForward = GranularlyExtendSelectionEvent(
     isEnd: true,
     forward: true,
     granularity: TextGranularity.character,
   );
 
-  var wordForwardEvent = GranularlyExtendSelectionEvent(
+  var wordForward = GranularlyExtendSelectionEvent(
     isEnd: true,
     forward: true,
     granularity: TextGranularity.word,
   );
 
-  var lineForwardEvent = GranularlyExtendSelectionEvent(
+  var lineForward = GranularlyExtendSelectionEvent(
     isEnd: true,
     forward: true,
     granularity: TextGranularity.line,
   );
 
-  var paragraphForwardEvent = GranularlyExtendSelectionEvent(
-    isEnd: true,
-    forward: true,
-    granularity: TextGranularity.paragraph,
-  );
-
-  var wordBackwardEvent = GranularlyExtendSelectionEvent(
-    isEnd: false,
-    forward: false,
-    granularity: TextGranularity.word,
-  );
-
-  var documentEvent = GranularlyExtendSelectionEvent(
+  var documentForward = GranularlyExtendSelectionEvent(
     isEnd: true,
     forward: true,
     granularity: TextGranularity.document,
   );
 
-  // Section 1: GranularlyExtendSelectionEvent Overview
-  print('\n[SECTION 1] GranularlyExtendSelectionEvent Overview');
+  var wordBackward = GranularlyExtendSelectionEvent(
+    isEnd: false,
+    forward: false,
+    granularity: TextGranularity.word,
+  );
+
+  var paragraphBackward = GranularlyExtendSelectionEvent(
+    isEnd: false,
+    forward: false,
+    granularity: TextGranularity.paragraph,
+  );
+
+  // Section 1: Selection Event Overview
+  print('\n[SECTION 1] Selection Event Overview');
   print('-' * 60);
-  print('GranularlyExtendSelectionEvent extends text selection');
+  print('GranularlyExtendSelectionEvent is a selection event class');
+  print('from Flutter rendering library that extends text selection');
   print('using text granularity units (character, word, line, etc.).');
-  print('This event is dispatched when platform-specific shortcuts');
-  print('are used to extend selection by word, line, or paragraph.');
-  print('Common triggers: Option+Shift+Arrow (macOS), Ctrl+Shift+Arrow (Windows).');
+  print('It is typically triggered by platform keyboard shortcuts:');
+  print('  - macOS: Option+Shift+Arrow (word), Cmd+Shift+Arrow (line)');
+  print('  - Windows/Linux: Ctrl+Shift+Arrow (word)');
+  print('Event type: ${charForward.type}');
+  print('Class hierarchy: extends SelectionEvent');
 
-  // Section 2: isEnd Property Behavior
-  print('\n[SECTION 2] isEnd Property Behavior');
+  // Section 2: TextGranularity Values
+  print('\n[SECTION 2] TextGranularity Values');
   print('-' * 60);
-  print('isEnd determines which selection boundary is moved:');
-  print('  - isEnd=true: Extends the end (right/bottom) boundary');
-  print('  - isEnd=false: Extends the start (left/top) boundary');
-  print('Example with word forward event:');
-  print('  wordForwardEvent.isEnd = ${wordForwardEvent.isEnd}');
-  print('Example with word backward event:');
-  print('  wordBackwardEvent.isEnd = ${wordBackwardEvent.isEnd}');
-
-  // Section 3: forward Property (Direction)
-  print('\n[SECTION 3] forward Property (Direction)');
-  print('-' * 60);
-  print('forward property specifies the direction of extension:');
-  print('  - forward=true: Extends toward the end of text');
-  print('  - forward=false: Extends toward the start of text');
-  print('Word forward event: forward = ${wordForwardEvent.forward}');
-  print('Word backward event: forward = ${wordBackwardEvent.forward}');
-  print('Character forward event: forward = ${characterForwardEvent.forward}');
-
-  // Section 4: granularity (character/word/line/paragraph)
-  print('\n[SECTION 4] Granularity (TextGranularity Enum)');
-  print('-' * 60);
-  print('TextGranularity enum values:');
+  print('TextGranularity enum defines the unit of selection extension:');
   for (var gran in TextGranularity.values) {
-    print('  - $gran');
+    print('  - ${gran.name} (index: ${gran.index})');
   }
-  print('Total granularity values: ${TextGranularity.values.length}');
-  print('Character event granularity: ${characterForwardEvent.granularity}');
-  print('Word event granularity: ${wordForwardEvent.granularity}');
-  print('Line event granularity: ${lineForwardEvent.granularity}');
-  print('Paragraph event granularity: ${paragraphForwardEvent.granularity}');
-  print('Document event granularity: ${documentEvent.granularity}');
+  print('Total values: ${TextGranularity.values.length}');
+  print('Character event: ${charForward.granularity}');
+  print('Word event: ${wordForward.granularity}');
+  print('Line event: ${lineForward.granularity}');
+  print('Document event: ${documentForward.granularity}');
+  print('Paragraph event: ${paragraphBackward.granularity}');
 
-  // Section 5: Visual Selection Demo
-  print('\n[SECTION 5] Visual Selection Demo');
+  // Section 3: Forward/Backward Directions
+  print('\n[SECTION 3] Forward/Backward Directions');
   print('-' * 60);
-  print('Text: "The quick brown fox jumps over"');
-  print('Character granularity: extends one character at a time');
-  print('Word granularity: extends one word at a time');
-  print('Line granularity: extends to line boundary');
-  print('Paragraph granularity: extends to paragraph boundary');
-  print('Document granularity: extends to document boundary');
+  print('forward property determines extension direction:');
+  print('  - forward=true: extends toward end of text');
+  print('  - forward=false: extends toward start of text');
+  print('isEnd property determines which boundary moves:');
+  print('  - isEnd=true: moves the end boundary');
+  print('  - isEnd=false: moves the start boundary');
+  print('Word forward event: forward=${wordForward.forward}, isEnd=${wordForward.isEnd}');
+  print('Word backward event: forward=${wordBackward.forward}, isEnd=${wordBackward.isEnd}');
 
-  // Section 6: Event Creation Examples
-  print('\n[SECTION 6] Event Creation Examples');
+  // Section 4: Visual Selection Demos
+  print('\n[SECTION 4] Visual Selection Demos');
   print('-' * 60);
-  print('Character Forward Event:');
-  print('  isEnd: ${characterForwardEvent.isEnd}');
-  print('  forward: ${characterForwardEvent.forward}');
-  print('  granularity: ${characterForwardEvent.granularity}');
-  print('  type: ${characterForwardEvent.type}');
-  print('Word Forward Event:');
-  print('  isEnd: ${wordForwardEvent.isEnd}');
-  print('  forward: ${wordForwardEvent.forward}');
-  print('  granularity: ${wordForwardEvent.granularity}');
-  print('  type: ${wordForwardEvent.type}');
-  print('Line Forward Event:');
-  print('  isEnd: ${lineForwardEvent.isEnd}');
-  print('  forward: ${lineForwardEvent.forward}');
-  print('  granularity: ${lineForwardEvent.granularity}');
-  print('Paragraph Forward Event:');
-  print('  isEnd: ${paragraphForwardEvent.isEnd}');
-  print('  forward: ${paragraphForwardEvent.forward}');
-  print('  granularity: ${paragraphForwardEvent.granularity}');
-  print('Document Event:');
-  print('  isEnd: ${documentEvent.isEnd}');
-  print('  forward: ${documentEvent.forward}');
-  print('  granularity: ${documentEvent.granularity}');
+  print('Text: "The quick brown fox"');
+  print('Character selection: |T| -> |Th| -> |The|');
+  print('Word selection: |The| -> |The quick| -> |The quick brown|');
+  print('Line selection: |Line 1| -> |Line 1 Line 2|');
+  print('Document: Select all from cursor to document boundary');
 
-  // Event creation for different granularities
-  print('\n[ADDITIONAL] Creating Events with Different Granularities');
+  // Section 5: Granularity Comparison Grid
+  print('\n[SECTION 5] Granularity Comparison Grid');
   print('-' * 60);
-  var allGranularities = TextGranularity.values;
-  print('Available TextGranularity values: ${allGranularities.length}');
-  for (var gran in allGranularities) {
+  print('┌────────────┬──────────────────┬────────────────────────┐');
+  print('│ Granularity│ Unit             │ Platform Shortcut      │');
+  print('├────────────┼──────────────────┼────────────────────────┤');
+  print('│ character  │ Single character │ Shift+Arrow            │');
+  print('│ word       │ Whole word       │ Ctrl/Opt+Shift+Arrow   │');
+  print('│ line       │ Full line        │ Shift+Up/Down          │');
+  print('│ paragraph  │ Paragraph block  │ Ctrl+Shift+Up/Down     │');
+  print('│ document   │ Entire document  │ Cmd/Ctrl+Shift+End     │');
+  print('└────────────┴──────────────────┴────────────────────────┘');
+
+  // Additional event testing
+  print('\n[ADDITIONAL] Creating Events for All Granularities');
+  print('-' * 60);
+  for (var gran in TextGranularity.values) {
     var testEvent = GranularlyExtendSelectionEvent(
       isEnd: true,
       forward: true,
       granularity: gran,
     );
-    print('  Created event with granularity: ${testEvent.granularity}');
+    print('Created: ${testEvent.granularity} - forward=${testEvent.forward}');
   }
-  print('All granularity event types created successfully.');
 
-  print('\n' + '=' * 70);
+  print('\n${'=' * 70}');
   print('GranularlyExtendSelectionEvent deep demo completed');
   print('=' * 70);
 
-  // Build the visual UI representation
+  // Build the visual UI
   return SingleChildScrollView(
     padding: EdgeInsets.all(18),
     child: Column(
@@ -974,9 +922,11 @@ dynamic build(BuildContext context) {
         ),
         SizedBox(height: 28),
 
-        // Section 1: GranularlyExtendSelectionEvent Overview
+        // ═══════════════════════════════════════════════════════════════════
+        // SECTION 1: Selection Event Overview
+        // ═══════════════════════════════════════════════════════════════════
         _buildSectionHeader(
-          'GranularlyExtendSelectionEvent Overview',
+          'Selection Event Overview',
           Icons.info_outline,
           _kTeal800,
           _kTeal600,
@@ -987,18 +937,17 @@ dynamic build(BuildContext context) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'GranularlyExtendSelectionEvent is a selection event class from '
-                'Flutter\'s rendering library that extends the current text selection '
-                'using text granularity units. Unlike DirectionallyExtendSelectionEvent '
-                'which moves by single characters or lines, this event extends by '
-                'logical text units like words or paragraphs.',
-                style: TextStyle(fontSize: 13, color: Colors.black87, height: 1.5),
+                'GranularlyExtendSelectionEvent is a specialized selection event in '
+                'Flutter\'s rendering system for extending text selection by semantic '
+                'text units. Unlike DirectionallyExtendSelectionEvent which moves by '
+                'visual position, this event operates on logical text boundaries.',
+                style: TextStyle(fontSize: 13, color: _kGrey700, height: 1.5),
               ),
               SizedBox(height: 16),
               _buildPropertyRow(
-                'Class Hierarchy',
-                'extends SelectionEvent',
-                Icons.account_tree,
+                'Event Type',
+                'SelectionEventType.granularlyExtendSelection',
+                Icons.label,
                 _kTeal600,
               ),
               _buildPropertyRow(
@@ -1008,14 +957,14 @@ dynamic build(BuildContext context) {
                 _kCyan600,
               ),
               _buildPropertyRow(
-                'Primary Purpose',
-                'Granular selection extension',
-                Icons.text_fields,
+                'Class Hierarchy',
+                'extends SelectionEvent',
+                Icons.account_tree,
                 _kBlue500,
               ),
               _buildPropertyRow(
-                'Common Trigger',
-                'Ctrl/Option + Shift + Arrow Keys',
+                'Primary Use Case',
+                'Keyboard-driven selection extension',
                 Icons.keyboard,
                 _kGreen500,
               ),
@@ -1023,428 +972,288 @@ dynamic build(BuildContext context) {
           ),
         ),
         _buildInfoCard(
-          'Event Construction Parameters',
+          'Constructor Parameters',
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 'GranularlyExtendSelectionEvent requires three named parameters:',
-                style: TextStyle(fontSize: 12, color: Colors.black87),
+                style: TextStyle(fontSize: 12, color: _kGrey700),
               ),
               SizedBox(height: 12),
               _buildCodeBlock(
                 'GranularlyExtendSelectionEvent(\n'
-                '  isEnd: true,                    // which boundary\n'
-                '  forward: true,                  // direction\n'
-                '  granularity: TextGranularity.word,  // unit\n'
+                '  isEnd: true,                      // Which boundary to extend\n'
+                '  forward: true,                    // Direction of extension\n'
+                '  granularity: TextGranularity.word, // Unit of extension\n'
                 ')',
+              ),
+              SizedBox(height: 14),
+              _buildPropertyRow(
+                'isEnd (bool)',
+                'true = move end boundary, false = move start boundary',
+                Icons.compare_arrows,
+                _kPurple500,
+              ),
+              _buildPropertyRow(
+                'forward (bool)',
+                'true = toward text end, false = toward text start',
+                Icons.swap_horiz,
+                _kOrange500,
+              ),
+              _buildPropertyRow(
+                'granularity (TextGranularity)',
+                'character, word, line, paragraph, or document',
+                Icons.format_size,
+                _kIndigo500,
               ),
             ],
           ),
           borderColor: _kCyan600,
         ),
-        _buildInfoCard(
-          'Key Differences from DirectionallyExtendSelectionEvent',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildComparisonRow(
-                'DirectionallyExtendSelectionEvent',
-                'Uses direction enum (forward, backward, nextLine, previousLine) with dx position',
-                _kBlue500,
-              ),
-              _buildComparisonRow(
-                'GranularlyExtendSelectionEvent',
-                'Uses granularity enum (character, word, line, paragraph, document)',
-                _kTeal500,
-              ),
-              SizedBox(height: 12),
-              Text(
-                'GranularlyExtendSelectionEvent is ideal for semantic text navigation, '
-                'while DirectionallyExtendSelectionEvent is for positional navigation.',
-                style: TextStyle(fontSize: 12, color: Colors.black87, fontStyle: FontStyle.italic),
-              ),
-            ],
-          ),
-          borderColor: _kPurple500,
-        ),
 
-        // Section 2: isEnd Property
+        // ═══════════════════════════════════════════════════════════════════
+        // SECTION 2: TextGranularity Values
+        // ═══════════════════════════════════════════════════════════════════
         _buildSectionHeader(
-          'isEnd Property',
-          Icons.compare_arrows,
-          _kCyan700,
-          _kCyan500,
-        ),
-        _buildInfoCard(
-          'Understanding the isEnd Property',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'The isEnd property determines which boundary of the selection '
-                'will be extended when the event is processed. This allows '
-                'extending selection from either end.',
-                style: TextStyle(fontSize: 13, color: Colors.black87, height: 1.5),
-              ),
-              SizedBox(height: 16),
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: _kGreen500.withAlpha(20),
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: _kGreen500, width: 2),
-                      ),
-                      child: Column(
-                        children: [
-                          Icon(Icons.last_page, color: _kGreen500, size: 32),
-                          SizedBox(height: 8),
-                          Text(
-                            'isEnd = true',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: _kGreen500,
-                            ),
-                          ),
-                          SizedBox(height: 4),
-                          Text(
-                            'Extends the END boundary',
-                            style: TextStyle(fontSize: 11, color: Colors.black87),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 14),
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: _kOrange500.withAlpha(20),
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: _kOrange500, width: 2),
-                      ),
-                      child: Column(
-                        children: [
-                          Icon(Icons.first_page, color: _kOrange500, size: 32),
-                          SizedBox(height: 8),
-                          Text(
-                            'isEnd = false',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: _kOrange500,
-                            ),
-                          ),
-                          SizedBox(height: 4),
-                          Text(
-                            'Extends the START boundary',
-                            style: TextStyle(fontSize: 11, color: Colors.black87),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-        _buildInfoCard(
-          'isEnd with Word Granularity Example',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'When isEnd=true and extending forward by word, the end '
-                'boundary moves to include the next word:',
-                style: TextStyle(fontSize: 12, color: Colors.black87),
-              ),
-              SizedBox(height: 12),
-              _buildWordSelectionVisualization(
-                'The quick brown fox',
-                [0, 4, 10, 16],
-                0,
-                1,
-                true,
-                'Initial: "The" selected',
-                _kBlue500,
-              ),
-              _buildWordSelectionVisualization(
-                'The quick brown fox',
-                [0, 4, 10, 16],
-                0,
-                2,
-                true,
-                'After extend (isEnd=true): "The quick" selected',
-                _kBlue600,
-              ),
-              SizedBox(height: 8),
-              _buildCodeBlock(
-                'var event = GranularlyExtendSelectionEvent(\n'
-                '  isEnd: true,   // extend END boundary\n'
-                '  forward: true, // forward direction\n'
-                '  granularity: TextGranularity.word,\n'
-                ');',
-              ),
-            ],
-          ),
-          borderColor: _kBlue500,
-        ),
-
-        // Section 3: forward Property
-        _buildSectionHeader(
-          'forward Property',
-          Icons.swap_horiz,
-          _kGreen600,
-          _kGreen400,
-        ),
-        _buildInfoCard(
-          'Understanding the forward Property',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'The forward property (bool) specifies the direction in which '
-                'the selection should be extended. Unlike DirectionallyExtendSelectionEvent '
-                'which uses an enum, GranularlyExtendSelectionEvent uses a simple boolean.',
-                style: TextStyle(fontSize: 13, color: Colors.black87, height: 1.5),
-              ),
-              SizedBox(height: 16),
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: _kGreen500.withAlpha(20),
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: _kGreen500, width: 2),
-                      ),
-                      child: Column(
-                        children: [
-                          Icon(Icons.arrow_forward, color: _kGreen500, size: 32),
-                          SizedBox(height: 8),
-                          Text(
-                            'forward = true',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: _kGreen500,
-                            ),
-                          ),
-                          SizedBox(height: 4),
-                          Text(
-                            'Extends toward text end',
-                            style: TextStyle(fontSize: 11, color: Colors.black87),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 14),
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: _kOrange500.withAlpha(20),
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: _kOrange500, width: 2),
-                      ),
-                      child: Column(
-                        children: [
-                          Icon(Icons.arrow_back, color: _kOrange500, size: 32),
-                          SizedBox(height: 8),
-                          Text(
-                            'forward = false',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: _kOrange500,
-                            ),
-                          ),
-                          SizedBox(height: 4),
-                          Text(
-                            'Extends toward text start',
-                            style: TextStyle(fontSize: 11, color: Colors.black87),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-        _buildInfoCard(
-          'Forward vs Backward Extension',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Demonstrating forward and backward word extension:',
-                style: TextStyle(fontSize: 12, color: Colors.black87),
-              ),
-              SizedBox(height: 12),
-              _buildWordSelectionVisualization(
-                'Flutter is great',
-                [0, 8, 11],
-                1,
-                2,
-                true,
-                'Initial: "is" selected',
-                _kPurple500,
-              ),
-              _buildWordSelectionVisualization(
-                'Flutter is great',
-                [0, 8, 11],
-                1,
-                3,
-                true,
-                'Forward extend: "is great"',
-                _kGreen500,
-              ),
-              _buildWordSelectionVisualization(
-                'Flutter is great',
-                [0, 8, 11],
-                0,
-                2,
-                false,
-                'Backward extend: "Flutter is"',
-                _kOrange500,
-              ),
-            ],
-          ),
-          borderColor: _kPurple500,
-        ),
-
-        // Section 4: granularity (character/word/line/paragraph)
-        _buildSectionHeader(
-          'Granularity (character/word/line/paragraph)',
+          'TextGranularity Values',
           Icons.format_size,
           _kIndigo600,
           _kIndigo400,
         ),
         _buildInfoCard(
-          'TextGranularity Enum Values',
+          'TextGranularity Enum Overview',
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'The granularity property specifies the text unit for selection extension:',
-                style: TextStyle(fontSize: 13, color: Colors.black87),
+                'TextGranularity defines the semantic unit used for selection extension. '
+                'Each value represents a different level of text grouping:',
+                style: TextStyle(fontSize: 13, color: _kGrey700, height: 1.5),
               ),
               SizedBox(height: 16),
               Wrap(
                 children: [
-                  _buildGranularityBadge(
-                    'character',
-                    'Single char',
-                    _kBlue500,
-                    Icons.text_format,
-                  ),
-                  _buildGranularityBadge(
-                    'word',
-                    'Whole word',
-                    _kGreen500,
-                    Icons.short_text,
-                  ),
-                  _buildGranularityBadge(
-                    'line',
-                    'Full line',
-                    _kOrange500,
-                    Icons.notes,
-                  ),
-                  _buildGranularityBadge(
-                    'paragraph',
-                    'Paragraph',
-                    _kPurple500,
-                    Icons.format_align_left,
-                  ),
-                  _buildGranularityBadge(
-                    'document',
-                    'Entire doc',
-                    _kRed500,
-                    Icons.article,
-                  ),
+                  _buildGranularityBadge('character', 'Single char', _kBlue500, Icons.text_format),
+                  _buildGranularityBadge('word', 'Whole word', _kGreen500, Icons.short_text),
+                  _buildGranularityBadge('line', 'Full line', _kOrange500, Icons.notes),
+                  _buildGranularityBadge('paragraph', 'Paragraph', _kPurple500, Icons.format_align_left),
+                  _buildGranularityBadge('document', 'Entire doc', _kRed500, Icons.article),
                 ],
               ),
             ],
           ),
         ),
         _buildInfoCard(
-          'Character Granularity',
-          _buildGranularityCard(
-            'TextGranularity.character',
-            'Extends selection by one character at a time. This is the smallest '
-            'unit of text selection and behaves similarly to single arrow key navigation.',
-            'Text: "Hello" -> H|ello| -> Shift+Right -> He|llo|',
+          'TextGranularity.character',
+          _buildGranularityDetailCard(
+            'Character Granularity',
+            'Extends selection by one character at a time. This is the most precise '
+            'form of selection extension, similar to single arrow key navigation.',
+            'Text: "Hello" | Select "H" | Extend -> "He" | Extend -> "Hel"',
             Icons.text_format,
             _kBlue500,
           ),
           borderColor: _kBlue500,
         ),
         _buildInfoCard(
-          'Word Granularity',
-          _buildGranularityCard(
-            'TextGranularity.word',
-            'Extends selection by one word at a time. A word is typically defined '
-            'as a sequence of alphanumeric characters separated by whitespace or punctuation.',
-            'Text: "Hello World" -> |Hello| -> extend -> |Hello World|',
+          'TextGranularity.word',
+          _buildGranularityDetailCard(
+            'Word Granularity',
+            'Extends selection by one word at a time. A word is defined as alphanumeric '
+            'characters separated by whitespace or punctuation. Most common granularity.',
+            'Text: "Hello World" | Select "Hello" | Extend -> "Hello World"',
             Icons.short_text,
             _kGreen500,
           ),
           borderColor: _kGreen500,
         ),
         _buildInfoCard(
-          'Line Granularity',
-          _buildGranularityCard(
-            'TextGranularity.line',
+          'TextGranularity.line',
+          _buildGranularityDetailCard(
+            'Line Granularity',
             'Extends selection to include the entire current line or the next/previous '
-            'line boundary. Useful for selecting complete lines of text.',
-            'Line 1: "First line"\\nLine 2: "Second line"\\nSelect Line 1, extend -> Both lines',
+            'line boundary. Useful for selecting complete lines of code or text.',
+            'Line 1: "First" | Line 2: "Second" | Extend from Line 1 -> Both lines',
             Icons.notes,
             _kOrange500,
           ),
           borderColor: _kOrange500,
         ),
         _buildInfoCard(
-          'Paragraph Granularity',
-          _buildGranularityCard(
-            'TextGranularity.paragraph',
-            'Extends selection to include the entire paragraph. A paragraph is '
-            'typically defined as text separated by paragraph breaks (double newlines).',
-            'Para 1: "Intro text"\\n\\nPara 2: "Body text"\\nSelect Para 1, extend -> Both paras',
-            Icons.format_align_left,
-            _kPurple500,
-          ),
-          borderColor: _kPurple500,
-        ),
-        _buildInfoCard(
-          'Document Granularity',
-          _buildGranularityCard(
-            'TextGranularity.document',
-            'Extends selection to include the entire document. This is equivalent '
-            'to selecting all text from the current position to the document boundary.',
-            'Any position -> extend forward with document -> select to end of document',
+          'TextGranularity.document',
+          _buildGranularityDetailCard(
+            'Document Granularity',
+            'Extends selection from current position to document boundary. Forward extends '
+            'to document end, backward extends to document start. Maximum selection scope.',
+            'Any position -> Extend forward with document -> Select to document end',
             Icons.article,
             _kRed500,
           ),
           borderColor: _kRed500,
         ),
 
-        // Section 5: Visual Selection Demo
+        // ═══════════════════════════════════════════════════════════════════
+        // SECTION 3: Forward/Backward Directions
+        // ═══════════════════════════════════════════════════════════════════
         _buildSectionHeader(
-          'Visual Selection Demo',
+          'Forward/Backward Directions',
+          Icons.swap_horiz,
+          _kGreen700,
+          _kGreen500,
+        ),
+        _buildInfoCard(
+          'Direction Properties',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'The forward and isEnd properties work together to control '
+                'exactly how the selection is extended. Understanding their '
+                'interaction is key to predicting selection behavior.',
+                style: TextStyle(fontSize: 13, color: _kGrey700, height: 1.5),
+              ),
+              SizedBox(height: 16),
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildDirectionCard(
+                      'forward = true',
+                      'Extends toward text end',
+                      Icons.arrow_forward,
+                      _kGreen500,
+                      true,
+                    ),
+                  ),
+                  SizedBox(width: 14),
+                  Expanded(
+                    child: _buildDirectionCard(
+                      'forward = false',
+                      'Extends toward text start',
+                      Icons.arrow_back,
+                      _kOrange500,
+                      false,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        _buildInfoCard(
+          'isEnd Property Behavior',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'isEnd determines which selection boundary is moved during extension:',
+                style: TextStyle(fontSize: 12, color: _kGrey700),
+              ),
+              SizedBox(height: 14),
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildDirectionCard(
+                      'isEnd = true',
+                      'Move END boundary',
+                      Icons.last_page,
+                      _kBlue500,
+                      true,
+                    ),
+                  ),
+                  SizedBox(width: 14),
+                  Expanded(
+                    child: _buildDirectionCard(
+                      'isEnd = false',
+                      'Move START boundary',
+                      Icons.first_page,
+                      _kPurple500,
+                      false,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 14),
+              _buildCodeBlock(
+                '// Forward extend end (typical right arrow)\n'
+                'GranularlyExtendSelectionEvent(\n'
+                '  isEnd: true,    // move end marker\n'
+                '  forward: true,  // toward text end\n'
+                '  granularity: TextGranularity.word,\n'
+                ');\n\n'
+                '// Backward extend start (typical left arrow)\n'
+                'GranularlyExtendSelectionEvent(\n'
+                '  isEnd: false,   // move start marker\n'
+                '  forward: false, // toward text start\n'
+                '  granularity: TextGranularity.word,\n'
+                ');',
+              ),
+            ],
+          ),
+          borderColor: _kIndigo500,
+        ),
+        _buildInfoCard(
+          'Forward Selection Demo',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Extending selection forward by word granularity:',
+                style: TextStyle(fontSize: 12, color: _kGrey700),
+              ),
+              SizedBox(height: 12),
+              _buildWordSelectionVisualization(
+                'The quick brown fox jumps',
+                0, 1, 'Initial: "The" selected', _kBlue400, true,
+              ),
+              _buildWordSelectionVisualization(
+                'The quick brown fox jumps',
+                0, 2, 'After forward extend: "The quick"', _kBlue500, true,
+              ),
+              _buildWordSelectionVisualization(
+                'The quick brown fox jumps',
+                0, 3, 'Continue forward: "The quick brown"', _kBlue600, true,
+              ),
+              _buildWordSelectionVisualization(
+                'The quick brown fox jumps',
+                0, 5, 'Full forward: All words selected', _kBlue700, true,
+              ),
+            ],
+          ),
+          borderColor: _kGreen500,
+        ),
+        _buildInfoCard(
+          'Backward Selection Demo',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Extending selection backward by word granularity:',
+                style: TextStyle(fontSize: 12, color: _kGrey700),
+              ),
+              SizedBox(height: 12),
+              _buildWordSelectionVisualization(
+                'Start Middle End',
+                2, 3, 'Initial: "End" selected', _kOrange400, false,
+              ),
+              _buildWordSelectionVisualization(
+                'Start Middle End',
+                1, 3, 'After backward extend: "Middle End"', _kOrange500, false,
+              ),
+              _buildWordSelectionVisualization(
+                'Start Middle End',
+                0, 3, 'Full backward: "Start Middle End"', _kOrange600, false,
+              ),
+            ],
+          ),
+          borderColor: _kOrange500,
+        ),
+
+        // ═══════════════════════════════════════════════════════════════════
+        // SECTION 4: Visual Selection Demos
+        // ═══════════════════════════════════════════════════════════════════
+        _buildSectionHeader(
+          'Visual Selection Demos',
           Icons.visibility,
           _kAmber600,
           _kAmber400,
@@ -1455,41 +1264,29 @@ dynamic build(BuildContext context) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Demonstrating character granularity selection extension:',
-                style: TextStyle(fontSize: 12, color: Colors.black87),
+                'Character granularity extends one character at a time:',
+                style: TextStyle(fontSize: 12, color: _kGrey700),
               ),
               SizedBox(height: 12),
-              _buildCharacterSelectionVisualization(
+              _buildSelectionVisualization(
                 'Flutter Demo',
-                0,
-                3,
-                true,
-                'Step 1: "Flu" selected',
-                _kBlue500,
+                0, 3, 'Step 1: "Flu" selected', _kBlue400,
+                Icons.arrow_forward, 'character forward', _kGreen500,
               ),
-              _buildCharacterSelectionVisualization(
+              _buildSelectionVisualization(
                 'Flutter Demo',
-                0,
-                4,
-                true,
-                'Step 2: Character extend -> "Flut"',
-                _kBlue600,
+                0, 4, 'Step 2: Extend -> "Flut"', _kBlue500,
+                Icons.arrow_forward, 'character forward', _kGreen500,
               ),
-              _buildCharacterSelectionVisualization(
+              _buildSelectionVisualization(
                 'Flutter Demo',
-                0,
-                5,
-                true,
-                'Step 3: Character extend -> "Flutt"',
-                _kBlue700,
+                0, 5, 'Step 3: Extend -> "Flutt"', _kBlue600,
+                Icons.arrow_forward, 'character forward', _kGreen500,
               ),
-              _buildCharacterSelectionVisualization(
+              _buildSelectionVisualization(
                 'Flutter Demo',
-                0,
-                7,
-                true,
-                'Step 4: Full word "Flutter"',
-                _kBlue800,
+                0, 7, 'Step 4: Extend to word boundary "Flutter"', _kBlue700,
+                Icons.arrow_forward, 'character forward', _kGreen500,
               ),
             ],
           ),
@@ -1500,45 +1297,25 @@ dynamic build(BuildContext context) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Demonstrating word granularity selection extension:',
-                style: TextStyle(fontSize: 12, color: Colors.black87),
+                'Word granularity extends one complete word at a time:',
+                style: TextStyle(fontSize: 12, color: _kGrey700),
               ),
               SizedBox(height: 12),
               _buildWordSelectionVisualization(
-                'The quick brown fox jumps',
-                [0, 4, 10, 16, 20],
-                0,
-                1,
-                true,
-                'Step 1: "The" selected',
-                _kGreen400,
+                'The quick brown fox jumps over lazy dog',
+                0, 1, 'Initial: "The" selected', _kGreen400, true,
               ),
               _buildWordSelectionVisualization(
-                'The quick brown fox jumps',
-                [0, 4, 10, 16, 20],
-                0,
-                2,
-                true,
-                'Step 2: Word extend -> "The quick"',
-                _kGreen500,
+                'The quick brown fox jumps over lazy dog',
+                0, 2, 'Word extend: "The quick"', _kGreen500, true,
               ),
               _buildWordSelectionVisualization(
-                'The quick brown fox jumps',
-                [0, 4, 10, 16, 20],
-                0,
-                3,
-                true,
-                'Step 3: Word extend -> "The quick brown"',
-                _kGreen600,
+                'The quick brown fox jumps over lazy dog',
+                0, 4, 'Two more: "The quick brown fox"', _kGreen600, true,
               ),
               _buildWordSelectionVisualization(
-                'The quick brown fox jumps',
-                [0, 4, 10, 16, 20],
-                0,
-                5,
-                true,
-                'Step 4: All words selected',
-                _kGreen700,
+                'The quick brown fox jumps over lazy dog',
+                0, 8, 'All words selected', _kGreen700, true,
               ),
             ],
           ),
@@ -1550,239 +1327,175 @@ dynamic build(BuildContext context) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Demonstrating line granularity selection extension:',
-                style: TextStyle(fontSize: 12, color: Colors.black87),
+                'Line granularity extends to include entire lines:',
+                style: TextStyle(fontSize: 12, color: _kGrey700),
               ),
               SizedBox(height: 12),
               _buildLineSelectionVisualization(
-                ['First line of text', 'Second line here', 'Third line follows', 'Fourth and final'],
-                0,
-                1,
-                true,
-                'Step 1: Line 1 selected',
-                _kOrange400,
+                ['First line of code', 'Second line here', 'Third line follows', 'Fourth and final'],
+                0, 1, 'Initial: Line 1 selected', _kOrange400, true,
               ),
               _buildLineSelectionVisualization(
-                ['First line of text', 'Second line here', 'Third line follows', 'Fourth and final'],
-                0,
-                2,
-                true,
-                'Step 2: Line extend -> Lines 1-2',
-                _kOrange500,
+                ['First line of code', 'Second line here', 'Third line follows', 'Fourth and final'],
+                0, 2, 'Line extend: Lines 1-2', _kOrange500, true,
               ),
               _buildLineSelectionVisualization(
-                ['First line of text', 'Second line here', 'Third line follows', 'Fourth and final'],
-                0,
-                4,
-                true,
-                'Step 3: All lines selected',
-                _kOrange600,
+                ['First line of code', 'Second line here', 'Third line follows', 'Fourth and final'],
+                0, 4, 'All lines selected', _kOrange600, true,
               ),
             ],
           ),
           borderColor: _kOrange500,
         ),
         _buildInfoCard(
-          'Backward Selection',
+          'Mixed Direction Selection',
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Demonstrating backward selection with isEnd=false:',
-                style: TextStyle(fontSize: 12, color: Colors.black87),
+                'Combining forward and backward extension:',
+                style: TextStyle(fontSize: 12, color: _kGrey700),
               ),
               SizedBox(height: 12),
               _buildWordSelectionVisualization(
-                'Start Middle End',
-                [0, 6, 13],
-                2,
-                3,
-                false,
-                'Initial: "End" selected',
-                _kPurple400,
+                'One Two Three Four Five',
+                2, 3, 'Initial: "Three" selected (middle)', _kPurple400, true,
               ),
               _buildWordSelectionVisualization(
-                'Start Middle End',
-                [0, 6, 13],
-                1,
-                3,
-                false,
-                'Backward extend: "Middle End"',
-                _kPurple500,
+                'One Two Three Four Five',
+                2, 4, 'Forward extend: "Three Four"', _kGreen500, true,
               ),
               _buildWordSelectionVisualization(
-                'Start Middle End',
-                [0, 6, 13],
-                0,
-                3,
-                false,
-                'Backward extend: "Start Middle End"',
-                _kPurple600,
+                'One Two Three Four Five',
+                1, 4, 'Backward extend: "Two Three Four"', _kOrange500, false,
               ),
-              SizedBox(height: 8),
-              _buildCodeBlock(
-                '// Backward selection event\n'
-                'var event = GranularlyExtendSelectionEvent(\n'
-                '  isEnd: false,  // extend START boundary\n'
-                '  forward: false, // backward direction\n'
-                '  granularity: TextGranularity.word,\n'
-                ');',
+              _buildWordSelectionVisualization(
+                'One Two Three Four Five',
+                0, 5, 'Both directions: All selected', _kPurple600, true,
               ),
             ],
           ),
           borderColor: _kPurple500,
         ),
 
-        // Section 6: Event Creation Examples
+        // ═══════════════════════════════════════════════════════════════════
+        // SECTION 5: Granularity Comparison Grid
+        // ═══════════════════════════════════════════════════════════════════
         _buildSectionHeader(
-          'Event Creation Examples',
-          Icons.code,
-          _kRed500,
-          _kRed400,
+          'Granularity Comparison Grid',
+          Icons.grid_on,
+          _kDeepPurple500,
+          _kDeepPurple400,
         ),
         _buildInfoCard(
-          'Parameter Reference Table',
+          'Granularity Summary Table',
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildPropertyRow(
-                'isEnd (bool)',
-                'true = extend end, false = extend start',
-                Icons.compare_arrows,
-                _kTeal600,
+              Text(
+                'Quick reference for all TextGranularity values and their behavior:',
+                style: TextStyle(fontSize: 12, color: _kGrey700),
               ),
-              _buildPropertyRow(
-                'forward (bool)',
-                'true = toward end, false = toward start',
-                Icons.swap_horiz,
-                _kGreen600,
-              ),
-              _buildPropertyRow(
-                'granularity (enum)',
-                'TextGranularity value',
-                Icons.format_size,
-                _kOrange600,
+              SizedBox(height: 16),
+              GridView.count(
+                crossAxisCount: 2,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10,
+                childAspectRatio: 2.0,
+                children: [
+                  _buildComparisonGridCell('character', 'Single char', 'Shift+Arrow', _kBlue500),
+                  _buildComparisonGridCell('word', 'Whole word', 'Ctrl+Shift+Arrow', _kGreen500),
+                  _buildComparisonGridCell('line', 'Full line', 'Shift+Up/Down', _kOrange500),
+                  _buildComparisonGridCell('document', 'Entire doc', 'Cmd+Shift+End', _kRed500),
+                ],
               ),
             ],
           ),
         ),
         _buildInfoCard(
-          'Keyboard Shortcuts Mapping',
+          'Platform Keyboard Shortcuts',
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Common keyboard shortcuts and their corresponding '
-                'GranularlyExtendSelectionEvent parameters:',
-                style: TextStyle(fontSize: 12, color: Colors.black87),
+                'Common keyboard shortcuts that trigger GranularlyExtendSelectionEvent:',
+                style: TextStyle(fontSize: 12, color: _kGrey700),
               ),
               SizedBox(height: 14),
-              _buildKeyboardShortcutRow(
-                'Ctrl+Shift+Right',
-                'forward: true, granularity: word (Windows/Linux)',
+              _buildPropertyRow(
+                'Word Forward (macOS)',
+                'Option + Shift + Right Arrow',
                 Icons.arrow_forward,
                 _kGreen500,
               ),
-              _buildKeyboardShortcutRow(
-                'Option+Shift+Right',
-                'forward: true, granularity: word (macOS)',
+              _buildPropertyRow(
+                'Word Forward (Windows/Linux)',
+                'Ctrl + Shift + Right Arrow',
                 Icons.arrow_forward,
-                _kGreen500,
+                _kGreen600,
               ),
-              _buildKeyboardShortcutRow(
-                'Ctrl+Shift+Left',
-                'forward: false, granularity: word (Windows/Linux)',
+              _buildPropertyRow(
+                'Word Backward (macOS)',
+                'Option + Shift + Left Arrow',
                 Icons.arrow_back,
                 _kOrange500,
               ),
-              _buildKeyboardShortcutRow(
-                'Option+Shift+Left',
-                'forward: false, granularity: word (macOS)',
+              _buildPropertyRow(
+                'Word Backward (Windows/Linux)',
+                'Ctrl + Shift + Left Arrow',
                 Icons.arrow_back,
-                _kOrange500,
+                _kOrange600,
               ),
-              _buildKeyboardShortcutRow(
-                'Cmd+Shift+Down',
-                'forward: true, granularity: document (macOS)',
+              _buildPropertyRow(
+                'Document End (macOS)',
+                'Cmd + Shift + Down Arrow',
                 Icons.arrow_downward,
                 _kPurple500,
               ),
-              _buildKeyboardShortcutRow(
-                'Cmd+Shift+Up',
-                'forward: false, granularity: document (macOS)',
+              _buildPropertyRow(
+                'Document Start (macOS)',
+                'Cmd + Shift + Up Arrow',
                 Icons.arrow_upward,
-                _kPurple500,
+                _kPurple600,
               ),
             ],
           ),
           borderColor: _kAmber500,
         ),
         _buildInfoCard(
-          'Complete Code Examples',
+          'Complete Event Creation Examples',
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Creating and using GranularlyExtendSelectionEvent:',
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold,
-                  color: _kTeal800,
-                ),
+                'Creating events for all granularity types:',
+                style: TextStyle(fontSize: 12, color: _kGrey700),
               ),
               SizedBox(height: 12),
               _buildCodeBlock(
-                '// Example 1: Word Selection Forward\n'
+                '// Character forward\n'
+                'var charEvent = GranularlyExtendSelectionEvent(\n'
+                '  isEnd: true, forward: true,\n'
+                '  granularity: TextGranularity.character,\n'
+                ');\n'
+                'print(charEvent.type); // granularlyExtendSelection\n\n'
+                '// Word forward\n'
                 'var wordEvent = GranularlyExtendSelectionEvent(\n'
-                '  isEnd: true,\n'
-                '  forward: true,\n'
+                '  isEnd: true, forward: true,\n'
                 '  granularity: TextGranularity.word,\n'
-                ');\n'
-                'print(wordEvent.isEnd);       // true\n'
-                'print(wordEvent.forward);     // true\n'
-                'print(wordEvent.granularity); // TextGranularity.word\n'
-                'print(wordEvent.type);        // granularlyExtendSelection',
-              ),
-              SizedBox(height: 14),
-              _buildCodeBlock(
-                '// Example 2: Line Selection Backward\n'
+                ');\n\n'
+                '// Line backward\n'
                 'var lineEvent = GranularlyExtendSelectionEvent(\n'
-                '  isEnd: false,\n'
-                '  forward: false,\n'
+                '  isEnd: false, forward: false,\n'
                 '  granularity: TextGranularity.line,\n'
-                ');\n'
-                'print(lineEvent.isEnd);       // false\n'
-                'print(lineEvent.forward);     // false\n'
-                'print(lineEvent.granularity); // TextGranularity.line',
-              ),
-              SizedBox(height: 14),
-              _buildCodeBlock(
-                '// Example 3: Using copyWith\n'
-                'var modified = wordEvent.copyWith(\n'
-                '  granularity: TextGranularity.paragraph,\n'
-                ');\n'
-                'print(modified.granularity); // TextGranularity.paragraph\n'
-                'print(modified.forward);     // true (preserved)\n'
-                'print(modified.isEnd);       // true (preserved)',
-              ),
-              SizedBox(height: 14),
-              _buildCodeBlock(
-                '// Example 4: All Granularities\n'
-                'var granularities = [\n'
-                '  TextGranularity.character,\n'
-                '  TextGranularity.word,\n'
-                '  TextGranularity.line,\n'
-                '  TextGranularity.paragraph,\n'
-                '  TextGranularity.document,\n'
-                '];\n'
-                'for (var gran in granularities) {\n'
-                '  var event = GranularlyExtendSelectionEvent(\n'
-                '    isEnd: true,\n'
-                '    forward: true,\n'
-                '    granularity: gran,\n'
-                '  );\n'
-                '  print(event.granularity);\n'
-                '}',
+                ');\n\n'
+                '// Document forward\n'
+                'var docEvent = GranularlyExtendSelectionEvent(\n'
+                '  isEnd: true, forward: true,\n'
+                '  granularity: TextGranularity.document,\n'
+                ');',
               ),
             ],
           ),
@@ -1794,8 +1507,8 @@ dynamic build(BuildContext context) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Every SelectionEvent has a type property for identification:',
-                style: TextStyle(fontSize: 12, color: Colors.black87),
+                'All GranularlyExtendSelectionEvent instances have the same type:',
+                style: TextStyle(fontSize: 12, color: _kGrey700),
               ),
               SizedBox(height: 12),
               _buildCodeBlock(
@@ -1805,57 +1518,63 @@ dynamic build(BuildContext context) {
                 '  granularity: TextGranularity.word,\n'
                 ');\n\n'
                 'print(event.type);\n'
-                '// Output: SelectionEventType.granularlyExtendSelection',
-              ),
-              SizedBox(height: 12),
-              _buildComparisonRow(
-                'SelectionEventType.granularlyExtendSelection',
-                'Identifies this event type in event handlers',
-                _kTeal600,
+                '// Output: SelectionEventType.granularlyExtendSelection\n\n'
+                '// Can be used in event handlers\n'
+                'switch (event.type) {\n'
+                '  case SelectionEventType.granularlyExtendSelection:\n'
+                '    handleGranularExtend(event);\n'
+                '    break;\n'
+                '  // other cases...\n'
+                '}',
               ),
             ],
           ),
           borderColor: _kIndigo500,
         ),
         _buildInfoCard(
-          'Selection Event Class Hierarchy',
+          'Selection Event Family',
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'GranularlyExtendSelectionEvent is one of several selection '
-                'event types extending the abstract SelectionEvent base class:',
-                style: TextStyle(fontSize: 13, color: Colors.black87, height: 1.5),
+                'GranularlyExtendSelectionEvent is part of the SelectionEvent hierarchy:',
+                style: TextStyle(fontSize: 13, color: _kGrey700, height: 1.5),
               ),
               SizedBox(height: 16),
-              _buildComparisonRow(
+              _buildPropertyRow(
                 'SelectionEvent',
                 'Abstract base class for all selection events',
+                Icons.account_tree,
                 _kBlue600,
               ),
-              _buildComparisonRow(
+              _buildPropertyRow(
                 'GranularlyExtendSelectionEvent',
-                'Granular extension (word, line, paragraph)',
+                'Granular text unit extension',
+                Icons.format_size,
                 _kTeal500,
               ),
-              _buildComparisonRow(
+              _buildPropertyRow(
                 'DirectionallyExtendSelectionEvent',
-                'Directional extension (arrow keys)',
+                'Arrow key directional extension',
+                Icons.swap_horiz,
                 _kGreen500,
               ),
-              _buildComparisonRow(
+              _buildPropertyRow(
                 'SelectWordSelectionEvent',
                 'Double-tap word selection',
+                Icons.select_all,
                 _kOrange500,
               ),
-              _buildComparisonRow(
+              _buildPropertyRow(
                 'SelectAllSelectionEvent',
-                'Select all text (Ctrl+A)',
+                'Select all (Ctrl+A)',
+                Icons.select_all,
                 _kAmber600,
               ),
-              _buildComparisonRow(
+              _buildPropertyRow(
                 'ClearSelectionEvent',
-                'Clear selection (tap away)',
+                'Clear current selection',
+                Icons.clear,
                 _kRed500,
               ),
             ],
@@ -1888,8 +1607,9 @@ dynamic build(BuildContext context) {
               ),
               SizedBox(height: 6),
               Text(
-                'All sections covered: overview, isEnd, forward, '
-                'granularity (character/word/line/paragraph), visual demo, and examples.',
+                'Covered: Selection event overview, TextGranularity values '
+                '(character, word, line, document), forward/backward directions, '
+                'visual selection demos, and granularity comparison grid.',
                 style: TextStyle(
                   fontSize: 12,
                   color: _kTeal700,
