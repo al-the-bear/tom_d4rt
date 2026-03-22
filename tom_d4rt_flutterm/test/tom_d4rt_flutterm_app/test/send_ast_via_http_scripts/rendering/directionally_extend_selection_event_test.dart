@@ -1,83 +1,105 @@
-// D4rt test script: Comprehensive deep demo for DirectionallyExtendSelectionEvent
+// D4rt deep demo script: DirectionallyExtendSelectionEvent
 //
-// DirectionallyExtendSelectionEvent is used to extend text selection in a specific
-// direction. Part of Flutter's selection system for editable text widgets.
+// DirectionallyExtendSelectionEvent is a selection event from Flutter's rendering
+// library. It extends text selection in a specific direction, enabling keyboard-based
+// selection navigation in editable text widgets. This event is dispatched when users
+// hold Shift and press arrow keys to extend their current text selection.
 //
-// Key properties:
-//   - direction: SelectionExtendDirection (forward, backward, previousLine, nextLine)
-//   - dx: horizontal position for line-based extension
+// Key properties demonstrated:
+//   - direction: SelectionExtendDirection (forward, backward, nextLine, previousLine)
+//   - dx: horizontal position for line-based navigation
 //   - isEnd: whether to extend the end (true) or start (false) of selection
 //
-// This demo covers:
-//   1. DirectionallyExtendSelectionEvent purpose and overview
-//   2. direction property with all SelectionExtendDirection values
-//   3. dx and isEnd properties explained
-//   4. Forward selection examples
-//   5. Backward selection examples
-//   6. Character-level extension
-//   7. Word-level extension concepts
-//   8. Line-level extension patterns
-//   9. Selection event comparison
-//  10. Practical use cases
+// Sections covered in this demo:
+//   1. DirectionallyExtendSelectionEvent overview
+//   2. isEnd property behavior
+//   3. direction property (forward/backward)
+//   4. SelectionEvent base class relationship
+//   5. Visual representation of directional selection
+//   6. Sample event parameters
 //
 // ═══════════════════════════════════════════════════════════════════════════
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 // ═══════════════════════════════════════════════════════════════════════════
-// CONSTANTS - Deep Blue / Cyan Theme for Selection
+// COLOR PALETTE - Deep Blue Selection Theme
 // ═══════════════════════════════════════════════════════════════════════════
 
 var _kBlue50 = Color(0xFFE3F2FD);
-var _kBlue100 = Color(0xFFBBDEFB);
-var _kBlue200 = Color(0xFF90CAF9);
 var _kBlue300 = Color(0xFF64B5F6);
-var _kBlue400 = Color(0xFF42A5F5);
 var _kBlue500 = Color(0xFF2196F3);
 var _kBlue600 = Color(0xFF1E88E5);
 var _kBlue700 = Color(0xFF1976D2);
 var _kBlue800 = Color(0xFF1565C0);
 var _kBlue900 = Color(0xFF0D47A1);
 
+var _kCyan400 = Color(0xFF26C6DA);
 var _kCyan500 = Color(0xFF00BCD4);
+var _kCyan600 = Color(0xFF00ACC1);
 var _kCyan700 = Color(0xFF0097A7);
+
+var _kTeal400 = Color(0xFF26A69A);
 var _kTeal500 = Color(0xFF009688);
+var _kTeal600 = Color(0xFF00897B);
+
+var _kAmber400 = Color(0xFFFFCA28);
 var _kAmber500 = Color(0xFFFFC107);
+var _kAmber600 = Color(0xFFFFB300);
+
 var _kOrange500 = Color(0xFFFF9800);
+var _kOrange600 = Color(0xFFFB8C00);
+
+var _kGreen400 = Color(0xFF66BB6A);
 var _kGreen500 = Color(0xFF4CAF50);
+var _kGreen600 = Color(0xFF43A047);
+
+var _kRed400 = Color(0xFFEF5350);
 var _kRed500 = Color(0xFFF44336);
 
-var _kSurface = Color(0xFFE3F2FD);
+var _kPurple400 = Color(0xFFAB47BC);
+var _kPurple500 = Color(0xFF9C27B0);
+
+var _kSurface = Color(0xFFE8F4FD);
 var _kCardBg = Color(0xFFFFFFFF);
+var _kCodeBg = Color(0xFF263238);
 
 // ═══════════════════════════════════════════════════════════════════════════
-// HELPER WIDGETS
+// HELPER WIDGETS - Section Headers and Cards
 // ═══════════════════════════════════════════════════════════════════════════
 
-Widget _buildSectionHeader(String title, IconData icon) {
+Widget _buildSectionHeader(String title, IconData icon, Color startColor, Color endColor) {
   return Container(
     width: double.infinity,
     margin: EdgeInsets.only(bottom: 16),
-    padding: EdgeInsets.all(16),
+    padding: EdgeInsets.all(18),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [_kBlue800, _kBlue600],
+        colors: [startColor, endColor],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
-      borderRadius: BorderRadius.circular(12),
+      borderRadius: BorderRadius.circular(14),
       boxShadow: [
         BoxShadow(
-          color: _kBlue700.withAlpha(80),
-          blurRadius: 8,
-          offset: Offset(0, 4),
+          color: startColor.withAlpha(90),
+          blurRadius: 10,
+          offset: Offset(0, 5),
         ),
       ],
     ),
     child: Row(
       children: [
-        Icon(icon, color: Colors.white, size: 28),
-        SizedBox(width: 12),
+        Container(
+          width: 44,
+          height: 44,
+          decoration: BoxDecoration(
+            color: Colors.white.withAlpha(40),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Icon(icon, color: Colors.white, size: 26),
+        ),
+        SizedBox(width: 14),
         Expanded(
           child: Text(
             title,
@@ -85,6 +107,7 @@ Widget _buildSectionHeader(String title, IconData icon) {
               fontSize: 20,
               fontWeight: FontWeight.bold,
               color: Colors.white,
+              letterSpacing: 0.5,
             ),
           ),
         ),
@@ -93,19 +116,19 @@ Widget _buildSectionHeader(String title, IconData icon) {
   );
 }
 
-Widget _buildCard(String title, Widget content, {Color? accentColor}) {
-  var color = accentColor ?? _kBlue500;
+Widget _buildInfoCard(String title, Widget content, {Color? borderColor}) {
+  var color = borderColor ?? _kBlue500;
   return Container(
-    margin: EdgeInsets.only(bottom: 16),
+    margin: EdgeInsets.only(bottom: 18),
     decoration: BoxDecoration(
       color: _kCardBg,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: color.withAlpha(50), width: 2),
+      borderRadius: BorderRadius.circular(14),
+      border: Border.all(color: color.withAlpha(70), width: 2),
       boxShadow: [
         BoxShadow(
-          color: Colors.black.withAlpha(15),
-          blurRadius: 8,
-          offset: Offset(0, 2),
+          color: Colors.black.withAlpha(12),
+          blurRadius: 10,
+          offset: Offset(0, 4),
         ),
       ],
     ),
@@ -114,12 +137,12 @@ Widget _buildCard(String title, Widget content, {Color? accentColor}) {
       children: [
         Container(
           width: double.infinity,
-          padding: EdgeInsets.all(12),
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
           decoration: BoxDecoration(
-            color: color.withAlpha(25),
+            color: color.withAlpha(20),
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10),
-              topRight: Radius.circular(10),
+              topLeft: Radius.circular(12),
+              topRight: Radius.circular(12),
             ),
           ),
           child: Text(
@@ -131,49 +154,53 @@ Widget _buildCard(String title, Widget content, {Color? accentColor}) {
             ),
           ),
         ),
-        Padding(padding: EdgeInsets.all(16), child: content),
+        Padding(
+          padding: EdgeInsets.all(16),
+          child: content,
+        ),
       ],
     ),
   );
 }
 
-Widget _buildPropertyRow(String name, String value, IconData icon, Color color) {
+Widget _buildPropertyRow(String label, String value, IconData icon, Color iconColor) {
   return Container(
-    margin: EdgeInsets.only(bottom: 8),
-    padding: EdgeInsets.all(12),
+    margin: EdgeInsets.only(bottom: 10),
+    padding: EdgeInsets.all(14),
     decoration: BoxDecoration(
       color: _kSurface,
-      borderRadius: BorderRadius.circular(8),
+      borderRadius: BorderRadius.circular(10),
     ),
     child: Row(
       children: [
         Container(
-          width: 36,
-          height: 36,
+          width: 40,
+          height: 40,
           decoration: BoxDecoration(
-            color: color,
-            borderRadius: BorderRadius.circular(8),
+            color: iconColor,
+            borderRadius: BorderRadius.circular(10),
           ),
-          child: Icon(icon, color: Colors.white, size: 20),
+          child: Icon(icon, color: Colors.white, size: 22),
         ),
-        SizedBox(width: 12),
+        SizedBox(width: 14),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                name,
+                label,
                 style: TextStyle(
                   fontSize: 14,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w600,
                   color: _kBlue900,
                 ),
               ),
+              SizedBox(height: 2),
               Text(
                 value,
                 style: TextStyle(
                   fontSize: 12,
-                  color: _kBlue700.withAlpha(180),
+                  color: _kBlue700.withAlpha(200),
                   fontFamily: 'monospace',
                 ),
               ),
@@ -185,35 +212,38 @@ Widget _buildPropertyRow(String name, String value, IconData icon, Color color) 
   );
 }
 
-Widget _buildDirectionChip(String direction, String desc, Color color, IconData icon) {
+Widget _buildDirectionBadge(String name, String description, Color color, IconData icon) {
   return Container(
-    margin: EdgeInsets.only(right: 8, bottom: 8),
-    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+    margin: EdgeInsets.only(right: 10, bottom: 10),
+    padding: EdgeInsets.symmetric(horizontal: 14, vertical: 10),
     decoration: BoxDecoration(
-      color: color.withAlpha(30),
-      borderRadius: BorderRadius.circular(20),
-      border: Border.all(color: color.withAlpha(100)),
+      color: color.withAlpha(25),
+      borderRadius: BorderRadius.circular(24),
+      border: Border.all(color: color.withAlpha(120)),
     ),
     child: Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(icon, color: color, size: 16),
-        SizedBox(width: 6),
+        Icon(icon, color: color, size: 18),
+        SizedBox(width: 8),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              direction,
+              name,
               style: TextStyle(
-                fontSize: 11,
+                fontSize: 12,
                 fontWeight: FontWeight.bold,
                 color: color,
               ),
             ),
             Text(
-              desc,
-              style: TextStyle(fontSize: 9, color: color.withAlpha(180)),
+              description,
+              style: TextStyle(
+                fontSize: 10,
+                color: color.withAlpha(180),
+              ),
             ),
           ],
         ),
@@ -222,41 +252,42 @@ Widget _buildDirectionChip(String direction, String desc, Color color, IconData 
   );
 }
 
-Widget _buildCodeSnippet(String code) {
+Widget _buildCodeBlock(String code) {
   return Container(
     width: double.infinity,
-    padding: EdgeInsets.all(12),
+    padding: EdgeInsets.all(14),
     decoration: BoxDecoration(
-      color: Color(0xFF1E1E1E),
-      borderRadius: BorderRadius.circular(8),
+      color: _kCodeBg,
+      borderRadius: BorderRadius.circular(10),
     ),
     child: Text(
       code,
       style: TextStyle(
-        fontSize: 11,
-        color: Color(0xFF90CAF9),
+        fontSize: 12,
+        color: Color(0xFF80CBC4),
         fontFamily: 'monospace',
-        height: 1.4,
+        height: 1.5,
       ),
     ),
   );
 }
 
-Widget _buildSelectionVisual(
+Widget _buildSelectionVisualization(
   String text,
-  int selStart,
-  int selEnd,
-  bool isForward,
+  int selectionStart,
+  int selectionEnd,
+  bool isForwardDirection,
   String label,
+  Color highlightColor,
 ) {
-  var chars = text.split('');
+  var characters = text.split('');
   return Container(
-    margin: EdgeInsets.only(bottom: 12),
-    padding: EdgeInsets.all(12),
+    margin: EdgeInsets.only(bottom: 14),
+    padding: EdgeInsets.all(14),
     decoration: BoxDecoration(
       color: _kSurface,
-      borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: _kBlue300),
+      borderRadius: BorderRadius.circular(10),
+      border: Border.all(color: highlightColor.withAlpha(80)),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -264,61 +295,64 @@ Widget _buildSelectionVisual(
         Text(
           label,
           style: TextStyle(
-            fontSize: 12,
+            fontSize: 13,
             fontWeight: FontWeight.bold,
             color: _kBlue800,
+          ),
+        ),
+        SizedBox(height: 10),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              for (var idx = 0; idx < characters.length; idx++)
+                Container(
+                  width: 22,
+                  height: 28,
+                  margin: EdgeInsets.only(right: 3),
+                  decoration: BoxDecoration(
+                    color: (idx >= selectionStart && idx < selectionEnd)
+                        ? highlightColor.withAlpha(180)
+                        : Colors.white,
+                    borderRadius: BorderRadius.circular(4),
+                    border: Border.all(
+                      color: (idx >= selectionStart && idx < selectionEnd)
+                          ? highlightColor
+                          : _kBlue300,
+                      width: (idx >= selectionStart && idx < selectionEnd) ? 2 : 1,
+                    ),
+                  ),
+                  child: Center(
+                    child: Text(
+                      characters[idx],
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold,
+                        color: (idx >= selectionStart && idx < selectionEnd)
+                            ? Colors.white
+                            : _kBlue900,
+                      ),
+                    ),
+                  ),
+                ),
+            ],
           ),
         ),
         SizedBox(height: 8),
         Row(
           children: [
-            for (var i = 0; i < chars.length; i++)
-              Container(
-                width: 18,
-                height: 24,
-                margin: EdgeInsets.only(right: 2),
-                decoration: BoxDecoration(
-                  color: (i >= selStart && i < selEnd)
-                      ? _kBlue400.withAlpha(150)
-                      : Colors.white,
-                  borderRadius: BorderRadius.circular(3),
-                  border: Border.all(
-                    color: (i >= selStart && i < selEnd)
-                        ? _kBlue600
-                        : _kBlue200,
-                    width: (i >= selStart && i < selEnd) ? 2 : 1,
-                  ),
-                ),
-                child: Center(
-                  child: Text(
-                    chars[i],
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: (i >= selStart && i < selEnd)
-                          ? Colors.white
-                          : _kBlue900,
-                    ),
-                  ),
-                ),
-              ),
-          ],
-        ),
-        SizedBox(height: 4),
-        Row(
-          children: [
             Icon(
-              isForward ? Icons.arrow_forward : Icons.arrow_back,
-              color: isForward ? _kGreen500 : _kOrange500,
-              size: 16,
+              isForwardDirection ? Icons.arrow_forward : Icons.arrow_back,
+              color: isForwardDirection ? _kGreen500 : _kOrange500,
+              size: 18,
             ),
-            SizedBox(width: 4),
+            SizedBox(width: 6),
             Text(
-              isForward ? 'Forward' : 'Backward',
+              isForwardDirection ? 'Forward Direction' : 'Backward Direction',
               style: TextStyle(
-                fontSize: 10,
-                color: isForward ? _kGreen500 : _kOrange500,
+                fontSize: 11,
                 fontWeight: FontWeight.bold,
+                color: isForwardDirection ? _kGreen500 : _kOrange500,
               ),
             ),
           ],
@@ -328,41 +362,44 @@ Widget _buildSelectionVisual(
   );
 }
 
-Widget _buildEventComparisonRow(String eventName, String purpose, Color color) {
+Widget _buildComparisonRow(String eventType, String purpose, Color accentColor) {
   return Container(
-    margin: EdgeInsets.only(bottom: 8),
-    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+    margin: EdgeInsets.only(bottom: 10),
+    padding: EdgeInsets.symmetric(horizontal: 14, vertical: 12),
     decoration: BoxDecoration(
-      color: color.withAlpha(20),
-      borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: color.withAlpha(60)),
+      color: accentColor.withAlpha(15),
+      borderRadius: BorderRadius.circular(10),
+      border: Border.all(color: accentColor.withAlpha(50)),
     ),
     child: Row(
       children: [
         Container(
-          width: 8,
-          height: 8,
+          width: 10,
+          height: 10,
           decoration: BoxDecoration(
-            color: color,
+            color: accentColor,
             shape: BoxShape.circle,
           ),
         ),
-        SizedBox(width: 10),
+        SizedBox(width: 12),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                eventName,
+                eventType,
                 style: TextStyle(
-                  fontSize: 12,
+                  fontSize: 13,
                   fontWeight: FontWeight.bold,
-                  color: color,
+                  color: accentColor,
                 ),
               ),
               Text(
                 purpose,
-                style: TextStyle(fontSize: 10, color: Colors.black87),
+                style: TextStyle(
+                  fontSize: 11,
+                  color: Colors.black87,
+                ),
               ),
             ],
           ),
@@ -372,12 +409,56 @@ Widget _buildEventComparisonRow(String eventName, String purpose, Color color) {
   );
 }
 
-Widget _buildBadge(String text, Color color) {
+Widget _buildKeyboardShortcutRow(String keys, String action, IconData arrowIcon, Color color) {
   return Container(
-    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+    margin: EdgeInsets.only(bottom: 8),
+    padding: EdgeInsets.all(12),
     decoration: BoxDecoration(
-      color: color.withAlpha(30),
-      borderRadius: BorderRadius.circular(12),
+      color: color.withAlpha(12),
+      borderRadius: BorderRadius.circular(8),
+      border: Border.all(color: color.withAlpha(40)),
+    ),
+    child: Row(
+      children: [
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+          decoration: BoxDecoration(
+            color: _kBlue800,
+            borderRadius: BorderRadius.circular(6),
+          ),
+          child: Text(
+            keys,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+              fontFamily: 'monospace',
+            ),
+          ),
+        ),
+        SizedBox(width: 12),
+        Icon(arrowIcon, color: color, size: 20),
+        SizedBox(width: 8),
+        Expanded(
+          child: Text(
+            action,
+            style: TextStyle(
+              fontSize: 12,
+              color: Colors.black87,
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildTagChip(String text, Color color) {
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+    decoration: BoxDecoration(
+      color: color.withAlpha(25),
+      borderRadius: BorderRadius.circular(16),
       border: Border.all(color: color),
     ),
     child: Text(
@@ -396,407 +477,341 @@ Widget _buildBadge(String text, Color color) {
 // ═══════════════════════════════════════════════════════════════════════════
 
 dynamic build(BuildContext context) {
-  print('DirectionallyExtendSelectionEvent test executing');
-  print('=' * 60);
+  print('DirectionallyExtendSelectionEvent deep demo executing');
+  print('=' * 70);
 
-  // Create event instances for demonstration
-  var forwardEvent = DirectionallyExtendSelectionEvent(
-    dx: 100.0,
+  // Create sample event instances for demonstration purposes
+  var forwardExtendEvent = DirectionallyExtendSelectionEvent(
+    dx: 150.0,
     isEnd: true,
     direction: SelectionExtendDirection.forward,
   );
 
-  var backwardEvent = DirectionallyExtendSelectionEvent(
-    dx: 50.0,
+  var backwardExtendEvent = DirectionallyExtendSelectionEvent(
+    dx: 80.0,
     isEnd: false,
     direction: SelectionExtendDirection.backward,
   );
 
-  var nextLineEvent = DirectionallyExtendSelectionEvent(
-    dx: 75.0,
+  var nextLineExtendEvent = DirectionallyExtendSelectionEvent(
+    dx: 120.0,
     isEnd: true,
     direction: SelectionExtendDirection.nextLine,
   );
 
-  var previousLineEvent = DirectionallyExtendSelectionEvent(
-    dx: 120.0,
+  var previousLineExtendEvent = DirectionallyExtendSelectionEvent(
+    dx: 90.0,
     isEnd: true,
     direction: SelectionExtendDirection.previousLine,
   );
 
-  // Print event information
-  print('\n[1] DirectionallyExtendSelectionEvent Purpose');
-  print('-' * 50);
-  print('Event for extending text selection directionally');
-  print('Used for keyboard navigation in text editing');
-  print('Supports forward, backward, and line navigation');
+  // Section 1: DirectionallyExtendSelectionEvent Overview
+  print('\n[SECTION 1] DirectionallyExtendSelectionEvent Overview');
+  print('-' * 60);
+  print('DirectionallyExtendSelectionEvent extends text selection');
+  print('in a specific direction using arrow key navigation.');
+  print('It is part of Flutter rendering library selection system.');
+  print('This event is dispatched when Shift+Arrow keys are pressed.');
+  print('The event carries direction, dx position, and isEnd flag.');
 
-  print('\n[2] Forward Event Properties');
-  print('-' * 50);
-  print('direction: ${forwardEvent.direction}');
-  print('dx: ${forwardEvent.dx}');
-  print('isEnd: ${forwardEvent.isEnd}');
-  print('type: ${forwardEvent.type}');
+  // Section 2: isEnd Property Behavior
+  print('\n[SECTION 2] isEnd Property Behavior');
+  print('-' * 60);
+  print('isEnd determines which selection boundary moves:');
+  print('  - isEnd=true: Moves the end/right boundary of selection');
+  print('  - isEnd=false: Moves the start/left boundary of selection');
+  print('Example with forward event:');
+  print('  forwardExtendEvent.isEnd = ${forwardExtendEvent.isEnd}');
+  print('Example with backward event:');
+  print('  backwardExtendEvent.isEnd = ${backwardExtendEvent.isEnd}');
 
-  print('\n[3] Backward Event Properties');
-  print('-' * 50);
-  print('direction: ${backwardEvent.direction}');
-  print('dx: ${backwardEvent.dx}');
-  print('isEnd: ${backwardEvent.isEnd}');
-  print('type: ${backwardEvent.type}');
-
-  print('\n[4] Next Line Event Properties');
-  print('-' * 50);
-  print('direction: ${nextLineEvent.direction}');
-  print('dx: ${nextLineEvent.dx}');
-  print('isEnd: ${nextLineEvent.isEnd}');
-
-  print('\n[5] Previous Line Event Properties');
-  print('-' * 50);
-  print('direction: ${previousLineEvent.direction}');
-  print('dx: ${previousLineEvent.dx}');
-  print('isEnd: ${previousLineEvent.isEnd}');
-
-  print('\n[6] SelectionExtendDirection Enum Values');
-  print('-' * 50);
-  for (var direction in SelectionExtendDirection.values) {
-    print('- $direction');
+  // Section 3: Direction Property (Forward/Backward)
+  print('\n[SECTION 3] Direction Property (Forward/Backward)');
+  print('-' * 60);
+  print('SelectionExtendDirection enum values:');
+  for (var dir in SelectionExtendDirection.values) {
+    print('  - $dir');
   }
-  print('Total directions: ${SelectionExtendDirection.values.length}');
+  print('Total direction values: ${SelectionExtendDirection.values.length}');
+  print('Forward event direction: ${forwardExtendEvent.direction}');
+  print('Backward event direction: ${backwardExtendEvent.direction}');
+  print('NextLine event direction: ${nextLineExtendEvent.direction}');
+  print('PreviousLine event direction: ${previousLineExtendEvent.direction}');
 
-  print('\n[7] Direction Meanings');
-  print('-' * 50);
-  print('forward: Move selection toward end of text');
-  print('backward: Move selection toward start of text');
-  print('nextLine: Extend to corresponding position in next line');
-  print('previousLine: Extend to corresponding position in previous line');
+  // Section 4: SelectionEvent Base Class
+  print('\n[SECTION 4] SelectionEvent Base Class');
+  print('-' * 60);
+  print('DirectionallyExtendSelectionEvent extends SelectionEvent');
+  print('SelectionEvent is the base class for all selection events.');
+  print('It provides the type property for event identification.');
+  print('Forward event type: ${forwardExtendEvent.type}');
+  print('SelectionEvent hierarchy enables polymorphic handling.');
 
-  print('\n[8] isEnd Property Explained');
-  print('-' * 50);
-  print('isEnd=true: Extend the end boundary of selection');
-  print('isEnd=false: Extend the start boundary of selection');
-  print('Useful for shift+arrow key behavior');
+  // Section 5: Visual Representation of Directional Selection
+  print('\n[SECTION 5] Visual Representation of Directional Selection');
+  print('-' * 60);
+  print('Text: "Flutter Selection Demo"');
+  print('Initial selection: [Flutter] (0-7)');
+  print('After forward extend: [Flutter ] (0-8)');
+  print('After backward extend: [ Flutter] with adjusted start');
+  print('Selection visually highlights the affected characters.');
 
-  print('\n[9] dx Property Explained');
-  print('-' * 50);
-  print('dx: Horizontal position for line-based navigation');
-  print('Used when extending to next/previous line');
-  print('Helps maintain cursor column position');
+  // Section 6: Sample Event Parameters
+  print('\n[SECTION 6] Sample Event Parameters');
+  print('-' * 60);
+  print('Forward Extend Event Parameters:');
+  print('  dx: ${forwardExtendEvent.dx}');
+  print('  isEnd: ${forwardExtendEvent.isEnd}');
+  print('  direction: ${forwardExtendEvent.direction}');
+  print('Backward Extend Event Parameters:');
+  print('  dx: ${backwardExtendEvent.dx}');
+  print('  isEnd: ${backwardExtendEvent.isEnd}');
+  print('  direction: ${backwardExtendEvent.direction}');
+  print('NextLine Extend Event Parameters:');
+  print('  dx: ${nextLineExtendEvent.dx}');
+  print('  isEnd: ${nextLineExtendEvent.isEnd}');
+  print('  direction: ${nextLineExtendEvent.direction}');
+  print('PreviousLine Extend Event Parameters:');
+  print('  dx: ${previousLineExtendEvent.dx}');
+  print('  isEnd: ${previousLineExtendEvent.isEnd}');
+  print('  direction: ${previousLineExtendEvent.direction}');
 
-  print('\n[10] copyWith Method');
-  print('-' * 50);
-  var copiedEvent = forwardEvent.copyWith(dx: 200.0);
-  print('Original dx: ${forwardEvent.dx}');
-  print('Copied dx: ${copiedEvent.dx}');
-  print('Direction preserved: ${copiedEvent.direction}');
+  // Additional demonstration: copyWith method
+  print('\n[ADDITIONAL] copyWith Method Demonstration');
+  print('-' * 60);
+  var modifiedEvent = forwardExtendEvent.copyWith(dx: 200.0);
+  print('Original forwardExtendEvent.dx: ${forwardExtendEvent.dx}');
+  print('Modified event dx after copyWith: ${modifiedEvent.dx}');
+  print('Direction preserved: ${modifiedEvent.direction}');
+  print('isEnd preserved: ${modifiedEvent.isEnd}');
 
-  print('\n[11] Forward Selection Use Case');
-  print('-' * 50);
-  print('User presses Shift+Right Arrow');
-  print('Selection extends forward by one character');
-  print('isEnd=true extends right boundary');
+  var directionChangedEvent = forwardExtendEvent.copyWith(
+    direction: SelectionExtendDirection.backward,
+  );
+  print('Direction changed via copyWith: ${directionChangedEvent.direction}');
 
-  print('\n[12] Backward Selection Use Case');
-  print('-' * 50);
-  print('User presses Shift+Left Arrow');
-  print('Selection extends backward');
-  print('isEnd=false moves left boundary');
+  print('\n' + '=' * 70);
+  print('DirectionallyExtendSelectionEvent deep demo completed');
+  print('=' * 70);
 
-  print('\n[13] Line Navigation Use Case');
-  print('-' * 50);
-  print('User presses Shift+Down Arrow');
-  print('Selection extends to next line');
-  print('dx maintains horizontal position');
-
-  print('\n[14] Character-Level Extension');
-  print('-' * 50);
-  print('Single character movement');
-  print('direction: forward or backward');
-  print('Most granular selection extension');
-
-  print('\n[15] Word-Level Extension Concept');
-  print('-' * 50);
-  print('Word boundaries determined by text');
-  print('Usually combined with Ctrl modifier');
-  print('Uses GranularlyExtendSelectionEvent');
-
-  print('\n[16] Line-Level Extension');
-  print('-' * 50);
-  print('nextLine: Extend selection down');
-  print('previousLine: Extend selection up');
-  print('dx preserves horizontal position');
-
-  print('\n[17] Selection Event Type');
-  print('-' * 50);
-  print('type: ${forwardEvent.type}');
-  print('All selection events have a type property');
-  print('Type identifies the event kind');
-
-  print('\n[18] Related Selection Events');
-  print('-' * 50);
-  print('- SelectWordSelectionEvent (double-tap)');
-  print('- SelectAllSelectionEvent (Ctrl+A)');
-  print('- ClearSelectionEvent (tap away)');
-  print('- GranularlyExtendSelectionEvent (word/line)');
-  print('- SelectParagraphSelectionEvent (triple-tap)');
-
-  print('\n[19] Event Construction');
-  print('-' * 50);
-  print('Required: dx, isEnd, direction');
-  print('All parameters are named parameters');
-  print('No optional parameters');
-
-  print('\n[20] Practical Keyboard Behavior');
-  print('-' * 50);
-  print('Shift+Right: forward, isEnd=true');
-  print('Shift+Left: backward, isEnd=true');
-  print('Shift+Down: nextLine, isEnd=true');
-  print('Shift+Up: previousLine, isEnd=true');
-
-  print('\n' + '=' * 60);
-  print('DirectionallyExtendSelectionEvent test completed');
-
-  // Build the visual demo UI
+  // Build the visual UI representation
   return SingleChildScrollView(
-    padding: EdgeInsets.all(16),
+    padding: EdgeInsets.all(18),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Header
+        // Main Header
         Container(
           width: double.infinity,
-          padding: EdgeInsets.all(20),
+          padding: EdgeInsets.all(24),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [_kBlue900, _kBlue700, _kCyan700],
+              colors: [_kBlue900, _kBlue700, _kCyan600],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(18),
             boxShadow: [
               BoxShadow(
-                color: _kBlue800.withAlpha(100),
-                blurRadius: 12,
-                offset: Offset(0, 6),
+                color: _kBlue800.withAlpha(120),
+                blurRadius: 16,
+                offset: Offset(0, 8),
               ),
             ],
           ),
           child: Column(
             children: [
-              Icon(Icons.select_all, color: Colors.white, size: 48),
-              SizedBox(height: 12),
+              Container(
+                width: 64,
+                height: 64,
+                decoration: BoxDecoration(
+                  color: Colors.white.withAlpha(30),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Icon(Icons.select_all, color: Colors.white, size: 36),
+              ),
+              SizedBox(height: 16),
               Text(
                 'DirectionallyExtendSelectionEvent',
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
+                  letterSpacing: 0.5,
                 ),
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: 8),
               Text(
-                'Text Selection Extension Event',
+                'Rendering Selection Event for Directional Extend',
                 style: TextStyle(
                   fontSize: 14,
                   color: Colors.white.withAlpha(200),
                 ),
+                textAlign: TextAlign.center,
               ),
-              SizedBox(height: 12),
+              SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildBadge('rendering', _kCyan500),
-                  SizedBox(width: 8),
-                  _buildBadge('SelectionEvent', _kAmber500),
+                  _buildTagChip('rendering', _kCyan400),
+                  SizedBox(width: 10),
+                  _buildTagChip('SelectionEvent', _kAmber400),
+                  SizedBox(width: 10),
+                  _buildTagChip('flutter', _kGreen400),
                 ],
               ),
             ],
           ),
         ),
-        SizedBox(height: 24),
+        SizedBox(height: 28),
 
-        // Section 1: Purpose
-        _buildSectionHeader('Purpose & Overview', Icons.info),
-        _buildCard(
+        // Section 1: DirectionallyExtendSelectionEvent Overview
+        _buildSectionHeader(
+          'DirectionallyExtendSelectionEvent Overview',
+          Icons.info_outline,
+          _kBlue800,
+          _kBlue600,
+        ),
+        _buildInfoCard(
           'What is DirectionallyExtendSelectionEvent?',
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'A selection event that extends the current text selection '
-                'in a specific direction. Used for keyboard-based selection '
-                'navigation in editable text widgets.',
-                style: TextStyle(fontSize: 13, color: Colors.black87),
+                'DirectionallyExtendSelectionEvent is a selection event class from '
+                'Flutter\'s rendering library that extends the current text selection '
+                'in a specific direction. It is typically dispatched when users press '
+                'Shift combined with arrow keys to extend their selection.',
+                style: TextStyle(fontSize: 13, color: Colors.black87, height: 1.5),
               ),
-              SizedBox(height: 12),
+              SizedBox(height: 16),
               _buildPropertyRow(
-                'Class Type',
+                'Class Hierarchy',
                 'extends SelectionEvent',
-                Icons.class_,
+                Icons.account_tree,
                 _kBlue600,
               ),
               _buildPropertyRow(
-                'Package',
+                'Package Location',
                 'package:flutter/rendering.dart',
-                Icons.folder,
-                _kCyan700,
+                Icons.folder_open,
+                _kCyan600,
               ),
               _buildPropertyRow(
-                'Primary Use',
-                'Shift+Arrow key selection',
+                'Primary Purpose',
+                'Keyboard-based selection extension',
                 Icons.keyboard,
                 _kTeal500,
               ),
-            ],
-          ),
-        ),
-
-        // Section 2: Direction Property
-        _buildSectionHeader('Direction Property', Icons.directions),
-        _buildCard(
-          'SelectionExtendDirection Values',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'The direction property specifies which way to extend:',
-                style: TextStyle(fontSize: 12, color: Colors.black87),
-              ),
-              SizedBox(height: 12),
-              Wrap(
-                children: [
-                  _buildDirectionChip(
-                    'forward',
-                    'Toward end',
-                    _kGreen500,
-                    Icons.arrow_forward,
-                  ),
-                  _buildDirectionChip(
-                    'backward',
-                    'Toward start',
-                    _kOrange500,
-                    Icons.arrow_back,
-                  ),
-                  _buildDirectionChip(
-                    'nextLine',
-                    'Line below',
-                    _kBlue500,
-                    Icons.arrow_downward,
-                  ),
-                  _buildDirectionChip(
-                    'previousLine',
-                    'Line above',
-                    _kCyan700,
-                    Icons.arrow_upward,
-                  ),
-                ],
-              ),
-              SizedBox(height: 12),
-              _buildCodeSnippet(
-                'SelectionExtendDirection.forward\n'
-                'SelectionExtendDirection.backward\n'
-                'SelectionExtendDirection.nextLine\n'
-                'SelectionExtendDirection.previousLine',
-              ),
-            ],
-          ),
-        ),
-
-        // Section 3: dx Property
-        _buildSectionHeader('dx Property', Icons.straighten),
-        _buildCard(
-          'Horizontal Position Value',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
               _buildPropertyRow(
-                'dx',
-                'double - horizontal position',
-                Icons.swap_horiz,
-                _kBlue600,
-              ),
-              SizedBox(height: 8),
-              Text(
-                'The dx property stores the horizontal position for line-based '
-                'navigation. When extending to next/previous line, dx helps '
-                'maintain the cursor column position.',
-                style: TextStyle(fontSize: 12, color: Colors.black87),
-              ),
-              SizedBox(height: 12),
-              _buildCodeSnippet(
-                'var event = DirectionallyExtendSelectionEvent(\n'
-                '  dx: 100.0,\n'
-                '  isEnd: true,\n'
-                '  direction: SelectionExtendDirection.nextLine,\n'
-                ');\n'
-                'print(event.dx); // 100.0',
+                'Common Trigger',
+                'Shift + Arrow Keys',
+                Icons.arrow_forward,
+                _kGreen500,
               ),
             ],
           ),
         ),
-
-        // Section 4: isEnd Property
-        _buildSectionHeader('isEnd Property', Icons.compare_arrows),
-        _buildCard(
-          'Which Selection Boundary to Extend',
+        _buildInfoCard(
+          'Event Construction Parameters',
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Text(
+                'DirectionallyExtendSelectionEvent requires three named parameters:',
+                style: TextStyle(fontSize: 12, color: Colors.black87),
+              ),
+              SizedBox(height: 12),
+              _buildCodeBlock(
+                'DirectionallyExtendSelectionEvent(\n'
+                '  dx: 100.0,           // horizontal position\n'
+                '  isEnd: true,         // which boundary to extend\n'
+                '  direction: SelectionExtendDirection.forward,\n'
+                ')',
+              ),
+            ],
+          ),
+          borderColor: _kTeal500,
+        ),
+
+        // Section 2: isEnd Property
+        _buildSectionHeader(
+          'isEnd Property',
+          Icons.compare_arrows,
+          _kCyan700,
+          _kCyan500,
+        ),
+        _buildInfoCard(
+          'Understanding the isEnd Property',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'The isEnd property determines which boundary of the selection '
+                'will be modified when the event is processed. This is crucial for '
+                'understanding how selection extension works in text editing.',
+                style: TextStyle(fontSize: 13, color: Colors.black87, height: 1.5),
+              ),
+              SizedBox(height: 16),
               Row(
                 children: [
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.all(12),
+                      padding: EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: _kGreen500.withAlpha(30),
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: _kGreen500),
+                        color: _kGreen500.withAlpha(20),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: _kGreen500, width: 2),
                       ),
                       child: Column(
                         children: [
-                          Icon(Icons.last_page, color: _kGreen500, size: 24),
-                          SizedBox(height: 4),
+                          Icon(Icons.last_page, color: _kGreen500, size: 32),
+                          SizedBox(height: 8),
                           Text(
                             'isEnd = true',
                             style: TextStyle(
-                              fontSize: 12,
+                              fontSize: 14,
                               fontWeight: FontWeight.bold,
                               color: _kGreen500,
                             ),
                           ),
+                          SizedBox(height: 4),
                           Text(
-                            'Extend end boundary',
-                            style: TextStyle(fontSize: 10, color: Colors.black54),
+                            'Extends the END boundary of the selection',
+                            style: TextStyle(fontSize: 11, color: Colors.black87),
+                            textAlign: TextAlign.center,
                           ),
                         ],
                       ),
                     ),
                   ),
-                  SizedBox(width: 12),
+                  SizedBox(width: 14),
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.all(12),
+                      padding: EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: _kOrange500.withAlpha(30),
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: _kOrange500),
+                        color: _kOrange500.withAlpha(20),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: _kOrange500, width: 2),
                       ),
                       child: Column(
                         children: [
-                          Icon(Icons.first_page, color: _kOrange500, size: 24),
-                          SizedBox(height: 4),
+                          Icon(Icons.first_page, color: _kOrange500, size: 32),
+                          SizedBox(height: 8),
                           Text(
                             'isEnd = false',
                             style: TextStyle(
-                              fontSize: 12,
+                              fontSize: 14,
                               fontWeight: FontWeight.bold,
                               color: _kOrange500,
                             ),
                           ),
+                          SizedBox(height: 4),
                           Text(
-                            'Extend start boundary',
-                            style: TextStyle(fontSize: 10, color: Colors.black54),
+                            'Extends the START boundary of the selection',
+                            style: TextStyle(fontSize: 11, color: Colors.black87),
+                            textAlign: TextAlign.center,
                           ),
                         ],
                       ),
@@ -804,90 +819,308 @@ dynamic build(BuildContext context) {
                   ),
                 ],
               ),
+              SizedBox(height: 16),
+              _buildCodeBlock(
+                '// Extending the end boundary (right side)\n'
+                'var endExtend = DirectionallyExtendSelectionEvent(\n'
+                '  dx: 100.0,\n'
+                '  isEnd: true,  // <-- extends END\n'
+                '  direction: SelectionExtendDirection.forward,\n'
+                ');\n\n'
+                '// Extending the start boundary (left side)\n'
+                'var startExtend = DirectionallyExtendSelectionEvent(\n'
+                '  dx: 50.0,\n'
+                '  isEnd: false,  // <-- extends START\n'
+                '  direction: SelectionExtendDirection.backward,\n'
+                ');',
+              ),
             ],
           ),
         ),
 
-        // Section 5: Forward Selection
-        _buildSectionHeader('Forward Selection', Icons.arrow_forward),
-        _buildCard(
-          'Extending Selection Forward',
+        // Section 3: Direction Property (Forward/Backward)
+        _buildSectionHeader(
+          'Direction Property (Forward/Backward)',
+          Icons.swap_horiz,
+          _kTeal600,
+          _kTeal400,
+        ),
+        _buildInfoCard(
+          'SelectionExtendDirection Enum',
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildSelectionVisual('Hello World', 0, 5, true, 'Initial: "Hello"'),
-              _buildSelectionVisual('Hello World', 0, 6, true, 'After forward: "Hello "'),
-              SizedBox(height: 8),
               Text(
-                'Forward extension moves the selection boundary toward '
-                'the end of the text. Typically triggered by Shift+Right Arrow.',
-                style: TextStyle(fontSize: 12, color: Colors.black87),
+                'The direction property uses the SelectionExtendDirection enum '
+                'to specify which direction the selection should extend:',
+                style: TextStyle(fontSize: 13, color: Colors.black87),
+              ),
+              SizedBox(height: 16),
+              Wrap(
+                children: [
+                  _buildDirectionBadge(
+                    'forward',
+                    'Toward text end',
+                    _kGreen500,
+                    Icons.arrow_forward,
+                  ),
+                  _buildDirectionBadge(
+                    'backward',
+                    'Toward text start',
+                    _kOrange500,
+                    Icons.arrow_back,
+                  ),
+                  _buildDirectionBadge(
+                    'nextLine',
+                    'To line below',
+                    _kBlue500,
+                    Icons.arrow_downward,
+                  ),
+                  _buildDirectionBadge(
+                    'previousLine',
+                    'To line above',
+                    _kPurple500,
+                    Icons.arrow_upward,
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        _buildInfoCard(
+          'Forward Direction Explained',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'SelectionExtendDirection.forward moves the selection boundary '
+                'toward the end of the text. This is typically triggered when '
+                'the user presses Shift + Right Arrow.',
+                style: TextStyle(fontSize: 12, color: Colors.black87, height: 1.4),
               ),
               SizedBox(height: 12),
-              _buildCodeSnippet(
-                'var event = DirectionallyExtendSelectionEvent(\n'
-                '  dx: 100.0,\n'
+              _buildSelectionVisualization(
+                'Hello World Demo',
+                0,
+                5,
+                true,
+                'Initial: "Hello" selected',
+                _kGreen500,
+              ),
+              _buildSelectionVisualization(
+                'Hello World Demo',
+                0,
+                6,
+                true,
+                'After forward: "Hello " selected',
+                _kGreen600,
+              ),
+              _buildCodeBlock(
+                'var forwardEvent = DirectionallyExtendSelectionEvent(\n'
+                '  dx: 150.0,\n'
                 '  isEnd: true,\n'
                 '  direction: SelectionExtendDirection.forward,\n'
                 ');',
               ),
             ],
           ),
-          accentColor: _kGreen500,
+          borderColor: _kGreen500,
         ),
-
-        // Section 6: Backward Selection
-        _buildSectionHeader('Backward Selection', Icons.arrow_back),
-        _buildCard(
-          'Extending Selection Backward',
+        _buildInfoCard(
+          'Backward Direction Explained',
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildSelectionVisual('Hello World', 6, 11, false, 'Initial: "World"'),
-              _buildSelectionVisual('Hello World', 5, 11, false, 'After backward: " World"'),
-              SizedBox(height: 8),
               Text(
-                'Backward extension moves the selection boundary toward '
-                'the start of the text. Typically triggered by Shift+Left Arrow.',
-                style: TextStyle(fontSize: 12, color: Colors.black87),
+                'SelectionExtendDirection.backward moves the selection boundary '
+                'toward the start of the text. This is typically triggered when '
+                'the user presses Shift + Left Arrow.',
+                style: TextStyle(fontSize: 12, color: Colors.black87, height: 1.4),
               ),
               SizedBox(height: 12),
-              _buildCodeSnippet(
-                'var event = DirectionallyExtendSelectionEvent(\n'
-                '  dx: 50.0,\n'
+              _buildSelectionVisualization(
+                'Hello World Demo',
+                6,
+                11,
+                false,
+                'Initial: "World" selected',
+                _kOrange500,
+              ),
+              _buildSelectionVisualization(
+                'Hello World Demo',
+                5,
+                11,
+                false,
+                'After backward: " World" selected',
+                _kOrange600,
+              ),
+              _buildCodeBlock(
+                'var backwardEvent = DirectionallyExtendSelectionEvent(\n'
+                '  dx: 80.0,\n'
                 '  isEnd: false,\n'
                 '  direction: SelectionExtendDirection.backward,\n'
                 ');',
               ),
             ],
           ),
-          accentColor: _kOrange500,
+          borderColor: _kOrange500,
         ),
 
-        // Section 7: By Character
-        _buildSectionHeader('Character-Level Extension', Icons.text_fields),
-        _buildCard(
-          'Single Character Movement',
+        // Section 4: SelectionEvent Base Class
+        _buildSectionHeader(
+          'SelectionEvent Base Class',
+          Icons.account_tree,
+          _kPurple500,
+          _kPurple400,
+        ),
+        _buildInfoCard(
+          'SelectionEvent Class Hierarchy',
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Character-level extension moves the selection one character '
-                'at a time. This is the most granular form of selection extension.',
+                'DirectionallyExtendSelectionEvent is one of several selection '
+                'event types that extend the abstract SelectionEvent base class. '
+                'This inheritance allows for polymorphic handling of selection events.',
+                style: TextStyle(fontSize: 13, color: Colors.black87, height: 1.5),
+              ),
+              SizedBox(height: 16),
+              _buildComparisonRow(
+                'SelectionEvent',
+                'Abstract base class for all selection events',
+                _kBlue600,
+              ),
+              _buildComparisonRow(
+                'DirectionallyExtendSelectionEvent',
+                'Directional extension (arrow keys)',
+                _kGreen500,
+              ),
+              _buildComparisonRow(
+                'GranularlyExtendSelectionEvent',
+                'Word/line granularity extension',
+                _kTeal500,
+              ),
+              _buildComparisonRow(
+                'SelectWordSelectionEvent',
+                'Double-tap word selection',
+                _kOrange500,
+              ),
+              _buildComparisonRow(
+                'SelectAllSelectionEvent',
+                'Select all text (Ctrl+A)',
+                _kAmber600,
+              ),
+              _buildComparisonRow(
+                'ClearSelectionEvent',
+                'Clear selection (tap away)',
+                _kRed500,
+              ),
+            ],
+          ),
+        ),
+        _buildInfoCard(
+          'The type Property',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Every SelectionEvent has a type property that identifies the '
+                'kind of selection event. This is useful for event handling and '
+                'debugging purposes.',
+                style: TextStyle(fontSize: 12, color: Colors.black87),
+              ),
+              SizedBox(height: 12),
+              _buildCodeBlock(
+                'var event = DirectionallyExtendSelectionEvent(\n'
+                '  dx: 100.0,\n'
+                '  isEnd: true,\n'
+                '  direction: SelectionExtendDirection.forward,\n'
+                ');\n\n'
+                'print(event.type);\n'
+                '// Output: SelectionEventType.directionallyExtendSelection',
+              ),
+            ],
+          ),
+          borderColor: _kPurple400,
+        ),
+
+        // Section 5: Visual Representation of Directional Selection
+        _buildSectionHeader(
+          'Visual Representation of Directional Selection',
+          Icons.visibility,
+          _kAmber600,
+          _kAmber400,
+        ),
+        _buildInfoCard(
+          'Character-by-Character Selection Display',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'The following visualizations show how selection extends '
+                'character by character when directional extend events are processed:',
+                style: TextStyle(fontSize: 12, color: Colors.black87),
+              ),
+              SizedBox(height: 16),
+              _buildSelectionVisualization(
+                'Flutter Selection',
+                0,
+                7,
+                true,
+                'Step 1: "Flutter" selected',
+                _kBlue500,
+              ),
+              _buildSelectionVisualization(
+                'Flutter Selection',
+                0,
+                8,
+                true,
+                'Step 2: Forward extend adds space',
+                _kBlue600,
+              ),
+              _buildSelectionVisualization(
+                'Flutter Selection',
+                0,
+                11,
+                true,
+                'Step 3: Continue forward to "Sel"',
+                _kBlue700,
+              ),
+              _buildSelectionVisualization(
+                'Flutter Selection',
+                0,
+                17,
+                true,
+                'Step 4: Full text selected',
+                _kBlue800,
+              ),
+            ],
+          ),
+        ),
+        _buildInfoCard(
+          'Line-Based Selection Extension',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'For nextLine and previousLine directions, the dx property '
+                'is crucial as it helps maintain the horizontal cursor position '
+                'when moving between lines.',
                 style: TextStyle(fontSize: 12, color: Colors.black87),
               ),
               SizedBox(height: 12),
               Container(
-                padding: EdgeInsets.all(12),
+                padding: EdgeInsets.all(14),
                 decoration: BoxDecoration(
                   color: _kBlue50,
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: _kBlue300),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Keyboard Shortcuts:',
+                      'Multi-line Text Example:',
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
@@ -895,413 +1128,200 @@ dynamic build(BuildContext context) {
                       ),
                     ),
                     SizedBox(height: 8),
-                    Row(
-                      children: [
-                        Icon(Icons.keyboard, color: _kBlue600, size: 16),
-                        SizedBox(width: 8),
-                        Text(
-                          'Shift + Right Arrow = forward',
-                          style: TextStyle(fontSize: 11, color: Colors.black87),
-                        ),
-                      ],
+                    Text(
+                      'Line 1: Hello World\n'
+                      'Line 2: Flutter Demo\n'
+                      'Line 3: Selection Event',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontFamily: 'monospace',
+                        color: _kBlue900,
+                        height: 1.6,
+                      ),
                     ),
-                    SizedBox(height: 4),
-                    Row(
-                      children: [
-                        Icon(Icons.keyboard, color: _kBlue600, size: 16),
-                        SizedBox(width: 8),
-                        Text(
-                          'Shift + Left Arrow = backward',
-                          style: TextStyle(fontSize: 11, color: Colors.black87),
-                        ),
-                      ],
+                    SizedBox(height: 8),
+                    Text(
+                      'When extending to nextLine, dx=120.0 would position '
+                      'the selection at roughly the same horizontal offset.',
+                      style: TextStyle(fontSize: 11, color: Colors.black87),
                     ),
                   ],
                 ),
               ),
             ],
           ),
+          borderColor: _kCyan600,
         ),
 
-        // Section 8: By Word
-        _buildSectionHeader('Word-Level Extension', Icons.short_text),
-        _buildCard(
-          'Word Boundary Movement',
+        // Section 6: Sample Event Parameters
+        _buildSectionHeader(
+          'Sample Event Parameters',
+          Icons.code,
+          _kRed500,
+          _kRed400,
+        ),
+        _buildInfoCard(
+          'Parameter Reference Table',
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Word-level extension is typically handled by '
-                'GranularlyExtendSelectionEvent rather than DirectionallyExtendSelectionEvent. '
-                'However, directional events can work with word-aware text widgets.',
-                style: TextStyle(fontSize: 12, color: Colors.black87),
-              ),
-              SizedBox(height: 12),
-              _buildSelectionVisual('Hello World Test', 0, 5, true, 'Word: "Hello"'),
-              _buildSelectionVisual('Hello World Test', 0, 11, true, 'Next word: "Hello World"'),
-              SizedBox(height: 8),
-              Container(
-                padding: EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: _kAmber500.withAlpha(30),
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: _kAmber500),
-                ),
-                child: Row(
-                  children: [
-                    Icon(Icons.info, color: _kAmber500, size: 20),
-                    SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        'Ctrl+Shift+Arrow typically uses GranularlyExtendSelectionEvent',
-                        style: TextStyle(fontSize: 11, color: Colors.black87),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          accentColor: _kAmber500,
-        ),
-
-        // Section 9: By Line
-        _buildSectionHeader('Line-Level Extension', Icons.format_line_spacing),
-        _buildCard(
-          'Line Navigation',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: _kBlue100,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Column(
-                        children: [
-                          Icon(Icons.arrow_downward, color: _kBlue700, size: 28),
-                          SizedBox(height: 4),
-                          Text(
-                            'nextLine',
-                            style: TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.bold,
-                              color: _kBlue800,
-                            ),
-                          ),
-                          Text(
-                            'Shift+Down',
-                            style: TextStyle(fontSize: 10, color: _kBlue600),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 12),
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: _kCyan500.withAlpha(30),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Column(
-                        children: [
-                          Icon(Icons.arrow_upward, color: _kCyan700, size: 28),
-                          SizedBox(height: 4),
-                          Text(
-                            'previousLine',
-                            style: TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.bold,
-                              color: _kCyan700,
-                            ),
-                          ),
-                          Text(
-                            'Shift+Up',
-                            style: TextStyle(fontSize: 10, color: _kCyan700),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 12),
-              Text(
-                'Line navigation extends selection across text lines. '
-                'The dx property maintains the horizontal cursor position '
-                'when moving between lines of different lengths.',
-                style: TextStyle(fontSize: 12, color: Colors.black87),
-              ),
-              SizedBox(height: 12),
-              _buildCodeSnippet(
-                '// Extend to next line at x=75\n'
-                'var event = DirectionallyExtendSelectionEvent(\n'
-                '  dx: 75.0,\n'
-                '  isEnd: true,\n'
-                '  direction: SelectionExtendDirection.nextLine,\n'
-                ');',
-              ),
-            ],
-          ),
-        ),
-
-        // Section 10: Event Comparison
-        _buildSectionHeader('Selection Event Family', Icons.compare),
-        _buildCard(
-          'Related Selection Events',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildEventComparisonRow(
-                'DirectionallyExtendSelectionEvent',
-                'Extends by direction (forward, backward, up, down)',
-                _kBlue600,
-              ),
-              _buildEventComparisonRow(
-                'GranularlyExtendSelectionEvent',
-                'Extends by granularity (character, word, line)',
-                _kTeal500,
-              ),
-              _buildEventComparisonRow(
-                'SelectWordSelectionEvent',
-                'Selects entire word (double-tap)',
-                _kOrange500,
-              ),
-              _buildEventComparisonRow(
-                'SelectParagraphSelectionEvent',
-                'Selects entire paragraph (triple-tap)',
-                _kGreen500,
-              ),
-              _buildEventComparisonRow(
-                'SelectAllSelectionEvent',
-                'Selects all content (Ctrl+A)',
-                _kCyan700,
-              ),
-              _buildEventComparisonRow(
-                'ClearSelectionEvent',
-                'Clears current selection (tap away)',
-                _kRed500,
-              ),
-            ],
-          ),
-        ),
-
-        // Practical Use Cases
-        _buildSectionHeader('Practical Use Cases', Icons.build),
-        _buildCard(
-          'Real-World Applications',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                padding: EdgeInsets.all(12),
-                margin: EdgeInsets.only(bottom: 8),
-                decoration: BoxDecoration(
-                  color: _kGreen500.withAlpha(20),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Row(
-                  children: [
-                    Icon(Icons.edit, color: _kGreen500, size: 20),
-                    SizedBox(width: 10),
-                    Expanded(
-                      child: Text(
-                        'Text Editor: Keyboard-based selection with shift+arrows',
-                        style: TextStyle(fontSize: 12, color: Colors.black87),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.all(12),
-                margin: EdgeInsets.only(bottom: 8),
-                decoration: BoxDecoration(
-                  color: _kBlue500.withAlpha(20),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Row(
-                  children: [
-                    Icon(Icons.code, color: _kBlue500, size: 20),
-                    SizedBox(width: 10),
-                    Expanded(
-                      child: Text(
-                        'Code Editor: Multi-line selection for code blocks',
-                        style: TextStyle(fontSize: 12, color: Colors.black87),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.all(12),
-                margin: EdgeInsets.only(bottom: 8),
-                decoration: BoxDecoration(
-                  color: _kCyan500.withAlpha(20),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Row(
-                  children: [
-                    Icon(Icons.article, color: _kCyan500, size: 20),
-                    SizedBox(width: 10),
-                    Expanded(
-                      child: Text(
-                        'Document Viewer: Text selection for copy/paste',
-                        style: TextStyle(fontSize: 12, color: Colors.black87),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-
-        // Constructor Reference
-        _buildSectionHeader('Constructor Reference', Icons.construction),
-        _buildCard(
-          'DirectionallyExtendSelectionEvent Constructor',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildCodeSnippet(
-                'DirectionallyExtendSelectionEvent({\n'
-                '  required double dx,\n'
-                '  required bool isEnd,\n'
-                '  required SelectionExtendDirection direction,\n'
-                '})',
-              ),
-              SizedBox(height: 12),
               _buildPropertyRow(
-                'dx',
-                'double - horizontal position',
-                Icons.straighten,
+                'dx (double)',
+                'Horizontal position for line navigation',
+                Icons.swap_horiz,
                 _kBlue600,
               ),
               _buildPropertyRow(
-                'isEnd',
-                'bool - extend end (true) or start (false)',
+                'isEnd (bool)',
+                'true = extend end, false = extend start',
                 Icons.compare_arrows,
-                _kGreen500,
+                _kGreen600,
               ),
               _buildPropertyRow(
-                'direction',
-                'SelectionExtendDirection - direction to extend',
+                'direction (enum)',
+                'SelectionExtendDirection value',
                 Icons.directions,
-                _kOrange500,
+                _kOrange600,
               ),
             ],
           ),
         ),
-
-        // copyWith Method
-        _buildSectionHeader('copyWith Method', Icons.copy),
-        _buildCard(
-          'Creating Modified Copies',
+        _buildInfoCard(
+          'Keyboard Shortcuts Mapping',
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'The copyWith method creates a new event with modified properties:',
+                'Common keyboard shortcuts and their corresponding '
+                'DirectionallyExtendSelectionEvent parameters:',
                 style: TextStyle(fontSize: 12, color: Colors.black87),
               ),
+              SizedBox(height: 14),
+              _buildKeyboardShortcutRow(
+                'Shift+Right',
+                'direction: forward, isEnd: true',
+                Icons.arrow_forward,
+                _kGreen500,
+              ),
+              _buildKeyboardShortcutRow(
+                'Shift+Left',
+                'direction: backward, isEnd: true',
+                Icons.arrow_back,
+                _kOrange500,
+              ),
+              _buildKeyboardShortcutRow(
+                'Shift+Down',
+                'direction: nextLine, isEnd: true',
+                Icons.arrow_downward,
+                _kBlue500,
+              ),
+              _buildKeyboardShortcutRow(
+                'Shift+Up',
+                'direction: previousLine, isEnd: true',
+                Icons.arrow_upward,
+                _kPurple500,
+              ),
+            ],
+          ),
+          borderColor: _kAmber500,
+        ),
+        _buildInfoCard(
+          'Complete Code Examples',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Creating and using DirectionallyExtendSelectionEvent:',
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                  color: _kBlue800,
+                ),
+              ),
               SizedBox(height: 12),
-              _buildCodeSnippet(
-                'var original = DirectionallyExtendSelectionEvent(\n'
-                '  dx: 100.0,\n'
+              _buildCodeBlock(
+                '// Example 1: Forward Selection\n'
+                'var forwardEvent = DirectionallyExtendSelectionEvent(\n'
+                '  dx: 150.0,\n'
                 '  isEnd: true,\n'
                 '  direction: SelectionExtendDirection.forward,\n'
                 ');\n'
-                '\n'
-                'var modified = original.copyWith(\n'
+                'print(forwardEvent.dx);        // 150.0\n'
+                'print(forwardEvent.isEnd);     // true\n'
+                'print(forwardEvent.direction); // forward\n'
+                'print(forwardEvent.type);      // directionallyExtendSelection',
+              ),
+              SizedBox(height: 14),
+              _buildCodeBlock(
+                '// Example 2: Using copyWith\n'
+                'var modified = forwardEvent.copyWith(\n'
                 '  dx: 200.0,\n'
-                '  direction: SelectionExtendDirection.backward,\n'
+                '  direction: SelectionExtendDirection.nextLine,\n'
                 ');\n'
-                '\n'
-                '// modified.dx == 200.0\n'
-                '// modified.isEnd == true (unchanged)\n'
-                '// modified.direction == backward',
+                'print(modified.dx);        // 200.0\n'
+                'print(modified.direction); // nextLine\n'
+                'print(modified.isEnd);     // true (preserved)',
+              ),
+              SizedBox(height: 14),
+              _buildCodeBlock(
+                '// Example 3: All Directions\n'
+                'var directions = [\n'
+                '  SelectionExtendDirection.forward,\n'
+                '  SelectionExtendDirection.backward,\n'
+                '  SelectionExtendDirection.nextLine,\n'
+                '  SelectionExtendDirection.previousLine,\n'
+                '];\n'
+                'for (var dir in directions) {\n'
+                '  var event = DirectionallyExtendSelectionEvent(\n'
+                '    dx: 100.0,\n'
+                '    isEnd: true,\n'
+                '    direction: dir,\n'
+                '  );\n'
+                '  print(event.direction);\n'
+                '}',
               ),
             ],
           ),
+          borderColor: _kTeal600,
         ),
 
-        // Summary
-        _buildSectionHeader('Summary', Icons.check_circle),
-        _buildCard(
-          'Key Takeaways',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+        // Footer
+        SizedBox(height: 20),
+        Container(
+          width: double.infinity,
+          padding: EdgeInsets.all(18),
+          decoration: BoxDecoration(
+            color: _kBlue50,
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(color: _kBlue300),
+          ),
+          child: Column(
             children: [
-              _buildPropertyRow(
-                'Purpose',
-                'Extend text selection directionally',
-                Icons.select_all,
-                _kBlue600,
-              ),
-              _buildPropertyRow(
-                'Directions',
-                'forward, backward, nextLine, previousLine',
-                Icons.directions,
-                _kGreen500,
-              ),
-              _buildPropertyRow(
-                'Key Properties',
-                'dx, isEnd, direction',
-                Icons.settings,
-                _kOrange500,
-              ),
-              _buildPropertyRow(
-                'Common Trigger',
-                'Shift + Arrow keys',
-                Icons.keyboard,
-                _kCyan700,
-              ),
-              SizedBox(height: 16),
-              Center(
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [_kGreen500, _kTeal500],
-                    ),
-                    borderRadius: BorderRadius.circular(24),
-                    boxShadow: [
-                      BoxShadow(
-                        color: _kGreen500.withAlpha(80),
-                        blurRadius: 8,
-                        offset: Offset(0, 4),
-                      ),
-                    ],
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.check, color: Colors.white, size: 20),
-                      SizedBox(width: 8),
-                      Text(
-                        'Test Completed Successfully',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
-                  ),
+              Icon(Icons.check_circle, color: _kGreen500, size: 36),
+              SizedBox(height: 10),
+              Text(
+                'DirectionallyExtendSelectionEvent Deep Demo Complete',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: _kBlue800,
                 ),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 6),
+              Text(
+                'All sections covered: overview, isEnd, direction, '
+                'SelectionEvent base, visual representation, and sample parameters.',
+                style: TextStyle(
+                  fontSize: 12,
+                  color: _kBlue700,
+                ),
+                textAlign: TextAlign.center,
               ),
             ],
           ),
         ),
-
-        SizedBox(height: 24),
+        SizedBox(height: 30),
       ],
     ),
   );

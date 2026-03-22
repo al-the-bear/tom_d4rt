@@ -1,89 +1,217 @@
 // D4rt test script: Deep demo for FlowPaintingContext
-// FlowPaintingContext - painting context for Flow widget delegates
-//
-// FlowPaintingContext is an abstract class provided by Flutter's rendering
-// library. It acts as the interface given to a FlowDelegate's paintChildren
-// method, providing methods to query child sizes and paint children with
-// Matrix4 transforms. This enables efficient repositioning without relayout.
-//
-// ════════════════════════════════════════════════════════════════════════════
+// FlowPaintingContext - context for painting Flow layouts
+// ignore_for_file: avoid_print, deprecated_member_use, prefer_interpolation_to_compose_strings, prefer_final_fields
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 // ════════════════════════════════════════════════════════════════════════════
-// SECTION 1: FlowPaintingContext Purpose
+// SECTION 1: FlowPaintingContext Overview
 // ════════════════════════════════════════════════════════════════════════════
 //
-// FlowPaintingContext serves as the bridge between FlowDelegate and the
-// rendering layer. When you implement FlowDelegate.paintChildren(), you
-// receive a FlowPaintingContext that lets you:
-//   - Query the overall size of the Flow widget
-//   - Get the size of any child widget
-//   - Paint children at arbitrary positions using Matrix4 transforms
+// FlowPaintingContext is an abstract class in Flutter's rendering library
+// that serves as the interface between a FlowDelegate and the rendering
+// layer. When implementing FlowDelegate.paintChildren(), you receive a
+// FlowPaintingContext that provides:
 //
-// The key advantage is that painting with transforms does NOT trigger a
-// re-layout. This makes Flow ideal for animations where only child
-// positions change, not their sizes.
+//   - The overall size of the Flow widget via the size property
+//   - The number of children via the childCount property
+//   - Child sizes via the getChildSize(int) method
+//   - Child painting via the paintChild(int, {Matrix4? transform}) method
+//
+// The key advantage of Flow and FlowPaintingContext is that painting with
+// transforms does NOT trigger a re-layout. This makes Flow ideal for
+// animations where only child positions change, not their sizes.
+//
+// FlowPaintingContext is abstract because the actual implementation is
+// provided by RenderFlow, which passes a concrete context to delegates.
 //
 // ════════════════════════════════════════════════════════════════════════════
 
-class PurposeExplanationWidget extends StatefulWidget {
-  PurposeExplanationWidget({Key? key}) : super(key: key);
-
-  @override
-  State<PurposeExplanationWidget> createState() =>
-      _PurposeExplanationWidgetState();
+dynamic build(BuildContext context) {
+  print('FlowPaintingContext deep demo executing');
+  print('=' * 60);
+  
+  // Section 1: Overview
+  print('\n--- SECTION 1: FlowPaintingContext Overview ---');
+  print('FlowPaintingContext is an abstract class that provides:');
+  print('  - size: Size of the Flow widget');
+  print('  - childCount: Number of children');
+  print('  - getChildSize(int i): Size of child at index i');
+  print('  - paintChild(int i, {Matrix4? transform}): Paint child');
+  print('');
+  print('Purpose:');
+  print('  Bridges FlowDelegate and the rendering layer');
+  print('  Enables transform-based positioning without relayout');
+  print('  Provides efficient repaint-only updates');
+  
+  // Section 2: paintChild Method
+  print('\n--- SECTION 2: paintChild Method ---');
+  print('Signature: void paintChild(int childIndex, {Matrix4? transform})');
+  print('');
+  print('Parameters:');
+  print('  childIndex: Index of child to paint (0 to childCount-1)');
+  print('  transform: Optional Matrix4 for positioning');
+  print('');
+  print('Behavior:');
+  print('  - If transform is null, child paints at origin (0,0)');
+  print('  - Transform can include translation, rotation, scale, skew');
+  print('  - Each child should only be painted once per paint cycle');
+  print('  - Invalid index throws assertion error');
+  print('');
+  print('Transform examples:');
+  print('  Matrix4.translationValues(100, 50, 0) - Move to (100, 50)');
+  print('  Matrix4.rotationZ(math.pi / 4) - Rotate 45 degrees');
+  print('  Matrix4.diagonal3Values(2.0, 2.0, 1.0) - Scale 2x');
+  
+  // Section 3: getChildSize Method
+  print('\n--- SECTION 3: getChildSize Method ---');
+  print('Signature: Size? getChildSize(int childIndex)');
+  print('');
+  print('Returns:');
+  print('  - Size of the child widget at given index');
+  print('  - Returns null if child has not been laid out');
+  print('');
+  print('Usage:');
+  print('  Size? size = context.getChildSize(0);');
+  print('  if (size != null) {');
+  print('    double width = size.width;');
+  print('    double height = size.height;');
+  print('  }');
+  print('');
+  print('Important:');
+  print('  - Children are laid out with unconstrained constraints');
+  print('  - Child sizes are determined during layout, not paint');
+  print('  - Use getChildSize for dynamic positioning calculations');
+  
+  // Section 4: size Property
+  print('\n--- SECTION 4: size Property ---');
+  print('Signature: Size get size');
+  print('');
+  print('Returns:');
+  print('  - The size of the Flow widget itself');
+  print('  - Determined by Flow constraints and delegate');
+  print('');
+  print('Usage:');
+  print('  Size flowSize = context.size;');
+  print('  double centerX = flowSize.width / 2;');
+  print('  double centerY = flowSize.height / 2;');
+  print('');
+  print('Common patterns:');
+  print('  - Center children: (size.width - childWidth) / 2');
+  print('  - Bottom-align: size.height - childHeight');
+  print('  - Spacing: size.width / (childCount + 1)');
+  
+  // Section 5: Visual Flow Layout Examples
+  print('\n--- SECTION 5: Visual Flow Layout Examples ---');
+  print('');
+  print('Example 1: Horizontal Layout');
+  print('  for (int i = 0; i < context.childCount; i++) {');
+  print('    double x = i * 50.0;');
+  print('    context.paintChild(i, transform:');
+  print('      Matrix4.translationValues(x, 0, 0));');
+  print('  }');
+  print('');
+  print('Example 2: Circular Layout');
+  print('  double radius = 80.0;');
+  print('  double angleStep = 2 * math.pi / context.childCount;');
+  print('  for (int i = 0; i < context.childCount; i++) {');
+  print('    double angle = i * angleStep;');
+  print('    double x = center.dx + radius * math.cos(angle);');
+  print('    double y = center.dy + radius * math.sin(angle);');
+  print('    context.paintChild(i, transform:');
+  print('      Matrix4.translationValues(x, y, 0));');
+  print('  }');
+  print('');
+  print('Example 3: Stacked Layout');
+  print('  for (int i = 0; i < context.childCount; i++) {');
+  print('    double offset = i * 10.0;');
+  print('    context.paintChild(i, transform:');
+  print('      Matrix4.translationValues(offset, offset, 0));');
+  print('  }');
+  
+  // Section 6: Transformation Matrix Usage
+  print('\n--- SECTION 6: Transformation Matrix Usage ---');
+  print('');
+  print('Matrix4 provides various factory constructors:');
+  print('');
+  print('Translation:');
+  print('  Matrix4.translationValues(x, y, z)');
+  print('  Matrix4.identity()..translate(x, y, z)');
+  print('');
+  print('Rotation:');
+  print('  Matrix4.rotationZ(radians) - Around Z axis (2D rotation)');
+  print('  Matrix4.rotationX(radians) - Around X axis (3D tilt)');
+  print('  Matrix4.rotationY(radians) - Around Y axis (3D flip)');
+  print('');
+  print('Scale:');
+  print('  Matrix4.diagonal3Values(sx, sy, sz)');
+  print('  Matrix4.identity()..scale(factor)');
+  print('');
+  print('Combined transforms (order matters):');
+  print('  var transform = Matrix4.identity()');
+  print('    ..translate(cx, cy)');
+  print('    ..rotateZ(angle)');
+  print('    ..translate(-cx, -cy);');
+  print('');
+  print('Rotate around point (cx, cy):');
+  print('  1. Translate point to origin');
+  print('  2. Apply rotation');
+  print('  3. Translate back');
+  
+  print('\n' + '=' * 60);
+  print('FlowPaintingContext deep demo completed');
+  
+  return Scaffold(
+    appBar: AppBar(
+      title: Text('FlowPaintingContext Demo'),
+      backgroundColor: Color(0xFF3F51B5),
+    ),
+    body: SingleChildScrollView(
+      padding: EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _OverviewSection(),
+          SizedBox(height: 20),
+          _PaintChildSection(),
+          SizedBox(height: 20),
+          _GetChildSizeSection(),
+          SizedBox(height: 20),
+          _SizePropertySection(),
+          SizedBox(height: 20),
+          _VisualExamplesSection(),
+          SizedBox(height: 20),
+          _TransformationMatrixSection(),
+          SizedBox(height: 20),
+          _InteractiveFlowDemo(),
+          SizedBox(height: 20),
+          _AnimatedFlowDemo(),
+          SizedBox(height: 40),
+        ],
+      ),
+    ),
+  );
 }
 
-class _PurposeExplanationWidgetState extends State<PurposeExplanationWidget> {
-  int _expandedIndex = -1;
+// ════════════════════════════════════════════════════════════════════════════
+// Overview Section Widget
+// ════════════════════════════════════════════════════════════════════════════
 
-  List<Map<String, String>> _getPurposeItems() {
-    return [
-      {
-        'title': 'Bridge to Rendering',
-        'description':
-            'FlowPaintingContext connects FlowDelegate to the render layer, '
-                'providing direct access to child measurement and painting operations.',
-      },
-      {
-        'title': 'Transform-Based Positioning',
-        'description':
-            'Instead of using layout constraints, children are positioned via '
-                'Matrix4 transforms passed to paintChild(). This bypasses relayout.',
-      },
-      {
-        'title': 'Performance Optimization',
-        'description':
-            'Because transforms dont affect layout, animations can update '
-                'positions at 60fps without triggering expensive layout passes.',
-      },
-      {
-        'title': 'Child Size Access',
-        'description':
-            'The context provides getChildSize() to query laid-out dimensions, '
-                'enabling delegates to compute dynamic positioning.',
-      },
-    ];
-  }
-
+class _OverviewSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var items = _getPurposeItems();
     return Container(
       padding: EdgeInsets.all(16),
-      margin: EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Color(0xFFE3F2FD), Color(0xFFBBDEFB)],
+          colors: [Color(0xFF3F51B5), Color(0xFF5C6BC0)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Color(0xFF64B5F6), width: 2),
         boxShadow: [
           BoxShadow(
-            color: Color(0xFF90CAF9).withValues(alpha: 0.3),
+            color: Colors.black26,
             blurRadius: 8,
             offset: Offset(0, 4),
           ),
@@ -94,93 +222,76 @@ class _PurposeExplanationWidgetState extends State<PurposeExplanationWidget> {
         children: [
           Row(
             children: [
-              Container(
-                padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Color(0xFF1976D2),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Icon(Icons.lightbulb_outline, color: Colors.white, size: 24),
-              ),
+              Icon(Icons.info_outline, color: Colors.white, size: 28),
               SizedBox(width: 12),
               Text(
-                'FlowPaintingContext Purpose',
+                'FlowPaintingContext Overview',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF0D47A1),
+                  color: Colors.white,
                 ),
               ),
             ],
           ),
           SizedBox(height: 16),
           Text(
-            'FlowPaintingContext is the abstract interface passed to '
-            'FlowDelegate.paintChildren(). It encapsulates the rendering '
-            'operations needed to paint Flow children efficiently.',
-            style: TextStyle(fontSize: 14, color: Color(0xFF1565C0)),
+            'FlowPaintingContext is an abstract interface passed to FlowDelegate.paintChildren(). '
+            'It encapsulates all rendering operations needed to paint Flow children efficiently.',
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.white.withValues(alpha: 0.9),
+            ),
           ),
           SizedBox(height: 16),
-          ...List.generate(items.length, (index) {
-            var item = items[index];
-            var isExpanded = _expandedIndex == index;
-            return GestureDetector(
-              onTap: () {
-                setState(() {
-                  _expandedIndex = isExpanded ? -1 : index;
-                });
-              },
-              child: AnimatedContainer(
-                duration: Duration(milliseconds: 200),
-                margin: EdgeInsets.only(bottom: 8),
-                padding: EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: isExpanded ? Color(0xFF42A5F5) : Colors.white,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                    color: isExpanded ? Color(0xFF1E88E5) : Color(0xFF90CAF9),
-                  ),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          isExpanded
-                              ? Icons.keyboard_arrow_down
-                              : Icons.keyboard_arrow_right,
-                          color: isExpanded ? Colors.white : Color(0xFF1976D2),
-                        ),
-                        SizedBox(width: 8),
-                        Expanded(
-                          child: Text(
-                            item['title'] ?? '',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 15,
-                              color:
-                                  isExpanded ? Colors.white : Color(0xFF0D47A1),
-                            ),
-                          ),
-                        ),
-                      ],
+          _buildPropertyItem('size', 'Size of the Flow widget'),
+          _buildPropertyItem('childCount', 'Number of children'),
+          _buildPropertyItem('getChildSize(int)', 'Get child dimensions'),
+          _buildPropertyItem('paintChild(int, {Matrix4?})', 'Paint with transform'),
+        ],
+      ),
+    );
+  }
+  
+  Widget _buildPropertyItem(String name, String description) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 8,
+            height: 8,
+            margin: EdgeInsets.only(top: 6, right: 12),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.circle,
+            ),
+          ),
+          Expanded(
+            child: RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: name,
+                    style: TextStyle(
+                      fontFamily: 'monospace',
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFFFFEB3B),
                     ),
-                    if (isExpanded) ...[
-                      SizedBox(height: 8),
-                      Text(
-                        item['description'] ?? '',
-                        style: TextStyle(
-                          fontSize: 13,
-                          color: Colors.white.withValues(alpha: 0.9),
-                        ),
-                      ),
-                    ],
-                  ],
-                ),
+                  ),
+                  TextSpan(
+                    text: ' - \$description',
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Colors.white.withValues(alpha: 0.85),
+                    ),
+                  ),
+                ],
               ),
-            );
-          }),
+            ),
+          ),
         ],
       ),
     );
@@ -188,87 +299,14 @@ class _PurposeExplanationWidgetState extends State<PurposeExplanationWidget> {
 }
 
 // ════════════════════════════════════════════════════════════════════════════
-// SECTION 2: paintChild Method
-// ════════════════════════════════════════════════════════════════════════════
-//
-// void paintChild(int childIndex, {Matrix4? transform})
-//
-// This is the core method of FlowPaintingContext. It paints the child at
-// the given index using the optional Matrix4 transform. If no transform is
-// provided, the child is painted at the origin (0, 0).
-//
-// The transform parameter allows:
-//   - Translation (moving the child)
-//   - Rotation
-//   - Scaling
-//   - Skewing
-//   - Any combination via matrix composition
-//
-// Important: Each child should only be painted once per paint cycle.
-//
+// paintChild Method Section
 // ════════════════════════════════════════════════════════════════════════════
 
-class PaintChildDemoWidget extends StatefulWidget {
-  PaintChildDemoWidget({Key? key}) : super(key: key);
-
-  @override
-  State<PaintChildDemoWidget> createState() => _PaintChildDemoWidgetState();
-}
-
-class _PaintChildDemoWidgetState extends State<PaintChildDemoWidget>
-    with SingleTickerProviderStateMixin {
-  AnimationController? _controller;
-  int _selectedTransformType = 0;
-  bool _isAnimating = false;
-
-  List<String> _transformTypes = [
-    'Translation Only',
-    'Rotation Only',
-    'Scale Only',
-    'Combined Transform',
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      duration: Duration(milliseconds: 2000),
-      vsync: this,
-    );
-    _controller?.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        _controller?.reverse();
-      } else if (status == AnimationStatus.dismissed) {
-        if (_isAnimating) {
-          _controller?.forward();
-        }
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _controller?.dispose();
-    super.dispose();
-  }
-
-  void _toggleAnimation() {
-    setState(() {
-      _isAnimating = !_isAnimating;
-      if (_isAnimating) {
-        _controller?.forward();
-      } else {
-        _controller?.stop();
-        _controller?.reset();
-      }
-    });
-  }
-
+class _PaintChildSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(16),
-      margin: EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
         color: Color(0xFFFFF3E0),
         borderRadius: BorderRadius.circular(12),
@@ -285,17 +323,15 @@ class _PaintChildDemoWidgetState extends State<PaintChildDemoWidget>
                   color: Color(0xFFFF9800),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Icon(Icons.brush, color: Colors.white, size: 24),
+                child: Icon(Icons.brush, color: Colors.white),
               ),
               SizedBox(width: 12),
-              Expanded(
-                child: Text(
-                  'paintChild Method',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFFE65100),
-                  ),
+              Text(
+                'paintChild Method',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFFE65100),
                 ),
               ),
             ],
@@ -318,245 +354,76 @@ class _PaintChildDemoWidgetState extends State<PaintChildDemoWidget>
           ),
           SizedBox(height: 16),
           Text(
-            'Select a transform type to see how paintChild positions children:',
-            style: TextStyle(fontSize: 14, color: Color(0xFF795548)),
+            'The paintChild method renders a child at the specified index using '
+            'an optional Matrix4 transformation. If no transform is provided, '
+            'the child is painted at the origin (0, 0).',
+            style: TextStyle(fontSize: 14, color: Color(0xFF5D4037)),
           ),
           SizedBox(height: 12),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: List.generate(_transformTypes.length, (index) {
-              var isSelected = _selectedTransformType == index;
-              return GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _selectedTransformType = index;
-                  });
-                },
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                  decoration: BoxDecoration(
-                    color: isSelected ? Color(0xFFFF9800) : Colors.white,
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: Color(0xFFFFB74D)),
-                  ),
+          _buildParameterInfo('childIndex', 'Index of child (0 to childCount-1)'),
+          _buildParameterInfo('transform', 'Optional Matrix4 for positioning'),
+          SizedBox(height: 12),
+          Container(
+            padding: EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Color(0xFFFFE0B2),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Row(
+              children: [
+                Icon(Icons.lightbulb_outline, color: Color(0xFFE65100)),
+                SizedBox(width: 8),
+                Expanded(
                   child: Text(
-                    _transformTypes[index],
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                      color: isSelected ? Colors.white : Color(0xFFE65100),
-                    ),
+                    'Each child should only be painted once per paint cycle.',
+                    style: TextStyle(fontSize: 13, color: Color(0xFF795548)),
                   ),
                 ),
-              );
-            }),
+              ],
+            ),
           ),
-          SizedBox(height: 16),
+        ],
+      ),
+    );
+  }
+  
+  Widget _buildParameterInfo(String name, String desc) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        children: [
           Container(
-            height: 150,
+            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
             decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: Color(0xFFFFCC80)),
+              color: Color(0xFFFF9800),
+              borderRadius: BorderRadius.circular(4),
             ),
-            child: AnimatedBuilder(
-              animation: _controller!,
-              builder: (context, child) {
-                return Flow(
-                  delegate: _PaintChildFlowDelegate(
-                    animationValue: _controller?.value ?? 0,
-                    transformType: _selectedTransformType,
-                  ),
-                  children: [
-                    _buildFlowChild(0, Color(0xFFE91E63)),
-                    _buildFlowChild(1, Color(0xFF9C27B0)),
-                    _buildFlowChild(2, Color(0xFF3F51B5)),
-                  ],
-                );
-              },
-            ),
-          ),
-          SizedBox(height: 12),
-          Center(
-            child: ElevatedButton.icon(
-              onPressed: _toggleAnimation,
-              icon: Icon(_isAnimating ? Icons.pause : Icons.play_arrow),
-              label: Text(_isAnimating ? 'Pause' : 'Animate'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFFFF9800),
-                foregroundColor: Colors.white,
+            child: Text(
+              name,
+              style: TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 12,
+                color: Colors.white,
               ),
             ),
           ),
-          SizedBox(height: 12),
-          _buildTransformExplanation(),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildFlowChild(int index, Color color) {
-    return Container(
-      width: 40,
-      height: 40,
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(8),
-        boxShadow: [
-          BoxShadow(
-            color: color.withValues(alpha: 0.4),
-            blurRadius: 6,
-            offset: Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Center(
-        child: Text(
-          '${index + 1}',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildTransformExplanation() {
-    var explanations = [
-      'Translation: Matrix4.translationValues(x, y, 0) moves the child.',
-      'Rotation: Matrix4.rotationZ(angle) rotates around the Z axis.',
-      'Scale: Matrix4.diagonal3Values(sx, sy, 1) scales uniformly.',
-      'Combined: Multiply matrices for translation + rotation + scale.',
-    ];
-    return Container(
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Color(0xFFFFE0B2),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Row(
-        children: [
-          Icon(Icons.info_outline, color: Color(0xFFE65100), size: 20),
           SizedBox(width: 8),
-          Expanded(
-            child: Text(
-              explanations[_selectedTransformType],
-              style: TextStyle(fontSize: 12, color: Color(0xFF795548)),
-            ),
-          ),
+          Text(desc, style: TextStyle(fontSize: 13, color: Color(0xFF6D4C41))),
         ],
       ),
     );
   }
 }
 
-class _PaintChildFlowDelegate extends FlowDelegate {
-  final double animationValue;
-  final int transformType;
-
-  _PaintChildFlowDelegate({
-    required this.animationValue,
-    required this.transformType,
-  });
-
-  @override
-  void paintChildren(FlowPaintingContext context) {
-    var childCount = context.childCount;
-    var flowSize = context.size;
-
-    for (var i = 0; i < childCount; i++) {
-      var childSize = context.getChildSize(i);
-      if (childSize == null) continue;
-
-      var transform = _computeTransform(i, childCount, flowSize, childSize);
-      context.paintChild(i, transform: transform);
-    }
-  }
-
-  Matrix4 _computeTransform(int index, int count, Size flowSize, Size childSize) {
-    var baseX = 20.0 + index * 60;
-    var baseY = (flowSize.height - childSize.height) / 2;
-    var animOffset = animationValue * 40;
-
-    switch (transformType) {
-      case 0: // Translation only
-        return Matrix4.translationValues(
-          baseX + animOffset * (index % 2 == 0 ? 1 : -1),
-          baseY + math.sin(animationValue * math.pi * 2) * 20,
-          0,
-        );
-      case 1: // Rotation only
-        var angle = animationValue * math.pi * 2 * (index % 2 == 0 ? 1 : -1);
-        var transform = Matrix4.translationValues(baseX + 20, baseY + 20, 0);
-        transform.rotateZ(angle);
-        transform.translate(-20.0, -20.0);
-        return transform;
-      case 2: // Scale only
-        var scale = 0.5 + animationValue * 0.5;
-        var transform = Matrix4.translationValues(baseX, baseY, 0);
-        transform.scale(scale, scale);
-        return transform;
-      case 3: // Combined
-        var angle = animationValue * math.pi * 0.5;
-        var scale = 0.8 + animationValue * 0.4;
-        var transform = Matrix4.translationValues(
-          baseX + animOffset,
-          baseY + math.sin(animationValue * math.pi) * 30,
-          0,
-        );
-        transform.rotateZ(angle);
-        transform.scale(scale, scale);
-        return transform;
-      default:
-        return Matrix4.translationValues(baseX, baseY, 0);
-    }
-  }
-
-  @override
-  bool shouldRepaint(_PaintChildFlowDelegate oldDelegate) {
-    return animationValue != oldDelegate.animationValue ||
-        transformType != oldDelegate.transformType;
-  }
-}
-
 // ════════════════════════════════════════════════════════════════════════════
-// SECTION 3: size Property
-// ════════════════════════════════════════════════════════════════════════════
-//
-// Size get size
-//
-// Returns the overall size of the Flow widget itself. This is determined
-// by the Flow's parent constraints and any sizing widgets wrapping it.
-// The delegate uses this to compute where to position children relative
-// to the available space.
-//
-// Common use cases:
-//   - Centering children within the flow
-//   - Computing radial layouts (knowing the center point)
-//   - Distributing children evenly across available width/height
-//
+// getChildSize Method Section
 // ════════════════════════════════════════════════════════════════════════════
 
-class SizePropertyDemoWidget extends StatefulWidget {
-  SizePropertyDemoWidget({Key? key}) : super(key: key);
-
-  @override
-  State<SizePropertyDemoWidget> createState() => _SizePropertyDemoWidgetState();
-}
-
-class _SizePropertyDemoWidgetState extends State<SizePropertyDemoWidget> {
-  double _flowWidth = 300;
-  double _flowHeight = 120;
-  String _sizeInfo = 'Adjust sliders to change Flow size';
-
+class _GetChildSizeSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(16),
-      margin: EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
         color: Color(0xFFE8F5E9),
         borderRadius: BorderRadius.circular(12),
@@ -573,15 +440,15 @@ class _SizePropertyDemoWidgetState extends State<SizePropertyDemoWidget> {
                   color: Color(0xFF4CAF50),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Icon(Icons.aspect_ratio, color: Colors.white, size: 24),
+                child: Icon(Icons.straighten, color: Colors.white),
               ),
               SizedBox(width: 12),
               Text(
-                'size Property',
+                'getChildSize Method',
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF1B5E20),
+                  color: Color(0xFF2E7D32),
                 ),
               ),
             ],
@@ -594,7 +461,7 @@ class _SizePropertyDemoWidgetState extends State<SizePropertyDemoWidget> {
               borderRadius: BorderRadius.circular(8),
             ),
             child: Text(
-              'Size get size // Returns the Flow widget dimensions',
+              'Size? getChildSize(int childIndex)',
               style: TextStyle(
                 fontFamily: 'monospace',
                 fontSize: 13,
@@ -603,180 +470,433 @@ class _SizePropertyDemoWidgetState extends State<SizePropertyDemoWidget> {
             ),
           ),
           SizedBox(height: 16),
-          Row(
-            children: [
-              Text('Width:', style: TextStyle(color: Color(0xFF2E7D32))),
-              Expanded(
-                child: Slider(
-                  value: _flowWidth,
-                  min: 150,
-                  max: 350,
-                  activeColor: Color(0xFF4CAF50),
-                  onChanged: (value) {
-                    setState(() {
-                      _flowWidth = value;
-                    });
-                  },
-                ),
-              ),
-              Text(
-                '${_flowWidth.toInt()}',
-                style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1B5E20)),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              Text('Height:', style: TextStyle(color: Color(0xFF2E7D32))),
-              Expanded(
-                child: Slider(
-                  value: _flowHeight,
-                  min: 80,
-                  max: 200,
-                  activeColor: Color(0xFF4CAF50),
-                  onChanged: (value) {
-                    setState(() {
-                      _flowHeight = value;
-                    });
-                  },
-                ),
-              ),
-              Text(
-                '${_flowHeight.toInt()}',
-                style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1B5E20)),
-              ),
-            ],
+          Text(
+            'Returns the laid-out size of the child at the given index. '
+            'Returns null if the child has not been laid out.',
+            style: TextStyle(fontSize: 14, color: Color(0xFF33691E)),
           ),
           SizedBox(height: 12),
-          Center(
-            child: Container(
-              width: _flowWidth,
-              height: _flowHeight,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Color(0xFF66BB6A), width: 2),
-              ),
-              child: Flow(
-                delegate: _SizeAwareFlowDelegate(
-                  onSizeReported: (size) {
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      if (mounted) {
-                        setState(() {
-                          _sizeInfo = 'Flow size: ${size.width.toInt()} x ${size.height.toInt()}';
-                        });
-                      }
-                    });
-                  },
-                ),
-                children: [
-                  _buildSizeChild(Color(0xFF66BB6A)),
-                  _buildSizeChild(Color(0xFF43A047)),
-                  _buildSizeChild(Color(0xFF2E7D32)),
-                  _buildSizeChild(Color(0xFF1B5E20)),
-                ],
-              ),
+          Container(
+            padding: EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Color(0xFFC8E6C9),
+              borderRadius: BorderRadius.circular(8),
             ),
-          ),
-          SizedBox(height: 12),
-          Center(
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              decoration: BoxDecoration(
-                color: Color(0xFFC8E6C9),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Text(
-                _sizeInfo,
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xFF1B5E20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Usage Example:',
+                  style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1B5E20)),
                 ),
-              ),
+                SizedBox(height: 8),
+                Text(
+                  'Size? childSize = context.getChildSize(0);\n'
+                  'if (childSize != null) {\n'
+                  '  double centerX = (context.size.width - childSize.width) / 2;\n'
+                  '  context.paintChild(0, transform:\n'
+                  '    Matrix4.translationValues(centerX, 0, 0));\n'
+                  '}',
+                  style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 12,
+                    color: Color(0xFF2E7D32),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
       ),
     );
   }
+}
 
-  Widget _buildSizeChild(Color color) {
+// ════════════════════════════════════════════════════════════════════════════
+// size Property Section
+// ════════════════════════════════════════════════════════════════════════════
+
+class _SizePropertySection extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
     return Container(
-      width: 35,
-      height: 35,
+      padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: color,
-        shape: BoxShape.circle,
+        color: Color(0xFFE3F2FD),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Color(0xFF64B5F6), width: 2),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Color(0xFF2196F3),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Icon(Icons.aspect_ratio, color: Colors.white),
+              ),
+              SizedBox(width: 12),
+              Text(
+                'size Property',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF1565C0),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 12),
+          Container(
+            padding: EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Color(0xFF263238),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Text(
+              'Size get size',
+              style: TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 13,
+                color: Color(0xFF90CAF9),
+              ),
+            ),
+          ),
+          SizedBox(height: 16),
+          Text(
+            'Returns the size of the Flow widget itself. This is determined '
+            'by the constraints passed to the Flow and any size overrides '
+            'in the FlowDelegate.getSize() method.',
+            style: TextStyle(fontSize: 14, color: Color(0xFF1565C0)),
+          ),
+          SizedBox(height: 12),
+          Row(
+            children: [
+              _buildSizeUsageCard('Center', '(size.width - childW) / 2'),
+              SizedBox(width: 8),
+              _buildSizeUsageCard('Bottom', 'size.height - childH'),
+            ],
+          ),
+          SizedBox(height: 8),
+          Row(
+            children: [
+              _buildSizeUsageCard('Spacing', 'size.width / (n + 1)'),
+              SizedBox(width: 8),
+              _buildSizeUsageCard('Padding', 'size.width - padding * 2'),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+  
+  Widget _buildSizeUsageCard(String title, String formula) {
+    return Expanded(
+      child: Container(
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Color(0xFFBBDEFB),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Column(
+          children: [
+            Text(
+              title,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 12,
+                color: Color(0xFF0D47A1),
+              ),
+            ),
+            SizedBox(height: 4),
+            Text(
+              formula,
+              style: TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 10,
+                color: Color(0xFF1565C0),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
 
-class _SizeAwareFlowDelegate extends FlowDelegate {
-  final void Function(Size) onSizeReported;
+// ════════════════════════════════════════════════════════════════════════════
+// Visual Flow Layout Examples Section
+// ════════════════════════════════════════════════════════════════════════════
 
-  _SizeAwareFlowDelegate({required this.onSizeReported});
-
+class _VisualExamplesSection extends StatefulWidget {
   @override
-  void paintChildren(FlowPaintingContext context) {
-    var flowSize = context.size;
-    onSizeReported(flowSize);
-
-    var childCount = context.childCount;
-    var spacing = flowSize.width / (childCount + 1);
-
-    for (var i = 0; i < childCount; i++) {
-      var childSize = context.getChildSize(i);
-      if (childSize == null) continue;
-
-      var x = spacing * (i + 1) - childSize.width / 2;
-      var y = (flowSize.height - childSize.height) / 2;
-
-      context.paintChild(i, transform: Matrix4.translationValues(x, y, 0));
-    }
-  }
-
-  @override
-  bool shouldRepaint(_SizeAwareFlowDelegate oldDelegate) => false;
+  State<_VisualExamplesSection> createState() => _VisualExamplesSectionState();
 }
 
-// ════════════════════════════════════════════════════════════════════════════
-// SECTION 4: getChildSize Method
-// ════════════════════════════════════════════════════════════════════════════
-//
-// Size? getChildSize(int i)
-//
-// Returns the laid-out size of the child at index i. This is essential for
-// computing transforms that properly position children based on their
-// actual dimensions. Returns null if the child hasn't been laid out yet.
-//
-// Usage example:
-//   var childSize = context.getChildSize(i);
-//   var centerX = childSize.width / 2;
-//   var centerY = childSize.height / 2;
-//
-// ════════════════════════════════════════════════════════════════════════════
-
-class GetChildSizeDemoWidget extends StatefulWidget {
-  GetChildSizeDemoWidget({Key? key}) : super(key: key);
-
-  @override
-  State<GetChildSizeDemoWidget> createState() => _GetChildSizeDemoWidgetState();
-}
-
-class _GetChildSizeDemoWidgetState extends State<GetChildSizeDemoWidget> {
-  List<Size> _childSizes = [];
-  int _highlightedChild = -1;
-
+class _VisualExamplesSectionState extends State<_VisualExamplesSection> {
+  int _selectedLayout = 0;
+  
+  List<String> _layoutNames = [
+    'Horizontal',
+    'Vertical',
+    'Circular',
+    'Diagonal',
+    'Grid',
+  ];
+  
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(16),
-      margin: EdgeInsets.only(bottom: 16),
+      decoration: BoxDecoration(
+        color: Color(0xFFFCE4EC),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Color(0xFFF48FB1), width: 2),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Color(0xFFE91E63),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Icon(Icons.grid_view, color: Colors.white),
+              ),
+              SizedBox(width: 12),
+              Text(
+                'Visual Flow Layout Examples',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFFC2185B),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 16),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: List.generate(_layoutNames.length, (index) {
+              bool isSelected = _selectedLayout == index;
+              return GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _selectedLayout = index;
+                  });
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: isSelected ? Color(0xFFE91E63) : Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: Color(0xFFE91E63)),
+                  ),
+                  child: Text(
+                    _layoutNames[index],
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: isSelected ? Colors.white : Color(0xFFC2185B),
+                    ),
+                  ),
+                ),
+              );
+            }),
+          ),
+          SizedBox(height: 16),
+          Container(
+            height: 180,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: Color(0xFFF8BBD0)),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Flow(
+                delegate: _VisualLayoutDelegate(layoutType: _selectedLayout),
+                children: List.generate(6, (index) {
+                  return Container(
+                    width: 36,
+                    height: 36,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          _getChildColor(index),
+                          _getChildColor(index).withValues(alpha: 0.7),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                      boxShadow: [
+                        BoxShadow(
+                          color: _getChildColor(index).withValues(alpha: 0.4),
+                          blurRadius: 4,
+                          offset: Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: Center(
+                      child: Text(
+                        '\${index + 1}',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  );
+                }),
+              ),
+            ),
+          ),
+          SizedBox(height: 12),
+          _buildLayoutDescription(),
+        ],
+      ),
+    );
+  }
+  
+  Color _getChildColor(int index) {
+    List<Color> colors = [
+      Color(0xFFE91E63),
+      Color(0xFF9C27B0),
+      Color(0xFF673AB7),
+      Color(0xFF3F51B5),
+      Color(0xFF2196F3),
+      Color(0xFF00BCD4),
+    ];
+    return colors[index % colors.length];
+  }
+  
+  Widget _buildLayoutDescription() {
+    List<String> descriptions = [
+      'Horizontal: Children spaced evenly along x-axis',
+      'Vertical: Children stacked along y-axis',
+      'Circular: Children arranged in a circle',
+      'Diagonal: Children positioned diagonally',
+      'Grid: Children in 3x2 grid pattern',
+    ];
+    return Container(
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Color(0xFFF8BBD0),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Row(
+        children: [
+          Icon(Icons.info_outline, size: 18, color: Color(0xFFC2185B)),
+          SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              descriptions[_selectedLayout],
+              style: TextStyle(fontSize: 12, color: Color(0xFF880E4F)),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _VisualLayoutDelegate extends FlowDelegate {
+  int layoutType;
+  
+  _VisualLayoutDelegate({required this.layoutType});
+  
+  @override
+  void paintChildren(FlowPaintingContext context) {
+    int count = context.childCount;
+    Size flowSize = context.size;
+    
+    for (int i = 0; i < count; i++) {
+      Size? childSize = context.getChildSize(i);
+      if (childSize == null) continue;
+      
+      Matrix4 transform = _computeTransform(i, count, flowSize, childSize);
+      context.paintChild(i, transform: transform);
+    }
+  }
+  
+  Matrix4 _computeTransform(int index, int count, Size flowSize, Size childSize) {
+    double x = 0;
+    double y = 0;
+    
+    switch (layoutType) {
+      case 0: // Horizontal
+        double spacing = (flowSize.width - childSize.width) / (count - 1);
+        x = index * spacing;
+        y = (flowSize.height - childSize.height) / 2;
+        break;
+      case 1: // Vertical
+        x = (flowSize.width - childSize.width) / 2;
+        double spacing = (flowSize.height - childSize.height) / (count - 1);
+        y = index * spacing;
+        break;
+      case 2: // Circular
+        double centerX = flowSize.width / 2;
+        double centerY = flowSize.height / 2;
+        double radius = math.min(centerX, centerY) - childSize.width / 2 - 10;
+        double angle = (index * 2 * math.pi / count) - math.pi / 2;
+        x = centerX + radius * math.cos(angle) - childSize.width / 2;
+        y = centerY + radius * math.sin(angle) - childSize.height / 2;
+        break;
+      case 3: // Diagonal
+        double stepX = (flowSize.width - childSize.width) / (count - 1);
+        double stepY = (flowSize.height - childSize.height) / (count - 1);
+        x = index * stepX;
+        y = index * stepY;
+        break;
+      case 4: // Grid
+        int cols = 3;
+        int row = index ~/ cols;
+        int col = index % cols;
+        double cellWidth = flowSize.width / cols;
+        double cellHeight = flowSize.height / 2;
+        x = col * cellWidth + (cellWidth - childSize.width) / 2;
+        y = row * cellHeight + (cellHeight - childSize.height) / 2;
+        break;
+    }
+    
+    return Matrix4.translationValues(x, y, 0);
+  }
+  
+  @override
+  bool shouldRepaint(_VisualLayoutDelegate oldDelegate) {
+    return oldDelegate.layoutType != layoutType;
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// Transformation Matrix Usage Section
+// ════════════════════════════════════════════════════════════════════════════
+
+class _TransformationMatrixSection extends StatefulWidget {
+  @override
+  State<_TransformationMatrixSection> createState() => _TransformationMatrixSectionState();
+}
+
+class _TransformationMatrixSectionState extends State<_TransformationMatrixSection> {
+  double _rotation = 0;
+  double _scale = 1.0;
+  double _translateX = 0;
+  double _translateY = 0;
+  
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Color(0xFFF3E5F5),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Color(0xFFBA68C8), width: 2),
+        border: Border.all(color: Color(0xFFCE93D8), width: 2),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -789,247 +909,195 @@ class _GetChildSizeDemoWidgetState extends State<GetChildSizeDemoWidget> {
                   color: Color(0xFF9C27B0),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Icon(Icons.straighten, color: Colors.white, size: 24),
+                child: Icon(Icons.transform, color: Colors.white),
               ),
               SizedBox(width: 12),
               Text(
-                'getChildSize Method',
+                'Transformation Matrix Usage',
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF4A148C),
+                  color: Color(0xFF7B1FA2),
                 ),
               ),
             ],
           ),
-          SizedBox(height: 12),
+          SizedBox(height: 16),
           Container(
-            padding: EdgeInsets.all(12),
+            height: 160,
             decoration: BoxDecoration(
-              color: Color(0xFF263238),
+              color: Colors.white,
               borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: Color(0xFFE1BEE7)),
             ),
-            child: Text(
-              'Size? getChildSize(int i) // Returns child dimensions',
-              style: TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 13,
-                color: Color(0xFFCE93D8),
+            child: Center(
+              child: Flow(
+                delegate: _TransformDelegate(
+                  rotation: _rotation,
+                  scale: _scale,
+                  translateX: _translateX,
+                  translateY: _translateY,
+                ),
+                children: [
+                  Container(
+                    width: 60,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [Color(0xFF9C27B0), Color(0xFFE040FB)],
+                      ),
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color(0xFF9C27B0).withValues(alpha: 0.4),
+                          blurRadius: 8,
+                          offset: Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: Center(
+                      child: Icon(Icons.star, color: Colors.white, size: 32),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
           SizedBox(height: 16),
-          Text(
-            'Children with varying sizes (tap to highlight):',
-            style: TextStyle(fontSize: 14, color: Color(0xFF6A1B9A)),
-          ),
+          _buildSliderRow('Rotation', _rotation, -math.pi, math.pi, (v) {
+            setState(() => _rotation = v);
+          }),
+          _buildSliderRow('Scale', _scale, 0.5, 2.0, (v) {
+            setState(() => _scale = v);
+          }),
+          _buildSliderRow('Translate X', _translateX, -50, 50, (v) {
+            setState(() => _translateX = v);
+          }),
+          _buildSliderRow('Translate Y', _translateY, -30, 30, (v) {
+            setState(() => _translateY = v);
+          }),
           SizedBox(height: 12),
-          Container(
-            height: 100,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: Color(0xFFCE93D8)),
-            ),
-            child: Flow(
-              delegate: _ChildSizeFlowDelegate(
-                onSizesCalculated: (sizes) {
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    if (mounted && _childSizes.length != sizes.length) {
-                      setState(() {
-                        _childSizes = sizes;
-                      });
-                    }
-                  });
-                },
-                highlightedIndex: _highlightedChild,
+          Center(
+            child: ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  _rotation = 0;
+                  _scale = 1.0;
+                  _translateX = 0;
+                  _translateY = 0;
+                });
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFF9C27B0),
               ),
-              children: [
-                _buildVariableSizeChild(0, 30, 30, Color(0xFFE91E63)),
-                _buildVariableSizeChild(1, 50, 40, Color(0xFF9C27B0)),
-                _buildVariableSizeChild(2, 40, 50, Color(0xFF673AB7)),
-                _buildVariableSizeChild(3, 60, 35, Color(0xFF3F51B5)),
-                _buildVariableSizeChild(4, 35, 45, Color(0xFF2196F3)),
-              ],
+              child: Text('Reset', style: TextStyle(color: Colors.white)),
             ),
-          ),
-          SizedBox(height: 12),
-          Text(
-            'Reported child sizes:',
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              color: Color(0xFF4A148C),
-            ),
-          ),
-          SizedBox(height: 8),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: List.generate(_childSizes.length, (index) {
-              var size = _childSizes[index];
-              var isHighlighted = _highlightedChild == index;
-              return GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _highlightedChild = isHighlighted ? -1 : index;
-                  });
-                },
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: isHighlighted ? Color(0xFF9C27B0) : Color(0xFFE1BEE7),
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Text(
-                    'Child $index: ${size.width.toInt()}x${size.height.toInt()}',
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                      color: isHighlighted ? Colors.white : Color(0xFF4A148C),
-                    ),
-                  ),
-                ),
-              );
-            }),
           ),
         ],
       ),
     );
   }
-
-  Widget _buildVariableSizeChild(int index, double width, double height, Color color) {
-    var isHighlighted = _highlightedChild == index;
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          _highlightedChild = isHighlighted ? -1 : index;
-        });
-      },
-      child: Container(
-        width: width,
-        height: height,
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(6),
-          border: isHighlighted
-              ? Border.all(color: Colors.yellow, width: 3)
-              : null,
-          boxShadow: isHighlighted
-              ? [BoxShadow(color: Colors.yellow.withValues(alpha: 0.5), blurRadius: 8)]
-              : null,
-        ),
-        child: Center(
-          child: Text(
-            '$index',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
+  
+  Widget _buildSliderRow(String label, double value, double min, double max, ValueChanged<double> onChanged) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        children: [
+          SizedBox(
+            width: 80,
+            child: Text(
+              label,
+              style: TextStyle(fontSize: 12, color: Color(0xFF7B1FA2)),
             ),
           ),
-        ),
+          Expanded(
+            child: Slider(
+              value: value,
+              min: min,
+              max: max,
+              activeColor: Color(0xFF9C27B0),
+              onChanged: onChanged,
+            ),
+          ),
+          SizedBox(
+            width: 50,
+            child: Text(
+              value.toStringAsFixed(2),
+              style: TextStyle(fontSize: 10, fontFamily: 'monospace'),
+            ),
+          ),
+        ],
       ),
     );
   }
 }
 
-class _ChildSizeFlowDelegate extends FlowDelegate {
-  final void Function(List<Size>) onSizesCalculated;
-  final int highlightedIndex;
-
-  _ChildSizeFlowDelegate({
-    required this.onSizesCalculated,
-    required this.highlightedIndex,
+class _TransformDelegate extends FlowDelegate {
+  double rotation;
+  double scale;
+  double translateX;
+  double translateY;
+  
+  _TransformDelegate({
+    required this.rotation,
+    required this.scale,
+    required this.translateX,
+    required this.translateY,
   });
-
+  
   @override
   void paintChildren(FlowPaintingContext context) {
-    var childCount = context.childCount;
-    var sizes = <Size>[];
-    var currentX = 10.0;
-
-    for (var i = 0; i < childCount; i++) {
-      var childSize = context.getChildSize(i);
-      if (childSize == null) continue;
-
-      sizes.add(childSize);
-      var y = (context.size.height - childSize.height) / 2;
-      context.paintChild(i, transform: Matrix4.translationValues(currentX, y, 0));
-      currentX += childSize.width + 15;
-    }
-
-    onSizesCalculated(sizes);
+    Size flowSize = context.size;
+    Size? childSize = context.getChildSize(0);
+    if (childSize == null) return;
+    
+    double cx = flowSize.width / 2;
+    double cy = flowSize.height / 2;
+    
+    Matrix4 transform = Matrix4.identity()
+      ..translate(cx, cy)
+      ..translate(translateX, translateY)
+      ..rotateZ(rotation)
+      ..scale(scale)
+      ..translate(-childSize.width / 2, -childSize.height / 2);
+    
+    context.paintChild(0, transform: transform);
   }
-
+  
   @override
-  bool shouldRepaint(_ChildSizeFlowDelegate oldDelegate) {
-    return highlightedIndex != oldDelegate.highlightedIndex;
+  bool shouldRepaint(_TransformDelegate oldDelegate) {
+    return oldDelegate.rotation != rotation ||
+           oldDelegate.scale != scale ||
+           oldDelegate.translateX != translateX ||
+           oldDelegate.translateY != translateY;
   }
 }
 
 // ════════════════════════════════════════════════════════════════════════════
-// SECTION 5: Transform Usage
-// ════════════════════════════════════════════════════════════════════════════
-//
-// Matrix4 transforms are the heart of Flow's positioning system. The
-// FlowPaintingContext accepts any valid Matrix4, enabling complex
-// positioning scenarios.
-//
-// Common transform patterns:
-//   - Circular/radial layouts
-//   - Stacked/overlapping cards
-//   - Fan-out menus
-//   - 3D perspective effects
-//   - Animated position changes
-//
+// Interactive Flow Demo
 // ════════════════════════════════════════════════════════════════════════════
 
-class TransformUsageDemoWidget extends StatefulWidget {
-  TransformUsageDemoWidget({Key? key}) : super(key: key);
-
+class _InteractiveFlowDemo extends StatefulWidget {
   @override
-  State<TransformUsageDemoWidget> createState() =>
-      _TransformUsageDemoWidgetState();
+  State<_InteractiveFlowDemo> createState() => _InteractiveFlowDemoState();
 }
 
-class _TransformUsageDemoWidgetState extends State<TransformUsageDemoWidget>
-    with SingleTickerProviderStateMixin {
-  int _selectedLayout = 0;
-  AnimationController? _animController;
-
-  List<Map<String, dynamic>> _layouts = [
-    {'name': 'Circular', 'icon': Icons.donut_large},
-    {'name': 'Stacked', 'icon': Icons.layers},
-    {'name': 'Fan Out', 'icon': Icons.open_in_full},
-    {'name': 'Wave', 'icon': Icons.waves},
+class _InteractiveFlowDemoState extends State<_InteractiveFlowDemo> {
+  List<Offset> _positions = [
+    Offset(20, 20),
+    Offset(100, 40),
+    Offset(180, 20),
+    Offset(60, 100),
+    Offset(140, 100),
   ];
-
-  @override
-  void initState() {
-    super.initState();
-    _animController = AnimationController(
-      duration: Duration(milliseconds: 3000),
-      vsync: this,
-    )..repeat();
-  }
-
-  @override
-  void dispose() {
-    _animController?.dispose();
-    super.dispose();
-  }
-
+  int _draggingIndex = -1;
+  
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(16),
-      margin: EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Color(0xFFE0F7FA), Color(0xFFB2EBF2)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
+        color: Color(0xFFE0F7FA),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Color(0xFF4DD0E1), width: 2),
       ),
@@ -1044,485 +1112,301 @@ class _TransformUsageDemoWidgetState extends State<TransformUsageDemoWidget>
                   color: Color(0xFF00BCD4),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Icon(Icons.transform, color: Colors.white, size: 24),
+                child: Icon(Icons.touch_app, color: Colors.white),
               ),
               SizedBox(width: 12),
               Text(
-                'Transform Usage',
+                'Interactive Flow Demo',
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF006064),
+                  color: Color(0xFF00838F),
                 ),
               ),
             ],
           ),
-          SizedBox(height: 12),
+          SizedBox(height: 8),
           Text(
-            'Matrix4 transforms enable complex positioning without relayout:',
-            style: TextStyle(fontSize: 14, color: Color(0xFF00838F)),
+            'Drag the items to reposition them using Flow transforms',
+            style: TextStyle(fontSize: 13, color: Color(0xFF006064)),
           ),
           SizedBox(height: 12),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: List.generate(_layouts.length, (index) {
-              var layout = _layouts[index];
-              var isSelected = _selectedLayout == index;
-              return GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _selectedLayout = index;
-                  });
-                },
-                child: Column(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: isSelected ? Color(0xFF00BCD4) : Colors.white,
-                        shape: BoxShape.circle,
-                        border: Border.all(color: Color(0xFF4DD0E1), width: 2),
-                      ),
-                      child: Icon(
-                        layout['icon'] as IconData,
-                        color: isSelected ? Colors.white : Color(0xFF00838F),
-                        size: 22,
-                      ),
-                    ),
-                    SizedBox(height: 4),
-                    Text(
-                      layout['name'] as String,
-                      style: TextStyle(
-                        fontSize: 11,
-                        fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                        color: Color(0xFF006064),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            }),
-          ),
-          SizedBox(height: 16),
-          Container(
-            height: 180,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Color(0xFF80DEEA)),
-            ),
-            child: AnimatedBuilder(
-              animation: _animController!,
-              builder: (context, child) {
-                return Flow(
-                  delegate: _TransformLayoutDelegate(
-                    layoutType: _selectedLayout,
-                    animationValue: _animController?.value ?? 0,
-                  ),
-                  children: List.generate(8, (index) {
-                    return _buildTransformChild(index);
-                  }),
-                );
-              },
-            ),
-          ),
-          SizedBox(height: 12),
-          _buildLayoutCodeSnippet(),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildTransformChild(int index) {
-    var colors = [
-      Color(0xFFE91E63),
-      Color(0xFF9C27B0),
-      Color(0xFF673AB7),
-      Color(0xFF3F51B5),
-      Color(0xFF2196F3),
-      Color(0xFF00BCD4),
-      Color(0xFF009688),
-      Color(0xFF4CAF50),
-    ];
-    return Container(
-      width: 32,
-      height: 32,
-      decoration: BoxDecoration(
-        color: colors[index % colors.length],
-        borderRadius: BorderRadius.circular(6),
-        boxShadow: [
-          BoxShadow(
-            color: colors[index % colors.length].withValues(alpha: 0.4),
-            blurRadius: 4,
-            offset: Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Center(
-        child: Text(
-          '${index + 1}',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 12,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildLayoutCodeSnippet() {
-    var snippets = [
-      'angle = 2 * pi * i / childCount;\nx = centerX + radius * cos(angle);\ny = centerY + radius * sin(angle);',
-      'x = baseX + i * offsetX;\ny = baseY + i * offsetY;\n// Cards stack with slight offset',
-      'angle = startAngle + i * spreadAngle;\n// Rotate around anchor point',
-      'y = baseY + sin(animValue + i * phase) * amplitude;\n// Sine wave animation',
-    ];
-    return Container(
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Color(0xFF263238),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Text(
-        snippets[_selectedLayout],
-        style: TextStyle(
-          fontFamily: 'monospace',
-          fontSize: 11,
-          color: Color(0xFF80DEEA),
-        ),
-      ),
-    );
-  }
-}
-
-class _TransformLayoutDelegate extends FlowDelegate {
-  final int layoutType;
-  final double animationValue;
-
-  _TransformLayoutDelegate({
-    required this.layoutType,
-    required this.animationValue,
-  });
-
-  @override
-  void paintChildren(FlowPaintingContext context) {
-    var childCount = context.childCount;
-    var flowSize = context.size;
-    var centerX = flowSize.width / 2;
-    var centerY = flowSize.height / 2;
-
-    for (var i = 0; i < childCount; i++) {
-      var childSize = context.getChildSize(i);
-      if (childSize == null) continue;
-
-      var transform = _computeLayoutTransform(
-        i,
-        childCount,
-        centerX,
-        centerY,
-        childSize,
-      );
-      context.paintChild(i, transform: transform);
-    }
-  }
-
-  Matrix4 _computeLayoutTransform(
-    int index,
-    int count,
-    double centerX,
-    double centerY,
-    Size childSize,
-  ) {
-    switch (layoutType) {
-      case 0: // Circular
-        var angle = (2 * math.pi * index / count) + (animationValue * 2 * math.pi);
-        var radius = 60.0;
-        var x = centerX + radius * math.cos(angle) - childSize.width / 2;
-        var y = centerY + radius * math.sin(angle) - childSize.height / 2;
-        return Matrix4.translationValues(x, y, 0);
-
-      case 1: // Stacked
-        var baseX = centerX - childSize.width / 2 + (index - count / 2) * 8;
-        var baseY = centerY - childSize.height / 2 - index * 4;
-        var hoverOffset = math.sin(animationValue * 2 * math.pi + index * 0.5) * 5;
-        return Matrix4.translationValues(baseX, baseY + hoverOffset, 0);
-
-      case 2: // Fan out
-        var startAngle = -math.pi / 4;
-        var spreadAngle = math.pi / 2 / (count - 1);
-        var angle = startAngle + index * spreadAngle;
-        var openAmount = 0.5 + 0.5 * math.sin(animationValue * 2 * math.pi);
-        var effectiveAngle = angle * openAmount;
-        var pivotX = centerX;
-        var pivotY = centerY + 60;
-        var transform = Matrix4.identity();
-        transform.translate(pivotX, pivotY);
-        transform.rotateZ(effectiveAngle);
-        transform.translate(-childSize.width / 2, -80.0);
-        return transform;
-
-      case 3: // Wave
-        var phase = index * 0.4;
-        var amplitude = 30.0;
-        var waveY = math.sin(animationValue * 2 * math.pi + phase) * amplitude;
-        var spacing = (context.size.width - 50) / count;
-        var x = 25 + index * spacing;
-        var y = centerY + waveY - childSize.height / 2;
-        return Matrix4.translationValues(x, y, 0);
-
-      default:
-        return Matrix4.translationValues(index * 40.0, centerY, 0);
-    }
-  }
-
-  @override
-  Size get size => Size.zero;
-
-  @override
-  bool shouldRepaint(_TransformLayoutDelegate oldDelegate) {
-    return layoutType != oldDelegate.layoutType ||
-        animationValue != oldDelegate.animationValue;
-  }
-}
-
-// ════════════════════════════════════════════════════════════════════════════
-// SECTION 6: Practical Examples
-// ════════════════════════════════════════════════════════════════════════════
-
-class PracticalExamplesWidget extends StatefulWidget {
-  PracticalExamplesWidget({Key? key}) : super(key: key);
-
-  @override
-  State<PracticalExamplesWidget> createState() => _PracticalExamplesWidgetState();
-}
-
-class _PracticalExamplesWidgetState extends State<PracticalExamplesWidget> {
-  List<Map<String, String>> _examples = [
-    {
-      'title': 'Menu Animation',
-      'description': 'Circular FAB menu that expands/collapses with smooth animations',
-    },
-    {
-      'title': 'Card Stack',
-      'description': 'Tinder-style card deck with swipe gestures',
-    },
-    {
-      'title': 'Photo Gallery',
-      'description': 'Scattered photo layout with rotation and overlap',
-    },
-    {
-      'title': 'Loading Indicator',
-      'description': 'Custom spinner with orbiting dots',
-    },
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(16),
-      margin: EdgeInsets.only(bottom: 16),
-      decoration: BoxDecoration(
-        color: Color(0xFFFFF8E1),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Color(0xFFFFD54F), width: 2),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Color(0xFFFFC107),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Icon(Icons.code, color: Colors.white, size: 24),
-              ),
-              SizedBox(width: 12),
-              Text(
-                'Practical Examples',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFFFF6F00),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 16),
-          ...List.generate(_examples.length, (index) {
-            var example = _examples[index];
-            return Container(
-              margin: EdgeInsets.only(bottom: 10),
-              padding: EdgeInsets.all(12),
+          GestureDetector(
+            onPanStart: _onPanStart,
+            onPanUpdate: _onPanUpdate,
+            onPanEnd: _onPanEnd,
+            child: Container(
+              height: 160,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Color(0xFFFFE082)),
+                border: Border.all(color: Color(0xFF80DEEA)),
               ),
-              child: Row(
-                children: [
-                  Container(
-                    width: 36,
-                    height: 36,
+              child: Flow(
+                delegate: _InteractiveFlowDelegate(positions: _positions),
+                children: List.generate(5, (index) {
+                  return Container(
+                    width: 44,
+                    height: 44,
                     decoration: BoxDecoration(
-                      color: Color(0xFFFFF3E0),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Center(
-                      child: Text(
-                        '${index + 1}',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFFFF6F00),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          example['title'] ?? '',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xFFE65100),
-                          ),
-                        ),
-                        SizedBox(height: 2),
-                        Text(
-                          example['description'] ?? '',
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Color(0xFF795548),
-                          ),
+                      color: _getInteractiveColor(index),
+                      borderRadius: BorderRadius.circular(22),
+                      boxShadow: [
+                        BoxShadow(
+                          color: _getInteractiveColor(index).withValues(alpha: 0.4),
+                          blurRadius: 6,
+                          offset: Offset(0, 3),
                         ),
                       ],
                     ),
-                  ),
-                ],
+                    child: Center(
+                      child: Text(
+                        String.fromCharCode(65 + index),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  );
+                }),
               ),
-            );
-          }),
+            ),
+          ),
         ],
       ),
     );
   }
+  
+  Color _getInteractiveColor(int index) {
+    List<Color> colors = [
+      Color(0xFF00BCD4),
+      Color(0xFF009688),
+      Color(0xFF4CAF50),
+      Color(0xFF8BC34A),
+      Color(0xFFCDDC39),
+    ];
+    return colors[index % colors.length];
+  }
+  
+  void _onPanStart(DragStartDetails details) {
+    RenderBox box = context.findRenderObject() as RenderBox;
+    Offset localPos = box.globalToLocal(details.globalPosition);
+    localPos = localPos - Offset(16, 16 + 80);
+    
+    for (int i = _positions.length - 1; i >= 0; i--) {
+      Offset pos = _positions[i];
+      double distance = (localPos - pos - Offset(22, 22)).distance;
+      if (distance < 30) {
+        _draggingIndex = i;
+        break;
+      }
+    }
+  }
+  
+  void _onPanUpdate(DragUpdateDetails details) {
+    if (_draggingIndex >= 0) {
+      setState(() {
+        Offset newPos = _positions[_draggingIndex] + details.delta;
+        newPos = Offset(
+          newPos.dx.clamp(0, 200),
+          newPos.dy.clamp(0, 116),
+        );
+        _positions[_draggingIndex] = newPos;
+      });
+    }
+  }
+  
+  void _onPanEnd(DragEndDetails details) {
+    _draggingIndex = -1;
+  }
+}
+
+class _InteractiveFlowDelegate extends FlowDelegate {
+  List<Offset> positions;
+  
+  _InteractiveFlowDelegate({required this.positions});
+  
+  @override
+  void paintChildren(FlowPaintingContext context) {
+    for (int i = 0; i < context.childCount; i++) {
+      if (i < positions.length) {
+        Offset pos = positions[i];
+        context.paintChild(i, transform: Matrix4.translationValues(pos.dx, pos.dy, 0));
+      }
+    }
+  }
+  
+  @override
+  bool shouldRepaint(_InteractiveFlowDelegate oldDelegate) {
+    return true;
+  }
 }
 
 // ════════════════════════════════════════════════════════════════════════════
-// SECTION 7: Summary Panel
+// Animated Flow Demo
 // ════════════════════════════════════════════════════════════════════════════
 
-class SummaryWidget extends StatelessWidget {
-  SummaryWidget({Key? key}) : super(key: key);
+class _AnimatedFlowDemo extends StatefulWidget {
+  @override
+  State<_AnimatedFlowDemo> createState() => _AnimatedFlowDemoState();
+}
 
+class _AnimatedFlowDemoState extends State<_AnimatedFlowDemo>
+    with SingleTickerProviderStateMixin {
+  AnimationController? _controller;
+  bool _isRunning = false;
+  int _animationType = 0;
+  
+  List<String> _animationTypes = ['Wave', 'Pulse', 'Orbit', 'Bounce'];
+  
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: Duration(milliseconds: 2000),
+      vsync: this,
+    );
+    _controller?.addStatusListener((status) {
+      if (status == AnimationStatus.completed && _isRunning) {
+        _controller?.repeat();
+      }
+    });
+  }
+  
+  @override
+  void dispose() {
+    _controller?.dispose();
+    super.dispose();
+  }
+  
+  void _toggleAnimation() {
+    setState(() {
+      _isRunning = !_isRunning;
+      if (_isRunning) {
+        _controller?.forward();
+      } else {
+        _controller?.stop();
+        _controller?.reset();
+      }
+    });
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Color(0xFF1A237E), Color(0xFF283593)],
+          colors: [Color(0xFF673AB7), Color(0xFF9C27B0)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black26,
+            blurRadius: 8,
+            offset: Offset(0, 4),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(Icons.check_circle, color: Color(0xFF69F0AE), size: 28),
+              Icon(Icons.animation, color: Colors.white, size: 28),
               SizedBox(width: 12),
               Text(
-                'FlowPaintingContext Summary',
+                'Animated Flow Demo',
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                 ),
               ),
             ],
           ),
+          SizedBox(height: 8),
+          Text(
+            'Transform-based animations without relayout',
+            style: TextStyle(fontSize: 13, color: Colors.white70),
+          ),
           SizedBox(height: 16),
-          _buildSummaryItem(
-            'paintChild(i, transform:)',
-            'Paints child i with Matrix4 transform',
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: List.generate(_animationTypes.length, (index) {
+              bool isSelected = _animationType == index;
+              return GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _animationType = index;
+                    if (_isRunning) {
+                      _controller?.reset();
+                      _controller?.forward();
+                    }
+                  });
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: isSelected ? Colors.white : Colors.white24,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Text(
+                    _animationTypes[index],
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      color: isSelected ? Color(0xFF673AB7) : Colors.white,
+                    ),
+                  ),
+                ),
+              );
+            }),
           ),
-          _buildSummaryItem(
-            'size',
-            'Returns the Flow widget dimensions',
-          ),
-          _buildSummaryItem(
-            'getChildSize(i)',
-            'Returns laid-out size of child i',
-          ),
-          _buildSummaryItem(
-            'childCount',
-            'Number of children in the Flow',
-          ),
-          SizedBox(height: 12),
+          SizedBox(height: 16),
           Container(
-            padding: EdgeInsets.all(12),
+            height: 140,
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Text(
-              'Key benefit: Transforms reposition children without triggering '
-              'layout, enabling smooth 60fps animations.',
-              style: TextStyle(
-                fontSize: 13,
-                color: Colors.white.withValues(alpha: 0.9),
-              ),
+            child: AnimatedBuilder(
+              animation: _controller!,
+              builder: (ctx, child) {
+                return Flow(
+                  delegate: _AnimatedFlowDelegate(
+                    animationValue: _controller?.value ?? 0,
+                    animationType: _animationType,
+                  ),
+                  children: List.generate(8, (index) {
+                    double hue = (index * 45) % 360;
+                    return Container(
+                      width: 28,
+                      height: 28,
+                      decoration: BoxDecoration(
+                        color: HSVColor.fromAHSV(1, hue.toDouble(), 0.7, 0.9).toColor(),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                    );
+                  }),
+                );
+              },
             ),
           ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSummaryItem(String property, String description) {
-    return Padding(
-      padding: EdgeInsets.only(bottom: 8),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 6,
-            height: 6,
-            margin: EdgeInsets.only(top: 6, right: 8),
-            decoration: BoxDecoration(
-              color: Color(0xFF64FFDA),
-              shape: BoxShape.circle,
-            ),
-          ),
-          Expanded(
-            child: RichText(
-              text: TextSpan(
-                children: [
-                  TextSpan(
-                    text: property,
-                    style: TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 13,
-                      color: Color(0xFF80CBC4),
-                    ),
-                  ),
-                  TextSpan(
-                    text: ' - $description',
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: Colors.white.withValues(alpha: 0.8),
-                    ),
-                  ),
-                ],
+          SizedBox(height: 12),
+          Center(
+            child: ElevatedButton.icon(
+              onPressed: _toggleAnimation,
+              icon: Icon(_isRunning ? Icons.pause : Icons.play_arrow),
+              label: Text(_isRunning ? 'Stop' : 'Start'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+                foregroundColor: Color(0xFF673AB7),
               ),
             ),
           ),
@@ -1532,129 +1416,94 @@ class SummaryWidget extends StatelessWidget {
   }
 }
 
-// ════════════════════════════════════════════════════════════════════════════
-// MAIN APPLICATION
-// ════════════════════════════════════════════════════════════════════════════
-
-class FlowPaintingContextDemo extends StatelessWidget {
-  FlowPaintingContextDemo({Key? key}) : super(key: key);
-
+class _AnimatedFlowDelegate extends FlowDelegate {
+  double animationValue;
+  int animationType;
+  
+  _AnimatedFlowDelegate({
+    required this.animationValue,
+    required this.animationType,
+  });
+  
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'FlowPaintingContext Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF00BCD4)),
-        useMaterial3: true,
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('FlowPaintingContext'),
-          backgroundColor: Color(0xFF00BCD4),
-          foregroundColor: Colors.white,
-        ),
-        body: SingleChildScrollView(
-          padding: EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              _buildHeaderBanner(),
-              SizedBox(height: 16),
-              PurposeExplanationWidget(),
-              PaintChildDemoWidget(),
-              SizePropertyDemoWidget(),
-              GetChildSizeDemoWidget(),
-              TransformUsageDemoWidget(),
-              PracticalExamplesWidget(),
-              SummaryWidget(),
-            ],
-          ),
-        ),
-      ),
-    );
+  void paintChildren(FlowPaintingContext context) {
+    int count = context.childCount;
+    Size flowSize = context.size;
+    
+    for (int i = 0; i < count; i++) {
+      Size? childSize = context.getChildSize(i);
+      if (childSize == null) continue;
+      
+      Matrix4 transform = _computeAnimatedTransform(
+        i, count, flowSize, childSize, animationValue,
+      );
+      context.paintChild(i, transform: transform);
+    }
   }
-
-  Widget _buildHeaderBanner() {
-    return Container(
-      padding: EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Color(0xFF00BCD4), Color(0xFF0097A7)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Color(0xFF00BCD4).withValues(alpha: 0.3),
-            blurRadius: 12,
-            offset: Offset(0, 6),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.2),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Icon(Icons.auto_awesome, color: Colors.white, size: 32),
-              ),
-              SizedBox(width: 16),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'FlowPaintingContext',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Text(
-                      'Painting context for Flow widget delegates',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.white.withValues(alpha: 0.9),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 16),
-          Container(
-            padding: EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.15),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Text(
-              'FlowPaintingContext is the abstract interface used by FlowDelegate '
-              'to paint children with Matrix4 transforms. It provides access to '
-              'the Flow size and individual child sizes, enabling efficient '
-              'transform-based positioning without triggering relayout.',
-              style: TextStyle(
-                fontSize: 13,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
+  
+  Matrix4 _computeAnimatedTransform(
+    int index, int count, Size flowSize, Size childSize, double t,
+  ) {
+    double x = 0;
+    double y = 0;
+    double rotation = 0;
+    double scale = 1.0;
+    
+    double centerX = flowSize.width / 2;
+    double centerY = flowSize.height / 2;
+    
+    switch (animationType) {
+      case 0: // Wave
+        double spacing = flowSize.width / (count + 1);
+        x = (index + 1) * spacing - childSize.width / 2;
+        double phase = (t * 2 * math.pi) + (index * 0.5);
+        y = centerY + math.sin(phase) * 30 - childSize.height / 2;
+        break;
+      case 1: // Pulse
+        double spacing = flowSize.width / (count + 1);
+        x = (index + 1) * spacing - childSize.width / 2;
+        y = centerY - childSize.height / 2;
+        double phase = (t * 2 * math.pi) + (index * 0.7);
+        scale = 0.7 + 0.3 * ((math.sin(phase) + 1) / 2);
+        break;
+      case 2: // Orbit
+        double radius = math.min(centerX, centerY) - childSize.width / 2 - 10;
+        double baseAngle = (index * 2 * math.pi / count);
+        double animAngle = baseAngle + (t * 2 * math.pi);
+        x = centerX + radius * math.cos(animAngle) - childSize.width / 2;
+        y = centerY + radius * math.sin(animAngle) - childSize.height / 2;
+        rotation = animAngle + math.pi / 2;
+        break;
+      case 3: // Bounce
+        double spacing = flowSize.width / (count + 1);
+        x = (index + 1) * spacing - childSize.width / 2;
+        double phase = (t + (index * 0.1)) % 1.0;
+        double bounce = math.sin(phase * math.pi);
+        bounce = bounce * bounce;
+        y = flowSize.height - childSize.height - 10 - (bounce * 60);
+        break;
+    }
+    
+    Matrix4 transform = Matrix4.identity();
+    
+    if (rotation != 0 || scale != 1.0) {
+      double cx = x + childSize.width / 2;
+      double cy = y + childSize.height / 2;
+      transform
+        ..translate(cx, cy)
+        ..rotateZ(rotation)
+        ..scale(scale)
+        ..translate(-childSize.width / 2, -childSize.height / 2);
+    } else {
+      transform.translate(x, y);
+    }
+    
+    return transform;
   }
-}
-
-void main() {
-  runApp(FlowPaintingContextDemo());
+  
+  @override
+  bool shouldRepaint(_AnimatedFlowDelegate oldDelegate) {
+    return oldDelegate.animationValue != animationValue ||
+           oldDelegate.animationType != animationType;
+  }
 }

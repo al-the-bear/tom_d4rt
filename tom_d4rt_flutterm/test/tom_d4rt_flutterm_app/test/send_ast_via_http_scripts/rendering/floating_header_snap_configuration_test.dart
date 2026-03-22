@@ -1502,6 +1502,969 @@ class _IntegrationExampleWidgetState extends State<IntegrationExampleWidget> {
 }
 
 // ════════════════════════════════════════════════════════════════════════════
+// SECTION 6: Sliver Context
+// ════════════════════════════════════════════════════════════════════════════
+
+// FloatingHeaderSnapConfiguration operates within the Flutter sliver ecosystem.
+// This section demonstrates how slivers interact with the snap configuration
+// and visualizes the relationship between scrolling, headers, and snapping.
+
+// The sliver rendering pipeline follows this hierarchy:
+//   Viewport → RenderSliver → RenderSliverPersistentHeader → SnapConfiguration
+//
+// When a floating header is used:
+//   1. CustomScrollView creates the viewport
+//   2. SliverPersistentHeader (with floating=true) creates the header sliver
+//   3. FloatingHeaderSnapConfiguration is attached when snap=true
+//   4. During scroll end, the snap animation is evaluated
+
+class SliverContextDemoWidget extends StatefulWidget {
+  SliverContextDemoWidget({Key? key}) : super(key: key);
+
+  @override
+  State<SliverContextDemoWidget> createState() => _SliverContextDemoWidgetState();
+}
+
+class _SliverContextDemoWidgetState extends State<SliverContextDemoWidget>
+    with TickerProviderStateMixin {
+  double _scrollOffset = 0.0;
+  double _headerExtent = 120.0;
+  double _minExtent = 56.0;
+  double _maxExtent = 120.0;
+  bool _isSnapping = false;
+  String _sliverState = 'Idle';
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withAlpha(20),
+            blurRadius: 8,
+            offset: Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildContextHeader(),
+          SizedBox(height: 16),
+          _buildSliverHierarchyVisualization(),
+          SizedBox(height: 16),
+          _buildSliverInteractionSimulator(),
+          SizedBox(height: 16),
+          _buildConstraintsDisplay(),
+          SizedBox(height: 16),
+          _buildSnapLifecycleVisualization(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildContextHeader() {
+    return Row(
+      children: [
+        Container(
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFFFF6F00), Color(0xFFFFA000)],
+            ),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Icon(Icons.layers, color: Colors.white, size: 24),
+        ),
+        SizedBox(width: 12),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Sliver Context',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFFE65100),
+                ),
+              ),
+              Text(
+                'Understanding how slivers interact with snap configuration',
+                style: TextStyle(fontSize: 11, color: Colors.grey),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSliverHierarchyVisualization() {
+    var hierarchyItems = [
+      _HierarchyItem('Viewport', 'Root scrolling container', 0, Color(0xFF1976D2)),
+      _HierarchyItem('RenderSliver', 'Sliver render protocol', 1, Color(0xFF388E3C)),
+      _HierarchyItem('RenderSliverPersistentHeader', 'Persistent header renderer', 2, Color(0xFFF57C00)),
+      _HierarchyItem('FloatingHeaderSnapConfiguration', 'Snap animation config', 3, Color(0xFFE91E63)),
+    ];
+
+    return Container(
+      padding: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Color(0xFFF5F5F5),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Color(0xFFE0E0E0)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Sliver Rendering Hierarchy',
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFF424242),
+            ),
+          ),
+          SizedBox(height: 12),
+          ...hierarchyItems.map((item) => _buildHierarchyRow(item)).toList(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHierarchyRow(_HierarchyItem item) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 8),
+      child: Row(
+        children: [
+          SizedBox(width: item.level * 20.0),
+          if (item.level > 0) ...[
+            Container(
+              width: 16,
+              height: 1,
+              color: item.color.withAlpha(100),
+            ),
+            SizedBox(width: 4),
+          ],
+          Container(
+            width: 10,
+            height: 10,
+            decoration: BoxDecoration(
+              color: item.color,
+              borderRadius: BorderRadius.circular(2),
+            ),
+          ),
+          SizedBox(width: 8),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  item.name,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: item.color,
+                  ),
+                ),
+                Text(
+                  item.description,
+                  style: TextStyle(fontSize: 10, color: Colors.grey[600]),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSliverInteractionSimulator() {
+    return Container(
+      padding: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Color(0xFFFFF8E1),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Color(0xFFFFE082)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Sliver Interaction Simulator',
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFFE65100),
+            ),
+          ),
+          SizedBox(height: 12),
+          Row(
+            children: [
+              Text('Scroll Offset:', style: TextStyle(fontSize: 12)),
+              Expanded(
+                child: Slider(
+                  value: _scrollOffset,
+                  min: 0,
+                  max: 200,
+                  onChanged: (value) {
+                    setState(() {
+                      _scrollOffset = value;
+                      _updateHeaderExtent();
+                      _updateSliverState();
+                    });
+                  },
+                  activeColor: Color(0xFFFF6F00),
+                ),
+              ),
+              Text(
+                '${_scrollOffset.toInt()}px',
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+              ),
+            ],
+          ),
+          SizedBox(height: 8),
+          _buildSimulatedHeader(),
+          SizedBox(height: 8),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _buildStateChip('State: $_sliverState'),
+              _buildStateChip('Extent: ${_headerExtent.toInt()}px'),
+              _buildStateChip(_isSnapping ? 'Snapping...' : 'Ready'),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSimulatedHeader() {
+    var collapseRatio = 1.0 - ((_headerExtent - _minExtent) / (_maxExtent - _minExtent));
+    return Container(
+      height: _headerExtent,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            Color.lerp(Color(0xFFFF6F00), Color(0xFFE65100), collapseRatio) ?? Color(0xFFFF6F00),
+            Color.lerp(Color(0xFFFFA000), Color(0xFFFF6F00), collapseRatio) ?? Color(0xFFFFA000),
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      alignment: Alignment.center,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.expand_less,
+            color: Colors.white.withAlpha(200),
+            size: 24 + (1 - collapseRatio) * 16,
+          ),
+          if (_headerExtent > 80)
+            Text(
+              'Floating Header',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+              ),
+            ),
+          Text(
+            '${(collapseRatio * 100).toInt()}% collapsed',
+            style: TextStyle(
+              color: Colors.white.withAlpha(180),
+              fontSize: 10,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStateChip(String text) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(4),
+        border: Border.all(color: Color(0xFFFFE082)),
+      ),
+      child: Text(
+        text,
+        style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
+      ),
+    );
+  }
+
+  void _updateHeaderExtent() {
+    var newExtent = _maxExtent - (_scrollOffset * 0.64);
+    if (newExtent < _minExtent) newExtent = _minExtent;
+    if (newExtent > _maxExtent) newExtent = _maxExtent;
+    _headerExtent = newExtent;
+  }
+
+  void _updateSliverState() {
+    if (_scrollOffset == 0) {
+      _sliverState = 'Expanded';
+      _isSnapping = false;
+    } else if (_scrollOffset >= (_maxExtent - _minExtent) / 0.64) {
+      _sliverState = 'Collapsed';
+      _isSnapping = false;
+    } else if (_headerExtent > (_maxExtent + _minExtent) / 2) {
+      _sliverState = 'Expanding';
+      _isSnapping = true;
+    } else {
+      _sliverState = 'Collapsing';
+      _isSnapping = true;
+    }
+  }
+
+  Widget _buildConstraintsDisplay() {
+    var constraints = {
+      'SliverConstraints.scrollOffset': '${_scrollOffset.toStringAsFixed(1)}',
+      'SliverConstraints.overlap': '0.0',
+      'SliverConstraints.remainingPaintExtent': '${(800 - _scrollOffset).toStringAsFixed(1)}',
+      'SliverConstraints.crossAxisExtent': '400.0',
+      'SliverConstraints.viewportMainAxisExtent': '800.0',
+      'SliverGeometry.paintExtent': '${_headerExtent.toStringAsFixed(1)}',
+      'SliverGeometry.layoutExtent': '${_headerExtent.toStringAsFixed(1)}',
+      'SliverGeometry.maxPaintExtent': '${_maxExtent.toStringAsFixed(1)}',
+    };
+
+    return Container(
+      padding: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Color(0xFFE3F2FD),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Color(0xFF90CAF9)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Sliver Constraints & Geometry',
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFF1976D2),
+            ),
+          ),
+          SizedBox(height: 8),
+          ...constraints.entries.map((entry) => Padding(
+            padding: EdgeInsets.only(bottom: 4),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  entry.key,
+                  style: TextStyle(fontSize: 10, color: Color(0xFF1565C0)),
+                ),
+                Text(
+                  entry.value,
+                  style: TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF1976D2),
+                  ),
+                ),
+              ],
+            ),
+          )).toList(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSnapLifecycleVisualization() {
+    var lifecycleSteps = [
+      _LifecycleStep(1, 'User scrolls', 'Scroll events trigger header size change'),
+      _LifecycleStep(2, 'Scroll ends', 'Velocity falls below threshold'),
+      _LifecycleStep(3, 'Snap check', 'Evaluate current extent vs threshold'),
+      _LifecycleStep(4, 'AnimationController.forward()', 'Start snap animation'),
+      _LifecycleStep(5, 'Curve transforms', 'Apply easing function to t value'),
+      _LifecycleStep(6, 'Header animates', 'Smooth transition to target extent'),
+      _LifecycleStep(7, 'Animation complete', 'Header at fully expanded or collapsed'),
+    ];
+
+    return Container(
+      padding: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Color(0xFFF3E5F5),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Color(0xFFCE93D8)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Snap Lifecycle',
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFF7B1FA2),
+            ),
+          ),
+          SizedBox(height: 12),
+          ...lifecycleSteps.map((step) => Padding(
+            padding: EdgeInsets.only(bottom: 8),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: 20,
+                  height: 20,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF9C27B0),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Text(
+                    '${step.number}',
+                    style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                SizedBox(width: 8),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        step.title,
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF7B1FA2),
+                        ),
+                      ),
+                      Text(
+                        step.description,
+                        style: TextStyle(fontSize: 10, color: Colors.grey[600]),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          )).toList(),
+        ],
+      ),
+    );
+  }
+}
+
+class _HierarchyItem {
+  String name;
+  String description;
+  int level;
+  Color color;
+
+  _HierarchyItem(this.name, this.description, this.level, this.color);
+}
+
+class _LifecycleStep {
+  int number;
+  String title;
+  String description;
+
+  _LifecycleStep(this.number, this.title, this.description);
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// SECTION 7: Configuration Comparison
+// ════════════════════════════════════════════════════════════════════════════
+
+// This section allows side-by-side comparison of different
+// FloatingHeaderSnapConfiguration settings to understand their visual impact.
+
+class ConfigurationComparisonWidget extends StatefulWidget {
+  ConfigurationComparisonWidget({Key? key}) : super(key: key);
+
+  @override
+  State<ConfigurationComparisonWidget> createState() =>
+      _ConfigurationComparisonWidgetState();
+}
+
+class _ConfigurationComparisonWidgetState
+    extends State<ConfigurationComparisonWidget> with TickerProviderStateMixin {
+  int _selectedPresetA = 0;
+  int _selectedPresetB = 1;
+
+  List<_ConfigPreset> _presets = [
+    _ConfigPreset('Default', Curves.ease, Duration(milliseconds: 300)),
+    _ConfigPreset('Fast Bounce', Curves.bounceOut, Duration(milliseconds: 200)),
+    _ConfigPreset('Slow Elastic', Curves.elasticOut, Duration(milliseconds: 600)),
+    _ConfigPreset('Sharp Linear', Curves.linear, Duration(milliseconds: 150)),
+    _ConfigPreset('Gentle EaseInOut', Curves.easeInOut, Duration(milliseconds: 400)),
+    _ConfigPreset('Dramatic Decelerate', Curves.decelerate, Duration(milliseconds: 500)),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withAlpha(20),
+            blurRadius: 8,
+            offset: Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildComparisonHeader(),
+          SizedBox(height: 16),
+          _buildPresetSelectors(),
+          SizedBox(height: 16),
+          _buildComparisonVisualization(),
+          SizedBox(height: 16),
+          _buildComparisonTable(),
+          SizedBox(height: 16),
+          _buildUseCaseRecommendations(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildComparisonHeader() {
+    return Row(
+      children: [
+        Container(
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFF1976D2), Color(0xFF42A5F5)],
+            ),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Icon(Icons.compare_arrows, color: Colors.white, size: 24),
+        ),
+        SizedBox(width: 12),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Configuration Comparison',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF1565C0),
+                ),
+              ),
+              Text(
+                'Compare different snap configuration presets side by side',
+                style: TextStyle(fontSize: 11, color: Colors.grey),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPresetSelectors() {
+    return Row(
+      children: [
+        Expanded(
+          child: _buildPresetDropdown(
+            'Configuration A',
+            _selectedPresetA,
+            Color(0xFF1976D2),
+            (value) => setState(() => _selectedPresetA = value ?? 0),
+          ),
+        ),
+        SizedBox(width: 16),
+        Expanded(
+          child: _buildPresetDropdown(
+            'Configuration B',
+            _selectedPresetB,
+            Color(0xFFE91E63),
+            (value) => setState(() => _selectedPresetB = value ?? 1),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPresetDropdown(
+    String label,
+    int selectedIndex,
+    Color color,
+    void Function(int?) onChanged,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            color: color,
+          ),
+        ),
+        SizedBox(height: 4),
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 8),
+          decoration: BoxDecoration(
+            border: Border.all(color: color.withAlpha(100)),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<int>(
+              value: selectedIndex,
+              isExpanded: true,
+              items: _presets.asMap().entries.map((entry) {
+                return DropdownMenuItem<int>(
+                  value: entry.key,
+                  child: Text(
+                    entry.value.name,
+                    style: TextStyle(fontSize: 12),
+                  ),
+                );
+              }).toList(),
+              onChanged: onChanged,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildComparisonVisualization() {
+    return Container(
+      padding: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Color(0xFFF5F5F5),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: _buildCurvePreview(
+              _presets[_selectedPresetA],
+              Color(0xFF1976D2),
+            ),
+          ),
+          Container(
+            width: 1,
+            height: 120,
+            color: Colors.grey[300],
+            margin: EdgeInsets.symmetric(horizontal: 12),
+          ),
+          Expanded(
+            child: _buildCurvePreview(
+              _presets[_selectedPresetB],
+              Color(0xFFE91E63),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCurvePreview(_ConfigPreset preset, Color color) {
+    return Column(
+      children: [
+        Text(
+          preset.name,
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
+            color: color,
+          ),
+        ),
+        SizedBox(height: 8),
+        Container(
+          height: 80,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(4),
+            border: Border.all(color: color.withAlpha(40)),
+          ),
+          child: CustomPaint(
+            painter: _CurvePreviewPainter(preset.curve, color),
+            size: Size.infinite,
+          ),
+        ),
+        SizedBox(height: 4),
+        Text(
+          '${preset.duration.inMilliseconds}ms',
+          style: TextStyle(
+            fontSize: 10,
+            color: Colors.grey[600],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildComparisonTable() {
+    var presetA = _presets[_selectedPresetA];
+    var presetB = _presets[_selectedPresetB];
+
+    var rows = [
+      ['Property', 'A: ${presetA.name}', 'B: ${presetB.name}'],
+      ['Duration', '${presetA.duration.inMilliseconds}ms', '${presetB.duration.inMilliseconds}ms'],
+      ['Curve Type', _curveTypeName(presetA.curve), _curveTypeName(presetB.curve)],
+      ['Responsiveness', _getResponsiveness(presetA.duration), _getResponsiveness(presetB.duration)],
+      ['Visual Style', _getVisualStyle(presetA.curve), _getVisualStyle(presetB.curve)],
+    ];
+
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: Color(0xFFE0E0E0)),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Table(
+        border: TableBorder.symmetric(
+          inside: BorderSide(color: Color(0xFFE0E0E0)),
+        ),
+        children: rows.asMap().entries.map((entry) {
+          var isHeader = entry.key == 0;
+          return TableRow(
+            decoration: BoxDecoration(
+              color: isHeader ? Color(0xFFF5F5F5) : Colors.white,
+            ),
+            children: entry.value.map((cell) {
+              return Padding(
+                padding: EdgeInsets.all(8),
+                child: Text(
+                  cell,
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
+                    color: isHeader ? Color(0xFF424242) : Color(0xFF616161),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              );
+            }).toList(),
+          );
+        }).toList(),
+      ),
+    );
+  }
+
+  String _curveTypeName(Curve curve) {
+    if (curve == Curves.ease) return 'Ease';
+    if (curve == Curves.bounceOut) return 'BounceOut';
+    if (curve == Curves.elasticOut) return 'ElasticOut';
+    if (curve == Curves.linear) return 'Linear';
+    if (curve == Curves.easeInOut) return 'EaseInOut';
+    if (curve == Curves.decelerate) return 'Decelerate';
+    return 'Custom';
+  }
+
+  String _getResponsiveness(Duration duration) {
+    if (duration.inMilliseconds < 200) return 'High';
+    if (duration.inMilliseconds < 400) return 'Medium';
+    return 'Low';
+  }
+
+  String _getVisualStyle(Curve curve) {
+    if (curve == Curves.linear) return 'Mechanical';
+    if (curve == Curves.bounceOut) return 'Playful';
+    if (curve == Curves.elasticOut) return 'Springy';
+    if (curve == Curves.decelerate) return 'Natural';
+    return 'Smooth';
+  }
+
+  Widget _buildUseCaseRecommendations() {
+    var recommendations = [
+      _UseCaseItem(
+        'General Apps',
+        'Default (Ease, 300ms)',
+        'Balanced feel for most applications',
+        Icons.apps,
+      ),
+      _UseCaseItem(
+        'Gaming/Entertainment',
+        'Fast Bounce (BounceOut, 200ms)',
+        'Energetic, playful interactions',
+        Icons.games,
+      ),
+      _UseCaseItem(
+        'Productivity',
+        'Sharp Linear (Linear, 150ms)',
+        'Quick, no-nonsense response',
+        Icons.work,
+      ),
+      _UseCaseItem(
+        'Luxury/Premium',
+        'Slow Elastic (ElasticOut, 600ms)',
+        'Sophisticated, refined motion',
+        Icons.diamond,
+      ),
+    ];
+
+    return Container(
+      padding: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Color(0xFFE8F5E9),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Color(0xFFA5D6A7)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.lightbulb, color: Color(0xFF388E3C), size: 18),
+              SizedBox(width: 8),
+              Text(
+                'Use Case Recommendations',
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF2E7D32),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 12),
+          ...recommendations.map((item) => Padding(
+            padding: EdgeInsets.only(bottom: 8),
+            child: Row(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                    color: Color(0xFF4CAF50).withAlpha(40),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Icon(item.icon, color: Color(0xFF388E3C), size: 16),
+                ),
+                SizedBox(width: 8),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            item.category,
+                            style: TextStyle(
+                              fontSize: 11,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xFF2E7D32),
+                            ),
+                          ),
+                          SizedBox(width: 6),
+                          Text(
+                            '→ ${item.recommendation}',
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: Color(0xFF388E3C),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        item.reasoning,
+                        style: TextStyle(fontSize: 9, color: Colors.grey[600]),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          )).toList(),
+        ],
+      ),
+    );
+  }
+}
+
+class _ConfigPreset {
+  String name;
+  Curve curve;
+  Duration duration;
+
+  _ConfigPreset(this.name, this.curve, this.duration);
+}
+
+class _UseCaseItem {
+  String category;
+  String recommendation;
+  String reasoning;
+  IconData icon;
+
+  _UseCaseItem(this.category, this.recommendation, this.reasoning, this.icon);
+}
+
+class _CurvePreviewPainter extends CustomPainter {
+  Curve curve;
+  Color color;
+
+  _CurvePreviewPainter(this.curve, this.color);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    var paint = Paint()
+      ..color = color
+      ..strokeWidth = 2
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round;
+
+    var path = Path();
+    var steps = 50;
+
+    for (var i = 0; i <= steps; i++) {
+      var t = i / steps;
+      var y = curve.transform(t);
+      var x = t * size.width;
+      var yPos = size.height - (y * size.height * 0.9) - 4;
+
+      if (i == 0) {
+        path.moveTo(x, yPos);
+      } else {
+        path.lineTo(x, yPos);
+      }
+    }
+
+    canvas.drawPath(path, paint);
+
+    // Draw axis
+    var axisPaint = Paint()
+      ..color = Colors.grey.withAlpha(60)
+      ..strokeWidth = 1;
+
+    canvas.drawLine(
+      Offset(0, size.height - 2),
+      Offset(size.width, size.height - 2),
+      axisPaint,
+    );
+    canvas.drawLine(
+      Offset(2, 0),
+      Offset(2, size.height),
+      axisPaint,
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant _CurvePreviewPainter oldDelegate) {
+    return oldDelegate.curve != curve || oldDelegate.color != color;
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════════════
 // MAIN DEMO APP WIDGET
 // ════════════════════════════════════════════════════════════════════════════
 
@@ -1545,7 +2508,15 @@ class FloatingHeaderSnapConfigurationDemo extends StatelessWidget {
             SizedBox(height: 8),
             SnapBehaviorVisualization(),
             SizedBox(height: 20),
-            _buildSectionHeader('6. Integration', Icons.integration_instructions),
+            _buildSectionHeader('6. Sliver Context', Icons.layers),
+            SizedBox(height: 8),
+            SliverContextDemoWidget(),
+            SizedBox(height: 20),
+            _buildSectionHeader('7. Configuration Comparison', Icons.compare_arrows),
+            SizedBox(height: 8),
+            ConfigurationComparisonWidget(),
+            SizedBox(height: 20),
+            _buildSectionHeader('8. Integration', Icons.integration_instructions),
             SizedBox(height: 8),
             IntegrationExampleWidget(),
             SizedBox(height: 20),
