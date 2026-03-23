@@ -24,6 +24,7 @@ import 'package:path/path.dart' as p;
 
 import 'bridge_config.dart';
 import 'file_generators.dart' show ensureBDartExtension;
+import 'sdk_utils.dart' show getSdkPath;
 
 /// Information about a method that needs proxying.
 class _AbstractMethodInfo {
@@ -179,7 +180,7 @@ Future<ProxyGenerationResult> generateProxies({
       ? projectPath
       : p.normalize(p.join(Directory.current.path, projectPath));
 
-  final sdkPath = _getSdkPath();
+  final sdkPath = getSdkPath();
 
   final collection = AnalysisContextCollection(
     includedPaths: [absoluteProjectPath],
@@ -735,30 +736,7 @@ String _buildCallArgs(List<_MethodParam> params) {
   return parts.join(', ');
 }
 
-/// Gets the Dart SDK path.
-String? _getSdkPath() {
-  // Check DART_SDK environment variable first
-  final envSdk = Platform.environment['DART_SDK'];
-  if (envSdk != null && Directory(envSdk).existsSync()) {
-    return envSdk;
-  }
-
-  // Try to detect from dart executable
-  final dartExe = Platform.resolvedExecutable;
-  final binDir = p.dirname(dartExe);
-  final sdkDir = p.dirname(binDir);
-  if (File(p.join(sdkDir, 'lib', 'core', 'core.dart')).existsSync()) {
-    return sdkDir;
-  }
-
-  // For Flutter SDK, dart is inside flutter/bin/cache/dart-sdk/bin/
-  final flutterSdkDir = p.dirname(p.dirname(binDir));
-  if (File(p.join(flutterSdkDir, 'lib', 'core', 'core.dart')).existsSync()) {
-    return flutterSdkDir;
-  }
-
-  return null;
-}
+// SDK path resolution is provided by sdk_utils.dart (getSdkPath).
 
 // =============================================================================
 // GEN-092: Proxy factory registration generation
