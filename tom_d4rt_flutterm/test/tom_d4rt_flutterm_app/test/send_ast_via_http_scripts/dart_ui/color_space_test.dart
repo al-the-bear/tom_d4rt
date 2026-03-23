@@ -425,7 +425,7 @@ dynamic build(BuildContext context) {
                         child: Row(
                           children: [
                             Text(
-                              '${cs.name}',
+                              cs.name,
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 13,

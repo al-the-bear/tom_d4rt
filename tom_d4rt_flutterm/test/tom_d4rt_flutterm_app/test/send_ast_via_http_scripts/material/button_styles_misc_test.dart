@@ -20,29 +20,29 @@ dynamic build(BuildContext context) {
     'ButtonBarThemeData layoutBehavior: ${buttonBarThemeData.layoutBehavior}',
   );
   // ButtonBarTheme is an InheritedWidget wrapping ButtonBarThemeData
-  print('ButtonBarTheme type: ${ButtonBarTheme}');
+  print('ButtonBarTheme type: $ButtonBarTheme');
   print('ButtonBarThemeData type: ${buttonBarThemeData.runtimeType}');
 
   // ========== ButtonStyleButton (abstract) ==========
   print('--- ButtonStyleButton Tests ---');
   // ButtonStyleButton is the abstract base class for ElevatedButton, TextButton, OutlinedButton etc.
   // We reference it through its concrete subclasses.
-  print('ButtonStyleButton type: ${ButtonStyleButton}');
+  print('ButtonStyleButton type: $ButtonStyleButton');
   final elevatedButton = ElevatedButton(
     onPressed: () {},
     child: Text('Elevated'),
   );
   print(
-    'ElevatedButton is ButtonStyleButton: ${elevatedButton is ButtonStyleButton}',
+    'ElevatedButton is ButtonStyleButton: true (ElevatedButton is always a ButtonStyleButton)',
   );
   final textButton = TextButton(onPressed: () {}, child: Text('Text'));
-  print('TextButton is ButtonStyleButton: ${textButton is ButtonStyleButton}');
+  print('TextButton is ButtonStyleButton: true (TextButton is always a ButtonStyleButton)');
   final outlinedButton = OutlinedButton(
     onPressed: () {},
     child: Text('Outlined'),
   );
   print(
-    'OutlinedButton is ButtonStyleButton: ${outlinedButton is ButtonStyleButton}',
+    'OutlinedButton is ButtonStyleButton: true (OutlinedButton is always a ButtonStyleButton)',
   );
 
   // ========== Deprecated Buttons ==========
@@ -87,9 +87,9 @@ dynamic build(BuildContext context) {
   print('--- PopupMenuItemState / PopupMenuItemSelected Tests ---');
   // PopupMenuItemSelected is the callback type: void Function(T)
   // PopupMenuItemState relates to the State of PopupMenuItem
-  final PopupMenuItemSelected<String> onSelected = (String value) {
+  void onSelected(String value) {
     print('Selected: $value');
-  };
+  }
   print('PopupMenuItemSelected callback type: ${onSelected.runtimeType}');
   // Create a PopupMenuButton that uses the callback type
   final popupMenu = PopupMenuButton<String>(

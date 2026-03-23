@@ -13,7 +13,7 @@ dynamic build(BuildContext context) {
 }
 
 class NoSplashDemoPage extends StatefulWidget {
-  NoSplashDemoPage({Key? key}) : super(key: key);
+  const NoSplashDemoPage({super.key});
 
   @override
   State<NoSplashDemoPage> createState() => _NoSplashDemoPageState();
@@ -26,9 +26,9 @@ class _NoSplashDemoPageState extends State<NoSplashDemoPage>
   bool _showSplash = true;
   bool _highlightEnabled = true;
   Color _highlightColor = Colors.blue.withOpacity(0.2);
-  List<String> _tapLog = [];
+  final List<String> _tapLog = [];
 
-  List<String> _sections = [
+  final List<String> _sections = [
     '1. Overview of NoSplash',
     '2. InkWell with NoSplash.splashFactory',
     '3. Comparison: InkSplash vs NoSplash',

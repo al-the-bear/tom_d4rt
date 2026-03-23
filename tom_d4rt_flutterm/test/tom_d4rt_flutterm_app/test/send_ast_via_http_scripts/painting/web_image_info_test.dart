@@ -929,7 +929,7 @@ Access-Control-Allow-Origin: https://yourapp.com'''),
                 ],
               ),
             );
-          }).toList(),
+          }),
         ],
       ),
     ),

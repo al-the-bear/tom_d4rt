@@ -597,12 +597,12 @@ Widget _dualBar(_SimTiming t) {
         ),
         SizedBox(width: 4),
         Text(
-          '${t.buildMs.toStringAsFixed(1)}',
+          t.buildMs.toStringAsFixed(1),
           style: TextStyle(fontSize: 8, color: Color(0xFF1565C0)),
         ),
         Text('/', style: TextStyle(fontSize: 8, color: Colors.grey)),
         Text(
-          '${t.rasterMs.toStringAsFixed(1)}',
+          t.rasterMs.toStringAsFixed(1),
           style: TextStyle(fontSize: 8, color: Color(0xFFE65100)),
         ),
       ],

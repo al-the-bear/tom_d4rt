@@ -289,7 +289,7 @@ dynamic build(BuildContext context) {
                     ),
                     _dispatcherProp(
                       'defaultRouteName',
-                      '${dispatcher.defaultRouteName}',
+                      dispatcher.defaultRouteName,
                       Icons.route,
                       Color(0xFFC62828),
                     ),

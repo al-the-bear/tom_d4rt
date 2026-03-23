@@ -100,17 +100,6 @@ Widget _buildDemoCard(String label, Widget child) {
   );
 }
 
-// Helper: colored box sample
-Widget _coloredSample(Color color, {double size = 60}) {
-  return Container(
-    width: size,
-    height: size,
-    decoration: BoxDecoration(
-      color: color,
-      borderRadius: BorderRadius.circular(8),
-    ),
-  );
-}
 
 // Section 1: Padding with different EdgeInsets
 Widget _buildPaddingSection() {

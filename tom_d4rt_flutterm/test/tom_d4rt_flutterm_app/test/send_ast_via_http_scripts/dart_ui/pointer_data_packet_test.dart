@@ -881,7 +881,7 @@ Widget _buildPacketResultsCard(
         ),
         _buildResultRow(
           'First event change',
-          '${packet2.data[0].change.name}',
+          packet2.data[0].change.name,
           true,
         ),
         _buildResultRow(
@@ -891,7 +891,7 @@ Widget _buildPacketResultsCard(
         ),
         _buildResultRow(
           'Third event change',
-          '${packet2.data[2].change.name}',
+          packet2.data[2].change.name,
           true,
         ),
       ],

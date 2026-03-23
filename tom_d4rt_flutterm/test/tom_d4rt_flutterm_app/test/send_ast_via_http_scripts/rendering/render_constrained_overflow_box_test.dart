@@ -171,24 +171,6 @@ Widget _buildParentBox(
 }
 
 // Helper: child box used inside overflow demos
-Widget _buildChildBox(double width, double height, Color color, String label) {
-  return Container(
-    width: width,
-    height: height,
-    decoration: BoxDecoration(
-      color: color.withOpacity(0.3),
-      border: Border.all(color: color, width: 1.5),
-      borderRadius: BorderRadius.circular(4.0),
-    ),
-    alignment: Alignment.center,
-    child: Text(
-      label,
-      style: TextStyle(color: Colors.white, fontSize: 10.0),
-      textAlign: TextAlign.center,
-    ),
-  );
-}
-
 // Section 1: Basic OverflowBox allowing child to overflow parent
 Widget _buildOverflowBasicDemo() {
   print('[render_constrained_overflow_box_test] _buildOverflowBasicDemo()');

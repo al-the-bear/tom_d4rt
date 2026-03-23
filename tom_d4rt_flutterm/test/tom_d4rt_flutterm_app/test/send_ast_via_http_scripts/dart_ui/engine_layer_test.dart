@@ -94,7 +94,7 @@ dynamic build(BuildContext context) {
   b1.build();
 
   final b2 = ui.SceneBuilder();
-  final reused = b2.pushOffset(0, 0, oldLayer: first as ui.OffsetEngineLayer);
+  final reused = b2.pushOffset(0, 0, oldLayer: first);
   b2.pop();
   b2.build();
   print('Layer reuse: first=$first, reused=$reused');

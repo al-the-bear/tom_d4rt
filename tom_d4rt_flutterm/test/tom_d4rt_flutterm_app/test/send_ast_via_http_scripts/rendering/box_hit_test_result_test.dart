@@ -1218,6 +1218,8 @@ void main() {
 }
 
 class BoxHitTestResultDemoApp extends StatelessWidget {
+  const BoxHitTestResultDemoApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -1234,6 +1236,8 @@ class BoxHitTestResultDemoApp extends StatelessWidget {
 }
 
 class BoxHitTestResultDemoScreen extends StatelessWidget {
+  const BoxHitTestResultDemoScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     print('Building BoxHitTestResultDemoScreen');

@@ -24,7 +24,7 @@ dynamic build(BuildContext context) {
     layoutBuilder: (currentChild, previousChildren) {
       return Stack(
         alignment: Alignment.center,
-        children: [...previousChildren, if (currentChild != null) currentChild],
+        children: [...previousChildren, ?currentChild],
       );
     },
     child: Text('Content', key: ValueKey('key1')),

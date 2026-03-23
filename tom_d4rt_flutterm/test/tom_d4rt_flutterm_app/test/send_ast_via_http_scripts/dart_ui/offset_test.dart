@@ -600,7 +600,7 @@ dynamic build(BuildContext context) {
                     _propertyTile(
                       Icons.straighten,
                       'distance',
-                      '${p.distance.toStringAsFixed(2)}',
+                      p.distance.toStringAsFixed(2),
                       'sqrt(dx^2 + dy^2) = sqrt(${p.dx}^2 + ${p.dy}^2)',
                       Color(0xFF1565C0),
                     ),
@@ -608,7 +608,7 @@ dynamic build(BuildContext context) {
                     _propertyTile(
                       Icons.crop_square,
                       'distanceSquared',
-                      '${p.distanceSquared.toStringAsFixed(0)}',
+                      p.distanceSquared.toStringAsFixed(0),
                       'dx^2 + dy^2 (no sqrt)',
                       Color(0xFF00838F),
                     ),

@@ -466,16 +466,16 @@ Widget _buildAsymmetricShape(
 
 Widget _buildPropertiesCard(ui.RSuperellipse rse) {
   final properties = [
-    ['left', '${rse.left.toStringAsFixed(1)}'],
-    ['top', '${rse.top.toStringAsFixed(1)}'],
-    ['right', '${rse.right.toStringAsFixed(1)}'],
-    ['bottom', '${rse.bottom.toStringAsFixed(1)}'],
-    ['width', '${rse.width.toStringAsFixed(1)}'],
-    ['height', '${rse.height.toStringAsFixed(1)}'],
-    ['tlRadiusX', '${rse.tlRadiusX.toStringAsFixed(1)}'],
-    ['trRadiusX', '${rse.trRadiusX.toStringAsFixed(1)}'],
-    ['blRadiusX', '${rse.blRadiusX.toStringAsFixed(1)}'],
-    ['brRadiusX', '${rse.brRadiusX.toStringAsFixed(1)}'],
+    ['left', rse.left.toStringAsFixed(1)],
+    ['top', rse.top.toStringAsFixed(1)],
+    ['right', rse.right.toStringAsFixed(1)],
+    ['bottom', rse.bottom.toStringAsFixed(1)],
+    ['width', rse.width.toStringAsFixed(1)],
+    ['height', rse.height.toStringAsFixed(1)],
+    ['tlRadiusX', rse.tlRadiusX.toStringAsFixed(1)],
+    ['trRadiusX', rse.trRadiusX.toStringAsFixed(1)],
+    ['blRadiusX', rse.blRadiusX.toStringAsFixed(1)],
+    ['brRadiusX', rse.brRadiusX.toStringAsFixed(1)],
     ['isFinite', '${rse.isFinite}'],
     ['isEmpty', '${rse.isEmpty}'],
   ];

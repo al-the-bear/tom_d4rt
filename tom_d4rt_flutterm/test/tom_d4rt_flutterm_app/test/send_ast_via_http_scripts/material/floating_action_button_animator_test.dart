@@ -546,7 +546,7 @@ Widget _buildScaleFactorProgression() {
           SizedBox(width: 8),
           SizedBox(
             width: 40,
-            child: Text('${scale.toStringAsFixed(2)}',
+            child: Text(scale.toStringAsFixed(2),
                 style: TextStyle(fontFamily: 'monospace', fontSize: 9)),
           ),
           SizedBox(width: 4),
@@ -855,7 +855,7 @@ Widget _buildAnimationCurve() {
             ),
           ),
           SizedBox(height: 2),
-          Text('${(t * 100).toStringAsFixed(0)}', style: TextStyle(fontSize: 6)),
+          Text((t * 100).toStringAsFixed(0), style: TextStyle(fontSize: 6)),
         ],
       ),
     ));

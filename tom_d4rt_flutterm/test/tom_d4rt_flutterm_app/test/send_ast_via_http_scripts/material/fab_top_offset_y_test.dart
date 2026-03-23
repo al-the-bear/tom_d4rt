@@ -195,7 +195,7 @@ Widget _buildScaffoldDiagram(String label, double xFraction, double yFraction, C
               Text('Y offset places FAB below AppBar',
                   style: TextStyle(fontSize: 11, color: Color(0xFF757575))),
               SizedBox(height: 4),
-              Text('Top position at y=${yFraction}',
+              Text('Top position at y=$yFraction',
                   style: TextStyle(fontFamily: 'monospace', fontSize: 10, color: Color(0xFF616161))),
             ],
           ),

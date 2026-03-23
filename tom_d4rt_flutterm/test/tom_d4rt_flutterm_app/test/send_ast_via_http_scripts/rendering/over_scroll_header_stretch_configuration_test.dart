@@ -1572,7 +1572,7 @@ Widget _buildPhaseIndicator(String label, IconData icon, Color color) {
 // ═══════════════════════════════════════════════════════════════════════════════
 
 class OverScrollHeaderStretchConfigDemo extends StatefulWidget {
-  OverScrollHeaderStretchConfigDemo({Key? key}) : super(key: key);
+  const OverScrollHeaderStretchConfigDemo({super.key});
 
   @override
   State<OverScrollHeaderStretchConfigDemo> createState() =>
@@ -1738,7 +1738,7 @@ class _OverScrollHeaderStretchConfigDemoState
 // ═══════════════════════════════════════════════════════════════════════════════
 
 class OverScrollHeaderStretchConfigurationDemo extends StatelessWidget {
-  OverScrollHeaderStretchConfigurationDemo({Key? key}) : super(key: key);
+  const OverScrollHeaderStretchConfigurationDemo({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -78,42 +78,6 @@ Widget _buildLabel(String text) {
   );
 }
 
-Widget _buildColoredBox(
-  Color color,
-  double width,
-  double height,
-  String label,
-) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Container(
-        width: width,
-        height: height,
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(6),
-          border: Border.all(color: Colors.black26, width: 1),
-        ),
-        alignment: Alignment.center,
-        child: Text(
-          label,
-          style: TextStyle(
-            fontSize: 11,
-            color: Colors.white,
-            fontWeight: FontWeight.w600,
-          ),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      SizedBox(height: 4),
-      Text(
-        '${width.toInt()}x${height.toInt()}',
-        style: TextStyle(fontSize: 10, color: Color(0xFF757575)),
-      ),
-    ],
-  );
-}
 
 Widget _buildSizedBoxSection() {
   print('[render_objects_misc] Building SizedBox section');

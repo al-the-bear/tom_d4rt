@@ -38,7 +38,7 @@ dynamic build(BuildContext context) {
       pixels[offset + 3] = 255; // A
     }
   }
-  print('Created ${width}x${height} RGBA pixel buffer: ${pixels.length} bytes');
+  print('Created ${width}x$height RGBA pixel buffer: ${pixels.length} bytes');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 3: ImageByteFormat ENUM
@@ -228,7 +228,7 @@ dynamic build(BuildContext context) {
               ),
 
               // ── Section 3: Pixel Data Visualization ──
-              _sectionTitle('3. RAW PIXEL DATA (${width}x${height} RGBA)'),
+              _sectionTitle('3. RAW PIXEL DATA (${width}x$height RGBA)'),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 16.0),
                 padding: EdgeInsets.all(16),
@@ -263,7 +263,7 @@ dynamic build(BuildContext context) {
                               ),
                               child: Center(
                                 child: Text(
-                                  '${x},${y}',
+                                  '$x,$y',
                                   style: TextStyle(
                                     fontSize: 9,
                                     color: Colors.white,

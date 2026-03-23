@@ -945,7 +945,7 @@ Widget buildTickMarkRadiusComparison() {
             SizedBox(
               width: 50,
               child: Text(
-                '${radius.toStringAsFixed(1)}',
+                radius.toStringAsFixed(1),
                 style: TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.bold,

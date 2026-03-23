@@ -10,7 +10,7 @@ dynamic build(BuildContext context) {
   // ScaffoldFeatureController is returned by ScaffoldState.showBottomSheet etc.
   // It is a generic class: ScaffoldFeatureController<T extends Widget, U>
   // We reference the type since we cannot call showBottomSheet outside a live Scaffold.
-  print('ScaffoldFeatureController type: ${ScaffoldFeatureController}');
+  print('ScaffoldFeatureController type: $ScaffoldFeatureController');
   print('ScaffoldFeatureController referenced successfully');
 
   // ========== FloatingActionButtonLocation Subclasses ==========
@@ -20,43 +20,43 @@ dynamic build(BuildContext context) {
   final FloatingActionButtonLocation endFloat =
       FloatingActionButtonLocation.endFloat;
   print('endFloat type: ${endFloat.runtimeType}');
-  print('endFloat toString: ${endFloat}');
+  print('endFloat toString: $endFloat');
 
   // CenterFloatFabLocation
   final FloatingActionButtonLocation centerFloat =
       FloatingActionButtonLocation.centerFloat;
   print('centerFloat type: ${centerFloat.runtimeType}');
-  print('centerFloat toString: ${centerFloat}');
+  print('centerFloat toString: $centerFloat');
 
   // EndDockedFabLocation
   final FloatingActionButtonLocation endDocked =
       FloatingActionButtonLocation.endDocked;
   print('endDocked type: ${endDocked.runtimeType}');
-  print('endDocked toString: ${endDocked}');
+  print('endDocked toString: $endDocked');
 
   // CenterDockedFabLocation
   final FloatingActionButtonLocation centerDocked =
       FloatingActionButtonLocation.centerDocked;
   print('centerDocked type: ${centerDocked.runtimeType}');
-  print('centerDocked toString: ${centerDocked}');
+  print('centerDocked toString: $centerDocked');
 
   // EndTopFabLocation
   final FloatingActionButtonLocation endTop =
       FloatingActionButtonLocation.endTop;
   print('endTop type: ${endTop.runtimeType}');
-  print('endTop toString: ${endTop}');
+  print('endTop toString: $endTop');
 
   // StartTopFabLocation
   final FloatingActionButtonLocation startTop =
       FloatingActionButtonLocation.startTop;
   print('startTop type: ${startTop.runtimeType}');
-  print('startTop toString: ${startTop}');
+  print('startTop toString: $startTop');
 
   // EndContainedFabLocation
   final FloatingActionButtonLocation endContained =
       FloatingActionButtonLocation.endContained;
   print('endContained type: ${endContained.runtimeType}');
-  print('endContained toString: ${endContained}');
+  print('endContained toString: $endContained');
 
   // ========== FAB Offset Mixins ==========
   print('--- FAB Offset Mixin Tests ---');

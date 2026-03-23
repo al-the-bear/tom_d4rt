@@ -729,7 +729,7 @@ Widget _buildTreeNode(String label, int depth, bool isVisible) {
   );
   String indent = '';
   for (int i = 0; i < depth; i++) {
-    indent = '${indent}  ';
+    indent = '$indent  ';
   }
   String prefix = depth > 0 ? '|- ' : '';
   return Padding(

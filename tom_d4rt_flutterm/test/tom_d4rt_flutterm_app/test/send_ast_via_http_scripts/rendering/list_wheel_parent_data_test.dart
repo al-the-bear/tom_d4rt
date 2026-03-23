@@ -302,7 +302,7 @@ Widget _buildOffsetDataCard(
             children: [
               Text('offset', style: TextStyle(fontSize: 10, color: _kGray500)),
               Text(
-                '${offset.toStringAsFixed(1)}',
+                offset.toStringAsFixed(1),
                 style: TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.w700,
@@ -334,7 +334,7 @@ Widget _buildOffsetDataCard(
             children: [
               Text('paintY', style: TextStyle(fontSize: 10, color: _kGray500)),
               Text(
-                '${paintY.toStringAsFixed(0)}',
+                paintY.toStringAsFixed(0),
                 style: TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.w700,

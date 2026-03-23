@@ -693,19 +693,19 @@ dynamic build(BuildContext context) {
           _buildSpacingFormula(
             'spaceBetween',
             'gap = freeSpace / (childCount - 1)',
-            '${freeSpace} / ${itemCount - 1} = ${(freeSpace / (itemCount - 1)).toStringAsFixed(0)}px between items',
+            '$freeSpace / ${itemCount - 1} = ${(freeSpace / (itemCount - 1)).toStringAsFixed(0)}px between items',
             _kPurple500,
           ),
           _buildSpacingFormula(
             'spaceAround',
             'gap = freeSpace / childCount; edges = gap/2',
-            '${freeSpace} / $itemCount = ${(freeSpace / itemCount).toStringAsFixed(0)}px per child; edges = ${(freeSpace / (itemCount * 2)).toStringAsFixed(0)}px',
+            '$freeSpace / $itemCount = ${(freeSpace / itemCount).toStringAsFixed(0)}px per child; edges = ${(freeSpace / (itemCount * 2)).toStringAsFixed(0)}px',
             _kEmerald500,
           ),
           _buildSpacingFormula(
             'spaceEvenly',
             'gap = freeSpace / (childCount + 1)',
-            '${freeSpace} / ${itemCount + 1} = ${(freeSpace / (itemCount + 1)).toStringAsFixed(0)}px everywhere',
+            '$freeSpace / ${itemCount + 1} = ${(freeSpace / (itemCount + 1)).toStringAsFixed(0)}px everywhere',
             _kPurple500,
           ),
 

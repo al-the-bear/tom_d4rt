@@ -229,14 +229,12 @@ Widget _buildBasicCenterArcTween() {
 
   for (int i = 0; i < tValues.length; i++) {
     final double t = tValues[i];
-    final Rect? sampled = centerArcTween.lerp(t);
-    if (sampled != null) {
-      print('  t=$t -> ${_fmtRect(sampled)}');
-      stackChildren.add(_buildRectBox(sampled, colors[i], label: 't=$t'));
-      infoChildren.add(
-        _buildInfoCard('t=${t.toStringAsFixed(2)}', _fmtRect(sampled)),
-      );
-    }
+    final Rect sampled = centerArcTween.lerp(t);
+    print('  t=$t -> ${_fmtRect(sampled)}');
+    stackChildren.add(_buildRectBox(sampled, colors[i], label: 't=$t'));
+    infoChildren.add(
+      _buildInfoCard('t=${t.toStringAsFixed(2)}', _fmtRect(sampled)),
+    );
   }
 
   // Also show center path dots
@@ -333,10 +331,8 @@ Widget _buildThreeWayComparison() {
     cornerArcRects.add(_buildRectBox(cornerR, Color(0xFFC62828)));
 
     // Center-arc
-    final Rect? centerR = centerArcTween.lerp(t);
-    if (centerR != null) {
-      centerArcRects.add(_buildRectBox(centerR, Color(0xFF2E7D32)));
-    }
+    final Rect centerR = centerArcTween.lerp(t);
+    centerArcRects.add(_buildRectBox(centerR, Color(0xFF2E7D32)));
   }
 
   // Also trace the center paths
@@ -359,12 +355,10 @@ Widget _buildThreeWayComparison() {
       _buildDot(cornerR.center, Color(0xFFC62828), size: 4.0),
     );
 
-    final Rect? centerR = centerArcTween.lerp(t);
-    if (centerR != null) {
-      centerArcCenterDots.add(
-        _buildDot(centerR.center, Color(0xFF2E7D32), size: 4.0),
-      );
-    }
+    final Rect centerR = centerArcTween.lerp(t);
+    centerArcCenterDots.add(
+      _buildDot(centerR.center, Color(0xFF2E7D32), size: 4.0),
+    );
   }
 
   return Column(
@@ -485,14 +479,12 @@ Widget _buildCenterArcProperty() {
   List<Widget> rectSamples = [];
   for (int i = 0; i <= 8; i++) {
     final double t = i / 8;
-    final Rect? r = tween.lerp(t);
-    if (r != null) {
-      rectSamples.add(
-        _buildRectBox(r, Color(0xFF00897B).withValues(alpha: 0.6)),
-      );
-      // Mark center with a small bright dot
-      centerMarkers.add(_buildDot(r.center, Color(0xFFD50000), size: 6.0));
-    }
+    final Rect r = tween.lerp(t);
+    rectSamples.add(
+      _buildRectBox(r, Color(0xFF00897B).withValues(alpha: 0.6)),
+    );
+    // Mark center with a small bright dot
+    centerMarkers.add(_buildDot(r.center, Color(0xFFD50000), size: 6.0));
   }
 
   return Column(
@@ -572,28 +564,26 @@ Widget _buildSameSizeArcTranslation() {
 
   for (int i = 0; i <= 10; i++) {
     final double t = i / 10;
-    final Rect? arcR = tw.lerp(t);
+    final Rect arcR = tw.lerp(t);
     final Rect? linR = linearTw.lerp(t);
 
-    if (arcR != null) {
-      final int alpha = 80 + ((175 * t).round());
-      arcItems.add(
-        Positioned(
-          left: arcR.left,
-          top: arcR.top,
-          width: arcR.width,
-          height: arcR.height,
-          child: Container(
-            decoration: BoxDecoration(
-              color: Color.fromARGB(alpha, 0, 105, 92),
-              border: Border.all(color: Color(0xFF00695C), width: 1),
-              borderRadius: BorderRadius.circular(4),
-            ),
+    final int alpha = 80 + ((175 * t).round());
+    arcItems.add(
+      Positioned(
+        left: arcR.left,
+        top: arcR.top,
+        width: arcR.width,
+        height: arcR.height,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Color.fromARGB(alpha, 0, 105, 92),
+            border: Border.all(color: Color(0xFF00695C), width: 1),
+            borderRadius: BorderRadius.circular(4),
           ),
         ),
-      );
-      print('  arc t=${t.toStringAsFixed(1)} -> ${_fmtRect(arcR)}');
-    }
+      ),
+    );
+    print('  arc t=${t.toStringAsFixed(1)} -> ${_fmtRect(arcR)}');
 
     if (linR != null) {
       linearItems.add(
@@ -696,10 +686,8 @@ Widget _buildDifferentSizeArcScaling() {
     List<Widget> rects = [];
     for (int i = 0; i <= 6; i++) {
       final double t = i / 6;
-      final Rect? r = tw.lerp(t);
-      if (r != null) {
-        rects.add(_buildRectBox(r, cfg.color));
-      }
+      final Rect r = tw.lerp(t);
+      rects.add(_buildRectBox(r, cfg.color));
     }
 
     // Show center dots
@@ -793,14 +781,12 @@ Widget _buildCenterVsCornersPath() {
 
   for (int i = 0; i <= 24; i++) {
     final double t = i / 24;
-    final Rect? r = tw.lerp(t);
-    if (r != null) {
-      centerPath.add(r.center);
-      topLeftPath.add(r.topLeft);
-      topRightPath.add(r.topRight);
-      bottomLeftPath.add(r.bottomLeft);
-      bottomRightPath.add(r.bottomRight);
-    }
+    final Rect r = tw.lerp(t);
+    centerPath.add(r.center);
+    topLeftPath.add(r.topLeft);
+    topRightPath.add(r.topRight);
+    bottomLeftPath.add(r.bottomLeft);
+    bottomRightPath.add(r.bottomRight);
   }
 
   // Draw center dots (orange, largest)
@@ -904,11 +890,9 @@ Widget _buildHeroExpansion() {
   ];
 
   for (int i = 0; i < tSteps.length; i++) {
-    final Rect? r = heroTween.lerp(tSteps[i]);
-    if (r != null) {
-      frames.add(_buildRectBox(r, gradient[i], label: 't=${tSteps[i]}'));
-      print('  hero t=${tSteps[i]} -> ${_fmtRect(r)}');
-    }
+    final Rect r = heroTween.lerp(tSteps[i]);
+    frames.add(_buildRectBox(r, gradient[i], label: 't=${tSteps[i]}'));
+    print('  hero t=${tSteps[i]} -> ${_fmtRect(r)}');
   }
 
   // Overlay the center arc path
@@ -972,17 +956,15 @@ Widget _buildFineGrainedSampling() {
 
   for (int i = 0; i <= totalSteps; i++) {
     final double t = i / totalSteps;
-    final Rect? r = tw.lerp(t);
-    if (r != null) {
-      // Color gradient: teal to deep purple across steps
-      final int redVal = (128 * t).round();
-      final int greenVal = (200 * (1 - t)).round();
-      final int blueVal = (128 + (127 * t)).round();
-      final Color c = Color.fromARGB(255, redVal, greenVal, blueVal);
-      stackItems.add(_buildRectBox(r, c));
-      infoItems.add(_buildInfoCard('t=${t.toStringAsFixed(3)}', _fmtRect(r)));
-      print('  step $i: t=${t.toStringAsFixed(3)} -> ${_fmtRect(r)}');
-    }
+    final Rect r = tw.lerp(t);
+    // Color gradient: teal to deep purple across steps
+    final int redVal = (128 * t).round();
+    final int greenVal = (200 * (1 - t)).round();
+    final int blueVal = (128 + (127 * t)).round();
+    final Color c = Color.fromARGB(255, redVal, greenVal, blueVal);
+    stackItems.add(_buildRectBox(r, c));
+    infoItems.add(_buildInfoCard('t=${t.toStringAsFixed(3)}', _fmtRect(r)));
+    print('  step $i: t=${t.toStringAsFixed(3)} -> ${_fmtRect(r)}');
   }
 
   // Add center arc trail
@@ -1033,7 +1015,7 @@ Widget _buildEdgeCases() {
     begin: sameRect,
     end: sameRect,
   );
-  final Rect? sameMid = sameTween.lerp(0.5);
+  final Rect sameMid = sameTween.lerp(0.5);
 
   // --- Very close rects ---
   final Rect nearBegin = Rect.fromLTWH(100, 100, 60, 60);
@@ -1042,7 +1024,7 @@ Widget _buildEdgeCases() {
     begin: nearBegin,
     end: nearEnd,
   );
-  final Rect? nearMid = nearTween.lerp(0.5);
+  final Rect nearMid = nearTween.lerp(0.5);
 
   // --- Horizontal only movement ---
   final Rect horizBegin = Rect.fromLTWH(10, 60, 50, 50);
@@ -1055,12 +1037,10 @@ Widget _buildEdgeCases() {
   List<Widget> horizStack = [];
   for (int i = 0; i <= 8; i++) {
     final double t = i / 8;
-    final Rect? r = horizTween.lerp(t);
-    if (r != null) {
-      horizStack.add(
-        _buildRectBox(r, Color(0xFF0277BD), label: 't=${t.toStringAsFixed(2)}'),
-      );
-    }
+    final Rect r = horizTween.lerp(t);
+    horizStack.add(
+      _buildRectBox(r, Color(0xFF0277BD), label: 't=${t.toStringAsFixed(2)}'),
+    );
   }
 
   // --- Vertical only movement ---
@@ -1074,12 +1054,10 @@ Widget _buildEdgeCases() {
   List<Widget> vertStack = [];
   for (int i = 0; i <= 8; i++) {
     final double t = i / 8;
-    final Rect? r = vertTween.lerp(t);
-    if (r != null) {
-      vertStack.add(
-        _buildRectBox(r, Color(0xFF558B2F), label: 't=${t.toStringAsFixed(2)}'),
-      );
-    }
+    final Rect r = vertTween.lerp(t);
+    vertStack.add(
+      _buildRectBox(r, Color(0xFF558B2F), label: 't=${t.toStringAsFixed(2)}'),
+    );
   }
 
   // --- Zero-size begin ---
@@ -1093,21 +1071,19 @@ Widget _buildEdgeCases() {
   List<Widget> zeroStack = [];
   for (int i = 0; i <= 6; i++) {
     final double t = i / 6;
-    final Rect? r = zeroTween.lerp(t);
-    if (r != null) {
-      zeroStack.add(
-        _buildRectBox(r, Color(0xFF4527A0), label: 't=${t.toStringAsFixed(2)}'),
-      );
-    }
+    final Rect r = zeroTween.lerp(t);
+    zeroStack.add(
+      _buildRectBox(r, Color(0xFF4527A0), label: 't=${t.toStringAsFixed(2)}'),
+    );
   }
 
   print(
     '  identical rect t=0.5 -> '
-    '${sameMid != null ? _fmtRect(sameMid) : "null"}',
+    '${_fmtRect(sameMid)}',
   );
   print(
     '  near rect t=0.5 -> '
-    '${nearMid != null ? _fmtRect(nearMid) : "null"}',
+    '${_fmtRect(nearMid)}',
   );
 
   return Column(
@@ -1132,7 +1108,7 @@ Widget _buildEdgeCases() {
       _buildInfoCard('begin = end', _fmtRect(sameRect)),
       _buildInfoCard(
         't=0.5 result',
-        sameMid != null ? _fmtRect(sameMid) : 'null',
+        _fmtRect(sameMid),
       ),
       _buildInfoCard(
         'Observation',
@@ -1152,7 +1128,7 @@ Widget _buildEdgeCases() {
       SizedBox(height: 4),
       _buildInfoCard('begin', _fmtRect(nearBegin)),
       _buildInfoCard('end', _fmtRect(nearEnd)),
-      _buildInfoCard('t=0.5', nearMid != null ? _fmtRect(nearMid) : 'null'),
+      _buildInfoCard('t=0.5', _fmtRect(nearMid)),
       SizedBox(height: 12),
 
       // Horizontal only
@@ -1321,14 +1297,12 @@ Widget _buildSummary() {
     final double t = i / 30;
     final Rect? linR = linearTw.lerp(t);
     final Rect cornerR = cornerTw.lerp(t);
-    final Rect? centerR = centerTw.lerp(t);
+    final Rect centerR = centerTw.lerp(t);
     if (linR != null) {
       cmpDots.add(_buildDot(linR.center, Color(0xFF1565C0), size: 5.0));
     }
     cmpDots.add(_buildDot(cornerR.center, Color(0xFFC62828), size: 5.0));
-    if (centerR != null) {
-      cmpDots.add(_buildDot(centerR.center, Color(0xFF2E7D32), size: 5.0));
-    }
+    cmpDots.add(_buildDot(centerR.center, Color(0xFF2E7D32), size: 5.0));
   }
 
   return Column(

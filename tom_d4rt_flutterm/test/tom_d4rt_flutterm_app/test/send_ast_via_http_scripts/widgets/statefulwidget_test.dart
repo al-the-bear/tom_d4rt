@@ -210,10 +210,7 @@ dynamic build(BuildContext context) {
 // Demo StatefulWidget
 class _StatefulDemo extends StatefulWidget {
   @override
-  State<_StatefulDemo> createState() {
-    print('_StatefulDemo.createState() called');
-    return _StatefulDemoState();
-  }
+  State<_StatefulDemo> createState() => _StatefulDemoState();
 }
 
 class _StatefulDemoState extends State<_StatefulDemo> {

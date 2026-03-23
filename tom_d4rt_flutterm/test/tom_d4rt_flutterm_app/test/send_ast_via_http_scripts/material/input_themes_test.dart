@@ -96,8 +96,9 @@ dynamic build(BuildContext context) {
     overlayColor: WidgetStateProperty.all(Colors.blue.withValues(alpha: 0.1)),
     splashRadius: 20.0,
     thumbIcon: WidgetStateProperty.resolveWith((states) {
-      if (states.contains(WidgetState.selected))
+      if (states.contains(WidgetState.selected)) {
         return Icon(Icons.check, size: 14.0);
+      }
       return null;
     }),
   );

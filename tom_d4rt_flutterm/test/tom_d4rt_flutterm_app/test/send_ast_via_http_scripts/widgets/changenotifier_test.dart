@@ -71,7 +71,7 @@ dynamic build(BuildContext context) {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text('Count: $value', style: TextStyle(fontSize: 20.0)),
-            if (child != null) child,
+            ?child,
           ],
         ),
       );

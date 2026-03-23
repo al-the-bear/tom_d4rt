@@ -15,7 +15,7 @@ void main() {
 
 // Basic ScaffoldMessenger wrapper around MaterialApp
 class ScaffoldMessengerDemoApp extends StatelessWidget {
-  ScaffoldMessengerDemoApp({super.key});
+  const ScaffoldMessengerDemoApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class ScaffoldMessengerDemoApp extends StatelessWidget {
 
 // ScaffoldMessenger wraps the entire scaffold hierarchy
 class ScaffoldMessengerWrapper extends StatefulWidget {
-  ScaffoldMessengerWrapper({super.key});
+  const ScaffoldMessengerWrapper({super.key});
 
   @override
   State<ScaffoldMessengerWrapper> createState() =>
@@ -85,7 +85,7 @@ class _ScaffoldMessengerWrapperState extends State<ScaffoldMessengerWrapper> {
 
 // Section header widget
 class SectionHeader extends StatelessWidget {
-  SectionHeader({super.key, required this.title});
+  const SectionHeader({super.key, required this.title});
 
   final String title;
 
@@ -115,7 +115,7 @@ class SectionHeader extends StatelessWidget {
 
 // Basic SnackBar controls
 class BasicSnackBarControls extends StatelessWidget {
-  BasicSnackBarControls({super.key});
+  const BasicSnackBarControls({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -210,7 +210,7 @@ class BasicSnackBarControls extends StatelessWidget {
 
 // Custom SnackBar styling controls
 class CustomSnackBarControls extends StatelessWidget {
-  CustomSnackBarControls({super.key});
+  const CustomSnackBarControls({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -339,7 +339,7 @@ class CustomSnackBarControls extends StatelessWidget {
 
 // MaterialBanner controls
 class MaterialBannerControls extends StatelessWidget {
-  MaterialBannerControls({super.key});
+  const MaterialBannerControls({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -503,7 +503,7 @@ class MaterialBannerControls extends StatelessWidget {
 
 // Advanced messenger patterns
 class AdvancedMessengerControls extends StatefulWidget {
-  AdvancedMessengerControls({super.key});
+  const AdvancedMessengerControls({super.key});
 
   @override
   State<AdvancedMessengerControls> createState() =>
@@ -610,7 +610,7 @@ class _AdvancedMessengerControlsState extends State<AdvancedMessengerControls> {
 
 // Nested scaffold page to demonstrate cross-page messaging
 class NestedScaffoldPage extends StatelessWidget {
-  NestedScaffoldPage({super.key});
+  const NestedScaffoldPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -835,7 +835,7 @@ extension ScaffoldMessengerExtension on BuildContext {
 
 // Demo page using extension methods
 class ExtensionDemoPage extends StatelessWidget {
-  ExtensionDemoPage({super.key});
+  const ExtensionDemoPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -895,7 +895,7 @@ class ExtensionDemoPage extends StatelessWidget {
 
 // Global key approach for messenger access
 class GlobalMessengerDemo extends StatefulWidget {
-  GlobalMessengerDemo({super.key});
+  const GlobalMessengerDemo({super.key});
 
   @override
   State<GlobalMessengerDemo> createState() => _GlobalMessengerDemoState();
@@ -942,7 +942,7 @@ class _GlobalMessengerDemoState extends State<GlobalMessengerDemo> {
 
 // SnackBar controller result handling
 class ControllerDemoPage extends StatefulWidget {
-  ControllerDemoPage({super.key});
+  const ControllerDemoPage({super.key});
 
   @override
   State<ControllerDemoPage> createState() => _ControllerDemoPageState();
@@ -1005,7 +1005,7 @@ class _ControllerDemoPageState extends State<ControllerDemoPage> {
 
 // MaterialBanner controller handling
 class BannerControllerDemo extends StatefulWidget {
-  BannerControllerDemo({super.key});
+  const BannerControllerDemo({super.key});
 
   @override
   State<BannerControllerDemo> createState() => _BannerControllerDemoState();
@@ -1078,7 +1078,7 @@ class _BannerControllerDemoState extends State<BannerControllerDemo> {
 
 // Snackbar animation customization
 class AnimatedSnackBarDemo extends StatelessWidget {
-  AnimatedSnackBarDemo({super.key});
+  const AnimatedSnackBarDemo({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -1117,7 +1117,7 @@ class AnimatedSnackBarDemo extends StatelessWidget {
 
 // Animated content for snackbar
 class AnimatedSnackBarContent extends StatefulWidget {
-  AnimatedSnackBarContent({super.key});
+  const AnimatedSnackBarContent({super.key});
 
   @override
   State<AnimatedSnackBarContent> createState() =>
@@ -1183,7 +1183,7 @@ class _AnimatedSnackBarContentState extends State<AnimatedSnackBarContent>
 
 // Theme-aware messenger demo
 class ThemeAwareMessengerDemo extends StatelessWidget {
-  ThemeAwareMessengerDemo({super.key});
+  const ThemeAwareMessengerDemo({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -1260,7 +1260,7 @@ class ThemeAwareMessengerDemo extends StatelessWidget {
 
 // Dismiss direction demo
 class DismissDirectionDemo extends StatelessWidget {
-  DismissDirectionDemo({super.key});
+  const DismissDirectionDemo({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -1331,7 +1331,7 @@ class DismissDirectionDemo extends StatelessWidget {
 
 // Programmatic snackbar width control
 class WidthConstrainedSnackBar extends StatelessWidget {
-  WidthConstrainedSnackBar({super.key});
+  const WidthConstrainedSnackBar({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -294,7 +294,7 @@ Widget buildPaginationControlsDemo() {
   List<List<String>> data = [];
   int i = 0;
   for (i = 1; i <= 50; i = i + 1) {
-    data.add(['$i', 'Item ${i}', 'Description for item ${i}']);
+    data.add(['$i', 'Item $i', 'Description for item $i']);
   }
 
   SimpleDataSource source = SimpleDataSource(data);

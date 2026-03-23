@@ -34,9 +34,7 @@ const _kIndigo700 = Color(0xFF303F9F);
 const _kIndigo800 = Color(0xFF283593);
 const _kIndigo900 = Color(0xFF1A237E);
 
-const _kAmber50 = Color(0xFFFFF8E1);
 const _kAmber100 = Color(0xFFFFECB3);
-const _kAmber200 = Color(0xFFFFE082);
 const _kAmber300 = Color(0xFFFFD54F);
 const _kAmber400 = Color(0xFFFFCA28);
 const _kAmber500 = Color(0xFFFFC107);

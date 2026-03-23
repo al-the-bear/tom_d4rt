@@ -707,12 +707,12 @@ Widget _buildResponsiveTextSizing() {
               children: [
                 _buildConstraintChip(
                   'titleSize',
-                  '${titleSize.toStringAsFixed(1)}',
+                  titleSize.toStringAsFixed(1),
                   Colors.green,
                 ),
                 _buildConstraintChip(
                   'bodySize',
-                  '${bodySize.toStringAsFixed(1)}',
+                  bodySize.toStringAsFixed(1),
                   Colors.teal,
                 ),
                 _buildConstraintChip(

@@ -139,7 +139,7 @@ Widget _buildRectPathDemo(double rectLength, bool rectClosed, int rectIndex) {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _buildMetricRow('Path', 'Rect(0, 0, 100, 50)'),
-                  _buildMetricRow('Length', '${rectLength.toStringAsFixed(1)}'),
+                  _buildMetricRow('Length', rectLength.toStringAsFixed(1)),
                   _buildMetricRow('Formula', '2×(100+50) = 300'),
                   _buildMetricRow('isClosed', '$rectClosed'),
                   _buildMetricRow('contourIndex', '$rectIndex'),
@@ -298,7 +298,7 @@ Widget _buildCirclePathDemo(double circleLen, bool circleClosed) {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _buildMetricRow('Path', 'Circle radius=25'),
-                  _buildMetricRow('Length', '${circleLen.toStringAsFixed(1)}'),
+                  _buildMetricRow('Length', circleLen.toStringAsFixed(1)),
                   _buildMetricRow(
                     'Formula',
                     '2πr = ${expectedCircle.toStringAsFixed(1)}',

@@ -18,7 +18,7 @@ dynamic build(BuildContext context) {
         Builder(
           builder: (formContext) {
             final formState = Form.of(formContext);
-            print('Form.of(formContext): ${formState?.runtimeType}');
+            print('Form.of(formContext): ${formState.runtimeType}');
 
             // Also access via GlobalKey
             // Note: formKey.currentState may be null during first build
@@ -64,13 +64,11 @@ dynamic build(BuildContext context) {
             return ElevatedButton(
               onPressed: () {
                 final state = Form.of(btnContext);
-                if (state != null) {
-                  final isValid = state.validate();
-                  print('Form.validate() result: $isValid');
-                  if (isValid) {
-                    state.save();
-                    print('Form.save() called');
-                  }
+                final isValid = state.validate();
+                print('Form.validate() result: $isValid');
+                if (isValid) {
+                  state.save();
+                  print('Form.save() called');
                 }
               },
               child: Text('Validate Form'),
@@ -84,7 +82,7 @@ dynamic build(BuildContext context) {
             return ElevatedButton(
               onPressed: () {
                 final state = Form.of(btnContext);
-                state?.reset();
+                state.reset();
                 print('Form.reset() called');
               },
               child: Text('Reset Form'),

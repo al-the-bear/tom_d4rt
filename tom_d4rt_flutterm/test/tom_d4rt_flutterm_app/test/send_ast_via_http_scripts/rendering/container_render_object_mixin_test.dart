@@ -166,11 +166,11 @@ class DemoContainerRenderBox extends RenderBox
 // ═══════════════════════════════════════════════════════════════════════════
 
 class DemoContainerWidget extends MultiChildRenderObjectWidget {
-  DemoContainerWidget({
-    Key? key,
-    List<Widget> children = const [],
+  const DemoContainerWidget({
+    super.key,
+    super.children = const [],
     this.spacing = 8.0,
-  }) : super(key: key, children: children);
+  });
 
   final double spacing;
 

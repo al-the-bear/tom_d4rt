@@ -53,13 +53,13 @@ dynamic build(BuildContext context) {
   print('MergeSemantics with Column created');
 
   // Test ExcludeSemantics excluding true
-  final exclude1 = ExcludeSemantics(child: Container(child: Text('Excluded')));
+  final exclude1 = ExcludeSemantics(child: Text('Excluded'));
   print('ExcludeSemantics(excluding: true) created');
 
   // Test ExcludeSemantics excluding false
   final exclude2 = ExcludeSemantics(
     excluding: false,
-    child: Container(child: Text('Not excluded')),
+    child: Text('Not excluded'),
   );
   print('ExcludeSemantics(excluding: false) created');
 

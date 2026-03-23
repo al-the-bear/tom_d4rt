@@ -1425,7 +1425,7 @@ Widget buildPropertiesGridSection() {
                     ],
                   ),
                 );
-              }).toList(),
+              }),
             ],
           ),
         ),

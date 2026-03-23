@@ -251,7 +251,8 @@ class TextPainterDemo extends StatelessWidget {
   final TextStyle textStyle;
   final double maxWidth;
   
-  TextPainterDemo({
+  const TextPainterDemo({
+    super.key,
     required this.text,
     required this.textStyle,
     required this.maxWidth,

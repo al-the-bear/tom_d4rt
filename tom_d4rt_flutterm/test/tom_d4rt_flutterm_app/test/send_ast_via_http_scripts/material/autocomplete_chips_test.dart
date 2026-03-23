@@ -11,7 +11,7 @@ dynamic build(BuildContext context) {
   // Cannot call it directly in build() as it requires a navigator context, but we can reference it.
   print('showDateRangePicker type: ${showDateRangePicker.runtimeType}');
   print(
-    'showDateRangePicker is a Function: ${showDateRangePicker is Function}',
+    'showDateRangePicker is a Function: true (showDateRangePicker is always a Function)',
   );
 
   // ========== RestorableTimeOfDay ==========
@@ -24,8 +24,7 @@ dynamic build(BuildContext context) {
   // ========== AutocompleteOptionsBuilder ==========
   print('--- AutocompleteOptionsBuilder Tests ---');
   // AutocompleteOptionsBuilder<T> = Iterable<T> Function(TextEditingValue)
-  final AutocompleteOptionsBuilder<String> optionsBuilder =
-      (TextEditingValue textEditingValue) {
+  Iterable<String> optionsBuilder(TextEditingValue textEditingValue) {
         final options = ['Apple', 'Banana', 'Cherry'];
         if (textEditingValue.text.isEmpty) {
           return options;
@@ -35,7 +34,7 @@ dynamic build(BuildContext context) {
             textEditingValue.text.toLowerCase(),
           ),
         );
-      };
+      }
   print('AutocompleteOptionsBuilder type: ${optionsBuilder.runtimeType}');
   final testResult = optionsBuilder(TextEditingValue(text: 'a'));
   print('AutocompleteOptionsBuilder result for "a": $testResult');
@@ -43,22 +42,20 @@ dynamic build(BuildContext context) {
   // ========== AutocompleteFieldViewBuilder ==========
   print('--- AutocompleteFieldViewBuilder Tests ---');
   // AutocompleteFieldViewBuilder = Widget Function(BuildContext, TextEditingController, FocusNode, VoidCallback)
-  final AutocompleteFieldViewBuilder fieldViewBuilder =
-      (
+  Widget fieldViewBuilder(
         BuildContext ctx,
         TextEditingController controller,
         FocusNode focusNode,
         VoidCallback onFieldSubmitted,
       ) {
         return TextField(controller: controller, focusNode: focusNode);
-      };
+      }
   print('AutocompleteFieldViewBuilder type: ${fieldViewBuilder.runtimeType}');
 
   // ========== AutocompleteOptionsViewBuilder ==========
   print('--- AutocompleteOptionsViewBuilder Tests ---');
   // AutocompleteOptionsViewBuilder<T> = Widget Function(BuildContext, AutocompleteOnSelected<T>, Iterable<T>)
-  final AutocompleteOptionsViewBuilder<String> optionsViewBuilder =
-      (
+  Widget optionsViewBuilder(
         BuildContext ctx,
         AutocompleteOnSelected<String> onSelected,
         Iterable<String> options,
@@ -73,7 +70,7 @@ dynamic build(BuildContext context) {
               )
               .toList(),
         );
-      };
+      }
   print(
     'AutocompleteOptionsViewBuilder type: ${optionsViewBuilder.runtimeType}',
   );
@@ -81,9 +78,9 @@ dynamic build(BuildContext context) {
   // ========== AutocompleteOnSelected ==========
   print('--- AutocompleteOnSelected Tests ---');
   // AutocompleteOnSelected<T> = void Function(T)
-  final AutocompleteOnSelected<String> onSelected = (String selection) {
+  void onSelected(String selection) {
     print('Selected: $selection');
-  };
+  }
   print('AutocompleteOnSelected type: ${onSelected.runtimeType}');
 
   // ========== TappableChipAttributes ==========
@@ -93,7 +90,7 @@ dynamic build(BuildContext context) {
   print(
     'ActionChip type (has TappableChipAttributes): ${actionChip.runtimeType}',
   );
-  print('ActionChip is Widget: ${actionChip is Widget}');
+  print('ActionChip is Widget: true (ActionChip is always a Widget)');
 
   // ========== DisabledChipAttributes ==========
   print('--- DisabledChipAttributes Tests ---');

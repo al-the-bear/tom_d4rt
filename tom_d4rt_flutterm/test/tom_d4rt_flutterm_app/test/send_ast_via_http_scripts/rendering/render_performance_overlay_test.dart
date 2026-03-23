@@ -72,8 +72,7 @@ dynamic build(BuildContext context) {
   print('Building section title helper...');
 
   // Helper to build section titles
-  Widget Function(String, String, IconData) buildSectionTitle =
-      (String title, String subtitle, IconData icon) {
+  Widget buildSectionTitle(String title, String subtitle, IconData icon) {
     print('Section: $title');
     return Container(
       width: double.infinity,
@@ -117,11 +116,10 @@ dynamic build(BuildContext context) {
         ],
       ),
     );
-  };
+  }
 
   // Helper to build info cards
-  Widget Function(String, String, Color) buildInfoCard =
-      (String label, String description, Color borderColor) {
+  Widget buildInfoCard(String label, String description, Color borderColor) {
     return Container(
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
@@ -155,7 +153,7 @@ dynamic build(BuildContext context) {
         ],
       ),
     );
-  };
+  }
 
   // ── Section 1: allEnabled ──
   print('Section 1: PerformanceOverlay.allEnabled()');
@@ -817,7 +815,6 @@ dynamic build(BuildContext context) {
   );
 
   // Debug mode only overlay pattern
-  bool isDebugMode = true;
   print('Debug mode active: building conditional overlay');
 
   Widget section9DebugOverlay = Container(
@@ -848,9 +845,7 @@ dynamic build(BuildContext context) {
         SizedBox(height: 8.0),
         SizedBox(
           height: 80.0,
-          child: isDebugMode
-              ? PerformanceOverlay.allEnabled()
-              : SizedBox.shrink(),
+          child: PerformanceOverlay.allEnabled(),
         ),
         SizedBox(height: 8.0),
         Text(

@@ -3,7 +3,7 @@
 ///
 /// This tests that D4rt can execute code using the Flutter Material bridges
 /// and return native Flutter objects.
-import 'dart:ui' show Color;
+library;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -32,10 +32,10 @@ Color main() {
 
       expect(result, isA<Color>());
       // Color.fromARGB returns integer values for alpha/r/g/b
-      expect(result.alpha, 255);
-      expect(result.red, 100);
-      expect(result.green, 150);
-      expect(result.blue, 200);
+      expect((result.a * 255.0).round().clamp(0, 255), 255);
+      expect((result.r * 255.0).round().clamp(0, 255), 100);
+      expect((result.g * 255.0).round().clamp(0, 255), 150);
+      expect((result.b * 255.0).round().clamp(0, 255), 200);
     });
 
     test('can create EdgeInsets from D4rt code', () async {

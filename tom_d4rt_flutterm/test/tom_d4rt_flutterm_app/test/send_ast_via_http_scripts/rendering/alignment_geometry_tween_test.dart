@@ -719,9 +719,9 @@ Widget _buildResultsCard(
         ),
         const SizedBox(height: 12),
         _buildResultRow('Tween type', tweenType, true),
-        _buildResultRow('lerp(0.0)', '${lerped0}', true),
-        _buildResultRow('lerp(0.5)', '${lerped05}', true),
-        _buildResultRow('lerp(1.0)', '${lerped1}', true),
+        _buildResultRow('lerp(0.0)', '$lerped0', true),
+        _buildResultRow('lerp(0.5)', '$lerped05', true),
+        _buildResultRow('lerp(1.0)', '$lerped1', true),
       ],
     ),
   );

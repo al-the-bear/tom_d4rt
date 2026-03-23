@@ -218,7 +218,7 @@ Widget _buildBlurSigmaComparison() {
             ],
           ),
         );
-      }).toList(),
+      }),
       SizedBox(height: 12),
     ],
   );

@@ -432,7 +432,7 @@ Widget _buildMiniOffsetXAdjustments() {
 }
 
 Widget _buildXAdjustmentRow(String name, double standardX, Color color) {
-  bool isMini = name.indexOf('mini') >= 0;
+  bool isMini = name.contains('mini');
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
     decoration: BoxDecoration(
@@ -547,7 +547,7 @@ Widget _buildYAdjustmentRow(
   String desc,
   Color color,
 ) {
-  bool isMini = name.indexOf('mini') >= 0;
+  bool isMini = name.contains('mini');
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
     decoration: BoxDecoration(

@@ -372,7 +372,7 @@ Widget _buildCompareDrawerIcons() {
 Widget _buildAppBarContexts() {
   debugPrint('Building different AppBar contexts');
 
-  Widget _buildMockAppBar(String title, Color appBarColor, bool showLeading, bool showEnd) {
+  Widget buildMockAppBar(String title, Color appBarColor, bool showLeading, bool showEnd) {
     List<Widget> leftItems = [];
     if (showLeading) {
       leftItems.add(
@@ -437,10 +437,10 @@ Widget _buildAppBarContexts() {
         Text('EndDrawerButtonIcon in various AppBar configurations',
           style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
         SizedBox(height: 12),
-        _buildMockAppBar('Both drawers', Colors.brown.shade700, true, true),
-        _buildMockAppBar('End drawer only', Colors.blue.shade700, false, true),
-        _buildMockAppBar('Start drawer only', Colors.green.shade700, true, false),
-        _buildMockAppBar('No drawers', Colors.grey.shade700, false, false),
+        buildMockAppBar('Both drawers', Colors.brown.shade700, true, true),
+        buildMockAppBar('End drawer only', Colors.blue.shade700, false, true),
+        buildMockAppBar('Start drawer only', Colors.green.shade700, true, false),
+        buildMockAppBar('No drawers', Colors.grey.shade700, false, false),
       ],
     ),
   );

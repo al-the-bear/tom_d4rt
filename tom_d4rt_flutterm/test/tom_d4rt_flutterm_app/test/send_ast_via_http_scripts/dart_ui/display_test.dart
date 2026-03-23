@@ -549,7 +549,7 @@ dynamic build(BuildContext context) {
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               child: Text(
-                                '${logW}×$logH',
+                                '$logW×$logH',
                                 style: TextStyle(
                                   fontSize: 10,
                                   fontFamily: 'monospace',
