@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 11 files
-// Generated: 2026-03-23T11:07:19.199101
+// Generated: 2026-03-23T18:19:29.071068
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -24,6 +24,7 @@ import 'package:flutter/src/physics/simulation.dart' as $flutter_11;
 import 'package:flutter/src/physics/spring_simulation.dart' as $flutter_12;
 import 'package:flutter/src/physics/tolerance.dart' as $flutter_13;
 import 'package:flutter/src/scheduler/ticker.dart' as $flutter_14;
+import 'package:tom_d4rt_flutterm/src/d4rt_user_bridges/strut_style_user_bridge.dart' as $tom_d4rt_flutterm_1;
 import 'package:flutter/cupertino.dart' as $aux_flutter;
 
 /// Bridge class for flutter_animation module.

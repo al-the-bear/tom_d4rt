@@ -1,8 +1,7 @@
 // D4rt Bridge - Generated file, do not edit
 // Dartscript registration for flutter_material_bridges
-// Generated: 2026-03-23T11:09:07.708789
+// Generated: 2026-03-23T18:20:56.523347
 
-// ignore_for_file: invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 /// D4rt Bridge Registration for flutter_material_bridges
 library;
 
