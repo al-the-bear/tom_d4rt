@@ -370,7 +370,7 @@ void _writeFileHeader(StringBuffer buffer, BridgeConfig config) {
   buffer.writeln('library;');
   buffer.writeln();
   buffer.writeln(
-    '// ignore_for_file: unused_import, invalid_implementation_override, deprecated_member_use, sort_child_properties_last',
+    '// ignore_for_file: unused_import, invalid_implementation_override, deprecated_member_use, sort_child_properties_last, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member',
   );
   buffer.writeln();
 }

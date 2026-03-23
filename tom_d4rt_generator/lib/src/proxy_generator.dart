@@ -249,7 +249,7 @@ Future<ProxyGenerationResult> generateProxies({
   buffer.writeln();
 
   // ignore_for_file for common generated code issues
-  buffer.writeln('// ignore_for_file: unused_import');
+  buffer.writeln('// ignore_for_file: unused_import, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member');
   buffer.writeln();
 
   // Collect all unique import URIs needed
