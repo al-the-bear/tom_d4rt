@@ -654,6 +654,12 @@ class ClassInfo {
   /// Type parameters without bounds map to `null` (treated as `dynamic`).
   final Map<String, String?> typeParameters;
 
+  /// GEN-075-FIX: All supertype names (from extends, with, implements — transitive).
+  /// Populated from the resolved element's `allSupertypes` when available.
+  /// Used to sort GEN-075 switch cases most-specific-first so that
+  /// `case SubClass _:` appears before `case SuperClass _:`.
+  final Set<String> allSupertypeNames;
+
   const ClassInfo({
     required this.name,
     required this.sourceFile,
@@ -664,6 +670,7 @@ class ClassInfo {
     this.constructors = const [],
     this.members = const [],
     this.typeParameters = const {},
+    this.allSupertypeNames = const {},
   });
 
   /// Gets all getters (instance and static).
@@ -3716,6 +3723,7 @@ class BridgeGenerator {
                 constructors: c.constructors,
                 members: c.members,
                 typeParameters: c.typeParameters,
+                allSupertypeNames: c.allSupertypeNames,
               ),
             )
             .toList();
@@ -8164,20 +8172,61 @@ class BridgeGenerator {
         // GEN-091: Also dispatch on all bridged class types from the module
         // so that non-primitive type arguments (Color, RelativeRect, etc.)
         // are correctly preserved in the generic type parameter.
-        for (final entry in _classLookup.entries) {
+        //
+        // GEN-075-FIX: Sort entries most-specific-first (subclasses before
+        // superclasses) so that `case SubClass _:` is not shadowed by
+        // `case SuperClass _:`. Without this, all subclass cases are
+        // unreachable and the wrong generic type parameter is inferred.
+        //
+        // Uses allSupertypeNames.length as specificity metric: classes with
+        // more supertypes are deeper in the hierarchy (more specific).
+        // This correctly handles extends, with, and implements relationships.
+        final filteredEntries =
+            _classLookup.entries.where((entry) {
+              if (entry.key == cls.name) return false;
+              if (const {
+                'int',
+                'double',
+                'String',
+                'bool',
+                'num',
+              }.contains(entry.key))
+                return false;
+              return true;
+            }).toList();
+        // GEN-075-FIX: Collect all class names in the switch for sealed
+        // exhaustiveness check below.
+        final switchClassNames = filteredEntries.map((e) => e.key).toSet();
+        // Remove sealed classes whose subtypes are ALL present in the switch.
+        // Dart's exhaustiveness checker knows sealed types can only be their
+        // direct subtypes, so the base sealed case is provably unreachable.
+        filteredEntries.removeWhere((entry) {
+          if (!entry.value.isSealed) return false;
+          // Find all direct subtypes of this sealed class in the lookup
+          final directSubtypes = _classLookup.entries
+              .where(
+                (e) =>
+                    e.key != entry.key &&
+                    e.value.allSupertypeNames.contains(entry.key) &&
+                    e.value.superclass == entry.key,
+              )
+              .map((e) => e.key);
+          // If all direct subtypes are in the switch, the sealed case is redundant
+          return directSubtypes.isNotEmpty &&
+              directSubtypes.every(switchClassNames.contains);
+        });
+        final sortedEntries = filteredEntries
+          ..sort((a, b) {
+            final depthA = a.value.allSupertypeNames.length;
+            final depthB = b.value.allSupertypeNames.length;
+            // Deeper (more specific) first; equal depth sorts alphabetically
+            // for deterministic output.
+            if (depthA != depthB) return depthB.compareTo(depthA);
+            return a.key.compareTo(b.key);
+          });
+        for (final entry in sortedEntries) {
           final otherClassName = entry.key;
           final otherClassInfo = entry.value;
-          // Skip the class being generated to avoid self-reference
-          if (otherClassName == cls.name) continue;
-          // Skip primitive-like types already handled above
-          if (const {
-            'int',
-            'double',
-            'String',
-            'bool',
-            'num',
-          }.contains(otherClassName))
-            continue;
           final prefixedOther = _getPrefixedClassName(
             otherClassName,
             otherClassInfo.sourceFile,
@@ -14004,6 +14053,18 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
       }
     }
 
+    // GEN-075-FIX: Collect all supertype names from the resolved element.
+    // This includes extends, with, implements — transitively.
+    final allSupertypeNames = <String>{};
+    if (classElement != null) {
+      for (final supertype in classElement.allSupertypes) {
+        final name = supertype.element.name;
+        if (name != null && name != 'Object') {
+          allSupertypeNames.add(name);
+        }
+      }
+    }
+
     classes.add(
       _ParsedClass(
         name: className,
@@ -14014,6 +14075,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         constructors: constructors,
         members: members,
         typeParameters: typeParams,
+        allSupertypeNames: allSupertypeNames,
       ),
     );
 
@@ -14135,6 +14197,17 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
       }
     }
 
+    // GEN-075-FIX: Collect all supertype names from the resolved element.
+    final allSupertypeNames = <String>{};
+    if (mixinElement != null) {
+      for (final supertype in mixinElement.allSupertypes) {
+        final name = supertype.element.name;
+        if (name != null && name != 'Object') {
+          allSupertypeNames.add(name);
+        }
+      }
+    }
+
     // Add mixin as an abstract class (mixins cannot be instantiated directly)
     classes.add(
       _ParsedClass(
@@ -14145,6 +14218,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         constructors: const [], // Mixins cannot have constructors
         members: members,
         typeParameters: typeParams,
+        allSupertypeNames: allSupertypeNames,
       ),
     );
 
@@ -15350,6 +15424,11 @@ class _ParsedClass {
   /// Maps generic type parameter names to their bounds (e.g., {'E': 'TomObject'}).
   Map<String, String?> typeParameters;
 
+  /// GEN-075-FIX: All supertype names (from extends, with, implements — transitive).
+  /// Populated from the resolved element's `allSupertypes` when available.
+  /// Used to sort switch cases most-specific-first.
+  Set<String> allSupertypeNames;
+
   _ParsedClass({
     required this.name,
     this.superclass,
@@ -15359,6 +15438,7 @@ class _ParsedClass {
     this.constructors = const [],
     this.members = const [],
     this.typeParameters = const {},
+    this.allSupertypeNames = const {},
   });
 }
 

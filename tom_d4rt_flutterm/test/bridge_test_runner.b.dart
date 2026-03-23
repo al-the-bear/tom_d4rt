@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Test runner for flutter_material_bridges
-// Generated: 2026-03-23T19:14:25.539297
+// Generated: 2026-03-23T20:31:28.276200
 
 // ignore_for_file: avoid_print
 
