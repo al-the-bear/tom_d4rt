@@ -336,7 +336,10 @@ class _PictureLayerFlowPainter extends CustomPainter {
       textDirection: ui.TextDirection.ltr,
     );
     tp.layout();
-    tp.paint(canvas, Offset(center.dx - tp.width / 2, center.dy - tp.height / 2));
+    tp.paint(
+      canvas,
+      Offset(center.dx - tp.width / 2, center.dy - tp.height / 2),
+    );
   }
 
   @override
@@ -421,9 +424,23 @@ Widget _buildPicturePropertySection() {
         SizedBox(height: 16),
         Row(
           children: [
-            Expanded(child: _buildPropertyCard('Set Picture', 'Dispose old picture\nMark needs paint', Icons.upload, Color(0xFF7B1FA2))),
+            Expanded(
+              child: _buildPropertyCard(
+                'Set Picture',
+                'Dispose old picture\nMark needs paint',
+                Icons.upload,
+                Color(0xFF7B1FA2),
+              ),
+            ),
             SizedBox(width: 12),
-            Expanded(child: _buildPropertyCard('Get Picture', 'Returns current\nPicture reference', Icons.download, Color(0xFF8E24AA))),
+            Expanded(
+              child: _buildPropertyCard(
+                'Get Picture',
+                'Returns current\nPicture reference',
+                Icons.download,
+                Color(0xFF8E24AA),
+              ),
+            ),
           ],
         ),
       ],
@@ -431,7 +448,12 @@ Widget _buildPicturePropertySection() {
   );
 }
 
-Widget _buildPropertyCard(String title, String description, IconData icon, Color color) {
+Widget _buildPropertyCard(
+  String title,
+  String description,
+  IconData icon,
+  Color color,
+) {
   return Container(
     padding: EdgeInsets.all(12),
     decoration: BoxDecoration(
@@ -470,7 +492,10 @@ class _PictureContentVisualizerPainter extends CustomPainter {
     var backgroundPaint = Paint()
       ..color = Color(0xFFFCE4EC)
       ..style = PaintingStyle.fill;
-    canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height), backgroundPaint);
+    canvas.drawRect(
+      Rect.fromLTWH(0, 0, size.width, size.height),
+      backgroundPaint,
+    );
 
     for (var i = 0; i < 12; i++) {
       var x = rng.nextDouble() * size.width;
@@ -525,19 +550,31 @@ class _PictureContentVisualizerPainter extends CustomPainter {
       ),
       labelPaint,
     );
-    _drawLabel(canvas, 'Picture Contents', Offset(size.width / 2, size.height - 15), Colors.white);
+    _drawLabel(
+      canvas,
+      'Picture Contents',
+      Offset(size.width / 2, size.height - 15),
+      Colors.white,
+    );
   }
 
   void _drawLabel(Canvas canvas, String text, Offset center, Color color) {
     var tp = TextPainter(
       text: TextSpan(
         text: text,
-        style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w600),
+        style: TextStyle(
+          color: color,
+          fontSize: 11,
+          fontWeight: FontWeight.w600,
+        ),
       ),
       textDirection: ui.TextDirection.ltr,
     );
     tp.layout();
-    tp.paint(canvas, Offset(center.dx - tp.width / 2, center.dy - tp.height / 2));
+    tp.paint(
+      canvas,
+      Offset(center.dx - tp.width / 2, center.dy - tp.height / 2),
+    );
   }
 
   @override
@@ -618,7 +655,11 @@ Widget _buildIsComplexHintSection() {
             children: [
               Row(
                 children: [
-                  Icon(Icons.tips_and_updates, color: Color(0xFF2E7D32), size: 18),
+                  Icon(
+                    Icons.tips_and_updates,
+                    color: Color(0xFF2E7D32),
+                    size: 18,
+                  ),
                   SizedBox(width: 8),
                   Text(
                     'When to Use isComplexHint',
@@ -630,10 +671,26 @@ Widget _buildIsComplexHintSection() {
                 ],
               ),
               SizedBox(height: 12),
-              _buildUsageRow('Complex paths', 'Many bezier curves or intricate shapes', Color(0xFF388E3C)),
-              _buildUsageRow('Heavy shadows', 'Multiple shadow layers or blur effects', Color(0xFF388E3C)),
-              _buildUsageRow('Gradients', 'Complex gradient fills across large areas', Color(0xFF388E3C)),
-              _buildUsageRow('Text rendering', 'Large amounts of styled text', Color(0xFF388E3C)),
+              _buildUsageRow(
+                'Complex paths',
+                'Many bezier curves or intricate shapes',
+                Color(0xFF388E3C),
+              ),
+              _buildUsageRow(
+                'Heavy shadows',
+                'Multiple shadow layers or blur effects',
+                Color(0xFF388E3C),
+              ),
+              _buildUsageRow(
+                'Gradients',
+                'Complex gradient fills across large areas',
+                Color(0xFF388E3C),
+              ),
+              _buildUsageRow(
+                'Text rendering',
+                'Large amounts of styled text',
+                Color(0xFF388E3C),
+              ),
             ],
           ),
         ),
@@ -650,7 +707,13 @@ Widget _buildIsComplexHintSection() {
   );
 }
 
-Widget _buildHintComparisonCard(String title, String subtitle, List<String> points, Color color, IconData icon) {
+Widget _buildHintComparisonCard(
+  String title,
+  String subtitle,
+  List<String> points,
+  Color color,
+  IconData icon,
+) {
   return Container(
     padding: EdgeInsets.all(12),
     decoration: BoxDecoration(
@@ -683,21 +746,23 @@ Widget _buildHintComparisonCard(String title, String subtitle, List<String> poin
           style: TextStyle(fontSize: 10, color: color.withAlpha(180)),
         ),
         SizedBox(height: 8),
-        ...points.map((point) => Padding(
-          padding: EdgeInsets.only(bottom: 3),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('• ', style: TextStyle(color: color, fontSize: 10)),
-              Expanded(
-                child: Text(
-                  point,
-                  style: TextStyle(fontSize: 10, color: Color(0xFF546E7A)),
+        ...points.map(
+          (point) => Padding(
+            padding: EdgeInsets.only(bottom: 3),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('• ', style: TextStyle(color: color, fontSize: 10)),
+                Expanded(
+                  child: Text(
+                    point,
+                    style: TextStyle(fontSize: 10, color: Color(0xFF546E7A)),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        )),
+        ),
       ],
     ),
   );
@@ -742,52 +807,152 @@ class _ComplexHintDiagramPainter extends CustomPainter {
     var centerY = size.height / 2;
     var sectionWidth = size.width / 4;
 
-    _drawBox(canvas, Offset(sectionWidth * 0.5, centerY), 'Picture',Color(0xFF7B1FA2), 70);
-    _drawArrowH(canvas, sectionWidth * 0.5 + 40, sectionWidth * 1.5 - 40, centerY, Color(0xFF9C27B0));
-    _drawBox(canvas, Offset(sectionWidth * 1.5, centerY), 'isComplex?', Color(0xFF8E24AA), 70);
+    _drawBox(
+      canvas,
+      Offset(sectionWidth * 0.5, centerY),
+      'Picture',
+      Color(0xFF7B1FA2),
+      70,
+    );
+    _drawArrowH(
+      canvas,
+      sectionWidth * 0.5 + 40,
+      sectionWidth * 1.5 - 40,
+      centerY,
+      Color(0xFF9C27B0),
+    );
+    _drawBox(
+      canvas,
+      Offset(sectionWidth * 1.5, centerY),
+      'isComplex?',
+      Color(0xFF8E24AA),
+      70,
+    );
 
-    _drawArrowDiag(canvas, sectionWidth * 1.5 + 35, centerY - 15, sectionWidth * 2.5 - 35, centerY - 30, Color(0xFF43A047));
-    _drawBox(canvas, Offset(sectionWidth * 2.5, centerY - 30), 'Rasterize', Color(0xFF43A047), 60);
+    _drawArrowDiag(
+      canvas,
+      sectionWidth * 1.5 + 35,
+      centerY - 15,
+      sectionWidth * 2.5 - 35,
+      centerY - 30,
+      Color(0xFF43A047),
+    );
+    _drawBox(
+      canvas,
+      Offset(sectionWidth * 2.5, centerY - 30),
+      'Rasterize',
+      Color(0xFF43A047),
+      60,
+    );
 
-    _drawArrowDiag(canvas, sectionWidth * 1.5 + 35, centerY + 15, sectionWidth * 2.5 - 35, centerY + 30, Color(0xFFF57C00));
-    _drawBox(canvas, Offset(sectionWidth * 2.5, centerY + 30), 'No Cache', Color(0xFFF57C00), 60);
+    _drawArrowDiag(
+      canvas,
+      sectionWidth * 1.5 + 35,
+      centerY + 15,
+      sectionWidth * 2.5 - 35,
+      centerY + 30,
+      Color(0xFFF57C00),
+    );
+    _drawBox(
+      canvas,
+      Offset(sectionWidth * 2.5, centerY + 30),
+      'No Cache',
+      Color(0xFFF57C00),
+      60,
+    );
 
-    _drawArrowH(canvas, sectionWidth * 2.5 + 35, sectionWidth * 3.5 - 35, centerY - 30, Color(0xFF43A047));
-    _drawBox(canvas, Offset(sectionWidth * 3.5, centerY - 30), 'GPU\nTexture', Color(0xFF2E7D32), 60);
+    _drawArrowH(
+      canvas,
+      sectionWidth * 2.5 + 35,
+      sectionWidth * 3.5 - 35,
+      centerY - 30,
+      Color(0xFF43A047),
+    );
+    _drawBox(
+      canvas,
+      Offset(sectionWidth * 3.5, centerY - 30),
+      'GPU\nTexture',
+      Color(0xFF2E7D32),
+      60,
+    );
 
-    _drawArrowH(canvas, sectionWidth * 2.5 + 35, sectionWidth * 3.5 - 35, centerY + 30, Color(0xFFF57C00));
-    _drawBox(canvas, Offset(sectionWidth * 3.5, centerY + 30), 'Direct\nRender', Color(0xFFE65100), 60);
+    _drawArrowH(
+      canvas,
+      sectionWidth * 2.5 + 35,
+      sectionWidth * 3.5 - 35,
+      centerY + 30,
+      Color(0xFFF57C00),
+    );
+    _drawBox(
+      canvas,
+      Offset(sectionWidth * 3.5, centerY + 30),
+      'Direct\nRender',
+      Color(0xFFE65100),
+      60,
+    );
 
-    _drawLabel(canvas, 'true', Offset(sectionWidth * 2, centerY - 25), Color(0xFF43A047));
-    _drawLabel(canvas, 'false', Offset(sectionWidth * 2, centerY + 35), Color(0xFFF57C00));
+    _drawLabel(
+      canvas,
+      'true',
+      Offset(sectionWidth * 2, centerY - 25),
+      Color(0xFF43A047),
+    );
+    _drawLabel(
+      canvas,
+      'false',
+      Offset(sectionWidth * 2, centerY + 35),
+      Color(0xFFF57C00),
+    );
   }
 
-  void _drawBox(Canvas canvas, Offset center, String text, Color color, double width) {
+  void _drawBox(
+    Canvas canvas,
+    Offset center,
+    String text,
+    Color color,
+    double width,
+  ) {
     var rect = RRect.fromRectAndRadius(
       Rect.fromCenter(center: center, width: width, height: 35),
       Radius.circular(6),
     );
-    var fillPaint = Paint()..color = color.withAlpha(40)..style = PaintingStyle.fill;
-    var borderPaint = Paint()..color = color..strokeWidth = 2..style = PaintingStyle.stroke;
+    var fillPaint = Paint()
+      ..color = color.withAlpha(40)
+      ..style = PaintingStyle.fill;
+    var borderPaint = Paint()
+      ..color = color
+      ..strokeWidth = 2
+      ..style = PaintingStyle.stroke;
     canvas.drawRRect(rect, fillPaint);
     canvas.drawRRect(rect, borderPaint);
 
     var tp = TextPainter(
       text: TextSpan(
         text: text,
-        style: TextStyle(color: color, fontSize: 9, fontWeight: FontWeight.bold),
+        style: TextStyle(
+          color: color,
+          fontSize: 9,
+          fontWeight: FontWeight.bold,
+        ),
       ),
       textAlign: TextAlign.center,
       textDirection: ui.TextDirection.ltr,
     );
     tp.layout(maxWidth: width - 8);
-    tp.paint(canvas, Offset(center.dx - tp.width / 2, center.dy - tp.height / 2));
+    tp.paint(
+      canvas,
+      Offset(center.dx - tp.width / 2, center.dy - tp.height / 2),
+    );
   }
 
   void _drawArrowH(Canvas canvas, double x1, double x2, double y, Color color) {
-    var paint = Paint()..color = color..strokeWidth = 2;
+    var paint = Paint()
+      ..color = color
+      ..strokeWidth = 2;
     canvas.drawLine(Offset(x1, y), Offset(x2 - 5, y), paint);
-    var headPaint = Paint()..color = color..style = PaintingStyle.fill;
+    var headPaint = Paint()
+      ..color = color
+      ..style = PaintingStyle.fill;
     var path = Path()
       ..moveTo(x2 - 8, y - 4)
       ..lineTo(x2, y)
@@ -796,11 +961,22 @@ class _ComplexHintDiagramPainter extends CustomPainter {
     canvas.drawPath(path, headPaint);
   }
 
-  void _drawArrowDiag(Canvas canvas, double x1, double y1, double x2, double y2, Color color) {
-    var paint = Paint()..color = color..strokeWidth = 2;
+  void _drawArrowDiag(
+    Canvas canvas,
+    double x1,
+    double y1,
+    double x2,
+    double y2,
+    Color color,
+  ) {
+    var paint = Paint()
+      ..color = color
+      ..strokeWidth = 2;
     canvas.drawLine(Offset(x1, y1), Offset(x2, y2), paint);
     var angle = math.atan2(y2 - y1, x2 - x1);
-    var headPaint = Paint()..color = color..style = PaintingStyle.fill;
+    var headPaint = Paint()
+      ..color = color
+      ..style = PaintingStyle.fill;
     var path = Path()
       ..moveTo(x2, y2)
       ..lineTo(x2 - 8 * math.cos(angle - 0.4), y2 - 8 * math.sin(angle - 0.4))
@@ -813,7 +989,11 @@ class _ComplexHintDiagramPainter extends CustomPainter {
     var tp = TextPainter(
       text: TextSpan(
         text: text,
-        style: TextStyle(color: color, fontSize: 9, fontWeight: FontWeight.bold),
+        style: TextStyle(
+          color: color,
+          fontSize: 9,
+          fontWeight: FontWeight.bold,
+        ),
       ),
       textDirection: ui.TextDirection.ltr,
     );
@@ -946,22 +1126,43 @@ Widget _buildCachingMatrix() {
       TableRow(
         children: [
           _buildTableCell('isComplex: false', isHeader: true),
-          _buildTableCell('No caching', icon: Icons.close, iconColor: Color(0xFF757575)),
-          _buildTableCell('No caching', icon: Icons.close, iconColor: Color(0xFF757575)),
+          _buildTableCell(
+            'No caching',
+            icon: Icons.close,
+            iconColor: Color(0xFF757575),
+          ),
+          _buildTableCell(
+            'No caching',
+            icon: Icons.close,
+            iconColor: Color(0xFF757575),
+          ),
         ],
       ),
       TableRow(
         children: [
           _buildTableCell('isComplex: true', isHeader: true),
-          _buildTableCell('Cache enabled', icon: Icons.check, iconColor: Color(0xFF43A047)),
-          _buildTableCell('Cache skipped', icon: Icons.remove, iconColor: Color(0xFFF57C00)),
+          _buildTableCell(
+            'Cache enabled',
+            icon: Icons.check,
+            iconColor: Color(0xFF43A047),
+          ),
+          _buildTableCell(
+            'Cache skipped',
+            icon: Icons.remove,
+            iconColor: Color(0xFFF57C00),
+          ),
         ],
       ),
     ],
   );
 }
 
-Widget _buildTableCell(String text, {bool isHeader = false, IconData? icon, Color? iconColor}) {
+Widget _buildTableCell(
+  String text, {
+  bool isHeader = false,
+  IconData? icon,
+  Color? iconColor,
+}) {
   return Padding(
     padding: EdgeInsets.all(8),
     child: Row(
@@ -988,7 +1189,13 @@ Widget _buildTableCell(String text, {bool isHeader = false, IconData? icon, Colo
   );
 }
 
-Widget _buildWillChangeScenarioCard(String title, String subtitle, IconData icon, Color color, List<String> examples) {
+Widget _buildWillChangeScenarioCard(
+  String title,
+  String subtitle,
+  IconData icon,
+  Color color,
+  List<String> examples,
+) {
   return Container(
     padding: EdgeInsets.all(12),
     decoration: BoxDecoration(
@@ -1023,26 +1230,35 @@ Widget _buildWillChangeScenarioCard(String title, String subtitle, IconData icon
         SizedBox(height: 8),
         Text(
           'Examples:',
-          style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: Color(0xFF546E7A)),
+          style: TextStyle(
+            fontSize: 9,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF546E7A),
+          ),
         ),
         SizedBox(height: 4),
-        ...examples.map((ex) => Padding(
-          padding: EdgeInsets.only(bottom: 2),
-          child: Row(
-            children: [
-              Container(
-                width: 4,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: color,
-                  shape: BoxShape.circle,
+        ...examples.map(
+          (ex) => Padding(
+            padding: EdgeInsets.only(bottom: 2),
+            child: Row(
+              children: [
+                Container(
+                  width: 4,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: color,
+                    shape: BoxShape.circle,
+                  ),
                 ),
-              ),
-              SizedBox(width: 6),
-              Text(ex, style: TextStyle(fontSize: 10, color: Color(0xFF546E7A))),
-            ],
+                SizedBox(width: 6),
+                Text(
+                  ex,
+                  style: TextStyle(fontSize: 10, color: Color(0xFF546E7A)),
+                ),
+              ],
+            ),
           ),
-        )),
+        ),
       ],
     ),
   );
@@ -1103,13 +1319,28 @@ Widget _buildLayerTreeDiagramSection() {
             children: [
               Text(
                 'Layer Tree Properties',
-                style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF6A1B9A)),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF6A1B9A),
+                ),
               ),
               SizedBox(height: 8),
-              _buildTreePropertyRow('parent', 'Reference to parent ContainerLayer'),
-              _buildTreePropertyRow('nextSibling', 'Next layer in sibling chain'),
-              _buildTreePropertyRow('previousSibling', 'Previous layer in sibling chain'),
-              _buildTreePropertyRow('owner', 'PipelineOwner managing this layer'),
+              _buildTreePropertyRow(
+                'parent',
+                'Reference to parent ContainerLayer',
+              ),
+              _buildTreePropertyRow(
+                'nextSibling',
+                'Next layer in sibling chain',
+              ),
+              _buildTreePropertyRow(
+                'previousSibling',
+                'Previous layer in sibling chain',
+              ),
+              _buildTreePropertyRow(
+                'owner',
+                'PipelineOwner managing this layer',
+              ),
             ],
           ),
         ),
@@ -1177,44 +1408,130 @@ class _LayerTreePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     var centerX = size.width / 2;
 
-    _drawLayerNode(canvas, Offset(centerX, 20), 'TransformLayer', Color(0xFF1976D2), Icons.transform);
+    _drawLayerNode(
+      canvas,
+      Offset(centerX, 20),
+      'TransformLayer',
+      Color(0xFF1976D2),
+      Icons.transform,
+    );
 
     _drawConnector(canvas, centerX, 40, centerX - 80, 70, Color(0xFF90CAF9));
     _drawConnector(canvas, centerX, 40, centerX + 80, 70, Color(0xFF90CAF9));
 
-    _drawLayerNode(canvas, Offset(centerX - 80, 85), 'OffsetLayer', Color(0xFF388E3C), Icons.open_with);
-    _drawLayerNode(canvas, Offset(centerX + 80, 85), 'ClipRectLayer', Color(0xFFF57C00), Icons.crop);
+    _drawLayerNode(
+      canvas,
+      Offset(centerX - 80, 85),
+      'OffsetLayer',
+      Color(0xFF388E3C),
+      Icons.open_with,
+    );
+    _drawLayerNode(
+      canvas,
+      Offset(centerX + 80, 85),
+      'ClipRectLayer',
+      Color(0xFFF57C00),
+      Icons.crop,
+    );
 
-    _drawConnector(canvas, centerX - 80, 105, centerX - 120, 140, Color(0xFFA5D6A7));
-    _drawConnector(canvas, centerX - 80, 105, centerX - 40, 140, Color(0xFFA5D6A7));
+    _drawConnector(
+      canvas,
+      centerX - 80,
+      105,
+      centerX - 120,
+      140,
+      Color(0xFFA5D6A7),
+    );
+    _drawConnector(
+      canvas,
+      centerX - 80,
+      105,
+      centerX - 40,
+      140,
+      Color(0xFFA5D6A7),
+    );
 
-    _drawLayerNode(canvas, Offset(centerX - 120, 155), 'PictureLayer', Color(0xFF6A1B9A), Icons.image);
-    _drawLayerNode(canvas, Offset(centerX - 40, 155), 'PictureLayer', Color(0xFF6A1B9A), Icons.image);
+    _drawLayerNode(
+      canvas,
+      Offset(centerX - 120, 155),
+      'PictureLayer',
+      Color(0xFF6A1B9A),
+      Icons.image,
+    );
+    _drawLayerNode(
+      canvas,
+      Offset(centerX - 40, 155),
+      'PictureLayer',
+      Color(0xFF6A1B9A),
+      Icons.image,
+    );
 
-    _drawConnector(canvas, centerX + 80, 105, centerX + 80, 140, Color(0xFFFFCC80));
-    _drawLayerNode(canvas, Offset(centerX + 80, 155), 'PictureLayer', Color(0xFF6A1B9A), Icons.image);
+    _drawConnector(
+      canvas,
+      centerX + 80,
+      105,
+      centerX + 80,
+      140,
+      Color(0xFFFFCC80),
+    );
+    _drawLayerNode(
+      canvas,
+      Offset(centerX + 80, 155),
+      'PictureLayer',
+      Color(0xFF6A1B9A),
+      Icons.image,
+    );
 
-    var labelPaint = Paint()..color = Color(0xFFE0E0E0)..style = PaintingStyle.fill;
+    var labelPaint = Paint()
+      ..color = Color(0xFFE0E0E0)
+      ..style = PaintingStyle.fill;
     canvas.drawRRect(
-      RRect.fromRectAndRadius(Rect.fromLTWH(10, size.height - 25, 90, 18), Radius.circular(4)),
+      RRect.fromRectAndRadius(
+        Rect.fromLTWH(10, size.height - 25, 90, 18),
+        Radius.circular(4),
+      ),
       labelPaint,
     );
-    _drawText(canvas, 'Leaf Layers', Offset(55, size.height - 16), Color(0xFF6A1B9A), 10);
+    _drawText(
+      canvas,
+      'Leaf Layers',
+      Offset(55, size.height - 16),
+      Color(0xFF6A1B9A),
+      10,
+    );
   }
 
-  void _drawLayerNode(Canvas canvas, Offset center, String label, Color color, IconData icon) {
+  void _drawLayerNode(
+    Canvas canvas,
+    Offset center,
+    String label,
+    Color color,
+    IconData icon,
+  ) {
     var rect = RRect.fromRectAndRadius(
       Rect.fromCenter(center: center, width: 85, height: 32),
       Radius.circular(6),
     );
-    var fillPaint = Paint()..color = color.withAlpha(40)..style = PaintingStyle.fill;
-    var borderPaint = Paint()..color = color..strokeWidth = 2..style = PaintingStyle.stroke;
+    var fillPaint = Paint()
+      ..color = color.withAlpha(40)
+      ..style = PaintingStyle.fill;
+    var borderPaint = Paint()
+      ..color = color
+      ..strokeWidth = 2
+      ..style = PaintingStyle.stroke;
     canvas.drawRRect(rect, fillPaint);
     canvas.drawRRect(rect, borderPaint);
     _drawText(canvas, label, center, color, 9);
   }
 
-  void _drawConnector(Canvas canvas, double x1, double y1, double x2, double y2, Color color) {
+  void _drawConnector(
+    Canvas canvas,
+    double x1,
+    double y1,
+    double x2,
+    double y2,
+    Color color,
+  ) {
     var paint = Paint()
       ..color = color
       ..strokeWidth = 2
@@ -1227,16 +1544,29 @@ class _LayerTreePainter extends CustomPainter {
     canvas.drawPath(path, paint);
   }
 
-  void _drawText(Canvas canvas, String text, Offset center, Color color, double fontSize) {
+  void _drawText(
+    Canvas canvas,
+    String text,
+    Offset center,
+    Color color,
+    double fontSize,
+  ) {
     var tp = TextPainter(
       text: TextSpan(
         text: text,
-        style: TextStyle(color: color, fontSize: fontSize, fontWeight: FontWeight.bold),
+        style: TextStyle(
+          color: color,
+          fontSize: fontSize,
+          fontWeight: FontWeight.bold,
+        ),
       ),
       textDirection: ui.TextDirection.ltr,
     );
     tp.layout();
-    tp.paint(canvas, Offset(center.dx - tp.width / 2, center.dy - tp.height / 2));
+    tp.paint(
+      canvas,
+      Offset(center.dx - tp.width / 2, center.dy - tp.height / 2),
+    );
   }
 
   @override
@@ -1289,12 +1619,42 @@ Widget _buildCompositionSection() {
                 ),
               ),
               SizedBox(height: 12),
-              _buildLayerCombinationRow('OffsetLayer', 'Position Pictures with dx/dy offset', Icons.open_with, Color(0xFF388E3C)),
-              _buildLayerCombinationRow('ClipRectLayer', 'Rectangular clipping of Pictures', Icons.crop, Color(0xFFF57C00)),
-              _buildLayerCombinationRow('ClipPathLayer', 'Arbitrary path clipping', Icons.content_cut, Color(0xFFE91E63)),
-              _buildLayerCombinationRow('OpacityLayer', 'Alpha blending for Pictures', Icons.opacity, Color(0xFF1976D2)),
-              _buildLayerCombinationRow('ColorFilterLayer', 'Color transformations', Icons.filter, Color(0xFF00897B)),
-              _buildLayerCombinationRow('BackdropFilterLayer', 'Backdrop blur effects', Icons.blur_on, Color(0xFF5D4037)),
+              _buildLayerCombinationRow(
+                'OffsetLayer',
+                'Position Pictures with dx/dy offset',
+                Icons.open_with,
+                Color(0xFF388E3C),
+              ),
+              _buildLayerCombinationRow(
+                'ClipRectLayer',
+                'Rectangular clipping of Pictures',
+                Icons.crop,
+                Color(0xFFF57C00),
+              ),
+              _buildLayerCombinationRow(
+                'ClipPathLayer',
+                'Arbitrary path clipping',
+                Icons.content_cut,
+                Color(0xFFE91E63),
+              ),
+              _buildLayerCombinationRow(
+                'OpacityLayer',
+                'Alpha blending for Pictures',
+                Icons.opacity,
+                Color(0xFF1976D2),
+              ),
+              _buildLayerCombinationRow(
+                'ColorFilterLayer',
+                'Color transformations',
+                Icons.filter,
+                Color(0xFF00897B),
+              ),
+              _buildLayerCombinationRow(
+                'BackdropFilterLayer',
+                'Backdrop blur effects',
+                Icons.blur_on,
+                Color(0xFF5D4037),
+              ),
             ],
           ),
         ),
@@ -1322,7 +1682,10 @@ Widget _buildCompositionSection() {
                   SizedBox(width: 8),
                   Text(
                     'Composition Order',
-                    style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF2E7D32)),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF2E7D32),
+                    ),
                   ),
                 ],
               ),
@@ -1341,7 +1704,12 @@ Widget _buildCompositionSection() {
   );
 }
 
-Widget _buildLayerCombinationRow(String layer, String description, IconData icon, Color color) {
+Widget _buildLayerCombinationRow(
+  String layer,
+  String description,
+  IconData icon,
+  Color color,
+) {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 4),
     child: Row(
@@ -1381,11 +1749,31 @@ class _CompositionDiagramPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     var layerStack = <Map<String, dynamic>>[
-      {'label': 'TransformLayer', 'color': Color(0xFF1976D2), 'desc': 'Scale & Rotate'},
-      {'label': 'ClipRectLayer', 'color': Color(0xFFF57C00), 'desc': 'Clip to bounds'},
-      {'label': 'OpacityLayer', 'color': Color(0xFF8E24AA), 'desc': 'Alpha: 0.8'},
-      {'label': 'OffsetLayer', 'color': Color(0xFF388E3C), 'desc': 'Offset(20, 30)'},
-      {'label': 'PictureLayer', 'color': Color(0xFF6A1B9A), 'desc': 'Drawing content'},
+      {
+        'label': 'TransformLayer',
+        'color': Color(0xFF1976D2),
+        'desc': 'Scale & Rotate',
+      },
+      {
+        'label': 'ClipRectLayer',
+        'color': Color(0xFFF57C00),
+        'desc': 'Clip to bounds',
+      },
+      {
+        'label': 'OpacityLayer',
+        'color': Color(0xFF8E24AA),
+        'desc': 'Alpha: 0.8',
+      },
+      {
+        'label': 'OffsetLayer',
+        'color': Color(0xFF388E3C),
+        'desc': 'Offset(20, 30)',
+      },
+      {
+        'label': 'PictureLayer',
+        'color': Color(0xFF6A1B9A),
+        'desc': 'Drawing content',
+      },
     ];
 
     var layerHeight = 28.0;
@@ -1404,18 +1792,41 @@ class _CompositionDiagramPainter extends CustomPainter {
         ..color = color.withAlpha(40)
         ..maskFilter = MaskFilter.blur(BlurStyle.normal, 4);
       canvas.drawRRect(
-        RRect.fromRectAndRadius(Rect.fromLTWH(x + 2, y + 2, layerWidth, layerHeight), Radius.circular(6)),
+        RRect.fromRectAndRadius(
+          Rect.fromLTWH(x + 2, y + 2, layerWidth, layerHeight),
+          Radius.circular(6),
+        ),
         shadowPaint,
       );
 
-      var fillPaint = Paint()..color = color.withAlpha(60)..style = PaintingStyle.fill;
-      var borderPaint = Paint()..color = color..strokeWidth = 2..style = PaintingStyle.stroke;
-      var rect = RRect.fromRectAndRadius(Rect.fromLTWH(x, y, layerWidth, layerHeight), Radius.circular(6));
+      var fillPaint = Paint()
+        ..color = color.withAlpha(60)
+        ..style = PaintingStyle.fill;
+      var borderPaint = Paint()
+        ..color = color
+        ..strokeWidth = 2
+        ..style = PaintingStyle.stroke;
+      var rect = RRect.fromRectAndRadius(
+        Rect.fromLTWH(x, y, layerWidth, layerHeight),
+        Radius.circular(6),
+      );
       canvas.drawRRect(rect, fillPaint);
       canvas.drawRRect(rect, borderPaint);
 
-      _drawText(canvas, layerData['label'] as String, Offset(x + layerWidth / 2, y + layerHeight / 2 - 4), color, 10);
-      _drawText(canvas, layerData['desc'] as String, Offset(x + layerWidth / 2, y + layerHeight / 2 + 7), color.withAlpha(180), 8);
+      _drawText(
+        canvas,
+        layerData['label'] as String,
+        Offset(x + layerWidth / 2, y + layerHeight / 2 - 4),
+        color,
+        10,
+      );
+      _drawText(
+        canvas,
+        layerData['desc'] as String,
+        Offset(x + layerWidth / 2, y + layerHeight / 2 + 7),
+        color.withAlpha(180),
+        8,
+      );
     }
 
     var bracketX = startX + layerStack.length * offsetStep + layerWidth + 10;
@@ -1426,30 +1837,53 @@ class _CompositionDiagramPainter extends CustomPainter {
     var bracketPath = Path()
       ..moveTo(bracketX, startY)
       ..lineTo(bracketX + 10, startY)
-      ..lineTo(bracketX + 10, startY + (layerStack.length - 1) * (layerHeight + 5) + layerHeight)
-      ..lineTo(bracketX, startY + (layerStack.length - 1) * (layerHeight + 5) + layerHeight);
+      ..lineTo(
+        bracketX + 10,
+        startY + (layerStack.length - 1) * (layerHeight + 5) + layerHeight,
+      )
+      ..lineTo(
+        bracketX,
+        startY + (layerStack.length - 1) * (layerHeight + 5) + layerHeight,
+      );
     canvas.drawPath(bracketPath, bracketPaint);
 
     _drawText(
       canvas,
       'Composited\nScene',
-      Offset(bracketX + 40, startY + ((layerStack.length - 1) * (layerHeight + 5) + layerHeight) / 2),
+      Offset(
+        bracketX + 40,
+        startY +
+            ((layerStack.length - 1) * (layerHeight + 5) + layerHeight) / 2,
+      ),
       Color(0xFF6A1B9A),
       10,
     );
   }
 
-  void _drawText(Canvas canvas, String text, Offset center, Color color, double fontSize) {
+  void _drawText(
+    Canvas canvas,
+    String text,
+    Offset center,
+    Color color,
+    double fontSize,
+  ) {
     var tp = TextPainter(
       text: TextSpan(
         text: text,
-        style: TextStyle(color: color, fontSize: fontSize, fontWeight: FontWeight.w600),
+        style: TextStyle(
+          color: color,
+          fontSize: fontSize,
+          fontWeight: FontWeight.w600,
+        ),
       ),
       textAlign: TextAlign.center,
       textDirection: ui.TextDirection.ltr,
     );
     tp.layout();
-    tp.paint(canvas, Offset(center.dx - tp.width / 2, center.dy - tp.height / 2));
+    tp.paint(
+      canvas,
+      Offset(center.dx - tp.width / 2, center.dy - tp.height / 2),
+    );
   }
 
   @override
@@ -1503,10 +1937,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 4),
               Text(
                 'Picture-based layer compositing visualized',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Color(0xFF8E24AA),
-                ),
+                style: TextStyle(fontSize: 12, color: Color(0xFF8E24AA)),
               ),
             ],
           ),

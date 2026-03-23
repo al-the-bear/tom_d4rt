@@ -157,8 +157,9 @@ void main() {
     // when WidgetSpan elements are used within RichText. Each inline widget
     // receives a tag corresponding to its position in the span tree.
 
-    testWidgets('RichText with single WidgetSpan placeholder',
-        (WidgetTester tester) async {
+    testWidgets('RichText with single WidgetSpan placeholder', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -170,9 +171,7 @@ void main() {
                       text: 'Hello ',
                       style: TextStyle(color: Colors.black),
                     ),
-                    WidgetSpan(
-                      child: Icon(Icons.star, size: 16),
-                    ),
+                    WidgetSpan(child: Icon(Icons.star, size: 16)),
                     TextSpan(
                       text: ' world',
                       style: TextStyle(color: Colors.black),
@@ -189,8 +188,9 @@ void main() {
       expect(find.byIcon(Icons.star), findsOneWidget);
     });
 
-    testWidgets('RichText with multiple WidgetSpan placeholders',
-        (WidgetTester tester) async {
+    testWidgets('RichText with multiple WidgetSpan placeholders', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -211,12 +211,8 @@ void main() {
                     WidgetSpan(
                       child: Icon(Icons.star, size: 16, color: Colors.amber),
                     ),
-                    WidgetSpan(
-                      child: Icon(Icons.star_border, size: 16),
-                    ),
-                    WidgetSpan(
-                      child: Icon(Icons.star_border, size: 16),
-                    ),
+                    WidgetSpan(child: Icon(Icons.star_border, size: 16)),
+                    WidgetSpan(child: Icon(Icons.star_border, size: 16)),
                   ],
                 ),
               ),
@@ -230,8 +226,9 @@ void main() {
       expect(find.byIcon(Icons.star_border), findsWidgets);
     });
 
-    testWidgets('WidgetSpan with Container inline widget',
-        (WidgetTester tester) async {
+    testWidgets('WidgetSpan with Container inline widget', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -269,8 +266,9 @@ void main() {
       expect(find.byType(Container), findsOneWidget);
     });
 
-    testWidgets('WidgetSpan with Chip widget inline',
-        (WidgetTester tester) async {
+    testWidgets('WidgetSpan with Chip widget inline', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -302,8 +300,9 @@ void main() {
       expect(find.text('Important'), findsOneWidget);
     });
 
-    testWidgets('WidgetSpan with Image placeholder',
-        (WidgetTester tester) async {
+    testWidgets('WidgetSpan with Image placeholder', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -333,8 +332,9 @@ void main() {
       expect(find.byType(CircleAvatar), findsOneWidget);
     });
 
-    testWidgets('nested spans with widget placeholders',
-        (WidgetTester tester) async {
+    testWidgets('nested spans with widget placeholders', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -346,15 +346,11 @@ void main() {
                       text: 'First level ',
                       style: TextStyle(color: Colors.black),
                       children: [
-                        WidgetSpan(
-                          child: Icon(Icons.check, size: 14),
-                        ),
+                        WidgetSpan(child: Icon(Icons.check, size: 14)),
                         TextSpan(
                           text: ' nested ',
                           children: [
-                            WidgetSpan(
-                              child: Icon(Icons.close, size: 14),
-                            ),
+                            WidgetSpan(child: Icon(Icons.close, size: 14)),
                           ],
                         ),
                       ],
@@ -381,8 +377,9 @@ void main() {
     // widgets accessible to screen readers. It ensures that the reading order
     // of embedded widgets matches their visual position in the text.
 
-    testWidgets('semantics enabled for inline widget',
-        (WidgetTester tester) async {
+    testWidgets('semantics enabled for inline widget', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Semantics(
@@ -414,8 +411,9 @@ void main() {
       expect(find.bySemanticsLabel('play button'), findsOneWidget);
     });
 
-    testWidgets('multiple accessible inline widgets',
-        (WidgetTester tester) async {
+    testWidgets('multiple accessible inline widgets', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Semantics(
@@ -454,8 +452,9 @@ void main() {
       expect(find.bySemanticsLabel('option B'), findsOneWidget);
     });
 
-    testWidgets('inline button with semantics action',
-        (WidgetTester tester) async {
+    testWidgets('inline button with semantics action', (
+      WidgetTester tester,
+    ) async {
       var wasPressed = false;
 
       await tester.pumpWidget(
@@ -480,7 +479,10 @@ void main() {
                         wasPressed = true;
                       },
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.blue,
                           borderRadius: BorderRadius.circular(4),
@@ -509,8 +511,9 @@ void main() {
       expect(wasPressed, isTrue);
     });
 
-    testWidgets('excludeSemantics for decorative widgets',
-        (WidgetTester tester) async {
+    testWidgets('excludeSemantics for decorative widgets', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: RichText(
@@ -539,8 +542,9 @@ void main() {
       expect(find.byIcon(Icons.circle), findsOneWidget);
     });
 
-    testWidgets('ordered semantics for emoji replacements',
-        (WidgetTester tester) async {
+    testWidgets('ordered semantics for emoji replacements', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: RichText(
@@ -576,8 +580,9 @@ void main() {
       expect(find.bySemanticsLabel('fire emoji'), findsOneWidget);
     });
 
-    testWidgets('focus traversal respects placeholder order',
-        (WidgetTester tester) async {
+    testWidgets('focus traversal respects placeholder order', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -645,7 +650,10 @@ void main() {
                     WidgetSpan(
                       alignment: PlaceholderAlignment.middle,
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.green,
                           borderRadius: BorderRadius.circular(10),
@@ -691,7 +699,9 @@ void main() {
                         height: 14,
                         child: CircularProgressIndicator(
                           strokeWidth: 2,
-                          valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            Colors.blue,
+                          ),
                         ),
                       ),
                     ),
@@ -793,7 +803,10 @@ void main() {
                       child: CircleAvatar(
                         radius: 10,
                         backgroundColor: Colors.indigo,
-                        child: Text('JD', style: TextStyle(fontSize: 8, color: Colors.white)),
+                        child: Text(
+                          'JD',
+                          style: TextStyle(fontSize: 8, color: Colors.white),
+                        ),
                       ),
                     ),
                     TextSpan(text: ' John Doe for review'),
@@ -823,7 +836,10 @@ void main() {
                     WidgetSpan(
                       alignment: PlaceholderAlignment.middle,
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.red,
                           borderRadius: BorderRadius.circular(12),
@@ -905,10 +921,7 @@ void main() {
             borderRadius: BorderRadius.circular(4),
             border: Border.all(color: color, width: 1),
           ),
-          child: Text(
-            label,
-            style: TextStyle(color: color, fontSize: 11),
-          ),
+          child: Text(label, style: TextStyle(color: color, fontSize: 11)),
         );
       }
 
@@ -976,9 +989,7 @@ void main() {
                             ),
                           ),
                         ),
-                        TextSpan(
-                          text: switchValue ? ' (ON)' : ' (OFF)',
-                        ),
+                        TextSpan(text: switchValue ? ' (ON)' : ' (OFF)'),
                       ],
                     ),
                   ),
@@ -1054,7 +1065,10 @@ void main() {
                     WidgetSpan(
                       alignment: PlaceholderAlignment.middle,
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
                         decoration: keyStyle,
                         child: Text('Ctrl', style: TextStyle(fontSize: 12)),
                       ),
@@ -1063,7 +1077,10 @@ void main() {
                     WidgetSpan(
                       alignment: PlaceholderAlignment.middle,
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
                         decoration: keyStyle,
                         child: Text('S', style: TextStyle(fontSize: 12)),
                       ),
@@ -1095,7 +1112,10 @@ void main() {
                     WidgetSpan(
                       alignment: PlaceholderAlignment.middle,
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.grey.shade200,
                           borderRadius: BorderRadius.circular(4),
@@ -1130,7 +1150,11 @@ void main() {
               padding: EdgeInsets.all(16),
               child: RichText(
                 text: TextSpan(
-                  style: TextStyle(color: Colors.black, fontSize: 14, height: 1.8),
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 14,
+                    height: 1.8,
+                  ),
                   children: [
                     TextSpan(
                       text: 'Welcome ',
@@ -1150,13 +1174,20 @@ void main() {
                     TextSpan(text: ' to the team! '),
                     WidgetSpan(
                       alignment: PlaceholderAlignment.middle,
-                      child: Icon(Icons.celebration, size: 18, color: Colors.amber),
+                      child: Icon(
+                        Icons.celebration,
+                        size: 18,
+                        color: Colors.amber,
+                      ),
                     ),
                     TextSpan(text: '\n\nYour role: '),
                     WidgetSpan(
                       alignment: PlaceholderAlignment.middle,
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.purple.shade100,
                           borderRadius: BorderRadius.circular(4),
@@ -1225,7 +1256,9 @@ void main() {
         (i) => PlaceholderSpanIndexSemanticsTag(i),
       );
 
-      var filteredTags = allTags.where((t) => t.index >= 3 && t.index <= 7).toList();
+      var filteredTags = allTags
+          .where((t) => t.index >= 3 && t.index <= 7)
+          .toList();
 
       expect(filteredTags.length, equals(5));
       expect(filteredTags.first.index, equals(3));
@@ -1245,10 +1278,7 @@ void main() {
     });
 
     test('finding tag by index', () {
-      var tags = List.generate(
-        10,
-        (i) => PlaceholderSpanIndexSemanticsTag(i),
-      );
+      var tags = List.generate(10, (i) => PlaceholderSpanIndexSemanticsTag(i));
 
       var tag5 = tags.firstWhere((t) => t.index == 5);
 
@@ -1317,8 +1347,9 @@ void main() {
   group('Integration Scenarios', () {
     // Real-world integration scenarios
 
-    testWidgets('chat message with emoji reactions',
-        (WidgetTester tester) async {
+    testWidgets('chat message with emoji reactions', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -1342,7 +1373,13 @@ void main() {
                           child: CircleAvatar(
                             radius: 14,
                             backgroundColor: Colors.blue,
-                            child: Text('U', style: TextStyle(color: Colors.white, fontSize: 12)),
+                            child: Text(
+                              'U',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 12,
+                              ),
+                            ),
                           ),
                         ),
                         TextSpan(
@@ -1362,7 +1399,10 @@ void main() {
                       children: [
                         WidgetSpan(
                           child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 6,
+                              vertical: 2,
+                            ),
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10),
@@ -1373,7 +1413,10 @@ void main() {
                         TextSpan(text: '  '),
                         WidgetSpan(
                           child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 6,
+                              vertical: 2,
+                            ),
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10),
@@ -1395,8 +1438,9 @@ void main() {
       expect(find.text('This is a great update!'), findsOneWidget);
     });
 
-    testWidgets('form field with inline help icon',
-        (WidgetTester tester) async {
+    testWidgets('form field with inline help icon', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -1443,8 +1487,9 @@ void main() {
       expect(find.byType(TextField), findsOneWidget);
     });
 
-    testWidgets('product price with discount badge',
-        (WidgetTester tester) async {
+    testWidgets('product price with discount badge', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -1474,7 +1519,10 @@ void main() {
                     WidgetSpan(
                       alignment: PlaceholderAlignment.middle,
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.red,
                           borderRadius: BorderRadius.circular(4),
@@ -1500,8 +1548,9 @@ void main() {
       expect(find.text('-20%'), findsOneWidget);
     });
 
-    testWidgets('notification list item with inline icons',
-        (WidgetTester tester) async {
+    testWidgets('notification list item with inline icons', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -1543,8 +1592,9 @@ void main() {
       expect(find.text('2 minutes ago'), findsOneWidget);
     });
 
-    testWidgets('search result with highlighted terms',
-        (WidgetTester tester) async {
+    testWidgets('search result with highlighted terms', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -1559,7 +1609,10 @@ void main() {
                       alignment: PlaceholderAlignment.baseline,
                       baseline: TextBaseline.alphabetic,
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 4,
+                          vertical: 1,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.yellow.shade200,
                           borderRadius: BorderRadius.circular(2),
@@ -1586,8 +1639,9 @@ void main() {
       expect(find.text(' in 15 files'), findsNothing); // Part of RichText
     });
 
-    testWidgets('inline rating display with star icons',
-        (WidgetTester tester) async {
+    testWidgets('inline rating display with star icons', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -1654,8 +1708,9 @@ void main() {
       expect(tag == nullValue, isFalse);
     });
 
-    testWidgets('empty RichText with no widget spans',
-        (WidgetTester tester) async {
+    testWidgets('empty RichText with no widget spans', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: RichText(
@@ -1670,18 +1725,23 @@ void main() {
       expect(find.byType(RichText), findsOneWidget);
     });
 
-    testWidgets('WidgetSpan with zero-size widget',
-        (WidgetTester tester) async {
+    testWidgets('WidgetSpan with zero-size widget', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: RichText(
             text: TextSpan(
               children: [
-                TextSpan(text: 'Before', style: TextStyle(color: Colors.black)),
-                WidgetSpan(
-                  child: SizedBox.shrink(),
+                TextSpan(
+                  text: 'Before',
+                  style: TextStyle(color: Colors.black),
                 ),
-                TextSpan(text: 'After', style: TextStyle(color: Colors.black)),
+                WidgetSpan(child: SizedBox.shrink()),
+                TextSpan(
+                  text: 'After',
+                  style: TextStyle(color: Colors.black),
+                ),
               ],
             ),
           ),
@@ -1691,8 +1751,9 @@ void main() {
       expect(find.byType(SizedBox), findsOneWidget);
     });
 
-    testWidgets('deeply nested WidgetSpan structure',
-        (WidgetTester tester) async {
+    testWidgets('deeply nested WidgetSpan structure', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -1709,9 +1770,7 @@ void main() {
                           TextSpan(
                             text: 'Level 3 ',
                             children: [
-                              WidgetSpan(
-                                child: Icon(Icons.star, size: 12),
-                              ),
+                              WidgetSpan(child: Icon(Icons.star, size: 12)),
                             ],
                           ),
                         ],
@@ -1747,8 +1806,9 @@ void main() {
       expect(identical(tag, tag), isTrue);
     });
 
-    testWidgets('WidgetSpan with interactive widget',
-        (WidgetTester tester) async {
+    testWidgets('WidgetSpan with interactive widget', (
+      WidgetTester tester,
+    ) async {
       var tapCount = 0;
 
       await tester.pumpWidget(
@@ -1767,7 +1827,10 @@ void main() {
                       child: Container(
                         padding: EdgeInsets.all(4),
                         color: Colors.blue,
-                        child: Text('me', style: TextStyle(color: Colors.white)),
+                        child: Text(
+                          'me',
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
                     ),
                   ),

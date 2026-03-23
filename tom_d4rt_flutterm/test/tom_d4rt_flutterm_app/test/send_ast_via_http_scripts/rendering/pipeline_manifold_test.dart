@@ -132,7 +132,12 @@ Widget _buildInfoRow(String label, String value, {Color? valueColor}) {
   );
 }
 
-Widget _buildDiagramBox(String label, Color color, {IconData? icon, double width = 100}) {
+Widget _buildDiagramBox(
+  String label,
+  Color color, {
+  IconData? icon,
+  double width = 100,
+}) {
   return Container(
     width: width,
     padding: EdgeInsets.symmetric(vertical: 12, horizontal: 8),
@@ -294,9 +299,21 @@ Widget _buildOverviewDiagramSection() {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _buildDiagramBox('PipelineOwner\n(View 1)', Color(0xFF388E3C), icon: Icons.layers),
-                  _buildDiagramBox('PipelineOwner\n(View 2)', Color(0xFF388E3C), icon: Icons.layers),
-                  _buildDiagramBox('PipelineOwner\n(View 3)', Color(0xFF388E3C), icon: Icons.layers),
+                  _buildDiagramBox(
+                    'PipelineOwner\n(View 1)',
+                    Color(0xFF388E3C),
+                    icon: Icons.layers,
+                  ),
+                  _buildDiagramBox(
+                    'PipelineOwner\n(View 2)',
+                    Color(0xFF388E3C),
+                    icon: Icons.layers,
+                  ),
+                  _buildDiagramBox(
+                    'PipelineOwner\n(View 3)',
+                    Color(0xFF388E3C),
+                    icon: Icons.layers,
+                  ),
                 ],
               ),
             ],
@@ -304,8 +321,14 @@ Widget _buildOverviewDiagramSection() {
         ),
         SizedBox(height: 16),
         _buildInfoRow('Interface', 'Abstract class defining manifold contract'),
-        _buildInfoRow('Primary Purpose', 'Coordinate pipeline owners with rendering'),
-        _buildInfoRow('Implementation', 'RendererBinding mixin provides default'),
+        _buildInfoRow(
+          'Primary Purpose',
+          'Coordinate pipeline owners with rendering',
+        ),
+        _buildInfoRow(
+          'Implementation',
+          'RendererBinding mixin provides default',
+        ),
         _buildInfoRow('Scope', 'Application-wide rendering coordination'),
       ],
     ),
@@ -362,17 +385,47 @@ Widget _buildRequestVisualUpdateSection() {
                 ),
               ),
               SizedBox(height: 16),
-              _buildUpdateFlowStep('1', 'RenderObject marks dirty', Icons.flag, Color(0xFFE65100)),
+              _buildUpdateFlowStep(
+                '1',
+                'RenderObject marks dirty',
+                Icons.flag,
+                Color(0xFFE65100),
+              ),
               _buildFlowConnector(Color(0xFFFF9800)),
-              _buildUpdateFlowStep('2', 'PipelineOwner records node', Icons.note_add, Color(0xFFF57C00)),
+              _buildUpdateFlowStep(
+                '2',
+                'PipelineOwner records node',
+                Icons.note_add,
+                Color(0xFFF57C00),
+              ),
               _buildFlowConnector(Color(0xFFFF9800)),
-              _buildUpdateFlowStep('3', 'requestVisualUpdate() called', Icons.send, Color(0xFFFFB300)),
+              _buildUpdateFlowStep(
+                '3',
+                'requestVisualUpdate() called',
+                Icons.send,
+                Color(0xFFFFB300),
+              ),
               _buildFlowConnector(Color(0xFFFF9800)),
-              _buildUpdateFlowStep('4', 'onNeedVisualUpdate invoked', Icons.notification_important, Color(0xFFFFC107)),
+              _buildUpdateFlowStep(
+                '4',
+                'onNeedVisualUpdate invoked',
+                Icons.notification_important,
+                Color(0xFFFFC107),
+              ),
               _buildFlowConnector(Color(0xFFFF9800)),
-              _buildUpdateFlowStep('5', 'Frame scheduled', Icons.schedule, Color(0xFFFFD54F)),
+              _buildUpdateFlowStep(
+                '5',
+                'Frame scheduled',
+                Icons.schedule,
+                Color(0xFFFFD54F),
+              ),
               _buildFlowConnector(Color(0xFFFF9800)),
-              _buildUpdateFlowStep('6', 'Flush methods called', Icons.cleaning_services, Color(0xFFFFE082)),
+              _buildUpdateFlowStep(
+                '6',
+                'Flush methods called',
+                Icons.cleaning_services,
+                Color(0xFFFFE082),
+              ),
             ],
           ),
         ),
@@ -419,16 +472,18 @@ Widget _buildRequestVisualUpdateSection() {
   );
 }
 
-Widget _buildUpdateFlowStep(String number, String label, IconData icon, Color color) {
+Widget _buildUpdateFlowStep(
+  String number,
+  String label,
+  IconData icon,
+  Color color,
+) {
   return Row(
     children: [
       Container(
         width: 28,
         height: 28,
-        decoration: BoxDecoration(
-          color: color,
-          shape: BoxShape.circle,
-        ),
+        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         child: Center(
           child: Text(
             number,
@@ -461,9 +516,7 @@ Widget _buildFlowConnector(Color color) {
   return Padding(
     padding: EdgeInsets.only(left: 13),
     child: Row(
-      children: [
-        Container(width: 2, height: 10, color: color.withAlpha(150)),
-      ],
+      children: [Container(width: 2, height: 10, color: color.withAlpha(150))],
     ),
   );
 }
@@ -517,9 +570,15 @@ Widget _buildSemanticUpdatesSection() {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _buildSemanticNode('RenderObject\nmarkNeedsSemanticsUpdate', Color(0xFF7B1FA2)),
+                  _buildSemanticNode(
+                    'RenderObject\nmarkNeedsSemanticsUpdate',
+                    Color(0xFF7B1FA2),
+                  ),
                   Icon(Icons.arrow_forward, color: Color(0xFF9C27B0)),
-                  _buildSemanticNode('PipelineOwner\nsemantics dirty list', Color(0xFF8E24AA)),
+                  _buildSemanticNode(
+                    'PipelineOwner\nsemantics dirty list',
+                    Color(0xFF8E24AA),
+                  ),
                 ],
               ),
               SizedBox(height: 12),
@@ -528,9 +587,15 @@ Widget _buildSemanticUpdatesSection() {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _buildSemanticNode('flushSemantics()\ncompute changes', Color(0xFFAB47BC)),
+                  _buildSemanticNode(
+                    'flushSemantics()\ncompute changes',
+                    Color(0xFFAB47BC),
+                  ),
                   Icon(Icons.arrow_forward, color: Color(0xFF9C27B0)),
-                  _buildSemanticNode('SemanticsOwner\nsend to platform', Color(0xFFBA68C8)),
+                  _buildSemanticNode(
+                    'SemanticsOwner\nsend to platform',
+                    Color(0xFFBA68C8),
+                  ),
                 ],
               ),
             ],
@@ -548,7 +613,11 @@ Widget _buildSemanticUpdatesSection() {
             children: [
               Row(
                 children: [
-                  Icon(Icons.settings_accessibility, color: Color(0xFF6A1B9A), size: 18),
+                  Icon(
+                    Icons.settings_accessibility,
+                    color: Color(0xFF6A1B9A),
+                    size: 18,
+                  ),
                   SizedBox(width: 8),
                   Text(
                     'Semantics Enablement',
@@ -560,17 +629,35 @@ Widget _buildSemanticUpdatesSection() {
                 ],
               ),
               SizedBox(height: 8),
-              _buildSemanticInfoRow('ensureSemantics', 'Enables semantic collection'),
-              _buildSemanticInfoRow('SemanticsHandle', 'Keep-alive reference for semantics'),
-              _buildSemanticInfoRow('onSemanticsUpdate', 'Callback when semantics change'),
+              _buildSemanticInfoRow(
+                'ensureSemantics',
+                'Enables semantic collection',
+              ),
+              _buildSemanticInfoRow(
+                'SemanticsHandle',
+                'Keep-alive reference for semantics',
+              ),
+              _buildSemanticInfoRow(
+                'onSemanticsUpdate',
+                'Callback when semantics change',
+              ),
             ],
           ),
         ),
         SizedBox(height: 16),
         _buildInfoRow('Semantics Owner', 'Manages semantic tree for a view'),
-        _buildInfoRow('Semantic Nodes', 'Derived from RenderObject annotations'),
-        _buildInfoRow('Platform Bridge', 'Delivers to iOS/Android accessibility'),
-        _buildInfoRow('Update Frequency', 'Batched per frame with visual updates'),
+        _buildInfoRow(
+          'Semantic Nodes',
+          'Derived from RenderObject annotations',
+        ),
+        _buildInfoRow(
+          'Platform Bridge',
+          'Delivers to iOS/Android accessibility',
+        ),
+        _buildInfoRow(
+          'Update Frequency',
+          'Batched per frame with visual updates',
+        ),
       ],
     ),
   );
@@ -594,11 +681,7 @@ Widget _buildSemanticNode(String label, Color color) {
     ),
     child: Text(
       label,
-      style: TextStyle(
-        fontSize: 10,
-        fontWeight: FontWeight.w600,
-        color: color,
-      ),
+      style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: color),
       textAlign: TextAlign.center,
     ),
   );
@@ -701,17 +784,37 @@ Widget _buildLayoutBoundarySection() {
                 ],
               ),
               SizedBox(height: 8),
-              _buildPerformanceRow('Without Boundary', 'Full tree relayout', Color(0xFFD84315)),
-              _buildPerformanceRow('With Boundary', 'Subtree relayout only', Color(0xFF388E3C)),
+              _buildPerformanceRow(
+                'Without Boundary',
+                'Full tree relayout',
+                Color(0xFFD84315),
+              ),
+              _buildPerformanceRow(
+                'With Boundary',
+                'Subtree relayout only',
+                Color(0xFF388E3C),
+              ),
             ],
           ),
         ),
         SizedBox(height: 16),
         Row(
           children: [
-            Expanded(child: _buildBoundaryTypeCard('Relayout\nBoundary', Color(0xFF43A047), Icons.check_box)),
+            Expanded(
+              child: _buildBoundaryTypeCard(
+                'Relayout\nBoundary',
+                Color(0xFF43A047),
+                Icons.check_box,
+              ),
+            ),
             SizedBox(width: 8),
-            Expanded(child: _buildBoundaryTypeCard('Repaint\nBoundary', Color(0xFF1E88E5), Icons.brush)),
+            Expanded(
+              child: _buildBoundaryTypeCard(
+                'Repaint\nBoundary',
+                Color(0xFF1E88E5),
+                Icons.brush,
+              ),
+            ),
           ],
         ),
         SizedBox(height: 16),
@@ -787,11 +890,7 @@ Widget _buildTreeNode(String label, Color color, bool isBoundary, int indent) {
 }
 
 Widget _buildTreeConnector() {
-  return Container(
-    width: 2,
-    height: 12,
-    color: Color(0xFF81C784),
-  );
+  return Container(width: 2, height: 12, color: Color(0xFF81C784));
 }
 
 Widget _buildPerformanceRow(String scenario, String result, Color color) {
@@ -802,10 +901,7 @@ Widget _buildPerformanceRow(String scenario, String result, Color color) {
         Container(
           width: 8,
           height: 8,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         SizedBox(width: 8),
         Text(
@@ -876,7 +972,10 @@ Widget _buildPipelineTreeSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionTitle('Pipeline Tree Structure', Icons.account_tree_rounded),
+        _buildSectionTitle(
+          'Pipeline Tree Structure',
+          Icons.account_tree_rounded,
+        ),
         Text(
           'The pipeline tree structure shows how PipelineManifold connects to '
           'multiple PipelineOwner instances, each managing their own render '
@@ -912,11 +1011,29 @@ Widget _buildPipelineTreeSection() {
         SizedBox(height: 16),
         Row(
           children: [
-            Expanded(child: _buildDirtyListCard('Layout\nDirty List', Color(0xFFE53935), Icons.grid_view)),
+            Expanded(
+              child: _buildDirtyListCard(
+                'Layout\nDirty List',
+                Color(0xFFE53935),
+                Icons.grid_view,
+              ),
+            ),
             SizedBox(width: 8),
-            Expanded(child: _buildDirtyListCard('Paint\nDirty List', Color(0xFF8E24AA), Icons.format_paint)),
+            Expanded(
+              child: _buildDirtyListCard(
+                'Paint\nDirty List',
+                Color(0xFF8E24AA),
+                Icons.format_paint,
+              ),
+            ),
             SizedBox(width: 8),
-            Expanded(child: _buildDirtyListCard('Semantics\nDirty List', Color(0xFF1976D2), Icons.accessibility)),
+            Expanded(
+              child: _buildDirtyListCard(
+                'Semantics\nDirty List',
+                Color(0xFF1976D2),
+                Icons.accessibility,
+              ),
+            ),
           ],
         ),
         SizedBox(height: 16),
@@ -944,7 +1061,11 @@ Widget _buildPipelineTreeSection() {
               ),
               SizedBox(height: 8),
               _buildFlushOrderRow('1', 'flushLayout', Color(0xFFE53935)),
-              _buildFlushOrderRow('2', 'flushCompositingBits', Color(0xFFFF9800)),
+              _buildFlushOrderRow(
+                '2',
+                'flushCompositingBits',
+                Color(0xFFFF9800),
+              ),
               _buildFlushOrderRow('3', 'flushPaint', Color(0xFF8E24AA)),
               _buildFlushOrderRow('4', 'flushSemantics', Color(0xFF1976D2)),
             ],
@@ -952,8 +1073,14 @@ Widget _buildPipelineTreeSection() {
         ),
         SizedBox(height: 16),
         _buildInfoRow('Root Node', 'RenderView serves as pipeline root'),
-        _buildInfoRow('Dirty Tracking', 'Each PipelineOwner tracks its dirty nodes'),
-        _buildInfoRow('Flush Coordination', 'Manifold coordinates flush across owners'),
+        _buildInfoRow(
+          'Dirty Tracking',
+          'Each PipelineOwner tracks its dirty nodes',
+        ),
+        _buildInfoRow(
+          'Flush Coordination',
+          'Manifold coordinates flush across owners',
+        ),
         _buildInfoRow('Isolation', 'Each owner flushes independently'),
       ],
     ),
@@ -1027,7 +1154,12 @@ Widget _buildOwnerColumn(String name, Color color) {
       SizedBox(height: 6),
       Container(width: 2, height: 15, color: color.withAlpha(150)),
       SizedBox(height: 6),
-      _buildPipelineBox('RenderView', color.withAlpha(180), Icons.desktop_windows, false),
+      _buildPipelineBox(
+        'RenderView',
+        color.withAlpha(180),
+        Icons.desktop_windows,
+        false,
+      ),
       SizedBox(height: 4),
       Container(width: 2, height: 10, color: color.withAlpha(100)),
       SizedBox(height: 4),
@@ -1037,10 +1169,7 @@ Widget _buildOwnerColumn(String name, Color color) {
           color: color.withAlpha(20),
           borderRadius: BorderRadius.circular(4),
         ),
-        child: Text(
-          'Render Tree',
-          style: TextStyle(fontSize: 9, color: color),
-        ),
+        child: Text('Render Tree', style: TextStyle(fontSize: 9, color: color)),
       ),
     ],
   );
@@ -1080,10 +1209,7 @@ Widget _buildFlushOrderRow(String number, String name, Color color) {
         Container(
           width: 18,
           height: 18,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           child: Center(
             child: Text(
               number,
@@ -1131,36 +1257,36 @@ Widget _buildApiReferenceSection() {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildSectionTitle('API Reference', Icons.api),
-        _buildApiGroup(
-          'Properties',
-          [
-            ApiEntry('renderViews', 'Iterable<RenderView>', 'All active render views'),
-            ApiEntry('onNeedVisualUpdate', 'VoidCallback?', 'Visual update callback'),
-            ApiEntry('onSemanticsUpdate', 'SemanticsUpdateCallback?', 'Semantics callback'),
-          ],
-          Color(0xFF1976D2),
-        ),
+        _buildApiGroup('Properties', [
+          ApiEntry(
+            'renderViews',
+            'Iterable<RenderView>',
+            'All active render views',
+          ),
+          ApiEntry(
+            'onNeedVisualUpdate',
+            'VoidCallback?',
+            'Visual update callback',
+          ),
+          ApiEntry(
+            'onSemanticsUpdate',
+            'SemanticsUpdateCallback?',
+            'Semantics callback',
+          ),
+        ], Color(0xFF1976D2)),
         SizedBox(height: 12),
-        _buildApiGroup(
-          'Methods',
-          [
-            ApiEntry('requestVisualUpdate()', 'void', 'Request frame scheduling'),
-            ApiEntry('ensureSemantics()', 'SemanticsHandle', 'Enable semantics'),
-            ApiEntry('attach(RenderView)', 'void', 'Attach a view'),
-            ApiEntry('detach(RenderView)', 'void', 'Detach a view'),
-          ],
-          Color(0xFF388E3C),
-        ),
+        _buildApiGroup('Methods', [
+          ApiEntry('requestVisualUpdate()', 'void', 'Request frame scheduling'),
+          ApiEntry('ensureSemantics()', 'SemanticsHandle', 'Enable semantics'),
+          ApiEntry('attach(RenderView)', 'void', 'Attach a view'),
+          ApiEntry('detach(RenderView)', 'void', 'Detach a view'),
+        ], Color(0xFF388E3C)),
         SizedBox(height: 12),
-        _buildApiGroup(
-          'Related Types',
-          [
-            ApiEntry('PipelineOwner', 'class', 'Manages pipeline for a tree'),
-            ApiEntry('RenderView', 'class', 'Root render object'),
-            ApiEntry('SemanticsOwner', 'class', 'Manages semantics tree'),
-          ],
-          Color(0xFFE65100),
-        ),
+        _buildApiGroup('Related Types', [
+          ApiEntry('PipelineOwner', 'class', 'Manages pipeline for a tree'),
+          ApiEntry('RenderView', 'class', 'Root render object'),
+          ApiEntry('SemanticsOwner', 'class', 'Manages semantics tree'),
+        ], Color(0xFFE65100)),
       ],
     ),
   );
@@ -1208,10 +1334,7 @@ Widget _buildApiEntryRow(ApiEntry entry, Color color) {
           width: 4,
           height: 4,
           margin: EdgeInsets.only(top: 6),
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         SizedBox(width: 8),
         Expanded(
@@ -1241,10 +1364,7 @@ Widget _buildApiEntryRow(ApiEntry entry, Color color) {
               ),
               Text(
                 entry.description,
-                style: TextStyle(
-                  fontSize: 11,
-                  color: Color(0xFF78909C),
-                ),
+                style: TextStyle(fontSize: 11, color: Color(0xFF78909C)),
               ),
             ],
           ),
@@ -1258,7 +1378,7 @@ class ApiEntry {
   String name;
   String type;
   String description;
-  
+
   ApiEntry(this.name, this.type, this.description);
 }
 
@@ -1314,10 +1434,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 4),
               Text(
                 'Pipeline owner connections and rendering coordination visualized',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Color(0xFF1976D2),
-                ),
+                style: TextStyle(fontSize: 12, color: Color(0xFF1976D2)),
                 textAlign: TextAlign.center,
               ),
             ],

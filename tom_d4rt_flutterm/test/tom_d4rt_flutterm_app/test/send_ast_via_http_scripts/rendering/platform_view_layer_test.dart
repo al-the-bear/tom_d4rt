@@ -133,7 +133,12 @@ Widget _buildInfoRow(String label, String value, {Color? valueColor}) {
   );
 }
 
-Widget _buildDiagramBox(String label, Color color, {IconData? icon, double width = 100}) {
+Widget _buildDiagramBox(
+  String label,
+  Color color, {
+  IconData? icon,
+  double width = 100,
+}) {
   return Container(
     width: width,
     padding: EdgeInsets.symmetric(vertical: 12, horizontal: 8),
@@ -282,9 +287,21 @@ Widget _buildOverviewSection() {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _buildPlatformBox('Android\nView', Color(0xFF4CAF50), Icons.android),
-                  _buildPlatformBox('iOS\nUIView', Color(0xFF9E9E9E), Icons.phone_iphone),
-                  _buildPlatformBox('Web\nElement', Color(0xFF2196F3), Icons.web),
+                  _buildPlatformBox(
+                    'Android\nView',
+                    Color(0xFF4CAF50),
+                    Icons.android,
+                  ),
+                  _buildPlatformBox(
+                    'iOS\nUIView',
+                    Color(0xFF9E9E9E),
+                    Icons.phone_iphone,
+                  ),
+                  _buildPlatformBox(
+                    'Web\nElement',
+                    Color(0xFF2196F3),
+                    Icons.web,
+                  ),
                 ],
               ),
             ],
@@ -378,15 +395,40 @@ Widget _buildViewIdSection() {
                 ),
               ),
               SizedBox(height: 16),
-              _buildIdFlowStep('1', 'Platform creates native view', Icons.add_box, Color(0xFF3949AB)),
+              _buildIdFlowStep(
+                '1',
+                'Platform creates native view',
+                Icons.add_box,
+                Color(0xFF3949AB),
+              ),
               _buildIdConnector(Color(0xFF5C6BC0)),
-              _buildIdFlowStep('2', 'Engine assigns unique viewId', Icons.tag, Color(0xFF5C6BC0)),
+              _buildIdFlowStep(
+                '2',
+                'Engine assigns unique viewId',
+                Icons.tag,
+                Color(0xFF5C6BC0),
+              ),
               _buildIdConnector(Color(0xFF5C6BC0)),
-              _buildIdFlowStep('3', 'PlatformViewLayer stores viewId', Icons.layers, Color(0xFF7986CB)),
+              _buildIdFlowStep(
+                '3',
+                'PlatformViewLayer stores viewId',
+                Icons.layers,
+                Color(0xFF7986CB),
+              ),
               _buildIdConnector(Color(0xFF5C6BC0)),
-              _buildIdFlowStep('4', 'Scene builder references viewId', Icons.movie, Color(0xFF9FA8DA)),
+              _buildIdFlowStep(
+                '4',
+                'Scene builder references viewId',
+                Icons.movie,
+                Color(0xFF9FA8DA),
+              ),
               _buildIdConnector(Color(0xFF5C6BC0)),
-              _buildIdFlowStep('5', 'Compositor links to native view', Icons.link, Color(0xFFC5CAE9)),
+              _buildIdFlowStep(
+                '5',
+                'Compositor links to native view',
+                Icons.link,
+                Color(0xFFC5CAE9),
+              ),
             ],
           ),
         ),
@@ -430,16 +472,18 @@ Widget _buildViewIdSection() {
   );
 }
 
-Widget _buildIdFlowStep(String number, String label, IconData icon, Color color) {
+Widget _buildIdFlowStep(
+  String number,
+  String label,
+  IconData icon,
+  Color color,
+) {
   return Row(
     children: [
       Container(
         width: 28,
         height: 28,
-        decoration: BoxDecoration(
-          color: color,
-          shape: BoxShape.circle,
-        ),
+        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         child: Center(
           child: Text(
             number,
@@ -472,9 +516,7 @@ Widget _buildIdConnector(Color color) {
   return Padding(
     padding: EdgeInsets.only(left: 13),
     child: Row(
-      children: [
-        Container(width: 2, height: 10, color: color.withAlpha(150)),
-      ],
+      children: [Container(width: 2, height: 10, color: color.withAlpha(150))],
     ),
   );
 }
@@ -493,10 +535,7 @@ Widget _buildViewIdDetail(String name, String value) {
             color: Color(0xFFF57F17),
           ),
         ),
-        Text(
-          value,
-          style: TextStyle(fontSize: 12, color: Color(0xFFFF8F00)),
-        ),
+        Text(value, style: TextStyle(fontSize: 12, color: Color(0xFFFF8F00))),
       ],
     ),
   );
@@ -555,17 +594,33 @@ Widget _buildRectSection() {
         SizedBox(height: 16),
         Row(
           children: [
-            Expanded(child: _buildRectPropertyCard('left', '100.0', Color(0xFFE91E63))),
+            Expanded(
+              child: _buildRectPropertyCard('left', '100.0', Color(0xFFE91E63)),
+            ),
             SizedBox(width: 8),
-            Expanded(child: _buildRectPropertyCard('top', '200.0', Color(0xFF9C27B0))),
+            Expanded(
+              child: _buildRectPropertyCard('top', '200.0', Color(0xFF9C27B0)),
+            ),
           ],
         ),
         SizedBox(height: 8),
         Row(
           children: [
-            Expanded(child: _buildRectPropertyCard('width', '300.0', Color(0xFF673AB7))),
+            Expanded(
+              child: _buildRectPropertyCard(
+                'width',
+                '300.0',
+                Color(0xFF673AB7),
+              ),
+            ),
             SizedBox(width: 8),
-            Expanded(child: _buildRectPropertyCard('height', '250.0', Color(0xFF3F51B5))),
+            Expanded(
+              child: _buildRectPropertyCard(
+                'height',
+                '250.0',
+                Color(0xFF3F51B5),
+              ),
+            ),
           ],
         ),
         SizedBox(height: 16),
@@ -627,10 +682,7 @@ Widget _buildRectVisualization() {
           top: 8,
           child: Text(
             'Layer Bounds (0,0)',
-            style: TextStyle(
-              fontSize: 9,
-              color: Color(0xFF78909C),
-            ),
+            style: TextStyle(fontSize: 9, color: Color(0xFF78909C)),
           ),
         ),
         Positioned(
@@ -691,11 +743,7 @@ Widget _buildDimensionLine(bool horizontal, double length, String label) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Container(
-          width: length,
-          height: 1,
-          color: Color(0xFFE91E63),
-        ),
+        Container(width: length, height: 1, color: Color(0xFFE91E63)),
         SizedBox(height: 2),
         Text(
           label,
@@ -714,11 +762,7 @@ Widget _buildDimensionLine(bool horizontal, double length, String label) {
       Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(
-            width: 1,
-            height: length,
-            color: Color(0xFFE91E63),
-          ),
+          Container(width: 1, height: length, color: Color(0xFFE91E63)),
         ],
       ),
       SizedBox(width: 2),
@@ -843,11 +887,31 @@ Widget _buildLayerTreeSection() {
                 ],
               ),
               SizedBox(height: 8),
-              _buildLayerTypeRow('TransformLayer', 'Applies matrix transform', Color(0xFF1565C0)),
-              _buildLayerTypeRow('ClipRectLayer', 'Clips content to rect', Color(0xFF2E7D32)),
-              _buildLayerTypeRow('OpacityLayer', 'Applies opacity', Color(0xFFE65100)),
-              _buildLayerTypeRow('PlatformViewLayer', 'Native view placeholder', Color(0xFF00695C)),
-              _buildLayerTypeRow('PictureLayer', 'Flutter-drawn content', Color(0xFFC2185B)),
+              _buildLayerTypeRow(
+                'TransformLayer',
+                'Applies matrix transform',
+                Color(0xFF1565C0),
+              ),
+              _buildLayerTypeRow(
+                'ClipRectLayer',
+                'Clips content to rect',
+                Color(0xFF2E7D32),
+              ),
+              _buildLayerTypeRow(
+                'OpacityLayer',
+                'Applies opacity',
+                Color(0xFFE65100),
+              ),
+              _buildLayerTypeRow(
+                'PlatformViewLayer',
+                'Native view placeholder',
+                Color(0xFF00695C),
+              ),
+              _buildLayerTypeRow(
+                'PictureLayer',
+                'Flutter-drawn content',
+                Color(0xFFC2185B),
+              ),
             ],
           ),
         ),
@@ -864,7 +928,12 @@ Widget _buildLayerTreeSection() {
 Widget _buildLayerTreeVisualization() {
   return Column(
     children: [
-      _buildTreeLayerNode('TransformLayer', Color(0xFF1565C0), Icons.transform, true),
+      _buildTreeLayerNode(
+        'TransformLayer',
+        Color(0xFF1565C0),
+        Icons.transform,
+        true,
+      ),
       _buildTreeLayerConnector(),
       _buildTreeLayerNode('ClipRectLayer', Color(0xFF2E7D32), Icons.crop, true),
       _buildTreeLayerConnector(),
@@ -873,8 +942,16 @@ Widget _buildLayerTreeVisualization() {
         children: [
           Column(
             children: [
-              _buildTreeLayerNode('PictureLayer', Color(0xFFC2185B), Icons.image, false),
-              Text('Flutter UI', style: TextStyle(fontSize: 8, color: Color(0xFF78909C))),
+              _buildTreeLayerNode(
+                'PictureLayer',
+                Color(0xFFC2185B),
+                Icons.image,
+                false,
+              ),
+              Text(
+                'Flutter UI',
+                style: TextStyle(fontSize: 8, color: Color(0xFF78909C)),
+              ),
             ],
           ),
           SizedBox(width: 20),
@@ -910,14 +987,25 @@ Widget _buildLayerTreeVisualization() {
                 ),
               ),
               SizedBox(height: 4),
-              Text('Native View', style: TextStyle(fontSize: 8, color: Color(0xFF78909C))),
+              Text(
+                'Native View',
+                style: TextStyle(fontSize: 8, color: Color(0xFF78909C)),
+              ),
             ],
           ),
           SizedBox(width: 20),
           Column(
             children: [
-              _buildTreeLayerNode('PictureLayer', Color(0xFFC2185B), Icons.image, false),
-              Text('Flutter UI', style: TextStyle(fontSize: 8, color: Color(0xFF78909C))),
+              _buildTreeLayerNode(
+                'PictureLayer',
+                Color(0xFFC2185B),
+                Icons.image,
+                false,
+              ),
+              Text(
+                'Flutter UI',
+                style: TextStyle(fontSize: 8, color: Color(0xFF78909C)),
+              ),
             ],
           ),
         ],
@@ -926,7 +1014,12 @@ Widget _buildLayerTreeVisualization() {
   );
 }
 
-Widget _buildTreeLayerNode(String label, Color color, IconData icon, bool hasChildren) {
+Widget _buildTreeLayerNode(
+  String label,
+  Color color,
+  IconData icon,
+  bool hasChildren,
+) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
     decoration: BoxDecoration(
@@ -953,11 +1046,7 @@ Widget _buildTreeLayerNode(String label, Color color, IconData icon, bool hasChi
 }
 
 Widget _buildTreeLayerConnector() {
-  return Container(
-    width: 2,
-    height: 12,
-    color: Color(0xFF9575CD),
-  );
+  return Container(width: 2, height: 12, color: Color(0xFF9575CD));
 }
 
 Widget _buildLayerTypeRow(String name, String description, Color color) {
@@ -1128,7 +1217,11 @@ Widget _buildHybridCompositionDiagram() {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _buildCompositionBox('Flutter\nContent', Color(0xFF1976D2), isFlutter: true),
+            _buildCompositionBox(
+              'Flutter\nContent',
+              Color(0xFF1976D2),
+              isFlutter: true,
+            ),
             SizedBox(width: 4),
             Container(
               width: 100,
@@ -1158,14 +1251,22 @@ Widget _buildHybridCompositionDiagram() {
               ),
             ),
             SizedBox(width: 4),
-            _buildCompositionBox('Flutter\nContent', Color(0xFF1976D2), isFlutter: true),
+            _buildCompositionBox(
+              'Flutter\nContent',
+              Color(0xFF1976D2),
+              isFlutter: true,
+            ),
           ],
         ),
         SizedBox(height: 4),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _buildCompositionBox('BottomNavigation', Color(0xFF1976D2), isFlutter: true),
+            _buildCompositionBox(
+              'BottomNavigation',
+              Color(0xFF1976D2),
+              isFlutter: true,
+            ),
           ],
         ),
       ],
@@ -1173,7 +1274,11 @@ Widget _buildHybridCompositionDiagram() {
   );
 }
 
-Widget _buildCompositionBox(String label, Color color, {bool isFlutter = true}) {
+Widget _buildCompositionBox(
+  String label,
+  Color color, {
+  bool isFlutter = true,
+}) {
   return Container(
     width: 100,
     height: isFlutter ? 35 : 60,
@@ -1196,7 +1301,12 @@ Widget _buildCompositionBox(String label, Color color, {bool isFlutter = true}) 
   );
 }
 
-Widget _buildCompositionModeCard(String title, String subtitle, Color color, IconData icon) {
+Widget _buildCompositionModeCard(
+  String title,
+  String subtitle,
+  Color color,
+  IconData icon,
+) {
   return Container(
     padding: EdgeInsets.all(12),
     decoration: BoxDecoration(
@@ -1219,10 +1329,7 @@ Widget _buildCompositionModeCard(String title, String subtitle, Color color, Ico
         ),
         Text(
           subtitle,
-          style: TextStyle(
-            fontSize: 9,
-            color: color.withAlpha(180),
-          ),
+          style: TextStyle(fontSize: 9, color: color.withAlpha(180)),
         ),
       ],
     ),
@@ -1286,9 +1393,21 @@ Widget _buildZOrderingSection() {
         SizedBox(height: 16),
         Row(
           children: [
-            Expanded(child: _buildZOrderCard('Below Flutter', 'Z-index: 0', Color(0xFFAB47BC))),
+            Expanded(
+              child: _buildZOrderCard(
+                'Below Flutter',
+                'Z-index: 0',
+                Color(0xFFAB47BC),
+              ),
+            ),
             SizedBox(width: 8),
-            Expanded(child: _buildZOrderCard('Above Flutter', 'Z-index: 1', Color(0xFF7B1FA2))),
+            Expanded(
+              child: _buildZOrderCard(
+                'Above Flutter',
+                'Z-index: 1',
+                Color(0xFF7B1FA2),
+              ),
+            ),
           ],
         ),
         SizedBox(height: 16),
@@ -1340,15 +1459,30 @@ Widget _buildZOrderVisualization() {
       children: [
         Positioned(
           bottom: 0,
-          child: _buildZOrderLayer('Flutter Background', Color(0xFF1976D2), 220, 30),
+          child: _buildZOrderLayer(
+            'Flutter Background',
+            Color(0xFF1976D2),
+            220,
+            30,
+          ),
         ),
         Positioned(
           bottom: 35,
-          child: _buildZOrderLayer('PlatformViewLayer', Color(0xFF00695C), 200, 50),
+          child: _buildZOrderLayer(
+            'PlatformViewLayer',
+            Color(0xFF00695C),
+            200,
+            50,
+          ),
         ),
         Positioned(
           bottom: 90,
-          child: _buildZOrderLayer('Flutter Overlay', Color(0xFFC2185B), 180, 30),
+          child: _buildZOrderLayer(
+            'Flutter Overlay',
+            Color(0xFFC2185B),
+            180,
+            30,
+          ),
         ),
         Positioned(
           right: 10,
@@ -1356,14 +1490,16 @@ Widget _buildZOrderVisualization() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text('Top', style: TextStyle(fontSize: 8, color: Color(0xFF78909C))),
-              Container(
-                width: 1,
-                height: 100,
-                color: Color(0xFFBDBDBD),
+              Text(
+                'Top',
+                style: TextStyle(fontSize: 8, color: Color(0xFF78909C)),
               ),
+              Container(width: 1, height: 100, color: Color(0xFFBDBDBD)),
               Icon(Icons.arrow_drop_down, color: Color(0xFF78909C), size: 16),
-              Text('Bottom', style: TextStyle(fontSize: 8, color: Color(0xFF78909C))),
+              Text(
+                'Bottom',
+                style: TextStyle(fontSize: 8, color: Color(0xFF78909C)),
+              ),
             ],
           ),
         ),
@@ -1372,7 +1508,12 @@ Widget _buildZOrderVisualization() {
   );
 }
 
-Widget _buildZOrderLayer(String label, Color color, double width, double height) {
+Widget _buildZOrderLayer(
+  String label,
+  Color color,
+  double width,
+  double height,
+) {
   return Container(
     width: width,
     height: height,
@@ -1422,10 +1563,7 @@ Widget _buildZOrderCard(String title, String subtitle, Color color) {
         SizedBox(height: 2),
         Text(
           subtitle,
-          style: TextStyle(
-            fontSize: 10,
-            color: color.withAlpha(180),
-          ),
+          style: TextStyle(fontSize: 10, color: color.withAlpha(180)),
         ),
       ],
     ),
@@ -1449,10 +1587,7 @@ Widget _buildStackingRow(String scenario, String behavior) {
         Expanded(
           child: Text(
             behavior,
-            style: TextStyle(
-              fontSize: 10,
-              color: Color(0xFF5C6BC0),
-            ),
+            style: TextStyle(fontSize: 10, color: Color(0xFF5C6BC0)),
           ),
         ),
       ],
@@ -1465,15 +1600,19 @@ Widget _buildStackingRow(String scenario, String behavior) {
 // ═══════════════════════════════════════════════════════════════════════════════
 
 dynamic build(BuildContext context) {
-  return SingleChildScrollView(
-    padding: EdgeInsets.all(16),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        _buildHeader(
-          'PlatformViewLayer',
-          'Layer for embedding native platform views in Flutter',
-        ),
+  return MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: Scaffold(
+      backgroundColor: Color(0xFFF5F5F5),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            _buildHeader(
+              'PlatformViewLayer',
+              'Layer for embedding native platform views in Flutter',
+            ),
         SizedBox(height: 20),
         _buildOverviewSection(),
         SizedBox(height: 16),
@@ -1512,16 +1651,15 @@ dynamic build(BuildContext context) {
               SizedBox(height: 4),
               Text(
                 'Native platform view embedding and composition visualized',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Color(0xFF00796B),
-                ),
+                style: TextStyle(fontSize: 12, color: Color(0xFF00796B)),
                 textAlign: TextAlign.center,
               ),
             ],
           ),
         ),
       ],
+        ),
+      ),
     ),
   );
 }

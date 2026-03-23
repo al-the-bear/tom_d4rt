@@ -130,10 +130,7 @@ Widget _buildMainHeader() {
         SizedBox(height: 8),
         Text(
           'Enum for controlling performance overlay display options',
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.white.withAlpha(220),
-          ),
+          style: TextStyle(fontSize: 14, color: Colors.white.withAlpha(220)),
           textAlign: TextAlign.center,
         ),
         SizedBox(height: 12),
@@ -199,7 +196,13 @@ Widget _buildSectionHeader(String title, IconData icon, Color color) {
 // HELPER WIDGET BUILDERS
 // ═══════════════════════════════════════════════════════════════════════════════
 
-Widget _buildEnumValueCard(String name, int bitValue, String description, Color color, IconData icon) {
+Widget _buildEnumValueCard(
+  String name,
+  int bitValue,
+  String description,
+  Color color,
+  IconData icon,
+) {
   return Container(
     margin: EdgeInsets.only(bottom: 14),
     padding: EdgeInsets.all(16),
@@ -257,11 +260,7 @@ Widget _buildEnumValueCard(String name, int bitValue, String description, Color 
               SizedBox(height: 6),
               Text(
                 description,
-                style: TextStyle(
-                  fontSize: 13,
-                  color: _textMedium,
-                  height: 1.4,
-                ),
+                style: TextStyle(fontSize: 13, color: _textMedium, height: 1.4),
               ),
             ],
           ),
@@ -281,10 +280,7 @@ Widget _buildInfoRow(String label, String value, Color color) {
           width: 8,
           height: 8,
           margin: EdgeInsets.only(top: 5),
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         SizedBox(width: 12),
         SizedBox(
@@ -301,10 +297,7 @@ Widget _buildInfoRow(String label, String value, Color color) {
         Expanded(
           child: Text(
             value,
-            style: TextStyle(
-              fontSize: 13,
-              color: _textMedium,
-            ),
+            style: TextStyle(fontSize: 13, color: _textMedium),
           ),
         ),
       ],
@@ -345,10 +338,7 @@ Widget _buildFrameGraph(List<double> values, Color barColor, String label) {
       children: [
         Text(
           label,
-          style: TextStyle(
-            fontSize: 10,
-            color: Colors.white.withAlpha(180),
-          ),
+          style: TextStyle(fontSize: 10, color: Colors.white.withAlpha(180)),
         ),
         SizedBox(height: 6),
         Expanded(
@@ -361,7 +351,9 @@ Widget _buildFrameGraph(List<double> values, Color barColor, String label) {
                   height: v * 50,
                   decoration: BoxDecoration(
                     color: v > 0.7 ? _warningRed : barColor,
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(2)),
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(2),
+                    ),
                   ),
                 ),
               );
@@ -394,16 +386,16 @@ Widget _buildOverviewSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionHeader('PerformanceOverlayOption Overview', Icons.info_outline, _primaryBlue),
+        _buildSectionHeader(
+          'PerformanceOverlayOption Overview',
+          Icons.info_outline,
+          _primaryBlue,
+        ),
         Text(
           'PerformanceOverlayOption is an enumeration that defines the available options '
           'for displaying performance statistics in Flutter\'s PerformanceOverlay widget. '
           'Each enum value corresponds to a specific performance visualization.',
-          style: TextStyle(
-            fontSize: 14,
-            color: _textMedium,
-            height: 1.6,
-          ),
+          style: TextStyle(fontSize: 14, color: _textMedium, height: 1.6),
         ),
         SizedBox(height: 20),
         Container(
@@ -430,10 +422,22 @@ Widget _buildOverviewSection() {
                 ],
               ),
               SizedBox(height: 12),
-              _buildInfoRow('Value 0', 'displayRasterizerStatistics', _gpuGreen),
-              _buildInfoRow('Value 1', 'visualizeRasterizerStatistics', _gpuGreenLight),
+              _buildInfoRow(
+                'Value 0',
+                'displayRasterizerStatistics',
+                _gpuGreen,
+              ),
+              _buildInfoRow(
+                'Value 1',
+                'visualizeRasterizerStatistics',
+                _gpuGreenLight,
+              ),
               _buildInfoRow('Value 2', 'displayEngineStatistics', _uiOrange),
-              _buildInfoRow('Value 3', 'visualizeEngineStatistics', _uiOrangeLight),
+              _buildInfoRow(
+                'Value 3',
+                'visualizeEngineStatistics',
+                _uiOrangeLight,
+              ),
             ],
           ),
         ),
@@ -459,11 +463,21 @@ Widget _buildOverviewSection() {
         Row(
           children: [
             Expanded(
-              child: _buildStatCard('Rasterizer Options', '2', _gpuGreen, Icons.memory),
+              child: _buildStatCard(
+                'Rasterizer Options',
+                '2',
+                _gpuGreen,
+                Icons.memory,
+              ),
             ),
             SizedBox(width: 12),
             Expanded(
-              child: _buildStatCard('Engine Options', '2', _uiOrange, Icons.developer_board),
+              child: _buildStatCard(
+                'Engine Options',
+                '2',
+                _uiOrange,
+                Icons.developer_board,
+              ),
             ),
           ],
         ),
@@ -495,13 +509,7 @@ Widget _buildStatCard(String label, String value, Color color, IconData icon) {
                 color: color,
               ),
             ),
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: 11,
-                color: _textMedium,
-              ),
-            ),
+            Text(label, style: TextStyle(fontSize: 11, color: _textMedium)),
           ],
         ),
       ],
@@ -530,12 +538,16 @@ Widget _buildDisplayRasterizerSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionHeader('displayRasterizerStatistics', Icons.memory, _gpuGreen),
+        _buildSectionHeader(
+          'displayRasterizerStatistics',
+          Icons.memory,
+          _gpuGreen,
+        ),
         _buildEnumValueCard(
           'displayRasterizerStatistics',
           1,
           'Displays the GPU rasterizer thread frame timing as a numeric histogram. '
-          'Shows how long the rasterizer takes to paint each frame.',
+              'Shows how long the rasterizer takes to paint each frame.',
           _gpuGreen,
           Icons.bar_chart,
         ),
@@ -566,7 +578,11 @@ Widget _buildDisplayRasterizerSection() {
               SizedBox(height: 12),
               _buildInfoRow('Thread', 'GPU/Rasterizer Thread', _gpuGreen),
               _buildInfoRow('Format', 'Numeric histogram bars', _gpuGreen),
-              _buildInfoRow('Measures', 'Frame paint duration in ms', _gpuGreen),
+              _buildInfoRow(
+                'Measures',
+                'Frame paint duration in ms',
+                _gpuGreen,
+              ),
               _buildInfoRow('Target', '16.67ms for 60fps', _gpuGreen),
             ],
           ),
@@ -621,12 +637,16 @@ Widget _buildVisualizeRasterizerSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionHeader('visualizeRasterizerStatistics', Icons.show_chart, _gpuGreenLight),
+        _buildSectionHeader(
+          'visualizeRasterizerStatistics',
+          Icons.show_chart,
+          _gpuGreenLight,
+        ),
         _buildEnumValueCard(
           'visualizeRasterizerStatistics',
           2,
           'Displays the GPU rasterizer statistics as a visual graph overlay. '
-          'Provides a continuous line graph showing frame timing trends.',
+              'Provides a continuous line graph showing frame timing trends.',
           _gpuGreenLight,
           Icons.auto_graph,
         ),
@@ -657,8 +677,16 @@ Widget _buildVisualizeRasterizerSection() {
               SizedBox(height: 12),
               _buildInfoRow('Type', 'Continuous line graph', _gpuGreenLight),
               _buildInfoRow('Updates', 'Real-time per frame', _gpuGreenLight),
-              _buildInfoRow('Color', 'Cyan/green for GPU metrics', _gpuGreenLight),
-              _buildInfoRow('Baseline', 'Red line at 16ms threshold', _gpuGreenLight),
+              _buildInfoRow(
+                'Color',
+                'Cyan/green for GPU metrics',
+                _gpuGreenLight,
+              ),
+              _buildInfoRow(
+                'Baseline',
+                'Red line at 16ms threshold',
+                _gpuGreenLight,
+              ),
             ],
           ),
         ),
@@ -689,10 +717,7 @@ Widget _buildVisualizeRasterizerSection() {
                 child: Text(
                   'The visual graph is more intuitive for spotting frame drops as '
                   'sudden spikes are easily visible.',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: _visualPurple,
-                  ),
+                  style: TextStyle(fontSize: 12, color: _visualPurple),
                 ),
               ),
             ],
@@ -716,10 +741,7 @@ Widget _buildVisualGraphPreview(Color color, String label) {
       children: [
         Text(
           label,
-          style: TextStyle(
-            fontSize: 10,
-            color: Colors.white.withAlpha(180),
-          ),
+          style: TextStyle(fontSize: 10, color: Colors.white.withAlpha(180)),
         ),
         SizedBox(height: 8),
         Expanded(
@@ -728,16 +750,10 @@ Widget _buildVisualGraphPreview(Color color, String label) {
             painter: _WaveGraphPainter(color),
           ),
         ),
-        Container(
-          height: 1,
-          color: _warningRed.withAlpha(150),
-        ),
+        Container(height: 1, color: _warningRed.withAlpha(150)),
         Text(
           '16ms threshold',
-          style: TextStyle(
-            fontSize: 8,
-            color: _warningRed.withAlpha(200),
-          ),
+          style: TextStyle(fontSize: 8, color: _warningRed.withAlpha(200)),
         ),
       ],
     ),
@@ -747,30 +763,31 @@ Widget _buildVisualGraphPreview(Color color, String label) {
 class _WaveGraphPainter extends CustomPainter {
   final Color color;
   _WaveGraphPainter(this.color);
-  
+
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint()
       ..color = color
       ..strokeWidth = 2
       ..style = PaintingStyle.stroke;
-    
+
     Path path = Path();
     path.moveTo(0, size.height * 0.5);
-    
+
     for (int i = 0; i < 20; i++) {
       double x = (i / 20) * size.width;
-      double y = size.height * 0.5 + (i % 3 == 0 ? -15 : (i % 2 == 0 ? 10 : -5));
+      double y =
+          size.height * 0.5 + (i % 3 == 0 ? -15 : (i % 2 == 0 ? 10 : -5));
       if (i == 0) {
         path.lineTo(x, y);
       } else {
         path.lineTo(x, y);
       }
     }
-    
+
     canvas.drawPath(path, paint);
   }
-  
+
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
@@ -796,12 +813,16 @@ Widget _buildDisplayEngineSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionHeader('displayEngineStatistics', Icons.developer_board, _uiOrange),
+        _buildSectionHeader(
+          'displayEngineStatistics',
+          Icons.developer_board,
+          _uiOrange,
+        ),
         _buildEnumValueCard(
           'displayEngineStatistics',
           4,
           'Displays the UI thread (engine) frame timing as a numeric histogram. '
-          'Shows build, layout, and paint phase timing information.',
+              'Shows build, layout, and paint phase timing information.',
           _uiOrange,
           Icons.bar_chart,
         ),
@@ -831,7 +852,11 @@ Widget _buildDisplayEngineSection() {
               ),
               SizedBox(height: 12),
               _buildInfoRow('Build', 'Widget tree construction', _uiOrange),
-              _buildInfoRow('Layout', 'Size and position calculation', _uiOrange),
+              _buildInfoRow(
+                'Layout',
+                'Size and position calculation',
+                _uiOrange,
+              ),
               _buildInfoRow('Paint', 'Drawing commands generation', _uiOrange),
               _buildInfoRow('Composite', 'Layer tree assembly', _uiOrange),
             ],
@@ -867,10 +892,7 @@ Widget _buildDisplayEngineSection() {
               Expanded(
                 child: Text(
                   'Red bars indicate frames exceeding the 16ms budget',
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: _warningRed,
-                  ),
+                  style: TextStyle(fontSize: 11, color: _warningRed),
                 ),
               ),
             ],
@@ -902,12 +924,16 @@ Widget _buildVisualizeEngineSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionHeader('visualizeEngineStatistics', Icons.auto_graph, _uiOrangeLight),
+        _buildSectionHeader(
+          'visualizeEngineStatistics',
+          Icons.auto_graph,
+          _uiOrangeLight,
+        ),
         _buildEnumValueCard(
           'visualizeEngineStatistics',
           8,
           'Displays the UI thread statistics as a visual graph overlay. '
-          'Shows continuous frame timing with trend visualization.',
+              'Shows continuous frame timing with trend visualization.',
           _uiOrangeLight,
           Icons.trending_up,
         ),
@@ -937,9 +963,21 @@ Widget _buildVisualizeEngineSection() {
               ),
               SizedBox(height: 12),
               _buildInfoRow('Update Rate', 'Per-frame refresh', _uiOrangeLight),
-              _buildInfoRow('History', 'Recent frame history visible', _uiOrangeLight),
-              _buildInfoRow('Peaks', 'Jank frames clearly visible', _uiOrangeLight),
-              _buildInfoRow('Trend', 'Performance trend over time', _uiOrangeLight),
+              _buildInfoRow(
+                'History',
+                'Recent frame history visible',
+                _uiOrangeLight,
+              ),
+              _buildInfoRow(
+                'Peaks',
+                'Jank frames clearly visible',
+                _uiOrangeLight,
+              ),
+              _buildInfoRow(
+                'Trend',
+                'Performance trend over time',
+                _uiOrangeLight,
+              ),
             ],
           ),
         ),
@@ -993,11 +1031,7 @@ Widget _buildCombinedOptionsSection() {
         Text(
           'Multiple PerformanceOverlayOptions can be combined using bitwise OR to display '
           'several metrics simultaneously. This is useful for comprehensive profiling.',
-          style: TextStyle(
-            fontSize: 14,
-            color: _textMedium,
-            height: 1.6,
-          ),
+          style: TextStyle(fontSize: 14, color: _textMedium, height: 1.6),
         ),
         SizedBox(height: 20),
         _buildCombinationCard(
@@ -1051,7 +1085,13 @@ Widget _buildCombinedOptionsSection() {
   );
 }
 
-Widget _buildCombinationCard(String title, String subtitle, List<Color> colors, String options, int mask) {
+Widget _buildCombinationCard(
+  String title,
+  String subtitle,
+  List<Color> colors,
+  String options,
+  int mask,
+) {
   return Container(
     margin: EdgeInsets.only(bottom: 12),
     padding: EdgeInsets.all(14),
@@ -1100,10 +1140,7 @@ Widget _buildCombinationCard(String title, String subtitle, List<Color> colors, 
               SizedBox(height: 2),
               Text(
                 subtitle,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: _textMedium,
-                ),
+                style: TextStyle(fontSize: 12, color: _textMedium),
               ),
               SizedBox(height: 4),
               Text(
@@ -1147,13 +1184,9 @@ Widget _buildDualGraphView() {
         SizedBox(height: 12),
         Row(
           children: [
-            Expanded(
-              child: _buildMiniGraph('GPU', _gpuGreen),
-            ),
+            Expanded(child: _buildMiniGraph('GPU', _gpuGreen)),
             SizedBox(width: 8),
-            Expanded(
-              child: _buildMiniGraph('UI', _uiOrange),
-            ),
+            Expanded(child: _buildMiniGraph('UI', _uiOrange)),
           ],
         ),
       ],
@@ -1191,7 +1224,9 @@ Widget _buildMiniGraph(String label, Color color) {
                   height: h * 30,
                   decoration: BoxDecoration(
                     color: h > 0.7 ? _warningRed : color,
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(2)),
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(2),
+                    ),
                   ),
                 ),
               );
@@ -1224,21 +1259,39 @@ Widget _buildBitmaskCalculatorSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionHeader('Bitmask Reference', Icons.calculate, _visualPurple),
+        _buildSectionHeader(
+          'Bitmask Reference',
+          Icons.calculate,
+          _visualPurple,
+        ),
         Text(
           'Each enum value has an index that determines its bit position in the '
           'optionsMask. The mask is calculated as 1 << index.',
-          style: TextStyle(
-            fontSize: 14,
-            color: _textMedium,
-            height: 1.6,
-          ),
+          style: TextStyle(fontSize: 14, color: _textMedium, height: 1.6),
         ),
         SizedBox(height: 20),
-        _buildBitmaskRow('displayRasterizerStatistics', 0, 1, '0001', _gpuGreen),
-        _buildBitmaskRow('visualizeRasterizerStatistics', 1, 2, '0010', _gpuGreenLight),
+        _buildBitmaskRow(
+          'displayRasterizerStatistics',
+          0,
+          1,
+          '0001',
+          _gpuGreen,
+        ),
+        _buildBitmaskRow(
+          'visualizeRasterizerStatistics',
+          1,
+          2,
+          '0010',
+          _gpuGreenLight,
+        ),
         _buildBitmaskRow('displayEngineStatistics', 2, 4, '0100', _uiOrange),
-        _buildBitmaskRow('visualizeEngineStatistics', 3, 8, '1000', _uiOrangeLight),
+        _buildBitmaskRow(
+          'visualizeEngineStatistics',
+          3,
+          8,
+          '1000',
+          _uiOrangeLight,
+        ),
         SizedBox(height: 16),
         Container(
           padding: EdgeInsets.all(14),
@@ -1272,7 +1325,13 @@ Widget _buildBitmaskCalculatorSection() {
   );
 }
 
-Widget _buildBitmaskRow(String name, int index, int mask, String binary, Color color) {
+Widget _buildBitmaskRow(
+  String name,
+  int index,
+  int mask,
+  String binary,
+  Color color,
+) {
   return Container(
     margin: EdgeInsets.only(bottom: 10),
     padding: EdgeInsets.all(12),
@@ -1366,13 +1425,7 @@ Widget _buildMaskExample(String mask, String description) {
           ),
         ),
         SizedBox(width: 12),
-        Text(
-          description,
-          style: TextStyle(
-            fontSize: 12,
-            color: _textMedium,
-          ),
-        ),
+        Text(description, style: TextStyle(fontSize: 12, color: _textMedium)),
       ],
     ),
   );
@@ -1403,28 +1456,28 @@ Widget _buildUseCasesSection() {
         _buildUseCaseCard(
           'GPU Bottleneck Detection',
           'Use displayRasterizerStatistics to identify expensive paint operations '
-          'like complex shadows, clips, or shader effects.',
+              'like complex shadows, clips, or shader effects.',
           Icons.memory,
           _gpuGreen,
         ),
         _buildUseCaseCard(
           'UI Thread Profiling',
           'Use displayEngineStatistics to find expensive build, layout, or paint '
-          'operations in your widget tree.',
+              'operations in your widget tree.',
           Icons.developer_board,
           _uiOrange,
         ),
         _buildUseCaseCard(
           'Jank Investigation',
           'Enable visual graphs to spot sudden spikes indicating dropped frames '
-          'and correlate with user interactions.',
+              'and correlate with user interactions.',
           Icons.show_chart,
           _visualPurple,
         ),
         _buildUseCaseCard(
           'Production Debugging',
           'Toggle options dynamically using debug flags to enable profiling '
-          'in specific scenarios without affecting release builds.',
+              'in specific scenarios without affecting release builds.',
           Icons.bug_report,
           _warningRed,
         ),
@@ -1459,7 +1512,12 @@ Widget _buildUseCasesSection() {
   );
 }
 
-Widget _buildUseCaseCard(String title, String description, IconData icon, Color color) {
+Widget _buildUseCaseCard(
+  String title,
+  String description,
+  IconData icon,
+  Color color,
+) {
   return Container(
     margin: EdgeInsets.only(bottom: 12),
     padding: EdgeInsets.all(14),
@@ -1495,11 +1553,7 @@ Widget _buildUseCaseCard(String title, String description, IconData icon, Color 
               SizedBox(height: 6),
               Text(
                 description,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: _textMedium,
-                  height: 1.5,
-                ),
+                style: TextStyle(fontSize: 12, color: _textMedium, height: 1.5),
               ),
             ],
           ),

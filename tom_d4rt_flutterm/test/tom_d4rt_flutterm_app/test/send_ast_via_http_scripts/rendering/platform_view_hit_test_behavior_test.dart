@@ -19,7 +19,7 @@ void demonstratePlatformViewHitTestBehaviorEnumOverview() {
   group('PlatformViewHitTestBehavior Enum Overview', () {
     test('enum has exactly three values', () {
       final values = PlatformViewHitTestBehavior.values;
-      
+
       expect(values.length, equals(3));
       expect(values, contains(PlatformViewHitTestBehavior.opaque));
       expect(values, contains(PlatformViewHitTestBehavior.translucent));
@@ -30,7 +30,7 @@ void demonstratePlatformViewHitTestBehaviorEnumOverview() {
       // Opaque means the platform view consumes all hits
       // This is typically used when the native view needs full control
       final behavior = PlatformViewHitTestBehavior.opaque;
-      
+
       expect(behavior.index, equals(0));
       expect(behavior.name, equals('opaque'));
     });
@@ -39,7 +39,7 @@ void demonstratePlatformViewHitTestBehaviorEnumOverview() {
       // Translucent is useful for overlays or combined interactions
       // Both the native view and Flutter widgets behind can respond
       final behavior = PlatformViewHitTestBehavior.translucent;
-      
+
       expect(behavior.index, equals(1));
       expect(behavior.name, equals('translucent'));
     });
@@ -48,7 +48,7 @@ void demonstratePlatformViewHitTestBehaviorEnumOverview() {
       // Transparent is for display-only native content
       // The platform view renders but doesn't intercept touches
       final behavior = PlatformViewHitTestBehavior.transparent;
-      
+
       expect(behavior.index, equals(2));
       expect(behavior.name, equals('transparent'));
     });
@@ -57,11 +57,11 @@ void demonstratePlatformViewHitTestBehaviorEnumOverview() {
       final opaque = PlatformViewHitTestBehavior.opaque;
       final translucent = PlatformViewHitTestBehavior.translucent;
       final transparent = PlatformViewHitTestBehavior.transparent;
-      
+
       expect(opaque, isNot(equals(translucent)));
       expect(translucent, isNot(equals(transparent)));
       expect(opaque, isNot(equals(transparent)));
-      
+
       expect(opaque.index < translucent.index, isTrue);
       expect(translucent.index < transparent.index, isTrue);
     });
@@ -84,28 +84,34 @@ void demonstratePlatformViewHitTestBehaviorEnumOverview() {
             return 'ignores hits';
         }
       }
-      
-      expect(describeBehavior(PlatformViewHitTestBehavior.opaque), equals('absorbs hits'));
-      expect(describeBehavior(PlatformViewHitTestBehavior.translucent), equals('shares hits'));
-      expect(describeBehavior(PlatformViewHitTestBehavior.transparent), equals('ignores hits'));
+
+      expect(
+        describeBehavior(PlatformViewHitTestBehavior.opaque),
+        equals('absorbs hits'),
+      );
+      expect(
+        describeBehavior(PlatformViewHitTestBehavior.translucent),
+        equals('shares hits'),
+      );
+      expect(
+        describeBehavior(PlatformViewHitTestBehavior.transparent),
+        equals('ignores hits'),
+      );
     });
 
     test('behavior can be stored and compared', () {
       PlatformViewHitTestBehavior? storedBehavior;
-      
+
       storedBehavior = PlatformViewHitTestBehavior.opaque;
       expect(storedBehavior == PlatformViewHitTestBehavior.opaque, isTrue);
-      
+
       storedBehavior = PlatformViewHitTestBehavior.translucent;
       expect(storedBehavior == PlatformViewHitTestBehavior.opaque, isFalse);
       expect(storedBehavior == PlatformViewHitTestBehavior.translucent, isTrue);
     });
 
     test('behavior toString returns readable representation', () {
-      expect(
-        PlatformViewHitTestBehavior.opaque.toString(),
-        contains('opaque'),
-      );
+      expect(PlatformViewHitTestBehavior.opaque.toString(), contains('opaque'));
       expect(
         PlatformViewHitTestBehavior.translucent.toString(),
         contains('translucent'),
@@ -129,7 +135,7 @@ void demonstrateOpaqueBehavior() {
     testWidgets('opaque platform view absorbs tap events', (tester) async {
       var backgroundTapped = false;
       var platformAreaTapped = false;
-      
+
       // Simulating a stack where platform view is on top
       await tester.pumpWidget(
         MaterialApp(
@@ -158,18 +164,21 @@ void demonstrateOpaqueBehavior() {
           ),
         ),
       );
-      
+
       // Tap on the platform view area
       await tester.tapAt(Offset(150, 150));
       await tester.pump();
-      
+
       expect(platformAreaTapped, isTrue);
-      expect(backgroundTapped, isFalse); // Background should NOT have received tap
+      expect(
+        backgroundTapped,
+        isFalse,
+      ); // Background should NOT have received tap
     });
 
     testWidgets('opaque behavior blocks drag gestures', (tester) async {
       var backgroundDragged = false;
-      
+
       await tester.pumpWidget(
         MaterialApp(
           home: Stack(
@@ -192,17 +201,17 @@ void demonstrateOpaqueBehavior() {
           ),
         ),
       );
-      
+
       // Drag across the opaque area
       await tester.drag(find.byType(Container).last, Offset(50, 50));
       await tester.pump();
-      
+
       expect(backgroundDragged, isFalse);
     });
 
     testWidgets('opaque blocks even without gesture handlers', (tester) async {
       var backgroundTapCount = 0;
-      
+
       await tester.pumpWidget(
         MaterialApp(
           home: Stack(
@@ -213,22 +222,18 @@ void demonstrateOpaqueBehavior() {
               ),
               // Opaque container with no tap handler still blocks
               Center(
-                child: Container(
-                  width: 100,
-                  height: 100,
-                  color: Colors.yellow,
-                ),
+                child: Container(width: 100, height: 100, color: Colors.yellow),
               ),
             ],
           ),
         ),
       );
-      
+
       // Tap outside the blocking container
       await tester.tapAt(Offset(10, 10));
       await tester.pump();
       expect(backgroundTapCount, equals(1));
-      
+
       // Tap on the blocking container - this should be blocked by Container
       // Note: Container itself doesn't block by default, testing concept
       await tester.tapAt(Offset(400, 300));
@@ -238,7 +243,7 @@ void demonstrateOpaqueBehavior() {
     testWidgets('opaque behavior with nested widgets', (tester) async {
       var outerTapped = false;
       var innerTapped = false;
-      
+
       await tester.pumpWidget(
         MaterialApp(
           home: GestureDetector(
@@ -249,21 +254,17 @@ void demonstrateOpaqueBehavior() {
                 child: GestureDetector(
                   behavior: HitTestBehavior.opaque,
                   onTap: () => innerTapped = true,
-                  child: Container(
-                    width: 100,
-                    height: 100,
-                    color: Colors.cyan,
-                  ),
+                  child: Container(width: 100, height: 100, color: Colors.cyan),
                 ),
               ),
             ),
           ),
         ),
       );
-      
+
       await tester.tap(find.byType(Container).last);
       await tester.pump();
-      
+
       expect(innerTapped, isTrue);
       expect(outerTapped, isFalse);
     });
@@ -285,7 +286,7 @@ void demonstrateTranslucentBehavior() {
     testWidgets('translucent allows events to pass through', (tester) async {
       var topTapped = false;
       var bottomTapped = false;
-      
+
       await tester.pumpWidget(
         MaterialApp(
           home: Stack(
@@ -303,10 +304,10 @@ void demonstrateTranslucentBehavior() {
           ),
         ),
       );
-      
+
       await tester.tapAt(Offset(200, 200));
       await tester.pump();
-      
+
       // Both should receive the tap with translucent behavior
       expect(topTapped, isTrue);
       // Note: In reality, gesture arena determines winner
@@ -316,7 +317,7 @@ void demonstrateTranslucentBehavior() {
 
     testWidgets('translucent with multiple gesture detectors', (tester) async {
       final tapLog = <String>[];
-      
+
       await tester.pumpWidget(
         MaterialApp(
           home: Stack(
@@ -339,17 +340,17 @@ void demonstrateTranslucentBehavior() {
           ),
         ),
       );
-      
+
       await tester.tapAt(Offset(100, 100));
       await tester.pump();
-      
+
       expect(tapLog.isNotEmpty, isTrue);
     });
 
     testWidgets('translucent overlay receives hover events', (tester) async {
       var overlayHovered = false;
       var baseHovered = false;
-      
+
       await tester.pumpWidget(
         MaterialApp(
           home: Stack(
@@ -366,12 +367,12 @@ void demonstrateTranslucentBehavior() {
           ),
         ),
       );
-      
+
       final gesture = await tester.createGesture(kind: PointerDeviceKind.mouse);
       await gesture.addPointer(location: Offset(100, 100));
       await gesture.moveTo(Offset(150, 150));
       await tester.pump();
-      
+
       expect(overlayHovered, isTrue);
       // Base hover state depends on event propagation
       expect(baseHovered || !baseHovered, isTrue);
@@ -384,15 +385,18 @@ void demonstrateTranslucentBehavior() {
           home: Stack(
             children: [
               Container(key: Key('bottom'), color: Colors.blue),
-              Container(key: Key('top'), color: Colors.red.withValues(alpha: 0.3)),
+              Container(
+                key: Key('top'),
+                color: Colors.red.withValues(alpha: 0.3),
+              ),
             ],
           ),
         ),
       );
-      
+
       final bottomFinder = find.byKey(Key('bottom'));
       final topFinder = find.byKey(Key('top'));
-      
+
       expect(bottomFinder, findsOneWidget);
       expect(topFinder, findsOneWidget);
     });
@@ -403,7 +407,7 @@ void demonstrateTranslucentBehavior() {
 
     testWidgets('translucent behavior with scroll views', (tester) async {
       var scrolled = false;
-      
+
       await tester.pumpWidget(
         MaterialApp(
           home: Stack(
@@ -415,9 +419,8 @@ void demonstrateTranslucentBehavior() {
                 },
                 child: ListView.builder(
                   itemCount: 50,
-                  itemBuilder: (context, index) => ListTile(
-                    title: Text('Item $index'),
-                  ),
+                  itemBuilder: (context, index) =>
+                      ListTile(title: Text('Item $index')),
                 ),
               ),
               // Translucent overlay
@@ -431,10 +434,10 @@ void demonstrateTranslucentBehavior() {
           ),
         ),
       );
-      
+
       await tester.drag(find.byType(ListView), Offset(0, -100));
       await tester.pump();
-      
+
       expect(scrolled, isTrue);
     });
   });
@@ -451,7 +454,7 @@ void demonstrateTransparentBehavior() {
     testWidgets('transparent ignores all tap events', (tester) async {
       var overlayTapped = false;
       var backgroundTapped = false;
-      
+
       await tester.pumpWidget(
         MaterialApp(
           home: Stack(
@@ -470,17 +473,19 @@ void demonstrateTransparentBehavior() {
           ),
         ),
       );
-      
+
       await tester.tapAt(Offset(200, 200));
       await tester.pump();
-      
+
       expect(overlayTapped, isFalse);
       expect(backgroundTapped, isTrue);
     });
 
-    testWidgets('transparent allows drag through to background', (tester) async {
+    testWidgets('transparent allows drag through to background', (
+      tester,
+    ) async {
       var dragDelta = Offset.zero;
-      
+
       await tester.pumpWidget(
         MaterialApp(
           home: Stack(
@@ -496,10 +501,10 @@ void demonstrateTransparentBehavior() {
           ),
         ),
       );
-      
+
       await tester.drag(find.byType(Container).first, Offset(100, 50));
       await tester.pump();
-      
+
       expect(dragDelta.dx, greaterThan(0));
       expect(dragDelta.dy, greaterThan(0));
     });
@@ -507,7 +512,7 @@ void demonstrateTransparentBehavior() {
     testWidgets('transparent with AbsorbPointer comparison', (tester) async {
       var absorberTapped = false;
       var behindAbsorberTapped = false;
-      
+
       await tester.pumpWidget(
         MaterialApp(
           home: Row(
@@ -532,10 +537,10 @@ void demonstrateTransparentBehavior() {
           ),
         ),
       );
-      
+
       await tester.tapAt(Offset(100, 300));
       await tester.pump();
-      
+
       // AbsorbPointer absorbs but doesn't pass through
       expect(absorberTapped, isFalse);
       expect(behindAbsorberTapped, isFalse);
@@ -543,7 +548,7 @@ void demonstrateTransparentBehavior() {
 
     testWidgets('transparent vs IgnorePointer behavior', (tester) async {
       var behindIgnorerTapped = false;
-      
+
       await tester.pumpWidget(
         MaterialApp(
           home: Stack(
@@ -559,10 +564,10 @@ void demonstrateTransparentBehavior() {
           ),
         ),
       );
-      
+
       await tester.tapAt(Offset(200, 200));
       await tester.pump();
-      
+
       // IgnorePointer passes events through
       expect(behindIgnorerTapped, isTrue);
     });
@@ -573,7 +578,7 @@ void demonstrateTransparentBehavior() {
 
     testWidgets('transparent for display-only content', (tester) async {
       var buttonPressed = false;
-      
+
       await tester.pumpWidget(
         MaterialApp(
           home: Stack(
@@ -599,10 +604,10 @@ void demonstrateTransparentBehavior() {
           ),
         ),
       );
-      
+
       await tester.tap(find.byType(ElevatedButton));
       await tester.pump();
-      
+
       expect(buttonPressed, isTrue);
     });
   });
@@ -645,15 +650,17 @@ void demonstrateVisualComparison() {
           ),
         ),
       );
-      
+
       expect(find.text('Opaque'), findsOneWidget);
       expect(find.text('Translucent'), findsOneWidget);
       expect(find.text('Transparent'), findsOneWidget);
     });
 
-    testWidgets('stacked behaviors demonstrate hit test differences', (tester) async {
+    testWidgets('stacked behaviors demonstrate hit test differences', (
+      tester,
+    ) async {
       final hitResults = <String>[];
-      
+
       await tester.pumpWidget(
         MaterialApp(
           home: Column(
@@ -675,17 +682,15 @@ void demonstrateVisualComparison() {
                 ),
               ),
               // Deferring test - testing different section
-              Expanded(
-                child: Container(color: Colors.grey),
-              ),
+              Expanded(child: Container(color: Colors.grey)),
             ],
           ),
         ),
       );
-      
+
       await tester.tapAt(Offset(200, 100));
       await tester.pump();
-      
+
       expect(hitResults, contains('opaque-foreground'));
       expect(hitResults, isNot(contains('opaque-background')));
     });
@@ -695,22 +700,18 @@ void demonstrateVisualComparison() {
         MaterialApp(
           home: MouseRegion(
             cursor: SystemMouseCursors.click,
-            child: Container(
-              width: 200,
-              height: 200,
-              color: Colors.purple,
-            ),
+            child: Container(width: 200, height: 200, color: Colors.purple),
           ),
         ),
       );
-      
+
       final mouseRegionFinder = find.byType(MouseRegion);
       expect(mouseRegionFinder, findsOneWidget);
     });
 
     testWidgets('behavior with Material ripple effects', (tester) async {
       var inkWellTapped = false;
-      
+
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -736,10 +737,10 @@ void demonstrateVisualComparison() {
           ),
         ),
       );
-      
+
       await tester.tap(find.byType(InkWell));
       await tester.pump();
-      
+
       expect(inkWellTapped, isTrue);
     });
 
@@ -770,15 +771,27 @@ void demonstrateVisualComparison() {
           ),
         ),
       );
-      
+
       // Both containers should be found
       expect(find.byType(Container), findsNWidgets(2));
     });
 
     test('behavior enum comparison equality', () {
-      expect(PlatformViewHitTestBehavior.opaque == PlatformViewHitTestBehavior.opaque, isTrue);
-      expect(PlatformViewHitTestBehavior.translucent == PlatformViewHitTestBehavior.opaque, isFalse);
-      expect(PlatformViewHitTestBehavior.transparent == PlatformViewHitTestBehavior.transparent, isTrue);
+      expect(
+        PlatformViewHitTestBehavior.opaque ==
+            PlatformViewHitTestBehavior.opaque,
+        isTrue,
+      );
+      expect(
+        PlatformViewHitTestBehavior.translucent ==
+            PlatformViewHitTestBehavior.opaque,
+        isFalse,
+      );
+      expect(
+        PlatformViewHitTestBehavior.transparent ==
+            PlatformViewHitTestBehavior.transparent,
+        isTrue,
+      );
     });
   });
 }
@@ -792,71 +805,59 @@ void demonstrateInteractionWithGestures() {
   group('Interaction with Gestures', () {
     testWidgets('tap gesture with opaque overlay', (tester) async {
       var tapCount = 0;
-      
+
       await tester.pumpWidget(
         MaterialApp(
           home: GestureDetector(
             behavior: HitTestBehavior.opaque,
             onTap: () => tapCount++,
-            child: Container(
-              width: 300,
-              height: 300,
-              color: Colors.grey,
-            ),
+            child: Container(width: 300, height: 300, color: Colors.grey),
           ),
         ),
       );
-      
+
       await tester.tap(find.byType(GestureDetector));
       await tester.pump();
-      
+
       expect(tapCount, equals(1));
     });
 
     testWidgets('double tap gesture interaction', (tester) async {
       var doubleTapCount = 0;
-      
+
       await tester.pumpWidget(
         MaterialApp(
           home: GestureDetector(
             onDoubleTap: () => doubleTapCount++,
-            child: Container(
-              width: 200,
-              height: 200,
-              color: Colors.teal,
-            ),
+            child: Container(width: 200, height: 200, color: Colors.teal),
           ),
         ),
       );
-      
+
       await tester.tap(find.byType(GestureDetector));
       await tester.pump(Duration(milliseconds: 50));
       await tester.tap(find.byType(GestureDetector));
       await tester.pump();
-      
+
       expect(doubleTapCount, equals(1));
     });
 
     testWidgets('long press gesture with behavior', (tester) async {
       var longPressed = false;
-      
+
       await tester.pumpWidget(
         MaterialApp(
           home: GestureDetector(
             behavior: HitTestBehavior.opaque,
             onLongPress: () => longPressed = true,
-            child: Container(
-              width: 200,
-              height: 200,
-              color: Colors.orange,
-            ),
+            child: Container(width: 200, height: 200, color: Colors.orange),
           ),
         ),
       );
-      
+
       await tester.longPress(find.byType(GestureDetector));
       await tester.pump();
-      
+
       expect(longPressed, isTrue);
     });
 
@@ -864,7 +865,7 @@ void demonstrateInteractionWithGestures() {
       var panStarted = false;
       var panUpdated = false;
       var panEnded = false;
-      
+
       await tester.pumpWidget(
         MaterialApp(
           home: GestureDetector(
@@ -872,18 +873,14 @@ void demonstrateInteractionWithGestures() {
             onPanStart: (_) => panStarted = true,
             onPanUpdate: (_) => panUpdated = true,
             onPanEnd: (_) => panEnded = true,
-            child: Container(
-              width: 300,
-              height: 300,
-              color: Colors.cyan,
-            ),
+            child: Container(width: 300, height: 300, color: Colors.cyan),
           ),
         ),
       );
-      
+
       await tester.drag(find.byType(GestureDetector), Offset(100, 100));
       await tester.pump();
-      
+
       expect(panStarted, isTrue);
       expect(panUpdated, isTrue);
       expect(panEnded, isTrue);
@@ -891,38 +888,34 @@ void demonstrateInteractionWithGestures() {
 
     testWidgets('scale gesture recognition', (tester) async {
       var scaleStarted = false;
-      
+
       await tester.pumpWidget(
         MaterialApp(
           home: GestureDetector(
             onScaleStart: (_) => scaleStarted = true,
-            child: Container(
-              width: 300,
-              height: 300,
-              color: Colors.pink,
-            ),
+            child: Container(width: 300, height: 300, color: Colors.pink),
           ),
         ),
       );
-      
+
       // Start a two-finger scale gesture
       final center = tester.getCenter(find.byType(GestureDetector));
       final pointer1 = TestPointer(1);
       final pointer2 = TestPointer(2);
-      
+
       await tester.sendEventToBinding(pointer1.down(center - Offset(50, 0)));
       await tester.sendEventToBinding(pointer2.down(center + Offset(50, 0)));
       await tester.pump();
-      
+
       expect(scaleStarted, isTrue);
-      
+
       await tester.sendEventToBinding(pointer1.up());
       await tester.sendEventToBinding(pointer2.up());
     });
 
     testWidgets('horizontal drag gesture', (tester) async {
       var horizontalDragDelta = 0.0;
-      
+
       await tester.pumpWidget(
         MaterialApp(
           home: GestureDetector(
@@ -930,24 +923,20 @@ void demonstrateInteractionWithGestures() {
             onHorizontalDragUpdate: (details) {
               horizontalDragDelta += details.delta.dx;
             },
-            child: Container(
-              width: 300,
-              height: 300,
-              color: Colors.lime,
-            ),
+            child: Container(width: 300, height: 300, color: Colors.lime),
           ),
         ),
       );
-      
+
       await tester.drag(find.byType(GestureDetector), Offset(100, 5));
       await tester.pump();
-      
+
       expect(horizontalDragDelta, greaterThan(0));
     });
 
     testWidgets('vertical drag gesture', (tester) async {
       var verticalDragDelta = 0.0;
-      
+
       await tester.pumpWidget(
         MaterialApp(
           home: GestureDetector(
@@ -955,61 +944,49 @@ void demonstrateInteractionWithGestures() {
             onVerticalDragUpdate: (details) {
               verticalDragDelta += details.delta.dy;
             },
-            child: Container(
-              width: 300,
-              height: 300,
-              color: Colors.deepOrange,
-            ),
+            child: Container(width: 300, height: 300, color: Colors.deepOrange),
           ),
         ),
       );
-      
+
       await tester.drag(find.byType(GestureDetector), Offset(5, 100));
       await tester.pump();
-      
+
       expect(verticalDragDelta, greaterThan(0));
     });
 
     testWidgets('gesture arena with competing recognizers', (tester) async {
       final gestureLog = <String>[];
-      
+
       await tester.pumpWidget(
         MaterialApp(
           home: GestureDetector(
             onTap: () => gestureLog.add('tap'),
             onDoubleTap: () => gestureLog.add('double-tap'),
-            child: Container(
-              width: 200,
-              height: 200,
-              color: Colors.brown,
-            ),
+            child: Container(width: 200, height: 200, color: Colors.brown),
           ),
         ),
       );
-      
+
       // Single tap should win after timeout
       await tester.tap(find.byType(GestureDetector));
       await tester.pump(Duration(milliseconds: 500));
-      
+
       expect(gestureLog, contains('tap'));
     });
 
     testWidgets('force press gesture if available', (tester) async {
       var forcePressStarted = false;
-      
+
       await tester.pumpWidget(
         MaterialApp(
           home: GestureDetector(
             onForcePressStart: (_) => forcePressStarted = true,
-            child: Container(
-              width: 200,
-              height: 200,
-              color: Colors.indigo,
-            ),
+            child: Container(width: 200, height: 200, color: Colors.indigo),
           ),
         ),
       );
-      
+
       // Force press requires specific hardware/pressure
       // This test verifies the widget builds correctly
       expect(find.byType(GestureDetector), findsOneWidget);
@@ -1020,86 +997,68 @@ void demonstrateInteractionWithGestures() {
     testWidgets('tap cancel handling', (tester) async {
       var tapDownReceived = false;
       var tapCancelReceived = false;
-      
+
       await tester.pumpWidget(
         MaterialApp(
           home: GestureDetector(
             onTapDown: (_) => tapDownReceived = true,
             onTapCancel: () => tapCancelReceived = true,
-            child: Container(
-              width: 200,
-              height: 200,
-              color: Colors.deepPurple,
-            ),
+            child: Container(width: 200, height: 200, color: Colors.deepPurple),
           ),
         ),
       );
-      
+
       // Start tap down
       final gesture = await tester.startGesture(
         tester.getCenter(find.byType(GestureDetector)),
       );
       await tester.pump();
       expect(tapDownReceived, isTrue);
-      
+
       // Move away to cancel
       await gesture.moveBy(Offset(200, 200));
       await tester.pump();
-      
+
       await gesture.up();
       await tester.pump();
-      
+
       // Verify cancel state was tracked
       expect(tapCancelReceived || !tapCancelReceived, isTrue);
     });
 
     testWidgets('secondary tap (right click) handling', (tester) async {
       var secondaryTapReceived = false;
-      
+
       await tester.pumpWidget(
         MaterialApp(
           home: GestureDetector(
             onSecondaryTap: () => secondaryTapReceived = true,
-            child: Container(
-              width: 200,
-              height: 200,
-              color: Colors.blueGrey,
-            ),
+            child: Container(width: 200, height: 200, color: Colors.blueGrey),
           ),
         ),
       );
-      
-      await tester.tap(
-        find.byType(GestureDetector),
-        buttons: kSecondaryButton,
-      );
+
+      await tester.tap(find.byType(GestureDetector), buttons: kSecondaryButton);
       await tester.pump();
-      
+
       expect(secondaryTapReceived, isTrue);
     });
 
     testWidgets('tertiary tap (middle click) handling', (tester) async {
       var tertiaryTapReceived = false;
-      
+
       await tester.pumpWidget(
         MaterialApp(
           home: GestureDetector(
             onTertiaryTapUp: (_) => tertiaryTapReceived = true,
-            child: Container(
-              width: 200,
-              height: 200,
-              color: Colors.lightBlue,
-            ),
+            child: Container(width: 200, height: 200, color: Colors.lightBlue),
           ),
         ),
       );
-      
-      await tester.tap(
-        find.byType(GestureDetector),
-        buttons: kTertiaryButton,
-      );
+
+      await tester.tap(find.byType(GestureDetector), buttons: kTertiaryButton);
       await tester.pump();
-      
+
       expect(tertiaryTapReceived, isTrue);
     });
   });
@@ -1113,22 +1072,23 @@ void demonstrateEdgeCasesAndBehaviors() {
   group('Edge Cases and Behaviors', () {
     test('behavior values are hashable', () {
       final behaviorSet = <PlatformViewHitTestBehavior>{};
-      
+
       behaviorSet.add(PlatformViewHitTestBehavior.opaque);
       behaviorSet.add(PlatformViewHitTestBehavior.translucent);
       behaviorSet.add(PlatformViewHitTestBehavior.transparent);
       behaviorSet.add(PlatformViewHitTestBehavior.opaque); // Duplicate
-      
+
       expect(behaviorSet.length, equals(3));
     });
 
     test('behavior can be used as map key', () {
       final behaviorDescriptions = <PlatformViewHitTestBehavior, String>{
         PlatformViewHitTestBehavior.opaque: 'Absorbs all events',
-        PlatformViewHitTestBehavior.translucent: 'Shares events with background',
+        PlatformViewHitTestBehavior.translucent:
+            'Shares events with background',
         PlatformViewHitTestBehavior.transparent: 'Passes all events through',
       };
-      
+
       expect(
         behaviorDescriptions[PlatformViewHitTestBehavior.opaque],
         equals('Absorbs all events'),
@@ -1138,7 +1098,7 @@ void demonstrateEdgeCasesAndBehaviors() {
     testWidgets('behavior with positioned widgets', (tester) async {
       var button1Pressed = false;
       var button2Pressed = false;
-      
+
       await tester.pumpWidget(
         MaterialApp(
           home: Stack(
@@ -1163,11 +1123,11 @@ void demonstrateEdgeCasesAndBehaviors() {
           ),
         ),
       );
-      
+
       await tester.tap(find.text('Button 1'));
       await tester.pump();
       expect(button1Pressed, isTrue);
-      
+
       await tester.tap(find.text('Button 2'));
       await tester.pump();
       expect(button2Pressed, isTrue);
@@ -1184,14 +1144,14 @@ void demonstrateEdgeCasesAndBehaviors() {
           ),
         ),
       );
-      
+
       expect(find.byType(AnimatedContainer), findsOneWidget);
     });
 
     testWidgets('hit testing respects widget visibility', (tester) async {
       var hiddenTapped = false;
       var visibleTapped = false;
-      
+
       await tester.pumpWidget(
         MaterialApp(
           home: Stack(
@@ -1211,17 +1171,17 @@ void demonstrateEdgeCasesAndBehaviors() {
           ),
         ),
       );
-      
+
       await tester.tapAt(Offset(200, 200));
       await tester.pump();
-      
+
       expect(hiddenTapped, isFalse);
       expect(visibleTapped, isTrue);
     });
 
     testWidgets('behavior with Offstage widgets', (tester) async {
       var offstageTapped = false;
-      
+
       await tester.pumpWidget(
         MaterialApp(
           home: Offstage(
@@ -1233,7 +1193,7 @@ void demonstrateEdgeCasesAndBehaviors() {
           ),
         ),
       );
-      
+
       // Offstage widget should not be tappable
       expect(find.byType(GestureDetector), findsNothing);
       // Verify offstageTapped state remains false
@@ -1242,36 +1202,32 @@ void demonstrateEdgeCasesAndBehaviors() {
 
     testWidgets('behavior with Opacity widget', (tester) async {
       var tapped = false;
-      
+
       await tester.pumpWidget(
         MaterialApp(
           home: Opacity(
             opacity: 0.0,
             child: GestureDetector(
               onTap: () => tapped = true,
-              child: Container(
-                width: 200,
-                height: 200,
-                color: Colors.purple,
-              ),
+              child: Container(width: 200, height: 200, color: Colors.purple),
             ),
           ),
         ),
       );
-      
+
       // Opacity 0 still receives hits by default
       await tester.tap(find.byType(GestureDetector));
       await tester.pump();
-      
+
       expect(tapped, isTrue);
     });
 
     test('behavior list operations', () {
       final behaviors = PlatformViewHitTestBehavior.values.toList();
-      
+
       expect(behaviors.first, equals(PlatformViewHitTestBehavior.opaque));
       expect(behaviors.last, equals(PlatformViewHitTestBehavior.transparent));
-      
+
       behaviors.sort((a, b) => b.index.compareTo(a.index));
       expect(behaviors.first, equals(PlatformViewHitTestBehavior.transparent));
     });
