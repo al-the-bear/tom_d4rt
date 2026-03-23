@@ -1140,7 +1140,7 @@ Widget _buildDropdownItem(String text) {
 // Helper for badge icons
 Widget _buildBadgeIcon(IconData icon, String count) {
   print('[render_constrained_overflow_box_test] badge icon: $count');
-  return Container(
+  return SizedBox(
     width: 40.0,
     height: 40.0,
     child: Stack(

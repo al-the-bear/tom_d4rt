@@ -95,9 +95,9 @@ dynamic build(BuildContext context) {
         SizedBox(height: 8.0),
         spacedText,
         SizedBox(height: 8.0),
-        Container(width: 200.0, child: overflowText),
+        SizedBox(width: 200.0, child: overflowText),
         SizedBox(height: 8.0),
-        Container(width: 200.0, child: centeredText),
+        SizedBox(width: 200.0, child: centeredText),
         SizedBox(height: 8.0),
         Container(
           padding: EdgeInsets.all(8.0),

@@ -131,7 +131,7 @@ Widget _buildHeader() {
 }
 
 Widget _buildSectionTitle(String title) {
-  print('[Section] ' + title);
+  print('[Section] $title');
   return Padding(
     padding: EdgeInsets.only(bottom: 12.0),
     child: Container(
@@ -187,10 +187,10 @@ Widget _buildBasicColorSection(BuildContext context) {
           decoration: BoxDecoration(color: Color(0xFFE1BEE7)),
           sliver: SliverList(
             delegate: SliverChildBuilderDelegate((BuildContext ctx, int index) {
-              print('[Section 1] Building item ' + index.toString());
+              print('[Section 1] Building item $index');
               return ListTile(
                 leading: Icon(Icons.circle, color: Color(0xFF6A1B9A)),
-                title: Text('Color decorated item ' + index.toString()),
+                title: Text('Color decorated item $index'),
                 subtitle: Text('Simple background color via DecoratedSliver'),
               );
             }, childCount: 5),
@@ -220,7 +220,7 @@ Widget _buildGradientSection(BuildContext context) {
           ),
           sliver: SliverList(
             delegate: SliverChildBuilderDelegate((BuildContext ctx, int index) {
-              print('[Section 2] Gradient item ' + index.toString());
+              print('[Section 2] Gradient item $index');
               return Container(
                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
                 child: Row(
@@ -228,7 +228,7 @@ Widget _buildGradientSection(BuildContext context) {
                     Icon(Icons.gradient, color: Color(0xFF4A148C)),
                     SizedBox(width: 12.0),
                     Text(
-                      'Gradient sliver item ' + index.toString(),
+                      'Gradient sliver item $index',
                       style: TextStyle(
                         fontSize: 15.0,
                         fontWeight: FontWeight.w500,
@@ -262,11 +262,11 @@ Widget _buildBorderSection(BuildContext context) {
           ),
           sliver: SliverList(
             delegate: SliverChildBuilderDelegate((BuildContext ctx, int index) {
-              print('[Section 3] Border item ' + index.toString());
+              print('[Section 3] Border item $index');
               return Padding(
                 padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
                 child: Text(
-                  'Bordered sliver item ' + index.toString(),
+                  'Bordered sliver item $index',
                   style: TextStyle(fontSize: 14.0, color: Color(0xFFBF360C)),
                 ),
               );
@@ -312,10 +312,10 @@ Widget _buildBoxShadowSection(BuildContext context) {
                 BuildContext ctx,
                 int index,
               ) {
-                print('[Section 4] Shadow item ' + index.toString());
+                print('[Section 4] Shadow item $index');
                 return ListTile(
                   leading: Icon(Icons.wb_sunny, color: Color(0xFFFF8F00)),
-                  title: Text('Shadowed sliver item ' + index.toString()),
+                  title: Text('Shadowed sliver item $index'),
                 );
               }, childCount: 4),
             ),
@@ -354,11 +354,11 @@ Widget _buildPositionComparisonSection(BuildContext context) {
                   BuildContext ctx,
                   int index,
                 ) {
-                  print('[Section 5a] Background pos item ' + index.toString());
+                  print('[Section 5a] Background pos item $index');
                   return Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Text(
-                      'Background decoration item ' + index.toString(),
+                      'Background decoration item $index',
                       style: TextStyle(
                         fontSize: 14.0,
                         color: Color(0xFF0D47A1),
@@ -395,11 +395,11 @@ Widget _buildPositionComparisonSection(BuildContext context) {
                   BuildContext ctx,
                   int index,
                 ) {
-                  print('[Section 5b] Foreground pos item ' + index.toString());
+                  print('[Section 5b] Foreground pos item $index');
                   return Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Text(
-                      'Foreground decoration item ' + index.toString(),
+                      'Foreground decoration item $index',
                       style: TextStyle(
                         fontSize: 14.0,
                         color: Color(0xFF880E4F),
@@ -447,7 +447,7 @@ Widget _buildSliverListSection(BuildContext context) {
           sliver: SliverList(
             delegate: SliverChildBuilderDelegate((BuildContext ctx, int index) {
               String itemName = items[index];
-              print('[Section 6] SliverList item: ' + itemName);
+              print('[Section 6] SliverList item: $itemName');
               return Card(
                 margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                 child: ListTile(
@@ -459,7 +459,7 @@ Widget _buildSliverListSection(BuildContext context) {
                     ),
                   ),
                   title: Text(itemName),
-                  subtitle: Text('Greek letter #' + index.toString()),
+                  subtitle: Text('Greek letter #$index'),
                   trailing: Icon(Icons.arrow_forward_ios, size: 14.0),
                 ),
               );
@@ -498,7 +498,7 @@ Widget _buildSliverGridSection(BuildContext context) {
               childAspectRatio: 1.2,
             ),
             delegate: SliverChildBuilderDelegate((BuildContext ctx, int index) {
-              print('[Section 7] Grid item ' + index.toString());
+              print('[Section 7] Grid item $index');
               List<IconData> icons = [
                 Icons.star,
                 Icons.favorite,
@@ -530,7 +530,7 @@ Widget _buildSliverGridSection(BuildContext context) {
                     Icon(icon, color: Color(0xFF00838F), size: 28.0),
                     SizedBox(height: 4.0),
                     Text(
-                      'Grid ' + index.toString(),
+                      'Grid $index',
                       style: TextStyle(fontSize: 11.0),
                     ),
                   ],
@@ -628,7 +628,7 @@ Widget _buildSliverPaddingSection(BuildContext context) {
                 BuildContext ctx,
                 int index,
               ) {
-                print('[Section 9] Padded sliver item ' + index.toString());
+                print('[Section 9] Padded sliver item $index');
                 return Container(
                   margin: EdgeInsets.only(bottom: 6.0),
                   padding: EdgeInsets.all(10.0),
@@ -641,7 +641,7 @@ Widget _buildSliverPaddingSection(BuildContext context) {
                       Icon(Icons.eco, color: Color(0xFF33691E), size: 20.0),
                       SizedBox(width: 10.0),
                       Text(
-                        'Padded sliver child ' + index.toString(),
+                        'Padded sliver child $index',
                         style: TextStyle(color: Color(0xFF33691E)),
                       ),
                     ],
@@ -696,7 +696,7 @@ Widget _buildMultipleDecoratedSliversSection(BuildContext context) {
           ),
           sliver: SliverList(
             delegate: SliverChildBuilderDelegate((BuildContext ctx, int index) {
-              print('[Section 10a] Purple item ' + index.toString());
+              print('[Section 10a] Purple item $index');
               return ListTile(
                 dense: true,
                 leading: Icon(
@@ -704,7 +704,7 @@ Widget _buildMultipleDecoratedSliversSection(BuildContext context) {
                   color: Color(0xFF6A1B9A),
                   size: 16.0,
                 ),
-                title: Text('Purple list item ' + index.toString()),
+                title: Text('Purple list item $index'),
               );
             }, childCount: 3),
           ),
@@ -738,7 +738,7 @@ Widget _buildMultipleDecoratedSliversSection(BuildContext context) {
           ),
           sliver: SliverList(
             delegate: SliverChildBuilderDelegate((BuildContext ctx, int index) {
-              print('[Section 10b] Teal item ' + index.toString());
+              print('[Section 10b] Teal item $index');
               return ListTile(
                 dense: true,
                 leading: Icon(
@@ -746,7 +746,7 @@ Widget _buildMultipleDecoratedSliversSection(BuildContext context) {
                   color: Color(0xFF00695C),
                   size: 16.0,
                 ),
-                title: Text('Teal list item ' + index.toString()),
+                title: Text('Teal list item $index'),
               );
             }, childCount: 3),
           ),
@@ -1072,7 +1072,7 @@ Widget _buildComplexNestedSection(BuildContext context) {
                 BuildContext ctx,
                 int index,
               ) {
-                print('[Section 13] Complex grid item ' + index.toString());
+                print('[Section 13] Complex grid item $index');
                 List<Color> cardColors = [
                   Color(0xFFE8EAF6),
                   Color(0xFFE0F2F1),

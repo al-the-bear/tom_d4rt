@@ -988,7 +988,7 @@ Widget buildPropertyRow(String label, String value) {
     padding: EdgeInsets.symmetric(vertical: 4),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 100,
           child: Text(
             label,

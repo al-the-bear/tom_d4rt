@@ -631,7 +631,7 @@ void processWebImage(WebImageInfo info) {
         ),
         child: Row(
           children: [
-            Container(
+            SizedBox(
               width: 80,
               child: Text(
                 size['name'] as String,

@@ -19,15 +19,17 @@ dynamic build(BuildContext context) {
 
   // Test FocusNode with skipTraversal
   final skipNode = FocusNode(skipTraversal: true);
-  print('FocusNode with skipTraversal=true created');
+  print('FocusNode with skipTraversal=true created: $skipNode');
 
   // Test FocusNode with canRequestFocus
   final noRequestNode = FocusNode(canRequestFocus: false);
-  print('FocusNode with canRequestFocus=false created');
+  print('FocusNode with canRequestFocus=false created: $noRequestNode');
 
   // Test FocusNode with descendantsAreFocusable
   final noDescendantsNode = FocusNode(descendantsAreFocusable: false);
-  print('FocusNode with descendantsAreFocusable=false created');
+  print(
+    'FocusNode with descendantsAreFocusable=false created: $noDescendantsNode',
+  );
 
   // Test FocusNode methods
   print('FocusNode.requestFocus() - requests focus');
@@ -60,21 +62,21 @@ dynamic build(BuildContext context) {
     autofocus: true,
     child: TextField(decoration: InputDecoration(labelText: 'Autofocus Scope')),
   );
-  print('FocusScope with autofocus=true created');
+  print('FocusScope with autofocus=true created: $autofocusScope');
 
   // Test FocusScope with skipTraversal
   final skipScope = FocusScope(
     skipTraversal: true,
     child: TextField(decoration: InputDecoration(labelText: 'Skip Traversal')),
   );
-  print('FocusScope with skipTraversal=true created');
+  print('FocusScope with skipTraversal=true created: $skipScope');
 
   // Test FocusScope with canRequestFocus
   final noFocusScope = FocusScope(
     canRequestFocus: false,
     child: TextField(decoration: InputDecoration(labelText: 'No Focus')),
   );
-  print('FocusScope with canRequestFocus=false created');
+  print('FocusScope with canRequestFocus=false created: $noFocusScope');
 
   // Test FocusScope.of(context) methods
   print('FocusScope.of(context) - gets nearest FocusScopeNode');
@@ -115,7 +117,7 @@ dynamic build(BuildContext context) {
       child: Text('Custom Node Container'),
     ),
   );
-  print('Focus widget with custom focusNode created');
+  print('Focus widget with custom focusNode created: $customNodeWidget');
 
   // Test Focus with onKey
   final keyHandlerWidget = Focus(
@@ -128,7 +130,7 @@ dynamic build(BuildContext context) {
       child: Text('Key Handler Container'),
     ),
   );
-  print('Focus widget with onKey handler created');
+  print('Focus widget with onKey handler created: $keyHandlerWidget');
 
   // Test FocusTraversalGroup
   final traversalGroup = FocusTraversalGroup(
@@ -185,7 +187,7 @@ dynamic build(BuildContext context) {
   final excludeFocus = ExcludeFocus(
     child: TextField(decoration: InputDecoration(labelText: 'Excluded')),
   );
-  print('ExcludeFocus widget created');
+  print('ExcludeFocus widget created: $excludeFocus');
 
   // Test FocusNode tree structure
   print('FocusNode.parent - parent node');

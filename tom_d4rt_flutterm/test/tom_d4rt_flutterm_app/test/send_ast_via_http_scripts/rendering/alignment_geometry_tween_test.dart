@@ -144,7 +144,7 @@ Widget _buildAlignmentValuesCard() {
         ),
         const SizedBox(height: 16),
         // 3x3 grid showing alignments
-        Container(
+        SizedBox(
           height: 150,
           child: CustomPaint(
             size: const Size(double.infinity, 150),

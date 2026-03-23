@@ -55,7 +55,7 @@ dynamic build(BuildContext context) {
     },
     buildDefaultDragHandles: true,
   );
-  print('ReorderableListView.builder created');
+  print('ReorderableListView.builder created: $reorderableBuilder');
 
   // ========== ReorderableDragStartListener ==========
   print('--- ReorderableDragStartListener Tests ---');
@@ -71,7 +71,7 @@ dynamic build(BuildContext context) {
     child: Icon(Icons.drag_indicator),
     enabled: true,
   );
-  print('ReorderableDelayedDragStartListener created: index=1');
+  print('ReorderableDelayedDragStartListener created: $delayedListener');
 
   // ========== InkWell advanced ==========
   print('--- InkWell Advanced Tests ---');
@@ -113,7 +113,7 @@ dynamic build(BuildContext context) {
     highlightShape: BoxShape.circle,
     radius: 24.0,
     containedInkWell: false,
-    child: Container(width: 48, height: 48, child: Icon(Icons.circle)),
+    child: SizedBox(width: 48, height: 48, child: Icon(Icons.circle)),
   );
   print('InkResponse created');
 

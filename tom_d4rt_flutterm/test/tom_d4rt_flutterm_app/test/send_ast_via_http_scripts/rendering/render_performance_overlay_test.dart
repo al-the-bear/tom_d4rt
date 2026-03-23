@@ -74,7 +74,7 @@ dynamic build(BuildContext context) {
   // Helper to build section titles
   Widget Function(String, String, IconData) buildSectionTitle =
       (String title, String subtitle, IconData icon) {
-    print('Section: ' + title);
+    print('Section: $title');
     return Container(
       width: double.infinity,
       margin: EdgeInsets.only(top: 24.0, left: 16.0, right: 16.0),

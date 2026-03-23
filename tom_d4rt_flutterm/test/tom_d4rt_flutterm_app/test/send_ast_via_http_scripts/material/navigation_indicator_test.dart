@@ -673,7 +673,7 @@ Widget buildAnimatedIndicatorDemo() {
         ),
         child: Row(
           children: [
-            Container(
+            SizedBox(
               width: 80,
               child: Text(
                 stages[p],

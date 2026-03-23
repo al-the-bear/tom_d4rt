@@ -3,7 +3,6 @@
 // Covers: Paint configuration with Canvas drawing operations
 // Shows how Paint properties affect visual output on Canvas
 import 'dart:ui' as ui;
-import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
@@ -49,7 +48,10 @@ dynamic build(BuildContext context) {
     ..color = Color(0xFF6A1B9A)
     ..maskFilter = ui.MaskFilter.blur(ui.BlurStyle.normal, 5.0);
 
-  print('Created: fillPaint, strokePaint, gradientPaint, blurPaint');
+  print('fillPaint: $fillPaint');
+  print('strokePaint: $strokePaint');
+  print('gradientPaint: $gradientPaint');
+  print('blurPaint: $blurPaint');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 3: CANVAS OPERATIONS

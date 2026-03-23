@@ -51,7 +51,7 @@ dynamic build(BuildContext context) {
       decoration: InputDecoration(labelText: 'Disabled Validation'),
     ),
   );
-  print('Form with autovalidateMode=disabled created');
+  print('Form with autovalidateMode=disabled created: $disabledValidation');
 
   // Test Form with onWillPop (deprecated but testing concept)
   print('Form onWillPop callback tests unsaved changes');
@@ -68,7 +68,7 @@ dynamic build(BuildContext context) {
       ],
     ),
   );
-  print('Form with onChanged callback created');
+  print('Form with onChanged callback created: $onChangedForm');
 
   // Test FormField widget directly
   final customFormField = FormField<String>(
@@ -120,7 +120,7 @@ dynamic build(BuildContext context) {
       );
     },
   );
-  print('FormField with onSaved callback created');
+  print('FormField with onSaved callback created: $savedFormField');
 
   // Test TextFormField validators
   final emailValidator = TextFormField(
@@ -184,7 +184,7 @@ dynamic build(BuildContext context) {
     focusNode: focusNode,
     decoration: InputDecoration(labelText: 'With FocusNode'),
   );
-  print('TextFormField with FocusNode created');
+  print('TextFormField with FocusNode created: $withFocus');
 
   // Test TextFormField with inputFormatters concept
   print(

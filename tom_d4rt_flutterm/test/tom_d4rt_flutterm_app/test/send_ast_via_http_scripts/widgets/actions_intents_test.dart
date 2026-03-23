@@ -11,17 +11,17 @@ dynamic build(BuildContext context) {
   // ========== SelectIntent ==========
   print('--- SelectIntent Tests ---');
   final selectIntent = SelectIntent();
-  print('SelectIntent created');
+  print('SelectIntent created: $selectIntent');
 
   // ========== NextFocusIntent ==========
   print('--- NextFocusIntent Tests ---');
   final nextFocusIntent = NextFocusIntent();
-  print('NextFocusIntent created');
+  print('NextFocusIntent created: $nextFocusIntent');
 
   // ========== PreviousFocusIntent ==========
   print('--- PreviousFocusIntent Tests ---');
   final prevFocusIntent = PreviousFocusIntent();
-  print('PreviousFocusIntent created');
+  print('PreviousFocusIntent created: $prevFocusIntent');
 
   // ========== DirectionalFocusIntent ==========
   print('--- DirectionalFocusIntent Tests ---');
@@ -50,33 +50,33 @@ dynamic build(BuildContext context) {
   // ========== ActionDispatcher ==========
   print('--- ActionDispatcher Tests ---');
   final dispatcher = ActionDispatcher();
-  print('ActionDispatcher created');
+  print('ActionDispatcher created: $dispatcher');
 
   // ========== NextFocusAction ==========
   print('--- NextFocusAction Tests ---');
   final nextAction = NextFocusAction();
-  print('NextFocusAction created');
+  print('NextFocusAction created: $nextAction');
 
   // ========== PreviousFocusAction ==========
   print('--- PreviousFocusAction Tests ---');
   final prevAction = PreviousFocusAction();
-  print('PreviousFocusAction created');
+  print('PreviousFocusAction created: $prevAction');
 
   // ========== ScrollIntent ==========
   print('--- ScrollIntent (more variants) Tests ---');
   final scrollLineDown = ScrollIntent(direction: AxisDirection.down);
-  print('ScrollIntent down created');
+  print('ScrollIntent down created: $scrollLineDown');
   final scrollLineUp = ScrollIntent(
     direction: AxisDirection.up,
     type: ScrollIncrementType.page,
   );
-  print('ScrollIntent up/page created');
+  print('ScrollIntent up/page created: $scrollLineUp');
 
   // ========== RequestFocusIntent ==========
   print('--- RequestFocusIntent Tests ---');
   final focusNode = FocusNode(debugLabel: 'test');
   final requestFocus = RequestFocusIntent(focusNode);
-  print('RequestFocusIntent created');
+  print('RequestFocusIntent created: $requestFocus');
   focusNode.dispose();
 
   print('All actions/intents tests passed');

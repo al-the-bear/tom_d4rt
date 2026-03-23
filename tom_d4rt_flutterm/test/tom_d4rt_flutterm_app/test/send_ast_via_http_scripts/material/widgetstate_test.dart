@@ -184,7 +184,7 @@ dynamic build(BuildContext context) {
     ),
     child: Builder(builder: (ctx) {
       final theme = Theme.of(ctx);
-      print('Theme.of resolved with WidgetState-driven button style');
+      print('Theme.of resolved: $theme');
 
       return Column(
         mainAxisSize: MainAxisSize.min,

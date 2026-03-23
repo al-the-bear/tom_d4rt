@@ -627,7 +627,7 @@ Widget _targetSizeRow(String label, int? width, int? height, Color color) {
     padding: EdgeInsets.symmetric(vertical: 6),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 100,
           child: Text(
             label,
@@ -697,7 +697,7 @@ Widget _aspectRatioRow(String label, int w, int h, double ratio) {
     padding: EdgeInsets.symmetric(vertical: 6),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 60,
           child: Text(
             label,

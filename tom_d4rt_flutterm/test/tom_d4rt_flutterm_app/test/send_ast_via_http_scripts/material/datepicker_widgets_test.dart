@@ -27,7 +27,7 @@ dynamic build(BuildContext context) {
     lastDate: lastDate,
     helpText: 'Select a date',
   );
-  print('DatePickerDialog(helpText) created');
+  print('DatePickerDialog(helpText) created: $widget2');
 
   // Variation 3: DatePickerDialog with cancelText and confirmText
   final widget3 = DatePickerDialog(
@@ -37,7 +37,7 @@ dynamic build(BuildContext context) {
     cancelText: 'Cancel',
     confirmText: 'OK',
   );
-  print('DatePickerDialog(cancelText, confirmText) created');
+  print('DatePickerDialog(cancelText, confirmText) created: $widget3');
 
   // Variation 4: DatePickerDialog with initialEntryMode
   final widget4 = DatePickerDialog(
@@ -46,7 +46,7 @@ dynamic build(BuildContext context) {
     lastDate: lastDate,
     initialEntryMode: DatePickerEntryMode.input,
   );
-  print('DatePickerDialog(initialEntryMode: input) created');
+  print('DatePickerDialog(initialEntryMode: input) created: $widget4');
 
   // Variation 5: DatePickerDialog in inputOnly mode
   final widget5 = DatePickerDialog(
@@ -55,7 +55,7 @@ dynamic build(BuildContext context) {
     lastDate: lastDate,
     initialEntryMode: DatePickerEntryMode.inputOnly,
   );
-  print('DatePickerDialog(initialEntryMode: inputOnly) created');
+  print('DatePickerDialog(initialEntryMode: inputOnly) created: $widget5');
 
   // ========== CALENDARDATEPICKER ==========
   print('--- CalendarDatePicker Tests ---');
@@ -81,7 +81,7 @@ dynamic build(BuildContext context) {
       print('Year mode date: $date');
     },
   );
-  print('CalendarDatePicker(initialCalendarMode: year) created');
+  print('CalendarDatePicker(initialCalendarMode: year) created: $widget7');
 
   // Variation 8: CalendarDatePicker with currentDate
   final widget8 = CalendarDatePicker(
@@ -91,7 +91,7 @@ dynamic build(BuildContext context) {
     currentDate: DateTime(2025, 6, 20),
     onDateChanged: (DateTime date) {},
   );
-  print('CalendarDatePicker(currentDate) created');
+  print('CalendarDatePicker(currentDate) created: $widget8');
 
   // ========== YEARPICKER ==========
   print('--- YearPicker Tests ---');
@@ -115,7 +115,7 @@ dynamic build(BuildContext context) {
     currentDate: DateTime(2025, 6, 15),
     onChanged: (DateTime date) {},
   );
-  print('YearPicker(currentDate) created');
+  print('YearPicker(currentDate) created: $widget10');
 
   print('DatePicker widgets test completed');
   return Material(

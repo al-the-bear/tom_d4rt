@@ -1030,7 +1030,7 @@ Widget buildSummaryPanel() {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
+                  SizedBox(
                     width: 160,
                     child: Text(
                       row[0],

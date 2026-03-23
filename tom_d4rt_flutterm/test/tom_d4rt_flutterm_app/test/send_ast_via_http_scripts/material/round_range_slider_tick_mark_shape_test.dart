@@ -837,7 +837,7 @@ Widget buildDivisionsShowcase() {
         margin: EdgeInsets.symmetric(vertical: 4),
         child: Row(
           children: [
-            Container(
+            SizedBox(
               width: 60,
               child: Text(
                 '$divisions div',
@@ -870,7 +870,7 @@ Widget buildDivisionsShowcase() {
                 ),
               ),
             ),
-            Container(
+            SizedBox(
               width: 50,
               child: Text(
                 '${divisions + 1} marks',
@@ -942,7 +942,7 @@ Widget buildTickMarkRadiusComparison() {
               ),
             ),
             SizedBox(width: 8),
-            Container(
+            SizedBox(
               width: 50,
               child: Text(
                 '${radius.toStringAsFixed(1)}',
@@ -1042,7 +1042,7 @@ Widget buildSliderThemeProperties() {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            SizedBox(
               width: 160,
               child: Text(
                 propNames[p],
@@ -1169,7 +1169,7 @@ Widget buildColoredRangeSliderGrid() {
         margin: EdgeInsets.symmetric(vertical: 3),
         child: Row(
           children: [
-            Container(
+            SizedBox(
               width: 60,
               child: Text(
                 colorNames[c],
@@ -1202,7 +1202,7 @@ Widget buildColoredRangeSliderGrid() {
                 ),
               ),
             ),
-            Container(
+            SizedBox(
               width: 50,
               child: Text(
                 '${startValues[c].toInt()}-${endValues[c].toInt()}',

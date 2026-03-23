@@ -239,7 +239,7 @@ dynamic build(BuildContext context) {
   print('ZoomPageTransitionsBuilder created');
 
   final predictiveBackBuilder = PredictiveBackPageTransitionsBuilder();
-  print('PredictiveBackPageTransitionsBuilder created');
+  print('PredictiveBackPageTransitionsBuilder created: $predictiveBackBuilder');
 
   final pageTransitionsTheme = PageTransitionsTheme(
     builders: {

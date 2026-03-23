@@ -4,7 +4,6 @@
 // clip behaviors, nesting, and reverseDuration configurations.
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 Widget _buildHeader(String title, String subtitle) {
   print('Building header: $title');
@@ -43,10 +42,7 @@ Widget _buildHeader(String title, String subtitle) {
         SizedBox(height: 6),
         Text(
           subtitle,
-          style: TextStyle(
-            fontSize: 14,
-            color: Color(0xCCFFFFFF),
-          ),
+          style: TextStyle(fontSize: 14, color: Color(0xCCFFFFFF)),
         ),
       ],
     ),
@@ -227,9 +223,7 @@ Widget _buildCurvesSection() {
             width: 160,
             height: 55,
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [color, color.withOpacity(0.6)],
-              ),
+              gradient: LinearGradient(colors: [color, color.withOpacity(0.6)]),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Center(
@@ -372,7 +366,11 @@ Widget _buildClipBehaviorSection() {
         clipDemo('Clip.none', Clip.none, Color(0xFF5D4037)),
         clipDemo('Clip.hardEdge', Clip.hardEdge, Color(0xFF4E342E)),
         clipDemo('Clip.antiAlias', Clip.antiAlias, Color(0xFF6D4C41)),
-        clipDemo('Clip.antiAliasWithSaveLayer', Clip.antiAliasWithSaveLayer, Color(0xFF795548)),
+        clipDemo(
+          'Clip.antiAliasWithSaveLayer',
+          Clip.antiAliasWithSaveLayer,
+          Color(0xFF795548),
+        ),
       ],
     ),
   );
@@ -382,7 +380,15 @@ Widget _buildClipBehaviorSection() {
 Widget _buildNestedSection() {
   print('Section 6: Nested AnimatedSize containers');
 
-  Widget nestedExample(String label, Color outerColor, Color innerColor, double outerW, double outerH, double innerW, double innerH) {
+  Widget nestedExample(
+    String label,
+    Color outerColor,
+    Color innerColor,
+    double outerW,
+    double outerH,
+    double innerW,
+    double innerH,
+  ) {
     print('  Nested demo: $label');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -435,10 +441,42 @@ Widget _buildNestedSection() {
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        nestedExample('Small in Large', Color(0xFF1A237E), Color(0xFF3F51B5), 220, 140, 80, 50),
-        nestedExample('Medium in Medium', Color(0xFF004D40), Color(0xFF009688), 180, 120, 100, 60),
-        nestedExample('Large in Slim', Color(0xFFBF360C), Color(0xFFFF5722), 250, 90, 160, 40),
-        nestedExample('Triple nest simulation', Color(0xFF4A148C), Color(0xFF7B1FA2), 200, 150, 120, 80),
+        nestedExample(
+          'Small in Large',
+          Color(0xFF1A237E),
+          Color(0xFF3F51B5),
+          220,
+          140,
+          80,
+          50,
+        ),
+        nestedExample(
+          'Medium in Medium',
+          Color(0xFF004D40),
+          Color(0xFF009688),
+          180,
+          120,
+          100,
+          60,
+        ),
+        nestedExample(
+          'Large in Slim',
+          Color(0xFFBF360C),
+          Color(0xFFFF5722),
+          250,
+          90,
+          160,
+          40,
+        ),
+        nestedExample(
+          'Triple nest simulation',
+          Color(0xFF4A148C),
+          Color(0xFF7B1FA2),
+          200,
+          150,
+          120,
+          80,
+        ),
       ],
     ),
   );
@@ -449,7 +487,9 @@ Widget _buildReverseDurationSection() {
   print('Section 7: AnimatedSize with reverseDuration parameter');
 
   Widget reverseDemo(String label, int forwardMs, int reverseMs, Color color) {
-    print('  ReverseDuration demo: $label (forward=${forwardMs}ms, reverse=${reverseMs}ms)');
+    print(
+      '  ReverseDuration demo: $label (forward=${forwardMs}ms, reverse=${reverseMs}ms)',
+    );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -478,7 +518,11 @@ Widget _buildReverseDurationSection() {
                 children: [
                   Text(
                     'Fwd: ${forwardMs}ms',
-                    style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   Text(
                     'Rev: ${reverseMs}ms',
@@ -502,7 +546,12 @@ Widget _buildReverseDurationSection() {
         reverseDemo('Slow forward, fast reverse', 1000, 200, Color(0xFF00695C)),
         reverseDemo('Equal durations', 500, 500, Color(0xFF004D40)),
         reverseDemo('Very fast both', 100, 100, Color(0xFF00897B)),
-        reverseDemo('Very slow forward, instant reverse', 2000, 50, Color(0xFF26A69A)),
+        reverseDemo(
+          'Very slow forward, instant reverse',
+          2000,
+          50,
+          Color(0xFF26A69A),
+        ),
       ],
     ),
   );
@@ -512,7 +561,16 @@ Widget _buildReverseDurationSection() {
 Widget _buildCombinedSection() {
   print('Section 8: Combined AnimatedSize configurations');
 
-  Widget combinedExample(String label, int durationMs, Curve curve, Alignment alignment, Clip clip, Color color, double w, double h) {
+  Widget combinedExample(
+    String label,
+    int durationMs,
+    Curve curve,
+    Alignment alignment,
+    Clip clip,
+    Color color,
+    double w,
+    double h,
+  ) {
     print('  Combined demo: $label');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -559,23 +617,43 @@ Widget _buildCombinedSection() {
       children: [
         combinedExample(
           'Bounce + topLeft + hardEdge',
-          900, Curves.bounceOut, Alignment.topLeft, Clip.hardEdge,
-          Color(0xFFFF6F00), 150, 70,
+          900,
+          Curves.bounceOut,
+          Alignment.topLeft,
+          Clip.hardEdge,
+          Color(0xFFFF6F00),
+          150,
+          70,
         ),
         combinedExample(
           'EaseIn + center + antiAlias',
-          600, Curves.easeIn, Alignment.center, Clip.antiAlias,
-          Color(0xFF6A1B9A), 180, 60,
+          600,
+          Curves.easeIn,
+          Alignment.center,
+          Clip.antiAlias,
+          Color(0xFF6A1B9A),
+          180,
+          60,
         ),
         combinedExample(
           'Linear + bottomRight + none',
-          400, Curves.linear, Alignment.bottomRight, Clip.none,
-          Color(0xFF1B5E20), 130, 80,
+          400,
+          Curves.linear,
+          Alignment.bottomRight,
+          Clip.none,
+          Color(0xFF1B5E20),
+          130,
+          80,
         ),
         combinedExample(
           'ElasticOut + centerLeft + saveLayer',
-          1200, Curves.elasticOut, Alignment.centerLeft, Clip.antiAliasWithSaveLayer,
-          Color(0xFFC62828), 200, 55,
+          1200,
+          Curves.elasticOut,
+          Alignment.centerLeft,
+          Clip.antiAliasWithSaveLayer,
+          Color(0xFFC62828),
+          200,
+          55,
         ),
       ],
     ),
@@ -605,11 +683,7 @@ Widget _buildTextContentSection() {
             ),
             child: Text(
               text,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 13,
-                height: 1.4,
-              ),
+              style: TextStyle(color: Colors.white, fontSize: 13, height: 1.4),
             ),
           ),
         ),
@@ -622,12 +696,7 @@ Widget _buildTextContentSection() {
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        textDemo(
-          'Short text',
-          'Hello!',
-          200,
-          Color(0xFF37474F),
-        ),
+        textDemo('Short text', 'Hello!', 200, Color(0xFF37474F)),
         textDemo(
           'Medium text',
           'AnimatedSize smoothly transitions between different sizes.',
@@ -649,7 +718,13 @@ Widget _buildTextContentSection() {
 Widget _buildIconDecorationsSection() {
   print('Section 10: AnimatedSize with icon and decoration variations');
 
-  Widget iconDemo(String label, IconData icon, double size, Color color, Color bgColor) {
+  Widget iconDemo(
+    String label,
+    IconData icon,
+    double size,
+    Color color,
+    Color bgColor,
+  ) {
     print('  Icon decoration demo: $label');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -701,9 +776,27 @@ Widget _buildIconDecorationsSection() {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         iconDemo('Star icon', Icons.star, 28, Colors.white, Color(0xFFFF8F00)),
-        iconDemo('Rocket icon', Icons.rocket_launch, 32, Colors.white, Color(0xFF1565C0)),
-        iconDemo('Heart icon', Icons.favorite, 24, Colors.white, Color(0xFFD32F2F)),
-        iconDemo('Lightning icon', Icons.flash_on, 30, Colors.white, Color(0xFFF9A825)),
+        iconDemo(
+          'Rocket icon',
+          Icons.rocket_launch,
+          32,
+          Colors.white,
+          Color(0xFF1565C0),
+        ),
+        iconDemo(
+          'Heart icon',
+          Icons.favorite,
+          24,
+          Colors.white,
+          Color(0xFFD32F2F),
+        ),
+        iconDemo(
+          'Lightning icon',
+          Icons.flash_on,
+          30,
+          Colors.white,
+          Color(0xFFF9A825),
+        ),
         iconDemo('Leaf icon', Icons.eco, 26, Colors.white, Color(0xFF2E7D32)),
       ],
     ),
@@ -770,10 +863,7 @@ dynamic build(BuildContext context) {
           Center(
             child: Text(
               'End of RenderAnimatedSize Demo',
-              style: TextStyle(
-                color: Color(0xFF9E9E9E),
-                fontSize: 12,
-              ),
+              style: TextStyle(color: Color(0xFF9E9E9E), fontSize: 12),
             ),
           ),
           SizedBox(height: 32),

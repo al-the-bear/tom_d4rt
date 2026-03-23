@@ -145,17 +145,17 @@ Widget buildVerticalDividerWithThickness(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Container(
+                SizedBox(
                   width: 80,
                   child: Center(child: Text('Item A')),
                 ),
                 VerticalDivider(thickness: thickness, color: color),
-                Container(
+                SizedBox(
                   width: 80,
                   child: Center(child: Text('Item B')),
                 ),
                 VerticalDivider(thickness: thickness, color: color),
-                Container(
+                SizedBox(
                   width: 80,
                   child: Center(child: Text('Item C')),
                 ),
@@ -634,7 +634,7 @@ Widget buildMultipleDividersShowcase() {
 }
 
 Widget _buildNumberedCell(String number) {
-  return Container(
+  return SizedBox(
     width: 40,
     child: Center(
       child: Text(
@@ -785,7 +785,7 @@ Widget buildDividerThicknessVariations() {
 }
 
 Widget _buildThicknessLabel(String text) {
-  return Container(
+  return SizedBox(
     width: 40,
     child: Center(
       child: Text(

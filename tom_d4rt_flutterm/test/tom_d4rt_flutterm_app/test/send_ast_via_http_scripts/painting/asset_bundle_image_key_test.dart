@@ -61,7 +61,7 @@ Widget buildPropertyRow(String property, String type, String description) {
     ),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 100,
           child: Text(
             property,
@@ -204,7 +204,7 @@ Widget _buildParamRow(
     ),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 80,
           child: Text(
             name,
@@ -1176,7 +1176,7 @@ Widget _buildProviderFlowStep(
 }
 
 Widget _buildProviderFlowArrow() {
-  return Container(
+  return SizedBox(
     height: 20,
     child: Center(
       child: Icon(Icons.arrow_downward, color: Colors.grey.shade400, size: 20),
@@ -1837,7 +1837,7 @@ Widget _buildSummaryItem(String label, String value) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
+        SizedBox(
           width: 90,
           child: Text(
             label,

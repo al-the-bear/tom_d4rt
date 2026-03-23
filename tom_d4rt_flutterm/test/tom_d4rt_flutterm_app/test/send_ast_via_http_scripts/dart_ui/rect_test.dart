@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Deep Demo for Rect from dart:ui
 // Rect defines a rectangle by left, top, right, bottom coordinates
-import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
@@ -559,7 +558,7 @@ Widget _propRow(String label, String value, Color color) {
           decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         SizedBox(width: 8),
-        Container(
+        SizedBox(
           width: 120,
           child: Text(
             label,

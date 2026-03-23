@@ -335,7 +335,7 @@ Widget _buildOffsetBar(double val, Color color) {
   double normalized = (val + 16.0) / 32.0;
   String offsetLabel = val.toStringAsFixed(1);
   if (val > 0) {
-    offsetLabel = '+' + offsetLabel;
+    offsetLabel = '+$offsetLabel';
   }
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -346,7 +346,7 @@ Widget _buildOffsetBar(double val, Color color) {
     ),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 60,
           child: Text(
             offsetLabel,
@@ -863,7 +863,7 @@ Widget _buildCalculationRow(String name, String val, String desc, Color color) {
             ),
           ),
         ),
-        Container(
+        SizedBox(
           width: 60,
           child: Text(
             val,

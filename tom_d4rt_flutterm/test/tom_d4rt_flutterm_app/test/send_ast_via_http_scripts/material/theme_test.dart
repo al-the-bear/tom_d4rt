@@ -26,7 +26,7 @@ dynamic build(BuildContext context) {
     secondary: Colors.teal,
     onSecondary: Colors.white,
   );
-  print('ColorScheme.dark created');
+  print('ColorScheme.dark created: $darkColorScheme');
 
   // Test ColorScheme.fromSeed
   final seedColorScheme = ColorScheme.fromSeed(seedColor: Colors.green);
@@ -38,15 +38,15 @@ dynamic build(BuildContext context) {
     seedColor: Colors.blue,
     brightness: Brightness.dark,
   );
-  print('ColorScheme.fromSeed (dark) created');
+  print('ColorScheme.fromSeed (dark) created: $seedDarkColorScheme');
 
   // Test ColorScheme.highContrastLight
   final highContrastLight = ColorScheme.highContrastLight();
-  print('ColorScheme.highContrastLight created');
+  print('ColorScheme.highContrastLight created: $highContrastLight');
 
   // Test ColorScheme.highContrastDark
   final highContrastDark = ColorScheme.highContrastDark();
-  print('ColorScheme.highContrastDark created');
+  print('ColorScheme.highContrastDark created: $highContrastDark');
 
   // Test ColorScheme copyWith
   final copiedColorScheme = lightColorScheme.copyWith(
@@ -87,7 +87,7 @@ dynamic build(BuildContext context) {
     onInverseSurface: Colors.white,
     inversePrimary: Colors.indigo.shade200,
   );
-  print('Full ColorScheme constructor created');
+  print('Full ColorScheme constructor created: $fullColorScheme');
 
   // ========== TEXTTHEME ==========
   print('--- TextTheme Tests ---');
@@ -154,7 +154,7 @@ dynamic build(BuildContext context) {
       color: Colors.blue,
     ),
   );
-  print('TextTheme.copyWith created');
+  print('TextTheme.copyWith created: $copiedTextTheme');
 
   // Test TextTheme apply
   final appliedTextTheme = basicTextTheme.apply(
@@ -162,13 +162,13 @@ dynamic build(BuildContext context) {
     bodyColor: Colors.grey.shade800,
     displayColor: Colors.grey.shade900,
   );
-  print('TextTheme.apply created');
+  print('TextTheme.apply created: $appliedTextTheme');
 
   // Test TextTheme merge
   final mergedTextTheme = basicTextTheme.merge(
     TextTheme(bodyLarge: TextStyle(color: Colors.red)),
   );
-  print('TextTheme.merge created');
+  print('TextTheme.merge created: $mergedTextTheme');
 
   // ========== THEMEDATA ==========
   print('--- ThemeData Tests ---');
@@ -178,7 +178,7 @@ dynamic build(BuildContext context) {
     colorScheme: seedColorScheme,
     useMaterial3: true,
   );
-  print('ThemeData with colorScheme created');
+  print('ThemeData with colorScheme created: $colorSchemeTheme');
 
   // Test ThemeData.light
   final lightTheme = ThemeData.light(useMaterial3: true);
@@ -198,28 +198,28 @@ dynamic build(BuildContext context) {
     colorSchemeSeed: Colors.purple,
     useMaterial3: true,
   );
-  print('ThemeData with brightness created');
+  print('ThemeData with brightness created: $brightTheme');
 
   // Test ThemeData with textTheme
   final textThemeTheme = ThemeData(
     textTheme: basicTextTheme,
     useMaterial3: true,
   );
-  print('ThemeData with textTheme created');
+  print('ThemeData with textTheme created: $textThemeTheme');
 
   // Test ThemeData with primaryColor
   final primaryColorTheme = ThemeData(
     primaryColor: Colors.indigo,
     useMaterial3: true,
   );
-  print('ThemeData with primaryColor created');
+  print('ThemeData with primaryColor created: $primaryColorTheme');
 
   // Test ThemeData with scaffoldBackgroundColor
   final scaffoldBgTheme = ThemeData(
     scaffoldBackgroundColor: Colors.grey.shade100,
     useMaterial3: true,
   );
-  print('ThemeData with scaffoldBackgroundColor created');
+  print('ThemeData with scaffoldBackgroundColor created: $scaffoldBgTheme');
 
   // Test ThemeData with appBarTheme
   final appBarThemeData = ThemeData(
@@ -232,7 +232,7 @@ dynamic build(BuildContext context) {
     ),
     useMaterial3: true,
   );
-  print('ThemeData with appBarTheme created');
+  print('ThemeData with appBarTheme created: $appBarThemeData');
 
   // Test ThemeData with elevatedButtonTheme
   final buttonThemeData = ThemeData(
@@ -275,7 +275,7 @@ dynamic build(BuildContext context) {
     iconTheme: IconThemeData(color: Colors.orange, size: 28.0),
     useMaterial3: true,
   );
-  print('ThemeData with iconTheme created');
+  print('ThemeData with iconTheme created: $iconThemeData');
 
   // Test ThemeData with dividerTheme
   final dividerThemeData = ThemeData(
@@ -287,7 +287,7 @@ dynamic build(BuildContext context) {
     ),
     useMaterial3: true,
   );
-  print('ThemeData with dividerTheme created');
+  print('ThemeData with dividerTheme created: $dividerThemeData');
 
   // Test ThemeData with floatingActionButtonTheme
   final fabThemeData = ThemeData(
@@ -299,13 +299,13 @@ dynamic build(BuildContext context) {
     ),
     useMaterial3: true,
   );
-  print('ThemeData with floatingActionButtonTheme created');
+  print('ThemeData with floatingActionButtonTheme created: $fabThemeData');
 
   // Test ThemeData copyWith
   final copiedTheme = lightTheme.copyWith(
     colorScheme: lightTheme.colorScheme.copyWith(primary: Colors.red),
   );
-  print('ThemeData.copyWith created');
+  print('ThemeData.copyWith created: $copiedTheme');
 
   // ========== THEME WIDGET ==========
   print('--- Theme Widget Tests ---');
@@ -317,7 +317,7 @@ dynamic build(BuildContext context) {
       child: Padding(padding: EdgeInsets.all(16.0), child: Text('Themed Card')),
     ),
   );
-  print('Theme widget created');
+  print('Theme widget created: $themedWidget');
 
   // Test Theme.of
   final themeOfExample = Builder(

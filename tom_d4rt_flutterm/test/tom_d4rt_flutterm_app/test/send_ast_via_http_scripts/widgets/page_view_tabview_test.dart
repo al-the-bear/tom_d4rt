@@ -45,7 +45,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('PageView created');
+  print('PageView created: $pageView');
 
   // ========== PageView.builder ==========
   print('--- PageView.builder Tests ---');
@@ -58,7 +58,7 @@ dynamic build(BuildContext context) {
     ),
     onPageChanged: (page) => print('  Builder page: $page'),
   );
-  print('PageView.builder created');
+  print('PageView.builder created: $pageViewBuilder');
 
   // ========== PageView.custom ==========
   print('--- PageView.custom Tests ---');
@@ -72,12 +72,12 @@ dynamic build(BuildContext context) {
       childCount: 5,
     ),
   );
-  print('PageView.custom created');
+  print('PageView.custom created: $pageViewCustom');
 
   // ========== PageScrollPhysics ==========
   print('--- PageScrollPhysics Tests ---');
   final pagePhysics = PageScrollPhysics(parent: BouncingScrollPhysics());
-  print('PageScrollPhysics created');
+  print('PageScrollPhysics created: $pagePhysics');
 
   // ========== PageStorageKey ==========
   print('--- PageStorageKey Tests ---');
@@ -149,7 +149,7 @@ dynamic build(BuildContext context) {
       children: [Icon(Icons.info), SizedBox(width: 4), Text('Custom')],
     ),
   );
-  print('Tab widgets created: 4 variants');
+  print('Tab widgets created: $tab1, $tab2, $tab3, $tab4');
 
   // ========== UnderlineTabIndicator ==========
   print('--- UnderlineTabIndicator Tests ---');
@@ -158,7 +158,7 @@ dynamic build(BuildContext context) {
     borderRadius: BorderRadius.circular(2),
     insets: EdgeInsets.symmetric(horizontal: 16),
   );
-  print('UnderlineTabIndicator created');
+  print('UnderlineTabIndicator created: $indicator');
 
   // ========== TabBarIndicatorSize ==========
   print('--- TabBarIndicatorSize Tests ---');

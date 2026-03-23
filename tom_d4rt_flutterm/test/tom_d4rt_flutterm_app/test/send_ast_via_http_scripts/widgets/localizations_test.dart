@@ -27,10 +27,10 @@ dynamic build(BuildContext context) {
   print('Locale countryCode: ${locale2.countryCode}');
 
   final locale3 = Locale('de', 'DE');
-  print('Locale(de, DE) created: $locale3');
+  print('Locale(de, DE) created: ${locale3.languageCode}_${locale3.countryCode}');
 
   final locale4 = Locale('ja');
-  print('Locale(ja) created: $locale4');
+  print('Locale(ja) created: ${locale4.languageCode}');
 
   // DefaultWidgetsLocalizations is the default implementation
   print('DefaultWidgetsLocalizations provides default text direction');
@@ -76,7 +76,7 @@ dynamic build(BuildContext context) {
       child: Text('Localizations widget with fr_FR locale'),
     ),
   );
-  print('Localizations widget with locale fr_FR created');
+  print('Localizations widget with locale fr_FR created: $localizationsWidget');
 
   print('Localizations test completed');
   return localizedApp;

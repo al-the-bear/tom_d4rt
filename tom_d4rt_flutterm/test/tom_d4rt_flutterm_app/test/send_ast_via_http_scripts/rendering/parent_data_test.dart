@@ -1586,15 +1586,15 @@ dynamic build(BuildContext context) {
   // Create ParentData instances for testing
   ParentData baseParentData = ParentData();
   print('\nParentData instance created:');
-  print('  runtimeType: ' + baseParentData.runtimeType.toString());
-  print('  toString: ' + baseParentData.toString());
+  print('  runtimeType: ${baseParentData.runtimeType}');
+  print('  toString: $baseParentData');
 
   BoxParentData boxParentData = BoxParentData();
   boxParentData.offset = Offset(50.0, 75.0);
   print('\nBoxParentData instance:');
-  print('  offset: ' + boxParentData.offset.toString());
-  print('  offset.dx: ' + boxParentData.offset.dx.toString());
-  print('  offset.dy: ' + boxParentData.offset.dy.toString());
+  print('  offset: ${boxParentData.offset}');
+  print('  offset.dx: ${boxParentData.offset.dx}');
+  print('  offset.dy: ${boxParentData.offset.dy}');
 
   // Section 3: Hierarchy
   print('\n[SECTION 3] Rendering Layer Hierarchy');
@@ -1638,7 +1638,7 @@ dynamic build(BuildContext context) {
   print('  3. Implement RenderObject with setupParentData');
   print('  4. Use ParentData in layout/paint');
 
-  print('\n' + '=' * 60);
+  print('\n${'=' * 60}');
   print('ParentData Deep Demo completed successfully');
 
   return SingleChildScrollView(

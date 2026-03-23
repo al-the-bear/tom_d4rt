@@ -42,7 +42,7 @@ dynamic build(BuildContext context) {
 
   // Default GridPaper
   final defaultGrid = GridPaper();
-  print('Default GridPaper created');
+  print('Default GridPaper created: $defaultGrid');
 
   // GridPaper with custom colors
   final customGrid = GridPaper(
@@ -63,7 +63,7 @@ dynamic build(BuildContext context) {
     subdivisions: 2,
     color: Colors.blue.withValues(alpha: 0.2),
   );
-  print('Large GridPaper created');
+  print('Large GridPaper created: $largeGrid');
 
   // ========== POPSCOPE ==========
   print('--- PopScope Tests ---');

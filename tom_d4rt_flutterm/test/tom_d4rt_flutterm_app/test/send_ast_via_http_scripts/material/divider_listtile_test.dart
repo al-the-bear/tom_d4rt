@@ -83,7 +83,7 @@ dynamic build(BuildContext context) {
       ],
     ),
   );
-  print('ListTileTheme wrapping tiles');
+  print('ListTileTheme created: $theme');
 
   // ========== ListTileControlAffinity ==========
   print('--- ListTileControlAffinity Tests ---');

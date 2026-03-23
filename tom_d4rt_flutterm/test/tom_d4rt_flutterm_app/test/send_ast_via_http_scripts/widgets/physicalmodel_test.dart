@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Tests PhysicalModel, PhysicalShape, ShaderMask,
 // BackdropFilter, ColorFiltered from widgets
-import 'dart:ui';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
@@ -16,7 +15,7 @@ dynamic build(BuildContext context) {
     elevation: 8.0,
     shadowColor: Colors.black,
     borderRadius: BorderRadius.circular(12.0),
-    child: Container(
+    child: SizedBox(
       width: 150.0,
       height: 80.0,
       child: Center(child: Text('Elevated')),
@@ -54,7 +53,7 @@ dynamic build(BuildContext context) {
     clipper: ShapeBorderClipper(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
     ),
-    child: Container(
+    child: SizedBox(
       width: 150.0,
       height: 80.0,
       child: Center(
@@ -71,7 +70,7 @@ dynamic build(BuildContext context) {
     color: Colors.orange,
     elevation: 4.0,
     clipper: ShapeBorderClipper(shape: CircleBorder()),
-    child: Container(
+    child: SizedBox(
       width: 80.0,
       height: 80.0,
       child: Center(

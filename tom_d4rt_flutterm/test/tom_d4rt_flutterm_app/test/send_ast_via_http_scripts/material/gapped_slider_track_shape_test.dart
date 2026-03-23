@@ -381,7 +381,7 @@ Widget _buildColorThemedSlidersSection() {
         SizedBox(height: 14),
         Column(
           children: themes.map((t) {
-            print('  Theme: ' + (t['name'] as String));
+            print('  Theme: ${t['name'] as String}');
             return Container(
               margin: EdgeInsets.only(bottom: 12),
               padding: EdgeInsets.all(12),
@@ -536,7 +536,7 @@ Widget _buildTrackHeightsSection() {
         SizedBox(height: 14),
         Column(
           children: heights.map((h) {
-            print('  Track height: ' + (h['label'] as String));
+            print('  Track height: ${h['label'] as String}');
             return Container(
               margin: EdgeInsets.only(bottom: 10),
               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
@@ -864,7 +864,7 @@ Widget _buildDifferentValuesSection() {
         SizedBox(height: 14),
         Column(
           children: positions.map((p) {
-            print('  Position: ' + (p['label'] as String));
+            print('  Position: ${p['label'] as String}');
             return Container(
               margin: EdgeInsets.only(bottom: 8),
               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -1297,7 +1297,7 @@ Widget _buildDivisionsShowcaseSection() {
         Column(
           children: divisionSets.map((d) {
             int divCount = d['divisions'] as int;
-            print('  Divisions: ' + (d['label'] as String));
+            print('  Divisions: ${d['label'] as String}');
             return Container(
               margin: EdgeInsets.only(bottom: 10),
               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),

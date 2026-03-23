@@ -41,7 +41,7 @@ dynamic build(BuildContext context) {
       );
     },
   );
-  print('OverlayEntry(opaque: true) created');
+  print('OverlayEntry(opaque: true) created: $entry2');
   print('OverlayEntry opaque: ${entry2.opaque}');
 
   // Test OverlayEntry with maintainState=true
@@ -63,14 +63,14 @@ dynamic build(BuildContext context) {
       );
     },
   );
-  print('OverlayEntry(maintainState: true) created');
+  print('OverlayEntry(maintainState: true) created: $entry3');
   print('OverlayEntry maintainState: ${entry3.maintainState}');
 
   // Overlay.of requires a valid overlay in the widget tree
   // In a MaterialApp/Scaffold context, Overlay is always present
   try {
     final overlay = Overlay.of(context);
-    print('Overlay.of(context) accessed successfully');
+    print('Overlay.of(context) accessed successfully: $overlay');
   } catch (e) {
     print('Overlay.of(context) not available in test context: $e');
   }

@@ -43,7 +43,7 @@ dynamic build(BuildContext context) {
         Positioned(top: 0, left: 0, child: Text('Portal overlay')),
     child: Text('Portal child'),
   );
-  print('OverlayPortal created');
+  print('OverlayPortal created: $overlayPortal');
 
   // ========== LayerLink for Composited widgets ==========
   print('--- LayerLink Tests ---');
@@ -61,7 +61,7 @@ dynamic build(BuildContext context) {
       child: Text('Target'),
     ),
   );
-  print('CompositedTransformTarget created');
+  print('CompositedTransformTarget created: $target');
 
   // ========== CompositedTransformFollower ==========
   print('--- CompositedTransformFollower Tests ---');
@@ -80,7 +80,7 @@ dynamic build(BuildContext context) {
       ),
     ),
   );
-  print('CompositedTransformFollower created');
+  print('CompositedTransformFollower created: $follower');
   print('  showWhenUnlinked: false');
   print('  targetAnchor: Alignment.bottomLeft');
   print('  followerAnchor: Alignment.topLeft');
@@ -90,7 +90,7 @@ dynamic build(BuildContext context) {
   final overlayWidget = Overlay(
     initialEntries: [OverlayEntry(builder: (context) => Text('Initial entry'))],
   );
-  print('Overlay created with initial entries');
+  print('Overlay created with initial entries: $overlayWidget');
 
   print('All overlay/portal tests passed');
 

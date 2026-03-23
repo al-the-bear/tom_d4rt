@@ -22,7 +22,7 @@ dynamic build(BuildContext context) {
       child: Text('Colored Dialog'),
     ),
   );
-  print('Dialog with backgroundColor created');
+  print('Dialog with backgroundColor created: $coloredDialog');
 
   // Test Dialog with elevation
   final elevatedDialog = Dialog(
@@ -32,7 +32,7 @@ dynamic build(BuildContext context) {
       child: Text('Elevated Dialog'),
     ),
   );
-  print('Dialog with elevation created');
+  print('Dialog with elevation created: $elevatedDialog');
 
   // Test Dialog with shape
   final shapedDialog = Dialog(
@@ -42,20 +42,20 @@ dynamic build(BuildContext context) {
       child: Text('Rounded Dialog'),
     ),
   );
-  print('Dialog with shape created');
+  print('Dialog with shape created: $shapedDialog');
 
   // Test Dialog with insetPadding
   final insetDialog = Dialog(
     insetPadding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 24.0),
     child: Padding(padding: EdgeInsets.all(16.0), child: Text('Inset Dialog')),
   );
-  print('Dialog with insetPadding created');
+  print('Dialog with insetPadding created: $insetDialog');
 
   // Test Dialog.fullscreen
   final fullscreenDialog = Dialog.fullscreen(
     child: Center(child: Text('Fullscreen Dialog')),
   );
-  print('Dialog.fullscreen created');
+  print('Dialog.fullscreen created: $fullscreenDialog');
 
   // ========== ALERTDIALOG ==========
   print('--- AlertDialog Tests ---');
@@ -65,7 +65,7 @@ dynamic build(BuildContext context) {
     title: Text('Alert'),
     content: Text('This is an alert dialog.'),
   );
-  print('Basic AlertDialog created');
+  print('Basic AlertDialog created: $basicAlert');
 
   // Test AlertDialog with actions
   final actionAlert = AlertDialog(
@@ -98,7 +98,7 @@ dynamic build(BuildContext context) {
       TextButton(onPressed: () {}, child: Text('Delete')),
     ],
   );
-  print('AlertDialog with icon created');
+  print('AlertDialog with icon created: $iconAlert');
 
   // Test AlertDialog with backgroundColor
   final coloredAlert = AlertDialog(
@@ -106,7 +106,7 @@ dynamic build(BuildContext context) {
     title: Text('Colored'),
     content: Text('Custom background color'),
   );
-  print('AlertDialog with backgroundColor created');
+  print('AlertDialog with backgroundColor created: $coloredAlert');
 
   // Test AlertDialog with shape
   final shapedAlert = AlertDialog(
@@ -114,7 +114,7 @@ dynamic build(BuildContext context) {
     title: Text('Rounded'),
     content: Text('Rounded corners'),
   );
-  print('AlertDialog with shape created');
+  print('AlertDialog with shape created: $shapedAlert');
 
   // Test AlertDialog with elevation
   final elevatedAlert = AlertDialog(
@@ -122,7 +122,7 @@ dynamic build(BuildContext context) {
     title: Text('Elevated'),
     content: Text('High elevation'),
   );
-  print('AlertDialog with elevation created');
+  print('AlertDialog with elevation created: $elevatedAlert');
 
   // Test AlertDialog with titlePadding
   final paddedAlert = AlertDialog(
@@ -133,7 +133,7 @@ dynamic build(BuildContext context) {
     content: Text('Custom padding values'),
     actions: [TextButton(onPressed: () {}, child: Text('OK'))],
   );
-  print('AlertDialog with custom padding created');
+  print('AlertDialog with custom padding created: $paddedAlert');
 
   // Test AlertDialog with actionsAlignment
   final alignedActionsAlert = AlertDialog(
@@ -145,7 +145,7 @@ dynamic build(BuildContext context) {
       TextButton(onPressed: () {}, child: Text('B')),
     ],
   );
-  print('AlertDialog with actionsAlignment created');
+  print('AlertDialog with actionsAlignment created: $alignedActionsAlert');
 
   // Test AlertDialog with scrollable content
   final scrollableAlert = AlertDialog(
@@ -155,7 +155,7 @@ dynamic build(BuildContext context) {
     ),
     actions: [TextButton(onPressed: () {}, child: Text('Close'))],
   );
-  print('AlertDialog with scrollable content created');
+  print('AlertDialog with scrollable content created: $scrollableAlert');
 
   // ========== SIMPLEDIALOG ==========
   print('--- SimpleDialog Tests ---');
@@ -189,7 +189,7 @@ dynamic build(BuildContext context) {
       SimpleDialogOption(child: Text('B')),
     ],
   );
-  print('SimpleDialog with backgroundColor created');
+  print('SimpleDialog with backgroundColor created: $coloredSimple');
 
   // Test SimpleDialog with shape
   final shapedSimple = SimpleDialog(
@@ -197,7 +197,7 @@ dynamic build(BuildContext context) {
     title: Text('Rounded'),
     children: [SimpleDialogOption(child: Text('Option'))],
   );
-  print('SimpleDialog with shape created');
+  print('SimpleDialog with shape created: $shapedSimple');
 
   // ========== BOTTOMSHEET ==========
   print('--- BottomSheet Tests ---');
@@ -215,33 +215,33 @@ dynamic build(BuildContext context) {
       );
     },
   );
-  print('Basic BottomSheet created');
+  print('Basic BottomSheet created: $basicBottomSheet');
 
   // Test BottomSheet with backgroundColor
   final coloredBottomSheet = BottomSheet(
     backgroundColor: Colors.purple.shade50,
     onClosing: () {},
     builder: (context) {
-      return Container(
+      return SizedBox(
         height: 150.0,
         child: Center(child: Text('Colored BottomSheet')),
       );
     },
   );
-  print('BottomSheet with backgroundColor created');
+  print('BottomSheet with backgroundColor created: $coloredBottomSheet');
 
   // Test BottomSheet with elevation
   final elevatedBottomSheet = BottomSheet(
     elevation: 16.0,
     onClosing: () {},
     builder: (context) {
-      return Container(
+      return SizedBox(
         height: 150.0,
         child: Center(child: Text('Elevated BottomSheet')),
       );
     },
   );
-  print('BottomSheet with elevation created');
+  print('BottomSheet with elevation created: $elevatedBottomSheet');
 
   // Test BottomSheet with shape
   final shapedBottomSheet = BottomSheet(
@@ -250,7 +250,7 @@ dynamic build(BuildContext context) {
     ),
     onClosing: () {},
     builder: (context) {
-      return Container(
+      return SizedBox(
         height: 150.0,
         child: Center(child: Text('Rounded BottomSheet')),
       );
@@ -275,14 +275,14 @@ dynamic build(BuildContext context) {
       );
     },
   );
-  print('BottomSheet with clipBehavior created');
+  print('BottomSheet with clipBehavior created: $clippedBottomSheet');
 
   // Test BottomSheet enableDrag
   final draggableBottomSheet = BottomSheet(
     enableDrag: true,
     onClosing: () {},
     builder: (context) {
-      return Container(
+      return SizedBox(
         height: 150.0,
         child: Column(
           children: [
@@ -301,14 +301,14 @@ dynamic build(BuildContext context) {
       );
     },
   );
-  print('BottomSheet enableDrag created');
+  print('BottomSheet enableDrag created: $draggableBottomSheet');
 
   // ========== SNACKBAR ==========
   print('--- SnackBar Tests ---');
 
   // Test basic SnackBar
   final basicSnackBar = SnackBar(content: Text('This is a snack bar'));
-  print('Basic SnackBar created');
+  print('Basic SnackBar created: $basicSnackBar');
 
   // Test SnackBar with action
   final actionSnackBar = SnackBar(
@@ -320,28 +320,28 @@ dynamic build(BuildContext context) {
       },
     ),
   );
-  print('SnackBar with action created');
+  print('SnackBar with action created: $actionSnackBar');
 
   // Test SnackBar with duration
   final longSnackBar = SnackBar(
     content: Text('Long duration'),
     duration: Duration(seconds: 10),
   );
-  print('SnackBar with long duration created');
+  print('SnackBar with long duration created: $longSnackBar');
 
   // Test SnackBar with backgroundColor
   final coloredSnackBar = SnackBar(
     content: Text('Success!'),
     backgroundColor: Colors.green,
   );
-  print('SnackBar with backgroundColor created');
+  print('SnackBar with backgroundColor created: $coloredSnackBar');
 
   // Test SnackBar with behavior
   final floatingSnackBar = SnackBar(
     content: Text('Floating snack bar'),
     behavior: SnackBarBehavior.floating,
   );
-  print('SnackBar with floating behavior created');
+  print('SnackBar with floating behavior created: $floatingSnackBar');
 
   // Test SnackBar with margin
   final marginedSnackBar = SnackBar(
@@ -349,7 +349,7 @@ dynamic build(BuildContext context) {
     behavior: SnackBarBehavior.floating,
     margin: EdgeInsets.all(16.0),
   );
-  print('SnackBar with margin created');
+  print('SnackBar with margin created: $marginedSnackBar');
 
   // Test SnackBar with shape
   final shapedSnackBar = SnackBar(
@@ -357,18 +357,18 @@ dynamic build(BuildContext context) {
     behavior: SnackBarBehavior.floating,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
   );
-  print('SnackBar with shape created');
+  print('SnackBar with shape created: $shapedSnackBar');
 
   // Test SnackBar with elevation
   final elevatedSnackBar = SnackBar(content: Text('Elevated'), elevation: 8.0);
-  print('SnackBar with elevation created');
+  print('SnackBar with elevation created: $elevatedSnackBar');
 
   // Test SnackBar with padding
   final paddedSnackBar = SnackBar(
     content: Text('Padded content'),
     padding: EdgeInsets.all(24.0),
   );
-  print('SnackBar with padding created');
+  print('SnackBar with padding created: $paddedSnackBar');
 
   // Test SnackBar with width
   final widthSnackBar = SnackBar(
@@ -376,7 +376,7 @@ dynamic build(BuildContext context) {
     behavior: SnackBarBehavior.floating,
     width: 300.0,
   );
-  print('SnackBar with width created');
+  print('SnackBar with width created: $widthSnackBar');
 
   // Test SnackBar with onVisible
   final onVisibleSnackBar = SnackBar(
@@ -385,14 +385,14 @@ dynamic build(BuildContext context) {
       print('SnackBar is now visible');
     },
   );
-  print('SnackBar with onVisible created');
+  print('SnackBar with onVisible created: $onVisibleSnackBar');
 
   // Test SnackBar with dismissDirection
   final dismissSnackBar = SnackBar(
     content: Text('Swipe to dismiss'),
     dismissDirection: DismissDirection.horizontal,
   );
-  print('SnackBar with dismissDirection created');
+  print('SnackBar with dismissDirection created: $dismissSnackBar');
 
   // Test SnackBar with showCloseIcon
   final closeIconSnackBar = SnackBar(
@@ -400,7 +400,7 @@ dynamic build(BuildContext context) {
     showCloseIcon: true,
     closeIconColor: Colors.white,
   );
-  print('SnackBar with showCloseIcon created');
+  print('SnackBar with showCloseIcon created: $closeIconSnackBar');
 
   print('Dialog/Overlay widgets test completed');
 

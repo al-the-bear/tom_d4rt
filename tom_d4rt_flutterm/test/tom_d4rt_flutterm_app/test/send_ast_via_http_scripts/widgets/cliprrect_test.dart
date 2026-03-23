@@ -91,7 +91,7 @@ dynamic build(BuildContext context) {
       child: Icon(Icons.person, size: 60.0, color: Colors.white),
     ),
   );
-  print('ClipRRect for avatar-like circular clip created');
+  print('ClipRRect for avatar-like circular clip created: $imageClip');
 
   // Test ClipRect
   final clipRect = ClipRect(
@@ -119,7 +119,7 @@ dynamic build(BuildContext context) {
       ),
     ),
   );
-  print('ClipRect with Clip.antiAlias created');
+  print('ClipRect with Clip.antiAlias created: $clipRectAntiAlias');
 
   // Test ClipOval
   final clipOval = ClipOval(
@@ -157,7 +157,7 @@ dynamic build(BuildContext context) {
       ),
     ),
   );
-  print('ClipOval with Clip.antiAlias created');
+  print('ClipOval with Clip.antiAlias created: $clipOvalAntiAlias');
 
   // Test ClipPath
   final clipPath = ClipPath(
@@ -191,7 +191,7 @@ dynamic build(BuildContext context) {
       ),
     ),
   );
-  print('Nested clipping widgets created');
+  print('Nested clipping widgets created: $nestedClips');
 
   // Test PhysicalModel with rounded corners (alternative)
   final physicalModel = PhysicalModel(
@@ -199,7 +199,7 @@ dynamic build(BuildContext context) {
     elevation: 4.0,
     shadowColor: Colors.black,
     borderRadius: BorderRadius.circular(12.0),
-    child: Container(
+    child: SizedBox(
       height: 80.0,
       width: 200.0,
       child: Center(child: Text('PhysicalModel')),
@@ -215,7 +215,7 @@ dynamic build(BuildContext context) {
     clipper: ShapeBorderClipper(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
     ),
-    child: Container(
+    child: SizedBox(
       height: 80.0,
       width: 200.0,
       child: Center(child: Text('PhysicalShape')),

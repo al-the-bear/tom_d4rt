@@ -37,20 +37,20 @@ dynamic build(BuildContext context) {
       ],
     ),
   );
-  print('AutofillGroup created with 2 fields');
+  print('AutofillGroup created with 2 fields: $autofillGroup');
 
   // AutofillGroup with onDisposeAction
   final autofillCommit = AutofillGroup(
     onDisposeAction: AutofillContextAction.commit,
     child: TextField(autofillHints: [AutofillHints.username]),
   );
-  print('AutofillGroup with commit action');
+  print('AutofillGroup with commit action: $autofillCommit');
 
   final autofillCancel = AutofillGroup(
     onDisposeAction: AutofillContextAction.cancel,
     child: TextField(),
   );
-  print('AutofillGroup with cancel action');
+  print('AutofillGroup with cancel action: $autofillCancel');
 
   // ========== AutofillContextAction ==========
   print('--- AutofillContextAction Tests ---');

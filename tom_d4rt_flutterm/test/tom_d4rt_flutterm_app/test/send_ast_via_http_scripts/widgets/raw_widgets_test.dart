@@ -21,7 +21,7 @@ dynamic build(BuildContext context) {
       itemBuilder: (ctx, i) => Text('Item $i'),
     ),
   );
-  print('RawScrollbar created');
+  print('RawScrollbar created: $rawScrollbar');
   print('  thickness: 6.0');
   print('  thumbVisibility: true');
 
@@ -31,12 +31,12 @@ dynamic build(BuildContext context) {
     bundle: DefaultAssetBundle.of(context),
     child: Text('Asset bundle'),
   );
-  print('DefaultAssetBundle created');
+  print('DefaultAssetBundle created: $assetBundle');
 
   // ========== WillPopScope (deprecated but tests bridge) ==========
   print('--- PopScope Tests ---');
   final popScope = PopScope(canPop: true, child: Text('Pop scope'));
-  print('PopScope canPop: true');
+  print('PopScope canPop: true: $popScope');
 
   final noPop = PopScope(
     canPop: false,
@@ -45,7 +45,7 @@ dynamic build(BuildContext context) {
     },
     child: Text('No pop'),
   );
-  print('PopScope canPop: false with callback');
+  print('PopScope canPop: false with callback: $noPop');
 
   // ========== InheritedNotifier ==========
   print('--- InheritedNotifier Tests ---');

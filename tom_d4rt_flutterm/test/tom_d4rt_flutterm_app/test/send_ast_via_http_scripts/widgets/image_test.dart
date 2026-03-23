@@ -57,7 +57,7 @@ dynamic build(BuildContext context) {
       child: Text('BoxFit.cover', style: TextStyle(fontSize: 14.0)),
     ),
   );
-  print('Container demonstrating BoxFit properties created');
+  print('Container demonstrating BoxFit properties created: $decorationImageContainer');
 
   // Test various BoxFit values on containers
   final boxFitDemo = Row(

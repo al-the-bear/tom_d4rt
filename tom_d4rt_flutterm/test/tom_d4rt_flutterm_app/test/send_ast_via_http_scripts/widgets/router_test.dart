@@ -20,11 +20,11 @@ dynamic build(BuildContext context) {
   print('RouteInformation uri: ${routeInfo1.uri}');
 
   final routeInfo2 = RouteInformation(uri: Uri.parse('/detail/42'));
-  print('RouteInformation(uri: /detail/42) created');
+  print('RouteInformation(uri: /detail/42) created: $routeInfo2');
   print('RouteInformation uri: ${routeInfo2.uri}');
 
   final routeInfo3 = RouteInformation(uri: Uri.parse('/settings?theme=dark'));
-  print('RouteInformation(uri: /settings?theme=dark) created');
+  print('RouteInformation(uri: /settings?theme=dark) created: $routeInfo3');
   print('RouteInformation uri: ${routeInfo3.uri}');
 
   // Test PlatformRouteInformationProvider
@@ -81,6 +81,7 @@ dynamic build(BuildContext context) {
       ],
     ),
   );
+  print('Router info widget created: $infoWidget');
 
   // Fallback: demonstrate traditional routing as alternative
   final traditionalRouting = MaterialApp(

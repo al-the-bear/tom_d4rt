@@ -82,7 +82,7 @@ Widget _buildPropertyRow(String property, String type, String description) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
+        SizedBox(
           width: 100,
           child: Text(
             property,
@@ -93,7 +93,7 @@ Widget _buildPropertyRow(String property, String type, String description) {
             ),
           ),
         ),
-        Container(
+        SizedBox(
           width: 80,
           child: Text(
             type,
@@ -816,7 +816,7 @@ Widget _buildContainerVsInkComparison() {
             borderRadius: BorderRadius.circular(12),
             splashColor: Color(0x40FFFFFF),
             highlightColor: Color(0x20FFFFFF),
-            child: Container(
+            child: SizedBox(
               width: double.infinity,
               height: 65,
               child: Center(
@@ -877,7 +877,7 @@ Widget _buildContainerVsInkComparison() {
             borderRadius: BorderRadius.circular(12),
             splashColor: Color(0x40FFFFFF),
             highlightColor: Color(0x20FFFFFF),
-            child: Container(
+            child: SizedBox(
               width: double.infinity,
               height: 65,
               child: Center(
@@ -1478,7 +1478,7 @@ Widget _buildPropertyReference() {
           children: [
             Row(
               children: [
-                Container(
+                SizedBox(
                   width: 100,
                   child: Text(
                     'Property',
@@ -1489,7 +1489,7 @@ Widget _buildPropertyReference() {
                     ),
                   ),
                 ),
-                Container(
+                SizedBox(
                   width: 80,
                   child: Text(
                     'Type',

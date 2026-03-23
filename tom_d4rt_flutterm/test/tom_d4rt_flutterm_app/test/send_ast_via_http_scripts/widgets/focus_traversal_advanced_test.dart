@@ -16,17 +16,17 @@ dynamic build(BuildContext context) {
   // ========== WidgetOrderTraversalPolicy ==========
   print('--- WidgetOrderTraversalPolicy Tests ---');
   final widgetOrderPolicy = WidgetOrderTraversalPolicy();
-  print('WidgetOrderTraversalPolicy created');
+  print('WidgetOrderTraversalPolicy created: $widgetOrderPolicy');
 
   // ========== ReadingOrderTraversalPolicy ==========
   print('--- ReadingOrderTraversalPolicy Tests ---');
   final readingPolicy = ReadingOrderTraversalPolicy();
-  print('ReadingOrderTraversalPolicy created');
+  print('ReadingOrderTraversalPolicy created: $readingPolicy');
 
   // ========== OrderedTraversalPolicy ==========
   print('--- OrderedTraversalPolicy Tests ---');
   final orderedPolicy = OrderedTraversalPolicy();
-  print('OrderedTraversalPolicy created');
+  print('OrderedTraversalPolicy created: $orderedPolicy');
 
   // ========== NumericFocusOrder ==========
   print('--- NumericFocusOrder Tests ---');

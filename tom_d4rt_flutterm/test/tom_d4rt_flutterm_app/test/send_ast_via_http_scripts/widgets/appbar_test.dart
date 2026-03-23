@@ -40,7 +40,7 @@ dynamic build(BuildContext context) {
     elevation: 8.0,
     shadowColor: Colors.black,
   );
-  print('AppBar with elevation=8.0 created');
+  print('AppBar with elevation=8.0 created: $withElevation');
 
   // Test AppBar with centerTitle
   final centerTitle = AppBar(title: Text('Centered'), centerTitle: true);
@@ -51,7 +51,7 @@ dynamic build(BuildContext context) {
     title: Text('No Implied Leading'),
     automaticallyImplyLeading: false,
   );
-  print('AppBar with automaticallyImplyLeading=false created');
+  print('AppBar with automaticallyImplyLeading=false created: $noImply');
 
   // Test AppBar with bottom
   final withBottom = AppBar(
@@ -95,28 +95,28 @@ dynamic build(BuildContext context) {
       borderRadius: BorderRadius.vertical(bottom: Radius.circular(20.0)),
     ),
   );
-  print('AppBar with rounded bottom shape created');
+  print('AppBar with rounded bottom shape created: $withShape');
 
   print('AppBar test completed');
 
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Container(height: 56.0, child: basicAppBar),
+      SizedBox(height: 56.0, child: basicAppBar),
       SizedBox(height: 4.0),
-      Container(height: 56.0, child: withLeading),
+      SizedBox(height: 56.0, child: withLeading),
       SizedBox(height: 4.0),
-      Container(height: 56.0, child: withActions),
+      SizedBox(height: 56.0, child: withActions),
       SizedBox(height: 4.0),
-      Container(height: 56.0, child: customColors),
+      SizedBox(height: 56.0, child: customColors),
       SizedBox(height: 4.0),
-      Container(height: 56.0, child: centerTitle),
+      SizedBox(height: 56.0, child: centerTitle),
       SizedBox(height: 4.0),
-      Container(height: 104.0, child: withBottom),
+      SizedBox(height: 104.0, child: withBottom),
       SizedBox(height: 4.0),
-      Container(height: 56.0, child: withFlexibleSpace),
+      SizedBox(height: 56.0, child: withFlexibleSpace),
       SizedBox(height: 4.0),
-      Container(height: 80.0, child: customHeight),
+      SizedBox(height: 80.0, child: customHeight),
     ],
   );
 }

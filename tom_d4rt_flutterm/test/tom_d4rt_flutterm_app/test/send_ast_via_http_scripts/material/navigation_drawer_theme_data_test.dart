@@ -702,7 +702,7 @@ Widget buildIconThemingDemo() {
         ),
         child: Row(
           children: [
-            Container(
+            SizedBox(
               width: 120,
               child: Text(
                 themeNames[i],
@@ -1061,7 +1061,7 @@ Widget buildPropertyReferenceGrid() {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            SizedBox(
               width: 140,
               child: Text(
                 propNames[p],
@@ -1072,7 +1072,7 @@ Widget buildPropertyReferenceGrid() {
                 ),
               ),
             ),
-            Container(
+            SizedBox(
               width: 100,
               child: Text(
                 propTypes[p],

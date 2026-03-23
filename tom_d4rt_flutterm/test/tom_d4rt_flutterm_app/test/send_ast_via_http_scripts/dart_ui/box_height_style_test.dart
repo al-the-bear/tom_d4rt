@@ -500,7 +500,7 @@ dynamic build(BuildContext context) {
             ),
             child: Row(
               children: [
-                Container(
+                SizedBox(
                   width: 70,
                   child: Text(
                     p.key,

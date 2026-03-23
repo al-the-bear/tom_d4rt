@@ -16,14 +16,14 @@ dynamic build(BuildContext context) {
     title: 'My App Title',
     home: Scaffold(body: Center(child: Text('With Title'))),
   );
-  print('MaterialApp with title created');
+  print('MaterialApp with title created: $withTitle');
 
   // Test MaterialApp with theme
   final withTheme = MaterialApp(
     theme: ThemeData(primarySwatch: Colors.blue, brightness: Brightness.light),
     home: Scaffold(body: Center(child: Text('With Theme'))),
   );
-  print('MaterialApp with light theme created');
+  print('MaterialApp with light theme created: $withTheme');
 
   // Test MaterialApp with darkTheme
   final withDarkTheme = MaterialApp(
@@ -32,7 +32,7 @@ dynamic build(BuildContext context) {
     themeMode: ThemeMode.dark,
     home: Scaffold(body: Center(child: Text('With Dark Theme'))),
   );
-  print('MaterialApp with dark theme created');
+  print('MaterialApp with dark theme created: $withDarkTheme');
 
   // Test MaterialApp with themeMode
   print('ThemeMode.system - follows system setting');
@@ -48,7 +48,7 @@ dynamic build(BuildContext context) {
       '/third': (context) => Scaffold(body: Center(child: Text('Third'))),
     },
   );
-  print('MaterialApp with named routes created');
+  print('MaterialApp with named routes created: $withRoutes');
 
   // Test MaterialApp with onGenerateRoute
   final withGenerateRoute = MaterialApp(
@@ -67,7 +67,7 @@ dynamic build(BuildContext context) {
     },
     initialRoute: '/',
   );
-  print('MaterialApp with onGenerateRoute created');
+  print('MaterialApp with onGenerateRoute created: $withGenerateRoute');
 
   // Test MaterialApp with onUnknownRoute
   final withUnknownRoute = MaterialApp(
@@ -80,7 +80,7 @@ dynamic build(BuildContext context) {
     },
     home: Scaffold(body: Center(child: Text('Home'))),
   );
-  print('MaterialApp with onUnknownRoute created');
+  print('MaterialApp with onUnknownRoute created: $withUnknownRoute');
 
   // Test MaterialApp with navigatorKey
   final navigatorKey = GlobalKey<NavigatorState>();
@@ -88,28 +88,28 @@ dynamic build(BuildContext context) {
     navigatorKey: navigatorKey,
     home: Scaffold(body: Center(child: Text('With Navigator Key'))),
   );
-  print('MaterialApp with navigatorKey created');
+  print('MaterialApp with navigatorKey created: $withNavKey');
 
   // Test MaterialApp with navigatorObservers
   final withObservers = MaterialApp(
     navigatorObservers: [NavigatorObserver()],
     home: Scaffold(body: Center(child: Text('With Observers'))),
   );
-  print('MaterialApp with navigatorObservers created');
+  print('MaterialApp with navigatorObservers created: $withObservers');
 
   // Test MaterialApp with debugShowCheckedModeBanner
   final noBanner = MaterialApp(
     debugShowCheckedModeBanner: false,
     home: Scaffold(body: Center(child: Text('No Debug Banner'))),
   );
-  print('MaterialApp with debugShowCheckedModeBanner=false created');
+  print('MaterialApp with debugShowCheckedModeBanner=false created: $noBanner');
 
   // Test MaterialApp with locale
   final withLocale = MaterialApp(
     locale: Locale('en', 'US'),
     home: Scaffold(body: Center(child: Text('English US'))),
   );
-  print('MaterialApp with locale=en_US created');
+  print('MaterialApp with locale=en_US created: $withLocale');
 
   // Test MaterialApp with localizationsDelegates
   print('MaterialApp.localizationsDelegates for internationalization');
@@ -123,7 +123,7 @@ dynamic build(BuildContext context) {
     ],
     home: Scaffold(body: Center(child: Text('Multi-locale'))),
   );
-  print('MaterialApp with supportedLocales created');
+  print('MaterialApp with supportedLocales created: $withSupportedLocales');
 
   // Test MaterialApp with builder
   final withBuilder = MaterialApp(
@@ -135,14 +135,14 @@ dynamic build(BuildContext context) {
     },
     home: Scaffold(body: Center(child: Text('With Builder'))),
   );
-  print('MaterialApp with builder created');
+  print('MaterialApp with builder created: $withBuilder');
 
   // Test MaterialApp with scrollBehavior
   final withScrollBehavior = MaterialApp(
     scrollBehavior: MaterialScrollBehavior(),
     home: Scaffold(body: Center(child: Text('Custom Scroll'))),
   );
-  print('MaterialApp with scrollBehavior created');
+  print('MaterialApp with scrollBehavior created: $withScrollBehavior');
 
   // Test MaterialApp with shortcuts
   print('MaterialApp.shortcuts for keyboard shortcuts');
@@ -155,7 +155,7 @@ dynamic build(BuildContext context) {
     restorationScopeId: 'root',
     home: Scaffold(body: Center(child: Text('With Restoration'))),
   );
-  print('MaterialApp with restorationScopeId created');
+  print('MaterialApp with restorationScopeId created: $withRestoration');
 
   // Test MaterialApp.router
   print('MaterialApp.router for Router-based navigation');

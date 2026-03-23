@@ -143,7 +143,7 @@ Widget buildScaffoldDiagram() {
         ),
         SizedBox(height: 16),
         Center(
-          child: Container(
+          child: SizedBox(
             width: 280,
             height: 420,
             child: CustomPaint(
@@ -749,7 +749,7 @@ Widget buildRelationshipsDiagram() {
         ),
         SizedBox(height: 16),
         Center(
-          child: Container(
+          child: SizedBox(
             width: 300,
             height: 280,
             child: CustomPaint(
@@ -1018,7 +1018,7 @@ Widget buildSnackBarInteraction() {
         ),
         SizedBox(height: 16),
         Center(
-          child: Container(
+          child: SizedBox(
             width: 240,
             height: 320,
             child: CustomPaint(
@@ -1273,6 +1273,7 @@ dynamic build(BuildContext context) {
 }
 
 class _ScaffoldGeometryPainter extends CustomPainter {
+  @override
   void paint(Canvas canvas, Size size) {
     Paint scaffoldPaint = Paint();
     scaffoldPaint.color = Colors.grey.shade300;
@@ -1433,12 +1434,14 @@ class _ScaffoldGeometryPainter extends CustomPainter {
     fabLabel.paint(canvas, Offset(fabX + 12, fabY + 26));
   }
 
+  @override
   bool shouldRepaint(CustomPainter oldDelegate) {
     return false;
   }
 }
 
 class _RelationshipsPainter extends CustomPainter {
+  @override
   void paint(Canvas canvas, Size size) {
     Paint bgPaint = Paint();
     bgPaint.color = Colors.grey.shade100;
@@ -1573,12 +1576,14 @@ class _RelationshipsPainter extends CustomPainter {
     fabText.paint(canvas, Offset(fabCx - 18, fabCy + 24));
   }
 
+  @override
   bool shouldRepaint(CustomPainter oldDelegate) {
     return false;
   }
 }
 
 class _SnackBarInteractionPainter extends CustomPainter {
+  @override
   void paint(Canvas canvas, Size size) {
     Paint bgPaint = Paint();
     bgPaint.color = Colors.grey.shade200;
@@ -1718,6 +1723,7 @@ class _SnackBarInteractionPainter extends CustomPainter {
     canvas.drawPath(arrowHead, arrowFill);
   }
 
+  @override
   bool shouldRepaint(CustomPainter oldDelegate) {
     return false;
   }

@@ -498,7 +498,9 @@ class PerPackageBridgeOrchestrator {
     buffer.writeln('// Delegating barrel for ${mapping.moduleName}');
     buffer.writeln('// Generated: ${DateTime.now().toIso8601String()}');
     buffer.writeln();
-    buffer.writeln('// ignore_for_file: unused_import, deprecated_member_use');
+    buffer.writeln(
+      '// ignore_for_file: unused_import, deprecated_member_use, sort_child_properties_last',
+    );
     buffer.writeln();
     buffer.writeln(
       "import '${config.d4rtImport ?? 'package:tom_d4rt/d4rt.dart'}';",

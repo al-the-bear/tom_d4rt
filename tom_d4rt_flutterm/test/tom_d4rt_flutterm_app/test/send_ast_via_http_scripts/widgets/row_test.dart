@@ -90,7 +90,7 @@ dynamic build(BuildContext context) {
         spaceEvenlyRow,
         SizedBox(height: 8.0),
         Text('CrossAxis start:', style: TextStyle(fontWeight: FontWeight.bold)),
-        Container(height: 70.0, child: crossAlignedRow),
+        SizedBox(height: 70.0, child: crossAlignedRow),
         SizedBox(height: 8.0),
         Text(
           'MainAxisSize.min:',

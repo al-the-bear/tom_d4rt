@@ -86,7 +86,7 @@ dynamic build(BuildContext context) {
     offstage: true,
     child: Text('This text is offstage', style: TextStyle(fontSize: 18.0)),
   );
-  print('Offstage with Text child created');
+  print('Offstage with Text child created: $offstageText');
 
   // Test Offstage toggling concept
   final showWidget = false;
@@ -101,7 +101,7 @@ dynamic build(BuildContext context) {
     ),
   );
   print(
-    'Offstage toggle concept: showWidget=$showWidget, offstage=${showWidget == false}',
+    'Offstage toggle concept: showWidget=$showWidget, offstage=${showWidget == false}, widget=$toggledOffstage',
   );
 
   print('Offstage test completed');

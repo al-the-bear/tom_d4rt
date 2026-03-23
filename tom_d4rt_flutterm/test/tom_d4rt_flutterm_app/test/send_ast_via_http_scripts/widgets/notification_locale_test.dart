@@ -11,7 +11,7 @@ dynamic build(BuildContext context) {
   final notifier = SizeChangedLayoutNotifier(
     child: Container(width: 100, height: 100, color: Colors.blue),
   );
-  print('SizeChangedLayoutNotifier created');
+  print('SizeChangedLayoutNotifier created: $notifier');
 
   // ========== WidgetsLocalizations ==========
   print('--- WidgetsLocalizations Tests ---');
@@ -32,7 +32,7 @@ dynamic build(BuildContext context) {
     },
     child: SizeChangedLayoutNotifier(child: Text('Monitored widget')),
   );
-  print('NotificationListener created');
+  print('NotificationListener created: $listener');
 
   // ========== KeepAlive ==========
   print('--- KeepAlive Tests ---');

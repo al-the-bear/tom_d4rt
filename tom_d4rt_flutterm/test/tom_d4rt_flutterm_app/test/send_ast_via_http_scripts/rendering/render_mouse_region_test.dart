@@ -118,7 +118,7 @@ Widget _buildHeader() {
 }
 
 Widget _buildSectionTitle(String title) {
-  print('render_mouse_region_test: section — ' + title);
+  print('render_mouse_region_test: section — $title');
   return Padding(
     padding: EdgeInsets.only(bottom: 12.0),
     child: Container(
@@ -152,13 +152,13 @@ Widget _buildBasicMouseRegion() {
     children: [
       MouseRegion(
         onEnter: (PointerEnterEvent event) {
-          print('Basic MouseRegion: onEnter at position ' + event.position.toString());
+          print('Basic MouseRegion: onEnter at position ${event.position}');
         },
         onHover: (PointerHoverEvent event) {
-          print('Basic MouseRegion: onHover at ' + event.localPosition.toString());
+          print('Basic MouseRegion: onHover at ${event.localPosition}');
         },
         onExit: (PointerExitEvent event) {
-          print('Basic MouseRegion: onExit at position ' + event.position.toString());
+          print('Basic MouseRegion: onExit at position ${event.position}');
         },
         child: Container(
           width: double.infinity,
@@ -248,7 +248,7 @@ Widget _buildCursorCatalog() {
       MouseRegion(
         cursor: entry.value,
         onEnter: (PointerEnterEvent event) {
-          print('Cursor catalog: entered ' + entry.key);
+          print('Cursor catalog: entered ${entry.key}');
         },
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
@@ -389,13 +389,13 @@ Widget _buildHitTestTile(String label, HitTestBehavior behavior, Color bgColor) 
     hitTestBehavior: behavior,
     cursor: SystemMouseCursors.click,
     onEnter: (PointerEnterEvent event) {
-      print('HitTestBehavior demo: entered region with behavior=' + label);
+      print('HitTestBehavior demo: entered region with behavior=$label');
     },
     onHover: (PointerHoverEvent event) {
-      print('HitTestBehavior demo: hover in ' + label + ' at ' + event.localPosition.toString());
+      print('HitTestBehavior demo: hover in $label at ${event.localPosition}');
     },
     onExit: (PointerExitEvent event) {
-      print('HitTestBehavior demo: exited region with behavior=' + label);
+      print('HitTestBehavior demo: exited region with behavior=$label');
     },
     child: Container(
       width: double.infinity,
@@ -409,7 +409,7 @@ Widget _buildHitTestTile(String label, HitTestBehavior behavior, Color bgColor) 
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'HitTestBehavior.' + label,
+            'HitTestBehavior.$label',
             style: TextStyle(color: Colors.white, fontSize: 14.0, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 4.0),
@@ -566,7 +566,7 @@ Widget _buildWithInkWellAndGesture() {
       MouseRegion(
         cursor: SystemMouseCursors.grab,
         onHover: (PointerHoverEvent event) {
-          print('MouseRegion+GestureDetector: hovering at ' + event.localPosition.toString());
+          print('MouseRegion+GestureDetector: hovering at ${event.localPosition}');
         },
         child: GestureDetector(
           onTap: () {
@@ -607,7 +607,7 @@ Widget _buildWithInkWellAndGesture() {
       // GestureDetector wrapping MouseRegion
       GestureDetector(
         onPanUpdate: (DragUpdateDetails details) {
-          print('GestureDetector+MouseRegion: pan delta=' + details.delta.toString());
+          print('GestureDetector+MouseRegion: pan delta=${details.delta}');
         },
         child: MouseRegion(
           cursor: SystemMouseCursors.move,
@@ -724,10 +724,10 @@ Widget _buildHoverButton(String label, Color color, MouseCursor cursor) {
   return MouseRegion(
     cursor: cursor,
     onEnter: (PointerEnterEvent event) {
-      print('Hover button [' + label + ']: entered');
+      print('Hover button [$label]: entered');
     },
     onExit: (PointerExitEvent event) {
-      print('Hover button [' + label + ']: exited');
+      print('Hover button [$label]: exited');
     },
     child: Container(
       padding: EdgeInsets.symmetric(vertical: 12.0),
@@ -790,14 +790,14 @@ Widget _buildZoneTile(String label, MouseCursor cursor, Color bgColor) {
   return MouseRegion(
     cursor: cursor,
     onEnter: (PointerEnterEvent event) {
-      print('Zone [' + label + ']: entered');
+      print('Zone [$label]: entered');
     },
     onHover: (PointerHoverEvent event) {
       // Intentionally verbose for demo
-      print('Zone [' + label + ']: hover at ' + event.localPosition.toString());
+      print('Zone [$label]: hover at ${event.localPosition}');
     },
     onExit: (PointerExitEvent event) {
-      print('Zone [' + label + ']: exited');
+      print('Zone [$label]: exited');
     },
     child: Container(
       height: 60.0,
@@ -922,7 +922,7 @@ Widget _buildPracticalPatterns() {
             fraction = 1.0;
           }
           int percent = (fraction * 100).toInt();
-          print('Progress hover: ' + percent.toString() + '%');
+          print('Progress hover: $percent%');
         },
         child: Container(
           width: 300.0,
@@ -963,7 +963,7 @@ Widget _buildToolbarItem(IconData icon, String tooltip, MouseCursor cursor) {
   return MouseRegion(
     cursor: cursor,
     onEnter: (PointerEnterEvent event) {
-      print('Toolbar: hovering over ' + tooltip);
+      print('Toolbar: hovering over $tooltip');
     },
     child: Padding(
       padding: EdgeInsets.symmetric(horizontal: 6.0),
@@ -986,7 +986,7 @@ Widget _buildGridHeader({required String label, int flex = 1}) {
     child: MouseRegion(
       cursor: SystemMouseCursors.click,
       onEnter: (PointerEnterEvent event) {
-        print('Grid header: entered ' + label);
+        print('Grid header: entered $label');
       },
       child: Container(
         height: 36.0,
@@ -1043,10 +1043,10 @@ List<Widget> _buildColorPickerCells() {
       MouseRegion(
         cursor: SystemMouseCursors.precise,
         onEnter: (PointerEnterEvent event) {
-          print('Color picker: entered cell #' + i.toString() + ' color=' + c.toString());
+          print('Color picker: entered cell #$i color=$c');
         },
         onExit: (PointerExitEvent event) {
-          print('Color picker: exited cell #' + i.toString());
+          print('Color picker: exited cell #$i');
         },
         child: Container(
           width: 32.0,

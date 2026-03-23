@@ -18,11 +18,11 @@ dynamic build(BuildContext context) {
 
   // Test CircularProgressIndicator with value 0
   final zeroCircular = CircularProgressIndicator(value: 0.0);
-  print('CircularProgressIndicator with value=0 created');
+  print('CircularProgressIndicator with value=0 created: $zeroCircular');
 
   // Test CircularProgressIndicator with value 1
   final fullCircular = CircularProgressIndicator(value: 1.0);
-  print('CircularProgressIndicator with value=1 created');
+  print('CircularProgressIndicator with value=1 created: $fullCircular');
 
   // Test CircularProgressIndicator with color
   final coloredCircular = CircularProgressIndicator(color: Colors.purple);
@@ -41,13 +41,15 @@ dynamic build(BuildContext context) {
 
   // Test thin CircularProgressIndicator
   final thinCircular = CircularProgressIndicator(strokeWidth: 2.0);
-  print('CircularProgressIndicator with strokeWidth=2 created');
+  print('CircularProgressIndicator with strokeWidth=2 created: $thinCircular');
 
   // Test CircularProgressIndicator with valueColor
   final animatedColorCircular = CircularProgressIndicator(
     valueColor: AlwaysStoppedAnimation<Color>(Colors.orange),
   );
-  print('CircularProgressIndicator with valueColor created');
+  print(
+    'CircularProgressIndicator with valueColor created: $animatedColorCircular',
+  );
 
   // Test CircularProgressIndicator with strokeCap
   final roundedCircular = CircularProgressIndicator(
@@ -63,7 +65,9 @@ dynamic build(BuildContext context) {
     semanticsLabel: '40% complete',
     semanticsValue: '40%',
   );
-  print('CircularProgressIndicator with semanticsLabel created');
+  print(
+    'CircularProgressIndicator with semanticsLabel created: $labeledCircular',
+  );
 
   // Test CircularProgressIndicator.adaptive
   final adaptiveCircular = CircularProgressIndicator.adaptive();
@@ -82,11 +86,11 @@ dynamic build(BuildContext context) {
 
   // Test LinearProgressIndicator with value 0
   final zeroLinear = LinearProgressIndicator(value: 0.0);
-  print('LinearProgressIndicator with value=0 created');
+  print('LinearProgressIndicator with value=0 created: $zeroLinear');
 
   // Test LinearProgressIndicator with value 1
   final fullLinear = LinearProgressIndicator(value: 1.0);
-  print('LinearProgressIndicator with value=1 created');
+  print('LinearProgressIndicator with value=1 created: $fullLinear');
 
   // Test LinearProgressIndicator with color
   final coloredLinear = LinearProgressIndicator(color: Colors.green);
@@ -103,7 +107,9 @@ dynamic build(BuildContext context) {
   final animatedColorLinear = LinearProgressIndicator(
     valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
   );
-  print('LinearProgressIndicator with valueColor created');
+  print(
+    'LinearProgressIndicator with valueColor created: $animatedColorLinear',
+  );
 
   // Test LinearProgressIndicator with minHeight
   final tallLinear = LinearProgressIndicator(minHeight: 10.0, value: 0.6);
@@ -127,7 +133,7 @@ dynamic build(BuildContext context) {
     semanticsLabel: '30% complete',
     semanticsValue: '30%',
   );
-  print('LinearProgressIndicator with semanticsLabel created');
+  print('LinearProgressIndicator with semanticsLabel created: $labeledLinear');
 
   // ========== REFRESHINDICATOR ==========
   print('--- RefreshIndicator Tests ---');
@@ -159,7 +165,7 @@ dynamic build(BuildContext context) {
       ],
     ),
   );
-  print('RefreshIndicator with color created');
+  print('RefreshIndicator with color created: $coloredRefresh');
 
   // Test RefreshIndicator with backgroundColor
   final bgRefresh = RefreshIndicator(
@@ -174,7 +180,7 @@ dynamic build(BuildContext context) {
       ],
     ),
   );
-  print('RefreshIndicator with backgroundColor created');
+  print('RefreshIndicator with backgroundColor created: $bgRefresh');
 
   // Test RefreshIndicator with displacement
   final displacedRefresh = RefreshIndicator(
@@ -184,7 +190,7 @@ dynamic build(BuildContext context) {
     },
     child: ListView(children: [ListTile(title: Text('Large displacement'))]),
   );
-  print('RefreshIndicator with displacement created');
+  print('RefreshIndicator with displacement created: $displacedRefresh');
 
   // Test RefreshIndicator with edgeOffset
   final offsetRefresh = RefreshIndicator(
@@ -194,7 +200,7 @@ dynamic build(BuildContext context) {
     },
     child: ListView(children: [ListTile(title: Text('Edge offset'))]),
   );
-  print('RefreshIndicator with edgeOffset created');
+  print('RefreshIndicator with edgeOffset created: $offsetRefresh');
 
   // Test RefreshIndicator with strokeWidth
   final strokeRefresh = RefreshIndicator(
@@ -204,7 +210,7 @@ dynamic build(BuildContext context) {
     },
     child: ListView(children: [ListTile(title: Text('Thick stroke'))]),
   );
-  print('RefreshIndicator with strokeWidth created');
+  print('RefreshIndicator with strokeWidth created: $strokeRefresh');
 
   // Test RefreshIndicator with triggerMode
   final triggerRefresh = RefreshIndicator(
@@ -214,7 +220,7 @@ dynamic build(BuildContext context) {
     },
     child: ListView(children: [ListTile(title: Text('Trigger anywhere'))]),
   );
-  print('RefreshIndicator with triggerMode created');
+  print('RefreshIndicator with triggerMode created: $triggerRefresh');
 
   // Test RefreshIndicator.adaptive
   final adaptiveRefresh = RefreshIndicator.adaptive(
@@ -223,7 +229,7 @@ dynamic build(BuildContext context) {
     },
     child: ListView(children: [ListTile(title: Text('Adaptive indicator'))]),
   );
-  print('RefreshIndicator.adaptive created');
+  print('RefreshIndicator.adaptive created: $adaptiveRefresh');
 
   print('Progress Indicator widgets test completed');
 

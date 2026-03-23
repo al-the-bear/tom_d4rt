@@ -459,7 +459,7 @@ Widget _buildUseCaseExample(
 
 /// Builds border example
 Widget _buildBorderExample(DecorationPosition position) {
-  return Container(
+  return SizedBox(
     width: 120,
     height: 80,
     child: DecoratedBox(
@@ -487,7 +487,7 @@ Widget _buildBorderExample(DecorationPosition position) {
 
 /// Builds shadow example
 Widget _buildShadowExample(DecorationPosition position) {
-  return Container(
+  return SizedBox(
     width: 120,
     height: 80,
     child: DecoratedBox(
@@ -521,7 +521,7 @@ Widget _buildShadowExample(DecorationPosition position) {
 
 /// Builds pattern overlay example
 Widget _buildPatternOverlayExample(DecorationPosition position) {
-  return Container(
+  return SizedBox(
     width: 120,
     height: 80,
     child: DecoratedBox(
@@ -716,7 +716,7 @@ Widget _buildTranslucentShowcase() {
       // Background - child in front visible
       Column(
         children: [
-          Container(
+          SizedBox(
             width: 100,
             height: 80,
             child: DecoratedBox(
@@ -751,7 +751,7 @@ Widget _buildTranslucentShowcase() {
       // Foreground - decoration covers child
       Column(
         children: [
-          Container(
+          SizedBox(
             width: 100,
             height: 80,
             child: DecoratedBox(

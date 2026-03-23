@@ -160,7 +160,7 @@ Widget _buildClassHierarchy() {
                     children: [
                       Row(
                         children: [
-                          Container(
+                          SizedBox(
                             width: 20,
                             height: 20,
                             child: CustomPaint(painter: _TreeLinePainter()),
@@ -176,7 +176,7 @@ Widget _buildClassHierarchy() {
                       const SizedBox(height: 8),
                       Row(
                         children: [
-                          Container(
+                          SizedBox(
                             width: 20,
                             height: 20,
                             child: CustomPaint(

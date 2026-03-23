@@ -1268,6 +1268,7 @@ class _RoundedRectIndicatorPainter extends CustomPainter {
   Color color;
   _RoundedRectIndicatorPainter(this.color);
 
+  @override
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint();
     paint.color = color;
@@ -1293,6 +1294,7 @@ class _RoundedRectIndicatorPainter extends CustomPainter {
     canvas.drawPath(path, paint);
   }
 
+  @override
   bool shouldRepaint(_RoundedRectIndicatorPainter oldDelegate) {
     return false;
   }

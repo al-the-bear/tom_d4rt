@@ -26,7 +26,7 @@ dynamic build(BuildContext context) {
     inside: BorderSide(color: Colors.blue),
     outside: BorderSide(color: Colors.green, width: 2.0),
   );
-  print('TableBorder.symmetric created');
+  print('TableBorder.symmetric created: $symmetricBorder');
 
   // ========== TableRow ==========
   print('--- TableRow Tests ---');

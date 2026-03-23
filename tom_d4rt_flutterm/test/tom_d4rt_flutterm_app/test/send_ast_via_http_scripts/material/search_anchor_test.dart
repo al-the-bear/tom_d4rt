@@ -1318,7 +1318,7 @@ Widget buildSearchBarStylingOptions() {
         ),
         child: Row(
           children: [
-            Container(
+            SizedBox(
               width: 120,
               child: Text(
                 styleNames[s],

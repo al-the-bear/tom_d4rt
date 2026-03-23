@@ -9,14 +9,14 @@ dynamic build(BuildContext context) {
   // Testing core Scaffold properties
 
   // Test basic Scaffold with body
-  final basicScaffold = Container(
+  final basicScaffold = SizedBox(
     height: 200.0,
     child: Scaffold(body: Center(child: Text('Basic Scaffold Body'))),
   );
   print('Basic Scaffold with body created');
 
   // Test Scaffold with AppBar
-  final withAppBar = Container(
+  final withAppBar = SizedBox(
     height: 200.0,
     child: Scaffold(
       appBar: AppBar(title: Text('Scaffold AppBar')),
@@ -26,7 +26,7 @@ dynamic build(BuildContext context) {
   print('Scaffold with AppBar created');
 
   // Test Scaffold with FAB
-  final withFab = Container(
+  final withFab = SizedBox(
     height: 200.0,
     child: Scaffold(
       body: Center(child: Text('With FAB')),
@@ -39,7 +39,7 @@ dynamic build(BuildContext context) {
   print('Scaffold with FloatingActionButton created');
 
   // Test Scaffold with bottomNavigationBar
-  final withBottomNav = Container(
+  final withBottomNav = SizedBox(
     height: 200.0,
     child: Scaffold(
       body: Center(child: Text('With Bottom Nav')),
@@ -54,10 +54,10 @@ dynamic build(BuildContext context) {
       ),
     ),
   );
-  print('Scaffold with BottomNavigationBar created');
+  print('Scaffold with BottomNavigationBar created: $withBottomNav');
 
   // Test Scaffold with Drawer
-  final withDrawer = Container(
+  final withDrawer = SizedBox(
     height: 200.0,
     child: Scaffold(
       appBar: AppBar(title: Text('With Drawer')),
@@ -72,10 +72,10 @@ dynamic build(BuildContext context) {
       body: Center(child: Text('Has Drawer')),
     ),
   );
-  print('Scaffold with Drawer created');
+  print('Scaffold with Drawer created: $withDrawer');
 
   // Test Scaffold with backgroundColor
-  final withBackground = Container(
+  final withBackground = SizedBox(
     height: 150.0,
     child: Scaffold(
       backgroundColor: Colors.amber.shade100,
@@ -85,7 +85,7 @@ dynamic build(BuildContext context) {
   print('Scaffold with backgroundColor created');
 
   // Test Scaffold with extendBody
-  final withExtendBody = Container(
+  final withExtendBody = SizedBox(
     height: 180.0,
     child: Scaffold(
       extendBody: true,
@@ -101,10 +101,10 @@ dynamic build(BuildContext context) {
       ),
     ),
   );
-  print('Scaffold with extendBody=true created');
+  print('Scaffold with extendBody=true created: $withExtendBody');
 
   // Test Scaffold with floatingActionButtonLocation
-  final withFabLocation = Container(
+  final withFabLocation = SizedBox(
     height: 150.0,
     child: Scaffold(
       body: Center(child: Text('FAB Center End')),
@@ -115,7 +115,7 @@ dynamic build(BuildContext context) {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     ),
   );
-  print('Scaffold with FAB location created');
+  print('Scaffold with FAB location created: $withFabLocation');
 
   print('Scaffold test completed');
 

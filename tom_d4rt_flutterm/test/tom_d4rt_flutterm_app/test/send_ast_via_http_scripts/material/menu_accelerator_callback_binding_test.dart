@@ -1250,7 +1250,7 @@ Widget _buildTreeNode(String label, int depth, MaterialColor color) {
   String indent = '';
   int d = 0;
   for (d = 0; d < depth; d = d + 1) {
-    indent = indent + '  ';
+    indent = '$indent  ';
   }
   String prefix = depth > 0 ? '└─ ' : '';
 

@@ -42,7 +42,7 @@ dynamic build(BuildContext context) {
       ],
     ),
   );
-  print('BottomAppBar created');
+  print('BottomAppBar created: $bottomAppBar');
 
   // ========== CircularNotchedRectangle ==========
   print('--- CircularNotchedRectangle Tests ---');
@@ -52,7 +52,7 @@ dynamic build(BuildContext context) {
     Rect.fromLTWH(0, 0, 400, 64),
     Rect.fromCircle(center: Offset(200, 0), radius: 28),
   );
-  print('  getOuterPath computed');
+  print('  getOuterPath computed: $path');
 
   // ========== BottomAppBarTheme ==========
   print('--- BottomAppBarTheme Tests ---');
@@ -134,7 +134,7 @@ dynamic build(BuildContext context) {
     labelTextStyle: WidgetStateProperty.all(TextStyle(fontSize: 12)),
     iconTheme: WidgetStateProperty.all(IconThemeData(size: 24)),
   );
-  print('NavigationBarThemeData created');
+  print('NavigationBarThemeData created: $navBarTheme');
 
   // ========== Badge ==========
   print('--- Badge Tests ---');
@@ -151,10 +151,10 @@ dynamic build(BuildContext context) {
     isLabelVisible: true,
     child: Icon(Icons.mail),
   );
-  print('Badge with label created');
+  print('Badge with label created: $badge1');
 
   final badge2 = Badge(child: Icon(Icons.notifications));
-  print('Badge dot created');
+  print('Badge dot created: $badge2');
 
   // ========== BadgeThemeData ==========
   print('--- BadgeThemeData Tests ---');
@@ -168,7 +168,7 @@ dynamic build(BuildContext context) {
     largeSize: 16.0,
     smallSize: 6.0,
   );
-  print('BadgeThemeData created');
+  print('BadgeThemeData created: $badgeTheme');
 
   // ========== NavigationDrawer ==========
   print('--- NavigationDrawer Tests ---');

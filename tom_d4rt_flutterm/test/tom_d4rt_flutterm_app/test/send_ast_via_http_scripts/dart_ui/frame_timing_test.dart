@@ -2,7 +2,6 @@
 // D4rt test script: Deep Demo for FrameTiming from dart:ui
 // FrameTiming stores microsecond timestamps for each rendering phase of a frame
 // Obtained via SchedulerBinding.instance.addTimingsCallback
-import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
@@ -460,7 +459,7 @@ Widget _frameTimeline(_SimTiming t) {
           ),
         ),
         Expanded(
-          child: Container(
+          child: SizedBox(
             height: 12,
             child: Stack(
               children: [
@@ -566,7 +565,7 @@ Widget _dualBar(_SimTiming t) {
         Expanded(
           child: Column(
             children: [
-              Container(
+              SizedBox(
                 height: 6,
                 child: FractionallySizedBox(
                   alignment: Alignment.centerLeft,
@@ -580,7 +579,7 @@ Widget _dualBar(_SimTiming t) {
                 ),
               ),
               SizedBox(height: 1),
-              Container(
+              SizedBox(
                 height: 6,
                 child: FractionallySizedBox(
                   alignment: Alignment.centerLeft,
@@ -645,7 +644,7 @@ Widget _cacheRow(_SimTiming t) {
         ),
         // MB bar
         Expanded(
-          child: Container(
+          child: SizedBox(
             height: 10,
             child: FractionallySizedBox(
               alignment: Alignment.centerLeft,

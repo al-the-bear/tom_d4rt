@@ -34,7 +34,7 @@ Widget buildInfoCard(String label, String value) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
+        SizedBox(
           width: 100,
           child: Text(
             label,
@@ -841,7 +841,7 @@ Widget buildSheetAnimationInfo() {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            SizedBox(
               width: 130,
               child: Text(
                 animProps[i],

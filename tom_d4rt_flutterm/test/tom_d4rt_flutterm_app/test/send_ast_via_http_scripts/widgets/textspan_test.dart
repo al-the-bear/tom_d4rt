@@ -18,7 +18,7 @@ dynamic build(BuildContext context) {
     text: 'Styled text',
     style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
   );
-  print('Styled TextSpan created');
+  print('Styled TextSpan created: $styledSpan');
 
   // TextSpan with children
   final parentSpan = TextSpan(
@@ -47,7 +47,7 @@ dynamic build(BuildContext context) {
     text: 'Tappable text',
     style: TextStyle(color: Colors.blue, decoration: TextDecoration.underline),
   );
-  print('TextSpan for tapping created');
+  print('TextSpan for tapping created: $recognizerSpan');
 
   // TextSpan with semanticsLabel
   final semanticSpan = TextSpan(text: '🎉', semanticsLabel: 'party popper');
@@ -70,14 +70,14 @@ dynamic build(BuildContext context) {
   final widgetSpan = WidgetSpan(
     child: Icon(Icons.star, size: 16.0, color: Colors.amber),
   );
-  print('WidgetSpan with Icon created');
+  print('WidgetSpan with Icon created: $widgetSpan');
 
   // WidgetSpan with alignment
   final alignedWidgetSpan = WidgetSpan(
     alignment: PlaceholderAlignment.middle,
     child: Container(width: 20.0, height: 20.0, color: Colors.blue),
   );
-  print('WidgetSpan with middle alignment created');
+  print('WidgetSpan with middle alignment created: $alignedWidgetSpan');
 
   // WidgetSpan with baseline alignment
   final baselineWidgetSpan = WidgetSpan(
@@ -89,7 +89,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
     ),
   );
-  print('WidgetSpan with baseline alignment created');
+  print('WidgetSpan with baseline alignment created: $baselineWidgetSpan');
 
   // ========== RICHTEXT WITH MIXED SPANS ==========
   print('--- RichText with mixed spans ---');

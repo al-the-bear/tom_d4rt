@@ -47,7 +47,7 @@ dynamic build(BuildContext context) {
       content: Text('Inactive step'),
     ),
   ];
-  print('Steps with isActive created');
+  print('Steps with isActive created: $activeSteps');
 
   // Test Step with state
   final stateSteps = [
@@ -77,7 +77,7 @@ dynamic build(BuildContext context) {
       content: Text('Has an error'),
     ),
   ];
-  print('Steps with various states created');
+  print('Steps with various states created: $stateSteps');
 
   // Test Step with label
   final labelSteps = [
@@ -92,7 +92,7 @@ dynamic build(BuildContext context) {
       content: Text('Ad group content'),
     ),
   ];
-  print('Steps with label created');
+  print('Steps with label created: $labelSteps');
 
   // ========== STEPPER ==========
   print('--- Stepper Tests ---');
@@ -134,7 +134,7 @@ dynamic build(BuildContext context) {
     currentStep: 0,
     steps: basicSteps,
   );
-  print('Stepper with physics created');
+  print('Stepper with physics created: $physicsStepper');
 
   // Test Stepper with elevation
   final elevatedStepper = Stepper(
@@ -142,7 +142,7 @@ dynamic build(BuildContext context) {
     currentStep: 0,
     steps: basicSteps,
   );
-  print('Stepper with elevation created');
+  print('Stepper with elevation created: $elevatedStepper');
 
   // Test Stepper with margin
   final marginStepper = Stepper(
@@ -150,7 +150,7 @@ dynamic build(BuildContext context) {
     currentStep: 0,
     steps: basicSteps,
   );
-  print('Stepper with margin created');
+  print('Stepper with margin created: $marginStepper');
 
   // Test Stepper with controlsBuilder
   final customControlsStepper = Stepper(
@@ -185,7 +185,7 @@ dynamic build(BuildContext context) {
       return null; // Use default
     },
   );
-  print('Stepper with stepIconBuilder created');
+  print('Stepper with stepIconBuilder created: $iconBuilderStepper');
 
   // Test Stepper with connectorColor
   final connectorColorStepper = Stepper(
@@ -193,7 +193,7 @@ dynamic build(BuildContext context) {
     connectorColor: MaterialStateProperty.all(Colors.purple),
     steps: basicSteps,
   );
-  print('Stepper with connectorColor created');
+  print('Stepper with connectorColor created: $connectorColorStepper');
 
   // Test Stepper with connectorThickness
   final connectorThicknessStepper = Stepper(
@@ -201,7 +201,7 @@ dynamic build(BuildContext context) {
     connectorThickness: 3.0,
     steps: basicSteps,
   );
-  print('Stepper with connectorThickness created');
+  print('Stepper with connectorThickness created: $connectorThicknessStepper');
 
   // Test Stepper with stepIconHeight and stepIconWidth
   final iconSizeStepper = Stepper(
@@ -210,7 +210,7 @@ dynamic build(BuildContext context) {
     stepIconWidth: 40.0,
     steps: basicSteps,
   );
-  print('Stepper with stepIconHeight/Width created');
+  print('Stepper with stepIconHeight/Width created: $iconSizeStepper');
 
   // Test Stepper with stepIconMargin
   final iconMarginStepper = Stepper(
@@ -218,7 +218,7 @@ dynamic build(BuildContext context) {
     stepIconMargin: EdgeInsets.all(8.0),
     steps: basicSteps,
   );
-  print('Stepper with stepIconMargin created');
+  print('Stepper with stepIconMargin created: $iconMarginStepper');
 
   // Demo Stepper with all step states
   final allStatesStepper = Stepper(

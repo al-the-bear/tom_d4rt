@@ -425,7 +425,7 @@ Widget _buildTextWidthBasisDemo(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         _buildLabel('TextWidthBasis.parent'),
-        Container(
+        SizedBox(
           width: 250.0,
           child: TextField(
             controller: parentCtrl,
@@ -441,7 +441,7 @@ Widget _buildTextWidthBasisDemo(
         ),
         SizedBox(height: 12.0),
         _buildLabel('TextWidthBasis.longestLine'),
-        Container(
+        SizedBox(
           width: 250.0,
           child: TextField(
             controller: longestCtrl,
@@ -1042,6 +1042,7 @@ Widget _buildFooter() {
 
 // Custom TextInputFormatter that converts all input to uppercase
 class UpperCaseTextFormatter extends TextInputFormatter {
+  @override
   TextEditingValue formatEditUpdate(
     TextEditingValue oldValue,
     TextEditingValue newValue,

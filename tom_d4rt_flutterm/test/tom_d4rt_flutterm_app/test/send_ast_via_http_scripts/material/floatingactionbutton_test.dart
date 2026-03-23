@@ -20,7 +20,7 @@ dynamic build(BuildContext context) {
     tooltip: 'Add Item',
     child: Icon(Icons.add),
   );
-  print('FAB with tooltip created');
+  print('FAB with tooltip created: $tooltipFab');
 
   // Test FAB.small
   final smallFab = FloatingActionButton.small(
@@ -69,7 +69,7 @@ dynamic build(BuildContext context) {
     hoverElevation: 10.0,
     child: Icon(Icons.edit),
   );
-  print('FAB with focus/hover elevation created');
+  print('FAB with focus/hover elevation created: $hoverFab');
 
   // Test FAB with shape
   final shapedFab = FloatingActionButton(
@@ -96,7 +96,7 @@ dynamic build(BuildContext context) {
     clipBehavior: Clip.antiAlias,
     child: Icon(Icons.crop),
   );
-  print('FAB with clipBehavior=antiAlias created');
+  print('FAB with clipBehavior=antiAlias created: $clippedFab');
 
   // Test FAB with focusNode
   final focusNode = FocusNode();
@@ -105,7 +105,7 @@ dynamic build(BuildContext context) {
     focusNode: focusNode,
     child: Icon(Icons.keyboard),
   );
-  print('FAB with focusNode created');
+  print('FAB with focusNode created: $focusFab');
 
   // Test FAB with autofocus
   final autofocusFab = FloatingActionButton(
@@ -113,7 +113,7 @@ dynamic build(BuildContext context) {
     autofocus: true,
     child: Icon(Icons.auto_fix_high),
   );
-  print('FAB with autofocus=true created');
+  print('FAB with autofocus=true created: $autofocusFab');
 
   // Test FAB with materialTapTargetSize
   final padddedFab = FloatingActionButton(
@@ -121,7 +121,7 @@ dynamic build(BuildContext context) {
     materialTapTargetSize: MaterialTapTargetSize.padded,
     child: Icon(Icons.touch_app),
   );
-  print('FAB with materialTapTargetSize=padded created');
+  print('FAB with materialTapTargetSize=padded created: $padddedFab');
 
   // Test FAB with enableFeedback
   final feedbackFab = FloatingActionButton(
@@ -129,7 +129,7 @@ dynamic build(BuildContext context) {
     enableFeedback: true,
     child: Icon(Icons.vibration),
   );
-  print('FAB with enableFeedback=true created');
+  print('FAB with enableFeedback=true created: $feedbackFab');
 
   // Test FAB with splashColor
   final splashFab = FloatingActionButton(
@@ -137,7 +137,7 @@ dynamic build(BuildContext context) {
     splashColor: Colors.red.withOpacity(0.5),
     child: Icon(Icons.water_drop),
   );
-  print('FAB with custom splashColor created');
+  print('FAB with custom splashColor created: $splashFab');
 
   // Test disabled FAB
   final disabledFab = FloatingActionButton(
@@ -152,7 +152,7 @@ dynamic build(BuildContext context) {
     heroTag: 'unique-fab-tag',
     child: Icon(Icons.flight),
   );
-  print('FAB with heroTag created');
+  print('FAB with heroTag created: $heroFab');
 
   // Test multiple FABs need different heroTags
   print('Note: Multiple FABs on same route need different heroTags');

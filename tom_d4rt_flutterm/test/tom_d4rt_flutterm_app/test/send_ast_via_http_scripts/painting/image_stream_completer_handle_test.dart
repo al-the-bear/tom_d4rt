@@ -951,7 +951,7 @@ Widget buildHandleVsListenerComparison() {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            SizedBox(
               width: 90,
               child: Text(
                 aspectNames[a],
@@ -1379,7 +1379,7 @@ Widget buildApiReferenceTable() {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            SizedBox(
               width: 130,
               child: Text(
                 memberNames[m],
@@ -1392,7 +1392,7 @@ Widget buildApiReferenceTable() {
               ),
             ),
             SizedBox(width: 8),
-            Container(
+            SizedBox(
               width: 100,
               child: Text(
                 memberTypes[m],

@@ -16,7 +16,7 @@ dynamic build(BuildContext context) {
   // ========== MaterialScrollBehavior ==========
   print('--- MaterialScrollBehavior Tests ---');
   final matBehavior = MaterialScrollBehavior();
-  print('MaterialScrollBehavior created');
+  print('MaterialScrollBehavior created: $matBehavior');
 
   // ========== ScrollConfiguration ==========
   print('--- ScrollConfiguration Tests ---');
@@ -24,7 +24,7 @@ dynamic build(BuildContext context) {
     behavior: behavior,
     child: Text('Configured'),
   );
-  print('ScrollConfiguration created');
+  print('ScrollConfiguration created: $scrollConfig');
 
   // ========== PrimaryScrollController ==========
   print('--- PrimaryScrollController Tests ---');
@@ -33,7 +33,7 @@ dynamic build(BuildContext context) {
     controller: controller,
     child: Text('Primary'),
   );
-  print('PrimaryScrollController created');
+  print('PrimaryScrollController created: $primaryCtrl');
 
   // ========== PageStorage ==========
   print('--- PageStorage Tests ---');
@@ -41,7 +41,7 @@ dynamic build(BuildContext context) {
   print('PageStorageBucket created');
 
   final pageStorage = PageStorage(bucket: bucket, child: Text('Stored'));
-  print('PageStorage created');
+  print('PageStorage created: $pageStorage');
 
   // Write and read from bucket
   bucket.writeState(context, 'testValue', identifier: 'key1');

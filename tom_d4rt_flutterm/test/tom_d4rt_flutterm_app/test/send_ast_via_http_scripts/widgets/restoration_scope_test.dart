@@ -12,7 +12,7 @@ dynamic build(BuildContext context) {
     restorationId: 'test_scope',
     child: Text('Restoration content'),
   );
-  print('RestorationScope created with id: test_scope');
+  print('RestorationScope created with id: test_scope: $restorationScope');
 
   // ========== RootRestorationScope ==========
   print('--- RootRestorationScope Tests ---');
@@ -20,31 +20,31 @@ dynamic build(BuildContext context) {
     restorationId: 'root_scope',
     child: Text('Root content'),
   );
-  print('RootRestorationScope created with id: root_scope');
+  print('RootRestorationScope created with id: root_scope: $rootScope');
 
   // ========== RestorableNum ==========
   print('--- RestorableNum Tests ---');
   final restorableNum = RestorableNum<num>(42);
-  print('RestorableNum created with initial value 42');
+  print('RestorableNum created with initial value 42: $restorableNum');
 
   final restorableNumN = RestorableNumN<num>(0);
-  print('RestorableNumN created with initial value 0');
+  print('RestorableNumN created with initial value 0: $restorableNumN');
   // Note: .value getter/setter requires isRegistered (via registerForRestoration)
   print('RestorableNumN initial value: 0');
 
   // ========== RestorableValue concepts ==========
   print('--- RestorableValue Concepts ---');
   final restInt = RestorableInt(10);
-  print('RestorableInt created with value 10');
+  print('RestorableInt created with value 10: $restInt');
 
   final restDouble = RestorableDouble(1.5);
-  print('RestorableDouble created with value 1.5');
+  print('RestorableDouble created with value 1.5: $restDouble');
 
   final restBool = RestorableBool(false);
-  print('RestorableBool created with value false');
+  print('RestorableBool created with value false: $restBool');
 
   final restString = RestorableString('hello');
-  print('RestorableString created with value hello');
+  print('RestorableString created with value hello: $restString');
 
   print('All restoration scope tests passed');
 

@@ -122,6 +122,7 @@ Widget buildBackgroundColorSection() {
       RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     ),
   );
+  print('Created lightStyle: $lightStyle');
 
   MenuStyle blueStyle = MenuStyle(
     backgroundColor: WidgetStateProperty.all(Colors.blue.shade50),
@@ -130,6 +131,7 @@ Widget buildBackgroundColorSection() {
       RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     ),
   );
+  print('Created blueStyle: $blueStyle');
 
   MenuStyle darkStyle = MenuStyle(
     backgroundColor: WidgetStateProperty.all(Colors.grey.shade900),
@@ -138,6 +140,7 @@ Widget buildBackgroundColorSection() {
       RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     ),
   );
+  print('Created darkStyle: $darkStyle');
 
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
@@ -813,6 +816,7 @@ Widget buildMenuAnchorSection() {
     ),
     padding: WidgetStateProperty.all(EdgeInsets.symmetric(vertical: 8)),
   );
+  print('Created customMenuStyle: $customMenuStyle');
 
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),

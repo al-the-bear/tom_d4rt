@@ -40,7 +40,7 @@ dynamic build(BuildContext context) {
     items: [DropdownMenuItem(value: 'X', child: Text('X'))],
     onChanged: null,
   );
-  print('DropdownButton with disabledHint created');
+  print('DropdownButton with disabledHint created: $disabledHintDropdown');
 
   // Test DropdownButton with icon
   final iconDropdown = DropdownButton<int>(
@@ -64,7 +64,7 @@ dynamic build(BuildContext context) {
     items: [DropdownMenuItem(value: 'Styled', child: Text('Styled'))],
     onChanged: (value) {},
   );
-  print('DropdownButton with style created');
+  print('DropdownButton with style created: $styledDropdown');
 
   // Test DropdownButton isExpanded
   final expandedDropdown = DropdownButton<String>(
@@ -84,7 +84,7 @@ dynamic build(BuildContext context) {
     items: [DropdownMenuItem(value: 'Custom', child: Text('Custom underline'))],
     onChanged: (value) {},
   );
-  print('DropdownButton with underline created');
+  print('DropdownButton with underline created: $underlineDropdown');
 
   // Test DropdownButton with elevation
   final elevatedDropdown = DropdownButton<String>(
@@ -93,7 +93,7 @@ dynamic build(BuildContext context) {
     items: [DropdownMenuItem(value: 'Elevated', child: Text('Elevated menu'))],
     onChanged: (value) {},
   );
-  print('DropdownButton with elevation created');
+  print('DropdownButton with elevation created: $elevatedDropdown');
 
   // Test DropdownButton with dropdownColor
   final coloredDropdown = DropdownButton<String>(
@@ -102,7 +102,7 @@ dynamic build(BuildContext context) {
     items: [DropdownMenuItem(value: 'Colored', child: Text('Colored menu'))],
     onChanged: (value) {},
   );
-  print('DropdownButton with dropdownColor created');
+  print('DropdownButton with dropdownColor created: $coloredDropdown');
 
   // Test DropdownButton with focusColor
   final focusDropdown = DropdownButton<String>(
@@ -111,7 +111,7 @@ dynamic build(BuildContext context) {
     items: [DropdownMenuItem(value: 'Focus', child: Text('Focus color'))],
     onChanged: (value) {},
   );
-  print('DropdownButton with focusColor created');
+  print('DropdownButton with focusColor created: $focusDropdown');
 
   // Test DropdownButtonFormField
   final formFieldDropdown = DropdownButtonFormField<String>(
@@ -164,7 +164,7 @@ dynamic build(BuildContext context) {
     dropdownMenuEntries: [DropdownMenuEntry(value: 'search', label: 'Search')],
     onSelected: (value) {},
   );
-  print('DropdownMenu with leadingIcon created');
+  print('DropdownMenu with leadingIcon created: $iconMenu');
 
   // Test DropdownMenu enableFilter
   final filterMenu = DropdownMenu<String>(
@@ -189,7 +189,7 @@ dynamic build(BuildContext context) {
     ],
     onSelected: (value) {},
   );
-  print('DropdownMenu with width created');
+  print('DropdownMenu with width created: $widthMenu');
 
   // Test DropdownMenu with requestFocusOnTap
   final focusOnTapMenu = DropdownMenu<String>(
@@ -200,7 +200,7 @@ dynamic build(BuildContext context) {
     ],
     onSelected: (value) {},
   );
-  print('DropdownMenu requestFocusOnTap created');
+  print('DropdownMenu requestFocusOnTap created: $focusOnTapMenu');
 
   // ========== POPUPMENUBUTTON ==========
   print('--- PopupMenuButton Tests ---');
@@ -259,7 +259,7 @@ dynamic build(BuildContext context) {
       PopupMenuItem(value: 'other', child: Text('Other')),
     ],
   );
-  print('PopupMenuButton with initialValue created');
+  print('PopupMenuButton with initialValue created: $initialValuePopup');
 
   // Test PopupMenuButton with offset
   final offsetPopup = PopupMenuButton<String>(
@@ -269,7 +269,7 @@ dynamic build(BuildContext context) {
       PopupMenuItem(value: 'offset', child: Text('Offset menu')),
     ],
   );
-  print('PopupMenuButton with offset created');
+  print('PopupMenuButton with offset created: $offsetPopup');
 
   // Test PopupMenuButton with color
   final coloredPopup = PopupMenuButton<String>(
@@ -279,7 +279,7 @@ dynamic build(BuildContext context) {
       PopupMenuItem(value: 'colored', child: Text('Colored menu')),
     ],
   );
-  print('PopupMenuButton with color created');
+  print('PopupMenuButton with color created: $coloredPopup');
 
   // Test PopupMenuButton with elevation
   final elevatedPopup = PopupMenuButton<String>(
@@ -289,7 +289,7 @@ dynamic build(BuildContext context) {
       PopupMenuItem(value: 'elevated', child: Text('Elevated')),
     ],
   );
-  print('PopupMenuButton with elevation created');
+  print('PopupMenuButton with elevation created: $elevatedPopup');
 
   // Test PopupMenuButton with dividers
   final dividerPopup = PopupMenuButton<String>(
@@ -300,7 +300,7 @@ dynamic build(BuildContext context) {
       PopupMenuItem(value: 'item2', child: Text('Item 2')),
     ],
   );
-  print('PopupMenuButton with divider created');
+  print('PopupMenuButton with divider created: $dividerPopup');
 
   // Test CheckedPopupMenuItem
   final checkedPopup = PopupMenuButton<String>(
@@ -328,7 +328,7 @@ dynamic build(BuildContext context) {
       PopupMenuItem(value: 'shaped', child: Text('Rounded menu')),
     ],
   );
-  print('PopupMenuButton with shape created');
+  print('PopupMenuButton with shape created: $shapedPopup');
 
   print('Dropdown/Popup Menu test completed');
 

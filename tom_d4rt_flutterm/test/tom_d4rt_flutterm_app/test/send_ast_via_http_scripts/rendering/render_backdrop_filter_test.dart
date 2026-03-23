@@ -6,7 +6,6 @@
 
 import 'package:flutter/material.dart';
 import 'dart:ui';
-import 'dart:math';
 
 // -- Helper: builds a colorful background with gradients, text, and icons
 Widget _buildColorfulBackground() {
@@ -143,17 +142,10 @@ Widget _buildInfoCard(String text) {
       color: Colors.white,
       borderRadius: BorderRadius.circular(8),
       boxShadow: [
-        BoxShadow(
-          color: Colors.black26,
-          blurRadius: 4,
-          offset: Offset(0, 2),
-        ),
+        BoxShadow(color: Colors.black26, blurRadius: 4, offset: Offset(0, 2)),
       ],
     ),
-    child: Text(
-      text,
-      style: TextStyle(fontSize: 13, color: Colors.black87),
-    ),
+    child: Text(text, style: TextStyle(fontSize: 13, color: Colors.black87)),
   );
 }
 
@@ -166,11 +158,10 @@ Widget _buildBlurSigmaComparison() {
 
   return Column(
     children: [
-      _buildSectionHeader(
-        '1. Blur Sigma Comparison',
-        Icons.blur_on,
-        [Colors.indigo, Colors.blue],
-      ),
+      _buildSectionHeader('1. Blur Sigma Comparison', Icons.blur_on, [
+        Colors.indigo,
+        Colors.blue,
+      ]),
       SizedBox(height: 8),
       _buildInfoCard(
         'BackdropFilter with ImageFilter.blur at different sigma values. '
@@ -240,11 +231,10 @@ Widget _buildOverColorfulContent() {
   print('[BackdropFilter] Building backdrop over colorful content section');
   return Column(
     children: [
-      _buildSectionHeader(
-        '2. Over Colorful Content',
-        Icons.color_lens,
-        [Colors.deepPurple, Colors.purple],
-      ),
+      _buildSectionHeader('2. Over Colorful Content', Icons.color_lens, [
+        Colors.deepPurple,
+        Colors.purple,
+      ]),
       SizedBox(height: 8),
       _buildInfoCard(
         'BackdropFilter blurs everything painted BEFORE it in the same Stack. '
@@ -354,11 +344,10 @@ Widget _buildBlendModeSection() {
 
   return Column(
     children: [
-      _buildSectionHeader(
-        '3. BlendMode Options',
-        Icons.blender,
-        [Colors.teal, Colors.cyan],
-      ),
+      _buildSectionHeader('3. BlendMode Options', Icons.blender, [
+        Colors.teal,
+        Colors.cyan,
+      ]),
       SizedBox(height: 8),
       _buildInfoCard(
         'BackdropFilter accepts a blendMode parameter that controls how '
@@ -446,11 +435,10 @@ Widget _buildFrostedGlassSection() {
   print('[BackdropFilter] Building frosted glass effect section');
   return Column(
     children: [
-      _buildSectionHeader(
-        '4. Frosted Glass Effect',
-        Icons.window,
-        [Colors.blueGrey, Colors.grey],
-      ),
+      _buildSectionHeader('4. Frosted Glass Effect', Icons.window, [
+        Colors.blueGrey,
+        Colors.grey,
+      ]),
       SizedBox(height: 8),
       _buildInfoCard(
         'The classic frosted glass pattern: BackdropFilter with blur + '
@@ -487,7 +475,11 @@ Widget _buildFrostedGlassSection() {
                         children: [
                           Icon(Icons.cloud, size: 48, color: Colors.white54),
                           Icon(Icons.sunny, size: 48, color: Colors.amber),
-                          Icon(Icons.nightlight, size: 48, color: Colors.white54),
+                          Icon(
+                            Icons.nightlight,
+                            size: 48,
+                            color: Colors.white54,
+                          ),
                         ],
                       ),
                       Text(
@@ -501,7 +493,11 @@ Widget _buildFrostedGlassSection() {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Icon(Icons.landscape, size: 40, color: Colors.white38),
+                          Icon(
+                            Icons.landscape,
+                            size: 40,
+                            color: Colors.white38,
+                          ),
                           Icon(Icons.forest, size: 40, color: Colors.green),
                           Icon(Icons.water, size: 40, color: Colors.lightBlue),
                         ],
@@ -744,18 +740,12 @@ Widget _buildClipRRectBlurSection() {
                               width: 70,
                               height: 70,
                               child: BackdropFilter(
-                                filter: ImageFilter.blur(
-                                  sigmaX: 8,
-                                  sigmaY: 8,
-                                ),
+                                filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
                                 child: Container(
                                   decoration: BoxDecoration(
                                     color: Colors.white.withValues(alpha: 0.2),
-                                    borderRadius:
-                                        BorderRadius.circular(radius),
-                                    border: Border.all(
-                                      color: Colors.white60,
-                                    ),
+                                    borderRadius: BorderRadius.circular(radius),
+                                    border: Border.all(color: Colors.white60),
                                   ),
                                 ),
                               ),
@@ -783,11 +773,10 @@ Widget _buildOverlappingFiltersSection() {
   print('[BackdropFilter] Building overlapping filters section');
   return Column(
     children: [
-      _buildSectionHeader(
-        '7. Overlapping BackdropFilters',
-        Icons.filter_none,
-        [Colors.deepOrange, Colors.red],
-      ),
+      _buildSectionHeader('7. Overlapping BackdropFilters', Icons.filter_none, [
+        Colors.deepOrange,
+        Colors.red,
+      ]),
       SizedBox(height: 8),
       _buildInfoCard(
         'Multiple BackdropFilters can overlap. Each one blurs the content '
@@ -1009,10 +998,7 @@ Widget _buildAsymmetricBlurSection() {
                           _buildColorfulBackground(),
                           Positioned.fill(
                             child: BackdropFilter(
-                              filter: ImageFilter.blur(
-                                sigmaX: 20,
-                                sigmaY: 0,
-                              ),
+                              filter: ImageFilter.blur(sigmaX: 20, sigmaY: 0),
                               child: Container(color: Colors.transparent),
                             ),
                           ),
@@ -1042,10 +1028,7 @@ Widget _buildAsymmetricBlurSection() {
                           _buildColorfulBackground(),
                           Positioned.fill(
                             child: BackdropFilter(
-                              filter: ImageFilter.blur(
-                                sigmaX: 0,
-                                sigmaY: 20,
-                              ),
+                              filter: ImageFilter.blur(sigmaX: 0, sigmaY: 20),
                               child: Container(color: Colors.transparent),
                             ),
                           ),
@@ -1266,7 +1249,11 @@ dynamic build(BuildContext context) {
                 '- Overlapping filters produce cumulative effects\n'
                 '- Common pattern: frosted glass = blur + semi-transparent overlay\n'
                 '- RenderBackdropFilter creates BackdropFilterLayer in the render tree',
-                style: TextStyle(fontSize: 12, color: Colors.white70, height: 1.6),
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Colors.white70,
+                  height: 1.6,
+                ),
               ),
             ],
           ),

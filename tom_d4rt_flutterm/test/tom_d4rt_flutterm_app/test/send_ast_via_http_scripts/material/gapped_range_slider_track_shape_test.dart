@@ -357,7 +357,7 @@ Widget _buildColorSchemeSliders() {
   int idx = 0;
   while (idx < schemes.length) {
     Map<String, dynamic> s = schemes[idx];
-    print('  Color scheme: ' + (s['name'] as String));
+    print('  Color scheme: ${s['name'] as String}');
     items.add(
       Container(
         margin: EdgeInsets.only(bottom: 12),
@@ -1024,7 +1024,7 @@ Widget _buildDebugLine(String key, String value) {
     child: Row(
       children: [
         Text(
-          key + ': ',
+          '$key: ',
           style: TextStyle(
             fontSize: 11,
             fontWeight: FontWeight.w600,

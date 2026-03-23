@@ -123,7 +123,7 @@ dynamic build(BuildContext context) {
     }
     return BorderSide(color: Colors.grey, width: 1.0);
   });
-  print('MaterialStateBorderSide created');
+  print('MaterialStateBorderSide created: $stateBorderSide');
 
   // ========== MaterialStateTextStyle ==========
   print('--- MaterialStateTextStyle Tests ---');
@@ -133,7 +133,7 @@ dynamic build(BuildContext context) {
     }
     return TextStyle(color: Colors.black);
   });
-  print('MaterialStateTextStyle created');
+  print('MaterialStateTextStyle created: $stateTextStyle');
 
   // ========== ButtonBar ==========
   print('--- ButtonBar Tests ---');

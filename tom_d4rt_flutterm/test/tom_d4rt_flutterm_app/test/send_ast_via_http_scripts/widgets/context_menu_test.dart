@@ -53,7 +53,7 @@ dynamic build(BuildContext context) {
     anchors: TextSelectionToolbarAnchors(primaryAnchor: Offset(100.0, 100.0)),
     buttonItems: [copyItem, pasteItem, cutItem, selectAllItem],
   );
-  print('AdaptiveTextSelectionToolbar created with 4 items');
+  print('AdaptiveTextSelectionToolbar created with 4 items: $toolbar');
 
   // TextSelectionToolbarAnchors
   final anchors = TextSelectionToolbarAnchors(

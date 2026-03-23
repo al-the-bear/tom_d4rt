@@ -63,7 +63,16 @@ dynamic build(BuildContext context) {
   final brownColor = Colors.brown;
   final greyColor = Colors.grey;
   final blueGreyColor = Colors.blueGrey;
-  print('All predefined MaterialColors accessed');
+  print(
+    'All predefined MaterialColors: red=$redColor, pink=$pinkColor, purple=$purpleColor',
+  );
+  print('deepPurple=$deepPurpleColor, indigo=$indigoColor, blue=$blueColor');
+  print('lightBlue=$lightBlueColor, cyan=$cyanColor, teal=$tealColor');
+  print('green=$greenColor, lightGreen=$lightGreenColor, lime=$limeColor');
+  print('yellow=$yellowColor, amber=$amberColor, orange=$orangeColor');
+  print(
+    'deepOrange=$deepOrangeColor, brown=$brownColor, grey=$greyColor, blueGrey=$blueGreyColor',
+  );
 
   // ========== MATERIALACCENTCOLOR ==========
   print('--- MaterialAccentColor Tests ---');
@@ -107,7 +116,17 @@ dynamic build(BuildContext context) {
   final amberAccent = Colors.amberAccent;
   final orangeAccent = Colors.orangeAccent;
   final deepOrangeAccent = Colors.deepOrangeAccent;
-  print('All predefined MaterialAccentColors accessed');
+  print(
+    'All predefined MaterialAccentColors: red=$redAccent, pink=$pinkAccent',
+  );
+  print(
+    'purple=$purpleAccent, deepPurple=$deepPurpleAccent, indigo=$indigoAccent',
+  );
+  print('lightBlue=$lightBlueAccent, cyan=$cyanAccent, teal=$tealAccent');
+  print('green=$greenAccent, lightGreen=$lightGreenAccent, lime=$limeAccent');
+  print(
+    'yellow=$yellowAccent, amber=$amberAccent, orange=$orangeAccent, deepOrange=$deepOrangeAccent',
+  );
 
   // Test color usage in widgets
   print('--- Color Usage in Widgets ---');

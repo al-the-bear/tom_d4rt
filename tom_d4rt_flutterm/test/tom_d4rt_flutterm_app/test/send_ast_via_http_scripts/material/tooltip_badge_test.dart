@@ -40,7 +40,7 @@ dynamic build(BuildContext context) {
     height: 60.0,
     child: Icon(Icons.height),
   );
-  print('Tooltip with height created');
+  print('Tooltip with height created: $tallTooltip');
 
   // Test Tooltip with padding
   final paddedTooltip = Tooltip(
@@ -48,7 +48,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(16.0),
     child: Icon(Icons.padding),
   );
-  print('Tooltip with padding created');
+  print('Tooltip with padding created: $paddedTooltip');
 
   // Test Tooltip with margin
   final marginTooltip = Tooltip(
@@ -56,7 +56,7 @@ dynamic build(BuildContext context) {
     margin: EdgeInsets.symmetric(horizontal: 24.0),
     child: Icon(Icons.margin),
   );
-  print('Tooltip with margin created');
+  print('Tooltip with margin created: $marginTooltip');
 
   // Test Tooltip with verticalOffset
   final offsetTooltip = Tooltip(
@@ -80,7 +80,7 @@ dynamic build(BuildContext context) {
     excludeFromSemantics: true,
     child: Icon(Icons.accessibility),
   );
-  print('Tooltip with excludeFromSemantics created');
+  print('Tooltip with excludeFromSemantics created: $semanticsTooltip');
 
   // Test Tooltip with decoration
   final decoratedTooltip = Tooltip(
@@ -111,7 +111,7 @@ dynamic build(BuildContext context) {
     textAlign: TextAlign.center,
     child: Icon(Icons.format_align_center),
   );
-  print('Tooltip with textAlign created');
+  print('Tooltip with textAlign created: $alignedTooltip');
 
   // Test Tooltip with waitDuration
   final waitTooltip = Tooltip(
@@ -127,7 +127,7 @@ dynamic build(BuildContext context) {
     showDuration: Duration(seconds: 5),
     child: Icon(Icons.visibility),
   );
-  print('Tooltip with showDuration created');
+  print('Tooltip with showDuration created: $showTooltip');
 
   // Test Tooltip with exitDuration
   final exitTooltip = Tooltip(
@@ -135,7 +135,7 @@ dynamic build(BuildContext context) {
     exitDuration: Duration(milliseconds: 500),
     child: Icon(Icons.exit_to_app),
   );
-  print('Tooltip with exitDuration created');
+  print('Tooltip with exitDuration created: $exitTooltip');
 
   // Test Tooltip with triggerMode
   final tapTooltip = Tooltip(
@@ -151,7 +151,7 @@ dynamic build(BuildContext context) {
     enableFeedback: true,
     child: Icon(Icons.vibration),
   );
-  print('Tooltip with enableFeedback created');
+  print('Tooltip with enableFeedback created: $feedbackTooltip');
 
   // Test Tooltip with onTriggered
   final triggeredTooltip = Tooltip(
@@ -161,7 +161,7 @@ dynamic build(BuildContext context) {
     },
     child: Icon(Icons.notifications_active),
   );
-  print('Tooltip with onTriggered created');
+  print('Tooltip with onTriggered created: $triggeredTooltip');
 
   // ========== BADGE ==========
   print('--- Badge Tests ---');
@@ -187,7 +187,7 @@ dynamic build(BuildContext context) {
     isLabelVisible: false,
     child: Icon(Icons.inbox),
   );
-  print('Badge with isLabelVisible=false created');
+  print('Badge with isLabelVisible=false created: $hiddenBadge');
 
   // Test Badge with backgroundColor
   final coloredBadge = Badge(
@@ -228,14 +228,14 @@ dynamic build(BuildContext context) {
     largeSize: 28.0,
     child: Icon(Icons.circle),
   );
-  print('Badge with largeSize created');
+  print('Badge with largeSize created: $largeBadge');
 
   // Test Badge with smallSize
   final smallBadge = Badge(
     smallSize: 8.0,
     child: Icon(Icons.fiber_manual_record),
   );
-  print('Badge with smallSize created');
+  print('Badge with smallSize created: $smallBadge');
 
   // Test Badge with alignment
   final alignedBadge = Badge(
@@ -251,18 +251,18 @@ dynamic build(BuildContext context) {
     offset: Offset(4, -4),
     child: Icon(Icons.attach_file),
   );
-  print('Badge with offset created');
+  print('Badge with offset created: $offsetBadge');
 
   // Test Badge.count
   final countFactoryBadge = Badge.count(
     count: 42,
     child: Icon(Icons.notifications),
   );
-  print('Badge.count created');
+  print('Badge.count created: $countFactoryBadge');
 
   // Test Badge.count with zero
   final zeroBadge = Badge.count(count: 0, child: Icon(Icons.email));
-  print('Badge.count with zero created');
+  print('Badge.count with zero created: $zeroBadge');
 
   // Test Badge on IconButton
   final iconButtonBadge = Badge(
@@ -276,13 +276,13 @@ dynamic build(BuildContext context) {
   );
   print('Badge on IconButton created');
 
-  // Test Badge on NavigationDestination
+  // Test Badge for navigation destination
   // Note: Typically used within NavigationBar
   final navDestinationBadge = Badge(
     label: Text('99+'),
     child: Icon(Icons.home),
   );
-  print('Badge for navigation destination created');
+  print('Badge for navigation destination created: $navDestinationBadge');
 
   print('Tooltip and Badge widgets test completed');
 

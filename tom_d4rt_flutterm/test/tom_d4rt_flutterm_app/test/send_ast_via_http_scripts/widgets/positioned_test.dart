@@ -96,7 +96,7 @@ dynamic build(BuildContext context) {
       ],
     ),
   );
-  print('PositionedDirectional with start=10 created');
+  print('PositionedDirectional with start=10 created: $directional');
 
   // Test multiple Positioned widgets
   final multiple = Stack(

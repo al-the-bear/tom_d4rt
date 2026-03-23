@@ -96,7 +96,7 @@ dynamic build(BuildContext context) {
 
   // Variation 13: FlutterLogo with textColor
   final widget13 = FlutterLogo(size: 60, textColor: Colors.blue);
-  print('FlutterLogo(textColor: blue) created');
+  print('FlutterLogo(textColor: blue) created: $widget13');
 
   // Variation 14: FlutterLogo with style markOnly
   final widget14 = FlutterLogo(size: 100, style: FlutterLogoStyle.markOnly);

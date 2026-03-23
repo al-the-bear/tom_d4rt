@@ -37,7 +37,7 @@ dynamic build(BuildContext context) {
       topRight: Radius.circular(4.0),
     ),
   );
-  print('UnderlineInputBorder created');
+  print('UnderlineInputBorder created: $underlineBorder');
 
   // ========== InputDecorationTheme ==========
   print('--- InputDecorationTheme Tests ---');
@@ -92,7 +92,7 @@ dynamic build(BuildContext context) {
     floatingLabelAlignment: FloatingLabelAlignment.start,
     constraints: BoxConstraints(maxWidth: 400),
   );
-  print('Advanced InputDecoration created');
+  print('Advanced InputDecoration created: $decoration');
 
   print('All input borders tests passed');
 

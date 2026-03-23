@@ -170,7 +170,7 @@ dynamic build(BuildContext context) {
         ),
         const SizedBox(height: 8),
         // Simulated stripe pattern (using multiple gradients)
-        Container(
+        SizedBox(
           width: double.infinity,
           height: 60,
           child: Row(
@@ -198,7 +198,7 @@ dynamic build(BuildContext context) {
         ),
         const SizedBox(height: 12),
         // Checkerboard-like pattern simulation
-        Container(
+        SizedBox(
           width: 200,
           height: 80,
           child: CustomPaint(
@@ -266,7 +266,7 @@ dynamic build(BuildContext context) {
         ),
         const SizedBox(height: 8),
         // Mirrored wave simulation
-        Container(
+        SizedBox(
           width: double.infinity,
           height: 60,
           child: Row(
@@ -344,7 +344,7 @@ dynamic build(BuildContext context) {
         Stack(
           children: [
             // Background pattern to show transparency
-            Container(
+            SizedBox(
               width: double.infinity,
               height: 80,
               child: CustomPaint(painter: _GridPainter(Colors.grey.shade300)),
@@ -377,7 +377,7 @@ dynamic build(BuildContext context) {
         // Radial decal
         Stack(
           children: [
-            Container(
+            SizedBox(
               width: 200,
               height: 100,
               child: CustomPaint(painter: _GridPainter(Colors.grey.shade300)),
@@ -514,7 +514,7 @@ dynamic build(BuildContext context) {
                 children: [
                   Stack(
                     children: [
-                      Container(
+                      SizedBox(
                         height: 80,
                         child: CustomPaint(
                           painter: _GridPainter(Colors.grey.shade300),
@@ -886,7 +886,7 @@ dynamic build(BuildContext context) {
           style: TextStyle(fontWeight: FontWeight.w500),
         ),
         const SizedBox(height: 4),
-        Container(
+        SizedBox(
           width: double.infinity,
           height: 80,
           child: CustomPaint(

@@ -528,7 +528,7 @@ Widget _pixelGrid(Color color) {
 Widget _tradeoffRow(String name, double speed, double quality, Color color) {
   return Row(
     children: [
-      Container(
+      SizedBox(
         width: 60,
         child: Text(
           name,

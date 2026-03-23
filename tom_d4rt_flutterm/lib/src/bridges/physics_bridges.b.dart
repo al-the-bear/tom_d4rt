@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
-// Sources: 7 files
-// Generated: 2026-03-13T21:11:20.141787
+// Sources: 6 files
+// Generated: 2026-03-23T11:07:23.220930
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -16,7 +16,6 @@ import 'package:flutter/src/physics/simulation.dart' as $flutter_4;
 import 'package:flutter/src/physics/spring_simulation.dart' as $flutter_5;
 import 'package:flutter/src/physics/tolerance.dart' as $flutter_6;
 import 'package:flutter/src/physics/utils.dart' as $flutter_7;
-import 'package:tom_d4rt_flutterm/src/d4rt_user_bridges/strut_style_user_bridge.dart' as $tom_d4rt_flutterm_1;
 
 /// Bridge class for flutter_physics module.
 class FlutterPhysicsBridge {
@@ -24,12 +23,10 @@ class FlutterPhysicsBridge {
   static List<BridgedClass> bridgeClasses() {
     return [
       _createToleranceBridge(),
-      _createSimulationBridge(),
       _createClampedSimulationBridge(),
       _createFrictionSimulationBridge(),
       _createBoundedFrictionSimulationBridge(),
       _createGravitySimulationBridge(),
-      _createSpringDescriptionBridge(),
       _createSpringSimulationBridge(),
       _createScrollSpringSimulationBridge(),
     ];
@@ -42,12 +39,10 @@ class FlutterPhysicsBridge {
   static Map<String, String> classSourceUris() {
     return {
       'Tolerance': 'package:flutter/src/physics/tolerance.dart',
-      'Simulation': 'package:flutter/src/physics/simulation.dart',
       'ClampedSimulation': 'package:flutter/src/physics/clamped_simulation.dart',
       'FrictionSimulation': 'package:flutter/src/physics/friction_simulation.dart',
       'BoundedFrictionSimulation': 'package:flutter/src/physics/friction_simulation.dart',
       'GravitySimulation': 'package:flutter/src/physics/gravity_simulation.dart',
-      'SpringDescription': 'package:flutter/src/physics/spring_simulation.dart',
       'SpringSimulation': 'package:flutter/src/physics/spring_simulation.dart',
       'ScrollSpringSimulation': 'package:flutter/src/physics/spring_simulation.dart',
     };
@@ -180,7 +175,6 @@ class FlutterPhysicsBridge {
       'package:flutter/src/physics/clamped_simulation.dart',
       'package:flutter/src/physics/friction_simulation.dart',
       'package:flutter/src/physics/gravity_simulation.dart',
-      'package:flutter/src/physics/simulation.dart',
       'package:flutter/src/physics/spring_simulation.dart',
       'package:flutter/src/physics/tolerance.dart',
       'package:flutter/src/physics/utils.dart',
@@ -289,63 +283,6 @@ BridgedClass _createToleranceBridge() {
     },
     staticGetterSignatures: {
       'defaultTolerance': 'Tolerance get defaultTolerance',
-    },
-  );
-}
-
-// =============================================================================
-// Simulation Bridge
-// =============================================================================
-
-BridgedClass _createSimulationBridge() {
-  return BridgedClass(
-    nativeType: $flutter_4.Simulation,
-    name: 'Simulation',
-    isAssignable: (v) => v is $flutter_4.Simulation,
-    constructors: {
-    },
-    getters: {
-      'tolerance': (visitor, target) => D4.validateTarget<$flutter_4.Simulation>(target, 'Simulation').tolerance,
-    },
-    setters: {
-      'tolerance': (visitor, target, value) => 
-        D4.validateTarget<$flutter_4.Simulation>(target, 'Simulation').tolerance = D4.extractBridgedArg<$flutter_6.Tolerance>(value, 'tolerance'),
-    },
-    methods: {
-      'x': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.Simulation>(target, 'Simulation');
-        D4.requireMinArgs(positional, 1, 'x');
-        final time = D4.getRequiredArg<double>(positional, 0, 'time', 'x');
-        return t.x(time);
-      },
-      'dx': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.Simulation>(target, 'Simulation');
-        D4.requireMinArgs(positional, 1, 'dx');
-        final time = D4.getRequiredArg<double>(positional, 0, 'time', 'dx');
-        return t.dx(time);
-      },
-      'isDone': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.Simulation>(target, 'Simulation');
-        D4.requireMinArgs(positional, 1, 'isDone');
-        final time = D4.getRequiredArg<double>(positional, 0, 'time', 'isDone');
-        return t.isDone(time);
-      },
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.Simulation>(target, 'Simulation');
-        return t.toString();
-      },
-    },
-    methodSignatures: {
-      'x': 'double x(double time)',
-      'dx': 'double dx(double time)',
-      'isDone': 'bool isDone(double time)',
-      'toString': 'String toString()',
-    },
-    getterSignatures: {
-      'tolerance': 'Tolerance get tolerance',
-    },
-    setterSignatures: {
-      'tolerance': 'set tolerance(dynamic value)',
     },
   );
 }
@@ -734,65 +671,6 @@ BridgedClass _createGravitySimulationBridge() {
     },
     setterSignatures: {
       'tolerance': 'set tolerance(Tolerance value)',
-    },
-  );
-}
-
-// =============================================================================
-// SpringDescription Bridge
-// =============================================================================
-
-BridgedClass _createSpringDescriptionBridge() {
-  return BridgedClass(
-    nativeType: $flutter_5.SpringDescription,
-    name: 'SpringDescription',
-    isAssignable: (v) => v is $flutter_5.SpringDescription,
-    constructors: {
-      '': (visitor, positional, named) {
-        final mass = D4.getRequiredNamedArg<double>(named, 'mass', 'SpringDescription');
-        final stiffness = D4.getRequiredNamedArg<double>(named, 'stiffness', 'SpringDescription');
-        final damping = D4.getRequiredNamedArg<double>(named, 'damping', 'SpringDescription');
-        return $flutter_5.SpringDescription(mass: mass, stiffness: stiffness, damping: damping);
-      },
-      'withDampingRatio': (visitor, positional, named) {
-        final mass = D4.getRequiredNamedArg<double>(named, 'mass', 'SpringDescription');
-        final stiffness = D4.getRequiredNamedArg<double>(named, 'stiffness', 'SpringDescription');
-        final ratio = D4.getNamedArgWithDefault<double>(named, 'ratio', 1.0);
-        return $flutter_5.SpringDescription.withDampingRatio(mass: mass, stiffness: stiffness, ratio: ratio);
-      },
-      'withDurationAndBounce': (visitor, positional, named) {
-        final duration = D4.getNamedArgWithDefault<Duration>(named, 'duration', const Duration(milliseconds: 500));
-        final bounce = D4.getNamedArgWithDefault<double>(named, 'bounce', 0.0);
-        return $flutter_5.SpringDescription.withDurationAndBounce(duration: duration, bounce: bounce);
-      },
-    },
-    getters: {
-      'mass': (visitor, target) => D4.validateTarget<$flutter_5.SpringDescription>(target, 'SpringDescription').mass,
-      'stiffness': (visitor, target) => D4.validateTarget<$flutter_5.SpringDescription>(target, 'SpringDescription').stiffness,
-      'damping': (visitor, target) => D4.validateTarget<$flutter_5.SpringDescription>(target, 'SpringDescription').damping,
-      'duration': (visitor, target) => D4.validateTarget<$flutter_5.SpringDescription>(target, 'SpringDescription').duration,
-      'bounce': (visitor, target) => D4.validateTarget<$flutter_5.SpringDescription>(target, 'SpringDescription').bounce,
-    },
-    methods: {
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.SpringDescription>(target, 'SpringDescription');
-        return t.toString();
-      },
-    },
-    constructorSignatures: {
-      '': 'const SpringDescription({required double mass, required double stiffness, required double damping})',
-      'withDampingRatio': 'SpringDescription.withDampingRatio({required double mass, required double stiffness, double ratio = 1.0})',
-      'withDurationAndBounce': 'factory SpringDescription.withDurationAndBounce({Duration duration = const Duration(milliseconds: 500), double bounce = 0.0})',
-    },
-    methodSignatures: {
-      'toString': 'String toString()',
-    },
-    getterSignatures: {
-      'mass': 'double get mass',
-      'stiffness': 'double get stiffness',
-      'damping': 'double get damping',
-      'duration': 'Duration get duration',
-      'bounce': 'double get bounce',
     },
   );
 }

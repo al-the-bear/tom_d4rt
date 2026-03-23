@@ -441,7 +441,7 @@ Widget _buildPatternCard(String label) {
     children: [
       ClipRSuperellipse(
         borderRadius: BorderRadius.circular(24.0),
-        child: Container(
+        child: SizedBox(
           width: 100.0,
           height: 100.0,
           child: Stack(children: squares),
@@ -469,7 +469,7 @@ Widget _buildStripeCard(String label) {
     children: [
       ClipRSuperellipse(
         borderRadius: BorderRadius.circular(24.0),
-        child: Container(
+        child: SizedBox(
           width: 100.0,
           height: 100.0,
           child: Column(children: stripes),

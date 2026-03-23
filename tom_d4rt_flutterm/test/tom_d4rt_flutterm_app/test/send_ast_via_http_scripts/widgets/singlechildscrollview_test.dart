@@ -6,7 +6,7 @@ dynamic build(BuildContext context) {
   print('SingleChildScrollView test executing');
 
   // Test basic SingleChildScrollView
-  final basicScrollView = Container(
+  final basicScrollView = SizedBox(
     height: 100.0,
     child: SingleChildScrollView(
       child: Column(
@@ -38,7 +38,7 @@ dynamic build(BuildContext context) {
   print('SingleChildScrollView with padding created');
 
   // Test SingleChildScrollView with horizontal scroll
-  final horizontalScrollView = Container(
+  final horizontalScrollView = SizedBox(
     height: 60.0,
     child: SingleChildScrollView(
       scrollDirection: Axis.horizontal,
@@ -55,7 +55,7 @@ dynamic build(BuildContext context) {
   print('SingleChildScrollView with horizontal scrollDirection created');
 
   // Test SingleChildScrollView with reverse
-  final reverseScrollView = Container(
+  final reverseScrollView = SizedBox(
     height: 80.0,
     child: SingleChildScrollView(
       reverse: true,
@@ -83,7 +83,7 @@ dynamic build(BuildContext context) {
   print('SingleChildScrollView with reverse=true created');
 
   // Test SingleChildScrollView with physics
-  final physicsScrollView = Container(
+  final physicsScrollView = SizedBox(
     height: 80.0,
     child: SingleChildScrollView(
       physics: BouncingScrollPhysics(),
@@ -96,10 +96,10 @@ dynamic build(BuildContext context) {
       ),
     ),
   );
-  print('SingleChildScrollView with BouncingScrollPhysics created');
+  print('SingleChildScrollView with BouncingScrollPhysics created: $physicsScrollView');
 
   // Test SingleChildScrollView with ClampingScrollPhysics
-  final clampingScrollView = Container(
+  final clampingScrollView = SizedBox(
     height: 80.0,
     child: SingleChildScrollView(
       physics: ClampingScrollPhysics(),
@@ -112,10 +112,10 @@ dynamic build(BuildContext context) {
       ),
     ),
   );
-  print('SingleChildScrollView with ClampingScrollPhysics created');
+  print('SingleChildScrollView with ClampingScrollPhysics created: $clampingScrollView');
 
   // Test SingleChildScrollView with primary
-  final primaryScrollView = Container(
+  final primaryScrollView = SizedBox(
     height: 80.0,
     child: SingleChildScrollView(
       primary: false,
@@ -127,7 +127,7 @@ dynamic build(BuildContext context) {
       ),
     ),
   );
-  print('SingleChildScrollView with primary=false created');
+  print('SingleChildScrollView with primary=false created: $primaryScrollView');
 
   print('SingleChildScrollView test completed');
 

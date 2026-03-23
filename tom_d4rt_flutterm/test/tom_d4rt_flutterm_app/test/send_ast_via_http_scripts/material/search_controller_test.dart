@@ -1094,7 +1094,7 @@ Widget _buildValuePropertyRow(String name, String type, String desc) {
     ),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 80,
           child: Text(
             name,
@@ -1105,7 +1105,7 @@ Widget _buildValuePropertyRow(String name, String type, String desc) {
             ),
           ),
         ),
-        Container(
+        SizedBox(
           width: 90,
           child: Text(
             type,
@@ -1556,7 +1556,7 @@ Widget buildSearchControllerPropertiesTable() {
         color: bg,
         child: Row(
           children: [
-            Container(
+            SizedBox(
               width: 100,
               child: Text(
                 propNames[p],
@@ -1567,7 +1567,7 @@ Widget buildSearchControllerPropertiesTable() {
                 ),
               ),
             ),
-            Container(
+            SizedBox(
               width: 120,
               child: Text(
                 propTypes[p],
@@ -1650,7 +1650,7 @@ Widget buildSearchControllerMethodsTable() {
         color: bg,
         child: Row(
           children: [
-            Container(
+            SizedBox(
               width: 150,
               child: Text(
                 methodNames[m],

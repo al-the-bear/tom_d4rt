@@ -2,11 +2,12 @@
 // D4rt test script: Tests ContainerParentDataMixin from rendering
 // ContainerParentDataMixin adds sibling navigation to ParentData for containers
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 dynamic build(BuildContext context) {
   print('ContainerParentDataMixin deep demo executing');
-  print('This mixin provides previousSibling/nextSibling for linked list traversal');
+  print(
+    'This mixin provides previousSibling/nextSibling for linked list traversal',
+  );
   print('Used by ContainerRenderObjectMixin to manage child render objects');
 
   return MaterialApp(
@@ -113,7 +114,9 @@ dynamic build(BuildContext context) {
             _buildSiblingNavigationUtilitiesSection(),
             SizedBox(height: 24),
 
-            _buildSectionHeader('10. Integration with ContainerRenderObjectMixin'),
+            _buildSectionHeader(
+              '10. Integration with ContainerRenderObjectMixin',
+            ),
             _buildInfoCard(
               'ContainerRenderObjectMixin manages the linked list through insert, remove, '
               'and move operations. It maintains firstChild, lastChild, and childCount '
@@ -243,7 +246,12 @@ Widget _buildCodeBlock(String title, String code) {
   );
 }
 
-Widget _buildConceptCard(String title, String description, IconData icon, Color color) {
+Widget _buildConceptCard(
+  String title,
+  String description,
+  IconData icon,
+  Color color,
+) {
   return Container(
     margin: EdgeInsets.only(bottom: 10),
     padding: EdgeInsets.all(14),
@@ -269,10 +277,17 @@ Widget _buildConceptCard(String title, String description, IconData icon, Color 
             children: [
               Text(
                 title,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: color),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                  color: color,
+                ),
               ),
               SizedBox(height: 4),
-              Text(description, style: TextStyle(fontSize: 12, color: Colors.grey.shade700)),
+              Text(
+                description,
+                style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+              ),
             ],
           ),
         ),
@@ -288,37 +303,37 @@ Widget _buildMixinConceptSection() {
       _buildConceptCard(
         'What is a Mixin?',
         'A Dart mixin adds functionality to a class without inheritance. '
-        'ContainerParentDataMixin mixes into ParentData subclasses.',
+            'ContainerParentDataMixin mixes into ParentData subclasses.',
         Icons.extension,
         Colors.indigo,
       ),
       _buildConceptCard(
         'ParentData Purpose',
         'ParentData stores information about a child that is managed by its parent. '
-        'Different containers store different parent data (position, flex, etc).',
+            'Different containers store different parent data (position, flex, etc).',
         Icons.data_object,
         Colors.blue,
       ),
       _buildConceptCard(
         'Why Siblings?',
         'Sibling pointers enable O(1) traversal between adjacent children. '
-        'Without them, finding the next child would require array lookup.',
+            'Without them, finding the next child would require array lookup.',
         Icons.compare_arrows,
         Colors.purple,
       ),
       _buildCodeBlock(
         'ContainerParentDataMixin Declaration',
         'mixin ContainerParentDataMixin<ChildType extends RenderObject>\n'
-        '    on ParentData {\n'
-        '  ChildType? previousSibling;\n'
-        '  ChildType? nextSibling;\n'
-        '  \n'
-        '  void detach() {\n'
-        '    super.detach();\n'
-        '    previousSibling = null;\n'
-        '    nextSibling = null;\n'
-        '  }\n'
-        '}',
+            '    on ParentData {\n'
+            '  ChildType? previousSibling;\n'
+            '  ChildType? nextSibling;\n'
+            '  \n'
+            '  void detach() {\n'
+            '    super.detach();\n'
+            '    previousSibling = null;\n'
+            '    nextSibling = null;\n'
+            '  }\n'
+            '}',
       ),
     ],
   );
@@ -331,37 +346,37 @@ Widget _buildMixinDefinitionSection() {
       _buildConceptCard(
         'Type Parameter',
         'The mixin has a type parameter ChildType extends RenderObject. '
-        'This ensures type safety when navigating between siblings.',
+            'This ensures type safety when navigating between siblings.',
         Icons.label_outline,
         Colors.blue,
       ),
       _buildConceptCard(
         'Requires ParentData',
         'The "on ParentData" clause means this mixin can only be applied to '
-        'classes that extend ParentData. It adds sibling functionality.',
+            'classes that extend ParentData. It adds sibling functionality.',
         Icons.merge_type,
         Colors.teal,
       ),
       _buildCodeBlock(
         'BoxParentData with Container Mixin',
         'class BoxParentData extends ParentData {\n'
-        '  Offset offset = Offset.zero;\n'
-        '}\n'
-        '\n'
-        'class ContainerBoxParentData extends BoxParentData\n'
-        '    with ContainerParentDataMixin<RenderBox> {\n'
-        '  // Now has previousSibling and nextSibling\n'
-        '  // pointing to RenderBox instances\n'
-        '}',
+            '  Offset offset = Offset.zero;\n'
+            '}\n'
+            '\n'
+            'class ContainerBoxParentData extends BoxParentData\n'
+            '    with ContainerParentDataMixin<RenderBox> {\n'
+            '  // Now has previousSibling and nextSibling\n'
+            '  // pointing to RenderBox instances\n'
+            '}',
       ),
       _buildCodeBlock(
         'Custom ParentData Example',
         'class MyCustomParentData extends ParentData\n'
-        '    with ContainerParentDataMixin<RenderBox> {\n'
-        '  int priority = 0;\n'
-        '  bool isVisible = true;\n'
-        '  Alignment alignment = Alignment.center;\n'
-        '}',
+            '    with ContainerParentDataMixin<RenderBox> {\n'
+            '  int priority = 0;\n'
+            '  bool isVisible = true;\n'
+            '  Alignment alignment = Alignment.center;\n'
+            '}',
       ),
     ],
   );
@@ -374,39 +389,39 @@ Widget _buildPreviousSiblingSection() {
       _buildConceptCard(
         'Backward Link',
         'previousSibling points to the child that was inserted before this one. '
-        'For the first child in the container, previousSibling is null.',
+            'For the first child in the container, previousSibling is null.',
         Icons.arrow_back,
         Colors.purple,
       ),
       _buildConceptCard(
         'Type Safety',
         'previousSibling is typed as ChildType? where ChildType extends RenderObject. '
-        'This prevents mixing incompatible render object types.',
+            'This prevents mixing incompatible render object types.',
         Icons.security,
         Colors.green,
       ),
       _buildCodeBlock(
         'Accessing previousSibling',
         'void processChildWithPredecessor(RenderBox child) {\n'
-        '  var parentData = child.parentData\n'
-        '      as ContainerParentDataMixin<RenderBox>;\n'
-        '  \n'
-        '  RenderBox? prev = parentData.previousSibling;\n'
-        '  if (prev != null) {\n'
-        '    print("Found previous sibling");\n'
-        '    // Can access prev layout info, size, etc\n'
-        '  } else {\n'
-        '    print("This is the first child");\n'
-        '  }\n'
-        '}',
+            '  var parentData = child.parentData\n'
+            '      as ContainerParentDataMixin<RenderBox>;\n'
+            '  \n'
+            '  RenderBox? prev = parentData.previousSibling;\n'
+            '  if (prev != null) {\n'
+            '    print("Found previous sibling");\n'
+            '    // Can access prev layout info, size, etc\n'
+            '  } else {\n'
+            '    print("This is the first child");\n'
+            '  }\n'
+            '}',
       ),
       _buildCodeBlock(
         'Checking for First Child',
         'bool isFirstChild(RenderBox child) {\n'
-        '  var parentData = child.parentData\n'
-        '      as ContainerParentDataMixin<RenderBox>;\n'
-        '  return parentData.previousSibling == null;\n'
-        '}',
+            '  var parentData = child.parentData\n'
+            '      as ContainerParentDataMixin<RenderBox>;\n'
+            '  return parentData.previousSibling == null;\n'
+            '}',
       ),
     ],
   );
@@ -419,39 +434,39 @@ Widget _buildNextSiblingSection() {
       _buildConceptCard(
         'Forward Link',
         'nextSibling points to the child that was inserted after this one. '
-        'For the last child in the container, nextSibling is null.',
+            'For the last child in the container, nextSibling is null.',
         Icons.arrow_forward,
         Colors.teal,
       ),
       _buildConceptCard(
         'Traversal Endpoint',
         'When nextSibling returns null, you have reached the end of the child list. '
-        'This is how forward iteration loops terminate.',
+            'This is how forward iteration loops terminate.',
         Icons.stop_circle_outlined,
         Colors.orange,
       ),
       _buildCodeBlock(
         'Accessing nextSibling',
         'void processChildWithSuccessor(RenderBox child) {\n'
-        '  var parentData = child.parentData\n'
-        '      as ContainerParentDataMixin<RenderBox>;\n'
-        '  \n'
-        '  RenderBox? next = parentData.nextSibling;\n'
-        '  if (next != null) {\n'
-        '    print("Found next sibling");\n'
-        '    // Can use next for layout dependency\n'
-        '  } else {\n'
-        '    print("This is the last child");\n'
-        '  }\n'
-        '}',
+            '  var parentData = child.parentData\n'
+            '      as ContainerParentDataMixin<RenderBox>;\n'
+            '  \n'
+            '  RenderBox? next = parentData.nextSibling;\n'
+            '  if (next != null) {\n'
+            '    print("Found next sibling");\n'
+            '    // Can use next for layout dependency\n'
+            '  } else {\n'
+            '    print("This is the last child");\n'
+            '  }\n'
+            '}',
       ),
       _buildCodeBlock(
         'Checking for Last Child',
         'bool isLastChild(RenderBox child) {\n'
-        '  var parentData = child.parentData\n'
-        '      as ContainerParentDataMixin<RenderBox>;\n'
-        '  return parentData.nextSibling == null;\n'
-        '}',
+            '  var parentData = child.parentData\n'
+            '      as ContainerParentDataMixin<RenderBox>;\n'
+            '  return parentData.nextSibling == null;\n'
+            '}',
       ),
     ],
   );
@@ -464,45 +479,45 @@ Widget _buildLinkedListStructureSection() {
       _buildConceptCard(
         'Doubly-Linked List',
         'The children form a doubly-linked list. Each node has forward and '
-        'backward pointers. This enables efficient bidirectional traversal.',
+            'backward pointers. This enables efficient bidirectional traversal.',
         Icons.link,
         Colors.amber,
       ),
       _buildConceptCard(
         'Container Endpoints',
         'ContainerRenderObjectMixin provides firstChild and lastChild getters. '
-        'These are the head and tail of the linked list.',
+            'These are the head and tail of the linked list.',
         Icons.first_page,
         Colors.deepOrange,
       ),
       _buildCodeBlock(
         'Linked List Structure',
         'Container (has firstChild, lastChild, childCount)\n'
-        '    │\n'
-        '    ├─ Child A (parentData.previousSibling = null)\n'
-        '    │           (parentData.nextSibling = B)\n'
-        '    │\n'
-        '    ├─ Child B (parentData.previousSibling = A)\n'
-        '    │           (parentData.nextSibling = C)\n'
-        '    │\n'
-        '    └─ Child C (parentData.previousSibling = B)\n'
-        '                (parentData.nextSibling = null)',
+            '    │\n'
+            '    ├─ Child A (parentData.previousSibling = null)\n'
+            '    │           (parentData.nextSibling = B)\n'
+            '    │\n'
+            '    ├─ Child B (parentData.previousSibling = A)\n'
+            '    │           (parentData.nextSibling = C)\n'
+            '    │\n'
+            '    └─ Child C (parentData.previousSibling = B)\n'
+            '                (parentData.nextSibling = null)',
       ),
       _buildCodeBlock(
         'Container Properties',
         'abstract class ContainerRenderObjectMixin<\n'
-        '    ChildType extends RenderObject,\n'
-        '    ParentDataType extends ContainerParentDataMixin<ChildType>\n'
-        '> {\n'
-        '  int get childCount;\n'
-        '  ChildType? get firstChild;\n'
-        '  ChildType? get lastChild;\n'
-        '  \n'
-        '  // Methods to modify the list\n'
-        '  void insert(ChildType child, {ChildType? after});\n'
-        '  void remove(ChildType child);\n'
-        '  void move(ChildType child, {ChildType? after});\n'
-        '}',
+            '    ChildType extends RenderObject,\n'
+            '    ParentDataType extends ContainerParentDataMixin<ChildType>\n'
+            '> {\n'
+            '  int get childCount;\n'
+            '  ChildType? get firstChild;\n'
+            '  ChildType? get lastChild;\n'
+            '  \n'
+            '  // Methods to modify the list\n'
+            '  void insert(ChildType child, {ChildType? after});\n'
+            '  void remove(ChildType child);\n'
+            '  void move(ChildType child, {ChildType? after});\n'
+            '}',
       ),
     ],
   );
@@ -534,42 +549,42 @@ Widget _buildLinkedListVisualizationSection() {
       _buildCodeBlock(
         'Visual Legend',
         '┌─────────┐    ┌─────────┐    ┌─────────┐\n'
-        '│ Child A │◄──►│ Child B │◄──►│ Child C │\n'
-        '└─────────┘    └─────────┘    └─────────┘\n'
-        '     ▲                              ▲\n'
-        '     │                              │\n'
-        'firstChild                     lastChild\n'
-        '\n'
-        '◄──► represents sibling links\n'
-        '──►  is nextSibling direction\n'
-        '◄──  is previousSibling direction',
+            '│ Child A │◄──►│ Child B │◄──►│ Child C │\n'
+            '└─────────┘    └─────────┘    └─────────┘\n'
+            '     ▲                              ▲\n'
+            '     │                              │\n'
+            'firstChild                     lastChild\n'
+            '\n'
+            '◄──► represents sibling links\n'
+            '──►  is nextSibling direction\n'
+            '◄──  is previousSibling direction',
       ),
       _buildCodeBlock(
         'Memory Relationships',
         'Container RenderObject\n'
-        '├── firstChild ──────────────────┐\n'
-        '├── lastChild ───────────────────┼──┐\n'
-        '│                                │  │\n'
-        '│   ┌────────────────────────────┘  │\n'
-        '│   │                               │\n'
-        '│   ▼                               │\n'
-        '│ Child A.parentData                │\n'
-        '│   ├── previousSibling: null       │\n'
-        '│   └── nextSibling ──────────┐     │\n'
-        '│                             │     │\n'
-        '│   ┌─────────────────────────┘     │\n'
-        '│   │                               │\n'
-        '│   ▼                               │\n'
-        '│ Child B.parentData                │\n'
-        '│   ├── previousSibling ─────► A    │\n'
-        '│   └── nextSibling ──────────┐     │\n'
-        '│                             │     │\n'
-        '│   ┌─────────────────────────┘     │\n'
-        '│   │                               │\n'
-        '│   ▼  ◄────────────────────────────┘\n'
-        '│ Child C.parentData\n'
-        '│   ├── previousSibling ─────► B\n'
-        '│   └── nextSibling: null',
+            '├── firstChild ──────────────────┐\n'
+            '├── lastChild ───────────────────┼──┐\n'
+            '│                                │  │\n'
+            '│   ┌────────────────────────────┘  │\n'
+            '│   │                               │\n'
+            '│   ▼                               │\n'
+            '│ Child A.parentData                │\n'
+            '│   ├── previousSibling: null       │\n'
+            '│   └── nextSibling ──────────┐     │\n'
+            '│                             │     │\n'
+            '│   ┌─────────────────────────┘     │\n'
+            '│   │                               │\n'
+            '│   ▼                               │\n'
+            '│ Child B.parentData                │\n'
+            '│   ├── previousSibling ─────► A    │\n'
+            '│   └── nextSibling ──────────┐     │\n'
+            '│                             │     │\n'
+            '│   ┌─────────────────────────┘     │\n'
+            '│   │                               │\n'
+            '│   ▼  ◄────────────────────────────┘\n'
+            '│ Child C.parentData\n'
+            '│   ├── previousSibling ─────► B\n'
+            '│   └── nextSibling: null',
       ),
     ],
   );
@@ -618,11 +633,7 @@ Widget _buildArrowBidirectional() {
     child: Row(
       children: [
         Icon(Icons.arrow_back, size: 16, color: Colors.grey.shade600),
-        Container(
-          width: 20,
-          height: 2,
-          color: Colors.grey.shade600,
-        ),
+        Container(width: 20, height: 2, color: Colors.grey.shade600),
         Icon(Icons.arrow_forward, size: 16, color: Colors.grey.shade600),
       ],
     ),
@@ -636,52 +647,52 @@ Widget _buildForwardTraversalSection() {
       _buildConceptCard(
         'Start at firstChild',
         'Forward traversal begins at the firstChild property of the container. '
-        'If firstChild is null, the container has no children.',
+            'If firstChild is null, the container has no children.',
         Icons.play_arrow,
         Colors.green,
       ),
       _buildConceptCard(
         'Follow nextSibling',
         'From each child, access its parentData.nextSibling to get the next child. '
-        'Continue until nextSibling is null.',
+            'Continue until nextSibling is null.',
         Icons.navigate_next,
         Colors.blue,
       ),
       _buildCodeBlock(
         'Forward Iteration Pattern',
         'void visitChildrenForward() {\n'
-        '  RenderBox? child = firstChild;\n'
-        '  while (child != null) {\n'
-        '    // Process child here\n'
-        '    print("Visiting: child");\n'
-        '    \n'
-        '    // Move to next sibling\n'
-        '    var parentData = child.parentData\n'
-        '        as ContainerParentDataMixin<RenderBox>;\n'
-        '    child = parentData.nextSibling;\n'
-        '  }\n'
-        '}',
+            '  RenderBox? child = firstChild;\n'
+            '  while (child != null) {\n'
+            '    // Process child here\n'
+            '    print("Visiting: child");\n'
+            '    \n'
+            '    // Move to next sibling\n'
+            '    var parentData = child.parentData\n'
+            '        as ContainerParentDataMixin<RenderBox>;\n'
+            '    child = parentData.nextSibling;\n'
+            '  }\n'
+            '}',
       ),
       _buildCodeBlock(
         'Layout Children Forward',
         'void performLayout() {\n'
-        '  var accumulatedHeight = 0.0;\n'
-        '  RenderBox? child = firstChild;\n'
-        '  \n'
-        '  while (child != null) {\n'
-        '    child.layout(constraints, parentUsesSize: true);\n'
-        '    \n'
-        '    var parentData = child.parentData as BoxParentData;\n'
-        '    parentData.offset = Offset(0, accumulatedHeight);\n'
-        '    accumulatedHeight += child.size.height;\n'
-        '    \n'
-        '    var containerData = child.parentData\n'
-        '        as ContainerParentDataMixin<RenderBox>;\n'
-        '    child = containerData.nextSibling;\n'
-        '  }\n'
-        '  \n'
-        '  size = Size(constraints.maxWidth, accumulatedHeight);\n'
-        '}',
+            '  var accumulatedHeight = 0.0;\n'
+            '  RenderBox? child = firstChild;\n'
+            '  \n'
+            '  while (child != null) {\n'
+            '    child.layout(constraints, parentUsesSize: true);\n'
+            '    \n'
+            '    var parentData = child.parentData as BoxParentData;\n'
+            '    parentData.offset = Offset(0, accumulatedHeight);\n'
+            '    accumulatedHeight += child.size.height;\n'
+            '    \n'
+            '    var containerData = child.parentData\n'
+            '        as ContainerParentDataMixin<RenderBox>;\n'
+            '    child = containerData.nextSibling;\n'
+            '  }\n'
+            '  \n'
+            '  size = Size(constraints.maxWidth, accumulatedHeight);\n'
+            '}',
       ),
     ],
   );
@@ -694,52 +705,52 @@ Widget _buildBackwardTraversalSection() {
       _buildConceptCard(
         'Start at lastChild',
         'Backward traversal begins at the lastChild property of the container. '
-        'Useful for reverse painting order or priority-based processing.',
+            'Useful for reverse painting order or priority-based processing.',
         Icons.last_page,
         Colors.orange,
       ),
       _buildConceptCard(
         'Follow previousSibling',
         'From each child, access its parentData.previousSibling to get the previous child. '
-        'Continue until previousSibling is null.',
+            'Continue until previousSibling is null.',
         Icons.navigate_before,
         Colors.red,
       ),
       _buildCodeBlock(
         'Backward Iteration Pattern',
         'void visitChildrenBackward() {\n'
-        '  RenderBox? child = lastChild;\n'
-        '  while (child != null) {\n'
-        '    // Process child here\n'
-        '    print("Visiting in reverse: child");\n'
-        '    \n'
-        '    // Move to previous sibling\n'
-        '    var parentData = child.parentData\n'
-        '        as ContainerParentDataMixin<RenderBox>;\n'
-        '    child = parentData.previousSibling;\n'
-        '  }\n'
-        '}',
+            '  RenderBox? child = lastChild;\n'
+            '  while (child != null) {\n'
+            '    // Process child here\n'
+            '    print("Visiting in reverse: child");\n'
+            '    \n'
+            '    // Move to previous sibling\n'
+            '    var parentData = child.parentData\n'
+            '        as ContainerParentDataMixin<RenderBox>;\n'
+            '    child = parentData.previousSibling;\n'
+            '  }\n'
+            '}',
       ),
       _buildCodeBlock(
         'Hit Test Reverse Order',
         'bool hitTestChildren(BoxHitTestResult result, Offset position) {\n'
-        '  // Test from front to back (last painted = front)\n'
-        '  RenderBox? child = lastChild;\n'
-        '  \n'
-        '  while (child != null) {\n'
-        '    var parentData = child.parentData as BoxParentData;\n'
-        '    var transformed = position - parentData.offset;\n'
-        '    \n'
-        '    if (child.hitTest(result, position: transformed)) {\n'
-        '      return true;\n'
-        '    }\n'
-        '    \n'
-        '    var containerData = child.parentData\n'
-        '        as ContainerParentDataMixin<RenderBox>;\n'
-        '    child = containerData.previousSibling;\n'
-        '  }\n'
-        '  return false;\n'
-        '}',
+            '  // Test from front to back (last painted = front)\n'
+            '  RenderBox? child = lastChild;\n'
+            '  \n'
+            '  while (child != null) {\n'
+            '    var parentData = child.parentData as BoxParentData;\n'
+            '    var transformed = position - parentData.offset;\n'
+            '    \n'
+            '    if (child.hitTest(result, position: transformed)) {\n'
+            '      return true;\n'
+            '    }\n'
+            '    \n'
+            '    var containerData = child.parentData\n'
+            '        as ContainerParentDataMixin<RenderBox>;\n'
+            '    child = containerData.previousSibling;\n'
+            '  }\n'
+            '  return false;\n'
+            '}',
       ),
     ],
   );
@@ -752,59 +763,59 @@ Widget _buildSiblingNavigationUtilitiesSection() {
       _buildCodeBlock(
         'Find Nth Next Sibling',
         'RenderBox? nthNextSibling(RenderBox child, int n) {\n'
-        '  RenderBox? current = child;\n'
-        '  for (var i = 0; i < n && current != null; i++) {\n'
-        '    var parentData = current.parentData\n'
-        '        as ContainerParentDataMixin<RenderBox>;\n'
-        '    current = parentData.nextSibling;\n'
-        '  }\n'
-        '  return current;\n'
-        '}',
+            '  RenderBox? current = child;\n'
+            '  for (var i = 0; i < n && current != null; i++) {\n'
+            '    var parentData = current.parentData\n'
+            '        as ContainerParentDataMixin<RenderBox>;\n'
+            '    current = parentData.nextSibling;\n'
+            '  }\n'
+            '  return current;\n'
+            '}',
       ),
       _buildCodeBlock(
         'Count Siblings After',
         'int countSiblingsAfter(RenderBox child) {\n'
-        '  var count = 0;\n'
-        '  var parentData = child.parentData\n'
-        '      as ContainerParentDataMixin<RenderBox>;\n'
-        '  var sibling = parentData.nextSibling;\n'
-        '  \n'
-        '  while (sibling != null) {\n'
-        '    count++;\n'
-        '    parentData = sibling.parentData\n'
-        '        as ContainerParentDataMixin<RenderBox>;\n'
-        '    sibling = parentData.nextSibling;\n'
-        '  }\n'
-        '  return count;\n'
-        '}',
+            '  var count = 0;\n'
+            '  var parentData = child.parentData\n'
+            '      as ContainerParentDataMixin<RenderBox>;\n'
+            '  var sibling = parentData.nextSibling;\n'
+            '  \n'
+            '  while (sibling != null) {\n'
+            '    count++;\n'
+            '    parentData = sibling.parentData\n'
+            '        as ContainerParentDataMixin<RenderBox>;\n'
+            '    sibling = parentData.nextSibling;\n'
+            '  }\n'
+            '  return count;\n'
+            '}',
       ),
       _buildCodeBlock(
         'Get Child Index',
         'int getChildIndex(RenderBox child) {\n'
-        '  var index = 0;\n'
-        '  var parentData = child.parentData\n'
-        '      as ContainerParentDataMixin<RenderBox>;\n'
-        '  var sibling = parentData.previousSibling;\n'
-        '  \n'
-        '  while (sibling != null) {\n'
-        '    index++;\n'
-        '    parentData = sibling.parentData\n'
-        '        as ContainerParentDataMixin<RenderBox>;\n'
-        '    sibling = parentData.previousSibling;\n'
-        '  }\n'
-        '  return index;\n'
-        '}',
+            '  var index = 0;\n'
+            '  var parentData = child.parentData\n'
+            '      as ContainerParentDataMixin<RenderBox>;\n'
+            '  var sibling = parentData.previousSibling;\n'
+            '  \n'
+            '  while (sibling != null) {\n'
+            '    index++;\n'
+            '    parentData = sibling.parentData\n'
+            '        as ContainerParentDataMixin<RenderBox>;\n'
+            '    sibling = parentData.previousSibling;\n'
+            '  }\n'
+            '  return index;\n'
+            '}',
       ),
       _buildCodeBlock(
         'Are Adjacent Siblings',
         'bool areAdjacentSiblings(RenderBox a, RenderBox b) {\n'
-        '  var aData = a.parentData\n'
-        '      as ContainerParentDataMixin<RenderBox>;\n'
-        '  var bData = b.parentData\n'
-        '      as ContainerParentDataMixin<RenderBox>;\n'
-        '  \n'
-        '  return aData.nextSibling == b || bData.nextSibling == a;\n'
-        '}',
+            '  var aData = a.parentData\n'
+            '      as ContainerParentDataMixin<RenderBox>;\n'
+            '  var bData = b.parentData\n'
+            '      as ContainerParentDataMixin<RenderBox>;\n'
+            '  \n'
+            '  return aData.nextSibling == b || bData.nextSibling == a;\n'
+            '}',
       ),
     ],
   );
@@ -817,62 +828,62 @@ Widget _buildContainerIntegrationSection() {
       _buildConceptCard(
         'insert() Operation',
         'When inserting a child, the container updates sibling links. '
-        'The optional "after" parameter specifies insertion position.',
+            'The optional "after" parameter specifies insertion position.',
         Icons.add_circle_outline,
         Colors.green,
       ),
       _buildConceptCard(
         'remove() Operation',
         'When removing a child, adjacent siblings are reconnected. '
-        'The removed childs sibling links are cleared via detach.',
+            'The removed childs sibling links are cleared via detach.',
         Icons.remove_circle_outline,
         Colors.red,
       ),
       _buildConceptCard(
         'move() Operation',
         'Moving repositions a child within the list. '
-        'Sibling links are updated for old and new positions.',
+            'Sibling links are updated for old and new positions.',
         Icons.swap_horiz,
         Colors.blue,
       ),
       _buildCodeBlock(
         'Insert Operation Logic',
         'void insert(ChildType child, {ChildType? after}) {\n'
-        '  adoptChild(child);\n'
-        '  \n'
-        '  var childParentData = child.parentData\n'
-        '      as ContainerParentDataMixin<ChildType>;\n'
-        '  \n'
-        '  if (after == null) {\n'
-        '    // Insert at beginning\n'
-        '    childParentData.nextSibling = _firstChild;\n'
-        '    if (_firstChild != null) {\n'
-        '      var firstData = _firstChild.parentData\n'
-        '          as ContainerParentDataMixin<ChildType>;\n'
-        '      firstData.previousSibling = child;\n'
-        '    }\n'
-        '    _firstChild = child;\n'
-        '    _lastChild ??= child;\n'
-        '  } else {\n'
-        '    // Insert after specified child\n'
-        '    var afterData = after.parentData\n'
-        '        as ContainerParentDataMixin<ChildType>;\n'
-        '    childParentData.previousSibling = after;\n'
-        '    childParentData.nextSibling = afterData.nextSibling;\n'
-        '    \n'
-        '    if (afterData.nextSibling != null) {\n'
-        '      var nextData = afterData.nextSibling.parentData\n'
-        '          as ContainerParentDataMixin<ChildType>;\n'
-        '      nextData.previousSibling = child;\n'
-        '    }\n'
-        '    afterData.nextSibling = child;\n'
-        '    \n'
-        '    if (after == _lastChild) {\n'
-        '      _lastChild = child;\n'
-        '    }\n'
-        '  }\n'
-        '  _childCount++;\n'
-        '}',
+            '  adoptChild(child);\n'
+            '  \n'
+            '  var childParentData = child.parentData\n'
+            '      as ContainerParentDataMixin<ChildType>;\n'
+            '  \n'
+            '  if (after == null) {\n'
+            '    // Insert at beginning\n'
+            '    childParentData.nextSibling = _firstChild;\n'
+            '    if (_firstChild != null) {\n'
+            '      var firstData = _firstChild.parentData\n'
+            '          as ContainerParentDataMixin<ChildType>;\n'
+            '      firstData.previousSibling = child;\n'
+            '    }\n'
+            '    _firstChild = child;\n'
+            '    _lastChild ??= child;\n'
+            '  } else {\n'
+            '    // Insert after specified child\n'
+            '    var afterData = after.parentData\n'
+            '        as ContainerParentDataMixin<ChildType>;\n'
+            '    childParentData.previousSibling = after;\n'
+            '    childParentData.nextSibling = afterData.nextSibling;\n'
+            '    \n'
+            '    if (afterData.nextSibling != null) {\n'
+            '      var nextData = afterData.nextSibling.parentData\n'
+            '          as ContainerParentDataMixin<ChildType>;\n'
+            '      nextData.previousSibling = child;\n'
+            '    }\n'
+            '    afterData.nextSibling = child;\n'
+            '    \n'
+            '    if (after == _lastChild) {\n'
+            '      _lastChild = child;\n'
+            '    }\n'
+            '  }\n'
+            '  _childCount++;\n'
+            '}',
       ),
     ],
   );
@@ -885,57 +896,57 @@ Widget _buildCustomContainerSection() {
       _buildCodeBlock(
         'Custom Container ParentData',
         'class MyContainerParentData extends BoxParentData\n'
-        '    with ContainerParentDataMixin<RenderBox> {\n'
-        '  int zIndex = 0;\n'
-        '  bool isFloating = false;\n'
-        '  double priority = 1.0;\n'
-        '}',
+            '    with ContainerParentDataMixin<RenderBox> {\n'
+            '  int zIndex = 0;\n'
+            '  bool isFloating = false;\n'
+            '  double priority = 1.0;\n'
+            '}',
       ),
       _buildCodeBlock(
         'Custom Container RenderObject',
         'class RenderMyContainer extends RenderBox\n'
-        '    with ContainerRenderObjectMixin<RenderBox, MyContainerParentData>,\n'
-        '         RenderBoxContainerDefaultsMixin<RenderBox, MyContainerParentData> {\n'
-        '  \n'
-        '  @override\n'
-        '  void setupParentData(RenderObject child) {\n'
-        '    if (child.parentData is! MyContainerParentData) {\n'
-        '      child.parentData = MyContainerParentData();\n'
-        '    }\n'
-        '  }\n'
-        '  \n'
-        '  @override\n'
-        '  void performLayout() {\n'
-        '    var child = firstChild;\n'
-        '    while (child != null) {\n'
-        '      child.layout(constraints, parentUsesSize: true);\n'
-        '      var parentData = child.parentData as MyContainerParentData;\n'
-        '      child = parentData.nextSibling;\n'
-        '    }\n'
-        '    size = constraints.biggest;\n'
-        '  }\n'
-        '  \n'
-        '  @override\n'
-        '  void paint(PaintingContext context, Offset offset) {\n'
-        '    var child = firstChild;\n'
-        '    while (child != null) {\n'
-        '      var parentData = child.parentData as MyContainerParentData;\n'
-        '      context.paintChild(child, offset + parentData.offset);\n'
-        '      child = parentData.nextSibling;\n'
-        '    }\n'
-        '  }\n'
-        '}',
+            '    with ContainerRenderObjectMixin<RenderBox, MyContainerParentData>,\n'
+            '         RenderBoxContainerDefaultsMixin<RenderBox, MyContainerParentData> {\n'
+            '  \n'
+            '  @override\n'
+            '  void setupParentData(RenderObject child) {\n'
+            '    if (child.parentData is! MyContainerParentData) {\n'
+            '      child.parentData = MyContainerParentData();\n'
+            '    }\n'
+            '  }\n'
+            '  \n'
+            '  @override\n'
+            '  void performLayout() {\n'
+            '    var child = firstChild;\n'
+            '    while (child != null) {\n'
+            '      child.layout(constraints, parentUsesSize: true);\n'
+            '      var parentData = child.parentData as MyContainerParentData;\n'
+            '      child = parentData.nextSibling;\n'
+            '    }\n'
+            '    size = constraints.biggest;\n'
+            '  }\n'
+            '  \n'
+            '  @override\n'
+            '  void paint(PaintingContext context, Offset offset) {\n'
+            '    var child = firstChild;\n'
+            '    while (child != null) {\n'
+            '      var parentData = child.parentData as MyContainerParentData;\n'
+            '      context.paintChild(child, offset + parentData.offset);\n'
+            '      child = parentData.nextSibling;\n'
+            '    }\n'
+            '  }\n'
+            '}',
       ),
       _buildCodeBlock(
         'Widget Using Custom Container',
         'class MyContainerWidget extends MultiChildRenderObjectWidget {\n'
-        '  MyContainerWidget({super.key, required super.children});\n'
-        '  \n'
-        '  @override\n'
-        '  RenderObject createRenderObject(BuildContext context) {\n'
-        '    return RenderMyContainer();\n'
-        '  }\n'
-        '}',
+            '  MyContainerWidget({super.key, required super.children});\n'
+            '  \n'
+            '  @override\n'
+            '  RenderObject createRenderObject(BuildContext context) {\n'
+            '    return RenderMyContainer();\n'
+            '  }\n'
+            '}',
       ),
     ],
   );
@@ -948,73 +959,73 @@ Widget _buildDetachReattachSection() {
       _buildConceptCard(
         'Detach Process',
         'When a child is removed from its parent, the detach method is called. '
-        'This clears both sibling references to prevent dangling pointers.',
+            'This clears both sibling references to prevent dangling pointers.',
         Icons.link_off,
         Colors.red,
       ),
       _buildConceptCard(
         'Link Preservation',
         'Before detach, the containers remove operation must update adjacent '
-        'siblings to maintain list integrity.',
+            'siblings to maintain list integrity.',
         Icons.save,
         Colors.blue,
       ),
       _buildConceptCard(
         'Reattachment',
         'When a child is added to a new parent, new sibling links are established '
-        'based on the insertion position.',
+            'based on the insertion position.',
         Icons.link,
         Colors.green,
       ),
       _buildCodeBlock(
         'Detach Implementation',
         'mixin ContainerParentDataMixin<ChildType extends RenderObject>\n'
-        '    on ParentData {\n'
-        '  ChildType? previousSibling;\n'
-        '  ChildType? nextSibling;\n'
-        '  \n'
-        '  @override\n'
-        '  void detach() {\n'
-        '    super.detach();\n'
-        '    // Clear sibling references on detach\n'
-        '    // to prevent dangling pointers\n'
-        '    if (previousSibling != null) {\n'
-        '      // Note: Actual framework handles this\n'
-        '      // in the remove() operation before detach\n'
-        '    }\n'
-        '    previousSibling = null;\n'
-        '    nextSibling = null;\n'
-        '  }\n'
-        '}',
+            '    on ParentData {\n'
+            '  ChildType? previousSibling;\n'
+            '  ChildType? nextSibling;\n'
+            '  \n'
+            '  @override\n'
+            '  void detach() {\n'
+            '    super.detach();\n'
+            '    // Clear sibling references on detach\n'
+            '    // to prevent dangling pointers\n'
+            '    if (previousSibling != null) {\n'
+            '      // Note: Actual framework handles this\n'
+            '      // in the remove() operation before detach\n'
+            '    }\n'
+            '    previousSibling = null;\n'
+            '    nextSibling = null;\n'
+            '  }\n'
+            '}',
       ),
       _buildCodeBlock(
         'Remove Operation Logic',
         'void remove(ChildType child) {\n'
-        '  var childParentData = child.parentData\n'
-        '      as ContainerParentDataMixin<ChildType>;\n'
-        '  \n'
-        '  // Update previous sibling link\n'
-        '  if (childParentData.previousSibling != null) {\n'
-        '    var prevData = childParentData.previousSibling.parentData\n'
-        '        as ContainerParentDataMixin<ChildType>;\n'
-        '    prevData.nextSibling = childParentData.nextSibling;\n'
-        '  } else {\n'
-        '    _firstChild = childParentData.nextSibling;\n'
-        '  }\n'
-        '  \n'
-        '  // Update next sibling link\n'
-        '  if (childParentData.nextSibling != null) {\n'
-        '    var nextData = childParentData.nextSibling.parentData\n'
-        '        as ContainerParentDataMixin<ChildType>;\n'
-        '    nextData.previousSibling = childParentData.previousSibling;\n'
-        '  } else {\n'
-        '    _lastChild = childParentData.previousSibling;\n'
-        '  }\n'
-        '  \n'
-        '  _childCount--;\n'
-        '  dropChild(child);\n'
-        '  // dropChild calls child.parentData?.detach()\n'
-        '}',
+            '  var childParentData = child.parentData\n'
+            '      as ContainerParentDataMixin<ChildType>;\n'
+            '  \n'
+            '  // Update previous sibling link\n'
+            '  if (childParentData.previousSibling != null) {\n'
+            '    var prevData = childParentData.previousSibling.parentData\n'
+            '        as ContainerParentDataMixin<ChildType>;\n'
+            '    prevData.nextSibling = childParentData.nextSibling;\n'
+            '  } else {\n'
+            '    _firstChild = childParentData.nextSibling;\n'
+            '  }\n'
+            '  \n'
+            '  // Update next sibling link\n'
+            '  if (childParentData.nextSibling != null) {\n'
+            '    var nextData = childParentData.nextSibling.parentData\n'
+            '        as ContainerParentDataMixin<ChildType>;\n'
+            '    nextData.previousSibling = childParentData.previousSibling;\n'
+            '  } else {\n'
+            '    _lastChild = childParentData.previousSibling;\n'
+            '  }\n'
+            '  \n'
+            '  _childCount--;\n'
+            '  dropChild(child);\n'
+            '  // dropChild calls child.parentData?.detach()\n'
+            '}',
       ),
       SizedBox(height: 16),
       _buildSummaryCard(),
@@ -1056,7 +1067,9 @@ Widget _buildSummaryCard() {
         _buildSummaryItem('Enables doubly-linked list traversal of children'),
         _buildSummaryItem('Type-safe with ChildType type parameter'),
         _buildSummaryItem('Used with ContainerRenderObjectMixin'),
-        _buildSummaryItem('Siblings cleared on detach to prevent dangling refs'),
+        _buildSummaryItem(
+          'Siblings cleared on detach to prevent dangling refs',
+        ),
         _buildSummaryItem('O(1) sibling access for efficient iteration'),
       ],
     ),
@@ -1088,13 +1101,13 @@ void main() {
   print('ContainerParentDataMixin provides sibling pointers for ParentData.');
   print('This enables efficient doubly-linked list traversal of children.');
   print('');
-  
+
   _demonstrateMixinConcept();
   _demonstrateSiblingPointers();
   _demonstrateLinkedListStructure();
   _demonstrateTraversalPatterns();
   _demonstrateContainerIntegration();
-  
+
   print('');
   print('=== Demo Complete ===');
 }

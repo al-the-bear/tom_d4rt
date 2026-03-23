@@ -2,7 +2,6 @@
 // D4rt test script: Deep Demo for FragmentProgram from dart:ui
 // FragmentProgram compiles and caches GLSL fragment shaders
 // Used with FragmentShader to apply custom GPU effects
-import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {

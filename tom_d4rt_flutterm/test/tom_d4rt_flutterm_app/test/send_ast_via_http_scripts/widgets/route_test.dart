@@ -47,7 +47,7 @@ dynamic build(BuildContext context) {
     ),
     settings: RouteSettings(name: '/route-page'),
   );
-  print('MaterialPageRoute created with settings /route-page');
+  print('MaterialPageRoute created: $route1');
 
   // Test MaterialPageRoute with fullscreenDialog
   final route2 = MaterialPageRoute(
@@ -57,7 +57,7 @@ dynamic build(BuildContext context) {
     ),
     fullscreenDialog: true,
   );
-  print('MaterialPageRoute(fullscreenDialog: true) created');
+  print('MaterialPageRoute(fullscreenDialog: true) created: $route2');
 
   // Test NavigatorObserver in a MaterialApp
   final observerInstance = NavigatorObserver();

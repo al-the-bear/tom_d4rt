@@ -155,7 +155,7 @@ Widget buildPaddleAppearanceDemo() {
         Center(
           child: Column(
             children: [
-              Container(
+              SizedBox(
                 width: 56,
                 height: 64,
                 child: CustomPaint(painter: _PaddleShapePainter(Colors.indigo)),
@@ -1110,6 +1110,7 @@ class _PaddleShapePainter extends CustomPainter {
   Color color;
   _PaddleShapePainter(this.color);
 
+  @override
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint();
     paint.color = color;
@@ -1138,6 +1139,7 @@ class _PaddleShapePainter extends CustomPainter {
     canvas.drawPath(stemPath, paint);
   }
 
+  @override
   bool shouldRepaint(_PaddleShapePainter oldDelegate) {
     return false;
   }

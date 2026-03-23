@@ -82,7 +82,7 @@ Widget _buildPropertyRow(String property, String type, String description) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
+        SizedBox(
           width: 120,
           child: Text(
             property,
@@ -93,7 +93,7 @@ Widget _buildPropertyRow(String property, String type, String description) {
             ),
           ),
         ),
-        Container(
+        SizedBox(
           width: 90,
           child: Text(
             type,

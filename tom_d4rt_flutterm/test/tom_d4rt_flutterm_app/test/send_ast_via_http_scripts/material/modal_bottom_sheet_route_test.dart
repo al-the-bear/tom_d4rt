@@ -829,7 +829,7 @@ Widget buildActionsSheetDemo() {
         SizedBox(height: 12),
         ...actionItems,
         SizedBox(height: 8),
-        Container(
+        SizedBox(
           width: double.infinity,
           child: OutlinedButton(
             onPressed: () {

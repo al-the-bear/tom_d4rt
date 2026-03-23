@@ -136,6 +136,7 @@ Widget _buildColorBox(Color color, double width, double height, String label) {
 
 // Delegate 1: Simple pattern - positions children in a diagonal line
 class _DiagonalDelegate extends MultiChildLayoutDelegate {
+  @override
   void performLayout(Size size) {
     print('  DiagonalDelegate.performLayout called, size: $size');
     int index = 0;
@@ -152,6 +153,7 @@ class _DiagonalDelegate extends MultiChildLayoutDelegate {
     }
   }
 
+  @override
   bool shouldRelayout(MultiChildLayoutDelegate oldDelegate) {
     return false;
   }
@@ -164,6 +166,7 @@ class _CircularDelegate extends MultiChildLayoutDelegate {
 
   _CircularDelegate({required this.radius, required this.count});
 
+  @override
   void performLayout(Size size) {
     print(
       '  CircularDelegate.performLayout called, radius: $radius, count: $count',
@@ -211,6 +214,7 @@ class _CircularDelegate extends MultiChildLayoutDelegate {
     }
   }
 
+  @override
   bool shouldRelayout(_CircularDelegate oldDelegate) {
     return oldDelegate.radius != radius || oldDelegate.count != count;
   }
@@ -222,6 +226,7 @@ class _StaggeredDelegate extends MultiChildLayoutDelegate {
 
   _StaggeredDelegate({required this.columnCount});
 
+  @override
   void performLayout(Size size) {
     print('  StaggeredDelegate.performLayout called, columns: $columnCount');
     double columnWidth = size.width / columnCount;
@@ -260,6 +265,7 @@ class _StaggeredDelegate extends MultiChildLayoutDelegate {
     }
   }
 
+  @override
   bool shouldRelayout(_StaggeredDelegate oldDelegate) {
     return oldDelegate.columnCount != columnCount;
   }
@@ -271,6 +277,7 @@ class _CardStackDelegate extends MultiChildLayoutDelegate {
 
   _CardStackDelegate({required this.overlapOffset});
 
+  @override
   void performLayout(Size size) {
     print('  CardStackDelegate.performLayout called, overlap: $overlapOffset');
     List<String> ids = ['stack_0', 'stack_1', 'stack_2', 'stack_3', 'stack_4'];
@@ -281,11 +288,12 @@ class _CardStackDelegate extends MultiChildLayoutDelegate {
         double x = i * overlapOffset;
         double y = i * (overlapOffset * 0.5);
         positionChild(ids[i], Offset(x, y));
-        print('    Positioned ${ids[i]} at ($x, $y), overlap chain');
+        print('    Positioned ${ids[i]} at ($x, $y), size: $childSize, overlap chain');
       }
     }
   }
 
+  @override
   bool shouldRelayout(_CardStackDelegate oldDelegate) {
     return oldDelegate.overlapOffset != overlapOffset;
   }
@@ -297,6 +305,7 @@ class _DynamicSizingDelegate extends MultiChildLayoutDelegate {
 
   _DynamicSizingDelegate({required this.availableWidth});
 
+  @override
   void performLayout(Size size) {
     print(
       '  DynamicSizingDelegate.performLayout called, available: $availableWidth',
@@ -322,6 +331,7 @@ class _DynamicSizingDelegate extends MultiChildLayoutDelegate {
     }
   }
 
+  @override
   bool shouldRelayout(_DynamicSizingDelegate oldDelegate) {
     return oldDelegate.availableWidth != availableWidth;
   }
@@ -329,6 +339,7 @@ class _DynamicSizingDelegate extends MultiChildLayoutDelegate {
 
 // Delegate 6: Dashboard layout with named regions
 class _DashboardDelegate extends MultiChildLayoutDelegate {
+  @override
   void performLayout(Size size) {
     print('  DashboardDelegate.performLayout called');
     double padding = 8.0;
@@ -385,6 +396,7 @@ class _DashboardDelegate extends MultiChildLayoutDelegate {
     }
   }
 
+  @override
   bool shouldRelayout(MultiChildLayoutDelegate oldDelegate) {
     return false;
   }

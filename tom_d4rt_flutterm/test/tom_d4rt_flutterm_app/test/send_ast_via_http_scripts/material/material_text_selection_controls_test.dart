@@ -1172,6 +1172,7 @@ class _HandleShapePainter extends CustomPainter {
   Color color;
   _HandleShapePainter(this.color);
 
+  @override
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint();
     paint.color = color;
@@ -1195,6 +1196,7 @@ class _HandleShapePainter extends CustomPainter {
     canvas.drawPath(path, paint);
   }
 
+  @override
   bool shouldRepaint(_HandleShapePainter oldDelegate) {
     return color != oldDelegate.color;
   }

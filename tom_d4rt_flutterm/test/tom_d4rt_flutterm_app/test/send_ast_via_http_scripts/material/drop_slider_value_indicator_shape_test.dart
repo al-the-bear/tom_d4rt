@@ -470,7 +470,7 @@ Widget buildDropIndicatorAnatomy() {
         Center(
           child: Column(
             children: [
-              Container(
+              SizedBox(
                 width: 48,
                 height: 56,
                 child: CustomPaint(
@@ -587,7 +587,7 @@ Widget buildSliderColorShowcase() {
         margin: EdgeInsets.symmetric(vertical: 3),
         child: Row(
           children: [
-            Container(
+            SizedBox(
               width: 80,
               child: Text(
                 colorNames[c],
@@ -619,7 +619,7 @@ Widget buildSliderColorShowcase() {
                 ),
               ),
             ),
-            Container(
+            SizedBox(
               width: 30,
               child: Text(
                 '${values[c].toInt()}',
@@ -688,7 +688,7 @@ Widget buildSliderProperties() {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            SizedBox(
               width: 160,
               child: Text(
                 propNames[p],
@@ -865,6 +865,7 @@ class _DropShapePainter extends CustomPainter {
   Color color;
   _DropShapePainter(this.color);
 
+  @override
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint();
     paint.color = color;
@@ -883,6 +884,7 @@ class _DropShapePainter extends CustomPainter {
     canvas.drawPath(path, paint);
   }
 
+  @override
   bool shouldRepaint(_DropShapePainter oldDelegate) {
     return false;
   }

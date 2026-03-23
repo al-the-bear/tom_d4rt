@@ -53,7 +53,7 @@ dynamic build(BuildContext context) {
       childCount: 5,
     ),
   );
-  print('SliverPrototypeExtentList created with 5 items');
+  print('SliverPrototypeExtentList created with 5 items: $sliverPrototype');
 
   // ========== SliverReorderableList ==========
   print('--- SliverReorderableList Tests ---');
@@ -71,7 +71,7 @@ dynamic build(BuildContext context) {
       print('  Reorder: $oldIndex -> $newIndex');
     },
   );
-  print('SliverReorderableList created with ${items.length} items');
+  print('SliverReorderableList created with ${items.length} items: $sliverReorderable');
 
   print('All sliver advanced tests passed');
 

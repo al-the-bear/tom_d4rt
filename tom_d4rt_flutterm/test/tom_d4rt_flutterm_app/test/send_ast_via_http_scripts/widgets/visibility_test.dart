@@ -140,7 +140,7 @@ dynamic build(BuildContext context) {
       ),
     ),
   );
-  print('Visibility with maintainSemantics=true created');
+  print('Visibility with maintainSemantics=true created: $maintainSemanticsWidget');
 
   print('Visibility test completed');
 

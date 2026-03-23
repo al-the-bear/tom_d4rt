@@ -1238,7 +1238,7 @@ Widget buildPropertySummary() {
         ),
         child: Row(
           children: [
-            Container(
+            SizedBox(
               width: 100,
               child: Text(
                 prop['name'] ?? '',

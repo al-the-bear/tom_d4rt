@@ -19,7 +19,7 @@ dynamic build(BuildContext context) {
 
   // Test SizedBox.shrink
   final shrunk = SizedBox.shrink(child: Container(color: Colors.red));
-  print('SizedBox.shrink created');
+  print('SizedBox.shrink created: $shrunk');
 
   // Test SizedBox.square
   final square = SizedBox.square(
@@ -60,7 +60,7 @@ dynamic build(BuildContext context) {
           'expand (in constrained box):',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        Container(width: 150.0, height: 50.0, child: expanded),
+        SizedBox(width: 150.0, height: 50.0, child: expanded),
       ],
     ),
   );

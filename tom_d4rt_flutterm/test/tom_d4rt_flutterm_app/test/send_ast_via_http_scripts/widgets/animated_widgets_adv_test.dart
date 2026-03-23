@@ -141,7 +141,7 @@ dynamic build(BuildContext context) {
     dismissible: true,
     semanticsLabel: 'Barrier',
   );
-  print('AnimatedModalBarrier created');
+  print('AnimatedModalBarrier created: $animatedBarrier');
 
   print('All animated widgets advanced tests passed');
 
@@ -156,7 +156,7 @@ dynamic build(BuildContext context) {
             animatedSize,
             animatedSlide,
             animatedRotation,
-            Container(height: 200, child: animatedFractional),
+            SizedBox(height: 200, child: animatedFractional),
             SizedBox(height: 200, child: Stack(children: [animatedPosDir])),
           ],
         ),

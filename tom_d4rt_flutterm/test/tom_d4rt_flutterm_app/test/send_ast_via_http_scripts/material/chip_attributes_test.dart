@@ -78,7 +78,7 @@ dynamic build(BuildContext context) {
     ),
     child: Wrap(children: [rawChip, selectedRaw]),
   );
-  print('ChipTheme wrapping chips');
+  print('ChipTheme created: $chipTheme');
 
   print('All chip attribute tests passed');
 

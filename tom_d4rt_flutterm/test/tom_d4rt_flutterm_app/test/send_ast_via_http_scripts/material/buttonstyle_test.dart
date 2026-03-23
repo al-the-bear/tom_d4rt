@@ -18,13 +18,13 @@ dynamic build(BuildContext context) {
       TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
     ),
   );
-  print('ButtonStyle with textStyle created');
+  print('ButtonStyle with textStyle created: $textStyleButton');
 
   // Test ButtonStyle with backgroundColor
   final backgroundStyle = ButtonStyle(
     backgroundColor: WidgetStateProperty.all(Colors.blue),
   );
-  print('ButtonStyle with backgroundColor created');
+  print('ButtonStyle with backgroundColor created: $backgroundStyle');
 
   // Test ButtonStyle with foregroundColor
   final foregroundStyle = ButtonStyle(
@@ -37,7 +37,7 @@ dynamic build(BuildContext context) {
   final overlayStyle = ButtonStyle(
     overlayColor: WidgetStateProperty.all(Colors.yellow.withOpacity(0.3)),
   );
-  print('ButtonStyle with overlayColor created');
+  print('ButtonStyle with overlayColor created: $overlayStyle');
 
   // Test ButtonStyle with shadowColor
   final shadowStyle = ButtonStyle(
@@ -50,11 +50,11 @@ dynamic build(BuildContext context) {
   final surfaceTintStyle = ButtonStyle(
     surfaceTintColor: WidgetStateProperty.all(Colors.blue.shade100),
   );
-  print('ButtonStyle with surfaceTintColor created');
+  print('ButtonStyle with surfaceTintColor created: $surfaceTintStyle');
 
   // Test ButtonStyle with elevation
   final elevationStyle = ButtonStyle(elevation: WidgetStateProperty.all(12.0));
-  print('ButtonStyle with elevation created');
+  print('ButtonStyle with elevation created: $elevationStyle');
 
   // Test ButtonStyle with padding
   final paddingStyle = ButtonStyle(
@@ -68,7 +68,7 @@ dynamic build(BuildContext context) {
   final minimumSizeStyle = ButtonStyle(
     minimumSize: WidgetStateProperty.all(Size(200.0, 60.0)),
   );
-  print('ButtonStyle with minimumSize created');
+  print('ButtonStyle with minimumSize created: $minimumSizeStyle');
 
   // Test ButtonStyle with fixedSize
   final fixedSizeStyle = ButtonStyle(
@@ -80,17 +80,17 @@ dynamic build(BuildContext context) {
   final maximumSizeStyle = ButtonStyle(
     maximumSize: WidgetStateProperty.all(Size(300.0, 80.0)),
   );
-  print('ButtonStyle with maximumSize created');
+  print('ButtonStyle with maximumSize created: $maximumSizeStyle');
 
   // Test ButtonStyle with iconColor
   final iconColorStyle = ButtonStyle(
     iconColor: WidgetStateProperty.all(Colors.orange),
   );
-  print('ButtonStyle with iconColor created');
+  print('ButtonStyle with iconColor created: $iconColorStyle');
 
   // Test ButtonStyle with iconSize
   final iconSizeStyle = ButtonStyle(iconSize: WidgetStateProperty.all(28.0));
-  print('ButtonStyle with iconSize created');
+  print('ButtonStyle with iconSize created: $iconSizeStyle');
 
   // Test ButtonStyle with side (border)
   final sideStyle = ButtonStyle(
@@ -116,35 +116,35 @@ dynamic build(BuildContext context) {
   final cursorStyle = ButtonStyle(
     mouseCursor: WidgetStateProperty.all(SystemMouseCursors.click),
   );
-  print('ButtonStyle with mouseCursor created');
+  print('ButtonStyle with mouseCursor created: $cursorStyle');
 
   // Test ButtonStyle with visualDensity
   final densityStyle = ButtonStyle(visualDensity: VisualDensity.compact);
-  print('ButtonStyle with visualDensity created');
+  print('ButtonStyle with visualDensity created: $densityStyle');
 
   // Test ButtonStyle with tapTargetSize
   final tapTargetStyle = ButtonStyle(
     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
   );
-  print('ButtonStyle with tapTargetSize created');
+  print('ButtonStyle with tapTargetSize created: $tapTargetStyle');
 
   // Test ButtonStyle with animationDuration
   final animationStyle = ButtonStyle(
     animationDuration: Duration(milliseconds: 300),
   );
-  print('ButtonStyle with animationDuration created');
+  print('ButtonStyle with animationDuration created: $animationStyle');
 
   // Test ButtonStyle with enableFeedback
   final feedbackStyle = ButtonStyle(enableFeedback: true);
-  print('ButtonStyle with enableFeedback created');
+  print('ButtonStyle with enableFeedback created: $feedbackStyle');
 
   // Test ButtonStyle with alignment
   final alignmentStyle = ButtonStyle(alignment: Alignment.centerLeft);
-  print('ButtonStyle with alignment created');
+  print('ButtonStyle with alignment created: $alignmentStyle');
 
   // Test ButtonStyle with splashFactory
   final splashStyle = ButtonStyle(splashFactory: InkRipple.splashFactory);
-  print('ButtonStyle with splashFactory created');
+  print('ButtonStyle with splashFactory created: $splashStyle');
 
   // Test ButtonStyle with state-dependent properties
   final statefulStyle = ButtonStyle(
@@ -181,7 +181,7 @@ dynamic build(BuildContext context) {
   final copiedStyle = baseStyle.copyWith(
     backgroundColor: WidgetStateProperty.all(Colors.red),
   );
-  print('ButtonStyle copyWith created');
+  print('ButtonStyle copyWith created: $copiedStyle');
 
   // Test ButtonStyle merge
   final style1 = ButtonStyle(

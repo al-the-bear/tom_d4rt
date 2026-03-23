@@ -103,7 +103,7 @@ Widget buildRefreshableListView(
             ],
           ),
         ),
-        Container(
+        SizedBox(
           height: 200,
           child: RefreshIndicator(
             color: indicatorColor,
@@ -269,7 +269,7 @@ Widget buildCustomScrollViewDemo(
             ],
           ),
         ),
-        Container(
+        SizedBox(
           height: 220,
           child: RefreshIndicator(
             color: primaryColor,

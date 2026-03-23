@@ -12,7 +12,7 @@ dynamic build(BuildContext context) {
   // Test finding ancestors via context
   try {
     final scaffold = Scaffold.of(context);
-    print('Scaffold.of(context) accessed');
+    print('Scaffold.of(context) accessed: $scaffold');
   } catch (e) {
     print('Scaffold.of(context) not available in this context');
   }
@@ -150,7 +150,7 @@ dynamic build(BuildContext context) {
 
   // Test GlobalKey<State> usage
   final stateKey = GlobalKey<_StatefulDemoState>();
-  print('GlobalKey<_StatefulDemoState> created for external state access');
+  print('GlobalKey<_StatefulDemoState> created for external state access: $stateKey');
 
   print('');
   print('StatefulWidget test completed');

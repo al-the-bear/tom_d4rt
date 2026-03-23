@@ -44,7 +44,7 @@ dynamic build(BuildContext context) {
       ),
     ),
   );
-  print('BackButtonListener widget created');
+  print('BackButtonListener widget created: $backListener');
 
   // Show context: BackButtonDispatcher is typically passed to Router
   // Router(backButtonDispatcher: dispatcher, ...)

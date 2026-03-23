@@ -5,7 +5,6 @@
 // Widget-level wrappers: AnimatedOpacity, FadeTransition
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 Widget _buildHeader(String title, String subtitle) {
   print('[header] Building header: $title');
@@ -35,10 +34,7 @@ Widget _buildHeader(String title, String subtitle) {
         SizedBox(height: 4),
         Text(
           subtitle,
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.white.withAlpha(200),
-          ),
+          style: TextStyle(fontSize: 14, color: Colors.white.withAlpha(200)),
           textAlign: TextAlign.center,
         ),
       ],
@@ -148,10 +144,7 @@ Widget _buildOpacitySwatch(double opacity, Color color, String label) {
         ),
       ),
       SizedBox(height: 6),
-      Text(
-        label,
-        style: TextStyle(fontSize: 10, color: Color(0xFF757575)),
-      ),
+      Text(label, style: TextStyle(fontSize: 10, color: Color(0xFF757575))),
     ],
   );
 }
@@ -203,10 +196,7 @@ Widget _buildOpacityComparisonRow(String contentLabel, Widget child) {
           ),
         ),
         SizedBox(height: 10),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: items,
-        ),
+        Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: items),
       ],
     ),
   );
@@ -264,7 +254,10 @@ Widget _buildLayeredOverlap() {
                 child: Text(
                   'Back Layer\n0.9',
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
@@ -292,7 +285,10 @@ Widget _buildLayeredOverlap() {
                 child: Text(
                   'Mid Layer\n0.6',
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
@@ -320,7 +316,10 @@ Widget _buildLayeredOverlap() {
                 child: Text(
                   'Front Layer\n0.35',
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
@@ -345,9 +344,7 @@ Widget _buildOpacityScale() {
           duration: Duration(milliseconds: 200),
           child: Container(
             height: 50,
-            decoration: BoxDecoration(
-              color: Color(0xFF1A237E),
-            ),
+            decoration: BoxDecoration(color: Color(0xFF1A237E)),
           ),
         ),
       ),
@@ -358,9 +355,7 @@ Widget _buildOpacityScale() {
       Container(
         height: 50,
         clipBehavior: Clip.antiAlias,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-        ),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
         child: Row(children: bars),
       ),
       SizedBox(height: 6),
@@ -371,7 +366,10 @@ Widget _buildOpacityScale() {
           Text('25%', style: TextStyle(fontSize: 10, color: Color(0xFF9E9E9E))),
           Text('50%', style: TextStyle(fontSize: 10, color: Color(0xFF9E9E9E))),
           Text('75%', style: TextStyle(fontSize: 10, color: Color(0xFF9E9E9E))),
-          Text('100%', style: TextStyle(fontSize: 10, color: Color(0xFF9E9E9E))),
+          Text(
+            '100%',
+            style: TextStyle(fontSize: 10, color: Color(0xFF9E9E9E)),
+          ),
         ],
       ),
     ],
@@ -473,7 +471,9 @@ Widget _buildContentTypeDemo(String label, IconData icon, Color color) {
 
 dynamic build(BuildContext context) {
   print('[build] RenderAnimatedOpacity deep demo starting');
-  print('[build] AnimatedOpacity wraps RenderAnimatedOpacity at the render layer');
+  print(
+    '[build] AnimatedOpacity wraps RenderAnimatedOpacity at the render layer',
+  );
   print('[build] FadeTransition also uses RenderAnimatedOpacity internally');
 
   return SingleChildScrollView(
@@ -570,10 +570,7 @@ dynamic build(BuildContext context) {
         // Gradient containers at various opacities
         _buildOpacityComparisonRow(
           'Gradient Container',
-          _buildGradientBox(
-            [Color(0xFFE91E63), Color(0xFFFF5252)],
-            40.0,
-          ),
+          _buildGradientBox([Color(0xFFE91E63), Color(0xFFFF5252)], 40.0),
         ),
 
         SizedBox(height: 16),
@@ -597,7 +594,10 @@ dynamic build(BuildContext context) {
             child: Center(
               child: Text(
                 'Fade 1.0',
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
@@ -619,7 +619,10 @@ dynamic build(BuildContext context) {
             child: Center(
               child: Text(
                 'Fade 0.75',
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
@@ -657,7 +660,10 @@ dynamic build(BuildContext context) {
             ),
             child: Text(
               'Almost gone',
-              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),
@@ -729,10 +735,26 @@ dynamic build(BuildContext context) {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _buildContentTypeDemo('Text', Icons.text_fields, Color(0xFF1565C0)),
-                  _buildContentTypeDemo('Icon', Icons.emoji_emotions, Color(0xFFEF6C00)),
-                  _buildContentTypeDemo('Shape', Icons.crop_square, Color(0xFF2E7D32)),
-                  _buildContentTypeDemo('Image', Icons.photo, Color(0xFF6A1B9A)),
+                  _buildContentTypeDemo(
+                    'Text',
+                    Icons.text_fields,
+                    Color(0xFF1565C0),
+                  ),
+                  _buildContentTypeDemo(
+                    'Icon',
+                    Icons.emoji_emotions,
+                    Color(0xFFEF6C00),
+                  ),
+                  _buildContentTypeDemo(
+                    'Shape',
+                    Icons.crop_square,
+                    Color(0xFF2E7D32),
+                  ),
+                  _buildContentTypeDemo(
+                    'Image',
+                    Icons.photo,
+                    Color(0xFF6A1B9A),
+                  ),
                 ],
               ),
             ],
@@ -767,10 +789,26 @@ dynamic build(BuildContext context) {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    _buildContentTypeDemo('Text', Icons.text_fields, Color(0xFF1565C0)),
-                    _buildContentTypeDemo('Icon', Icons.emoji_emotions, Color(0xFFEF6C00)),
-                    _buildContentTypeDemo('Shape', Icons.crop_square, Color(0xFF2E7D32)),
-                    _buildContentTypeDemo('Image', Icons.photo, Color(0xFF6A1B9A)),
+                    _buildContentTypeDemo(
+                      'Text',
+                      Icons.text_fields,
+                      Color(0xFF1565C0),
+                    ),
+                    _buildContentTypeDemo(
+                      'Icon',
+                      Icons.emoji_emotions,
+                      Color(0xFFEF6C00),
+                    ),
+                    _buildContentTypeDemo(
+                      'Shape',
+                      Icons.crop_square,
+                      Color(0xFF2E7D32),
+                    ),
+                    _buildContentTypeDemo(
+                      'Image',
+                      Icons.photo,
+                      Color(0xFF6A1B9A),
+                    ),
                   ],
                 ),
               ],
@@ -806,10 +844,26 @@ dynamic build(BuildContext context) {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    _buildContentTypeDemo('Text', Icons.text_fields, Color(0xFF1565C0)),
-                    _buildContentTypeDemo('Icon', Icons.emoji_emotions, Color(0xFFEF6C00)),
-                    _buildContentTypeDemo('Shape', Icons.crop_square, Color(0xFF2E7D32)),
-                    _buildContentTypeDemo('Image', Icons.photo, Color(0xFF6A1B9A)),
+                    _buildContentTypeDemo(
+                      'Text',
+                      Icons.text_fields,
+                      Color(0xFF1565C0),
+                    ),
+                    _buildContentTypeDemo(
+                      'Icon',
+                      Icons.emoji_emotions,
+                      Color(0xFFEF6C00),
+                    ),
+                    _buildContentTypeDemo(
+                      'Shape',
+                      Icons.crop_square,
+                      Color(0xFF2E7D32),
+                    ),
+                    _buildContentTypeDemo(
+                      'Image',
+                      Icons.photo,
+                      Color(0xFF6A1B9A),
+                    ),
                   ],
                 ),
               ],
@@ -857,19 +911,31 @@ dynamic build(BuildContext context) {
                         opacity: 1.0,
                         duration: Duration(milliseconds: 300),
                         child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 10,
+                          ),
                           decoration: BoxDecoration(
                             color: Color(0xFF1A237E),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Text(
                             'Enabled',
-                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
                       SizedBox(height: 6),
-                      Text('1.0', style: TextStyle(fontSize: 11, color: Color(0xFF9E9E9E))),
+                      Text(
+                        '1.0',
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: Color(0xFF9E9E9E),
+                        ),
+                      ),
                     ],
                   ),
                   Column(
@@ -878,19 +944,31 @@ dynamic build(BuildContext context) {
                         opacity: 0.4,
                         duration: Duration(milliseconds: 300),
                         child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 10,
+                          ),
                           decoration: BoxDecoration(
                             color: Color(0xFF1A237E),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Text(
                             'Disabled',
-                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
                       SizedBox(height: 6),
-                      Text('0.4', style: TextStyle(fontSize: 11, color: Color(0xFF9E9E9E))),
+                      Text(
+                        '0.4',
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: Color(0xFF9E9E9E),
+                        ),
+                      ),
                     ],
                   ),
                 ],
@@ -994,7 +1072,11 @@ dynamic build(BuildContext context) {
                 height: 100,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [Color(0xFF0D47A1), Color(0xFF1976D2), Color(0xFF42A5F5)],
+                    colors: [
+                      Color(0xFF0D47A1),
+                      Color(0xFF1976D2),
+                      Color(0xFF42A5F5),
+                    ],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -1062,7 +1144,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 4),
               Text(
                 'Demonstrated: opacity values, content types, FadeTransition,\n'
-                    'layered overlaps, opacity scale, and practical patterns',
+                'layered overlaps, opacity scale, and practical patterns',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 12, color: Color(0xFF5C6BC0)),
               ),

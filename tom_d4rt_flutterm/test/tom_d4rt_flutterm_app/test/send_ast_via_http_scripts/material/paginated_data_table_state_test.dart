@@ -61,7 +61,7 @@ Widget buildPropertyRow(String name, String type, String description) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
+        SizedBox(
           width: 120,
           child: Text(
             name,
@@ -72,7 +72,7 @@ Widget buildPropertyRow(String name, String type, String description) {
             ),
           ),
         ),
-        Container(
+        SizedBox(
           width: 80,
           child: Text(
             type,
@@ -101,18 +101,22 @@ class DemoDataSource extends DataTableSource {
 
   DemoDataSource(this.data, this.selectedRows, this.onSelectRow);
 
+  @override
   int get rowCount {
     return data.length;
   }
 
+  @override
   bool get isRowCountApproximate {
     return false;
   }
 
+  @override
   int get selectedRowCount {
     return selectedRows.length;
   }
 
+  @override
   DataRow getRow(int index) {
     if (index >= data.length) {
       return DataRow(cells: []);
@@ -141,18 +145,22 @@ class SimpleDataSource extends DataTableSource {
 
   SimpleDataSource(this.rows);
 
+  @override
   int get rowCount {
     return rows.length;
   }
 
+  @override
   bool get isRowCountApproximate {
     return false;
   }
 
+  @override
   int get selectedRowCount {
     return 0;
   }
 
+  @override
   DataRow getRow(int index) {
     if (index >= rows.length) {
       return DataRow(cells: []);
@@ -839,7 +847,7 @@ Widget _buildSourceProperty(String name, String returnType, String desc) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
+        SizedBox(
           width: 200,
           child: Text(
             name,
@@ -850,7 +858,7 @@ Widget _buildSourceProperty(String name, String returnType, String desc) {
             ),
           ),
         ),
-        Container(
+        SizedBox(
           width: 60,
           child: Text(
             returnType,

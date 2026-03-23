@@ -78,14 +78,14 @@ dynamic build(BuildContext context) {
     removeTop: true,
     child: Text('No top padding'),
   );
-  print('MediaQuery.removePadding created');
+  print('MediaQuery.removePadding created: $removeViewPaddingQuery');
 
   final removeViewInsetsQuery = MediaQuery.removeViewInsets(
     context: context,
     removeBottom: true,
     child: Text('No bottom insets'),
   );
-  print('MediaQuery.removeViewInsets created');
+  print('MediaQuery.removeViewInsets created: $removeViewInsetsQuery');
 
   // ========== FlexibleSpaceBarSettings ==========
   print('--- FlexibleSpaceBarSettings Tests ---');

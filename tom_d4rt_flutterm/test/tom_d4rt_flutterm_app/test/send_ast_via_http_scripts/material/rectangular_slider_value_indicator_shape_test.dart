@@ -478,7 +478,7 @@ Widget buildRectangularIndicatorAnatomy() {
         Center(
           child: Column(
             children: [
-              Container(
+              SizedBox(
                 width: 64,
                 height: 32,
                 child: CustomPaint(
@@ -1195,6 +1195,7 @@ class _RectShapePainter extends CustomPainter {
   Color color;
   _RectShapePainter(this.color);
 
+  @override
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint();
     paint.color = color;
@@ -1218,6 +1219,7 @@ class _RectShapePainter extends CustomPainter {
     canvas.drawPath(arrow, paint);
   }
 
+  @override
   bool shouldRepaint(_RectShapePainter oldDelegate) {
     return false;
   }

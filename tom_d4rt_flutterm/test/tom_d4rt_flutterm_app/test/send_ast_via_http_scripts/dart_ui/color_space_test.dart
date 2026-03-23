@@ -621,7 +621,7 @@ Widget _techRow(String name, String type, String spec, String wp, Color color) {
 Widget _gamutBar(String label, double fraction, Color color) {
   return Row(
     children: [
-      Container(
+      SizedBox(
         width: 100,
         child: Text(
           label,

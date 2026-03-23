@@ -16,7 +16,7 @@ dynamic build(BuildContext context) {
       child: Icon(Icons.add),
     ),
   );
-  print('Basic Scaffold with AppBar and FAB created');
+  print('Basic Scaffold created: $scaffold');
 
   print('Scaffold test completed');
 

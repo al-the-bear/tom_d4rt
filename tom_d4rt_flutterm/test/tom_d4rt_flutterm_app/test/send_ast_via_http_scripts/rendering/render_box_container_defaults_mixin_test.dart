@@ -1075,6 +1075,7 @@ Widget _buildNestedStacksSection() {
 class _DemoLayoutDelegate extends MultiChildLayoutDelegate {
   _DemoLayoutDelegate();
 
+  @override
   void performLayout(Size size) {
     print('[CustomLayout] performLayout called with size: $size');
     double headerHeight = 45;
@@ -1116,6 +1117,7 @@ class _DemoLayoutDelegate extends MultiChildLayoutDelegate {
     }
   }
 
+  @override
   bool shouldRelayout(_DemoLayoutDelegate oldDelegate) {
     return false;
   }

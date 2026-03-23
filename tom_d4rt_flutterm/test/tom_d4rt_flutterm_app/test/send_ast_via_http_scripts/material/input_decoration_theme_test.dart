@@ -246,12 +246,10 @@ dynamic build(BuildContext context) {
   InputDecorationThemeData currentInputTheme =
       contextTheme.inputDecorationTheme;
   print(
-    'Context inputDecorationTheme filled: ' +
-        currentInputTheme.filled.toString(),
+    'Context inputDecorationTheme filled: ${currentInputTheme.filled}',
   );
   print(
-    'Context inputDecorationTheme floatingLabelBehavior: ' +
-        currentInputTheme.floatingLabelBehavior.toString(),
+    'Context inputDecorationTheme floatingLabelBehavior: ${currentInputTheme.floatingLabelBehavior}',
   );
   print('');
 

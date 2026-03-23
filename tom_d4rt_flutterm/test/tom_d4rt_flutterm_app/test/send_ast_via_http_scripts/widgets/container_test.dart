@@ -50,7 +50,7 @@ dynamic build(BuildContext context) {
     ),
     color: Colors.teal,
   );
-  print('Constrained Container created');
+  print('Constrained Container created: $constrained');
 
   // Test Container with transform
   final transformed = Container(
@@ -59,7 +59,7 @@ dynamic build(BuildContext context) {
     color: Colors.pink,
     transform: Matrix4.rotationZ(0.1),
   );
-  print('Transformed Container created');
+  print('Transformed Container created: $transformed');
 
   print('Container test completed');
 

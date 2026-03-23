@@ -1673,7 +1673,7 @@ Widget buildLoadingOverlayDemo() {
                 style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
               ),
               SizedBox(height: 16),
-              Container(
+              SizedBox(
                 height: 120,
                 child: Stack(
                   children: [

@@ -784,7 +784,7 @@ Widget _buildGeometryPropertyList() {
         ),
         child: Row(
           children: [
-            Container(
+            SizedBox(
               width: 140,
               child: Text(
                 prop['name'] ?? '',
@@ -1372,6 +1372,7 @@ Widget _buildTopScaffold(String label, Alignment fabAlign, Color fabColor, bool 
 }
 
 class _GridPainter extends CustomPainter {
+  @override
   void paint(Canvas canvas, Size size) {
     Paint gridPaint = Paint()
       ..color = Color(0xFFE0E0E0)
@@ -1390,6 +1391,7 @@ class _GridPainter extends CustomPainter {
     }
   }
 
+  @override
   bool shouldRepaint(CustomPainter oldDelegate) {
     return false;
   }

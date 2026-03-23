@@ -25,7 +25,7 @@ dynamic build(BuildContext context) {
   // ========== MenuThemeData ==========
   print('--- MenuThemeData Tests ---');
   final menuTheme = MenuThemeData(style: menuStyle);
-  print('MenuThemeData created');
+  print('MenuThemeData created: $menuTheme');
 
   // ========== MenuItemButton ==========
   print('--- MenuItemButton Tests ---');

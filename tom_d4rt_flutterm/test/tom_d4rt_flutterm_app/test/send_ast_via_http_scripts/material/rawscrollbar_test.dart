@@ -54,7 +54,7 @@ dynamic build(BuildContext context) {
       ],
     ),
   );
-  print('RawScrollbar(thumbVisibility: true) created');
+  print('RawScrollbar(thumbVisibility: true) created: $widget2');
 
   // Variation 3: RawScrollbar with thickness
   final widget3 = RawScrollbar(
@@ -72,7 +72,7 @@ dynamic build(BuildContext context) {
       ),
     ),
   );
-  print('RawScrollbar(thickness: 12) created');
+  print('RawScrollbar(thickness: 12) created: $widget3');
 
   // Variation 4: RawScrollbar with thumbColor
   final widget4 = RawScrollbar(
@@ -95,7 +95,7 @@ dynamic build(BuildContext context) {
       itemBuilder: (ctx, i) => ListTile(title: Text('Rounded thumb $i')),
     ),
   );
-  print('RawScrollbar(radius: 8) created');
+  print('RawScrollbar(radius: 8) created: $widget5');
 
   // Variation 6: RawScrollbar with fadeDuration and timeToFade
   final widget6 = RawScrollbar(
@@ -106,7 +106,7 @@ dynamic build(BuildContext context) {
       itemBuilder: (ctx, i) => ListTile(title: Text('Fade item $i')),
     ),
   );
-  print('RawScrollbar(fadeDuration, timeToFade) created');
+  print('RawScrollbar(fadeDuration, timeToFade) created: $widget6');
 
   // Variation 7: RawScrollbar with padding
   final widget7 = RawScrollbar(
@@ -117,7 +117,7 @@ dynamic build(BuildContext context) {
       itemBuilder: (ctx, i) => ListTile(title: Text('Padded item $i')),
     ),
   );
-  print('RawScrollbar(padding) created');
+  print('RawScrollbar(padding) created: $widget7');
 
   // Variation 8: RawScrollbar with crossAxisMargin and mainAxisMargin
   final widget8 = RawScrollbar(
@@ -130,7 +130,7 @@ dynamic build(BuildContext context) {
       itemBuilder: (ctx, i) => ListTile(title: Text('Margined item $i')),
     ),
   );
-  print('RawScrollbar(crossAxisMargin, mainAxisMargin) created');
+  print('RawScrollbar(crossAxisMargin, mainAxisMargin) created: $widget8');
 
   // Variation 9: RawScrollbar with minThumbLength
   final widget9 = RawScrollbar(
@@ -141,7 +141,7 @@ dynamic build(BuildContext context) {
       itemBuilder: (ctx, i) => ListTile(title: Text('Min length $i')),
     ),
   );
-  print('RawScrollbar(minThumbLength: 48) created');
+  print('RawScrollbar(minThumbLength: 48) created: $widget9');
 
   // Variation 10: RawScrollbar interactive (trackVisibility)
   final widget10 = RawScrollbar(

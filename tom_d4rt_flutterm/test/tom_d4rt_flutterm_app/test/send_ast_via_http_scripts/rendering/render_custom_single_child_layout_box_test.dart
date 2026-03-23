@@ -7,11 +7,13 @@ import 'package:flutter/material.dart';
 
 // Delegate that centers the child within the parent
 class CenteringDelegate extends SingleChildLayoutDelegate {
+  @override
   Size getSize(BoxConstraints constraints) {
     print('[CenteringDelegate] getSize called with constraints: $constraints');
     return Size(constraints.maxWidth, constraints.maxHeight);
   }
 
+  @override
   BoxConstraints getConstraintsForChild(BoxConstraints constraints) {
     print(
       '[CenteringDelegate] getConstraintsForChild: allowing child up to half parent',
@@ -22,6 +24,7 @@ class CenteringDelegate extends SingleChildLayoutDelegate {
     );
   }
 
+  @override
   Offset getPositionForChild(Size size, Size childSize) {
     double dx = (size.width - childSize.width) / 2.0;
     double dy = (size.height - childSize.height) / 2.0;
@@ -31,6 +34,7 @@ class CenteringDelegate extends SingleChildLayoutDelegate {
     return Offset(dx, dy);
   }
 
+  @override
   bool shouldRelayout(SingleChildLayoutDelegate oldDelegate) {
     print('[CenteringDelegate] shouldRelayout called');
     return false;
@@ -48,11 +52,13 @@ class PercentageOffsetDelegate extends SingleChildLayoutDelegate {
     );
   }
 
+  @override
   Size getSize(BoxConstraints constraints) {
     print('[PercentageOffsetDelegate] getSize: using max constraints');
     return Size(constraints.maxWidth, constraints.maxHeight);
   }
 
+  @override
   BoxConstraints getConstraintsForChild(BoxConstraints constraints) {
     double maxW = constraints.maxWidth * 0.4;
     double maxH = constraints.maxHeight * 0.4;
@@ -62,6 +68,7 @@ class PercentageOffsetDelegate extends SingleChildLayoutDelegate {
     return BoxConstraints(maxWidth: maxW, maxHeight: maxH);
   }
 
+  @override
   Offset getPositionForChild(Size size, Size childSize) {
     double dx = (size.width - childSize.width) * xPercent;
     double dy = (size.height - childSize.height) * yPercent;
@@ -71,6 +78,7 @@ class PercentageOffsetDelegate extends SingleChildLayoutDelegate {
     return Offset(dx, dy);
   }
 
+  @override
   bool shouldRelayout(SingleChildLayoutDelegate oldDelegate) {
     if (oldDelegate is PercentageOffsetDelegate) {
       bool result =
@@ -93,11 +101,13 @@ class FractionalConstraintDelegate extends SingleChildLayoutDelegate {
     );
   }
 
+  @override
   Size getSize(BoxConstraints constraints) {
     print('[FractionalConstraintDelegate] getSize: full parent');
     return Size(constraints.maxWidth, constraints.maxHeight);
   }
 
+  @override
   BoxConstraints getConstraintsForChild(BoxConstraints constraints) {
     double w = constraints.maxWidth * widthFraction;
     double h = constraints.maxHeight * heightFraction;
@@ -107,6 +117,7 @@ class FractionalConstraintDelegate extends SingleChildLayoutDelegate {
     return BoxConstraints.tightFor(width: w, height: h);
   }
 
+  @override
   Offset getPositionForChild(Size size, Size childSize) {
     double dx = (size.width - childSize.width) / 2.0;
     double dy = (size.height - childSize.height) / 2.0;
@@ -116,6 +127,7 @@ class FractionalConstraintDelegate extends SingleChildLayoutDelegate {
     return Offset(dx, dy);
   }
 
+  @override
   bool shouldRelayout(SingleChildLayoutDelegate oldDelegate) {
     if (oldDelegate is FractionalConstraintDelegate) {
       bool result =
@@ -140,11 +152,13 @@ class TooltipPositionDelegate extends SingleChildLayoutDelegate {
     );
   }
 
+  @override
   Size getSize(BoxConstraints constraints) {
     print('[TooltipPositionDelegate] getSize: full parent area');
     return Size(constraints.maxWidth, constraints.maxHeight);
   }
 
+  @override
   BoxConstraints getConstraintsForChild(BoxConstraints constraints) {
     double maxW = constraints.maxWidth * 0.6;
     double maxH = 80.0;
@@ -154,6 +168,7 @@ class TooltipPositionDelegate extends SingleChildLayoutDelegate {
     return BoxConstraints(maxWidth: maxW, maxHeight: maxH);
   }
 
+  @override
   Offset getPositionForChild(Size size, Size childSize) {
     double dx = anchorX - (childSize.width / 2.0);
     double dy = anchorY - childSize.height - tooltipOffset;
@@ -169,6 +184,7 @@ class TooltipPositionDelegate extends SingleChildLayoutDelegate {
     return Offset(dx, dy);
   }
 
+  @override
   bool shouldRelayout(SingleChildLayoutDelegate oldDelegate) {
     if (oldDelegate is TooltipPositionDelegate) {
       bool result =
@@ -190,11 +206,13 @@ class BottomRightDelegate extends SingleChildLayoutDelegate {
     print('[BottomRightDelegate] created with padding=$padding');
   }
 
+  @override
   Size getSize(BoxConstraints constraints) {
     print('[BottomRightDelegate] getSize');
     return Size(constraints.maxWidth, constraints.maxHeight);
   }
 
+  @override
   BoxConstraints getConstraintsForChild(BoxConstraints constraints) {
     double maxW = constraints.maxWidth * 0.3;
     double maxH = constraints.maxHeight * 0.3;
@@ -204,6 +222,7 @@ class BottomRightDelegate extends SingleChildLayoutDelegate {
     return BoxConstraints(maxWidth: maxW, maxHeight: maxH);
   }
 
+  @override
   Offset getPositionForChild(Size size, Size childSize) {
     double dx = size.width - childSize.width - padding;
     double dy = size.height - childSize.height - padding;
@@ -211,6 +230,7 @@ class BottomRightDelegate extends SingleChildLayoutDelegate {
     return Offset(dx, dy);
   }
 
+  @override
   bool shouldRelayout(SingleChildLayoutDelegate oldDelegate) {
     if (oldDelegate is BottomRightDelegate) {
       return oldDelegate.padding != padding;
@@ -227,16 +247,19 @@ class DiagonalDelegate extends SingleChildLayoutDelegate {
     print('[DiagonalDelegate] created with progress=$progress');
   }
 
+  @override
   Size getSize(BoxConstraints constraints) {
     return Size(constraints.maxWidth, constraints.maxHeight);
   }
 
+  @override
   BoxConstraints getConstraintsForChild(BoxConstraints constraints) {
     double side = constraints.maxWidth * 0.25;
     print('[DiagonalDelegate] getConstraintsForChild: square side=$side');
     return BoxConstraints.tightFor(width: side, height: side);
   }
 
+  @override
   Offset getPositionForChild(Size size, Size childSize) {
     double maxDx = size.width - childSize.width;
     double maxDy = size.height - childSize.height;
@@ -248,6 +271,7 @@ class DiagonalDelegate extends SingleChildLayoutDelegate {
     return Offset(dx, dy);
   }
 
+  @override
   bool shouldRelayout(SingleChildLayoutDelegate oldDelegate) {
     if (oldDelegate is DiagonalDelegate) {
       return oldDelegate.progress != progress;

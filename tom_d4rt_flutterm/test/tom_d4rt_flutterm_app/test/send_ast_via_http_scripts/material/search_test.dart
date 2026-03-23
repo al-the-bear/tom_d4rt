@@ -40,7 +40,7 @@ dynamic build(BuildContext context) {
       print('SearchBar tapped');
     },
   );
-  print('SearchBar with onTap created');
+  print('SearchBar with onTap created: $tapSearchBar');
 
   // Test SearchBar with onChanged
   final changedSearchBar = SearchBar(
@@ -49,7 +49,7 @@ dynamic build(BuildContext context) {
       print('Search changed: $value');
     },
   );
-  print('SearchBar with onChanged created');
+  print('SearchBar with onChanged created: $changedSearchBar');
 
   // Test SearchBar with onSubmitted
   final submittedSearchBar = SearchBar(
@@ -58,7 +58,7 @@ dynamic build(BuildContext context) {
       print('Search submitted: $value');
     },
   );
-  print('SearchBar with onSubmitted created');
+  print('SearchBar with onSubmitted created: $submittedSearchBar');
 
   // Test SearchBar with controller
   final controller = TextEditingController(text: 'Initial text');
@@ -66,7 +66,7 @@ dynamic build(BuildContext context) {
     hintText: 'With controller',
     controller: controller,
   );
-  print('SearchBar with controller created');
+  print('SearchBar with controller created: $controllerSearchBar');
 
   // Test SearchBar with backgroundColor
   final bgSearchBar = SearchBar(
@@ -80,7 +80,7 @@ dynamic build(BuildContext context) {
     hintText: 'Overlay color',
     overlayColor: MaterialStateProperty.all(Colors.purple.shade100),
   );
-  print('SearchBar with overlayColor created');
+  print('SearchBar with overlayColor created: $overlaySearchBar');
 
   // Test SearchBar with shadowColor
   final shadowSearchBar = SearchBar(
@@ -88,7 +88,7 @@ dynamic build(BuildContext context) {
     shadowColor: MaterialStateProperty.all(Colors.red),
     elevation: MaterialStateProperty.all(8.0),
   );
-  print('SearchBar with shadowColor created');
+  print('SearchBar with shadowColor created: $shadowSearchBar');
 
   // Test SearchBar with elevation
   final elevatedSearchBar = SearchBar(
@@ -118,7 +118,7 @@ dynamic build(BuildContext context) {
     hintText: 'Padded',
     padding: MaterialStateProperty.all(EdgeInsets.symmetric(horizontal: 24.0)),
   );
-  print('SearchBar with padding created');
+  print('SearchBar with padding created: $paddedSearchBar');
 
   // Test SearchBar with textStyle
   final styledTextSearchBar = SearchBar(
@@ -127,7 +127,7 @@ dynamic build(BuildContext context) {
       TextStyle(color: Colors.purple, fontSize: 18.0),
     ),
   );
-  print('SearchBar with textStyle created');
+  print('SearchBar with textStyle created: $styledTextSearchBar');
 
   // Test SearchBar with hintStyle
   final styledHintSearchBar = SearchBar(
@@ -143,14 +143,14 @@ dynamic build(BuildContext context) {
     hintText: 'Constrained',
     constraints: BoxConstraints(maxWidth: 300, minHeight: 56),
   );
-  print('SearchBar with constraints created');
+  print('SearchBar with constraints created: $constrainedSearchBar');
 
   // Test SearchBar with autoFocus
   final autoFocusSearchBar = SearchBar(
     hintText: 'Auto focus (disabled for demo)',
     autoFocus: false,
   );
-  print('SearchBar with autoFocus created');
+  print('SearchBar with autoFocus created: $autoFocusSearchBar');
 
   // ========== SEARCHANCHOR ==========
   print('--- SearchAnchor Tests ---');
@@ -213,7 +213,7 @@ dynamic build(BuildContext context) {
       return [ListTile(title: Text('Searching for: $text'))];
     },
   );
-  print('SearchAnchor with searchController created');
+  print('SearchAnchor with searchController created: $controllerSearchAnchor');
 
   // Test SearchAnchor with viewHintText
   final hintSearchAnchor = SearchAnchor(
@@ -292,7 +292,7 @@ dynamic build(BuildContext context) {
       return [ListTile(title: Text('Elevated view'))];
     },
   );
-  print('SearchAnchor with viewElevation created');
+  print('SearchAnchor with viewElevation created: $elevationSearchAnchor');
 
   // Test SearchAnchor with viewSide
   final sideSearchAnchor = SearchAnchor(
@@ -307,7 +307,7 @@ dynamic build(BuildContext context) {
       return [ListTile(title: Text('Bordered view'))];
     },
   );
-  print('SearchAnchor with viewSide created');
+  print('SearchAnchor with viewSide created: $sideSearchAnchor');
 
   // Test SearchAnchor with viewShape
   final shapeSearchAnchor = SearchAnchor(
@@ -324,7 +324,7 @@ dynamic build(BuildContext context) {
       return [ListTile(title: Text('Rounded view'))];
     },
   );
-  print('SearchAnchor with viewShape created');
+  print('SearchAnchor with viewShape created: $shapeSearchAnchor');
 
   // Test SearchAnchor with dividerColor
   final dividerSearchAnchor = SearchAnchor(
@@ -343,7 +343,7 @@ dynamic build(BuildContext context) {
       ];
     },
   );
-  print('SearchAnchor with dividerColor created');
+  print('SearchAnchor with dividerColor created: $dividerSearchAnchor');
 
   // Test SearchAnchor.bar
   final barSearchAnchor = SearchAnchor.bar(

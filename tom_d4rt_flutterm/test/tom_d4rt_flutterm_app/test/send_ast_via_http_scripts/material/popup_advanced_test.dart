@@ -13,22 +13,22 @@ dynamic build(BuildContext context) {
     checked: true,
     child: Text('Checked Item'),
   );
-  print('CheckedPopupMenuItem created: checked=true');
+  print('CheckedPopupMenuItem created: checked=true: $checkedItem');
 
   final uncheckedItem = CheckedPopupMenuItem<String>(
     value: 'unchecked_1',
     checked: false,
     child: Text('Unchecked Item'),
   );
-  print('CheckedPopupMenuItem created: checked=false');
+  print('CheckedPopupMenuItem created: checked=false: $uncheckedItem');
 
   // ========== PopupMenuDivider ==========
   print('--- PopupMenuDivider Tests ---');
   final divider = PopupMenuDivider(height: 16.0);
-  print('PopupMenuDivider height: 16.0');
+  print('PopupMenuDivider height: 16.0: $divider');
 
   final defaultDivider = PopupMenuDivider();
-  print('Default PopupMenuDivider');
+  print('Default PopupMenuDivider: $defaultDivider');
 
   // ========== PopupMenuThemeData ==========
   print('--- PopupMenuThemeData Tests ---');

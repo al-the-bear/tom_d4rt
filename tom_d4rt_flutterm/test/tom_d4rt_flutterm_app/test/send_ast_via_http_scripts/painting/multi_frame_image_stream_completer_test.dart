@@ -61,7 +61,7 @@ Widget buildPropertyRow(String property, String type, String description) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
+        SizedBox(
           width: 120,
           child: Text(
             property,
@@ -72,7 +72,7 @@ Widget buildPropertyRow(String property, String type, String description) {
             ),
           ),
         ),
-        Container(
+        SizedBox(
           width: 100,
           child: Text(
             type,
@@ -190,7 +190,7 @@ Widget buildTimelineEvent(String time, String event, IconData icon) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
+        SizedBox(
           width: 60,
           child: Text(
             time,
@@ -970,7 +970,7 @@ Widget _buildTimingBar(String label, double start, double end, Color color) {
     margin: EdgeInsets.symmetric(vertical: 2),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 60,
           child: Text(label, style: TextStyle(fontSize: 10)),
         ),

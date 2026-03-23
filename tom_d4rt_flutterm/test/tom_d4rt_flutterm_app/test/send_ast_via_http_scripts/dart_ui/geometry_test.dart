@@ -2,7 +2,6 @@
 // D4rt test script: Deep Demo for geometry primitives from dart:ui
 // Covers: Offset, Size, Rect, RRect, Radius — the core geometry building blocks
 import 'dart:math' as math;
-import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
@@ -64,6 +63,7 @@ dynamic build(BuildContext context) {
   print('fromLTRB: $r2');
   print('fromCenter: $rCenter');
   print('fromCircle: $rCircle');
+  print('fromPoints: $rPoints');
 
   // Rect properties
   print('center=${r1.center}, size=${r1.size}');
@@ -77,6 +77,7 @@ dynamic build(BuildContext context) {
   final rIntersect = r1.intersect(r2);
   final rExpand = r1.expandToInclude(r2);
   print('inflated=$rInflated');
+  print('deflated=$rDeflated');
   print('shifted=$rShifted');
   print('intersect=$rIntersect');
   print('expandToInclude=$rExpand');

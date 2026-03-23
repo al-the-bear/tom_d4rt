@@ -723,7 +723,7 @@ Widget buildDropdownMenuProperties() {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            SizedBox(
               width: 100,
               child: Text(
                 propNames[p],
@@ -734,7 +734,7 @@ Widget buildDropdownMenuProperties() {
                 ),
               ),
             ),
-            Container(
+            SizedBox(
               width: 80,
               child: Text(
                 propTypes[p],

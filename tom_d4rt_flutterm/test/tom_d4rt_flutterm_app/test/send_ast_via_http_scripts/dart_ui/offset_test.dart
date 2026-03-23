@@ -755,7 +755,7 @@ Widget _operationRow(String label, Offset offset, Color color) {
     padding: EdgeInsets.symmetric(vertical: 6),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 50,
           child: Text(
             label,

@@ -503,7 +503,7 @@ Widget buildStepperTypeDemo() {
   List<Step> horizontalSteps = [
     Step(
       title: Text('Select'),
-      content: Container(
+      content: SizedBox(
         height: 50,
         child: Center(
           child: Text('Choose your preferences'),
@@ -514,7 +514,7 @@ Widget buildStepperTypeDemo() {
     ),
     Step(
       title: Text('Configure'),
-      content: Container(
+      content: SizedBox(
         height: 50,
         child: Center(
           child: Text('Set up your options'),
@@ -525,7 +525,7 @@ Widget buildStepperTypeDemo() {
     ),
     Step(
       title: Text('Finish'),
-      content: Container(
+      content: SizedBox(
         height: 50,
         child: Center(
           child: Text('Complete setup'),

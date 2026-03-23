@@ -323,7 +323,7 @@ dynamic build(BuildContext context) {
                       padding: EdgeInsets.symmetric(vertical: 6),
                       child: Row(
                         children: [
-                          Container(
+                          SizedBox(
                             width: 60,
                             child: Text(
                               '${w}px',
@@ -596,7 +596,7 @@ Widget _paintPropRow(String name, String value, IconData icon, Color color) {
           child: Icon(icon, color: color, size: 18),
         ),
         SizedBox(width: 10),
-        Container(
+        SizedBox(
           width: 110,
           child: Text(
             name,
@@ -620,7 +620,7 @@ Widget _strokeCapRow(String name, Color color) {
     padding: EdgeInsets.symmetric(vertical: 8),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 80,
           child: Text(
             name,
@@ -659,7 +659,7 @@ Widget _strokeJoinRow(String name, Color color) {
     padding: EdgeInsets.symmetric(vertical: 8),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 80,
           child: Text(
             name,
@@ -721,7 +721,7 @@ Widget _filterQualityRow(String name, int index) {
     padding: EdgeInsets.symmetric(vertical: 6),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 80,
           child: Text(
             name,

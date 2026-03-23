@@ -88,7 +88,7 @@ dynamic build(BuildContext context) {
       ),
     ),
   );
-  print('FadeTransition with alwaysIncludeSemantics=true created');
+  print('FadeTransition with alwaysIncludeSemantics=true created: $fadeSemantics');
 
   // Test FadeTransition with Text child
   final fadeText = FadeTransition(

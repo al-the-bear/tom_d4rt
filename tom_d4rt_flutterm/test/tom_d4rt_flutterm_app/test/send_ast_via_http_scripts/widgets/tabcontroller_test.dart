@@ -85,10 +85,10 @@ dynamic build(BuildContext context) {
 
   // Test Tab widget individually
   final tab1 = Tab(text: 'Simple Tab');
-  print('Tab(text: Simple Tab) created');
+  print('Tab(text: Simple Tab) created: $tab1');
 
   final tab2 = Tab(icon: Icon(Icons.favorite), text: 'Fav');
-  print('Tab(icon: favorite, text: Fav) created');
+  print('Tab(icon: favorite, text: Fav) created: $tab2');
 
   final tab3 = Tab(
     child: Row(
@@ -96,7 +96,7 @@ dynamic build(BuildContext context) {
       children: [Icon(Icons.info), SizedBox(width: 4.0), Text('Custom')],
     ),
   );
-  print('Tab with custom child created');
+  print('Tab with custom child created: $tab3');
 
   print('TabController test completed');
   return MaterialApp(

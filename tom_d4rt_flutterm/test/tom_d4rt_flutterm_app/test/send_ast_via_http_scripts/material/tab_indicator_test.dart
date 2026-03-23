@@ -13,7 +13,7 @@ dynamic build(BuildContext context) {
     borderRadius: BorderRadius.circular(2.0),
     insets: EdgeInsets.symmetric(horizontal: 16.0),
   );
-  print('UnderlineTabIndicator created');
+  print('UnderlineTabIndicator created: $indicator');
   print('  borderSide width: 3.0');
 
   // ========== TabBarIndicatorSize ==========
@@ -46,7 +46,7 @@ dynamic build(BuildContext context) {
       ],
     ),
   );
-  print('Tab with custom child created');
+  print('Tab with custom child created: $tab3');
 
   // ========== TabController ==========
   print('--- TabController (concepts) ---');

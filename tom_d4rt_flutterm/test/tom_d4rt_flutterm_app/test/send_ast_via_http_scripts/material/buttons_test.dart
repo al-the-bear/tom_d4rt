@@ -80,7 +80,7 @@ dynamic build(BuildContext context) {
     icon: Icon(Icons.search),
     splashRadius: 30.0,
   );
-  print('IconButton with splashRadius=30 created');
+  print('IconButton with splashRadius=30 created: $splashIconButton');
 
   // Test IconButton with constraints
   final constrainedIconButton = IconButton(
@@ -88,7 +88,7 @@ dynamic build(BuildContext context) {
     icon: Icon(Icons.menu),
     constraints: BoxConstraints(minWidth: 60.0, minHeight: 60.0),
   );
-  print('IconButton with constraints created');
+  print('IconButton with constraints created: $constrainedIconButton');
 
   // Test IconButton with padding
   final paddedIconButton = IconButton(
@@ -96,7 +96,7 @@ dynamic build(BuildContext context) {
     icon: Icon(Icons.settings),
     padding: EdgeInsets.all(16.0),
   );
-  print('IconButton with padding=16 created');
+  print('IconButton with padding=16 created: $paddedIconButton');
 
   // Test IconButton with alignment
   final alignedIconButton = IconButton(
@@ -104,7 +104,7 @@ dynamic build(BuildContext context) {
     icon: Icon(Icons.arrow_forward),
     alignment: Alignment.centerRight,
   );
-  print('IconButton with alignment created');
+  print('IconButton with alignment created: $alignedIconButton');
 
   // Test IconButton.filled
   final filledIconButton = IconButton.filled(
@@ -134,7 +134,7 @@ dynamic build(BuildContext context) {
     selectedIcon: Icon(Icons.favorite),
     isSelected: false,
   );
-  print('IconButton with selectedIcon created');
+  print('IconButton with selectedIcon created: $toggleIconButton');
 
   // Test FilledButton
   final basicFilled = FilledButton(

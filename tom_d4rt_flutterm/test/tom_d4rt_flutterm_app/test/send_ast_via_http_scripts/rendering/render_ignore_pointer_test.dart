@@ -118,7 +118,7 @@ Widget _buildHeader() {
 
 // -- Section title --
 Widget _buildSectionTitle(String title) {
-  print('[section] ' + title);
+  print('[section] $title');
   return Container(
     margin: EdgeInsets.only(bottom: 12.0),
     padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
@@ -171,7 +171,7 @@ Widget _buildCard(String label, Widget child) {
 Widget _buildDemoButton(String label, Color color) {
   return ElevatedButton(
     onPressed: () {
-      print('[button] Tapped: ' + label);
+      print('[button] Tapped: $label');
     },
     style: ElevatedButton.styleFrom(
       backgroundColor: color,
@@ -274,7 +274,7 @@ Widget _buildComparisonSection(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            SizedBox(
               height: 80.0,
               child: Stack(
                 children: [
@@ -330,7 +330,7 @@ Widget _buildComparisonSection(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            SizedBox(
               height: 80.0,
               child: Stack(
                 children: [
@@ -461,7 +461,7 @@ Widget _buildStackedPassThroughSection(BuildContext context) {
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
+        SizedBox(
           height: 160.0,
           child: Stack(
             children: [
@@ -611,7 +611,7 @@ Widget _buildPracticalPatternsSection(BuildContext context) {
               style: TextStyle(color: Color(0xAAFFFFFF), fontSize: 12.0),
             ),
             SizedBox(height: 10.0),
-            Container(
+            SizedBox(
               height: 80.0,
               child: Stack(
                 children: [
@@ -660,7 +660,7 @@ Widget _buildPracticalPatternsSection(BuildContext context) {
               style: TextStyle(color: Color(0xAAFFFFFF), fontSize: 12.0),
             ),
             SizedBox(height: 10.0),
-            Container(
+            SizedBox(
               height: 100.0,
               child: Stack(
                 children: [
@@ -800,7 +800,7 @@ Widget _buildOpacityCombinationSection(BuildContext context) {
 }
 
 Widget _buildOpacityRow(String label, double opacity, Color color) {
-  print('[s7] Opacity row: ' + label);
+  print('[s7] Opacity row: $label');
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: IgnorePointer(
@@ -817,7 +817,7 @@ Widget _buildOpacityRow(String label, double opacity, Color color) {
                   borderRadius: BorderRadius.circular(6.0),
                 ),
                 child: Text(
-                  label + ' — ignored',
+                  '$label — ignored',
                   style: TextStyle(color: Colors.white, fontSize: 13.0),
                 ),
               ),

@@ -29,7 +29,7 @@ dynamic build(BuildContext context) {
     currentIndex: 1,
     onTap: (i) {},
   );
-  print('BottomNavigationBar with currentIndex=1 created');
+  print('BottomNavigationBar with currentIndex=1 created: $selectedNavBar');
 
   // Test type: fixed
   final fixedNavBar = BottomNavigationBar(
@@ -43,7 +43,7 @@ dynamic build(BuildContext context) {
     currentIndex: 0,
     onTap: (i) {},
   );
-  print('BottomNavigationBar with type=fixed created');
+  print('BottomNavigationBar with type=fixed created: $fixedNavBar');
 
   // Test type: shifting
   final shiftingNavBar = BottomNavigationBar(
@@ -68,7 +68,7 @@ dynamic build(BuildContext context) {
     currentIndex: 0,
     onTap: (i) {},
   );
-  print('BottomNavigationBar with type=shifting created');
+  print('BottomNavigationBar with type=shifting created: $shiftingNavBar');
 
   // Test with custom colors
   final coloredNavBar = BottomNavigationBar(
@@ -82,7 +82,7 @@ dynamic build(BuildContext context) {
     currentIndex: 0,
     onTap: (i) {},
   );
-  print('BottomNavigationBar with custom colors created');
+  print('BottomNavigationBar with custom colors created: $coloredNavBar');
 
   // Test with selectedIconTheme and unselectedIconTheme
   final themedNavBar = BottomNavigationBar(
@@ -95,7 +95,7 @@ dynamic build(BuildContext context) {
     currentIndex: 0,
     onTap: (i) {},
   );
-  print('BottomNavigationBar with icon themes created');
+  print('BottomNavigationBar with icon themes created: $themedNavBar');
 
   // Test with selectedLabelStyle and unselectedLabelStyle
   final styledNavBar = BottomNavigationBar(
@@ -111,7 +111,7 @@ dynamic build(BuildContext context) {
     currentIndex: 0,
     onTap: (i) {},
   );
-  print('BottomNavigationBar with label styles created');
+  print('BottomNavigationBar with label styles created: $styledNavBar');
 
   // Test with showSelectedLabels and showUnselectedLabels
   final noLabelsNavBar = BottomNavigationBar(
@@ -124,7 +124,7 @@ dynamic build(BuildContext context) {
     currentIndex: 0,
     onTap: (i) {},
   );
-  print('BottomNavigationBar with hidden labels created');
+  print('BottomNavigationBar with hidden labels created: $noLabelsNavBar');
 
   // Test with iconSize
   final largeIconsNavBar = BottomNavigationBar(
@@ -136,7 +136,7 @@ dynamic build(BuildContext context) {
     currentIndex: 0,
     onTap: (i) {},
   );
-  print('BottomNavigationBar with iconSize=32 created');
+  print('BottomNavigationBar with iconSize=32 created: $largeIconsNavBar');
 
   // Test with elevation
   final elevatedNavBar = BottomNavigationBar(
@@ -148,7 +148,7 @@ dynamic build(BuildContext context) {
     currentIndex: 0,
     onTap: (i) {},
   );
-  print('BottomNavigationBar with elevation=16 created');
+  print('BottomNavigationBar with elevation=16 created: $elevatedNavBar');
 
   // Test with landscapeLayout
   final landscapeNavBar = BottomNavigationBar(
@@ -161,7 +161,9 @@ dynamic build(BuildContext context) {
     currentIndex: 0,
     onTap: (i) {},
   );
-  print('BottomNavigationBar with landscapeLayout=spread created');
+  print(
+    'BottomNavigationBar with landscapeLayout=spread created: $landscapeNavBar',
+  );
 
   // Test with enableFeedback
   final feedbackNavBar = BottomNavigationBar(
@@ -173,7 +175,9 @@ dynamic build(BuildContext context) {
     currentIndex: 0,
     onTap: (i) {},
   );
-  print('BottomNavigationBar with enableFeedback=true created');
+  print(
+    'BottomNavigationBar with enableFeedback=true created: $feedbackNavBar',
+  );
 
   // Test with activeIcon
   final activeIconNavBar = BottomNavigationBar(
@@ -192,7 +196,7 @@ dynamic build(BuildContext context) {
     currentIndex: 0,
     onTap: (i) {},
   );
-  print('BottomNavigationBar with activeIcon created');
+  print('BottomNavigationBar with activeIcon created: $activeIconNavBar');
 
   // Test useLegacyColorScheme
   final legacyColorNavBar = BottomNavigationBar(
@@ -204,7 +208,9 @@ dynamic build(BuildContext context) {
     currentIndex: 0,
     onTap: (i) {},
   );
-  print('BottomNavigationBar with useLegacyColorScheme=false created');
+  print(
+    'BottomNavigationBar with useLegacyColorScheme=false created: $legacyColorNavBar',
+  );
 
   print('BottomNavigationBar test completed');
 

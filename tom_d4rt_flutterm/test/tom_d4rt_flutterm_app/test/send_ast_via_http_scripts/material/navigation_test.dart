@@ -42,14 +42,14 @@ dynamic build(BuildContext context) {
     backgroundColor: Colors.grey.shade100,
     child: Center(child: Text('Colored Drawer')),
   );
-  print('Drawer with backgroundColor created');
+  print('Drawer with backgroundColor created: $coloredDrawer');
 
   // Test Drawer with elevation
   final elevatedDrawer = Drawer(
     elevation: 24.0,
     child: Center(child: Text('Elevated Drawer')),
   );
-  print('Drawer with elevation created');
+  print('Drawer with elevation created: $elevatedDrawer');
 
   // Test Drawer with shape
   final shapedDrawer = Drawer(
@@ -58,14 +58,14 @@ dynamic build(BuildContext context) {
     ),
     child: Center(child: Text('Shaped Drawer')),
   );
-  print('Drawer with shape created');
+  print('Drawer with shape created: $shapedDrawer');
 
   // Test Drawer with width
   final wideDrawer = Drawer(
     width: 300.0,
     child: Center(child: Text('Wide Drawer')),
   );
-  print('Drawer with width created');
+  print('Drawer with width created: $wideDrawer');
 
   // Test Drawer with shadowColor
   final shadowDrawer = Drawer(
@@ -73,14 +73,14 @@ dynamic build(BuildContext context) {
     elevation: 16.0,
     child: Center(child: Text('Shadow Drawer')),
   );
-  print('Drawer with shadowColor created');
+  print('Drawer with shadowColor created: $shadowDrawer');
 
   // Test Drawer with surfaceTintColor
   final tintDrawer = Drawer(
     surfaceTintColor: Colors.purple,
     child: Center(child: Text('Tinted Drawer')),
   );
-  print('Drawer with surfaceTintColor created');
+  print('Drawer with surfaceTintColor created: $tintDrawer');
 
   // Test DrawerHeader
   final drawerHeader = DrawerHeader(
@@ -99,7 +99,7 @@ dynamic build(BuildContext context) {
       ],
     ),
   );
-  print('DrawerHeader created');
+  print('DrawerHeader created: $drawerHeader');
 
   // Test UserAccountsDrawerHeader
   final userAccountsHeader = UserAccountsDrawerHeader(
@@ -147,7 +147,7 @@ dynamic build(BuildContext context) {
     ],
     onDestinationSelected: (index) {},
   );
-  print('NavigationBar with selectedIndex created');
+  print('NavigationBar with selectedIndex created: $selectedNavBar');
 
   // Test NavigationBar with backgroundColor
   final coloredNavBar = NavigationBar(
@@ -159,7 +159,7 @@ dynamic build(BuildContext context) {
     ],
     onDestinationSelected: (index) {},
   );
-  print('NavigationBar with backgroundColor created');
+  print('NavigationBar with backgroundColor created: $coloredNavBar');
 
   // Test NavigationBar with elevation
   final elevatedNavBar = NavigationBar(
@@ -171,7 +171,7 @@ dynamic build(BuildContext context) {
     ],
     onDestinationSelected: (index) {},
   );
-  print('NavigationBar with elevation created');
+  print('NavigationBar with elevation created: $elevatedNavBar');
 
   // Test NavigationBar with indicatorColor
   final indicatorNavBar = NavigationBar(
@@ -183,7 +183,7 @@ dynamic build(BuildContext context) {
     ],
     onDestinationSelected: (index) {},
   );
-  print('NavigationBar with indicatorColor created');
+  print('NavigationBar with indicatorColor created: $indicatorNavBar');
 
   // Test NavigationBar with height
   final tallNavBar = NavigationBar(
@@ -195,7 +195,7 @@ dynamic build(BuildContext context) {
     ],
     onDestinationSelected: (index) {},
   );
-  print('NavigationBar with height created');
+  print('NavigationBar with height created: $tallNavBar');
 
   // Test NavigationBar with labelBehavior
   final labelBehaviorNavBar = NavigationBar(
@@ -207,7 +207,7 @@ dynamic build(BuildContext context) {
     ],
     onDestinationSelected: (index) {},
   );
-  print('NavigationBar with labelBehavior created');
+  print('NavigationBar with labelBehavior created: $labelBehaviorNavBar');
 
   // Test NavigationDestination with selectedIcon
   final selectedIconNavBar = NavigationBar(
@@ -226,7 +226,9 @@ dynamic build(BuildContext context) {
     ],
     onDestinationSelected: (index) {},
   );
-  print('NavigationBar with selectedIcon destinations created');
+  print(
+    'NavigationBar with selectedIcon destinations created: $selectedIconNavBar',
+  );
 
   // ========== NAVIGATIONRAIL ==========
   print('--- NavigationRail Tests ---');
@@ -261,7 +263,7 @@ dynamic build(BuildContext context) {
     ],
     onDestinationSelected: (index) {},
   );
-  print('NavigationRail with labelType created');
+  print('NavigationRail with labelType created: $labelTypeRail');
 
   // Test NavigationRail with leading
   final leadingRail = NavigationRail(
@@ -276,7 +278,7 @@ dynamic build(BuildContext context) {
     ],
     onDestinationSelected: (index) {},
   );
-  print('NavigationRail with leading created');
+  print('NavigationRail with leading created: $leadingRail');
 
   // Test NavigationRail with trailing
   final trailingRail = NavigationRail(
@@ -288,7 +290,7 @@ dynamic build(BuildContext context) {
     ],
     onDestinationSelected: (index) {},
   );
-  print('NavigationRail with trailing created');
+  print('NavigationRail with trailing created: $trailingRail');
 
   // Test NavigationRail extended
   final extendedRail = NavigationRail(
@@ -306,7 +308,7 @@ dynamic build(BuildContext context) {
     ],
     onDestinationSelected: (index) {},
   );
-  print('NavigationRail extended created');
+  print('NavigationRail extended created: $extendedRail');
 
   // Test NavigationRail with backgroundColor
   final coloredRail = NavigationRail(
@@ -318,7 +320,7 @@ dynamic build(BuildContext context) {
     ],
     onDestinationSelected: (index) {},
   );
-  print('NavigationRail with backgroundColor created');
+  print('NavigationRail with backgroundColor created: $coloredRail');
 
   // Test NavigationRail with useIndicator
   final indicatorRail = NavigationRail(
@@ -334,7 +336,7 @@ dynamic build(BuildContext context) {
     ],
     onDestinationSelected: (index) {},
   );
-  print('NavigationRail with indicator created');
+  print('NavigationRail with indicator created: $indicatorRail');
 
   // Test NavigationRail with minWidth
   final wideRail = NavigationRail(
@@ -349,7 +351,7 @@ dynamic build(BuildContext context) {
     ],
     onDestinationSelected: (index) {},
   );
-  print('NavigationRail with minWidth created');
+  print('NavigationRail with minWidth created: $wideRail');
 
   // Test NavigationRail with groupAlignment
   final alignedRail = NavigationRail(
@@ -361,7 +363,7 @@ dynamic build(BuildContext context) {
     ],
     onDestinationSelected: (index) {},
   );
-  print('NavigationRail with groupAlignment created');
+  print('NavigationRail with groupAlignment created: $alignedRail');
 
   // ========== NAVIGATIONDRAWER ==========
   print('--- NavigationDrawer Tests ---');
@@ -409,7 +411,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('NavigationDrawer with header created');
+  print('NavigationDrawer with header created: $headerNavDrawer');
 
   // Test NavigationDrawer with backgroundColor
   final coloredNavDrawer = NavigationDrawer(
@@ -427,7 +429,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('NavigationDrawer with backgroundColor created');
+  print('NavigationDrawer with backgroundColor created: $coloredNavDrawer');
 
   // Test NavigationDrawer with elevation
   final elevatedNavDrawer = NavigationDrawer(
@@ -438,7 +440,7 @@ dynamic build(BuildContext context) {
       NavigationDrawerDestination(icon: Icon(Icons.note), label: Text('Notes')),
     ],
   );
-  print('NavigationDrawer with elevation created');
+  print('NavigationDrawer with elevation created: $elevatedNavDrawer');
 
   // Test NavigationDrawer with indicatorColor
   final indicatorNavDrawer = NavigationDrawer(
@@ -456,7 +458,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('NavigationDrawer with indicatorColor created');
+  print('NavigationDrawer with indicatorColor created: $indicatorNavDrawer');
 
   print('Navigation widgets test completed');
 
@@ -488,21 +490,21 @@ dynamic build(BuildContext context) {
                       'Drawer:',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    Container(height: 300, width: 250, child: basicDrawer),
+                    SizedBox(height: 300, width: 250, child: basicDrawer),
                     SizedBox(height: 16.0),
 
                     Text(
                       'UserAccountsDrawerHeader:',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    Container(width: 280, child: userAccountsHeader),
+                    SizedBox(width: 280, child: userAccountsHeader),
                     SizedBox(height: 16.0),
 
                     Text(
                       'NavigationDrawer:',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    Container(height: 200, width: 280, child: basicNavDrawer),
+                    SizedBox(height: 200, width: 280, child: basicNavDrawer),
                   ],
                 ),
               ),

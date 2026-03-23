@@ -15,7 +15,7 @@ dynamic build(BuildContext context) {
 
   // ScrollPhysics with parent
   final parentedPhysics = ScrollPhysics(parent: ScrollPhysics());
-  print('ScrollPhysics with parent created');
+  print('ScrollPhysics with parent created: $parentedPhysics');
 
   // ========== BOUNCINGSCROLLPHYSICS ==========
   print('--- BouncingScrollPhysics Tests ---');
@@ -28,7 +28,7 @@ dynamic build(BuildContext context) {
   final bouncingParented = BouncingScrollPhysics(
     parent: AlwaysScrollableScrollPhysics(),
   );
-  print('BouncingScrollPhysics with parent created');
+  print('BouncingScrollPhysics with parent created: $bouncingParented');
 
   // ========== CLAMPINGSCROLLPHYSICS ==========
   print('--- ClampingScrollPhysics Tests ---');

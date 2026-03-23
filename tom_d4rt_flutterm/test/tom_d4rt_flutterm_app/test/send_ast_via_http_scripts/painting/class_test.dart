@@ -787,7 +787,7 @@ dynamic build(BuildContext context) {
         
         buildSectionHeader('4. Gradient Usage'),
         buildSubsectionTitle('Linear Gradient'),
-        Container(
+        SizedBox(
           height: 60,
           child: CustomPaint(
             size: Size.infinite,
@@ -795,7 +795,7 @@ dynamic build(BuildContext context) {
           ),
         ),
         buildSubsectionTitle('Radial Gradient'),
-        Container(
+        SizedBox(
           height: 80,
           child: CustomPaint(
             size: Size.infinite,
@@ -803,7 +803,7 @@ dynamic build(BuildContext context) {
           ),
         ),
         buildSubsectionTitle('Sweep Gradient'),
-        Container(
+        SizedBox(
           height: 80,
           child: CustomPaint(
             size: Size.infinite,

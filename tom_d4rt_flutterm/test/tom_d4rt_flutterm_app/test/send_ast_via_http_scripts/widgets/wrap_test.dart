@@ -78,7 +78,7 @@ dynamic build(BuildContext context) {
       );
     }),
   );
-  print('Wrap with alignment=spaceBetween created');
+  print('Wrap with alignment=spaceBetween created: $spaceBetween');
 
   final spaceEvenly = Wrap(
     alignment: WrapAlignment.spaceEvenly,
@@ -90,7 +90,7 @@ dynamic build(BuildContext context) {
       );
     }),
   );
-  print('Wrap with alignment=spaceEvenly created');
+  print('Wrap with alignment=spaceEvenly created: $spaceEvenly');
 
   // Test Wrap with direction
   final horizontalWrap = Wrap(
@@ -105,7 +105,7 @@ dynamic build(BuildContext context) {
       );
     }),
   );
-  print('Wrap with direction=horizontal created');
+  print('Wrap with direction=horizontal created: $horizontalWrap');
 
   final verticalWrap = Wrap(
     direction: Axis.vertical,
@@ -134,7 +134,7 @@ dynamic build(BuildContext context) {
       Container(width: 90, height: 45, color: Colors.purple),
     ],
   );
-  print('Wrap with runAlignment=center created');
+  print('Wrap with runAlignment=center created: $runAlignedWrap');
 
   // Test Wrap with crossAxisAlignment
   final crossAlignedWrap = Wrap(
@@ -183,7 +183,7 @@ dynamic build(BuildContext context) {
       );
     }),
   );
-  print('Wrap with textDirection=rtl created');
+  print('Wrap with textDirection=rtl created: $rtlWrap');
 
   // Test Wrap with verticalDirection
   final upWrap = Wrap(
@@ -198,7 +198,7 @@ dynamic build(BuildContext context) {
       );
     }),
   );
-  print('Wrap with verticalDirection=up created');
+  print('Wrap with verticalDirection=up created: $upWrap');
 
   // Test Wrap with Chips
   final chipWrap = Wrap(
@@ -304,7 +304,7 @@ dynamic build(BuildContext context) {
           'Vertical Direction:',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        Container(height: 120.0, child: verticalWrap),
+        SizedBox(height: 120.0, child: verticalWrap),
       ],
     ),
   );

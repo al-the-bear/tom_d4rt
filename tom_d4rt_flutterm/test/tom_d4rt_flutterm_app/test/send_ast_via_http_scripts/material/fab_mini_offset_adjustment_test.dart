@@ -908,7 +908,7 @@ Widget _buildCalcRow(String name, String val, String desc, Color color) {
             ),
           ),
         ),
-        Container(
+        SizedBox(
           width: 60,
           child: Text(
             val,

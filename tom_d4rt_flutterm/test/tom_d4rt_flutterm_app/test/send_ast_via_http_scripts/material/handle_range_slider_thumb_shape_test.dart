@@ -55,7 +55,7 @@ Widget buildInfoCard(String label, String detail) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
+        SizedBox(
           width: 140.0,
           child: Text(
             label,
@@ -89,7 +89,7 @@ Widget buildPropertyRow(String property, String value, String description) {
     ),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 160.0,
           child: Text(
             property,
@@ -100,7 +100,7 @@ Widget buildPropertyRow(String property, String value, String description) {
             ),
           ),
         ),
-        Container(
+        SizedBox(
           width: 100.0,
           child: Text(
             value,

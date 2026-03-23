@@ -464,7 +464,7 @@ Widget _modeCard(
             padding: EdgeInsets.symmetric(vertical: 3),
             child: Row(
               children: [
-                Container(
+                SizedBox(
                   width: 80,
                   child: Text(entry.key, style: TextStyle(fontSize: 11)),
                 ),
@@ -499,7 +499,7 @@ Widget _modeCard(
 Widget _comparisonHeader() {
   return Row(
     children: [
-      Container(
+      SizedBox(
         width: 90,
         child: Text(
           'Mode',
@@ -542,7 +542,7 @@ Widget _comparisonRow(
     padding: EdgeInsets.symmetric(vertical: 4),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 90,
           child: Row(
             children: [
@@ -657,7 +657,7 @@ Widget _gcRow(String label, List<double> values) {
   ];
   return Row(
     children: [
-      Container(
+      SizedBox(
         width: 130,
         child: Text(
           label,

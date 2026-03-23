@@ -667,7 +667,7 @@ Widget buildColorThemeShowcase() {
         margin: EdgeInsets.symmetric(vertical: 4),
         child: Row(
           children: [
-            Container(
+            SizedBox(
               width: 100,
               child: Row(
                 children: [
@@ -781,7 +781,7 @@ Widget buildSliderThemeConfiguration() {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            SizedBox(
               width: 140,
               child: Text(
                 propNames[p],
@@ -853,7 +853,7 @@ Widget buildThumbAnatomyDisplay() {
         Center(
           child: Column(
             children: [
-              Container(
+              SizedBox(
                 width: 80,
                 height: 80,
                 child: CustomPaint(
@@ -1318,6 +1318,7 @@ class _RoundThumbPainter extends CustomPainter {
   Color color;
   _RoundThumbPainter(this.color);
 
+  @override
   void paint(Canvas canvas, Size size) {
     double centerX = size.width / 2;
     double centerY = size.height / 2;
@@ -1346,6 +1347,7 @@ class _RoundThumbPainter extends CustomPainter {
     );
   }
 
+  @override
   bool shouldRepaint(_RoundThumbPainter oldDelegate) {
     return color != oldDelegate.color;
   }

@@ -1143,7 +1143,7 @@ Widget buildScaffoldStatePropertiesTable() {
         color: bg,
         child: Row(
           children: [
-            Container(
+            SizedBox(
               width: 130,
               child: Text(
                 propNames[p],
@@ -1155,7 +1155,7 @@ Widget buildScaffoldStatePropertiesTable() {
                 ),
               ),
             ),
-            Container(
+            SizedBox(
               width: 50,
               child: Text(
                 propTypes[p],
@@ -1245,7 +1245,7 @@ Widget buildScaffoldStateMethodsTable() {
         color: bg,
         child: Row(
           children: [
-            Container(
+            SizedBox(
               width: 130,
               child: Text(
                 methNames[m],
@@ -1257,7 +1257,7 @@ Widget buildScaffoldStateMethodsTable() {
                 ),
               ),
             ),
-            Container(
+            SizedBox(
               width: 100,
               child: Text(
                 methReturns[m],

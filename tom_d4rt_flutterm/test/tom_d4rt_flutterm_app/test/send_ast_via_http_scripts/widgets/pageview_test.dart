@@ -37,7 +37,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('Basic PageView with 3 children created');
+  print('Basic PageView with 3 children created: $basicPageView');
 
   // Test PageView with controller
   final controller = PageController(initialPage: 1, viewportFraction: 0.9);
@@ -60,7 +60,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('PageView with controller created');
+  print('PageView with controller created: $withController');
 
   // Test PageView.builder
   final pageViewBuilder = PageView.builder(
@@ -77,7 +77,7 @@ dynamic build(BuildContext context) {
       );
     },
   );
-  print('PageView.builder with 10 items created');
+  print('PageView.builder with 10 items created: $pageViewBuilder');
 
   // Test PageView.custom
   final pageViewCustom = PageView.custom(
@@ -88,7 +88,9 @@ dynamic build(BuildContext context) {
       );
     }, childCount: 5),
   );
-  print('PageView.custom with SliverChildBuilderDelegate created');
+  print(
+    'PageView.custom with SliverChildBuilderDelegate created: $pageViewCustom',
+  );
 
   // Test PageView with scrollDirection
   final horizontalPageView = PageView(
@@ -108,7 +110,9 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('PageView with scrollDirection=Axis.horizontal created');
+  print(
+    'PageView with scrollDirection=Axis.horizontal created: $horizontalPageView',
+  );
 
   final verticalPageView = PageView(
     scrollDirection: Axis.vertical,
@@ -127,7 +131,9 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('PageView with scrollDirection=Axis.vertical created');
+  print(
+    'PageView with scrollDirection=Axis.vertical created: $verticalPageView',
+  );
 
   // Test PageView with physics
   final bouncingPhysics = PageView(
@@ -143,7 +149,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('PageView with BouncingScrollPhysics created');
+  print('PageView with BouncingScrollPhysics created: $bouncingPhysics');
 
   final clampingPhysics = PageView(
     physics: ClampingScrollPhysics(),
@@ -158,7 +164,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('PageView with ClampingScrollPhysics created');
+  print('PageView with ClampingScrollPhysics created: $clampingPhysics');
 
   final neverScroll = PageView(
     physics: NeverScrollableScrollPhysics(),
@@ -169,7 +175,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('PageView with NeverScrollableScrollPhysics created');
+  print('PageView with NeverScrollableScrollPhysics created: $neverScroll');
 
   // Test PageView with onPageChanged
   final withCallback = PageView(
@@ -191,7 +197,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('PageView with onPageChanged callback created');
+  print('PageView with onPageChanged callback created: $withCallback');
 
   // Test PageView with reverse
   final reversePageView = PageView(
@@ -211,7 +217,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('PageView with reverse=true created');
+  print('PageView with reverse=true created: $reversePageView');
 
   // Test PageView with pageSnapping
   final noSnapping = PageView(
@@ -227,7 +233,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('PageView with pageSnapping=false created');
+  print('PageView with pageSnapping=false created: $noSnapping');
 
   // Test PageController methods
   print('PageController.jumpToPage(2) - instant jump');
@@ -237,7 +243,7 @@ dynamic build(BuildContext context) {
 
   // Test PageController with keepPage
   final keepPageController = PageController(initialPage: 0, keepPage: true);
-  print('PageController with keepPage=true created');
+  print('PageController with keepPage=true created: $keepPageController');
 
   // Test padEnds
   final padEndsPageView = PageView(
@@ -258,7 +264,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('PageView with padEnds=true created');
+  print('PageView with padEnds=true created: $padEndsPageView');
 
   // Test allowImplicitScrolling
   final implicitScroll = PageView(
@@ -274,7 +280,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('PageView with allowImplicitScrolling=true created');
+  print('PageView with allowImplicitScrolling=true created: $implicitScroll');
 
   print('PageView test completed');
 

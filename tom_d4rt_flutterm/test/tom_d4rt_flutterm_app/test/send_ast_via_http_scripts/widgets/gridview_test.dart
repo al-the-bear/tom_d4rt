@@ -6,7 +6,7 @@ dynamic build(BuildContext context) {
   print('GridView test executing');
 
   // Test basic GridView.count
-  final countGridView = Container(
+  final countGridView = SizedBox(
     height: 150.0,
     child: GridView.count(
       crossAxisCount: 3,
@@ -23,7 +23,7 @@ dynamic build(BuildContext context) {
   print('GridView.count with crossAxisCount=3 created');
 
   // Test GridView.count with spacing
-  final spacedGridView = Container(
+  final spacedGridView = SizedBox(
     height: 150.0,
     child: GridView.count(
       crossAxisCount: 2,
@@ -40,7 +40,7 @@ dynamic build(BuildContext context) {
   print('GridView.count with spacing created');
 
   // Test GridView.count with childAspectRatio
-  final aspectGridView = Container(
+  final aspectGridView = SizedBox(
     height: 100.0,
     child: GridView.count(
       crossAxisCount: 3,
@@ -52,10 +52,10 @@ dynamic build(BuildContext context) {
       ],
     ),
   );
-  print('GridView.count with childAspectRatio=2.0 created');
+  print('GridView.count with childAspectRatio=2.0 created: $aspectGridView');
 
   // Test GridView.extent
-  final extentGridView = Container(
+  final extentGridView = SizedBox(
     height: 150.0,
     child: GridView.extent(
       maxCrossAxisExtent: 80.0,
@@ -70,7 +70,7 @@ dynamic build(BuildContext context) {
   print('GridView.extent with maxCrossAxisExtent=80 created');
 
   // Test GridView.builder
-  final builderGridView = Container(
+  final builderGridView = SizedBox(
     height: 150.0,
     child: GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -104,10 +104,10 @@ dynamic build(BuildContext context) {
       ],
     ),
   );
-  print('GridView with padding created');
+  print('GridView with padding created: $paddedGridView');
 
   // Test GridView with scrollDirection horizontal
-  final horizontalGridView = Container(
+  final horizontalGridView = SizedBox(
     height: 100.0,
     child: GridView.count(
       crossAxisCount: 2,
@@ -122,7 +122,7 @@ dynamic build(BuildContext context) {
       ],
     ),
   );
-  print('GridView with horizontal scrollDirection created');
+  print('GridView with horizontal scrollDirection created: $horizontalGridView');
 
   print('GridView test completed');
 

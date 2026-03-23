@@ -115,7 +115,7 @@ dynamic build(BuildContext context) {
     alwaysIncludeSemantics: true,
     child: Text('Semantics included'),
   );
-  print('AnimatedOpacity with alwaysIncludeSemantics=true created');
+  print('AnimatedOpacity with alwaysIncludeSemantics=true created: $withSemantics');
 
   // Test AnimatedOpacity with decelerate curve
   final withDecelerate = AnimatedOpacity(

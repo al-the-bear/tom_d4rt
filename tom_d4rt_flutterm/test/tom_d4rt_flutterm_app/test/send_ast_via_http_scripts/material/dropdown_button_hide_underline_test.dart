@@ -92,7 +92,7 @@ Widget buildDropdownWithUnderline(
           ],
         ),
         SizedBox(height: 12),
-        Container(
+        SizedBox(
           width: double.infinity,
           child: DropdownButton(
             value: selectedValue,
@@ -162,7 +162,7 @@ Widget buildDropdownHidden(
           ],
         ),
         SizedBox(height: 12),
-        Container(
+        SizedBox(
           width: double.infinity,
           child: DropdownButtonHideUnderline(
             child: DropdownButton(
@@ -640,7 +640,7 @@ Widget buildHideUnderlineProperties() {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            SizedBox(
               width: 200,
               child: Text(
                 propNames[p],

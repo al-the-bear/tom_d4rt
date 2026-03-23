@@ -27,7 +27,7 @@ dynamic build(BuildContext context) {
   print('Stack with alignment=center created');
 
   // Test Stack with fit
-  final fitStack = Container(
+  final fitStack = SizedBox(
     width: 150.0,
     height: 100.0,
     child: Stack(
@@ -43,7 +43,7 @@ dynamic build(BuildContext context) {
   print('Stack with fit=expand created');
 
   // Test Stack with clipBehavior
-  final clippedStack = Container(
+  final clippedStack = SizedBox(
     width: 100.0,
     height: 100.0,
     child: Stack(

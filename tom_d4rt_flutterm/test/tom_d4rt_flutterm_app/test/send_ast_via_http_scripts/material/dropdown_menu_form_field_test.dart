@@ -238,7 +238,7 @@ Widget buildFormWithMultipleFields() {
             expandedInsets: EdgeInsets.zero,
           ),
           SizedBox(height: 20),
-          Container(
+          SizedBox(
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {},
@@ -685,7 +685,7 @@ Widget buildFormFieldProperties() {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            SizedBox(
               width: 160,
               child: Text(
                 propNames[p],

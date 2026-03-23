@@ -25,7 +25,7 @@ dynamic build(BuildContext context) {
       Container(width: 50.0, height: 25.0, color: Colors.purple),
     ],
   );
-  print('Centered Column created');
+  print('Centered Column created: $centeredColumn');
 
   // Test Column with crossAxisAlignment
   final startAlignedColumn = Column(
@@ -48,7 +48,7 @@ dynamic build(BuildContext context) {
       Container(width: 100.0, height: 20.0, color: Colors.indigo),
     ],
   );
-  print('CrossAxisAlignment.end Column created');
+  print('CrossAxisAlignment.end Column created: $endAlignedColumn');
 
   // Test Column with spacing using SizedBox
   final spacedColumn = Column(
@@ -61,7 +61,7 @@ dynamic build(BuildContext context) {
       Container(width: 40.0, height: 25.0, color: Colors.brown),
     ],
   );
-  print('Spaced Column created');
+  print('Spaced Column created: $spacedColumn');
 
   print('Column test completed');
 

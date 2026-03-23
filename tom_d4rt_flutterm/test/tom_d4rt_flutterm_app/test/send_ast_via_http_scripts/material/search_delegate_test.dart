@@ -118,13 +118,16 @@ class ProductSearchDelegate extends SearchDelegate<String> {
   })  : products = products ?? [],
         searchHistory = searchHistory ?? [];
 
+  @override
   String get searchFieldLabel => 'Search products...';
 
+  @override
   TextStyle get searchFieldStyle => TextStyle(
         fontSize: 16,
         color: Colors.grey.shade800,
       );
 
+  @override
   ThemeData appBarTheme(BuildContext context) {
     ThemeData theme = Theme.of(context);
     return theme.copyWith(
@@ -140,6 +143,7 @@ class ProductSearchDelegate extends SearchDelegate<String> {
     );
   }
 
+  @override
   Widget buildLeading(BuildContext context) {
     print('ProductSearchDelegate.buildLeading called');
     return IconButton(
@@ -154,6 +158,7 @@ class ProductSearchDelegate extends SearchDelegate<String> {
     );
   }
 
+  @override
   List<Widget> buildActions(BuildContext context) {
     print('ProductSearchDelegate.buildActions called with query: $query');
     return [
@@ -176,6 +181,7 @@ class ProductSearchDelegate extends SearchDelegate<String> {
     ];
   }
 
+  @override
   Widget buildResults(BuildContext context) {
     print('ProductSearchDelegate.buildResults called with query: $query');
     List<String> results = products
@@ -215,6 +221,7 @@ class ProductSearchDelegate extends SearchDelegate<String> {
     );
   }
 
+  @override
   Widget buildSuggestions(BuildContext context) {
     print('ProductSearchDelegate.buildSuggestions called with query: $query');
     List<String> suggestions = query.isEmpty
@@ -268,8 +275,10 @@ class CitySearchDelegate extends SearchDelegate<String> {
   CitySearchDelegate({List<Map<String, dynamic>>? cities})
       : cities = cities ?? [];
 
+  @override
   String get searchFieldLabel => 'Search cities...';
 
+  @override
   Widget buildLeading(BuildContext context) {
     print('CitySearchDelegate.buildLeading called');
     return IconButton(
@@ -281,6 +290,7 @@ class CitySearchDelegate extends SearchDelegate<String> {
     );
   }
 
+  @override
   List<Widget> buildActions(BuildContext context) {
     print('CitySearchDelegate.buildActions called');
     return [
@@ -301,6 +311,7 @@ class CitySearchDelegate extends SearchDelegate<String> {
     ];
   }
 
+  @override
   Widget buildResults(BuildContext context) {
     print('CitySearchDelegate.buildResults for query: $query');
     List<Map<String, dynamic>> results = cities
@@ -333,6 +344,7 @@ class CitySearchDelegate extends SearchDelegate<String> {
     );
   }
 
+  @override
   Widget buildSuggestions(BuildContext context) {
     print('CitySearchDelegate.buildSuggestions for query: $query');
     if (query.isEmpty) {
@@ -385,13 +397,16 @@ class ContactSearchDelegate extends SearchDelegate<Map<String, String>> {
     this.onContactSelected,
   }) : contacts = contacts ?? [];
 
+  @override
   String get searchFieldLabel => 'Search contacts by name or email';
 
+  @override
   TextStyle get searchFieldStyle => TextStyle(
         fontSize: 15,
         fontStyle: FontStyle.italic,
       );
 
+  @override
   Widget buildLeading(BuildContext context) {
     print('ContactSearchDelegate.buildLeading');
     return BackButton(
@@ -401,6 +416,7 @@ class ContactSearchDelegate extends SearchDelegate<Map<String, String>> {
     );
   }
 
+  @override
   List<Widget> buildActions(BuildContext context) {
     print('ContactSearchDelegate.buildActions');
     return [
@@ -425,6 +441,7 @@ class ContactSearchDelegate extends SearchDelegate<Map<String, String>> {
     ];
   }
 
+  @override
   Widget buildResults(BuildContext context) {
     print('ContactSearchDelegate.buildResults for: $query');
     List<Map<String, String>> results = contacts.where((contact) {
@@ -476,6 +493,7 @@ class ContactSearchDelegate extends SearchDelegate<Map<String, String>> {
     );
   }
 
+  @override
   Widget buildSuggestions(BuildContext context) {
     print('ContactSearchDelegate.buildSuggestions for: $query');
     List<Map<String, String>> suggestions = query.isEmpty

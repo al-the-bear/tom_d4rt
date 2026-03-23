@@ -10,11 +10,11 @@ dynamic build(BuildContext context) {
 
   // Test basic DataCell
   final basicCell = DataCell(Text('Cell'));
-  print('Basic DataCell created');
+  print('Basic DataCell created: $basicCell');
 
   // Test DataCell with placeholder
   final placeholderCell = DataCell.empty;
-  print('DataCell.empty created');
+  print('DataCell.empty created: $placeholderCell');
 
   // Test DataCell with onTap
   final tapCell = DataCell(
@@ -23,7 +23,7 @@ dynamic build(BuildContext context) {
       print('Cell tapped');
     },
   );
-  print('DataCell with onTap created');
+  print('DataCell with onTap created: $tapCell');
 
   // Test DataCell with onLongPress
   final longPressCell = DataCell(
@@ -32,7 +32,7 @@ dynamic build(BuildContext context) {
       print('Cell long pressed');
     },
   );
-  print('DataCell with onLongPress created');
+  print('DataCell with onLongPress created: $longPressCell');
 
   // Test DataCell with onDoubleTap
   final doubleTapCell = DataCell(
@@ -41,7 +41,7 @@ dynamic build(BuildContext context) {
       print('Cell double tapped');
     },
   );
-  print('DataCell with onDoubleTap created');
+  print('DataCell with onDoubleTap created: $doubleTapCell');
 
   // Test DataCell with onTapDown
   final tapDownCell = DataCell(
@@ -50,7 +50,7 @@ dynamic build(BuildContext context) {
       print('Cell tap down: ${details.globalPosition}');
     },
   );
-  print('DataCell with onTapDown created');
+  print('DataCell with onTapDown created: $tapDownCell');
 
   // Test DataCell with onTapCancel
   final tapCancelCell = DataCell(
@@ -59,7 +59,7 @@ dynamic build(BuildContext context) {
       print('Cell tap cancelled');
     },
   );
-  print('DataCell with onTapCancel created');
+  print('DataCell with onTapCancel created: $tapCancelCell');
 
   // Test DataCell with showEditIcon
   final editIconCell = DataCell(
@@ -69,32 +69,32 @@ dynamic build(BuildContext context) {
       print('Edit cell');
     },
   );
-  print('DataCell with showEditIcon created');
+  print('DataCell with showEditIcon created: $editIconCell');
 
   // Test DataCell with placeholder
   final placeholderTextCell = DataCell(
     Text('N/A', style: TextStyle(color: Colors.grey)),
     placeholder: true,
   );
-  print('DataCell with placeholder=true created');
+  print('DataCell with placeholder=true created: $placeholderTextCell');
 
   // ========== DATACOLUMN ==========
   print('--- DataColumn Tests ---');
 
   // Test basic DataColumn
   final basicColumn = DataColumn(label: Text('Name'));
-  print('Basic DataColumn created');
+  print('Basic DataColumn created: $basicColumn');
 
   // Test DataColumn with numeric
   final numericColumn = DataColumn(label: Text('Amount'), numeric: true);
-  print('DataColumn with numeric=true created');
+  print('DataColumn with numeric=true created: $numericColumn');
 
   // Test DataColumn with tooltip
   final tooltipColumn = DataColumn(
     label: Text('Info'),
     tooltip: 'Additional information',
   );
-  print('DataColumn with tooltip created');
+  print('DataColumn with tooltip created: $tooltipColumn');
 
   // Test DataColumn with onSort
   final sortableColumn = DataColumn(
@@ -103,14 +103,14 @@ dynamic build(BuildContext context) {
       print('Sort column $columnIndex, ascending: $ascending');
     },
   );
-  print('DataColumn with onSort created');
+  print('DataColumn with onSort created: $sortableColumn');
 
   // Test DataColumn with mouseCursor
   final cursorColumn = DataColumn(
     label: Text('Clickable'),
     mouseCursor: MaterialStateProperty.all(SystemMouseCursors.click),
   );
-  print('DataColumn with mouseCursor created');
+  print('DataColumn with mouseCursor created: $cursorColumn');
 
   // ========== DATAROW ==========
   print('--- DataRow Tests ---');
@@ -123,7 +123,7 @@ dynamic build(BuildContext context) {
       DataCell(Text('30')),
     ],
   );
-  print('Basic DataRow created');
+  print('Basic DataRow created: $basicRow');
 
   // Test DataRow with selected
   final selectedRow = DataRow(
@@ -134,7 +134,7 @@ dynamic build(BuildContext context) {
       DataCell(Text('Here')),
     ],
   );
-  print('DataRow with selected=true created');
+  print('DataRow with selected=true created: $selectedRow');
 
   // Test DataRow with onSelectChanged
   final selectableRow = DataRow(
@@ -147,7 +147,7 @@ dynamic build(BuildContext context) {
       DataCell(Text('Data')),
     ],
   );
-  print('DataRow with onSelectChanged created');
+  print('DataRow with onSelectChanged created: $selectableRow');
 
   // Test DataRow with onLongPress
   final longPressRow = DataRow(
@@ -160,7 +160,7 @@ dynamic build(BuildContext context) {
       DataCell(Text('Me')),
     ],
   );
-  print('DataRow with onLongPress created');
+  print('DataRow with onLongPress created: $longPressRow');
 
   // Test DataRow with color
   final coloredRow = DataRow(
@@ -171,7 +171,7 @@ dynamic build(BuildContext context) {
       DataCell(Text('Row')),
     ],
   );
-  print('DataRow with color created');
+  print('DataRow with color created: $coloredRow');
 
   // Test DataRow.byIndex
   // Note: byIndex is typically used in PaginatedDataTable
@@ -280,7 +280,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('DataTable with dataRowHeight created');
+  print('DataTable with dataRowHeight created: $rowHeightTable');
 
   // Test DataTable with headingRowHeight
   final headingHeightTable = DataTable(
@@ -293,7 +293,7 @@ dynamic build(BuildContext context) {
       DataRow(cells: [DataCell(Text('Data 1')), DataCell(Text('Data 2'))]),
     ],
   );
-  print('DataTable with headingRowHeight created');
+  print('DataTable with headingRowHeight created: $headingHeightTable');
 
   // Test DataTable with headingRowColor
   final headingColorTable = DataTable(
@@ -334,7 +334,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('DataTable with dataRowColor created');
+  print('DataTable with dataRowColor created: $dataColorTable');
 
   // Test DataTable with border
   final borderTable = DataTable(
@@ -362,7 +362,7 @@ dynamic build(BuildContext context) {
       DataRow(cells: [DataCell(Text('B')), DataCell(Text('200'))]),
     ],
   );
-  print('DataTable with dividerThickness created');
+  print('DataTable with dividerThickness created: $dividerTable');
 
   // Test DataTable with horizontalMargin
   final marginTable = DataTable(
@@ -375,7 +375,7 @@ dynamic build(BuildContext context) {
       DataRow(cells: [DataCell(Text('Item')), DataCell(Text('\$50'))]),
     ],
   );
-  print('DataTable with horizontalMargin created');
+  print('DataTable with horizontalMargin created: $marginTable');
 
   // Test DataTable with columnSpacing
   final spacingTable = DataTable(
@@ -391,7 +391,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('DataTable with columnSpacing created');
+  print('DataTable with columnSpacing created: $spacingTable');
 
   // Test DataTable with showCheckboxColumn
   final noCheckboxTable = DataTable(
@@ -407,7 +407,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('DataTable with showCheckboxColumn=false created');
+  print('DataTable with showCheckboxColumn=false created: $noCheckboxTable');
 
   // Test DataTable with showBottomBorder
   final bottomBorderTable = DataTable(
@@ -420,7 +420,7 @@ dynamic build(BuildContext context) {
       DataRow(cells: [DataCell(Text('Has')), DataCell(Text('Border'))]),
     ],
   );
-  print('DataTable with showBottomBorder created');
+  print('DataTable with showBottomBorder created: $bottomBorderTable');
 
   // Test DataTable with checkboxHorizontalMargin
   final checkboxMarginTable = DataTable(
@@ -431,7 +431,9 @@ dynamic build(BuildContext context) {
       DataRow(onSelectChanged: (selected) {}, cells: [DataCell(Text('Row 2'))]),
     ],
   );
-  print('DataTable with checkboxHorizontalMargin created');
+  print(
+    'DataTable with checkboxHorizontalMargin created: $checkboxMarginTable',
+  );
 
   // Test DataTable with headingTextStyle
   final styledHeadingTable = DataTable(
@@ -461,7 +463,7 @@ dynamic build(BuildContext context) {
       DataRow(cells: [DataCell(Text('Widget')), DataCell(Text('\$99'))]),
     ],
   );
-  print('DataTable with dataTextStyle created');
+  print('DataTable with dataTextStyle created: $styledDataTable');
 
   print('DataTable widgets test completed');
 

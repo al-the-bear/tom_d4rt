@@ -31,7 +31,7 @@ dynamic build(BuildContext context) {
       ),
     ),
   ];
-  print('Basic ExpansionPanels created');
+  print('Basic ExpansionPanels created: $basicPanels');
 
   // Test ExpansionPanel with isExpanded
   final expandedPanels = [
@@ -56,7 +56,7 @@ dynamic build(BuildContext context) {
       ),
     ),
   ];
-  print('ExpansionPanels with isExpanded created');
+  print('ExpansionPanels with isExpanded created: $expandedPanels');
 
   // Test ExpansionPanel with canTapOnHeader
   final tapHeaderPanels = [
@@ -87,7 +87,7 @@ dynamic build(BuildContext context) {
       ),
     ),
   ];
-  print('ExpansionPanels with canTapOnHeader created');
+  print('ExpansionPanels with canTapOnHeader created: $tapHeaderPanels');
 
   // Test ExpansionPanel with backgroundColor
   final bgPanels = [
@@ -112,7 +112,7 @@ dynamic build(BuildContext context) {
       ),
     ),
   ];
-  print('ExpansionPanels with backgroundColor created');
+  print('ExpansionPanels with backgroundColor created: $bgPanels');
 
   // Test ExpansionPanelRadio
   final radioPanels = [
@@ -147,7 +147,7 @@ dynamic build(BuildContext context) {
       ),
     ),
   ];
-  print('ExpansionPanelRadio created');
+  print('ExpansionPanelRadio created: $radioPanels');
 
   // ========== EXPANSIONPANELLIST ==========
   print('--- ExpansionPanelList Tests ---');
@@ -216,7 +216,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('ExpansionTile with trailing created');
+  print('ExpansionTile with trailing created: $trailingExpansionTile');
 
   // Test ExpansionTile with initiallyExpanded
   final expandedExpansionTile = ExpansionTile(
@@ -244,7 +244,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('ExpansionTile with maintainState created');
+  print('ExpansionTile with maintainState created: $maintainStateTile');
 
   // Test ExpansionTile with backgroundColor
   final bgExpansionTile = ExpansionTile(
@@ -329,7 +329,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('ExpansionTile with tilePadding created');
+  print('ExpansionTile with tilePadding created: $paddedExpansionTile');
 
   // Test ExpansionTile with childrenPadding
   final childPaddedTile = ExpansionTile(
@@ -337,7 +337,7 @@ dynamic build(BuildContext context) {
     childrenPadding: EdgeInsets.all(24.0),
     children: [Text('This content has extra padding')],
   );
-  print('ExpansionTile with childrenPadding created');
+  print('ExpansionTile with childrenPadding created: $childPaddedTile');
 
   // Test ExpansionTile with expandedAlignment
   final alignedExpansionTile = ExpansionTile(
@@ -345,7 +345,7 @@ dynamic build(BuildContext context) {
     expandedAlignment: Alignment.centerLeft,
     children: [Text('Aligned to left')],
   );
-  print('ExpansionTile with expandedAlignment created');
+  print('ExpansionTile with expandedAlignment created: $alignedExpansionTile');
 
   // Test ExpansionTile with expandedCrossAxisAlignment
   final crossAlignedTile = ExpansionTile(
@@ -353,7 +353,9 @@ dynamic build(BuildContext context) {
     expandedCrossAxisAlignment: CrossAxisAlignment.start,
     children: [Text('Start aligned'), Text('Items')],
   );
-  print('ExpansionTile with expandedCrossAxisAlignment created');
+  print(
+    'ExpansionTile with expandedCrossAxisAlignment created: $crossAlignedTile',
+  );
 
   // Test ExpansionTile with onExpansionChanged
   final callbackExpansionTile = ExpansionTile(
@@ -376,7 +378,7 @@ dynamic build(BuildContext context) {
     dense: true,
     children: [ListTile(dense: true, title: Text('Dense child'))],
   );
-  print('ExpansionTile with dense created');
+  print('ExpansionTile with dense created: $denseExpansionTile');
 
   // Test ExpansionTile with visualDensity
   final visualDensityTile = ExpansionTile(
@@ -389,7 +391,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('ExpansionTile with visualDensity created');
+  print('ExpansionTile with visualDensity created: $visualDensityTile');
 
   // Test ExpansionTile with controlAffinity
   final controlAffinityTile = ExpansionTile(
@@ -416,7 +418,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('ExpansionTile with clipBehavior created');
+  print('ExpansionTile with clipBehavior created: $clippedExpansionTile');
 
   print('Expansion widgets test completed');
 

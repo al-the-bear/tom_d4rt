@@ -15,6 +15,7 @@ dynamic build(BuildContext context) {
   // AccessibilityFeatures comes from the platform
   final binding = WidgetsFlutterBinding.ensureInitialized();
   final view = binding.platformDispatcher.views.first;
+  print('View: $view');
   // Use PlatformDispatcher to get features
   final features = binding.platformDispatcher.accessibilityFeatures;
   print('AccessibilityFeatures: $features');

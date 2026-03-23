@@ -133,7 +133,7 @@ dynamic build(BuildContext context) {
       body: Center(child: Text('Fullscreen')),
     ),
   );
-  print('MaterialPage(maintainState: false, fullscreenDialog: true) created');
+  print('MaterialPage created: $page5');
 
   print('MaterialPageRoute/RouteSettings/MaterialPage test completed');
   return Container(

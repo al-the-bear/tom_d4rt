@@ -5,7 +5,6 @@
 // nesting, practical analytics patterns, and visual diagrams.
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 Widget _buildHeader(String title, String subtitle) {
   print('Building header: $title');
@@ -44,10 +43,7 @@ Widget _buildHeader(String title, String subtitle) {
         SizedBox(height: 6),
         Text(
           subtitle,
-          style: TextStyle(
-            fontSize: 14,
-            color: Color(0xCCFFFFFF),
-          ),
+          style: TextStyle(fontSize: 14, color: Color(0xCCFFFFFF)),
         ),
       ],
     ),
@@ -175,7 +171,10 @@ Widget _buildTaggedRegion(
               Expanded(
                 child: Text(
                   description,
-                  style: TextStyle(fontSize: 11, color: textColor.withOpacity(0.7)),
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: textColor.withOpacity(0.7),
+                  ),
                 ),
               ),
             ],
@@ -640,7 +639,10 @@ Widget _buildAnalyticsPattern() {
                         ),
                         SizedBox(width: 8),
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 6,
+                            vertical: 2,
+                          ),
                           decoration: BoxDecoration(
                             color: c.withOpacity(0.15),
                             borderRadius: BorderRadius.circular(6),
@@ -660,7 +662,11 @@ Widget _buildAnalyticsPattern() {
                   ],
                 ),
               ),
-              Icon(Icons.analytics_outlined, color: c.withOpacity(0.4), size: 18),
+              Icon(
+                Icons.analytics_outlined,
+                color: c.withOpacity(0.4),
+                size: 18,
+              ),
             ],
           ),
         ),
@@ -774,11 +780,14 @@ dynamic build(BuildContext context) {
         ),
 
         // Section 1: Basic MetaData with different content
-        _buildSectionTitle(Icons.label, '1. MetaData Wrapping Different Content'),
+        _buildSectionTitle(
+          Icons.label,
+          '1. MetaData Wrapping Different Content',
+        ),
         _buildInfoCard(
           'MetaData Widget',
           'Wraps a child with arbitrary metadata accessible during hit testing. '
-          'The metaData property accepts any Object.',
+              'The metaData property accepts any Object.',
         ),
         _buildTaggedRegion(
           'text-content',
@@ -847,7 +856,7 @@ dynamic build(BuildContext context) {
         _buildInfoCard(
           'Visual Regions',
           'Each colored region carries different metadata values. '
-          'During hit testing, the framework reads metadata from the hit region.',
+              'During hit testing, the framework reads metadata from the hit region.',
         ),
         _buildTaggedRegion(
           'region-alpha',
@@ -858,7 +867,13 @@ dynamic build(BuildContext context) {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Icon(Icons.menu, color: Color(0xFF4527A0)),
-              Text('Navigation', style: TextStyle(color: Color(0xFF4527A0), fontWeight: FontWeight.w600)),
+              Text(
+                'Navigation',
+                style: TextStyle(
+                  color: Color(0xFF4527A0),
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
               Icon(Icons.more_vert, color: Color(0xFF4527A0)),
             ],
           ),
@@ -908,8 +923,8 @@ dynamic build(BuildContext context) {
         _buildInfoCard(
           'Pipeline Flow',
           'When a pointer event occurs, the framework walks the render tree. '
-          'RenderMetaData attaches its metaData to HitTestEntry objects. '
-          'The final HitTestResult carries all entries with metadata.',
+              'RenderMetaData attaches its metaData to HitTestEntry objects. '
+              'The final HitTestResult carries all entries with metadata.',
         ),
         _buildPipelineDiagram(),
 
@@ -918,28 +933,28 @@ dynamic build(BuildContext context) {
         _buildInfoCard(
           'Three Behavior Modes',
           'MetaData accepts a behavior parameter controlling hit test participation: '
-          'deferToChild (default), opaque, and translucent.',
+              'deferToChild (default), opaque, and translucent.',
         ),
         _buildBehaviorCard(
           'deferToChild',
           HitTestBehavior.deferToChild,
           Color(0xFF1565C0),
           'Default. Only participates in hit test if a child is hit. '
-          'If no child at the tap point, this MetaData is not added to the result.',
+              'If no child at the tap point, this MetaData is not added to the result.',
         ),
         _buildBehaviorCard(
           'opaque',
           HitTestBehavior.opaque,
           Color(0xFFC62828),
           'Always participates in hit test and prevents targets below from being hit. '
-          'The MetaData entry is added and blocks further hit testing downward.',
+              'The MetaData entry is added and blocks further hit testing downward.',
         ),
         _buildBehaviorCard(
           'translucent',
           HitTestBehavior.translucent,
           Color(0xFF6A1B9A),
           'Always participates in hit test but allows targets below to also be hit. '
-          'Both this MetaData and targets below appear in HitTestResult.',
+              'Both this MetaData and targets below appear in HitTestResult.',
         ),
 
         // Section 5: Nested MetaData
@@ -947,8 +962,8 @@ dynamic build(BuildContext context) {
         _buildInfoCard(
           'Inner vs Outer',
           'When MetaData widgets are nested, the hit test collects metadata '
-          'from all intersecting MetaData ancestors. Inner metadata appears '
-          'first in the HitTestResult path.',
+              'from all intersecting MetaData ancestors. Inner metadata appears '
+              'first in the HitTestResult path.',
         ),
         _buildNestedMetaData(),
         SizedBox(height: 8),
@@ -989,11 +1004,14 @@ dynamic build(BuildContext context) {
         ),
 
         // Section 6: GestureDetector comparison
-        _buildSectionTitle(Icons.compare_arrows, '6. GestureDetector HitTestBehavior'),
+        _buildSectionTitle(
+          Icons.compare_arrows,
+          '6. GestureDetector HitTestBehavior',
+        ),
         _buildInfoCard(
           'Comparison',
           'GestureDetector also accepts HitTestBehavior. This shows how '
-          'the same behavior values affect gesture detection vs metadata tagging.',
+              'the same behavior values affect gesture detection vs metadata tagging.',
         ),
         _buildGestureComparison(),
 
@@ -1002,7 +1020,7 @@ dynamic build(BuildContext context) {
         _buildInfoCard(
           'Practical Use',
           'MetaData can carry structured objects (Maps) for analytics tracking. '
-          'Hit test handlers can read zone metadata to log impressions and taps.',
+              'Hit test handlers can read zone metadata to log impressions and taps.',
         ),
         _buildAnalyticsPattern(),
 
@@ -1011,7 +1029,7 @@ dynamic build(BuildContext context) {
         _buildInfoCard(
           'UI Region Labels',
           'Each interactive element carries a metadata label identifying its purpose. '
-          'Useful for accessibility audits and automated testing frameworks.',
+              'Useful for accessibility audits and automated testing frameworks.',
         ),
         _buildLabeledInteractiveAreas(),
 

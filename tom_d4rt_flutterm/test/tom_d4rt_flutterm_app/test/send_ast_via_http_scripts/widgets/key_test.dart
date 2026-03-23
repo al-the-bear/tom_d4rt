@@ -55,11 +55,11 @@ dynamic build(BuildContext context) {
 
   // Test GlobalKey<State>
   final stateKey = GlobalKey<State>();
-  print('GlobalKey<State> created');
+  print('GlobalKey<State> created: $stateKey');
 
   // Test GlobalKey with debugLabel
   final labeledKey = GlobalKey(debugLabel: 'MyGlobalKey');
-  print('GlobalKey with debugLabel created');
+  print('GlobalKey with debugLabel created: $labeledKey');
 
   // Test GlobalKey properties and methods
   print('GlobalKey.currentContext - gets BuildContext');
@@ -72,15 +72,15 @@ dynamic build(BuildContext context) {
 
   // Test GlobalKey<ScaffoldState> for scaffold
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  print('GlobalKey<ScaffoldState> created for scaffold access');
+  print('GlobalKey<ScaffoldState> created for scaffold access: $scaffoldKey');
 
   // Test GlobalKey<NavigatorState> for navigation
   final navigatorKey = GlobalKey<NavigatorState>();
-  print('GlobalKey<NavigatorState> created for navigation');
+  print('GlobalKey<NavigatorState> created for navigation: $navigatorKey');
 
   // Test GlobalObjectKey
   final globalObjKey = GlobalObjectKey(obj);
-  print('GlobalObjectKey created: $globalObjKey');
+  print('GlobalObjectKey created, key=$globalObjKey');
 
   // Test widgets with keys
   final keyedContainer = Container(
@@ -92,7 +92,7 @@ dynamic build(BuildContext context) {
   print('Container with ValueKey created');
 
   final keyedText = Text('Keyed Text', key: ValueKey('text-key'));
-  print('Text with ValueKey created');
+  print('Text with ValueKey created: $keyedText');
 
   // Test key usage in lists
   final listItems = List.generate(5, (index) {
@@ -144,7 +144,7 @@ dynamic build(BuildContext context) {
       Container(height: 100, color: Colors.blue.shade100),
     ],
   );
-  print('ListView with PageStorageKey for scroll persistence created');
+  print('ListView with PageStorageKey for scroll persistence created: $scrollPersistence');
 
   // Test form with GlobalKey
   final formWithKey = Form(

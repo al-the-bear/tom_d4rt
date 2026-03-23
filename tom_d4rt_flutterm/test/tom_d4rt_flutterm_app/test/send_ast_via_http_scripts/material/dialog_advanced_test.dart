@@ -73,7 +73,7 @@ dynamic build(BuildContext context) {
       ElevatedButton(onPressed: () {}, child: Text('OK')),
     ],
   );
-  print('Advanced AlertDialog created');
+  print('Advanced AlertDialog created: $alertDialog');
   print('  scrollable: false');
   print('  with icon');
 

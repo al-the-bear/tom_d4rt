@@ -803,7 +803,7 @@ Widget _profileRow(_FrameProfile fp) {
         ),
         // Simplified visual: stacked bars
         SizedBox(width: 4),
-        Container(
+        SizedBox(
           width: 80,
           height: 12,
           child: Stack(

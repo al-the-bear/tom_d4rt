@@ -337,7 +337,7 @@ Widget _buildHeightBar(double val, Color color) {
   double normalized = (val + 16.0) / 48.0;
   String label = val.toStringAsFixed(1);
   if (val > 0) {
-    label = '+' + label;
+    label = '+$label';
   }
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -348,7 +348,7 @@ Widget _buildHeightBar(double val, Color color) {
     ),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 60,
           child: Text(
             label,
@@ -888,7 +888,7 @@ Widget _buildCalcRow(String name, String val, String desc, Color color) {
             ),
           ),
         ),
-        Container(
+        SizedBox(
           width: 60,
           child: Text(
             val,

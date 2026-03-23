@@ -46,7 +46,7 @@ class _CarouselDemoState extends State<_CarouselDemo> {
                   ),
                   alignment: Alignment.center,
                   child: Text(
-                    'Page ' + (i + 1).toString(),
+                    'Page ${i + 1}',
                     style: const TextStyle(
                       fontSize: 24,
                       color: Colors.white,

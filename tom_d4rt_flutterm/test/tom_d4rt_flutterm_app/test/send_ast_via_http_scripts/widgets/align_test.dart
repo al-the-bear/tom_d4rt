@@ -31,7 +31,7 @@ dynamic build(BuildContext context) {
     alignment: Alignment(0.5, -0.5),
     child: Container(width: 30.0, height: 30.0, color: Colors.purple),
   );
-  print('Align with custom Alignment(0.5, -0.5) created');
+  print('Align with custom Alignment(0.5, -0.5) created: $customAlign');
 
   // Test Align with widthFactor and heightFactor
   final factorAlign = Align(
@@ -47,7 +47,7 @@ dynamic build(BuildContext context) {
     alignment: AlignmentDirectional.centerStart,
     child: Container(width: 40.0, height: 40.0, color: Colors.teal),
   );
-  print('Align with AlignmentDirectional.centerStart created');
+  print('Align with AlignmentDirectional.centerStart created: $directionalAlign');
 
   print('Align test completed');
 

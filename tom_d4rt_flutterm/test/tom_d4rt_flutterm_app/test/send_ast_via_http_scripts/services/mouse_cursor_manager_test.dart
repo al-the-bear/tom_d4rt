@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Tests MouseCursorManager from services
-import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
@@ -66,12 +65,8 @@ dynamic build(BuildContext context) {
 
   // Test type hierarchy
   print('\nType hierarchy check:');
-  print(
-    'SystemMouseCursors.click is MouseCursor: true /* always */',
-  );
-  print(
-    'SystemMouseCursors.click is SystemMouseCursor: true /* always */',
-  );
+  print('SystemMouseCursors.click is MouseCursor: true /* always */');
+  print('SystemMouseCursors.click is SystemMouseCursor: true /* always */');
 
   // Explain purpose
   print('\nMouseCursorManager purpose:');

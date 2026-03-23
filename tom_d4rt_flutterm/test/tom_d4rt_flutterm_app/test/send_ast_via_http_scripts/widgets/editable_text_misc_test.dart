@@ -9,7 +9,7 @@ dynamic build(BuildContext context) {
   // ========== SpellCheckConfiguration ==========
   print('--- SpellCheckConfiguration Tests ---');
   final spellConfig = SpellCheckConfiguration.disabled();
-  print('SpellCheckConfiguration.disabled created');
+  print('SpellCheckConfiguration.disabled created: $spellConfig');
 
   // ========== EditableText ==========
   print('--- EditableText Tests ---');
@@ -29,7 +29,7 @@ dynamic build(BuildContext context) {
     autocorrect: true,
     enableSuggestions: true,
   );
-  print('EditableText created');
+  print('EditableText created: $editableText');
   print('  controller text: ${editController.text}');
   print('  keyboardType: text');
 

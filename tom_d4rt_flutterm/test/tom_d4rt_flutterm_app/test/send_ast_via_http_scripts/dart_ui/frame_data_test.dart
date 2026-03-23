@@ -2,7 +2,6 @@
 // D4rt test script: Deep Demo for FrameData from dart:ui
 // FrameData carries per-frame metadata provided to onBeginFrame callback
 // It replaces the raw Duration parameter with structured frame info
-import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {

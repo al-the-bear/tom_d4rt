@@ -62,7 +62,7 @@ dynamic build(BuildContext context) {
   print('--- PlaceholderSpan Tests ---');
   print('PlaceholderSpan is an abstract InlineSpan for embedding widgets');
   print('Type: $PlaceholderSpan');
-  var widgetSpan = WidgetSpan(child: Container(width: 20, height: 20));
+  var widgetSpan = WidgetSpan(child: SizedBox(width: 20, height: 20));
   print('WidgetSpan (extends PlaceholderSpan): $widgetSpan');
   print('WidgetSpan alignment: ${widgetSpan.alignment}');
 

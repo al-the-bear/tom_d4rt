@@ -86,7 +86,7 @@ dynamic build(BuildContext context) {
   print('--- CheckedModeBanner Tests ---');
 
   final banner = CheckedModeBanner(child: Text('Banner child'));
-  print('CheckedModeBanner created');
+  print('CheckedModeBanner created: $banner');
 
   print('All shader/filter widget tests passed');
 

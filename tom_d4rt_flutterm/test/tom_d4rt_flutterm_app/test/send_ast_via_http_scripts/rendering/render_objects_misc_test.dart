@@ -548,7 +548,7 @@ Widget _buildAspectRatioSection() {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Container(
+        SizedBox(
           width: 120,
           child: AspectRatio(
             aspectRatio: ratio,
@@ -901,7 +901,7 @@ Widget _buildSummarySection() {
         padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
         child: Row(
           children: [
-            Container(
+            SizedBox(
               width: 130,
               child: Text(
                 item['widget']!,

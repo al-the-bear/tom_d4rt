@@ -225,7 +225,7 @@ Widget buildTickMarkRadiusComparison() {
         margin: EdgeInsets.symmetric(vertical: 4),
         child: Row(
           children: [
-            Container(
+            SizedBox(
               width: 60,
               child: Text(
                 'R: ${radii[i]}',
@@ -1298,7 +1298,7 @@ Widget buildSliderTickMarkShapeMethodsTable() {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            SizedBox(
               width: 100,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

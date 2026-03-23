@@ -379,7 +379,7 @@ Widget buildPropertyRow(
                 style: TextStyle(fontSize: 11, color: Colors.grey.shade700),
               ),
               Text(
-                'Default: ' + defaultVal,
+                'Default: $defaultVal',
                 style: TextStyle(fontSize: 10, color: Colors.grey.shade400),
               ),
             ],

@@ -81,7 +81,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('NavigationDrawer: 3 destinations');
+  print('NavigationDrawer: 3 destinations: $navDrawer');
 
   // ========== NavigationDrawerDestination ==========
   print('--- NavigationDrawerDestination Tests ---');
@@ -91,7 +91,7 @@ dynamic build(BuildContext context) {
     label: Text('Starred'),
     enabled: true,
   );
-  print('NavigationDrawerDestination created');
+  print('NavigationDrawerDestination created: $dest');
 
   // ========== NavigationDrawerThemeData ==========
   print('--- NavigationDrawerThemeData Tests ---');
@@ -104,7 +104,7 @@ dynamic build(BuildContext context) {
     labelTextStyle: WidgetStateProperty.all(TextStyle(fontSize: 14.0)),
     iconTheme: WidgetStateProperty.all(IconThemeData(size: 24.0)),
   );
-  print('NavigationDrawerThemeData created');
+  print('NavigationDrawerThemeData created: $drawerTheme');
 
   // ========== NavigationRailLabelType ==========
   print('--- NavigationRailLabelType Tests ---');
@@ -125,7 +125,7 @@ dynamic build(BuildContext context) {
     minExtendedWidth: 256.0,
     useIndicator: true,
   );
-  print('NavigationRailThemeData created');
+  print('NavigationRailThemeData created: $railTheme');
 
   print('All material nav/badge advanced tests passed');
 

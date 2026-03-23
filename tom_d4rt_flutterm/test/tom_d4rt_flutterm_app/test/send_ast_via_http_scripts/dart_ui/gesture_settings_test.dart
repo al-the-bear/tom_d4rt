@@ -237,7 +237,7 @@ dynamic build(BuildContext context) {
       Colors.blue.withValues(alpha: 0.4),
     ];
 
-    return Container(
+    return SizedBox(
       width: 120,
       height: 120,
       child: Stack(

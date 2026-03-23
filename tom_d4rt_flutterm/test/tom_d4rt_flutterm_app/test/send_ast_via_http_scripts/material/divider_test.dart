@@ -74,7 +74,7 @@ dynamic build(BuildContext context) {
 
   // Test VerticalDivider with zero width
   final zeroWidthVerticalDivider = VerticalDivider(width: 0);
-  print('VerticalDivider with width=0 created');
+  print('VerticalDivider with width=0 created: $zeroWidthVerticalDivider');
 
   // Test VerticalDivider with thickness
   final thickVerticalDivider = VerticalDivider(thickness: 4.0);
@@ -82,15 +82,15 @@ dynamic build(BuildContext context) {
 
   // Test thin VerticalDivider
   final thinVerticalDivider = VerticalDivider(thickness: 0.5);
-  print('VerticalDivider with thickness=0.5 created');
+  print('VerticalDivider with thickness=0.5 created: $thinVerticalDivider');
 
   // Test VerticalDivider with indent
   final indentVerticalDivider = VerticalDivider(indent: 20.0);
-  print('VerticalDivider with indent=20 created');
+  print('VerticalDivider with indent=20 created: $indentVerticalDivider');
 
   // Test VerticalDivider with endIndent
   final endIndentVerticalDivider = VerticalDivider(endIndent: 20.0);
-  print('VerticalDivider with endIndent=20 created');
+  print('VerticalDivider with endIndent=20 created: $endIndentVerticalDivider');
 
   // Test VerticalDivider with both indents
   final bothIndentVerticalDivider = VerticalDivider(
@@ -101,7 +101,7 @@ dynamic build(BuildContext context) {
 
   // Test VerticalDivider with color
   final coloredVerticalDivider = VerticalDivider(color: Colors.blue);
-  print('VerticalDivider with color=blue created');
+  print('VerticalDivider with color=blue created: $coloredVerticalDivider');
 
   // Test various colored vertical dividers
   final redVertical = VerticalDivider(color: Colors.red, thickness: 2.0);

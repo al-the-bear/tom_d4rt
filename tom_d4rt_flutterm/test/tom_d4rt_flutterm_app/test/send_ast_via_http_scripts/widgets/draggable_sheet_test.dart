@@ -119,7 +119,7 @@ dynamic build(BuildContext context) {
       duration: Duration(milliseconds: 300),
     ),
   );
-  print('BottomSheet created');
+  print('BottomSheet created: $bottomSheet');
 
   // ========== NotificationListener types ==========
   print('--- NotificationListener Tests ---');
@@ -136,7 +136,7 @@ dynamic build(BuildContext context) {
     },
     child: ListView(children: [Text('Item 1'), Text('Item 2')]),
   );
-  print('NotificationListener<ScrollNotification> created');
+  print('NotificationListener<ScrollNotification> created: $scrollNotifListener');
 
   // ========== BottomSheetThemeData ==========
   print('--- BottomSheetThemeData Tests ---');

@@ -46,7 +46,7 @@ dynamic build(BuildContext context) {
       child: Text('Red Shadow Material'),
     ),
   );
-  print('Material(shadowColor: red) created');
+  print('Material(shadowColor: red) created: $widget4');
 
   // Variation 5: Material with surfaceTintColor
   final widget5 = Material(
@@ -57,7 +57,7 @@ dynamic build(BuildContext context) {
       child: Text('Tinted Material'),
     ),
   );
-  print('Material(surfaceTintColor: purple) created');
+  print('Material(surfaceTintColor: purple) created: $widget5');
 
   // Variation 6: Material with borderRadius
   final widget6 = Material(
@@ -94,7 +94,7 @@ dynamic build(BuildContext context) {
       child: Text('Card Type Material'),
     ),
   );
-  print('Material(type: card) created');
+  print('Material(type: card) created: $widget8');
 
   // Variation 9: Material with type circle
   final widget9 = Material(
@@ -242,7 +242,7 @@ dynamic build(BuildContext context) {
       ),
     ),
   );
-  print('InkWell(customBorder) created');
+  print('InkWell(customBorder) created: $widget18');
 
   // Variation 19: InkWell with hoverColor and focusColor
   final widget19 = Material(
@@ -256,7 +256,7 @@ dynamic build(BuildContext context) {
       ),
     ),
   );
-  print('InkWell(hoverColor, focusColor) created');
+  print('InkWell(hoverColor, focusColor) created: $widget19');
 
   // ========== INKRESPONSE ==========
   print('--- InkResponse Tests ---');

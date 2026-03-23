@@ -10,35 +10,35 @@ dynamic build(BuildContext context) {
 
   // Test basic IconThemeData
   final basicIconTheme = IconThemeData();
-  print('Basic IconThemeData created');
+  print('Basic IconThemeData created: $basicIconTheme');
 
   // Test IconThemeData with color
   final coloredIconTheme = IconThemeData(color: Colors.blue);
-  print('IconThemeData with color created');
+  print('IconThemeData with color created: $coloredIconTheme');
 
   // Test IconThemeData with opacity
   final opacityIconTheme = IconThemeData(opacity: 0.5);
-  print('IconThemeData with opacity created');
+  print('IconThemeData with opacity created: $opacityIconTheme');
 
   // Test IconThemeData with size
   final sizedIconTheme = IconThemeData(size: 32.0);
-  print('IconThemeData with size created');
+  print('IconThemeData with size created: $sizedIconTheme');
 
   // Test IconThemeData with fill
   final filledIconTheme = IconThemeData(fill: 1.0);
-  print('IconThemeData with fill created');
+  print('IconThemeData with fill created: $filledIconTheme');
 
   // Test IconThemeData with weight
   final weightedIconTheme = IconThemeData(weight: 700.0);
-  print('IconThemeData with weight created');
+  print('IconThemeData with weight created: $weightedIconTheme');
 
   // Test IconThemeData with grade
   final gradedIconTheme = IconThemeData(grade: 200.0);
-  print('IconThemeData with grade created');
+  print('IconThemeData with grade created: $gradedIconTheme');
 
   // Test IconThemeData with opticalSize
   final opticalIconTheme = IconThemeData(opticalSize: 48.0);
-  print('IconThemeData with opticalSize created');
+  print('IconThemeData with opticalSize created: $opticalIconTheme');
 
   // Test IconThemeData with shadows
   final shadowedIconTheme = IconThemeData(
@@ -50,11 +50,11 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('IconThemeData with shadows created');
+  print('IconThemeData with shadows created: $shadowedIconTheme');
 
   // Test IconThemeData with applyTextScaling
   final scaledIconTheme = IconThemeData(applyTextScaling: true);
-  print('IconThemeData with applyTextScaling created');
+  print('IconThemeData with applyTextScaling created: $scaledIconTheme');
 
   // Test IconThemeData with all properties
   final fullIconTheme = IconThemeData(

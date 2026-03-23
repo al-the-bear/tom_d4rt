@@ -807,7 +807,7 @@ Widget buildControllerProperties() {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            SizedBox(
               width: 140,
               child: Text(
                 propNames[p],

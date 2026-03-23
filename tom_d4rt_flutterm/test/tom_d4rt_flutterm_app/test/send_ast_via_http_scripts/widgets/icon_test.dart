@@ -73,14 +73,14 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('Category icons created');
+  print('Category icons created: $categoryIcons');
 
   // Test Icon with gradient using ShaderMask (if supported)
   final iconWithTextDirection = Directionality(
     textDirection: TextDirection.ltr,
     child: Icon(Icons.arrow_forward, size: 32.0),
   );
-  print('Icon with text direction created');
+  print('Icon with text direction created: $iconWithTextDirection');
 
   print('Icon test completed');
 

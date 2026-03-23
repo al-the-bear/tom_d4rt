@@ -6,7 +6,7 @@ dynamic build(BuildContext context) {
   print('ListView test executing');
 
   // Test basic ListView with children
-  final basicListView = Container(
+  final basicListView = SizedBox(
     height: 120.0,
     child: ListView(
       children: [
@@ -36,7 +36,7 @@ dynamic build(BuildContext context) {
   print('Basic ListView with children created');
 
   // Test ListView with padding
-  final paddedListView = Container(
+  final paddedListView = SizedBox(
     height: 100.0,
     child: ListView(
       padding: EdgeInsets.all(8.0),
@@ -57,7 +57,7 @@ dynamic build(BuildContext context) {
   print('ListView with padding created');
 
   // Test ListView with horizontal scroll
-  final horizontalListView = Container(
+  final horizontalListView = SizedBox(
     height: 60.0,
     child: ListView(
       scrollDirection: Axis.horizontal,
@@ -72,7 +72,7 @@ dynamic build(BuildContext context) {
   print('ListView with horizontal scrollDirection created');
 
   // Test ListView.builder
-  final builderListView = Container(
+  final builderListView = SizedBox(
     height: 100.0,
     child: ListView.builder(
       itemCount: 5,
@@ -88,7 +88,7 @@ dynamic build(BuildContext context) {
   print('ListView.builder with itemCount=5 created');
 
   // Test ListView.separated
-  final separatedListView = Container(
+  final separatedListView = SizedBox(
     height: 120.0,
     child: ListView.separated(
       itemCount: 4,
@@ -107,7 +107,7 @@ dynamic build(BuildContext context) {
   print('ListView.separated created');
 
   // Test ListView with reverse
-  final reverseListView = Container(
+  final reverseListView = SizedBox(
     height: 80.0,
     child: ListView(
       reverse: true,
@@ -130,10 +130,10 @@ dynamic build(BuildContext context) {
       ],
     ),
   );
-  print('ListView with reverse=true created');
+  print('ListView with reverse=true created: $reverseListView');
 
   // Test ListView with physics
-  final physicsListView = Container(
+  final physicsListView = SizedBox(
     height: 80.0,
     child: ListView(
       physics: BouncingScrollPhysics(),
@@ -151,7 +151,7 @@ dynamic build(BuildContext context) {
       ],
     ),
   );
-  print('ListView with BouncingScrollPhysics created');
+  print('ListView with BouncingScrollPhysics created: $physicsListView');
 
   print('ListView test completed');
 

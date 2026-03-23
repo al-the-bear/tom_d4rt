@@ -714,7 +714,7 @@ Widget _foldCrossSection() {
 }
 
 Widget _hingeCrossSection() {
-  return Container(
+  return SizedBox(
     height: 50,
     child: Row(
       children: [

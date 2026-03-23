@@ -60,7 +60,7 @@ dynamic build(BuildContext context) {
     alwaysIncludeSemantics: true,
     child: Text('Semantics included when invisible'),
   );
-  print('Opacity with alwaysIncludeSemantics=true created');
+  print('Opacity with alwaysIncludeSemantics=true created: $withSemantics');
 
   // Test FadeTransition
   final fadeAnimation = AlwaysStoppedAnimation<double>(0.5);
@@ -82,7 +82,7 @@ dynamic build(BuildContext context) {
     alwaysIncludeSemantics: true,
     child: Text('Fade with semantics'),
   );
-  print('FadeTransition with alwaysIncludeSemantics=true created');
+  print('FadeTransition with alwaysIncludeSemantics=true created: $fadeWithSemantics');
 
   // Test opacity values
   print('Opacity must be between 0.0 and 1.0');
@@ -192,7 +192,7 @@ dynamic build(BuildContext context) {
     visible: true,
     child: Text('Visibility widget'),
   );
-  print('Visibility widget created as alternative');
+  print('Visibility widget created as alternative: $visibilityWidget');
 
   final invisibleWidget = Visibility(
     visible: false,
@@ -201,7 +201,7 @@ dynamic build(BuildContext context) {
     maintainState: true,
     child: Text('Invisible but maintains space'),
   );
-  print('Visibility with maintainSize=true created');
+  print('Visibility with maintainSize=true created: $invisibleWidget');
 
   print('Opacity test completed');
 

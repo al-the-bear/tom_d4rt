@@ -56,7 +56,7 @@ dynamic build(BuildContext context) {
       print('ListTile long pressed');
     },
   );
-  print('ListTile with onLongPress created');
+  print('ListTile with onLongPress created: $longPressTile');
 
   // Test ListTile with selected
   final selectedTile = ListTile(
@@ -81,7 +81,7 @@ dynamic build(BuildContext context) {
     title: Text('Compact Tile'),
     visualDensity: VisualDensity.compact,
   );
-  print('ListTile with visualDensity=compact created');
+  print('ListTile with visualDensity=compact created: $compactTile');
 
   // Test ListTile with contentPadding
   final paddedTile = ListTile(
@@ -125,14 +125,14 @@ dynamic build(BuildContext context) {
     title: Text('Min Leading Width'),
     minLeadingWidth: 56.0,
   );
-  print('ListTile with minLeadingWidth=56 created');
+  print('ListTile with minLeadingWidth=56 created: $minLeadingTile');
 
   // Test ListTile with minVerticalPadding
   final verticalPaddingTile = ListTile(
     title: Text('Vertical Padding'),
     minVerticalPadding: 20.0,
   );
-  print('ListTile with minVerticalPadding=20 created');
+  print('ListTile with minVerticalPadding=20 created: $verticalPaddingTile');
 
   // Test ListTile with horizontalTitleGap
   final titleGapTile = ListTile(
@@ -140,7 +140,7 @@ dynamic build(BuildContext context) {
     title: Text('Title Gap'),
     horizontalTitleGap: 24.0,
   );
-  print('ListTile with horizontalTitleGap=24 created');
+  print('ListTile with horizontalTitleGap=24 created: $titleGapTile');
 
   // Test ListTile with style
   final styledListTile = ListTile(
@@ -148,7 +148,7 @@ dynamic build(BuildContext context) {
     leading: Icon(Icons.settings),
     title: Text('Drawer Style'),
   );
-  print('ListTile with style=drawer created');
+  print('ListTile with style=drawer created: $styledListTile');
 
   // Test ListTile with focusColor and hoverColor
   final hoverTile = ListTile(
@@ -157,7 +157,7 @@ dynamic build(BuildContext context) {
     hoverColor: Colors.green.withOpacity(0.1),
     onTap: () {},
   );
-  print('ListTile with hover/focus colors created');
+  print('ListTile with hover/focus colors created: $hoverTile');
 
   // Test ListTile with splashColor
   final splashTile = ListTile(
@@ -165,7 +165,7 @@ dynamic build(BuildContext context) {
     splashColor: Colors.purple.withOpacity(0.3),
     onTap: () {},
   );
-  print('ListTile with splashColor created');
+  print('ListTile with splashColor created: $splashTile');
 
   print('ListTile test completed');
 

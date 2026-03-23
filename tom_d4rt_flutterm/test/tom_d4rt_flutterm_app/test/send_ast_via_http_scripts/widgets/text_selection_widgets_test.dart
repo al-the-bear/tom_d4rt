@@ -36,11 +36,11 @@ dynamic build(BuildContext context) {
   // ========== TextSelectionTheme ==========
   print('--- TextSelectionTheme Tests ---');
   final theme = TextSelectionTheme(data: themeData, child: Text('Themed text'));
-  print('TextSelectionTheme created');
+  print('TextSelectionTheme created: $theme');
 
   // lerp
   final lerped = TextSelectionThemeData.lerp(themeData, defaultData, 0.5);
-  print('TextSelectionThemeData.lerp at 0.5');
+  print('TextSelectionThemeData.lerp at 0.5: $lerped');
 
   print('All text selection widget tests passed');
 

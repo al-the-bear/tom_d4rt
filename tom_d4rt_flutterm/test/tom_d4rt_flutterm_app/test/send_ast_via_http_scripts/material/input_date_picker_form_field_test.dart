@@ -80,7 +80,7 @@ Widget _buildPropertyRow(String property, String type, String description) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
+        SizedBox(
           width: 160,
           child: Text(
             property,
@@ -91,7 +91,7 @@ Widget _buildPropertyRow(String property, String type, String description) {
             ),
           ),
         ),
-        Container(
+        SizedBox(
           width: 100,
           child: Text(
             type,
@@ -245,7 +245,7 @@ Widget _buildDebugLine(String label, String value) {
             fontFamily: 'monospace',
           ),
         ),
-        Container(
+        SizedBox(
           width: 140,
           child: Text(
             label,
@@ -1016,7 +1016,7 @@ dynamic build(BuildContext context) {
                       ),
                       child: Row(
                         children: [
-                          Container(
+                          SizedBox(
                             width: 160,
                             child: Text(
                               'Property',
@@ -1026,7 +1026,7 @@ dynamic build(BuildContext context) {
                               ),
                             ),
                           ),
-                          Container(
+                          SizedBox(
                             width: 100,
                             child: Text(
                               'Type',

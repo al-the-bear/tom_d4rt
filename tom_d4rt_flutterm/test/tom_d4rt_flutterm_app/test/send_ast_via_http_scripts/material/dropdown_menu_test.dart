@@ -202,7 +202,7 @@ dynamic build(BuildContext context) {
     ),
     menuStyle: menuStyle,
   );
-  print('DropdownMenuThemeData created');
+  print('DropdownMenuThemeData created: $dmTheme');
 
   print('All dropdown menu tests passed');
 

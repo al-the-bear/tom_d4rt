@@ -142,7 +142,7 @@ Widget _buildHeader() {
 
 // Section title with gradient accent
 Widget _buildSectionTitle(String title) {
-  print('[MergeSemantics] Section: ' + title);
+  print('[MergeSemantics] Section: $title');
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
     decoration: BoxDecoration(
@@ -353,7 +353,7 @@ Widget _buildBeforeAfterComparison() {
 // Section 4: Settings-style toggle rows
 Widget _buildSettingsToggles(bool wifi, bool bluetooth, bool location, bool nfc) {
   print('[MergeSemantics] Building settings toggles');
-  print('[MergeSemantics] wifi=' + wifi.toString() + ' bt=' + bluetooth.toString());
+  print('[MergeSemantics] wifi=$wifi bt=$bluetooth');
   return Card(
     elevation: 3.0,
     child: Column(
@@ -369,7 +369,7 @@ Widget _buildSettingsToggles(bool wifi, bool bluetooth, bool location, bool nfc)
                 Expanded(
                   child: Text('Wi-Fi', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500)),
                 ),
-                Switch(value: wifi, onChanged: (v) { print('[MergeSemantics] WiFi toggled: ' + v.toString()); }),
+                Switch(value: wifi, onChanged: (v) { print('[MergeSemantics] WiFi toggled: $v'); }),
               ],
             ),
           ),
@@ -386,7 +386,7 @@ Widget _buildSettingsToggles(bool wifi, bool bluetooth, bool location, bool nfc)
                 Expanded(
                   child: Text('Bluetooth', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500)),
                 ),
-                Switch(value: bluetooth, onChanged: (v) { print('[MergeSemantics] Bluetooth toggled: ' + v.toString()); }),
+                Switch(value: bluetooth, onChanged: (v) { print('[MergeSemantics] Bluetooth toggled: $v'); }),
               ],
             ),
           ),
@@ -403,7 +403,7 @@ Widget _buildSettingsToggles(bool wifi, bool bluetooth, bool location, bool nfc)
                 Expanded(
                   child: Text('Location Services', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500)),
                 ),
-                Switch(value: location, onChanged: (v) { print('[MergeSemantics] Location toggled: ' + v.toString()); }),
+                Switch(value: location, onChanged: (v) { print('[MergeSemantics] Location toggled: $v'); }),
               ],
             ),
           ),
@@ -420,7 +420,7 @@ Widget _buildSettingsToggles(bool wifi, bool bluetooth, bool location, bool nfc)
                 Expanded(
                   child: Text('NFC', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500)),
                 ),
-                Switch(value: nfc, onChanged: (v) { print('[MergeSemantics] NFC toggled: ' + v.toString()); }),
+                Switch(value: nfc, onChanged: (v) { print('[MergeSemantics] NFC toggled: $v'); }),
               ],
             ),
           ),
@@ -445,7 +445,7 @@ Widget _buildInteractiveChildren(bool cbA, bool cbB, bool cbC, bool fav, bool bo
           MergeSemantics(
             child: Row(
               children: [
-                Checkbox(value: cbA, onChanged: (v) { print('[MergeSemantics] Checkbox A: ' + v.toString()); }),
+                Checkbox(value: cbA, onChanged: (v) { print('[MergeSemantics] Checkbox A: $v'); }),
                 SizedBox(width: 4.0),
                 Text('Accept Terms of Service', style: TextStyle(fontSize: 15.0)),
               ],
@@ -454,7 +454,7 @@ Widget _buildInteractiveChildren(bool cbA, bool cbB, bool cbC, bool fav, bool bo
           MergeSemantics(
             child: Row(
               children: [
-                Checkbox(value: cbB, onChanged: (v) { print('[MergeSemantics] Checkbox B: ' + v.toString()); }),
+                Checkbox(value: cbB, onChanged: (v) { print('[MergeSemantics] Checkbox B: $v'); }),
                 SizedBox(width: 4.0),
                 Text('Subscribe to newsletter', style: TextStyle(fontSize: 15.0)),
               ],
@@ -463,7 +463,7 @@ Widget _buildInteractiveChildren(bool cbA, bool cbB, bool cbC, bool fav, bool bo
           MergeSemantics(
             child: Row(
               children: [
-                Checkbox(value: cbC, onChanged: (v) { print('[MergeSemantics] Checkbox C: ' + v.toString()); }),
+                Checkbox(value: cbC, onChanged: (v) { print('[MergeSemantics] Checkbox C: $v'); }),
                 SizedBox(width: 4.0),
                 Text('Enable notifications', style: TextStyle(fontSize: 15.0)),
               ],

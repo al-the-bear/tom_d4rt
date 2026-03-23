@@ -46,7 +46,7 @@ dynamic build(BuildContext context) {
     activeColor: Colors.blue,
     onChanged: (value) {},
   );
-  print('Checkbox with checkColor created');
+  print('Checkbox with checkColor created: $checkColorBox');
 
   // Test Checkbox with shape
   final roundedCheckbox = Checkbox(
@@ -102,7 +102,7 @@ dynamic build(BuildContext context) {
     fillColor: MaterialStateProperty.all(Colors.orange),
     onChanged: (value) {},
   );
-  print('Radio with fillColor created');
+  print('Radio with fillColor created: $fillColorRadio');
 
   // Test RadioListTile
   final radioListTile = RadioListTile<int>(
@@ -151,7 +151,7 @@ dynamic build(BuildContext context) {
     inactiveTrackColor: Colors.grey.shade300,
     onChanged: (value) {},
   );
-  print('Switch with track colors created');
+  print('Switch with track colors created: $trackColorSwitch');
 
   // Test Switch with thumbColor
   final thumbColorSwitch = Switch(
@@ -159,7 +159,7 @@ dynamic build(BuildContext context) {
     thumbColor: MaterialStateProperty.all(Colors.orange),
     onChanged: (value) {},
   );
-  print('Switch with thumbColor created');
+  print('Switch with thumbColor created: $thumbColorSwitch');
 
   // Test Switch.adaptive
   final adaptiveSwitch = Switch.adaptive(value: true, onChanged: (value) {});
@@ -219,7 +219,7 @@ dynamic build(BuildContext context) {
     label: '30',
     onChanged: (value) {},
   );
-  print('Slider with label created');
+  print('Slider with label created: $labeledSlider');
 
   // Test Slider with activeColor
   final coloredSlider = Slider(
@@ -236,11 +236,11 @@ dynamic build(BuildContext context) {
     thumbColor: Colors.orange,
     onChanged: (value) {},
   );
-  print('Slider with thumbColor created');
+  print('Slider with thumbColor created: $thumbSlider');
 
   // Test Slider.adaptive
   final adaptiveSlider = Slider.adaptive(value: 0.5, onChanged: (value) {});
-  print('Slider.adaptive created');
+  print('Slider.adaptive created: $adaptiveSlider');
 
   // Test Slider with onChangeStart/onChangeEnd
   final callbackSlider = Slider(
@@ -253,7 +253,7 @@ dynamic build(BuildContext context) {
       print('Slider drag ended at: $value');
     },
   );
-  print('Slider with callbacks created');
+  print('Slider with callbacks created: $callbackSlider');
 
   // Test RangeSlider
   final basicRangeSlider = RangeSlider(

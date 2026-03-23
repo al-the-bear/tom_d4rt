@@ -22,11 +22,11 @@ dynamic build(BuildContext context) {
   final coloredOutline = OutlineInputBorder(
     borderSide: BorderSide(color: Colors.blue, width: 2.0),
   );
-  print('OutlineInputBorder with borderSide created');
+  print('OutlineInputBorder with borderSide created: $coloredOutline');
 
   // Test OutlineInputBorder with gapPadding
   final gapOutline = OutlineInputBorder(gapPadding: 8.0);
-  print('OutlineInputBorder with gapPadding created');
+  print('OutlineInputBorder with gapPadding created: $gapOutline');
 
   // Test UnderlineInputBorder
   final underlineBorder = UnderlineInputBorder();
@@ -36,13 +36,13 @@ dynamic build(BuildContext context) {
   final coloredUnderline = UnderlineInputBorder(
     borderSide: BorderSide(color: Colors.red, width: 2.0),
   );
-  print('UnderlineInputBorder with borderSide created');
+  print('UnderlineInputBorder with borderSide created: $coloredUnderline');
 
   // Test UnderlineInputBorder with borderRadius
   final roundedUnderline = UnderlineInputBorder(
     borderRadius: BorderRadius.vertical(top: Radius.circular(8.0)),
   );
-  print('UnderlineInputBorder with borderRadius created');
+  print('UnderlineInputBorder with borderRadius created: $roundedUnderline');
 
   // Test InputBorder.none
   final noBorder = InputBorder.none;
@@ -53,7 +53,7 @@ dynamic build(BuildContext context) {
 
   // Test basic InputDecoration
   final basicDecoration = InputDecoration();
-  print('Basic InputDecoration created');
+  print('Basic InputDecoration created: $basicDecoration');
 
   // Test InputDecoration with labelText
   final labelDecoration = InputDecoration(labelText: 'Username');
@@ -131,7 +131,7 @@ dynamic build(BuildContext context) {
     labelText: 'Message',
     counterText: '140 characters remaining',
   );
-  print('InputDecoration with counterText created');
+  print('InputDecoration with counterText created: $counterTextDecoration');
 
   // Test InputDecoration with filled
   final filledDecoration = InputDecoration(
@@ -165,7 +165,7 @@ dynamic build(BuildContext context) {
       borderSide: BorderSide(color: Colors.grey),
     ),
   );
-  print('InputDecoration with enabledBorder created');
+  print('InputDecoration with enabledBorder created: $enabledDecoration');
 
   // Test InputDecoration with errorBorder
   final errorBorderDecoration = InputDecoration(
@@ -178,7 +178,7 @@ dynamic build(BuildContext context) {
       borderSide: BorderSide(color: Colors.red, width: 2.0),
     ),
   );
-  print('InputDecoration with errorBorder created');
+  print('InputDecoration with errorBorder created: $errorBorderDecoration');
 
   // Test InputDecoration with disabledBorder
   final disabledDecoration = InputDecoration(
@@ -188,7 +188,7 @@ dynamic build(BuildContext context) {
       borderSide: BorderSide(color: Colors.grey.shade300),
     ),
   );
-  print('InputDecoration with disabledBorder created');
+  print('InputDecoration with disabledBorder created: $disabledDecoration');
 
   // Test InputDecoration with contentPadding
   final paddedDecoration = InputDecoration(
@@ -210,14 +210,14 @@ dynamic build(BuildContext context) {
   final collapsedDecoration = InputDecoration.collapsed(
     hintText: 'Collapsed decoration',
   );
-  print('InputDecoration.collapsed created');
+  print('InputDecoration.collapsed created: $collapsedDecoration');
 
   // Test InputDecoration with icon
   final iconDecoration = InputDecoration(
     icon: Icon(Icons.person),
     labelText: 'Name',
   );
-  print('InputDecoration with icon created');
+  print('InputDecoration with icon created: $iconDecoration');
 
   // Test InputDecoration with labelStyle
   final styledLabelDecoration = InputDecoration(
@@ -252,7 +252,7 @@ dynamic build(BuildContext context) {
     ),
     border: OutlineInputBorder(),
   );
-  print('InputDecoration with hintStyle created');
+  print('InputDecoration with hintStyle created: $styledHintDecoration');
 
   // Test InputDecoration with errorStyle
   final styledErrorDecoration = InputDecoration(
@@ -261,7 +261,7 @@ dynamic build(BuildContext context) {
     errorStyle: TextStyle(color: Colors.orange, fontWeight: FontWeight.bold),
     border: OutlineInputBorder(),
   );
-  print('InputDecoration with errorStyle created');
+  print('InputDecoration with errorStyle created: $styledErrorDecoration');
 
   // Test InputDecoration with errorMaxLines
   final multilineErrorDecoration = InputDecoration(
@@ -278,14 +278,14 @@ dynamic build(BuildContext context) {
     constraints: BoxConstraints(maxWidth: 200),
     border: OutlineInputBorder(),
   );
-  print('InputDecoration with constraints created');
+  print('InputDecoration with constraints created: $constrainedDecoration');
 
   // Test InputDecoration copyWith
   final copiedDecoration = labelDecoration.copyWith(
     hintText: 'Added hint',
     border: OutlineInputBorder(),
   );
-  print('InputDecoration.copyWith created');
+  print('InputDecoration.copyWith created: $copiedDecoration');
 
   print('InputDecoration widgets test completed');
 

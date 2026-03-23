@@ -40,7 +40,7 @@ dynamic build(BuildContext context) {
     softWrap: false,
     child: Text('No wrapping text here'),
   );
-  print('DefaultTextStyle with softWrap=false created');
+  print('DefaultTextStyle with softWrap=false created: $noWrapText');
 
   // Test with overflow
   final overflowText = DefaultTextStyle(
@@ -48,7 +48,7 @@ dynamic build(BuildContext context) {
     overflow: TextOverflow.ellipsis,
     child: Text('This text might be too long and will be ellipsized'),
   );
-  print('DefaultTextStyle with overflow=ellipsis created');
+  print('DefaultTextStyle with overflow=ellipsis created: $overflowText');
 
   // Test with maxLines
   final maxLinesText = DefaultTextStyle(
@@ -57,14 +57,14 @@ dynamic build(BuildContext context) {
     overflow: TextOverflow.ellipsis,
     child: Text('Line 1\nLine 2\nLine 3 - should be hidden'),
   );
-  print('DefaultTextStyle with maxLines=2 created');
+  print('DefaultTextStyle with maxLines=2 created: $maxLinesText');
 
   // Test DefaultTextStyle.merge
   final mergedStyle = DefaultTextStyle.merge(
     style: TextStyle(fontStyle: FontStyle.italic),
     child: Text('Merged italic style'),
   );
-  print('DefaultTextStyle.merge created');
+  print('DefaultTextStyle.merge created: $mergedStyle');
 
   // Test DefaultTextStyle.of
   // (needs to be inside the tree to work properly)
@@ -102,7 +102,7 @@ dynamic build(BuildContext context) {
     overflow: TextOverflow.fade,
     child: Text('Animated aligned text'),
   );
-  print('AnimatedDefaultTextStyle with all params created');
+  print('AnimatedDefaultTextStyle with all params created: $animatedAligned');
 
   print('All DefaultTextStyle tests passed');
 

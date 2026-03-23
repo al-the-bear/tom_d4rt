@@ -29,7 +29,7 @@ dynamic build(BuildContext context) {
             ),
             const SizedBox(height: 8),
             // Track with thumbs
-            Container(
+            SizedBox(
               height: 20,
               child: Stack(
                 alignment: Alignment.center,

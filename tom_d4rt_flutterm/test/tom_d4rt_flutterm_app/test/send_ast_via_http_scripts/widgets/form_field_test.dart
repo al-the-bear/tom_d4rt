@@ -83,7 +83,7 @@ dynamic build(BuildContext context) {
     fillColor: Colors.white,
     border: InputBorder.none,
   );
-  print('InputDecoration.collapsed created');
+  print('InputDecoration.collapsed created: $decorationCollapsed');
 
   // ========== OutlineInputBorder ==========
   print('--- OutlineInputBorder Tests ---');

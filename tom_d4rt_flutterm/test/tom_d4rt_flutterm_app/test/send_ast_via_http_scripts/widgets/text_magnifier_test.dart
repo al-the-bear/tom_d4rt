@@ -36,7 +36,7 @@ dynamic build(BuildContext context) {
   print('--- TextMagnifierConfiguration Tests ---');
   // Disabled configuration
   final disabled = TextMagnifierConfiguration.disabled;
-  print('Disabled magnifier config');
+  print('Disabled magnifier config: $disabled');
 
   print('All text magnifier tests passed');
 

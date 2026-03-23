@@ -471,7 +471,7 @@ Widget buildRoundedRectIndicatorAnatomy() {
         Center(
           child: Column(
             children: [
-              Container(
+              SizedBox(
                 width: 64,
                 height: 40,
                 child: CustomPaint(
@@ -588,7 +588,7 @@ Widget buildSliderColorShowcase() {
         margin: EdgeInsets.symmetric(vertical: 3),
         child: Row(
           children: [
-            Container(
+            SizedBox(
               width: 80,
               child: Text(
                 colorNames[c],
@@ -620,7 +620,7 @@ Widget buildSliderColorShowcase() {
                 ),
               ),
             ),
-            Container(
+            SizedBox(
               width: 30,
               child: Text(
                 '${values[c].toInt()}',
@@ -689,7 +689,7 @@ Widget buildSliderProperties() {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            SizedBox(
               width: 160,
               child: Text(
                 propNames[p],
@@ -1024,7 +1024,7 @@ Widget buildTextStyleVariations() {
         margin: EdgeInsets.symmetric(vertical: 4),
         child: Row(
           children: [
-            Container(
+            SizedBox(
               width: 90,
               child: Text(
                 styleNames[s],
@@ -1317,6 +1317,7 @@ class _RoundedRectShapePainter extends CustomPainter {
   Color color;
   _RoundedRectShapePainter(this.color);
 
+  @override
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint();
     paint.color = color;
@@ -1341,6 +1342,7 @@ class _RoundedRectShapePainter extends CustomPainter {
     canvas.drawPath(arrow, paint);
   }
 
+  @override
   bool shouldRepaint(_RoundedRectShapePainter oldDelegate) {
     return false;
   }

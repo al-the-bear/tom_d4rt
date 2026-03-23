@@ -144,7 +144,7 @@ dynamic build(BuildContext context) {
       ),
     ),
   );
-  print('Transform with alignment=topLeft created');
+  print('Transform with alignment=topLeft created: $alignedTransform');
 
   // Test Transform with transformHitTests
   final hitTestTransform = Transform.rotate(
@@ -162,33 +162,33 @@ dynamic build(BuildContext context) {
       ),
     ),
   );
-  print('Transform with transformHitTests=true created');
+  print('Transform with transformHitTests=true created: $hitTestTransform');
 
   // Test Matrix4 operations
   print('Matrix4 operations:');
   final m1 = Matrix4.identity();
-  print('Matrix4.identity() created');
+  print('Matrix4.identity() created: $m1');
 
   final m2 = Matrix4.rotationZ(math.pi / 2);
-  print('Matrix4.rotationZ(90°) created');
+  print('Matrix4.rotationZ(90°) created: $m2');
 
   final m3 = Matrix4.rotationX(0.5);
-  print('Matrix4.rotationX created');
+  print('Matrix4.rotationX created: $m3');
 
   final m4 = Matrix4.rotationY(0.5);
-  print('Matrix4.rotationY created');
+  print('Matrix4.rotationY created: $m4');
 
   final m5 = Matrix4.translationValues(10.0, 20.0, 0.0);
-  print('Matrix4.translationValues(10, 20, 0) created');
+  print('Matrix4.translationValues(10, 20, 0) created: $m5');
 
   final m6 = Matrix4.diagonal3Values(2.0, 2.0, 1.0);
-  print('Matrix4.diagonal3Values(2, 2, 1) - scale created');
+  print('Matrix4.diagonal3Values(2, 2, 1) - scale created: $m6');
 
   final m7 = Matrix4.skewX(0.2);
-  print('Matrix4.skewX(0.2) created');
+  print('Matrix4.skewX(0.2) created: $m7');
 
   final m8 = Matrix4.skewY(0.2);
-  print('Matrix4.skewY(0.2) created');
+  print('Matrix4.skewY(0.2) created: $m8');
 
   // Test combining transforms
   final combined = Transform.rotate(
@@ -245,8 +245,8 @@ dynamic build(BuildContext context) {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Container(height: 80.0, width: 80.0, child: Center(child: rotated)),
-            Container(
+            SizedBox(height: 80.0, width: 80.0, child: Center(child: rotated)),
+            SizedBox(
               height: 80.0,
               width: 80.0,
               child: Center(child: rotatedOrigin),
@@ -260,8 +260,8 @@ dynamic build(BuildContext context) {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Container(height: 80.0, width: 80.0, child: Center(child: scaled)),
-            Container(
+            SizedBox(height: 80.0, width: 80.0, child: Center(child: scaled)),
+            SizedBox(
               height: 80.0,
               width: 80.0,
               child: Center(child: scaledXY),

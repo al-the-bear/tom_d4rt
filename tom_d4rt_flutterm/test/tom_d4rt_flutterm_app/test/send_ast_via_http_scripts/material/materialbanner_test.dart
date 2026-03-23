@@ -55,7 +55,7 @@ dynamic build(BuildContext context) {
     content: Text('Banner with surface tint'),
     actions: [TextButton(onPressed: () {}, child: Text('OK'))],
   );
-  print('MaterialBanner with surfaceTintColor created');
+  print('MaterialBanner with surfaceTintColor created: $tintBanner');
 
   // Test MaterialBanner with shadowColor
   final shadowBanner = MaterialBanner(
@@ -64,7 +64,7 @@ dynamic build(BuildContext context) {
     content: Text('Banner with shadow'),
     actions: [TextButton(onPressed: () {}, child: Text('CLOSE'))],
   );
-  print('MaterialBanner with shadowColor created');
+  print('MaterialBanner with shadowColor created: $shadowBanner');
 
   // Test MaterialBanner with dividerColor
   final dividerBanner = MaterialBanner(
@@ -72,7 +72,7 @@ dynamic build(BuildContext context) {
     content: Text('Banner with divider color'),
     actions: [TextButton(onPressed: () {}, child: Text('ACTION'))],
   );
-  print('MaterialBanner with dividerColor created');
+  print('MaterialBanner with dividerColor created: $dividerBanner');
 
   // Test MaterialBanner with padding
   final paddedBanner = MaterialBanner(
@@ -80,7 +80,7 @@ dynamic build(BuildContext context) {
     content: Text('Banner with custom padding'),
     actions: [TextButton(onPressed: () {}, child: Text('OK'))],
   );
-  print('MaterialBanner with padding created');
+  print('MaterialBanner with padding created: $paddedBanner');
 
   // Test MaterialBanner with leadingPadding
   final leadingPaddedBanner = MaterialBanner(
@@ -89,7 +89,7 @@ dynamic build(BuildContext context) {
     content: Text('Banner with leading padding'),
     actions: [TextButton(onPressed: () {}, child: Text('DISMISS'))],
   );
-  print('MaterialBanner with leadingPadding created');
+  print('MaterialBanner with leadingPadding created: $leadingPaddedBanner');
 
   // Test MaterialBanner with forceActionsBelow
   final actionsBelowBanner = MaterialBanner(
@@ -113,7 +113,7 @@ dynamic build(BuildContext context) {
       TextButton(onPressed: () {}, child: Text('ACTION 3')),
     ],
   );
-  print('MaterialBanner with overflowAlignment created');
+  print('MaterialBanner with overflowAlignment created: $overflowBanner');
 
   // Test MaterialBanner with elevation
   final elevatedBanner = MaterialBanner(
@@ -131,7 +131,7 @@ dynamic build(BuildContext context) {
     content: Text('Banner with onVisible callback'),
     actions: [TextButton(onPressed: () {}, child: Text('GOT IT'))],
   );
-  print('MaterialBanner with onVisible created');
+  print('MaterialBanner with onVisible created: $visibleBanner');
 
   // Test MaterialBanner with multiple actions
   final multiActionBanner = MaterialBanner(
@@ -150,7 +150,7 @@ dynamic build(BuildContext context) {
     content: Text('Banner with animation'),
     actions: [TextButton(onPressed: () {}, child: Text('OK'))],
   );
-  print('MaterialBanner with animation created');
+  print('MaterialBanner with animation created: $animationBanner');
 
   print('MaterialBanner test completed');
 

@@ -16,7 +16,7 @@ dynamic build(BuildContext context) {
     initialTime: TimeOfDay(hour: 14, minute: 0),
     helpText: 'Select time',
   );
-  print('TimePickerDialog(helpText) created');
+  print('TimePickerDialog(helpText) created: $widget2');
 
   // Variation 3: TimePickerDialog with cancelText and confirmText
   final widget3 = TimePickerDialog(
@@ -24,7 +24,7 @@ dynamic build(BuildContext context) {
     cancelText: 'Dismiss',
     confirmText: 'Set',
   );
-  print('TimePickerDialog(cancelText, confirmText) created');
+  print('TimePickerDialog(cancelText, confirmText) created: $widget3');
 
   // Variation 4: TimePickerDialog with initialEntryMode input
   final widget4 = TimePickerDialog(
@@ -38,7 +38,7 @@ dynamic build(BuildContext context) {
     initialTime: TimeOfDay(hour: 23, minute: 59),
     initialEntryMode: TimePickerEntryMode.inputOnly,
   );
-  print('TimePickerDialog(initialEntryMode: inputOnly) created');
+  print('TimePickerDialog(initialEntryMode: inputOnly) created: $widget5');
 
   // Variation 6: TimePickerDialog with initialEntryMode dialOnly
   final widget6 = TimePickerDialog(
@@ -52,7 +52,7 @@ dynamic build(BuildContext context) {
     initialTime: TimeOfDay(hour: 12, minute: 0),
     orientation: Orientation.landscape,
   );
-  print('TimePickerDialog(orientation: landscape) created');
+  print('TimePickerDialog(orientation: landscape) created: $widget7');
 
   // Variation 8: TimePickerDialog with errorInvalidText
   final widget8 = TimePickerDialog(
@@ -62,7 +62,7 @@ dynamic build(BuildContext context) {
     minuteLabelText: 'Minute',
   );
   print(
-    'TimePickerDialog(errorInvalidText, hourLabelText, minuteLabelText) created',
+    'TimePickerDialog(errorInvalidText, hourLabelText, minuteLabelText) created: $widget8',
   );
 
   print('TimePickerDialog test completed');

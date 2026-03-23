@@ -120,7 +120,7 @@ dynamic build(BuildContext context) {
       ),
     ),
   );
-  print('DecoratedBox with background position created');
+  print('DecoratedBox with background position created: $decoratedForeground');
 
   // Test ColoredBox with color
   final coloredBoxBasic = ColoredBox(

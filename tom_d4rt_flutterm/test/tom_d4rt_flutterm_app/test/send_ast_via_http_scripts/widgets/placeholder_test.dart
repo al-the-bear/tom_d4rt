@@ -25,7 +25,7 @@ dynamic build(BuildContext context) {
     fallbackWidth: 200.0,
     fallbackHeight: 100.0,
   );
-  print('Placeholder with fallback 200x100 created');
+  print('Placeholder with fallback 200x100 created: $dimensionPlaceholder');
 
   // Placeholder with all custom properties
   final fullPlaceholder = Placeholder(
@@ -47,7 +47,7 @@ dynamic build(BuildContext context) {
     color: Colors.green,
     strokeWidth: 1.0,
   );
-  print('Small Placeholder 50x50 created');
+  print('Small Placeholder 50x50 created: $smallPlaceholder');
 
   print('All Placeholder tests passed');
 

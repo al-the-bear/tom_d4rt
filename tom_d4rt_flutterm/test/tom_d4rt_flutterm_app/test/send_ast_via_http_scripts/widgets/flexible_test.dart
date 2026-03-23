@@ -58,7 +58,7 @@ dynamic build(BuildContext context) {
   print('Multiple Flexible with flex=1,2,3 created');
 
   // Test Flexible in Column
-  final columnFlexible = Container(
+  final columnFlexible = SizedBox(
     height: 150.0,
     child: Column(
       children: [
@@ -74,15 +74,15 @@ dynamic build(BuildContext context) {
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Container(width: 200.0, child: basicFlexible),
+      SizedBox(width: 200.0, child: basicFlexible),
       SizedBox(height: 8.0),
-      Container(width: 200.0, child: customFlex),
+      SizedBox(width: 200.0, child: customFlex),
       SizedBox(height: 8.0),
-      Container(width: 200.0, child: tightFit),
+      SizedBox(width: 200.0, child: tightFit),
       SizedBox(height: 8.0),
-      Container(width: 200.0, child: looseFit),
+      SizedBox(width: 200.0, child: looseFit),
       SizedBox(height: 8.0),
-      Container(width: 200.0, child: multipleFlexible),
+      SizedBox(width: 200.0, child: multipleFlexible),
       SizedBox(height: 8.0),
       columnFlexible,
     ],

@@ -73,7 +73,7 @@ Widget _buildHeader() {
 }
 
 Widget _buildSectionTitle(String title) {
-  print('RenderDarwinPlatformView demo: section - ' + title);
+  print('RenderDarwinPlatformView demo: section - $title');
   return Container(
     width: double.infinity,
     margin: EdgeInsets.only(top: 20),
@@ -135,9 +135,7 @@ Widget _buildNativeViewPlaceholders() {
     },
   ];
 
-  print('RenderDarwinPlatformView demo: rendering ' +
-      nativeViews.length.toString() +
-      ' native view types');
+  print('RenderDarwinPlatformView demo: rendering ${nativeViews.length} native view types');
 
   return Padding(
     padding: EdgeInsets.all(16),
@@ -246,10 +244,7 @@ Widget _buildCompositionLayers() {
             children: layers.map((layer) {
               double topOffset = (3 - layer['zIndex']) * 65.0 + 10;
               double leftOffset = (3 - layer['zIndex']) * 12.0 + 8;
-              print('RenderDarwinPlatformView demo: layer z=' +
-                  layer['zIndex'].toString() +
-                  ' -> ' +
-                  layer['label']);
+              print('RenderDarwinPlatformView demo: layer z=${layer['zIndex']} -> ${layer['label']}');
               return Positioned(
                 top: topOffset,
                 left: leftOffset,
@@ -268,7 +263,7 @@ Widget _buildCompositionLayers() {
                       Row(
                         children: [
                           Text(
-                            'z=' + layer['zIndex'].toString(),
+                            'z=${layer['zIndex']}',
                             style: TextStyle(
                               color: Color(0xFFFFEB3B),
                               fontSize: 10,
@@ -351,10 +346,7 @@ Widget _buildHitTestPassthrough() {
           ),
           child: Column(
             children: regions.map((region) {
-              print('RenderDarwinPlatformView demo: hit region - ' +
-                  region['label'] +
-                  ' accepts=' +
-                  region['accepts'].toString());
+              print('RenderDarwinPlatformView demo: hit region - ${region['label']} accepts=${region['accepts']}');
               return Container(
                 margin: EdgeInsets.only(bottom: 8),
                 padding: EdgeInsets.all(10),
@@ -468,7 +460,7 @@ Widget _buildSizingModes() {
         SizedBox(height: 12),
         Column(
           children: modes.map((mode) {
-            print('RenderDarwinPlatformView demo: sizing mode - ' + mode['mode']);
+            print('RenderDarwinPlatformView demo: sizing mode - ${mode['mode']}');
             double displayW = mode['w'] == double.infinity ? double.infinity : mode['w'];
             return Container(
               width: displayW,
@@ -502,8 +494,8 @@ Widget _buildSizingModes() {
                     ),
                     Text(
                       mode['w'] == double.infinity
-                          ? 'w: fill, h: ' + mode['h'].toString()
-                          : 'w: ' + mode['w'].toString() + ', h: ' + mode['h'].toString(),
+                          ? 'w: fill, h: ${mode['h']}'
+                          : 'w: ${mode['w']}, h: ${mode['h']}',
                       style: TextStyle(color: Color(0xFFFFD54F), fontSize: 9),
                     ),
                   ],
@@ -581,10 +573,7 @@ Widget _buildPaintingPipelineInteraction() {
 }
 
 Widget _buildPipelineStageRow(Map<String, dynamic> stage, int index, int total) {
-  print('RenderDarwinPlatformView demo: pipeline stage ' +
-      index.toString() +
-      ' - ' +
-      stage['stage']);
+  print('RenderDarwinPlatformView demo: pipeline stage $index - ${stage['stage']}');
   return Column(
     children: [
       Container(
@@ -789,7 +778,7 @@ Widget _buildGestureDisambiguation() {
               // Detail list
               Column(
                 children: zones.map((zone) {
-                  print('RenderDarwinPlatformView demo: gesture zone - ' + zone['zone']);
+                  print('RenderDarwinPlatformView demo: gesture zone - ${zone['zone']}');
                   return Container(
                     margin: EdgeInsets.only(bottom: 6),
                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
@@ -912,13 +901,7 @@ Widget _buildLifecycleStages() {
 }
 
 Widget _buildLifecycleRow(Map<String, dynamic> item, int index, int total) {
-  print('RenderDarwinPlatformView demo: lifecycle ' +
-      index.toString() +
-      ' - ' +
-      item['stage'] +
-      ' (' +
-      item['status'] +
-      ')');
+  print('RenderDarwinPlatformView demo: lifecycle $index - ${item['stage']} (${item['status']})');
 
   Color statusColor;
   if (item['status'] == 'init') {
@@ -1239,12 +1222,7 @@ Widget _buildAppKitVsUiKitComparison() {
 }
 
 Widget _buildComparisonRow(Map<String, dynamic> feature, int index) {
-  print('RenderDarwinPlatformView demo: comparing ' +
-      feature['feature'] +
-      ': ' +
-      feature['appkit'] +
-      ' vs ' +
-      feature['uikit']);
+  print('RenderDarwinPlatformView demo: comparing ${feature['feature']}: ${feature['appkit']} vs ${feature['uikit']}');
 
   Color rowBg = index % 2 == 0 ? Color(0xFF1E1E2E) : Color(0xFF252538);
 

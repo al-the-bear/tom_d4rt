@@ -91,7 +91,7 @@ dynamic build(BuildContext context) {
     maintainState: true,
     fullscreenDialog: false,
   );
-  print('MaterialPageRoute created with settings=/material-route');
+  print('MaterialPageRoute created with settings=/material-route: $materialRoute');
 
   // Test MaterialPageRoute as fullscreen dialog
   final dialogRoute = MaterialPageRoute(
@@ -101,7 +101,7 @@ dynamic build(BuildContext context) {
     ),
     fullscreenDialog: true,
   );
-  print('MaterialPageRoute with fullscreenDialog=true created');
+  print('MaterialPageRoute with fullscreenDialog=true created: $dialogRoute');
 
   // Test PageRouteBuilder
   final customRoute = PageRouteBuilder(
@@ -115,11 +115,11 @@ dynamic build(BuildContext context) {
     reverseTransitionDuration: Duration(milliseconds: 200),
     settings: RouteSettings(name: '/custom'),
   );
-  print('PageRouteBuilder with FadeTransition created');
+  print('PageRouteBuilder with FadeTransition created: $customRoute');
 
   // Test NavigatorObserver
   final observer = NavigatorObserver();
-  print('NavigatorObserver created');
+  print('NavigatorObserver created: $observer');
 
   // Test Navigator widget with onGenerateRoute
   final generatedRoutes = Navigator(
@@ -151,7 +151,7 @@ dynamic build(BuildContext context) {
     },
     initialRoute: '/',
   );
-  print('Navigator with onGenerateRoute and onUnknownRoute created');
+  print('Navigator with onGenerateRoute and onUnknownRoute created: $generatedRoutes');
 
   // Test Navigator with observers
   final withObservers = Navigator(
@@ -164,14 +164,14 @@ dynamic build(BuildContext context) {
         MaterialPageRoute(builder: (_) => Center(child: Text('Observed'))),
     initialRoute: '/',
   );
-  print('Navigator with observers list created');
+  print('Navigator with observers list created: $withObservers');
 
   // Test popUntil predicate concept
   bool popUntilPredicate(Route route) {
     return route.settings.name == '/home';
   }
 
-  print('PopUntil predicate function created');
+  print('PopUntil predicate function created: $popUntilPredicate');
 
   // Test canPop concept
   print('Navigator.canPop checks if there is more than one route');
@@ -226,7 +226,7 @@ dynamic build(BuildContext context) {
           Text('• PageRouteBuilder - custom transitions'),
           Text('• RouteSettings - route configuration'),
           SizedBox(height: 16.0),
-          Container(height: 400.0, child: navigatorTest),
+          SizedBox(height: 400.0, child: navigatorTest),
         ],
       ),
     ),

@@ -473,7 +473,7 @@ Widget buildStadiumTweenDemo(
           runSpacing: 12,
           children: tValues.map((t) {
             ShapeBorder? shape = tween.lerp(t);
-            return Container(
+            return SizedBox(
               width: 100,
               child: Column(
                 children: [

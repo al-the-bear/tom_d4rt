@@ -94,7 +94,7 @@ Widget _buildHeader() {
 
 // Section title helper with gradient underline
 Widget _buildSectionTitle(String title) {
-  print('[Section] ' + title);
+  print('[Section] $title');
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
     child: Column(
@@ -512,7 +512,7 @@ Widget _buildDecorativeVsMeaningful() {
 
 // Helper for decorative vs meaningful pattern rows
 Widget _buildPatternRow(String description, bool isExcluded, Widget child) {
-  print('[Pattern] ' + description + ' -> excluded=' + isExcluded.toString());
+  print('[Pattern] $description -> excluded=$isExcluded');
   return Container(
     padding: EdgeInsets.all(10),
     decoration: BoxDecoration(
@@ -725,16 +725,11 @@ Widget _buildAccessibilityTreeVisualization() {
 // Helper for tree node visualization
 Widget _buildTreeNode(String label, int depth, bool isVisible) {
   print(
-    '[TreeNode] depth=' +
-        depth.toString() +
-        ' visible=' +
-        isVisible.toString() +
-        ' -> ' +
-        label,
+    '[TreeNode] depth=$depth visible=$isVisible -> $label',
   );
   String indent = '';
   for (int i = 0; i < depth; i++) {
-    indent = indent + '  ';
+    indent = '${indent}  ';
   }
   String prefix = depth > 0 ? '|- ' : '';
   return Padding(
@@ -808,7 +803,7 @@ Widget _buildAccessibleListItem(
   IconData iconData,
   Color accentColor,
 ) {
-  print('[ListItem] ' + title);
+  print('[ListItem] $title');
   return Container(
     padding: EdgeInsets.all(12),
     decoration: BoxDecoration(
@@ -905,7 +900,7 @@ Widget _buildAccessibleCard(
   Color accentColor,
   String metricValue,
 ) {
-  print('[Card] ' + title + ' -> ' + metricValue);
+  print('[Card] $title -> $metricValue');
   return Container(
     padding: EdgeInsets.all(16),
     decoration: BoxDecoration(
@@ -949,7 +944,7 @@ Widget _buildAccessibleCard(
             // Meaningful metric - included
             Expanded(
               child: Semantics(
-                label: title + ' metric',
+                label: '$title metric',
                 value: metricValue,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -1124,7 +1119,7 @@ Widget _buildFormLayoutDemo() {
 
 // Helper for form fields with excluded decorative icons
 Widget _buildFormField(String label, IconData iconData, String hint) {
-  print('[FormField] ' + label);
+  print('[FormField] $label');
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
     decoration: BoxDecoration(

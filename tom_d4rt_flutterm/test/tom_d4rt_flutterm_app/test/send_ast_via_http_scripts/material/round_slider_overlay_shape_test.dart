@@ -708,7 +708,7 @@ Widget buildOverlayProperties() {
           children: [
             Icon(propIcons[p], size: 18, color: Colors.indigo.shade400),
             SizedBox(width: 10),
-            Container(
+            SizedBox(
               width: 120,
               child: Text(
                 propNames[p],
@@ -804,7 +804,7 @@ Widget buildColorfulOverlayGrid() {
         margin: EdgeInsets.symmetric(vertical: 3),
         child: Row(
           children: [
-            Container(
+            SizedBox(
               width: 70,
               child: Row(
                 children: [
@@ -849,7 +849,7 @@ Widget buildColorfulOverlayGrid() {
                 ),
               ),
             ),
-            Container(
+            SizedBox(
               width: 28,
               child: Text(
                 '${sliderValues[c].toInt()}',

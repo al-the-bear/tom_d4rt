@@ -620,10 +620,10 @@ Widget _buildTreeNode(String label, int indent, Color color) {
   String prefix = '';
   int i = 0;
   for (i = 0; i < indent; i = i + 1) {
-    prefix = prefix + '    ';
+    prefix = '$prefix    ';
   }
   if (indent > 0) {
-    prefix = prefix + '\u2514\u2500 ';
+    prefix = '$prefix\u2514\u2500 ';
   }
   return Padding(
     padding: EdgeInsets.only(bottom: 4),
@@ -745,7 +745,7 @@ Widget _buildFlowStep(String number, String label, IconData icon, Color color) {
 }
 
 Widget _buildFlowArrow() {
-  return Container(
+  return SizedBox(
     height: 24,
     child: Center(child: Icon(Icons.arrow_downward, color: Color(0xFF9E9E9E), size: 18)),
   );

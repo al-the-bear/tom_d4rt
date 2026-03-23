@@ -644,7 +644,7 @@ Widget _buildTransitionStep(String number, String label, IconData icon, Color co
 }
 
 Widget _buildTransitionArrow() {
-  return Container(
+  return SizedBox(
     height: 24,
     child: Center(child: Icon(Icons.arrow_downward, color: Color(0xFF9E9E9E), size: 18)),
   );

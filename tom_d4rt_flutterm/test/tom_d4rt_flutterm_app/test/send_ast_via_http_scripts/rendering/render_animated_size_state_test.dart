@@ -305,7 +305,7 @@ Widget _buildAnimatedSizeDemo(
         ),
         SizedBox(height: 4),
         Text(
-          'Duration: ' + duration.inMilliseconds.toString() + 'ms, Curve: ' + curve.toString(),
+          'Duration: ${duration.inMilliseconds}ms, Curve: $curve',
           style: TextStyle(fontSize: 11, color: Color(0xFF888888)),
         ),
         SizedBox(height: 8),
@@ -323,7 +323,7 @@ Widget _buildAnimatedSizeDemo(
             ),
             child: Center(
               child: Text(
-                width.toInt().toString() + ' x ' + height.toInt().toString(),
+                '${width.toInt()} x ${height.toInt()}',
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -369,28 +369,28 @@ dynamic build(BuildContext context) {
   print('Demonstrating all RenderAnimatedSizeState enum values');
 
   // Log all enum values
-  print('RenderAnimatedSizeState.start = ' + RenderAnimatedSizeState.start.toString());
-  print('RenderAnimatedSizeState.stable = ' + RenderAnimatedSizeState.stable.toString());
-  print('RenderAnimatedSizeState.changed = ' + RenderAnimatedSizeState.changed.toString());
-  print('RenderAnimatedSizeState.unstable = ' + RenderAnimatedSizeState.unstable.toString());
+  print('RenderAnimatedSizeState.start = ${RenderAnimatedSizeState.start}');
+  print('RenderAnimatedSizeState.stable = ${RenderAnimatedSizeState.stable}');
+  print('RenderAnimatedSizeState.changed = ${RenderAnimatedSizeState.changed}');
+  print('RenderAnimatedSizeState.unstable = ${RenderAnimatedSizeState.unstable}');
 
   // Enum index values
-  print('start index: ' + RenderAnimatedSizeState.start.index.toString());
-  print('stable index: ' + RenderAnimatedSizeState.stable.index.toString());
-  print('changed index: ' + RenderAnimatedSizeState.changed.index.toString());
-  print('unstable index: ' + RenderAnimatedSizeState.unstable.index.toString());
+  print('start index: ${RenderAnimatedSizeState.start.index}');
+  print('stable index: ${RenderAnimatedSizeState.stable.index}');
+  print('changed index: ${RenderAnimatedSizeState.changed.index}');
+  print('unstable index: ${RenderAnimatedSizeState.unstable.index}');
 
   // Enum name values
-  print('start name: ' + RenderAnimatedSizeState.start.name);
-  print('stable name: ' + RenderAnimatedSizeState.stable.name);
-  print('changed name: ' + RenderAnimatedSizeState.changed.name);
-  print('unstable name: ' + RenderAnimatedSizeState.unstable.name);
+  print('start name: ${RenderAnimatedSizeState.start.name}');
+  print('stable name: ${RenderAnimatedSizeState.stable.name}');
+  print('changed name: ${RenderAnimatedSizeState.changed.name}');
+  print('unstable name: ${RenderAnimatedSizeState.unstable.name}');
 
   // All values list
   List<RenderAnimatedSizeState> allStates = RenderAnimatedSizeState.values;
-  print('All states count: ' + allStates.length.toString());
+  print('All states count: ${allStates.length}');
   for (int i = 0; i < allStates.length; i++) {
-    print('  [' + i.toString() + '] ' + allStates[i].toString());
+    print('  [$i] ${allStates[i]}');
   }
 
   // State color mapping
@@ -400,15 +400,15 @@ dynamic build(BuildContext context) {
   Color unstableColor = Color(0xFFEF5350);
 
   print('Color mapping:');
-  print('  start -> Blue (' + startColor.toString() + ')');
-  print('  stable -> Green (' + stableColor.toString() + ')');
-  print('  changed -> Orange (' + changedColor.toString() + ')');
-  print('  unstable -> Red (' + unstableColor.toString() + ')');
+  print('  start -> Blue ($startColor)');
+  print('  stable -> Green ($stableColor)');
+  print('  changed -> Orange ($changedColor)');
+  print('  unstable -> Red ($unstableColor)');
 
   // Equality checks
-  print('start == start: ' + (RenderAnimatedSizeState.start == RenderAnimatedSizeState.start).toString());
-  print('start == stable: ' + (RenderAnimatedSizeState.start == RenderAnimatedSizeState.stable).toString());
-  print('changed == unstable: ' + (RenderAnimatedSizeState.changed == RenderAnimatedSizeState.unstable).toString());
+  print('start == start: ${RenderAnimatedSizeState.start == RenderAnimatedSizeState.start}');
+  print('start == stable: ${RenderAnimatedSizeState.start == RenderAnimatedSizeState.stable}');
+  print('changed == unstable: ${RenderAnimatedSizeState.changed == RenderAnimatedSizeState.unstable}');
 
   // Demonstrate AnimatedSize configurations
   print('--- AnimatedSize Configuration Demos ---');
@@ -1390,7 +1390,7 @@ Widget _buildContentSizeDemo(
         ),
         SizedBox(height: 4),
         Text(
-          'Size: ' + width.toInt().toString() + ' x ' + height.toInt().toString(),
+          'Size: ${width.toInt()} x ${height.toInt()}',
           style: TextStyle(fontSize: 11, color: Color(0xFF888888)),
         ),
         SizedBox(height: 8),

@@ -110,7 +110,7 @@ dynamic build(BuildContext context) {
     labelType: NavigationRailLabelType.all,
     onDestinationSelected: (int index) {},
   );
-  print('NavigationRailDestination(padding, labelType: all) created');
+  print('NavigationRailDestination(padding, labelType: all) created: $widget5');
 
   // Variation 6: NavigationRailDestination with indicatorColor and indicatorShape
   final widget6 = NavigationRail(
@@ -133,7 +133,7 @@ dynamic build(BuildContext context) {
     ),
     onDestinationSelected: (int index) {},
   );
-  print('NavigationRail(indicatorColor, indicatorShape) created');
+  print('NavigationRail(indicatorColor, indicatorShape) created: $widget6');
 
   // ========== NAVIGATIONDRAWERDESTINATION ==========
   print('--- NavigationDrawerDestination Tests ---');
@@ -200,7 +200,7 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  print('NavigationDrawerDestination(enabled: false) created');
+  print('NavigationDrawerDestination(enabled: false) created: $widget8');
 
   // ========== DRAWERHEADER ==========
   print('--- DrawerHeader Tests ---');
@@ -241,7 +241,7 @@ dynamic build(BuildContext context) {
     curve: Curves.easeInOut,
     child: Text('Animated Header', style: TextStyle(color: Colors.white)),
   );
-  print('DrawerHeader(duration, curve) created');
+  print('DrawerHeader(duration, curve) created: $widget11');
 
   // ========== USERACCOUNTSDRAWERHEADER ==========
   print('--- UserAccountsDrawerHeader Tests ---');
@@ -283,7 +283,7 @@ dynamic build(BuildContext context) {
       print('Details pressed');
     },
   );
-  print('UserAccountsDrawerHeader(decoration, onDetailsPressed) created');
+  print('UserAccountsDrawerHeader(decoration, onDetailsPressed) created: $widget14');
 
   // Variation 15: UserAccountsDrawerHeader with arrowColor and margin
   final widget15 = UserAccountsDrawerHeader(
@@ -293,7 +293,7 @@ dynamic build(BuildContext context) {
     margin: EdgeInsets.zero,
     onDetailsPressed: () {},
   );
-  print('UserAccountsDrawerHeader(arrowColor, margin) created');
+  print('UserAccountsDrawerHeader(arrowColor, margin) created: $widget15');
 
   // ========== ABOUTLISTTILE ==========
   print('--- AboutListTile Tests ---');
