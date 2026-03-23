@@ -1,27 +1,28 @@
 // D4rt test script: Deep demo for PipelineManifold from rendering
 //
-// PipelineManifold coordinates rendering pipelines for multiple views.
-// It serves as the central orchestrator for Flutter's rendering system,
-// managing frame scheduling, view lifecycles, and pipeline synchronization.
+// PipelineManifold manages pipeline owner connections for rendering.
+// It serves as the connection point between pipeline owners and the
+// rendering system, coordinating visual updates, semantic changes,
+// and layout boundaries across multiple render trees.
 //
 // Key responsibilities:
-//   - Coordinates multiple rendering views
-//   - Manages frame scheduling callbacks
-//   - Handles view creation and destruction
-//   - Synchronizes pipeline phases across views
-//   - Provides unified semantic tree management
+//   - Manages requestVisualUpdate flow
+//   - Coordinates semantic update propagation
+//   - Tracks layout boundary relationships
+//   - Maintains pipeline tree structure
+//   - Connects pipeline owners to the rendering system
 //
 // Related classes:
-//   - RenderView: Individual view in the pipeline
-//   - PipelineOwner: Owns a specific render pipeline
-//   - RendererBinding: Binding that uses PipelineManifold
-//   - SemanticsOwner: Manages semantics across views
+//   - PipelineOwner: Owns a render tree and manages dirty nodes
+//   - RenderView: Root render object for a view
+//   - SemanticsOwner: Manages semantics for accessibility
+//   - RenderObject: Base class for render tree nodes
 //
 // Use cases:
-//   - Multi-window applications
-//   - Embedded Flutter views
-//   - Complex compositor scenarios
-//   - Cross-view semantic coordination
+//   - Multi-window Flutter applications
+//   - Embedded Flutter views in native apps
+//   - Complex rendering scenarios with multiple views
+//   - Accessibility and semantics coordination
 //
 // This demo visualizes the PipelineManifold coordination architecture.
 
@@ -37,14 +38,14 @@ Widget _buildHeader(String title, String subtitle) {
     padding: EdgeInsets.all(20),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Color(0xFF1565C0), Color(0xFF42A5F5)],
+        colors: [Color(0xFF0D47A1), Color(0xFF1976D2)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
       borderRadius: BorderRadius.circular(16),
       boxShadow: [
         BoxShadow(
-          color: Color(0xFF1565C0).withAlpha(100),
+          color: Color(0xFF0D47A1).withAlpha(100),
           blurRadius: 12,
           offset: Offset(0, 6),
         ),
@@ -52,7 +53,7 @@ Widget _buildHeader(String title, String subtitle) {
     ),
     child: Column(
       children: [
-        Icon(Icons.hub, size: 48, color: Colors.white),
+        Icon(Icons.account_tree, size: 48, color: Colors.white),
         SizedBox(height: 12),
         Text(
           title,
@@ -81,10 +82,10 @@ Widget _buildSectionTitle(String title, IconData icon) {
         Container(
           padding: EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: Color(0xFF42A5F5).withAlpha(30),
+            color: Color(0xFF1976D2).withAlpha(30),
             borderRadius: BorderRadius.circular(8),
           ),
-          child: Icon(icon, color: Color(0xFF1565C0), size: 20),
+          child: Icon(icon, color: Color(0xFF0D47A1), size: 20),
         ),
         SizedBox(width: 12),
         Text(
@@ -92,7 +93,7 @@ Widget _buildSectionTitle(String title, IconData icon) {
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
-            color: Color(0xFF1565C0),
+            color: Color(0xFF0D47A1),
           ),
         ),
       ],
@@ -107,12 +108,12 @@ Widget _buildInfoRow(String label, String value, {Color? valueColor}) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          width: 140,
+          width: 150,
           child: Text(
             label,
             style: TextStyle(
               fontWeight: FontWeight.w600,
-              color: Color(0xFF1565C0),
+              color: Color(0xFF0D47A1),
               fontSize: 13,
             ),
           ),
@@ -121,7 +122,7 @@ Widget _buildInfoRow(String label, String value, {Color? valueColor}) {
           child: Text(
             value,
             style: TextStyle(
-              color: valueColor ?? Color(0xFF1976D2),
+              color: valueColor ?? Color(0xFF1565C0),
               fontSize: 13,
             ),
           ),
@@ -179,10 +180,10 @@ Widget _buildArrow({bool vertical = false, Color color = Colors.grey}) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// SECTION 1: PIPELINE MANIFOLD CONCEPT
+// SECTION 1: PIPELINE MANIFOLD OVERVIEW DIAGRAM
 // ═══════════════════════════════════════════════════════════════════════════════
 
-Widget _buildManifoldConceptSection() {
+Widget _buildOverviewDiagramSection() {
   return Container(
     padding: EdgeInsets.all(16),
     decoration: BoxDecoration(
@@ -199,101 +200,123 @@ Widget _buildManifoldConceptSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionTitle('Pipeline Manifold Concept', Icons.account_tree),
+        _buildSectionTitle('PipelineManifold Overview', Icons.schema),
         Text(
-          'A PipelineManifold acts as a central coordinator that manages '
-          'multiple rendering pipelines. It provides the infrastructure '
-          'for multi-view applications and ensures synchronized frame '
-          'processing across all active views.',
+          'PipelineManifold is the bridge between PipelineOwner instances and '
+          'the rendering infrastructure. It manages connections, coordinates '
+          'visual updates, and ensures proper synchronization across views.',
           style: TextStyle(color: Color(0xFF546E7A), fontSize: 13),
         ),
         SizedBox(height: 20),
-        // Manifold architecture diagram
         Container(
           padding: EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: Color(0xFFF5F5F5),
+            color: Color(0xFFE3F2FD),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Column(
             children: [
               Text(
-                'Manifold Architecture',
+                'PipelineManifold Architecture',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF37474F),
+                  color: Color(0xFF0D47A1),
+                  fontSize: 14,
                 ),
               ),
-              SizedBox(height: 16),
-              // Central manifold
+              SizedBox(height: 20),
+              // Top layer - RendererBinding
               _buildDiagramBox(
-                'PipelineManifold',
-                Color(0xFF1565C0),
-                icon: Icons.hub,
+                'RendererBinding',
+                Color(0xFF6A1B9A),
+                icon: Icons.merge_type,
                 width: 140,
               ),
               SizedBox(height: 8),
-              // Connector lines
+              _buildArrow(vertical: true, color: Color(0xFF8E24AA)),
+              SizedBox(height: 4),
+              // Middle layer - PipelineManifold
+              Container(
+                width: 200,
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Color(0xFF0D47A1), Color(0xFF1976D2)],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color(0xFF0D47A1).withAlpha(80),
+                      blurRadius: 8,
+                      offset: Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    Icon(Icons.account_tree, color: Colors.white, size: 28),
+                    SizedBox(height: 8),
+                    Text(
+                      'PipelineManifold',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontSize: 14,
+                      ),
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      'Pipeline Connection Hub',
+                      style: TextStyle(
+                        color: Colors.white.withAlpha(200),
+                        fontSize: 10,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 12),
+              // Connection lines
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildArrow(vertical: true, color: Color(0xFF42A5F5)),
-                  SizedBox(width: 40),
-                  _buildArrow(vertical: true, color: Color(0xFF42A5F5)),
-                  SizedBox(width: 40),
-                  _buildArrow(vertical: true, color: Color(0xFF42A5F5)),
+                  _buildArrow(vertical: true, color: Color(0xFF1976D2)),
+                  SizedBox(width: 50),
+                  _buildArrow(vertical: true, color: Color(0xFF1976D2)),
+                  SizedBox(width: 50),
+                  _buildArrow(vertical: true, color: Color(0xFF1976D2)),
                 ],
               ),
-              // Pipeline owners
+              SizedBox(height: 4),
+              // Bottom layer - PipelineOwners
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _buildDiagramBox('PipelineOwner 1', Color(0xFF43A047), icon: Icons.view_agenda),
-                  SizedBox(width: 12),
-                  _buildDiagramBox('PipelineOwner 2', Color(0xFF43A047), icon: Icons.view_agenda),
-                  SizedBox(width: 12),
-                  _buildDiagramBox('PipelineOwner 3', Color(0xFF43A047), icon: Icons.view_agenda),
-                ],
-              ),
-              SizedBox(height: 8),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _buildArrow(vertical: true, color: Color(0xFF66BB6A)),
-                  SizedBox(width: 112),
-                  _buildArrow(vertical: true, color: Color(0xFF66BB6A)),
-                  SizedBox(width: 112),
-                  _buildArrow(vertical: true, color: Color(0xFF66BB6A)),
-                ],
-              ),
-              // Render views
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _buildDiagramBox('RenderView A', Color(0xFFFF7043), icon: Icons.desktop_windows),
-                  SizedBox(width: 12),
-                  _buildDiagramBox('RenderView B', Color(0xFFFF7043), icon: Icons.desktop_windows),
-                  SizedBox(width: 12),
-                  _buildDiagramBox('RenderView C', Color(0xFFFF7043), icon: Icons.desktop_windows),
+                  _buildDiagramBox('PipelineOwner\n(View 1)', Color(0xFF388E3C), icon: Icons.layers),
+                  _buildDiagramBox('PipelineOwner\n(View 2)', Color(0xFF388E3C), icon: Icons.layers),
+                  _buildDiagramBox('PipelineOwner\n(View 3)', Color(0xFF388E3C), icon: Icons.layers),
                 ],
               ),
             ],
           ),
         ),
         SizedBox(height: 16),
-        _buildInfoRow('Interface Type', 'Abstract class for pipeline coordination'),
-        _buildInfoRow('Primary Role', 'Multi-view rendering orchestration'),
-        _buildInfoRow('Key Consumer', 'RendererBinding implementation'),
+        _buildInfoRow('Interface', 'Abstract class defining manifold contract'),
+        _buildInfoRow('Primary Purpose', 'Coordinate pipeline owners with rendering'),
+        _buildInfoRow('Implementation', 'RendererBinding mixin provides default'),
+        _buildInfoRow('Scope', 'Application-wide rendering coordination'),
       ],
     ),
   );
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// SECTION 2: RENDER PIPELINE COORDINATION
+// SECTION 2: REQUEST VISUAL UPDATE CONCEPT
 // ═══════════════════════════════════════════════════════════════════════════════
 
-Widget _buildPipelineCoordinationSection() {
+Widget _buildRequestVisualUpdateSection() {
   return Container(
     padding: EdgeInsets.all(16),
     decoration: BoxDecoration(
@@ -310,62 +333,93 @@ Widget _buildPipelineCoordinationSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionTitle('Pipeline Coordination Flow', Icons.sync_alt),
+        _buildSectionTitle('requestVisualUpdate Concept', Icons.refresh),
         Text(
-          'The manifold coordinates the rendering pipeline phases: layout, '
-          'compositing, painting, and semantics updates. Each phase is '
-          'executed across all registered views in proper sequence.',
+          'The requestVisualUpdate method is the primary mechanism for '
+          'PipelineOwner to signal that visual changes need to be flushed. '
+          'It triggers the rendering pipeline to schedule a new frame.',
           style: TextStyle(color: Color(0xFF546E7A), fontSize: 13),
         ),
         SizedBox(height: 20),
-        // Pipeline phases diagram
         Container(
           padding: EdgeInsets.all(16),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFFE3F2FD), Color(0xFFBBDEFB)],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
+              colors: [Color(0xFFFFF8E1), Color(0xFFFFECB3)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
             ),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Column(
             children: [
               Text(
-                'Pipeline Phase Sequence',
+                'Visual Update Flow',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF0D47A1),
+                  color: Color(0xFFFF6F00),
+                  fontSize: 14,
                 ),
               ),
               SizedBox(height: 16),
-              _buildPhaseRow('1', 'Schedule Frame', Icons.schedule, Color(0xFF7B1FA2)),
-              _buildPhaseConnector(),
-              _buildPhaseRow('2', 'Begin Frame', Icons.play_arrow, Color(0xFF1976D2)),
-              _buildPhaseConnector(),
-              _buildPhaseRow('3', 'Flush Layout', Icons.grid_view, Color(0xFF388E3C)),
-              _buildPhaseConnector(),
-              _buildPhaseRow('4', 'Flush Compositing', Icons.layers, Color(0xFFF57C00)),
-              _buildPhaseConnector(),
-              _buildPhaseRow('5', 'Flush Paint', Icons.brush, Color(0xFFD32F2F)),
-              _buildPhaseConnector(),
-              _buildPhaseRow('6', 'Flush Semantics', Icons.accessibility, Color(0xFF5D4037)),
-              _buildPhaseConnector(),
-              _buildPhaseRow('7', 'End Frame', Icons.stop, Color(0xFF455A64)),
+              _buildUpdateFlowStep('1', 'RenderObject marks dirty', Icons.flag, Color(0xFFE65100)),
+              _buildFlowConnector(Color(0xFFFF9800)),
+              _buildUpdateFlowStep('2', 'PipelineOwner records node', Icons.note_add, Color(0xFFF57C00)),
+              _buildFlowConnector(Color(0xFFFF9800)),
+              _buildUpdateFlowStep('3', 'requestVisualUpdate() called', Icons.send, Color(0xFFFFB300)),
+              _buildFlowConnector(Color(0xFFFF9800)),
+              _buildUpdateFlowStep('4', 'onNeedVisualUpdate invoked', Icons.notification_important, Color(0xFFFFC107)),
+              _buildFlowConnector(Color(0xFFFF9800)),
+              _buildUpdateFlowStep('5', 'Frame scheduled', Icons.schedule, Color(0xFFFFD54F)),
+              _buildFlowConnector(Color(0xFFFF9800)),
+              _buildUpdateFlowStep('6', 'Flush methods called', Icons.cleaning_services, Color(0xFFFFE082)),
             ],
           ),
         ),
         SizedBox(height: 16),
-        _buildInfoRow('flushLayout()', 'Processes dirty layout nodes'),
-        _buildInfoRow('flushCompositingBits()', 'Updates compositing requirements'),
-        _buildInfoRow('flushPaint()', 'Paints dirty render objects'),
-        _buildInfoRow('flushSemantics()', 'Updates accessibility tree'),
+        Container(
+          padding: EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Color(0xFFE8F5E9),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(Icons.lightbulb, color: Color(0xFF2E7D32), size: 18),
+                  SizedBox(width: 8),
+                  Text(
+                    'Key Insight',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF2E7D32),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 8),
+              Text(
+                'requestVisualUpdate batches multiple dirty marks into a single frame. '
+                'No matter how many RenderObjects are marked dirty, only one frame '
+                'is scheduled until the next vsync.',
+                style: TextStyle(color: Color(0xFF388E3C), fontSize: 12),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: 16),
+        _buildInfoRow('Method', 'requestVisualUpdate()'),
+        _buildInfoRow('Callback', 'onNeedVisualUpdate - notifies binding'),
+        _buildInfoRow('Batching', 'Multiple calls coalesce into one frame'),
+        _buildInfoRow('Trigger', 'Any dirty state in PipelineOwner'),
       ],
     ),
   );
 }
 
-Widget _buildPhaseRow(String number, String label, IconData icon, Color color) {
+Widget _buildUpdateFlowStep(String number, String label, IconData icon, Color color) {
   return Row(
     children: [
       Container(
@@ -393,9 +447,9 @@ Widget _buildPhaseRow(String number, String label, IconData icon, Color color) {
         child: Text(
           label,
           style: TextStyle(
-            color: color,
             fontWeight: FontWeight.w600,
-            fontSize: 13,
+            color: Color(0xFF5D4037),
+            fontSize: 12,
           ),
         ),
       ),
@@ -403,26 +457,22 @@ Widget _buildPhaseRow(String number, String label, IconData icon, Color color) {
   );
 }
 
-Widget _buildPhaseConnector() {
+Widget _buildFlowConnector(Color color) {
   return Padding(
     padding: EdgeInsets.only(left: 13),
     child: Row(
       children: [
-        Container(
-          width: 2,
-          height: 12,
-          color: Color(0xFFBDBDBD),
-        ),
+        Container(width: 2, height: 10, color: color.withAlpha(150)),
       ],
     ),
   );
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// SECTION 3: VIEW MANAGEMENT
+// SECTION 3: SEMANTIC UPDATES
 // ═══════════════════════════════════════════════════════════════════════════════
 
-Widget _buildViewManagementSection() {
+Widget _buildSemanticUpdatesSection() {
   return Container(
     padding: EdgeInsets.all(16),
     decoration: BoxDecoration(
@@ -439,176 +489,54 @@ Widget _buildViewManagementSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionTitle('View Management', Icons.view_carousel),
+        _buildSectionTitle('Semantic Updates', Icons.accessibility_new),
         Text(
-          'PipelineManifold manages multiple FlutterViews, each backed by '
-          'a RenderView. Views can be added or removed dynamically, enabling '
-          'scenarios like multi-window support and embedded views.',
+          'PipelineManifold coordinates semantic updates for accessibility. '
+          'When semantics are enabled, it manages the SemanticsOwner and '
+          'ensures semantic information flows to the platform.',
           style: TextStyle(color: Color(0xFF546E7A), fontSize: 13),
         ),
         SizedBox(height: 20),
-        // View states diagram
         Container(
           padding: EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: Color(0xFFFFF3E0),
+            color: Color(0xFFE1BEE7),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Column(
             children: [
               Text(
-                'View Lifecycle States',
+                'Semantics Pipeline',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFFE65100),
+                  color: Color(0xFF6A1B9A),
+                  fontSize: 14,
                 ),
               ),
               SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _buildViewStateBox('Created', Color(0xFF4CAF50), Icons.add_circle),
-                  _buildArrow(color: Color(0xFFFFB74D)),
-                  _buildViewStateBox('Attached', Color(0xFF2196F3), Icons.link),
-                  _buildArrow(color: Color(0xFFFFB74D)),
-                  _buildViewStateBox('Active', Color(0xFF9C27B0), Icons.play_circle),
+                  _buildSemanticNode('RenderObject\nmarkNeedsSemanticsUpdate', Color(0xFF7B1FA2)),
+                  Icon(Icons.arrow_forward, color: Color(0xFF9C27B0)),
+                  _buildSemanticNode('PipelineOwner\nsemantics dirty list', Color(0xFF8E24AA)),
                 ],
               ),
               SizedBox(height: 12),
+              Icon(Icons.arrow_downward, color: Color(0xFF9C27B0), size: 28),
+              SizedBox(height: 12),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _buildViewStateBox('Detached', Color(0xFFFF5722), Icons.link_off),
-                  SizedBox(width: 20),
-                  _buildArrow(color: Color(0xFFFFB74D)),
-                  SizedBox(width: 20),
-                  _buildViewStateBox('Disposed', Color(0xFF607D8B), Icons.delete),
+                  _buildSemanticNode('flushSemantics()\ncompute changes', Color(0xFFAB47BC)),
+                  Icon(Icons.arrow_forward, color: Color(0xFF9C27B0)),
+                  _buildSemanticNode('SemanticsOwner\nsend to platform', Color(0xFFBA68C8)),
                 ],
               ),
             ],
           ),
         ),
         SizedBox(height: 16),
-        // View registry info
-        Container(
-          padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Color(0xFFE8F5E9),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Icon(Icons.inventory_2, color: Color(0xFF2E7D32), size: 18),
-                  SizedBox(width: 8),
-                  Text(
-                    'View Registry',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF2E7D32),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 8),
-              _buildInfoRow('renderViews', 'Iterable of active RenderViews'),
-              _buildInfoRow('addView()', 'Registers a new view'),
-              _buildInfoRow('removeView()', 'Unregisters an existing view'),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildViewStateBox(String label, Color color, IconData icon) {
-  return Container(
-    width: 80,
-    padding: EdgeInsets.all(8),
-    decoration: BoxDecoration(
-      color: color.withAlpha(30),
-      borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: color, width: 1.5),
-    ),
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(icon, color: color, size: 18),
-        SizedBox(height: 4),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 10,
-            fontWeight: FontWeight.bold,
-            color: color,
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// SECTION 4: SCHEDULING AND LIFECYCLE
-// ═══════════════════════════════════════════════════════════════════════════════
-
-Widget _buildSchedulingLifecycleSection() {
-  return Container(
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(16),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withAlpha(15),
-          blurRadius: 12,
-          offset: Offset(0, 4),
-        ),
-      ],
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildSectionTitle('Scheduling & Lifecycle', Icons.timer),
-        Text(
-          'Frame scheduling integrates with the platform vsync signal. '
-          'The manifold requests frame callbacks and coordinates rendering '
-          'across all views within a single frame.',
-          style: TextStyle(color: Color(0xFF546E7A), fontSize: 13),
-        ),
-        SizedBox(height: 20),
-        // Frame timeline diagram
-        Container(
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xFFE1F5FE), Color(0xFFB3E5FC)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Column(
-            children: [
-              Text(
-                'Frame Timeline',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF01579B),
-                ),
-              ),
-              SizedBox(height: 16),
-              _buildTimelineRow(),
-              SizedBox(height: 16),
-              _buildTimelineLabels(),
-            ],
-          ),
-        ),
-        SizedBox(height: 16),
-        // Scheduling callbacks
         Container(
           padding: EdgeInsets.all(12),
           decoration: BoxDecoration(
@@ -620,10 +548,10 @@ Widget _buildSchedulingLifecycleSection() {
             children: [
               Row(
                 children: [
-                  Icon(Icons.notifications_active, color: Color(0xFF6A1B9A), size: 18),
+                  Icon(Icons.settings_accessibility, color: Color(0xFF6A1B9A), size: 18),
                   SizedBox(width: 8),
                   Text(
-                    'Scheduling Callbacks',
+                    'Semantics Enablement',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Color(0xFF6A1B9A),
@@ -632,113 +560,56 @@ Widget _buildSchedulingLifecycleSection() {
                 ],
               ),
               SizedBox(height: 8),
-              _buildCallbackRow('requestVisualUpdate()', 'Requests a new frame'),
-              _buildCallbackRow('onNeedVisualUpdate', 'Callback when update needed'),
-              _buildCallbackRow('onSemanticsUpdate', 'Callback for semantics changes'),
+              _buildSemanticInfoRow('ensureSemantics', 'Enables semantic collection'),
+              _buildSemanticInfoRow('SemanticsHandle', 'Keep-alive reference for semantics'),
+              _buildSemanticInfoRow('onSemanticsUpdate', 'Callback when semantics change'),
             ],
           ),
         ),
         SizedBox(height: 16),
-        // Lifecycle hooks
-        Container(
-          padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Color(0xFFE0F7FA),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Icon(Icons.loop, color: Color(0xFF00695C), size: 18),
-                  SizedBox(width: 8),
-                  Text(
-                    'Lifecycle Integration',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF00695C),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 8),
-              _buildInfoRow('ensureSemantics', 'Semantics enabled state'),
-              _buildInfoRow('createSemanticsHandle', 'Creates semantics owner'),
-              _buildInfoRow('attach/detach', 'View attachment lifecycle'),
-            ],
-          ),
-        ),
+        _buildInfoRow('Semantics Owner', 'Manages semantic tree for a view'),
+        _buildInfoRow('Semantic Nodes', 'Derived from RenderObject annotations'),
+        _buildInfoRow('Platform Bridge', 'Delivers to iOS/Android accessibility'),
+        _buildInfoRow('Update Frequency', 'Batched per frame with visual updates'),
       ],
     ),
   );
 }
 
-Widget _buildTimelineRow() {
-  return Row(
-    children: [
-      Expanded(
-        child: Container(
-          height: 8,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color(0xFF7B1FA2),
-                Color(0xFF1976D2),
-                Color(0xFF388E3C),
-                Color(0xFFF57C00),
-                Color(0xFFD32F2F),
-              ],
-            ),
-            borderRadius: BorderRadius.circular(4),
-          ),
+Widget _buildSemanticNode(String label, Color color) {
+  return Container(
+    width: 120,
+    padding: EdgeInsets.all(10),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(8),
+      border: Border.all(color: color, width: 2),
+      boxShadow: [
+        BoxShadow(
+          color: color.withAlpha(40),
+          blurRadius: 4,
+          offset: Offset(0, 2),
         ),
-      ),
-    ],
-  );
-}
-
-Widget _buildTimelineLabels() {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      _buildTimelineLabel('VSync', Color(0xFF7B1FA2)),
-      _buildTimelineLabel('Build', Color(0xFF1976D2)),
-      _buildTimelineLabel('Layout', Color(0xFF388E3C)),
-      _buildTimelineLabel('Paint', Color(0xFFF57C00)),
-      _buildTimelineLabel('Raster', Color(0xFFD32F2F)),
-    ],
-  );
-}
-
-Widget _buildTimelineLabel(String text, Color color) {
-  return Column(
-    children: [
-      Container(
-        width: 2,
-        height: 8,
+      ],
+    ),
+    child: Text(
+      label,
+      style: TextStyle(
+        fontSize: 10,
+        fontWeight: FontWeight.w600,
         color: color,
       ),
-      SizedBox(height: 4),
-      Text(
-        text,
-        style: TextStyle(
-          fontSize: 10,
-          fontWeight: FontWeight.bold,
-          color: color,
-        ),
-      ),
-    ],
+      textAlign: TextAlign.center,
+    ),
   );
 }
 
-Widget _buildCallbackRow(String name, String description) {
+Widget _buildSemanticInfoRow(String name, String description) {
   return Padding(
-    padding: EdgeInsets.symmetric(vertical: 3),
+    padding: EdgeInsets.symmetric(vertical: 2),
     child: Row(
       children: [
-        Icon(Icons.arrow_right, size: 16, color: Color(0xFF8E24AA)),
-        SizedBox(width: 4),
+        Icon(Icons.chevron_right, size: 16, color: Color(0xFF9C27B0)),
         Text(
           name,
           style: TextStyle(
@@ -747,15 +618,9 @@ Widget _buildCallbackRow(String name, String description) {
             color: Color(0xFF6A1B9A),
           ),
         ),
-        SizedBox(width: 8),
-        Expanded(
-          child: Text(
-            description,
-            style: TextStyle(
-              fontSize: 11,
-              color: Color(0xFF9C27B0),
-            ),
-          ),
+        Text(
+          ' - $description',
+          style: TextStyle(fontSize: 11, color: Color(0xFF8E24AA)),
         ),
       ],
     ),
@@ -763,10 +628,10 @@ Widget _buildCallbackRow(String name, String description) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// SECTION 5: SEMANTICS COORDINATION
+// SECTION 4: LAYOUT BOUNDARY VISUALIZATION
 // ═══════════════════════════════════════════════════════════════════════════════
 
-Widget _buildSemanticsCoordinationSection() {
+Widget _buildLayoutBoundarySection() {
   return Container(
     padding: EdgeInsets.all(16),
     decoration: BoxDecoration(
@@ -783,218 +648,180 @@ Widget _buildSemanticsCoordinationSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionTitle('Semantics Coordination', Icons.accessibility_new),
+        _buildSectionTitle('Layout Boundary Visualization', Icons.crop_square),
         Text(
-          'The manifold coordinates semantics trees across multiple views, '
-          'ensuring accessibility information is properly synchronized and '
-          'delivered to assistive technologies.',
+          'Layout boundaries define regions where layout changes are isolated. '
+          'These boundaries prevent layout invalidation from propagating through '
+          'the entire tree, improving performance significantly.',
           style: TextStyle(color: Color(0xFF546E7A), fontSize: 13),
         ),
         SizedBox(height: 20),
-        // Semantics flow diagram
         Container(
           padding: EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: Color(0xFFFCE4EC),
+            color: Color(0xFFE8F5E9),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Column(
             children: [
               Text(
-                'Semantics Update Flow',
+                'Layout Boundary Tree',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFFC2185B),
+                  color: Color(0xFF2E7D32),
+                  fontSize: 14,
                 ),
               ),
               SizedBox(height: 16),
-              // Flow diagram
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _buildSemanticNode('RenderObject\nmarkNeedsSemanticsUpdate'),
-                  _buildArrow(color: Color(0xFFE91E63)),
-                  _buildSemanticNode('PipelineOwner\nflushSemantics'),
-                ],
-              ),
-              SizedBox(height: 8),
-              _buildArrow(vertical: true, color: Color(0xFFE91E63)),
-              SizedBox(height: 8),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _buildSemanticNode('SemanticsOwner\ncompute tree'),
-                  _buildArrow(color: Color(0xFFE91E63)),
-                  _buildSemanticNode('Platform\nAccessibility'),
-                ],
-              ),
+              _buildLayoutBoundaryTree(),
             ],
           ),
         ),
         SizedBox(height: 16),
-        _buildInfoRow('SemanticsOwner', 'Manages semantics for a view'),
-        _buildInfoRow('ensureSemantics', 'Enables semantic collection'),
-        _buildInfoRow('semanticsHandle', 'Reference to keep semantics active'),
-      ],
-    ),
-  );
-}
-
-Widget _buildSemanticNode(String label) {
-  return Container(
-    width: 110,
-    padding: EdgeInsets.all(10),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: Color(0xFFE91E63), width: 1.5),
-    ),
-    child: Text(
-      label,
-      style: TextStyle(
-        fontSize: 10,
-        fontWeight: FontWeight.w600,
-        color: Color(0xFFC2185B),
-      ),
-      textAlign: TextAlign.center,
-    ),
-  );
-}
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// SECTION 6: MULTI-VIEW SCENARIO
-// ═══════════════════════════════════════════════════════════════════════════════
-
-Widget _buildMultiViewScenarioSection() {
-  return Container(
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(16),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withAlpha(15),
-          blurRadius: 12,
-          offset: Offset(0, 4),
-        ),
-      ],
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildSectionTitle('Multi-View Scenario', Icons.window),
-        Text(
-          'In desktop or embedded scenarios, multiple FlutterViews can be '
-          'active simultaneously. The manifold ensures they share frame '
-          'timing while maintaining independent render trees.',
-          style: TextStyle(color: Color(0xFF546E7A), fontSize: 13),
-        ),
-        SizedBox(height: 20),
-        // Multi-view layout
         Container(
-          padding: EdgeInsets.all(16),
+          padding: EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: Color(0xFFECEFF1),
-            borderRadius: BorderRadius.circular(12),
+            color: Color(0xFFFFF3E0),
+            borderRadius: BorderRadius.circular(8),
           ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Desktop Multi-Window Example',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF37474F),
-                ),
-              ),
-              SizedBox(height: 16),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _buildWindowBox('Main Window', Color(0xFF1976D2), 100, 70),
-                  _buildWindowBox('Settings', Color(0xFF388E3C), 70, 50),
-                  _buildWindowBox('Popup', Color(0xFFE64A19), 50, 40),
+                  Icon(Icons.speed, color: Color(0xFFE65100), size: 18),
+                  SizedBox(width: 8),
+                  Text(
+                    'Performance Impact',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFFE65100),
+                    ),
+                  ),
                 ],
               ),
-              SizedBox(height: 12),
-              Text(
-                'Each window has its own RenderView but shares the PipelineManifold',
-                style: TextStyle(
-                  fontSize: 11,
-                  fontStyle: FontStyle.italic,
-                  color: Color(0xFF78909C),
-                ),
-                textAlign: TextAlign.center,
-              ),
+              SizedBox(height: 8),
+              _buildPerformanceRow('Without Boundary', 'Full tree relayout', Color(0xFFD84315)),
+              _buildPerformanceRow('With Boundary', 'Subtree relayout only', Color(0xFF388E3C)),
             ],
           ),
         ),
         SizedBox(height: 16),
-        _buildInfoRow('Window 1', 'Primary application view'),
-        _buildInfoRow('Window 2', 'Settings dialog view'),
-        _buildInfoRow('Window 3', 'Floating popup view'),
+        Row(
+          children: [
+            Expanded(child: _buildBoundaryTypeCard('Relayout\nBoundary', Color(0xFF43A047), Icons.check_box)),
+            SizedBox(width: 8),
+            Expanded(child: _buildBoundaryTypeCard('Repaint\nBoundary', Color(0xFF1E88E5), Icons.brush)),
+          ],
+        ),
+        SizedBox(height: 16),
+        _buildInfoRow('sizedByParent', 'Enables relayout boundary'),
+        _buildInfoRow('isRepaintBoundary', 'Enables repaint boundary'),
+        _buildInfoRow('markNeedsLayout', 'Stops at relayout boundary'),
+        _buildInfoRow('Layer isolation', 'Repaint boundary has own layer'),
       ],
     ),
   );
 }
 
-Widget _buildWindowBox(String label, Color color, double width, double height) {
-  return Container(
-    width: width,
-    height: height,
-    decoration: BoxDecoration(
-      color: color.withAlpha(40),
-      borderRadius: BorderRadius.only(
-        bottomLeft: Radius.circular(4),
-        bottomRight: Radius.circular(4),
+Widget _buildLayoutBoundaryTree() {
+  return Column(
+    children: [
+      _buildTreeNode('RenderView (Root)', Color(0xFF1B5E20), true, 0),
+      _buildTreeConnector(),
+      _buildTreeNode('RenderFlex', Color(0xFF2E7D32), false, 1),
+      _buildTreeConnector(),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Column(
+            children: [
+              _buildTreeNode('LayoutBoundary', Color(0xFF43A047), true, 2),
+              _buildTreeConnector(),
+              _buildTreeNode('Child A', Color(0xFF66BB6A), false, 3),
+            ],
+          ),
+          SizedBox(width: 20),
+          Column(
+            children: [
+              _buildTreeNode('LayoutBoundary', Color(0xFF43A047), true, 2),
+              _buildTreeConnector(),
+              _buildTreeNode('Child B', Color(0xFF66BB6A), false, 3),
+            ],
+          ),
+        ],
       ),
-      border: Border.all(color: color, width: 2),
+    ],
+  );
+}
+
+Widget _buildTreeNode(String label, Color color, bool isBoundary, int indent) {
+  return Container(
+    margin: EdgeInsets.only(left: indent * 8.0),
+    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+    decoration: BoxDecoration(
+      color: color.withAlpha(isBoundary ? 60 : 30),
+      borderRadius: BorderRadius.circular(6),
+      border: Border.all(
+        color: color,
+        width: isBoundary ? 2.5 : 1.5,
+        style: isBoundary ? BorderStyle.solid : BorderStyle.solid,
+      ),
     ),
-    child: Column(
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (isBoundary) Icon(Icons.shield, color: color, size: 14),
+        if (isBoundary) SizedBox(width: 4),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 10,
+            fontWeight: isBoundary ? FontWeight.bold : FontWeight.w500,
+            color: color,
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildTreeConnector() {
+  return Container(
+    width: 2,
+    height: 12,
+    color: Color(0xFF81C784),
+  );
+}
+
+Widget _buildPerformanceRow(String scenario, String result, Color color) {
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: 3),
+    child: Row(
       children: [
         Container(
-          height: 14,
+          width: 8,
+          height: 8,
           decoration: BoxDecoration(
             color: color,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(2),
-              topRight: Radius.circular(2),
-            ),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Container(
-                width: 6,
-                height: 6,
-                margin: EdgeInsets.only(right: 2),
-                decoration: BoxDecoration(
-                  color: Colors.white.withAlpha(180),
-                  shape: BoxShape.circle,
-                ),
-              ),
-              Container(
-                width: 6,
-                height: 6,
-                margin: EdgeInsets.only(right: 4),
-                decoration: BoxDecoration(
-                  color: Colors.white.withAlpha(180),
-                  shape: BoxShape.circle,
-                ),
-              ),
-            ],
+            shape: BoxShape.circle,
           ),
         ),
-        Expanded(
-          child: Center(
-            child: Text(
-              label,
-              style: TextStyle(
-                fontSize: 9,
-                fontWeight: FontWeight.bold,
-                color: color,
-              ),
-              textAlign: TextAlign.center,
-            ),
+        SizedBox(width: 8),
+        Text(
+          '$scenario: ',
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 12,
+            color: Color(0xFF5D4037),
+          ),
+        ),
+        Text(
+          result,
+          style: TextStyle(
+            fontSize: 12,
+            color: color,
+            fontWeight: FontWeight.w500,
           ),
         ),
       ],
@@ -1002,11 +829,37 @@ Widget _buildWindowBox(String label, Color color, double width, double height) {
   );
 }
 
+Widget _buildBoundaryTypeCard(String label, Color color, IconData icon) {
+  return Container(
+    padding: EdgeInsets.all(12),
+    decoration: BoxDecoration(
+      color: color.withAlpha(25),
+      borderRadius: BorderRadius.circular(8),
+      border: Border.all(color: color.withAlpha(100)),
+    ),
+    child: Column(
+      children: [
+        Icon(icon, color: color, size: 24),
+        SizedBox(height: 4),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 11,
+            fontWeight: FontWeight.w600,
+            color: color,
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ],
+    ),
+  );
+}
+
 // ═══════════════════════════════════════════════════════════════════════════════
-// SECTION 7: API SUMMARY
+// SECTION 5: PIPELINE TREE STRUCTURE
 // ═══════════════════════════════════════════════════════════════════════════════
 
-Widget _buildApiSummarySection() {
+Widget _buildPipelineTreeSection() {
   return Container(
     padding: EdgeInsets.all(16),
     decoration: BoxDecoration(
@@ -1023,41 +876,297 @@ Widget _buildApiSummarySection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionTitle('API Summary', Icons.code),
-        _buildApiCard(
-          'Properties',
-          [
-            'renderViews - Iterable<RenderView>',
-            'onNeedVisualUpdate - VoidCallback?',
-            'onSemanticsUpdate - SemanticsUpdateCallback?',
-          ],
-          Color(0xFF1E88E5),
+        _buildSectionTitle('Pipeline Tree Structure', Icons.account_tree_rounded),
+        Text(
+          'The pipeline tree structure shows how PipelineManifold connects to '
+          'multiple PipelineOwner instances, each managing their own render '
+          'tree with dirty lists for layout, paint, and semantics.',
+          style: TextStyle(color: Color(0xFF546E7A), fontSize: 13),
         ),
-        SizedBox(height: 12),
-        _buildApiCard(
-          'Methods',
-          [
-            'requestVisualUpdate() - Triggers frame',
-            'ensureSemantics(listener) - Enables semantics',
-            'createSemanticsHandle() - Creates semantic ref',
-          ],
-          Color(0xFF43A047),
+        SizedBox(height: 20),
+        Container(
+          padding: EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFFE3F2FD), Color(0xFFBBDEFB)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Column(
+            children: [
+              Text(
+                'Pipeline Ownership Hierarchy',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF0D47A1),
+                  fontSize: 14,
+                ),
+              ),
+              SizedBox(height: 20),
+              _buildPipelineHierarchy(),
+            ],
+          ),
         ),
-        SizedBox(height: 12),
-        _buildApiCard(
-          'Implementations',
-          [
-            'RendererBinding - Default implementation',
-            'TestRenderingFlutterBinding - For tests',
+        SizedBox(height: 16),
+        Row(
+          children: [
+            Expanded(child: _buildDirtyListCard('Layout\nDirty List', Color(0xFFE53935), Icons.grid_view)),
+            SizedBox(width: 8),
+            Expanded(child: _buildDirtyListCard('Paint\nDirty List', Color(0xFF8E24AA), Icons.format_paint)),
+            SizedBox(width: 8),
+            Expanded(child: _buildDirtyListCard('Semantics\nDirty List', Color(0xFF1976D2), Icons.accessibility)),
           ],
-          Color(0xFFE53935),
+        ),
+        SizedBox(height: 16),
+        Container(
+          padding: EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Color(0xFFECEFF1),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(Icons.sync, color: Color(0xFF455A64), size: 18),
+                  SizedBox(width: 8),
+                  Text(
+                    'Flush Order',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF455A64),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 8),
+              _buildFlushOrderRow('1', 'flushLayout', Color(0xFFE53935)),
+              _buildFlushOrderRow('2', 'flushCompositingBits', Color(0xFFFF9800)),
+              _buildFlushOrderRow('3', 'flushPaint', Color(0xFF8E24AA)),
+              _buildFlushOrderRow('4', 'flushSemantics', Color(0xFF1976D2)),
+            ],
+          ),
+        ),
+        SizedBox(height: 16),
+        _buildInfoRow('Root Node', 'RenderView serves as pipeline root'),
+        _buildInfoRow('Dirty Tracking', 'Each PipelineOwner tracks its dirty nodes'),
+        _buildInfoRow('Flush Coordination', 'Manifold coordinates flush across owners'),
+        _buildInfoRow('Isolation', 'Each owner flushes independently'),
+      ],
+    ),
+  );
+}
+
+Widget _buildPipelineHierarchy() {
+  return Column(
+    children: [
+      _buildPipelineBox('PipelineManifold', Color(0xFF0D47A1), Icons.hub, true),
+      SizedBox(height: 8),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(width: 60, height: 2, color: Color(0xFF1976D2)),
+          Container(width: 2, height: 20, color: Color(0xFF1976D2)),
+          Container(width: 60, height: 2, color: Color(0xFF1976D2)),
+        ],
+      ),
+      SizedBox(height: 8),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          _buildOwnerColumn('Owner A', Color(0xFF388E3C)),
+          _buildOwnerColumn('Owner B', Color(0xFF7B1FA2)),
+        ],
+      ),
+    ],
+  );
+}
+
+Widget _buildPipelineBox(String label, Color color, IconData icon, bool large) {
+  return Container(
+    width: large ? 160 : 100,
+    padding: EdgeInsets.all(large ? 14 : 10),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(large ? 12 : 8),
+      border: Border.all(color: color, width: 2),
+      boxShadow: [
+        BoxShadow(
+          color: color.withAlpha(40),
+          blurRadius: 6,
+          offset: Offset(0, 3),
+        ),
+      ],
+    ),
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(icon, color: color, size: large ? 24 : 18),
+        SizedBox(height: 6),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: large ? 12 : 10,
+            fontWeight: FontWeight.bold,
+            color: color,
+          ),
+          textAlign: TextAlign.center,
         ),
       ],
     ),
   );
 }
 
-Widget _buildApiCard(String title, List<String> items, Color color) {
+Widget _buildOwnerColumn(String name, Color color) {
+  return Column(
+    children: [
+      _buildPipelineBox('PipelineOwner\n$name', color, Icons.layers, false),
+      SizedBox(height: 6),
+      Container(width: 2, height: 15, color: color.withAlpha(150)),
+      SizedBox(height: 6),
+      _buildPipelineBox('RenderView', color.withAlpha(180), Icons.desktop_windows, false),
+      SizedBox(height: 4),
+      Container(width: 2, height: 10, color: color.withAlpha(100)),
+      SizedBox(height: 4),
+      Container(
+        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        decoration: BoxDecoration(
+          color: color.withAlpha(20),
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: Text(
+          'Render Tree',
+          style: TextStyle(fontSize: 9, color: color),
+        ),
+      ),
+    ],
+  );
+}
+
+Widget _buildDirtyListCard(String label, Color color, IconData icon) {
+  return Container(
+    padding: EdgeInsets.all(10),
+    decoration: BoxDecoration(
+      color: color.withAlpha(20),
+      borderRadius: BorderRadius.circular(8),
+      border: Border.all(color: color.withAlpha(80)),
+    ),
+    child: Column(
+      children: [
+        Icon(icon, color: color, size: 20),
+        SizedBox(height: 4),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 10,
+            fontWeight: FontWeight.w600,
+            color: color,
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildFlushOrderRow(String number, String name, Color color) {
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: 2),
+    child: Row(
+      children: [
+        Container(
+          width: 18,
+          height: 18,
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+          ),
+          child: Center(
+            child: Text(
+              number,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 8),
+        Text(
+          name,
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w500,
+            color: Color(0xFF37474F),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// SECTION 6: API REFERENCE
+// ═══════════════════════════════════════════════════════════════════════════════
+
+Widget _buildApiReferenceSection() {
+  return Container(
+    padding: EdgeInsets.all(16),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(16),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withAlpha(15),
+          blurRadius: 12,
+          offset: Offset(0, 4),
+        ),
+      ],
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildSectionTitle('API Reference', Icons.api),
+        _buildApiGroup(
+          'Properties',
+          [
+            ApiEntry('renderViews', 'Iterable<RenderView>', 'All active render views'),
+            ApiEntry('onNeedVisualUpdate', 'VoidCallback?', 'Visual update callback'),
+            ApiEntry('onSemanticsUpdate', 'SemanticsUpdateCallback?', 'Semantics callback'),
+          ],
+          Color(0xFF1976D2),
+        ),
+        SizedBox(height: 12),
+        _buildApiGroup(
+          'Methods',
+          [
+            ApiEntry('requestVisualUpdate()', 'void', 'Request frame scheduling'),
+            ApiEntry('ensureSemantics()', 'SemanticsHandle', 'Enable semantics'),
+            ApiEntry('attach(RenderView)', 'void', 'Attach a view'),
+            ApiEntry('detach(RenderView)', 'void', 'Detach a view'),
+          ],
+          Color(0xFF388E3C),
+        ),
+        SizedBox(height: 12),
+        _buildApiGroup(
+          'Related Types',
+          [
+            ApiEntry('PipelineOwner', 'class', 'Manages pipeline for a tree'),
+            ApiEntry('RenderView', 'class', 'Root render object'),
+            ApiEntry('SemanticsOwner', 'class', 'Manages semantics tree'),
+          ],
+          Color(0xFFE65100),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildApiGroup(String title, List<ApiEntry> entries, Color color) {
   return Container(
     padding: EdgeInsets.all(12),
     decoration: BoxDecoration(
@@ -1068,33 +1177,89 @@ Widget _buildApiCard(String title, List<String> items, Color color) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          title,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: color,
-            fontSize: 13,
-          ),
+        Row(
+          children: [
+            Icon(Icons.code, color: color, size: 16),
+            SizedBox(width: 6),
+            Text(
+              title,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: color,
+                fontSize: 13,
+              ),
+            ),
+          ],
         ),
         SizedBox(height: 8),
-        ...items.map((item) => Padding(
-          padding: EdgeInsets.only(bottom: 4),
-          child: Row(
+        ...entries.map((entry) => _buildApiEntryRow(entry, color)),
+      ],
+    ),
+  );
+}
+
+Widget _buildApiEntryRow(ApiEntry entry, Color color) {
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: 3),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          width: 4,
+          height: 4,
+          margin: EdgeInsets.only(top: 6),
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+          ),
+        ),
+        SizedBox(width: 8),
+        Expanded(
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('• ', style: TextStyle(color: color)),
-              Expanded(
-                child: Text(
-                  item,
-                  style: TextStyle(fontSize: 12, color: Color(0xFF546E7A)),
+              Row(
+                children: [
+                  Text(
+                    entry.name,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 12,
+                      color: Color(0xFF37474F),
+                    ),
+                  ),
+                  SizedBox(width: 6),
+                  Text(
+                    entry.type,
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: color,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                ],
+              ),
+              Text(
+                entry.description,
+                style: TextStyle(
+                  fontSize: 11,
+                  color: Color(0xFF78909C),
                 ),
               ),
             ],
           ),
-        )),
+        ),
       ],
     ),
   );
+}
+
+class ApiEntry {
+  String name;
+  String type;
+  String description;
+  
+  ApiEntry(this.name, this.type, this.description);
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -1109,47 +1274,51 @@ dynamic build(BuildContext context) {
       children: [
         _buildHeader(
           'PipelineManifold',
-          'Coordinates rendering pipelines for multi-view applications',
+          'Manages pipeline owner connections for rendering',
         ),
         SizedBox(height: 20),
-        _buildManifoldConceptSection(),
+        _buildOverviewDiagramSection(),
         SizedBox(height: 16),
-        _buildPipelineCoordinationSection(),
+        _buildRequestVisualUpdateSection(),
         SizedBox(height: 16),
-        _buildViewManagementSection(),
+        _buildSemanticUpdatesSection(),
         SizedBox(height: 16),
-        _buildSchedulingLifecycleSection(),
+        _buildLayoutBoundarySection(),
         SizedBox(height: 16),
-        _buildSemanticsCoordinationSection(),
+        _buildPipelineTreeSection(),
         SizedBox(height: 16),
-        _buildMultiViewScenarioSection(),
-        SizedBox(height: 16),
-        _buildApiSummarySection(),
+        _buildApiReferenceSection(),
         SizedBox(height: 24),
         Container(
           padding: EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: Color(0xFFE3F2FD),
+            gradient: LinearGradient(
+              colors: [Color(0xFFE3F2FD), Color(0xFFBBDEFB)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Column(
             children: [
-              Icon(Icons.check_circle, color: Color(0xFF1565C0), size: 32),
+              Icon(Icons.check_circle, color: Color(0xFF0D47A1), size: 36),
               SizedBox(height: 8),
               Text(
                 'PipelineManifold Deep Demo Complete',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF1565C0),
+                  fontSize: 16,
+                  color: Color(0xFF0D47A1),
                 ),
               ),
               SizedBox(height: 4),
               Text(
-                'Pipeline coordination architecture visualized',
+                'Pipeline owner connections and rendering coordination visualized',
                 style: TextStyle(
                   fontSize: 12,
                   color: Color(0xFF1976D2),
                 ),
+                textAlign: TextAlign.center,
               ),
             ],
           ),

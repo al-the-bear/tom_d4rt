@@ -1,1469 +1,1385 @@
-// D4rt test script: Deep demo for PlaceholderSpanIndexSemanticsTag from rendering
-//
-// PlaceholderSpanIndexSemanticsTag is a SemanticsTag that:
-//   - Associates placeholder indices with semantic nodes
-//   - Enables screen readers to understand inline widget positions
-//   - Works with Text.rich and WidgetSpan for rich text accessibility
-//   - Provides index property for placeholder identification
-//
-// This demo covers:
-//   1. SemanticsTag concept and purpose
-//   2. PlaceholderSpanIndexSemanticsTag usage with Text.rich and WidgetSpan
-//   3. Index property visualization and multiple placeholders
-//   4. Semantic tree structure with inline widgets
-//
-// ═══════════════════════════════════════════════════════════════════════════
+// PlaceholderSpanIndexSemanticsTag Deep Demo
+// Semantics tag for inline widgets in text - enables accessibility for WidgetSpan elements
+// Created: March 2026
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_test/flutter_test.dart';
 
-// ═══════════════════════════════════════════════════════════════════════════
-// COLOR PALETTE
-// ═══════════════════════════════════════════════════════════════════════════
+void main() {
+  group('PlaceholderSpanIndexSemanticsTag Overview', () {
+    // PlaceholderSpanIndexSemanticsTag is a SemanticsTag subclass that identifies
+    // placeholder elements (inline widgets) within text by their index position.
+    // When using WidgetSpan in RichText, this tag helps screen readers understand
+    // the position and purpose of embedded widgets.
 
-Color _kIndigo50 = Color(0xFFE8EAF6);
-Color _kIndigo100 = Color(0xFFC5CAE9);
-Color _kIndigo200 = Color(0xFF9FA8DA);
-Color _kIndigo300 = Color(0xFF7986CB);
-Color _kIndigo400 = Color(0xFF5C6BC0);
-Color _kIndigo500 = Color(0xFF3F51B5);
-Color _kIndigo600 = Color(0xFF3949AB);
-Color _kIndigo700 = Color(0xFF303F9F);
-Color _kIndigo800 = Color(0xFF283593);
-Color _kIndigo900 = Color(0xFF1A237E);
+    test('basic creation with index zero', () {
+      var tag = PlaceholderSpanIndexSemanticsTag(0);
 
-Color _kAmber500 = Color(0xFFFFC107);
-Color _kAmber600 = Color(0xFFFFB300);
+      expect(tag, isNotNull);
+      expect(tag.index, equals(0));
+      expect(tag, isA<SemanticsTag>());
+    });
 
-Color _kTeal400 = Color(0xFF26A69A);
-Color _kTeal500 = Color(0xFF009688);
-Color _kTeal600 = Color(0xFF00897B);
+    test('creation with positive index values', () {
+      var tag1 = PlaceholderSpanIndexSemanticsTag(1);
+      var tag2 = PlaceholderSpanIndexSemanticsTag(5);
+      var tag3 = PlaceholderSpanIndexSemanticsTag(10);
+      var tag4 = PlaceholderSpanIndexSemanticsTag(100);
 
-Color _kOrange500 = Color(0xFFFF9800);
+      expect(tag1.index, equals(1));
+      expect(tag2.index, equals(5));
+      expect(tag3.index, equals(10));
+      expect(tag4.index, equals(100));
+    });
 
-Color _kPink500 = Color(0xFFE91E63);
+    test('tag extends SemanticsTag base class', () {
+      var tag = PlaceholderSpanIndexSemanticsTag(0);
 
-// ═══════════════════════════════════════════════════════════════════════════
-// HELPER WIDGETS
-// ═══════════════════════════════════════════════════════════════════════════
+      expect(tag, isA<SemanticsTag>());
+    });
 
-// Builds a styled section header with icon
-Widget _buildSectionHeader(String title, IconData icon) {
-  return Padding(
-    padding: EdgeInsets.only(bottom: 16, top: 8),
-    child: Row(
-      children: [
-        Container(
-          padding: EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: _kIndigo100,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Icon(icon, color: _kIndigo800, size: 24),
-        ),
-        SizedBox(width: 12),
-        Expanded(
-          child: Text(
-            title,
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: _kIndigo900,
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-}
+    test('multiple tags with same index are equal', () {
+      var tag1 = PlaceholderSpanIndexSemanticsTag(3);
+      var tag2 = PlaceholderSpanIndexSemanticsTag(3);
 
-// Builds an info card with description
-Widget _buildInfoCard(String title, String description, IconData icon) {
-  return Container(
-    margin: EdgeInsets.only(bottom: 12),
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: _kIndigo50,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: _kIndigo200),
-    ),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Icon(icon, color: _kIndigo600, size: 24),
-        SizedBox(width: 12),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: _kIndigo900,
-                ),
-              ),
-              SizedBox(height: 4),
-              Text(
-                description,
-                style: TextStyle(fontSize: 12, color: _kIndigo700),
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-}
+      expect(tag1 == tag2, isTrue);
+      expect(tag1.hashCode, equals(tag2.hashCode));
+    });
 
-// Builds a property display row
-Widget _buildPropertyRow(String name, String value, IconData icon) {
-  return Padding(
-    padding: EdgeInsets.symmetric(vertical: 6),
-    child: Row(
-      children: [
-        Icon(icon, size: 16, color: _kIndigo500),
-        SizedBox(width: 8),
-        Text(
-          '$name:',
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            color: _kIndigo800,
-            fontSize: 13,
-          ),
-        ),
-        SizedBox(width: 8),
-        Expanded(
-          child: Text(
-            value,
-            style: TextStyle(color: _kIndigo600, fontSize: 13),
-          ),
-        ),
-      ],
-    ),
-  );
-}
+    test('tags with different indices are not equal', () {
+      var tag1 = PlaceholderSpanIndexSemanticsTag(0);
+      var tag2 = PlaceholderSpanIndexSemanticsTag(1);
+      var tag3 = PlaceholderSpanIndexSemanticsTag(2);
 
-// ═══════════════════════════════════════════════════════════════════════════
-// SECTION 1: SEMANTICS TAG CONCEPT
-// ═══════════════════════════════════════════════════════════════════════════
+      expect(tag1 == tag2, isFalse);
+      expect(tag2 == tag3, isFalse);
+      expect(tag1 == tag3, isFalse);
+    });
 
-Widget _buildSemanticsTagConceptSection() {
-  return Container(
-    margin: EdgeInsets.only(bottom: 16),
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(16),
-      border: Border.all(color: _kIndigo200),
-      boxShadow: [
-        BoxShadow(
-          color: _kIndigo100.withValues(alpha: 0.5),
-          blurRadius: 8,
-          offset: Offset(0, 4),
-        ),
-      ],
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildSectionHeader('SemanticsTag Concept', Icons.label_important),
-        Text(
-          'SemanticsTag is a marker class for semantics classification',
-          style: TextStyle(
-            fontSize: 14,
-            color: _kIndigo700,
-            fontStyle: FontStyle.italic,
-          ),
-        ),
-        SizedBox(height: 16),
-        _buildInfoCard(
-          'Purpose of SemanticsTag',
-          'Tags allow categorization of semantic nodes for filtering and '
-          'identification without affecting the semantic information itself.',
-          Icons.category,
-        ),
-        _buildInfoCard(
-          'How Tags Work',
-          'Tags are attached to SemanticsNode via SemanticsConfiguration.tagsForChildren '
-          'and can be queried to filter specific semantic entities.',
-          Icons.hub,
-        ),
-        _buildInfoCard(
-          'PlaceholderSpanIndexSemanticsTag',
-          'A specialized tag that associates an index with inline widget placeholders, '
-          'helping screen readers navigate between embedded widgets in rich text.',
-          Icons.pin_drop,
-        ),
-        SizedBox(height: 12),
-        Container(
-          padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: _kTeal400.withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: _kTeal500.withValues(alpha: 0.3)),
-          ),
-          child: Row(
-            children: [
-              Icon(Icons.lightbulb_outline, color: _kTeal600, size: 20),
-              SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  'Tags enable assistive technologies to understand widget relationships',
-                  style: TextStyle(fontSize: 12, color: _kTeal600),
-                ),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: 16),
-        _buildTagHierarchyVisualization(),
-      ],
-    ),
-  );
-}
+    test('toString provides meaningful representation', () {
+      var tag = PlaceholderSpanIndexSemanticsTag(7);
+      var representation = tag.toString();
 
-Widget _buildTagHierarchyVisualization() {
-  return Container(
-    padding: EdgeInsets.all(12),
-    decoration: BoxDecoration(
-      color: _kIndigo50,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: _kIndigo200),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'SemanticsTag Class Hierarchy',
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: _kIndigo800,
-          ),
-        ),
-        SizedBox(height: 12),
-        Row(
-          children: [
-            _buildHierarchyBox('SemanticsTag', _kIndigo400, true),
-            SizedBox(width: 8),
-            Icon(Icons.arrow_forward, color: _kIndigo400, size: 20),
-            SizedBox(width: 8),
-            _buildHierarchyBox('PlaceholderSpanIndex\nSemanticsTag', _kIndigo600, false),
-          ],
-        ),
-        SizedBox(height: 12),
-        Row(
-          children: [
-            SizedBox(width: 40),
-            Icon(Icons.subdirectory_arrow_right, color: _kIndigo300, size: 20),
-            SizedBox(width: 8),
-            Text(
-              'Stores: int index (placeholder position)',
-              style: TextStyle(fontSize: 11, color: _kIndigo600),
-            ),
-          ],
-        ),
-      ],
-    ),
-  );
-}
+      expect(representation, contains('PlaceholderSpanIndexSemanticsTag'));
+      expect(representation, contains('7'));
+    });
 
-Widget _buildHierarchyBox(String label, Color color, bool isBase) {
-  return Container(
-    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-    decoration: BoxDecoration(
-      color: color.withValues(alpha: 0.2),
-      borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: color, width: isBase ? 2 : 1),
-    ),
-    child: Text(
-      label,
-      textAlign: TextAlign.center,
-      style: TextStyle(
-        fontSize: 11,
-        fontWeight: FontWeight.w600,
-        color: color,
-      ),
-    ),
-  );
-}
+    test('large index values are supported', () {
+      var tag = PlaceholderSpanIndexSemanticsTag(999999);
 
-// ═══════════════════════════════════════════════════════════════════════════
-// SECTION 2: USAGE WITH TEXT.RICH AND WIDGETSPAN
-// ═══════════════════════════════════════════════════════════════════════════
+      expect(tag.index, equals(999999));
+    });
+  });
 
-Widget _buildUsageWithTextRichSection() {
-  return Container(
-    margin: EdgeInsets.only(bottom: 16),
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(16),
-      border: Border.all(color: _kIndigo200),
-      boxShadow: [
-        BoxShadow(
-          color: _kIndigo100.withValues(alpha: 0.5),
-          blurRadius: 8,
-          offset: Offset(0, 4),
-        ),
-      ],
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildSectionHeader('Usage with Text.rich & WidgetSpan', Icons.text_fields),
-        Text(
-          'PlaceholderSpanIndexSemanticsTag tracks inline widget positions',
-          style: TextStyle(
-            fontSize: 14,
-            color: _kIndigo700,
-            fontStyle: FontStyle.italic,
-          ),
-        ),
-        SizedBox(height: 16),
-        _buildRichTextExample1(),
-        SizedBox(height: 16),
-        _buildRichTextExample2(),
-        SizedBox(height: 16),
-        _buildRichTextExample3(),
-        SizedBox(height: 16),
-        _buildCodeExplanation(),
-      ],
-    ),
-  );
-}
+  group('Index Property Behavior', () {
+    // The index property represents the position of the placeholder widget
+    // within the text span sequence. This is crucial for maintaining proper
+    // reading order in accessibility contexts.
 
-Widget _buildRichTextExample1() {
-  return Container(
-    padding: EdgeInsets.all(12),
-    decoration: BoxDecoration(
-      color: _kIndigo50,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: _kIndigo200),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(
-                color: _kAmber500,
-                borderRadius: BorderRadius.circular(4),
-              ),
-              child: Text(
-                'Example 1',
-                style: TextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
-              ),
-            ),
-            SizedBox(width: 8),
-            Text(
-              'Single Inline Widget',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-                color: _kIndigo800,
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 12),
-        Container(
-          padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: _kIndigo300),
-          ),
-          child: RichText(
-            text: TextSpan(
-              style: TextStyle(fontSize: 16, color: Colors.black87),
-              children: [
-                TextSpan(text: 'Rate this article '),
-                WidgetSpan(
-                  child: Icon(Icons.star, color: _kAmber500, size: 20),
-                  alignment: PlaceholderAlignment.middle,
-                ),
-                TextSpan(text: ' by clicking the star'),
-              ],
-            ),
-          ),
-        ),
-        SizedBox(height: 8),
-        Row(
-          children: [
-            Icon(Icons.info_outline, size: 14, color: _kIndigo500),
-            SizedBox(width: 4),
-            Text(
-              'PlaceholderSpanIndexSemanticsTag(index: 0) for star icon',
-              style: TextStyle(fontSize: 11, color: _kIndigo600),
-            ),
-          ],
-        ),
-      ],
-    ),
-  );
-}
+    test('index property is immutable after creation', () {
+      var tag = PlaceholderSpanIndexSemanticsTag(5);
+      var initialIndex = tag.index;
 
-Widget _buildRichTextExample2() {
-  return Container(
-    padding: EdgeInsets.all(12),
-    decoration: BoxDecoration(
-      color: _kIndigo50,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: _kIndigo200),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(
-                color: _kTeal500,
-                borderRadius: BorderRadius.circular(4),
-              ),
-              child: Text(
-                'Example 2',
-                style: TextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            SizedBox(width: 8),
-            Text(
-              'Multiple Inline Widgets',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-                color: _kIndigo800,
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 12),
-        Container(
-          padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: _kIndigo300),
-          ),
-          child: RichText(
-            text: TextSpan(
-              style: TextStyle(fontSize: 16, color: Colors.black87),
-              children: [
-                TextSpan(text: 'Actions: '),
-                WidgetSpan(
-                  child: _buildActionChip(Icons.thumb_up, 'Like', _kTeal500),
-                  alignment: PlaceholderAlignment.middle,
-                ),
-                TextSpan(text: ' '),
-                WidgetSpan(
-                  child: _buildActionChip(Icons.share, 'Share', _kOrange500),
-                  alignment: PlaceholderAlignment.middle,
-                ),
-                TextSpan(text: ' '),
-                WidgetSpan(
-                  child: _buildActionChip(Icons.bookmark, 'Save', _kPink500),
-                  alignment: PlaceholderAlignment.middle,
-                ),
-              ],
-            ),
-          ),
-        ),
-        SizedBox(height: 8),
-        _buildIndexLegend([
-          IndexLegendItem(0, 'Like button', _kTeal500),
-          IndexLegendItem(1, 'Share button', _kOrange500),
-          IndexLegendItem(2, 'Save button', _kPink500),
-        ]),
-      ],
-    ),
-  );
-}
+      // Create another reference to verify immutability pattern
+      var sameTag = tag;
 
-Widget _buildActionChip(IconData icon, String label, Color color) {
-  return Container(
-    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-    decoration: BoxDecoration(
-      color: color.withValues(alpha: 0.15),
-      borderRadius: BorderRadius.circular(16),
-      border: Border.all(color: color),
-    ),
-    child: Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(icon, size: 14, color: color),
-        SizedBox(width: 4),
-        Text(
-          label,
-          style: TextStyle(fontSize: 12, color: color, fontWeight: FontWeight.w500),
-        ),
-      ],
-    ),
-  );
-}
+      expect(sameTag.index, equals(initialIndex));
+      expect(tag.index, equals(5));
+    });
 
-class IndexLegendItem {
-  int index;
-  String description;
-  Color color;
-  IndexLegendItem(this.index, this.description, this.color);
-}
+    test('sequential indices for multiple placeholders', () {
+      var indices = <int>[];
+      for (var i = 0; i < 10; i++) {
+        var tag = PlaceholderSpanIndexSemanticsTag(i);
+        indices.add(tag.index);
+      }
 
-Widget _buildIndexLegend(List<IndexLegendItem> items) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: items.map((item) {
-      return Padding(
-        padding: EdgeInsets.symmetric(vertical: 2),
-        child: Row(
-          children: [
-            Container(
-              width: 20,
-              height: 20,
-              decoration: BoxDecoration(
-                color: item.color.withValues(alpha: 0.2),
-                borderRadius: BorderRadius.circular(4),
-                border: Border.all(color: item.color),
-              ),
-              child: Center(
-                child: Text(
-                  '${item.index}',
-                  style: TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
-                    color: item.color,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(width: 8),
-            Text(
-              'PlaceholderSpanIndexSemanticsTag(index: ${item.index}) - ${item.description}',
-              style: TextStyle(fontSize: 11, color: _kIndigo600),
-            ),
-          ],
-        ),
-      );
-    }).toList(),
-  );
-}
+      expect(indices, equals([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]));
+    });
 
-Widget _buildRichTextExample3() {
-  return Container(
-    padding: EdgeInsets.all(12),
-    decoration: BoxDecoration(
-      color: _kIndigo50,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: _kIndigo200),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(
-                color: _kPink500,
-                borderRadius: BorderRadius.circular(4),
-              ),
-              child: Text(
-                'Example 3',
-                style: TextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            SizedBox(width: 8),
-            Text(
-              'Complex Mixed Content',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-                color: _kIndigo800,
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 12),
-        Container(
-          padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: _kIndigo300),
-          ),
-          child: RichText(
-            text: TextSpan(
-              style: TextStyle(fontSize: 15, color: Colors.black87),
-              children: [
-                TextSpan(text: 'User '),
-                WidgetSpan(
-                  child: _buildUserAvatar(),
-                  alignment: PlaceholderAlignment.middle,
-                ),
-                TextSpan(text: ' posted '),
-                WidgetSpan(
-                  child: Icon(Icons.photo, color: _kIndigo500, size: 18),
-                  alignment: PlaceholderAlignment.middle,
-                ),
-                TextSpan(text: ' photos and tagged '),
-                WidgetSpan(
-                  child: _buildTagBadge('@friend', _kTeal500),
-                  alignment: PlaceholderAlignment.middle,
-                ),
-                TextSpan(text: ' with '),
-                WidgetSpan(
-                  child: _buildEmojiWidget('😀'),
-                  alignment: PlaceholderAlignment.middle,
-                ),
-                TextSpan(text: ' reaction'),
-              ],
-            ),
-          ),
-        ),
-        SizedBox(height: 8),
-        _buildIndexLegend([
-          IndexLegendItem(0, 'User avatar', _kIndigo500),
-          IndexLegendItem(1, 'Photo icon', _kIndigo500),
-          IndexLegendItem(2, 'Tag badge', _kTeal500),
-          IndexLegendItem(3, 'Emoji reaction', _kAmber500),
-        ]),
-      ],
-    ),
-  );
-}
+    test('index maintains value through collection operations', () {
+      var tags = <PlaceholderSpanIndexSemanticsTag>[];
+      tags.add(PlaceholderSpanIndexSemanticsTag(0));
+      tags.add(PlaceholderSpanIndexSemanticsTag(1));
+      tags.add(PlaceholderSpanIndexSemanticsTag(2));
 
-Widget _buildUserAvatar() {
-  return Container(
-    width: 22,
-    height: 22,
-    decoration: BoxDecoration(
-      color: _kIndigo400,
-      shape: BoxShape.circle,
-    ),
-    child: Icon(Icons.person, size: 14, color: Colors.white),
-  );
-}
+      var retrievedTag = tags[1];
+      expect(retrievedTag.index, equals(1));
+    });
 
-Widget _buildTagBadge(String text, Color color) {
-  return Container(
-    padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-    decoration: BoxDecoration(
-      color: color.withValues(alpha: 0.15),
-      borderRadius: BorderRadius.circular(4),
-    ),
-    child: Text(
-      text,
-      style: TextStyle(fontSize: 12, color: color, fontWeight: FontWeight.w500),
-    ),
-  );
-}
+    test('index used for sorting semantics tags', () {
+      var tags = [
+        PlaceholderSpanIndexSemanticsTag(5),
+        PlaceholderSpanIndexSemanticsTag(2),
+        PlaceholderSpanIndexSemanticsTag(8),
+        PlaceholderSpanIndexSemanticsTag(1),
+        PlaceholderSpanIndexSemanticsTag(3),
+      ];
 
-Widget _buildEmojiWidget(String emoji) {
-  return Container(
-    padding: EdgeInsets.all(2),
-    child: Text(emoji, style: TextStyle(fontSize: 16)),
-  );
-}
+      tags.sort((a, b) => a.index.compareTo(b.index));
 
-Widget _buildCodeExplanation() {
-  return Container(
-    padding: EdgeInsets.all(12),
-    decoration: BoxDecoration(
-      color: Color(0xFF1E1E1E),
-      borderRadius: BorderRadius.circular(8),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          '// Creating a tag for placeholder tracking',
-          style: TextStyle(
-            fontFamily: 'monospace',
-            fontSize: 11,
-            color: Color(0xFF6A9955),
-          ),
-        ),
-        SizedBox(height: 4),
-        RichText(
-          text: TextSpan(
-            style: TextStyle(fontFamily: 'monospace', fontSize: 11),
-            children: [
-              TextSpan(text: 'var ', style: TextStyle(color: Color(0xFF569CD6))),
-              TextSpan(text: 'tag = ', style: TextStyle(color: Color(0xFFD4D4D4))),
-              TextSpan(text: 'PlaceholderSpanIndexSemanticsTag', style: TextStyle(color: Color(0xFF4EC9B0))),
-              TextSpan(text: '(', style: TextStyle(color: Color(0xFFD4D4D4))),
-              TextSpan(text: '0', style: TextStyle(color: Color(0xFFB5CEA8))),
-              TextSpan(text: ');', style: TextStyle(color: Color(0xFFD4D4D4))),
-            ],
-          ),
-        ),
-        SizedBox(height: 4),
-        RichText(
-          text: TextSpan(
-            style: TextStyle(fontFamily: 'monospace', fontSize: 11),
-            children: [
-              TextSpan(text: 'print', style: TextStyle(color: Color(0xFFDCDCAA))),
-              TextSpan(text: '(tag.', style: TextStyle(color: Color(0xFFD4D4D4))),
-              TextSpan(text: 'index', style: TextStyle(color: Color(0xFF9CDCFE))),
-              TextSpan(text: '); ', style: TextStyle(color: Color(0xFFD4D4D4))),
-              TextSpan(text: '// Outputs: 0', style: TextStyle(color: Color(0xFF6A9955))),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-}
+      var sortedIndices = tags.map((t) => t.index).toList();
+      expect(sortedIndices, equals([1, 2, 3, 5, 8]));
+    });
 
-// ═══════════════════════════════════════════════════════════════════════════
-// SECTION 3: INDEX PROPERTY VISUALIZATION
-// ═══════════════════════════════════════════════════════════════════════════
+    test('index zero represents first placeholder in text', () {
+      var firstPlaceholder = PlaceholderSpanIndexSemanticsTag(0);
 
-Widget _buildIndexPropertySection() {
-  return Container(
-    margin: EdgeInsets.only(bottom: 16),
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(16),
-      border: Border.all(color: _kIndigo200),
-      boxShadow: [
-        BoxShadow(
-          color: _kIndigo100.withValues(alpha: 0.5),
-          blurRadius: 8,
-          offset: Offset(0, 4),
-        ),
-      ],
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildSectionHeader('Index Property Visualization', Icons.format_list_numbered),
-        Text(
-          'The index property identifies each placeholder\'s position',
-          style: TextStyle(
-            fontSize: 14,
-            color: _kIndigo700,
-            fontStyle: FontStyle.italic,
-          ),
-        ),
-        SizedBox(height: 16),
-        _buildIndexVisualization(),
-        SizedBox(height: 16),
-        _buildIndexPropertyDetails(),
-        SizedBox(height: 16),
-        _buildIndexComparisonTable(),
-      ],
-    ),
-  );
-}
+      expect(firstPlaceholder.index, equals(0));
+      expect(firstPlaceholder.index == 0, isTrue);
+    });
 
-Widget _buildIndexVisualization() {
-  return Container(
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: _kIndigo50,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: _kIndigo200),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Placeholder Index Assignment',
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: _kIndigo800,
-          ),
-        ),
-        SizedBox(height: 16),
-        SizedBox(
-          height: 100,
-          child: Row(
-            children: [
-              Expanded(child: _buildIndexedPlaceholder(0, Icons.image, 'Image')),
-              _buildIndexArrow(),
-              Expanded(child: _buildIndexedPlaceholder(1, Icons.videocam, 'Video')),
-              _buildIndexArrow(),
-              Expanded(child: _buildIndexedPlaceholder(2, Icons.link, 'Link')),
-              _buildIndexArrow(),
-              Expanded(child: _buildIndexedPlaceholder(3, Icons.attachment, 'File')),
-            ],
-          ),
-        ),
-        SizedBox(height: 12),
-        Container(
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: _kAmber500.withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: _kAmber500.withValues(alpha: 0.3)),
-          ),
-          child: Row(
-            children: [
-              Icon(Icons.arrow_forward, color: _kAmber600, size: 16),
-              SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  'Indices are assigned sequentially (0, 1, 2, 3...) as placeholders appear in text flow',
-                  style: TextStyle(fontSize: 11, color: _kAmber600),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-}
+    test('index comparison operators', () {
+      var tag0 = PlaceholderSpanIndexSemanticsTag(0);
+      var tag5 = PlaceholderSpanIndexSemanticsTag(5);
+      var tag10 = PlaceholderSpanIndexSemanticsTag(10);
 
-Widget _buildIndexedPlaceholder(int index, IconData icon, String label) {
-  List<Color> colors = [_kIndigo500, _kTeal500, _kOrange500, _kPink500];
-  Color color = colors[index % colors.length];
-  
-  return Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      Stack(
-        clipBehavior: Clip.none,
-        children: [
-          Container(
-            width: 50,
-            height: 50,
-            decoration: BoxDecoration(
-              color: color.withValues(alpha: 0.15),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: color, width: 2),
-            ),
-            child: Icon(icon, color: color, size: 24),
-          ),
-          Positioned(
-            top: -8,
-            right: -8,
-            child: Container(
-              width: 20,
-              height: 20,
-              decoration: BoxDecoration(
-                color: color,
-                shape: BoxShape.circle,
-              ),
-              child: Center(
-                child: Text(
-                  '$index',
-                  style: TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-      SizedBox(height: 6),
-      Text(
-        label,
-        style: TextStyle(fontSize: 10, color: _kIndigo700),
-      ),
-    ],
-  );
-}
+      expect(tag0.index < tag5.index, isTrue);
+      expect(tag5.index < tag10.index, isTrue);
+      expect(tag10.index > tag0.index, isTrue);
+      expect(tag5.index >= 5, isTrue);
+      expect(tag5.index <= 5, isTrue);
+    });
 
-Widget _buildIndexArrow() {
-  return Padding(
-    padding: EdgeInsets.symmetric(horizontal: 4),
-    child: Icon(Icons.arrow_forward_ios, size: 12, color: _kIndigo300),
-  );
-}
+    test('index in map as key retrieval', () {
+      var tagMap = <int, PlaceholderSpanIndexSemanticsTag>{};
+      tagMap[0] = PlaceholderSpanIndexSemanticsTag(0);
+      tagMap[1] = PlaceholderSpanIndexSemanticsTag(1);
+      tagMap[2] = PlaceholderSpanIndexSemanticsTag(2);
 
-Widget _buildIndexPropertyDetails() {
-  return Container(
-    padding: EdgeInsets.all(12),
-    decoration: BoxDecoration(
-      color: _kIndigo50,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: _kIndigo200),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Index Property Characteristics',
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: _kIndigo800,
-          ),
-        ),
-        SizedBox(height: 12),
-        _buildPropertyRow('Type', 'int (non-negative integer)', Icons.code),
-        _buildPropertyRow('Range', '0 to (placeholder_count - 1)', Icons.timeline),
-        _buildPropertyRow('Assignment', 'Automatic by text rendering system', Icons.auto_fix_high),
-        _buildPropertyRow('Stability', 'Changes when placeholders are added/removed', Icons.sync),
-      ],
-    ),
-  );
-}
+      expect(tagMap[1]!.index, equals(1));
+    });
+  });
 
-Widget _buildIndexComparisonTable() {
-  return Container(
-    padding: EdgeInsets.all(12),
-    decoration: BoxDecoration(
-      color: _kIndigo50,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: _kIndigo200),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Index Values for Different Scenarios',
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: _kIndigo800,
-          ),
-        ),
-        SizedBox(height: 12),
-        Table(
-          border: TableBorder.all(color: _kIndigo300, width: 1),
-          columnWidths: {
-            0: FlexColumnWidth(2),
-            1: FlexColumnWidth(1),
-          },
-          children: [
-            TableRow(
-              decoration: BoxDecoration(color: _kIndigo200),
-              children: [
-                _buildTableCell('Scenario', true),
-                _buildTableCell('Index', true),
-              ],
-            ),
-            TableRow(
-              children: [
-                _buildTableCell('First placeholder in text', false),
-                _buildTableCell('0', false),
-              ],
-            ),
-            TableRow(
-              children: [
-                _buildTableCell('Second placeholder in text', false),
-                _buildTableCell('1', false),
-              ],
-            ),
-            TableRow(
-              children: [
-                _buildTableCell('After removing first placeholder', false),
-                _buildTableCell('Reindexed', false),
-              ],
-            ),
-            TableRow(
-              children: [
-                _buildTableCell('Nested WidgetSpan', false),
-                _buildTableCell('Same rules', false),
-              ],
-            ),
-          ],
-        ),
-      ],
-    ),
-  );
-}
+  group('Usage with RichText and WidgetSpan', () {
+    // PlaceholderSpanIndexSemanticsTag is automatically applied by Flutter
+    // when WidgetSpan elements are used within RichText. Each inline widget
+    // receives a tag corresponding to its position in the span tree.
 
-Widget _buildTableCell(String text, bool isHeader) {
-  return Container(
-    padding: EdgeInsets.all(8),
-    child: Text(
-      text,
-      style: TextStyle(
-        fontSize: 12,
-        fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-        color: isHeader ? _kIndigo900 : _kIndigo700,
-      ),
-    ),
-  );
-}
-
-// ═══════════════════════════════════════════════════════════════════════════
-// SECTION 4: SEMANTIC TREE STRUCTURE
-// ═══════════════════════════════════════════════════════════════════════════
-
-Widget _buildSemanticTreeSection() {
-  return Container(
-    margin: EdgeInsets.only(bottom: 16),
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(16),
-      border: Border.all(color: _kIndigo200),
-      boxShadow: [
-        BoxShadow(
-          color: _kIndigo100.withValues(alpha: 0.5),
-          blurRadius: 8,
-          offset: Offset(0, 4),
-        ),
-      ],
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildSectionHeader('Semantic Tree Structure', Icons.account_tree),
-        Text(
-          'How PlaceholderSpanIndexSemanticsTag integrates with semantics',
-          style: TextStyle(
-            fontSize: 14,
-            color: _kIndigo700,
-            fontStyle: FontStyle.italic,
-          ),
-        ),
-        SizedBox(height: 16),
-        _buildTreeVisualization(),
-        SizedBox(height: 16),
-        _buildAccessibilityFlow(),
-        SizedBox(height: 16),
-        _buildScreenReaderExample(),
-      ],
-    ),
-  );
-}
-
-Widget _buildTreeVisualization() {
-  return Container(
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: _kIndigo50,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: _kIndigo200),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Semantic Tree with Inline Widgets',
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: _kIndigo800,
-          ),
-        ),
-        SizedBox(height: 16),
-        _buildTreeNode('RichText Semantics', Icons.text_snippet, _kIndigo500, 0, [
-          _buildTreeNode('TextSpan: "Click "', Icons.text_format, _kIndigo400, 1, []),
-          _buildTreeNode('WidgetSpan [index: 0]', Icons.widgets, _kTeal500, 1, [
-            _buildTreeNode('Icon Semantics', Icons.accessibility, _kTeal400, 2, []),
-          ]),
-          _buildTreeNode('TextSpan: " to continue"', Icons.text_format, _kIndigo400, 1, []),
-        ]),
-      ],
-    ),
-  );
-}
-
-Widget _buildTreeNode(String label, IconData icon, Color color, int depth, List<Widget> children) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Padding(
-        padding: EdgeInsets.only(left: depth * 20.0),
-        child: Row(
-          children: [
-            if (depth > 0) ...[
-              Container(
-                width: 16,
-                height: 2,
-                color: color.withValues(alpha: 0.5),
-              ),
-              SizedBox(width: 4),
-            ],
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-              decoration: BoxDecoration(
-                color: color.withValues(alpha: 0.15),
-                borderRadius: BorderRadius.circular(6),
-                border: Border.all(color: color),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(icon, size: 14, color: color),
-                  SizedBox(width: 6),
-                  Text(
-                    label,
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w500,
-                      color: color,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-      if (children.isNotEmpty) ...[
-        SizedBox(height: 8),
-        ...children,
-        SizedBox(height: 4),
-      ],
-    ],
-  );
-}
-
-Widget _buildAccessibilityFlow() {
-  return Container(
-    padding: EdgeInsets.all(12),
-    decoration: BoxDecoration(
-      color: _kTeal400.withValues(alpha: 0.1),
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: _kTeal500.withValues(alpha: 0.3)),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Icon(Icons.accessibility_new, color: _kTeal600, size: 20),
-            SizedBox(width: 8),
-            Text(
-              'Accessibility Navigation Flow',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-                color: _kTeal600,
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 12),
-        _buildFlowStep(1, 'Screen reader encounters RichText', _kTeal500),
-        _buildFlowStep(2, 'Reads text spans in order', _kTeal500),
-        _buildFlowStep(3, 'Identifies placeholder via index tag', _kTeal600),
-        _buildFlowStep(4, 'Announces inline widget semantics', _kTeal600),
-        _buildFlowStep(5, 'Continues to next text span', _kTeal500),
-      ],
-    ),
-  );
-}
-
-Widget _buildFlowStep(int step, String description, Color color) {
-  return Padding(
-    padding: EdgeInsets.symmetric(vertical: 4),
-    child: Row(
-      children: [
-        Container(
-          width: 22,
-          height: 22,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
-          child: Center(
-            child: Text(
-              '$step',
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ),
-        SizedBox(width: 10),
-        Expanded(
-          child: Text(
-            description,
-            style: TextStyle(fontSize: 12, color: _kTeal600),
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildScreenReaderExample() {
-  return Container(
-    padding: EdgeInsets.all(12),
-    decoration: BoxDecoration(
-      color: _kIndigo50,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: _kIndigo200),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Icon(Icons.volume_up, color: _kIndigo600, size: 20),
-            SizedBox(width: 8),
-            Text(
-              'Screen Reader Announcement Example',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-                color: _kIndigo800,
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 12),
-        Container(
-          padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: _kIndigo300),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Original Text:',
-                style: TextStyle(fontSize: 11, color: _kIndigo500),
-              ),
-              SizedBox(height: 4),
-              RichText(
+    testWidgets('RichText with single WidgetSpan placeholder',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Center(
+              child: RichText(
                 text: TextSpan(
-                  style: TextStyle(fontSize: 14, color: Colors.black87),
                   children: [
-                    TextSpan(text: 'Press '),
-                    WidgetSpan(
-                      child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                        decoration: BoxDecoration(
-                          color: _kIndigo500,
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: Text(
-                          'Enter',
-                          style: TextStyle(fontSize: 12, color: Colors.white),
-                        ),
-                      ),
-                      alignment: PlaceholderAlignment.middle,
+                    TextSpan(
+                      text: 'Hello ',
+                      style: TextStyle(color: Colors.black),
                     ),
-                    TextSpan(text: ' to submit'),
+                    WidgetSpan(
+                      child: Icon(Icons.star, size: 16),
+                    ),
+                    TextSpan(
+                      text: ' world',
+                      style: TextStyle(color: Colors.black),
+                    ),
                   ],
                 ),
               ),
-            ],
+            ),
           ),
         ),
-        SizedBox(height: 8),
-        Container(
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: _kAmber500.withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: _kAmber500.withValues(alpha: 0.3)),
-          ),
-          child: Row(
-            children: [
-              Icon(Icons.record_voice_over, color: _kAmber600, size: 18),
-              SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  '"Press Enter button to submit"',
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontStyle: FontStyle.italic,
-                    color: _kAmber600,
-                  ),
+      );
+
+      expect(find.byType(RichText), findsOneWidget);
+      expect(find.byIcon(Icons.star), findsOneWidget);
+    });
+
+    testWidgets('RichText with multiple WidgetSpan placeholders',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Center(
+              child: RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: 'Rating: ',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    WidgetSpan(
+                      child: Icon(Icons.star, size: 16, color: Colors.amber),
+                    ),
+                    WidgetSpan(
+                      child: Icon(Icons.star, size: 16, color: Colors.amber),
+                    ),
+                    WidgetSpan(
+                      child: Icon(Icons.star, size: 16, color: Colors.amber),
+                    ),
+                    WidgetSpan(
+                      child: Icon(Icons.star_border, size: 16),
+                    ),
+                    WidgetSpan(
+                      child: Icon(Icons.star_border, size: 16),
+                    ),
+                  ],
                 ),
               ),
-            ],
+            ),
           ),
         ),
-      ],
-    ),
-  );
-}
+      );
 
-// ═══════════════════════════════════════════════════════════════════════════
-// MAIN BUILD FUNCTION
-// ═══════════════════════════════════════════════════════════════════════════
+      expect(find.byType(RichText), findsOneWidget);
+      expect(find.byIcon(Icons.star), findsWidgets);
+      expect(find.byIcon(Icons.star_border), findsWidgets);
+    });
 
-dynamic build(BuildContext context) {
-  print('═══════════════════════════════════════════════════════════════════');
-  print('║       PlaceholderSpanIndexSemanticsTag Deep Demo                ║');
-  print('═══════════════════════════════════════════════════════════════════');
-  print('');
-  print('PlaceholderSpanIndexSemanticsTag deep demo executing...');
-  print('');
-  
-  // Create and demonstrate tag instances
-  var tag0 = PlaceholderSpanIndexSemanticsTag(0);
-  var tag1 = PlaceholderSpanIndexSemanticsTag(1);
-  var tag2 = PlaceholderSpanIndexSemanticsTag(2);
-  
-  print('Section 1: SemanticsTag Concept');
-  print('  - PlaceholderSpanIndexSemanticsTag extends SemanticsTag');
-  print('  - Purpose: Associate index with inline widget placeholders');
-  print('');
-  
-  print('Section 2: Tag Creation');
-  print('  - tag0 = PlaceholderSpanIndexSemanticsTag(0)');
-  print('  - tag0.index = ${tag0.index}');
-  print('  - tag1 = PlaceholderSpanIndexSemanticsTag(1)');
-  print('  - tag1.index = ${tag1.index}');
-  print('  - tag2 = PlaceholderSpanIndexSemanticsTag(2)');
-  print('  - tag2.index = ${tag2.index}');
-  print('');
-  
-  print('Section 3: Index Property Characteristics');
-  print('  - Type: int');
-  print('  - Range: 0 to (placeholder_count - 1)');
-  print('  - Assignment: Sequential based on appearance order');
-  print('');
-  
-  print('Section 4: Semantic Tree Integration');
-  print('  - Tags attach to SemanticsNode for each placeholder');
-  print('  - Screen readers use indices for navigation');
-  print('  - Enables accessible inline widget identification');
-  print('');
-  
-  print('PlaceholderSpanIndexSemanticsTag deep demo completed');
-  print('═══════════════════════════════════════════════════════════════════');
-  
-  return Scaffold(
-    appBar: AppBar(
-      title: Text('PlaceholderSpanIndexSemanticsTag Demo'),
-      backgroundColor: _kIndigo500,
-      foregroundColor: Colors.white,
-    ),
-    body: Container(
-      color: _kIndigo50.withValues(alpha: 0.5),
-      child: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Demo header
-            Container(
-              padding: EdgeInsets.all(16),
-              margin: EdgeInsets.only(bottom: 16),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [_kIndigo600, _kIndigo800],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: [
-                  BoxShadow(
-                    color: _kIndigo500.withValues(alpha: 0.4),
-                    blurRadius: 12,
-                    offset: Offset(0, 6),
-                  ),
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(10),
+    testWidgets('WidgetSpan with Container inline widget',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Center(
+              child: RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: 'Status: ',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    WidgetSpan(
+                      alignment: PlaceholderAlignment.middle,
+                      child: Container(
+                        width: 12,
+                        height: 12,
                         decoration: BoxDecoration(
-                          color: Colors.white.withValues(alpha: 0.2),
-                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.green,
+                          shape: BoxShape.circle,
                         ),
-                        child: Icon(Icons.pin_drop, color: Colors.white, size: 28),
                       ),
-                      SizedBox(width: 12),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                    ),
+                    TextSpan(
+                      text: ' Online',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byType(Container), findsOneWidget);
+    });
+
+    testWidgets('WidgetSpan with Chip widget inline',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Center(
+              child: RichText(
+                text: TextSpan(
+                  style: TextStyle(color: Colors.black),
+                  children: [
+                    TextSpan(text: 'Tagged as '),
+                    WidgetSpan(
+                      alignment: PlaceholderAlignment.middle,
+                      child: Chip(
+                        label: Text('Important'),
+                        labelStyle: TextStyle(fontSize: 10),
+                        padding: EdgeInsets.zero,
+                        visualDensity: VisualDensity.compact,
+                      ),
+                    ),
+                    TextSpan(text: ' for review'),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byType(Chip), findsOneWidget);
+      expect(find.text('Important'), findsOneWidget);
+    });
+
+    testWidgets('WidgetSpan with Image placeholder',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Center(
+              child: RichText(
+                text: TextSpan(
+                  style: TextStyle(color: Colors.black),
+                  children: [
+                    TextSpan(text: 'User '),
+                    WidgetSpan(
+                      alignment: PlaceholderAlignment.middle,
+                      child: CircleAvatar(
+                        radius: 10,
+                        backgroundColor: Colors.blue,
+                        child: Text('A', style: TextStyle(fontSize: 10)),
+                      ),
+                    ),
+                    TextSpan(text: ' commented'),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byType(CircleAvatar), findsOneWidget);
+    });
+
+    testWidgets('nested spans with widget placeholders',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Center(
+              child: RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: 'First level ',
+                      style: TextStyle(color: Colors.black),
+                      children: [
+                        WidgetSpan(
+                          child: Icon(Icons.check, size: 14),
+                        ),
+                        TextSpan(
+                          text: ' nested ',
                           children: [
-                            Text(
-                              'PlaceholderSpanIndex',
-                              style: TextStyle(
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                            Text(
-                              'SemanticsTag',
-                              style: TextStyle(
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
+                            WidgetSpan(
+                              child: Icon(Icons.close, size: 14),
                             ),
                           ],
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
+                    TextSpan(
+                      text: ' end',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byIcon(Icons.check), findsOneWidget);
+      expect(find.byIcon(Icons.close), findsOneWidget);
+    });
+  });
+
+  group('Accessibility Implications', () {
+    // PlaceholderSpanIndexSemanticsTag plays a crucial role in making inline
+    // widgets accessible to screen readers. It ensures that the reading order
+    // of embedded widgets matches their visual position in the text.
+
+    testWidgets('semantics enabled for inline widget',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Semantics(
+            container: true,
+            child: RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'Press ',
+                    style: TextStyle(color: Colors.black),
                   ),
-                  SizedBox(height: 12),
-                  Text(
-                    'Semantic identification for inline widget placeholders in rich text',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.white.withValues(alpha: 0.9),
+                  WidgetSpan(
+                    child: Semantics(
+                      label: 'play button',
+                      child: Icon(Icons.play_arrow, size: 16),
+                    ),
+                  ),
+                  TextSpan(
+                    text: ' to start',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.bySemanticsLabel('play button'), findsOneWidget);
+    });
+
+    testWidgets('multiple accessible inline widgets',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Semantics(
+            container: true,
+            child: RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'Choose ',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  WidgetSpan(
+                    child: Semantics(
+                      label: 'option A',
+                      child: Icon(Icons.looks_one, size: 16),
+                    ),
+                  ),
+                  TextSpan(
+                    text: ' or ',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  WidgetSpan(
+                    child: Semantics(
+                      label: 'option B',
+                      child: Icon(Icons.looks_two, size: 16),
                     ),
                   ),
                 ],
               ),
             ),
-            
-            // Section 1: SemanticsTag Concept
-            _buildSemanticsTagConceptSection(),
-            
-            // Section 2: Usage with Text.rich and WidgetSpan
-            _buildUsageWithTextRichSection(),
-            
-            // Section 3: Index Property Visualization
-            _buildIndexPropertySection(),
-            
-            // Section 4: Semantic Tree Structure
-            _buildSemanticTreeSection(),
-            
-            // Demo completion indicator
-            Container(
-              padding: EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: _kTeal500.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: _kTeal500.withValues(alpha: 0.3)),
-              ),
-              child: Row(
-                children: [
-                  Icon(Icons.check_circle, color: _kTeal500, size: 24),
-                  SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+          ),
+        ),
+      );
+
+      expect(find.bySemanticsLabel('option A'), findsOneWidget);
+      expect(find.bySemanticsLabel('option B'), findsOneWidget);
+    });
+
+    testWidgets('inline button with semantics action',
+        (WidgetTester tester) async {
+      var wasPressed = false;
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: RichText(
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: 'Click ',
+                  style: TextStyle(color: Colors.black),
+                ),
+                WidgetSpan(
+                  alignment: PlaceholderAlignment.middle,
+                  child: Semantics(
+                    button: true,
+                    label: 'action button',
+                    onTap: () {
+                      wasPressed = true;
+                    },
+                    child: GestureDetector(
+                      onTap: () {
+                        wasPressed = true;
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Text(
+                          'HERE',
+                          style: TextStyle(color: Colors.white, fontSize: 12),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                TextSpan(
+                  text: ' to continue',
+                  style: TextStyle(color: Colors.black),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+
+      await tester.tap(find.text('HERE'));
+      await tester.pump();
+
+      expect(wasPressed, isTrue);
+    });
+
+    testWidgets('excludeSemantics for decorative widgets',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: RichText(
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: 'Decorative ',
+                  style: TextStyle(color: Colors.black),
+                ),
+                WidgetSpan(
+                  child: ExcludeSemantics(
+                    child: Icon(Icons.circle, size: 8, color: Colors.grey),
+                  ),
+                ),
+                TextSpan(
+                  text: ' element',
+                  style: TextStyle(color: Colors.black),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+
+      // Decorative icon should be excluded from semantics tree
+      expect(find.byIcon(Icons.circle), findsOneWidget);
+    });
+
+    testWidgets('ordered semantics for emoji replacements',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: RichText(
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: 'Great ',
+                  style: TextStyle(color: Colors.black),
+                ),
+                WidgetSpan(
+                  child: Semantics(
+                    label: 'thumbs up emoji',
+                    child: Text('👍', style: TextStyle(fontSize: 16)),
+                  ),
+                ),
+                TextSpan(
+                  text: ' work ',
+                  style: TextStyle(color: Colors.black),
+                ),
+                WidgetSpan(
+                  child: Semantics(
+                    label: 'fire emoji',
+                    child: Text('🔥', style: TextStyle(fontSize: 16)),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+
+      expect(find.bySemanticsLabel('thumbs up emoji'), findsOneWidget);
+      expect(find.bySemanticsLabel('fire emoji'), findsOneWidget);
+    });
+
+    testWidgets('focus traversal respects placeholder order',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Column(
+              children: [
+                Focus(
+                  child: RichText(
+                    text: TextSpan(
                       children: [
-                        Text(
-                          'Demo Complete',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: _kTeal600,
+                        TextSpan(
+                          text: 'Focus ',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        WidgetSpan(
+                          child: Focus(
+                            child: Container(
+                              width: 20,
+                              height: 20,
+                              color: Colors.red,
+                            ),
                           ),
                         ),
-                        Text(
-                          'PlaceholderSpanIndexSemanticsTag enables accessible inline widget navigation',
-                          style: TextStyle(fontSize: 12, color: _kTeal600),
+                        TextSpan(
+                          text: ' then ',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        WidgetSpan(
+                          child: Focus(
+                            child: Container(
+                              width: 20,
+                              height: 20,
+                              color: Colors.blue,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byType(RichText), findsOneWidget);
+    });
+  });
+
+  group('Visual Examples with Inline Widgets', () {
+    // Comprehensive visual examples demonstrating various use cases for
+    // inline widgets in text with proper placeholder semantics tagging.
+
+    testWidgets('inline badge in text', (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Padding(
+              padding: EdgeInsets.all(16),
+              child: RichText(
+                text: TextSpan(
+                  style: TextStyle(color: Colors.black, fontSize: 14),
+                  children: [
+                    TextSpan(text: 'User status: '),
+                    WidgetSpan(
+                      alignment: PlaceholderAlignment.middle,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: Colors.green,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Text(
+                          'ACTIVE',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                    TextSpan(text: ' since January'),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.text('ACTIVE'), findsOneWidget);
+      expect(find.text('User status: '), findsNothing); // Part of RichText
+    });
+
+    testWidgets('inline progress indicator', (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Padding(
+              padding: EdgeInsets.all(16),
+              child: RichText(
+                text: TextSpan(
+                  style: TextStyle(color: Colors.black, fontSize: 14),
+                  children: [
+                    TextSpan(text: 'Loading '),
+                    WidgetSpan(
+                      alignment: PlaceholderAlignment.middle,
+                      child: SizedBox(
+                        width: 14,
+                        height: 14,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                        ),
+                      ),
+                    ),
+                    TextSpan(text: ' please wait...'),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byType(CircularProgressIndicator), findsOneWidget);
+    });
+
+    testWidgets('inline color swatch', (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Padding(
+              padding: EdgeInsets.all(16),
+              child: RichText(
+                text: TextSpan(
+                  style: TextStyle(color: Colors.black, fontSize: 14),
+                  children: [
+                    TextSpan(text: 'Selected color: '),
+                    WidgetSpan(
+                      alignment: PlaceholderAlignment.middle,
+                      child: Container(
+                        width: 20,
+                        height: 20,
+                        decoration: BoxDecoration(
+                          color: Colors.purple,
+                          border: Border.all(color: Colors.black, width: 1),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                      ),
+                    ),
+                    TextSpan(text: ' Purple'),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      var containers = tester.widgetList<Container>(find.byType(Container));
+      expect(containers.length, greaterThan(0));
+    });
+
+    testWidgets('inline icon with tooltip', (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Padding(
+              padding: EdgeInsets.all(16),
+              child: RichText(
+                text: TextSpan(
+                  style: TextStyle(color: Colors.black, fontSize: 14),
+                  children: [
+                    TextSpan(text: 'Verified account '),
+                    WidgetSpan(
+                      alignment: PlaceholderAlignment.middle,
+                      child: Tooltip(
+                        message: 'This account is verified',
+                        child: Icon(
+                          Icons.verified,
+                          size: 16,
+                          color: Colors.blue,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byIcon(Icons.verified), findsOneWidget);
+      expect(find.byType(Tooltip), findsOneWidget);
+    });
+
+    testWidgets('inline avatar with name', (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Padding(
+              padding: EdgeInsets.all(16),
+              child: RichText(
+                text: TextSpan(
+                  style: TextStyle(color: Colors.black, fontSize: 14),
+                  children: [
+                    TextSpan(text: 'Assigned to '),
+                    WidgetSpan(
+                      alignment: PlaceholderAlignment.middle,
+                      child: CircleAvatar(
+                        radius: 10,
+                        backgroundColor: Colors.indigo,
+                        child: Text('JD', style: TextStyle(fontSize: 8, color: Colors.white)),
+                      ),
+                    ),
+                    TextSpan(text: ' John Doe for review'),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byType(CircleAvatar), findsOneWidget);
+      expect(find.text('JD'), findsOneWidget);
+    });
+
+    testWidgets('inline counter badge', (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Padding(
+              padding: EdgeInsets.all(16),
+              child: RichText(
+                text: TextSpan(
+                  style: TextStyle(color: Colors.black, fontSize: 14),
+                  children: [
+                    TextSpan(text: 'You have '),
+                    WidgetSpan(
+                      alignment: PlaceholderAlignment.middle,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Text(
+                          '5',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                    TextSpan(text: ' new notifications'),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.text('5'), findsOneWidget);
+    });
+
+    testWidgets('inline link button', (WidgetTester tester) async {
+      var linkPressed = false;
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Padding(
+              padding: EdgeInsets.all(16),
+              child: RichText(
+                text: TextSpan(
+                  style: TextStyle(color: Colors.black, fontSize: 14),
+                  children: [
+                    TextSpan(text: 'Read our '),
+                    WidgetSpan(
+                      alignment: PlaceholderAlignment.baseline,
+                      baseline: TextBaseline.alphabetic,
+                      child: GestureDetector(
+                        onTap: () {
+                          linkPressed = true;
+                        },
+                        child: Text(
+                          'terms of service',
+                          style: TextStyle(
+                            color: Colors.blue,
+                            decoration: TextDecoration.underline,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                    ),
+                    TextSpan(text: ' for details'),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      await tester.tap(find.text('terms of service'));
+      await tester.pump();
+
+      expect(linkPressed, isTrue);
+    });
+
+    testWidgets('inline tag collection', (WidgetTester tester) async {
+      Widget tagBuilder(String label, Color color) {
+        return Container(
+          margin: EdgeInsets.only(right: 4),
+          padding: EdgeInsets.symmetric(horizontal: 6, vertical: 1),
+          decoration: BoxDecoration(
+            color: color.withValues(alpha: 0.2),
+            borderRadius: BorderRadius.circular(4),
+            border: Border.all(color: color, width: 1),
+          ),
+          child: Text(
+            label,
+            style: TextStyle(color: color, fontSize: 11),
+          ),
+        );
+      }
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Padding(
+              padding: EdgeInsets.all(16),
+              child: RichText(
+                text: TextSpan(
+                  style: TextStyle(color: Colors.black, fontSize: 14),
+                  children: [
+                    TextSpan(text: 'Tags: '),
+                    WidgetSpan(
+                      alignment: PlaceholderAlignment.middle,
+                      child: tagBuilder('flutter', Colors.blue),
+                    ),
+                    WidgetSpan(
+                      alignment: PlaceholderAlignment.middle,
+                      child: tagBuilder('dart', Colors.teal),
+                    ),
+                    WidgetSpan(
+                      alignment: PlaceholderAlignment.middle,
+                      child: tagBuilder('mobile', Colors.orange),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.text('flutter'), findsOneWidget);
+      expect(find.text('dart'), findsOneWidget);
+      expect(find.text('mobile'), findsOneWidget);
+    });
+
+    testWidgets('inline switch toggle', (WidgetTester tester) async {
+      var switchValue = false;
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: StatefulBuilder(
+            builder: (context, setState) {
+              return Scaffold(
+                body: Padding(
+                  padding: EdgeInsets.all(16),
+                  child: RichText(
+                    text: TextSpan(
+                      style: TextStyle(color: Colors.black, fontSize: 14),
+                      children: [
+                        TextSpan(text: 'Enable notifications '),
+                        WidgetSpan(
+                          alignment: PlaceholderAlignment.middle,
+                          child: Transform.scale(
+                            scale: 0.7,
+                            child: Switch(
+                              value: switchValue,
+                              onChanged: (value) {
+                                setState(() {
+                                  switchValue = value;
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+                        TextSpan(
+                          text: switchValue ? ' (ON)' : ' (OFF)',
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      );
+
+      expect(find.byType(Switch), findsOneWidget);
+    });
+
+    testWidgets('inline formatted number', (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Padding(
+              padding: EdgeInsets.all(16),
+              child: RichText(
+                text: TextSpan(
+                  style: TextStyle(color: Colors.black, fontSize: 14),
+                  children: [
+                    TextSpan(text: 'Total: '),
+                    WidgetSpan(
+                      alignment: PlaceholderAlignment.baseline,
+                      baseline: TextBaseline.alphabetic,
+                      child: Text(
+                        '\$1,234.56',
+                        style: TextStyle(
+                          color: Colors.green,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    TextSpan(text: ' USD'),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.text('\$1,234.56'), findsOneWidget);
+    });
+
+    testWidgets('inline keyboard shortcut', (WidgetTester tester) async {
+      var keyStyle = BoxDecoration(
+        color: Colors.grey.shade200,
+        borderRadius: BorderRadius.circular(4),
+        border: Border.all(color: Colors.grey.shade400),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.shade400,
+            offset: Offset(0, 2),
+            blurRadius: 0,
+          ),
+        ],
+      );
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Padding(
+              padding: EdgeInsets.all(16),
+              child: RichText(
+                text: TextSpan(
+                  style: TextStyle(color: Colors.black, fontSize: 14),
+                  children: [
+                    TextSpan(text: 'Press '),
+                    WidgetSpan(
+                      alignment: PlaceholderAlignment.middle,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        decoration: keyStyle,
+                        child: Text('Ctrl', style: TextStyle(fontSize: 12)),
+                      ),
+                    ),
+                    TextSpan(text: ' + '),
+                    WidgetSpan(
+                      alignment: PlaceholderAlignment.middle,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        decoration: keyStyle,
+                        child: Text('S', style: TextStyle(fontSize: 12)),
+                      ),
+                    ),
+                    TextSpan(text: ' to save'),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.text('Ctrl'), findsOneWidget);
+      expect(find.text('S'), findsOneWidget);
+    });
+
+    testWidgets('inline code snippet', (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Padding(
+              padding: EdgeInsets.all(16),
+              child: RichText(
+                text: TextSpan(
+                  style: TextStyle(color: Colors.black, fontSize: 14),
+                  children: [
+                    TextSpan(text: 'Use the '),
+                    WidgetSpan(
+                      alignment: PlaceholderAlignment.middle,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade200,
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Text(
+                          'setState()',
+                          style: TextStyle(
+                            fontFamily: 'monospace',
+                            fontSize: 13,
+                            color: Colors.pink.shade700,
+                          ),
+                        ),
+                      ),
+                    ),
+                    TextSpan(text: ' method to update state'),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.text('setState()'), findsOneWidget);
+    });
+
+    testWidgets('complex mixed content layout', (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Padding(
+              padding: EdgeInsets.all(16),
+              child: RichText(
+                text: TextSpan(
+                  style: TextStyle(color: Colors.black, fontSize: 14, height: 1.8),
+                  children: [
+                    TextSpan(
+                      text: 'Welcome ',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    WidgetSpan(
+                      alignment: PlaceholderAlignment.middle,
+                      child: CircleAvatar(
+                        radius: 12,
+                        backgroundImage: NetworkImage(
+                          'https://example.com/avatar.png',
+                        ),
+                        onBackgroundImageError: (e, s) {},
+                        backgroundColor: Colors.blue,
+                      ),
+                    ),
+                    TextSpan(text: ' to the team! '),
+                    WidgetSpan(
+                      alignment: PlaceholderAlignment.middle,
+                      child: Icon(Icons.celebration, size: 18, color: Colors.amber),
+                    ),
+                    TextSpan(text: '\n\nYour role: '),
+                    WidgetSpan(
+                      alignment: PlaceholderAlignment.middle,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: Colors.purple.shade100,
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Text(
+                          'Developer',
+                          style: TextStyle(
+                            color: Colors.purple.shade700,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                    ),
+                    TextSpan(text: '\nAccess level: '),
+                    WidgetSpan(
+                      alignment: PlaceholderAlignment.middle,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.security, size: 14, color: Colors.green),
+                          SizedBox(width: 4),
+                          Text(
+                            'Admin',
+                            style: TextStyle(
+                              color: Colors.green,
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byIcon(Icons.celebration), findsOneWidget);
+      expect(find.byIcon(Icons.security), findsOneWidget);
+      expect(find.text('Developer'), findsOneWidget);
+      expect(find.text('Admin'), findsOneWidget);
+    });
+  });
+
+  group('Tag Collection and Filtering', () {
+    // Working with collections of PlaceholderSpanIndexSemanticsTag instances
+
+    test('collecting tags in a list', () {
+      var tags = <PlaceholderSpanIndexSemanticsTag>[];
+
+      for (var i = 0; i < 5; i++) {
+        tags.add(PlaceholderSpanIndexSemanticsTag(i));
+      }
+
+      expect(tags.length, equals(5));
+      expect(tags[0].index, equals(0));
+      expect(tags[4].index, equals(4));
+    });
+
+    test('filtering tags by index range', () {
+      var allTags = List.generate(
+        10,
+        (i) => PlaceholderSpanIndexSemanticsTag(i),
+      );
+
+      var filteredTags = allTags.where((t) => t.index >= 3 && t.index <= 7).toList();
+
+      expect(filteredTags.length, equals(5));
+      expect(filteredTags.first.index, equals(3));
+      expect(filteredTags.last.index, equals(7));
+    });
+
+    test('mapping tags to index list', () {
+      var tags = [
+        PlaceholderSpanIndexSemanticsTag(2),
+        PlaceholderSpanIndexSemanticsTag(4),
+        PlaceholderSpanIndexSemanticsTag(6),
+      ];
+
+      var indices = tags.map((t) => t.index).toList();
+
+      expect(indices, equals([2, 4, 6]));
+    });
+
+    test('finding tag by index', () {
+      var tags = List.generate(
+        10,
+        (i) => PlaceholderSpanIndexSemanticsTag(i),
+      );
+
+      var tag5 = tags.firstWhere((t) => t.index == 5);
+
+      expect(tag5.index, equals(5));
+    });
+
+    test('checking if index exists in collection', () {
+      var tags = [
+        PlaceholderSpanIndexSemanticsTag(1),
+        PlaceholderSpanIndexSemanticsTag(3),
+        PlaceholderSpanIndexSemanticsTag(5),
+      ];
+
+      var hasIndex3 = tags.any((t) => t.index == 3);
+      var hasIndex4 = tags.any((t) => t.index == 4);
+
+      expect(hasIndex3, isTrue);
+      expect(hasIndex4, isFalse);
+    });
+
+    test('getting maximum index from collection', () {
+      var tags = [
+        PlaceholderSpanIndexSemanticsTag(3),
+        PlaceholderSpanIndexSemanticsTag(9),
+        PlaceholderSpanIndexSemanticsTag(1),
+        PlaceholderSpanIndexSemanticsTag(7),
+      ];
+
+      var maxIndex = tags.map((t) => t.index).reduce((a, b) => a > b ? a : b);
+
+      expect(maxIndex, equals(9));
+    });
+
+    test('grouping consecutive indices', () {
+      var tags = [
+        PlaceholderSpanIndexSemanticsTag(0),
+        PlaceholderSpanIndexSemanticsTag(1),
+        PlaceholderSpanIndexSemanticsTag(2),
+        PlaceholderSpanIndexSemanticsTag(5),
+        PlaceholderSpanIndexSemanticsTag(6),
+        PlaceholderSpanIndexSemanticsTag(10),
+      ];
+
+      var groups = <List<int>>[];
+      var currentGroup = <int>[];
+
+      for (var tag in tags) {
+        if (currentGroup.isEmpty || tag.index == currentGroup.last + 1) {
+          currentGroup.add(tag.index);
+        } else {
+          groups.add(List.from(currentGroup));
+          currentGroup = [tag.index];
+        }
+      }
+      if (currentGroup.isNotEmpty) {
+        groups.add(currentGroup);
+      }
+
+      expect(groups.length, equals(3));
+      expect(groups[0], equals([0, 1, 2]));
+      expect(groups[1], equals([5, 6]));
+      expect(groups[2], equals([10]));
+    });
+  });
+
+  group('Integration Scenarios', () {
+    // Real-world integration scenarios
+
+    testWidgets('chat message with emoji reactions',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Container(
+              padding: EdgeInsets.all(12),
+              margin: EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: Colors.blue.shade50,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  RichText(
+                    text: TextSpan(
+                      style: TextStyle(color: Colors.black, fontSize: 14),
+                      children: [
+                        WidgetSpan(
+                          alignment: PlaceholderAlignment.middle,
+                          child: CircleAvatar(
+                            radius: 14,
+                            backgroundColor: Colors.blue,
+                            child: Text('U', style: TextStyle(color: Colors.white, fontSize: 12)),
+                          ),
+                        ),
+                        TextSpan(
+                          text: ' User',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        TextSpan(text: '  •  2:30 PM'),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Text('This is a great update!'),
+                  SizedBox(height: 8),
+                  RichText(
+                    text: TextSpan(
+                      style: TextStyle(color: Colors.grey, fontSize: 12),
+                      children: [
+                        WidgetSpan(
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Text('👍 3', style: TextStyle(fontSize: 12)),
+                          ),
+                        ),
+                        TextSpan(text: '  '),
+                        WidgetSpan(
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Text('❤️ 2', style: TextStyle(fontSize: 12)),
+                          ),
                         ),
                       ],
                     ),
@@ -1471,10 +1387,402 @@ dynamic build(BuildContext context) {
                 ],
               ),
             ),
-            SizedBox(height: 32),
-          ],
+          ),
         ),
-      ),
-    ),
-  );
+      );
+
+      expect(find.byType(CircleAvatar), findsOneWidget);
+      expect(find.text('This is a great update!'), findsOneWidget);
+    });
+
+    testWidgets('form field with inline help icon',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Padding(
+              padding: EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  RichText(
+                    text: TextSpan(
+                      style: TextStyle(color: Colors.black, fontSize: 14),
+                      children: [
+                        TextSpan(text: 'Password '),
+                        WidgetSpan(
+                          alignment: PlaceholderAlignment.middle,
+                          child: Tooltip(
+                            message: 'Must be at least 8 characters',
+                            child: Icon(
+                              Icons.help_outline,
+                              size: 16,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  TextField(
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Enter password',
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byIcon(Icons.help_outline), findsOneWidget);
+      expect(find.byType(TextField), findsOneWidget);
+    });
+
+    testWidgets('product price with discount badge',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Padding(
+              padding: EdgeInsets.all(16),
+              child: RichText(
+                text: TextSpan(
+                  style: TextStyle(fontSize: 16),
+                  children: [
+                    TextSpan(
+                      text: '\$99.99',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        decoration: TextDecoration.lineThrough,
+                      ),
+                    ),
+                    TextSpan(text: '  '),
+                    TextSpan(
+                      text: '\$79.99',
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
+                    TextSpan(text: ' '),
+                    WidgetSpan(
+                      alignment: PlaceholderAlignment.middle,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Text(
+                          '-20%',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.text('-20%'), findsOneWidget);
+    });
+
+    testWidgets('notification list item with inline icons',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: ListTile(
+              leading: CircleAvatar(
+                backgroundColor: Colors.blue,
+                child: Icon(Icons.mail, color: Colors.white),
+              ),
+              title: RichText(
+                text: TextSpan(
+                  style: TextStyle(color: Colors.black, fontSize: 14),
+                  children: [
+                    WidgetSpan(
+                      alignment: PlaceholderAlignment.middle,
+                      child: Container(
+                        width: 8,
+                        height: 8,
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                    ),
+                    TextSpan(text: ' New message from '),
+                    TextSpan(
+                      text: 'John',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+              subtitle: Text('2 minutes ago'),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byIcon(Icons.mail), findsOneWidget);
+      expect(find.text('2 minutes ago'), findsOneWidget);
+    });
+
+    testWidgets('search result with highlighted terms',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Padding(
+              padding: EdgeInsets.all(16),
+              child: RichText(
+                text: TextSpan(
+                  style: TextStyle(color: Colors.black, fontSize: 14),
+                  children: [
+                    TextSpan(text: 'Found: '),
+                    WidgetSpan(
+                      alignment: PlaceholderAlignment.baseline,
+                      baseline: TextBaseline.alphabetic,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+                        decoration: BoxDecoration(
+                          color: Colors.yellow.shade200,
+                          borderRadius: BorderRadius.circular(2),
+                        ),
+                        child: Text(
+                          'flutter',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                    ),
+                    TextSpan(text: ' in 15 files'),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.text('flutter'), findsOneWidget);
+      expect(find.text(' in 15 files'), findsNothing); // Part of RichText
+    });
+
+    testWidgets('inline rating display with star icons',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Padding(
+              padding: EdgeInsets.all(16),
+              child: RichText(
+                text: TextSpan(
+                  style: TextStyle(color: Colors.black, fontSize: 14),
+                  children: [
+                    TextSpan(text: 'Rating: '),
+                    WidgetSpan(
+                      alignment: PlaceholderAlignment.middle,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: List.generate(5, (i) {
+                          return Icon(
+                            i < 4 ? Icons.star : Icons.star_outline,
+                            color: Colors.amber,
+                            size: 16,
+                          );
+                        }),
+                      ),
+                    ),
+                    TextSpan(text: ' (4.0)'),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byIcon(Icons.star), findsNWidgets(4));
+      expect(find.byIcon(Icons.star_outline), findsOneWidget);
+    });
+  });
+
+  group('Edge Cases and Special Scenarios', () {
+    test('creating tag with boundary index value', () {
+      var tag = PlaceholderSpanIndexSemanticsTag(0);
+      expect(tag.index, equals(0));
+
+      var largeTag = PlaceholderSpanIndexSemanticsTag(2147483647);
+      expect(largeTag.index, equals(2147483647));
+    });
+
+    test('tag in set maintains uniqueness by equality', () {
+      var tagSet = <PlaceholderSpanIndexSemanticsTag>{};
+      tagSet.add(PlaceholderSpanIndexSemanticsTag(1));
+      tagSet.add(PlaceholderSpanIndexSemanticsTag(1));
+      tagSet.add(PlaceholderSpanIndexSemanticsTag(2));
+
+      expect(tagSet.length, equals(2));
+    });
+
+    test('comparing tags with objects of different types', () {
+      var tag = PlaceholderSpanIndexSemanticsTag(5);
+      Object intValue = 5;
+      Object stringValue = 'five';
+      Object? nullValue;
+
+      expect(tag == intValue, isFalse);
+      expect(tag == stringValue, isFalse);
+      expect(tag == nullValue, isFalse);
+    });
+
+    testWidgets('empty RichText with no widget spans',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: RichText(
+            text: TextSpan(
+              text: 'No widget spans here',
+              style: TextStyle(color: Colors.black),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byType(RichText), findsOneWidget);
+    });
+
+    testWidgets('WidgetSpan with zero-size widget',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: RichText(
+            text: TextSpan(
+              children: [
+                TextSpan(text: 'Before', style: TextStyle(color: Colors.black)),
+                WidgetSpan(
+                  child: SizedBox.shrink(),
+                ),
+                TextSpan(text: 'After', style: TextStyle(color: Colors.black)),
+              ],
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byType(SizedBox), findsOneWidget);
+    });
+
+    testWidgets('deeply nested WidgetSpan structure',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'Level 1 ',
+                    style: TextStyle(color: Colors.black),
+                    children: [
+                      TextSpan(
+                        text: 'Level 2 ',
+                        children: [
+                          TextSpan(
+                            text: 'Level 3 ',
+                            children: [
+                              WidgetSpan(
+                                child: Icon(Icons.star, size: 12),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byIcon(Icons.star), findsOneWidget);
+    });
+
+    test('creating many tags in rapid succession', () {
+      var tags = <PlaceholderSpanIndexSemanticsTag>[];
+
+      for (var i = 0; i < 1000; i++) {
+        tags.add(PlaceholderSpanIndexSemanticsTag(i));
+      }
+
+      expect(tags.length, equals(1000));
+      expect(tags[500].index, equals(500));
+      expect(tags[999].index, equals(999));
+    });
+
+    test('tag equality with itself', () {
+      var tag = PlaceholderSpanIndexSemanticsTag(42);
+
+      expect(tag == tag, isTrue);
+      expect(identical(tag, tag), isTrue);
+    });
+
+    testWidgets('WidgetSpan with interactive widget',
+        (WidgetTester tester) async {
+      var tapCount = 0;
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: RichText(
+              text: TextSpan(
+                style: TextStyle(color: Colors.black),
+                children: [
+                  TextSpan(text: 'Click '),
+                  WidgetSpan(
+                    child: InkWell(
+                      onTap: () {
+                        tapCount++;
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(4),
+                        color: Colors.blue,
+                        child: Text('me', style: TextStyle(color: Colors.white)),
+                      ),
+                    ),
+                  ),
+                  TextSpan(text: ' here'),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+
+      await tester.tap(find.text('me'));
+      await tester.pump();
+
+      expect(tapCount, equals(1));
+    });
+  });
 }
