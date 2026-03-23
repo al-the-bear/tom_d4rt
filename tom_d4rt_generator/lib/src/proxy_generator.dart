@@ -250,7 +250,9 @@ Future<ProxyGenerationResult> generateProxies({
   buffer.writeln();
 
   // ignore_for_file for common generated code issues
-  buffer.writeln('// ignore_for_file: unused_import, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member');
+  buffer.writeln(
+    '// ignore_for_file: unused_import, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member',
+  );
   buffer.writeln();
 
   // Collect all unique import URIs needed
@@ -388,14 +390,10 @@ Future<ProxyGenerationResult> generateProxies({
         final paramSig = _buildParamSignature(method.params);
         final callArgs = _buildCallArgs(method.params);
         if (method.isAbstract) {
-          buffer.writeln(
-            '  ${method.returnType} ${method.name}($paramSig) =>',
-          );
+          buffer.writeln('  ${method.returnType} ${method.name}($paramSig) =>');
           buffer.writeln('      ${method.callbackName}($callArgs);');
         } else {
-          buffer.writeln(
-            '  ${method.returnType} ${method.name}($paramSig) =>',
-          );
+          buffer.writeln('  ${method.returnType} ${method.name}($paramSig) =>');
           buffer.writeln(
             '      ${method.callbackName} != null '
             '? ${method.callbackName}!($callArgs) '
@@ -593,8 +591,7 @@ List<_AbstractMethodInfo> _getOverridableMethods(ClassElement element) {
   collectFrom(element);
   for (final superType in element.allSupertypes) {
     final superElement = superType.element;
-    if (superElement is ClassElement &&
-        superElement.name != 'Object') {
+    if (superElement is ClassElement && superElement.name != 'Object') {
       collectFrom(superElement);
     }
   }
@@ -754,9 +751,7 @@ void _generateProxyFactoryRegistration(
   buffer.writeln(
     '// =========================================================================',
   );
-  buffer.writeln(
-    '// Proxy Factory Registration (GEN-092)',
-  );
+  buffer.writeln('// Proxy Factory Registration (GEN-092)');
   buffer.writeln(
     '// =========================================================================',
   );
@@ -778,9 +773,7 @@ void _generateProxyFactoryRegistration(
   buffer.writeln('void registerProxyFactories() {');
 
   for (final proxy in proxies) {
-    buffer.writeln(
-      "  // Register factory for ${proxy.className}",
-    );
+    buffer.writeln("  // Register factory for ${proxy.className}");
     buffer.writeln(
       "  D4.registerInterfaceProxy('${proxy.className}', "
       '(visitor, instance) {',
@@ -834,7 +827,10 @@ void _generateFactoryCallback(
 
   // Erase class type parameters (e.g. T → dynamic) since the factory
   // closure is not inside the generic class scope.
-  final erasedReturnType = _eraseTypeParams(method.returnType, typeParameterNames);
+  final erasedReturnType = _eraseTypeParams(
+    method.returnType,
+    typeParameterNames,
+  );
 
   if (method.isGetter) {
     // Getter callback
@@ -913,9 +909,7 @@ void _generateGetterDelegation(
   buffer.writeln('        }');
   // Try field access as fallback
   buffer.writeln('        try {');
-  buffer.writeln(
-    "          final field = instance.getField('$getterName');",
-  );
+  buffer.writeln("          final field = instance.getField('$getterName');");
   if (isVoid) {
     buffer.writeln('          return;');
   } else {
@@ -970,8 +964,7 @@ String _buildFactoryParamDecl(
   if (params.isEmpty) return '';
 
   final parts = <String>[];
-  final positional =
-      params.where((p) => !p.isNamed && !p.isOptionalPositional);
+  final positional = params.where((p) => !p.isNamed && !p.isOptionalPositional);
   final optionalPositional = params.where((p) => p.isOptionalPositional);
   final named = params.where((p) => p.isNamed);
 
@@ -979,8 +972,9 @@ String _buildFactoryParamDecl(
     parts.add('${_eraseTypeParams(p.type, typeParameterNames)} ${p.name}');
   }
   if (optionalPositional.isNotEmpty) {
-    final optParts = optionalPositional
-        .map((p) => '${_eraseTypeParams(p.type, typeParameterNames)} ${p.name}');
+    final optParts = optionalPositional.map(
+      (p) => '${_eraseTypeParams(p.type, typeParameterNames)} ${p.name}',
+    );
     parts.add('[${optParts.join(', ')}]');
   }
   if (named.isNotEmpty) {

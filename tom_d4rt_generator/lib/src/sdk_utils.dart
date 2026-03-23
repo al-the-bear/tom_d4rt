@@ -66,8 +66,11 @@ String? getSdkPath() {
     final whichCmd = Platform.isWindows ? 'where.exe' : 'which';
     final result = Process.runSync(whichCmd, ['dart']);
     if (result.exitCode == 0) {
-      final dartPath =
-          (result.stdout as String).trim().split('\n').first.trim();
+      final dartPath = (result.stdout as String)
+          .trim()
+          .split('\n')
+          .first
+          .trim();
       if (dartPath.isNotEmpty) {
         final sdk = _resolveSdkFromDartPath(dartPath);
         if (sdk != null) {
@@ -85,8 +88,11 @@ String? getSdkPath() {
     final whichCmd = Platform.isWindows ? 'where.exe' : 'which';
     final result = Process.runSync(whichCmd, ['flutter']);
     if (result.exitCode == 0) {
-      var flutterPath =
-          (result.stdout as String).trim().split('\n').first.trim();
+      var flutterPath = (result.stdout as String)
+          .trim()
+          .split('\n')
+          .first
+          .trim();
       if (flutterPath.isNotEmpty) {
         // Resolve symlinks
         try {
